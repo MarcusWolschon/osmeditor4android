@@ -1,0 +1,2422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.5" generator="OpenStreetMap server">
+  <bounds minlat="53.562748" minlon="9.95009" maxlat="53.56726" maxlon="9.96403"/>
+  <node id="17705437" lat="53.5638653" lon="9.9517715" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705438" lat="53.5638802" lon="9.9518716" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705439" lat="53.5639146" lon="9.9521454" user="Osmosis System User" visible="true" timestamp="2006-10-06T12:31:23+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="264037242" lat="53.5641594" lon="9.9501662" user="Osmosis System User" visible="true" timestamp="2008-05-12T13:55:08+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137785" lat="53.5627628" lon="9.951148" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:45+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137787" lat="53.5628276" lon="9.9510871" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:45+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137788" lat="53.5628943" lon="9.9510004" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:45+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137789" lat="53.5629876" lon="9.9509716" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:45+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137790" lat="53.5630848" lon="9.9509331" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:45+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137791" lat="53.5631585" lon="9.9508064" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137793" lat="53.563203" lon="9.9506735" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137794" lat="53.5632111" lon="9.9505236" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137795" lat="53.5631666" lon="9.9504078" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137796" lat="53.5630756" lon="9.9503806" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137797" lat="53.5630068" lon="9.950292" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137800" lat="53.5629623" lon="9.9501047" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:47+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137810" lat="53.5634849" lon="9.9508715" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137812" lat="53.5635255" lon="9.9507157" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:46+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137813" lat="53.563576" lon="9.9505963" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137815" lat="53.5636443" lon="9.9504748" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137816" lat="53.5637086" lon="9.9504129" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137818" lat="53.5637629" lon="9.950377" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137820" lat="53.5638113" lon="9.9503485" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137822" lat="53.5640795" lon="9.9502934" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:49+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137825" lat="53.5641088" lon="9.9502337" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:49+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137826" lat="53.5641253" lon="9.9501413" user="Osmosis System User" visible="true" timestamp="2008-06-26T08:15:42+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137836" lat="53.5641294" lon="9.9503458" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:50+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="301622189" lat="53.5637815" lon="9.9523943" user="Osmosis System User" visible="true" timestamp="2008-10-02T20:46:45+02:00"/>
+  <node id="305278700" lat="53.5630331" lon="9.95085" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:39:00+02:00"/>
+  <node id="305278701" lat="53.5630331" lon="9.9506096" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:39:00+02:00"/>
+  <node id="305278702" lat="53.5629821" lon="9.9505324" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:39:00+02:00"/>
+  <node id="305278703" lat="53.5629872" lon="9.9503607" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:39:00+02:00"/>
+  <node id="305278704" lat="53.5629056" lon="9.9503521" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:39:00+02:00"/>
+  <node id="305278705" lat="53.562875" lon="9.9501118" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:39:00+02:00"/>
+  <node id="305278989" lat="53.5638844" lon="9.950644" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:40:56+02:00"/>
+  <node id="305278990" lat="53.5638538" lon="9.9505667" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:40:56+02:00"/>
+  <node id="305278991" lat="53.563813" lon="9.950541" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:40:56+02:00"/>
+  <node id="305278993" lat="53.563762" lon="9.9505839" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:40:56+02:00"/>
+  <node id="305278994" lat="53.5636295" lon="9.9512105" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:40:56+02:00"/>
+  <node id="305278995" lat="53.5637547" lon="9.9512808" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:46+02:00"/>
+  <node id="305279043" lat="53.5636706" lon="9.9509412" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:46+02:00"/>
+  <node id="305279044" lat="53.5635703" lon="9.951049" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:47+02:00"/>
+  <node id="305279045" lat="53.5635015" lon="9.9508666" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:47+02:00"/>
+  <node id="305279046" lat="53.563603" lon="9.9507497" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:47+02:00"/>
+  <node id="305279246" lat="53.5630835" lon="9.9521875" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="305279934" lat="53.5634732" lon="9.9503375" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:42+02:00"/>
+  <node id="305279946" lat="53.5635224" lon="9.9501462" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:46:24+02:00"/>
+  <node id="305281845" lat="53.5634704" lon="9.9501081" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:42+02:00"/>
+  <node id="305282402" lat="53.5644676" lon="9.9511863" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:59:28+02:00"/>
+  <node id="305282403" lat="53.564121" lon="9.9510318" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:59:28+02:00"/>
+  <node id="305282404" lat="53.5641516" lon="9.9508773" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:59:28+02:00"/>
+  <node id="305282405" lat="53.5644931" lon="9.9510318" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:59:28+02:00"/>
+  <node id="305282445" lat="53.5646448" lon="9.9512995" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:03:04+02:00"/>
+  <node id="305282446" lat="53.5646428" lon="9.9514477" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:03:04+02:00"/>
+  <node id="305282522" lat="53.5644625" lon="9.9514181" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:00:17+02:00"/>
+  <node id="305282523" lat="53.5639659" lon="9.9515462" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:01:51+02:00"/>
+  <node id="305282524" lat="53.5639819" lon="9.9516915" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:01:51+02:00"/>
+  <node id="305282525" lat="53.5644792" lon="9.9515559" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:01:51+02:00"/>
+  <node id="17705425" lat="53.5659734" lon="9.9512891" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:56:01+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="17705426" lat="53.5648973" lon="9.9537202" user="Osmosis System User" visible="true" timestamp="2006-10-06T12:31:22+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705435" lat="53.5653215" lon="9.9514963" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705436" lat="53.5653289" lon="9.9514088" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705450" lat="53.5664434" lon="9.9528035" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18161563" lat="53.5659701" lon="9.9517078" user="Osmosis System User" visible="true" timestamp="2007-09-16T18:24:02+02:00"/>
+  <node id="20823493" lat="53.5668566" lon="9.9526518" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:06:06+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823494" lat="53.56679" lon="9.9528123" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:06:03+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823495" lat="53.5666863" lon="9.9527062" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:06:03+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823496" lat="53.5667669" lon="9.9526195" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:06:02+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="244232971" lat="53.5669066" lon="9.9519115" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:55:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="249451888" lat="53.566127" lon="9.9514731" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:30:50+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451890" lat="53.5654233" lon="9.9510102" user="Osmosis System User" visible="true" timestamp="2008-09-20T20:57:15+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451902" lat="53.5655973" lon="9.9510517" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:05:54+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451905" lat="53.5668243" lon="9.9528033" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:05:54+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451906" lat="53.5668793" lon="9.9527287" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:05:54+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451908" lat="53.5667313" lon="9.9526331" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:05:54+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451909" lat="53.5668061" lon="9.9526209" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:05:54+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451910" lat="53.566723" lon="9.9527917" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:05:54+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451911" lat="53.5667683" lon="9.9528114" user="Osmosis System User" visible="true" timestamp="2008-02-27T13:05:54+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451913" lat="53.5667277" lon="9.9521466" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451914" lat="53.5665986" lon="9.9524243" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="251623706" lat="53.5656832" lon="9.9512076" user="Osmosis System User" visible="true" timestamp="2008-09-20T20:57:12+02:00"/>
+  <node id="251623713" lat="53.5652736" lon="9.951372" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="256278697" lat="53.5671719" lon="9.9517022" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278698" lat="53.5671996" lon="9.9518082" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:05+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278989" lat="53.5658514" lon="9.9509502" user="Osmosis System User" visible="true" timestamp="2008-09-20T20:56:57+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278990" lat="53.5659695" lon="9.9509266" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278991" lat="53.5659932" lon="9.9507772" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278992" lat="53.5660355" lon="9.9505697" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278993" lat="53.5660143" lon="9.9502673" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="264037243" lat="53.5669112" lon="9.9519492" user="Osmosis System User" visible="true" timestamp="2008-08-17T23:34:05+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137837" lat="53.5652226" lon="9.9510324" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:50+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137840" lat="53.5653468" lon="9.9510102" user="Osmosis System User" visible="true" timestamp="2008-09-20T20:57:20+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="287721525" lat="53.5660044" lon="9.9514136" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:56:01+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="292220699" lat="53.5670946" lon="9.9517011" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:28+02:00"/>
+  <node id="292220701" lat="53.5666912" lon="9.9521528" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:28+02:00"/>
+  <node id="299207063" lat="53.5668767" lon="9.9519884" user="Osmosis System User" visible="true" timestamp="2008-11-13T19:52:34+01:00"/>
+  <node id="299772972" lat="53.5667179" lon="9.9517792" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:25:30+02:00"/>
+  <node id="301611784" lat="53.5659982" lon="9.9515267" user="Osmosis System User" visible="true" timestamp="2008-10-02T19:47:50+02:00">
+    <tag k="bus" v="bus stop"/>
+    <tag k="name" v="Alsenplatz"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="operator" v="HVV"/>
+    <tag k="ref" v="25"/>
+  </node>
+  <node id="301611790" lat="53.5664947" lon="9.9514262" user="Osmosis System User" visible="true" timestamp="2008-10-02T19:46:25+02:00">
+    <tag k="name" v="Alsenplatz"/>
+    <tag k="bus" v="bus stop"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="operator" v="HVV"/>
+    <tag k="ref" v="25"/>
+  </node>
+  <node id="302285864" lat="53.5668628" lon="9.9520025" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:55:03+02:00"/>
+  <node id="305282444" lat="53.565008" lon="9.9512847" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:03:05+02:00"/>
+  <node id="305282447" lat="53.565009" lon="9.9514275" user="Osmosis System User" visible="true" timestamp="2008-10-18T00:03:04+02:00"/>
+  <node id="311817707" lat="53.5668763" lon="9.9519881" user="Osmosis System User" visible="true" timestamp="2008-11-13T19:52:34+01:00">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="312592841" lat="53.5657404" lon="9.9510643" user="Osmosis System User" visible="true" timestamp="2008-11-16T20:35:07+01:00">
+    <tag k="amenity" v="post_box"/>
+  </node>
+  <node id="312593236" lat="53.5664374" lon="9.9525062" user="Osmosis System User" visible="true" timestamp="2008-11-16T20:36:18+01:00">
+    <tag k="recycling:paper" v="yes"/>
+    <tag k="amenity" v="recycling"/>
+    <tag k="recycling:glass" v="yes"/>
+  </node>
+  <node id="16957970" lat="53.5642456" lon="9.9587879" user="Osmosis System User" visible="true" timestamp="2008-06-07T15:01:08+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705427" lat="53.5639663" lon="9.9554666" user="Osmosis System User" visible="true" timestamp="2006-10-06T12:31:22+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705447" lat="53.5641539" lon="9.9590454" user="Osmosis System User" visible="true" timestamp="2008-06-07T15:01:55+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="258443003" lat="53.563007" lon="9.959108" user="Osmosis System User" visible="true" timestamp="2008-04-19T01:45:41+02:00">
+    <tag k="name" v="central park (beachclub)"/>
+    <tag k="created_by" v="Potlatch 0.8a"/>
+    <tag k="amenity" v="pub"/>
+  </node>
+  <node id="277462059" lat="53.5645527" lon="9.9574629" user="Osmosis System User" visible="true" timestamp="2008-07-09T23:21:42+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="277462061" lat="53.5645053" lon="9.9575719" user="Osmosis System User" visible="true" timestamp="2008-07-09T23:21:42+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="amenity" v="post_box"/>
+  </node>
+  <node id="279714185" lat="53.5641375" lon="9.9590755" user="Osmosis System User" visible="true" timestamp="2008-08-08T20:18:36+02:00"/>
+  <node id="289601540" lat="53.56464" lon="9.9575033" user="Osmosis System User" visible="true" timestamp="2008-08-20T11:31:22+02:00">
+    <tag k="source" v="http://maps.fon.com"/>
+    <tag k="class" v="free"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+  </node>
+  <node id="289618425" lat="53.5645294" lon="9.9545574" user="Osmosis System User" visible="true" timestamp="2008-08-20T12:04:58+02:00">
+    <tag k="source" v="http://maps.fon.com"/>
+    <tag k="class" v="free"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+  </node>
+  <node id="289627092" lat="53.5644302" lon="9.9545832" user="Osmosis System User" visible="true" timestamp="2008-08-20T12:20:48+02:00">
+    <tag k="source" v="http://maps.fon.com"/>
+    <tag k="class" v="free"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+  </node>
+  <node id="301622185" lat="53.564592" lon="9.9537676" user="Osmosis System User" visible="true" timestamp="2008-10-02T20:46:45+02:00"/>
+  <node id="301622186" lat="53.563914" lon="9.9551409" user="Osmosis System User" visible="true" timestamp="2008-10-02T20:46:45+02:00"/>
+  <node id="301622188" lat="53.5630423" lon="9.9539478" user="Osmosis System User" visible="true" timestamp="2008-10-02T20:46:45+02:00"/>
+  <node id="312641532" lat="53.563474" lon="9.958198" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:33:40+01:00"/>
+  <node id="312641536" lat="53.563345" lon="9.95788" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:35:16+01:00"/>
+  <node id="312641541" lat="53.563643" lon="9.959133" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:35:29+01:00"/>
+  <node id="312641542" lat="53.563952" lon="9.957897" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:35:35+01:00"/>
+  <node id="312641554" lat="53.563743" lon="9.95778" user="Matthias Brandt" visible="true" timestamp="2008-11-24T16:01:45+01:00"/>
+  <node id="312641555" lat="53.563614" lon="9.958983" user="Matthias Brandt" visible="true" timestamp="2008-11-24T16:01:45+01:00"/>
+  <node id="16712064" lat="53.5637618" lon="9.9601218" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:57:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="17705448" lat="53.5643017" lon="9.9596204" user="Osmosis System User" visible="true" timestamp="2008-06-07T15:00:58+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879858" lat="53.5644985" lon="9.9627314" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:31:38+02:00"/>
+  <node id="20948581" lat="53.564373" lon="9.9622651" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:31:38+02:00"/>
+  <node id="20948585" lat="53.5630037" lon="9.9622588" user="Osmosis System User" visible="true" timestamp="2007-11-18T23:07:05+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="31161558" lat="53.5634829" lon="9.9628946" user="Osmosis System User" visible="true" timestamp="2008-09-29T11:02:35+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="31161590" lat="53.5634116" lon="9.9619848" user="Osmosis System User" visible="true" timestamp="2008-09-29T11:02:35+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="50793740" lat="53.5630394" lon="9.9607565" user="Osmosis System User" visible="true" timestamp="2008-08-21T16:53:21+02:00"/>
+  <node id="50793742" lat="53.5632101" lon="9.9612821" user="Osmosis System User" visible="true" timestamp="2008-08-21T16:53:21+02:00"/>
+  <node id="50793744" lat="53.5633969" lon="9.9629246" user="Osmosis System User" visible="true" timestamp="2007-09-13T21:58:19+02:00"/>
+  <node id="50793745" lat="53.5634446" lon="9.9638558" user="Osmosis System User" visible="true" timestamp="2008-08-21T16:53:22+02:00"/>
+  <node id="122590926" lat="53.5628636" lon="9.960966" user="Osmosis System User" visible="true" timestamp="2007-11-18T23:10:00+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="258442015" lat="53.5635933" lon="9.9600264" user="Osmosis System User" visible="true" timestamp="2008-04-19T01:43:24+02:00">
+    <tag k="created_by" v="Potlatch 0.8a"/>
+    <tag k="amenity" v="car_sharing"/>
+  </node>
+  <node id="279711889" lat="53.5636991" lon="9.9603061" user="Osmosis System User" visible="true" timestamp="2008-09-05T17:05:56+02:00">
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="amenity" v="pharmacy"/>
+  </node>
+  <node id="279713359" lat="53.5645596" lon="9.9629585" user="Osmosis System User" visible="true" timestamp="2008-07-20T11:09:16+02:00">
+    <tag k="maxspeed" v="30"/>
+  </node>
+  <node id="279714227" lat="53.5638123" lon="9.9599948" user="Osmosis System User" visible="true" timestamp="2008-08-20T23:40:09+02:00"/>
+  <node id="286304042" lat="53.5637705" lon="9.9599767" user="Osmosis System User" visible="true" timestamp="2008-08-08T20:19:04+02:00">
+    <tag k="name" v="Bar Rossi"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="amenity" v="pub"/>
+  </node>
+  <node id="289624308" lat="53.5628929" lon="9.9638968" user="Osmosis System User" visible="true" timestamp="2008-08-20T12:15:48+02:00">
+    <tag k="source" v="http://maps.fon.com"/>
+    <tag k="class" v="free"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+  </node>
+  <node id="289787883" lat="53.5642915" lon="9.9598832" user="Osmosis System User" visible="true" timestamp="2008-08-20T23:39:23+02:00">
+    <tag k="name" v="Juli"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="amenity" v="cafe"/>
+  </node>
+  <node id="289788329" lat="53.5635626" lon="9.9595914" user="Osmosis System User" visible="true" timestamp="2008-08-20T23:40:46+02:00">
+    <tag k="name" v="Nouar"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="amenity" v="nightclub"/>
+  </node>
+  <node id="290485921" lat="53.5630909" lon="9.9607729" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:30+02:00"/>
+  <node id="290485922" lat="53.5637898" lon="9.9601167" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:30+02:00"/>
+  <node id="290485923" lat="53.5644618" lon="9.9627596" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:30+02:00"/>
+  <node id="293934064" lat="53.5637602" lon="9.9602632" user="Osmosis System User" visible="true" timestamp="2008-09-05T17:06:09+02:00">
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="amenity" v="post_box"/>
+  </node>
+  <node id="297242777" lat="53.5638485" lon="9.9604257" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:31:38+02:00"/>
+  <node id="297242778" lat="53.5643211" lon="9.962083" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:31:38+02:00"/>
+  <node id="297242786" lat="53.5639035" lon="9.960388" user="Osmosis System User" visible="true" timestamp="2008-09-15T17:19:28+02:00"/>
+  <node id="297242787" lat="53.5638902" lon="9.9605117" user="Osmosis System User" visible="true" timestamp="2008-09-15T17:19:28+02:00"/>
+  <node id="297243520" lat="53.5643368" lon="9.9618643" user="Osmosis System User" visible="true" timestamp="2008-09-15T17:21:29+02:00"/>
+  <node id="297243521" lat="53.5642094" lon="9.9613837" user="Osmosis System User" visible="true" timestamp="2008-09-15T17:21:29+02:00"/>
+  <node id="297243522" lat="53.5639545" lon="9.9605168" user="Osmosis System User" visible="true" timestamp="2008-09-15T17:21:29+02:00"/>
+  <node id="297481717" lat="53.5641183" lon="9.9630597" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:52+02:00"/>
+  <node id="297481719" lat="53.563634" lon="9.9635146" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="297481727" lat="53.5644038" lon="9.9640039" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="297481729" lat="53.5645363" lon="9.9638751" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="297481731" lat="53.5644344" lon="9.9634631" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="297481733" lat="53.5643018" lon="9.9636005" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="297481902" lat="53.5645952" lon="9.9630708" user="Osmosis System User" visible="true" timestamp="2008-10-05T15:00:09+02:00">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="299781792" lat="53.563975" lon="9.960035" user="Matthias Brandt" visible="true" timestamp="2008-11-24T17:39:40+01:00"/>
+  <node id="299781795" lat="53.564306" lon="9.96031" user="Matthias Brandt" visible="true" timestamp="2008-11-25T10:25:29+01:00"/>
+  <node id="299781886" lat="53.564092" lon="9.960278" user="Matthias Brandt" visible="true" timestamp="2008-11-24T17:39:30+01:00"/>
+  <node id="300805844" lat="53.5635186" lon="9.9633238" user="Osmosis System User" visible="true" timestamp="2008-09-29T11:02:39+02:00"/>
+  <node id="300805876" lat="53.563202" lon="9.960881" user="Matthias Brandt" visible="true" timestamp="2008-11-25T10:51:22+01:00"/>
+  <node id="300805898" lat="53.5630815" lon="9.9604956" user="Osmosis System User" visible="true" timestamp="2008-09-29T11:02:46+02:00"/>
+  <node id="300805942" lat="53.56333" lon="9.9620192" user="Osmosis System User" visible="true" timestamp="2008-09-29T11:03:04+02:00"/>
+  <node id="301503862" lat="53.5644809" lon="9.9636509" user="Osmosis System User" visible="true" timestamp="2008-10-02T07:45:37+02:00"/>
+  <node id="303536278" lat="53.5639029" lon="9.9602578" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:31:06+02:00">
+    <tag k="created_by" v="Potlatch 0.10d"/>
+    <tag k="highway" v="bus_stop"/>
+  </node>
+  <node id="303536292" lat="53.5637738" lon="9.960693" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:28:34+02:00">
+    <tag k="created_by" v="Potlatch 0.10d"/>
+    <tag k="highway" v="bus_stop"/>
+  </node>
+  <node id="303536646" lat="53.5646027" lon="9.962682" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:32:09+02:00"/>
+  <node id="303539285" lat="53.5645044" lon="9.9623692" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:48:03+02:00">
+    <tag k="created_by" v="Potlatch 0.10d"/>
+    <tag k="amenity" v="recycling"/>
+  </node>
+  <node id="312641517" lat="53.564579" lon="9.960738" user="Matthias Brandt" visible="true" timestamp="2008-11-24T12:35:34+01:00"/>
+  <node id="312641518" lat="53.564638" lon="9.961055" user="Matthias Brandt" visible="true" timestamp="2008-11-24T12:36:38+01:00"/>
+  <node id="312641519" lat="53.564588" lon="9.960554" user="Matthias Brandt" visible="true" timestamp="2008-11-24T13:42:12+01:00"/>
+  <node id="312641521" lat="53.564628" lon="9.960721" user="Matthias Brandt" visible="true" timestamp="2008-11-24T13:49:01+01:00"/>
+  <node id="312641522" lat="53.564638" lon="9.96057" user="Matthias Brandt" visible="true" timestamp="2008-11-24T13:52:39+01:00"/>
+  <node id="312641523" lat="53.564559" lon="9.960804" user="Matthias Brandt" visible="true" timestamp="2008-11-24T13:54:30+01:00"/>
+  <node id="312641524" lat="53.564549" lon="9.960587" user="Matthias Brandt" visible="true" timestamp="2008-11-24T13:58:13+01:00"/>
+  <node id="312641525" lat="53.564519" lon="9.960754" user="Matthias Brandt" visible="true" timestamp="2008-11-24T14:02:45+01:00"/>
+  <node id="312641527" lat="53.564559" lon="9.960905" user="Matthias Brandt" visible="true" timestamp="2008-11-24T14:13:54+01:00"/>
+  <node id="312641528" lat="53.564439" lon="9.96022" user="Matthias Brandt" visible="true" timestamp="2008-11-24T14:14:56+01:00"/>
+  <node id="312641529" lat="53.564457" lon="9.961062" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:15:08+01:00"/>
+  <node id="312641533" lat="53.563544" lon="9.961022" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:33:40+01:00"/>
+  <node id="312641534" lat="53.563265" lon="9.960169" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:33:40+01:00"/>
+  <node id="312641535" lat="53.564628" lon="9.960855" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:35:16+01:00"/>
+  <node id="312641537" lat="53.563235" lon="9.959518" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:35:16+01:00"/>
+  <node id="312641538" lat="53.563733" lon="9.962191" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:35:16+01:00"/>
+  <node id="312641540" lat="53.563089" lon="9.961616" user="Matthias Brandt" visible="true" timestamp="2008-11-25T10:51:10+01:00"/>
+  <node id="312641543" lat="53.564519" lon="9.961005" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:39:38+01:00"/>
+  <node id="312641544" lat="53.564491" lon="9.960407" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:42:30+01:00"/>
+  <node id="312641545" lat="53.564226" lon="9.960484" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:42:41+01:00"/>
+  <node id="312641546" lat="53.56439" lon="9.960893" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:42:51+01:00"/>
+  <node id="312641549" lat="53.563405" lon="9.961857" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:55:15+01:00"/>
+  <node id="312641551" lat="53.564618" lon="9.960654" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:57:56+01:00"/>
+  <node id="312641552" lat="53.564489" lon="9.961205" user="Matthias Brandt" visible="true" timestamp="2008-11-24T16:00:12+01:00"/>
+  <node id="312641553" lat="53.563345" lon="9.961941" user="Matthias Brandt" visible="true" timestamp="2008-11-24T16:00:41+01:00"/>
+  <node id="312641556" lat="53.563096" lon="9.959601" user="Matthias Brandt" visible="true" timestamp="2008-11-24T16:01:46+01:00"/>
+  <node id="17705441" lat="53.5657639" lon="9.9587388" user="Osmosis System User" visible="true" timestamp="2008-04-05T18:15:22+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705442" lat="53.5647452" lon="9.9576807" user="Osmosis System User" visible="true" timestamp="2008-06-07T15:01:13+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705445" lat="53.5653506" lon="9.9582606" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:27+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705449" lat="53.5668719" lon="9.9552561" user="Osmosis System User" visible="true" timestamp="2006-10-06T12:31:24+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18161560" lat="53.564894" lon="9.959153" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:22:39+01:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="18161562" lat="53.5672264" lon="9.9570697" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:55:21+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="20823485" lat="53.5672316" lon="9.9539026" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:19+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823490" lat="53.5671107" lon="9.9540285" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:20+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823497" lat="53.5666731" lon="9.9543593" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:20+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="255890942" lat="53.5660588" lon="9.9583209" user="Osmosis System User" visible="true" timestamp="2008-04-05T18:15:21+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="272285574" lat="53.5671402" lon="9.9588982" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:24+02:00"/>
+  <node id="272285575" lat="53.5672146" lon="9.9590469" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:24+02:00"/>
+  <node id="272285582" lat="53.5671688" lon="9.958719" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285583" lat="53.5670964" lon="9.9587896" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285585" lat="53.567043" lon="9.9587915" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285587" lat="53.567022" lon="9.9588258" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285589" lat="53.5670259" lon="9.9588868" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285590" lat="53.5669229" lon="9.958984" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285669" lat="53.5659447" lon="9.9591736" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285670" lat="53.5658834" lon="9.958996" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285671" lat="53.5658356" lon="9.9588048" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285674" lat="53.5657878" lon="9.9587117" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:30+02:00"/>
+  <node id="272285677" lat="53.5660207" lon="9.9592502" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:56+02:00"/>
+  <node id="272285679" lat="53.5661801" lon="9.9591182" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:55+02:00"/>
+  <node id="272285690" lat="53.5663533" lon="9.9592228" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:56+02:00"/>
+  <node id="272285691" lat="53.5662672" lon="9.959046" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:56+02:00"/>
+  <node id="272716638" lat="53.565413" lon="9.958811" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:06+01:00"/>
+  <node id="272716639" lat="53.565698" lon="9.958084" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:06+01:00"/>
+  <node id="272716640" lat="53.565845" lon="9.9578" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:06+01:00"/>
+  <node id="272716641" lat="53.5658563" lon="9.9587328" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:51+02:00"/>
+  <node id="272716643" lat="53.5659855" lon="9.9591753" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:51+02:00"/>
+  <node id="272716644" lat="53.5660081" lon="9.9592205" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:51+02:00"/>
+  <node id="272716646" lat="53.5663085" lon="9.9589686" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:51+02:00"/>
+  <node id="272716647" lat="53.5664247" lon="9.9592431" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716651" lat="53.5666508" lon="9.9592044" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716652" lat="53.5668381" lon="9.9589977" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716654" lat="53.5669415" lon="9.9588943" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716655" lat="53.5669673" lon="9.9588588" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716657" lat="53.566977" lon="9.9587845" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716658" lat="53.5670222" lon="9.9587361" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716659" lat="53.5670771" lon="9.9587296" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="279646949" lat="53.5656151" lon="9.9587439" user="Osmosis System User" visible="true" timestamp="2008-07-20T10:34:21+02:00">
+    <tag k="shop" v="supermarket"/>
+    <tag k="created_by" v="Potlatch 0.10"/>
+  </node>
+  <node id="279710413" lat="53.5657239" lon="9.9589318" user="Osmosis System User" visible="true" timestamp="2008-09-27T20:38:08+02:00">
+    <tag k="shop" v="bicycle"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+  </node>
+  <node id="289593761" lat="53.5654537" lon="9.9588631" user="Osmosis System User" visible="true" timestamp="2008-09-27T20:37:59+02:00">
+    <tag k="class" v="free"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+    <tag k="source" v="http://maps.fon.com"/>
+  </node>
+  <node id="289597005" lat="53.5648079" lon="9.9577112" user="Osmosis System User" visible="true" timestamp="2008-08-20T11:22:05+02:00">
+    <tag k="source" v="http://maps.fon.com"/>
+    <tag k="class" v="free"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+  </node>
+  <node id="289626674" lat="53.5664635" lon="9.9543858" user="Osmosis System User" visible="true" timestamp="2008-08-20T12:19:57+02:00">
+    <tag k="source" v="http://maps.fon.com"/>
+    <tag k="class" v="free"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+  </node>
+  <node id="292220702" lat="53.56471" lon="9.957696" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:28+02:00"/>
+  <node id="299781971" lat="53.5663336" lon="9.9580264" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:54:35+02:00"/>
+  <node id="299781983" lat="53.566859" lon="9.9572327" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:54:52+02:00"/>
+  <node id="299781984" lat="53.5663187" lon="9.9578335" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:54:52+02:00"/>
+  <node id="299782010" lat="53.5668386" lon="9.9571469" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:55:15+02:00"/>
+  <node id="299782012" lat="53.5662779" lon="9.9574387" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:55:50+02:00"/>
+  <node id="299782015" lat="53.5667163" lon="9.9569151" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:55:50+02:00"/>
+  <node id="299782086" lat="53.5663493" lon="9.9576533" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:55:50+02:00"/>
+  <node id="299977319" lat="53.5648386" lon="9.9571225" user="Osmosis System User" visible="true" timestamp="2008-09-26T13:10:34+02:00">
+    <tag k="name" v="Deutsch-Türkischer"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="amenity" v="kindergarten"/>
+  </node>
+  <node id="18161558" lat="53.5654869" lon="9.9626982" user="Osmosis System User" visible="true" timestamp="2006-10-13T13:18:25+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18161561" lat="53.56496" lon="9.960902" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:03+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879859" lat="53.5654286" lon="9.9622902" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:30:46+02:00"/>
+  <node id="19879862" lat="53.5664242" lon="9.9619815" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:30:46+02:00"/>
+  <node id="19879866" lat="53.5659824" lon="9.9621617" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:30:46+02:00"/>
+  <node id="33726840" lat="53.5662668" lon="9.9629608" user="Osmosis System User" visible="true" timestamp="2008-04-08T23:11:51+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="255890941" lat="53.565061" lon="9.960034" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:05+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256505871" lat="53.56636" lon="9.96356" user="Osmosis System User" visible="true" timestamp="2008-04-08T23:11:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256505880" lat="53.5661731" lon="9.9620762" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:30:46+02:00"/>
+  <node id="266010280" lat="53.5660482" lon="9.9606502" user="Osmosis System User" visible="true" timestamp="2008-05-20T21:21:47+02:00"/>
+  <node id="272285591" lat="53.5666675" lon="9.9592756" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285592" lat="53.5665497" lon="9.9593748" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285594" lat="53.5664519" lon="9.9594136" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285597" lat="53.5663508" lon="9.9594001" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:25+02:00"/>
+  <node id="272285598" lat="53.5663089" lon="9.9594257" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285600" lat="53.5662334" lon="9.9595256" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285601" lat="53.5661511" lon="9.959616" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285603" lat="53.5660621" lon="9.9597252" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285605" lat="53.5660089" lon="9.9597984" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285607" lat="53.5659789" lon="9.9599984" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285609" lat="53.5659364" lon="9.9601809" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285610" lat="53.5658939" lon="9.9603808" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285612" lat="53.5657864" lon="9.9605433" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:26+02:00"/>
+  <node id="272285614" lat="53.565733" lon="9.9607469" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:27+02:00"/>
+  <node id="272285617" lat="53.5656773" lon="9.9608735" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:27+02:00"/>
+  <node id="272285620" lat="53.5655314" lon="9.9610095" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:27+02:00"/>
+  <node id="272285621" lat="53.5653589" lon="9.9611588" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:27+02:00"/>
+  <node id="272285624" lat="53.565097" lon="9.961062" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:03+01:00"/>
+  <node id="272285625" lat="53.565251" lon="9.960303" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:04+01:00"/>
+  <node id="272285628" lat="53.565339" lon="9.9610228" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:27+02:00"/>
+  <node id="272285631" lat="53.5655314" lon="9.9608602" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:27+02:00"/>
+  <node id="272285632" lat="53.5656508" lon="9.9607773" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:27+02:00"/>
+  <node id="272285635" lat="53.565747" lon="9.9606347" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285637" lat="53.565798" lon="9.9606485" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285639" lat="53.5658325" lon="9.9606846" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285642" lat="53.5658497" lon="9.9606845" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285644" lat="53.5658741" lon="9.9606544" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285646" lat="53.5658773" lon="9.9605995" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285647" lat="53.5658667" lon="9.960573" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285649" lat="53.5658471" lon="9.9605572" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285653" lat="53.5658191" lon="9.9605679" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:28+02:00"/>
+  <node id="272285655" lat="53.5658029" lon="9.9606109" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285657" lat="53.5660353" lon="9.9597568" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285660" lat="53.5660182" lon="9.9596306" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285663" lat="53.5659974" lon="9.9594615" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285668" lat="53.5659765" lon="9.9593329" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:29+02:00"/>
+  <node id="272285682" lat="53.5662578" lon="9.9592931" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:30+02:00"/>
+  <node id="272285688" lat="53.5660927" lon="9.9594213" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:56+02:00"/>
+  <node id="272716610" lat="53.5672321" lon="9.9592625" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:48+02:00"/>
+  <node id="272716612" lat="53.5667574" lon="9.9596662" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:48+02:00"/>
+  <node id="272716613" lat="53.5663634" lon="9.9599698" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:49+02:00"/>
+  <node id="272716615" lat="53.565698" lon="9.960533" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:07+01:00"/>
+  <node id="272716616" lat="53.566014" lon="9.961296" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:07+01:00"/>
+  <node id="272716617" lat="53.566021" lon="9.9601636" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:49+02:00"/>
+  <node id="272716618" lat="53.5659597" lon="9.9602314" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:49+02:00"/>
+  <node id="272716619" lat="53.565937" lon="9.9604252" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:49+02:00"/>
+  <node id="272716620" lat="53.5659855" lon="9.9605963" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:49+02:00"/>
+  <node id="272716621" lat="53.5660016" lon="9.9607352" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:49+02:00"/>
+  <node id="272716622" lat="53.5656593" lon="9.961013" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:49+02:00"/>
+  <node id="272716624" lat="53.565369" lon="9.961421" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:04+01:00"/>
+  <node id="272716625" lat="53.565008" lon="9.961002" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:04+01:00"/>
+  <node id="272716627" lat="53.565369" lon="9.960563" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:04+01:00"/>
+  <node id="272716628" lat="53.56547" lon="9.960523" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:06+01:00"/>
+  <node id="272716629" lat="53.565452" lon="9.960223" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:04+01:00"/>
+  <node id="272716631" lat="53.5656884" lon="9.960057" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:50+02:00"/>
+  <node id="272716632" lat="53.565541" lon="9.959958" user="Matthias Brandt" visible="true" timestamp="2008-11-25T17:14:09+01:00"/>
+  <node id="272716634" lat="53.565508" lon="9.959572" user="Matthias Brandt" visible="true" timestamp="2008-11-25T17:14:09+01:00"/>
+  <node id="272716635" lat="53.5657045" lon="9.959537" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:50+02:00"/>
+  <node id="272716636" lat="53.5658143" lon="9.9594401" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:50+02:00"/>
+  <node id="272716642" lat="53.565571" lon="9.95961" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:07+01:00"/>
+  <node id="272716648" lat="53.5664344" lon="9.9593109" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716650" lat="53.5665087" lon="9.9593142" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:52+02:00"/>
+  <node id="272716661" lat="53.5668334" lon="9.9595971" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716662" lat="53.5666912" lon="9.9593391" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716664" lat="53.5665648" lon="9.9594286" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716665" lat="53.56647" lon="9.9594576" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716666" lat="53.5663831" lon="9.9594681" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716668" lat="53.5663146" lon="9.9594813" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716669" lat="53.5662488" lon="9.9595629" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716670" lat="53.5660434" lon="9.9598315" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716671" lat="53.5660355" lon="9.9598842" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716673" lat="53.5660065" lon="9.9599974" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:53+02:00"/>
+  <node id="272716674" lat="53.565624" lon="9.960072" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:07+01:00"/>
+  <node id="272716676" lat="53.5659597" lon="9.9598876" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:54+02:00"/>
+  <node id="272716677" lat="53.565902" lon="9.9601979" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:54+02:00"/>
+  <node id="272716679" lat="53.5658827" lon="9.9602989" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:54+02:00"/>
+  <node id="272716680" lat="53.5658274" lon="9.9603878" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:54+02:00"/>
+  <node id="272716681" lat="53.565565" lon="9.960273" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:06+01:00"/>
+  <node id="272716683" lat="53.5657216" lon="9.96046" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:54+02:00"/>
+  <node id="289622020" lat="53.5662842" lon="9.9620638" user="Osmosis System User" visible="true" timestamp="2008-08-20T12:12:15+02:00">
+    <tag k="source" v="http://maps.fon.com"/>
+    <tag k="class" v="free"/>
+    <tag k="amenity" v="wlan"/>
+    <tag k="note" v="FIXME"/>
+  </node>
+  <node id="299781558" lat="53.564742" lon="9.959284" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:03+01:00"/>
+  <node id="299781887" lat="53.564711" lon="9.960423" user="Matthias Brandt" visible="true" timestamp="2008-11-25T11:24:03+01:00"/>
+  <node id="299781913" lat="53.56497" lon="9.95942" user="Matthias Brandt" visible="true" timestamp="2008-11-25T17:14:10+01:00"/>
+  <node id="301503861" lat="53.5647163" lon="9.9634922" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:31:38+02:00"/>
+  <node id="312641520" lat="53.564728" lon="9.961055" user="Matthias Brandt" visible="true" timestamp="2008-11-24T13:44:43+01:00"/>
+  <node id="312641526" lat="53.564698" lon="9.960654" user="Matthias Brandt" visible="true" timestamp="2008-11-24T14:10:49+01:00"/>
+  <node id="312641530" lat="53.564857" lon="9.960955" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:17:45+01:00"/>
+  <node id="312641531" lat="53.564688" lon="9.961356" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:33:23+01:00"/>
+  <node id="312641539" lat="53.565016" lon="9.96169" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:35:17+01:00"/>
+  <node id="312641547" lat="53.564718" lon="9.961088" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:52:42+01:00"/>
+  <node id="312641548" lat="53.564698" lon="9.960637" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:53:30+01:00"/>
+  <node id="312641550" lat="53.564708" lon="9.960654" user="Matthias Brandt" visible="true" timestamp="2008-11-24T15:56:17+01:00"/>
+  <node id="312641591" lat="53.56518" lon="9.959772" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:12:06+01:00"/>
+  <node id="312641592" lat="53.56521" lon="9.960105" user="Matthias Brandt" visible="true" timestamp="2008-11-25T12:21:34+01:00"/>
+  <node id="312641593" lat="53.565072" lon="9.959663" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:16:47+01:00"/>
+  <node id="312641594" lat="53.56517" lon="9.960004" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:16:50+01:00"/>
+  <node id="312641595" lat="53.56526" lon="9.959562" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:16:50+01:00"/>
+  <node id="312641596" lat="53.565142" lon="9.959427" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:16:51+01:00"/>
+  <node id="312641597" lat="53.565132" lon="9.959772" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:22:13+01:00"/>
+  <node id="312641598" lat="53.56522" lon="9.960236" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:22:13+01:00"/>
+  <node id="312641599" lat="53.565295" lon="9.959794" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:22:13+01:00"/>
+  <node id="312641600" lat="53.56513" lon="9.95965" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:23:32+01:00"/>
+  <node id="312641601" lat="53.5651" lon="9.960076" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:23:35+01:00"/>
+  <node id="312641602" lat="53.565263" lon="9.960076" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:23:35+01:00"/>
+  <node id="312641603" lat="53.56509" lon="9.959638" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:38:18+01:00"/>
+  <node id="312641604" lat="53.565165" lon="9.960118" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:38:18+01:00"/>
+  <node id="312641605" lat="53.565295" lon="9.959739" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:38:19+01:00"/>
+  <node id="312641606" lat="53.565135" lon="9.959714" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:41:02+01:00"/>
+  <node id="312641607" lat="53.565205" lon="9.960135" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:41:05+01:00"/>
+  <node id="312641608" lat="53.565285" lon="9.959629" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:41:06+01:00"/>
+  <node id="312641610" lat="53.565155" lon="9.960185" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:45:38+01:00"/>
+  <node id="312641611" lat="53.56523" lon="9.959739" user="Matthias Brandt" visible="true" timestamp="2008-11-25T13:45:38+01:00"/>
+  <node id="16712061" lat="53.5623526" lon="9.9486168" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:56:18+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="16712065" lat="53.5650729" lon="9.9648667" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:31:38+02:00"/>
+  <node id="16957968" lat="53.5625193" lon="9.9578076" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:56:47+02:00">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="17705424" lat="53.5641856" lon="9.9500007" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:29:35+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="17705429" lat="53.5625517" lon="9.9522869" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705431" lat="53.5625644" lon="9.9523933" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705432" lat="53.5619086" lon="9.952534" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705433" lat="53.5619168" lon="9.9526172" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:42:27+02:00"/>
+  <node id="17705440" lat="53.5619469" lon="9.9528963" user="Osmosis System User" visible="true" timestamp="2006-10-06T12:31:23+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705443" lat="53.562408" lon="9.9548151" user="Osmosis System User" visible="true" timestamp="2006-10-06T12:31:24+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705444" lat="53.5616493" lon="9.9533966" user="Osmosis System User" visible="true" timestamp="2007-12-07T19:25:23+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705451" lat="53.5618003" lon="9.9536486" user="Osmosis System User" visible="true" timestamp="2006-10-06T12:31:24+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18244815" lat="53.5694484" lon="9.9635828" user="Osmosis System User" visible="true" timestamp="2008-10-03T08:27:43+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="18244818" lat="53.5682514" lon="9.9611818" user="Osmosis System User" visible="true" timestamp="2006-10-14T23:28:35+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18244819" lat="53.5692194" lon="9.9633305" user="Osmosis System User" visible="true" timestamp="2006-10-14T23:28:35+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879857" lat="53.567327" lon="9.9522659" user="Osmosis System User" visible="true" timestamp="2007-09-25T11:35:17+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879860" lat="53.5681446" lon="9.9607456" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:30:46+02:00"/>
+  <node id="19879861" lat="53.5686723" lon="9.9532998" user="Osmosis System User" visible="true" timestamp="2007-09-25T11:35:17+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879865" lat="53.5674923" lon="9.9612958" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:30:46+02:00"/>
+  <node id="19879867" lat="53.5655827" lon="9.950049" user="Osmosis System User" visible="true" timestamp="2006-10-27T00:52:12+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879869" lat="53.5653519" lon="9.9489801" user="Osmosis System User" visible="true" timestamp="2006-10-27T00:52:12+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879870" lat="53.5652365" lon="9.9479112" user="Osmosis System User" visible="true" timestamp="2006-10-27T00:52:12+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879871" lat="53.5652164" lon="9.9461943" user="Osmosis System User" visible="true" timestamp="2008-08-07T10:55:07+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879872" lat="53.5653037" lon="9.9445912" user="Osmosis System User" visible="true" timestamp="2007-07-18T18:16:09+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879873" lat="53.5654595" lon="9.9417569" user="Osmosis System User" visible="true" timestamp="2008-04-18T20:49:03+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879875" lat="53.5654382" lon="9.9430252" user="Osmosis System User" visible="true" timestamp="2006-10-27T00:52:13+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823484" lat="53.5675642" lon="9.9584283" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:19+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823486" lat="53.567534" lon="9.9545178" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:19+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823487" lat="53.5676225" lon="9.9544115" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:19+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823488" lat="53.5676099" lon="9.9545178" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:19+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823489" lat="53.5675214" lon="9.9543051" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:19+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823491" lat="53.5675783" lon="9.9534965" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:20+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823492" lat="53.5677299" lon="9.9531561" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:20+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20823498" lat="53.5688557" lon="9.962743" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:31:20+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20824150" lat="53.5644165" lon="9.9488839" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:43:06+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20824153" lat="53.5653894" lon="9.9491539" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:43:08+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20824155" lat="53.5652306" lon="9.9475661" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:43:09+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20824156" lat="53.5652259" lon="9.9472872" user="Osmosis System User" visible="true" timestamp="2006-11-01T23:43:09+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20824159" lat="53.564638" lon="9.9477752" user="Osmosis System User" visible="true" timestamp="2008-01-03T20:00:52+01:00"/>
+  <node id="20948580" lat="53.5625422" lon="9.9639306" user="Osmosis System User" visible="true" timestamp="2008-07-24T12:39:28+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20948583" lat="53.5621458" lon="9.9630587" user="Osmosis System User" visible="true" timestamp="2006-11-09T11:26:11+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="20948584" lat="53.5626811" lon="9.9611428" user="Osmosis System User" visible="true" timestamp="2007-11-18T23:07:05+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="21495475" lat="53.5680239" lon="9.9560923" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:54:43+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="28929024" lat="53.5696043" lon="9.9546366" user="Osmosis System User" visible="true" timestamp="2008-10-05T14:54:43+02:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="28929025" lat="53.5692308" lon="9.9539226" user="Osmosis System User" visible="true" timestamp="2007-09-25T11:35:17+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="31161525" lat="53.5636512" lon="9.965255" user="Osmosis System User" visible="true" timestamp="2008-09-29T11:01:57+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="31161542" lat="53.5636008" lon="9.9645297" user="Osmosis System User" visible="true" timestamp="2007-09-13T21:58:47+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="31161598" lat="53.5626765" lon="9.9594615" user="Osmosis System User" visible="true" timestamp="2007-07-01T23:04:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="33726838" lat="53.5663967" lon="9.965329" user="Osmosis System User" visible="true" timestamp="2008-11-09T21:11:32+01:00"/>
+  <node id="50792900" lat="53.5614036" lon="9.9561526" user="Osmosis System User" visible="true" timestamp="2007-09-15T17:06:06+02:00"/>
+  <node id="50792901" lat="53.5615886" lon="9.957034" user="Osmosis System User" visible="true" timestamp="2008-08-21T16:53:23+02:00"/>
+  <node id="50793737" lat="53.5626163" lon="9.9595219" user="Osmosis System User" visible="true" timestamp="2008-08-21T16:53:21+02:00"/>
+  <node id="50793746" lat="53.5636518" lon="9.9672591" user="Osmosis System User" visible="true" timestamp="2007-09-13T21:56:43+02:00"/>
+  <node id="50793747" lat="53.5636569" lon="9.9678942" user="Osmosis System User" visible="true" timestamp="2007-09-13T21:58:19+02:00"/>
+  <node id="52102198" lat="53.5637486" lon="9.9723059" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:16:07+02:00"/>
+  <node id="52102992" lat="53.561893" lon="9.9878069" user="Osmosis System User" visible="true" timestamp="2007-09-15T17:08:07+02:00"/>
+  <node id="53120046" lat="53.5637588" lon="9.9728552" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120047" lat="53.5637843" lon="9.9731728" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120048" lat="53.5637996" lon="9.9733874" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120050" lat="53.5638251" lon="9.9737221" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120052" lat="53.5638353" lon="9.9740826" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120053" lat="53.5638557" lon="9.9745804" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120054" lat="53.5638557" lon="9.9752585" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120056" lat="53.5638353" lon="9.9758078" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120057" lat="53.5638251" lon="9.976297" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120058" lat="53.5638047" lon="9.9765717" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120059" lat="53.5637996" lon="9.9767262" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120060" lat="53.5637996" lon="9.9774643" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120061" lat="53.56382" lon="9.980271" user="Osmosis System User" visible="true" timestamp="2007-09-17T08:12:44+02:00"/>
+  <node id="53120062" lat="53.5638342" lon="9.9821558" user="Osmosis System User" visible="true" timestamp="2008-08-28T15:48:24+02:00"/>
+  <node id="53120063" lat="53.5637629" lon="9.9838638" user="Osmosis System User" visible="true" timestamp="2008-08-28T15:48:24+02:00"/>
+  <node id="53120071" lat="53.5633754" lon="9.9851856" user="Osmosis System User" visible="true" timestamp="2008-08-28T15:48:24+02:00"/>
+  <node id="53120073" lat="53.5629625" lon="9.9860096" user="Osmosis System User" visible="true" timestamp="2008-08-28T15:48:24+02:00"/>
+  <node id="53120076" lat="53.5622131" lon="9.9873657" user="Osmosis System User" visible="true" timestamp="2008-08-28T15:48:24+02:00"/>
+  <node id="88898182" lat="53.562599" lon="9.9639429" user="Osmosis System User" visible="true" timestamp="2007-10-27T11:44:37+02:00"/>
+  <node id="122590918" lat="53.5618931" lon="9.9588776" user="Osmosis System User" visible="true" timestamp="2007-11-18T23:17:00+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="122608451" lat="53.5615296" lon="9.9557623" user="Osmosis System User" visible="true" timestamp="2007-11-18T23:21:44+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="167359087" lat="53.5679773" lon="9.9527863" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:24:15+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="167359138" lat="53.5652099" lon="9.9466913" user="Osmosis System User" visible="true" timestamp="2007-12-14T02:23:07+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="200016779" lat="53.613351" lon="9.8691175" user="Osmosis System User" visible="true" timestamp="2008-01-01T01:59:38+01:00"/>
+  <node id="244232969" lat="53.5698255" lon="9.9494691" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="244232975" lat="53.5695496" lon="9.9496139" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="244232977" lat="53.5697247" lon="9.9496387" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="244232983" lat="53.569851" lon="9.9492826" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="244232987" lat="53.5698312" lon="9.9490682" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="244232989" lat="53.569731" lon="9.9489535" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451877" lat="53.5695303" lon="9.9547046" user="Osmosis System User" visible="true" timestamp="2008-08-17T23:34:07+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451883" lat="53.5679423" lon="9.9529129" user="Osmosis System User" visible="true" timestamp="2008-09-25T19:25:18+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451899" lat="53.5635793" lon="9.949543" user="Osmosis System User" visible="true" timestamp="2008-06-26T08:15:43+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451900" lat="53.5636755" lon="9.9496156" user="Osmosis System User" visible="true" timestamp="2008-06-26T08:15:42+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451901" lat="53.5637522" lon="9.9496735" user="Osmosis System User" visible="true" timestamp="2008-06-26T08:15:42+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249451916" lat="53.5673044" lon="9.9523571" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:23:59+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="249595540" lat="53.5652378" lon="9.9477959" user="Osmosis System User" visible="true" timestamp="2008-02-28T20:30:10+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="250822057" lat="53.5691933" lon="9.9550157" user="Osmosis System User" visible="true" timestamp="2008-03-06T13:26:22+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="250822066" lat="53.5692154" lon="9.9549782" user="Osmosis System User" visible="true" timestamp="2008-03-06T13:26:23+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="251623491" lat="53.5618479" lon="9.952505" user="Osmosis System User" visible="true" timestamp="2008-03-11T15:04:13+01:00"/>
+  <node id="256278699" lat="53.5673907" lon="9.9518657" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:05+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278700" lat="53.5676295" lon="9.952015" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:06+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278701" lat="53.5678069" lon="9.9520955" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:06+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278702" lat="53.5679638" lon="9.9522104" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:06+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278703" lat="53.5681071" lon="9.9523367" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:06+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278704" lat="53.5682572" lon="9.9524976" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:06+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278705" lat="53.568666" lon="9.9528915" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:06+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278706" lat="53.5689014" lon="9.953139" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:35:58+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278707" lat="53.5690832" lon="9.9533599" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:06+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278708" lat="53.5693445" lon="9.9537199" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:07+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278709" lat="53.5695107" lon="9.953953" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:12:07+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278710" lat="53.5695127" lon="9.9544548" user="Osmosis System User" visible="true" timestamp="2008-08-17T23:34:08+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278716" lat="53.5686391" lon="9.9504443" user="Osmosis System User" visible="true" timestamp="2008-06-07T12:31:02+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278994" lat="53.5659417" lon="9.949765" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278996" lat="53.5658614" lon="9.9495683" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278997" lat="53.5657372" lon="9.9494699" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256278999" lat="53.5656058" lon="9.949433" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:33+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256279000" lat="53.565523" lon="9.9494505" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:34+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256279001" lat="53.5654514" lon="9.9494226" user="Osmosis System User" visible="true" timestamp="2008-04-07T19:13:34+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256505870" lat="53.5684701" lon="9.9617062" user="Osmosis System User" visible="true" timestamp="2008-04-08T23:11:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="256505872" lat="53.5679119" lon="9.9621921" user="Osmosis System User" visible="true" timestamp="2008-04-08T23:11:48+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="266010277" lat="53.5678291" lon="9.9594543" user="Osmosis System User" visible="true" timestamp="2008-05-20T21:21:47+02:00"/>
+  <node id="270137784" lat="53.562684" lon="9.9510977" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:45+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137801" lat="53.5629621" lon="9.9498463" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:47+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137802" lat="53.5629388" lon="9.9496992" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:47+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137803" lat="53.5629097" lon="9.9495912" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:47+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137805" lat="53.5628601" lon="9.9494588" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:47+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137831" lat="53.563216" lon="9.9493966" user="Osmosis System User" visible="true" timestamp="2008-09-20T20:57:54+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137832" lat="53.563338" lon="9.9496414" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:50+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="270137834" lat="53.5635398" lon="9.9498346" user="Osmosis System User" visible="true" timestamp="2008-06-13T20:05:50+02:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="272285573" lat="53.5673613" lon="9.9587133" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:24+02:00"/>
+  <node id="272285577" lat="53.5674299" lon="9.9588601" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:24+02:00"/>
+  <node id="272285579" lat="53.5675233" lon="9.958334" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:24+02:00"/>
+  <node id="272285580" lat="53.5674814" lon="9.9583741" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:24+02:00"/>
+  <node id="272285581" lat="53.5673613" lon="9.9584999" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:24+02:00"/>
+  <node id="272285701" lat="53.567644" lon="9.9587495" user="Osmosis System User" visible="true" timestamp="2008-06-23T12:00:31+02:00"/>
+  <node id="272716604" lat="53.5676506" lon="9.95879" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:48+02:00"/>
+  <node id="272716606" lat="53.5675028" lon="9.9582359" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:48+02:00"/>
+  <node id="272716607" lat="53.5676908" lon="9.9589201" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:48+02:00"/>
+  <node id="272716609" lat="53.567497" lon="9.9590235" user="Osmosis System User" visible="true" timestamp="2008-06-24T16:17:48+02:00"/>
+  <node id="279713669" lat="53.5650217" lon="9.9646765" user="Osmosis System User" visible="true" timestamp="2008-07-20T11:09:52+02:00">
+    <tag k="maxspeed" v="30"/>
+  </node>
+  <node id="290485909" lat="53.5612207" lon="9.9552031" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:28+02:00"/>
+  <node id="290485913" lat="53.5614376" lon="9.9561377" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:29+02:00"/>
+  <node id="290485916" lat="53.56162" lon="9.9570086" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:30+02:00"/>
+  <node id="290485919" lat="53.5621104" lon="9.9582354" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:30+02:00"/>
+  <node id="290485920" lat="53.5626546" lon="9.9594882" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:30+02:00"/>
+  <node id="290485924" lat="53.5650331" lon="9.9648785" user="Osmosis System User" visible="true" timestamp="2008-09-28T17:53:46+02:00"/>
+  <node id="290485926" lat="53.5674949" lon="9.9700339" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:31+02:00"/>
+  <node id="290485927" lat="53.5652642" lon="9.9746139" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:31+02:00"/>
+  <node id="290485928" lat="53.5642993" lon="9.9738006" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:31+02:00"/>
+  <node id="290485929" lat="53.5643042" lon="9.9765903" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:31+02:00"/>
+  <node id="290485930" lat="53.5642205" lon="9.9772282" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:34:26+02:00"/>
+  <node id="290485931" lat="53.5638553" lon="9.9769766" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:31+02:00"/>
+  <node id="290485951" lat="53.5601137" lon="9.9596239" user="Osmosis System User" visible="true" timestamp="2008-08-23T20:34:34+02:00"/>
+  <node id="292205851" lat="53.5600801" lon="9.9597055" user="Osmosis System User" visible="true" timestamp="2008-11-09T21:30:07+01:00"/>
+  <node id="292217891" lat="53.6122348" lon="9.8708777" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:52:50+02:00"/>
+  <node id="292217892" lat="53.6104698" lon="9.8735209" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:52:50+02:00"/>
+  <node id="292217893" lat="53.6095731" lon="9.8749319" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:52:50+02:00"/>
+  <node id="292217894" lat="53.6080724" lon="9.8772752" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:52:50+02:00"/>
+  <node id="292217895" lat="53.6053934" lon="9.8824434" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:52:50+02:00"/>
+  <node id="292217896" lat="53.6043686" lon="9.8846908" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:52:50+02:00"/>
+  <node id="292217897" lat="53.6025583" lon="9.8891654" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:52:50+02:00"/>
+  <node id="292218448" lat="53.5985719" lon="9.8997704" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:57:18+02:00"/>
+  <node id="292218449" lat="53.5949896" lon="9.8984079" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:57:18+02:00"/>
+  <node id="292218450" lat="53.5927434" lon="9.8987708" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:57:18+02:00"/>
+  <node id="292218492" lat="53.5903291" lon="9.8977002" user="Osmosis System User" visible="true" timestamp="2008-08-30T10:58:21+02:00"/>
+  <node id="292219267" lat="53.5886411" lon="9.8969136" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:33+02:00"/>
+  <node id="292219268" lat="53.5884323" lon="9.8992519" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219269" lat="53.5883475" lon="9.9004247" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219270" lat="53.588242" lon="9.9009465" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219272" lat="53.5879318" lon="9.9016679" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219273" lat="53.5877175" lon="9.9020679" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219274" lat="53.5875808" lon="9.9026274" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219275" lat="53.5874129" lon="9.9042568" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219276" lat="53.5874924" lon="9.9046394" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219277" lat="53.5859963" lon="9.9062283" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:34+02:00"/>
+  <node id="292219278" lat="53.5861985" lon="9.9078175" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219279" lat="53.5862003" lon="9.9078915" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219280" lat="53.5865908" lon="9.9075812" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219281" lat="53.5872041" lon="9.9073167" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219282" lat="53.5885205" lon="9.9072736" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219283" lat="53.5889971" lon="9.9074136" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219284" lat="53.5899044" lon="9.9076581" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219285" lat="53.5905506" lon="9.914363" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:35+02:00"/>
+  <node id="292219286" lat="53.590452" lon="9.914707" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:36+02:00"/>
+  <node id="292219287" lat="53.5895743" lon="9.9155865" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:36+02:00"/>
+  <node id="292219289" lat="53.5892821" lon="9.915749" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:36+02:00"/>
+  <node id="292219290" lat="53.5890642" lon="9.9158627" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:36+02:00"/>
+  <node id="292219291" lat="53.5886709" lon="9.9162323" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:06:36+02:00"/>
+  <node id="292220635" lat="53.5862135" lon="9.9171959" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:23+02:00"/>
+  <node id="292220637" lat="53.5839416" lon="9.918053" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:23+02:00"/>
+  <node id="292220639" lat="53.5823938" lon="9.9191515" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220640" lat="53.5808168" lon="9.9211071" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220642" lat="53.5790984" lon="9.9231792" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220643" lat="53.5774465" lon="9.9254261" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220646" lat="53.5751205" lon="9.9285568" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220648" lat="53.5733755" lon="9.9310247" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220651" lat="53.5735796" lon="9.9320368" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220652" lat="53.5736504" lon="9.9324716" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:24+02:00"/>
+  <node id="292220655" lat="53.5727262" lon="9.9330248" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220657" lat="53.5727011" lon="9.9342642" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220660" lat="53.5726717" lon="9.9345933" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220662" lat="53.5722544" lon="9.9358022" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220665" lat="53.5714582" lon="9.9351073" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220666" lat="53.5714526" lon="9.9355244" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220668" lat="53.571492" lon="9.9360256" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220670" lat="53.5715612" lon="9.936592" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:25+02:00"/>
+  <node id="292220671" lat="53.5716628" lon="9.9374158" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:26+02:00"/>
+  <node id="292220674" lat="53.5716761" lon="9.9384772" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:26+02:00"/>
+  <node id="292220675" lat="53.5716723" lon="9.939911" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:26+02:00"/>
+  <node id="292220679" lat="53.5717044" lon="9.9417993" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:26+02:00"/>
+  <node id="292220683" lat="53.571886" lon="9.9425434" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:26+02:00"/>
+  <node id="292220686" lat="53.5717454" lon="9.9450934" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:26+02:00"/>
+  <node id="292220688" lat="53.5711519" lon="9.9463291" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:27+02:00"/>
+  <node id="292220690" lat="53.5704734" lon="9.9480427" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:27+02:00"/>
+  <node id="292220691" lat="53.5697839" lon="9.9491402" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:27+02:00"/>
+  <node id="292220693" lat="53.5698322" lon="9.9492905" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:27+02:00"/>
+  <node id="292220694" lat="53.569805" lon="9.9494663" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:27+02:00"/>
+  <node id="292220696" lat="53.5697181" lon="9.9496181" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:27+02:00"/>
+  <node id="292220698" lat="53.5695382" lon="9.949612" user="Osmosis System User" visible="true" timestamp="2008-08-30T11:17:27+02:00"/>
+  <node id="293395636" lat="53.5663831" lon="9.9643778" user="Osmosis System User" visible="true" timestamp="2008-09-04T15:15:39+02:00"/>
+  <node id="297481721" lat="53.5637921" lon="9.9649652" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="297481723" lat="53.5642152" lon="9.9651197" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="297481725" lat="53.5644293" lon="9.9641326" user="Osmosis System User" visible="true" timestamp="2008-09-16T16:10:53+02:00"/>
+  <node id="299207035" lat="53.5694656" lon="9.9545029" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:23:01+02:00"/>
+  <node id="299207037" lat="53.568645" lon="9.9533871" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:23:01+02:00"/>
+  <node id="299207064" lat="53.5692006" lon="9.9539879" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:25:21+02:00"/>
+  <node id="299207267" lat="53.568154" lon="9.9530156" user="Osmosis System User" visible="true" timestamp="2008-09-23T08:26:31+02:00"/>
+  <node id="300805983" lat="53.5622602" lon="9.9585031" user="Osmosis System User" visible="true" timestamp="2008-09-29T11:03:15+02:00"/>
+  <node id="303536887" lat="53.5651824" lon="9.9647725" user="Osmosis System User" visible="true" timestamp="2008-10-10T13:32:09+02:00"/>
+  <node id="305278693" lat="53.5629107" lon="9.9497942" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:38:59+02:00"/>
+  <node id="305278694" lat="53.5623805" lon="9.9494423" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:38:59+02:00"/>
+  <node id="305278695" lat="53.56209" lon="9.951262" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:45:30+02:00"/>
+  <node id="305278696" lat="53.5621656" lon="9.9512941" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:45+02:00"/>
+  <node id="305278698" lat="53.5621954" lon="9.9511363" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:45+02:00"/>
+  <node id="305278699" lat="53.5625832" lon="9.9511724" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:56:49+02:00"/>
+  <node id="305279935" lat="53.5630127" lon="9.9500088" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:46:24+02:00"/>
+  <node id="305279936" lat="53.5630567" lon="9.9498136" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:46+02:00"/>
+  <node id="305279938" lat="53.5632064" lon="9.94982" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:46:24+02:00"/>
+  <node id="305279939" lat="53.5633134" lon="9.9498972" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:46:24+02:00"/>
+  <node id="305279942" lat="53.563395" lon="9.9499573" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:46:24+02:00"/>
+  <node id="305279944" lat="53.5634908" lon="9.9500269" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:45+02:00"/>
+  <node id="305281844" lat="53.5633772" lon="9.9500412" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:41+02:00"/>
+  <node id="305281846" lat="53.5632925" lon="9.9499802" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:42+02:00"/>
+  <node id="305281847" lat="53.5631854" lon="9.949904" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:55:42+02:00"/>
+  <node id="305282110" lat="53.5629375" lon="9.9490596" user="Osmosis System User" visible="true" timestamp="2008-10-17T23:57:19+02:00"/>
+  <way id="3575558" visible="true" timestamp="2008-08-18T17:34:23+02:00" user="Osmosis System User">
+    <nd ref="17705426"/>
+    <nd ref="17705439"/>
+    <nd ref="17705438"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Arnkielstraße"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="3575559" visible="true" timestamp="2008-08-18T17:34:23+02:00" user="Osmosis System User">
+    <nd ref="17705427"/>
+    <nd ref="17705440"/>
+    <nd ref="17705433"/>
+    <nd ref="17705432"/>
+    <nd ref="251623491"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Sommerhuder Straße"/>
+    <tag k="created_by" v="Potlatch 0.7b"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="3575560" visible="true" timestamp="2008-08-28T23:03:52+02:00" user="Osmosis System User">
+    <nd ref="17705449"/>
+    <nd ref="17705445"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="name" v="Heinrichstraße"/>
+    <tag k="highway" v="residential"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="3575561" visible="true" timestamp="2008-09-03T17:39:56+02:00" user="Osmosis System User">
+    <nd ref="17705442"/>
+    <nd ref="17705445"/>
+    <tag k="highway" v="residential"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Nagels Allee"/>
+  </way>
+  <way id="3575562" visible="true" timestamp="2008-11-26T16:03:07+01:00" user="Matthias Brandt">
+    <nd ref="17705444"/>
+    <nd ref="17705451"/>
+    <nd ref="17705443"/>
+    <nd ref="277462059"/>
+    <nd ref="17705442"/>
+    <tag k="created_by" v="Potlatch 0.9c"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Oelkersallee"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="3986723" visible="true" timestamp="2008-08-09T10:51:49+02:00" user="Osmosis System User">
+    <nd ref="18244815"/>
+    <nd ref="18244819"/>
+    <nd ref="20823498"/>
+    <nd ref="256505870"/>
+    <nd ref="18244818"/>
+    <nd ref="19879860"/>
+    <nd ref="266010277"/>
+    <nd ref="272716607"/>
+    <nd ref="272716604"/>
+    <nd ref="272285701"/>
+    <nd ref="20823484"/>
+    <nd ref="272285579"/>
+    <nd ref="272716606"/>
+    <nd ref="18161562"/>
+    <tag k="created_by" v="Potlatch 0.6a"/>
+    <tag k="postal_code" v="20259"/>
+    <tag k="name" v="Bellealliancestraße"/>
+    <tag k="abutters" v="residential"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="3986741" visible="true" timestamp="2008-09-23T08:29:35+02:00" user="Osmosis System User">
+    <nd ref="17705437"/>
+    <nd ref="270137836"/>
+    <nd ref="264037242"/>
+    <nd ref="17705424"/>
+    <nd ref="20824150"/>
+    <nd ref="20824159"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Gefionstraße"/>
+    <tag k="abutters" v="residential"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="4302174" visible="true" timestamp="2008-08-28T20:03:01+02:00" user="Osmosis System User">
+    <nd ref="20948583"/>
+    <nd ref="20948585"/>
+    <nd ref="20948584"/>
+    <tag k="highway" v="residential"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="20357"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rosenhofstraße"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="4302210" visible="true" timestamp="2008-11-26T15:57:52+01:00" user="Matthias Brandt">
+    <nd ref="17705441"/>
+    <nd ref="272285674"/>
+    <nd ref="255890942"/>
+    <nd ref="299781971"/>
+    <nd ref="18161562"/>
+    <nd ref="21495475"/>
+    <nd ref="250822057"/>
+    <nd ref="250822066"/>
+    <nd ref="249451877"/>
+    <nd ref="28929024"/>
+    <tag k="cycleway" v="track"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="postal_code" v="20259"/>
+    <tag k="name" v="Eimsbütteler Chaussee"/>
+  </way>
+  <way id="4919306" visible="true" timestamp="2008-11-26T13:53:21+01:00" user="Matthias Brandt">
+    <nd ref="16712064"/>
+    <nd ref="297242777"/>
+    <nd ref="297242778"/>
+    <nd ref="20948581"/>
+    <nd ref="19879858"/>
+    <nd ref="279713359"/>
+    <nd ref="297481902"/>
+    <nd ref="301503861"/>
+    <nd ref="279713669"/>
+    <nd ref="16712065"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="created_by" v="Potlatch 0.10d"/>
+    <tag k="postal_code" v="20357"/>
+    <tag k="abutters" v="commercial"/>
+    <tag k="name" v="Altonaer Straße"/>
+  </way>
+  <way id="4928596" visible="true" timestamp="2008-08-04T13:37:39+02:00" user="Osmosis System User">
+    <nd ref="20948580"/>
+    <nd ref="88898182"/>
+    <nd ref="20948581"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="created_by" v="Potlatch alpha"/>
+    <tag k="postal_code" v="20357"/>
+    <tag k="name" v="Bartelsstraße"/>
+    <tag k="highway" v="residential"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="4928598" visible="true" timestamp="2008-11-26T15:57:33+01:00" user="Matthias Brandt">
+    <nd ref="19879858"/>
+    <nd ref="303536646"/>
+    <nd ref="19879859"/>
+    <nd ref="19879866"/>
+    <nd ref="256505880"/>
+    <nd ref="19879862"/>
+    <nd ref="19879865"/>
+    <nd ref="19879860"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="created_by" v="Potlatch 0.10d"/>
+    <tag k="postal_code" v="20357"/>
+    <tag k="name" v="Vereinsstraße"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="4928619" visible="true" timestamp="2008-11-26T16:03:07+01:00" user="Matthias Brandt">
+    <nd ref="18161563"/>
+    <nd ref="17705426"/>
+    <nd ref="17705427"/>
+    <nd ref="16957968"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Langenfelder Straße"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="5007567" visible="true" timestamp="2008-10-17T23:42:27+02:00" user="Osmosis System User">
+    <nd ref="17705433"/>
+    <nd ref="17705431"/>
+    <nd ref="305279246"/>
+    <nd ref="17705438"/>
+    <nd ref="17705435"/>
+    <nd ref="17705436"/>
+    <nd ref="251623713"/>
+    <nd ref="17705437"/>
+    <nd ref="17705429"/>
+    <nd ref="17705432"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Missundestraße"/>
+    <tag k="highway" v="residential"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="5042349" visible="true" timestamp="2008-09-03T15:38:14+02:00" user="Osmosis System User">
+    <nd ref="266010280"/>
+    <nd ref="256505880"/>
+    <nd ref="33726840"/>
+    <nd ref="256505871"/>
+    <nd ref="293395636"/>
+    <nd ref="33726838"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="name" v="Margaretenstraße"/>
+    <tag k="highway" v="residential"/>
+    <tag k="postal_code" v="20357"/>
+  </way>
+  <way id="5209811" visible="true" timestamp="2008-08-29T13:31:27+02:00" user="Osmosis System User">
+    <nd ref="17705450"/>
+    <nd ref="18161563"/>
+    <tag k="highway" v="residential"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Alsenplatz"/>
+    <tag k="amenity" v="parking"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="5209812" visible="true" timestamp="2008-08-18T17:34:22+02:00" user="Osmosis System User">
+    <nd ref="18161562"/>
+    <nd ref="17705449"/>
+    <nd ref="20823497"/>
+    <nd ref="17705450"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Waterloostraße"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="5209819" visible="true" timestamp="2008-07-09T01:33:16+02:00" user="Osmosis System User">
+    <nd ref="20823485"/>
+    <nd ref="20823491"/>
+    <nd ref="20823492"/>
+    <tag k="access" v="private"/>
+    <tag k="highway" v="service"/>
+  </way>
+  <way id="5209820" visible="true" timestamp="2008-07-09T01:33:12+02:00" user="Osmosis System User">
+    <nd ref="20823490"/>
+    <nd ref="20823494"/>
+    <nd ref="249451905"/>
+    <nd ref="249451906"/>
+    <nd ref="20823493"/>
+    <nd ref="249451909"/>
+    <nd ref="20823496"/>
+    <nd ref="249451908"/>
+    <nd ref="20823495"/>
+    <nd ref="249451910"/>
+    <nd ref="249451911"/>
+    <nd ref="20823494"/>
+    <tag k="access" v="private"/>
+    <tag k="highway" v="service"/>
+  </way>
+  <way id="5209821" visible="true" timestamp="2008-08-18T17:34:28+02:00" user="Osmosis System User">
+    <nd ref="20823497"/>
+    <nd ref="20823490"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Waterloohain"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="5209822" visible="true" timestamp="2008-08-18T17:34:28+02:00" user="Osmosis System User">
+    <nd ref="20823490"/>
+    <nd ref="20823485"/>
+    <nd ref="20823489"/>
+    <nd ref="20823486"/>
+    <nd ref="20823488"/>
+    <nd ref="20823487"/>
+    <nd ref="20823489"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Waterloohain"/>
+    <tag k="highway" v="unclassified"/>
+  </way>
+  <way id="6236666" visible="true" timestamp="2008-09-29T11:03:04+02:00" user="Osmosis System User">
+    <nd ref="50792900"/>
+    <nd ref="50792901"/>
+    <nd ref="50793737"/>
+    <nd ref="50793740"/>
+    <nd ref="50793742"/>
+    <nd ref="300805942"/>
+    <nd ref="50793744"/>
+    <nd ref="50793745"/>
+    <nd ref="50793746"/>
+    <nd ref="50793747"/>
+    <nd ref="52102198"/>
+    <nd ref="53120046"/>
+    <nd ref="53120047"/>
+    <nd ref="53120048"/>
+    <nd ref="53120050"/>
+    <nd ref="53120052"/>
+    <nd ref="53120053"/>
+    <nd ref="53120054"/>
+    <nd ref="53120056"/>
+    <nd ref="53120057"/>
+    <nd ref="53120058"/>
+    <nd ref="53120059"/>
+    <nd ref="53120060"/>
+    <nd ref="53120061"/>
+    <nd ref="53120062"/>
+    <nd ref="53120063"/>
+    <nd ref="53120071"/>
+    <nd ref="53120073"/>
+    <nd ref="53120076"/>
+    <nd ref="52102992"/>
+    <tag k="railway" v="rail"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+  </way>
+  <way id="6273763" visible="true" timestamp="2008-11-26T15:58:27+01:00" user="Matthias Brandt">
+    <nd ref="18161563"/>
+    <nd ref="249451888"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Langenfelder Straße"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="8128707" visible="true" timestamp="2008-11-26T13:55:32+01:00" user="Matthias Brandt">
+    <nd ref="18161560"/>
+    <nd ref="18161561"/>
+    <nd ref="272285625"/>
+    <nd ref="272285624"/>
+    <nd ref="19879859"/>
+    <nd ref="18161558"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="20357"/>
+    <tag k="name" v="Amandastraße"/>
+    <tag k="abutters" v="residential"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="8295827" visible="true" timestamp="2006-10-06T12:31:26+02:00" user="Osmosis System User">
+    <nd ref="17705438"/>
+    <nd ref="17705437"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="note" v="FIXME previously unwayed segment"/>
+  </way>
+  <way id="8670499" visible="true" timestamp="2008-11-26T13:48:38+01:00" user="Matthias Brandt">
+    <nd ref="20948584"/>
+    <nd ref="122590926"/>
+    <nd ref="16712064"/>
+    <nd ref="299781792"/>
+    <nd ref="17705448"/>
+    <nd ref="299781558"/>
+    <nd ref="18161560"/>
+    <nd ref="299781913"/>
+    <tag k="cycleway" v="track"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="postal_code" v="20259"/>
+    <tag k="abutters" v="mixed"/>
+    <tag k="name" v="Eimsbütteler Chaussee"/>
+  </way>
+  <way id="13286312" visible="true" timestamp="2008-10-05T14:57:02+02:00" user="Osmosis System User">
+    <nd ref="122608451"/>
+    <nd ref="16957968"/>
+    <nd ref="16712064"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="abutters" v="mixed"/>
+    <tag k="name" v="Max-Brauer-Allee"/>
+    <tag k="highway" v="secondary"/>
+  </way>
+  <way id="13547922" visible="true" timestamp="2008-08-18T17:34:16+02:00" user="Osmosis System User">
+    <nd ref="122590918"/>
+    <nd ref="122590926"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Eifflerstraße"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="residential"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="22757943" visible="true" timestamp="2008-11-13T19:52:35+01:00" user="Osmosis System User">
+    <nd ref="17705448"/>
+    <nd ref="17705447"/>
+    <nd ref="16957970"/>
+    <nd ref="17705442"/>
+    <nd ref="17705450"/>
+    <nd ref="249451914"/>
+    <nd ref="249451913"/>
+    <nd ref="302285864"/>
+    <nd ref="311817707"/>
+    <nd ref="264037243"/>
+    <nd ref="244232971"/>
+    <nd ref="256278697"/>
+    <nd ref="256278716"/>
+    <nd ref="244232975"/>
+    <nd ref="244232977"/>
+    <nd ref="244232969"/>
+    <nd ref="244232983"/>
+    <nd ref="244232987"/>
+    <nd ref="244232989"/>
+    <tag k="name" v="Eimsbütteler Straße"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="23253099" visible="true" timestamp="2008-09-20T20:57:12+02:00" user="Osmosis System User">
+    <nd ref="17705435"/>
+    <nd ref="251623706"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="foot" v="yes"/>
+  </way>
+  <way id="23253100" visible="true" timestamp="2008-09-20T20:57:15+02:00" user="Osmosis System User">
+    <nd ref="249451890"/>
+    <nd ref="251623713"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="foot" v="yes"/>
+  </way>
+  <way id="23654658" visible="true" timestamp="2008-08-30T10:37:16+02:00" user="Osmosis System User">
+    <nd ref="256278697"/>
+    <nd ref="256278698"/>
+    <nd ref="256278699"/>
+    <nd ref="256278700"/>
+    <nd ref="256278701"/>
+    <nd ref="256278702"/>
+    <nd ref="256278703"/>
+    <nd ref="256278704"/>
+    <nd ref="256278705"/>
+    <nd ref="256278706"/>
+    <nd ref="256278707"/>
+    <nd ref="256278708"/>
+    <nd ref="256278709"/>
+    <nd ref="256278710"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+  </way>
+  <way id="23654678" visible="true" timestamp="2008-04-07T19:13:34+02:00" user="Osmosis System User">
+    <nd ref="256278989"/>
+    <nd ref="256278990"/>
+    <nd ref="256278991"/>
+    <nd ref="256278992"/>
+    <nd ref="256278993"/>
+    <nd ref="256278994"/>
+    <nd ref="256278996"/>
+    <nd ref="256278997"/>
+    <nd ref="256278999"/>
+    <nd ref="256279000"/>
+    <nd ref="256279001"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="23687641" visible="true" timestamp="2008-08-04T13:37:35+02:00" user="Osmosis System User">
+    <nd ref="256505870"/>
+    <nd ref="256505872"/>
+    <nd ref="256505871"/>
+    <tag k="postal_code" v="20357"/>
+    <tag k="name" v="Fettstraße"/>
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="residential"/>
+    <tag k="oneway" v="true"/>
+  </way>
+  <way id="23844124" visible="true" timestamp="2008-10-05T14:56:01+02:00" user="Osmosis System User">
+    <nd ref="19879873"/>
+    <nd ref="19879875"/>
+    <nd ref="19879872"/>
+    <nd ref="19879871"/>
+    <nd ref="167359138"/>
+    <nd ref="20824156"/>
+    <nd ref="20824155"/>
+    <nd ref="249595540"/>
+    <nd ref="19879870"/>
+    <nd ref="19879869"/>
+    <nd ref="20824153"/>
+    <nd ref="256279001"/>
+    <nd ref="19879867"/>
+    <nd ref="256278989"/>
+    <nd ref="17705425"/>
+    <nd ref="287721525"/>
+    <tag k="abutters" v="residential"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="name" v="Augustenburger Straße"/>
+    <tag k="highway" v="secondary"/>
+  </way>
+  <way id="24860929" visible="true" timestamp="2008-11-26T16:02:15+01:00" user="Matthias Brandt">
+    <nd ref="270137794"/>
+    <nd ref="17705437"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="JOSM"/>
+  </way>
+  <way id="24860930" visible="true" timestamp="2008-11-26T16:02:16+01:00" user="Matthias Brandt">
+    <nd ref="270137810"/>
+    <nd ref="270137812"/>
+    <nd ref="270137813"/>
+    <nd ref="270137815"/>
+    <nd ref="270137816"/>
+    <nd ref="270137818"/>
+    <nd ref="270137820"/>
+    <nd ref="270137822"/>
+    <nd ref="270137825"/>
+    <nd ref="270137826"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="JOSM"/>
+  </way>
+  <way id="24860931" visible="true" timestamp="2008-09-20T20:57:54+02:00" user="Osmosis System User">
+    <nd ref="270137831"/>
+    <nd ref="270137832"/>
+    <nd ref="270137834"/>
+    <nd ref="270137822"/>
+    <nd ref="270137836"/>
+    <nd ref="270137837"/>
+    <nd ref="270137840"/>
+    <nd ref="249451890"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="25030473" visible="true" timestamp="2008-06-23T12:00:31+02:00" user="Osmosis System User">
+    <nd ref="272285573"/>
+    <nd ref="272285574"/>
+    <nd ref="272285575"/>
+    <nd ref="272285577"/>
+    <nd ref="272285573"/>
+    <tag k="sport" v="boules"/>
+    <tag k="name" v="Bouleplatz"/>
+  </way>
+  <way id="25030474" visible="true" timestamp="2008-06-25T15:51:12+02:00" user="Osmosis System User">
+    <nd ref="272285579"/>
+    <nd ref="272285580"/>
+    <nd ref="272285581"/>
+    <nd ref="272285582"/>
+    <nd ref="272285583"/>
+    <nd ref="272285585"/>
+    <nd ref="272285587"/>
+    <nd ref="272285589"/>
+    <nd ref="272285590"/>
+    <nd ref="272285591"/>
+    <nd ref="272285592"/>
+    <nd ref="272285594"/>
+    <nd ref="272285597"/>
+    <nd ref="272285598"/>
+    <nd ref="272285600"/>
+    <nd ref="272285601"/>
+    <nd ref="272285603"/>
+    <nd ref="272285657"/>
+    <nd ref="272285605"/>
+    <nd ref="272285607"/>
+    <nd ref="272285609"/>
+    <nd ref="272285610"/>
+    <nd ref="272285612"/>
+    <nd ref="272285635"/>
+    <nd ref="272285614"/>
+    <nd ref="272285617"/>
+    <nd ref="272285620"/>
+    <nd ref="272285621"/>
+    <nd ref="272285624"/>
+    <tag k="created_by" v="Potlatch 0.9c"/>
+    <tag k="name" v="Lindenpark"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="25030476" visible="true" timestamp="2008-07-24T11:39:05+02:00" user="Osmosis System User">
+    <nd ref="272285625"/>
+    <nd ref="272285628"/>
+    <nd ref="272285631"/>
+    <nd ref="272285632"/>
+    <nd ref="272285635"/>
+    <tag k="name" v="Fußweg Lindenpark"/>
+    <tag k="created_by" v="Potlatch 0.10"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="25030477" visible="true" timestamp="2008-06-25T15:51:48+02:00" user="Osmosis System User">
+    <nd ref="272285637"/>
+    <nd ref="272285639"/>
+    <nd ref="272285642"/>
+    <nd ref="272285644"/>
+    <nd ref="272285646"/>
+    <nd ref="272285647"/>
+    <nd ref="272285649"/>
+    <nd ref="272285653"/>
+    <nd ref="272285655"/>
+    <nd ref="272285637"/>
+    <tag k="created_by" v="Potlatch 0.9c"/>
+    <tag k="name" v="Brunnen"/>
+    <tag k="amenity" v="fountain"/>
+  </way>
+  <way id="25030478" visible="true" timestamp="2008-06-25T15:51:18+02:00" user="Osmosis System User">
+    <nd ref="272285657"/>
+    <nd ref="272285660"/>
+    <nd ref="272285663"/>
+    <nd ref="272285668"/>
+    <nd ref="272285669"/>
+    <nd ref="272285670"/>
+    <nd ref="272285671"/>
+    <nd ref="272285674"/>
+    <tag k="created_by" v="Potlatch 0.9c"/>
+    <tag k="name" v="Lindenpark"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="25030479" visible="true" timestamp="2008-06-24T16:17:56+02:00" user="Osmosis System User">
+    <nd ref="272285677"/>
+    <nd ref="272716644"/>
+    <nd ref="272285679"/>
+    <nd ref="272285682"/>
+    <nd ref="272285688"/>
+    <nd ref="272285677"/>
+    <tag k="name" v="Fußballplatz Lindenpark"/>
+    <tag k="sport" v="soccer"/>
+  </way>
+  <way id="25030480" visible="true" timestamp="2008-06-23T12:00:33+02:00" user="Osmosis System User">
+    <nd ref="272285679"/>
+    <nd ref="272285682"/>
+    <nd ref="272285690"/>
+    <nd ref="272285691"/>
+    <nd ref="272285679"/>
+    <tag k="name" v="Basketballplatz Lindenpark"/>
+    <tag k="sport" v="basketball"/>
+  </way>
+  <way id="25064547" visible="true" timestamp="2008-06-24T16:17:54+02:00" user="Osmosis System User">
+    <nd ref="272716607"/>
+    <nd ref="272716609"/>
+    <nd ref="272716610"/>
+    <nd ref="272716661"/>
+    <nd ref="272716612"/>
+    <nd ref="272716613"/>
+    <nd ref="272716615"/>
+    <nd ref="272716616"/>
+    <nd ref="272716617"/>
+    <nd ref="272716618"/>
+    <nd ref="272716619"/>
+    <nd ref="272716620"/>
+    <nd ref="272716621"/>
+    <nd ref="272716622"/>
+    <nd ref="272716624"/>
+    <nd ref="272716625"/>
+    <nd ref="272716627"/>
+    <nd ref="272716628"/>
+    <nd ref="272716683"/>
+    <nd ref="272716629"/>
+    <nd ref="272716631"/>
+    <nd ref="272716632"/>
+    <nd ref="272716634"/>
+    <nd ref="272716635"/>
+    <nd ref="272716636"/>
+    <nd ref="272716638"/>
+    <nd ref="272716639"/>
+    <nd ref="272716640"/>
+    <nd ref="272716641"/>
+    <nd ref="272716642"/>
+    <nd ref="272716643"/>
+    <nd ref="272716644"/>
+    <nd ref="272716646"/>
+    <nd ref="272716647"/>
+    <nd ref="272716648"/>
+    <nd ref="272716650"/>
+    <nd ref="272716651"/>
+    <nd ref="272716652"/>
+    <nd ref="272716654"/>
+    <nd ref="272716655"/>
+    <nd ref="272716657"/>
+    <nd ref="272716658"/>
+    <nd ref="272716659"/>
+    <nd ref="272716606"/>
+    <nd ref="272716607"/>
+    <tag k="name" v="Lindenpark"/>
+    <tag k="leisure" v="park"/>
+  </way>
+  <way id="25064549" visible="true" timestamp="2008-06-25T15:51:41+02:00" user="Osmosis System User">
+    <nd ref="272716661"/>
+    <nd ref="272716662"/>
+    <nd ref="272716664"/>
+    <nd ref="272716665"/>
+    <nd ref="272716666"/>
+    <nd ref="272716668"/>
+    <nd ref="272716669"/>
+    <nd ref="272716670"/>
+    <nd ref="272716671"/>
+    <nd ref="272716673"/>
+    <nd ref="272716618"/>
+    <nd ref="272716616"/>
+    <nd ref="272716615"/>
+    <nd ref="272716613"/>
+    <nd ref="272716661"/>
+    <tag k="name" v="Spielplatz Robinsons Insel"/>
+    <tag k="created_by" v="Potlatch 0.9c"/>
+    <tag k="leisure" v="playground"/>
+  </way>
+  <way id="25064550" visible="true" timestamp="2008-06-25T15:54:29+02:00" user="Osmosis System User">
+    <nd ref="272716638"/>
+    <nd ref="272716674"/>
+    <nd ref="272716676"/>
+    <nd ref="272716677"/>
+    <nd ref="272716679"/>
+    <nd ref="272716680"/>
+    <nd ref="272716681"/>
+    <nd ref="272716683"/>
+    <nd ref="272716629"/>
+    <nd ref="272716631"/>
+    <nd ref="272716632"/>
+    <nd ref="272716634"/>
+    <nd ref="272716635"/>
+    <nd ref="272716636"/>
+    <nd ref="272716638"/>
+    <tag k="name" v="Spielplatz Dschungel"/>
+    <tag k="created_by" v="Potlatch 0.9c"/>
+    <tag k="leisure" v="playground"/>
+  </way>
+  <way id="25462436" visible="true" timestamp="2008-07-09T23:21:43+02:00" user="Osmosis System User">
+    <nd ref="277462059"/>
+    <nd ref="277462061"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="JOSM"/>
+  </way>
+  <way id="25659180" visible="true" timestamp="2008-08-20T23:40:09+02:00" user="Osmosis System User">
+    <nd ref="279714227"/>
+    <nd ref="279714185"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+  </way>
+  <way id="26503208" visible="true" timestamp="2008-08-30T09:33:21+02:00" user="Osmosis System User">
+    <nd ref="292205851"/>
+    <nd ref="290485951"/>
+    <nd ref="290485909"/>
+    <nd ref="290485913"/>
+    <nd ref="290485916"/>
+    <nd ref="290485919"/>
+    <nd ref="290485920"/>
+    <nd ref="290485921"/>
+    <tag k="boundary_type" v="suburb"/>
+    <tag k="right:suburb" v="Sternschanze"/>
+    <tag k="boundary" v="administrative"/>
+    <tag k="admin_level" v="9"/>
+  </way>
+  <way id="26640431" visible="true" timestamp="2008-08-30T11:17:29+02:00" user="Osmosis System User">
+    <nd ref="290485921"/>
+    <nd ref="290485922"/>
+    <tag k="boundary_type" v="suburb"/>
+    <tag k="right:suburb" v="Sternschanze"/>
+    <tag k="boundary" v="administrative"/>
+    <tag k="admin_level" v="9"/>
+  </way>
+  <way id="26641595" visible="true" timestamp="2008-09-23T08:23:34+02:00" user="Osmosis System User">
+    <nd ref="200016779"/>
+    <nd ref="292217891"/>
+    <nd ref="292217892"/>
+    <nd ref="292217893"/>
+    <nd ref="292217894"/>
+    <nd ref="292217895"/>
+    <nd ref="292217896"/>
+    <nd ref="292217897"/>
+    <nd ref="292218448"/>
+    <nd ref="292218449"/>
+    <nd ref="292218450"/>
+    <nd ref="292218492"/>
+    <nd ref="292219267"/>
+    <nd ref="292219268"/>
+    <nd ref="292219269"/>
+    <nd ref="292219270"/>
+    <nd ref="292219272"/>
+    <nd ref="292219273"/>
+    <nd ref="292219274"/>
+    <nd ref="292219275"/>
+    <nd ref="292219276"/>
+    <nd ref="292219277"/>
+    <nd ref="292219278"/>
+    <nd ref="292219279"/>
+    <nd ref="292219280"/>
+    <nd ref="292219281"/>
+    <nd ref="292219282"/>
+    <nd ref="292219283"/>
+    <nd ref="292219284"/>
+    <nd ref="292219285"/>
+    <nd ref="292219286"/>
+    <nd ref="292219287"/>
+    <nd ref="292219289"/>
+    <nd ref="292219290"/>
+    <nd ref="292219291"/>
+    <nd ref="292220635"/>
+    <nd ref="292220637"/>
+    <nd ref="292220639"/>
+    <nd ref="292220640"/>
+    <nd ref="292220642"/>
+    <nd ref="292220643"/>
+    <nd ref="292220646"/>
+    <nd ref="292220648"/>
+    <nd ref="292220651"/>
+    <nd ref="292220652"/>
+    <nd ref="292220655"/>
+    <nd ref="292220657"/>
+    <nd ref="292220660"/>
+    <nd ref="292220662"/>
+    <nd ref="292220665"/>
+    <nd ref="292220666"/>
+    <nd ref="292220668"/>
+    <nd ref="292220670"/>
+    <nd ref="292220671"/>
+    <nd ref="292220674"/>
+    <nd ref="292220675"/>
+    <nd ref="292220679"/>
+    <nd ref="292220683"/>
+    <nd ref="292220686"/>
+    <nd ref="292220688"/>
+    <nd ref="292220690"/>
+    <nd ref="292220691"/>
+    <nd ref="292220693"/>
+    <nd ref="292220694"/>
+    <nd ref="292220696"/>
+    <nd ref="292220698"/>
+    <nd ref="292220699"/>
+    <nd ref="299207063"/>
+    <nd ref="292220701"/>
+    <nd ref="292220702"/>
+    <nd ref="290485922"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="boundary" v="administrative"/>
+  </way>
+  <way id="26641903" visible="true" timestamp="2008-11-26T13:53:21+01:00" user="Matthias Brandt">
+    <nd ref="290485922"/>
+    <nd ref="297242786"/>
+    <nd ref="297242787"/>
+    <nd ref="290485923"/>
+    <nd ref="290485924"/>
+    <nd ref="290485926"/>
+    <nd ref="290485927"/>
+    <nd ref="290485928"/>
+    <nd ref="290485929"/>
+    <nd ref="290485930"/>
+    <nd ref="290485931"/>
+    <tag k="boundary_type" v="suburb"/>
+    <tag k="boundary" v="administrative"/>
+    <tag k="right:suburb" v="Sternschanze"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="admin_level" v="9"/>
+  </way>
+  <way id="26750152" visible="true" timestamp="2008-09-03T17:40:20+02:00" user="Osmosis System User">
+    <nd ref="17705445"/>
+    <nd ref="17705441"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Nagels Allee"/>
+  </way>
+  <way id="27014718" visible="true" timestamp="2008-09-12T16:31:09+02:00" user="Osmosis System User">
+    <nd ref="266010277"/>
+    <nd ref="266010280"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="20259"/>
+    <tag k="name" v="Lindenallee"/>
+    <tag k="highway" v="living_street"/>
+  </way>
+  <way id="27113345" visible="true" timestamp="2008-10-03T20:49:57+02:00" user="Osmosis System User">
+    <nd ref="297481717"/>
+    <nd ref="297481719"/>
+    <nd ref="297481721"/>
+    <nd ref="297481723"/>
+    <nd ref="297481725"/>
+    <nd ref="297481727"/>
+    <nd ref="297481729"/>
+    <nd ref="301503862"/>
+    <nd ref="297481731"/>
+    <nd ref="297481733"/>
+    <nd ref="297481717"/>
+    <tag k="amenity" v="school"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="name" v="Altonaer Schule"/>
+  </way>
+  <way id="27259956" visible="true" timestamp="2008-11-26T15:58:26+01:00" user="Matthias Brandt">
+    <nd ref="311817707"/>
+    <nd ref="249451916"/>
+    <nd ref="249451883"/>
+    <nd ref="299207267"/>
+    <nd ref="299207037"/>
+    <nd ref="299207064"/>
+    <nd ref="299207035"/>
+    <nd ref="28929024"/>
+    <nd ref="256278710"/>
+    <nd ref="28929025"/>
+    <nd ref="19879861"/>
+    <nd ref="167359087"/>
+    <nd ref="19879857"/>
+    <nd ref="244232971"/>
+    <nd ref="17705425"/>
+    <nd ref="249451902"/>
+    <tag k="ref" v="Ring 2"/>
+    <tag k="highway" v="primary"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Alsenstraße"/>
+    <tag k="cycleway" v="track"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="27260000" visible="true" timestamp="2008-11-13T19:52:37+01:00" user="Osmosis System User">
+    <nd ref="249451902"/>
+    <nd ref="251623706"/>
+    <nd ref="287721525"/>
+    <nd ref="249451888"/>
+    <nd ref="311817707"/>
+    <tag k="name" v="Alsenstraße"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="highway" v="primary"/>
+    <tag k="ref" v="Ring 2"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="27260001" visible="true" timestamp="2008-10-17T23:57:20+02:00" user="Osmosis System User">
+    <nd ref="249451902"/>
+    <nd ref="17705424"/>
+    <nd ref="249451901"/>
+    <nd ref="249451900"/>
+    <nd ref="249451899"/>
+    <nd ref="305282110"/>
+    <nd ref="16712061"/>
+    <tag k="ref" v="Ring 2"/>
+    <tag k="highway" v="primary"/>
+    <tag k="name" v="Alsenstraße"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="postal_code" v="22769"/>
+  </way>
+  <way id="27308991" visible="true" timestamp="2008-11-26T15:58:26+01:00" user="Matthias Brandt">
+    <nd ref="28929024"/>
+    <nd ref="256278710"/>
+    <nd ref="28929025"/>
+    <nd ref="19879861"/>
+    <nd ref="167359087"/>
+    <nd ref="19879857"/>
+    <nd ref="244232971"/>
+    <nd ref="17705425"/>
+    <nd ref="249451902"/>
+    <tag k="ref" v="Ring 2"/>
+    <tag k="highway" v="primary"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Alsenstraße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="cycleway" v="track"/>
+  </way>
+  <way id="27308992" visible="true" timestamp="2008-11-26T15:58:26+01:00" user="Matthias Brandt">
+    <nd ref="28929024"/>
+    <nd ref="256278710"/>
+    <nd ref="28929025"/>
+    <nd ref="19879861"/>
+    <nd ref="167359087"/>
+    <nd ref="19879857"/>
+    <nd ref="244232971"/>
+    <nd ref="299772972"/>
+    <nd ref="17705425"/>
+    <nd ref="249451902"/>
+    <tag k="ref" v="Ring 2"/>
+    <tag k="highway" v="primary"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="22769"/>
+    <tag k="name" v="Alsenstraße"/>
+    <tag k="cycleway" v="track"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="27309719" visible="true" timestamp="2008-09-25T19:53:58+02:00" user="Osmosis System User">
+    <nd ref="299781792"/>
+    <nd ref="299781886"/>
+    <nd ref="299781795"/>
+    <nd ref="299781887"/>
+    <nd ref="299781558"/>
+    <tag k="service" v="parking_aisle"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="highway" v="service"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="27309815" visible="true" timestamp="2008-11-26T15:57:53+01:00" user="Matthias Brandt">
+    <nd ref="299781983"/>
+    <nd ref="299781984"/>
+    <nd ref="299781971"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="highway" v="service"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="service" v="parking_aisle"/>
+  </way>
+  <way id="27309820" visible="true" timestamp="2008-09-25T19:55:50+02:00" user="Osmosis System User">
+    <nd ref="299782010"/>
+    <nd ref="299782015"/>
+    <nd ref="299782012"/>
+    <nd ref="299782086"/>
+    <nd ref="299782010"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="shop" v="supermarket"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="27363285" visible="true" timestamp="2008-11-26T13:50:49+01:00" user="Matthias Brandt">
+    <nd ref="297242778"/>
+    <nd ref="297243521"/>
+    <nd ref="297243522"/>
+    <nd ref="297242777"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="highway" v="service"/>
+    <tag k="service" v="parking_aisle"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+  </way>
+  <way id="27403140" visible="true" timestamp="2008-09-29T11:02:13+02:00" user="Osmosis System User">
+    <nd ref="31161525"/>
+    <nd ref="31161542"/>
+    <nd ref="300805844"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="network" v="HVV"/>
+    <tag k="lines" v="S11;S21;S31"/>
+    <tag k="name" v="S11, S21, S31"/>
+    <tag k="railway" v="light_rail"/>
+  </way>
+  <way id="27403145" visible="true" timestamp="2008-09-29T11:02:39+02:00" user="Osmosis System User">
+    <nd ref="300805844"/>
+    <nd ref="31161558"/>
+    <tag k="network" v="HVV"/>
+    <tag k="lines" v="S11;S21;S31"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="name" v="S11, S21, S31"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="layer" v="1"/>
+  </way>
+  <way id="27403147" visible="true" timestamp="2008-09-29T11:03:00+02:00" user="Osmosis System User">
+    <nd ref="31161558"/>
+    <nd ref="31161590"/>
+    <nd ref="300805876"/>
+    <tag k="network" v="HVV"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="lines" v="S11;S21;S31"/>
+    <tag k="name" v="S11, S21, S31"/>
+    <tag k="railway" v="light_rail"/>
+  </way>
+  <way id="27403151" visible="true" timestamp="2008-09-29T11:03:16+02:00" user="Osmosis System User">
+    <nd ref="300805898"/>
+    <nd ref="31161598"/>
+    <nd ref="300805983"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="network" v="HVV"/>
+    <tag k="lines" v="S11;S21;S31"/>
+    <tag k="name" v="S11, S21, S31"/>
+    <tag k="railway" v="light_rail"/>
+  </way>
+  <way id="27403160" visible="true" timestamp="2008-09-29T11:03:05+02:00" user="Osmosis System User">
+    <nd ref="300805876"/>
+    <nd ref="300805898"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="name" v="S11, S21, S31"/>
+    <tag k="lines" v="S11;S21;S31"/>
+    <tag k="network" v="HVV"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="layer" v="1"/>
+  </way>
+  <way id="27403161" visible="true" timestamp="2008-09-29T11:03:05+02:00" user="Osmosis System User">
+    <nd ref="300805876"/>
+    <nd ref="300805898"/>
+    <tag k="name" v="S11, S21, S31"/>
+    <tag k="lines" v="S11;S21;S31"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="network" v="HVV"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="layer" v="1"/>
+  </way>
+  <way id="27460098" visible="true" timestamp="2008-10-02T07:46:02+02:00" user="Osmosis System User">
+    <nd ref="301503862"/>
+    <nd ref="301503861"/>
+    <tag k="highway" v="footway"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+  </way>
+  <way id="27470146" visible="true" timestamp="2008-10-03T20:49:14+02:00" user="Osmosis System User">
+    <nd ref="301622185"/>
+    <nd ref="301622186"/>
+    <nd ref="301622188"/>
+    <nd ref="301622189"/>
+    <nd ref="301622185"/>
+    <tag k="amenity" v="school"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="name" v="Schule Arnkielstraße"/>
+  </way>
+  <way id="27636076" visible="true" timestamp="2008-10-10T13:30:32+02:00" user="Osmosis System User">
+    <nd ref="297481902"/>
+    <nd ref="297481902"/>
+    <nd ref="297481902"/>
+    <nd ref="297481902"/>
+    <tag k="highway" v="service"/>
+    <tag k="service" v="parking_aisle"/>
+    <tag k="created_by" v="Potlatch 0.10d"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="27636298" visible="true" timestamp="2008-11-26T13:53:13+01:00" user="Matthias Brandt">
+    <nd ref="303536887"/>
+    <nd ref="303536646"/>
+    <tag k="highway" v="service"/>
+    <tag k="created_by" v="Potlatch 0.10d"/>
+    <tag k="service" v="parking_aisle"/>
+  </way>
+  <way id="27804535" visible="true" timestamp="2008-10-17T23:39:00+02:00" user="Osmosis System User">
+    <nd ref="305278693"/>
+    <nd ref="305278694"/>
+    <nd ref="305278695"/>
+    <nd ref="305278696"/>
+    <nd ref="305278698"/>
+    <nd ref="305278699"/>
+    <nd ref="305278700"/>
+    <nd ref="305278701"/>
+    <nd ref="305278702"/>
+    <nd ref="305278703"/>
+    <nd ref="305278704"/>
+    <nd ref="305278705"/>
+    <nd ref="305278693"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="27804558" visible="true" timestamp="2008-10-17T23:40:56+02:00" user="Osmosis System User">
+    <nd ref="305278989"/>
+    <nd ref="305278990"/>
+    <nd ref="305278991"/>
+    <nd ref="305278993"/>
+    <nd ref="305278994"/>
+    <nd ref="305278995"/>
+    <nd ref="305278989"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="27804561" visible="true" timestamp="2008-10-17T23:41:24+02:00" user="Osmosis System User">
+    <nd ref="305279043"/>
+    <nd ref="305279044"/>
+    <nd ref="305279045"/>
+    <nd ref="305279046"/>
+    <nd ref="305279043"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="27804602" visible="true" timestamp="2008-10-17T23:55:47+02:00" user="Osmosis System User">
+    <nd ref="305279942"/>
+    <nd ref="305279944"/>
+    <nd ref="305281845"/>
+    <nd ref="305279946"/>
+    <nd ref="305279934"/>
+    <nd ref="305279935"/>
+    <nd ref="305279936"/>
+    <nd ref="305281847"/>
+    <nd ref="305279938"/>
+    <nd ref="305279939"/>
+    <nd ref="305281846"/>
+    <nd ref="305281844"/>
+    <nd ref="305279942"/>
+    <tag k="building" v="yes"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+  </way>
+  <way id="27804702" visible="true" timestamp="2008-10-17T23:57:20+02:00" user="Osmosis System User">
+    <nd ref="270137784"/>
+    <nd ref="270137785"/>
+    <nd ref="270137787"/>
+    <nd ref="270137788"/>
+    <nd ref="270137789"/>
+    <nd ref="270137790"/>
+    <nd ref="270137791"/>
+    <nd ref="270137793"/>
+    <nd ref="270137794"/>
+    <nd ref="270137795"/>
+    <nd ref="270137796"/>
+    <nd ref="270137797"/>
+    <nd ref="270137800"/>
+    <nd ref="270137801"/>
+    <nd ref="270137802"/>
+    <nd ref="270137803"/>
+    <nd ref="270137805"/>
+    <nd ref="305282110"/>
+    <tag k="access" v="permissive"/>
+    <tag k="highway" v="service"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+  </way>
+  <way id="27804724" visible="true" timestamp="2008-10-18T00:01:53+02:00" user="Osmosis System User">
+    <nd ref="305282402"/>
+    <nd ref="305282403"/>
+    <nd ref="305282404"/>
+    <nd ref="305282405"/>
+    <nd ref="305282402"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="27804729" visible="true" timestamp="2008-10-18T00:01:52+02:00" user="Osmosis System User">
+    <nd ref="305282444"/>
+    <nd ref="305282445"/>
+    <nd ref="305282446"/>
+    <nd ref="305282447"/>
+    <nd ref="305282444"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="27804731" visible="true" timestamp="2008-10-18T00:01:52+02:00" user="Osmosis System User">
+    <nd ref="305282522"/>
+    <nd ref="305282523"/>
+    <nd ref="305282524"/>
+    <nd ref="305282525"/>
+    <nd ref="305282522"/>
+    <tag k="created_by" v="Potlatch 0.10e"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="28457066" visible="true" timestamp="2008-11-25T12:21:45+01:00" user="Matthias Brandt">
+    <nd ref="312641591"/>
+  </way>
+  <way id="28457067" visible="true" timestamp="2008-11-25T13:16:51+01:00" user="Matthias Brandt">
+    <nd ref="312641593"/>
+    <nd ref="312641594"/>
+    <nd ref="312641595"/>
+    <nd ref="312641596"/>
+    <nd ref="312641593"/>
+  </way>
+  <way id="28457068" visible="true" timestamp="2008-11-25T13:22:21+01:00" user="Matthias Brandt">
+    <nd ref="312641598"/>
+    <nd ref="312641599"/>
+  </way>
+  <way id="28457069" visible="true" timestamp="2008-11-25T13:23:36+01:00" user="Matthias Brandt">
+    <nd ref="312641600"/>
+    <nd ref="312641601"/>
+    <nd ref="312641602"/>
+    <nd ref="312641600"/>
+  </way>
+  <way id="28457070" visible="true" timestamp="2008-11-25T13:39:09+01:00" user="Matthias Brandt">
+    <nd ref="312641604"/>
+    <nd ref="312641605"/>
+  </way>
+  <way id="28457071" visible="true" timestamp="2008-11-25T13:41:06+01:00" user="Matthias Brandt">
+    <nd ref="312641606"/>
+    <nd ref="312641607"/>
+    <nd ref="312641608"/>
+    <nd ref="312641606"/>
+  </way>
+  <relation id="30223" visible="true" timestamp="2008-11-13T19:52:37+01:00" user="Osmosis System User">
+    <member type="node" ref="246417731" role=""/>
+    <member type="node" ref="279896004" role=""/>
+    <member type="way" ref="16185973" role=""/>
+    <member type="way" ref="19259709" role=""/>
+    <member type="way" ref="19259826" role=""/>
+    <member type="way" ref="19260076" role=""/>
+    <member type="way" ref="26459810" role=""/>
+    <member type="way" ref="26459812" role=""/>
+    <member type="way" ref="26459813" role=""/>
+    <member type="way" ref="26640324" role=""/>
+    <member type="way" ref="26641359" role=""/>
+    <member type="way" ref="26641360" role=""/>
+    <member type="way" ref="26641595" role=""/>
+    <member type="way" ref="26641903" role=""/>
+    <tag k="name" v="Altona"/>
+    <tag k="boundary" v="administrative"/>
+    <tag k="type" v="boundary"/>
+    <tag k="admin_level" v="7"/>
+  </relation>
+  <relation id="30243" visible="true" timestamp="2008-11-13T19:54:19+01:00" user="Osmosis System User">
+    <member type="way" ref="26184102" role=""/>
+    <member type="way" ref="26641361" role=""/>
+    <member type="way" ref="26641594" role=""/>
+    <member type="way" ref="26641595" role=""/>
+    <member type="way" ref="26641903" role=""/>
+    <member type="way" ref="26644140" role=""/>
+    <member type="way" ref="26644141" role=""/>
+    <member type="way" ref="26644142" role=""/>
+    <member type="way" ref="26644459" role=""/>
+    <tag k="name" v="Eimsbüttel"/>
+    <tag k="boundary" v="administrative"/>
+    <tag k="type" v="boundary"/>
+    <tag k="admin_level" v="7"/>
+  </relation>
+  <relation id="30832" visible="true" timestamp="2008-11-15T17:49:40+01:00" user="Osmosis System User">
+    <member type="node" ref="248345538" role=""/>
+    <member type="node" ref="248847413" role=""/>
+    <member type="node" ref="254406618" role=""/>
+    <member type="node" ref="255882724" role=""/>
+    <member type="node" ref="260549776" role=""/>
+    <member type="node" ref="260550305" role=""/>
+    <member type="node" ref="260550426" role=""/>
+    <member type="node" ref="260552521" role=""/>
+    <member type="node" ref="295998494" role=""/>
+    <member type="way" ref="4841093" role=""/>
+    <member type="way" ref="4841094" role=""/>
+    <member type="way" ref="4874563" role=""/>
+    <member type="way" ref="4874564" role=""/>
+    <member type="way" ref="6229966" role=""/>
+    <member type="way" ref="6229969" role=""/>
+    <member type="way" ref="6236655" role=""/>
+    <member type="way" ref="6236719" role=""/>
+    <member type="way" ref="6238605" role=""/>
+    <member type="way" ref="6274699" role=""/>
+    <member type="way" ref="7979353" role=""/>
+    <member type="way" ref="7979355" role=""/>
+    <member type="way" ref="7979364" role=""/>
+    <member type="way" ref="7979366" role=""/>
+    <member type="way" ref="20550558" role=""/>
+    <member type="way" ref="21351855" role=""/>
+    <member type="way" ref="22749839" role=""/>
+    <member type="way" ref="22755614" role=""/>
+    <member type="way" ref="22755617" role=""/>
+    <member type="way" ref="22755618" role=""/>
+    <member type="way" ref="22755640" role=""/>
+    <member type="way" ref="22755644" role=""/>
+    <member type="way" ref="22904343" role=""/>
+    <member type="way" ref="23057978" role=""/>
+    <member type="way" ref="23057980" role=""/>
+    <member type="way" ref="23253022" role=""/>
+    <member type="way" ref="23253024" role=""/>
+    <member type="way" ref="23492719" role=""/>
+    <member type="way" ref="23492723" role=""/>
+    <member type="way" ref="23492726" role=""/>
+    <member type="way" ref="23492741" role=""/>
+    <member type="way" ref="24025294" role=""/>
+    <member type="way" ref="24025295" role=""/>
+    <member type="way" ref="24025306" role=""/>
+    <member type="way" ref="24025311" role=""/>
+    <member type="way" ref="24025312" role=""/>
+    <member type="way" ref="24025365" role=""/>
+    <member type="way" ref="24025408" role=""/>
+    <member type="way" ref="24025456" role=""/>
+    <member type="way" ref="24025457" role=""/>
+    <member type="way" ref="24025460" role=""/>
+    <member type="way" ref="24025464" role=""/>
+    <member type="way" ref="24025525" role=""/>
+    <member type="way" ref="24025533" role=""/>
+    <member type="way" ref="24025535" role=""/>
+    <member type="way" ref="24025539" role=""/>
+    <member type="way" ref="24025550" role=""/>
+    <member type="way" ref="24025556" role=""/>
+    <member type="way" ref="24025577" role=""/>
+    <member type="way" ref="24025580" role=""/>
+    <member type="way" ref="24025660" role=""/>
+    <member type="way" ref="24040347" role=""/>
+    <member type="way" ref="24040435" role=""/>
+    <member type="way" ref="24291172" role=""/>
+    <member type="way" ref="24291173" role=""/>
+    <member type="way" ref="24580138" role=""/>
+    <member type="way" ref="24619589" role=""/>
+    <member type="way" ref="25984258" role=""/>
+    <member type="way" ref="25984266" role=""/>
+    <member type="way" ref="26621353" role=""/>
+    <member type="way" ref="26754216" role=""/>
+    <member type="way" ref="26995119" role=""/>
+    <member type="way" ref="26995151" role=""/>
+    <member type="way" ref="27402861" role=""/>
+    <member type="way" ref="27402996" role=""/>
+    <member type="way" ref="27403139" role=""/>
+    <member type="way" ref="27403140" role=""/>
+    <member type="way" ref="27403145" role=""/>
+    <member type="way" ref="27403147" role=""/>
+    <member type="way" ref="27403151" role=""/>
+    <member type="way" ref="27403160" role=""/>
+    <member type="way" ref="27403163" role=""/>
+    <member type="way" ref="27403164" role=""/>
+    <member type="way" ref="27403244" role=""/>
+    <member type="way" ref="27403264" role=""/>
+    <member type="way" ref="27527438" role=""/>
+    <member type="way" ref="27527471" role=""/>
+    <member type="way" ref="27527472" role=""/>
+    <member type="way" ref="27527477" role=""/>
+    <member type="way" ref="27527478" role=""/>
+    <member type="way" ref="27564590" role=""/>
+    <member type="way" ref="27564592" role=""/>
+    <member type="way" ref="27565500" role=""/>
+    <member type="way" ref="27614359" role=""/>
+    <tag k="name" v="S21"/>
+    <tag k="route" v="rail"/>
+    <tag k="network" v="HVV"/>
+    <tag k="created_by" v="Potlatch 0.10f"/>
+    <tag k="type" v="route"/>
+  </relation>
+  <relation id="31510" visible="true" timestamp="2008-10-31T17:34:30+01:00" user="Osmosis System User">
+    <member type="relation" ref="30832" role="rail_route"/>
+    <tag k="name" v="HVV"/>
+    <tag k="network" v="public_transport"/>
+    <tag k="info_url" v="http://www.hvv.de"/>
+    <tag k="type" v="network"/>
+  </relation>
+</osm>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.5" generator="OpenStreetMap server">
+  <bounds minlat="53.56465" minlon="9.95893" maxlat="53.56579" maxlon="9.96022"/>
+  <node id="255890941" lat="53.5655261" lon="9.9589617" user="Joern Rueffer" visible="true" timestamp="2008-04-05T17:15:21+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="279710413" lat="53.5657239" lon="9.9589318" user="Divjo" visible="true" timestamp="2008-09-27T19:38:08+01:00">
+    <tag k="shop" v="bicycle"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+  </node>
+  <node id="299781964" lat="53.565498" lon="9.9590952" user="Divjo" visible="true" timestamp="2008-09-25T18:54:27+01:00"/>
+  <node id="18161560" lat="53.5648787" lon="9.9593623" user="Divjo" visible="true" timestamp="2008-10-05T13:55:33+01:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="272716631" lat="53.5656884" lon="9.960057" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716632" lat="53.5656399" lon="9.9598212" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716634" lat="53.5656399" lon="9.9596565" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716635" lat="53.5657045" lon="9.959537" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="299781558" lat="53.5648059" lon="9.9593948" user="Divjo" visible="true" timestamp="2008-09-25T18:53:07+01:00"/>
+  <node id="299781887" lat="53.5647792" lon="9.9595501" user="Divjo" visible="true" timestamp="2008-09-25T18:53:58+01:00"/>
+  <node id="299781913" lat="53.5649914" lon="9.9592925" user="Divjo" visible="true" timestamp="2008-09-25T18:54:01+01:00"/>
+  <node id="299781963" lat="53.5650545" lon="9.9593785" user="Divjo" visible="true" timestamp="2008-09-25T18:54:27+01:00"/>
+  <node id="16712064" lat="53.5637618" lon="9.9601218" user="Divjo" visible="true" timestamp="2008-10-05T13:57:02+01:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="17705441" lat="53.5657639" lon="9.9587388" user="Joern Rueffer" visible="true" timestamp="2008-04-05T17:15:22+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="17705448" lat="53.5643017" lon="9.9596204" user="alibi" visible="true" timestamp="2008-06-07T14:00:58+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18161557" lat="53.5656133" lon="9.9641632" user="m++" visible="true" timestamp="2008-09-04T14:17:43+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18161558" lat="53.5654869" lon="9.9626982" user="Stephan Schildberg" visible="true" timestamp="2006-10-13T12:18:25+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18161559" lat="53.5656031" lon="9.9641289" user="m++" visible="true" timestamp="2008-09-04T14:18:44+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="18161561" lat="53.5652439" lon="9.9609985" user="Stephan Schildberg" visible="true" timestamp="2006-10-13T12:18:25+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="19879859" lat="53.5654286" lon="9.9622902" user="Divjo" visible="true" timestamp="2008-10-10T12:30:46+01:00"/>
+  <node id="20948584" lat="53.5626811" lon="9.9611428" user="mbuege" visible="true" timestamp="2007-11-18T22:07:05+00:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="122590926" lat="53.5628636" lon="9.960966" user="mbuege" visible="true" timestamp="2007-11-18T22:10:00+00:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="272285624" lat="53.5652726" lon="9.9611588" user="caminar" visible="true" timestamp="2008-06-23T11:00:27+01:00"/>
+  <node id="272285625" lat="53.5652594" lon="9.961119" user="caminar" visible="true" timestamp="2008-06-23T11:00:27+01:00"/>
+  <node id="272716606" lat="53.5675028" lon="9.9582359" user="caminar" visible="true" timestamp="2008-06-24T15:17:48+01:00"/>
+  <node id="272716607" lat="53.5676908" lon="9.9589201" user="caminar" visible="true" timestamp="2008-06-24T15:17:48+01:00"/>
+  <node id="272716609" lat="53.567497" lon="9.9590235" user="caminar" visible="true" timestamp="2008-06-24T15:17:48+01:00"/>
+  <node id="272716610" lat="53.5672321" lon="9.9592625" user="caminar" visible="true" timestamp="2008-06-24T15:17:48+01:00"/>
+  <node id="272716612" lat="53.5667574" lon="9.9596662" user="caminar" visible="true" timestamp="2008-06-24T15:17:48+01:00"/>
+  <node id="272716613" lat="53.5663634" lon="9.9599698" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716615" lat="53.5662503" lon="9.9600344" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716616" lat="53.5661147" lon="9.9600764" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716617" lat="53.566021" lon="9.9601636" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716618" lat="53.5659597" lon="9.9602314" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716619" lat="53.565937" lon="9.9604252" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716620" lat="53.5659855" lon="9.9605963" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716621" lat="53.5660016" lon="9.9607352" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716622" lat="53.5656593" lon="9.961013" user="caminar" visible="true" timestamp="2008-06-24T15:17:49+01:00"/>
+  <node id="272716624" lat="53.565304" lon="9.9612293" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716625" lat="53.565233" lon="9.961042" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716627" lat="53.5657239" lon="9.9606093" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716628" lat="53.56574" lon="9.9605285" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716629" lat="53.5656625" lon="9.9602798" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716636" lat="53.5658143" lon="9.9594401" user="caminar" visible="true" timestamp="2008-06-24T15:17:50+01:00"/>
+  <node id="272716638" lat="53.5659241" lon="9.9593658" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716639" lat="53.5658563" lon="9.959017" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716640" lat="53.5657917" lon="9.9588136" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716641" lat="53.5658563" lon="9.9587328" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716642" lat="53.5659403" lon="9.9589944" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716643" lat="53.5659855" lon="9.9591753" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716644" lat="53.5660081" lon="9.9592205" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716646" lat="53.5663085" lon="9.9589686" user="caminar" visible="true" timestamp="2008-06-24T15:17:51+01:00"/>
+  <node id="272716647" lat="53.5664247" lon="9.9592431" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716648" lat="53.5664344" lon="9.9593109" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716650" lat="53.5665087" lon="9.9593142" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716651" lat="53.5666508" lon="9.9592044" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716652" lat="53.5668381" lon="9.9589977" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716654" lat="53.5669415" lon="9.9588943" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716655" lat="53.5669673" lon="9.9588588" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716657" lat="53.566977" lon="9.9587845" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716658" lat="53.5670222" lon="9.9587361" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716659" lat="53.5670771" lon="9.9587296" user="caminar" visible="true" timestamp="2008-06-24T15:17:52+01:00"/>
+  <node id="272716661" lat="53.5668334" lon="9.9595971" user="caminar" visible="true" timestamp="2008-06-24T15:17:53+01:00"/>
+  <node id="272716674" lat="53.5659982" lon="9.9597073" user="caminar" visible="true" timestamp="2008-06-24T15:17:54+01:00"/>
+  <node id="272716676" lat="53.5659597" lon="9.9598876" user="caminar" visible="true" timestamp="2008-06-24T15:17:54+01:00"/>
+  <node id="272716677" lat="53.565902" lon="9.9601979" user="caminar" visible="true" timestamp="2008-06-24T15:17:54+01:00"/>
+  <node id="272716679" lat="53.5658827" lon="9.9602989" user="caminar" visible="true" timestamp="2008-06-24T15:17:54+01:00"/>
+  <node id="272716680" lat="53.5658274" lon="9.9603878" user="caminar" visible="true" timestamp="2008-06-24T15:17:54+01:00"/>
+  <node id="272716681" lat="53.5657673" lon="9.9604456" user="caminar" visible="true" timestamp="2008-06-24T15:17:54+01:00"/>
+  <node id="272716683" lat="53.5657216" lon="9.96046" user="caminar" visible="true" timestamp="2008-06-24T15:17:54+01:00"/>
+  <node id="299781792" lat="53.5638612" lon="9.9600295" user="Divjo" visible="true" timestamp="2008-09-25T18:53:42+01:00"/>
+  <node id="299781795" lat="53.5643052" lon="9.9597733" user="Divjo" visible="true" timestamp="2008-09-25T18:53:42+01:00"/>
+  <node id="299781886" lat="53.5639381" lon="9.9601166" user="Divjo" visible="true" timestamp="2008-09-25T18:53:58+01:00"/>
+  <way id="8128707" visible="true" timestamp="2008-09-04T14:17:43+01:00" user="m++">
+    <nd ref="18161560"/>
+    <nd ref="18161561"/>
+    <nd ref="272285625"/>
+    <nd ref="272285624"/>
+    <nd ref="19879859"/>
+    <nd ref="18161558"/>
+    <nd ref="18161557"/>
+    <nd ref="18161559"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="postal_code" v="20357"/>
+    <tag k="name" v="Amandastraße"/>
+    <tag k="abutters" v="residential"/>
+    <tag k="highway" v="residential"/>
+  </way>
+  <way id="8670499" visible="true" timestamp="2008-10-05T13:55:33+01:00" user="Divjo">
+    <nd ref="20948584"/>
+    <nd ref="122590926"/>
+    <nd ref="16712064"/>
+    <nd ref="299781792"/>
+    <nd ref="17705448"/>
+    <nd ref="299781558"/>
+    <nd ref="18161560"/>
+    <nd ref="299781913"/>
+    <nd ref="255890941"/>
+    <nd ref="17705441"/>
+    <tag k="created_by" v="Potlatch 0.10c"/>
+    <tag k="postal_code" v="20259"/>
+    <tag k="abutters" v="mixed"/>
+    <tag k="name" v="Eimsbütteler Chaussee"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="cycleway" v="track"/>
+  </way>
+  <way id="25064547" visible="true" timestamp="2008-06-24T15:17:54+01:00" user="caminar">
+    <nd ref="272716607"/>
+    <nd ref="272716609"/>
+    <nd ref="272716610"/>
+    <nd ref="272716661"/>
+    <nd ref="272716612"/>
+    <nd ref="272716613"/>
+    <nd ref="272716615"/>
+    <nd ref="272716616"/>
+    <nd ref="272716617"/>
+    <nd ref="272716618"/>
+    <nd ref="272716619"/>
+    <nd ref="272716620"/>
+    <nd ref="272716621"/>
+    <nd ref="272716622"/>
+    <nd ref="272716624"/>
+    <nd ref="272716625"/>
+    <nd ref="272716627"/>
+    <nd ref="272716628"/>
+    <nd ref="272716683"/>
+    <nd ref="272716629"/>
+    <nd ref="272716631"/>
+    <nd ref="272716632"/>
+    <nd ref="272716634"/>
+    <nd ref="272716635"/>
+    <nd ref="272716636"/>
+    <nd ref="272716638"/>
+    <nd ref="272716639"/>
+    <nd ref="272716640"/>
+    <nd ref="272716641"/>
+    <nd ref="272716642"/>
+    <nd ref="272716643"/>
+    <nd ref="272716644"/>
+    <nd ref="272716646"/>
+    <nd ref="272716647"/>
+    <nd ref="272716648"/>
+    <nd ref="272716650"/>
+    <nd ref="272716651"/>
+    <nd ref="272716652"/>
+    <nd ref="272716654"/>
+    <nd ref="272716655"/>
+    <nd ref="272716657"/>
+    <nd ref="272716658"/>
+    <nd ref="272716659"/>
+    <nd ref="272716606"/>
+    <nd ref="272716607"/>
+    <tag k="name" v="Lindenpark"/>
+    <tag k="leisure" v="park"/>
+  </way>
+  <way id="25064550" visible="true" timestamp="2008-06-25T14:54:29+01:00" user="caminar">
+    <nd ref="272716638"/>
+    <nd ref="272716674"/>
+    <nd ref="272716676"/>
+    <nd ref="272716677"/>
+    <nd ref="272716679"/>
+    <nd ref="272716680"/>
+    <nd ref="272716681"/>
+    <nd ref="272716683"/>
+    <nd ref="272716629"/>
+    <nd ref="272716631"/>
+    <nd ref="272716632"/>
+    <nd ref="272716634"/>
+    <nd ref="272716635"/>
+    <nd ref="272716636"/>
+    <nd ref="272716638"/>
+    <tag k="name" v="Spielplatz Dschungel"/>
+    <tag k="created_by" v="Potlatch 0.9c"/>
+    <tag k="leisure" v="playground"/>
+  </way>
+  <way id="27309719" visible="true" timestamp="2008-09-25T18:53:58+01:00" user="Divjo">
+    <nd ref="299781792"/>
+    <nd ref="299781886"/>
+    <nd ref="299781795"/>
+    <nd ref="299781887"/>
+    <nd ref="299781558"/>
+    <tag k="service" v="parking_aisle"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="highway" v="service"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="27309812" visible="true" timestamp="2008-09-25T18:54:27+01:00" user="Divjo">
+    <nd ref="299781913"/>
+    <nd ref="299781963"/>
+    <nd ref="299781964"/>
+    <nd ref="255890941"/>
+    <tag k="created_by" v="Potlatch 0.10b"/>
+    <tag k="service" v="parking_aisle"/>
+    <tag k="highway" v="service"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+</osm>

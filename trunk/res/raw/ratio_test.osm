@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.5" generator="OpenStreetMap server">
+  <bounds minlat="54.948760981" minlon="55.0" maxlat="55.0" maxlon="55.16109389"/>
+  <node id="1" lat="55.0" lon="55.0" user="matte" visible="true" timestamp="2008-10-24T10:34:27+01:00"/>
+  <node id="2" lat="55.0" lon="55.16109389" user="matte" visible="true" timestamp="2008-10-24T10:34:27+01:00"/>
+  <node id="3" lat="54.948760981" lon="55.16109389" user="matte" visible="true" timestamp="2008-10-24T10:34:27+01:00"/>
+  <node id="4" lat="54.948760981" lon="55.0" user="matte" visible="true" timestamp="2008-10-24T10:34:27+01:00"/>
+
+  <way id="27948827" visible="true" timestamp="2008-10-24T11:21:41+01:00" user="katpatuka">
+    <nd ref="1"/>
+    <nd ref="2"/>
+    <nd ref="3"/>
+    <nd ref="4"/>
+    <nd ref="1"/>
+    <nd ref="3"/>
+    <nd ref="4"/>
+    <nd ref="2"/>
+    
+    <tag k="boat" v="yes"/>
+    <tag k="name" v="matte"/>
+    <tag k="created_by" v="OSMEditor"/>
+    <tag k="waterway" v="river"/>
+    <tag k="have_riverbank" v="yes"/>
+  </way>
+</osm>
