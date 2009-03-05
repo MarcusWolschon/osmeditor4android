@@ -1,4 +1,4 @@
 #summary Overview about Vespucci, the first OpenStreetMap-Editor for Android.
 
 = Overview =
-[http://osmeditor4android.googlecode.com/files/VespucciOverview.png]
+||Here you can see Vespucci in action. The blue line represents the GPS track. The red dots are nodes and black lines are ways. At bottom-left you can see the debug-info about FPS, storage values and the current [ViewBox]||[http://osmeditor4android.googlecode.com/files/VespucciOverview.png]||
