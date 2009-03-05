@@ -22,9 +22,9 @@ import de.blau.android.util.Base64;
  * @author mb
  */
 public class Server {
-	private static final String SERVER_URL = "http://172.20.9.138:3000";
+	//private static final String SERVER_URL = "http://172.20.9.138:3000";
 
-	//private static final String SERVER_URL = "http://api.openstreetmap.org";
+	private static final String SERVER_URL = "http://api.openstreetmap.org";
 
 	/**
 	 * Timeout for connections in milliseconds.
