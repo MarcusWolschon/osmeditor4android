@@ -1,0 +1,4 @@
+#summary Overview about Vespucci, the first OpenStreetMap-Editor for Android.
+
+= Overview =
+[http://osmeditor4android.googlecode.com/files/VespucciOverview.png]
