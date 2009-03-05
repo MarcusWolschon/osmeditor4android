@@ -2,3 +2,4 @@
 
 = Screenshots =
 ||Here you can see Vespucci in action. The blue line represents the GPS track. The red dots are nodes and black lines are ways. At bottom-left you can see the debug-info about FPS, storage values and the current [ViewBox]||[http://osmeditor4android.googlecode.com/files/VespucciOverview.png]||
+||*Vespucci in Edit Mode.* The light orange boxes around the elements shows the tolerance where the user can select that element (fingers are more imprecisely than mousepointers :-))||http://osmeditor4android.googlecode.com/files/CreateMode.png||
