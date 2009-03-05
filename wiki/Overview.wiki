@@ -1,5 +1,20 @@
 #summary Overview about Vespucci, the first OpenStreetMap-Editor for Android.
 
+=What is Vespucci?=
+ * An Editor for OpenStreetMap
+ * Functionality:
+  * Create and edit new Nodes and Ways
+  * Append Nodes to existing Ways
+  * Create and edit Tags
+  * Download and Upload to OSM-Server
+  * Showing the users GPS-Track with accuracy
+  * Display the raw-data
+
+
+=What is not Vespucci!=
+ * a map-view or even a routing-application
+ * a professional-editing tool like [http://wiki.openstreetmap.org/wiki/JOSM JOSM] or [http://wiki.openstreetmap.org/wiki/Merkaartor Merkaator]
+
 = Screenshots =
 ||Here you can see Vespucci in action. The blue line represents the GPS track. The red dots are nodes and black lines are ways. At bottom-left you can see the debug-info about FPS, storage values and the current [ViewBox]||[http://osmeditor4android.googlecode.com/files/VespucciOverview.png]||
 ||*Vespucci in Edit Mode.* The light orange boxes around the elements shows the tolerance where the user can select that element (fingers are more imprecisely than mousepointers :-))||http://osmeditor4android.googlecode.com/files/CreateMode.png||
