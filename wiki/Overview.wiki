@@ -1,6 +1,7 @@
 #summary Overview about Vespucci, the first OpenStreetMap-Editor for Android.
 
-=What is Vespucci?=
+
+==What is Vespucci?==
  * An Editor for OpenStreetMap
  * Functionality:
   * Create and edit new Nodes and Ways
@@ -11,7 +12,7 @@
   * Display the raw-data
 
 
-=What is not Vespucci!=
+==What is not Vespucci!==
  * a map-view or even a routing-application
  * a professional-editing tool like [http://wiki.openstreetmap.org/wiki/JOSM JOSM] or [http://wiki.openstreetmap.org/wiki/Merkaartor Merkaator]
 
