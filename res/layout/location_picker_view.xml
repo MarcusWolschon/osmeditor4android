@@ -63,7 +63,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:minWidth="120dp"
-					android:numeric="decimal"
+					android:numeric="signed|decimal"
 				/>					
 				<TextView
 					android:text="@string/location_lon_label"
@@ -76,7 +76,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:minWidth="120dp"
-					android:numeric="decimal"
+					android:numeric="signed|decimal"
 				/>			
 			</LinearLayout>
 		</RadioGroup>
