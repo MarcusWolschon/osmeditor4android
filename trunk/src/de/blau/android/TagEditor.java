@@ -13,7 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,9 +28,6 @@ import de.blau.android.osm.Tag;
  */
 public class TagEditor extends Activity {
 
-//	public static final String KEYS = "keys";
-//
-//	public static final String VALUES = "values";
 	public static final String TAGS = "tags";
 
 	public static final String TYPE = "type";
@@ -72,6 +71,22 @@ public class TagEditor extends Activity {
 
 		extrasToEdits();
 		insertNewEdits();
+
+		createOkButton();
+	}
+
+	private void createOkButton() {
+		Button okButton = (Button) findViewById(R.id.okButton);
+		okButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (modified) {
+					sendResultAndFinish();
+				} else {
+					finish();
+				}
+			}
+		});
 	}
 
 	@Override
@@ -93,14 +108,6 @@ public class TagEditor extends Activity {
 
 		return false;
 	}
-
-/*	@Override
-	protected void onSaveInstanceState(final Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putAll(getKeyValueFromEdits());
-		outState.putString(TYPE, type);
-		outState.putLong(OSM_ID, osmId);
-	}*/
 
 	@Override
 	public boolean onKeyDown(final int keyCode, final KeyEvent event) {
@@ -160,13 +167,11 @@ public class TagEditor extends Activity {
 		horizontalLayout.addView(textValue);
 		horizontalLayout.addView(lastEditValue, paramValue);
 
-		verticalLayout.addView(horizontalLayout);
+		verticalLayout.addView(horizontalLayout, verticalLayout.getChildCount() - 1);
 	}
 
 	private Bundle getKeyValueFromEdits() {
 		Bundle bundle = new Bundle(1);
-//		ArrayList<String> keys = new ArrayList<String>();
-//		ArrayList<String> values = new ArrayList<String>();
 		ArrayList<Tag> tags = new ArrayList<Tag>();
 		for (int i = 0, size = verticalLayout.getChildCount(); i < size; ++i) {
 			View view = verticalLayout.getChildAt(i);
