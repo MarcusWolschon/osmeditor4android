@@ -30,7 +30,7 @@
 	<string name="toast_no_changes">You have not changed anything yet...</string>
 	<string name="toast_upload_success">Upload to OSM server finished.</string>
 	<string name="toast_empty_data">There aren\'t any elements in this area. Thank you for exploring this black spot!</string>
-	<string name="toast_not_in_edit_range">Please zoom in to edit</string>
+	<string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
 	<string name="toast_save_done">Save successful</string>
 	<string name="toast_waiting_for_gps">Waiting for GPS location...</string>
 	<string name="toast_follow_gps_off">GPS following disabled</string>
