@@ -445,7 +445,4 @@ public class BoundingBox implements Serializable {
 		calcMercatorFactorPow3();
 	}
 
-	public void invertRatio() {
-		setRatio((float) height / width);
-	}
 }
