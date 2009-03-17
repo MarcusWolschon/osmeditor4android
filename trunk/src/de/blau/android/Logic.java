@@ -183,6 +183,10 @@ public class Logic {
 		tracker.setTrackingState(newTrackingState);
 	}
 
+	void disableGpsUpdates() {
+		tracker.removeUpdates();
+	}
+
 	/**
 	 * Set all {@link Preferences} and delegates them to {@link Tracker} and {@link Map}. The AntiAlias-Flag will be set
 	 * to {@link Paints}. Map gets repainted.

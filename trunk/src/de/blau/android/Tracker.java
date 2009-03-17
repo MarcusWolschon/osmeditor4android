@@ -32,7 +32,7 @@ public class Tracker implements LocationListener {
 
 	private boolean followGps;
 
-	private final LocationManager locationManager;
+	private LocationManager locationManager;
 
 	private Preferences prefs;
 
@@ -102,6 +102,13 @@ public class Tracker implements LocationListener {
 			trackingState = newTrackingState;
 			map.invalidate();
 		}
+	}
+
+	/**
+	 * used for disable updates but not to set a new tracking state (e.g. on exiting)
+	 */
+	void removeUpdates() {
+		locationManager.removeUpdates(this);
 	}
 
 	/**
