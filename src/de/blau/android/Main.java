@@ -302,7 +302,7 @@ public class Main extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		logic.setTrackingState(Tracker.STATE_STOP);
+		logic.disableGpsUpdates();
 		logic.save(this, handler, false);
 	}
 
