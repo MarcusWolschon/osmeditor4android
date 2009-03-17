@@ -72,8 +72,8 @@ public class BoundingBox implements Serializable {
 	private static final float ZOOM_OUT = -6;
 
 	/**
-	 * The maximum difference between two borders of the bounding box for the OSM-API.
-	 * {@link http://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API }
+	 * The maximum difference between two borders of the bounding box for the OSM-API. {@link http
+	 * ://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API }
 	 */
 	private static final int API_MAX_DEGREE_DIFFERENCE = 5000000;
 
@@ -122,7 +122,8 @@ public class BoundingBox implements Serializable {
 	 * @param bottom degree of the bottom Border, multiplied by 1E7
 	 * @param right degree of the right Border, multiplied by 1E7
 	 * @param top degree of the top Border, multiplied by 1E7
-	 * @throws OsmException when the borders are mixed up or outside of {@link #MAX_LAT}/{@link #MAX_LON} (!{@link #isValid()})
+	 * @throws OsmException when the borders are mixed up or outside of {@link #MAX_LAT}/{@link #MAX_LON} (!
+	 *             {@link #isValid()})
 	 */
 	public BoundingBox(final int left, final int bottom, final int right, final int top) throws OsmException {
 		this.left = left;
@@ -442,5 +443,9 @@ public class BoundingBox implements Serializable {
 		bottom = newBox.bottom;
 		calcDimensions();
 		calcMercatorFactorPow3();
+	}
+
+	public void invertRatio() {
+		setRatio((float) height / width);
 	}
 }
