@@ -137,7 +137,7 @@ public class Logic {
 	/**
 	 * An instance of the map. Value set by Main via constructor.
 	 */
-	private final Map map;
+	private Map map;
 
 	/**
 	 * Needed for updating the strokes.
@@ -184,8 +184,8 @@ public class Logic {
 	}
 
 	/**
-	 * Set all {@link Preferences} and delegates them to {@link Tracker} and {@link Map}. The AntiAlias-Flag will be
-	 * set to {@link Paints}. Map gets repainted.
+	 * Set all {@link Preferences} and delegates them to {@link Tracker} and {@link Map}. The AntiAlias-Flag will be set
+	 * to {@link Paints}. Map gets repainted.
 	 * 
 	 * @param prefs the new Preferences.
 	 */
@@ -761,6 +761,22 @@ public class Logic {
 	private void setSelectedWay(final Way selectedWay) {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
+	}
+
+	/**
+	 * Will be called when the screen orientation was changed.
+	 * 
+	 * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...
+	 */
+	public void setMap(Map map) {
+		this.map = map;
+		viewBox.invertRatio();
+		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		map.setPaints(paints);
+		map.setTrack(tracker.getTrack());
+		map.setDelegator(delegator);
+		map.setMode(mode);
+		map.setViewBox(viewBox);
 	}
 
 }

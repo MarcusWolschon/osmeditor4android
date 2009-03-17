@@ -11,7 +11,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,7 +88,6 @@ public class Main extends Activity {
 		getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
 
 		map = new Map(getApplicationContext());
-		logic = new Logic(locationManager, map, new Paints(getResources()));
 		dialogFactory = new DialogFactory(this);
 
 		//Register some Listener
@@ -98,11 +96,23 @@ public class Main extends Activity {
 
 		setContentView(map);
 
-		if (isLastActivityAvailable()) {
-			resumeLastActivity();
+		//Load previous logic (inkl. StorageDelegator)
+		logic = (Logic) getLastNonConfigurationInstance();
+		if (logic == null) {
+			logic = new Logic(locationManager, map, new Paints(getApplicationContext().getResources()));
+			if (isLastActivityAvailable()) {
+				resumeLastActivity();
+			} else {
+				gotoBoxPicker();
+			}
 		} else {
-			gotoBoxPicker();
+			logic.setMap(map);
 		}
+	}
+
+	@Override
+	public Object onRetainNonConfigurationInstance() {
+		return logic;
 	}
 
 	/**
@@ -119,8 +129,7 @@ public class Main extends Activity {
 	}
 
 	/**
-	 * Creates the menu from the XML file "main_menu.xml".<br>
-	 * {@inheritDoc}
+	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
@@ -201,12 +210,6 @@ public class Main extends Activity {
 		return false;
 	}
 
-	@Override
-	public void onConfigurationChanged(final Configuration newConfig) {
-		// TODO Auto-generated method stub
-		super.onConfigurationChanged(newConfig);
-	}
-
 	/**
 	 * 
 	 */
@@ -233,8 +236,7 @@ public class Main extends Activity {
 	}
 
 	/**
-	 * Uses {@link DialogFactory} to create Dialogs<br>
-	 * {@inheritDoc}
+	 * Uses {@link DialogFactory} to create Dialogs<br> {@inheritDoc}
 	 */
 	@Override
 	protected Dialog onCreateDialog(final int id) {
@@ -252,7 +254,7 @@ public class Main extends Activity {
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == REQUEST_BOUNDINGBOX && data != null) {
-			handleAreaPickerResult(resultCode, data);
+			handleBoxPickerResult(resultCode, data);
 		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
 			handleTagEditorResult(data);
 		}
@@ -262,7 +264,7 @@ public class Main extends Activity {
 	 * @param resultCode
 	 * @param data
 	 */
-	private void handleAreaPickerResult(final int resultCode, final Intent data) {
+	private void handleBoxPickerResult(final int resultCode, final Intent data) {
 		Bundle b = data.getExtras();
 		int left = b.getInt(BoxPicker.RESULT_LEFT);
 		int bottom = b.getInt(BoxPicker.RESULT_BOTTOM);
