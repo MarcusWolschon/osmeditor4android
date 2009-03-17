@@ -490,7 +490,7 @@ public class Main extends Activity {
 					map.invalidate();
 				} else {
 					if (mode != Logic.MODE_MOVE && !isInEditZoomRange && !hasMoved) {
-						Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_SHORT)
+						Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG)
 								.show();
 					}
 				}
