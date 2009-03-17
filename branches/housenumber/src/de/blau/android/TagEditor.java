@@ -3,6 +3,7 @@ package de.blau.android;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -42,6 +43,8 @@ public class TagEditor extends Activity {
 	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = "TagActivity";
 
+	private static final String HOUSENUMBER_KEY = "addr:housenumber";
+
 	private EditText lastEditKey;
 
 	private EditText lastEditValue;
@@ -72,7 +75,22 @@ public class TagEditor extends Activity {
 		extrasToEdits();
 		insertNewEdits();
 
+		createHousenumberButton();
 		createOkButton();
+	}
+
+	private void createHousenumberButton() {
+		// TODO: display only for nodes, not for ways
+		Button b = (Button) findViewById(R.id.houseNumberButton);
+		b.setText("Set Housenumber");
+		final Context ctx = this;
+		b.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ctx, HousenumberActivity.class);
+				startActivityForResult(intent, 0);
+			}
+		});
 	}
 
 	private void createOkButton() {
@@ -87,6 +105,49 @@ public class TagEditor extends Activity {
 				}
 			}
 		});
+	}
+
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		if (requestCode == 0) {
+			if (resultCode == RESULT_OK) {
+				setField(HOUSENUMBER_KEY, intent.getExtras().getString(
+						HousenumberActivity.HOUSENUMBER));
+			}
+		}
+	}
+
+	private void setField(String fieldName, String newValue) {
+		boolean foundField = false;
+		for (int i = 0, size = verticalLayout.getChildCount(); i < size; ++i) {
+			View view = verticalLayout.getChildAt(i);
+			if (view instanceof LinearLayout) {
+				LinearLayout row = (LinearLayout) view;
+				if (row.getChildCount() == 4) {
+					View keyView = row.getChildAt(1);
+					View valueView = row.getChildAt(3);
+					if (keyView instanceof EditText
+							&& valueView instanceof EditText) {
+						String key = ((EditText) keyView).getText().toString().trim();
+						if (fieldName.equals(key)) {
+							((EditText) valueView).setText(newValue);
+							modified = true;
+							foundField = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+		if (!foundField) {
+			if (!"".equals(lastEditKey.getText().toString())
+					&& !"".equals(lastEditValue.getText().toString())) {
+				insertNewEdits();
+			}
+			lastEditKey.setText(HOUSENUMBER_KEY);
+			lastEditValue.setText(newValue);
+			modified = true;
+			insertNewEdits();
+		}
 	}
 
 	@Override

@@ -9,6 +9,11 @@
 		android:id="@+id/vertical_layout"
 		android:padding="5dp"
 	>
+		<Button android:id="@+id/houseNumberButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Add Housenumber" />
+	
 		<Button android:id="@+id/okButton" 
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"

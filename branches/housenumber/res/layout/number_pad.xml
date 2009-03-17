@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+	<LinearLayout 
+		xmlns:android="http://schemas.android.com/apk/res/android" 
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/vertical_layout"
+		android:padding="5dp"
+	>
+	
+	<EditText
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+		android:id="@+id/number" />
+	
+		<LinearLayout 
+			xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:id="@+id/vertical_layout1"
+			android:padding="5dp">
+			<Button android:id="@+id/button1"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="1" />
+			<Button android:id="@+id/button2"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="2"/>
+			<Button android:id="@+id/button3"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="3"/>
+		
+		</LinearLayout>
+
+		<LinearLayout 
+			xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/vertical_layout2"
+			android:padding="5dp">
+			<Button android:id="@+id/button4"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="4" />
+			<Button android:id="@+id/button5"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="5" />
+			<Button android:id="@+id/button6"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="6" />
+		</LinearLayout>
+
+		<LinearLayout 
+			xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/vertical_layout3"
+			android:padding="5dp">
+			<Button android:id="@+id/button7"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="7" />
+			<Button android:id="@+id/button8"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="8" />
+			<Button android:id="@+id/button9"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="9" />
+		</LinearLayout>
+
+		<LinearLayout 
+			xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/vertical_layout3"
+			android:padding="5dp">
+			<Button android:id="@+id/buttonEmpty"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="" />
+			<Button android:id="@+id/button0"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="0" />
+			<Button android:id="@+id/okButton"
+	            android:layout_width="100px"
+	            android:layout_height="60px"
+	            android:text="OK" />
+		</LinearLayout>
+
+	</LinearLayout>
+</ScrollView>
