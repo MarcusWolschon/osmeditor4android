@@ -74,6 +74,12 @@ public class Map extends View {
 		}
 	}
 
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+		viewBox.setRatio((float) w / h);
+	}
+
 	private void paintGpsTrack(final Canvas canvas) {
 		Path path = new Path();
 		List<Location> trackPoints = track.getTrackPoints();

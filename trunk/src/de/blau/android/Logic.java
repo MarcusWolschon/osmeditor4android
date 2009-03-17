@@ -770,7 +770,6 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
-		viewBox.invertRatio();
 		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
 		map.setPaints(paints);
 		map.setTrack(tracker.getTrack());
