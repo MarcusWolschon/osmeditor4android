@@ -104,7 +104,9 @@ public class Server {
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con);
+			throw new OsmServerException(con.getResponseCode(),
+					"The API server does not except the request: " + con + ", responce code: "
+					+ con.getResponseCode());
 		}
 
 		if (isServerGzipEnabled) {
