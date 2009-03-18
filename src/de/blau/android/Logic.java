@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -322,6 +323,62 @@ public class Logic {
 		viewBox.setRatio((float) map.getWidth() / map.getHeight());
 		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
 		map.invalidate();
+	}
+
+	/**
+	 * Searches for all Ways and Nodes at x,y plus the shown node-tolerance.
+	 * Nodes have to lie in the mapBox. For optimization reasons the tolerance
+	 * will be handled as square, not circle.
+	 * 
+	 * @param x
+	 *            display-coordinate.
+	 * @param y
+	 *            display-coordinate.
+	 * @return 	  a List of all OsmElements (Nodes and Ways) within the tolerance  
+	 */
+	public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
+		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+
+		float tolerance = Paints.NODE_TOLERANCE_VALUE;
+
+		List<Node> nodes = delegator.getCurrentStorage().getNodes();
+		for (Node node : nodes) {
+			int lat = node.getLat();
+			int lon = node.getLon();
+			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
+				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
+				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
+				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
+					if (Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2)) <= tolerance) {
+						result.add(node);
+					}
+				}
+			}
+		}
+		
+		Node node1 = null;
+		Node node2 = null;
+		List<Way> ways = delegator.getCurrentStorage().getWays();
+
+		for (Way way : ways) {
+			List<Node> wayNodes = way.getNodes();
+
+			//Iterate over all WayNodes, but not the last one.
+			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
+				node1 = wayNodes.get(k);
+				node2 = wayNodes.get(k + 1);
+				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
+				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
+				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
+				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+
+				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
+					result.add(way);
+				}
+			}
+		}
+
+		return result;
 	}
 
 	/**
