@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.widget.Toast;
@@ -91,7 +95,9 @@ public class Main extends Activity {
 		dialogFactory = new DialogFactory(this);
 
 		//Register some Listener
-		map.setOnTouchListener(new MapTouchListener());
+		MapTouchListener mapTouchListener = new MapTouchListener();
+		map.setOnTouchListener(mapTouchListener);
+		map.setOnCreateContextMenuListener(mapTouchListener);
 		map.setOnKeyListener(new MapKeyListiner());
 
 		setContentView(map);
@@ -408,18 +414,19 @@ public class Main extends Activity {
 	 * 
 	 * @author mb
 	 */
-	private class MapTouchListener implements OnTouchListener {
+	private class MapTouchListener implements OnTouchListener,
+			OnCreateContextMenuListener, OnMenuItemClickListener {
 		private static final int INVALID_POS = -1;
 
 		private float firstPosX = INVALID_POS;
-
 		private float firstPosY = INVALID_POS;
 
 		private float oldPosX = INVALID_POS;
-
 		private float oldPosY = INVALID_POS;
 
 		private final static float CLICK_TOLERANCE = 20f;
+
+		private List<OsmElement> clickedNodesAndWays;
 
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
@@ -436,7 +443,7 @@ public class Main extends Activity {
 				break;
 
 			case MotionEvent.ACTION_UP:
-				touchEventUp(x, y);
+				touchEventUp(v, x, y);
 				break;
 			}
 			return true;
@@ -463,10 +470,11 @@ public class Main extends Activity {
 		}
 
 		/**
+		 * @param v 
 		 * @param x
 		 * @param y
 		 */
-		private void touchEventUp(final float x, final float y) {
+		private void touchEventUp(View v, final float x, final float y) {
 			boolean hasMoved = hasMoved(x, y);
 			if (!hasMoved) {
 				byte mode = logic.getMode();
@@ -478,7 +486,7 @@ public class Main extends Activity {
 						logic.performAdd(x, y);
 						break;
 					case Logic.MODE_TAG_EDIT:
-						performTagEdit(x, y);
+						selectElementForTagEdit(v, x, y);
 						break;
 					case Logic.MODE_ERASE:
 						logic.performErase(x, y);
@@ -502,13 +510,21 @@ public class Main extends Activity {
 			oldPosY = INVALID_POS;
 		}
 
+		private void selectElementForTagEdit(View v, float x, float y) {
+			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+			int size = clickedNodesAndWays.size();
+			if (size == 1) {
+				performTagEdit(clickedNodesAndWays.get(0));
+			} else if (size > 1) {
+				v.showContextMenu();
+			}
+		}
+
 		/**
-		 * @param x
-		 * @param y
+		 * @param selectedElement 
 		 */
-		private void performTagEdit(final float x, final float y) {
+		private void performTagEdit(OsmElement selectedElement) {
 			//catch the element on this x,y-point
-			OsmElement selectedElement = logic.getElementForTagEdit(x, y);
 			if (selectedElement != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 
@@ -531,6 +547,24 @@ public class Main extends Activity {
 		 */
 		private boolean hasMoved(final float x, final float y) {
 			return Math.abs(firstPosX - x) > CLICK_TOLERANCE || Math.abs(firstPosY - y) > CLICK_TOLERANCE;
+		}
+
+		@Override
+		public void onCreateContextMenu(ContextMenu menu, View v,
+				ContextMenuInfo menuInfo) {
+			for (int i = 0, len = clickedNodesAndWays.size(); i < len; i++) {
+				OsmElement osmElement = clickedNodesAndWays.get(i);
+				menu.add(Menu.NONE, i, Menu.NONE, osmElement.getDescription())
+						.setOnMenuItemClickListener(this);
+			}
+		}
+
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			int itemId = item.getItemId();
+			if (itemId >= 0 && itemId < clickedNodesAndWays.size())
+				performTagEdit(clickedNodesAndWays.get(itemId));
+			return true;
 		}
 	}
 

@@ -128,14 +128,18 @@ public abstract class OsmElement implements Serializable {
 		return false;
 	}
 
-	public boolean hasTagKey(final String key) {
+	public Tag getTagWithKey(final String key) {
 		for (int i = 0, size = tags.size(); i < size; ++i) {
 			Tag tag = tags.get(i);
 			if (tag.getK().equals(key)) {
-				return true;
+				return tag;
 			}
 		}
-		return false;
+		return null;
+	}
+	
+	public boolean hasTagKey(final String key) {
+		return getTagWithKey(key) != null;
 	}
 
 	@Override
@@ -155,5 +159,15 @@ public abstract class OsmElement implements Serializable {
 
 	public boolean isUnchanged() {
 		return state == STATE_UNCHANGED;
+	}
+	
+	public String getDescription() {
+		Tag tag = getTagWithKey("name");
+		if (tag != null) {
+			String name = tag.getV();
+			if (name != null && name.length() > 0)
+				return name;
+		}
+		return getName() + " #" + Long.toString(getOsmId());
 	}
 }
