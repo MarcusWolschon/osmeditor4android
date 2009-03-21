@@ -339,22 +339,7 @@ public class Logic {
 	public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 
-		float tolerance = Paints.NODE_TOLERANCE_VALUE;
-
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
-		for (Node node : nodes) {
-			int lat = node.getLat();
-			int lon = node.getLon();
-			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
-				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
-				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-					if (Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2)) <= tolerance) {
-						result.add(node);
-					}
-				}
-			}
-		}
+		result.addAll(getClickedNodes(x, y));
 		
 		Node node1 = null;
 		Node node2 = null;
@@ -381,6 +366,41 @@ public class Logic {
 		return result;
 	}
 
+    public List<OsmElement> getClickedNodes(final float x, final float y) {
+        ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+
+        float tolerance = Paints.NODE_TOLERANCE_VALUE;
+
+        List<Node> nodes = delegator.getCurrentStorage().getNodes();
+		for (Node node : nodes) {
+			int lat = node.getLat();
+			int lon = node.getLon();
+			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
+				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
+				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
+				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
+					if (Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2)) <= tolerance) {
+						result.add(node);
+					}
+				}
+			}
+		}
+		
+		return result;
+    }
+
+    public List<OsmElement> getClickedEndNodes(final float x, final float y) {
+        ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+        List<OsmElement> allNodes = getClickedNodes(x, y);
+
+        for (OsmElement osmElement : allNodes) {
+            if (delegator.getCurrentStorage().isEndNode((Node) osmElement))
+                result.add(osmElement);
+        }
+        
+        return result;
+    }
+    
 	/**
 	 * Searches for a Node at x,y plus the shown node-tolerance. The Node has to lay in the mapBox. For optimization
 	 * reasons the tolerance will be handled as square, not circle.
@@ -419,8 +439,9 @@ public class Logic {
 	 * @param x display-coord.
 	 * @param y display-coord.
 	 */
-	void handleTochEventDown(final float x, final float y) {
+	void handleTouchEventDown(final float x, final float y) {
 		if (isInEditZoomRange() && mode == MODE_EDIT) {
+		    // TODO Need to handle multiple possible targets here too (Issue #6)
 			setSelectedNode(getClickedNode(x, y));
 			map.invalidate();
 		}
@@ -537,118 +558,61 @@ public class Logic {
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performErase(final float x, final float y) {
-		Node node = getClickedNode(x, y);
+	public void performErase(Node node) {
 		if (node != null) {
 			delegator.removeNode(node);
+			map.invalidate();
 		}
 	}
 
-	/**
-	 * Appends a new Node to a selected Way. If any Way was yet selected, the user have to select one end-node first.
-	 * When the user clicks on an empty area, a new node will generated. When he clicks on a existing way, the new node
-	 * will be generated on that way. when he selects a different node, this one will be used. when he selects the
-	 * previous selected node, it will be de-selected.
-	 * 
-	 * @param x the click-position on the display.
-	 * @param y the click-position on the display.
-	 */
-	public void performAppend(final float x, final float y) {
-		Node node;
-		Node lSelectedNode = selectedNode;
-		Way lSelectedWay = selectedWay;
+    public void performAppendStart(OsmElement element) {
+        Way lSelectedWay = null;
+        Node lSelectedNode = null;
 
-		if (lSelectedWay == null) {
-			lSelectedNode = getClickedNode(x, y);
-			if (lSelectedNode != null) {
-				List<Way> ways = delegator.getCurrentStorage().getWays(lSelectedNode);
-				for (int i = 0, size = ways.size(); i < size; ++i) {
-					Way way = ways.get(i);
-					if (way.isEndNode(lSelectedNode)) {
-						lSelectedWay = way;
-						break;
-					}
-				}
-				if (lSelectedWay == null) {
-					lSelectedNode = null;
-				}
-			}
-		} else if (lSelectedWay.isEndNode(lSelectedNode)) {
-			node = getClickedNodeOrCreatedWayNode(x, y);
-			if (node == lSelectedNode) {
-				lSelectedNode = null;
-				lSelectedWay = null;
-			} else {
-				if (node == null) {
-					int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-					int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
-					node = OsmElementFactory.createNodeWithNewId(lat, lon);
-					delegator.insertElementSafe(node);
-				}
-				delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
-				lSelectedNode = node;
-			}
-		}
-		setSelectedNode(lSelectedNode);
-		setSelectedWay(lSelectedWay);
-	}
+        if (element != null) {
+            if (element instanceof Node) {
+                lSelectedNode = (Node) element;
+                List<Way> ways = delegator.getCurrentStorage().getWays(
+                        lSelectedNode);
+                // TODO Resolve possible multiple ways that end at the node
+                for (Way way : ways) {
+                    if (way.isEndNode(lSelectedNode)) {
+                        lSelectedWay = way;
+                        break;
+                    }
+                }
+                if (lSelectedWay == null) {
+                    lSelectedNode = null;
+                }
+            }
+        }
+        setSelectedNode(lSelectedNode);
+        setSelectedWay(lSelectedWay);
+        
+        map.invalidate();
+    }
 
-	/**
-	 * Catches the first node at x,y. When no node was found, the first way at that position will be catched. when no
-	 * way was found.
-	 * 
-	 * @param x the coordinate to look at.
-	 * @param y the coordinate to look at.
-	 * @return In this order: Either the first node, or the first way. When nothing was found: null.
-	 */
-	public OsmElement getElementForTagEdit(final float x, final float y) {
-		OsmElement selectedElement = null;
+    public void performAppendAppend(final float x, final float y) {
+        Node lSelectedNode = getSelectedNode();
+        Way lSelectedWay = getSelectedWay();
 
-		//get node
-		setSelectedNode(getClickedNode(x, y));
-		selectedElement = selectedNode;
-
-		//get way, if no node was found
-		if (selectedElement == null) {
-			setSelectedWay(getClickedWay(x, y));
-			selectedElement = selectedWay;
-		}
-		return selectedElement;
-	}
-
-	/**
-	 * Catches the first way at the given coordinates plus the shown way-tolerance.
-	 * 
-	 * @param x the coordinate to look at.
-	 * @param y the coordinate to look at.
-	 * @return the first way on the given coordinates plus the shown way-tolerance. Null, if no way was found.
-	 */
-	private Way getClickedWay(final float x, final float y) {
-		List<Way> ways = delegator.getCurrentStorage().getWays();
-		Node node1 = null;
-		Node node2 = null;
-
-		//Iterate over all ways
-		for (int i = 0, waysSize = ways.size(); i < waysSize; ++i) {
-			Way way = ways.get(i);
-			List<Node> wayNodes = way.getNodes();
-
-			//Iterate over all WayNodes, but not the last one.
-			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
-				node1 = wayNodes.get(k);
-				node2 = wayNodes.get(k + 1);
-				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
-
-				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
-					return way;
-				}
-			}
-		}
-		return null;
-	}
+        Node node = getClickedNodeOrCreatedWayNode(x, y);
+        if (node == lSelectedNode) {
+            lSelectedNode = null;
+            lSelectedWay = null;
+        } else {
+            if (node == null) {
+                int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+                int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+                node = OsmElementFactory.createNodeWithNewId(lat, lon);
+                delegator.insertElementSafe(node);
+            }
+            delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+            lSelectedNode = node;
+        }
+        setSelectedNode(lSelectedNode);
+        setSelectedWay(lSelectedWay);
+    }
 
 	/**
 	 * Tries to locate the selected node. If x,y lays on a way, a new node at this location will be created, stored in
@@ -811,7 +775,7 @@ public class Logic {
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
-	private void setSelectedNode(final Node selectedNode) {
+	public void setSelectedNode(final Node selectedNode) {
 		this.selectedNode = selectedNode;
 		map.setSelectedNode(selectedNode);
 	}
@@ -819,12 +783,26 @@ public class Logic {
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
-	private void setSelectedWay(final Way selectedWay) {
+	public void setSelectedWay(final Way selectedWay) {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
 	}
 
 	/**
+     * @return the selectedNode
+     */
+    public final Node getSelectedNode() {
+        return selectedNode;
+    }
+
+    /**
+     * @return the selectedWay
+     */
+    public final Way getSelectedWay() {
+        return selectedWay;
+    }
+
+    /**
 	 * Will be called when the screen orientation was changed.
 	 * 
 	 * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...

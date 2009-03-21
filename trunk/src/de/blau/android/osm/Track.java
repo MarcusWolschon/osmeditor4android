@@ -24,7 +24,10 @@ public class Track implements Serializable {
 	}
 
 	public void addTrackPoint(final Location location) {
-		track.add(location);
+	    // TODO Sometimes null is added to the Track und leads to a NPE later on. Checking for null
+        // here is just a workaround. It would be better to avoid added null in the first place.
+	    if (location != null)
+	        track.add(location); 
 	}
 
 	public List<Location> getTrackPoints() {
