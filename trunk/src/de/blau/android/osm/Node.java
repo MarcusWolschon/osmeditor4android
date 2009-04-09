@@ -1,6 +1,5 @@
 package de.blau.android.osm;
 
-import java.util.Date;
 
 /**
  * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair and provides some package-internal
@@ -39,8 +38,8 @@ public class Node extends OsmElement {
 	 * @param lat WGS84 decimal Latitude-Coordinate times 1E7.
 	 * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
 	 */
-	Node(final long osmId, final String user, final Date dateChanged, final byte status, final int lat, final int lon) {
-		super(osmId, user, dateChanged, status);
+	Node(final long osmId, final byte status, final int lat, final int lon) {
+		super(osmId, status);
 		this.lat = lat;
 		this.lon = lon;
 	}

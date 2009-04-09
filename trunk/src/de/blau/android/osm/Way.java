@@ -2,7 +2,6 @@ package de.blau.android.osm;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class Way extends OsmElement {
 
 	public static final String NODE = "nd";
 
-	Way(final long osmId, final String user, final Date dateChanged, final byte status) {
-		super(osmId, user, dateChanged, status);
+	Way(final long osmId, final byte status) {
+		super(osmId, status);
 		this.nodes = new ArrayList<Node>();
 	}
 
