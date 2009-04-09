@@ -31,7 +31,7 @@ public class Server {
 	/**
 	 * Timeout for connections in milliseconds.
 	 */
-	private static final int TIMEOUT = 10 * 1000;
+	private static final int TIMEOUT = 30 * 1000;
 
 	/**
 	 * username for write-access on the server.
@@ -104,9 +104,8 @@ public class Server {
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-			throw new OsmServerException(con.getResponseCode(),
-					"The API server does not except the request: " + con + ", responce code: "
-					+ con.getResponseCode());
+			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
+					+ ", responce code: " + con.getResponseCode());
 		}
 
 		if (isServerGzipEnabled) {
