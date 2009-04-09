@@ -18,14 +18,11 @@ public class Storage implements Serializable {
 
 	private final ArrayList<Way> ways;
 
-	private final ArrayList<Relation> relations;
-
 	private BoundingBox bbox;
 
 	Storage() {
 		this.nodes = new ArrayList<Node>();
 		this.ways = new ArrayList<Way>();
-		this.relations = new ArrayList<Relation>();
 		try {
 			this.bbox = new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT, BoundingBox.MAX_LON,
 					BoundingBox.MAX_LAT);
@@ -38,15 +35,6 @@ public class Storage implements Serializable {
 		for (int i = 0, size = nodes.size(); i < size; ++i) {
 			if (nodes.get(i).getOsmId() == nodeOsmId) {
 				return nodes.get(i);
-			}
-		}
-		return null;
-	}
-
-	public Relation getRelation(final long relationOsmId) {
-		for (int i = 0, size = relations.size(); i < size; ++i) {
-			if (relations.get(i).getOsmId() == relationOsmId) {
-				return relations.get(i);
 			}
 		}
 		return null;
@@ -67,18 +55,12 @@ public class Storage implements Serializable {
 			return getNode(osmId);
 		} else if (type.equalsIgnoreCase(Way.NAME)) {
 			return getWay(osmId);
-		} else if (type.equalsIgnoreCase(Relation.NAME)) {
-			return getRelation(osmId);
 		}
 		return null;
 	}
 
 	public List<Node> getNodes() {
 		return Collections.unmodifiableList(nodes);
-	}
-
-	public List<Relation> getRelations() {
-		return Collections.unmodifiableList(relations);
 	}
 
 	public List<Way> getWays() {
@@ -90,8 +72,6 @@ public class Storage implements Serializable {
 			return ways.contains(elem);
 		} else if (elem instanceof Node) {
 			return nodes.contains(elem);
-		} else if (elem instanceof Relation) {
-			return relations.contains(elem);
 		}
 		return false;
 	}
@@ -130,10 +110,6 @@ public class Storage implements Serializable {
 		nodes.add(node);
 	}
 
-	void insertRelationUnsafe(final Relation relation) {
-		relations.add(relation);
-	}
-
 	void insertWayUnsafe(final Way way) {
 		ways.add(way);
 	}
@@ -149,8 +125,6 @@ public class Storage implements Serializable {
 			insertWayUnsafe((Way) elem);
 		} else if (elem instanceof Node) {
 			insertNodeUnsafe((Node) elem);
-		} else if (elem instanceof Relation) {
-			insertRelationUnsafe((Relation) elem);
 		}
 	}
 
@@ -162,17 +136,11 @@ public class Storage implements Serializable {
 		return ways.remove(way);
 	}
 
-	boolean removeRelation(final Relation relation) {
-		return relations.remove(relation);
-	}
-
 	boolean removeElement(final OsmElement element) {
 		if (element instanceof Way) {
 			return ways.remove(element);
 		} else if (element instanceof Node) {
 			return nodes.remove(element);
-		} else if (element instanceof Relation) {
-			return relations.remove(element);
 		}
 		return false;
 	}
@@ -186,7 +154,7 @@ public class Storage implements Serializable {
 	}
 
 	public boolean isEmpty() {
-		return nodes.isEmpty() && ways.isEmpty() && relations.isEmpty();
+		return nodes.isEmpty() && ways.isEmpty();
 	}
 
 	public boolean isEndNode(final Node node) {

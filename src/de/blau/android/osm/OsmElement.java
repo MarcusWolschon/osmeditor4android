@@ -3,7 +3,6 @@ package de.blau.android.osm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public abstract class OsmElement implements Serializable {
@@ -25,18 +24,12 @@ public abstract class OsmElement implements Serializable {
 
 	protected long osmId;
 
-	protected String user;
-
-	protected Date dateChanged;
-
 	protected List<Tag> tags;
 
 	protected byte state;
 
-	OsmElement(final long osmId, final String user, final Date timestamp, final byte state) {
+	OsmElement(final long osmId, final byte state) {
 		this.osmId = osmId;
-		this.user = user;
-		this.dateChanged = timestamp;
 		this.tags = new ArrayList<Tag>();
 		this.state = state;
 	}
@@ -47,22 +40,6 @@ public abstract class OsmElement implements Serializable {
 
 	void setOsmId(final long osmId) {
 		this.osmId = osmId;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	void setUser(final String user) {
-		this.user = user;
-	}
-
-	public Date getDateChanged() {
-		return dateChanged;
-	}
-
-	void setDateChanged(final Date timestamp) {
-		this.dateChanged = timestamp;
 	}
 
 	public List<Tag> getTags() {
@@ -137,7 +114,7 @@ public abstract class OsmElement implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public boolean hasTagKey(final String key) {
 		return getTagWithKey(key) != null;
 	}
@@ -160,7 +137,7 @@ public abstract class OsmElement implements Serializable {
 	public boolean isUnchanged() {
 		return state == STATE_UNCHANGED;
 	}
-	
+
 	public String getDescription() {
 		Tag tag = getTagWithKey("name");
 		if (tag != null) {

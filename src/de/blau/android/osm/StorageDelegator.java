@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -158,10 +157,6 @@ public class StorageDelegator implements Serializable {
 		return apiStorage.getWays().size();
 	}
 
-	public int getApiRelationsCount() {
-		return apiStorage.getRelations().size();
-	}
-
 	public OsmElement getOsmElement(final String type, final long osmId) {
 		OsmElement elem = apiStorage.getOsmElement(type, osmId);
 		if (elem == null) {
@@ -249,7 +244,6 @@ public class StorageDelegator implements Serializable {
 					}
 					Log.w(DEBUG_TAG, "New " + element + " added to API");
 					element.setState(OsmElement.STATE_UNCHANGED);
-					element.setDateChanged(new Date());
 				}
 				break;
 			case OsmElement.STATE_MODIFIED:
@@ -260,7 +254,6 @@ public class StorageDelegator implements Serializable {
 					}
 					Log.w(DEBUG_TAG, element + " updated in API");
 					element.setState(OsmElement.STATE_UNCHANGED);
-					element.setDateChanged(new Date());
 				}
 				break;
 			}

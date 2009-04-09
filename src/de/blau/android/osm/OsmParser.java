@@ -3,10 +3,7 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -41,9 +38,6 @@ public class OsmParser extends DefaultHandler {
 	/** Same as {@link currentNode}. */
 	private Way currentWay;
 
-	/** Same as {@link currentNode}. */
-	private Relation currentRelation;
-
 	private final ArrayList<Exception> exceptions;
 
 	public OsmParser() {
@@ -51,7 +45,6 @@ public class OsmParser extends DefaultHandler {
 		storage = new Storage();
 		currentNode = null;
 		currentWay = null;
-		currentRelation = null;
 		exceptions = new ArrayList<Exception>();
 	}
 
@@ -97,8 +90,6 @@ public class OsmParser extends DefaultHandler {
 				parseWayNode(atts);
 			} else if (isTag(name)) {
 				parseTag(atts);
-			} else if (isMember(name)) {
-				//parseMember(atts);
 			} else if (isBounds(name)) {
 				parseBounds(atts);
 			}
@@ -119,9 +110,6 @@ public class OsmParser extends DefaultHandler {
 		} else if (isWay(name)) {
 			storage.insertWayUnsafe(currentWay);
 			currentWay = null;
-		} else if (isRelation(name)) {
-			//storage.insertRelationUnsafe(currentRelation);
-			currentRelation = null;
 		}
 	}
 
@@ -132,17 +120,15 @@ public class OsmParser extends DefaultHandler {
 	 */
 	private void parseOsmElement(final String name, final Attributes atts) throws OsmParseException {
 		long osmId = Integer.parseInt(atts.getValue("id"));
-		Date timestamp = parseDate(atts.getValue("timestamp"));
-		String user = atts.getValue("user");
 		byte status = 0;
 
 		if (isNode(name)) {
 			int lat = (int) (Double.parseDouble(atts.getValue("lat")) * 1E7);
 			int lon = (int) (Double.parseDouble(atts.getValue("lon")) * 1E7);
-			currentNode = OsmElementFactory.createNode(osmId, user, timestamp, status, lat, lon);
+			currentNode = OsmElementFactory.createNode(osmId, status, lat, lon);
 		} else if (isWay(name)) {
-			currentWay = OsmElementFactory.createWay(osmId, user, timestamp, status);
-		} else if (isRelation(name)) {
+			currentWay = OsmElementFactory.createWay(osmId, status);
+			//} else if (isRelation(name)) {
 			//currentRelation = OsmElementFactory.createRelation(osmId, user, timestamp, status);
 		}
 	}
@@ -201,39 +187,7 @@ public class OsmParser extends DefaultHandler {
 		if (currentWay != null) {
 			return currentWay;
 		}
-		if (currentRelation != null) {
-			return currentRelation;
-		}
 		return null;
-	}
-
-	/**
-	 * Parses a date. The format of the str is "yyyy-MM-ddTHH:mm:ss+01:00", where 'T' is a literal and "+01:00" can be
-	 * any other timezone offset. This method is needed, because the Java build-in {@link SimpleDate.parse()} can't
-	 * handle the OSM specific timezoneformat.
-	 * 
-	 * @param str the date represented by a String.
-	 * @return
-	 * @throws IllegalArgumentException when str is null or smaller than 25 characters.
-	 * @throws OsmParseException
-	 */
-	private static Date parseDate(final String str) throws IllegalArgumentException, OsmParseException {
-		if (str == null || str.length() < 25) {
-			throw new OsmParseException("Date-string " + str + " is not valid!");
-		}
-		Calendar cal = Calendar.getInstance();
-		//yyyy-MM-ddTHH:mm:ss+01:00
-		int year = Integer.parseInt(str.substring(0, 4));
-		int month = Integer.parseInt(str.substring(5, 7));
-		int day = Integer.parseInt(str.substring(8, 10));
-		int hour = Integer.parseInt(str.substring(11, 13));
-		int min = Integer.parseInt(str.substring(14, 16));
-		int sec = Integer.parseInt(str.substring(17, 19));
-		TimeZone tz = TimeZone.getTimeZone("GMT" + str.substring(19, 25));
-
-		cal.set(year, month, day, hour, min, sec);
-		cal.setTimeZone(tz);
-		return cal.getTime();
 	}
 
 	/**
@@ -243,7 +197,7 @@ public class OsmParser extends DefaultHandler {
 	 * @return true if element "name" is a node, way or relation, otherwise false.
 	 */
 	private static boolean isOsmElement(final String name) {
-		return isNode(name) || isWay(name) || isRelation(name);
+		return isNode(name) || isWay(name);
 	}
 
 	/**
@@ -266,14 +220,6 @@ public class OsmParser extends DefaultHandler {
 	/**
 	 * @see isNode()
 	 */
-	private static boolean isRelation(final String name) {
-		//return Relation.NAME.equalsIgnoreCase(name);
-		return false;
-	}
-
-	/**
-	 * @see isNode()
-	 */
 	private static boolean isTag(final String name) {
 		return Tag.NAME.equalsIgnoreCase(name);
 	}
@@ -283,14 +229,6 @@ public class OsmParser extends DefaultHandler {
 	 */
 	private static boolean isWayNode(final String name) {
 		return Way.NODE.equalsIgnoreCase(name);
-	}
-
-	/**
-	 * @see isNode()
-	 */
-	private static boolean isMember(final String name) {
-		//return Member.NAME.equalsIgnoreCase(name);
-		return false;
 	}
 
 	/**
