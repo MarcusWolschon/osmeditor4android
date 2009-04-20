@@ -1,5 +1,6 @@
 package de.blau.android;
 
+import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
@@ -12,10 +13,10 @@ import android.location.Location;
 import android.view.View;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
-import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.OsmElement.State;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
 
@@ -130,11 +131,11 @@ public class Map extends View {
 
 		text = "viewBox: " + viewBox.toString();
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-		text = "Ways (current/API) :" + delegator.getCurrentStorage().getWays().size() + "/"
-				+ delegator.getApiWayCount();
+		text = "Ways (current/modified) :" + delegator.getWayCount() + "/"
+				+ delegator.getModifiedWayCount();
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-		text = "Nodes (current/Waynodes/API) :" + delegator.getCurrentStorage().getNodes().size() + "/"
-				+ delegator.getCurrentStorage().getWaynodes().size() + "/" + delegator.getApiNodeCount();
+		text = "Nodes (current/modified) :" + delegator.getNodeCount() + "/"
+				+ delegator.getModifiedNodeCount();
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
 		text = "fps: " + fps;
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
@@ -147,15 +148,15 @@ public class Map extends View {
 	 */
 	private void paintOsmData(final Canvas canvas) {
 		//Paint all ways
-		List<Way> ways = delegator.getCurrentStorage().getWays();
-		for (int i = 0, size = ways.size(); i < size; ++i) {
-			paintWay(canvas, ways.get(i));
+		Collection<Way> ways = delegator.getWays();
+		for (Way way : ways) {
+			paintWay(canvas, way);
 		}
-
+			
 		//Paint all nodes
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
-		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			paintNode(canvas, nodes.get(i));
+		Collection<Node> nodes = delegator.getNodes();
+		for (Node node : nodes) {
+			paintNode(canvas, node);
 		}
 
 		paintStorageBox(canvas);
@@ -199,7 +200,7 @@ public class Map extends View {
 			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 
 			//draw tolerance box
-			if (mode != Logic.MODE_APPEND || selectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
+			if (mode != Logic.MODE_APPEND || selectedNode != null || delegator.isEndNode(node)) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
 			if (node == selectedNode && isInEditZoomRange) {
@@ -218,10 +219,10 @@ public class Map extends View {
 	 * @param x
 	 * @param y
 	 */
-	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
+	private void drawNodeTolerance(final Canvas canvas, final State state, final int lat, final int lon,
 			final float x, final float y) {
 		if (pref.isToleranceVisible() && mode != Logic.MODE_MOVE && isInEditZoomRange
-				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
+				&& (state != State.UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
 			canvas.drawCircle(x, y, paints.get(Paints.NODE_TOLERANCE).getStrokeWidth(), paints
 					.get(Paints.NODE_TOLERANCE));
 		}

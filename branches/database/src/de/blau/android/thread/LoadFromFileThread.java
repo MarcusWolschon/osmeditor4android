@@ -44,16 +44,17 @@ public class LoadFromFileThread extends LogicThread {
 	@Override
 	public void run() {
 		try {
-			delegator.readFromFile(caller.getApplicationContext());
-			viewBox.setBorders(delegator.getOriginalBox());
+			// TODO Needs to reimplemented if needed
+			// delegator.readFromFile(caller.getApplicationContext());
+			// viewBox.setBorders(delegator.getOriginalBox());
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			//exceptions.add(e);
-		} catch (IOException e) {
-			e.printStackTrace();
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
 			//exceptions.add(e);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		// } catch (ClassNotFoundException e) {
+		//	e.printStackTrace();
 			//exceptions.add(e);
 		} catch (Exception e) {
 			e.printStackTrace();

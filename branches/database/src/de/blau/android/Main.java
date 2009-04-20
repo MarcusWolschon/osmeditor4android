@@ -1,10 +1,11 @@
 package de.blau.android;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -34,11 +35,10 @@ import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.DBAdapter;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tag;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.Paints;
 
@@ -49,7 +49,6 @@ import de.blau.android.resources.Paints;
  */
 public class Main extends Activity {
 
-	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = Main.class.getSimpleName();
 
 	/**
@@ -65,8 +64,10 @@ public class Main extends Activity {
 	/**
 	 * List of Exceptions for error reporting.
 	 */
-	//TODO: Put this in ErrorMailer!
+	// TODO: Put this in ErrorMailer!
 	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
+
+	private DBAdapter dbAdapter;
 
 	private final Handler handler = new Handler();
 
@@ -87,16 +88,19 @@ public class Main extends Activity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(
-			Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) getApplicationContext()
+				.getSystemService(Context.LOCATION_SERVICE);
 		getWindow().requestFeature(Window.FEATURE_LEFT_ICON);
 		getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
 
+		dbAdapter = new DBAdapter(getApplicationContext());
+		dbAdapter.open();
+
 		map = new Map(getApplicationContext());
 		dialogFactory = new DialogFactory(this);
 
-		//Register some Listener
+		// Register some Listener
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
@@ -104,11 +108,12 @@ public class Main extends Activity {
 
 		setContentView(map);
 
-		//Load previous logic (inkl. StorageDelegator)
+		// Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
 		if (logic == null) {
-			logic = new Logic(locationManager, map, new Paints(getApplicationContext().getResources()));
-			if (isLastActivityAvailable()) {
+			logic = new Logic(dbAdapter, locationManager, map, new Paints(
+					getApplicationContext().getResources()));
+			if (!logic.storageEmtpy()) {
 				resumeLastActivity();
 			} else {
 				gotoBoxPicker();
@@ -124,12 +129,14 @@ public class Main extends Activity {
 	}
 
 	/**
-	 * Loads the preferences into {@link #map} and {@link #logic}, triggers new {@inheritDoc}
+	 * Loads the preferences into {@link #map} and {@link #logic}, triggers new
+	 * {@inheritDoc}
 	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 		prefs = new Preferences(sharedPrefs, getResources());
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
@@ -154,32 +161,38 @@ public class Main extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_move:
 			logic.setMode(Logic.MODE_MOVE);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+					R.drawable.menu_move);
 			return true;
 
 		case R.id.menu_edit:
 			logic.setMode(Logic.MODE_EDIT);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_edit);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+					R.drawable.menu_edit);
 			return true;
 
 		case R.id.menu_tag:
 			logic.setMode(Logic.MODE_TAG_EDIT);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_tag);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+					R.drawable.menu_tag);
 			return true;
 
 		case R.id.menu_add:
 			logic.setMode(Logic.MODE_ADD);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_add);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+					R.drawable.menu_add);
 			return true;
 
 		case R.id.menu_erase:
 			logic.setMode(Logic.MODE_ERASE);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_erase);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+					R.drawable.menu_erase);
 			return true;
 
 		case R.id.menu_append:
 			logic.setMode(Logic.MODE_APPEND);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_append);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+					R.drawable.menu_append);
 			return true;
 
 		case R.id.menu_confing:
@@ -231,8 +244,10 @@ public class Main extends Activity {
 
 	/**
 	 * Handles the menu click on "download current view".<br>
-	 * When no {@link #delegator} is set, the user will be redirected to AreaPicker.<br>
-	 * When the user made some changes, {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
+	 * When no {@link #delegator} is set, the user will be redirected to
+	 * AreaPicker.<br>
+	 * When the user made some changes,
+	 * {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
 	 * Otherwise the current viewBox will be re-downloaded from the server.
 	 */
 	private void onMenuDonwloadCurrent() {
@@ -259,11 +274,13 @@ public class Main extends Activity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+	protected void onActivityResult(final int requestCode,
+			final int resultCode, final Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == REQUEST_BOUNDINGBOX && data != null) {
 			handleBoxPickerResult(resultCode, data);
-		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
+		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK
+				&& data != null) {
 			handleTagEditorResult(data);
 		}
 	}
@@ -287,7 +304,7 @@ public class Main extends Activity {
 				openEmptyMap(box);
 			}
 		} catch (OsmException e) {
-			//Values should be done checked in LocationPciker.
+			// Values should be done checked in LocationPciker.
 			Log.e(DEBUG_TAG, e.getStackTrace().toString());
 		}
 	}
@@ -297,11 +314,17 @@ public class Main extends Activity {
 	 */
 	@SuppressWarnings("unchecked")
 	private void handleTagEditorResult(final Intent data) {
+
 		Bundle b = data.getExtras();
-		//Read data from extras
-		ArrayList<Tag> tags = (ArrayList<Tag>) b.getSerializable(TagEditor.TAGS);
+		ArrayList<String> tagList = (ArrayList<String>) b
+				.getSerializable(TagEditor.TAGS);
 		String type = b.getString(TagEditor.TYPE);
 		long osmId = b.getLong(TagEditor.OSM_ID);
+
+		int size = tagList.size();
+		HashMap<String, String> tags = new HashMap<String, String>(size / 2);
+		for (int i = 0; i < size; i += 2)
+			tags.put(tagList.get(i), tagList.get(i+1));
 
 		logic.insertTags(type, osmId, tags);
 		map.invalidate();
@@ -310,36 +333,20 @@ public class Main extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		dbAdapter.close();
 		logic.disableGpsUpdates();
-		logic.save(this, handler, false);
-	}
-
-	/**
-	 * TODO: put this in Logic!!! Checks if a serialized {@link StorageDelegator} file is available.
-	 * 
-	 * @return true, when the file is available, otherwise false.
-	 */
-	private boolean isLastActivityAvailable() {
-		FileInputStream in = null;
-		try {
-			in = openFileInput(StorageDelegator.FILENAME);
-			return true;
-		} catch (final FileNotFoundException e) {
-			return false;
-		} finally {
-			Server.close(in);
-		}
 	}
 
 	/**
 	 * Loads the last activities storage, give it to the View and activate it.
 	 * 
-	 * @throws IOException when the file could not be read.
+	 * @throws IOException
+	 *             when the file could not be read.
 	 * @throws ClassNotFoundException
 	 */
 	public void resumeLastActivity() {
 		showDialog(DialogFactory.PROGRESS_LOADING);
-		logic.loadFromFile(this, handler);
+		logic.loadFromStorage(this, handler, null);
 	}
 
 	public void performCurrentViewHttpLoad() {
@@ -386,7 +393,8 @@ public class Main extends Activity {
 			if (logic.hasChanges()) {
 				logic.upload(this, handler);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),
+						R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
 		} else {
 			showDialog(DialogFactory.NO_LOGIN_DATA);
@@ -397,7 +405,8 @@ public class Main extends Activity {
 	 * Starts the LocationPicker activity for requesting a location.
 	 */
 	public void gotoBoxPicker() {
-		startActivityForResult(new Intent(getApplicationContext(), BoxPicker.class), REQUEST_BOUNDINGBOX);
+		startActivityForResult(new Intent(getApplicationContext(),
+				BoxPicker.class), REQUEST_BOUNDINGBOX);
 	}
 
 	public List<Exception> getExceptions() {
@@ -408,13 +417,14 @@ public class Main extends Activity {
 	 * 
 	 */
 	private void showToastWaitingForGps() {
-		Toast.makeText(getApplicationContext(), R.string.toast_waiting_for_gps, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), R.string.toast_waiting_for_gps,
+				Toast.LENGTH_SHORT).show();
 	}
 
-    private enum AppendMode {
-        APPEND_START, APPEND_APPEND
-    }
-    
+	private enum AppendMode {
+		APPEND_START, APPEND_APPEND
+	}
+
 	/**
 	 * A TouchListener for all gestures made on the touchscreen.
 	 * 
@@ -422,7 +432,7 @@ public class Main extends Activity {
 	 */
 	private class MapTouchListener implements OnTouchListener,
 			OnCreateContextMenuListener, OnMenuItemClickListener {
-	    
+
 		private static final int INVALID_POS = -1;
 
 		private float firstPosX = INVALID_POS;
@@ -433,8 +443,8 @@ public class Main extends Activity {
 
 		private final static float CLICK_TOLERANCE = 20f;
 
-		private AppendMode appendMode; 
-		
+		private AppendMode appendMode;
+
 		private List<OsmElement> clickedNodesAndWays;
 
 		@Override
@@ -472,14 +482,15 @@ public class Main extends Activity {
 		}
 
 		private void touchEventMove(final float x, final float y) {
-			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY, hasMoved(x, y));
+			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY,
+					hasMoved(x, y));
 
 			oldPosX = x;
 			oldPosY = y;
 		}
 
 		/**
-		 * @param v 
+		 * @param v
 		 * @param x
 		 * @param y
 		 */
@@ -498,7 +509,7 @@ public class Main extends Activity {
 						selectElementForTagEdit(v, x, y);
 						break;
 					case Logic.MODE_ERASE:
-					    selectElementForErase(v, x, y);
+						selectElementForErase(v, x, y);
 						break;
 					case Logic.MODE_APPEND:
 						performAppend(v, x, y);
@@ -506,9 +517,11 @@ public class Main extends Activity {
 					}
 					map.invalidate();
 				} else {
-					if (mode != Logic.MODE_MOVE && !isInEditZoomRange && !hasMoved) {
-						Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG)
-								.show();
+					if (mode != Logic.MODE_MOVE && !isInEditZoomRange
+							&& !hasMoved) {
+						Toast.makeText(getApplicationContext(),
+								R.string.toast_not_in_edit_range,
+								Toast.LENGTH_LONG).show();
 					}
 				}
 			}
@@ -526,70 +539,83 @@ public class Main extends Activity {
 				performTagEdit(clickedNodesAndWays.get(0));
 			} else if (size > 1) {
 				v.showContextMenu();
-			} /* else {} */ // If no elements where touched, ignore
+			} /* else {} */// If no elements where touched, ignore
 		}
 
-        private void selectElementForErase(View v, float x, float y) {
-            clickedNodesAndWays = logic.getClickedNodes(x, y);
-            int size = clickedNodesAndWays.size();
-            if (size == 1) {
-                logic.performErase((Node) clickedNodesAndWays.get(0));
-            } else if (size > 1) {
-                v.showContextMenu();
-            } /* else {} */ // If no elements where touched, ignore
-        }
-
-        /**
-         * Appends a new Node to a selected Way. If any Way was yet selected, the user have to select one end-node first.
-         * When the user clicks on an empty area, a new node will generated. When he clicks on a existing way, the new node
-         * will be generated on that way. when he selects a different node, this one will be used. when he selects the
-         * previous selected node, it will be de-selected.
-         * 
-         * @param x the click-position on the display.
-         * @param y the click-position on the display.
-         */
-        public void performAppend(final View v, final float x, final float y) {
-            Node lSelectedNode = logic.getSelectedNode();
-            Way lSelectedWay = logic.getSelectedWay();
-
-            if (lSelectedWay == null) {
-                
-                clickedNodesAndWays = logic.getClickedEndNodes(x, y);
-                int size = clickedNodesAndWays.size();
-                if (size == 1) {
-                    logic.performAppendStart(clickedNodesAndWays.get(0));
-                } else if (size > 1) {
-                    appendMode = AppendMode.APPEND_START;
-                    v.showContextMenu();
-                } /* else {} */ // If no elements where touched, ignore
-
-            } else if (lSelectedWay.isEndNode(lSelectedNode)) {
-                // TODO Resolve multiple possible selections
-                logic.performAppendAppend(x, y);
-            }
-        }
+		private void selectElementForErase(View v, float x, float y) {
+			clickedNodesAndWays = logic.getClickedNodes(x, y);
+			int size = clickedNodesAndWays.size();
+			if (size == 1) {
+				logic.performErase((Node) clickedNodesAndWays.get(0));
+			} else if (size > 1) {
+				v.showContextMenu();
+			} /* else {} */// If no elements where touched, ignore
+		}
 
 		/**
-		 * @param selectedElement 
+		 * Appends a new Node to a selected Way. If any Way was yet selected,
+		 * the user have to select one end-node first. When the user clicks on
+		 * an empty area, a new node will generated. When he clicks on a
+		 * existing way, the new node will be generated on that way. when he
+		 * selects a different node, this one will be used. when he selects the
+		 * previous selected node, it will be de-selected.
+		 * 
+		 * @param x
+		 *            the click-position on the display.
+		 * @param y
+		 *            the click-position on the display.
+		 */
+		public void performAppend(final View v, final float x, final float y) {
+			Node lSelectedNode = logic.getSelectedNode();
+			Way lSelectedWay = logic.getSelectedWay();
+
+			if (lSelectedWay == null) {
+
+				clickedNodesAndWays = logic.getClickedEndNodes(x, y);
+				int size = clickedNodesAndWays.size();
+				if (size == 1) {
+					logic.performAppendStart(clickedNodesAndWays.get(0));
+				} else if (size > 1) {
+					appendMode = AppendMode.APPEND_START;
+					v.showContextMenu();
+				} /* else {} */// If no elements where touched, ignore
+
+			} else if (lSelectedWay.isEndNode(lSelectedNode)) {
+				// TODO Resolve multiple possible selections
+				logic.performAppendAppend(x, y);
+			}
+		}
+
+		/**
+		 * @param selectedElement
 		 */
 		private void performTagEdit(OsmElement selectedElement) {
-		    if (selectedElement instanceof Node)
-                logic.setSelectedNode((Node) selectedElement);
-            else if (selectedElement instanceof Way)
-                logic.setSelectedWay((Way) selectedElement);
+			if (selectedElement instanceof Node)
+				logic.setSelectedNode((Node) selectedElement);
+			else if (selectedElement instanceof Way)
+				logic.setSelectedWay((Way) selectedElement);
 
-	        if (selectedElement != null) {
-				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
+			if (selectedElement != null) {
+				Intent startTagEditor = new Intent(getApplicationContext(),
+						TagEditor.class);
 
-				//convert tag-list to string-lists for Bundle-compatibility
-				ArrayList<Tag> tags = new ArrayList<Tag>(selectedElement.getTags());
+				// convert tag-list to string-lists for Bundle-compatibility
+				ArrayList<String> tagList = new ArrayList<String>();
+				Set<Entry<String,String>> tagSet = selectedElement.getTagSet();
+				for (Entry<String, String> tag : tagSet) {
+					tagList.add(tag.getKey());
+					tagList.add(tag.getValue());
+				}
 
-				//insert Bundles
-				startTagEditor.putExtra(TagEditor.TAGS, tags);
-				startTagEditor.putExtra(TagEditor.TYPE, selectedElement.getName());
-				startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
+				// insert Bundles
+				startTagEditor.putExtra(TagEditor.TAGS, tagList);
+				startTagEditor.putExtra(TagEditor.TYPE, selectedElement
+						.getName());
+				startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement
+						.getOsmId());
 
-				Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+				Main.this.startActivityForResult(startTagEditor,
+						Main.REQUEST_EDIT_TAG);
 			}
 		}
 
@@ -599,7 +625,8 @@ public class Main extends Activity {
 		 * @return
 		 */
 		private boolean hasMoved(final float x, final float y) {
-			return Math.abs(firstPosX - x) > CLICK_TOLERANCE || Math.abs(firstPosY - y) > CLICK_TOLERANCE;
+			return Math.abs(firstPosX - x) > CLICK_TOLERANCE
+					|| Math.abs(firstPosY - y) > CLICK_TOLERANCE;
 		}
 
 		@Override
@@ -616,24 +643,24 @@ public class Main extends Activity {
 		public boolean onMenuItemClick(MenuItem item) {
 			int itemId = item.getItemId();
 			if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
-                OsmElement element = clickedNodesAndWays.get(itemId);
-			    switch (logic.getMode()) {
-                case Logic.MODE_TAG_EDIT:
-                    performTagEdit(element);
-                    break;
-                case Logic.MODE_ERASE:
-                    logic.performErase((Node) element);
-                    break;
-                case Logic.MODE_APPEND:
-                    switch (appendMode) {
-                    case APPEND_START:
-                        logic.performAppendStart(element);
-                        break;
-                    case APPEND_APPEND:
-                        // TODO
-                    }
-                }
-            }
+				OsmElement element = clickedNodesAndWays.get(itemId);
+				switch (logic.getMode()) {
+				case Logic.MODE_TAG_EDIT:
+					performTagEdit(element);
+					break;
+				case Logic.MODE_ERASE:
+					logic.performErase((Node) element);
+					break;
+				case Logic.MODE_APPEND:
+					switch (appendMode) {
+					case APPEND_START:
+						logic.performAppendStart(element);
+						break;
+					case APPEND_APPEND:
+						// TODO
+					}
+				}
+			}
 			return true;
 		}
 	}
@@ -646,7 +673,8 @@ public class Main extends Activity {
 	public class MapKeyListiner implements OnKeyListener {
 
 		@Override
-		public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
+		public boolean onKey(final View v, final int keyCode,
+				final KeyEvent event) {
 
 			if (event.getAction() == KeyEvent.ACTION_DOWN) {
 				switch (keyCode) {

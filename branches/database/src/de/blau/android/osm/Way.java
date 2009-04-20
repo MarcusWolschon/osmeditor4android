@@ -2,8 +2,10 @@ package de.blau.android.osm;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+
+import de.blau.android.exception.OsmException;
 
 import android.util.Log;
 
@@ -20,13 +22,14 @@ public class Way extends OsmElement {
 
 	public static final String NODE = "nd";
 
-	Way(final long osmId, final byte status) {
-		super(osmId, status);
+	Way(final long osmId, final State state) {
+		super(osmId, state);
 		this.nodes = new ArrayList<Node>();
 	}
 
-	void addNode(final Node node) {
+	/* package */ int addNode(final Node node) {
 		nodes.add(node);
+		return nodes.size() - 1;
 	}
 
 	public List<Node> getNodes() {
@@ -39,12 +42,20 @@ public class Way extends OsmElement {
 	}
 
 	@Override
+	public Type getType() {
+		return Type.WAY;
+	}
+
+	@Override
 	public String toString() {
-		String res = super.toString();
-		for (Iterator<Tag> it = tags.iterator(); it.hasNext();) {
-			res += "\t" + it.next();
+		StringBuilder res = new StringBuilder(super.toString());
+		for (Entry<String, String> tag : tags.entrySet()) {
+			res.append("\t");
+			res.append(tag.getKey());
+			res.append(" = ");
+			res.append(tag.getValue());
 		}
-		return res;
+		return res.toString();
 	}
 
 	@Override
@@ -74,16 +85,23 @@ public class Way extends OsmElement {
 		}
 	}
 
-	void appendNode(final Node refNode, final Node newNode) {
+	int appendNode(final Node refNode, final Node newNode)
+			throws OsmException {
 		if (nodes.get(0) == refNode) {
 			nodes.add(0, newNode);
+			return 0;
 		} else if (nodes.get(nodes.size() - 1) == refNode) {
 			nodes.add(newNode);
+			return nodes.size() - 1;
 		}
+		throw new OsmException(
+				"refNode must be first or last node.");
 	}
 
-	void addNodeAfter(final Node nodeBefore, final Node newNode) {
-		nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
+	int addNodeAfter(final Node nodeBefore, final Node newNode) {
+		int position = nodes.indexOf(nodeBefore) + 1;
+		nodes.add(position, newNode);
+		return position;
 	}
 
 	public boolean isEndNode(final Node node) {

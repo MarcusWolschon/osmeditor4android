@@ -12,7 +12,7 @@ import de.blau.android.util.GeoMath;
  * 
  * @author mb
  */
-public class BoundingBox implements Serializable {
+public class BoundingBox implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = -2708721312405863618L;
 
@@ -177,7 +177,8 @@ public class BoundingBox implements Serializable {
 	/**
 	 * @return returns a copy of this object.
 	 */
-	public BoundingBox copy() {
+	@Override
+	public BoundingBox clone() {
 		try {
 			return new BoundingBox(this);
 		} catch (OsmException e) {

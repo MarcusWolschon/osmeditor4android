@@ -16,9 +16,11 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmParseException;
+import de.blau.android.osm.OsmElement.State;
 
 /**
- * Parses a XML (as InputStream), provided by XmlRetriever, and pushes generated OsmElements to the given Storage.
+ * Parses a XML (as InputStream), provided by XmlRetriever, and stores generated
+ * OsmElements in the given Storage.
  * 
  * @author mb
  */
@@ -26,12 +28,10 @@ public class OsmParser extends DefaultHandler {
 
 	private static final String DEBUG_TAG = OsmParser.class.getSimpleName();
 
-	/** The storage, where the data will be stored (e.g. as JavaStorage or SqliteStorage). */
-	private final Storage storage;
-
 	/**
-	 * Current node (node of OsmElement), where the parser is actually in. Will be used when children of this element
-	 * have to been assigned to their parent.
+	 * Current node (node of OsmElement), where the parser is actually in. Will
+	 * be used when children of this element have to been assigned to their
+	 * parent.
 	 */
 	private Node currentNode;
 
@@ -40,16 +40,14 @@ public class OsmParser extends DefaultHandler {
 
 	private final ArrayList<Exception> exceptions;
 
-	public OsmParser() {
+	private StorageDelegator storageDelegator;
+	
+	public OsmParser(StorageDelegator storageDelegator) {
 		super();
-		storage = new Storage();
+		this.storageDelegator = storageDelegator;
 		currentNode = null;
 		currentWay = null;
 		exceptions = new ArrayList<Exception>();
-	}
-
-	public Storage getStorage() {
-		return storage;
 	}
 
 	/**
@@ -103,13 +101,18 @@ public class OsmParser extends DefaultHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void endElement(final String uri, final String name, final String qName) {
-		if (isNode(name)) {
-			storage.insertNodeUnsafe(currentNode);
-			currentNode = null;
-		} else if (isWay(name)) {
-			storage.insertWayUnsafe(currentWay);
-			currentWay = null;
+	public void endElement(final String uri, final String name,
+			final String qName) {
+		try {
+			if (isNode(name)) {
+				storageDelegator.storeNode(currentNode);
+				currentNode = null;
+			} else if (isWay(name)) {
+				storageDelegator.storeWay(currentWay);
+				currentWay = null;
+			}
+		} catch (OsmException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -120,7 +123,7 @@ public class OsmParser extends DefaultHandler {
 	 */
 	private void parseOsmElement(final String name, final Attributes atts) throws OsmParseException {
 		long osmId = Integer.parseInt(atts.getValue("id"));
-		byte status = 0;
+		State status = State.UNCHANGED;
 
 		if (isNode(name)) {
 			int lat = (int) (Double.parseDouble(atts.getValue("lat")) * 1E7);
@@ -143,7 +146,7 @@ public class OsmParser extends DefaultHandler {
 		} else {
 			String k = atts.getValue("k");
 			String v = atts.getValue("v");
-			currentOsmElement.addTag(new Tag(k, v));
+			currentOsmElement.addOrUpdateTag(k, v);
 		}
 	}
 
@@ -158,7 +161,7 @@ public class OsmParser extends DefaultHandler {
 		float minlon = Float.parseFloat(atts.getValue("minlon"));
 		float maxlon = Float.parseFloat(atts.getValue("maxlon"));
 		try {
-			storage.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
+			storageDelegator.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
 		} catch (OsmException e) {
 			throw new OsmParseException("Bounds are not correct");
 		}
@@ -172,7 +175,7 @@ public class OsmParser extends DefaultHandler {
 			Log.e(DEBUG_TAG, "No currentWay set!");
 		} else {
 			long nodeOsmId = Integer.parseInt(atts.getValue("ref"));
-			Node node = storage.getNode(nodeOsmId);
+			Node node = storageDelegator.getNode(nodeOsmId);
 			currentWay.addNode(node);
 		}
 	}
@@ -221,7 +224,7 @@ public class OsmParser extends DefaultHandler {
 	 * @see isNode()
 	 */
 	private static boolean isTag(final String name) {
-		return Tag.NAME.equalsIgnoreCase(name);
+		return "tag".equalsIgnoreCase(name);
 	}
 
 	/**

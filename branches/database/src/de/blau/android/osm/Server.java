@@ -23,6 +23,8 @@ import de.blau.android.util.Base64;
  */
 public class Server {
 
+	private static final String CREATED_BY_KEY = "created_by";
+
 	/**
 	 * Location of OSM API
 	 */
@@ -43,6 +45,8 @@ public class Server {
 	 */
 	private final String password;
 
+	private String generator;
+
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
 	 */
@@ -52,11 +56,6 @@ public class Server {
 	 * Path to api with trailing slash.
 	 */
 	private final String path = "/api/" + version + "/";
-
-	/**
-	 * Tag with "created_by"-key to identify edits made by this editor.
-	 */
-	private final Tag createdByTag;
 
 	/**
 	 * The opening root element for the XML file transferring to the server.
@@ -78,10 +77,10 @@ public class Server {
 	public Server(final String username, final String password, final String generator) {
 		this.password = password;
 		this.username = username;
+		this.generator = generator;
+		
 		rootOpen = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<osm version=\"" + version + "\" generator=\""
 				+ generator + "\">\n";
-
-		createdByTag = new Tag("created_by", generator);
 	}
 
 	/**
@@ -124,10 +123,14 @@ public class Server {
 	 * @throws ProtocolException
 	 * @throws IOException
 	 */
-	public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+	public boolean deleteElement(final OsmElement elem)
+			throws MalformedURLException, ProtocolException, IOException {
+		// TODO Distinguish between exceptions that indicate a single failure
+		// when deleting this specific element or a general server error
 		HttpURLConnection connection = null;
 		try {
-			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "DELETE");
+			connection = openConnectionForWriteAccess(getDeleteUrl(elem),
+					"DELETE");
 			checkResponseCode(connection);
 		} finally {
 			disconnect(connection);
@@ -153,7 +156,7 @@ public class Server {
 
 	public boolean updateElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
-		elem.addOrUpdateTag(createdByTag);
+		elem.addOrUpdateTag(CREATED_BY_KEY, generator);
 		String xml = encloseRoot(elem);
 
 		try {
@@ -209,7 +212,7 @@ public class Server {
 		int osmId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag);
+		elem.addOrUpdateTag(CREATED_BY_KEY, generator);
 		String xml = encloseRoot(elem);
 
 		try {
