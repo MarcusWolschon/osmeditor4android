@@ -24,12 +24,15 @@ public abstract class OsmElement implements Serializable {
 
 	protected long osmId;
 
+	protected long osmVersion;
+
 	protected List<Tag> tags;
 
 	protected byte state;
 
-	OsmElement(final long osmId, final byte state) {
+	OsmElement(final long osmId, final long osmVersion, final byte state) {
 		this.osmId = osmId;
+		this.osmVersion = osmVersion;
 		this.tags = new ArrayList<Tag>();
 		this.state = state;
 	}
@@ -124,7 +127,7 @@ public abstract class OsmElement implements Serializable {
 		return getName() + " " + osmId;
 	}
 
-	abstract public String toXml();
+	abstract public String toXml(long changesetId);
 
 	public String tagsToXml() {
 		String xml = "";

@@ -208,10 +208,12 @@ public class StorageDelegator implements Serializable {
 
 	public synchronized void uploadToServer(final Server server) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
+		server.openChangeset();
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
 		uploadCreatedOrModifiedElements(server, apiStorage.getWays());
 		uploadDeletedElements(server, apiStorage.getWays());
 		uploadDeletedElements(server, apiStorage.getNodes());
+		server.closeChangeset();
 	}
 
 	private void uploadDeletedElements(final Server server, final List<? extends OsmElement> elements)

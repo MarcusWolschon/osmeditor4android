@@ -199,7 +199,7 @@ public class Main extends Activity {
 			return true;
 
 		case R.id.menu_transfer_download_current:
-			onMenuDonwloadCurrent();
+			onMenuDownloadCurrent();
 			return true;
 
 		case R.id.menu_transfer_download_other:
@@ -235,7 +235,7 @@ public class Main extends Activity {
 	 * When the user made some changes, {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
 	 * Otherwise the current viewBox will be re-downloaded from the server.
 	 */
-	private void onMenuDonwloadCurrent() {
+	private void onMenuDownloadCurrent() {
 		if (logic.hasChanges()) {
 			showDialog(DialogFactory.DOWNLOAD_CURRENT_WITH_CHANGES);
 		} else {
@@ -411,30 +411,31 @@ public class Main extends Activity {
 		Toast.makeText(getApplicationContext(), R.string.toast_waiting_for_gps, Toast.LENGTH_SHORT).show();
 	}
 
-    private enum AppendMode {
-        APPEND_START, APPEND_APPEND
-    }
-    
+	private enum AppendMode {
+		APPEND_START, APPEND_APPEND
+	}
+
 	/**
 	 * A TouchListener for all gestures made on the touchscreen.
 	 * 
 	 * @author mb
 	 */
-	private class MapTouchListener implements OnTouchListener,
-			OnCreateContextMenuListener, OnMenuItemClickListener {
-	    
+	private class MapTouchListener implements OnTouchListener, OnCreateContextMenuListener, OnMenuItemClickListener {
+
 		private static final int INVALID_POS = -1;
 
 		private float firstPosX = INVALID_POS;
+
 		private float firstPosY = INVALID_POS;
 
 		private float oldPosX = INVALID_POS;
+
 		private float oldPosY = INVALID_POS;
 
 		private final static float CLICK_TOLERANCE = 20f;
 
-		private AppendMode appendMode; 
-		
+		private AppendMode appendMode;
+
 		private List<OsmElement> clickedNodesAndWays;
 
 		@Override
@@ -479,7 +480,7 @@ public class Main extends Activity {
 		}
 
 		/**
-		 * @param v 
+		 * @param v
 		 * @param x
 		 * @param y
 		 */
@@ -498,7 +499,7 @@ public class Main extends Activity {
 						selectElementForTagEdit(v, x, y);
 						break;
 					case Logic.MODE_ERASE:
-					    selectElementForErase(v, x, y);
+						selectElementForErase(v, x, y);
 						break;
 					case Logic.MODE_APPEND:
 						performAppend(v, x, y);
@@ -526,59 +527,59 @@ public class Main extends Activity {
 				performTagEdit(clickedNodesAndWays.get(0));
 			} else if (size > 1) {
 				v.showContextMenu();
-			} /* else {} */ // If no elements where touched, ignore
+			} /* else {} */// If no elements where touched, ignore
 		}
 
-        private void selectElementForErase(View v, float x, float y) {
-            clickedNodesAndWays = logic.getClickedNodes(x, y);
-            int size = clickedNodesAndWays.size();
-            if (size == 1) {
-                logic.performErase((Node) clickedNodesAndWays.get(0));
-            } else if (size > 1) {
-                v.showContextMenu();
-            } /* else {} */ // If no elements where touched, ignore
-        }
-
-        /**
-         * Appends a new Node to a selected Way. If any Way was yet selected, the user have to select one end-node first.
-         * When the user clicks on an empty area, a new node will generated. When he clicks on a existing way, the new node
-         * will be generated on that way. when he selects a different node, this one will be used. when he selects the
-         * previous selected node, it will be de-selected.
-         * 
-         * @param x the click-position on the display.
-         * @param y the click-position on the display.
-         */
-        public void performAppend(final View v, final float x, final float y) {
-            Node lSelectedNode = logic.getSelectedNode();
-            Way lSelectedWay = logic.getSelectedWay();
-
-            if (lSelectedWay == null) {
-                
-                clickedNodesAndWays = logic.getClickedEndNodes(x, y);
-                int size = clickedNodesAndWays.size();
-                if (size == 1) {
-                    logic.performAppendStart(clickedNodesAndWays.get(0));
-                } else if (size > 1) {
-                    appendMode = AppendMode.APPEND_START;
-                    v.showContextMenu();
-                } /* else {} */ // If no elements where touched, ignore
-
-            } else if (lSelectedWay.isEndNode(lSelectedNode)) {
-                // TODO Resolve multiple possible selections
-                logic.performAppendAppend(x, y);
-            }
-        }
+		private void selectElementForErase(View v, float x, float y) {
+			clickedNodesAndWays = logic.getClickedNodes(x, y);
+			int size = clickedNodesAndWays.size();
+			if (size == 1) {
+				logic.performErase((Node) clickedNodesAndWays.get(0));
+			} else if (size > 1) {
+				v.showContextMenu();
+			} /* else {} */// If no elements where touched, ignore
+		}
 
 		/**
-		 * @param selectedElement 
+		 * Appends a new Node to a selected Way. If any Way was yet selected, the user have to select one end-node
+		 * first. When the user clicks on an empty area, a new node will generated. When he clicks on a existing way,
+		 * the new node will be generated on that way. when he selects a different node, this one will be used. when he
+		 * selects the previous selected node, it will be de-selected.
+		 * 
+		 * @param x the click-position on the display.
+		 * @param y the click-position on the display.
+		 */
+		public void performAppend(final View v, final float x, final float y) {
+			Node lSelectedNode = logic.getSelectedNode();
+			Way lSelectedWay = logic.getSelectedWay();
+
+			if (lSelectedWay == null) {
+
+				clickedNodesAndWays = logic.getClickedEndNodes(x, y);
+				int size = clickedNodesAndWays.size();
+				if (size == 1) {
+					logic.performAppendStart(clickedNodesAndWays.get(0));
+				} else if (size > 1) {
+					appendMode = AppendMode.APPEND_START;
+					v.showContextMenu();
+				} /* else {} */// If no elements where touched, ignore
+
+			} else if (lSelectedWay.isEndNode(lSelectedNode)) {
+				// TODO Resolve multiple possible selections
+				logic.performAppendAppend(x, y);
+			}
+		}
+
+		/**
+		 * @param selectedElement
 		 */
 		private void performTagEdit(OsmElement selectedElement) {
-		    if (selectedElement instanceof Node)
-                logic.setSelectedNode((Node) selectedElement);
-            else if (selectedElement instanceof Way)
-                logic.setSelectedWay((Way) selectedElement);
+			if (selectedElement instanceof Node)
+				logic.setSelectedNode((Node) selectedElement);
+			else if (selectedElement instanceof Way)
+				logic.setSelectedWay((Way) selectedElement);
 
-	        if (selectedElement != null) {
+			if (selectedElement != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 
 				//convert tag-list to string-lists for Bundle-compatibility
@@ -603,12 +604,10 @@ public class Main extends Activity {
 		}
 
 		@Override
-		public void onCreateContextMenu(ContextMenu menu, View v,
-				ContextMenuInfo menuInfo) {
+		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 			for (int i = 0, len = clickedNodesAndWays.size(); i < len; i++) {
 				OsmElement osmElement = clickedNodesAndWays.get(i);
-				menu.add(Menu.NONE, i, Menu.NONE, osmElement.getDescription())
-						.setOnMenuItemClickListener(this);
+				menu.add(Menu.NONE, i, Menu.NONE, osmElement.getDescription()).setOnMenuItemClickListener(this);
 			}
 		}
 
@@ -616,24 +615,24 @@ public class Main extends Activity {
 		public boolean onMenuItemClick(MenuItem item) {
 			int itemId = item.getItemId();
 			if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
-                OsmElement element = clickedNodesAndWays.get(itemId);
-			    switch (logic.getMode()) {
-                case Logic.MODE_TAG_EDIT:
-                    performTagEdit(element);
-                    break;
-                case Logic.MODE_ERASE:
-                    logic.performErase((Node) element);
-                    break;
-                case Logic.MODE_APPEND:
-                    switch (appendMode) {
-                    case APPEND_START:
-                        logic.performAppendStart(element);
-                        break;
-                    case APPEND_APPEND:
-                        // TODO
-                    }
-                }
-            }
+				OsmElement element = clickedNodesAndWays.get(itemId);
+				switch (logic.getMode()) {
+				case Logic.MODE_TAG_EDIT:
+					performTagEdit(element);
+					break;
+				case Logic.MODE_ERASE:
+					logic.performErase((Node) element);
+					break;
+				case Logic.MODE_APPEND:
+					switch (appendMode) {
+					case APPEND_START:
+						logic.performAppendStart(element);
+						break;
+					case APPEND_APPEND:
+						// TODO
+					}
+				}
+			}
 			return true;
 		}
 	}

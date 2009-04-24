@@ -113,6 +113,7 @@ public final class R {
         public static final int config_category_gps=0x7f060057;
         public static final int config_category_server=0x7f060050;
         /**  Preferences 
+ Preferences 
          */
         public static final int config_category_view=0x7f060046;
         public static final int config_enableAntiAliasing_key=0x7f06004d;
@@ -138,6 +139,7 @@ public final class R {
         public static final int config_username_title=0x7f060052;
         public static final int error_email_chooser_title=0x7f06001e;
         /**  ErrorMailer  
+ ErrorMailer  
          */
         public static final int error_email_message=0x7f06001d;
         public static final int key=0x7f060024;
@@ -147,6 +149,7 @@ public final class R {
         public static final int location_coordinates_text=0x7f06002d;
         public static final int location_current_text=0x7f06002b;
         /**  Strings in LocationPicker 
+ Strings in LocationPicker 
          */
         public static final int location_headline=0x7f060028;
         public static final int location_label_no_location=0x7f060032;
@@ -168,6 +171,7 @@ public final class R {
         public static final int menu_gps_stop=0x7f06003f;
         public static final int menu_gps_upload=0x7f060040;
         /**  Menu 
+ Menu 
          */
         public static final int menu_move=0x7f060035;
         public static final int menu_save=0x7f060045;
@@ -187,15 +191,18 @@ public final class R {
         public static final int progress_title=0x7f060013;
         public static final int resume_last_activity_dialog_message=0x7f060004;
         /**  Dialogs 
+ Dialogs 
          */
         public static final int resume_last_activity_dialog_title=0x7f060003;
         public static final int tag_menu_mapfeatures=0x7f060027;
         /**  Strings in TagEditor 
+ Strings in TagEditor 
          */
         public static final int tag_title=0x7f060023;
         public static final int toast_empty_data=0x7f060018;
         public static final int toast_follow_gps_off=0x7f06001c;
         /**  Toaster 
+ Toaster 
          */
         public static final int toast_no_changes=0x7f060016;
         public static final int toast_not_in_edit_range=0x7f060019;
@@ -214,6 +221,7 @@ public final class R {
         public static final int wrong_login_data_message=0x7f06000f;
         public static final int wrong_login_data_title=0x7f06000e;
         /**  Some generic labels 
+ Some generic labels 
          */
         public static final int yes=0x7f06001f;
     }
