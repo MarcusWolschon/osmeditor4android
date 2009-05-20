@@ -31,8 +31,7 @@ public class Node extends OsmElement {
 	 * Constructor. Call it solely in {@link OsmElementFactory}!
 	 * 
 	 * @param osmId the OSM-ID. When not yet transmitted to the API it is negative.
-	 * @param user the last user made changes to this element.
-	 * @param dateChanged date of last change.
+	 * @param osmVersion the version of the element
 	 * @param status see {@link OsmElement#state}
 	 * @param lat WGS84 decimal Latitude-Coordinate times 1E7.
 	 * @param lon WGS84 decimal Longitude-Coordinate times 1E7.

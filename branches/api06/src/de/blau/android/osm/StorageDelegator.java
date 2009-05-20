@@ -249,13 +249,15 @@ public class StorageDelegator implements Serializable {
 				}
 				break;
 			case OsmElement.STATE_MODIFIED:
-				if (server.updateElement(element)) {
+				int osmVersion = server.updateElement(element);
+				if (osmVersion > 0) {
 					if (apiStorage.removeElement(element)) {
 						--i;
 						--size;
 					}
 					Log.w(DEBUG_TAG, element + " updated in API");
 					element.setState(OsmElement.STATE_UNCHANGED);
+
 				}
 				break;
 			}
