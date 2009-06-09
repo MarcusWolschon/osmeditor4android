@@ -20,8 +20,8 @@ public class Way extends OsmElement {
 
 	public static final String NODE = "nd";
 
-	Way(final long osmId, final byte status) {
-		super(osmId, status);
+	Way(final long osmId, final long osmVersion, final byte status) {
+		super(osmId, osmVersion, status);
 		this.nodes = new ArrayList<Node>();
 	}
 
@@ -48,9 +48,9 @@ public class Way extends OsmElement {
 	}
 
 	@Override
-	public String toXml() {
+	public String toXml(long changesetId) {
 		String xml = "";
-		xml += "<way id=\"" + osmId + "\">\n";
+		xml += "<way id=\"" + osmId + "\" changeset=\"" + changesetId + "\" version=\"" + osmVersion + "\">\n";
 		for (int i = 0, size = nodes.size(); i < size; ++i) {
 			long nodeId = nodes.get(i).getOsmId();
 			if (nodeId > 0) {

@@ -46,7 +46,9 @@ public class Server {
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
 	 */
-	private final String version = "0.5";
+	private final String version = "0.6";
+
+	private final String osmChangeVersion = "0.3";
 
 	/**
 	 * Path to api with trailing slash.
@@ -68,6 +70,10 @@ public class Server {
 	 */
 	private static final String rootClose = "</osm>";
 
+	private long changesetId = -1;
+
+	private String generator;
+
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
 	 * 
@@ -78,6 +84,7 @@ public class Server {
 	public Server(final String username, final String password, final String generator) {
 		this.password = password;
 		this.username = username;
+		this.generator = generator;
 		rootOpen = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<osm version=\"" + version + "\" generator=\""
 				+ generator + "\">\n";
 
@@ -105,7 +112,7 @@ public class Server {
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-					+ ", responce code: " + con.getResponseCode());
+					+ ", response code: " + con.getResponseCode());
 		}
 
 		if (isServerGzipEnabled) {
@@ -126,8 +133,12 @@ public class Server {
 	 */
 	public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
+		elem.addOrUpdateTag(createdByTag);
+		String xml = encloseRootOsmChange(elem, "delete");
+
 		try {
-			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "DELETE");
+			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
+			sendPayload(connection, xml);
 			checkResponseCode(connection);
 		} finally {
 			disconnect(connection);
@@ -151,8 +162,10 @@ public class Server {
 		}
 	}
 
-	public boolean updateElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+	public int updateElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+		int osmVersion = -1;
 		HttpURLConnection connection = null;
+		InputStream in = null;
 		elem.addOrUpdateTag(createdByTag);
 		String xml = encloseRoot(elem);
 
@@ -160,10 +173,13 @@ public class Server {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
 			sendPayload(connection, xml);
 			checkResponseCode(connection);
+			in = connection.getInputStream();
+			osmVersion = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
+			close(in);
 		}
-		return true;
+		return osmVersion;
 	}
 
 	/**
@@ -225,6 +241,37 @@ public class Server {
 		return osmId;
 	}
 
+	public void openChangeset() throws MalformedURLException, ProtocolException, IOException {
+		int changesetId = -1;
+		HttpURLConnection connection = null;
+		InputStream in = null;
+		String xml = "<osm><changeset><tag k=\"created_by\" v=\"" + this.generator
+				+ "\"/><tag k=\"comment\" v=\"Vespucci edit\"/></changeset></osm>";
+
+		try {
+			connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
+			sendPayload(connection, xml);
+			checkResponseCode(connection);
+			in = connection.getInputStream();
+			changesetId = Integer.parseInt(readLine(in));
+		} finally {
+			disconnect(connection);
+			close(in);
+		}
+		this.changesetId = changesetId;
+	}
+
+	public void closeChangeset() throws MalformedURLException, ProtocolException, IOException {
+		HttpURLConnection connection = null;
+
+		try {
+			connection = openConnectionForWriteAccess(getCloseChangesetUrl(this.changesetId), "PUT");
+			checkResponseCode(connection);
+		} finally {
+			disconnect(connection);
+		}
+	}
+
 	/**
 	 * @param connection
 	 * @throws IOException
@@ -282,16 +329,39 @@ public class Server {
 		return new URL(SERVER_URL + path + elem.getName() + "/create");
 	}
 
+	private URL getCreateChangesetUrl() throws MalformedURLException {
+		return new URL(SERVER_URL + path + "changeset/create");
+	}
+
+	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
+		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/close");
+	}
+
 	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
 		return new URL(SERVER_URL + path + elem.getName() + "/" + elem.getOsmId());
 	}
 
 	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
-		return getUpdateUrl(elem);
+		//return getUpdateUrl(elem);
+		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/upload");
 	}
 
 	private String encloseRoot(final OsmElement elem) {
-		return rootOpen + elem.toXml() + rootClose;
+		return rootOpen + elem.toXml(this.changesetId) + rootClose;
+	}
+
+	private String encloseRootOsmChange(final OsmElement elem, String action) {
+		return getOsmChangeOpen(action) + elem.toXml(this.changesetId) + getOsmChangeClose(action);
+	}
+
+	private String getOsmChangeOpen(String action) {
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<osmChange version=\"" + osmChangeVersion
+				+ "\" generator=\"" + generator + "\">\n" + "<" + action + " version=\"" + osmChangeVersion
+				+ "\" generator=\"" + generator + "\">\n";
+	}
+
+	private String getOsmChangeClose(String action) {
+		return "</" + action + ">\n</osmChange>";
 	}
 
 }

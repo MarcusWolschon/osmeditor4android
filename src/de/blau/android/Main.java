@@ -100,7 +100,7 @@ public class Main extends Activity {
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
-		map.setOnKeyListener(new MapKeyListiner());
+		map.setOnKeyListener((OnKeyListener) new MapKeyListiner());
 
 		setContentView(map);
 
@@ -199,7 +199,7 @@ public class Main extends Activity {
 			return true;
 
 		case R.id.menu_transfer_download_current:
-			onMenuDonwloadCurrent();
+			onMenuDownloadCurrent();
 			return true;
 
 		case R.id.menu_transfer_download_other:
@@ -235,7 +235,7 @@ public class Main extends Activity {
 	 * When the user made some changes, {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
 	 * Otherwise the current viewBox will be re-downloaded from the server.
 	 */
-	private void onMenuDonwloadCurrent() {
+	private void onMenuDownloadCurrent() {
 		if (logic.hasChanges()) {
 			showDialog(DialogFactory.DOWNLOAD_CURRENT_WITH_CHANGES);
 		} else {
