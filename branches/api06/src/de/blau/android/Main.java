@@ -100,7 +100,7 @@ public class Main extends Activity {
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
-		map.setOnKeyListener(new MapKeyListiner());
+		map.setOnKeyListener((OnKeyListener) new MapKeyListiner());
 
 		setContentView(map);
 
