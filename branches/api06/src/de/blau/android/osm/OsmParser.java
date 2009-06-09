@@ -129,8 +129,6 @@ public class OsmParser extends DefaultHandler {
 			currentNode = OsmElementFactory.createNode(osmId, osmVersion, status, lat, lon);
 		} else if (isWay(name)) {
 			currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
-			//} else if (isRelation(name)) {
-			//currentRelation = OsmElementFactory.createRelation(osmId, user, timestamp, status);
 		}
 	}
 

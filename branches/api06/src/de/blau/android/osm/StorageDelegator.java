@@ -257,11 +257,9 @@ public class StorageDelegator implements Serializable {
 					}
 					Log.w(DEBUG_TAG, element + " updated in API");
 					element.setState(OsmElement.STATE_UNCHANGED);
-
 				}
 				break;
 			}
 		}
 	}
-
 }
