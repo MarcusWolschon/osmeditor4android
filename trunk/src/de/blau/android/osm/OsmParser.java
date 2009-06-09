@@ -120,16 +120,15 @@ public class OsmParser extends DefaultHandler {
 	 */
 	private void parseOsmElement(final String name, final Attributes atts) throws OsmParseException {
 		long osmId = Integer.parseInt(atts.getValue("id"));
+		long osmVersion = Integer.parseInt(atts.getValue("version"));
 		byte status = 0;
 
 		if (isNode(name)) {
 			int lat = (int) (Double.parseDouble(atts.getValue("lat")) * 1E7);
 			int lon = (int) (Double.parseDouble(atts.getValue("lon")) * 1E7);
-			currentNode = OsmElementFactory.createNode(osmId, status, lat, lon);
+			currentNode = OsmElementFactory.createNode(osmId, osmVersion, status, lat, lon);
 		} else if (isWay(name)) {
-			currentWay = OsmElementFactory.createWay(osmId, status);
-			//} else if (isRelation(name)) {
-			//currentRelation = OsmElementFactory.createRelation(osmId, user, timestamp, status);
+			currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
 		}
 	}
 

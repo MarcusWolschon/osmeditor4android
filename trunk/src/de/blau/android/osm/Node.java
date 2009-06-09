@@ -1,6 +1,5 @@
 package de.blau.android.osm;
 
-
 /**
  * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair and provides some package-internal
  * manipulating-methods.
@@ -32,14 +31,13 @@ public class Node extends OsmElement {
 	 * Constructor. Call it solely in {@link OsmElementFactory}!
 	 * 
 	 * @param osmId the OSM-ID. When not yet transmitted to the API it is negative.
-	 * @param user the last user made changes to this element.
-	 * @param dateChanged date of last change.
+	 * @param osmVersion the version of the element
 	 * @param status see {@link OsmElement#state}
 	 * @param lat WGS84 decimal Latitude-Coordinate times 1E7.
 	 * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
 	 */
-	Node(final long osmId, final byte status, final int lat, final int lon) {
-		super(osmId, status);
+	Node(final long osmId, final long osmVersion, final byte status, final int lat, final int lon) {
+		super(osmId, osmVersion, status);
 		this.lat = lat;
 		this.lon = lon;
 	}
@@ -80,9 +78,10 @@ public class Node extends OsmElement {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toXml() {
+	public String toXml(long changesetId) {
 		String xml = "";
-		xml += "<node id=\"" + osmId + "\" lat=\"" + lat / 1E7 + "\" lon=\"" + lon / 1E7 + "\" ";
+		xml += "<node id=\"" + osmId + "\" changeset=\"" + changesetId + "\" version=\"" + osmVersion + "\" lat=\""
+				+ lat / 1E7 + "\" lon=\"" + lon / 1E7 + "\" ";
 		if (tags.size() > 0) {
 			xml += ">\n";
 			xml += tagsToXml();

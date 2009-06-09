@@ -326,21 +326,18 @@ public class Logic {
 	}
 
 	/**
-	 * Searches for all Ways and Nodes at x,y plus the shown node-tolerance.
-	 * Nodes have to lie in the mapBox. For optimization reasons the tolerance
-	 * will be handled as square, not circle.
+	 * Searches for all Ways and Nodes at x,y plus the shown node-tolerance. Nodes have to lie in the mapBox. For
+	 * optimization reasons the tolerance will be handled as square, not circle.
 	 * 
-	 * @param x
-	 *            display-coordinate.
-	 * @param y
-	 *            display-coordinate.
-	 * @return 	  a List of all OsmElements (Nodes and Ways) within the tolerance  
+	 * @param x display-coordinate.
+	 * @param y display-coordinate.
+	 * @return a List of all OsmElements (Nodes and Ways) within the tolerance
 	 */
 	public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 
 		result.addAll(getClickedNodes(x, y));
-		
+
 		Node node1 = null;
 		Node node2 = null;
 		List<Way> ways = delegator.getCurrentStorage().getWays();
@@ -366,12 +363,12 @@ public class Logic {
 		return result;
 	}
 
-    public List<OsmElement> getClickedNodes(final float x, final float y) {
-        ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+	public List<OsmElement> getClickedNodes(final float x, final float y) {
+		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 
-        float tolerance = Paints.NODE_TOLERANCE_VALUE;
+		float tolerance = Paints.NODE_TOLERANCE_VALUE;
 
-        List<Node> nodes = delegator.getCurrentStorage().getNodes();
+		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 		for (Node node : nodes) {
 			int lat = node.getLat();
 			int lon = node.getLon();
@@ -385,22 +382,22 @@ public class Logic {
 				}
 			}
 		}
-		
+
 		return result;
-    }
+	}
 
-    public List<OsmElement> getClickedEndNodes(final float x, final float y) {
-        ArrayList<OsmElement> result = new ArrayList<OsmElement>();
-        List<OsmElement> allNodes = getClickedNodes(x, y);
+	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
+		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+		List<OsmElement> allNodes = getClickedNodes(x, y);
 
-        for (OsmElement osmElement : allNodes) {
-            if (delegator.getCurrentStorage().isEndNode((Node) osmElement))
-                result.add(osmElement);
-        }
-        
-        return result;
-    }
-    
+		for (OsmElement osmElement : allNodes) {
+			if (delegator.getCurrentStorage().isEndNode((Node) osmElement))
+				result.add(osmElement);
+		}
+
+		return result;
+	}
+
 	/**
 	 * Searches for a Node at x,y plus the shown node-tolerance. The Node has to lay in the mapBox. For optimization
 	 * reasons the tolerance will be handled as square, not circle.
@@ -441,7 +438,7 @@ public class Logic {
 	 */
 	void handleTouchEventDown(final float x, final float y) {
 		if (isInEditZoomRange() && mode == MODE_EDIT) {
-		    // TODO Need to handle multiple possible targets here too (Issue #6)
+			// TODO Need to handle multiple possible targets here too (Issue #6)
 			setSelectedNode(getClickedNode(x, y));
 			map.invalidate();
 		}
@@ -565,54 +562,53 @@ public class Logic {
 		}
 	}
 
-    public void performAppendStart(OsmElement element) {
-        Way lSelectedWay = null;
-        Node lSelectedNode = null;
+	public void performAppendStart(OsmElement element) {
+		Way lSelectedWay = null;
+		Node lSelectedNode = null;
 
-        if (element != null) {
-            if (element instanceof Node) {
-                lSelectedNode = (Node) element;
-                List<Way> ways = delegator.getCurrentStorage().getWays(
-                        lSelectedNode);
-                // TODO Resolve possible multiple ways that end at the node
-                for (Way way : ways) {
-                    if (way.isEndNode(lSelectedNode)) {
-                        lSelectedWay = way;
-                        break;
-                    }
-                }
-                if (lSelectedWay == null) {
-                    lSelectedNode = null;
-                }
-            }
-        }
-        setSelectedNode(lSelectedNode);
-        setSelectedWay(lSelectedWay);
-        
-        map.invalidate();
-    }
+		if (element != null) {
+			if (element instanceof Node) {
+				lSelectedNode = (Node) element;
+				List<Way> ways = delegator.getCurrentStorage().getWays(lSelectedNode);
+				// TODO Resolve possible multiple ways that end at the node
+				for (Way way : ways) {
+					if (way.isEndNode(lSelectedNode)) {
+						lSelectedWay = way;
+						break;
+					}
+				}
+				if (lSelectedWay == null) {
+					lSelectedNode = null;
+				}
+			}
+		}
+		setSelectedNode(lSelectedNode);
+		setSelectedWay(lSelectedWay);
 
-    public void performAppendAppend(final float x, final float y) {
-        Node lSelectedNode = getSelectedNode();
-        Way lSelectedWay = getSelectedWay();
+		map.invalidate();
+	}
 
-        Node node = getClickedNodeOrCreatedWayNode(x, y);
-        if (node == lSelectedNode) {
-            lSelectedNode = null;
-            lSelectedWay = null;
-        } else {
-            if (node == null) {
-                int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-                int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
-                node = OsmElementFactory.createNodeWithNewId(lat, lon);
-                delegator.insertElementSafe(node);
-            }
-            delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
-            lSelectedNode = node;
-        }
-        setSelectedNode(lSelectedNode);
-        setSelectedWay(lSelectedWay);
-    }
+	public void performAppendAppend(final float x, final float y) {
+		Node lSelectedNode = getSelectedNode();
+		Way lSelectedWay = getSelectedWay();
+
+		Node node = getClickedNodeOrCreatedWayNode(x, y);
+		if (node == lSelectedNode) {
+			lSelectedNode = null;
+			lSelectedWay = null;
+		} else {
+			if (node == null) {
+				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+				node = OsmElementFactory.createNodeWithNewId(lat, lon);
+				delegator.insertElementSafe(node);
+			}
+			delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+			lSelectedNode = node;
+		}
+		setSelectedNode(lSelectedNode);
+		setSelectedWay(lSelectedWay);
+	}
 
 	/**
 	 * Tries to locate the selected node. If x,y lays on a way, a new node at this location will be created, stored in
@@ -717,14 +713,14 @@ public class Logic {
 	}
 
 	/**
-	 * Loads the area definied by mapBox from the OSM-Server. Afterwards the {@link LoadFromStreamThread} will be
+	 * Loads the area defined by mapBox from the OSM-Server. Afterwards the {@link LoadFromStreamThread} will be
 	 * instanced and started.
 	 * 
 	 * @param caller Reference to the caller-activity.
 	 * @param handler Handler generated in the UI-Thread.
 	 * @param mapBox Box defining the area to be loaded.
 	 * @throws OsmServerException When a problem with the osm-server occurs.
-	 * @throws IOException generell IOException
+	 * @throws IOException general IOException
 	 */
 	void downloadBox(final Activity caller, final Handler handler, final BoundingBox mapBox) throws OsmServerException,
 			IOException {
@@ -789,20 +785,20 @@ public class Logic {
 	}
 
 	/**
-     * @return the selectedNode
-     */
-    public final Node getSelectedNode() {
-        return selectedNode;
-    }
+	 * @return the selectedNode
+	 */
+	public final Node getSelectedNode() {
+		return selectedNode;
+	}
 
-    /**
-     * @return the selectedWay
-     */
-    public final Way getSelectedWay() {
-        return selectedWay;
-    }
+	/**
+	 * @return the selectedWay
+	 */
+	public final Way getSelectedWay() {
+		return selectedWay;
+	}
 
-    /**
+	/**
 	 * Will be called when the screen orientation was changed.
 	 * 
 	 * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...

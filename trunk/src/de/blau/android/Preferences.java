@@ -43,7 +43,8 @@ public class Preferences {
 			gpsDistance = 5.0f;
 			gpsInterval = 1000;
 		}
-		server = new Server(username, password, r.getString(R.string.app_name) + r.getString(R.string.app_version));
+		server = new Server(username, password, r.getString(R.string.app_name) + " "
+				+ r.getString(R.string.app_version));
 	}
 
 	/**
