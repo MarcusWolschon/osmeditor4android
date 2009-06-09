@@ -11,7 +11,8 @@ import de.blau.android.listener.GotoPreferencesListener;
 import de.blau.android.listener.UploadListener;
 
 /**
- * Capsulates Dialog-Creation from {@link Main} and delegates the creation-command to {@link android.app.Dialog.Builder}.
+ * Capsulates Dialog-Creation from {@link Main} and delegates the creation-command to {@link android.app.Dialog.Builder}
+ * .
  * 
  * @author mb
  */
