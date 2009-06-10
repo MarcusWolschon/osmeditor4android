@@ -4,7 +4,6 @@
 	<string name="app_version">0.6.0</string>
 	<string name="app_name_version">Vespucci 0.6.0</string>
 
-
 	<!-- Dialogs -->
 	<string name="resume_last_activity_dialog_title">Reprendre ?</string>
 	<string name="resume_last_activity_dialog_message">Voulez-vous reprendre votre dernière activité ?</string>
