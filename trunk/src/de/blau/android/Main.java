@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -38,7 +40,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tag;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.Paints;
 
@@ -298,10 +299,18 @@ public class Main extends Activity {
 	@SuppressWarnings("unchecked")
 	private void handleTagEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
-		//Read data from extras
-		ArrayList<Tag> tags = (ArrayList<Tag>) b.getSerializable(TagEditor.TAGS);
+		// Read data from extras
+		// Intents can't hold a Map in the extras, so
+		// it is converted to an ArrayList
+		ArrayList<String> tagList = (ArrayList<String>) b
+				.getSerializable(TagEditor.TAGS);
 		String type = b.getString(TagEditor.TYPE);
 		long osmId = b.getLong(TagEditor.OSM_ID);
+
+		int size = tagList.size();
+		HashMap<String, String> tags = new HashMap<String, String>(size / 2);
+		for (int i = 0; i < size; i += 2)
+			tags.put(tagList.get(i), tagList.get(i+1));
 
 		logic.insertTags(type, osmId, tags);
 		map.invalidate();
@@ -582,11 +591,15 @@ public class Main extends Activity {
 			if (selectedElement != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 
-				//convert tag-list to string-lists for Bundle-compatibility
-				ArrayList<Tag> tags = new ArrayList<Tag>(selectedElement.getTags());
+				// convert tag-list to string-lists for Bundle-compatibility
+				ArrayList<String> tagList = new ArrayList<String>();
+				for (Entry<String, String> tag : selectedElement.getTags().entrySet()) {
+					tagList.add(tag.getKey());
+					tagList.add(tag.getValue());
+				}
 
 				//insert Bundles
-				startTagEditor.putExtra(TagEditor.TAGS, tags);
+				startTagEditor.putExtra(TagEditor.TAGS, tagList);
 				startTagEditor.putExtra(TagEditor.TYPE, selectedElement.getName());
 				startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
 

@@ -58,7 +58,8 @@ public class Server {
 	/**
 	 * Tag with "created_by"-key to identify edits made by this editor.
 	 */
-	private final Tag createdByTag;
+	private final String createdByTag;
+	private final String createdByKey;
 
 	/**
 	 * The opening root element for the XML file transferring to the server.
@@ -88,7 +89,8 @@ public class Server {
 		rootOpen = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<osm version=\"" + version + "\" generator=\""
 				+ generator + "\">\n";
 
-		createdByTag = new Tag("created_by", generator);
+		createdByTag = "created_by";
+		createdByKey = generator;
 	}
 
 	/**
@@ -133,7 +135,7 @@ public class Server {
 	 */
 	public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
-		elem.addOrUpdateTag(createdByTag);
+		elem.addOrUpdateTag(createdByTag, createdByKey);
 		String xml = encloseRootOsmChange(elem, "delete");
 
 		try {
@@ -166,7 +168,7 @@ public class Server {
 		int osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag);
+		elem.addOrUpdateTag(createdByTag, createdByKey);
 		String xml = encloseRoot(elem);
 
 		try {
@@ -225,7 +227,7 @@ public class Server {
 		int osmId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag);
+		elem.addOrUpdateTag(createdByTag, createdByTag);
 		String xml = encloseRoot(elem);
 
 		try {

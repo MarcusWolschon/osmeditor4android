@@ -2,8 +2,8 @@ package de.blau.android.osm;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import android.util.Log;
 
@@ -41,8 +41,8 @@ public class Way extends OsmElement {
 	@Override
 	public String toString() {
 		String res = super.toString();
-		for (Iterator<Tag> it = tags.iterator(); it.hasNext();) {
-			res += "\t" + it.next();
+		for (Map.Entry<String, String> tag : this.tags.entrySet()) {
+			res += "\t" + tag.getKey() + "=" + tag.getValue();
 		}
 		return res;
 	}

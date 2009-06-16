@@ -142,7 +142,7 @@ public class OsmParser extends DefaultHandler {
 		} else {
 			String k = atts.getValue("k");
 			String v = atts.getValue("v");
-			currentOsmElement.addTag(new Tag(k, v));
+			currentOsmElement.addOrUpdateTag(k, v);
 		}
 	}
 
@@ -220,7 +220,7 @@ public class OsmParser extends DefaultHandler {
 	 * @see isNode()
 	 */
 	private static boolean isTag(final String name) {
-		return Tag.NAME.equalsIgnoreCase(name);
+		return "tag".equalsIgnoreCase(name);
 	}
 
 	/**
