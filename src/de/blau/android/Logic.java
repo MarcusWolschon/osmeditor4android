@@ -16,7 +16,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tag;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.Paints;
 import de.blau.android.thread.LoadFromFileThread;
@@ -301,7 +300,7 @@ public class Logic {
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	boolean insertTags(final String type, final long osmId, final List<Tag> tags) {
+	boolean insertTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
 		OsmElement osmElement = delegator.getOsmElement(type, osmId);
 
 		if (osmElement == null) {

@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import de.blau.android.osm.Tag;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -137,12 +136,11 @@ public class TagEditor extends Activity {
 	 */
 	@SuppressWarnings("unchecked")
 	private void extrasToEdits() {
-		ArrayList<Tag> tags = (ArrayList<Tag>) getIntent().getSerializableExtra(TAGS);
-		for (int i = 0, size = tags.size(); i < size; ++i) {
-			Tag tag = tags.get(i);
+		ArrayList<String> tags = (ArrayList<String>) getIntent().getSerializableExtra(TAGS);
+		for (int i = 0, size = tags.size(); i < size; i+=2) {
 			insertNewEdits();
-			lastEditKey.setText(tag.getK());
-			lastEditValue.setText(tag.getV());
+			lastEditKey.setText(tags.get(i));
+			lastEditValue.setText(tags.get(i+1));
 		}
 	}
 
@@ -172,7 +170,7 @@ public class TagEditor extends Activity {
 
 	private Bundle getKeyValueFromEdits() {
 		Bundle bundle = new Bundle(1);
-		ArrayList<Tag> tags = new ArrayList<Tag>();
+		ArrayList<String> tags = new ArrayList<String>();
 		for (int i = 0, size = verticalLayout.getChildCount(); i < size; ++i) {
 			View view = verticalLayout.getChildAt(i);
 			if (view instanceof LinearLayout) {
@@ -184,7 +182,8 @@ public class TagEditor extends Activity {
 						String key = ((EditText) keyView).getText().toString().trim();
 						String value = ((EditText) valueView).getText().toString().trim();
 						if (!"".equals(key) && !"".equals(value)) {
-							tags.add(new Tag(key, value));
+							tags.add(key);
+							tags.add(value);
 						}
 					}
 				}

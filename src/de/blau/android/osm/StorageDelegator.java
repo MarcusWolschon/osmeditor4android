@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -49,7 +50,7 @@ public class StorageDelegator implements Serializable {
 		apiStorage.insertElementSafe(elem);
 	}
 
-	public void insertTags(final OsmElement elem, final List<Tag> tags) {
+	public void insertTags(final OsmElement elem, final Map<String, String> tags) {
 		elem.setTags(tags);
 		elem.updateState(OsmElement.STATE_MODIFIED);
 		apiStorage.insertElementSafe(elem);
