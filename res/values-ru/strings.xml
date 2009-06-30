@@ -19,8 +19,8 @@
         <string name="wrong_login_data_title">Неправильный логин или пароль</string>
         <string name="wrong_login_data_message">OSM сервер не авторизовал вас. Проверьте данные для входа в настройках программы.</string>
         <string name="undefined_error_title">Извините</string>
-        <string name="undefined_error_message">Сличилось что-то непонятное. Не могли бы описать что к этому привело нам на емеил? Спасибо!</string>
-        <string name="undefined_error_sendbutton">Отправляю емаил</string>
+        <string name="undefined_error_message">Сличилось что-то непонятное. Не могли бы описать что к этому привело нам письмо? Спасибо!</string>
+        <string name="undefined_error_sendbutton">Отправить письмо</string>
         <string name="progress_title">Загрузка</string>
         <string name="progress_message">Загрузка данных в память...</string>
         <string name="progress_download_message">Загрузка данных с сервера...</string>
@@ -46,7 +46,7 @@
         
         <!-- Strings in TagEditor -->
         <string name="tag_title">Метки для</string>
-        <string name="key">Ключ:</string>
+        <string name="key">Тэг:</string>
         <string name="value">Значение:</string>
         <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
         <string name="tag_menu_mapfeatures">Легенда карты</string>
@@ -58,8 +58,8 @@
         <string name="location_current_text">Текущая позиция:</string>
         <string name="location_map_text">Выбрать на карте (пока не реализовано)</string>
         <string name="location_coordinates_text">Координаты:</string>
-        <string name="location_lat_label">Широта:</string>
-        <string name="location_lon_label">Долгота:</string>
+        <string name="location_lat_label">Шир.:</string>
+        <string name="location_lon_label">Дол.:</string>
         <string name="location_load_button">Загрузить!</string>
         <string name="location_button_no_location">Не загружать</string>
         <string name="location_label_no_location">(не рекомендовано)</string>
@@ -73,41 +73,41 @@
         <string name="menu_config">Настройки</string>
         <string name="menu_erase">Удалить точку</string>
         <string name="menu_append">Добавить</string>
-        <string name="menu_tag">Редактировать метки</string>
+        <string name="menu_tag">Редактировать тэги</string>
         <string name="menu_gps">GPS...</string>
-        <string name="menu_gps_start_pause">Начать/пауза GPS трек</string>
+        <string name="menu_gps_start_pause">Старт/пауза GPS трека</string>
         <string name="menu_gps_follow">GPS координата</string>
         <string name="menu_gps_stop">Закончить GPS трек</string>
         <string name="menu_gps_upload">Загрузить GPS трек</string>
-        <string name="menu_transfer">Передача...</string>
-        <string name="menu_transfer_download_current">Загрузить текущий место</string>
-        <string name="menu_transfer_download_other">Загрузить другое место</string>
-        <string name="menu_transfer_upload">Загрузка данных на сервер OSM</string>
+        <string name="menu_transfer">Загрузка...</string>
+        <string name="menu_transfer_download_current">Текущее местоположение</string>
+        <string name="menu_transfer_download_other">Выбор места</string>
+        <string name="menu_transfer_upload">Отправка данных на сервер OSM</string>
         <string name="menu_save">Сохранить в файл</string>
         
         <!-- Preferences -->
         <string name="config_category_view">Настройки просмотра</string>
         <string name="config_showStats_key">showStats</string>
         <string name="config_showStats_title">Показать статистику</string>
-        <string name="config_showStats_summary">Показывать быстродействие в кардах/секунду в нижнем левом углу.</string>
+        <string name="config_showStats_summary">Отображать быстродействие кард/сек. в нижнем левом углу.</string>
         <string name="config_showTolerance_key">showTolerance</string>
-        <string name="config_showTolerance_title">Показывать прозрачность</string>
-        <string name="config_showTolerance_summary">Показывать область выбора элемента.</string>
+        <string name="config_showTolerance_title">Подсветка элемента</string>
+        <string name="config_showTolerance_summary">Отмечать область выбора элемента прозрачным кругом.</string>
         <string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
         <string name="config_enableAntiAliasing_title">Включить сглаживание</string>
         <string name="config_enableAntiAliasing_summary">Делает линии более сглажеными.</string>
         <string name="config_category_server">Настройки входа</string>
         <string name="config_username_key">username</string>
-        <string name="config_username_title">Логин на серверOSM </string>
+        <string name="config_username_title">Логин на сервер OSM</string>
         <string name="config_username_summary">Необходим для загрузки изменений на сервер OSM. Если вы еще не зарегистрировались, сделайте это здесь http://www.openstreetmap.org/user/new</string>
         <string name="config_password_key">password</string>
-        <string name="config_password_title">OSM пароль</string>
+        <string name="config_password_title">Пароль на сервер OSM</string>
         <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните: Он хранится и передается незашифрованным!</string>
         <string name="config_category_gps">Настройка GPS</string>
         <string name="config_gps_distance_key">distance</string>
-        <string name="config_gps_distance_title">Минимальное расстояние опроса GPS</string>
+        <string name="config_gps_distance_title">Расстояние опроса GPS</string>
         <string name="config_gps_distance_summary">Минимальный интервал для опроса GPS в метрах. Меньшее значение приводит к большему расходу аккумулятора.</string>
         <string name="config_gps_interval_key">interval</string>
-        <string name="config_gps_interval_title">Минимальный интервал опроса GPS</string>
+        <string name="config_gps_interval_title">Интервал опроса GPS</string>
         <string name="config_gps_interval_summary">Минимальный интервал частоты опроса GPS в миллисекундах. Меньшее значение приводит к большему расходу аккумулятора.</string>
 </resources>
