@@ -21,7 +21,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 ====What do I need to get started with Vespucci? ====
 You need:
  * An Android device (or the emulator)
- * The Vespucci APK file
+ * The Vespucci APK file (also available over the Android Market)
  * Some familiarity with [http://wiki.openstreetmap.org/wiki/Map_Features OSM Map features]
  * An [http://www.openstreetmap.org/user/new OSM account] 
 
@@ -136,4 +136,3 @@ Vespucci does not come with any "default user / password".
 ====How can I zoom into an area?====
 
 Use the volume buttons of your Android device.
-
