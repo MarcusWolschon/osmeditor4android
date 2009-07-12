@@ -1,5 +1,5 @@
 = Frequently Asked Questions =
-
+<wiki:toc max_depth="4" />
 == 1. Introduction ==
 
 ==== What is Vespucci? ====
