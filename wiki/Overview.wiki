@@ -2,17 +2,19 @@
 
 
 ==What is Vespucci?==
- * An Editor for OpenStreetMap
+ * An Editor for OpenStreetMap [http://wwww.openstreetmap.org OpenStreetMap]
+ * Runs on mobile devices using the [http://www.android.com Android] platform
  * Functionality:
   * Create and edit new Nodes and Ways
   * Append Nodes to existing Ways
-  * Create and edit Tags
+  * Delete Nodes
+  * Create, edit and delete Tags
   * Download and Upload to OSM-Server
-  * Showing the users GPS-Track with accuracy
-  * Display the raw-data
+  * Show the users GPS-Track with accuracy
+  * Display the raw data
 
 
-==What is not Vespucci!==
+==What is Vespucci NOT?==
  * a map-view or even a routing-application
  * a professional-editing tool like [http://wiki.openstreetmap.org/wiki/JOSM JOSM] or [http://wiki.openstreetmap.org/wiki/Merkaartor Merkaator]
 
