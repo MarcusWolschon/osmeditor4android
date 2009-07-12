@@ -35,12 +35,12 @@ No. Android uses a specialized VM implementation designed for mobile device use,
 
 
 ====How can I obtain Vespucci? ==== 
-The Vespucci APK can be downloaded from the [http://code.google.com/p/osmeditor4android Vespucci project page]
-With respect to the development status it is not yet available through the Android market.
+ * You can download it from the Android Market (Search for "Vespucci")
+ * The Vespucci APK can be downloaded from the [http://code.google.com/p/osmeditor4android Vespucci project page]
 
 
 ====How can I install Vespucci on my Android device? ==== 
-*Answer outstanding (can someone provide a short description who owns an Android device?)*
+Just download and install like any other app =)
 
 
 ====How can I install Vespucci on the Android emulator? ==== 
@@ -58,7 +58,6 @@ Currently, you can
  * Append nodes to existing ways
  * Delete existing nodes
  * Move existing nodes 
- * Automatically join nodes to ways
  * Download area around current location from OSM server
  * Download user-specified areas from OSM server
  * Create and save GPS tracks
@@ -67,37 +66,29 @@ Currently, you can
 
 ====My Android device does not have a physical keyboard. Does Vespucci support a soft keyboard? ==== 
  
-Yes. Soft keyboard is available in portrait mode. (see issue 25)
-
-*unclear to me: on-screen keyboard support. see issue id 25 with status accepted.
- when editing tags in portrait mode, there is a soft keyboard, when editing tags in landscape mode, there is NO soft keyboard (version 0.6.1 in Android emulator)
- Is this work finished, or still ongoing? 
+Yes. Soft keyboard is available in portrait mode. (But zooming is a little bit tricky. See [http://code.google.com/p/osmeditor4android/issues/detail?id=25 issue 25])
 
 
 ====Auto Download====
-
-*unclear to me: does Vespucci have an auto-follow/auto-download function? 
-   I have not had the time to simulate GPS positions on my Android emulator, so I could not try out yet. See issue id 14 ???)
+Auto download is not yet support. If you want to help us in this issue, please answer on [http://code.google.com/p/osmeditor4android/issues/detail?id=14 issue 14].
 
 
 ====Does Vespucci support Open Street Bugs?====
- 
-No. (Not yet?)
+No.
 
 
 ====What are the limits of Vespucci?====
 
 Vespucci is limited in the following sense:
- * Relations are not supported (but elements which are part of a relation are not harmed by being edited in Vespucci of course)
+ * Relations are not supported
  * Undo function is planned (see issue id 5)
  * Tool functions like 
   * reverse way, combine way, simplify way, unglue ways are currently not implemented. 
   * split ways is planned (see issue id 7)
- * Cannot insert nodes into the midde of ways. Appending to ways at their ends is well-supported.
  * No download of pre-rendered tiles as slippy map background (e.g. Mapnik, Osmarender ...)
  * No WSM download for the background (e.g. Yahoo aerials).
  * No validator yet (see issue id 31)
- * [http://josm.openstreetmap.de/wiki/TaggingPresets Tagging-presets ] are not (yet?) supported (see issue 23)
+ * [http://josm.openstreetmap.de/wiki/TaggingPresets Tagging-presets ] are not yet supported (see issue 23)
 
  Remember, Android is intended to be lightweight and easy-to-use.
 
