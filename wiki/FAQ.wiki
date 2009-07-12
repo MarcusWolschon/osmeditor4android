@@ -27,7 +27,7 @@ You need:
 
 
 ====What is the status of Vespucci development? ==== 
-The current Vespucci version is 0.61 to indicate it's beta state. 
+The current Vespucci version is 0.6.1. It's still in beta-stage.
 
 
 ====Is Vespucci available for other mobile platforms?==== 
