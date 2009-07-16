@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Vespucci</string>
-	<string name="app_version">0.6.2</string>
-	<string name="app_name_version">Vespucci 0.6.2</string>	
+	<string name="app_version">0.6.1</string>
+	<string name="app_name_version">Vespucci 0.6.1</string>	
 
 	<!-- Dialogs -->
 	<string name="resume_last_activity_dialog_title">Vrátit?</string>
@@ -29,8 +29,8 @@
 	<string name="toast_no_changes">Zatím jste nic nezměnil...</string>
 	<string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
 	<string name="toast_empty_data">V této oblasti nejsou žádné elementy. Diky za průzkum tohoto černého místa!</string>
-	<string name="toast_not_in_edit_range">Prosím přibližte mapu pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
-	<string name="toast_save_done">Uloženo</string>
+	<string name="toast_not_in_edit_range">Prosím zvětšete přiblížení pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
+	<string name="toast_save_done">Uložení úspěšné</string>
 	<string name="toast_waiting_for_gps">Čekám na GPS polohu...</string>
 	<string name="toast_follow_gps_off">Následování GPS vypnuto</string>
 
@@ -64,7 +64,7 @@
 	<string name="location_button_no_location">Nenačítat nic</string>
 	<string name="location_label_no_location">(nedoporučeno)</string>
 	<string name="location_nan_title">Špatný formát!</string>
-	<string name="location_nan_message">Zadejte prosim souřadnice v desetinném formátu (např. "52.333572", "8.741185"). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
+	<string name="location_nan_message">Vložte prosim souřadnice v desetinném formátu (např. "52.333572","8.741185"). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
 	
 	<!-- Menu -->
 	<string name="menu_move">Přesunout</string>
@@ -94,7 +94,7 @@
 	<string name="config_showTolerance_title">Zobrazit toleranci</string>
 	<string name="config_showTolerance_summary">Zobrazí oblast kde může být vybrán element.</string>
 	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
-	<string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
+	<string name="config_enableAntiAliasing_title">Zapnout vyhlazování hran</string>
 	<string name="config_enableAntiAliasing_summary">Čáry budou více hladké.</string>
 	<string name="config_category_server">Nastavení serveru</string>
 	<string name="config_username_key">username</string>
@@ -106,8 +106,8 @@
 	<string name="config_category_gps">Nastavení GPS</string>
 	<string name="config_gps_distance_key">distance</string>
 	<string name="config_gps_distance_title">Minimální GPS vzdálenost</string>
-	<string name="config_gps_distance_summary">Minimální vzdálenost mezi GPS notifikacemí v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
+	<string name="config_gps_distance_summary">Minimální vzdálenost mezi notifikacemí GPS v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
 	<string name="config_gps_interval_key">interval</string>
 	<string name="config_gps_interval_title">Minimální GPS interval</string>
-	<string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
+	<string name="config_gps_interval_summary">Minimální čas mezi notifikacemi GPS v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
 </resources>
