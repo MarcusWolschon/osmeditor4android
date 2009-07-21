@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Vespucci</string>
+	<string name="app_version">0.6.2</string>
+	<string name="app_name_version">Vespucci 0.6.2</string>	
+
+	<!-- Dialogs -->
+	<string name="resume_last_activity_dialog_title">Folytatás?</string>
+	<string name="resume_last_activity_dialog_message">Folytatni kívánod a legutóbbi tevékenységedet?</string>
+	<string name="transfer_download_current_dialog_title">Vigyázat!</string>
+	<string name="transfer_download_current_dialog_message">Módosításaid vannak. Fel kívánod tölteni azokat az eldobásuk helyett?</string>
+	<string name="transfer_download_current_upload">Feltöltés</string>
+	<string name="transfer_download_current_download">Elvetés és letöltés</string>
+	<string name="transfer_download_current_back">Vissza (ne történjen semmi)</string>
+	<string name="no_login_data_title">A bejelentkezési adatok nincsenek beállítva</string>
+	<string name="no_login_data_message">Kérlek töltsd ki az OSM bejelentkezési beállításokat a beállítási űrlapon.</string>
+	<string name="no_connection_title">Nincs kapcsolat a szerverrel</string>
+	<string name="no_connection_message">Nem lehet kapcsolódni az OSM szerverhez. Kérlek ellenőrizd az internet-kapcsolatodat, vagy később próbáld újra.</string>
+	<string name="wrong_login_data_title">Rossz bejelentkezési adat</string>
+	<string name="wrong_login_data_message">Az OSM szerver nem tud azonosítani téged. Kérlek ellenőrizd a bejelentkezési adataidat a beállításoknál.</string>
+	<string name="undefined_error_title">Sajnálom</string>
+	<string name="undefined_error_message">Valami furcsa történt. Küldenél nekem egy e-mailt (angolul) annak rövid leírásával, hogy mi okozta ezt? Köszönöm!</string>
+	<string name="undefined_error_sendbutton">E-mail küldése</string>
+	<string name="progress_title">Betöltés</string>
+	<string name="progress_message">Adatok betöltése a memóriába...</string>
+	<string name="progress_download_message">Adatok letöltése a szerverről...</string>
+
+	<!-- Toaster -->
+	<string name="toast_no_changes">Még nem módosítottál semmit...</string>
+	<string name="toast_upload_success">Feltöltés az OSM szerverre kész.</string>
+	<string name="toast_empty_data">Nincsenek elemek ezen a területen. Köszönöm, hogy feltárod ezt a fekete foltot!</string>
+	<string name="toast_not_in_edit_range">Közelíts a szerkesztéshez (Hangerő fel/le vagy Lens/Shift)</string>
+	<string name="toast_save_done">Mentés sikeres</string>
+	<string name="toast_waiting_for_gps">Várakozás a GPS helyre...</string>
+	<string name="toast_follow_gps_off">GPS követésének tiltása</string>
+
+	<!-- ErrorMailer  -->
+	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
+	<string name="error_email_chooser_title">Levél küldése ezen keresztül:</string>
+	
+	<!-- Some generic labels -->
+	<string name="yes">Igen</string>
+	<string name="no">Nem</string>
+	<string name="okay">OK</string>
+	<string name="cancel">Mégse</string>
+	
+	<!-- Strings in TagEditor -->
+	<string name="tag_title">Címkéi ennek:</string>
+	<string name="key">Kulcs:</string>
+	<string name="value">Érték:</string>
+	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Hu:Map_Features</string>
+	<string name="tag_menu_mapfeatures">Térképjellemzők Wiki</string>
+	
+	<!-- Strings in LocationPicker -->
+	<string name="location_headline">Terület betöltése</string>
+	<string name="location_choose_radius">Sugár választása:</string>
+	<string name="location_last_text">Legutóbbi ismert hely:</string>
+	<string name="location_current_text">Jelenlegi hely:</string>
+	<string name="location_map_text">Térképről (hamarosan)</string>
+	<string name="location_coordinates_text">Koordinátákból:</string>
+	<string name="location_lat_label">Lat:</string>
+	<string name="location_lon_label">Lon:</string>
+	<string name="location_load_button">Betöltés!</string>
+	<string name="location_button_no_location">Ne tölts be semmit</string>
+	<string name="location_label_no_location">(nem ajánlott)</string>
+	<string name="location_nan_title">Rossz bevitel!</string>
+	<string name="location_nan_message">Tizedesvesszővel elválasztott koordinátákat adj meg (pl. "52.333572","8.741185"). A Lat értékének -85.0 és +85.0 között, a Lon értékének pedig -175.0 és +175.0 között kell lennie.</string>
+	
+	<!-- Menu -->
+	<string name="menu_move">Mozgatás</string>
+	<string name="menu_edit">Szerkesztés</string>
+	<string name="menu_add">Új</string>
+	<string name="menu_config">Beállítások</string>
+	<string name="menu_erase">Pont törlése</string>
+	<string name="menu_append">Hozzáfűzés</string>
+	<string name="menu_tag">Címkék szerk.</string>
+	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps_start_pause">GPS nyomvonal indítása/megállítása</string>
+	<string name="menu_gps_follow">GPS pozíció követése</string>
+	<string name="menu_gps_stop">GPS nyomvonal leállítása</string>
+	<string name="menu_gps_upload">GPS nyomvonal feltöltése</string>
+	<string name="menu_transfer">Átvitel...</string>
+	<string name="menu_transfer_download_current">Jelenlegi nézet letöltése</string>
+	<string name="menu_transfer_download_other">Egyéb hely letöltése</string>
+	<string name="menu_transfer_upload">Adatok feltöltése az OSM szerverre</string>
+	<string name="menu_save">Mentés fájlba</string>
+	
+	<!-- Preferences -->
+	<string name="config_category_view">Nézet beállításai</string>
+	<string name="config_showStats_key">showStats</string>
+	<string name="config_showStats_title">Statisztika megjelenítése</string>
+	<string name="config_showStats_summary">Adatstatisztika és frames/sec érték megjelenítése a jobb alsó sarokban.</string>
+	<string name="config_showTolerance_key">showTolerance</string>
+	<string name="config_showTolerance_title">Tolerancia megjelenítése</string>
+	<string name="config_showTolerance_summary">Terület megjelenítése, amelyen belül egy elem kijelölhető.</string>
+	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
+	<string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
+	<string name="config_enableAntiAliasing_summary">Sokkal simábbá teszi a vonalakat.</string>
+	<string name="config_category_server">Szerver beállításai</string>
+	<string name="config_username_key">username</string>
+	<string name="config_username_title">OSM felhasználónév</string>
+	<string name="config_username_summary">OSM adatok feltöltéséhez szükséges. Ha még nincs neked, itt szerezhetsz egyet: http://www.openstreetmap.org/user/new</string>
+	<string name="config_password_key">password</string>
+	<string name="config_password_title">OSM jelszó</string>
+	<string name="config_password_summary">Ne téveszd össze a Wiki jelszóval. Ne feledd: síma szövegként kerül tárolásra és átvitelre!</string>
+	<string name="config_category_gps">GPS beállításai</string>
+	<string name="config_gps_distance_key">distance</string>
+	<string name="config_gps_distance_title">Minimális GPS távolság</string>
+	<string name="config_gps_distance_summary">A minimális távolságintervallum a GPS figyeléséhez méterben (tizedesvesszővel). Alacsonyabb érték több akkumulátorhasználatot igényel.</string>
+	<string name="config_gps_interval_key">interval</string>
+	<string name="config_gps_interval_title">Minimális GPS időköz</string>
+	<string name="config_gps_interval_summary">A minimális időintervallum a GPS figyeléséhez ezredmásodpercben. Alacsonyabb érték több akkumulátorhasználatot igényel.</string>
+</resources>
