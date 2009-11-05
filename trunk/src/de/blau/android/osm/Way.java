@@ -1,11 +1,12 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import android.util.Log;
+import org.xmlpull.v1.XmlSerializer;
 
 public class Way extends OsmElement {
 
@@ -48,20 +49,20 @@ public class Way extends OsmElement {
 	}
 
 	@Override
-	public String toXml(long changesetId) {
-		String xml = "";
-		xml += "<way id=\"" + osmId + "\" changeset=\"" + changesetId + "\" version=\"" + osmVersion + "\">\n";
-		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			long nodeId = nodes.get(i).getOsmId();
-			if (nodeId > 0) {
-				xml += "  <nd ref=\"" + nodeId + "\"/>\n";
-			} else {
-				Log.e(NAME, "Referred node of way (" + this + ") has no osmId!");
-			}
+	public void toXml(XmlSerializer s, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+		s.startTag("", "way");
+		s.attribute("", "id", Long.toString(osmId));
+		s.attribute("", "changeset", Long.toString(changeSetId));
+		s.attribute("", "version", Long.toString(osmVersion));
+
+		for (Node node : nodes) {
+			s.startTag("", "nd");
+			s.attribute("", "ref", Long.toString(node.getOsmId()));
+			s.endTag("", "nd");
 		}
-		xml += tagsToXml();
-		xml += "</way>";
-		return xml;
+
+		tagsToXml(s);
+		s.endTag("", "way");
 	}
 
 	public boolean hasNode(final Node node) {
