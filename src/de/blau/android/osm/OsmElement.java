@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
@@ -7,7 +8,9 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-public abstract class OsmElement implements Serializable {
+import org.xmlpull.v1.XmlSerializer;
+
+public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	/**
 	 * 
@@ -105,15 +108,14 @@ public abstract class OsmElement implements Serializable {
 		return getName() + " " + osmId;
 	}
 
-	abstract public String toXml(long changesetId);
-
-	public String tagsToXml() {
-		StringBuilder xml = new StringBuilder();
+	public void tagsToXml(final XmlSerializer s) throws IllegalArgumentException,
+			IllegalStateException, IOException {
 		for (Entry<String, String> tag : tags.entrySet()) {
-			xml.append("  <tag k=\"" + tag.getKey() + "\" v=\""
-					+ tag.getValue() + "\"/>\n");
+			s.startTag("", "tag");
+			s.attribute("", "k", tag.getKey());
+			s.attribute("", "v", tag.getValue());
+			s.endTag("", "tag");
 		}
-		return xml.toString();
 	}
 
 	public boolean isUnchanged() {

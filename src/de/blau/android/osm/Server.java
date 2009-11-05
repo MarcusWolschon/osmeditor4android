@@ -13,6 +13,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPInputStream;
 
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
+
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
@@ -61,19 +65,11 @@ public class Server {
 	private final String createdByTag;
 	private final String createdByKey;
 
-	/**
-	 * The opening root element for the XML file transferring to the server.
-	 */
-	private final String rootOpen;
-
-	/**
-	 * The closing root element for the XML file transferring to the server.
-	 */
-	private static final String rootClose = "</osm>";
-
 	private long changesetId = -1;
 
 	private String generator;
+
+	private final XmlPullParserFactory xmlParserfactory;
 
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
@@ -86,11 +82,20 @@ public class Server {
 		this.password = password;
 		this.username = username;
 		this.generator = generator;
-		rootOpen = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<osm version=\"" + version + "\" generator=\""
-				+ generator + "\">\n";
 
 		createdByTag = "created_by";
 		createdByKey = generator;
+
+		XmlPullParserFactory factory = null;
+		try {
+			factory = XmlPullParserFactory.newInstance(
+						System.getProperty(XmlPullParserFactory.PROPERTY_NAME), 
+						null
+					);
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+		}
+		xmlParserfactory = factory;
 	}
 
 	/**
@@ -136,11 +141,18 @@ public class Server {
 	public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
 		elem.addOrUpdateTag(createdByTag, createdByKey);
-		String xml = encloseRootOsmChange(elem, "delete");
 
 		try {
 			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
-			sendPayload(connection, xml);
+			sendPayload(connection, new XmlSerializable() {
+				@Override
+				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+					final String action = "delete";
+					startChangeXml(serializer, action);
+					elem.toXml(serializer, changeSetId);
+					endChangeXml(serializer, action);
+				}
+			}, this.changesetId);
 			checkResponseCode(connection);
 		} finally {
 			disconnect(connection);
@@ -169,11 +181,17 @@ public class Server {
 		HttpURLConnection connection = null;
 		InputStream in = null;
 		elem.addOrUpdateTag(createdByTag, createdByKey);
-		String xml = encloseRoot(elem);
 
 		try {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
-			sendPayload(connection, xml);
+			sendPayload(connection, new XmlSerializable() {
+				@Override
+				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+					startXml(serializer);
+					elem.toXml(serializer, changeSetId);
+					endXml(serializer);
+				}
+			}, this.changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
 			osmVersion = Integer.parseInt(readLine(in));
@@ -184,18 +202,16 @@ public class Server {
 		return osmVersion;
 	}
 
-	/**
-	 * @param connection
-	 * @param xml
-	 * @throws OsmIOException
-	 */
-	private void sendPayload(final HttpURLConnection connection, final String xml) throws OsmIOException {
-		connection.setFixedLengthStreamingMode(xml.getBytes().length);
+	private void sendPayload(final HttpURLConnection connection,
+			final XmlSerializable xmlSerializable, long changeSetId)
+			throws OsmIOException {
 		OutputStreamWriter out = null;
 		try {
-			out = new OutputStreamWriter(connection.getOutputStream(), Charset.defaultCharset());
-			out.write(xml);
-			out.flush();
+			XmlSerializer xmlSerializer = getXmlSerializer();
+			out = new OutputStreamWriter(connection.getOutputStream(), Charset
+					.defaultCharset());
+			xmlSerializer.setOutput(out);
+			xmlSerializable.toXml(xmlSerializer, changeSetId);
 		} catch (IOException e) {
 			throw new OsmIOException("Could not send data to server");
 		} finally {
@@ -227,12 +243,18 @@ public class Server {
 		int osmId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag, createdByTag);
-		String xml = encloseRoot(elem);
+		elem.addOrUpdateTag(createdByTag, createdByKey);
 
 		try {
 			connection = openConnectionForWriteAccess(getCreationUrl(elem), "PUT");
-			sendPayload(connection, xml);
+			sendPayload(connection, new XmlSerializable() {
+				@Override
+				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+					startXml(serializer);
+					elem.toXml(serializer, changeSetId);
+					endXml(serializer);
+				}
+			}, this.changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
 			osmId = Integer.parseInt(readLine(in));
@@ -247,12 +269,26 @@ public class Server {
 		int changesetId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		String xml = "<osm><changeset><tag k=\"created_by\" v=\"" + this.generator
-				+ "\"/><tag k=\"comment\" v=\"Vespucci edit\"/></changeset></osm>";
 
 		try {
 			connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
-			sendPayload(connection, xml);
+			sendPayload(connection, new XmlSerializable() {
+				@Override
+				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+					startXml(serializer);
+					serializer.startTag("", "changeset");
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "created_by");
+					serializer.attribute("", "v", generator);
+					serializer.endTag("", "tag");
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "comment");
+					serializer.attribute("", "v", "Vespucci edit");
+					serializer.endTag("", "tag");
+					serializer.endTag("", "changeset");
+					endXml(serializer);
+				}
+			}, this.changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
 			changesetId = Integer.parseInt(readLine(in));
@@ -348,22 +384,48 @@ public class Server {
 		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/upload");
 	}
 
-	private String encloseRoot(final OsmElement elem) {
-		return rootOpen + elem.toXml(this.changesetId) + rootClose;
+	public XmlSerializer getXmlSerializer() {
+		try {
+			XmlSerializer serializer = xmlParserfactory.newSerializer();
+			serializer.setPrefix("", "");
+			return serializer;
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	private String encloseRootOsmChange(final OsmElement elem, String action) {
-		return getOsmChangeOpen(action) + elem.toXml(this.changesetId) + getOsmChangeClose(action);
+	private void startXml(XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
+		xmlSerializer.startDocument("UTF-8", null);
+		xmlSerializer.startTag("", "osm");
+		xmlSerializer.attribute("", "version", version);
+		xmlSerializer.attribute("", "generator", generator);
 	}
 
-	private String getOsmChangeOpen(String action) {
-		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<osmChange version=\"" + osmChangeVersion
-				+ "\" generator=\"" + generator + "\">\n" + "<" + action + " version=\"" + osmChangeVersion
-				+ "\" generator=\"" + generator + "\">\n";
+	private void endXml(XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
+		xmlSerializer.endTag("", "osm");
+		xmlSerializer.endDocument();
 	}
 
-	private String getOsmChangeClose(String action) {
-		return "</" + action + ">\n</osmChange>";
+	private void startChangeXml(XmlSerializer xmlSerializer, String action) throws IllegalArgumentException, IllegalStateException, IOException {
+		xmlSerializer.startDocument("UTF-8", null);
+		xmlSerializer.startTag("", "osmChange");
+		xmlSerializer.attribute("", "version", osmChangeVersion);
+		xmlSerializer.attribute("", "generator", generator);
+		xmlSerializer.startTag("", action);
+		xmlSerializer.attribute("", "version", osmChangeVersion);
+		xmlSerializer.attribute("", "generator", generator);
 	}
 
+	private void endChangeXml(XmlSerializer xmlSerializer, String action) throws IllegalArgumentException, IllegalStateException, IOException {
+		xmlSerializer.endTag("", action);
+		xmlSerializer.endTag("", "osmChange");
+		xmlSerializer.endDocument();
+	}
 }
