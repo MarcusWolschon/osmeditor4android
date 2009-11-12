@@ -13,13 +13,11 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import de.blau.android.exception.OsmException;
-import de.blau.android.osm.OsmElement.State;
-import de.blau.android.osm.OsmElement.Type;
 
 public class DBAdapter {
 
 	private static final String DATABASE_NAME = "OSMEditor.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	private static final String DATABASE_TABLE_BOUNDINGBOXES = "bounding_boxes";
 
@@ -29,6 +27,7 @@ public class DBAdapter {
 	private static final String KEY_BOUNDINGBOXES_BOTTOM = "BOTTOM";
 	private static final String KEY_BOUNDINGBOXES_RIGHT = "RIGHT";
 
+	@SuppressWarnings("unused")
 	private static final int BOUNDINGBOXES_ID_COLUMN = 0;
 	private static final int BOUNDINGBOXES_TOP_COLUMN = 1;
 	private static final int BOUNDINGBOXES_LEFT_COLUMN = 2;
@@ -41,19 +40,23 @@ public class DBAdapter {
 	private static final String KEY_NODES_LATITUDE = "LATITUDE";
 	private static final String KEY_NODES_LONGITUDE = "LONGITUDE";
 	private static final String KEY_NODES_STATE = "STATE";
+	private static final String KEY_NODES_VERSION = "VERSION";
 
 	private static final int NODES_OSMID_COLUMN = 0;
 	private static final int NODES_LATITUTE_COLUMN = 1;
 	private static final int NODES_LONGITUDE_COLUMN = 2;
 	private static final int NODES_STATE_COLUMN = 3;
+	private static final int NODES_VERSION_COLUMN = 4;
 
 	private static final String DATABASE_TABLE_WAYS = "ways";
 
 	private static final String KEY_WAYS_OSMID = "OSM_ID";
 	private static final String KEY_WAYS_STATE = "STATE";
+	private static final String KEY_WAYS_VERSION = "VERSION";
 
 	private static final int WAYS_OSMID_COLUMN = 0;
 	private static final int WAYS_STATE_COLUMN = 1;
+	private static final int WAYS_VERSION_COLUMN = 2;
 
 	private static final String DATABASE_TABLE_WAYNODES = "waynodes";
 
@@ -62,6 +65,7 @@ public class DBAdapter {
 	private static final String KEY_WAYNODES_NODEID = "NODE_ID";
 
 	private static final int WAYNODES_WAYID_COLUMN = 0;
+	@SuppressWarnings("unused")
 	private static final int WAYNODES_POSITION_COLUMN = 1;
 	private static final int WAYNODES_NODEID_COLUMN = 2;
 
@@ -73,6 +77,7 @@ public class DBAdapter {
 	private static final String KEY_TAGS_VALUE = "VALUE";
 
 	private static final int TAGS_OSMID_COLUMN = 0;
+	@SuppressWarnings("unused")
 	private static final int TAGS_TYPE_COLUMN = 1;
 	private static final int TAGS_KEY_COLUMN = 2;
 	private static final int TAGS_VALUE_COLUMN = 3;
@@ -127,18 +132,19 @@ public class DBAdapter {
 				null);
 		try {
 			while (q.moveToNext()) {
-				Node node = new Node(q.getLong(NODES_OSMID_COLUMN), State
-						.values()[q.getInt(NODES_STATE_COLUMN)], q
+				Node node = new Node(q.getLong(NODES_OSMID_COLUMN), q
+						.getLong(NODES_VERSION_COLUMN), (byte) q
+						.getInt(NODES_STATE_COLUMN), q
 						.getInt(NODES_LATITUTE_COLUMN), q
 						.getInt(NODES_LONGITUDE_COLUMN));
 				nodes.put(node.getOsmId(), node);
-				if (node.getState() != State.UNCHANGED)
+				if (node.getState() != OsmElement.STATE_UNCHANGED)
 					modifiedNodes.add(node);
 			}
 		} finally {
 			q.close();
 		}
-		loadTags(nodes, Type.NODE);
+		loadTags(nodes, OsmElement.TYPE_NODE);
 	}
 
 	public void loadWays(Map<Long, Node> nodes, Map<Long, Way> ways,
@@ -149,10 +155,11 @@ public class DBAdapter {
 				null);
 		try {
 			while (q.moveToNext()) {
-				Way way = new Way(q.getLong(WAYS_OSMID_COLUMN),
-						State.values()[q.getInt(WAYS_STATE_COLUMN)]);
+				Way way = new Way(q.getLong(WAYS_OSMID_COLUMN), q
+						.getLong(WAYS_VERSION_COLUMN), (byte) q
+						.getInt(WAYS_STATE_COLUMN));
 				ways.put(way.getOsmId(), way);
-				if (way.getState() != State.UNCHANGED)
+				if (way.getState() != OsmElement.STATE_UNCHANGED)
 					modifiedWays.add(way);
 			}
 		} finally {
@@ -183,14 +190,14 @@ public class DBAdapter {
 			q.close();
 		}
 
-		loadTags(ways, Type.WAY);
+		loadTags(ways, OsmElement.TYPE_WAY);
 	}
 
 	@SuppressWarnings("unchecked")
-	private void loadTags(Map elements, Type type) {
+	private void loadTags(Map elements, Byte type) {
 		Map<Long, OsmElement> e = elements;
 		Cursor q = db.query(DATABASE_TABLE_TAGS, null, KEY_TAGS_TYPE + " = "
-				+ type.ordinal(), null, null, null, null);
+				+ type, null, null, null, null);
 		try {
 			while (q.moveToNext()) {
 				e.get(q.getLong(TAGS_OSMID_COLUMN)).addOrUpdateTag(
@@ -217,7 +224,8 @@ public class DBAdapter {
 		contentValues.put(KEY_NODES_OSMID, node.getOsmId());
 		contentValues.put(KEY_NODES_LATITUDE, node.getLat());
 		contentValues.put(KEY_NODES_LONGITUDE, node.getLon());
-		contentValues.put(KEY_NODES_STATE, node.getState().ordinal());
+		contentValues.put(KEY_NODES_STATE, node.getState());
+		contentValues.put(KEY_NODES_VERSION, node.osmVersion);
 		db.insert(DATABASE_TABLE_NODES, null, contentValues);
 
 		insertTags(node);
@@ -240,7 +248,8 @@ public class DBAdapter {
 	public void insertWay(Way way) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(KEY_WAYS_OSMID, way.getOsmId());
-		contentValues.put(KEY_WAYS_STATE, way.getState().ordinal());
+		contentValues.put(KEY_WAYS_STATE, way.getState());
+		contentValues.put(KEY_WAYS_VERSION, way.osmVersion);
 		db.insert(DATABASE_TABLE_WAYS, null, contentValues);
 
 		int i = 0;
@@ -279,15 +288,15 @@ public class DBAdapter {
 
 	public void updateState(OsmElement element) {
 		switch (element.getType()) {
-		case NODE:
+		case OsmElement.TYPE_NODE:
 			updateState(DATABASE_TABLE_NODES, KEY_NODES_STATE, KEY_NODES_OSMID,
-					element.getOsmId(), element.getState().ordinal());
+					element.getOsmId(), element.getState());
 			break;
-		case WAY:
+		case OsmElement.TYPE_WAY:
 			updateState(DATABASE_TABLE_WAYS, KEY_WAYS_STATE, KEY_WAYS_OSMID,
-					element.getOsmId(), element.getState().ordinal());
+					element.getOsmId(), element.getState());
 			break;
-		case RELATION:
+		case OsmElement.TYPE_RELATION:
 			// TODO
 			break;
 		}
@@ -308,7 +317,7 @@ public class DBAdapter {
 		for (Entry<String, String> tag : tagSet) {
 			contentValues.clear();
 			contentValues.put(KEY_TAGS_OSMID, element.getOsmId());
-			contentValues.put(KEY_TAGS_TYPE, element.getType().ordinal());
+			contentValues.put(KEY_TAGS_TYPE, element.getType());
 			contentValues.put(KEY_TAGS_KEY, tag.getKey());
 			contentValues.put(KEY_TAGS_VALUE, tag.getValue());
 			db.insert(DATABASE_TABLE_TAGS, null, contentValues);
@@ -319,7 +328,7 @@ public class DBAdapter {
 		db.delete(DATABASE_TABLE_TAGS, KEY_TAGS_OSMID + " = ? and "
 				+ KEY_TAGS_TYPE + " = ?", new String[] {
 				Long.toString(element.getOsmId()),
-				Integer.toString(element.getType().ordinal()) });
+				Integer.toString(element.getType()) });
 	}
 
 	public void updateTags(OsmElement element) {
@@ -329,18 +338,18 @@ public class DBAdapter {
 
 	public void updateOsmId(OsmElement element, int osmId) {
 		switch (element.getType()) {
-		case NODE:
+		case OsmElement.TYPE_NODE:
 			updateOsmId(DATABASE_TABLE_NODES, KEY_NODES_OSMID, KEY_NODES_OSMID
 					+ " = " + Long.toString(element.getOsmId()), osmId);
 			updateOsmId(DATABASE_TABLE_TAGS, KEY_TAGS_OSMID, KEY_TAGS_OSMID
 					+ " = " + Long.toString(element.getOsmId()) + " and "
 					+ KEY_TAGS_TYPE + " = "
-					+ Integer.toString(element.getState().ordinal()), osmId);
+					+ Integer.toString(element.getState()), osmId);
 			break;
-		case WAY:
+		case OsmElement.TYPE_WAY:
 			// TODO
 			break;
-		case RELATION:
+		case OsmElement.TYPE_RELATION:
 			// TODO
 			break;
 		}
@@ -353,9 +362,31 @@ public class DBAdapter {
 		db.update(table, contentValues, where, null);
 	}
 
+	public void updateVersion(OsmElement element) {
+		switch (element.getType()) {
+		case OsmElement.TYPE_NODE:
+			updateState(DATABASE_TABLE_NODES, KEY_NODES_STATE, KEY_NODES_OSMID,
+					element.getOsmId(), element.getState());
+			break;
+		case OsmElement.TYPE_WAY:
+			updateState(DATABASE_TABLE_WAYS, KEY_WAYS_STATE, KEY_WAYS_OSMID,
+					element.getOsmId(), element.getState());
+			break;
+		case OsmElement.TYPE_RELATION:
+			// TODO
+			break;
+		}
+	}
+
 	public void deleteAll() {
-		clearTable(DATABASE_TABLE_TAGS);
-		clearTable(DATABASE_TABLE_NODES);
+		db.beginTransaction();
+		try {
+			clearTable(DATABASE_TABLE_TAGS);
+			clearTable(DATABASE_TABLE_NODES);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
 		db.execSQL("vacuum;");
 	}
 
@@ -365,13 +396,13 @@ public class DBAdapter {
 
 	public void deleteElement(OsmElement element) {
 		switch (element.getType()) {
-		case NODE:
+		case OsmElement.TYPE_NODE:
 			deleteNode((Node) element);
 			break;
-		case WAY:
+		case OsmElement.TYPE_WAY:
 			deleteWay((Way) element);
 			break;
-		case RELATION:
+		case OsmElement.TYPE_RELATION:
 			// TODO
 			break;
 		}
@@ -426,13 +457,15 @@ public class DBAdapter {
 					+ KEY_NODES_LONGITUDE + " integer not null, "
 					+ KEY_NODES_STATE
 					+ " integer not null constraint NODES_STATE_CHECK check ("
-					+ KEY_NODES_STATE + " between 0 and 3))");
+					+ KEY_NODES_STATE + " between 0 and 3), "
+					+ KEY_NODES_VERSION + " integer)");
 			_db.execSQL("create table " + DATABASE_TABLE_WAYS + " ("
 					+ KEY_WAYS_OSMID
 					+ " integer constraint WAYS_PK primary key, "
 					+ KEY_WAYS_STATE
 					+ " integer not null constraint NODES_STATE_CHECK check ("
-					+ KEY_WAYS_STATE + " between 0 and 3))");
+					+ KEY_WAYS_STATE + " between 0 and 3), "
+					+ KEY_NODES_VERSION + " integer)");
 			_db.execSQL("create table " + DATABASE_TABLE_WAYNODES + " ("
 					+ KEY_WAYNODES_WAYID + " integer not null, "
 					+ KEY_WAYNODES_POSITION + " integer not null, "
@@ -452,8 +485,12 @@ public class DBAdapter {
 		@Override
 		public void onUpgrade(SQLiteDatabase _db, int _oldVersion,
 				int _newVersion) {
-			// No updates until now.
-			onCreate(_db);
+			if (_oldVersion < 2) {
+				_db.execSQL("alter table " + DATABASE_TABLE_NODES + " add "
+						+ KEY_NODES_VERSION + " integer;");
+				_db.execSQL("alter table " + DATABASE_TABLE_WAYS + " add "
+						+ KEY_WAYS_VERSION + " integer;");
+			}
 		}
 	}
 

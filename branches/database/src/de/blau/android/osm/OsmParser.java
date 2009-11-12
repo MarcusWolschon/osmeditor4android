@@ -16,7 +16,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmParseException;
-import de.blau.android.osm.OsmElement.State;
 
 /**
  * Parses a XML (as InputStream), provided by XmlRetriever, and stores generated
@@ -41,7 +40,7 @@ public class OsmParser extends DefaultHandler {
 	private final ArrayList<Exception> exceptions;
 
 	private StorageDelegator storageDelegator;
-	
+
 	public OsmParser(StorageDelegator storageDelegator) {
 		super();
 		this.storageDelegator = storageDelegator;
@@ -53,8 +52,10 @@ public class OsmParser extends DefaultHandler {
 	/**
 	 * Triggers the beginning of parsing.
 	 * 
-	 * @throws SAXException {@see SAXException}
-	 * @throws IOException when the xmlRetriever could not provide any data.
+	 * @throws SAXException
+	 *             {@see SAXException}
+	 * @throws IOException
+	 *             when the xmlRetriever could not provide any data.
 	 */
 	public void start(final InputStream in) {
 		try {
@@ -80,7 +81,8 @@ public class OsmParser extends DefaultHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void startElement(final String uri, final String name, final String qName, final Attributes atts) {
+	public void startElement(final String uri, final String name,
+			final String qName, final Attributes atts) {
 		try {
 			if (isOsmElement(name)) {
 				parseOsmElement(name, atts);
@@ -121,18 +123,19 @@ public class OsmParser extends DefaultHandler {
 	 * @param atts
 	 * @throws OsmParseException
 	 */
-	private void parseOsmElement(final String name, final Attributes atts) throws OsmParseException {
+	private void parseOsmElement(final String name, final Attributes atts)
+			throws OsmParseException {
 		long osmId = Integer.parseInt(atts.getValue("id"));
-		State status = State.UNCHANGED;
+		long osmVersion = Integer.parseInt(atts.getValue("version"));
+		byte status = 0;
 
 		if (isNode(name)) {
 			int lat = (int) (Double.parseDouble(atts.getValue("lat")) * 1E7);
 			int lon = (int) (Double.parseDouble(atts.getValue("lon")) * 1E7);
-			currentNode = OsmElementFactory.createNode(osmId, status, lat, lon);
+			currentNode = OsmElementFactory.createNode(osmId, osmVersion,
+					status, lat, lon);
 		} else if (isWay(name)) {
-			currentWay = OsmElementFactory.createWay(osmId, status);
-			//} else if (isRelation(name)) {
-			//currentRelation = OsmElementFactory.createRelation(osmId, user, timestamp, status);
+			currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
 		}
 	}
 
@@ -155,13 +158,15 @@ public class OsmParser extends DefaultHandler {
 	 * @throws OsmParseException
 	 */
 	private void parseBounds(final Attributes atts) throws OsmParseException {
-		//<bounds minlat="53.56465" minlon="9.95893" maxlat="53.56579" maxlon="9.96022"/>
+		// <bounds minlat="53.56465" minlon="9.95893" maxlat="53.56579"
+		// maxlon="9.96022"/>
 		float minlat = Float.parseFloat(atts.getValue("minlat"));
 		float maxlat = Float.parseFloat(atts.getValue("maxlat"));
 		float minlon = Float.parseFloat(atts.getValue("minlon"));
 		float maxlon = Float.parseFloat(atts.getValue("maxlon"));
 		try {
-			storageDelegator.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
+			storageDelegator.setBoundingBox(new BoundingBox(minlon, minlat,
+					maxlon, maxlat));
 		} catch (OsmException e) {
 			throw new OsmParseException("Bounds are not correct");
 		}
@@ -181,7 +186,8 @@ public class OsmParser extends DefaultHandler {
 	}
 
 	/**
-	 * @return the element in which we're in. When we're not in any element, it returns null.
+	 * @return the element in which we're in. When we're not in any element, it
+	 *         returns null.
 	 */
 	private OsmElement getCurrentOsmElement() {
 		if (currentNode != null) {
@@ -194,10 +200,13 @@ public class OsmParser extends DefaultHandler {
 	}
 
 	/**
-	 * Checks if the element "name" is an OsmElement (either a node, way or relation).
+	 * Checks if the element "name" is an OsmElement (either a node, way or
+	 * relation).
 	 * 
-	 * @param name the name of the XML element.
-	 * @return true if element "name" is a node, way or relation, otherwise false.
+	 * @param name
+	 *            the name of the XML element.
+	 * @return true if element "name" is a node, way or relation, otherwise
+	 *         false.
 	 */
 	private static boolean isOsmElement(final String name) {
 		return isNode(name) || isWay(name);
@@ -206,7 +215,8 @@ public class OsmParser extends DefaultHandler {
 	/**
 	 * Checks if the element "name" is a Node
 	 * 
-	 * @param name the name of the XML element.
+	 * @param name
+	 *            the name of the XML element.
 	 * @return true if element "name" is a node, otherwise false.
 	 */
 	private static boolean isNode(final String name) {

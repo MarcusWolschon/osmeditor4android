@@ -20,7 +20,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
-import de.blau.android.osm.OsmElement.State;
 import de.blau.android.resources.Paints;
 import de.blau.android.thread.LoadFromFileThread;
 import de.blau.android.thread.LoadFromStorageThread;
@@ -358,9 +357,8 @@ public class Logic {
 	}
 
 	/**
-	 * Searches for all Ways and Nodes at x,y plus the shown node-tolerance.
-	 * Nodes have to lie in the mapBox. For optimization reasons the tolerance
-	 * will be handled as square, not circle.
+	 * Searches for all Ways and Nodes at x,y plus the shown node-tolerance. Nodes have to lie in the mapBox. For
+	 * optimization reasons the tolerance will be handled as square, not circle.
 	 * 
 	 * @param x
 	 *            display-coordinate.
@@ -411,7 +409,7 @@ public class Logic {
 		for (Node node : nodes) {
 			int lat = node.getLat();
 			int lon = node.getLon();
-			if (node.getState() != State.UNCHANGED
+			if (node.getState() != OsmElement.STATE_UNCHANGED
 					|| delegator.getOriginalBox().isIn(lat, lon)) {
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map
 						.getWidth(), viewBox, lon)
@@ -464,7 +462,7 @@ public class Logic {
 		for (Node node : nodes) {
 			int lat = node.getLat();
 			int lon = node.getLon();
-			if (node.getState() != State.UNCHANGED
+			if (node.getState() != OsmElement.STATE_UNCHANGED
 					|| delegator.getOriginalBox().isIn(lat, lon)) {
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map
 						.getWidth(), viewBox, lon)
@@ -809,19 +807,12 @@ public class Logic {
 	}
 
 	/**
-	 * Loads the area definied by mapBox from the OSM-Server. Afterwards the
-	 * {@link LoadFromStreamThread} will be instanced and started.
+	 * Loads the area defined by mapBox from the OSM-Server. Afterwards the {@link LoadFromStreamThread} will be
 	 * 
-	 * @param caller
-	 *            Reference to the caller-activity.
-	 * @param handler
-	 *            Handler generated in the UI-Thread.
-	 * @param mapBox
-	 *            Box defining the area to be loaded.
-	 * @throws OsmServerException
-	 *             When a problem with the osm-server occurs.
-	 * @throws IOException
-	 *             generell IOException
+	 * @param caller Reference to the caller-activity.
+	 * @param handler Handler generated in the UI-Thread.
+	 * @param mapBox Box defining the area to be loaded.
+	 * @throws OsmServerException When a problem with the osm-server occurs.
 	 */
 	void downloadBox(final Activity caller, final Handler handler,
 			final BoundingBox mapBox) throws OsmServerException, IOException {

@@ -1,9 +1,11 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+
+import org.xmlpull.v1.XmlSerializer;
 
 public class Relation extends OsmElement {
 	/**
@@ -15,8 +17,8 @@ public class Relation extends OsmElement {
 
 	public static final String NAME = "relation";
 
-	Relation(final long osmId, final String user, final Date dateChanged, final State state) {
-		super(osmId, state);
+	Relation(final long osmId, Long version, final byte state) {
+		super(osmId, version, state);
 		this.members = new ArrayList<Member>();
 	}
 
@@ -34,8 +36,8 @@ public class Relation extends OsmElement {
 	}
 
 	@Override
-	public Type getType() {
-		return Type.RELATION;
+	public byte getType() {
+		return OsmElement.TYPE_RELATION;
 	}
 
 	@Override
@@ -44,15 +46,24 @@ public class Relation extends OsmElement {
 	}
 
 	@Override
-	public String toXml() {
-		String xml = "";
-		xml += "<relation id=\"" + osmId + "\">\n";
-		for (int i = 0, size = members.size(); i < size; ++i) {
-			xml += members.get(i).toXml();
+	public void toXml(XmlSerializer s, long changeSetId) {
+		try {
+			s.startTag("", "relation");
+			s.attribute("", "id", Long.toString(osmId));
+			s.attribute("", "changeset", Long.toString(changeSetId));
+			s.attribute("", "version", Long.toString(osmVersion));
+			// TODO members
+			tagsToXml(s);
+			s.endTag("", "relation");
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		xml += tagsToXml();
-		xml += "</relation>\n";
-		return xml;
 	}
-
 }

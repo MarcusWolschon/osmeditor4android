@@ -1,9 +1,12 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlSerializer;
 
 /**
- * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair and provides some package-internal
- * manipulating-methods.
+ * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair
+ * and provides some package-internal manipulating-methods.
  * 
  * @author mb
  */
@@ -31,15 +34,21 @@ public class Node extends OsmElement {
 	/**
 	 * Constructor. Call it solely in {@link OsmElementFactory}!
 	 * 
-	 * @param osmId the OSM-ID. When not yet transmitted to the API it is negative.
-	 * @param user the last user made changes to this element.
-	 * @param dateChanged date of last change.
-	 * @param status see {@link OsmElement#state}
-	 * @param lat WGS84 decimal Latitude-Coordinate times 1E7.
-	 * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
+	 * @param osmId
+	 *            the OSM-ID. When not yet transmitted to the API it is
+	 *            negative.
+	 * @param osmVersion
+	 *            the version of the element
+	 * @param status
+	 *            see {@link OsmElement#state}
+	 * @param lat
+	 *            WGS84 decimal Latitude-Coordinate times 1E7.
+	 * @param lon
+	 *            WGS84 decimal Longitude-Coordinate times 1E7.
 	 */
-	Node(final long osmId, final State status, final int lat, final int lon) {
-		super(osmId, status);
+	Node(final long osmId, final long osmVersion, final byte status,
+			final int lat, final int lon) {
+		super(osmId, osmVersion, status);
 		this.lat = lat;
 		this.lon = lon;
 	}
@@ -69,8 +78,8 @@ public class Node extends OsmElement {
 	}
 
 	@Override
-	public Type getType() {
-		return Type.NODE;
+	public byte getType() {
+		return OsmElement.TYPE_NODE;
 	}
 
 	/**
@@ -81,20 +90,26 @@ public class Node extends OsmElement {
 		return super.toString() + "\tlat: " + lat + "; lon: " + lon;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public String toXml() {
-		String xml = "";
-		xml += "<node id=\"" + osmId + "\" lat=\"" + lat / 1E7 + "\" lon=\"" + lon / 1E7 + "\" ";
-		if (tags.size() > 0) {
-			xml += ">\n";
-			xml += tagsToXml();
-			xml += "</node>\n";
-		} else {
-			xml += "/>\n";
+	public void toXml(XmlSerializer s, long changeSetId) {
+		try {
+			s.startTag("", "node");
+			s.attribute("", "id", Long.toString(osmId));
+			s.attribute("", "changeset", Long.toString(changeSetId));
+			s.attribute("", "version", Long.toString(osmVersion));
+			s.attribute("", "lat", Long.toString((long) (lat / 1E7)));
+			s.attribute("", "lon", Long.toString((long) (lon / 1E7)));
+			tagsToXml(s);
+			s.endTag("", "node");
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return xml;
 	}
 }

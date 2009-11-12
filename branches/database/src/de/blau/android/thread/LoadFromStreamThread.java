@@ -45,10 +45,12 @@ public class LoadFromStreamThread extends LogicThread {
 		final OsmParser osmParser = new OsmParser(delegator);
 		try {
 			delegator.startThreadWriteMode();
-			delegator.reset();
-			delegator.setBoundingBox(boundingBox);
-			osmParser.start(in);
-			viewBox.setBorders(delegator.getOriginalBox());
+			synchronized (delegator) {
+				delegator.reset();
+				delegator.setBoundingBox(boundingBox);
+				osmParser.start(in);
+				viewBox.setBorders(delegator.getOriginalBox());
+			}
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			//exceptions.add(e);

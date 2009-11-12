@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import android.app.Activity;
@@ -104,7 +103,7 @@ public class Main extends Activity {
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
-		map.setOnKeyListener(new MapKeyListiner());
+		map.setOnKeyListener((OnKeyListener) new MapKeyListiner());
 
 		setContentView(map);
 
@@ -212,7 +211,7 @@ public class Main extends Activity {
 			return true;
 
 		case R.id.menu_transfer_download_current:
-			onMenuDonwloadCurrent();
+			onMenuDownloadCurrent();
 			return true;
 
 		case R.id.menu_transfer_download_other:
@@ -250,7 +249,7 @@ public class Main extends Activity {
 	 * {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
 	 * Otherwise the current viewBox will be re-downloaded from the server.
 	 */
-	private void onMenuDonwloadCurrent() {
+	private void onMenuDownloadCurrent() {
 		if (logic.hasChanges()) {
 			showDialog(DialogFactory.DOWNLOAD_CURRENT_WITH_CHANGES);
 		} else {
@@ -316,6 +315,10 @@ public class Main extends Activity {
 	private void handleTagEditorResult(final Intent data) {
 
 		Bundle b = data.getExtras();
+		
+		// Read data from extras
+		// Intents can't hold a Map in the extras, so
+		// it is converted to an ArrayList
 		ArrayList<String> tagList = (ArrayList<String>) b
 				.getSerializable(TagEditor.TAGS);
 		String type = b.getString(TagEditor.TYPE);
@@ -436,9 +439,11 @@ public class Main extends Activity {
 		private static final int INVALID_POS = -1;
 
 		private float firstPosX = INVALID_POS;
+
 		private float firstPosY = INVALID_POS;
 
 		private float oldPosX = INVALID_POS;
+
 		private float oldPosY = INVALID_POS;
 
 		private final static float CLICK_TOLERANCE = 20f;
@@ -596,23 +601,19 @@ public class Main extends Activity {
 				logic.setSelectedWay((Way) selectedElement);
 
 			if (selectedElement != null) {
-				Intent startTagEditor = new Intent(getApplicationContext(),
-						TagEditor.class);
+				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 
 				// convert tag-list to string-lists for Bundle-compatibility
 				ArrayList<String> tagList = new ArrayList<String>();
-				Set<Entry<String,String>> tagSet = selectedElement.getTagSet();
-				for (Entry<String, String> tag : tagSet) {
+				for (Entry<String, String> tag : selectedElement.getTags().entrySet()) {
 					tagList.add(tag.getKey());
 					tagList.add(tag.getValue());
 				}
 
-				// insert Bundles
+				//insert Bundles
 				startTagEditor.putExtra(TagEditor.TAGS, tagList);
-				startTagEditor.putExtra(TagEditor.TYPE, selectedElement
-						.getName());
-				startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement
-						.getOsmId());
+				startTagEditor.putExtra(TagEditor.TYPE, selectedElement.getName());
+				startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
 
 				Main.this.startActivityForResult(startTagEditor,
 						Main.REQUEST_EDIT_TAG);
@@ -630,12 +631,10 @@ public class Main extends Activity {
 		}
 
 		@Override
-		public void onCreateContextMenu(ContextMenu menu, View v,
-				ContextMenuInfo menuInfo) {
+		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 			for (int i = 0, len = clickedNodesAndWays.size(); i < len; i++) {
 				OsmElement osmElement = clickedNodesAndWays.get(i);
-				menu.add(Menu.NONE, i, Menu.NONE, osmElement.getDescription())
-						.setOnMenuItemClickListener(this);
+				menu.add(Menu.NONE, i, Menu.NONE, osmElement.getDescription()).setOnMenuItemClickListener(this);
 			}
 		}
 

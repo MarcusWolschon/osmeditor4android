@@ -1,13 +1,14 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
-import de.blau.android.exception.OsmException;
+import org.xmlpull.v1.XmlSerializer;
 
-import android.util.Log;
+import de.blau.android.exception.OsmException;
 
 public class Way extends OsmElement {
 
@@ -22,12 +23,12 @@ public class Way extends OsmElement {
 
 	public static final String NODE = "nd";
 
-	Way(final long osmId, final State state) {
-		super(osmId, state);
+	Way(final long osmId, final long osmVersion, final byte status) {
+		super(osmId, osmVersion, status);
 		this.nodes = new ArrayList<Node>();
 	}
 
-	/* package */ int addNode(final Node node) {
+	/* package */int addNode(final Node node) {
 		nodes.add(node);
 		return nodes.size() - 1;
 	}
@@ -42,8 +43,8 @@ public class Way extends OsmElement {
 	}
 
 	@Override
-	public Type getType() {
-		return Type.WAY;
+	public byte getType() {
+		return OsmElement.TYPE_WAY;
 	}
 
 	@Override
@@ -59,20 +60,31 @@ public class Way extends OsmElement {
 	}
 
 	@Override
-	public String toXml() {
-		String xml = "";
-		xml += "<way id=\"" + osmId + "\">\n";
-		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			long nodeId = nodes.get(i).getOsmId();
-			if (nodeId > 0) {
-				xml += "  <nd ref=\"" + nodeId + "\"/>\n";
-			} else {
-				Log.e(NAME, "Referred node of way (" + this + ") has no osmId!");
+	public void toXml(XmlSerializer s, long changeSetId) {
+		try {
+			s.startTag("", "way");
+			s.attribute("", "id", Long.toString(osmId));
+			s.attribute("", "changeset", Long.toString(changeSetId));
+			s.attribute("", "version", Long.toString(osmVersion));
+
+			for (Node node : nodes) {
+				s.startTag("", "nd");
+				s.attribute("", "ref", Long.toString(node.getOsmId()));
+				s.endTag("", "nd");
 			}
+
+			tagsToXml(s);
+			s.endTag("", "way");
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		xml += tagsToXml();
-		xml += "</way>";
-		return xml;
 	}
 
 	public boolean hasNode(final Node node) {
@@ -85,8 +97,7 @@ public class Way extends OsmElement {
 		}
 	}
 
-	int appendNode(final Node refNode, final Node newNode)
-			throws OsmException {
+	int appendNode(final Node refNode, final Node newNode) throws OsmException {
 		if (nodes.get(0) == refNode) {
 			nodes.add(0, newNode);
 			return 0;
@@ -94,8 +105,7 @@ public class Way extends OsmElement {
 			nodes.add(newNode);
 			return nodes.size() - 1;
 		}
-		throw new OsmException(
-				"refNode must be first or last node.");
+		throw new OsmException("refNode must be first or last node.");
 	}
 
 	int addNodeAfter(final Node nodeBefore, final Node newNode) {

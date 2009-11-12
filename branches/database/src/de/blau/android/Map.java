@@ -13,10 +13,10 @@ import android.location.Location;
 import android.view.View;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.Way;
-import de.blau.android.osm.OsmElement.State;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
 
@@ -54,7 +54,7 @@ public class Map extends View {
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 
-		//Style me
+		//Style  me
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
 	}
@@ -147,18 +147,24 @@ public class Map extends View {
 	 * @param canvas Canvas, where the data shall be painted on.
 	 */
 	private void paintOsmData(final Canvas canvas) {
-		//Paint all ways
-		Collection<Way> ways = delegator.getWays();
-		for (Way way : ways) {
-			paintWay(canvas, way);
-		}
-			
-		//Paint all nodes
-		Collection<Node> nodes = delegator.getNodes();
-		for (Node node : nodes) {
-			paintNode(canvas, node);
-		}
+		synchronized (delegator) {
+			// Paint all ways
+			Collection<Way> ways = delegator.getWays();
+			for (Way way : ways) {
+				if (delegator.isThreadWriteMode())
+					break;
+				paintWay(canvas, way);
+			}
 
+			// Paint all nodes
+			Collection<Node> nodes = delegator.getNodes();
+			for (Node node : nodes) {
+				if (delegator.isThreadWriteMode())
+					break;
+				paintNode(canvas, node);
+			}
+		}
+		
 		paintStorageBox(canvas);
 	}
 
@@ -219,10 +225,10 @@ public class Map extends View {
 	 * @param x
 	 * @param y
 	 */
-	private void drawNodeTolerance(final Canvas canvas, final State state, final int lat, final int lon,
+	private void drawNodeTolerance(final Canvas canvas, final byte state, final int lat, final int lon,
 			final float x, final float y) {
 		if (pref.isToleranceVisible() && mode != Logic.MODE_MOVE && isInEditZoomRange
-				&& (state != State.UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
+				&& (state != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
 			canvas.drawCircle(x, y, paints.get(Paints.NODE_TOLERANCE).getStrokeWidth(), paints
 					.get(Paints.NODE_TOLERANCE));
 		}

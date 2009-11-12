@@ -36,15 +36,19 @@ public class LoadFromStorageThread extends LogicThread {
 	@Override
 	public void run() {
 		try {
-			delegator.loadFromStorage();
-			if (boxForEmptyData != null && delegator.isEmpty()) {
-				delegator.setBoundingBox(boxForEmptyData);
+			delegator.startThreadWriteMode();
+			synchronized (delegator) {
+				delegator.loadFromStorage();
+				if (boxForEmptyData != null && delegator.isEmpty()) {
+					delegator.setBoundingBox(boxForEmptyData);
+				}
+				viewBox.setBorders(delegator.getOriginalBox());
 			}
-			viewBox.setBorders(delegator.getOriginalBox());
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 		} finally {
 			handler.post(loadingDone);
+			delegator.stopThreadWriteMode();
 		}
 	}
 

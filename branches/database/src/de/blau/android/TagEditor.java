@@ -1,8 +1,6 @@
 package de.blau.android;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -138,12 +136,11 @@ public class TagEditor extends Activity {
 	 */
 	@SuppressWarnings("unchecked")
 	private void extrasToEdits() {
-		List<String> tags = (List<String>) getIntent().getSerializableExtra(
-				TAGS);
-		for (int i = 0, size = tags.size(); i < size; i += 2) {
+		ArrayList<String> tags = (ArrayList<String>) getIntent().getSerializableExtra(TAGS);
+		for (int i = 0, size = tags.size(); i < size; i+=2) {
 			insertNewEdits();
 			lastEditKey.setText(tags.get(i));
-			lastEditValue.setText(tags.get(i + 1));
+			lastEditValue.setText(tags.get(i+1));
 		}
 	}
 
@@ -185,7 +182,7 @@ public class TagEditor extends Activity {
 						String key = ((EditText) keyView).getText().toString().trim();
 						String value = ((EditText) valueView).getText().toString().trim();
 						if (!"".equals(key) && !"".equals(value)) {
-							tags.add(key); 
+							tags.add(key);
 							tags.add(value);
 						}
 					}

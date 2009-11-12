@@ -22,7 +22,6 @@ import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.OsmStorageException;
-import de.blau.android.osm.OsmElement.State;
 
 // TODO Extract an interface (possibly "Storage"?) to be able to make other
 // StorageDelegators that use other storage methods (other than a DB)
@@ -59,7 +58,8 @@ public class StorageDelegator implements Serializable {
 
 		modifiedNodes = Collections.synchronizedSet(new HashSet<Node>());
 		modifiedWays = Collections.synchronizedSet(new HashSet<Way>());
-		modifiedRelations = Collections.synchronizedSet(new HashSet<Relation>());
+		modifiedRelations = Collections
+				.synchronizedSet(new HashSet<Relation>());
 
 		try {
 			this.boundingBox = new BoundingBox(-BoundingBox.MAX_LON,
@@ -69,13 +69,17 @@ public class StorageDelegator implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void startThreadWriteMode() {
 		threadWriteMode = true;
 	}
 
 	public void stopThreadWriteMode() {
 		threadWriteMode = false;
+	}
+
+	public boolean isThreadWriteMode() {
+		return threadWriteMode;
 	}
 
 	public void setBoundingBox(BoundingBox boundingBox) {
@@ -166,7 +170,7 @@ public class StorageDelegator implements Serializable {
 	 *             If the node is not unchanged.
 	 */
 	public void storeNode(Node node) throws OsmStorageException {
-		if (node.getState() != State.UNCHANGED)
+		if (node.getState() != OsmElement.STATE_UNCHANGED)
 			throw new OsmStorageException("Only unchanged node can be stored.");
 		putNode(node);
 	}
@@ -195,21 +199,21 @@ public class StorageDelegator implements Serializable {
 	public void addNodeToWay(Way way, Node node) {
 		int position = way.addNode(node);
 		database.addNodeToWay(way, node, position);
-		setState(way, State.MODIFIED);
+		setState(way, OsmElement.STATE_MODIFIED);
 	}
 
 	public void appendNodeToWay(final Node refNode, final Node nextNode,
 			final Way way) throws OsmException {
 		int position = way.appendNode(refNode, nextNode);
 		database.addNodeToWay(way, nextNode, position);
-		setState(way, State.MODIFIED);
+		setState(way, OsmElement.STATE_MODIFIED);
 	}
 
 	public void addNodeToWayAfter(final Node nodeBefore, final Node newNode,
 			final Way way) {
 		int position = way.addNodeAfter(nodeBefore, newNode);
 		database.addNodeToWay(way, newNode, position);
-		setState(way, State.MODIFIED);
+		setState(way, OsmElement.STATE_MODIFIED);
 	}
 
 	private void putNode(Node node) {
@@ -220,10 +224,10 @@ public class StorageDelegator implements Serializable {
 	public void removeNode(final Node node) {
 		nodes.remove(node.getOsmId());
 		removeWayNodes(node);
-		if (node.getState() == State.CREATED)
+		if (node.getState() == OsmElement.STATE_CREATED)
 			database.deleteNode(node);
 		else
-			setState(node, State.DELETED);
+			setState(node, OsmElement.STATE_DELETED);
 	}
 
 	private int removeWayNodes(final Node node) {
@@ -236,14 +240,14 @@ public class StorageDelegator implements Serializable {
 			if (way.getNodes().size() < 2) {
 				removeWay(way);
 			} else
-				setState(way, State.MODIFIED);
+				setState(way, OsmElement.STATE_MODIFIED);
 			deleted++;
 		}
 		return deleted;
 	}
 
 	public void storeWay(Way way) throws OsmStorageException {
-		if (way.getState() != State.UNCHANGED)
+		if (way.getState() != OsmElement.STATE_UNCHANGED)
 			throw new OsmStorageException("Only unchanged way can be stored.");
 		putWay(way);
 	}
@@ -263,10 +267,10 @@ public class StorageDelegator implements Serializable {
 
 	private void removeWay(final Way way) {
 		ways.remove(way.getOsmId());
-		if (way.getState() == State.CREATED)
+		if (way.getState() == OsmElement.STATE_CREATED)
 			database.deleteWay(way);
 		else
-			setState(way, State.DELETED);
+			setState(way, OsmElement.STATE_DELETED);
 
 	}
 
@@ -274,20 +278,20 @@ public class StorageDelegator implements Serializable {
 		node.setLat(latE7);
 		node.setLon(lonE7);
 		database.updateNode(node);
-		setState(node, State.MODIFIED);
+		setState(node, OsmElement.STATE_MODIFIED);
 	}
 
 	public void setTags(final OsmElement element, final Map<String, String> tags) {
 		if (!element.getTags().equals(tags)) {
 			element.setTags(tags);
-			setState(element, State.MODIFIED);
+			setState(element, OsmElement.STATE_MODIFIED);
 			database.updateTags(element);
 		}
 	}
 
-	private void setState(final OsmElement element, final State newState) {
+	private void setState(final OsmElement element, final byte newState) {
 		if (element.getState() != newState
-				&& (element.getState() != State.CREATED || newState == State.DELETED)) {
+				&& (element.getState() != OsmElement.STATE_CREATED || newState == OsmElement.STATE_DELETED)) {
 			element.setState(newState);
 			database.updateState(element);
 			putModified(element);
@@ -296,47 +300,47 @@ public class StorageDelegator implements Serializable {
 
 	private void putModified(OsmElement element) {
 		switch (element.getType()) {
-		case NODE:
+		case OsmElement.TYPE_NODE:
 			modifiedNodes.add((Node) element);
 			break;
-		case WAY:
+		case OsmElement.TYPE_WAY:
 			modifiedWays.add((Way) element);
 			break;
-		case RELATION:
+		case OsmElement.TYPE_RELATION:
 			modifiedRelations.add((Relation) element);
 			break;
 		}
 	}
-	
+
 	private void dropModified(OsmElement element) {
 		switch (element.getType()) {
-		case NODE:
+		case OsmElement.TYPE_NODE:
 			modifiedNodes.remove(element);
 			break;
-		case WAY:
+		case OsmElement.TYPE_WAY:
 			modifiedWays.remove(element);
 			break;
-		case RELATION:
+		case OsmElement.TYPE_RELATION:
 			modifiedRelations.remove(element);
 			break;
 		}
 	}
-	
+
 	private void dropElement(OsmElement element) {
 		dropModified(element);
 		switch (element.getType()) {
-		case NODE:
+		case OsmElement.TYPE_NODE:
 			nodes.values().remove(element);
 			break;
-		case WAY:
+		case OsmElement.TYPE_WAY:
 			ways.values().remove(element);
 			break;
-		case RELATION:
+		case OsmElement.TYPE_RELATION:
 			relations.values().remove(element);
 			break;
 		}
 	}
-	
+
 	public void loadFromStorage() {
 		startThreadWriteMode();
 		boundingBox = database.loadBoundingBox();
@@ -394,10 +398,12 @@ public class StorageDelegator implements Serializable {
 	public synchronized void uploadToServer(final Server server)
 			throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
+		server.openChangeset();
 		uploadCreatedOrModifiedElements(server, modifiedNodes);
 		uploadCreatedOrModifiedElements(server, modifiedWays);
 		uploadDeletedElements(server, modifiedWays);
 		uploadDeletedElements(server, modifiedNodes);
+		server.closeChangeset();
 	}
 
 	private void uploadCreatedOrModifiedElements(final Server server,
@@ -405,32 +411,41 @@ public class StorageDelegator implements Serializable {
 			throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
 		for (OsmElement element : elements) {
-			if (element.getState() == State.CREATED) {
+			switch (element.getState()) {
+			case OsmElement.STATE_CREATED:
 				int osmId = server.createElement(element);
 				if (osmId > 0) {
-					setElementUnchanged(element);
+					setElementUnchanged(element, 1l, osmId);
 					Log.w(DEBUG_TAG, "New " + element + " added to API");
 				}
-			} else if (element.getState() == State.MODIFIED) {
-				if (server.updateElement(element)) {
-					setElementUnchanged(element);
+				break;
+			case OsmElement.STATE_MODIFIED:
+				int osmVersion = server.updateElement(element);
+				if (osmVersion > 0) {
+					setElementUnchanged(element, osmVersion);
 					Log.w(DEBUG_TAG, element + " updated in API");
 				}
 			}
 		}
 	}
 
-	private void setElementUnchanged(OsmElement element) {
-		setElementUnchanged(element, null);
+	private void setElementUnchanged(OsmElement element, long version) {
+		setElementUnchanged(element, version, null);
 	}
 
-	private void setElementUnchanged(OsmElement element, Integer osmId) {
+	private void setElementUnchanged(OsmElement element, long version,
+			Integer osmId) {
 		if (osmId != null) {
 			database.updateOsmId(element, osmId);
 			element.setOsmId(osmId);
 		}
-		element.setState(State.UNCHANGED);
+
+		element.setState(OsmElement.STATE_UNCHANGED);
 		database.updateState(element);
+
+		element.osmVersion = version;
+		database.updateVersion(element);
+
 		dropModified(element);
 	}
 
@@ -440,7 +455,7 @@ public class StorageDelegator implements Serializable {
 			OsmServerException, IOException {
 		ArrayList<OsmElement> dropFromStorage = new ArrayList<OsmElement>();
 		for (OsmElement element : elements) {
-			if (element.getState() == State.DELETED) {
+			if (element.getState() == OsmElement.STATE_DELETED) {
 				server.deleteElement(element);
 				dropFromStorage.add(element);
 				Log.w(DEBUG_TAG, element + " deleted in API");
