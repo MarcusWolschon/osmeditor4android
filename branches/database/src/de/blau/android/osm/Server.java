@@ -30,8 +30,7 @@ public class Server {
 	/**
 	 * Location of OSM API
 	 */
-	// private static final String SERVER_URL = "http://api.openstreetmap.org";
-	private static final String SERVER_URL = "http://api06.dev.openstreetmap.org";
+	private static final String SERVER_URL = "http://api.openstreetmap.org";
 
 	/**
 	 * Timeout for connections in milliseconds.
