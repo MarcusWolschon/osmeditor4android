@@ -41,11 +41,11 @@ public class StorageDelegator implements Serializable {
 
 	private final Map<Long, Node> nodes;
 	private final Map<Long, Way> ways;
-	private final Map<Long, Relation> relations;
+	// private final Map<Long, Relation> relations;
 
 	private final Set<Node> modifiedNodes;
 	private final Set<Way> modifiedWays;
-	private final Set<Relation> modifiedRelations;
+	// private final Set<Relation> modifiedRelations;
 
 	private boolean threadWriteMode = false;
 
@@ -54,12 +54,11 @@ public class StorageDelegator implements Serializable {
 
 		nodes = Collections.synchronizedMap(new TreeMap<Long, Node>());
 		ways = Collections.synchronizedMap(new TreeMap<Long, Way>());
-		relations = Collections.synchronizedMap(new TreeMap<Long, Relation>());
+		// relations = Collections.synchronizedMap(new TreeMap<Long, Relation>());
 
 		modifiedNodes = Collections.synchronizedSet(new HashSet<Node>());
 		modifiedWays = Collections.synchronizedSet(new HashSet<Way>());
-		modifiedRelations = Collections
-				.synchronizedSet(new HashSet<Relation>());
+		// modifiedRelations = Collections.synchronizedSet(new HashSet<Relation>());
 
 		try {
 			this.boundingBox = new BoundingBox(-BoundingBox.MAX_LON,
@@ -103,11 +102,11 @@ public class StorageDelegator implements Serializable {
 		return Collections.unmodifiableCollection(ways.values());
 	}
 
-	public Collection<Relation> getRelations() {
-		if (threadWriteMode)
-			return Collections.emptyList();
-		return Collections.unmodifiableCollection(relations.values());
-	}
+//	public Collection<Relation> getRelations() {
+//		if (threadWriteMode)
+//			return Collections.emptyList();
+//		return Collections.unmodifiableCollection(relations.values());
+//	}
 
 	public List<Way> getWays(final Node node) {
 		ArrayList<Way> mWays = new ArrayList<Way>();
@@ -126,9 +125,9 @@ public class StorageDelegator implements Serializable {
 		return ways.size();
 	}
 
-	public int getRelationCount() {
-		return relations.size();
-	}
+//	public int getRelationCount() {
+//		return relations.size();
+//	}
 
 	public int getModifiedNodeCount() {
 		return modifiedNodes.size();
@@ -146,17 +145,17 @@ public class StorageDelegator implements Serializable {
 		return ways.get(wayOsmId);
 	}
 
-	public Relation getRelation(final long relationOsmId) {
-		return relations.get(relationOsmId);
-	}
+//	public Relation getRelation(final long relationOsmId) {
+//		return relations.get(relationOsmId);
+//	}
 
 	public OsmElement getOsmElement(final String type, final long osmId) {
 		if (type.equalsIgnoreCase(Node.NAME)) {
 			return getNode(osmId);
 		} else if (type.equalsIgnoreCase(Way.NAME)) {
 			return getWay(osmId);
-		} else if (type.equalsIgnoreCase(Relation.NAME)) {
-			return getRelation(osmId);
+//		} else if (type.equalsIgnoreCase(Relation.NAME)) {
+//			return getRelation(osmId);
 		}
 		return null;
 	}
@@ -306,9 +305,9 @@ public class StorageDelegator implements Serializable {
 		case OsmElement.TYPE_WAY:
 			modifiedWays.add((Way) element);
 			break;
-		case OsmElement.TYPE_RELATION:
-			modifiedRelations.add((Relation) element);
-			break;
+//		case OsmElement.TYPE_RELATION:
+//			modifiedRelations.add((Relation) element);
+//			break;
 		}
 	}
 
@@ -320,9 +319,9 @@ public class StorageDelegator implements Serializable {
 		case OsmElement.TYPE_WAY:
 			modifiedWays.remove(element);
 			break;
-		case OsmElement.TYPE_RELATION:
-			modifiedRelations.remove(element);
-			break;
+//		case OsmElement.TYPE_RELATION:
+//			modifiedRelations.remove(element);
+//			break;
 		}
 	}
 
@@ -335,9 +334,9 @@ public class StorageDelegator implements Serializable {
 		case OsmElement.TYPE_WAY:
 			ways.values().remove(element);
 			break;
-		case OsmElement.TYPE_RELATION:
-			relations.values().remove(element);
-			break;
+//		case OsmElement.TYPE_RELATION:
+//			relations.values().remove(element);
+//			break;
 		}
 	}
 
@@ -353,10 +352,10 @@ public class StorageDelegator implements Serializable {
 		database.deleteAll();
 		nodes.clear();
 		ways.clear();
-		relations.clear();
+//		relations.clear();
 		modifiedNodes.clear();
 		modifiedWays.clear();
-		modifiedRelations.clear();
+//		modifiedRelations.clear();
 	}
 
 	public boolean isEndNode(final Node node) {
@@ -369,11 +368,11 @@ public class StorageDelegator implements Serializable {
 
 	public boolean hasChanges() {
 		return !modifiedNodes.isEmpty() || !modifiedWays.isEmpty()
-				|| !modifiedRelations.isEmpty();
+				/* || !modifiedRelations.isEmpty() */;
 	}
 
 	public boolean isEmpty() {
-		return nodes.isEmpty() && ways.isEmpty() && relations.isEmpty();
+		return nodes.isEmpty() && ways.isEmpty() /* && relations.isEmpty() */;
 	}
 
 	public boolean storageEmpty() {

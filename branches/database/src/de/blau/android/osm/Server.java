@@ -121,9 +121,8 @@ public class Server {
 				.getHeaderField("Content-encoding"));
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-			throw new OsmServerException(con.getResponseCode(),
-					"The API server does not except the request: " + con
-							+ ", response code: " + con.getResponseCode());
+			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
+					+ ", response code: " + con.getResponseCode());
 		}
 
 		if (isServerGzipEnabled) {

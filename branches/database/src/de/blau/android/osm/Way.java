@@ -28,7 +28,7 @@ public class Way extends OsmElement {
 		this.nodes = new ArrayList<Node>();
 	}
 
-	/* package */int addNode(final Node node) {
+	/* package */ int addNode(final Node node) {
 		nodes.add(node);
 		return nodes.size() - 1;
 	}

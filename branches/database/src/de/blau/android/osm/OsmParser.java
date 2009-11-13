@@ -136,6 +136,8 @@ public class OsmParser extends DefaultHandler {
 					status, lat, lon);
 		} else if (isWay(name)) {
 			currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
+//		} else if (isRelation(name)) {
+//			currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, timestamp, status);
 		}
 	}
 
@@ -200,13 +202,10 @@ public class OsmParser extends DefaultHandler {
 	}
 
 	/**
-	 * Checks if the element "name" is an OsmElement (either a node, way or
-	 * relation).
+	 * Checks if the element "name" is an OsmElement (either a node, way or relation).
 	 * 
-	 * @param name
-	 *            the name of the XML element.
-	 * @return true if element "name" is a node, way or relation, otherwise
-	 *         false.
+	 * @param name the name of the XML element.
+	 * @return true if element "name" is a node, way or relation, otherwise false.
 	 */
 	private static boolean isOsmElement(final String name) {
 		return isNode(name) || isWay(name);
