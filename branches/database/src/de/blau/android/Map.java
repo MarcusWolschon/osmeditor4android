@@ -184,7 +184,7 @@ public class Map extends View {
 				canvas.clipRect(rect, Region.Op.DIFFERENCE);
 				canvas.drawRect(screen, paints.get(Paints.VIEWBOX));
 				canvas.restore();
-			} else if (!RectF.intersects(rect, screen)) {
+			} else {
 				canvas.drawRect(screen, paints.get(Paints.VIEWBOX));
 			}
 		}

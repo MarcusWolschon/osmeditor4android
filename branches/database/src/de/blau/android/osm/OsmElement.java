@@ -79,7 +79,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		this.state = newState;
 	}
 
-	void addOrUpdateTag(final String tag, final String value) {
+	public void addOrUpdateTag(final String tag, final String value) {
 		tags.put(tag, value);
 	}
 
