@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
@@ -692,11 +694,39 @@ public class Main extends Activity {
 				case KeyEvent.KEYCODE_SHIFT_RIGHT:
 					logic.zoom(Logic.ZOOM_OUT);
 					return true;
+				
+				case KeyEvent.KEYCODE_BACK:
+					onBackPressed();
+					return true;
 				}
 			}
 			return false;
 		}
 
+	    public void onBackPressed() {
+	    	// GJ's own implementation because I am writing for Android 1.5.
+	    	AlertDialog ad;
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(Main.this);
+		    builder.setMessage("Are you sure you want to exit?")
+		           .setCancelable(false)
+		           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		               public void onClick(DialogInterface dialog, int id) {
+		                    Main.this.finish();
+		               }
+		           })
+		           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+		               public void onClick(DialogInterface dialog, int id) {
+		                    dialog.cancel();
+		               }
+		           });
+		    ad = builder.create();
+
+	    	ad.show();
+			
+	    }
+
+		
+		
 		private void translate(final byte direction) {
 			logic.translate(direction);
 		}

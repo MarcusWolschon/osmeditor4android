@@ -2,42 +2,45 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item android:id="@+id/menu_move"
-		android:icon="@drawable/menu_move"
-		android:title="@string/menu_move"
-		android:alphabeticShortcut="m"
-	/>
-
-	<item android:id="@+id/menu_add"
-		android:icon="@drawable/menu_add"
-		android:title="@string/menu_add"
-		android:alphabeticShortcut="a"
-	/>
-
-	<item android:id="@+id/menu_edit"
-		android:icon="@drawable/menu_edit"
-		android:title="@string/menu_edit"
-		android:alphabeticShortcut="e"
-	/>
-
-	<item android:id="@+id/menu_tag"
-		android:icon="@drawable/menu_tag"
-		android:title="@string/menu_tag"
-		android:alphabeticShortcut="t"
-	/>
-
-	<item android:id="@+id/menu_append"
-		android:icon="@drawable/menu_append"
-		android:title="@string/menu_append"
-		android:alphabeticShortcut="p"
-	/>
-		
-	<item android:id="@+id/menu_erase"
-		android:icon="@drawable/menu_erase"
-		android:title="@string/menu_erase"
-		android:alphabeticShortcut="r"
-	/>
-	
+	<item android:title="@string/menu_edit_mode">	
+		<menu>
+				<item android:id="@+id/menu_move"
+					android:icon="@drawable/menu_move"
+					android:title="@string/menu_move"
+					android:alphabeticShortcut="m"
+				/>
+			
+				<item android:id="@+id/menu_add"
+					android:icon="@drawable/menu_add"
+					android:title="@string/menu_add"
+					android:alphabeticShortcut="a"
+				/>
+			
+				<item android:id="@+id/menu_edit"
+					android:icon="@drawable/menu_edit"
+					android:title="@string/menu_edit"
+					android:alphabeticShortcut="e"
+				/>
+			
+				<item android:id="@+id/menu_tag"
+					android:icon="@drawable/menu_tag"
+					android:title="@string/menu_tag"
+					android:alphabeticShortcut="t"
+				/>
+			
+				<item android:id="@+id/menu_append"
+					android:icon="@drawable/menu_append"
+					android:title="@string/menu_append"
+					android:alphabeticShortcut="p"
+				/>
+					
+				<item android:id="@+id/menu_erase"
+					android:icon="@drawable/menu_erase"
+					android:title="@string/menu_erase"
+					android:alphabeticShortcut="r"
+				/>
+		</menu>
+	</item>	
 	<item android:title="@string/menu_gps">	
 		<menu>
 				<item
