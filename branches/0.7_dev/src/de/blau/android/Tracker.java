@@ -1,0 +1,145 @@
+package de.blau.android;
+
+import java.util.List;
+
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.util.Log;
+import de.blau.android.exception.FollowGpsException;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Track;
+
+/**
+ * GPS-Tracker. Holds a {@link Track} and manages it.
+ * 
+ * @author mb
+ */
+public class Tracker implements LocationListener {
+
+	private static final String DEBUG_TAG = Tracker.class.getSimpleName();
+
+	private static final float LOCATION_MIN_ACCURACY = 200f;
+
+	public static final byte STATE_START = 0;
+
+	public static final byte STATE_PAUSE = 1;
+
+	public static final byte STATE_STOP = 2;
+
+	private int trackingState = STATE_START;
+
+	private boolean followGps;
+
+	private LocationManager locationManager;
+
+	private Preferences prefs;
+
+	private final Map map;
+
+	private final Track track;
+
+	Tracker(final LocationManager locationManager, final Map map) {
+		this.locationManager = locationManager;
+		this.map = map;
+		track = new Track();
+		followGps = true;
+	}
+
+	boolean setFollowGps(final boolean followGps) throws FollowGpsException {
+		this.followGps = followGps;
+		if (followGps) {
+			List<Location> trackPoints = track.getTrackPoints();
+			int trackPointCount = trackPoints.size();
+
+			if (trackPointCount > 0) {
+				moveScreenToLocation(trackPoints.get(trackPointCount - 1));
+				return true;
+			} else {
+				throw new FollowGpsException("Got no current location");
+			}
+		} else {
+			return false;
+		}
+	}
+
+	void setPrefs(final Preferences prefs) {
+		this.prefs = prefs;
+		setTrackingState(trackingState);
+	}
+
+	void resetTrack() {
+		track.reset();
+	}
+
+	public Track getTrack() {
+		return track;
+	}
+
+	void setTrackingState(int newTrackingState) {
+		if (prefs != null) {
+			//PAUSE is only a toggle-flag
+			if (newTrackingState == STATE_PAUSE && (trackingState == STATE_PAUSE || trackingState == STATE_STOP)) {
+				newTrackingState = STATE_START;
+			}
+			switch (newTrackingState) {
+			case STATE_START:
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs
+						.getGpsDistance(), this);
+				track.addTrackPoint(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+				break;
+
+			case STATE_STOP:
+				resetTrack();
+				locationManager.removeUpdates(this);
+				break;
+
+			case STATE_PAUSE:
+				locationManager.removeUpdates(this);
+				break;
+			}
+			trackingState = newTrackingState;
+			map.invalidate();
+		}
+	}
+
+	/**
+	 * used for disable updates but not to set a new tracking state (e.g. on exiting)
+	 */
+	void removeUpdates() {
+		locationManager.removeUpdates(this);
+	}
+
+	/**
+	 * @param location
+	 */
+	private void moveScreenToLocation(final Location location) {
+		BoundingBox viewBox = map.getViewBox();
+		viewBox.moveTo((int) (location.getLongitude() * 1E7), (int) (location.getLatitude() * 1E7));
+		map.invalidate();
+	}
+
+	@Override
+	public void onLocationChanged(final Location location) {
+		Log.w(DEBUG_TAG, "Got location: " + location);
+		if (!location.hasAccuracy() || location.getAccuracy() <= LOCATION_MIN_ACCURACY) {
+			track.addTrackPoint(location);
+			if (followGps) {
+				moveScreenToLocation(location);
+			} else {
+				map.invalidate();
+			}
+		}
+	}
+
+	@Override
+	public void onProviderDisabled(final String provider) {}
+
+	@Override
+	public void onProviderEnabled(final String provider) {}
+
+	@Override
+	public void onStatusChanged(final String provider, final int status, final Bundle extras) {}
+
+}
