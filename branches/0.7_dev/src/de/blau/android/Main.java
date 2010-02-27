@@ -32,6 +32,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Toast;
 import de.blau.android.exception.FollowGpsException;
@@ -52,7 +53,7 @@ import de.blau.android.resources.Paints;
  */
 public class Main extends Activity {
 
-	@SuppressWarnings("unused")
+	/*@SuppressWarnings("unused")*/
 	private static final String DEBUG_TAG = Main.class.getSimpleName();
 
 	/**
@@ -104,6 +105,7 @@ public class Main extends Activity {
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
 		map.setOnKeyListener((OnKeyListener) new MapKeyListiner());
+		map.setOnLongClickListener(mapTouchListener);
 
 		setContentView(map);
 
@@ -431,7 +433,8 @@ public class Main extends Activity {
 	 * 
 	 * @author mb
 	 */
-	private class MapTouchListener implements OnTouchListener, OnCreateContextMenuListener, OnMenuItemClickListener {
+	private class MapTouchListener implements OnTouchListener, OnCreateContextMenuListener, 
+		OnMenuItemClickListener, OnLongClickListener {
 
 		private static final int INVALID_POS = -1;
 
@@ -450,6 +453,14 @@ public class Main extends Activity {
 		private List<OsmElement> clickedNodesAndWays;
 
 		@Override
+		public boolean onLongClick(final View v) {
+            Toast.makeText(Main.this, "Long Click",
+                    Toast.LENGTH_LONG).show();
+			/* TODO - make this do something - add a node, or edit tags */
+			return true;
+		}
+		
+		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
 			float x = m.getX();
 			float y = m.getY();
@@ -467,7 +478,7 @@ public class Main extends Activity {
 				touchEventUp(v, x, y);
 				break;
 			}
-			return true;
+			return false;  /* GJ Changed this to false so that onLongClick works */
 		}
 
 		/**
