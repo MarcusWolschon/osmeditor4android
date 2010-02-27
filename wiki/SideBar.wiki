@@ -3,5 +3,6 @@
  * [FAQ]
  * Tech-Stuff
   * [ViewBox]
+  * [CodeStructure]
  * [Feedback]
  * [http://code.google.com/p/osmeditor4android/wiki See all Pages]
