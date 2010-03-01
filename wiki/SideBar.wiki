@@ -4,6 +4,6 @@
  * Tech-Stuff
   * [ViewBox]
   * [CodeStructure]
-  * [PlansForRelease0.7]
+  * [PlansForRelease0_7]
  * [Feedback]
  * [http://code.google.com/p/osmeditor4android/wiki See all Pages]
