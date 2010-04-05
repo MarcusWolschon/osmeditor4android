@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Vespucci</string>
-	<string name="app_version">0.6.2</string>
-	<string name="app_name_version">Vespucci 0.6.2</string>	
 
 	<!-- Dialogs -->
 	<string name="resume_last_activity_dialog_title">Fortsetzen?</string>
@@ -67,7 +64,7 @@
 	<string name="location_nan_message">Bitte gib die Koordinaten als Fließkommazahlen ein (eg. "52.333572","8.741185"). Lat muss zwischen -85.0 und +85.0, Lon muss zwischen -175.0 and +175.0 liegen.</string>
 	
 	<!-- Menu -->
-	<string name="menu_move">Verschiegen</string>
+	<string name="menu_move">Verschieben</string>
 	<string name="menu_edit">Verändern</string>
 	<string name="menu_add">Neu</string>
 	<string name="menu_config">Einstellungen</string>

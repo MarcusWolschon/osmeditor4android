@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Dialogs -->
+	<string name="resume_last_activity_dialog_title">Riprendere?</string>
+	<string name="resume_last_activity_dialog_message">Vuoi riprendere l\'ultima attività?</string>
+	<string name="transfer_download_current_dialog_title">Attenzione!</string>
+	<string name="transfer_download_current_dialog_message">Hai fatto qualche modifica. Vuoi caricarle invece di annullarle?</string>
+	<string name="transfer_download_current_upload">Carica</string>
+	<string name="transfer_download_current_download">Annulla &amp; scaricamento</string>
+	<string name="transfer_download_current_back">Indietro (non fare niente)</string>
+	<string name="no_login_data_title">Nessun dato di accesso impostato</string>
+	<string name="no_login_data_message">Riempi le impostazioni di accesso a OSM nella scheda delle preferenze.</string>
+	<string name="no_connection_title">Nessuna connessione al server</string>
+	<string name="no_connection_message">Impossibile connettersi al server OSM. Verifica la connessione ad Internet o riprova più tardi.</string>
+	<string name="wrong_login_data_title">Dati di accesso errati</string>
+	<string name="wrong_login_data_message">Il server OSM non può autenticarti. Verifica i dati di accesso nelle preferenze.</string>
+	<string name="undefined_error_title">Spiacenti</string>
+	<string name="undefined_error_message">Si è verificato qualcosa di strano. Vuoi inviare un\'email con una breve descrizione di cosa è successo? Grazie!</string>
+	<string name="undefined_error_sendbutton">Invia email</string>
+	<string name="progress_title">Caricamento</string>
+	<string name="progress_message">Caricamento dati nella memoria...</string>
+	<string name="progress_download_message">Scaricamento dati dal server...</string>
+
+	<!-- Toaster -->
+	<string name="toast_no_changes">Non hai ancora modificato niente...</string>
+	<string name="toast_upload_success">Caricamento nel server OSM completato.</string>
+	<string name="toast_empty_data">Non esistono elementi in quest\'area. Grazie per l\'esplorazione di quest\'area oscura!</string>
+	<string name="toast_not_in_edit_range">Ingrandisci per modificare (Volume Su/Giù o Lente/Interruttore)</string>
+	<string name="toast_save_done">Salvato con successo</string>
+	<string name="toast_waiting_for_gps">In attesa della posizione GPS...</string>
+	<string name="toast_follow_gps_off">GPS di ricerca disabilitato</string>
+
+	<!-- ErrorMailer  -->
+	<string name="error_email_message">"Caro Matthias,\n\npuoi verificare il seguente messaggio di errore?\n\n"</string>
+	<string name="error_email_chooser_title">Invia email tramite:</string>
+	
+	<!-- Some generic labels -->
+	<string name="yes">Sì</string>
+	<string name="no">No</string>
+	<string name="okay">Ok</string>
+	<string name="cancel">Annulla</string>
+	
+	<!-- Strings in TagEditor -->
+	<string name="tag_title">Etichette per</string>
+	<string name="key">Chiave:</string>
+	<string name="value">Valore:</string>
+	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+	<string name="tag_menu_mapfeatures">Wiki funzioni mappe</string>
+	
+	<!-- Strings in LocationPicker -->
+	<string name="location_headline">Carica area</string>
+	<string name="location_choose_radius">Scegli raggio:</string>
+	<string name="location_last_text">Ultima posizione conosciuta:</string>
+	<string name="location_current_text">Posizione attuale:</string>
+	<string name="location_map_text">Dalla mappa (in arrivo)</string>
+	<string name="location_coordinates_text">Dalle coordinate:</string>
+	<string name="location_lat_label">Lat:</string>
+	<string name="location_lon_label">Lon:</string>
+	<string name="location_load_button">Carica!</string>
+	<string name="location_button_no_location">Non caricare niente</string>
+	<string name="location_label_no_location">(non raccomandato)</string>
+	<string name="location_nan_title">Dati errati!</string>
+	<string name="location_nan_message">Inserisci le coordinate nel formato decimale (es. "52.333572","8.741185"). La latitudine deve essere compresa tra -85.0 e +85.0, e la longitudine tra -175.0 e +175.0.</string>
+	
+	<!-- Menu -->
+	<string name="menu_move">Sposta</string>
+	<string name="menu_edit">Modifica</string>
+	<string name="menu_add">Nuova</string>
+	<string name="menu_config">Preferenze</string>
+	<string name="menu_erase">Cancella nodo</string>
+	<string name="menu_append">Aggiungi</string>
+	<string name="menu_tag">Modifica etichette</string>
+	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps_start_pause">Avvia/pausa traccia GPS</string>
+	<string name="menu_gps_follow">Segui posizione GPS</string>
+	<string name="menu_gps_stop">Ferma traccia GPS</string>
+	<string name="menu_gps_upload">Carica traccia GPS</string>
+	<string name="menu_transfer">Trasferimento...</string>
+	<string name="menu_transfer_download_current">Scarica visuale attuale</string>
+	<string name="menu_transfer_download_other">Scarica altra posizione</string>
+	<string name="menu_transfer_upload">Carica dati nel server OSM</string>
+	<string name="menu_save">Salva file</string>
+	
+	<!-- Preferences -->
+	<string name="config_category_view">Mostra impostazioni</string>
+	<string name="config_showStats_key">showStats</string>
+	<string name="config_showStats_title">Mostra statistiche</string>
+	<string name="config_showStats_summary">Mostra dati statistiche e frames/sec nell\'angolo inferiore sinistro.</string>
+	<string name="config_showTolerance_key">showTolerance</string>
+	<string name="config_showTolerance_title">Mostra tolleranza</string>
+	<string name="config_showTolerance_summary">Mostra l\'area dove un elemento può essere selezionato.</string>
+	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
+	<string name="config_enableAntiAliasing_title">Abilita Anti-Aliasing</string>
+	<string name="config_enableAntiAliasing_summary">Rende le righe più leggere.</string>
+	<string name="config_category_server">Impostazioni server</string>
+	<string name="config_username_key">username</string>
+	<string name="config_username_title">Nome utente OSM</string>
+	<string name="config_username_summary">Necessario per caricare i dati OSM. Se non ne possiedi uno, ottienilo da http://www.openstreetmap.org/user/new</string>
+	<string name="config_password_key">password</string>
+	<string name="config_password_title">Password OSM</string>
+	<string name="config_password_summary">Da non confondere con la password del wiki. Ricorda: viene salvata e trasmetta in testo puro!</string>
+	<string name="config_category_gps">Impostazioni GPS</string>
+	<string name="config_gps_distance_key">distance</string>
+	<string name="config_gps_distance_title">Distanza minima GPS</string>
+	<string name="config_gps_distance_summary">L\'intervallo minimo della distanza per le notifiche GPS, in metri (float). Valori bassi significano maggior uso della batteria.</string>
+	<string name="config_gps_interval_key">interval</string>
+	<string name="config_gps_interval_title">Intervallo minimo GPS</string>
+	<string name="config_gps_interval_summary">L\'intervallo minimo di tempo per le notifiche GPS, in millisecondi. Valori bassi significano maggior uso della batteria.</string>
+</resources>
