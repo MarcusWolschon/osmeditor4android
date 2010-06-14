@@ -21,7 +21,10 @@ import de.blau.android.osm.StorageDelegator;
  */
 public class UploadThread extends LogicThread {
 
-	private static final String DEBUG_TAG = UploadThread.class.getSimpleName();
+    /**
+     * Tag used for Android-logging.
+     */
+	private static final String DEBUG_TAG = UploadThread.class.getName();
 
 	private final Server server;
 

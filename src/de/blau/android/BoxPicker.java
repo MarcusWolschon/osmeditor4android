@@ -43,8 +43,11 @@ import de.blau.android.util.GeoMath;
  */
 public class BoxPicker extends Activity implements LocationListener {
 
+    /**
+     * Tag used for Android-logging.
+     */
 	@SuppressWarnings("unused")
-	private final static String DEBUG_TAG = BoxPicker.class.getSimpleName();
+	private final static String DEBUG_TAG = BoxPicker.class.getName();
 
 	/**
 	 * Shown when the user inserts an invalid decimal number.
@@ -368,18 +371,17 @@ public class BoxPicker extends Activity implements LocationListener {
 		Log.w(DEBUG_TAG, "Got location: " + newLocation);
 		if (newLocation != null) {
 			if (isNewLocationMoreAccurate(newLocation)) {
-				String lat = (float) newLocation.getLatitude() + "";
-				String lon = (float) newLocation.getLongitude() + "";
+				double lat = newLocation.getLatitude();
+				double lon = newLocation.getLongitude();
 				RadioButton currentLocationRadioButton = (RadioButton) findViewById(R.id.location_current);
 				String metaData = " (";
 
 				if (newLocation.hasAccuracy()) {
-					metaData += "Accuracy: " + newLocation.getAccuracy() + ", ";
+					metaData += getResources().getString(R.string.location_current_text_metadata_accuracy, newLocation.getAccuracy());
 				}
 				metaData += newLocation.getProvider() + ")";
 				currentLocationRadioButton.setEnabled(true);
-				currentLocationRadioButton.setText(getResources().getString(R.string.location_current_text) + " Lat "
-						+ lat + ", Lon " + lon + metaData);
+				currentLocationRadioButton.setText(getResources().getString(R.string.location_current_text_parametized, lat, lon, metaData));
 
 				currentLocation = newLocation;
 			}

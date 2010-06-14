@@ -18,7 +18,10 @@ import de.blau.android.osm.Track;
  */
 public class Tracker implements LocationListener {
 
-	private static final String DEBUG_TAG = Tracker.class.getSimpleName();
+    /**
+     * Tag used for Android-logging.
+     */
+	private static final String DEBUG_TAG = Tracker.class.getName();
 
 	private static final float LOCATION_MIN_ACCURACY = 200f;
 
@@ -122,7 +125,7 @@ public class Tracker implements LocationListener {
 
 	@Override
 	public void onLocationChanged(final Location location) {
-		Log.w(DEBUG_TAG, "Got location: " + location);
+		Log.w(DEBUG_TAG, "onLocationChanged() Got location: " + location);
 		if (!location.hasAccuracy() || location.getAccuracy() <= LOCATION_MIN_ACCURACY) {
 			track.addTrackPoint(location);
 			if (followGps) {

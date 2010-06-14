@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import android.app.Activity;
@@ -41,6 +42,8 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.TagKeyAutocompletionAdapter;
+import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
 
 /**
@@ -50,8 +53,11 @@ import de.blau.android.resources.Paints;
  */
 public class Main extends Activity {
 
+    /**
+     * Tag used for Android-logging.
+     */
 	@SuppressWarnings("unused")
-	private static final String DEBUG_TAG = Main.class.getSimpleName();
+	private static final String DEBUG_TAG = Main.class.getName();
 
 	/**
 	 * Requests a {@link BoundingBox} as an activity-result.
@@ -78,8 +84,16 @@ public class Main extends Activity {
 	 */
 	private Map map;
 
+
+	/**
+	 * Our user-preferences.
+	 */
 	private Preferences prefs;
 
+	/**
+	 * The logic that manipulates the model.
+	 * (non-UI)
+	 */
 	private Logic logic;
 
 	/**
@@ -135,6 +149,10 @@ public class Main extends Activity {
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
+
+		// cache some values (optional)
+		TagValueAutocompletionAdapter.fillCache(this);
+		TagKeyAutocompletionAdapter.fillCache(this);
 	}
 
 	/**
@@ -208,7 +226,7 @@ public class Main extends Activity {
 			return true;
 
 		case R.id.menu_transfer_upload:
-			performUpload();
+			confirmUpload();
 			return true;
 
 		case R.id.menu_save:
@@ -249,7 +267,7 @@ public class Main extends Activity {
 	 */
 	@Override
 	protected Dialog onCreateDialog(final int id) {
-		Dialog dialog = dialogFactory.create(id);
+		Dialog dialog = dialogFactory.create(this, id);
 		if (dialog != null) {
 			return dialog;
 		}
@@ -402,6 +420,24 @@ public class Main extends Activity {
 		}
 	}
 
+
+    /**
+     * 
+     */
+    public void confirmUpload() {
+        final Server server = prefs.getServer();
+
+        if (server != null && server.isLoginSet()) {
+            if (logic.hasChanges()) {
+                showDialog(DialogFactory.CONFIRM_UPLOAD);
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            showDialog(DialogFactory.NO_LOGIN_DATA);
+        }
+    }
+
 	/**
 	 * Starts the LocationPicker activity for requesting a location.
 	 */
@@ -529,7 +565,7 @@ public class Main extends Activity {
 			oldPosY = INVALID_POS;
 		}
 
-		private void selectElementForTagEdit(View v, float x, float y) {
+		private void selectElementForTagEdit(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
 			int size = clickedNodesAndWays.size();
 			if (size == 1) {
@@ -539,7 +575,7 @@ public class Main extends Activity {
 			} /* else {} */// If no elements where touched, ignore
 		}
 
-		private void selectElementForErase(View v, float x, float y) {
+		private void selectElementForErase(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodes(x, y);
 			int size = clickedNodesAndWays.size();
 			if (size == 1) {
@@ -712,4 +748,16 @@ public class Main extends Activity {
 			}
 		}
 	}
+
+	/**
+	 * @return a list of all pending changes to upload (contains newlines)
+	 */
+    public String getPendingChanges() {
+        Set<String> changes = logic.getPendingChanges(this);
+        StringBuilder retval = new StringBuilder();
+        for (String change : changes) {
+            retval.append(change).append('\n');
+        }
+        return retval.toString();
+    }
 }

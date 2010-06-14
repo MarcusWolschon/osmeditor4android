@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.LocationManager;
 import android.os.Handler;
+import android.text.AlteredCharSequence;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.BoundingBox;
@@ -811,5 +815,12 @@ public class Logic {
 		map.setMode(mode);
 		map.setViewBox(viewBox);
 	}
+
+	/**
+	 * @return a list of all pending changes to upload
+	 */
+    public Set<String> getPendingChanges(final Context aCaller) {
+        return delegator.listChances(aCaller.getResources());
+    }
 
 }

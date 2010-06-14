@@ -8,13 +8,18 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
+import de.blau.android.R;
 import de.blau.android.exception.OsmServerException;
 
 public class StorageDelegator implements Serializable {
@@ -207,7 +212,39 @@ public class StorageDelegator implements Serializable {
 		}
 	}
 
-	public synchronized void uploadToServer(final Server server) throws MalformedURLException, ProtocolException,
+	/**
+	 * Return a localized list of strings describing the changes we
+	 * would upload on {@link #uploadToServer(Server)}.
+	 * @param aResources the translations
+	 * @return the changes
+	 */
+	public Set<String> listChances(final Resources aResources) {
+	    Set<String> retval = new HashSet<String>();
+
+	    List<Node> nodes = apiStorage.getNodes();
+	    for (Node node : nodes) {
+	        if (node.getState() == OsmElement.STATE_DELETED) {
+                retval.add(aResources.getString(R.string.changes_node_deleted, node.getDescription()));
+            } else if (node.getState() == OsmElement.STATE_MODIFIED) {
+                retval.add(aResources.getString(R.string.changes_node_changed, node.getDescription()));   
+            }
+        }
+
+        List<Way> ways = apiStorage.getWays();
+        for (Way way : ways) {
+            if (way.getState() == OsmElement.STATE_DELETED) {
+                retval.add(aResources.getString(R.string.changes_way_deleted, way.getDescription()));
+            } else if (way.getState() == OsmElement.STATE_MODIFIED) {
+                retval.add(aResources.getString(R.string.changes_way_changed, way.getDescription()));   
+            }
+        }
+
+        // we do not support editing relations yet
+        return retval;
+	}
+
+
+    public synchronized void uploadToServer(final Server server) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
 		server.openChangeset();
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());

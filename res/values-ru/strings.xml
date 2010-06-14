@@ -52,6 +52,8 @@
 	<string name="location_choose_radius">Выбирете радиус:</string>
 	<string name="location_last_text">Последняя определенная координата:</string>
 	<string name="location_current_text">Текущая позиция:</string>
+	<string name="location_current_text_parametized">Текущая позиция: Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
 	<string name="location_map_text">Выбрать на карте (пока не реализовано)</string>
 	<string name="location_coordinates_text">Координаты:</string>
 	<string name="location_lat_label">Шир.:</string>
