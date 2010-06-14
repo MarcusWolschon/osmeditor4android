@@ -52,6 +52,8 @@
 	<string name="location_choose_radius">Scegli raggio:</string>
 	<string name="location_last_text">Ultima posizione conosciuta:</string>
 	<string name="location_current_text">Posizione attuale:</string>
+	<string name="location_current_text_parametized">Posizione attuale: Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
 	<string name="location_map_text">Dalla mappa (in arrivo)</string>
 	<string name="location_coordinates_text">Dalle coordinate:</string>
 	<string name="location_lat_label">Lat:</string>

@@ -1,11 +1,13 @@
 package de.blau.android;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
@@ -18,24 +20,53 @@ import de.blau.android.osm.Track;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
+import de.blau.android.views.IMapView;
+import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
+import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
- * Paints all data provided previously by {@link Logic}.
+ * Paints all data provided previously by {@link Logic}.<br/>
+ * As well as a number of overlays.
+ * There is a default overlay that fetches rendered tiles
+ * from an OpenStreetMap-server.
  * 
- * @author mb
+ * @author mb 
+ * @author Marcus Wolschon <Marcus@Wolschon.biz>
  */
-public class Map extends View {
+
+public class Map extends View implements IMapView {
 
 	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = Map.class.getSimpleName();
+    /**
+     * The {@link OpenStreetMapTileServer} we use by default.
+     */
+    final static OpenStreetMapTileServer DEFAULTTILESERVER = OpenStreetMapTileServer.MAPNIK;
 
 	private Preferences pref;
 
 	private Paints paints;
 
-	private Track track;
+	private Track myTrack;
 
-	private BoundingBox viewBox;
+    /**
+     * List of Overlays we are showing.<br/>
+     * This list is initialized to contain only one
+     * {@link OpenStreetMapTilesOverlay} at construction-time but
+     * can be changed to contain additional overlays later.
+     * @see #getOverlays()
+     */
+    protected final List<OpenStreetMapViewOverlay> mOverlays = new ArrayList<OpenStreetMapViewOverlay>();
+    /**
+     * One of the overlays in {@link #mOverlays} that paints tiles.
+     */
+    private final OpenStreetMapTilesOverlay myMapTileOverlay;
+
+    /**
+     * The visible area in decimal-degree (WGS84) -space.
+     */
+    private BoundingBox myViewBox;
 
 	private StorageDelegator delegator;
 
@@ -43,9 +74,15 @@ public class Map extends View {
 
 	private boolean isInEditZoomRange;
 
-	private Node selectedNode;
+	/**
+	 * The currently selected node to edit.
+	 */
+	private Node mySelectedNode;
 
-	private Way selectedWay;
+	/**
+	 * The currently selected way to edit.
+	 */
+	private Way mySelectedWay;
 
 	public Map(final Context context) {
 		super(context);
@@ -56,6 +93,10 @@ public class Map extends View {
 		//Style  me
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
+
+        // create an overlay that displays pre-rendered tiles from the internet.
+        this.myMapTileOverlay = new OpenStreetMapTilesOverlay(this, DEFAULTTILESERVER, null);
+        getOverlays().add(this.myMapTileOverlay);
 	}
 
 	/**
@@ -65,6 +106,12 @@ public class Map extends View {
 	protected void onDraw(final Canvas canvas) {
 		super.onDraw(canvas);
 		long time = System.currentTimeMillis();
+
+        // Draw our Overlays.
+        for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+            osmvo.onManagedDraw(canvas, this);
+        }
+        
 		paintOsmData(canvas);
 		paintGpsTrack(canvas);
 		time = System.currentTimeMillis() - time;
@@ -75,14 +122,14 @@ public class Map extends View {
 	}
 
 	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-		viewBox.setRatio((float) w / h);
+		myViewBox.setRatio((float) w / h);
 	}
 
 	private void paintGpsTrack(final Canvas canvas) {
 		Path path = new Path();
-		List<Location> trackPoints = track.getTrackPoints();
+		List<Location> trackPoints = myTrack.getTrackPoints();
 		int locationCount = 0;
 
 		for (int i = 0, size = trackPoints.size(); i < size; ++i) {
@@ -90,6 +137,8 @@ public class Map extends View {
 			if (location != null) {
 				int lon = (int) (location.getLongitude() * 1E7);
 				int lat = (int) (location.getLatitude() * 1E7);
+
+                BoundingBox viewBox = getViewBox();
 				float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 				float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 				if (locationCount == 0) {
@@ -116,6 +165,7 @@ public class Map extends View {
 	private void paintGpsPos(final Canvas canvas, final Location location, final float x, final float y) {
 		canvas.drawCircle(x, y, paints.get(Paints.GPS_POS).getStrokeWidth(), paints.get(Paints.GPS_POS));
 		if (location.hasAccuracy()) {
+            BoundingBox viewBox = getViewBox();
 			int radiusGeo = GeoMath.convertMetersToGeoDistanceE7(location.getAccuracy()) + viewBox.getLeft();
 			float radiusPx = Math.abs(GeoMath.lonE7ToX(getWidth(), viewBox, radiusGeo));
 			canvas.drawCircle(x, y, radiusPx, paints.get(Paints.GPS_ACCURACY));
@@ -127,6 +177,8 @@ public class Map extends View {
 		String text = "";
 		Paint infotextPaint = paints.get(Paints.INFOTEXT);
 		float textSize = infotextPaint.getTextSize();
+
+        BoundingBox viewBox = getViewBox();
 
 		text = "viewBox: " + viewBox.toString();
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
@@ -165,9 +217,10 @@ public class Map extends View {
 		BoundingBox originalBox = delegator.getOriginalBox();
 		int screenWidth = getWidth();
 		int screenHeight = getHeight();
+        BoundingBox viewBox = getViewBox();
 		float left = GeoMath.lonE7ToX(screenWidth, viewBox, originalBox.getLeft());
 		float right = GeoMath.lonE7ToX(screenWidth, viewBox, originalBox.getRight());
-		float bottom = GeoMath.latE7ToY(screenHeight, viewBox, originalBox.getBottom());
+		float bottom = GeoMath.latE7ToY(screenHeight, viewBox , originalBox.getBottom());
 		float top = GeoMath.latE7ToY(screenHeight, viewBox, originalBox.getTop());
 		RectF rect = new RectF(left, top, right, bottom);
 		RectF screen = new RectF(0, 0, getWidth(), getHeight());
@@ -194,15 +247,16 @@ public class Map extends View {
 		int lon = node.getLon();
 
 		//Paint only nodes inside the viewBox.
+        BoundingBox viewBox = getViewBox();
 		if (viewBox.isIn(lat, lon)) {
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 
 			//draw tolerance box
-			if (mode != Logic.MODE_APPEND || selectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
+			if (mode != Logic.MODE_APPEND || mySelectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
-			if (node == selectedNode && isInEditZoomRange) {
+			if (node == mySelectedNode && isInEditZoomRange) {
 				canvas.drawPoint(x, y, paints.get(Paints.SELECTED_NODE));
 			} else {
 				canvas.drawPoint(x, y, paints.get(Paints.NODE));
@@ -248,12 +302,12 @@ public class Map extends View {
 
 		//draw way tolerance
 		if (pref.isToleranceVisible()
-				&& (mode == Logic.MODE_ADD || mode == Logic.MODE_TAG_EDIT || (mode == Logic.MODE_APPEND && selectedNode != null))
+				&& (mode == Logic.MODE_ADD || mode == Logic.MODE_TAG_EDIT || (mode == Logic.MODE_APPEND && mySelectedNode != null))
 				&& isInEditZoomRange) {
 			canvas.drawPath(path, paints.get(Paints.WAY_TOLERANCE));
 		}
 		//draw selectedWay highlighting
-		if (way == selectedWay && isInEditZoomRange) {
+		if (way == mySelectedWay && isInEditZoomRange) {
 			canvas.drawPath(path, paints.get(Paints.SELECTED_WAY));
 		}
 		//draw the way itself.
@@ -268,7 +322,7 @@ public class Map extends View {
 	 * @return
 	 */
 	private int paintWaySegments(final List<Node> nodes, final Path path) {
-		BoundingBox box = viewBox;
+		BoundingBox box = getViewBox();
 		int visibleSections = 0;
 		//loop over all nodes
 		for (int i = 0, size = nodes.size(); i < size; ++i) {
@@ -286,19 +340,20 @@ public class Map extends View {
 			}
 
 			if (prevNode == null || box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
-				float x = GeoMath.lonE7ToX(getWidth(), viewBox, nodeLon);
-				float y = GeoMath.latE7ToY(getHeight(), viewBox, nodeLat);
+				float x = GeoMath.lonE7ToX(getWidth(), box, nodeLon);
+				float y = GeoMath.latE7ToY(getHeight(), box, nodeLat);
 				if (visibleSections == 0) {
 					//first node is the beginning. Start line here.
 					path.moveTo(x, y);
 				} else {
+				    //TODO: if way has oneway=true/yes/1 or highway=motorway_link, then paint arrows to show the direction od ascending nodes
 					path.lineTo(x, y);
 				}
 				++visibleSections;
 			} else if (nextNode != null && box.intersects(nodeLat, nodeLon, nextNode.getLat(), nextNode.getLon())) {
 				//Just move the path to this node, no way has to be rendered outside the view.
-				float x = GeoMath.lonE7ToX(getWidth(), viewBox, nodeLon);
-				float y = GeoMath.latE7ToY(getHeight(), viewBox, nodeLat);
+				float x = GeoMath.lonE7ToX(getWidth(), box, nodeLon);
+				float y = GeoMath.latE7ToY(getHeight(), box, nodeLat);
 
 				path.moveTo(x, y);
 			}
@@ -306,24 +361,34 @@ public class Map extends View {
 		return visibleSections;
 	}
 
-	BoundingBox getViewBox() {
-		return viewBox;
+	/**
+	 * ${@inheritDoc}.
+	 */
+	public BoundingBox getViewBox() {
+		return myViewBox;
 	}
 
-	void setSelectedNode(final Node selectedNode) {
-		this.selectedNode = selectedNode;
+	/**
+	 * @param aSelectedNode the currently selected node to edit.
+	 */
+	void setSelectedNode(final Node aSelectedNode) {
+		this.mySelectedNode = aSelectedNode;
 	}
 
-	void setSelectedWay(final Way selectedWay) {
-		this.selectedWay = selectedWay;
+	/**
+	 * 
+	 * @param aSelectedWay the currently selected way to edit.
+	 */
+	void setSelectedWay(final Way aSelectedWay) {
+		this.mySelectedWay = aSelectedWay;
 	}
 
-	void setPrefs(final Preferences pref) {
-		this.pref = pref;
+	void setPrefs(final Preferences aPreference) {
+		this.pref = aPreference;
 	}
 
-	void setTrack(final Track track) {
-		this.track = track;
+	void setTrack(final Track aTrack) {
+		this.myTrack = aTrack;
 	}
 
 	void setDelegator(final StorageDelegator delegator) {
@@ -331,7 +396,7 @@ public class Map extends View {
 	}
 
 	void setViewBox(final BoundingBox viewBox) {
-		this.viewBox = viewBox;
+		this.myViewBox = viewBox;
 	}
 
 	void setMode(final byte mode) {
@@ -345,4 +410,48 @@ public class Map extends View {
 	void setPaints(final Paints paints) {
 		this.paints = paints;
 	}
+
+    /**
+     * You can add/remove/reorder your Overlays using the List of
+     * {@link OpenStreetMapViewOverlay}. The first (index 0) Overlay gets drawn
+     * first, the one with the highest as the last one.
+     */
+    public List<OpenStreetMapViewOverlay> getOverlays() {
+        return this.mOverlays;
+    }
+
+
+    /**
+     * convert decimal degrees to radians.
+     * @param deg degrees
+     * @return radiants
+     */
+    private double deg2rad(final double deg) {
+      return (deg * Math.PI / 180d);
+    }
+
+
+    /**
+     * ${@inheritDoc}.
+     */
+    @Override
+    public int getZoomLevel(final Rect viewPort) {
+        double latRightLower = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.bottom) / 1E7d;
+        double lonRightLower = GeoMath.xToLonE7(getWidth(),  getViewBox(), viewPort.right) / 1E7d;
+        double latLeftUpper = GeoMath.yToLatE7(getHeight(),  getViewBox(), viewPort.top) / 1E7d;
+        double lonLeftUpper = GeoMath.xToLonE7(getWidth(),   getViewBox(), viewPort.left) / 1E7d;
+        // TODO Marcus Wolschon - guess a good zoom-level from this.getViewBox()
+        
+        long tilecount = Integer.MAX_VALUE;
+        int zoomLevel = 17;
+        for (; tilecount > 16 && zoomLevel > 0; zoomLevel--) {
+            int xTileRightLower = (int) Math.floor(((lonRightLower + 180) / 360d) * Math.pow(2, zoomLevel));
+            int xTileLeftUpper  = (int) Math.floor(((lonLeftUpper  + 180) / 360d) * Math.pow(2, zoomLevel));
+            int yTileRightLower = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latRightLower)) + 1 / Math.cos(deg2rad(latRightLower))) / Math.PI) /2 * Math.pow(2, zoomLevel));
+            int yTileLeftUpper  = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latLeftUpper )) + 1 / Math.cos(deg2rad(latLeftUpper ))) / Math.PI) /2 * Math.pow(2, zoomLevel));
+            
+            tilecount = (1l + Math.abs(xTileLeftUpper - xTileRightLower)) * (1l + Math.abs(yTileLeftUpper - yTileRightLower));
+        }
+        return zoomLevel;
+    }
 }
