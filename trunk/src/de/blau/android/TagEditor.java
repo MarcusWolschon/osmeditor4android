@@ -84,7 +84,10 @@ public class TagEditor extends Activity {
         //Not yet implemented by Google
         //getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
         //getWindow().setTitle(getResources().getString(R.string.tag_title) + " " + type + " " + osmId);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+
+        // Disabled because it slows down the Motorola Milestone/Droid
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+        
         setContentView(R.layout.tag_view);
 
         verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
