@@ -17,6 +17,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.util.Log;
+
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
@@ -35,7 +37,7 @@ public class Server {
 	/**
 	 * Timeout for connections in milliseconds.
 	 */
-	private static final int TIMEOUT = 30 * 1000;
+	private static final int TIMEOUT = 45 * 1000;
 
 	/**
 	 * username for write-access on the server.
@@ -117,9 +119,22 @@ public class Server {
 		//--Start: got response header
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 
+		// retry if we have no resopnse-code
+		if (con.getResponseCode() == -1) {
+		    Log.w(getClass().getName()+ ":getStreamForBox", "no valid http response-code, trying again");
+		    con = (HttpURLConnection) url.openConnection();
+		  //--Start: header not yet send
+	        con.setReadTimeout(TIMEOUT);
+	        con.setConnectTimeout(TIMEOUT);
+	        con.setRequestProperty("Accept-Encoding", "gzip");
+
+	        //--Start: got response header
+	        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+		}
+
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-					+ ", response code: " + con.getResponseCode());
+					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
 		}
 
 		if (isServerGzipEnabled) {

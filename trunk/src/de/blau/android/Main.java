@@ -18,6 +18,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.method.HideReturnsTransformationMethod;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -390,11 +391,11 @@ public class Main extends Activity {
 			logic.downloadBox(this, handler, box);
 		} catch (OsmException e) {
 			showDialog(DialogFactory.UNDEFINED_ERROR);
-			e.printStackTrace();
+			Log.e(getClass().getName() + ":performHttpLoad()" , "OsmException received", e);
 			exceptions.add(e);
 		} catch (IOException e) {
 			showDialog(DialogFactory.NO_CONNECTION);
-			e.printStackTrace();
+            Log.e(getClass().getName() + ":performHttpLoad()" , "IOException received", e);
 			exceptions.add(e);
 		}
 	}
