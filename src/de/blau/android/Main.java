@@ -308,7 +308,7 @@ public class Main extends Activity {
 			}
 		} catch (OsmException e) {
 			//Values should be done checked in LocationPciker.
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "OsmException", e);
 		}
 	}
 

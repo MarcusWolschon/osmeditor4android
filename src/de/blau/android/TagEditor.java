@@ -1,16 +1,9 @@
 package de.blau.android;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.xml.sax.SAXException;
-
-import de.blau.android.presets.TagKeyAutocompletionAdapter;
-import de.blau.android.presets.TagValueAutocompletionAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
@@ -31,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import de.blau.android.presets.TagKeyAutocompletionAdapter;
+import de.blau.android.presets.TagValueAutocompletionAdapter;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -53,7 +47,7 @@ public class TagEditor extends Activity {
     /**
      * The tag we use for Android-logging.
      */
-    @SuppressWarnings("unused")
+//    @SuppressWarnings("unused")
     private static final String DEBUG_TAG = TagEditor.class.getName();
 
     /**
@@ -72,6 +66,10 @@ public class TagEditor extends Activity {
 
     private boolean modified = false;
 
+    /**
+     * Insert a new row of key+value -edit-widgets if some text is entered into
+     * the current one.
+     */
     private final OnKeyListener myKeyListener = new MyKeyListener();
 
     @Override
@@ -166,6 +164,11 @@ public class TagEditor extends Activity {
         }
     }
 
+    /**
+     * Insert a new row with one key and one value to edit.
+     * @param aTagKey the key-value to start with
+     * @param aTagValue the value to start with.
+     */
     protected void insertNewEdits(final String aTagKey, final String aTagValue) {
         LinearLayout horizontalLayout = new LinearLayout(this);
         TextView textKey = new TextView(this);
@@ -243,18 +246,25 @@ public class TagEditor extends Activity {
         verticalLayout.addView(horizontalLayout, verticalLayout.getChildCount() - 1);
     }
 
+    /**
+     * Collect all key-value pairs into a bundle
+     * to return them.
+     * @return
+     */
     private Bundle getKeyValueFromEdits() {
         Bundle bundle = new Bundle(1);
         ArrayList<String> tags = new ArrayList<String>();
-        for (int i = 0, size = verticalLayout.getChildCount(); i < size; ++i) {
+        final int size = verticalLayout.getChildCount();
+        for (int i = 0; i < size; ++i) {
             View view = verticalLayout.getChildAt(i);
+
             if (view instanceof LinearLayout) {
                 LinearLayout row = (LinearLayout) view;
-                if (row.getChildCount() == 4) {
+                if (row.getChildCount() == 4) { // 2 labels, 2 EditText
                     View keyView = row.getChildAt(1);
                     View valueView = row.getChildAt(3);
                     if (keyView instanceof EditText && valueView instanceof EditText) {
-                        String key = ((EditText) keyView).getText().toString().trim();
+                        String key   = ((EditText) keyView  ).getText().toString().trim();
                         String value = ((EditText) valueView).getText().toString().trim();
                         if (!"".equals(key) && !"".equals(value)) {
                             tags.add(key);
@@ -263,15 +273,21 @@ public class TagEditor extends Activity {
                     }
                 }
             }
+
         }
         bundle.putSerializable(TAGS, tags);
         return bundle;
     }
 
+    /**
+     * Insert a new row of key+value -edit-widgets if some text is entered into
+     * the current one.
+     * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
+     */
     private class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
-            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+            if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
                 if (view instanceof EditText) {
                     modified = true;
                     String key = lastEditKey.getText().toString();

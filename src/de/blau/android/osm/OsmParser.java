@@ -94,7 +94,7 @@ public class OsmParser extends DefaultHandler {
 				parseBounds(atts);
 			}
 		} catch (OsmParseException e) {
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "OsmParseException", e);
 			exceptions.add(e);
 		}
 	}

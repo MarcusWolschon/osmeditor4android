@@ -146,7 +146,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	private IOpenStreetMapTileProviderCallback mServiceCallback = new IOpenStreetMapTileProviderCallback.Stub() {
 		
 		//@Override
-		public void mapTileLoaded(int rendererID, int zoomLevel, int tileX, int tileY, Bitmap aTile) throws RemoteException {
+		public void mapTileLoaded(final int rendererID, final int zoomLevel, final int tileX, final int tileY, final Bitmap aTile) throws RemoteException {
 			mTileCache.putTile(new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY), aTile);
 			mDownloadFinishedHandler
 					.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
@@ -155,9 +155,10 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		}
 		
 		//@Override
-		public void mapTileFailed(int rendererID, int zoomLevel, int tileX, int tileY) throws RemoteException {
-			if (DEBUGMODE)
+		public void mapTileFailed(final int rendererID, final int zoomLevel, final int tileX, final int tileY) throws RemoteException {
+			if (DEBUGMODE) {
 				Log.e(DEBUGTAG, "MapTile download error.");
+			}
 			mTileService.getMapTile(rendererID, zoomLevel, tileX, tileY, this);
 		}
 	};
