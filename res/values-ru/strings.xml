@@ -11,7 +11,8 @@
 	<string name="no_login_data_title">Не введен логин и пароль</string>
 	<string name="no_login_data_message">Пожалуйста заполните данные для входа на OSM сервер в настройках.</string>
 	<string name="no_connection_title">Нет соединения с сервером</string>
-	<string name="no_connection_message">Невозможно соединиться с OSM сервером. Проверьте ваше подключение к Интерене и попробуйте еще раз.</string>
+	<!-- <string name="no_connection_message">Невозможно соединиться с OSM сервером. Проверьте ваше подключение к Интерене и попробуйте еще раз.</string>-->
+	<string name="no_connection_message">Невозможно соединиться с OSM сервером. Проверьте ваше подключение к Интернету и попробуйте еще раз.</string>
 	<string name="wrong_login_data_title">Неправильный логин или пароль</string>
 	<string name="wrong_login_data_message">OSM сервер не авторизовал вас. Проверьте данные для входа в настройках программы.</string>
 	<string name="undefined_error_title">Извините</string>
