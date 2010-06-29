@@ -2,7 +2,7 @@
 
 
 ==What is Vespucci?==
- * An Editor for [http://wwww.openstreetmap.org OpenStreetMap]
+ * An Editor for [http://www.openstreetmap.org OpenStreetMap]
  * Runs on mobile devices using the [http://www.android.com Android] platform
  * Functionality:
   * Create and edit new Nodes and Ways
