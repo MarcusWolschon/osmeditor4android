@@ -331,27 +331,34 @@ public class Server {
 	 * @throws OsmException
 	 */
 	private void checkResponseCode(final HttpURLConnection connection) throws IOException, OsmException {
-		int responsecode;
-		responsecode = connection.getResponseCode();
+		int responsecode = connection.getResponseCode();
 		if (responsecode != HttpURLConnection.HTTP_OK) {
+		    String responseMessage = connection.getResponseMessage();
+		    if (responseMessage == null) {
+		        responseMessage = "";
+		    }
 			InputStream in = connection.getErrorStream();
-			throw new OsmServerException(responsecode, "ErrorMessage: " + readStream(in));
+			throw new OsmServerException(responsecode, "\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
 		}
 	}
 
 	private static String readStream(final InputStream in) {
 		String res = "";
-		if (in != null) {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
-			String line = null;
-			try {
-				while ((line = reader.readLine()) != null) {
-					res += line;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		try {
+            if (in != null) {
+            	BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
+            	String line = null;
+            	try {
+            		while ((line = reader.readLine()) != null) {
+            			res += line;
+            		}
+            	} catch (IOException e) {
+            		Log.w(Server.class.getName() + ":readStream()", "Error in read-operation", e);
+            	}
+            }
+        } catch (Exception e) {
+            Log.w(Server.class.getName() + ":readStream()", "Error outside of read-operation", e);
+        }
 		return res;
 	}
 
