@@ -3,7 +3,8 @@ package de.blau.android.exception;
 import org.apache.http.HttpStatus;
 
 public class OsmServerException extends OsmException {
-	/**
+
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 2767654576083786633L;
@@ -15,10 +16,26 @@ public class OsmServerException extends OsmException {
 		this.errorCode = errorCode;
 	}
 
+	   /** 
+     * ${@inheritDoc}.
+     */
+    @Override
+    public String getMessage() {
+        return super.getMessage() + "\nResponseCode: " + errorCodeToMeaning(getErrorCode());
+    }
+
+    /**
+     * @return the HTTP response-code
+     */
 	public int getErrorCode() {
 		return errorCode;
 	}
 
+	/**
+	 * 
+	 * @param errorCode the HTTP response-code
+	 * @return the meaning of that code in english
+	 */
 	public static String errorCodeToMeaning(final int errorCode) {
 		switch (errorCode) {
 		case HttpStatus.SC_BAD_REQUEST:
