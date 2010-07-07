@@ -115,8 +115,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 				try {
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
 				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				    Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + e.getClass().getSimpleName(), e);
 				}
 				if(Log.isLoggable(DEBUGTAG, Log.ERROR))
 					Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + e.getClass().getSimpleName(), e);

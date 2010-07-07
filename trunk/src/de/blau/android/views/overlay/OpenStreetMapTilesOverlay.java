@@ -16,7 +16,7 @@ import android.os.Message;
 import android.view.View;
 
 /**
- * Overlay that draws downloaded tiles which may be displayed on top of a
+ * Overlay that draws downloaded tiles which may be displayed on top of an
  * {@link IMapView}. To add an overlay, subclass this class, create an
  * instance, and add it to the list obtained from getOverlays() of
  * {@link Map}.
