@@ -338,7 +338,8 @@ public class Server {
 		        responseMessage = "";
 		    }
 			InputStream in = connection.getErrorStream();
-			throw new OsmServerException(responsecode, "\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
+			throw new OsmServerException(responsecode, responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
+			//TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
 		}
 	}
 
