@@ -256,10 +256,24 @@ public class Map extends View implements IMapView {
 			if (mode != Logic.MODE_APPEND || mySelectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
+
+			Paint paint = null;
+			Paint paint2 = null;
 			if (node == mySelectedNode && isInEditZoomRange) {
-				canvas.drawPoint(x, y, paints.get(Paints.SELECTED_NODE));
+				paint = paints.get(Paints.SELECTED_NODE);
+				paint2 = paints.get(Paints.SELECTED_NODE_THIN);
 			} else {
-				canvas.drawPoint(x, y, paints.get(Paints.NODE));
+				paint = paints.get(Paints.NODE);
+				paint2 = paints.get(Paints.NODE_THIN);
+			}
+
+			// draw house-numbers
+			if (node.getTagWithKey("addr:housenumber") != null && node.getTagWithKey("addr:housenumber").trim().length() > 0) {
+				canvas.drawCircle(x, y, 10, paint2);
+				canvas.drawText(node.getTagWithKey("addr:housenumber"), x - 6, y + 3, paint2);
+			} else { //TODO: draw other known elements different too
+				// draw regular nodes
+				canvas.drawPoint(x, y, paint);
 			}
 		}
 	}

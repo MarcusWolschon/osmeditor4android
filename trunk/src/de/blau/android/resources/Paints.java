@@ -35,7 +35,11 @@ public class Paints {
 
 	public final static int GPS_ACCURACY = 11;
 
-	private final static int PAINT_COUNT = 12;
+	public final static int SELECTED_NODE_THIN = 12;
+
+	public final static int NODE_THIN = 13;
+
+	private final static int PAINT_COUNT = 14;
 
 	private final Paint[] paints;
 
@@ -79,6 +83,10 @@ public class Paints {
 		paint.setColor(resources.getColor(R.color.ccc_red));
 		paints[NODE] = paint;
 
+		paint = new Paint();
+		paint.setColor(resources.getColor(R.color.ccc_red));
+		paints[NODE_THIN] = paint;
+
 		paint = new Paint(paints[WAY]);
 		paint.setColor(Color.BLUE);
 		paints[TRACK] = paint;
@@ -92,6 +100,10 @@ public class Paints {
 		paint = new Paint();
 		paint.setColor(resources.getColor(R.color.ccc_beige));
 		paints[SELECTED_NODE] = paint;
+
+		paint = new Paint();
+		paint.setColor(resources.getColor(R.color.ccc_beige));
+		paints[SELECTED_NODE_THIN] = paint;
 
 		paint = new Paint(paints[TRACK]);
 		paint.setStyle(Style.FILL);
@@ -134,6 +146,8 @@ public class Paints {
 		paints[BUILDING].setStrokeWidth(newStrokeWidth);
 		paints[TRACK].setStrokeWidth(newStrokeWidth);
 		paints[NODE].setStrokeWidth(newStrokeWidth * 1.5f);
+		paints[NODE_THIN].setStyle(Style.STROKE);
+		paints[SELECTED_NODE_THIN].setStyle(Style.STROKE);
 		paints[SELECTED_NODE].setStrokeWidth(newStrokeWidth * 2f);
 		paints[SELECTED_WAY].setStrokeWidth(newStrokeWidth * 2f);
 		paints[GPS_POS].setStrokeWidth(newStrokeWidth * 2f);
