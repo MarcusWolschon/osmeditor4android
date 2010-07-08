@@ -32,7 +32,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	private static final String T_FSCACHE_ZOOM_LEVEL = "zoomLevel";
 	private static final String T_FSCACHE_TILE_X = "tileX";
 	private static final String T_FSCACHE_TILE_Y = "tileY";
-	private static final String T_FSCACHE_LINK = "link";			// TODO store link (multiple use for similar tiles)
+//	private static final String T_FSCACHE_LINK = "link";			// TODO store link (multiple use for similar tiles)
 	private static final String T_FSCACHE_TIMESTAMP = "timestamp";
 	private static final String T_FSCACHE_USAGECOUNT = "countused";
 	private static final String T_FSCACHE_FILESIZE = "filesize";
