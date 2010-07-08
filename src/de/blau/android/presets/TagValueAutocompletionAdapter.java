@@ -70,7 +70,6 @@ public class TagValueAutocompletionAdapter extends ArrayAdapter<String> {
     /**
      * The tag we use for Android-logging.
      */
-    @SuppressWarnings("unused")
     private static final String DEBUG_TAG = TagValueAutocompletionAdapter.class.getName();
 
     /**

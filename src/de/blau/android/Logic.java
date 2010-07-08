@@ -5,13 +5,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
 
 import android.app.Activity;
 import android.content.Context;
 import android.location.LocationManager;
 import android.os.Handler;
-import android.text.AlteredCharSequence;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.BoundingBox;

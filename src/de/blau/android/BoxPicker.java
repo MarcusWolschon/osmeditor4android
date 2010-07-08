@@ -46,7 +46,6 @@ public class BoxPicker extends Activity implements LocationListener {
     /**
      * Tag used for Android-logging.
      */
-	@SuppressWarnings("unused")
 	private final static String DEBUG_TAG = BoxPicker.class.getName();
 
 	/**
