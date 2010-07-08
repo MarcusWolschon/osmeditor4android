@@ -144,4 +144,43 @@ public class DialogFactory {
 		return progress;
 	}
 
+	/**
+	 * An already created dialog is to be shown again.
+	 * @param aCaller
+	 * @param id
+	 * @param aDialog
+	 */
+	public void prepare(final Main aCaller, final int id, final Dialog aDialog) {
+		switch (id) {
+
+		case NO_LOGIN_DATA:
+			return;
+
+		case WRONG_LOGIN:
+			return;
+
+		case NO_CONNECTION:
+			return;
+
+		case DOWNLOAD_CURRENT_WITH_CHANGES:
+			return;
+
+		case UNDEFINED_ERROR:
+			return;
+
+		case PROGRESS_LOADING:
+			return;
+
+		case PROGRESS_DOWNLOAD:
+			return;
+
+		case CONFIRM_UPLOAD:
+			confirmUpload.setMessage(aCaller.getString(R.string.confirm_upload_text, aCaller.getPendingChanges()));
+			return;
+		}
+
+		return;
+
+	}
+
 }

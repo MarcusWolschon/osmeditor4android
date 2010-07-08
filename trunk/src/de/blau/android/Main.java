@@ -274,6 +274,13 @@ public class Main extends Activity {
 		}
 		return super.onCreateDialog(id);
 	}
+	
+
+	@Override
+	protected void onPrepareDialog(final int id, final Dialog dialog) {
+		dialogFactory.prepare(this, id, dialog);
+		super.onPrepareDialog(id, dialog);
+	}
 
 	/**
 	 * {@inheritDoc}
