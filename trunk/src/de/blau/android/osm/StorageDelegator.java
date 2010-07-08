@@ -227,6 +227,8 @@ public class StorageDelegator implements Serializable {
                 retval.add(aResources.getString(R.string.changes_node_deleted, node.getDescription()));
             } else if (node.getState() == OsmElement.STATE_MODIFIED) {
                 retval.add(aResources.getString(R.string.changes_node_changed, node.getDescription()));   
+            } else if (node.getState() == OsmElement.STATE_CREATED) {
+                retval.add(aResources.getString(R.string.changes_node_created, node.getDescription()));   
             }
         }
 
@@ -236,6 +238,8 @@ public class StorageDelegator implements Serializable {
                 retval.add(aResources.getString(R.string.changes_way_deleted, way.getDescription()));
             } else if (way.getState() == OsmElement.STATE_MODIFIED) {
                 retval.add(aResources.getString(R.string.changes_way_changed, way.getDescription()));   
+            } else if (way.getState() == OsmElement.STATE_CREATED) {
+                retval.add(aResources.getString(R.string.changes_way_created, way.getDescription()));   
             }
         }
 

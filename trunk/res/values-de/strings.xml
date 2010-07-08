@@ -115,6 +115,8 @@
     <string name="changes_way_deleted">Way "%1$s" gelöscht</string>
     <string name="changes_node_changed">Node "%1$s" verändert</string>
     <string name="changes_way_changed">Way "%1$s" verändert</string>
+    <string name="changes_node_created">Node "%1$s" angelegt</string>
+    <string name="changes_way_created">Way "%1$s" angelegt</string>
     <string name="confirm_upload_title">Upload?</string>
     <string name="confirm_upload_text">Upload der folgenden Änderungen?\n%1$s</string>
 </resources>

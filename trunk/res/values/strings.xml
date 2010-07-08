@@ -118,6 +118,8 @@
     <string name="changes_way_deleted">Way "%1$s" deleted</string>
     <string name="changes_node_changed">Node "%1$s" changed</string>
     <string name="changes_way_changed">Way "%1$s" changed</string>
+    <string name="changes_node_created">Node "%1$s" created</string>
+    <string name="changes_way_created">Way "%1$s" created</string>
     <string name="confirm_upload_title">Upload?</string>
     <string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
 </resources>
