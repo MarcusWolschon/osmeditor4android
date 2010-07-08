@@ -270,7 +270,8 @@ public class Map extends View implements IMapView {
 			// draw house-numbers
 			if (node.getTagWithKey("addr:housenumber") != null && node.getTagWithKey("addr:housenumber").trim().length() > 0) {
 				canvas.drawCircle(x, y, 10, paint2);
-				canvas.drawText(node.getTagWithKey("addr:housenumber"), x - 6, y + 3, paint2);
+				String text = node.getTagWithKey("addr:housenumber");
+				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + 3, paint2);
 			} else { //TODO: draw other known elements different too
 				// draw regular nodes
 				canvas.drawPoint(x, y, paint);
@@ -325,7 +326,25 @@ public class Map extends View implements IMapView {
 			canvas.drawPath(path, paints.get(Paints.SELECTED_WAY));
 		}
 		//draw the way itself.
-		canvas.drawPath(path, paint);
+		if (way.getTagWithKey("railway") != null) {
+			paint = new Paint(paints.get(Paints.RAILWAY));
+			canvas.drawPath(path, paint);
+		} else if (way.getTagWithKey("waterway") != null) {
+			paint = new Paint(paints.get(Paints.WATERWAY));
+			canvas.drawPath(path, paint);
+		} else if (way.getTagWithKey("addr:interpolation") != null) {
+			paint = new Paint(paints.get(Paints.INTERPOLATION));
+			canvas.drawPath(path, paint);
+		}  else if (way.getTagWithKey("boundary") != null) {
+			paint = new Paint(paints.get(Paints.BOUNDARY));
+			canvas.drawPath(path, paint);
+		} else if (way.getTagWithKey("highway") != null
+				&& (way.getTagWithKey("highway").equalsIgnoreCase("foodway") || way.getTagWithKey("highway").equalsIgnoreCase("cycleway"))) {
+			paint = new Paint(paints.get(Paints.FOOTWAY));
+			canvas.drawPath(path, paint);
+		} else {
+			canvas.drawPath(path, paint);			
+		}
 	}
 
 	/**
