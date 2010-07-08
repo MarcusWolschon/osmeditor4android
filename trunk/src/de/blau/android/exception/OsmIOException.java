@@ -10,5 +10,8 @@ public class OsmIOException extends OsmException {
 	public OsmIOException(final String string) {
 		super(string);
 	}
+	public OsmIOException(final String string, final Throwable e) {
+        super(string, e);
+    }
 
 }

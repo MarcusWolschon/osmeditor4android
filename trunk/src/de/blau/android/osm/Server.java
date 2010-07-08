@@ -228,7 +228,7 @@ public class Server {
 			xmlSerializer.setOutput(out);
 			xmlSerializable.toXml(xmlSerializer, changeSetId);
 		} catch (IOException e) {
-			throw new OsmIOException("Could not send data to server");
+			throw new OsmIOException("Could not send data to server", e);
 		} finally {
 			close(out);
 		}
@@ -286,24 +286,31 @@ public class Server {
 		InputStream in = null;
 
 		try {
+		    XmlSerializable xmlData = new XmlSerializable() {
+                @Override
+                public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+                    startXml(serializer);
+                    serializer.startTag("", "changeset");
+                    serializer.startTag("", "tag");
+                    serializer.attribute("", "k", "created_by");
+                    serializer.attribute("", "v", generator);
+                    serializer.endTag("", "tag");
+                    serializer.startTag("", "tag");
+                    serializer.attribute("", "k", "comment");
+                    serializer.attribute("", "v", "Vespucci edit");
+                    serializer.endTag("", "tag");
+                    serializer.endTag("", "changeset");
+                    endXml(serializer);
+                }
+            };
 			connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
-			sendPayload(connection, new XmlSerializable() {
-				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-					startXml(serializer);
-					serializer.startTag("", "changeset");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "created_by");
-					serializer.attribute("", "v", generator);
-					serializer.endTag("", "tag");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "comment");
-					serializer.attribute("", "v", "Vespucci edit");
-					serializer.endTag("", "tag");
-					serializer.endTag("", "changeset");
-					endXml(serializer);
-				}
-			}, this.changesetId);
+			sendPayload(connection, xmlData, this.changesetId);
+			if (connection.getResponseCode() == -1) {
+			    //sometimes we get an invalid response-code the first time.
+			    disconnect(connection);
+			    connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
+	            sendPayload(connection, xmlData, this.changesetId);
+			}
 			checkResponseCode(connection);
 			in = connection.getInputStream();
 			changesetId = Integer.parseInt(readLine(in));
