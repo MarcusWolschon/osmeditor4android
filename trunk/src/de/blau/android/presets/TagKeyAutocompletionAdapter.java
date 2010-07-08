@@ -33,10 +33,8 @@ package de.blau.android.presets;
 //other imports
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,17 +42,10 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.AttributeList;
-import org.xml.sax.DocumentHandler;
 import org.xml.sax.HandlerBase;
-import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
-import org.xml.sax.Parser;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.ParserFactory;
 
 import android.content.Context;
-import android.content.res.Resources.NotFoundException;
-import android.database.DataSetObserver;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
