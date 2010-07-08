@@ -274,11 +274,6 @@ public class Main extends Activity {
 	}
 	
 
-	@Override
-	protected void onPrepareDialog(final int id, final Dialog dialog) {
-		dialogFactory.prepare(this, id, dialog);
-		super.onPrepareDialog(id, dialog);
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -413,6 +408,7 @@ public class Main extends Activity {
 	 * 
 	 */
 	public void performUpload() {
+		removeDialog(DialogFactory.CONFIRM_UPLOAD);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
