@@ -71,7 +71,6 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
     /**
      * The tag we use for Android-logging.
      */
-    @SuppressWarnings("unused")
     private static final String DEBUG_TAG = TagKeyAutocompletionAdapter.class.getName();
     /**
      * Reduce constructor-time by optionally calling

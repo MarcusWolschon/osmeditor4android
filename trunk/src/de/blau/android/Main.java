@@ -18,7 +18,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.text.method.HideReturnsTransformationMethod;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -57,7 +56,6 @@ public class Main extends Activity {
     /**
      * Tag used for Android-logging.
      */
-	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = Main.class.getName();
 
 	/**
