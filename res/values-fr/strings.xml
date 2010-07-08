@@ -27,7 +27,7 @@
 	<string name="toast_empty_data">Pas d\'élément dans cette zone. Merci d\'explorer ce trou noir !</string>
 	<string name="toast_not_in_edit_range">Veuillez zoomer pour éditer (Volume +/- ou Loupe/Shift)</string>
 	<string name="toast_save_done">Sauvegarde effectuée</string>
-	<string name="toast_waiting_for_gps">En attente d'un signal GPS...</string>
+	<string name="toast_waiting_for_gps">En attente d\'un signal GPS...</string>
 	<string name="toast_follow_gps_off">Suivi du GPS désactivé</string>
 
 	<!-- ErrorMailer  -->
