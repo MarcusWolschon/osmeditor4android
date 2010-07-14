@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 
@@ -235,13 +236,27 @@ public class TagEditor extends Activity {
              */
             private void setAutocompletion() {
                 ArrayAdapter<String> knownTagValuesAdapter = null;
-                try {
-                    knownTagValuesAdapter = new TagValueAutocompletionAdapter(TagEditor.this, android.R.layout.simple_dropdown_item_1line, keyEdit.getText().toString());
+                String tagKey = keyEdit.getText().toString();
+				try {
+					if (tagKey.equalsIgnoreCase("addr:street") && Main.logic != null && Main.logic.delegator != null) {
+						knownTagValuesAdapter = new StreetTagValueAutocompletionAdapter(TagEditor.this, android.R.layout.simple_dropdown_item_1line, Main.logic.delegator, type, osmId);
+						valueEdit.setThreshold(0);
+		                valueEdit.setAdapter(knownTagValuesAdapter);
+		                // auto-select the nearest street unless the user already entered sth.
+		                if (valueEdit.getText().toString().length() == 0 && knownTagValuesAdapter.getCount() > 0) {
+		                	valueEdit.setText(knownTagValuesAdapter.getItem(0));
+		                }
+		                valueEdit.performCompletion();
+					} else {
+						knownTagValuesAdapter = new TagValueAutocompletionAdapter(TagEditor.this, android.R.layout.simple_dropdown_item_1line, tagKey);
+						valueEdit.setThreshold(1);
+		                valueEdit.setAdapter(knownTagValuesAdapter);
+					}
                 } catch (Exception e) {
-                    Log.e(DEBUG_TAG, "cannot create TagValueAutocompletionAdapter forkey \"" + keyEdit.getText().toString() + "\"", e);
+                    Log.e(DEBUG_TAG, "cannot create TagValueAutocompletionAdapter forkey \"" + tagKey + "\"", e);
                     knownTagValuesAdapter = new ArrayAdapter<String>(TagEditor.this, android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.known_tags));
+                    valueEdit.setAdapter(knownTagValuesAdapter);
                 }
-                valueEdit.setAdapter(knownTagValuesAdapter);
             }
         });
 

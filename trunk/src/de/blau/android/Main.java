@@ -91,9 +91,13 @@ public class Main extends Activity {
 
 	/**
 	 * The logic that manipulates the model.
-	 * (non-UI)
+	 * (non-UI)<br/>
+	 * This is created in {@link #onCreate(Bundle)} and never changed
+	 * afterwards.<br/>
+	 * If may be null or not reflect the current state if accessed from
+	 * outside this activity.
 	 */
-	private Logic logic;
+	protected static Logic logic;
 
 	/**
 	 * {@inheritDoc}
@@ -620,11 +624,12 @@ public class Main extends Activity {
 		/**
 		 * @param selectedElement
 		 */
-		private void performTagEdit(OsmElement selectedElement) {
-			if (selectedElement instanceof Node)
+		private void performTagEdit(final OsmElement selectedElement) {
+			if (selectedElement instanceof Node) {
 				logic.setSelectedNode((Node) selectedElement);
-			else if (selectedElement instanceof Way)
+			} else if (selectedElement instanceof Way) {
 				logic.setSelectedWay((Way) selectedElement);
+			}
 
 			if (selectedElement != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
