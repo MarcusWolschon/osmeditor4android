@@ -64,9 +64,14 @@ import de.blau.android.TagEditor;
  */
 public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
     /**
-     * All valid keys we gathered.
+     * All valid keys for nodes we gathered.
      */
-    private static final List<String> myValidKeyNames = new LinkedList<String>();
+    private static final List<String> myValidNodeKeyNames = new LinkedList<String>();
+
+    /**
+     * All valid keys for ways we gathered.
+     */
+    private static final List<String> myValidWayKeyNames = new LinkedList<String>();
 
     /**
      * The tag we use for Android-logging.
@@ -79,7 +84,7 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
      */
     public static void fillCache(final Context aContext) {
         try {
-            getArray(aContext);
+            getArray(aContext, "");
         } catch (Exception e) {
             Log.w(DEBUG_TAG, "Cannot parse presets.xml", e);
         }
@@ -94,17 +99,28 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
      * @throws FactoryConfigurationError if we cannot parse presets.xml
      * @throws IOException if we cannot parse presets.xml
      */
-    private static String[] getArray(final Context aContext) throws ParserConfigurationException, SAXException, FactoryConfigurationError, IOException {
-        if (!myValidKeyNames.isEmpty()) {
-         // load the keys only once
-            return (String[]) myValidKeyNames.toArray(new String[myValidKeyNames.size()]);
-        }
+    private static String[] getArray(final Context aContext, final String aType) throws ParserConfigurationException, SAXException, FactoryConfigurationError, IOException {
+    	if (aType.equals("node")) {
+    		if (!myValidNodeKeyNames.isEmpty()) {
+    			// load the keys only once
+    			return (String[]) myValidNodeKeyNames.toArray(new String[myValidNodeKeyNames.size()]);
+    		}	
+    	} else {
+    		if (!myValidWayKeyNames.isEmpty()) {
+    			// load the keys only once
+    			return (String[]) myValidWayKeyNames.toArray(new String[myValidWayKeyNames.size()]);
+    		}	
+    	}
+        
  
         SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
         InputStream input = aContext.getResources().openRawResource(R.raw.presets);
         saxParser.parse(input, new HandlerBase() {
 
         	private String currentType = null;
+        	private List<String> myValidKeyNames = myValidWayKeyNames;
+        	private List<String> myValidKeyNames2 = null;
+
             /** 
              * ${@inheritDoc}.
              */
@@ -113,23 +129,33 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
                                                                              throws SAXException {
             	if (aName.equals("item")) {
             		for (int i = 0; i < aAttributes.getLength(); i++) {
-                        String attrName = aAttributes.getName(i);
+                        String attrName = aAttributes.getName(i);                        
                         if (attrName.equals("type")) {
                             currentType = aAttributes.getValue(i);
-                            if (currentType.equals("closedway")) {
-                            	currentType = "way";
+                            if (currentType.contains("way")) {
+                            	myValidKeyNames = myValidWayKeyNames;
+                            } else {
+                            	myValidKeyNames = null;
+                            }
+                            if (currentType.contains("node")) {
+                            	myValidKeyNames2 = myValidNodeKeyNames;
+                            } else {
+                            	myValidKeyNames2 = null;
                             }
                         }
                     }
             	}
                 if (aName.equals("key") || aName.equals("text") || aName.equals("combo")) {
-                    //TODO: include only the keys that are possible in combination with the keys that already exist on the object or at least check "<item type="node,closedway..."
+                    //TODO: include only the keys that are possible in combination with the keys that already exist on the object
                     for (int i = 0; i < aAttributes.getLength(); i++) {
                         String attrName = aAttributes.getName(i);
                         if (attrName.equals("key")) {
                             String value = aAttributes.getValue(i);
-                            if (!myValidKeyNames.contains(value)) {
+                            if (myValidKeyNames != null && !myValidKeyNames.contains(value)) {
                                 myValidKeyNames.add(value);
+                            }
+                            if (myValidKeyNames2 != null && !myValidKeyNames2.contains(value)) {
+                                myValidKeyNames2.add(value);
                             }
                         }
                     }
@@ -138,7 +164,11 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
             
         });
  
-        return (String[]) myValidKeyNames.toArray(new String[myValidKeyNames.size()]);
+        if (aType.equals("node")) {
+			return (String[]) myValidNodeKeyNames.toArray(new String[myValidNodeKeyNames.size()]);
+    	} else {
+			return (String[]) myValidWayKeyNames.toArray(new String[myValidWayKeyNames.size()]);
+    	} 
     }
 
 
@@ -155,7 +185,7 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
     public TagKeyAutocompletionAdapter(final Context aContext,
                                        final int aTextViewResourceId,
                                        final String type) throws ParserConfigurationException, SAXException, FactoryConfigurationError, IOException {
-        super(aContext, aTextViewResourceId, getArray(aContext));
+        super(aContext, aTextViewResourceId, getArray(aContext, type));
 
     }
 
