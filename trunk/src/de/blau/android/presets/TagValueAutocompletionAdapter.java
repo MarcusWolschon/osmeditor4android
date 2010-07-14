@@ -117,7 +117,7 @@ public class TagValueAutocompletionAdapter extends ArrayAdapter<String> {
             public void startElement(String aName, AttributeList aAttributes)
                                                                              throws SAXException {
                 //TODO: check "<item type="node,closedway..."
-                if (aName.equals("key")) {
+                if (aName.equals("key") || aName.equals("combo")) {
                     // <key key="{aTagKey}" value={...}/>
                     String key = null;
                     for (int i = 0; i < aAttributes.getLength(); i++) {
@@ -145,6 +145,17 @@ public class TagValueAutocompletionAdapter extends ArrayAdapter<String> {
                             if (!myValidKeyValues.contains(value)) {
                                 myValidKeyValues.add(value);
                             }
+                            break;
+                        }
+                        if (attrName.equals("values")) {
+                            String[] values = aAttributes.getValue(i).split(",");
+                            
+                            for (String value : values) {
+                            	if (!myValidKeyValues.contains(value)) {
+                                    myValidKeyValues.add(value);
+                                }
+							}
+                            
                             break;
                         }
                     }
