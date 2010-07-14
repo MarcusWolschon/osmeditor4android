@@ -109,7 +109,7 @@ public class Logic {
 	/**
 	 * See {@link StorageDelegator}.
 	 */
-	private final StorageDelegator delegator = new StorageDelegator();
+	protected final StorageDelegator delegator = new StorageDelegator();
 
 	/**
 	 * Stores the {@link Preferences} as soon as they are available.

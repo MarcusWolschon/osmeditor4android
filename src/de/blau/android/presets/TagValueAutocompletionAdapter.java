@@ -60,7 +60,7 @@ import de.blau.android.TagEditor;
  * TagKeyAutocompletionAdapter.java<br/>
  * created: 12.06.2010 10:43:37 <br/>
  *<br/><br/>
- * <b>Adapter for the {@link AutoCompleteTextView} in the {@link TagEditor} that is for the KEY
+ * <b>Adapter for the {@link AutoCompleteTextView} in the {@link TagEditor} that is for the VALUE
  * of key-value -tags.</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
