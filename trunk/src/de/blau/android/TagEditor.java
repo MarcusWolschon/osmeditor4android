@@ -209,25 +209,30 @@ public class TagEditor extends Activity {
         lastEditKey.addTextChangedListener(new TextWatcher() {
             
             @Override
-            public void onTextChanged(CharSequence aS,
-                                      int aStart,
-                                      int aBefore,
-                                      int aCount) {
+            public void onTextChanged(final CharSequence aS,
+            		                  final int aStart,
+                                      final int aBefore,
+                                      final int aCount) {
                 setAutocompletion();
             }
             
             @Override
-            public void beforeTextChanged(CharSequence aS,
-                                          int aStart,
-                                          int aCount,
-                                          int aAfter) {
+            public void beforeTextChanged(final CharSequence aS,
+            		                      final int aStart,
+                                          final int aCount,
+                                          final int aAfter) {
                 setAutocompletion();   
             }
             
             @Override
-            public void afterTextChanged(Editable aS) {
+            public void afterTextChanged(final Editable aS) {
                 setAutocompletion();
             }
+
+            /**
+             * add an adapter to valueEdit, that gives autocompletion-suggestions
+             * based on the value of keyEdit.getText().toString().
+             */
             private void setAutocompletion() {
                 ArrayAdapter<String> knownTagValuesAdapter = null;
                 try {
