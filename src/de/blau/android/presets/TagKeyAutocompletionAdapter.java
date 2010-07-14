@@ -104,12 +104,24 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
         InputStream input = aContext.getResources().openRawResource(R.raw.presets);
         saxParser.parse(input, new HandlerBase() {
 
+        	private String currentType = null;
             /** 
              * ${@inheritDoc}.
              */
             @Override
             public void startElement(String aName, AttributeList aAttributes)
                                                                              throws SAXException {
+            	if (aName.equals("item")) {
+            		for (int i = 0; i < aAttributes.getLength(); i++) {
+                        String attrName = aAttributes.getName(i);
+                        if (attrName.equals("type")) {
+                            currentType = aAttributes.getValue(i);
+                            if (currentType.equals("closedway")) {
+                            	currentType = "way";
+                            }
+                        }
+                    }
+            	}
                 if (aName.equals("key") || aName.equals("text") || aName.equals("combo")) {
                     //TODO: include only the keys that are possible in combination with the keys that already exist on the object or at least check "<item type="node,closedway..."
                     for (int i = 0; i < aAttributes.getLength(); i++) {
