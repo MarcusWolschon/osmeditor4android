@@ -71,6 +71,7 @@
 	<string name="menu_add">Neu</string>
 	<string name="menu_config">Einstellungen</string>
 	<string name="menu_erase">Knoten löschen</string>
+	<string name="menu_split">Weg aufspalten</string>
 	<string name="menu_append">Anhängen</string>
 	<string name="menu_tag">Tags verändern</string>
 	<string name="menu_gps">GPS...</string>

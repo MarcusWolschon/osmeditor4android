@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,14 @@ public class Way extends OsmElement {
 
 	public List<Node> getNodes() {
 		return Collections.unmodifiableList(nodes);
+	}
+
+	/**
+	 * Be careful to leave at least 2 nodes!
+	 * @return list of nodes allowing {@link Iterator#remove()}.
+	 */
+	Iterator<Node> getRemovableNodes() {
+		return nodes.iterator();
 	}
 
 	@Override

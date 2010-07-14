@@ -9,9 +9,12 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -110,6 +113,50 @@ public class StorageDelegator implements Serializable {
 		removeWayNodes(node);
 		currentStorage.removeNode(node);
 		node.updateState(OsmElement.STATE_DELETED);
+	}
+
+	public void splitAtNode(final Node node) {
+		List<Way> ways = apiStorage.getWays(node);
+		for (Way way : ways) {
+			splitAtNode(way, node);
+		}
+	}
+
+	public void splitAtNode(final Way way, final Node node) {
+		List<Node> nodes = way.getNodes();
+		if (nodes.size() < 3) {
+			return;
+		}
+		// we assume this node is only contained in the way once.
+		// else the user needs to split the remaining way again.
+		List<Node> nodesForNewWay = new LinkedList<Node>();
+		boolean found = false;
+		for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
+			Node wayNode = (Node) it.next();
+			if (!found && wayNode.getOsmId() == node.getOsmId()) {
+				found = true;
+				nodesForNewWay.add(wayNode);
+			} else if (found) {
+				nodesForNewWay.add(wayNode);
+				it.remove();
+			}
+		}
+		if (nodesForNewWay.size() < 1) {
+			return; // do not create 1-node way
+		}
+
+		way.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(way);
+
+		// create the new way
+		Way newWay = OsmElementFactory.createWayWithNewId();
+		newWay.updateState(OsmElement.STATE_CREATED);
+		newWay.addTags(way.getTags());
+		for (Node wayNode : nodesForNewWay) {
+			newWay.addNode(wayNode);
+		}
+		
+		insertElementUnsafe(newWay);
 	}
 
 	private int removeWayNodes(final Node node) {

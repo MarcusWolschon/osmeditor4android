@@ -74,6 +74,7 @@
 	<string name="menu_add">New</string>
 	<string name="menu_config">Preferences</string>
 	<string name="menu_erase">Erase node</string>
+	<string name="menu_split">split way</string>
 	<string name="menu_append">Append</string>
 	<string name="menu_tag">Edit tags</string>
 	<string name="menu_gps">GPS...</string>

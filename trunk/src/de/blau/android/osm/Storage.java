@@ -87,6 +87,10 @@ public class Storage implements Serializable {
 		return null;
 	}
 
+	/**
+	 * @param node
+	 * @return all ways containing that node
+	 */
 	public List<Way> getWays(final Node node) {
 		ArrayList<Way> mWays = new ArrayList<Way>();
 		for (int i = 0, size = ways.size(); i < size; ++i) {

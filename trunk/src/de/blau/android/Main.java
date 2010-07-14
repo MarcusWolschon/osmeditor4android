@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -197,6 +198,11 @@ public class Main extends Activity {
 		case R.id.menu_erase:
 			logic.setMode(Logic.MODE_ERASE);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_erase);
+			return true;
+
+		case R.id.menu_split:
+			logic.setMode(Logic.MODE_SPLIT);
+			//TODO: no icon yet getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
 			return true;
 
 		case R.id.menu_append:
@@ -552,6 +558,9 @@ public class Main extends Activity {
 					case Logic.MODE_ERASE:
 						selectElementForErase(v, x, y);
 						break;
+					case Logic.MODE_SPLIT:
+						selectElementForSplit(v, x, y);
+						break;
 					case Logic.MODE_APPEND:
 						performAppend(v, x, y);
 						break;
@@ -586,6 +595,25 @@ public class Main extends Activity {
 			int size = clickedNodesAndWays.size();
 			if (size == 1) {
 				logic.performErase((Node) clickedNodesAndWays.get(0));
+			} else if (size > 1) {
+				v.showContextMenu();
+			} /* else {} */// If no elements where touched, ignore
+		}
+
+		private void selectElementForSplit(final View v, final float x, final float y) {
+			clickedNodesAndWays = logic.getClickedNodes(x, y);
+
+			//TOOD remove nodes with no ways from list
+//			for (Iterator iterator = clickedNodesAndWays.iterator(); iterator.hasNext();) {
+//				Node node = (Node) iterator.next();
+//				if (node.getWaysCount() < 1) {
+//					iterator.remove();
+//				}
+//			}
+
+			int size = clickedNodesAndWays.size();
+			if (size == 1) {
+				logic.performSplit((Node) clickedNodesAndWays.get(0));
 			} else if (size > 1) {
 				v.showContextMenu();
 			} /* else {} */// If no elements where touched, ignore
@@ -679,6 +707,9 @@ public class Main extends Activity {
 				case Logic.MODE_ERASE:
 					logic.performErase((Node) element);
 					break;
+				case Logic.MODE_SPLIT:
+					logic.performSplit((Node) element);
+					break; 
 				case Logic.MODE_APPEND:
 					switch (appendMode) {
 					case APPEND_START:

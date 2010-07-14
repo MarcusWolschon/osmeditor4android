@@ -61,6 +61,7 @@ public class Logic {
 
 	public static final byte MODE_TAG_EDIT = 5;
 
+	public static final byte MODE_SPLIT = 6;
 	/**
 	 * Enums for directions. Used for translation via cursor-pad.
 	 */
@@ -556,12 +557,26 @@ public class Logic {
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performErase(Node node) {
+	public void performErase(final Node node) {
 		if (node != null) {
 			delegator.removeNode(node);
 			map.invalidate();
 		}
 	}
+
+	/**
+	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
+	 * 
+	 * @param x screen-coordinate.
+	 * @param y screen-coordinate.
+	 */
+	public void performSplit(final Node node) {
+		if (node != null) {
+			delegator.splitAtNode(node);
+			map.invalidate();
+		}
+	}
+	
 
 	public void performAppendStart(OsmElement element) {
 		Way lSelectedWay = null;
