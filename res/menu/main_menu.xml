@@ -37,6 +37,12 @@
 		android:title="@string/menu_erase"
 		android:alphabeticShortcut="r"
 	/>
+
+    <item android:id="@+id/menu_split"
+		android:title="@string/menu_split"
+		android:alphabeticShortcut="s"
+	/> <!-- TOOD: no icon yet -->
+	
 	
 	<item android:title="@string/menu_gps">	
 		<menu>
