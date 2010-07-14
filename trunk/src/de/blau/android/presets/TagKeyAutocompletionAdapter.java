@@ -134,13 +134,15 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
      * 
      * @param aContext used to load resources
      * @param aTextViewResourceId given to {@link ArrayAdapter}
+     * @param type the type of osm-element we are tagging (not evaluated yet)
      * @throws ParserConfigurationException if we cannot parse presets.xml
      * @throws SAXException if we cannot parse presets.xml
      * @throws FactoryConfigurationError if we cannot parse presets.xml
      * @throws IOException if we cannot parse presets.xml
      */
     public TagKeyAutocompletionAdapter(final Context aContext,
-                                       final int aTextViewResourceId) throws ParserConfigurationException, SAXException, FactoryConfigurationError, IOException {
+                                       final int aTextViewResourceId,
+                                       final String type) throws ParserConfigurationException, SAXException, FactoryConfigurationError, IOException {
         super(aContext, aTextViewResourceId, getArray(aContext));
 
     }

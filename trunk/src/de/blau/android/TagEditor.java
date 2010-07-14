@@ -185,7 +185,7 @@ public class TagEditor extends Activity {
         //ArrayAdapter<String> knownTagNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.known_tags));
         ArrayAdapter<String> knownTagNamesAdapter;
         try {
-            knownTagNamesAdapter = new TagKeyAutocompletionAdapter(this, android.R.layout.simple_dropdown_item_1line);
+            knownTagNamesAdapter = new TagKeyAutocompletionAdapter(this, android.R.layout.simple_dropdown_item_1line, type);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "cannot create TagKeyAutocompletionAdapter", e);
             knownTagNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.known_tags));
