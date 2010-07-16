@@ -61,11 +61,11 @@ public class Server {
 	 */
 	private final String path = "/api/" + version + "/";
 
-	/**
-	 * Tag with "created_by"-key to identify edits made by this editor.
-	 */
-	private final String createdByTag;
-	private final String createdByKey;
+//	/**
+//	 * Tag with "created_by"-key to identify edits made by this editor.
+//	 */
+//	private final String createdByTag;
+//	private final String createdByKey;
 
 	private long changesetId = -1;
 
@@ -85,8 +85,8 @@ public class Server {
 		this.username = username;
 		this.generator = generator;
 
-		createdByTag = "created_by";
-		createdByKey = generator;
+//		createdByTag = "created_by";
+//		createdByKey = generator;
 
 		XmlPullParserFactory factory = null;
 		try {
@@ -155,7 +155,7 @@ public class Server {
 	 */
 	public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
-		elem.addOrUpdateTag(createdByTag, createdByKey);
+//		elem.addOrUpdateTag(createdByTag, createdByKey);
 
 		try {
 			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
@@ -195,7 +195,7 @@ public class Server {
 		int osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag, createdByKey);
+//		elem.addOrUpdateTag(createdByTag, createdByKey);
 
 		try {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
@@ -258,7 +258,7 @@ public class Server {
 		int osmId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag, createdByKey);
+//		elem.addOrUpdateTag(createdByTag, createdByKey);
 
 		try {
 			connection = openConnectionForWriteAccess(getCreationUrl(elem), "PUT");
@@ -297,7 +297,7 @@ public class Server {
                     serializer.endTag("", "tag");
                     serializer.startTag("", "tag");
                     serializer.attribute("", "k", "comment");
-                    serializer.attribute("", "v", "Vespucci edit");
+                    serializer.attribute("", "v", "Vespucci edit on Android phone");
                     serializer.endTag("", "tag");
                     serializer.endTag("", "changeset");
                     endXml(serializer);
