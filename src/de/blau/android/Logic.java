@@ -821,7 +821,7 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
-		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		paints.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / viewBox.getWidth()));
 		map.setPaints(paints);
 		map.setTrack(tracker.getTrack());
 		map.setDelegator(delegator);

@@ -10,7 +10,7 @@
 	<uses-permission android:name="android.permission.INTERNET" /> 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission> <!--  cache tiles -->
 	
-	<uses-sdk android:minSdkVersion="3" />
+	<uses-sdk android:minSdkVersion="4" />
 	
 	<application 
 		android:label="@string/app_name_version"

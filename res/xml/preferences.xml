@@ -21,6 +21,14 @@
 			android:summary="@string/config_enableAntiAliasing_summary" 
 			android:defaultValue="true"
 		/>
+		<!-- <EditTextPreference
+			android:key="@string/config_maxStrokeWidth_key"
+			android:title="@string/config_maxStrokeWidth_title"
+			android:summary="@string/config_maxStrokeWidth_summary"
+			android:dialogTitle="@string/config_maxStrokeWidth_title"
+			android:numeric="decimal"
+			android:defaultValue="10.0"
+		/> -->
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_server">

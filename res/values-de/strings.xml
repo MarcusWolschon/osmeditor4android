@@ -87,6 +87,8 @@
 	
 	<!-- Preferences -->
 	<string name="config_category_view">Ansichtseinstellungen</string>
+	<string name="config_maxStrokeWidth_title">maximale Breite</string>
+	<string name="config_maxStrokeWidth_summary">zeichne Wege nie dicker als dies</string>
 	<string name="config_showStats_key">showStats</string>
 	<string name="config_showStats_title">Zeige Statistiken</string>
 	<string name="config_showStats_summary">Zeigt Statistken (FPS/Knotenanzahl) unten links in der Ecke.</string>
