@@ -32,10 +32,11 @@ package de.blau.android.presets;
 
 //other imports
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Vector;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -98,7 +99,7 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
     private static String[] getArray(final StorageDelegator streets,
     		final Context aContext, final int[] location) {
     	List<Way> ways = streets.getCurrentStorage().getWays();
-    	SortedMap<Integer, String> retval = new TreeMap<Integer, String>();
+    	TreeMap<Double, String> retval = new TreeMap<Double, String>();
     	for (Way way : ways) {
 			if (way.getTagWithKey("highway") == null) {
 				continue;
@@ -109,7 +110,19 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
 			}
 
 			if (!retval.containsValue(name)) {
-				int distance = getDistance(streets, way, location);
+				double distance = getDistance(streets, way, location);
+
+				// other way with the same name but different distance
+				for (Way way2 : ways) {
+					if (way2.getTagWithKey("highway") == null) {
+						continue;
+					}
+					String name2 = way2.getTagWithKey("name");
+					if (name2 == null || !name2.equalsIgnoreCase(name)) {
+						continue;
+					}
+					distance = Math.min(distance, getDistance(streets, way2, location));
+				}
 				retval.put(distance, name);
 			}
 		}
@@ -122,21 +135,59 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      * @param location
      * @return the minimum distance of the given way to the given location
      */
-	private static int getDistance(StorageDelegator streets, Way way, int[] location) {
+	private static double getDistance(final StorageDelegator streets, final Way way, final int[] location) {
 		if (location == null) {
 			return Integer.MAX_VALUE;
 		}
 		List<Node> nodes = way.getNodes();
-		int distance = Integer.MAX_VALUE;
+		double distance = Double.MAX_VALUE;
+		Node lastNode = null;
 		for (Node node : nodes) {
 			if (node != null) {
-				int la = Math.abs(location[0] - node.getLat());
-				int lo = Math.abs(location[1] - node.getLon());
-				int d = la + lo;
-				distance = Math.min(d, distance);
+				//int la = Math.abs(location[0] - node.getLat());
+				//int lo = Math.abs(location[1] - node.getLon());
+				//int d = la + lo;
+				// distance to nodes of way
+				//distance = Math.min(d, distance);
+				if (lastNode != null) {
+					// distance to lines of way
+					double d2 = Math.sqrt(ptSegDistSq(lastNode.getLat(), lastNode.getLon(),
+							                      node.getLat(), node.getLon(),
+							                      location[0], location[1]));
+					distance = Math.min(d2, distance);
+				}
+				lastNode = node;
 			}
 		}
 		return distance;
+	}
+
+	public static double ptSegDistSq(double x1, double y1, double x2,
+			double y2, double px, double py) {
+		/*
+		 * A = (x2 - x1, y2 - y1) P = (px - x1, py - y1)
+		 */
+		x2 -= x1; // A = (x2, y2)
+		y2 -= y1;
+		px -= x1; // P = (px, py)
+		py -= y1;
+		double dist;
+		if (px * x2 + py * y2 <= 0.0) { // P*A
+			dist = px * px + py * py;
+		} else {
+			px = x2 - px; // P = A - P = (x2 - px, y2 - py)
+			py = y2 - py;
+			if (px * x2 + py * y2 <= 0.0) { // P*A
+				dist = px * px + py * py;
+			} else {
+				dist = px * y2 - py * x2;
+				dist = dist * dist / (x2 * x2 + y2 * y2); // pxA/|A|
+			}
+		}
+		if (dist < 0) {
+			dist = 0;
+		}
+		return dist;
 	}
 
 

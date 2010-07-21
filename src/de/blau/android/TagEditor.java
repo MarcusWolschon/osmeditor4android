@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -192,6 +193,7 @@ public class TagEditor extends Activity {
         }
         lastEditKey.setAdapter(knownTagNamesAdapter);
         lastEditKey.setThreshold(3); // give suggestions after 3 characters
+        lastEditKey.setInputType(0x00080001); //no suggestions. (Since: API Level 5)
         horizontalLayout.addView(textKey);
         horizontalLayout.addView(lastEditKey, layoutParamValue);
 
@@ -202,6 +204,7 @@ public class TagEditor extends Activity {
         lastEditValue = valueEdit;
         lastEditValue.setOnKeyListener(myKeyListener);
         lastEditValue.setSingleLine(true);
+        lastEditValue.setInputType(0x00080001); //no suggestions. (Since: API Level 5)
         horizontalLayout.addView(textValue);
         horizontalLayout.addView(lastEditValue, layoutParamValue);
 
