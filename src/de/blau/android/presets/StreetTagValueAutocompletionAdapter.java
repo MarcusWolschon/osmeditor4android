@@ -205,6 +205,12 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
 			Node n = (Node) osmElement;
 			return new int[] {n.getLat(), n.getLon()};
 		}
+		if (osmElement instanceof Way) {
+			Way w = (Way) osmElement;
+			int max = w.getNodes().size();
+			Node n = w.getNodes().get(max / 2); // take a node from the middle
+			return new int[] {n.getLat(), n.getLon()};
+		}
 		return null;
 	}
 
