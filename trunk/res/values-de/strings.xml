@@ -7,8 +7,10 @@
 	<string name="transfer_download_current_dialog_title">Achtung!</string>
 	<string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderunge hochladen, anstatt sie zu verwerfen?</string>
 	<string name="transfer_download_current_upload">Hochladen</string>
-	<string name="transfer_download_current_download">Verwerfen &amp; runterladen</string>
-	<string name="transfer_download_current_back">Zurück (Unverändert lassen)</string>
+	<!-- <string name="transfer_download_current_download">Verwerfen &amp; runterladen</string> -->
+	<string name="transfer_download_current_download">Verwerfen</string>
+<!-- 	<string name="transfer_download_current_back">Zurück (Unverändert lassen)</string> -->
+<string name="transfer_download_current_back">Zurück</string>
 	<string name="no_login_data_title">Kein Login angegeben</string>
 	<string name="no_login_data_message">Bitte geben Sie die Logindaten in den Einstellungen ein.</string>
 	<string name="no_connection_title">Keine Verbindung zum Server</string>
