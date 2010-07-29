@@ -192,7 +192,7 @@ public class TagEditor extends Activity {
             knownTagNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.known_tags));
         }
         lastEditKey.setAdapter(knownTagNamesAdapter);
-        lastEditKey.setThreshold(3); // give suggestions after 3 characters
+//        lastEditKey.setThreshold(3); // give suggestions after 3 characters
         lastEditKey.setInputType(0x00080001); //no suggestions. (Since: API Level 5)
         horizontalLayout.addView(textKey);
         horizontalLayout.addView(lastEditKey, layoutParamValue);
