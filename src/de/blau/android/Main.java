@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -54,9 +53,9 @@ import de.blau.android.resources.Paints;
  */
 public class Main extends Activity {
 
-    /**
-     * Tag used for Android-logging.
-     */
+	/**
+	 * Tag used for Android-logging.
+	 */
 	private static final String DEBUG_TAG = Main.class.getName();
 
 	/**
@@ -84,19 +83,15 @@ public class Main extends Activity {
 	 */
 	private Map map;
 
-
 	/**
 	 * Our user-preferences.
 	 */
 	private Preferences prefs;
 
 	/**
-	 * The logic that manipulates the model.
-	 * (non-UI)<br/>
-	 * This is created in {@link #onCreate(Bundle)} and never changed
-	 * afterwards.<br/>
-	 * If may be null or not reflect the current state if accessed from
-	 * outside this activity.
+	 * The logic that manipulates the model. (non-UI)<br/>
+	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
+	 * If may be null or not reflect the current state if accessed from outside this activity.
 	 */
 	protected static Logic logic;
 
@@ -119,7 +114,7 @@ public class Main extends Activity {
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
-		map.setOnKeyListener((OnKeyListener) new MapKeyListiner());
+		map.setOnKeyListener(new MapKeyListiner());
 
 		setContentView(map);
 
@@ -282,8 +277,6 @@ public class Main extends Activity {
 		}
 		return super.onCreateDialog(id);
 	}
-	
-
 
 	/**
 	 * {@inheritDoc}
@@ -331,15 +324,15 @@ public class Main extends Activity {
 		// Read data from extras
 		// Intents can't hold a Map in the extras, so
 		// it is converted to an ArrayList
-		ArrayList<String> tagList = (ArrayList<String>) b
-				.getSerializable(TagEditor.TAGS);
+		ArrayList<String> tagList = (ArrayList<String>) b.getSerializable(TagEditor.TAGS);
 		String type = b.getString(TagEditor.TYPE);
 		long osmId = b.getLong(TagEditor.OSM_ID);
 
 		int size = tagList.size();
 		HashMap<String, String> tags = new HashMap<String, String>(size / 2);
-		for (int i = 0; i < size; i += 2)
-			tags.put(tagList.get(i), tagList.get(i+1));
+		for (int i = 0; i < size; i += 2) {
+			tags.put(tagList.get(i), tagList.get(i + 1));
+		}
 
 		logic.insertTags(type, osmId, tags);
 		map.invalidate();
@@ -401,11 +394,11 @@ public class Main extends Activity {
 			logic.downloadBox(this, handler, box);
 		} catch (OsmException e) {
 			showDialog(DialogFactory.UNDEFINED_ERROR);
-			Log.e(getClass().getName() + ":performHttpLoad()" , "OsmException received", e);
+			Log.e(getClass().getName() + ":performHttpLoad()", "OsmException received", e);
 			exceptions.add(e);
 		} catch (IOException e) {
 			showDialog(DialogFactory.NO_CONNECTION);
-            Log.e(getClass().getName() + ":performHttpLoad()" , "IOException received", e);
+			Log.e(getClass().getName() + ":performHttpLoad()", "IOException received", e);
 			exceptions.add(e);
 		}
 	}
@@ -432,23 +425,22 @@ public class Main extends Activity {
 		}
 	}
 
-
-    /**
+	/**
      * 
      */
-    public void confirmUpload() {
-        final Server server = prefs.getServer();
+	public void confirmUpload() {
+		final Server server = prefs.getServer();
 
-        if (server != null && server.isLoginSet()) {
-            if (logic.hasChanges()) {
-                showDialog(DialogFactory.CONFIRM_UPLOAD);
-            } else {
-                Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
-            }
-        } else {
-            showDialog(DialogFactory.NO_LOGIN_DATA);
-        }
-    }
+		if (server != null && server.isLoginSet()) {
+			if (logic.hasChanges()) {
+				showDialog(DialogFactory.CONFIRM_UPLOAD);
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+			}
+		} else {
+			showDialog(DialogFactory.NO_LOGIN_DATA);
+		}
+	}
 
 	/**
 	 * Starts the LocationPicker activity for requesting a location.
@@ -541,7 +533,7 @@ public class Main extends Activity {
 		 * @param x
 		 * @param y
 		 */
-		private void touchEventUp(View v, final float x, final float y) {
+		private void touchEventUp(final View v, final float x, final float y) {
 			boolean hasMoved = hasMoved(x, y);
 			if (!hasMoved) {
 				byte mode = logic.getMode();
@@ -688,7 +680,7 @@ public class Main extends Activity {
 		}
 
 		@Override
-		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
 			for (int i = 0, len = clickedNodesAndWays.size(); i < len; i++) {
 				OsmElement osmElement = clickedNodesAndWays.get(i);
 				menu.add(Menu.NONE, i, Menu.NONE, osmElement.getDescription()).setOnMenuItemClickListener(this);
@@ -696,7 +688,7 @@ public class Main extends Activity {
 		}
 
 		@Override
-		public boolean onMenuItemClick(MenuItem item) {
+		public boolean onMenuItemClick(final MenuItem item) {
 			int itemId = item.getItemId();
 			if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
 				OsmElement element = clickedNodesAndWays.get(itemId);
@@ -709,7 +701,7 @@ public class Main extends Activity {
 					break;
 				case Logic.MODE_SPLIT:
 					logic.performSplit((Node) element);
-					break; 
+					break;
 				case Logic.MODE_APPEND:
 					switch (appendMode) {
 					case APPEND_START:
@@ -790,12 +782,12 @@ public class Main extends Activity {
 	/**
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
-    public String getPendingChanges() {
-        Set<String> changes = logic.getPendingChanges(this);
-        StringBuilder retval = new StringBuilder();
-        for (String change : changes) {
-            retval.append(change).append('\n');
-        }
-        return retval.toString();
-    }
+	public String getPendingChanges() {
+		Set<String> changes = logic.getPendingChanges(this);
+		StringBuilder retval = new StringBuilder();
+		for (String change : changes) {
+			retval.append(change).append('\n');
+		}
+		return retval.toString();
+	}
 }
