@@ -2,7 +2,6 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import de.blau.android.exception.OsmException;
@@ -60,11 +59,11 @@ public class Storage implements Serializable {
 	}
 
 	public List<Node> getNodes() {
-		return Collections.unmodifiableList(nodes);
+		return nodes;
 	}
 
 	public List<Way> getWays() {
-		return Collections.unmodifiableList(ways);
+		return ways;
 	}
 
 	public boolean contains(final OsmElement elem) {
