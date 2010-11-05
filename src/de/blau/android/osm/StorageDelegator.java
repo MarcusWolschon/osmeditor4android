@@ -14,7 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -132,7 +131,7 @@ public class StorageDelegator implements Serializable {
 		List<Node> nodesForNewWay = new LinkedList<Node>();
 		boolean found = false;
 		for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
-			Node wayNode = (Node) it.next();
+			Node wayNode = it.next();
 			if (!found && wayNode.getOsmId() == node.getOsmId()) {
 				found = true;
 				nodesForNewWay.add(wayNode);
@@ -155,7 +154,7 @@ public class StorageDelegator implements Serializable {
 		for (Node wayNode : nodesForNewWay) {
 			newWay.addNode(wayNode);
 		}
-		
+
 		insertElementUnsafe(newWay);
 	}
 
@@ -259,42 +258,41 @@ public class StorageDelegator implements Serializable {
 	}
 
 	/**
-	 * Return a localized list of strings describing the changes we
-	 * would upload on {@link #uploadToServer(Server)}.
+	 * Return a localized list of strings describing the changes we would upload on {@link #uploadToServer(Server)}.
+	 * 
 	 * @param aResources the translations
 	 * @return the changes
 	 */
 	public Set<String> listChances(final Resources aResources) {
-	    Set<String> retval = new HashSet<String>();
+		Set<String> retval = new HashSet<String>();
 
-	    List<Node> nodes = apiStorage.getNodes();
-	    for (Node node : nodes) {
-	        if (node.getState() == OsmElement.STATE_DELETED) {
-                retval.add(aResources.getString(R.string.changes_node_deleted, node.getDescription()));
-            } else if (node.getState() == OsmElement.STATE_MODIFIED) {
-                retval.add(aResources.getString(R.string.changes_node_changed, node.getDescription()));   
-            } else if (node.getState() == OsmElement.STATE_CREATED) {
-                retval.add(aResources.getString(R.string.changes_node_created, node.getDescription()));   
-            }
-        }
+		List<Node> nodes = apiStorage.getNodes();
+		for (Node node : nodes) {
+			if (node.getState() == OsmElement.STATE_DELETED) {
+				retval.add(aResources.getString(R.string.changes_node_deleted, node.getDescription()));
+			} else if (node.getState() == OsmElement.STATE_MODIFIED) {
+				retval.add(aResources.getString(R.string.changes_node_changed, node.getDescription()));
+			} else if (node.getState() == OsmElement.STATE_CREATED) {
+				retval.add(aResources.getString(R.string.changes_node_created, node.getDescription()));
+			}
+		}
 
-        List<Way> ways = apiStorage.getWays();
-        for (Way way : ways) {
-            if (way.getState() == OsmElement.STATE_DELETED) {
-                retval.add(aResources.getString(R.string.changes_way_deleted, way.getDescription()));
-            } else if (way.getState() == OsmElement.STATE_MODIFIED) {
-                retval.add(aResources.getString(R.string.changes_way_changed, way.getDescription()));   
-            } else if (way.getState() == OsmElement.STATE_CREATED) {
-                retval.add(aResources.getString(R.string.changes_way_created, way.getDescription()));   
-            }
-        }
+		List<Way> ways = apiStorage.getWays();
+		for (Way way : ways) {
+			if (way.getState() == OsmElement.STATE_DELETED) {
+				retval.add(aResources.getString(R.string.changes_way_deleted, way.getDescription()));
+			} else if (way.getState() == OsmElement.STATE_MODIFIED) {
+				retval.add(aResources.getString(R.string.changes_way_changed, way.getDescription()));
+			} else if (way.getState() == OsmElement.STATE_CREATED) {
+				retval.add(aResources.getString(R.string.changes_way_created, way.getDescription()));
+			}
+		}
 
-        // we do not support editing relations yet
-        return retval;
+		// we do not support editing relations yet
+		return retval;
 	}
 
-
-    public synchronized void uploadToServer(final Server server) throws MalformedURLException, ProtocolException,
+	public synchronized void uploadToServer(final Server server) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
 		server.openChangeset();
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());

@@ -2,7 +2,6 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +31,12 @@ public class Way extends OsmElement {
 	}
 
 	public List<Node> getNodes() {
-		return Collections.unmodifiableList(nodes);
+		return nodes;
 	}
 
 	/**
 	 * Be careful to leave at least 2 nodes!
+	 * 
 	 * @return list of nodes allowing {@link Iterator#remove()}.
 	 */
 	Iterator<Node> getRemovableNodes() {
@@ -58,7 +58,8 @@ public class Way extends OsmElement {
 	}
 
 	@Override
-	public void toXml(XmlSerializer s, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+	public void toXml(final XmlSerializer s, final long changeSetId) throws IllegalArgumentException,
+			IllegalStateException, IOException {
 		s.startTag("", "way");
 		s.attribute("", "id", Long.toString(osmId));
 		s.attribute("", "changeset", Long.toString(changeSetId));
