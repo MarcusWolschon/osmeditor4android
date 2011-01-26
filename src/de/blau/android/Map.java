@@ -124,7 +124,7 @@ public class Map extends View implements IMapView {
 	@Override
 	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-		myViewBox.setRatio((float) w / h);
+		myViewBox.setRatio((float) w / h, true);
 	}
 
 	private void paintGpsTrack(final Canvas canvas) {

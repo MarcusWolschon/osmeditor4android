@@ -65,19 +65,15 @@ public class TagEditor extends Activity {
 
 	private String type;
 
-	private boolean modified = false;
-
 	/**
 	 * Insert a new row of key+value -edit-widgets if some text is entered into the current one.
 	 */
 	private final OnKeyListener myKeyListener = new MyKeyListener();
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		osmId = getIntent().getLongExtra(OSM_ID, 0);
-		type = getIntent().getStringExtra(TYPE);
 
 		//Not yet implemented by Google
 		//getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
@@ -90,7 +86,15 @@ public class TagEditor extends Activity {
 
 		verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
 
-		extrasToEdits();
+		if (savedInstanceState == null) {
+			osmId = getIntent().getLongExtra(OSM_ID, 0);
+			type = getIntent().getStringExtra(TYPE);
+			extrasToEdits((ArrayList<String>)getIntent().getSerializableExtra(TAGS));
+		} else {
+			osmId = savedInstanceState.getLong(OSM_ID, 0);
+			type = savedInstanceState.getString(TYPE);
+			extrasToEdits(savedInstanceState.getStringArrayList(TAGS));
+		}
 		insertNewEdits("", "");
 
 		createOkButton();
@@ -101,11 +105,7 @@ public class TagEditor extends Activity {
 		okButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				if (modified) {
-					sendResultAndFinish();
-				} else {
-					finish();
-				}
+				sendResultAndFinish();
 			}
 		});
 	}
@@ -133,10 +133,8 @@ public class TagEditor extends Activity {
 	@Override
 	public boolean onKeyDown(final int keyCode, final KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (modified) {
-				sendResultAndFinish();
-				return true;
-			}
+			sendResultAndFinish();
+			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
@@ -146,7 +144,7 @@ public class TagEditor extends Activity {
      */
 	protected void sendResultAndFinish() {
 		Intent intent = new Intent();
-		intent.putExtras(getKeyValueFromEdits());
+		intent.putExtras(getKeyValueFromEdits(false)); // discards blank or partially blank pairs
 		intent.putExtra(OSM_ID, osmId);
 		intent.putExtra(TYPE, type);
 		setResult(RESULT_OK, intent);
@@ -156,15 +154,24 @@ public class TagEditor extends Activity {
 	/**
      * 
      */
-	@SuppressWarnings("unchecked")
-	protected void extrasToEdits() {
-		ArrayList<String> tags = (ArrayList<String>) getIntent().getSerializableExtra(TAGS);
+	protected void extrasToEdits(final ArrayList<String> tags) {
 		for (int i = 0, size = tags.size(); i < size; i += 2) {
 			insertNewEdits(tags.get(i), tags.get(i + 1));
 		}
 	}
 
-	/**
+	/** Save the state of this activity instance for future restoration.
+	 * @param outState The object to receive the saved state.
+	 */
+	@Override
+	protected void onSaveInstanceState(final Bundle outState) {
+		outState.putLong(OSM_ID, osmId);
+		outState.putString(TYPE, type);
+		outState.putAll(getKeyValueFromEdits(true)); // save partially blank pairs too
+		super.onSaveInstanceState(outState);
+	}
+
+    /**
 	 * Insert a new row with one key and one value to edit.
 	 * 
 	 * @param aTagKey the key-value to start with
@@ -270,9 +277,10 @@ public class TagEditor extends Activity {
 	/**
 	 * Collect all key-value pairs into a bundle to return them.
 	 * 
-	 * @return
+	 * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
+	 * @return The bundle of key-value pairs.
 	 */
-	private Bundle getKeyValueFromEdits() {
+	private Bundle getKeyValueFromEdits(boolean allowBlanks) {
 		Bundle bundle = new Bundle(1);
 		ArrayList<String> tags = new ArrayList<String>();
 		final int size = verticalLayout.getChildCount();
@@ -287,9 +295,14 @@ public class TagEditor extends Activity {
 					if (keyView instanceof EditText && valueView instanceof EditText) {
 						String key = ((EditText) keyView).getText().toString().trim();
 						String value = ((EditText) valueView).getText().toString().trim();
-						if (!"".equals(key) && !"".equals(value)) {
-							tags.add(key);
-							tags.add(value);
+						boolean bothBlank = "".equals(key) && "".equals(value);
+						boolean neitherBlank = !"".equals(key) && !"".equals(value);
+						if (!bothBlank) {
+							// both blank is never acceptable
+							if (neitherBlank || allowBlanks) {
+								tags.add(key);
+								tags.add(value);
+							}
 						}
 					}
 				}
@@ -310,7 +323,6 @@ public class TagEditor extends Activity {
 		public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
 			if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
 				if (view instanceof EditText) {
-					modified = true;
 					String key = lastEditKey.getText().toString();
 					String value = lastEditValue.getText().toString();
 					if (!"".equals(key.trim()) && !"".equals(value.trim())) {

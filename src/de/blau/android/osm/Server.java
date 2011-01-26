@@ -280,7 +280,14 @@ public class Server {
 		return osmId;
 	}
 
-	public void openChangeset() throws MalformedURLException, ProtocolException, IOException {
+	/**
+	 * Open a new changeset.
+	 * @param comment Changeset comment.
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws IOException
+	 */
+	public void openChangeset(final String comment) throws MalformedURLException, ProtocolException, IOException {
 		int changesetId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
@@ -297,7 +304,7 @@ public class Server {
                     serializer.endTag("", "tag");
                     serializer.startTag("", "tag");
                     serializer.attribute("", "k", "comment");
-                    serializer.attribute("", "v", "Vespucci edit on Android phone");
+                    serializer.attribute("", "v", comment);
                     serializer.endTag("", "tag");
                     serializer.endTag("", "changeset");
                     endXml(serializer);

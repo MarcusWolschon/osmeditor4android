@@ -79,26 +79,52 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		tags.put(tag, value);
 	}
 
+	/**
+	 * Add the tags of the element, replacing any existing tags.
+	 * @param tags New tags to add or to replace existing tags.
+	 */
 	void addTags(final Map<String, String> tags) {
 		this.tags.putAll(tags);
 	}
 
-	void setTags(final Map<String, String> tags) {
-		this.tags.clear();
-		if (tags != null) {
-			this.tags.putAll(tags);
+	/**
+	 * Set the tags of the element, replacing all existing tags.
+	 * @param tags New tags to replace existing tags.
+	 * @return Flag indicating if the tags have actually changed.
+	 */
+	boolean setTags(final Map<String, String> tags) {
+		if ((tags == null) ? !this.tags.isEmpty() : !this.tags.equals(tags)) {
+			this.tags.clear();
+			if (tags != null) {
+				this.tags.putAll(tags);
+			}
+			return true;
 		}
+		return false;
 	}
 
+	/**
+	 * @param key the key to search for (case sensitive)
+	 * @param value the value to search for (case sensitive)
+	 * @return true if the element has a tag with this key and value.
+	 */
 	public boolean hasTag(final String key, final String value) {
 		String keyValue = tags.get(key);
 		return keyValue != null && keyValue.equals(value);
 	}
 
+	/**
+	 * @param key the key to search for (case sensitive)
+	 * @return the value of this key.
+	 */
 	public String getTagWithKey(final String key) {
 		return this.tags.get(key);
 	}
 
+	/**
+	 * @param key the key to search for (case sensitive)
+	 * @return true if the element has a tag with this key.
+	 */
 	public boolean hasTagKey(final String key) {
 		return getTagWithKey(key) != null;
 	}
