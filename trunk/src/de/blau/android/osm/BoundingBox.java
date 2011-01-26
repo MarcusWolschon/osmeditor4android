@@ -314,32 +314,68 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Changes the dimensions of this bounding box to fit the given ratio. Ratio is width divided by height. The
 	 * smallest dimension will remain, the larger one will be resized to fit ratio.
-	 * 
-	 * @param ratio the how it should be-ratio
+	 * @param ratio The new aspect ratio.
 	 */
 	public void setRatio(final float ratio) {
+		setRatio(ratio, false);
+	}
+	
+	/**
+	 * Changes the dimensions of this bounding box to fit the given ratio.
+	 * @param ratio The new aspect ratio.
+	 * @param preserveZoom If true, maintains the current level of zoom by creating a new
+	 * boundingbox at the required ratio at the same center. If false, the new bounding box is
+	 * sized such that the currently visible area is still visible with the new aspect ratio
+	 * applied.
+	 */
+	public void setRatio(final float ratio, final boolean preserveZoom) {
 		if ((ratio > 0) && (ratio != Float.NaN)) {
-			int singleBorderMovement;
-			if ((width / height) < ratio) {
-				//The actual box is wider than it should be.
-				/* Here comes the math:
-				 * width/height = ratio
-				 * width = ratio * height
-				 * newWidth = width - ratio * height
-				 */
-				singleBorderMovement = Math.round((width - ratio * height) / 2);
-				left += singleBorderMovement;
-				right -= singleBorderMovement;
-			} else {
-				//The actual box is more narrow than it should be.
-				/* Same in here, only different:
-				 * width/height = ratio
-				 * height = width/ratio
-				 * newHeight = height - width/ratio
-				 */
-				singleBorderMovement = Math.round((height - width / ratio) / 2);
-				bottom += singleBorderMovement;
-				top -= singleBorderMovement;
+			if (preserveZoom) {
+				// Apply the new aspect ratio, but preserve the level of zoom so that
+				// for example, rotating portrait<-->landscape won't zoom out
+				int centerx = (left / 2 + right / 2); // divide first to stay < 2^32
+				int centery = (top + bottom) / 2;
+				int smallest = Math.min(Math.abs(right - left), Math.abs(bottom - top)) / 2;
+				if (ratio < 1.0f) {
+					// tall
+					left = centerx - smallest;
+					right = centerx + smallest;
+					smallest = (int)((float)smallest / ratio);
+					top = centery + smallest;
+					bottom = centery - smallest;
+				} else {
+					// wide
+					top = centery + smallest;
+					bottom = centery - smallest;
+					smallest = (int)((float)smallest * ratio);
+					left = centerx - smallest;
+					right = centerx + smallest;
+				}
+			}
+			else {
+				int singleBorderMovement;
+				// Ensure currently visible area is entirely visible in the new box
+				if ((width / height) < ratio) {
+					//The actual box is wider than it should be.
+					/* Here comes the math:
+					 * width/height = ratio
+					 * width = ratio * height
+					 * newWidth = width - ratio * height
+					 */
+					singleBorderMovement = Math.round((width - ratio * height) / 2);
+					left += singleBorderMovement;
+					right -= singleBorderMovement;
+				} else {
+					//The actual box is more narrow than it should be.
+					/* Same in here, only different:
+					 * width/height = ratio
+					 * height = width/ratio
+					 * newHeight = height - width/ratio
+					 */
+					singleBorderMovement = Math.round((height - width / ratio) / 2);
+					bottom += singleBorderMovement;
+					top -= singleBorderMovement;
+				}
 			}
 			//border-sizes changed. So we have to recalculate the dimensions.
 			calcDimensions();

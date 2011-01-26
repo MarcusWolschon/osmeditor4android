@@ -32,11 +32,8 @@ package de.blau.android.presets;
 
 //other imports
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
-import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Vector;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -67,7 +64,8 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
     /**
      * The tag we use for Android-logging.
      */
-    private static final String DEBUG_TAG = StreetTagValueAutocompletionAdapter.class.getName();
+    @SuppressWarnings("unused")
+	private static final String DEBUG_TAG = StreetTagValueAutocompletionAdapter.class.getName();
 
     /**
      * 

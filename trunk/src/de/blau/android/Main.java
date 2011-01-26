@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -114,7 +115,7 @@ public class Main extends Activity {
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
-		map.setOnKeyListener(new MapKeyListiner());
+		map.setOnKeyListener(new MapKeyListener());
 
 		setContentView(map);
 
@@ -277,6 +278,15 @@ public class Main extends Activity {
 		}
 		return super.onCreateDialog(id);
 	}
+	
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		super.onPrepareDialog(id, dialog);
+		if (id == DialogFactory.CONFIRM_UPLOAD) {
+			AlertDialog ad = (AlertDialog)dialog;
+			ad.setMessage(getString(R.string.confirm_upload_text, getPendingChanges()));
+		}
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -410,13 +420,13 @@ public class Main extends Activity {
 	/**
 	 * 
 	 */
-	public void performUpload() {
-		removeDialog(DialogFactory.CONFIRM_UPLOAD);
+	public void performUpload(final String comment) {
+		dismissDialog(DialogFactory.CONFIRM_UPLOAD);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
-				logic.upload(this, handler);
+				logic.upload(this, handler, comment);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
@@ -426,8 +436,8 @@ public class Main extends Activity {
 	}
 
 	/**
-     * 
-     */
+	 * 
+	 */
 	public void confirmUpload() {
 		final Server server = prefs.getServer();
 
@@ -717,11 +727,11 @@ public class Main extends Activity {
 	}
 
 	/**
-	 * A KeyListiner for all key events.
+	 * A KeyListener for all key events.
 	 * 
 	 * @author mb
 	 */
-	public class MapKeyListiner implements OnKeyListener {
+	public class MapKeyListener implements OnKeyListener {
 
 		@Override
 		public boolean onKey(final View v, final int keyCode, final KeyEvent event) {

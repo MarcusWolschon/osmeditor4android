@@ -23,6 +23,7 @@
 	<string name="progress_title">Laden</string>
 	<string name="progress_message">Lade Daten in den Speicher...</string>
 	<string name="progress_download_message">Lade Daten vom Server...</string>
+	<string name="upload_comment_label">Kommentar:</string>
 
 	<!-- Toaster -->
 	<string name="toast_no_changes">Sie haben noch nichts geändert...</string>

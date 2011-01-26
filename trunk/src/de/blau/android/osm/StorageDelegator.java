@@ -57,9 +57,11 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void insertTags(final OsmElement elem, final Map<String, String> tags) {
-		elem.setTags(tags);
-		elem.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(elem);
+		if (elem.setTags(tags)) {
+			// OsmElement tags have changed
+			elem.updateState(OsmElement.STATE_MODIFIED);
+			apiStorage.insertElementSafe(elem);
+		}
 	}
 
 	private void insertElementUnsafe(final OsmElement elem) {
@@ -292,9 +294,18 @@ public class StorageDelegator implements Serializable {
 		return retval;
 	}
 
-	public synchronized void uploadToServer(final Server server) throws MalformedURLException, ProtocolException,
+	/**
+	 * 
+	 * @param server Server to upload changes to.
+	 * @param comment Changeset comment.
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws OsmServerException
+	 * @throws IOException
+	 */
+	public synchronized void uploadToServer(final Server server, final String comment) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
-		server.openChangeset();
+		server.openChangeset(comment);
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
 		uploadCreatedOrModifiedElements(server, apiStorage.getWays());
 		uploadDeletedElements(server, apiStorage.getWays());

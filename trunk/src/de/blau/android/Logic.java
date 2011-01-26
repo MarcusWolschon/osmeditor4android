@@ -778,10 +778,11 @@ public class Logic {
 	 * 
 	 * @param caller Reference to the caller-activity.
 	 * @param handler Handler generated in the UI-Thread.
+	 * @param comment Changeset comment.
 	 */
-	public void upload(final Activity caller, final Handler handler) {
+	public void upload(final Activity caller, final Handler handler, final String comment) {
 		Server server = prefs.getServer();
-		new UploadThread(caller, handler, server, delegator).start();
+		new UploadThread(caller, handler, server, delegator, comment).start();
 	}
 
 	/**
