@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Vespucci</string>
-	<string name="app_version">0.6.8-beta</string>
-	<string name="app_name_version">Vespucci 0.6.8-beta</string>	
+	<string name="app_version">0.6.10-beta</string>
+	<string name="app_name_version">Vespucci 0.6.10-beta</string>	
 
 	<!-- Dialogs -->
 	<string name="resume_last_activity_dialog_title">Resume?</string>
