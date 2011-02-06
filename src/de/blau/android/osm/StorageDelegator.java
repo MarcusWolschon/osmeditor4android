@@ -20,7 +20,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
-import de.blau.android.R;
 import de.blau.android.exception.OsmServerException;
 
 public class StorageDelegator implements Serializable {
@@ -265,31 +264,17 @@ public class StorageDelegator implements Serializable {
 	 * @param aResources the translations
 	 * @return the changes
 	 */
-	public Set<String> listChances(final Resources aResources) {
+	public Set<String> listChanges(final Resources aResources) {
 		Set<String> retval = new HashSet<String>();
-
-		List<Node> nodes = apiStorage.getNodes();
-		for (Node node : nodes) {
-			if (node.getState() == OsmElement.STATE_DELETED) {
-				retval.add(aResources.getString(R.string.changes_node_deleted, node.getDescription()));
-			} else if (node.getState() == OsmElement.STATE_MODIFIED) {
-				retval.add(aResources.getString(R.string.changes_node_changed, node.getDescription()));
-			} else if (node.getState() == OsmElement.STATE_CREATED) {
-				retval.add(aResources.getString(R.string.changes_node_created, node.getDescription()));
-			}
+		
+		for (Node node : apiStorage.getNodes()) {
+			retval.add(node.getStateDescription(aResources));
 		}
-
-		List<Way> ways = apiStorage.getWays();
-		for (Way way : ways) {
-			if (way.getState() == OsmElement.STATE_DELETED) {
-				retval.add(aResources.getString(R.string.changes_way_deleted, way.getDescription()));
-			} else if (way.getState() == OsmElement.STATE_MODIFIED) {
-				retval.add(aResources.getString(R.string.changes_way_changed, way.getDescription()));
-			} else if (way.getState() == OsmElement.STATE_CREATED) {
-				retval.add(aResources.getString(R.string.changes_way_created, way.getDescription()));
-			}
+		
+		for (Way way : apiStorage.getWays()) {
+			retval.add(way.getStateDescription(aResources));
 		}
-
+		
 		// we do not support editing relations yet
 		return retval;
 	}

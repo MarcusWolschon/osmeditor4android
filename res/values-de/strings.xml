@@ -117,12 +117,9 @@
 	<string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauche mehr Batterie.</string>
 	
     <!--  changes -->
-    <string name="changes_node_deleted">Node "%1$s" gelöscht</string>
-    <string name="changes_way_deleted">Way "%1$s" gelöscht</string>
-    <string name="changes_node_changed">Node "%1$s" verändert</string>
-    <string name="changes_way_changed">Way "%1$s" verändert</string>
-    <string name="changes_node_created">Node "%1$s" angelegt</string>
-    <string name="changes_way_created">Way "%1$s" angelegt</string>
+    <string name="changes_deleted">"%1$s" gelöscht</string>
+    <string name="changes_changed">"%1$s" verändert</string>
+    <string name="changes_created">"%1$s" angelegt</string>
     <string name="confirm_upload_title">Upload?</string>
     <string name="confirm_upload_text">Upload der folgenden Änderungen?\n%1$s</string>
 </resources>
