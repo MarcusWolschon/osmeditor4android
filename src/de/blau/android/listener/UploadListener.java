@@ -9,10 +9,10 @@ import de.blau.android.Main;
  * @author mb
  */
 public class UploadListener implements OnClickListener {
-
+	
 	private final Main caller;
 	private final EditText commentField;
-
+	
 	/**
 	 * @param caller
 	 */
@@ -20,8 +20,9 @@ public class UploadListener implements OnClickListener {
 		this.caller = caller;
 		this.commentField = commentField;
 	}
-
+	
 	public void onClick(final DialogInterface dialog, final int which) {
 		caller.performUpload(commentField.getText().toString());
 	}
+	
 }
