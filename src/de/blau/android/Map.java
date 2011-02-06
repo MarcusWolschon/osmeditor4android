@@ -11,6 +11,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -21,6 +23,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
+import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -58,10 +61,6 @@ public class Map extends View implements IMapView {
 	 * @see #getOverlays()
 	 */
 	protected final List<OpenStreetMapViewOverlay> mOverlays = new ArrayList<OpenStreetMapViewOverlay>();
-	/**
-	 * One of the overlays in {@link #mOverlays} that paints tiles.
-	 */
-	private final OpenStreetMapTilesOverlay myMapTileOverlay;
 	
 	/**
 	 * The visible area in decimal-degree (WGS84) -space.
@@ -95,8 +94,17 @@ public class Map extends View implements IMapView {
 		setDrawingCacheEnabled(false);
 		
 		// create an overlay that displays pre-rendered tiles from the internet.
-		this.myMapTileOverlay = new OpenStreetMapTilesOverlay(this, DEFAULTTILESERVER, null);
-		getOverlays().add(this.myMapTileOverlay);
+		getOverlays().add(new OpenStreetMapTilesOverlay(this, DEFAULTTILESERVER, null));
+		getOverlays().add(new OpenStreetBugsOverlay(this));
+	}
+	
+	public OpenStreetBugsOverlay getOpenStreetBugsOverlay() {
+		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+			if (osmvo instanceof OpenStreetBugsOverlay) {
+				return (OpenStreetBugsOverlay)osmvo;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -126,7 +134,49 @@ public class Map extends View implements IMapView {
 		super.onSizeChanged(w, h, oldw, oldh);
 		myViewBox.setRatio((float) w / h, true);
 	}
-
+	
+	/* Overlay Event Forwarders */
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+			if (osmvo.onTouchEvent(event, this)) {
+				return true;
+			}
+		}
+		return super.onTouchEvent(event);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+			if (osmvo.onKeyDown(keyCode, event, this)) {
+				return true;
+			}
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+			if (osmvo.onKeyUp(keyCode, event, this)) {
+				return true;
+			}
+		}
+		return super.onKeyUp(keyCode, event);
+	}
+	
+	@Override
+	public boolean onTrackballEvent(MotionEvent event) {
+		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+			if (osmvo.onTrackballEvent(event, this)) {
+				return true;
+			}
+		}
+		return super.onTrackballEvent(event);
+	}
+	
 	private void paintGpsTrack(final Canvas canvas) {
 		Path path = new Path();
 		List<Location> trackPoints = myTrack.getTrackPoints();
@@ -424,6 +474,10 @@ public class Map extends View implements IMapView {
 	 */
 	void setSelectedWay(final Way aSelectedWay) {
 		mySelectedWay = aSelectedWay;
+	}
+	
+	public Preferences getPrefs() {
+		return pref;
 	}
 	
 	void setPrefs(final Preferences aPreference) {

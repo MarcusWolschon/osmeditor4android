@@ -12,24 +12,27 @@ import de.blau.android.osm.Server;
  * @author mb
  */
 public class Preferences {
+	
 	private final boolean isStatsVisible;
-
+	
 	private final boolean isToleranceVisible;
-
+	
 	private final boolean isAntiAliasingEnabled;
-
+	
+	private final boolean isOpenStreetBugsEnabled;
+	
 	/**
-     * Credentials (username and password) for the
-     * OpenStreetMap API(0.6)-Server
-     */
-    private final Server server;
-
+	 * Credentials (username and password) for the
+	 * OpenStreetMap API(0.6)-Server
+	 */
+	private final Server server;
+	
 	private int gpsInterval;
-
+	
 	private float gpsDistance;
-
+	
 	private float maxStrokeWidth;
-
+	
 	/**
 	 * @param prefs
 	 * @param r
@@ -47,6 +50,7 @@ public class Preferences {
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), true);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
+		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
 		String username = prefs.getString(r.getString(R.string.config_username_key), null);
 		String password = prefs.getString(r.getString(R.string.config_password_key), null);
 		try {
@@ -60,7 +64,7 @@ public class Preferences {
 		server = new Server(username, password, r.getString(R.string.app_name) + " "
 				+ r.getString(R.string.app_version));
 	}
-
+	
 	/**
 	 * @return the maximum width of a stroke
 	 */
@@ -73,40 +77,47 @@ public class Preferences {
 	public boolean isStatsVisible() {
 		return isStatsVisible;
 	}
-
+	
 	/**
 	 * @return
 	 */
 	public boolean isToleranceVisible() {
 		return isToleranceVisible;
 	}
-
+	
 	/**
 	 * @return
 	 */
 	public boolean isAntiAliasingEnabled() {
 		return isAntiAliasingEnabled;
 	}
-
+	
+	/**
+	 * @return
+	 */
+	public boolean isOpenStreetBugsEnabled() {
+		return isOpenStreetBugsEnabled;
+	}
+	
 	/**
 	 * @return
 	 */
 	public Server getServer() {
 		return server;
 	}
-
+	
 	/**
 	 * @return
 	 */
 	public int getGpsInterval() {
 		return gpsInterval;
 	}
-
+	
 	/**
 	 * @return
 	 */
 	public float getGpsDistance() {
 		return gpsDistance;
 	}
-
+	
 }

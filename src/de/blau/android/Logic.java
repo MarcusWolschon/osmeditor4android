@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Handler;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -126,6 +127,11 @@ public class Logic {
 	 * The user-selected way.
 	 */
 	private Way selectedWay;
+	
+	/**
+	 * The user-selected bug.
+	 */
+	private Bug selectedBug;
 
 	/**
 	 * Current mode.
@@ -805,6 +811,14 @@ public class Logic {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
 	}
+	
+	/**
+	 * Set the currently selected bug.
+	 * @param selectedBug The selected bug.
+	 */
+	public void setSelectedBug(final Bug selectedBug) {
+		this.selectedBug = selectedBug;
+	}
 
 	/**
 	 * @return the selectedNode
@@ -818,6 +832,14 @@ public class Logic {
 	 */
 	public final Way getSelectedWay() {
 		return selectedWay;
+	}
+	
+	/**
+	 * Get the selected bug.
+	 * @return The selected bug.
+	 */
+	public final Bug getSelectedBug() {
+		return selectedBug;
 	}
 	
 	/**
