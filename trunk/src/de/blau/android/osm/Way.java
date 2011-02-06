@@ -100,4 +100,36 @@ public class Way extends OsmElement {
 	public boolean isEndNode(final Node node) {
 		return nodes.get(0) == node || nodes.get(nodes.size() - 1) == node;
 	}
+	
+	/**
+	 * Test if the way has a problem.
+	 * @return true if the way has a problem, false if it doesn't.
+	 */
+	protected boolean calcProblem() {
+		String highway = getTagWithKey("highway"); // cache frequently accessed key
+		if (highway != null) {
+			if (highway.equalsIgnoreCase("road")) {
+				// unsurveyed road
+				return true;
+			}
+			if (getTagWithKey("name") == null) {
+				// unnamed way - only the important ones need names
+				if (highway.equalsIgnoreCase("motorway") ||
+					highway.equalsIgnoreCase("motorway_link") ||
+					highway.equalsIgnoreCase("trunk") ||
+					highway.equalsIgnoreCase("trunk_link") ||
+					highway.equalsIgnoreCase("primary") ||
+					highway.equalsIgnoreCase("primary_link") ||
+					highway.equalsIgnoreCase("secondary") ||
+					highway.equalsIgnoreCase("secondary_link") ||
+					highway.equalsIgnoreCase("tertiary") ||
+					highway.equalsIgnoreCase("residential") ||
+					highway.equalsIgnoreCase("unclassified") ||
+					highway.equalsIgnoreCase("living_street")) {
+					return true;
+				}
+			}
+		}
+		return super.calcProblem();
+	}
 }

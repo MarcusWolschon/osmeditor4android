@@ -34,12 +34,23 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	protected SortedMap<String, String> tags;
 
 	protected byte state;
-
+	
+	/**
+	 * hasProblem() is an expensive test, so the results are cached.
+	 */
+	private boolean cachedHasProblem;
+	
+	/**
+	 * flag to determine if the cached result for hasProblem() is valid and can be used.
+	 */
+	protected boolean cachedHasProblemValid;
+	
 	OsmElement(final long osmId, final long osmVersion, final byte state) {
 		this.osmId = osmId;
 		this.osmVersion = osmVersion;
 		this.tags = new TreeMap<String, String>();
 		this.state = state;
+		cachedHasProblemValid = false;
 	}
 
 	public long getOsmId() {
@@ -77,6 +88,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	void addOrUpdateTag(final String tag, final String value) {
 		tags.put(tag, value);
+		cachedHasProblemValid = false;
 	}
 
 	/**
@@ -85,6 +97,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 */
 	void addTags(final Map<String, String> tags) {
 		this.tags.putAll(tags);
+		cachedHasProblemValid = false;
 	}
 
 	/**
@@ -98,6 +111,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 			if (tags != null) {
 				this.tags.putAll(tags);
 			}
+			cachedHasProblemValid = false;
 			return true;
 		}
 		return false;
@@ -158,5 +172,36 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
             return "house " + housenb;
         }
 		return getName() + " #" + Long.toString(getOsmId());
+	}
+	
+	/**
+	 * Test if the element has any problems by searching all the tags for the words
+	 * "fixme" or "todo".
+	 * @return true if the element has any noted problems, false otherwise.
+	 */
+	protected boolean calcProblem() {
+		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
+		for (String key : tags.keySet()) {
+			// test key and value against pattern
+			if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Test if the element has a noted problem. A noted problem is where someone has
+	 * tagged the element with a "fixme" or "todo" key/value.
+	 * @return true if the element has a noted problem, false if it doesn't.
+	 */
+	public boolean hasProblem() {
+		// This implementation assumes that calcProblem() may be expensive, and
+		// caches the calculation.
+		if (!cachedHasProblemValid) {
+			cachedHasProblem = calcProblem();
+			cachedHasProblemValid = true;
+		}
+		return cachedHasProblem;
 	}
 }
