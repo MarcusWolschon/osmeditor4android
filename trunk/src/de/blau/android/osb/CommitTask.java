@@ -15,9 +15,13 @@ import android.widget.Toast;
  */
 public class CommitTask extends AsyncTask<String, Void, Boolean> {
 	
+	/** Calling Activity (used for progress indication and Toast). */
 	private final Activity caller;
+	/** Bug associated with the commit. */
 	private final Bug bug;
+	/** Comment associated with the commit. */
 	private final String comment;
+	/** Flag indicating if the bug should be closed. */
 	private final boolean close;
 	
 	/**
@@ -25,7 +29,6 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 	 * @param caller The main Vespucci activity.
 	 * @param bug The bug to commit changes to.
 	 * @param comment An optional comment to add to the bug.
-	 * @param nickname An optional nickname to associate with the bug. If not specified, "NoName" will be used.
 	 * @param close A close to indicate if the bug should be closed.
 	 */
 	public CommitTask(final Activity caller, final Bug bug, final String comment, final boolean close) {
@@ -35,6 +38,9 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 		this.close = close;
 	}
 	
+	/**
+	 * Indicate that something is happening.
+	 */
 	@Override
 	protected void onPreExecute() {
 		caller.setProgressBarIndeterminateVisibility(true);
@@ -42,7 +48,9 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 	
 	/**
 	 * Commit bug changes to the OSB database.
-	 * @param nickname An array of Strings, but only the first item is used. That item is the user nickname to associate with bug comments.
+	 * @param nickname An array of Strings, but only the first item is used. That item
+	 * is the user nickname to associate with bug comments. If not specified, "NoName"
+	 * will be used.
 	 */
 	@Override
 	protected Boolean doInBackground(String... nickname) {
@@ -54,9 +62,12 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 				String nn = (nickname == null || nickname.length == 0 ||
 								nickname[0] == null || nickname[0].length() == 0)
 						? "NoName" : nickname[0];
+				// Make the comment
 				BugComment bc = new BugComment(comment, nn, new Date());
+				// Add or edit the bug as appropriate
 				result = (bug.getId() == 0) ? Database.add(bug, bc) : Database.edit(bug, bc);
 			}
+			// Close the bug if requested, but only if there haven't been any problems
 			if (result && close) {
 				result = Database.close(bug);
 			}
@@ -64,6 +75,10 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 		return result;
 	}
 	
+	/**
+	 * Stop indicating activity and show result of commit.
+	 * @param result Flag indicating success or failure of the commit.
+	 */
 	@Override
 	protected void onPostExecute(Boolean result) {
 		caller.setProgressBarIndeterminateVisibility(false);

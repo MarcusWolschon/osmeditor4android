@@ -87,10 +87,12 @@ public class TagEditor extends Activity {
 		verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
 
 		if (savedInstanceState == null) {
+			// No previous state to restore - get the state from the intent
 			osmId = getIntent().getLongExtra(OSM_ID, 0);
 			type = getIntent().getStringExtra(TYPE);
 			extrasToEdits((ArrayList<String>)getIntent().getSerializableExtra(TAGS));
 		} else {
+			// Restore activity from saved state
 			osmId = savedInstanceState.getLong(OSM_ID, 0);
 			type = savedInstanceState.getString(TYPE);
 			extrasToEdits(savedInstanceState.getStringArrayList(TAGS));
