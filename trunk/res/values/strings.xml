@@ -25,6 +25,12 @@
 	<string name="progress_message">Loading data into memory...</string>
 	<string name="progress_download_message">Downloading data from server...</string>
 	<string name="upload_comment_label">Comment:</string>
+	<string name="openstreetbug_edit_title">Edit OpenStreetBug</string>
+	<string name="openstreetbug_commitbutton">Commit</string>
+	<string name="openstreetbug_comment_label">Comment:</string>
+	<string name="openstreetbug_edit_close">Close bug</string>
+	<string name="openstreetbug_commit_ok">Changes saved</string>
+	<string name="openstreetbug_commit_fail">Could not save changes</string>
 
 	<!-- Toaster -->
 	<string name="toast_no_changes">You have not changed anything yet...</string>
@@ -103,6 +109,9 @@
 	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
 	<string name="config_enableAntiAliasing_title">Enable Anti-Aliasing</string>
 	<string name="config_enableAntiAliasing_summary">Makes the lines more smoothly.</string>
+	<string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
+	<string name="config_enableOpenStreetBugs_title">Enable OpenStreetBugs</string>
+	<string name="config_enableOpenStreetBugs_summary">Display bugs reported to OpenStreetBugs.</string>
 	<string name="config_category_server">Server Settings</string>
 	<string name="config_username_key">username</string>
 	<string name="config_username_title">OSM Username</string>

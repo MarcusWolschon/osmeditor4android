@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/openstreetbug_comments_scroll"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+  <RelativeLayout
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/openstreetbug_comments"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text=""/>
+    <TextView
+      android:id="@+id/openstreetbug_comment_label"
+      android:layout_below="@id/openstreetbug_comments"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/openstreetbug_comment_label"/>
+    <EditText
+      android:id="@+id/openstreetbug_comment"
+      android:layout_alignTop="@id/openstreetbug_comment_label"
+      android:layout_toRightOf="@id/openstreetbug_comment_label"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="@android:drawable/editbox_background"/>
+    <CheckBox
+      android:id="@+id/openstreetbug_close"
+      android:layout_below="@id/openstreetbug_comment"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:text="@string/openstreetbug_edit_close"/>
+  </RelativeLayout>
+</ScrollView>

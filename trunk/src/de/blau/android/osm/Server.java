@@ -13,6 +13,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPInputStream;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
@@ -48,6 +51,11 @@ public class Server {
 	 * password for write-access on the server.
 	 */
 	private final String password;
+	
+	/**
+	 * display name of the user.
+	 */
+	private String display_name;
 
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -84,6 +92,7 @@ public class Server {
 		this.password = password;
 		this.username = username;
 		this.generator = generator;
+		display_name = null;
 
 //		createdByTag = "created_by";
 //		createdByKey = generator;
@@ -98,6 +107,35 @@ public class Server {
 			e.printStackTrace();
 		}
 		xmlParserfactory = factory;
+	}
+	
+	/**
+	 * Get the display name for the user.
+	 * @return The display name for the user, or null if it couldn't be determined.
+	 */
+	public String getDisplayName() {
+		if (display_name == null) {
+			// Haven't retrieved the display name from OSM - try to
+			HttpURLConnection connection = null;
+			try {
+				connection = openConnectionForWriteAccess(getUserDetailsUrl(), "GET");
+				try {
+					connection.getOutputStream().close();
+					checkResponseCode(connection);
+					InputStream in = connection.getInputStream();
+					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+					Document d = factory.newDocumentBuilder().parse(in);
+					Element user = (Element)d.getElementsByTagName("user").item(0);
+					display_name = user.getAttribute("display_name");
+				} finally {
+					disconnect(connection);
+				}
+			} catch (Exception e) {
+				// ignore all problems
+				e.printStackTrace();
+			}
+		}
+		return display_name;
 	}
 
 	/**
@@ -419,6 +457,10 @@ public class Server {
 	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
 		//return getUpdateUrl(elem);
 		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/upload");
+	}
+	
+	private URL getUserDetailsUrl() throws MalformedURLException {
+		return new URL(SERVER_URL + path + "user/details");
 	}
 
 	public XmlSerializer getXmlSerializer() {
