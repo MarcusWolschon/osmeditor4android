@@ -277,7 +277,16 @@ public class Logic {
 
 		map.invalidate();
 	}
-
+	
+	/**
+	 * Test if the requested zoom operation can be performed.
+	 * @param zoomIn The zoom operation: ZOOM_IN or ZOOM_OUT.
+	 * @return true if the zoom operation can be performed, false if it can't.
+	 */
+	public boolean canZoom(final boolean zoomIn) {
+		return zoomIn ? viewBox.canZoomIn() : viewBox.canZoomOut();
+	}
+	
 	/**
 	 * Zooms in or out. Checks if the new viewBox is close enough for editing and sends this value to map. Strokes will
 	 * be updated and map will be repainted.
