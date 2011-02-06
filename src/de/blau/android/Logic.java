@@ -692,16 +692,15 @@ public class Logic {
 	 * 
 	 * @return true, when x,y plus way-tolerance lays on the line between node1 and node2.
 	 */
-	private boolean isPositionOnLine(final float x, final float y, final float node1X, final float node1Y,
+	private boolean isPositionOnLine(final float x, final float y,
+			final float node1X, final float node1Y,
 			final float node2X, final float node2Y) {
-		float tolerance = Paints.WAY_TOLERANCE_VALUE / 2;
+		float tolerance = Paints.WAY_TOLERANCE_VALUE / 2f;
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
-			double slope = (node2Y - node1Y) / (node2X - node1X);
-			double verticalDistance = Math.abs(slope * x + node1Y - slope * node1X - y);
-			double orthoDistance = verticalDistance / Math.sqrt(1 + Math.pow(slope, 2));
-			if (orthoDistance <= tolerance) {
-				return true;
-			}
+			// equation (14) on http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
+			float distance = (float) (Math.abs((node2X - node1X) * (node1Y - y) - (node1X - x) * (node2Y - node1Y)) /
+			                 Math.sqrt(Math.pow(node2X - node1X, 2.0) + Math.pow(node2Y - node1Y, 2.0)));
+			return (distance < tolerance);
 		}
 		return false;
 	}
