@@ -347,19 +347,13 @@ public class Logic {
 	public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 
-		result.addAll(getClickedNodes(x, y));
-
-		Node node1 = null;
-		Node node2 = null;
-		List<Way> ways = delegator.getCurrentStorage().getWays();
-
-		for (Way way : ways) {
+		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 
 			//Iterate over all WayNodes, but not the last one.
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
-				node1 = wayNodes.get(k);
-				node2 = wayNodes.get(k + 1);
+				Node node1 = wayNodes.get(k);
+				Node node2 = wayNodes.get(k + 1);
 				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
 				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
 				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
@@ -367,17 +361,20 @@ public class Logic {
 
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 					result.add(way);
+					break;
 				}
 			}
 		}
+
+		result.addAll(getClickedNodes(x, y));
 
 		return result;
 	}
 
 	public List<OsmElement> getClickedNodes(final float x, final float y) {
-		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
-
-		float tolerance = Paints.NODE_TOLERANCE_VALUE;
+		List<OsmElement> result = new ArrayList<OsmElement>();
+		
+		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
 
 		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 		for (Node node : nodes) {
@@ -398,7 +395,7 @@ public class Logic {
 	}
 
 	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
-		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+		List<OsmElement> result = new ArrayList<OsmElement>();
 		List<OsmElement> allNodes = getClickedNodes(x, y);
 
 		for (OsmElement osmElement : allNodes) {
