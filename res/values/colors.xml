@@ -7,6 +7,7 @@
 	<color name="ccc_ocher">#bd8d46</color>
 	<color name="grey">#0F0F0F</color>
 	<color name="stroke">#000</color>
+	<color name="problem">#F0F</color>
 	<color name="motorway">#809BC0</color>
 	<color name="trunk">#7FC97F</color>
 	<color name="primary">#E46D71</color>
