@@ -417,21 +417,37 @@ public class BoundingBox implements Serializable {
 		bottom += lat;
 		calcMercatorFactorPow3();
 	}
-
+	
+	/**
+	 * Test if the box can be zoomed in.
+	 * @return true if the box can be zoomed in, false if it can't.
+	 */
+	public boolean canZoomIn() {
+		return (width > MIN_ZOOM_WIDTH);
+	}
+	
+	/**
+	 * Test if the box can be zoomed out.
+	 * @return true if the box can be zoomed out, false if it can't.
+	 */
+	public boolean canZoomOut() {
+		return (width < MAX_ZOOM_WIDTH);
+	}
+	
 	/**
 	 * Reduces this bounding box by the DEFAULT_ZOOM_FACTOR. The ratio of width and height remains.
 	 */
 	public void zoomIn() {
-		if (width > MIN_ZOOM_WIDTH) {
+		if (canZoomIn()) {
 			zoom(ZOOM_IN);
 		}
 	}
-
+	
 	/**
 	 * Enlarges this bounding box by the DEFAULT_ZOOM_FACTOR. The ratio of width and height remains.
 	 */
 	public void zoomOut() {
-		if (width < MAX_ZOOM_WIDTH) {
+		if (canZoomOut()) {
 			zoom(ZOOM_OUT);
 		}
 	}

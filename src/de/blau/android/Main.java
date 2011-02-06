@@ -33,7 +33,10 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ZoomControls;
+import android.widget.RelativeLayout.LayoutParams;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
@@ -108,6 +111,7 @@ public class Main extends Activity {
 		getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
 
+		RelativeLayout rl = new RelativeLayout(getApplicationContext());
 		map = new Map(getApplicationContext());
 		dialogFactory = new DialogFactory(this);
 
@@ -116,8 +120,31 @@ public class Main extends Activity {
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
 		map.setOnKeyListener(new MapKeyListener());
-
-		setContentView(map);
+		
+		rl.addView(map);
+		
+		// Set up the zoom in/out controls
+		final ZoomControls zc = new ZoomControls(getApplicationContext());
+		zc.setOnZoomInClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				logic.zoom(Logic.ZOOM_IN);
+				zc.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+				zc.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+			}
+		});
+		zc.setOnZoomOutClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				logic.zoom(Logic.ZOOM_OUT);
+				zc.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+				zc.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+			}
+		});
+		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		rl.addView(zc, rlp);
+		
+		setContentView(rl);
 
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
