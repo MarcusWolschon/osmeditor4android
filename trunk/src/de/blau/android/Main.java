@@ -735,48 +735,61 @@ public class Main extends Activity {
 
 		@Override
 		public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
-
-			if (event.getAction() == KeyEvent.ACTION_DOWN) {
-				switch (keyCode) {
-				case KeyEvent.KEYCODE_DPAD_CENTER:
-					setFollowGps();
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_UP:
-					translate(Logic.DIRECTION_UP);
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_DOWN:
-					translate(Logic.DIRECTION_DOWN);
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_LEFT:
-					translate(Logic.DIRECTION_LEFT);
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_RIGHT:
-					translate(Logic.DIRECTION_RIGHT);
-					return true;
-
-				case KeyEvent.KEYCODE_VOLUME_UP:
-				case KeyEvent.KEYCODE_SEARCH:
-					logic.zoom(Logic.ZOOM_IN);
-					return true;
-
-				case KeyEvent.KEYCODE_VOLUME_DOWN:
-				case KeyEvent.KEYCODE_SHIFT_LEFT:
-				case KeyEvent.KEYCODE_SHIFT_RIGHT:
-					logic.zoom(Logic.ZOOM_OUT);
-					return true;
+			switch (event.getAction()) {
+			case KeyEvent.ACTION_UP:
+				if (!v.onKeyUp(keyCode, event)) {
+					switch (keyCode) {
+					case KeyEvent.KEYCODE_VOLUME_UP:
+					case KeyEvent.KEYCODE_VOLUME_DOWN:
+						// this stops the piercing beep related to volume adjustments
+						return true;
+					}
 				}
+				break;
+			case KeyEvent.ACTION_DOWN:
+				if (!v.onKeyDown(keyCode, event)) {
+					switch (keyCode) {
+					case KeyEvent.KEYCODE_DPAD_CENTER:
+						setFollowGps();
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_UP:
+						translate(Logic.DIRECTION_UP);
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_DOWN:
+						translate(Logic.DIRECTION_DOWN);
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_LEFT:
+						translate(Logic.DIRECTION_LEFT);
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_RIGHT:
+						translate(Logic.DIRECTION_RIGHT);
+						return true;
+						
+					case KeyEvent.KEYCODE_VOLUME_UP:
+					case KeyEvent.KEYCODE_SEARCH:
+						logic.zoom(Logic.ZOOM_IN);
+						return true;
+						
+					case KeyEvent.KEYCODE_VOLUME_DOWN:
+					case KeyEvent.KEYCODE_SHIFT_LEFT:
+					case KeyEvent.KEYCODE_SHIFT_RIGHT:
+						logic.zoom(Logic.ZOOM_OUT);
+						return true;
+					}
+				}
+				break;
 			}
 			return false;
 		}
-
+		
 		private void translate(final byte direction) {
 			logic.translate(direction);
 		}
-
+		
 		/**
 		 * 
 		 */
