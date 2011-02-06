@@ -819,7 +819,7 @@ public class Logic {
 	public final Way getSelectedWay() {
 		return selectedWay;
 	}
-
+	
 	/**
 	 * Will be called when the screen orientation was changed.
 	 * 
@@ -834,12 +834,12 @@ public class Logic {
 		map.setMode(mode);
 		map.setViewBox(viewBox);
 	}
-
+	
 	/**
 	 * @return a list of all pending changes to upload
 	 */
-    public Set<String> getPendingChanges(final Context aCaller) {
-        return delegator.listChances(aCaller.getResources());
-    }
-
+	public Set<String> getPendingChanges(final Context aCaller) {
+		return delegator.listChanges(aCaller.getResources());
+	}
+	
 }
