@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+  <RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/upload_comment_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/upload_comment_label"/>
+      android:id="@+id/upload_changes"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text=""/>
+    <TextView
+      android:id="@+id/upload_comment_label"
+      android:layout_below="@id/upload_changes"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/upload_comment_label"/>
     <EditText
-        android:id="@+id/upload_comment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_background"
-        android:layout_toRightOf="@id/upload_comment_label"/>
-</RelativeLayout>
+      android:id="@+id/upload_comment"
+      android:layout_alignTop="@id/upload_comment_label"
+      android:layout_toRightOf="@id/upload_comment_label"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="@android:drawable/editbox_background"/>
+  </RelativeLayout>
+</ScrollView>

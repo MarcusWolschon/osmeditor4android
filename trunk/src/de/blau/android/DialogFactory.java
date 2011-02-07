@@ -92,7 +92,7 @@ public class DialogFactory {
 		undefinedError.setPositiveButton(R.string.undefined_error_sendbutton, new GotoErrorMailerListener(caller));
 		undefinedError.setNegativeButton(R.string.no, doNothingListener);
 		
-		confirmUpload = createBasicDialog(R.string.confirm_upload_title, R.string.confirm_upload_title); // body gets replaced later
+		confirmUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
 		confirmUpload.setView(layout);
 		confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller, (EditText)layout.findViewById(R.id.upload_comment)));
