@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import android.app.Activity;
@@ -330,7 +329,8 @@ public class Main extends Activity {
 			AlertDialog ad = (AlertDialog)dialog;
 			switch (id) {
 			case DialogFactory.CONFIRM_UPLOAD:
-				ad.setMessage(getString(R.string.confirm_upload_text, getPendingChanges()));
+				TextView changes = (TextView)ad.findViewById(R.id.upload_changes);
+				changes.setText(getString(R.string.confirm_upload_text, getPendingChanges()));
 				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
 				Bug bug = logic.getSelectedBug();
@@ -961,7 +961,7 @@ public class Main extends Activity {
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
 	public String getPendingChanges() {
-		Set<String> changes = logic.getPendingChanges(this);
+		List<String> changes = logic.getPendingChanges(this);
 		StringBuilder retval = new StringBuilder();
 		for (String change : changes) {
 			retval.append(change).append('\n');

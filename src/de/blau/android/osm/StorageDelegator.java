@@ -8,12 +8,11 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -264,8 +263,8 @@ public class StorageDelegator implements Serializable {
 	 * @param aResources the translations
 	 * @return the changes
 	 */
-	public Set<String> listChanges(final Resources aResources) {
-		Set<String> retval = new HashSet<String>();
+	public List<String> listChanges(final Resources aResources) {
+		List<String> retval = new ArrayList<String>();
 		
 		for (Node node : apiStorage.getNodes()) {
 			retval.add(node.getStateDescription(aResources));
