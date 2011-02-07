@@ -14,6 +14,7 @@ import android.location.Location;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -215,10 +216,20 @@ public class Map extends View implements IMapView {
 	private void paintGpsPos(final Canvas canvas, final Location location, final float x, final float y) {
 		canvas.drawCircle(x, y, paints.get(Paints.GPS_POS).getStrokeWidth(), paints.get(Paints.GPS_POS));
 		if (location.hasAccuracy()) {
-			BoundingBox viewBox = getViewBox();
-			int radiusGeo = GeoMath.convertMetersToGeoDistanceE7(location.getAccuracy()) + viewBox.getLeft();
-			float radiusPx = Math.abs(GeoMath.lonE7ToX(getWidth(), viewBox, radiusGeo));
-			canvas.drawCircle(x, y, radiusPx, paints.get(Paints.GPS_ACCURACY));
+			try {
+				BoundingBox accuracyBox = GeoMath.createBoundingBoxForCoordinates(
+						location.getLatitude(), location.getLongitude(),
+						location.getAccuracy());
+				BoundingBox viewBox = getViewBox();
+				RectF accuracyRect = new RectF(
+						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getLeft()),
+						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getTop()),
+						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getRight()),
+						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getBottom()));
+				canvas.drawOval(accuracyRect, paints.get(Paints.GPS_ACCURACY));
+			} catch (OsmException e) {
+				// ignore
+			}
 		}
 	}
 	
