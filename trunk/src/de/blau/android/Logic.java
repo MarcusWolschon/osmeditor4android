@@ -171,6 +171,7 @@ public class Logic {
 		tracker = new Tracker(locationManager, map);
 
 		mode = MODE_MOVE;
+		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
 
@@ -216,6 +217,7 @@ public class Logic {
 	public void setMode(final byte mode) {
 		this.mode = mode;
 		map.setMode(mode);
+		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
 		map.invalidate();
@@ -560,7 +562,7 @@ public class Logic {
 		setSelectedNode(lSelectedNode);
 		setSelectedWay(lSelectedWay);
 	}
-
+	
 	/**
 	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
 	 * 
@@ -793,7 +795,19 @@ public class Logic {
 		Server server = prefs.getServer();
 		new UploadThread(caller, handler, server, delegator, comment).start();
 	}
-
+	
+	/**
+	 * Make a new bug at the given screen X/Y coordinates.
+	 * @param x The screen X-coordinate of the bug.
+	 * @param y The screen Y-coordinate of the bug.
+	 * @return The new bug, which must have a comment added before it can be submitted to OSB.
+	 */
+	public Bug makeNewBug(final float x, final float y) {
+		int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+		return new Bug(lat, lon);
+	}
+	
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
 	 */

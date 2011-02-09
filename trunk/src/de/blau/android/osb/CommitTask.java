@@ -2,11 +2,8 @@ package de.blau.android.osb;
 
 import java.util.Date;
 
-import de.blau.android.R;
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Task to commit changes to an OpenStreetBug.
@@ -15,35 +12,23 @@ import android.widget.Toast;
  */
 public class CommitTask extends AsyncTask<String, Void, Boolean> {
 	
-	/** Calling Activity (used for progress indication and Toast). */
-	private final Activity caller;
 	/** Bug associated with the commit. */
-	private final Bug bug;
+	protected final Bug bug;
 	/** Comment associated with the commit. */
-	private final String comment;
+	protected final String comment;
 	/** Flag indicating if the bug should be closed. */
-	private final boolean close;
+	protected final boolean close;
 	
 	/**
 	 * Create the background task to upload changes to OSB.
-	 * @param caller The main Vespucci activity.
 	 * @param bug The bug to commit changes to.
 	 * @param comment An optional comment to add to the bug.
 	 * @param close A close to indicate if the bug should be closed.
 	 */
-	public CommitTask(final Activity caller, final Bug bug, final String comment, final boolean close) {
-		this.caller = caller;
+	public CommitTask(final Bug bug, final String comment, final boolean close) {
 		this.bug = bug;
 		this.comment = comment;
 		this.close = close;
-	}
-	
-	/**
-	 * Indicate that something is happening.
-	 */
-	@Override
-	protected void onPreExecute() {
-		caller.setProgressBarIndeterminateVisibility(true);
 	}
 	
 	/**
@@ -73,16 +58,6 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 			}
 		}
 		return result;
-	}
-	
-	/**
-	 * Stop indicating activity and show result of commit.
-	 * @param result Flag indicating success or failure of the commit.
-	 */
-	@Override
-	protected void onPostExecute(Boolean result) {
-		caller.setProgressBarIndeterminateVisibility(false);
-		Toast.makeText(caller.getApplicationContext(), result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 	}
 	
 }
