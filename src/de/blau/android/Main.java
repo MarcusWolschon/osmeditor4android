@@ -57,6 +57,7 @@ import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
+import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -334,6 +335,7 @@ public class Main extends Activity {
 				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
 				Bug bug = logic.getSelectedBug();
+				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
 				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
 				comments.setText(bug.getDescription().replaceAll("<hr />", "\n"));
 				EditText comment = (EditText)ad.findViewById(R.id.openstreetbug_comment);
@@ -506,7 +508,12 @@ public class Main extends Activity {
 	public void performOpenStreetBugCommit(final String comment, final boolean close) {
 		Log.d("Vespucci", "OSB.Commit");
 		dismissDialog(DialogFactory.OPENSTREETBUG_EDIT);
-		new CommitTask(this, logic.getSelectedBug(), comment, close) {
+		new CommitTask(logic.getSelectedBug(), comment, close) {
+			
+			@Override
+			protected void onPreExecute() {
+				setProgressBarIndeterminateVisibility(true);
+			}
 			
 			@Override
 			protected Boolean doInBackground(String... args) {
@@ -519,6 +526,20 @@ public class Main extends Activity {
 					nickname = server.getDisplayName();
 				}
 				return super.doInBackground(nickname);
+			}
+			
+			@Override
+			protected void onPostExecute(Boolean result) {
+				if (result) {
+					for (OpenStreetMapViewOverlay o : map.getOverlays()) {
+						if (o instanceof OpenStreetBugsOverlay) {
+							((OpenStreetBugsOverlay)o).addBug(bug);
+						}
+					}
+				}
+				setProgressBarIndeterminateVisibility(false);
+				Toast.makeText(getApplicationContext(), result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
+				map.invalidate();
 			}
 			
 		}.execute();
@@ -649,6 +670,21 @@ public class Main extends Activity {
 
 				if (isInEditZoomRange) {
 					switch (mode) {
+					case Logic.MODE_MOVE:
+						switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
+						case 0:
+							if (prefs.isOpenStreetBugsEnabled()) {
+								performBugEdit(logic.makeNewBug(x, y));
+							}
+							break;
+						case 1:
+							performBugEdit(clickedBugs.get(0));
+							break;
+						default:
+							v.showContextMenu();
+							break;
+						}
+						break;
 					case Logic.MODE_ADD:
 						logic.performAdd(x, y);
 						break;
@@ -669,9 +705,14 @@ public class Main extends Activity {
 				} else {
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 					case 0:
-						if (mode != Logic.MODE_MOVE && !isInEditZoomRange && !hasMoved) {
-							Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG)
-									.show();
+						if (!isInEditZoomRange) {
+							if (mode == Logic.MODE_MOVE) {
+								if (prefs.isOpenStreetBugsEnabled()) {
+									Toast.makeText(getApplicationContext(), R.string.toast_not_in_bug_range, Toast.LENGTH_LONG).show();
+								}
+							} else {
+								Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+							}
 						}
 						break;
 					case 1:

@@ -120,6 +120,13 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 		// do nothing
 	}
 	
+	/**
+	 * Given screen coordinates, find all nearby bugs.
+	 * @param x Screen X-coordinate.
+	 * @param y Screen Y-coordinate.
+	 * @param viewBox Map view box.
+	 * @return List of bugs close to given location.
+	 */
 	public List<Bug> getClickedBugs(final float x, final float y, final BoundingBox viewBox) {
 		List<Bug> result = new ArrayList<Bug>();
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
@@ -139,6 +146,15 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 			//result.add(new Bug(GeoMath.yToLatE7(map.getHeight(), viewBox, y), GeoMath.xToLonE7(map.getWidth(), viewBox, x), true));
 		}
 		return result;
+	}
+	
+	/**
+	 * Add a bug to the overlay. Intended for when a bug is added to the map. The map will
+	 * need to be invalidated for the change to be shown.
+	 * @param bug New bug.
+	 */
+	public void addBug(final Bug bug) {
+		bugs.add(bug);
 	}
 	
 }
