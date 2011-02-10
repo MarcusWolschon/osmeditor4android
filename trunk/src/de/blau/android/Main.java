@@ -510,8 +510,12 @@ public class Main extends Activity {
 		dismissDialog(DialogFactory.OPENSTREETBUG_EDIT);
 		new CommitTask(logic.getSelectedBug(), comment, close) {
 			
+			/** Flag to track if the bug is new. */
+			private boolean newBug;
+			
 			@Override
 			protected void onPreExecute() {
+				newBug = (bug.getId() == 0);
 				setProgressBarIndeterminateVisibility(true);
 			}
 			
@@ -530,7 +534,7 @@ public class Main extends Activity {
 			
 			@Override
 			protected void onPostExecute(Boolean result) {
-				if (result) {
+				if (result && newBug) {
 					for (OpenStreetMapViewOverlay o : map.getOverlays()) {
 						if (o instanceof OpenStreetBugsOverlay) {
 							((OpenStreetBugsOverlay)o).addBug(bug);
