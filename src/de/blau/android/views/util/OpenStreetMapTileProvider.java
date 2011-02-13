@@ -47,7 +47,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	 */
 	protected final Bitmap mLoadingMapTile;
 
-	// protected Context mCtx;
+	protected Context mCtx;
 	/**
 	 * cache provider
 	 */
@@ -62,7 +62,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 
 	public OpenStreetMapTileProvider(final Context ctx,
 			final Handler aDownloadFinishedListener) {
-		// this.mCtx = ctx;
+		mCtx = ctx;
 		mLoadingMapTile = BitmapFactory.decodeResource(ctx.getResources(),
 				R.drawable.maptile_loading);
 		mTileCache = new OpenStreetMapTileCache();
@@ -100,6 +100,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 
 	public void clear() {
 		mTileCache.clear();
+		mCtx.unbindService(this);
 	}
 	
 	public boolean isTileAvailable(final OpenStreetMapTile aTile) {
