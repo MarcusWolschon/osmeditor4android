@@ -121,6 +121,9 @@ public class Main extends Activity {
 		getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
 
 		RelativeLayout rl = new RelativeLayout(getApplicationContext());
+		if (map != null) {
+			map.onDestroy();
+		}
 		map = new Map(getApplicationContext());
 		dialogFactory = new DialogFactory(this);
 

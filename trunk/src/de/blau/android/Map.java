@@ -95,12 +95,12 @@ public class Map extends View implements IMapView {
 		setDrawingCacheEnabled(false);
 		
 		// create an overlay that displays pre-rendered tiles from the internet.
-		getOverlays().add(new OpenStreetMapTilesOverlay(this, DEFAULTTILESERVER, null));
-		getOverlays().add(new OpenStreetBugsOverlay(this));
+		mOverlays.add(new OpenStreetMapTilesOverlay(this, DEFAULTTILESERVER, null));
+		mOverlays.add(new OpenStreetBugsOverlay(this));
 	}
 	
 	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay) {
 				return (OpenStreetMapTilesOverlay)osmvo;
 			}
@@ -109,7 +109,7 @@ public class Map extends View implements IMapView {
 	}
 	
 	public OpenStreetBugsOverlay getOpenStreetBugsOverlay() {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetBugsOverlay) {
 				return (OpenStreetBugsOverlay)osmvo;
 			}
@@ -118,7 +118,7 @@ public class Map extends View implements IMapView {
 	}
 	
 	public void onDestroy() {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onDestroy();
 		}
 	}
@@ -132,7 +132,7 @@ public class Map extends View implements IMapView {
 		long time = System.currentTimeMillis();
 		
 		// Draw our Overlays.
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
 		}
 		
@@ -155,7 +155,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onTouchEvent(event, this)) {
 				return true;
 			}
@@ -165,7 +165,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onKeyDown(keyCode, event, this)) {
 				return true;
 			}
@@ -175,7 +175,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onKeyUp(keyCode, event, this)) {
 				return true;
 			}
@@ -185,7 +185,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onTrackballEvent(MotionEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onTrackballEvent(event, this)) {
 				return true;
 			}
