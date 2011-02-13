@@ -64,13 +64,16 @@ public abstract class OpenStreetMapViewOverlay {
 
 	protected abstract void onDraw(final Canvas c, final IMapView osmv);
 
-	protected abstract void onDrawFinished(final Canvas c,
-			final IMapView osmv);
+	protected abstract void onDrawFinished(final Canvas c, final IMapView osmv);
 
 	// ===========================================================
 	// Methods
 	// ===========================================================
-
+	
+	public void onDestroy() {
+		// default to do nothing
+	}
+	
 	/**
 	 * By default does nothing (<code>return false</code>). If you handled the
 	 * Event, return <code>true</code>, otherwise return <code>false</code>. If

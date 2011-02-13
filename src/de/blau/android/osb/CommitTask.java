@@ -41,7 +41,7 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 	protected Boolean doInBackground(String... nickname) {
 		boolean result = true;
 		if (!bug.isClosed()) {
-			Log.d("Vespucci", "Updating OSB");
+			Log.d("Vespucci", "CommitTask.doInBackground:Updating OSB");
 			if (comment != null && comment.length() > 0) {
 				// Fall back to "NoName" if nickname isn't set
 				String nn = (nickname == null || nickname.length == 0 ||

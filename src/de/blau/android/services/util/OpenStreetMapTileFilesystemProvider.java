@@ -20,6 +20,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -141,7 +142,8 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 	private String buildPath(final OpenStreetMapTile tile) {
 		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.values()[tile.rendererID];
-		return "/sdcard/andnav2/tiles/" + renderer.name() + "/" + tile.zoomLevel + "/"
+		return Environment.getExternalStorageDirectory().getPath()
+					+ "/andnav2/tiles/" + renderer.name() + "/" + tile.zoomLevel + "/"
 					+ tile.x + "/" + tile.y + renderer.IMAGE_FILENAMEENDING + ".andnav"; 
 	}
 	

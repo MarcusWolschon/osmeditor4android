@@ -11,6 +11,9 @@ import org.w3c.dom.Element;
  * @author Andrew Gregory
  */
 public class Bug {
+	
+	/** Package accessible members - they are directly updated by the Database class. */
+	
 	/** OSB Bug ID. */
 	long id;
 	/** Latitude *1E7. */
@@ -104,10 +107,10 @@ public class Bug {
 	}
 	
 	/**
-	 * Get the description of the bug.
+	 * Get the complete bug comment suitable for use with the OSB database.
 	 * @return All the comments concatenated (joined with &lt;hr /&gt;).
 	 */
-	public String getDescription() {
+	public String getComment() {
 		StringBuffer result = new StringBuffer();
 		for (BugComment comment : comments) {
 			if (result.length() > 0) {
@@ -119,12 +122,12 @@ public class Bug {
 	}
 	
 	/**
-	 * Get the first comment of the bug. This is intended to be used as a
+	 * Get a string descriptive of the bug. This is intended to be used as a
 	 * short bit of text representative of the bug.
 	 * @return The first comment of the bug.
 	 */
-	public String getFirstComment() {
-		return (comments.size() > 0) ? comments.get(0).getText() : "";
+	public String getDescription() {
+		return "bug "+ ((comments.size() > 0) ? comments.get(0).getText() : "<new>");
 	}
 	
 	/**

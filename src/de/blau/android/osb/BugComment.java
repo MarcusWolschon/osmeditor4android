@@ -60,7 +60,7 @@ public class BugComment {
 				}
 			}
 			if (timestamp == null) {
-				Log.d("Vespucci", "Couldn't parse:"+date);
+				Log.d("Vespucci", "BugComment:Couldn't parse:"+date);
 				timestamp = new Date();
 			}
 		} catch (Exception e) {

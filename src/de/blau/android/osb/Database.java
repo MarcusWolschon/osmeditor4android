@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * Utility class to interface to the online OpenStreetBugs database. Solely consists
@@ -87,7 +88,7 @@ public class Database {
 			}
 		} catch (Exception e) {
 			// ignore
-			e.printStackTrace();
+			Log.e("Vespucci", "Database.get:Exception", e);
 		}
 		return result;
 	}
@@ -115,7 +116,7 @@ public class Database {
 				}
 			} catch (Exception e) {
 				// ignore
-				e.printStackTrace();
+				Log.e("Vespucci", "Database.add:Exception", e);
 			}
 		}
 		return false;
@@ -142,7 +143,7 @@ public class Database {
 				}
 			} catch (Exception e) {
 				// ignore
-				e.printStackTrace();
+				Log.e("Vespucci", "Database.edit:Exception", e);
 			}
 		}
 		return false;
@@ -167,7 +168,7 @@ public class Database {
 				}
 			} catch (Exception e) {
 				// ignore
-				e.printStackTrace();
+				Log.e("Vespucci", "Database.close:Exception", e);
 			}
 		}
 		return false;

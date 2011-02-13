@@ -99,6 +99,15 @@ public class Map extends View implements IMapView {
 		getOverlays().add(new OpenStreetBugsOverlay(this));
 	}
 	
+	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
+		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+			if (osmvo instanceof OpenStreetMapTilesOverlay) {
+				return (OpenStreetMapTilesOverlay)osmvo;
+			}
+		}
+		return null;
+	}
+	
 	public OpenStreetBugsOverlay getOpenStreetBugsOverlay() {
 		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
 			if (osmvo instanceof OpenStreetBugsOverlay) {
@@ -106,6 +115,12 @@ public class Map extends View implements IMapView {
 			}
 		}
 		return null;
+	}
+	
+	public void onDestroy() {
+		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+			osmvo.onDestroy();
+		}
 	}
 	
 	/**
@@ -529,36 +544,40 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
-	 * convert decimal degrees to radians.
-	 * @param deg degrees
-	 * @return radiants
-	 */
-	private double deg2rad(final double deg) {
-		return (deg * Math.PI / 180d);
-	}
-	
-	/**
 	 * ${@inheritDoc}.
 	 */
 	@Override
 	public int getZoomLevel(final Rect viewPort) {
-		double latRightLower = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.bottom) / 1E7d;
-		double lonRightLower = GeoMath.xToLonE7(getWidth(),  getViewBox(), viewPort.right) / 1E7d;
-		double latLeftUpper = GeoMath.yToLatE7(getHeight(),  getViewBox(), viewPort.top) / 1E7d;
-		double lonLeftUpper = GeoMath.xToLonE7(getWidth(),   getViewBox(), viewPort.left) / 1E7d;
-		// TODO Marcus Wolschon - guess a good zoom-level from this.getViewBox()
+		final double TILE_WIDTH = 256d;
+		final double TILE_HEIGHT = 256d;
 		
-		long tilecount = Integer.MAX_VALUE;
-		int zoomLevel = 17;
-		for (; tilecount > 16 && zoomLevel > 0; zoomLevel--) {
-			int xTileRightLower = (int) Math.floor(((lonRightLower + 180) / 360d) * Math.pow(2, zoomLevel));
-			int xTileLeftUpper  = (int) Math.floor(((lonLeftUpper  + 180) / 360d) * Math.pow(2, zoomLevel));
-			int yTileRightLower = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latRightLower)) + 1 / Math.cos(deg2rad(latRightLower))) / Math.PI) /2 * Math.pow(2, zoomLevel));
-			int yTileLeftUpper  = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latLeftUpper )) + 1 / Math.cos(deg2rad(latLeftUpper ))) / Math.PI) /2 * Math.pow(2, zoomLevel));
-			
-			tilecount = (1l + Math.abs(xTileLeftUpper - xTileRightLower)) * (1l + Math.abs(yTileLeftUpper - yTileRightLower));
-		}
-		return zoomLevel;
+		// Calculate lat/lon of view extents
+		final double latBottom = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.bottom) / 1E7d;
+		final double lonRight  = GeoMath.xToLonE7(getWidth() , getViewBox(), viewPort.right ) / 1E7d;
+		final double latTop    = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.top   ) / 1E7d;
+		final double lonLeft   = GeoMath.xToLonE7(getWidth() , getViewBox(), viewPort.left  ) / 1E7d;
+		
+		// Calculate tile x/y scaled 0.0 to 1.0
+		final double xTileRight  = (lonRight + 180d) / 360d;
+		final double xTileLeft   = (lonLeft  + 180d) / 360d;
+		final double yTileBottom = (1d - Math.log(Math.tan(Math.toRadians(latBottom)) + 1d / Math.cos(Math.toRadians(latBottom))) / Math.PI) / 2d;
+		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
+		
+		// Calculate the ideal zoom to fit into the view
+		final double xTiles = ((double)getWidth()  / (xTileRight  - xTileLeft)) / TILE_WIDTH ;
+		final double yTiles = ((double)getHeight() / (yTileBottom - yTileTop )) / TILE_HEIGHT;
+		final double xZoom = Math.log(xTiles) / Math.log(2d);
+		final double yZoom = Math.log(yTiles) / Math.log(2d);
+		
+		// Zoom out to the next integer step
+		int zoom = (int)Math.floor(Math.min(xZoom, yZoom));
+		
+		// Sanity check result
+		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
+		zoom = Math.max(zoom, s.ZOOM_MINLEVEL);
+		zoom = Math.min(zoom, s.ZOOM_MAXLEVEL);
+		
+		return zoom;
 	}
 	
 }
