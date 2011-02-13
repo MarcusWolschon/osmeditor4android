@@ -62,6 +62,9 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 * Overrides clear() to also clear the LRU list.
 	 */
 	public synchronized void clear() {
+		for (Bitmap b : values()) {
+			b.recycle();
+		}
 		super.clear();
 		list.clear();
 	}
@@ -84,9 +87,8 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		}
 
 		// if the key isn't in the cache and the cache is full...
-		if (!super.containsKey(key) && !list.isEmpty() && list.size() + 1 > maxCacheSize) {
-			final Object deadKey = list.removeLast();
-			super.remove(deadKey);
+		if (!containsKey(key) && !list.isEmpty() && list.size() >= maxCacheSize) {
+			remove(list.getLast()).recycle();
 		}
 
 		updateKey(key);

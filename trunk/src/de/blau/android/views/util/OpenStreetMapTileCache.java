@@ -40,7 +40,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	 * @param aMaximumCacheSize Maximum amount of MapTiles to be hold within.
 	 */
 	public OpenStreetMapTileCache(final int aMaximumCacheSize){
-		this.mCachedTiles = new LRUMapTileCache(aMaximumCacheSize);
+		mCachedTiles = new LRUMapTileCache(aMaximumCacheSize);
 	}
 
 	// ===========================================================
@@ -62,7 +62,11 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	// Methods
 	// ===========================================================
-
+	
+	public void clear() {
+		mCachedTiles.clear();
+	}
+	
 	public boolean containsTile(final OpenStreetMapTile aTile) {
 		return this.mCachedTiles.containsKey(aTile.toString());
 	}

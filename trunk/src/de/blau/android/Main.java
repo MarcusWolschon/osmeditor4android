@@ -337,7 +337,7 @@ public class Main extends Activity {
 				Bug bug = logic.getSelectedBug();
 				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
 				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
-				comments.setText(bug.getDescription().replaceAll("<hr />", "\n"));
+				comments.setText(bug.getComment().replaceAll("<hr />", "\n"));
 				EditText comment = (EditText)ad.findViewById(R.id.openstreetbug_comment);
 				comment.setText("");
 				comment.setFocusable(!bug.isClosed());
@@ -415,9 +415,10 @@ public class Main extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
+		map.onDestroy();
 		logic.disableGpsUpdates();
 		logic.save(this, handler, false);
+		super.onDestroy();
 	}
 
 	/**
@@ -506,7 +507,7 @@ public class Main extends Activity {
 	 * @param close Flag to indicate if the bug is to be closed.
 	 */
 	public void performOpenStreetBugCommit(final String comment, final boolean close) {
-		Log.d("Vespucci", "OSB.Commit");
+		Log.d("Vespucci", "Main.performOpenStreetBugCommit");
 		dismissDialog(DialogFactory.OPENSTREETBUG_EDIT);
 		new CommitTask(logic.getSelectedBug(), comment, close) {
 			
@@ -880,7 +881,7 @@ public class Main extends Activity {
 			int id = 0;
 			if (clickedBugs != null) {
 				for (Bug b : clickedBugs) {
-					menu.add(Menu.NONE, id++, Menu.NONE, b.getFirstComment()).setOnMenuItemClickListener(this);
+					menu.add(Menu.NONE, id++, Menu.NONE, b.getDescription()).setOnMenuItemClickListener(this);
 				}
 			}
 			if (clickedNodesAndWays != null) {

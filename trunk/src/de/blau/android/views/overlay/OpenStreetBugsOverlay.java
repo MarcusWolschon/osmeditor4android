@@ -80,7 +80,7 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 		cur = new Rect();
 		bugs = new ArrayList<Bug>();
 		handler = new Handler();
-		Resources r = map.getContext().getResources();
+		Resources r = map.getContext().getApplicationContext().getResources();
 		openPaint = new Paint();
 		openPaint.setColor(r.getColor(R.color.bug_open));
 		openPaint.setAlpha(200);

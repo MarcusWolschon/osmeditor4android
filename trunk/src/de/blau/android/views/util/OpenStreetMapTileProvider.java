@@ -63,15 +63,15 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	public OpenStreetMapTileProvider(final Context ctx,
 			final Handler aDownloadFinishedListener) {
 		// this.mCtx = ctx;
-		this.mLoadingMapTile = BitmapFactory.decodeResource(ctx.getResources(),
+		mLoadingMapTile = BitmapFactory.decodeResource(ctx.getResources(),
 				R.drawable.maptile_loading);
-		this.mTileCache = new OpenStreetMapTileCache();
+		mTileCache = new OpenStreetMapTileCache();
 		
 		if(!ctx.bindService(new Intent(IOpenStreetMapTileProviderService.class.getName()), this, Context.BIND_AUTO_CREATE)) {
 			Log.e(DEBUGTAG, "Could not bind to " + IOpenStreetMapTileProviderService.class.getName());
 		}
 		
-		this.mDownloadFinishedHandler = aDownloadFinishedListener;
+		mDownloadFinishedHandler = aDownloadFinishedListener;
 	}
 
 	// ===========================================================
@@ -98,23 +98,25 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	// Methods
 	// ===========================================================
 
-	
+	public void clear() {
+		mTileCache.clear();
+	}
 	
 	public boolean isTileAvailable(final OpenStreetMapTile aTile) {
-		return this.mTileCache.containsTile(aTile);
+		return mTileCache.containsTile(aTile);
 	}
 
 	public Bitmap getMapTile(final OpenStreetMapTile aTile) {
-		if (this.mTileCache.containsTile(aTile)) {							// from cache
+		if (mTileCache.containsTile(aTile)) {							// from cache
 			if (DEBUGMODE)
 				Log.i(DEBUGTAG, "MapTileCache succeded for: " + aTile.toString());
-			return this.mTileCache.getMapTile(aTile);
+			return mTileCache.getMapTile(aTile);
 			
 		} else {																	// from service
 			if (DEBUGMODE)
 				Log.i(DEBUGTAG, "Cache failed, trying from FS.");
 			try {
-				this.mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, this.mServiceCallback);
+				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, this.mServiceCallback);
 			} catch (RemoteException e) {
 				Log.e("OpenStreetMapTileProvider", "RemoteException in getMapTile()", e);
 			} catch (Exception e) {
@@ -125,9 +127,9 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	}
 
 	public void preCacheTile(final OpenStreetMapTile aTile) {
-		if (!this.mTileCache.containsTile(aTile) && this.mTileService != null) {
+		if (!mTileCache.containsTile(aTile) && mTileService != null) {
 			try {
-				this.mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, this.mServiceCallback);
+				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, this.mServiceCallback);
 			} catch (RemoteException e) {
 				Log.e("OpenStreetMapTileProvider", "RemoteException in preCacheTile()", e);
 			} catch (Exception e) {

@@ -51,13 +51,17 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	public OpenStreetMapTilesOverlay(final View aView,
 			final OpenStreetMapTileServer aRendererInfo,
 			final OpenStreetMapTileProvider aTileProvider) {
-		this.myView = aView;
-		this.myRendererInfo = aRendererInfo;
+		myView = aView;
+		myRendererInfo = aRendererInfo;
 		if(aTileProvider == null) {
-			this.mTileProvider = new OpenStreetMapTileProvider(myView.getContext(), new SimpleInvalidationHandler());
+			mTileProvider = new OpenStreetMapTileProvider(myView.getContext().getApplicationContext(), new SimpleInvalidationHandler());
 		} else {
-			this.mTileProvider = aTileProvider;
+			mTileProvider = aTileProvider;
 		}
+	}
+	
+	public void onDestroy() {
+		mTileProvider.clear();
 	}
 	
 	public OpenStreetMapTileServer getRendererInfo() {
@@ -65,21 +69,11 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	}
 	
 	public void setRendererInfo(final OpenStreetMapTileServer aRendererInfo) {
-		this.myRendererInfo = aRendererInfo;
+		myRendererInfo = aRendererInfo;
 	}
 
 	public void setAlpha(int a) {
-		this.mPaint.setAlpha(a);
-	}
-
-
-	/**
-	 * convert decimal degrees to radians.
-	 * @param deg degrees
-	 * @return radiants
-	 */
-	private double deg2rad(final double deg) {
-	  return (deg * Math.PI / 180d);
+		mPaint.setAlpha(a);
 	}
 
 	/**
@@ -129,30 +123,29 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		final Rect viewPort = c.getClipBounds();
 		final int zoomLevel = osmv.getZoomLevel(viewPort);
 		final OpenStreetMapTile tile = new OpenStreetMapTile(0, 0, 0, 0); // reused instance of OpenStreetMapTile
-		tile.rendererID = this.myRendererInfo.ordinal();	// TODO get from service
+		tile.rendererID = myRendererInfo.ordinal();	// TODO get from service
 		double latLeftUpper = GeoMath.yToLatE7(c.getHeight(), osmv.getViewBox(), viewPort.top) / 1E7d;
 		double lonLeftUpper = GeoMath.xToLonE7(c.getWidth(), osmv.getViewBox(), viewPort.left) / 1E7d;
 		double latRightLower = GeoMath.yToLatE7(c.getHeight(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
 		double lonRightLower = GeoMath.xToLonE7(c.getWidth(), osmv.getViewBox(), viewPort.right) / 1E7d;
-
 		
-		 // pseudo-code for lon/lat to tile numbers
-         //n = 2 ^ zoom
-         //xtile = ((lon_deg + 180) / 360) * n
-         //ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / π)) / 2 * n
+		
+		// pseudo-code for lon/lat to tile numbers
+		//n = 2 ^ zoom
+		//xtile = ((lon_deg + 180) / 360) * n
+		//ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / π)) / 2 * n
 		int xTileLeftUpper = (int) Math.floor(((lonLeftUpper + 180) / 360d) * Math.pow(2, zoomLevel));
-		int yTileLeftUpper = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latLeftUpper)) + 1 / Math.cos(deg2rad(latLeftUpper))) / Math.PI) /2 * Math.pow(2, zoomLevel));
+		int yTileLeftUpper = (int) Math.floor((1 - Math.log(Math.tan(Math.toRadians(latLeftUpper)) + 1 / Math.cos(Math.toRadians(latLeftUpper))) / Math.PI) /2 * Math.pow(2, zoomLevel));
 		int xTileRightLower = (int) Math.floor(((lonRightLower + 180) / 360d) * Math.pow(2, zoomLevel));
-		int yTileRightLower = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latRightLower)) + 1 / Math.cos(deg2rad(latRightLower))) / Math.PI) /2 * Math.pow(2, zoomLevel));
-
-
+		int yTileRightLower = (int) Math.floor((1 - Math.log(Math.tan(Math.toRadians(latRightLower)) + 1 / Math.cos(Math.toRadians(latRightLower))) / Math.PI) /2 * Math.pow(2, zoomLevel));
+		
 		final int tileNeededToLeftOfCenter   = Math.min(xTileLeftUpper, xTileRightLower);
 		final int tileNeededToRightOfCenter  = Math.max(xTileLeftUpper, xTileRightLower);
 		final int tileNeededToTopOfCenter    = Math.min(yTileLeftUpper, yTileRightLower);
 		final int tileNeededToBottomOfCenter = Math.max(yTileLeftUpper, yTileRightLower);
-
+		
 		final int mapTileUpperBound = 1 << zoomLevel;
-
+		
 		// Draw all the MapTiles that intersect with the screen
 		// y = y tile number (latitude)
 		for (int y = tileNeededToTopOfCenter; y <= tileNeededToBottomOfCenter && y >= tileNeededToTopOfCenter; y++) {
@@ -163,19 +156,19 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				tile.y = mod(y, mapTileUpperBound);
 				tile.x = mod(x, mapTileUpperBound);
 
-				if (this.mTileProvider.isTileAvailable(tile)) {
-					final Bitmap currentMapTile = this.mTileProvider.getMapTile(tile);
+				if (mTileProvider.isTileAvailable(tile)) {
+					final Bitmap currentMapTile = mTileProvider.getMapTile(tile);
 					final Rect src = new Rect(0, 0, currentMapTile.getWidth(), currentMapTile.getHeight()); 
 					final Rect dst = getScreenRectForTile(c, osmv, zoomLevel, y, x);
 					c.drawBitmap(currentMapTile, src, dst, mPaint);
 				} else {
-					this.mTileProvider.preCacheTile(tile);
+					mTileProvider.preCacheTile(tile);
 					if (zoomLevel > 0) {
 						tile.zoomLevel = zoomLevel - 1;
 						tile.x >>= 1;
 						tile.y >>= 1;
-						if (this.mTileProvider.isTileAvailable(tile)) {
-							final Bitmap currentMapTile = this.mTileProvider.getMapTile(tile);
+						if (mTileProvider.isTileAvailable(tile)) {
+							final Bitmap currentMapTile = mTileProvider.getMapTile(tile);
 							if (currentMapTile != null) {
 								final Rect src = new Rect(0, 0, currentMapTile.getWidth(), currentMapTile.getHeight()); 
 								final Rect dst = getScreenRectForTile(c, osmv, zoomLevel, y, x);
