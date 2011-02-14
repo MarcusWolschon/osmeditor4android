@@ -615,6 +615,8 @@ public class Main extends Activity {
 
 		private List<OsmElement> clickedNodesAndWays;
 		private List<Bug> clickedBugs;
+		
+		private boolean hasMoved;
 
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
@@ -649,13 +651,13 @@ public class Main extends Activity {
 			oldPosY = y;
 			clickedBugs = null;
 			clickedNodesAndWays = null;
-			
+			hasMoved = false;
 			logic.handleTouchEventDown(x, y);
 		}
 
 		private void touchEventMove(final float x, final float y) {
 			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY, hasMoved(x, y));
-
+			if (hasMoved(x, y)) hasMoved = true;
 			oldPosX = x;
 			oldPosY = y;
 		}
@@ -666,7 +668,6 @@ public class Main extends Activity {
 		 * @param y
 		 */
 		private void touchEventUp(final View v, final float x, final float y) {
-			boolean hasMoved = hasMoved(x, y);
 			if (!hasMoved) {
 				OpenStreetBugsOverlay osbo = map.getOpenStreetBugsOverlay();
 				if (osbo != null) {
