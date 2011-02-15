@@ -142,9 +142,11 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				while (!mTileProvider.isTileAvailable(tile) && tile.zoomLevel > 0) {
 					mTileProvider.preCacheTile(tile);
 					--tile.zoomLevel;
-					sz /= 2;
-					if ((tile.x & 1) != 0) tx += sz;
-					if ((tile.y & 1) != 0) ty += sz;
+					sz >>= 1;
+					tx >>= 1;
+					ty >>= 1;
+					if ((tile.x & 1) != 0) tx += 128;
+					if ((tile.y & 1) != 0) ty += 128;
 					tile.x >>= 1;
 					tile.y >>= 1;
 				}
