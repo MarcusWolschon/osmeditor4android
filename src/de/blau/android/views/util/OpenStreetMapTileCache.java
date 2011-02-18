@@ -48,11 +48,11 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	
 	public synchronized Bitmap getMapTile(final OpenStreetMapTile aTile) {
-		return this.mCachedTiles.get(aTile.toString());
+		return mCachedTiles.get(aTile.toString());
 	}
 
 	public synchronized void putTile(final OpenStreetMapTile aTile, final Bitmap aImage) {
-		this.mCachedTiles.put(aTile.toString(), aImage);
+		mCachedTiles.put(aTile.toString(), aImage);
 	}
 
 	// ===========================================================
@@ -68,7 +68,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	}
 	
 	public boolean containsTile(final OpenStreetMapTile aTile) {
-		return this.mCachedTiles.containsKey(aTile.toString());
+		return mCachedTiles.containsKey(aTile.toString());
 	}
 	
 	// ===========================================================
