@@ -104,10 +104,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		final Rect viewPort = c.getClipBounds();
 		final int zoomLevel = osmv.getZoomLevel(viewPort);
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.ID, 0, 0, 0); // reused instance of OpenStreetMapTile
-		double lonLeft   = GeoMath.xToLonE7(c.getWidth() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
-		double lonRight  = GeoMath.xToLonE7(c.getWidth() , osmv.getViewBox(), viewPort.right ) / 1E7d;
-		double latTop    = GeoMath.yToLatE7(c.getHeight(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
-		double latBottom = GeoMath.yToLatE7(c.getHeight(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
+		double lonLeft   = GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
+		double lonRight  = GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.right ) / 1E7d;
+		double latTop    = GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
+		double latBottom = GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
 		
 		// pseudo-code for lon/lat to tile numbers
 		//n = 2 ^ zoom
