@@ -1,11 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="osmarender">OsmaRender</string>
-<string name="mapnik">Mapnik</string>
-<string name="cyclemap">Cycle Map</string>
-<string name="openareal_sat">OpenArialMap (Satellite)</string>
-<string name="trails">Trails</string>
-<string name="relief">Relief</string>
-<string name="cloudmade_small">Cloudmade (Small tiles)</string>
-<string name="cloudmade_standard">Cloudmade (Standard tiles)</string>
+<!-- Preference names in same order as renderer_ids below -->
+<string-array name="renderer_names">
+  <item>OsmaRender</item>
+  <item>Mapnik</item>
+  <item>Cycle Map</item>
+  <!-- Following don't work:
+  <item>OpenAerialMap (Satellite)</item>
+  <item>Trails</item>
+  <item>Relief</item>
+  <item>Cloudmade (Small tiles)</item>
+  <item>Cloudmade (Standard tiles)</item>
+  <item>Cloudmade (Noname)</item>
+  -->
+</string-array>
+<!-- Preference values in same order as renderer_names above -->
+<!-- Items must have a corresponding enum (case-insensitive) in
+     de.blau.android.views.util.OpenStreetMapTileServer -->
+<string-array name="renderer_ids">
+  <item>OSMARENDER</item>
+  <item>MAPNIK</item>
+  <item>CYCLEMAP</item>
+  <!-- Following don't work:
+  <item>OPENAERIALMAP</item>
+  <item>TRAILS</item>
+  <item>RELIEF</item>
+  <item>CLOUDMADESMALLTILES</item>
+  <item>CLOUDMADESTANDARDTILES</item>
+  <item>CLOUDMADENONAMETILES</item>
+  -->
+</string-array>
+<!-- Configurations must be in same order as above -->
+<!-- Fields are whitespace separated:
+     Base URL
+     URL suffix
+     Minimum zoom
+     Maximum zoom
+     Tilesize in bits
+     Coding scheme ("xy" for the OSM tile X/Y or "qt" for quadtree) -->
+<string-array name="renderer_configs">
+  <item>http://tah.openstreetmap.org/Tiles/tile/ .png 0 17 8 xy</item>
+  <item>http://tile.openstreetmap.org/ .png 0 18 8 xy</item>
+  <item>http://b.andy.sandbox.cloudmade.com/tiles/cycle/ .png 0 16 8 xy</item>
+  <!-- Following don't work:
+  <item>http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/ .jpg 0 13 8 xy</item>
+  <item>http://topo.geofabrik.de/trails/ .png 4 17 8 xy</item>
+  <item>http://topo.geofabrik.de/relief/ .png 8 17 8 xy</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/64/ .jpg 0 13 6 xy</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/256/ .jpg 0 18 8 xy</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/3/256/ .jpg 0 18 8 xy</item>
+  -->
+</string-array>
 </resources>

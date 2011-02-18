@@ -103,8 +103,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		//some performance.
 		final Rect viewPort = c.getClipBounds();
 		final int zoomLevel = osmv.getZoomLevel(viewPort);
-		final OpenStreetMapTile tile = new OpenStreetMapTile(0, 0, 0, 0); // reused instance of OpenStreetMapTile
-		tile.rendererID = myRendererInfo.ordinal();	// TODO get from service
+		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.ID, 0, 0, 0); // reused instance of OpenStreetMapTile
 		double lonLeft   = GeoMath.xToLonE7(c.getWidth() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
 		double lonRight  = GeoMath.xToLonE7(c.getWidth() , osmv.getViewBox(), viewPort.right ) / 1E7d;
 		double latTop    = GeoMath.yToLatE7(c.getHeight(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
@@ -131,24 +130,30 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		for (int y = tileNeededTop; y <= tileNeededBottom; y++) {
 			// x = x tile number (longitude)
 			for (int x = tileNeededLeft; x <= tileNeededRight; x++) {
-				// Construct a URLString, which represents the MapTile
+				// Set the specifications for the required tile
 				tile.zoomLevel = zoomLevel;
 				tile.y = y & mapTileMask;
 				tile.x = x & mapTileMask;
 				
-				int sz = 256;
+				// Set the size and top left corner on the source bitmap
+				int sz = myRendererInfo.MAPTILE_SIZEPX;
 				int tx = 0;
 				int ty = 0;
-				while (!mTileProvider.isTileAvailable(tile) && tile.zoomLevel > 0) {
+				
+				if (!mTileProvider.isTileAvailable(tile)) {
+					// Preferred tile is not available - request it
 					mTileProvider.preCacheTile(tile);
-					--tile.zoomLevel;
-					sz >>= 1;
-					tx >>= 1;
-					ty >>= 1;
-					if ((tile.x & 1) != 0) tx += 128;
-					if ((tile.y & 1) != 0) ty += 128;
-					tile.x >>= 1;
-					tile.y >>= 1;
+					// See if there are any alternative tiles available
+					while (!mTileProvider.isTileAvailable(tile) && tile.zoomLevel > 0) {
+						--tile.zoomLevel;
+						sz >>= 1;
+						tx >>= 1;
+						ty >>= 1;
+						if ((tile.x & 1) != 0) tx += (myRendererInfo.MAPTILE_SIZEPX >> 1);
+						if ((tile.y & 1) != 0) ty += (myRendererInfo.MAPTILE_SIZEPX >> 1);
+						tile.x >>= 1;
+						tile.y >>= 1;
+					}
 				}
 				if (mTileProvider.isTileAvailable(tile)) {
 					c.drawBitmap(

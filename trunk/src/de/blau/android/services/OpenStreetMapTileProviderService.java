@@ -42,14 +42,10 @@ public class OpenStreetMapTileProviderService extends Service {
 	private final IOpenStreetMapTileProviderService.Stub mBinder = new IOpenStreetMapTileProviderService.Stub() {
 		//@Override
 		public String[] getTileProviders() throws RemoteException {
-			int i = 0;
-			String[] providers = new String[OpenStreetMapTileServer.values().length];
-			for (OpenStreetMapTileServer info: OpenStreetMapTileServer.values())
-				providers[i++] = info.name();
-			return providers;
+			return OpenStreetMapTileServer.getIds(getApplicationContext().getResources());
 		}
 		//@Override
-		public void getMapTile(int rendererID, int zoomLevel, int tileX,
+		public void getMapTile(String rendererID, int zoomLevel, int tileX,
 				int tileY, IOpenStreetMapTileProviderCallback callback)
 				throws RemoteException {
 
