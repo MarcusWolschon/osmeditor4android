@@ -58,11 +58,10 @@ public class BugComment {
 			}
 			if (timestamp == null) {
 				Log.d("Vespucci", "BugComment:Couldn't parse:"+date);
-				timestamp = new Date();
 			}
 		} catch (Exception e) {
 			// could not find the end of the nickname, therefore could not find the date
-			timestamp = new Date();
+			// leave timestamp null
 		}
 	}
 	
@@ -107,7 +106,8 @@ public class BugComment {
 	 * @return The bug comment in the preferred OSB format.
 	 */
 	public String toString() {
-		return text + " [" + nickname + ", " + bugDateFormats[0].format(timestamp) + "]";
+		String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
+		return text + " [" + nickname + date + "]";
 	}
 
 }

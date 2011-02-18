@@ -138,7 +138,7 @@ public class Bug {
 		Date result = null;
 		for (BugComment c : comments) {
 			Date t = c.getTimestamp();
-			if (result == null || t.after(result)) {
+			if (t != null && (result == null || t.after(result))) {
 				result = t;
 			}
 		}
