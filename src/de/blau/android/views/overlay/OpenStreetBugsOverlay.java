@@ -107,7 +107,7 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 			// draw all the bugs on the map as slightly transparent circles
 			for (Bug b : bugs) {
 				if (bb.isIn(b.getLat(), b.getLon())) {
-					float x = GeoMath.lonE7ToX(viewPort.width(), bb, b.getLon());
+					float x = GeoMath.lonE7ToX(viewPort.width() , bb, b.getLon());
 					float y = GeoMath.latE7ToY(viewPort.height(), bb, b.getLat());
 					c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
 				}
