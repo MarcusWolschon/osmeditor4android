@@ -81,8 +81,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @return the longitude of the tile
 	 */
 	static double tile2lon(int x, int aZoomLevel) {
-	     return x / Math.pow(2.0, aZoomLevel) * 360.0 - 180;
-	  }
+		return x / Math.pow(2.0, aZoomLevel) * 360.0 - 180;
+	}
 
 	/**
 	 * @param y a y tile -number
@@ -176,15 +176,16 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 */
 	private Rect getScreenRectForTile(Canvas c, IMapView osmv,
 			final int zoomLevel, int y, int x) {
-		double north = tile2lat(y,     zoomLevel);
+		final Rect viewPort = c.getClipBounds();
+		double north = tile2lat(y    , zoomLevel);
 		double south = tile2lat(y + 1, zoomLevel);
-		double west  = tile2lon(x,     zoomLevel);
+		double west  = tile2lon(x    , zoomLevel);
 		double east  = tile2lon(x + 1, zoomLevel);
 
-		int screenLeft   = (int) Math.round(GeoMath.lonE7ToX(c.getClipBounds().width(), osmv.getViewBox(), (int) (west * 1E7)));
-		int screenRight  = (int) Math.round(GeoMath.lonE7ToX(c.getClipBounds().width(), osmv.getViewBox(), (int) (east * 1E7)));
-		int screenTop    = (int) Math.round(GeoMath.latE7ToY(c.getClipBounds().height(), osmv.getViewBox(), (int) (north * 1E7)));
-		int screenBottom = (int) Math.round(GeoMath.latE7ToY(c.getClipBounds().height(), osmv.getViewBox(), (int) (south * 1E7)));
+		int screenLeft   = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (west  * 1E7)));
+		int screenRight  = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (east  * 1E7)));
+		int screenTop    = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), osmv.getViewBox(), (int) (north * 1E7)));
+		int screenBottom = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), osmv.getViewBox(), (int) (south * 1E7)));
 
 		return new Rect(screenLeft, screenTop, screenRight, screenBottom);
 	}

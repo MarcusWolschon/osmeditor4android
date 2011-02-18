@@ -67,7 +67,9 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 							bugs.add(b);
 						}
 					}
-					map.invalidate();
+					if (!bugs.isEmpty()) {
+						map.invalidate();
+					}
 				}
 				
 			}.execute();
