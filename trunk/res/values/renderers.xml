@@ -12,6 +12,7 @@
   <item>Cloudmade (Small tiles)</item>
   <item>Cloudmade (Standard tiles)</item>
   <item>Cloudmade (Noname)</item>
+  <item>Nearmaps</item>
   -->
 </string-array>
 <!-- Preference values in same order as renderer_names above -->
@@ -28,6 +29,7 @@
   <item>CLOUDMADESMALLTILES</item>
   <item>CLOUDMADESTANDARDTILES</item>
   <item>CLOUDMADENONAMETILES</item>
+  <item>NEARMAPS</item>
   -->
 </string-array>
 <!-- Configurations must be in same order as above -->
@@ -39,16 +41,17 @@
      Tilesize in bits
      Coding scheme ("xy" for the OSM tile X/Y or "qt" for quadtree) -->
 <string-array name="renderer_configs">
-  <item>http://tah.openstreetmap.org/Tiles/tile/ .png 0 17 8 xy</item>
-  <item>http://tile.openstreetmap.org/ .png 0 18 8 xy</item>
-  <item>http://b.andy.sandbox.cloudmade.com/tiles/cycle/ .png 0 16 8 xy</item>
+  <item>http://tah.openstreetmap.org/Tiles/tile/!/!/!.png .png 0 17 8 xy</item>
+  <item>http://tile.openstreetmap.org/!/!/!.png .png 0 18 8 xy</item>
+  <item>http://b.andy.sandbox.cloudmade.com/tiles/cycle/!/!/!.png .png 0 16 8 xy</item>
   <!-- Following don't work:
-  <item>http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/ .jpg 0 13 8 xy</item>
-  <item>http://topo.geofabrik.de/trails/ .png 4 17 8 xy</item>
-  <item>http://topo.geofabrik.de/relief/ .png 8 17 8 xy</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/64/ .jpg 0 13 6 xy</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/256/ .jpg 0 18 8 xy</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/3/256/ .jpg 0 18 8 xy</item>
+  <item>http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/!/!/!.jpg .jpg 0 13 8 xy</item>
+  <item>http://topo.geofabrik.de/trails/!/!/!.png .png 4 17 8 xy</item>
+  <item>http://topo.geofabrik.de/relief/!/!/!.png .png 8 17 8 xy</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/64/!/!/!.jpg .jpg 0 13 6 xy</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/256/!/!/!.jpg .jpg 0 18 8 xy</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/3/256/!/!/!.jpg .jpg 0 18 8 xy</item>
+  <item>http://www.nearmap.com/maps/nml=Vert&amp;zxy=!,!,! .jpg 0 21 8 xy</item>
   -->
 </string-array>
 </resources>

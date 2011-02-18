@@ -81,15 +81,27 @@ public class OpenStreetMapTileServer {
 		return r.getStringArray(R.array.renderer_ids);
 	}
 	
+	private static String replaceBang(String url, String data) {
+		int i = url.indexOf('!');
+		return url.substring(0, i) + data + url.substring(i + 1);
+	}
+	
 	public String getTileURLString(final OpenStreetMapTile aTile) {
+		String result = BASEURL;
+		
+		
 		final CodeScheme cs = CODE_SCHEME;
 		switch (cs) {
 		case QUAD_TREE:
-			return String.format("%s%s%s", BASEURL, quadTree(aTile), IMAGE_FILENAMEENDING);
+			result = replaceBang(result, quadTree(aTile));
 		case X_Y:
 		default:
-			return String.format("%s%d/%d/%d%s", BASEURL, aTile.zoomLevel, aTile.x, aTile.y, IMAGE_FILENAMEENDING);
+			result = replaceBang(result, Integer.toString(aTile.zoomLevel));
+			result = replaceBang(result, Integer.toString(aTile.x));
+			result = replaceBang(result, Integer.toString(aTile.y));
+			break;
 		}
+		return result;
 	}
 	
 	/**

@@ -104,7 +104,13 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	}
 	
 	public boolean isTileAvailable(final OpenStreetMapTile aTile) {
-		return mTileCache.containsTile(aTile);
+		if (mTileCache.containsTile(aTile)) {
+			Bitmap b = mTileCache.getMapTile(aTile);
+			if (b != null && !b.isRecycled()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Bitmap getMapTile(final OpenStreetMapTile aTile) {
