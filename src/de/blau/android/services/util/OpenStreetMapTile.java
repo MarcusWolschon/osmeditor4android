@@ -10,7 +10,7 @@ package de.blau.android.services.util;
  */
 public class OpenStreetMapTile {
 	
-	public int rendererID;
+	public String rendererID;
 	
 	public int x;
 	public int y;
@@ -20,7 +20,7 @@ public class OpenStreetMapTile {
 	public static final int MAPTILE_SUCCESS_ID = 0;
 	public static final int MAPTILE_FAIL_ID = MAPTILE_SUCCESS_ID + 1;
 	
-	public OpenStreetMapTile(int rendererID, int zoomLevel, int tileX, int tileY) {
+	public OpenStreetMapTile(String rendererID, int zoomLevel, int tileX, int tileY) {
 		this.rendererID = rendererID;
 		this.zoomLevel = zoomLevel;
 		this.x = tileX;

@@ -27,6 +27,14 @@
 			android:summary="@string/config_enableOpenStreetBugs_summary"
 			android:defaultValue="false"
 		/>
+		<ListPreference
+			android:key="@string/config_backgroundLayer_key"
+			android:title="@string/config_backgroundLayer_title"
+			android:summary="@string/config_backgroundLayer_summary"
+			android:entries="@array/renderer_names"
+			android:entryValues="@array/renderer_ids"
+			android:defaultValue="MAPNIK"
+		/>
 		<!-- <EditTextPreference
 			android:key="@string/config_maxStrokeWidth_key"
 			android:title="@string/config_maxStrokeWidth_title"

@@ -1,6 +1,7 @@
 package de.blau.android;
 
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
@@ -43,10 +44,6 @@ public class Map extends View implements IMapView {
 	
 	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = Map.class.getSimpleName();
-	/**
-	 * The {@link OpenStreetMapTileServer} we use by default.
-	 */
-	final static OpenStreetMapTileServer DEFAULTTILESERVER = OpenStreetMapTileServer.MAPNIK;
 	
 	private Preferences pref;
 	
@@ -61,7 +58,7 @@ public class Map extends View implements IMapView {
 	 * can be changed to contain additional overlays later.
 	 * @see #getOverlays()
 	 */
-	protected final List<OpenStreetMapViewOverlay> mOverlays = new ArrayList<OpenStreetMapViewOverlay>();
+	protected final LinkedList<OpenStreetMapViewOverlay> mOverlays = new LinkedList<OpenStreetMapViewOverlay>();
 	
 	/**
 	 * The visible area in decimal-degree (WGS84) -space.
@@ -95,7 +92,7 @@ public class Map extends View implements IMapView {
 		setDrawingCacheEnabled(false);
 		
 		// create an overlay that displays pre-rendered tiles from the internet.
-		mOverlays.add(new OpenStreetMapTilesOverlay(this, DEFAULTTILESERVER, null));
+		mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources()), null));
 		mOverlays.add(new OpenStreetBugsOverlay(this));
 	}
 	
@@ -508,6 +505,17 @@ public class Map extends View implements IMapView {
 	
 	void setPrefs(final Preferences aPreference) {
 		pref = aPreference;
+		// remove the existing map layer
+		Iterator<OpenStreetMapViewOverlay> i = mOverlays.iterator();
+		while (i.hasNext()) {
+			OpenStreetMapViewOverlay osmvo = i.next();
+			if (osmvo instanceof OpenStreetMapTilesOverlay) {
+				i.remove();
+				osmvo.onDestroy();
+			}
+		}
+		// add the preferred one - make sure it's first
+		mOverlays.addFirst(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer()), null));
 	}
 	
 	void setTrack(final Track aTrack) {
@@ -548,8 +556,7 @@ public class Map extends View implements IMapView {
 	 */
 	@Override
 	public int getZoomLevel(final Rect viewPort) {
-		final double TILE_WIDTH = 256d;
-		final double TILE_HEIGHT = 256d;
+		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		
 		// Calculate lat/lon of view extents
 		final double latBottom = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.bottom) / 1E7d;
@@ -564,8 +571,8 @@ public class Map extends View implements IMapView {
 		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
 		
 		// Calculate the ideal zoom to fit into the view
-		final double xTiles = ((double)getWidth()  / (xTileRight  - xTileLeft)) / TILE_WIDTH ;
-		final double yTiles = ((double)getHeight() / (yTileBottom - yTileTop )) / TILE_HEIGHT;
+		final double xTiles = ((double)getWidth()  / (xTileRight  - xTileLeft)) / s.MAPTILE_SIZEPX;
+		final double yTiles = ((double)getHeight() / (yTileBottom - yTileTop )) / s.MAPTILE_SIZEPX;
 		final double xZoom = Math.log(xTiles) / Math.log(2d);
 		final double yZoom = Math.log(yTiles) / Math.log(2d);
 		
@@ -573,7 +580,6 @@ public class Map extends View implements IMapView {
 		int zoom = (int)Math.floor(Math.min(xZoom, yZoom));
 		
 		// Sanity check result
-		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		zoom = Math.max(zoom, s.ZOOM_MINLEVEL);
 		zoom = Math.min(zoom, s.ZOOM_MAXLEVEL);
 		

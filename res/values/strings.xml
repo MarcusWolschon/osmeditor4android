@@ -114,6 +114,9 @@
 	<string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
 	<string name="config_enableOpenStreetBugs_title">Enable OpenStreetBugs</string>
 	<string name="config_enableOpenStreetBugs_summary">Display bugs reported to OpenStreetBugs.</string>
+	<string name="config_backgroundLayer_key">backgroundLayer</string>
+	<string name="config_backgroundLayer_title">Map background</string>
+	<string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
 	<string name="config_category_server">Server Settings</string>
 	<string name="config_username_key">username</string>
 	<string name="config_username_title">OSM Username</string>

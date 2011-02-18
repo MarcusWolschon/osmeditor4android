@@ -21,6 +21,8 @@ public class Preferences {
 	
 	private final boolean isOpenStreetBugsEnabled;
 	
+	private final String backgroundLayer;
+	
 	/**
 	 * Credentials (username and password) for the
 	 * OpenStreetMap API(0.6)-Server
@@ -51,6 +53,7 @@ public class Preferences {
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
+		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		String username = prefs.getString(r.getString(R.string.config_username_key), null);
 		String password = prefs.getString(r.getString(R.string.config_password_key), null);
 		try {
@@ -97,6 +100,13 @@ public class Preferences {
 	 */
 	public boolean isOpenStreetBugsEnabled() {
 		return isOpenStreetBugsEnabled;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String backgroundLayer() {
+		return backgroundLayer;
 	}
 	
 	/**
