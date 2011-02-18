@@ -114,27 +114,22 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	}
 
 	public Bitmap getMapTile(final OpenStreetMapTile aTile) {
-		if (mTileCache.containsTile(aTile)) {							// from cache
+		if (isTileAvailable(aTile)) {
+			// from cache
 			if (DEBUGMODE)
 				Log.i(DEBUGTAG, "MapTileCache succeded for: " + aTile.toString());
 			return mTileCache.getMapTile(aTile);
-			
-		} else {																	// from service
+		} else {
+			// from service
 			if (DEBUGMODE)
-				Log.i(DEBUGTAG, "Cache failed, trying from FS.");
-			try {
-				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, this.mServiceCallback);
-			} catch (RemoteException e) {
-				Log.e("OpenStreetMapTileProvider", "RemoteException in getMapTile()", e);
-			} catch (Exception e) {
-				Log.e("OpenStreetMapTileProvider", "Exception in getMapTile()", e);
-			}
+				Log.i(DEBUGTAG, "MapTileCache failed for: " + aTile.toString());
+			preCacheTile(aTile);
 		}
 		return null;
 	}
 
 	public void preCacheTile(final OpenStreetMapTile aTile) {
-		if (!mTileCache.containsTile(aTile) && mTileService != null) {
+		if (!isTileAvailable(aTile) && mTileService != null) {
 			try {
 				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, this.mServiceCallback);
 			} catch (RemoteException e) {
