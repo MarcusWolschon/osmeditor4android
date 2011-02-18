@@ -559,10 +559,10 @@ public class Map extends View implements IMapView {
 		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		
 		// Calculate lat/lon of view extents
-		final double latBottom = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.bottom) / 1E7d;
-		final double lonRight  = GeoMath.xToLonE7(getWidth() , getViewBox(), viewPort.right ) / 1E7d;
-		final double latTop    = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.top   ) / 1E7d;
-		final double lonLeft   = GeoMath.xToLonE7(getWidth() , getViewBox(), viewPort.left  ) / 1E7d;
+		final double latBottom = GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.bottom) / 1E7d;
+		final double lonRight  = GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.right ) / 1E7d;
+		final double latTop    = GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.top   ) / 1E7d;
+		final double lonLeft   = GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.left  ) / 1E7d;
 		
 		// Calculate tile x/y scaled 0.0 to 1.0
 		final double xTileRight  = (lonRight + 180d) / 360d;
@@ -571,8 +571,8 @@ public class Map extends View implements IMapView {
 		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
 		
 		// Calculate the ideal zoom to fit into the view
-		final double xTiles = ((double)getWidth()  / (xTileRight  - xTileLeft)) / s.MAPTILE_SIZEPX;
-		final double yTiles = ((double)getHeight() / (yTileBottom - yTileTop )) / s.MAPTILE_SIZEPX;
+		final double xTiles = ((double)viewPort.width()  / (xTileRight  - xTileLeft)) / s.MAPTILE_SIZEPX;
+		final double yTiles = ((double)viewPort.height() / (yTileBottom - yTileTop )) / s.MAPTILE_SIZEPX;
 		final double xZoom = Math.log(xTiles) / Math.log(2d);
 		final double yZoom = Math.log(yTiles) / Math.log(2d);
 		
