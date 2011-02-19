@@ -1,7 +1,6 @@
 package de.blau.android;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -58,7 +57,7 @@ public class Map extends View implements IMapView {
 	 * can be changed to contain additional overlays later.
 	 * @see #getOverlays()
 	 */
-	protected final LinkedList<OpenStreetMapViewOverlay> mOverlays = new LinkedList<OpenStreetMapViewOverlay>();
+	protected final List<OpenStreetMapViewOverlay> mOverlays = new ArrayList<OpenStreetMapViewOverlay>();
 	
 	/**
 	 * The visible area in decimal-degree (WGS84) -space.
@@ -505,17 +504,12 @@ public class Map extends View implements IMapView {
 	
 	void setPrefs(final Preferences aPreference) {
 		pref = aPreference;
-		// remove the existing map layer
-		Iterator<OpenStreetMapViewOverlay> i = mOverlays.iterator();
-		while (i.hasNext()) {
-			OpenStreetMapViewOverlay osmvo = i.next();
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay) {
-				i.remove();
-				osmvo.onDestroy();
+				OpenStreetMapTilesOverlay o = (OpenStreetMapTilesOverlay)osmvo;
+				o.setRendererInfo(OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer()));
 			}
 		}
-		// add the preferred one - make sure it's first
-		mOverlays.addFirst(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer()), null));
 	}
 	
 	void setTrack(final Track aTrack) {
