@@ -4,8 +4,24 @@
 <string-array name="renderer_names">
   <item>OsmaRender</item>
   <item>Mapnik</item>
+  <item>OpenCycleMap</item>
   <item>Cycle Map</item>
-  <!-- Following don't work:
+  <item>MapQuest</item>
+  <item>OS OpenData Streetview</item>
+  <item>OS OpenData Locator</item>
+  <item>OS New Popular Ed Historic</item>
+  <item>Surrey Aerial</item>
+  <item>Denmark Fugro Aerial Imagery</item>
+  <!-- Following are untested:
+  <item>Haiti GeoEye Jan13</item>
+  <item>Haiti GeoEye Jan13+</item>
+  <item>Haiti DigitalGlobe</item>
+  <item>Haiti StreetNames</item>
+  -->
+  <!-- Following don't seem to work:
+  <item>OS 1:25k Historic</item>
+  <item>OS 7th Series Historic</item>
+  <item>OS Scottish Popular Historic</item>
   <item>OpenAerialMap (Satellite)</item>
   <item>Trails</item>
   <item>Relief</item>
@@ -21,8 +37,24 @@
 <string-array name="renderer_ids">
   <item>OSMARENDER</item>
   <item>MAPNIK</item>
+  <item>OPENCYCLEMAP</item>
   <item>CYCLEMAP</item>
-  <!-- Following don't work:
+  <item>MAPQUEST</item>
+  <item>OSODSTREETVIEW</item>
+  <item>OSODLOCATOR</item>
+  <item>OSNPEHISTORIC</item>
+  <item>SURREYAERIAL</item>
+  <item>DENMARKFUGRO</item>
+  <!-- Following are untested:
+  <item>HAITIJAN13</item>
+  <item>HAITIJAN13P</item>
+  <item>HAITIDG</item>
+  <item>HAITISN</item>
+  -->
+  <!-- Following don't seem to work:
+  <item>OS25KHISTORIC</item>
+  <item>OS7SHISTORIC</item>
+  <item>OSSPHISTORIC</item>
   <item>OPENAERIALMAP</item>
   <item>TRAILS</item>
   <item>RELIEF</item>
@@ -41,17 +73,33 @@
      Tilesize in bits
      Coding scheme ("xy" for the OSM tile X/Y or "qt" for quadtree) -->
 <string-array name="renderer_configs">
-  <item>http://tah.openstreetmap.org/Tiles/tile/!/!/!.png .png 0 17 8 xy</item>
-  <item>http://tile.openstreetmap.org/!/!/!.png .png 0 18 8 xy</item>
-  <item>http://b.andy.sandbox.cloudmade.com/tiles/cycle/!/!/!.png .png 0 16 8 xy</item>
-  <!-- Following don't work:
-  <item>http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/!/!/!.jpg .jpg 0 13 8 xy</item>
-  <item>http://topo.geofabrik.de/trails/!/!/!.png .png 4 17 8 xy</item>
-  <item>http://topo.geofabrik.de/relief/!/!/!.png .png 8 17 8 xy</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/64/!/!/!.jpg .jpg 0 13 6 xy</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/256/!/!/!.jpg .jpg 0 18 8 xy</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/3/256/!/!/!.jpg .jpg 0 18 8 xy</item>
-  <item>http://www.nearmap.com/maps/nml=Vert&amp;zxy=!,!,! .jpg 0 21 8 xy</item>
+  <item>http://tah.openstreetmap.org/Tiles/tile/$z/$x/$y.png .png 0 17 8</item>
+  <item>http://tile.openstreetmap.org/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tile.opencyclemap.org/cycle/$z/$x/$y.png .png 0 15 8</item>
+  <item>http://b.andy.sandbox.cloudmade.com/tiles/cycle/$z/$x/$y.png .png 0 16 8</item>
+  <item>http://otile1.mqcdn.com/tiles/1.0.0/osm/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://os.openstreetmap.org/sv/$z/$x/$y.png .png 6 17 8</item>
+  <item>http://tiles.itoworld.com/os_locator/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://ooc.openstreetmap.org/npe/$z/$x/$y.png .png 6 15 8</item>
+  <item>http://gravitystorm.dev.openstreetmap.org/surrey/$z/$x/$y.png .png 8 19 8</item>
+  <item>http://fugro.openstreetmap.dk/fugro2005/$z/$x/$y.jpg .jpg 0 19 8</item>
+  <!-- Following are untested:
+  <item>http://gravitystorm.dev.openstreetmap.org/imagery/haiti/$z/$x/$y.jpg .jpg 0 18 8</item>
+  <item>http://maps.nypl.org/tilecache/1/geoeye/$z/$x/$y.jpg .jpg 0 18 8</item>
+  <item>http://maps.nypl.org/tilecache/1/dg_crisis/$z/$x/$y.jpg .jpg 0 18 8</item>
+  <item>http://hypercube.telascience.org/tiles/1.0.0/haiti-city/$z/$x/$y.jpg .jpg 0 18 8</item>
+  -->
+  <!-- Following don't seem to work:
+  <item>http://ooc.openstreetmap.org/os1/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://ooc.openstreetmap.org/os7/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://ooc.openstreetmap.org/npescotland/tiles/$z/$x/$y.jpg .jpg 0 18 8</item>
+  <item>http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/$z/$x/$y.jpg .jpg 0 13 8</item>
+  <item>http://topo.geofabrik.de/trails/$z/$x/$y.png .png 4 17 8</item>
+  <item>http://topo.geofabrik.de/relief/$z/$x/$y.png .png 8 17 8</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/64/$z/$x/$y.jpg .jpg 0 13 6</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/256/$z/$x/$y.jpg .jpg 0 18 8</item>
+  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/3/256/$z/$x/$y.jpg .jpg 0 18 8</item>
+  <item>http://www.nearmap.com/maps/nml=Vert&amp;zxy=$z,$x,$y .jpg 0 21 8</item>
   -->
 </string-array>
 </resources>
