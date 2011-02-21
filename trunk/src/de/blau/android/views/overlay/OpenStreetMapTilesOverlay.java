@@ -112,7 +112,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		// pseudo-code for lon/lat to tile numbers
 		//n = 2 ^ zoom
 		//xtile = ((lon_deg + 180) / 360) * n
-		//ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / π)) / 2 * n
+		//ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / PI)) / 2 * n
 		int xTileLeft   = (int) Math.floor(((lonLeft  + 180d) / 360d) * Math.pow(2d, zoomLevel));
 		int xTileRight  = (int) Math.floor(((lonRight + 180d) / 360d) * Math.pow(2d, zoomLevel));
 		int yTileTop    = (int) Math.floor((1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d * Math.pow(2d, zoomLevel));
@@ -132,8 +132,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			for (int x = tileNeededLeft; x <= tileNeededRight; x++) {
 				// Set the specifications for the required tile
 				tile.zoomLevel = zoomLevel;
-				tile.y = y & mapTileMask;
 				tile.x = x & mapTileMask;
+				tile.y = y & mapTileMask;
 				
 				// Set the size and top left corner on the source bitmap
 				int sz = myRendererInfo.MAPTILE_SIZEPX;
@@ -143,32 +143,69 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				if (!mTileProvider.isTileAvailable(tile)) {
 					// Preferred tile is not available - request it
 					mTileProvider.preCacheTile(tile);
-					// See if there are any alternative tiles available
-					while (!mTileProvider.isTileAvailable(tile) && tile.zoomLevel > 0) {
-						--tile.zoomLevel;
-						sz >>= 1;
-						tx >>= 1;
+					// See if there are any alternative tiles available - try
+					// using larger tiles
+					while (!mTileProvider.isTileAvailable(tile) && tile.zoomLevel > myRendererInfo.ZOOM_MINLEVEL) {
+						// As we zoom out to larger-scale tiles, we want to
+						// draw smaller and smaller sections of them
+						sz >>= 1; // smaller size
+						tx >>= 1; // smaller offsets
 						ty >>= 1;
+						// select the correct quarter
 						if ((tile.x & 1) != 0) tx += (myRendererInfo.MAPTILE_SIZEPX >> 1);
 						if ((tile.y & 1) != 0) ty += (myRendererInfo.MAPTILE_SIZEPX >> 1);
+						// zoom out to next level
 						tile.x >>= 1;
 						tile.y >>= 1;
+						--tile.zoomLevel;
 					}
 				}
 				if (mTileProvider.isTileAvailable(tile)) {
 					c.drawBitmap(
-							mTileProvider.getMapTile(tile),
-							new Rect(tx, ty, tx + sz, ty + sz),
-							getScreenRectForTile(c, osmv, zoomLevel, y, x),
-							mPaint);
+						mTileProvider.getMapTile(tile),
+						new Rect(tx, ty, tx + sz, ty + sz),
+						getScreenRectForTile(c, osmv, zoomLevel, y, x),
+						mPaint);
+				} else {
+					// Still no tile available - try smaller scale tiles
+					drawTile(c, osmv, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask);
 				}
 			}
 		}
 	}
-
+	
+	/** Recursively search the cache for smaller tiles to fill in the required
+	 * space.
+	 * @param c Canvas to draw on.
+	 * @param osmv Map view area.
+	 * @param maxz Maximum zoom level to attempt - don't take too long searching.
+	 * @param z Zoom level to draw.
+	 * @param x Tile X to draw.
+	 * @param y Tile Y to draw.
+	 */
+	private void drawTile(Canvas c, IMapView osmv, int maxz, int z, int x, int y) {
+		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.ID, z, x, y);
+		if (mTileProvider.isTileAvailable(tile)) {
+			c.drawBitmap(
+				mTileProvider.getMapTile(tile),
+				new Rect(0, 0, myRendererInfo.MAPTILE_SIZEPX, myRendererInfo.MAPTILE_SIZEPX),
+				getScreenRectForTile(c, osmv, z, y, x),
+				mPaint);
+		} else if (z < maxz && z < myRendererInfo.ZOOM_MAXLEVEL){
+			// Still no tile available - try smaller scale tiles
+			x <<= 1;
+			y <<= 1;
+			++z;
+			drawTile(c, osmv, maxz, z, x    , y    );
+			drawTile(c, osmv, maxz, z, x + 1, y    );
+			drawTile(c, osmv, maxz, z, x    , y + 1);
+			drawTile(c, osmv, maxz, z, x + 1, y + 1);
+		}
+	}
+	
 	/**
-	 * @param c the canvas we draw to (we need it´s clpi-bound´s width and height)
-	 * @param osmv the view with it´s viewBox
+	 * @param c the canvas we draw to (we need its clip-bound's width and height)
+	 * @param osmv the view with its viewBox
 	 * @param zoomLevel the zoom-level of the tile
 	 * @param y the y-number of the tile
 	 * @param x the x-number of the tile
