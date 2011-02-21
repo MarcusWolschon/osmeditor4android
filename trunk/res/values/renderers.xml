@@ -32,8 +32,7 @@
   -->
 </string-array>
 <!-- Preference values in same order as renderer_names above -->
-<!-- Items must have a corresponding enum (case-insensitive) in
-     de.blau.android.views.util.OpenStreetMapTileServer -->
+<!-- This is used to name the cache sub-folder for the tileset -->
 <string-array name="renderer_ids">
   <item>OSMARENDER</item>
   <item>MAPNIK</item>
