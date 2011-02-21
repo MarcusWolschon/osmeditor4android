@@ -21,11 +21,8 @@ public class OpenStreetMapTileServer {
 	// Fields
 	// ===========================================================
 	
-	public enum CodeScheme { X_Y, QUAD_TREE };
-	
 	public final String ID, BASEURL, IMAGE_FILENAMEENDING;
 	public final int ZOOM_MINLEVEL, ZOOM_MAXLEVEL, MAPTILE_ZOOM, MAPTILE_SIZEPX;
-	public final CodeScheme CODE_SCHEME;
 	
 	// ===========================================================
 	// Constructors
@@ -40,11 +37,6 @@ public class OpenStreetMapTileServer {
 		ZOOM_MAXLEVEL = Integer.parseInt(cfgItems[3]);
 		MAPTILE_ZOOM = Integer.parseInt(cfgItems[4]);
 		MAPTILE_SIZEPX = 1 << MAPTILE_ZOOM;
-		if (cfgItems[5].equals("qt")) {
-			CODE_SCHEME = CodeScheme.QUAD_TREE;
-		} else {
-			CODE_SCHEME = CodeScheme.X_Y;
-		}
 	}
 	
 	public static OpenStreetMapTileServer getDefault(final Resources r) {
@@ -81,26 +73,15 @@ public class OpenStreetMapTileServer {
 		return r.getStringArray(R.array.renderer_ids);
 	}
 	
-	private static String replaceBang(String url, String data) {
-		int i = url.indexOf('!');
-		return url.substring(0, i) + data + url.substring(i + 1);
-	}
-	
 	public String getTileURLString(final OpenStreetMapTile aTile) {
 		String result = BASEURL;
-		
-		
-		final CodeScheme cs = CODE_SCHEME;
-		switch (cs) {
-		case QUAD_TREE:
-			result = replaceBang(result, quadTree(aTile));
-		case X_Y:
-		default:
-			result = replaceBang(result, Integer.toString(aTile.zoomLevel));
-			result = replaceBang(result, Integer.toString(aTile.x));
-			result = replaceBang(result, Integer.toString(aTile.y));
-			break;
-		}
+		result = result.replaceFirst("\\!" , Integer.toString(aTile.zoomLevel));
+		result = result.replaceFirst("\\!" , Integer.toString(aTile.x));
+		result = result.replaceFirst("\\!" , Integer.toString(aTile.y));
+		result = result.replaceFirst("\\$z", Integer.toString(aTile.zoomLevel));
+		result = result.replaceFirst("\\$x", Integer.toString(aTile.x));
+		result = result.replaceFirst("\\$y", Integer.toString(aTile.y));
+		result = result.replaceFirst("\\$quadkey", quadTree(aTile));
 		return result;
 	}
 	
@@ -120,7 +101,6 @@ public class OpenStreetMapTileServer {
 				digit += 2;
 			quadKey.append(digit);
 		}
-
 		return quadKey.toString();
 	}
 	
