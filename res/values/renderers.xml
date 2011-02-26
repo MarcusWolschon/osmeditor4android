@@ -5,7 +5,6 @@
   <item>OsmaRender</item>
   <item>Mapnik</item>
   <item>OpenCycleMap</item>
-  <item>Cycle Map</item>
   <item>MapQuest</item>
   <item>OS OpenData Streetview</item>
   <item>OS OpenData Locator</item>
@@ -25,10 +24,8 @@
   <item>OpenAerialMap (Satellite)</item>
   <item>Trails</item>
   <item>Relief</item>
-  <item>Cloudmade (Small tiles)</item>
-  <item>Cloudmade (Standard tiles)</item>
-  <item>Cloudmade (Noname)</item>
   <item>Nearmaps</item>
+  <item>Bing</item>
   -->
 </string-array>
 <!-- Preference values in same order as renderer_names above -->
@@ -37,7 +34,6 @@
   <item>OSMARENDER</item>
   <item>MAPNIK</item>
   <item>OPENCYCLEMAP</item>
-  <item>CYCLEMAP</item>
   <item>MAPQUEST</item>
   <item>OSODSTREETVIEW</item>
   <item>OSODLOCATOR</item>
@@ -57,10 +53,8 @@
   <item>OPENAERIALMAP</item>
   <item>TRAILS</item>
   <item>RELIEF</item>
-  <item>CLOUDMADESMALLTILES</item>
-  <item>CLOUDMADESTANDARDTILES</item>
-  <item>CLOUDMADENONAMETILES</item>
   <item>NEARMAPS</item>
+  <item>BING</item>
   -->
 </string-array>
 <!-- Configurations must be in same order as above -->
@@ -69,13 +63,11 @@
      URL suffix
      Minimum zoom
      Maximum zoom
-     Tilesize in bits
-     Coding scheme ("xy" for the OSM tile X/Y or "qt" for quadtree) -->
+     Tilesize in bits -->
 <string-array name="renderer_configs">
   <item>http://tah.openstreetmap.org/Tiles/tile/$z/$x/$y.png .png 0 17 8</item>
   <item>http://tile.openstreetmap.org/$z/$x/$y.png .png 0 18 8</item>
-  <item>http://tile.opencyclemap.org/cycle/$z/$x/$y.png .png 0 15 8</item>
-  <item>http://b.andy.sandbox.cloudmade.com/tiles/cycle/$z/$x/$y.png .png 0 16 8</item>
+  <item>http://tile.opencyclemap.org/cycle/$z/$x/$y.png .png 0 17 8</item>
   <item>http://otile1.mqcdn.com/tiles/1.0.0/osm/$z/$x/$y.png .png 0 18 8</item>
   <item>http://os.openstreetmap.org/sv/$z/$x/$y.png .png 6 17 8</item>
   <item>http://tiles.itoworld.com/os_locator/$z/$x/$y.png .png 0 18 8</item>
@@ -95,10 +87,8 @@
   <item>http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/$z/$x/$y.jpg .jpg 0 13 8</item>
   <item>http://topo.geofabrik.de/trails/$z/$x/$y.png .png 4 17 8</item>
   <item>http://topo.geofabrik.de/relief/$z/$x/$y.png .png 8 17 8</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/64/$z/$x/$y.jpg .jpg 0 13 6</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/256/$z/$x/$y.jpg .jpg 0 18 8</item>
-  <item>http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/3/256/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://www.nearmap.com/maps/nml=Vert&amp;zxy=$z,$x,$y .jpg 0 21 8</item>
+  <item>http://ecn.t0.tiles.virtualearth.net/tiles/a$quadkey.jpeg?g=587&amp;mkt=en-gb&amp;n=z .jpg 0 19 8</item>
   -->
 </string-array>
 </resources>
