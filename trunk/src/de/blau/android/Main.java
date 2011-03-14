@@ -204,6 +204,27 @@ public class Main extends Activity {
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		final MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
+		if (!prefs.isOpenStreetBugsEnabled()) {
+			menu.removeItem(R.id.menu_openstreetbug);
+		}
+		return true;
+	}
+
+	/**
+	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(final Menu menu) {
+		if (!prefs.isOpenStreetBugsEnabled()) {
+			menu.removeItem(R.id.menu_openstreetbug);
+		} else {
+			if(menu.findItem(R.id.menu_openstreetbug) == null) {
+				// restore missing menu item
+				menu.clear();
+				final MenuInflater inflater = getMenuInflater();
+				inflater.inflate(R.menu.main_menu, menu);
+			}
+		}
 		return true;
 	}
 
@@ -242,6 +263,10 @@ public class Main extends Activity {
 			logic.setMode(Logic.Mode.MODE_SPLIT);
 			//TODO: no icon yet getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
 			return true;
+
+		case R.id.menu_openstreetbug:
+			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
+			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
 
 		case R.id.menu_append:
 			logic.setMode(Logic.Mode.MODE_APPEND);
@@ -681,11 +706,11 @@ public class Main extends Activity {
 				if (isInEditZoomRange) {
 					switch (mode) {
 					case MODE_MOVE:
+						break;
+					case MODE_OPENSTREETBUG:
 						switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 						case 0:
-							if (prefs.isOpenStreetBugsEnabled()) {
-								performBugEdit(logic.makeNewBug(x, y));
-							}
+							performBugEdit(logic.makeNewBug(x, y));
 							break;
 						case 1:
 							performBugEdit(clickedBugs.get(0));

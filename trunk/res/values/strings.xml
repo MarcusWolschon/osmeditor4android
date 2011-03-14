@@ -42,6 +42,7 @@
 	<string name="toast_waiting_for_gps">Waiting for GPS location...</string>
 	<string name="toast_follow_gps_off">GPS following disabled</string>
 	<string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
+	<string name="toast_file_openstreetbug">Tap inside map to file OpenStreetBug</string>
 
 	<!-- ErrorMailer  -->
 	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
@@ -86,6 +87,7 @@
 	<string name="menu_split">split way</string>
 	<string name="menu_append">Append</string>
 	<string name="menu_tag">Edit tags</string>
+	<string name="menu_openstreetbug">File OpenStreetBug</string>
 	<string name="menu_gps">GPS...</string>
 	<string name="menu_gps_start_pause">Start/pause GPS track</string>
 	<string name="menu_gps_follow">Follow GPS position</string>
