@@ -48,19 +48,16 @@ public class Logic {
 	/**
 	 * Enums for modes.
 	 */
-	public static final byte MODE_MOVE = 0;
+	public static enum Mode {
+		MODE_MOVE,
+		MODE_EDIT,
+		MODE_ADD,
+		MODE_ERASE,
+		MODE_APPEND,
+		MODE_TAG_EDIT,
+		MODE_SPLIT
+	}
 
-	public static final byte MODE_EDIT = 1;
-
-	public static final byte MODE_ADD = 2;
-
-	public static final byte MODE_ERASE = 3;
-
-	public static final byte MODE_APPEND = 4;
-
-	public static final byte MODE_TAG_EDIT = 5;
-
-	public static final byte MODE_SPLIT = 6;
 	/**
 	 * Enums for directions. Used for translation via cursor-pad.
 	 */
@@ -134,7 +131,7 @@ public class Logic {
 	/**
 	 * Current mode.
 	 */
-	private byte mode;
+	private Mode mode;
 
 	/**
 	 * The viewBox for the map. All changes on this Object are made in here or in {@link Tracker}.
@@ -170,7 +167,7 @@ public class Logic {
 		viewBox = delegator.getOriginalBox();
 		tracker = new Tracker(locationManager, map);
 
-		mode = MODE_MOVE;
+		mode = Mode.MODE_MOVE;
 		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
@@ -214,7 +211,7 @@ public class Logic {
 	 * 
 	 * @param mode mode.
 	 */
-	public void setMode(final byte mode) {
+	public void setMode(final Mode mode) {
 		this.mode = mode;
 		map.setMode(mode);
 		setSelectedBug(null);
@@ -223,7 +220,7 @@ public class Logic {
 		map.invalidate();
 	}
 
-	public byte getMode() {
+	public Mode getMode() {
 		return mode;
 	}
 
@@ -451,7 +448,7 @@ public class Logic {
 	 * @param y display-coord.
 	 */
 	void handleTouchEventDown(final float x, final float y) {
-		if (isInEditZoomRange() && mode == MODE_EDIT) {
+		if (isInEditZoomRange() && mode == Mode.MODE_EDIT) {
 			// TODO Need to handle multiple possible targets here too (Issue #6)
 			setSelectedNode(getClickedNode(x, y));
 			map.invalidate();
@@ -472,7 +469,7 @@ public class Logic {
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX,
 			final float relativeY, final boolean hasMoved) {
-		if (mode == MODE_EDIT && selectedNode != null && isInEditZoomRange()) {
+		if (mode == Mode.MODE_EDIT && selectedNode != null && isInEditZoomRange()) {
 			if (hasMoved) {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
