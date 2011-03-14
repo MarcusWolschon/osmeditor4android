@@ -463,7 +463,7 @@ public class Map extends View implements IMapView {
 					//first node is the beginning. Start line here.
 					path.moveTo(x, y);
 				} else {
-					//TODO: if way has oneway=true/yes/1 or highway=motorway_link, then paint arrows to show the direction od ascending nodes
+					//TODO: if way has oneway=true/yes/1 or highway=motorway_link, then paint arrows to show the direction of ascending nodes
 					path.lineTo(x, y);
 				}
 				++visibleSections;
