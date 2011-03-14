@@ -190,8 +190,6 @@ public class TagEditor extends Activity {
 		lastEditKey = keyEdit;
 		lastEditKey.setOnKeyListener(myKeyListener);
 		lastEditKey.setSingleLine(true);
-		//TODO: we may parse JOSM-stylesheets for these values and even add an ArrayAdapter for the values
-		//ArrayAdapter<String> knownTagNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.known_tags));
 		ArrayAdapter<String> knownTagNamesAdapter;
 		try {
 			knownTagNamesAdapter = new TagKeyAutocompletionAdapter(this, android.R.layout.simple_dropdown_item_1line,
