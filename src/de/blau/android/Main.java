@@ -41,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 import android.widget.RelativeLayout.LayoutParams;
+import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
@@ -985,19 +986,19 @@ public class Main extends Activity {
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_UP:
-						translate(Logic.DIRECTION_UP);
+						translate(Logic.CursorPaddirection.DIRECTION_UP);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_DOWN:
-						translate(Logic.DIRECTION_DOWN);
+						translate(Logic.CursorPaddirection.DIRECTION_DOWN);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_LEFT:
-						translate(Logic.DIRECTION_LEFT);
+						translate(Logic.CursorPaddirection.DIRECTION_LEFT);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_RIGHT:
-						translate(Logic.DIRECTION_RIGHT);
+						translate(Logic.CursorPaddirection.DIRECTION_RIGHT);
 						return true;
 						
 					case KeyEvent.KEYCODE_VOLUME_UP:
@@ -1017,7 +1018,7 @@ public class Main extends Activity {
 			return false;
 		}
 		
-		private void translate(final byte direction) {
+		private void translate(final CursorPaddirection direction) {
 			logic.translate(direction);
 		}
 		
