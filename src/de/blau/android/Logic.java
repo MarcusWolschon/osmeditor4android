@@ -49,13 +49,38 @@ public class Logic {
 	 * Enums for modes.
 	 */
 	public static enum Mode {
+		/**
+		 * move nodes by tapping the screen
+		 */
 		MODE_MOVE,
+		/**
+		 * edit ways and nodes by tapping the screen
+		 */
 		MODE_EDIT,
+		/**
+		 * add nodes by tapping the screen
+		 */
 		MODE_ADD,
+		/**
+		 * erase ways and nodes by tapping the screen
+		 */
 		MODE_ERASE,
+		/**
+		 * append nodes to the end of a way by tapping the screen
+		 */
 		MODE_APPEND,
+		/**
+		 * edit tags of ways and nodes by tapping the screen
+		 */
 		MODE_TAG_EDIT,
-		MODE_SPLIT
+		/**
+		 * split ways by tapping the screen
+		 */
+		MODE_SPLIT,
+		/**
+		 * file bug in OpenStreetBugs by tapping the screen
+		 */
+		MODE_OPENSTREETBUG
 	}
 
 	/**

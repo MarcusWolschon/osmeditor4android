@@ -43,6 +43,11 @@
 		android:alphabeticShortcut="s"
 	/> <!-- TOOD: no icon yet -->
 	
+	<item android:id="@+id/menu_openstreetbug"
+		android:title="@string/menu_openstreetbug"
+		android:alphabeticShortcut="s"
+	/>
+	
 	
 	<item android:title="@string/menu_gps">	
 		<menu>
