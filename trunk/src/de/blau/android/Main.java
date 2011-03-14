@@ -41,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 import android.widget.RelativeLayout.LayoutParams;
+import de.blau.android.Logic.Mode;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
@@ -213,37 +214,37 @@ public class Main extends Activity {
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_move:
-			logic.setMode(Logic.MODE_MOVE);
+			logic.setMode(Logic.Mode.MODE_MOVE);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
 			return true;
 
 		case R.id.menu_edit:
-			logic.setMode(Logic.MODE_EDIT);
+			logic.setMode(Logic.Mode.MODE_EDIT);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_edit);
 			return true;
 
 		case R.id.menu_tag:
-			logic.setMode(Logic.MODE_TAG_EDIT);
+			logic.setMode(Logic.Mode.MODE_TAG_EDIT);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_tag);
 			return true;
 
 		case R.id.menu_add:
-			logic.setMode(Logic.MODE_ADD);
+			logic.setMode(Logic.Mode.MODE_ADD);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_add);
 			return true;
 
 		case R.id.menu_erase:
-			logic.setMode(Logic.MODE_ERASE);
+			logic.setMode(Logic.Mode.MODE_ERASE);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_erase);
 			return true;
 
 		case R.id.menu_split:
-			logic.setMode(Logic.MODE_SPLIT);
+			logic.setMode(Logic.Mode.MODE_SPLIT);
 			//TODO: no icon yet getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
 			return true;
 
 		case R.id.menu_append:
-			logic.setMode(Logic.MODE_APPEND);
+			logic.setMode(Logic.Mode.MODE_APPEND);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_append);
 			return true;
 
@@ -674,12 +675,12 @@ public class Main extends Activity {
 					clickedBugs = osbo.getClickedBugs(x, y, map.getViewBox());
 				}
 				
-				byte mode = logic.getMode();
+				Mode mode = logic.getMode();
 				boolean isInEditZoomRange = logic.isInEditZoomRange();
 
 				if (isInEditZoomRange) {
 					switch (mode) {
-					case Logic.MODE_MOVE:
+					case MODE_MOVE:
 						switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 						case 0:
 							if (prefs.isOpenStreetBugsEnabled()) {
@@ -694,19 +695,19 @@ public class Main extends Activity {
 							break;
 						}
 						break;
-					case Logic.MODE_ADD:
+					case MODE_ADD:
 						logic.performAdd(x, y);
 						break;
-					case Logic.MODE_TAG_EDIT:
+					case MODE_TAG_EDIT:
 						selectElementForTagEdit(v, x, y);
 						break;
-					case Logic.MODE_ERASE:
+					case MODE_ERASE:
 						selectElementForErase(v, x, y);
 						break;
-					case Logic.MODE_SPLIT:
+					case MODE_SPLIT:
 						selectElementForSplit(v, x, y);
 						break;
-					case Logic.MODE_APPEND:
+					case MODE_APPEND:
 						performAppend(v, x, y);
 						break;
 					}
@@ -715,7 +716,7 @@ public class Main extends Activity {
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 					case 0:
 						if (!isInEditZoomRange) {
-							if (mode == Logic.MODE_MOVE) {
+							if (mode == Logic.Mode.MODE_MOVE) {
 								if (prefs.isOpenStreetBugsEnabled()) {
 									Toast.makeText(getApplicationContext(), R.string.toast_not_in_bug_range, Toast.LENGTH_LONG).show();
 								}
@@ -907,16 +908,16 @@ public class Main extends Activity {
 				if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
 					OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {
-					case Logic.MODE_TAG_EDIT:
+					case MODE_TAG_EDIT:
 						performTagEdit(element);
 						break;
-					case Logic.MODE_ERASE:
+					case MODE_ERASE:
 						logic.performErase((Node) element);
 						break;
-					case Logic.MODE_SPLIT:
+					case MODE_SPLIT:
 						logic.performSplit((Node) element);
 						break;
-					case Logic.MODE_APPEND:
+					case MODE_APPEND:
 						switch (appendMode) {
 						case APPEND_START:
 							logic.performAppendStart(element);

@@ -14,6 +14,7 @@ import android.location.Location;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import de.blau.android.Logic.Mode;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -66,7 +67,7 @@ public class Map extends View implements IMapView {
 	
 	private StorageDelegator delegator;
 	
-	private byte mode;
+	private Mode mode;
 	
 	private boolean isInEditZoomRange;
 	
@@ -325,7 +326,7 @@ public class Map extends View implements IMapView {
 			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 			
 			//draw tolerance box
-			if (mode != Logic.MODE_APPEND || mySelectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
+			if (mode != Logic.Mode.MODE_APPEND || mySelectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
 			
@@ -371,7 +372,7 @@ public class Map extends View implements IMapView {
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			final float x, final float y) {
-		if (pref.isToleranceVisible() && mode != Logic.MODE_MOVE && isInEditZoomRange
+		if (pref.isToleranceVisible() && mode != Logic.Mode.MODE_MOVE && isInEditZoomRange
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
 			canvas.drawCircle(x, y, paints.get(Paints.NODE_TOLERANCE).getStrokeWidth(), paints
 					.get(Paints.NODE_TOLERANCE));
@@ -399,7 +400,7 @@ public class Map extends View implements IMapView {
 		
 		//draw way tolerance
 		if (pref.isToleranceVisible()
-				&& (mode == Logic.MODE_ADD || mode == Logic.MODE_TAG_EDIT || (mode == Logic.MODE_APPEND && mySelectedNode != null))
+				&& (mode == Logic.Mode.MODE_ADD || mode == Logic.Mode.MODE_TAG_EDIT || (mode == Logic.Mode.MODE_APPEND && mySelectedNode != null))
 				&& isInEditZoomRange) {
 			canvas.drawPath(path, paints.get(Paints.WAY_TOLERANCE));
 		}
@@ -524,7 +525,7 @@ public class Map extends View implements IMapView {
 		myViewBox = viewBox;
 	}
 	
-	void setMode(final byte mode) {
+	void setMode(final Mode mode) {
 		this.mode = mode;
 	}
 	
