@@ -143,8 +143,8 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	private String buildPath(final OpenStreetMapTile tile) {
 		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID);
 		return Environment.getExternalStorageDirectory().getPath()
-					+ "/andnav2/tiles/" + renderer.ID + "/" + tile.zoomLevel + "/"
-					+ tile.x + "/" + tile.y + renderer.IMAGE_FILENAMEENDING + ".andnav"; 
+					+ "/andnav2/tiles/" + renderer.getId() + "/" + tile.zoomLevel + "/"
+					+ tile.x + "/" + tile.y + renderer.getImageExtension() + ".andnav"; 
 	}
 	
 	private InputStream getInput(final OpenStreetMapTile tile) throws FileNotFoundException {

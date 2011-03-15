@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Response>
+  <ResourceSets>
+    <ResourceSet>
+      <Resources>
+        <ImageryMetadata>
+          <ImageUrl>
+            http://{subdomain}.tile.openstreetmap.org/{z}/{x}/{y}.png
+          </ImageUrl>
+          <ImageUrlSubdomains>
+            <string>
+              a
+            </string>
+            <string>
+              b
+            </string>
+            <string>
+              c
+            </string>
+          </ImageUrlSubdomains>
+          <ImageWidth>
+            256
+          </ImageWidth>
+          <ImageHeight>
+            256
+          </ImageHeight>
+          <ZoomMin>
+            0
+          </ZoomMin>
+          <ZoomMax>
+            18
+          </ZoomMax>
+        </ImageryMetadata>
+      </Resources>
+    </ResourceSet>
+  </ResourceSets>
+</Response>
