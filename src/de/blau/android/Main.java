@@ -663,8 +663,7 @@ public class Main extends Activity {
 				touchEventUp(v, x, y);
 				break;
 			}
-			//v.onTouchEvent(m); // disabled - problems with long press showing context menu
-			return true;
+			return v.onTouchEvent(m);
 		}
 		
 		/**

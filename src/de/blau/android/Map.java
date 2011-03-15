@@ -566,8 +566,8 @@ public class Map extends View implements IMapView {
 		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
 		
 		// Calculate the ideal zoom to fit into the view
-		final double xTiles = ((double)viewPort.width()  / (xTileRight  - xTileLeft)) / s.MAPTILE_SIZEPX;
-		final double yTiles = ((double)viewPort.height() / (yTileBottom - yTileTop )) / s.MAPTILE_SIZEPX;
+		final double xTiles = ((double)viewPort.width()  / (xTileRight  - xTileLeft)) / s.getTileWidth();
+		final double yTiles = ((double)viewPort.height() / (yTileBottom - yTileTop )) / s.getTileHeight();
 		final double xZoom = Math.log(xTiles) / Math.log(2d);
 		final double yZoom = Math.log(yTiles) / Math.log(2d);
 		
@@ -575,8 +575,8 @@ public class Map extends View implements IMapView {
 		int zoom = (int)Math.floor(Math.min(xZoom, yZoom));
 		
 		// Sanity check result
-		zoom = Math.max(zoom, s.ZOOM_MINLEVEL);
-		zoom = Math.min(zoom, s.ZOOM_MAXLEVEL);
+		zoom = Math.max(zoom, s.getMinZoomLevel());
+		zoom = Math.min(zoom, s.getMaxZoomLevel());
 		
 		return zoom;
 	}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Response>
+  <ResourceSets>
+    <ResourceSet>
+      <Resources>
+        <ImageryMetadata>
+          <ImageUrl>
+            http://os.openstreetmap.org/sv/{z}/{x}/{y}.png
+          </ImageUrl>
+          <ImageWidth>
+            256
+          </ImageWidth>
+          <ImageHeight>
+            256
+          </ImageHeight>
+          <ZoomMin>
+            6
+          </ZoomMin>
+          <ZoomMax>
+            17
+          </ZoomMax>
+        </ImageryMetadata>
+      </Resources>
+    </ResourceSet>
+  </ResourceSets>
+</Response>

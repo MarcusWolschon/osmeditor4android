@@ -4,6 +4,8 @@
 <string-array name="renderer_names">
   <item>OsmaRender</item>
   <item>Mapnik</item>
+  <item>Noname (Cloudmade)</item>
+  <item>Bing Aerial Imagery</item>
   <item>OpenCycleMap</item>
   <item>MapQuest</item>
   <item>OS OpenData Streetview</item>
@@ -25,7 +27,6 @@
   <item>Trails</item>
   <item>Relief</item>
   <item>Nearmaps</item>
-  <item>Bing</item>
   -->
 </string-array>
 <!-- Preference values in same order as renderer_names above -->
@@ -33,6 +34,8 @@
 <string-array name="renderer_ids">
   <item>OSMARENDER</item>
   <item>MAPNIK</item>
+  <item>CLOUDMADENONAME</item>
+  <item>BING</item>
   <item>OPENCYCLEMAP</item>
   <item>MAPQUEST</item>
   <item>OSODSTREETVIEW</item>
@@ -54,26 +57,32 @@
   <item>TRAILS</item>
   <item>RELIEF</item>
   <item>NEARMAPS</item>
-  <item>BING</item>
   -->
 </string-array>
 <!-- Configurations must be in same order as above -->
+<!-- Fields are whitespace separated:
+     URL suffix
+     Metadata URL
+     Terms of Use URL (optional) -->
+<string-array name="renderer_configs">
+  <item>.png @raw/osmarender</item>
+  <item>.png @raw/mapnik</item>
+  <item>.png @raw/cloudmadenoname</item>
+  <item>.jpg http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&amp;key={bingapikey}&amp;include=ImageryProviders&amp;output=xml http://go.microsoft.com/?linkid=9710837</item>
+  <item>.png @raw/opencyclemap</item>
+  <item>.png @raw/mapquest http://info.mapquest.com/terms-of-use/</item>
+  <item>.png @raw/osodstreetview</item>
+  <item>.png @raw/osodlocator</item>
+  <item>.png @raw/osnpehistoric</item>
+  <item>.png @raw/surreyaerial</item>
+  <item>.jpg @raw/denmarkfugro</item>
+  
 <!-- Fields are whitespace separated:
      Base URL
      URL suffix
      Minimum zoom
      Maximum zoom
      Tilesize in bits -->
-<string-array name="renderer_configs">
-  <item>http://tah.openstreetmap.org/Tiles/tile/$z/$x/$y.png .png 0 17 8</item>
-  <item>http://tile.openstreetmap.org/$z/$x/$y.png .png 0 18 8</item>
-  <item>http://tile.opencyclemap.org/cycle/$z/$x/$y.png .png 0 17 8</item>
-  <item>http://otile1.mqcdn.com/tiles/1.0.0/osm/$z/$x/$y.png .png 0 18 8</item>
-  <item>http://os.openstreetmap.org/sv/$z/$x/$y.png .png 6 17 8</item>
-  <item>http://tiles.itoworld.com/os_locator/$z/$x/$y.png .png 0 18 8</item>
-  <item>http://ooc.openstreetmap.org/npe/$z/$x/$y.png .png 6 15 8</item>
-  <item>http://gravitystorm.dev.openstreetmap.org/surrey/$z/$x/$y.png .png 8 19 8</item>
-  <item>http://fugro.openstreetmap.dk/fugro2005/$z/$x/$y.jpg .jpg 0 19 8</item>
   <!-- Following are untested:
   <item>http://gravitystorm.dev.openstreetmap.org/imagery/haiti/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://maps.nypl.org/tilecache/1/geoeye/$z/$x/$y.jpg .jpg 0 18 8</item>
@@ -88,7 +97,6 @@
   <item>http://topo.geofabrik.de/trails/$z/$x/$y.png .png 4 17 8</item>
   <item>http://topo.geofabrik.de/relief/$z/$x/$y.png .png 8 17 8</item>
   <item>http://www.nearmap.com/maps/nml=Vert&amp;zxy=$z,$x,$y .jpg 0 21 8</item>
-  <item>http://ecn.t0.tiles.virtualearth.net/tiles/a$quadkey.jpeg?g=587&amp;mkt=en-gb&amp;n=z .jpg 0 19 8</item>
   -->
 </string-array>
 </resources>
