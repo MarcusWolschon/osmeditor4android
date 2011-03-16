@@ -9,14 +9,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.graphics.Rect;
 import android.util.Log;
@@ -80,11 +77,20 @@ public class Database {
 					"&t=" + (double)area.top / 1E7d +
 					"&r=" + (double)area.right / 1E7d +
 					"&b=" + (double)area.bottom / 1E7d);
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			Document d = factory.newDocumentBuilder().parse(is);
-			NodeList bugs = d.getElementsByTagName("wpt");
-			for (int i = 0; i < bugs.getLength(); ++i) {
-				result.add(new Bug((Element)bugs.item(i)));
+			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+			factory.setNamespaceAware(true);
+			XmlPullParser parser = factory.newPullParser();
+			parser.setInput(is, null);
+			int eventType;
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();
+				if (eventType == XmlPullParser.START_TAG && tagName.equals("wpt")) {
+					try {
+						result.add(new Bug(parser));
+					} catch (Exception x) {
+						// ignore
+					}
+				}
 			}
 		} catch (Exception e) {
 			// ignore

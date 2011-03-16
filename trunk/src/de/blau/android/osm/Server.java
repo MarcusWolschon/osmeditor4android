@@ -13,9 +13,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPInputStream;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
@@ -79,7 +77,7 @@ public class Server {
 
 	private String generator;
 
-	private final XmlPullParserFactory xmlParserfactory;
+	private final XmlPullParserFactory xmlParserFactory;
 
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
@@ -106,7 +104,7 @@ public class Server {
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
 		}
-		xmlParserfactory = factory;
+		xmlParserFactory = factory;
 	}
 	
 	/**
@@ -116,17 +114,20 @@ public class Server {
 	public String getDisplayName() {
 		if (display_name == null) {
 			// Haven't retrieved the display name from OSM - try to
-			HttpURLConnection connection = null;
 			try {
-				connection = openConnectionForWriteAccess(getUserDetailsUrl(), "GET");
+				HttpURLConnection connection = openConnectionForWriteAccess(getUserDetailsUrl(), "GET");
 				try {
 					connection.getOutputStream().close();
 					checkResponseCode(connection);
-					InputStream in = connection.getInputStream();
-					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-					Document d = factory.newDocumentBuilder().parse(in);
-					Element user = (Element)d.getElementsByTagName("user").item(0);
-					display_name = user.getAttribute("display_name");
+					XmlPullParser parser = xmlParserFactory.newPullParser();
+					parser.setInput(connection.getInputStream(), null);
+					int eventType;
+					while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+						String tagName = parser.getName();
+						if (eventType == XmlPullParser.START_TAG && tagName.equals("user")) {
+							display_name = parser.getAttributeValue(null, "display_name");
+						}
+					}
 				} finally {
 					disconnect(connection);
 				}
@@ -465,7 +466,7 @@ public class Server {
 
 	public XmlSerializer getXmlSerializer() {
 		try {
-			XmlSerializer serializer = xmlParserfactory.newSerializer();
+			XmlSerializer serializer = xmlParserFactory.newSerializer();
 			serializer.setPrefix("", "");
 			return serializer;
 		} catch (IllegalArgumentException e) {

@@ -1,6 +1,7 @@
 // Created by plusminus on 18:23:16 - 25.09.2008
 package  de.blau.android.views.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,11 +10,9 @@ import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Queue;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.res.Resources;
 import android.graphics.RectF;
@@ -35,18 +34,6 @@ import de.blau.android.services.util.OpenStreetMapTile;
  */
 public class OpenStreetMapTileServer {
 	
-	private static String nodeText(Node n) {
-		return n.getFirstChild().getNodeValue().trim();
-	}
-	
-	private static String tagValue(Element e, String tagName) {
-		try {
-			return nodeText(e.getElementsByTagName(tagName).item(0));
-		} catch (Exception x) {
-			return null;
-		}
-	}
-	
 	/** A tile layer provide has some attribution text, and one or more coverage areas.
 	 * @author Andrew Gregory
 	 */
@@ -58,19 +45,43 @@ public class OpenStreetMapTileServer {
 			/** Zoom and area of this coverage area. */
 			private int zoomMin;
 			private int zoomMax;
-			private RectF area; // left<=right, top<=bottom
+			private RectF area = new RectF(); // left<=right, top<=bottom
 			/**
-			 * Create a coverage area given a CoverageArea element.
-			 * @param coverageArea A CoverageArea tile metadata element.
+			 * Create a coverage area given XML data.
+			 * @param parser The XML parser.
+			 * @throws XmlPullParserException If there was a problem parsing the XML.
+			 * @throws NumberFormatException If any of the numbers couldn't be parsed.
 			 */
-			public CoverageArea(Element coverageArea) {
-				zoomMin = Integer.parseInt(tagValue(coverageArea, "ZoomMin"));
-				zoomMax = Integer.parseInt(tagValue(coverageArea, "ZoomMax"));
-				float n = Float.parseFloat(tagValue(coverageArea, "NorthLatitude"));
-				float s = Float.parseFloat(tagValue(coverageArea, "SouthLatitude"));
-				float e = Float.parseFloat(tagValue(coverageArea, "EastLongitude"));
-				float w = Float.parseFloat(tagValue(coverageArea, "WestLongitude"));
-				area = new RectF(w, s, e, n);
+			public CoverageArea(XmlPullParser parser) throws IOException, NumberFormatException, XmlPullParserException {
+				int eventType;
+				while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+					String tagName = parser.getName();
+					if (eventType == XmlPullParser.END_TAG) {
+						if (tagName.equals("CoverageArea")) {
+							break;
+						}
+					}
+					if (eventType == XmlPullParser.START_TAG) {
+						if (tagName.equals("ZoomMin") && parser.next() == XmlPullParser.TEXT) {
+							zoomMin = Integer.parseInt(parser.getText().trim());
+						}
+						if (tagName.equals("ZoomMax") && parser.next() == XmlPullParser.TEXT) {
+							zoomMax = Integer.parseInt(parser.getText().trim());
+						}
+						if (tagName.equals("NorthLatitude") && parser.next() == XmlPullParser.TEXT) {
+							area.bottom = Float.parseFloat(parser.getText().trim());
+						}
+						if (tagName.equals("SouthLatitude") && parser.next() == XmlPullParser.TEXT) {
+							area.top = Float.parseFloat(parser.getText().trim());
+						}
+						if (tagName.equals("EastLongitude") && parser.next() == XmlPullParser.TEXT) {
+							area.right = Float.parseFloat(parser.getText().trim());
+						}
+						if (tagName.equals("WestLongitude") && parser.next() == XmlPullParser.TEXT) {
+							area.left = Float.parseFloat(parser.getText().trim());
+						}
+					}
+				}
 			}
 			/**
 			 * Test if the given zoom and area is covered by this coverage area.
@@ -88,14 +99,32 @@ public class OpenStreetMapTileServer {
 		/** Coverage area provided by this provider. */
 		private Collection<CoverageArea> coverageAreas = new ArrayList<CoverageArea>();
 		/**
-		 * Create a new Provider from an ImageryProvider metadata element.
-		 * @param imageryProvider An ImageryProvider metadata element.
+		 * Create a new Provider from XML data.
+		 * @param parser The XML parser.
+		 * @throws IOException If there was a problem parsing the XML.
+		 * @throws XmlPullParserException If there was a problem parsing the XML.
 		 */
-		public Provider(Element imageryProvider) {
-			attribution = tagValue(imageryProvider, "Attribution");
-			NodeList nl = imageryProvider.getElementsByTagName("CoverageArea");
-			for (int i = 0; i < nl.getLength(); ++i) {
-				coverageAreas.add(new CoverageArea((Element)nl.item(i)));
+		public Provider(XmlPullParser parser) throws XmlPullParserException, IOException {
+			int eventType;
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();
+				if (eventType == XmlPullParser.END_TAG) {
+					if (tagName.equals("ImageryProvider")) {
+						break;
+					}
+				}
+				if (eventType == XmlPullParser.START_TAG) {
+					if (tagName.equals("Attribution") && parser.next() == XmlPullParser.TEXT) {
+						attribution = parser.getText().trim();
+					}
+					if (tagName.equals("CoverageArea")) {
+						try {
+							coverageAreas.add(new CoverageArea(parser));
+						} catch (Exception x) {
+							// do nothing
+						}
+					}
+				}
 			}
 		}
 		/**
@@ -158,8 +187,10 @@ public class OpenStreetMapTileServer {
 			imageFilenameExtension = cfgItems[0];
 			String metadataUrl = cfgItems[1];
 			touUri = (cfgItems.length > 2) ? cfgItems[2] : null;
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			try {
+				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(true);
+				XmlPullParser parser = factory.newPullParser();
 				// Get the tile metadata
 				InputStream is;
 				if (metadataUrl.startsWith("@raw/")) {
@@ -170,54 +201,48 @@ public class OpenStreetMapTileServer {
 					// assume Internet URL
 					is = new URL(replaceGeneralParameters(metadataUrl)).openStream();
 				}
-				Document d = factory.newDocumentBuilder().parse(is);
-				NodeList nl;
+				parser.setInput(is, null);
 				
-				// See if there's a branding logo
-				String brandLogoUri = tagValue(d.getDocumentElement(), "BrandLogoUri");
-				brandLogo = null;
-				if (brandLogoUri != null) {
-					if (brandLogoUri.startsWith("@drawable/")) {
-						// internal URL
-						int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
-						brandLogo = r.getDrawable(resid);
-					} else {
-						// assume Internet URL
-						InputStream bis = new URL(replaceGeneralParameters(brandLogoUri)).openStream();
-						brandLogo = new BitmapDrawable(bis);
-					}
-				}
-				
-				// Get the various parameters
-				Element metadata = (Element)d.getElementsByTagName("ImageryMetadata").item(0);
-				nl = metadata.getChildNodes();
-				for (int i = 0; i < nl.getLength(); ++i) {
-					Node n = nl.item(i);
-					if (n.getNodeType() == Node.ELEMENT_NODE) {
-						if (n.getNodeName().equals("ImageUrl")) {
-							tileUrl = nodeText(n);
-						}
-						if (n.getNodeName().equals("ImageUrlSubdomains")) {
-							NodeList s = ((Element)n).getElementsByTagName("string");
-							for (int si = 0; si < s.getLength(); ++si) {
-								subdomains.add(nodeText(s.item(si)));
+				int eventType;
+				while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+					String tagName = parser.getName();
+					if (eventType == XmlPullParser.START_TAG) {
+						if (tagName.equals("BrandLogoUri") && parser.next() == XmlPullParser.TEXT) {
+							String brandLogoUri = parser.getText().trim();
+							if (brandLogoUri.startsWith("@drawable/")) {
+								// internal URL
+								int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
+								brandLogo = r.getDrawable(resid);
+							} else {
+								// assume Internet URL
+								InputStream bis = new URL(replaceGeneralParameters(brandLogoUri)).openStream();
+								brandLogo = new BitmapDrawable(bis);
 							}
 						}
-						if (n.getNodeName().equals("ImageWidth")) {
-							tileWidth = Integer.parseInt(nodeText(n));
+						if (tagName.equals("ImageUrl") && parser.next() == XmlPullParser.TEXT) {
+							tileUrl = parser.getText().trim();
 						}
-						if (n.getNodeName().equals("ImageHeight")) {
-							tileHeight = Integer.parseInt(nodeText(n));
+						if (tagName.equals("string") && parser.next() == XmlPullParser.TEXT) {
+							subdomains.add(parser.getText().trim());
 						}
-						if (n.getNodeName().equals("ZoomMin")) {
-							zoomLevelMin = Integer.parseInt(nodeText(n));
+						if (tagName.equals("ImageWidth") && parser.next() == XmlPullParser.TEXT) {
+							tileWidth = Integer.parseInt(parser.getText().trim());
 						}
-						if (n.getNodeName().equals("ZoomMax")) {
-							zoomLevelMax = Integer.parseInt(nodeText(n));
+						if (tagName.equals("ImageHeight") && parser.next() == XmlPullParser.TEXT) {
+							tileHeight = Integer.parseInt(parser.getText().trim());
 						}
-						if (n.getNodeName().equals("ImageryProvider")) {
-							// Collect attribution information
-							providers.add(new Provider((Element)n));
+						if (tagName.equals("ZoomMin") && parser.next() == XmlPullParser.TEXT) {
+							zoomLevelMin = Integer.parseInt(parser.getText().trim());
+						}
+						if (tagName.equals("ZoomMax") && parser.next() == XmlPullParser.TEXT) {
+							zoomLevelMax = Integer.parseInt(parser.getText().trim());
+						}
+						if (tagName.equals("ImageryProvider")) {
+							try {
+								providers.add(new Provider(parser));
+							} catch (Exception x) {
+								// ignore
+							}
 						}
 					}
 				}

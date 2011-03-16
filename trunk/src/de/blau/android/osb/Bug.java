@@ -1,10 +1,12 @@
 package de.blau.android.osb;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.w3c.dom.Element;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * A bug in the OpenStreetBugs database, or a prospective new bug.
@@ -49,16 +51,35 @@ public class Bug {
 	}
 	
 	/**
-	 * Create a Bug from an OSB GPX XML element.
-	 * @param e GPX wpt element with OSB extensions.
+	 * Create a Bug from an OSB GPX XML wpt element.
+	 * @param parser Parser up to a wpt element.
+	 * @throws IOException If there was a problem parsing the XML.
+	 * @throws XmlPullParserException If there was a problem parsing the XML.
 	 */
-	public Bug(Element e) {
-		id = Long.parseLong(e.getElementsByTagName("id").item(0).getFirstChild().getNodeValue().trim());
-		lat = (int)(Double.parseDouble(e.getAttribute("lat")) * 1E7d);
-		lon = (int)(Double.parseDouble(e.getAttribute("lon")) * 1E7d);
-		closed = Integer.parseInt(e.getElementsByTagName("closed").item(0).getFirstChild().getNodeValue().trim()) != 0;
-		for (String c : e.getElementsByTagName("desc").item(0).getFirstChild().getNodeValue().trim().split("\\<hr \\/\\>")) {
-			comments.add(new BugComment(c));
+	public Bug(XmlPullParser parser) throws XmlPullParserException, IOException {
+		lat = (int)(Double.parseDouble(parser.getAttributeValue(null, "lat")) * 1E7d);
+		lon = (int)(Double.parseDouble(parser.getAttributeValue(null, "lon")) * 1E7d);
+		int eventType;
+		while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+			String tagName = parser.getName();
+			if (eventType == XmlPullParser.END_TAG) {
+				if (tagName.equals("wpt")) {
+					break;
+				}
+			}
+			if (eventType == XmlPullParser.START_TAG) {
+				if (tagName.equals("id") && parser.next() == XmlPullParser.TEXT) {
+					id = Long.parseLong(parser.getText().trim());
+				}
+				if (tagName.equals("closed") && parser.next() == XmlPullParser.TEXT) {
+					closed = Integer.parseInt(parser.getText().trim()) != 0;
+				}
+				if (tagName.equals("desc") && parser.next() == XmlPullParser.TEXT) {
+					for (String c : parser.getText().trim().split("\\<hr \\/\\>")) {
+						comments.add(new BugComment(c));
+					}
+				}
+			}
 		}
 	}
 	
