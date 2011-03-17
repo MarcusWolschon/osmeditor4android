@@ -142,18 +142,28 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 	private String buildPath(final OpenStreetMapTile tile) {
 		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID);
-		return Environment.getExternalStorageDirectory().getPath()
-					+ "/andnav2/tiles/" + renderer.getId() + "/" + tile.zoomLevel + "/"
-					+ tile.x + "/" + tile.y + renderer.getImageExtension() + ".andnav"; 
+		String ext = renderer.getImageExtension();
+		return (ext == null) ? null :
+				Environment.getExternalStorageDirectory().getPath()
+				+ "/andnav2/tiles/" + renderer.getId() + "/" + tile.zoomLevel + "/"
+				+ tile.x + "/" + tile.y + ext + ".andnav"; 
 	}
 	
 	private InputStream getInput(final OpenStreetMapTile tile) throws FileNotFoundException {
-		return new BufferedInputStream(new FileInputStream(buildPath(tile)), StreamUtils.IO_BUFFER_SIZE);
+		String path = buildPath(tile);
+		if (path == null) {
+			throw new FileNotFoundException("null tile path");
+		}
+		return new BufferedInputStream(new FileInputStream(path), StreamUtils.IO_BUFFER_SIZE);
 //		return new BufferedInputStream(this.mCtx.openFileInput(path), StreamUtils.IO_BUFFER_SIZE);
 	}
 	
 	private OutputStream getOutput(final OpenStreetMapTile tile) throws IOException {
-		File file = new File(buildPath(tile));
+		String path = buildPath(tile);
+		if (path == null) {
+			throw new FileNotFoundException("null tile path");
+		}
+		File file = new File(path);
 		File parent = file.getParentFile();
 		if (!parent.isDirectory()) {
 			synchronized (this) {
