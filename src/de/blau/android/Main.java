@@ -268,6 +268,7 @@ public class Main extends Activity {
 		case R.id.menu_openstreetbug:
 			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
 			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
+			return true;
 
 		case R.id.menu_append:
 			logic.setMode(Logic.Mode.MODE_APPEND);
@@ -682,8 +683,8 @@ public class Main extends Activity {
 		}
 
 		private void touchEventMove(final float x, final float y) {
-			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY, hasMoved(x, y));
 			if (hasMoved(x, y)) hasMoved = true;
+			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY, hasMoved);
 			oldPosX = x;
 			oldPosY = y;
 		}
