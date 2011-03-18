@@ -25,7 +25,23 @@ public class LoadFromFileThread extends LogicThread {
 	private final Runnable loadingDone = new Runnable() {
 		public void run() {
 			View map = caller.getCurrentFocus();
-			caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+			// showDialog() seems to use a separate thread to set up the dialog, and if
+			// this operation completes too quickly, dismissDialog() throws an
+			// IllegalArgumentException "no dialog with ID was ever shown"
+			boolean dismissed = false;
+			long giveUp = System.currentTimeMillis() + 3000;
+			while (!dismissed && System.currentTimeMillis() < giveUp) {
+				try {
+					caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					dismissed = true;
+				} catch (IllegalArgumentException iax) {
+					try {
+						sleep(100);
+					} catch (InterruptedException ix) {
+						// ignore
+					}
+				}
+			}
 			caller.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
 			viewBox.setRatio((float) map.getWidth() / map.getHeight());
 			paints.updateStrokes((Logic.STROKE_FACTOR / viewBox.getWidth()));

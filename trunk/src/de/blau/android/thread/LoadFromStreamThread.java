@@ -27,7 +27,23 @@ public class LoadFromStreamThread extends LogicThread {
 			View map = caller.getCurrentFocus();
 			viewBox.setRatio((float) map.getWidth() / map.getHeight());
 			map.invalidate();
-			caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+			// showDialog() seems to use a separate thread to set up the dialog, and if
+			// this operation completes too quickly, dismissDialog() throws an
+			// IllegalArgumentException "no dialog with ID was ever shown"
+			boolean dismissed = false;
+			long giveUp = System.currentTimeMillis() + 3000;
+			while (!dismissed && System.currentTimeMillis() < giveUp) {
+				try {
+					caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					dismissed = true;
+				} catch (IllegalArgumentException iax) {
+					try {
+						sleep(100);
+					} catch (InterruptedException ix) {
+						// ignore
+					}
+				}
+			}
 		}
 	};
 
