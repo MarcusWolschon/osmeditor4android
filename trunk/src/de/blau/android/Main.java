@@ -742,12 +742,26 @@ public class Main extends Activity {
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 					case 0:
 						if (!isInEditZoomRange) {
-							if (mode == Logic.Mode.MODE_MOVE) {
-								if (prefs.isOpenStreetBugsEnabled()) {
-									Toast.makeText(getApplicationContext(), R.string.toast_not_in_bug_range, Toast.LENGTH_LONG).show();
-								}
-							} else {
-								Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+							int res;
+							switch (mode) {
+							case MODE_ADD:
+							case MODE_EDIT:
+							case MODE_APPEND:
+							case MODE_ERASE:
+							case MODE_SPLIT:
+							case MODE_TAG_EDIT:
+								res = R.string.toast_not_in_edit_range;
+								break;
+							case MODE_OPENSTREETBUG:
+								res = R.string.toast_not_in_bug_range;
+								break;
+							case MODE_MOVE:
+							default:
+								res = 0;
+								break;
+							}
+							if (res != 0) {
+								Toast.makeText(getApplicationContext(), res, Toast.LENGTH_LONG).show();
 							}
 						}
 						break;
