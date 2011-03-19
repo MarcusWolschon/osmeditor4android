@@ -34,6 +34,9 @@ public class Database {
 	/** User agent string to use (optional). */
 	private static String userAgent = null;
 	
+	/** XML parser factory. */
+	private static XmlPullParserFactory factory = null;
+	
 	/**
 	 * Set the user agent string to use when accessing the OSB database.
 	 * @param userAgent The new user agent string.
@@ -77,8 +80,10 @@ public class Database {
 					"&t=" + (double)area.top / 1E7d +
 					"&r=" + (double)area.right / 1E7d +
 					"&b=" + (double)area.bottom / 1E7d);
-			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-			factory.setNamespaceAware(true);
+			if (factory == null) {
+				factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(true);
+			}
 			XmlPullParser parser = factory.newPullParser();
 			parser.setInput(is, null);
 			int eventType;
