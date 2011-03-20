@@ -9,6 +9,7 @@ Bing Maps has several legal requirements to the use of their aerial photography.
   * Use a registered API key to access the data.
   * Access tile servers indirectly via metadata.
 
+See also: [http://www.bing.com/community/site_blogs/b/maps/archive/2010/12/01/bing-maps-aerial-imagery-in-openstreetmap.aspx Bing Maps Imagery Editor API for aerial images in OpenStreetMap]
 
 = Details =
 
