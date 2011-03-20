@@ -68,7 +68,7 @@ A reduced representation of the response to that request is:
 </Response>
 }}}
 
-The actual response has multiple ImageryProvider elements, each of which has one or more CoverageArea elements.
+The actual response has multiple {{{ImageryProvider}}} elements, each of which has one or more {{{CoverageArea}}} elements.
 
 This response provides the URL to the tile servers, list of tile server subdomains, size of the tiles, zoom level range, the list of tile sources and the areas they provide, and a suitable logo to display.
 
