@@ -62,7 +62,7 @@ public class BoundingBox implements Serializable {
 	public static final String NAME = "bounds";
 
 	/**
-	 * Default zoom in factor. Have to be grater than 1.
+	 * Default zoom in factor. Have to be greater than 1.
 	 */
 	private static final float ZOOM_IN = 8;
 
@@ -306,7 +306,7 @@ public class BoundingBox implements Serializable {
 	 */
 	private void calcMercatorFactorPow3() {
 		//have to use floatingpoint, otherwise strange things will happen due to rounding errors.
-		final double centerLat = ((bottom + height / 2) / 1E7);
+		final double centerLat = ((bottom + height / 2) / 1E7d);
 		//powers 3 because it would be needed in later usage of this factor
 		mercatorFactorPow3 = GeoMath.getMercartorFactorPow3(centerLat);
 	}
@@ -391,8 +391,8 @@ public class BoundingBox implements Serializable {
 	 * @param latCenter the absoulte latitude for the center
 	 */
 	public void moveTo(final int lonCenter, final int latCenter) {
-		int mercatorHeight = (int) (mercatorFactorPow3 * height - height);
-		translate(lonCenter - left - width / 2, latCenter - bottom - mercatorHeight / 2);
+		// TODO is Mercator scaling adjustment required?
+		translate(lonCenter - left - width / 2, latCenter - bottom - height / 2);
 	}
 
 	/**
