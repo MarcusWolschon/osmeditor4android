@@ -33,7 +33,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	
 	public OpenStreetMapTileCache(){
-		this(CACHE_MAPTILECOUNT_DEFAULT);
+		this(defaultCacheSize());
 	}
 	
 	/**
@@ -62,6 +62,11 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	// Methods
 	// ===========================================================
+	
+	public static int defaultCacheSize() {
+		// Default to using half the available memory
+		return (int)(Runtime.getRuntime().maxMemory() / TILE_SIZE_BYTES / 2);
+	}
 	
 	public void clear() {
 		mCachedTiles.clear();
