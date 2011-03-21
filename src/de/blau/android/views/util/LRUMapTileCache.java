@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * Simple LRU cache for any type of object. Implemented as an extended
@@ -46,6 +47,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 */
 	public LRUMapTileCache(final int maxCacheSize) {
 		super(maxCacheSize);
+		Log.i("Vespucci", "maxCacheSize="+maxCacheSize);
 		this.maxCacheSize = Math.max(0, maxCacheSize);
 		this.list = new LinkedList<String>();
 	}
