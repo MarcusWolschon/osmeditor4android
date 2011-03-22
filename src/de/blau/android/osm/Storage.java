@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 import de.blau.android.exception.OsmException;
 
 public class Storage implements Serializable {
@@ -20,13 +22,13 @@ public class Storage implements Serializable {
 	private BoundingBox bbox;
 
 	Storage() {
-		this.nodes = new ArrayList<Node>();
-		this.ways = new ArrayList<Way>();
+		nodes = new ArrayList<Node>();
+		ways = new ArrayList<Way>();
 		try {
-			this.bbox = new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT, BoundingBox.MAX_LON,
+			bbox = new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT, BoundingBox.MAX_LON,
 					BoundingBox.MAX_LAT);
 		} catch (OsmException e) {
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem with bounding box", e);
 		}
 	}
 

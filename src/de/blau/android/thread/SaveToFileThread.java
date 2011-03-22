@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.R;
 import de.blau.android.osm.StorageDelegator;
@@ -36,8 +37,7 @@ public class SaveToFileThread extends LogicThread {
 				handler.post(done);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-			//exceptions.add(e);
+			Log.e("Vespucci", "Problem saving", e);
 		} finally {
 			handler.post(setProgressBarVisible(false));
 		}

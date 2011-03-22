@@ -45,7 +45,7 @@ public class Preferences {
 			NotFoundException {
 		try {
 			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
-		} catch (Exception e1) {
+		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsind config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
 			maxStrokeWidth = 10;
 		}

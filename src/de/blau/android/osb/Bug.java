@@ -55,8 +55,9 @@ public class Bug {
 	 * @param parser Parser up to a wpt element.
 	 * @throws IOException If there was a problem parsing the XML.
 	 * @throws XmlPullParserException If there was a problem parsing the XML.
+	 * @throws NumberFormatException If there was a problem parsing the XML.
 	 */
-	public Bug(XmlPullParser parser) throws XmlPullParserException, IOException {
+	public Bug(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
 		lat = (int)(Double.parseDouble(parser.getAttributeValue(null, "lat")) * 1E7d);
 		lon = (int)(Double.parseDouble(parser.getAttributeValue(null, "lon")) * 1E7d);
 		int eventType;

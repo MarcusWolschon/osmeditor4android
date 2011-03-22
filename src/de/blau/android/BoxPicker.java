@@ -316,7 +316,9 @@ public class BoxPicker extends Activity implements LocationListener {
 			float userLat = Float.parseFloat(lat);
 			float userLon = Float.parseFloat(lon);
 			box = GeoMath.createBoundingBoxForCoordinates(userLat, userLon, currentRadius);
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
+			showDialog(DIALOG_NAN);
+		} catch (OsmException e) {
 			showDialog(DIALOG_NAN);
 		}
 		return box;

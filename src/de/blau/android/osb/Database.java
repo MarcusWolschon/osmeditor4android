@@ -13,6 +13,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.graphics.Rect;
@@ -92,13 +93,28 @@ public class Database {
 				if (eventType == XmlPullParser.START_TAG && tagName.equals("wpt")) {
 					try {
 						result.add(new Bug(parser));
-					} catch (Exception x) {
-						// ignore
+					} catch (IOException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (XmlPullParserException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (NumberFormatException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
 					}
 				}
 			}
-		} catch (Exception e) {
-			// ignore
+		} catch (XmlPullParserException e) {
+			Log.e("Vespucci", "Database.get:Exception", e);
+		} catch (IOException e) {
+			Log.e("Vespucci", "Database.get:Exception", e);
+		} catch (IllegalStateException e) {
+			Log.e("Vespucci", "Database.get:Exception", e);
+		} catch (URISyntaxException e) {
 			Log.e("Vespucci", "Database.get:Exception", e);
 		}
 		return result;
@@ -125,8 +141,13 @@ public class Database {
 					bug.comments.add(comment);
 					return true;
 				}
-			} catch (Exception e) {
-				// ignore
+			} catch (NumberFormatException e) {
+				Log.e("Vespucci", "Database.add:Exception", e);
+			} catch (IOException e) {
+				Log.e("Vespucci", "Database.add:Exception", e);
+			} catch (IllegalStateException e) {
+				Log.e("Vespucci", "Database.add:Exception", e);
+			} catch (URISyntaxException e) {
 				Log.e("Vespucci", "Database.add:Exception", e);
 			}
 		}
@@ -152,8 +173,11 @@ public class Database {
 					bug.comments.add(comment);
 					return true;
 				}
-			} catch (Exception e) {
-				// ignore
+			} catch (IOException e) {
+				Log.e("Vespucci", "Database.edit:Exception", e);
+			} catch (IllegalStateException e) {
+				Log.e("Vespucci", "Database.edit:Exception", e);
+			} catch (URISyntaxException e) {
 				Log.e("Vespucci", "Database.edit:Exception", e);
 			}
 		}
@@ -177,8 +201,11 @@ public class Database {
 					bug.closed = true;
 					return true;
 				}
-			} catch (Exception e) {
-				// ignore
+			} catch (IOException e) {
+				Log.e("Vespucci", "Database.close:Exception", e);
+			} catch (IllegalStateException e) {
+				Log.e("Vespucci", "Database.close:Exception", e);
+			} catch (URISyntaxException e) {
 				Log.e("Vespucci", "Database.close:Exception", e);
 			}
 		}
