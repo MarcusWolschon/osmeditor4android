@@ -240,13 +240,21 @@ public class OpenStreetMapTileServer {
 						if (tagName.equals("ImageryProvider")) {
 							try {
 								providers.add(new Provider(parser));
-							} catch (Exception x) {
-								// ignore
+							} catch (IOException e) {
+								// if the provider can't be parsed, we can't do
+								// much about it
+								Log.e("Vespucci", "ImageryProvider problem", e);
+							} catch (XmlPullParserException e) {
+								// if the provider can't be parsed, we can't do
+								// much about it
+								Log.e("Vespucci", "ImageryProvider problem", e);
 							}
 						}
 					}
 				}
-			} catch (Exception e) {
+			} catch (IOException e) {
+				Log.e("Vespucci", "Tileserver problem", e);
+			} catch (XmlPullParserException e) {
 				Log.e("Vespucci", "Tileserver problem", e);
 			}
 			break;

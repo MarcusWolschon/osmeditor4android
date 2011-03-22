@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.res.Resources.NotFoundException;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import de.blau.android.DialogFactory;
@@ -34,11 +35,11 @@ public class LoadFromFileThread extends LogicThread {
 				try {
 					caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
 					dismissed = true;
-				} catch (IllegalArgumentException iax) {
+				} catch (IllegalArgumentException e) {
 					try {
 						sleep(100);
-					} catch (InterruptedException ix) {
-						// ignore
+					} catch (InterruptedException e2) {
+						// sleep cut short - not a problem
 					}
 				}
 			}
@@ -63,17 +64,11 @@ public class LoadFromFileThread extends LogicThread {
 			delegator.readFromFile(caller.getApplicationContext());
 			viewBox.setBorders(delegator.getOriginalBox());
 		} catch (NotFoundException e) {
-			e.printStackTrace();
-			//exceptions.add(e);
+			Log.e("Vespucci", "Problem loading:", e);
 		} catch (IOException e) {
-			e.printStackTrace();
-			//exceptions.add(e);
+			Log.e("Vespucci", "Problem loading:", e);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			//exceptions.add(e);
-		} catch (Exception e) {
-			e.printStackTrace();
-			//exceptions.add(e);
+			Log.e("Vespucci", "Problem loading:", e);
 		} finally {
 			handler.post(loadingDone);
 		}

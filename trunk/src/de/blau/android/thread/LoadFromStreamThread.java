@@ -1,10 +1,15 @@
 package de.blau.android.thread;
 
+import java.io.IOException;
 import java.io.InputStream;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import android.app.Activity;
-import android.content.res.Resources.NotFoundException;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import de.blau.android.DialogFactory;
 import de.blau.android.osm.BoundingBox;
@@ -36,11 +41,11 @@ public class LoadFromStreamThread extends LogicThread {
 				try {
 					caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
 					dismissed = true;
-				} catch (IllegalArgumentException iax) {
+				} catch (IllegalArgumentException e) {
 					try {
 						sleep(100);
-					} catch (InterruptedException ix) {
-						// ignore
+					} catch (InterruptedException e2) {
+						// sleep cut short - not a problem
 					}
 				}
 			}
@@ -58,8 +63,8 @@ public class LoadFromStreamThread extends LogicThread {
 
 	@Override
 	public void run() {
-		final OsmParser osmParser = new OsmParser();
 		try {
+			final OsmParser osmParser = new OsmParser();
 			osmParser.start(in);
 			delegator.reset();
 			delegator.setCurrentStorage(osmParser.getStorage());
@@ -67,9 +72,12 @@ public class LoadFromStreamThread extends LogicThread {
 				delegator.setOriginalBox(boxForEmptyData);
 			}
 			viewBox.setBorders(delegator.getOriginalBox());
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-			//exceptions.add(e);
+		} catch (SAXException e) {
+			Log.e("Vespucci", "Problem parsing", e);
+		} catch (IOException e) {
+			Log.e("Vespucci", "Problem parsing", e);
+		} catch (ParserConfigurationException e) {
+			Log.e("Vespucci", "Problem parsing", e);
 		} finally {
 			Server.close(in);
 			handler.post(loadingDone);

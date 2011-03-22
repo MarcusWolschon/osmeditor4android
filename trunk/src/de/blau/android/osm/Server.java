@@ -97,12 +97,9 @@ public class Server {
 
 		XmlPullParserFactory factory = null;
 		try {
-			factory = XmlPullParserFactory.newInstance(
-						System.getProperty(XmlPullParserFactory.PROPERTY_NAME), 
-						null
-					);
+			factory = XmlPullParserFactory.newInstance();
 		} catch (XmlPullParserException e) {
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem creating parser factory", e);
 		}
 		xmlParserFactory = factory;
 	}
@@ -131,9 +128,14 @@ public class Server {
 				} finally {
 					disconnect(connection);
 				}
-			} catch (Exception e) {
-				// ignore all problems
-				e.printStackTrace();
+			} catch (XmlPullParserException e) {
+				Log.e("Vespucci", "Problem accessing display name", e);
+			} catch (MalformedURLException e) {
+				Log.e("Vespucci", "Problem accessing display name", e);
+			} catch (ProtocolException e) {
+				Log.e("Vespucci", "Problem accessing display name", e);
+			} catch (IOException e) {
+				Log.e("Vespucci", "Problem accessing display name", e);
 			}
 		}
 		return display_name;
@@ -386,10 +388,10 @@ public class Server {
 	private void checkResponseCode(final HttpURLConnection connection) throws IOException, OsmException {
 		int responsecode = connection.getResponseCode();
 		if (responsecode != HttpURLConnection.HTTP_OK) {
-		    String responseMessage = connection.getResponseMessage();
-		    if (responseMessage == null) {
-		        responseMessage = "";
-		    }
+			String responseMessage = connection.getResponseMessage();
+			if (responseMessage == null) {
+				responseMessage = "";
+			}
 			InputStream in = connection.getErrorStream();
 			throw new OsmServerException(responsecode, responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
 			//TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
@@ -398,21 +400,17 @@ public class Server {
 
 	private static String readStream(final InputStream in) {
 		String res = "";
-		try {
-            if (in != null) {
-            	BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
-            	String line = null;
-            	try {
-            		while ((line = reader.readLine()) != null) {
-            			res += line;
-            		}
-            	} catch (IOException e) {
-            		Log.w(Server.class.getName() + ":readStream()", "Error in read-operation", e);
-            	}
-            }
-        } catch (Exception e) {
-            Log.w(Server.class.getName() + ":readStream()", "Error outside of read-operation", e);
-        }
+		if (in != null) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
+			String line = null;
+			try {
+				while ((line = reader.readLine()) != null) {
+					res += line;
+				}
+			} catch (IOException e) {
+				Log.e(Server.class.getName() + ":readStream()", "Error in read-operation", e);
+			}
+		}
 		return res;
 	}
 
@@ -423,7 +421,7 @@ public class Server {
 		try {
 			res = reader.readLine();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem reading", e);
 		}
 
 		return res;
@@ -434,7 +432,7 @@ public class Server {
 			try {
 				stream.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Log.e("Vespucci", "Problem closing", e);
 			}
 		}
 	}
@@ -470,13 +468,13 @@ public class Server {
 			serializer.setPrefix("", "");
 			return serializer;
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem getting serializer", e);
 		} catch (IllegalStateException e) {
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem getting serializer", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem getting serializer", e);
 		} catch (XmlPullParserException e) {
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem getting serializer", e);
 		}
 		return null;
 	}

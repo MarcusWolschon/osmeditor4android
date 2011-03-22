@@ -240,7 +240,7 @@ public class Map extends View implements IMapView {
 						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getBottom()));
 				canvas.drawOval(accuracyRect, paints.get(Paints.GPS_ACCURACY));
 			} catch (OsmException e) {
-				// ignore
+				// it doesn't matter if the location accuracy doesn't get drawn
 			}
 		}
 	}

@@ -486,11 +486,11 @@ public class Main extends Activity {
 			logic.downloadCurrent(this, handler);
 		} catch (OsmServerException e) {
 			showDialog(DialogFactory.UNDEFINED_ERROR);
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem downloading", e);
 			exceptions.add(e);
 		} catch (IOException e) {
 			showDialog(DialogFactory.NO_CONNECTION);
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem downloading", e);
 			exceptions.add(e);
 		}
 	}

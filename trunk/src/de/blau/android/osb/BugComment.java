@@ -1,6 +1,7 @@
 package de.blau.android.osb;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,14 +53,14 @@ public class BugComment {
 				try {
 					timestamp = df.parse(date);
 					break;
-				} catch (Exception x) {
-					// ignore - try next
+				} catch (ParseException e) {
+					// couldn't parse that format - try the next format
 				}
 			}
 			if (timestamp == null) {
 				Log.d("Vespucci", "BugComment:Couldn't parse:"+date);
 			}
-		} catch (Exception e) {
+		} catch (IndexOutOfBoundsException e) {
 			// could not find the end of the nickname, therefore could not find the date
 			// leave timestamp null
 		}
