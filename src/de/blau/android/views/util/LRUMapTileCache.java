@@ -116,7 +116,11 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 
 		// if the key isn't in the cache and the cache is full...
 		if (!containsKey(key)) {
-			while (cacheSizeBytes() >= maxCacheSize) {
+			long limit = maxCacheSize - value.getRowBytes() * value.getHeight();
+			if (limit < 0) {
+				limit = 0;
+			}
+			while (cacheSizeBytes() > limit) {
 				remove(list.getLast()).recycle();
 			}
 		}
