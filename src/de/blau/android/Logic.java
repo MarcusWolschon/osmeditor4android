@@ -2,12 +2,25 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.http.HttpStatus;
+import org.xml.sax.SAXException;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources.NotFoundException;
 import android.location.LocationManager;
-import android.os.Handler;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.Toast;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osb.Bug;
@@ -15,14 +28,11 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
+import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.Paints;
-import de.blau.android.thread.LoadFromFileThread;
-import de.blau.android.thread.LoadFromStreamThread;
-import de.blau.android.thread.SaveToFileThread;
-import de.blau.android.thread.UploadThread;
 import de.blau.android.util.GeoMath;
 
 /**
@@ -42,7 +52,6 @@ import de.blau.android.util.GeoMath;
  */
 public class Logic {
 
-	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = Main.class.getSimpleName();
 
 	/**
@@ -766,60 +775,241 @@ public class Logic {
 	}
 
 	/**
-	 * Loads the area defined by mapBox from the OSM-Server. Afterwards the {@link LoadFromStreamThread} will be
-	 * instanced and started.
+	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
 	 * @param caller Reference to the caller-activity.
-	 * @param handler Handler generated in the UI-Thread.
 	 * @param mapBox Box defining the area to be loaded.
-	 * @throws OsmServerException When a problem with the osm-server occurs.
-	 * @throws IOException general IOException
 	 */
-	void downloadBox(final Activity caller, final Handler handler, final BoundingBox mapBox) throws OsmServerException,
-			IOException {
-		InputStream in = prefs.getServer().getStreamForBox(mapBox);
-		paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
-		new LoadFromStreamThread(caller, handler, delegator, in, mapBox, viewBox).start();
+	void downloadBox(final Main caller, final BoundingBox mapBox) {
+		new AsyncTask<Void, Void, Integer>() {
+			
+			long started;
+			
+			@Override
+			protected void onPreExecute() {
+				caller.showDialog(DialogFactory.PROGRESS_LOADING);
+				started = System.currentTimeMillis();
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg0) {
+				int result = 0;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
+					try {
+						osmParser.start(in);
+						delegator.reset();
+						delegator.setCurrentStorage(osmParser.getStorage());
+						if (mapBox != null && delegator.isEmpty()) {
+							delegator.setOriginalBox(mapBox);
+						}
+						viewBox.setBorders(delegator.getOriginalBox());
+					} finally {
+						Server.close(in);
+					}
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+				} catch (ParserConfigurationException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+				} catch (OsmServerException e) {
+					result = DialogFactory.UNDEFINED_ERROR;
+					Log.e("Vespucci", "Problem downloading", e);
+					caller.getExceptions().add(e);
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem downloading", e);
+					caller.getExceptions().add(e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				// dismissDialog sometimes throws an undeserved IllegalArgumentException
+				// "no dialog with id was ever shown"
+				// it appears showDialog uses a thread to show the dialog
+				// assuming the exception occurs because this task finishes too quickly,
+				// have the task take a minimum amount of time to run
+				while ((System.currentTimeMillis() - started) < 1000) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
+				}
+				View map = caller.getCurrentFocus();
+				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
+				map.invalidate();
+				caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				if (result != 0) {
+					caller.showDialog(result);
+				}
+			}
+			
+		}.execute();
 	}
 
 	/**
-	 * @see #downloadBox(Activity, Handler, BoundingBox)
+	 * @see #downloadBox(Main, BoundingBox)
 	 */
-	void downloadCurrent(final Activity caller, final Handler handler) throws OsmServerException, IOException {
-		downloadBox(caller, handler, viewBox);
+	void downloadCurrent(final Main caller) {
+		downloadBox(caller, viewBox);
 	}
 
 	/**
-	 * Starts a new {@link SaveToFileThread}.
+	 * Saves to a file in the background.
 	 * 
 	 * @param caller Reference to the caller-activity.
-	 * @param handler Handler generated in the UI-Thread.
 	 * @param showDone when true, a Toast will be shown when the file was saved.
 	 */
-	void save(final Activity caller, final Handler handler, final boolean showDone) {
-		new SaveToFileThread(caller, handler, delegator, showDone).start();
+	void save(final Activity caller, final boolean showDone) {
+		new AsyncTask<Void, Void, Void>() {
+			
+			@Override
+			protected void onPreExecute() {
+				caller.setProgressBarIndeterminateVisibility(true);
+			}
+			
+			@Override
+			protected Void doInBackground(Void... params) {
+				try {
+					delegator.writeToFile(caller.getApplicationContext());
+				} catch (IOException e) {
+					Log.e("Vespucci", "Problem saving", e);
+				}
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(Void result) {
+				caller.setProgressBarIndeterminateVisibility(false);
+				if (showDone) {
+					Toast.makeText(caller.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
+				}
+			}
+			
+		}.execute();
 	}
 
 	/**
-	 * Starts a new {@link LoadFromFileThread}.
+	 * Loads data from a file in the background.
 	 * 
 	 * @param caller Reference to the caller-activity.
-	 * @param handler Handler generated in the UI-Thread.
 	 */
-	void loadFromFile(final Activity caller, final Handler handler) {
-		new LoadFromFileThread(caller, handler, delegator, viewBox, paints).start();
+	void loadFromFile(final Activity caller) {
+		new AsyncTask<Void, Void, Void>() {
+			
+			long started;
+			
+			@Override
+			protected void onPreExecute() {
+				caller.showDialog(DialogFactory.PROGRESS_LOADING);
+				started = System.currentTimeMillis();
+			}
+			
+			@Override
+			protected Void doInBackground(Void... params) {
+				try {
+					delegator.readFromFile(caller.getApplicationContext());
+					viewBox.setBorders(delegator.getOriginalBox());
+				} catch (NotFoundException e) {
+					Log.e("Vespucci", "Problem loading:", e);
+				} catch (IOException e) {
+					Log.e("Vespucci", "Problem loading:", e);
+				} catch (ClassNotFoundException e) {
+					Log.e("Vespucci", "Problem loading:", e);
+				}
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(Void result) {
+				// dismissDialog sometimes throws an undeserved IllegalArgumentException
+				// "no dialog with id was ever shown"
+				// it appears showDialog uses a thread to show the dialog
+				// assuming the exception occurs because this task finishes too quickly,
+				// have the task take a minimum amount of time to run
+				while ((System.currentTimeMillis() - started) < 1000) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
+				}
+				View map = caller.getCurrentFocus();
+				caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				caller.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
+				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+				map.invalidate();
+			}
+			
+		}.execute();
 	}
 
 	/**
-	 * Starts a new {@link UploadThread}.
+	 * Uploads to the server in the background.
 	 * 
 	 * @param caller Reference to the caller-activity.
-	 * @param handler Handler generated in the UI-Thread.
 	 * @param comment Changeset comment.
 	 */
-	public void upload(final Activity caller, final Handler handler, final String comment) {
-		Server server = prefs.getServer();
-		new UploadThread(caller, handler, server, delegator, comment).start();
+	public void upload(final Activity caller, final String comment) {
+		final Server server = prefs.getServer();
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				caller.setProgressBarIndeterminateVisibility(true);
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... params) {
+				int result = 0;
+				try {
+					delegator.uploadToServer(server, comment);
+				} catch (final MalformedURLException e) {
+					result = DialogFactory.UNDEFINED_ERROR;
+					Log.e(DEBUG_TAG, "", e);
+					//caller.getExceptions().add(e);
+				} catch (final ProtocolException e) {
+					result = DialogFactory.UNDEFINED_ERROR;
+					Log.e(DEBUG_TAG, "", e);
+					//caller.getExceptions().add(e);
+				} catch (final OsmServerException e) {
+					switch (e.getErrorCode()) {
+					case HttpStatus.SC_UNAUTHORIZED:
+						result = DialogFactory.WRONG_LOGIN;
+						break;
+					//TODO: implement other state handling
+					default:
+						result = DialogFactory.UNDEFINED_ERROR;
+						break;
+					}
+					Log.e(DEBUG_TAG, "", e);
+					//caller.getExceptions().add(e);
+				} catch (final IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e(DEBUG_TAG, "", e);
+					//caller.getExceptions().add(e);
+				} catch (final NullPointerException e) {
+					result = DialogFactory.UNDEFINED_ERROR;
+					Log.e(DEBUG_TAG, "", e);
+					//caller.getExceptions().add(e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				caller.setProgressBarIndeterminateVisibility(false);
+				Toast.makeText(caller.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				caller.getCurrentFocus().invalidate();
+				if (result != 0) {
+					caller.showDialog(result);
+				}
+			}
+			
+		}.execute();
 	}
 	
 	/**

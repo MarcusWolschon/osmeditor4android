@@ -17,7 +17,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -45,7 +44,6 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
-import de.blau.android.exception.OsmServerException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.CommitTask;
 import de.blau.android.osb.Database;
@@ -88,8 +86,6 @@ public class Main extends Activity {
 	 */
 	//TODO: Put this in ErrorMailer!
 	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
-
-	private final Handler handler = new Handler();
 
 	private DialogFactory dialogFactory;
 
@@ -304,7 +300,7 @@ public class Main extends Activity {
 			return true;
 
 		case R.id.menu_save:
-			logic.save(this, handler, true);
+			logic.save(this, true);
 			return true;
 		}
 
@@ -448,7 +444,7 @@ public class Main extends Activity {
 	protected void onDestroy() {
 		map.onDestroy();
 		logic.disableGpsUpdates();
-		logic.save(this, handler, false);
+		logic.save(this, false);
 		super.onDestroy();
 	}
 
@@ -476,38 +472,15 @@ public class Main extends Activity {
 	 * @throws ClassNotFoundException
 	 */
 	public void resumeLastActivity() {
-		showDialog(DialogFactory.PROGRESS_LOADING);
-		logic.loadFromFile(this, handler);
+		logic.loadFromFile(this);
 	}
 
 	public void performCurrentViewHttpLoad() {
-		try {
-			showDialog(DialogFactory.PROGRESS_LOADING);
-			logic.downloadCurrent(this, handler);
-		} catch (OsmServerException e) {
-			showDialog(DialogFactory.UNDEFINED_ERROR);
-			Log.e("Vespucci", "Problem downloading", e);
-			exceptions.add(e);
-		} catch (IOException e) {
-			showDialog(DialogFactory.NO_CONNECTION);
-			Log.e("Vespucci", "Problem downloading", e);
-			exceptions.add(e);
-		}
+		logic.downloadCurrent(this);
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		try {
-			showDialog(DialogFactory.PROGRESS_LOADING);
-			logic.downloadBox(this, handler, box);
-		} catch (OsmException e) {
-			showDialog(DialogFactory.UNDEFINED_ERROR);
-			Log.e(getClass().getName() + ":performHttpLoad()", "OsmException received", e);
-			exceptions.add(e);
-		} catch (IOException e) {
-			showDialog(DialogFactory.NO_CONNECTION);
-			Log.e(getClass().getName() + ":performHttpLoad()", "IOException received", e);
-			exceptions.add(e);
-		}
+		logic.downloadBox(this, box);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
@@ -523,7 +496,7 @@ public class Main extends Activity {
 
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
-				logic.upload(this, handler, comment);
+				logic.upload(this, comment);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
