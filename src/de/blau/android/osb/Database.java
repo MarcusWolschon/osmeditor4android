@@ -4,14 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -54,15 +51,15 @@ public class Database {
 	 * @param req The specific OSB request.
 	 * @param params Parameters to the OSB request.
 	 * @return The stream of the OSB server response.
-	 * @throws URISyntaxException
-	 * @throws IllegalStateException
-	 * @throws ClientProtocolException
-	 * @throws IOException
+	 * @throws IOException 
 	 */
-	private static InputStream execute(final String req, final String params) throws URISyntaxException, IllegalStateException, ClientProtocolException, IOException {
-		HttpGet r = new HttpGet(new URI("http", null, HOST, 80, API + req, params, null));
-		if (userAgent != null) r.setHeader("User-Agent", userAgent);
-		return new DefaultHttpClient().execute(r).getEntity().getContent();
+	private static InputStream execute(final String req, final String params) throws IOException {
+		URL url = new URL("http", HOST, 80, API + req + "?" + params);
+		URLConnection conn = url.openConnection();
+		if (userAgent != null) {
+			conn.setRequestProperty("User-Agent", userAgent);
+		}
+		return conn.getInputStream();
 	}
 	
 	/**
@@ -112,10 +109,6 @@ public class Database {
 			Log.e("Vespucci", "Database.get:Exception", e);
 		} catch (IOException e) {
 			Log.e("Vespucci", "Database.get:Exception", e);
-		} catch (IllegalStateException e) {
-			Log.e("Vespucci", "Database.get:Exception", e);
-		} catch (URISyntaxException e) {
-			Log.e("Vespucci", "Database.get:Exception", e);
 		}
 		return result;
 	}
@@ -145,10 +138,6 @@ public class Database {
 				Log.e("Vespucci", "Database.add:Exception", e);
 			} catch (IOException e) {
 				Log.e("Vespucci", "Database.add:Exception", e);
-			} catch (IllegalStateException e) {
-				Log.e("Vespucci", "Database.add:Exception", e);
-			} catch (URISyntaxException e) {
-				Log.e("Vespucci", "Database.add:Exception", e);
 			}
 		}
 		return false;
@@ -175,10 +164,6 @@ public class Database {
 				}
 			} catch (IOException e) {
 				Log.e("Vespucci", "Database.edit:Exception", e);
-			} catch (IllegalStateException e) {
-				Log.e("Vespucci", "Database.edit:Exception", e);
-			} catch (URISyntaxException e) {
-				Log.e("Vespucci", "Database.edit:Exception", e);
 			}
 		}
 		return false;
@@ -202,10 +187,6 @@ public class Database {
 					return true;
 				}
 			} catch (IOException e) {
-				Log.e("Vespucci", "Database.close:Exception", e);
-			} catch (IllegalStateException e) {
-				Log.e("Vespucci", "Database.close:Exception", e);
-			} catch (URISyntaxException e) {
 				Log.e("Vespucci", "Database.close:Exception", e);
 			}
 		}
