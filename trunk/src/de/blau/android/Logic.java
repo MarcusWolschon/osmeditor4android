@@ -14,7 +14,6 @@ import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources.NotFoundException;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -783,12 +782,9 @@ public class Logic {
 	void downloadBox(final Main caller, final BoundingBox mapBox) {
 		new AsyncTask<Void, Void, Integer>() {
 			
-			long started;
-			
 			@Override
 			protected void onPreExecute() {
 				caller.showDialog(DialogFactory.PROGRESS_LOADING);
-				started = System.currentTimeMillis();
 			}
 			
 			@Override
@@ -826,22 +822,11 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				// dismissDialog sometimes throws an undeserved IllegalArgumentException
-				// "no dialog with id was ever shown"
-				// it appears showDialog uses a thread to show the dialog
-				// assuming the exception occurs because this task finishes too quickly,
-				// have the task take a minimum amount of time to run
-				while ((System.currentTimeMillis() - started) < 1000) {
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-					}
-				}
+				caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
 				View map = caller.getCurrentFocus();
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
 				map.invalidate();
-				caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
 				if (result != 0) {
 					caller.showDialog(result);
 				}
@@ -900,12 +885,9 @@ public class Logic {
 	void loadFromFile(final Activity caller) {
 		new AsyncTask<Void, Void, Void>() {
 			
-			long started;
-			
 			@Override
 			protected void onPreExecute() {
 				caller.showDialog(DialogFactory.PROGRESS_LOADING);
-				started = System.currentTimeMillis();
 			}
 			
 			@Override
@@ -913,8 +895,6 @@ public class Logic {
 				try {
 					delegator.readFromFile(caller.getApplicationContext());
 					viewBox.setBorders(delegator.getOriginalBox());
-				} catch (NotFoundException e) {
-					Log.e("Vespucci", "Problem loading:", e);
 				} catch (IOException e) {
 					Log.e("Vespucci", "Problem loading:", e);
 				} catch (ClassNotFoundException e) {
@@ -925,19 +905,8 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Void result) {
-				// dismissDialog sometimes throws an undeserved IllegalArgumentException
-				// "no dialog with id was ever shown"
-				// it appears showDialog uses a thread to show the dialog
-				// assuming the exception occurs because this task finishes too quickly,
-				// have the task take a minimum amount of time to run
-				while ((System.currentTimeMillis() - started) < 1000) {
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-					}
-				}
-				View map = caller.getCurrentFocus();
 				caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				View map = caller.getCurrentFocus();
 				caller.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
