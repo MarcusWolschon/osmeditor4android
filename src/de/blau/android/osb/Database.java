@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -127,7 +128,7 @@ public class Database {
 				InputStream is = execute("addPOIexec",
 						"lat=" + ((double)bug.getLat() / 1E7d) +
 						"&lon=" + ((double)bug.getLon() / 1E7d) +
-						"&text=" + comment.toString());
+						"&text=" + URLEncoder.encode(comment.toString(), "UTF-8"));
 				BufferedReader r = new BufferedReader(new InputStreamReader(is));
 				if (r.readLine().equals("ok")) {
 					bug.id = Long.parseLong(r.readLine());
