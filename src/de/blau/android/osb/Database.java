@@ -157,7 +157,7 @@ public class Database {
 			try {
 				InputStream is = execute("editPOIexec",
 						"id=" + Long.toString(bug.getId()) +
-						"&text=" + comment.toString());
+						"&text=" + URLEncoder.encode(comment.toString(), "UTF-8"));
 				BufferedReader r = new BufferedReader(new InputStreamReader(is));
 				if (r.readLine().equals("comment added")) {
 					bug.comments.add(comment);
