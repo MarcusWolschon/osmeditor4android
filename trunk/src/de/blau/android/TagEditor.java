@@ -242,7 +242,10 @@ public class TagEditor extends Activity {
 				ArrayAdapter<String> knownTagValuesAdapter = null;
 				String tagKey = keyEdit.getText().toString();
 				try {
-					if (tagKey.equalsIgnoreCase("addr:street") && Main.logic != null && Main.logic.delegator != null) {
+					Bundle tags = getKeyValueFromEdits(false);
+					if ((Main.logic != null && Main.logic.delegator != null) &&
+							(tagKey.equalsIgnoreCase("addr:street") ||
+							(tagKey.equalsIgnoreCase("name") && bundleContainsTagKey(tags, "highway")))) {
 						knownTagValuesAdapter = new StreetTagValueAutocompletionAdapter(TagEditor.this,
 								android.R.layout.simple_dropdown_item_1line, Main.logic.delegator, type, osmId);
 						valueEdit.setThreshold(0);
@@ -311,6 +314,22 @@ public class TagEditor extends Activity {
 		}
 		bundle.putSerializable(TAGS, tags);
 		return bundle;
+	}
+	
+	private static boolean bundleContainsTagKey(Bundle b, String key) {
+		ArrayList<String> tags = b.getStringArrayList(TAGS);
+		if (tags != null) {
+			while (!tags.isEmpty()) {
+				String tag = tags.remove(0);
+				if (tag.equals(key)) {
+					return true;
+				}
+				if (!tags.isEmpty()) {
+					tags.remove(0); // value
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
