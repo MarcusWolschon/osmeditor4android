@@ -12,7 +12,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -776,15 +775,14 @@ public class Logic {
 	/**
 	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
-	 * @param caller Reference to the caller-activity.
 	 * @param mapBox Box defining the area to be loaded.
 	 */
-	void downloadBox(final Main caller, final BoundingBox mapBox) {
+	void downloadBox(final BoundingBox mapBox) {
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
-				caller.showDialog(DialogFactory.PROGRESS_LOADING);
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -811,24 +809,24 @@ public class Logic {
 				} catch (OsmServerException e) {
 					result = DialogFactory.UNDEFINED_ERROR;
 					Log.e("Vespucci", "Problem downloading", e);
-					caller.getExceptions().add(e);
+					Application.mainActivity.getExceptions().add(e);
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
-					caller.getExceptions().add(e);
+					Application.mainActivity.getExceptions().add(e);
 				}
 				return result;
 			}
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
-				View map = caller.getCurrentFocus();
+				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				View map = Application.mainActivity.getCurrentFocus();
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
 				map.invalidate();
 				if (result != 0) {
-					caller.showDialog(result);
+					Application.mainActivity.showDialog(result);
 				}
 			}
 			
@@ -838,28 +836,27 @@ public class Logic {
 	/**
 	 * @see #downloadBox(Main, BoundingBox)
 	 */
-	void downloadCurrent(final Main caller) {
-		downloadBox(caller, viewBox);
+	void downloadCurrent() {
+		downloadBox(viewBox);
 	}
 
 	/**
 	 * Saves to a file in the background.
 	 * 
-	 * @param caller Reference to the caller-activity.
 	 * @param showDone when true, a Toast will be shown when the file was saved.
 	 */
-	void save(final Activity caller, final boolean showDone) {
+	void save(final boolean showDone) {
 		new AsyncTask<Void, Void, Void>() {
 			
 			@Override
 			protected void onPreExecute() {
-				caller.setProgressBarIndeterminateVisibility(true);
+				Application.mainActivity.setProgressBarIndeterminateVisibility(true);
 			}
 			
 			@Override
 			protected Void doInBackground(Void... params) {
 				try {
-					delegator.writeToFile(caller.getApplicationContext());
+					delegator.writeToFile(Application.mainActivity.getApplicationContext());
 				} catch (IOException e) {
 					Log.e("Vespucci", "Problem saving", e);
 				}
@@ -868,9 +865,9 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Void result) {
-				caller.setProgressBarIndeterminateVisibility(false);
+				Application.mainActivity.setProgressBarIndeterminateVisibility(false);
 				if (showDone) {
-					Toast.makeText(caller.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
+					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
 				}
 			}
 			
@@ -879,21 +876,19 @@ public class Logic {
 
 	/**
 	 * Loads data from a file in the background.
-	 * 
-	 * @param caller Reference to the caller-activity.
 	 */
-	void loadFromFile(final Activity caller) {
+	void loadFromFile() {
 		new AsyncTask<Void, Void, Void>() {
 			
 			@Override
 			protected void onPreExecute() {
-				caller.showDialog(DialogFactory.PROGRESS_LOADING);
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
 			}
 			
 			@Override
 			protected Void doInBackground(Void... params) {
 				try {
-					delegator.readFromFile(caller.getApplicationContext());
+					delegator.readFromFile(Application.mainActivity.getApplicationContext());
 					viewBox.setBorders(delegator.getOriginalBox());
 				} catch (IOException e) {
 					Log.e("Vespucci", "Problem loading:", e);
@@ -905,9 +900,9 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Void result) {
-				caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
-				View map = caller.getCurrentFocus();
-				caller.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
+				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				View map = Application.mainActivity.getCurrentFocus();
+				Application.mainActivity.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 				map.invalidate();
@@ -919,16 +914,15 @@ public class Logic {
 	/**
 	 * Uploads to the server in the background.
 	 * 
-	 * @param caller Reference to the caller-activity.
 	 * @param comment Changeset comment.
 	 */
-	public void upload(final Activity caller, final String comment) {
+	public void upload(final String comment) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
-				caller.setProgressBarIndeterminateVisibility(true);
+				Application.mainActivity.setProgressBarIndeterminateVisibility(true);
 			}
 			
 			@Override
@@ -970,11 +964,11 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				caller.setProgressBarIndeterminateVisibility(false);
-				Toast.makeText(caller.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
-				caller.getCurrentFocus().invalidate();
+				Application.mainActivity.setProgressBarIndeterminateVisibility(false);
+				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
-					caller.showDialog(result);
+					Application.mainActivity.showDialog(result);
 				}
 			}
 			

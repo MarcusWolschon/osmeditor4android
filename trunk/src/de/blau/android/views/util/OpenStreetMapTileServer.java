@@ -68,6 +68,8 @@ public class OpenStreetMapTileServer {
 						if (tagName.equals("ZoomMax") && parser.next() == XmlPullParser.TEXT) {
 							zoomMax = Integer.parseInt(parser.getText().trim());
 						}
+						// NOTE: North->bottom and South->top is apparently reversed, but
+						// that is what is required for RectF.intersects() to work.
 						if (tagName.equals("NorthLatitude") && parser.next() == XmlPullParser.TEXT) {
 							area.bottom = Float.parseFloat(parser.getText().trim());
 						}
@@ -362,7 +364,7 @@ public class OpenStreetMapTileServer {
 	 *  i.e. left=west,right=east,top=south,bottom=north
 	 * @return Collections of attributions that apply to the specified area and zoom.
 	 */
-	public Collection<String> getAttributions(int zoom, RectF area) {
+	public Collection<String> getAttributions(final int zoom, final RectF area) {
 		Collection<String> ret = new ArrayList<String>();
 		for (Provider p : providers) {
 			if (p.covers(zoom, area)) {
@@ -389,7 +391,7 @@ public class OpenStreetMapTileServer {
 		return r.getStringArray(R.array.renderer_ids);
 	}
 	
-	private static String replaceParameter(String s, String param, String value) {
+	private static String replaceParameter(final String s, final String param, final String value) {
 		String result = s;
 		// replace "$param"
 		result = result.replaceFirst("\\$" + param, value);

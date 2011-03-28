@@ -209,16 +209,26 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * @return A human readable description of the element that includes state information.
 	 */
 	public String getStateDescription(final Resources aResources) {
+		int resid;
 		switch (getState()) {
 		case STATE_CREATED:
-			return aResources.getString(R.string.changes_created, getDescription());
+			resid = R.string.changes_created;
+			break;
 		case STATE_MODIFIED:
-			return aResources.getString(R.string.changes_changed, getDescription());
+			resid = R.string.changes_changed;
+			break;
 		case STATE_DELETED:
-			return aResources.getString(R.string.changes_deleted, getDescription());
+			resid = R.string.changes_deleted;
+			break;
 		default:
-			return getDescription();
+			resid = 0;
+			break;
 		}
+		String result = getDescription();
+		if (resid != 0) {
+			result = aResources.getString(resid, result);
+		}
+		return result;
 	}
 	
 	/**

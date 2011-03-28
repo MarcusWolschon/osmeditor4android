@@ -112,6 +112,7 @@ public class Main extends Activity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Application.mainActivity = this;
 		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(
 			Context.LOCATION_SERVICE);
 		getWindow().requestFeature(Window.FEATURE_LEFT_ICON);
@@ -300,7 +301,7 @@ public class Main extends Activity {
 			return true;
 
 		case R.id.menu_save:
-			logic.save(this, true);
+			logic.save(true);
 			return true;
 		}
 
@@ -444,7 +445,7 @@ public class Main extends Activity {
 	protected void onDestroy() {
 		map.onDestroy();
 		logic.disableGpsUpdates();
-		logic.save(this, false);
+		logic.save(false);
 		super.onDestroy();
 	}
 
@@ -472,15 +473,15 @@ public class Main extends Activity {
 	 * @throws ClassNotFoundException
 	 */
 	public void resumeLastActivity() {
-		logic.loadFromFile(this);
+		logic.loadFromFile();
 	}
 
 	public void performCurrentViewHttpLoad() {
-		logic.downloadCurrent(this);
+		logic.downloadCurrent();
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		logic.downloadBox(this, box);
+		logic.downloadBox(box);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
@@ -496,7 +497,7 @@ public class Main extends Activity {
 
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
-				logic.upload(this, comment);
+				logic.upload(comment);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
