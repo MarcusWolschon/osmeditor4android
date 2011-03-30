@@ -70,6 +70,35 @@ public class TagEditor extends Activity {
 	 */
 	private final OnKeyListener myKeyListener = new MyKeyListener();
 
+	/**
+	 * Interface for handling the key:value pairs in the TagEditor.
+	 * @author Andrew Gregory
+	 */
+	private interface KeyValueHandler {
+		abstract void handleKeyValue(final EditText keyEdit, final EditText valueEdit);
+	}
+	
+	/**
+	 * Perform some processing for each key:value pair in the TagEditor.
+	 * @param handler The handler that will be called for each key:value pair.
+	 */
+	private void processKeyValues(final KeyValueHandler handler) {
+		final int size = verticalLayout.getChildCount();
+		for (int i = 0; i < size; ++i) {
+			View view = verticalLayout.getChildAt(i);
+			if (view instanceof LinearLayout) {
+				LinearLayout row = (LinearLayout)view;
+				if (row.getChildCount() == 4) { // 2 labels, 2 EditText
+					View keyView = row.getChildAt(1);
+					View valueView = row.getChildAt(3);
+					if (keyView instanceof EditText && valueView instanceof EditText) {
+						handler.handleKeyValue((EditText)keyView, (EditText)valueView);
+					}
+				}
+			}
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -99,9 +128,89 @@ public class TagEditor extends Activity {
 		}
 		insertNewEdits("", "");
 
+		createSourceSurveyButton();
 		createOkButton();
 	}
-
+	
+	/**
+	 * Given an edit field of an OSM key value, determine it's corresponding source key.
+	 * For example, the source of "name" is "source:name". The source of "source" is
+	 * "source". The source of "mf:name" is "mf.source:name".
+	 * @param keyEdit The edit field of the key to be sourced.
+	 * @return The source key for the given key.
+	 */
+	private static String sourceForKey(final String key) {
+		String result = "source";
+		if (key != null && !key.equals("") && !key.equals("source")) {
+			// key is neither blank nor "source"
+			// check if it's namespaced
+			int i = key.indexOf(':');
+			if (i == -1) {
+				result = "source:" + key;
+			} else {
+				// handle already namespaced keys as per
+				// http://wiki.openstreetmap.org/wiki/Key:source
+				result = key.substring(0, i) + ".source" + key.substring(i);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Create a source=survey button for tagging keys as "survey".
+	 * Tapping the button will set (creating a new key/value if they don't exist)
+	 * "source:key=survey", where key is the key of the currently focused key/value.
+	 * If the key of the currently focused key/value is blank or "source", then the
+	 * plain "source" key is used.
+	 * For example, if you were editing the "name" key, then this would add
+	 * "source:name=survey". On the other hand, if you had a blank key/value field
+	 * focused, or were editing an existing "source" key/value, then "source=survey"
+	 * would be set.
+	 */
+	private void createSourceSurveyButton() {
+		Button sourcesurveyButton = (Button) findViewById(R.id.sourcesurveyButton);
+		sourcesurveyButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(final View v) {
+				// determine the key (if any) that has the current focus in the key or its value
+				final String[] focusedKey = new String[]{null}; // array to work around unsettable final
+				processKeyValues(new KeyValueHandler() {
+					@Override
+					public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+						if (keyEdit.isFocused() || valueEdit.isFocused()) {
+							focusedKey[0] = keyEdit.getText().toString().trim();
+						}
+					}
+				});
+				// ensure source(:key)=survey is tagged
+				final String sourceKey = sourceForKey(focusedKey[0]);
+				final boolean[] sourceSet = new boolean[]{false}; // array to work around unsettable final
+				processKeyValues(new KeyValueHandler() {
+					@Override
+					public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+						if (!sourceSet[0]) {
+							String key = keyEdit.getText().toString().trim();
+							String value = valueEdit.getText().toString().trim();
+							// if there's a blank row - use them
+							if (key.equals("") && value.equals("")) {
+								key = sourceKey;
+								keyEdit.setText(key);
+							}
+							if (key.equals(sourceKey)) {
+								valueEdit.setText("survey");
+								sourceSet[0] = true;
+							}
+						}
+					}
+				});
+				if (!sourceSet[0]) {
+					// source wasn't set above - add a new pair
+					insertNewEdits(sourceKey, "survey");
+				}
+			}
+		});
+	}
+	
 	private void createOkButton() {
 		Button okButton = (Button) findViewById(R.id.okButton);
 		okButton.setOnClickListener(new OnClickListener() {
@@ -142,8 +251,8 @@ public class TagEditor extends Activity {
 	}
 
 	/**
-     * 
-     */
+	 * 
+	 */
 	protected void sendResultAndFinish() {
 		Intent intent = new Intent();
 		intent.putExtras(getKeyValueFromEdits(false)); // discards blank or partially blank pairs
@@ -154,8 +263,8 @@ public class TagEditor extends Activity {
 	}
 
 	/**
-     * 
-     */
+	 * 
+	 */
 	protected void extrasToEdits(final ArrayList<String> tags) {
 		for (int i = 0, size = tags.size(); i < size; i += 2) {
 			insertNewEdits(tags.get(i), tags.get(i + 1));
@@ -173,7 +282,7 @@ public class TagEditor extends Activity {
 		super.onSaveInstanceState(outState);
 	}
 
-    /**
+	/**
 	 * Insert a new row with one key and one value to edit.
 	 * 
 	 * @param aTagKey the key-value to start with
@@ -200,7 +309,7 @@ public class TagEditor extends Activity {
 					getResources().getStringArray(R.array.known_tags));
 		}
 		lastEditKey.setAdapter(knownTagNamesAdapter);
-//        lastEditKey.setThreshold(3); // give suggestions after 3 characters
+//		lastEditKey.setThreshold(3); // give suggestions after 3 characters
 		lastEditKey.setInputType(0x00080001); //no suggestions. (Since: API Level 5)
 		horizontalLayout.addView(textKey);
 		horizontalLayout.addView(lastEditKey, layoutParamValue);
@@ -283,35 +392,25 @@ public class TagEditor extends Activity {
 	 * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
 	 * @return The bundle of key-value pairs.
 	 */
-	private Bundle getKeyValueFromEdits(boolean allowBlanks) {
-		Bundle bundle = new Bundle(1);
-		ArrayList<String> tags = new ArrayList<String>();
-		final int size = verticalLayout.getChildCount();
-		for (int i = 0; i < size; ++i) {
-			View view = verticalLayout.getChildAt(i);
-
-			if (view instanceof LinearLayout) {
-				LinearLayout row = (LinearLayout) view;
-				if (row.getChildCount() == 4) { // 2 labels, 2 EditText
-					View keyView = row.getChildAt(1);
-					View valueView = row.getChildAt(3);
-					if (keyView instanceof EditText && valueView instanceof EditText) {
-						String key = ((EditText) keyView).getText().toString().trim();
-						String value = ((EditText) valueView).getText().toString().trim();
-						boolean bothBlank = "".equals(key) && "".equals(value);
-						boolean neitherBlank = !"".equals(key) && !"".equals(value);
-						if (!bothBlank) {
-							// both blank is never acceptable
-							if (neitherBlank || allowBlanks) {
-								tags.add(key);
-								tags.add(value);
-							}
-						}
+	private Bundle getKeyValueFromEdits(final boolean allowBlanks) {
+		final Bundle bundle = new Bundle(1);
+		final ArrayList<String> tags = new ArrayList<String>();
+		processKeyValues(new KeyValueHandler() {
+			@Override
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+				String key = keyEdit.getText().toString().trim();
+				String value = valueEdit.getText().toString().trim();
+				boolean bothBlank = "".equals(key) && "".equals(value);
+				boolean neitherBlank = !"".equals(key) && !"".equals(value);
+				if (!bothBlank) {
+					// both blank is never acceptable
+					if (neitherBlank || allowBlanks) {
+						tags.add(key);
+						tags.add(value);
 					}
 				}
 			}
-
-		}
+		});
 		bundle.putSerializable(TAGS, tags);
 		return bundle;
 	}

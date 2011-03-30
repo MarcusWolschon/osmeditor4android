@@ -9,9 +9,21 @@
 		android:id="@+id/vertical_layout"
 		android:padding="5dp"
 	>
-		<Button android:id="@+id/okButton" 
+		<LinearLayout
+			android:orientation="horizontal"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/okay" />
+			android:baselineAligned="false"
+		>
+			<Button android:id="@+id/sourcesurveyButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/sourcesurvey" />
+			<Button android:id="@+id/okButton"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:text="@string/okay" />
+		</LinearLayout>
 	</LinearLayout>
 </ScrollView>
