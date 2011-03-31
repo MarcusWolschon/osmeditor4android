@@ -31,7 +31,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	// ===========================================================
 	
 	/** Maximum cache size. */
-	private final long maxCacheSize;
+	private long maxCacheSize;
 	/** LRU list. */
 	private final LinkedList<String> list;
 
@@ -70,7 +70,30 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		}
 		super.clear();
 	}
-
+	
+	/**
+	 * Ensure the cache is less than its limit, less some extra.
+	 * @param extra Extra space to take away from the cache size. Used to make room
+	 * for new items before adding them so that the total cache never exceeds the limit.
+	 */
+	private void applyCacheLimit(long extra) {
+		long limit = maxCacheSize - extra;
+		if (limit < 0) {
+			limit = 0;
+		}
+		while (cacheSizeBytes() > limit) {
+			remove(list.getLast()).recycle();
+		}
+	}
+	
+	/**
+	 * Reduces memory use by halving the cache size.
+	 */
+	public void onLowMemory() {
+		maxCacheSize /= 2;
+		applyCacheLimit(0);
+	}
+	
 	@Override
 	public boolean containsKey(Object key) {
 		if (super.containsKey(key)) {
@@ -116,13 +139,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 
 		// if the key isn't in the cache and the cache is full...
 		if (!containsKey(key)) {
-			long limit = maxCacheSize - value.getRowBytes() * value.getHeight();
-			if (limit < 0) {
-				limit = 0;
-			}
-			while (cacheSizeBytes() > limit) {
-				remove(list.getLast()).recycle();
-			}
+			applyCacheLimit(value.getRowBytes() * value.getHeight());
 		}
 
 		updateKey(key);
@@ -160,7 +177,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		list.remove(key);
 		list.addFirst(key);
 	}
-
+	
 	// ===========================================================
 	// Methods
 	// ===========================================================

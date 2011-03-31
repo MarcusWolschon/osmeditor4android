@@ -77,9 +77,20 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	}
 	
 	public void onDestroy() {
+		super.onDestroy();
 		mTileProvider.clear();
 	}
 	
+	/**
+	 * Try to reduce memory use.
+	 */
+	@Override
+	public void onLowMemory() {
+		super.onLowMemory();
+		// The tile provider with its cache consumes the most memory.
+		mTileProvider.onLowMemory();
+	}
+
 	public OpenStreetMapTileServer getRendererInfo() {
 		return myRendererInfo;
 	}

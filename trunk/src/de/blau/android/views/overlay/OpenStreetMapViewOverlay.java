@@ -70,8 +70,16 @@ public abstract class OpenStreetMapViewOverlay {
 	// Methods
 	// ===========================================================
 	
+	/**
+	 * By default does nothing.
+	 */
 	public void onDestroy() {
-		// default to do nothing
+	}
+	
+	/**
+	 * By default does nothing.
+	 */
+	public void onLowMemory() {
 	}
 	
 	/**

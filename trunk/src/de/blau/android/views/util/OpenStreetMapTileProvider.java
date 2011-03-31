@@ -101,13 +101,28 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	// ===========================================================
 	// Methods
 	// ===========================================================
-
+	
+	/**
+	 * Clear out memory related to tracking map tiles.
+	 */
 	public void clear() {
 		pending.clear();
 		mTileCache.clear();
 		mCtx.unbindService(this);
 	}
 	
+	/**
+	 * Try to reduce memory use.
+	 */
+	public void onLowMemory() {
+		mTileCache.onLowMemory();
+	}
+	
+	/**
+	 * Determine if the specified tile is available from local storage.
+	 * @param aTile The tile to find.
+	 * @return true if the tile is in local storage.
+	 */
 	public boolean isTileAvailable(final OpenStreetMapTile aTile) {
 		return mTileCache.containsTile(aTile);
 	}
@@ -169,5 +184,5 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			//mTileService.getMapTile(rendererID, zoomLevel, tileX, tileY, this);
 		}
 	};
-
+	
 }
