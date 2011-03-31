@@ -120,6 +120,12 @@ public class Map extends View implements IMapView {
 		}
 	}
 	
+	public void onLowMemory() {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			osmvo.onLowMemory();
+		}
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

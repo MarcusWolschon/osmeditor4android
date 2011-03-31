@@ -448,6 +448,12 @@ public class Main extends Activity {
 		logic.save(false);
 		super.onDestroy();
 	}
+	
+	@Override
+	public void onLowMemory() {
+		super.onLowMemory();
+		map.onLowMemory();
+	}
 
 	/**
 	 * TODO: put this in Logic!!! Checks if a serialized {@link StorageDelegator} file is available.

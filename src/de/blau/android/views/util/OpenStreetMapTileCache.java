@@ -1,8 +1,6 @@
 // Created by plusminus on 17:58:57 - 25.09.2008
 package  de.blau.android.views.util;
 
-import java.util.HashMap;
-
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.views.util.OpenStreetMapViewConstants;
 
@@ -26,7 +24,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// Fields
 	// ===========================================================
 	
-	protected HashMap<String, Bitmap> mCachedTiles;
+	protected LRUMapTileCache mCachedTiles;
 
 	// ===========================================================
 	// Constructors
@@ -63,17 +61,36 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// Methods
 	// ===========================================================
 	
+	/**
+	 * Returns a suitable default for the cache size.
+	 * @return The default cache size.
+	 */
 	public static long defaultCacheBytes() {
 		// Default to using half the available memory
 		return Runtime.getRuntime().maxMemory() / 2;
 	}
 	
+	/**
+	 * Clear the tile cache.
+	 */
 	public void clear() {
 		mCachedTiles.clear();
 	}
 	
+	/**
+	 * Test if the cache contains the specified tile.
+	 * @param aTile The tile to check for.
+	 * @return true if the tile is in the cache.
+	 */
 	public boolean containsTile(final OpenStreetMapTile aTile) {
 		return mCachedTiles.containsKey(aTile.toString());
+	}
+	
+	/**
+	 * Try to reduce memory use.
+	 */
+	public void onLowMemory() {
+		mCachedTiles.onLowMemory();
 	}
 	
 	// ===========================================================
