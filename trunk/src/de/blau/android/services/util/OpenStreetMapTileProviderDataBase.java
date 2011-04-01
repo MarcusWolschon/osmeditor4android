@@ -96,13 +96,13 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	// ===========================================================
 
 	public OpenStreetMapTileProviderDataBase(final Context context) {
-		this.mCtx = context;
-		this.mDatabase = new AndNavDatabaseHelper(context).getWritableDatabase();
+		mCtx = context;
+		mDatabase = new AndNavDatabaseHelper(context).getWritableDatabase();
 	}
 
 	public boolean hasTile(final OpenStreetMapTile aTile) {
 		final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
-		final Cursor c = this.mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE, args, null, null, null);
+		final Cursor c = mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE, args, null, null, null);
 		final boolean existed = c.getCount() > 0;
 		c.close();
 		return existed;
@@ -113,7 +113,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 		ContentValues cv = new ContentValues();
 		cv.put(T_FSCACHE_USAGECOUNT, T_FSCACHE_USAGECOUNT + " + 1");
 		cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
-		return this.mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
+		return mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
 	}
 
 	public int addTileOrIncrement(final OpenStreetMapTile aTile, final int aByteFilesize) {
@@ -135,11 +135,11 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 		cv.put(T_FSCACHE_TILE_Y, aTile.y);
 		cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
 		cv.put(T_FSCACHE_FILESIZE, aByteFilesize);
-		this.mDatabase.insert(T_FSCACHE, null, cv);
+		mDatabase.insert(T_FSCACHE, null, cv);
 	}
 
 	int deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
-//		final Cursor c = this.mDatabase.rawQuery(T_FSCACHE_SELECT_OLDEST, null);
+//		final Cursor c = mDatabase.rawQuery(T_FSCACHE_SELECT_OLDEST, null);
 //		final ArrayList<String> deleteFromDB = new ArrayList<String>();
 //		int sizeGained = 0;
 //		if(c != null){
@@ -151,7 +151,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 //					fileNameOfDeleted = c.getString(c.getColumnIndexOrThrow(T_FSCACHE_NAME));
 //
 //					deleteFromDB.add(fileNameOfDeleted);
-//					this.mCtx.deleteFile(fileNameOfDeleted);
+//					mCtx.deleteFile(fileNameOfDeleted);
 //
 //					if(DEBUGMODE)
 //						Log.i(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Deleted from FS: " + fileNameOfDeleted + " for " + sizeItem + " Bytes");
@@ -163,7 +163,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 //			c.close();
 //
 //			for(String fn : deleteFromDB)
-//				this.mDatabase.delete(T_FSCACHE, T_FSCACHE_NAME + "='" + fn + "'", null);
+//				mDatabase.delete(T_FSCACHE, T_FSCACHE_NAME + "='" + fn + "'", null);
 //		}
 //		return sizeGained;
 		return 0;
@@ -174,7 +174,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	// ===========================================================
 	private String TMP_COLUMN = "tmp"; 
 	public int getCurrentFSCacheByteSize() {
-		final Cursor c = this.mDatabase.rawQuery("SELECT SUM(" + T_FSCACHE_FILESIZE + ") AS " + TMP_COLUMN + " FROM " + T_FSCACHE, null);
+		final Cursor c = mDatabase.rawQuery("SELECT SUM(" + T_FSCACHE_FILESIZE + ") AS " + TMP_COLUMN + " FROM " + T_FSCACHE, null);
 		final int ret;
 		if(c != null){
 			if(c.moveToFirst()){

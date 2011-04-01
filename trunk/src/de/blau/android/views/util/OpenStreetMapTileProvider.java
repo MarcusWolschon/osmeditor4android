@@ -146,7 +146,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		if (!isTileAvailable(aTile) && mTileService != null && !pending.contains(aTile.toString())) {
 			try {
 				pending.add(aTile.toString());
-				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, this.mServiceCallback);
+				mTileService.getMapTile(aTile.rendererID, aTile.zoomLevel, aTile.x, aTile.y, mServiceCallback);
 			} catch (RemoteException e) {
 				Log.e("OpenStreetMapTileProvider", "RemoteException in preCacheTile()", e);
 			} catch (Exception e) {

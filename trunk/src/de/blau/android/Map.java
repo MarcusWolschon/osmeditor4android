@@ -494,7 +494,7 @@ public class Map extends View implements IMapView {
 	 * @param aSelectedNode the currently selected node to edit.
 	 */
 	void setSelectedNode(final Node aSelectedNode) {
-		this.mySelectedNode = aSelectedNode;
+		mySelectedNode = aSelectedNode;
 	}
 	
 	/**

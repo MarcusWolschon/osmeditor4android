@@ -50,8 +50,8 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 
 	public OpenStreetMapTileDownloader(final Context ctx, final OpenStreetMapTileFilesystemProvider aMapTileFSProvider){
-		this.mCtx = ctx;
-		this.mMapTileFSProvider = aMapTileFSProvider;
+		mCtx = ctx;
+		mMapTileFSProvider = aMapTileFSProvider;
 		mThreadPool = Executors.newFixedThreadPool(4);
 	}
 

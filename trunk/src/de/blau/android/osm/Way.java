@@ -23,7 +23,7 @@ public class Way extends OsmElement {
 
 	Way(final long osmId, final long osmVersion, final byte status) {
 		super(osmId, osmVersion, status);
-		this.nodes = new ArrayList<Node>();
+		nodes = new ArrayList<Node>();
 	}
 
 	void addNode(final Node node) {
@@ -51,7 +51,7 @@ public class Way extends OsmElement {
 	@Override
 	public String toString() {
 		String res = super.toString();
-		for (Map.Entry<String, String> tag : this.tags.entrySet()) {
+		for (Map.Entry<String, String> tag : tags.entrySet()) {
 			res += "\t" + tag.getKey() + "=" + tag.getValue();
 		}
 		return res;

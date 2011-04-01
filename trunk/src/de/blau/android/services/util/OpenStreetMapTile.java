@@ -23,8 +23,8 @@ public class OpenStreetMapTile {
 	public OpenStreetMapTile(String rendererID, int zoomLevel, int tileX, int tileY) {
 		this.rendererID = rendererID;
 		this.zoomLevel = zoomLevel;
-		this.x = tileX;
-		this.y = tileY;
+		x = tileX;
+		y = tileY;
 	}
 	
 	@Override
