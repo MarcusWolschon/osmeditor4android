@@ -93,12 +93,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 */
 	void updateState(final byte newState) {
 		if (state != STATE_CREATED || newState == STATE_DELETED) {
-			this.state = newState;
+			state = newState;
 		}
 	}
 
 	void setState(final byte newState) {
-		this.state = newState;
+		state = newState;
 	}
 
 	void addOrUpdateTag(final String tag, final String value) {
@@ -147,7 +147,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * @return the value of this key.
 	 */
 	public String getTagWithKey(final String key) {
-		return this.tags.get(key);
+		return tags.get(key);
 	}
 
 	/**

@@ -63,19 +63,19 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	 * @param aCache to load fs-tiles to.
 	 */
 	public OpenStreetMapTileFilesystemProvider(final Context ctx, final int aMaxFSCacheByteSize) {
-		this.mCtx = ctx;
-		this.mMaxFSCacheByteSize = aMaxFSCacheByteSize;
-		this.mDatabase = new OpenStreetMapTileProviderDataBase(ctx);
-		this.mCurrentFSCacheByteSize = this.mDatabase.getCurrentFSCacheByteSize();
-		this.mThreadPool = Executors.newFixedThreadPool(2);
+		mCtx = ctx;
+		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
+		mDatabase = new OpenStreetMapTileProviderDataBase(ctx);
+		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
+		mThreadPool = Executors.newFixedThreadPool(2);
 
-		this.mTileDownloader = new OpenStreetMapTileDownloader(ctx, this);
+		mTileDownloader = new OpenStreetMapTileDownloader(ctx, this);
 
 //		File f = new File("/sdcard/andnav2");
 //		f.mkdirs();
 		
 		if(Log.isLoggable(DEBUGTAG, Log.INFO))
-			Log.i(DEBUGTAG, "Currently used cache-size is: " + this.mCurrentFSCacheByteSize + " of " + this.mMaxFSCacheByteSize + " Bytes");
+			Log.i(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
 	}
 
 	// ===========================================================
@@ -83,7 +83,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	// ===========================================================
 	
 	public int getCurrentFSCacheByteSize() {
-		return this.mCurrentFSCacheByteSize;
+		return mCurrentFSCacheByteSize;
 	}
 
 	public void saveFile(final OpenStreetMapTile tile, final byte[] someData) throws IOException{
@@ -93,19 +93,19 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		bos.close();
 
 		synchronized (this) {
-			final int bytesGrown = this.mDatabase.addTileOrIncrement(tile, someData.length);
-			this.mCurrentFSCacheByteSize += bytesGrown;
+			final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData.length);
+			mCurrentFSCacheByteSize += bytesGrown;
 
-			if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
-				Log.i(DEBUGTAG, "FSCache Size is now: " + this.mCurrentFSCacheByteSize + " Bytes");
+			if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
+				Log.i(DEBUGTAG, "FSCache Size is now: " + mCurrentFSCacheByteSize + " Bytes");
 
 			/* If Cache is full... */
 			try {
 
-				if(this.mCurrentFSCacheByteSize > this.mMaxFSCacheByteSize){
-					if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
+				if (mCurrentFSCacheByteSize > mMaxFSCacheByteSize){
+					if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 						Log.d(DEBUGTAG, "Freeing FS cache...");
-					this.mCurrentFSCacheByteSize -= this.mDatabase.deleteOldest((int)(this.mMaxFSCacheByteSize * 0.05f)); // Free 5% of cache
+					mCurrentFSCacheByteSize -= mDatabase.deleteOldest((int)(mMaxFSCacheByteSize * 0.05f)); // Free 5% of cache
 				}
 			} catch (EmptyCacheException e) {
 				if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
@@ -120,10 +120,10 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	
 	public void cutCurrentFSCacheBy(final int bytesToCut){
 		try {
-			this.mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all
-			this.mCurrentFSCacheByteSize = 0;
+			mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all
+			mCurrentFSCacheByteSize = 0;
 		} catch (EmptyCacheException e) {
-			if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
+			if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 				Log.e(DEBUGTAG, "Cache empty", e);
 		}
 	}
@@ -155,7 +155,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 			throw new FileNotFoundException("null tile path");
 		}
 		return new BufferedInputStream(new FileInputStream(path), StreamUtils.IO_BUFFER_SIZE);
-//		return new BufferedInputStream(this.mCtx.openFileInput(path), StreamUtils.IO_BUFFER_SIZE);
+//		return new BufferedInputStream(mCtx.openFileInput(path), StreamUtils.IO_BUFFER_SIZE);
 	}
 	
 	private OutputStream getOutput(final OpenStreetMapTile tile) throws IOException {

@@ -24,12 +24,12 @@ public abstract class OpenStreetMapAsyncTileProvider {
 			final IOpenStreetMapTileProviderCallback aCallback) {
 		final String tileID = aTile.toString();
 		
-		if(this.mPending.contains(tileID))
+		if(mPending.contains(tileID))
 			return;
 		
-		this.mPending.add(tileID);
+		mPending.add(tileID);
 
-		this.mThreadPool.execute(getTileLoader(aTile, aCallback));
+		mThreadPool.execute(getTileLoader(aTile, aCallback));
 	}
 	
 	protected abstract Runnable getTileLoader(final OpenStreetMapTile aTile,

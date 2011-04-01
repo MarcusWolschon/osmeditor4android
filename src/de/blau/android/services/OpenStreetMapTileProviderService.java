@@ -28,7 +28,7 @@ public class OpenStreetMapTileProviderService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		mFileSystemProvider = new OpenStreetMapTileFilesystemProvider(
-				this.getBaseContext(), 4 * 1024 * 1024); // 4MB FSCache
+				getBaseContext(), 4 * 1024 * 1024); // 4MB FSCache
 	}
 	
 	@Override

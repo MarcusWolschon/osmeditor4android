@@ -47,7 +47,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	public LRUMapTileCache(final long maxCacheSize) {
 		super();
 		this.maxCacheSize = maxCacheSize;
-		this.list = new LinkedList<String>();
+		list = new LinkedList<String>();
 	}
 
 	// ===========================================================

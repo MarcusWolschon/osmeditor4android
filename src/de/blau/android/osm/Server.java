@@ -162,15 +162,15 @@ public class Server {
 
 		// retry if we have no resopnse-code
 		if (con.getResponseCode() == -1) {
-		    Log.w(getClass().getName()+ ":getStreamForBox", "no valid http response-code, trying again");
-		    con = (HttpURLConnection) url.openConnection();
-		  //--Start: header not yet send
-	        con.setReadTimeout(TIMEOUT);
-	        con.setConnectTimeout(TIMEOUT);
-	        con.setRequestProperty("Accept-Encoding", "gzip");
+			Log.w(getClass().getName()+ ":getStreamForBox", "no valid http response-code, trying again");
+			con = (HttpURLConnection) url.openConnection();
+			//--Start: header not yet send
+			con.setReadTimeout(TIMEOUT);
+			con.setConnectTimeout(TIMEOUT);
+			con.setRequestProperty("Accept-Encoding", "gzip");
 
-	        //--Start: got response header
-	        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+			//--Start: got response header
+			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 		}
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -208,7 +208,7 @@ public class Server {
 					elem.toXml(serializer, changeSetId);
 					endChangeXml(serializer, action);
 				}
-			}, this.changesetId);
+			}, changesetId);
 			checkResponseCode(connection);
 		} finally {
 			disconnect(connection);
@@ -247,7 +247,7 @@ public class Server {
 					elem.toXml(serializer, changeSetId);
 					endXml(serializer);
 				}
-			}, this.changesetId);
+			}, changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
 			osmVersion = Integer.parseInt(readLine(in));
@@ -310,7 +310,7 @@ public class Server {
 					elem.toXml(serializer, changeSetId);
 					endXml(serializer);
 				}
-			}, this.changesetId);
+			}, changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
 			osmId = Integer.parseInt(readLine(in));
@@ -329,51 +329,51 @@ public class Server {
 	 * @throws IOException
 	 */
 	public void openChangeset(final String comment) throws MalformedURLException, ProtocolException, IOException {
-		int changesetId = -1;
+		int newChangesetId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
 
 		try {
-		    XmlSerializable xmlData = new XmlSerializable() {
-                @Override
-                public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                    startXml(serializer);
-                    serializer.startTag("", "changeset");
-                    serializer.startTag("", "tag");
-                    serializer.attribute("", "k", "created_by");
-                    serializer.attribute("", "v", generator);
-                    serializer.endTag("", "tag");
-                    serializer.startTag("", "tag");
-                    serializer.attribute("", "k", "comment");
-                    serializer.attribute("", "v", comment);
-                    serializer.endTag("", "tag");
-                    serializer.endTag("", "changeset");
-                    endXml(serializer);
-                }
-            };
+			XmlSerializable xmlData = new XmlSerializable() {
+				@Override
+				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+					startXml(serializer);
+					serializer.startTag("", "changeset");
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "created_by");
+					serializer.attribute("", "v", generator);
+					serializer.endTag("", "tag");
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "comment");
+					serializer.attribute("", "v", comment);
+					serializer.endTag("", "tag");
+					serializer.endTag("", "changeset");
+					endXml(serializer);
+				}
+			};
 			connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
-			sendPayload(connection, xmlData, this.changesetId);
+			sendPayload(connection, xmlData, changesetId);
 			if (connection.getResponseCode() == -1) {
-			    //sometimes we get an invalid response-code the first time.
-			    disconnect(connection);
-			    connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
-	            sendPayload(connection, xmlData, this.changesetId);
+				//sometimes we get an invalid response-code the first time.
+				disconnect(connection);
+				connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
+				sendPayload(connection, xmlData, changesetId);
 			}
 			checkResponseCode(connection);
 			in = connection.getInputStream();
-			changesetId = Integer.parseInt(readLine(in));
+			newChangesetId = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
 			close(in);
 		}
-		this.changesetId = changesetId;
+		changesetId = newChangesetId;
 	}
 
 	public void closeChangeset() throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
 
 		try {
-			connection = openConnectionForWriteAccess(getCloseChangesetUrl(this.changesetId), "PUT");
+			connection = openConnectionForWriteAccess(getCloseChangesetUrl(changesetId), "PUT");
 			checkResponseCode(connection);
 		} finally {
 			disconnect(connection);

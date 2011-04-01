@@ -15,7 +15,7 @@ public class Track implements Serializable {
 	private final ArrayList<Location> track;
 
 	public Track() {
-		this.track = new ArrayList<Location>();
+		track = new ArrayList<Location>();
 	}
 
 	public void reset() {
