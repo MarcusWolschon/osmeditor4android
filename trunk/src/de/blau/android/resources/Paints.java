@@ -196,7 +196,6 @@ public class Paints {
 	 */
 	public void updateStrokes(final float newStrokeWidth) {
 		paints[RAILWAY].setStrokeWidth(newStrokeWidth - 0.5f);
-		paints[RAILWAY].setShadowLayer(0.5f, 0, 0, Color.BLACK);
 		paints[WAY].setStrokeWidth(newStrokeWidth);
 		paints[PROBLEM_WAY].setStrokeWidth(newStrokeWidth * 1.5f);
 		paints[WATERWAY].setStrokeWidth(newStrokeWidth);
