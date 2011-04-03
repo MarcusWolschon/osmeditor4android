@@ -88,9 +88,16 @@ public class Tracker implements LocationListener {
 			}
 			switch (newTrackingState) {
 			case STATE_START:
-				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs
-						.getGpsDistance(), this);
-				Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+				Location lastKnownLocation = null;
+				try {
+					locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(),
+							prefs.getGpsDistance(), this);
+					lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+				} catch (IllegalArgumentException e) {
+					// do nothing - leave null
+				} catch (SecurityException e) {
+					// do nothing - leave null
+				}
 				if (lastKnownLocation != null) {
 					track.addTrackPoint(lastKnownLocation);
 				}

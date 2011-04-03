@@ -149,14 +149,26 @@ public class BoxPicker extends Activity implements LocationListener {
 		List<String> providers = locationManager.getAllProviders();
 		Location lastKnown = null;
 		if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(), prefs
-					.getGpsDistance(), this);
-			lastKnown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			try {
+				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(),
+						prefs.getGpsDistance(), this);
+				lastKnown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			} catch (IllegalArgumentException e) {
+				// do nothing - leave null
+			} catch (SecurityException e) {
+				// do nothing - leave null
+			}
 		}
 		if (providers.contains(LocationManager.GPS_PROVIDER)) {
-			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs
-					.getGpsDistance(), this);
-			lastKnown = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			try {
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(),
+						prefs.getGpsDistance(), this);
+				lastKnown = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			} catch (IllegalArgumentException e) {
+				// do nothing - leave null
+			} catch (SecurityException e) {
+				// do nothing - leave null
+			}
 		}
 		return lastKnown;
 	}
