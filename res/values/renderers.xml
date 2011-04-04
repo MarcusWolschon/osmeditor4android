@@ -11,6 +11,8 @@
   <item>OS OpenData Streetview</item>
   <item>OS OpenData Locator</item>
   <item>OS New Popular Ed Historic</item>
+  <item>OS 1:25k Historic</item>
+  <item>OS 7th Series Historic</item>
   <item>Surrey Aerial</item>
   <item>Denmark Fugro Aerial Imagery</item>
   <!-- Following are untested:
@@ -20,8 +22,6 @@
   <item>Haiti StreetNames</item>
   -->
   <!-- Following don't seem to work:
-  <item>OS 1:25k Historic</item>
-  <item>OS 7th Series Historic</item>
   <item>OS Scottish Popular Historic</item>
   <item>OpenAerialMap (Satellite)</item>
   <item>Trails</item>
@@ -41,6 +41,8 @@
   <item>OSODSTREETVIEW</item>
   <item>OSODLOCATOR</item>
   <item>OSNPEHISTORIC</item>
+  <item>OS25KHISTORIC</item>
+  <item>OS7SHISTORIC</item>
   <item>SURREYAERIAL</item>
   <item>DENMARKFUGRO</item>
   <!-- Following are untested:
@@ -50,8 +52,6 @@
   <item>HAITISN</item>
   -->
   <!-- Following don't seem to work:
-  <item>OS25KHISTORIC</item>
-  <item>OS7SHISTORIC</item>
   <item>OSSPHISTORIC</item>
   <item>OPENAERIALMAP</item>
   <item>TRAILS</item>
@@ -74,6 +74,8 @@
   <item>.png @raw/osodstreetview</item>
   <item>.png @raw/osodlocator</item>
   <item>.png @raw/osnpehistoric</item>
+  <item>.jpg @raw/os1sted</item>
+  <item>.jpg @raw/os7thseries</item>
   <item>.png @raw/surreyaerial</item>
   <item>.jpg @raw/denmarkfugro</item>
   
@@ -90,8 +92,6 @@
   <item>http://hypercube.telascience.org/tiles/1.0.0/haiti-city/$z/$x/$y.jpg .jpg 0 18 8</item>
   -->
   <!-- Following don't seem to work:
-  <item>http://ooc.openstreetmap.org/os1/$z/$x/$y.png .png 0 18 8</item>
-  <item>http://ooc.openstreetmap.org/os7/$z/$x/$y.png .png 0 18 8</item>
   <item>http://ooc.openstreetmap.org/npescotland/tiles/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/$z/$x/$y.jpg .jpg 0 13 8</item>
   <item>http://topo.geofabrik.de/trails/$z/$x/$y.png .png 4 17 8</item>
