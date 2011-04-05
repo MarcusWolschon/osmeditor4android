@@ -38,12 +38,14 @@
 		android:alphabeticShortcut="r"
 	/>
 
-    <item android:id="@+id/menu_split"
+	<item android:id="@+id/menu_split"
+		android:icon="@drawable/menu_split"
 		android:title="@string/menu_split"
 		android:alphabeticShortcut="s"
-	/> <!-- TOOD: no icon yet -->
+	/>
 	
 	<item android:id="@+id/menu_openstreetbug"
+		android:icon="@drawable/menu_openstreetbug"
 		android:title="@string/menu_openstreetbug"
 		android:alphabeticShortcut="s"
 	/>

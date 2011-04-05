@@ -259,11 +259,12 @@ public class Main extends Activity {
 
 		case R.id.menu_split:
 			logic.setMode(Logic.Mode.MODE_SPLIT);
-			//TODO: no icon yet getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
 			return true;
 
 		case R.id.menu_openstreetbug:
 			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_openstreetbug);
 			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
 			return true;
 
