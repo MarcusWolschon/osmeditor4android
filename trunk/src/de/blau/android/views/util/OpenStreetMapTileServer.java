@@ -425,6 +425,7 @@ public class OpenStreetMapTileServer {
 		result = result.replaceFirst("\\!", Integer.toString(aTile.y));
 		
 		// Named replacements
+		result = replaceParameter(result, "zoom", Integer.toString(aTile.zoomLevel));
 		result = replaceParameter(result, "z", Integer.toString(aTile.zoomLevel));
 		result = replaceParameter(result, "x", Integer.toString(aTile.x));
 		result = replaceParameter(result, "y", Integer.toString(aTile.y));
