@@ -296,7 +296,18 @@ public class BoundingBox implements Serializable {
 	 * Calculates the dimensions width and height of this bounding box.
 	 */
 	private void calcDimensions() {
+		int t;
+		if (right < left) {
+			t = right;
+			right = left;
+			left = t;
+		}
 		width = right - left;
+		if (top < bottom) {
+			t = top;
+			top = bottom;
+			bottom = t;
+		}
 		height = top - bottom;
 	}
 
