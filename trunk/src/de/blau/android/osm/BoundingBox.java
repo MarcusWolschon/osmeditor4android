@@ -62,14 +62,14 @@ public class BoundingBox implements Serializable {
 	public static final String NAME = "bounds";
 
 	/**
-	 * Default zoom in factor. Have to be greater than 1.
+	 * Default zoom in factor. Have to be greater than 0.
 	 */
-	private static final float ZOOM_IN = 8;
+	private static final float ZOOM_IN = 0.125f;
 
 	/**
-	 * Default zoom out factor. Have to be less than -1.
+	 * Default zoom out factor. Have to be less than 0.
 	 */
-	private static final float ZOOM_OUT = -6;
+	private static final float ZOOM_OUT = -0.16666666f;
 
 	/**
 	 * The maximum difference between two borders of the bounding box for the OSM-API. {@link http
@@ -457,9 +457,9 @@ public class BoundingBox implements Serializable {
 	 * 
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
-	private void zoom(final float zoomFactor) {
-		float verticalChange = width / zoomFactor;
-		float horizontalChange = height / zoomFactor;
+	public void zoom(final float zoomFactor) {
+		float verticalChange = width * zoomFactor;
+		float horizontalChange = height * zoomFactor;
 		left += verticalChange;
 		right -= verticalChange;
 		bottom += horizontalChange;
@@ -480,7 +480,7 @@ public class BoundingBox implements Serializable {
 	private int getZoomingTranslation(final float zoomfactor) {
 		double halfHeight = height / 2.0;
 		double mercatorDiff = mercatorFactorPow3 * halfHeight - halfHeight;
-		return (int) -(mercatorDiff / zoomfactor);
+		return (int) -(mercatorDiff * zoomfactor);
 	}
 
 	/**

@@ -93,7 +93,7 @@ public class Main extends Activity {
 	 * The map View.
 	 */
 	private Map map;
-
+	private VersionedGestureDetector mDetector;
 	/**
 	 * Our user-preferences.
 	 */
@@ -131,7 +131,7 @@ public class Main extends Activity {
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
 		map.setOnKeyListener(new MapKeyListener());
-		
+		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
 		rl.addView(map);
 		
 		// Set up the zoom in/out controls
@@ -606,145 +606,40 @@ public class Main extends Activity {
 	 * 
 	 * @author mb
 	 */
-	private class MapTouchListener implements OnTouchListener, OnCreateContextMenuListener, OnMenuItemClickListener {
-
-		private static final int INVALID_POS = -1;
-
-		private float firstPosX = INVALID_POS;
-
-		private float firstPosY = INVALID_POS;
-
-		private float oldPosX = INVALID_POS;
-
-		private float oldPosY = INVALID_POS;
-
-		private final static float CLICK_TOLERANCE = 20f;
+	private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
 		private AppendMode appendMode;
 
 		private List<OsmElement> clickedNodesAndWays;
 		private List<Bug> clickedBugs;
 		
-		private boolean hasMoved;
-
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
-			float x = m.getX();
-			float y = m.getY();
-
-			switch (m.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				touchEventDown(x, y);
-				break;
-
-			case MotionEvent.ACTION_MOVE:
-				touchEventMove(x, y);
-				break;
-
-			case MotionEvent.ACTION_UP:
-				touchEventUp(v, x, y);
-				break;
+			if (m.getAction() == MotionEvent.ACTION_DOWN) {
+				clickedBugs = null;
+				clickedNodesAndWays = null;
+				logic.handleTouchEventDown(m.getX(), m.getY());
 			}
+			mDetector.onTouchEvent(v, m);
 			return v.onTouchEvent(m);
 		}
 		
-		/**
-		 * @param x
-		 * @param y
-		 */
-		private void touchEventDown(final float x, final float y) {
-			firstPosX = x;
-			firstPosY = y;
-			oldPosX = x;
-			oldPosY = y;
-			clickedBugs = null;
-			clickedNodesAndWays = null;
-			hasMoved = false;
-			logic.handleTouchEventDown(x, y);
-		}
-
-		private void touchEventMove(final float x, final float y) {
-			if (hasMoved(x, y)) hasMoved = true;
-			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY, hasMoved);
-			oldPosX = x;
-			oldPosY = y;
-		}
-
-		/**
-		 * @param v
-		 * @param x
-		 * @param y
-		 */
-		private void touchEventUp(final View v, final float x, final float y) {
-			if (!hasMoved) {
-				OpenStreetBugsOverlay osbo = map.getOpenStreetBugsOverlay();
-				if (osbo != null) {
-					clickedBugs = osbo.getClickedBugs(x, y, map.getViewBox());
-				}
-				
-				Mode mode = logic.getMode();
-				boolean isInEditZoomRange = logic.isInEditZoomRange();
-
-				if (isInEditZoomRange) {
-					switch (mode) {
-					case MODE_MOVE:
-						break;
-					case MODE_OPENSTREETBUG:
-						switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
-						case 0:
-							performBugEdit(logic.makeNewBug(x, y));
-							break;
-						case 1:
-							performBugEdit(clickedBugs.get(0));
-							break;
-						default:
-							v.showContextMenu();
-							break;
-						}
-						break;
-					case MODE_ADD:
-						logic.performAdd(x, y);
-						break;
-					case MODE_TAG_EDIT:
-						selectElementForTagEdit(v, x, y);
-						break;
-					case MODE_ERASE:
-						selectElementForErase(v, x, y);
-						break;
-					case MODE_SPLIT:
-						selectElementForSplit(v, x, y);
-						break;
-					case MODE_APPEND:
-						performAppend(v, x, y);
-						break;
-					}
-					map.invalidate();
-				} else {
+		@Override
+		public void onClick(View v, float x, float y) {
+			OpenStreetBugsOverlay osbo = map.getOpenStreetBugsOverlay();
+			clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
+			
+			Mode mode = logic.getMode();
+			boolean isInEditZoomRange = logic.isInEditZoomRange();
+			
+			if (isInEditZoomRange) {
+				switch (mode) {
+				case MODE_MOVE:
+					break;
+				case MODE_OPENSTREETBUG:
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 					case 0:
-						if (!isInEditZoomRange) {
-							int res;
-							switch (mode) {
-							case MODE_ADD:
-							case MODE_EDIT:
-							case MODE_APPEND:
-							case MODE_ERASE:
-							case MODE_SPLIT:
-							case MODE_TAG_EDIT:
-								res = R.string.toast_not_in_edit_range;
-								break;
-							case MODE_OPENSTREETBUG:
-								res = R.string.toast_not_in_bug_range;
-								break;
-							case MODE_MOVE:
-							default:
-								res = 0;
-								break;
-							}
-							if (res != 0) {
-								Toast.makeText(getApplicationContext(), res, Toast.LENGTH_LONG).show();
-							}
-						}
+						performBugEdit(logic.makeNewBug(x, y));
 						break;
 					case 1:
 						performBugEdit(clickedBugs.get(0));
@@ -753,15 +648,74 @@ public class Main extends Activity {
 						v.showContextMenu();
 						break;
 					}
+					break;
+				case MODE_ADD:
+					logic.performAdd(x, y);
+					break;
+				case MODE_TAG_EDIT:
+					selectElementForTagEdit(v, x, y);
+					break;
+				case MODE_ERASE:
+					selectElementForErase(v, x, y);
+					break;
+				case MODE_SPLIT:
+					selectElementForSplit(v, x, y);
+					break;
+				case MODE_APPEND:
+					performAppend(v, x, y);
+					break;
+				}
+				map.invalidate();
+			} else {
+				switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
+				case 0:
+					if (!isInEditZoomRange) {
+						int res;
+						switch (mode) {
+						case MODE_ADD:
+						case MODE_EDIT:
+						case MODE_APPEND:
+						case MODE_ERASE:
+						case MODE_SPLIT:
+						case MODE_TAG_EDIT:
+							res = R.string.toast_not_in_edit_range;
+							break;
+						case MODE_OPENSTREETBUG:
+							res = R.string.toast_not_in_bug_range;
+							break;
+						case MODE_MOVE:
+						default:
+							res = 0;
+							break;
+						}
+						if (res != 0) {
+							Toast.makeText(getApplicationContext(), res, Toast.LENGTH_LONG).show();
+						}
+					}
+					break;
+				case 1:
+					performBugEdit(clickedBugs.get(0));
+					break;
+				default:
+					v.showContextMenu();
+					break;
 				}
 			}
-
-			firstPosX = INVALID_POS;
-			firstPosY = INVALID_POS;
-			oldPosX = INVALID_POS;
-			oldPosY = INVALID_POS;
 		}
-
+		
+		@Override
+		public void onDrag(View v, float x, float y, float dx, float dy) {
+			logic.handleTouchEventMove(x, y, -dx, dy, true);
+		}
+		
+		@Override
+		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
+			float zoom = (curSpan - prevSpan) / prevSpan;
+			if (zoom != 0f) {
+				logic.zoom(zoom);
+			}
+		}
+		
 		private void selectElementForTagEdit(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
 			switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size()) {
@@ -801,7 +755,7 @@ public class Main extends Activity {
 		private void selectElementForSplit(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodes(x, y);
 
-			//TOOD remove nodes with no ways from list
+			//TODO remove nodes with no ways from list
 //			for (Iterator iterator = clickedNodesAndWays.iterator(); iterator.hasNext();) {
 //				Node node = (Node) iterator.next();
 //				if (node.getWaysCount() < 1) {
@@ -893,15 +847,6 @@ public class Main extends Activity {
 			showDialog(DialogFactory.OPENSTREETBUG_EDIT);
 		}
 
-		/**
-		 * @param x
-		 * @param y
-		 * @return
-		 */
-		private boolean hasMoved(final float x, final float y) {
-			return Math.abs(firstPosX - x) > CLICK_TOLERANCE || Math.abs(firstPosY - y) > CLICK_TOLERANCE;
-		}
-
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
 			int id = 0;
@@ -945,7 +890,9 @@ public class Main extends Activity {
 							break;
 						case APPEND_APPEND:
 							// TODO
+							break;
 						}
+						break;
 					}
 				}
 			}
