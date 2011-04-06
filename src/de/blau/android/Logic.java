@@ -342,6 +342,13 @@ public class Logic {
 		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
 		map.invalidate();
 	}
+	
+	public void zoom(final float zoomFactor) {
+		viewBox.zoom(zoomFactor);
+		isInEditZoomRange();
+		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		map.postInvalidate();
+	}
 
 	/**
 	 * Delegates the inserting of the Tag-list to {@link StorageDelegator}.
