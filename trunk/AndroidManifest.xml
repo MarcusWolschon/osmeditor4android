@@ -2,7 +2,7 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="de.blau.android"
-	android:versionName="@string/app_version" android:versionCode="13">
+	android:versionName="@string/app_version" android:versionCode="14">
 
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
