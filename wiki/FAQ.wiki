@@ -35,7 +35,7 @@ No. Android uses a specialized VM implementation designed for mobile device use,
 
 
 ====How can I obtain Vespucci? ==== 
- * You can download it from the Android Market (Search for "Vespucci")
+ * You can [http://market.android.com/search?q=vespucci download it from the Android Market] (Search for "Vespucci")
  * The Vespucci APK can be downloaded from the [http://code.google.com/p/osmeditor4android Vespucci project page]
 
 
@@ -73,7 +73,7 @@ Yes. Soft keyboard is available in portrait mode.
 Auto download is not yet support. If you want to help us in this issue, please answer on [http://code.google.com/p/osmeditor4android/issues/detail?id=14 issue 14].
 
 
-====Does Vespucci support [http://www.openstreetbugs.org/ OpenStreetBugs]?====
+====Does Vespucci support OpenStreetBugs?====
 Yes.
 
 
