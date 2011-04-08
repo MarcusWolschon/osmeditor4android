@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Dialogs -->
+	<string name="resume_last_activity_dialog_title">Reprendre ?</string>
+	<string name="resume_last_activity_dialog_message">Voulez-vous reprendre votre dernière activité ?</string>
+	<string name="transfer_download_current_dialog_title">Attention !</string>
+	<string name="transfer_download_current_dialog_message">Il peut y avoir des changements. Voulez-vous les envoyer plutôt qu\'annuler ?</string>
+	<string name="transfer_download_current_upload">Envoi</string>
+	<string name="transfer_download_current_download">Annuler &amp; recevoir</string>
+	<string name="transfer_download_current_back">Retour (ne fait rien)</string>
+	<string name="no_login_data_title">Pas de nom d\'utilisateur</string>
+	<string name="no_login_data_message">Veuillez remplir le nom d\'utilisateur OSM dans les préférences.</string>
+	<string name="no_connection_title">Pas de connexion au Serveur</string>
+	<string name="no_connection_message">Ne peut pas se connecter au Serveur OSM. Veuillez vérifier votre connexion Internet ou essayez plus tard.</string>
+	<string name="wrong_login_data_title">Mauvais nom d\'utilisateur</string>
+	<string name="wrong_login_data_message">Le Serveur OSM ne peut pas vous authentifier. Veuillez vérifier votre nom d\'utilisateur dans les préférences.</string>
+	<string name="undefined_error_title">Désolé</string>
+	<string name="undefined_error_message">Erreur non documentée. Pouvez-vous m\'envoyer un email avec une bref description de ce qu\'il s\'est passé ? Merci !</string>
+	<string name="undefined_error_sendbutton">Envoyer Email</string>
+	<string name="progress_title">Chargement</string>
+	<string name="progress_message">Chargement des données en mémoire...</string>
+	<string name="progress_download_message">Récupération des données du serveur...</string>
+
+	<!-- Toaster -->
+	<string name="toast_no_changes">Vous n\'avez encore rien changé...</string>
+	<string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
+	<string name="toast_empty_data">Pas d\'élément dans cette zone. Merci d\'explorer ce trou noir !</string>
+	<string name="toast_not_in_edit_range">Veuillez zoomer pour éditer (Volume +/- ou Loupe/Shift)</string>
+	<string name="toast_save_done">Sauvegarde effectuée</string>
+	<string name="toast_waiting_for_gps">En attente d\'un signal GPS...</string>
+	<string name="toast_follow_gps_off">Suivi du GPS désactivé</string>
+
+	<!-- ErrorMailer  -->
+	<string name="error_email_message">&quot;Cher Matthias,\n\npouvez-vous vérifier le message d\'erreur suivant ?\n\n&quot;</string>
+	<string name="error_email_chooser_title">Envoyer email avec :</string>
+	
+	<!-- Some generic labels -->
+	<string name="yes">Oui</string>
+	<string name="no">Non</string>
+	<string name="okay">Valider</string>
+	<string name="cancel">Annuler</string>
+	
+	<!-- Strings in TagEditor -->
+	<string name="tag_title">Tags pour</string>
+	<string name="key">Clé :</string>
+	<string name="value">Valeur :</string>
+	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
+	<string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
+	
+	<!-- Strings in LocationPicker -->
+	<string name="location_headline">Charger Zone</string>
+	<string name="location_choose_radius">Choisir le rayon :</string>
+	<string name="location_last_text">Dernier endroit visité :</string>
+	<string name="location_current_text">Endroit courant :</string>
+	<string name="location_current_text_parametized">Endroit courant: Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
+	<string name="location_map_text">Depuis carte (à venir bientôt)</string>
+	<string name="location_coordinates_text">Depuis coordonnées :</string>
+	<string name="location_lat_label">Lat :</string>
+	<string name="location_lon_label">Lon :</string>
+	<string name="location_load_button">Charger !</string>
+	<string name="location_button_no_location">Ne rien charger</string>
+	<string name="location_label_no_location">(non recommandé)</string>
+	<string name="location_nan_title">Mauvaise valeur d\'entrée !</string>
+	<string name="location_nan_message">Veuillez entrer les coordonnées avec décimales (ex. &quot;52.333572&quot;,&quot;8.741185&quot;). Lat doit être entre -85.0 et +85.0, et Lon doit être entre -175.0 et +175.0.</string>
+	
+	<!-- Menu -->
+	<string name="menu_move">Naviguer</string>
+	<string name="menu_edit">Déplacer</string>
+	<string name="menu_add">Ajouter</string>
+	<string name="menu_config">Préférences</string>
+	<string name="menu_erase">Supprimer noeud</string>
+	<string name="menu_append">Continuer</string>
+	<string name="menu_tag">Éditer tags</string>
+	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps_start_pause">Démarre/pause le tracé GPS</string>
+	<string name="menu_gps_follow">Suivre la position du GPS</string>
+	<string name="menu_gps_stop">Stop le tracé GPS</string>
+	<string name="menu_gps_upload">Envoi la trace GPS</string>
+	<string name="menu_transfer">Transfert des données...</string>
+	<string name="menu_transfer_download_current">Télécharger vue courante</string>
+	<string name="menu_transfer_download_other">Télécharger autre endroit...</string>
+	<string name="menu_transfer_upload">Envoi des données au serveur OSM</string>
+	<string name="menu_save">Sauvegarde vers fichier</string>
+	
+	<!-- Preferences -->
+	<string name="config_category_view">Voir Paramètres</string>
+	<string name="config_showStats_key">Voir Statistiques</string>
+	<string name="config_showStats_title">Voir Statistiques</string>
+	<string name="config_showStats_summary">Affiche les stats et les images/sec dans le coin en bas à gauche.</string>
+	<string name="config_showTolerance_key">Voir Zone de Sélection</string>
+	<string name="config_showTolerance_title">Voir Zone de Sélection</string>
+	<string name="config_showTolerance_summary">Affiche la zone où un élément a été sélectionné.</string>
+	<string name="config_enableAntiAliasing_key">Active l\'Anti-Aliasing</string>
+	<string name="config_enableAntiAliasing_title">Active l\'Anti-Aliasing</string>
+	<string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
+	<string name="config_category_server">Paramètres du serveur</string>
+	<string name="config_username_key">Nom d\'utilisateur</string>
+	<string name="config_username_title">Nom d\'utilisateur OSM</string>
+	<string name="config_username_summary">Nécessaire pour envoyer les données OSM. Créez-en un sur openstreetmap.org/user/new</string>
+	<string name="config_password_key">mot de passe</string>
+	<string name="config_password_title">Mot de passe OSM</string>
+	<string name="config_password_summary">Ne pas confondre avec le mot de passe Wiki. Attention : stocké et transmis en clair !</string>
+	<string name="config_category_gps">Paramètres GPS</string>
+	<string name="config_gps_distance_key">distance</string>
+	<string name="config_gps_distance_title">Distance GPS Minimum</string>
+	<string name="config_gps_distance_summary">Distance de notification, en mètres (float). Les petites valeurs consomment la batterie.</string>
+	<string name="config_gps_interval_key">interval</string>
+	<string name="config_gps_interval_title">Interval Temps GPS Minimum</string>
+	<string name="config_gps_interval_summary">Temps de notification, en millisecondes. Les petites valeurs consomment la batterie.</string>
+</resources>

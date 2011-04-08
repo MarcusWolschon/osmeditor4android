@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Response>
+  <ResourceSets>
+    <ResourceSet>
+      <Resources>
+        <ImageryMetadata>
+          <ImageUrl>
+            http://gravitystorm.dev.openstreetmap.org/surrey/{z}/{x}/{y}.png
+          </ImageUrl>
+          <ImageWidth>
+            256
+          </ImageWidth>
+          <ImageHeight>
+            256
+          </ImageHeight>
+          <ZoomMin>
+            8
+          </ZoomMin>
+          <ZoomMax>
+            19
+          </ZoomMax>
+        </ImageryMetadata>
+      </Resources>
+    </ResourceSet>
+  </ResourceSets>
+</Response>

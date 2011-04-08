@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Dialogs -->
+	<string name="resume_last_activity_dialog_title">Vrátit?</string>
+	<string name="resume_last_activity_dialog_message">Chcete vrátit poslední operaci?</string>
+	<string name="transfer_download_current_dialog_title">Varování!</string>
+	<string name="transfer_download_current_dialog_message">Provedl jste nějaké změny. Chcete je nahrát, nebo zahodit?</string>
+	<string name="transfer_download_current_upload">Nahrát</string>
+	<string name="transfer_download_current_download">Zahodit a stáhnout</string>
+	<string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
+	<string name="no_login_data_title">Přihlašovací údaje nejsou zadány</string>
+	<string name="no_login_data_message">Prosím zadejte přihlašovací údaje OSM v nastavení.</string>
+	<string name="no_connection_title">Neúspěšné připojení k serveru</string>
+	<string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
+	<string name="wrong_login_data_title">Špatné přihlašovací údaje</string>
+	<string name="wrong_login_data_message">OSM server Vás nemohl autentizovat. Ověřte prosím v nastavení své už. jméno a heslo.</string>
+	<string name="undefined_error_title">Promiňte</string>
+	<string name="undefined_error_message">Nastalo něco velmi špatného. Chcete odeslat email s popisem problému? Díky!</string>
+	<string name="undefined_error_sendbutton">Odeslat email</string>
+	<string name="progress_title">Načítám</string>
+	<string name="progress_message">Načítam data do paměti...</string>
+	<string name="progress_download_message">Stahuji data ze serveru...</string>
+
+	<!-- Toaster -->
+	<string name="toast_no_changes">Zatím jste nic nezměnil...</string>
+	<string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
+	<string name="toast_empty_data">V této oblasti nejsou žádné elementy. Diky za průzkum tohoto černého místa!</string>
+	<string name="toast_not_in_edit_range">Prosím přibližte mapu pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
+	<string name="toast_save_done">Uloženo</string>
+	<string name="toast_waiting_for_gps">Čekám na GPS polohu...</string>
+	<string name="toast_follow_gps_off">Následování GPS vypnuto</string>
+
+	<!-- ErrorMailer  -->
+	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
+	<string name="error_email_chooser_title">Odeslat email pomocí:</string>
+	
+	<!-- Some generic labels -->
+	<string name="yes">Ano</string>
+	<string name="no">Ne</string>
+	<string name="okay">Budiž</string>
+	<string name="cancel">Zrušit</string>
+	
+	<!-- Strings in TagEditor -->
+	<string name="tag_title">Tagy pro</string>
+	<string name="key">Klíč:</string>
+	<string name="value">Hodnota:</string>
+	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+	<string name="tag_menu_mapfeatures">Wiki vlastností mapy</string>
+	
+	<!-- Strings in LocationPicker -->
+	<string name="location_headline">Načíst oblast</string>
+	<string name="location_choose_radius">Vyberte poloměr:</string>
+	<string name="location_last_text">Poslední známá poloha:</string>
+	<string name="location_current_text">Aktuální poloha:</string>
+	<string name="location_current_text_parametized">Aktuální poloha: Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
+	<string name="location_map_text">Z mapy (připravujeme)</string>
+	<string name="location_coordinates_text">Podle souřadnic:</string>
+	<string name="location_lat_label">Zem. šířka:</string>
+	<string name="location_lon_label">Zem. délka:</string>
+	<string name="location_load_button">Načíst!</string>
+	<string name="location_button_no_location">Nenačítat nic</string>
+	<string name="location_label_no_location">(nedoporučeno)</string>
+	<string name="location_nan_title">Špatný formát!</string>
+	<string name="location_nan_message">Zadejte prosim souřadnice v desetinném formátu (např. "52.333572", "8.741185"). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
+	
+	<!-- Menu -->
+	<string name="menu_move">Přesunout</string>
+	<string name="menu_edit">Upravit</string>
+	<string name="menu_add">Nový</string>
+	<string name="menu_config">Nastavení</string>
+	<string name="menu_erase">Smazat</string>
+	<string name="menu_append">Přidat</string>
+	<string name="menu_tag">Upravit tagy</string>
+	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps_start_pause">Spustit/pozastavit GPS stopu</string>
+	<string name="menu_gps_follow">Následovat polohu GPS</string>
+	<string name="menu_gps_stop">Zastavit GPS stopu</string>
+	<string name="menu_gps_upload">Nahrát GPS stopu</string>
+	<string name="menu_transfer">Přenos...</string>
+	<string name="menu_transfer_download_current">Stáhnout aktuální pohled</string>
+	<string name="menu_transfer_download_other">Stáhnout jinou oblast</string>
+	<string name="menu_transfer_upload">Nahrát data na OSM server</string>
+	<string name="menu_save">Uložit do souboru</string>
+	
+	<!-- Preferences -->
+	<string name="config_category_view">Zobrazit nastavení</string>
+	<string name="config_showStats_key">showStats</string>
+	<string name="config_showStats_title">Zobrazit statistiku</string>
+	<string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
+	<string name="config_showTolerance_key">showTolerance</string>
+	<string name="config_showTolerance_title">Zobrazit toleranci</string>
+	<string name="config_showTolerance_summary">Zobrazí oblast kde může být vybrán element.</string>
+	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
+	<string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
+	<string name="config_enableAntiAliasing_summary">Čáry budou více hladké.</string>
+	<string name="config_category_server">Nastavení serveru</string>
+	<string name="config_username_key">username</string>
+	<string name="config_username_title">OSM už. jméno</string>
+	<string name="config_username_summary">Potřebné pro nahrávání OSM dat. Pokud ještě žádné nemáté, navštivte http://www.openstreetmap.org/user/new</string>
+	<string name="config_password_key">password</string>
+	<string name="config_password_title">OSM heslo</string>
+	<string name="config_password_summary">Nezaměňte ho za heslo do Wiki. Pamatujte: Je ukládáno a odesíláno v otevřeném formátu!</string>
+	<string name="config_category_gps">Nastavení GPS</string>
+	<string name="config_gps_distance_key">distance</string>
+	<string name="config_gps_distance_title">Minimální GPS vzdálenost</string>
+	<string name="config_gps_distance_summary">Minimální vzdálenost mezi GPS notifikacemí v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
+	<string name="config_gps_interval_key">interval</string>
+	<string name="config_gps_interval_title">Minimální GPS interval</string>
+	<string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
+</resources>
