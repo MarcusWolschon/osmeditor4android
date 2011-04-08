@@ -1,5 +1,7 @@
 #summary How the Bing Maps support works
 
+Bing Map support first appeared in version 0.7.0.
+
 = Introduction =
 
 Bing Maps has several legal requirements to the use of their aerial photography.
