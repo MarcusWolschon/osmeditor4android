@@ -1,6 +1,6 @@
 #summary How the Bing Maps support works
 
-Bing Map support first appeared in version 0.7.0.
+Bing Maps support first appeared in version 0.7.0.
 
 = Introduction =
 
