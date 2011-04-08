@@ -10,6 +10,7 @@
   * Delete Nodes
   * Create, edit and delete Tags
   * Download and Upload to OSM-Server
+  * Highlight unnamed highways, and ways/nodes with TODOs or FIXMEs
   * Add, comment and close [http://www.openstreetbugs.org OpenStreetBugs]
   * Use a variety of background tile layers as reference
   * Show the users GPS-Track with accuracy
