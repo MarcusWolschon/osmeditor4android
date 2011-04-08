@@ -27,7 +27,7 @@ You need:
 
 
 ====What is the status of Vespucci development? ==== 
-The current Vespucci version is 0.6.1. It's still in beta-stage.
+The current Vespucci version is 0.7.0. It's still in beta-stage.
 
 
 ====Is Vespucci available for other mobile platforms?==== 
@@ -66,7 +66,7 @@ Currently, you can
 
 ====My Android device does not have a physical keyboard. Does Vespucci support a soft keyboard? ==== 
  
-Yes. Soft keyboard is available in portrait mode. (But zooming is a little bit tricky. See [http://code.google.com/p/osmeditor4android/issues/detail?id=25 issue 25])
+Yes. Soft keyboard is available in portrait mode.
 
 
 ====Auto Download====
@@ -74,7 +74,7 @@ Auto download is not yet support. If you want to help us in this issue, please a
 
 
 ====Does Vespucci support Open Street Bugs?====
-No.
+Yes.
 
 
 ====What are the limits of Vespucci?====
@@ -84,11 +84,8 @@ Vespucci is limited in the following sense:
  * Undo function is planned (see issue id 5)
  * Tool functions like 
   * reverse way, combine way, simplify way, unglue ways are currently not implemented. 
-  * split ways is planned (see issue id 7)
- * No download of pre-rendered tiles as slippy map background (e.g. Mapnik, Osmarender ...)
  * No WSM download for the background (e.g. Yahoo aerials).
  * No validator yet (see issue id 31)
- * [http://josm.openstreetmap.de/wiki/TaggingPresets Tagging-presets ] are not yet supported (see issue 23)
 
  Remember, Android is intended to be lightweight and easy-to-use.
 
@@ -126,4 +123,6 @@ Vespucci does not come with any "default user / password".
 
 ====How can I zoom into an area?====
 
-Use the volume buttons of your Android device.
+* Use the pinch-to-zoom multi-touch gesture.
+* Use the on-screen zoom controls.
+* Use the volume buttons of your Android device.
