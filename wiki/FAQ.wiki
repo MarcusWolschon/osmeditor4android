@@ -3,7 +3,7 @@
 == 1. Introduction ==
 
 ==== What is Vespucci? ====
-Vespucci is the first OpenStreetMap editor for Android.
+Vespucci is the first [http://www.openstreetmap.org/ OpenStreetMap] editor for Android.
 That means: It is a light-weight, easy-to-use mapping tool on mobile Android devices.
 
 
@@ -73,7 +73,7 @@ Yes. Soft keyboard is available in portrait mode.
 Auto download is not yet support. If you want to help us in this issue, please answer on [http://code.google.com/p/osmeditor4android/issues/detail?id=14 issue 14].
 
 
-====Does Vespucci support Open Street Bugs?====
+====Does Vespucci support [http://www.openstreetbugs.org/ OpenStreetBugs]?====
 Yes.
 
 
