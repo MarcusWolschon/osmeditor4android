@@ -71,9 +71,6 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 		mTileDownloader = new OpenStreetMapTileDownloader(ctx, this);
 
-//		File f = new File("/sdcard/andnav2");
-//		f.mkdirs();
-		
 		if(Log.isLoggable(DEBUGTAG, Log.INFO))
 			Log.i(DEBUGTAG, "Currently used cache-size is: " + mCurrentFSCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
 	}
@@ -155,7 +152,6 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 			throw new FileNotFoundException("null tile path");
 		}
 		return new BufferedInputStream(new FileInputStream(path), StreamUtils.IO_BUFFER_SIZE);
-//		return new BufferedInputStream(mCtx.openFileInput(path), StreamUtils.IO_BUFFER_SIZE);
 	}
 	
 	private OutputStream getOutput(final OpenStreetMapTile tile) throws IOException {

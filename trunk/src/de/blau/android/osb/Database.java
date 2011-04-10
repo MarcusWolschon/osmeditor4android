@@ -1,5 +1,6 @@
 package de.blau.android.osb;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +14,8 @@ import java.util.Collection;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import de.blau.android.services.util.StreamUtils;
 
 import android.graphics.Rect;
 import android.util.Log;
@@ -84,7 +87,7 @@ public class Database {
 				factory.setNamespaceAware(true);
 			}
 			XmlPullParser parser = factory.newPullParser();
-			parser.setInput(is, null);
+			parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
 			int eventType;
 			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 				String tagName = parser.getName();

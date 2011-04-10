@@ -11,6 +11,7 @@ import android.view.View;
  * @author Adam Powell, modified by Andrew Gregory for Vespucci
  */
 public abstract class VersionedGestureDetector {
+	private static final float DRAG_THRESHOLD = 20f;
 	OnGestureListener mListener;
 	
 	public abstract boolean onTouchEvent(View v, MotionEvent ev);
@@ -43,7 +44,7 @@ public abstract class VersionedGestureDetector {
 		float mLastTouchX;
 		float mLastTouchY;
 		boolean hasDragged;
-		private static final float dragThreshold = 20f;
+		boolean hasScaled;
 		
 		float getActiveX(MotionEvent ev) {
 			return ev.getX();
@@ -64,13 +65,14 @@ public abstract class VersionedGestureDetector {
 				mFirstTouchX = mLastTouchX = getActiveX(ev);
 				mFirstTouchY = mLastTouchY = getActiveY(ev);
 				hasDragged = false;
+				hasScaled = false;
 				break;
 			case MotionEvent.ACTION_MOVE:
 				{
 					final float x = getActiveX(ev);
 					final float y = getActiveY(ev);
 					if (shouldDrag()) {
-						if (Math.abs(x - mFirstTouchX) > dragThreshold || Math.abs(y - mFirstTouchY) > dragThreshold) {
+						if (Math.abs(x - mFirstTouchX) > DRAG_THRESHOLD || Math.abs(y - mFirstTouchY) > DRAG_THRESHOLD) {
 							hasDragged = true;
 						}
 						if (hasDragged) {
@@ -82,7 +84,7 @@ public abstract class VersionedGestureDetector {
 				}
 				break;
 			case MotionEvent.ACTION_UP:
-				if (!hasDragged) {
+				if (!hasDragged && !hasScaled) {
 					mListener.onClick(v, getActiveX(ev), getActiveY(ev));
 				}
 				break;
@@ -151,6 +153,7 @@ public abstract class VersionedGestureDetector {
 					new ScaleGestureDetector.SimpleOnScaleGestureListener() {
 				@Override public boolean onScale(ScaleGestureDetector detector) {
 					mListener.onScale(v, detector.getScaleFactor(), detector.getPreviousSpan(), detector.getCurrentSpan());
+					hasScaled = true;
 					return true;
 				}
 			});
