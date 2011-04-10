@@ -89,11 +89,12 @@ public class Main extends Activity {
 
 	private DialogFactory dialogFactory;
 
-	/**
-	 * The map View.
-	 */
+	/** The map View. */
 	private Map map;
+	/** Detector for taps, drags, and scaling. */
 	private VersionedGestureDetector mDetector;
+	/** Onscreen map zoom controls. */
+	private ZoomControls zoomControls;
 	/**
 	 * Our user-preferences.
 	 */
@@ -135,25 +136,23 @@ public class Main extends Activity {
 		rl.addView(map);
 		
 		// Set up the zoom in/out controls
-		final ZoomControls zc = new ZoomControls(getApplicationContext());
-		zc.setOnZoomInClickListener(new View.OnClickListener() {
+		zoomControls = new ZoomControls(getApplicationContext());
+		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				logic.zoom(Logic.ZOOM_IN);
-				zc.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
-				zc.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+				updateZoomControls();
 			}
 		});
-		zc.setOnZoomOutClickListener(new View.OnClickListener() {
+		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				logic.zoom(Logic.ZOOM_OUT);
-				zc.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
-				zc.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+				updateZoomControls();
 			}
 		});
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		rl.addView(zc, rlp);
+		rl.addView(zoomControls, rlp);
 		
 		setContentView(rl);
 
@@ -170,7 +169,16 @@ public class Main extends Activity {
 			logic.setMap(map);
 		}
 	}
-
+	
+	/**
+	 * Update the state of the onscreen zoom controls to reflect their ability
+	 * to zoom in/out.
+	 */
+	private void updateZoomControls() {
+		zoomControls.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+		zoomControls.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+	}
+	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
 		return logic;
@@ -404,6 +412,10 @@ public class Main extends Activity {
 				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
 				Bug bug = logic.getSelectedBug();
+				// NullPointerException on following line
+				// dialog (and hence ad) cannot be null due to instanceof
+				// therefore bug must have been null
+				// Investigation of this in progress.... (AG 10-Apr-2011)
 				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
 				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
 				comments.setText(bug.getComment().replaceAll("<hr />", "\n"));
@@ -745,15 +757,13 @@ public class Main extends Activity {
 		
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
-			logic.handleTouchEventMove(x, y, -dx, dy, true);
+			logic.handleTouchEventMove(x, y, -dx, dy);
 		}
 		
 		@Override
 		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
-			float zoom = (curSpan - prevSpan) / prevSpan;
-			if (zoom != 0f) {
-				logic.zoom(zoom);
-			}
+			logic.zoom((curSpan - prevSpan) / prevSpan);
+			updateZoomControls();
 		}
 		
 		private void selectElementForTagEdit(final View v, final float x, final float y) {
@@ -883,6 +893,7 @@ public class Main extends Activity {
 		 * @param bug The bug to edit.
 		 */
 		private void performBugEdit(final Bug bug) {
+			Log.d("Vespucci", "editing bug:"+bug);
 			logic.setSelectedBug(bug);
 			showDialog(DialogFactory.OPENSTREETBUG_EDIT);
 		}
@@ -986,12 +997,14 @@ public class Main extends Activity {
 					case KeyEvent.KEYCODE_VOLUME_UP:
 					case KeyEvent.KEYCODE_SEARCH:
 						logic.zoom(Logic.ZOOM_IN);
+						updateZoomControls();
 						return true;
 						
 					case KeyEvent.KEYCODE_VOLUME_DOWN:
 					case KeyEvent.KEYCODE_SHIFT_LEFT:
 					case KeyEvent.KEYCODE_SHIFT_RIGHT:
 						logic.zoom(Logic.ZOOM_OUT);
+						updateZoomControls();
 						return true;
 					}
 				}

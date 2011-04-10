@@ -507,19 +507,14 @@ public class Logic {
 	 * @param absoluteY The absolute display-coordinate.
 	 * @param relativeX The difference to the last absolute display-coordinate.
 	 * @param relativeY The difference to the last absolute display-coordinate.
-	 * @param hasMoved indicates if the user has made only a click or a real movement. A Node should not be translated
-	 *            only because of a single click.
 	 */
-	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX,
-			final float relativeY, final boolean hasMoved) {
+	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
 		if (mode == Mode.MODE_EDIT && selectedNode != null && isInEditZoomRange()) {
-			if (hasMoved) {
-				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
-				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
-				delegator.updateLatLon(selectedNode, lat, lon);
-				translateOnBorderTouch(absoluteX, absoluteY);
-				map.invalidate();
-			}
+			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
+			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
+			delegator.updateLatLon(selectedNode, lat, lon);
+			translateOnBorderTouch(absoluteX, absoluteY);
+			map.invalidate();
 		} else {
 			performTranslation(relativeX, relativeY);
 			map.invalidate();
@@ -536,7 +531,8 @@ public class Logic {
 	private void performTranslation(final float screenTransX, final float screenTransY) {
 		try {
 			tracker.setFollowGps(false);
-		} catch (FollowGpsException e) {}
+		} catch (FollowGpsException e) {
+		}
 		int height = map.getHeight();
 		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, screenTransX);
 		int lat = GeoMath.yToLatE7(height, viewBox, height - screenTransY);

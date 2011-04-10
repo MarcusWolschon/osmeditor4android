@@ -107,7 +107,7 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Number of zoom operations after which should the ratio reset.
 	 */
-	private static final int RESET_RATIO_AFTER_ZOOMCOUNT = 100;
+	private static final int RESET_RATIO_AFTER_ZOOMCOUNT = 1;
 
 	/**
 	 * the ratio of this BoundingBox. Only needed when it's used as a viewbox.
@@ -429,12 +429,29 @@ public class BoundingBox implements Serializable {
 		calcMercatorFactorPow3();
 	}
 	
+	/** Calculate the minimum zoom factor that can be applied to the current
+	 * view.
+	 * @return The minimum allowable zoom factor.
+	 */
+	private float zoomInLimit() {
+		return  (width - MIN_ZOOM_WIDTH) / 2f / width;
+	}
+	
+	/**
+	 * Calculate the maximum zoom factor that can be applied to the current
+	 * view.
+	 * @return The maximum allowable zoom factor.
+	 */
+	private float zoomOutLimit() {
+		return -(MAX_ZOOM_WIDTH - width) / 2f / width;
+	}
+	
 	/**
 	 * Test if the box can be zoomed in.
 	 * @return true if the box can be zoomed in, false if it can't.
 	 */
 	public boolean canZoomIn() {
-		return (width > MIN_ZOOM_WIDTH);
+		return (ZOOM_IN < zoomInLimit());
 	}
 	
 	/**
@@ -442,25 +459,21 @@ public class BoundingBox implements Serializable {
 	 * @return true if the box can be zoomed out, false if it can't.
 	 */
 	public boolean canZoomOut() {
-		return (width < MAX_ZOOM_WIDTH);
+		return (ZOOM_OUT > zoomOutLimit());
 	}
 	
 	/**
 	 * Reduces this bounding box by the DEFAULT_ZOOM_FACTOR. The ratio of width and height remains.
 	 */
 	public void zoomIn() {
-		if (canZoomIn()) {
-			zoom(ZOOM_IN);
-		}
+		zoom(ZOOM_IN);
 	}
 	
 	/**
 	 * Enlarges this bounding box by the DEFAULT_ZOOM_FACTOR. The ratio of width and height remains.
 	 */
 	public void zoomOut() {
-		if (canZoomOut()) {
-			zoom(ZOOM_OUT);
-		}
+		zoom(ZOOM_OUT);
 	}
 
 	/**
@@ -468,7 +481,16 @@ public class BoundingBox implements Serializable {
 	 * 
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
-	public void zoom(final float zoomFactor) {
+	public void zoom(float zoomFactor) {
+		float limit;
+		limit = zoomInLimit();
+		if (limit < 0 || zoomFactor > limit) {
+			zoomFactor = limit;
+		}
+		limit = zoomOutLimit();
+		if (limit > 0 || zoomFactor < limit) {
+			zoomFactor = limit;
+		}
 		float verticalChange = width * zoomFactor;
 		float horizontalChange = height * zoomFactor;
 		left += verticalChange;
