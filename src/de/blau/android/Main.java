@@ -189,6 +189,7 @@ public class Main extends Activity {
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
+		updateIcon();
 
 		// cache some values (optional)
 		TagValueAutocompletionAdapter.fillCache(this);
@@ -225,6 +226,45 @@ public class Main extends Activity {
 		}
 		return true;
 	}
+	
+	/**
+	 * Update the window icon to indicate the current mode.
+	 */
+	private void updateIcon() {
+		int resId;
+		switch (logic.getMode()) {
+		case MODE_MOVE:
+			resId = R.drawable.menu_move;
+			break;
+		case MODE_EDIT:
+			resId = R.drawable.menu_edit;
+			break;
+		case MODE_TAG_EDIT:
+			resId = R.drawable.menu_tag;
+			break;
+		case MODE_ADD:
+			resId = R.drawable.menu_add;
+			break;
+		case MODE_ERASE:
+			resId = R.drawable.menu_erase;
+			break;
+		case MODE_SPLIT:
+			resId = R.drawable.menu_split;
+			break;
+		case MODE_OPENSTREETBUG:
+			resId = R.drawable.menu_openstreetbug;
+			break;
+		case MODE_APPEND:
+			resId = R.drawable.menu_append;
+			break;
+		default:
+			resId = 0;
+			break;
+		}
+		if (resId != 0) {
+			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, resId);
+		}
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -234,43 +274,43 @@ public class Main extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_move:
 			logic.setMode(Logic.Mode.MODE_MOVE);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
+			updateIcon();
 			return true;
 
 		case R.id.menu_edit:
 			logic.setMode(Logic.Mode.MODE_EDIT);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_edit);
+			updateIcon();
 			return true;
 
 		case R.id.menu_tag:
 			logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_tag);
+			updateIcon();
 			return true;
 
 		case R.id.menu_add:
 			logic.setMode(Logic.Mode.MODE_ADD);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_add);
+			updateIcon();
 			return true;
 
 		case R.id.menu_erase:
 			logic.setMode(Logic.Mode.MODE_ERASE);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_erase);
+			updateIcon();
 			return true;
 
 		case R.id.menu_split:
 			logic.setMode(Logic.Mode.MODE_SPLIT);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
+			updateIcon();
 			return true;
 
 		case R.id.menu_openstreetbug:
 			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_openstreetbug);
+			updateIcon();
 			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
 			return true;
 
 		case R.id.menu_append:
 			logic.setMode(Logic.Mode.MODE_APPEND);
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_append);
+			updateIcon();
 			return true;
 
 		case R.id.menu_confing:
