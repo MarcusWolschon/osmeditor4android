@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.LocationManager;
 import android.os.Handler;
 import de.blau.android.exception.FollowGpsException;
@@ -63,6 +65,7 @@ public class Logic {
 
 	public static final byte MODE_TAG_EDIT = 5;
 
+	public static final byte MODE_SPLIT = 6;
 	/**
 	 * Enums for directions. Used for translation via cursor-pad.
 	 */
@@ -111,7 +114,7 @@ public class Logic {
 	/**
 	 * See {@link StorageDelegator}.
 	 */
-	private final StorageDelegator delegator;
+	protected final StorageDelegator delegator;
 
 	/**
 	 * Stores the {@link Preferences} as soon as they are available.
@@ -621,12 +624,26 @@ public class Logic {
 		setSelectedWay(lSelectedWay);
 	}
 
-	public void performErase(Node node) {
+	public void performErase(final Node node) {
 		if (node != null) {
 			delegator.removeNode(node);
 			map.invalidate();
 		}
 	}
+
+	/**
+	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
+	 * 
+	 * @param x screen-coordinate.
+	 * @param y screen-coordinate.
+	 */
+	public void performSplit(final Node node) {
+		if (node != null) {
+			delegator.splitAtNode(node);
+			map.invalidate();
+		}
+	}
+	
 
 	public void performAppendStart(OsmElement element) {
 		Way lSelectedWay = null;
@@ -930,4 +947,10 @@ public class Logic {
 		return delegator.storageEmpty();
 	}
 
+	/**
+	 * @return a list of all pending changes to upload
+	 */
+    public Set<String> getPendingChanges(final Context aCaller) {
+        return delegator.listChances(aCaller.getResources());
+    }
 }

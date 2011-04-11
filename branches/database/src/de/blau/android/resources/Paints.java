@@ -2,11 +2,14 @@ package de.blau.android.resources;
 
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Rasterizer;
 import android.graphics.Typeface;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
+import android.widget.ImageView.ScaleType;
 import de.blau.android.R;
 
 public class Paints {
@@ -35,8 +38,22 @@ public class Paints {
 
 	public final static int GPS_ACCURACY = 11;
 
-	private final static int PAINT_COUNT = 12;
+	public final static int SELECTED_NODE_THIN = 12;
 
+	public final static int NODE_THIN = 13;
+
+	public final static int RAILWAY = 14;
+
+	public final static int FOOTWAY = 15;
+
+	public final static int INTERPOLATION = 16;
+
+	public final static int WATERWAY = 17;
+
+	public final static int BOUNDARY = 18;
+
+	private final static int PAINT_COUNT = 19;
+		
 	private final Paint[] paints;
 
 	public static final float NODE_TOLERANCE_VALUE = 40f;
@@ -66,6 +83,19 @@ public class Paints {
 		paints[WAY] = paint;
 
 		paint = new Paint(standardPath);
+		paint.setColor(Color.BLUE);
+		paints[WATERWAY] = paint;
+		
+
+		paint = new Paint(standardPath);
+		paint.setColor(Color.GRAY);
+		paints[FOOTWAY] = paint;
+		
+		paint = new Paint(standardPath);
+		paint.setColor(Color.WHITE);
+		paints[RAILWAY] = paint;
+
+		paint = new Paint(standardPath);
 		paint.setColor(resources.getColor(R.color.building));
 		paints[BUILDING] = paint;
 
@@ -78,6 +108,10 @@ public class Paints {
 		paint = new Paint();
 		paint.setColor(resources.getColor(R.color.ccc_red));
 		paints[NODE] = paint;
+
+		paint = new Paint();
+		paint.setColor(resources.getColor(R.color.ccc_red));
+		paints[NODE_THIN] = paint;
 
 		paint = new Paint(paints[WAY]);
 		paint.setColor(Color.BLUE);
@@ -93,6 +127,10 @@ public class Paints {
 		paint.setColor(resources.getColor(R.color.ccc_beige));
 		paints[SELECTED_NODE] = paint;
 
+		paint = new Paint();
+		paint.setColor(resources.getColor(R.color.ccc_beige));
+		paints[SELECTED_NODE_THIN] = paint;
+
 		paint = new Paint(paints[TRACK]);
 		paint.setStyle(Style.FILL);
 		paints[GPS_POS] = paint;
@@ -106,6 +144,18 @@ public class Paints {
 		paint.setColor(resources.getColor(R.color.tertiary));
 		paints[SELECTED_WAY] = paint;
 
+		paint = new Paint(standardPath);
+		paint.setColor(Color.BLACK);
+		DashPathEffect dashPath = new DashPathEffect(new float[]{5,5}, 1);
+		paint.setPathEffect(dashPath);
+		paints[INTERPOLATION] = paint;
+
+		paint = new Paint(standardPath);
+		paint.setColor(Color.BLACK);
+		dashPath = new DashPathEffect(new float[]{20,5}, 1);
+		paint.setPathEffect(dashPath);
+		paints[BOUNDARY] = paint;
+	
 		paint = new Paint();
 		paint.setColor(resources.getColor(R.color.ccc_ocher));
 		paint.setStyle(Style.FILL);
@@ -118,6 +168,7 @@ public class Paints {
 		paint.setTypeface(Typeface.SANS_SERIF);
 		paint.setTextSize(12);
 		paints[INFOTEXT] = paint;
+		
 	}
 
 	public void setAntiAliasing(final boolean aa) {
@@ -130,10 +181,25 @@ public class Paints {
 	 * Sets the stroke width of all Elements corresponding to the width of the viewbox (=zoomfactor).
 	 */
 	public void updateStrokes(final float newStrokeWidth) {
+		paints[RAILWAY].setStrokeWidth(newStrokeWidth - 0.5f);
+		paints[RAILWAY].setShadowLayer(0.5f, 0, 0, Color.BLACK);
 		paints[WAY].setStrokeWidth(newStrokeWidth);
+		paints[WATERWAY].setStrokeWidth(newStrokeWidth);
+
+		paints[BOUNDARY].setStrokeWidth(newStrokeWidth * 0.6f);
+		DashPathEffect dashPath = new DashPathEffect(new float[]{2 * newStrokeWidth * 2.4f, 2 * newStrokeWidth * 0.6f}, 1);
+		paints[BOUNDARY].setPathEffect(dashPath);
+
+		paints[INTERPOLATION].setStrokeWidth(newStrokeWidth * 0.6f);
+		dashPath = new DashPathEffect(new float[]{2 * newStrokeWidth * 0.6f, 2 * newStrokeWidth * 0.6f}, 1);
+		paints[INTERPOLATION].setPathEffect(dashPath);
+
+		paints[FOOTWAY].setStrokeWidth(newStrokeWidth * 0.6f);
 		paints[BUILDING].setStrokeWidth(newStrokeWidth);
 		paints[TRACK].setStrokeWidth(newStrokeWidth);
 		paints[NODE].setStrokeWidth(newStrokeWidth * 1.5f);
+		paints[NODE_THIN].setStyle(Style.STROKE);
+		paints[SELECTED_NODE_THIN].setStyle(Style.STROKE);
 		paints[SELECTED_NODE].setStrokeWidth(newStrokeWidth * 2f);
 		paints[SELECTED_WAY].setStrokeWidth(newStrokeWidth * 2f);
 		paints[GPS_POS].setStrokeWidth(newStrokeWidth * 2f);

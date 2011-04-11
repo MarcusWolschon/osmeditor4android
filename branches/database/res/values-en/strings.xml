@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Vespucci</string>
-	<string name="app_version">0.6.2</string>
-	<string name="app_name_version">Vespucci 0.6.2</string>	
-
 	<!-- Dialogs -->
 	<string name="resume_last_activity_dialog_title">Resume?</string>
 	<string name="resume_last_activity_dialog_message">Do you want to resume your last activity?</string>
@@ -56,6 +52,8 @@
 	<string name="location_choose_radius">Choose radius:</string>
 	<string name="location_last_text">Last known location:</string>
 	<string name="location_current_text">Current location:</string>
+	<string name="location_current_text_parametized">Current location: Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g meter,</string>
 	<string name="location_map_text">From map (coming soon)</string>
 	<string name="location_coordinates_text">From coordinates:</string>
 	<string name="location_lat_label">Lat:</string>

@@ -17,6 +17,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.util.Log;
+
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
@@ -30,12 +32,13 @@ public class Server {
 	/**
 	 * Location of OSM API
 	 */
-	private static final String SERVER_URL = "http://api.openstreetmap.org";
+	// private static final String SERVER_URL = "http://api.openstreetmap.org";
+	private static final String SERVER_URL = "http://api06.dev.openstreetmap.org/";
 
 	/**
 	 * Timeout for connections in milliseconds.
 	 */
-	private static final int TIMEOUT = 30 * 1000;
+	private static final int TIMEOUT = 45 * 1000;
 
 	/**
 	 * username for write-access on the server.
@@ -119,9 +122,22 @@ public class Server {
 		isServerGzipEnabled = "gzip".equals(con
 				.getHeaderField("Content-encoding"));
 
+		// retry if we have no resopnse-code
+		if (con.getResponseCode() == -1) {
+		    Log.w(getClass().getName()+ ":getStreamForBox", "no valid http response-code, trying again");
+		    con = (HttpURLConnection) url.openConnection();
+		  //--Start: header not yet send
+	        con.setReadTimeout(TIMEOUT);
+	        con.setConnectTimeout(TIMEOUT);
+	        con.setRequestProperty("Accept-Encoding", "gzip");
+
+	        //--Start: got response header
+	        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+		}
+
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-					+ ", response code: " + con.getResponseCode());
+					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
 		}
 
 		if (isServerGzipEnabled) {
@@ -228,7 +244,7 @@ public class Server {
 			xmlSerializer.setOutput(out);
 			xmlSerializable.toXml(xmlSerializer, changeSetId);
 		} catch (IOException e) {
-			throw new OsmIOException("Could not send data to server");
+			throw new OsmIOException("Could not send data to server", e);
 		} finally {
 			close(out);
 		}
@@ -293,27 +309,31 @@ public class Server {
 		InputStream in = null;
 
 		try {
-			connection = openConnectionForWriteAccess(getCreateChangesetUrl(),
-					"PUT");
-			sendPayload(connection, new XmlSerializable() {
-				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId)
-						throws IllegalArgumentException, IllegalStateException,
-						IOException {
-					startXml(serializer);
-					serializer.startTag("", "changeset");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "created_by");
-					serializer.attribute("", "v", generator);
-					serializer.endTag("", "tag");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "comment");
-					serializer.attribute("", "v", "Vespucci edit");
-					serializer.endTag("", "tag");
-					serializer.endTag("", "changeset");
-					endXml(serializer);
-				}
-			}, this.changesetId);
+		    XmlSerializable xmlData = new XmlSerializable() {
+                @Override
+                public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+                    startXml(serializer);
+                    serializer.startTag("", "changeset");
+                    serializer.startTag("", "tag");
+                    serializer.attribute("", "k", "created_by");
+                    serializer.attribute("", "v", generator);
+                    serializer.endTag("", "tag");
+                    serializer.startTag("", "tag");
+                    serializer.attribute("", "k", "comment");
+                    serializer.attribute("", "v", "Vespucci edit");
+                    serializer.endTag("", "tag");
+                    serializer.endTag("", "changeset");
+                    endXml(serializer);
+                }
+            };
+			connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
+			sendPayload(connection, xmlData, this.changesetId);
+			if (connection.getResponseCode() == -1) {
+			    //sometimes we get an invalid response-code the first time.
+			    disconnect(connection);
+			    connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
+	            sendPayload(connection, xmlData, this.changesetId);
+			}
 			checkResponseCode(connection);
 			in = connection.getInputStream();
 			changesetId = Integer.parseInt(readLine(in));
@@ -344,29 +364,35 @@ public class Server {
 	 */
 	private void checkResponseCode(final HttpURLConnection connection)
 			throws IOException, OsmException {
-		int responsecode;
-		responsecode = connection.getResponseCode();
+		int responsecode = connection.getResponseCode();
 		if (responsecode != HttpURLConnection.HTTP_OK) {
+		    String responseMessage = connection.getResponseMessage();
+		    if (responseMessage == null) {
+		        responseMessage = "";
+		    }
 			InputStream in = connection.getErrorStream();
-			throw new OsmServerException(responsecode, "ErrorMessage: "
-					+ readStream(in));
+			throw new OsmServerException(responsecode, responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
+			//TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
 		}
 	}
 
 	private static String readStream(final InputStream in) {
 		String res = "";
-		if (in != null) {
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(in), 8000);
-			String line = null;
-			try {
-				while ((line = reader.readLine()) != null) {
-					res += line;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		try {
+            if (in != null) {
+            	BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
+            	String line = null;
+            	try {
+            		while ((line = reader.readLine()) != null) {
+            			res += line;
+            		}
+            	} catch (IOException e) {
+            		Log.w(Server.class.getName() + ":readStream()", "Error in read-operation", e);
+            	}
+            }
+        } catch (Exception e) {
+            Log.w(Server.class.getName() + ":readStream()", "Error outside of read-operation", e);
+        }
 		return res;
 	}
 

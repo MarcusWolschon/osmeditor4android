@@ -10,16 +10,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.SortedMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
+import de.blau.android.R;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.OsmStorageException;
 
@@ -229,6 +234,50 @@ public class StorageDelegator implements Serializable {
 			setState(node, OsmElement.STATE_DELETED);
 	}
 
+	public void splitAtNode(final Node node) {
+		List<Way> ways = getWays(node);
+		for (Way way : ways) {
+			splitAtNode(way, node);
+		}
+	}
+
+	public void splitAtNode(final Way way, final Node node) {
+		List<Node> nodes = way.getNodes();
+		if (nodes.size() < 3) {
+			return;
+		}
+		// we assume this node is only contained in the way once.
+		// else the user needs to split the remaining way again.
+		List<Node> nodesForNewWay = new LinkedList<Node>();
+		boolean found = false;
+		for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
+			Node wayNode = (Node) it.next();
+			if (!found && wayNode.getOsmId() == node.getOsmId()) {
+				found = true;
+				nodesForNewWay.add(wayNode);
+			} else if (found) {
+				nodesForNewWay.add(wayNode);
+				it.remove();
+			}
+		}
+		if (nodesForNewWay.size() < 1) {
+			return; // do not create 1-node way
+		}
+
+		way.updateState(OsmElement.STATE_MODIFIED);
+		database.updateWay(way);
+
+		// create the new way
+		Way newWay = OsmElementFactory.createWayWithNewId();
+		newWay.updateState(OsmElement.STATE_CREATED);
+		newWay.addTags(way.getTags());
+		for (Node wayNode : nodesForNewWay) {
+			newWay.addNode(wayNode);
+		}
+		
+		database.insertWay(newWay);
+	}
+
 	private int removeWayNodes(final Node node) {
 		int deleted = 0;
 		List<Way> ways = getWays(node);
@@ -394,9 +443,45 @@ public class StorageDelegator implements Serializable {
 		}
 	}
 
+	/**
+	 * Return a localized list of strings describing the changes we
+	 * would upload on {@link #uploadToServer(Server)}.
+	 * @param aResources the translations
+	 * @return the changes
+	 */
+	public Set<String> listChances(final Resources aResources) {
+	    Set<String> retval = new HashSet<String>();
+
+	    Collection<Node> nodes = getNodes();
+	    for (Node node : nodes) {
+	        if (node.getState() == OsmElement.STATE_DELETED) {
+                retval.add(aResources.getString(R.string.changes_node_deleted, node.getDescription()));
+            } else if (node.getState() == OsmElement.STATE_MODIFIED) {
+                retval.add(aResources.getString(R.string.changes_node_changed, node.getDescription()));   
+            } else if (node.getState() == OsmElement.STATE_CREATED) {
+                retval.add(aResources.getString(R.string.changes_node_created, node.getDescription()));   
+            }
+        }
+
+	    Collection<Way> ways = getWays();
+        for (Way way : ways) {
+            if (way.getState() == OsmElement.STATE_DELETED) {
+                retval.add(aResources.getString(R.string.changes_way_deleted, way.getDescription()));
+            } else if (way.getState() == OsmElement.STATE_MODIFIED) {
+                retval.add(aResources.getString(R.string.changes_way_changed, way.getDescription()));   
+            } else if (way.getState() == OsmElement.STATE_CREATED) {
+                retval.add(aResources.getString(R.string.changes_way_created, way.getDescription()));   
+            }
+        }
+
+        // we do not support editing relations yet
+        return retval;
+	}
+
+
 	public synchronized void uploadToServer(final Server server)
-			throws MalformedURLException, ProtocolException,
-			OsmServerException, IOException {
+			throws MalformedURLException, ProtocolException, OsmServerException,
+			IOException {
 		server.openChangeset();
 		uploadCreatedOrModifiedElements(server, modifiedNodes);
 		uploadCreatedOrModifiedElements(server, modifiedWays);

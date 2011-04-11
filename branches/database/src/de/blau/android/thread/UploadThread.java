@@ -21,7 +21,10 @@ import de.blau.android.osm.StorageDelegator;
  */
 public class UploadThread extends LogicThread {
 
-	private static final String DEBUG_TAG = UploadThread.class.getSimpleName();
+    /**
+     * Tag used for Android-logging.
+     */
+	private static final String DEBUG_TAG = UploadThread.class.getName();
 
 	private final Server server;
 
@@ -56,23 +59,23 @@ public class UploadThread extends LogicThread {
 			handler.post(uploadSuccess);
 		} catch (final MalformedURLException e) {
 			handler.post(getDialog(DialogFactory.UNDEFINED_ERROR));
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "", e);
 			//exceptions.add(e);
 		} catch (final ProtocolException e) {
 			handler.post(getDialog(DialogFactory.UNDEFINED_ERROR));
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "", e);
 			//exceptions.add(e);
 		} catch (final OsmServerException e) {
 			handleOsmServerException(e);
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "", e);
 			//exceptions.add(e);
 		} catch (final IOException e) {
 			handler.post(getDialog(DialogFactory.NO_CONNECTION));
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "", e);
 			//exceptions.add(e);
 		} catch (final NullPointerException e) {
 			handler.post(getDialog(DialogFactory.UNDEFINED_ERROR));
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "", e);
 			//exceptions.add(e);
 		} finally {
 			handler.post(setProgressBarVisible(false));

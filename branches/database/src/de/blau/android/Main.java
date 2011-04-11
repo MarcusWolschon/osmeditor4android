@@ -3,7 +3,9 @@ package de.blau.android;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import android.app.Activity;
@@ -39,6 +41,8 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.TagKeyAutocompletionAdapter;
+import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
 
 /**
@@ -48,7 +52,10 @@ import de.blau.android.resources.Paints;
  */
 public class Main extends Activity {
 
-	private static final String DEBUG_TAG = Main.class.getSimpleName();
+    /**
+     * Tag used for Android-logging.
+     */
+	private static final String DEBUG_TAG = Main.class.getName();
 
 	/**
 	 * Requests a {@link BoundingBox} as an activity-result.
@@ -77,9 +84,21 @@ public class Main extends Activity {
 	 */
 	private Map map;
 
+
+	/**
+	 * Our user-preferences.
+	 */
 	private Preferences prefs;
 
-	private Logic logic;
+	/**
+	 * The logic that manipulates the model.
+	 * (non-UI)<br/>
+	 * This is created in {@link #onCreate(Bundle)} and never changed
+	 * afterwards.<br/>
+	 * If may be null or not reflect the current state if accessed from
+	 * outside this activity.
+	 */
+	protected static Logic logic;
 
 	/**
 	 * {@inheritDoc}
@@ -140,6 +159,10 @@ public class Main extends Activity {
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
+
+		// cache some values (optional)
+		TagValueAutocompletionAdapter.fillCache(this);
+		TagKeyAutocompletionAdapter.fillCache(this);
 	}
 
 	/**
@@ -188,6 +211,11 @@ public class Main extends Activity {
 					R.drawable.menu_erase);
 			return true;
 
+		case R.id.menu_split:
+			logic.setMode(Logic.MODE_SPLIT);
+			//TODO: no icon yet getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
+			return true;
+
 		case R.id.menu_append:
 			logic.setMode(Logic.MODE_APPEND);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
@@ -219,7 +247,7 @@ public class Main extends Activity {
 			return true;
 
 		case R.id.menu_transfer_upload:
-			performUpload();
+			confirmUpload();
 			return true;
 
 		case R.id.menu_save:
@@ -262,12 +290,14 @@ public class Main extends Activity {
 	 */
 	@Override
 	protected Dialog onCreateDialog(final int id) {
-		Dialog dialog = dialogFactory.create(id);
+		Dialog dialog = dialogFactory.create(this, id);
 		if (dialog != null) {
 			return dialog;
 		}
 		return super.onCreateDialog(id);
 	}
+	
+
 
 	/**
 	 * {@inheritDoc}
@@ -304,7 +334,7 @@ public class Main extends Activity {
 			}
 		} catch (OsmException e) {
 			// Values should be done checked in LocationPciker.
-			Log.e(DEBUG_TAG, e.getStackTrace().toString());
+			Log.e(DEBUG_TAG, "OsmException", e);
 		}
 	}
 
@@ -372,12 +402,14 @@ public class Main extends Activity {
 			showDialog(DialogFactory.PROGRESS_LOADING);
 			logic.downloadBox(this, handler, box);
 		} catch (OsmException e) {
+			dismissDialog(DialogFactory.PROGRESS_LOADING);
 			showDialog(DialogFactory.UNDEFINED_ERROR);
-			e.printStackTrace();
+			Log.e(getClass().getName() + ":performHttpLoad()" , "OsmException received", e);
 			exceptions.add(e);
 		} catch (IOException e) {
+			dismissDialog(DialogFactory.PROGRESS_LOADING);
 			showDialog(DialogFactory.NO_CONNECTION);
-			e.printStackTrace();
+            Log.e(getClass().getName() + ":performHttpLoad()" , "IOException received", e);
 			exceptions.add(e);
 		}
 	}
@@ -390,6 +422,7 @@ public class Main extends Activity {
 	 * 
 	 */
 	public void performUpload() {
+		removeDialog(DialogFactory.CONFIRM_UPLOAD);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
@@ -403,6 +436,24 @@ public class Main extends Activity {
 			showDialog(DialogFactory.NO_LOGIN_DATA);
 		}
 	}
+
+
+    /**
+     * 
+     */
+    public void confirmUpload() {
+        final Server server = prefs.getServer();
+
+        if (server != null && server.isLoginSet()) {
+            if (logic.hasChanges()) {
+                showDialog(DialogFactory.CONFIRM_UPLOAD);
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            showDialog(DialogFactory.NO_LOGIN_DATA);
+        }
+    }
 
 	/**
 	 * Starts the LocationPicker activity for requesting a location.
@@ -516,6 +567,9 @@ public class Main extends Activity {
 					case Logic.MODE_ERASE:
 						selectElementForErase(v, x, y);
 						break;
+					case Logic.MODE_SPLIT:
+						selectElementForSplit(v, x, y);
+						break;
 					case Logic.MODE_APPEND:
 						performAppend(v, x, y);
 						break;
@@ -537,7 +591,7 @@ public class Main extends Activity {
 			oldPosY = INVALID_POS;
 		}
 
-		private void selectElementForTagEdit(View v, float x, float y) {
+		private void selectElementForTagEdit(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
 			int size = clickedNodesAndWays.size();
 			if (size == 1) {
@@ -547,11 +601,30 @@ public class Main extends Activity {
 			} /* else {} */// If no elements where touched, ignore
 		}
 
-		private void selectElementForErase(View v, float x, float y) {
+		private void selectElementForErase(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodes(x, y);
 			int size = clickedNodesAndWays.size();
 			if (size == 1) {
 				logic.performErase((Node) clickedNodesAndWays.get(0));
+			} else if (size > 1) {
+				v.showContextMenu();
+			} /* else {} */// If no elements where touched, ignore
+		}
+
+		private void selectElementForSplit(final View v, final float x, final float y) {
+			clickedNodesAndWays = logic.getClickedNodes(x, y);
+
+			//TOOD remove nodes with no ways from list
+//			for (Iterator iterator = clickedNodesAndWays.iterator(); iterator.hasNext();) {
+//				Node node = (Node) iterator.next();
+//				if (node.getWaysCount() < 1) {
+//					iterator.remove();
+//				}
+//			}
+
+			int size = clickedNodesAndWays.size();
+			if (size == 1) {
+				logic.performSplit((Node) clickedNodesAndWays.get(0));
 			} else if (size > 1) {
 				v.showContextMenu();
 			} /* else {} */// If no elements where touched, ignore
@@ -594,11 +667,12 @@ public class Main extends Activity {
 		/**
 		 * @param selectedElement
 		 */
-		private void performTagEdit(OsmElement selectedElement) {
-			if (selectedElement instanceof Node)
+		private void performTagEdit(final OsmElement selectedElement) {
+			if (selectedElement instanceof Node) {
 				logic.setSelectedNode((Node) selectedElement);
-			else if (selectedElement instanceof Way)
+			} else if (selectedElement instanceof Way) {
 				logic.setSelectedWay((Way) selectedElement);
+			}
 
 			if (selectedElement != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
@@ -650,6 +724,9 @@ public class Main extends Activity {
 				case Logic.MODE_ERASE:
 					logic.performErase((Node) element);
 					break;
+				case Logic.MODE_SPLIT:
+					logic.performSplit((Node) element);
+					break; 
 				case Logic.MODE_APPEND:
 					switch (appendMode) {
 					case APPEND_START:
@@ -727,4 +804,16 @@ public class Main extends Activity {
 			}
 		}
 	}
+
+	/**
+	 * @return a list of all pending changes to upload (contains newlines)
+	 */
+    public String getPendingChanges() {
+        Set<String> changes = logic.getPendingChanges(this);
+        StringBuilder retval = new StringBuilder();
+        for (String change : changes) {
+            retval.append(change).append('\n');
+        }
+        return retval.toString();
+    }
 }

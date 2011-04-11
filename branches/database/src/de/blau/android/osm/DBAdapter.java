@@ -252,6 +252,13 @@ public class DBAdapter {
 		contentValues.put(KEY_WAYS_VERSION, way.osmVersion);
 		db.insert(DATABASE_TABLE_WAYS, null, contentValues);
 
+		insertWayNodes(way);
+
+		insertTags(way);
+	}
+
+	private void insertWayNodes(final Way way) {
+		final ContentValues contentValues = new ContentValues();
 		int i = 0;
 		final List<Node> nodes = way.getNodes();
 		for (final Node node : nodes) {
@@ -261,16 +268,31 @@ public class DBAdapter {
 			contentValues.put(KEY_WAYNODES_NODEID, node.getOsmId());
 			db.insert(DATABASE_TABLE_WAYNODES, null, contentValues);
 		}
+	}
+
+	public void updateWay(final Way way) {
+		final ContentValues contentValues = new ContentValues();
+		contentValues.put(KEY_WAYS_STATE, way.getState());
+		contentValues.put(KEY_WAYS_VERSION, way.osmVersion);
+		db.update(DATABASE_TABLE_WAYS, contentValues, KEY_WAYS_OSMID + " = "
+				+ way.getOsmId(), null);
+		
+		deleteWayNodes(way);
+		insertWayNodes(way);
 
 		insertTags(way);
 	}
 
 	public void deleteWay(final Way way) {
 		deleteTags(way);
-		db.delete(DATABASE_TABLE_WAYNODES, KEY_WAYNODES_WAYID + " = "
-				+ way.getOsmId(), null);
+		deleteWayNodes(way);
 		db.delete(DATABASE_TABLE_WAYS, KEY_WAYS_OSMID + " = " + way.getOsmId(),
 				null);
+	}
+
+	private void deleteWayNodes(final Way way) {
+		db.delete(DATABASE_TABLE_WAYNODES, KEY_WAYNODES_WAYID + " = "
+				+ way.getOsmId(), null);
 	}
 
 	public void addNodeToWay(final Way way, final Node node, final int position) {

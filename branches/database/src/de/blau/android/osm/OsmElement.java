@@ -132,8 +132,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	public String getDescription() {
 		String name = getTagWithKey("name");
-		if (name != null && name.length() > 0)
+		if (name != null && name.length() > 0) {
 			return name;
+		}
+		String housenb = getTagWithKey("addr:housenumber");
+        if (housenb != null && housenb.length() > 0) {
+            return "house " + housenb;
+        }
 		return getName() + " #" + Long.toString(getOsmId());
 	}
 }

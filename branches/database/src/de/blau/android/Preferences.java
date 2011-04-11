@@ -17,7 +17,11 @@ public class Preferences {
 
 	private final boolean isAntiAliasingEnabled;
 
-	private final Server server;
+	/**
+     * Credentials (username and password) for the
+     * OpenStreetMap API(0.6)-Server
+     */
+    private final Server server;
 
 	private int gpsInterval;
 

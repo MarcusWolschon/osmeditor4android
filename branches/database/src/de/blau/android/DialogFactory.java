@@ -9,6 +9,7 @@ import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.GotoErrorMailerListener;
 import de.blau.android.listener.GotoPreferencesListener;
 import de.blau.android.listener.UploadListener;
+import de.blau.android.listener.ConfirmUploadListener;
 
 /**
  * Capsulates Dialog-Creation from {@link Main} and delegates the creation-command to {@link android.app.Dialog.Builder}.
@@ -31,6 +32,8 @@ public class DialogFactory {
 
 	public static final int UNDEFINED_ERROR = 7;
 
+    public static final int CONFIRM_UPLOAD = 8;
+
 	private final Main caller;
 
 	private final Builder noLoginDataSet;
@@ -42,6 +45,8 @@ public class DialogFactory {
 	private final Builder downloadCurrentWithChanges;
 
 	private final Builder undefinedError;
+
+    private final Builder confirmUpload;
 
 	/**
 	 * @param caller
@@ -63,8 +68,8 @@ public class DialogFactory {
 
 		downloadCurrentWithChanges = createBasicDialog(R.string.transfer_download_current_dialog_title,
 			R.string.transfer_download_current_dialog_message);
-		downloadCurrentWithChanges.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(
-				caller));
+		downloadCurrentWithChanges.setPositiveButton(R.string.transfer_download_current_upload,
+		        new ConfirmUploadListener(caller));
 		downloadCurrentWithChanges.setNeutralButton(R.string.transfer_download_current_back, doNothingListener);
 		downloadCurrentWithChanges.setNegativeButton(R.string.transfer_download_current_download,
 			new DownloadCurrentListener(caller));
@@ -73,13 +78,18 @@ public class DialogFactory {
 		undefinedError.setPositiveButton(R.string.undefined_error_sendbutton, new GotoErrorMailerListener(caller));
 		undefinedError.setNegativeButton(R.string.no, doNothingListener);
 
+
+        confirmUpload = createBasicDialog(R.string.confirm_upload_title, R.string.confirm_upload_title); // body gets replaced later
+        confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller));
+        confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 	}
 
 	/**
+	 * @param aCaller 
 	 * @param id
 	 * @return
 	 */
-	public Dialog create(final int id) {
+	public Dialog create(final Main aCaller, final int id) {
 		switch (id) {
 
 		case NO_LOGIN_DATA:
@@ -102,15 +112,19 @@ public class DialogFactory {
 
 		case PROGRESS_DOWNLOAD:
 			return createBasicProgressDialog(R.string.progress_download_message);
+
+		case CONFIRM_UPLOAD:
+		    confirmUpload.setMessage(aCaller.getString(R.string.confirm_upload_text, aCaller.getPendingChanges()));
+            return confirmUpload.create();
 		}
 
 		return null;
 	}
 
 	/**
-	 * @param titleId
-	 * @param messageId
-	 * @return
+	 * @param titleId the resource-id of the title 
+	 * @param messageId the resource-id of the message
+	 * @return a dialog-builder
 	 */
 	private Builder createBasicDialog(final int titleId, final int messageId) {
 		Builder dialog = new AlertDialog.Builder(caller);
@@ -128,5 +142,6 @@ public class DialogFactory {
 		progress.setMessage(caller.getResources().getString(messageId));
 		return progress;
 	}
+
 
 }

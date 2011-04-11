@@ -43,8 +43,10 @@ import de.blau.android.util.GeoMath;
  */
 public class BoxPicker extends Activity implements LocationListener {
 
-	@SuppressWarnings("unused")
-	private final static String DEBUG_TAG = BoxPicker.class.getSimpleName();
+    /**
+     * Tag used for Android-logging.
+     */
+	private final static String DEBUG_TAG = BoxPicker.class.getName();
 
 	/**
 	 * Shown when the user inserts an invalid decimal number.
@@ -71,6 +73,11 @@ public class BoxPicker extends Activity implements LocationListener {
 	 * The user-chosen radius by the SeekBar. Value in Meters.
 	 */
 	private int currentRadius = 0;
+
+	/**
+	 * Last known location.
+	 */
+	private Location lastLocation = null;
 
 	/**
 	 * All exceptions occurred.
@@ -117,8 +124,14 @@ public class BoxPicker extends Activity implements LocationListener {
 
 		currentRadius = seeker.getProgress();
 
+		Location l = registerLocationListener();
+		if (l != null) {
+			lastLocation = l;
+			RadioButton lastKnownLocationRadioButton = (RadioButton) findViewById(R.id.location_last);
+			lastKnownLocationRadioButton.setEnabled(true);
+		}
+
 		//register listeners
-		registerLocationListener();
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 		radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, dontLoadMapButton, latEdit,
 			lonEdit));
@@ -130,18 +143,22 @@ public class BoxPicker extends Activity implements LocationListener {
 	/**
 	 * Registers this class for location updates from GPS (fine location) and network (coarse location).
 	 */
-	private void registerLocationListener() {
+	private Location registerLocationListener() {
 		Preferences prefs = new Preferences(PreferenceManager.getDefaultSharedPreferences(this), getResources());
 		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		List<String> providers = locationManager.getAllProviders();
+		Location lastKnown = null;
 		if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(), prefs
 					.getGpsDistance(), this);
+			lastKnown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		}
 		if (providers.contains(LocationManager.GPS_PROVIDER)) {
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs
 					.getGpsDistance(), this);
+			lastKnown = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		}
+		return lastKnown;
 	}
 
 	/**
@@ -167,6 +184,9 @@ public class BoxPicker extends Activity implements LocationListener {
 					if (currentLocation != null) {
 						latEdit.setText((float) currentLocation.getLatitude() + "");
 						lonEdit.setText((float) currentLocation.getLongitude() + "");
+					} else if (lastLocation != null) {
+						latEdit.setText((float) lastLocation.getLatitude() + "");
+						lonEdit.setText((float) lastLocation.getLongitude() + "");
 					}
 				} else {
 					coordinateView.setVisibility(View.GONE);
@@ -238,6 +258,9 @@ public class BoxPicker extends Activity implements LocationListener {
 		case R.id.location_current:
 			box = createBoxForCurrentLocation();
 			break;
+		case R.id.location_last:
+			box = createBoxForLastLocation();
+			break;
 		case R.id.location_coordinates:
 			box = createBoxForManualLocation(lat, lon);
 			break;
@@ -262,6 +285,23 @@ public class BoxPicker extends Activity implements LocationListener {
 		}
 		return box;
 	}
+
+	/**
+	 * @return {@link BoundingBox} for {@link #lastLocation} and {@link #currentRadius}
+	 */
+	private BoundingBox createBoxForLastLocation() {
+		BoundingBox box = null;
+		try {
+			box = GeoMath.createBoundingBoxForCoordinates(lastLocation.getLatitude(),
+					lastLocation.getLongitude(), currentRadius);
+		} catch (OsmException e) {
+			exceptions.add(e);
+			showDialog(DIALOG_UNDEFINED_ERROR);
+		}
+		return box;
+	}
+
+		
 
 	/**
 	 * Tries to parse lat and lon and creates a new {@link BoundingBox} if succeed.
@@ -368,18 +408,17 @@ public class BoxPicker extends Activity implements LocationListener {
 		Log.w(DEBUG_TAG, "Got location: " + newLocation);
 		if (newLocation != null) {
 			if (isNewLocationMoreAccurate(newLocation)) {
-				String lat = (float) newLocation.getLatitude() + "";
-				String lon = (float) newLocation.getLongitude() + "";
+				double lat = newLocation.getLatitude();
+				double lon = newLocation.getLongitude();
 				RadioButton currentLocationRadioButton = (RadioButton) findViewById(R.id.location_current);
 				String metaData = " (";
 
 				if (newLocation.hasAccuracy()) {
-					metaData += "Accuracy: " + newLocation.getAccuracy() + ", ";
+					metaData += getResources().getString(R.string.location_current_text_metadata_accuracy, newLocation.getAccuracy());
 				}
 				metaData += newLocation.getProvider() + ")";
 				currentLocationRadioButton.setEnabled(true);
-				currentLocationRadioButton.setText(getResources().getString(R.string.location_current_text) + " Lat "
-						+ lat + ", Lon " + lon + metaData);
+				currentLocationRadioButton.setText(getResources().getString(R.string.location_current_text_parametized, lat, lon, metaData));
 
 				currentLocation = newLocation;
 			}
