@@ -11,12 +11,22 @@ import java.util.Map.Entry;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.res.Resources;
+
+import de.blau.android.R;
+
 public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7711945069147743666L;
+	
+	/**
+	 * An array of tags considered 'important' and distinctive enough to be shown as part of
+	 * the elements description.
+	 */
+	private static final String[] importantTags;
 
 	public static final long NEW_OSM_ID = -1;
 
@@ -36,12 +46,28 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	protected SortedMap<String, String> tags;
 
 	protected byte state;
+	
+	/**
+	 * hasProblem() is an expensive test, so the results are cached.
+	 */
+	private boolean cachedHasProblem;
+	
+	/**
+	 * flag to determine if the cached result for hasProblem() is valid and can be used.
+	 */
+	protected boolean cachedHasProblemValid;
+	
+	static {
+		// Create the array of important tags. Tags are listed from most important to least.
+		importantTags = "highway,barrier,waterway,railway,aeroway,aerialway,power,man_made,building,leisure,amenity,office,shop,craft,emergency,tourism,historic,landuse,military,natural,boundary".split(",");
+	}
 
 	OsmElement(final long osmId, final long osmVersion, final byte state) {
 		this.osmId = osmId;
 		this.osmVersion = osmVersion;
 		this.tags = new TreeMap<String, String>();
 		this.state = state;
+		cachedHasProblemValid = false;
 	}
 
 	public long getOsmId() {
@@ -81,28 +107,57 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	public void addOrUpdateTag(final String tag, final String value) {
 		tags.put(tag, value);
+		cachedHasProblemValid = false;
 	}
 
+	/**
+	 * Add the tags of the element, replacing any existing tags.
+	 * @param tags New tags to add or to replace existing tags.
+	 */
 	void addTags(final Map<String, String> tags) {
 		this.tags.putAll(tags);
+		cachedHasProblemValid = false;
 	}
 
-	void setTags(final Map<String, String> tags) {
-		this.tags.clear();
-		if (tags != null) {
-			this.tags.putAll(tags);
+	/**
+	 * Set the tags of the element, replacing all existing tags.
+	 * @param tags New tags to replace existing tags.
+	 * @return Flag indicating if the tags have actually changed.
+	 */
+	boolean setTags(final Map<String, String> tags) {
+		if ((tags == null) ? !this.tags.isEmpty() : !this.tags.equals(tags)) {
+			this.tags.clear();
+			if (tags != null) {
+				this.tags.putAll(tags);
+			}
+			cachedHasProblemValid = false;
+			return true;
 		}
+		return false;
 	}
 
+	/**
+	 * @param key the key to search for (case sensitive)
+	 * @param value the value to search for (case sensitive)
+	 * @return true if the element has a tag with this key and value.
+	 */
 	public boolean hasTag(final String key, final String value) {
 		String keyValue = tags.get(key);
 		return keyValue != null && keyValue.equals(value);
 	}
 
+	/**
+	 * @param key the key to search for (case sensitive)
+	 * @return the value of this key.
+	 */
 	public String getTagWithKey(final String key) {
 		return this.tags.get(key);
 	}
 
+	/**
+	 * @param key the key to search for (case sensitive)
+	 * @return true if the element has a tag with this key.
+	 */
 	public boolean hasTagKey(final String key) {
 		return getTagWithKey(key) != null;
 	}
@@ -130,15 +185,78 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		return state == STATE_UNCHANGED;
 	}
 
+	/**
+	 * Generate a human-readable description/summary of the element.
+	 * @return A description of the element.
+	 */
 	public String getDescription() {
+		// Use the name if it exists
 		String name = getTagWithKey("name");
 		if (name != null && name.length() > 0) {
 			return name;
 		}
+		// Then the house number
 		String housenb = getTagWithKey("addr:housenumber");
-        if (housenb != null && housenb.length() > 0) {
-            return "house " + housenb;
-        }
+		if (housenb != null && housenb.length() > 0) {
+			return "house " + housenb;
+		}
+		// Then the value of the most 'important' tag the element has
+		for (String tag : importantTags) {
+			String value = getTagWithKey(tag);
+			if (value != null && value.length() > 0) {
+				return getName() + " " + tag + ":" + value;
+			}
+		}
+		// Failing the above, the OSM ID
 		return getName() + " #" + Long.toString(getOsmId());
+	}
+	
+	/**
+	 * Generate a description of the element that also includes state information.
+	 * @param aResources Application resources.
+	 * @return A human readable description of the element that includes state information.
+	 */
+	public String getStateDescription(final Resources aResources) {
+		switch (getState()) {
+		case STATE_CREATED:
+			return aResources.getString(R.string.changes_created, getDescription());
+		case STATE_MODIFIED:
+			return aResources.getString(R.string.changes_changed, getDescription());
+		case STATE_DELETED:
+			return aResources.getString(R.string.changes_deleted, getDescription());
+		default:
+			return getDescription();
+		}
+	}
+	
+	/**
+	 * Test if the element has any problems by searching all the tags for the words
+	 * "fixme" or "todo".
+	 * @return true if the element has any noted problems, false otherwise.
+	 */
+	protected boolean calcProblem() {
+		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
+		for (String key : tags.keySet()) {
+			// test key and value against pattern
+			if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Test if the element has a noted problem. A noted problem is where someone has
+	 * tagged the element with a "fixme" or "todo" key/value.
+	 * @return true if the element has a noted problem, false if it doesn't.
+	 */
+	public boolean hasProblem() {
+		// This implementation assumes that calcProblem() may be expensive, and
+		// caches the calculation.
+		if (!cachedHasProblemValid) {
+			cachedHasProblem = calcProblem();
+			cachedHasProblemValid = true;
+		}
+		return cachedHasProblem;
 	}
 }

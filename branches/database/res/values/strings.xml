@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Vespucci</string>
-	<string name="app_version">0.6.6-beta3</string>
-	<string name="app_name_version">Vespucci 0.6.6-beta3</string>	
+	<string name="app_version">0.6.10-beta</string>
+	<string name="app_name_version">Vespucci 0.6.10-beta</string>	
 
 	<!-- Dialogs -->
 	<string name="resume_last_activity_dialog_title">Resume?</string>
@@ -24,6 +24,13 @@
 	<string name="progress_title">Loading</string>
 	<string name="progress_message">Loading data into memory...</string>
 	<string name="progress_download_message">Downloading data from server...</string>
+	<string name="upload_comment_label">Comment:</string>
+	<string name="openstreetbug_edit_title">Edit OpenStreetBug</string>
+	<string name="openstreetbug_commitbutton">Commit</string>
+	<string name="openstreetbug_comment_label">Comment:</string>
+	<string name="openstreetbug_edit_close">Close bug</string>
+	<string name="openstreetbug_commit_ok">Changes saved</string>
+	<string name="openstreetbug_commit_fail">Could not save changes</string>
 
 	<!-- Toaster -->
 	<string name="toast_no_changes">You have not changed anything yet...</string>
@@ -91,6 +98,9 @@
 	<!-- Preferences -->
 	<string name="config_category_view">View Settings</string>
 	<string name="config_showStats_key">showStats</string>
+	<string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
+	<string name="config_maxStrokeWidth_title">max stroke width</string>
+	<string name="config_maxStrokeWidth_summary">do not draw a way thicker then this</string>
 	<string name="config_showStats_title">Show stats</string>
 	<string name="config_showStats_summary">Displays data statistics and frames/sec in the lower left corner.</string>
 	<string name="config_showTolerance_key">showTolerance</string>
@@ -99,6 +109,9 @@
 	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
 	<string name="config_enableAntiAliasing_title">Enable Anti-Aliasing</string>
 	<string name="config_enableAntiAliasing_summary">Makes the lines more smoothly.</string>
+	<string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
+	<string name="config_enableOpenStreetBugs_title">Enable OpenStreetBugs</string>
+	<string name="config_enableOpenStreetBugs_summary">Display bugs reported to OpenStreetBugs.</string>
 	<string name="config_category_server">Server Settings</string>
 	<string name="config_username_key">username</string>
 	<string name="config_username_title">OSM Username</string>
@@ -115,12 +128,9 @@
 	<string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
 
     <!--  changes -->
-    <string name="changes_node_deleted">Node "%1$s" deleted</string>
-    <string name="changes_way_deleted">Way "%1$s" deleted</string>
-    <string name="changes_node_changed">Node "%1$s" changed</string>
-    <string name="changes_way_changed">Way "%1$s" changed</string>
-    <string name="changes_node_created">Node "%1$s" created</string>
-    <string name="changes_way_created">Way "%1$s" created</string>
+    <string name="changes_deleted">"%1$s" deleted</string>
+    <string name="changes_changed">"%1$s" changed</string>
+    <string name="changes_created">"%1$s" created</string>
     <string name="confirm_upload_title">Upload?</string>
     <string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
 </resources>

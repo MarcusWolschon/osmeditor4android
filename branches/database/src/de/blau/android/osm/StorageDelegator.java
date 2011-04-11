@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
-import de.blau.android.R;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.OsmStorageException;
 
@@ -94,8 +93,8 @@ public class StorageDelegator implements Serializable {
 	public BoundingBox getOriginalBox() {
 		return boundingBox.clone();
 	}
-
-	public Collection<Node> getNodes() {
+		
+  public Collection<Node> getNodes() {
 		if (threadWriteMode)
 			return Collections.emptyList();
 		return Collections.unmodifiableCollection(nodes.values());
@@ -251,7 +250,7 @@ public class StorageDelegator implements Serializable {
 		List<Node> nodesForNewWay = new LinkedList<Node>();
 		boolean found = false;
 		for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
-			Node wayNode = (Node) it.next();
+			Node wayNode = it.next();
 			if (!found && wayNode.getOsmId() == node.getOsmId()) {
 				found = true;
 				nodesForNewWay.add(wayNode);
@@ -274,7 +273,7 @@ public class StorageDelegator implements Serializable {
 		for (Node wayNode : nodesForNewWay) {
 			newWay.addNode(wayNode);
 		}
-		
+
 		database.insertWay(newWay);
 	}
 
@@ -330,8 +329,7 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void setTags(final OsmElement element, final Map<String, String> tags) {
-		if (!element.getTags().equals(tags)) {
-			element.setTags(tags);
+		if (!element.setTags(tags)) {
 			setState(element, OsmElement.STATE_MODIFIED);
 			database.updateTags(element);
 		}
@@ -444,45 +442,38 @@ public class StorageDelegator implements Serializable {
 	}
 
 	/**
-	 * Return a localized list of strings describing the changes we
-	 * would upload on {@link #uploadToServer(Server)}.
+	 * Return a localized list of strings describing the changes we would upload on {@link #uploadToServer(Server)}.
+	 * 
 	 * @param aResources the translations
 	 * @return the changes
 	 */
-	public Set<String> listChances(final Resources aResources) {
-	    Set<String> retval = new HashSet<String>();
-
-	    Collection<Node> nodes = getNodes();
-	    for (Node node : nodes) {
-	        if (node.getState() == OsmElement.STATE_DELETED) {
-                retval.add(aResources.getString(R.string.changes_node_deleted, node.getDescription()));
-            } else if (node.getState() == OsmElement.STATE_MODIFIED) {
-                retval.add(aResources.getString(R.string.changes_node_changed, node.getDescription()));   
-            } else if (node.getState() == OsmElement.STATE_CREATED) {
-                retval.add(aResources.getString(R.string.changes_node_created, node.getDescription()));   
-            }
-        }
-
-	    Collection<Way> ways = getWays();
-        for (Way way : ways) {
-            if (way.getState() == OsmElement.STATE_DELETED) {
-                retval.add(aResources.getString(R.string.changes_way_deleted, way.getDescription()));
-            } else if (way.getState() == OsmElement.STATE_MODIFIED) {
-                retval.add(aResources.getString(R.string.changes_way_changed, way.getDescription()));   
-            } else if (way.getState() == OsmElement.STATE_CREATED) {
-                retval.add(aResources.getString(R.string.changes_way_created, way.getDescription()));   
-            }
-        }
-
-        // we do not support editing relations yet
-        return retval;
+	public List<String> listChanges(final Resources aResources) {
+		List<String> retval = new ArrayList<String>();
+		
+		for (Node node : getNodes()) {
+			retval.add(node.getStateDescription(aResources));
+		}
+		
+		for (Way way : getWays()) {
+			retval.add(way.getStateDescription(aResources));
+		}
+		
+		// we do not support editing relations yet
+		return retval;
 	}
 
-
-	public synchronized void uploadToServer(final Server server)
-			throws MalformedURLException, ProtocolException, OsmServerException,
-			IOException {
-		server.openChangeset();
+	/**
+	 * 
+	 * @param server Server to upload changes to.
+	 * @param comment Changeset comment.
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws OsmServerException
+	 * @throws IOException
+	 */
+	public synchronized void uploadToServer(final Server server, final String comment) throws MalformedURLException, ProtocolException,
+			OsmServerException, IOException {
+		server.openChangeset(comment);
 		uploadCreatedOrModifiedElements(server, modifiedNodes);
 		uploadCreatedOrModifiedElements(server, modifiedWays);
 		uploadDeletedElements(server, modifiedWays);

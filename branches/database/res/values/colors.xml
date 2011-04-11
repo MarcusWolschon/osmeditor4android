@@ -7,6 +7,7 @@
 	<color name="ccc_ocher">#bd8d46</color>
 	<color name="grey">#0F0F0F</color>
 	<color name="stroke">#000</color>
+	<color name="problem">#F0F</color>
 	<color name="motorway">#809BC0</color>
 	<color name="trunk">#7FC97F</color>
 	<color name="primary">#E46D71</color>
@@ -36,6 +37,9 @@
 	<color name="retail">#FEEAEA</color>
 	<color name="commercial">#FBFEC8</color>
 	<color name="water">#B5D6F1</color>
+	
+	<color name="bug_open">#F00</color>
+	<color name="bug_closed">#00F</color>
 	
 	<!-- copied -->
 	<drawable name="screen_background_black">#ff000000</drawable>

@@ -3,16 +3,16 @@ package de.blau.android;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,10 +31,20 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomControls;
+import android.widget.RelativeLayout.LayoutParams;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.osb.Bug;
+import de.blau.android.osb.CommitTask;
+import de.blau.android.osb.Database;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DBAdapter;
 import de.blau.android.osm.Node;
@@ -44,6 +54,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
+import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -52,9 +63,9 @@ import de.blau.android.resources.Paints;
  */
 public class Main extends Activity {
 
-    /**
-     * Tag used for Android-logging.
-     */
+	/**
+	 * Tag used for Android-logging.
+	 */
 	private static final String DEBUG_TAG = Main.class.getName();
 
 	/**
@@ -84,19 +95,15 @@ public class Main extends Activity {
 	 */
 	private Map map;
 
-
 	/**
 	 * Our user-preferences.
 	 */
 	private Preferences prefs;
 
 	/**
-	 * The logic that manipulates the model.
-	 * (non-UI)<br/>
-	 * This is created in {@link #onCreate(Bundle)} and never changed
-	 * afterwards.<br/>
-	 * If may be null or not reflect the current state if accessed from
-	 * outside this activity.
+	 * The logic that manipulates the model. (non-UI)<br/>
+	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
+	 * If may be null or not reflect the current state if accessed from outside this activity.
 	 */
 	protected static Logic logic;
 
@@ -115,6 +122,8 @@ public class Main extends Activity {
 		dbAdapter = new DBAdapter(getApplicationContext());
 		dbAdapter.open();
 
+		RelativeLayout rl = new RelativeLayout(getApplicationContext());
+
 		map = new Map(getApplicationContext());
 		dialogFactory = new DialogFactory(this);
 
@@ -122,9 +131,32 @@ public class Main extends Activity {
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
-		map.setOnKeyListener((OnKeyListener) new MapKeyListiner());
-
-		setContentView(map);
+		map.setOnKeyListener(new MapKeyListener());
+		
+		rl.addView(map);
+		
+		// Set up the zoom in/out controls
+		final ZoomControls zc = new ZoomControls(getApplicationContext());
+		zc.setOnZoomInClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				logic.zoom(Logic.ZOOM_IN);
+				zc.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+				zc.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+			}
+		});
+		zc.setOnZoomOutClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				logic.zoom(Logic.ZOOM_OUT);
+				zc.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+				zc.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+			}
+		});
+		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		rl.addView(zc, rlp);
+		
+		setContentView(rl);
 
 		// Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
@@ -155,7 +187,9 @@ public class Main extends Activity {
 		super.onStart();
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
-		prefs = new Preferences(sharedPrefs, getResources());
+		Resources r = getResources();
+		Database.setUserAgent(r.getString(R.string.app_name) + "/" + r.getString(R.string.app_version));
+		prefs = new Preferences(sharedPrefs, r);
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
@@ -290,14 +324,47 @@ public class Main extends Activity {
 	 */
 	@Override
 	protected Dialog onCreateDialog(final int id) {
-		Dialog dialog = dialogFactory.create(this, id);
+		Dialog dialog = dialogFactory.create(id);
 		if (dialog != null) {
 			return dialog;
 		}
 		return super.onCreateDialog(id);
 	}
 	
-
+	/**
+	 * Prepare the fields of dialogs before they are shown. Only some need this special
+	 * handling.
+	 * @param id Dialog ID number.
+	 * @param dialog Dialog object.
+	 */
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		super.onPrepareDialog(id, dialog);
+		if (dialog instanceof AlertDialog) {
+			AlertDialog ad = (AlertDialog)dialog;
+			switch (id) {
+			case DialogFactory.CONFIRM_UPLOAD:
+				TextView changes = (TextView)ad.findViewById(R.id.upload_changes);
+				changes.setText(getString(R.string.confirm_upload_text, getPendingChanges()));
+				break;
+			case DialogFactory.OPENSTREETBUG_EDIT:
+				Bug bug = logic.getSelectedBug();
+				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
+				comments.setText(bug.getDescription().replaceAll("<hr />", "\n"));
+				EditText comment = (EditText)ad.findViewById(R.id.openstreetbug_comment);
+				comment.setText("");
+				comment.setFocusable(!bug.isClosed());
+				comment.setFocusableInTouchMode(!bug.isClosed());
+				comment.setEnabled(!bug.isClosed());
+				CheckBox close = (CheckBox)ad.findViewById(R.id.openstreetbug_close);
+				close.setChecked(bug.isClosed());
+				close.setEnabled(!bug.isClosed() && bug.getId() != 0);
+				Button commit = ad.getButton(AlertDialog.BUTTON_POSITIVE);
+				commit.setEnabled(!bug.isClosed());
+				break;
+			}
+		}
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -349,15 +416,15 @@ public class Main extends Activity {
 		// Read data from extras
 		// Intents can't hold a Map in the extras, so
 		// it is converted to an ArrayList
-		ArrayList<String> tagList = (ArrayList<String>) b
-				.getSerializable(TagEditor.TAGS);
+		ArrayList<String> tagList = (ArrayList<String>) b.getSerializable(TagEditor.TAGS);
 		String type = b.getString(TagEditor.TYPE);
 		long osmId = b.getLong(TagEditor.OSM_ID);
 
 		int size = tagList.size();
 		HashMap<String, String> tags = new HashMap<String, String>(size / 2);
-		for (int i = 0; i < size; i += 2)
-			tags.put(tagList.get(i), tagList.get(i+1));
+		for (int i = 0; i < size; i += 2) {
+			tags.put(tagList.get(i), tagList.get(i + 1));
+		}
 
 		logic.insertTags(type, osmId, tags);
 		map.invalidate();
@@ -404,12 +471,12 @@ public class Main extends Activity {
 		} catch (OsmException e) {
 			dismissDialog(DialogFactory.PROGRESS_LOADING);
 			showDialog(DialogFactory.UNDEFINED_ERROR);
-			Log.e(getClass().getName() + ":performHttpLoad()" , "OsmException received", e);
+			Log.e(getClass().getName() + ":performHttpLoad()", "OsmException received", e);
 			exceptions.add(e);
 		} catch (IOException e) {
 			dismissDialog(DialogFactory.PROGRESS_LOADING);
 			showDialog(DialogFactory.NO_CONNECTION);
-            Log.e(getClass().getName() + ":performHttpLoad()" , "IOException received", e);
+			Log.e(getClass().getName() + ":performHttpLoad()", "IOException received", e);
 			exceptions.add(e);
 		}
 	}
@@ -421,13 +488,13 @@ public class Main extends Activity {
 	/**
 	 * 
 	 */
-	public void performUpload() {
-		removeDialog(DialogFactory.CONFIRM_UPLOAD);
+	public void performUpload(final String comment) {
+		dismissDialog(DialogFactory.CONFIRM_UPLOAD);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
-				logic.upload(this, handler);
+				logic.upload(this, handler, comment);
 			} else {
 				Toast.makeText(getApplicationContext(),
 						R.string.toast_no_changes, Toast.LENGTH_LONG).show();
@@ -436,24 +503,49 @@ public class Main extends Activity {
 			showDialog(DialogFactory.NO_LOGIN_DATA);
 		}
 	}
+	
+	/**
+	 * Commit changes to the currently selected OpenStreetBug.
+	 * @param comment Comment to add to the bug.
+	 * @param close Flag to indicate if the bug is to be closed.
+	 */
+	public void performOpenStreetBugCommit(final String comment, final boolean close) {
+		Log.d("Vespucci", "OSB.Commit");
+		dismissDialog(DialogFactory.OPENSTREETBUG_EDIT);
+		new CommitTask(this, logic.getSelectedBug(), comment, close) {
+			
+			@Override
+			protected Boolean doInBackground(String... args) {
+				// execute() is called below with no arguments (args will be empty)
+				// getDisplayName() is deferred to here in case a lengthy OSM query
+				// is required to determine the nickname
+				String nickname = null;
+				Server server = prefs.getServer();
+				if (server.isLoginSet()) {
+					nickname = server.getDisplayName();
+				}
+				return super.doInBackground(nickname);
+			}
+			
+		}.execute();
+	}
 
+	/**
+	 * 
+	 */
+	public void confirmUpload() {
+		final Server server = prefs.getServer();
 
-    /**
-     * 
-     */
-    public void confirmUpload() {
-        final Server server = prefs.getServer();
-
-        if (server != null && server.isLoginSet()) {
-            if (logic.hasChanges()) {
-                showDialog(DialogFactory.CONFIRM_UPLOAD);
-            } else {
-                Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
-            }
-        } else {
-            showDialog(DialogFactory.NO_LOGIN_DATA);
-        }
-    }
+		if (server != null && server.isLoginSet()) {
+			if (logic.hasChanges()) {
+				showDialog(DialogFactory.CONFIRM_UPLOAD);
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+			}
+		} else {
+			showDialog(DialogFactory.NO_LOGIN_DATA);
+		}
+	}
 
 	/**
 	 * Starts the LocationPicker activity for requesting a location.
@@ -502,6 +594,7 @@ public class Main extends Activity {
 		private AppendMode appendMode;
 
 		private List<OsmElement> clickedNodesAndWays;
+		private List<Bug> clickedBugs;
 
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
@@ -521,9 +614,10 @@ public class Main extends Activity {
 				touchEventUp(v, x, y);
 				break;
 			}
+			//v.onTouchEvent(m); // disabled - problems with long press showing context menu
 			return true;
 		}
-
+		
 		/**
 		 * @param x
 		 * @param y
@@ -533,7 +627,9 @@ public class Main extends Activity {
 			firstPosY = y;
 			oldPosX = x;
 			oldPosY = y;
-
+			clickedBugs = null;
+			clickedNodesAndWays = null;
+			
 			logic.handleTouchEventDown(x, y);
 		}
 
@@ -550,9 +646,14 @@ public class Main extends Activity {
 		 * @param x
 		 * @param y
 		 */
-		private void touchEventUp(View v, final float x, final float y) {
+		private void touchEventUp(final View v, final float x, final float y) {
 			boolean hasMoved = hasMoved(x, y);
 			if (!hasMoved) {
+				OpenStreetBugsOverlay osbo = map.getOpenStreetBugsOverlay();
+				if (osbo != null) {
+					clickedBugs = osbo.getClickedBugs(x, y, map.getViewBox());
+				}
+				
 				byte mode = logic.getMode();
 				boolean isInEditZoomRange = logic.isInEditZoomRange();
 
@@ -576,11 +677,19 @@ public class Main extends Activity {
 					}
 					map.invalidate();
 				} else {
-					if (mode != Logic.MODE_MOVE && !isInEditZoomRange
-							&& !hasMoved) {
-						Toast.makeText(getApplicationContext(),
-								R.string.toast_not_in_edit_range,
-								Toast.LENGTH_LONG).show();
+					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
+					case 0:
+						if (mode != Logic.MODE_MOVE && !isInEditZoomRange && !hasMoved) {
+							Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG)
+									.show();
+						}
+						break;
+					case 1:
+						performBugEdit(clickedBugs.get(0));
+						break;
+					default:
+						v.showContextMenu();
+						break;
 					}
 				}
 			}
@@ -593,22 +702,38 @@ public class Main extends Activity {
 
 		private void selectElementForTagEdit(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
-			int size = clickedNodesAndWays.size();
-			if (size == 1) {
-				performTagEdit(clickedNodesAndWays.get(0));
-			} else if (size > 1) {
+			switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size()) {
+			case 0:
+				// no elements were touched, ignore
+				break;
+			case 1:
+				// exactly one element touched
+				if (clickedBugs != null && clickedBugs.size() == 1) {
+					performBugEdit(clickedBugs.get(0));
+				} else {
+					performTagEdit(clickedNodesAndWays.get(0));
+				}
+				break;
+			default:
+				// multiple possible elements touched - show menu
 				v.showContextMenu();
-			} /* else {} */// If no elements where touched, ignore
+				break;
+			}
 		}
 
 		private void selectElementForErase(final View v, final float x, final float y) {
 			clickedNodesAndWays = logic.getClickedNodes(x, y);
-			int size = clickedNodesAndWays.size();
-			if (size == 1) {
-				logic.performErase((Node) clickedNodesAndWays.get(0));
-			} else if (size > 1) {
+			switch (clickedNodesAndWays.size()) {
+			case 0:
+				// no elements were touched, ignore
+				break;
+			case 1:
+				logic.performErase((Node)clickedNodesAndWays.get(0));
+				break;
+			default:
 				v.showContextMenu();
-			} /* else {} */// If no elements where touched, ignore
+				break;
+			}
 		}
 
 		private void selectElementForSplit(final View v, final float x, final float y) {
@@ -622,12 +747,17 @@ public class Main extends Activity {
 //				}
 //			}
 
-			int size = clickedNodesAndWays.size();
-			if (size == 1) {
-				logic.performSplit((Node) clickedNodesAndWays.get(0));
-			} else if (size > 1) {
+			switch (clickedNodesAndWays.size()) {
+			case 0:
+				// no elements were touched, ignore
+				break;
+			case 1:
+				logic.performSplit((Node)clickedNodesAndWays.get(0));
+				break;
+			default:
 				v.showContextMenu();
-			} /* else {} */// If no elements where touched, ignore
+				break;
+			}
 		}
 
 		/**
@@ -648,16 +778,19 @@ public class Main extends Activity {
 			Way lSelectedWay = logic.getSelectedWay();
 
 			if (lSelectedWay == null) {
-
 				clickedNodesAndWays = logic.getClickedEndNodes(x, y);
-				int size = clickedNodesAndWays.size();
-				if (size == 1) {
+				switch (clickedNodesAndWays.size()) {
+				case 0:
+					// no elements touched, ignore
+					break;
+				case 1:
 					logic.performAppendStart(clickedNodesAndWays.get(0));
-				} else if (size > 1) {
+					break;
+				default:
 					appendMode = AppendMode.APPEND_START;
 					v.showContextMenu();
-				} /* else {} */// If no elements where touched, ignore
-
+					break;
+				}
 			} else if (lSelectedWay.isEndNode(lSelectedNode)) {
 				// TODO Resolve multiple possible selections
 				logic.performAppendAppend(x, y);
@@ -693,6 +826,15 @@ public class Main extends Activity {
 						Main.REQUEST_EDIT_TAG);
 			}
 		}
+		
+		/**
+		 * Edit an OpenStreetBug.
+		 * @param bug The bug to edit.
+		 */
+		private void performBugEdit(final Bug bug) {
+			logic.setSelectedBug(bug);
+			showDialog(DialogFactory.OPENSTREETBUG_EDIT);
+		}
 
 		/**
 		 * @param x
@@ -705,35 +847,49 @@ public class Main extends Activity {
 		}
 
 		@Override
-		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-			for (int i = 0, len = clickedNodesAndWays.size(); i < len; i++) {
-				OsmElement osmElement = clickedNodesAndWays.get(i);
-				menu.add(Menu.NONE, i, Menu.NONE, osmElement.getDescription()).setOnMenuItemClickListener(this);
+		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
+			int id = 0;
+			if (clickedBugs != null) {
+				for (Bug b : clickedBugs) {
+					menu.add(Menu.NONE, id++, Menu.NONE, b.getFirstComment()).setOnMenuItemClickListener(this);
+				}
+			}
+			if (clickedNodesAndWays != null) {
+				for (OsmElement e : clickedNodesAndWays) {
+					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
+				}
 			}
 		}
 
 		@Override
-		public boolean onMenuItemClick(MenuItem item) {
+		public boolean onMenuItemClick(final MenuItem item) {
 			int itemId = item.getItemId();
-			if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
-				OsmElement element = clickedNodesAndWays.get(itemId);
-				switch (logic.getMode()) {
-				case Logic.MODE_TAG_EDIT:
-					performTagEdit(element);
-					break;
-				case Logic.MODE_ERASE:
-					logic.performErase((Node) element);
-					break;
-				case Logic.MODE_SPLIT:
-					logic.performSplit((Node) element);
-					break; 
-				case Logic.MODE_APPEND:
-					switch (appendMode) {
-					case APPEND_START:
-						logic.performAppendStart(element);
+			if (clickedBugs != null && itemId >= 0 && itemId < clickedBugs.size()) {
+				performBugEdit(clickedBugs.get(itemId));
+			} else {
+				if (clickedBugs != null) {
+					itemId -= clickedBugs.size();
+				}
+				if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
+					OsmElement element = clickedNodesAndWays.get(itemId);
+					switch (logic.getMode()) {
+					case Logic.MODE_TAG_EDIT:
+						performTagEdit(element);
 						break;
-					case APPEND_APPEND:
-						// TODO
+					case Logic.MODE_ERASE:
+						logic.performErase((Node) element);
+						break;
+					case Logic.MODE_SPLIT:
+						logic.performSplit((Node) element);
+						break;
+					case Logic.MODE_APPEND:
+						switch (appendMode) {
+						case APPEND_START:
+							logic.performAppendStart(element);
+							break;
+						case APPEND_APPEND:
+							// TODO
+						}
 					}
 				}
 			}
@@ -742,57 +898,70 @@ public class Main extends Activity {
 	}
 
 	/**
-	 * A KeyListiner for all key events.
+	 * A KeyListener for all key events.
 	 * 
 	 * @author mb
 	 */
-	public class MapKeyListiner implements OnKeyListener {
+	public class MapKeyListener implements OnKeyListener {
 
 		@Override
 		public boolean onKey(final View v, final int keyCode,
 				final KeyEvent event) {
-
-			if (event.getAction() == KeyEvent.ACTION_DOWN) {
-				switch (keyCode) {
-				case KeyEvent.KEYCODE_DPAD_CENTER:
-					setFollowGps();
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_UP:
-					translate(Logic.DIRECTION_UP);
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_DOWN:
-					translate(Logic.DIRECTION_DOWN);
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_LEFT:
-					translate(Logic.DIRECTION_LEFT);
-					return true;
-
-				case KeyEvent.KEYCODE_DPAD_RIGHT:
-					translate(Logic.DIRECTION_RIGHT);
-					return true;
-
-				case KeyEvent.KEYCODE_VOLUME_UP:
-				case KeyEvent.KEYCODE_SEARCH:
-					logic.zoom(Logic.ZOOM_IN);
-					return true;
-
-				case KeyEvent.KEYCODE_VOLUME_DOWN:
-				case KeyEvent.KEYCODE_SHIFT_LEFT:
-				case KeyEvent.KEYCODE_SHIFT_RIGHT:
-					logic.zoom(Logic.ZOOM_OUT);
-					return true;
+			switch (event.getAction()) {
+			case KeyEvent.ACTION_UP:
+				if (!v.onKeyUp(keyCode, event)) {
+					switch (keyCode) {
+					case KeyEvent.KEYCODE_VOLUME_UP:
+					case KeyEvent.KEYCODE_VOLUME_DOWN:
+						// this stops the piercing beep related to volume adjustments
+						return true;
+					}
 				}
+				break;
+			case KeyEvent.ACTION_DOWN:
+				if (!v.onKeyDown(keyCode, event)) {
+					switch (keyCode) {
+					case KeyEvent.KEYCODE_DPAD_CENTER:
+						setFollowGps();
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_UP:
+						translate(Logic.DIRECTION_UP);
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_DOWN:
+						translate(Logic.DIRECTION_DOWN);
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_LEFT:
+						translate(Logic.DIRECTION_LEFT);
+						return true;
+						
+					case KeyEvent.KEYCODE_DPAD_RIGHT:
+						translate(Logic.DIRECTION_RIGHT);
+						return true;
+						
+					case KeyEvent.KEYCODE_VOLUME_UP:
+					case KeyEvent.KEYCODE_SEARCH:
+						logic.zoom(Logic.ZOOM_IN);
+						return true;
+						
+					case KeyEvent.KEYCODE_VOLUME_DOWN:
+					case KeyEvent.KEYCODE_SHIFT_LEFT:
+					case KeyEvent.KEYCODE_SHIFT_RIGHT:
+						logic.zoom(Logic.ZOOM_OUT);
+						return true;
+					}
+				}
+				break;
 			}
 			return false;
 		}
-
+		
 		private void translate(final byte direction) {
 			logic.translate(direction);
 		}
-
+		
 		/**
 		 * 
 		 */
@@ -808,12 +977,12 @@ public class Main extends Activity {
 	/**
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
-    public String getPendingChanges() {
-        Set<String> changes = logic.getPendingChanges(this);
-        StringBuilder retval = new StringBuilder();
-        for (String change : changes) {
-            retval.append(change).append('\n');
-        }
-        return retval.toString();
-    }
+	public String getPendingChanges() {
+		List<String> changes = logic.getPendingChanges(this);
+		StringBuilder retval = new StringBuilder();
+		for (String change : changes) {
+			retval.append(change).append('\n');
+		}
+		return retval.toString();
+	}
 }

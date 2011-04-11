@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+
 import android.app.Activity;
 import android.content.Context;
 import android.location.LocationManager;
@@ -13,7 +15,6 @@ import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.OsmStorageException;
-import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DBAdapter;
 import de.blau.android.osm.Node;
@@ -129,11 +130,6 @@ public class Logic {
 	 * The user-selected way.
 	 */
 	private Way selectedWay;
-	
-	/**
-	 * The user-selected bug.
-	 */
-	private Bug selectedBug;
 
 	/**
 	 * Current mode.
@@ -305,16 +301,7 @@ public class Logic {
 
 		map.invalidate();
 	}
-	
-	/**
-	 * Test if the requested zoom operation can be performed.
-	 * @param zoomIn The zoom operation: ZOOM_IN or ZOOM_OUT.
-	 * @return true if the zoom operation can be performed, false if it can't.
-	 */
-	public boolean canZoom(final boolean zoomIn) {
-		return zoomIn ? viewBox.canZoomIn() : viewBox.canZoomOut();
-	}
-	
+
 	/**
 	 * Zooms in or out. Checks if the new viewBox is close enough for editing
 	 * and sends this value to map. Strokes will be updated and map will be
@@ -385,13 +372,19 @@ public class Logic {
 	public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 
-		for (Way way : delegator.getWays()) {
+		result.addAll(getClickedNodes(x, y));
+
+		Node node1 = null;
+		Node node2 = null;
+		Collection<Way> ways = delegator.getWays();
+
+		for (Way way : ways) {
 			List<Node> wayNodes = way.getNodes();
 
 			// Iterate over all WayNodes, but not the last one.
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
-				Node node1 = wayNodes.get(k);
-				Node node2 = wayNodes.get(k + 1);
+				node1 = wayNodes.get(k);
+				node2 = wayNodes.get(k + 1);
 				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1
 						.getLon());
 				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1
@@ -403,20 +396,17 @@ public class Logic {
 
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 					result.add(way);
-					break;
 				}
 			}
 		}
-
-		result.addAll(getClickedNodes(x, y));
 
 		return result;
 	}
 
 	public List<OsmElement> getClickedNodes(final float x, final float y) {
-		List<OsmElement> result = new ArrayList<OsmElement>();
-		
-		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
+		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+
+		float tolerance = Paints.NODE_TOLERANCE_VALUE;
 
 		Collection<Node> nodes = delegator.getNodes();
 		for (Node node : nodes) {
@@ -444,7 +434,7 @@ public class Logic {
 	}
 
 	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
-		List<OsmElement> result = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 		List<OsmElement> allNodes = getClickedNodes(x, y);
 
 		for (OsmElement osmElement : allNodes) {
@@ -792,15 +782,19 @@ public class Logic {
 	 *         and node2.
 	 */
 	private boolean isPositionOnLine(final float x, final float y,
-			final float node1X, final float node1Y,
-			final float node2X, final float node2Y) {
-		float tolerance = Paints.WAY_TOLERANCE_VALUE / 2f;
+			final float node1X, final float node1Y, final float node2X,
+			final float node2Y) {
+		float tolerance = Paints.WAY_TOLERANCE_VALUE / 2;
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance)
 				&& GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
-			// equation (14) on http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
-			float distance = (float) (Math.abs((node2X - node1X) * (node1Y - y) - (node1X - x) * (node2Y - node1Y)) /
-			                 Math.sqrt(Math.pow(node2X - node1X, 2.0) + Math.pow(node2Y - node1Y, 2.0)));
-			return (distance < tolerance);
+			double slope = (node2Y - node1Y) / (node2X - node1X);
+			double verticalDistance = Math.abs(slope * x + node1Y - slope
+					* node1X - y);
+			double orthoDistance = verticalDistance
+					/ Math.sqrt(1 + Math.pow(slope, 2));
+			if (orthoDistance <= tolerance) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -918,14 +912,6 @@ public class Logic {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
 	}
-	
-	/**
-	 * Set the currently selected bug.
-	 * @param selectedBug The selected bug.
-	 */
-	public void setSelectedBug(final Bug selectedBug) {
-		this.selectedBug = selectedBug;
-	}
 
 	/**
 	 * @return the selectedNode
@@ -940,15 +926,7 @@ public class Logic {
 	public final Way getSelectedWay() {
 		return selectedWay;
 	}
-	
-	/**
-	 * Get the selected bug.
-	 * @return The selected bug.
-	 */
-	public final Bug getSelectedBug() {
-		return selectedBug;
-	}
-	
+
 	/**
 	 * Will be called when the screen orientation was changed.
 	 * 
@@ -965,7 +943,7 @@ public class Logic {
 		map.setMode(mode);
 		map.setViewBox(viewBox);
 	}
-	
+
 	public boolean storageEmtpy() {
 		return delegator.storageEmpty();
 	}
@@ -973,8 +951,7 @@ public class Logic {
 	/**
 	 * @return a list of all pending changes to upload
 	 */
-	public List<String> getPendingChanges(final Context aCaller) {
-		return delegator.listChanges(aCaller.getResources());
-	}
-	
+    public Set<String> getPendingChanges(final Context aCaller) {
+        return delegator.listChances(aCaller.getResources());
+    }
 }

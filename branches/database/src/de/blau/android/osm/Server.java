@@ -13,6 +13,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPInputStream;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
@@ -49,6 +52,11 @@ public class Server {
 	 * password for write-access on the server.
 	 */
 	private final String password;
+	
+	/**
+	 * display name of the user.
+	 */
+	private String display_name;
 
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -62,11 +70,11 @@ public class Server {
 	 */
 	private final String path = "/api/" + version + "/";
 
-	/**
-	 * Tag with "created_by"-key to identify edits made by this editor.
-	 */
-	private final String createdByTag;
-	private final String createdByKey;
+//	/**
+//	 * Tag with "created_by"-key to identify edits made by this editor.
+//	 */
+//	private final String createdByTag;
+//	private final String createdByKey;
 
 	private long changesetId = -1;
 
@@ -87,9 +95,10 @@ public class Server {
 		this.password = password;
 		this.username = username;
 		this.generator = generator;
+		display_name = null;
 
-		createdByTag = "created_by";
-		createdByKey = generator;
+//		createdByTag = "created_by";
+//		createdByKey = generator;
 
 		XmlPullParserFactory factory = null;
 		try {
@@ -99,6 +108,35 @@ public class Server {
 			e.printStackTrace();
 		}
 		xmlParserfactory = factory;
+	}
+	
+	/**
+	 * Get the display name for the user.
+	 * @return The display name for the user, or null if it couldn't be determined.
+	 */
+	public String getDisplayName() {
+		if (display_name == null) {
+			// Haven't retrieved the display name from OSM - try to
+			HttpURLConnection connection = null;
+			try {
+				connection = openConnectionForWriteAccess(getUserDetailsUrl(), "GET");
+				try {
+					connection.getOutputStream().close();
+					checkResponseCode(connection);
+					InputStream in = connection.getInputStream();
+					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+					Document d = factory.newDocumentBuilder().parse(in);
+					Element user = (Element)d.getElementsByTagName("user").item(0);
+					display_name = user.getAttribute("display_name");
+				} finally {
+					disconnect(connection);
+				}
+			} catch (Exception e) {
+				// ignore all problems
+				e.printStackTrace();
+			}
+		}
+		return display_name;
 	}
 
 	/**
@@ -164,7 +202,7 @@ public class Server {
 		// TODO Distinguish between exceptions that indicate a single failure
 		// when deleting this specific element or a general server error
 		HttpURLConnection connection = null;
-		elem.addOrUpdateTag(createdByTag, createdByKey);
+//		elem.addOrUpdateTag(createdByTag, createdByKey);
 
 		try {
 			connection = openConnectionForWriteAccess(getDeleteUrl(elem),
@@ -209,7 +247,7 @@ public class Server {
 		int osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag, createdByKey);
+//		elem.addOrUpdateTag(createdByTag, createdByKey);
 
 		try {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
@@ -277,7 +315,7 @@ public class Server {
 		int osmId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		elem.addOrUpdateTag(createdByTag, createdByKey);
+//		elem.addOrUpdateTag(createdByTag, createdByKey);
 
 		try {
 			connection = openConnectionForWriteAccess(getCreationUrl(elem),
@@ -302,8 +340,14 @@ public class Server {
 		return osmId;
 	}
 
-	public void openChangeset() throws MalformedURLException,
-			ProtocolException, IOException {
+	/**
+	 * Open a new changeset.
+	 * @param comment Changeset comment.
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws IOException
+	 */
+	public void openChangeset(final String comment) throws MalformedURLException, ProtocolException, IOException {
 		int changesetId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
@@ -320,7 +364,7 @@ public class Server {
                     serializer.endTag("", "tag");
                     serializer.startTag("", "tag");
                     serializer.attribute("", "k", "comment");
-                    serializer.attribute("", "v", "Vespucci edit");
+                    serializer.attribute("", "v", comment);
                     serializer.endTag("", "tag");
                     serializer.endTag("", "changeset");
                     endXml(serializer);
@@ -445,6 +489,10 @@ public class Server {
 		// return getUpdateUrl(elem);
 		return new URL(SERVER_URL + path + "changeset/" + changesetId
 				+ "/upload");
+	}
+	
+	private URL getUserDetailsUrl() throws MalformedURLException {
+		return new URL(SERVER_URL + path + "user/details");
 	}
 
 	public XmlSerializer getXmlSerializer() {

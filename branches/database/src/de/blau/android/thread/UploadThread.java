@@ -37,25 +37,29 @@ public class UploadThread extends LogicThread {
 	};
 
 	private final StorageDelegator delegator;
+	
+	private final String comment;
 
 	/**
 	 * @param caller
 	 * @param handler Handler that have to be created in the Activity's instance.
 	 * @param server
 	 * @param delegator holds the data for upload.
+	 * @param comment Changeset comment.
 	 */
 	public UploadThread(final Activity caller, final Handler handler, final Server server,
-			final StorageDelegator delegator) {
+			final StorageDelegator delegator, final String comment) {
 		super(caller, handler);
 		this.server = server;
 		this.delegator = delegator;
+		this.comment = comment;
 	}
 
 	@Override
 	synchronized public void run() {
 		try {
 			handler.post(setProgressBarVisible(true));
-			delegator.uploadToServer(server);
+			delegator.uploadToServer(server, comment);
 			handler.post(uploadSuccess);
 		} catch (final MalformedURLException e) {
 			handler.post(getDialog(DialogFactory.UNDEFINED_ERROR));
