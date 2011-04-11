@@ -64,20 +64,24 @@
 					android:layout_height="wrap_content"
 					android:minWidth="120dp"
 					android:numeric="signed|decimal"
-				/>					
+					android:singleLine="true"
+					android:layout_weight="1"
+				/>
 				<TextView
 					android:text="@string/location_lon_label"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
-				/>   	
+				/>
 				<EditText
 					android:id="@+id/location_lon_edit"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:minWidth="120dp"
 					android:numeric="signed|decimal"
-				/>			
+					android:singleLine="true"
+					android:layout_weight="1"
+				/>
 			</LinearLayout>
 		</RadioGroup>
 		
@@ -96,7 +100,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text=" 300m"
-			/>   	
+			/>
 		</LinearLayout>
 		<SeekBar
 			android:id="@+id/location_radius_seeker"

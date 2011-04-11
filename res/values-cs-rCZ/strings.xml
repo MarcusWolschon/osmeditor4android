@@ -52,8 +52,11 @@
 	<string name="location_choose_radius">Vyberte poloměr:</string>
 	<string name="location_last_text">Poslední známá poloha:</string>
 	<string name="location_current_text">Aktuální poloha:</string>
-	<string name="location_current_text_parametized">Aktuální poloha: Lat %1$4g, Lon %2$4g %3$s</string>
-	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
+	<string name="location_text_unknown">unknown</string>
+	<string name="location_last_text_parameterized">Poslední známá poloha: %1$s</string>
+	<string name="location_current_text_parameterized">Aktuální poloha: %1$s</string>
+	<string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
 	<string name="location_map_text">Z mapy (připravujeme)</string>
 	<string name="location_coordinates_text">Podle souřadnic:</string>
 	<string name="location_lat_label">Zem. šířka:</string>

@@ -52,8 +52,11 @@
 	<string name="location_choose_radius">Sugár választása:</string>
 	<string name="location_last_text">Legutóbbi ismert hely:</string>
 	<string name="location_current_text">Jelenlegi hely:</string>
-	<string name="location_current_text_parametized">Jelenlegi hely: Lat %1$4g, Lon %2$4g %3$s</string>
-	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
+	<string name="location_text_unknown">unknown</string>
+	<string name="location_last_text_parameterized">Legutóbbi ismert hely: %1$s</string>
+	<string name="location_current_text_parameterized">Jelenlegi hely: %1$s</string>
+	<string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
 	<string name="location_map_text">Térképről (hamarosan)</string>
 	<string name="location_coordinates_text">Koordinátákból:</string>
 	<string name="location_lat_label">Lat:</string>
