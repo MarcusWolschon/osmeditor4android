@@ -33,19 +33,21 @@ import de.blau.android.util.ErrorMailer;
 import de.blau.android.util.GeoMath;
 
 /**
- * Activity where the user can pick a Location and a radius (more precisely: a square with "radius" as half of the edge
- * length. This class will return valid geo boundaries for a {@link BoundingBox} as extra data. ResultType will be
- * RESULT_OK when the {@link BoundingBox} should be loaded from a OSM Server, otherwise RESULT_CANCEL.<br>
- * This class acts as its own LocationListener: We will get both, GPS and network based location updates and offers the
- * best accurate and fastest location to the user.
+ * Activity where the user can pick a Location and a radius (more precisely: a
+ * square with "radius" as half of the edge length. This class will return
+ * valid geo boundaries for a {@link BoundingBox} as extra data. ResultType
+ * will be RESULT_OK when the {@link BoundingBox} should be loaded from a OSM
+ * Server, otherwise RESULT_CANCEL.<br>
+ * This class acts as its own LocationListener: We will offers the best
+ * location to the user.
  * 
  * @author mb
  */
 public class BoxPicker extends Activity implements LocationListener {
 
-    /**
-     * Tag used for Android-logging.
-     */
+	/**
+	 * Tag used for Android-logging.
+	 */
 	private final static String DEBUG_TAG = BoxPicker.class.getName();
 
 	/**
@@ -54,13 +56,13 @@ public class BoxPicker extends Activity implements LocationListener {
 	private final static int DIALOG_NAN = 0;
 
 	/**
-	 * Shown if an undefined error occurs, which allows the user to send me an email with the exception which led to
-	 * this.
+	 * Shown if an undefined error occurs, which allows the user to send me an
+	 * email with the exception which led to this.
 	 */
 	private final static int DIALOG_UNDEFINED_ERROR = 1;
 
 	/**
-	 * LocationManager. Needed as field for unregister in {@link #onStop()}.
+	 * LocationManager. Needed as field for unregister in {@link #onPause()}.
 	 */
 	private LocationManager locationManager = null;
 
@@ -87,27 +89,28 @@ public class BoxPicker extends Activity implements LocationListener {
 	/**
 	 * Tag for Intent extras.
 	 */
-	public static final String RESULT_LEFT = "left";
+	public static final String RESULT_LEFT = "de.blau.android.BoxPicker.left";
 
 	/**
 	 * Tag for Intent extras.
 	 */
-	public static final String RESULT_BOTTOM = "bottom";
+	public static final String RESULT_BOTTOM = "de.blau.android.BoxPicker.bottom";
 
 	/**
 	 * Tag for Intent extras.
 	 */
-	public static final String RESULT_RIGHT = "right";
+	public static final String RESULT_RIGHT = "de.blau.android.BoxPicker.right";
 
 	/**
 	 * Tag for Intent extras.
 	 */
-	public static final String RESULT_TOP = "top";
+	public static final String RESULT_TOP = "de.blau.android.BoxPicker.top";
 
 	private static final int MIN_WIDTH = 50;
 
 	/**
-	 * Registers some listeners, sets the content view and initialize {@link #currentRadius}.</br> {@inheritDoc}
+	 * Registers some listeners, sets the content view and initialize
+	 * {@link #currentRadius}.</br> {@inheritDoc}
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -124,13 +127,6 @@ public class BoxPicker extends Activity implements LocationListener {
 
 		currentRadius = seeker.getProgress();
 
-		Location l = registerLocationListener();
-		if (l != null) {
-			lastLocation = l;
-			RadioButton lastKnownLocationRadioButton = (RadioButton) findViewById(R.id.location_last);
-			lastKnownLocationRadioButton.setEnabled(true);
-		}
-
 		//register listeners
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 		radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, dontLoadMapButton, latEdit,
@@ -139,43 +135,55 @@ public class BoxPicker extends Activity implements LocationListener {
 		loadMapButton.setOnClickListener(onClickListener);
 		dontLoadMapButton.setOnClickListener(onClickListener);
 	}
+	
+	
+	@Override
+	protected void onPause() {
+		locationManager.removeUpdates(this);
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Location l = registerLocationListener();
+		if (l != null) {
+			lastLocation = l;
+		}
+		setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, lastLocation);
+	}
 
 	/**
-	 * Registers this class for location updates from GPS (fine location) and network (coarse location).
+	 * Registers this class for location updates from all available location
+	 * providers.
 	 */
 	private Location registerLocationListener() {
 		Preferences prefs = new Preferences(PreferenceManager.getDefaultSharedPreferences(this), getResources());
 		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-		List<String> providers = locationManager.getAllProviders();
-		Location lastKnown = null;
-		if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+		List<String> providers = locationManager.getProviders(true);
+		Location bestLocation = null;
+		for (String provider : providers) {
 			try {
-				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(),
-						prefs.getGpsDistance(), this);
-				lastKnown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+				locationManager.requestLocationUpdates(provider,
+						prefs.getGpsInterval(), prefs.getGpsDistance(), this);
+				Location location = locationManager.getLastKnownLocation(provider);
+				if (bestLocation == null || !bestLocation.hasAccuracy() ||
+						(location.hasAccuracy() &&
+								location.getAccuracy() < bestLocation.getAccuracy())) {
+					bestLocation = location;
+				}
 			} catch (IllegalArgumentException e) {
-				// do nothing - leave null
 			} catch (SecurityException e) {
-				// do nothing - leave null
 			}
 		}
-		if (providers.contains(LocationManager.GPS_PROVIDER)) {
-			try {
-				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(),
-						prefs.getGpsDistance(), this);
-				lastKnown = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			} catch (IllegalArgumentException e) {
-				// do nothing - leave null
-			} catch (SecurityException e) {
-				// do nothing - leave null
-			}
-		}
-		return lastKnown;
+		return bestLocation;
 	}
 
 	/**
-	 * As soon as the user checks one of the radio buttons, the "load/don't load"-buttons will be enabled. Additionally,
-	 * the lat/lon-EditTexts will be visible/invisible when the user chooses to insert the coordinate manually.
+	 * As soon as the user checks one of the radio buttons, the "load/don't
+	 * load"-buttons will be enabled. Additionally, the lat/lon-EditTexts will
+	 * be visible/invisible when the user chooses to insert the coordinate
+	 * manually.
 	 * 
 	 * @param loadMapButton the "Load!"-button.
 	 * @param dontLoadMapButton the "Don't load anything"-button.
@@ -194,11 +202,11 @@ public class BoxPicker extends Activity implements LocationListener {
 				if (checkedId == R.id.location_coordinates) {
 					coordinateView.setVisibility(View.VISIBLE);
 					if (currentLocation != null) {
-						latEdit.setText((float) currentLocation.getLatitude() + "");
-						lonEdit.setText((float) currentLocation.getLongitude() + "");
+						latEdit.setText(Double.toString(currentLocation.getLatitude()));
+						lonEdit.setText(Double.toString(currentLocation.getLongitude()));
 					} else if (lastLocation != null) {
-						latEdit.setText((float) lastLocation.getLatitude() + "");
-						lonEdit.setText((float) lastLocation.getLongitude() + "");
+						latEdit.setText(Double.toString(lastLocation.getLatitude()));
+						lonEdit.setText(Double.toString(lastLocation.getLongitude()));
 					}
 				} else {
 					coordinateView.setVisibility(View.GONE);
@@ -208,8 +216,8 @@ public class BoxPicker extends Activity implements LocationListener {
 	}
 
 	/**
-	 * First, the minimum radius will be assured, second, the {@link #currentRadius} will be set and the label will be
-	 * updated.
+	 * First, the minimum radius will be assured, second, the
+	 * {@link #currentRadius} will be set and the label will be updated.
 	 * 
 	 * @return the new created listener.
 	 */
@@ -226,15 +234,18 @@ public class BoxPicker extends Activity implements LocationListener {
 			}
 
 			@Override
-			public void onStartTrackingTouch(final SeekBar seekBar) {}
+			public void onStartTrackingTouch(final SeekBar seekBar) {
+			}
 
 			@Override
-			public void onStopTrackingTouch(final SeekBar arg0) {}
+			public void onStopTrackingTouch(final SeekBar arg0) {
+			}
 		};
 	}
 
 	/**
-	 * Reads the manual coordinate EditTexts and registers the button listeners.
+	 * Reads the manual coordinate EditTexts and registers the button
+	 * listeners.
 	 * 
 	 * @param radioGroup
 	 * @param latEdit Manual Latitude EditText.
@@ -253,9 +264,10 @@ public class BoxPicker extends Activity implements LocationListener {
 	}
 
 	/**
-	 * Do the action when the user clicks a Button. Generates the {@link BoundingBox} from the coordinate and chosen
-	 * radius, sets the resultType (RESULT_OK when a map should be loaded, otherwise false) and calls
-	 * {@link #sendResultAndExit(BoundingBox, int)}
+	 * Do the action when the user clicks a Button. Generates the
+	 * {@link BoundingBox} from the coordinate and chosen radius, sets the
+	 * resultType (RESULT_OK when a map should be loaded, otherwise false) and
+	 * calls {@link #sendResultAndExit(BoundingBox, int)}
 	 * 
 	 * @param buttonId android-id from the clicked Button.
 	 * @param checkedRadioButtonId android-id from the checked RadioButton.
@@ -284,7 +296,8 @@ public class BoxPicker extends Activity implements LocationListener {
 	}
 
 	/**
-	 * @return {@link BoundingBox} for {@link #currentLocation} and {@link #currentRadius}
+	 * @return {@link BoundingBox} for {@link #currentLocation} and
+	 * {@link #currentRadius}
 	 */
 	private BoundingBox createBoxForCurrentLocation() {
 		BoundingBox box = null;
@@ -299,7 +312,8 @@ public class BoxPicker extends Activity implements LocationListener {
 	}
 
 	/**
-	 * @return {@link BoundingBox} for {@link #lastLocation} and {@link #currentRadius}
+	 * @return {@link BoundingBox} for {@link #lastLocation} and
+	 * {@link #currentRadius}
 	 */
 	private BoundingBox createBoxForLastLocation() {
 		BoundingBox box = null;
@@ -316,7 +330,8 @@ public class BoxPicker extends Activity implements LocationListener {
 		
 
 	/**
-	 * Tries to parse lat and lon and creates a new {@link BoundingBox} if succeed.
+	 * Tries to parse lat and lon and creates a new {@link BoundingBox} if
+	 * successful.
 	 * 
 	 * @param lat manual latitude
 	 * @param lon manual longitude
@@ -340,7 +355,8 @@ public class BoxPicker extends Activity implements LocationListener {
 	 * Creates the {@link Intent} with the boundaries of box as extra data.
 	 * 
 	 * @param box the box with the chosen boundaries.
-	 * @param resultState RESULT_OK when the map should be loaded, otherwise RESULT_CANCEL.
+	 * @param resultState RESULT_OK when the map should be loaded, otherwise
+	 * RESULT_CANCEL.
 	 */
 	private void sendResultAndExit(final BoundingBox box, final int resultState) {
 		Intent intent = new Intent();
@@ -403,18 +419,9 @@ public class BoxPicker extends Activity implements LocationListener {
 	}
 
 	/**
-	 * Used to unregister for location updates. <br>
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void onStop() {
-		super.onStop();
-		locationManager.removeUpdates(this);
-	}
-
-	/**
-	 * When a location was found which has more accuracy than {@link #currentLocation}, then the newLocation will be
-	 * set as currentLocation.<br>
+	 * When a location was found which has more accuracy than
+	 * {@link #currentLocation}, then the newLocation will be set as
+	 * currentLocation.<br>
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -422,28 +429,44 @@ public class BoxPicker extends Activity implements LocationListener {
 		Log.w(DEBUG_TAG, "Got location: " + newLocation);
 		if (newLocation != null) {
 			if (isNewLocationMoreAccurate(newLocation)) {
-				double lat = newLocation.getLatitude();
-				double lon = newLocation.getLongitude();
-				RadioButton currentLocationRadioButton = (RadioButton) findViewById(R.id.location_current);
-				String metaData = " (";
-
-				if (newLocation.hasAccuracy()) {
-					metaData += getResources().getString(R.string.location_current_text_metadata_accuracy, newLocation.getAccuracy());
-				}
-				metaData += newLocation.getProvider() + ")";
-				currentLocationRadioButton.setEnabled(true);
-				currentLocationRadioButton.setText(getResources().getString(R.string.location_current_text_parametized, lat, lon, metaData));
-
+				setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation);
 				currentLocation = newLocation;
 			}
 		}
 	}
+	
+	/**
+	 * Set the text of a location (last or current) radio button.
+	 * @param buttonId The resource ID of the radio button.
+	 * @param textId The resource ID of the button text.
+	 * @param location The location data to update the button text (may be null).
+	 */
+	private void setLocationRadioButton(final int buttonId, final int textId, final Location location) {
+		String locationMetaData = getResources().getString(R.string.location_text_unknown);
+		if (location != null) {
+			String accuracyMetaData = "";
+			double lat = location.getLatitude();
+			double lon = location.getLongitude();
+			accuracyMetaData = " (";
+
+			if (location.hasAccuracy()) {
+				accuracyMetaData += getResources().getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
+			}
+			accuracyMetaData += location.getProvider() + ")";
+			locationMetaData = getResources().getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData);
+		}
+		RadioButton rb = (RadioButton)findViewById(buttonId);
+		rb.setEnabled(location != null);
+		rb.setText(getResources().getString(textId, locationMetaData));
+	}
 
 	/**
-	 * Checks if the new location is more accurate than {@link #currentLocation}.
+	 * Checks if the new location is more accurate than
+	 * {@link #currentLocation}.
 	 * 
 	 * @param newLocation new location
-	 * @return true, if the new location is more accurate than the old one or one of them has no accuracy anyway.
+	 * @return true, if the new location is more accurate than the old one or
+	 * one of them has no accuracy anyway.
 	 */
 	private boolean isNewLocationMoreAccurate(final Location newLocation) {
 		return currentLocation == null || !newLocation.hasAccuracy() || !currentLocation.hasAccuracy()
@@ -454,18 +477,21 @@ public class BoxPicker extends Activity implements LocationListener {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onProviderDisabled(final String provider) {}
+	public void onProviderDisabled(final String provider) {
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onProviderEnabled(final String provider) {}
+	public void onProviderEnabled(final String provider) {
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onStatusChanged(final String provider, final int status, final Bundle extras) {}
+	public void onStatusChanged(final String provider, final int status, final Bundle extras) {
+	}
 
 }

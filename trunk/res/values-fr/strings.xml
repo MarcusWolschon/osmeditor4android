@@ -52,8 +52,11 @@
 	<string name="location_choose_radius">Choisir le rayon :</string>
 	<string name="location_last_text">Dernier endroit visité :</string>
 	<string name="location_current_text">Endroit courant :</string>
-	<string name="location_current_text_parametized">Endroit courant: Lat %1$4g, Lon %2$4g %3$s</string>
-	<string name="location_current_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
+	<string name="location_text_unknown">unknown</string>
+	<string name="location_last_text_parameterized">Dernier endroit visité: %1$s</string>
+	<string name="location_current_text_parameterized">Endroit courant: %1$s</string>
+	<string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_text_metadata_accuracy">Accuracy %1$1g m,</string> <!--  TODO: translate -->
 	<string name="location_map_text">Depuis carte (à venir bientôt)</string>
 	<string name="location_coordinates_text">Depuis coordonnées :</string>
 	<string name="location_lat_label">Lat :</string>

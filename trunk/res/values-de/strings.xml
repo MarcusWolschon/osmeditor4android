@@ -57,8 +57,11 @@
 	<string name="location_choose_radius">Wähle Radius aus:</string>
 	<string name="location_last_text">Letzte bekannte Position:</string>
 	<string name="location_current_text">Aktuelle Position: unbekannt</string>
-	<string name="location_current_text_parametized">Aktuelle Position: Lat %1$4g, Lon %2$4g %3$s</string>
-	<string name="location_current_text_metadata_accuracy">Genauigkeit %1$1g Meter,</string> <!--  TODO: translate -->
+	<string name="location_text_unknown">unbekannt</string>
+	<string name="location_last_text_parameterized">Letzte bekannte Position: %1$s</string>
+	<string name="location_current_text_parameterized">Aktuelle Position: %1$s</string>
+	<string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_text_metadata_accuracy">Genauigkeit %1$1g Meter,</string> <!--  TODO: translate -->
 	<string name="location_map_text">Von Karte (geplant)</string>
 	<string name="location_coordinates_text">Von Koordinaten:</string>
 	<string name="location_lat_label">Lat:</string>
