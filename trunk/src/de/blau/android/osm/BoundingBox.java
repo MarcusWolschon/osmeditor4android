@@ -7,8 +7,8 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
 
 /**
- * BoundingBox represents a bounding box for a selection of an area. All values are in decimal-degree (WGS84),
- * multiplied by 1E7.
+ * BoundingBox represents a bounding box for a selection of an area. All values
+ * are in decimal-degree (WGS84), multiplied by 1E7.
  * 
  * @author mb
  */
@@ -52,7 +52,7 @@ public class BoundingBox implements Serializable {
 	private double mercatorFactorPow3;
 
 	/**
-	 * delimiter for the bounding box as String representation.
+	 * Delimiter for the bounding box as String representation.
 	 */
 	public static final String STRING_DELIMITER = ",";
 
@@ -62,18 +62,18 @@ public class BoundingBox implements Serializable {
 	public static final String NAME = "bounds";
 
 	/**
-	 * Default zoom in factor. Have to be greater than 0.
+	 * Default zoom in factor. Must be greater than 0.
 	 */
 	private static final float ZOOM_IN = 0.125f;
 
 	/**
-	 * Default zoom out factor. Have to be less than 0.
+	 * Default zoom out factor. Must be less than 0.
 	 */
 	private static final float ZOOM_OUT = -0.16666666f;
 
 	/**
-	 * The maximum difference between two borders of the bounding box for the OSM-API. {@link http
-	 * ://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API }
+	 * The maximum difference between two borders of the bounding box for the
+	 * OSM-API. {@link http://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API }
 	 */
 	private static final int API_MAX_DEGREE_DIFFERENCE = 5000000;
 
@@ -110,20 +110,20 @@ public class BoundingBox implements Serializable {
 	private static final int RESET_RATIO_AFTER_ZOOMCOUNT = 1;
 
 	/**
-	 * the ratio of this BoundingBox. Only needed when it's used as a viewbox.
+	 * The ratio of this BoundingBox. Only needed when it's used as a viewbox.
 	 */
 	private float ratio = 1;
 
 	/**
-	 * Generates a bounding box with the given borders. Of course, left must be left to right and top must be top of
-	 * bottom.
+	 * Generates a bounding box with the given borders. Of course, left must be
+	 * left to right and top must be top of bottom.
 	 * 
 	 * @param left degree of the left Border, multiplied by 1E7
 	 * @param bottom degree of the bottom Border, multiplied by 1E7
 	 * @param right degree of the right Border, multiplied by 1E7
 	 * @param top degree of the top Border, multiplied by 1E7
-	 * @throws OsmException when the borders are mixed up or outside of {@link #MAX_LAT}/{@link #MAX_LON} (!
-	 *             {@link #isValid()})
+	 * @throws OsmException when the borders are mixed up or outside of
+	 * {@link #MAX_LAT}/{@link #MAX_LON} (!{@link #isValid()})
 	 */
 	public BoundingBox(final int left, final int bottom, final int right, final int top) throws OsmException {
 		this.left = left;
@@ -189,7 +189,8 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Checks if the bounding box is valid for the OSM API.
 	 * 
-	 * @return true, if the bbox is smaller than 0.5*0.5 (here multiplied by 1E7) degree.
+	 * @return true, if the bbox is smaller than 0.5*0.5 (here multiplied by
+	 * 1E7) degree.
 	 */
 	public boolean isValidForApi() {
 		return isValid() && (width < API_MAX_DEGREE_DIFFERENCE) && (height < API_MAX_DEGREE_DIFFERENCE);
@@ -204,7 +205,8 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * @return a String, representing the bounding box. Format: "left,bottom,right,top" in decimal degrees.
+	 * @return a String, representing the bounding box. Format:
+	 * "left,bottom,right,top" in decimal degrees.
 	 */
 	public String toApiString() {
 		return "" + left / 1E7 + STRING_DELIMITER + bottom / 1E7 + STRING_DELIMITER + right / 1E7 + STRING_DELIMITER
@@ -219,26 +221,50 @@ public class BoundingBox implements Serializable {
 		return "(" + left + STRING_DELIMITER + bottom + STRING_DELIMITER + right + STRING_DELIMITER + top + ")";
 	}
 
+	/**
+	 * Get the left (western-most) side of the box.
+	 * @return The 1E7 longitude of the left side of the box.
+	 */
 	public int getLeft() {
 		return left;
 	}
 
+	/**
+	 * Get the bottom (southern-most) side of the box.
+	 * @return The 1E7 latitude of the bottom side of the box.
+	 */
 	public int getBottom() {
 		return bottom;
 	}
 
+	/**
+	 * Get the right (eastern-most) side of the box.
+	 * @return The 1E7 longitude of the right side of the box.
+	 */
 	public int getRight() {
 		return right;
 	}
 
+	/**
+	 * Get the top (northern-most) side of the box.
+	 * @return The 1E7 latitude of the top side of the box.
+	 */
 	public int getTop() {
 		return top;
 	}
 
+	/**
+	 * Get the width of the box.
+	 * @return The difference in 1E7 degrees between the right and left sides.
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Get the height of the box.
+	 * @return The difference in 1E7 degrees between the top and bottom sides.
+	 */
 	public int getHeight() {
 		return height;
 	}
@@ -259,13 +285,15 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * Checks if a line between lat/lon and lat2/lon2 may intersect with this bounding box.
+	 * Checks if a line between lat/lon and lat2/lon2 may intersect with this
+	 * bounding box.
 	 * 
 	 * @param lat
 	 * @param lon
 	 * @param lat2
 	 * @param lon2
-	 * @return true, when at least one lat/lon is inside, or a intersection could not be excluded.
+	 * @return true, when at least one lat/lon is inside, or a intersection
+	 * could not be excluded.
 	 */
 	public boolean intersects(final int lat, final int lon, final int lat2, final int lon2) {
 		if (isIn(lat, lon) || isIn(lat2, lon2)) {
@@ -278,8 +306,9 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * Checks if an intersection with a line between lat/lon and lat2/lon2 is impossible. If two coordinates (lat/lat2
-	 * or lon/lon2) are outside of a border, no intersection is possible.
+	 * Checks if an intersection with a line between lat/lon and lat2/lon2 is
+	 * impossible. If two coordinates (lat/lat2 or lon/lon2) are outside of a
+	 * border, no intersection is possible.
 	 * 
 	 * @param lat
 	 * @param lon
@@ -288,8 +317,8 @@ public class BoundingBox implements Serializable {
 	 * @return true, when an intersection is possible.
 	 */
 	private boolean isIntersectionPossible(final int lat, final int lon, final int lat2, final int lon2) {
-		return !(lat > top && lat2 > top || lat < bottom && lat2 < bottom || lon > right && lon2 > right || lon < left
-				&& lon2 < left);
+		return !(lat > top   && lat2 > top   || lat < bottom && lat2 < bottom ||
+				 lon > right && lon2 > right || lon < left   && lon2 < left);
 	}
 
 	/**
@@ -312,19 +341,22 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * Calculates the Mercator-Factor powers 3. In later calculations with the {@link #mercatorFactorPow3}, it would
-	 * always be multiplied 3 times with itself. So we do it here once.
+	 * Calculates the Mercator-Factor powers 3. In later calculations with the
+	 * {@link #mercatorFactorPow3}, it would always be multiplied 3 times with
+	 * itself. So we do it here once.
 	 */
 	private void calcMercatorFactorPow3() {
-		//have to use floatingpoint, otherwise strange things will happen due to rounding errors.
+		// have to use floatingpoint, otherwise strange things will happen due
+		// to rounding errors.
 		final double centerLat = ((bottom + height / 2) / 1E7d);
-		//powers 3 because it would be needed in later usage of this factor
+		// powers 3 because it would be needed in later usage of this factor
 		mercatorFactorPow3 = GeoMath.getMercartorFactorPow3(centerLat);
 	}
 
 	/**
-	 * Changes the dimensions of this bounding box to fit the given ratio. Ratio is width divided by height. The
-	 * smallest dimension will remain, the larger one will be resized to fit ratio.
+	 * Changes the dimensions of this bounding box to fit the given ratio.
+	 * Ratio is width divided by height. The smallest dimension will remain,
+	 * the larger one will be resized to fit ratio.
 	 * @param ratio The new aspect ratio.
 	 */
 	public void setRatio(final float ratio) {
@@ -334,16 +366,17 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Changes the dimensions of this bounding box to fit the given ratio.
 	 * @param ratio The new aspect ratio.
-	 * @param preserveZoom If true, maintains the current level of zoom by creating a new
-	 * boundingbox at the required ratio at the same center. If false, the new bounding box is
-	 * sized such that the currently visible area is still visible with the new aspect ratio
-	 * applied.
+	 * @param preserveZoom If true, maintains the current level of zoom by
+	 * creating a new boundingbox at the required ratio at the same center. If
+	 * false, the new bounding box is sized such that the currently visible
+	 * area is still visible with the new aspect ratio applied.
 	 */
 	public void setRatio(final float ratio, final boolean preserveZoom) {
 		if ((ratio > 0) && (ratio != Float.NaN)) {
 			if (preserveZoom) {
-				// Apply the new aspect ratio, but preserve the level of zoom so that
-				// for example, rotating portrait<-->landscape won't zoom out
+				// Apply the new aspect ratio, but preserve the level of zoom
+				// so that for example, rotating portrait<-->landscape won't
+				// zoom out
 				int centerx = (left / 2 + right / 2); // divide first to stay < 2^32
 				int centery = (top + bottom) / 2;
 				int smallest = Math.min(Math.abs(right - left), Math.abs(bottom - top)) / 2;
@@ -367,7 +400,7 @@ public class BoundingBox implements Serializable {
 				int singleBorderMovement;
 				// Ensure currently visible area is entirely visible in the new box
 				if ((width / height) < ratio) {
-					//The actual box is wider than it should be.
+					// The actual box is wider than it should be.
 					/* Here comes the math:
 					 * width/height = ratio
 					 * width = ratio * height
@@ -377,7 +410,7 @@ public class BoundingBox implements Serializable {
 					left += singleBorderMovement;
 					right -= singleBorderMovement;
 				} else {
-					//The actual box is more narrow than it should be.
+					// The actual box is more narrow than it should be.
 					/* Same in here, only different:
 					 * width/height = ratio
 					 * height = width/ratio
@@ -388,7 +421,7 @@ public class BoundingBox implements Serializable {
 					top -= singleBorderMovement;
 				}
 			}
-			//border-sizes changed. So we have to recalculate the dimensions.
+			// border-sizes changed. So we have to recalculate the dimensions.
 			calcDimensions();
 			Log.w(DEBUG_TAG, "Ratio: " + ratio);
 			this.ratio = ratio;
@@ -396,10 +429,11 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * Performs a translation so the center of this bounding box will be at (lonCenter|latCenter).
+	 * Performs a translation so the center of this bounding box will be at
+	 * (lonCenter|latCenter).
 	 * 
 	 * @param lonCenter the absolute longitude for the center
-	 * @param latCenter the absoulte latitude for the center
+	 * @param latCenter the absolute latitude for the center
 	 */
 	public void moveTo(final int lonCenter, final int latCenter) {
 		// TODO is Mercator scaling adjustment required?
@@ -429,18 +463,18 @@ public class BoundingBox implements Serializable {
 		calcMercatorFactorPow3();
 	}
 	
-	/** Calculate the minimum zoom factor that can be applied to the current
+	/** Calculate the largest zoom-in factor that can be applied to the current
 	 * view.
-	 * @return The minimum allowable zoom factor.
+	 * @return The largest allowable zoom-in factor.
 	 */
 	private float zoomInLimit() {
 		return  (width - MIN_ZOOM_WIDTH) / 2f / width;
 	}
 	
 	/**
-	 * Calculate the maximum zoom factor that can be applied to the current
+	 * Calculate the largest zoom-out factor that can be applied to the current
 	 * view.
-	 * @return The maximum allowable zoom factor.
+	 * @return The largest allowable zoom-out factor.
 	 */
 	private float zoomOutLimit() {
 		return -(MAX_ZOOM_WIDTH - width) / 2f / width;
@@ -463,14 +497,16 @@ public class BoundingBox implements Serializable {
 	}
 	
 	/**
-	 * Reduces this bounding box by the DEFAULT_ZOOM_FACTOR. The ratio of width and height remains.
+	 * Reduces this bounding box by the ZOOM_IN factor. The ratio of width and
+	 * height remains.
 	 */
 	public void zoomIn() {
 		zoom(ZOOM_IN);
 	}
 	
 	/**
-	 * Enlarges this bounding box by the DEFAULT_ZOOM_FACTOR. The ratio of width and height remains.
+	 * Enlarges this bounding box by the ZOOM_OUT factor. The ratio of width
+	 * and height remains.
 	 */
 	public void zoomOut() {
 		zoom(ZOOM_OUT);
@@ -483,6 +519,10 @@ public class BoundingBox implements Serializable {
 	 */
 	public void zoom(float zoomFactor) {
 		float limit;
+		// Zooming in should always be a positive value, if the limit is less
+		// than zero, then somehow we're zoomed in more than MIN_ZOOM_WITDH and
+		// limit is actually the factor required to zoom *out* to that minimum
+		// width. Zooming out is similar, but the logic is reversed.
 		limit = zoomInLimit();
 		if (limit < 0 || zoomFactor > limit) {
 			zoomFactor = limit;
@@ -497,7 +537,8 @@ public class BoundingBox implements Serializable {
 		right -= verticalChange;
 		bottom += horizontalChange;
 		top -= horizontalChange;
-		//Due to Mercator-Factor-Projection we have to translate to the new center.
+		// Due to Mercator-Factor-Projection we have to translate to the new
+		// center.
 		translate(0, getZoomingTranslation(zoomFactor));
 		calcDimensions();
 		if (zoomCount++ % RESET_RATIO_AFTER_ZOOMCOUNT == 0) {
@@ -506,7 +547,8 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * translation needed to set the middle back in the middle when we've got a mercator-factor.
+	 * Translation needed to set the middle back in the middle when we've got
+	 * a mercator-factor.
 	 * 
 	 * @return the translation value for center-correction.
 	 */
@@ -517,7 +559,8 @@ public class BoundingBox implements Serializable {
 	}
 
 	/**
-	 * Sets the borders to the ones of newBox. Recalculates dimensions and mercator-factor.
+	 * Sets the borders to the ones of newBox. Recalculates dimensions and
+	 * mercator-factor.
 	 * 
 	 * @param newBox bos with the new borders.
 	 */
