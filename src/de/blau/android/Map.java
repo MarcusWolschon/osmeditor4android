@@ -51,6 +51,9 @@ public class Map extends View implements IMapView {
 	
 	private Track myTrack;
 	
+	/** Direction we're pointing. 0-359 is valid, anything else is invalid.*/
+	private float orientation = -1f;
+	
 	/**
 	 * List of Overlays we are showing.<br/>
 	 * This list is initialized to contain only one
@@ -232,7 +235,15 @@ public class Map extends View implements IMapView {
 	 * @param y
 	 */
 	private void paintGpsPos(final Canvas canvas, final Location location, final float x, final float y) {
-		canvas.drawCircle(x, y, paints.get(Paints.GPS_POS).getStrokeWidth(), paints.get(Paints.GPS_POS));
+		if (orientation < 0) {
+			canvas.drawCircle(x, y, paints.get(Paints.GPS_POS).getStrokeWidth(), paints.get(Paints.GPS_POS));
+		} else {
+			canvas.save();
+			canvas.translate(x, y);
+			canvas.rotate(orientation + 180f);
+			canvas.drawPath(Paints.ORIENTATION_PATH, paints.get(Paints.GPS_POS));
+			canvas.restore();
+		}
 		if (location.hasAccuracy()) {
 			try {
 				BoundingBox accuracyBox = GeoMath.createBoundingBoxForCoordinates(
@@ -521,6 +532,10 @@ public class Map extends View implements IMapView {
 	
 	void setTrack(final Track aTrack) {
 		myTrack = aTrack;
+	}
+	
+	void setOrientation(final float orientation) {
+		this.orientation = orientation;
 	}
 	
 	void setDelegator(final StorageDelegator delegator) {

@@ -15,6 +15,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -88,6 +92,20 @@ public class Main extends Activity {
 	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
 
 	private DialogFactory dialogFactory;
+	
+	/** Objects to handle showing device orientation. */
+	private SensorManager sensorManager;
+	private Sensor sensor;
+	private SensorEventListener sensorListener = new SensorEventListener() {
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		}
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			map.setOrientation(event.values[0]);
+			map.invalidate();
+		}
+	};
 
 	/** The map View. */
 	private Map map;
@@ -116,6 +134,13 @@ public class Main extends Activity {
 		Application.mainActivity = this;
 		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(
 			Context.LOCATION_SERVICE);
+		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+		if (sensorManager != null) {
+			sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+			if (sensor == null) {
+				sensorManager = null;
+			}
+		}
 		getWindow().requestFeature(Window.FEATURE_LEFT_ICON);
 		getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
@@ -170,6 +195,22 @@ public class Main extends Activity {
 		}
 	}
 	
+	@Override
+	protected void onPause() {
+		if (sensorManager != null) {
+			sensorManager.unregisterListener(sensorListener);
+		}
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (sensorManager != null) {
+			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+		}
+	}
+
 	/**
 	 * Update the state of the onscreen zoom controls to reflect their ability
 	 * to zoom in/out.

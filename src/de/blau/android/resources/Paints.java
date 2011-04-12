@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Typeface;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
@@ -66,9 +67,16 @@ public class Paints {
 
 	private static final int TOLERANCE_ALPHA = 40;
 	
+	public static final Path ORIENTATION_PATH = new Path();
+	
 	public Paints(final Resources resources) {
 		paints = new Paint[PAINT_COUNT];
 		initPaints(resources);
+		ORIENTATION_PATH.moveTo(0,20);
+		ORIENTATION_PATH.lineTo(15, -20);
+		ORIENTATION_PATH.lineTo(0, -10);
+		ORIENTATION_PATH.lineTo(-15, -20);
+		ORIENTATION_PATH.lineTo(0, 20);
 	}
 
 	/**
