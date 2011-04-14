@@ -72,11 +72,11 @@ public class Paints {
 	public Paints(final Resources resources) {
 		paints = new Paint[PAINT_COUNT];
 		initPaints(resources);
-		ORIENTATION_PATH.moveTo(0,20);
-		ORIENTATION_PATH.lineTo(15, -20);
-		ORIENTATION_PATH.lineTo(0, -10);
-		ORIENTATION_PATH.lineTo(-15, -20);
-		ORIENTATION_PATH.lineTo(0, 20);
+		ORIENTATION_PATH.moveTo(0,-20);
+		ORIENTATION_PATH.lineTo(15, 20);
+		ORIENTATION_PATH.lineTo(0, 10);
+		ORIENTATION_PATH.lineTo(-15, 20);
+		ORIENTATION_PATH.lineTo(0, -20);
 	}
 
 	/**

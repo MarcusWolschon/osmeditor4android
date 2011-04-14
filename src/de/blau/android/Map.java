@@ -235,12 +235,25 @@ public class Map extends View implements IMapView {
 	 * @param y
 	 */
 	private void paintGpsPos(final Canvas canvas, final Location location, final float x, final float y) {
-		if (orientation < 0) {
+		float o = -1f;
+		if (location.hasBearing() && location.hasSpeed() && location.getSpeed() > 1.4f) {
+			// 1.4m/s ~= 5km/h ~= walking pace
+			// faster than walking pace - use the GPS bearing
+			o = location.getBearing();
+		} else {
+			// slower than walking pace - use the compass orientation (if available)
+			if (orientation >= 0) {
+				o = orientation;
+			}
+		}
+		if (o < 0) {
+			// no orientation data available
 			canvas.drawCircle(x, y, paints.get(Paints.GPS_POS).getStrokeWidth(), paints.get(Paints.GPS_POS));
 		} else {
+			// show the orientation using a pointy indicator
 			canvas.save();
 			canvas.translate(x, y);
-			canvas.rotate(orientation + 180f);
+			canvas.rotate(o);
 			canvas.drawPath(Paints.ORIENTATION_PATH, paints.get(Paints.GPS_POS));
 			canvas.restore();
 		}
