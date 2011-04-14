@@ -19,6 +19,19 @@
           <ZoomMax>
             15
           </ZoomMax>
+          <ImageryProvider>
+            <Attribution>Scanned images © 2005-2007 Richard Fairhurst, Mike Calder, Nick Burch and Andrew Rowbottom</Attribution>
+            <CoverageArea>
+              <ZoomMin>6</ZoomMin> 
+              <ZoomMax>15</ZoomMax> 
+              <BoundingBox>
+                <SouthLatitude>49.95</SouthLatitude> 
+                <WestLongitude>-7.82</WestLongitude> 
+                <NorthLatitude>60.87</NorthLatitude> 
+                <EastLongitude>1.76</EastLongitude> 
+              </BoundingBox>
+            </CoverageArea>
+          </ImageryProvider>
         </ImageryMetadata>
       </Resources>
     </ResourceSet>

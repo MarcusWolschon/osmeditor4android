@@ -19,6 +19,19 @@
           <ZoomMax>
             14
           </ZoomMax>
+          <ImageryProvider>
+            <Attribution>Scanned by Steve Chilton and James Rutter</Attribution>
+            <CoverageArea>
+              <ZoomMin>6</ZoomMin> 
+              <ZoomMax>14</ZoomMax> 
+              <BoundingBox>
+                <SouthLatitude>49.95</SouthLatitude> 
+                <WestLongitude>-7.82</WestLongitude> 
+                <NorthLatitude>60.87</NorthLatitude> 
+                <EastLongitude>1.76</EastLongitude> 
+              </BoundingBox>
+            </CoverageArea>
+          </ImageryProvider>
         </ImageryMetadata>
       </Resources>
     </ResourceSet>

@@ -73,9 +73,9 @@
   <item>.png @raw/mapquest http://info.mapquest.com/terms-of-use/</item>
   <item>.png @raw/osodstreetview</item>
   <item>.png @raw/osodlocator</item>
-  <item>.png @raw/osnpehistoric</item>
+  <item>.png @raw/osnpehistoric http://www.npemap.org.uk/tileLicence.html</item>
   <item>.jpg @raw/os1sted</item>
-  <item>.jpg @raw/os7thseries</item>
+  <item>.jpg @raw/os7thseries http://steve8.dev.openstreetmap.org/os7.htm</item>
   <item>.png @raw/surreyaerial</item>
   <item>.jpg @raw/denmarkfugro</item>
   
