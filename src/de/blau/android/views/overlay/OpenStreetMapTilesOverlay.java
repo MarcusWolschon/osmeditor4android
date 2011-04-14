@@ -35,6 +35,10 @@ import android.view.View;
  */
 public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	
+	/** Define a minimum active area for taps on the tile attribution data. */
+	private static final int TAPAREA_MIN_WIDTH = 40;
+	private static final int TAPAREA_MIN_HEIGHT = 40;
+	
 	/** Tap tracking */
 	private float downX, downY;
 	private boolean moved;
@@ -220,6 +224,13 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			c.drawText(attr, tapArea.left, tapArea.top, textPaint);
 			tapArea.top -= textPaint.getTextSize();
 			tapArea.right = Math.max(tapArea.right, tapArea.left + (int)textPaint.measureText(attr));
+		}
+		// Impose a minimum tap area
+		if (tapArea.width() < TAPAREA_MIN_WIDTH) {
+			tapArea.right = tapArea.left + TAPAREA_MIN_WIDTH;
+		}
+		if (tapArea.height() < TAPAREA_MIN_HEIGHT) {
+			tapArea.top = tapArea.bottom - TAPAREA_MIN_HEIGHT;
 		}
 	}
 	
