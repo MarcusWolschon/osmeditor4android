@@ -117,7 +117,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	
 	public void cutCurrentFSCacheBy(final int bytesToCut){
 		try {
-			mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all
+			synchronized (this) {
+				mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all
+			}
 			mCurrentFSCacheByteSize = 0;
 		} catch (EmptyCacheException e) {
 			if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
@@ -185,7 +187,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 		//@Override
 		public void run() {
-			OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
+			synchronized (OpenStreetMapTileFilesystemProvider.this) {
+				OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
+			}
 			InputStream in = null;
 			try {
 				in = getInput(mTile);
