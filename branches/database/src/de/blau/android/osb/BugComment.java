@@ -14,13 +14,10 @@ public class BugComment {
 	
 	/** The preferred OSB date formats. */
 	private static final DateFormat bugDateFormats[] = {
-		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"), // preferred, used for output (see toString())
-		new SimpleDateFormat("yy-MM-dd HH:mm:ss z"  ), // alternate preferred
-		new SimpleDateFormat("yy-MM-dd HH:mm:ss"    ), // alternate preferred
-		new SimpleDateFormat("dd.MM.yy HH:mm:ss z"  ), // German
-		new SimpleDateFormat("dd.MM.yy HH:mm:ss"    ), // German
-		new SimpleDateFormat("dd/MM/yy HH:mm:ss z"  ), // European
-		new SimpleDateFormat("dd/MM/yy HH:mm:ss"    )  // European
+		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), // preferred, used for output (see toString())
+		new SimpleDateFormat("yy-MM-dd HH:mm:ss"  ), // alternate preferred
+		new SimpleDateFormat("dd.MM.yy HH:mm:ss"  ), // German
+		new SimpleDateFormat("dd/MM/yy HH:mm:ss"  )  // European
 	};
 	
 	/** The comment text. */
@@ -60,12 +57,11 @@ public class BugComment {
 				}
 			}
 			if (timestamp == null) {
-				Log.d("Vespucci", "Couldn't parse:"+date);
-				timestamp = new Date();
+				Log.d("Vespucci", "BugComment:Couldn't parse:"+date);
 			}
 		} catch (Exception e) {
 			// could not find the end of the nickname, therefore could not find the date
-			timestamp = new Date();
+			// leave timestamp null
 		}
 	}
 	
@@ -110,7 +106,8 @@ public class BugComment {
 	 * @return The bug comment in the preferred OSB format.
 	 */
 	public String toString() {
-		return text + " [" + nickname + ", " + bugDateFormats[0].format(timestamp) + "]";
+		String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
+		return text + " [" + nickname + date + "]";
 	}
 
 }

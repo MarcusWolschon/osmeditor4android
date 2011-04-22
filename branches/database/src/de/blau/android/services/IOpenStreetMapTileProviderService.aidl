@@ -22,6 +22,6 @@ interface IOpenStreetMapTileProviderService {
 
 	String[] getTileProviders();
 
-	void getMapTile(in int rendererID, in int zoomLevel, in int tileX, in int tileY, in IOpenStreetMapTileProviderCallback callback);
+	void getMapTile(in String rendererID, in int zoomLevel, in int tileX, in int tileY, in IOpenStreetMapTileProviderCallback callback);
 
 }

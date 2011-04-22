@@ -20,6 +20,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -140,8 +141,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	// ===========================================================
 
 	private String buildPath(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.values()[tile.rendererID];
-		return "/sdcard/andnav2/tiles/" + renderer.name() + "/" + tile.zoomLevel + "/"
+		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID);
+		return Environment.getExternalStorageDirectory().getPath()
+					+ "/andnav2/tiles/" + renderer.ID + "/" + tile.zoomLevel + "/"
 					+ tile.x + "/" + tile.y + renderer.IMAGE_FILENAMEENDING + ".andnav"; 
 	}
 	
@@ -152,9 +154,15 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	
 	private OutputStream getOutput(final OpenStreetMapTile tile) throws IOException {
 		File file = new File(buildPath(tile));
-		if (!file.exists()) {
-			file.getParentFile().mkdirs();
-			file.createNewFile();
+		File parent = file.getParentFile();
+		if (!parent.isDirectory()) {
+			synchronized (this) {
+				// Multiple threads creating directories simultaneously
+				// can result in this call failing, the directories not
+				// being created, and the subsequent FileOutputStream
+				// issuing an IOException.
+				parent.mkdirs();
+			}
 		}
 		return new BufferedOutputStream(new FileOutputStream(file, false), StreamUtils.IO_BUFFER_SIZE);		
 	}

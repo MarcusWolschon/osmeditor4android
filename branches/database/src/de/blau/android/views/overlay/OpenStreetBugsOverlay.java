@@ -67,7 +67,9 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 							bugs.add(b);
 						}
 					}
-					map.invalidate();
+					if (!bugs.isEmpty()) {
+						map.invalidate();
+					}
 				}
 				
 			}.execute();
@@ -80,7 +82,7 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 		cur = new Rect();
 		bugs = new ArrayList<Bug>();
 		handler = new Handler();
-		Resources r = map.getContext().getResources();
+		Resources r = map.getContext().getApplicationContext().getResources();
 		openPaint = new Paint();
 		openPaint.setColor(r.getColor(R.color.bug_open));
 		openPaint.setAlpha(200);
@@ -107,7 +109,7 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 			// draw all the bugs on the map as slightly transparent circles
 			for (Bug b : bugs) {
 				if (bb.isIn(b.getLat(), b.getLon())) {
-					float x = GeoMath.lonE7ToX(viewPort.width(), bb, b.getLon());
+					float x = GeoMath.lonE7ToX(viewPort.width() , bb, b.getLon());
 					float y = GeoMath.latE7ToY(viewPort.height(), bb, b.getLat());
 					c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
 				}
@@ -120,6 +122,13 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 		// do nothing
 	}
 	
+	/**
+	 * Given screen coordinates, find all nearby bugs.
+	 * @param x Screen X-coordinate.
+	 * @param y Screen Y-coordinate.
+	 * @param viewBox Map view box.
+	 * @return List of bugs close to given location.
+	 */
 	public List<Bug> getClickedBugs(final float x, final float y, final BoundingBox viewBox) {
 		List<Bug> result = new ArrayList<Bug>();
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
@@ -139,6 +148,15 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 			//result.add(new Bug(GeoMath.yToLatE7(map.getHeight(), viewBox, y), GeoMath.xToLonE7(map.getWidth(), viewBox, x), true));
 		}
 		return result;
+	}
+	
+	/**
+	 * Add a bug to the overlay. Intended for when a bug is added to the map. The map will
+	 * need to be invalidated for the change to be shown.
+	 * @param bug New bug.
+	 */
+	public void addBug(final Bug bug) {
+		bugs.add(bug);
 	}
 	
 }

@@ -52,19 +52,41 @@ public class Logic {
 	/**
 	 * Enums for modes.
 	 */
-	public static final byte MODE_MOVE = 0;
+	public static enum Mode {
+		/**
+		 * move nodes by tapping the screen
+		 */
+		MODE_MOVE,
+		/**
+		 * edit ways and nodes by tapping the screen
+		 */
+		MODE_EDIT,
+		/**
+		 * add nodes by tapping the screen
+		 */
+		MODE_ADD,
+		/**
+		 * erase ways and nodes by tapping the screen
+		 */
+		MODE_ERASE,
+		/**
+		 * append nodes to the end of a way by tapping the screen
+		 */
+		MODE_APPEND,
+		/**
+		 * edit tags of ways and nodes by tapping the screen
+		 */
+		MODE_TAG_EDIT,
+		/**
+		 * split ways by tapping the screen
+		 */
+		MODE_SPLIT,
+		/**
+		 * file bug in OpenStreetBugs by tapping the screen
+		 */
+		MODE_OPENSTREETBUG
+	}
 
-	public static final byte MODE_EDIT = 1;
-
-	public static final byte MODE_ADD = 2;
-
-	public static final byte MODE_ERASE = 3;
-
-	public static final byte MODE_APPEND = 4;
-
-	public static final byte MODE_TAG_EDIT = 5;
-
-	public static final byte MODE_SPLIT = 6;
 	/**
 	 * Enums for directions. Used for translation via cursor-pad.
 	 */
@@ -138,7 +160,7 @@ public class Logic {
 	/**
 	 * Current mode.
 	 */
-	private byte mode;
+	private Mode mode;
 
 	/**
 	 * The viewBox for the map. All changes on this Object are made in here or
@@ -182,7 +204,8 @@ public class Logic {
 		viewBox = delegator.getOriginalBox();
 		tracker = new Tracker(locationManager, map);
 
-		mode = MODE_MOVE;
+		mode = Mode.MODE_MOVE;
+		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
 
@@ -229,15 +252,16 @@ public class Logic {
 	 * @param mode
 	 *            mode.
 	 */
-	public void setMode(final byte mode) {
+	public void setMode(final Mode mode) {
 		this.mode = mode;
 		map.setMode(mode);
+		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
 		map.invalidate();
 	}
 
-	public byte getMode() {
+	public Mode getMode() {
 		return mode;
 	}
 
@@ -507,7 +531,7 @@ public class Logic {
 	 *            display-coord.
 	 */
 	void handleTouchEventDown(final float x, final float y) {
-		if (isInEditZoomRange() && mode == MODE_EDIT) {
+		if (isInEditZoomRange() && mode == Mode.MODE_EDIT) {
 			// TODO Need to handle multiple possible targets here too (Issue #6)
 			setSelectedNode(getClickedNode(x, y));
 			map.invalidate();
@@ -535,7 +559,7 @@ public class Logic {
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY,
 			final float relativeX, final float relativeY, final boolean hasMoved) {
-		if (mode == MODE_EDIT && selectedNode != null && isInEditZoomRange()) {
+		if (mode == Mode.MODE_EDIT && selectedNode != null && isInEditZoomRange()) {
 			if (hasMoved) {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
@@ -633,7 +657,7 @@ public class Logic {
 		setSelectedNode(lSelectedNode);
 		setSelectedWay(lSelectedWay);
 	}
-
+	
 	public void performErase(final Node node) {
 		if (node != null) {
 			delegator.removeNode(node);
@@ -900,7 +924,19 @@ public class Logic {
 		Server server = prefs.getServer();
 		new UploadThread(caller, handler, server, delegator, comment).start();
 	}
-
+	
+	/**
+	 * Make a new bug at the given screen X/Y coordinates.
+	 * @param x The screen X-coordinate of the bug.
+	 * @param y The screen Y-coordinate of the bug.
+	 * @return The new bug, which must have a comment added before it can be submitted to OSB.
+	 */
+	public Bug makeNewBug(final float x, final float y) {
+		int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+		return new Bug(lat, lon);
+	}
+	
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to
 	 * {@link #map}.

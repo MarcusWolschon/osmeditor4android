@@ -120,6 +120,10 @@ public class Tracker implements LocationListener {
 	private void moveScreenToLocation(final Location location) {
 		BoundingBox viewBox = map.getViewBox();
 		viewBox.moveTo((int) (location.getLongitude() * 1E7), (int) (location.getLatitude() * 1E7));
+		// ensure the view is zoomed in to at least the most zoomed-out
+		while (!viewBox.canZoomOut() && viewBox.canZoomIn()) {
+			viewBox.zoomIn();
+		}
 		map.invalidate();
 	}
 

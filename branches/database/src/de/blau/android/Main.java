@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 import android.widget.RelativeLayout.LayoutParams;
+import de.blau.android.Logic.Mode;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
@@ -50,11 +53,13 @@ import de.blau.android.osm.DBAdapter;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
+import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -124,6 +129,9 @@ public class Main extends Activity {
 
 		RelativeLayout rl = new RelativeLayout(getApplicationContext());
 
+		if (map != null) {
+			map.onDestroy();
+		}
 		map = new Map(getApplicationContext());
 		dialogFactory = new DialogFactory(this);
 
@@ -206,6 +214,27 @@ public class Main extends Activity {
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		final MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
+		if (!prefs.isOpenStreetBugsEnabled()) {
+			menu.removeItem(R.id.menu_openstreetbug);
+		}
+		return true;
+	}
+
+	/**
+	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(final Menu menu) {
+		if (!prefs.isOpenStreetBugsEnabled()) {
+			menu.removeItem(R.id.menu_openstreetbug);
+		} else {
+			if(menu.findItem(R.id.menu_openstreetbug) == null) {
+				// restore missing menu item
+				menu.clear();
+				final MenuInflater inflater = getMenuInflater();
+				inflater.inflate(R.menu.main_menu, menu);
+			}
+		}
 		return true;
 	}
 
@@ -216,42 +245,46 @@ public class Main extends Activity {
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_move:
-			logic.setMode(Logic.MODE_MOVE);
+			logic.setMode(Logic.Mode.MODE_MOVE);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
 					R.drawable.menu_move);
 			return true;
 
 		case R.id.menu_edit:
-			logic.setMode(Logic.MODE_EDIT);
+			logic.setMode(Logic.Mode.MODE_EDIT);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
 					R.drawable.menu_edit);
 			return true;
 
 		case R.id.menu_tag:
-			logic.setMode(Logic.MODE_TAG_EDIT);
+			logic.setMode(Logic.Mode.MODE_TAG_EDIT);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
 					R.drawable.menu_tag);
 			return true;
 
 		case R.id.menu_add:
-			logic.setMode(Logic.MODE_ADD);
+			logic.setMode(Logic.Mode.MODE_ADD);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
 					R.drawable.menu_add);
 			return true;
 
 		case R.id.menu_erase:
-			logic.setMode(Logic.MODE_ERASE);
+			logic.setMode(Logic.Mode.MODE_ERASE);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
 					R.drawable.menu_erase);
 			return true;
 
 		case R.id.menu_split:
-			logic.setMode(Logic.MODE_SPLIT);
+			logic.setMode(Logic.Mode.MODE_SPLIT);
 			//TODO: no icon yet getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_split);
 			return true;
 
+		case R.id.menu_openstreetbug:
+			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
+			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
+
 		case R.id.menu_append:
-			logic.setMode(Logic.MODE_APPEND);
+			logic.setMode(Logic.Mode.MODE_APPEND);
 			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
 					R.drawable.menu_append);
 			return true;
@@ -349,8 +382,9 @@ public class Main extends Activity {
 				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
 				Bug bug = logic.getSelectedBug();
+				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
 				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
-				comments.setText(bug.getDescription().replaceAll("<hr />", "\n"));
+				comments.setText(bug.getComment().replaceAll("<hr />", "\n"));
 				EditText comment = (EditText)ad.findViewById(R.id.openstreetbug_comment);
 				comment.setText("");
 				comment.setFocusable(!bug.isClosed());
@@ -432,9 +466,28 @@ public class Main extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
+		map.onDestroy();
 		dbAdapter.close();
 		logic.disableGpsUpdates();
+		logic.save(this, handler, false);
+		super.onDestroy();
+	}
+
+	/**
+	 * TODO: put this in Logic!!! Checks if a serialized {@link StorageDelegator} file is available.
+	 * 
+	 * @return true, when the file is available, otherwise false.
+	 */
+	private boolean isLastActivityAvailable() {
+		FileInputStream in = null;
+		try {
+			in = openFileInput(StorageDelegator.FILENAME);
+			return true;
+		} catch (final FileNotFoundException e) {
+			return false;
+		} finally {
+			Server.close(in);
+		}
 	}
 
 	/**
@@ -510,9 +563,18 @@ public class Main extends Activity {
 	 * @param close Flag to indicate if the bug is to be closed.
 	 */
 	public void performOpenStreetBugCommit(final String comment, final boolean close) {
-		Log.d("Vespucci", "OSB.Commit");
+		Log.d("Vespucci", "Main.performOpenStreetBugCommit");
 		dismissDialog(DialogFactory.OPENSTREETBUG_EDIT);
-		new CommitTask(this, logic.getSelectedBug(), comment, close) {
+		new CommitTask(logic.getSelectedBug(), comment, close) {
+			
+			/** Flag to track if the bug is new. */
+			private boolean newBug;
+			
+			@Override
+			protected void onPreExecute() {
+				newBug = (bug.getId() == 0);
+				setProgressBarIndeterminateVisibility(true);
+			}
 			
 			@Override
 			protected Boolean doInBackground(String... args) {
@@ -525,6 +587,20 @@ public class Main extends Activity {
 					nickname = server.getDisplayName();
 				}
 				return super.doInBackground(nickname);
+			}
+			
+			@Override
+			protected void onPostExecute(Boolean result) {
+				if (result && newBug) {
+					for (OpenStreetMapViewOverlay o : map.getOverlays()) {
+						if (o instanceof OpenStreetBugsOverlay) {
+							((OpenStreetBugsOverlay)o).addBug(bug);
+						}
+					}
+				}
+				setProgressBarIndeterminateVisibility(false);
+				Toast.makeText(getApplicationContext(), result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
+				map.invalidate();
 			}
 			
 		}.execute();
@@ -595,6 +671,8 @@ public class Main extends Activity {
 
 		private List<OsmElement> clickedNodesAndWays;
 		private List<Bug> clickedBugs;
+		
+		private boolean hasMoved;
 
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
@@ -629,14 +707,14 @@ public class Main extends Activity {
 			oldPosY = y;
 			clickedBugs = null;
 			clickedNodesAndWays = null;
-			
+			hasMoved = false;
 			logic.handleTouchEventDown(x, y);
 		}
 
 		private void touchEventMove(final float x, final float y) {
 			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY,
 					hasMoved(x, y));
-
+			if (hasMoved(x, y)) hasMoved = true;
 			oldPosX = x;
 			oldPosY = y;
 		}
@@ -647,31 +725,45 @@ public class Main extends Activity {
 		 * @param y
 		 */
 		private void touchEventUp(final View v, final float x, final float y) {
-			boolean hasMoved = hasMoved(x, y);
 			if (!hasMoved) {
 				OpenStreetBugsOverlay osbo = map.getOpenStreetBugsOverlay();
 				if (osbo != null) {
 					clickedBugs = osbo.getClickedBugs(x, y, map.getViewBox());
 				}
 				
-				byte mode = logic.getMode();
+				Mode mode = logic.getMode();
 				boolean isInEditZoomRange = logic.isInEditZoomRange();
 
 				if (isInEditZoomRange) {
 					switch (mode) {
-					case Logic.MODE_ADD:
+					case MODE_MOVE:
+						break;
+					case MODE_OPENSTREETBUG:
+						switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
+						case 0:
+							performBugEdit(logic.makeNewBug(x, y));
+							break;
+						case 1:
+							performBugEdit(clickedBugs.get(0));
+							break;
+						default:
+							v.showContextMenu();
+							break;
+						}
+						break;
+					case MODE_ADD:
 						logic.performAdd(x, y);
 						break;
-					case Logic.MODE_TAG_EDIT:
+					case MODE_TAG_EDIT:
 						selectElementForTagEdit(v, x, y);
 						break;
-					case Logic.MODE_ERASE:
+					case MODE_ERASE:
 						selectElementForErase(v, x, y);
 						break;
-					case Logic.MODE_SPLIT:
+					case MODE_SPLIT:
 						selectElementForSplit(v, x, y);
 						break;
-					case Logic.MODE_APPEND:
+					case MODE_APPEND:
 						performAppend(v, x, y);
 						break;
 					}
@@ -679,9 +771,14 @@ public class Main extends Activity {
 				} else {
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 					case 0:
-						if (mode != Logic.MODE_MOVE && !isInEditZoomRange && !hasMoved) {
-							Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG)
-									.show();
+						if (!isInEditZoomRange) {
+							if (mode == Logic.Mode.MODE_MOVE) {
+								if (prefs.isOpenStreetBugsEnabled()) {
+									Toast.makeText(getApplicationContext(), R.string.toast_not_in_bug_range, Toast.LENGTH_LONG).show();
+								}
+							} else {
+								Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+							}
 						}
 						break;
 					case 1:
@@ -851,7 +948,7 @@ public class Main extends Activity {
 			int id = 0;
 			if (clickedBugs != null) {
 				for (Bug b : clickedBugs) {
-					menu.add(Menu.NONE, id++, Menu.NONE, b.getFirstComment()).setOnMenuItemClickListener(this);
+					menu.add(Menu.NONE, id++, Menu.NONE, b.getDescription()).setOnMenuItemClickListener(this);
 				}
 			}
 			if (clickedNodesAndWays != null) {
@@ -873,16 +970,16 @@ public class Main extends Activity {
 				if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
 					OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {
-					case Logic.MODE_TAG_EDIT:
+					case MODE_TAG_EDIT:
 						performTagEdit(element);
 						break;
-					case Logic.MODE_ERASE:
+					case MODE_ERASE:
 						logic.performErase((Node) element);
 						break;
-					case Logic.MODE_SPLIT:
+					case MODE_SPLIT:
 						logic.performSplit((Node) element);
 						break;
-					case Logic.MODE_APPEND:
+					case MODE_APPEND:
 						switch (appendMode) {
 						case APPEND_START:
 							logic.performAppendStart(element);

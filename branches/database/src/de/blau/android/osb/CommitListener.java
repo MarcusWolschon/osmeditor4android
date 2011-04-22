@@ -13,6 +13,7 @@ import android.widget.EditText;
  */
 public class CommitListener implements OnClickListener {
 	
+	/** Main Vespucci activity. */
 	private final Main caller;
 	/** OpenStreetBug comment field. */
 	private final EditText comment;

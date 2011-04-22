@@ -33,6 +33,7 @@
 	<string name="toast_save_done">Speichern erfolgreich</string>
 	<string name="toast_waiting_for_gps">Warte auf GPS Position...</string>
 	<string name="toast_follow_gps_off">GPS following abgeschaltet</string>
+	<string name="toast_file_openstreetbug">Karte bezühren um OpenStreetBug anzulegen</string>
 
 	<!-- ErrorMailer  -->
 	<string name="error_email_message">"Hey Matthias,\n\nkönntest Du Dir mal folgende Fehlermeldung ansehen?\n\n"</string>
@@ -78,6 +79,7 @@
 	<string name="menu_append">Anhängen</string>
 	<string name="menu_tag">Tags verändern</string>
 	<string name="menu_gps">GPS...</string>
+	<string name="menu_openstreetbug">Erzeuge OpenStreetBug</string>
 	<string name="menu_gps_start_pause">Start/Pause GPS Track</string>
 	<string name="menu_gps_follow">Follow GPS Position</string>
 	<string name="menu_gps_stop">Stop GPS Track</string>

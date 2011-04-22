@@ -40,7 +40,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	 * @param aMaximumCacheSize Maximum amount of MapTiles to be hold within.
 	 */
 	public OpenStreetMapTileCache(final int aMaximumCacheSize){
-		this.mCachedTiles = new LRUMapTileCache(aMaximumCacheSize);
+		mCachedTiles = new LRUMapTileCache(aMaximumCacheSize);
 	}
 
 	// ===========================================================
@@ -48,11 +48,11 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	
 	public synchronized Bitmap getMapTile(final OpenStreetMapTile aTile) {
-		return this.mCachedTiles.get(aTile.toString());
+		return mCachedTiles.get(aTile.toString());
 	}
 
 	public synchronized void putTile(final OpenStreetMapTile aTile, final Bitmap aImage) {
-		this.mCachedTiles.put(aTile.toString(), aImage);
+		mCachedTiles.put(aTile.toString(), aImage);
 	}
 
 	// ===========================================================
@@ -62,9 +62,13 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	// Methods
 	// ===========================================================
-
+	
+	public void clear() {
+		mCachedTiles.clear();
+	}
+	
 	public boolean containsTile(final OpenStreetMapTile aTile) {
-		return this.mCachedTiles.containsKey(aTile.toString());
+		return mCachedTiles.containsKey(aTile.toString());
 	}
 	
 	// ===========================================================

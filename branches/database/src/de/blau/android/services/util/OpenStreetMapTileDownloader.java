@@ -15,6 +15,7 @@ import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.util.Log;
@@ -71,7 +72,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 
 	private String buildURL(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.values()[tile.rendererID];
+		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID);
 		return renderer.getTileURLString(tile);
 	}
 
@@ -80,45 +81,52 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 	
 	private class TileLoader extends OpenStreetMapAsyncTileProvider.TileLoader {
-
+		
 		public TileLoader(final OpenStreetMapTile aTile, final IOpenStreetMapTileProviderCallback aCallback) {
 			super(aTile, aCallback);
 		}
-
+		
 		//@Override
 		public void run() {
 			InputStream in = null;
 			OutputStream out = null;
-
+			
 			String tileURLString = buildURL(mTile);
 			
 			try {
 				if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
-
-
+				
 				in = new BufferedInputStream(new URL(tileURLString).openStream(), StreamUtils.IO_BUFFER_SIZE);
-
+				
 				final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
 				out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE);
 				StreamUtils.copy(in, out);
 				out.flush();
-
+				
 				final byte[] data = dataStream.toByteArray();
-
+				
+				if (data.length == 0) {
+					throw new IOException("no tile data");
+				}
+				Bitmap b = BitmapFactory.decodeByteArray(data, 0, data.length);
+				if (b == null) {
+					throw new IOException("decodeByteArray returned null");
+				}
 				OpenStreetMapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
-				if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
+				if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 					Log.d(DEBUGTAG, "Maptile saved to: " + tileURLString);
-
-				mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, BitmapFactory.decodeByteArray(data, 0, data.length));
+				}
+				mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, b);
 			} catch (IOException e) {
 				try {
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
 				} catch (RemoteException e1) {
-				    Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + e.getClass().getSimpleName(), e);
+					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + e.getClass().getSimpleName(), e);
 				}
-				if(Log.isLoggable(DEBUGTAG, Log.ERROR))
+				if(Log.isLoggable(DEBUGTAG, Log.ERROR)) {
 					Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + e.getClass().getSimpleName(), e);
+				}
 				/* TODO What to do when downloading tile caused an error?
 				 * Also remove it from the mPending?
 				 * Doing not blocks it for the whole existence of this TileDownloder.
@@ -132,5 +140,5 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 			}
 		}
 	};
-
+	
 }

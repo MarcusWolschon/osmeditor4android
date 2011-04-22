@@ -15,6 +15,7 @@ import android.location.Location;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import de.blau.android.Logic.Mode;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -44,10 +45,6 @@ public class Map extends View implements IMapView {
 	
 	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = Map.class.getSimpleName();
-	/**
-	 * The {@link OpenStreetMapTileServer} we use by default.
-	 */
-	final static OpenStreetMapTileServer DEFAULTTILESERVER = OpenStreetMapTileServer.MAPNIK;
 	
 	private Preferences pref;
 	
@@ -71,7 +68,7 @@ public class Map extends View implements IMapView {
 	
 	private StorageDelegator delegator;
 	
-	private byte mode;
+	private Mode mode;
 	
 	private boolean isInEditZoomRange;
 	
@@ -96,17 +93,32 @@ public class Map extends View implements IMapView {
 		setDrawingCacheEnabled(false);
 		
 		// create an overlay that displays pre-rendered tiles from the internet.
-		getOverlays().add(new OpenStreetMapTilesOverlay(this, DEFAULTTILESERVER, null));
-		getOverlays().add(new OpenStreetBugsOverlay(this));
+		mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources()), null));
+		mOverlays.add(new OpenStreetBugsOverlay(this));
+	}
+	
+	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			if (osmvo instanceof OpenStreetMapTilesOverlay) {
+				return (OpenStreetMapTilesOverlay)osmvo;
+			}
+		}
+		return null;
 	}
 	
 	public OpenStreetBugsOverlay getOpenStreetBugsOverlay() {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetBugsOverlay) {
 				return (OpenStreetBugsOverlay)osmvo;
 			}
 		}
 		return null;
+	}
+	
+	public void onDestroy() {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			osmvo.onDestroy();
+		}
 	}
 	
 	/**
@@ -118,7 +130,7 @@ public class Map extends View implements IMapView {
 		long time = System.currentTimeMillis();
 		
 		// Draw our Overlays.
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
 		}
 		
@@ -141,7 +153,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onTouchEvent(event, this)) {
 				return true;
 			}
@@ -151,7 +163,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onKeyDown(keyCode, event, this)) {
 				return true;
 			}
@@ -161,7 +173,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onKeyUp(keyCode, event, this)) {
 				return true;
 			}
@@ -171,7 +183,7 @@ public class Map extends View implements IMapView {
 	
 	@Override
 	public boolean onTrackballEvent(MotionEvent event) {
-		for (OpenStreetMapViewOverlay osmvo : this.getOverlays()) {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo.onTrackballEvent(event, this)) {
 				return true;
 			}
@@ -321,7 +333,7 @@ public class Map extends View implements IMapView {
 			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 			
 			//draw tolerance box
-			if (mode != Logic.MODE_APPEND || mySelectedNode != null || delegator.isEndNode(node)) {
+			if (mode != Logic.Mode.MODE_APPEND || mySelectedNode != null || delegator.isEndNode(node)) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
 			
@@ -367,7 +379,7 @@ public class Map extends View implements IMapView {
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final byte state, final int lat, final int lon,
 			final float x, final float y) {
-		if (pref.isToleranceVisible() && mode != Logic.MODE_MOVE && isInEditZoomRange
+		if (pref.isToleranceVisible() && mode != Logic.Mode.MODE_MOVE && isInEditZoomRange
 				&& (state != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
 			canvas.drawCircle(x, y, paints.get(Paints.NODE_TOLERANCE).getStrokeWidth(), paints
 					.get(Paints.NODE_TOLERANCE));
@@ -395,7 +407,7 @@ public class Map extends View implements IMapView {
 		
 		//draw way tolerance
 		if (pref.isToleranceVisible()
-				&& (mode == Logic.MODE_ADD || mode == Logic.MODE_TAG_EDIT || (mode == Logic.MODE_APPEND && mySelectedNode != null))
+				&& (mode == Logic.Mode.MODE_ADD || mode == Logic.Mode.MODE_TAG_EDIT || (mode == Logic.Mode.MODE_APPEND && mySelectedNode != null))
 				&& isInEditZoomRange) {
 			canvas.drawPath(path, paints.get(Paints.WAY_TOLERANCE));
 		}
@@ -500,6 +512,12 @@ public class Map extends View implements IMapView {
 	
 	void setPrefs(final Preferences aPreference) {
 		pref = aPreference;
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			if (osmvo instanceof OpenStreetMapTilesOverlay) {
+				OpenStreetMapTilesOverlay o = (OpenStreetMapTilesOverlay)osmvo;
+				o.setRendererInfo(OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer()));
+			}
+		}
 	}
 	
 	void setTrack(final Track aTrack) {
@@ -514,7 +532,7 @@ public class Map extends View implements IMapView {
 		myViewBox = viewBox;
 	}
 	
-	void setMode(final byte mode) {
+	void setMode(final Mode mode) {
 		this.mode = mode;
 	}
 	
@@ -536,36 +554,38 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
-	 * convert decimal degrees to radians.
-	 * @param deg degrees
-	 * @return radiants
-	 */
-	private double deg2rad(final double deg) {
-		return (deg * Math.PI / 180d);
-	}
-	
-	/**
 	 * ${@inheritDoc}.
 	 */
 	@Override
 	public int getZoomLevel(final Rect viewPort) {
-		double latRightLower = GeoMath.yToLatE7(getHeight(), getViewBox(), viewPort.bottom) / 1E7d;
-		double lonRightLower = GeoMath.xToLonE7(getWidth(),  getViewBox(), viewPort.right) / 1E7d;
-		double latLeftUpper = GeoMath.yToLatE7(getHeight(),  getViewBox(), viewPort.top) / 1E7d;
-		double lonLeftUpper = GeoMath.xToLonE7(getWidth(),   getViewBox(), viewPort.left) / 1E7d;
-		// TODO Marcus Wolschon - guess a good zoom-level from this.getViewBox()
+		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		
-		long tilecount = Integer.MAX_VALUE;
-		int zoomLevel = 17;
-		for (; tilecount > 16 && zoomLevel > 0; zoomLevel--) {
-			int xTileRightLower = (int) Math.floor(((lonRightLower + 180) / 360d) * Math.pow(2, zoomLevel));
-			int xTileLeftUpper  = (int) Math.floor(((lonLeftUpper  + 180) / 360d) * Math.pow(2, zoomLevel));
-			int yTileRightLower = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latRightLower)) + 1 / Math.cos(deg2rad(latRightLower))) / Math.PI) /2 * Math.pow(2, zoomLevel));
-			int yTileLeftUpper  = (int) Math.floor((1 - Math.log(Math.tan(deg2rad(latLeftUpper )) + 1 / Math.cos(deg2rad(latLeftUpper ))) / Math.PI) /2 * Math.pow(2, zoomLevel));
-			
-			tilecount = (1l + Math.abs(xTileLeftUpper - xTileRightLower)) * (1l + Math.abs(yTileLeftUpper - yTileRightLower));
-		}
-		return zoomLevel;
+		// Calculate lat/lon of view extents
+		final double latBottom = GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.bottom) / 1E7d;
+		final double lonRight  = GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.right ) / 1E7d;
+		final double latTop    = GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.top   ) / 1E7d;
+		final double lonLeft   = GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.left  ) / 1E7d;
+		
+		// Calculate tile x/y scaled 0.0 to 1.0
+		final double xTileRight  = (lonRight + 180d) / 360d;
+		final double xTileLeft   = (lonLeft  + 180d) / 360d;
+		final double yTileBottom = (1d - Math.log(Math.tan(Math.toRadians(latBottom)) + 1d / Math.cos(Math.toRadians(latBottom))) / Math.PI) / 2d;
+		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
+		
+		// Calculate the ideal zoom to fit into the view
+		final double xTiles = ((double)viewPort.width()  / (xTileRight  - xTileLeft)) / s.MAPTILE_SIZEPX;
+		final double yTiles = ((double)viewPort.height() / (yTileBottom - yTileTop )) / s.MAPTILE_SIZEPX;
+		final double xZoom = Math.log(xTiles) / Math.log(2d);
+		final double yZoom = Math.log(yTiles) / Math.log(2d);
+		
+		// Zoom out to the next integer step
+		int zoom = (int)Math.floor(Math.min(xZoom, yZoom));
+		
+		// Sanity check result
+		zoom = Math.max(zoom, s.ZOOM_MINLEVEL);
+		zoom = Math.min(zoom, s.ZOOM_MAXLEVEL);
+		
+		return zoom;
 	}
 	
 }

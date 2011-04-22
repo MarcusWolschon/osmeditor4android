@@ -20,8 +20,8 @@ import android.graphics.Bitmap;
 
 interface IOpenStreetMapTileProviderCallback {
 
-	void mapTileLoaded(in int rendererID, in int zoomLevel, in int tileX, in int tileY, in Bitmap aImage);
+	void mapTileLoaded(in String rendererID, in int zoomLevel, in int tileX, in int tileY, in Bitmap aImage);
 
-	void mapTileFailed(in int rendererID, in int zoomLevel, in int tileX, in int tileY);
+	void mapTileFailed(in String rendererID, in int zoomLevel, in int tileX, in int tileY);
 
 }

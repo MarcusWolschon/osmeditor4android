@@ -1,6 +1,7 @@
 // Created by plusminus on 18:23:16 - 25.09.2008
 package  de.blau.android.views.util;
 
+import android.content.res.Resources;
 import de.blau.android.R;
 import de.blau.android.services.util.OpenStreetMapTile;
 
@@ -14,64 +15,74 @@ import de.blau.android.services.util.OpenStreetMapTile;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  *
  */
-public enum OpenStreetMapTileServer {
-	OSMARENDER("http://tah.openstreetmap.org/Tiles/tile/", R.string.osmarender, ".png", 0, 17, 8, CodeScheme.X_Y),
-	MAPNIK("http://tile.openstreetmap.org/", R.string.mapnik, ".png", 0, 18, 8, CodeScheme.X_Y),
-	CYCLEMAP("http://b.andy.sandbox.cloudmade.com/tiles/cycle/", R.string.cyclemap, ".png", 0, 17, 8, CodeScheme.X_Y),
-	OPENARIELMAP("http://tile.openaerialmap.org/tiles/1.0.0/openaerialmap-900913/", R.string.openareal_sat, ".jpg", 0, 13, 8, CodeScheme.X_Y),
-	TRAILS("http://topo.geofabrik.de/trails/", R.string.trails, ".png", 4, 17, 8, CodeScheme.X_Y),
-	RELIEF("http://topo.geofabrik.de/relief/", R.string.relief, ".png", 8, 17, 8, CodeScheme.X_Y),
-	CLOUDMADESMALLTILES("http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/64/", R.string.cloudmade_small, ".jpg", 0, 13, 6, CodeScheme.X_Y),
-	CLOUDMADESTANDARDTILES("http://tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/2/256/", R.string.cloudmade_standard, ".jpg", 0, 18, 8, CodeScheme.X_Y);
+public class OpenStreetMapTileServer {
 	
 	// ===========================================================
 	// Fields
 	// ===========================================================
 	
-	public enum CodeScheme { X_Y, QUAD_TREE };
-	
-	public final String BASEURL, IMAGE_FILENAMEENDING;
-	public final int NAME, ZOOM_MINLEVEL, ZOOM_MAXLEVEL, MAPTILE_ZOOM, MAPTILE_SIZEPX;
-	public final CodeScheme CODE_SCHEME;
+	public final String ID, BASEURL, IMAGE_FILENAMEENDING;
+	public final int ZOOM_MINLEVEL, ZOOM_MAXLEVEL, MAPTILE_ZOOM, MAPTILE_SIZEPX;
 	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
 	
-	private OpenStreetMapTileServer(final String aBaseUrl,
-			final int aName,
-			final String aImageFilenameEnding,
-			final int aZoomMin,
-			final int aZoomMax,
-			final int aTileZoom,
-			final CodeScheme aCodeScheme) {
-		this.BASEURL = aBaseUrl;
-		this.NAME = aName;
-		this.ZOOM_MINLEVEL = aZoomMin;
-		this.ZOOM_MAXLEVEL = aZoomMax;
-		this.IMAGE_FILENAMEENDING = aImageFilenameEnding;
-		this.MAPTILE_ZOOM = aTileZoom;
-		this.MAPTILE_SIZEPX = 1<<aTileZoom;
-		this.CODE_SCHEME = aCodeScheme;
+	private OpenStreetMapTileServer(final String id, final String config) {
+		String[] cfgItems = config.split("\\s+");
+		ID = id;
+		BASEURL = cfgItems[0];
+		IMAGE_FILENAMEENDING = cfgItems[1];
+		ZOOM_MINLEVEL = Integer.parseInt(cfgItems[2]);
+		ZOOM_MAXLEVEL = Integer.parseInt(cfgItems[3]);
+		MAPTILE_ZOOM = Integer.parseInt(cfgItems[4]);
+		MAPTILE_SIZEPX = 1 << MAPTILE_ZOOM;
 	}
 	
-	public static OpenStreetMapTileServer getDefault() {
-		return MAPNIK;
+	public static OpenStreetMapTileServer getDefault(final Resources r) {
+		// ask for an invalid renderer, so we'll get the fallback default
+		return get(r, "");
+	}
+	
+	/**
+	 * Get the tile server information for a specified tile server ID. If the given
+	 * ID cannot be found, a default renderer is selected.
+	 * @param r The application resources.
+	 * @param id The internal ID of the tile layer, eg "MAPNIK"
+	 * @return
+	 */
+	public static OpenStreetMapTileServer get(final Resources r, final String id) {
+		String ids[] = r.getStringArray(R.array.renderer_ids);
+		String cfgs[] = r.getStringArray(R.array.renderer_configs);
+		OpenStreetMapTileServer result = null;
+		for (int i = 0; i < ids.length; ++i) {
+			if (ids[i].equals(id) ||
+				// check for default renderer MAPNIK here
+				(result == null && ids[i].equals("MAPNIK"))) {
+				result = new OpenStreetMapTileServer(ids[i], cfgs[i]);
+			}
+		}
+		return result;
 	}
 	
 	// ===========================================================
 	// Methods
 	// ===========================================================
 	
+	public static String[] getIds(final Resources r) {
+		return r.getStringArray(R.array.renderer_ids);
+	}
+	
 	public String getTileURLString(final OpenStreetMapTile aTile) {
-		final CodeScheme cs = this.CODE_SCHEME;
-		switch (cs) {
-		case QUAD_TREE:
-			return String.format("%s%s%s", this.BASEURL, quadTree(aTile), this.IMAGE_FILENAMEENDING);
-		case X_Y:
-		default:
-			return String.format("%s%d/%d/%d%s", this.BASEURL, aTile.zoomLevel, aTile.x, aTile.y, this.IMAGE_FILENAMEENDING);
-		}		
+		String result = BASEURL;
+		result = result.replaceFirst("\\!" , Integer.toString(aTile.zoomLevel));
+		result = result.replaceFirst("\\!" , Integer.toString(aTile.x));
+		result = result.replaceFirst("\\!" , Integer.toString(aTile.y));
+		result = result.replaceFirst("\\$z", Integer.toString(aTile.zoomLevel));
+		result = result.replaceFirst("\\$x", Integer.toString(aTile.x));
+		result = result.replaceFirst("\\$y", Integer.toString(aTile.y));
+		result = result.replaceFirst("\\$quadkey", quadTree(aTile));
+		return result;
 	}
 	
 	/**
@@ -88,9 +99,8 @@ public enum OpenStreetMapTileServer {
 				digit += 1;
 			if ((aTile.y & mask) != 0)
 				digit += 2;
-			quadKey.append("" + digit);
+			quadKey.append(digit);
 		}
-
 		return quadKey.toString();
 	}
 	
