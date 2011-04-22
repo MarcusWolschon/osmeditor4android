@@ -85,7 +85,13 @@ public class TagKeyAutocompletionAdapter extends ArrayAdapter<String> {
     public static void fillCache(final Context aContext) {
         try {
             getArray(aContext, "");
-        } catch (Exception e) {
+        } catch (IOException e) {
+            Log.w(DEBUG_TAG, "Cannot parse presets.xml", e);
+        } catch (ParserConfigurationException e) {
+            Log.w(DEBUG_TAG, "Cannot parse presets.xml", e);
+        } catch (SAXException e) {
+            Log.w(DEBUG_TAG, "Cannot parse presets.xml", e);
+        } catch (FactoryConfigurationError e) {
             Log.w(DEBUG_TAG, "Cannot parse presets.xml", e);
         }
     }

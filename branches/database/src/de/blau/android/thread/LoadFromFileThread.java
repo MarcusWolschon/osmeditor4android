@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.res.Resources.NotFoundException;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import de.blau.android.DialogFactory;
@@ -25,7 +26,23 @@ public class LoadFromFileThread extends LogicThread {
 	private final Runnable loadingDone = new Runnable() {
 		public void run() {
 			View map = caller.getCurrentFocus();
-			caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+			// showDialog() seems to use a separate thread to set up the dialog, and if
+			// this operation completes too quickly, dismissDialog() throws an
+			// IllegalArgumentException "no dialog with ID was ever shown"
+			boolean dismissed = false;
+			long giveUp = System.currentTimeMillis() + 3000;
+			while (!dismissed && System.currentTimeMillis() < giveUp) {
+				try {
+					caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					dismissed = true;
+				} catch (IllegalArgumentException e) {
+					try {
+						sleep(100);
+					} catch (InterruptedException e2) {
+						// sleep cut short - not a problem
+					}
+				}
+			}
 			caller.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
 			viewBox.setRatio((float) map.getWidth() / map.getHeight());
 			paints.updateStrokes((Logic.STROKE_FACTOR / viewBox.getWidth()));
@@ -43,25 +60,19 @@ public class LoadFromFileThread extends LogicThread {
 
 	@Override
 	public void run() {
-		try {
+/*		try {
 			// TODO Needs to reimplemented if needed
-			// delegator.readFromFile(caller.getApplicationContext());
-			// viewBox.setBorders(delegator.getOriginalBox());
+			delegator.readFromFile(caller.getApplicationContext());
+			viewBox.setBorders(delegator.getOriginalBox());
 		} catch (NotFoundException e) {
-			e.printStackTrace();
-			//exceptions.add(e);
-		// } catch (IOException e) {
-		// 	e.printStackTrace();
-			//exceptions.add(e);
-		// } catch (ClassNotFoundException e) {
-		//	e.printStackTrace();
-			//exceptions.add(e);
-		} catch (Exception e) {
-			e.printStackTrace();
-			//exceptions.add(e);
+			Log.e("Vespucci", "Problem loading:", e);
+		} catch (IOException e) {
+			Log.e("Vespucci", "Problem loading:", e);
+		} catch (ClassNotFoundException e) {
+			Log.e("Vespucci", "Problem loading:", e);
 		} finally {
 			handler.post(loadingDone);
 		}
-	}
+*/	}
 
 }

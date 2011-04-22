@@ -241,7 +241,7 @@ public class Map extends View implements IMapView {
 						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getBottom()));
 				canvas.drawOval(accuracyRect, paints.get(Paints.GPS_ACCURACY));
 			} catch (OsmException e) {
-				// ignore
+				// it doesn't matter if the location accuracy doesn't get drawn
 			}
 		}
 	}
@@ -470,7 +470,7 @@ public class Map extends View implements IMapView {
 					//first node is the beginning. Start line here.
 					path.moveTo(x, y);
 				} else {
-					//TODO: if way has oneway=true/yes/1 or highway=motorway_link, then paint arrows to show the direction od ascending nodes
+					//TODO: if way has oneway=true/yes/1 or highway=motorway_link, then paint arrows to show the direction of ascending nodes
 					path.lineTo(x, y);
 				}
 				++visibleSections;
@@ -573,8 +573,8 @@ public class Map extends View implements IMapView {
 		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
 		
 		// Calculate the ideal zoom to fit into the view
-		final double xTiles = ((double)viewPort.width()  / (xTileRight  - xTileLeft)) / s.MAPTILE_SIZEPX;
-		final double yTiles = ((double)viewPort.height() / (yTileBottom - yTileTop )) / s.MAPTILE_SIZEPX;
+		final double xTiles = ((double)viewPort.width()  / (xTileRight  - xTileLeft)) / s.getTileWidth();
+		final double yTiles = ((double)viewPort.height() / (yTileBottom - yTileTop )) / s.getTileHeight();
 		final double xZoom = Math.log(xTiles) / Math.log(2d);
 		final double yZoom = Math.log(yTiles) / Math.log(2d);
 		
@@ -582,8 +582,8 @@ public class Map extends View implements IMapView {
 		int zoom = (int)Math.floor(Math.min(xZoom, yZoom));
 		
 		// Sanity check result
-		zoom = Math.max(zoom, s.ZOOM_MINLEVEL);
-		zoom = Math.min(zoom, s.ZOOM_MAXLEVEL);
+		zoom = Math.max(zoom, s.getMinZoomLevel());
+		zoom = Math.min(zoom, s.getMaxZoomLevel());
 		
 		return zoom;
 	}

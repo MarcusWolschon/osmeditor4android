@@ -115,8 +115,8 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	public Bitmap getMapTile(final OpenStreetMapTile aTile) {
 		if (isTileAvailable(aTile)) {
 			// from cache
-			if (DEBUGMODE)
-				Log.i(DEBUGTAG, "MapTileCache succeded for: " + aTile.toString());
+			//if (DEBUGMODE)
+			//	Log.i(DEBUGTAG, "MapTileCache succeded for: " + aTile.toString());
 			return mTileCache.getMapTile(aTile);
 		} else {
 			// from service

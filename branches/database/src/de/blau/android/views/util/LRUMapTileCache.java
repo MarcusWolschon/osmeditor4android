@@ -31,7 +31,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	// ===========================================================
 	
 	/** Maximum cache size. */
-	private final int maxCacheSize;
+	private final long maxCacheSize;
 	/** LRU list. */
 	private final LinkedList<String> list;
 
@@ -44,9 +44,9 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 * 
 	 * @param maxCacheSize the maximum number of entries in this cache before entries are aged off.
 	 */
-	public LRUMapTileCache(final int maxCacheSize) {
-		super(maxCacheSize);
-		this.maxCacheSize = Math.max(0, maxCacheSize);
+	public LRUMapTileCache(final long maxCacheSize) {
+		super();
+		this.maxCacheSize = maxCacheSize;
 		this.list = new LinkedList<String>();
 	}
 
@@ -82,6 +82,20 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		}
 		return false;
 	}
+	
+	/**
+	 * Calculate the amount of memory used by the cache.
+	 * @return The number of bytes used by the cache.
+	 */
+	private long cacheSizeBytes() {
+		long result = 0;
+		for (Bitmap b : values()) {
+			if (b != null && !b.isRecycled()) {
+				result += b.getRowBytes() * b.getHeight();
+			}
+		}
+		return result;
+	}
 
 	/**
 	 * Overrides <code>put()</code> so that it also updates the LRU list.
@@ -101,8 +115,10 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		}
 
 		// if the key isn't in the cache and the cache is full...
-		if (!containsKey(key) && list.size() >= maxCacheSize) {
-			remove(list.getLast()).recycle();
+		if (!containsKey(key)) {
+			while (cacheSizeBytes() >= maxCacheSize) {
+				remove(list.getLast()).recycle();
+			}
 		}
 
 		updateKey(key);

@@ -90,13 +90,12 @@ public class Logic {
 	/**
 	 * Enums for directions. Used for translation via cursor-pad.
 	 */
-	public static final byte DIRECTION_LEFT = 0;
-
-	public static final byte DIRECTION_DOWN = 1;
-
-	public static final byte DIRECTION_RIGHT = 2;
-
-	public static final byte DIRECTION_UP = 3;
+	public static enum CursorPaddirection {
+		DIRECTION_LEFT,
+		DIRECTION_DOWN,
+		DIRECTION_RIGHT,
+		DIRECTION_UP
+	}
 
 	/**
 	 * Enums for zooming.
@@ -308,18 +307,23 @@ public class Logic {
 	 * @param direction
 	 *            the direction of the translation.
 	 */
-	public void translate(final byte direction) {
+	public void translate(final CursorPaddirection direction) {
 		float translation = viewBox.getWidth() * TRANSLATION_FACTOR;
-		if (direction == DIRECTION_LEFT) {
+		switch (direction) {
+		case DIRECTION_LEFT:
 			viewBox.translate((int) -translation, 0);
-		} else if (direction == DIRECTION_DOWN) {
+			break;
+		case DIRECTION_DOWN:
 			viewBox.translate(0, (int) (-translation / viewBox
 					.getMercatorFactorPow3()));
-		} else if (direction == DIRECTION_RIGHT) {
+			break;
+		case DIRECTION_RIGHT:
 			viewBox.translate((int) translation, 0);
-		} else if (direction == DIRECTION_UP) {
+			break;
+		case DIRECTION_UP:
 			viewBox.translate(0, (int) (translation / viewBox
 					.getMercatorFactorPow3()));
+			break;
 		}
 
 		try {

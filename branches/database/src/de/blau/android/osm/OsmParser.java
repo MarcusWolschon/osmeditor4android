@@ -51,26 +51,18 @@ public class OsmParser extends DefaultHandler {
 
 	/**
 	 * Triggers the beginning of parsing.
+	 * @throws SAXException 
 	 * 
 	 * @throws SAXException
 	 *             {@see SAXException}
 	 * @throws IOException
 	 *             when the xmlRetriever could not provide any data.
+	 * @throws ParserConfigurationException 
 	 */
-	public void start(final InputStream in) {
-		try {
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser saxParser = factory.newSAXParser();
-			saxParser.parse(in, this);
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} finally {
-			Server.close(in);
-		}
+	public void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParser saxParser = factory.newSAXParser();
+		saxParser.parse(in, this);
 	}
 
 	public List<Exception> getExceptions() {
@@ -125,17 +117,20 @@ public class OsmParser extends DefaultHandler {
 	 */
 	private void parseOsmElement(final String name, final Attributes atts)
 			throws OsmParseException {
-		long osmId = Integer.parseInt(atts.getValue("id"));
-		long osmVersion = Integer.parseInt(atts.getValue("version"));
-		byte status = 0;
-
-		if (isNode(name)) {
-			int lat = (int) (Double.parseDouble(atts.getValue("lat")) * 1E7);
-			int lon = (int) (Double.parseDouble(atts.getValue("lon")) * 1E7);
-			currentNode = OsmElementFactory.createNode(osmId, osmVersion,
-					status, lat, lon);
-		} else if (isWay(name)) {
-			currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
+		try {
+			long osmId = Integer.parseInt(atts.getValue("id"));
+			long osmVersion = Integer.parseInt(atts.getValue("version"));
+			byte status = 0;
+			
+			if (isNode(name)) {
+				int lat = (int) (Double.parseDouble(atts.getValue("lat")) * 1E7);
+				int lon = (int) (Double.parseDouble(atts.getValue("lon")) * 1E7);
+				currentNode = OsmElementFactory.createNode(osmId, osmVersion, status, lat, lon);
+			} else if (isWay(name)) {
+				currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
+			}
+		} catch (NumberFormatException e) {
+			throw new OsmParseException("Element unparsable");
 //		} else if (isRelation(name)) {
 //			currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, timestamp, status);
 		}
@@ -162,28 +157,36 @@ public class OsmParser extends DefaultHandler {
 	private void parseBounds(final Attributes atts) throws OsmParseException {
 		// <bounds minlat="53.56465" minlon="9.95893" maxlat="53.56579"
 		// maxlon="9.96022"/>
-		float minlat = Float.parseFloat(atts.getValue("minlat"));
-		float maxlat = Float.parseFloat(atts.getValue("maxlat"));
-		float minlon = Float.parseFloat(atts.getValue("minlon"));
-		float maxlon = Float.parseFloat(atts.getValue("maxlon"));
 		try {
-			storageDelegator.setBoundingBox(new BoundingBox(minlon, minlat,
-					maxlon, maxlat));
-		} catch (OsmException e) {
-			throw new OsmParseException("Bounds are not correct");
+			float minlat = Float.parseFloat(atts.getValue("minlat"));
+			float maxlat = Float.parseFloat(atts.getValue("maxlat"));
+			float minlon = Float.parseFloat(atts.getValue("minlon"));
+			float maxlon = Float.parseFloat(atts.getValue("maxlon"));
+			try {
+				storageDelegator.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
+			} catch (OsmException e) {
+				throw new OsmParseException("Bounds are not correct");
+			}
+		} catch (NumberFormatException e) {
+			throw new OsmParseException("Bounds unparsable");
 		}
 	}
 
 	/**
 	 * @param atts
+	 * @throws OsmParseException
 	 */
-	private void parseWayNode(final Attributes atts) {
-		if (currentWay == null) {
-			Log.e(DEBUG_TAG, "No currentWay set!");
-		} else {
-			long nodeOsmId = Integer.parseInt(atts.getValue("ref"));
-			Node node = storageDelegator.getNode(nodeOsmId);
-			currentWay.addNode(node);
+	private void parseWayNode(final Attributes atts) throws OsmParseException {
+		try {
+			if (currentWay == null) {
+				Log.e(DEBUG_TAG, "No currentWay set!");
+			} else {
+				long nodeOsmId = Long.parseLong(atts.getValue("ref"));
+				Node node = storageDelegator.getNode(nodeOsmId);
+				currentWay.addNode(node);
+			}
+		} catch (NumberFormatException e) {
+			throw new OsmParseException("WayNode unparsable");
 		}
 	}
 

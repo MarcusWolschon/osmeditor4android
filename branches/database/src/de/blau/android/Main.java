@@ -41,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 import android.widget.RelativeLayout.LayoutParams;
+import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
@@ -282,6 +283,7 @@ public class Main extends Activity {
 		case R.id.menu_openstreetbug:
 			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
 			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
+			return true;
 
 		case R.id.menu_append:
 			logic.setMode(Logic.Mode.MODE_APPEND);
@@ -508,11 +510,11 @@ public class Main extends Activity {
 			logic.downloadCurrent(this, handler);
 		} catch (OsmServerException e) {
 			showDialog(DialogFactory.UNDEFINED_ERROR);
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem downloading", e);
 			exceptions.add(e);
 		} catch (IOException e) {
 			showDialog(DialogFactory.NO_CONNECTION);
-			e.printStackTrace();
+			Log.e("Vespucci", "Problem downloading", e);
 			exceptions.add(e);
 		}
 	}
@@ -692,8 +694,7 @@ public class Main extends Activity {
 				touchEventUp(v, x, y);
 				break;
 			}
-			//v.onTouchEvent(m); // disabled - problems with long press showing context menu
-			return true;
+			return v.onTouchEvent(m);
 		}
 		
 		/**
@@ -712,9 +713,8 @@ public class Main extends Activity {
 		}
 
 		private void touchEventMove(final float x, final float y) {
-			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY,
-					hasMoved(x, y));
 			if (hasMoved(x, y)) hasMoved = true;
+			logic.handleTouchEventMove(x, y, oldPosX - x, y - oldPosY, hasMoved);
 			oldPosX = x;
 			oldPosY = y;
 		}
@@ -772,12 +772,26 @@ public class Main extends Activity {
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 					case 0:
 						if (!isInEditZoomRange) {
-							if (mode == Logic.Mode.MODE_MOVE) {
-								if (prefs.isOpenStreetBugsEnabled()) {
-									Toast.makeText(getApplicationContext(), R.string.toast_not_in_bug_range, Toast.LENGTH_LONG).show();
-								}
-							} else {
-								Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+							int res;
+							switch (mode) {
+							case MODE_ADD:
+							case MODE_EDIT:
+							case MODE_APPEND:
+							case MODE_ERASE:
+							case MODE_SPLIT:
+							case MODE_TAG_EDIT:
+								res = R.string.toast_not_in_edit_range;
+								break;
+							case MODE_OPENSTREETBUG:
+								res = R.string.toast_not_in_bug_range;
+								break;
+							case MODE_MOVE:
+							default:
+								res = 0;
+								break;
+							}
+							if (res != 0) {
+								Toast.makeText(getApplicationContext(), res, Toast.LENGTH_LONG).show();
 							}
 						}
 						break;
@@ -1023,19 +1037,19 @@ public class Main extends Activity {
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_UP:
-						translate(Logic.DIRECTION_UP);
+						translate(Logic.CursorPaddirection.DIRECTION_UP);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_DOWN:
-						translate(Logic.DIRECTION_DOWN);
+						translate(Logic.CursorPaddirection.DIRECTION_DOWN);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_LEFT:
-						translate(Logic.DIRECTION_LEFT);
+						translate(Logic.CursorPaddirection.DIRECTION_LEFT);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_RIGHT:
-						translate(Logic.DIRECTION_RIGHT);
+						translate(Logic.CursorPaddirection.DIRECTION_RIGHT);
 						return true;
 						
 					case KeyEvent.KEYCODE_VOLUME_UP:
@@ -1055,7 +1069,7 @@ public class Main extends Activity {
 			return false;
 		}
 		
-		private void translate(final byte direction) {
+		private void translate(final CursorPaddirection direction) {
 			logic.translate(direction);
 		}
 		

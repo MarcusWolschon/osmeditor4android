@@ -9,14 +9,12 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.graphics.Rect;
 import android.util.Log;
@@ -36,6 +34,9 @@ public class Database {
 	
 	/** User agent string to use (optional). */
 	private static String userAgent = null;
+	
+	/** XML parser factory. */
+	private static XmlPullParserFactory factory = null;
 	
 	/**
 	 * Set the user agent string to use when accessing the OSB database.
@@ -80,14 +81,40 @@ public class Database {
 					"&t=" + (double)area.top / 1E7d +
 					"&r=" + (double)area.right / 1E7d +
 					"&b=" + (double)area.bottom / 1E7d);
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			Document d = factory.newDocumentBuilder().parse(is);
-			NodeList bugs = d.getElementsByTagName("wpt");
-			for (int i = 0; i < bugs.getLength(); ++i) {
-				result.add(new Bug((Element)bugs.item(i)));
+			if (factory == null) {
+				factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(true);
 			}
-		} catch (Exception e) {
-			// ignore
+			XmlPullParser parser = factory.newPullParser();
+			parser.setInput(is, null);
+			int eventType;
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();
+				if (eventType == XmlPullParser.START_TAG && tagName.equals("wpt")) {
+					try {
+						result.add(new Bug(parser));
+					} catch (IOException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (XmlPullParserException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (NumberFormatException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					}
+				}
+			}
+		} catch (XmlPullParserException e) {
+			Log.e("Vespucci", "Database.get:Exception", e);
+		} catch (IOException e) {
+			Log.e("Vespucci", "Database.get:Exception", e);
+		} catch (IllegalStateException e) {
+			Log.e("Vespucci", "Database.get:Exception", e);
+		} catch (URISyntaxException e) {
 			Log.e("Vespucci", "Database.get:Exception", e);
 		}
 		return result;
@@ -114,8 +141,13 @@ public class Database {
 					bug.comments.add(comment);
 					return true;
 				}
-			} catch (Exception e) {
-				// ignore
+			} catch (NumberFormatException e) {
+				Log.e("Vespucci", "Database.add:Exception", e);
+			} catch (IOException e) {
+				Log.e("Vespucci", "Database.add:Exception", e);
+			} catch (IllegalStateException e) {
+				Log.e("Vespucci", "Database.add:Exception", e);
+			} catch (URISyntaxException e) {
 				Log.e("Vespucci", "Database.add:Exception", e);
 			}
 		}
@@ -141,8 +173,11 @@ public class Database {
 					bug.comments.add(comment);
 					return true;
 				}
-			} catch (Exception e) {
-				// ignore
+			} catch (IOException e) {
+				Log.e("Vespucci", "Database.edit:Exception", e);
+			} catch (IllegalStateException e) {
+				Log.e("Vespucci", "Database.edit:Exception", e);
+			} catch (URISyntaxException e) {
 				Log.e("Vespucci", "Database.edit:Exception", e);
 			}
 		}
@@ -166,8 +201,11 @@ public class Database {
 					bug.closed = true;
 					return true;
 				}
-			} catch (Exception e) {
-				// ignore
+			} catch (IOException e) {
+				Log.e("Vespucci", "Database.close:Exception", e);
+			} catch (IllegalStateException e) {
+				Log.e("Vespucci", "Database.close:Exception", e);
+			} catch (URISyntaxException e) {
 				Log.e("Vespucci", "Database.close:Exception", e);
 			}
 		}

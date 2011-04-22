@@ -33,14 +33,14 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	
 	public OpenStreetMapTileCache(){
-		this(CACHE_MAPTILECOUNT_DEFAULT);
+		this(defaultCacheBytes());
 	}
 	
 	/**
-	 * @param aMaximumCacheSize Maximum amount of MapTiles to be hold within.
+	 * @param aMaximumCacheBytes Maximum cache size in bytes.
 	 */
-	public OpenStreetMapTileCache(final int aMaximumCacheSize){
-		mCachedTiles = new LRUMapTileCache(aMaximumCacheSize);
+	public OpenStreetMapTileCache(final long aMaximumCacheBytes){
+		mCachedTiles = new LRUMapTileCache(aMaximumCacheBytes);
 	}
 
 	// ===========================================================
@@ -62,6 +62,11 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	// ===========================================================
 	// Methods
 	// ===========================================================
+	
+	public static long defaultCacheBytes() {
+		// Default to using half the available memory
+		return Runtime.getRuntime().maxMemory() / 2;
+	}
 	
 	public void clear() {
 		mCachedTiles.clear();

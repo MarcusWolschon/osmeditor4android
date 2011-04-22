@@ -1,10 +1,15 @@
 package de.blau.android.thread;
 
+import java.io.IOException;
 import java.io.InputStream;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import android.app.Activity;
-import android.content.res.Resources.NotFoundException;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import de.blau.android.DialogFactory;
 import de.blau.android.osm.BoundingBox;
@@ -27,7 +32,23 @@ public class LoadFromStreamThread extends LogicThread {
 			View map = caller.getCurrentFocus();
 			viewBox.setRatio((float) map.getWidth() / map.getHeight());
 			map.invalidate();
-			caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+			// showDialog() seems to use a separate thread to set up the dialog, and if
+			// this operation completes too quickly, dismissDialog() throws an
+			// IllegalArgumentException "no dialog with ID was ever shown"
+			boolean dismissed = false;
+			long giveUp = System.currentTimeMillis() + 3000;
+			while (!dismissed && System.currentTimeMillis() < giveUp) {
+				try {
+					caller.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					dismissed = true;
+				} catch (IllegalArgumentException e) {
+					try {
+						sleep(100);
+					} catch (InterruptedException e2) {
+						// sleep cut short - not a problem
+					}
+				}
+			}
 		}
 	};
 
@@ -42,18 +63,21 @@ public class LoadFromStreamThread extends LogicThread {
 
 	@Override
 	public void run() {
-		final OsmParser osmParser = new OsmParser(delegator);
 		try {
 			delegator.startThreadWriteMode();
 			synchronized (delegator) {
+				final OsmParser osmParser = new OsmParser(delegator);
 				delegator.reset();
 				delegator.setBoundingBox(boundingBox);
 				osmParser.start(in);
 				viewBox.setBorders(delegator.getOriginalBox());
 			}
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-			//exceptions.add(e);
+		} catch (SAXException e) {
+			Log.e("Vespucci", "Problem parsing", e);
+		} catch (IOException e) {
+			Log.e("Vespucci", "Problem parsing", e);
+		} catch (ParserConfigurationException e) {
+			Log.e("Vespucci", "Problem parsing", e);
 		} finally {
 			Server.close(in);
 			handler.post(loadingDone);
