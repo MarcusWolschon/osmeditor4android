@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.concurrent.Executors;
 
 
+import de.blau.android.Application;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
@@ -97,7 +99,9 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 				if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
 				
-				in = new BufferedInputStream(new URL(tileURLString).openStream(), StreamUtils.IO_BUFFER_SIZE);
+				URLConnection conn = new URL(tileURLString).openConnection();
+				conn.setRequestProperty("User-Agent", Application.userAgent);
+				in = new BufferedInputStream(conn.getInputStream(), StreamUtils.IO_BUFFER_SIZE);
 				
 				final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
 				out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE);

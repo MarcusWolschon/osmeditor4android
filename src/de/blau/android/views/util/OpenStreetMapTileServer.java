@@ -4,6 +4,7 @@ package  de.blau.android.views.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.services.util.OpenStreetMapTile;
 
@@ -201,7 +203,9 @@ public class OpenStreetMapTileServer {
 					is = r.openRawResource(resid);
 				} else {
 					// assume Internet URL
-					is = new URL(replaceGeneralParameters(metadataUrl)).openStream();
+					URLConnection conn = new URL(replaceGeneralParameters(metadataUrl)).openConnection();
+					conn.setRequestProperty("User-Agent", Application.userAgent);
+					is = conn.getInputStream();
 				}
 				parser.setInput(is, null);
 				
@@ -217,7 +221,9 @@ public class OpenStreetMapTileServer {
 								brandLogo = r.getDrawable(resid);
 							} else {
 								// assume Internet URL
-								InputStream bis = new URL(replaceGeneralParameters(brandLogoUri)).openStream();
+								URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
+								conn.setRequestProperty("User-Agent", Application.userAgent);
+								InputStream bis = conn.getInputStream();
 								brandLogo = new BitmapDrawable(bis);
 							}
 						}

@@ -15,6 +15,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import de.blau.android.Application;
 import de.blau.android.services.util.StreamUtils;
 
 import android.graphics.Rect;
@@ -33,19 +34,8 @@ public class Database {
 	/** Default OSB API. */
 	private static final String API = "/api/0.1/";
 	
-	/** User agent string to use (optional). */
-	private static String userAgent = null;
-	
 	/** XML parser factory. */
 	private static XmlPullParserFactory factory = null;
-	
-	/**
-	 * Set the user agent string to use when accessing the OSB database.
-	 * @param userAgent The new user agent string.
-	 */
-	public static void setUserAgent(final String userAgent) {
-		Database.userAgent = userAgent;
-	}
 	
 	private Database() {
 	}
@@ -58,11 +48,8 @@ public class Database {
 	 * @throws IOException 
 	 */
 	private static InputStream execute(final String req, final String params) throws IOException {
-		URL url = new URL("http", HOST, 80, API + req + "?" + params);
-		URLConnection conn = url.openConnection();
-		if (userAgent != null) {
-			conn.setRequestProperty("User-Agent", userAgent);
-		}
+		URLConnection conn = new URL("http", HOST, 80, API + req + "?" + params).openConnection();
+		conn.setRequestProperty("User-Agent", Application.userAgent);
 		return conn.getInputStream();
 	}
 	

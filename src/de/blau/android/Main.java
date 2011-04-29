@@ -50,7 +50,6 @@ import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.CommitTask;
-import de.blau.android.osb.Database;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -233,7 +232,6 @@ public class Main extends Activity {
 		super.onStart();
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		Resources r = getResources();
-		Database.setUserAgent(r.getString(R.string.app_name) + "/" + r.getString(R.string.app_version));
 		prefs = new Preferences(sharedPrefs, r);
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
