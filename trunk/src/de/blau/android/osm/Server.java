@@ -20,6 +20,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
 
+import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
@@ -156,6 +157,7 @@ public class Server {
 		con.setReadTimeout(TIMEOUT);
 		con.setConnectTimeout(TIMEOUT);
 		con.setRequestProperty("Accept-Encoding", "gzip");
+		con.setRequestProperty("User-Agent", Application.userAgent);
 
 		//--Start: got response header
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -168,6 +170,7 @@ public class Server {
 			con.setReadTimeout(TIMEOUT);
 			con.setConnectTimeout(TIMEOUT);
 			con.setRequestProperty("Accept-Encoding", "gzip");
+			con.setRequestProperty("User-Agent", Application.userAgent);
 
 			//--Start: got response header
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
@@ -286,6 +289,7 @@ public class Server {
 	private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod)
 			throws IOException, MalformedURLException, ProtocolException {
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestProperty("User-Agent", Application.userAgent);
 		connection.setConnectTimeout(TIMEOUT);
 		connection.setReadTimeout(TIMEOUT);
 		connection.setRequestProperty("Authorization", "Basic " + Base64.encode(username + ":" + password));
