@@ -133,7 +133,7 @@ public class Bug {
 	 * @return All the comments concatenated (joined with &lt;hr /&gt;).
 	 */
 	public String getComment() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		for (BugComment comment : comments) {
 			if (result.length() > 0) {
 				result.append("<hr />");
