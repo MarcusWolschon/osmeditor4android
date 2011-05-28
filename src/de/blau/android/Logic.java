@@ -461,12 +461,9 @@ public class Logic {
 	 * @return the first node found in the current-Storage node-list. null, when no node was found.
 	 */
 	private Node getClickedNode(final float x, final float y) {
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 		float tolerance = Paints.NODE_TOLERANCE_VALUE;
-
 		//An existing node was selected
-		for (int i = 0, nodesSize = nodes.size(); i < nodesSize; ++i) {
-			Node node = nodes.get(i);
+		for (Node node : delegator.getCurrentStorage().getNodes()) {
 			int lat = node.getLat();
 			int lon = node.getLon();
 			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
@@ -683,18 +680,13 @@ public class Logic {
 	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
 	 */
 	private Node getClickedNodeOrCreatedWayNode(final float x, final float y) {
-		List<Way> ways = delegator.getCurrentStorage().getWays();
-
 		Node node = getClickedNode(x, y);
 		if (node != null) {
 			return node;
 		}
-
 		//create a new node on a way
-		for (int i = 0, waysSize = ways.size(); i < waysSize; ++i) {
-			Way way = ways.get(i);
+		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
-
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
 				Node nodeBefore = wayNodes.get(k);
 				node = createNodeOnWay(nodeBefore, wayNodes.get(k + 1), x, y);
@@ -747,7 +739,7 @@ public class Logic {
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
 			// equation (14) on http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
 			float distance = (float) (Math.abs((node2X - node1X) * (node1Y - y) - (node1X - x) * (node2Y - node1Y)) /
-			                 Math.sqrt(Math.pow(node2X - node1X, 2.0) + Math.pow(node2Y - node1Y, 2.0)));
+			                 Math.hypot(node2X - node1X, node2Y - node1Y));
 			return (distance < tolerance);
 		}
 		return false;

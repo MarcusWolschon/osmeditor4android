@@ -78,7 +78,7 @@ public class Database {
 			int eventType;
 			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 				String tagName = parser.getName();
-				if (eventType == XmlPullParser.START_TAG && tagName.equals("wpt")) {
+				if (eventType == XmlPullParser.START_TAG && "wpt".equals(tagName)) {
 					try {
 						result.add(new Bug(parser));
 					} catch (IOException e) {
@@ -119,11 +119,16 @@ public class Database {
 						"lat=" + ((double)bug.getLat() / 1E7d) +
 						"&lon=" + ((double)bug.getLon() / 1E7d) +
 						"&text=" + URLEncoder.encode(comment.toString(), "UTF-8"));
-				BufferedReader r = new BufferedReader(new InputStreamReader(is));
-				if (r.readLine().equals("ok")) {
-					bug.id = Long.parseLong(r.readLine());
-					bug.comments.add(comment);
-					return true;
+				if (is != null) {
+					BufferedReader r = new BufferedReader(new InputStreamReader(is));
+					if ("ok".equals(r.readLine())) {
+						String l = r.readLine();
+						if (l != null) {
+							bug.id = Long.parseLong(l);
+							bug.comments.add(comment);
+							return true;
+						}
+					}
 				}
 			} catch (NumberFormatException e) {
 				Log.e("Vespucci", "Database.add:Exception", e);
@@ -148,10 +153,12 @@ public class Database {
 				InputStream is = execute("editPOIexec",
 						"id=" + Long.toString(bug.getId()) +
 						"&text=" + URLEncoder.encode(comment.toString(), "UTF-8"));
-				BufferedReader r = new BufferedReader(new InputStreamReader(is));
-				if (r.readLine().equals("comment added")) {
-					bug.comments.add(comment);
-					return true;
+				if (is != null) {
+					BufferedReader r = new BufferedReader(new InputStreamReader(is));
+					if ("comment added".equals(r.readLine())) {
+						bug.comments.add(comment);
+						return true;
+					}
 				}
 			} catch (IOException e) {
 				Log.e("Vespucci", "Database.edit:Exception", e);
@@ -172,10 +179,12 @@ public class Database {
 			try {
 				InputStream is = execute("closePOIexec",
 						"id=" + Long.toString(bug.getId()));
-				BufferedReader r = new BufferedReader(new InputStreamReader(is));
-				if (r.readLine().equals("ok")) {
-					bug.closed = true;
-					return true;
+				if (is != null) {
+					BufferedReader r = new BufferedReader(new InputStreamReader(is));
+					if ("ok".equals(r.readLine())) {
+						bug.closed = true;
+						return true;
+					}
 				}
 			} catch (IOException e) {
 				Log.e("Vespucci", "Database.close:Exception", e);
