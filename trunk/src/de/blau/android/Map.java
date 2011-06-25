@@ -90,7 +90,7 @@ public class Map extends View implements IMapView {
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 		
-		//Style  me
+		//Style me
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
 		

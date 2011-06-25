@@ -106,7 +106,7 @@ public class TagEditor extends Activity {
 
 		//Not yet implemented by Google
 		//getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
-		//getWindow().setTitle(getResources().getString(R.string.tag_title) + " " + type + " " + osmId);
+		//getWindow().setTitle(getString(R.string.tag_title) + " " + type + " " + osmId);
 
 		// Disabled because it slows down the Motorola Milestone/Droid
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
@@ -232,8 +232,7 @@ public class TagEditor extends Activity {
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.tag_menu_mapfeatures:
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources()
-					.getString(R.string.link_mapfeatures)));
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_mapfeatures)));
 			startActivity(intent);
 			return true;
 		}

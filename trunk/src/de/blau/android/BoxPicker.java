@@ -442,7 +442,7 @@ public class BoxPicker extends Activity implements LocationListener {
 	 * @param location The location data to update the button text (may be null).
 	 */
 	private void setLocationRadioButton(final int buttonId, final int textId, final Location location) {
-		String locationMetaData = getResources().getString(R.string.location_text_unknown);
+		String locationMetaData = getString(R.string.location_text_unknown);
 		if (location != null) {
 			String accuracyMetaData = "";
 			double lat = location.getLatitude();
@@ -450,14 +450,14 @@ public class BoxPicker extends Activity implements LocationListener {
 			accuracyMetaData = " (";
 
 			if (location.hasAccuracy()) {
-				accuracyMetaData += getResources().getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
+				accuracyMetaData += getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
 			}
 			accuracyMetaData += location.getProvider() + ")";
-			locationMetaData = getResources().getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData);
+			locationMetaData = getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData);
 		}
 		RadioButton rb = (RadioButton)findViewById(buttonId);
 		rb.setEnabled(location != null);
-		rb.setText(getResources().getString(textId, locationMetaData));
+		rb.setText(getString(textId, locationMetaData));
 	}
 
 	/**
