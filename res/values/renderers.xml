@@ -2,6 +2,7 @@
 <resources>
 <!-- Preference names in same order as renderer_ids below -->
 <string-array name="renderer_names">
+  <item>None</item>
   <item>OsmaRender</item>
   <item>Mapnik</item>
   <item>Noname (Cloudmade)</item>
@@ -32,6 +33,7 @@
 <!-- Preference values in same order as renderer_names above -->
 <!-- This is used to name the cache sub-folder for the tileset -->
 <string-array name="renderer_ids">
+  <item>NONE</item>
   <item>OSMARENDER</item>
   <item>MAPNIK</item>
   <item>CLOUDMADENONAME</item>
@@ -65,6 +67,7 @@
      Metadata URL
      Terms of Use URL (optional) -->
 <string-array name="renderer_configs">
+  <item></item>
   <item>.png @raw/osmarender</item>
   <item>.png @raw/mapnik</item>
   <item>.png @raw/cloudmadenoname</item>
@@ -90,6 +93,14 @@
   <item>http://maps.nypl.org/tilecache/1/geoeye/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://maps.nypl.org/tilecache/1/dg_crisis/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://hypercube.telascience.org/tiles/1.0.0/haiti-city/$z/$x/$y.jpg .jpg 0 18 8</item>
+  -->
+  <!-- Following for future reference:
+  Transparent road network overlays:
+  <item>http://a3.acetate.geoiq.com/tiles/acetate-roads/$z/$x/$y.png .png 0 18 8</item>
+  from MapQuest:
+  <item>http://vtiles01.mqcdn.com/tiles/1.0.0/vy/hyb/$z/$x/$y.gif .gif 0 18 8</item>
+  Satellite layer from MapQuest:
+  <item>http://vtiles01.mqcdn.com/tiles/1.0.0/vy/hyb/$z/$x/$y.jpg .jpg 0 18 8</item>
   -->
   <!-- Following don't seem to work:
   <item>http://ooc.openstreetmap.org/npescotland/tiles/$z/$x/$y.jpg .jpg 0 18 8</item>
