@@ -96,32 +96,34 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 			String tileURLString = buildURL(mTile);
 			
 			try {
-				if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
-					Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
-				
-				URLConnection conn = new URL(tileURLString).openConnection();
-				conn.setRequestProperty("User-Agent", Application.userAgent);
-				in = new BufferedInputStream(conn.getInputStream(), StreamUtils.IO_BUFFER_SIZE);
-				
-				final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
-				out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE);
-				StreamUtils.copy(in, out);
-				out.flush();
-				
-				final byte[] data = dataStream.toByteArray();
-				
-				if (data.length == 0) {
-					throw new IOException("no tile data");
+				if (tileURLString.length() > 0) {
+					if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
+						Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
+					
+					URLConnection conn = new URL(tileURLString).openConnection();
+					conn.setRequestProperty("User-Agent", Application.userAgent);
+					in = new BufferedInputStream(conn.getInputStream(), StreamUtils.IO_BUFFER_SIZE);
+					
+					final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
+					out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE);
+					StreamUtils.copy(in, out);
+					out.flush();
+					
+					final byte[] data = dataStream.toByteArray();
+					
+					if (data.length == 0) {
+						throw new IOException("no tile data");
+					}
+					Bitmap b = BitmapFactory.decodeByteArray(data, 0, data.length);
+					if (b == null) {
+						throw new IOException("decodeByteArray returned null");
+					}
+					OpenStreetMapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
+					if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+						Log.d(DEBUGTAG, "Maptile saved to: " + tileURLString);
+					}
+					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, b);
 				}
-				Bitmap b = BitmapFactory.decodeByteArray(data, 0, data.length);
-				if (b == null) {
-					throw new IOException("decodeByteArray returned null");
-				}
-				OpenStreetMapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
-				if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-					Log.d(DEBUGTAG, "Maptile saved to: " + tileURLString);
-				}
-				mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, b);
 			} catch (IOException e) {
 				try {
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);

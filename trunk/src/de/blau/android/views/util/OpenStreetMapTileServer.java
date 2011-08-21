@@ -187,7 +187,8 @@ public class OpenStreetMapTileServer {
 			tileHeight = 1 << zoom;
 			brandLogo = null;
 			break;
-		default:
+		case 2:
+		case 3:
 			imageFilenameExtension = cfgItems[0];
 			String metadataUrl = cfgItems[1];
 			touUri = (cfgItems.length > 2) ? cfgItems[2] : null;
@@ -265,6 +266,15 @@ public class OpenStreetMapTileServer {
 			} catch (XmlPullParserException e) {
 				Log.e("Vespucci", "Tileserver problem", e);
 			}
+			break;
+		default:
+			tileUrl = "";
+			imageFilenameExtension = "";
+			zoomLevelMin = 0;
+			zoomLevelMax = 0;
+			tileWidth = 256;
+			tileHeight = 256;
+			brandLogo = null;
 			break;
 		}
 	}
