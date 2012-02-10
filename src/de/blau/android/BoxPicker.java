@@ -168,7 +168,7 @@ public class BoxPicker extends Activity implements LocationListener {
 						prefs.getGpsInterval(), prefs.getGpsDistance(), this);
 				Location location = locationManager.getLastKnownLocation(provider);
 				if (bestLocation == null || !bestLocation.hasAccuracy() ||
-						(location.hasAccuracy() &&
+						(location != null && location.hasAccuracy() &&
 								location.getAccuracy() < bestLocation.getAccuracy())) {
 					bestLocation = location;
 				}
