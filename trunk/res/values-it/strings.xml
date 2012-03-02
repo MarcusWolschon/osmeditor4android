@@ -18,16 +18,16 @@
 	<string name="undefined_error_message">Si è verificato qualcosa di strano. Vuoi inviare un\'email con una breve descrizione di cosa è successo? Grazie!</string>
 	<string name="undefined_error_sendbutton">Invia email</string>
 	<string name="progress_title">Caricamento</string>
-	<string name="progress_message">Caricamento dati nella memoria...</string>
-	<string name="progress_download_message">Scaricamento dati dal server...</string>
+	<string name="progress_message">Caricamento dati nella memoria…</string>
+	<string name="progress_download_message">Scaricamento dati dal server…</string>
 
 	<!-- Toaster -->
-	<string name="toast_no_changes">Non hai ancora modificato niente...</string>
+	<string name="toast_no_changes">Non hai ancora modificato niente…</string>
 	<string name="toast_upload_success">Caricamento nel server OSM completato.</string>
 	<string name="toast_empty_data">Non esistono elementi in quest\'area. Grazie per l\'esplorazione di quest\'area oscura!</string>
 	<string name="toast_not_in_edit_range">Ingrandisci per modificare (Volume Su/Giù o Lente/Interruttore)</string>
 	<string name="toast_save_done">Salvato con successo</string>
-	<string name="toast_waiting_for_gps">In attesa della posizione GPS...</string>
+	<string name="toast_waiting_for_gps">In attesa della posizione GPS…</string>
 	<string name="toast_follow_gps_off">GPS di ricerca disabilitato</string>
 
 	<!-- ErrorMailer  -->
@@ -75,12 +75,12 @@
 	<string name="menu_erase">Cancella nodo</string>
 	<string name="menu_append">Aggiungi</string>
 	<string name="menu_tag">Modifica etichette</string>
-	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps">GPS…</string>
 	<string name="menu_gps_start_pause">Avvia/pausa traccia GPS</string>
 	<string name="menu_gps_follow">Segui posizione GPS</string>
 	<string name="menu_gps_stop">Ferma traccia GPS</string>
 	<string name="menu_gps_upload">Carica traccia GPS</string>
-	<string name="menu_transfer">Trasferimento...</string>
+	<string name="menu_transfer">Trasferimento…</string>
 	<string name="menu_transfer_download_current">Scarica visuale attuale</string>
 	<string name="menu_transfer_download_other">Scarica altra posizione</string>
 	<string name="menu_transfer_upload">Carica dati nel server OSM</string>
@@ -88,27 +88,20 @@
 	
 	<!-- Preferences -->
 	<string name="config_category_view">Mostra impostazioni</string>
-	<string name="config_showStats_key">showStats</string>
 	<string name="config_showStats_title">Mostra statistiche</string>
 	<string name="config_showStats_summary">Mostra dati statistiche e frames/sec nell\'angolo inferiore sinistro.</string>
-	<string name="config_showTolerance_key">showTolerance</string>
 	<string name="config_showTolerance_title">Mostra tolleranza</string>
 	<string name="config_showTolerance_summary">Mostra l\'area dove un elemento può essere selezionato.</string>
-	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
 	<string name="config_enableAntiAliasing_title">Abilita Anti-Aliasing</string>
 	<string name="config_enableAntiAliasing_summary">Rende le righe più leggere.</string>
 	<string name="config_category_server">Impostazioni server</string>
-	<string name="config_username_key">username</string>
 	<string name="config_username_title">Nome utente OSM</string>
 	<string name="config_username_summary">Necessario per caricare i dati OSM. Se non ne possiedi uno, ottienilo da http://www.openstreetmap.org/user/new</string>
-	<string name="config_password_key">password</string>
 	<string name="config_password_title">Password OSM</string>
 	<string name="config_password_summary">Da non confondere con la password del wiki. Ricorda: viene salvata e trasmetta in testo puro!</string>
 	<string name="config_category_gps">Impostazioni GPS</string>
-	<string name="config_gps_distance_key">distance</string>
 	<string name="config_gps_distance_title">Distanza minima GPS</string>
 	<string name="config_gps_distance_summary">L\'intervallo minimo della distanza per le notifiche GPS, in metri (float). Valori bassi significano maggior uso della batteria.</string>
-	<string name="config_gps_interval_key">interval</string>
 	<string name="config_gps_interval_title">Intervallo minimo GPS</string>
 	<string name="config_gps_interval_summary">L\'intervallo minimo di tempo per le notifiche GPS, in millisecondi. Valori bassi significano maggior uso della batteria.</string>
 </resources>

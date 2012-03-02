@@ -18,16 +18,16 @@
 	<string name="undefined_error_message">Случилось что-то непонятное. Не могли бы вы написать нам, что привело к этому? Спасибо!</string>
 	<string name="undefined_error_sendbutton">Отправить письмо</string>
 	<string name="progress_title">Скачивание</string>
-	<string name="progress_message">Загрузка данных в память...</string>
-	<string name="progress_download_message">Скачивание данных с сервера...</string>
+	<string name="progress_message">Загрузка данных в память…</string>
+	<string name="progress_download_message">Скачивание данных с сервера…</string>
 	
 	<!-- Toaster -->
-	<string name="toast_no_changes">Вы ничего не изменили...</string>
+	<string name="toast_no_changes">Вы ничего не изменили…</string>
 	<string name="toast_upload_success">Передача на сервер OSM завершена.</string>
 	<string name="toast_empty_data">В этой области элементы не обнаружены. Спасибо за исследование белых пятен на карте!</string>
 	<string name="toast_not_in_edit_range">Пожалуйста, увеличьте масштаб для редактирования  (Громкость +/- или Движок масштаба)</string>
 	<string name="toast_save_done">Сохранено успешно</string>
-	<string name="toast_waiting_for_gps">Ждем от GPS определения позиции...</string>
+	<string name="toast_waiting_for_gps">Ждем от GPS определения позиции…</string>
 	<string name="toast_follow_gps_off">GPS отключен</string>
 	
 	<!-- ErrorMailer  -->
@@ -75,12 +75,12 @@
 	<string name="menu_erase">Удалить точку</string>
 	<string name="menu_append">Добавить</string>
 	<string name="menu_tag">Править тэги</string>
-	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps">GPS…</string>
 	<string name="menu_gps_start_pause">Старт/пауза GPS трека</string>
 	<string name="menu_gps_follow">Следовать за GPS</string>
 	<string name="menu_gps_stop">Закончить GPS трек</string>
 	<string name="menu_gps_upload">Передать GPS трек на сервер</string>
-	<string name="menu_transfer">Передача...</string>
+	<string name="menu_transfer">Передача…</string>
 	<string name="menu_transfer_download_current">Скачать текущее местоположение</string>
 	<string name="menu_transfer_download_other">Скачать другое место</string>
 	<string name="menu_transfer_upload">Передача данных на сервер OSM</string>
@@ -88,27 +88,20 @@
 	
 	<!-- Preferences -->
 	<string name="config_category_view">Настройки просмотра</string>
-	<string name="config_showStats_key">showStats</string>
 	<string name="config_showStats_title">Показать статистику</string>
 	<string name="config_showStats_summary">Отображать быстродействие кадр/сек. в нижнем левом углу.</string>
-	<string name="config_showTolerance_key">showTolerance</string>
 	<string name="config_showTolerance_title">Показать захват</string>
 	<string name="config_showTolerance_summary">Показывает область, в которой может быть выбран элемент.</string>
-	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
 	<string name="config_enableAntiAliasing_title">Включить сглаживание</string>
 	<string name="config_enableAntiAliasing_summary">Делает линии более сглажеными.</string>
 	<string name="config_category_server">Настройки входа</string>
-	<string name="config_username_key">username</string>
 	<string name="config_username_title">Логин на сервер OSM</string>
 	<string name="config_username_summary">Необходимо для передачи изменений на сервер OSM. Если вы еще не зарегистрировались, сделайте это здесь https://www.openstreetmap.org/user/new?uselang=ru</string>
-	<string name="config_password_key">password</string>
 	<string name="config_password_title">Пароль на сервер OSM</string>
 	<string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните: Он хранится и передается незашифрованным!</string>
 	<string name="config_category_gps">Настройка GPS</string>
-	<string name="config_gps_distance_key">distance</string>
 	<string name="config_gps_distance_title">Расстояние опроса GPS</string>
 	<string name="config_gps_distance_summary">Минимальный интервал для опроса GPS в метрах. Меньшее значение приводит к большему расходу аккумулятора.</string>
-	<string name="config_gps_interval_key">interval</string>
 	<string name="config_gps_interval_title">Интервал опроса GPS</string>
 	<string name="config_gps_interval_summary">Минимальный интервал частоты опроса GPS в миллисекундах. Меньшее значение приводит к большему расходу аккумулятора.</string>
 </resources>
