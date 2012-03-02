@@ -22,8 +22,8 @@
         <string name="undefined_error_message">Nešto čudno se dogodilo. želite li poslati e-mail sa kratkim opisom vaših postupaka koje su dovele do ovoga? Hvala!</string>
         <string name="undefined_error_sendbutton">Pošalji e-mail</string>
         <string name="progress_title">Učitavanje</string>
-        <string name="progress_message">Učitavanje podataka u memoriju...</string>
-        <string name="progress_download_message">Skidanje podataka sa poslužitelja...</string>
+        <string name="progress_message">Učitavanje podataka u memoriju…</string>
+        <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
         <string name="upload_comment_label">Komentar:</string>
     <string name="openstreetbug_new_title">Novi OpenStreetBug</string>
     <string name="openstreetbug_edit_title">Uredi OpenStreetBug</string>
@@ -34,12 +34,12 @@
         <string name="openstreetbug_commit_fail">Ne mogu spremiti promjene</string>
 
         <!-- Toaster -->
-        <string name="toast_no_changes">Još niste ništa promjenili...</string>
+        <string name="toast_no_changes">Još niste ništa promjenili…</string>
         <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
         <string name="toast_empty_data">Nema elemenata na ovoj površini. Hvala na istraživanju neucrtanih područja!</string>
         <string name="toast_not_in_edit_range">Zumirajte kako bi mogli uređivati, područje preširoko.</string>
         <string name="toast_save_done">Spremanje uspješno.</string>
-        <string name="toast_waiting_for_gps">čekam GPS poziciju...</string>
+        <string name="toast_waiting_for_gps">čekam GPS poziciju…</string>
         <string name="toast_follow_gps_off">Praćenje GPS pozicije onemogućeno</string>
         <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
         <string name="toast_file_openstreetbug">Taknite u kartu kako bi prijavili OpenStreetBug</string>
@@ -92,12 +92,12 @@
         <string name="menu_append">Nastavi</string>
         <string name="menu_tag">Uredi oznake</string>
         <string name="menu_openstreetbug">Prijavi OpenStreetBug</string>
-        <string name="menu_gps">GPS...</string>
+        <string name="menu_gps">GPS…</string>
         <string name="menu_gps_start_pause">Pokreni/pauziraj GPS trag</string>
         <string name="menu_gps_follow">Prati GPS poziciju</string>
         <string name="menu_gps_stop">Zaustavi GPS trag</string>
         <string name="menu_gps_upload">Pošalji GPS trag</string>
-        <string name="menu_transfer">Prijenos...</string>
+        <string name="menu_transfer">Prijenos…</string>
         <string name="menu_transfer_download_current">Skini trenutni pogled</string>
         <string name="menu_transfer_download_other">Skini drugu lokaciju</string>
         <string name="menu_transfer_upload">Spremi na OSM poslužitelj</string>
@@ -105,36 +105,26 @@
         
         <!-- Preferences -->
         <string name="config_category_view">Postavke</string>
-        <string name="config_showStats_key">showStats</string>
-        <string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
         <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
         <string name="config_maxStrokeWidth_summary">Nemoj crtati linije šire od ovoga</string>
         <string name="config_showStats_title">Statistika</string>
         <string name="config_showStats_summary">Prikaže statistiku podataka i frame/sec u donjem lijevom kutu.</string>
-        <string name="config_showTolerance_key">showTolerance</string>
         <string name="config_showTolerance_title">Površina tolerancije</string>
         <string name="config_showTolerance_summary">Prikaže površinu u kojoj se element može označiti.</string>
-        <string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
         <string name="config_enableAntiAliasing_title">Omogući Anti-Aliasing</string>
         <string name="config_enableAntiAliasing_summary">Linije izgledaju glatkije.</string>
-        <string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
         <string name="config_enableOpenStreetBugs_title">Omogući OpenStreetBugs</string>
         <string name="config_enableOpenStreetBugs_summary">Prikaži bugove prijavljene na OpenStreetBugs.</string>
-        <string name="config_backgroundLayer_key">backgroundLayer</string>
         <string name="config_backgroundLayer_title">Karta u pozadini</string>
         <string name="config_backgroundLayer_summary">Odabir karte u pozadini.</string>
         <string name="config_category_server">Postavke servera</string>
-        <string name="config_username_key">korisničko ime</string>
         <string name="config_username_title">OSM korisničko ime</string>
         <string name="config_username_summary">Potrebno za spremanje OSM podataka na server. Ako ga još nemate, registrirajte se na http://www.openstreetmap.org/user/new</string>
-        <string name="config_password_key">lozinka</string>
         <string name="config_password_title">OSM lozinka</string>
         <string name="config_password_summary">Nemojte ju zamjeniti sa Wiki lozinkom. Upamtite: Lozinka se čuva u formatu običnog teksta!</string>
         <string name="config_category_gps">GPS postavke</string>
-        <string name="config_gps_distance_key">udaljenost</string>
         <string name="config_gps_distance_title">Minimalna GPS udaljenost</string>
         <string name="config_gps_distance_summary">Minimalna udaljenost za GPS poziv, u metrima (float). Manje vrijednosti troše više baterije.</string>
-        <string name="config_gps_interval_key">interval</string>
         <string name="config_gps_interval_title">Minimalni GPS interval</string>
         <string name="config_gps_interval_summary">Minimalni vremenski interval GPS poziva, u milisekundama. Manje vrijednosti troše više baterije.</string>
 

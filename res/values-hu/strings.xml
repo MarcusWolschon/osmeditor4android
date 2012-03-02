@@ -18,16 +18,16 @@
 	<string name="undefined_error_message">Valami furcsa történt. Küldenél nekem egy e-mailt (angolul) annak rövid leírásával, hogy mi okozta ezt? Köszönöm!</string>
 	<string name="undefined_error_sendbutton">E-mail küldése</string>
 	<string name="progress_title">Betöltés</string>
-	<string name="progress_message">Adatok betöltése a memóriába...</string>
-	<string name="progress_download_message">Adatok letöltése a szerverről...</string>
+	<string name="progress_message">Adatok betöltése a memóriába…</string>
+	<string name="progress_download_message">Adatok letöltése a szerverről…</string>
 
 	<!-- Toaster -->
-	<string name="toast_no_changes">Még nem módosítottál semmit...</string>
+	<string name="toast_no_changes">Még nem módosítottál semmit…</string>
 	<string name="toast_upload_success">Feltöltés az OSM szerverre kész.</string>
 	<string name="toast_empty_data">Nincsenek elemek ezen a területen. Köszönöm, hogy feltárod ezt a fekete foltot!</string>
 	<string name="toast_not_in_edit_range">Közelíts a szerkesztéshez (Hangerő fel/le vagy Lens/Shift)</string>
 	<string name="toast_save_done">Mentés sikeres</string>
-	<string name="toast_waiting_for_gps">Várakozás a GPS helyre...</string>
+	<string name="toast_waiting_for_gps">Várakozás a GPS helyre…</string>
 	<string name="toast_follow_gps_off">GPS követésének tiltása</string>
 
 	<!-- ErrorMailer  -->
@@ -75,12 +75,12 @@
 	<string name="menu_erase">Pont törlése</string>
 	<string name="menu_append">Hozzáfűzés</string>
 	<string name="menu_tag">Címkék szerk.</string>
-	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps">GPS…</string>
 	<string name="menu_gps_start_pause">GPS nyomvonal indítása/megállítása</string>
 	<string name="menu_gps_follow">GPS pozíció követése</string>
 	<string name="menu_gps_stop">GPS nyomvonal leállítása</string>
 	<string name="menu_gps_upload">GPS nyomvonal feltöltése</string>
-	<string name="menu_transfer">Átvitel...</string>
+	<string name="menu_transfer">Átvitel…</string>
 	<string name="menu_transfer_download_current">Jelenlegi nézet letöltése</string>
 	<string name="menu_transfer_download_other">Egyéb hely letöltése</string>
 	<string name="menu_transfer_upload">Adatok feltöltése az OSM szerverre</string>
@@ -88,27 +88,20 @@
 	
 	<!-- Preferences -->
 	<string name="config_category_view">Nézet beállításai</string>
-	<string name="config_showStats_key">showStats</string>
 	<string name="config_showStats_title">Statisztika megjelenítése</string>
 	<string name="config_showStats_summary">Adatstatisztika és frames/sec érték megjelenítése a jobb alsó sarokban.</string>
-	<string name="config_showTolerance_key">showTolerance</string>
 	<string name="config_showTolerance_title">Tolerancia megjelenítése</string>
 	<string name="config_showTolerance_summary">Terület megjelenítése, amelyen belül egy elem kijelölhető.</string>
-	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
 	<string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
 	<string name="config_enableAntiAliasing_summary">Sokkal simábbá teszi a vonalakat.</string>
 	<string name="config_category_server">Szerver beállításai</string>
-	<string name="config_username_key">username</string>
 	<string name="config_username_title">OSM felhasználónév</string>
 	<string name="config_username_summary">OSM adatok feltöltéséhez szükséges. Ha még nincs neked, itt szerezhetsz egyet: http://www.openstreetmap.org/user/new</string>
-	<string name="config_password_key">password</string>
 	<string name="config_password_title">OSM jelszó</string>
 	<string name="config_password_summary">Ne téveszd össze a Wiki jelszóval. Ne feledd: síma szövegként kerül tárolásra és átvitelre!</string>
 	<string name="config_category_gps">GPS beállításai</string>
-	<string name="config_gps_distance_key">distance</string>
 	<string name="config_gps_distance_title">Minimális GPS távolság</string>
 	<string name="config_gps_distance_summary">A minimális távolságintervallum a GPS figyeléséhez méterben (tizedesvesszővel). Alacsonyabb érték több akkumulátorhasználatot igényel.</string>
-	<string name="config_gps_interval_key">interval</string>
 	<string name="config_gps_interval_title">Minimális GPS időköz</string>
 	<string name="config_gps_interval_summary">A minimális időintervallum a GPS figyeléséhez ezredmásodpercben. Alacsonyabb érték több akkumulátorhasználatot igényel.</string>
 </resources>

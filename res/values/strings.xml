@@ -22,11 +22,11 @@
 	<string name="undefined_error_message">Something strange happened. Would you like to send me an email with a brief description of what led to this? Thank you!</string>
 	<string name="undefined_error_sendbutton">Send Email</string>
 	<string name="progress_title">Loading</string>
-	<string name="progress_message">Loading data into memory...</string>
-	<string name="progress_download_message">Downloading data from server...</string>
+	<string name="progress_message">Loading data into memory…</string>
+	<string name="progress_download_message">Downloading data from server…</string>
 	<string name="upload_comment_label">Comment:</string>
-    <string name="openstreetbug_new_title">New OpenStreetBug</string>
-    <string name="openstreetbug_edit_title">Edit OpenStreetBug</string>
+	<string name="openstreetbug_new_title">New OpenStreetBug</string>
+	<string name="openstreetbug_edit_title">Edit OpenStreetBug</string>
 	<string name="openstreetbug_commitbutton">Commit</string>
 	<string name="openstreetbug_comment_label">Comment:</string>
 	<string name="openstreetbug_edit_close">Close bug</string>
@@ -34,12 +34,12 @@
 	<string name="openstreetbug_commit_fail">Could not save changes</string>
 
 	<!-- Toaster -->
-	<string name="toast_no_changes">You have not changed anything yet...</string>
+	<string name="toast_no_changes">You have not changed anything yet…</string>
 	<string name="toast_upload_success">Upload to OSM server finished.</string>
 	<string name="toast_empty_data">There aren\'t any elements in this area. Thank you for exploring this black spot!</string>
 	<string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
 	<string name="toast_save_done">Save successful</string>
-	<string name="toast_waiting_for_gps">Waiting for GPS location...</string>
+	<string name="toast_waiting_for_gps">Waiting for GPS location…</string>
 	<string name="toast_follow_gps_off">GPS following disabled</string>
 	<string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
 	<string name="toast_file_openstreetbug">Tap inside map to file OpenStreetBug</string>
@@ -66,12 +66,12 @@
 	<string name="location_headline">Load Area</string>
 	<string name="location_choose_radius">Choose radius:</string>
 	<string name="location_last_text">Last known location:</string>
-	<string name="location_current_text">Current location: unknown</string>
+	<string name="location_current_text">Current location:</string>
 	<string name="location_text_unknown">unknown</string>
 	<string name="location_last_text_parameterized">Last known location: %1$s</string>
 	<string name="location_current_text_parameterized">Current location: %1$s</string>
 	<string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-	<string name="location_text_metadata_accuracy">Accuracy %1$1g m,</string>
+	<string name="location_text_metadata_accuracy">Accuracy %1$1g meter,</string>
 	<string name="location_map_text">From map (coming soon)</string>
 	<string name="location_coordinates_text">From coordinates:</string>
 	<string name="location_lat_label">Lat:</string>
@@ -92,12 +92,12 @@
 	<string name="menu_append">Append</string>
 	<string name="menu_tag">Edit tags</string>
 	<string name="menu_openstreetbug">File OpenStreetBug</string>
-	<string name="menu_gps">GPS...</string>
+	<string name="menu_gps">GPS…</string>
 	<string name="menu_gps_start_pause">Start/pause GPS track</string>
 	<string name="menu_gps_follow">Follow GPS position</string>
 	<string name="menu_gps_stop">Stop GPS track</string>
 	<string name="menu_gps_upload">Upload GPS track</string>
-	<string name="menu_transfer">Transfer...</string>
+	<string name="menu_transfer">Transfer…</string>
 	<string name="menu_transfer_download_current">Download current view</string>
 	<string name="menu_transfer_download_other">Download other location</string>
 	<string name="menu_transfer_upload">Upload data to OSM server</string>
@@ -105,43 +105,45 @@
 	
 	<!-- Preferences -->
 	<string name="config_category_view">View Settings</string>
-	<string name="config_showStats_key">showStats</string>
-	<string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
 	<string name="config_maxStrokeWidth_title">max stroke width</string>
 	<string name="config_maxStrokeWidth_summary">do not draw a way thicker then this</string>
 	<string name="config_showStats_title">Show stats</string>
 	<string name="config_showStats_summary">Displays data statistics and frames/sec in the lower left corner.</string>
-	<string name="config_showTolerance_key">showTolerance</string>
 	<string name="config_showTolerance_title">Show tolerance</string>
 	<string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
-	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
 	<string name="config_enableAntiAliasing_title">Enable Anti-Aliasing</string>
 	<string name="config_enableAntiAliasing_summary">Makes the lines more smoothly.</string>
-	<string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
 	<string name="config_enableOpenStreetBugs_title">Enable OpenStreetBugs</string>
 	<string name="config_enableOpenStreetBugs_summary">Display bugs reported to OpenStreetBugs.</string>
-	<string name="config_backgroundLayer_key">backgroundLayer</string>
 	<string name="config_backgroundLayer_title">Map background</string>
 	<string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
 	<string name="config_category_server">Server Settings</string>
-	<string name="config_username_key">username</string>
 	<string name="config_username_title">OSM Username</string>
 	<string name="config_username_summary">Needed for uploading OSM-Data. If you do not have any yet, get one at http://www.openstreetmap.org/user/new</string>
-	<string name="config_password_key">password</string>
 	<string name="config_password_title">OSM Password</string>
 	<string name="config_password_summary">Do not mistake it for the Wiki password. Remember: It is stored and transmitted in plain-text!</string>
 	<string name="config_category_gps">GPS Settings</string>
-	<string name="config_gps_distance_key">distance</string>
 	<string name="config_gps_distance_title">Minimum GPS-Distance</string>
 	<string name="config_gps_distance_summary">The minimum distance interval for GPS notifications, in meters (float). Lower value cause more battery usage.</string>
-	<string name="config_gps_interval_key">interval</string>
 	<string name="config_gps_interval_title">Minimum GPS-Interval</string>
 	<string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
-
-    <!--  changes -->
-    <string name="changes_deleted">"%1$s" deleted</string>
-    <string name="changes_changed">"%1$s" changed</string>
-    <string name="changes_created">"%1$s" created</string>
-    <string name="confirm_upload_title">Upload?</string>
-    <string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
+	
+	<!-- Preference keys - DO NOT TRANSLATE OR COPY TO TRANSLATION -->
+	<string name="config_showStats_key">showStats</string>
+	<string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
+	<string name="config_showTolerance_key">showTolerance</string>
+	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
+	<string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
+	<string name="config_backgroundLayer_key">backgroundLayer</string>
+	<string name="config_username_key">username</string>
+	<string name="config_password_key">password</string>
+	<string name="config_gps_distance_key">distance</string>
+	<string name="config_gps_interval_key">interval</string>
+	
+	<!--  changes -->
+	<string name="changes_deleted">"%1$s" deleted</string>
+	<string name="changes_changed">"%1$s" changed</string>
+	<string name="changes_created">"%1$s" created</string>
+	<string name="confirm_upload_title">Upload?</string>
+	<string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
 </resources>

@@ -22,8 +22,8 @@
         <string name="undefined_error_message">何か異常が発生しました。発生手順を簡単に書いてメールを送ってもらえませんか？ありがとう！</string>
         <string name="undefined_error_sendbutton">メールを送信</string>
         <string name="progress_title">ロード中</string>
-        <string name="progress_message">データをメモリにロード中...</string>
-        <string name="progress_download_message">サーバからデータをダウンロード中...</string>
+        <string name="progress_message">データをメモリにロード中…</string>
+        <string name="progress_download_message">サーバからデータをダウンロード中…</string>
         <string name="upload_comment_label">コメント:</string>
     <string name="openstreetbug_new_title">新規 OpenStreetBug</string>
     <string name="openstreetbug_edit_title">編集 OpenStreetBug</string>
@@ -34,12 +34,12 @@
         <string name="openstreetbug_commit_fail">変更を保存できませんでした</string>
 
         <!-- Toaster -->
-        <string name="toast_no_changes">変更がありません...</string>
+        <string name="toast_no_changes">変更がありません…</string>
         <string name="toast_upload_success">OSMサーバへのアップロードは完了しました。</string>
         <string name="toast_empty_data">このエリアにはエレメントがありません。このブラックスポットの探検ありがとう！</string>
         <string name="toast_not_in_edit_range">ズームインしてから編集してください(ボリュームUp/Down または Lens/Shift)</string>
         <string name="toast_save_done">保存しました</string>
-        <string name="toast_waiting_for_gps">GPS位置取得中...</string>
+        <string name="toast_waiting_for_gps">GPS位置取得中…</string>
         <string name="toast_follow_gps_off">GPS追跡を無効化</string>
         <string name="toast_not_in_bug_range">ズームインしてバグを追加してください (ボリュームUp/Down または Lens/Shift)</string>
         <string name="toast_file_openstreetbug">マップ内をタップしてOpenStreetBugをファイルしてください</string>
@@ -92,12 +92,12 @@
         <string name="menu_append">接続</string>
         <string name="menu_tag">タグ編集</string>
         <string name="menu_openstreetbug">OpenStreetBugにファイル</string>
-        <string name="menu_gps">GPS操作...</string>
+        <string name="menu_gps">GPS操作…</string>
         <string name="menu_gps_start_pause">GPSトラックの開始/停止</string>
         <string name="menu_gps_follow">GPSの位置を追跡</string>
         <string name="menu_gps_stop">GPSトラックを終了</string>
         <string name="menu_gps_upload">GPSトラックをアップロード</string>
-        <string name="menu_transfer">データ変換...</string>
+        <string name="menu_transfer">データ変換…</string>
         <string name="menu_transfer_download_current">現在のビューをダウンロード</string>
         <string name="menu_transfer_download_other">他の位置をダウンロード</string>
         <string name="menu_transfer_upload">データをOSMサーバにアップロード</string>
@@ -105,36 +105,26 @@
         
         <!-- Preferences -->
         <string name="config_category_view">設定を見る</string>
-        <string name="config_showStats_key">状態表示</string>
-        <string name="config_maxStrokeWidth_key">最大ストローク幅</string>
         <string name="config_maxStrokeWidth_title">最大ストローク幅</string>
         <string name="config_maxStrokeWidth_summary">ウェイをこれより太く描画しない</string>
         <string name="config_showStats_title">状態を表示</string>
         <string name="config_showStats_summary">左下隅にデータ統計とフレーム/秒 を表示。</string>
-        <string name="config_showTolerance_key">トレランス表示</string>
         <string name="config_showTolerance_title">トレランスを表示</string>
         <string name="config_showTolerance_summary">エレメントを選択できるエリアを表示。</string>
-        <string name="config_enableAntiAliasing_key">アンチエイリアス有効化</string>
         <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
         <string name="config_enableAntiAliasing_summary">線をより滑らかにする。</string>
-        <string name="config_enableOpenStreetBugs_key">OpenStreetBugs有効化</string>
         <string name="config_enableOpenStreetBugs_title">OpenStreetBugsを有効化</string>
         <string name="config_enableOpenStreetBugs_summary">OpenStreetBugsにレポートされたバグを表示。</string>
-        <string name="config_backgroundLayer_key">背景レイヤー</string>
         <string name="config_backgroundLayer_title">マップの背景</string>
         <string name="config_backgroundLayer_summary">グラフィカルに描画されたマップの背景。</string>
         <string name="config_category_server">サーバ設定</string>
-        <string name="config_username_key">ユーザ名</string>
         <string name="config_username_title">OSMユーザ名</string>
         <string name="config_username_summary">OSMデータのアップロードに必要。もし持っていなければ、 http://www.openstreetmap.org/user/new で取得してください。</string>
-        <string name="config_password_key">パスワード</string>
         <string name="config_password_title">OSMパスワード</string>
         <string name="config_password_summary">Wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
         <string name="config_category_gps">GPS 設定</string>
-        <string name="config_gps_distance_key">距離</string>
         <string name="config_gps_distance_title">最小GPS-距離</string>
         <string name="config_gps_distance_summary">GPS通知用の最小距離間隔、メートル単位(float)。 値が小さいほどバッテリーを消費します。</string>
-        <string name="config_gps_interval_key">間隔</string>
         <string name="config_gps_interval_title">最小GPS-間隔</string>
         <string name="config_gps_interval_summary">GPS通知用の最小時間間隔、ミリ秒単位。値が小さいほどバッテリーを消費します。</string>
 
