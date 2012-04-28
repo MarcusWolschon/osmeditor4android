@@ -95,7 +95,7 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Maximum width to zoom out.
 	 */
-	private static final int MAX_ZOOM_WIDTH = 5000000;
+	private static final int MAX_ZOOM_WIDTH = 500000000;
 
 	private static final String DEBUG_TAG = BoundingBox.class.getSimpleName();
 

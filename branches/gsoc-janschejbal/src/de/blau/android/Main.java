@@ -8,13 +8,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.internal.ActionBarSherlockCompat;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.LabeledIntent;
 import android.content.res.Resources;
+import android.database.DataSetObserver;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -25,11 +34,12 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -40,12 +50,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 import android.widget.RelativeLayout.LayoutParams;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
+import de.blau.android.actionbar.ModeDropdownAdapter;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
@@ -67,7 +80,7 @@ import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
  * 
  * @author mb
  */
-public class Main extends Activity {
+public class Main extends SherlockActivity implements OnNavigationListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -117,6 +130,8 @@ public class Main extends Activity {
 	 */
 	private Preferences prefs;
 
+	private ModeDropdownAdapter modeDropdown;
+
 	/**
 	 * The logic that manipulates the model. (non-UI)<br/>
 	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
@@ -129,6 +144,8 @@ public class Main extends Activity {
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		setTheme(R.style.Theme_Sherlock);
+
 		super.onCreate(savedInstanceState);
 		Application.mainActivity = this;
 		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(
@@ -140,9 +157,10 @@ public class Main extends Activity {
 				sensorManager = null;
 			}
 		}
-		getWindow().requestFeature(Window.FEATURE_LEFT_ICON);
+		//TODO ACTIONBAR getWindow().requestFeature(Window.FEATURE_LEFT_ICON);
 		getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
+		getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		//TODO ACTIONBAR getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
 
 		RelativeLayout rl = new RelativeLayout(getApplicationContext());
 		if (map != null) {
@@ -192,6 +210,8 @@ public class Main extends Activity {
 		} else {
 			logic.setMap(map);
 		}
+		
+		showActionBar();
 	}
 	
 	@Override
@@ -236,23 +256,44 @@ public class Main extends Activity {
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
-		updateIcon();
 
 		// cache some values (optional)
 		TagValueAutocompletionAdapter.fillCache(this);
 		TagKeyAutocompletionAdapter.fillCache(this);
+		
+		// TODO update pref (showing osmbug)
 	}
 
+	private void showActionBar() {
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		actionbar.setBackgroundDrawable(new ColorDrawable(0xaa000000));
+		actionbar.setDisplayShowHomeEnabled(false);
+		actionbar.setDisplayShowTitleEnabled(false);
+		
+		modeDropdown = new ModeDropdownAdapter(this, true);
+		actionbar.setListNavigationCallbacks(modeDropdown, this);
+		
+		actionbar.show();
+		setSupportProgressBarIndeterminateVisibility(false);
+	}
+	
+	
+	
+	@Override
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		logic.setMode(modeDropdown.getModeForItem(itemPosition));
+		return true;
+	}
+	
+	
 	/**
 	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
 	 */
-	@Override
+ 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
-		final MenuInflater inflater = getMenuInflater();
+		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
-		if (!prefs.isOpenStreetBugsEnabled()) {
-			menu.removeItem(R.id.menu_openstreetbug);
-		}
 		return true;
 	}
 
@@ -261,57 +302,9 @@ public class Main extends Activity {
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(final Menu menu) {
-		if (!prefs.isOpenStreetBugsEnabled()) {
-			menu.removeItem(R.id.menu_openstreetbug);
-		} else {
-			if(menu.findItem(R.id.menu_openstreetbug) == null) {
-				// restore missing menu item
-				menu.clear();
-				final MenuInflater inflater = getMenuInflater();
-				inflater.inflate(R.menu.main_menu, menu);
-			}
-		}
 		return true;
 	}
-	
-	/**
-	 * Update the window icon to indicate the current mode.
-	 */
-	private void updateIcon() {
-		int resId;
-		switch (logic.getMode()) {
-		case MODE_MOVE:
-			resId = R.drawable.menu_move;
-			break;
-		case MODE_EDIT:
-			resId = R.drawable.menu_edit;
-			break;
-		case MODE_TAG_EDIT:
-			resId = R.drawable.menu_tag;
-			break;
-		case MODE_ADD:
-			resId = R.drawable.menu_add;
-			break;
-		case MODE_ERASE:
-			resId = R.drawable.menu_erase;
-			break;
-		case MODE_SPLIT:
-			resId = R.drawable.menu_split;
-			break;
-		case MODE_OPENSTREETBUG:
-			resId = R.drawable.menu_openstreetbug;
-			break;
-		case MODE_APPEND:
-			resId = R.drawable.menu_append;
-			break;
-		default:
-			resId = 0;
-			break;
-		}
-		if (resId != 0) {
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, resId);
-		}
-	}
+
 
 	/**
 	 * {@inheritDoc}
@@ -319,47 +312,6 @@ public class Main extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_move:
-			logic.setMode(Logic.Mode.MODE_MOVE);
-			updateIcon();
-			return true;
-
-		case R.id.menu_edit:
-			logic.setMode(Logic.Mode.MODE_EDIT);
-			updateIcon();
-			return true;
-
-		case R.id.menu_tag:
-			logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-			updateIcon();
-			return true;
-
-		case R.id.menu_add:
-			logic.setMode(Logic.Mode.MODE_ADD);
-			updateIcon();
-			return true;
-
-		case R.id.menu_erase:
-			logic.setMode(Logic.Mode.MODE_ERASE);
-			updateIcon();
-			return true;
-
-		case R.id.menu_split:
-			logic.setMode(Logic.Mode.MODE_SPLIT);
-			updateIcon();
-			return true;
-
-		case R.id.menu_openstreetbug:
-			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
-			updateIcon();
-			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
-			return true;
-
-		case R.id.menu_append:
-			logic.setMode(Logic.Mode.MODE_APPEND);
-			updateIcon();
-			return true;
-
 		case R.id.menu_confing:
 			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
 			return true;
@@ -620,7 +572,7 @@ public class Main extends Activity {
 			@Override
 			protected void onPreExecute() {
 				newBug = (bug.getId() == 0);
-				setProgressBarIndeterminateVisibility(true);
+				setSupportProgressBarIndeterminateVisibility(true);
 			}
 			
 			@Override
@@ -645,7 +597,7 @@ public class Main extends Activity {
 						}
 					}
 				}
-				setProgressBarIndeterminateVisibility(false);
+				setSupportProgressBarIndeterminateVisibility(false);
 				Toast.makeText(getApplicationContext(), result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 				map.invalidate();
 			}
@@ -953,7 +905,7 @@ public class Main extends Activity {
 		}
 
 		@Override
-		public boolean onMenuItemClick(final MenuItem item) {
+		public boolean onMenuItemClick(final android.view.MenuItem item) {
 			int itemId = item.getItemId();
 			if (clickedBugs != null && itemId >= 0 && itemId < clickedBugs.size()) {
 				performBugEdit(clickedBugs.get(itemId));

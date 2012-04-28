@@ -2,56 +2,13 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item android:id="@+id/menu_move"
-		android:icon="@drawable/menu_move"
-		android:title="@string/menu_move"
-		android:alphabeticShortcut="m"
-	/>
-
-	<item android:id="@+id/menu_add"
-		android:icon="@drawable/menu_add"
-		android:title="@string/menu_add"
-		android:alphabeticShortcut="a"
-	/>
-
-	<item android:id="@+id/menu_edit"
-		android:icon="@drawable/menu_edit"
-		android:title="@string/menu_edit"
-		android:alphabeticShortcut="e"
-	/>
-
-	<item android:id="@+id/menu_tag"
-		android:icon="@drawable/menu_tag"
-		android:title="@string/menu_tag"
-		android:alphabeticShortcut="t"
-	/>
-
-	<item android:id="@+id/menu_append"
-		android:icon="@drawable/menu_append"
-		android:title="@string/menu_append"
-		android:alphabeticShortcut="p"
-	/>
+	
+	<item
+		android:title="@string/menu_gps"
+		android:icon="@drawable/menu_gps"
+		android:showAsAction="ifRoom"
+	>	
 		
-	<item android:id="@+id/menu_erase"
-		android:icon="@drawable/menu_erase"
-		android:title="@string/menu_erase"
-		android:alphabeticShortcut="r"
-	/>
-
-	<item android:id="@+id/menu_split"
-		android:icon="@drawable/menu_split"
-		android:title="@string/menu_split"
-		android:alphabeticShortcut="s"
-	/>
-	
-	<item android:id="@+id/menu_openstreetbug"
-		android:icon="@drawable/menu_openstreetbug"
-		android:title="@string/menu_openstreetbug"
-		android:alphabeticShortcut="s"
-	/>
-	
-	
-	<item android:title="@string/menu_gps">	
 		<menu>
 				<item
 					android:id="@+id/menu_gps_start_pause"
@@ -74,7 +31,11 @@
 		</menu>
 	</item>
 	
-	<item android:title="@string/menu_transfer">	
+	<item
+		android:title="@string/menu_transfer"
+		android:icon="@drawable/menu_transfer"
+		android:showAsAction="ifRoom"
+	>	
 		<menu>
 				<item
 					android:id="@+id/menu_transfer_download_current"
@@ -95,9 +56,13 @@
 		android:id="@+id/menu_confing"
 		android:title="@string/menu_config"
 		android:alphabeticShortcut="c"
+		android:icon="@drawable/menu_config"
+		android:showAsAction="ifRoom"
 	/>
 	<item
 		android:id="@+id/menu_save"
 		android:title="@string/menu_save"
+		android:icon="@drawable/menu_save"
+		android:showAsAction="ifRoom"
 	/>
 </menu>

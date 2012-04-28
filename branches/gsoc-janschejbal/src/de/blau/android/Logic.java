@@ -898,7 +898,7 @@ public class Logic {
 				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
 				View map = Application.mainActivity.getCurrentFocus();
 				setMode(Mode.MODE_MOVE);
-				Application.mainActivity.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
+//	TODO ACTIONBAR 			Application.mainActivity.getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.menu_move);
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 				map.invalidate();
