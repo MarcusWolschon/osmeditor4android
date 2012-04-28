@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Dialogs -->
+	<string name="resume_last_activity_dialog_title">Fortsetzen?</string>
+	<string name="resume_last_activity_dialog_message">Möchten Sie ihre letzte Aktivität fortsetzen?</string>
+	<string name="transfer_download_current_dialog_title">Achtung!</string>
+	<string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderunge hochladen, anstatt sie zu verwerfen?</string>
+	<string name="transfer_download_current_upload">Hochladen</string>
+	<!-- <string name="transfer_download_current_download">Verwerfen &amp; runterladen</string> -->
+	<string name="transfer_download_current_download">Verwerfen</string>
+<!-- 	<string name="transfer_download_current_back">Zurück (Unverändert lassen)</string> -->
+<string name="transfer_download_current_back">Zurück</string>
+	<string name="no_login_data_title">Kein Login angegeben</string>
+	<string name="no_login_data_message">Bitte geben Sie die Logindaten in den Einstellungen ein.</string>
+	<string name="no_connection_title">Keine Verbindung zum Server</string>
+	<string name="no_connection_message">Konnte keine Verbindung zums OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später nocheinmal.</string>
+	<string name="wrong_login_data_title">Falscher Login angegeben.</string>
+	<string name="wrong_login_data_message">Der OSM-Server konnte Sie nicht authentifizieren. Bitte überprüfen Sie ihren Login in den Einstellungen.</string>
+	<string name="undefined_error_title">Entschuldigung</string>
+	<string name="undefined_error_message">Etwas unerwartetes ist passiert. Möchten Sie uns eine Email mit einer kurzen Beschreiben schicken, was zu diesem Fehler geführt hat? Vielen Dank!</string>
+	<string name="undefined_error_sendbutton">Sende Email</string>
+	<string name="progress_title">Laden</string>
+	<string name="progress_message">Lade Daten in den Speicher…</string>
+	<string name="progress_download_message">Lade Daten vom Server…</string>
+	<string name="upload_comment_label">Kommentar:</string>
+
+	<!-- Toaster -->
+	<string name="toast_no_changes">Sie haben noch nichts geändert…</string>
+	<string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
+	<string name="toast_empty_data">Es gibt keine Elemente in diesem Gebiet. Vielen Dank, dass die diesen weißen Flecken erforschst!</string>
+	<string name="toast_not_in_edit_range">Zum Editieren bitte hereinzoomen (Lautstärke Hoch/Runter oder Lupe/Shift)</string>
+	<string name="toast_save_done">Speichern erfolgreich</string>
+	<string name="toast_waiting_for_gps">Warte auf GPS Position…</string>
+	<string name="toast_follow_gps_off">GPS following abgeschaltet</string>
+	<string name="toast_file_openstreetbug">Karte bezühren um OpenStreetBug anzulegen</string>
+
+	<!-- ErrorMailer  -->
+	<string name="error_email_message">"Hey Matthias,\n\nkönntest Du Dir mal folgende Fehlermeldung ansehen?\n\n"</string>
+	<string name="error_email_chooser_title">Sende Mail via:</string>
+	
+	<!-- Some generic labels -->
+	<string name="yes">Ja</string>
+	<string name="no">Nein</string>
+	<string name="okay">Okay</string>
+	<string name="cancel">Abbrechen</string>
+	
+	<!-- Strings in TagEditor -->
+	<string name="tag_title">Tags für</string>
+	<string name="key">Key:</string>
+	<string name="value">Value:</string>
+	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/DE:Map_Features</string>
+	<string name="tag_menu_mapfeatures">Map Features Wiki</string>
+	
+	<!-- Strings in LocationPicker -->
+	<string name="location_headline">Bereich Laden</string>
+	<string name="location_choose_radius">Wähle Radius aus:</string>
+	<string name="location_last_text">Letzte bekannte Position:</string>
+	<string name="location_current_text">Aktuelle Position: unbekannt</string>
+	<string name="location_text_unknown">unbekannt</string>
+	<string name="location_last_text_parameterized">Letzte bekannte Position: %1$s</string>
+	<string name="location_current_text_parameterized">Aktuelle Position: %1$s</string>
+	<string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_text_metadata_accuracy">Genauigkeit %1$1g Meter,</string> <!--  TODO: translate -->
+	<string name="location_map_text">Von Karte (geplant)</string>
+	<string name="location_coordinates_text">Von Koordinaten:</string>
+	<string name="location_lat_label">Lat:</string>
+	<string name="location_lon_label">Lon:</string>
+	<string name="location_load_button">Lade!</string>
+	<string name="location_button_no_location">Lade nichts</string>
+	<string name="location_label_no_location">(nicht empfohlen)</string>
+	<string name="location_nan_title">Falsche Eingabe!</string>
+	<string name="location_nan_message">Bitte gib die Koordinaten als Fließkommazahlen ein (eg. "52.333572","8.741185"). Lat muss zwischen -85.0 und +85.0, Lon muss zwischen -175.0 and +175.0 liegen.</string>
+	
+	<!-- Menu -->
+	<string name="menu_move">Verschieben</string>
+	<string name="menu_edit">Verändern</string>
+	<string name="menu_add">Neu</string>
+	<string name="menu_config">Einstellungen</string>
+	<string name="menu_erase">Knoten löschen</string>
+	<string name="menu_split">Weg aufspalten</string>
+	<string name="menu_append">Anhängen</string>
+	<string name="menu_tag">Tags verändern</string>
+	<string name="menu_gps">GPS…</string>
+	<string name="menu_openstreetbug">Erzeuge OpenStreetBug</string>
+	<string name="menu_gps_start_pause">Start/Pause GPS Track</string>
+	<string name="menu_gps_follow">Follow GPS Position</string>
+	<string name="menu_gps_stop">Stop GPS Track</string>
+	<string name="menu_gps_upload">GPS Track hochladen</string>
+	<string name="menu_transfer">Übertragung…</string>
+	<string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
+	<string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
+	<string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
+	<string name="menu_save">Als Datei speichern</string>
+	
+	<!-- Preferences -->
+	<string name="config_category_view">Ansichtseinstellungen</string>
+	<string name="config_maxStrokeWidth_title">maximale Breite</string>
+	<string name="config_maxStrokeWidth_summary">zeichne Wege nie dicker als dies</string>
+	<string name="config_showStats_title">Zeige Statistiken</string>
+	<string name="config_showStats_summary">Zeigt Statistken (FPS/Knotenanzahl) unten links in der Ecke.</string>
+	<string name="config_showTolerance_title">Zeige Toleranz</string>
+	<string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
+	<string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
+	<string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
+	<string name="config_category_server">Server Einstellungen</string>
+	<string name="config_username_title">OSM Benutzername</string>
+	<string name="config_username_summary">Wird gebraucht, um OSM Daten hochzuladen. Falls Sie noch keinen haben, registrieren Sie sich unter http://www.openstreetmap.org/user/new</string>
+	<string name="config_password_title">OSM Passwort</string>
+	<string name="config_password_summary">Nicht mit dem Wiki-Passwort verwechseln. Bedenke: Das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
+	<string name="config_category_gps">GPS Einstellungen</string>
+	<string name="config_gps_distance_title">Minimale GPS-Distanz</string>
+	<string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauche mehr Batterie.</string>
+	<string name="config_gps_interval_title">Minimaler GPS-Interval</string>
+	<string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauche mehr Batterie.</string>
+	
+    <!--  changes -->
+    <string name="changes_deleted">"%1$s" gelöscht</string>
+    <string name="changes_changed">"%1$s" verändert</string>
+    <string name="changes_created">"%1$s" angelegt</string>
+    <string name="confirm_upload_title">Upload?</string>
+    <string name="confirm_upload_text">Upload der folgenden Änderungen?\n%1$s</string>
+</resources>

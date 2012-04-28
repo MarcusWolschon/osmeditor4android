@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <!--  Dialogs 
+  --> 
+  <string name="resume_last_activity_dialog_title">Genoptag?</string> 
+  <string name="resume_last_activity_dialog_message">Vil du genoptage din sidste handling?</string> 
+  <string name="transfer_download_current_dialog_title">Advarsel!</string> 
+  <string name="transfer_download_current_dialog_message">Du har lavet ændringer. Vil du uploade dem i stedet for at afbryde?</string> 
+  <string name="transfer_download_current_upload">Upload</string> 
+  <string name="transfer_download_current_download">Afbryd &amp; download</string> 
+  <string name="transfer_download_current_back">Gå tilbage (gør intet)</string> 
+  <string name="no_login_data_title">Der er ingen logindata</string> 
+  <string name="no_login_data_message">Udfyld OSM-Login under Indstillinger.</string> 
+  <string name="no_connection_title">Ingen forbindelse til serveren</string> 
+  <string name="no_connection_message">Kunne ikke forbinde til OSM-Serveren. Check din internet forbindelse eller prøv igen senere.</string> 
+  <string name="wrong_login_data_title">Forkert login</string> 
+  <string name="wrong_login_data_message">OSM-Serveren kunne ikke godkende dig. Check dine login data under Indstillinger.</string> 
+  <string name="undefined_error_title">Undskyld</string> 
+  <string name="undefined_error_message">Noget sært skete. Vil du sende en email med en kort beskrivelse af, hvad du gjorde lige inden dette skete? Manke tak!</string> 
+  <string name="undefined_error_sendbutton">Send Email</string> 
+  <string name="progress_title">Læser</string> 
+  <string name="progress_message">Læser ind i memory…</string> 
+  <string name="progress_download_message">Downloader data fra server…</string> 
+  <!--  Toaster 
+  --> 
+  <string name="toast_no_changes">Du har ikke ændret noget endnu…</string> 
+  <string name="toast_upload_success">Upload til OSM server er afsluttet.</string> 
+  <string name="toast_empty_data">Der er ikke nogen elementer i dettte område. Tak fordi du udforskede dette sorte hul :-)</string> 
+  <string name="toast_not_in_edit_range">Zoom ind for at rette (Volume Up/Down eller Lens/Shift)</string> 
+  <string name="toast_save_done">Gemning lykkedes</string> 
+  <string name="toast_waiting_for_gps">Venter på GPS position…</string> 
+  <string name="toast_follow_gps_off">GPS-spor annuleret</string> 
+  <!--  ErrorMailer  
+  --> 
+  <string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string> 
+  <string name="error_email_chooser_title">Send Mail via:</string> 
+  <!--  Some generic labels 
+  --> 
+  <string name="yes">Ja</string> 
+  <string name="no">Nej</string> 
+  <string name="okay">OK</string> 
+  <string name="cancel">Annulér</string> 
+  <!--  Strings in TagEditor 
+  --> 
+  <string name="tag_title">Tags for</string> 
+  <string name="key">Nøgle:</string> 
+  <string name="value">Værdi:</string> 
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string> 
+  <string name="tag_menu_mapfeatures">Map Features Wiki</string> 
+  <!--  Strings in LocationPicker 
+  --> 
+  <string name="location_headline">Indlæs område</string> 
+  <string name="location_choose_radius">Vælg radius:</string> 
+  <string name="location_last_text">Sidst kendte position:</string> 
+  <string name="location_current_text">Nuværende position:</string> 
+  <string name="location_text_unknown">ukendt</string> 
+  <string name="location_last_text_parameterized">Sidste kendte position: %1$s</string> 
+  <string name="location_current_text_parameterized">Nuværende position: %1$s</string> 
+  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string> 
+  <string name="location_text_metadata_accuracy">Nøjagtighed %1$1g meter,</string> 
+  <string name="location_map_text">Fra kort:</string> 
+  <string name="location_coordinates_text">Fra koordinater:</string> 
+  <string name="location_lat_label">Lat:</string> 
+  <string name="location_lon_label">Lon:</string> 
+  <string name="location_load_button">Hent!</string> 
+  <string name="location_button_no_location">Hent intet</string> 
+  <string name="location_label_no_location">(anbefales ikke)</string> 
+  <string name="location_nan_title">Forkert Input!</string> 
+  <string name="location_nan_message">Indtast koordinater med decimaler (f.eks. "52.333572","8.741185"). Lat skal være mellem -85.0 og +85.0, og Lon skal være mellem -175.0 og +175.0.</string> 
+  <!--  Menu 
+  --> 
+  <string name="menu_move">Flyt</string> 
+  <string name="menu_edit">Ret</string> 
+  <string name="menu_add">Ny</string> 
+  <string name="menu_config">Indstillinger</string> 
+  <string name="menu_erase">Slet knude</string> 
+  <string name="menu_append">Fortsæt</string> 
+  <string name="menu_tag">Ret tags</string> 
+  <string name="menu_gps">GPS…</string> 
+  <string name="menu_gps_start_pause">Start/pause GPS track</string> 
+  <string name="menu_gps_follow">Følg GPS position</string> 
+  <string name="menu_gps_stop">Stop GPS track</string> 
+  <string name="menu_gps_upload">Upload GPS track</string> 
+  <string name="menu_transfer">Overfør…</string> 
+  <string name="menu_transfer_download_current">Download nuværende udsnit</string> 
+  <string name="menu_transfer_download_other">Download andet område</string> 
+  <string name="menu_transfer_upload">Upload data til OSM server</string> 
+  <string name="menu_save">Gem til en fil</string> 
+  <!--  Preferences 
+  --> 
+  <string name="config_category_view">Vis Indstillinger</string> 
+  <string name="config_showStats_title">Vis statistik</string> 
+  <string name="config_showStats_summary">Viser datastatistik og billeder/sec i nederste vensdtre hjørne.</string> 
+  <string name="config_showTolerance_title">Vis tolerance</string> 
+  <string name="config_showTolerance_summary">Viser et område, hvor et element kan vælges.</string> 
+  <string name="config_enableAntiAliasing_title">Vælg Anti-Aliasing</string> 
+  <string name="config_enableAntiAliasing_summary">Gør linierne blødere.</string> 
+  <string name="config_category_server">Server Indstillinger</string> 
+  <string name="config_username_title">OSM Username</string> 
+  <string name="config_username_summary">Nødvendig for upload af OSM-Data. Hvis du ikke har et endnu, kan du få et her: http://www.openstreetmap.org/user/new</string> 
+  <string name="config_password_title">OSM Password</string> 
+  <string name="config_password_summary">Forveksel ikke dette med Wiki password\'et. Husk: Det bliver gemt og sendt som læsbar tekst!</string> 
+  <string name="config_category_gps">GPS Indstillinger</string> 
+  <string name="config_gps_distance_title">Mindste GPS-afstand</string> 
+  <string name="config_gps_distance_summary">Mindste afstand mellem GPS-målinger, i meter (med komma). Lavere værdi giver kortere batteritid.</string> 
+  <string name="config_gps_interval_title">Mindste GPS-interval</string> 
+  <string name="config_gps_interval_summary">Mindste tidsinterval for GPS-målinger, i millisekunder. Lavere værdi giver kortere batteritid.</string> 
+</resources>
