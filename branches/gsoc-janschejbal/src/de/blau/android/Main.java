@@ -115,7 +115,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			map.setOrientation(event.values[0]);
-			map.invalidate();
+			map.invalidate(); // Note: This causes large amounts of CPU load
 		}
 	};
 
@@ -746,6 +746,11 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			}
 		}
 		
+		@Override
+		public void onLongClick(View v, float x, float y) {
+			Toast.makeText(Main.this, "longclick " + x + "," + y, Toast.LENGTH_SHORT).show();
+		}
+
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
 			logic.handleTouchEventMove(x, y, -dx, dy);
