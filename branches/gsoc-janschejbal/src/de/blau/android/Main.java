@@ -747,8 +747,9 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		}
 		
 		@Override
-		public void onLongClick(View v, float x, float y) {
+		public boolean onLongClick(View v, float x, float y) {
 			Toast.makeText(Main.this, "longclick " + x + "," + y, Toast.LENGTH_SHORT).show();
+			return true;
 		}
 
 		@Override

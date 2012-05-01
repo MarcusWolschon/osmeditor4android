@@ -21,7 +21,8 @@ public abstract class VersionedGestureDetector {
 	
 	public interface OnGestureListener {
 		public void onClick(View v, float x, float y);
-		public void onLongClick(View v, float x, float y);
+		/** @return true if long click events are handled, false if they should be ignored */
+		public boolean onLongClick(View v, float x, float y);
 		public void onDrag(View v, float x, float y, float dx, float dy);
 		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan);
 	}
@@ -156,8 +157,9 @@ public abstract class VersionedGestureDetector {
 			@Override
 			public void run() {
 				if (this.canceled) return;
-				CupcakeDetector.this.hasLongPressed = true;
-				mListener.onLongClick(v, ev.getX(), ev.getY());
+				if (mListener.onLongClick(v, ev.getX(), ev.getY())) {
+					CupcakeDetector.this.hasLongPressed = true;
+				}
 			}
 			
 			/**
