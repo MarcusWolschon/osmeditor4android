@@ -47,7 +47,6 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -221,7 +220,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			logic.setMap(map);
 		}
 		
-		easyEditManager = new EasyEditManager(this, logic);
+		easyEditManager = new EasyEditManager(this, logic, mapTouchListener);
 		
 		showActionBar();
 	}
@@ -721,7 +720,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 					performAppend(v, x, y);
 					break;
 				case MODE_EASYEDIT:
-					easyEditManager.handleEasyEditClick(v,x,y, this);
+					easyEditManager.handleClick(v,x,y);
 					break;
 				}
 				map.invalidate();
@@ -770,7 +769,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			}
 			
 			if (logic.isInEditZoomRange()) {
-				return easyEditManager.handleEasyEditLongClick(v,x,y);
+				return easyEditManager.handleLongClick(v,x,y);
 			}
 			
 			return true; // long click handled
@@ -921,6 +920,14 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
+			if (logic.getMode() == Mode.MODE_EASYEDIT) {
+				easyEditManager.onCreateContextMenu(menu, v, menuInfo);
+			} else {
+				onCreateDefaultContextMenu(menu, v, menuInfo);
+			}
+		}
+			
+		public void onCreateDefaultContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
 			int id = 0;
 			if (clickedBugs != null) {
 				for (Bug b : clickedBugs) {
@@ -935,7 +942,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		}
 
 		@Override
-		public boolean onMenuItemClick(final android.view.MenuItem item) {
+		public boolean onMenuItemClick(final android.view.MenuItem item) {			
 			int itemId = item.getItemId();
 			if (clickedBugs != null && itemId >= 0 && itemId < clickedBugs.size()) {
 				performBugEdit(clickedBugs.get(itemId));
@@ -965,9 +972,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 							break;
 						}
 						break;
-					case MODE_EASYEDIT:
-							easyEditManager.handleEasyEditNodeClick((Node)element, this);
 					}
+					// MODE_EASYEDIT clicks get handled by EasyEditManager directly
 				}
 			}
 			return true;
@@ -1069,5 +1075,9 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	public void invalidateMap() {
 		map.invalidate();
+	}
+	
+	public void triggerMapContextMenu() {
+		map.showContextMenu();
 	}
 }

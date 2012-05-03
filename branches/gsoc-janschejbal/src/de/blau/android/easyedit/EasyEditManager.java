@@ -2,6 +2,9 @@ package de.blau.android.easyedit;
 
 import java.util.List;
 
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 
 import com.actionbarsherlock.view.ActionMode;
@@ -12,21 +15,27 @@ import com.actionbarsherlock.view.MenuItem;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Main.MapTouchListener;
+import de.blau.android.easyedit.EasyEditMenu.ContextMenuAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Way;
 
 public class EasyEditManager implements Callback {
 
 	private final Main main;
 	private final Logic logic;
+	private MapTouchListener touchlistener;
 	
 	private ActionMode pathActionMode = null;
 	
-	public EasyEditManager(Main main, Logic logic) {
+	private EasyEditMenu contextMenu;
+	
+	public EasyEditManager(Main main, Logic logic, MapTouchListener mapTouchListener) {
 		this.main = main;
 		this.logic = logic;
+		this.touchlistener = mapTouchListener;
 	}
-
+	
 	/**
 	 * This is called when we are in edit range, EasyEdit mode is active,
 	 * and a click needs to be handled.
@@ -35,7 +44,7 @@ public class EasyEditManager implements Callback {
 	 * @param y the y coordinate (view coordinate?) of the click
 	 * @param mapTouchListener 
 	 */
-	public void handleEasyEditClick(View v, float x, float y, MapTouchListener mapTouchListener) {
+	public void handleClick(View v, float x, float y) {
 		if (pathActionMode != null) {
 			// currently creating a path, handle accordingly
 			pathCreateNode(x,y);
@@ -48,37 +57,23 @@ public class EasyEditManager implements Callback {
 			logic.setSelectedNode(null);
 			break;
 		case 1:
-			handleEasyEditNodeClick((Node)clickedNodes.get(0), mapTouchListener);
+			handleNodeClick((Node)clickedNodes.get(0));
 			break;
 		default:
-			v.showContextMenu();
+			contextMenu = new EasyEditMenu(this);
+			contextMenu.add(clickedNodes, ContextMenuAction.HANDLE_NODE_CLICK);
+			contextMenu.trigger();
 			break;
 		}
 	
 	}
 
-	public void handleEasyEditNodeClick(Node node, MapTouchListener mapTouchListener) {
-	
-		// If the clicked node is not selected, select it and return
-		if (logic.getSelectedNode() == null || node != logic.getSelectedNode()) {
-			logic.setSelectedNode(node);
-			return;
-		}
-		
-		// Node was selected, we need to edit it.
-		// For now, just start the tag editor for the node.
-		// TODO JS let user choose tag or way to edit
-		// TODO JS menu-based editing here
-		mapTouchListener.performTagEdit(node);
-		
-	}
-
-	public boolean handleEasyEditLongClick(View v, float x, float y) {
+	public boolean handleLongClick(View v, float x, float y) {
 		if (pathActionMode != null) {
 			// we don't do long clicks while creating paths
 			return false;
 		}
-		// TODO JS
+		// TODO JS menu based creation
 		
 		// for now:
 		pathStart();
@@ -87,6 +82,38 @@ public class EasyEditManager implements Callback {
 		return true;
 	}
 	
+	/*package*/ void handleNodeClick(Node node) {
+	
+		// If the clicked node is not selected, select it and return
+		if (logic.getSelectedNode() == null || node != logic.getSelectedNode()) {
+			logic.setSelectedNode(node);
+			main.invalidateMap();
+			return;
+		}
+		
+		// Node was selected, let user choose to edit ways if they exist
+		
+		List<Way> ways = logic.getWaysForNode(node);
+
+		contextMenu = new EasyEditMenu(this);
+		contextMenu.add(node, ContextMenuAction.TAG_EDIT, "Edit node");
+		contextMenu.add(ways, ContextMenuAction.TAG_EDIT);
+		contextMenu.add(node, ContextMenuAction.DELETE_NODE, "Delete node");
+		contextMenu.trigger();
+	}
+
+	/*package*/ void performTagEdit(OsmElement element) {
+		// For now, just start the tag editor for the node.
+		// TODO JS menu-based editing here
+		touchlistener.performTagEdit(element);
+	}
+
+
+
+	/*package*/ void performDeleteNode(Node node) {
+		logic.performErase(node);
+	}
+
 	private void pathStart() {
 		pathActionMode = main.startActionMode(this);
 		pathActionMode.setTitle("Creating path"); // TODO resource
@@ -128,6 +155,17 @@ public class EasyEditManager implements Callback {
 		pathActionMode = null;
 		logic.setSelectedWay(null);
 		logic.setSelectedNode(null);
+	}
+
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		if (contextMenu != null) {
+			contextMenu.onCreateContextMenu(menu, v, menuInfo);
+			contextMenu = null;
+		}
+	}
+	
+	public void triggerMapContextMenu() {
+		main.triggerMapContextMenu();
 	}
 	
 

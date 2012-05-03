@@ -488,6 +488,10 @@ public class Logic {
 		}
 		return null;
 	}
+	
+	public List<Way> getWaysForNode(Node node) {
+		return delegator.getCurrentStorage().getWays(node);
+	}
 
 	/**
 	 * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
