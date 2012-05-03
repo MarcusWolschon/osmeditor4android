@@ -92,6 +92,7 @@
 	<string name="menu_append">Append</string>
 	<string name="menu_tag">Edit tags</string>
 	<string name="menu_openstreetbug">File OpenStreetBug</string>
+	<string name="menu_easyedit">EasyEdit</string>
 	<string name="menu_gps">GPS…</string>
 	<string name="menu_gps_start_pause">Start/pause GPS track</string>
 	<string name="menu_gps_follow">Follow GPS position</string>

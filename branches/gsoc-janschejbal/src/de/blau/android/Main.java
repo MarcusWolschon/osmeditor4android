@@ -8,22 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.internal.ActionBarSherlockCompat;
+import org.mapsforge.core.Tag;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.LabeledIntent;
 import android.content.res.Resources;
-import android.database.DataSetObserver;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -33,32 +26,36 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
-import android.widget.SpinnerAdapter;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
-import android.widget.RelativeLayout.LayoutParams;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.ActionMode.Callback;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.actionbar.ModeDropdownAdapter;
+import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
@@ -109,13 +106,19 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	private SensorManager sensorManager;
 	private Sensor sensor;
 	private SensorEventListener sensorListener = new SensorEventListener() {
+		float lastOrientation = -9999;
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			map.setOrientation(event.values[0]);
-			map.invalidate(); // Note: This causes large amounts of CPU load
+			float orientation = event.values[0];
+			map.setOrientation(orientation);
+			// Repaint map only if orientation changed by at least 1 degree since last repaint
+			if (Math.abs(orientation - lastOrientation) > 1) {
+				lastOrientation = orientation;
+				map.invalidate();
+			}
 		}
 	};
 
@@ -130,7 +133,15 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	private Preferences prefs;
 
+	/**
+	 * Adapter providing items for the mode selection dropdown in the ActionBar
+	 */
 	private ModeDropdownAdapter modeDropdown;
+
+	/**
+	 * The manager for the EasyEdit mode
+	 */
+	private EasyEditManager easyEditManager;
 
 	/**
 	 * The logic that manipulates the model. (non-UI)<br/>
@@ -157,10 +168,9 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 				sensorManager = null;
 			}
 		}
-		//TODO ACTIONBAR getWindow().requestFeature(Window.FEATURE_LEFT_ICON);
+
 		getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-		//TODO ACTIONBAR getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
 
 		RelativeLayout rl = new RelativeLayout(getApplicationContext());
 		if (map != null) {
@@ -210,6 +220,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		} else {
 			logic.setMap(map);
 		}
+		
+		easyEditManager = new EasyEditManager(this, logic);
 		
 		showActionBar();
 	}
@@ -261,7 +273,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		TagValueAutocompletionAdapter.fillCache(this);
 		TagKeyAutocompletionAdapter.fillCache(this);
 		
-		// TODO update pref (showing osmbug)
+		// TODO JS update pref (showing osmbug)
 	}
 
 	private void showActionBar() {
@@ -649,7 +661,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 * 
 	 * @author mb
 	 */
-	private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
+	// TODO js make private again?
+	public class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
 		private AppendMode appendMode;
 
@@ -707,6 +720,9 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 				case MODE_APPEND:
 					performAppend(v, x, y);
 					break;
+				case MODE_EASYEDIT:
+					easyEditManager.handleEasyEditClick(v,x,y, this);
+					break;
 				}
 				map.invalidate();
 			} else {
@@ -721,6 +737,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 						case MODE_ERASE:
 						case MODE_SPLIT:
 						case MODE_TAG_EDIT:
+						case MODE_EASYEDIT:
 							res = R.string.toast_not_in_edit_range;
 							break;
 						case MODE_OPENSTREETBUG:
@@ -748,8 +765,15 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		
 		@Override
 		public boolean onLongClick(View v, float x, float y) {
-			Toast.makeText(Main.this, "longclick " + x + "," + y, Toast.LENGTH_SHORT).show();
-			return true;
+			if (logic.getMode() != Mode.MODE_EASYEDIT) {
+				return false; // ignore long clicks
+			}
+			
+			if (logic.isInEditZoomRange()) {
+				return easyEditManager.handleEasyEditLongClick(v,x,y);
+			}
+			
+			return true; // long click handled
 		}
 
 		@Override
@@ -859,7 +883,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		/**
 		 * @param selectedElement
 		 */
-		private void performTagEdit(final OsmElement selectedElement) {
+		public void performTagEdit(final OsmElement selectedElement) {
 			if (selectedElement instanceof Node) {
 				logic.setSelectedNode((Node) selectedElement);
 			} else if (selectedElement instanceof Way) {
@@ -894,7 +918,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			logic.setSelectedBug(bug);
 			showDialog(DialogFactory.OPENSTREETBUG_EDIT);
 		}
-
+		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
 			int id = 0;
@@ -941,6 +965,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 							break;
 						}
 						break;
+					case MODE_EASYEDIT:
+							easyEditManager.handleEasyEditNodeClick((Node)element, this);
 					}
 				}
 			}
@@ -1036,5 +1062,12 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			retval.append(change).append('\n');
 		}
 		return retval.toString();
+	}
+	
+	/**
+	 * Invalidates (redraws) the map
+	 */
+	public void invalidateMap() {
+		map.invalidate();
 	}
 }

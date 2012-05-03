@@ -60,6 +60,7 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		if (showOpenStreetBug) {
 			addItem(Logic.Mode.MODE_OPENSTREETBUG, R.string.menu_openstreetbug, R.drawable.menu_openstreetbug);
 		}
+		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
 	}
 	
 

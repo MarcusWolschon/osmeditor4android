@@ -17,7 +17,6 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmServerException;
@@ -87,7 +86,11 @@ public class Logic {
 		/**
 		 * file bug in OpenStreetBugs by tapping the screen
 		 */
-		MODE_OPENSTREETBUG
+		MODE_OPENSTREETBUG,
+		/**
+		 * easy editing mode supporting multiple operations and menu-based tagging
+		 */
+		MODE_EASYEDIT
 	}
 
 	/**
@@ -144,6 +147,7 @@ public class Logic {
 	 */
 	private Preferences prefs;
 
+
 	/**
 	 * The user-selected node.
 	 */
@@ -158,6 +162,12 @@ public class Logic {
 	 * The user-selected bug.
 	 */
 	private Bug selectedBug;
+
+	/**
+	 * Are we currently dragging a node?
+	 * Set by {@link #handleTouchEventDown(float, float)}
+	 */
+	private boolean draggingNode = false;
 
 	/**
 	 * Current mode.
@@ -481,8 +491,8 @@ public class Logic {
 
 	/**
 	 * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
-	 * user is in edit-mode a touched node will bet set to selected. A eventual movement of this node will be done in
-	 * {@link #handleTouchEventMove(float, float, float, float, boolean)}.
+	 * user is in edit-mode a touched node will bet set to selected. draggingNode will be set if a node is to be moved.
+	 * A eventual movement of this node will be done in {@link #handleTouchEventMove(float, float, float, float, boolean)}.
 	 * 
 	 * @param x display-coord.
 	 * @param y display-coord.
@@ -492,13 +502,19 @@ public class Logic {
 			// TODO Need to handle multiple possible targets here too (Issue #6)
 			setSelectedNode(getClickedNode(x, y));
 			map.invalidate();
+			draggingNode = (selectedNode != null);
+		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
+			draggingNode = (selectedNode != null && getClickedNodes(x, y).contains(selectedNode));
+		} else {
+			draggingNode = false;
 		}
 	}
 
 	/**
-	 * Handles a finger-movement on the touchscreen. Moves a node when it's in Edit-Zoom-Range, a node was previously
-	 * selected and the user is in edit-mode. Otherwise the movement will be interpreted as map-translation. Map will be
-	 * repainted.
+	 * Handles a finger-movement on the touchscreen.
+	 * Moves a node when draggingNode was set by {@link #handleTouchEventDown(float, float)}.
+	 * Otherwise the movement will be interpreted as map-translation.
+	 * Map will be repainted.
 	 * 
 	 * @param absoluteX The absolute display-coordinate.
 	 * @param absoluteY The absolute display-coordinate.
@@ -506,7 +522,7 @@ public class Logic {
 	 * @param relativeY The difference to the last absolute display-coordinate.
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-		if (mode == Mode.MODE_EDIT && selectedNode != null && isInEditZoomRange()) {
+		if (draggingNode) {
 			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
 			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
 			delegator.updateLatLon(selectedNode, lat, lon);
