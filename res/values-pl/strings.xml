@@ -83,9 +83,9 @@
 	<string name="location_nan_message">Wprowadź współrzędne w formacie dziesiętnym (np. "52.333572","22.741185"). </string>
 	
 	<!-- Menu -->
-	<string name="menu_move">Move</string>
-	<string name="menu_edit">Edit</string>
-	<string name="menu_add">New</string>
+	<string name="menu_move">Przesuń</string>
+	<string name="menu_edit">Edytuj</string>
+	<string name="menu_add">Nowy</string>
 	<string name="menu_config">Ustawienia</string>
 	<string name="menu_erase">Skasuj węzeł</string>
 	<string name="menu_split">Podziel drogę</string>
@@ -105,8 +105,8 @@
 	
 	<!-- Preferences -->
 	<string name="config_category_view">Ustawienia</string>
-	<string name="config_maxStrokeWidth_title">max stroke width</string>
-	<string name="config_maxStrokeWidth_summary">do not draw a way thicker then this</string>
+	<string name="config_maxStrokeWidth_title">max szerokość</string>
+	<string name="config_maxStrokeWidth_summary">nie rysuj linii grybszej niż</string>
 	<string name="config_showStats_title">Pokaż statystyki</string>
 	<string name="config_showStats_summary">Wyświetla szybkość obrazu w ramkach/sek. w dolnym lewym rogu.</string>
 	<string name="config_showTolerance_title">Pokaż tolerancję</string>
