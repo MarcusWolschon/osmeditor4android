@@ -45,7 +45,15 @@
 		/> -->
 	</PreferenceCategory>
 	
-	<PreferenceCategory android:title="@string/config_category_server">
+	<PreferenceCategory 
+		android:title="@string/config_category_server"
+		android:key="@string/config_category_server_key"
+	>
+		<Preference
+			android:key="@string/config_apiurl_key"
+			android:title="@string/config_apiurl_title"
+			android:summary="@string/config_apiurl_summary"
+		/>
 		<EditTextPreference
 			android:key="@string/config_username_key"
 			android:title="@string/config_username_title"
@@ -62,7 +70,6 @@
 			android:password="true"
 		/>
 	</PreferenceCategory>
-	
 	<PreferenceCategory android:title="@string/config_category_gps">
 		<EditTextPreference
 			android:key="@string/config_gps_interval_key"

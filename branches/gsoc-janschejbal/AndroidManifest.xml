@@ -41,5 +41,6 @@
 				<action android:name="de.blau.android.services.IOpenStreetMapTileProviderService"></action>
 			</intent-filter>
 		</service>
+		<activity android:name=".prefs.ListEditActivity"></activity>
 	</application>
 </manifest> 
