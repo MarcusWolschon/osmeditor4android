@@ -10,6 +10,7 @@ import android.util.Log;
 import de.blau.android.exception.FollowGpsException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Track;
+import de.blau.android.prefs.Preferences;
 
 /**
  * GPS-Tracker. Holds a {@link Track} and manages it.

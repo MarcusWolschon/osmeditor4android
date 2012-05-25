@@ -65,6 +65,8 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.PrefEditor;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;

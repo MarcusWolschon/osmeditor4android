@@ -22,6 +22,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;

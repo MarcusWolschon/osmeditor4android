@@ -29,6 +29,7 @@ import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
 

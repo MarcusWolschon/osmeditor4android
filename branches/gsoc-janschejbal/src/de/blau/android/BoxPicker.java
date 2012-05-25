@@ -29,6 +29,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ErrorMailer;
 import de.blau.android.util.GeoMath;
 

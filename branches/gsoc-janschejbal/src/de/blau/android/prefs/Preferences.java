@@ -1,4 +1,4 @@
-package de.blau.android;
+package de.blau.android.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,8 +6,9 @@ import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import de.blau.android.R;
+import de.blau.android.R.string;
 import de.blau.android.osm.Server;
-import de.blau.android.prefs.AdvancedPrefDatabase;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
