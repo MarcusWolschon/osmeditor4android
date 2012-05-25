@@ -54,20 +54,12 @@
 			android:key="@string/config_apibutton_key"
 			android:summary="@string/config_apibutton_summary"
 		/>
-		<EditTextPreference
-			android:key="@string/config_username_key"
-			android:title="@string/config_username_title"
+		<de.blau.android.prefs.LoginDataPreference
+			android:key="@string/config_loginbutton_key"
+			android:title="@string/config_loginbutton_title"
 			android:summary="@string/config_username_summary"
-			android:dialogTitle="@string/config_username_title"
+			android:dialogTitle="@string/config_loginbutton_title"
 			android:singleLine="true"
-		/>
-		<EditTextPreference
-			android:key="@string/config_password_key"
-			android:title="@string/config_password_title"
-			android:summary="@string/config_password_summary"
-			android:dialogTitle="@string/config_password_title"
-			android:singleLine="true"
-			android:password="true"
 		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_gps">

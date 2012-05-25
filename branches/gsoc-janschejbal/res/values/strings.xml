@@ -127,6 +127,7 @@
 	<string name="config_category_server">Server Settings</string>
 	<string name="config_apibutton_title">OSM API URL</string>
 	<string name="config_apibutton_summary">You can set a non-standard API URL here. Usually should not be changed!</string>
+	<string name="config_loginbutton_title">OSM user account</string>
 	<string name="config_username_title">OSM Username</string>
 	<string name="config_username_summary">Needed for uploading OSM-Data. If you do not have any yet, get one at http://www.openstreetmap.org/user/new</string>
 	<string name="config_password_title">OSM Password</string>
@@ -151,7 +152,7 @@
 	<string name="config_gps_interval_key">interval</string>
 	
 	<string name="config_apibutton_key">apisettings-button</string>
-	
+	<string name="config_loginbutton_key">loginsettings-button</string>
 	
 	<string name="config_selected_api">selectedAPI</string>
 	

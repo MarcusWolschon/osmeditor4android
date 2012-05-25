@@ -3,6 +3,7 @@ package de.blau.android.prefs;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -56,6 +57,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		addAPI(ID_DEFAULT, name, "", user, pass, ID_DEFAULT); // empty API URL => default API URL
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(ID_DEFAULT);
+		Log.d(LOGTAG, "Deleting old user/pass settings");
+		Editor editor = prefs.edit();
+		editor.remove(r.getString(R.string.config_username_key));
+		editor.remove(r.getString(R.string.config_password_key));
+		editor.apply();
 		Log.d(LOGTAG, "Migration finished");
 	}
 	

@@ -150,6 +150,11 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	protected static Logic logic;
 
 	/**
+	 * Flag indicating wheter the map will be re-downloaded once the activity starts
+	 */
+	private static boolean redownload;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -238,6 +243,11 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		super.onResume();
 		if (sensorManager != null) {
 			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+		}
+		
+		if (redownload) {
+			redownload = false;
+			logic.downloadLast();
 		}
 	}
 
@@ -1089,5 +1099,13 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	public static boolean hasChanges() {
 		if (logic == null) return false;
 		return logic.hasChanges();
+	}
+	
+	/**
+	 * Sets the activity to re-download the last downloaded area on startup
+	 * (use e.g. when the API URL is changed)
+	 */
+	public static void prepareRedownload() {
+		redownload = true;
 	}
 }

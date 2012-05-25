@@ -3,7 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" android:padding="10dp">
 
     <TextView
         android:id="@+id/listedit_labelName"
@@ -15,7 +15,6 @@
         android:id="@+id/listedit_editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:inputType="text">
-
         <requestFocus />
     </EditText>
 

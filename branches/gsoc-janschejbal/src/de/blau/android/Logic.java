@@ -854,6 +854,15 @@ public class Logic {
 	void downloadCurrent() {
 		downloadBox(viewBox);
 	}
+	
+	/**
+	 * Re-downloads the same area as last time
+	 * @see #downloadBox(Main, BoundingBox)
+	 */
+	void downloadLast() {
+		BoundingBox box = delegator.getOriginalBox();
+		if (box != null) downloadBox(box);
+	}
 
 	/**
 	 * Saves to a file in the background.

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.os.Bundle;
 
+import de.blau.android.Main;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 
 public class APIEditorActivity extends URLListEditActivity {
@@ -31,6 +32,7 @@ public class APIEditorActivity extends URLListEditActivity {
 	@Override
 	protected void onItemClicked(ListEditItem item) {
 		db.selectAPI(item.id);
+		Main.prepareRedownload();
 		finish();
 	}
 
