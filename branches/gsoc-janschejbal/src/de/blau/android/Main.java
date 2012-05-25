@@ -263,7 +263,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		super.onStart();
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		Resources r = getResources();
-		prefs = new Preferences(sharedPrefs, r);
+		prefs = new Preferences(this);
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
@@ -637,7 +637,12 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 * Starts the LocationPicker activity for requesting a location.
 	 */
 	public void gotoBoxPicker() {
-		startActivityForResult(new Intent(getApplicationContext(), BoxPicker.class), REQUEST_BOUNDINGBOX);
+		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
+		if (logic.hasChanges()) {
+			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDINGBOX).show();
+		} else {
+			startActivityForResult(intent, REQUEST_BOUNDINGBOX);
+		}
 	}
 
 	public List<Exception> getExceptions() {
@@ -1079,5 +1084,10 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	
 	public void triggerMapContextMenu() {
 		map.showContextMenu();
+	}
+	
+	public static boolean hasChanges() {
+		if (logic == null) return false;
+		return logic.hasChanges();
 	}
 }

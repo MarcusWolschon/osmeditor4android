@@ -158,7 +158,7 @@ public class BoxPicker extends Activity implements LocationListener {
 	 * providers.
 	 */
 	private Location registerLocationListener() {
-		Preferences prefs = new Preferences(PreferenceManager.getDefaultSharedPreferences(this), getResources());
+		Preferences prefs = new Preferences(this);
 		locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		List<String> providers = locationManager.getProviders(true);
 		Location bestLocation = null;

@@ -33,6 +33,12 @@
 	<string name="openstreetbug_commit_ok">Changes saved</string>
 	<string name="openstreetbug_commit_fail">Could not save changes</string>
 
+	<string name="unsaved_data_title">Caution!</string>
+	<string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
+	<string name="unsaved_data_proceed">Discard &amp; proceed</string>
+	<string name="unsaved_data_cancel">Cancel</string>
+
+
 	<!-- Toaster -->
 	<string name="toast_no_changes">You have not changed anything yet…</string>
 	<string name="toast_upload_success">Upload to OSM server finished.</string>
@@ -119,8 +125,8 @@
 	<string name="config_backgroundLayer_title">Map background</string>
 	<string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
 	<string name="config_category_server">Server Settings</string>
-	<string name="config_apiurl_title">OSM API URL</string>
-	<string name="config_apiurl_summary">You can set a custom API URL here. Usually should not be changed</string>
+	<string name="config_apibutton_title">OSM API URL</string>
+	<string name="config_apibutton_summary">You can set a non-standard API URL here. Usually should not be changed!</string>
 	<string name="config_username_title">OSM Username</string>
 	<string name="config_username_summary">Needed for uploading OSM-Data. If you do not have any yet, get one at http://www.openstreetmap.org/user/new</string>
 	<string name="config_password_title">OSM Password</string>
@@ -139,11 +145,15 @@
 	<string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
 	<string name="config_backgroundLayer_key">backgroundLayer</string>
 	<string name="config_category_server_key">category_server</string>
-	<string name="config_apiurl_key">apiurl</string>
 	<string name="config_username_key">username</string>
 	<string name="config_password_key">password</string>
 	<string name="config_gps_distance_key">distance</string>
 	<string name="config_gps_interval_key">interval</string>
+	
+	<string name="config_apibutton_key">apisettings-button</string>
+	
+	
+	<string name="config_selected_api">selectedAPI</string>
 	
 	<!--  changes -->
 	<string name="changes_deleted">"%1$s" deleted</string>
@@ -151,4 +161,13 @@
 	<string name="changes_created">"%1$s" created</string>
 	<string name="confirm_upload_title">Upload?</string>
 	<string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
+
+	<!--  common terms  -->
+	<string name="add">Add</string>
+	<string name="edit">Edit</string>
+	<string name="delete">Delete</string>
+	<string name="name">Name</string>
+	<string name="url">URL</string>
+	<string name="default_">Default</string><!-- "default" is a reserved Java keyword... -->
+	
 </resources>

@@ -31,15 +31,16 @@ import de.blau.android.util.Base64;
  */
 public class Server {
 
-	/**
-	 * Location of OSM API
-	 */
-	private static final String SERVER_URL = "http://api.openstreetmap.org";
 
 	/**
 	 * Timeout for connections in milliseconds.
 	 */
 	private static final int TIMEOUT = 45 * 1000;
+	
+	/**
+	 * Location of OSM API
+	 */
+	private final String serverURL;
 
 	/**
 	 * username for write-access on the server.
@@ -59,14 +60,9 @@ public class Server {
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
 	 */
-	private final String version = "0.6";
+	private static final String version = "0.6";
 
 	private final String osmChangeVersion = "0.3";
-
-	/**
-	 * Path to api with trailing slash.
-	 */
-	private final String path = "/api/" + version + "/";
 
 //	/**
 //	 * Tag with "created_by"-key to identify edits made by this editor.
@@ -80,14 +76,26 @@ public class Server {
 
 	private final XmlPullParserFactory xmlParserFactory;
 
+	
+	
+	@Deprecated
+	public Server(final String username, final String password, final String generator) {
+		this("", username, password, generator);
+	}
+	
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
-	 * 
+	 * @param apiurl The OSM API URL to use (e.g. "http://api.openstreetmap.org/api/0.6/").
 	 * @param username
 	 * @param password
 	 * @param generator the name of the editor.
 	 */
-	public Server(final String username, final String password, final String generator) {
+	public Server(final String apiurl, final String username, final String password, final String generator) {
+		if (apiurl != null && !apiurl.isEmpty()) {
+			this.serverURL = apiurl;
+		} else {
+			this.serverURL = "http://api.openstreetmap.org/api/"+version+"/";
+		}
 		this.password = password;
 		this.username = username;
 		this.generator = generator;
@@ -149,7 +157,7 @@ public class Server {
 	 * @throws OsmServerException
 	 */
 	public InputStream getStreamForBox(final BoundingBox box) throws OsmServerException, IOException {
-		URL url = new URL(SERVER_URL + path + "map?bbox=" + box.toApiString());
+		URL url = new URL(serverURL  + "map?bbox=" + box.toApiString());
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		boolean isServerGzipEnabled = false;
 
@@ -442,28 +450,28 @@ public class Server {
 	}
 
 	private URL getCreationUrl(final OsmElement elem) throws MalformedURLException {
-		return new URL(SERVER_URL + path + elem.getName() + "/create");
+		return new URL(serverURL  + elem.getName() + "/create");
 	}
 
 	private URL getCreateChangesetUrl() throws MalformedURLException {
-		return new URL(SERVER_URL + path + "changeset/create");
+		return new URL(serverURL  + "changeset/create");
 	}
 
 	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/close");
+		return new URL(serverURL  + "changeset/" + changesetId + "/close");
 	}
 
 	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
-		return new URL(SERVER_URL + path + elem.getName() + "/" + elem.getOsmId());
+		return new URL(serverURL  + elem.getName() + "/" + elem.getOsmId());
 	}
 
 	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
 		//return getUpdateUrl(elem);
-		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/upload");
+		return new URL(serverURL  + "changeset/" + changesetId + "/upload");
 	}
 	
 	private URL getUserDetailsUrl() throws MalformedURLException {
-		return new URL(SERVER_URL + path + "user/details");
+		return new URL(serverURL  + "user/details");
 	}
 
 	public XmlSerializer getXmlSerializer() {

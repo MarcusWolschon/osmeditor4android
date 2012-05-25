@@ -50,9 +50,9 @@
 		android:key="@string/config_category_server_key"
 	>
 		<Preference
-			android:key="@string/config_apiurl_key"
-			android:title="@string/config_apiurl_title"
-			android:summary="@string/config_apiurl_summary"
+			android:title="@string/config_apibutton_title"
+			android:key="@string/config_apibutton_key"
+			android:summary="@string/config_apibutton_summary"
 		/>
 		<EditTextPreference
 			android:key="@string/config_username_key"

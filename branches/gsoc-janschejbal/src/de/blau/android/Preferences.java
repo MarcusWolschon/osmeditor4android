@@ -1,10 +1,13 @@
 package de.blau.android;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import de.blau.android.osm.Server;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
@@ -12,6 +15,8 @@ import de.blau.android.osm.Server;
  * @author mb
  */
 public class Preferences {
+	
+	private final AdvancedPrefDatabase advancedPrefs;
 	
 	private final boolean isStatsVisible;
 	
@@ -22,12 +27,6 @@ public class Preferences {
 	private final boolean isOpenStreetBugsEnabled;
 	
 	private final String backgroundLayer;
-	
-	/**
-	 * Credentials (username and password) for the
-	 * OpenStreetMap API(0.6)-Server
-	 */
-	private final Server server;
 	
 	private int gpsInterval;
 	
@@ -41,8 +40,11 @@ public class Preferences {
 	 * @throws IllegalArgumentException
 	 * @throws NotFoundException
 	 */
-	public Preferences(final SharedPreferences prefs, final Resources r) throws IllegalArgumentException,
-			NotFoundException {
+	public Preferences(Context ctx) throws IllegalArgumentException, NotFoundException {
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		final Resources r = ctx.getResources();
+		advancedPrefs = new AdvancedPrefDatabase(ctx);
+		
 		try {
 			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
 		} catch (NumberFormatException e) {
@@ -54,8 +56,6 @@ public class Preferences {
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
-		String username = prefs.getString(r.getString(R.string.config_username_key), null);
-		String password = prefs.getString(r.getString(R.string.config_password_key), null);
 		try {
 			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "5.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
@@ -64,8 +64,6 @@ public class Preferences {
 			gpsDistance = 5.0f;
 			gpsInterval = 1000;
 		}
-		server = new Server(username, password, r.getString(R.string.app_name) + " "
-				+ r.getString(R.string.app_version));
 	}
 	
 	/**
@@ -113,7 +111,7 @@ public class Preferences {
 	 * @return
 	 */
 	public Server getServer() {
-		return server;
+		return advancedPrefs.getServerObject();
 	}
 	
 	/**
