@@ -2,8 +2,13 @@ package de.blau.android.easyedit;
 
 import java.util.List;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.HapticFeedbackConstants;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 
@@ -19,8 +24,11 @@ import de.blau.android.easyedit.EasyEditMenu.ContextMenuAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetDialog;
 
-public class EasyEditManager implements Callback {
+public class EasyEditManager implements Callback, OnDismissListener {
 
 	private final Main main;
 	private final Logic logic;
@@ -30,10 +38,14 @@ public class EasyEditManager implements Callback {
 	
 	private EasyEditMenu contextMenu;
 	
+	private Preset preset;
+	private PresetDialog presetDialog;
+	
 	public EasyEditManager(Main main, Logic logic, MapTouchListener mapTouchListener) {
 		this.main = main;
 		this.logic = logic;
 		this.touchlistener = mapTouchListener;
+		preset = new Preset(main);
 	}
 	
 	/**
@@ -74,6 +86,7 @@ public class EasyEditManager implements Callback {
 			return false;
 		}
 
+		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 		pathStart(x,y);
 	
 		return true;
@@ -95,9 +108,9 @@ public class EasyEditManager implements Callback {
 		List<Way> ways = logic.getWaysForNode(node);
 
 		contextMenu = new EasyEditMenu(this);
-		contextMenu.add(node, ContextMenuAction.TAG_EDIT, "Edit node");
+		contextMenu.add(node, ContextMenuAction.TAG_EDIT, "Edit node"); // TODO RES
 		contextMenu.add(ways, ContextMenuAction.TAG_EDIT);
-		contextMenu.add(node, ContextMenuAction.DELETE_NODE, "Delete node");
+		contextMenu.add(node, ContextMenuAction.DELETE_NODE, "Delete node");// TODO RES
 		contextMenu.trigger();
 	}
 
@@ -122,12 +135,29 @@ public class EasyEditManager implements Callback {
 	}
 
 	private void pathCreateNode(float x, float y) {
+		Node lastSelectedNode = logic.getSelectedNode();
+		Way lastSelectedWay = logic.getSelectedWay();
 		logic.performAdd(x, y);
 		if (logic.getSelectedNode() == null) {
 			// user clicked last node again -> finish adding
 			pathActionMode.finish();
+			if (lastSelectedWay == null) {
+				// Single node was added
+				if (lastSelectedNode != null) { // null-check to be sure
+					tagElement(lastSelectedNode);
+				}
+			} else { // way was added
+				// TODO handle extension of ways once implemented
+				tagElement(lastSelectedWay);
+			}
 		}
 		main.invalidateMap();
+	}
+
+	private void tagElement(OsmElement element) {
+		presetDialog = new PresetDialog(main, preset, element);
+		presetDialog.setOnDismissListener(this);
+		presetDialog.show();
 	}
 
 	@Override
@@ -166,6 +196,19 @@ public class EasyEditManager implements Callback {
 	
 	public void triggerMapContextMenu() {
 		main.triggerMapContextMenu();
+	}
+
+	/**
+	 * Handles the result from the preset dialog
+	 * @param dialog
+	 */
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		PresetItem result = presetDialog.getDialogResult();
+		OsmElement element = presetDialog.getElement();
+		if (result != null && element != null) {
+			logic.insertTags(element.getName(), element.getOsmId(), result.getTags()); // TODO replace getName to use enum
+		}
 	}
 	
 

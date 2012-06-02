@@ -261,4 +261,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		}
 		return cachedHasProblem;
 	}
+	
+	
+	public abstract ElementType getType();
+	
+	public enum ElementType {
+		NODE,
+		WAY,
+		CLOSEDWAY
+	}
 }

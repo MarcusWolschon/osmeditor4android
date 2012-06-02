@@ -15,7 +15,7 @@ public class Way extends OsmElement {
 	 */
 	private static final long serialVersionUID = 1104911642016294265L;
 
-	private final List<Node> nodes;
+	private final ArrayList<Node> nodes;
 
 	public static final String NAME = "way";
 
@@ -131,5 +131,19 @@ public class Way extends OsmElement {
 			}
 		}
 		return super.calcProblem();
+	}
+
+	@Override
+	public ElementType getType() {
+		if (nodes.size()<2) return ElementType.WAY; // should not happen
+		
+		Node firstNode = nodes.get(0);
+		Node lastNode = nodes.get(nodes.size()-1);
+		
+		if (firstNode.equals(lastNode)) {
+			return ElementType.CLOSEDWAY;
+		} else {
+			return ElementType.WAY;
+		}
 	}
 }

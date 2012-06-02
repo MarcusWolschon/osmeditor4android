@@ -90,4 +90,9 @@ public class Node extends OsmElement {
 		tagsToXml(s);
 		s.endTag("", "node");
 	}
+
+	@Override
+	public ElementType getType() {
+		return ElementType.NODE;
+	}
 }

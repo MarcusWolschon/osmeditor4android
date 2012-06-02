@@ -369,7 +369,7 @@ public class Logic {
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	boolean insertTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
+	public boolean insertTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
 		OsmElement osmElement = delegator.getOsmElement(type, osmId);
 
 		if (osmElement == null) {
