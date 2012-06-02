@@ -94,7 +94,15 @@ public abstract class VersionedGestureDetector {
 					mLastTouchX = x;
 					mLastTouchY = y;
 					
-					if (hasDragged || hasScaled) stopLongPress();
+					if (hasDragged || hasScaled) {
+						stopLongPress();
+					} else {
+						// Update long press position
+						if (longPressTrigger != null) {
+							longPressTrigger.x = x;
+							longPressTrigger.y = y;
+						}
+					}
 				}
 				break;
 			case MotionEvent.ACTION_UP:
@@ -119,7 +127,7 @@ public abstract class VersionedGestureDetector {
 		 */
 		private void startLongPress(View v, MotionEvent ev) {
 			stopLongPress();
-			longPressTrigger = new LongPressTrigger(v, ev);
+			longPressTrigger = new LongPressTrigger(v, getActiveX(ev), getActiveY(ev));
 			Handler h = new Handler();
 			h.postDelayed(longPressTrigger, LONG_PRESS_DELAY);
 		}
@@ -146,18 +154,20 @@ public abstract class VersionedGestureDetector {
 		 */
 		private class LongPressTrigger implements Runnable {
 			private View v;
-			private MotionEvent ev;
+			private float x;
+			private float y;
 			private boolean canceled = false;
 			
-			LongPressTrigger(View v, MotionEvent ev) {
+			LongPressTrigger(View v, float x, float y) {
 				this.v = v;
-				this.ev = ev;
+				this.x = x;
+				this.y = y;
 			}
 
 			@Override
 			public void run() {
 				if (this.canceled) return;
-				if (mListener.onLongClick(v, ev.getX(), ev.getY())) {
+				if (mListener.onLongClick(v, x, y)) {
 					CupcakeDetector.this.hasLongPressed = true;
 				}
 			}

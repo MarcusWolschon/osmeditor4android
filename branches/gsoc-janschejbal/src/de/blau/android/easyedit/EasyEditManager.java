@@ -73,14 +73,13 @@ public class EasyEditManager implements Callback {
 			// we don't do long clicks while creating paths
 			return false;
 		}
-		// TODO JS menu based creation
-		
-		// for now:
-		pathStart();
-		pathCreateNode(x,y);
-		
+
+		pathStart(x,y);
+	
 		return true;
 	}
+	
+
 	
 	/*package*/ void handleNodeClick(Node node) {
 	
@@ -114,11 +113,12 @@ public class EasyEditManager implements Callback {
 		logic.performErase(node);
 	}
 
-	private void pathStart() {
+	private void pathStart(float x, float y) {
 		pathActionMode = main.startActionMode(this);
 		pathActionMode.setTitle("Creating path"); // TODO resource
 		logic.setSelectedWay(null);
 		logic.setSelectedNode(null);
+		pathCreateNode(x, y);
 	}
 
 	private void pathCreateNode(float x, float y) {
