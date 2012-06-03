@@ -141,17 +141,29 @@ public class EasyEditManager implements Callback, OnDismissListener {
 		if (logic.getSelectedNode() == null) {
 			// user clicked last node again -> finish adding
 			pathActionMode.finish();
-			if (lastSelectedWay == null) {
-				// Single node was added
-				if (lastSelectedNode != null) { // null-check to be sure
-					tagElement(lastSelectedNode);
-				}
-			} else { // way was added
-				// TODO handle extension of ways once implemented
-				tagElement(lastSelectedWay);
-			}
+			tagApplicable(lastSelectedNode, lastSelectedWay);
 		}
 		main.invalidateMap();
+	}
+
+	/**
+	 * Takes a parameter for a node and one for a way.
+	 * If the way is not null, calls a tagging dialog (using {@link #tagElement(OsmElement)}) for the way.
+	 * Otherwise, a tagging dialog for the node is called
+	 * (unless the node is also null, then nothing happens).
+	 * @param possibleNode a node that was edited, or null
+	 * @param possibleWay a way that was edited, or null
+	 */
+	private void tagApplicable(Node possibleNode, Way possibleWay) {
+		if (possibleWay == null) {
+			// Single node was added
+			if (possibleNode != null) { // null-check to be sure
+				tagElement(possibleNode);
+			}
+		} else { // way was added
+			// TODO handle extension of ways once implemented
+			tagElement(possibleWay);
+		}
 	}
 
 	private void tagElement(OsmElement element) {
@@ -183,8 +195,11 @@ public class EasyEditManager implements Callback, OnDismissListener {
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
 		pathActionMode = null;
+		Node lastSelectedNode = logic.getSelectedNode();
+		Way lastSelectedWay = logic.getSelectedWay();
 		logic.setSelectedWay(null);
 		logic.setSelectedNode(null);
+		tagApplicable(lastSelectedNode, lastSelectedWay);
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {

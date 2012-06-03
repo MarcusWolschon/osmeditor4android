@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
+<view class="de.blau.android.TagEditor$TagEditRow" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    
+    <ImageView
+        android:id="@+id/iconDelete"
+        android:src="@drawable/delete_x_black"
+        android:contentDescription="@string/delete"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        />
+    
+    <TextView
+        android:id="@+id/labelKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/key"
+        android:textColor="@android:color/black"
+        />
+    
+    <AutoCompleteTextView 
+        android:id="@+id/editKey"
+        android:singleLine="true"
+        android:inputType="textNoSuggestions"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+    
+    <TextView
+        android:id="@+id/labelValue"
+        android:text="@string/value"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+         />
+    
+    <AutoCompleteTextView 
+        android:id="@+id/editValue"
+        android:singleLine="true"
+        android:inputType="textNoSuggestions"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />    
+</view>

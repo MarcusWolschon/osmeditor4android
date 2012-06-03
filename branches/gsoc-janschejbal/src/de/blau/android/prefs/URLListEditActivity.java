@@ -287,7 +287,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			TwoLineListItem v;
-			if (convertView != null && TwoLineListItem.class.isInstance(convertView.getClass())) {
+			if (convertView instanceof TwoLineListItem) {
 				v = (TwoLineListItem)convertView;
 			} else {
 				v = (TwoLineListItem)View.inflate(ctx, android.R.layout.simple_list_item_2, null);

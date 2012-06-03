@@ -17,6 +17,7 @@ import org.xml.sax.HandlerBase;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -190,7 +191,7 @@ public class Preset {
 		 * Can (and should) be used when implementing {@link #getView(PresetClickHandler)}.
 		 * @return the view
 		 */
-		private final View getBaseView() {
+		private final TextView getBaseView() {
 			TextView v = (TextView)View.inflate(context, android.R.layout.simple_list_item_1, null);
 			v.setText(this.getName());
 			v.setCompoundDrawables(this.getIcon(), null, null, null);
@@ -278,8 +279,9 @@ public class Preset {
 		
 		@Override
 		public View getView(final PresetClickHandler handler) {
-			View v = super.getBaseView();
+			TextView v = super.getBaseView();
 			v.setBackgroundColor(android.R.color.darker_gray);
+			v.setTypeface(null,Typeface.BOLD);
 			if (handler != null) {
 				v.setOnClickListener(new OnClickListener() {
 					@Override
@@ -378,8 +380,8 @@ public class Preset {
 			for (PresetElement e : content) {
 				if (e.appliesTo(type)) {
 					elements.add(e);
-				} else if (PresetSeparator.class.isInstance(e) && !elements.isEmpty() &&
-						!PresetSeparator.class.isInstance(elements.get(elements.size()-1))) {
+				} else if ((e instanceof PresetSeparator) && !elements.isEmpty() &&
+						!(elements.get(elements.size()-1) instanceof PresetSeparator)) {
 					// add separators iff there is a non-separator element above them
 					elements.add(e);
 				}
@@ -407,7 +409,7 @@ public class Preset {
 		
 		@Override
 		public boolean isEnabled(int position) {
-			return !PresetSeparator.class.isInstance(getItem(position));
+			return !(getItem(position) instanceof PresetSeparator);
 		}
 	}
 

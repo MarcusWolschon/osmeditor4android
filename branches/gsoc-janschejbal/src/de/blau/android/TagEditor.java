@@ -3,12 +3,13 @@ package de.blau.android;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -22,7 +23,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
@@ -42,33 +42,23 @@ public class TagEditor extends Activity {
 
 	private LinearLayout verticalLayout = null;
 
-	private static final LinearLayout.LayoutParams layoutParamValue = new LinearLayout.LayoutParams(
-			LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
-
 	/**
 	 * The tag we use for Android-logging.
 	 */
 //    @SuppressWarnings("unused")
 	private static final String DEBUG_TAG = TagEditor.class.getName();
 
-	/**
-	 * One of the input-elements for the user to enter a tag-key.
-	 */
-	private AutoCompleteTextView lastEditKey;
-
-	/**
-	 * One of the input-elements for the user to enter a tag-value.
-	 */
-	private EditText lastEditValue;
-
 	private long osmId;
 
 	private String type;
 
 	/**
-	 * Insert a new row of key+value -edit-widgets if some text is entered into the current one.
+	 * Handles "enter" key presses.
 	 */
 	private final OnKeyListener myKeyListener = new MyKeyListener();
+
+	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
+	private boolean loaded;
 
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
@@ -86,17 +76,29 @@ public class TagEditor extends Activity {
 		final int size = verticalLayout.getChildCount();
 		for (int i = 0; i < size; ++i) {
 			View view = verticalLayout.getChildAt(i);
-			if (view instanceof LinearLayout) {
-				LinearLayout row = (LinearLayout)view;
-				if (row.getChildCount() == 4) { // 2 labels, 2 EditText
-					View keyView = row.getChildAt(1);
-					View valueView = row.getChildAt(3);
-					if (keyView instanceof EditText && valueView instanceof EditText) {
-						handler.handleKeyValue((EditText)keyView, (EditText)valueView);
-					}
-				}
+			if (view instanceof TagEditRow) {
+				TagEditRow row = (TagEditRow)view;
+				handler.handleKeyValue(row.keyEdit, row.valueEdit);
 			}
 		}
+	}
+	
+	
+	/**
+	 * Ensures that at least one empty row exists
+	 */
+	private void ensureEmptyRow() {
+		if (!loaded) return;
+		final int size = verticalLayout.getChildCount();
+		for (int i = 0; i < size; ++i) {
+			View view = verticalLayout.getChildAt(i);
+			if (view instanceof TagEditRow) {
+				TagEditRow row = (TagEditRow)view;
+				if (row.isEmpty()) return;
+			}
+		}
+		// no empty rows found, make one
+		insertNewEdit("", "");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -114,7 +116,7 @@ public class TagEditor extends Activity {
 		setContentView(R.layout.tag_view);
 
 		verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
-
+		loaded = false;
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
 			osmId = getIntent().getLongExtra(OSM_ID, 0);
@@ -126,7 +128,9 @@ public class TagEditor extends Activity {
 			type = savedInstanceState.getString(TYPE);
 			extrasToEdits(savedInstanceState.getStringArrayList(TAGS));
 		}
-		insertNewEdits("", "");
+		
+		loaded = true;
+		ensureEmptyRow();
 
 		createSourceSurveyButton();
 		createOkButton();
@@ -205,7 +209,7 @@ public class TagEditor extends Activity {
 				});
 				if (!sourceSet[0]) {
 					// source wasn't set above - add a new pair
-					insertNewEdits(sourceKey, "survey");
+					insertNewEdit(sourceKey, "survey");
 				}
 			}
 		});
@@ -266,7 +270,7 @@ public class TagEditor extends Activity {
 	 */
 	protected void extrasToEdits(final ArrayList<String> tags) {
 		for (int i = 0, size = tags.size(); i < size; i += 2) {
-			insertNewEdits(tags.get(i), tags.get(i + 1));
+			insertNewEdit(tags.get(i), tags.get(i + 1));
 		}
 	}
 
@@ -287,102 +291,178 @@ public class TagEditor extends Activity {
 	 * @param aTagKey the key-value to start with
 	 * @param aTagValue the value to start with.
 	 */
-	protected void insertNewEdits(final String aTagKey, final String aTagValue) {
-		LinearLayout horizontalLayout = new LinearLayout(this);
-		TextView textKey = new TextView(this);
-		TextView textValue = new TextView(this);
+	protected void insertNewEdit(final String aTagKey, final String aTagValue) {
+		TagEditRow row = (TagEditRow)View.inflate(this, R.layout.tag_edit_row, null);
+		row.setValues(aTagKey, aTagValue);
+	}
+	
+	public static class TagEditRow extends LinearLayout {
 
-		textKey.setText(R.string.key);
-		textKey.setTextColor(Color.BLACK);
-		final AutoCompleteTextView keyEdit = new AutoCompleteTextView(this);
-		lastEditKey = keyEdit;
-		lastEditKey.setOnKeyListener(myKeyListener);
-		lastEditKey.setSingleLine(true);
-		ArrayAdapter<String> knownTagNamesAdapter;
-		try {
-			knownTagNamesAdapter = new TagKeyAutocompletionAdapter(this, android.R.layout.simple_dropdown_item_1line,
-					type);
-		} catch (Exception e) {
-			Log.e(DEBUG_TAG, "cannot create TagKeyAutocompletionAdapter", e);
-			knownTagNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,
-					getResources().getStringArray(R.array.known_tags));
+		private TagEditor owner;
+		private AutoCompleteTextView keyEdit;
+		private AutoCompleteTextView valueEdit;
+		
+		public TagEditRow(Context context) {
+			super(context);
+			owner = (TagEditor) context; // Can only be instantiated inside TagEditor
 		}
-		lastEditKey.setAdapter(knownTagNamesAdapter);
-//		lastEditKey.setThreshold(3); // give suggestions after 3 characters
-		lastEditKey.setInputType(0x00080001); //no suggestions. (Since: API Level 5)
-		horizontalLayout.addView(textKey);
-		horizontalLayout.addView(lastEditKey, layoutParamValue);
 
-		textValue.setText(R.string.value);
-		textValue.setTextColor(Color.BLACK);
-		final AutoCompleteTextView valueEdit = new AutoCompleteTextView(this);
-		lastEditValue = valueEdit;
-		lastEditValue.setOnKeyListener(myKeyListener);
-		lastEditValue.setSingleLine(true);
-		lastEditValue.setInputType(0x00080001); //no suggestions. (Since: API Level 5)
-		horizontalLayout.addView(textValue);
-		horizontalLayout.addView(lastEditValue, layoutParamValue);
+		public TagEditRow(Context context, AttributeSet attrs) {
+			super(context, attrs);
+			owner = (TagEditor) context; // Can only be instantiated inside TagEditor
+		}
 
-		// change auto-completion -values for the tag-value if the tag-key changes.
-		//TODO: if the rule is <combo only provide a list
-		lastEditKey.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(final CharSequence aS, final int aStart, final int aBefore, final int aCount) {
-				setAutocompletion();
+		public TagEditRow(Context context, AttributeSet attrs, int defStyle) {
+			super(context, attrs, defStyle);
+			owner = (TagEditor) context; // Can only be instantiated inside TagEditor
+		}
+		
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			
+			LinearLayout horizontalLayout = this;
+			
+			keyEdit = (AutoCompleteTextView)findViewById(R.id.editKey);
+			keyEdit.setOnKeyListener(owner.myKeyListener);
+			//lastEditKey.setSingleLine(true);
+			ArrayAdapter<String> knownTagNamesAdapter;
+			try {
+				knownTagNamesAdapter = new TagKeyAutocompletionAdapter(owner,
+						android.R.layout.simple_dropdown_item_1line, owner.type);
+			} catch (Exception e) {
+				Log.e(DEBUG_TAG, "cannot create TagKeyAutocompletionAdapter", e);
+				knownTagNamesAdapter = new ArrayAdapter<String>(owner, android.R.layout.simple_dropdown_item_1line,
+						getResources().getStringArray(R.array.known_tags));
 			}
+			keyEdit.setAdapter(knownTagNamesAdapter);
 
-			@Override
-			public void beforeTextChanged(final CharSequence aS, final int aStart, final int aCount, final int aAfter) {
-				setAutocompletion();
-			}
+			
+			valueEdit = (AutoCompleteTextView)findViewById(R.id.editValue);
+			valueEdit.setOnKeyListener(owner.myKeyListener);
 
-			@Override
-			public void afterTextChanged(final Editable aS) {
-				setAutocompletion();
-			}
+			// change auto-completion -values for the tag-value if the tag-key changes.
+			//TODO: if the rule is <combo only provide a list
+			keyEdit.addTextChangedListener(new TextWatcher() {
 
-			/**
-			 * add an adapter to valueEdit, that gives autocompletion-suggestions based on the value of
-			 * keyEdit.getText().toString().
-			 */
-			private void setAutocompletion() {
-				ArrayAdapter<String> knownTagValuesAdapter = null;
-				String tagKey = keyEdit.getText().toString();
-				try {
-					Bundle tags = getKeyValueFromEdits(false);
-					if ((Main.logic != null && Main.logic.delegator != null) &&
-							(tagKey.equalsIgnoreCase("addr:street") ||
-							(tagKey.equalsIgnoreCase("name") && bundleContainsTagKey(tags, "highway")))) {
-						knownTagValuesAdapter = new StreetTagValueAutocompletionAdapter(TagEditor.this,
-								android.R.layout.simple_dropdown_item_1line, Main.logic.delegator, type, osmId);
-						valueEdit.setThreshold(0);
-						valueEdit.setAdapter(knownTagValuesAdapter);
-						// auto-select the nearest street unless the user already entered sth.
-						if (valueEdit.getText().toString().length() == 0 && knownTagValuesAdapter.getCount() > 0) {
-							valueEdit.setText(knownTagValuesAdapter.getItem(0));
+				@Override
+				public void onTextChanged(final CharSequence aS, final int aStart, final int aBefore, final int aCount) {
+					setAutocompletion();
+				}
+
+				@Override
+				public void beforeTextChanged(final CharSequence aS, final int aStart, final int aCount, final int aAfter) {
+					setAutocompletion();
+				}
+
+				@Override
+				public void afterTextChanged(final Editable aS) {
+					setAutocompletion();
+				}
+
+				/**
+				 * add an adapter to valueEdit, that gives autocompletion-suggestions based on the value of
+				 * keyEdit.getText().toString().
+				 */
+				private void setAutocompletion() {
+					ArrayAdapter<String> knownTagValuesAdapter = null;
+					String tagKey = keyEdit.getText().toString();
+					try {
+						Bundle tags = owner.getKeyValueFromEdits(false);
+						if ((Main.logic != null && Main.logic.delegator != null) &&
+								(tagKey.equalsIgnoreCase("addr:street") ||
+								(tagKey.equalsIgnoreCase("name") && bundleContainsTagKey(tags, "highway")))) {
+							knownTagValuesAdapter = new StreetTagValueAutocompletionAdapter(owner,
+									android.R.layout.simple_dropdown_item_1line, Main.logic.delegator, owner.type, owner.osmId);
+							valueEdit.setThreshold(0);
+							valueEdit.setAdapter(knownTagValuesAdapter);
+							// auto-select the nearest street unless the user already entered sth.
+							if (valueEdit.getText().toString().length() == 0 && knownTagValuesAdapter.getCount() > 0) {
+								valueEdit.setText(knownTagValuesAdapter.getItem(0));
+							}
+							valueEdit.performCompletion();
+						} else {
+							knownTagValuesAdapter = new TagValueAutocompletionAdapter(owner,
+									android.R.layout.simple_dropdown_item_1line, tagKey);
+							valueEdit.setThreshold(1);
+							valueEdit.setAdapter(knownTagValuesAdapter);
 						}
-						valueEdit.performCompletion();
-					} else {
-						knownTagValuesAdapter = new TagValueAutocompletionAdapter(TagEditor.this,
-								android.R.layout.simple_dropdown_item_1line, tagKey);
-						valueEdit.setThreshold(1);
+					} catch (Exception e) {
+						Log.e(DEBUG_TAG, "cannot create TagValueAutocompletionAdapter forkey \"" + tagKey + "\"", e);
+						knownTagValuesAdapter = new ArrayAdapter<String>(owner,
+								android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(
+									R.array.known_tags));
 						valueEdit.setAdapter(knownTagValuesAdapter);
 					}
-				} catch (Exception e) {
-					Log.e(DEBUG_TAG, "cannot create TagValueAutocompletionAdapter forkey \"" + tagKey + "\"", e);
-					knownTagValuesAdapter = new ArrayAdapter<String>(TagEditor.this,
-							android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(
-								R.array.known_tags));
-					valueEdit.setAdapter(knownTagValuesAdapter);
 				}
+			});
+			
+			View deleteIcon = findViewById(R.id.iconDelete);
+			deleteIcon.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					deleteRow();
+				}
+			});
+
+			
+			TextWatcher emptyWatcher = new TextWatcher() {
+				private boolean wasEmpty;
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					// nop
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+					wasEmpty = isEmpty(); // TagEditorRow.isEmpty()
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					if (wasEmpty && s.length() > 0) {
+						owner.ensureEmptyRow();
+					}
+				}
+			};
+			keyEdit.addTextChangedListener(emptyWatcher);
+			valueEdit.addTextChangedListener(emptyWatcher);
+			
+			owner.verticalLayout.addView(horizontalLayout, owner.verticalLayout.getChildCount() - 1);
+		}
+		
+		/**
+		 * Sets key and value values
+		 * @param aTagKey the key value to set
+		 * @param aTagValue the value value to set
+		 * @return the TagEditRow object for convenience
+		 */
+		public TagEditRow setValues(String aTagKey, String aTagValue) {
+			keyEdit.setText(aTagKey);
+			valueEdit.setText(aTagValue);
+			return this;
+		}
+		
+		/**
+		 * Deletes this row
+		 */
+		public void deleteRow() {
+			owner.verticalLayout.removeView(this);
+			if (isEmpty()) {
+				owner.ensureEmptyRow();
 			}
-		});
+		}
+		
+		/**
+		 * Checks if the fields in this row are empty
+		 * @return true if both fields are empty, true if at least one is filled
+		 */
+		public boolean isEmpty() {
+			return keyEdit.getText().toString().trim().isEmpty()
+					&& valueEdit.getText().toString().trim().isEmpty();
+		}
 
-		lastEditKey.setText(aTagKey);
-		lastEditValue.setText(aTagValue);
-
-		verticalLayout.addView(horizontalLayout, verticalLayout.getChildCount() - 1);
 	}
 
 	/**
@@ -440,12 +520,6 @@ public class TagEditor extends Activity {
 		public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
 			if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
 				if (view instanceof EditText) {
-					String key = lastEditKey.getText().toString();
-					String value = lastEditValue.getText().toString();
-					if (!"".equals(key.trim()) && !"".equals(value.trim())) {
-						insertNewEdits("", "");
-					}
-
 					//on Enter -> goto next EditText
 					if (keyCode == KeyEvent.KEYCODE_ENTER) {
 						View nextView = view.focusSearch(View.FOCUS_RIGHT);
@@ -465,22 +539,6 @@ public class TagEditor extends Activity {
 			}
 			return false;
 		}
-	}
-
-	protected EditText getLastEditKey() {
-		return lastEditKey;
-	}
-
-	protected void setLastEditKey(final AutoCompleteTextView lastEditKey) {
-		this.lastEditKey = lastEditKey;
-	}
-
-	protected EditText getLastEditValue() {
-		return lastEditValue;
-	}
-
-	protected void setLastEditValue(final EditText lastEditValue) {
-		this.lastEditValue = lastEditValue;
 	}
 
 	protected LinearLayout getVerticalLayout() {
