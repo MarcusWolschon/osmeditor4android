@@ -207,7 +207,8 @@ public class EasyEditManager implements Callback, OnDismissListener {
 		PresetItem result = presetDialog.getDialogResult();
 		OsmElement element = presetDialog.getElement();
 		if (result != null && element != null) {
-			logic.insertTags(element.getName(), element.getOsmId(), result.getTags()); // TODO replace getName to use enum
+			logic.insertTags(element.getName(), element.getOsmId(), result.getTags());
+			performTagEdit(element);
 		}
 	}
 	

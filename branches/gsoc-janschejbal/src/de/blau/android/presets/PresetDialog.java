@@ -16,6 +16,8 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	private final Preset preset;
 	private OsmElement element;
 	
+	private PresetGroup currentGroup;
+	
 	private PresetItem dialogResult = null; 
 	
 	public PresetDialog(Context context, Preset preset, OsmElement element) {
@@ -24,22 +26,30 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 		this.preset = preset;
 		this.element = element;
 		
-		setContentView(preset.getRootGroup().getGroupView(this, element.getType()));
+		currentGroup = preset.getRootGroup();
 		
-		
+		updateView();
 	}
 
+	private void updateView() {
+		setContentView(currentGroup.getGroupView(this, element.getType()));
+	}
 	
 	@Override
 	public void onBackPressed() {
-		// TODO aks user if he really wants to keep it untagged?
-		super.onBackPressed(); // remove if changing!
+		PresetGroup group = currentGroup.getParent();
+		if (group != null) {
+			currentGroup = group;
+			updateView();
+		} else {
+			// TODO ask user if he really wants to keep it untagged?
+			super.onBackPressed(); // remove if changing!
+		}
 	}
 
 
 	@Override
 	public void onItemClick(PresetItem item) {
-		Toast.makeText(context, item.getName(), Toast.LENGTH_LONG).show();
 		dialogResult = item;
 		dismiss();
 	}
@@ -47,7 +57,8 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 
 	@Override
 	public void onGroupClick(PresetGroup group) {
-		setContentView(group.getGroupView(this, element.getType()));
+		currentGroup = group;
+		updateView();
 	}
 	
 	public PresetItem getDialogResult() {

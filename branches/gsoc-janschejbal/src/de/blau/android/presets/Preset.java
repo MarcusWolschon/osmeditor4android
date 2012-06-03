@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
@@ -22,7 +21,10 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -36,19 +38,23 @@ public class Preset {
 
 	// TODO tags to lowercase?
 	
-	protected Context context;
+	protected final Context context;
 	
 	/** Lists items having a tag. The map key is tagkey+"\t"+tagvalue.
 	 * tagItems.get(tagkey+"\t"+tagvalue) will give you all items that have the tag tagkey=tagvalue */
-	protected MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<String, PresetItem>();
+	protected final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<String, PresetItem>();
 
-	protected PresetGroup rootGroup = new PresetGroup(null, null, null);
-	
+	protected PresetGroup rootGroup;
+
+	protected final PresetIconManager iconManager;	
 	
 	
 	@SuppressWarnings("deprecation")
 	public Preset(Context ctx) {
 		this.context = ctx;
+		this.iconManager = new PresetIconManager(ctx, null);
+		rootGroup = new PresetGroup(null, "Root", null); // TODO RES
+		
 		SAXParser saxParser;
 		try {
 			saxParser = SAXParserFactory.newInstance().newSAXParser();
@@ -78,8 +84,7 @@ public class Preset {
 	            		PresetGroup parent = groupstack.peek();
 	            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), attr.getValue("type"));
 	            	} else if (name.equals("separator")) {
-	            		PresetGroup g = groupstack.peek();
-	            		g.addSeparator();
+	            		new PresetSeparator(groupstack.peek());
 	            	} else if (name.equals("optional")) {
 	            		inOptionalSection = true;
 	            	} else if (name.equals("key")) {
@@ -159,12 +164,12 @@ public class Preset {
 		 * Creates the element, setting parent, name and icon, and registers with the parent
 		 * @param parent parent group (or null if this is the root group)
 		 * @param name name of the element
-		 * @param iconpath TODO
+		 * @param iconpath The icon path (either "http://" URL or "presets/" local image reference)
 		 */
 		public PresetElement(PresetGroup parent, String name, String iconpath) {
 			this.parent = parent;
 			this.name = name;
-			this.icon = null; // TODO
+			this.icon = iconManager.getDrawableOrPlaceholder(iconpath, 64);
 			if (parent != null)	parent.addElement(this);
 		}		
 		
@@ -181,18 +186,21 @@ public class Preset {
 		}
 		
 		/**
-		 * Returns a basic view representing the current element (i.e. a button with icon and name)
+		 * Returns a basic view representing the current element (i.e. a button with icon and name).
+		 * Can (and should) be used when implementing {@link #getView(PresetClickHandler)}.
 		 * @return the view
 		 */
-		private View getBaseView() {
-			TextView v = new TextView(context);
+		private final View getBaseView() {
+			TextView v = (TextView)View.inflate(context, android.R.layout.simple_list_item_1, null);
 			v.setText(this.getName());
 			v.setCompoundDrawables(this.getIcon(), null, null, null);
+			v.setCompoundDrawablePadding(25);
 			return v;
 		}
 		
 		/**
 		 * Returns a view representing this element (i.e. a button with icon and name)
+		 * Implement this in subtypes
 		 * @param handler handler to handle clicks on the element (may be null)
 		 * @return a view ready to display to represent this element
 		 */
@@ -238,14 +246,26 @@ public class Preset {
 		}
 	}
 	
+	public class PresetSeparator extends PresetElement {
+		public PresetSeparator(PresetGroup parent) {
+			super(parent, "", null);
+		}
+
+		@Override
+		public View getView(PresetClickHandler handler) {
+			View v = new View(context);
+			v.setBackgroundColor(0xFFFFFFFF);
+			v.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 3));
+			return v;
+			
+		}
+		
+	}
+	
 	public class PresetGroup extends PresetElement {
 		
-		/** A list of sections.
-		 * Each section can contain multiple elements, the sections are separated by separators. */
-		private List<List<PresetElement>> sections = new ArrayList<List<PresetElement>>();
-		
-		/** Reference to the current section. If there is null, a new one will be created. */
-		private List<PresetElement> currentSection = null;
+		/** Elements in this group */
+		private ArrayList<PresetElement> elements = new ArrayList<PresetElement>();
 		
 		
 		public PresetGroup(PresetGroup parent, String name, String iconpath) {
@@ -253,15 +273,7 @@ public class Preset {
 		}
 
 		public void addElement(PresetElement element) {
-			if (currentSection == null) {
-				currentSection = new ArrayList<PresetElement>();
-				sections.add(currentSection);
-			}
-			currentSection.add(element);
-		}
-
-		public void addSeparator() {
-			currentSection = null;
+			elements.add(element);
 		}
 		
 		@Override
@@ -284,19 +296,9 @@ public class Preset {
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
 		public View getGroupView(PresetClickHandler handler, ElementType type) {
-			LinearLayout grouplayout = new LinearLayout(context);
-			grouplayout.setOrientation(LinearLayout.VERTICAL);
-			for (List<PresetElement> section : sections) {
-				LinearLayout sectionlayout = new LinearLayout(context);
-				sectionlayout.setOrientation(LinearLayout.HORIZONTAL);
-				for (PresetElement element : section) {
-					if (element.appliesTo(type)) {
-						sectionlayout.addView(element.getView(handler));
-					}
-				}
-				grouplayout.addView(sectionlayout);
-			}
-			return grouplayout;
+			ListView container = new ListView(context);
+			container.setAdapter(new PresetGroupAdapter(elements, type, handler));
+			return container;
 		}
 
 	}
@@ -360,6 +362,55 @@ public class Preset {
 		}
 	}
 	
+	
+	/**
+	 * Adapter providing the preset elements in this group
+	 */
+	private class PresetGroupAdapter extends BaseAdapter {
+	
+		private final ArrayList<PresetElement> elements = new ArrayList<PresetElement>();
+		private PresetClickHandler handler;
+		
+		private PresetGroupAdapter(ArrayList<PresetElement> content, ElementType type,
+				PresetClickHandler handler) {
+			this.handler = handler;
+			
+			for (PresetElement e : content) {
+				if (e.appliesTo(type)) {
+					elements.add(e);
+				} else if (PresetSeparator.class.isInstance(e) && !elements.isEmpty() &&
+						!PresetSeparator.class.isInstance(elements.get(elements.size()-1))) {
+					// add separators iff there is a non-separator element above them
+					elements.add(e);
+				}
+			}
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			return getItem(position).getView(handler);
+		}
+		@Override
+		public int getCount() {
+			return elements.size();
+		}
+	
+		@Override
+		public PresetElement getItem(int position) {
+			return elements.get(position);
+		}
+	
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+		
+		@Override
+		public boolean isEnabled(int position) {
+			return !PresetSeparator.class.isInstance(getItem(position));
+		}
+	}
+
 	public interface PresetClickHandler {
 		public void onItemClick(PresetItem item);
 		public void onGroupClick(PresetGroup group);
