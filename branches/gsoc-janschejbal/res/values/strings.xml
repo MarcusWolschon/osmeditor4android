@@ -59,7 +59,6 @@
 	<string name="no">No</string>
 	<string name="okay">Okay</string>
 	<string name="cancel">Cancel</string>
-	<string name="sourcesurvey">source:\nsurvey</string>
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Tags for</string>
@@ -67,6 +66,11 @@
 	<string name="value">Value:</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
 	<string name="tag_menu_mapfeatures">Map Features Wiki</string>
+	<string name="sourcesurvey">source:\nsurvey</string>
+	<string name="apply_preset_button_text">Apply\npreset</string>
+	<string name="repeat_last_button_text">Repeat\nlast</string>
+			
+	
 	
 	<!-- Strings in LocationPicker -->
 	<string name="location_headline">Load Area</string>

@@ -1,9 +1,12 @@
 package de.blau.android;
 
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,16 +26,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.PresetDialog;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
+import de.blau.android.presets.Preset.PresetItem;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
  * 
  * @author mb
  */
-public class TagEditor extends Activity {
+public class TagEditor extends Activity implements OnDismissListener {
 
 	public static final String TAGS = "tags";
 
@@ -59,6 +66,12 @@ public class TagEditor extends Activity {
 
 	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
 	private boolean loaded;
+	
+
+	private Preset preset;
+
+	private PresetDialog presetDialog;
+
 
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
@@ -98,7 +111,7 @@ public class TagEditor extends Activity {
 			}
 		}
 		// no empty rows found, make one
-		insertNewEdit("", "");
+		insertNewEdit("", "", false);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -132,7 +145,10 @@ public class TagEditor extends Activity {
 		loaded = true;
 		ensureEmptyRow();
 
+		preset = new Preset(this);
+		
 		createSourceSurveyButton();
+		createApplyPresetButton();
 		createOkButton();
 	}
 	
@@ -209,8 +225,18 @@ public class TagEditor extends Activity {
 				});
 				if (!sourceSet[0]) {
 					// source wasn't set above - add a new pair
-					insertNewEdit(sourceKey, "survey");
+					insertNewEdit(sourceKey, "survey", false);
 				}
+			}
+		});
+	}
+	
+	private void createApplyPresetButton() {
+		Button presetButton = (Button) findViewById(R.id.applyPresetButton);
+		presetButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(final View v) {
+				showPresetDialog();
 			}
 		});
 	}
@@ -270,7 +296,7 @@ public class TagEditor extends Activity {
 	 */
 	protected void extrasToEdits(final ArrayList<String> tags) {
 		for (int i = 0, size = tags.size(); i < size; i += 2) {
-			insertNewEdit(tags.get(i), tags.get(i + 1));
+			insertNewEdit(tags.get(i), tags.get(i + 1), false);
 		}
 	}
 
@@ -291,9 +317,11 @@ public class TagEditor extends Activity {
 	 * @param aTagKey the key-value to start with
 	 * @param aTagValue the value to start with.
 	 */
-	protected void insertNewEdit(final String aTagKey, final String aTagValue) {
+	protected void insertNewEdit(final String aTagKey, final String aTagValue, final boolean atStart) {
 		TagEditRow row = (TagEditRow)View.inflate(this, R.layout.tag_edit_row, null);
 		row.setValues(aTagKey, aTagValue);
+		verticalLayout.addView(row, atStart? 0 : verticalLayout.getChildCount() - 1);
+
 	}
 	
 	public static class TagEditRow extends LinearLayout {
@@ -320,9 +348,7 @@ public class TagEditor extends Activity {
 		@Override
 		protected void onFinishInflate() {
 			super.onFinishInflate();
-			
-			LinearLayout horizontalLayout = this;
-			
+						
 			keyEdit = (AutoCompleteTextView)findViewById(R.id.editKey);
 			keyEdit.setOnKeyListener(owner.myKeyListener);
 			//lastEditKey.setSingleLine(true);
@@ -428,8 +454,6 @@ public class TagEditor extends Activity {
 			};
 			keyEdit.addTextChangedListener(emptyWatcher);
 			valueEdit.addTextChangedListener(emptyWatcher);
-			
-			owner.verticalLayout.addView(horizontalLayout, owner.verticalLayout.getChildCount() - 1);
 		}
 		
 		/**
@@ -563,5 +587,26 @@ public class TagEditor extends Activity {
 
 	protected OnKeyListener getKeyListener() {
 		return myKeyListener;
+	}
+	
+	private void showPresetDialog() {
+		OsmElement element = Main.logic.delegator.getOsmElement(getType(), getOsmId());
+		presetDialog = new PresetDialog(this, preset, element);
+		presetDialog.setOnDismissListener(this);
+		presetDialog.show();
+	}
+	
+	/**
+	 * Handles the result from the preset dialog
+	 * @param dialog
+	 */
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		PresetItem result = presetDialog.getDialogResult();
+		if (result != null) {
+			for (Entry<String, String> tag : result.getTags().entrySet()) {
+				insertNewEdit(tag.getKey(), tag.getValue(), true);
+			}
+		}
 	}
 }

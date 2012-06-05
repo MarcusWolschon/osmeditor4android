@@ -288,6 +288,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	}
 
 	private void showActionBar() {
+		// TODO BUG: White-on-white extended menu on Samsung-Gingerbread (2.3.3)
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionbar.setBackgroundDrawable(new ColorDrawable(0xaa000000));

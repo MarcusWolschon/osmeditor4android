@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PresetDialog extends Dialog implements PresetClickHandler {
+	
+	// TODO BUG: Transparent dialog on Samsung-Gingerbread (2.3.3)
 
 	private final Context context;
 	private final Preset preset;
@@ -42,8 +44,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 			currentGroup = group;
 			updateView();
 		} else {
-			// TODO ask user if he really wants to keep it untagged?
-			super.onBackPressed(); // remove if changing!
+			super.onBackPressed();
 		}
 	}
 
@@ -65,9 +66,5 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 		return dialogResult;
 	}
 
-
-	public OsmElement getElement() {
-		return element;
-	}
 	
 }

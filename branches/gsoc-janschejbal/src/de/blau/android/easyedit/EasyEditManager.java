@@ -24,11 +24,8 @@ import de.blau.android.easyedit.EasyEditMenu.ContextMenuAction;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
-import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.PresetDialog;
 
-public class EasyEditManager implements Callback, OnDismissListener {
+public class EasyEditManager implements Callback {
 
 	private final Main main;
 	private final Logic logic;
@@ -38,14 +35,11 @@ public class EasyEditManager implements Callback, OnDismissListener {
 	
 	private EasyEditMenu contextMenu;
 	
-	private Preset preset;
-	private PresetDialog presetDialog;
 	
 	public EasyEditManager(Main main, Logic logic, MapTouchListener mapTouchListener) {
 		this.main = main;
 		this.logic = logic;
 		this.touchlistener = mapTouchListener;
-		preset = new Preset(main);
 	}
 	
 	/**
@@ -115,8 +109,6 @@ public class EasyEditManager implements Callback, OnDismissListener {
 	}
 
 	/*package*/ void performTagEdit(OsmElement element) {
-		// For now, just start the tag editor for the node.
-		// TODO JS menu-based editing here
 		touchlistener.performTagEdit(element);
 	}
 
@@ -148,8 +140,8 @@ public class EasyEditManager implements Callback, OnDismissListener {
 
 	/**
 	 * Takes a parameter for a node and one for a way.
-	 * If the way is not null, calls a tagging dialog (using {@link #tagElement(OsmElement)}) for the way.
-	 * Otherwise, a tagging dialog for the node is called
+	 * If the way is not null, opens a tag editor for the way.
+	 * Otherwise, opens a tag editor for the node
 	 * (unless the node is also null, then nothing happens).
 	 * @param possibleNode a node that was edited, or null
 	 * @param possibleWay a way that was edited, or null
@@ -158,18 +150,12 @@ public class EasyEditManager implements Callback, OnDismissListener {
 		if (possibleWay == null) {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
-				tagElement(possibleNode);
+				performTagEdit(possibleNode);
 			}
 		} else { // way was added
 			// TODO handle extension of ways once implemented
-			tagElement(possibleWay);
+			performTagEdit(possibleWay);
 		}
-	}
-
-	private void tagElement(OsmElement element) {
-		presetDialog = new PresetDialog(main, preset, element);
-		presetDialog.setOnDismissListener(this);
-		presetDialog.show();
 	}
 
 	@Override
@@ -213,19 +199,7 @@ public class EasyEditManager implements Callback, OnDismissListener {
 		main.triggerMapContextMenu();
 	}
 
-	/**
-	 * Handles the result from the preset dialog
-	 * @param dialog
-	 */
-	@Override
-	public void onDismiss(DialogInterface dialog) {
-		PresetItem result = presetDialog.getDialogResult();
-		OsmElement element = presetDialog.getElement();
-		if (result != null && element != null) {
-			logic.insertTags(element.getName(), element.getOsmId(), result.getTags());
-			performTagEdit(element);
-		}
-	}
+
 	
 
 }
