@@ -24,7 +24,7 @@ public class PresetIconManager {
 	
 	private final static String ASSET_IMAGE_PREFIX = "images/";
 	
-	/** Asset manager for global preset icons (URL starting with "presets/") */
+	/** Asset manager for global preset icons (with local paths) */
 	private final AssetManager assets;
 	
 	/**

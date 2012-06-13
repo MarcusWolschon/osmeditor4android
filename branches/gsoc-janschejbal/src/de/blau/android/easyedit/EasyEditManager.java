@@ -2,14 +2,9 @@ package de.blau.android.easyedit;
 
 import java.util.List;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
-import android.util.Log;
 import android.view.ContextMenu;
-import android.view.HapticFeedbackConstants;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 import com.actionbarsherlock.view.ActionMode;

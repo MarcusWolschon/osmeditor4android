@@ -9,7 +9,14 @@
 		android:id="@+id/vertical_layout"
 		android:padding="5dp"
 	>
-		<de.blau.android.views.WrappingLayout
+		<LinearLayout 
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/edit_row_layout"
+		>
+		</LinearLayout>
+ 		<de.blau.android.views.WrappingLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:baselineAligned="false"
@@ -30,6 +37,12 @@
 			    android:layout_width="wrap_content"
 			    android:layout_height="fill_parent"
 			    android:text="@string/repeat_last_button_text"
+			/>
+			<Button
+			    android:id="@+id/revertButton"
+			    android:layout_width="wrap_content"
+			    android:layout_height="fill_parent"
+			    android:text="@string/revert_button_text"
 			/>
 			<Button android:id="@+id/okButton"
 				android:layout_width="wrap_content"

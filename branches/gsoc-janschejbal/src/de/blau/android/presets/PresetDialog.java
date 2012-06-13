@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 public class PresetDialog extends Dialog implements PresetClickHandler {
 	
-	// TODO BUG: Transparent dialog on Samsung-Gingerbread (2.3.3)
-
 	private final Context context;
 	private final Preset preset;
 	private OsmElement element;
@@ -34,7 +32,9 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	}
 
 	private void updateView() {
-		setContentView(currentGroup.getGroupView(this, element.getType()));
+		View view = currentGroup.getGroupView(this, element.getType());
+		view.setBackgroundColor(0xff000000);
+		setContentView(view);
 	}
 	
 	@Override

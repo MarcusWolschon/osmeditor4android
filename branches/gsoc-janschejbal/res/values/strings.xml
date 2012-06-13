@@ -69,7 +69,8 @@
 	<string name="sourcesurvey">source:\nsurvey</string>
 	<string name="apply_preset_button_text">Apply\npreset</string>
 	<string name="repeat_last_button_text">Repeat\nlast</string>
-			
+	<string name="revert_button_text">Revert</string>
+				
 	
 	
 	<!-- Strings in LocationPicker -->

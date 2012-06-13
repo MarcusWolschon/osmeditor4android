@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
@@ -20,16 +22,20 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.presets.Preset.PresetClickHandler;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.views.WrappingLayout;
 
 /**
  * This class loads and represents JOSM preset files.
@@ -49,12 +55,21 @@ public class Preset {
 
 	protected final PresetIconManager iconManager;	
 	
+	/** all known preset items in order of loading */
+	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
+	/** indexes of recently used presets (for use with allItems) */
+	protected LinkedList<Integer> recentPresets = new LinkedList<Integer>();
+	/** hash of current preset (used to check validity of recentPresets indexes) */
+	protected final String presetHash;
 	
 	@SuppressWarnings("deprecation")
 	public Preset(Context ctx) {
 		this.context = ctx;
 		this.iconManager = new PresetIconManager(ctx, null);
-		rootGroup = new PresetGroup(null, "Root", null); // TODO RES
+		rootGroup = new PresetGroup(null, "", null);
+		
+		presetHash = "TODO"; // TODO hash preset file
+		// load recent presets iff hash matches
 		
 		SAXParser saxParser;
 		try {
@@ -117,7 +132,25 @@ public class Preset {
 		return rootGroup;
 	}
 	
+	public View getRecentPresetView(PresetClickHandler handler, ElementType type) {
+		PresetGroup recent = new PresetGroup(null, "recent", null);
+		for (int index : recentPresets) {
+			recent.addElement(allItems.get(index));
+		}
+		return recent.getGroupView(handler, type);
+	}
+	
+	public void putRecentlyUsed(PresetItem item) {
+		Integer id = item.getItemIndex();
+		// prevent duplicates
+		recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
+		recentPresets.addFirst(id);
+		if (recentPresets.size() > 50) recentPresets.removeLast();
+	}
+
 	/**
+	 * WARNING - UNTESTED
+	 * 
 	 * Finds the item best matching a certain tag set, or null if no item matches.
 	 * To match, all (mandatory) tags of the preset item need to be in the tag set.
 	 * The item does NOT need to have all tags from the tag set, but the tag set needs
@@ -152,6 +185,22 @@ public class Preset {
 		
 	}
 	
+	private static ArrayList<PresetElement> filterElements(
+			ArrayList<PresetElement> originalElements, ElementType type)
+	{
+		ArrayList<PresetElement> filteredElements = new ArrayList<PresetElement>();
+		for (PresetElement e : originalElements) {
+			if (e.appliesTo(type)) {
+				filteredElements.add(e);
+			} else if ((e instanceof PresetSeparator) && !filteredElements.isEmpty() &&
+					!(filteredElements.get(filteredElements.size()-1) instanceof PresetSeparator)) {
+				// add separators iff there is a non-separator element above them
+				filteredElements.add(e);
+			}
+		}
+		return filteredElements;
+	}
+	
 	/**
 	 * Represents an element (group or item) in a preset data structure
 	 */
@@ -170,7 +219,7 @@ public class Preset {
 		public PresetElement(PresetGroup parent, String name, String iconpath) {
 			this.parent = parent;
 			this.name = name;
-			this.icon = iconManager.getDrawableOrPlaceholder(iconpath, 64);
+			this.icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
 			if (parent != null)	parent.addElement(this);
 		}		
 		
@@ -192,10 +241,14 @@ public class Preset {
 		 * @return the view
 		 */
 		private final TextView getBaseView() {
-			TextView v = (TextView)View.inflate(context, android.R.layout.simple_list_item_1, null);
+			TextView v = new TextView(context);
+			float density = context.getResources().getDisplayMetrics().density;
 			v.setText(this.getName());
-			v.setCompoundDrawables(this.getIcon(), null, null, null);
-			v.setCompoundDrawablePadding(25);
+			v.setCompoundDrawables(null, this.getIcon(), null, null);
+			v.setCompoundDrawablePadding((int)(8*density));
+			v.setWidth((int)(100*density));
+			v.setHeight((int)(100*density));
+			v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 			return v;
 		}
 		
@@ -255,10 +308,9 @@ public class Preset {
 		@Override
 		public View getView(PresetClickHandler handler) {
 			View v = new View(context);
-			v.setBackgroundColor(0xFFFFFFFF);
-			v.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 3));
+			v.setMinimumHeight(1);
+			v.setMinimumWidth(99999);
 			return v;
-			
 		}
 		
 	}
@@ -298,15 +350,27 @@ public class Preset {
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
 		public View getGroupView(PresetClickHandler handler, ElementType type) {
-			ListView container = new ListView(context);
-			container.setAdapter(new PresetGroupAdapter(elements, type, handler));
-			return container;
+			ScrollView scrollView = new ScrollView(context);
+			scrollView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			WrappingLayout wrappingLayout = new WrappingLayout(context);
+			float density = context.getResources().getDisplayMetrics().density;
+			wrappingLayout.setHorizontalSpacing((int)(10*density));
+			wrappingLayout.setVerticalSpacing((int)(10*density));
+			ArrayList<PresetElement> filteredElements = filterElements(elements, type);
+			ArrayList<View> childViews = new ArrayList<View>();
+			for (PresetElement element : filteredElements) {
+				childViews.add(element.getView(handler));
+			}
+			wrappingLayout.setWrappedChildren(childViews);
+			scrollView.addView(wrappingLayout);
+			return scrollView;
 		}
 
 	}
 	
 	public class PresetItem extends PresetElement {
 		private HashMap<String, String> tags = new HashMap<String, String>();
+		private int itemIndex;
 
 		public PresetItem(PresetGroup parent, String name, String iconpath, String types) {
 			super(parent, name, iconpath);
@@ -316,6 +380,8 @@ public class Preset {
 				else if (type.equals("way")) setAppliesToWay();
 				else if (type.equals("closedway")) setAppliesToClosedway();
 			}
+			itemIndex = allItems.size();
+			allItems.add(this);
 		}
 
 		/**
@@ -362,6 +428,10 @@ public class Preset {
 			}
 			return v;
 		}
+
+		public int getItemIndex() {
+			return itemIndex;
+		}
 	}
 	
 	
@@ -370,28 +440,21 @@ public class Preset {
 	 */
 	private class PresetGroupAdapter extends BaseAdapter {
 	
-		private final ArrayList<PresetElement> elements = new ArrayList<PresetElement>();
+		private final ArrayList<PresetElement> elements;
 		private PresetClickHandler handler;
 		
 		private PresetGroupAdapter(ArrayList<PresetElement> content, ElementType type,
 				PresetClickHandler handler) {
 			this.handler = handler;
 			
-			for (PresetElement e : content) {
-				if (e.appliesTo(type)) {
-					elements.add(e);
-				} else if ((e instanceof PresetSeparator) && !elements.isEmpty() &&
-						!(elements.get(elements.size()-1) instanceof PresetSeparator)) {
-					// add separators iff there is a non-separator element above them
-					elements.add(e);
-				}
-			}
+			elements = filterElements(content, type);
 		}
-		
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			return getItem(position).getView(handler);
 		}
+		
 		@Override
 		public int getCount() {
 			return elements.size();

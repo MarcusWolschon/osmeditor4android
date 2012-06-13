@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
  * 
  * This layout should be usable via inflation from XML - the original children
  * are loaded into this class, wrapped in liear layouts and then re-inserted.
+ * However, advanced attributes need to be set in the code.
  * 
  * TODO JAVADOC, cleanup etc.
  * 
@@ -28,7 +29,7 @@ import android.widget.LinearLayout;
  *
  */
 public class WrappingLayout extends LinearLayout {
-
+	
 	private boolean needsRelayout = false;
 	private boolean relayoutInProgress = false;
 	private boolean isWrapped = false;
@@ -45,7 +46,6 @@ public class WrappingLayout extends LinearLayout {
 	public WrappingLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		wrapper = new LayoutWrapper(context);
-		// TODO apply attrs to wrapper
 	}
 	
 	public ArrayList<View> getWrappedChildren() {
@@ -63,6 +63,22 @@ public class WrappingLayout extends LinearLayout {
 		requestLayout();
 	}
 	
+	public LayoutWrapper setRowGravity(int gravity) {
+		return wrapper.setRowGravity(gravity);
+	}
+
+	public LayoutWrapper setRightToLeft(boolean rightToLeft) {
+		return wrapper.setRightToLeft(rightToLeft);
+	}
+
+	public LayoutWrapper setVerticalSpacing(int pixel) {
+		return wrapper.setVerticalSpacing(pixel);
+	}
+
+	public LayoutWrapper setHorizontalSpacing(int pixel) {
+		return wrapper.setHorizontalSpacing(pixel);
+	}
+
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
@@ -164,7 +180,8 @@ public class WrappingLayout extends LinearLayout {
 		
 		
 		/**
-		 * TODO DOC
+		 * Wraps the children into the container. The container must have a width assigned,
+		 * i.e. the container layout should be finished
 		 * @param children the views to layout
 		 * @param container the LinearLayout that should contain the children
 		 */
@@ -190,7 +207,6 @@ public class WrappingLayout extends LinearLayout {
 			
 			if (availableSpace == 0) {
 				Log.e(LOGTAG, "No width information - read documentation!");
-				// TODO write documentation (container must have width assigned, i.e. be layouted)
 			}
 			
 			for (View child : children) {

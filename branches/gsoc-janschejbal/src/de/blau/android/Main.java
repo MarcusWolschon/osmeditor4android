@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.mapsforge.core.Tag;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -67,6 +65,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
@@ -150,6 +149,11 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 * If may be null or not reflect the current state if accessed from outside this activity.
 	 */
 	protected static Logic logic;
+	
+	/**
+	 * The currently selected preset
+	 */
+	protected static Preset currentPreset;
 
 	/**
 	 * Flag indicating wheter the map will be re-downloaded once the activity starts
@@ -288,7 +292,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	}
 
 	private void showActionBar() {
-		// TODO BUG: White-on-white extended menu on Samsung-Gingerbread (2.3.3)
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionbar.setBackgroundDrawable(new ColorDrawable(0xaa000000));
