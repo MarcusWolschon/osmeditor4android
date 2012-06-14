@@ -1,16 +1,30 @@
 package de.blau.android.presets;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.security.DigestInputStream;
+import java.security.InvalidParameterException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -32,8 +46,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.presets.Preset.PresetClickHandler;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.views.WrappingLayout;
 
@@ -45,8 +59,16 @@ public class Preset {
 
 	// TODO tags to lowercase?
 	
+	/** name of the preset XML file in a preset directory */
+	private static final String PRESETXML = "preset.xml";
+	/** name of the MRU serialization file in a preset directory */
+	private static final String MRUFILE = "mru.dat";
+
 	protected final Context context;
 	
+	/** The directory containing all data (xml, MRU data, images) about this preset */
+	private File directory;
+
 	/** Lists items having a tag. The map key is tagkey+"\t"+tagvalue.
 	 * tagItems.get(tagkey+"\t"+tagvalue) will give you all items that have the tag tagkey=tagvalue */
 	protected final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<String, PresetItem>();
@@ -57,75 +79,163 @@ public class Preset {
 	
 	/** all known preset items in order of loading */
 	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
-	/** indexes of recently used presets (for use with allItems) */
-	protected LinkedList<Integer> recentPresets = new LinkedList<Integer>();
-	/** hash of current preset (used to check validity of recentPresets indexes) */
-	protected final String presetHash;
+
+	/**
+	 * Serializable class for storing Most Recently Used information.
+	 * Hash is used to check compatibility.
+	 */
+	protected class PresetMRUInfo implements Serializable {
+		protected PresetMRUInfo(String presetHash) {
+			this.presetHash = presetHash;
+		}
+		
+		/** hash of current preset (used to check validity of recentPresets indexes) */
+		protected final String presetHash;
 	
-	@SuppressWarnings("deprecation")
-	public Preset(Context ctx) {
+		/** indexes of recently used presets (for use with allItems) */
+		protected LinkedList<Integer> recentPresets = new LinkedList<Integer>();
+
+		public volatile boolean changed = false;
+	}
+	protected final PresetMRUInfo mru;
+	
+	public Preset(Context ctx, File directory) throws Exception {
 		this.context = ctx;
 		this.iconManager = new PresetIconManager(ctx, null);
+		this.directory = directory;
 		rootGroup = new PresetGroup(null, "", null);
 		
-		presetHash = "TODO"; // TODO hash preset file
-		// load recent presets iff hash matches
-		
-		SAXParser saxParser;
-		try {
-			saxParser = SAXParserFactory.newInstance().newSAXParser();
-			
-	        InputStream input = ctx.getResources().openRawResource(R.raw.presets);
-	        saxParser.parse(input, new HandlerBase() {
-	        	
-	        	private Stack<PresetGroup> groupstack = new Stack<PresetGroup>();
-	        	private PresetItem currentItem = null;
-	        	private boolean inOptionalSection = false;
+		InputStream fileStream;
+		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+			fileStream = ctx.getResources().openRawResource(R.raw.presets);
+		} else {
+			fileStream = new FileInputStream(new File(directory, PRESETXML));
+		}
 
-	        	{
-	        		groupstack.push(rootGroup);
-	        	}
-	        	
+		DigestInputStream hashStream = new DigestInputStream(
+				fileStream,
+				MessageDigest.getInstance("SHA-256"));
+
+		parseXML(hashStream);
+        
+        // Finish hash
+        String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
+        
+        mru = initMRU(directory, hashValue);
+	}
+
+	/**
+	 * Parses the XML during import
+	 * @param input the input stream from which to read XML data
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	@SuppressWarnings("deprecation")
+	private void parseXML(InputStream input)
+			throws ParserConfigurationException, SAXException, IOException {
+		SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+		
+        saxParser.parse(input, new HandlerBase() {
+        	
+        	private Stack<PresetGroup> groupstack = new Stack<PresetGroup>();
+        	private PresetItem currentItem = null;
+        	private boolean inOptionalSection = false;
+
+        	{
+        		groupstack.push(rootGroup);
+        	}
+        	
+            /** 
+             * ${@inheritDoc}.
+             */
+			@Override
+            public void startElement(String name, AttributeList attr) throws SAXException {
+            	if (name.equals("group")) {
+            		PresetGroup parent = groupstack.peek();
+            		PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
+            		groupstack.push(g);
+            	} else if (name.equals("item")) {
+            		if (currentItem != null) throw new SAXException("Nested items are not allowed");
+            		PresetGroup parent = groupstack.peek();
+            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), attr.getValue("type"));
+            	} else if (name.equals("separator")) {
+            		new PresetSeparator(groupstack.peek());
+            	} else if (name.equals("optional")) {
+            		inOptionalSection = true;
+            	} else if (name.equals("key")) {
+            		if (!inOptionalSection) {
+            			currentItem.addTag(attr.getValue("key"), attr.getValue("value"));
+            		}
+            	}
+            }
+            
+            
+            @Override
+            public void endElement(String name) throws SAXException {
+            	if (name.equals("group")) {
+            		groupstack.pop();
+            	} else if (name.equals("optional")) {
+            		inOptionalSection = false;
+            	} else if (name.equals("item")) {
+            		currentItem = null;
+            	}
+            }
+        });
+	}
+
+	/**
+	 * Initializes Most-recently-used data by either loading them or creating an empty list
+	 * @param directory data directory of the preset
+	 * @param hashValue XML hash value to check if stored data fits the XML
+	 * @returns a MRU object valid for this Preset, never null
+	 */
+	private PresetMRUInfo initMRU(File directory, String hashValue) {
+		PresetMRUInfo tmpMRU;
+        try {
+        	ObjectInputStream mruReader = 
+        		new ObjectInputStream(new FileInputStream(new File(directory, MRUFILE)));
+        	tmpMRU = (PresetMRUInfo) mruReader.readObject();
+        	if (!tmpMRU.presetHash.equals(hashValue)) throw new InvalidObjectException("hash mismatch");
+        } catch (Exception e) {
+        	tmpMRU = new PresetMRUInfo(hashValue);
+        	// Unserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
+        	Log.i("Preset", "No usable old MRU list, creating new one ("+e.toString()+")");
+        }
+    	return tmpMRU;
+	}
+	
+	/**
+	 * Returns a list of icon URLs referenced by a preset
+	 * @param xml a File object pointing to the preset XML
+	 * @return an ArrayList of http and https URLs as string, or null if there is an error during parsing
+	 */
+	@SuppressWarnings("deprecation")
+	public static ArrayList<String> parseForURLs(File xml) {
+		final ArrayList<String> urls = new ArrayList<String>();
+		try {
+			SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+			
+	        saxParser.parse(xml, new HandlerBase() {
 	            /** 
 	             * ${@inheritDoc}.
 	             */
 				@Override
 	            public void startElement(String name, AttributeList attr) throws SAXException {
-	            	if (name.equals("group")) {
-	            		PresetGroup parent = groupstack.peek();
-	            		PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
-	            		groupstack.push(g);
-	            	} else if (name.equals("item")) {
-	            		if (currentItem != null) throw new SAXException("Nested items are not allowed");
-	            		PresetGroup parent = groupstack.peek();
-	            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), attr.getValue("type"));
-	            	} else if (name.equals("separator")) {
-	            		new PresetSeparator(groupstack.peek());
-	            	} else if (name.equals("optional")) {
-	            		inOptionalSection = true;
-	            	} else if (name.equals("key")) {
-	            		if (!inOptionalSection) {
-	            			currentItem.addTag(attr.getValue("key"), attr.getValue("value"));
+	            	if (name.equals("group") || name.equals("item")) {
+	            		String url = attr.getValue("icon");
+	            		if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+	            			urls.add(url);
 	            		}
-	            	}
-	            }
-	            
-	            
-	            @Override
-	            public void endElement(String name) throws SAXException {
-	            	if (name.equals("group")) {
-	            		groupstack.pop();
-	            	} else if (name.equals("optional")) {
-	            		inOptionalSection = false;
-	            	} else if (name.equals("item")) {
-	            		currentItem = null;
 	            	}
 	            }
 	        });
 		} catch (Exception e) {
-			Log.e("PresetParser", "Error parsing preset", e);
-			e.printStackTrace();
+			Log.e("PresetURLParser", "Error parsing preset", e);
+			return null;
 		}
+		
+		return urls;
 	}
 	
 	public PresetGroup getRootGroup() {
@@ -134,7 +244,7 @@ public class Preset {
 	
 	public View getRecentPresetView(PresetClickHandler handler, ElementType type) {
 		PresetGroup recent = new PresetGroup(null, "recent", null);
-		for (int index : recentPresets) {
+		for (int index : mru.recentPresets) {
 			recent.addElement(allItems.get(index));
 		}
 		return recent.getGroupView(handler, type);
@@ -143,9 +253,23 @@ public class Preset {
 	public void putRecentlyUsed(PresetItem item) {
 		Integer id = item.getItemIndex();
 		// prevent duplicates
-		recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
-		recentPresets.addFirst(id);
-		if (recentPresets.size() > 50) recentPresets.removeLast();
+		mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
+		mru.recentPresets.addFirst(id);
+		if (mru.recentPresets.size() > 50) mru.recentPresets.removeLast();
+		mru.changed  = true;
+	}
+
+	public void saveMRU() {
+		if (mru.changed) {
+			try {
+				ObjectOutputStream out =
+					new ObjectOutputStream(new FileOutputStream(new File(directory, MRUFILE)));
+				out.writeObject(mru);
+				out.close();
+			} catch (Exception e) {
+				Log.e("Preset", "MRU saving failed", e);
+			}
+		}
 	}
 
 	/**
@@ -182,7 +306,6 @@ public class Preset {
 		}
 		
 		return bestMatch;
-		
 	}
 	
 	private static ArrayList<PresetElement> filterElements(

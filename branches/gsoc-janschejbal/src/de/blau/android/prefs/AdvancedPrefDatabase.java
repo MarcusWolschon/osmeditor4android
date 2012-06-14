@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import java.io.File;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,8 +12,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
+import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
+import de.blau.android.presets.Preset;
 
 public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
@@ -22,18 +27,24 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final static int DATA_VERSION = 1;
 	private final static String LOGTAG = "AdvancedPrefDB";
 	
+	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
 	
+	/** The ID of the currently active API */
 	private String currentAPI;
+	
+	private Context context;
 
 
 	public AdvancedPrefDatabase(Context context) {
 		super(context, "AdvancedPrefs", null, DATA_VERSION);
+		this.context = context;
 		this.r = context.getResources();
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		PREF_SELECTED_API = r.getString(R.string.config_selected_api);
 		currentAPI = prefs.getString(PREF_SELECTED_API, null);
 		if (currentAPI == null) migrateAPI();
+		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "");
 	}
 
 	@Override
@@ -74,6 +85,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (getAPIs(id).length == 0) throw new RuntimeException("Non-existant API selected");
 		prefs.edit().putString(PREF_SELECTED_API, id).apply();
 		currentAPI = id;
+		Main.prepareRedownload();
+		Main.resetPreset();
 	}
 	
 	public API[] getAPIs() {
@@ -194,6 +207,173 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			this.pass = pass;
 			this.preset = preset;
 		}
+	}
+
+	/**
+	 * Creates an object for the currently selected preset
+	 * @return a corresponding preset object, or null if no valid preset is selected or the preset cannot be created
+	 */
+	public Preset getCurrentPresetObject() {
+		API api = getCurrentAPI();
+		if (api == null || api.preset == null || api.preset.equals("")) return null;
+		PresetInfo presetinfo = getPreset(api.preset);
+		try {
+			return new Preset(context, getPresetDirectory(presetinfo.id));
+		} catch (Exception e) {
+			Log.e(LOGTAG, "Failed to create preset", e);
+			return null;
+		}
+	}
+	
+	public PresetInfo[] getPresets() {
+		return getPresets(null, false);
+	}
+	
+	public PresetInfo getPreset(String id) {
+		PresetInfo[] found = getPresets(id, false);
+		if (found.length == 0) return null;
+		return found[0];
+	}
+
+	public PresetInfo getPresetByURL(String url) {
+		PresetInfo[] found = getPresets(url, true);
+		if (found.length == 0) return null;
+		return found[0];
+	}
+	
+	
+	/**
+	 * Fetches all Presets matching the given ID, or all Presets if id is null
+	 * @param value null to fetch all Presets, or Preset-ID/URL to fetch a specific one
+	 * @param byURL if false, value represents an ID, if true, value represents an URL 
+	 * @return PresetInfo[]
+	 */
+	private PresetInfo[] getPresets(String value, boolean byURL) {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor dbresult = db.query(
+								"presets",
+								new String[] {"id", "name", "url", "lastupdate"},
+								value == null ? null : (byURL ? "url = ?" : "id = ?"),
+								value == null ? null : new String[] {value},
+								null, null, null);
+		PresetInfo[] result = new PresetInfo[dbresult.getCount()];
+		dbresult.moveToFirst();
+		for (int i = 0; i < result.length; i++) {
+			result[i] = new PresetInfo(dbresult.getString(0),
+									dbresult.getString(1),
+									dbresult.getString(2),
+									dbresult.getString(3));
+			dbresult.moveToNext();
+		}
+		db.close();
+		return result;
+	}
+	
+
+	public void addPreset(String id, String name, String url) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("id", id);
+		values.put("name", name);
+		values.put("url", url);
+		db.insert("presets", null, values);
+		db.close();
+		
+		downloadPresetData(id, url);
+	}
+	
+	
+	public void setPresetInfo(String id, String name, String url) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("name", name);
+		values.put("url", url);
+		db.update("presets", values, "id = ?", new String[] {id});
+		db.close();
+
+		downloadPresetData(id, url);
+	}
+	
+	private void downloadPresetData(String id, String url) {
+		File presetDir = getPresetDirectory(id);
+		presetDir.mkdir();
+		if (!presetDir.isDirectory()) throw new RuntimeException("Could not create preset directory " + presetDir.getAbsolutePath());
+		// TODO actually download stuff
+	}
+
+	/** 
+	 * Sets the lastupdate value of the givenpreset to now
+	 * @param id the ID of the preset to update
+	 * */
+	public void setPresetLastupdateNow(String id) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("lastupdate", ((Long)System.currentTimeMillis()).toString());
+		db.update("presets", values, "id = ?", new String[] {id});
+		db.close();
+	}
+
+
+	public void deletePreset(String id) {
+		if (id.equals(ID_DEFAULT)) throw new RuntimeException("Cannot delete default");
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete("presets", "id = ?", new String[] { id });
+		db.close();
+		removePresetDirectory(id);
+		if (id.equals(getCurrentAPI().preset)) Main.resetPreset();
+	}
+
+	/**
+	 * Data structure class for Preset data
+	 * @author Jan
+	 */
+	public class PresetInfo {
+		public final String id;
+		public final String name;
+		public final String url;
+		/** Timestamp (long, millis since epoch) when this preset was last downloaded*/
+		public final long lastupdate;
+		
+		public PresetInfo(String id, String name, String url, String lastUpdate) {
+			this.id = id;
+			this.name = name;
+			this.url = url;
+			long tmpLastupdate;
+			try {
+				tmpLastupdate = Long.parseLong(lastUpdate);
+			} catch (Exception e) {
+				tmpLastupdate = 0;
+			}
+			this.lastupdate = tmpLastupdate;
+		}
+	}
+
+	public File getPresetDirectory(String id) {
+		if (id == null || id.equals("")) {
+			throw new RuntimeException("Attempted to get folder for null or empty id!");
+		}
+		File rootDir = context.getFilesDir();
+		return new File(rootDir, id);
+	}
+	
+	public void removePresetDirectory(String id) {
+		File presetDir = getPresetDirectory(id);
+		if (presetDir.isDirectory()) {
+			killDirectory(presetDir);
+		}
+	}
+
+	/**
+	 * Deletes all files inside a directory, then the directory itself (one level only, no recursion)
+	 * @param dir the directory to empty and delete
+	 */
+	private void killDirectory(File dir) {
+		if (!dir.isDirectory()) throw new RuntimeException("This function only deletes directories");
+		File[] files = dir.listFiles();
+		for (File f : files) {
+			if (!f.delete()) Log.e(LOGTAG, "Could not delete "+f.getAbsolutePath());
+		}
+		if (!dir.delete()) Log.e(LOGTAG, "Could not delete "+dir.getAbsolutePath());
 	}
 	
 }

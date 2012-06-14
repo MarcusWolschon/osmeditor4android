@@ -47,6 +47,7 @@ public class PrefEditor extends PreferenceActivity {
 			apipref.setSummary(current.name.isEmpty() ? current.url : current.name);
 			loginpref.setSummary(null);
 		}
+		// TODO add preset selection
 	}
 	
 	private void fixUpPrefs() {

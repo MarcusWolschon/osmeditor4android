@@ -6,12 +6,13 @@ import android.os.Bundle;
 
 import de.blau.android.Main;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
+import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 
-public class APIEditorActivity extends URLListEditActivity {
+public class PresetEditorActivity extends URLListEditActivity {
 
 	private AdvancedPrefDatabase db;
 	
-	public APIEditorActivity() {
+	public PresetEditorActivity() {
 		super();
 	}
 	
@@ -23,31 +24,34 @@ public class APIEditorActivity extends URLListEditActivity {
 	
 	@Override
 	protected void onLoadList(List<ListEditItem> items) {
-		API[] apis = db.getAPIs();
-		for (API api : apis) {
-			items.add(new ListEditItem(api.id, api.name, api.url));
+		PresetInfo[] presets = db.getPresets();
+		for (PresetInfo preset : presets) {
+			items.add(new ListEditItem(preset.id, preset.name, preset.url));
 		}
 	}
 
 	@Override
 	protected void onItemClicked(ListEditItem item) {
-		db.selectAPI(item.id);
+		db.setCurrentAPIPreset(item.id);
 		finish();
 	}
 
 	@Override
 	protected void onItemCreated(ListEditItem item) {
-		db.addAPI(item.id, item.name, item.value, "", "", "");
+		db.addPreset(item.id, item.name, item.value);
 	}
 
 	@Override
 	protected void onItemEdited(ListEditItem item) {
-		db.setAPIDescriptors(item.id, item.name, item.value);
+		db.setPresetInfo(item.id, item.name, item.value);
+		db.removePresetDirectory(item.id);
+		Main.resetPreset();
 	}
 
 	@Override
 	protected void onItemDeleted(ListEditItem item) {
-		db.deleteAPI(item.id);
+		db.deletePreset(item.id);
+		Main.resetPreset();
 	}
 	
 

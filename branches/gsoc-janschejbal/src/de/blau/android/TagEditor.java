@@ -51,7 +51,6 @@ import de.blau.android.presets.Preset.PresetItem;
 public class TagEditor extends Activity implements OnDismissListener {
 
 	// TODO: Save "recently used" and present to user
-	// TODO: Dynamic preset loading
 	// TODO: persistent saving
 	
 	
@@ -88,9 +87,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
 	private boolean loaded;
 	
-
-	private Preset preset;
-
 	private PresetDialog presetDialog;
 	
 	/**
@@ -169,8 +165,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 		
 		loaded = true;
 		ensureEmptyRow();
-
-		preset = new Preset(this);
 		
 		createSourceSurveyButton();
 		createApplyPresetButton();
@@ -262,6 +256,9 @@ public class TagEditor extends Activity implements OnDismissListener {
 	
 	private void createApplyPresetButton() {
 		Button presetButton = (Button) findViewById(R.id.applyPresetButton);
+		presetButton.setEnabled(Main.currentPreset != null);
+		if (Main.currentPreset == null) return;
+		
 		presetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
@@ -275,15 +272,16 @@ public class TagEditor extends Activity implements OnDismissListener {
 
 		final String last = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_LAST_TAG, null);
 		button.setEnabled(last != null);
-		if (last != null) {
-			button.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(final View v) {
-					rowLayout.removeAllViews();
-					loadEdits(last);					
-				}
-			});
-		}
+		if (last == null) return;
+		
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(final View v) {
+				rowLayout.removeAllViews();
+				loadEdits(last);					
+			}
+		});
+
 	}
 
 	private void createRevertButton() {
@@ -308,8 +306,10 @@ public class TagEditor extends Activity implements OnDismissListener {
 	}
 	
 	private void createRecentPresetView() {
+		if (Main.currentPreset == null) return;
+		
 		ElementType filterType = Main.logic.delegator.getOsmElement(getType(), getOsmId()).getType();
-		View v = preset.getRecentPresetView(new PresetClickHandler() {
+		View v = Main.currentPreset.getRecentPresetView(new PresetClickHandler() {
 			
 			@Override
 			public void onItemClick(PresetItem item) {
@@ -330,7 +330,8 @@ public class TagEditor extends Activity implements OnDismissListener {
 	}
 
 	private void recreateRecentPresetView() {
-		verticalLayout.removeView(verticalLayout.findViewById(R.id.recentPresets));
+		View currentView = verticalLayout.findViewById(R.id.recentPresets);
+		if (currentView != null) verticalLayout.removeView(currentView);
 		createRecentPresetView();
 	}
 	
@@ -395,7 +396,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 */
 	protected void loadEdits(String tags) {
 		String[] tagArray = tags.split("\n");
-		loadEdits(Arrays.asList(tagArray));
+		loadEdits(Arrays.asList(tagArray)); // TODO check array index out of bounds - when does it happen?
 	}
 
 	/** Save the state of this activity instance for future restoration.
@@ -720,8 +721,9 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * Shows the preset dialog for choosing which preset to apply
 	 */
 	private void showPresetDialog() {
+		if (Main.currentPreset == null) return;
 		OsmElement element = Main.logic.delegator.getOsmElement(getType(), getOsmId());
-		presetDialog = new PresetDialog(this, preset, element);
+		presetDialog = new PresetDialog(this, Main.currentPreset, element);
 		presetDialog.setOnDismissListener(this);
 		presetDialog.show();
 	}
@@ -743,7 +745,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
 			insertNewEdit(tag.getKey(), tag.getValue(), true);
 		}
-		preset.putRecentlyUsed(item);
+		if (Main.currentPreset != null) Main.currentPreset.putRecentlyUsed(item);
 		recreateRecentPresetView();
 	}
 }

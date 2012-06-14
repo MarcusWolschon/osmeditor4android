@@ -255,6 +255,10 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			redownload = false;
 			logic.downloadLast();
 		}
+		
+		if (currentPreset == null) {
+			currentPreset = prefs.getPreset(); // TODO separate thread?
+		}
 	}
 
 	/**
@@ -1113,5 +1117,12 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	public static void prepareRedownload() {
 		redownload = true;
+	}
+
+	/**
+	 * Resets the current preset, causing it to be re-parsed (and possibly re-downloaded)
+	 */
+	public static void resetPreset() {
+		currentPreset = null;
 	}
 }

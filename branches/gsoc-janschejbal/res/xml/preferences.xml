@@ -61,6 +61,11 @@
 			android:dialogTitle="@string/config_loginbutton_title"
 			android:singleLine="true"
 		/>
+		<Preference
+			android:title="@string/config_presetbutton_title"
+			android:key="@string/config_presetbutton_key"
+			android:summary="@string/config_presetbutton_summary"
+		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_gps">
 		<EditTextPreference
