@@ -15,7 +15,6 @@ import android.util.Log;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 
 public class AdvancedPrefDatabase extends SQLiteOpenHelper {
@@ -278,8 +277,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("url", url);
 		db.insert("presets", null, values);
 		db.close();
-		
-		downloadPresetData(id, url);
 	}
 	
 	
@@ -290,15 +287,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("url", url);
 		db.update("presets", values, "id = ?", new String[] {id});
 		db.close();
-
-		downloadPresetData(id, url);
-	}
-	
-	private void downloadPresetData(String id, String url) {
-		File presetDir = getPresetDirectory(id);
-		presetDir.mkdir();
-		if (!presetDir.isDirectory()) throw new RuntimeException("Could not create preset directory " + presetDir.getAbsolutePath());
-		// TODO actually download stuff
 	}
 
 	/** 

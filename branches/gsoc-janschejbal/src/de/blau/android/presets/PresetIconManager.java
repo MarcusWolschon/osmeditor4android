@@ -2,16 +2,12 @@ package de.blau.android.presets;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import de.blau.android.util.Hash;
 
@@ -40,8 +36,8 @@ public class PresetIconManager {
 	/**
 	 * Gets a drawable for a URL.<br>
 	 * If the URL is a HTTP(S) URL and a base path is given, it will be checked for the cached drawable.<br>
-	 * If the URL is a relative "presets/" path and matches [A-Za-z0-9_-].png.<br>
-	 * If the URL is neither of these (or null), null is returned.<br>
+	 * Otherwise, the URL will be considered a relative path, checked for ".." to avoid path traversal,
+	 * and it will be attempted to load the corresponding image from the asset image directory.<br>
 	 * @param url either a local preset url of the format "presets/xyz.png", or a http/https url
 	 * @param size icon size in dp
 	 * @return null if icon file not found or a drawable of [size]x[size] dp.
@@ -100,7 +96,7 @@ public class PresetIconManager {
 	 * @param value the value to hash
 	 * @return a unique, file-name safe identifier
 	 */
-	public String hash(String value) {
+	public static String hash(String value) {
 		return Hash.sha256(value).substring(0, 24);
 	}
 	

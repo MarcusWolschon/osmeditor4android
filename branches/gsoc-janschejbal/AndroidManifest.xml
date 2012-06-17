@@ -42,5 +42,6 @@
 			</intent-filter>
 		</service>
 		<activity android:name=".prefs.APIEditorActivity"></activity>
-	</application>
+		<activity android:name=".prefs.PresetEditorActivity"></activity>
+			</application>
 </manifest> 

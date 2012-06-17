@@ -1120,7 +1120,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	}
 
 	/**
-	 * Resets the current preset, causing it to be re-parsed (and possibly re-downloaded)
+	 * Resets the current preset, causing it to be re-parsed
 	 */
 	public static void resetPreset() {
 		currentPreset = null;

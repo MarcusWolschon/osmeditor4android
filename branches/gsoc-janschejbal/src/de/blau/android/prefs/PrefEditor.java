@@ -20,6 +20,7 @@ public class PrefEditor extends PreferenceActivity {
 	private Resources r;
 	private String KEY_PREFAPI;
 	private String KEY_PREFLOGIN;
+	private String KEY_PREFPRESET;
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class PrefEditor extends PreferenceActivity {
 		r = getResources();
 		KEY_PREFAPI = r.getString(R.string.config_apibutton_key);
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
+		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
 		fixUpPrefs();
 	}
 	
@@ -47,7 +49,6 @@ public class PrefEditor extends PreferenceActivity {
 			apipref.setSummary(current.name.isEmpty() ? current.url : current.name);
 			loginpref.setSummary(null);
 		}
-		// TODO add preset selection
 	}
 	
 	private void fixUpPrefs() {
@@ -62,6 +63,15 @@ public class PrefEditor extends PreferenceActivity {
 				} else {
 					startActivity(intent);
 				}
+				return true;
+			}
+		});
+		
+		Preference presetpref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
+		presetpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				startActivity(new Intent(PrefEditor.this, PresetEditorActivity.class));
 				return true;
 			}
 		});

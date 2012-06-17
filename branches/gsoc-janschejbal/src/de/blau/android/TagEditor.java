@@ -34,7 +34,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.PresetDialog;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
@@ -50,9 +49,8 @@ import de.blau.android.presets.Preset.PresetItem;
  */
 public class TagEditor extends Activity implements OnDismissListener {
 
-	// TODO: Save "recently used" and present to user
-	// TODO: persistent saving
-	
+	// TODO autosuggest based on extended preset properties
+	// TODO persistent saving for MRU
 	
 	public static final String TAGS = "tags";
 	public static final String TAGS_ORIG = "tags_original";
@@ -384,7 +382,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 */
 	protected void loadEdits(final List<String> tags) {
 		loaded = false;
-		for (int i = 0, size = tags.size(); i < size; i += 2) {
+		for (int i = 0, size = tags.size(); i < size-1; i += 2) {
 			insertNewEdit(tags.get(i), tags.get(i + 1), false);
 		}
 		loaded = true;
@@ -395,8 +393,12 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * Creates edits from a String containing newline-separated sequential key-value pairs
 	 */
 	protected void loadEdits(String tags) {
+		if (tags.isEmpty()) {
+			ensureEmptyRow();
+			return;
+		}
 		String[] tagArray = tags.split("\n");
-		loadEdits(Arrays.asList(tagArray)); // TODO check array index out of bounds - when does it happen?
+		loadEdits(Arrays.asList(tagArray));
 	}
 
 	/** Save the state of this activity instance for future restoration.

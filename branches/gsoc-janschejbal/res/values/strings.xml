@@ -145,6 +145,13 @@
 	<string name="config_gps_interval_title">Minimum GPS-Interval</string>
 	<string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
 	
+	<!-- preset downloader messages -->
+	<string name="preset_download_successful">Preset successfully downloaded</string>
+	<string name="preset_download_failed">The preset file could not be downloaded. The preset will not work.</string>
+	<string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
+	<string name="preset_download_missing_images">The preset file was successfully downloaded. However, some icons could not be downloaded and will be missing.</string>
+			
+	
 	<!-- Preference keys - DO NOT TRANSLATE OR COPY TO TRANSLATION -->
 	<string name="config_showStats_key">showStats</string>
 	<string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
@@ -163,7 +170,7 @@
 	<string name="config_presetbutton_key">presetsettings-button</string>
 		
 	<string name="config_selected_api">selectedAPI</string>
-	
+		
 	<!--  changes -->
 	<string name="changes_deleted">"%1$s" deleted</string>
 	<string name="changes_changed">"%1$s" changed</string>

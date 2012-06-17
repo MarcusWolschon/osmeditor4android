@@ -60,7 +60,7 @@ public class Preset {
 	// TODO tags to lowercase?
 	
 	/** name of the preset XML file in a preset directory */
-	private static final String PRESETXML = "preset.xml";
+	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
 	private static final String MRUFILE = "mru.dat";
 
@@ -120,6 +120,10 @@ public class Preset {
         
         // Finish hash
         String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
+        // in theory, it could be possible that the stream parser does not read the entire file
+        // and maybe even randomly stops at a different place each time.
+        // in practice, it does read the full file, which means this gives the actual sha256 of the file,
+        //  - even if you add a 1 MB comment after the document-closing tag.
         
         mru = initMRU(directory, hashValue);
 	}
@@ -207,16 +211,16 @@ public class Preset {
 	
 	/**
 	 * Returns a list of icon URLs referenced by a preset
-	 * @param xml a File object pointing to the preset XML
+	 * @param presetDir a File object pointing to the directory containing this preset
 	 * @return an ArrayList of http and https URLs as string, or null if there is an error during parsing
 	 */
 	@SuppressWarnings("deprecation")
-	public static ArrayList<String> parseForURLs(File xml) {
+	public static ArrayList<String> parseForURLs(File presetDir) {
 		final ArrayList<String> urls = new ArrayList<String>();
 		try {
 			SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
 			
-	        saxParser.parse(xml, new HandlerBase() {
+	        saxParser.parse(new File(presetDir, PRESETXML), new HandlerBase() {
 	            /** 
 	             * ${@inheritDoc}.
 	             */
@@ -560,6 +564,7 @@ public class Preset {
 	
 	/**
 	 * Adapter providing the preset elements in this group
+	 * currently unused, left here in case it is later needed
 	 */
 	private class PresetGroupAdapter extends BaseAdapter {
 	
