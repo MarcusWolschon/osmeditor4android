@@ -254,8 +254,8 @@ public class TagEditor extends Activity implements OnDismissListener {
 	
 	private void createApplyPresetButton() {
 		Button presetButton = (Button) findViewById(R.id.applyPresetButton);
-		presetButton.setEnabled(Main.currentPreset != null);
-		if (Main.currentPreset == null) return;
+		presetButton.setEnabled(Main.getCurrentPreset() != null);
+		if (Main.getCurrentPreset() == null) return;
 		
 		presetButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -304,10 +304,10 @@ public class TagEditor extends Activity implements OnDismissListener {
 	}
 	
 	private void createRecentPresetView() {
-		if (Main.currentPreset == null) return;
+		if (Main.getCurrentPreset() == null) return;
 		
 		ElementType filterType = Main.logic.delegator.getOsmElement(getType(), getOsmId()).getType();
-		View v = Main.currentPreset.getRecentPresetView(new PresetClickHandler() {
+		View v = Main.getCurrentPreset().getRecentPresetView(new PresetClickHandler() {
 			
 			@Override
 			public void onItemClick(PresetItem item) {
@@ -412,6 +412,12 @@ public class TagEditor extends Activity implements OnDismissListener {
 		outState.putAll(getKeyValueBundle(true)); // save partially blank pairs too
 		super.onSaveInstanceState(outState);
 	}
+	
+	@Override
+	protected void onPause() {
+		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().saveMRU();
+		super.onPause();
+	}
 
 	/**
 	 * Insert a new row with one key and one value to edit.
@@ -425,7 +431,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		rowLayout.addView(row, atStart? 0 : rowLayout.getChildCount());
 
 	}
-	
+		
 	public static class TagEditRow extends LinearLayout {
 
 		private TagEditor owner;
@@ -723,9 +729,9 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * Shows the preset dialog for choosing which preset to apply
 	 */
 	private void showPresetDialog() {
-		if (Main.currentPreset == null) return;
+		if (Main.getCurrentPreset() == null) return;
 		OsmElement element = Main.logic.delegator.getOsmElement(getType(), getOsmId());
-		presetDialog = new PresetDialog(this, Main.currentPreset, element);
+		presetDialog = new PresetDialog(this, Main.getCurrentPreset(), element);
 		presetDialog.setOnDismissListener(this);
 		presetDialog.show();
 	}
@@ -747,7 +753,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
 			insertNewEdit(tag.getKey(), tag.getValue(), true);
 		}
-		if (Main.currentPreset != null) Main.currentPreset.putRecentlyUsed(item);
+		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().putRecentlyUsed(item);
 		recreateRecentPresetView();
 	}
 }

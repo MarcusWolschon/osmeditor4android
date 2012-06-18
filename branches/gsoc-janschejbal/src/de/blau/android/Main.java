@@ -153,7 +153,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	/**
 	 * The currently selected preset
 	 */
-	protected static Preset currentPreset;
+	private static Preset currentPreset;
 
 	/**
 	 * Flag indicating wheter the map will be re-downloaded once the activity starts
@@ -515,7 +515,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		logic.insertTags(type, osmId, tags);
 		map.invalidate();
 	}
-
+	
 	@Override
 	protected void onDestroy() {
 		map.onDestroy();
@@ -1117,6 +1117,13 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	public static void prepareRedownload() {
 		redownload = true;
+	}
+
+	/**
+	 * @return the currentPreset
+	 */
+	public static Preset getCurrentPreset() {
+		return currentPreset;
 	}
 
 	/**

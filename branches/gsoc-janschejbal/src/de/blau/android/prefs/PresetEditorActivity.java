@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,16 +57,18 @@ public class PresetEditorActivity extends URLListEditActivity {
 	@Override
 	protected void onItemCreated(ListEditItem item) {
 		db.addPreset(item.id, item.name, item.value);
-		downloadPresetData(item.id, item.value);
-		db.setCurrentAPIPreset(item.id);
-		Main.resetPreset();
+		downloadPresetData(item);
+		if (!isAddingViaIntent()) {
+			db.setCurrentAPIPreset(item.id);
+			Main.resetPreset();
+		}
 	}
 
 	@Override
 	protected void onItemEdited(ListEditItem item) {
 		db.setPresetInfo(item.id, item.name, item.value);
 		db.removePresetDirectory(item.id);
-		downloadPresetData(item.id, item.value);
+		downloadPresetData(item);
 		Main.resetPreset();
 	}
 
@@ -75,8 +78,8 @@ public class PresetEditorActivity extends URLListEditActivity {
 		Main.resetPreset();
 	}
 	
-	private void downloadPresetData(final String id, final String url) {
-		final File presetDir = db.getPresetDirectory(id);
+	private void downloadPresetData(final ListEditItem item) {
+		final File presetDir = db.getPresetDirectory(item.id);
 		presetDir.mkdir();
 		if (!presetDir.isDirectory()) throw new RuntimeException("Could not create preset directory " + presetDir.getAbsolutePath());
 
@@ -108,7 +111,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 			
 			@Override
 			protected Integer doInBackground(Void... arg0) {
-				if (!download(url, Preset.PRESETXML)) {
+				if (!download(item.value, Preset.PRESETXML)) {
 					return RESULT_TOTAL_FAILURE;
 				}
 				
@@ -175,13 +178,14 @@ public class PresetEditorActivity extends URLListEditActivity {
 				switch (result) {
 				case RESULT_TOTAL_SUCCESS:
 					Toast.makeText(PresetEditorActivity.this, R.string.preset_download_successful, Toast.LENGTH_LONG).show();
+					PresetEditorActivity.super.sendResultIfApplicable(item);
 					break;
 				case RESULT_TOTAL_FAILURE:
 					msgbox(R.string.preset_download_failed);
 					break;
 				case RESULT_PRESET_NOT_PARSABLE:
+					db.removePresetDirectory(item.id);
 					msgbox(R.string.preset_download_parse_failed);
-					db.removePresetDirectory(id);
 					break;
 				case RESULT_IMAGE_FAILURE:
 					msgbox(R.string.preset_download_missing_images);
@@ -192,14 +196,32 @@ public class PresetEditorActivity extends URLListEditActivity {
 					break;
 				}
 			}
+
+			private void msgbox(int msgResID) {
+				AlertDialog.Builder box = new AlertDialog.Builder(PresetEditorActivity.this);
+				box.setMessage(getResources().getString(msgResID));
+				box.setOnCancelListener(new OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						PresetEditorActivity.super.sendResultIfApplicable(item);
+					}
+				});
+				box.setPositiveButton(R.string.okay, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						PresetEditorActivity.super.sendResultIfApplicable(item);
+					}
+				});
+				box.show();
+			}
 			
 		}.execute();
 	}
 	
-	private void msgbox(int msgResID) {
-		AlertDialog.Builder box = new AlertDialog.Builder(this);
-		box.setMessage(getResources().getString(msgResID));
-		box.show();
+	@Override
+	protected boolean canAutoClose() {
+		return false;
 	}
 	
 	

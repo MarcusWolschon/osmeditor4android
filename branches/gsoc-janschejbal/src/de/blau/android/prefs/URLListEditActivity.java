@@ -1,5 +1,6 @@
 package de.blau.android.prefs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -42,6 +45,10 @@ import de.blau.android.R;
  */
 public abstract class URLListEditActivity extends ListActivity implements OnMenuItemClickListener, OnItemClickListener {
 
+	public static final String ACTION_NEW = "new";
+	public static final String EXTRA_NAME = "name";
+	public static final String EXTRA_VALUE = "value";
+	public static final String EXTRA_ITEM = "item";
 	
 	protected Resources r;
 	protected final Context ctx;
@@ -49,11 +56,12 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	protected static final int MENUITEM_EDIT = 0;
 	protected static final int MENUITEM_DELETE = 1;
 	protected static final String LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
-
 	private ListAdapter adapter;
 	protected final List<ListEditItem> items;
 
 	private ListEditItem selectedItem = null;
+	
+	private boolean addingViaIntent = false;
 	
 	public URLListEditActivity() {
 		this.ctx = this; // Change when changing Activity to Fragment
@@ -83,6 +91,15 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		this.getListView().setOnItemClickListener(this);
 		this.getListView().setLongClickable(true);
 		this.getListView().setOnCreateContextMenuListener(this);
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		addingViaIntent = ((getIntent() != null && ACTION_NEW.equals(getIntent().getAction())));
+		if (isAddingViaIntent()) {
+			itemEditDialog(null);
+		}
 	}
 
 
@@ -133,7 +150,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
  	 * Opens the dialog to edit an item
  	 * @param item the selected item
  	 */
-	private void itemEditDialog(final ListEditItem item) {
+	protected void itemEditDialog(final ListEditItem item) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
 		final View mainView = View.inflate(ctx, R.layout.listedit_edit, null);
 		final TextView editName = (TextView)mainView.findViewById(R.id.listedit_editName);
@@ -141,6 +158,9 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		if (item != null) {
 			editName.setText(item.name);
 			editValue.setText(item.value);
+		} else if (isAddingViaIntent()) {
+			editName.setText(getIntent().getExtras().getString(EXTRA_NAME, ""));
+			editValue.setText(getIntent().getExtras().getString(EXTRA_VALUE, ""));
 		}
 		
 		builder.setView(mainView);
@@ -164,7 +184,18 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 
 		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				// Canceled.
+				dialog.cancel();
+			}
+		});
+		
+		builder.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				if (isAddingViaIntent()) {
+					setResult(RESULT_CANCELED);
+					finish();
+				}
 			}
 		});
 		
@@ -180,6 +211,33 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		items.add(item);
 		updateAdapter();
 		onItemCreated(item);
+		
+		if (canAutoClose()) sendResultIfApplicable(item);
+	}
+	
+	/**
+	 * If this editor {@link #isAddingViaIntent()},
+	 * finishes the activity (sending RESULT_OK with the given item) 
+	 * @param item created/edited item to send as result
+	 */
+	protected void sendResultIfApplicable(ListEditItem item) {
+		if (isAddingViaIntent()) {
+			Intent intent = new Intent();
+			intent.putExtra(EXTRA_ITEM, item);
+			setResult(RESULT_OK, intent);
+			finish();
+		}		
+	}
+	
+	/**
+	 * Override this if you need to keep the dialog open after an intent-initiated edit event
+	 * (e.g. to finish downloading preset data).
+	 * You are responsible for finishing the activity and sending the result if you return false.
+	 * You will probably want to use {@link #sendResultIfApplicable(ListEditItem)}
+	 * @return false to stop the dialog from closing automatically after an intent-initiated edit event
+	 */
+	protected boolean canAutoClose() {
+		return true;
 	}
 
 	/**
@@ -190,6 +248,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		updateAdapter();
 		onItemEdited(item);
 	}
+	
 
 	/**
 	 * Deletes an item
@@ -239,7 +298,8 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	 * 
 	 * @author Jan
 	 */
-	public class ListEditItem {
+	public static class ListEditItem implements Serializable {
+		private static final long serialVersionUID = 7574708515164503466L;
 		public final String id;
 		public String name;
 		public String value;
@@ -301,6 +361,13 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 
 	public List<ListEditItem> getItems() {
 		return items;
+	}
+
+	/**
+	 * @return true if this editor has been called via an intent to add an entry
+	 */
+	public boolean isAddingViaIntent() {
+		return addingViaIntent;
 	}
 
 }

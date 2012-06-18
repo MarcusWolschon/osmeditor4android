@@ -43,5 +43,13 @@
 		</service>
 		<activity android:name=".prefs.APIEditorActivity"></activity>
 		<activity android:name=".prefs.PresetEditorActivity"></activity>
-			</application>
+		<activity android:name=".prefs.VespucciURLActivity">
+			<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="osmprefs"/>
+            </intent-filter>	    
+		</activity>
+	</application>
 </manifest> 

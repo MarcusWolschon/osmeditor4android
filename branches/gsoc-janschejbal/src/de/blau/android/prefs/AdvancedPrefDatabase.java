@@ -47,18 +47,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) {
+	public synchronized void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT)");
 		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT)");
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// nothing yet
 	}
 	
 	
-	private void migrateAPI() {
+	private synchronized void migrateAPI() {
 		Log.d(LOGTAG, "Migrating API");
 		String user = prefs.getString(r.getString(R.string.config_username_key), "");
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
@@ -111,7 +111,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param url
 	 * @param value 
 	 */
-	public void setAPIDescriptors(String id, String name, String url) {
+	public synchronized void setAPIDescriptors(String id, String name, String url) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("name", name);
@@ -120,7 +120,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	public void setCurrentAPILogin(String user, String pass) {
+	public synchronized void setCurrentAPILogin(String user, String pass) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("user", user);
@@ -129,7 +129,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public void setCurrentAPIPreset(String preset) {
+	public synchronized void setCurrentAPIPreset(String preset) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("preset", preset);
@@ -137,7 +137,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public void addAPI(String id, String name, String url, String user, String pass, String preset) {
+	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("id", id);
@@ -150,7 +150,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public void deleteAPI(final String id) {
+	public synchronized void deleteAPI(final String id) {
 		if (id.equals(ID_DEFAULT)) throw new RuntimeException("Cannot delete default");
 		if (id.equals(currentAPI)) selectAPI(ID_DEFAULT);
 		SQLiteDatabase db = getWritableDatabase();
@@ -163,7 +163,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param id null to fetch all APIs, or API-ID to fetch a specific one
 	 * @return API[]
 	 */
-	private API[] getAPIs(String id) {
+	private synchronized API[] getAPIs(String id) {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor dbresult = db.query(
 								"apis",
@@ -247,7 +247,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param byURL if false, value represents an ID, if true, value represents an URL 
 	 * @return PresetInfo[]
 	 */
-	private PresetInfo[] getPresets(String value, boolean byURL) {
+	private synchronized PresetInfo[] getPresets(String value, boolean byURL) {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor dbresult = db.query(
 								"presets",
@@ -269,7 +269,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 
-	public void addPreset(String id, String name, String url) {
+	public synchronized void addPreset(String id, String name, String url) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("id", id);
@@ -280,7 +280,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	
-	public void setPresetInfo(String id, String name, String url) {
+	public synchronized void setPresetInfo(String id, String name, String url) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("name", name);
@@ -293,7 +293,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * Sets the lastupdate value of the givenpreset to now
 	 * @param id the ID of the preset to update
 	 * */
-	public void setPresetLastupdateNow(String id) {
+	public synchronized void setPresetLastupdateNow(String id) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("lastupdate", ((Long)System.currentTimeMillis()).toString());
@@ -302,7 +302,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 
 
-	public void deletePreset(String id) {
+	public synchronized void deletePreset(String id) {
 		if (id.equals(ID_DEFAULT)) throw new RuntimeException("Cannot delete default");
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("presets", "id = ?", new String[] { id });

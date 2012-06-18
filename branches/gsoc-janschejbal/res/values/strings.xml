@@ -178,6 +178,14 @@
 	<string name="confirm_upload_title">Upload?</string>
 	<string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
 
+	<!--  url handler activity -->
+	<string name="urldialog_add_preset">Add preset</string>
+	<string name="urldialog_preset_exists">This preset already exists</string>
+	<string name="urldialog_api_exists">An API with this URL already exists. However, you may add another one (e.g. to switch accounts easily).</string>
+	<string name="urldialog_api_preset_missing">The preset used by the API is not available. You should add it first.</string>
+	<string name="urldialog_add_api">Add API</string>
+	
+	
 	<!--  common terms  -->
 	<string name="add">Add</string>
 	<string name="edit">Edit</string>
@@ -185,5 +193,7 @@
 	<string name="name">Name</string>
 	<string name="url">URL</string>
 	<string name="default_">Default</string><!-- "default" is a reserved Java keyword... -->
-	
+	<string name="preset">Preset</string>
+	<string name="api">API</string>
+		
 </resources>
