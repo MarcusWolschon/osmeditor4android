@@ -71,7 +71,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		Editor editor = prefs.edit();
 		editor.remove(r.getString(R.string.config_username_key));
 		editor.remove(r.getString(R.string.config_password_key));
-		editor.apply();
+		editor.commit();
 		Log.d(LOGTAG, "Migration finished");
 	}
 	
@@ -82,7 +82,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	public void selectAPI(String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
 		if (getAPIs(id).length == 0) throw new RuntimeException("Non-existant API selected");
-		prefs.edit().putString(PREF_SELECTED_API, id).apply();
+		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
 		Main.resetPreset();
@@ -135,6 +135,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("preset", preset);
 		db.update("apis", values, "id = ?", new String[] {currentAPI});
 		db.close();
+		Main.resetPreset();
 	}
 	
 	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset) {

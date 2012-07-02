@@ -84,7 +84,7 @@ public class Preset {
 	 * Serializable class for storing Most Recently Used information.
 	 * Hash is used to check compatibility.
 	 */
-	protected class PresetMRUInfo implements Serializable {
+	protected static class PresetMRUInfo implements Serializable {
 		protected PresetMRUInfo(String presetHash) {
 			this.presetHash = presetHash;
 		}
@@ -104,6 +104,8 @@ public class Preset {
 		this.iconManager = new PresetIconManager(ctx, null);
 		this.directory = directory;
 		rootGroup = new PresetGroup(null, "", null);
+		
+		directory.mkdir();
 		
 		InputStream fileStream;
 		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
@@ -196,15 +198,17 @@ public class Preset {
 	 */
 	private PresetMRUInfo initMRU(File directory, String hashValue) {
 		PresetMRUInfo tmpMRU;
+		ObjectInputStream mruReader = null;
         try {
-        	ObjectInputStream mruReader = 
-        		new ObjectInputStream(new FileInputStream(new File(directory, MRUFILE)));
+        	mruReader = new ObjectInputStream(new FileInputStream(new File(directory, MRUFILE)));
         	tmpMRU = (PresetMRUInfo) mruReader.readObject();
         	if (!tmpMRU.presetHash.equals(hashValue)) throw new InvalidObjectException("hash mismatch");
         } catch (Exception e) {
         	tmpMRU = new PresetMRUInfo(hashValue);
         	// Unserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
         	Log.i("Preset", "No usable old MRU list, creating new one ("+e.toString()+")");
+        } finally {
+				try { if (mruReader != null) mruReader.close(); } catch (Exception e) {} // ignore IO exceptions
         }
     	return tmpMRU;
 	}
@@ -459,7 +463,6 @@ public class Preset {
 		@Override
 		public View getView(final PresetClickHandler handler) {
 			TextView v = super.getBaseView();
-			v.setBackgroundColor(android.R.color.darker_gray);
 			v.setTypeface(null,Typeface.BOLD);
 			if (handler != null) {
 				v.setOnClickListener(new OnClickListener() {

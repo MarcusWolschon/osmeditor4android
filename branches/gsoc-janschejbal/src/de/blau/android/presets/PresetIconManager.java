@@ -45,8 +45,8 @@ public class PresetIconManager {
 	public Drawable getDrawable(String url, int size) {
 		if (url == null) return null;
 		
+		InputStream pngStream = null;
 		try {
-			InputStream pngStream;
 			if (basePath != null && url.startsWith("http://") || url.startsWith("https://")) {
 				pngStream = new FileInputStream(basePath+hash(url)+".png");
 			} else if (!url.contains("..")) {
@@ -63,6 +63,8 @@ public class PresetIconManager {
 		} catch (Exception e) {
 			Log.e("PresetIconManager", "Failed to load preset icon " + url, e);
 			return null;
+		} finally {
+			try { if (pngStream != null) pngStream.close(); } catch (Exception e) {} // ignore IO exceptions
 		}
 	}
 	
