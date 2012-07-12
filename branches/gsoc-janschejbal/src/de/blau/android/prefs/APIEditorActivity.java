@@ -7,6 +7,7 @@ import android.os.Bundle;
 import de.blau.android.Main;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 
+/** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {
 
 	private AdvancedPrefDatabase db;

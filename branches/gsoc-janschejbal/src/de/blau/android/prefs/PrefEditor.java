@@ -46,11 +46,12 @@ public class PrefEditor extends PreferenceActivity {
 			apipref.setSummary(R.string.config_apibutton_summary);
 			loginpref.setSummary(R.string.config_username_summary);
 		} else {
-			apipref.setSummary(current.name.isEmpty() ? current.url : current.name);
+			apipref.setSummary(current.name.equals("") ? current.url : current.name);
 			loginpref.setSummary(null);
 		}
 	}
 	
+	/** Perform initialization of the advanced preference buttons (API/Presets) */
 	private void fixUpPrefs() {
 		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
 		apipref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

@@ -102,8 +102,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		}
 	}
 
-
-
+	/** refreshes the data adapter (list content) */
 	protected void updateAdapter() {
 		adapter = new ListEditAdapter(ctx, items);
 		setListAdapter(adapter);		
@@ -159,8 +158,10 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 			editName.setText(item.name);
 			editValue.setText(item.value);
 		} else if (isAddingViaIntent()) {
-			editName.setText(getIntent().getExtras().getString(EXTRA_NAME, ""));
-			editValue.setText(getIntent().getExtras().getString(EXTRA_VALUE, ""));
+			String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
+			String tmpValue = getIntent().getExtras().getString(EXTRA_VALUE);
+			editName.setText(tmpName == null ? "" : tmpName);
+			editValue.setText(tmpValue == null ? "" : tmpValue);
 		}
 		
 		builder.setView(mainView);

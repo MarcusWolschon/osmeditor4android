@@ -84,6 +84,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		return state;
 	}
 
+	/** gives a string description of the element type (e.g. 'node' or 'way') - see also {@link #getType()} */
 	abstract public String getName();
 
 	/**
@@ -263,8 +264,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	}
 	
 	
+	/** (see also {@link #getName()} - this returns the full type, differentiating between open and closed ways) 
+	 * @return the {@link ElementType} of the element */
 	public abstract ElementType getType();
 	
+	/** Enum for element types (Node, Way, Closedway) */
 	public enum ElementType {
 		NODE,
 		WAY,

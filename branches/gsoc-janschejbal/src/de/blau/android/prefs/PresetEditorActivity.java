@@ -25,6 +25,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
 
+/** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
 
 	private AdvancedPrefDatabase db;
@@ -78,6 +79,10 @@ public class PresetEditorActivity extends URLListEditActivity {
 		Main.resetPreset();
 	}
 	
+	/**
+	 * Download data (XML, icons) for a certain preset
+	 * @param item the item containing the preset to be downloaded
+	 */
 	private void downloadPresetData(final ListEditItem item) {
 		final File presetDir = db.getPresetDirectory(item.id);
 		presetDir.mkdir();
@@ -197,6 +202,11 @@ public class PresetEditorActivity extends URLListEditActivity {
 				}
 			}
 
+			/**
+			 * Show a simple message box detailing the download result.
+			 * The activity will end as soon as the box is closed.
+			 * @param msgResID string resource id of message
+			 */
 			private void msgbox(int msgResID) {
 				AlertDialog.Builder box = new AlertDialog.Builder(PresetEditorActivity.this);
 				box.setMessage(getResources().getString(msgResID));
@@ -220,7 +230,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 	}
 	
 	@Override
-	protected boolean canAutoClose() {
+	protected boolean canAutoClose() { // download needs to get done
 		return false;
 	}
 	

@@ -13,6 +13,7 @@ import com.actionbarsherlock.view.Menu;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 
+/** Helper class for the Easy edit mode context menus. TODO: Replace by a dialog-based interface for more flexibility! */
 public class EasyEditMenu implements OnMenuItemClickListener {
 	private List<ContextMenuEntry> contextMenuEntries = new ArrayList<EasyEditMenu.ContextMenuEntry>();
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -22,8 +23,6 @@ import android.widget.LinearLayout;
  * This layout should be usable via inflation from XML - the original children
  * are loaded into this class, wrapped in liear layouts and then re-inserted.
  * However, advanced attributes need to be set in the code.
- * 
- * TODO JAVADOC, cleanup etc.
  * 
  * @author Jan Schejbal
  *
@@ -48,43 +47,82 @@ public class WrappingLayout extends LinearLayout {
 		wrapper = new LayoutWrapper(context);
 	}
 	
+	/**
+	 * @return he list of child views that are being line-wrapped 
+	 */
 	public ArrayList<View> getWrappedChildren() {
 		eatChildrenIfNecessary();
 		return children;
 	}
 
+	/**
+	 * Sets the list of child views that should be line-wrapped 
+	 * @param children the children to line-wrap
+	 */
 	public void setWrappedChildren(ArrayList<View> children) {
 		this.children = children;
 		requestLayout();
 	}
 
+	/**
+	 * (Re)does the line-breaking. Use e.g. if you change the size of child elements.
+	 */
 	public void triggerRelayout() {
 		needsRelayout = true;
 		requestLayout();
 	}
 	
+	/**
+	 * Sets the row gravity, i.e. the alignment of items inside rows
+	 * @param gravity the {@link Gravity} to set
+	 * @return LayoutWrapper object (for chaining)
+	 */
 	public LayoutWrapper setRowGravity(int gravity) {
 		return wrapper.setRowGravity(gravity);
 	}
 
+	/**
+	 * Sets whether children will be added from left to right (default, false) or from right to the left (true).
+	 * Most useful with {@link #setRowGravity(int)} set to {@link Gravity#RIGHT}.
+	 * @param rightToLeft
+	 * @return LayoutWrapper object (for chaining)
+	 */
 	public LayoutWrapper setRightToLeft(boolean rightToLeft) {
 		return wrapper.setRightToLeft(rightToLeft);
 	}
 
+	/**
+	 * Sets the vertical spacing in pixels between rows of elements
+	 * @param pixel spacing 
+	 * @return LayoutWrapper object (for chaining)
+	 */
 	public LayoutWrapper setVerticalSpacing(int pixel) {
 		return wrapper.setVerticalSpacing(pixel);
 	}
 
+	/**
+	 * Sets the horizontal spacing in pixels between elements
+	 * @param pixel spacing 
+	 * @return LayoutWrapper object (for chaining)
+	 */
 	public LayoutWrapper setHorizontalSpacing(int pixel) {
 		return wrapper.setHorizontalSpacing(pixel);
 	}
 
+	/**
+	 * After inflating from XML, calls {@link #eatChildren()} to properly line-wrap children
+	 */
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		eatChildren();
 	}
 	
+	/**
+	 * Removes children that belong directly to the WrappingLayout,
+	 * re-adding them as wrapped children.
+	 * This allows to set the WrappingLayout contents from XML  
+	 */
 	private void eatChildren() {
 		ArrayList<View> tmpChildren = new ArrayList<View>();
 		
@@ -116,6 +154,9 @@ public class WrappingLayout extends LinearLayout {
 		}
 	}
 
+	/**
+	 * (Re)does the line wrapping if necessary
+	 */
 	private void performRelayout() {
 		if (!needsRelayout) return;
 		
@@ -139,6 +180,11 @@ public class WrappingLayout extends LinearLayout {
 
 	}	
 
+	
+	/**
+	 * Helper class performing the actual line-wrapping of elements into a LinearLayout 
+	 * @author Jan
+	 */
 	public static class LayoutWrapper {
 		
 		private final static String LOGTAG = LayoutWrapper.class.getSimpleName();
@@ -180,7 +226,7 @@ public class WrappingLayout extends LinearLayout {
 		
 		
 		/**
-		 * Wraps the children into the container. The container must have a width assigned,
+		 * Line-Wraps the children into the container. The container must have a width assigned,
 		 * i.e. the container layout should be finished
 		 * @param children the views to layout
 		 * @param container the LinearLayout that should contain the children

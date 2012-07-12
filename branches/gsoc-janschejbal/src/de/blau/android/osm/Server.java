@@ -91,7 +91,7 @@ public class Server {
 	 * @param generator the name of the editor.
 	 */
 	public Server(final String apiurl, final String username, final String password, final String generator) {
-		if (apiurl != null && !apiurl.isEmpty()) {
+		if (apiurl != null && !apiurl.equals("")) {
 			this.serverURL = apiurl;
 		} else {
 			this.serverURL = "http://api.openstreetmap.org/api/"+version+"/";

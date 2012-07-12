@@ -2,19 +2,15 @@ package de.blau.android.presets;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.security.DigestInputStream;
-import java.security.InvalidParameterException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -73,8 +69,10 @@ public class Preset {
 	 * tagItems.get(tagkey+"\t"+tagvalue) will give you all items that have the tag tagkey=tagvalue */
 	protected final MultiHashMap<String, PresetItem> tagItems = new MultiHashMap<String, PresetItem>();
 
+	/** The root group of the preset, containing all top-level groups and items */
 	protected PresetGroup rootGroup;
 
+	/** {@link PresetIconManager} used for icon loading */
 	protected final PresetIconManager iconManager;	
 	
 	/** all known preset items in order of loading */
@@ -85,6 +83,8 @@ public class Preset {
 	 * Hash is used to check compatibility.
 	 */
 	protected static class PresetMRUInfo implements Serializable {
+		private static final long serialVersionUID = 7708132207266548489L;
+
 		protected PresetMRUInfo(String presetHash) {
 			this.presetHash = presetHash;
 		}
@@ -99,6 +99,12 @@ public class Preset {
 	}
 	protected final PresetMRUInfo mru;
 	
+	/**
+	 * Creates a preset object
+	 * @param ctx
+	 * @param directory directory to load/store preset data (XML, icons, MRUs)
+	 * @throws Exception
+	 */
 	public Preset(Context ctx, File directory) throws Exception {
 		this.context = ctx;
 		this.iconManager = new PresetIconManager(ctx, null);
@@ -143,9 +149,11 @@ public class Preset {
 		SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
 		
         saxParser.parse(input, new HandlerBase() {
-        	
+        	/** stack of group-subgroup-subsubgroup... where we currently are*/
         	private Stack<PresetGroup> groupstack = new Stack<PresetGroup>();
+        	/** item currently being processed */
         	private PresetItem currentItem = null;
+        	/** true if we are currently processing the optional section of an item */
         	private boolean inOptionalSection = false;
 
         	{
@@ -246,10 +254,17 @@ public class Preset {
 		return urls;
 	}
 	
+	/** @return the root group of the preset, containing all top-level groups and items */
 	public PresetGroup getRootGroup() {
 		return rootGroup;
 	}
 	
+	/**
+	 * Returns a view showing the most recently used presets
+	 * @param handler the handler which will handle clicks on the presets
+	 * @param type filter to show only presets applying to this type
+	 * @return the view
+	 */
 	public View getRecentPresetView(PresetClickHandler handler, ElementType type) {
 		PresetGroup recent = new PresetGroup(null, "recent", null);
 		for (int index : mru.recentPresets) {
@@ -258,6 +273,10 @@ public class Preset {
 		return recent.getGroupView(handler, type);
 	}
 	
+	/**
+	 * Add a preset to the front of the MRU list (removing old duplicates and limiting the list to 50 entries if needed)
+	 * @param item the item to add
+	 */
 	public void putRecentlyUsed(PresetItem item) {
 		Integer id = item.getItemIndex();
 		// prevent duplicates
@@ -267,6 +286,7 @@ public class Preset {
 		mru.changed  = true;
 	}
 
+	/** Saves the current MRU data to a file */
 	public void saveMRU() {
 		if (mru.changed) {
 			try {
@@ -316,6 +336,12 @@ public class Preset {
 		return bestMatch;
 	}
 	
+	/**
+	 * Filter a list of elements by type
+	 * @param originalElements the list to filter
+	 * @param type the type to allow
+	 * @return a filtered list containing only elements of the specified type
+	 */
 	private static ArrayList<PresetElement> filterElements(
 			ArrayList<PresetElement> originalElements, ElementType type)
 	{
@@ -431,6 +457,9 @@ public class Preset {
 		}
 	}
 	
+	/**
+	 * Represents a separator in a preset group
+	 */
 	public class PresetSeparator extends PresetElement {
 		public PresetSeparator(PresetGroup parent) {
 			super(parent, "", null);
@@ -440,12 +469,15 @@ public class Preset {
 		public View getView(PresetClickHandler handler) {
 			View v = new View(context);
 			v.setMinimumHeight(1);
-			v.setMinimumWidth(99999);
+			v.setMinimumWidth(99999); // for WrappingLayout
 			return v;
 		}
 		
 	}
 	
+	/**
+	 * Represents a preset group, which may contain items, groups and separators
+	 */
 	public class PresetGroup extends PresetElement {
 		
 		/** Elements in this group */
@@ -460,6 +492,10 @@ public class Preset {
 			elements.add(element);
 		}
 		
+		/**
+		 * Returns a view showing this group's icon
+		 * @param handler the handler handling clicks on the icon
+		 */
 		@Override
 		public View getView(final PresetClickHandler handler) {
 			TextView v = super.getBaseView();
@@ -498,6 +534,7 @@ public class Preset {
 
 	}
 	
+	/** Represents a preset item (e.g. "footpath", "grocery store") */
 	public class PresetItem extends PresetElement {
 		private HashMap<String, String> tags = new HashMap<String, String>();
 		private int itemIndex;
@@ -537,6 +574,12 @@ public class Preset {
 			return tags.size();
 		}
 		
+		/**
+		 * Checks if all tags belonging to this item exist in the given tagSet,
+		 * i.e. the node to which the tagSet belongs could be what this preset specifies.
+		 * @param tagSet the tagSet to compare against this item
+		 * @return
+		 */
 		public boolean matches(HashMap<String,String> tagSet) {
 			for (Entry<String, String> tag : this.tags.entrySet()) { // for each own tag
 				String otherTagValue = tagSet.get(tag.getKey());
@@ -607,8 +650,11 @@ public class Preset {
 		}
 	}
 
+	/** Interface for handlers handling clicks on item or group icons */
 	public interface PresetClickHandler {
 		public void onItemClick(PresetItem item);
 		public void onGroupClick(PresetGroup group);
 	}
+	
 }
+

@@ -1,5 +1,6 @@
 package de.blau.android;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -50,6 +51,7 @@ public abstract class VersionedGestureDetector {
 		float mLastTouchY;
 		boolean hasDragged;
 		boolean hasScaled;
+		/** true if a long press has occurred since the last ACTION_DOWN, i.e. the ACTION_UP may need to be ignored */
 		boolean hasLongPressed;
 		LongPressTrigger longPressTrigger;
 		
@@ -235,6 +237,7 @@ public abstract class VersionedGestureDetector {
 		}
 	}
 	
+	@TargetApi(8)
 	private static class FroyoDetector extends EclairDetector {
 		private ScaleGestureDetector mDetector;
 		private View v;

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import de.blau.android.Logic;
 import de.blau.android.R;
 
+/** Adapter providing icons for the ActionBar edit mode dropdown */
 public class ModeDropdownAdapter implements SpinnerAdapter {
 	
 	private ArrayList<DropdownItem> items = new ArrayList<DropdownItem>();

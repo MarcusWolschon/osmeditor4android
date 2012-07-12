@@ -50,7 +50,6 @@ import de.blau.android.presets.Preset.PresetItem;
 public class TagEditor extends Activity implements OnDismissListener {
 
 	// TODO autosuggest based on extended preset properties
-	// TODO persistent saving for MRU
 	
 	public static final String TAGS = "tags";
 	public static final String TAGS_ORIG = "tags_original";
@@ -85,6 +84,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
 	private boolean loaded;
 	
+	/** the Preset selection dialog used by this editor */
 	private PresetDialog presetDialog;
 	
 	/**
@@ -327,6 +327,10 @@ public class TagEditor extends Activity implements OnDismissListener {
 		verticalLayout.addView(v);
 	}
 
+	
+	/**
+	 * Removes an old RecentPresetView and replaces it by a new one (to update it)
+	 */
 	private void recreateRecentPresetView() {
 		View currentView = verticalLayout.findViewById(R.id.recentPresets);
 		if (currentView != null) verticalLayout.removeView(currentView);
@@ -367,7 +371,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	protected void sendResultAndFinish() {
 		// Save current tags for "repeat last" button
 		Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(this).edit();
-		prefEdit.putString(PREF_LAST_TAG,getKeyValueString(false)).apply();
+		prefEdit.putString(PREF_LAST_TAG,getKeyValueString(false)).commit();
 		
 		Intent intent = new Intent();
 		intent.putExtras(getKeyValueBundle(false)); // discards blank or partially blank pairs
@@ -393,7 +397,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * Creates edits from a String containing newline-separated sequential key-value pairs
 	 */
 	protected void loadEdits(String tags) {
-		if (tags.isEmpty()) {
+		if (tags.equals("")) {
 			ensureEmptyRow();
 			return;
 		}
@@ -413,6 +417,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		super.onSaveInstanceState(outState);
 	}
 	
+	/** When the Activity is interrupted, save MRUs*/
 	@Override
 	protected void onPause() {
 		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().saveMRU();
@@ -431,7 +436,11 @@ public class TagEditor extends Activity implements OnDismissListener {
 		rowLayout.addView(row, atStart? 0 : rowLayout.getChildCount());
 
 	}
-		
+	
+	/**
+	 * A row representing an editable tag, consisting of edits for key and value, labels and a delete button
+	 * @author Jan
+	 */
 	public static class TagEditRow extends LinearLayout {
 
 		private TagEditor owner;
@@ -540,6 +549,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 			});
 
 			
+			// This TextWatcher reacts to previously empty cells being filled to add additional rows where needed
 			TextWatcher emptyWatcher = new TextWatcher() {
 				private boolean wasEmpty;
 				
@@ -550,7 +560,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 				
 				@Override
 				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-					wasEmpty = isEmpty(); // TagEditorRow.isEmpty()
+					wasEmpty = TagEditRow.this.isEmpty();
 				}
 				
 				@Override
@@ -591,8 +601,8 @@ public class TagEditor extends Activity implements OnDismissListener {
 		 * @return true if both fields are empty, true if at least one is filled
 		 */
 		public boolean isEmpty() {
-			return keyEdit.getText().toString().trim().isEmpty()
-					&& valueEdit.getText().toString().trim().isEmpty();
+			return keyEdit.getText().toString().trim().equals("")
+					&& valueEdit.getText().toString().trim().equals("");
 		}
 
 	}
@@ -658,6 +668,12 @@ public class TagEditor extends Activity implements OnDismissListener {
 		return tags;
 	}
 	
+	/**
+	 * Checks if a bundle contains a tag with the given key
+	 * @param b the bundle to check
+	 * @param key the key to look for 
+	 * @return true or false
+	 */
 	private static boolean bundleContainsTagKey(Bundle b, String key) {
 		ArrayList<String> tags = b.getStringArrayList(TAGS);
 		if (tags != null) {
@@ -705,10 +721,16 @@ public class TagEditor extends Activity implements OnDismissListener {
 		}
 	}
 
+	/**
+	 * @return the OSM ID of the element currently edited by the editor
+	 */
 	public long getOsmId() {
 		return osmId;
 	}
 
+	/**
+	 * Set the OSM ID currently edited by the editor
+	 */
 	public void setOsmId(final long osmId) {
 		this.osmId = osmId;
 	}
@@ -749,6 +771,10 @@ public class TagEditor extends Activity implements OnDismissListener {
 	}
 
 
+	/**
+	 * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag set
+	 * @param item the preset to apply
+	 */
 	private void applyPreset(PresetItem item) {
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
 			insertNewEdit(tag.getKey(), tag.getValue(), true);

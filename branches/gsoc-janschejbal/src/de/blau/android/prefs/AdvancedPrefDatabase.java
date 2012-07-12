@@ -17,6 +17,10 @@ import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 
+/**
+ * This class provides access to complex settings like OSM APIs which consist of complex/relational data
+ * @author Jan
+ */
 public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
 	private final Resources r;
@@ -57,7 +61,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		// nothing yet
 	}
 	
-	
+	/**
+	 * Creates the default API entry using the old-style username/password 
+	 */
 	private synchronized void migrateAPI() {
 		Log.d(LOGTAG, "Migrating API");
 		String user = prefs.getString(r.getString(R.string.config_username_key), "");
@@ -88,16 +94,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		Main.resetPreset();
 	}
 	
+	/**
+	 * @return a list of API objects containing all available APIs
+	 */
 	public API[] getAPIs() {
 		return getAPIs(null);
 	}
 	
+	/** @return the API object representing the currently selected API */ 
 	public API getCurrentAPI() {
 		API[] apis = getAPIs(currentAPI);
 		if (apis.length == 0) return null;
 		return apis[0];
 	}
 	
+	/** @return a Server object matching the current API */
 	public Server getServerObject() {
 		API api = getCurrentAPI();
 		if (api == null) return null;
@@ -107,9 +118,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	
 	/**
 	 * Sets name and URL of the current API entry
+	 * @param id
 	 * @param name
 	 * @param url
-	 * @param value 
 	 */
 	public synchronized void setAPIDescriptors(String id, String name, String url) {
 		SQLiteDatabase db = getWritableDatabase();
@@ -120,6 +131,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 
+	/** Sets login data (user, password) for the current API */
 	public synchronized void setCurrentAPILogin(String user, String pass) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -129,6 +141,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	/** Changes the preset (by name) applying to the current API */ 
 	public synchronized void setCurrentAPIPreset(String preset) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -138,6 +151,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		Main.resetPreset();
 	}
 	
+	/** adds a new API with the given values to the API database */
 	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -151,6 +165,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	/** removes an API from the API database */
 	public synchronized void deleteAPI(final String id) {
 		if (id.equals(ID_DEFAULT)) throw new RuntimeException("Cannot delete default");
 		if (id.equals(currentAPI)) selectAPI(ID_DEFAULT);
@@ -225,16 +240,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		}
 	}
 	
+	/** returns an array of PresetInfos for all currently known presets */
 	public PresetInfo[] getPresets() {
 		return getPresets(null, false);
 	}
 	
+	/** gets a preset by ID (will return null if no preset with this ID exists) */
 	public PresetInfo getPreset(String id) {
 		PresetInfo[] found = getPresets(id, false);
 		if (found.length == 0) return null;
 		return found[0];
 	}
 
+	/** gets a preset by URL (will return null if no preset with this URL exists) */
 	public PresetInfo getPresetByURL(String url) {
 		PresetInfo[] found = getPresets(url, true);
 		if (found.length == 0) return null;
@@ -270,6 +288,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 
+	/** adds a new Preset with the given values to the Preset database */
 	public synchronized void addPreset(String id, String name, String url) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -281,6 +300,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	
+	/** Updates the information (name & URL) about a Preset  */
 	public synchronized void setPresetInfo(String id, String name, String url) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -302,7 +322,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.close();
 	}
 
-
+	
+	/**
+	 * Deletes a preset including the corresponding preset data directory
+	 * @param id id of the preset to delete
+	 */
 	public synchronized void deletePreset(String id) {
 		if (id.equals(ID_DEFAULT)) throw new RuntimeException("Cannot delete default");
 		SQLiteDatabase db = getWritableDatabase();
@@ -337,6 +361,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		}
 	}
 
+	/**
+	 * Gets the preset data path for a preset with the given ID
+	 * @param id
+	 * @return
+	 */
 	public File getPresetDirectory(String id) {
 		if (id == null || id.equals("")) {
 			throw new RuntimeException("Attempted to get folder for null or empty id!");
@@ -345,6 +374,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		return new File(rootDir, id);
 	}
 	
+	/**
+	 * Removes the data directory belonging to a preset
+	 * @param id the preset ID of the preset whose directory is going to be deleted
+	 */
 	public void removePresetDirectory(String id) {
 		File presetDir = getPresetDirectory(id);
 		if (presetDir.isDirectory()) {

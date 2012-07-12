@@ -125,7 +125,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			ListEditItem item = (ListEditItem)data.getExtras().get(APIEditorActivity.EXTRA_ITEM);
 			if (item != null) {
 				prefdb.selectAPI(item.id);
-				if (apiuser != null && !apiuser.isEmpty()) {
+				if (apiuser != null && !apiuser.equals("")) {
 					prefdb.setCurrentAPILogin(apiuser, apipass == null ? "" : apipass);
 				}
 				if (apiPresetInfo != null) {

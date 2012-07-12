@@ -20,10 +20,16 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
+/**
+ * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
+ * @author Jan
+ *
+ */
 public class EasyEditManager implements Callback {
 
 	private final Main main;
 	private final Logic logic;
+	/** the touch listener from Main */
 	private MapTouchListener touchlistener;
 	
 	private ActionMode pathActionMode = null;
@@ -69,6 +75,7 @@ public class EasyEditManager implements Callback {
 	
 	}
 
+	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
 		if (pathActionMode != null) {
 			// we don't do long clicks while creating paths
@@ -82,7 +89,11 @@ public class EasyEditManager implements Callback {
 	}
 	
 
-	
+	/**
+	 * This gets called when a node is clicked in easy-edit mode
+	 * The first click on a node selects it, then the second one shows the context menu.
+	 * @param node the clicked node
+	 */
 	/*package*/ void handleNodeClick(Node node) {
 	
 		// If the clicked node is not selected, select it and return
@@ -108,11 +119,15 @@ public class EasyEditManager implements Callback {
 	}
 
 
-
 	/*package*/ void performDeleteNode(Node node) {
 		logic.performErase(node);
 	}
 
+	/**
+	 * Starts the creation of a new path at the given coordinates
+	 * @param x x screen coordinate
+	 * @param y y screen coordinate
+	 */
 	private void pathStart(float x, float y) {
 		pathActionMode = main.startActionMode(this);
 		pathActionMode.setTitle("Creating path"); // TODO resource
@@ -121,6 +136,11 @@ public class EasyEditManager implements Callback {
 		pathCreateNode(x, y);
 	}
 
+	/**
+	 * Creates/adds a node into a path during path creation
+	 * @param x x screen coordinate
+	 * @param y y screen coordinate
+	 */
 	private void pathCreateNode(float x, float y) {
 		Node lastSelectedNode = logic.getSelectedNode();
 		Way lastSelectedWay = logic.getSelectedWay();
@@ -173,6 +193,9 @@ public class EasyEditManager implements Callback {
 		return false;
 	}
 
+	/**
+	 * Path creation action mode is ending
+	 */
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
 		pathActionMode = null;
@@ -193,8 +216,5 @@ public class EasyEditManager implements Callback {
 	public void triggerMapContextMenu() {
 		main.triggerMapContextMenu();
 	}
-
-
-	
 
 }
