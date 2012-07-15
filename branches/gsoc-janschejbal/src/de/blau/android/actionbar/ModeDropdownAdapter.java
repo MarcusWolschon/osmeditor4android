@@ -39,7 +39,7 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		 * @param pad true if padding should be added
 		 * @return the created view
 		 */
-		private View getView(boolean pad) {
+		private TextView getView(boolean pad) {
 			TextView view = new TextView(context);
 			if (pad) view.setPadding(20, 20, 20, 20);
 			view.setText(label);

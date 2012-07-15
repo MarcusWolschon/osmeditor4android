@@ -32,6 +32,12 @@ public class OpenStreetMapTileProviderService extends Service {
 	}
 	
 	@Override
+	public void onDestroy() {
+		mFileSystemProvider.destroy();
+		super.onDestroy();
+	}
+	
+	@Override
 	public IBinder onBind(Intent intent) {
 		return mBinder;
 	}

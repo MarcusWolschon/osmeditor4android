@@ -423,7 +423,6 @@ public class BoundingBox implements Serializable {
 			}
 			// border-sizes changed. So we have to recalculate the dimensions.
 			calcDimensions();
-			Log.w(DEBUG_TAG, "Ratio: " + ratio);
 			this.ratio = ratio;
 		}
 	}

@@ -216,6 +216,13 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				finished();
 			}
 		}
+	}
+
+	/**
+	 * Call when the object is no longer needed to close the database
+	 */
+	public void destroy() {
+		mDatabase.close();
 	};
 	
 }

@@ -96,6 +96,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	// ===========================================================
 
 	public OpenStreetMapTileProviderDataBase(final Context context) {
+		Log.i("OSMTileProviderDB", "creating database instance");
 		mCtx = context;
 		mDatabase = new AndNavDatabaseHelper(context).getWritableDatabase();
 	}
@@ -227,5 +228,12 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 
 			onCreate(db);
 		}
+	}
+
+	/**
+	 * Close the DB handle
+	 */
+	public void close() {
+		mDatabase.close();
 	}
 }

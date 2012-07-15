@@ -165,7 +165,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
-		setTheme(R.style.Theme_Sherlock);
+		setTheme(R.style.Theme_customMain);
 
 		super.onCreate(savedInstanceState);
 		Application.mainActivity = this;
@@ -295,12 +295,16 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		// TODO JS update pref (showing osmbug)
 	}
 
+	/**
+	 * Sets up the Action Bar.
+	 */
 	private void showActionBar() {
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionbar.setBackgroundDrawable(new ColorDrawable(0xaa000000));
 		actionbar.setDisplayShowHomeEnabled(false);
 		actionbar.setDisplayShowTitleEnabled(false);
+		
 		
 		modeDropdown = new ModeDropdownAdapter(this, true);
 		actionbar.setListNavigationCallbacks(modeDropdown, this);
