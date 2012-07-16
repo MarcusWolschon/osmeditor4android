@@ -259,6 +259,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		if (currentPreset == null) {
 			currentPreset = prefs.getPreset(); // TODO separate thread?
 		}
+		
 	}
 
 	/**
@@ -308,6 +309,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		
 		modeDropdown = new ModeDropdownAdapter(this, true);
 		actionbar.setListNavigationCallbacks(modeDropdown, this);
+		actionbar.setSelectedNavigationItem(modeDropdown.getIndexForMode(logic.getMode()));
 		
 		actionbar.show();
 		setSupportProgressBarIndeterminateVisibility(false);

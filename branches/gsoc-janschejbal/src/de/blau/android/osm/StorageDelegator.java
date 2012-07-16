@@ -224,7 +224,14 @@ public class StorageDelegator implements Serializable {
 		return currentStorage.isEmpty() && apiStorage.isEmpty();
 	}
 
-	public void writeToFile(final Context context) throws IOException {
+	/**
+	 * Stores the current storage data to the default storage file,
+	 * optionally including additional data
+	 * @param context
+	 * @param additionalData additional data to include (will be returned by readFromFile)
+	 * @throws IOException
+	 */
+	public void writeToFile(final Context context, Object additionalData) throws IOException {
 		OutputStream out = null;
 		ObjectOutputStream objectOut = null;
 		try {
@@ -232,6 +239,7 @@ public class StorageDelegator implements Serializable {
 			out = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			objectOut = new ObjectOutputStream(out);
 			objectOut.writeObject(this);
+			objectOut.writeObject(additionalData);
 		} finally {
 			Server.close(objectOut);
 			Server.close(out);
@@ -239,7 +247,14 @@ public class StorageDelegator implements Serializable {
 		}
 	}
 
-	public void readFromFile(final Context context) throws IOException, ClassNotFoundException {
+	/**
+	 * Loads the storage data (and optionally an additional state object) from the default storage file
+	 * @param context
+	 * @return an additional state object, if the storage file contained one (otherwise null)
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public Object readFromFile(final Context context) throws IOException, ClassNotFoundException {
 		StorageDelegator newDelegator = null;
 		FileInputStream in = null;
 		ObjectInputStream objectIn = null;
@@ -250,6 +265,11 @@ public class StorageDelegator implements Serializable {
 			newDelegator = (StorageDelegator) objectIn.readObject();
 			currentStorage = newDelegator.currentStorage;
 			apiStorage = newDelegator.apiStorage;
+			try {
+				return objectIn.readObject();
+			} catch (Exception e) {
+				return null;
+			}
 		} finally {
 			Server.close(in);
 			Server.close(objectIn);

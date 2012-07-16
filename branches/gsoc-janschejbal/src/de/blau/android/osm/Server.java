@@ -439,6 +439,10 @@ public class Server {
 		return res;
 	}
 
+	/**
+	 * Convenience function - closes the given stream (can be any Closable), catching and logging exceptions
+	 * @param stream a Closeable to close
+	 */
 	static public void close(final Closeable stream) {
 		if (stream != null) {
 			try {

@@ -140,7 +140,7 @@ public class Tracker implements LocationListener {
 
 	@Override
 	public void onLocationChanged(final Location location) {
-		Log.w(DEBUG_TAG, "onLocationChanged() Got location: " + location);
+		Log.v(DEBUG_TAG, "onLocationChanged() Got location: " + location);
 		if (!location.hasAccuracy() || location.getAccuracy() <= LOCATION_MIN_ACCURACY) {
 			track.addTrackPoint(location);
 			if (followGps) {

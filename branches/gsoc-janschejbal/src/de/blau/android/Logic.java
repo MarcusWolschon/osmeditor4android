@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -217,7 +218,6 @@ public class Logic {
 		map.setPaints(paints);
 		map.setTrack(tracker.getTrack());
 		map.setDelegator(delegator);
-		map.setMode(mode);
 		map.setViewBox(viewBox);
 	}
 
@@ -249,13 +249,13 @@ public class Logic {
 	}
 
 	/**
-	 * Sets new mode. All selected Elements will be nulled. Map gets repainted.
+	 * Sets new mode. If the new mode is different from the old one, all selected Elements will be nulled and the Map gets repainted.
 	 * 
 	 * @param mode mode.
 	 */
 	public void setMode(final Mode mode) {
+		if (this.mode == mode) return;
 		this.mode = mode;
-		map.setMode(mode);
 		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
@@ -287,15 +287,12 @@ public class Logic {
 	}
 
 	/**
-	 * Checks if the viewBox is close enough to the viewBox to be in the ability to edit something. Value will be set to
-	 * map, too.
+	 * Checks if the viewBox is close enough to the viewBox to be in the ability to edit something.
 	 * 
 	 * @return true, if viewBox' width is smaller than {@link #TOLERANCE_MIN_VIEWBOX_WIDTH}.
 	 */
 	public boolean isInEditZoomRange() {
-		boolean isInEditZoomRange = viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH;
-		map.setIsInEditZoomRange(isInEditZoomRange);
-		return isInEditZoomRange;
+		return viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH;
 	}
 
 	/**
@@ -881,7 +878,8 @@ public class Logic {
 			@Override
 			protected Void doInBackground(Void... params) {
 				try {
-					delegator.writeToFile(Application.mainActivity.getApplicationContext());
+					SaveableStateData state = null; // TODO save additional state information here
+					delegator.writeToFile(Application.mainActivity.getApplicationContext(), state);
 				} catch (IOException e) {
 					Log.e("Vespucci", "Problem saving", e);
 				}
@@ -927,7 +925,7 @@ public class Logic {
 			protected void onPostExecute(Void result) {
 				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
 				View map = Application.mainActivity.getCurrentFocus();
-				setMode(Mode.MODE_MOVE);
+				setMode(Mode.MODE_MOVE); // TODO JS load mode
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 				map.invalidate();
@@ -1013,11 +1011,10 @@ public class Logic {
 	}
 	
 	/**
-	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
+	 * Internal setter to set the internal value
 	 */
 	public void setSelectedNode(final Node selectedNode) {
 		this.selectedNode = selectedNode;
-		map.setSelectedNode(selectedNode);
 	}
 
 	/**
@@ -1069,7 +1066,6 @@ public class Logic {
 		map.setPaints(paints);
 		map.setTrack(tracker.getTrack());
 		map.setDelegator(delegator);
-		map.setMode(mode);
 		map.setViewBox(viewBox);
 	}
 	
@@ -1078,6 +1074,15 @@ public class Logic {
 	 */
 	public List<String> getPendingChanges(final Context aCaller) {
 		return delegator.listChanges(aCaller.getResources());
+	}
+
+	/**
+	 * Contains additional state information that will be saved/restored together with the delegator
+	 * @author Jan
+	 *
+	 */
+	private class SaveableStateData implements Serializable {
+		
 	}
 	
 }

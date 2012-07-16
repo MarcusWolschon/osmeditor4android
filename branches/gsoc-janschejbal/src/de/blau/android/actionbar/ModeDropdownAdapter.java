@@ -84,6 +84,18 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		return items.get(index).resultingMode;
 	}
 	
+	/**
+	 * Returns the index of the item matching a certain mode
+	 * @param mode logic mode
+	 * @return the item index (defaults to 0 if no matching item was found)
+	 */
+	public int getIndexForMode(Logic.Mode mode) {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).resultingMode == mode) return i;
+		}
+		return 0;
+	}
+	
 	@Override
 	public int getCount() {
 		return items.size();

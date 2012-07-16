@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -14,6 +13,7 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
 import android.os.Build;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -73,20 +73,18 @@ public class Map extends View implements IMapView {
 	private BoundingBox myViewBox;
 	
 	private StorageDelegator delegator;
-	
-	private Mode mode;
-	
-	private boolean isInEditZoomRange;
-	
-	/**
-	 * The currently selected node to edit.
-	 */
-	private Node mySelectedNode;
+		
+	/** Caches if the map is zoomed into edit range during one onDraw pass */
+	private boolean tmpDrawingInEditRange;
 
-	/**
-	 * The currently selected way to edit.
-	 */
-	private Way mySelectedWay;
+	/** Caches the edit mode during one onDraw pass */
+	private Logic.Mode tmpDrawingEditMode;
+	
+	/** Caches the currently selected node during one onDraw pass */
+	private Node tmpDrawingSelectedNode;
+
+	/** Caches the currently selected way during one onDraw pass */
+	private Way tmpDrawingSelectedWay;
 	
 		
 	public Map(final Context context) {
@@ -141,6 +139,11 @@ public class Map extends View implements IMapView {
 	protected void onDraw(final Canvas canvas) {
 		super.onDraw(canvas);
 		long time = System.currentTimeMillis();
+		
+		tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
+		tmpDrawingEditMode = Main.logic.getMode();
+		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
+		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
 		
 		// Draw our Overlays.
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
@@ -383,13 +386,13 @@ public class Map extends View implements IMapView {
 			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 			
 			//draw tolerance box
-			if (mode != Logic.Mode.MODE_APPEND || mySelectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
+			if (tmpDrawingEditMode != Logic.Mode.MODE_APPEND || tmpDrawingSelectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
 			
 			int paintKey;
 			int paintKey2;
-			if (node == mySelectedNode && isInEditZoomRange) {
+			if (node == tmpDrawingSelectedNode && tmpDrawingInEditRange) {
 				// general node style
 				paintKey = Paints.SELECTED_NODE;
 				// style for house numbers
@@ -429,7 +432,7 @@ public class Map extends View implements IMapView {
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			final float x, final float y) {
-		if (pref.isToleranceVisible() && mode != Logic.Mode.MODE_MOVE && isInEditZoomRange
+		if (pref.isToleranceVisible() && tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingInEditRange
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
 			canvas.drawCircle(x, y, paints.get(Paints.NODE_TOLERANCE).getStrokeWidth(), paints
 					.get(Paints.NODE_TOLERANCE));
@@ -457,12 +460,14 @@ public class Map extends View implements IMapView {
 		
 		//draw way tolerance
 		if (pref.isToleranceVisible()
-				&& (mode == Logic.Mode.MODE_ADD || mode == Logic.Mode.MODE_TAG_EDIT || (mode == Logic.Mode.MODE_APPEND && mySelectedNode != null))
-				&& isInEditZoomRange) {
+				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
+					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
+					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))
+				&& tmpDrawingInEditRange) {
 			canvas.drawPath(path, paints.get(Paints.WAY_TOLERANCE));
 		}
 		//draw selectedWay highlighting
-		if (way == mySelectedWay && isInEditZoomRange) {
+		if (way == tmpDrawingSelectedWay && tmpDrawingInEditRange) {
 			canvas.drawPath(path, paints.get(Paints.SELECTED_WAY));
 		}
 		
@@ -545,7 +550,7 @@ public class Map extends View implements IMapView {
 	 * @param aSelectedNode the currently selected node to edit.
 	 */
 	void setSelectedNode(final Node aSelectedNode) {
-		mySelectedNode = aSelectedNode;
+		tmpDrawingSelectedNode = aSelectedNode;
 	}
 	
 	/**
@@ -553,7 +558,7 @@ public class Map extends View implements IMapView {
 	 * @param aSelectedWay the currently selected way to edit.
 	 */
 	void setSelectedWay(final Way aSelectedWay) {
-		mySelectedWay = aSelectedWay;
+		tmpDrawingSelectedWay = aSelectedWay;
 	}
 	
 	public Preferences getPrefs() {
@@ -584,14 +589,6 @@ public class Map extends View implements IMapView {
 	
 	void setViewBox(final BoundingBox viewBox) {
 		myViewBox = viewBox;
-	}
-	
-	void setMode(final Mode mode) {
-		this.mode = mode;
-	}
-	
-	void setIsInEditZoomRange(final boolean isInEditZoomRange) {
-		this.isInEditZoomRange = isInEditZoomRange;
 	}
 	
 	void setPaints(final Paints paints) {
