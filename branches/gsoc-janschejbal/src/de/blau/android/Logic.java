@@ -29,6 +29,7 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Track;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
@@ -216,7 +217,6 @@ public class Logic {
 		setSelectedWay(null);
 
 		map.setPaints(paints);
-		map.setTrack(tracker.getTrack());
 		map.setDelegator(delegator);
 		map.setViewBox(viewBox);
 	}
@@ -264,6 +264,10 @@ public class Logic {
 
 	public Mode getMode() {
 		return mode;
+	}
+	
+	public Track getTrack() {
+		return tracker.getTrack();
 	}
 
 	/**
@@ -867,7 +871,7 @@ public class Logic {
 	 * 
 	 * @param showDone when true, a Toast will be shown when the file was saved.
 	 */
-	void save(final boolean showDone) {
+	void saveAsync(final boolean showDone) {
 		new AsyncTask<Void, Void, Void>() {
 			
 			@Override
@@ -877,12 +881,7 @@ public class Logic {
 			
 			@Override
 			protected Void doInBackground(Void... params) {
-				try {
-					SaveableStateData state = null; // TODO save additional state information here
-					delegator.writeToFile(Application.mainActivity.getApplicationContext(), state);
-				} catch (IOException e) {
-					Log.e("Vespucci", "Problem saving", e);
-				}
+				save();
 				return null;
 			}
 			
@@ -896,7 +895,20 @@ public class Logic {
 			
 		}.execute();
 	}
-
+	
+	/**
+	 * Saves to a file (synchronously)
+	 */
+	void save() {
+		try {
+			SaveableStateData state = null; // TODO save additional state information here
+			delegator.writeToFile(Application.mainActivity.getApplicationContext(), state);
+			// TODO save GPS track
+		} catch (IOException e) {
+			Log.e("Vespucci", "Problem saving", e);
+		}
+	}
+	
 	/**
 	 * Loads data from a file in the background.
 	 */
@@ -906,6 +918,7 @@ public class Logic {
 			@Override
 			protected void onPreExecute() {
 				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				Log.d("Logic", "loadFromFile onPreExecute");
 			}
 			
 			@Override
@@ -923,6 +936,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Void result) {
+				Log.d("Logic", "loadFromFile onPostExecute");
 				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
 				View map = Application.mainActivity.getCurrentFocus();
 				setMode(Mode.MODE_MOVE); // TODO JS load mode
@@ -1064,7 +1078,6 @@ public class Logic {
 		this.map = map;
 		paints.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / viewBox.getWidth()));
 		map.setPaints(paints);
-		map.setTrack(tracker.getTrack());
 		map.setDelegator(delegator);
 		map.setViewBox(viewBox);
 	}

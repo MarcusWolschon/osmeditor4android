@@ -239,6 +239,7 @@ public class StorageDelegator implements Serializable {
 			out = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			objectOut = new ObjectOutputStream(out);
 			objectOut.writeObject(this);
+			// TODO: Separate files for downloaded data and edit data, store only when dirty
 			objectOut.writeObject(additionalData);
 		} finally {
 			Server.close(objectOut);

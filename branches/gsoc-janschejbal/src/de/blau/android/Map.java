@@ -13,11 +13,9 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
 import android.os.Build;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import de.blau.android.Logic.Mode;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -52,8 +50,6 @@ public class Map extends View implements IMapView {
 	private Preferences pref;
 	
 	private Paints paints;
-	
-	private Track myTrack;
 	
 	/** Direction we're pointing. 0-359 is valid, anything else is invalid.*/
 	private float orientation = -1f;
@@ -222,7 +218,7 @@ public class Map extends View implements IMapView {
 	
 	private void paintGpsTrack(final Canvas canvas) {
 		Path path = new Path();
-		List<Location> trackPoints = myTrack.getTrackPoints();
+		List<Location> trackPoints = Main.logic.getTrack().getTrackPoints();
 		int locationCount = 0;
 		
 		for (int i = 0, size = trackPoints.size(); i < size; ++i) {
@@ -573,10 +569,6 @@ public class Map extends View implements IMapView {
 				o.setRendererInfo(OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer()));
 			}
 		}
-	}
-	
-	void setTrack(final Track aTrack) {
-		myTrack = aTrack;
 	}
 	
 	void setOrientation(final float orientation) {

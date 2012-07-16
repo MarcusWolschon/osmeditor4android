@@ -20,6 +20,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -165,6 +166,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		Log.i("Main", "onCreate");
 		setTheme(R.style.Theme_customMain);
 
 		super.onCreate(savedInstanceState);
@@ -221,6 +223,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
 		if (logic == null) {
+			Log.i("Main", "onCreate - creating new logic");
 			logic = new Logic(locationManager, map, new Paints(getApplicationContext().getResources()));
 			if (isLastActivityAvailable()) {
 				resumeLastActivity();
@@ -228,6 +231,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 				gotoBoxPicker();
 			}
 		} else {
+			Log.i("Main", "onCreate - using logic from getLastNonConfigurationInstance");
 			logic.setMap(map);
 		}
 		
@@ -236,17 +240,43 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		showActionBar();
 	}
 	
+	/**
+	 * Save current data (state, downloaded data, changes, ...) to file(s)
+	 */
+	private void saveData() {
+		Log.i("Main", "saving data");
+		logic.save();
+	}
+	
 	@Override
 	protected void onPause() {
+		Log.i("Main", "onPause");
 		if (sensorManager != null) {
 			sensorManager.unregisterListener(sensorListener);
 		}
+
+		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
+		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) saveData();
+		
 		super.onPause();
+	}
+	
+	@Override
+	protected void onStop() {
+		Log.i("Main", "onStop");
+		
+		// On devices with Android versions before Honeycomb, we already save data in onPause
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) saveData();
+		
+		super.onStop();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Log.i("Main", "onResume");
+		
 		if (sensorManager != null) {
 			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
 		}
@@ -257,7 +287,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		}
 		
 		if (currentPreset == null) {
-			currentPreset = prefs.getPreset(); // TODO separate thread?
+			currentPreset = prefs.getPreset();
 		}
 		
 	}
@@ -273,6 +303,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
+		//return null; // TODO remove - for debugging only
+		Log.i("Main", "onRetainNonConfigurationInstance");
 		return logic;
 	}
 
@@ -378,7 +410,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			return true;
 
 		case R.id.menu_save:
-			logic.save(true);
+			logic.saveAsync(true);
 			return true;
 		}
 
@@ -526,7 +558,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	protected void onDestroy() {
 		map.onDestroy();
 		logic.disableGpsUpdates();
-		logic.save(false);
 		super.onDestroy();
 	}
 	
