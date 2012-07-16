@@ -3,6 +3,8 @@ package de.blau.android;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
+import android.os.Build;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -85,6 +88,7 @@ public class Map extends View implements IMapView {
 	 */
 	private Way mySelectedWay;
 	
+		
 	public Map(final Context context) {
 		super(context);
 		
@@ -188,6 +192,19 @@ public class Map extends View implements IMapView {
 			}
 		}
 		return super.onKeyUp(keyCode, event);
+	}
+	
+	/**
+	 * As of Android 4.0.4, clipping with Op.DIFFERENCE is not supported if hardware acceleration is used.
+	 * (see http://android-developers.blogspot.de/2011/03/android-30-hardware-acceleration.html)
+	 * 
+	 * @param c Canvas to check
+	 * @return true if the canvas supports proper clipping with Op.DIFFERENCE
+	 */
+	@SuppressLint("NewApi")
+	private boolean hasFullClippingSupport(Canvas c) {
+		if (Build.VERSION.SDK_INT < 11) return true; // Older versions do not use hardware acceleration
+		return !c.isHardwareAccelerated();
 	}
 	
 	@Override
@@ -330,11 +347,20 @@ public class Map extends View implements IMapView {
 		RectF screen = new RectF(0, 0, getWidth(), getHeight());
 		if (!rect.contains(screen)) {
 			if (RectF.intersects(rect, screen)) {
-				canvas.save();
-				canvas.clipRect(rect, Region.Op.DIFFERENCE);
-				canvas.drawRect(screen, paints.get(Paints.VIEWBOX));
-				canvas.restore();
-			} else if (!RectF.intersects(rect, screen)) {
+				// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
+				if (hasFullClippingSupport(canvas)) {
+					canvas.save();
+					canvas.clipRect(rect, Region.Op.DIFFERENCE);
+					canvas.drawRect(screen, paints.get(Paints.VIEWBOX));
+					canvas.restore();
+				} else {
+					Paint boxpaint = paints.get(Paints.VIEWBOX);
+					canvas.drawRect(0, 0, screen.right, top, boxpaint); // Cover top
+					canvas.drawRect(0, bottom, screen.right, screen.bottom, boxpaint); // Cover bottom
+					canvas.drawRect(right, top, screen.right, bottom, boxpaint); // Cover right
+					canvas.drawRect(0, top, left, bottom, boxpaint); // Cover left
+				}
+			} else {
 				canvas.drawRect(screen, paints.get(Paints.VIEWBOX));
 			}
 		}
