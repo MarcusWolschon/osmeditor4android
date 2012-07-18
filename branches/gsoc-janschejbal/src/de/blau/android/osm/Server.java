@@ -1,7 +1,6 @@
 package de.blau.android.osm;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,6 +24,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.util.Base64;
+import de.blau.android.util.SavingHelper;
 
 /**
  * @author mb
@@ -264,7 +264,7 @@ public class Server {
 			osmVersion = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
-			close(in);
+			SavingHelper.close(in);
 		}
 		return osmVersion;
 	}
@@ -282,7 +282,7 @@ public class Server {
 		} catch (IOException e) {
 			throw new OsmIOException("Could not send data to server", e);
 		} finally {
-			close(out);
+			SavingHelper.close(out);
 		}
 	}
 
@@ -328,7 +328,7 @@ public class Server {
 			osmId = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
-			close(in);
+			SavingHelper.close(in);
 		}
 		return osmId;
 	}
@@ -376,7 +376,7 @@ public class Server {
 			newChangesetId = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
-			close(in);
+			SavingHelper.close(in);
 		}
 		changesetId = newChangesetId;
 	}
@@ -437,20 +437,6 @@ public class Server {
 		}
 
 		return res;
-	}
-
-	/**
-	 * Convenience function - closes the given stream (can be any Closable), catching and logging exceptions
-	 * @param stream a Closeable to close
-	 */
-	static public void close(final Closeable stream) {
-		if (stream != null) {
-			try {
-				stream.close();
-			} catch (IOException e) {
-				Log.e("Vespucci", "Problem closing", e);
-			}
-		}
 	}
 
 	private URL getCreationUrl(final OsmElement elem) throws MalformedURLException {

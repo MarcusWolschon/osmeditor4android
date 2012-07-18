@@ -70,6 +70,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
@@ -167,6 +168,11 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 * Overridden by {@link #redownloadOnResume}.
 	 */
 	private boolean loadOnResume;
+
+	/**
+	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
+	 */
+	private static Main runningInstance;
 
 	/**
 	 * {@inheritDoc}
@@ -289,12 +295,14 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		if (currentPreset == null) {
 			currentPreset = prefs.getPreset();
 		}
-		
+		runningInstance = this;
+		updateActionbarEditMode();
 	}
 
 	@Override
 	protected void onPause() {
 		Log.i("Main", "onPause");
+		runningInstance = null;
 		if (sensorManager != null) {
 			sensorManager.unregisterListener(sensorListener);
 		}
@@ -350,16 +358,21 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		actionbar.setDisplayShowHomeEnabled(false);
 		actionbar.setDisplayShowTitleEnabled(false);
 		
-		
 		modeDropdown = new ModeDropdownAdapter(this, true);
 		actionbar.setListNavigationCallbacks(modeDropdown, this);
-		actionbar.setSelectedNavigationItem(modeDropdown.getIndexForMode(logic.getMode()));
 		
 		actionbar.show();
 		setSupportProgressBarIndeterminateVisibility(false);
 	}
 	
 	
+	public void updateActionbarEditMode() {
+		getSupportActionBar().setSelectedNavigationItem(modeDropdown.getIndexForMode(logic.getMode()));
+	}
+	
+	public static void onEditModeChanged() {
+		if (runningInstance != null) runningInstance.updateActionbarEditMode();
+	}
 	
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
@@ -592,7 +605,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		} catch (final FileNotFoundException e) {
 			return false;
 		} finally {
-			Server.close(in);
+			SavingHelper.close(in);
 		}
 	}
 

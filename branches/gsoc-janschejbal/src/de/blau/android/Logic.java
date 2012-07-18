@@ -34,6 +34,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.SavingHelper;
 
 /**
  * Contains several responsibilities of Logic-Work:
@@ -140,6 +141,11 @@ public class Logic {
 	 */
 	public static final float STROKE_FACTOR = 100000;
 
+	/**
+	 * Filename of file containing the currently selected edit mode
+	 */
+	private static final String MODE_FILENAME = "editmode.state";
+	
 	/**
 	 * See {@link StorageDelegator}.
 	 */
@@ -249,13 +255,17 @@ public class Logic {
 	}
 
 	/**
-	 * Sets new mode. If the new mode is different from the old one, all selected Elements will be nulled and the Map gets repainted.
+	 * Sets new mode.
+	 * If the new mode is different from the current one,
+	 * all selected Elements will be nulled, the Map gets repainted,
+	 * and the action bar will be reset.
 	 * 
 	 * @param mode mode.
 	 */
 	public void setMode(final Mode mode) {
 		if (this.mode == mode) return;
 		this.mode = mode;
+		Main.onEditModeChanged();
 		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
@@ -817,7 +827,7 @@ public class Logic {
 						}
 						viewBox.setBorders(delegator.getOriginalBox());
 					} finally {
-						Server.close(in);
+						SavingHelper.close(in);
 					}
 				} catch (SAXException e) {
 					Log.e("Vespucci", "Problem parsing", e);
@@ -901,8 +911,11 @@ public class Logic {
 	 */
 	void save() {
 		try {
-			SaveableStateData state = null; // TODO save additional state information here
-			delegator.writeToFile(Application.mainActivity.getApplicationContext(), state);
+			Context ctx = Application.mainActivity.getApplicationContext();
+			delegator.writeToFile();
+			if (new SavingHelper<Mode>().load(MODE_FILENAME) != mode) { // save only if changed
+				new SavingHelper<Mode>().save(MODE_FILENAME, mode);
+			}
 			// TODO save GPS track
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
@@ -915,6 +928,8 @@ public class Logic {
 	void loadFromFile() {
 		new AsyncTask<Void, Void, Void>() {
 			
+			Mode loadedMode = null;
+			
 			@Override
 			protected void onPreExecute() {
 				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
@@ -923,14 +938,10 @@ public class Logic {
 			
 			@Override
 			protected Void doInBackground(Void... params) {
-				try {
-					delegator.readFromFile(Application.mainActivity.getApplicationContext());
-					viewBox.setBorders(delegator.getOriginalBox());
-				} catch (IOException e) {
-					Log.e("Vespucci", "Problem loading:", e);
-				} catch (ClassNotFoundException e) {
-					Log.e("Vespucci", "Problem loading:", e);
-				}
+				delegator.readFromFile();
+				viewBox.setBorders(delegator.getOriginalBox());
+				loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME);
+				// TODO load GPS track
 				return null;
 			}
 			
@@ -939,7 +950,7 @@ public class Logic {
 				Log.d("Logic", "loadFromFile onPostExecute");
 				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
 				View map = Application.mainActivity.getCurrentFocus();
-				setMode(Mode.MODE_MOVE); // TODO JS load mode
+				setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 				map.invalidate();
