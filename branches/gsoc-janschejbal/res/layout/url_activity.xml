@@ -4,45 +4,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
 	>
-
+
+
         <LinearLayout
 			android:id="@+id/urldialog_layoutPreset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp" >
-
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/preset"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
+
             <TextView
                 android:id="@+id/urldialog_textPresetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp" />
-
+
+
+
             <TextView
                 android:id="@+id/urldialog_textPresetURL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic" 
                 android:paddingLeft="20dp" />
-
+
+
             <TextView
                 android:id="@+id/urldialog_textPresetExists"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/urldialog_preset_exists" />
-
+
+
+
             <Button
                 android:id="@+id/urldialog_buttonAddPreset"
                 android:layout_width="wrap_content"
@@ -59,7 +70,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp" >
-
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/urldialog_api_preset_missing" />
-
+
+
             <TextView
                 android:id="@+id/urldialog_textAPIExists"
                 android:layout_width="wrap_content"
@@ -100,6 +113,18 @@
                 android:text="@string/urldialog_add_api" />
 
         </LinearLayout>
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/urldialog_nodata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/urldialog_nodata_text" />
 
     </LinearLayout>
 

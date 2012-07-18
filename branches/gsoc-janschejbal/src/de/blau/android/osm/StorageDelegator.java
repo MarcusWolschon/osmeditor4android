@@ -29,6 +29,14 @@ public class StorageDelegator implements Serializable {
 
 	private Storage apiStorage;
 
+	/**
+	 * Indicates whether changes have been made since the last save to disk.
+	 * Since a newly created storage is not saved, the initial value is true.
+	 * On deserialization, it is set to false.
+	 * TODO actually implement setting this
+	 */
+	private transient boolean dirty = true;	
+	
 	private final static String DEBUG_TAG = StorageDelegator.class.getSimpleName();
 
 	public final static String FILENAME = "lastActivity.res";
@@ -104,7 +112,7 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void removeNode(final Node node) {
-		if (apiStorage.contains(node)) {
+		if (node.state == Node.STATE_CREATED) {
 			apiStorage.removeElement(node);
 		} else {
 			apiStorage.insertElementUnsafe(node);
@@ -115,7 +123,7 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void splitAtNode(final Node node) {
-		List<Way> ways = apiStorage.getWays(node);
+		List<Way> ways = currentStorage.getWays(node); // TODO bug? API storage or currentStorage? 
 		for (Way way : ways) {
 			splitAtNode(way, node);
 		}
@@ -239,7 +247,7 @@ public class StorageDelegator implements Serializable {
 			out = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			objectOut = new ObjectOutputStream(out);
 			objectOut.writeObject(this);
-			// TODO: Separate files for downloaded data and edit data, store only when dirty
+			// TODO only save if dirty?
 			objectOut.writeObject(additionalData);
 		} finally {
 			Server.close(objectOut);

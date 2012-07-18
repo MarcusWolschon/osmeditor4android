@@ -157,9 +157,16 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	private static Preset currentPreset;
 
 	/**
-	 * Flag indicating wheter the map will be re-downloaded once the activity starts
+	 * Flag indicating wheter the map will be re-downloaded once the activity resumes
 	 */
-	private static boolean redownload;
+	private static boolean redownloadOnResume;
+
+	/**
+	 * Flag indicating whether data should be loaded from a file when the activity resumes.
+	 * Set by {@link #onCreate(Bundle)}.
+	 * Overridden by {@link #redownloadOnResume}.
+	 */
+	private boolean loadOnResume;
 
 	/**
 	 * {@inheritDoc}
@@ -222,11 +229,13 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
+		loadOnResume = false;
 		if (logic == null) {
 			Log.i("Main", "onCreate - creating new logic");
 			logic = new Logic(locationManager, map, new Paints(getApplicationContext().getResources()));
 			if (isLastActivityAvailable()) {
-				resumeLastActivity();
+				// Start loading after resume to ensure loading dialog can be removed afterwards
+				loadOnResume = true;
 			} else {
 				gotoBoxPicker();
 			}
@@ -241,13 +250,48 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	}
 	
 	/**
-	 * Save current data (state, downloaded data, changes, ...) to file(s)
+	 * Loads the preferences into {@link #map} and {@link #logic}, triggers new {@inheritDoc}
 	 */
-	private void saveData() {
-		Log.i("Main", "saving data");
-		logic.save();
-	}
+	@Override
+	protected void onStart() {
+		super.onStart();
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		Resources r = getResources();
+		prefs = new Preferences(this);
+		map.setPrefs(prefs);
+		logic.setPrefs(prefs);
+		map.requestFocus();
 	
+		// cache some values (optional)
+		TagValueAutocompletionAdapter.fillCache(this);
+		TagKeyAutocompletionAdapter.fillCache(this);
+		
+		// TODO JS update pref (showing osmbug)
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.i("Main", "onResume");
+		
+		if (sensorManager != null) {
+			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+		}
+		
+		if (redownloadOnResume) {
+			redownloadOnResume = false;
+			logic.downloadLast();
+		} else if (loadOnResume) {
+			loadOnResume = false;
+			logic.loadFromFile();
+		}
+		
+		if (currentPreset == null) {
+			currentPreset = prefs.getPreset();
+		}
+		
+	}
+
 	@Override
 	protected void onPause() {
 		Log.i("Main", "onPause");
@@ -272,24 +316,12 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		super.onStop();
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		Log.i("Main", "onResume");
-		
-		if (sensorManager != null) {
-			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
-		}
-		
-		if (redownload) {
-			redownload = false;
-			logic.downloadLast();
-		}
-		
-		if (currentPreset == null) {
-			currentPreset = prefs.getPreset();
-		}
-		
+	/**
+	 * Save current data (state, downloaded data, changes, ...) to file(s)
+	 */
+	private void saveData() {
+		Log.i("Main", "saving data");
+		logic.save();
 	}
 
 	/**
@@ -303,29 +335,9 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		//return null; // TODO remove - for debugging only
-		Log.i("Main", "onRetainNonConfigurationInstance");
-		return logic;
-	}
-
-	/**
-	 * Loads the preferences into {@link #map} and {@link #logic}, triggers new {@inheritDoc}
-	 */
-	@Override
-	protected void onStart() {
-		super.onStart();
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		Resources r = getResources();
-		prefs = new Preferences(this);
-		map.setPrefs(prefs);
-		logic.setPrefs(prefs);
-		map.requestFocus();
-
-		// cache some values (optional)
-		TagValueAutocompletionAdapter.fillCache(this);
-		TagKeyAutocompletionAdapter.fillCache(this);
-		
-		// TODO JS update pref (showing osmbug)
+		return null; // TODO remove - for debugging only
+		//Log.i("Main", "onRetainNonConfigurationInstance");
+		//return logic;
 	}
 
 	/**
@@ -582,16 +594,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		} finally {
 			Server.close(in);
 		}
-	}
-
-	/**
-	 * Loads the last activities storage, give it to the View and activate it.
-	 * 
-	 * @throws IOException when the file could not be read.
-	 * @throws ClassNotFoundException
-	 */
-	public void resumeLastActivity() {
-		logic.loadFromFile();
 	}
 
 	public void performCurrentViewHttpLoad() {
@@ -1153,7 +1155,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 * (use e.g. when the API URL is changed)
 	 */
 	public static void prepareRedownload() {
-		redownload = true;
+		redownloadOnResume = true;
 	}
 
 	/**

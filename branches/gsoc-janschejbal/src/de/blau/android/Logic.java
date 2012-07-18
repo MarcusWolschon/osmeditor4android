@@ -863,7 +863,7 @@ public class Logic {
 	 */
 	void downloadLast() {
 		BoundingBox box = delegator.getOriginalBox();
-		if (box != null) downloadBox(box);
+		if (box != null && box.isValidForApi()) downloadBox(box);
 	}
 
 	/**

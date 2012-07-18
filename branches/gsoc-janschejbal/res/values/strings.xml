@@ -184,6 +184,7 @@
 	<string name="urldialog_api_exists">An API with this URL already exists. However, you may add another one (e.g. to switch accounts easily).</string>
 	<string name="urldialog_api_preset_missing">The preset used by the API is not available. You should add it first.</string>
 	<string name="urldialog_add_api">Add API</string>
+	<string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
 	
 	
 	<!--  common terms  -->

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -61,6 +62,9 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	
 	@Override
 	protected void onResume() {
+		Log.i("VespucciURLActivity", "onResume");
+		mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null && apiurl == null ? View.VISIBLE : View.GONE);
+		
     	mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(preseturl != null ? View.VISIBLE : View.GONE);
 	    if (preseturl != null) {
 	    	((TextView)mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
@@ -95,7 +99,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
     	((Button)mainView.findViewById(R.id.urldialog_buttonAddAPI)).setOnClickListener(this);
 
 	    
-		super.onStart();
+		super.onResume();
 	}
 
 	@Override
