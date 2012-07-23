@@ -6,7 +6,11 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -202,6 +206,8 @@ public class Logic {
 	 * Responsible for GPS-Tracking logic.
 	 */
 	private final Tracker tracker;
+
+	private Set<OsmElement> clickableElements;
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
@@ -405,8 +411,7 @@ public class Logic {
 	}
 
 	/**
-	 * Searches for all Ways and Nodes at x,y plus the shown node-tolerance. Nodes have to lie in the mapBox. For
-	 * optimization reasons the tolerance will be handled as square, not circle.
+	 * Searches for all Ways and Nodes at x,y plus the shown node-tolerance. Nodes have to lie in the mapBox.
 	 * 
 	 * @param x display-coordinate.
 	 * @param y display-coordinate.
@@ -414,6 +419,19 @@ public class Logic {
 	 */
 	public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+		result.addAll(getClickedNodes(x, y));
+		result.addAll(getClickedWays(x, y));
+		return result;
+	}
+
+	/**
+	 * Returns all ways within way tolerance from the given coordinates, and their distances from them.
+	 * @param x x display coordinate
+	 * @param y y display coordinate
+	 * @return a hash map mapping Ways to distances
+	 */
+	public HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
+		HashMap<Way, Double> result = new HashMap<Way, Double>();
 
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
@@ -428,23 +446,27 @@ public class Logic {
 				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
 
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
-					result.add(way);
+					result.put(way, GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y));
 					break;
 				}
 			}
 		}
-
-		result.addAll(getClickedNodes(x, y));
-
+		
 		return result;
 	}
-
-	public List<OsmElement> getClickedNodes(final float x, final float y) {
-		List<OsmElement> result = new ArrayList<OsmElement>();
-		
-		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
-
+	
+	/**
+	 * Returns all nodes within node tolerance from the given coordinates, and their distances from them.
+	 * @param x x display coordinate
+	 * @param y y display coordinate
+	 * @return a hash map mapping Nodes to distances
+	 */
+	public HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y) {
+		HashMap<Node, Double> result = new HashMap<Node, Double>();
 		List<Node> nodes = delegator.getCurrentStorage().getNodes();
+
+		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
+		
 		for (Node node : nodes) {
 			int lat = node.getLat();
 			int lon = node.getLon();
@@ -452,14 +474,26 @@ public class Logic {
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
 				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-					if (Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2)) <= tolerance) {
-						result.add(node);
+					double dist = Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2));
+					if (dist <= tolerance) {
+						result.put(node, dist);
 					}
 				}
 			}
 		}
-
+		
 		return result;
+	}
+	
+	/**
+	 * Searches for a Node at x,y plus the shown node-tolerance. The Node has to lay in the mapBox.
+	 * 
+	 * @param x display-coordinate.
+	 * @param y display-coordinate.
+	 * @return all nodes within tolerance found in the currentStorage node-list. null, when no node was found.
+	 */
+	public List<OsmElement> getClickedNodes(final float x, final float y) {
+		return new ArrayList<OsmElement>(getClickedNodesWithDistances(x, y).keySet());
 	}
 
 	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
@@ -475,30 +509,53 @@ public class Logic {
 	}
 
 	/**
-	 * Searches for a Node at x,y plus the shown node-tolerance. The Node has to lay in the mapBox. For optimization
-	 * reasons the tolerance will be handled as square, not circle.
+	 * Searches for a Node at x,y plus the shown node-tolerance. The Node has to lay in the mapBox.
 	 * 
 	 * @param x display-coordinate.
 	 * @param y display-coordinate.
-	 * @return the first node found in the current-Storage node-list. null, when no node was found.
+	 * @return the nearest node found in the current-Storage node-list. null, when no node was found.
 	 */
-	private Node getClickedNode(final float x, final float y) {
-		float tolerance = Paints.NODE_TOLERANCE_VALUE;
-		//An existing node was selected
-		for (Node node : delegator.getCurrentStorage().getNodes()) {
-			int lat = node.getLat();
-			int lon = node.getLon();
-			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
-				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
-				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-					if (Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2)) <= tolerance) {
-						return node;
-					}
-				}
+	public Node getClickedNode(final float x, final float y) {
+		Node bestNode = null;
+		Double bestDistance = Double.MAX_VALUE;
+		HashMap<Node, Double> candidates = getClickedNodesWithDistances(x, y);
+		for (Entry<Node, Double> candidate : candidates.entrySet()) {
+			if (candidate.getValue() < bestDistance) {
+				bestNode = candidate.getKey();
+				bestDistance = candidate.getValue();
 			}
 		}
-		return null;
+		return bestNode;
+	}
+	
+
+	/**
+	 * Returns all ways within click tolerance from the given coordinate 
+	 * @param x x display-coordinate.
+	 * @param y y display-coordinate.
+	 * @return the ways
+	 */
+	public List<Way> getClickedWays(final float x, final float y) {
+		return new ArrayList<Way>(getClickedWaysWithDistances(x, y).keySet());
+	}
+	
+	/**
+	 * Returns the closest way (within tolerance) to the given coordinates
+	 * @param x the x display-coordinate.
+	 * @param y the y display-coordinate.
+	 * @return the closest way, or null if no way is found within the tolerance
+	 */
+	public Way getClickedWay(final float x, final float y) {
+		Way bestWay = null;
+		Double bestDistance = Double.MAX_VALUE;
+		HashMap<Way, Double> candidates = getClickedWaysWithDistances(x, y);
+		for (Entry<Way, Double> candidate : candidates.entrySet()) {
+			if (candidate.getValue() < bestDistance) {
+				bestWay = candidate.getKey();
+				bestDistance = candidate.getValue();
+			}
+		}
+		return bestWay;
 	}
 	
 	public List<Way> getWaysForNode(Node node) {
@@ -769,13 +826,11 @@ public class Logic {
 			final float node2X, final float node2Y) {
 		float tolerance = Paints.WAY_TOLERANCE_VALUE / 2f;
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
-			// equation (14) on http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
-			float distance = (float) (Math.abs((node2X - node1X) * (node1Y - y) - (node1X - x) * (node2Y - node1Y)) /
-			                 Math.hypot(node2X - node1X, node2Y - node1Y));
-			return (distance < tolerance);
+			return (GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y) < tolerance);
 		}
 		return false;
 	}
+
 
 	/**
 	 * Translates the {@link #viewBox} in the direction of x/y's next border.
@@ -847,7 +902,9 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				} catch (Exception e) {} // Avoid crash if dialog is already dismissed
 				View map = Application.mainActivity.getCurrentFocus();
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
@@ -1101,12 +1158,21 @@ public class Logic {
 	}
 
 	/**
-	 * Contains additional state information that will be saved/restored together with the delegator
-	 * @author Jan
-	 *
+	 * Sets the set of elements that can currently be clicked.
+	 * If set to null, the map will use default behaviour.
+	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
-	private class SaveableStateData implements Serializable {
-		
+	public void setClickableElements(Set<OsmElement> clickable) {
+		this.clickableElements = clickable;
+	}
+	
+	/**
+	 * @return 
+	 * @return the list of clickable elements. May be null, meaning no restrictions on clickable elements
+	 */
+	public Set<OsmElement> getClickableElements() {
+		return clickableElements;
 	}
 	
 }

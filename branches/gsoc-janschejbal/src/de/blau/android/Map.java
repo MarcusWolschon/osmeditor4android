@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -82,6 +83,9 @@ public class Map extends View implements IMapView {
 	/** Caches the currently selected way during one onDraw pass */
 	private Way tmpDrawingSelectedWay;
 	
+	/** Caches the current "clickable elements" set during one onDraw pass */
+	private Set<OsmElement> tmpClickableElements;
+	
 		
 	public Map(final Context context) {
 		super(context);
@@ -140,7 +144,8 @@ public class Map extends View implements IMapView {
 		tmpDrawingEditMode = Main.logic.getMode();
 		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
 		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
-		
+		tmpClickableElements = Main.logic.getClickableElements();
+				
 		// Draw our Overlays.
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
@@ -382,7 +387,13 @@ public class Map extends View implements IMapView {
 			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 			
 			//draw tolerance box
-			if (tmpDrawingEditMode != Logic.Mode.MODE_APPEND || tmpDrawingSelectedNode != null || delegator.getCurrentStorage().isEndNode(node)) {
+			if (	(tmpClickableElements == null || tmpClickableElements.contains(node))
+					&&	(tmpDrawingEditMode != Logic.Mode.MODE_APPEND
+						|| tmpDrawingSelectedNode != null
+						|| delegator.getCurrentStorage().isEndNode(node)
+						)
+				)
+			{
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
 			
@@ -456,8 +467,10 @@ public class Map extends View implements IMapView {
 		
 		//draw way tolerance
 		if (pref.isToleranceVisible()
+				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
 				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
 					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
+					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT
 					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))
 				&& tmpDrawingInEditRange) {
 			canvas.drawPath(path, paints.get(Paints.WAY_TOLERANCE));

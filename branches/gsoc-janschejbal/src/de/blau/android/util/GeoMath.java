@@ -220,4 +220,20 @@ public class GeoMath {
 	public static int xToLonE7(final int screenWidth, final BoundingBox viewBox, final float x) {
 		return (int) (x / screenWidth * viewBox.getWidth()) + viewBox.getLeft();
 	}
+
+	/**
+	 * Calculates the distance of a point from a line
+	 * @param x the x coordinate of the point
+	 * @param y the y coordinate of the point
+	 * @param node1X the x coordinate of node1 (start point of the line)
+	 * @param node1Y the y coordinate of node1 (start point of the line)
+	 * @param node2X the x coordinate of node2 (end point of the line)
+	 * @param node2Y the y coordinate of node2 (end point of the line)
+	 * @return the distance of the point from the line specified by node1 and node2
+	 */
+	public static double getLineDistance(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
+		// equation (14) on http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
+		return (Math.abs((node2X - node1X) * (node1Y - y) - (node1X - x) * (node2Y - node1Y)) /
+		                 Math.hypot(node2X - node1X, node2Y - node1Y));
+	}
 }

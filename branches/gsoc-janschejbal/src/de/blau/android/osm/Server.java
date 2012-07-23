@@ -508,4 +508,11 @@ public class Server {
 		xmlSerializer.endTag("", "osmChange");
 		xmlSerializer.endDocument();
 	}
+
+	/**
+	 * @return the base URL, i.e. the API url with the "/api/version/"-part stripped
+	 */
+	public String getBaseURL() {
+		return serverURL.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
+	}
 }

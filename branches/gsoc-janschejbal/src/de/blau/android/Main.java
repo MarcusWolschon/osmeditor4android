@@ -261,8 +261,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		Resources r = getResources();
 		prefs = new Preferences(this);
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
@@ -343,9 +341,9 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		return null; // TODO remove - for debugging only
-		//Log.i("Main", "onRetainNonConfigurationInstance");
-		//return logic;
+		//return null; // TODO remove - for debugging only
+		Log.i("Main", "onRetainNonConfigurationInstance");
+		return logic;
 	}
 
 	/**
@@ -997,11 +995,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
-			if (logic.getMode() == Mode.MODE_EASYEDIT) {
-				easyEditManager.onCreateContextMenu(menu, v, menuInfo);
-			} else {
-				onCreateDefaultContextMenu(menu, v, menuInfo);
-			}
+			onCreateDefaultContextMenu(menu, v, menuInfo);
 		}
 			
 		public void onCreateDefaultContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
@@ -1183,5 +1177,9 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	public static void resetPreset() {
 		currentPreset = null;
+	}
+	
+	public String getBaseURL() {
+		return prefs.getServer().getBaseURL();
 	}
 }
