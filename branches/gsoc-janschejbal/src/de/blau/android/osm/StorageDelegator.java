@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,7 +61,12 @@ public class StorageDelegator implements Serializable {
 		apiStorage.insertElementSafe(elem);
 	}
 
-	public void insertTags(final OsmElement elem, final Map<String, String> tags) {
+	/**
+	 * Sets the tags of the element, replacing all existing ones
+	 * @param elem the element to tag
+	 * @param tags the new tags
+	 */
+	public void setTags(final OsmElement elem, final Map<String, String> tags) {
 		// TODO undo - save element
 		dirty = true;
 		if (elem.setTags(tags)) {
@@ -182,6 +188,46 @@ public class StorageDelegator implements Serializable {
 		}
 
 		insertElementUnsafe(newWay);
+	}
+	
+	/**
+	 * Merges two ways by prepending/appending all nodes from the second way to the first one, then deleting the second one.
+	 * Tags are not handled; all tags from the second way are lost.
+	 * @param mergeInto Way to merge the other way into. This way will be kept.
+	 * @param mergeFrom Way to merge into the other. This way will be deleted.
+	 */
+	public void mergeWays(Way mergeInto, Way mergeFrom) {
+		// TODO undo - save mergeInto way (mergeFrom way will not be changed directly, will be saved in removeWay)
+		dirty = true;
+		List<Node> newNodes = new ArrayList<Node>(mergeFrom.getNodes());
+		boolean atBeginning;
+		
+		if (mergeInto.getFirstNode().equals(mergeFrom.getFirstNode())) {
+			// Result: f3 f2 f1 (f0=)i0 i1 i2 i3   (f0 = 0th node of mergeFrom, i1 = 1st node of mergeInto)
+			atBeginning = true;
+			Collections.reverse(newNodes);
+			newNodes.remove(newNodes.size()-1); // remove "last" (originally first) node after reversing
+		} else if (mergeInto.getLastNode().equals(mergeFrom.getFirstNode())) {
+			// Result: i0 i1 i2 i3(=f0) f1 f2 f3
+			atBeginning = false;
+			newNodes.remove(0);			
+		} else if (mergeInto.getFirstNode().equals(mergeFrom.getLastNode())) {
+			// Result: f0 f1 f2 (f3=)i0 i1 i2 i3
+			atBeginning = true;
+			newNodes.remove(newNodes.size()-1);			
+		} else if (mergeInto.getLastNode().equals(mergeFrom.getLastNode())) {
+			// Result: i0 i1 i2 i3(=f3) f2 f1 f0
+			atBeginning = false;
+			newNodes.remove(newNodes.size()-1); // remove last node before reversing
+			Collections.reverse(newNodes);
+		} else {
+			throw new RuntimeException("attempted to merge non-mergeable nodes. this is a bug.");
+		}
+		
+		mergeInto.addNodes(newNodes, atBeginning);
+		insertElementSafe(mergeInto);
+		
+		removeWay(mergeFrom);
 	}
 
 	private int removeWayNodes(final Node node) {

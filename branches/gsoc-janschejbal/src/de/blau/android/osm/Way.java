@@ -96,11 +96,38 @@ public class Way extends OsmElement {
 	void addNodeAfter(final Node nodeBefore, final Node newNode) {
 		nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
 	}
+	
+	/**
+	 * Adds multiple nodes to the way in the order in which they appear in the list.
+	 * They can be either prepended or appended to the existing nodes.
+	 * @param newNodes a list of new nodes
+	 * @param atBeginning if true, nodes are prepended, otherwise, they are appended
+	 */
+	void addNodes(List<Node> newNodes, boolean atBeginning) {
+		if (atBeginning) {
+			nodes.addAll(0, newNodes);
+		} else {
+			nodes.addAll(newNodes);
+		}
+	}
 
+	/**
+	 * Checks if a node is an end node of the way (i.e. either the first or the last one)
+	 * @param node a node to check
+	 * @return 
+	 */
 	public boolean isEndNode(final Node node) {
-		return nodes.get(0) == node || nodes.get(nodes.size() - 1) == node;
+		return getFirstNode() == node || getLastNode() == node;
 	}
 	
+	public Node getFirstNode() {
+		return nodes.get(0);
+	}
+
+	public Node getLastNode() {
+		return nodes.get(nodes.size() - 1);
+	}
+
 	/**
 	 * Test if the way has a problem.
 	 * @return true if the way has a problem, false if it doesn't.
@@ -132,15 +159,12 @@ public class Way extends OsmElement {
 		}
 		return super.calcProblem();
 	}
-
+	
 	@Override
 	public ElementType getType() {
 		if (nodes.size()<2) return ElementType.WAY; // should not happen
 		
-		Node firstNode = nodes.get(0);
-		Node lastNode = nodes.get(nodes.size()-1);
-		
-		if (firstNode.equals(lastNode)) {
+		if (getFirstNode().equals(getLastNode())) {
 			return ElementType.CLOSEDWAY;
 		} else {
 			return ElementType.WAY;

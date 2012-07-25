@@ -295,6 +295,10 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		}
 		runningInstance = this;
 		updateActionbarEditMode();
+		
+		logic.setSelectedBug(null);
+		logic.setSelectedNode(null);
+		logic.setSelectedWay(null);
 	}
 
 	@Override
@@ -573,7 +577,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			tags.put(tagList.get(i), tagList.get(i + 1));
 		}
 
-		logic.insertTags(type, osmId, tags);
+		logic.setTags(type, osmId, tags);
 		map.invalidate();
 	}
 	

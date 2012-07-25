@@ -1,6 +1,9 @@
 package de.blau.android.easyedit;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -45,16 +48,15 @@ public class EasyEditManager {
 	 * This is called when we are in edit range, EasyEdit mode is active,
 	 * and a click needs to be handled.
 	 * @param v the view parameter of the click
-	 * @param x the x coordinate (view coordinate?) of the click
-	 * @param y the y coordinate (view coordinate?) of the click
+	 * @param x the x coordinate (screen coordinate?) of the click
+	 * @param y the y coordinate (screen coordinate?) of the click
 	 * @param mapTouchListener 
 	 */
 	public void handleClick(View v, float x, float y) {
-		if (currentActionModeCallback instanceof PathCreationActionModeCallback) {
-			// currently creating a path, handle accordingly
-			pathCreateNode(x,y);
-			return;
+		if (currentActionModeCallback != null && currentActionModeCallback.handleClick(x,y)) {
+			return; // action mode handled the click
 		}
+		
 		
 		Node clickedNode = logic.getClickedNode(x, y);
 		if (clickedNode != null) {
@@ -87,32 +89,9 @@ public class EasyEditManager {
 		}
 
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-		pathStart(x,y);
+		main.startActionMode(new PathCreationActionModeCallback(x, y));
 	
 		return true;
-	}
-	
-
-	/**
-	 * This gets called when a way is clicked in easy-edit mode
-	 * The first click on a way selects it, then the second one shows the tag editor.
-	 * @param way the clicked way
-	 */
-	/*package*/ void handleWayClick(Way way) {
-		Way oldway = logic.getSelectedWay();
-		
-		// If the clicked way is not selected, select it and return
-		if (oldway == null || way != oldway) {
-			if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) currentActionMode.finish();
-			logic.setSelectedNode(null);
-			logic.setSelectedWay(way);
-			main.startActionMode(new ElementSelectionActionModeCallback(way));
-			main.invalidateMap();
-			return;
-		}
-		
-		// Node was selected, let user choose to edit ways if they exist
-		performTagEdit(way);
 	}
 
 	/*package*/ void performTagEdit(OsmElement element) {
@@ -122,35 +101,6 @@ public class EasyEditManager {
 
 	/*package*/ void performDeleteNode(Node node) {
 		logic.performErase(node);
-	}
-
-	/**
-	 * Starts the creation of a new path at the given coordinates
-	 * @param x x screen coordinate
-	 * @param y y screen coordinate
-	 */
-	private void pathStart(float x, float y) {
-		main.startActionMode(new PathCreationActionModeCallback());
-		logic.setSelectedWay(null);
-		logic.setSelectedNode(null);
-		pathCreateNode(x, y);
-	}
-
-	/**
-	 * Creates/adds a node into a path during path creation
-	 * @param x x screen coordinate
-	 * @param y y screen coordinate
-	 */
-	private void pathCreateNode(float x, float y) {
-		Node lastSelectedNode = logic.getSelectedNode();
-		Way lastSelectedWay = logic.getSelectedWay();
-		logic.performAdd(x, y);
-		if (logic.getSelectedNode() == null) {
-			// user clicked last node again -> finish adding
-			currentActionMode.finish();
-			tagApplicable(lastSelectedNode, lastSelectedWay);
-		}
-		main.invalidateMap();
 	}
 
 	/**
@@ -170,6 +120,31 @@ public class EasyEditManager {
 		} else { // way was added
 			performTagEdit(possibleWay);
 		}
+	}
+	
+	/**
+	 * Finds which ways can be merged with a way.
+	 * For this, the ways must not be equal, need to share at least one end node,
+	 * and either at least one of them must not have tags, or the tags on both ways must be equal.  
+	 * 
+	 * @param way the way into which other ways may be merged
+	 * @return a list of all ways which can be merged into the given way
+	 */
+	private HashSet<OsmElement> findMergeableWays(Way way) {
+		HashSet<Way> candidates = new HashSet<Way>();
+		HashSet<OsmElement> result = new HashSet<OsmElement>();
+		candidates.addAll(logic.getWaysForNode(way.getFirstNode()));
+		candidates.addAll(logic.getWaysForNode(way.getLastNode()));
+		for (Way candidate : candidates) {
+			if (	(way != candidate)
+					&& (candidate.isEndNode(way.getFirstNode()) || candidate.isEndNode(way.getLastNode()))
+					&& (candidate.getTags().isEmpty() || way.getTags().isEmpty() || 
+							way.getTags().entrySet().equals(candidate.getTags().entrySet()) )
+				) {
+				result.add(candidate);
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -197,6 +172,21 @@ public class EasyEditManager {
 			currentActionMode = null;
 			currentActionModeCallback = null;
 			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
+		}
+		
+		
+		/**
+		 * This method gets called when the map is clicked, before checking for clicked nodes/ways.
+		 * The ActionModeCallback can then either return true to indicate that the click was handled (or should be ignored),
+		 * or return false to indicate default handling should apply
+		 * (which includes checking for node/way clicks and calling the corresponding methods).
+		 * 
+		 * @param x the x screen coordinate of the click
+		 * @param y the y screen coordinate of the click
+		 * @return true if the click has been handled, false if default handling should apply
+		 */
+		public boolean handleClick(float x, float y) {
+			return false;
 		}
 		
 		/**
@@ -240,11 +230,48 @@ public class EasyEditManager {
 	 * The node and way click handlers are thus never called.
 	 */
 	private class PathCreationActionModeCallback extends EasyEditActionModeCallback {
+		/** x coordinate of first node */
+		private float x;
+		/** y coordinate of first node */
+		private float y;
+
+
+		public PathCreationActionModeCallback(float x, float y) {
+			this.x = x;
+			this.y = y;
+		}
+		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
 			mode.setTitle("Creating Path"); // TODO res
+			logic.setSelectedWay(null);
+			logic.setSelectedNode(null);
+			pathCreateNode(x, y);
 			return true;
+		}
+		
+		@Override
+		public boolean handleClick(float x, float y) {
+			pathCreateNode(x,y);
+			return true;
+		}
+
+		/**
+		 * Creates/adds a node into a path during path creation
+		 * @param x x screen coordinate
+		 * @param y y screen coordinate
+		 */
+		private void pathCreateNode(float x, float y) {
+			Node lastSelectedNode = logic.getSelectedNode();
+			Way lastSelectedWay = logic.getSelectedWay();
+			logic.performAdd(x, y);
+			if (logic.getSelectedNode() == null) {
+				// user clicked last node again -> finish adding
+				currentActionMode.finish();
+				tagApplicable(lastSelectedNode, lastSelectedWay);
+			}
+			main.invalidateMap();
 		}
 
 		@Override
@@ -281,10 +308,16 @@ public class EasyEditManager {
 	 *
 	 */
 	private class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
+		private static final int MENUITEM_TAG = 1;
+		private static final int MENUITEM_DELETE = 2;
+		private static final int MENUITEM_HISTORY = 3;
+		private static final int MENUITEM_SPLIT = 4;
+		private static final int MENUITEM_MERGE = 5;
+		
 		private final boolean isWay;
 		private Node node = null;
 		private Way way = null;
-		
+		private HashSet<OsmElement> cachedMergeableWays = null;
 		
 		public ElementSelectionActionModeCallback(Node node) {
 			isWay = false;
@@ -294,6 +327,7 @@ public class EasyEditManager {
 		public ElementSelectionActionModeCallback(Way way) {
 			isWay = true;
 			this.way = way;
+			cachedMergeableWays = findMergeableWays(way);
 		}
 		
 		/**
@@ -336,35 +370,41 @@ public class EasyEditManager {
 
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			// Universal: Tag, delete, history
-			// Ways: Split/Merge?
 			menu.clear();
-			menu.add("tag"); // TODO replace with proper items
-			menu.add("delete"); // TODO replace with proper items
-			menu.add("history"); // TODO replace with proper items
-			menu.add("split"); // TODO replace with proper items
-			menu.add("join"); // TODO replace with proper items
-			return false;
+			menu.add(Menu.NONE, MENUITEM_TAG, 1, "Tags"); // TODO res
+			menu.add(Menu.NONE, MENUITEM_DELETE, 2, "Delete"); // TODO res
+			if (getElement().getOsmId() > 0){
+				menu.add(Menu.NONE, MENUITEM_HISTORY, 3, "History"); // TODO res
+			}
+			if (isWay && way.getNodes().size() > 2) {
+				menu.add(Menu.NONE, MENUITEM_SPLIT, 4, "Split way"); // TODO res
+			}
+			if (isWay && cachedMergeableWays.size() > 0) {
+				menu.add(Menu.NONE, MENUITEM_MERGE, 5, "Join ways"); // TODO res
+			}
+			return true;
 		}
 
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			// TODO
-			if (item.getTitle().equals("delete")) { // TODO replace with proper item handling
-				if (isWay) {
-					Toast.makeText(main, "not implemented", Toast.LENGTH_SHORT).show();
-				} else {
-					performDeleteNode(node);
-				}
-				mode.finish();
-			} else if(item.getTitle().equals("tag")) {
-				performTagEdit(getElement());
-			} else if (item.getTitle().equals("history")) {
-				showHistory();
-			} else if (item.getTitle().equals("split")) {
-				main.startActionMode(new WaySplittingActionModeCallback(way));
+			switch (item.getItemId()) {
+			case MENUITEM_TAG: performTagEdit(getElement()); break;
+			case MENUITEM_DELETE: menuDelete(mode); break;
+			case MENUITEM_HISTORY: showHistory(); break;
+			case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback(way)); break;
+			case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback(way, cachedMergeableWays)); break;
 			}
-			return false;
+			return true;
+		}
+
+		private void menuDelete(ActionMode mode) {
+			if (!isWay) {
+				performDeleteNode(node);
+				mode.finish();
+			} else {
+				// Way handling - TODO
+				Toast.makeText(main, "not implemented", Toast.LENGTH_SHORT).show();
+			}		
 		}
 
 		/**
@@ -401,22 +441,22 @@ public class EasyEditManager {
 		public WaySplittingActionModeCallback(Way way) {
 			this.way = way;
 			nodes.addAll(way.getNodes());
+			nodes.remove(way.getFirstNode());
+			nodes.remove(way.getLastNode());
 		}
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
+			mode.setTitle("Split way"); // TODO RES
 			logic.setClickableElements(nodes);
 			return true;
 		}
 		
 		@Override
-		public boolean handleNodeClick(Node node) {
-			if (nodes.contains(node)) {
-				Toast.makeText(main, "split", Toast.LENGTH_SHORT).show(); // TODO implement
-			} else {
-				Toast.makeText(main, "invalid node, pick a valid one", Toast.LENGTH_SHORT).show(); // TODO implement
-			}
+		public boolean handleNodeClick(Node node) { // due to clickableElements, only valid nodes can be clicked
+			logic.performSplit(way, node);
+			currentActionMode.finish();
 			return true;
 		}
 		
@@ -427,6 +467,46 @@ public class EasyEditManager {
 		}
 		
 	}
+
+	private class WayMergingActionModeCallback extends EasyEditActionModeCallback {
+		private Way way;
+		private HashSet<OsmElement> ways = new HashSet<OsmElement>();
+		
+		public WayMergingActionModeCallback(Way way, HashSet<OsmElement> mergeableWays) {
+			this.way = way;
+			ways = mergeableWays;
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			mode.setTitle("Join ways"); // TODO RES
+			if (ways.isEmpty()) {
+				logic.setClickableElements(null);
+				Toast.makeText(main, "No mergeable ways found (must have same tags, or no tags)", Toast.LENGTH_LONG).show(); // TODO RES
+				return false;
+			} else {
+				logic.setClickableElements(ways);
+				super.onCreateActionMode(mode, menu);
+				return true;
+			}
+		}
+
+		@Override
+		public boolean handleWayClick(Way clickedWay) { // due to clickableElements, only valid ways can be clicked
+			logic.performMerge(way, clickedWay);
+			main.startActionMode(new ElementSelectionActionModeCallback(way));
+			return true;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			super.onDestroyActionMode(mode);
+		}
+		
+	}
+	
+	
 
 
 }

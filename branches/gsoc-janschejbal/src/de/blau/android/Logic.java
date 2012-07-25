@@ -379,20 +379,21 @@ public class Logic {
 	}
 
 	/**
-	 * Delegates the inserting of the Tag-list to {@link StorageDelegator}.
+	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
+	 * All existing tags will be replaced.
 	 * 
 	 * @param type type of the element for the Tag-list.
 	 * @param osmId OSM-ID of the element.
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	public boolean insertTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
+	public boolean setTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
 		OsmElement osmElement = delegator.getOsmElement(type, osmId);
 
 		if (osmElement == null) {
 			return false;
 		} else {
-			delegator.insertTags(osmElement, tags);
+			delegator.setTags(osmElement, tags);
 			return true;
 		}
 	}
@@ -436,6 +437,8 @@ public class Logic {
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 
+			if (clickableElements != null && !clickableElements.contains(way)) continue;
+
 			//Iterate over all WayNodes, but not the last one.
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
 				Node node1 = wayNodes.get(k);
@@ -470,6 +473,7 @@ public class Logic {
 		for (Node node : nodes) {
 			int lat = node.getLat();
 			int lon = node.getLon();
+			if (clickableElements != null && !clickableElements.contains(node)) continue;
 			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
 				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
@@ -699,16 +703,42 @@ public class Logic {
 	}
 
 	/**
-	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
+	 * Splits all ways at the given node.
 	 * 
-	 * @param x screen-coordinate.
-	 * @param y screen-coordinate.
+	 * @param node
 	 */
 	public void performSplit(final Node node) {
 		if (node != null) {
 			delegator.splitAtNode(node);
 			map.invalidate();
 		}
+	}
+	
+	/**
+	 * Splits a way at a given node
+	 * @param way the way to split
+	 * @param node the node at which the way should be split
+	 */
+	public void performSplit(final Way way, final Node node) {
+		delegator.splitAtNode(way, node);
+	}
+	
+	/**
+	 * Merge two ways.
+	 * Ways must be valid (i.e. have at least two nodes) and mergeable
+	 * (i.e. have a common start/end node).
+	 * 
+	 * If the first way does not have tags, but the second one does, the tags will be copied.
+	 * Otherwise, only the tags of the first way will be kept.
+	 *  
+	 * @param mergeInto Way to merge the other way into. This way will be kept.
+	 * @param mergeFrom Way to merge into the other. This way will be deleted.
+	 */
+	public void performMerge(Way mergeInto, Way mergeFrom) {
+		if (mergeInto.getTags().isEmpty() && !mergeFrom.getTags().isEmpty()) {
+			delegator.setTags(mergeInto, mergeFrom.getTags());
+		}
+		delegator.mergeWays(mergeInto, mergeFrom);
 	}
 	
 
