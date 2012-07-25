@@ -29,7 +29,7 @@ import de.blau.android.services.util.StreamUtils;
 public class PresetEditorActivity extends URLListEditActivity {
 
 	private AdvancedPrefDatabase db;
-	// TODO context menu option to re-download preset
+	// TODO js context menu option to re-download preset
 	
 	public PresetEditorActivity() {
 		super();

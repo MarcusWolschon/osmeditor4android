@@ -2,8 +2,8 @@ package de.blau.android.listener;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import de.blau.android.prefs.PrefEditor;
 
 /**

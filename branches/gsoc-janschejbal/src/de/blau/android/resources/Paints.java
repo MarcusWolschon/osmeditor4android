@@ -4,11 +4,11 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Typeface;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
+import android.graphics.Typeface;
 import de.blau.android.R;
 
 public class Paints {

@@ -8,11 +8,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
-import de.blau.android.Application;
-
-
 import android.content.Context;
 import android.util.Log;
+import de.blau.android.Application;
 
 /**
  * Helper class for loading and saving individual serializable objects to files.

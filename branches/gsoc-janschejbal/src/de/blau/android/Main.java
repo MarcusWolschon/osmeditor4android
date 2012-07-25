@@ -2,7 +2,6 @@ package de.blau.android;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,17 +11,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -250,9 +247,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			logic.setMap(map);
 		}
 		
-		easyEditManager = new EasyEditManager(this, logic, mapTouchListener);
+		easyEditManager = new EasyEditManager(this, logic);
 		
-		showActionBar();
 	}
 	
 	/**
@@ -270,7 +266,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		TagValueAutocompletionAdapter.fillCache(this);
 		TagKeyAutocompletionAdapter.fillCache(this);
 		
-		// TODO JS update pref (showing osmbug)
+		showActionBar();
 	}
 
 	@Override
@@ -294,7 +290,12 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			currentPreset = prefs.getPreset();
 		}
 		runningInstance = this;
+		
 		updateActionbarEditMode();
+		if (!prefs.isOpenStreetBugsEnabled() && logic.getMode() == Mode.MODE_OPENSTREETBUG) {
+			logic.setMode(Mode.MODE_MOVE);
+		}
+		modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
 		
 		logic.setSelectedBug(null);
 		logic.setSelectedNode(null);
@@ -345,7 +346,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		//return null; // TODO remove - for debugging only
+		//return null; // TODO js remove - for debugging only
 		Log.i("Main", "onRetainNonConfigurationInstance");
 		return logic;
 	}
@@ -360,7 +361,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		actionbar.setDisplayShowHomeEnabled(false);
 		actionbar.setDisplayShowTitleEnabled(false);
 		
-		modeDropdown = new ModeDropdownAdapter(this, true);
+		modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled());
 		actionbar.setListNavigationCallbacks(modeDropdown, this);
 		
 		actionbar.show();
@@ -434,10 +435,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 
 		case R.id.menu_transfer_upload:
 			confirmUpload();
-			return true;
-
-		case R.id.menu_save:
-			logic.saveAsync(true);
 			return true;
 		}
 
@@ -735,12 +732,40 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	}
 
 	/**
+	 * @param selectedElement
+	 */
+	public void performTagEdit(final OsmElement selectedElement) {
+		if (selectedElement instanceof Node) {
+			logic.setSelectedNode((Node) selectedElement);
+		} else if (selectedElement instanceof Way) {
+			logic.setSelectedWay((Way) selectedElement);
+		}
+	
+		if (selectedElement != null) {
+			Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
+	
+			// convert tag-list to string-lists for Bundle-compatibility
+			ArrayList<String> tagList = new ArrayList<String>();
+			for (Entry<String, String> tag : selectedElement.getTags().entrySet()) {
+				tagList.add(tag.getKey());
+				tagList.add(tag.getValue());
+			}
+	
+			//insert Bundles
+			startTagEditor.putExtra(TagEditor.TAGS, tagList);
+			startTagEditor.putExtra(TagEditor.TYPE, selectedElement.getName());
+			startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
+	
+			Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+		}
+	}
+
+	/**
 	 * A TouchListener for all gestures made on the touchscreen.
 	 * 
 	 * @author mb
 	 */
-	// TODO js make private again?
-	public class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
+	private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
 		private AppendMode appendMode;
 
@@ -958,35 +983,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			}
 		}
 
-		/**
-		 * @param selectedElement
-		 */
-		public void performTagEdit(final OsmElement selectedElement) {
-			if (selectedElement instanceof Node) {
-				logic.setSelectedNode((Node) selectedElement);
-			} else if (selectedElement instanceof Way) {
-				logic.setSelectedWay((Way) selectedElement);
-			}
-
-			if (selectedElement != null) {
-				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
-
-				// convert tag-list to string-lists for Bundle-compatibility
-				ArrayList<String> tagList = new ArrayList<String>();
-				for (Entry<String, String> tag : selectedElement.getTags().entrySet()) {
-					tagList.add(tag.getKey());
-					tagList.add(tag.getValue());
-				}
-
-				//insert Bundles
-				startTagEditor.putExtra(TagEditor.TAGS, tagList);
-				startTagEditor.putExtra(TagEditor.TYPE, selectedElement.getName());
-				startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
-
-				Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
-			}
-		}
-		
 		/**
 		 * Edit an OpenStreetBug.
 		 * @param bug The bug to edit.

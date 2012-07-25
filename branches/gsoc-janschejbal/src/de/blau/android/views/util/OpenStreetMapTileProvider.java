@@ -4,12 +4,6 @@ package  de.blau.android.views.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.blau.android.R;
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
-import de.blau.android.services.IOpenStreetMapTileProviderService;
-import de.blau.android.services.util.OpenStreetMapTile;
-import de.blau.android.views.util.OpenStreetMapViewConstants;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +13,10 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
+import de.blau.android.R;
+import de.blau.android.services.IOpenStreetMapTileProviderCallback;
+import de.blau.android.services.IOpenStreetMapTileProviderService;
+import de.blau.android.services.util.OpenStreetMapTile;
 
 /**
  * 

@@ -18,7 +18,8 @@
       android:layout_toRightOf="@id/upload_comment_label"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:background="@android:drawable/editbox_background"/>
+      android:inputType="text"
+      />
   </RelativeLayout>
   <ScrollView
     android:layout_alignParentTop="true"

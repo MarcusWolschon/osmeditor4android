@@ -1,14 +1,12 @@
 package de.blau.android.presets;
 
-import de.blau.android.osm.OsmElement;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.Preset.PresetClickHandler;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.presets.Preset.PresetClickHandler;
+import de.blau.android.presets.Preset.PresetGroup;
+import de.blau.android.presets.Preset.PresetItem;
 
 public class PresetDialog extends Dialog implements PresetClickHandler {
 	

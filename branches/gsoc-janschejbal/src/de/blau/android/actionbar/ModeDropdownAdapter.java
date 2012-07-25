@@ -1,6 +1,7 @@
 package de.blau.android.actionbar;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -18,6 +19,10 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 	private ArrayList<DropdownItem> items = new ArrayList<DropdownItem>();
 
 	private Context context;
+
+	private boolean showOpenStreetBug;
+
+	private HashSet<DataSetObserver> observers = new HashSet<DataSetObserver>();
 	
 	private class DropdownItem {
 		private final Logic.Mode resultingMode;
@@ -41,27 +46,37 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		 */
 		private TextView getView(boolean pad) {
 			TextView view = new TextView(context);
-			if (pad) view.setPadding(20, 20, 20, 20);
+			int padding = dpToPx(10);
+			if (pad) view.setPadding(padding, padding, padding, padding);
 			view.setText(label);
 			view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-			view.setCompoundDrawablePadding(15);
+			view.setCompoundDrawablePadding(padding);
 			return view;
 		}
+	}
+	
+	/**
+	 * Converts a size in dp to pixels
+	 * @param dp size in display point
+	 * @return size in pixels (for the current display metrics)
+	 */
+	private int dpToPx(int dp) {
+		return Math.round(dp * context.getResources().getDisplayMetrics().density);
 	}
 	
 	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug) {
 		this.context = context;
 		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.menu_move);
+		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
 		addItem(Logic.Mode.MODE_ADD, R.string.menu_add, R.drawable.menu_add);
 		addItem(Logic.Mode.MODE_EDIT, R.string.menu_edit, R.drawable.menu_edit);
 		addItem(Logic.Mode.MODE_TAG_EDIT, R.string.menu_tag, R.drawable.menu_tag);
 		addItem(Logic.Mode.MODE_APPEND, R.string.menu_append, R.drawable.menu_append);
 		addItem(Logic.Mode.MODE_ERASE, R.string.menu_erase, R.drawable.menu_erase);
 		addItem(Logic.Mode.MODE_SPLIT, R.string.menu_split, R.drawable.menu_split);
-		if (showOpenStreetBug) {
-			addItem(Logic.Mode.MODE_OPENSTREETBUG, R.string.menu_openstreetbug, R.drawable.menu_openstreetbug);
-		}
-		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
+		// OpenStreetBug item must be last so it can be easily hidden
+		addItem(Logic.Mode.MODE_OPENSTREETBUG, R.string.menu_openstreetbug, R.drawable.menu_openstreetbug);
+		this.showOpenStreetBug = showOpenStreetBug;
 	}
 	
 
@@ -98,7 +113,7 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 	
 	@Override
 	public int getCount() {
-		return items.size();
+		return (showOpenStreetBug ? items.size() : items.size() - 1);
 	}
 
 	@Override
@@ -138,17 +153,31 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 
 	@Override
 	public void registerDataSetObserver(DataSetObserver observer) {
-		// content does not change -> no observers
+		observers.add(observer);
 	}
 
 	@Override
 	public void unregisterDataSetObserver(DataSetObserver observer) {
-		// content does not change -> no observers
+		observers.remove(observer);
 	}
 
 	@Override
 	public View getDropDownView(int position, View convertView, ViewGroup parent) {
 		return items.get(position).getView(true);
+	}
+	
+	/**
+	 * Sets whether the OpenStreetBug menu item should be shown, calling change observers where needed
+	 * @param show true if the OSB item should be shown, false if not
+	 * @return true if the setting was changed, false if the new value matched the current value
+	 */
+	public boolean setShowOpenStreetBug(boolean show) {
+		if (show == showOpenStreetBug) return false;
+		showOpenStreetBug = show;
+		for (DataSetObserver observer : observers) {
+			observer.onChanged();
+		}
+		return true;
 	}
 
 }

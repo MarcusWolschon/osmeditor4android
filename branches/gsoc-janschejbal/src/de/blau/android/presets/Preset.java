@@ -53,7 +53,7 @@ import de.blau.android.views.WrappingLayout;
  */
 public class Preset {
 
-	// TODO tags to lowercase?
+	// TODO js tags to lowercase?
 	
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";

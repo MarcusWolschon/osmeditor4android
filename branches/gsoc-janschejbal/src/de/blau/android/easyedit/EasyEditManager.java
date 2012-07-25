@@ -1,9 +1,6 @@
 package de.blau.android.easyedit;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,7 +15,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.Main.MapTouchListener;
+import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
@@ -33,15 +30,13 @@ public class EasyEditManager {
 	private final Main main;
 	private final Logic logic;
 	/** the touch listener from Main */
-	private MapTouchListener touchlistener;
 	
 	private ActionMode currentActionMode = null;
 	private EasyEditActionModeCallback currentActionModeCallback = null;
 	
-	public EasyEditManager(Main main, Logic logic, MapTouchListener mapTouchListener) {
+	public EasyEditManager(Main main, Logic logic) {
 		this.main = main;
 		this.logic = logic;
-		this.touchlistener = mapTouchListener;
 	}
 	
 	/**
@@ -94,11 +89,6 @@ public class EasyEditManager {
 		return true;
 	}
 
-	/*package*/ void performTagEdit(OsmElement element) {
-		touchlistener.performTagEdit(element);
-	}
-
-
 	/*package*/ void performDeleteNode(Node node) {
 		logic.performErase(node);
 	}
@@ -115,10 +105,10 @@ public class EasyEditManager {
 		if (possibleWay == null) {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
-				performTagEdit(possibleNode);
+				main.performTagEdit(possibleNode);
 			}
 		} else { // way was added
-			performTagEdit(possibleWay);
+			main.performTagEdit(possibleWay);
 		}
 	}
 	
@@ -244,7 +234,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
-			mode.setTitle("Creating Path"); // TODO res
+			mode.setTitle(R.string.actionmode_createpath);
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(null);
 			pathCreateNode(x, y);
@@ -337,7 +327,7 @@ public class EasyEditManager {
 		 */
 		private boolean handleElementClick(OsmElement element) {
 			if (element == getElement()) {
-				performTagEdit(element);
+				main.performTagEdit(element);
 				return true;
 			}
 			return false;
@@ -361,9 +351,9 @@ public class EasyEditManager {
 			logic.setSelectedWay(way);
 			main.invalidateMap();
 			if (isWay) {
-				mode.setTitle("Way selected"); // TODO res
+				mode.setTitle(R.string.actionmode_wayselect);
 			} else {
-				mode.setTitle("Node selected"); // TODO res
+				mode.setTitle(R.string.actionmode_nodeselect);
 			}
 			return true;
 		}
@@ -371,16 +361,16 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_TAG, 1, "Tags"); // TODO res
-			menu.add(Menu.NONE, MENUITEM_DELETE, 2, "Delete"); // TODO res
+			menu.add(Menu.NONE, MENUITEM_TAG, 1, R.string.menu_tags);
+			menu.add(Menu.NONE, MENUITEM_DELETE, 2, R.string.delete);
 			if (getElement().getOsmId() > 0){
-				menu.add(Menu.NONE, MENUITEM_HISTORY, 3, "History"); // TODO res
+				menu.add(Menu.NONE, MENUITEM_HISTORY, 3, R.string.menu_history);
 			}
 			if (isWay && way.getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_SPLIT, 4, "Split way"); // TODO res
+				menu.add(Menu.NONE, MENUITEM_SPLIT, 4, R.string.menu_split);
 			}
 			if (isWay && cachedMergeableWays.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_MERGE, 5, "Join ways"); // TODO res
+				menu.add(Menu.NONE, MENUITEM_MERGE, 5, R.string.menu_merge);
 			}
 			return true;
 		}
@@ -388,7 +378,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch (item.getItemId()) {
-			case MENUITEM_TAG: performTagEdit(getElement()); break;
+			case MENUITEM_TAG: main.performTagEdit(getElement()); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback(way)); break;
@@ -402,7 +392,7 @@ public class EasyEditManager {
 				performDeleteNode(node);
 				mode.finish();
 			} else {
-				// Way handling - TODO
+				// Way handling - TODO js
 				Toast.makeText(main, "not implemented", Toast.LENGTH_SHORT).show();
 			}		
 		}
@@ -448,7 +438,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
-			mode.setTitle("Split way"); // TODO RES
+			mode.setTitle(R.string.menu_split);
 			logic.setClickableElements(nodes);
 			return true;
 		}
@@ -479,16 +469,10 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			mode.setTitle("Join ways"); // TODO RES
-			if (ways.isEmpty()) {
-				logic.setClickableElements(null);
-				Toast.makeText(main, "No mergeable ways found (must have same tags, or no tags)", Toast.LENGTH_LONG).show(); // TODO RES
-				return false;
-			} else {
-				logic.setClickableElements(ways);
-				super.onCreateActionMode(mode, menu);
-				return true;
-			}
+			mode.setTitle(R.string.menu_merge);
+			logic.setClickableElements(ways);
+			super.onCreateActionMode(mode, menu);
+			return true;
 		}
 
 		@Override

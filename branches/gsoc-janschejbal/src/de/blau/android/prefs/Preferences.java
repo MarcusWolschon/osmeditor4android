@@ -7,7 +7,6 @@ import android.content.res.Resources.NotFoundException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import de.blau.android.R;
-import de.blau.android.R.string;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 

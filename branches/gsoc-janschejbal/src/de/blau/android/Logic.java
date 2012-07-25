@@ -2,12 +2,10 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -1003,7 +1001,7 @@ public class Logic {
 			if (new SavingHelper<Mode>().load(MODE_FILENAME) != mode) { // save only if changed
 				new SavingHelper<Mode>().save(MODE_FILENAME, mode);
 			}
-			// TODO save GPS track
+			// TODO js save GPS track
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
@@ -1028,7 +1026,7 @@ public class Logic {
 				delegator.readFromFile();
 				viewBox.setBorders(delegator.getOriginalBox());
 				loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME);
-				// TODO load GPS track
+				// TODO js load GPS track
 				return null;
 			}
 			

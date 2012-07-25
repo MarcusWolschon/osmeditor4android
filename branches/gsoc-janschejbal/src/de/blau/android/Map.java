@@ -22,7 +22,6 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Track;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
@@ -423,6 +422,7 @@ public class Map extends View implements IMapView {
 				String text = node.getTagWithKey("addr:housenumber");
 				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + 3, paint2);
 			} else { //TODO: draw other known elements different too
+				// TODO js use preset icons (possibly optional?)
 				// draw regular nodes
 				canvas.drawPoint(x, y, paints.get(paintKey));
 			}

@@ -59,10 +59,4 @@
 		android:icon="@drawable/menu_config"
 		android:showAsAction="ifRoom"
 	/>
-	<item
-		android:id="@+id/menu_save"
-		android:title="@string/menu_save"
-		android:icon="@drawable/menu_save"
-		android:showAsAction="ifRoom"
-	/>
 </menu>

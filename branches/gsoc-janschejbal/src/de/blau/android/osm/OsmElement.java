@@ -4,14 +4,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
-
 import de.blau.android.R;
 
 public abstract class OsmElement implements Serializable, XmlSerializable {

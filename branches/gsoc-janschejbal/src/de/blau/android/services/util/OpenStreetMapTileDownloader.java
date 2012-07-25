@@ -11,16 +11,14 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.Executors;
 
-
-import de.blau.android.Application;
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
-import de.blau.android.views.util.OpenStreetMapTileServer;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.util.Log;
+import de.blau.android.Application;
+import de.blau.android.services.IOpenStreetMapTileProviderCallback;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * The OpenStreetMapTileDownloader loads tiles from a server and passes them to

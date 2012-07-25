@@ -1,10 +1,8 @@
 // Created by plusminus on 17:58:57 - 25.09.2008
 package  de.blau.android.views.util;
 
-import de.blau.android.services.util.OpenStreetMapTile;
-import de.blau.android.views.util.OpenStreetMapViewConstants;
-
 import android.graphics.Bitmap;
+import de.blau.android.services.util.OpenStreetMapTile;
 
 /**
  * 

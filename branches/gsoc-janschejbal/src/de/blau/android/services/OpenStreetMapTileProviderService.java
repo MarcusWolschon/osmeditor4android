@@ -1,15 +1,12 @@
 package de.blau.android.services;
 
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
-import de.blau.android.services.IOpenStreetMapTileProviderService;
-import de.blau.android.services.util.OpenStreetMapTile;
-import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
-import de.blau.android.views.util.OpenStreetMapTileServer;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
+import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * The OpenStreetMapTileProviderService can download map tiles from a server

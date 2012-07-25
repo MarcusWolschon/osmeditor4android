@@ -15,11 +15,10 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import de.blau.android.Application;
-import de.blau.android.services.util.StreamUtils;
-
 import android.graphics.Rect;
 import android.util.Log;
+import de.blau.android.Application;
+import de.blau.android.services.util.StreamUtils;
 
 /**
  * Utility class to interface to the online OpenStreetBugs database. Solely consists

@@ -2,23 +2,23 @@ package de.blau.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.GotoErrorMailerListener;
 import de.blau.android.listener.GotoPreferencesListener;
 import de.blau.android.listener.UploadListener;
-import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.osb.CommitListener;
 
 /**

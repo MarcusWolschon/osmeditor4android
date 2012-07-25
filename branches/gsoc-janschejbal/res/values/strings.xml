@@ -115,6 +115,16 @@
 	<string name="menu_transfer_upload">Upload data to OSM server</string>
 	<string name="menu_save">Save to file</string>
 	
+	<!-- element action mode menu -->
+	<string name="menu_tags">Tags</string> <!-- Text should be as short as possible -->
+	<string name="menu_history">History</string>
+	<string name="menu_merge">Join ways</string>
+		
+	<!-- EasyEdit action mode titles -->
+	<string name="actionmode_wayselect">Way selected</string>
+	<string name="actionmode_nodeselect">Node selected</string>
+	<string name="actionmode_createpath">Creating path</string>
+					
 	<!-- Preferences -->
 	<string name="config_category_view">View Settings</string>
 	<string name="config_maxStrokeWidth_title">max stroke width</string>

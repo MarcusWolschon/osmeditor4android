@@ -9,8 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
-import android.content.SharedPreferences.Editor;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,12 +35,12 @@ import android.widget.LinearLayout;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetClickHandler;
+import de.blau.android.presets.Preset.PresetGroup;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetDialog;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -49,7 +49,7 @@ import de.blau.android.presets.Preset.PresetItem;
  */
 public class TagEditor extends Activity implements OnDismissListener {
 
-	// TODO autosuggest based on extended preset properties
+	// TODO js autosuggest based on extended preset properties
 	
 	public static final String TAGS = "tags";
 	public static final String TAGS_ORIG = "tags_original";

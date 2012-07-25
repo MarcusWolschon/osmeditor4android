@@ -18,7 +18,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
-
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
