@@ -312,7 +312,7 @@ public class StorageDelegator implements Serializable {
 			return;
 		}
 		
-		if (savingHelper.save(FILENAME, this)) {
+		if (savingHelper.save(FILENAME, this, true)) {
 			dirty = false;
 		}
 	}
@@ -321,7 +321,7 @@ public class StorageDelegator implements Serializable {
 	 * Loads the storage data from the default storage file
 	 */
 	public void readFromFile() {
-		StorageDelegator newDelegator = savingHelper.load(FILENAME);
+		StorageDelegator newDelegator = savingHelper.load(FILENAME, true);
 		if (newDelegator != null) {
 			currentStorage = newDelegator.currentStorage;
 			apiStorage = newDelegator.apiStorage;

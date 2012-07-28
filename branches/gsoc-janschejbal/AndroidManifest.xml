@@ -41,6 +41,7 @@
 				<action android:name="de.blau.android.services.IOpenStreetMapTileProviderService"></action>
 			</intent-filter>
 		</service>
+		<service android:name=".services.TrackerService" android:label="TrackerService"></service>
 		<activity android:name=".prefs.APIEditorActivity"></activity>
 		<activity android:name=".prefs.PresetEditorActivity"></activity>
 		<activity android:name=".prefs.VespucciURLActivity">

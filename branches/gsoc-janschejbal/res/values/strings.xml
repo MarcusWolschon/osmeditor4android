@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Vespucci</string>
-	<string name="app_version">0.7.0</string>
-	<string name="app_name_version">Vespucci 0.7.0</string>	
+	<string name="app_version">0.8.0dev</string>
+	<string name="app_name_version">Vespucci 0.8.0dev</string>	
 
 	<!-- Dialogs -->
 	<string name="resume_last_activity_dialog_title">Resume?</string>
@@ -105,9 +105,11 @@
 	<string name="menu_openstreetbug">File OpenStreetBug</string>
 	<string name="menu_easyedit">EasyEdit</string>
 	<string name="menu_gps">GPS…</string>
-	<string name="menu_gps_start_pause">Start/pause GPS track</string>
+	<string name="menu_gps_show">Show location</string>
 	<string name="menu_gps_follow">Follow GPS position</string>
-	<string name="menu_gps_stop">Stop GPS track</string>
+	<string name="menu_gps_start">Start GPS track</string>
+	<string name="menu_gps_pause">Pause GPS track</string>
+	<string name="menu_gps_clear">Clear GPS track</string>
 	<string name="menu_gps_upload">Upload GPS track</string>
 	<string name="menu_transfer">Transfer…</string>
 	<string name="menu_transfer_download_current">Download current view</string>
@@ -206,5 +208,9 @@
 	<string name="default_">Default</string><!-- "default" is a reserved Java keyword... -->
 	<string name="preset">Preset</string>
 	<string name="api">API</string>
-		
+	
+	<string name="tracking_active_title">Recording GPS track</string>
+	<string name="tracking_active_text">Vespucci is recording a GPS track</string>
+		<string name="gps_failure">Failed to enable GPS</string>
+				
 </resources>

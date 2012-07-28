@@ -87,13 +87,13 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	public void onServiceConnected(android.content.ComponentName name, android.os.IBinder service) {
 		mTileService = IOpenStreetMapTileProviderService.Stub.asInterface(service);
 		mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
-		Log.d("Service", "connected");
+		Log.d("MapTileProviderService", "connected");
 	};
 	
 	//@Override
 	public void onServiceDisconnected(ComponentName name) {
 		mTileService = null;
-		Log.d("Service", "disconnected");
+		Log.d("MapTileProviderService", "disconnected");
 	}
 	
 	// ===========================================================

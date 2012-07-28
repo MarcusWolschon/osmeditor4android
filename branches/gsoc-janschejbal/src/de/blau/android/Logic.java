@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -16,12 +17,10 @@ import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
@@ -31,10 +30,11 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Track;
+import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
+import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 
@@ -199,12 +199,7 @@ public class Logic {
 	 * Needed for updating the strokes.
 	 */
 	private final Paints paints;
-
-	/**
-	 * Responsible for GPS-Tracking logic.
-	 */
-	private final Tracker tracker;
-
+	
 	private Set<OsmElement> clickableElements;
 
 	/**
@@ -214,13 +209,12 @@ public class Logic {
 	 * @param map Instance of the Map. All new Values will be pushed to it.
 	 * @param paints Needed for updating the strokes on zooming.
 	 */
-	Logic(final LocationManager locationManager, final Map map, final Paints paints) {
+	Logic(final Map map, final Paints paints) {
 		this.map = map;
 		this.paints = paints;
 
 		viewBox = delegator.getOriginalBox();
-		tracker = new Tracker(locationManager, map);
-
+		
 		mode = Mode.MODE_MOVE;
 		setSelectedBug(null);
 		setSelectedNode(null);
@@ -231,18 +225,6 @@ public class Logic {
 		map.setViewBox(viewBox);
 	}
 
-	/**
-	 * Delegates newTrackingState to {@link tracker}.
-	 * 
-	 * @param newTrackingState the new Trackingstate. Enums are stored in {@link Tracker}.
-	 */
-	void setTrackingState(final int newTrackingState) {
-		tracker.setTrackingState(newTrackingState);
-	}
-
-	void disableGpsUpdates() {
-		tracker.removeUpdates();
-	}
 
 	/**
 	 * Set all {@link Preferences} and delegates them to {@link Tracker} and {@link Map}. The AntiAlias-Flag will be set
@@ -253,8 +235,6 @@ public class Logic {
 	void setPrefs(final Preferences prefs) {
 		this.prefs = prefs;
 		paints.setAntiAliasing(prefs.isAntiAliasingEnabled());
-		tracker.setPrefs(prefs);
-		//setTrackingState(trackingState);
 		map.invalidate();
 	}
 
@@ -280,21 +260,6 @@ public class Logic {
 		return mode;
 	}
 	
-	public Track getTrack() {
-		return tracker.getTrack();
-	}
-
-	/**
-	 * Delegates follow-flag to {@link Tracker}.
-	 * 
-	 * @param follow true if map should follow the gps-position.
-	 * @return true if map will follow the gps-position.
-	 * @throws FollowGpsException When no actual GPS-Position is available.
-	 */
-	boolean setFollowGps(final boolean follow) throws FollowGpsException {
-		return tracker.setFollowGps(follow);
-	}
-
 	/**
 	 * Checks for changes in the API-Storage.
 	 * 
@@ -335,10 +300,6 @@ public class Logic {
 			viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3()));
 			break;
 		}
-
-		try {
-			setFollowGps(false);
-		} catch (FollowGpsException e) {}
 
 		map.invalidate();
 	}
@@ -617,10 +578,6 @@ public class Logic {
 	 * @param screenTransY Movement on the screen.
 	 */
 	private void performTranslation(final float screenTransX, final float screenTransY) {
-		try {
-			tracker.setFollowGps(false);
-		} catch (FollowGpsException e) {
-		}
 		int height = map.getHeight();
 		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, screenTransX);
 		int lat = GeoMath.yToLatE7(height, viewBox, height - screenTransY);
@@ -996,12 +953,10 @@ public class Logic {
 	 */
 	void save() {
 		try {
-			Context ctx = Application.mainActivity.getApplicationContext();
 			delegator.writeToFile();
-			if (new SavingHelper<Mode>().load(MODE_FILENAME) != mode) { // save only if changed
-				new SavingHelper<Mode>().save(MODE_FILENAME, mode);
+			if (new SavingHelper<Mode>().load(MODE_FILENAME, false) != mode) { // save only if changed
+				new SavingHelper<Mode>().save(MODE_FILENAME, mode, false);
 			}
-			// TODO js save GPS track
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
@@ -1025,8 +980,7 @@ public class Logic {
 			protected Void doInBackground(Void... params) {
 				delegator.readFromFile();
 				viewBox.setBorders(delegator.getOriginalBox());
-				loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME);
-				// TODO js load GPS track
+				loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
 				return null;
 			}
 			

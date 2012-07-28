@@ -11,17 +11,28 @@
 		
 		<menu>
 				<item
-					android:id="@+id/menu_gps_start_pause"
-					android:title="@string/menu_gps_start_pause"
+					android:id="@+id/menu_gps_show"
+					android:title="@string/menu_gps_show"
+					android:checkable="true"
+					android:alphabeticShortcut="g"
 				/>
 				<item
 					android:id="@+id/menu_gps_follow"
 					android:title="@string/menu_gps_follow"
+					android:checkable="true"
 					android:alphabeticShortcut="f"
 				/>
 				<item
-					android:id="@+id/menu_gps_stop"
-					android:title="@string/menu_gps_stop"
+					android:id="@+id/menu_gps_start"
+					android:title="@string/menu_gps_start"
+				/>
+				<item
+					android:id="@+id/menu_gps_pause"
+					android:title="@string/menu_gps_pause"
+				/>
+				<item
+					android:id="@+id/menu_gps_clear"
+					android:title="@string/menu_gps_clear"
 				/>
 				<item
 					android:id="@+id/menu_gps_upload"

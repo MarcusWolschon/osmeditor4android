@@ -22,9 +22,11 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
+import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
@@ -84,6 +86,10 @@ public class Map extends View implements IMapView {
 	
 	/** Caches the current "clickable elements" set during one onDraw pass */
 	private Set<OsmElement> tmpClickableElements;
+
+	private Location displayLocation = null;
+
+	private TrackerService tracker;
 	
 		
 	public Map(final Context context) {
@@ -123,6 +129,7 @@ public class Map extends View implements IMapView {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onDestroy();
 		}
+		this.tracker = null;
 	}
 	
 	public void onLowMemory() {
@@ -152,6 +159,7 @@ public class Map extends View implements IMapView {
 		
 		paintOsmData(canvas);
 		paintGpsTrack(canvas);
+		paintGpsPos(canvas);
 		time = System.currentTimeMillis() - time;
 		
 		if (pref.isStatsVisible()) {
@@ -221,12 +229,13 @@ public class Map extends View implements IMapView {
 	}
 	
 	private void paintGpsTrack(final Canvas canvas) {
+		if (tracker == null) return;
 		Path path = new Path();
-		List<Location> trackPoints = Main.logic.getTrack().getTrackPoints();
+		List<TrackPoint> trackPoints = tracker.getTrackPoints();
 		int locationCount = 0;
 		
 		for (int i = 0, size = trackPoints.size(); i < size; ++i) {
-			Location location = trackPoints.get(i);
+			TrackPoint location = trackPoints.get(i);
 			if (location != null) {
 				int lon = (int) (location.getLongitude() * 1E7);
 				int lat = (int) (location.getLatitude() * 1E7);
@@ -239,10 +248,7 @@ public class Map extends View implements IMapView {
 				} else {
 					path.lineTo(x, y);
 				}
-				
-				if (i == size - 1) {
-					paintGpsPos(canvas, location, x, y);
-				}
+
 				locationCount++;
 			}
 		}
@@ -251,16 +257,18 @@ public class Map extends View implements IMapView {
 	
 	/**
 	 * @param canvas
-	 * @param location
-	 * @param x
-	 * @param y
 	 */
-	private void paintGpsPos(final Canvas canvas, final Location location, final float x, final float y) {
+	private void paintGpsPos(final Canvas canvas) {
+		if (displayLocation == null) return;
+		BoundingBox viewBox = getViewBox();
+		float x = GeoMath.lonE7ToX(getWidth(), viewBox, (int)(displayLocation.getLongitude() * 1E7));
+		float y = GeoMath.latE7ToY(getHeight(), viewBox, (int)(displayLocation.getLatitude() * 1E7));
+
 		float o = -1f;
-		if (location.hasBearing() && location.hasSpeed() && location.getSpeed() > 1.4f) {
+		if (displayLocation.hasBearing() && displayLocation.hasSpeed() && displayLocation.getSpeed() > 1.4f) {
 			// 1.4m/s ~= 5km/h ~= walking pace
 			// faster than walking pace - use the GPS bearing
-			o = location.getBearing();
+			o = displayLocation.getBearing();
 		} else {
 			// slower than walking pace - use the compass orientation (if available)
 			if (orientation >= 0) {
@@ -278,12 +286,11 @@ public class Map extends View implements IMapView {
 			canvas.drawPath(Paints.ORIENTATION_PATH, paints.get(Paints.GPS_POS));
 			canvas.restore();
 		}
-		if (location.hasAccuracy()) {
+		if (displayLocation.hasAccuracy()) {
 			try {
 				BoundingBox accuracyBox = GeoMath.createBoundingBoxForCoordinates(
-						location.getLatitude(), location.getLongitude(),
-						location.getAccuracy());
-				BoundingBox viewBox = getViewBox();
+						displayLocation.getLatitude(), displayLocation.getLongitude(),
+						displayLocation .getAccuracy());
 				RectF accuracyRect = new RectF(
 						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getLeft()),
 						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getTop()),
@@ -588,6 +595,14 @@ public class Map extends View implements IMapView {
 		this.orientation = orientation;
 	}
 	
+	void setLocation(Location location) {
+		displayLocation = location;
+	}
+
+	void setTracker(TrackerService tracker) {
+		this.tracker = tracker;
+	}
+
 	void setDelegator(final StorageDelegator delegator) {
 		this.delegator = delegator;
 	}
@@ -642,6 +657,10 @@ public class Map extends View implements IMapView {
 		zoom = Math.min(zoom, s.getMaxZoomLevel());
 		
 		return zoom;
+	}
+
+	public Location getLocation() {
+		return displayLocation;
 	}
 	
 }

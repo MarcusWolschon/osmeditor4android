@@ -1,7 +1,9 @@
 package de.blau.android;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,17 +11,22 @@ import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -51,7 +58,6 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.actionbar.ModeDropdownAdapter;
 import de.blau.android.easyedit.EasyEditManager;
-import de.blau.android.exception.FollowGpsException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.CommitTask;
@@ -67,6 +73,9 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.TagKeyAutocompletionAdapter;
 import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
+import de.blau.android.services.TrackerService;
+import de.blau.android.services.TrackerService.TrackerBinder;
+import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
@@ -76,7 +85,7 @@ import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
  * 
  * @author mb
  */
-public class Main extends SherlockActivity implements OnNavigationListener {
+public class Main extends SherlockActivity implements OnNavigationListener, ServiceConnection, TrackerLocationListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -166,6 +175,21 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	 */
 	private boolean loadOnResume;
 
+	/** Initialized in onCreate - this empty file indicates by its existence that showGPS should be enabled on start */
+	private File showGPSFlagFile = null;
+	private boolean showGPS;
+	private boolean followGPS;
+	/**
+	 * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}.
+	 * Will be automatically given to the tracker service on connect.
+	 */
+	private boolean wantLocationUpdates = false;
+
+	/**
+	 * The current instance of the tracker service
+	 */
+	private TrackerService tracker = null;
+
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
 	 */
@@ -181,8 +205,10 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 
 		super.onCreate(savedInstanceState);
 		Application.mainActivity = this;
-		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(
-			Context.LOCATION_SERVICE);
+		
+		showGPSFlagFile = new File(this.getFilesDir(), "showgps.flag");
+		showGPS = showGPSFlagFile.exists();
+		
 		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager != null) {
 			sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
@@ -229,13 +255,13 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		rl.addView(zoomControls, rlp);
 		
 		setContentView(rl);
-
+		
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
 		loadOnResume = false;
 		if (logic == null) {
 			Log.i("Main", "onCreate - creating new logic");
-			logic = new Logic(locationManager, map, new Paints(getApplicationContext().getResources()));
+			logic = new Logic(map, new Paints(getApplicationContext().getResources()));
 			if (isLastActivityAvailable()) {
 				// Start loading after resume to ensure loading dialog can be removed afterwards
 				loadOnResume = true;
@@ -261,7 +287,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
-	
+		
 		// cache some values (optional)
 		TagValueAutocompletionAdapter.fillCache(this);
 		TagKeyAutocompletionAdapter.fillCache(this);
@@ -273,10 +299,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	protected void onResume() {
 		super.onResume();
 		Log.i("Main", "onResume");
-		
-		if (sensorManager != null) {
-			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
-		}
+
+		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
 		
 		if (redownloadOnResume) {
 			redownloadOnResume = false;
@@ -300,14 +324,20 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		logic.setSelectedBug(null);
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
+		
+		setShowGPS(showGPS); // reactive GPS listener if needed
+		setFollowGPS(followGPS);
 	}
 
 	@Override
 	protected void onPause() {
 		Log.i("Main", "onPause");
 		runningInstance = null;
-		if (sensorManager != null) {
-			sensorManager.unregisterListener(sensorListener);
+		disableLocationUpdates();
+		if (tracker != null) tracker.setListener(null);
+		
+		if (showGPS) {
+			
 		}
 
 		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
@@ -327,12 +357,31 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		super.onStop();
 	}
 
+	@Override
+	protected void onDestroy() {
+		map.onDestroy();
+		if (tracker != null) tracker.setListener(null);
+		try {
+			unbindService(this);
+		} catch (Exception e) {} // ignore errors, this is just cleanup
+		super.onDestroy();
+	}
+
 	/**
 	 * Save current data (state, downloaded data, changes, ...) to file(s)
 	 */
 	private void saveData() {
 		Log.i("Main", "saving data");
 		logic.save();
+		if (showGPS) {
+			try {
+				showGPSFlagFile.createNewFile();
+			} catch (IOException e) {
+				Log.e("Main", "failed to create showGPS flag file");
+			}
+		} else {
+			showGPSFlagFile.delete();
+		}
 	}
 
 	/**
@@ -346,7 +395,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		//return null; // TODO js remove - for debugging only
 		Log.i("Main", "onRetainNonConfigurationInstance");
 		return logic;
 	}
@@ -391,14 +439,10 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
-
-	/**
-	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
-	 */
-	@Override
-	public boolean onPrepareOptionsMenu(final Menu menu) {
+		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
+		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
+		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
+		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
 		return true;
 	}
 
@@ -413,16 +457,34 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
 			return true;
 
-		case R.id.menu_gps_start_pause:
-			logic.setTrackingState(Tracker.STATE_PAUSE);
+		case R.id.menu_gps_show:
+			toggleShowGPS();
 			return true;
+			
 
 		case R.id.menu_gps_follow:
-			followGps();
+			toggleFollowGPS();
 			return true;
 
-		case R.id.menu_gps_stop:
-			logic.setTrackingState(Tracker.STATE_STOP);
+		case R.id.menu_gps_start:
+			if (tracker != null && ensureGPSProviderEnabled()) {
+				tracker.startTracking();
+				setFollowGPS(true);
+				invalidateOptionsMenu();
+			}
+			return true;
+
+		case R.id.menu_gps_pause:
+			if (tracker != null && ensureGPSProviderEnabled()) {
+				tracker.stopTracking(false);
+				invalidateOptionsMenu();
+			}
+			return true;
+
+		case R.id.menu_gps_clear:
+			if (tracker != null) tracker.stopTracking(true);
+			invalidateOptionsMenu();
+			map.invalidate();
 			return true;
 
 		case R.id.menu_transfer_download_current:
@@ -441,15 +503,78 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		return false;
 	}
 
-	/**
-	 * 
-	 */
-	private void followGps() {
-		try {
-			logic.setFollowGps(true);
-		} catch (FollowGpsException e) {
-			showToastWaitingForGps();
+	private void setShowGPS(boolean show) {
+		if (show && !ensureGPSProviderEnabled()) {
+			show = false;
 		}
+		showGPS = show;
+		invalidateOptionsMenu();
+		Log.d("Main", "showGPS: "+ show);
+		if (show) {
+			enableLocationUpdates();
+		} else {
+			setFollowGPS(false);
+			map.setLocation(null);
+			disableLocationUpdates();
+		}
+		map.invalidate();
+	}
+	
+	/**
+	 * Checks if GPS is enabled in the settings.
+	 * If not, returns false and shows location settings.
+	 * @return true if GPS is enabled, false if not
+	 */
+	private boolean ensureGPSProviderEnabled() {
+		LocationManager locationManager = (LocationManager)this.getSystemService(LOCATION_SERVICE);
+		try {
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				return true;
+			} else {
+				startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				return false;
+			}
+		} catch (Exception e) {
+			Log.e("Main", "Error when checking for GPS, assuming GPS not available", e);
+			Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_SHORT).show();
+			return false;
+		}
+	}
+
+	private void setFollowGPS(boolean follow) {
+		followGPS = follow;
+		invalidateOptionsMenu();
+		if (follow) {
+			setShowGPS(true);
+			if (map.getLocation() != null) onLocationChanged(map.getLocation());
+		}
+	}
+	
+	private void toggleShowGPS() {
+		boolean newState = !showGPS;
+		setShowGPS(newState);
+	}
+	
+	
+	private void toggleFollowGPS() {
+		boolean newState = !followGPS;
+		setFollowGPS(newState);
+	}
+	
+	private void enableLocationUpdates() {
+		if (wantLocationUpdates == true) return;
+		if (sensorManager != null) {
+			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+		}
+		wantLocationUpdates = true;
+		if (tracker != null) tracker.setListenerNeedsGPS(true);
+	}
+	
+	private void disableLocationUpdates() {
+		if (wantLocationUpdates == false) return;
+		if (sensorManager != null) sensorManager.unregisterListener(sensorListener);
+		wantLocationUpdates  = false;
+		if (tracker != null) tracker.setListenerNeedsGPS(false);
 	}
 
 	/**
@@ -576,13 +701,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 
 		logic.setTags(type, osmId, tags);
 		map.invalidate();
-	}
-	
-	@Override
-	protected void onDestroy() {
-		map.onDestroy();
-		logic.disableGpsUpdates();
-		super.onDestroy();
 	}
 	
 	@Override
@@ -718,13 +836,6 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 
 	public List<Exception> getExceptions() {
 		return exceptions;
-	}
-
-	/**
-	 * 
-	 */
-	private void showToastWaitingForGps() {
-		Toast.makeText(getApplicationContext(), R.string.toast_waiting_for_gps, Toast.LENGTH_SHORT).show();
 	}
 
 	private enum AppendMode {
@@ -882,6 +993,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
 			logic.handleTouchEventMove(x, y, -dx, dy);
+			setFollowGPS(false);
 		}
 		
 		@Override
@@ -1075,7 +1187,7 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 				if (!v.onKeyDown(keyCode, event)) {
 					switch (keyCode) {
 					case KeyEvent.KEYCODE_DPAD_CENTER:
-						setFollowGps();
+						setFollowGPS(true);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_UP:
@@ -1114,18 +1226,8 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 		}
 		
 		private void translate(final CursorPaddirection direction) {
+			setFollowGPS(false);
 			logic.translate(direction);
-		}
-		
-		/**
-		 * 
-		 */
-		private void setFollowGps() {
-			try {
-				logic.setFollowGps(true);
-			} catch (FollowGpsException e) {
-				showToastWaitingForGps();
-			}
 		}
 	}
 
@@ -1182,4 +1284,40 @@ public class Main extends SherlockActivity implements OnNavigationListener {
 	public String getBaseURL() {
 		return prefs.getServer().getBaseURL();
 	}
+
+	@Override
+	public void onServiceConnected(ComponentName name, IBinder service) {
+		Log.i("Main", "Tracker service connected");
+		tracker = (((TrackerBinder)service).getService());
+		map.setTracker(tracker);
+		tracker.setListener(this);
+		tracker.setListenerNeedsGPS(wantLocationUpdates);
+		invalidateOptionsMenu();
+	}
+
+	@Override
+	public void onServiceDisconnected(ComponentName name) {
+		// should never happen, but just to be sure
+		Log.i("Main", "Tracker service disconnected");
+		tracker = null;
+		map.setTracker(null);
+		invalidateOptionsMenu();
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		if (followGPS) {
+			BoundingBox viewBox = map.getViewBox();
+			// ensure the view is zoomed in to at least the most zoomed-out
+			while (!viewBox.canZoomOut() && viewBox.canZoomIn()) {
+				viewBox.zoomIn();
+			}
+			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
+		}
+		if (showGPS) {
+			map.setLocation(location);
+		}
+		map.invalidate();
+	}
+
 }
