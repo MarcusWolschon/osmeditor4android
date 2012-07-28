@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -264,6 +265,9 @@ public class Track {
 					}
 					
 					return true;
+				} catch (FileNotFoundException e) {
+					Log.i(TAG, "No saved track");
+					return false;
 				} catch (Exception e) {
 					Log.e(TAG, "failed to (completely) load track" , e);
 					return false;
@@ -305,7 +309,7 @@ public class Track {
 	 * 
 	 * @author Jan
 	 */
-	public static class TrackPoint {
+	public static class TrackPoint implements GeoPoint {
 		public static final int FORMAT_VERSION = 1;
 		public static final int RECORD_SIZE = 2*8;
 		
@@ -353,6 +357,11 @@ public class Track {
 			stream.writeDouble(latitude);
 			stream.writeDouble(longitude);
 		}
+		
+		@Override
+		public int getLat() { return (int) (latitude * 1E7); }
+		@Override
+		public int getLon() { return (int) (longitude * 1E7); }
 		
 		public double getLatitude()  { return latitude; }
 		public double getLongitude() { return longitude; }

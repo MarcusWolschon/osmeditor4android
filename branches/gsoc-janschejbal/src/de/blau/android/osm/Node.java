@@ -10,7 +10,7 @@ import org.xmlpull.v1.XmlSerializer;
  * 
  * @author mb
  */
-public class Node extends OsmElement {
+public class Node extends OsmElement implements GeoPoint {
 	/**
 	 * 
 	 */

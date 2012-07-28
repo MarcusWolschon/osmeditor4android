@@ -303,6 +303,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_HISTORY = 3;
 		private static final int MENUITEM_SPLIT = 4;
 		private static final int MENUITEM_MERGE = 5;
+		private static final int MENUITEM_REVERSE = 6;
 		
 		private final boolean isWay;
 		private Node node = null;
@@ -366,11 +367,14 @@ public class EasyEditManager {
 			if (getElement().getOsmId() > 0){
 				menu.add(Menu.NONE, MENUITEM_HISTORY, 3, R.string.menu_history);
 			}
+			if (isWay) {
+				menu.add(Menu.NONE, MENUITEM_REVERSE, 4, R.string.menu_reverse);
+			}
 			if (isWay && way.getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_SPLIT, 4, R.string.menu_split);
+				menu.add(Menu.NONE, MENUITEM_SPLIT, 5, R.string.menu_split);
 			}
 			if (isWay && cachedMergeableWays.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_MERGE, 5, R.string.menu_merge);
+				menu.add(Menu.NONE, MENUITEM_MERGE, 6, R.string.menu_merge);
 			}
 			return true;
 		}
@@ -383,8 +387,17 @@ public class EasyEditManager {
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback(way)); break;
 			case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback(way, cachedMergeableWays)); break;
+			case MENUITEM_REVERSE: reverseWay();
 			}
 			return true;
+		}
+		
+		private void reverseWay() {
+			logic.performReverse(way);
+			if (way.getOneway() != 0) {
+				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
+				main.performTagEdit(way);
+			}
 		}
 
 		private void menuDelete(ActionMode mode) {

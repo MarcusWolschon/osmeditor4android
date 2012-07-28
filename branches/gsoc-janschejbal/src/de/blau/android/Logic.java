@@ -697,6 +697,14 @@ public class Logic {
 	}
 	
 
+	/**
+	 * Reverse a way
+	 * @param way the way to reverse
+	 */
+	public void performReverse(Way way) {
+		delegator.reverseWay(way);
+	}
+
 	public void performAppendStart(OsmElement element) {
 		Way lSelectedWay = null;
 		Node lSelectedNode = null;

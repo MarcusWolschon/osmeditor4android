@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,13 @@ public class Way extends OsmElement {
 			nodes.addAll(newNodes);
 		}
 	}
+	
+	/**
+	 * Reverses the direction of the way
+	 */
+	void reverse() {
+		Collections.reverse(nodes);
+	}
 
 	/**
 	 * Checks if a node is an end node of the way (i.e. either the first or the last one)
@@ -128,6 +136,23 @@ public class Way extends OsmElement {
 		return nodes.get(nodes.size() - 1);
 	}
 
+	/**
+	 * Checks if this way is tagged as oneway
+	 * @return 1 if this is a regular oneway-way (oneway:yes, oneway:true or oneway:1),
+	 *         -1 if this is a reverse oneway-way (oneway:-1 or oneway:reverse),
+	 *         0 if this is not a oneway-way (no oneway tag or tag with none of the specified values)
+	 */
+	public int getOneway() {
+		String oneway = getTagWithKey("oneway");
+		if (oneway == null) return 0;
+		if (oneway.equalsIgnoreCase("yes") || oneway.equalsIgnoreCase("true") || oneway.equals("1")) {
+			return 1;
+		} else if (oneway.equals("-1") || oneway.equalsIgnoreCase("reverse")) {
+			return -1;
+		}
+		return 0;
+	}
+	
 	/**
 	 * Test if the way has a problem.
 	 * @return true if the way has a problem, false if it doesn't.

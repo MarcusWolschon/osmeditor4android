@@ -229,6 +229,15 @@ public class StorageDelegator implements Serializable {
 		
 		removeWay(mergeFrom);
 	}
+	
+	/**
+	 * Reverses a way
+	 * @param way
+	 */
+	public void reverseWay(final Way way) {
+		// TODO undo - save way
+		way.reverse();
+	}
 
 	private int removeWayNodes(final Node node) {
 		// TODO undo - save way

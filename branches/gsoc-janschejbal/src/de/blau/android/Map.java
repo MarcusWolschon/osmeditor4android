@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
@@ -19,10 +18,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
@@ -230,29 +229,8 @@ public class Map extends View implements IMapView {
 	
 	private void paintGpsTrack(final Canvas canvas) {
 		if (tracker == null) return;
-		Path path = new Path();
-		List<TrackPoint> trackPoints = tracker.getTrackPoints();
-		int locationCount = 0;
-		
-		for (int i = 0, size = trackPoints.size(); i < size; ++i) {
-			TrackPoint location = trackPoints.get(i);
-			if (location != null) {
-				int lon = (int) (location.getLongitude() * 1E7);
-				int lat = (int) (location.getLatitude() * 1E7);
-				
-				BoundingBox viewBox = getViewBox();
-				float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
-				float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
-				if (locationCount == 0) {
-					path.moveTo(x, y);
-				} else {
-					path.lineTo(x, y);
-				}
-
-				locationCount++;
-			}
-		}
-		canvas.drawPath(path, paints.get(Paints.TRACK));
+		float[] linePoints = pointListToLinePointsArray(tracker.getTrackPoints());
+		canvas.drawLines(linePoints, paints.get(Paints.TRACK));
 	}
 	
 	/**
@@ -460,17 +438,15 @@ public class Map extends View implements IMapView {
 	 * @param way way which shall be painted.
 	 */
 	private void paintWay(final Canvas canvas, final Way way) {
-		List<Node> nodes = way.getNodes();
-		Path path = new Path();
+		float[] linePoints = pointListToLinePointsArray(way.getNodes());
 		int paintKey = Paints.WAY;
 		
 		//TODO: order by occurrences
 		//setColorByTag(way, paint);
 		
-		paintWaySegments(nodes, path);
-		
 		//DEBUG-Setting: Set a unique color for each way
 		//paint.setColor((int) Math.abs((way.getOsmId()) + 1199991) * 99991);
+		
 		
 		//draw way tolerance
 		if (pref.isToleranceVisible()
@@ -480,17 +456,25 @@ public class Map extends View implements IMapView {
 					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT
 					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))
 				&& tmpDrawingInEditRange) {
-			canvas.drawPath(path, paints.get(Paints.WAY_TOLERANCE));
+			canvas.drawLines(linePoints, paints.get(Paints.WAY_TOLERANCE));
 		}
 		//draw selectedWay highlighting
-		if (way == tmpDrawingSelectedWay && tmpDrawingInEditRange) {
-			canvas.drawPath(path, paints.get(Paints.SELECTED_WAY));
+		boolean isSelected = (way == tmpDrawingSelectedWay && tmpDrawingInEditRange);
+		if  (isSelected) {
+			canvas.drawLines(linePoints, paints.get(Paints.SELECTED_WAY));
+			drawOnewayArrows(canvas, linePoints, false, paints.get(Paints.WAY_DIRECTION));
+		}
+		
+		String highway = way.getTagWithKey("highway"); // cache frequently accessed key
+
+		int onewayCode = way.getOneway();
+		if (onewayCode != 0) {
+			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), paints.get(Paints.ONEWAY_DIRECTION));
 		}
 		
 		if (way.hasProblem()) {
 			paintKey = Paints.PROBLEM_WAY;
 		} else {
-			String highway = way.getTagWithKey("highway"); // cache frequently accessed key
 			if (way.getTagWithKey("railway") != null) {
 				paintKey = Paints.RAILWAY;
 			} else if (way.getTagWithKey("waterway") != null) {
@@ -506,55 +490,71 @@ public class Map extends View implements IMapView {
 			}
 		}
 		// draw the way itself
-		canvas.drawPath(path, paints.get(paintKey));
+		canvas.drawLines(linePoints, paints.get(paintKey));
 	}
 	
+
 	/**
-	 * @param nodes
-	 * @param path
-	 * @param box
-	 * @param visibleSections
-	 * @return
+	 * Draws directional arrows for a way
+	 * @param canvas the canvas on which to draw
+	 * @param linePoints line segment array in the format returned by {@link #pointListToLinePointsArray(Iterable)}.
+	 * @param reverse if true, the arrows will be painted in the reverse direction
+	 * @param paint the paint to use for drawing the arrows
 	 */
-	private int paintWaySegments(final List<Node> nodes, final Path path) {
+	private void drawOnewayArrows(Canvas canvas, float[] linePoints, boolean reverse, Paint paint) {
+		int ptr = 0;
+		while (ptr < linePoints.length) {
+			canvas.save();
+			float x1 = linePoints[ptr++];
+			float y1 = linePoints[ptr++];
+			float x2 = linePoints[ptr++];
+			float y2 = linePoints[ptr++];
+
+			float x = (x1+x2)/2;
+			float y = (y1+y2)/2;
+			canvas.translate(x,y);
+			float angle = (float)(Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
+			canvas.rotate(reverse ? angle-180 : angle);
+			canvas.drawPath(Paints.WAY_DIRECTION_PATH, paint);
+			canvas.restore();
+		}
+	}
+
+	/**
+	 * Converts a geographical way/path/track to a list of screen-coordinate points for drawing.
+	 * Only segments that are inside the ViewBox are included.
+	 * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn
+	 *              (e.g. a Way or a GPS track)
+	 * @return an array of floats in the format expected by {@link Canvas#drawLines(float[], Paint)}.
+	 */
+	private float[] pointListToLinePointsArray(final Iterable<? extends GeoPoint> nodes) {
+		ArrayList<Float> points = new ArrayList<Float>();
 		BoundingBox box = getViewBox();
-		int visibleSections = 0;
+		
 		//loop over all nodes
-		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			Node node = nodes.get(i);
+		GeoPoint prevNode = null;
+		for (GeoPoint node : nodes) {
 			int nodeLon = node.getLon();
 			int nodeLat = node.getLat();
-			Node prevNode = null;
-			Node nextNode = null;
 			
-			if (i - 1 >= 0) {
-				prevNode = nodes.get(i - 1);
+			if (prevNode != null && box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
+				// Line segment needs to be drawn
+				points.add(GeoMath.lonE7ToX(getWidth(), box, prevNode.getLon()));
+				points.add(GeoMath.latE7ToY(getHeight(), box, prevNode.getLat()));
+				points.add(GeoMath.lonE7ToX(getWidth(), box, nodeLon));
+				points.add(GeoMath.latE7ToY(getHeight(), box, nodeLat));
 			}
-			if (i + 1 < size) {
-				nextNode = nodes.get(i + 1);
-			}
-			
-			if (prevNode == null || box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
-				float x = GeoMath.lonE7ToX(getWidth(), box, nodeLon);
-				float y = GeoMath.latE7ToY(getHeight(), box, nodeLat);
-				if (visibleSections == 0) {
-					//first node is the beginning. Start line here.
-					path.moveTo(x, y);
-				} else {
-					//TODO: if way has oneway=true/yes/1 or highway=motorway_link, then paint arrows to show the direction of ascending nodes
-					path.lineTo(x, y);
-				}
-				++visibleSections;
-			} else if (nextNode != null && box.intersects(nodeLat, nodeLon, nextNode.getLat(), nextNode.getLon())) {
-				//Just move the path to this node, no way has to be rendered outside the view.
-				float x = GeoMath.lonE7ToX(getWidth(), box, nodeLon);
-				float y = GeoMath.latE7ToY(getHeight(), box, nodeLat);
-				path.moveTo(x, y);
-			}
+			prevNode = node;
 		}
-		return visibleSections;
+		
+		// convert from ArrayList<Float> to float[]
+		float[] result = new float[points.size()];
+		int i = 0;
+		for (Float f : points) result[i++] = f;
+		return result;
 	}
 	
+
 	/**
 	 * ${@inheritDoc}.
 	 */

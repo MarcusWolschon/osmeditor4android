@@ -121,7 +121,9 @@
 	<string name="menu_tags">Tags</string> <!-- Text should be as short as possible -->
 	<string name="menu_history">History</string>
 	<string name="menu_merge">Join ways</string>
-		
+	<string name="menu_reverse">Reverse direction</string>
+	<string name="toast_oneway_reversed">You reversed a oneway street. Please check the oneway tag and correct if necessary.</string>
+			
 	<!-- EasyEdit action mode titles -->
 	<string name="actionmode_wayselect">Way selected</string>
 	<string name="actionmode_nodeselect">Node selected</string>
@@ -211,6 +213,7 @@
 	
 	<string name="tracking_active_title">Recording GPS track</string>
 	<string name="tracking_active_text">Vespucci is recording a GPS track</string>
-		<string name="gps_failure">Failed to enable GPS</string>
+	<string name="gps_failure">Failed to enable GPS</string>
+	
 				
 </resources>
