@@ -16,7 +16,7 @@ public class Way extends OsmElement {
 	 */
 	private static final long serialVersionUID = 1104911642016294265L;
 
-	private final ArrayList<Node> nodes;
+	protected final ArrayList<Node> nodes;
 
 	public static final String NAME = "way";
 

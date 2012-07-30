@@ -19,12 +19,12 @@ public class Node extends OsmElement implements GeoPoint {
 	/**
 	 * WGS84 decimal Latitude-Coordinate times 1E7.
 	 */
-	private int lat;
+	protected int lat;
 
 	/**
 	 * WGS84 decimal Longitude-Coordinate times 1E7.
 	 */
-	private int lon;
+	protected int lon;
 
 	/**
 	 * It's name in the OSM-XML-scheme.

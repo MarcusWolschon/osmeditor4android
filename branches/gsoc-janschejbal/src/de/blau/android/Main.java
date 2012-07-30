@@ -36,6 +36,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
@@ -443,6 +444,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
 		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
+
 		return true;
 	}
 
@@ -498,8 +500,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		case R.id.menu_transfer_upload:
 			confirmUpload();
 			return true;
+		
+		case R.id.menu_undo: // TODO js: proper UI for undo, indicate whether undo is possible
+			String name = logic.getUndo().undo();
+			Toast.makeText(this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+			map.invalidate();
+			return true;
+			
 		}
-
+		
 		return false;
 	}
 

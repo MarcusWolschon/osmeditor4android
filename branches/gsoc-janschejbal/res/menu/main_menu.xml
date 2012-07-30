@@ -70,4 +70,11 @@
 		android:icon="@drawable/menu_config"
 		android:showAsAction="ifRoom"
 	/>
+	
+	<item
+		android:id="@+id/menu_undo"
+		android:title="@string/undo"
+		android:alphabeticShortcut="u"
+		android:showAsAction="ifRoom"
+	/>
 </menu>

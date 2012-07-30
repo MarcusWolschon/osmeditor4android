@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -30,11 +29,10 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Track.TrackPoint;
+import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Paints;
-import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 
@@ -268,6 +266,15 @@ public class Logic {
 	public boolean hasChanges() {
 		return delegator.hasChanges();
 	}
+	
+	/**
+	 * Get the current undo instance.
+	 * For immediate use only - DO NOT CACHE THIS.
+	 * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.  
+	 */
+	public UndoStorage getUndo() {
+		return delegator.getUndo();
+	}
 
 	/**
 	 * Checks if the viewBox is close enough to the viewBox to be in the ability to edit something.
@@ -338,6 +345,15 @@ public class Logic {
 	}
 
 	/**
+	 * Create an undo checkpoint using a resource string as the name
+	 * @param stringId the resource id of the string representing the checkpoint name
+	 */
+	private void createCheckpoint(int stringId) {
+		delegator.getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
+	}
+	
+
+	/**
 	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
 	 * All existing tags will be replaced.
 	 * 
@@ -352,6 +368,7 @@ public class Logic {
 		if (osmElement == null) {
 			return false;
 		} else {
+			createCheckpoint(R.string.undo_action_set_tags);
 			delegator.setTags(osmElement, tags);
 			return true;
 		}
@@ -544,6 +561,9 @@ public class Logic {
 		} else {
 			draggingNode = false;
 		}
+		if (draggingNode) {
+			createCheckpoint(R.string.undo_action_movenode);
+		}
 	}
 
 	/**
@@ -561,6 +581,7 @@ public class Logic {
 		if (draggingNode) {
 			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
 			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
+			// checkpoint created where draggingNode is set
 			delegator.updateLatLon(selectedNode, lat, lon);
 			translateOnBorderTouch(absoluteX, absoluteY);
 			map.invalidate();
@@ -595,6 +616,7 @@ public class Logic {
 	 * @param y screen-coordinate
 	 */
 	public void performAdd(final float x, final float y) {
+		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
 		Node lSelectedNode = selectedNode;
 		Way lSelectedWay = selectedWay;
@@ -652,6 +674,7 @@ public class Logic {
 	 */
 	public void performErase(final Node node) {
 		if (node != null) {
+			createCheckpoint(R.string.undo_action_deletenode);
 			delegator.removeNode(node);
 			map.invalidate();
 		}
@@ -664,6 +687,7 @@ public class Logic {
 	 */
 	public void performSplit(final Node node) {
 		if (node != null) {
+			createCheckpoint(R.string.undo_action_split_ways);
 			delegator.splitAtNode(node);
 			map.invalidate();
 		}
@@ -675,6 +699,7 @@ public class Logic {
 	 * @param node the node at which the way should be split
 	 */
 	public void performSplit(final Way way, final Node node) {
+		createCheckpoint(R.string.undo_action_split_way);
 		delegator.splitAtNode(way, node);
 	}
 	
@@ -690,6 +715,7 @@ public class Logic {
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
 	 */
 	public void performMerge(Way mergeInto, Way mergeFrom) {
+		createCheckpoint(R.string.undo_action_merge_ways);
 		if (mergeInto.getTags().isEmpty() && !mergeFrom.getTags().isEmpty()) {
 			delegator.setTags(mergeInto, mergeFrom.getTags());
 		}
@@ -702,6 +728,7 @@ public class Logic {
 	 * @param way the way to reverse
 	 */
 	public void performReverse(Way way) {
+		createCheckpoint(R.string.undo_action_reverse_way);
 		delegator.reverseWay(way);
 	}
 
@@ -732,6 +759,7 @@ public class Logic {
 	}
 
 	public void performAppendAppend(final float x, final float y) {
+		createCheckpoint(R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
 		Way lSelectedWay = getSelectedWay();
 

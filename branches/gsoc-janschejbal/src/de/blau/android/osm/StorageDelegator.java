@@ -18,11 +18,13 @@ import de.blau.android.util.SavingHelper;
 
 public class StorageDelegator implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private Storage currentStorage;
 
 	private Storage apiStorage;
+
+	private UndoStorage undo;
 
 	/**
 	 * Indicates whether changes have been made since the last save to disk.
@@ -37,10 +39,12 @@ public class StorageDelegator implements Serializable {
 	public final static String FILENAME = "lastActivity.res";
 
 	private transient SavingHelper<StorageDelegator> savingHelper = new SavingHelper<StorageDelegator>();
-	
+
 	public void setCurrentStorage(final Storage currentStorage) {
 		dirty = true;
+		this.apiStorage = new Storage();
 		this.currentStorage = currentStorage;
+		this.undo = new UndoStorage(currentStorage, apiStorage);
 	}
 
 	public StorageDelegator() {
@@ -48,15 +52,25 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void reset() {
-		// TODO undo - wipe
 		dirty = true;
 		apiStorage = new Storage();
 		currentStorage = new Storage();
+		undo = new UndoStorage(currentStorage, apiStorage);
+	}
+
+	/**
+	 * Get the current undo instance.
+	 * For immediate use only - DO NOT CACHE THIS.
+	 * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.  
+	 */
+	public UndoStorage getUndo() {
+		return undo;
 	}
 
 	public void insertElementSafe(final OsmElement elem) {
-		// TODO undo - save state
 		dirty = true;
+		undo.save(elem);
+		
 		currentStorage.insertElementSafe(elem);
 		apiStorage.insertElementSafe(elem);
 	}
@@ -67,8 +81,9 @@ public class StorageDelegator implements Serializable {
 	 * @param tags the new tags
 	 */
 	public void setTags(final OsmElement elem, final Map<String, String> tags) {
-		// TODO undo - save element
 		dirty = true;
+		undo.save(elem);
+		
 		if (elem.setTags(tags)) {
 			// OsmElement tags have changed
 			elem.updateState(OsmElement.STATE_MODIFIED);
@@ -77,8 +92,9 @@ public class StorageDelegator implements Serializable {
 	}
 
 	private void insertElementUnsafe(final OsmElement elem) {
-		// TODO undo - mark element as nonexistant
 		dirty = true;
+		undo.save(elem);
+		
 		currentStorage.insertElementUnsafe(elem);
 		apiStorage.insertElementUnsafe(elem);
 	}
@@ -88,8 +104,9 @@ public class StorageDelegator implements Serializable {
 	 * @return
 	 */
 	public Way createAndInsertWay(final Node firstWayNode) {
-		// TODO undo - nothing, way gets marked on insert
+		// undo - nothing done here, way gets saved/marked on insert
 		dirty = true;
+		
 		Way way = OsmElementFactory.createWayWithNewId();
 		way.addNode(firstWayNode);
 		insertElementUnsafe(way);
@@ -97,32 +114,36 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void addNodeToWay(final Node node, final Way way) {
-		// TODO undo - save way
 		dirty = true;
+		undo.save(way);
+		
 		apiStorage.insertElementSafe(way);
 		way.addNode(node);
 		way.updateState(OsmElement.STATE_MODIFIED);
 	}
 
 	public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) {
-		// TODO undo - save way
 		dirty = true;
+		undo.save(way);
+		
 		apiStorage.insertElementSafe(way);
 		way.addNodeAfter(nodeBefore, newNode);
 		way.updateState(OsmElement.STATE_MODIFIED);
 	}
 
 	public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) {
-		// TODO undo - save node
 		dirty = true;
+		undo.save(way);
+		
 		apiStorage.insertElementSafe(way);
 		way.appendNode(refNode, nextNode);
 		way.updateState(OsmElement.STATE_MODIFIED);
 	}
 
 	public void updateLatLon(final Node node, final int latE7, final int lonE7) {
-		// TODO undo - save node
 		dirty = true;
+		undo.save(node);
+		
 		apiStorage.insertElementSafe(node);
 		node.setLat(latE7);
 		node.setLon(lonE7);
@@ -130,8 +151,10 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void removeNode(final Node node) {
-		// TODO undo - save node, affected ways saved in removewaynodes
+		// undo - node saved here, affected ways saved in removeWayNodes
 		dirty = true;
+		undo.save(node);
+		
 		if (node.state == Node.STATE_CREATED) {
 			apiStorage.removeElement(node);
 		} else {
@@ -143,7 +166,7 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void splitAtNode(final Node node) {
-		// TODO undo - do nothing, everything done in splitAtNode
+		// undo - nothing done here, everything done in splitAtNode
 		dirty = true;
 		List<Way> ways = currentStorage.getWays(node);
 		for (Way way : ways) {
@@ -152,8 +175,10 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void splitAtNode(final Way way, final Node node) {
-		// TODO undo - save way, new way marked at insert
+		// undo - old way is saved here, new way is saved at insert
 		dirty = true;
+		undo.save(way);
+		
 		List<Node> nodes = way.getNodes();
 		if (nodes.size() < 3) {
 			return;
@@ -197,8 +222,10 @@ public class StorageDelegator implements Serializable {
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
 	 */
 	public void mergeWays(Way mergeInto, Way mergeFrom) {
-		// TODO undo - save mergeInto way (mergeFrom way will not be changed directly, will be saved in removeWay)
+		// undo - mergeInto way saved here, mergeFrom way will not be changed directly and will be saved in removeWay
 		dirty = true;
+		undo.save(mergeInto);
+		
 		List<Node> newNodes = new ArrayList<Node>(mergeFrom.getNodes());
 		boolean atBeginning;
 		
@@ -235,17 +262,20 @@ public class StorageDelegator implements Serializable {
 	 * @param way
 	 */
 	public void reverseWay(final Way way) {
-		// TODO undo - save way
+		dirty = true;
+		undo.save(way);
 		way.reverse();
 	}
 
 	private int removeWayNodes(final Node node) {
-		// TODO undo - save way
+		// undo - node is not changed, affected way(s) are stored below
 		dirty = true;
+		
 		int deleted = 0;
 		List<Way> ways = currentStorage.getWays(node);
 		for (int i = 0, size = ways.size(); i < size; ++i) {
 			Way way = ways.get(i);
+			undo.save(way);
 			way.removeAllNodes(node);
 			//remove way when less than two waynodes exist
 			if (way.getNodes().size() < 2) {
@@ -260,8 +290,9 @@ public class StorageDelegator implements Serializable {
 	}
 
 	private void removeWay(final Way way) {
-		// TODO undo - save way
 		dirty = true;
+		undo.save(way);
+
 		currentStorage.removeWay(way);
 		if (apiStorage.contains(way)) {
 			if (way.getState() == OsmElement.STATE_CREATED) {
@@ -282,7 +313,6 @@ public class StorageDelegator implements Serializable {
 	}
 
 	public void setOriginalBox(final BoundingBox box) {
-		// TODO undo - save bounding box
 		dirty = true;
 		currentStorage.setBoundingBox(box);
 	}
@@ -334,7 +364,7 @@ public class StorageDelegator implements Serializable {
 		if (newDelegator != null) {
 			currentStorage = newDelegator.currentStorage;
 			apiStorage = newDelegator.apiStorage;
-			// TODO undo - load
+			undo = newDelegator.undo;
 			dirty = false; // data was just read, i.e. memory and file are in sync
 		}
 	}
@@ -371,7 +401,7 @@ public class StorageDelegator implements Serializable {
 	 */
 	public synchronized void uploadToServer(final Server server, final String comment) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
-		// TODO undo - wipe
+		undo.clear();
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		server.openChangeset(comment);
@@ -380,7 +410,9 @@ public class StorageDelegator implements Serializable {
 		uploadDeletedElements(server, apiStorage.getWays());
 		uploadDeletedElements(server, apiStorage.getNodes());
 		server.closeChangeset();
-		// TODO undo - wipe
+		// yes, again, just to be sure
+		undo.clear(); 
+		dirty = true;
 	}
 
 	private void uploadDeletedElements(final Server server, final List<? extends OsmElement> elements)
