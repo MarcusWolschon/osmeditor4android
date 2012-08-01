@@ -82,7 +82,7 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
                                        final int aTextViewResourceId,
                                        final StorageDelegator streets,
                                        final String osmElementType,
-                                       final long osmId) throws ParserConfigurationException, SAXException, FactoryConfigurationError, IOException {
+                                       final long osmId) {
         super(aContext, aTextViewResourceId, getArray(streets, aContext, getLocation(streets, osmElementType, osmId)));
     }
 

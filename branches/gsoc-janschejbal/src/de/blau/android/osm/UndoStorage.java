@@ -8,9 +8,8 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import de.blau.android.Logic;
-
 import android.util.Log;
+import de.blau.android.Logic;
 
 /**
  * This class provides undo support.

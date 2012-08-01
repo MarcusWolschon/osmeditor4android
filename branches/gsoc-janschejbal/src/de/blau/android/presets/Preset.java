@@ -12,8 +12,10 @@ import java.io.Serializable;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
@@ -52,8 +54,6 @@ import de.blau.android.views.WrappingLayout;
  * @author Jan Schejbal
  */
 public class Preset {
-
-	// TODO js tags to lowercase?
 	
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
@@ -78,6 +78,13 @@ public class Preset {
 	/** all known preset items in order of loading */
 	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
 
+	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
+	protected final MultiHashMap<String, String> autosuggestNodes = new MultiHashMap<String, String>(true);
+	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to ways) */
+	protected final MultiHashMap<String, String> autosuggestWays = new MultiHashMap<String, String>(true);
+	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
+	protected final MultiHashMap<String, String> autosuggestClosedways = new MultiHashMap<String, String>(true);
+	
 	/**
 	 * Serializable class for storing Most Recently Used information.
 	 * Hash is used to check compatibility.
@@ -180,7 +187,17 @@ public class Preset {
             	} else if (name.equals("key")) {
             		if (!inOptionalSection) {
             			currentItem.addTag(attr.getValue("key"), attr.getValue("value"));
+            		} else {
+            			currentItem.addTag(true, attr.getValue("key"), attr.getValue("value"));
             		}
+            	} else if (name.equals("text")) {
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), null);
+            	} else if (name.equals("check")) {
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), "yes,no");            		
+            	} else if (name.equals("combo")) {
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"));            		
+            	} else if (name.equals("multiselect")) {
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO js full multiselect parsing
             	}
             }
             
@@ -536,7 +553,18 @@ public class Preset {
 	
 	/** Represents a preset item (e.g. "footpath", "grocery store") */
 	public class PresetItem extends PresetElement {
-		private HashMap<String, String> tags = new HashMap<String, String>();
+		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
+		private LinkedHashMap<String, String> tags = new LinkedHashMap<String, String>();
+		
+		/** Tags that are not in the optional section, but do not have a fixed key-value-pair.
+		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
+		private LinkedHashMap<String, String[]> recommendedTags = new LinkedHashMap<String, String[]>();
+		
+		/** Tags that are in the optional section.
+		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
+		private LinkedHashMap<String, String[]> optionalTags = new LinkedHashMap<String, String[]>();
+		
+		
 		private int itemIndex;
 
 		public PresetItem(PresetGroup parent, String name, String iconpath, String types) {
@@ -552,7 +580,7 @@ public class Preset {
 		}
 
 		/**
-		 * Adds a tag to the item, and registers the item in the tagItems map
+		 * Adds a fixed tag to the item, registers the item in the tagItems map and populates autosuggest.
 		 * @param key key name of the tag
 		 * @param value value of the tag
 		 */
@@ -561,10 +589,39 @@ public class Preset {
 			if (value == null) value = "";
 			tags.put(key, value);
 			tagItems.add(key+"\t"+value, this);
+			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? value : null);
+			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? value : null);
+			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? value : null);
 		}
 		
 		/**
-		 * @return the tags belonging to this item (unmodifiable)
+		 * Adds a recommended or optional tag to the item and populates autosuggest.
+		 * @param optional true if optional, false if recommended
+		 * @param key key name of the tag
+		 * @param values values string from the XML (comma-separated list of possible values)
+		 */
+		public void addTag(boolean optional, String key, String values) {
+			String[] valueArray;
+			if (values == null || values.length() == 0) {
+				valueArray = new String[0];
+			} else {
+				valueArray = values.split(",");
+			}
+			
+			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
+			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
+			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
+			
+			if (optional) {
+				optionalTags.put(key, valueArray);
+			} else {
+				recommendedTags.put(key, valueArray);
+			}
+		}
+
+		
+		/**
+		 * @return the fixed tags belonging to this item (unmodifiable)
 		 */
 		public Map<String,String> getTags() {
 			return Collections.unmodifiableMap(tags);
@@ -572,6 +629,14 @@ public class Preset {
 		
 		public int getTagCount() {
 			return tags.size();
+		}
+		
+		public Map<String,String[]> getRecommendedTags() {
+			return Collections.unmodifiableMap(recommendedTags);
+		}
+
+		public Map<String,String[]> getOptionalTags() {
+			return Collections.unmodifiableMap(optionalTags);
 		}
 		
 		/**
@@ -654,6 +719,29 @@ public class Preset {
 	public interface PresetClickHandler {
 		public void onItemClick(PresetItem item);
 		public void onGroupClick(PresetGroup group);
+	}
+
+	public Collection<String> getAutocompleteKeys(ElementType type) {
+		switch (type) {
+		case NODE: return autosuggestNodes.getKeys();
+		case WAY: return autosuggestWays.getKeys();
+		case CLOSEDWAY: return autosuggestClosedways.getKeys();
+		}
+		return null; // should never happen, all cases are covered
+	}
+	
+	public Collection<String> getAutocompleteValues(ElementType type, String key) {
+		Collection<String> source = null;
+		switch (type) {
+		case NODE: source = autosuggestNodes.get(key); break;
+		case WAY: source = autosuggestWays.getKeys(); break;
+		case CLOSEDWAY:source = autosuggestClosedways.getKeys(); break;
+		}
+		if (source != null) {
+			return source;
+		} else {
+			return Collections.emptyList();
+		}
 	}
 	
 }

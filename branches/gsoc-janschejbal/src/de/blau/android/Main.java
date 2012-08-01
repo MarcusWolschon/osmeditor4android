@@ -36,7 +36,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
-import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
@@ -71,8 +70,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.TagKeyAutocompletionAdapter;
-import de.blau.android.presets.TagValueAutocompletionAdapter;
 import de.blau.android.resources.Paints;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
@@ -288,10 +285,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
-		
-		// cache some values (optional)
-		TagValueAutocompletionAdapter.fillCache(this);
-		TagKeyAutocompletionAdapter.fillCache(this);
 		
 		showActionBar();
 	}
