@@ -51,7 +51,7 @@ import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
  */
 public class TagEditor extends Activity implements OnDismissListener {
 
-	// TODO js autosuggest based on extended preset properties
+	// TODO js autosuggest on focus, unless caused by automatic means
 	
 	public static final String TAGS = "tags";
 	public static final String TAGS_ORIG = "tags_original";

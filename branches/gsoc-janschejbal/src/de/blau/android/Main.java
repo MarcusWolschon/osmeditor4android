@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -34,8 +35,10 @@ import android.view.KeyEvent;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
@@ -50,6 +53,9 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
+import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -57,6 +63,7 @@ import com.actionbarsherlock.view.MenuItem;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.actionbar.ModeDropdownAdapter;
+import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
@@ -66,6 +73,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
@@ -188,6 +196,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	private TrackerService tracker = null;
 
+	private UndoListener undoListener;
+
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
 	 */
@@ -285,6 +295,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
 		map.requestFocus();
+		
+		undoListener = new UndoListener();
 		
 		showActionBar();
 	}
@@ -433,11 +445,17 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
+		
 		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
 		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
 
+		MenuItem undo = menu.findItem(R.id.menu_undo);
+		View undoView = undo.getActionView();
+		undoView.setOnClickListener(undoListener);
+		undoView.setOnLongClickListener(undoListener);
+		
 		return true;
 	}
 
@@ -494,10 +512,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			confirmUpload();
 			return true;
 		
-		case R.id.menu_undo: // TODO js: proper UI for undo, indicate whether undo is possible
-			String name = logic.getUndo().undo();
-			Toast.makeText(this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
-			map.invalidate();
+		case R.id.menu_undo:
+			// should not happen
+			undoListener.onClick(null);
 			return true;
 			
 		}
@@ -870,6 +887,32 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
 	
 			Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+		}
+	}
+
+	
+	public class UndoListener implements OnClickListener, OnLongClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			String name = logic.getUndo().undo();
+			if (name != null) {
+				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
+			}
+			map.invalidate();
+		}
+
+		@Override
+		public boolean onLongClick(View v) {
+			UndoStorage undo = logic.getUndo();
+			if (undo.canUndo() || undo.canRedo()) {
+				UndoDialogFactory.showUndoDialog(Main.this, undo);
+			} else {
+				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();				
+			}
+			return true;
 		}
 	}
 

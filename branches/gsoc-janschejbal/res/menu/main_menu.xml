@@ -2,8 +2,17 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	
 	<item
+		android:id="@+id/menu_undo"
+		android:title="@string/undo"
+		android:alphabeticShortcut="u"
+		android:icon="@drawable/undo"
+		android:showAsAction="ifRoom"
+		android:actionLayout="@layout/undo_action_view"
+	/>
+    	
+	<item
+		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
 		android:icon="@drawable/menu_gps"
 		android:showAsAction="ifRoom"
@@ -71,10 +80,4 @@
 		android:showAsAction="ifRoom"
 	/>
 	
-	<item
-		android:id="@+id/menu_undo"
-		android:title="@string/undo"
-		android:alphabeticShortcut="u"
-		android:showAsAction="ifRoom"
-	/>
 </menu>

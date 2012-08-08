@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -100,7 +101,7 @@ public class UndoStorage implements Serializable {
 	 */
 	public String undo() {
 		if (!canUndo()) {
-			Log.e(TAG, "Attempted to undo, but no undo checkpoints available");
+			Log.w(TAG, "Attempted to undo, but no undo checkpoints available");
 			return null;
 		}
 		String name = undoCheckpoints.getLast().name;
@@ -303,5 +304,27 @@ public class UndoStorage implements Serializable {
 			((Way)element).nodes.clear();
 			((Way)element).nodes.addAll(nodes);
 		}
+	}
+
+	/**
+	 * Provides a list of names for the actions that can be undone
+	 * @return a list of names, oldest action first (i.e. the last action will be the first to be undone)
+	 */
+	public String[] getUndoActions() {
+		String[] result = new String[undoCheckpoints.size()];
+		int i = 0;
+		for (Checkpoint checkpoint : undoCheckpoints) result[i++] = checkpoint.name;
+		return result;
+	}
+
+	/**
+	 * Provides a list of names for the actions that can be redone
+	 * @return a list of names, newest action first (i.e. the last action will be the first to be redone)
+	 */
+	public String[] getRedoActions() {
+		String[] result = new String[redoCheckpoints.size()];
+		int i = 0;
+		for (Checkpoint checkpoint : redoCheckpoints) result[i++] = checkpoint.name;
+		return result;
 	}
 }

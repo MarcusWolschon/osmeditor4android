@@ -2,11 +2,15 @@ package de.blau.android.easyedit;
 
 import java.util.HashSet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
@@ -89,9 +93,6 @@ public class EasyEditManager {
 		return true;
 	}
 
-	/*package*/ void performDeleteNode(Node node) {
-		logic.performErase(node);
-	}
 
 	/**
 	 * Takes a parameter for a node and one for a way.
@@ -266,7 +267,7 @@ public class EasyEditManager {
 
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			// no menu // TODO undo last step menu?
+			// no menu // TODO js undo last step menu?
 			return false;
 		}
 
@@ -402,11 +403,34 @@ public class EasyEditManager {
 
 		private void menuDelete(ActionMode mode) {
 			if (!isWay) {
-				performDeleteNode(node);
+				logic.performErase(node);
 				mode.finish();
 			} else {
-				// Way handling - TODO js
-				Toast.makeText(main, "not implemented", Toast.LENGTH_SHORT).show();
+				AlertDialog.Builder dialog = new AlertDialog.Builder(main);
+				dialog.setTitle(R.string.delete);
+				TextView textView = new TextView(main);
+				textView.setText("You are about to delete a way. You can either keep all nodes, or delete nodes that only belong to this way and do not have any tags."); // TODO js RES
+				int pad= Math.round(10 * main.getResources().getDisplayMetrics().density);
+				textView.setPadding(pad, pad, pad, pad);
+				dialog.setView(textView); 
+				dialog.setPositiveButton("Delete only way",  // TODO js RES
+						new OnClickListener() {	
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								logic.performEraseWay(way, false);
+								currentActionMode.finish();
+							}
+						});
+				dialog.setNeutralButton("Delete way and nodes",  // TODO js RES
+						new OnClickListener() {	
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								logic.performEraseWay(way, true);
+								currentActionMode.finish();
+							}
+						});			
+				dialog.setNegativeButton(R.string.cancel, null);
+				dialog.show();
 			}		
 		}
 

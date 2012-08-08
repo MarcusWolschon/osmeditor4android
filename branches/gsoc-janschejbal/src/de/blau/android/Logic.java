@@ -681,6 +681,23 @@ public class Logic {
 	}
 
 	/**
+	 * Deletes a way.
+	 * @param way the way to be deleted
+	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
+	 */
+	public void performEraseWay(Way way, boolean deleteOrphanNodes) {
+		createCheckpoint(R.string.undo_action_deleteway);
+		ArrayList<Node> nodes = deleteOrphanNodes ? new ArrayList<Node>(way.getNodes()) : null;
+		delegator.removeWay(way);
+		if (deleteOrphanNodes) {
+			for (Node node : nodes) {
+				if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty()) delegator.removeNode(node);
+			}
+		}
+	}
+
+
+	/**
 	 * Splits all ways at the given node.
 	 * 
 	 * @param node

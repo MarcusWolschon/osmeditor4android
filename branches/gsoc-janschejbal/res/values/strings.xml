@@ -212,7 +212,8 @@
 	<string name="api">API</string>
 	<string name="undo">Undo</string>
 	<string name="redo">Redo</string>
-			
+		<string name="undo_nothing">nothing to undo</string>
+				
 	<string name="tracking_active_title">Recording GPS track</string>
 	<string name="tracking_active_text">Vespucci is recording a GPS track</string>
 	<string name="gps_failure">Failed to enable GPS</string>
@@ -225,6 +226,7 @@
 	<string name="undo_action_add">insert</string>
 	<string name="undo_action_append">append</string>
 	<string name="undo_action_deletenode">delete node</string>
+	<string name="undo_action_deleteway">delete way</string>
 	<string name="undo_action_split_ways">split ways</string>
 	<string name="undo_action_split_way">split way</string>
 	<string name="undo_action_merge_ways">merge ways</string>

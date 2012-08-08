@@ -289,7 +289,11 @@ public class StorageDelegator implements Serializable {
 		return deleted;
 	}
 
-	private void removeWay(final Way way) {
+	/**
+	 * Deletes a way
+	 * @param way
+	 */
+	public void removeWay(final Way way) {
 		dirty = true;
 		undo.save(way);
 
