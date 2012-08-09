@@ -168,7 +168,7 @@ public class DialogFactory {
 					}
 				}
 			);
-		dialog.setNegativeButton(R.string.unsaved_data_cancel, null);
+		dialog.setNegativeButton(R.string.cancel, null);
 		return dialog.create();
 	}
 	

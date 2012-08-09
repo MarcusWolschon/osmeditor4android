@@ -4,7 +4,7 @@
 	package="de.blau.android"
 	android:versionName="@string/app_version"
 	android:versionCode="14"
-	android:installLocation="auto">
+	android:installLocation="auto" xmlns:tools="http://schemas.android.com/tools">
 	
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -47,7 +47,7 @@
 		<service android:name=".services.TrackerService" android:label="TrackerService"></service>
 		<activity android:name=".prefs.APIEditorActivity"></activity>
 		<activity android:name=".prefs.PresetEditorActivity"></activity>
-		<activity android:name=".prefs.VespucciURLActivity">
+		<activity android:name=".prefs.VespucciURLActivity" tools:ignore="ExportedActivity">
 			<intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

@@ -2,7 +2,9 @@ package de.blau.android.prefs;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -55,6 +57,8 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 
 	protected static final int MENUITEM_EDIT = 0;
 	protected static final int MENUITEM_DELETE = 1;
+	private static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
+	
 	protected static final String LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
 	private ListAdapter adapter;
 	protected final List<ListEditItem> items;
@@ -62,6 +66,7 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 	private ListEditItem selectedItem = null;
 	
 	private boolean addingViaIntent = false;
+	private final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
 	
 	public URLListEditActivity() {
 		this.ctx = this; // Change when changing Activity to Fragment
@@ -126,12 +131,19 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		if (selectedItem != null && !selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
 			menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
+			for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet() ) {
+				menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE,	r.getString(entry.getValue()))
+					.setOnMenuItemClickListener(this);
+			}
 		}
 	}
 
-
- 	@Override
+	@Override
 	public boolean onMenuItemClick(MenuItem menuitem) {
+ 		if (menuitem.getItemId() >= MENUITEM_ADDITIONAL_OFFSET) {
+ 			onAdditionalMenuItemClick(menuitem.getItemId() - MENUITEM_ADDITIONAL_OFFSET, selectedItem);
+ 		}
+ 		
 		switch (menuitem.getItemId()) {
 		case MENUITEM_EDIT:
 			itemEditDialog(selectedItem);
@@ -143,6 +155,25 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		}
 
 		return true;
+	}
+	
+	/**
+	 * Add an additional menu item. Override {@link #onAdditionalMenuItemClick(int, ListEditItem)} to handle it.
+	 * @param menuId a non-negative integer by which you will recognize the menu item
+	 * @param stringId the resource id of the string that will be the name of the menu item
+	 */
+	protected void addAdditionalContextMenuItem(int menuId, int stringId) {
+		additionalMenuItems.put(menuId, stringId);
+	}
+ 	
+ 	/**
+ 	 * Override this to handle additional menu item clicks.
+ 	 * Use {@link #addAdditionalContextMenuItem(int, int)} to add menu items.
+ 	 * @param menuItemId the menu item ID supplied when creating the additional menu
+ 	 * @param clickedItem the item for which the context menu was opened
+ 	 */
+ 	public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
+		// default: nothing, override if needed
 	}
 
  	/**

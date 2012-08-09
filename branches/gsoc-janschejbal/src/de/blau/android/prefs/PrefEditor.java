@@ -3,7 +3,9 @@ package de.blau.android.prefs;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import de.blau.android.DialogFactory;
 import de.blau.android.Main;
@@ -21,6 +23,7 @@ public class PrefEditor extends PreferenceActivity {
 	private String KEY_PREFAPI;
 	private String KEY_PREFLOGIN;
 	private String KEY_PREFPRESET;
+	private String KEY_PREFICONS;
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class PrefEditor extends PreferenceActivity {
 		KEY_PREFAPI = r.getString(R.string.config_apibutton_key);
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
+		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		fixUpPrefs();
 	}
 	
@@ -40,6 +44,7 @@ public class PrefEditor extends PreferenceActivity {
 	
 		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
 		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
+		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
 		AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
 		API current = db.getCurrentAPI();
 		if (current.id.equals(AdvancedPrefDatabase.ID_DEFAULT)) {
@@ -49,6 +54,7 @@ public class PrefEditor extends PreferenceActivity {
 			apipref.setSummary(current.name.equals("") ? current.url : current.name);
 			loginpref.setSummary(null);
 		}
+		iconspref.setChecked(current.showicon);
 	}
 	
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
@@ -73,6 +79,16 @@ public class PrefEditor extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				startActivity(new Intent(PrefEditor.this, PresetEditorActivity.class));
+				return true;
+			}
+		});
+		
+		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
+		iconspref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				AdvancedPrefDatabase db = new AdvancedPrefDatabase(PrefEditor.this);
+				db.setCurrentAPIShowIcons((Boolean)newValue);
 				return true;
 			}
 		});

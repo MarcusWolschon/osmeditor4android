@@ -32,6 +32,7 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Gravity;
@@ -111,7 +112,6 @@ public class Preset {
 	 * @throws Exception
 	 */
 	public Preset(Context ctx, File directory) throws Exception {
-		this.iconManager = new PresetIconManager(ctx, null);
 		this.directory = directory;
 		rootGroup = new PresetGroup(null, "", null);
 		
@@ -120,8 +120,10 @@ public class Preset {
 		InputStream fileStream;
 		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
 			fileStream = ctx.getResources().openRawResource(R.raw.presets);
+			this.iconManager = new PresetIconManager(ctx, null);
 		} else {
 			fileStream = new FileInputStream(new File(directory, PRESETXML));
+			this.iconManager = new PresetIconManager(ctx, directory.toString());
 		}
 
 		DigestInputStream hashStream = new DigestInputStream(
@@ -194,7 +196,7 @@ public class Preset {
             	} else if (name.equals("combo")) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"));            		
             	} else if (name.equals("multiselect")) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO js full multiselect parsing
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO full multiselect parsing/support?
             	}
             }
             
@@ -317,17 +319,17 @@ public class Preset {
 	/**
 	 * WARNING - UNTESTED
 	 * 
-	 * Finds the item best matching a certain tag set, or null if no item matches.
+	 * Finds the preset item best matching a certain tag set, or null if no preset item matches.
 	 * To match, all (mandatory) tags of the preset item need to be in the tag set.
-	 * The item does NOT need to have all tags from the tag set, but the tag set needs
-	 * to have all tags from the item.
+	 * The preset item does NOT need to have all tags in the tag set, but the tag set needs
+	 * to have all (mandatory) tags of the preset item.
 	 * 
 	 * If multiple items match, the most specific one (i.e. having most tags) wins.
 	 * If there is a draw, no guarantees are made.
 	 * @param tags tags to check against (i.e. tags of a map element)
 	 * @return null, or the "best" matching item for the given tag set
 	 */
-	public PresetItem findBestMatch(HashMap<String,String> tags) {
+	public PresetItem findBestMatch(Map<String,String> tags) {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
@@ -378,6 +380,7 @@ public class Preset {
 	public abstract class PresetElement {
 		private String name;
 		private Drawable icon;
+		private BitmapDrawable mapIcon;
 		private PresetGroup parent;
 		private boolean appliesToWay, appliesToNode, appliesToClosedway; //appliesToRelation
 
@@ -390,7 +393,10 @@ public class Preset {
 		public PresetElement(PresetGroup parent, String name, String iconpath) {
 			this.parent = parent;
 			this.name = name;
-			this.icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
+			if (iconpath != null) {
+				this.icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
+				this.mapIcon = iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
+			}
 			if (parent != null)	parent.addElement(this);
 		}		
 		
@@ -400,6 +406,10 @@ public class Preset {
 
 		public Drawable getIcon() {
 			return icon;
+		}
+		
+		public BitmapDrawable getMapIcon() {
+			return mapIcon;
 		}
 		
 		public PresetGroup getParent() {
@@ -566,12 +576,19 @@ public class Preset {
 
 		public PresetItem(PresetGroup parent, String name, String iconpath, String types) {
 			super(parent, name, iconpath);
-			String[] typesArray = types.split(",");
-			for (String type : typesArray) {
-				if (type.equals("node")) setAppliesToNode();
-				else if (type.equals("way")) setAppliesToWay();
-				else if (type.equals("closedway")) setAppliesToClosedway();
-			}
+			if (types == null) {
+				// Type not specified, assume all types
+				setAppliesToNode();
+				setAppliesToWay();
+				setAppliesToClosedway();
+			} else {
+				String[] typesArray = types.split(",");
+				for (String type : typesArray) {
+					if (type.equals("node")) setAppliesToNode();
+					else if (type.equals("way")) setAppliesToWay();
+					else if (type.equals("closedway")) setAppliesToClosedway();
+				}
+			}	
 			itemIndex = allItems.size();
 			allItems.add(this);
 		}
@@ -642,7 +659,7 @@ public class Preset {
 		 * @param tagSet the tagSet to compare against this item
 		 * @return
 		 */
-		public boolean matches(HashMap<String,String> tagSet) {
+		public boolean matches(Map<String,String> tagSet) {
 			for (Entry<String, String> tag : this.tags.entrySet()) { // for each own tag
 				String otherTagValue = tagSet.get(tag.getKey());
 				if (otherTagValue == null || !tag.getValue().equals(otherTagValue)) return false;

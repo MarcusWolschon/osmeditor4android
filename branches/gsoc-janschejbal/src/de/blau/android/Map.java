@@ -1,11 +1,15 @@
 package de.blau.android;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedMap;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -24,6 +28,8 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.resources.Paints;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
@@ -47,6 +53,11 @@ public class Map extends View implements IMapView {
 	
 	@SuppressWarnings("unused")
 	private static final String DEBUG_TAG = Map.class.getSimpleName();
+
+	public static final int ICON_SIZE_DP = 20;
+	
+	/** half the width/height of a node icon in px */
+	private final int iconRadius;
 	
 	private Preferences pref;
 	
@@ -70,7 +81,13 @@ public class Map extends View implements IMapView {
 	private BoundingBox myViewBox;
 	
 	private StorageDelegator delegator;
-		
+	
+	private boolean showIcons = false;
+	/**
+	 * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
+	 */
+	private final HashMap<Object, Bitmap> iconcache = new HashMap<Object, Bitmap>();
+	
 	/** Caches if the map is zoomed into edit range during one onDraw pass */
 	private boolean tmpDrawingInEditRange;
 
@@ -86,6 +103,9 @@ public class Map extends View implements IMapView {
 	/** Caches the current "clickable elements" set during one onDraw pass */
 	private Set<OsmElement> tmpClickableElements;
 
+	/** Caches the preset during one onDraw pass */
+	private Preset tmpPreset;
+	
 	private Location displayLocation = null;
 
 	private TrackerService tracker;
@@ -104,6 +124,8 @@ public class Map extends View implements IMapView {
 		// create an overlay that displays pre-rendered tiles from the internet.
 		mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources()), null));
 		mOverlays.add(new OpenStreetBugsOverlay(this));
+		
+		iconRadius = Math.round((float)ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
 	}
 	
 	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
@@ -129,6 +151,8 @@ public class Map extends View implements IMapView {
 			osmvo.onDestroy();
 		}
 		this.tracker = null;
+		this.iconcache.clear();
+		tmpPreset = null;
 	}
 	
 	public void onLowMemory() {
@@ -150,7 +174,8 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
 		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
 		tmpClickableElements = Main.logic.getClickableElements();
-				
+		tmpPreset = Main.getCurrentPreset();
+		
 		// Draw our Overlays.
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
@@ -407,13 +432,41 @@ public class Map extends View implements IMapView {
 				String text = node.getTagWithKey("addr:housenumber");
 				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + 3, paint2);
 			} else { //TODO: draw other known elements different too
-				// TODO js use preset icons (possibly optional?)
 				// draw regular nodes
 				canvas.drawPoint(x, y, paints.get(paintKey));
 			}
+			
+			if (showIcons && tmpPreset != null) paintNodeIcon(node, canvas, x, y);
 		}
 	}
 	
+	/**
+	 * Paints an icon for an element. tmpPreset needs to be available (i.e. not null).
+	 * @param element the element whose icon should be painted
+	 * @param canvas the canvas on which to draw
+	 * @param x the x position where the center of the icon goes
+	 * @param y the y position where the center of the icon goes
+	 */
+	private void paintNodeIcon(OsmElement element, Canvas canvas, float x, float y) {
+		Bitmap icon = null;
+		SortedMap<String, String> tags = element.getTags();
+		if (iconcache.containsKey(tags)) {
+			icon = iconcache.get(tags); // may be null!
+		} else {
+			// icon not cached, ask the preset, render to a bitmap and cache result
+			PresetItem match = tmpPreset.findBestMatch(tags);
+			if (match != null && match.getMapIcon() != null) {
+				icon = Bitmap.createBitmap(iconRadius*2, iconRadius*2, Config.ARGB_8888);
+				match.getMapIcon().draw(new Canvas(icon));
+			}
+			iconcache.put(tags, icon);
+		}
+		if (icon != null) {
+			// we have an icon! draw it.
+			canvas.drawBitmap(icon, x - iconRadius, y - iconRadius, null);
+		}
+	}
+
 	/**
 	 * @param canvas
 	 * @param node
@@ -589,6 +642,8 @@ public class Map extends View implements IMapView {
 				o.setRendererInfo(OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer()));
 			}
 		}
+		showIcons = pref.getShowIcons();
+		iconcache.clear();
 	}
 	
 	void setOrientation(final float orientation) {

@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.view.Menu;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -17,10 +19,16 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.Toast;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
+import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
@@ -29,10 +37,12 @@ import de.blau.android.services.util.StreamUtils;
 public class PresetEditorActivity extends URLListEditActivity {
 
 	private AdvancedPrefDatabase db;
-	// TODO js context menu option to re-download preset
+	
+	private final static int MENU_RELOAD = 1;
 	
 	public PresetEditorActivity() {
 		super();
+		addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
 	}
 	
 	@Override
@@ -79,6 +89,19 @@ public class PresetEditorActivity extends URLListEditActivity {
 		Main.resetPreset();
 	}
 	
+	@Override
+	public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
+		switch (menuItemId) {
+		case MENU_RELOAD:
+			onItemEdited(clickedItem);
+			break;
+
+		default:
+			Log.e("PresetEditorActivity", "Unknown menu item "+ menuItemId);
+			break;
+		}
+	}
+	
 	/**
 	 * Download data (XML, icons) for a certain preset
 	 * @param item the item containing the preset to be downloaded
@@ -122,6 +145,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 				
 				ArrayList<String> urls = Preset.parseForURLs(presetDir);
 				if (urls == null) {
+					Log.e("PresetEditorActivity", "Could not parse preset for URLs");
 					return RESULT_PRESET_NOT_PARSABLE;
 				}
 				
@@ -162,6 +186,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 				}
 			
 				try {
+					Log.d("PresetEditorActivity", "Downloading " + url + " to " + presetDir + "/" + filename);
 					HttpURLConnection conn = (HttpURLConnection)((new URL(url)).openConnection());
 					conn.setInstanceFollowRedirects(true);
 					if (conn.getResponseCode() != 200) return false;
@@ -233,7 +258,6 @@ public class PresetEditorActivity extends URLListEditActivity {
 	protected boolean canAutoClose() { // download needs to get done
 		return false;
 	}
-	
-	
+
 
 }

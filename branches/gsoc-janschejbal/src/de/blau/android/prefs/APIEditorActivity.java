@@ -36,7 +36,7 @@ public class APIEditorActivity extends URLListEditActivity {
 
 	@Override
 	protected void onItemCreated(ListEditItem item) {
-		db.addAPI(item.id, item.name, item.value, "", "", "");
+		db.addAPI(item.id, item.name, item.value, "", "", "", false);
 	}
 
 	@Override

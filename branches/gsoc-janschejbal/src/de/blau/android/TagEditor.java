@@ -1,10 +1,12 @@
 package de.blau.android;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -13,11 +15,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -29,8 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -46,6 +43,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetDialog;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
+import de.blau.android.util.SavingHelper;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -53,13 +51,8 @@ import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
  * @author mb
  */
 public class TagEditor extends Activity implements OnDismissListener {
-	
-	public static final String TAGS = "tags";
-	public static final String TAGS_ORIG = "tags_original";
+	public static final String TAGEDIT_DATA = "dataClass";
 
-	public static final String TYPE = "type";
-
-	public static final String OSM_ID = "osm_id";
 
 	/** The layout containing the entire editor */
 	private LinearLayout verticalLayout = null;
@@ -72,8 +65,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 */
 //    @SuppressWarnings("unused")
 	private static final String DEBUG_TAG = TagEditor.class.getName();
-
-	private static final String PREF_LAST_TAG = "tagEditor.lastTagSet";
 
 	private long osmId;
 
@@ -106,10 +97,14 @@ public class TagEditor extends Activity implements OnDismissListener {
 	/**
 	 * The tags present when this editor was created (for undoing changes)
 	 */
-	private ArrayList<String> originalTags;
+	private Map<String, String> originalTags;
 	
-	private PresetItem lastPresetItem = null;
+	private PresetItem autocompletePresetItem = null;
 	Preset preset = null;
+	
+	private static final String LAST_TAGS_FILE = "lasttags.dat"; 
+	private SavingHelper<LinkedHashMap<String,String>> savingHelper
+				= new SavingHelper<LinkedHashMap<String,String>>();
 
 
 	/**
@@ -151,7 +146,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -168,21 +162,23 @@ public class TagEditor extends Activity implements OnDismissListener {
 		verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
 		rowLayout = (LinearLayout) findViewById(R.id.edit_row_layout);
 		loaded = false;
+		TagEditorData loadData;
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from intent");
-			osmId = getIntent().getLongExtra(OSM_ID, 0);
-			type = getIntent().getStringExtra(TYPE);
-			originalTags = (ArrayList<String>)getIntent().getSerializableExtra(TAGS);
-			loadEdits(originalTags);
+			loadData = (TagEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-			osmId = savedInstanceState.getLong(OSM_ID, 0);
-			type = savedInstanceState.getString(TYPE);
-			loadEdits((ArrayList<String>) savedInstanceState.getSerializable(TAGS));
-			originalTags = savedInstanceState.getStringArrayList(TAGS_ORIG);
+			loadData = (TagEditorData)savedInstanceState.getSerializable(TAGEDIT_DATA);
 		}
+		osmId = loadData.osmId;
+		type = loadData.type;
+		loadEdits(loadData.tags);
+		originalTags = loadData.tagsOrig != null ? loadData.tagsOrig : loadData.tags;
+		
+
+		
 		element = Main.logic.delegator.getOsmElement(type, osmId);
 		preset = Main.getCurrentPreset();
 
@@ -301,7 +297,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	private void createRepeatLastButton() {
 		Button button = (Button) findViewById(R.id.repeatLastButton);
 
-		final String last = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_LAST_TAG, null);
+		final Map<String, String> last = savingHelper.load(LAST_TAGS_FILE, false);
 		button.setEnabled(last != null);
 		if (last == null) return;
 		
@@ -401,40 +397,26 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 */
 	protected void sendResultAndFinish() {
 		// Save current tags for "repeat last" button
-		Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(this).edit();
-		prefEdit.putString(PREF_LAST_TAG,getKeyValueString(false)).commit();
+		savingHelper.save(LAST_TAGS_FILE, getKeyValueMap(false), false);
 		
 		Intent intent = new Intent();
-		intent.putExtras(getKeyValueBundle(false)); // discards blank or partially blank pairs
-		intent.putExtra(OSM_ID, osmId);
-		intent.putExtra(TYPE, type);
+		intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, getKeyValueMap(false), null));
 		setResult(RESULT_OK, intent);
 		finish();
 	}
 
 	/**
-	 * Creates edits from an List containing tags (as sequential key-value pairs)
+	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadEdits(final List<String> tags) {
+	protected void loadEdits(final Map<String,String> tags) {
 		loaded = false;
-		for (int i = 0, size = tags.size(); i < size-1; i += 2) {
-			insertNewEdit(tags.get(i), tags.get(i + 1), -1);
+		for (Entry<String, String> pair : tags.entrySet()) {
+			insertNewEdit(pair.getKey(), pair.getValue(), -1);
 		}
 		loaded = true;
 		ensureEmptyRow();
 	}
-	
-	/**
-	 * Creates edits from a String containing newline-separated sequential key-value pairs
-	 */
-	protected void loadEdits(String tags) {
-		if (tags.equals("")) {
-			ensureEmptyRow();
-			return;
-		}
-		String[] tagArray = tags.split("\n");
-		loadEdits(Arrays.asList(tagArray));
-	}
+
 
 	/** Save the state of this activity instance for future restoration.
 	 * @param outState The object to receive the saved state.
@@ -442,10 +424,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	@Override
 	protected void onSaveInstanceState(final Bundle outState) {
 		// no calltrough. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
-		outState.putLong(OSM_ID, osmId);
-		outState.putString(TYPE, type);
-		outState.putStringArrayList(TAGS_ORIG, originalTags);
-		outState.putAll(getKeyValueBundle(true)); // save partially blank pairs too
+		outState.putSerializable(TAGEDIT_DATA, new TagEditorData(osmId, type, getKeyValueMap(true), originalTags));
 	}
 	
 	/** When the Activity is interrupted, save MRUs*/
@@ -599,12 +578,15 @@ public class TagEditor extends Activity implements OnDismissListener {
 
 		protected ArrayAdapter<String> getKeyAutocompleteAdapter() {
 			List<String> result = new ArrayList<String>();
-			if (owner.lastPresetItem != null) {
-				result.addAll(owner.lastPresetItem.getTags().keySet());
-				result.addAll(owner.lastPresetItem.getRecommendedTags().keySet());
-				result.addAll(owner.lastPresetItem.getOptionalTags().keySet());
-			} else {
-				// TODO js guess from other presets?
+			
+			if (owner.autocompletePresetItem != null) {
+				owner.autocompletePresetItem = owner.preset.findBestMatch(owner.getKeyValueMap(false));
+			}
+			
+			if (owner.autocompletePresetItem != null) {
+				result.addAll(owner.autocompletePresetItem.getTags().keySet());
+				result.addAll(owner.autocompletePresetItem.getRecommendedTags().keySet());
+				result.addAll(owner.autocompletePresetItem.getOptionalTags().keySet());
 			}
 			
 			if (owner.preset != null) {
@@ -676,49 +658,15 @@ public class TagEditor extends Activity implements OnDismissListener {
 		}
 
 	}
-
-	/**
-	 * Collect all key-value pairs into a bundle to return them.
-	 * 
-	 * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
-	 * @return The bundle of key-value pairs.
-	 */
-	private Bundle getKeyValueBundle(final boolean allowBlanks) {
-		final Bundle bundle = new Bundle(1);
-		final ArrayList<String> tags = getKeyValueStringList(allowBlanks);
-		bundle.putSerializable(TAGS, tags);
-		return bundle;
-	}
 	
 	/**
-	 * Collect all key-value pairs into a single string
+	 * Collect all key-value pairs into a LinkedHashMap<String,String>
 	 * 
 	 * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
-	 * @return A string representing the key-value pairs
+	 * @return The LinkedHashMap<String,String> of key-value pairs.
 	 */
-	private String getKeyValueString(final boolean allowBlanks) {
-		final ArrayList<String> tags = getKeyValueStringList(allowBlanks);
-		StringBuilder b = new StringBuilder();
-		boolean empty = true;
-		for (String entry : tags) {
-			if (!empty) {
-				b.append('\n');
-			} else {
-				empty = false;
-			}
-			b.append(entry);
-		}
-		return b.toString();
-	}
-
-	/**
-	 * Collect all key-value pairs into an ArrayList<String>
-	 * 
-	 * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
-	 * @return The ArrayList<String> of key-value pairs.
-	 */
-	private ArrayList<String> getKeyValueStringList(final boolean allowBlanks) {
-		final ArrayList<String> tags = new ArrayList<String>();
+	private LinkedHashMap<String,String> getKeyValueMap(final boolean allowBlanks) {
+		final LinkedHashMap<String,String> tags = new LinkedHashMap<String, String>();
 		processKeyValues(new KeyValueHandler() {
 			@Override
 			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
@@ -729,20 +677,19 @@ public class TagEditor extends Activity implements OnDismissListener {
 				if (!bothBlank) {
 					// both blank is never acceptable
 					if (neitherBlank || allowBlanks) {
-						tags.add(key);
-						tags.add(value);
+						tags.put(key, value);
 					}
 				}
 			}
 		});
 		return tags;
-	}
+	}	
 	
 	/**
 	 * Get all key values currently in the editor, optionally skipping one field.
 	 * @param ignoreEdit optional - if not null, this key field will be skipped,
 	 *                              i.e. the key  in it will not be included in the output
-	 * @return the list of all (or all but one) keys currently entered in the edit boxes
+	 * @return the set of all (or all but one) keys currently entered in the edit boxes
 	 */
 	private Set<String> getUsedKeys(final EditText ignoreEdit) {
 		final HashSet<String> keys = new HashSet<String>();
@@ -757,7 +704,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 			}
 		});
 		return keys;
-		
 	}
 	
 
@@ -846,7 +792,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * @param item the preset to apply
 	 */
 	private void applyPreset(PresetItem item) {
-		lastPresetItem = item;
+		autocompletePresetItem = item;
 		int pos = 0;
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
 			insertNewEdit(tag.getKey(), tag.getValue(), pos++);
@@ -858,4 +804,31 @@ public class TagEditor extends Activity implements OnDismissListener {
 		recreateRecentPresetView();
 	}
 	
+	/**
+	 * Holds data sent in intents.
+	 * Directly serializing a TreeMap in an intent does not work, as it comes out as a HashMap (?!?) 
+	 * @author Jan
+	 */
+	public static class TagEditorData implements Serializable {
+		private static final long serialVersionUID = 1L;
+		
+		public final long osmId;
+		public final String type;
+		public final Map<String,String> tags;
+		public final Map<String,String> tagsOrig;
+
+		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags) {
+			this.osmId = osmId;
+			this.type = type;
+			this.tags = tags;
+			this.tagsOrig = originalTags;
+		}
+
+		public TagEditorData(OsmElement selectedElement) {
+			this.osmId = selectedElement.getOsmId();
+			this.type = selectedElement.getName();
+			this.tags = new LinkedHashMap<String, String>(selectedElement.getTags());
+			this.tagsOrig = tags;
+		}
+	}
 }

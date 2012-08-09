@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,7 +16,7 @@ public class PresetIconManager {
 	
 	private final Context context;
 	
-	/** base path for cached downloaded icons */
+	/** base path for downloaded icons */
 	private final String basePath;
 	
 	private final static String ASSET_IMAGE_PREFIX = "images/";
@@ -35,20 +36,20 @@ public class PresetIconManager {
 	
 	/**
 	 * Gets a drawable for a URL.<br>
-	 * If the URL is a HTTP(S) URL and a base path is given, it will be checked for the cached drawable.<br>
+	 * If the URL is a HTTP(S) URL and a base path is given, it will be checked for the downloaded drawable.<br>
 	 * Otherwise, the URL will be considered a relative path, checked for ".." to avoid path traversal,
 	 * and it will be attempted to load the corresponding image from the asset image directory.<br>
 	 * @param url either a local preset url of the format "presets/xyz.png", or a http/https url
 	 * @param size icon size in dp
 	 * @return null if icon file not found or a drawable of [size]x[size] dp.
 	 */
-	public Drawable getDrawable(String url, int size) {
+	public BitmapDrawable getDrawable(String url, int size) {
 		if (url == null) return null;
 		
 		InputStream pngStream = null;
 		try {
-			if (basePath != null && url.startsWith("http://") || url.startsWith("https://")) {
-				pngStream = new FileInputStream(basePath+hash(url)+".png");
+			if (basePath != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+				pngStream = new FileInputStream(basePath+"/"+hash(url)+".png");
 			} else if (!url.contains("..")) {
 				pngStream = assets.open(ASSET_IMAGE_PREFIX+url);
 			} else {
@@ -57,6 +58,7 @@ public class PresetIconManager {
 			}
 			
 			BitmapDrawable drawable = new BitmapDrawable(context.getResources(), pngStream);
+			drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
 			int pxsize = dpToPx(size);
 			drawable.setBounds(0, 0, pxsize, pxsize);
 			return drawable;

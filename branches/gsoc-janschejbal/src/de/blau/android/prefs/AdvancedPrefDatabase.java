@@ -27,7 +27,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 1;
+	private final static int DATA_VERSION = 2;
 	private final static String LOGTAG = "AdvancedPrefDB";
 	
 	/** The ID string for the default API and the default Preset */
@@ -52,13 +52,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public synchronized void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT)");
+		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER)");
 		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT)");
 	}
 
 	@Override
 	public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// nothing yet
+		if (oldVersion <= 1 && newVersion >= 2) {
+			db.execSQL("ALTER TABLE apis ADD COLUMN showicon INTEGER DEFAULT 0");
+		}
 	}
 	
 	/**
@@ -70,7 +72,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(ID_DEFAULT, name, "", user, pass, ID_DEFAULT); // empty API URL => default API URL
+		addAPI(ID_DEFAULT, name, "", user, pass, ID_DEFAULT, false); // empty API URL => default API URL
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -151,8 +153,17 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		Main.resetPreset();
 	}
 	
+	/** Changes the "show node icons" settings for the current API */
+	public synchronized void setCurrentAPIShowIcons(boolean show) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("showicon", show ? 1 : 0);
+		db.update("apis", values, "id = ?", new String[] {currentAPI});
+		db.close();		
+	}
+	
 	/** adds a new API with the given values to the API database */
-	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset) {
+	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset, boolean showicon) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("id", id);
@@ -161,6 +172,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("user", user);
 		values.put("pass", pass);
 		values.put("preset", preset);		
+		values.put("showicon", showicon? 1 : 0);		
 		db.insert("apis", null, values);
 		db.close();
 	}
@@ -183,7 +195,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor dbresult = db.query(
 								"apis",
-								new String[] {"id", "name", "url", "user", "pass", "preset"},
+								new String[] {"id", "name", "url", "user", "pass", "preset", "showicon"},
 								id == null ? null : "id = ?",
 								id == null ? null : new String[] {id},
 								null, null, null);
@@ -195,7 +207,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 									dbresult.getString(2),
 									dbresult.getString(3),
 									dbresult.getString(4),
-									dbresult.getString(5));
+									dbresult.getString(5),
+									dbresult.getInt(6));
 			dbresult.moveToNext();
 		}
 		db.close();
@@ -213,14 +226,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		public final String user;
 		public final String pass;
 		public final String preset;
-		
-		public API(String id, String name, String url, String user, String pass, String preset) {
+		public final boolean showicon;		
+		public API(String id, String name, String url, String user, String pass, String preset, int showicon) {
 			this.id = id;
 			this.name = name;
 			this.url = url;
 			this.user = user;
 			this.pass = pass;
 			this.preset = preset;
+			this.showicon = (showicon == 1);
 		}
 	}
 

@@ -66,7 +66,13 @@
 			android:key="@string/config_presetbutton_key"
 			android:summary="@string/config_presetbutton_summary"
 		/>
-	</PreferenceCategory>
+		<CheckBoxPreference
+			android:title="@string/config_iconbutton_title"
+			android:key="@string/config_iconbutton_key"
+			android:summary="@string/config_iconbutton_summary"
+			android:persistent="false"
+		/>
+			</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_gps">
 		<EditTextPreference
 			android:key="@string/config_gps_interval_key"

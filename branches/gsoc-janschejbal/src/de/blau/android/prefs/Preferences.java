@@ -119,6 +119,10 @@ public class Preferences {
 		return advancedPrefs.getCurrentPresetObject();
 	}
 	
+	public boolean getShowIcons() {
+		return advancedPrefs.getCurrentAPI().showicon;
+	}
+
 	/**
 	 * @return
 	 */

@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,7 +27,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -53,15 +52,13 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
-import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
-import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
+import de.blau.android.TagEditor.TagEditorData;
 import de.blau.android.actionbar.ModeDropdownAdapter;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
@@ -706,19 +703,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private void handleTagEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
 		// Read data from extras
-		// Intents can't hold a Map in the extras, so
-		// it is converted to an ArrayList
-		ArrayList<String> tagList = (ArrayList<String>) b.getSerializable(TagEditor.TAGS);
-		String type = b.getString(TagEditor.TYPE);
-		long osmId = b.getLong(TagEditor.OSM_ID);
-
-		int size = tagList.size();
-		HashMap<String, String> tags = new HashMap<String, String>(size / 2);
-		for (int i = 0; i < size; i += 2) {
-			tags.put(tagList.get(i), tagList.get(i + 1));
-		}
-
-		logic.setTags(type, osmId, tags);
+		TagEditorData editorData = (TagEditorData) b.getSerializable(TagEditor.TAGEDIT_DATA);
+		logic.setTags(editorData.type, editorData.osmId, editorData.tags);
 		map.invalidate();
 	}
 	
@@ -873,19 +859,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	
 		if (selectedElement != null) {
 			Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
-	
-			// convert tag-list to string-lists for Bundle-compatibility
-			ArrayList<String> tagList = new ArrayList<String>();
-			for (Entry<String, String> tag : selectedElement.getTags().entrySet()) {
-				tagList.add(tag.getKey());
-				tagList.add(tag.getValue());
-			}
-	
-			//insert Bundles
-			startTagEditor.putExtra(TagEditor.TAGS, tagList);
-			startTagEditor.putExtra(TagEditor.TYPE, selectedElement.getName());
-			startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
-	
+			startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement));
 			Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 		}
 	}

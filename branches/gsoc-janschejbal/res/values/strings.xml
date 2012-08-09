@@ -5,8 +5,6 @@
 	<string name="app_name_version">Vespucci 0.8.0dev</string>	
 
 	<!-- Dialogs -->
-	<string name="resume_last_activity_dialog_title">Resume?</string>
-	<string name="resume_last_activity_dialog_message">Do you want to resume your last activity?</string>
 	<string name="transfer_download_current_dialog_title">Caution!</string>
 	<string name="transfer_download_current_dialog_message">You have made some changes. Do you want to upload them instead of discard?</string>
 	<string name="transfer_download_current_upload">Upload</string>
@@ -36,8 +34,6 @@
 	<string name="unsaved_data_title">Caution!</string>
 	<string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
 	<string name="unsaved_data_proceed">Discard &amp; proceed</string>
-	<string name="unsaved_data_cancel">Cancel</string>
-
 
 	<!-- Toaster -->
 	<string name="toast_no_changes">You have not changed anything yet…</string>
@@ -61,7 +57,6 @@
 	<string name="cancel">Cancel</string>
 	
 	<!-- Strings in TagEditor -->
-	<string name="tag_title">Tags for</string>
 	<string name="key">Key:</string>
 	<string name="value">Value:</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -152,6 +147,8 @@
 	<string name="config_apibutton_summary">You can set a non-standard API URL here. Usually should not be changed!</string>
 	<string name="config_presetbutton_title">JOSM preset</string>
 	<string name="config_presetbutton_summary">You can set up map element definitions here</string>
+	<string name="config_iconbutton_title">Show node icons</string>
+	<string name="config_iconbutton_summary">Show the icon of the best-matching preset above nodes.</string>
 	<string name="config_loginbutton_title">User account</string>
 	<string name="config_username_title">OSM Username</string>
 	<string name="config_username_summary">Needed for uploading OSM-Data. If you do not have any yet, get one at http://www.openstreetmap.org/user/new</string>
@@ -164,6 +161,7 @@
 	<string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
 	
 	<!-- preset downloader messages -->
+	<string name="preset_update">Update preset</string>
 	<string name="preset_download_successful">Preset successfully downloaded</string>
 	<string name="preset_download_failed">The preset file could not be downloaded. The preset will not work.</string>
 	<string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
@@ -186,7 +184,8 @@
 	<string name="config_apibutton_key">apisettings-button</string>
 	<string name="config_loginbutton_key">loginsettings-button</string>
 	<string name="config_presetbutton_key">presetsettings-button</string>
-		
+	<string name="config_iconbutton_key">iconsettings-button</string>
+			
 	<string name="config_selected_api">selectedAPI</string>
 		
 	<!--  changes -->

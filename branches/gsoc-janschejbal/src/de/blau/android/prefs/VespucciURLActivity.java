@@ -30,7 +30,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	private static final int REQUEST_PRESETEDIT = 0;
 	private static final int REQUEST_APIEDIT = 1;
 	
-	private String apiurl, apiname, apiuser, apipass, apipreseturl;
+	private String apiurl, apiname, apiuser, apipass, apipreseturl, apiicons;
 	private String preseturl, presetname;
 	private PresetInfo existingPreset = null;
 	private PresetInfo apiPresetInfo = null;
@@ -54,6 +54,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	    apiuser    = data.getQueryParameter("apiuser");
 	    apipass    = data.getQueryParameter("apipass");
 	    apipreseturl  = data.getQueryParameter("apipreset");
+	    apiicons   = data.getQueryParameter("apiicons");
 	    preseturl  = data.getQueryParameter("preseturl");
 	    presetname = data.getQueryParameter("presetname");
 	    
@@ -134,6 +135,9 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 				}
 				if (apiPresetInfo != null) {
 					prefdb.setCurrentAPIPreset(apiPresetInfo.id);
+				}
+				if (apiicons != null && apiicons.equals("1")) {
+					prefdb.setCurrentAPIShowIcons(true);
 				}
 			}
 		}
