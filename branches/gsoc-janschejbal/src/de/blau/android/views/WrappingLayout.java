@@ -263,14 +263,11 @@ public class WrappingLayout extends LinearLayout {
 						
 						// add horizontal spacing if necessary
 						if (hspace > 0) { 
-							LayoutParams p = (LayoutParams) child.getLayoutParams();
-							if (p == null) p = new LayoutParams(elementLayoutParams);
 							if (rightToLeft) {
-								p.rightMargin += hspace;
+								inner.addView(new SpacerView(context, hspace, 0), 0);
 							} else {
-								p.leftMargin += hspace;
+								inner.addView(new SpacerView(context, hspace, 0));
 							}
-							child.setLayoutParams(p);
 							usedSpace += hspace;
 						}
 					} else {
@@ -326,6 +323,12 @@ public class WrappingLayout extends LinearLayout {
 			return width;
 		}
 
-	}
+		private static class SpacerView extends View {
+				private SpacerView(Context ctx, int width, int height) {
+					super(ctx);
+					this.setLayoutParams(new LayoutParams(width, height));
+				}
+			}	
+		}
 
-}
+	}

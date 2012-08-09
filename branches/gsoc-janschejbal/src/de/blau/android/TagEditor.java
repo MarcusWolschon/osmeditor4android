@@ -14,22 +14,25 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -50,8 +53,6 @@ import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
  * @author mb
  */
 public class TagEditor extends Activity implements OnDismissListener {
-
-	// TODO js autosuggest on focus, unless caused by automatic means
 	
 	public static final String TAGS = "tags";
 	public static final String TAGS_ORIG = "tags_original";
@@ -92,6 +93,13 @@ public class TagEditor extends Activity implements OnDismissListener {
 	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
 	private boolean loaded;
 	
+	/**
+	 * True while the activity is between onResume and onPause.
+	 * Used to suppress autocomplete dropdowns while the activity is not running (showing them can lead to crashes).
+	 * Needs to be static to be accessible in TagEditRow.
+	 */
+	private static boolean running = false;
+
 	/** the Preset selection dialog used by this editor */
 	private PresetDialog presetDialog;
 	
@@ -127,18 +135,20 @@ public class TagEditor extends Activity implements OnDismissListener {
 	
 	
 	/**
-	 * Ensures that at least one empty row exists
+	 * Ensures that at least one empty row exists (creating one if needed)
+	 * @return the first empty row found (or the one created), or null if loading was not finished (loaded == false)
 	 */
-	private void ensureEmptyRow() {
-		if (!loaded) return;
+	private TagEditRow ensureEmptyRow() {
+		if (!loaded) return null;
 		final int size = rowLayout.getChildCount();
 		for (int i = 0; i < size; ++i) {
 			View view = rowLayout.getChildAt(i);
 			TagEditRow row = (TagEditRow)view;
-			if (row.isEmpty()) return;
+			if (row.isEmpty()) return row;
 		}
 		// no empty rows found, make one
-		insertNewEdit("", "", -1);
+		return insertNewEdit("", "", -1);
+		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -160,22 +170,26 @@ public class TagEditor extends Activity implements OnDismissListener {
 		loaded = false;
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
+			Log.d(DEBUG_TAG, "Initializing from intent");
 			osmId = getIntent().getLongExtra(OSM_ID, 0);
 			type = getIntent().getStringExtra(TYPE);
 			originalTags = (ArrayList<String>)getIntent().getSerializableExtra(TAGS);
 			loadEdits(originalTags);
 		} else {
 			// Restore activity from saved state
+			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
 			osmId = savedInstanceState.getLong(OSM_ID, 0);
 			type = savedInstanceState.getString(TYPE);
-			loadEdits(savedInstanceState.getStringArrayList(TAGS));
+			loadEdits((ArrayList<String>) savedInstanceState.getSerializable(TAGS));
 			originalTags = savedInstanceState.getStringArrayList(TAGS_ORIG);
 		}
 		element = Main.logic.delegator.getOsmElement(type, osmId);
 		preset = Main.getCurrentPreset();
 
 		loaded = true;
-		ensureEmptyRow();
+		TagEditRow row = ensureEmptyRow();
+		row.keyEdit.requestFocus();
+		row.keyEdit.dismissDropDown();
 		
 		createSourceSurveyButton();
 		createApplyPresetButton();
@@ -184,6 +198,12 @@ public class TagEditor extends Activity implements OnDismissListener {
 		createOkButton();
 		
 		createRecentPresetView();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		running = true;
 	}
 	
 	/**
@@ -320,7 +340,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		if (Main.getCurrentPreset() == null) return;
 		
 		ElementType filterType = element.getType();
-		View v = Main.getCurrentPreset().getRecentPresetView(new PresetClickHandler() {
+		View v = Main.getCurrentPreset().getRecentPresetView(this, new PresetClickHandler() {
 			
 			@Override
 			public void onItemClick(PresetItem item) {
@@ -335,8 +355,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 		v.setBackgroundColor(0x80000000);
 		v.setPadding(20, 20, 20, 20);
 		v.setId(R.id.recentPresets);
-		MarginLayoutParams p = new MarginLayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		p.setMargins(10, 10, 10, 10);
 		verticalLayout.addView(v);
 	}
 
@@ -423,16 +441,17 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 */
 	@Override
 	protected void onSaveInstanceState(final Bundle outState) {
+		// no calltrough. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
 		outState.putLong(OSM_ID, osmId);
 		outState.putString(TYPE, type);
 		outState.putStringArrayList(TAGS_ORIG, originalTags);
 		outState.putAll(getKeyValueBundle(true)); // save partially blank pairs too
-		super.onSaveInstanceState(outState);
 	}
 	
 	/** When the Activity is interrupted, save MRUs*/
 	@Override
 	protected void onPause() {
+		running = false;
 		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().saveMRU();
 		super.onPause();
 	}
@@ -444,14 +463,16 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * @param aTagValue the value to start with.
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
 	 */
-	protected void insertNewEdit(final String aTagKey, final String aTagValue, final int position) {
+	protected TagEditRow insertNewEdit(final String aTagKey, final String aTagValue, final int position) {
 		TagEditRow row = (TagEditRow)View.inflate(this, R.layout.tag_edit_row, null);
 		row.setValues(aTagKey, aTagValue);
 		rowLayout.addView(row, (position == -1) ? rowLayout.getChildCount() : position);
+		return row;
 	}
 	
 	/**
-	 * A row representing an editable tag, consisting of edits for key and value, labels and a delete button
+	 * A row representing an editable tag, consisting of edits for key and value, labels and a delete button.
+	 * Needs to be static, otherwise the inflater will not find it.
 	 * @author Jan
 	 */
 	public static class TagEditRow extends LinearLayout {
@@ -487,19 +508,45 @@ public class TagEditor extends Activity implements OnDismissListener {
 			valueEdit = (AutoCompleteTextView)findViewById(R.id.editValue);
 			valueEdit.setOnKeyListener(owner.myKeyListener);
 
+			// If the user selects addr:street from the menu, auto-fill a suggestion
+			keyEdit.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if ("addr:street".equals(parent.getItemAtPosition(position)) &&
+							valueEdit.getText().toString().length() == 0) {
+						ArrayAdapter<String> adapter = getStreetNameAutocompleteAdapter();
+						if (adapter != null && adapter.getCount() > 0) {
+							valueEdit.setText(adapter.getItem(0));
+						}
+					}
+				}
+			});
+			
 			keyEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
 				@Override
 				public void onFocusChange(View v, boolean hasFocus) {
-					if (!hasFocus) return;
-					keyEdit.setAdapter(getKeyAutocompleteAdapter());
+					if (hasFocus) {
+						keyEdit.setAdapter(getKeyAutocompleteAdapter());
+						if (running && keyEdit.getText().length() == 0) keyEdit.showDropDown();
+					}
 				}
 			});
 			
 			valueEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
 				@Override
 				public void onFocusChange(View v, boolean hasFocus) {
+					if (hasFocus) {
+						valueEdit.setAdapter(getValueAutocompleteAdapter());
+						if (running && valueEdit.getText().length() == 0) valueEdit.showDropDown();
+					}
+				}
+			});
+			
+			
+			valueEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
 					if (!hasFocus) return;
-					valueEdit.setAdapter(getValueAutocompleteAdapter());
 				}
 			});
 			
@@ -523,7 +570,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 
 			keyEdit.setOnClickListener(autocompleteOnClick);
 			valueEdit.setOnClickListener(autocompleteOnClick);
-
 			
 			// This TextWatcher reacts to previously empty cells being filled to add additional rows where needed
 			TextWatcher emptyWatcher = new TextWatcher() {
@@ -577,15 +623,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 			boolean isStreetName = ( key.equalsIgnoreCase("addr:street") ||
 					(key.equalsIgnoreCase("name") && owner.getUsedKeys(null).contains("highway")));
 			if (isStreetName) {
-				if (Main.logic == null || Main.logic.delegator == null) return null;
-				ArrayAdapter<String> adapter = new StreetTagValueAutocompletionAdapter(owner,
-						R.layout.autocomplete_row, Main.logic.delegator, owner.type, owner.osmId);
-				// TODO js autocomplete the street name as soon as the addr:street is set (onTextChange?)
-				if (valueEdit.getText().toString().length() == 0 && adapter.getCount() > 0) {
-					valueEdit.setText(adapter.getItem(0));
-				}			
-			
-				return null;
+				return getStreetNameAutocompleteAdapter();
 			} else {
 				if (owner.preset == null) return null;
 				Collection<String> values = owner.preset.getAutocompleteValues(owner.element.getType(), key);
@@ -593,6 +631,17 @@ public class TagEditor extends Activity implements OnDismissListener {
 				List<String> result = new ArrayList<String>(values);
 				return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 			}
+		}
+
+		/**
+		 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
+		 * @return
+		 */
+		private ArrayAdapter<String> getStreetNameAutocompleteAdapter() {
+			if (Main.logic == null || Main.logic.delegator == null) return null;
+			ArrayAdapter<String> adapter = new StreetTagValueAutocompletionAdapter(owner,
+					R.layout.autocomplete_row, Main.logic.delegator, owner.type, owner.osmId);
+			return adapter;
 		}
 
 		/**
@@ -808,4 +857,5 @@ public class TagEditor extends Activity implements OnDismissListener {
 		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().putRecentlyUsed(item);
 		recreateRecentPresetView();
 	}
+	
 }

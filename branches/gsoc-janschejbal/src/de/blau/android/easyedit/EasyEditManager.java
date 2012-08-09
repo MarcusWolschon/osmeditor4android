@@ -1,6 +1,8 @@
 package de.blau.android.easyedit;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -221,10 +223,17 @@ public class EasyEditManager {
 	 * The node and way click handlers are thus never called.
 	 */
 	private class PathCreationActionModeCallback extends EasyEditActionModeCallback {
+		private static final int MENUITEM_UNDO = 1;
+
 		/** x coordinate of first node */
 		private float x;
 		/** y coordinate of first node */
 		private float y;
+		
+		/** contains a pointer to the created way if one was created. used to fix selection after undo. */
+		private Way createdWay = null;
+		/** contains a list of created nodes. used to fix selection after undo. */
+		private ArrayList<Node> createdNodes = new ArrayList<Node>();
 
 
 		public PathCreationActionModeCallback(float x, float y) {
@@ -261,20 +270,54 @@ public class EasyEditManager {
 				// user clicked last node again -> finish adding
 				currentActionMode.finish();
 				tagApplicable(lastSelectedNode, lastSelectedWay);
+			} else { // update cache for undo
+				createdWay = logic.getSelectedWay();
+				if (createdWay != null) {
+					createdNodes = new ArrayList<Node>(createdWay.getNodes());
+				} else {
+					createdNodes = new ArrayList<Node>();
+					createdNodes.add(logic.getSelectedNode());
+				}
 			}
 			main.invalidateMap();
 		}
 
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			// no menu // TODO js undo last step menu?
-			return false;
+			menu.clear();
+			menu.add(0, MENUITEM_UNDO, 1, R.string.undo).setIcon(R.drawable.undo);
+			return true;
 		}
 
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			// no menu
+			switch (item.getItemId()) {
+			case MENUITEM_UNDO:
+				handleUndo();
+				break;
+
+			default: Log.e("PathCreationActionModeCallback", "Unknown menu item"); break;
+			}
 			return false;
+		}
+		
+		private void handleUndo() {
+			logic.getUndo().undo();
+			if (logic.getSelectedNode() == null) { // should always happen, node removed
+				 Iterator<Node> nodeIterator = createdNodes.iterator();
+				 while (nodeIterator.hasNext()) { // remove nodes that do not exist anymore
+					 if (!logic.exists(nodeIterator.next())) nodeIterator.remove();
+				 }
+				 if (createdNodes.isEmpty()) {
+					 // all nodes have been deleted, cancel action mode
+					 currentActionMode.finish();
+				 } else {
+					 // select last node
+					 logic.setSelectedNode(createdNodes.get(createdNodes.size()-1));
+				 }
+			}
+			createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
+			main.invalidateMap();
 		}
 
 
@@ -409,11 +452,11 @@ public class EasyEditManager {
 				AlertDialog.Builder dialog = new AlertDialog.Builder(main);
 				dialog.setTitle(R.string.delete);
 				TextView textView = new TextView(main);
-				textView.setText("You are about to delete a way. You can either keep all nodes, or delete nodes that only belong to this way and do not have any tags."); // TODO js RES
+				textView.setText(R.string.deleteway_description);
 				int pad= Math.round(10 * main.getResources().getDisplayMetrics().density);
 				textView.setPadding(pad, pad, pad, pad);
 				dialog.setView(textView); 
-				dialog.setPositiveButton("Delete only way",  // TODO js RES
+				dialog.setPositiveButton(R.string.deleteway_wayonly,
 						new OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
@@ -421,7 +464,7 @@ public class EasyEditManager {
 								currentActionMode.finish();
 							}
 						});
-				dialog.setNeutralButton("Delete way and nodes",  // TODO js RES
+				dialog.setNeutralButton(R.string.deleteway_wayandnodes,
 						new OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {

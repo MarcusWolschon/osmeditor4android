@@ -59,8 +59,6 @@ public class Preset {
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
 	private static final String MRUFILE = "mru.dat";
-
-	protected final Context context;
 	
 	/** The directory containing all data (xml, MRU data, images) about this preset */
 	private File directory;
@@ -108,12 +106,11 @@ public class Preset {
 	
 	/**
 	 * Creates a preset object
-	 * @param ctx
+	 * @param ctx context (used for preset loading)
 	 * @param directory directory to load/store preset data (XML, icons, MRUs)
 	 * @throws Exception
 	 */
 	public Preset(Context ctx, File directory) throws Exception {
-		this.context = ctx;
 		this.iconManager = new PresetIconManager(ctx, null);
 		this.directory = directory;
 		rootGroup = new PresetGroup(null, "", null);
@@ -282,12 +279,12 @@ public class Preset {
 	 * @param type filter to show only presets applying to this type
 	 * @return the view
 	 */
-	public View getRecentPresetView(PresetClickHandler handler, ElementType type) {
+	public View getRecentPresetView(Context ctx, PresetClickHandler handler, ElementType type) {
 		PresetGroup recent = new PresetGroup(null, "recent", null);
 		for (int index : mru.recentPresets) {
 			recent.addElement(allItems.get(index));
 		}
-		return recent.getGroupView(handler, type);
+		return recent.getGroupView(ctx, handler, type);
 	}
 	
 	/**
@@ -414,9 +411,9 @@ public class Preset {
 		 * Can (and should) be used when implementing {@link #getView(PresetClickHandler)}.
 		 * @return the view
 		 */
-		private final TextView getBaseView() {
-			TextView v = new TextView(context);
-			float density = context.getResources().getDisplayMetrics().density;
+		private final TextView getBaseView(Context ctx) {
+			TextView v = new TextView(ctx);
+			float density = ctx.getResources().getDisplayMetrics().density;
 			v.setText(this.getName());
 			v.setCompoundDrawables(null, this.getIcon(), null, null);
 			v.setCompoundDrawablePadding((int)(8*density));
@@ -432,7 +429,7 @@ public class Preset {
 		 * @param handler handler to handle clicks on the element (may be null)
 		 * @return a view ready to display to represent this element
 		 */
-		public abstract View getView(final PresetClickHandler handler);
+		public abstract View getView(Context ctx, final PresetClickHandler handler);
 		
 		public boolean appliesTo(ElementType type) {
 			switch (type) {
@@ -483,8 +480,8 @@ public class Preset {
 		}
 
 		@Override
-		public View getView(PresetClickHandler handler) {
-			View v = new View(context);
+		public View getView(Context ctx, PresetClickHandler handler) {
+			View v = new View(ctx);
 			v.setMinimumHeight(1);
 			v.setMinimumWidth(99999); // for WrappingLayout
 			return v;
@@ -514,8 +511,8 @@ public class Preset {
 		 * @param handler the handler handling clicks on the icon
 		 */
 		@Override
-		public View getView(final PresetClickHandler handler) {
-			TextView v = super.getBaseView();
+		public View getView(Context ctx, final PresetClickHandler handler) {
+			TextView v = super.getBaseView(ctx);
 			v.setTypeface(null,Typeface.BOLD);
 			if (handler != null) {
 				v.setOnClickListener(new OnClickListener() {
@@ -532,17 +529,17 @@ public class Preset {
 		/**
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
-		public View getGroupView(PresetClickHandler handler, ElementType type) {
-			ScrollView scrollView = new ScrollView(context);
+		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type) {
+			ScrollView scrollView = new ScrollView(ctx);
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-			WrappingLayout wrappingLayout = new WrappingLayout(context);
-			float density = context.getResources().getDisplayMetrics().density;
+			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
+			float density = ctx.getResources().getDisplayMetrics().density;
 			wrappingLayout.setHorizontalSpacing((int)(10*density));
 			wrappingLayout.setVerticalSpacing((int)(10*density));
 			ArrayList<PresetElement> filteredElements = filterElements(elements, type);
 			ArrayList<View> childViews = new ArrayList<View>();
 			for (PresetElement element : filteredElements) {
-				childViews.add(element.getView(handler));
+				childViews.add(element.getView(ctx, handler));
 			}
 			wrappingLayout.setWrappedChildren(childViews);
 			scrollView.addView(wrappingLayout);
@@ -654,8 +651,8 @@ public class Preset {
 		}
 
 		@Override
-		public View getView(final PresetClickHandler handler) {
-			View v = super.getBaseView();
+		public View getView(Context ctx, final PresetClickHandler handler) {
+			View v = super.getBaseView(ctx);
 			if (handler != null) {
 				v.setOnClickListener(new OnClickListener() {
 					@Override
@@ -681,17 +678,18 @@ public class Preset {
 	
 		private final ArrayList<PresetElement> elements;
 		private PresetClickHandler handler;
+		private final Context context;
 		
-		private PresetGroupAdapter(ArrayList<PresetElement> content, ElementType type,
+		private PresetGroupAdapter(Context ctx, ArrayList<PresetElement> content, ElementType type,
 				PresetClickHandler handler) {
 			this.handler = handler;
-			
+			this.context = ctx;
 			elements = filterElements(content, type);
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			return getItem(position).getView(handler);
+			return getItem(position).getView(context, handler);
 		}
 		
 		@Override

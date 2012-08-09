@@ -39,7 +39,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	}
 
 	private void updateView() {
-		View view = currentGroup.getGroupView(this, element.getType());
+		View view = currentGroup.getGroupView(context, this, element.getType());
 		view.setBackgroundColor(0xff666666);
 		setContentView(view);
 	}

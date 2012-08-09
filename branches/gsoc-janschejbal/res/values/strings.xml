@@ -123,7 +123,11 @@
 	<string name="menu_merge">Join ways</string>
 	<string name="menu_reverse">Reverse direction</string>
 	<string name="toast_oneway_reversed">You reversed a oneway street. Please check the oneway tag and correct if necessary.</string>
-			
+	
+	<string name="deleteway_description">You are about to delete a way. You can either keep all nodes, or delete nodes that only belong to this way and do not have any tags.</string>
+	<string name="deleteway_wayonly">Delete way only</string>
+	<string name="deleteway_wayandnodes">Delete way and nodes</string>
+	
 	<!-- EasyEdit action mode titles -->
 	<string name="actionmode_wayselect">Way selected</string>
 	<string name="actionmode_nodeselect">Node selected</string>

@@ -366,6 +366,7 @@ public class Logic {
 		OsmElement osmElement = delegator.getOsmElement(type, osmId);
 
 		if (osmElement == null) {
+			Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_set_tags);
@@ -1154,6 +1155,9 @@ public class Logic {
 	 * @return the selectedNode
 	 */
 	public final Node getSelectedNode() {
+		if (selectedNode != null && !exists(selectedNode)) {
+			selectedNode = null; // clear selection if node was deleted
+		}
 		return selectedNode;
 	}
 
@@ -1161,6 +1165,9 @@ public class Logic {
 	 * @return the selectedWay
 	 */
 	public final Way getSelectedWay() {
+		if (selectedWay != null && !exists(selectedWay)) {
+			selectedWay = null; // clear selection if way was deleted
+		}
 		return selectedWay;
 	}
 	
@@ -1208,6 +1215,15 @@ public class Logic {
 	 */
 	public Set<OsmElement> getClickableElements() {
 		return clickableElements;
+	}
+	
+	/**
+	 * Checks if an element exists, i.e. is in currentStorage
+	 * @param element the element that is to be checked
+	 * @return true if the element exists, false otherwise
+	 */
+	public boolean exists(OsmElement element) {
+		return delegator.getCurrentStorage().contains(element);
 	}
 	
 }
