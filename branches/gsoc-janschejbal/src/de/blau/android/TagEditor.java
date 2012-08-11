@@ -579,7 +579,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		protected ArrayAdapter<String> getKeyAutocompleteAdapter() {
 			List<String> result = new ArrayList<String>();
 			
-			if (owner.autocompletePresetItem != null) {
+			if (owner.autocompletePresetItem == null) {
 				owner.autocompletePresetItem = owner.preset.findBestMatch(owner.getKeyValueMap(false));
 			}
 			

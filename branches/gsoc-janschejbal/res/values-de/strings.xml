@@ -2,8 +2,6 @@
 <resources>
 
 	<!-- Dialogs -->
-	<string name="resume_last_activity_dialog_title">Fortsetzen?</string>
-	<string name="resume_last_activity_dialog_message">Möchten Sie ihre letzte Aktivität fortsetzen?</string>
 	<string name="transfer_download_current_dialog_title">Achtung!</string>
 	<string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderunge hochladen, anstatt sie zu verwerfen?</string>
 	<string name="transfer_download_current_upload">Hochladen</string>
@@ -25,6 +23,10 @@
 	<string name="progress_download_message">Lade Daten vom Server…</string>
 	<string name="upload_comment_label">Kommentar:</string>
 
+	<string name="unsaved_data_title">Vorsicht!</string>
+	<string name="unsaved_data_message">Wenn Sie fortfahren, werden ungespeicherte Änderungen verworfen.</string>
+	<string name="unsaved_data_proceed">Verwerfen &amp; fortfahren</string>
+	
 	<!-- Toaster -->
 	<string name="toast_no_changes">Sie haben noch nichts geändert…</string>
 	<string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -51,7 +53,10 @@
 	<string name="value">Value:</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/DE:Map_Features</string>
 	<string name="tag_menu_mapfeatures">Map Features Wiki</string>
-	
+	<string name="apply_preset_button_text">Vorlage\nanwenden</string>
+	<string name="repeat_last_button_text">Wieder-\nholen</string>
+	<string name="revert_button_text">Zurück-\nsetzen</string>
+		
 	<!-- Strings in LocationPicker -->
 	<string name="location_headline">Bereich Laden</string>
 	<string name="location_choose_radius">Wähle Radius aus:</string>
@@ -83,16 +88,35 @@
 	<string name="menu_tag">Tags verändern</string>
 	<string name="menu_gps">GPS…</string>
 	<string name="menu_openstreetbug">Erzeuge OpenStreetBug</string>
-	<string name="menu_gps_start_pause">Start/Pause GPS Track</string>
-	<string name="menu_gps_follow">Follow GPS Position</string>
-	<string name="menu_gps_stop">Stop GPS Track</string>
-	<string name="menu_gps_upload">GPS Track hochladen</string>
+	<string name="menu_easyedit">EasyEdit</string>
+	<string name="menu_gps_show">GPS-Position anzeigen</string>
+	<string name="menu_gps_follow">GPS-Position folgen</string>
+	<string name="menu_gps_start">GPS-Track starten</string>
+	<string name="menu_gps_pause">GPS-Track pausieren</string>
+	<string name="menu_gps_clear">GPS-Track löschen</string>
+	<string name="menu_gps_upload">GPS-Track hochladen</string>
 	<string name="menu_transfer">Übertragung…</string>
 	<string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
 	<string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
 	<string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
 	<string name="menu_save">Als Datei speichern</string>
+
+	<!-- element action mode menu -->
+	<string name="menu_tags">Tags</string> <!-- Text should be as short as possible -->
+	<string name="menu_history">Chronik</string>
+	<string name="menu_merge">Wege verbinden</string>
+	<string name="menu_reverse">Weg umkehren</string>
+	<string name="toast_oneway_reversed">Sie haben eine Einbahnstraße umgekehrt. Bitte prüfen Sie das oneway-Tag und korrigieren es, falls nötig.</string>
 	
+	<string name="deleteway_description">Sie sind im Begriff, einen Weg zu löschen. Sie können entweder alle Knoten behalten, oder die Knoten löschen, die nur zu diesem Weg gehören und keine Tags haben.</string>
+	<string name="deleteway_wayonly">Nur Weg löschen</string>
+	<string name="deleteway_wayandnodes">Weg und Knoten löschen</string>
+	
+	<!-- EasyEdit action mode titles -->
+	<string name="actionmode_wayselect">Weg ausgewählt</string>
+	<string name="actionmode_nodeselect">Knoten ausgewählt</string>
+	<string name="actionmode_createpath">Erstelle Pfad</string>
+		
 	<!-- Preferences -->
 	<string name="config_category_view">Ansichtseinstellungen</string>
 	<string name="config_maxStrokeWidth_title">maximale Breite</string>
@@ -104,6 +128,13 @@
 	<string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
 	<string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
 	<string name="config_category_server">Server Einstellungen</string>
+	<string name="config_apibutton_title">OSM API-URL</string>
+	<string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>
+	<string name="config_presetbutton_title">Vorlagensatz</string>
+	<string name="config_presetbutton_summary">Sie können hier Definitionen von Kartenelementen einstellen</string>
+	<string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
+	<string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden</string>
+	<string name="config_loginbutton_title">Benutzerkonto</string>
 	<string name="config_username_title">OSM Benutzername</string>
 	<string name="config_username_summary">Wird gebraucht, um OSM Daten hochzuladen. Falls Sie noch keinen haben, registrieren Sie sich unter http://www.openstreetmap.org/user/new</string>
 	<string name="config_password_title">OSM Passwort</string>
@@ -114,10 +145,60 @@
 	<string name="config_gps_interval_title">Minimaler GPS-Interval</string>
 	<string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauche mehr Batterie.</string>
 	
-    <!--  changes -->
+	<!-- preset downloader messages -->
+	<string name="preset_update">Vorlage aktualisieren</string>
+	<string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
+	<string name="preset_download_failed">Die Vorlagendatei konnte nicht heruntergeladen werden. Die Vorlagen werden nicht funktionieren.</string>
+	<string name="preset_download_parse_failed">Die Vorlagendatei ist ungültig. Die Vorlagen werden nicht funktionieren.</string>
+	<string name="preset_download_missing_images">Die Vorlagendatei wurde erfolgreich heruntergeladen. Einige Symbole konnten jedoch nicht heruntergeladen werden und werden fehlen.</string>
+	
+	<!--  changes -->
     <string name="changes_deleted">"%1$s" gelöscht</string>
     <string name="changes_changed">"%1$s" verändert</string>
     <string name="changes_created">"%1$s" angelegt</string>
     <string name="confirm_upload_title">Upload?</string>
     <string name="confirm_upload_text">Upload der folgenden Änderungen?\n%1$s</string>
+    
+    
+	<!--  url handler activity -->
+	<string name="urldialog_add_preset">Vorlage hinzufügen</string>
+	<string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
+	<string name="urldialog_api_exists">Eine API mit dieser URL existiert bereits. Sie können eine weitere hinzufügen (z. B. um schnell zwischen Benutzerkonten umzuschalten).</string>
+	<string name="urldialog_api_preset_missing">Die Vorlage für diese API ist nicht verfügbar. Sie sollten sie zuerst hinzufügen.</string>
+	<string name="urldialog_add_api">API hinzufügen</string>
+	<string name="urldialog_nodata_text">Die Konfigurations-URL enthält keine gültigen Daten.</string>
+	
+	
+	<!--  common terms  -->
+	<string name="add">Hinzufügen</string>
+	<string name="edit">Bearbeiten</string>
+	<string name="delete">Löschen</string>
+	<string name="name">Name</string>
+	<string name="url">URL</string>
+	<string name="default_">Standard</string><!-- "default" is a reserved Java keyword... -->
+	<string name="preset">Vorlage</string>
+	<string name="api">API</string>
+	<string name="undo">Rückgängig</string>
+	<string name="redo">Wiederholen</string>
+	<string name="undo_nothing">Nichts rückgängig zu machen</string>
+				
+	<string name="tracking_active_title">GPS-Tracking läuft</string>
+	<string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf</string>
+	<string name="gps_failure">Konnte GPS nicht aktivieren</string>
+	
+	<!--
+		undo actions - give a description of the action, in infinitive, to display in
+		strings like "Undo: actionname" or "Redo: actionname"
+	 -->
+	<string name="undo_action_movenode">Knoten verschieben</string>
+	<string name="undo_action_add">Hinzufügen</string>
+	<string name="undo_action_append">Anfügen</string>
+	<string name="undo_action_deletenode">Knoten löschen</string>
+	<string name="undo_action_deleteway">Weg löschen</string>
+	<string name="undo_action_split_ways">Wege aufspalten</string>
+	<string name="undo_action_split_way">Weg aufspalten</string>
+	<string name="undo_action_merge_ways">Wege verbinden</string>
+	<string name="undo_action_reverse_way">Weg umkehren</string>
+	<string name="undo_action_set_tags">Tags setzen</string>
+    
 </resources>

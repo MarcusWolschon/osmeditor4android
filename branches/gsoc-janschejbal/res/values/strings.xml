@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="app_name">Vespucci</string>
-	<string name="app_version">0.8.0dev</string>
-	<string name="app_name_version">Vespucci 0.8.0dev</string>	
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<string name="app_name" tools:ignore="MissingTranslation">Vespucci</string>
+	<string name="app_version" tools:ignore="MissingTranslation">0.8.0dev</string>
+	<string name="app_name_version" tools:ignore="MissingTranslation">Vespucci 0.8.0dev</string>	
 
 	<!-- Dialogs -->
 	<string name="transfer_download_current_dialog_title">Caution!</string>
@@ -57,6 +57,7 @@
 	<string name="cancel">Cancel</string>
 	
 	<!-- Strings in TagEditor -->
+	<string name="tag_title">Tags for</string>
 	<string name="key">Key:</string>
 	<string name="value">Value:</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>

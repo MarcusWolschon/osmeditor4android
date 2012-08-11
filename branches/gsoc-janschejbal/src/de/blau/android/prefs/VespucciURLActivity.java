@@ -21,8 +21,9 @@ import de.blau.android.prefs.URLListEditActivity.ListEditItem;
  *   apiname - name for the API (if it gets added)<br>
  *   apiuser, apipass - login data for the API (if it gets added)<br>
  *   apipreseturl - preset URL to be set for the API after adding (only if present!)<br>
+ *   apiicons - set to 1 if icons should be shown<br>
  *   preseturl - preset URL to add to the preset list<br>
- *   preseturl - name for the preset (if it gets added)<br>
+ *   presetname - name for the preset (if it gets added)<br>
  * @author Jan
  *
  */
