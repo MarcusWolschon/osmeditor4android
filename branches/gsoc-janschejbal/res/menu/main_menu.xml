@@ -11,6 +11,32 @@
 		android:actionLayout="@layout/undo_action_view"
 	/>
     	
+	
+	<item
+		android:title="@string/menu_transfer"
+		android:icon="@drawable/menu_transfer"
+		android:showAsAction="ifRoom"
+	>	
+		<menu>
+				<item
+					android:id="@+id/menu_transfer_download_current"
+					android:title="@string/menu_transfer_download_current"
+				/>
+				<item
+					android:id="@+id/menu_transfer_download_other"
+					android:title="@string/menu_transfer_download_other"
+				/>
+				<item
+					android:id="@+id/menu_transfer_upload"
+					android:title="@string/menu_transfer_upload"
+				/>
+				<item
+					android:id="@+id/menu_transfer_export"
+					android:title="@string/menu_transfer_export"
+				/>
+			</menu>
+	</item>
+
 	<item
 		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
@@ -48,30 +74,13 @@
 					android:title="@string/menu_gps_upload"
 					android:enabled="false"
 				/>
-		</menu>
+				<item
+					android:id="@+id/menu_gps_export"
+					android:title="@string/menu_gps_export"
+				/>
+			</menu>
 	</item>
 	
-	<item
-		android:title="@string/menu_transfer"
-		android:icon="@drawable/menu_transfer"
-		android:showAsAction="ifRoom"
-	>	
-		<menu>
-				<item
-					android:id="@+id/menu_transfer_download_current"
-					android:title="@string/menu_transfer_download_current"
-				/>
-				<item
-					android:id="@+id/menu_transfer_download_other"
-					android:title="@string/menu_transfer_download_other"
-				/>
-				<item
-					android:id="@+id/menu_transfer_upload"
-					android:title="@string/menu_transfer_upload"
-				/>
-		</menu>
-	</item>
-
 	<item
 		android:id="@+id/menu_confing"
 		android:title="@string/menu_config"

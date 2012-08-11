@@ -27,6 +27,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -589,8 +590,11 @@ public class Map extends View implements IMapView {
 		for (GeoPoint node : nodes) {
 			int nodeLon = node.getLon();
 			int nodeLat = node.getLat();
-			
-			if (prevNode != null && box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
+			boolean interrupted = false;
+			if (node instanceof InterruptibleGeoPoint) {
+				interrupted = ((InterruptibleGeoPoint)node).isInterrupted();
+			}
+			if (!interrupted && prevNode != null && box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
 				// Line segment needs to be drawn
 				points.add(GeoMath.lonE7ToX(getWidth(), box, prevNode.getLon()));
 				points.add(GeoMath.latE7ToY(getHeight(), box, prevNode.getLat()));

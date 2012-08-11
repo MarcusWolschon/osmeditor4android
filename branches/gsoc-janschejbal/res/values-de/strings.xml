@@ -36,7 +36,9 @@
 	<string name="toast_waiting_for_gps">Warte auf GPS Position…</string>
 	<string name="toast_follow_gps_off">GPS following abgeschaltet</string>
 	<string name="toast_file_openstreetbug">Karte bezühren um OpenStreetBug anzulegen</string>
-
+	<string name="toast_export_failed">Export fehlgeschlagen</string>
+	<string name="toast_export_success">Exportiert nach %1$s</string>
+	
 	<!-- ErrorMailer  -->
 	<string name="error_email_message">"Hey Matthias,\n\nkönntest Du Dir mal folgende Fehlermeldung ansehen?\n\n"</string>
 	<string name="error_email_chooser_title">Sende Mail via:</string>
@@ -95,10 +97,12 @@
 	<string name="menu_gps_pause">GPS-Track pausieren</string>
 	<string name="menu_gps_clear">GPS-Track löschen</string>
 	<string name="menu_gps_upload">GPS-Track hochladen</string>
+	<string name="menu_gps_export">GPS-Track exportieren</string>
 	<string name="menu_transfer">Übertragung…</string>
 	<string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
 	<string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
 	<string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
+	<string name="menu_transfer_export">Änderungen exportieren</string>
 	<string name="menu_save">Als Datei speichern</string>
 
 	<!-- element action mode menu -->

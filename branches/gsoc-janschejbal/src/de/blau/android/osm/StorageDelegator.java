@@ -11,6 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
+
 import android.content.res.Resources;
 import android.util.Log;
 import de.blau.android.exception.OsmServerException;
@@ -467,5 +470,19 @@ public class StorageDelegator implements Serializable {
 			}
 			dirty = true;
 		}
+	}
+	
+	public void exportOsmChangeFile() {
+		// TODO js implement? (osmchange or JOSM?)
+		/*
+		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
+		serializer.setOutput(outputStream, "utf8");
+		serializer.startDocument("utf8", null);
+		serializer.startTag("", "osmChange");
+		serializer.attribute("", "name", "val");
+		
+		serializer.endTag("", "osmChange");
+		serializer.endDocument();
+		*/
 	}
 }

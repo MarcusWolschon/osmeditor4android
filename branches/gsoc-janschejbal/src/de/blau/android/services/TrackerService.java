@@ -1,5 +1,6 @@
 package de.blau.android.services;
 
+import java.io.OutputStream;
 import java.util.List;
 
 import android.app.PendingIntent;
@@ -21,8 +22,9 @@ import de.blau.android.R;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.SavingHelper.Exportable;
 
-public class TrackerService extends Service implements LocationListener {
+public class TrackerService extends Service implements LocationListener, Exportable {
 
 	private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
@@ -98,6 +100,7 @@ public class TrackerService extends Service implements LocationListener {
 			.setContentIntent(pendingAppIntent);
 		startForeground(R.id.notification_tracker, notificationBuilder.getNotification());
 		tracking = true;
+		track.markNewSegment();
 		updateGPSState();
 	}
 	
@@ -127,6 +130,17 @@ public class TrackerService extends Service implements LocationListener {
 
 	public List<TrackPoint> getTrackPoints() {
 		return track.getTrackPoints();
+	}
+	
+	/**
+	 * Exports the GPX data
+	 */
+	public void export(OutputStream outputStream) throws Exception {
+		track.exportToGPX(outputStream);
+	}
+	
+	public String exportExtension() {
+		return "gpx";
 	}
 	
 	@Override

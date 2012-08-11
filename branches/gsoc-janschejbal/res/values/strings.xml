@@ -45,7 +45,9 @@
 	<string name="toast_follow_gps_off">GPS following disabled</string>
 	<string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
 	<string name="toast_file_openstreetbug">Tap inside map to file OpenStreetBug</string>
-
+	<string name="toast_export_failed">Export failed</string>
+	<string name="toast_export_success">Exported to %1$s</string>
+	
 	<!-- ErrorMailer  -->
 	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
 	<string name="error_email_chooser_title">Send Mail via:</string>
@@ -107,10 +109,12 @@
 	<string name="menu_gps_pause">Pause GPS track</string>
 	<string name="menu_gps_clear">Clear GPS track</string>
 	<string name="menu_gps_upload">Upload GPS track</string>
+	<string name="menu_gps_export">Export GPS track</string>
 	<string name="menu_transfer">Transfer…</string>
 	<string name="menu_transfer_download_current">Download current view</string>
 	<string name="menu_transfer_download_other">Download other location</string>
 	<string name="menu_transfer_upload">Upload data to OSM server</string>
+	<string name="menu_transfer_export">Export changes</string>
 	<string name="menu_save">Save to file</string>
 		
 	<!-- element action mode menu -->

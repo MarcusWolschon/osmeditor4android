@@ -1,18 +1,27 @@
 package de.blau.android.util;
 
+import java.io.BufferedOutputStream;
 import java.io.Closeable;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 import de.blau.android.Application;
+import de.blau.android.R;
 
 /**
  * Helper class for loading and saving individual serializable objects to files.
@@ -102,6 +111,54 @@ public class SavingHelper<T extends Serializable> {
 				Log.e("Vespucci", "Problem closing", e);
 			}
 		}
+	}
+
+	/**
+	 * Exports an Exportable asynchronously, displaying a toast on success or failure
+	 * @param ctx context for the toast
+	 * @param exportable the exportable to run
+	 */
+	public static void asyncExport(final Context ctx, final Exportable exportable) {
+		new AsyncTask<Void, Void, String>() {
+			@Override
+			protected String doInBackground(Void... params) {
+				File sdcard = Environment.getExternalStorageDirectory();
+				File outdir = new File(sdcard, "Vespucci");
+				outdir.mkdir(); // ensure directory exists;
+				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss").format(new Date())+"."+exportable.exportExtension();
+				File outfile = new File(outdir, filename);
+				BufferedOutputStream outputStream = null;
+				try {
+					outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
+					exportable.export(outputStream);
+				} catch (Exception e) {
+					Log.e("SavingHelper", "Export failed - " + filename);
+					return null;
+				} finally {
+					SavingHelper.close(outputStream);
+				}
+				return filename;	
+			}
+			
+			protected void onPostExecute(String result) {
+				if (result == null) {
+					Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
+				} else {
+					Log.i("SavingHelper", "Successful export to " + result);
+					String text = ctx.getResources().getString(R.string.toast_export_success, result);
+					Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+				}
+			};
+		}.execute();
+	}
+	
+	
+	public static interface Exportable {
+		/** Exports some data to an OutputStream */
+		public void export(OutputStream outputStream) throws Exception;
+		
+		/** @returns the extension to be used for exports */
+		public String exportExtension();
 	}
 	
 }

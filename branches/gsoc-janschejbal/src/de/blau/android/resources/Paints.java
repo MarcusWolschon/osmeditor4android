@@ -147,6 +147,8 @@ public class Paints {
 
 		paint = new Paint(paints[WAY]);
 		paint.setColor(Color.BLUE);
+		paint.setStrokeCap(Cap.ROUND);
+		paint.setStrokeJoin(Join.ROUND);
 		paints[TRACK] = paint;
 
 		paint = new Paint(paints[WAY]);

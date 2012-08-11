@@ -496,6 +496,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			invalidateOptionsMenu();
 			map.invalidate();
 			return true;
+			
+		case R.id.menu_gps_export:
+			if (tracker != null) {
+				SavingHelper.asyncExport(this, tracker);
+			}
+			return true;
 
 		case R.id.menu_transfer_download_current:
 			onMenuDownloadCurrent();
@@ -509,6 +515,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			confirmUpload();
 			return true;
 		
+		case R.id.menu_transfer_export:
+			// TODO js SavingHelper.asyncExport(this, logic);
+			return true;
+
 		case R.id.menu_undo:
 			// should not happen
 			undoListener.onClick(null);

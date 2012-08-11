@@ -9,16 +9,25 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 import de.blau.android.Application;
+import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
 import de.blau.android.util.SavingHelper;
 
 /**
@@ -70,6 +79,9 @@ public class Track {
 	 */
 	private static volatile boolean isOpen = false;
 	
+	/** set by {@link #markNewSegment()} - indicates that the next track point will have the isNewSegment flag set */
+	private boolean nextIsNewSegment = false;
+	
 	
 	/**
 	 * Indicates how many of the track points are already in the save file.
@@ -96,7 +108,8 @@ public class Track {
 	
 	public void addTrackPoint(final Location location) {
 		if (location != null) {
-			track.add(new TrackPoint(location));
+			track.add(new TrackPoint(location, nextIsNewSegment));
+			nextIsNewSegment = false;
 			save();
 		}
 	}
@@ -300,97 +313,6 @@ public class Track {
 	}
 	
 	/**
-	 * This is a class to store location points and provide storing/serialization for them.
-	 * Everything considered less relevant is commented out to save space.
-	 * If you chose that this should be included in the GPX, uncomment it,
-	 * increment {@link #FORMAT_VERSION}, set the correct {@link #RECORD_SIZE}
-	 * and rewrite {@link #fromStream(DataInputStream)}, {@link #toStream(DataOutputStream)}
-	 * and {@link #getGPXString()}.
-	 * 
-	 * @author Jan
-	 */
-	public static class TrackPoint implements GeoPoint {
-		public static final int FORMAT_VERSION = 1;
-		public static final int RECORD_SIZE = 2*8;
-		
-		public final double latitude;
-		public final double longitude;
-		// public final long   time;
-		// public final Float  accuracy;
-		// public final Double altitude;
-		// public final Float  bearing;
-		// public final Float  speed;
-
-		
-		
-		public TrackPoint(Location original) {
-			this.latitude  = original.getLatitude();
-			this.longitude = original.getLongitude();
-			// this.time      = original.getTime();
-			// this.accuracy  = original.hasAccuracy() ? original.getAccuracy() : null;
-			// this.altitude  = original.hasAltitude() ? original.getAltitude() : null;
-			// this.bearing   = original.hasBearing()  ? original.getBearing() : null;
-			// this.speed     = original.hasSpeed()    ? original.getSpeed() : null;
-		}
-		
-		private TrackPoint(double lat, double lon) {
-			latitude = lat;
-			longitude = lon;
-		}
-		
-		/**
-		 * Loads a track point from a {@link DataInputStream}
-		 * @param stream the stream from which to load
-		 * @return the loaded data point
-		 * @throws IOException if anything goes wrong
-		 */
-		public static TrackPoint fromStream(DataInputStream stream) throws IOException {
-			return new TrackPoint(stream.readDouble(), stream.readDouble());
-		}
-		
-		/**
-		 * Writes the current track point to the data output stream
-		 * @param stream target stream
-		 * @throws IOException
-		 */
-		public void toStream(DataOutputStream stream) throws IOException {
-			stream.writeDouble(latitude);
-			stream.writeDouble(longitude);
-		}
-		
-		@Override
-		public int getLat() { return (int) (latitude * 1E7); }
-		@Override
-		public int getLon() { return (int) (longitude * 1E7); }
-		
-		public double getLatitude()  { return latitude; }
-		public double getLongitude() { return longitude; }
-		// public long   getTime()        { return time; }
-
-		// public boolean hasAccuracy() { return accuracy != null; }
-		// public boolean hasAltitude() { return altitude != null; }
-		// public boolean hasBearing()  { return bearing != null; }
-		// public boolean hasSpeed()    { return speed != null; }
-		
-		// public float  getAccuracy() { return accuracy != null ? accuracy : 0f; }
-		// public double getAltitude() { return altitude != null ? altitude : 0d; }
-		// public float  getBearing()  { return bearing != null  ? bearing  : 0f; }
-		// public float  getSpeed()    { return speed != null    ? speed    : 0f; }
-		
-		/**
-		 * @return a string representing a GPX trkpt element
-		 */
-		public String toGPXString() {
-			return String.format(Locale.US, "<trkpt lat=\"%f\" lon=\"%f\" />", latitude, longitude);
-		}
-		
-		@Override
-		public String toString() {
-			return String.format(Locale.US, "%f, %f", latitude, longitude);			
-		}
-	}
-
-	/**
 	 * Saves and closes the track. The object should not be used afterwards, as saving will be disabled.
 	 * The save file will never be accessed by this object again, and isOpen will be set to false.
 	 * This will allow to open the track again.
@@ -408,5 +330,177 @@ public class Track {
 		isOpen = false;
 		Log.i(TAG,"Track closed");
 		loadingLock.unlock();
+	}
+
+	/**
+	 * Call each time a new segment should be created.
+	 */
+	public void markNewSegment() {
+		nextIsNewSegment = true;
+	}
+	
+	/**
+	 * Writes GPX data to the output stream.
+	 */
+	public void exportToGPX(OutputStream outputStream) throws Exception {
+		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
+		serializer.setOutput(outputStream, "utf8");
+		serializer.startDocument("utf8", null);
+		serializer.startTag("", "gpx");
+		serializer.attribute("", "version", "1.0");
+		serializer.attribute("", "creator", "Vespucci");
+		serializer.startTag("", "trk");
+		serializer.startTag("", "trkseg");
+		boolean hasPoints = false;
+		for (TrackPoint pt : getTrackPoints()) {
+			if (hasPoints && pt.isNewSegment()) {
+				// start new segment
+				serializer.endTag("", "trkseg");
+				serializer.startTag("", "trkseg");				
+			}
+			hasPoints = true;
+			pt.toXml(serializer);
+		}
+		serializer.endTag("", "trkseg");
+		serializer.endTag("", "trk");
+		serializer.endTag("", "gpx");
+		serializer.endDocument();
+	}
+
+	/**
+	 * This is a class to store location points and provide storing/serialization for them.
+	 * Everything considered less relevant is commented out to save space.
+	 * If you chose that this should be included in the GPX, uncomment it,
+	 * increment {@link #FORMAT_VERSION}, set the correct {@link #RECORD_SIZE}
+	 * and rewrite {@link #fromStream(DataInputStream)}, {@link #toStream(DataOutputStream)}
+	 * and {@link #getGPXString()}.
+	 * 
+	 * @author Jan
+	 */
+	public static class TrackPoint implements InterruptibleGeoPoint {
+		
+		private static final SimpleDateFormat ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+		private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		
+		
+		public static final int FORMAT_VERSION = 2;
+		public static final int RECORD_SIZE = 1+4*8;
+		
+		public static final byte FLAG_NEWSEGMENT = 1;
+		public final byte flags;
+		public final double latitude;
+		public final double longitude;
+		public final double altitude;
+		public final long   time;
+		// public final Float  accuracy;
+		// public final Float  bearing;
+		// public final Float  speed;
+	
+		
+		
+		public TrackPoint(Location original, boolean isNewSegment) {
+			this.flags = encodeFlags(isNewSegment);
+			this.latitude  = original.getLatitude();
+			this.longitude = original.getLongitude();
+			this.altitude  = original.hasAltitude() ? original.getAltitude() : Double.NaN;
+			this.time      = original.getTime();
+			// this.accuracy  = original.hasAccuracy() ? original.getAccuracy() : null;
+			// this.bearing   = original.hasBearing()  ? original.getBearing() : null;
+			// this.speed     = original.hasSpeed()    ? original.getSpeed() : null;
+		}
+		
+		private TrackPoint(byte flags, double latitude, double longitude, double altitude, long time) {
+			this.flags = flags;
+			this.latitude = latitude;
+			this.longitude = longitude;
+			this.altitude = altitude;
+			this.time = time;
+		}
+		
+		/**
+		 * Loads a track point from a {@link DataInputStream}
+		 * @param stream the stream from which to load
+		 * @return the loaded data point
+		 * @throws IOException if anything goes wrong
+		 */
+		public static TrackPoint fromStream(DataInputStream stream) throws IOException {
+			return new TrackPoint(
+					stream.readByte(),   // flags
+					stream.readDouble(), //lat
+					stream.readDouble(), //lon
+					stream.readDouble(), //alt
+					stream.readLong()    // time
+				);
+		}
+		
+		/**
+		 * Writes the current track point to the data output stream
+		 * @param stream target stream
+		 * @throws IOException
+		 */
+		public void toStream(DataOutputStream stream) throws IOException {
+			stream.writeByte(flags);
+			stream.writeDouble(latitude);
+			stream.writeDouble(longitude);
+			stream.writeDouble(altitude);
+			stream.writeLong(time);
+		}
+		
+		@Override
+		public int getLat() { return (int) (latitude * 1E7); }
+		@Override
+		public int getLon() { return (int) (longitude * 1E7); }
+		
+		public double getLatitude()  { return latitude; }
+		public double getLongitude() { return longitude; }
+		public long   getTime()        { return time; }
+	
+		public boolean hasAltitude() { return altitude != Double.NaN; }
+		// public boolean hasAccuracy() { return accuracy != null; }
+		// public boolean hasBearing()  { return bearing != null; }
+		// public boolean hasSpeed()    { return speed != null; }
+		
+		public double getAltitude() { return altitude != Double.NaN ? altitude : 0d; }
+		// public float  getAccuracy() { return accuracy != null ? accuracy : 0f; }
+		// public float  getBearing()  { return bearing != null  ? bearing  : 0f; }
+		// public float  getSpeed()    { return speed != null    ? speed    : 0f; }
+		
+		private byte encodeFlags(boolean isNewSegment) {
+			byte result = 0;
+			if (isNewSegment) result += FLAG_NEWSEGMENT;
+			return result;
+		}
+		
+		public boolean isNewSegment() {
+			return (flags & FLAG_NEWSEGMENT) > 0;
+		}
+		
+		/**
+		 * Adds a GPX trkpt (track point) tag to the given serializer (synchronized due to use of calendarInstance)
+		 * @param serializer the xml serializer to use for output
+		 * @throws IOException
+		 */
+		public synchronized void toXml(XmlSerializer serializer) throws IOException {
+			serializer.startTag("", "trkpt");
+			serializer.attribute("", "lat", String.format(Locale.US, "%f", latitude));
+			serializer.attribute("", "lon", String.format(Locale.US, "%f", longitude));
+			calendarInstance.setTimeInMillis(time);
+			String timestamp = ISO8601FORMAT.format(new Date(time));
+			serializer.startTag("", "time").text(timestamp).endTag("", "time");
+			if (hasAltitude()) {
+				serializer.startTag("", "ele").text(String.format(Locale.US, "%f", altitude)).endTag("", "ele");
+			}
+			serializer.endTag("", "trkpt");
+		}
+		
+		@Override
+		public String toString() {
+			return String.format(Locale.US, "%f, %f", latitude, longitude);			
+		}
+
+		@Override
+		public boolean isInterrupted() {
+			return isNewSegment();
+		}
 	}
 }
