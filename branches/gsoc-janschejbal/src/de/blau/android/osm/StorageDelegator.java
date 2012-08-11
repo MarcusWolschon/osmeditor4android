@@ -21,7 +21,7 @@ import de.blau.android.util.SavingHelper;
 
 public class StorageDelegator implements Serializable {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 
 	private Storage currentStorage;
 
@@ -43,6 +43,13 @@ public class StorageDelegator implements Serializable {
 
 	private transient SavingHelper<StorageDelegator> savingHelper = new SavingHelper<StorageDelegator>();
 
+	/**
+	 * A OsmElementFactory that is used to create new elements.
+	 * Needs to be persisted together with currentStorage/apiStorage to avoid duplicate IDs
+	 * when the application is restarted after some elements have been created.
+	 */
+	private OsmElementFactory factory;
+
 	public void setCurrentStorage(final Storage currentStorage) {
 		dirty = true;
 		this.apiStorage = new Storage();
@@ -59,6 +66,7 @@ public class StorageDelegator implements Serializable {
 		apiStorage = new Storage();
 		currentStorage = new Storage();
 		undo = new UndoStorage(currentStorage, apiStorage);
+		factory = new OsmElementFactory();
 	}
 
 	/**
@@ -68,6 +76,16 @@ public class StorageDelegator implements Serializable {
 	 */
 	public UndoStorage getUndo() {
 		return undo;
+	}
+	
+	/**
+	 * Get the current OsmElementFactory instance used by this delegator.
+	 * Use only the factory returned by this to create new element IDs for insertion into this delegator!
+	 * For immediate use only - DO NOT CACHE THIS.
+	 * @return the OsmElementFactory for creating nodes/ways with new IDs
+	 */
+	public OsmElementFactory getFactory() {
+		return factory;
 	}
 
 	public void insertElementSafe(final OsmElement elem) {
@@ -110,7 +128,7 @@ public class StorageDelegator implements Serializable {
 		// undo - nothing done here, way gets saved/marked on insert
 		dirty = true;
 		
-		Way way = OsmElementFactory.createWayWithNewId();
+		Way way = factory.createWayWithNewId();
 		way.addNode(firstWayNode);
 		insertElementUnsafe(way);
 		return way;
@@ -208,7 +226,7 @@ public class StorageDelegator implements Serializable {
 		apiStorage.insertElementSafe(way);
 
 		// create the new way
-		Way newWay = OsmElementFactory.createWayWithNewId();
+		Way newWay = factory.createWayWithNewId();
 		newWay.updateState(OsmElement.STATE_CREATED);
 		newWay.addTags(way.getTags());
 		for (Node wayNode : nodesForNewWay) {
@@ -372,6 +390,7 @@ public class StorageDelegator implements Serializable {
 			currentStorage = newDelegator.currentStorage;
 			apiStorage = newDelegator.apiStorage;
 			undo = newDelegator.undo;
+			factory = newDelegator.factory;
 			dirty = false; // data was just read, i.e. memory and file are in sync
 		}
 	}

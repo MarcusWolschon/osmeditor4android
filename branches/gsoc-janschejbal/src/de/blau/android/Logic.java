@@ -629,7 +629,7 @@ public class Logic {
 				//A complete new Node...
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
-				lSelectedNode = OsmElementFactory.createNodeWithNewId(lat, lon);
+				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(lSelectedNode);
 			}
 		} else {
@@ -643,7 +643,7 @@ public class Logic {
 				}
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
-				lSelectedNode = OsmElementFactory.createNodeWithNewId(lat, lon);
+				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
 				delegator.insertElementSafe(lSelectedNode);
 			} else {
@@ -789,7 +789,7 @@ public class Logic {
 			if (node == null) {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
-				node = OsmElementFactory.createNodeWithNewId(lat, lon);
+				node = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(node);
 			}
 			delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
@@ -850,7 +850,7 @@ public class Logic {
 		if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
-			return OsmElementFactory.createNodeWithNewId(lat, lon);
+			return delegator.getFactory().createNodeWithNewId(lat, lon);
 		}
 		return null;
 	}

@@ -344,26 +344,29 @@ public class Track {
 	 */
 	public void exportToGPX(OutputStream outputStream) throws Exception {
 		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-		serializer.setOutput(outputStream, "utf8");
-		serializer.startDocument("utf8", null);
-		serializer.startTag("", "gpx");
-		serializer.attribute("", "version", "1.0");
-		serializer.attribute("", "creator", "Vespucci");
-		serializer.startTag("", "trk");
-		serializer.startTag("", "trkseg");
+		serializer.setOutput(outputStream, "UTF-8");
+		serializer.startDocument("UTF-8", null);
+		serializer.startTag(null, "gpx");
+		serializer.attribute(null, "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		serializer.attribute(null, "xmlns", "http://www.topografix.com/GPX/1/0");
+		serializer.attribute(null, "xsi:schemaLocation", "http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd");
+		serializer.attribute(null, "version", "1.0");
+		serializer.attribute(null, "creator", "Vespucci");
+		serializer.startTag(null, "trk");
+		serializer.startTag(null, "trkseg");
 		boolean hasPoints = false;
 		for (TrackPoint pt : getTrackPoints()) {
 			if (hasPoints && pt.isNewSegment()) {
 				// start new segment
-				serializer.endTag("", "trkseg");
-				serializer.startTag("", "trkseg");				
+				serializer.endTag(null, "trkseg");
+				serializer.startTag(null, "trkseg");				
 			}
 			hasPoints = true;
 			pt.toXml(serializer);
 		}
-		serializer.endTag("", "trkseg");
-		serializer.endTag("", "trk");
-		serializer.endTag("", "gpx");
+		serializer.endTag(null, "trkseg");
+		serializer.endTag(null, "trk");
+		serializer.endTag(null, "gpx");
 		serializer.endDocument();
 	}
 
@@ -379,9 +382,13 @@ public class Track {
 	 */
 	public static class TrackPoint implements InterruptibleGeoPoint {
 		
-		private static final SimpleDateFormat ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+		private static final SimpleDateFormat ISO8601FORMAT;
 		private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-		
+		static {
+			// Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
+			ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+			ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+		}
 		
 		public static final int FORMAT_VERSION = 2;
 		public static final int RECORD_SIZE = 1+4*8;
@@ -481,16 +488,16 @@ public class Track {
 		 * @throws IOException
 		 */
 		public synchronized void toXml(XmlSerializer serializer) throws IOException {
-			serializer.startTag("", "trkpt");
-			serializer.attribute("", "lat", String.format(Locale.US, "%f", latitude));
-			serializer.attribute("", "lon", String.format(Locale.US, "%f", longitude));
+			serializer.startTag(null, "trkpt");
+			serializer.attribute(null, "lat", String.format(Locale.US, "%f", latitude));
+			serializer.attribute(null, "lon", String.format(Locale.US, "%f", longitude));
+			if (hasAltitude()) {
+				serializer.startTag(null, "ele").text(String.format(Locale.US, "%f", altitude)).endTag(null, "ele");
+			}
 			calendarInstance.setTimeInMillis(time);
 			String timestamp = ISO8601FORMAT.format(new Date(time));
-			serializer.startTag("", "time").text(timestamp).endTag("", "time");
-			if (hasAltitude()) {
-				serializer.startTag("", "ele").text(String.format(Locale.US, "%f", altitude)).endTag("", "ele");
-			}
-			serializer.endTag("", "trkpt");
+			serializer.startTag(null, "time").text(timestamp).endTag(null, "time");
+			serializer.endTag(null, "trkpt");
 		}
 		
 		@Override

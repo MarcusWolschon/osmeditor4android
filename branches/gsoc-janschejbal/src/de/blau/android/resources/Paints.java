@@ -95,7 +95,7 @@ public class Paints {
 
 		Paint standardPath = new Paint();
 		standardPath.setStyle(Style.STROKE);
-		// As nodes cover the line ends/joins, the line ending styles are irrelevant
+		// As nodes cover the line ends/joins, the line ending styles are irrelevant for most paints
 		// However, at least on the software renderer, the default styles (Cap = BUTT, Join = MITER)
 		// have slightly better performance than the round styles.
 
@@ -176,6 +176,8 @@ public class Paints {
 
 		paint = new Paint(standardPath);
 		paint.setColor(resources.getColor(R.color.tertiary));
+		paint.setStrokeCap(Cap.ROUND);
+		paint.setStrokeJoin(Join.ROUND);
 		paints[SELECTED_WAY] = paint;
 
 		paint = new Paint(standardPath);

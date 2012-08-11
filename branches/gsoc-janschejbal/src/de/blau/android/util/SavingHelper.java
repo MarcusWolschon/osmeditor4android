@@ -15,8 +15,15 @@ import java.util.Date;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.media.MediaScannerConnection;
+import android.media.MediaScannerConnection.MediaScannerConnectionClient;
+import android.media.MediaScannerConnection.OnScanCompletedListener;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -137,7 +144,9 @@ public class SavingHelper<T extends Serializable> {
 				} finally {
 					SavingHelper.close(outputStream);
 				}
-				return filename;	
+				// workaround for android bug - make sure export file shows up via MTP
+				triggerMediaScanner(ctx, outfile);
+				return filename;
 			}
 			
 			protected void onPostExecute(String result) {
@@ -152,7 +161,29 @@ public class SavingHelper<T extends Serializable> {
 		}.execute();
 	}
 	
-	
+	/**
+	 * Trigger the media scanner to ensure files show up in MTP.
+	 * @param context a context to use for communication with the media scanner
+	 * @param scanfile directory or file to scan
+	 */
+	@TargetApi(11)
+	public static void triggerMediaScanner(Context context, File scanfile) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) return; // API 11 - lower versions do not have MTP
+		try {
+			String path = scanfile.getCanonicalPath();
+			Log.i("SavingHelper", "Triggering media scan for " + path);
+			MediaScannerConnection.scanFile(context, new String[] {path}, null, new OnScanCompletedListener() {
+				@Override
+				public void onScanCompleted(String path, Uri uri) {
+					Log.i("SavingHelper", "Media scan completed for " + path + " URI " + uri);
+				}				
+			});
+		} catch (Exception e) {
+			Log.e("SavingHelper", "Exception when triggering media scanner", e);
+		}
+	}
+
+
 	public static interface Exportable {
 		/** Exports some data to an OutputStream */
 		public void export(OutputStream outputStream) throws Exception;
