@@ -212,7 +212,7 @@ public class Server {
 			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
 			sendPayload(connection, new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					final String action = "delete";
 					startChangeXml(serializer, action);
 					elem.toXml(serializer, changeSetId);
@@ -252,7 +252,7 @@ public class Server {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
 			sendPayload(connection, new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					startXml(serializer);
 					elem.toXml(serializer, changeSetId);
 					endXml(serializer);
@@ -316,7 +316,7 @@ public class Server {
 			connection = openConnectionForWriteAccess(getCreationUrl(elem), "PUT");
 			sendPayload(connection, new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					startXml(serializer);
 					elem.toXml(serializer, changeSetId);
 					endXml(serializer);
@@ -347,7 +347,7 @@ public class Server {
 		try {
 			XmlSerializable xmlData = new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					startXml(serializer);
 					serializer.startTag("", "changeset");
 					serializer.startTag("", "tag");

@@ -89,4 +89,12 @@
 		android:showAsAction="ifRoom"
 	/>
 	
+	<item
+		android:id="@+id/menu_help"
+		android:title="@string/menu_help"
+		android:alphabeticShortcut="h"
+		android:icon="@drawable/menu_help"
+		android:showAsAction="ifRoom"
+	/>
+		
 </menu>

@@ -22,6 +22,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
@@ -466,6 +467,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		case R.id.menu_confing:
 			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
 			return true;
+			
+		case R.id.menu_help:
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://wiki.openstreetmap.org/wiki/Vespucci/Help"));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			return true;
 
 		case R.id.menu_gps_show:
 			toggleShowGPS();
@@ -516,7 +523,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			return true;
 		
 		case R.id.menu_transfer_export:
-			// TODO js SavingHelper.asyncExport(this, logic);
+			if (logic == null || logic.delegator == null) return true;
+			SavingHelper.asyncExport(this, logic.delegator);
 			return true;
 
 		case R.id.menu_undo:

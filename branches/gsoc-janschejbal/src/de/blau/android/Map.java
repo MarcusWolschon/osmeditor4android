@@ -437,7 +437,7 @@ public class Map extends View implements IMapView {
 				canvas.drawPoint(x, y, paints.get(paintKey));
 			}
 			
-			if (showIcons && tmpPreset != null) paintNodeIcon(node, canvas, x, y);
+			if (showIcons && tmpPreset != null && paintKey != Paints.SELECTED_NODE) paintNodeIcon(node, canvas, x, y);
 		}
 	}
 	

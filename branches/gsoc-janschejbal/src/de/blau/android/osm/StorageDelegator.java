@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -18,8 +19,9 @@ import android.content.res.Resources;
 import android.util.Log;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SavingHelper.Exportable;
 
-public class StorageDelegator implements Serializable {
+public class StorageDelegator implements Serializable, Exportable {
 
 	private static final long serialVersionUID = 3L;
 
@@ -491,17 +493,61 @@ public class StorageDelegator implements Serializable {
 		}
 	}
 	
-	public void exportOsmChangeFile() {
-		// TODO js implement? (osmchange or JOSM?)
-		/*
+	/**
+	 * Exports changes as a OsmChange file. 
+	 */
+	@Override
+	public void export(OutputStream outputStream) throws Exception {
 		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-		serializer.setOutput(outputStream, "utf8");
-		serializer.startDocument("utf8", null);
-		serializer.startTag("", "osmChange");
-		serializer.attribute("", "name", "val");
+		serializer.setOutput(outputStream, "UTF-8");
+		serializer.startDocument("UTF-8", null);
+		serializer.startTag(null, "osmChange");
+		serializer.attribute(null, "generator", "Vespucci");
+		serializer.attribute(null, "version", "0.6");
 		
-		serializer.endTag("", "osmChange");
+		ArrayList<OsmElement> createdElements = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> modifiedElements = new ArrayList<OsmElement>();
+		ArrayList<OsmElement> deletedElements = new ArrayList<OsmElement>();
+		
+		for (OsmElement elem : apiStorage.getNodes()) {
+			switch (elem.state) {
+			case OsmElement.STATE_CREATED:   createdElements.add(elem);   break;
+			case OsmElement.STATE_MODIFIED:  modifiedElements.add(elem);  break;
+			case OsmElement.STATE_DELETED:   deletedElements.add(elem);   break;
+			}
+		}
+		for (OsmElement elem : apiStorage.getWays()) {
+			switch (elem.state) {
+			case OsmElement.STATE_CREATED:   createdElements.add(elem);   break;
+			case OsmElement.STATE_MODIFIED:  modifiedElements.add(elem);  break;
+			case OsmElement.STATE_DELETED:   deletedElements.add(elem);   break;
+			}
+		}
+
+		if (!createdElements.isEmpty()) {
+			serializer.startTag(null, "create");
+			for (OsmElement elem : createdElements) elem.toXml(serializer, null);
+			serializer.endTag(null, "create");
+		}
+
+		if (!modifiedElements.isEmpty()) {
+			serializer.startTag(null, "modify");
+			for (OsmElement elem : modifiedElements) elem.toXml(serializer, null);
+			serializer.endTag(null, "modify");
+		}
+				
+		if (!deletedElements.isEmpty()) {
+			serializer.startTag(null, "delete");
+			for (OsmElement elem : deletedElements) elem.toXml(serializer, null);
+			serializer.endTag(null, "delete");
+		}
+		
+		serializer.endTag(null, "osmChange");
 		serializer.endDocument();
-		*/
+	}
+
+	@Override
+	public String exportExtension() {
+		return "osc";
 	}
 }

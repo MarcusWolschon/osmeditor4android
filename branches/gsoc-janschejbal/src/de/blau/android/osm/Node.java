@@ -79,11 +79,11 @@ public class Node extends OsmElement implements GeoPoint {
 	}
 
 	@Override
-	public void toXml(final XmlSerializer s, final long changeSetId)
+	public void toXml(final XmlSerializer s, final Long changeSetId)
 			throws IllegalArgumentException, IllegalStateException, IOException {
 		s.startTag("", "node");
 		s.attribute("", "id", Long.toString(osmId));
-		s.attribute("", "changeset", Long.toString(changeSetId));
+		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
 		s.attribute("", "lat", Double.toString((double) (lat / 1E7)));
 		s.attribute("", "lon", Double.toString((double) (lon / 1E7)));

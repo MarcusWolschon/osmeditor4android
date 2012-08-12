@@ -59,11 +59,11 @@ public class Way extends OsmElement {
 	}
 
 	@Override
-	public void toXml(final XmlSerializer s, final long changeSetId) throws IllegalArgumentException,
+	public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException,
 			IllegalStateException, IOException {
 		s.startTag("", "way");
 		s.attribute("", "id", Long.toString(osmId));
-		s.attribute("", "changeset", Long.toString(changeSetId));
+		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
 
 		for (Node node : nodes) {

@@ -80,6 +80,7 @@
 	<string name="menu_edit">Upravit</string>
 	<string name="menu_add">Nový</string>
 	<string name="menu_config">Nastavení</string>
+	<string name="menu_help">Nápověda</string>
 	<string name="menu_erase">Smazat</string>
 	<string name="menu_append">Přidat</string>
 	<string name="menu_tag">Upravit tagy</string>
