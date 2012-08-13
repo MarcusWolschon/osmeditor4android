@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Track;
@@ -101,6 +102,9 @@ public class TrackerService extends Service implements LocationListener, Exporta
 		startForeground(R.id.notification_tracker, notificationBuilder.getNotification());
 		tracking = true;
 		track.markNewSegment();
+		try {
+			Application.mainActivity.invalidateOptionsMenu();
+		} catch (Exception e) {} // ignore
 		updateGPSState();
 	}
 	

@@ -386,6 +386,7 @@ public class Logic {
 		viewBox.setRatio((float) map.getWidth() / map.getHeight());
 		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
 		map.invalidate();
+		UndoStorage.updateIcon();
 	}
 
 	/**
@@ -951,6 +952,7 @@ public class Logic {
 				if (result != 0) {
 					Application.mainActivity.showDialog(result);
 				}
+				UndoStorage.updateIcon();
 			}
 			
 		}.execute();
@@ -1047,6 +1049,7 @@ public class Logic {
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 				map.invalidate();
+				UndoStorage.updateIcon();
 			}
 			
 		}.execute();

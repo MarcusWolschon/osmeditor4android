@@ -10,6 +10,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.Logic;
 
 /**
@@ -27,6 +28,9 @@ import de.blau.android.Logic;
  * On undo, the state is restored. This includes not only the values of the element, but also to its presence
  * in the currentStorage and apiStorage. For this reason, the state includes whether the element was in each
  * of the storages, and on undo, it will be added or deleted if necessary.
+ * 
+ * Avoid calling functions that change the state from other threads except the main one.
+ * This may mess up your menu due to calls to updateIcon. You have been warned.
  * 
  * @author Jan Schejbal
  */
@@ -58,6 +62,16 @@ public class UndoStorage implements Serializable {
 	}
 	
 	/**
+	 * Updates the "undo" icon visibility by invalidating the menu.
+	 * Avoid calling this off the main thread, or bad things may happen to your menu.
+	 */
+	public static void updateIcon() {
+		try {
+			Application.mainActivity.invalidateOptionsMenu();
+		} catch (Exception e) {} // ignore
+	}
+
+	/**
 	 * Call to create a new checkpoint. When the user performs an undo operation, 
 	 * the state will be reverted to what it was at the last checkpoint.
 	 * Checkpoints should NOT be created checkpoints for changes that are made as part of other operations.
@@ -76,6 +90,7 @@ public class UndoStorage implements Serializable {
 		while (undoCheckpoints.size() > 100) {
 			undoCheckpoints.removeFirst();
 		}
+		updateIcon();
 	}
 	
 	/**
@@ -91,6 +106,7 @@ public class UndoStorage implements Serializable {
 		}
 		undoCheckpoints.getLast().add(element);
 		redoCheckpoints.clear();
+		updateIcon();
 	}
 	
 	/**
@@ -108,6 +124,7 @@ public class UndoStorage implements Serializable {
 		Checkpoint redoPoint = new Checkpoint(name);
 		undoCheckpoints.removeLast().restore(redoPoint);
 		redoCheckpoints.add(redoPoint);
+		updateIcon();
 		return name;
 	}
 	
@@ -126,6 +143,7 @@ public class UndoStorage implements Serializable {
 		Checkpoint reundoPoint = new Checkpoint(name);
 		redoCheckpoints.removeLast().restore(reundoPoint);
 		undoCheckpoints.add(reundoPoint);
+		updateIcon();
 		return name;
 	}
 	
@@ -150,6 +168,7 @@ public class UndoStorage implements Serializable {
 	protected void clear() {
 		undoCheckpoints.clear();
 		redoCheckpoints.clear();
+		updateIcon();
 	}
 
 

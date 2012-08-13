@@ -247,7 +247,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (api == null || api.preset == null || api.preset.equals("")) return null;
 		PresetInfo presetinfo = getPreset(api.preset);
 		try {
-			return new Preset(context, getPresetDirectory(presetinfo.id));
+			if (presetinfo.url.startsWith("apk:")) {
+				return new Preset(context, getPresetDirectory(presetinfo.id), presetinfo.url.substring(4));
+			} else {
+				return new Preset(context, getPresetDirectory(presetinfo.id), null);
+			}
 		} catch (Exception e) {
 			Log.e(LOGTAG, "Failed to create preset", e);
 			return null;

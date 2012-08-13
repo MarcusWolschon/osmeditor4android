@@ -450,6 +450,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
+		undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
 		View undoView = undo.getActionView();
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);

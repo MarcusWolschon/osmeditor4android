@@ -14,7 +14,6 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -109,9 +108,10 @@ public class Preset {
 	 * Creates a preset object
 	 * @param ctx context (used for preset loading)
 	 * @param directory directory to load/store preset data (XML, icons, MRUs)
+	 * @param name of external package containing preset assets
 	 * @throws Exception
 	 */
-	public Preset(Context ctx, File directory) throws Exception {
+	public Preset(Context ctx, File directory, String externalPackage) throws Exception {
 		this.directory = directory;
 		rootGroup = new PresetGroup(null, "", null);
 		
@@ -119,13 +119,19 @@ public class Preset {
 		
 		InputStream fileStream;
 		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-			fileStream = ctx.getResources().openRawResource(R.raw.presets);
-			this.iconManager = new PresetIconManager(ctx, null);
+			Log.i("Preset", "Loading default preset");
+			this.iconManager = new PresetIconManager(ctx, null, null);
+			fileStream = iconManager.openAsset(PRESETXML, true);
+		} else if (externalPackage != null) {
+			Log.i("Preset", "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
+			this.iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
+			fileStream = iconManager.openAsset(PRESETXML, false);
 		} else {
+			Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
+			this.iconManager = new PresetIconManager(ctx, directory.toString(), null);
 			fileStream = new FileInputStream(new File(directory, PRESETXML));
-			this.iconManager = new PresetIconManager(ctx, directory.toString());
 		}
-
+		
 		DigestInputStream hashStream = new DigestInputStream(
 				fileStream,
 				MessageDigest.getInstance("SHA-256"));
