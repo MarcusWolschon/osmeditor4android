@@ -59,6 +59,7 @@ public class Preset {
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
 	private static final String MRUFILE = "mru.dat";
+	public static final String APKPRESET_URLPREFIX = "apk:";
 	
 	/** The directory containing all data (xml, MRU data, images) about this preset */
 	private File directory;

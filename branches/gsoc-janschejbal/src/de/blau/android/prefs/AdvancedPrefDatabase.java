@@ -247,8 +247,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (api == null || api.preset == null || api.preset.equals("")) return null;
 		PresetInfo presetinfo = getPreset(api.preset);
 		try {
-			if (presetinfo.url.startsWith("apk:")) {
-				return new Preset(context, getPresetDirectory(presetinfo.id), presetinfo.url.substring(4));
+			if (presetinfo.url.startsWith(Preset.APKPRESET_URLPREFIX)) {
+				return new Preset(context, getPresetDirectory(presetinfo.id),
+						presetinfo.url.substring(Preset.APKPRESET_URLPREFIX.length()));
 			} else {
 				return new Preset(context, getPresetDirectory(presetinfo.id), null);
 			}

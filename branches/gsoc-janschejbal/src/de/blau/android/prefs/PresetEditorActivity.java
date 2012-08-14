@@ -9,8 +9,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.actionbarsherlock.view.Menu;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -19,16 +17,10 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import android.widget.Toast;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
@@ -111,6 +103,11 @@ public class PresetEditorActivity extends URLListEditActivity {
 		presetDir.mkdir();
 		if (!presetDir.isDirectory()) throw new RuntimeException("Could not create preset directory " + presetDir.getAbsolutePath());
 
+		if (item.value.startsWith(Preset.APKPRESET_URLPREFIX)) {
+			PresetEditorActivity.super.sendResultIfApplicable(item);
+			return;
+		}
+		
 		new AsyncTask<Void, Integer, Integer>() {
 			private ProgressDialog progress;
 			private boolean canceled = false;
