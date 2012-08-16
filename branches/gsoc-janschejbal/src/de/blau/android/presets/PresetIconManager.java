@@ -14,6 +14,12 @@ import android.util.Log;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 
+/**
+ * This class manages loading of Preset icons and asset files.
+ * Please see Preset.java for an explanation of possible data sources. 
+ * @author Jan
+ *
+ */
 public class PresetIconManager {
 	/** context of own application */
 	private final Context context;

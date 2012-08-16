@@ -328,7 +328,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		logic.setSelectedBug(null);
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
-		
+
+		if (tracker != null) tracker.setListener(this);
+
 		setShowGPS(showGPS); // reactive GPS listener if needed
 		setFollowGPS(followGPS);
 	}
@@ -339,10 +341,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		runningInstance = null;
 		disableLocationUpdates();
 		if (tracker != null) tracker.setListener(null);
-		
-		if (showGPS) {
-			
-		}
 
 		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
 		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.

@@ -47,7 +47,8 @@
 	<string name="toast_file_openstreetbug">Tap inside map to file OpenStreetBug</string>
 	<string name="toast_export_failed">Export failed</string>
 	<string name="toast_export_success">Exported to %1$s</string>
-	
+	<string name="toast_preset_overwrote_tags">Notice - preset overwrote tag(s)</string>
+		
 	<!-- ErrorMailer  -->
 	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
 	<string name="error_email_chooser_title">Send Mail via:</string>

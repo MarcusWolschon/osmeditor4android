@@ -38,7 +38,8 @@
 	<string name="toast_file_openstreetbug">Karte bezühren um OpenStreetBug anzulegen</string>
 	<string name="toast_export_failed">Export fehlgeschlagen</string>
 	<string name="toast_export_success">Exportiert nach %1$s</string>
-	
+	<string name="toast_preset_overwrote_tags">Achtung - die Vorlage hat ein oder mehrere Tags überschrieben</string>
+		
 	<!-- ErrorMailer  -->
 	<string name="error_email_message">"Hey Matthias,\n\nkönntest Du Dir mal folgende Fehlermeldung ansehen?\n\n"</string>
 	<string name="error_email_chooser_title">Sende Mail via:</string>

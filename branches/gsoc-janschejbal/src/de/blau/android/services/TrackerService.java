@@ -160,18 +160,24 @@ public class TrackerService extends Service implements LocationListener, Exporta
 
 	@Override
 	public void onLocationChanged(Location location) {
+		Log.v(TAG, "Location received");
 		if (tracking && (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY)) {
 			track.addTrackPoint(location);
 		}
-		if (externalListener != null) externalListener .onLocationChanged(location);
+		if (externalListener != null) externalListener.onLocationChanged(location);
 		lastLocation = location;
 	}
 
 	@Override
-	public void onProviderDisabled(String provider) {}
+	public void onProviderDisabled(String provider) {
+		Log.d(TAG, "Provider disabled: " + provider);
+		gpsEnabled = false;
+		locationManager.removeUpdates(this);
+	}
 
 	@Override
-	public void onProviderEnabled(String provider) {}
+	public void onProviderEnabled(String provider) {
+	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -183,6 +189,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 	private void updateGPSState() {
 		boolean needed = listenerNeedsGPS || tracking;
 		if (needed && !gpsEnabled) {
+			Log.d(TAG, "Enabling GPS updates");
 			Preferences prefs = new Preferences(this);
 			try {
 				Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -197,6 +204,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 			}
 			gpsEnabled = true;
 		} else if (!needed && gpsEnabled) {
+			Log.d(TAG, "Disabling GPS updates");
 			locationManager.removeUpdates(this);
 			gpsEnabled = false;
 		}

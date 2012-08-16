@@ -45,12 +45,44 @@ import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.views.WrappingLayout;
 
 /**
  * This class loads and represents JOSM preset files.
+ * 
+ * Presets can come from one of three sources:
+ * a) the default preset, which is loaded from the default asset locations (see below)
+ * b) an APK-based preset, which is loaded from an APK
+ * c) a downloaded preset, which is downloaded to local storage by {@link PresetEditorActivity}
+ * 
+ * For APK-based presets, the APK must have a "preset.xml" file in the asset directory,
+ * and may have images in the "images" subdirectory in the asset directory.
+ * A preset is considered APK-based if the constructor receives a package name.
+ * In the preset editor, use the package name prefixed by the {@link APKPRESET_URLPREFIX}
+ * to specify an APK preset.
+ * 
+ * The preset.xml is loaded from the following sources:
+ * a) for the default preset, "preset.xml" in the default asset locations
+ * b) for APK-based presets, "preset.xml" in the APK asset directory
+ * c) for downloaded presets, "preset.xml" in the preset data directory
+ * 
+ * Icons referenced in the XML preset definition by relative URL are loaded from the following locations:
+ *  1. If a package name is given and the APK contains a matching asset, from the asset ("images/" is prepended to the path)
+ *  2. Otherwise, from the default asset location (see below, "images/" is prepended to the path)
+ * 
+ * Icons referenced in the XML preset by a http or https URL are loaded from the presets data directory,
+ * where they should be placed under a name derived from the URL hash by {@link PresetEditorActivity}.
+ * Default and APK presets cannot have http/https icons.
+ * 
+ * If an asset needs to be loaded from the default asset locations, the loader checks for the existence
+ * of an APK with the package name specified in {@link PresetIconManager#EXTERNAL_DEFAULT_ASSETS_PACKAGE}.
+ * If this package exists and contains a matching asset, it is loaded from there.
+ * Otherwise, it is loaded from the Vespucci asset directory.
+ * The external default assets package just needs an asset directory that can contain a preset.xml and/or image directory.
+ * 
  * @author Jan Schejbal
  */
 public class Preset {
@@ -106,10 +138,10 @@ public class Preset {
 	protected final PresetMRUInfo mru;
 	
 	/**
-	 * Creates a preset object
+	 * Creates a preset object.
 	 * @param ctx context (used for preset loading)
 	 * @param directory directory to load/store preset data (XML, icons, MRUs)
-	 * @param name of external package containing preset assets
+	 * @param name of external package containing preset assets for APK presets, null for other presets
 	 * @throws Exception
 	 */
 	public Preset(Context ctx, File directory, String externalPackage) throws Exception {
@@ -194,6 +226,7 @@ public class Preset {
             		if (!inOptionalSection) {
             			currentItem.addTag(attr.getValue("key"), attr.getValue("value"));
             		} else {
+            			// Optional fixed tags should not happen, their values will NOT be automatically inserted.
             			currentItem.addTag(true, attr.getValue("key"), attr.getValue("value"));
             		}
             	} else if (name.equals("text")) {

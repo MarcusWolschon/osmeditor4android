@@ -35,6 +35,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
@@ -304,7 +305,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				rowLayout.removeAllViews();
 				loadEdits(last);					
 			}
 		});
@@ -316,7 +316,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				rowLayout.removeAllViews();
 				loadEdits(originalTags);
 			}
 		});
@@ -410,6 +409,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 */
 	protected void loadEdits(final Map<String,String> tags) {
 		loaded = false;
+		rowLayout.removeAllViews();
 		for (Entry<String, String> pair : tags.entrySet()) {
 			insertNewEdit(pair.getKey(), pair.getValue(), -1);
 		}
@@ -793,13 +793,24 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 */
 	private void applyPreset(PresetItem item) {
 		autocompletePresetItem = item;
-		int pos = 0;
+		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+
+		boolean replacedValue = false;	
+		
+		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
-			insertNewEdit(tag.getKey(), tag.getValue(), pos++);
+			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
+			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) replacedValue = true;
 		}
+		
+		// Recommended tags, no fixed value is given. We add only those that do not already exist.
 		for (Entry<String, String[]> tag : item.getRecommendedTags().entrySet()) {
-			insertNewEdit(tag.getKey(), "", pos++);
+			if (!currentValues.containsKey(tag.getKey())) currentValues.put(tag.getKey(), "");
 		}
+		
+		loadEdits(currentValues);
+		if (replacedValue) Toast.makeText(this, R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
+		
 		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().putRecentlyUsed(item);
 		recreateRecentPresetView();
 	}
