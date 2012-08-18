@@ -482,7 +482,7 @@ public class EasyEditManager {
 		 */
 		private void showHistory() {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse(main.getBaseURL()+"browse/"+(isWay?"way":"node")+"/"+getElement().getOsmId()));
+			intent.setData(Uri.parse(main.getBaseURL()+"browse/"+(isWay?"way":"node")+"/"+getElement().getOsmId()+"/history"));
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			main.startActivity(intent);
 		}

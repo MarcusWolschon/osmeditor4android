@@ -55,5 +55,6 @@
                 <data android:scheme="osmprefs"/>
             </intent-filter>	    
 		</activity>
+		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar"></activity>
 	</application>
 </manifest> 

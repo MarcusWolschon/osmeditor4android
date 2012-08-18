@@ -160,7 +160,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 
 	@Override
 	public void onLocationChanged(Location location) {
-		Log.v(TAG, "Location received");
+		//Log.v(TAG, "Location received");
 		if (tracking && (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY)) {
 			track.addTrackPoint(location);
 		}

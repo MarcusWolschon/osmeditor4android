@@ -91,4 +91,11 @@
 			android:defaultValue="5.0"
 		/>
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/config_category_info">
+		<Preference
+			android:title="@string/config_licensebutton_title"
+			android:summary="@string/config_licensebutton_summary"
+			android:key="@string/config_licensebutton_key"
+		/>		
+	</PreferenceCategory>
 </PreferenceScreen>

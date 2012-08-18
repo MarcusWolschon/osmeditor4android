@@ -8,6 +8,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import de.blau.android.DialogFactory;
+import de.blau.android.LicenseViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
@@ -24,6 +25,7 @@ public class PrefEditor extends PreferenceActivity {
 	private String KEY_PREFLOGIN;
 	private String KEY_PREFPRESET;
 	private String KEY_PREFICONS;
+	private String KEY_LICENSE;
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class PrefEditor extends PreferenceActivity {
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
+		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
 		fixUpPrefs();
 	}
 	
@@ -61,7 +64,6 @@ public class PrefEditor extends PreferenceActivity {
 	private void fixUpPrefs() {
 		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
 		apipref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent intent = new Intent(PrefEditor.this, APIEditorActivity.class);
@@ -92,6 +94,16 @@ public class PrefEditor extends PreferenceActivity {
 				return true;
 			}
 		});
+
+		Preference licensepref = getPreferenceScreen().findPreference(KEY_LICENSE);
+		licensepref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				startActivity(new Intent(PrefEditor.this, LicenseViewer.class));
+				return true;
+			}
+		});
+
 	}
 	
 

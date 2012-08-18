@@ -166,7 +166,10 @@
 	<string name="config_gps_distance_summary">The minimum distance interval for GPS notifications, in meters (float). Lower value cause more battery usage.</string>
 	<string name="config_gps_interval_title">Minimum GPS-Interval</string>
 	<string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
-	
+	<string name="config_category_info">About</string>
+	<string name="config_licensebutton_title">Authors and licenses</string>
+	<string name="config_licensebutton_summary">Show authors and license information</string>
+		
 	<!-- preset downloader messages -->
 	<string name="preset_update">Update preset</string>
 	<string name="preset_download_successful">Preset successfully downloaded</string>
@@ -192,7 +195,8 @@
 	<string name="config_loginbutton_key">loginsettings-button</string>
 	<string name="config_presetbutton_key">presetsettings-button</string>
 	<string name="config_iconbutton_key">iconsettings-button</string>
-			
+	<string name="config_licensebutton_key">licenseview-button</string>
+				
 	<string name="config_selected_api">selectedAPI</string>
 		
 	<!--  changes -->

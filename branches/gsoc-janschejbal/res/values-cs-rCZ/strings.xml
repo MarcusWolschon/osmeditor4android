@@ -142,7 +142,10 @@
 	<string name="config_gps_distance_summary">Minimální vzdálenost mezi GPS notifikacemí v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
 	<string name="config_gps_interval_title">Minimální GPS interval</string>
 	<string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
-	
+	<string name="config_category_info">Informace</string>
+	<string name="config_licensebutton_title">Autořy a licence</string>
+	<string name="config_licensebutton_summary">Zobrazit autory a licenční informace</string>
+			
 	<!-- preset downloader messages -->
 	<string name="preset_update">Aktualizovat předlohy</string>
 	<string name="preset_download_successful">Předlohy úspešně staženy.</string>
