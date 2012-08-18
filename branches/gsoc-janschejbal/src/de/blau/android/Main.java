@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -716,7 +714,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * @param data
 	 */
-	@SuppressWarnings("unchecked")
 	private void handleTagEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
 		// Read data from extras
