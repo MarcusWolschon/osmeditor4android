@@ -788,8 +788,8 @@ public class Preset {
 		Collection<String> source = null;
 		switch (type) {
 		case NODE: source = autosuggestNodes.get(key); break;
-		case WAY: source = autosuggestWays.getKeys(); break;
-		case CLOSEDWAY:source = autosuggestClosedways.getKeys(); break;
+		case WAY: source = autosuggestWays.get(key); break;
+		case CLOSEDWAY:source = autosuggestClosedways.get(key); break;
 		}
 		if (source != null) {
 			return source;

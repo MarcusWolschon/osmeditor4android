@@ -521,14 +521,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 				}
 			});
 			
-			
-			valueEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
-				@Override
-				public void onFocusChange(View v, boolean hasFocus) {
-					if (!hasFocus) return;
-				}
-			});
-			
 			View deleteIcon = findViewById(R.id.iconDelete);
 			deleteIcon.setOnClickListener(new OnClickListener() {
 				@Override

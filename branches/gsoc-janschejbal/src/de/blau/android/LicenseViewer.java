@@ -23,6 +23,7 @@ public class LicenseViewer extends SherlockActivity {
 		StringBuilder builder = new StringBuilder();
 		load("LICENSE-GPL3.txt", builder);
 		load("LICENSE-Apache.txt", builder);
+		load("josm-contributors.txt", builder);
 		textFull.setText(builder.toString());
 
 		
