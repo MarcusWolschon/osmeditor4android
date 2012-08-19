@@ -1,6 +1,11 @@
 You will need the ActionBarSherlock library, which in turn requires the "android support" library.
 
-You can find the android support lib in your SDK folder in extras/android/compatibilty/v4
+The code was tested with ABS 4.1.0 and support library revision 10.
+
+You can find the android support lib in your SDK folder in extras/android/compatibilty/v4.
+Link the JAR into the libs folder in Eclipse.
+You may need to replace the outdated version in the ActionBarSherlock project with a current link.
+
 I have also included the annotations.jar from android-sdk/tools/support, I don't know if it's required.
 
 ActionBarSherlock can be obtained at https://github.com/JakeWharton/ActionBarSherlock/ or http://actionbarsherlock.com/
