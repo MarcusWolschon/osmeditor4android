@@ -9,8 +9,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 
 /**
  * This class provides undo support.
@@ -65,9 +65,7 @@ public class UndoStorage implements Serializable {
 	 * Avoid calling this off the main thread, or bad things may happen to your menu.
 	 */
 	public static void updateIcon() {
-		try {
-			Application.mainActivity.invalidateOptionsMenu();
-		} catch (Exception e) {} // ignore
+		Main.triggerMenuInvalidationStatic();
 	}
 
 	/**
@@ -158,16 +156,6 @@ public class UndoStorage implements Serializable {
 	 */
 	public boolean canRedo() {
 		return !redoCheckpoints.isEmpty();
-	}
-	
-	
-	/**
-	 * Clears the storage, deleting all checkpoints
-	 */
-	protected void clear() {
-		undoCheckpoints.clear();
-		redoCheckpoints.clear();
-		updateIcon();
 	}
 
 

@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
 import android.util.Log;
+import de.blau.android.Main;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -80,6 +81,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		return undo;
 	}
 	
+	/**
+	 * Clears the undo storage. Must be called on the main thread due to menu invalidation.
+	 */
+	public void clearUndo() {
+		undo = new UndoStorage(currentStorage, apiStorage);
+		Main.triggerMenuInvalidationStatic();
+	}
+
 	/**
 	 * Get the current OsmElementFactory instance used by this delegator.
 	 * Use only the factory returned by this to create new element IDs for insertion into this delegator!
@@ -429,7 +438,6 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public synchronized void uploadToServer(final Server server, final String comment) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
-		undo.clear();
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		server.openChangeset(comment);
@@ -439,7 +447,6 @@ public class StorageDelegator implements Serializable, Exportable {
 		uploadDeletedElements(server, apiStorage.getNodes());
 		server.closeChangeset();
 		// yes, again, just to be sure
-		undo.clear(); 
 		dirty = true;
 	}
 

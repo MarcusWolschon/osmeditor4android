@@ -484,20 +484,20 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (tracker != null && ensureGPSProviderEnabled()) {
 				tracker.startTracking();
 				setFollowGPS(true);
-				invalidateOptionsMenu();
+				triggerMenuInvalidation();
 			}
 			return true;
 
 		case R.id.menu_gps_pause:
 			if (tracker != null && ensureGPSProviderEnabled()) {
 				tracker.stopTracking(false);
-				invalidateOptionsMenu();
+				triggerMenuInvalidation();
 			}
 			return true;
 
 		case R.id.menu_gps_clear:
 			if (tracker != null) tracker.stopTracking(true);
-			invalidateOptionsMenu();
+			triggerMenuInvalidation();
 			map.invalidate();
 			return true;
 			
@@ -539,7 +539,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			show = false;
 		}
 		showGPS = show;
-		invalidateOptionsMenu();
 		Log.d("Main", "showGPS: "+ show);
 		if (show) {
 			enableLocationUpdates();
@@ -549,6 +548,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			disableLocationUpdates();
 		}
 		map.invalidate();
+		triggerMenuInvalidation();
 	}
 	
 	/**
@@ -574,11 +574,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 	private void setFollowGPS(boolean follow) {
 		followGPS = follow;
-		invalidateOptionsMenu();
 		if (follow) {
 			setShowGPS(true);
 			if (map.getLocation() != null) onLocationChanged(map.getLocation());
 		}
+		triggerMenuInvalidation();
 	}
 	
 	private void toggleShowGPS() {
@@ -1325,7 +1325,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map.setTracker(tracker);
 		tracker.setListener(this);
 		tracker.setListenerNeedsGPS(wantLocationUpdates);
-		invalidateOptionsMenu();
+		triggerMenuInvalidation();
 	}
 
 	@Override
@@ -1334,7 +1334,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.i("Main", "Tracker service disconnected");
 		tracker = null;
 		map.setTracker(null);
-		invalidateOptionsMenu();
+		triggerMenuInvalidation();
 	}
 
 	@Override
@@ -1351,6 +1351,39 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			map.setLocation(location);
 		}
 		map.invalidate();
+	}
+	
+	
+	@Override
+	/**
+	 * DO NOT CALL DIRECTLY in custom code.
+	 * Use {@link #triggerMenuInvalidation()} to make it easier to debug and implement workarounds for android bugs.
+	 * Must be called from the main thread.
+	 */
+	public void invalidateOptionsMenu() {
+		//Log.d(DEBUG_TAG, "invalidateOptionsMenu called");
+		super.invalidateOptionsMenu();
+	}
+	
+	/**
+	 * Simply calls {@link #invalidateOptionsMenu()}.
+	 * Used to make it easier to implement workarounds.
+	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
+	 */
+	public void triggerMenuInvalidation() {
+		//Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
+		invalidateOptionsMenu(); // TODO delay or make conditional to work around android bug?
+	}
+	
+	/**
+	 * Invalidates the options menu of the main activity if such an activity exists.
+	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
+	 */
+	public static void triggerMenuInvalidationStatic() {
+		if (Application.mainActivity == null) return;
+		// DO NOT IGONORE "wrong thread" EXCEPTIONS FROM THIS.
+		// It *will* mess up your menu in many creative ways.
+		Application.mainActivity.triggerMenuInvalidation();
 	}
 
 }

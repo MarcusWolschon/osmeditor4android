@@ -1066,6 +1066,7 @@ public class Logic {
 			@Override
 			protected void onPreExecute() {
 				Application.mainActivity.setProgressBarIndeterminateVisibility(true);
+				delegator.clearUndo();
 			}
 			
 			@Override
@@ -1109,6 +1110,7 @@ public class Logic {
 			protected void onPostExecute(Integer result) {
 				Application.mainActivity.setProgressBarIndeterminateVisibility(false);
 				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
 					Application.mainActivity.showDialog(result);
