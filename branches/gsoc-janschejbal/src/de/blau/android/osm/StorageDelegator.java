@@ -297,6 +297,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(way);
 		way.reverse();
+		way.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(way);
 	}
 
 	private int removeWayNodes(final Node node) {
