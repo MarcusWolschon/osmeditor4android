@@ -3,9 +3,6 @@ package de.blau.android.services.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import de.blau.android.services.exceptions.EmptyCacheException;
-import de.blau.android.views.util.OpenStreetMapViewConstants;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +10,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import de.blau.android.services.exceptions.EmptyCacheException;
+import de.blau.android.views.util.OpenStreetMapViewConstants;
 
 /**
  * The OpenStreetMapTileProviderDataBase contains a table with info for the available renderers and one for
@@ -96,6 +95,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	// ===========================================================
 
 	public OpenStreetMapTileProviderDataBase(final Context context) {
+		Log.i("OSMTileProviderDB", "creating database instance");
 		mCtx = context;
 		mDatabase = new AndNavDatabaseHelper(context).getWritableDatabase();
 	}
@@ -227,5 +227,12 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 
 			onCreate(db);
 		}
+	}
+
+	/**
+	 * Close the DB handle
+	 */
+	public void close() {
+		mDatabase.close();
 	}
 }

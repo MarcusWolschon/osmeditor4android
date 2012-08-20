@@ -6,7 +6,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 public interface XmlSerializable {
 
-	public void toXml(XmlSerializer serializer, long changeSetId)
+	public void toXml(XmlSerializer serializer, Long changeSetId)
 			throws IllegalArgumentException, IllegalStateException, IOException;
 
 }

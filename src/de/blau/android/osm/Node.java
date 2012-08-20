@@ -10,7 +10,7 @@ import org.xmlpull.v1.XmlSerializer;
  * 
  * @author mb
  */
-public class Node extends OsmElement {
+public class Node extends OsmElement implements GeoPoint {
 	/**
 	 * 
 	 */
@@ -19,12 +19,12 @@ public class Node extends OsmElement {
 	/**
 	 * WGS84 decimal Latitude-Coordinate times 1E7.
 	 */
-	private int lat;
+	protected int lat;
 
 	/**
 	 * WGS84 decimal Longitude-Coordinate times 1E7.
 	 */
-	private int lon;
+	protected int lon;
 
 	/**
 	 * It's name in the OSM-XML-scheme.
@@ -79,15 +79,20 @@ public class Node extends OsmElement {
 	}
 
 	@Override
-	public void toXml(final XmlSerializer s, final long changeSetId)
+	public void toXml(final XmlSerializer s, final Long changeSetId)
 			throws IllegalArgumentException, IllegalStateException, IOException {
 		s.startTag("", "node");
 		s.attribute("", "id", Long.toString(osmId));
-		s.attribute("", "changeset", Long.toString(changeSetId));
+		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
 		s.attribute("", "lat", Double.toString((double) (lat / 1E7)));
 		s.attribute("", "lon", Double.toString((double) (lon / 1E7)));
 		tagsToXml(s);
 		s.endTag("", "node");
+	}
+
+	@Override
+	public ElementType getType() {
+		return ElementType.NODE;
 	}
 }

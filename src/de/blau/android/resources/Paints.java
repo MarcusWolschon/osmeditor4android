@@ -4,11 +4,11 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Typeface;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
+import android.graphics.Typeface;
 import de.blau.android.R;
 
 public class Paints {
@@ -57,7 +57,10 @@ public class Paints {
 
 	public final static int PROBLEM_NODE_THIN = 21;
 	
-	private final static int PAINT_COUNT = 22;
+	public final static int WAY_DIRECTION = 22;
+	public final static int ONEWAY_DIRECTION = 23;
+	
+	private final static int PAINT_COUNT = 24;
 		
 	private final Paint[] paints;
 
@@ -68,6 +71,11 @@ public class Paints {
 	private static final int TOLERANCE_ALPHA = 40;
 	
 	public static final Path ORIENTATION_PATH = new Path();
+	
+	/**
+	 * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes 
+	 */
+	public static final Path WAY_DIRECTION_PATH = new Path();
 	
 	public Paints(final Resources resources) {
 		paints = new Paint[PAINT_COUNT];
@@ -87,8 +95,9 @@ public class Paints {
 
 		Paint standardPath = new Paint();
 		standardPath.setStyle(Style.STROKE);
-		standardPath.setStrokeCap(Cap.ROUND);
-		standardPath.setStrokeJoin(Join.ROUND);
+		// As nodes cover the line ends/joins, the line ending styles are irrelevant for most paints
+		// However, at least on the software renderer, the default styles (Cap = BUTT, Join = MITER)
+		// have slightly better performance than the round styles.
 
 		paint = new Paint(standardPath);
 		paint.setColor(Color.BLACK);
@@ -138,6 +147,8 @@ public class Paints {
 
 		paint = new Paint(paints[WAY]);
 		paint.setColor(Color.BLUE);
+		paint.setStrokeCap(Cap.ROUND);
+		paint.setStrokeJoin(Join.ROUND);
 		paints[TRACK] = paint;
 
 		paint = new Paint(paints[WAY]);
@@ -165,6 +176,8 @@ public class Paints {
 
 		paint = new Paint(standardPath);
 		paint.setColor(resources.getColor(R.color.tertiary));
+		paint.setStrokeCap(Cap.ROUND);
+		paint.setStrokeJoin(Join.ROUND);
 		paints[SELECTED_WAY] = paint;
 
 		paint = new Paint(standardPath);
@@ -191,6 +204,17 @@ public class Paints {
 		paint.setTypeface(Typeface.SANS_SERIF);
 		paint.setTextSize(12);
 		paints[INFOTEXT] = paint;
+		
+		paint = new Paint();
+		paint.setColor(resources.getColor(R.color.ccc_red));
+		paint.setStyle(Style.STROKE);
+		paint.setStrokeCap(Cap.SQUARE);
+		paint.setStrokeJoin(Join.MITER);
+		paints[WAY_DIRECTION] = paint;
+		
+		paint = new Paint(paints[WAY_DIRECTION]);
+		paint.setColor(resources.getColor(R.color.ccc_blue));
+		paints[ONEWAY_DIRECTION] = paint;
 	}
 
 	public void setAntiAliasing(final boolean aa) {
@@ -203,7 +227,7 @@ public class Paints {
 	 * Sets the stroke width of all Elements corresponding to the width of the viewbox (=zoomfactor).
 	 */
 	public void updateStrokes(final float newStrokeWidth) {
-		paints[RAILWAY].setStrokeWidth(newStrokeWidth - 0.5f);
+		paints[RAILWAY].setStrokeWidth(newStrokeWidth * 0.7f);
 		paints[WAY].setStrokeWidth(newStrokeWidth);
 		paints[PROBLEM_WAY].setStrokeWidth(newStrokeWidth * 1.5f);
 		paints[WATERWAY].setStrokeWidth(newStrokeWidth);
@@ -227,6 +251,15 @@ public class Paints {
 		paints[SELECTED_NODE].setStrokeWidth(newStrokeWidth * 2f);
 		paints[SELECTED_WAY].setStrokeWidth(newStrokeWidth * 2f);
 		paints[GPS_POS].setStrokeWidth(newStrokeWidth * 2f);
+		
+		paints[WAY_DIRECTION].setStrokeWidth(newStrokeWidth * 0.8f);
+		paints[ONEWAY_DIRECTION].setStrokeWidth(newStrokeWidth * 0.5f);
+		
+		WAY_DIRECTION_PATH.rewind();
+		float wayDirectionPathOffset = newStrokeWidth * 2.0f;
+		WAY_DIRECTION_PATH.moveTo(-wayDirectionPathOffset, -wayDirectionPathOffset);
+		WAY_DIRECTION_PATH.lineTo(0,0);
+		WAY_DIRECTION_PATH.lineTo(-wayDirectionPathOffset, +wayDirectionPathOffset);
 	}
 
 	public Paint get(final int key) {

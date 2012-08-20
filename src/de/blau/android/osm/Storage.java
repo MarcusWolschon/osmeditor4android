@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
-
 import de.blau.android.exception.OsmException;
 
 public class Storage implements Serializable {

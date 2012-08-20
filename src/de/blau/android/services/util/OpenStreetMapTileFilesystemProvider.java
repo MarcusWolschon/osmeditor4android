@@ -12,17 +12,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.Executors;
 
-
-import de.blau.android.services.exceptions.EmptyCacheException;
-import de.blau.android.services.IOpenStreetMapTileProviderCallback;
-import de.blau.android.views.util.OpenStreetMapTileServer;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
+import de.blau.android.services.IOpenStreetMapTileProviderCallback;
+import de.blau.android.services.exceptions.EmptyCacheException;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * 
@@ -216,6 +214,13 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				finished();
 			}
 		}
+	}
+
+	/**
+	 * Call when the object is no longer needed to close the database
+	 */
+	public void destroy() {
+		mDatabase.close();
 	};
 	
 }

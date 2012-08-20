@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class Way extends OsmElement {
 	 */
 	private static final long serialVersionUID = 1104911642016294265L;
 
-	private final List<Node> nodes;
+	protected final ArrayList<Node> nodes;
 
 	public static final String NAME = "way";
 
@@ -58,11 +59,11 @@ public class Way extends OsmElement {
 	}
 
 	@Override
-	public void toXml(final XmlSerializer s, final long changeSetId) throws IllegalArgumentException,
+	public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException,
 			IllegalStateException, IOException {
 		s.startTag("", "way");
 		s.attribute("", "id", Long.toString(osmId));
-		s.attribute("", "changeset", Long.toString(changeSetId));
+		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
 
 		for (Node node : nodes) {
@@ -96,9 +97,60 @@ public class Way extends OsmElement {
 	void addNodeAfter(final Node nodeBefore, final Node newNode) {
 		nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
 	}
+	
+	/**
+	 * Adds multiple nodes to the way in the order in which they appear in the list.
+	 * They can be either prepended or appended to the existing nodes.
+	 * @param newNodes a list of new nodes
+	 * @param atBeginning if true, nodes are prepended, otherwise, they are appended
+	 */
+	void addNodes(List<Node> newNodes, boolean atBeginning) {
+		if (atBeginning) {
+			nodes.addAll(0, newNodes);
+		} else {
+			nodes.addAll(newNodes);
+		}
+	}
+	
+	/**
+	 * Reverses the direction of the way
+	 */
+	void reverse() {
+		Collections.reverse(nodes);
+	}
 
+	/**
+	 * Checks if a node is an end node of the way (i.e. either the first or the last one)
+	 * @param node a node to check
+	 * @return 
+	 */
 	public boolean isEndNode(final Node node) {
-		return nodes.get(0) == node || nodes.get(nodes.size() - 1) == node;
+		return getFirstNode() == node || getLastNode() == node;
+	}
+	
+	public Node getFirstNode() {
+		return nodes.get(0);
+	}
+
+	public Node getLastNode() {
+		return nodes.get(nodes.size() - 1);
+	}
+
+	/**
+	 * Checks if this way is tagged as oneway
+	 * @return 1 if this is a regular oneway-way (oneway:yes, oneway:true or oneway:1),
+	 *         -1 if this is a reverse oneway-way (oneway:-1 or oneway:reverse),
+	 *         0 if this is not a oneway-way (no oneway tag or tag with none of the specified values)
+	 */
+	public int getOneway() {
+		String oneway = getTagWithKey("oneway");
+		if (oneway == null) return 0;
+		if (oneway.equalsIgnoreCase("yes") || oneway.equalsIgnoreCase("true") || oneway.equals("1")) {
+			return 1;
+		} else if (oneway.equals("-1") || oneway.equalsIgnoreCase("reverse")) {
+			return -1;
+		}
+		return 0;
 	}
 	
 	/**
@@ -131,5 +183,16 @@ public class Way extends OsmElement {
 			}
 		}
 		return super.calcProblem();
+	}
+	
+	@Override
+	public ElementType getType() {
+		if (nodes.size()<2) return ElementType.WAY; // should not happen
+		
+		if (getFirstNode().equals(getLastNode())) {
+			return ElementType.CLOSEDWAY;
+		} else {
+			return ElementType.WAY;
+		}
 	}
 }

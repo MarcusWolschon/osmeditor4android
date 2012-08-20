@@ -23,6 +23,7 @@ import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.util.UglyHackForStrictMode;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.
@@ -192,6 +193,7 @@ public class OpenStreetMapTileServer {
 			imageFilenameExtension = cfgItems[0];
 			String metadataUrl = cfgItems[1];
 			touUri = (cfgItems.length > 2) ? cfgItems[2] : null;
+			
 			try {
 				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 				factory.setNamespaceAware(true);
@@ -204,6 +206,8 @@ public class OpenStreetMapTileServer {
 					is = r.openRawResource(resid);
 				} else {
 					// assume Internet URL
+					// TODO network IO must not be done on main thread - remove ugly hack after fixing (do not forget the endLegacySection below)
+					UglyHackForStrictMode.beginLegacySection();
 					URLConnection conn = new URL(replaceGeneralParameters(metadataUrl)).openConnection();
 					conn.setRequestProperty("User-Agent", Application.userAgent);
 					is = conn.getInputStream();
@@ -266,6 +270,7 @@ public class OpenStreetMapTileServer {
 			} catch (XmlPullParserException e) {
 				Log.e("Vespucci", "Tileserver problem", e);
 			}
+			UglyHackForStrictMode.endLegacySection(); // TODO remove ugly hack (see above)
 			break;
 		default:
 			tileUrl = "";
