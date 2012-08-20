@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<string name="app_name" tools:ignore="MissingTranslation">Vespucci</string>
+	<string name="app_version" tools:ignore="MissingTranslation">0.8.0dev</string>
+	<string name="app_name_version" tools:ignore="MissingTranslation">Vespucci 0.8.0dev</string>	
+
+	<!-- Dialogs -->
+	<string name="transfer_download_current_dialog_title">Caution!</string>
+	<string name="transfer_download_current_dialog_message">You have made some changes. Do you want to upload them instead of discard?</string>
+	<string name="transfer_download_current_upload">Upload</string>
+	<string name="transfer_download_current_download">Discard &amp; download</string>
+	<string name="transfer_download_current_back">Back (Do nothing)</string>
+	<string name="no_login_data_title">No login data set</string>
+	<string name="no_login_data_message">Please fill out the OSM-Login settings in the preferences form.</string>
+	<string name="no_connection_title">No Connection to Server</string>
+	<string name="no_connection_message">Could not connect to the OSM-Server. Please check your Internet connection or try again later.</string>
+	<string name="wrong_login_data_title">Wrong login data</string>
+	<string name="wrong_login_data_message">The OSM-Server could not authenticate you. Please check your login data in the preferences.</string>
+	<string name="undefined_error_title">Sorry</string>
+	<string name="undefined_error_message">Something strange happened. Would you like to send me an email with a brief description of what led to this? Thank you!</string>
+	<string name="undefined_error_sendbutton">Send Email</string>
+	<string name="progress_title">Loading</string>
+	<string name="progress_message">Loading data into memory…</string>
+	<string name="progress_download_message">Downloading data from server…</string>
+	<string name="upload_comment_label">Comment:</string>
+	<string name="openstreetbug_new_title">New OpenStreetBug</string>
+	<string name="openstreetbug_edit_title">Edit OpenStreetBug</string>
+	<string name="openstreetbug_commitbutton">Commit</string>
+	<string name="openstreetbug_comment_label">Comment:</string>
+	<string name="openstreetbug_edit_close">Close bug</string>
+	<string name="openstreetbug_commit_ok">Changes saved</string>
+	<string name="openstreetbug_commit_fail">Could not save changes</string>
+
+	<string name="unsaved_data_title">Caution!</string>
+	<string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
+	<string name="unsaved_data_proceed">Discard &amp; proceed</string>
+
+	<!-- Toaster -->
+	<string name="toast_no_changes">You have not changed anything yet…</string>
+	<string name="toast_upload_success">Upload to OSM server finished.</string>
+	<string name="toast_empty_data">There aren\'t any elements in this area. Thank you for exploring this black spot!</string>
+	<string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
+	<string name="toast_save_done">Save successful</string>
+	<string name="toast_waiting_for_gps">Waiting for GPS location…</string>
+	<string name="toast_follow_gps_off">GPS following disabled</string>
+	<string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
+	<string name="toast_file_openstreetbug">Tap inside map to file OpenStreetBug</string>
+	<string name="toast_export_failed">Export failed</string>
+	<string name="toast_export_success">Exported to %1$s</string>
+	<string name="toast_preset_overwrote_tags">Notice - preset overwrote tag(s)</string>
+		
+	<!-- ErrorMailer  -->
+	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
+	<string name="error_email_chooser_title">Send Mail via:</string>
+	
+	<!-- Some generic labels -->
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="okay">Okay</string>
+	<string name="cancel">Cancel</string>
+	
+	<!-- Strings in TagEditor -->
+	<string name="tag_title">Tags for</string>
+	<string name="key">Key:</string>
+	<string name="value">Value:</string>
+	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+	<string name="tag_menu_mapfeatures">Map Features Wiki</string>
+	<string name="sourcesurvey">source:\nsurvey</string>
+	<string name="apply_preset_button_text">Apply\npreset</string>
+	<string name="repeat_last_button_text">Repeat\nlast</string>
+	<string name="revert_button_text">Revert</string>
+				
+	
+	
+	<!-- Strings in LocationPicker -->
+	<string name="location_headline">Load Area</string>
+	<string name="location_choose_radius">Choose radius:</string>
+	<string name="location_last_text">Last known location:</string>
+	<string name="location_current_text">Current location:</string>
+	<string name="location_text_unknown">unknown</string>
+	<string name="location_last_text_parameterized">Last known location: %1$s</string>
+	<string name="location_current_text_parameterized">Current location: %1$s</string>
+	<string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+	<string name="location_text_metadata_accuracy">Accuracy %1$1g meter,</string>
+	<string name="location_map_text">From map (coming soon)</string>
+	<string name="location_coordinates_text">From coordinates:</string>
+	<string name="location_lat_label">Lat:</string>
+	<string name="location_lon_label">Lon:</string>
+	<string name="location_load_button">Load!</string>
+	<string name="location_button_no_location">Don\'t load anything</string>
+	<string name="location_label_no_location">(not recommended)</string>
+	<string name="location_nan_title">Wrong Input!</string>
+	<string name="location_nan_message">Please insert decimal formatted coordinates (eg. "52.333572","8.741185"). Lat has to lay between -85.0 and +85.0, and Lon has to lay between -175.0 and +175.0.</string>
+	
+	<!-- Menu -->
+	<string name="menu_move">Move</string>
+	<string name="menu_edit">Edit</string>
+	<string name="menu_add">New</string>
+	<string name="menu_config">Preferences</string>
+	<string name="menu_help">Help</string>
+	<string name="menu_erase">Erase node</string>
+	<string name="menu_split">Split way</string>
+	<string name="menu_append">Append</string>
+	<string name="menu_tag">Edit tags</string>
+	<string name="menu_openstreetbug">File OpenStreetBug</string>
+	<string name="menu_easyedit">EasyEdit</string>
+	<string name="menu_gps">GPS…</string>
+	<string name="menu_gps_show">Show location</string>
+	<string name="menu_gps_follow">Follow GPS position</string>
+	<string name="menu_gps_start">Start GPS track</string>
+	<string name="menu_gps_pause">Pause GPS track</string>
+	<string name="menu_gps_clear">Clear GPS track</string>
+	<string name="menu_gps_upload">Upload GPS track</string>
+	<string name="menu_gps_export">Export GPS track</string>
+	<string name="menu_transfer">Transfer…</string>
+	<string name="menu_transfer_download_current">Download current view</string>
+	<string name="menu_transfer_download_other">Download other location</string>
+	<string name="menu_transfer_upload">Upload data to OSM server</string>
+	<string name="menu_transfer_export">Export changes</string>
+	<string name="menu_save">Save to file</string>
+		
+	<!-- element action mode menu -->
+	<string name="menu_tags">Tags</string> <!-- Text should be as short as possible -->
+	<string name="menu_history">History</string>
+	<string name="menu_merge">Join ways</string>
+	<string name="menu_reverse">Reverse direction</string>
+	<string name="toast_oneway_reversed">You reversed a oneway street. Please check the oneway tag and correct if necessary.</string>
+	
+	<string name="deleteway_description">You are about to delete a way. You can either keep all nodes, or delete nodes that only belong to this way and do not have any tags.</string>
+	<string name="deleteway_wayonly">Delete way only</string>
+	<string name="deleteway_wayandnodes">Delete way and nodes</string>
+	
+	<!-- EasyEdit action mode titles -->
+	<string name="actionmode_wayselect">Way selected</string>
+	<string name="actionmode_nodeselect">Node selected</string>
+	<string name="actionmode_createpath">Creating path</string>
+					
+	<!-- Preferences -->
+	<string name="config_category_view">View Settings</string>
+	<string name="config_maxStrokeWidth_title">max stroke width</string>
+	<string name="config_maxStrokeWidth_summary">do not draw a way thicker then this</string>
+	<string name="config_showStats_title">Show stats</string>
+	<string name="config_showStats_summary">Displays data statistics and frames/sec in the lower left corner.</string>
+	<string name="config_showTolerance_title">Show tolerance</string>
+	<string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
+	<string name="config_enableAntiAliasing_title">Enable Anti-Aliasing</string>
+	<string name="config_enableAntiAliasing_summary">Makes the lines more smoothly.</string>
+	<string name="config_enableOpenStreetBugs_title">Enable OpenStreetBugs</string>
+	<string name="config_enableOpenStreetBugs_summary">Display bugs reported to OpenStreetBugs.</string>
+	<string name="config_backgroundLayer_title">Map background</string>
+	<string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
+	<string name="config_category_server">Server Settings</string>
+	<string name="config_apibutton_title">OSM API URL</string>
+	<string name="config_apibutton_summary">You can set a non-standard API URL here. Usually should not be changed!</string>
+	<string name="config_presetbutton_title">JOSM preset</string>
+	<string name="config_presetbutton_summary">You can set up map element definitions here</string>
+	<string name="config_iconbutton_title">Show node icons</string>
+	<string name="config_iconbutton_summary">Show the icon of the best-matching preset above nodes.</string>
+	<string name="config_loginbutton_title">User account</string>
+	<string name="config_username_title">OSM Username</string>
+	<string name="config_username_summary">Needed for uploading OSM-Data. If you do not have any yet, get one at http://www.openstreetmap.org/user/new</string>
+	<string name="config_password_title">OSM Password</string>
+	<string name="config_password_summary">Do not mistake it for the Wiki password. Remember: It is stored and transmitted in plain-text!</string>
+	<string name="config_category_gps">GPS Settings</string>
+	<string name="config_gps_distance_title">Minimum GPS-Distance</string>
+	<string name="config_gps_distance_summary">The minimum distance interval for GPS notifications, in meters (float). Lower value cause more battery usage.</string>
+	<string name="config_gps_interval_title">Minimum GPS-Interval</string>
+	<string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
+	<string name="config_category_info">About</string>
+	<string name="config_licensebutton_title">Authors and licenses</string>
+	<string name="config_licensebutton_summary">Show authors and license information</string>
+		
+	<!-- preset downloader messages -->
+	<string name="preset_update">Update preset</string>
+	<string name="preset_download_successful">Preset successfully downloaded</string>
+	<string name="preset_download_failed">The preset file could not be downloaded. The preset will not work.</string>
+	<string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
+	<string name="preset_download_missing_images">The preset file was successfully downloaded. However, some icons could not be downloaded and will be missing.</string>
+			
+	
+	<!-- Preference keys - DO NOT TRANSLATE OR COPY TO TRANSLATION -->
+	<string name="config_showStats_key">showStats</string>
+	<string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
+	<string name="config_showTolerance_key">showTolerance</string>
+	<string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
+	<string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
+	<string name="config_backgroundLayer_key">backgroundLayer</string>
+	<string name="config_category_server_key">category_server</string>
+	<string name="config_username_key">username</string>
+	<string name="config_password_key">password</string>
+	<string name="config_gps_distance_key">distance</string>
+	<string name="config_gps_interval_key">interval</string>
+	
+	<string name="config_apibutton_key">apisettings-button</string>
+	<string name="config_loginbutton_key">loginsettings-button</string>
+	<string name="config_presetbutton_key">presetsettings-button</string>
+	<string name="config_iconbutton_key">iconsettings-button</string>
+	<string name="config_licensebutton_key">licenseview-button</string>
+				
+	<string name="config_selected_api">selectedAPI</string>
+		
+	<!--  changes -->
+	<string name="changes_deleted">"%1$s" deleted</string>
+	<string name="changes_changed">"%1$s" changed</string>
+	<string name="changes_created">"%1$s" created</string>
+	<string name="confirm_upload_title">Upload?</string>
+	<string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
+
+	<!--  url handler activity -->
+	<string name="urldialog_add_preset">Add preset</string>
+	<string name="urldialog_preset_exists">This preset already exists</string>
+	<string name="urldialog_api_exists">An API with this URL already exists. However, you may add another one (e.g. to switch accounts easily).</string>
+	<string name="urldialog_api_preset_missing">The preset used by the API is not available. You should add it first.</string>
+	<string name="urldialog_add_api">Add API</string>
+	<string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
+	
+	
+	<!--  common terms  -->
+	<string name="add">Add</string>
+	<string name="edit">Edit</string>
+	<string name="delete">Delete</string>
+	<string name="name">Name</string>
+	<string name="url">URL</string>
+	<string name="default_">Default</string><!-- "default" is a reserved Java keyword... -->
+	<string name="preset">Preset</string>
+	<string name="api">API</string>
+	<string name="undo">Undo</string>
+	<string name="redo">Redo</string>
+		<string name="undo_nothing">nothing to undo</string>
+				
+	<string name="tracking_active_title">Recording GPS track</string>
+	<string name="tracking_active_text">Vespucci is recording a GPS track</string>
+	<string name="gps_failure">Failed to enable GPS</string>
+	
+	<!--
+		undo actions - give a description of the action, in infinitive, to display in
+		strings like "Undo: actionname" or "Redo: actionname"
+	 -->
+	<string name="undo_action_movenode">move node</string>
+	<string name="undo_action_add">insert</string>
+	<string name="undo_action_append">append</string>
+	<string name="undo_action_deletenode">delete node</string>
+	<string name="undo_action_deleteway">delete way</string>
+	<string name="undo_action_split_ways">split ways</string>
+	<string name="undo_action_split_way">split way</string>
+	<string name="undo_action_merge_ways">merge ways</string>
+	<string name="undo_action_reverse_way">reverse way</string>
+	<string name="undo_action_set_tags">set tags</string>
+											
+</resources>

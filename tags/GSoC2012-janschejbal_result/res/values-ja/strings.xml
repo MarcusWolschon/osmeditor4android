@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">Vespucci</string>
+        <string name="app_version">0.7.0</string>
+        <string name="app_name_version">Vespucci 0.7.0</string> 
+
+        <!-- Dialogs -->
+        <string name="resume_last_activity_dialog_title">再開しますか？</string>
+        <string name="resume_last_activity_dialog_message">前回の画面を再開しますか？</string>
+        <string name="transfer_download_current_dialog_title">注意！</string>
+        <string name="transfer_download_current_dialog_message">変更がありました。破棄せずにアップロードしますか？</string>
+        <string name="transfer_download_current_upload">アップロード</string>
+        <string name="transfer_download_current_download">無視 &amp; ダウンロード</string>
+        <string name="transfer_download_current_back">戻る (何もしない)</string>
+        <string name="no_login_data_title">ログイン情報がありません</string>
+        <string name="no_login_data_message">設定フォーム内のOSM-ログイン設定を入力してください。</string>
+        <string name="no_connection_title">サーバに接続していません</string>
+        <string name="no_connection_message">OSMサーバに接続できませんでした。インターネット接続を確認してやり直してください。</string>
+        <string name="wrong_login_data_title">ログイン情報誤り</string>
+        <string name="wrong_login_data_message">OSMサーバはあなたを認証できませんでした。設定内のログイン情報をチェックしてください。</string>
+        <string name="undefined_error_title">申し訳ありません</string>
+        <string name="undefined_error_message">何か異常が発生しました。発生手順を簡単に書いてメールを送ってもらえませんか？ありがとう！</string>
+        <string name="undefined_error_sendbutton">メールを送信</string>
+        <string name="progress_title">ロード中</string>
+        <string name="progress_message">データをメモリにロード中…</string>
+        <string name="progress_download_message">サーバからデータをダウンロード中…</string>
+        <string name="upload_comment_label">コメント:</string>
+    <string name="openstreetbug_new_title">新規 OpenStreetBug</string>
+    <string name="openstreetbug_edit_title">編集 OpenStreetBug</string>
+        <string name="openstreetbug_commitbutton">確定</string>
+        <string name="openstreetbug_comment_label">コメント:</string>
+        <string name="openstreetbug_edit_close">Bugをクローズ</string>
+        <string name="openstreetbug_commit_ok">変更は保存されました</string>
+        <string name="openstreetbug_commit_fail">変更を保存できませんでした</string>
+
+        <!-- Toaster -->
+        <string name="toast_no_changes">変更がありません…</string>
+        <string name="toast_upload_success">OSMサーバへのアップロードは完了しました。</string>
+        <string name="toast_empty_data">このエリアにはエレメントがありません。このブラックスポットの探検ありがとう！</string>
+        <string name="toast_not_in_edit_range">ズームインしてから編集してください(ボリュームUp/Down または Lens/Shift)</string>
+        <string name="toast_save_done">保存しました</string>
+        <string name="toast_waiting_for_gps">GPS位置取得中…</string>
+        <string name="toast_follow_gps_off">GPS追跡を無効化</string>
+        <string name="toast_not_in_bug_range">ズームインしてバグを追加してください (ボリュームUp/Down または Lens/Shift)</string>
+        <string name="toast_file_openstreetbug">マップ内をタップしてOpenStreetBugをファイルしてください</string>
+
+        <!-- ErrorMailer  -->
+        <string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
+        <string name="error_email_chooser_title">次の方法でメール送信:</string>
+        
+        <!-- Some generic labels -->
+        <string name="yes">はい</string>
+        <string name="no">いいえ</string>
+        <string name="okay">OK</string>
+        <string name="cancel">中止</string>
+        <string name="sourcesurvey">source:\nsurvey</string>
+        
+        <!-- Strings in TagEditor -->
+        <string name="tag_title">Tags for</string>
+        <string name="key">キー:</string>
+        <string name="value">値:</string>
+        <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+        <string name="tag_menu_mapfeatures">マップフィーチャー Wiki</string>
+        
+        <!-- Strings in LocationPicker -->
+        <string name="location_headline">ロードするエリア</string>
+        <string name="location_choose_radius">半径を選択:</string>
+        <string name="location_last_text">前回の位置:</string>
+        <string name="location_current_text">現在の位置:</string>
+        <string name="location_text_unknown">不明</string>
+        <string name="location_last_text_parameterized">前回の位置: %1$s</string>
+        <string name="location_current_text_parameterized">現在の位置: %1$s</string>
+        <string name="location_text_metadata_location">緯度 %1$4g, 経度 %2$4g %3$s</string>
+        <string name="location_text_metadata_accuracy">精度 %1$1g メートル,</string>
+        <string name="location_map_text">マップから (近日実装予定)</string>
+        <string name="location_coordinates_text">座標から:</string>
+        <string name="location_lat_label">緯度:</string>
+        <string name="location_lon_label">経度:</string>
+        <string name="location_load_button">ロード！</string>
+        <string name="location_button_no_location">何もロードしない</string>
+        <string name="location_label_no_location">(非推奨)</string>
+        <string name="location_nan_title">入力誤り！</string>
+        <string name="location_nan_message">10進数形式の座標を挿入してください (例. "52.333572","8.741185")。緯度の範囲は -85.0 と +85.0の間、経度は -175.0 と +175.0の間です。</string>
+        
+        <!-- Menu -->
+        <string name="menu_move">移動</string>
+        <string name="menu_edit">編集</string>
+        <string name="menu_add">新規</string>
+        <string name="menu_config">設定</string>
+        <string name="menu_erase">ノード削除</string>
+        <string name="menu_split">ウェイ分割</string>
+        <string name="menu_append">接続</string>
+        <string name="menu_tag">タグ編集</string>
+        <string name="menu_openstreetbug">OpenStreetBugにファイル</string>
+        <string name="menu_gps">GPS操作…</string>
+        <string name="menu_gps_start_pause">GPSトラックの開始/停止</string>
+        <string name="menu_gps_follow">GPSの位置を追跡</string>
+        <string name="menu_gps_stop">GPSトラックを終了</string>
+        <string name="menu_gps_upload">GPSトラックをアップロード</string>
+        <string name="menu_transfer">データ変換…</string>
+        <string name="menu_transfer_download_current">現在のビューをダウンロード</string>
+        <string name="menu_transfer_download_other">他の位置をダウンロード</string>
+        <string name="menu_transfer_upload">データをOSMサーバにアップロード</string>
+        <string name="menu_save">ファイルに保存</string>
+        
+        <!-- Preferences -->
+        <string name="config_category_view">設定を見る</string>
+        <string name="config_maxStrokeWidth_title">最大ストローク幅</string>
+        <string name="config_maxStrokeWidth_summary">ウェイをこれより太く描画しない</string>
+        <string name="config_showStats_title">状態を表示</string>
+        <string name="config_showStats_summary">左下隅にデータ統計とフレーム/秒 を表示。</string>
+        <string name="config_showTolerance_title">トレランスを表示</string>
+        <string name="config_showTolerance_summary">エレメントを選択できるエリアを表示。</string>
+        <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
+        <string name="config_enableAntiAliasing_summary">線をより滑らかにする。</string>
+        <string name="config_enableOpenStreetBugs_title">OpenStreetBugsを有効化</string>
+        <string name="config_enableOpenStreetBugs_summary">OpenStreetBugsにレポートされたバグを表示。</string>
+        <string name="config_backgroundLayer_title">マップの背景</string>
+        <string name="config_backgroundLayer_summary">グラフィカルに描画されたマップの背景。</string>
+        <string name="config_category_server">サーバ設定</string>
+        <string name="config_username_title">OSMユーザ名</string>
+        <string name="config_username_summary">OSMデータのアップロードに必要。もし持っていなければ、 http://www.openstreetmap.org/user/new で取得してください。</string>
+        <string name="config_password_title">OSMパスワード</string>
+        <string name="config_password_summary">Wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
+        <string name="config_category_gps">GPS 設定</string>
+        <string name="config_gps_distance_title">最小GPS-距離</string>
+        <string name="config_gps_distance_summary">GPS通知用の最小距離間隔、メートル単位(float)。 値が小さいほどバッテリーを消費します。</string>
+        <string name="config_gps_interval_title">最小GPS-間隔</string>
+        <string name="config_gps_interval_summary">GPS通知用の最小時間間隔、ミリ秒単位。値が小さいほどバッテリーを消費します。</string>
+
+    <!--  changes -->
+    <string name="changes_deleted">"%1$s" の削除</string>
+    <string name="changes_changed">"%1$s" の変更</string>
+    <string name="changes_created">"%1$s" の作成</string>
+    <string name="confirm_upload_title">アップロード？</string>
+    <string name="confirm_upload_text">次の変更をアップロードしますか？\n%1$s</string>
+</resources>
