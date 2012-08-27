@@ -14,9 +14,6 @@
 	<string name="no_connection_message">Nem lehet kapcsolódni az OSM szerverhez. Kérlek ellenőrizd az internet-kapcsolatodat, vagy később próbáld újra.</string>
 	<string name="wrong_login_data_title">Rossz bejelentkezési adat</string>
 	<string name="wrong_login_data_message">Az OSM szerver nem tud azonosítani téged. Kérlek ellenőrizd a bejelentkezési adataidat a beállításoknál.</string>
-	<string name="undefined_error_title">Sajnálom</string>
-	<string name="undefined_error_message">Valami furcsa történt. Küldenél nekem egy e-mailt (angolul) annak rövid leírásával, hogy mi okozta ezt? Köszönöm!</string>
-	<string name="undefined_error_sendbutton">E-mail küldése</string>
 	<string name="progress_title">Betöltés</string>
 	<string name="progress_message">Adatok betöltése a memóriába…</string>
 	<string name="progress_download_message">Adatok letöltése a szerverről…</string>

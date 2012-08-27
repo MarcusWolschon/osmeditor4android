@@ -14,9 +14,6 @@
 	<string name="no_connection_message">Ne peut pas se connecter au Serveur OSM. Veuillez vérifier votre connexion Internet ou essayez plus tard.</string>
 	<string name="wrong_login_data_title">Mauvais nom d\'utilisateur</string>
 	<string name="wrong_login_data_message">Le Serveur OSM ne peut pas vous authentifier. Veuillez vérifier votre nom d\'utilisateur dans les préférences.</string>
-	<string name="undefined_error_title">Désolé</string>
-	<string name="undefined_error_message">Erreur non documentée. Pouvez-vous m\'envoyer un email avec une bref description de ce qu\'il s\'est passé ? Merci !</string>
-	<string name="undefined_error_sendbutton">Envoyer Email</string>
 	<string name="progress_title">Chargement</string>
 	<string name="progress_message">Chargement des données en mémoire…</string>
 	<string name="progress_download_message">Récupération des données du serveur…</string>

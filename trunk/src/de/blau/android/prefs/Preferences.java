@@ -46,6 +46,19 @@ public class Preferences {
 		final Resources r = ctx.getResources();
 		advancedPrefs = new AdvancedPrefDatabase(ctx);
 		
+		// we're not using acra.disable - ensure it isn't present
+		if (prefs.contains("acra.disable")) {
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.remove("acra.disable");
+			editor.commit();
+		}
+		// we *are* using acra.enable
+		if (!prefs.contains("acra.enable")) {
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putBoolean("acra.enable", true);
+			editor.commit();
+		}
+		
 		try {
 			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
 		} catch (NumberFormatException e) {

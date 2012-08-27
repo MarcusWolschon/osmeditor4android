@@ -12,6 +12,7 @@ import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.acra.ACRA;
 import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 
@@ -925,16 +926,17 @@ public class Logic {
 					}
 				} catch (SAXException e) {
 					Log.e("Vespucci", "Problem parsing", e);
+					ACRA.getErrorReporter().handleException(e);
 				} catch (ParserConfigurationException e) {
 					Log.e("Vespucci", "Problem parsing", e);
+					ACRA.getErrorReporter().handleException(e);
 				} catch (OsmServerException e) {
-					result = DialogFactory.UNDEFINED_ERROR;
 					Log.e("Vespucci", "Problem downloading", e);
-					Application.mainActivity.getExceptions().add(e);
+					ACRA.getErrorReporter().handleException(e);
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
-					Application.mainActivity.getExceptions().add(e);
+					ACRA.getErrorReporter().handleException(e);
 				}
 				return result;
 			}
@@ -1075,13 +1077,11 @@ public class Logic {
 				try {
 					delegator.uploadToServer(server, comment);
 				} catch (final MalformedURLException e) {
-					result = DialogFactory.UNDEFINED_ERROR;
 					Log.e(DEBUG_TAG, "", e);
-					//caller.getExceptions().add(e);
+					ACRA.getErrorReporter().handleException(e);
 				} catch (final ProtocolException e) {
-					result = DialogFactory.UNDEFINED_ERROR;
 					Log.e(DEBUG_TAG, "", e);
-					//caller.getExceptions().add(e);
+					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
@@ -1089,19 +1089,18 @@ public class Logic {
 						break;
 					//TODO: implement other state handling
 					default:
-						result = DialogFactory.UNDEFINED_ERROR;
+						ACRA.getErrorReporter().handleException(e);
 						break;
 					}
 					Log.e(DEBUG_TAG, "", e);
-					//caller.getExceptions().add(e);
+					ACRA.getErrorReporter().handleException(e);
 				} catch (final IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e(DEBUG_TAG, "", e);
-					//caller.getExceptions().add(e);
+					ACRA.getErrorReporter().handleException(e);
 				} catch (final NullPointerException e) {
-					result = DialogFactory.UNDEFINED_ERROR;
 					Log.e(DEBUG_TAG, "", e);
-					//caller.getExceptions().add(e);
+					ACRA.getErrorReporter().handleException(e);
 				}
 				return result;
 			}

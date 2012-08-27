@@ -14,9 +14,6 @@
 	<string name="no_connection_message">Impossibile connettersi al server OSM. Verifica la connessione ad Internet o riprova più tardi.</string>
 	<string name="wrong_login_data_title">Dati di accesso errati</string>
 	<string name="wrong_login_data_message">Il server OSM non può autenticarti. Verifica i dati di accesso nelle preferenze.</string>
-	<string name="undefined_error_title">Spiacenti</string>
-	<string name="undefined_error_message">Si è verificato qualcosa di strano. Vuoi inviare un\'email con una breve descrizione di cosa è successo? Grazie!</string>
-	<string name="undefined_error_sendbutton">Invia email</string>
 	<string name="progress_title">Caricamento</string>
 	<string name="progress_message">Caricamento dati nella memoria…</string>
 	<string name="progress_download_message">Scaricamento dati dal server…</string>

@@ -56,5 +56,10 @@
             </intent-filter>	    
 		</activity>
 		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar"></activity>
+		<activity android:name="org.acra.CrashReportDialog"
+			android:theme="@android:style/Theme.Dialog"
+			android:launchMode="singleInstance"
+			android:excludeFromRecents="true"
+			android:finishOnTaskLaunch="true" />
 	</application>
 </manifest> 

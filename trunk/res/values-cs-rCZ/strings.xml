@@ -12,9 +12,6 @@
 	<string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
 	<string name="wrong_login_data_title">Špatné přihlašovací údaje</string>
 	<string name="wrong_login_data_message">OSM server Vás nemohl autentizovat. Ověřte prosím v nastavení své už. jméno a heslo.</string>
-	<string name="undefined_error_title">Promiňte</string>
-	<string name="undefined_error_message">Nastalo něco velmi špatného. Chcete odeslat email s popisem problému? Díky!</string>
-	<string name="undefined_error_sendbutton">Odeslat email</string>
 	<string name="progress_title">Načítám</string>
 	<string name="progress_message">Načítam data do paměti…</string>
 	<string name="progress_download_message">Stahuji data ze serveru…</string>

@@ -18,9 +18,6 @@
 	<string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
 	<string name="wrong_login_data_title">Błędne dane logowania</string>
 	<string name="wrong_login_data_message">Błąd logowania. Sprawdź poprawność swoich danych w ustawieniach.</string>
-	<string name="undefined_error_title">Sorry</string>
-	<string name="undefined_error_message">Zdarzyło się coś dziwnego. Chcesz wysłać email z opisem problemu? Dziękuję!</string>
-	<string name="undefined_error_sendbutton">Wyślij email</string>
 	<string name="progress_title">Ładowanie</string>
 	<string name="progress_message">Ładowanie danych do pamięci…</string>
 	<string name="progress_download_message">Pobieranie danych z serwera…</string>

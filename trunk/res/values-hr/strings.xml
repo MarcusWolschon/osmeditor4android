@@ -18,9 +18,6 @@
         <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>
         <string name="wrong_login_data_title">Loši podaci za prijavu</string>
         <string name="wrong_login_data_message">OSM poslužitelj vas ne prepoznaje. Provjerite svoje podatke prijave u postavkama.</string>
-        <string name="undefined_error_title">Oprostite</string>
-        <string name="undefined_error_message">Nešto čudno se dogodilo. želite li poslati e-mail sa kratkim opisom vaših postupaka koje su dovele do ovoga? Hvala!</string>
-        <string name="undefined_error_sendbutton">Pošalji e-mail</string>
         <string name="progress_title">Učitavanje</string>
         <string name="progress_message">Učitavanje podataka u memoriju…</string>
         <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>

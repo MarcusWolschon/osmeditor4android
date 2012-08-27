@@ -15,9 +15,6 @@
   <string name="no_connection_message">Kunne ikke koble til OSM-teneren. Sjekk internettforbindelsen din eller prøv igjen senere.</string> 
   <string name="wrong_login_data_title">Feil brukeropplysninger</string> 
   <string name="wrong_login_data_message">OSM-teneren ville ikke godkjenne deg. Sjekk brukeropplysningene dine under innstillinger.</string> 
-  <string name="undefined_error_title">Beklager</string> 
-  <string name="undefined_error_message">En ukjent feil har oppstått. Vil du sende en epost med en kort beskrivelse av hva du gjorde rett før dette skjedde? Mange takk!</string> 
-  <string name="undefined_error_sendbutton">Send epost</string> 
   <string name="progress_title">Leser</string> 
   <string name="progress_message">Leser inn i minne…</string> 
   <string name="progress_download_message">Laster ned data fra teneren…</string> 

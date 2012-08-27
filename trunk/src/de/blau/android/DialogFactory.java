@@ -16,7 +16,6 @@ import android.widget.EditText;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
-import de.blau.android.listener.GotoErrorMailerListener;
 import de.blau.android.listener.GotoPreferencesListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osb.CommitListener;
@@ -40,8 +39,6 @@ public class DialogFactory {
 	
 	public static final int PROGRESS_DOWNLOAD = 6;
 	
-	public static final int UNDEFINED_ERROR = 7;
-	
 	public static final int CONFIRM_UPLOAD = 8;
 	
 	public static final int OPENSTREETBUG_EDIT = 9;
@@ -55,8 +52,6 @@ public class DialogFactory {
 	private final Builder noConnection;
 	
 	private final Builder downloadCurrentWithChanges;
-	
-	private final Builder undefinedError;
 	
 	private final Builder confirmUpload;
 	
@@ -92,10 +87,6 @@ public class DialogFactory {
 		downloadCurrentWithChanges.setNegativeButton(R.string.transfer_download_current_download,
 			new DownloadCurrentListener(caller));
 		
-		undefinedError = createBasicDialog(R.string.undefined_error_title, R.string.undefined_error_message);
-		undefinedError.setPositiveButton(R.string.undefined_error_sendbutton, new GotoErrorMailerListener(caller));
-		undefinedError.setNegativeButton(R.string.no, doNothingListener);
-		
 		confirmUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
 		confirmUpload.setView(layout);
@@ -126,9 +117,6 @@ public class DialogFactory {
 			
 		case DOWNLOAD_CURRENT_WITH_CHANGES:
 			return downloadCurrentWithChanges.create();
-			
-		case UNDEFINED_ERROR:
-			return undefinedError.create();
 			
 		case PROGRESS_LOADING:
 			return createBasicProgressDialog(R.string.progress_message);

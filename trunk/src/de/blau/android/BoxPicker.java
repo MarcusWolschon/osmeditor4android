@@ -1,7 +1,8 @@
 package de.blau.android;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.acra.ACRA;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,7 +30,6 @@ import android.widget.TextView;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.ErrorMailer;
 import de.blau.android.util.GeoMath;
 
 /**
@@ -56,12 +56,6 @@ public class BoxPicker extends Activity implements LocationListener {
 	private final static int DIALOG_NAN = 0;
 
 	/**
-	 * Shown if an undefined error occurs, which allows the user to send me an
-	 * email with the exception which led to this.
-	 */
-	private final static int DIALOG_UNDEFINED_ERROR = 1;
-
-	/**
 	 * LocationManager. Needed as field for unregister in {@link #onPause()}.
 	 */
 	private LocationManager locationManager = null;
@@ -80,11 +74,6 @@ public class BoxPicker extends Activity implements LocationListener {
 	 * Last known location.
 	 */
 	private Location lastLocation = null;
-
-	/**
-	 * All exceptions occurred.
-	 */
-	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
 
 	/**
 	 * Tag for Intent extras.
@@ -305,8 +294,7 @@ public class BoxPicker extends Activity implements LocationListener {
 			box = GeoMath.createBoundingBoxForCoordinates(currentLocation.getLatitude(),
 				currentLocation.getLongitude(), currentRadius);
 		} catch (OsmException e) {
-			exceptions.add(e);
-			showDialog(DIALOG_UNDEFINED_ERROR);
+			ACRA.getErrorReporter().handleException(e);
 		}
 		return box;
 	}
@@ -321,8 +309,7 @@ public class BoxPicker extends Activity implements LocationListener {
 			box = GeoMath.createBoundingBoxForCoordinates(lastLocation.getLatitude(),
 					lastLocation.getLongitude(), currentRadius);
 		} catch (OsmException e) {
-			exceptions.add(e);
-			showDialog(DIALOG_UNDEFINED_ERROR);
+			ACRA.getErrorReporter().handleException(e);
 		}
 		return box;
 	}
@@ -376,31 +363,8 @@ public class BoxPicker extends Activity implements LocationListener {
 		switch (id) {
 		case DIALOG_NAN:
 			return createDialogNan();
-
-		case DIALOG_UNDEFINED_ERROR:
-			return createDialogUndefinedError();
 		}
 		return super.onCreateDialog(id);
-	}
-
-	/**
-	 * @see #DIALOG_UNDEFINED_ERROR
-	 * @return
-	 */
-	private AlertDialog createDialogUndefinedError() {
-		Builder dialog = new AlertDialog.Builder(this);
-		dialog.setIcon(R.drawable.alert_dialog_icon);
-		dialog.setTitle(R.string.undefined_error_title);
-		dialog.setMessage(R.string.undefined_error_message);
-		dialog.setPositiveButton(R.string.undefined_error_sendbutton, new DialogInterface.OnClickListener() {
-			public void onClick(final DialogInterface dialog, final int whichButton) {
-				startActivity(ErrorMailer.send(exceptions, getResources()));
-			}
-		});
-		dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-			public void onClick(final DialogInterface dialog, final int whichButton) {}
-		});
-		return dialog.create();
 	}
 
 	/**
