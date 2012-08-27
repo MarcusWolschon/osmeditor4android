@@ -29,7 +29,7 @@ public abstract class VersionedGestureDetector {
 	}
 	
 	public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {
-		final int sdkVersion = Integer.parseInt(Build.VERSION.SDK);
+		final int sdkVersion = Build.VERSION.SDK_INT;
 		VersionedGestureDetector detector = null;
 		if (sdkVersion < Build.VERSION_CODES.ECLAIR) {
 			detector = new CupcakeDetector();
@@ -228,8 +228,7 @@ public abstract class VersionedGestureDetector {
 			
 			mActivePointerIndex = ev.findPointerIndex(mActivePointerId);
 			boolean ret = super.onTouchEvent(v, ev);
-			if ((action & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP)
-			{
+			if ((action & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
 				mActivePointerId = INVALID_POINTER_ID;
 				mActivePointerIndex = ev.findPointerIndex(mActivePointerId);
 			}

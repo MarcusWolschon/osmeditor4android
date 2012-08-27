@@ -580,7 +580,7 @@ public class Preset {
 		 */
 		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type) {
 			ScrollView scrollView = new ScrollView(ctx);
-			scrollView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
 			wrappingLayout.setHorizontalSpacing((int)(10*density));

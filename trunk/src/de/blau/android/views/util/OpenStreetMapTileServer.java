@@ -229,7 +229,7 @@ public class OpenStreetMapTileServer {
 								URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
 								conn.setRequestProperty("User-Agent", Application.userAgent);
 								InputStream bis = conn.getInputStream();
-								brandLogo = new BitmapDrawable(bis);
+								brandLogo = new BitmapDrawable(r, bis);
 							}
 						}
 						if (tagName.equals("ImageUrl") && parser.next() == XmlPullParser.TEXT) {

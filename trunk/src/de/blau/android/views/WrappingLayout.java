@@ -235,7 +235,7 @@ public class WrappingLayout extends LinearLayout {
 			container.setOrientation(LinearLayout.VERTICAL);
 			
 			LayoutParams innerLayoutParams =
-				new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+				new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			LayoutParams elementLayoutParams =
 				new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			
