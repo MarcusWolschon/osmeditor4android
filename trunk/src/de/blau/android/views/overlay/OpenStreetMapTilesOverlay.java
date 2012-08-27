@@ -1,12 +1,5 @@
 package de.blau.android.views.overlay;
 
-import de.blau.android.services.util.OpenStreetMapTile;
-import de.blau.android.Map;
-import de.blau.android.views.IMapView;
-import de.blau.android.views.util.OpenStreetMapTileServer;
-import de.blau.android.views.util.OpenStreetMapTileProvider;
-import de.blau.android.util.GeoMath;
-
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -20,6 +13,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
+import de.blau.android.Map;
+import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.util.GeoMath;
+import de.blau.android.views.IMapView;
+import de.blau.android.views.util.OpenStreetMapTileProvider;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Overlay that draws downloaded tiles which may be displayed on top of an

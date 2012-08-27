@@ -1,7 +1,6 @@
 package de.blau.android.osm;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,27 +18,28 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
-
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.util.Base64;
+import de.blau.android.util.SavingHelper;
 
 /**
  * @author mb
  */
 public class Server {
 
-	/**
-	 * Location of OSM API
-	 */
-	private static final String SERVER_URL = "http://api.openstreetmap.org";
 
 	/**
 	 * Timeout for connections in milliseconds.
 	 */
 	private static final int TIMEOUT = 45 * 1000;
+	
+	/**
+	 * Location of OSM API
+	 */
+	private final String serverURL;
 
 	/**
 	 * username for write-access on the server.
@@ -59,14 +59,9 @@ public class Server {
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
 	 */
-	private final String version = "0.6";
+	private static final String version = "0.6";
 
 	private final String osmChangeVersion = "0.3";
-
-	/**
-	 * Path to api with trailing slash.
-	 */
-	private final String path = "/api/" + version + "/";
 
 //	/**
 //	 * Tag with "created_by"-key to identify edits made by this editor.
@@ -80,14 +75,26 @@ public class Server {
 
 	private final XmlPullParserFactory xmlParserFactory;
 
+	
+	
+	@Deprecated
+	public Server(final String username, final String password, final String generator) {
+		this("", username, password, generator);
+	}
+	
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
-	 * 
+	 * @param apiurl The OSM API URL to use (e.g. "http://api.openstreetmap.org/api/0.6/").
 	 * @param username
 	 * @param password
 	 * @param generator the name of the editor.
 	 */
-	public Server(final String username, final String password, final String generator) {
+	public Server(final String apiurl, final String username, final String password, final String generator) {
+		if (apiurl != null && !apiurl.equals("")) {
+			this.serverURL = apiurl;
+		} else {
+			this.serverURL = "http://api.openstreetmap.org/api/"+version+"/";
+		}
 		this.password = password;
 		this.username = username;
 		this.generator = generator;
@@ -149,7 +156,7 @@ public class Server {
 	 * @throws OsmServerException
 	 */
 	public InputStream getStreamForBox(final BoundingBox box) throws OsmServerException, IOException {
-		URL url = new URL(SERVER_URL + path + "map?bbox=" + box.toApiString());
+		URL url = new URL(serverURL  + "map?bbox=" + box.toApiString());
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		boolean isServerGzipEnabled = false;
 
@@ -205,7 +212,7 @@ public class Server {
 			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
 			sendPayload(connection, new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					final String action = "delete";
 					startChangeXml(serializer, action);
 					elem.toXml(serializer, changeSetId);
@@ -245,7 +252,7 @@ public class Server {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
 			sendPayload(connection, new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					startXml(serializer);
 					elem.toXml(serializer, changeSetId);
 					endXml(serializer);
@@ -256,7 +263,7 @@ public class Server {
 			osmVersion = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
-			close(in);
+			SavingHelper.close(in);
 		}
 		return osmVersion;
 	}
@@ -274,7 +281,7 @@ public class Server {
 		} catch (IOException e) {
 			throw new OsmIOException("Could not send data to server", e);
 		} finally {
-			close(out);
+			SavingHelper.close(out);
 		}
 	}
 
@@ -309,7 +316,7 @@ public class Server {
 			connection = openConnectionForWriteAccess(getCreationUrl(elem), "PUT");
 			sendPayload(connection, new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					startXml(serializer);
 					elem.toXml(serializer, changeSetId);
 					endXml(serializer);
@@ -320,7 +327,7 @@ public class Server {
 			osmId = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
-			close(in);
+			SavingHelper.close(in);
 		}
 		return osmId;
 	}
@@ -340,7 +347,7 @@ public class Server {
 		try {
 			XmlSerializable xmlData = new XmlSerializable() {
 				@Override
-				public void toXml(XmlSerializer serializer, long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
 					startXml(serializer);
 					serializer.startTag("", "changeset");
 					serializer.startTag("", "tag");
@@ -368,7 +375,7 @@ public class Server {
 			newChangesetId = Integer.parseInt(readLine(in));
 		} finally {
 			disconnect(connection);
-			close(in);
+			SavingHelper.close(in);
 		}
 		changesetId = newChangesetId;
 	}
@@ -431,39 +438,29 @@ public class Server {
 		return res;
 	}
 
-	static public void close(final Closeable stream) {
-		if (stream != null) {
-			try {
-				stream.close();
-			} catch (IOException e) {
-				Log.e("Vespucci", "Problem closing", e);
-			}
-		}
-	}
-
 	private URL getCreationUrl(final OsmElement elem) throws MalformedURLException {
-		return new URL(SERVER_URL + path + elem.getName() + "/create");
+		return new URL(serverURL  + elem.getName() + "/create");
 	}
 
 	private URL getCreateChangesetUrl() throws MalformedURLException {
-		return new URL(SERVER_URL + path + "changeset/create");
+		return new URL(serverURL  + "changeset/create");
 	}
 
 	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/close");
+		return new URL(serverURL  + "changeset/" + changesetId + "/close");
 	}
 
 	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
-		return new URL(SERVER_URL + path + elem.getName() + "/" + elem.getOsmId());
+		return new URL(serverURL  + elem.getName() + "/" + elem.getOsmId());
 	}
 
 	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
 		//return getUpdateUrl(elem);
-		return new URL(SERVER_URL + path + "changeset/" + changesetId + "/upload");
+		return new URL(serverURL  + "changeset/" + changesetId + "/upload");
 	}
 	
 	private URL getUserDetailsUrl() throws MalformedURLException {
-		return new URL(SERVER_URL + path + "user/details");
+		return new URL(serverURL  + "user/details");
 	}
 
 	public XmlSerializer getXmlSerializer() {
@@ -509,5 +506,12 @@ public class Server {
 		xmlSerializer.endTag("", action);
 		xmlSerializer.endTag("", "osmChange");
 		xmlSerializer.endDocument();
+	}
+
+	/**
+	 * @return the base URL, i.e. the API url with the "/api/version/"-part stripped
+	 */
+	public String getBaseURL() {
+		return serverURL.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
 	}
 }

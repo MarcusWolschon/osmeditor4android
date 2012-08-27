@@ -1,52 +1,66 @@
 package de.blau.android;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
+import android.content.ServiceConnection;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
-import android.widget.RelativeLayout.LayoutParams;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
-import de.blau.android.exception.FollowGpsException;
+import de.blau.android.TagEditor.TagEditorData;
+import de.blau.android.actionbar.ModeDropdownAdapter;
+import de.blau.android.actionbar.UndoDialogFactory;
+import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.CommitTask;
@@ -55,10 +69,16 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
-import de.blau.android.presets.TagKeyAutocompletionAdapter;
-import de.blau.android.presets.TagValueAutocompletionAdapter;
+import de.blau.android.prefs.PrefEditor;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
 import de.blau.android.resources.Paints;
+import de.blau.android.services.TrackerService;
+import de.blau.android.services.TrackerService.TrackerBinder;
+import de.blau.android.services.TrackerService.TrackerLocationListener;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
@@ -67,7 +87,7 @@ import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
  * 
  * @author mb
  */
-public class Main extends Activity {
+public class Main extends SherlockActivity implements OnNavigationListener, ServiceConnection, TrackerLocationListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -96,13 +116,19 @@ public class Main extends Activity {
 	private SensorManager sensorManager;
 	private Sensor sensor;
 	private SensorEventListener sensorListener = new SensorEventListener() {
+		float lastOrientation = -9999;
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			map.setOrientation(event.values[0]);
-			map.invalidate();
+			float orientation = event.values[0];
+			map.setOrientation(orientation);
+			// Repaint map only if orientation changed by at least 1 degree since last repaint
+			if (Math.abs(orientation - lastOrientation) > 1) {
+				lastOrientation = orientation;
+				map.invalidate();
+			}
 		}
 	};
 
@@ -118,21 +144,75 @@ public class Main extends Activity {
 	private Preferences prefs;
 
 	/**
+	 * Adapter providing items for the mode selection dropdown in the ActionBar
+	 */
+	private ModeDropdownAdapter modeDropdown;
+
+	/**
+	 * The manager for the EasyEdit mode
+	 */
+	private EasyEditManager easyEditManager;
+
+	/**
 	 * The logic that manipulates the model. (non-UI)<br/>
 	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
 	 * If may be null or not reflect the current state if accessed from outside this activity.
 	 */
 	protected static Logic logic;
+	
+	/**
+	 * The currently selected preset
+	 */
+	private static Preset currentPreset;
+
+	/**
+	 * Flag indicating wheter the map will be re-downloaded once the activity resumes
+	 */
+	private static boolean redownloadOnResume;
+
+	/**
+	 * Flag indicating whether data should be loaded from a file when the activity resumes.
+	 * Set by {@link #onCreate(Bundle)}.
+	 * Overridden by {@link #redownloadOnResume}.
+	 */
+	private boolean loadOnResume;
+
+	/** Initialized in onCreate - this empty file indicates by its existence that showGPS should be enabled on start */
+	private File showGPSFlagFile = null;
+	private boolean showGPS;
+	private boolean followGPS;
+	/**
+	 * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}.
+	 * Will be automatically given to the tracker service on connect.
+	 */
+	private boolean wantLocationUpdates = false;
+
+	/**
+	 * The current instance of the tracker service
+	 */
+	private TrackerService tracker = null;
+
+	private UndoListener undoListener;
+
+	/**
+	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
+	 */
+	private static Main runningInstance;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		Log.i("Main", "onCreate");
+		setTheme(R.style.Theme_customMain);
+
 		super.onCreate(savedInstanceState);
 		Application.mainActivity = this;
-		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(
-			Context.LOCATION_SERVICE);
+		
+		showGPSFlagFile = new File(this.getFilesDir(), "showgps.flag");
+		showGPS = showGPSFlagFile.exists();
+		
 		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager != null) {
 			sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
@@ -140,9 +220,9 @@ public class Main extends Activity {
 				sensorManager = null;
 			}
 		}
-		getWindow().requestFeature(Window.FEATURE_LEFT_ICON);
+
 		getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		getWindow().requestFeature(Window.FEATURE_RIGHT_ICON);
+		getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 
 		RelativeLayout rl = new RelativeLayout(getApplicationContext());
 		if (map != null) {
@@ -179,34 +259,128 @@ public class Main extends Activity {
 		rl.addView(zoomControls, rlp);
 		
 		setContentView(rl);
-
+		
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
+		loadOnResume = false;
 		if (logic == null) {
-			logic = new Logic(locationManager, map, new Paints(getApplicationContext().getResources()));
+			Log.i("Main", "onCreate - creating new logic");
+			logic = new Logic(map, new Paints(getApplicationContext().getResources()));
 			if (isLastActivityAvailable()) {
-				resumeLastActivity();
+				// Start loading after resume to ensure loading dialog can be removed afterwards
+				loadOnResume = true;
 			} else {
 				gotoBoxPicker();
 			}
 		} else {
+			Log.i("Main", "onCreate - using logic from getLastNonConfigurationInstance");
 			logic.setMap(map);
 		}
+		
+		easyEditManager = new EasyEditManager(this, logic);
+		
 	}
 	
+	/**
+	 * Loads the preferences into {@link #map} and {@link #logic}, triggers new {@inheritDoc}
+	 */
 	@Override
-	protected void onPause() {
-		if (sensorManager != null) {
-			sensorManager.unregisterListener(sensorListener);
-		}
-		super.onPause();
+	protected void onStart() {
+		super.onStart();
+		prefs = new Preferences(this);
+		map.setPrefs(prefs);
+		logic.setPrefs(prefs);
+		map.requestFocus();
+		
+		undoListener = new UndoListener();
+		
+		showActionBar();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (sensorManager != null) {
-			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+		Log.i("Main", "onResume");
+
+		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
+		
+		if (redownloadOnResume) {
+			redownloadOnResume = false;
+			logic.downloadLast();
+		} else if (loadOnResume) {
+			loadOnResume = false;
+			logic.loadFromFile();
+		}
+		
+		if (currentPreset == null) {
+			currentPreset = prefs.getPreset();
+		}
+		runningInstance = this;
+		
+		updateActionbarEditMode();
+		if (!prefs.isOpenStreetBugsEnabled() && logic.getMode() == Mode.MODE_OPENSTREETBUG) {
+			logic.setMode(Mode.MODE_MOVE);
+		}
+		modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
+		
+		logic.setSelectedBug(null);
+		logic.setSelectedNode(null);
+		logic.setSelectedWay(null);
+
+		if (tracker != null) tracker.setListener(this);
+
+		setShowGPS(showGPS); // reactive GPS listener if needed
+		setFollowGPS(followGPS);
+	}
+
+	@Override
+	protected void onPause() {
+		Log.i("Main", "onPause");
+		runningInstance = null;
+		disableLocationUpdates();
+		if (tracker != null) tracker.setListener(null);
+
+		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
+		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) saveData();
+		
+		super.onPause();
+	}
+	
+	@Override
+	protected void onStop() {
+		Log.i("Main", "onStop");
+		
+		// On devices with Android versions before Honeycomb, we already save data in onPause
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) saveData();
+		
+		super.onStop();
+	}
+
+	@Override
+	protected void onDestroy() {
+		map.onDestroy();
+		if (tracker != null) tracker.setListener(null);
+		try {
+			unbindService(this);
+		} catch (Exception e) {} // ignore errors, this is just cleanup
+		super.onDestroy();
+	}
+
+	/**
+	 * Save current data (state, downloaded data, changes, ...) to file(s)
+	 */
+	private void saveData() {
+		Log.i("Main", "saving data");
+		logic.save();
+		if (showGPS) {
+			try {
+				showGPSFlagFile.createNewFile();
+			} catch (IOException e) {
+				Log.e("Main", "failed to create showGPS flag file");
+			}
+		} else {
+			showGPSFlagFile.delete();
 		}
 	}
 
@@ -221,97 +395,65 @@ public class Main extends Activity {
 	
 	@Override
 	public Object onRetainNonConfigurationInstance() {
+		Log.i("Main", "onRetainNonConfigurationInstance");
 		return logic;
 	}
 
 	/**
-	 * Loads the preferences into {@link #map} and {@link #logic}, triggers new {@inheritDoc}
+	 * Sets up the Action Bar.
 	 */
-	@Override
-	protected void onStart() {
-		super.onStart();
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		Resources r = getResources();
-		prefs = new Preferences(sharedPrefs, r);
-		map.setPrefs(prefs);
-		logic.setPrefs(prefs);
-		map.requestFocus();
-		updateIcon();
-
-		// cache some values (optional)
-		TagValueAutocompletionAdapter.fillCache(this);
-		TagKeyAutocompletionAdapter.fillCache(this);
+	private void showActionBar() {
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		actionbar.setBackgroundDrawable(new ColorDrawable(0xaa000000));
+		actionbar.setDisplayShowHomeEnabled(false);
+		actionbar.setDisplayShowTitleEnabled(false);
+		
+		modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled());
+		actionbar.setListNavigationCallbacks(modeDropdown, this);
+		
+		actionbar.show();
+		setSupportProgressBarIndeterminateVisibility(false);
 	}
-
-	/**
-	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
-		final MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		if (!prefs.isOpenStreetBugsEnabled()) {
-			menu.removeItem(R.id.menu_openstreetbug);
-		}
-		return true;
+	
+	
+	public void updateActionbarEditMode() {
+		getSupportActionBar().setSelectedNavigationItem(modeDropdown.getIndexForMode(logic.getMode()));
 	}
-
-	/**
-	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
-	 */
+	
+	public static void onEditModeChanged() {
+		if (runningInstance != null) runningInstance.updateActionbarEditMode();
+	}
+	
 	@Override
-	public boolean onPrepareOptionsMenu(final Menu menu) {
-		if (!prefs.isOpenStreetBugsEnabled()) {
-			menu.removeItem(R.id.menu_openstreetbug);
-		} else {
-			if(menu.findItem(R.id.menu_openstreetbug) == null) {
-				// restore missing menu item
-				menu.clear();
-				final MenuInflater inflater = getMenuInflater();
-				inflater.inflate(R.menu.main_menu, menu);
-			}
-		}
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		logic.setMode(modeDropdown.getModeForItem(itemPosition));
 		return true;
 	}
 	
+	
 	/**
-	 * Update the window icon to indicate the current mode.
+	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
 	 */
-	private void updateIcon() {
-		int resId;
-		switch (logic.getMode()) {
-		case MODE_MOVE:
-			resId = R.drawable.menu_move;
-			break;
-		case MODE_EDIT:
-			resId = R.drawable.menu_edit;
-			break;
-		case MODE_TAG_EDIT:
-			resId = R.drawable.menu_tag;
-			break;
-		case MODE_ADD:
-			resId = R.drawable.menu_add;
-			break;
-		case MODE_ERASE:
-			resId = R.drawable.menu_erase;
-			break;
-		case MODE_SPLIT:
-			resId = R.drawable.menu_split;
-			break;
-		case MODE_OPENSTREETBUG:
-			resId = R.drawable.menu_openstreetbug;
-			break;
-		case MODE_APPEND:
-			resId = R.drawable.menu_append;
-			break;
-		default:
-			resId = 0;
-			break;
-		}
-		if (resId != 0) {
-			getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, resId);
-		}
+ 	@Override
+	public boolean onCreateOptionsMenu(final Menu menu) {
+		final MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		
+		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
+		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
+		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
+		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
+
+		MenuItem undo = menu.findItem(R.id.menu_undo);
+		undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
+		View undoView = undo.getActionView();
+		undoView.setOnClickListener(undoListener);
+		undoView.setOnLongClickListener(undoListener);
+		
+		return true;
 	}
+
 
 	/**
 	 * {@inheritDoc}
@@ -319,61 +461,50 @@ public class Main extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_move:
-			logic.setMode(Logic.Mode.MODE_MOVE);
-			updateIcon();
-			return true;
-
-		case R.id.menu_edit:
-			logic.setMode(Logic.Mode.MODE_EDIT);
-			updateIcon();
-			return true;
-
-		case R.id.menu_tag:
-			logic.setMode(Logic.Mode.MODE_TAG_EDIT);
-			updateIcon();
-			return true;
-
-		case R.id.menu_add:
-			logic.setMode(Logic.Mode.MODE_ADD);
-			updateIcon();
-			return true;
-
-		case R.id.menu_erase:
-			logic.setMode(Logic.Mode.MODE_ERASE);
-			updateIcon();
-			return true;
-
-		case R.id.menu_split:
-			logic.setMode(Logic.Mode.MODE_SPLIT);
-			updateIcon();
-			return true;
-
-		case R.id.menu_openstreetbug:
-			logic.setMode(Logic.Mode.MODE_OPENSTREETBUG);
-			updateIcon();
-			Toast.makeText(this, R.string.toast_file_openstreetbug, Toast.LENGTH_SHORT).show();
-			return true;
-
-		case R.id.menu_append:
-			logic.setMode(Logic.Mode.MODE_APPEND);
-			updateIcon();
-			return true;
-
 		case R.id.menu_confing:
 			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
 			return true;
-
-		case R.id.menu_gps_start_pause:
-			logic.setTrackingState(Tracker.STATE_PAUSE);
+			
+		case R.id.menu_help:
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://wiki.openstreetmap.org/wiki/Vespucci/Help"));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 			return true;
+
+		case R.id.menu_gps_show:
+			toggleShowGPS();
+			return true;
+			
 
 		case R.id.menu_gps_follow:
-			followGps();
+			toggleFollowGPS();
 			return true;
 
-		case R.id.menu_gps_stop:
-			logic.setTrackingState(Tracker.STATE_STOP);
+		case R.id.menu_gps_start:
+			if (tracker != null && ensureGPSProviderEnabled()) {
+				tracker.startTracking();
+				setFollowGPS(true);
+				triggerMenuInvalidation();
+			}
+			return true;
+
+		case R.id.menu_gps_pause:
+			if (tracker != null && ensureGPSProviderEnabled()) {
+				tracker.stopTracking(false);
+				triggerMenuInvalidation();
+			}
+			return true;
+
+		case R.id.menu_gps_clear:
+			if (tracker != null) tracker.stopTracking(true);
+			triggerMenuInvalidation();
+			map.invalidate();
+			return true;
+			
+		case R.id.menu_gps_export:
+			if (tracker != null) {
+				SavingHelper.asyncExport(this, tracker);
+			}
 			return true;
 
 		case R.id.menu_transfer_download_current:
@@ -387,24 +518,94 @@ public class Main extends Activity {
 		case R.id.menu_transfer_upload:
 			confirmUpload();
 			return true;
-
-		case R.id.menu_save:
-			logic.save(true);
+		
+		case R.id.menu_transfer_export:
+			if (logic == null || logic.delegator == null) return true;
+			SavingHelper.asyncExport(this, logic.delegator);
 			return true;
-		}
 
+		case R.id.menu_undo:
+			// should not happen
+			undoListener.onClick(null);
+			return true;
+			
+		}
+		
 		return false;
 	}
 
-	/**
-	 * 
-	 */
-	private void followGps() {
-		try {
-			logic.setFollowGps(true);
-		} catch (FollowGpsException e) {
-			showToastWaitingForGps();
+	private void setShowGPS(boolean show) {
+		if (show && !ensureGPSProviderEnabled()) {
+			show = false;
 		}
+		showGPS = show;
+		Log.d("Main", "showGPS: "+ show);
+		if (show) {
+			enableLocationUpdates();
+		} else {
+			setFollowGPS(false);
+			map.setLocation(null);
+			disableLocationUpdates();
+		}
+		map.invalidate();
+		triggerMenuInvalidation();
+	}
+	
+	/**
+	 * Checks if GPS is enabled in the settings.
+	 * If not, returns false and shows location settings.
+	 * @return true if GPS is enabled, false if not
+	 */
+	private boolean ensureGPSProviderEnabled() {
+		LocationManager locationManager = (LocationManager)this.getSystemService(LOCATION_SERVICE);
+		try {
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				return true;
+			} else {
+				startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				return false;
+			}
+		} catch (Exception e) {
+			Log.e("Main", "Error when checking for GPS, assuming GPS not available", e);
+			Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_SHORT).show();
+			return false;
+		}
+	}
+
+	private void setFollowGPS(boolean follow) {
+		followGPS = follow;
+		if (follow) {
+			setShowGPS(true);
+			if (map.getLocation() != null) onLocationChanged(map.getLocation());
+		}
+		triggerMenuInvalidation();
+	}
+	
+	private void toggleShowGPS() {
+		boolean newState = !showGPS;
+		setShowGPS(newState);
+	}
+	
+	
+	private void toggleFollowGPS() {
+		boolean newState = !followGPS;
+		setFollowGPS(newState);
+	}
+	
+	private void enableLocationUpdates() {
+		if (wantLocationUpdates == true) return;
+		if (sensorManager != null) {
+			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
+		}
+		wantLocationUpdates = true;
+		if (tracker != null) tracker.setListenerNeedsGPS(true);
+	}
+	
+	private void disableLocationUpdates() {
+		if (wantLocationUpdates == false) return;
+		if (sensorManager != null) sensorManager.unregisterListener(sensorListener);
+		wantLocationUpdates  = false;
+		if (tracker != null) tracker.setListenerNeedsGPS(false);
 	}
 
 	/**
@@ -513,32 +714,12 @@ public class Main extends Activity {
 	/**
 	 * @param data
 	 */
-	@SuppressWarnings("unchecked")
 	private void handleTagEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
 		// Read data from extras
-		// Intents can't hold a Map in the extras, so
-		// it is converted to an ArrayList
-		ArrayList<String> tagList = (ArrayList<String>) b.getSerializable(TagEditor.TAGS);
-		String type = b.getString(TagEditor.TYPE);
-		long osmId = b.getLong(TagEditor.OSM_ID);
-
-		int size = tagList.size();
-		HashMap<String, String> tags = new HashMap<String, String>(size / 2);
-		for (int i = 0; i < size; i += 2) {
-			tags.put(tagList.get(i), tagList.get(i + 1));
-		}
-
-		logic.insertTags(type, osmId, tags);
+		TagEditorData editorData = (TagEditorData) b.getSerializable(TagEditor.TAGEDIT_DATA);
+		logic.setTags(editorData.type, editorData.osmId, editorData.tags);
 		map.invalidate();
-	}
-
-	@Override
-	protected void onDestroy() {
-		map.onDestroy();
-		logic.disableGpsUpdates();
-		logic.save(false);
-		super.onDestroy();
 	}
 	
 	@Override
@@ -560,18 +741,8 @@ public class Main extends Activity {
 		} catch (final FileNotFoundException e) {
 			return false;
 		} finally {
-			Server.close(in);
+			SavingHelper.close(in);
 		}
-	}
-
-	/**
-	 * Loads the last activities storage, give it to the View and activate it.
-	 * 
-	 * @throws IOException when the file could not be read.
-	 * @throws ClassNotFoundException
-	 */
-	public void resumeLastActivity() {
-		logic.loadFromFile();
 	}
 
 	public void performCurrentViewHttpLoad() {
@@ -620,7 +791,7 @@ public class Main extends Activity {
 			@Override
 			protected void onPreExecute() {
 				newBug = (bug.getId() == 0);
-				setProgressBarIndeterminateVisibility(true);
+				setSupportProgressBarIndeterminateVisibility(true);
 			}
 			
 			@Override
@@ -645,7 +816,7 @@ public class Main extends Activity {
 						}
 					}
 				}
-				setProgressBarIndeterminateVisibility(false);
+				setSupportProgressBarIndeterminateVisibility(false);
 				Toast.makeText(getApplicationContext(), result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 				map.invalidate();
 			}
@@ -674,22 +845,63 @@ public class Main extends Activity {
 	 * Starts the LocationPicker activity for requesting a location.
 	 */
 	public void gotoBoxPicker() {
-		startActivityForResult(new Intent(getApplicationContext(), BoxPicker.class), REQUEST_BOUNDINGBOX);
+		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
+		if (logic.hasChanges()) {
+			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDINGBOX).show();
+		} else {
+			startActivityForResult(intent, REQUEST_BOUNDINGBOX);
+		}
 	}
 
 	public List<Exception> getExceptions() {
 		return exceptions;
 	}
 
-	/**
-	 * 
-	 */
-	private void showToastWaitingForGps() {
-		Toast.makeText(getApplicationContext(), R.string.toast_waiting_for_gps, Toast.LENGTH_SHORT).show();
-	}
-
 	private enum AppendMode {
 		APPEND_START, APPEND_APPEND
+	}
+
+	/**
+	 * @param selectedElement
+	 */
+	public void performTagEdit(final OsmElement selectedElement) {
+		if (selectedElement instanceof Node) {
+			logic.setSelectedNode((Node) selectedElement);
+		} else if (selectedElement instanceof Way) {
+			logic.setSelectedWay((Way) selectedElement);
+		}
+	
+		if (selectedElement != null) {
+			Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
+			startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement));
+			Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+		}
+	}
+
+	
+	public class UndoListener implements OnClickListener, OnLongClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			String name = logic.getUndo().undo();
+			if (name != null) {
+				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
+			}
+			map.invalidate();
+		}
+
+		@Override
+		public boolean onLongClick(View v) {
+			UndoStorage undo = logic.getUndo();
+			if (undo.canUndo() || undo.canRedo()) {
+				UndoDialogFactory.showUndoDialog(Main.this, undo);
+			} else {
+				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();				
+			}
+			return true;
+		}
 	}
 
 	/**
@@ -755,6 +967,9 @@ public class Main extends Activity {
 				case MODE_APPEND:
 					performAppend(v, x, y);
 					break;
+				case MODE_EASYEDIT:
+					easyEditManager.handleClick(v,x,y);
+					break;
 				}
 				map.invalidate();
 			} else {
@@ -769,6 +984,7 @@ public class Main extends Activity {
 						case MODE_ERASE:
 						case MODE_SPLIT:
 						case MODE_TAG_EDIT:
+						case MODE_EASYEDIT:
 							res = R.string.toast_not_in_edit_range;
 							break;
 						case MODE_OPENSTREETBUG:
@@ -795,8 +1011,22 @@ public class Main extends Activity {
 		}
 		
 		@Override
+		public boolean onLongClick(View v, float x, float y) {
+			if (logic.getMode() != Mode.MODE_EASYEDIT) {
+				return false; // ignore long clicks
+			}
+			
+			if (logic.isInEditZoomRange()) {
+				return easyEditManager.handleLongClick(v,x,y);
+			}
+			
+			return true; // long click handled
+		}
+
+		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
 			logic.handleTouchEventMove(x, y, -dx, dy);
+			setFollowGPS(false);
 		}
 		
 		@Override
@@ -899,35 +1129,6 @@ public class Main extends Activity {
 		}
 
 		/**
-		 * @param selectedElement
-		 */
-		private void performTagEdit(final OsmElement selectedElement) {
-			if (selectedElement instanceof Node) {
-				logic.setSelectedNode((Node) selectedElement);
-			} else if (selectedElement instanceof Way) {
-				logic.setSelectedWay((Way) selectedElement);
-			}
-
-			if (selectedElement != null) {
-				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
-
-				// convert tag-list to string-lists for Bundle-compatibility
-				ArrayList<String> tagList = new ArrayList<String>();
-				for (Entry<String, String> tag : selectedElement.getTags().entrySet()) {
-					tagList.add(tag.getKey());
-					tagList.add(tag.getValue());
-				}
-
-				//insert Bundles
-				startTagEditor.putExtra(TagEditor.TAGS, tagList);
-				startTagEditor.putExtra(TagEditor.TYPE, selectedElement.getName());
-				startTagEditor.putExtra(TagEditor.OSM_ID, selectedElement.getOsmId());
-
-				Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
-			}
-		}
-		
-		/**
 		 * Edit an OpenStreetBug.
 		 * @param bug The bug to edit.
 		 */
@@ -936,9 +1137,13 @@ public class Main extends Activity {
 			logic.setSelectedBug(bug);
 			showDialog(DialogFactory.OPENSTREETBUG_EDIT);
 		}
-
+		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
+			onCreateDefaultContextMenu(menu, v, menuInfo);
+		}
+			
+		public void onCreateDefaultContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
 			int id = 0;
 			if (clickedBugs != null) {
 				for (Bug b : clickedBugs) {
@@ -953,7 +1158,7 @@ public class Main extends Activity {
 		}
 
 		@Override
-		public boolean onMenuItemClick(final MenuItem item) {
+		public boolean onMenuItemClick(final android.view.MenuItem item) {			
 			int itemId = item.getItemId();
 			if (clickedBugs != null && itemId >= 0 && itemId < clickedBugs.size()) {
 				performBugEdit(clickedBugs.get(itemId));
@@ -984,6 +1189,7 @@ public class Main extends Activity {
 						}
 						break;
 					}
+					// MODE_EASYEDIT clicks get handled by EasyEditManager directly
 				}
 			}
 			return true;
@@ -1014,7 +1220,7 @@ public class Main extends Activity {
 				if (!v.onKeyDown(keyCode, event)) {
 					switch (keyCode) {
 					case KeyEvent.KEYCODE_DPAD_CENTER:
-						setFollowGps();
+						setFollowGPS(true);
 						return true;
 						
 					case KeyEvent.KEYCODE_DPAD_UP:
@@ -1053,18 +1259,8 @@ public class Main extends Activity {
 		}
 		
 		private void translate(final CursorPaddirection direction) {
+			setFollowGPS(false);
 			logic.translate(direction);
-		}
-		
-		/**
-		 * 
-		 */
-		private void setFollowGps() {
-			try {
-				logic.setFollowGps(true);
-			} catch (FollowGpsException e) {
-				showToastWaitingForGps();
-			}
 		}
 	}
 
@@ -1079,4 +1275,115 @@ public class Main extends Activity {
 		}
 		return retval.toString();
 	}
+	
+	/**
+	 * Invalidates (redraws) the map
+	 */
+	public void invalidateMap() {
+		map.invalidate();
+	}
+	
+	public void triggerMapContextMenu() {
+		map.showContextMenu();
+	}
+	
+	public static boolean hasChanges() {
+		if (logic == null) return false;
+		return logic.hasChanges();
+	}
+	
+	/**
+	 * Sets the activity to re-download the last downloaded area on startup
+	 * (use e.g. when the API URL is changed)
+	 */
+	public static void prepareRedownload() {
+		redownloadOnResume = true;
+	}
+
+	/**
+	 * @return the currentPreset
+	 */
+	public static Preset getCurrentPreset() {
+		return currentPreset;
+	}
+
+	/**
+	 * Resets the current preset, causing it to be re-parsed
+	 */
+	public static void resetPreset() {
+		currentPreset = null;
+	}
+	
+	public String getBaseURL() {
+		return prefs.getServer().getBaseURL();
+	}
+
+	@Override
+	public void onServiceConnected(ComponentName name, IBinder service) {
+		Log.i("Main", "Tracker service connected");
+		tracker = (((TrackerBinder)service).getService());
+		map.setTracker(tracker);
+		tracker.setListener(this);
+		tracker.setListenerNeedsGPS(wantLocationUpdates);
+		triggerMenuInvalidation();
+	}
+
+	@Override
+	public void onServiceDisconnected(ComponentName name) {
+		// should never happen, but just to be sure
+		Log.i("Main", "Tracker service disconnected");
+		tracker = null;
+		map.setTracker(null);
+		triggerMenuInvalidation();
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		if (followGPS) {
+			BoundingBox viewBox = map.getViewBox();
+			// ensure the view is zoomed in to at least the most zoomed-out
+			while (!viewBox.canZoomOut() && viewBox.canZoomIn()) {
+				viewBox.zoomIn();
+			}
+			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
+		}
+		if (showGPS) {
+			map.setLocation(location);
+		}
+		map.invalidate();
+	}
+	
+	
+	@Override
+	/**
+	 * DO NOT CALL DIRECTLY in custom code.
+	 * Use {@link #triggerMenuInvalidation()} to make it easier to debug and implement workarounds for android bugs.
+	 * Must be called from the main thread.
+	 */
+	public void invalidateOptionsMenu() {
+		//Log.d(DEBUG_TAG, "invalidateOptionsMenu called");
+		super.invalidateOptionsMenu();
+	}
+	
+	/**
+	 * Simply calls {@link #invalidateOptionsMenu()}.
+	 * Used to make it easier to implement workarounds.
+	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
+	 */
+	public void triggerMenuInvalidation() {
+		//Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
+		invalidateOptionsMenu(); // TODO delay or make conditional to work around android bug?
+	}
+	
+	/**
+	 * Invalidates the options menu of the main activity if such an activity exists.
+	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
+	 */
+	public static void triggerMenuInvalidationStatic() {
+		if (Application.mainActivity == null) return;
+		// DO NOT IGONORE "wrong thread" EXCEPTIONS FROM THIS.
+		// It *will* mess up your menu in many creative ways.
+		Application.mainActivity.triggerMenuInvalidation();
+	}
+
 }

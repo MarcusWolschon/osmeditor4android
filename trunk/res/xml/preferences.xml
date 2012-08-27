@@ -45,24 +45,34 @@
 		/> -->
 	</PreferenceCategory>
 	
-	<PreferenceCategory android:title="@string/config_category_server">
-		<EditTextPreference
-			android:key="@string/config_username_key"
-			android:title="@string/config_username_title"
+	<PreferenceCategory 
+		android:title="@string/config_category_server"
+		android:key="@string/config_category_server_key"
+	>
+		<Preference
+			android:title="@string/config_apibutton_title"
+			android:key="@string/config_apibutton_key"
+			android:summary="@string/config_apibutton_summary"
+		/>
+		<de.blau.android.prefs.LoginDataPreference
+			android:key="@string/config_loginbutton_key"
+			android:title="@string/config_loginbutton_title"
 			android:summary="@string/config_username_summary"
-			android:dialogTitle="@string/config_username_title"
+			android:dialogTitle="@string/config_loginbutton_title"
 			android:singleLine="true"
 		/>
-		<EditTextPreference
-			android:key="@string/config_password_key"
-			android:title="@string/config_password_title"
-			android:summary="@string/config_password_summary"
-			android:dialogTitle="@string/config_password_title"
-			android:singleLine="true"
-			android:password="true"
+		<Preference
+			android:title="@string/config_presetbutton_title"
+			android:key="@string/config_presetbutton_key"
+			android:summary="@string/config_presetbutton_summary"
 		/>
-	</PreferenceCategory>
-	
+		<CheckBoxPreference
+			android:title="@string/config_iconbutton_title"
+			android:key="@string/config_iconbutton_key"
+			android:summary="@string/config_iconbutton_summary"
+			android:persistent="false"
+		/>
+			</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_gps">
 		<EditTextPreference
 			android:key="@string/config_gps_interval_key"
@@ -80,5 +90,12 @@
 			android:numeric="decimal"
 			android:defaultValue="5.0"
 		/>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/config_category_info">
+		<Preference
+			android:title="@string/config_licensebutton_title"
+			android:summary="@string/config_licensebutton_summary"
+			android:key="@string/config_licensebutton_key"
+		/>		
 	</PreferenceCategory>
 </PreferenceScreen>
