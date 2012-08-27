@@ -15,9 +15,6 @@
   <string name="no_connection_message">Kunne ikkje kobla til OSM-tenaren. Sjekk internettforbindelsen din eller prøv om att seinare.</string> 
   <string name="wrong_login_data_title">Feil brukaropplysningar</string> 
   <string name="wrong_login_data_message">OSM-tenaren ville ikkje godkjenne deg. Sjekk brukaropplysningane dine under innstillingar.</string> 
-  <string name="undefined_error_title">Beklagar</string> 
-  <string name="undefined_error_message">Ein ukjend feil har oppstått. Vil du senda ein epost med ei kort skildring av kva du gjorde rett før dette hende? Mange takk!</string> 
-  <string name="undefined_error_sendbutton">Send epost</string> 
   <string name="progress_title">Les</string> 
   <string name="progress_message">Les inn i minne…</string> 
   <string name="progress_download_message">Lastar ned data fra tenaren…</string> 

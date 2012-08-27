@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -103,12 +102,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Requests a list of {@link Tag Tags} as an activity-result.
 	 */
 	public static final int REQUEST_EDIT_TAG = 1;
-
-	/**
-	 * List of Exceptions for error reporting.
-	 */
-	//TODO: Put this in ErrorMailer!
-	private final ArrayList<Exception> exceptions = new ArrayList<Exception>();
 
 	private DialogFactory dialogFactory;
 	
@@ -851,10 +844,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		} else {
 			startActivityForResult(intent, REQUEST_BOUNDINGBOX);
 		}
-	}
-
-	public List<Exception> getExceptions() {
-		return exceptions;
 	}
 
 	private enum AppendMode {

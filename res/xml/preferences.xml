@@ -91,6 +91,13 @@
 			android:defaultValue="5.0"
 		/>
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/config_category_acra">
+		<CheckBoxPreference android:key="acra.enable"
+			android:title="@string/pref_enable_acra"
+			android:summaryOn="@string/pref_acra_enabled"
+			android:summaryOff="@string/pref_acra_disabled"
+			android:defaultValue="true"/>
+	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_info">
 		<Preference
 			android:title="@string/config_licensebutton_title"

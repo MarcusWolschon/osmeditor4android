@@ -15,9 +15,6 @@
   <string name="no_connection_message">Kunne ikke forbinde til OSM-Serveren. Check din internet forbindelse eller prøv igen senere.</string> 
   <string name="wrong_login_data_title">Forkert login</string> 
   <string name="wrong_login_data_message">OSM-Serveren kunne ikke godkende dig. Check dine login data under Indstillinger.</string> 
-  <string name="undefined_error_title">Undskyld</string> 
-  <string name="undefined_error_message">Noget sært skete. Vil du sende en email med en kort beskrivelse af, hvad du gjorde lige inden dette skete? Manke tak!</string> 
-  <string name="undefined_error_sendbutton">Send Email</string> 
   <string name="progress_title">Læser</string> 
   <string name="progress_message">Læser ind i memory…</string> 
   <string name="progress_download_message">Downloader data fra server…</string> 

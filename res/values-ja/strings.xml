@@ -18,9 +18,6 @@
         <string name="no_connection_message">OSMサーバに接続できませんでした。インターネット接続を確認してやり直してください。</string>
         <string name="wrong_login_data_title">ログイン情報誤り</string>
         <string name="wrong_login_data_message">OSMサーバはあなたを認証できませんでした。設定内のログイン情報をチェックしてください。</string>
-        <string name="undefined_error_title">申し訳ありません</string>
-        <string name="undefined_error_message">何か異常が発生しました。発生手順を簡単に書いてメールを送ってもらえませんか？ありがとう！</string>
-        <string name="undefined_error_sendbutton">メールを送信</string>
         <string name="progress_title">ロード中</string>
         <string name="progress_message">データをメモリにロード中…</string>
         <string name="progress_download_message">サーバからデータをダウンロード中…</string>

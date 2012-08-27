@@ -15,9 +15,6 @@
 	<string name="no_connection_message">Konnte keine Verbindung zums OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später nocheinmal.</string>
 	<string name="wrong_login_data_title">Falscher Login angegeben.</string>
 	<string name="wrong_login_data_message">Der OSM-Server konnte Sie nicht authentifizieren. Bitte überprüfen Sie ihren Login in den Einstellungen.</string>
-	<string name="undefined_error_title">Entschuldigung</string>
-	<string name="undefined_error_message">Etwas unerwartetes ist passiert. Möchten Sie uns eine Email mit einer kurzen Beschreiben schicken, was zu diesem Fehler geführt hat? Vielen Dank!</string>
-	<string name="undefined_error_sendbutton">Sende Email</string>
 	<string name="progress_title">Laden</string>
 	<string name="progress_message">Lade Daten in den Speicher…</string>
 	<string name="progress_download_message">Lade Daten vom Server…</string>
