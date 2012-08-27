@@ -399,7 +399,11 @@ public class TagEditor extends Activity implements OnDismissListener {
 		savingHelper.save(LAST_TAGS_FILE, getKeyValueMap(false), false);
 		
 		Intent intent = new Intent();
-		intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, getKeyValueMap(false), null));
+		Map<String, String> currentTags = getKeyValueMap(false);
+		if (!currentTags.equals(originalTags)) {
+			// changes were made
+			intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, currentTags, null));
+		}
 		setResult(RESULT_OK, intent);
 		finish();
 	}

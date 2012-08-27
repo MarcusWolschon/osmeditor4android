@@ -709,10 +709,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	private void handleTagEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
-		// Read data from extras
-		TagEditorData editorData = (TagEditorData) b.getSerializable(TagEditor.TAGEDIT_DATA);
-		logic.setTags(editorData.type, editorData.osmId, editorData.tags);
-		map.invalidate();
+		if (b != null && b.containsKey(TagEditor.TAGEDIT_DATA)) {
+			// Read data from extras
+			TagEditorData editorData = (TagEditorData) b.getSerializable(TagEditor.TAGEDIT_DATA);
+			logic.setTags(editorData.type, editorData.osmId, editorData.tags);
+			map.invalidate();
+		}
 	}
 	
 	@Override
