@@ -1,20 +1,24 @@
 package de.blau.android;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.GotoErrorMailerListener;
 import de.blau.android.listener.GotoPreferencesListener;
 import de.blau.android.listener.UploadListener;
-import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.osb.CommitListener;
 
 /**
@@ -140,6 +144,32 @@ public class DialogFactory {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Creates a dialog warning the user that he has unsaved changes that will be discarded.
+	 * @param context Activity creating the dialog and starting the intent Activity if confirmed
+	 * @param intent Intent representing the Activity to start on confirmation
+	 * @param requestCode If the activity should return a result, a non-negative request code.
+	 *                    If no result is expected, set to -1.
+	 * @return the created dialog
+	 */
+	public static Dialog createDataLossActivityDialog(final Activity context, final Intent intent,
+			final int requestCode) {
+		Builder dialog = new AlertDialog.Builder(context);
+		dialog.setIcon(R.drawable.alert_dialog_icon);
+		dialog.setTitle(R.string.unsaved_data_title);
+		dialog.setMessage(R.string.unsaved_data_message);
+		dialog.setPositiveButton(R.string.unsaved_data_proceed,
+				new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						context.startActivityForResult(intent, requestCode);
+					}
+				}
+			);
+		dialog.setNegativeButton(R.string.cancel, null);
+		return dialog.create();
 	}
 	
 	/**

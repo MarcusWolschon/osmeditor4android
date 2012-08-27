@@ -31,14 +31,8 @@
 package de.blau.android.presets;
 
 //other imports
-import java.io.IOException;
 import java.util.List;
 import java.util.TreeMap;
-
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
@@ -73,16 +67,12 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      * @param aTextViewResourceId given to {@link ArrayAdapter}
      * @param osmId 
      * @param type 
-     * @throws ParserConfigurationException if we cannot parse presets.xml
-     * @throws SAXException if we cannot parse presets.xml
-     * @throws FactoryConfigurationError if we cannot parse presets.xml
-     * @throws IOException if we cannot parse presets.xml
      */
     public StreetTagValueAutocompletionAdapter(final Context aContext,
                                        final int aTextViewResourceId,
                                        final StorageDelegator streets,
                                        final String osmElementType,
-                                       final long osmId) throws ParserConfigurationException, SAXException, FactoryConfigurationError, IOException {
+                                       final long osmId) {
         super(aContext, aTextViewResourceId, getArray(streets, aContext, getLocation(streets, osmElementType, osmId)));
     }
 

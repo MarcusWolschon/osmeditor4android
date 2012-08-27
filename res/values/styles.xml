@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 	<style name="android:Theme.Translucent" parent="android:style/Theme.Translucent">
 		<item name="android:windowBackground">@drawable/translucent_background</item>
 		<item name="android:windowNoTitle">true</item>
+	</style>
+	
+	
+    <style name="customActionBarDropdown" parent="Widget.Sherlock.Spinner.DropDown.ActionBar">
+		<item name="android:gravity">right|center_vertical</item>
+	</style>
+    
+    <style name="Theme.customMain" parent="style/Theme.Sherlock">
+        <!-- need to specify once for ActionBarSherlock, once for android native -->
+	    <item name="actionDropDownStyle">@style/customActionBarDropdown</item>
+	    <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
 	</style>
 </resources>

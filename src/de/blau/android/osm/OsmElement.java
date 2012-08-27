@@ -4,14 +4,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
-
 import de.blau.android.R;
 
 public abstract class OsmElement implements Serializable, XmlSerializable {
@@ -84,6 +83,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		return state;
 	}
 
+	/** gives a string description of the element type (e.g. 'node' or 'way') - see also {@link #getType()} */
 	abstract public String getName();
 
 	/**
@@ -260,5 +260,17 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 			cachedHasProblemValid = true;
 		}
 		return cachedHasProblem;
+	}
+	
+	
+	/** (see also {@link #getName()} - this returns the full type, differentiating between open and closed ways) 
+	 * @return the {@link ElementType} of the element */
+	public abstract ElementType getType();
+	
+	/** Enum for element types (Node, Way, Closedway) */
+	public enum ElementType {
+		NODE,
+		WAY,
+		CLOSEDWAY
 	}
 }

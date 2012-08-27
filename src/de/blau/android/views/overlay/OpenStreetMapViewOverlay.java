@@ -2,13 +2,12 @@
 package de.blau.android.views.overlay;
 
 
-import de.blau.android.Map;
-import de.blau.android.views.IMapView;
-
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import de.blau.android.Map;
+import de.blau.android.views.IMapView;
 
 /**
  * Base class representing an overlay which may be displayed on top of an

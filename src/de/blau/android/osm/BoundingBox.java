@@ -95,7 +95,7 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Maximum width to zoom out.
 	 */
-	private static final int MAX_ZOOM_WIDTH = 5000000;
+	private static final int MAX_ZOOM_WIDTH = 500000000;
 
 	private static final String DEBUG_TAG = BoundingBox.class.getSimpleName();
 
@@ -423,7 +423,6 @@ public class BoundingBox implements Serializable {
 			}
 			// border-sizes changed. So we have to recalculate the dimensions.
 			calcDimensions();
-			Log.w(DEBUG_TAG, "Ratio: " + ratio);
 			this.ratio = ratio;
 		}
 	}
@@ -518,19 +517,9 @@ public class BoundingBox implements Serializable {
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
 	public void zoom(float zoomFactor) {
-		float limit;
-		// Zooming in should always be a positive value, if the limit is less
-		// than zero, then somehow we're zoomed in more than MIN_ZOOM_WITDH and
-		// limit is actually the factor required to zoom *out* to that minimum
-		// width. Zooming out is similar, but the logic is reversed.
-		limit = zoomInLimit();
-		if (limit < 0 || zoomFactor > limit) {
-			zoomFactor = limit;
-		}
-		limit = zoomOutLimit();
-		if (limit > 0 || zoomFactor < limit) {
-			zoomFactor = limit;
-		}
+		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
+		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
+
 		float verticalChange = width * zoomFactor;
 		float horizontalChange = height * zoomFactor;
 		left += verticalChange;
