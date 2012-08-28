@@ -19,11 +19,11 @@ import android.content.res.Resources;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.services.util.OpenStreetMapTile;
-import de.blau.android.util.UglyHackForStrictMode;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.
@@ -163,6 +163,7 @@ public class OpenStreetMapTileServer {
 	// Fields
 	// ===========================================================
 	
+	private boolean metadataLoaded;
 	private String id, tileUrl, imageFilenameExtension, touUri;
 	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight;
 	private Drawable brandLogo;
@@ -173,7 +174,85 @@ public class OpenStreetMapTileServer {
 	// Constructors
 	// ===========================================================
 	
-	private OpenStreetMapTileServer(final Resources r, final String id, final String config) {
+	private void loadInfo(String metadataUrl) {
+		try {
+			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+			factory.setNamespaceAware(true);
+			XmlPullParser parser = factory.newPullParser();
+			// Get the tile metadata
+			InputStream is;
+			if (metadataUrl.startsWith("@raw/")) {
+				// internal URL
+				int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
+				is = r.openRawResource(resid);
+			} else {
+				// assume Internet URL
+				URLConnection conn = new URL(replaceGeneralParameters(metadataUrl)).openConnection();
+				conn.setRequestProperty("User-Agent", Application.userAgent);
+				is = conn.getInputStream();
+			}
+			parser.setInput(is, null);
+			
+			int eventType;
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();
+				if (eventType == XmlPullParser.START_TAG) {
+					if (tagName.equals("BrandLogoUri") && parser.next() == XmlPullParser.TEXT) {
+						String brandLogoUri = parser.getText().trim();
+						if (brandLogoUri.startsWith("@drawable/")) {
+							// internal URL
+							int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
+							brandLogo = r.getDrawable(resid);
+						} else {
+							// assume Internet URL
+							URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
+							conn.setRequestProperty("User-Agent", Application.userAgent);
+							InputStream bis = conn.getInputStream();
+							brandLogo = new BitmapDrawable(r, bis);
+						}
+					}
+					if (tagName.equals("ImageUrl") && parser.next() == XmlPullParser.TEXT) {
+						tileUrl = parser.getText().trim();
+					}
+					if (tagName.equals("string") && parser.next() == XmlPullParser.TEXT) {
+						subdomains.add(parser.getText().trim());
+					}
+					if (tagName.equals("ImageWidth") && parser.next() == XmlPullParser.TEXT) {
+						tileWidth = Integer.parseInt(parser.getText().trim());
+					}
+					if (tagName.equals("ImageHeight") && parser.next() == XmlPullParser.TEXT) {
+						tileHeight = Integer.parseInt(parser.getText().trim());
+					}
+					if (tagName.equals("ZoomMin") && parser.next() == XmlPullParser.TEXT) {
+						zoomLevelMin = Integer.parseInt(parser.getText().trim());
+					}
+					if (tagName.equals("ZoomMax") && parser.next() == XmlPullParser.TEXT) {
+						zoomLevelMax = Integer.parseInt(parser.getText().trim());
+					}
+					if (tagName.equals("ImageryProvider")) {
+						try {
+							providers.add(new Provider(parser));
+						} catch (IOException e) {
+							// if the provider can't be parsed, we can't do
+							// much about it
+							Log.e("Vespucci", "ImageryProvider problem", e);
+						} catch (XmlPullParserException e) {
+							// if the provider can't be parsed, we can't do
+							// much about it
+							Log.e("Vespucci", "ImageryProvider problem", e);
+						}
+					}
+				}
+			}
+			metadataLoaded = true;
+		} catch (IOException e) {
+			Log.e("Vespucci", "Tileserver problem", e);
+		} catch (XmlPullParserException e) {
+			Log.e("Vespucci", "Tileserver problem", e);
+		}
+	}
+	
+	private OpenStreetMapTileServer(final Resources r, final String id, final String config, final boolean async) {
 		String[] cfgItems = config.split("\\s+");
 		this.r = r;
 		this.id = id;
@@ -187,90 +266,24 @@ public class OpenStreetMapTileServer {
 			tileWidth = 1 << zoom;
 			tileHeight = 1 << zoom;
 			brandLogo = null;
+			metadataLoaded = true;
 			break;
 		case 2:
 		case 3:
 			imageFilenameExtension = cfgItems[0];
-			String metadataUrl = cfgItems[1];
 			touUri = (cfgItems.length > 2) ? cfgItems[2] : null;
-			
-			try {
-				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-				factory.setNamespaceAware(true);
-				XmlPullParser parser = factory.newPullParser();
-				// Get the tile metadata
-				InputStream is;
-				if (metadataUrl.startsWith("@raw/")) {
-					// internal URL
-					int resid = r.getIdentifier(metadataUrl.substring(5), "raw", "de.blau.android");
-					is = r.openRawResource(resid);
-				} else {
-					// assume Internet URL
-					// TODO network IO must not be done on main thread - remove ugly hack after fixing (do not forget the endLegacySection below)
-					UglyHackForStrictMode.beginLegacySection();
-					URLConnection conn = new URL(replaceGeneralParameters(metadataUrl)).openConnection();
-					conn.setRequestProperty("User-Agent", Application.userAgent);
-					is = conn.getInputStream();
-				}
-				parser.setInput(is, null);
-				
-				int eventType;
-				while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-					String tagName = parser.getName();
-					if (eventType == XmlPullParser.START_TAG) {
-						if (tagName.equals("BrandLogoUri") && parser.next() == XmlPullParser.TEXT) {
-							String brandLogoUri = parser.getText().trim();
-							if (brandLogoUri.startsWith("@drawable/")) {
-								// internal URL
-								int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
-								brandLogo = r.getDrawable(resid);
-							} else {
-								// assume Internet URL
-								URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
-								conn.setRequestProperty("User-Agent", Application.userAgent);
-								InputStream bis = conn.getInputStream();
-								brandLogo = new BitmapDrawable(r, bis);
-							}
-						}
-						if (tagName.equals("ImageUrl") && parser.next() == XmlPullParser.TEXT) {
-							tileUrl = parser.getText().trim();
-						}
-						if (tagName.equals("string") && parser.next() == XmlPullParser.TEXT) {
-							subdomains.add(parser.getText().trim());
-						}
-						if (tagName.equals("ImageWidth") && parser.next() == XmlPullParser.TEXT) {
-							tileWidth = Integer.parseInt(parser.getText().trim());
-						}
-						if (tagName.equals("ImageHeight") && parser.next() == XmlPullParser.TEXT) {
-							tileHeight = Integer.parseInt(parser.getText().trim());
-						}
-						if (tagName.equals("ZoomMin") && parser.next() == XmlPullParser.TEXT) {
-							zoomLevelMin = Integer.parseInt(parser.getText().trim());
-						}
-						if (tagName.equals("ZoomMax") && parser.next() == XmlPullParser.TEXT) {
-							zoomLevelMax = Integer.parseInt(parser.getText().trim());
-						}
-						if (tagName.equals("ImageryProvider")) {
-							try {
-								providers.add(new Provider(parser));
-							} catch (IOException e) {
-								// if the provider can't be parsed, we can't do
-								// much about it
-								Log.e("Vespucci", "ImageryProvider problem", e);
-							} catch (XmlPullParserException e) {
-								// if the provider can't be parsed, we can't do
-								// much about it
-								Log.e("Vespucci", "ImageryProvider problem", e);
-							}
-						}
+			if (async) {
+				metadataLoaded = false;
+				new AsyncTask<String, Void, Void>() {
+					@Override
+					protected Void doInBackground(String... params) {
+						loadInfo(params[0]);
+						return null;
 					}
-				}
-			} catch (IOException e) {
-				Log.e("Vespucci", "Tileserver problem", e);
-			} catch (XmlPullParserException e) {
-				Log.e("Vespucci", "Tileserver problem", e);
+				}.execute(cfgItems[1]);
+			} else {
+				loadInfo(cfgItems[1]);
 			}
-			UglyHackForStrictMode.endLegacySection(); // TODO remove ugly hack (see above)
 			break;
 		default:
 			tileUrl = "";
@@ -280,6 +293,7 @@ public class OpenStreetMapTileServer {
 			tileWidth = 256;
 			tileHeight = 256;
 			brandLogo = null;
+			metadataLoaded = true;
 			break;
 		}
 	}
@@ -289,9 +303,9 @@ public class OpenStreetMapTileServer {
 	 * @param r Application resources.
 	 * @return The default tile layer.
 	 */
-	public static OpenStreetMapTileServer getDefault(final Resources r) {
+	public static OpenStreetMapTileServer getDefault(final Resources r, final boolean async) {
 		// ask for an invalid renderer, so we'll get the fallback default
-		return get(r, "");
+		return get(r, "", async);
 	}
 	
 	/**
@@ -301,7 +315,7 @@ public class OpenStreetMapTileServer {
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
 	 * @return
 	 */
-	public static OpenStreetMapTileServer get(final Resources r, final String id) {
+	public static OpenStreetMapTileServer get(final Resources r, final String id, final boolean async) {
 		if (cached == null || !cached.id.equals(id)) {
 			String ids[] = r.getStringArray(R.array.renderer_ids);
 			String cfgs[] = r.getStringArray(R.array.renderer_configs);
@@ -310,7 +324,7 @@ public class OpenStreetMapTileServer {
 				if (ids[i].equals(id) ||
 						// check for default renderer MAPNIK here
 						(cached == null && ids[i].equals("MAPNIK"))) {
-					cached = new OpenStreetMapTileServer(r, ids[i], cfgs[i]);
+					cached = new OpenStreetMapTileServer(r, ids[i], cfgs[i], async);
 				}
 			}
 		}
@@ -320,6 +334,10 @@ public class OpenStreetMapTileServer {
 	// ===========================================================
 	// Methods
 	// ===========================================================
+	
+	public boolean isMetadataLoaded() {
+		return metadataLoaded;
+	}
 	
 	/**
 	 * Get the Tile layer ID.
@@ -334,6 +352,7 @@ public class OpenStreetMapTileServer {
 	 * @return The tile width in pixels.
 	 */
 	public int getTileWidth() {
+		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		return tileWidth;
 	}
 	
@@ -342,6 +361,7 @@ public class OpenStreetMapTileServer {
 	 * @return The tile height in pixels.
 	 */
 	public int getTileHeight() {
+		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		return tileHeight;
 	}
 	
@@ -350,6 +370,7 @@ public class OpenStreetMapTileServer {
 	 * @return Minimum zoom level for which the tile layer is available.
 	 */
 	public int getMinZoomLevel() {
+		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		return zoomLevelMin;
 	}
 	
@@ -358,6 +379,7 @@ public class OpenStreetMapTileServer {
 	 * @return Maximum zoom level for which the tile layer is available.
 	 */
 	public int getMaxZoomLevel() {
+		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		return zoomLevelMax;
 	}
 	
@@ -374,6 +396,7 @@ public class OpenStreetMapTileServer {
 	 * @return The branding logo, or null if there is none.
 	 */
 	public Drawable getBrandLogo() {
+		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		return brandLogo;
 	}
 	
@@ -386,6 +409,7 @@ public class OpenStreetMapTileServer {
 	 * @return Collections of attributions that apply to the specified area and zoom.
 	 */
 	public Collection<String> getAttributions(final int zoom, final RectF area) {
+		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		Collection<String> ret = new ArrayList<String>();
 		for (Provider p : providers) {
 			if (p.covers(zoom, area)) {
@@ -438,6 +462,7 @@ public class OpenStreetMapTileServer {
 	 * @return URL of the given tile.
 	 */
 	public String getTileURLString(final OpenStreetMapTile aTile) {
+		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		String result = tileUrl;
 		
 		// Position-sensitive replacements - Potlatch !/!/! syntax

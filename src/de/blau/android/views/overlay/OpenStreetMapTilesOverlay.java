@@ -79,6 +79,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
 	}
 	
+	public boolean isReadyToDraw() {
+		return myRendererInfo.isMetadataLoaded();
+	}
+	
 	public void onDestroy() {
 		super.onDestroy();
 		mTileProvider.clear();
