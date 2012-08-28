@@ -3,7 +3,6 @@
 <!-- Preference names in same order as renderer_ids below -->
 <string-array name="renderer_names">
   <item>None</item>
-  <item>OsmaRender</item>
   <item>Mapnik</item>
   <item>Noname (Cloudmade)</item>
   <item>Bing Aerial Imagery</item>
@@ -34,7 +33,6 @@
 <!-- This is used to name the cache sub-folder for the tileset -->
 <string-array name="renderer_ids">
   <item>NONE</item>
-  <item>OSMARENDER</item>
   <item>MAPNIK</item>
   <item>CLOUDMADENONAME</item>
   <item>BING</item>
@@ -68,7 +66,6 @@
      Terms of Use URL (optional) -->
 <string-array name="renderer_configs">
   <item></item>
-  <item>.png @raw/osmarender</item>
   <item>.png @raw/mapnik</item>
   <item>.png @raw/cloudmadenoname</item>
   <item>.jpg http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&amp;key={bingapikey}&amp;include=ImageryProviders&amp;output=xml http://go.microsoft.com/?linkid=9710837</item>
