@@ -91,6 +91,13 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 		closedPaint.setAlpha(200);
 	}
 	
+	public boolean isReadyToDraw() {
+		if (map.getPrefs().isOpenStreetBugsEnabled()) {
+			return map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+		}
+		return true;
+	}
+	
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {

@@ -123,7 +123,7 @@ public class Map extends View implements IMapView {
 		setDrawingCacheEnabled(false);
 		
 		// create an overlay that displays pre-rendered tiles from the internet.
-		mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources()), null));
+		mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
 		mOverlays.add(new OpenStreetBugsOverlay(this));
 		
 		iconRadius = Math.round((float)ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
@@ -640,10 +640,10 @@ public class Map extends View implements IMapView {
 	
 	void setPrefs(final Preferences aPreference) {
 		pref = aPreference;
+		final OpenStreetMapTileServer ts = OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer(), true);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay) {
-				OpenStreetMapTilesOverlay o = (OpenStreetMapTilesOverlay)osmvo;
-				o.setRendererInfo(OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer()));
+				((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(ts);
 			}
 		}
 		showIcons = pref.getShowIcons();

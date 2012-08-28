@@ -72,8 +72,8 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 
 	private String buildURL(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID);
-		return renderer.getTileURLString(tile);
+		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID, false);
+		return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
 	}
 
 	// ===========================================================

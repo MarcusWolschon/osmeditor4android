@@ -54,8 +54,10 @@ public abstract class OpenStreetMapViewOverlay {
 	 */
 	public void onManagedDraw(final Canvas c, final IMapView osmv) {
 		try {
-			onDraw(c, osmv);
-			onDrawFinished(c, osmv);
+			if (isReadyToDraw()) {
+				onDraw(c, osmv);
+				onDrawFinished(c, osmv);
+			}
 		} catch (Exception e) {
 			Log.e(DEBUG_TAG, "Exception while drawing map", e);
 		}
@@ -68,6 +70,10 @@ public abstract class OpenStreetMapViewOverlay {
 	// ===========================================================
 	// Methods
 	// ===========================================================
+	
+	public boolean isReadyToDraw() {
+		return true;
+	}
 	
 	/**
 	 * By default does nothing.
