@@ -101,19 +101,26 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	}
 
 	public boolean hasTile(final OpenStreetMapTile aTile) {
-		final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
-		final Cursor c = mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE, args, null, null, null);
-		final boolean existed = c.getCount() > 0;
-		c.close();
+		boolean existed = false;
+		if (mDatabase.isOpen()) {
+			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
+			final Cursor c = mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE, args, null, null, null);
+			existed = c.getCount() > 0;
+			c.close();
+		}
 		return existed;
 	}
 	
 	public boolean incrementUse(final OpenStreetMapTile aTile) {
-		final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
-		ContentValues cv = new ContentValues();
-		cv.put(T_FSCACHE_USAGECOUNT, T_FSCACHE_USAGECOUNT + " + 1");
-		cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
-		return mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
+		boolean ret = false;
+		if (mDatabase.isOpen()) {
+			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
+			ContentValues cv = new ContentValues();
+			cv.put(T_FSCACHE_USAGECOUNT, T_FSCACHE_USAGECOUNT + " + 1");
+			cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
+			ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
+		}
+		return ret;
 	}
 
 	public int addTileOrIncrement(final OpenStreetMapTile aTile, final int aByteFilesize) {
@@ -128,14 +135,16 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	}
 
 	private void insertNewTileInfo(final OpenStreetMapTile aTile, final int aByteFilesize) {
-		final ContentValues cv = new ContentValues();
-		cv.put(T_FSCACHE_RENDERER_ID, aTile.rendererID);
-		cv.put(T_FSCACHE_ZOOM_LEVEL, aTile.zoomLevel);
-		cv.put(T_FSCACHE_TILE_X, aTile.x);
-		cv.put(T_FSCACHE_TILE_Y, aTile.y);
-		cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
-		cv.put(T_FSCACHE_FILESIZE, aByteFilesize);
-		mDatabase.insert(T_FSCACHE, null, cv);
+		if (mDatabase.isOpen()) {
+			final ContentValues cv = new ContentValues();
+			cv.put(T_FSCACHE_RENDERER_ID, aTile.rendererID);
+			cv.put(T_FSCACHE_ZOOM_LEVEL, aTile.zoomLevel);
+			cv.put(T_FSCACHE_TILE_X, aTile.x);
+			cv.put(T_FSCACHE_TILE_Y, aTile.y);
+			cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
+			cv.put(T_FSCACHE_FILESIZE, aByteFilesize);
+			mDatabase.insert(T_FSCACHE, null, cv);
+		}
 	}
 
 	int deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
@@ -174,18 +183,16 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	// ===========================================================
 	private String TMP_COLUMN = "tmp"; 
 	public int getCurrentFSCacheByteSize() {
-		final Cursor c = mDatabase.rawQuery("SELECT SUM(" + T_FSCACHE_FILESIZE + ") AS " + TMP_COLUMN + " FROM " + T_FSCACHE, null);
-		final int ret;
-		if(c != null){
-			if(c.moveToFirst()){
-				ret = c.getInt(c.getColumnIndexOrThrow(TMP_COLUMN));
-			}else{
-				ret = 0;
+		int ret = 0;
+		if (mDatabase.isOpen()) {
+			final Cursor c = mDatabase.rawQuery("SELECT SUM(" + T_FSCACHE_FILESIZE + ") AS " + TMP_COLUMN + " FROM " + T_FSCACHE, null);
+			if(c != null){
+				if(c.moveToFirst()){
+					ret = c.getInt(c.getColumnIndexOrThrow(TMP_COLUMN));
+				}
 			}
-		}else{
-			ret = 0;
+			c.close();
 		}
-		c.close();
 
 		return ret;
 	}
