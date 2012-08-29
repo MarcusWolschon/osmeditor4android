@@ -959,7 +959,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					performAppend(v, x, y);
 					break;
 				case MODE_EASYEDIT:
-					easyEditManager.handleClick(v,x,y);
+					performEasyEdit(v, x, y);
 					break;
 				}
 				map.invalidate();
@@ -1008,7 +1008,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			
 			if (logic.isInEditZoomRange()) {
-				return easyEditManager.handleLongClick(v,x,y);
+				return easyEditManager.handleLongClick(v, x, y);
 			}
 			
 			return true; // long click handled
@@ -1118,6 +1118,36 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				logic.performAppendAppend(x, y);
 			}
 		}
+		
+		/**
+		 * Perform easy edit touch processing.
+		 * @param v
+		 * @param x the click-position on the display.
+		 * @param y the click-position on the display.
+		 */
+		public void performEasyEdit(final View v, final float x, final float y) {
+			if (!easyEditManager.actionModeHandledClick(x, y)) {
+				clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size()) {
+				case 0:
+					// no elements were touched
+					easyEditManager.nothingTouched();
+					break;
+				case 1:
+					// exactly one element touched
+					if (clickedBugs != null && clickedBugs.size() == 1) {
+						performBugEdit(clickedBugs.get(0));
+					} else {
+						easyEditManager.editElement(clickedNodesAndWays.get(0));
+					}
+					break;
+				default:
+					// multiple possible elements touched - show menu
+					v.showContextMenu();
+					break;
+				}
+			}
+		}
 
 		/**
 		 * Edit an OpenStreetBug.
@@ -1149,7 +1179,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 
 		@Override
-		public boolean onMenuItemClick(final android.view.MenuItem item) {			
+		public boolean onMenuItemClick(final android.view.MenuItem item) {
 			int itemId = item.getItemId();
 			if (clickedBugs != null && itemId >= 0 && itemId < clickedBugs.size()) {
 				performBugEdit(clickedBugs.get(itemId));
@@ -1179,8 +1209,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 							break;
 						}
 						break;
+					case MODE_EASYEDIT:
+						easyEditManager.editElement(element);
+						break;
 					}
-					// MODE_EASYEDIT clicks get handled by EasyEditManager directly
 				}
 			}
 			return true;
