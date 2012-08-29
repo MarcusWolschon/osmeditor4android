@@ -92,7 +92,7 @@ Vespucci is limited in the following sense:
 
 ====Which languages are supported?====
 
-English, French and Russian.
+English and German and the primary supported languages. We also have translations for: Czech, Danish, French, Hungarian, Italian, Japanese, Norwegian (including Bokmål and Nynorsk), Polish and Russian. These other translations may be patchy and/or incomplete as we rely on volunteered translation efforts. Any help in this area would be gratefully received.
 
 
 == 3. Usage ==
