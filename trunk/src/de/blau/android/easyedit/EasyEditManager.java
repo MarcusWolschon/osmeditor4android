@@ -46,42 +46,44 @@ public class EasyEditManager {
 	}
 	
 	/**
-	 * This is called when we are in edit range, EasyEdit mode is active,
-	 * and a click needs to be handled.
-	 * @param v the view parameter of the click
+	 * Call to let the action mode (if any) have a first go at the click.
 	 * @param x the x coordinate (screen coordinate?) of the click
 	 * @param y the y coordinate (screen coordinate?) of the click
-	 * @param mapTouchListener 
+	 * @return true if the click was handled
 	 */
-	public void handleClick(View v, float x, float y) {
-		if (currentActionModeCallback != null && currentActionModeCallback.handleClick(x,y)) {
-			return; // action mode handled the click
-		}
-		
-		
-		Node clickedNode = logic.getClickedNode(x, y);
-		if (clickedNode != null) {
+	public boolean actionModeHandledClick(float x, float y) {
+		return (currentActionModeCallback != null && currentActionModeCallback.handleClick(x,y));
+	}
+	
+	/**
+	 * Handle case where nothing is touched.
+	 */
+	public void nothingTouched() {
+		// User clicked an empty area. If something is selected, deselect it.
+		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) currentActionMode.finish();
+	}
+	
+	/**
+	 * Handle editing the given element.
+	 * @param element The OSM element to edit.
+	 */
+	public void editElement(OsmElement element) {
+		if (element instanceof Node) {
+			Node clickedNode = (Node) element;
 			if (currentActionModeCallback == null || !currentActionModeCallback.handleNodeClick(clickedNode)) {
 				// No callback or didn't handle the click, perform default (select node)
 				main.startActionMode(new ElementSelectionActionModeCallback(clickedNode));
 			}
-			return; // a node was clicked, the click was handled, we're done
 		}
-		
-		// No node was clicked, check for ways
-		Way clickedWay = logic.getClickedWay(x, y);
-		if (clickedWay != null) {
+		if (element instanceof Way) {
+			Way clickedWay = (Way) element;
 			if (currentActionModeCallback == null || !currentActionModeCallback.handleWayClick(clickedWay)) {
 				// No callback or didn't handle the click, perform default (select way)
 				main.startActionMode(new ElementSelectionActionModeCallback(clickedWay));
 			}
-			return; // a way was clicked, the click was handled, we're done
 		}
-
-		// User clicked an empty area. If something is selected, deselect it.
-		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) currentActionMode.finish();
 	}
-
+	
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
 		if (currentActionModeCallback instanceof PathCreationActionModeCallback) {
