@@ -42,6 +42,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.util.GeoMath;
 
 
 /**
@@ -124,60 +125,24 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      * @return the minimum distance of the given way to the given location
      */
 	private static double getDistance(final StorageDelegator streets, final Way way, final int[] location) {
-		if (location == null) {
-			return Integer.MAX_VALUE;
-		}
-		List<Node> nodes = way.getNodes();
 		double distance = Double.MAX_VALUE;
-		Node lastNode = null;
-		for (Node node : nodes) {
-			if (node != null) {
-				//int la = Math.abs(location[0] - node.getLat());
-				//int lo = Math.abs(location[1] - node.getLon());
-				//int d = la + lo;
+		if (location != null) {
+			Node n1 = null;
+			for (Node n2 : way.getNodes()) {
 				// distance to nodes of way
-				//distance = Math.min(d, distance);
-				if (lastNode != null) {
+				if (n1 != null) {
 					// distance to lines of way
-					double d2 = Math.sqrt(ptSegDistSq(lastNode.getLat(), lastNode.getLon(),
-							                      node.getLat(), node.getLon(),
-							                      location[0], location[1]));
-					distance = Math.min(d2, distance);
+					distance = Math.min(distance,
+							GeoMath.getLineDistance(
+									location[0], location[1],
+									n1.getLat(), n1.getLon(),
+									n2.getLat(), n2.getLon()));
 				}
-				lastNode = node;
+				n1 = n2;
 			}
 		}
 		return distance;
 	}
-
-	public static double ptSegDistSq(double x1, double y1, double x2,
-			double y2, double px, double py) {
-		/*
-		 * A = (x2 - x1, y2 - y1) P = (px - x1, py - y1)
-		 */
-		x2 -= x1; // A = (x2, y2)
-		y2 -= y1;
-		px -= x1; // P = (px, py)
-		py -= y1;
-		double dist;
-		if (px * x2 + py * y2 <= 0.0) { // P*A
-			dist = px * px + py * py;
-		} else {
-			px = x2 - px; // P = A - P = (x2 - px, y2 - py)
-			py = y2 - py;
-			if (px * x2 + py * y2 <= 0.0) { // P*A
-				dist = px * px + py * py;
-			} else {
-				dist = px * y2 - py * x2;
-				dist = dist * dist / (x2 * x2 + y2 * y2); // pxA/|A|
-			}
-		}
-		if (dist < 0) {
-			dist = 0;
-		}
-		return dist;
-	}
-
 
 	/**
      * Get the location of the center of the given osm-element
