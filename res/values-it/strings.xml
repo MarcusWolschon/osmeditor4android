@@ -27,10 +27,6 @@
 	<string name="toast_waiting_for_gps">In attesa della posizione GPS…</string>
 	<string name="toast_follow_gps_off">GPS di ricerca disabilitato</string>
 
-	<!-- ErrorMailer  -->
-	<string name="error_email_message">"Caro Matthias,\n\npuoi verificare il seguente messaggio di errore?\n\n"</string>
-	<string name="error_email_chooser_title">Invia email tramite:</string>
-	
 	<!-- Some generic labels -->
 	<string name="yes">Sì</string>
 	<string name="no">No</string>

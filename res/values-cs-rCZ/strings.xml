@@ -32,10 +32,6 @@
 	<string name="toast_export_success">Exportováno to %1$s</string>
 	<string name="toast_preset_overwrote_tags">Pozor - předloha přepsala tag(y)</string>
 		
-	<!-- ErrorMailer  -->
-	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
-	<string name="error_email_chooser_title">Odeslat email pomocí:</string>
-	
 	<!-- Some generic labels -->
 	<string name="yes">Ano</string>
 	<string name="no">Ne</string>

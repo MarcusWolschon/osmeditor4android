@@ -41,10 +41,6 @@
 	<string name="toast_not_in_bug_range">Przybliż, by dodać zgłosić błąd (Volume Up/Down lub Lens/Shift)</string>
 	<string name="toast_file_openstreetbug">Klepnij w wybranym miejscu, by dodać OpenStreetBug</string>
 
-	<!-- ErrorMailer  -->
-	<string name="error_email_message">"Dear Author,\n\ncan you check the following error message?\n\n"</string>
-	<string name="error_email_chooser_title">Wyślij email przez:</string>
-	
 	<!-- Some generic labels -->
 	<string name="yes">Tak</string>
 	<string name="no">Nie</string>

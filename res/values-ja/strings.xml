@@ -41,10 +41,6 @@
         <string name="toast_not_in_bug_range">ズームインしてバグを追加してください (ボリュームUp/Down または Lens/Shift)</string>
         <string name="toast_file_openstreetbug">マップ内をタップしてOpenStreetBugをファイルしてください</string>
 
-        <!-- ErrorMailer  -->
-        <string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
-        <string name="error_email_chooser_title">次の方法でメール送信:</string>
-        
         <!-- Some generic labels -->
         <string name="yes">はい</string>
         <string name="no">いいえ</string>

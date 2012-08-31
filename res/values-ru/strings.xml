@@ -27,10 +27,6 @@
 	<string name="toast_waiting_for_gps">Ждем от GPS определения позиции…</string>
 	<string name="toast_follow_gps_off">GPS отключен</string>
 	
-	<!-- ErrorMailer  -->
-	<string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string>
-	<string name="error_email_chooser_title">Отправить письмо через:</string>
-	
 	<!-- Some generic labels -->
 	<string name="yes">Да</string>
 	<string name="no">Нет</string>
