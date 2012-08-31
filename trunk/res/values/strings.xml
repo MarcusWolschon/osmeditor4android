@@ -92,7 +92,7 @@
 	<string name="menu_config">Preferences</string>
 	<string name="menu_help">Help</string>
 	<string name="menu_erase">Erase node</string>
-	<string name="menu_split">Split way</string>
+	<string name="menu_split">Split</string>
 	<string name="menu_append">Append</string>
 	<string name="menu_tag">Edit tags</string>
 	<string name="menu_openstreetbug">File OpenStreetBug</string>
@@ -115,8 +115,8 @@
 	<!-- element action mode menu -->
 	<string name="menu_tags">Tags</string> <!-- Text should be as short as possible -->
 	<string name="menu_history">History</string>
-	<string name="menu_merge">Join ways</string>
-	<string name="menu_reverse">Reverse direction</string>
+	<string name="menu_merge">Join</string>
+	<string name="menu_reverse">Reverse</string>
 	<string name="toast_oneway_reversed">You reversed a oneway street. Please check the oneway tag and correct if necessary.</string>
 	
 	<string name="deleteway_description">You are about to delete a way. You can either keep all nodes, or delete nodes that only belong to this way and do not have any tags.</string>
