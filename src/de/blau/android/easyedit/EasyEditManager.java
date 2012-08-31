@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -68,19 +69,12 @@ public class EasyEditManager {
 	 * @param element The OSM element to edit.
 	 */
 	public void editElement(OsmElement element) {
-		if (element instanceof Node) {
-			Node clickedNode = (Node) element;
-			if (currentActionModeCallback == null || !currentActionModeCallback.handleNodeClick(clickedNode)) {
-				// No callback or didn't handle the click, perform default (select node)
-				main.startActionMode(new ElementSelectionActionModeCallback(clickedNode));
-			}
-		}
-		if (element instanceof Way) {
-			Way clickedWay = (Way) element;
-			if (currentActionModeCallback == null || !currentActionModeCallback.handleWayClick(clickedWay)) {
-				// No callback or didn't handle the click, perform default (select way)
-				main.startActionMode(new ElementSelectionActionModeCallback(clickedWay));
-			}
+		if (currentActionModeCallback == null || !currentActionModeCallback.handleElementClick(element)) {
+			// No callback or didn't handle the click, perform default (select element)
+			ActionMode.Callback cb = null;
+			if (element instanceof Node) cb = new NodeSelectionActionModeCallback((Node)element);
+			if (element instanceof Way ) cb = new  WaySelectionActionModeCallback((Way )element);
+			if (cb != null) main.startActionMode(cb);
 		}
 	}
 	
@@ -90,14 +84,11 @@ public class EasyEditManager {
 			// we don't do long clicks while creating paths
 			return false;
 		}
-
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 		main.startActionMode(new PathCreationActionModeCallback(x, y));
-	
 		return true;
 	}
-
-
+	
 	/**
 	 * Takes a parameter for a node and one for a way.
 	 * If the way is not null, opens a tag editor for the way.
@@ -125,23 +116,23 @@ public class EasyEditManager {
 	 * @param way the way into which other ways may be merged
 	 * @return a list of all ways which can be merged into the given way
 	 */
-	private HashSet<OsmElement> findMergeableWays(Way way) {
-		HashSet<Way> candidates = new HashSet<Way>();
-		HashSet<OsmElement> result = new HashSet<OsmElement>();
+	private Set<OsmElement> findMergeableWays(Way way) {
+		Set<Way> candidates = new HashSet<Way>();
+		Set<OsmElement> result = new HashSet<OsmElement>();
 		candidates.addAll(logic.getWaysForNode(way.getFirstNode()));
 		candidates.addAll(logic.getWaysForNode(way.getLastNode()));
 		for (Way candidate : candidates) {
-			if (	(way != candidate)
-					&& (candidate.isEndNode(way.getFirstNode()) || candidate.isEndNode(way.getLastNode()))
-					&& (candidate.getTags().isEmpty() || way.getTags().isEmpty() || 
-							way.getTags().entrySet().equals(candidate.getTags().entrySet()) )
+			if ((way != candidate)
+				&& (candidate.isEndNode(way.getFirstNode()) || candidate.isEndNode(way.getLastNode()))
+				&& (candidate.getTags().isEmpty() || way.getTags().isEmpty() || 
+						way.getTags().entrySet().equals(candidate.getTags().entrySet()) )
 				) {
 				result.add(candidate);
 			}
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Base class for ActionMode callbacks inside {@link EasyEditManager}.
 	 * Derived classes should call {@link #onCreateActionMode(ActionMode, Menu)} and {@link #onDestroyActionMode(ActionMode)}.
@@ -169,7 +160,6 @@ public class EasyEditManager {
 			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
 		}
 		
-		
 		/**
 		 * This method gets called when the map is clicked, before checking for clicked nodes/ways.
 		 * The ActionModeCallback can then either return true to indicate that the click was handled (or should be ignored),
@@ -185,13 +175,13 @@ public class EasyEditManager {
 		}
 		
 		/**
-		 * This method gets called when a node click has to be handled.
+		 * This method gets called when an OsmElement click has to be handled.
 		 * The ActionModeCallback can then either return true to indicate that the click was handled (or should be ignored),
 		 * or return false to indicate default handling should apply.
-		 * @param node the node that was clicked
+		 * @param element the OsmElement that was clicked
 		 * @return true if the click has been handled, false if default handling should apply
 		 */
-		public boolean handleNodeClick(Node node) {
+		public boolean handleElementClick(OsmElement element) {
 			return false;
 		}
 		
@@ -206,17 +196,6 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			return false;
 		}
-
-		/**
-		 * This method gets called when a way click has to be handled.
-		 * The ActionModeCallback can then either return true to indicate that the click was handled (or should be ignored),
-		 * or return false to indicate default handling should apply.
-		 * @param way the way that was clicked
-		 * @return true if the click has been handled, false if default handling should apply
-		 */
-		public boolean handleWayClick(Way way) {
-			return false;
-		}
 	}
 	
 	/**
@@ -226,7 +205,7 @@ public class EasyEditManager {
 	 */
 	private class PathCreationActionModeCallback extends EasyEditActionModeCallback {
 		private static final int MENUITEM_UNDO = 1;
-
+		
 		/** x coordinate of first node */
 		private float x;
 		/** y coordinate of first node */
@@ -236,8 +215,7 @@ public class EasyEditManager {
 		private Way createdWay = null;
 		/** contains a list of created nodes. used to fix selection after undo. */
 		private ArrayList<Node> createdNodes = new ArrayList<Node>();
-
-
+		
 		public PathCreationActionModeCallback(float x, float y) {
 			this.x = x;
 			this.y = y;
@@ -258,7 +236,7 @@ public class EasyEditManager {
 			pathCreateNode(x,y);
 			return true;
 		}
-
+		
 		/**
 		 * Creates/adds a node into a path during path creation
 		 * @param x x screen coordinate
@@ -283,22 +261,23 @@ public class EasyEditManager {
 			}
 			main.invalidateMap();
 		}
-
+		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu.clear();
 			menu.add(0, MENUITEM_UNDO, 1, R.string.undo).setIcon(R.drawable.undo);
 			return true;
 		}
-
+		
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch (item.getItemId()) {
 			case MENUITEM_UNDO:
 				handleUndo();
 				break;
-
-			default: Log.e("PathCreationActionModeCallback", "Unknown menu item"); break;
+			default:
+				Log.e("PathCreationActionModeCallback", "Unknown menu item");
+				break;
 			}
 			return false;
 		}
@@ -321,8 +300,7 @@ public class EasyEditManager {
 			createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
 			main.invalidateMap();
 		}
-
-
+		
 		/**
 		 * Path creation action mode is ending
 		 */
@@ -343,28 +321,15 @@ public class EasyEditManager {
 	 * @author Jan
 	 *
 	 */
-	private class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
+	private abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 		private static final int MENUITEM_TAG = 1;
 		private static final int MENUITEM_DELETE = 2;
 		private static final int MENUITEM_HISTORY = 3;
-		private static final int MENUITEM_SPLIT = 4;
-		private static final int MENUITEM_MERGE = 5;
-		private static final int MENUITEM_REVERSE = 6;
 		
-		private final boolean isWay;
-		private Node node = null;
-		private Way way = null;
-		private HashSet<OsmElement> cachedMergeableWays = null;
+		protected OsmElement element = null;
 		
-		public ElementSelectionActionModeCallback(Node node) {
-			isWay = false;
-			this.node = node;
-		}
-
-		public ElementSelectionActionModeCallback(Way way) {
-			isWay = true;
-			this.way = way;
-			cachedMergeableWays = findMergeableWays(way);
+		public ElementSelectionActionModeCallback(OsmElement element) {
+			this.element = element;
 		}
 		
 		/**
@@ -372,8 +337,8 @@ public class EasyEditManager {
 		 * @param element clicked element
 		 * @return true if handled, false if default handling should apply
 		 */
-		private boolean handleElementClick(OsmElement element) {
-			if (element == getElement()) {
+		public boolean handleElementClick(OsmElement element) {
+			if (element == this.element) {
 				main.performTagEdit(element);
 				return true;
 			}
@@ -381,118 +346,39 @@ public class EasyEditManager {
 		}
 		
 		@Override
-		public boolean handleNodeClick(Node node) {
-			return handleElementClick(node);
-		}
-		
-		@Override
-		public boolean handleWayClick(Way way) {
-			return handleElementClick(way);
-		}
-
-
-		@Override
-		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			super.onCreateActionMode(mode, menu);
-			logic.setSelectedNode(node);
-			logic.setSelectedWay(way);
-			main.invalidateMap();
-			if (isWay) {
-				mode.setTitle(R.string.actionmode_wayselect);
-			} else {
-				mode.setTitle(R.string.actionmode_nodeselect);
-			}
-			return true;
-		}
-
-		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_TAG, 1, R.string.menu_tags);
 			menu.add(Menu.NONE, MENUITEM_DELETE, 2, R.string.delete);
-			if (getElement().getOsmId() > 0){
+			if (element.getOsmId() > 0){
 				menu.add(Menu.NONE, MENUITEM_HISTORY, 3, R.string.menu_history);
-			}
-			if (isWay) {
-				menu.add(Menu.NONE, MENUITEM_REVERSE, 4, R.string.menu_reverse);
-			}
-			if (isWay && way.getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_SPLIT, 5, R.string.menu_split);
-			}
-			if (isWay && cachedMergeableWays.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_MERGE, 6, R.string.menu_merge);
-			}
-			return true;
-		}
-
-		@Override
-		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			switch (item.getItemId()) {
-			case MENUITEM_TAG: main.performTagEdit(getElement()); break;
-			case MENUITEM_DELETE: menuDelete(mode); break;
-			case MENUITEM_HISTORY: showHistory(); break;
-			case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback(way)); break;
-			case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback(way, cachedMergeableWays)); break;
-			case MENUITEM_REVERSE: reverseWay();
 			}
 			return true;
 		}
 		
-		private void reverseWay() {
-			logic.performReverse(way);
-			if (way.getOneway() != 0) {
-				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
-				main.performTagEdit(way);
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			switch (item.getItemId()) {
+			case MENUITEM_TAG: main.performTagEdit(element); break;
+			case MENUITEM_DELETE: menuDelete(mode); break;
+			case MENUITEM_HISTORY: showHistory(); break;
+			default: return false;
 			}
+			return true;
 		}
-
-		private void menuDelete(ActionMode mode) {
-			if (!isWay) {
-				logic.performErase(node);
-				mode.finish();
-			} else {
-				AlertDialog.Builder dialog = new AlertDialog.Builder(main);
-				dialog.setTitle(R.string.delete);
-				TextView textView = new TextView(main);
-				textView.setText(R.string.deleteway_description);
-				int pad= Math.round(10 * main.getResources().getDisplayMetrics().density);
-				textView.setPadding(pad, pad, pad, pad);
-				dialog.setView(textView); 
-				dialog.setPositiveButton(R.string.deleteway_wayonly,
-						new OnClickListener() {	
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseWay(way, false);
-								currentActionMode.finish();
-							}
-						});
-				dialog.setNeutralButton(R.string.deleteway_wayandnodes,
-						new OnClickListener() {	
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseWay(way, true);
-								currentActionMode.finish();
-							}
-						});			
-				dialog.setNegativeButton(R.string.cancel, null);
-				dialog.show();
-			}		
-		}
-
+		
+		protected abstract void menuDelete(ActionMode mode);
+		
 		/**
 		 * Opens the history page of the selected element in a browser
 		 */
 		private void showHistory() {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse(main.getBaseURL()+"browse/"+(isWay?"way":"node")+"/"+getElement().getOsmId()+"/history"));
+			intent.setData(Uri.parse(main.getBaseURL()+"browse/"+element.getName()+"/"+element.getOsmId()+"/history"));
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			main.startActivity(intent);
 		}
-
-		private OsmElement getElement() {
-			return isWay? way : node;
-		}
-
+		
 		/**
 		 * Element selection action mode is ending
 		 */
@@ -505,10 +391,119 @@ public class EasyEditManager {
 		}		
 	}
 	
+	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
+		private NodeSelectionActionModeCallback(Node node) {
+			super(node);
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			super.onCreateActionMode(mode, menu);
+			logic.setSelectedNode((Node)element);
+			logic.setSelectedWay(null);
+			main.invalidateMap();
+			mode.setTitle(R.string.actionmode_nodeselect);
+			return true;
+		}
+		
+		protected void menuDelete(ActionMode mode) {
+			logic.performEraseNode((Node)element);
+			mode.finish();
+		}
+		
+	}
+	
+	private class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
+		private static final int MENUITEM_SPLIT = 4;
+		private static final int MENUITEM_MERGE = 5;
+		private static final int MENUITEM_REVERSE = 6;
+		
+		private Set<OsmElement> cachedMergeableWays;
+		
+		private WaySelectionActionModeCallback(Way way) {
+			super(way);
+			cachedMergeableWays = findMergeableWays((Way)element);
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			super.onCreateActionMode(mode, menu);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay((Way)element);
+			main.invalidateMap();
+			mode.setTitle(R.string.actionmode_wayselect);
+			return true;
+		}
+		
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			boolean ret = super.onPrepareActionMode(mode, menu);
+			if (ret) {
+				menu.add(Menu.NONE, MENUITEM_REVERSE, 4, R.string.menu_reverse);
+				if (((Way)element).getNodes().size() > 2) {
+					menu.add(Menu.NONE, MENUITEM_SPLIT, 5, R.string.menu_split);
+				}
+				if (cachedMergeableWays.size() > 0) {
+					menu.add(Menu.NONE, MENUITEM_MERGE, 6, R.string.menu_merge);
+				}
+			}
+			return ret;
+		}
+		
+		private void reverseWay() {
+			Way way = (Way) element;
+			logic.performReverse(way);
+			if (way.getOneway() != 0) {
+				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
+				main.performTagEdit(way);
+			}
+		}
+		
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			if (!super.onActionItemClicked(mode, item)) {
+				switch (item.getItemId()) {
+				case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback((Way)element)); break;
+				case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback((Way)element, cachedMergeableWays)); break;
+				case MENUITEM_REVERSE: reverseWay(); break;
+				default: return false;
+				}
+			}
+			return true;
+		}
+		
+		protected void menuDelete(ActionMode mode) {
+			TextView textView = new TextView(main);
+			textView.setText(R.string.deleteway_description);
+			int pad = Math.round(10 * main.getResources().getDisplayMetrics().density);
+			textView.setPadding(pad, pad, pad, pad);
+			new AlertDialog.Builder(main)
+				.setTitle(R.string.delete)
+				.setView(textView) 
+				.setPositiveButton(R.string.deleteway_wayonly,
+					new OnClickListener() {	
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							logic.performEraseWay((Way)element, false);
+							currentActionMode.finish();
+						}
+					})
+				.setNeutralButton(R.string.deleteway_wayandnodes,
+					new OnClickListener() {	
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							logic.performEraseWay((Way)element, true);
+							currentActionMode.finish();
+						}
+					})
+				.show();
+		}
+		
+	}
 	
 	private class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
-		private HashSet<OsmElement> nodes = new HashSet<OsmElement>();
+		private Set<OsmElement> nodes = new HashSet<OsmElement>();
 		
 		public WaySplittingActionModeCallback(Way way) {
 			this.way = way;
@@ -526,8 +521,8 @@ public class EasyEditManager {
 		}
 		
 		@Override
-		public boolean handleNodeClick(Node node) { // due to clickableElements, only valid nodes can be clicked
-			logic.performSplit(way, node);
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
+			logic.performSplit(way, (Node)element);
 			currentActionMode.finish();
 			return true;
 		}
@@ -539,12 +534,12 @@ public class EasyEditManager {
 		}
 		
 	}
-
+	
 	private class WayMergingActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
-		private HashSet<OsmElement> ways = new HashSet<OsmElement>();
+		private Set<OsmElement> ways;
 		
-		public WayMergingActionModeCallback(Way way, HashSet<OsmElement> mergeableWays) {
+		public WayMergingActionModeCallback(Way way, Set<OsmElement> mergeableWays) {
 			this.way = way;
 			ways = mergeableWays;
 		}
@@ -556,11 +551,11 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			return true;
 		}
-
+		
 		@Override
-		public boolean handleWayClick(Way clickedWay) { // due to clickableElements, only valid ways can be clicked
-			logic.performMerge(way, clickedWay);
-			main.startActionMode(new ElementSelectionActionModeCallback(way));
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be clicked
+			logic.performMerge(way, (Way)element);
+			main.startActionMode(new WaySelectionActionModeCallback(way));
 			return true;
 		}
 		
@@ -572,7 +567,4 @@ public class EasyEditManager {
 		
 	}
 	
-	
-
-
 }

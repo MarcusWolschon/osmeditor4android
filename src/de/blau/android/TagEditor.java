@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeSet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -575,7 +574,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 
 		protected ArrayAdapter<String> getKeyAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
-			Set<String> keys = new TreeSet<String>();
+			Set<String> keys = new HashSet<String>();
 			
 			if (owner.autocompletePresetItem == null) {
 				owner.autocompletePresetItem = owner.preset.findBestMatch(owner.getKeyValueMap(false));

@@ -674,7 +674,7 @@ public class Logic {
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performErase(final Node node) {
+	public void performEraseNode(final Node node) {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_deletenode);
 			delegator.removeNode(node);
@@ -687,7 +687,7 @@ public class Logic {
 	 * @param way the way to be deleted
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
 	 */
-	public void performEraseWay(Way way, boolean deleteOrphanNodes) {
+	public void performEraseWay(final Way way, final boolean deleteOrphanNodes) {
 		createCheckpoint(R.string.undo_action_deleteway);
 		ArrayList<Node> nodes = deleteOrphanNodes ? new ArrayList<Node>(way.getNodes()) : null;
 		delegator.removeWay(way);
@@ -1141,6 +1141,7 @@ public class Logic {
 	 */
 	public void setSelectedNode(final Node selectedNode) {
 		this.selectedNode = selectedNode;
+		map.setSelectedNode(selectedNode);
 	}
 
 	/**

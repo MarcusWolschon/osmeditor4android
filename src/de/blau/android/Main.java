@@ -1054,7 +1054,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// no elements were touched, ignore
 				break;
 			case 1:
-				logic.performErase((Node)clickedNodesAndWays.get(0));
+				logic.performEraseNode((Node)clickedNodesAndWays.get(0));
 				break;
 			default:
 				v.showContextMenu();
@@ -1194,7 +1194,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 						performTagEdit(element);
 						break;
 					case MODE_ERASE:
-						logic.performErase((Node) element);
+						logic.performEraseNode((Node) element);
 						break;
 					case MODE_SPLIT:
 						logic.performSplit((Node) element);
