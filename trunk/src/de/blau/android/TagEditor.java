@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -305,7 +306,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				loadEdits(last);					
+				loadEdits(last);
 			}
 		});
 
@@ -573,24 +574,26 @@ public class TagEditor extends Activity implements OnDismissListener {
 		
 
 		protected ArrayAdapter<String> getKeyAutocompleteAdapter() {
-			List<String> result = new ArrayList<String>();
+			// Use a set to prevent duplicate keys appearing
+			Set<String> keys = new TreeSet<String>();
 			
 			if (owner.autocompletePresetItem == null) {
 				owner.autocompletePresetItem = owner.preset.findBestMatch(owner.getKeyValueMap(false));
 			}
 			
 			if (owner.autocompletePresetItem != null) {
-				result.addAll(owner.autocompletePresetItem.getTags().keySet());
-				result.addAll(owner.autocompletePresetItem.getRecommendedTags().keySet());
-				result.addAll(owner.autocompletePresetItem.getOptionalTags().keySet());
+				keys.addAll(owner.autocompletePresetItem.getTags().keySet());
+				keys.addAll(owner.autocompletePresetItem.getRecommendedTags().keySet());
+				keys.addAll(owner.autocompletePresetItem.getOptionalTags().keySet());
 			}
 			
 			if (owner.preset != null) {
-				result.addAll(owner.preset.getAutocompleteKeys(owner.element.getType()));
+				keys.addAll(owner.preset.getAutocompleteKeys(owner.element.getType()));
 			}
 			
-			result.removeAll(owner.getUsedKeys(keyEdit));
+			keys.removeAll(owner.getUsedKeys(keyEdit));
 			
+			List<String> result = new ArrayList<String>(keys);
 			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 		}
 

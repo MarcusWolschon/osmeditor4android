@@ -696,6 +696,7 @@ public class Logic {
 				if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty()) delegator.removeNode(node);
 			}
 		}
+		map.invalidate();
 	}
 
 
@@ -720,6 +721,7 @@ public class Logic {
 	public void performSplit(final Way way, final Node node) {
 		createCheckpoint(R.string.undo_action_split_way);
 		delegator.splitAtNode(way, node);
+		map.invalidate();
 	}
 	
 	/**
@@ -739,6 +741,7 @@ public class Logic {
 			delegator.setTags(mergeInto, mergeFrom.getTags());
 		}
 		delegator.mergeWays(mergeInto, mergeFrom);
+		map.invalidate();
 	}
 	
 
@@ -749,6 +752,7 @@ public class Logic {
 	public void performReverse(Way way) {
 		createCheckpoint(R.string.undo_action_reverse_way);
 		delegator.reverseWay(way);
+		map.invalidate();
 	}
 
 	public void performAppendStart(OsmElement element) {
@@ -798,6 +802,7 @@ public class Logic {
 		}
 		setSelectedNode(lSelectedNode);
 		setSelectedWay(lSelectedWay);
+		map.invalidate();
 	}
 
 	/**
@@ -985,7 +990,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.setProgressBarIndeterminateVisibility(true);
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
 			}
 			
 			@Override
@@ -996,7 +1001,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Void result) {
-				Application.mainActivity.setProgressBarIndeterminateVisibility(false);
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				if (showDone) {
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
 				}
@@ -1067,7 +1072,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.setProgressBarIndeterminateVisibility(true);
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
 				delegator.clearUndo();
 			}
 			
@@ -1107,7 +1112,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Application.mainActivity.setProgressBarIndeterminateVisibility(false);
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
