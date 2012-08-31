@@ -27,10 +27,6 @@
   <string name="toast_save_done">Lagring lukkast</string> 
   <string name="toast_waiting_for_gps">Ventar på GPS-posisjon…</string> 
   <string name="toast_follow_gps_off">GPS-sporing avslått</string> 
-  <!--  ErrorMailer  
-  --> 
-  <string name="error_email_message">"Dear Matthias,\n\ncan you please check the following error message?\n\n"</string> 
-  <string name="error_email_chooser_title">Send Mail via:</string> 
   <!--  Some generic labels 
   --> 
   <string name="yes">Ja</string> 

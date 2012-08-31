@@ -41,10 +41,6 @@
         <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
         <string name="toast_file_openstreetbug">Taknite u kartu kako bi prijavili OpenStreetBug</string>
 
-        <!-- ErrorMailer  -->
-        <string name="error_email_message">"Dragi Matthias,\n\nmožeš li pogledati slijedeću poruku greške?\n\n"</string>
-        <string name="error_email_chooser_title">Pošalji e-mail sa:</string>
-        
         <!-- Some generic labels -->
         <string name="yes">Da</string>
         <string name="no">Ne</string>
