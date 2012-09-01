@@ -420,7 +420,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		logic.setMode(modeDropdown.getModeForItem(itemPosition));
+		Mode mode = modeDropdown.getModeForItem(itemPosition);
+		logic.setMode(mode);
+		if (mode == Mode.MODE_TAG_EDIT) {
+			// if something is already/still selected, edit its tags
+			// prefer ways over nodes, and deselect what we're *not* editing
+			OsmElement e = logic.getSelectedWay();
+			if (e == null) e = logic.getSelectedNode();
+			else logic.setSelectedNode(null);
+			if (e != null) performTagEdit(e);
+		}
 		return true;
 	}
 	
