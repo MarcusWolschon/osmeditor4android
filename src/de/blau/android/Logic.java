@@ -249,8 +249,23 @@ public class Logic {
 		this.mode = mode;
 		Main.onEditModeChanged();
 		setSelectedBug(null);
-		setSelectedNode(null);
-		setSelectedWay(null);
+		switch (mode) {
+		case MODE_TAG_EDIT:
+		case MODE_APPEND:
+		case MODE_EDIT:
+			// do nothing
+			break;
+		case MODE_EASYEDIT:
+		case MODE_ADD:
+		case MODE_ERASE:
+		case MODE_MOVE:
+		case MODE_OPENSTREETBUG:
+		case MODE_SPLIT:
+		default:
+			setSelectedNode(null);
+			setSelectedWay(null);
+			break;
+		}
 		map.invalidate();
 	}
 
