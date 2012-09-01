@@ -422,7 +422,7 @@ public class EasyEditManager {
 		
 		private WaySelectionActionModeCallback(Way way) {
 			super(way);
-			cachedMergeableWays = findMergeableWays((Way)element);
+			cachedMergeableWays = findMergeableWays(way);
 		}
 		
 		@Override
@@ -437,17 +437,15 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			boolean ret = super.onPrepareActionMode(mode, menu);
-			if (ret) {
-				menu.add(Menu.NONE, MENUITEM_REVERSE, 4, R.string.menu_reverse);
-				if (((Way)element).getNodes().size() > 2) {
-					menu.add(Menu.NONE, MENUITEM_SPLIT, 5, R.string.menu_split);
-				}
-				if (cachedMergeableWays.size() > 0) {
-					menu.add(Menu.NONE, MENUITEM_MERGE, 6, R.string.menu_merge);
-				}
+			super.onPrepareActionMode(mode, menu);
+			menu.add(Menu.NONE, MENUITEM_REVERSE, 4, R.string.menu_reverse);
+			if (((Way)element).getNodes().size() > 2) {
+				menu.add(Menu.NONE, MENUITEM_SPLIT, 5, R.string.menu_split);
 			}
-			return ret;
+			if (cachedMergeableWays.size() > 0) {
+				menu.add(Menu.NONE, MENUITEM_MERGE, 6, R.string.menu_merge);
+			}
+			return true;
 		}
 		
 		private void reverseWay() {
@@ -475,7 +473,7 @@ public class EasyEditManager {
 		protected void menuDelete(ActionMode mode) {
 			TextView textView = new TextView(main);
 			textView.setText(R.string.deleteway_description);
-			int pad = Math.round(10 * main.getResources().getDisplayMetrics().density);
+			int pad = Math.round(10f * main.getResources().getDisplayMetrics().density);
 			textView.setPadding(pad, pad, pad, pad);
 			new AlertDialog.Builder(main)
 				.setTitle(R.string.delete)
