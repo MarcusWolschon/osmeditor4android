@@ -15,6 +15,13 @@
   <item>OS 7th Series Historic</item>
   <item>Surrey Aerial</item>
   <item>Denmark Fugro Aerial Imagery</item>
+  <!-- OSMI seems to be "missing in action"
+  <item>OSMI:Geometry</item>
+  <item>OSMI:Places</item>
+  <item>OSMI:Tagging</item>
+  <item>OSMI:Highways</item>
+  <item>OSMI:Multipolygon</item>
+  -->
   <!-- Following are untested:
   <item>Haiti GeoEye Jan13</item>
   <item>Haiti GeoEye Jan13+</item>
@@ -45,6 +52,13 @@
   <item>OS7SHISTORIC</item>
   <item>SURREYAERIAL</item>
   <item>DENMARKFUGRO</item>
+  <!-- OSMI seems to be "missing in action"
+  <item>OSMIGEOM</item>
+  <item>OSMIPLACES</item>
+  <item>OSMITAGS</item>
+  <item>OSMIHIGHWAY</item>
+  <item>OSMIMULTIPOLY</item>
+  -->
   <!-- Following are untested:
   <item>HAITIJAN13</item>
   <item>HAITIJAN13P</item>
@@ -78,6 +92,14 @@
   <item>.jpg @raw/os7thseries http://steve8.dev.openstreetmap.org/os7.htm</item>
   <item>.png @raw/surreyaerial</item>
   <item>.jpg @raw/denmarkfugro</item>
+  <!-- See http://blog.geofabrik.de/?p=96 for OSM-Inspector tile layers: -->
+  <!-- OSMI seems to be "missing in action"
+  <item>http://tools.geofabrik.de/osmi/tiles/geometry/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/places/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/tagging/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/highways/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/multipolygon/$z/$x/$y.png .png 0 18 8</item>
+  -->
   
 <!-- Fields are whitespace separated:
      Base URL

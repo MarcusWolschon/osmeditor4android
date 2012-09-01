@@ -259,7 +259,19 @@ public class OpenStreetMapTileServer {
 		switch (cfgItems.length) {
 		case 5:
 			tileUrl = cfgItems[0];
+			int subStart = tileUrl.indexOf("${");
+			if (subStart != -1) {
+				// convert something like "${a|b|c}" into "{subdomain}"
+				// and a subdomains array like ["a", "b", "c"]
+				int subEnd = tileUrl.indexOf("}", subStart);
+				for (String subdomain : tileUrl.substring(subStart + 2, subEnd).split("\\|")) {
+					subdomains.add(subdomain);
+				}
+				StringBuffer t = new StringBuffer(tileUrl);
+				tileUrl = t.replace(subStart, subEnd + 1, "{subdomain}").toString();
+			}
 			imageFilenameExtension = cfgItems[1];
+			touUri = null;
 			zoomLevelMin = Integer.parseInt(cfgItems[2]);
 			zoomLevelMax = Integer.parseInt(cfgItems[3]);
 			int zoom = Integer.parseInt(cfgItems[4]);
@@ -288,6 +300,7 @@ public class OpenStreetMapTileServer {
 		default:
 			tileUrl = "";
 			imageFilenameExtension = "";
+			touUri = null;
 			zoomLevelMin = 0;
 			zoomLevelMax = 0;
 			tileWidth = 256;
