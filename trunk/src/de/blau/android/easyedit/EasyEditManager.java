@@ -217,6 +217,7 @@ public class EasyEditManager {
 		private ArrayList<Node> createdNodes = new ArrayList<Node>();
 		
 		public PathCreationActionModeCallback(float x, float y) {
+			super();
 			this.x = x;
 			this.y = y;
 		}
@@ -233,6 +234,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean handleClick(float x, float y) {
+			super.handleClick(x, y);
 			pathCreateNode(x,y);
 			return true;
 		}
@@ -264,6 +266,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(0, MENUITEM_UNDO, 1, R.string.undo).setIcon(R.drawable.undo);
 			return true;
@@ -271,6 +274,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
 			case MENUITEM_UNDO:
 				handleUndo();
@@ -306,13 +310,13 @@ public class EasyEditManager {
 		 */
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
-			super.onDestroyActionMode(mode);
 			Node lastSelectedNode = logic.getSelectedNode();
 			Way lastSelectedWay = logic.getSelectedWay();
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(null);
 			tagApplicable(lastSelectedNode, lastSelectedWay);
-		}		
+			super.onDestroyActionMode(mode);
+		}
 	}
 	
 	/**
@@ -329,6 +333,7 @@ public class EasyEditManager {
 		protected OsmElement element = null;
 		
 		public ElementSelectionActionModeCallback(OsmElement element) {
+			super();
 			this.element = element;
 		}
 		
@@ -337,7 +342,9 @@ public class EasyEditManager {
 		 * @param element clicked element
 		 * @return true if handled, false if default handling should apply
 		 */
+		@Override
 		public boolean handleElementClick(OsmElement element) {
+			super.handleElementClick(element);
 			if (element == this.element) {
 				main.performTagEdit(element);
 				return true;
@@ -347,6 +354,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_TAG, 1, R.string.menu_tags);
 			menu.add(Menu.NONE, MENUITEM_DELETE, 2, R.string.delete);
@@ -358,6 +366,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
 			case MENUITEM_TAG: main.performTagEdit(element); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
@@ -384,11 +393,11 @@ public class EasyEditManager {
 		 */
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
-			super.onDestroyActionMode(mode);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
 			main.invalidateMap();
-		}		
+			super.onDestroyActionMode(mode);
+		}
 	}
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
@@ -504,6 +513,7 @@ public class EasyEditManager {
 		private Set<OsmElement> nodes = new HashSet<OsmElement>();
 		
 		public WaySplittingActionModeCallback(Way way) {
+			super();
 			this.way = way;
 			nodes.addAll(way.getNodes());
 			nodes.remove(way.getFirstNode());
@@ -520,6 +530,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
+			super.handleElementClick(element);
 			logic.performSplit(way, (Node)element);
 			currentActionMode.finish();
 			return true;
@@ -538,6 +549,7 @@ public class EasyEditManager {
 		private Set<OsmElement> ways;
 		
 		public WayMergingActionModeCallback(Way way, Set<OsmElement> mergeableWays) {
+			super();
 			this.way = way;
 			ways = mergeableWays;
 		}
@@ -552,6 +564,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be clicked
+			super.handleElementClick(element);
 			logic.performMerge(way, (Way)element);
 			main.startActionMode(new WaySelectionActionModeCallback(way));
 			return true;
