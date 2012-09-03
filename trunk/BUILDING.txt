@@ -2,7 +2,11 @@ You will need the ActionBarSherlock library, which in turn requires the "android
 
 The code was tested with ABS 4.1.0 and support library revision 10.
 
-You can find the android support lib in your SDK folder in extras/android/compatibilty/v4.
+You can find the android support lib in your SDK folder in one of:
+
+extras/android/compatibilty/v4
+extras/android/support/v4
+
 Link the JAR into the libs folder in Eclipse.
 You may need to replace the outdated version in the ActionBarSherlock project with a current link.
 
@@ -12,3 +16,7 @@ ActionBarSherlock can be obtained at https://github.com/JakeWharton/ActionBarShe
 You need to import the ActionBarSherlock project into your workspace and set it up as a prerequisite for Vespucci.
 (the JAR alone is NOT sufficient)
 
+There is a known issue (#208) with ActionBarSherlock: https://github.com/JakeWharton/ActionBarSherlock/issues/208
+This is also being tracked in Vespucci issue #114: http://code.google.com/p/osmeditor4android/issues/detail?id=114
+For the moment, you will need to modify your local copy of ActionBarSherlock as per the comment from "lodlock" in
+the ABS issue.
