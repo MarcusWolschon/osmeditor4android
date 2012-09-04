@@ -288,6 +288,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		undoListener = new UndoListener();
 		
 		showActionBar();
+		
+		logic.setSelectedBug(null);
+		logic.setSelectedNode(null);
+		logic.setSelectedWay(null);
 	}
 
 	@Override
@@ -316,12 +320,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
 		
-		logic.setSelectedBug(null);
-		logic.setSelectedNode(null);
-		logic.setSelectedWay(null);
-
 		if (tracker != null) tracker.setListener(this);
-
+		
 		setShowGPS(showGPS); // reactive GPS listener if needed
 		setFollowGPS(followGPS);
 	}
@@ -398,8 +398,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private void showActionBar() {
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		actionbar.setBackgroundDrawable(new ColorDrawable(0xaa000000));
-		actionbar.setDisplayShowHomeEnabled(false);
+		actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
+		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
 		
 		modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled());

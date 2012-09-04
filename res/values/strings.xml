@@ -2,8 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 	<string name="app_name" tools:ignore="MissingTranslation">Vespucci</string>
 	<string name="app_version" tools:ignore="MissingTranslation">0.8.0dev</string>
-	<string name="app_name_version" tools:ignore="MissingTranslation">Vespucci 0.8.0dev</string>	
-
+	<string name="app_name_version" tools:ignore="MissingTranslation">Vespucci 0.8.0dev</string>
+	
 	<!-- Dialogs -->
 	<string name="transfer_download_current_dialog_title">Caution!</string>
 	<string name="transfer_download_current_dialog_message">You have made some changes. Do you want to upload them instead of discard?</string>
@@ -27,11 +27,11 @@
 	<string name="openstreetbug_edit_close">Close bug</string>
 	<string name="openstreetbug_commit_ok">Changes saved</string>
 	<string name="openstreetbug_commit_fail">Could not save changes</string>
-
+	
 	<string name="unsaved_data_title">Caution!</string>
 	<string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
 	<string name="unsaved_data_proceed">Discard &amp; proceed</string>
-
+	
 	<!-- Toaster -->
 	<string name="toast_no_changes">You have not changed anything yet…</string>
 	<string name="toast_upload_success">Upload to OSM server finished.</string>
@@ -45,7 +45,7 @@
 	<string name="toast_export_failed">Export failed</string>
 	<string name="toast_export_success">Exported to %1$s</string>
 	<string name="toast_preset_overwrote_tags">Notice - preset overwrote tag(s)</string>
-		
+	
 	<!-- Some generic labels -->
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
@@ -57,13 +57,11 @@
 	<string name="key">Key:</string>
 	<string name="value">Value:</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+	<string name="tag_menu_sourcesurvey">Surveyed</string>
+	<string name="tag_menu_preset">Presets</string>
+	<string name="tag_menu_repeat">Repeat</string>
+	<string name="tag_menu_revert">Revert</string>
 	<string name="tag_menu_mapfeatures">Map Features Wiki</string>
-	<string name="sourcesurvey">source:\nsurvey</string>
-	<string name="apply_preset_button_text">Apply\npreset</string>
-	<string name="repeat_last_button_text">Repeat\nlast</string>
-	<string name="revert_button_text">Revert</string>
-				
-	
 	
 	<!-- Strings in LocationPicker -->
 	<string name="location_headline">Load Area</string>
@@ -111,7 +109,7 @@
 	<string name="menu_transfer_upload">Upload data to OSM server</string>
 	<string name="menu_transfer_export">Export changes</string>
 	<string name="menu_save">Save to file</string>
-		
+	
 	<!-- element action mode menu -->
 	<string name="menu_tags">Tags</string> <!-- Text should be as short as possible -->
 	<string name="menu_history">History</string>
@@ -127,7 +125,7 @@
 	<string name="actionmode_wayselect">Way selected</string>
 	<string name="actionmode_nodeselect">Node selected</string>
 	<string name="actionmode_createpath">Creating path</string>
-					
+	
 	<!-- Preferences -->
 	<string name="config_category_view">View Settings</string>
 	<string name="config_maxStrokeWidth_title">max stroke width</string>
@@ -162,14 +160,13 @@
 	<string name="config_category_info">About</string>
 	<string name="config_licensebutton_title">Authors and licenses</string>
 	<string name="config_licensebutton_summary">Show authors and license information</string>
-		
+	
 	<!-- preset downloader messages -->
 	<string name="preset_update">Update preset</string>
 	<string name="preset_download_successful">Preset successfully downloaded</string>
 	<string name="preset_download_failed">The preset file could not be downloaded. The preset will not work.</string>
 	<string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
 	<string name="preset_download_missing_images">The preset file was successfully downloaded. However, some icons could not be downloaded and will be missing.</string>
-			
 	
 	<!-- Preference keys - DO NOT TRANSLATE OR COPY TO TRANSLATION -->
 	<string name="config_showStats_key">showStats</string>
@@ -189,16 +186,16 @@
 	<string name="config_presetbutton_key">presetsettings-button</string>
 	<string name="config_iconbutton_key">iconsettings-button</string>
 	<string name="config_licensebutton_key">licenseview-button</string>
-				
+	
 	<string name="config_selected_api">selectedAPI</string>
-		
+	
 	<!--  changes -->
 	<string name="changes_deleted">"%1$s" deleted</string>
 	<string name="changes_changed">"%1$s" changed</string>
 	<string name="changes_created">"%1$s" created</string>
 	<string name="confirm_upload_title">Upload?</string>
 	<string name="confirm_upload_text">Upload the following changes?\n%1$s</string>
-
+	
 	<!--  url handler activity -->
 	<string name="urldialog_add_preset">Add preset</string>
 	<string name="urldialog_preset_exists">This preset already exists</string>
@@ -206,7 +203,6 @@
 	<string name="urldialog_api_preset_missing">The preset used by the API is not available. You should add it first.</string>
 	<string name="urldialog_add_api">Add API</string>
 	<string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
-	
 	
 	<!--  common terms  -->
 	<string name="add">Add</string>
@@ -219,8 +215,8 @@
 	<string name="api">API</string>
 	<string name="undo">Undo</string>
 	<string name="redo">Redo</string>
-		<string name="undo_nothing">nothing to undo</string>
-				
+	<string name="undo_nothing">nothing to undo</string>
+	
 	<string name="tracking_active_title">Recording GPS track</string>
 	<string name="tracking_active_text">Vespucci is recording a GPS track</string>
 	<string name="gps_failure">Failed to enable GPS</string>

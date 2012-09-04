@@ -3,6 +3,7 @@ package de.blau.android;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,7 +11,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -22,20 +28,16 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
@@ -51,26 +53,24 @@ import de.blau.android.util.SavingHelper;
  * 
  * @author mb
  */
-public class TagEditor extends Activity implements OnDismissListener {
+public class TagEditor extends SherlockActivity implements OnDismissListener {
 	public static final String TAGEDIT_DATA = "dataClass";
-
-
+	
 	/** The layout containing the entire editor */
 	private LinearLayout verticalLayout = null;
 	
 	/** The layout containing the edit rows */
 	private LinearLayout rowLayout = null;
-
+	
 	/**
 	 * The tag we use for Android-logging.
 	 */
-//    @SuppressWarnings("unused")
 	private static final String DEBUG_TAG = TagEditor.class.getName();
-
+	
 	private long osmId;
-
+	
 	private String type;
-
+	
 	/**
 	 * The OSM element for reference.
 	 * DO NOT ATTEMPT TO MODIFY IT.
@@ -81,7 +81,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * Handles "enter" key presses.
 	 */
 	private final OnKeyListener myKeyListener = new MyKeyListener();
-
+	
 	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
 	private boolean loaded;
 	
@@ -91,7 +91,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * Needs to be static to be accessible in TagEditRow.
 	 */
 	private static boolean running = false;
-
+	
 	/** the Preset selection dialog used by this editor */
 	private PresetDialog presetDialog;
 	
@@ -106,8 +106,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	private static final String LAST_TAGS_FILE = "lasttags.dat"; 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
-
-
+	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
 	 * @author Andrew Gregory
@@ -129,7 +128,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 		}
 	}
 	
-	
 	/**
 	 * Ensures that at least one empty row exists (creating one if needed)
 	 * @return the first empty row found (or the one created), or null if loading was not finished (loaded == false)
@@ -150,16 +148,16 @@ public class TagEditor extends Activity implements OnDismissListener {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		//Not yet implemented by Google
 		//getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
 		//getWindow().setTitle(getString(R.string.tag_title) + " " + type + " " + osmId);
-
+		
 		// Disabled because it slows down the Motorola Milestone/Droid
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-
+		
 		setContentView(R.layout.tag_view);
-
+		
 		verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
 		rowLayout = (LinearLayout) findViewById(R.id.edit_row_layout);
 		loaded = false;
@@ -178,23 +176,19 @@ public class TagEditor extends Activity implements OnDismissListener {
 		loadEdits(loadData.tags);
 		originalTags = loadData.tagsOrig != null ? loadData.tagsOrig : loadData.tags;
 		
-
-		
 		element = Main.logic.delegator.getOsmElement(type, osmId);
 		preset = Main.getCurrentPreset();
-
+		
 		loaded = true;
 		TagEditRow row = ensureEmptyRow();
 		row.keyEdit.requestFocus();
 		row.keyEdit.dismissDropDown();
 		
-		createSourceSurveyButton();
-		createApplyPresetButton();
-		createRepeatLastButton();
-		createRevertButton();
-		createOkButton();
-		
 		createRecentPresetView();
+		
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.setDisplayShowTitleEnabled(false);
+		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 	
 	@Override
@@ -227,108 +221,59 @@ public class TagEditor extends Activity implements OnDismissListener {
 		return result;
 	}
 	
-	/**
-	 * Create a source=survey button for tagging keys as "survey".
-	 * Tapping the button will set (creating a new key/value if they don't exist)
-	 * "source:key=survey", where key is the key of the currently focused key/value.
-	 * If the key of the currently focused key/value is blank or "source", then the
-	 * plain "source" key is used.
-	 * For example, if you were editing the "name" key, then this would add
-	 * "source:name=survey". On the other hand, if you had a blank key/value field
-	 * focused, or were editing an existing "source" key/value, then "source=survey"
-	 * would be set.
-	 */
-	private void createSourceSurveyButton() {
-		Button sourcesurveyButton = (Button) findViewById(R.id.sourcesurveyButton);
-		sourcesurveyButton.setOnClickListener(new OnClickListener() {
+	private void doSourceSurvey() {
+		// determine the key (if any) that has the current focus in the key or its value
+		final String[] focusedKey = new String[]{null}; // array to work around unsettable final
+		processKeyValues(new KeyValueHandler() {
 			@Override
-			public void onClick(final View v) {
-				// determine the key (if any) that has the current focus in the key or its value
-				final String[] focusedKey = new String[]{null}; // array to work around unsettable final
-				processKeyValues(new KeyValueHandler() {
-					@Override
-					public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
-						if (keyEdit.isFocused() || valueEdit.isFocused()) {
-							focusedKey[0] = keyEdit.getText().toString().trim();
-						}
-					}
-				});
-				// ensure source(:key)=survey is tagged
-				final String sourceKey = sourceForKey(focusedKey[0]);
-				final boolean[] sourceSet = new boolean[]{false}; // array to work around unsettable final
-				processKeyValues(new KeyValueHandler() {
-					@Override
-					public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
-						if (!sourceSet[0]) {
-							String key = keyEdit.getText().toString().trim();
-							String value = valueEdit.getText().toString().trim();
-							// if there's a blank row - use them
-							if (key.equals("") && value.equals("")) {
-								key = sourceKey;
-								keyEdit.setText(key);
-							}
-							if (key.equals(sourceKey)) {
-								valueEdit.setText("survey");
-								sourceSet[0] = true;
-							}
-						}
-					}
-				});
-				if (!sourceSet[0]) {
-					// source wasn't set above - add a new pair
-					insertNewEdit(sourceKey, "survey", -1);
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+				if (keyEdit.isFocused() || valueEdit.isFocused()) {
+					focusedKey[0] = keyEdit.getText().toString().trim();
 				}
 			}
 		});
-	}
-	
-	private void createApplyPresetButton() {
-		Button presetButton = (Button) findViewById(R.id.applyPresetButton);
-		presetButton.setEnabled(Main.getCurrentPreset() != null);
-		if (Main.getCurrentPreset() == null) return;
-		
-		presetButton.setOnClickListener(new OnClickListener() {
+		// ensure source(:key)=survey is tagged
+		final String sourceKey = sourceForKey(focusedKey[0]);
+		final boolean[] sourceSet = new boolean[]{false}; // array to work around unsettable final
+		processKeyValues(new KeyValueHandler() {
 			@Override
-			public void onClick(final View v) {
-				showPresetDialog();
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+				if (!sourceSet[0]) {
+					String key = keyEdit.getText().toString().trim();
+					String value = valueEdit.getText().toString().trim();
+					// if there's a blank row - use them
+					if (key.equals("") && value.equals("")) {
+						key = sourceKey;
+						keyEdit.setText(key);
+					}
+					if (key.equals(sourceKey)) {
+						valueEdit.setText("survey");
+						sourceSet[0] = true;
+					}
+				}
 			}
 		});
+		if (!sourceSet[0]) {
+			// source wasn't set above - add a new pair
+			insertNewEdit(sourceKey, "survey", -1);
+		}
 	}
-
-	private void createRepeatLastButton() {
-		Button button = (Button) findViewById(R.id.repeatLastButton);
-
+	
+	private void doPresets() {
+		if (Main.getCurrentPreset() != null) {
+			showPresetDialog();
+		}
+	}
+	
+	private void doRepeatLast() {
 		final Map<String, String> last = savingHelper.load(LAST_TAGS_FILE, false);
-		button.setEnabled(last != null);
-		if (last == null) return;
-		
-		button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				loadEdits(last);
-			}
-		});
-
-	}
-
-	private void createRevertButton() {
-		Button button = (Button) findViewById(R.id.revertButton);
-		button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				loadEdits(originalTags);
-			}
-		});
+		if (last != null) {
+			loadEdits(last);
+		}
 	}
 	
-	private void createOkButton() {
-		Button okButton = (Button) findViewById(R.id.okButton);
-		okButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				sendResultAndFinish();
-			}
-		});
+	private void doRevert() {
+		loadEdits(originalTags);
 	}
 	
 	private void createRecentPresetView() {
@@ -352,7 +297,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		v.setId(R.id.recentPresets);
 		verticalLayout.addView(v);
 	}
-
+	
 	
 	/**
 	 * Removes an old RecentPresetView and replaces it by a new one (to update it)
@@ -365,32 +310,43 @@ public class TagEditor extends Activity implements OnDismissListener {
 	
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
-		final MenuInflater inflater = getMenuInflater();
+		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.tag_menu, menu);
 		return true;
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
+		case android.R.id.home:
+			sendResultAndFinish();
+			return true;
+		case R.id.tag_menu_sourcesurvey:
+			doSourceSurvey();
+			return true;
+		case R.id.tag_menu_preset:
+			doPresets();
+			return true;
+		case R.id.tag_menu_repeat:
+			doRepeatLast();
+			return true;
+		case R.id.tag_menu_revert:
+			doRevert();
+			return true;
 		case R.id.tag_menu_mapfeatures:
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_mapfeatures)));
 			startActivity(intent);
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
-	public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			sendResultAndFinish();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
+	public void onBackPressed() {
+		sendResultAndFinish();
 	}
-
+	
 	/**
 	 * 
 	 */
@@ -407,7 +363,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		setResult(RESULT_OK, intent);
 		finish();
 	}
-
+	
 	/**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
@@ -420,8 +376,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 		loaded = true;
 		ensureEmptyRow();
 	}
-
-
+	
 	/** Save the state of this activity instance for future restoration.
 	 * @param outState The object to receive the saved state.
 	 */
@@ -459,7 +414,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	 * @author Jan
 	 */
 	public static class TagEditRow extends LinearLayout {
-
+		
 		private TagEditor owner;
 		private AutoCompleteTextView keyEdit;
 		private AutoCompleteTextView valueEdit;
@@ -468,12 +423,12 @@ public class TagEditor extends Activity implements OnDismissListener {
 			super(context);
 			owner = (TagEditor) (isInEditMode()?null:context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
-
+		
 		public TagEditRow(Context context, AttributeSet attrs) {
 			super(context, attrs);
 			owner = (TagEditor) (isInEditMode()?null:context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
-
+		
 		public TagEditRow(Context context, AttributeSet attrs, int defStyle) {
 			super(context, attrs, defStyle);
 			owner = (TagEditor) (isInEditMode()?null:context); // Can only be instantiated inside TagEditor or in Eclipse
@@ -490,7 +445,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 			
 			valueEdit = (AutoCompleteTextView)findViewById(R.id.editValue);
 			valueEdit.setOnKeyListener(owner.myKeyListener);
-
+			
 			// If the user selects addr:street from the menu, auto-fill a suggestion
 			keyEdit.setOnItemClickListener(new OnItemClickListener() {
 				@Override
@@ -542,7 +497,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 					}
 				}
 			};
-
+			
 			keyEdit.setOnClickListener(autocompleteOnClick);
 			valueEdit.setOnClickListener(autocompleteOnClick);
 			
@@ -571,7 +526,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 			valueEdit.addTextChangedListener(emptyWatcher);
 		}
 		
-
 		protected ArrayAdapter<String> getKeyAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
 			Set<String> keys = new HashSet<String>();
@@ -593,9 +547,10 @@ public class TagEditor extends Activity implements OnDismissListener {
 			keys.removeAll(owner.getUsedKeys(keyEdit));
 			
 			List<String> result = new ArrayList<String>(keys);
+			Collections.sort(result);
 			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 		}
-
+		
 		protected ArrayAdapter<String> getValueAutocompleteAdapter() {
 			String key = keyEdit.getText().toString();
 			if (key == null || key.length() == 0) return null;
@@ -609,10 +564,11 @@ public class TagEditor extends Activity implements OnDismissListener {
 				Collection<String> values = owner.preset.getAutocompleteValues(owner.element.getType(), key);
 				if (values == null || values.isEmpty()) return null;
 				List<String> result = new ArrayList<String>(values);
+				Collections.sort(result);
 				return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 			}
 		}
-
+		
 		/**
 		 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
 		 * @return
@@ -623,7 +579,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 					R.layout.autocomplete_row, Main.logic.delegator, owner.type, owner.osmId);
 			return adapter;
 		}
-
+		
 		/**
 		 * Sets key and value values
 		 * @param aTagKey the key value to set
@@ -654,7 +610,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 			return keyEdit.getText().toString().trim().equals("")
 					&& valueEdit.getText().toString().trim().equals("");
 		}
-
+		
 	}
 	
 	/**
@@ -704,7 +660,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 		return keys;
 	}
 	
-
 	/**
 	 * Insert a new row of key+value -edit-widgets if some text is entered into the current one.
 	 * 
@@ -724,7 +679,6 @@ public class TagEditor extends Activity implements OnDismissListener {
 								nextView = nextView.focusSearch(View.FOCUS_DOWN);
 							}
 						}
-
 						if (nextView != null && nextView instanceof EditText) {
 							nextView.requestFocus();
 							return true;
@@ -735,29 +689,29 @@ public class TagEditor extends Activity implements OnDismissListener {
 			return false;
 		}
 	}
-
+	
 	/**
 	 * @return the OSM ID of the element currently edited by the editor
 	 */
 	public long getOsmId() {
 		return osmId;
 	}
-
+	
 	/**
 	 * Set the OSM ID currently edited by the editor
 	 */
 	public void setOsmId(final long osmId) {
 		this.osmId = osmId;
 	}
-
+	
 	public String getType() {
 		return type;
 	}
-
+	
 	public void setType(final String type) {
 		this.type = type;
 	}
-
+	
 	protected OnKeyListener getKeyListener() {
 		return myKeyListener;
 	}
@@ -783,8 +737,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 			applyPreset(result);
 		}
 	}
-
-
+	
 	/**
 	 * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag set
 	 * @param item the preset to apply
@@ -792,7 +745,7 @@ public class TagEditor extends Activity implements OnDismissListener {
 	private void applyPreset(PresetItem item) {
 		autocompletePresetItem = item;
 		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
-
+		
 		boolean replacedValue = false;	
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
@@ -825,14 +778,14 @@ public class TagEditor extends Activity implements OnDismissListener {
 		public final String type;
 		public final Map<String,String> tags;
 		public final Map<String,String> tagsOrig;
-
+		
 		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags) {
 			this.osmId = osmId;
 			this.type = type;
 			this.tags = tags;
 			this.tagsOrig = originalTags;
 		}
-
+		
 		public TagEditorData(OsmElement selectedElement) {
 			this.osmId = selectedElement.getOsmId();
 			this.type = selectedElement.getName();
