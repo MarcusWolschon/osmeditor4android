@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<color name="actionbar_bg">#aa000000</color>
+	
 	<color name="ccc_red">#b9121b</color>
 	<color name="ccc_blue">#0000bb</color>
 	<color name="ccc_darkred">#4c1b1b</color>

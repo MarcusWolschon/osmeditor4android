@@ -16,39 +16,5 @@
 			android:id="@+id/edit_row_layout"
 		>
 		</LinearLayout>
- 		<de.blau.android.views.WrappingLayout
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:baselineAligned="false"
-		>
-			<Button android:id="@+id/sourcesurveyButton"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:text="@string/sourcesurvey" />
-
-			<Button
-			    android:id="@+id/applyPresetButton"
-			    android:layout_width="wrap_content"
-			    android:layout_height="fill_parent"
-			    android:text="@string/apply_preset_button_text"
-			/>
-			<Button
-			    android:id="@+id/repeatLastButton"
-			    android:layout_width="wrap_content"
-			    android:layout_height="fill_parent"
-			    android:text="@string/repeat_last_button_text"
-			/>
-			<Button
-			    android:id="@+id/revertButton"
-			    android:layout_width="wrap_content"
-			    android:layout_height="fill_parent"
-			    android:text="@string/revert_button_text"
-			/>
-			<Button android:id="@+id/okButton"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:layout_weight="1"
-				android:text="@string/okay" />
-		</de.blau.android.views.WrappingLayout>
 	</LinearLayout>
 </ScrollView>
