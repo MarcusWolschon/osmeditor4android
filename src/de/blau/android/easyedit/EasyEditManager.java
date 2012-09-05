@@ -62,6 +62,8 @@ public class EasyEditManager {
 	public void nothingTouched() {
 		// User clicked an empty area. If something is selected, deselect it.
 		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) currentActionMode.finish();
+		logic.setSelectedNode(null);
+		logic.setSelectedWay(null);
 	}
 	
 	/**
