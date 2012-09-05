@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
 	android:versionCode="14"
-	android:installLocation="auto" xmlns:tools="http://schemas.android.com/tools">
+	android:installLocation="auto"
+	>
 	
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,48 +18,69 @@
 	<application
 		android:name="de.blau.android.Application"
 		android:label="@string/app_name"
-		android:icon="@drawable/osm_logo">
-		<activity android:name="Main" android:theme="@style/Theme.customMain"
-			android:configChanges="orientation|screenSize|keyboardHidden"
+		android:icon="@drawable/osm_logo"
 		>
+		<activity
+			android:name="Main"
+			android:theme="@style/Theme.customMain"
+			android:configChanges="orientation|screenSize|keyboardHidden"
+			>
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
+				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity
 			android:name=".prefs.PrefEditor"
+			android:theme="@style/Theme.Sherlock"
 			android:label="@string/app_name_version"
 		/>
-		<activity android:name="BoxPicker" />
 		<activity
-			android:name="TagEditor" 
+			android:name="BoxPicker"
+			android:theme="@style/Theme.Sherlock"
+		/>
+		<activity
+			android:name="TagEditor"
 			android:theme="@style/Theme.customTagEditor"
 			android:configChanges="orientation|screenSize|keyboardHidden"
 		/>
-		<!-- Service to download tiles -->
-		<service android:name=".services.OpenStreetMapTileProviderService"
-			android:process=":remote" android:label="OpenStreetMapTileProviderService">
+		<activity
+			android:name=".prefs.APIEditorActivity"
+		/>
+		<activity
+			android:name=".prefs.PresetEditorActivity"
+		/>
+		<activity
+			android:name=".prefs.VespucciURLActivity"
+			tools:ignore="ExportedActivity"
+			>
 			<intent-filter>
-				<action android:name="de.blau.android.services.IOpenStreetMapTileProviderService"></action>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="osmprefs" />
 			</intent-filter>
-		</service>
-		<service android:name=".services.TrackerService" android:label="TrackerService"></service>
-		<activity android:name=".prefs.APIEditorActivity"></activity>
-		<activity android:name=".prefs.PresetEditorActivity"></activity>
-		<activity android:name=".prefs.VespucciURLActivity" tools:ignore="ExportedActivity">
-			<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="osmprefs"/>
-            </intent-filter>	    
 		</activity>
-		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar"></activity>
-		<activity android:name="org.acra.CrashReportDialog"
+		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
+		<activity
+			android:name="org.acra.CrashReportDialog"
 			android:theme="@android:style/Theme.Dialog"
 			android:launchMode="singleInstance"
 			android:excludeFromRecents="true"
-			android:finishOnTaskLaunch="true" />
+			android:finishOnTaskLaunch="true"
+		/>
+		
+		<!-- Service to download tiles -->
+		<service
+			android:name=".services.OpenStreetMapTileProviderService"
+			android:process=":remote"
+			android:label="OpenStreetMapTileProviderService"
+			>
+			<intent-filter>
+				<action android:name="de.blau.android.services.IOpenStreetMapTileProviderService" />
+			</intent-filter>
+		</service>
+		<!--  Service for GPS tracking -->
+		<service android:name=".services.TrackerService" android:label="TrackerService" />
 	</application>
 </manifest> 

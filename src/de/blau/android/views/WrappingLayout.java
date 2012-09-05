@@ -236,8 +236,6 @@ public class WrappingLayout extends LinearLayout {
 			
 			LayoutParams innerLayoutParams =
 				new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			LayoutParams elementLayoutParams =
-				new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			
 			final int availableSpace = container.getWidth() - container.getPaddingLeft() - container.getPaddingRight();
 			int usedSpace = 0;

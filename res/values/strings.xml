@@ -66,6 +66,7 @@
 	<!-- Strings in LocationPicker -->
 	<string name="location_headline">Load Area</string>
 	<string name="location_choose_radius">Choose radius:</string>
+	<string name="location_default_radius">300m</string>
 	<string name="location_last_text">Last known location:</string>
 	<string name="location_current_text">Current location:</string>
 	<string name="location_text_unknown">unknown</string>

@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.acra.ACRA;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -43,60 +46,60 @@ import de.blau.android.util.GeoMath;
  * 
  * @author mb
  */
-public class BoxPicker extends Activity implements LocationListener {
-
+public class BoxPicker extends SherlockActivity implements LocationListener {
+	
 	/**
 	 * Tag used for Android-logging.
 	 */
 	private final static String DEBUG_TAG = BoxPicker.class.getName();
-
+	
 	/**
 	 * Shown when the user inserts an invalid decimal number.
 	 */
 	private final static int DIALOG_NAN = 0;
-
+	
 	/**
 	 * LocationManager. Needed as field for unregister in {@link #onPause()}.
 	 */
 	private LocationManager locationManager = null;
-
+	
 	/**
 	 * The current location with the best accuracy.
 	 */
 	private Location currentLocation = null;
-
+	
 	/**
 	 * The user-chosen radius by the SeekBar. Value in Meters.
 	 */
 	private int currentRadius = 0;
-
+	
 	/**
 	 * Last known location.
 	 */
 	private Location lastLocation = null;
-
+	
 	/**
 	 * Tag for Intent extras.
 	 */
 	public static final String RESULT_LEFT = "de.blau.android.BoxPicker.left";
-
+	
 	/**
 	 * Tag for Intent extras.
 	 */
 	public static final String RESULT_BOTTOM = "de.blau.android.BoxPicker.bottom";
-
+	
 	/**
 	 * Tag for Intent extras.
 	 */
 	public static final String RESULT_RIGHT = "de.blau.android.BoxPicker.right";
-
+	
 	/**
 	 * Tag for Intent extras.
 	 */
 	public static final String RESULT_TOP = "de.blau.android.BoxPicker.top";
-
+	
 	private static final int MIN_WIDTH = 50;
-
+	
 	/**
 	 * Registers some listeners, sets the content view and initialize
 	 * {@link #currentRadius}.</br> {@inheritDoc}
@@ -105,7 +108,7 @@ public class BoxPicker extends Activity implements LocationListener {
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.location_picker_view);
-
+		
 		//Load Views
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.location_type_group);
 		Button loadMapButton = (Button) findViewById(R.id.location_button_current);
@@ -113,9 +116,9 @@ public class BoxPicker extends Activity implements LocationListener {
 		EditText latEdit = (EditText) findViewById(R.id.location_lat_edit);
 		EditText lonEdit = (EditText) findViewById(R.id.location_lon_edit);
 		SeekBar seeker = (SeekBar) findViewById(R.id.location_radius_seeker);
-
+		
 		currentRadius = seeker.getProgress();
-
+		
 		//register listeners
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 		radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, dontLoadMapButton, latEdit,
@@ -123,6 +126,9 @@ public class BoxPicker extends Activity implements LocationListener {
 		OnClickListener onClickListener = createButtonListener(radioGroup, latEdit, lonEdit);
 		loadMapButton.setOnClickListener(onClickListener);
 		dontLoadMapButton.setOnClickListener(onClickListener);
+		
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 	
 	
@@ -131,7 +137,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		locationManager.removeUpdates(this);
 		super.onPause();
 	}
-
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -141,7 +147,17 @@ public class BoxPicker extends Activity implements LocationListener {
 		}
 		setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, lastLocation);
 	}
-
+	
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	/**
 	 * Registers this class for location updates from all available location
 	 * providers.
@@ -167,7 +183,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		}
 		return bestLocation;
 	}
-
+	
 	/**
 	 * As soon as the user checks one of the radio buttons, the "load/don't
 	 * load"-buttons will be enabled. Additionally, the lat/lon-EditTexts will
@@ -203,7 +219,7 @@ public class BoxPicker extends Activity implements LocationListener {
 			}
 		};
 	}
-
+	
 	/**
 	 * First, the minimum radius will be assured, second, the
 	 * {@link #currentRadius} will be set and the label will be updated.
@@ -221,17 +237,17 @@ public class BoxPicker extends Activity implements LocationListener {
 				TextView radiusText = (TextView) findViewById(R.id.location_radius_text);
 				radiusText.setText(" " + progress + "m");
 			}
-
+			
 			@Override
 			public void onStartTrackingTouch(final SeekBar seekBar) {
 			}
-
+			
 			@Override
 			public void onStopTrackingTouch(final SeekBar arg0) {
 			}
 		};
 	}
-
+	
 	/**
 	 * Reads the manual coordinate EditTexts and registers the button
 	 * listeners.
@@ -251,7 +267,7 @@ public class BoxPicker extends Activity implements LocationListener {
 			}
 		};
 	}
-
+	
 	/**
 	 * Do the action when the user clicks a Button. Generates the
 	 * {@link BoundingBox} from the coordinate and chosen radius, sets the
@@ -266,7 +282,7 @@ public class BoxPicker extends Activity implements LocationListener {
 	private void performClick(final int buttonId, final int checkedRadioButtonId, final String lat, final String lon) {
 		BoundingBox box = null;
 		int resultState = (buttonId == R.id.location_button_current) ? RESULT_OK : RESULT_CANCELED;
-
+		
 		switch (checkedRadioButtonId) {
 		case R.id.location_current:
 			box = createBoxForCurrentLocation();
@@ -278,7 +294,7 @@ public class BoxPicker extends Activity implements LocationListener {
 			box = createBoxForManualLocation(lat, lon);
 			break;
 		}
-
+		
 		if (box != null) {
 			sendResultAndExit(box, resultState);
 		}
@@ -298,7 +314,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		}
 		return box;
 	}
-
+	
 	/**
 	 * @return {@link BoundingBox} for {@link #lastLocation} and
 	 * {@link #currentRadius}
@@ -313,9 +329,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		}
 		return box;
 	}
-
-		
-
+	
 	/**
 	 * Tries to parse lat and lon and creates a new {@link BoundingBox} if
 	 * successful.
@@ -337,7 +351,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		}
 		return box;
 	}
-
+	
 	/**
 	 * Creates the {@link Intent} with the boundaries of box as extra data.
 	 * 
@@ -354,7 +368,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		setResult(resultState, intent);
 		finish();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -366,7 +380,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		}
 		return super.onCreateDialog(id);
 	}
-
+	
 	/**
 	 * @see #DIALOG_NAN
 	 * @return
@@ -381,7 +395,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		});
 		return dialog.create();
 	}
-
+	
 	/**
 	 * When a location was found which has more accuracy than
 	 * {@link #currentLocation}, then the newLocation will be set as
@@ -412,7 +426,7 @@ public class BoxPicker extends Activity implements LocationListener {
 			double lat = location.getLatitude();
 			double lon = location.getLongitude();
 			accuracyMetaData = " (";
-
+			
 			if (location.hasAccuracy()) {
 				accuracyMetaData += getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
 			}
@@ -423,7 +437,7 @@ public class BoxPicker extends Activity implements LocationListener {
 		rb.setEnabled(location != null);
 		rb.setText(getString(textId, locationMetaData));
 	}
-
+	
 	/**
 	 * Checks if the new location is more accurate than
 	 * {@link #currentLocation}.
@@ -436,26 +450,26 @@ public class BoxPicker extends Activity implements LocationListener {
 		return currentLocation == null || !newLocation.hasAccuracy() || !currentLocation.hasAccuracy()
 				|| newLocation.getAccuracy() <= currentLocation.getAccuracy();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void onProviderDisabled(final String provider) {
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void onProviderEnabled(final String provider) {
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void onStatusChanged(final String provider, final int status, final Bundle extras) {
 	}
-
+	
 }

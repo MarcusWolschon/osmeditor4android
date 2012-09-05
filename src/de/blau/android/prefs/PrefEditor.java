@@ -1,12 +1,15 @@
 package de.blau.android.prefs;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
 import de.blau.android.DialogFactory;
 import de.blau.android.LicenseViewer;
 import de.blau.android.Main;
@@ -18,7 +21,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.API;
  * 
  * @author mb
  */
-public class PrefEditor extends PreferenceActivity {
+public class PrefEditor extends SherlockPreferenceActivity {
 	
 	private Resources r;
 	private String KEY_PREFAPI;
@@ -39,6 +42,9 @@ public class PrefEditor extends PreferenceActivity {
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
 		fixUpPrefs();
+		
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 	
 	@Override
@@ -58,6 +64,16 @@ public class PrefEditor extends PreferenceActivity {
 			loginpref.setSummary(null);
 		}
 		iconspref.setChecked(current.showicon);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
