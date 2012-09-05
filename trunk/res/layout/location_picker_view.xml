@@ -63,7 +63,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:minWidth="120dp"
-					android:numeric="signed|decimal"
+					android:inputType="numberSigned|numberDecimal"
 					android:singleLine="true"
 					android:layout_weight="1"
 				/>
@@ -78,7 +78,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:minWidth="120dp"
-					android:numeric="signed|decimal"
+					android:inputType="numberSigned|numberDecimal"
 					android:singleLine="true"
 					android:layout_weight="1"
 				/>
@@ -99,7 +99,7 @@
 				android:id="@+id/location_radius_text"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text=" 300m"
+				android:text="@string/location_default_radius"
 			/>
 		</LinearLayout>
 		<SeekBar
