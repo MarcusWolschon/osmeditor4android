@@ -54,8 +54,8 @@
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Tags for</string>
-	<string name="key">Key:</string>
-	<string name="value">Value:</string>
+	<string name="key">key</string>
+	<string name="value">value</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
 	<string name="tag_menu_sourcesurvey">Surveyed</string>
 	<string name="tag_menu_preset">Presets</string>

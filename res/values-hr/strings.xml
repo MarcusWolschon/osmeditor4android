@@ -50,8 +50,8 @@
         
         <!-- Strings in TagEditor -->
         <string name="tag_title">Oznake za</string>
-        <string name="key">Oznaka:</string>
-        <string name="value">=</string>
+        <string name="key">oznaka</string>
+        <string name="value">vrijednost</string>
         <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
         <string name="tag_menu_mapfeatures">Oznake na Wiki-u</string>
         

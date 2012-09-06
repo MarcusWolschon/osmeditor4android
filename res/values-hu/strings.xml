@@ -35,8 +35,8 @@
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Címkéi ennek:</string>
-	<string name="key">Kulcs:</string>
-	<string name="value">Érték:</string>
+	<string name="key">kulcs</string>
+	<string name="value">érték</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Hu:Map_Features</string>
 	<string name="tag_menu_mapfeatures">Térképjellemzők Wiki</string>
 	

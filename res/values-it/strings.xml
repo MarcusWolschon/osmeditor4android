@@ -35,8 +35,8 @@
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Etichette per</string>
-	<string name="key">Chiave:</string>
-	<string name="value">Valore:</string>
+	<string name="key">chiave</string>
+	<string name="value">valore</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
 	<string name="tag_menu_mapfeatures">Wiki funzioni mappe</string>
 	

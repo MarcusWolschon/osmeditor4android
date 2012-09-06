@@ -40,8 +40,8 @@
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Tagy pro</string>
-	<string name="key">Klíč:</string>
-	<string name="value">Hodnota:</string>
+	<string name="key">klíč</string>
+	<string name="value">hodnota</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
 	<string name="tag_menu_mapfeatures">Wiki vlastností mapy</string>
 

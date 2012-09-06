@@ -36,8 +36,8 @@
   <!--  Strings in TagEditor 
   --> 
   <string name="tag_title">Tags for</string> 
-  <string name="key">Nøgle:</string> 
-  <string name="value">Værdi:</string> 
+  <string name="key">nøgle</string> 
+  <string name="value">værdi</string> 
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string> 
   <string name="tag_menu_mapfeatures">Map Features Wiki</string> 
   <!--  Strings in LocationPicker 
