@@ -15,7 +15,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 
 /**
- * Will process osmprefs:// URLs.
+ * Will process vespucci:// URLs.
  * Accepts the following URL parameters:<br>
  *   apiurl - API URL<br>
  *   apiname - name for the API (if it gets added)<br>
