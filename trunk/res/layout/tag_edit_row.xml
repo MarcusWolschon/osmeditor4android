@@ -14,32 +14,23 @@
         android:layout_gravity="center_vertical"
         />
     
-    <TextView
-        android:id="@+id/labelKey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/key"
-        android:textColor="@android:color/black"
-        />
-    
     <AutoCompleteTextView 
         android:id="@+id/editKey"
         android:singleLine="true"
         android:inputType="textNoSuggestions"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="3"
+        android:dropDownWidth="match_parent"
         android:completionThreshold="1"
+        android:textColor="@android:color/white"
+        android:background="@color/tagedit_field_bg"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:hint="@string/key"
         />
-    
-    <TextView
-        android:id="@+id/labelValue"
-        android:text="@string/value"
-        android:textColor="@android:color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        
-         />
     
     <AutoCompleteTextView 
         android:id="@+id/editValue"
@@ -47,7 +38,16 @@
         android:inputType="textNoSuggestions"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
+        android:dropDownWidth="match_parent"
+        android:dropDownAnchor="@id/editKey"
         android:completionThreshold="1"
-        />    
+        android:textColor="@android:color/white"
+        android:background="@color/tagedit_field_bg"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:hint="@string/value"
+        />
 </view>

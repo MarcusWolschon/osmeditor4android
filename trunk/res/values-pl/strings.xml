@@ -50,8 +50,8 @@
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Tagi:</string>
-	<string name="key">K:</string>
-	<string name="value">W:</string>
+	<string name="key">klucz</string>
+	<string name="value">wartość</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>
 	<string name="tag_menu_mapfeatures">Podstawy (Wiki)</string>
 	

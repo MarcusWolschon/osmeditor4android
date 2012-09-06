@@ -35,8 +35,8 @@
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Теги для</string>
-	<string name="key">Ключ:</string>
-	<string name="value">Значение:</string>
+	<string name="key">ключ</string>
+	<string name="value">значение</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/RU:Map_Features</string>
 	<string name="tag_menu_mapfeatures">Условные обозначения</string>
 	

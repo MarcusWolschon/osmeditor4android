@@ -35,8 +35,8 @@
 	
 	<!-- Strings in TagEditor -->
 	<string name="tag_title">Tags pour</string>
-	<string name="key">Clé :</string>
-	<string name="value">Valeur :</string>
+	<string name="key">clé</string>
+	<string name="value">valeur</string>
 	<string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
 	<string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
 	
