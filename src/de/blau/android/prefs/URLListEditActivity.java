@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -17,8 +16,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,7 +25,11 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
 import de.blau.android.R;
 
@@ -45,7 +46,7 @@ import de.blau.android.R;
  * @author Jan
  *
  */
-public abstract class URLListEditActivity extends ListActivity implements OnMenuItemClickListener, OnItemClickListener {
+public abstract class URLListEditActivity extends SherlockListActivity implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
 
 	public static final String ACTION_NEW = "new";
 	public static final String EXTRA_NAME = "name";
@@ -96,6 +97,9 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		this.getListView().setOnItemClickListener(this);
 		this.getListView().setLongClickable(true);
 		this.getListView().setOnCreateContextMenuListener(this);
+		
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 	
 	@Override
@@ -105,6 +109,17 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 		if (isAddingViaIntent()) {
 			itemEditDialog(null);
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		if (!super.onOptionsItemSelected(item)) {
+			switch (item.getItemId()) {
+			case android.R.id.home: finish(); break;
+			default: return false;
+			}
+		}
+		return true;
 	}
 
 	/** refreshes the data adapter (list content) */
@@ -137,14 +152,12 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 			}
 		}
 	}
-
-	@Override
-	public boolean onMenuItemClick(MenuItem menuitem) {
- 		if (menuitem.getItemId() >= MENUITEM_ADDITIONAL_OFFSET) {
- 			onAdditionalMenuItemClick(menuitem.getItemId() - MENUITEM_ADDITIONAL_OFFSET, selectedItem);
- 		}
- 		
-		switch (menuitem.getItemId()) {
+	
+	private boolean onMenuItemClick(int itemId) {
+		if (itemId >= MENUITEM_ADDITIONAL_OFFSET) {
+			onAdditionalMenuItemClick(itemId - MENUITEM_ADDITIONAL_OFFSET, selectedItem);
+		}
+		switch (itemId) {
 		case MENUITEM_EDIT:
 			itemEditDialog(selectedItem);
 			updateAdapter();
@@ -153,8 +166,17 @@ public abstract class URLListEditActivity extends ListActivity implements OnMenu
 			deleteItem(selectedItem);
 			break;
 		}
-
 		return true;
+	}
+	
+	@Override
+	public boolean onMenuItemClick(MenuItem menuitem) {
+		return onMenuItemClick(menuitem.getItemId());
+	}
+	
+	@Override
+	public boolean onMenuItemClick(android.view.MenuItem menuitem) {
+		return onMenuItemClick(menuitem.getItemId());
 	}
 	
 	/**
