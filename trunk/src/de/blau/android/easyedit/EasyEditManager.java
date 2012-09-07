@@ -7,13 +7,11 @@ import java.util.Set;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
@@ -46,6 +44,10 @@ public class EasyEditManager {
 		this.logic = logic;
 	}
 	
+	public boolean isProcessingAction() {
+		return (currentActionModeCallback != null);
+	}
+	
 	/**
 	 * Call to let the action mode (if any) have a first go at the click.
 	 * @param x the x coordinate (screen coordinate?) of the click
@@ -53,7 +55,7 @@ public class EasyEditManager {
 	 * @return true if the click was handled
 	 */
 	public boolean actionModeHandledClick(float x, float y) {
-		return (currentActionModeCallback != null && currentActionModeCallback.handleClick(x,y));
+		return (currentActionModeCallback != null && currentActionModeCallback.handleClick(x, y));
 	}
 	
 	/**
@@ -522,15 +524,11 @@ public class EasyEditManager {
 		}
 		
 		protected void menuDelete(ActionMode mode) {
-			TextView textView = new TextView(main);
-			textView.setText(R.string.deleteway_description);
-			int pad = Math.round(10f * main.getResources().getDisplayMetrics().density);
-			textView.setPadding(pad, pad, pad, pad);
 			new AlertDialog.Builder(main)
 				.setTitle(R.string.delete)
-				.setView(textView) 
+				.setMessage(R.string.deleteway_description)
 				.setPositiveButton(R.string.deleteway_wayonly,
-					new OnClickListener() {	
+					new DialogInterface.OnClickListener() {	
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							logic.performEraseWay((Way)element, false);
@@ -538,7 +536,7 @@ public class EasyEditManager {
 						}
 					})
 				.setNeutralButton(R.string.deleteway_wayandnodes,
-					new OnClickListener() {	
+					new DialogInterface.OnClickListener() {	
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							logic.performEraseWay((Way)element, true);
