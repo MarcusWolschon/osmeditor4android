@@ -1122,13 +1122,15 @@ public class Logic {
 					case HttpStatus.SC_UNAUTHORIZED:
 						result = DialogFactory.WRONG_LOGIN;
 						break;
+					case HttpStatus.SC_PRECONDITION_FAILED:
+						result = DialogFactory.UPLOAD_PROBLEM;
+						break;
 					//TODO: implement other state handling
 					default:
+						Log.e(DEBUG_TAG, "", e);
 						ACRA.getErrorReporter().handleException(e);
 						break;
 					}
-					Log.e(DEBUG_TAG, "", e);
-					ACRA.getErrorReporter().handleException(e);
 				} catch (final IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e(DEBUG_TAG, "", e);
