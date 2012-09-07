@@ -27,7 +27,6 @@
         android:background="@color/tagedit_field_bg"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:hint="@string/key"
         />
@@ -47,7 +46,6 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
         android:hint="@string/value"
         />
 </view>

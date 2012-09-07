@@ -555,10 +555,25 @@ public class Logic {
 		return bestWay;
 	}
 	
-	public List<Way> getWaysForNode(Node node) {
+	/**
+	 * Get a list of all the Ways connected to the given Node.
+	 * @param node The Node.
+	 * @return A list of all Ways connected to the Node.
+	 */
+	public List<Way> getWaysForNode(final Node node) {
 		return delegator.getCurrentStorage().getWays(node);
 	}
 
+	/**
+	 * Test if the given Node is an end node of a Way. Isolated nodes not part
+	 * of a way are not considered an end node.
+	 * @param node Node to test.
+	 * @return true if the Node is an end node of a Way, false otherwise.
+	 */
+	public boolean isEndNode(final Node node) {
+		return delegator.getCurrentStorage().isEndNode(node);
+	}
+	
 	/**
 	 * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
 	 * user is in edit-mode a touched node will bet set to selected. draggingNode will be set if a node is to be moved.
