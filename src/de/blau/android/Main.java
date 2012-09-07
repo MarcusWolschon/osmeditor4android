@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.ColorDrawable;
@@ -1011,13 +1012,32 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		@Override
-		public boolean onLongClick(View v, float x, float y) {
+		public boolean onLongClick(final View v, final float x, final float y) {
 			if (logic.getMode() != Mode.MODE_EASYEDIT) {
 				return false; // ignore long clicks
 			}
 			
 			if (logic.isInEditZoomRange()) {
-				return easyEditManager.handleLongClick(v, x, y);
+				if (!easyEditManager.isProcessingAction() && prefs.isOpenStreetBugsEnabled()) {
+					new AlertDialog.Builder(Main.this)
+						.setPositiveButton(R.string.openstreetbug_new_bug,
+							new DialogInterface.OnClickListener() {	
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									performBugEdit(logic.makeNewBug(x, y));
+								}
+							})
+						.setNegativeButton(R.string.openstreetbug_new_nodeway,
+							new DialogInterface.OnClickListener() {	
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									easyEditManager.handleLongClick(v, x, y);
+								}
+							})
+						.show();
+				} else {
+					return easyEditManager.handleLongClick(v, x, y);
+				}
 			}
 			
 			return true; // long click handled
