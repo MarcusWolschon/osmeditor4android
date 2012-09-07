@@ -159,6 +159,7 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			currentActionMode = null;
 			currentActionModeCallback = null;
+			main.invalidateMap();
 			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
 		}
 		
@@ -212,6 +213,8 @@ public class EasyEditManager {
 		private float x;
 		/** y coordinate of first node */
 		private float y;
+		/** Node to append to */
+		private Node appendTarget;
 		
 		/** contains a pointer to the created way if one was created. used to fix selection after undo. */
 		private Way createdWay = null;
@@ -222,6 +225,12 @@ public class EasyEditManager {
 			super();
 			this.x = x;
 			this.y = y;
+			appendTarget = null;
+		}
+		
+		public PathCreationActionModeCallback(Node element) {
+			super();
+			appendTarget = element;
 		}
 		
 		@Override
@@ -229,15 +238,19 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			mode.setTitle(R.string.actionmode_createpath);
 			logic.setSelectedWay(null);
-			logic.setSelectedNode(null);
-			pathCreateNode(x, y);
+			logic.setSelectedNode(appendTarget);
+			if (appendTarget != null) {
+				logic.performAppendStart(appendTarget);
+			} else {
+				pathCreateNode(x, y);
+			}
 			return true;
 		}
 		
 		@Override
 		public boolean handleClick(float x, float y) {
 			super.handleClick(x, y);
-			pathCreateNode(x,y);
+			pathCreateNode(x, y);
 			return true;
 		}
 		
@@ -249,7 +262,11 @@ public class EasyEditManager {
 		private void pathCreateNode(float x, float y) {
 			Node lastSelectedNode = logic.getSelectedNode();
 			Way lastSelectedWay = logic.getSelectedWay();
-			logic.performAdd(x, y);
+			if (appendTarget != null) {
+				logic.performAppendAppend(x, y);
+			} else {
+				logic.performAdd(x, y);
+			}
 			if (logic.getSelectedNode() == null) {
 				// user clicked last node again -> finish adding
 				currentActionMode.finish();
@@ -316,7 +333,7 @@ public class EasyEditManager {
 			Way lastSelectedWay = logic.getSelectedWay();
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(null);
-			tagApplicable(lastSelectedNode, lastSelectedWay);
+			if (appendTarget == null) tagApplicable(lastSelectedNode, lastSelectedWay);
 			super.onDestroyActionMode(mode);
 		}
 	}
@@ -358,10 +375,10 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_TAG, 1, R.string.menu_tags);
-			menu.add(Menu.NONE, MENUITEM_DELETE, 2, R.string.delete);
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags);
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete);
 			if (element.getOsmId() > 0){
-				menu.add(Menu.NONE, MENUITEM_HISTORY, 3, R.string.menu_history);
+				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.NONE, R.string.menu_history);
 			}
 			return true;
 		}
@@ -397,12 +414,13 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			main.invalidateMap();
 			super.onDestroyActionMode(mode);
 		}
 	}
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
+		private static final int MENUITEM_APPEND = 4;
+		
 		private NodeSelectionActionModeCallback(Node node) {
 			super(node);
 		}
@@ -414,6 +432,28 @@ public class EasyEditManager {
 			logic.setSelectedWay(null);
 			main.invalidateMap();
 			mode.setTitle(R.string.actionmode_nodeselect);
+			return true;
+		}
+		
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			super.onPrepareActionMode(mode, menu);
+			if (logic.isEndNode((Node)element)) {
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append);
+			}
+			return true;
+		}
+		
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			if (!super.onActionItemClicked(mode, item)) {
+				switch (item.getItemId()) {
+				case MENUITEM_APPEND:
+					main.startActionMode(new PathCreationActionModeCallback((Node)element));
+					break;
+				default: return false;
+				}
+			}
 			return true;
 		}
 		
@@ -449,12 +489,12 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
-			menu.add(Menu.NONE, MENUITEM_REVERSE, 4, R.string.menu_reverse);
+			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse);
 			if (((Way)element).getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_SPLIT, 5, R.string.menu_split);
+				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split);
 			}
 			if (cachedMergeableWays.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_MERGE, 6, R.string.menu_merge);
+				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge);
 			}
 			return true;
 		}
