@@ -10,6 +10,10 @@
 	<string name="transfer_download_current_upload">Upload</string>
 	<string name="transfer_download_current_download">Discard &amp; download</string>
 	<string name="transfer_download_current_back">Back (Do nothing)</string>
+	<string name="upload_problem_title">Problem With Upload</string>
+	<string name="upload_problem_message">Some or all data was not uploaded. Try uploading again to see what failed.
+		The most likely reason is an attempt to delete a node or way that is part of a relation, but Vespucci does
+		not (yet) support relations.</string>
 	<string name="no_login_data_title">No login data set</string>
 	<string name="no_login_data_message">Please fill out the OSM-Login settings in the preferences form.</string>
 	<string name="no_connection_title">No Connection to Server</string>

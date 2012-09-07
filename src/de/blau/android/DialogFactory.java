@@ -39,6 +39,8 @@ public class DialogFactory {
 	
 	public static final int PROGRESS_DOWNLOAD = 6;
 	
+	public static final int UPLOAD_PROBLEM = 7;
+	
 	public static final int CONFIRM_UPLOAD = 8;
 	
 	public static final int OPENSTREETBUG_EDIT = 9;
@@ -52,6 +54,8 @@ public class DialogFactory {
 	private final Builder noConnection;
 	
 	private final Builder downloadCurrentWithChanges;
+	
+	private final Builder uploadProblem;
 	
 	private final Builder confirmUpload;
 	
@@ -86,6 +90,9 @@ public class DialogFactory {
 		downloadCurrentWithChanges.setNeutralButton(R.string.transfer_download_current_back, doNothingListener);
 		downloadCurrentWithChanges.setNegativeButton(R.string.transfer_download_current_download,
 			new DownloadCurrentListener(caller));
+		
+		uploadProblem = createBasicDialog(R.string.upload_problem_title, R.string.upload_problem_message);
+		uploadProblem.setPositiveButton(R.string.okay, doNothingListener);
 		
 		confirmUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
@@ -123,6 +130,9 @@ public class DialogFactory {
 			
 		case PROGRESS_DOWNLOAD:
 			return createBasicProgressDialog(R.string.progress_download_message);
+			
+		case UPLOAD_PROBLEM:
+			return uploadProblem.create();
 			
 		case CONFIRM_UPLOAD:
 			return confirmUpload.create();
