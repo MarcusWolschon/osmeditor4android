@@ -46,9 +46,11 @@
 		/>
 		<activity
 			android:name=".prefs.APIEditorActivity"
+			android:theme="@style/Theme.Sherlock"
 		/>
 		<activity
 			android:name=".prefs.PresetEditorActivity"
+			android:theme="@style/Theme.Sherlock"
 		/>
 		<activity
 			android:name=".prefs.VespucciURLActivity"
