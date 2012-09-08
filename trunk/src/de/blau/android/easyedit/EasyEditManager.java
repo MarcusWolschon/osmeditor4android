@@ -78,7 +78,10 @@ public class EasyEditManager {
 			ActionMode.Callback cb = null;
 			if (element instanceof Node) cb = new NodeSelectionActionModeCallback((Node)element);
 			if (element instanceof Way ) cb = new  WaySelectionActionModeCallback((Way )element);
-			if (cb != null) main.startActionMode(cb);
+			if (cb != null) {
+				main.startActionMode(cb);
+				Toast.makeText(main, element.getDescription(), Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 	
