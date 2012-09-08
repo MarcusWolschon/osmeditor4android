@@ -398,6 +398,7 @@ public class Server {
 	 */
 	private void checkResponseCode(final HttpURLConnection connection) throws IOException, OsmException {
 		int responsecode = connection.getResponseCode();
+		if (responsecode == -1) throw new IOException("Invalid response from server");
 		if (responsecode != HttpURLConnection.HTTP_OK) {
 			String responseMessage = connection.getResponseMessage();
 			if (responseMessage == null) {
