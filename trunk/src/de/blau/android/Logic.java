@@ -1134,7 +1134,6 @@ public class Logic {
 				} catch (final IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e(DEBUG_TAG, "", e);
-					ACRA.getErrorReporter().handleException(e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().handleException(e);
