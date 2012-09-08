@@ -26,7 +26,6 @@ import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
 import de.blau.android.util.SavingHelper;
 
@@ -38,13 +37,13 @@ import de.blau.android.util.SavingHelper;
  */
 public class Track {
 	private static final String TAG = "Track";
-
+	
 	private final ArrayList<TrackPoint> track;
 	
 	private final String SAVEFILE = "track.dat";
 	
 	private final Context ctx;
-
+	
 	/**
 	 * if loadingFinished is true, indicates how many records the save file contains
 	 */
@@ -82,11 +81,9 @@ public class Track {
 	/** set by {@link #markNewSegment()} - indicates that the next track point will have the isNewSegment flag set */
 	private boolean nextIsNewSegment = false;
 	
-	
 	/**
 	 * Indicates how many of the track points are already in the save file.
 	 */
-
 	public Track(Context context) {
 		track = new ArrayList<TrackPoint>();
 		ctx = context;
@@ -98,13 +95,11 @@ public class Track {
 			asyncLoad();
 		}
 	}
-
-
+	
 	public void reset() {
 		deleteSaveFile();
 		track.clear();
 	}
-
 	
 	public void addTrackPoint(final Location location) {
 		if (location != null) {
@@ -113,11 +108,11 @@ public class Track {
 			save();
 		}
 	}
-
+	
 	public List<TrackPoint> getTrackPoints() {
 		return track;
 	}
-
+	
 	@Override
 	public String toString() {
 		String str = "";
@@ -147,7 +142,7 @@ public class Track {
 			savedTrackPoints++;
 		}
 	}
-
+	
 	/**
 	 * Opens the saveFileStream if necessary
 	 */
@@ -157,7 +152,7 @@ public class Track {
 			return;
 		}
 		if (saveFileStream != null) return;
-		File saveFile = new File(Application.mainActivity.getFilesDir(), SAVEFILE);
+		File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
 		try {
 			FileOutputStream fileOutput = null;
 			DataOutputStream out = null;
@@ -188,13 +183,13 @@ public class Track {
 			saveFileStream = null;
 		}
 		savedTrackPoints = 0;
-		File saveFile = new File(Application.mainActivity.getFilesDir(), SAVEFILE);
+		File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
 		saveFile.delete();
 		if (saveFile.exists()) {
 			markSavingBroken("Failed to delete undesired track file", null);
 		}
 	}
-
+	
 	/**
 	 * If something terrible happens, use this to log an error and disable saving
 	 * @param message
@@ -204,17 +199,17 @@ public class Track {
 		savingDisabled = true;
 		Log.e(TAG, "Saving broken - " + message, exception);
 	}
-
+	
 	private void asyncLoad() {
 		new AsyncTask<Void, Void, Void>() {
 			private ArrayList<TrackPoint> loaded = new ArrayList<Track.TrackPoint>();
-						
+			
 			@Override
 			protected Void doInBackground(Void... params) {
 				loadingLock.lock();
 				if (!isOpen) return null; // if this has been closed by close() in the meantime, STOP
 				
-				File saveFile = new File(Application.mainActivity.getFilesDir(), SAVEFILE);
+				File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
 				boolean success = load();
 				if (!success || loaded.isEmpty()) {
 					Log.i(TAG, "Deleting broken or empty save file");
@@ -245,7 +240,7 @@ public class Track {
 				Log.i(TAG, "Track loading finished, loaded entries: " + loaded.size());
 				if (track.size() > savedTrackPoints) save();
 			};
-
+			
 			/**
 			 * Loads a track from the file to the "loaded" ArrayList.
 			 * @return true if the file was loaded without problems, false if some problem occurred and the file needs to be rewritten
@@ -254,7 +249,7 @@ public class Track {
 				FileInputStream fileInput = null;
 				DataInputStream in = null;
 				try {
-					fileInput = Application.mainActivity.openFileInput(SAVEFILE);
+					fileInput = ctx.openFileInput(SAVEFILE);
 					in = new DataInputStream(new BufferedInputStream(fileInput));
 					long size = fileInput.getChannel().size();
 					// if you manage to record over 32 GB of track data (in RAM) on a mobile device,
@@ -274,7 +269,7 @@ public class Track {
 					
 					if ( (size - 4) % TrackPoint.RECORD_SIZE != 0) {
 						Log.e(TAG, "track file contains partial record");
-						return false;						
+						return false;
 					}
 					
 					return true;
@@ -288,7 +283,7 @@ public class Track {
 					SavingHelper.close(in);
 				}
 			}
-
+			
 			/**
 			 * Saves the given data to disk, overwriting anything already saved
 			 */
@@ -331,7 +326,7 @@ public class Track {
 		Log.i(TAG,"Track closed");
 		loadingLock.unlock();
 	}
-
+	
 	/**
 	 * Call each time a new segment should be created.
 	 */
@@ -359,7 +354,7 @@ public class Track {
 			if (hasPoints && pt.isNewSegment()) {
 				// start new segment
 				serializer.endTag(null, "trkseg");
-				serializer.startTag(null, "trkseg");				
+				serializer.startTag(null, "trkseg");
 			}
 			hasPoints = true;
 			pt.toXml(serializer);
@@ -369,7 +364,7 @@ public class Track {
 		serializer.endTag(null, "gpx");
 		serializer.endDocument();
 	}
-
+	
 	/**
 	 * This is a class to store location points and provide storing/serialization for them.
 	 * Everything considered less relevant is commented out to save space.
@@ -402,8 +397,6 @@ public class Track {
 		// public final Float  accuracy;
 		// public final Float  bearing;
 		// public final Float  speed;
-	
-		
 		
 		public TrackPoint(Location original, boolean isNewSegment) {
 			this.flags = encodeFlags(isNewSegment);
@@ -433,9 +426,9 @@ public class Track {
 		public static TrackPoint fromStream(DataInputStream stream) throws IOException {
 			return new TrackPoint(
 					stream.readByte(),   // flags
-					stream.readDouble(), //lat
-					stream.readDouble(), //lon
-					stream.readDouble(), //alt
+					stream.readDouble(), // lat
+					stream.readDouble(), // lon
+					stream.readDouble(), // alt
 					stream.readLong()    // time
 				);
 		}
@@ -460,8 +453,8 @@ public class Track {
 		
 		public double getLatitude()  { return latitude; }
 		public double getLongitude() { return longitude; }
-		public long   getTime()        { return time; }
-	
+		public long   getTime()      { return time; }
+		
 		public boolean hasAltitude() { return altitude != Double.NaN; }
 		// public boolean hasAccuracy() { return accuracy != null; }
 		// public boolean hasBearing()  { return bearing != null; }
@@ -502,9 +495,9 @@ public class Track {
 		
 		@Override
 		public String toString() {
-			return String.format(Locale.US, "%f, %f", latitude, longitude);			
+			return String.format(Locale.US, "%f, %f", latitude, longitude);
 		}
-
+		
 		@Override
 		public boolean isInterrupted() {
 			return isNewSegment();
