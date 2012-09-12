@@ -10,9 +10,7 @@
     <string name="transfer_download_current_download">Discard &amp; download</string>
     <string name="transfer_download_current_back">Back (Do nothing)</string>
     <string name="upload_problem_title">Problem With Upload</string>
-    <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again to see what failed.
-		The most likely reason is an attempt to delete a node or way that is part of a relation, but Vespucci does
-		not (yet) support relations.</string>
+    <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again to see what failed. The most likely reason is an attempt to delete a node or way that is part of a relation, but Vespucci does not (yet) support relations.</string>
     <string name="no_login_data_title">No login data set</string>
     <string name="no_login_data_message">Please fill out the OSM-Login settings in the preferences form.</string>
     <string name="no_connection_title">No Connection to Server</string>
@@ -163,24 +161,24 @@
     <string name="preset_download_failed">The preset file could not be downloaded. The preset will not work.</string>
     <string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
     <string name="preset_download_missing_images">The preset file was successfully downloaded. However, some icons could not be downloaded and will be missing.</string>
-    <!-- Preference keys - DO NOT TRANSLATE OR COPY TO TRANSLATION -->
-    <string name="config_showStats_key">showStats</string>
-    <string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
-    <string name="config_showTolerance_key">showTolerance</string>
-    <string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
-    <string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
-    <string name="config_backgroundLayer_key">backgroundLayer</string>
-    <string name="config_category_server_key">category_server</string>
-    <string name="config_username_key">username</string>
-    <string name="config_password_key">password</string>
-    <string name="config_gps_distance_key">distance</string>
-    <string name="config_gps_interval_key">interval</string>
-    <string name="config_apibutton_key">apisettings-button</string>
-    <string name="config_loginbutton_key">loginsettings-button</string>
-    <string name="config_presetbutton_key">presetsettings-button</string>
-    <string name="config_iconbutton_key">iconsettings-button</string>
-    <string name="config_licensebutton_key">licenseview-button</string>
-    <string name="config_selected_api">selectedAPI</string>
+    <!-- Preference keys -->
+    <string name="config_showStats_key">showStats<!-- DO NOT TRANSLATE --></string>
+    <string name="config_maxStrokeWidth_key">maxStrokeWidth<!-- DO NOT TRANSLATE --></string>
+    <string name="config_showTolerance_key">showTolerance<!-- DO NOT TRANSLATE --></string>
+    <string name="config_enableAntiAliasing_key">enableAntiAliasing<!-- DO NOT TRANSLATE --></string>
+    <string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs<!-- DO NOT TRANSLATE --></string>
+    <string name="config_backgroundLayer_key">backgroundLayer<!-- DO NOT TRANSLATE --></string>
+    <string name="config_category_server_key">category_server<!-- DO NOT TRANSLATE --></string>
+    <string name="config_username_key">username<!-- DO NOT TRANSLATE --></string>
+    <string name="config_password_key">password<!-- DO NOT TRANSLATE --></string>
+    <string name="config_gps_distance_key">distance<!-- DO NOT TRANSLATE --></string>
+    <string name="config_gps_interval_key">interval<!-- DO NOT TRANSLATE --></string>
+    <string name="config_apibutton_key">apisettings-button<!-- DO NOT TRANSLATE --></string>
+    <string name="config_loginbutton_key">loginsettings-button<!-- DO NOT TRANSLATE --></string>
+    <string name="config_presetbutton_key">presetsettings-button<!-- DO NOT TRANSLATE --></string>
+    <string name="config_iconbutton_key">iconsettings-button<!-- DO NOT TRANSLATE --></string>
+    <string name="config_licensebutton_key">licenseview-button<!-- DO NOT TRANSLATE --></string>
+    <string name="config_selected_api">selectedAPI<!-- DO NOT TRANSLATE --></string>
     <!--  changes -->
     <string name="changes_deleted">"%1$s" deleted</string>
     <string name="changes_changed">"%1$s" changed</string>
@@ -210,10 +208,7 @@
     <string name="tracking_active_title">Recording GPS track</string>
     <string name="tracking_active_text">Vespucci is recording a GPS track</string>
     <string name="gps_failure">Failed to enable GPS</string>
-    <!--
-		undo actions - give a description of the action, in infinitive, to display in
-		strings like "Undo: actionname" or "Redo: actionname"
-	 -->
+    <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">move node</string>
     <string name="undo_action_add">insert</string>
     <string name="undo_action_append">append</string>
@@ -228,9 +223,7 @@
     <string name="crash_notif_ticker_text">Vespucci has crashed. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed</string>
     <string name="crash_notif_text">Please click here to help fix the issue.</string>
-    <string name="crash_dialog_text">An unexpected error occurred forcing the
-		application to stop. Please help us fix this by sending us error data,
-		all you have to do is click \'OK\'.</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the application to stop. Please help us fix this by sending us error data, all you have to do is click \'OK\'.</string>
     <string name="config_category_acra">Crash Reporting</string>
     <string name="pref_enable_acra">Report application crashes</string>
     <string name="pref_acra_enabled">Crash reporting enabled</string>
