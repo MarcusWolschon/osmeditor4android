@@ -1,101 +1,97 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-  <!--  Dialogs 
-  --> 
-  <string name="resume_last_activity_dialog_title">Ta opp att?</string> 
-  <string name="resume_last_activity_dialog_message">Vil du ta opp att frå der du slapp sist?</string> 
-  <string name="transfer_download_current_dialog_title">Åtvaring!</string> 
-  <string name="transfer_download_current_dialog_message">Du har gjort endringar. Vil du lasta dei opp i staden for å avbryta?</string> 
-  <string name="transfer_download_current_upload">Last opp</string> 
-  <string name="transfer_download_current_download">Avbryt og last ned</string> 
-  <string name="transfer_download_current_back">Gå attende</string> 
-  <string name="no_login_data_title">Manglar brukaropplysningar</string> 
-  <string name="no_login_data_message">Fyll ut brukaropplysningar for OpenStreetMap under instillingar.</string> 
-  <string name="no_connection_title">Inkje samband med tenaren</string> 
-  <string name="no_connection_message">Kunne ikkje kobla til OSM-tenaren. Sjekk internettforbindelsen din eller prøv om att seinare.</string> 
-  <string name="wrong_login_data_title">Feil brukaropplysningar</string> 
-  <string name="wrong_login_data_message">OSM-tenaren ville ikkje godkjenne deg. Sjekk brukaropplysningane dine under innstillingar.</string> 
-  <string name="progress_title">Les</string> 
-  <string name="progress_message">Les inn i minne…</string> 
-  <string name="progress_download_message">Lastar ned data fra tenaren…</string> 
-  <!--  Toaster 
-  --> 
-  <string name="toast_no_changes">Du har ikkje endra noko enno…</string> 
-  <string name="toast_upload_success">Opplasting til OSM er ferdig.</string> 
-  <string name="toast_empty_data">Det er ingen element i dette området. Takk for at du utforska dette sorte hullet :-)</string> 
-  <string name="toast_not_in_edit_range">Zoom inn for å retta (volum opp / ned eller lens/shift)</string> 
-  <string name="toast_save_done">Lagring lukkast</string> 
-  <string name="toast_waiting_for_gps">Ventar på GPS-posisjon…</string> 
-  <string name="toast_follow_gps_off">GPS-sporing avslått</string> 
-  <!--  Some generic labels 
-  --> 
-  <string name="yes">Ja</string> 
-  <string name="no">Nei</string> 
-  <string name="okay">Ok</string> 
-  <string name="cancel">Avbryt</string> 
-  <!--  Strings in TagEditor 
-  --> 
-  <string name="tag_title">Taggar for</string> 
-  <string name="key">nøkkel</string> 
-  <string name="value">verdi</string> 
-  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string> 
-  <string name="tag_menu_mapfeatures">Map features wiki</string> 
-  <!--  Strings in LocationPicker 
-  --> 
-  <string name="location_headline">Les inn område</string> 
-  <string name="location_choose_radius">Velj radius:</string> 
-  <string name="location_last_text">Siste kjente posisjon:</string> 
-  <string name="location_current_text">Noverande posisjon:</string> 
-  <string name="location_text_unknown">ukjent</string> 
-  <string name="location_last_text_parameterized">Siste kjente posisjon: %1$s</string> 
-  <string name="location_current_text_parameterized">Noverande posisjon: %1$s</string> 
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string> 
-  <string name="location_text_metadata_accuracy">Nøyaktigheit %1$1g meter,</string> 
-  <string name="location_map_text">Frå kart:</string> 
-  <string name="location_coordinates_text">Frå koordinat:</string> 
-  <string name="location_lat_label">Lat:</string> 
-  <string name="location_lon_label">Lon:</string> 
-  <string name="location_load_button">Hent!</string> 
-  <string name="location_button_no_location">Ikkje hent noko</string> 
-  <string name="location_label_no_location">(ikkje tilrådd)</string> 
-  <string name="location_nan_title">Feil inndata!</string> 
-  <string name="location_nan_message">Tast inn koordinat med desimalar (f.eks. "52.333572","8.741185"). Lat skal vere mellom -85.0 og +85.0, og Lon skal vere mellom -175.0 og +175.0.</string> 
-  <!--  Menu 
-  --> 
-  <string name="menu_move">Flytt</string> 
-  <string name="menu_edit">Endre</string> 
-  <string name="menu_add">Ny</string> 
-  <string name="menu_config">Innstillingar</string> 
-  <string name="menu_erase">Slett node</string> 
-  <string name="menu_append">Hald fram</string> 
-  <string name="menu_tag">Endre tags</string> 
-  <string name="menu_gps">GPS…</string> 
-  <string name="menu_gps_start_pause">Start/pause GPS-spor</string> 
-  <string name="menu_gps_follow">Følj GPS-posisjon</string> 
-  <string name="menu_gps_stop">Stopp GPS-sporing</string> 
-  <string name="menu_gps_upload">Last opp GPS-spor</string> 
-  <string name="menu_transfer">Overfør…</string> 
-  <string name="menu_transfer_download_current">Last ned noverande utsnitt</string> 
-  <string name="menu_transfer_download_other">Last ned eit anna område</string> 
-  <string name="menu_transfer_upload">Last opp til OSM</string> 
-  <string name="menu_save">Lagre til fil</string> 
-  <!--  Preferences 
-  --> 
-  <string name="config_category_view">Vis innstillingar</string> 
-  <string name="config_showStats_title">Vis statistikk</string> 
-  <string name="config_showStats_summary">Viser datastatistikk og bilete/sek i nederste venstre hjørne.</string> 
-  <string name="config_showTolerance_title">Vis endringsområde</string> 
-  <string name="config_showTolerance_summary">Visar område der element kan veljast.</string> 
-  <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string> 
-  <string name="config_enableAntiAliasing_summary">Gjer linjene mjukare.</string> 
-  <string name="config_category_server">Tenar-innstillingar</string> 
-  <string name="config_username_title">OpenStreetMap-brukarnamn</string> 
-  <string name="config_username_summary">Nødvendig for å lasta opp til OpenStreetMap. Hvis du ikkje har brukarnamn enno, kan du få deg det her: http://www.openstreetmap.org/user/new</string> 
-  <string name="config_password_title">OpenStreetMap-passord</string> 
-  <string name="config_password_summary">Må ikkje forvekslast med Wiki-passordet. Obs: Det blir lagra og sendt som lesbar tekst!</string> 
-  <string name="config_category_gps">GPS-instillingar</string> 
-  <string name="config_gps_distance_title">Minste GPS-avstand</string> 
-  <string name="config_gps_distance_summary">Minste avstand mellom GPS-målingar, i meter (med komma). Lågare verdi gjev kortare batteritid.</string> 
-  <string name="config_gps_interval_title">Minste GPS-intervall</string> 
-  <string name="config_gps_interval_summary">Minste tidsintervall for GPS-målingar, i millisekund. Lågare verdi gjev kortare batteritid.</string> 
+    <!--  Dialogs 
+  -->
+    <string name="transfer_download_current_dialog_title">Åtvaring!</string>
+    <string name="transfer_download_current_dialog_message">Du har gjort endringar. Vil du lasta dei opp i staden for å avbryta?</string>
+    <string name="transfer_download_current_upload">Last opp</string>
+    <string name="transfer_download_current_download">Avbryt og last ned</string>
+    <string name="transfer_download_current_back">Gå attende</string>
+    <string name="no_login_data_title">Manglar brukaropplysningar</string>
+    <string name="no_login_data_message">Fyll ut brukaropplysningar for OpenStreetMap under instillingar.</string>
+    <string name="no_connection_title">Inkje samband med tenaren</string>
+    <string name="no_connection_message">Kunne ikkje kobla til OSM-tenaren. Sjekk internettforbindelsen din eller prøv om att seinare.</string>
+    <string name="wrong_login_data_title">Feil brukaropplysningar</string>
+    <string name="wrong_login_data_message">OSM-tenaren ville ikkje godkjenne deg. Sjekk brukaropplysningane dine under innstillingar.</string>
+    <string name="progress_title">Les</string>
+    <string name="progress_message">Les inn i minne…</string>
+    <string name="progress_download_message">Lastar ned data fra tenaren…</string>
+    <!--  Toaster 
+  -->
+    <string name="toast_no_changes">Du har ikkje endra noko enno…</string>
+    <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
+    <string name="toast_empty_data">Det er ingen element i dette området. Takk for at du utforska dette sorte hullet :-)</string>
+    <string name="toast_not_in_edit_range">Zoom inn for å retta (volum opp / ned eller lens/shift)</string>
+    <string name="toast_save_done">Lagring lukkast</string>
+    <string name="toast_waiting_for_gps">Ventar på GPS-posisjon…</string>
+    <string name="toast_follow_gps_off">GPS-sporing avslått</string>
+    <!--  Some generic labels 
+  -->
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
+    <string name="okay">Ok</string>
+    <string name="cancel">Avbryt</string>
+    <!--  Strings in TagEditor 
+  -->
+    <string name="tag_title">Taggar for</string>
+    <string name="key">nøkkel</string>
+    <string name="value">verdi</string>
+    <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+    <string name="tag_menu_mapfeatures">Map features wiki</string>
+    <!--  Strings in LocationPicker 
+  -->
+    <string name="location_headline">Les inn område</string>
+    <string name="location_choose_radius">Velj radius:</string>
+    <string name="location_last_text">Siste kjente posisjon:</string>
+    <string name="location_current_text">Noverande posisjon:</string>
+    <string name="location_text_unknown">ukjent</string>
+    <string name="location_last_text_parameterized">Siste kjente posisjon: %1$s</string>
+    <string name="location_current_text_parameterized">Noverande posisjon: %1$s</string>
+    <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+    <string name="location_text_metadata_accuracy">Nøyaktigheit %1$1g meter,</string>
+    <string name="location_map_text">Frå kart:</string>
+    <string name="location_coordinates_text">Frå koordinat:</string>
+    <string name="location_lat_label">Lat:</string>
+    <string name="location_lon_label">Lon:</string>
+    <string name="location_load_button">Hent!</string>
+    <string name="location_button_no_location">Ikkje hent noko</string>
+    <string name="location_label_no_location">(ikkje tilrådd)</string>
+    <string name="location_nan_title">Feil inndata!</string>
+    <string name="location_nan_message">Tast inn koordinat med desimalar (f.eks. "52.333572","8.741185"). Lat skal vere mellom -85.0 og +85.0, og Lon skal vere mellom -175.0 og +175.0.</string>
+    <!--  Menu 
+  -->
+    <string name="menu_move">Flytt</string>
+    <string name="menu_edit">Endre</string>
+    <string name="menu_add">Ny</string>
+    <string name="menu_config">Innstillingar</string>
+    <string name="menu_erase">Slett node</string>
+    <string name="menu_append">Hald fram</string>
+    <string name="menu_tag">Endre tags</string>
+    <string name="menu_gps">GPS…</string>
+    <string name="menu_gps_follow">Følj GPS-posisjon</string>
+    <string name="menu_gps_upload">Last opp GPS-spor</string>
+    <string name="menu_transfer">Overfør…</string>
+    <string name="menu_transfer_download_current">Last ned noverande utsnitt</string>
+    <string name="menu_transfer_download_other">Last ned eit anna område</string>
+    <string name="menu_transfer_upload">Last opp til OSM</string>
+    <string name="menu_save">Lagre til fil</string>
+    <!--  Preferences 
+  -->
+    <string name="config_category_view">Vis innstillingar</string>
+    <string name="config_showStats_title">Vis statistikk</string>
+    <string name="config_showStats_summary">Viser datastatistikk og bilete/sek i nederste venstre hjørne.</string>
+    <string name="config_showTolerance_title">Vis endringsområde</string>
+    <string name="config_showTolerance_summary">Visar område der element kan veljast.</string>
+    <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string>
+    <string name="config_enableAntiAliasing_summary">Gjer linjene mjukare.</string>
+    <string name="config_category_server">Tenar-innstillingar</string>
+    <string name="config_username_title">OpenStreetMap-brukarnamn</string>
+    <string name="config_username_summary">Nødvendig for å lasta opp til OpenStreetMap. Hvis du ikkje har brukarnamn enno, kan du få deg det her: http://www.openstreetmap.org/user/new</string>
+    <string name="config_password_title">OpenStreetMap-passord</string>
+    <string name="config_password_summary">Må ikkje forvekslast med Wiki-passordet. Obs: Det blir lagra og sendt som lesbar tekst!</string>
+    <string name="config_category_gps">GPS-instillingar</string>
+    <string name="config_gps_distance_title">Minste GPS-avstand</string>
+    <string name="config_gps_distance_summary">Minste avstand mellom GPS-målingar, i meter (med komma). Lågare verdi gjev kortare batteritid.</string>
+    <string name="config_gps_interval_title">Minste GPS-intervall</string>
+    <string name="config_gps_interval_summary">Minste tidsintervall for GPS-målingar, i millisekund. Lågare verdi gjev kortare batteritid.</string>
 </resources>
