@@ -1,15 +1,26 @@
 Vespucci - OpenStreetMap editor for Android
 
-Main contributors (see the source repository for a full list):
-  mattelacchiato
-  Graham Jones
-  Marcus Wolschon
-  Andrew Gregory
-  Jan Schejbal
+Thanks to:
+  Andrew Gregory (Code)
+  calibrator33 (Russian translation)
+  Diego Pierotto (Italian translation)
+  Guttorm Flatabø (Norwegian translations)
+  Graham Jones (Code)
+  György Balló (Hungarian translation)
+  Jan Schejbal (Code, Czech, German translations)
+  Janko Mihelić (Croatian translation)
+  Julien Dodokal (Code, Czech, French, Russian translations)
+  Kurt Toft (Danish translation)
+  Marcus Wolschon (Code, German translation)
+  Matthias Brandt (Code)
+  Shu Higashi (Japanese translation)
+  zibiczek (Polish translation)
+
+and anyone else we forgot!
 
 The Vespucci application, excluding the GPLv3-only preset icons found in the folder assets/images/, is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
 
-The full project contains icons taken from the JOSM project under the GPLv3. Therefor, the full package, consisting of Vespucci and the bundled preset icons, is licensed under the GPLv3. You can find the full text of the GPLv3 in the file "LICENSE-GPL3.txt". The list of contributors and sources for the icons can be found in the "josm-contributors.txt" file.
+The full project contains icons taken from the JOSM project under the GPLv3. Therefore, the full package, consisting of Vespucci and the bundled preset icons, is licensed under the GPLv3. You can find the full text of the GPLv3 in the file "LICENSE-GPL3.txt". The list of contributors and sources for the icons can be found in the "josm-contributors.txt" file.
 
 The source code may be obtained from the project page, currently located at http://code.google.com/p/osmeditor4android/ - click "source" for instructions on how to obtain the source code. Source code for specific versions can be accessed trough the tags directory.
 
