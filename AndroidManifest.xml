@@ -8,7 +8,7 @@
 	android:installLocation="auto"
 	>
 	
-	<uses-feature android:name="android.hardware.touchscreen" />
+	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
 	<uses-feature android:name="android.hardware.faketouch" />
 	<uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
