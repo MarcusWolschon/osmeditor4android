@@ -161,24 +161,6 @@
     <string name="preset_download_failed">The preset file could not be downloaded. The preset will not work.</string>
     <string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
     <string name="preset_download_missing_images">The preset file was successfully downloaded. However, some icons could not be downloaded and will be missing.</string>
-    <!-- Preference keys -->
-    <string name="config_showStats_key">showStats<!-- DO NOT TRANSLATE --></string>
-    <string name="config_maxStrokeWidth_key">maxStrokeWidth<!-- DO NOT TRANSLATE --></string>
-    <string name="config_showTolerance_key">showTolerance<!-- DO NOT TRANSLATE --></string>
-    <string name="config_enableAntiAliasing_key">enableAntiAliasing<!-- DO NOT TRANSLATE --></string>
-    <string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs<!-- DO NOT TRANSLATE --></string>
-    <string name="config_backgroundLayer_key">backgroundLayer<!-- DO NOT TRANSLATE --></string>
-    <string name="config_category_server_key">category_server<!-- DO NOT TRANSLATE --></string>
-    <string name="config_username_key">username<!-- DO NOT TRANSLATE --></string>
-    <string name="config_password_key">password<!-- DO NOT TRANSLATE --></string>
-    <string name="config_gps_distance_key">distance<!-- DO NOT TRANSLATE --></string>
-    <string name="config_gps_interval_key">interval<!-- DO NOT TRANSLATE --></string>
-    <string name="config_apibutton_key">apisettings-button<!-- DO NOT TRANSLATE --></string>
-    <string name="config_loginbutton_key">loginsettings-button<!-- DO NOT TRANSLATE --></string>
-    <string name="config_presetbutton_key">presetsettings-button<!-- DO NOT TRANSLATE --></string>
-    <string name="config_iconbutton_key">iconsettings-button<!-- DO NOT TRANSLATE --></string>
-    <string name="config_licensebutton_key">licenseview-button<!-- DO NOT TRANSLATE --></string>
-    <string name="config_selected_api">selectedAPI<!-- DO NOT TRANSLATE --></string>
     <!--  changes -->
     <string name="changes_deleted">"%1$s" deleted</string>
     <string name="changes_changed">"%1$s" changed</string>
