@@ -1,9 +1,10 @@
-Vespucci - OpenStreetMap editor for Android
+﻿Vespucci - OpenStreetMap editor for Android
 
 Thanks to:
   Andrew Gregory (Code)
   calibrator33 (Russian translation)
   Diego Pierotto (Italian translation)
+  Duarte Carreira (Portuguese translation)
   Guttorm Flatabø (Norwegian translations)
   Graham Jones (Code)
   György Balló (Hungarian translation)
@@ -14,6 +15,7 @@ Thanks to:
   Marcus Wolschon (Code, German translation)
   Matthias Brandt (Code)
   Shu Higashi (Japanese translation)
+  Simon Legner (German translation)
   zibiczek (Polish translation)
 
 and anyone else we forgot!
