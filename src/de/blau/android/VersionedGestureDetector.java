@@ -168,9 +168,9 @@ public abstract class VersionedGestureDetector {
 
 			@Override
 			public void run() {
-				if (this.canceled) return;
+				if (canceled) return;
 				if (mListener.onLongClick(v, x, y)) {
-					CupcakeDetector.this.hasLongPressed = true;
+					hasLongPressed = true;
 				}
 			}
 			
@@ -179,7 +179,7 @@ public abstract class VersionedGestureDetector {
 			 * call this to disable this LongPressTrigger
 			 */
 			public void cancel() {
-				this.canceled = true;
+				canceled = true;
 			}
 		}
 		
@@ -260,7 +260,7 @@ public abstract class VersionedGestureDetector {
 		@Override
 		public boolean onTouchEvent(View v, MotionEvent ev) {
 			this.v = v;
-			if (!this.hasLongPressed) {
+			if (!hasLongPressed) {
 				mDetector.onTouchEvent(ev);
 			}
 			return super.onTouchEvent(v, ev);

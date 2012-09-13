@@ -152,15 +152,15 @@ public class Preset {
 		InputStream fileStream;
 		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
 			Log.i("Preset", "Loading default preset");
-			this.iconManager = new PresetIconManager(ctx, null, null);
+			iconManager = new PresetIconManager(ctx, null, null);
 			fileStream = iconManager.openAsset(PRESETXML, true);
 		} else if (externalPackage != null) {
 			Log.i("Preset", "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
-			this.iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
+			iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
 			fileStream = iconManager.openAsset(PRESETXML, false);
 		} else {
 			Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
-			this.iconManager = new PresetIconManager(ctx, directory.toString(), null);
+			iconManager = new PresetIconManager(ctx, directory.toString(), null);
 			fileStream = new FileInputStream(new File(directory, PRESETXML));
 		}
 		
@@ -433,8 +433,8 @@ public class Preset {
 			this.parent = parent;
 			this.name = name;
 			if (iconpath != null) {
-				this.icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
-				this.mapIcon = iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
+				icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
+				mapIcon = iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
 			}
 			if (parent != null)	parent.addElement(this);
 		}		
@@ -463,8 +463,8 @@ public class Preset {
 		private final TextView getBaseView(Context ctx) {
 			TextView v = new TextView(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
-			v.setText(this.getName());
-			v.setCompoundDrawables(null, this.getIcon(), null, null);
+			v.setText(getName());
+			v.setCompoundDrawables(null, getIcon(), null, null);
 			v.setCompoundDrawablePadding((int)(8*density));
 			v.setWidth((int)(100*density));
 			v.setHeight((int)(100*density));
@@ -699,7 +699,7 @@ public class Preset {
 		 * @return
 		 */
 		public boolean matches(Map<String,String> tagSet) {
-			for (Entry<String, String> tag : this.tags.entrySet()) { // for each own tag
+			for (Entry<String, String> tag : tags.entrySet()) { // for each own tag
 				String otherTagValue = tagSet.get(tag.getKey());
 				if (otherTagValue == null || !tag.getValue().equals(otherTagValue)) return false;
 			}
@@ -736,10 +736,9 @@ public class Preset {
 		private PresetClickHandler handler;
 		private final Context context;
 		
-		private PresetGroupAdapter(Context ctx, ArrayList<PresetElement> content, ElementType type,
-				PresetClickHandler handler) {
+		private PresetGroupAdapter(Context ctx, ArrayList<PresetElement> content, ElementType type, PresetClickHandler handler) {
 			this.handler = handler;
-			this.context = ctx;
+			context = ctx;
 			elements = filterElements(content, type);
 		}
 

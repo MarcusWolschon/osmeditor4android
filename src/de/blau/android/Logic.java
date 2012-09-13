@@ -1246,7 +1246,7 @@ public class Logic {
 	 * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
 	public void setClickableElements(Set<OsmElement> clickable) {
-		this.clickableElements = clickable;
+		clickableElements = clickable;
 	}
 	
 	/**

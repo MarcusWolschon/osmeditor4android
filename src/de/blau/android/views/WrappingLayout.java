@@ -324,7 +324,7 @@ public class WrappingLayout extends LinearLayout {
 		private static class SpacerView extends View {
 				private SpacerView(Context ctx, int width, int height) {
 					super(ctx);
-					this.setLayoutParams(new LayoutParams(width, height));
+					setLayoutParams(new LayoutParams(width, height));
 				}
 			}	
 		}

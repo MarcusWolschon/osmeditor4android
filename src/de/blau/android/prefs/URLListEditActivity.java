@@ -70,12 +70,12 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	private final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
 	
 	public URLListEditActivity() {
-		this.ctx = this; // Change when changing Activity to Fragment
-		this.items = new ArrayList<URLListEditActivity.ListEditItem>();
+		ctx = this; // Change when changing Activity to Fragment
+		items = new ArrayList<URLListEditActivity.ListEditItem>();
 	}
 	
 	public URLListEditActivity(List<ListEditItem> items) {
-		this.ctx = this; // Change when changing Activity to Fragment
+		ctx = this; // Change when changing Activity to Fragment
 		this.items = items;
 	}
 
@@ -84,19 +84,19 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		super.onCreate(savedInstanceState);
 		r = getResources();
 
-		this.onLoadList(items);
+		onLoadList(items);
 		
 		TextView v = (TextView)View.inflate(ctx, android.R.layout.simple_list_item_1, null);
 		v.setText(r.getString(R.string.add));
 		v.setTextColor(ctx.getResources().getColor(android.R.color.darker_gray));
 		v.setTypeface(null,Typeface.ITALIC);
-		this.getListView().addFooterView(v);
+		getListView().addFooterView(v);
 		
-		this.updateAdapter();
+		updateAdapter();
 
-		this.getListView().setOnItemClickListener(this);
-		this.getListView().setLongClickable(true);
-		this.getListView().setOnCreateContextMenuListener(this);
+		getListView().setOnItemClickListener(this);
+		getListView().setLongClickable(true);
+		getListView().setOnCreateContextMenuListener(this);
 		
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -142,7 +142,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-		selectedItem = (ListEditItem)this.getListView().getItemAtPosition(info.position);
+		selectedItem = (ListEditItem)getListView().getItemAtPosition(info.position);
 		if (selectedItem != null && !selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
 			menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
@@ -364,7 +364,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		 * @param value
 		 */
 		public ListEditItem(String name, String value) {
-			this.id = java.util.UUID.randomUUID().toString();
+			id = java.util.UUID.randomUUID().toString();
 			this.value = value;
 			this.name = name;
 		}

@@ -42,7 +42,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	public AdvancedPrefDatabase(Context context) {
 		super(context, "AdvancedPrefs", null, DATA_VERSION);
 		this.context = context;
-		this.r = context.getResources();
+		r = context.getResources();
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		PREF_SELECTED_API = r.getString(R.string.config_selected_api);
 		currentAPI = prefs.getString(PREF_SELECTED_API, null);

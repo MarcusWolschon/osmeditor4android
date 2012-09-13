@@ -399,14 +399,14 @@ public class Track {
 		// public final Float  speed;
 		
 		public TrackPoint(Location original, boolean isNewSegment) {
-			this.flags = encodeFlags(isNewSegment);
-			this.latitude  = original.getLatitude();
-			this.longitude = original.getLongitude();
-			this.altitude  = original.hasAltitude() ? original.getAltitude() : Double.NaN;
-			this.time      = original.getTime();
-			// this.accuracy  = original.hasAccuracy() ? original.getAccuracy() : null;
-			// this.bearing   = original.hasBearing()  ? original.getBearing() : null;
-			// this.speed     = original.hasSpeed()    ? original.getSpeed() : null;
+			flags = encodeFlags(isNewSegment);
+			latitude  = original.getLatitude();
+			longitude = original.getLongitude();
+			altitude  = original.hasAltitude() ? original.getAltitude() : Double.NaN;
+			time      = original.getTime();
+			// accuracy  = original.hasAccuracy() ? original.getAccuracy() : null;
+			// bearing   = original.hasBearing()  ? original.getBearing() : null;
+			// speed     = original.hasSpeed()    ? original.getSpeed() : null;
 		}
 		
 		private TrackPoint(byte flags, double latitude, double longitude, double altitude, long time) {

@@ -63,7 +63,7 @@ public class PresetIconManager {
 		} catch (Exception e) {
 			Log.e("PresetIconManager", "Exception while loading external default assets", e);
 		}
-		this.externalDefaultAssets = tmpExternalDefaultAssets;
+		externalDefaultAssets = tmpExternalDefaultAssets;
 		
 		AssetManager tmpExternalDataAssets = null;
 		if (externalAssetPackage != null) {
@@ -76,9 +76,9 @@ public class PresetIconManager {
 				Log.e("PresetIconManager", "Exception while loading external asset package " + externalAssetPackage, e);
 			}
 		}
-		this.externalAssets = tmpExternalDataAssets;
+		externalAssets = tmpExternalDataAssets;
 		
-		this.internalAssets = context.getAssets(); 
+		internalAssets = context.getAssets(); 
 	}
 	
 	/**

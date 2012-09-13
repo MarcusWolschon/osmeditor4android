@@ -52,7 +52,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 		super.onCreate();
 		Log.d(TAG, "onCreate");
 		track = new Track(this);
-		locationManager = (LocationManager)this.getSystemService(LOCATION_SERVICE);
+		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 	 * To start tracking, bind the service, then call this.
 	 */
 	public void startTracking() {
-		this.startService(new Intent(this, TrackerService.class));
+		startService(new Intent(this, TrackerService.class));
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 	private void startTrackingInternal() {
 		if (tracking) return;
 		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
-		Resources res = this.getResources();
+		Resources res = getResources();
 		Intent appStartIntent = new Intent();
 		appStartIntent
 			.setAction(Intent.ACTION_MAIN)
@@ -219,7 +219,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 
 	public void setListener(TrackerLocationListener listener) {
 		if (listener == null) setListenerNeedsGPS(false);
-		this.externalListener = listener;
+		externalListener = listener;
 	}
 
 }

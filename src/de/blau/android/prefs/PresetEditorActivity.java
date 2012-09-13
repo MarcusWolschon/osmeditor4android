@@ -135,7 +135,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 			}
 			
 			@Override
-			protected Integer doInBackground(Void... arg0) {
+			protected Integer doInBackground(Void... args) {
 				if (!download(item.value, Preset.PRESETXML)) {
 					return RESULT_TOTAL_FAILURE;
 				}
@@ -152,7 +152,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 					if (canceled) return RESULT_DOWNLOAD_CANCELED;
 					count++;
 					allImagesSuccessful &= download(url, null);
-					this.publishProgress(count, url.length());
+					publishProgress(count, url.length());
 				}
 				return allImagesSuccessful? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
 			}
