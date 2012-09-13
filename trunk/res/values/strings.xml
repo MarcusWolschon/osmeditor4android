@@ -124,7 +124,7 @@
     <!-- Preferences -->
     <string name="config_category_view">View Settings</string>
     <string name="config_maxStrokeWidth_title">max stroke width</string>
-    <string name="config_maxStrokeWidth_summary">do not draw a way thicker then this</string>
+    <string name="config_maxStrokeWidth_summary">do not draw a way thicker than this</string>
     <string name="config_showStats_title">Show stats</string>
     <string name="config_showStats_summary">Displays data statistics and frames/sec in the lower left corner.</string>
     <string name="config_showTolerance_title">Show tolerance</string>
