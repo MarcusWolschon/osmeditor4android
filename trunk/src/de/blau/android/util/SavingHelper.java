@@ -3,9 +3,9 @@ package de.blau.android.util;
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -46,17 +46,14 @@ public class SavingHelper<T extends Serializable> {
 	 */
 	public synchronized boolean save(String filename, T object, boolean compress) {
 		OutputStream out = null;
-		GZIPOutputStream gzout = null;
 		ObjectOutputStream objectOut = null;
 		try {
 			Context context = Application.mainActivity.getApplicationContext();
 			out = context.openFileOutput(filename, Context.MODE_PRIVATE);
 			if (compress) {
-				gzout = new GZIPOutputStream(out);
-				objectOut = new ObjectOutputStream(gzout);
-			} else {
-				objectOut = new ObjectOutputStream(out);
+				out = new GZIPOutputStream(out);
 			}
+			objectOut = new ObjectOutputStream(out);
 			objectOut.writeObject(object);
 			Log.i("SavingHelper", "saved " + filename + " successfully");
 			return true;
@@ -65,7 +62,6 @@ public class SavingHelper<T extends Serializable> {
 			return false;
 		} finally {
 			SavingHelper.close(objectOut);
-			SavingHelper.close(gzout);
 			SavingHelper.close(out);
 		}
 	}
@@ -78,18 +74,15 @@ public class SavingHelper<T extends Serializable> {
 	 * @return the deserialized object if successful, null if loading/deserialization/casting failed
 	 */
 	public synchronized T load(String filename, boolean compressed) {
-		FileInputStream in = null;
-		GZIPInputStream gzin = null;
+		InputStream in = null;
 		ObjectInputStream objectIn = null;
 		try {
 			Context context = Application.mainActivity.getApplicationContext();
 			in = context.openFileInput(filename);
 			if (compressed) {
-				gzin = new GZIPInputStream(in);
-				objectIn = new ObjectInputStream(gzin);
-			} else {
-				objectIn = new ObjectInputStream(in);
+				in = new GZIPInputStream(in);
 			}
+			objectIn = new ObjectInputStream(in);
 			@SuppressWarnings("unchecked") // casting exceptions are caught by the exception handler
 			T object = (T) objectIn.readObject();
 			Log.i("SavingHelper", "loaded " + filename + " successfully");
@@ -99,7 +92,6 @@ public class SavingHelper<T extends Serializable> {
 			return null;
 		} finally {
 			SavingHelper.close(objectIn);
-			SavingHelper.close(gzin);
 			SavingHelper.close(in);
 		}
 	}
@@ -132,7 +124,7 @@ public class SavingHelper<T extends Serializable> {
 				outdir.mkdir(); // ensure directory exists;
 				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss").format(new Date())+"."+exportable.exportExtension();
 				File outfile = new File(outdir, filename);
-				BufferedOutputStream outputStream = null;
+				OutputStream outputStream = null;
 				try {
 					outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 					exportable.export(outputStream);

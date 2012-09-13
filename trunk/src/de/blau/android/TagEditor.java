@@ -174,7 +174,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		osmId = loadData.osmId;
 		type = loadData.type;
 		loadEdits(loadData.tags);
-		originalTags = loadData.tagsOrig != null ? loadData.tagsOrig : loadData.tags;
+		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
 		
 		element = Main.logic.delegator.getOsmElement(type, osmId);
 		preset = Main.getCurrentPreset();
@@ -777,20 +777,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		public final long osmId;
 		public final String type;
 		public final Map<String,String> tags;
-		public final Map<String,String> tagsOrig;
+		public final Map<String,String> originalTags;
 		
 		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags) {
 			this.osmId = osmId;
 			this.type = type;
 			this.tags = tags;
-			this.tagsOrig = originalTags;
+			this.originalTags = originalTags;
 		}
 		
 		public TagEditorData(OsmElement selectedElement) {
-			this.osmId = selectedElement.getOsmId();
-			this.type = selectedElement.getName();
-			this.tags = new LinkedHashMap<String, String>(selectedElement.getTags());
-			this.tagsOrig = tags;
+			osmId = selectedElement.getOsmId();
+			type = selectedElement.getName();
+			tags = new LinkedHashMap<String, String>(selectedElement.getTags());
+			originalTags = tags;
 		}
 	}
 }

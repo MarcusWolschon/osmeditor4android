@@ -55,9 +55,9 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	public void setCurrentStorage(final Storage currentStorage) {
 		dirty = true;
-		this.apiStorage = new Storage();
+		apiStorage = new Storage();
 		this.currentStorage = currentStorage;
-		this.undo = new UndoStorage(currentStorage, apiStorage);
+		undo = new UndoStorage(currentStorage, apiStorage);
 	}
 
 	public StorageDelegator() {

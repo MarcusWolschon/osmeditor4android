@@ -151,8 +151,8 @@ public class Map extends View implements IMapView {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onDestroy();
 		}
-		this.tracker = null;
-		this.iconcache.clear();
+		tracker = null;
+		iconcache.clear();
 		tmpPreset = null;
 	}
 	

@@ -239,15 +239,15 @@ public class UndoStorage implements Serializable {
 		private final boolean inApiStorage;
 
 		public UndoElement(OsmElement originalElement) {
-			this.element    = originalElement;
+			element    = originalElement;
 			
-			this.osmId      = originalElement.osmId;
-			this.osmVersion = originalElement.osmVersion;
-			this.state      = originalElement.state;
-			this.tags       = new TreeMap<String, String>(originalElement.tags);
+			osmId      = originalElement.osmId;
+			osmVersion = originalElement.osmVersion;
+			state      = originalElement.state;
+			tags       = new TreeMap<String, String>(originalElement.tags);
 			
-			this.inCurrentStorage = currentStorage.contains(originalElement);
-			this.inApiStorage     = apiStorage.contains(originalElement);
+			inCurrentStorage = currentStorage.contains(originalElement);
+			inApiStorage     = apiStorage.contains(originalElement);
 		}
 		
 		/**
@@ -281,8 +281,8 @@ public class UndoStorage implements Serializable {
 
 		public UndoNode(Node originalNode) {
 			super(originalNode);
-			this.lat = originalNode.lat;
-			this.lon = originalNode.lon;
+			lat = originalNode.lat;
+			lon = originalNode.lon;
 		}
 		
 		public void restore() {
@@ -302,7 +302,7 @@ public class UndoStorage implements Serializable {
 
 		public UndoWay(Way originalWay) {
 			super(originalWay);
-			this.nodes = new ArrayList<Node>(originalWay.nodes);
+			nodes = new ArrayList<Node>(originalWay.nodes);
 		}
 		
 		public void restore() {

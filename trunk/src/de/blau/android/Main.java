@@ -204,7 +204,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		super.onCreate(savedInstanceState);
 		Application.mainActivity = this;
 		
-		showGPSFlagFile = new File(this.getFilesDir(), "showgps.flag");
+		showGPSFlagFile = new File(getFilesDir(), "showgps.flag");
 		showGPS = showGPSFlagFile.exists();
 		
 		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -560,7 +560,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * @return true if GPS is enabled, false if not
 	 */
 	private boolean ensureGPSProviderEnabled() {
-		LocationManager locationManager = (LocationManager)this.getSystemService(LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		try {
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				return true;
@@ -875,7 +875,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (selectedElement != null) {
 			Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 			startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement));
-			Main.this.startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+			startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 		}
 	}
 
