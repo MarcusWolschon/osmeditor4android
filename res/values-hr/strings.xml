@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <string name="app_name">Vespucci</string>
-    <string name="app_version">0.7.0</string>
-    <string name="app_name_version">Vespucci 0.7.0</string>
     <!-- Dialogs -->
     <string name="transfer_download_current_dialog_title">Oprez!</string>
     <string name="transfer_download_current_dialog_message">Napravili ste promjene. Želite li ih prvo spremiti na poslužitelj umjesto brisanja?</string>
