@@ -144,10 +144,9 @@ public class Way extends OsmElement {
 	 */
 	public int getOneway() {
 		String oneway = getTagWithKey("oneway");
-		if (oneway == null) return 0;
-		if (oneway.equalsIgnoreCase("yes") || oneway.equalsIgnoreCase("true") || oneway.equals("1")) {
+		if ("yes".equalsIgnoreCase(oneway) || "true".equalsIgnoreCase(oneway) || "1".equals(oneway)) {
 			return 1;
-		} else if (oneway.equals("-1") || oneway.equalsIgnoreCase("reverse")) {
+		} else if ("-1".equals(oneway) || "reverse".equalsIgnoreCase(oneway)) {
 			return -1;
 		}
 		return 0;
@@ -159,27 +158,25 @@ public class Way extends OsmElement {
 	 */
 	protected boolean calcProblem() {
 		String highway = getTagWithKey("highway"); // cache frequently accessed key
-		if (highway != null) {
-			if (highway.equalsIgnoreCase("road")) {
-				// unsurveyed road
+		if ("road".equalsIgnoreCase(highway)) {
+			// unsurveyed road
+			return true;
+		}
+		if (getTagWithKey("name") == null) {
+			// unnamed way - only the important ones need names
+			if (      "motorway".equalsIgnoreCase(highway) ||
+				 "motorway_link".equalsIgnoreCase(highway) ||
+				         "trunk".equalsIgnoreCase(highway) ||
+				    "trunk_link".equalsIgnoreCase(highway) ||
+				       "primary".equalsIgnoreCase(highway) ||
+				  "primary_link".equalsIgnoreCase(highway) ||
+				     "secondary".equalsIgnoreCase(highway) ||
+				"secondary_link".equalsIgnoreCase(highway) ||
+				      "tertiary".equalsIgnoreCase(highway) ||
+				   "residential".equalsIgnoreCase(highway) ||
+				  "unclassified".equalsIgnoreCase(highway) ||
+				 "living_street".equalsIgnoreCase(highway)) {
 				return true;
-			}
-			if (getTagWithKey("name") == null) {
-				// unnamed way - only the important ones need names
-				if (highway.equalsIgnoreCase("motorway") ||
-					highway.equalsIgnoreCase("motorway_link") ||
-					highway.equalsIgnoreCase("trunk") ||
-					highway.equalsIgnoreCase("trunk_link") ||
-					highway.equalsIgnoreCase("primary") ||
-					highway.equalsIgnoreCase("primary_link") ||
-					highway.equalsIgnoreCase("secondary") ||
-					highway.equalsIgnoreCase("secondary_link") ||
-					highway.equalsIgnoreCase("tertiary") ||
-					highway.equalsIgnoreCase("residential") ||
-					highway.equalsIgnoreCase("unclassified") ||
-					highway.equalsIgnoreCase("living_street")) {
-					return true;
-				}
 			}
 		}
 		return super.calcProblem();

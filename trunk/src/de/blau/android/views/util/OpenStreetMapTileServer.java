@@ -60,29 +60,29 @@ public class OpenStreetMapTileServer {
 				while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 					String tagName = parser.getName();
 					if (eventType == XmlPullParser.END_TAG) {
-						if (tagName.equals("CoverageArea")) {
+						if ("CoverageArea".equals(tagName)) {
 							break;
 						}
 					}
 					if (eventType == XmlPullParser.START_TAG) {
-						if (tagName.equals("ZoomMin") && parser.next() == XmlPullParser.TEXT) {
+						if ("ZoomMin".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 							zoomMin = Integer.parseInt(parser.getText().trim());
 						}
-						if (tagName.equals("ZoomMax") && parser.next() == XmlPullParser.TEXT) {
+						if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 							zoomMax = Integer.parseInt(parser.getText().trim());
 						}
 						// NOTE: North->bottom and South->top is apparently reversed, but
 						// that is what is required for RectF.intersects() to work.
-						if (tagName.equals("NorthLatitude") && parser.next() == XmlPullParser.TEXT) {
+						if ("NorthLatitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 							area.bottom = Float.parseFloat(parser.getText().trim());
 						}
-						if (tagName.equals("SouthLatitude") && parser.next() == XmlPullParser.TEXT) {
+						if ("SouthLatitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 							area.top = Float.parseFloat(parser.getText().trim());
 						}
-						if (tagName.equals("EastLongitude") && parser.next() == XmlPullParser.TEXT) {
+						if ("EastLongitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 							area.right = Float.parseFloat(parser.getText().trim());
 						}
-						if (tagName.equals("WestLongitude") && parser.next() == XmlPullParser.TEXT) {
+						if ("WestLongitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 							area.left = Float.parseFloat(parser.getText().trim());
 						}
 					}
@@ -114,15 +114,15 @@ public class OpenStreetMapTileServer {
 			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 				String tagName = parser.getName();
 				if (eventType == XmlPullParser.END_TAG) {
-					if (tagName.equals("ImageryProvider")) {
+					if ("ImageryProvider".equals(tagName)) {
 						break;
 					}
 				}
 				if (eventType == XmlPullParser.START_TAG) {
-					if (tagName.equals("Attribution") && parser.next() == XmlPullParser.TEXT) {
+					if ("Attribution".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						attribution = parser.getText().trim();
 					}
-					if (tagName.equals("CoverageArea")) {
+					if ("CoverageArea".equals(tagName)) {
 						try {
 							coverageAreas.add(new CoverageArea(parser));
 						} catch (Exception x) {
@@ -197,7 +197,7 @@ public class OpenStreetMapTileServer {
 			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 				String tagName = parser.getName();
 				if (eventType == XmlPullParser.START_TAG) {
-					if (tagName.equals("BrandLogoUri") && parser.next() == XmlPullParser.TEXT) {
+					if ("BrandLogoUri".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						String brandLogoUri = parser.getText().trim();
 						if (brandLogoUri.startsWith("@drawable/")) {
 							// internal URL
@@ -211,25 +211,25 @@ public class OpenStreetMapTileServer {
 							brandLogo = new BitmapDrawable(r, bis);
 						}
 					}
-					if (tagName.equals("ImageUrl") && parser.next() == XmlPullParser.TEXT) {
+					if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						tileUrl = parser.getText().trim();
 					}
-					if (tagName.equals("string") && parser.next() == XmlPullParser.TEXT) {
+					if ("string".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						subdomains.add(parser.getText().trim());
 					}
-					if (tagName.equals("ImageWidth") && parser.next() == XmlPullParser.TEXT) {
+					if ("ImageWidth".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						tileWidth = Integer.parseInt(parser.getText().trim());
 					}
-					if (tagName.equals("ImageHeight") && parser.next() == XmlPullParser.TEXT) {
+					if ("ImageHeight".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						tileHeight = Integer.parseInt(parser.getText().trim());
 					}
-					if (tagName.equals("ZoomMin") && parser.next() == XmlPullParser.TEXT) {
+					if ("ZoomMin".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						zoomLevelMin = Integer.parseInt(parser.getText().trim());
 					}
-					if (tagName.equals("ZoomMax") && parser.next() == XmlPullParser.TEXT) {
+					if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						zoomLevelMax = Integer.parseInt(parser.getText().trim());
 					}
-					if (tagName.equals("ImageryProvider")) {
+					if ("ImageryProvider".equals(tagName)) {
 						try {
 							providers.add(new Provider(parser));
 						} catch (IOException e) {
@@ -336,7 +336,7 @@ public class OpenStreetMapTileServer {
 			for (int i = 0; i < ids.length; ++i) {
 				if (ids[i].equals(id) ||
 						// check for default renderer MAPNIK here
-						(cached == null && ids[i].equals("MAPNIK"))) {
+						(cached == null && "MAPNIK".equals(ids[i]))) {
 					cached = new OpenStreetMapTileServer(r, ids[i], cfgs[i], async);
 				}
 			}

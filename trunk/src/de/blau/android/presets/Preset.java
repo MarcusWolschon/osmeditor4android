@@ -209,32 +209,32 @@ public class Preset {
              */
 			@Override
             public void startElement(String name, AttributeList attr) throws SAXException {
-            	if (name.equals("group")) {
+            	if ("group".equals(name)) {
             		PresetGroup parent = groupstack.peek();
             		PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
             		groupstack.push(g);
-            	} else if (name.equals("item")) {
+            	} else if ("item".equals(name)) {
             		if (currentItem != null) throw new SAXException("Nested items are not allowed");
             		PresetGroup parent = groupstack.peek();
             		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), attr.getValue("type"));
-            	} else if (name.equals("separator")) {
+            	} else if ("separator".equals(name)) {
             		new PresetSeparator(groupstack.peek());
-            	} else if (name.equals("optional")) {
+            	} else if ("optional".equals(name)) {
             		inOptionalSection = true;
-            	} else if (name.equals("key")) {
+            	} else if ("key".equals(name)) {
             		if (!inOptionalSection) {
             			currentItem.addTag(attr.getValue("key"), attr.getValue("value"));
             		} else {
             			// Optional fixed tags should not happen, their values will NOT be automatically inserted.
             			currentItem.addTag(true, attr.getValue("key"), attr.getValue("value"));
             		}
-            	} else if (name.equals("text")) {
+            	} else if ("text".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), null);
-            	} else if (name.equals("check")) {
+            	} else if ("check".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), "yes,no");            		
-            	} else if (name.equals("combo")) {
+            	} else if ("combo".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"));            		
-            	} else if (name.equals("multiselect")) {
+            	} else if ("multiselect".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO full multiselect parsing/support?
             	}
             }
@@ -242,11 +242,11 @@ public class Preset {
             
             @Override
             public void endElement(String name) throws SAXException {
-            	if (name.equals("group")) {
+            	if ("group".equals(name)) {
             		groupstack.pop();
-            	} else if (name.equals("optional")) {
+            	} else if ("optional".equals(name)) {
             		inOptionalSection = false;
-            	} else if (name.equals("item")) {
+            	} else if ("item".equals(name)) {
             		currentItem = null;
             	}
             }
@@ -293,7 +293,7 @@ public class Preset {
 	             */
 				@Override
 	            public void startElement(String name, AttributeList attr) throws SAXException {
-	            	if (name.equals("group") || name.equals("item")) {
+	            	if ("group".equals(name) || "item".equals(name)) {
 	            		String url = attr.getValue("icon");
 	            		if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
 	            			urls.add(url);
@@ -623,9 +623,9 @@ public class Preset {
 			} else {
 				String[] typesArray = types.split(",");
 				for (String type : typesArray) {
-					if (type.equals("node")) setAppliesToNode();
-					else if (type.equals("way")) setAppliesToWay();
-					else if (type.equals("closedway")) setAppliesToClosedway();
+					if ("node".equals(type)) setAppliesToNode();
+					else if ("way".equals(type)) setAppliesToWay();
+					else if ("closedway".equals(type)) setAppliesToClosedway();
 				}
 			}	
 			itemIndex = allItems.size();

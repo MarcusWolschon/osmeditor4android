@@ -129,7 +129,7 @@ public class Server {
 					int eventType;
 					while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 						String tagName = parser.getName();
-						if (eventType == XmlPullParser.START_TAG && tagName.equals("user")) {
+						if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
 							display_name = parser.getAttributeValue(null, "display_name");
 						}
 					}
