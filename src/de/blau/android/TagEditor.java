@@ -133,16 +133,40 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	 * @return the first empty row found (or the one created), or null if loading was not finished (loaded == false)
 	 */
 	private TagEditRow ensureEmptyRow() {
-		if (!loaded) return null;
-		final int size = rowLayout.getChildCount();
-		for (int i = 0; i < size; ++i) {
-			View view = rowLayout.getChildAt(i);
-			TagEditRow row = (TagEditRow)view;
-			if (row.isEmpty()) return row;
+		TagEditRow ret = null;
+		if (loaded) {
+			int i = rowLayout.getChildCount();
+			while (--i >= 0) {
+				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
+				boolean isEmpty = row.isEmpty();
+				if (ret == null) ret = isEmpty ? row : insertNewEdit("", "", -1);
+				else if (isEmpty) row.deleteRow();
+			}
 		}
-		// no empty rows found, make one
-		return insertNewEdit("", "", -1);
+		return ret;
 		
+	}
+	
+	/**
+	 * Given a tag edit row, calculate its position.
+	 * @param row The tag edit row to find.
+	 * @return The position counting from 0 of the given row, or -1 if it couldn't be found.
+	 */
+	private int rowIndex(TagEditRow row) {
+		for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
+			if (rowLayout.getChildAt(i) == row) return i;
+		}
+		return -1;
+	}
+	
+	/**
+	 * Move the focus to the key field of the specified row.
+	 * @param index The index of the row to move to, counting from 0.
+	 * @return true if the row was successfully focussed, false otherwise.
+	 */
+	private boolean focusRow(int index) {
+		TagEditRow row = (TagEditRow)rowLayout.getChildAt(index);
+		return row != null && row.keyEdit.requestFocus();
 	}
 	
 	@Override
@@ -484,7 +508,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			deleteIcon.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					deleteRow();
+					if (!isEmpty()) {
+						// can't delete the empty row; TagEditor.ensureEmptyRow() will
+						// ensure there is exactly one empty row at the bottom
+						deleteRow();
+					}
 				}
 			});
 			
@@ -517,7 +545,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 				
 				@Override
 				public void afterTextChanged(Editable s) {
-					if (wasEmpty && s.length() > 0) {
+					if (wasEmpty == (s.length() > 0)) {
+						// changed from empty to not-empty or vice versa
 						owner.ensureEmptyRow();
 					}
 				}
@@ -596,6 +625,13 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		 * Deletes this row
 		 */
 		public void deleteRow() {
+			View cf = owner.getCurrentFocus();
+			if (cf == keyEdit || cf == valueEdit) {
+				// about to delete the row that has focus!
+				// try to move the focus to the next row or failing that to the previous row
+				int current = owner.rowIndex(this);
+				if (!owner.focusRow(current + 1)) owner.focusRow(current - 1);
+			}
 			owner.rowLayout.removeView(this);
 			if (isEmpty()) {
 				owner.ensureEmptyRow();

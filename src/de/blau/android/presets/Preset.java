@@ -30,6 +30,8 @@ import org.xml.sax.HandlerBase;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -42,6 +44,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
@@ -461,9 +465,12 @@ public class Preset {
 		 * @return the view
 		 */
 		private final TextView getBaseView(Context ctx) {
+			Resources res = ctx.getResources();
 			TextView v = new TextView(ctx);
-			float density = ctx.getResources().getDisplayMetrics().density;
+			float density = res.getDisplayMetrics().density;
 			v.setText(getName());
+			v.setTextColor(res.getColor(R.color.preset_text));
+			v.setBackgroundColor(res.getColor(R.color.preset_bg));
 			v.setCompoundDrawables(null, getIcon(), null, null);
 			v.setCompoundDrawablePadding((int)(8*density));
 			v.setWidth((int)(100*density));
