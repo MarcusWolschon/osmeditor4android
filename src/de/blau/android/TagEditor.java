@@ -396,10 +396,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 
 	/**
 	 * Insert a new row with one key and one value to edit.
-	 * 
 	 * @param aTagKey the key-value to start with
 	 * @param aTagValue the value to start with.
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
+	 * @returns The new TagEditRow.
 	 */
 	protected TagEditRow insertNewEdit(final String aTagKey, final String aTagValue, final int position) {
 		TagEditRow row = (TagEditRow)View.inflate(this, R.layout.tag_edit_row, null);
@@ -555,8 +555,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			String key = keyEdit.getText().toString();
 			if (key == null || key.length() == 0) return null;
 			
-			boolean isStreetName = ( key.equalsIgnoreCase("addr:street") ||
-					(key.equalsIgnoreCase("name") && owner.getUsedKeys(null).contains("highway")));
+			boolean isStreetName = ("addr:street".equalsIgnoreCase(key) ||
+					("name".equalsIgnoreCase(key) && owner.getUsedKeys(null).contains("highway")));
 			if (isStreetName) {
 				return getStreetNameAutocompleteAdapter();
 			} else {

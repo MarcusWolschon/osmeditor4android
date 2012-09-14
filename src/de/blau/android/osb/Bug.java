@@ -64,18 +64,18 @@ public class Bug {
 		while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 			String tagName = parser.getName();
 			if (eventType == XmlPullParser.END_TAG) {
-				if (tagName.equals("wpt")) {
+				if ("wpt".equals(tagName)) {
 					break;
 				}
 			}
 			if (eventType == XmlPullParser.START_TAG) {
-				if (tagName.equals("id") && parser.next() == XmlPullParser.TEXT) {
+				if ("id".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 					id = Long.parseLong(parser.getText().trim());
 				}
-				if (tagName.equals("closed") && parser.next() == XmlPullParser.TEXT) {
+				if ("closed".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 					closed = Integer.parseInt(parser.getText().trim()) != 0;
 				}
-				if (tagName.equals("desc") && parser.next() == XmlPullParser.TEXT) {
+				if ("desc".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 					for (String c : parser.getText().trim().split("\\<hr \\/\\>")) {
 						comments.add(new BugComment(c));
 					}

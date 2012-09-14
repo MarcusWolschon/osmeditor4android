@@ -538,7 +538,7 @@ public class Map extends View implements IMapView {
 			} else if (way.getTagWithKey("boundary") != null) {
 				paintKey = Paints.BOUNDARY;
 			} else if (highway != null) {
-				if (highway.equalsIgnoreCase("footway") || highway.equalsIgnoreCase("cycleway")) {
+				if ("footway".equalsIgnoreCase(highway) || "cycleway".equalsIgnoreCase(highway)) {
 					paintKey = Paints.FOOTWAY;
 				}
 			}
