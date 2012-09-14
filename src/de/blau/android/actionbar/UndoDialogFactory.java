@@ -7,11 +7,12 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;
@@ -25,7 +26,7 @@ public class UndoDialogFactory {
 		String[] undoActions = undo.getUndoActions();
 		String[] redoActions = undo.getRedoActions();
 
-		ArrayList<UndoDialogItem> items = new ArrayList<UndoDialogItem>();
+		List<UndoDialogItem> items = new ArrayList<UndoDialogItem>();
 		for (int i = 0; i < redoActions.length; i++) {
 			items.add(new UndoDialogItem(main, redoActions.length-i, true, redoActions[i]));
 		}
@@ -71,14 +72,11 @@ public class UndoDialogFactory {
 		private UndoDialogItem(Context ctx, int index, boolean isRedo, String name) {
 			super(ctx);
 			Resources r = ctx.getResources();
-			setText((isRedo ? r.getString(R.string.redo) : r.getString(R.string.undo)) + ": " + name);
+			setText(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name);
 			int pad = dpToPx(ctx, 15);
 			setPadding(pad, pad, pad, pad);
-			setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			if (isRedo) {
-				setTextAppearance(ctx, android.R.style.TextAppearance_Holo_Inverse);
-				setBackgroundColor(r.getColor(android.R.color.background_light));
-			}
+			setTextColor(r.getColor(android.R.color.primary_text_dark));
+			setBackgroundColor(Color.DKGRAY);
 
 			this.index = index;
 			this.isRedo = isRedo;
