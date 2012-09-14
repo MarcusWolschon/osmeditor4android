@@ -3,6 +3,8 @@ package de.blau.android.presets;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+
+import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetGroup;
@@ -40,7 +42,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 
 	private void updateView() {
 		View view = currentGroup.getGroupView(context, this, element.getType());
-		view.setBackgroundColor(0xff666666);
+		view.setBackgroundColor(context.getResources().getColor(R.color.preset_bg));
 		setContentView(view);
 	}
 	
