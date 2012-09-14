@@ -548,7 +548,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			
 			List<String> result = new ArrayList<String>(keys);
 			Collections.sort(result);
-			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
+			return new ArrayAdapter<String>(owner, android.R.layout.simple_dropdown_item_1line, result);
 		}
 		
 		protected ArrayAdapter<String> getValueAutocompleteAdapter() {
@@ -565,7 +565,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 				if (values == null || values.isEmpty()) return null;
 				List<String> result = new ArrayList<String>(values);
 				Collections.sort(result);
-				return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
+				return new ArrayAdapter<String>(owner, android.R.layout.simple_dropdown_item_1line, result);
 			}
 		}
 		
@@ -576,7 +576,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		private ArrayAdapter<String> getStreetNameAutocompleteAdapter() {
 			if (Main.logic == null || Main.logic.delegator == null) return null;
 			ArrayAdapter<String> adapter = new StreetTagValueAutocompletionAdapter(owner,
-					R.layout.autocomplete_row, Main.logic.delegator, owner.type, owner.osmId);
+					android.R.layout.simple_dropdown_item_1line, Main.logic.delegator, owner.type, owner.osmId);
 			return adapter;
 		}
 		
@@ -604,7 +604,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		
 		/**
 		 * Checks if the fields in this row are empty
-		 * @return true if both fields are empty, true if at least one is filled
+		 * @return true if both fields are empty, false if at least one is filled
 		 */
 		public boolean isEmpty() {
 			return keyEdit.getText().toString().trim().equals("")
