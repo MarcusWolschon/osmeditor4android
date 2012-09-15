@@ -971,7 +971,6 @@ public class Logic {
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
-					ACRA.getErrorReporter().handleException(e);
 				}
 				return result;
 			}
