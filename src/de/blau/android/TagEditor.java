@@ -142,6 +142,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 				if (ret == null) ret = isEmpty ? row : insertNewEdit("", "", -1);
 				else if (isEmpty) row.deleteRow();
 			}
+			if (ret == null) ret = insertNewEdit("", "", -1);
 		}
 		return ret;
 		
