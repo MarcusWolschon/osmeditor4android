@@ -1,0 +1,27 @@
+#summary Vespucci Development News
+#labels Featured
+
+=Version 0.8.0=
+
+Version 0.8.0 is almost ready! It's been more than a year since 0.7.0 was released and we have lots of new features:
+
+ * New Honeycomb style Action Bar user interface, even on pre-HC devices.
+ * New !EasyEdit editing mode that unifies all previous editing modes (which are still available) into one mode.
+ * Support Undo/Redo.
+ * Show way direction.
+ * Support way reversal and deletion.
+ * Add JOSM preset support in tag editor, customisations can be added.
+ * When tracking position, the direction you're pointing/travelling is shown.
+ * Export GPS tracks as GPX files.
+ * Transfer/Other Location shows coordinates of last location.
+ * Allow installing to SD card.
+ * Allow nothing as a background, drop Osmarender.
+ * Allow downloaded data to be saved as a JOSM-compatible OSC file.
+ * Add support for Croatian, Danish, Japanese, Norwegian, Polish, Portuguese, and Russian languages.
+ * Add crash error reporting using ACRA.
+ * Support alternate !OpenStreetMap APIs.
+ * Many other bug fixes and improvements.
+
+=[GSoC2012 Google Summer of Code 2012 Project]=
+
+Vespucci was one of the Google Summer of Code 2012 projects, undertaken by Jan Schejbal. Follow the link above for further details.
