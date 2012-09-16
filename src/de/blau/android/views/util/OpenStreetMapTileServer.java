@@ -491,11 +491,12 @@ public class OpenStreetMapTileServer {
 		result = replaceParameter(result, "quadkey", quadTree(aTile));
 		
 		// Rotate through the list of subdomains
-		String subdomain = subdomains.poll();
-		if (subdomain != null) {
-			result = replaceParameter(result, "subdomain", subdomain);
-			subdomains.add(subdomain);
+		String subdomain = null;
+		synchronized (subdomains) {
+			subdomain = subdomains.poll();
+			if (subdomain != null) subdomains.add(subdomain);
 		}
+		if (subdomain != null) result = replaceParameter(result, "subdomain", subdomain);
 		
 		return replaceGeneralParameters(result);
 	}
