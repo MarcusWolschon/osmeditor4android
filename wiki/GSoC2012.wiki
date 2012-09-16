@@ -1,0 +1,69 @@
+#summary Vespucci Google Summer of Code 2012 Project.
+
+= Introduction =
+
+Vespucci is the focus of a Google Summer of Code project for 2012. Jan Schejbal has been improving the user interface and adding features. Development is happening in the [http://code.google.com/p/osmeditor4android/source/browse/branches/gsoc-janschejbal/ gsoc-janschejbal] branch. A current build with the new features can be found at [http://www.janschejbal.de/temp/vespucci.apk]. Discussions are happening on the [http://lists.openstreetmap.org/listinfo/dev development mailing list]
+
+= Details =
+
+== EasyEdit mode ==
+EasyEdit mode makes it possible to perform all common editing actions quickly without switching modes.
+
+'Creating a node' is done by long-pressing anywhere on the map (this creates a node), then tapping the node again. The tag editor for the node will automatically be shown.
+
+'''Creating a way''' is done by first long-pressing anywhere on the map to create the first node, then tapping additional locations to add more nodes. Tap the last node again to finish the way and go to the tag editor.
+
+'Extending a way' - create a new way without tags that starts/ends at the way which you want to extend, select the original way and join it with the new way (see below for how to join ways).
+
+'Tagging a node or way' - tap the node or way you want to tag (this selects the way or node), and tap it again to open the tag editor.
+
+'Moving a node' - tap the node to select it, then drag it around
+
+'Deleting a node or way' - tap the node or way to select it, then select "delete" from the menu (you may need to use the menu button to show all menu items). If you are deleting a way, you will be asked if nodes that only belong to the deleted way and that have no tags should be kept or deleted.
+
+'Viewing the history of a node or way' - select the node or way and select "history" from the menu
+
+'Splitting a way' - select the way, select "split" from the menu, then tap the node where you want to split the way.
+
+'''Joining two ways''' - you can only join ways that share an end node and where either both ways have the same tags or at least one of the ways has no tags. Select one of the two nodes, select "join" from the menu, and then tap the other way.
+
+=== Presets ===
+When tagging elements, you can use so-called presets to quickly apply tags without having to remember their exact name. A default preset is included, you can add others using the settings menu.
+
+If the "Apply preset" button is greyed out, the current preset probably could not be parsed. If you are a developer, check the logcat output for details. If the preset screen is empty, no preset item can be applied to the current element (e.g. if your preset only has preset items for nodes, you will not see any presets when you are tagging a way).
+
+Presets can be either downloaded from an URL (icons must be referenced with full URLs if they should be downloaded, relative URLs are referring to default icons) or included as an APK. The APK method is currently not recommended, may change in the future and is documented in the code (Preset.java).
+
+To install a custom preset:
+ * upload the JOSM-compatible preset XML file to a web server
+ * open the preset selector in the settings menu
+ * click "add"
+ * enter a name for your preset
+ * enter the URL where Vespucci can download the XML file
+ * click on the preset to activate it
+If your preset file is not accepted, you can and should use logcat and debugging with eclipse to find the cause. You may also try to validate your XML file, e.g. using [http://josm.openstreetmap.de/browser/josm/trunk/data/tagging-preset.xsd] and [http://www.xmlvalidation.com/].
+
+=== Protocol handler ===
+Vespucci supports custom APIs and custom presets that can be used for tagging. To allow easy configuration of these, Vespucci will respond to special URLs that begin with the vespucci:// (osmprefs:// for older versions), for example:
+
+vespucci://?apiurl=http%3A%2F%2Fmaster.apis.dev.openstreetmap.org%2Fapi%2F0.6%2F&apiname=devserver&apiuser=ExampleUser&apipass=SecretPassword&apiicons=1
+
+This can be used to provision custom API URLs and presets using links on websites or QR codes (a current version of Barcode Scanner is required - old versions will not send the URL to Vespucci).
+
+The following URL parameters are supported:
+ * apiurl - an OSM API URL, for example http://master.apis.dev.openstreetmap.org/api/0.6/ for the development server API
+ * apiname - name for the API (if it gets added), for user reference only
+ * apiuser, apipass - login data for the API (if it gets added)
+ * apipreseturl - if a preset with this URL is present, it will be selected for the API after adding
+ * apiicons - if set to 1, preset icons will be shown on the map for the newly added API by default
+ * preseturl - preset URL to add to the preset list
+ * presetname - name for the preset (if it gets added), for user reference only
+
+All parameters are optional - if an apiurl parameter is given, adding the API will be offered (i.e. if apiurl is missing, the other "api" parameters will be ignored). If a preseturl is given, adding the preset will be offered.
+
+== Other notes ==
+=== Undo ===
+Long-pressing the undo button allows you to undo multiple steps at once, or to redo steps that were undone.
+
+=== GPS tracks ===
+GPS track uploading is not yet supported.
