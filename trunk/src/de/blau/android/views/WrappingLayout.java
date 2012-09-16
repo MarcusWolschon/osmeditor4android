@@ -236,7 +236,6 @@ public class WrappingLayout extends LinearLayout {
 			
 			LayoutParams innerLayoutParams =
 				new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			innerLayoutParams.bottomMargin = vspace;
 			
 			final int availableSpace = container.getWidth() - container.getPaddingLeft() - container.getPaddingRight();
 			int usedSpace = 0;
@@ -245,6 +244,9 @@ public class WrappingLayout extends LinearLayout {
 			inner.setGravity(rowGravity);
 			inner.setOrientation(LinearLayout.HORIZONTAL);
 			container.addView(inner, new LayoutParams(innerLayoutParams));
+			
+			// For new rows, set margin
+			innerLayoutParams.topMargin = vspace;
 			
 			if (availableSpace == 0) {
 				Log.e(LOGTAG, "No width information - read documentation!");

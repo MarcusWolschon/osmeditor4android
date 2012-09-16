@@ -1018,7 +1018,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			
 			if (logic.isInEditZoomRange()) {
-				if (!easyEditManager.isProcessingAction() && prefs.isOpenStreetBugsEnabled()) {
+				if (prefs.isOpenStreetBugsEnabled()) {
 					new AlertDialog.Builder(Main.this)
 						.setPositiveButton(R.string.openstreetbug_new_bug,
 							new DialogInterface.OnClickListener() {	
