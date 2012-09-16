@@ -4,6 +4,7 @@
  * [Tutorial]
  * [FAQ]
  * Tech-Stuff
+  * [Translating]
   * [ViewBox]
   * [CodeStructure]
   * [PlansForRelease0_7]
