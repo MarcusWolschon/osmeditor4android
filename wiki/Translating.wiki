@@ -14,9 +14,9 @@ Language files are in the 'resources' folder of the source code, accessible by f
 
 http://code.google.com/p/osmeditor4android/source/browse/#svn%2Ftrunk%2Fres
 
-('svn' refers to the specific type of version control we use, and 'trunk' refers to the the main development effort - think of it like a tree - the trunk is the main part and branches are smaller parts)
+('svn' refers to the specific type of version control we use, 'trunk' refers to the the main development effort - think of it like a tree - the trunk is the main part and branches are smaller parts, 'res' stands for resources)
 
-When you follow that link you'll see a great many 'values' folders. All but one is followed by a two-letter language code ([http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes ISO-639-1]), and optional a two-letter region code ([http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO-3166-1 alpha-2]). The one exception is the plain 'values' folder. This is for the default language, currently English, and should be considered the master reference.
+When you follow that link you'll see a great many 'values' folders. All but one is followed by a two-letter language code ([http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes ISO-639-1]), and optionally a two-letter region code ([http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO-3166-1 alpha-2]). The one exception is the plain 'values' folder. This is for the default language, currently English, and should be considered the master reference.
 
 Clicking on these folders will produce a list of files on the right side of the page. 'strings.xml' is the file for translation.
 
