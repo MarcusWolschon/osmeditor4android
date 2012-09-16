@@ -1,4 +1,5 @@
  * [Overview]
+ * [News]
  * [Tutorial]
  * [FAQ]
  * Tech-Stuff
