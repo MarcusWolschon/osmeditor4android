@@ -6,8 +6,8 @@ Vespucci is the focus of a Google Summer of Code project for 2012. Jan Schejbal 
 
 = Details =
 
-== EasyEdit mode ==
-EasyEdit mode makes it possible to perform all common editing actions quickly without switching modes.
+== !EasyEdit mode ==
+!EasyEdit mode makes it possible to perform all common editing actions quickly without switching modes.
 
 'Creating a node' is done by long-pressing anywhere on the map (this creates a node), then tapping the node again. The tag editor for the node will automatically be shown.
 
