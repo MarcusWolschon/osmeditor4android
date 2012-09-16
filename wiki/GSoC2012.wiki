@@ -11,7 +11,7 @@ EasyEdit mode makes it possible to perform all common editing actions quickly wi
 
 'Creating a node' is done by long-pressing anywhere on the map (this creates a node), then tapping the node again. The tag editor for the node will automatically be shown.
 
-'''Creating a way''' is done by first long-pressing anywhere on the map to create the first node, then tapping additional locations to add more nodes. Tap the last node again to finish the way and go to the tag editor.
+'Creating a way' is done by first long-pressing anywhere on the map to create the first node, then tapping additional locations to add more nodes. Tap the last node again to finish the way and go to the tag editor.
 
 'Extending a way' - create a new way without tags that starts/ends at the way which you want to extend, select the original way and join it with the new way (see below for how to join ways).
 
@@ -25,7 +25,7 @@ EasyEdit mode makes it possible to perform all common editing actions quickly wi
 
 'Splitting a way' - select the way, select "split" from the menu, then tap the node where you want to split the way.
 
-'''Joining two ways''' - you can only join ways that share an end node and where either both ways have the same tags or at least one of the ways has no tags. Select one of the two nodes, select "join" from the menu, and then tap the other way.
+'Joining two ways' - you can only join ways that share an end node and where either both ways have the same tags or at least one of the ways has no tags. Select one of the two nodes, select "join" from the menu, and then tap the other way.
 
 === Presets ===
 When tagging elements, you can use so-called presets to quickly apply tags without having to remember their exact name. A default preset is included, you can add others using the settings menu.
@@ -44,9 +44,9 @@ To install a custom preset:
 If your preset file is not accepted, you can and should use logcat and debugging with eclipse to find the cause. You may also try to validate your XML file, e.g. using [http://josm.openstreetmap.de/browser/josm/trunk/data/tagging-preset.xsd] and [http://www.xmlvalidation.com/].
 
 === Protocol handler ===
-Vespucci supports custom APIs and custom presets that can be used for tagging. To allow easy configuration of these, Vespucci will respond to special URLs that begin with the vespucci:// (osmprefs:// for older versions), for example:
+Vespucci supports custom APIs and custom presets that can be used for tagging. To allow easy configuration of these, Vespucci will respond to special URLs that begin with the {{{vespucci://}}} ({{{osmprefs://}}} for older versions), for example:
 
-vespucci://?apiurl=http%3A%2F%2Fmaster.apis.dev.openstreetmap.org%2Fapi%2F0.6%2F&apiname=devserver&apiuser=ExampleUser&apipass=SecretPassword&apiicons=1
+{{{vespucci://?apiurl=http%3A%2F%2Fmaster.apis.dev.openstreetmap.org%2Fapi%2F0.6%2F&apiname=devserver&apiuser=ExampleUser&apipass=SecretPassword&apiicons=1}}}
 
 This can be used to provision custom API URLs and presets using links on websites or QR codes (a current version of Barcode Scanner is required - old versions will not send the URL to Vespucci).
 
