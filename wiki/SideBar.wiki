@@ -1,5 +1,6 @@
  * [Overview]
  * [News]
+  * [GSoC2012]
  * [Tutorial]
  * [FAQ]
  * Tech-Stuff
