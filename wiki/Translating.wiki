@@ -1,0 +1,47 @@
+#summary Help on translating Vespucci.
+
+= Introduction =
+
+All the translatable text in Vespucci has been concentrated into one file per language called 'strings.xml'.
+
+There are strings elsewhere in Vespucci that would be nice to be translated, but it is currently technically difficult to make them available. The background layer descriptions are one example.
+
+= Location of the Files =
+
+The Vespucci source code is managed by a version control system on this site. While only authorised people can write to it, anybody can read and download the source code.
+
+Language files are in the 'resources' folder of the source code, accessible by following the link below:
+
+http://code.google.com/p/osmeditor4android/source/browse/#svn%2Ftrunk%2Fres
+
+('svn' refers to the specific type of version control we use, and 'trunk' refers to the the main development effort - think of it like a tree - the trunk is the main part and branches are smaller parts)
+
+When you follow that link you'll see a great many 'values' folders. All but one is followed by a two-letter language code ([http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes ISO-639-1]), and optional a two-letter region code ([http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO-3166-1 alpha-2]). The one exception is the plain 'values' folder. This is for the default language, currently English, and should be considered the master reference.
+
+Clicking on these folders will produce a list of files on the right side of the page. 'strings.xml' is the file for translation.
+
+= Downloading the File(s) =
+
+Once you have found the correct folder with the 'strings.xml' in it, click on 'strings.xml' to view it, then across to the right you will see a link 'View raw file'. Right-click on that link and save the file to your local disk.
+
+You should download both the default language (English) and the language you're wanting to update.
+
+If you want to do a whole new language, download just the English file.
+
+= Character Set =
+
+The character set used by Vespucci (Android, actually) is UTF-8. Make sure your editor is using UTF-8. You might need to type some characters, then do a 'save as'. For example, using Wordpad you would save as a 'Unicode text file'.
+
+= Tools / Editors =
+
+== Eclipse and Seqouyah ==
+
+Eclipse is the standard IDE (Integrated Development Environment) used by Android developers. The Sequoyah software (in Eclipse: Help -> Install new software) provides a spreadsheet view of all the supported languages at once, with options to filter in/out specific languages. It make it very easy to keep the master language and translations in sync.
+
+Using an Android development environment also brings the major benefit of being able to recompile Vespucci with your new language support and immediately see how well your changes fit.
+
+== File Comparison Tools ==
+
+If you're not a developer, then the easiest method would be to use a file comparison tool that allows you to view the master and translation strings.xml files side-by-side. This is especially important in order to detect string that are missing (or no longer needed) from one or the other of the files. Comparison tools usually allow you to edit the files too.
+
+On Microsoft Windows systems, the free and open-source [http://winmerge.org/ WinMerge] tool is recommended.
