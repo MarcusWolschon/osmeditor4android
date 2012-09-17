@@ -3,6 +3,26 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 >
 	<PreferenceCategory android:title="@string/config_category_view">
+		<ListPreference
+			android:key="@string/config_backgroundLayer_key"
+			android:title="@string/config_backgroundLayer_title"
+			android:summary="@string/config_backgroundLayer_summary"
+			android:entries="@array/renderer_names"
+			android:entryValues="@array/renderer_ids"
+			android:defaultValue="MAPNIK"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableOpenStreetBugs_key"
+			android:title="@string/config_enableOpenStreetBugs_title"
+			android:summary="@string/config_enableOpenStreetBugs_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
+			android:title="@string/config_iconbutton_title"
+			android:key="@string/config_iconbutton_key"
+			android:summary="@string/config_iconbutton_summary"
+			android:persistent="false"
+		/>
 		<CheckBoxPreference
 			android:key="@string/config_showStats_key"
 			android:title="@string/config_showStats_title"
@@ -21,19 +41,10 @@
 			android:summary="@string/config_enableAntiAliasing_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
-			android:key="@string/config_enableOpenStreetBugs_key"
-			android:title="@string/config_enableOpenStreetBugs_title"
-			android:summary="@string/config_enableOpenStreetBugs_summary"
-			android:defaultValue="false"
-		/>
-		<ListPreference
-			android:key="@string/config_backgroundLayer_key"
-			android:title="@string/config_backgroundLayer_title"
-			android:summary="@string/config_backgroundLayer_summary"
-			android:entries="@array/renderer_names"
-			android:entryValues="@array/renderer_ids"
-			android:defaultValue="MAPNIK"
+		<Preference
+			android:title="@string/config_presetbutton_title"
+			android:key="@string/config_presetbutton_key"
+			android:summary="@string/config_presetbutton_summary"
 		/>
 		<!-- <EditTextPreference
 			android:key="@string/config_maxStrokeWidth_key"
@@ -44,7 +55,6 @@
 			android:defaultValue="10.0"
 		/> -->
 	</PreferenceCategory>
-	
 	<PreferenceCategory 
 		android:title="@string/config_category_server"
 		android:key="@string/config_category_server_key"
@@ -61,18 +71,7 @@
 			android:dialogTitle="@string/config_loginbutton_title"
 			android:singleLine="true"
 		/>
-		<Preference
-			android:title="@string/config_presetbutton_title"
-			android:key="@string/config_presetbutton_key"
-			android:summary="@string/config_presetbutton_summary"
-		/>
-		<CheckBoxPreference
-			android:title="@string/config_iconbutton_title"
-			android:key="@string/config_iconbutton_key"
-			android:summary="@string/config_iconbutton_summary"
-			android:persistent="false"
-		/>
-			</PreferenceCategory>
+	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_gps">
 		<EditTextPreference
 			android:key="@string/config_gps_interval_key"
@@ -96,7 +95,8 @@
 			android:title="@string/pref_enable_acra"
 			android:summaryOn="@string/pref_acra_enabled"
 			android:summaryOff="@string/pref_acra_disabled"
-			android:defaultValue="true"/>
+			android:defaultValue="true"
+		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_info">
 		<Preference
