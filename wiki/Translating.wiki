@@ -34,7 +34,7 @@ The character set used by Vespucci (Android, actually) is UTF-8. Make sure your 
 
 = Tools / Editors =
 
-== Eclipse and Seqouyah ==
+== Eclipse and Sequoyah ==
 
 Eclipse is the standard IDE (Integrated Development Environment) used by Android developers. The Sequoyah software (in Eclipse: Help -> Install new software) provides a spreadsheet view of all the supported languages at once, with options to filter in/out specific languages. It make it very easy to keep the master language and translations in sync.
 
