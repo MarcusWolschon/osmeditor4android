@@ -302,7 +302,7 @@ public class OpenStreetMapTileServer {
 			imageFilenameExtension = "";
 			touUri = null;
 			zoomLevelMin = 0;
-			zoomLevelMax = 0;
+			zoomLevelMax = 21;
 			tileWidth = 256;
 			tileHeight = 256;
 			brandLogo = null;
@@ -451,6 +451,8 @@ public class OpenStreetMapTileServer {
 	
 	private static String replaceParameter(final String s, final String param, final String value) {
 		String result = s;
+		// replace "${param}"
+		result = result.replaceFirst("\\$\\{" + param + "\\}", value);
 		// replace "$param"
 		result = result.replaceFirst("\\$" + param, value);
 		// replace "{param}"

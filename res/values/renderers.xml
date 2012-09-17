@@ -74,24 +74,33 @@
   -->
 </string-array>
 <!-- Configurations must be in same order as above -->
-<!-- Fields are whitespace separated:
-     URL suffix
-     Metadata URL
-     Terms of Use URL (optional) -->
+<!-- Fields are whitespace separated; two variants are supported:
+     1. 2 or 3 field variant:
+        1: URL suffix
+        2: Metadata URL
+        3: Terms of Use URL (optional)
+     2. 5 field variant:
+        1: Tile server URL
+        2: URL suffix
+        3: Minimum zoom level
+        4: Maximum zoom level
+        5: Tile size (=2^N, eg. 8 = 256pixels)
+     Different numbers of fields (including zero) are treated as blank (None).
+-->
 <string-array name="renderer_configs">
   <item></item>
-  <item>.png @raw/mapnik</item>
-  <item>.png @raw/cloudmadenoname</item>
+  <item>http://${a|b|c}.tile.openstreetmap.org/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tile.cloudmade.com/{cloudmadeapikey}/3/256/$z/$x/$y.png .png 0 18 8</item>
   <item>.jpg http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&amp;key={bingapikey}&amp;include=ImageryProviders&amp;output=xml http://go.microsoft.com/?linkid=9710837</item>
-  <item>.png @raw/opencyclemap</item>
+  <item>http://tile.opencyclemap.org/cycle/$z/$x/$y.png .png 0 17 8</item>
   <item>.png @raw/mapquest http://info.mapquest.com/terms-of-use/</item>
-  <item>.png @raw/osodstreetview</item>
-  <item>.png @raw/osodlocator</item>
+  <item>http://os.openstreetmap.org/sv/$z/$x/$y.png .png 6 17 8</item>
+  <item>http://tiles.itoworld.com/os_locator/$z/$x/$y.png .png 0 18 8</item>
   <item>.png @raw/osnpehistoric http://www.npemap.org.uk/tileLicence.html</item>
   <item>.jpg @raw/os1sted</item>
   <item>.jpg @raw/os7thseries http://steve8.dev.openstreetmap.org/os7.htm</item>
-  <item>.png @raw/surreyaerial</item>
-  <item>.jpg @raw/denmarkfugro</item>
+  <item>http://gravitystorm.dev.openstreetmap.org/surrey/$z/$x/$y.png .png 8 19 8</item>
+  <item>http://fugro.openstreetmap.dk/fugro2005/$z/$x/$y.jpg .jpg 0 19 8</item>
   <!-- See http://blog.geofabrik.de/?p=96 for OSM-Inspector tile layers: -->
   <!-- OSMI seems to be "missing in action"
   <item>http://tools.geofabrik.de/osmi/tiles/geometry/$z/$x/$y.png .png 0 18 8</item>
