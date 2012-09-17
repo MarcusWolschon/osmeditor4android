@@ -561,5 +561,21 @@ public class BoundingBox implements Serializable {
 		calcDimensions();
 		calcMercatorFactorPow3();
 	}
+	
+	/**
+	 * Make the bounding box a valid request for the API, shrinking into its center if necessary.
+	 */
+	public void makeValidForApi() {
+		if (!isValidForApi()) {
+			int centerx = (left / 2 + right / 2); // divide first to stay < 2^32
+			int centery = (top + bottom) / 2;
+			left   = centerx - API_MAX_DEGREE_DIFFERENCE / 2;
+			right  = centerx + API_MAX_DEGREE_DIFFERENCE / 2;
+			top    = centery + API_MAX_DEGREE_DIFFERENCE / 2;
+			bottom = centery - API_MAX_DEGREE_DIFFERENCE / 2;
+			calcDimensions();
+			calcMercatorFactorPow3();
+		}
+	}
 
 }
