@@ -12,16 +12,32 @@
   <item>OS OpenData Locator</item>
   <item>OS New Popular Ed Historic</item>
   <item>OS 1:25k Historic</item>
+  <item>OS 1:25k Historic (NLS)</item>
   <item>OS 7th Series Historic</item>
   <item>Surrey Aerial</item>
   <item>Denmark Fugro Aerial Imagery</item>
-  <!-- OSMI seems to be "missing in action"
+  <item>Russia - Kosmosnimki.ru IRS Satellite</item>
+  <item>Belarus - Kosmosnimki.ru SPOT4 Satellite</item>
+  <item>Australia - Geographic Reference Image</item>
+  <item>Switzerland - Canton Aargau - AGIS 25cm 2011</item>
+  <item>Switzerland - Canton Solothurn - SOGIS 2007</item>
+  <item>Poland ML GPS masstracks</item>
+  <item>South Africa CD:NGI Aerial</item>
   <item>OSMI:Geometry</item>
   <item>OSMI:Places</item>
   <item>OSMI:Tagging</item>
   <item>OSMI:Highways</item>
   <item>OSMI:Multipolygon</item>
-  -->
+  <item>OSMI:Addresses(EU)</item>
+  <item>OSMI:Boundaries(EU)</item>
+  <item>OSMI:Water(EU)</item>
+  <item>OSMI:Routing(EU)</item>
+  <item>OSMI:Routing(non-EU)</item>
+  <item>Tiger Edited</item>
+  <item>Tiger 2011 Roads</item>
+  <item>USGS Topographic</item>
+  <item>USGS LgSc Aerial</item>
+  <item>British Columbia Mosaic</item>
   <!-- Following are untested:
   <item>Haiti GeoEye Jan13</item>
   <item>Haiti GeoEye Jan13+</item>
@@ -49,16 +65,32 @@
   <item>OSODLOCATOR</item>
   <item>OSNPEHISTORIC</item>
   <item>OS25KHISTORIC</item>
+  <item>OS25KHISTNLS</item>
   <item>OS7SHISTORIC</item>
   <item>SURREYAERIAL</item>
   <item>DENMARKFUGRO</item>
-  <!-- OSMI seems to be "missing in action"
+  <item>RUSSIAIRS</item>
+  <item>BELARUSSPOT4</item>
+  <item>AUSTGEOREFIMG</item>
+  <item>SWITZAGIS2011</item>
+  <item>SWITZSOGIS2007</item>
+  <item>POLANDGPSTRKS</item>
+  <item>SACDNGIAERIAL</item>
   <item>OSMIGEOM</item>
   <item>OSMIPLACES</item>
   <item>OSMITAGS</item>
   <item>OSMIHIGHWAY</item>
   <item>OSMIMULTIPOLY</item>
-  -->
+  <item>OSMIADDR</item>
+  <item>OSMIBOUND</item>
+  <item>OSMIWATER</item>
+  <item>OSMIROUTEU</item>
+  <item>OSMIROUTNEU</item>
+  <item>TIGEREDIT</item>
+  <item>TIGER2011</item>
+  <item>USGSTOPO</item>
+  <item>USGSAERIAL</item>
+  <item>BCMOSAIC</item>
   <!-- Following are untested:
   <item>HAITIJAN13</item>
   <item>HAITIJAN13P</item>
@@ -84,7 +116,7 @@
         2: URL suffix
         3: Minimum zoom level
         4: Maximum zoom level
-        5: Tile size (=2^N, eg. 8 = 256pixels)
+        5: Tile size in bits (=2^N, eg. 8 = 256pixels)
      Different numbers of fields (including zero) are treated as blank (None).
 -->
 <string-array name="renderer_configs">
@@ -97,25 +129,34 @@
   <item>http://os.openstreetmap.org/sv/$z/$x/$y.png .png 6 17 8</item>
   <item>http://tiles.itoworld.com/os_locator/$z/$x/$y.png .png 0 18 8</item>
   <item>.png @raw/osnpehistoric http://www.npemap.org.uk/tileLicence.html</item>
+  <item>http://geo.nls.uk/mapdata2/os/25000/$z/$x/$y.png .png 0 18 8</item>
   <item>.jpg @raw/os1sted</item>
   <item>.jpg @raw/os7thseries http://steve8.dev.openstreetmap.org/os7.htm</item>
   <item>http://gravitystorm.dev.openstreetmap.org/surrey/$z/$x/$y.png .png 8 19 8</item>
   <item>http://fugro.openstreetmap.dk/fugro2005/$z/$x/$y.jpg .jpg 0 19 8</item>
+  <item>http://irs.gis-lab.info/?layers=irs&amp;request=GetTile&amp;z=$z&amp;x=$x&amp;y=$y .jpg 0 18 8</item>
+  <item>http://irs.gis-lab.info/?layers=spot&amp;request=GetTile&amp;z=$z&amp;x=$x&amp;y=$y .jpg 0 18 8</item>
+  <item>http://agri.openstreetmap.org/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tiles.poole.ch/AGIS/OF2011/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://mapproxy.sosm.ch:8080/tiles/sogis2007/EPSG900913/$z/$x/$y.png?origin=nw .png 0 18 8</item>
+  <item>http://masstracks.media-lab.com.pl/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://${a|b|c}.aerial.openstreetmap.org.za/ngi-aerial/$z/$x/$y.jpg .jpg 0 18 8</item>
   <!-- See http://blog.geofabrik.de/?p=96 for OSM-Inspector tile layers: -->
-  <!-- OSMI seems to be "missing in action"
   <item>http://tools.geofabrik.de/osmi/tiles/geometry/$z/$x/$y.png .png 0 18 8</item>
   <item>http://tools.geofabrik.de/osmi/tiles/places/$z/$x/$y.png .png 0 18 8</item>
   <item>http://tools.geofabrik.de/osmi/tiles/tagging/$z/$x/$y.png .png 0 18 8</item>
   <item>http://tools.geofabrik.de/osmi/tiles/highways/$z/$x/$y.png .png 0 18 8</item>
   <item>http://tools.geofabrik.de/osmi/tiles/multipolygon/$z/$x/$y.png .png 0 18 8</item>
-  -->
-  
-<!-- Fields are whitespace separated:
-     Base URL
-     URL suffix
-     Minimum zoom
-     Maximum zoom
-     Tilesize in bits -->
+  <item>http://tools.geofabrik.de/osmi/tiles/addresses/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/boundaries/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/water/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/routing/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tools.geofabrik.de/osmi/tiles/routing_non_eu/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://tiger-osm.mapquest.com/tiles/1.0.0/tiger/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://${a|b|c}.tile.openstreetmap.us/tiger2011_roads/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://${a|b|c}.tile.openstreetmap.us/usgs_scanned_topos/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://${a|b|c}.tile.openstreetmap.us/usgs_large_scale/$z/$x/$y.jpg .jpg 0 18 8</item>
+  <item>http://${a|b|c|d}.imagery.paulnorman.ca/tiles/bc_mosaic/$z/$x/$y.png .png 0 18 8</item>
   <!-- Following are untested:
   <item>http://gravitystorm.dev.openstreetmap.org/imagery/haiti/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://maps.nypl.org/tilecache/1/geoeye/$z/$x/$y.jpg .jpg 0 18 8</item>
