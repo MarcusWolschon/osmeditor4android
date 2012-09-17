@@ -935,6 +935,7 @@ public class Logic {
 	 * @param mapBox Box defining the area to be loaded.
 	 */
 	void downloadBox(final BoundingBox mapBox) {
+		mapBox.makeValidForApi(); // TODO remove this? and replace with better error messaging
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
@@ -968,6 +969,8 @@ public class Logic {
 				} catch (OsmServerException e) {
 					Log.e("Vespucci", "Problem downloading", e);
 					ACRA.getErrorReporter().handleException(e);
+					// TODO improve error reporting to end user
+					// eg bbox too big (400 Bad Request)
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
