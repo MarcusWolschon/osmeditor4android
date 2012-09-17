@@ -45,3 +45,11 @@ Using an Android development environment also brings the major benefit of being 
 If you're not a developer, then the easiest method would be to use a file comparison tool that allows you to view the master and translation strings.xml files side-by-side. This is especially important in order to detect string that are missing (or no longer needed) from one or the other of the files. Comparison tools usually allow you to edit the files too.
 
 On Microsoft Windows systems, the free and open-source [http://winmerge.org/ WinMerge] tool is recommended.
+
+= Keeping Up-to-Date =
+
+The following newsfeed will reflect changes made to the master strings resource file:
+
+http://code.google.com/feeds/p/osmeditor4android/svnchanges/basic?path=/trunk/res/values/strings.xml
+
+Changes made to the master will almost certainly imply that translations will need corresponding changes.
