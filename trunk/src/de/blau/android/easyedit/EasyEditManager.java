@@ -141,6 +141,21 @@ public class EasyEditManager {
 	}
 	
 	/**
+	 * Finds which nodes can be append targets.
+	 * @param way The way that will be appended to.
+	 * @return The set of nodes suitable for appending.
+	 */
+	private Set<OsmElement> findAppendableNodes(Way way) {
+		Set<OsmElement> result = new HashSet<OsmElement>();
+		for (Node node : way.getNodes()) {
+			if (way.isEndNode(node)) result.add(node);
+		}
+		// don't allow appending to circular ways
+		if (result.size() == 1) result.clear();
+		return result;
+	}
+	
+	/**
 	 * Base class for ActionMode callbacks inside {@link EasyEditManager}.
 	 * Derived classes should call {@link #onCreateActionMode(ActionMode, Menu)} and {@link #onDestroyActionMode(ActionMode)}.
 	 * It will handle registering and de-registering the action mode callback with the {@link EasyEditManager}.
@@ -219,7 +234,9 @@ public class EasyEditManager {
 		/** y coordinate of first node */
 		private float y;
 		/** Node to append to */
-		private Node appendTarget;
+		private Node appendTargetNode;
+		/** Way to append to */
+		private Way appendTargetWay;
 		
 		/** contains a pointer to the created way if one was created. used to fix selection after undo. */
 		private Way createdWay = null;
@@ -230,12 +247,20 @@ public class EasyEditManager {
 			super();
 			this.x = x;
 			this.y = y;
-			appendTarget = null;
+			appendTargetNode = null;
+			appendTargetWay = null;
 		}
 		
-		public PathCreationActionModeCallback(Node element) {
+		public PathCreationActionModeCallback(Node node) {
 			super();
-			appendTarget = element;
+			appendTargetNode = node;
+			appendTargetWay = null;
+		}
+		
+		public PathCreationActionModeCallback(Way way, Node node) {
+			super();
+			appendTargetNode = node;
+			appendTargetWay = way;
 		}
 		
 		@Override
@@ -243,9 +268,13 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			mode.setTitle(R.string.actionmode_createpath);
 			logic.setSelectedWay(null);
-			logic.setSelectedNode(appendTarget);
-			if (appendTarget != null) {
-				logic.performAppendStart(appendTarget);
+			logic.setSelectedNode(appendTargetNode);
+			if (appendTargetNode != null) {
+				if (appendTargetWay != null) {
+					logic.performAppendStart(appendTargetWay, appendTargetNode);
+				} else {
+					logic.performAppendStart(appendTargetNode);
+				}
 			} else {
 				pathCreateNode(x, y);
 			}
@@ -267,7 +296,7 @@ public class EasyEditManager {
 		private void pathCreateNode(float x, float y) {
 			Node lastSelectedNode = logic.getSelectedNode();
 			Way lastSelectedWay = logic.getSelectedWay();
-			if (appendTarget != null) {
+			if (appendTargetNode != null) {
 				logic.performAppendAppend(x, y);
 			} else {
 				logic.performAdd(x, y);
@@ -338,7 +367,7 @@ public class EasyEditManager {
 			Way lastSelectedWay = logic.getSelectedWay();
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(null);
-			if (appendTarget == null) tagApplicable(lastSelectedNode, lastSelectedWay);
+			if (appendTargetNode == null) tagApplicable(lastSelectedNode, lastSelectedWay);
 			super.onDestroyActionMode(mode);
 		}
 	}
@@ -473,12 +502,15 @@ public class EasyEditManager {
 		private static final int MENUITEM_SPLIT = 4;
 		private static final int MENUITEM_MERGE = 5;
 		private static final int MENUITEM_REVERSE = 6;
+		private static final int MENUITEM_APPEND = 7;
 		
 		private Set<OsmElement> cachedMergeableWays;
+		private Set<OsmElement> cachedAppendableNodes;
 		
 		private WaySelectionActionModeCallback(Way way) {
 			super(way);
 			cachedMergeableWays = findMergeableWays(way);
+			cachedAppendableNodes = findAppendableNodes(way);
 		}
 		
 		@Override
@@ -501,6 +533,9 @@ public class EasyEditManager {
 			if (cachedMergeableWays.size() > 0) {
 				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(R.drawable.tag_menu_merge);
 			}
+			if (cachedAppendableNodes.size() > 0) {
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
+			}
 			return true;
 		}
 		
@@ -520,6 +555,7 @@ public class EasyEditManager {
 				case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback((Way)element)); break;
 				case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback((Way)element, cachedMergeableWays)); break;
 				case MENUITEM_REVERSE: reverseWay(); break;
+				case MENUITEM_APPEND: main.startActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
 				default: return false;
 				}
 			}
@@ -619,6 +655,37 @@ public class EasyEditManager {
 			super.onDestroyActionMode(mode);
 		}
 		
+	}
+	
+	private class WayAppendingActionModeCallback extends EasyEditActionModeCallback {
+		private Way way;
+		private Set<OsmElement> nodes;
+		public WayAppendingActionModeCallback(Way way, Set<OsmElement> appendNodes) {
+			super();
+			this.way = way;
+			nodes = appendNodes;
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			mode.setTitle(R.string.menu_append);
+			logic.setClickableElements(nodes);
+			super.onCreateActionMode(mode, menu);
+			return true;
+		}
+		
+		@Override
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
+			super.handleElementClick(element);
+			main.startActionMode(new PathCreationActionModeCallback(way, (Node)element));
+			return true;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			super.onDestroyActionMode(mode);
+		}
 	}
 	
 }

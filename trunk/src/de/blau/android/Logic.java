@@ -784,11 +784,17 @@ public class Logic {
 		delegator.reverseWay(way);
 		map.invalidate();
 	}
-
+	
+	public void performAppendStart(Way way, Node node) {
+		setSelectedNode(node);
+		setSelectedWay(way);
+		map.invalidate();
+	}
+	
 	public void performAppendStart(OsmElement element) {
 		Way lSelectedWay = null;
 		Node lSelectedNode = null;
-
+		
 		if (element != null) {
 			if (element instanceof Node) {
 				lSelectedNode = (Node) element;
@@ -805,12 +811,9 @@ public class Logic {
 				}
 			}
 		}
-		setSelectedNode(lSelectedNode);
-		setSelectedWay(lSelectedWay);
-
-		map.invalidate();
+		performAppendStart(lSelectedWay, lSelectedNode);
 	}
-
+	
 	public void performAppendAppend(final float x, final float y) {
 		createCheckpoint(R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
