@@ -2,6 +2,7 @@
 
 Thanks to:
   Andrew Gregory (Code)
+  cain1986 (Spanish translation)
   calibrator33 (Russian translation)
   Diego Pierotto (Italian translation)
   Duarte Carreira (Portuguese translation)
