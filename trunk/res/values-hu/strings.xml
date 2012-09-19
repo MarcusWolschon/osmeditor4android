@@ -88,4 +88,5 @@
     <string name="config_gps_distance_summary">A minimális távolságintervallum a GPS figyeléséhez méterben (tizedesvesszővel). Alacsonyabb érték több akkumulátorhasználatot igényel.</string>
     <string name="config_gps_interval_title">Minimális GPS időköz</string>
     <string name="config_gps_interval_summary">A minimális időintervallum a GPS figyeléséhez ezredmásodpercben. Alacsonyabb érték több akkumulátorhasználatot igényel.</string>
+    <string name="location_default_radius">300m</string>
 </resources>

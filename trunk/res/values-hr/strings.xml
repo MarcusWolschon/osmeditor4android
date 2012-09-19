@@ -111,4 +111,5 @@
     <string name="changes_created">"%1$s" stvoreno</string>
     <string name="confirm_upload_title">Poslati?</string>
     <string name="confirm_upload_text">Poslati slijedeće promjene na poslužitelj?\n%1$s</string>
+    <string name="location_default_radius">300m</string>
 </resources>
