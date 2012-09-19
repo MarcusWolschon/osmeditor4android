@@ -31,7 +31,6 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -422,6 +421,8 @@ public class Preset {
 	 */
 	public abstract class PresetElement {
 		private String name;
+		private String iconpath;
+		private String mapiconpath;
 		private Drawable icon;
 		private BitmapDrawable mapIcon;
 		private PresetGroup parent;
@@ -436,10 +437,10 @@ public class Preset {
 		public PresetElement(PresetGroup parent, String name, String iconpath) {
 			this.parent = parent;
 			this.name = name;
-			if (iconpath != null) {
-				icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
-				mapIcon = iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
-			}
+			this.iconpath = iconpath;
+			mapiconpath = iconpath;
+			icon = null;
+			mapIcon = null;
 			if (parent != null)	parent.addElement(this);
 		}		
 		
@@ -448,10 +449,18 @@ public class Preset {
 		}
 
 		public Drawable getIcon() {
+			if (icon == null && iconpath != null) {
+				icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
+				iconpath = null;
+			}
 			return icon;
 		}
 		
 		public BitmapDrawable getMapIcon() {
+			if (mapIcon == null && mapiconpath != null) {
+				mapIcon = iconManager.getDrawable(mapiconpath, de.blau.android.Map.ICON_SIZE_DP);
+				mapiconpath = null;
+			}
 			return mapIcon;
 		}
 		
