@@ -112,4 +112,5 @@
     <string name="changes_created">"%1$s" utworzono</string>
     <string name="confirm_upload_title">Wysłać?</string>
     <string name="confirm_upload_text">Wysłać zmiany?\n%1$s</string>
+    <string name="location_default_radius">300m</string>
 </resources>

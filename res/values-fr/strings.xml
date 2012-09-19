@@ -88,4 +88,5 @@
     <string name="config_gps_distance_summary">Distance de notification, en mètres (float). Les petites valeurs consomment la batterie.</string>
     <string name="config_gps_interval_title">Interval Temps GPS Minimum</string>
     <string name="config_gps_interval_summary">Temps de notification, en millisecondes. Les petites valeurs consomment la batterie.</string>
+    <string name="location_default_radius">300m</string>
 </resources>

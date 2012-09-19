@@ -212,4 +212,5 @@
     <string name="pref_enable_acra">Programmabstürze melden</string>
     <string name="pref_acra_enabled">Fehlerreport aktiviert</string>
     <string name="pref_acra_disabled">Fehlerreport deaktiviert</string>
+    <string name="location_default_radius">300m</string>
 </resources>

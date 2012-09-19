@@ -94,4 +94,5 @@
     <string name="config_gps_distance_summary">Minste avstand mellom GPS-målinger, i meter (med komma). Lavere verdi gir kortere batteritid.</string>
     <string name="config_gps_interval_title">Minste GPS-intervall</string>
     <string name="config_gps_interval_summary">Minste tidsintervall for GPS-målinger, i millisekunder. Lavere verdi gir kortere batteritid.</string>
+    <string name="location_default_radius">300m</string>
 </resources>

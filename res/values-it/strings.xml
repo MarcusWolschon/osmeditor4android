@@ -88,4 +88,5 @@
     <string name="config_gps_distance_summary">L\'intervallo minimo della distanza per le notifiche GPS, in metri (float). Valori bassi significano maggior uso della batteria.</string>
     <string name="config_gps_interval_title">Intervallo minimo GPS</string>
     <string name="config_gps_interval_summary">L\'intervallo minimo di tempo per le notifiche GPS, in millisecondi. Valori bassi significano maggior uso della batteria.</string>
+    <string name="location_default_radius">300m</string>
 </resources>
