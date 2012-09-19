@@ -1,5 +1,23 @@
 #summary Help on translating Vespucci.
 
+= Status =
+
+As at 2012-09-19:
+|| *Language* || *Code*   || *Status* || *%* ||
+|| Danish     || da       ||  81/191 || 42%  ||
+|| French     || fr       ||  81/191 || 42%  ||
+|| Hungarian  || hu       ||  81/191 || 42%  ||
+|| Italian    || it       ||  81/191 || 42%  ||
+|| Norwegian  || nb,nn,no ||  81/191 || 42%  ||
+|| Russian    || ru       ||  81/191 || 42%  ||
+|| Croatian   || hr       || 104/191 || 54%  ||
+|| Japanese   || jp       || 104/191 || 54%  ||
+|| Polish     || pl       || 104/191 || 54%  ||
+|| Czech      || cs       || 150/191 || 78%  ||
+|| German     || de       || 191/191 || 100% ||
+|| Spanish    || es       || 191/191 || 100% ||
+|| Portuguese || pt       || 191/191 || 100% ||
+
 = Introduction =
 
 All the translatable text in Vespucci has been concentrated into one file per language called 'strings.xml'.
