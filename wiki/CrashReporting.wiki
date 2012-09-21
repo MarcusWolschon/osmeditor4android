@@ -1,0 +1,9 @@
+#summary How Vespucci Crash Reports work.
+
+= Description =
+
+Vespucci uses the ACRA library to handle crash reports. Crash reports are sent to a publically readable Google Docs spreadsheet, which can be found at:
+
+https://docs.google.com/spreadsheet/ccc?key=0AiX5DlgmFc_AdEtPR2twakdQbS1TbTVQNjdKeHBiLXc
+
+Crash reports are handled manually by Vespucci developers. As reported crashes are deemed fixed, they will be deleted from the spreadsheet.
