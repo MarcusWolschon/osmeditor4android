@@ -3,20 +3,20 @@
 = Status =
 
 As at 2012-09-19:
-|| *Language* || *Code*   || *Status* || *%* ||
-|| Danish     || da       ||  81/191 || 42%  ||
-|| French     || fr       ||  81/191 || 42%  ||
-|| Hungarian  || hu       ||  81/191 || 42%  ||
-|| Italian    || it       ||  81/191 || 42%  ||
-|| Norwegian  || nb,nn,no ||  81/191 || 42%  ||
-|| Russian    || ru       ||  81/191 || 42%  ||
-|| Croatian   || hr       || 104/191 || 54%  ||
-|| Japanese   || jp       || 104/191 || 54%  ||
-|| Polish     || pl       || 104/191 || 54%  ||
-|| Czech      || cs       || 150/191 || 78%  ||
-|| German     || de       || 191/191 || 100% ||
-|| Spanish    || es       || 191/191 || 100% ||
-|| Portuguese || pt       || 191/191 || 100% ||
+|| *Language* || *Code*   || *Status* || *%* || *Issue#* ||
+|| Danish     || da       ||  81/191 || 42%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=121 121] ||
+|| French     || fr       ||  81/191 || 42%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=122 122] ||
+|| Hungarian  || hu       ||  81/191 || 42%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=35 35] ||
+|| Italian    || it       ||  81/191 || 42%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=45 45] ||
+|| Norwegian  || nb,nn,no ||  81/191 || 42%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=97 97] ||
+|| Russian    || ru       ||  81/191 || 42%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=53 53] ||
+|| Croatian   || hr       || 104/191 || 54%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=87 87] ||
+|| Japanese   || jp       || 104/191 || 54%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=123 123] ||
+|| Polish     || pl       || 104/191 || 54%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=102 102] ||
+|| Czech      || cs       || 150/191 || 78%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=32 32] ||
+|| German     || de       || 191/191 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=34 34] ||
+|| Spanish    || es       || 191/191 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=129 129] ||
+|| Portuguese || pt       || 191/191 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=125 125] ||
 
 = Introduction =
 
@@ -71,3 +71,11 @@ The following newsfeed will reflect changes made to the master strings resource 
 http://code.google.com/feeds/p/osmeditor4android/svnchanges/basic?path=/trunk/res/values/strings.xml
 
 Changes made to the master will almost certainly imply that translations will need corresponding changes.
+
+= Sending Your Changes =
+
+If you have commit rights on the project, obviously you will be able to check your translation in immediately.
+
+Otherwise, find the issue number that is tracking your language translation from the table at the top of this page. If you have a translation for a new language, start a new issue.
+
+Then add a comment to the issue, attaching your "strings.xml" file.
