@@ -985,7 +985,10 @@ public class Logic {
 			protected void onPostExecute(Integer result) {
 				try {
 					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
-				} catch (Exception e) {} // Avoid crash if dialog is already dismissed
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+					Log.d("Logic", "", e);
+				}
 				View map = Application.mainActivity.getCurrentFocus();
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 				paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
@@ -1084,7 +1087,12 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Void result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
-				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+					Log.d("Logic", "", e);
+				}
 				View map = Application.mainActivity.getCurrentFocus();
 				setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
@@ -1127,6 +1135,7 @@ public class Logic {
 					case HttpStatus.SC_UNAUTHORIZED:
 						result = DialogFactory.WRONG_LOGIN;
 						break;
+					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_PRECONDITION_FAILED:
 						result = DialogFactory.UPLOAD_PROBLEM;
 						break;
