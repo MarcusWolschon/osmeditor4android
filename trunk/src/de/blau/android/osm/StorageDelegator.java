@@ -310,7 +310,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		for (int i = 0, size = ways.size(); i < size; ++i) {
 			Way way = ways.get(i);
 			undo.save(way);
-			way.removeAllNodes(node);
+			way.removeNode(node);
 			//remove way when less than two waynodes exist
 			if (way.getNodes().size() < 2) {
 				removeWay(way);

@@ -15,12 +15,21 @@ public class Way extends OsmElement {
 	 * 
 	 */
 	private static final long serialVersionUID = 1104911642016294265L;
+	
+	private static final String[] importantHighways;
 
 	protected final ArrayList<Node> nodes;
 
 	public static final String NAME = "way";
 
 	public static final String NODE = "nd";
+	
+	static {
+		importantHighways = (
+				"motorway,motorway_link,trunk,trunk_link,primary,primary_link,"+
+				"secondary,secondary_link,tertiary,residential,unclassified,living_street"
+		).split(",");
+	}
 
 	Way(final long osmId, final long osmVersion, final byte status) {
 		super(osmId, osmVersion, status);
@@ -80,7 +89,7 @@ public class Way extends OsmElement {
 		return nodes.contains(node);
 	}
 
-	void removeAllNodes(final Node node) {
+	void removeNode(final Node node) {
 		while (nodes.remove(node)) {
 			;
 		}
@@ -164,19 +173,10 @@ public class Way extends OsmElement {
 		}
 		if (getTagWithKey("name") == null) {
 			// unnamed way - only the important ones need names
-			if (      "motorway".equalsIgnoreCase(highway) ||
-				 "motorway_link".equalsIgnoreCase(highway) ||
-				         "trunk".equalsIgnoreCase(highway) ||
-				    "trunk_link".equalsIgnoreCase(highway) ||
-				       "primary".equalsIgnoreCase(highway) ||
-				  "primary_link".equalsIgnoreCase(highway) ||
-				     "secondary".equalsIgnoreCase(highway) ||
-				"secondary_link".equalsIgnoreCase(highway) ||
-				      "tertiary".equalsIgnoreCase(highway) ||
-				   "residential".equalsIgnoreCase(highway) ||
-				  "unclassified".equalsIgnoreCase(highway) ||
-				 "living_street".equalsIgnoreCase(highway)) {
-				return true;
+			for (String h : importantHighways) {
+				if (h.equalsIgnoreCase(highway)) {
+					return true;
+				}
 			}
 		}
 		return super.calcProblem();
@@ -184,7 +184,7 @@ public class Way extends OsmElement {
 	
 	@Override
 	public ElementType getType() {
-		if (nodes.size()<2) return ElementType.WAY; // should not happen
+		if (nodes.size() < 2) return ElementType.WAY; // should not happen
 		
 		if (getFirstNode().equals(getLastNode())) {
 			return ElementType.CLOSEDWAY;

@@ -873,9 +873,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 	
 		if (selectedElement != null) {
-			Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
-			startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement));
-			startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+			if (logic.delegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
+				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
+				startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement));
+				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+			}
 		}
 	}
 

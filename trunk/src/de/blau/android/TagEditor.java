@@ -407,7 +407,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	 */
 	@Override
 	protected void onSaveInstanceState(final Bundle outState) {
-		// no calltrough. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
+		// no call through. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
 		outState.putSerializable(TAGEDIT_DATA, new TagEditorData(osmId, type, getKeyValueMap(true), originalTags));
 	}
 	
@@ -446,17 +446,17 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		
 		public TagEditRow(Context context) {
 			super(context);
-			owner = (TagEditor) (isInEditMode()?null:context); // Can only be instantiated inside TagEditor or in Eclipse
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
 		
 		public TagEditRow(Context context, AttributeSet attrs) {
 			super(context, attrs);
-			owner = (TagEditor) (isInEditMode()?null:context); // Can only be instantiated inside TagEditor or in Eclipse
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
 		
 		public TagEditRow(Context context, AttributeSet attrs, int defStyle) {
 			super(context, attrs, defStyle);
-			owner = (TagEditor) (isInEditMode()?null:context); // Can only be instantiated inside TagEditor or in Eclipse
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
 		
 		@Override
@@ -570,7 +570,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 				keys.addAll(owner.autocompletePresetItem.getOptionalTags().keySet());
 			}
 			
-			if (owner.preset != null) {
+			if (owner.preset != null && owner.element != null) {
 				keys.addAll(owner.preset.getAutocompleteKeys(owner.element.getType()));
 			}
 			
@@ -582,21 +582,25 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		}
 		
 		protected ArrayAdapter<String> getValueAutocompleteAdapter() {
+			ArrayAdapter<String> adapter = null;
 			String key = keyEdit.getText().toString();
-			if (key == null || key.length() == 0) return null;
-			
-			boolean isStreetName = ("addr:street".equalsIgnoreCase(key) ||
-					("name".equalsIgnoreCase(key) && owner.getUsedKeys(null).contains("highway")));
-			if (isStreetName) {
-				return getStreetNameAutocompleteAdapter();
-			} else {
-				if (owner.preset == null) return null;
-				Collection<String> values = owner.preset.getAutocompleteValues(owner.element.getType(), key);
-				if (values == null || values.isEmpty()) return null;
-				List<String> result = new ArrayList<String>(values);
-				Collections.sort(result);
-				return new ArrayAdapter<String>(owner, android.R.layout.simple_dropdown_item_1line, result);
+			if (key != null && key.length() > 0) {
+				boolean isStreetName = ("addr:street".equalsIgnoreCase(key) ||
+						("name".equalsIgnoreCase(key) && owner.getUsedKeys(null).contains("highway")));
+				if (isStreetName) {
+					adapter = getStreetNameAutocompleteAdapter();
+				} else {
+					if (owner.preset != null && owner.element != null) {
+						Collection<String> values = owner.preset.getAutocompleteValues(owner.element.getType(), key);
+						if (values != null && !values.isEmpty()) {
+							List<String> result = new ArrayList<String>(values);
+							Collections.sort(result);
+							adapter = new ArrayAdapter<String>(owner, android.R.layout.simple_dropdown_item_1line, result);
+						}
+					}
+				}
 			}
+			return adapter;
 		}
 		
 		/**
@@ -604,10 +608,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		 * @return
 		 */
 		private ArrayAdapter<String> getStreetNameAutocompleteAdapter() {
-			if (Main.logic == null || Main.logic.delegator == null) return null;
-			ArrayAdapter<String> adapter = new StreetTagValueAutocompletionAdapter(owner,
-					android.R.layout.simple_dropdown_item_1line, Main.logic.delegator, owner.type, owner.osmId);
-			return adapter;
+			return (Main.logic == null || Main.logic.delegator == null) ? null :
+				new StreetTagValueAutocompletionAdapter(owner,
+						android.R.layout.simple_dropdown_item_1line, Main.logic.delegator,
+						owner.type, owner.osmId);
 		}
 		
 		/**
@@ -645,7 +649,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		 */
 		public boolean isEmpty() {
 			return keyEdit.getText().toString().trim().equals("")
-					&& valueEdit.getText().toString().trim().equals("");
+				&& valueEdit.getText().toString().trim().equals("");
 		}
 		
 	}
@@ -687,10 +691,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		processKeyValues(new KeyValueHandler() {
 			@Override
 			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
-				if (keyEdit.equals(ignoreEdit)) return;
-				String key = keyEdit.getText().toString().trim();
-				if (key.length() > 0) {
-					keys.add(key);
+				if (!keyEdit.equals(ignoreEdit)) {
+					String key = keyEdit.getText().toString().trim();
+					if (key.length() > 0) {
+						keys.add(key);
+					}
 				}
 			}
 		});
@@ -757,10 +762,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	 * Shows the preset dialog for choosing which preset to apply
 	 */
 	private void showPresetDialog() {
-		if (Main.getCurrentPreset() == null) return;
-		presetDialog = new PresetDialog(this, Main.getCurrentPreset(), element);
-		presetDialog.setOnDismissListener(this);
-		presetDialog.show();
+		if (Main.getCurrentPreset() != null && element != null) {
+			presetDialog = new PresetDialog(this, Main.getCurrentPreset(), element);
+			presetDialog.setOnDismissListener(this);
+			presetDialog.show();
+		}
 	}
 	
 	/**

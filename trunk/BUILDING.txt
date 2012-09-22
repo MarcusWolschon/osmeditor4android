@@ -1,3 +1,6 @@
+ActionBarSherlock
+-----------------
+
 You will need the ActionBarSherlock library, which in turn requires the "android support" library.
 
 The code was tested with ABS 4.1.0 and support library revision 10.
@@ -20,3 +23,8 @@ There is a known issue (#208) with ActionBarSherlock: https://github.com/JakeWha
 This is also being tracked in Vespucci issue #114: http://code.google.com/p/osmeditor4android/issues/detail?id=114
 For the moment, you will need to modify your local copy of ActionBarSherlock as per the comment from "lodlock" in
 the ABS issue.
+
+JOSM Presets
+------------
+Original:
+http://josm.openstreetmap.de/svn/trunk/data/defaultpresets.xml
