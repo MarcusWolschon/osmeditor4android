@@ -47,16 +47,15 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	/**
 	 * hasProblem() is an expensive test, so the results are cached.
 	 */
-	private boolean cachedHasProblem;
-	
-	/**
-	 * flag to determine if the cached result for hasProblem() is valid and can be used.
-	 */
-	protected boolean cachedHasProblemValid;
+	private Boolean cachedHasProblem;
 	
 	static {
 		// Create the array of important tags. Tags are listed from most important to least.
-		importantTags = "highway,barrier,waterway,railway,aeroway,aerialway,power,man_made,building,leisure,amenity,office,shop,craft,emergency,tourism,historic,landuse,military,natural,boundary".split(",");
+		importantTags = (
+				"highway,barrier,waterway,railway,aeroway,aerialway,power,"+
+				"man_made,building,leisure,amenity,office,shop,craft,emergency,"+
+				"tourism,historic,landuse,military,natural,boundary"
+		).split(",");
 	}
 
 	OsmElement(final long osmId, final long osmVersion, final byte state) {
@@ -64,7 +63,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		this.osmVersion = osmVersion;
 		this.tags = new TreeMap<String, String>();
 		this.state = state;
-		cachedHasProblemValid = false;
+		cachedHasProblem = null;
 	}
 
 	public long getOsmId() {
@@ -103,7 +102,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	void addOrUpdateTag(final String tag, final String value) {
 		tags.put(tag, value);
-		cachedHasProblemValid = false;
+		cachedHasProblem = null;
 	}
 
 	/**
@@ -111,8 +110,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * @param tags New tags to add or to replace existing tags.
 	 */
 	void addTags(final Map<String, String> tags) {
-		this.tags.putAll(tags);
-		cachedHasProblemValid = false;
+		if (tags != null) this.tags.putAll(tags);
+		cachedHasProblem = null;
 	}
 
 	/**
@@ -121,12 +120,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * @return Flag indicating if the tags have actually changed.
 	 */
 	boolean setTags(final Map<String, String> tags) {
-		if ((tags == null) ? !this.tags.isEmpty() : !this.tags.equals(tags)) {
+		if (!this.tags.equals(tags)) {
 			this.tags.clear();
-			if (tags != null) {
-				this.tags.putAll(tags);
-			}
-			cachedHasProblemValid = false;
+			addTags(tags);
 			return true;
 		}
 		return false;
@@ -255,9 +251,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	public boolean hasProblem() {
 		// This implementation assumes that calcProblem() may be expensive, and
 		// caches the calculation.
-		if (!cachedHasProblemValid) {
+		if (cachedHasProblem == null) {
 			cachedHasProblem = calcProblem();
-			cachedHasProblemValid = true;
 		}
 		return cachedHasProblem;
 	}

@@ -266,7 +266,6 @@ public class UndoStorage implements Serializable {
 			element.osmVersion = osmVersion;
 			element.state      = state;
 			element.setTags(tags);
-			element.cachedHasProblemValid = false;
 		}
 	}
 	

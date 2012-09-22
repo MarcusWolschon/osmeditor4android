@@ -670,22 +670,13 @@ public class Preset {
 		 * @param values values string from the XML (comma-separated list of possible values)
 		 */
 		public void addTag(boolean optional, String key, String values) {
-			String[] valueArray;
-			if (values == null || values.length() == 0) {
-				valueArray = new String[0];
-			} else {
-				valueArray = values.split(",");
-			}
+			String[] valueArray = (values == null) ? new String[0] : values.split(",");
 			
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
 			
-			if (optional) {
-				optionalTags.put(key, valueArray);
-			} else {
-				recommendedTags.put(key, valueArray);
-			}
+			(optional ? optionalTags : recommendedTags).put(key,  valueArray);
 		}
 
 		
