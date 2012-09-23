@@ -1135,8 +1135,11 @@ public class Logic {
 					case HttpStatus.SC_UNAUTHORIZED:
 						result = DialogFactory.WRONG_LOGIN;
 						break;
+					case HttpStatus.SC_CONFLICT:
 					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_PRECONDITION_FAILED:
+					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
+					case HttpStatus.SC_SERVICE_UNAVAILABLE:
 						result = DialogFactory.UPLOAD_PROBLEM;
 						break;
 					//TODO: implement other state handling
