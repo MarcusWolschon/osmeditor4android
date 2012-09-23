@@ -2,6 +2,7 @@
  * [News]
   * [GSoC2012]
  * [Tutorial]
+  * [EasyEdit]
  * [FAQ]
  * Tech-Stuff
   * [Translating]
