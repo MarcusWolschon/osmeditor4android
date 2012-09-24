@@ -81,8 +81,11 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		if (limit < 0) {
 			limit = 0;
 		}
-		while (cacheSizeBytes() > limit) {
-			remove(list.getLast()).recycle();
+		while (cacheSizeBytes() > limit && !list.isEmpty()) {
+			Bitmap b = remove(list.getLast());
+			if (b != null && !b.isRecycled()) {
+				b.recycle();
+			}
 		}
 	}
 	
