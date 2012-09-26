@@ -18,18 +18,14 @@
     <!-- Toaster -->
     <string name="toast_no_changes">Még nem módosítottál semmit…</string>
     <string name="toast_upload_success">Feltöltés az OSM szerverre kész.</string>
-    <string name="toast_empty_data">Nincsenek elemek ezen a területen. Köszönöm, hogy feltárod ezt a fekete foltot!</string>
     <string name="toast_not_in_edit_range">Közelíts a szerkesztéshez (Hangerő fel/le vagy Lens/Shift)</string>
     <string name="toast_save_done">Mentés sikeres</string>
-    <string name="toast_waiting_for_gps">Várakozás a GPS helyre…</string>
-    <string name="toast_follow_gps_off">GPS követésének tiltása</string>
     <!-- Some generic labels -->
     <string name="yes">Igen</string>
     <string name="no">Nem</string>
     <string name="okay">OK</string>
     <string name="cancel">Mégse</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Címkéi ennek:</string>
     <string name="key">kulcs</string>
     <string name="value">érték</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Hu:Map_Features</string>

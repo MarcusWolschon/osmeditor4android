@@ -18,18 +18,14 @@
     <!-- Toaster -->
     <string name="toast_no_changes">Вы ничего не изменили…</string>
     <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
-    <string name="toast_empty_data">В этой области элементы не обнаружены. Спасибо за исследование белых пятен на карте!</string>
     <string name="toast_not_in_edit_range">Пожалуйста, увеличьте масштаб для редактирования  (Громкость +/- или Движок масштаба)</string>
     <string name="toast_save_done">Сохранено успешно</string>
-    <string name="toast_waiting_for_gps">Ждем от GPS определения позиции…</string>
-    <string name="toast_follow_gps_off">GPS отключен</string>
     <!-- Some generic labels -->
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="okay">OK</string>
     <string name="cancel">Отменить</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Теги для</string>
     <string name="key">ключ</string>
     <string name="value">значение</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/RU:Map_Features</string>
