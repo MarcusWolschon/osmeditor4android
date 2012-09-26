@@ -18,8 +18,7 @@
       android:layout_toRightOf="@id/openstreetbug_comment_label"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:inputType="text"
-      android:background="@android:drawable/editbox_background"/>
+      android:inputType="text"/>
     <CheckBox
       android:id="@+id/openstreetbug_close"
       android:layout_below="@id/openstreetbug_comment"
