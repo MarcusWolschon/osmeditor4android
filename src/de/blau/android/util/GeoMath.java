@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import android.util.Pair;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
@@ -235,5 +236,41 @@ public class GeoMath {
 		// equation (14) on http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
 		return (Math.abs((node2X - node1X) * (node1Y - y) - (node1X - x) * (node2Y - node1Y)) /
 		                 Math.hypot(node2X - node1X, node2Y - node1Y));
+	}
+	
+	/**
+	 * Calculates the point on the line (node1X,node1Y)-(node2X,node2Y) that is
+	 * closest to the point (x,y).
+	 * @param x
+	 * @param y
+	 * @param node1X
+	 * @param node1Y
+	 * @param node2X
+	 * @param node2Y
+	 * @return
+	 */
+	public static Pair<Float, Float> closestPoint(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
+		// http://paulbourke.net/geometry/pointline/
+		float dx = node2X - node1X;
+		float dy = node2Y - node1Y;
+		float cx, cy;
+		if (dx == 0.0d && dy == 0.0d) {
+			// node1 and node2 are the same
+			cx = node1X;
+			cy = node1Y;
+		} else {
+			final double u = ((x - node1X) * dx + (y - node1Y) * dy) / (dx * dx + dy * dy);
+			if (u < 0.0d) {
+				cx = node1X;
+				cy = node1Y;
+			} else if (u > 1.0d) {
+				cx = node2X;
+				cy = node2Y;
+			} else {
+				cx = (float)(node1X + u * dx);
+				cy = (float)(node1Y + u * dy);
+			}
+		}
+		return new Pair<Float, Float>(cx, cy);
 	}
 }

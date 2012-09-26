@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
 import de.blau.android.exception.OsmServerException;
@@ -887,8 +888,9 @@ public class Logic {
 
 		//At first, we check if the x,y is in the bounding box clamping by node1 and node2.
 		if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
-			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+			Pair<Float, Float> p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
+			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p.second);
+			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p.first);
 			return delegator.getFactory().createNodeWithNewId(lat, lon);
 		}
 		return null;
