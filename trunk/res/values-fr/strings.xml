@@ -33,11 +33,8 @@
     <!-- Toaster -->
     <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
     <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
-    <string name="toast_empty_data">Pas d\'élément dans cette zone. Merci d\'explorer ce trou noir !</string>
     <string name="toast_not_in_edit_range">Veuillez zoomer pour éditer (Volume +/- ou Loupe/Shift)</string>
     <string name="toast_save_done">Sauvegarde effectuée</string>
-    <string name="toast_waiting_for_gps">En attente d\'un signal GPS…</string>
-    <string name="toast_follow_gps_off">Suivi du GPS désactivé</string>
     <string name="toast_not_in_bug_range">Veuillez zoomer pour ajouter un bug (Volume +/- ou Loupe/Shift)</string>
     <string name="toast_export_failed">L\'export a échoué</string>
     <string name="toast_export_success">Exporté vers %1$s</string>
@@ -48,7 +45,6 @@
     <string name="okay">Valider</string>
     <string name="cancel">Annuler</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Attributs pour</string>
     <string name="key">clé</string>
     <string name="value">valeur</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>

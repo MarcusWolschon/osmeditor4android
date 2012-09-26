@@ -27,20 +27,15 @@
     <!-- Toaster -->
     <string name="toast_no_changes">Jeszcze nic nie zmieniłeś…</string>
     <string name="toast_upload_success">Wysyłanie na serwer OSM zakończone.</string>
-    <string name="toast_empty_data">W tym miejscu nie ma żadnych danych. Cieszymy się, że chcesz zapełnić tę białą plamę!</string>
     <string name="toast_not_in_edit_range">Przybliż, by edytować (Volume Up/Down lub Lens/Shift)</string>
     <string name="toast_save_done">Zapisano</string>
-    <string name="toast_waiting_for_gps">Oczekiwanie na pozycję GPS…</string>
-    <string name="toast_follow_gps_off">Podążanie za pozycją GPS wyłączone</string>
     <string name="toast_not_in_bug_range">Przybliż, by dodać zgłosić błąd (Volume Up/Down lub Lens/Shift)</string>
-    <string name="toast_file_openstreetbug">Klepnij w wybranym miejscu, by dodać OpenStreetBug</string>
     <!-- Some generic labels -->
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="okay">OK</string>
     <string name="cancel">Anuluj</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Tagi:</string>
     <string name="key">klucz</string>
     <string name="value">wartość</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>

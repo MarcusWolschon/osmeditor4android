@@ -33,13 +33,9 @@
     <!-- Toaster -->
     <string name="toast_no_changes">Não alterou nada ainda…</string>
     <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
-    <string name="toast_empty_data">Não há elementos nesta área. Obrigado por explorar esta mancha negra!</string>
     <string name="toast_not_in_edit_range">Por favor faça zoom in para editar (Volume +/- ou Lens/Shift)</string>
     <string name="toast_save_done">Gravado com sucesso</string>
-    <string name="toast_waiting_for_gps">Aguardando posição GPS…</string>
-    <string name="toast_follow_gps_off">Seguir GPS desligado</string>
     <string name="toast_not_in_bug_range">Faça zoom in para adicionar um bug (Volume +/- ou Lente/Shift)</string>
-    <string name="toast_file_openstreetbug">Toque dentro do mapa para criar um OpenStreetBug</string>
     <string name="toast_export_failed">Exportação falhou</string>
     <string name="toast_export_success">Exportado para %1$s</string>
     <string name="toast_preset_overwrote_tags">Nota - prédefinição sobrepôs tag(s)</string>
@@ -49,7 +45,6 @@
     <string name="okay">Ok</string>
     <string name="cancel">Cancelar</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Tags para</string>
     <string name="key">chave</string>
     <string name="value">valor</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>

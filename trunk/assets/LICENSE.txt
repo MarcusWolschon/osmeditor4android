@@ -6,6 +6,7 @@ Thanks to:
   calibrator33 (Russian translation)
   Diego Pierotto (Italian translation)
   Duarte Carreira (Portuguese translation)
+  ch.gallioz (French translation)
   Guttorm Flatabø (Norwegian translations)
   Graham Jones (Code)
   György Balló (Hungarian translation)

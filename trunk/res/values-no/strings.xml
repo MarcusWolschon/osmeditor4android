@@ -20,11 +20,8 @@
   -->
     <string name="toast_no_changes">Du har ikke endret noe ennå…</string>
     <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
-    <string name="toast_empty_data">Det er ingen elementer i dette området. Takk for at du utforsket dette sorte hullet :-)</string>
     <string name="toast_not_in_edit_range">Zoom inn for å rette (volum opp / ned eller lens/shift)</string>
     <string name="toast_save_done">Lagring lykkes</string>
-    <string name="toast_waiting_for_gps">Venter på GPS-posisjon…</string>
-    <string name="toast_follow_gps_off">GPS-sporing avslått</string>
     <!--  Some generic labels 
   -->
     <string name="yes">Ja</string>
@@ -33,7 +30,6 @@
     <string name="cancel">Avbryt</string>
     <!--  Strings in TagEditor 
   -->
-    <string name="tag_title">Tagger for</string>
     <string name="key">nøkkel</string>
     <string name="value">verdi</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>

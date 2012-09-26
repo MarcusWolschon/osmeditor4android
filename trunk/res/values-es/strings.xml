@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Dialogs -->
     <string name="transfer_download_current_dialog_title">¡Cuidado!</string>
@@ -33,13 +33,9 @@
     <!-- Toaster -->
     <string name="toast_no_changes">No ha cambiado nada aun…</string>
     <string name="toast_upload_success">Finalizada la subida al servidor de OSM.</string>
-    <string name="toast_empty_data">No hay elementos en esta area. ¡Gracias por explorar este punto negro!</string>
     <string name="toast_not_in_edit_range">Por favor haga zoom para editar (Volumen Arriba/Abajo o Lens/Shift)</string>
     <string name="toast_save_done">Guardado exitoso</string>
-    <string name="toast_waiting_for_gps">Esperando localización GPS…</string>
-    <string name="toast_follow_gps_off">Seguimiento GPS deshabilitado</string>
     <string name="toast_not_in_bug_range">Por favor haga zoom para añadir un bug (Volumen Arriba/Abajo o Lens/Shift)</string>
-    <string name="toast_file_openstreetbug">Pulse en el mapa para informar de un OpenStreetBug</string>
     <string name="toast_export_failed">Exportación fallida</string>
     <string name="toast_export_success">Exportado a %1$s</string>
     <string name="toast_preset_overwrote_tags">Aviso - preajustes sobreescriben etiqueta(s)</string>
@@ -49,7 +45,6 @@
     <string name="okay">Vale</string>
     <string name="cancel">Cancelar</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Etiquetas para</string>
     <string name="key">key</string>
     <string name="value">value</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>

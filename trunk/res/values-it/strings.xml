@@ -18,18 +18,14 @@
     <!-- Toaster -->
     <string name="toast_no_changes">Non hai ancora modificato niente…</string>
     <string name="toast_upload_success">Caricamento nel server OSM completato.</string>
-    <string name="toast_empty_data">Non esistono elementi in quest\'area. Grazie per l\'esplorazione di quest\'area oscura!</string>
     <string name="toast_not_in_edit_range">Ingrandisci per modificare (Volume Su/Giù o Lente/Interruttore)</string>
     <string name="toast_save_done">Salvato con successo</string>
-    <string name="toast_waiting_for_gps">In attesa della posizione GPS…</string>
-    <string name="toast_follow_gps_off">GPS di ricerca disabilitato</string>
     <!-- Some generic labels -->
     <string name="yes">Sì</string>
     <string name="no">No</string>
     <string name="okay">Ok</string>
     <string name="cancel">Annulla</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Etichette per</string>
     <string name="key">chiave</string>
     <string name="value">valore</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>

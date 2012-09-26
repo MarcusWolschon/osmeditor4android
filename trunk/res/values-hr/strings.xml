@@ -26,20 +26,15 @@
     <!-- Toaster -->
     <string name="toast_no_changes">Još niste ništa promjenili…</string>
     <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
-    <string name="toast_empty_data">Nema elemenata na ovoj površini. Hvala na istraživanju neucrtanih područja!</string>
     <string name="toast_not_in_edit_range">Zumirajte kako bi mogli uređivati, područje preširoko.</string>
     <string name="toast_save_done">Spremanje uspješno.</string>
-    <string name="toast_waiting_for_gps">čekam GPS poziciju…</string>
-    <string name="toast_follow_gps_off">Praćenje GPS pozicije onemogućeno</string>
     <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
-    <string name="toast_file_openstreetbug">Taknite u kartu kako bi prijavili OpenStreetBug</string>
     <!-- Some generic labels -->
     <string name="yes">Da</string>
     <string name="no">Ne</string>
     <string name="okay">U redu</string>
     <string name="cancel">Odustani</string>
     <!-- Strings in TagEditor -->
-    <string name="tag_title">Oznake za</string>
     <string name="key">oznaka</string>
     <string name="value">vrijednost</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
