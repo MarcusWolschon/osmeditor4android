@@ -37,11 +37,4 @@
 		<nature>net.sourceforge.texlipse.builder.TexlipseNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>libs/android-support-v4.jar</name>
-			<type>1</type>
-			<location>C:/Program Files (x86)/Android/android-sdk/extras/android/compatibility/v4/android-support-v4.jar</location>
-		</link>
-	</linkedResources>
 </projectDescription>

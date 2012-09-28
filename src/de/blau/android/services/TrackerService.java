@@ -98,9 +98,9 @@ public class TrackerService extends Service implements LocationListener, Exporta
 			.setContentText(res.getString(R.string.tracking_active_text))
 			.setSmallIcon(R.drawable.osm_logo)
 			.setOngoing(true)
-			.setUsesChronometer(true)
 			.setContentIntent(pendingAppIntent);
-		startForeground(R.id.notification_tracker, notificationBuilder.build());
+		//notificationBuilder.setUsesChronometer(true);
+		startForeground(R.id.notification_tracker, notificationBuilder.getNotification());
 		tracking = true;
 		track.markNewSegment();
 		try {
