@@ -18,12 +18,14 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.DialogFactory;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 
 /**
  * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
@@ -92,7 +94,10 @@ public class EasyEditManager {
 			return false;
 		}
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-		main.startActionMode(new PathCreationActionModeCallback(x, y));
+		// TODO: Need to patch ABS, see https://github.com/JakeWharton/ActionBarSherlock/issues/642
+		if (main.startActionMode(new LongClickActionModeCallback(x, y)) == null) {
+			main.startActionMode(new PathCreationActionModeCallback(x, y));
+		}
 		return true;
 	}
 	
@@ -221,6 +226,60 @@ public class EasyEditManager {
 		}
 	}
 	
+	private class LongClickActionModeCallback extends EasyEditActionModeCallback {
+		private static final int MENUITEM_OSB = 1;
+		private static final int MENUITEM_NEWNODEWAY = 2;
+		private float x;
+		private float y;
+		
+		private boolean isNeeded() {
+			// Test if this action mode is actually necessary
+			Preferences prefs = new Preferences(main.getApplicationContext());
+			return prefs.isOpenStreetBugsEnabled();
+		}
+		
+		public LongClickActionModeCallback(float x, float y) {
+			super();
+			this.x = x;
+			this.y = y;
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			super.onCreateActionMode(mode, menu);
+			mode.setTitle(R.string.menu_add);
+			return isNeeded();
+		}
+		
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			super.onPrepareActionMode(mode, menu);
+			menu.clear();
+			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(R.drawable.tag_menu_bug);
+			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
+			return true;
+		}
+		
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			super.onActionItemClicked(mode, item);
+			switch (item.getItemId()) {
+			case MENUITEM_OSB:
+				mode.finish();
+				logic.setSelectedBug(logic.makeNewBug(x, y));
+				main.showDialog(DialogFactory.OPENSTREETBUG_EDIT);
+				return true;
+			case MENUITEM_NEWNODEWAY:
+				main.startActionMode(new PathCreationActionModeCallback(x, y));
+				return true;
+			default:
+				Log.e("LongClickActionModeCallback", "Unknown menu item");
+				break;
+			}
+			return false;
+		}
+	}
+	
 	/**
 	 * This callback handles path creation. It is started after a long-press.
 	 * During this action mode, clicks are handled by custom code.
@@ -321,7 +380,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(0, MENUITEM_UNDO, 1, R.string.undo).setIcon(R.drawable.undo);
+			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(R.drawable.undo);
 			return true;
 		}
 		
