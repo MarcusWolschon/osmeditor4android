@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -20,7 +19,6 @@ import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
-import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
@@ -1164,6 +1162,7 @@ public class Logic {
 					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_PRECONDITION_FAILED:
 					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
+					case HttpStatus.SC_BAD_GATEWAY:
 					case HttpStatus.SC_SERVICE_UNAVAILABLE:
 						result = DialogFactory.UPLOAD_PROBLEM;
 						break;

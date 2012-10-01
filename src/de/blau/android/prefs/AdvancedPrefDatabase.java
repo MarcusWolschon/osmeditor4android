@@ -213,6 +213,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 									dbresult.getInt(6));
 			dbresult.moveToNext();
 		}
+		dbresult.close();
 		db.close();
 		return result;
 	}
@@ -304,6 +305,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 									dbresult.getString(3));
 			dbresult.moveToNext();
 		}
+		dbresult.close();
 		db.close();
 		return result;
 	}

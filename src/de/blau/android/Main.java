@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.ColorDrawable;
@@ -78,7 +77,6 @@ import de.blau.android.resources.Paints;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
@@ -224,6 +222,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			map.onDestroy();
 		}
 		map = new Map(getApplicationContext());
+		map.setId(1);
 		dialogFactory = new DialogFactory(this);
 
 		//Register some Listener
@@ -1021,26 +1020,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			
 			if (logic.isInEditZoomRange()) {
-				if (prefs.isOpenStreetBugsEnabled()) {
-					new AlertDialog.Builder(Main.this)
-						.setPositiveButton(R.string.openstreetbug_new_bug,
-							new DialogInterface.OnClickListener() {	
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									performBugEdit(logic.makeNewBug(x, y));
-								}
-							})
-						.setNegativeButton(R.string.openstreetbug_new_nodeway,
-							new DialogInterface.OnClickListener() {	
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									easyEditManager.handleLongClick(v, x, y);
-								}
-							})
-						.show();
-				} else {
-					return easyEditManager.handleLongClick(v, x, y);
-				}
+				return easyEditManager.handleLongClick(v, x, y);
 			}
 			
 			return true; // long click handled

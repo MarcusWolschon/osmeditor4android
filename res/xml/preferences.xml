@@ -37,15 +37,7 @@
 			android:defaultValue="10.0"
 		/> -->
 	</PreferenceCategory>
-	<PreferenceCategory 
-		android:title="@string/config_category_server"
-		android:key="@string/config_category_server_key"
-	>
-		<Preference
-			android:title="@string/config_apibutton_title"
-			android:key="@string/config_apibutton_key"
-			android:summary="@string/config_apibutton_summary"
-		/>
+	<PreferenceCategory android:title="@string/config_category_server">
 		<de.blau.android.prefs.LoginDataPreference
 			android:key="@string/config_loginbutton_key"
 			android:title="@string/config_loginbutton_title"
@@ -54,8 +46,7 @@
 			android:singleLine="true"
 		/>
 	</PreferenceCategory>
-
-		
+	
 	<PreferenceCategory android:title="@string/config_advancedprefs">
 		<PreferenceScreen android:title="@string/config_advancedprefs">
 			<PreferenceCategory android:title="@string/config_category_view">
@@ -84,7 +75,6 @@
 					android:defaultValue="true"
 				/>
 			</PreferenceCategory>
-		    			
 			
 			<PreferenceCategory android:title="@string/config_category_gps">
 				<EditTextPreference
@@ -105,6 +95,14 @@
 				/>
 			</PreferenceCategory>
 			
+			<PreferenceCategory android:title="@string/config_category_server">
+				<Preference
+					android:title="@string/config_apibutton_title"
+					android:key="@string/config_apibutton_key"
+					android:summary="@string/config_apibutton_summary"
+				/>
+			</PreferenceCategory>
+			
 			<PreferenceCategory android:title="@string/config_category_acra">
 				<CheckBoxPreference android:key="acra.enable"
 					android:title="@string/pref_enable_acra"
@@ -112,7 +110,7 @@
 					android:summaryOff="@string/pref_acra_disabled"
 					android:defaultValue="true"
 				/>
-			</PreferenceCategory>	
+			</PreferenceCategory>
 		</PreferenceScreen>
 	</PreferenceCategory>
 	
@@ -121,6 +119,6 @@
 			android:title="@string/config_licensebutton_title"
 			android:summary="@string/config_licensebutton_summary"
 			android:key="@string/config_licensebutton_key"
-		/>		
+		/>
 	</PreferenceCategory>
 </PreferenceScreen>
