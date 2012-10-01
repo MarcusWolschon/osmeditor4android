@@ -34,6 +34,8 @@ public class Preferences {
 	private float gpsDistance;
 	
 	private float maxStrokeWidth;
+
+	private boolean forceContextMenu;
 	
 	/**
 	 * @param prefs
@@ -78,6 +80,7 @@ public class Preferences {
 			gpsDistance = 5.0f;
 			gpsInterval = 1000;
 		}
+		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
 	}
 	
 	/**
@@ -148,6 +151,10 @@ public class Preferences {
 	 */
 	public float getGpsDistance() {
 		return gpsDistance;
+	}
+	
+	public boolean getForceContextMenu() {
+		return forceContextMenu;
 	}
 	
 }

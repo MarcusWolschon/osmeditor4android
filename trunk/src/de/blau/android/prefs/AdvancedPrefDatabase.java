@@ -18,7 +18,9 @@ import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 
 /**
- * This class provides access to complex settings like OSM APIs which consist of complex/relational data
+ * This class provides access to complex settings like OSM APIs which consist of complex/relational data.
+ * WARNING: It has nothing to do with the "Advanced preferences" the user sees in the menu;
+ * those are just a separate PreferenceScreen defined in the preferences.xml and handled like normal prefs!
  * @author Jan
  */
 public class AdvancedPrefDatabase extends SQLiteOpenHelper {

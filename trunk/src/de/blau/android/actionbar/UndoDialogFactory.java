@@ -7,7 +7,6 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -75,8 +74,10 @@ public class UndoDialogFactory {
 			setText(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name);
 			int pad = dpToPx(ctx, 15);
 			setPadding(pad, pad, pad, pad);
-			setTextColor(r.getColor(android.R.color.primary_text_dark));
-			setBackgroundColor(Color.DKGRAY);
+			setTextColor(r.getColor(isRedo ? android.R.color.primary_text_light : android.R.color.primary_text_dark));
+			setBackgroundColor(r.getColor(isRedo ? android.R.color.background_light : android.R.color.background_dark));
+			setCompoundDrawablePadding(pad);
+			setCompoundDrawablesWithIntrinsicBounds(isRedo ? R.drawable.undolist_redo : R.drawable.undolist_undo, 0, 0, 0);
 
 			this.index = index;
 			this.isRedo = isRedo;

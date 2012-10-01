@@ -5,10 +5,13 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -17,6 +20,7 @@ import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
@@ -146,6 +150,11 @@ public class Logic {
 	 * Filename of file containing the currently selected edit mode
 	 */
 	private static final String MODE_FILENAME = "editmode.state";
+
+	/** Sorter instance for sorting nodes by distance */
+	private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<OsmElement, Node>();
+	/** Sorter instance for sorting ways by distance */
+	private static final DistanceSorter<Way, Way> waySorter = new DistanceSorter<Way, Way>();
 	
 	/**
 	 * See {@link StorageDelegator}.
@@ -453,6 +462,26 @@ public class Logic {
 	}
 	
 	/**
+	 * Calculates the on-screen distance between a node and the screen coordinate of a click.
+	 * Returns null if the node was outside the click tolerance.
+	 * @param node the node
+	 * @param x the x coordinate of the clicked point
+	 * @param y the y coordinate of the clicked point
+	 * @return The distance between the clicked point and the node in px if the node was within the tolerance value,
+	 *         null otherwise
+	 */
+	private Double clickDistance(Node node, final float x, final float y) {
+		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
+		float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon()) - x);
+		float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat()) - y);
+		
+		if ((differenceX > tolerance) && (differenceY > tolerance))	return null;
+		
+		double dist = Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2));
+		return (dist > tolerance) ? null : dist;
+	}
+	
+	/**
 	 * Returns all nodes within node tolerance from the given coordinates, and their distances from them.
 	 * @param x x display coordinate
 	 * @param y y display coordinate
@@ -462,21 +491,15 @@ public class Logic {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
 		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 
-		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
-		
 		for (Node node : nodes) {
+			if (clickableElements != null && !clickableElements.contains(node)) continue;
+
 			int lat = node.getLat();
 			int lon = node.getLon();
-			if (clickableElements != null && !clickableElements.contains(node)) continue;
+
 			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
-				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
-				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-					double dist = Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2));
-					if (dist <= tolerance) {
-						result.put(node, dist);
-					}
-				}
+				Double dist = clickDistance(node, x, y);
+				if (dist != null) result.put(node, dist);
 			}
 		}
 		
@@ -488,10 +511,10 @@ public class Logic {
 	 * 
 	 * @param x display-coordinate.
 	 * @param y display-coordinate.
-	 * @return all nodes within tolerance found in the currentStorage node-list. null, when no node was found.
+	 * @return all nodes within tolerance found in the currentStorage node-list, ordered ascending by distance.
 	 */
 	public List<OsmElement> getClickedNodes(final float x, final float y) {
-		return new ArrayList<OsmElement>(getClickedNodesWithDistances(x, y).keySet());
+		return nodeSorter.sort(getClickedNodesWithDistances(x, y));
 	}
 
 	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
@@ -534,7 +557,7 @@ public class Logic {
 	 * @return the ways
 	 */
 	public List<Way> getClickedWays(final float x, final float y) {
-		return new ArrayList<Way>(getClickedWaysWithDistances(x, y).keySet());
+		return waySorter.sort(getClickedWaysWithDistances(x, y));
 	}
 	
 	/**
@@ -590,7 +613,7 @@ public class Logic {
 			map.invalidate();
 			draggingNode = (selectedNode != null);
 		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
-			draggingNode = (selectedNode != null && getClickedNodes(x, y).contains(selectedNode));
+			draggingNode = (selectedNode != null && clickDistance(selectedNode, x, y) != null);
 		} else {
 			draggingNode = false;
 		}
@@ -1283,6 +1306,38 @@ public class Logic {
 	 */
 	public boolean exists(OsmElement element) {
 		return delegator.getCurrentStorage().contains(element);
+	}
+	
+	/** Get the X screen coordinate for a node on the screen. */
+	public float getNodeScreenX(Node node) {
+		return GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon());
+	}
+	
+	public float getNodeScreenY(Node node) {
+		return GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat());
+	}
+	
+	/** Helper class for ordering nodes/ways by distance from a click */
+	private static class DistanceSorter<OUTTYPE extends OsmElement, T extends OUTTYPE> {
+		private Comparator<Entry<T, Double>> comparator =
+			new Comparator<Entry<T, Double>>() {
+				public int compare(Entry<T,Double> lhs, Entry<T,Double> rhs) {
+					if (lhs == rhs) return 0;
+					if (lhs.getValue() > rhs.getValue()) return 1;
+					if (lhs.getValue() < rhs.getValue()) return -1;
+					return 0;
+				}
+			};
+		
+		/** Takes an element-distance map and returns the elements ordered by distance */
+		public ArrayList<OUTTYPE> sort(HashMap<T, Double> input) {
+			ArrayList<Entry<T, Double>> entries = new ArrayList<Entry<T,Double>>(input.entrySet());
+			Collections.sort(entries, comparator);
+			
+			ArrayList<OUTTYPE> result = new ArrayList<OUTTYPE>(entries.size());
+			for (Entry<T, Double> entry : entries) result.add(entry.getKey());
+			return result;			
+		}
 	}
 	
 }

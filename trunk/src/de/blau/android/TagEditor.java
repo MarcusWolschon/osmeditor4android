@@ -578,7 +578,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			
 			List<String> result = new ArrayList<String>(keys);
 			Collections.sort(result);
-			return new ArrayAdapter<String>(owner, android.R.layout.simple_dropdown_item_1line, result);
+			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 		}
 		
 		protected ArrayAdapter<String> getValueAutocompleteAdapter() {
@@ -595,7 +595,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 						if (values != null && !values.isEmpty()) {
 							List<String> result = new ArrayList<String>(values);
 							Collections.sort(result);
-							adapter = new ArrayAdapter<String>(owner, android.R.layout.simple_dropdown_item_1line, result);
+							adapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 						}
 					}
 				}
@@ -610,7 +610,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		private ArrayAdapter<String> getStreetNameAutocompleteAdapter() {
 			return (Main.logic == null || Main.logic.delegator == null) ? null :
 				new StreetTagValueAutocompletionAdapter(owner,
-						android.R.layout.simple_dropdown_item_1line, Main.logic.delegator,
+						R.layout.autocomplete_row, Main.logic.delegator,
 						owner.type, owner.osmId);
 		}
 		

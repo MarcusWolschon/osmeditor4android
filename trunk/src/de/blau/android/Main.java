@@ -78,6 +78,7 @@ import de.blau.android.resources.Paints;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
@@ -1174,7 +1175,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					break;
 				default:
 					// multiple possible elements touched - show menu
-					v.showContextMenu();
+					if (menuRequired()) {
+						v.showContextMenu();
+					} else {
+						// menuRequired tells us it's ok to just take the first one
+						easyEditManager.editElement(clickedNodesAndWays.get(0));
+					}
 					break;
 				}
 			}
@@ -1209,6 +1215,49 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 		}
 
+		/**
+		 * Checks if a menu should be shown based on clickedNodesAndWays and clickedBugs.
+		 * ClickedNodesAndWays needs to contain nodes first, then ways, ordered by distance from the click.
+		 * Assumes multiple elements have been clicked, i.e. a choice is necessary unless heuristics work.
+		 */
+		private boolean menuRequired() {
+			// If the context menu setting requires the menu, show it instead of guessing.
+			if (prefs.getForceContextMenu()) return true;
+			
+			// If bugs are clicked, user should always choose
+			if (clickedBugs != null && clickedBugs.size() > 0) return true;
+			
+			if (clickedNodesAndWays.size() < 2) {
+				Log.e("Main", "WTF? menuRequired called for single item?");
+				return true;
+			}
+			
+			// No bugs were clicked. Do we have nodes?
+			if (clickedNodesAndWays.get(0) instanceof Node) {
+				// Usually, we just take the first node.
+				// However, check for *very* closely overlapping nodes first.
+				Node candidate = (Node) clickedNodesAndWays.get(0);
+				float nodeX = logic.getNodeScreenX(candidate);
+				float nodeY = logic.getNodeScreenY(candidate);
+				for (int i = 1; i < clickedNodesAndWays.size(); i++) {
+					if (!(clickedNodesAndWays.get(i) instanceof Node)) break;
+					Node possibleNeighbor = (Node)clickedNodesAndWays.get(i);
+					float node2X = logic.getNodeScreenX(possibleNeighbor);
+					float node2Y = logic.getNodeScreenY(possibleNeighbor);
+					// Fast "square" checking is good enough
+					if (Math.abs(nodeX-node2X) < Paints.NODE_OVERLAP_TOLERANCE_VALUE ||
+						Math.abs(nodeY-node2Y) < Paints.NODE_OVERLAP_TOLERANCE_VALUE ) {
+							// The first node has an EXTREMELY close neighbour. Show context menu
+							return true;
+					}
+				}
+				return false; // no colliding neighbours found
+			}
+			
+			// No nodes means we have at least two ways. Since the tolerance for ways is tiny, show the menu.
+			return true;
+		}
+		
 		@Override
 		public boolean onMenuItemClick(final android.view.MenuItem item) {
 			int itemId = item.getItemId();

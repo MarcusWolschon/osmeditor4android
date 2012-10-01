@@ -18,4 +18,5 @@
     <string name="config_iconbutton_key">iconsettings-button</string>
     <string name="config_licensebutton_key">licenseview-button</string>
     <string name="config_selected_api">selectedAPI</string>
+    <string name="config_forceContextMenu_key">forceContextMenu</string>
 </resources>
