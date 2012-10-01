@@ -65,6 +65,8 @@ public class Paints {
 	private final Paint[] paints;
 
 	public static final float NODE_TOLERANCE_VALUE = 40f;
+	
+	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
 	public static final float WAY_TOLERANCE_VALUE = 40f;
 

@@ -145,6 +145,9 @@
     <string name="config_gps_interval_title">Minimum GPS-Interval</string>
     <string name="config_gps_interval_summary">The minimum time interval for GPS notifications, in milliseconds. Lower value cause more battery usage.</string>
     <string name="config_category_info">About</string>
+    <string name="config_advancedprefs">Advanced preferences</string>
+    <string name="config_forceContextMenu_title">Always use context menu</string>
+    <string name="config_forceContextMenu_summary">Always show the context menu in EasyEdit mode if the selection is ambiguous.</string>
     <string name="config_licensebutton_title">Authors and licenses</string>
     <string name="config_licensebutton_summary">Show authors and license information</string>
     <!-- preset downloader messages -->
