@@ -10,9 +10,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import de.blau.android.DialogFactory;
 import de.blau.android.LicenseViewer;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 
@@ -24,10 +22,9 @@ import de.blau.android.prefs.AdvancedPrefDatabase.API;
 public class PrefEditor extends SherlockPreferenceActivity {
 	
 	private Resources r;
-	private String KEY_PREFAPI;
 	private String KEY_PREFLOGIN;
-	private String KEY_PREFPRESET;
 	private String KEY_PREFICONS;
+	private String KEY_ADVPREFS;
 	private String KEY_LICENSE;
 	
 	@Override
@@ -36,10 +33,9 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		
 		addPreferencesFromResource(R.xml.preferences);
 		r = getResources();
-		KEY_PREFAPI = r.getString(R.string.config_apibutton_key);
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
-		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
+		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
 		fixUpPrefs();
 		
@@ -51,18 +47,11 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	protected void onResume() {
 		super.onResume();
 	
-		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
 		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
 		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
 		AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
 		API current = db.getCurrentAPI();
-		if (current.id.equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-			apipref.setSummary(R.string.config_apibutton_summary);
-			loginpref.setSummary(R.string.config_username_summary);
-		} else {
-			apipref.setSummary(current.name.equals("") ? current.url : current.name);
-			loginpref.setSummary(null);
-		}
+		loginpref.setSummary(current.id.equals(AdvancedPrefDatabase.ID_DEFAULT) ? R.string.config_username_summary : null);
 		iconspref.setChecked(current.showicon);
 	}
 	
@@ -78,25 +67,12 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
 	private void fixUpPrefs() {
-		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
-		apipref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(PrefEditor.this, APIEditorActivity.class);
-				if (Main.hasChanges()) {
-					DialogFactory.createDataLossActivityDialog(PrefEditor.this, intent, -1).show();
-				} else {
-					startActivity(intent);
-				}
-				return true;
-			}
-		});
 		
-		Preference presetpref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
-		presetpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		Preference advprefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
+		advprefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				startActivity(new Intent(PrefEditor.this, PresetEditorActivity.class));
+				startActivity(new Intent(PrefEditor.this, AdvancedPrefEditor.class));
 				return true;
 			}
 		});
@@ -110,7 +86,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 				return true;
 			}
 		});
-
+		
 		Preference licensepref = getPreferenceScreen().findPreference(KEY_LICENSE);
 		licensepref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
@@ -119,9 +95,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 				return true;
 			}
 		});
-
+		
 	}
 	
-
-
 }
