@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+>
+	<PreferenceCategory android:title="@string/config_category_view">
+		<ListPreference
+			android:key="@string/config_backgroundLayer_key"
+			android:title="@string/config_backgroundLayer_title"
+			android:summary="@string/config_backgroundLayer_summary"
+			android:entries="@array/renderer_names"
+			android:entryValues="@array/renderer_ids"
+			android:defaultValue="MAPNIK"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableOpenStreetBugs_key"
+			android:title="@string/config_enableOpenStreetBugs_title"
+			android:summary="@string/config_enableOpenStreetBugs_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
+			android:title="@string/config_iconbutton_title"
+			android:key="@string/config_iconbutton_key"
+			android:summary="@string/config_iconbutton_summary"
+			android:persistent="false"
+		/>
+		<!-- <EditTextPreference
+			android:key="@string/config_maxStrokeWidth_key"
+			android:title="@string/config_maxStrokeWidth_title"
+			android:summary="@string/config_maxStrokeWidth_summary"
+			android:dialogTitle="@string/config_maxStrokeWidth_title"
+			android:numeric="decimal"
+			android:defaultValue="10.0"
+		/> -->
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/config_category_server">
+		<de.blau.android.prefs.LoginDataPreference
+			android:key="@string/config_loginbutton_key"
+			android:title="@string/config_loginbutton_title"
+			android:summary="@string/config_username_summary"
+			android:dialogTitle="@string/config_loginbutton_title"
+			android:singleLine="true"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/config_advancedprefs">
+		<Preference
+			android:title="@string/config_advancedprefs"
+			android:key="@string/config_advancedprefs_key"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/config_category_info">
+		<Preference
+			android:title="@string/config_licensebutton_title"
+			android:summary="@string/config_licensebutton_summary"
+			android:key="@string/config_licensebutton_key"
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>

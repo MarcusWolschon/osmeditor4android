@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/config_category_view">
+		<CheckBoxPreference
+			android:key="@string/config_forceContextMenu_key"
+			android:title="@string/config_forceContextMenu_title"
+			android:summary="@string/config_forceContextMenu_summary"
+			android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_showTolerance_key"
+			android:title="@string/config_showTolerance_title"
+			android:summary="@string/config_showTolerance_summary"
+			android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableAntiAliasing_key"
+			android:title="@string/config_enableAntiAliasing_title"
+			android:summary="@string/config_enableAntiAliasing_summary"
+			android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_showStats_key"
+			android:title="@string/config_showStats_title"
+			android:summary="@string/config_showStats_summary"
+			android:defaultValue="true"
+		/>
+		<Preference
+			android:title="@string/config_presetbutton_title"
+			android:key="@string/config_presetbutton_key"
+			android:summary="@string/config_presetbutton_summary"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/config_category_gps">
+		<EditTextPreference
+			android:key="@string/config_gps_interval_key"
+			android:title="@string/config_gps_interval_title"
+			android:summary="@string/config_gps_interval_summary"
+			android:dialogTitle="@string/config_gps_interval_title"
+			android:defaultValue="1000"
+			android:numeric="integer"
+		/>
+		<EditTextPreference
+			android:key="@string/config_gps_distance_key"
+			android:title="@string/config_gps_distance_title"
+			android:summary="@string/config_gps_distance_summary"
+			android:dialogTitle="@string/config_gps_distance_title"
+			android:numeric="decimal"
+			android:defaultValue="5.0"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/config_category_server">
+		<Preference
+			android:title="@string/config_apibutton_title"
+			android:key="@string/config_apibutton_key"
+			android:summary="@string/config_apibutton_summary"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/config_category_acra">
+		<CheckBoxPreference android:key="acra.enable"
+			android:title="@string/pref_enable_acra"
+			android:summaryOn="@string/pref_acra_enabled"
+			android:summaryOff="@string/pref_acra_disabled"
+			android:defaultValue="true"
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>

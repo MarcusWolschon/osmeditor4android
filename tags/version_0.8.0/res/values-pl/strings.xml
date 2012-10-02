@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Polish translator: Zbigniew Czernik -->
+<resources>
+    <!-- Dialogs -->
+    <string name="transfer_download_current_dialog_title">Uwaga!</string>
+    <string name="transfer_download_current_dialog_message">Wykonałeś kilka zmian. Chcesz je wysłać zamiast usunąć?</string>
+    <string name="transfer_download_current_upload">Wyślij</string>
+    <string name="transfer_download_current_download">Odrzuć &amp; pobierz</string>
+    <string name="transfer_download_current_back">Wróć (nic nie rób)</string>
+    <string name="no_login_data_title">Brak danych logowania</string>
+    <string name="no_login_data_message">Uzupełnij dane logowania w ustawieniach.</string>
+    <string name="no_connection_title">Brak połączenia z serwerem</string>
+    <string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
+    <string name="wrong_login_data_title">Błędne dane logowania</string>
+    <string name="wrong_login_data_message">Błąd logowania. Sprawdź poprawność swoich danych w ustawieniach.</string>
+    <string name="progress_title">Ładowanie</string>
+    <string name="progress_message">Ładowanie danych do pamięci…</string>
+    <string name="progress_download_message">Pobieranie danych z serwera…</string>
+    <string name="upload_comment_label">Komentarz:</string>
+    <string name="openstreetbug_new_title">Nowy OpenStreetBug</string>
+    <string name="openstreetbug_edit_title">Edytuj OpenStreetBug</string>
+    <string name="openstreetbug_commitbutton">Wyślij</string>
+    <string name="openstreetbug_comment_label">Komentarz:</string>
+    <string name="openstreetbug_edit_close">Zamknij błąd</string>
+    <string name="openstreetbug_commit_ok">Zapisano zmiany</string>
+    <string name="openstreetbug_commit_fail">Nie można zapisać zmian</string>
+    <!-- Toaster -->
+    <string name="toast_no_changes">Jeszcze nic nie zmieniłeś…</string>
+    <string name="toast_upload_success">Wysyłanie na serwer OSM zakończone.</string>
+    <string name="toast_not_in_edit_range">Przybliż, by edytować (Volume Up/Down lub Lens/Shift)</string>
+    <string name="toast_save_done">Zapisano</string>
+    <string name="toast_not_in_bug_range">Przybliż, by dodać zgłosić błąd (Volume Up/Down lub Lens/Shift)</string>
+    <!-- Some generic labels -->
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="okay">OK</string>
+    <string name="cancel">Anuluj</string>
+    <!-- Strings in TagEditor -->
+    <string name="key">klucz</string>
+    <string name="value">wartość</string>
+    <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>
+    <string name="tag_menu_mapfeatures">Podstawy (Wiki)</string>
+    <!-- Strings in LocationPicker -->
+    <string name="location_headline">Ładuj obszar</string>
+    <string name="location_choose_radius">Wybierz promień:</string>
+    <string name="location_last_text">Ostatnia znana pozycja:</string>
+    <string name="location_current_text">Obecna pozycja:</string>
+    <string name="location_text_unknown">nieznane</string>
+    <string name="location_last_text_parameterized">Ostatnia znana pozycja: %1$s</string>
+    <string name="location_current_text_parameterized">Obecna pozycja: %1$s</string>
+    <string name="location_text_metadata_location">Szer. %1$4g, Dł. %2$4g %3$s</string>
+    <string name="location_text_metadata_accuracy">Dokładność %1$1g m,</string>
+    <string name="location_map_text">Z mapy (wkrótce)</string>
+    <string name="location_coordinates_text">Wg współrzędnych:</string>
+    <string name="location_lat_label">Szer:</string>
+    <string name="location_lon_label">Dł:</string>
+    <string name="location_load_button">Load!</string>
+    <string name="location_button_no_location">Nie ładuj niczego</string>
+    <string name="location_label_no_location">(niezalecane)</string>
+    <string name="location_nan_title">Złe dane!</string>
+    <string name="location_nan_message">Wprowadź współrzędne w formacie dziesiętnym (np. "52.333572","22.741185"). </string>
+    <!-- Menu -->
+    <string name="menu_move">Przesuń</string>
+    <string name="menu_edit">Edytuj</string>
+    <string name="menu_add">Nowy</string>
+    <string name="menu_config">Ustawienia</string>
+    <string name="menu_erase">Skasuj węzeł</string>
+    <string name="menu_split">Podziel drogę</string>
+    <string name="menu_append">Dołącz</string>
+    <string name="menu_tag">Edytuj tagi</string>
+    <string name="menu_openstreetbug">OpenStreetBug</string>
+    <string name="menu_gps">GPS…</string>
+    <string name="menu_gps_follow">Podążaj za pozycją GPS</string>
+    <string name="menu_gps_upload">Wyślij ślad GPS</string>
+    <string name="menu_transfer">Transfer…</string>
+    <string name="menu_transfer_download_current">Pobierz bieżący widok</string>
+    <string name="menu_transfer_download_other">Pobierz inny obszar</string>
+    <string name="menu_transfer_upload">Wyślij dane do serwera OSM</string>
+    <string name="menu_save">Zapisz do pliku</string>
+    <!-- Preferences -->
+    <string name="config_category_view">Ustawienia</string>
+    <string name="config_maxStrokeWidth_title">max szerokość</string>
+    <string name="config_maxStrokeWidth_summary">nie rysuj linii grybszej niż</string>
+    <string name="config_showStats_title">Pokaż statystyki</string>
+    <string name="config_showStats_summary">Wyświetla szybkość obrazu w ramkach/sek. w dolnym lewym rogu.</string>
+    <string name="config_showTolerance_title">Pokaż tolerancję</string>
+    <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
+    <string name="config_enableAntiAliasing_title">Włącz wygładzanie</string>
+    <string name="config_enableAntiAliasing_summary">Wygładza wyświetlane linie</string>
+    <string name="config_enableOpenStreetBugs_title">Włącz OpenStreetBugs</string>
+    <string name="config_enableOpenStreetBugs_summary">Wyświetla błędy zgłoszone do OpenStreetBugs.</string>
+    <string name="config_backgroundLayer_title">Mapa jako tło</string>
+    <string name="config_backgroundLayer_summary">Wybierz mapę, która zostanie użyta jako tło.</string>
+    <string name="config_category_server">Dane logowania</string>
+    <string name="config_username_title">Nazwa konta OSM</string>
+    <string name="config_username_summary">Potrzebne do wysłania danych na serwer OSM. Jeśli jeszcze nie masz, załóż na https://www.openstreetmap.org/user/new</string>
+    <string name="config_password_title">Hasło do konta OSM</string>
+    <string name="config_password_summary">Pamiętaj: Hasło jest przechowywane i wysyłane w postaci czystego tekstu!</string>
+    <string name="config_category_gps">Ustawienia GPS</string>
+    <string name="config_gps_distance_title">Minimum GPS-Distance</string>
+    <string name="config_gps_distance_summary">Minimalny dystans pomiędzy zapisami pozycji GPS, w metrach. Im mniejsza wartość, tym większe zużycie baterii.</string>
+    <string name="config_gps_interval_title">Minimum GPS-Interval</string>
+    <string name="config_gps_interval_summary">Minimalny odstęp czasowy pomiędzy zapisami pozycji GPS, w milisekundach. Im mniejsza wartość, tym większe zużycie baterii.</string>
+    <!--  changes -->
+    <string name="changes_deleted">"%1$s" skasowano</string>
+    <string name="changes_changed">"%1$s" zmieniono</string>
+    <string name="changes_created">"%1$s" utworzono</string>
+    <string name="confirm_upload_title">Wysłać?</string>
+    <string name="confirm_upload_text">Wysłać zmiany?\n%1$s</string>
+    <string name="location_default_radius">300m</string>
+</resources>
