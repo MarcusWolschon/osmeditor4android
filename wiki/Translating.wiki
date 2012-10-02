@@ -2,21 +2,21 @@
 
 = Status =
 
-As at 2012-09-19:
+As at 2012-10-02:
 || *Language* || *Code*   || *Status* || *%* || *Issue#* ||
-|| Danish     || da       ||  77/186 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=121 121] ||
-|| Hungarian  || hu       ||  77/186 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=35 35] ||
-|| Italian    || it       ||  77/186 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=45 45] ||
-|| Norwegian  || nb,nn,no ||  77/186 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=97 97] ||
-|| Russian    || ru       ||  77/186 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=53 53] ||
-|| Croatian   || hr       ||  99/186 || 53%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=87 87] ||
-|| Japanese   || jp       ||  99/186 || 53%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=123 123] ||
-|| Polish     || pl       ||  99/186 || 53%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=102 102] ||
-|| Czech      || cs       || 146/186 || 78%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=32 32] ||
-|| German     || de       || 186/186 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=34 34] ||
-|| Spanish    || es       || 186/186 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=129 129] ||
-|| French     || fr       || 186/186 || 100%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=122 122] ||
-|| Portuguese || pt       || 186/186 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=125 125] ||
+|| Danish     || da       ||  77/188 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=121 121] ||
+|| Hungarian  || hu       ||  77/188 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=35 35] ||
+|| Italian    || it       ||  77/188 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=45 45] ||
+|| Russian    || ru       ||  77/188 || 41%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=53 53] ||
+|| Croatian   || hr       ||  99/188 || 53%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=87 87] ||
+|| Japanese   || jp       ||  99/188 || 53%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=123 123] ||
+|| Polish     || pl       ||  99/188 || 53%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=102 102] ||
+|| Czech      || cs       || 145/188 || 77%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=32 32] ||
+|| Norwegian  || nb,nn,no || 177/188 || 94%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=97 97] ||
+|| French     || fr       || 185/188 || 98%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=122 122] ||
+|| German     || de       || 185/188 || 98% || [http://code.google.com/p/osmeditor4android/issues/detail?id=34 34] ||
+|| Portuguese || pt       || 185/188 || 98% || [http://code.google.com/p/osmeditor4android/issues/detail?id=125 125] ||
+|| Spanish    || es       || 188/188 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=129 129] ||
 
 = Introduction =
 
