@@ -15,7 +15,7 @@ As at 2012-10-02:
 || Norwegian  || nb,nn,no || 177/188 || 94%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=97 97] ||
 || French     || fr       || 185/188 || 98%  || [http://code.google.com/p/osmeditor4android/issues/detail?id=122 122] ||
 || German     || de       || 185/188 || 98% || [http://code.google.com/p/osmeditor4android/issues/detail?id=34 34] ||
-|| Portuguese || pt       || 185/188 || 98% || [http://code.google.com/p/osmeditor4android/issues/detail?id=125 125] ||
+|| Portuguese || pt       || 188/188 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=125 125] ||
 || Spanish    || es       || 188/188 || 100% || [http://code.google.com/p/osmeditor4android/issues/detail?id=129 129] ||
 
 = Introduction =
