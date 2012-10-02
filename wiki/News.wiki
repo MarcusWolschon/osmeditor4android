@@ -3,7 +3,7 @@
 
 =Version 0.8.0=
 
-Version 0.8.0 is almost ready! It's been more than a year since 0.7.0 was released and we have lots of new features:
+2012-10-02: Version 0.8.0 is now available! It's been more than a year since 0.7.0 was released and we have lots of new features:
 
  * New Honeycomb style Action Bar user interface, even on pre-HC devices.
  * New !EasyEdit editing mode that unifies all previous editing modes (which are still available) into one mode.
