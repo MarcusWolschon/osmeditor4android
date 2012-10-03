@@ -65,7 +65,6 @@
     <string name="location_current_text_parameterized">Aktuelle Position: %1$s</string>
     <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
     <string name="location_text_metadata_accuracy">Genauigkeit %1$1g Meter,</string>
-    <!--  TODO: translate -->
     <string name="location_map_text">Von Karte (geplant)</string>
     <string name="location_coordinates_text">Von Koordinaten:</string>
     <string name="location_lat_label">Lat:</string>
@@ -88,6 +87,7 @@
     <string name="menu_gps">GPS…</string>
     <string name="menu_openstreetbug">Erzeuge OpenStreetBug</string>
     <string name="menu_easyedit">EasyEdit</string>
+    <string name="menu_gps">GPS…</string>
     <string name="menu_gps_show">GPS-Position anzeigen</string>
     <string name="menu_gps_follow">GPS-Position folgen</string>
     <string name="menu_gps_start">GPS-Track starten</string>
@@ -147,6 +147,9 @@
     <string name="config_gps_interval_title">Minimaler GPS-Interval</string>
     <string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauchen mehr Batterie.</string>
     <string name="config_category_info">Informationen</string>
+    <string name="config_advancedprefs">Erweiterte Einstellungen</string>
+    <string name="config_forceContextMenu_title">Immer Kontext Menü benutzen</string>
+    <string name="config_forceContextMenu_summary">In EasyEdit Modus immer Kontext Menü zeigen wenn Auswahl uneindeutig.</string>
     <string name="config_licensebutton_title">Autoren und Lizenzen</string>
     <string name="config_licensebutton_summary">Zeige Autoren- und Lizenzinformationen</string>
     <!-- preset downloader messages -->
