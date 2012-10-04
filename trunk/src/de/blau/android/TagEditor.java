@@ -302,25 +302,24 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	}
 	
 	private void createRecentPresetView() {
-		if (Main.getCurrentPreset() == null) return;
-		
-		ElementType filterType = element.getType();
-		View v = Main.getCurrentPreset().getRecentPresetView(this, new PresetClickHandler() {
-			
-			@Override
-			public void onItemClick(PresetItem item) {
-				applyPreset(item);
-			}
-			
-			@Override
-			public void onGroupClick(PresetGroup group) {
-				// should not have groups
-			}
-		},filterType);
-		v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-		v.setPadding(20, 20, 20, 20);
-		v.setId(R.id.recentPresets);
-		verticalLayout.addView(v);
+		if (Main.getCurrentPreset() != null && element != null) {
+			ElementType filterType = element.getType();
+			View v = Main.getCurrentPreset().getRecentPresetView(this, new PresetClickHandler() {
+				@Override
+				public void onItemClick(PresetItem item) {
+					applyPreset(item);
+				}
+				
+				@Override
+				public void onGroupClick(PresetGroup group) {
+					// should not have groups
+				}
+			}, filterType);
+			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+			v.setPadding(20, 20, 20, 20);
+			v.setId(R.id.recentPresets);
+			verticalLayout.addView(v);
+		}
 	}
 	
 	
