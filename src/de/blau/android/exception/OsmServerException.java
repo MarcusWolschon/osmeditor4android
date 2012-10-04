@@ -39,7 +39,7 @@ public class OsmServerException extends OsmException {
 	public static String errorCodeToMeaning(final int errorCode) {
 		switch (errorCode) {
 		case HttpStatus.SC_BAD_REQUEST:
-			return "The payload did not match the request. This happens for example when an \"update\" request is made and the obejct id given in the XML does not match the object id in the URL, or if the requested bounding box is too big.";
+			return "The payload did not match the request. This happens for example when an \"update\" request is made and the object id given in the XML does not match the object id in the URL, or if the requested bounding box is too big.";
 		case HttpStatus.SC_UNAUTHORIZED:
 			return "A write request was attempted without (valid) HTTP Basic Authorization. ";
 		case HttpStatus.SC_NOT_FOUND:

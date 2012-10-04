@@ -13,8 +13,6 @@ import de.blau.android.presets.Preset.PresetItem;
 public class PresetDialog extends Dialog implements PresetClickHandler {
 	
 	private final Context context;
-	/** The preset data used by this dialog */
-	private final Preset preset;
 	
 	/** The OSM element to which the preset will be applied (used for filtering) */
 	private OsmElement element;
@@ -32,7 +30,6 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	public PresetDialog(Context context, Preset preset, OsmElement element) {
 		super(context, android.R.style.Theme_DeviceDefault_NoActionBar);
 		this.context = context;
-		this.preset = preset;
 		this.element = element;
 		
 		currentGroup = preset.getRootGroup();

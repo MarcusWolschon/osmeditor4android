@@ -737,6 +737,7 @@ public class Preset {
 	 * Adapter providing the preset elements in this group
 	 * currently unused, left here in case it is later needed
 	 */
+	@SuppressWarnings("unused")
 	private class PresetGroupAdapter extends BaseAdapter {
 	
 		private final ArrayList<PresetElement> elements;
