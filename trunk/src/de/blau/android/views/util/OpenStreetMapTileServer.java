@@ -328,7 +328,7 @@ public class OpenStreetMapTileServer {
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
 	 * @return
 	 */
-	public static OpenStreetMapTileServer get(final Resources r, final String id, final boolean async) {
+	public synchronized static OpenStreetMapTileServer get(final Resources r, final String id, final boolean async) {
 		if (cached == null || !cached.id.equals(id)) {
 			String ids[] = r.getStringArray(R.array.renderer_ids);
 			String cfgs[] = r.getStringArray(R.array.renderer_configs);
