@@ -69,7 +69,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		myView = aView;
 		myRendererInfo = aRendererInfo;
 		if(aTileProvider == null) {
-			mTileProvider = new OpenStreetMapTileProvider(myView.getContext().getApplicationContext(), new SimpleInvalidationHandler());
+			mTileProvider = new OpenStreetMapTileProvider(myView.getContext().getApplicationContext(), new SimpleInvalidationHandler(myView));
 		} else {
 			mTileProvider = aTileProvider;
 		}
@@ -338,13 +338,17 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	/**
 	 * Invalidate myView when a new tile got downloaded.
 	 */
-	private class SimpleInvalidationHandler extends Handler {
-
+	private static class SimpleInvalidationHandler extends Handler {
+		private View v;
+		public SimpleInvalidationHandler(View v) {
+			super();
+			this.v = v;
+		}
 		@Override
 		public void handleMessage(final Message msg) {
 			switch (msg.what) {
 				case OpenStreetMapTile.MAPTILE_SUCCESS_ID:
-					myView.invalidate();
+					v.invalidate();
 					break;
 			}
 		}
