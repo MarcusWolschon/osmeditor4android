@@ -8,9 +8,11 @@
 	android:installLocation="auto"
 	>
 	
+	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
 	<uses-feature android:name="android.hardware.faketouch" />
+	-->
 	<uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
 	<uses-feature android:name="android.hardware.location" android:required="false" />
 	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
@@ -20,6 +22,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- cache tiles -->
 	
+	<!-- minSdkVersion is set to 7 to match ActionBarSherlock, but should be able to be set to 4 when ABS supports it -->
 	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14" />
 	
 	<application
@@ -87,6 +90,7 @@
 		<service
 			android:name=".services.OpenStreetMapTileProviderService"
 			android:process=":remote"
+			android:exported="false"
 			android:label="OpenStreetMapTileProviderService"
 			>
 			<intent-filter>

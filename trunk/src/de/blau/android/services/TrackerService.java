@@ -23,6 +23,7 @@ import de.blau.android.R;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.services.util.ServiceCompat;
 import de.blau.android.util.SavingHelper.Exportable;
 
 public class TrackerService extends Service implements LocationListener, Exportable {
@@ -46,10 +47,13 @@ public class TrackerService extends Service implements LocationListener, Exporta
 	private Location lastLocation = null;
 	
 	private boolean gpsEnabled = false;
+	
+	private ServiceCompat serviceCompat = null;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		serviceCompat = new ServiceCompat(this);
 		Log.d(TAG, "onCreate");
 		track = new Track(this);
 		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
@@ -59,6 +63,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 	public void onDestroy() {
 		stopTracking(false);
 		track.close();
+		serviceCompat.destroy();
 		super.onDestroy();
 	}
 	
@@ -100,7 +105,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 			.setOngoing(true)
 			.setUsesChronometer(true)
 			.setContentIntent(pendingAppIntent);
-		startForeground(R.id.notification_tracker, notificationBuilder.build());
+		serviceCompat.startForeground(R.id.notification_tracker, notificationBuilder.build());
 		tracking = true;
 		track.markNewSegment();
 		try {
@@ -125,7 +130,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 		}
 		tracking = false;
 		updateGPSState();
-		stopForeground(true);
+		serviceCompat.stopForeground(R.id.notification_tracker);
 		stopSelf();
 	}
 	

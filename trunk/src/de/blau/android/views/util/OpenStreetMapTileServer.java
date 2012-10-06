@@ -16,6 +16,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -208,7 +209,7 @@ public class OpenStreetMapTileServer {
 							URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
 							conn.setRequestProperty("User-Agent", Application.userAgent);
 							InputStream bis = conn.getInputStream();
-							brandLogo = new BitmapDrawable(r, bis);
+							brandLogo = new BitmapDrawable(r, BitmapFactory.decodeStream(bis));
 						}
 					}
 					if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {

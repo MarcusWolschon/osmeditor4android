@@ -1,6 +1,5 @@
 package de.blau.android;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.view.View;
  * @author Adam Powell, modified by Andrew Gregory for Vespucci
  * @author Jan Schejbal added long-click detection
  */
-@SuppressLint("NewApi")
 public abstract class VersionedGestureDetector {
 	private static final float DRAG_THRESHOLD = 20f;
 	public static final long LONG_PRESS_DELAY = 500;
@@ -46,6 +44,7 @@ public abstract class VersionedGestureDetector {
 		return detector;
 	}
 	
+	@TargetApi(3)
 	private static class CupcakeDetector extends VersionedGestureDetector {
 		float mFirstTouchX;
 		float mFirstTouchY;
@@ -188,6 +187,7 @@ public abstract class VersionedGestureDetector {
 		
 	}
 	
+	@TargetApi(5)
 	private static class EclairDetector extends CupcakeDetector {
 		private static final int INVALID_POINTER_ID = -1;
 		private int mActivePointerId = INVALID_POINTER_ID;
