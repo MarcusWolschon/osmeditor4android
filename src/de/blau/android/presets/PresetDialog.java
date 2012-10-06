@@ -2,6 +2,7 @@ package de.blau.android.presets;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.View;
 
 import de.blau.android.R;
@@ -36,7 +37,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 		
 		updateView();
 	}
-
+	
 	private void updateView() {
 		View view = currentGroup.getGroupView(context, this, element.getType());
 		view.setBackgroundColor(context.getResources().getColor(R.color.preset_bg));
@@ -47,16 +48,18 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	 * If this is not the root group, back goes one group up, otherwise, the default is triggered (cancelling the dialog)
 	 */
 	@Override
-	public void onBackPressed() {
-		PresetGroup group = currentGroup.getParent();
-		if (group != null) {
-			currentGroup = group;
-			updateView();
-		} else {
-			super.onBackPressed();
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			PresetGroup group = currentGroup.getParent();
+			if (group != null) {
+				currentGroup = group;
+				updateView();
+				return true;
+			}
 		}
+		return super.onKeyDown(keyCode, event);
 	}
-
+	
 	/**
 	 * Handle clicks on icons representing an item (closing the dialog with the item as a result)
 	 */
@@ -65,8 +68,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 		dialogResult = item;
 		dismiss();
 	}
-
-
+	
 	/**
 	 * Handle clicks on icons representing a group (changing to that group)
 	 */
@@ -79,6 +81,5 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	public PresetItem getDialogResult() {
 		return dialogResult;
 	}
-
 	
 }

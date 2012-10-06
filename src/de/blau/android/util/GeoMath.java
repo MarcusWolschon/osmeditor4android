@@ -1,6 +1,5 @@
 package de.blau.android.util;
 
-import android.util.Pair;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
@@ -249,7 +248,7 @@ public class GeoMath {
 	 * @param node2Y
 	 * @return
 	 */
-	public static Pair<Float, Float> closestPoint(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
+	public static float[] closestPoint(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
 		// http://paulbourke.net/geometry/pointline/
 		float dx = node2X - node1X;
 		float dy = node2Y - node1Y;
@@ -271,6 +270,6 @@ public class GeoMath {
 				cy = (float)(node1Y + u * dy);
 			}
 		}
-		return new Pair<Float, Float>(cx, cy);
+		return new float[]{cx, cy};
 	}
 }

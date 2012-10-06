@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -105,7 +106,7 @@ public class PresetIconManager {
 			
 			if (pngStream == null) return null;
 			
-			BitmapDrawable drawable = new BitmapDrawable(context.getResources(), pngStream); // resources used only for density
+			BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
 			drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
 			int pxsize = dpToPx(size);
 			drawable.setBounds(0, 0, pxsize, pxsize);

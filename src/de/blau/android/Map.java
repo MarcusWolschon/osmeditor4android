@@ -1,12 +1,13 @@
 package de.blau.android;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
@@ -56,6 +58,9 @@ public class Map extends View implements IMapView {
 	private static final String DEBUG_TAG = Map.class.getSimpleName();
 
 	public static final int ICON_SIZE_DP = 20;
+	
+	/** Use reflection to access Canvas method only available in API11. */
+	private static final Method mIsHardwareAccelerated;
 	
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
@@ -111,7 +116,16 @@ public class Map extends View implements IMapView {
 
 	private TrackerService tracker;
 	
-		
+	static {
+		Method m;
+		try {
+			m = Canvas.class.getMethod("isHardwareAccelerated", (Class[])null);
+		} catch (NoSuchMethodException e) {
+			m = null;
+		}
+		mIsHardwareAccelerated = m;
+	}
+	
 	public Map(final Context context) {
 		super(context);
 		
@@ -237,10 +251,17 @@ public class Map extends View implements IMapView {
 	 * @param c Canvas to check
 	 * @return true if the canvas supports proper clipping with Op.DIFFERENCE
 	 */
-	@SuppressLint("NewApi")
 	private boolean hasFullClippingSupport(Canvas c) {
-		if (Build.VERSION.SDK_INT < 11) return true; // Older versions do not use hardware acceleration
-		return !c.isHardwareAccelerated();
+		if (Build.VERSION.SDK_INT >= 11 && mIsHardwareAccelerated != null) {
+			try {
+				return !(Boolean)mIsHardwareAccelerated.invoke(c, (Object[])null);
+			} catch (IllegalArgumentException e) {
+			} catch (IllegalAccessException e) {
+			} catch (InvocationTargetException e) {
+			}
+		}
+		// Older versions do not use hardware acceleration
+		return true;
 	}
 	
 	@Override
