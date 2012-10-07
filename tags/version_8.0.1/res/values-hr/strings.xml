@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <!-- Dialogs -->
+    <string name="transfer_download_current_dialog_title">Oprez!</string>
+    <string name="transfer_download_current_dialog_message">Napravili ste promjene. Želite li ih prvo spremiti na poslužitelj umjesto brisanja?</string>
+    <string name="transfer_download_current_upload">Spremi</string>
+    <string name="transfer_download_current_download">Obriši i skini nove</string>
+    <string name="transfer_download_current_back">Odustani</string>
+    <string name="no_login_data_title">Niste upisali podatke za prijavu</string>
+    <string name="no_login_data_message">Molim upišite podatke za prijavu na Openstreetmap u postavkama.</string>
+    <string name="no_connection_title">Poslužitelj nedostupan</string>
+    <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>
+    <string name="wrong_login_data_title">Loši podaci za prijavu</string>
+    <string name="wrong_login_data_message">OSM poslužitelj vas ne prepoznaje. Provjerite svoje podatke prijave u postavkama.</string>
+    <string name="progress_title">Učitavanje</string>
+    <string name="progress_message">Učitavanje podataka u memoriju…</string>
+    <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
+    <string name="upload_comment_label">Komentar:</string>
+    <string name="openstreetbug_new_title">Novi OpenStreetBug</string>
+    <string name="openstreetbug_edit_title">Uredi OpenStreetBug</string>
+    <string name="openstreetbug_commitbutton">Spremi</string>
+    <string name="openstreetbug_comment_label">Komentar:</string>
+    <string name="openstreetbug_edit_close">Zatvori bug</string>
+    <string name="openstreetbug_commit_ok">Promjene spremljene</string>
+    <string name="openstreetbug_commit_fail">Ne mogu spremiti promjene</string>
+    <!-- Toaster -->
+    <string name="toast_no_changes">Još niste ništa promjenili…</string>
+    <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
+    <string name="toast_not_in_edit_range">Zumirajte kako bi mogli uređivati, područje preširoko.</string>
+    <string name="toast_save_done">Spremanje uspješno.</string>
+    <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
+    <!-- Some generic labels -->
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+    <string name="okay">U redu</string>
+    <string name="cancel">Odustani</string>
+    <!-- Strings in TagEditor -->
+    <string name="key">oznaka</string>
+    <string name="value">vrijednost</string>
+    <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+    <string name="tag_menu_mapfeatures">Oznake na Wiki-u</string>
+    <!-- Strings in LocationPicker -->
+    <string name="location_headline">Učitaj površinu</string>
+    <string name="location_choose_radius">Odaberi veličinu površine:</string>
+    <string name="location_last_text">Zadnja poznata pozicija:</string>
+    <string name="location_current_text">Trenutna pozicija: nepoznata</string>
+    <string name="location_text_unknown">nepoznato</string>
+    <string name="location_last_text_parameterized">Zadnja poznata pozicija: %1$s</string>
+    <string name="location_current_text_parameterized">Trenutna pozicija: %1$s</string>
+    <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+    <string name="location_text_metadata_accuracy">Točnost %1$1g m,</string>
+    <string name="location_map_text">Iz karte (uskoro dolazi)</string>
+    <string name="location_coordinates_text">Iz koordinata:</string>
+    <string name="location_lat_label">Lat:</string>
+    <string name="location_lon_label">Lon:</string>
+    <string name="location_load_button">Učitaj!</string>
+    <string name="location_button_no_location">Nemoj učitati ništa</string>
+    <string name="location_label_no_location">(nije preporučljivo)</string>
+    <string name="location_nan_title">Loš upis!</string>
+    <string name="location_nan_message">Upišite koordinate u decimalnom formatu (npr. "52.333572","8.741185"). Lat mora biti između -85.0 i +85.0, a Lon mora biti između -175.0 i +175.0.</string>
+    <!-- Menu -->
+    <string name="menu_move">Pomakni</string>
+    <string name="menu_edit">Promijeni</string>
+    <string name="menu_add">Novo</string>
+    <string name="menu_config">Postavke</string>
+    <string name="menu_erase">Obriši točku</string>
+    <string name="menu_split">Podijeli put</string>
+    <string name="menu_append">Nastavi</string>
+    <string name="menu_tag">Uredi oznake</string>
+    <string name="menu_openstreetbug">Prijavi OpenStreetBug</string>
+    <string name="menu_gps">GPS…</string>
+    <string name="menu_gps_follow">Prati GPS poziciju</string>
+    <string name="menu_gps_upload">Pošalji GPS trag</string>
+    <string name="menu_transfer">Prijenos…</string>
+    <string name="menu_transfer_download_current">Skini trenutni pogled</string>
+    <string name="menu_transfer_download_other">Skini drugu lokaciju</string>
+    <string name="menu_transfer_upload">Spremi na OSM poslužitelj</string>
+    <string name="menu_save">Spremi u datoteku</string>
+    <!-- Preferences -->
+    <string name="config_category_view">Postavke</string>
+    <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
+    <string name="config_maxStrokeWidth_summary">Nemoj crtati linije šire od ovoga</string>
+    <string name="config_showStats_title">Statistika</string>
+    <string name="config_showStats_summary">Prikaže statistiku podataka i frame/sec u donjem lijevom kutu.</string>
+    <string name="config_showTolerance_title">Površina tolerancije</string>
+    <string name="config_showTolerance_summary">Prikaže površinu u kojoj se element može označiti.</string>
+    <string name="config_enableAntiAliasing_title">Omogući Anti-Aliasing</string>
+    <string name="config_enableAntiAliasing_summary">Linije izgledaju glatkije.</string>
+    <string name="config_enableOpenStreetBugs_title">Omogući OpenStreetBugs</string>
+    <string name="config_enableOpenStreetBugs_summary">Prikaži bugove prijavljene na OpenStreetBugs.</string>
+    <string name="config_backgroundLayer_title">Karta u pozadini</string>
+    <string name="config_backgroundLayer_summary">Odabir karte u pozadini.</string>
+    <string name="config_category_server">Postavke servera</string>
+    <string name="config_username_title">OSM korisničko ime</string>
+    <string name="config_username_summary">Potrebno za spremanje OSM podataka na server. Ako ga još nemate, registrirajte se na http://www.openstreetmap.org/user/new</string>
+    <string name="config_password_title">OSM lozinka</string>
+    <string name="config_password_summary">Nemojte ju zamjeniti sa Wiki lozinkom. Upamtite: Lozinka se čuva u formatu običnog teksta!</string>
+    <string name="config_category_gps">GPS postavke</string>
+    <string name="config_gps_distance_title">Minimalna GPS udaljenost</string>
+    <string name="config_gps_distance_summary">Minimalna udaljenost za GPS poziv, u metrima (float). Manje vrijednosti troše više baterije.</string>
+    <string name="config_gps_interval_title">Minimalni GPS interval</string>
+    <string name="config_gps_interval_summary">Minimalni vremenski interval GPS poziva, u milisekundama. Manje vrijednosti troše više baterije.</string>
+    <!--  changes -->
+    <string name="changes_deleted">"%1$s" obrisano</string>
+    <string name="changes_changed">"%1$s" promjenjeno</string>
+    <string name="changes_created">"%1$s" stvoreno</string>
+    <string name="confirm_upload_title">Poslati?</string>
+    <string name="confirm_upload_text">Poslati slijedeće promjene na poslužitelj?\n%1$s</string>
+    <string name="location_default_radius">300m</string>
+</resources>

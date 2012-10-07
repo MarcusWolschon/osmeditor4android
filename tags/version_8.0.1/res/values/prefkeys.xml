@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Preference keys -->
+    <string name="config_showStats_key">showStats</string>
+    <string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
+    <string name="config_showTolerance_key">showTolerance</string>
+    <string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
+    <string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>
+    <string name="config_backgroundLayer_key">backgroundLayer</string>
+    <string name="config_category_server_key">category_server</string>
+    <string name="config_username_key">username</string>
+    <string name="config_password_key">password</string>
+    <string name="config_gps_distance_key">distance</string>
+    <string name="config_gps_interval_key">interval</string>
+    <string name="config_apibutton_key">apisettings-button</string>
+    <string name="config_loginbutton_key">loginsettings-button</string>
+    <string name="config_presetbutton_key">presetsettings-button</string>
+    <string name="config_iconbutton_key">iconsettings-button</string>
+    <string name="config_licensebutton_key">licenseview-button</string>
+    <string name="config_selected_api">selectedAPI</string>
+    <string name="config_forceContextMenu_key">forceContextMenu</string>
+    <string name="config_advancedprefs_key">advanced</string>
+</resources>
