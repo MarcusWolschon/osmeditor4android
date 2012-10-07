@@ -22,6 +22,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.API;
 public class PrefEditor extends SherlockPreferenceActivity {
 	
 	private Resources r;
+	private String KEY_MAPBG;
 	private String KEY_PREFLOGIN;
 	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
@@ -33,6 +34,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		
 		addPreferencesFromResource(R.xml.preferences);
 		r = getResources();
+		KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
@@ -46,7 +48,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-	
+		
 		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
 		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
 		AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
@@ -67,6 +69,26 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
 	private void fixUpPrefs() {
+		Preferences prefs = new Preferences(this);
+		
+		Preference mapbgpref = getPreferenceScreen().findPreference(KEY_MAPBG);
+		OnPreferenceChangeListener l = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				String id = (String)newValue;
+				String[] ids = r.getStringArray(R.array.renderer_ids);
+				String[] names = r.getStringArray(R.array.renderer_names);
+				for (int i = 0; i < ids.length; i++) {
+					if (ids[i].equals(id)) {
+						preference.setSummary(names[i]);
+						break;
+					}
+				}
+				return true;
+			}
+		};
+		mapbgpref.setOnPreferenceChangeListener(l);
+		l.onPreferenceChange(mapbgpref, prefs.backgroundLayer());
 		
 		Preference advprefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
 		advprefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
