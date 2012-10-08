@@ -37,7 +37,6 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -53,6 +52,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
@@ -199,7 +199,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.i("Main", "onCreate");
 		setTheme(R.style.Theme_customMain);
-
+		
 		super.onCreate(savedInstanceState);
 		Application.mainActivity = this;
 		
@@ -213,10 +213,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				sensorManager = null;
 			}
 		}
-
-		getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-
+		
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		
 		RelativeLayout rl = new RelativeLayout(getApplicationContext());
 		if (map != null) {
 			map.onDestroy();
@@ -224,7 +224,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map = new Map(getApplicationContext());
 		map.setId(1);
 		dialogFactory = new DialogFactory(this);
-
+		
 		//Register some Listener
 		MapTouchListener mapTouchListener = new MapTouchListener();
 		map.setOnTouchListener(mapTouchListener);
