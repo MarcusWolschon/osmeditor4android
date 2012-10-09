@@ -87,7 +87,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		onLoadList(items);
 		
 		TextView v = (TextView)View.inflate(ctx, android.R.layout.simple_list_item_1, null);
-		v.setText(r.getString(R.string.add));
+		v.setText(r.getString(getAddTextResId()));
 		v.setTextColor(ctx.getResources().getColor(android.R.color.darker_gray));
 		v.setTypeface(null,Typeface.ITALIC);
 		getListView().addFooterView(v);
@@ -314,6 +314,8 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 			onItemDeleted(item);
 		}
 	}
+	
+	protected abstract int getAddTextResId();
 
 	/**
 	 * Called when the list should be loaded.

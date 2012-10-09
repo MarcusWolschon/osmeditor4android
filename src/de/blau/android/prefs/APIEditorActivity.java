@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
+import de.blau.android.R;
 
 /** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {
@@ -18,6 +19,11 @@ public class APIEditorActivity extends URLListEditActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		db = new AdvancedPrefDatabase(this);
 		super.onCreate(savedInstanceState);
+	}
+	
+	@Override
+	protected int getAddTextResId() {
+		return R.string.urldialog_add_api;
 	}
 	
 	@Override
