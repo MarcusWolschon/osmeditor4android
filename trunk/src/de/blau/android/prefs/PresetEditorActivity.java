@@ -44,6 +44,11 @@ public class PresetEditorActivity extends URLListEditActivity {
 	}
 	
 	@Override
+	protected int getAddTextResId() {
+		return R.string.urldialog_add_preset;
+	}
+	
+	@Override
 	protected void onLoadList(List<ListEditItem> items) {
 		PresetInfo[] presets = db.getPresets();
 		for (PresetInfo preset : presets) {
