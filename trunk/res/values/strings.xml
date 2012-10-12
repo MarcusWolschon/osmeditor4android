@@ -99,6 +99,7 @@
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_export">Export changes</string>
     <string name="menu_save">Save to file</string>
+    <string name="menu_unjoin">Unjoin</string>
     <!-- element action mode menu -->
     <string name="menu_tags">Tags</string>
     <!-- Text should be as short as possible -->
@@ -196,6 +197,7 @@
     <string name="undo_action_merge_ways">merge ways</string>
     <string name="undo_action_reverse_way">reverse way</string>
     <string name="undo_action_set_tags">set tags</string>
+    <string name="undo_action_unjoin_ways">unjoin ways</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed</string>
