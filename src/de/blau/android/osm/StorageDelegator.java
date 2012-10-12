@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.util.SavingHelper;
@@ -240,10 +241,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		Way newWay = factory.createWayWithNewId();
 		newWay.updateState(OsmElement.STATE_CREATED);
 		newWay.addTags(way.getTags());
-		for (Node wayNode : nodesForNewWay) {
-			newWay.addNode(wayNode);
-		}
-
+		newWay.addNodes(nodesForNewWay, false);
 		insertElementUnsafe(newWay);
 	}
 	
@@ -287,6 +285,37 @@ public class StorageDelegator implements Serializable, Exportable {
 		insertElementSafe(mergeInto);
 		
 		removeWay(mergeFrom);
+	}
+	
+	/**
+	 * Unjoins ways connected at the given node.
+	 * @param node The node connecting ways that are to be unjoined.
+	 */
+	public void unjoinWays(final Node node) {
+		List<Way> ways = currentStorage.getWays(node);
+		if (ways.size() > 1) {
+			boolean first = true;
+			for (Way way : ways) {
+				if (first) {
+					// first way doesn't need to be changed
+					first = false;
+				} else {
+					// subsequent ways
+					dirty = true;
+					// create a new node that duplicates the given node
+					Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
+					newNode.updateState(OsmElement.STATE_CREATED);
+					newNode.addTags(node.getTags());
+					insertElementUnsafe(newNode);
+					// replace the given node in the way with the new node
+					undo.save(way);
+					List<Node> nodes = way.getNodes();
+					nodes.set(nodes.indexOf(node), newNode);
+					way.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(way);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -511,7 +540,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		serializer.setOutput(outputStream, "UTF-8");
 		serializer.startDocument("UTF-8", null);
 		serializer.startTag(null, "osmChange");
-		serializer.attribute(null, "generator", "Vespucci");
+		serializer.attribute(null, "generator", Application.userAgent);
 		serializer.attribute(null, "version", "0.6");
 		
 		ArrayList<OsmElement> createdElements = new ArrayList<OsmElement>();

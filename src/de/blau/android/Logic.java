@@ -795,7 +795,16 @@ public class Logic {
 		map.invalidate();
 	}
 	
-
+	/**
+	 * Unjoin ways joined by the given node.
+	 * @param node Node that is joining the ways to be unjoined.
+	 */
+	public void performUnjoin(Node node) {
+		createCheckpoint(R.string.undo_action_unjoin_ways);
+		delegator.unjoinWays(node);
+		map.invalidate();
+	}
+	
 	/**
 	 * Reverse a way
 	 * @param way the way to reverse

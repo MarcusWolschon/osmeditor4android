@@ -513,6 +513,7 @@ public class EasyEditManager {
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
 		private static final int MENUITEM_APPEND = 4;
+		private static final int MENUITEM_UNJOIN = 5;
 		
 		private NodeSelectionActionModeCallback(Node node) {
 			super(node);
@@ -534,6 +535,9 @@ public class EasyEditManager {
 			if (logic.isEndNode((Node)element)) {
 				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
 			}
+			if (logic.getWaysForNode((Node)element).size() > 1) {
+				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split);
+			}
 			return true;
 		}
 		
@@ -543,6 +547,10 @@ public class EasyEditManager {
 				switch (item.getItemId()) {
 				case MENUITEM_APPEND:
 					main.startActionMode(new PathCreationActionModeCallback((Node)element));
+					break;
+				case MENUITEM_UNJOIN:
+					logic.performUnjoin((Node)element);
+					mode.finish();
 					break;
 				default: return false;
 				}
