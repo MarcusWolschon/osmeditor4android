@@ -931,6 +931,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		@Override
+		public void onDown(View v, float x, float y) {
+			// DO NOTHING
+		}
+		
+		@Override
 		public void onClick(View v, float x, float y) {
 			OpenStreetBugsOverlay osbo = map.getOpenStreetBugsOverlay();
 			clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
@@ -1010,6 +1015,13 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					v.showContextMenu();
 					break;
 				}
+			}
+		}
+		
+		@Override
+		public void onUp(View v, float x, float y) {
+			if (logic.getMode() == Mode.MODE_EASYEDIT) {
+				easyEditManager.invalidate();
 			}
 		}
 		

@@ -74,9 +74,8 @@ public class BoundingBox implements Serializable {
 	/**
 	 * The maximum difference between two borders of the bounding box for the
 	 * OSM-API. {@link http://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API }
-	 * Got some "bad request" errors requesting exactly 0.5 degrees, so make the limit a little less.
 	 */
-	private static final int API_MAX_DEGREE_DIFFERENCE = 4900000;
+	private static final int API_MAX_DEGREE_DIFFERENCE = 5000000;
 
 	/**
 	 * Maximum latitude ({@link GeoMath#MAX_LAT}) in 1E7.

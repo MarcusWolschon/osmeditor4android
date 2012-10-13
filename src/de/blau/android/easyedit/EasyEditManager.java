@@ -101,6 +101,12 @@ public class EasyEditManager {
 		return true;
 	}
 	
+	public void invalidate() {
+		if (currentActionMode != null) {
+			currentActionMode.invalidate();
+		}
+	}
+	
 	/**
 	 * Takes a parameter for a node and one for a way.
 	 * If the way is not null, opens a tag editor for the way.
@@ -513,7 +519,10 @@ public class EasyEditManager {
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
 		private static final int MENUITEM_APPEND = 4;
-		private static final int MENUITEM_UNJOIN = 5;
+		private static final int MENUITEM_JOIN = 5;
+		private static final int MENUITEM_UNJOIN = 6;
+		
+		private OsmElement joinableElement = null;
 		
 		private NodeSelectionActionModeCallback(Node node) {
 			super(node);
@@ -535,6 +544,10 @@ public class EasyEditManager {
 			if (logic.isEndNode((Node)element)) {
 				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
 			}
+			joinableElement = logic.findJoinableElement((Node)element);
+			if (joinableElement != null) {
+				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(R.drawable.tag_menu_merge);
+			}
 			if (logic.getWaysForNode((Node)element).size() > 1) {
 				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split);
 			}
@@ -547,6 +560,10 @@ public class EasyEditManager {
 				switch (item.getItemId()) {
 				case MENUITEM_APPEND:
 					main.startActionMode(new PathCreationActionModeCallback((Node)element));
+					break;
+				case MENUITEM_JOIN:
+					logic.performJoin(joinableElement, (Node)element);
+					mode.finish();
 					break;
 				case MENUITEM_UNJOIN:
 					logic.performUnjoin((Node)element);
