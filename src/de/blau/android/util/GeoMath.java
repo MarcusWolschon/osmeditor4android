@@ -154,12 +154,30 @@ public class GeoMath {
 	public static BoundingBox createBoundingBoxForCoordinates(final double lat, final double lon, final float radius)
 			throws OsmException {
 		double horizontalRadiusDegree = convertMetersToGeoDistance(radius);
+		if (horizontalRadiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7 / 2d) {
+			horizontalRadiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7 / 2d;
+		}
 		double verticalRadiusDegree = horizontalRadiusDegree / getMercartorFactorPow3(lat);
 		double left = lon - horizontalRadiusDegree;
 		double right = lon + horizontalRadiusDegree;
 		double bottom = lat - verticalRadiusDegree;
 		double top = lat + verticalRadiusDegree;
-		
+		if (left < -BoundingBox.MAX_LON) {
+			left = -BoundingBox.MAX_LON;
+			right = left + horizontalRadiusDegree * 2d;
+		}
+		if (right > BoundingBox.MAX_LON) {
+			right = BoundingBox.MAX_LON;
+			left = right - horizontalRadiusDegree * 2d;
+		}
+		if (bottom < -BoundingBox.MAX_LAT) {
+			bottom = -BoundingBox.MAX_LAT;
+			top = bottom + verticalRadiusDegree * 2d;
+		}
+		if (top > BoundingBox.MAX_LAT) {
+			top = BoundingBox.MAX_LAT;
+			bottom = top - verticalRadiusDegree * 2d;
+		}
 		return new BoundingBox(left, bottom, right, top);
 	}
 	
