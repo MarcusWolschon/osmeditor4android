@@ -302,9 +302,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	}
 	
 	private void createRecentPresetView() {
-		if (Main.getCurrentPreset() != null && element != null) {
+		Preset preset = Main.getCurrentPreset();
+		if (preset != null && element != null) {
 			ElementType filterType = element.getType();
-			View v = Main.getCurrentPreset().getRecentPresetView(this, new PresetClickHandler() {
+			View v = preset.getRecentPresetView(this, new PresetClickHandler() {
 				@Override
 				public void onItemClick(PresetItem item) {
 					applyPreset(item);
