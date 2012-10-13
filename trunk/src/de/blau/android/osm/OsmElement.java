@@ -2,8 +2,11 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -152,6 +155,30 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 */
 	public boolean hasTagKey(final String key) {
 		return getTagWithKey(key) != null;
+	}
+	
+	/**
+	 * Merge the tags from two OsmElements into one set.
+	 * @param e1
+	 * @param e2
+	 * @return
+	 */
+	public static Map<String, String> mergedTags(OsmElement e1, OsmElement e2) {
+		Map<String, String> merged = new TreeMap<String, String>(e1.getTags());
+		Map<String, String> fromTags = e2.getTags();
+		for (String key : fromTags.keySet()) {
+			Set<String> values = new HashSet<String>(Arrays.asList(fromTags.get(key).split("\\;")));
+			if (merged.containsKey(key)) {
+				values.addAll(Arrays.asList(merged.get(key).split("\\;")));
+			}
+			StringBuilder b = new StringBuilder();
+			for (String v : values) {
+				if (b.length() > 0) b.append(';');
+				b.append(v);
+			}
+			merged.put(key, b.toString());
+		}
+		return merged;
 	}
 
 	@Override

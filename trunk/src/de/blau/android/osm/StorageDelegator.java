@@ -239,10 +239,29 @@ public class StorageDelegator implements Serializable, Exportable {
 
 		// create the new way
 		Way newWay = factory.createWayWithNewId();
-		newWay.updateState(OsmElement.STATE_CREATED);
 		newWay.addTags(way.getTags());
 		newWay.addNodes(nodesForNewWay, false);
 		insertElementUnsafe(newWay);
+	}
+	
+	/**
+	 * Merge two nodes into one.
+	 * @param mergeInto The node to merge into. Tags are combined.
+	 * @param mergeFrom The node to merge from. Is deleted.
+	 */
+	public void mergeNodes(Node mergeInto, Node mergeFrom) {
+		dirty = true;
+		// merge tags
+		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
+		// replace references to mergeFrom node in ways with mergeInto
+		for (Way way : currentStorage.getWays(mergeFrom)) {
+			replaceNodeInWay(mergeFrom, mergeInto, way);
+		}
+		for (Way way : apiStorage.getWays(mergeFrom)) {
+			replaceNodeInWay(mergeFrom, mergeInto, way);
+		}
+		// delete mergeFrom node
+		removeNode(mergeFrom);
 	}
 	
 	/**
@@ -304,7 +323,6 @@ public class StorageDelegator implements Serializable, Exportable {
 					dirty = true;
 					// create a new node that duplicates the given node
 					Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
-					newNode.updateState(OsmElement.STATE_CREATED);
 					newNode.addTags(node.getTags());
 					insertElementUnsafe(newNode);
 					// replace the given node in the way with the new node
@@ -326,6 +344,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(way);
 		way.reverse();
+		way.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(way);
+	}
+
+	private void replaceNodeInWay(final Node existingNode, final Node newNode, final Way way) {
+		dirty = true;
+		undo.save(way);
+		way.replaceNode(existingNode, newNode);
 		way.updateState(OsmElement.STATE_MODIFIED);
 		apiStorage.insertElementSafe(way);
 	}

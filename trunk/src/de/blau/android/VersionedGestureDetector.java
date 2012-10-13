@@ -21,7 +21,9 @@ public abstract class VersionedGestureDetector {
 	public abstract boolean onTouchEvent(View v, MotionEvent ev);
 	
 	public interface OnGestureListener {
+		public void onDown(View v, float x, float y);
 		public void onClick(View v, float x, float y);
+		public void onUp(View v, float x, float y);
 		/** @return true if long click events are handled, false if they should be ignored */
 		public boolean onLongClick(View v, float x, float y);
 		public void onDrag(View v, float x, float y, float dx, float dy);
@@ -74,6 +76,7 @@ public abstract class VersionedGestureDetector {
 			case MotionEvent.ACTION_DOWN:
 				mFirstTouchX = mLastTouchX = getActiveX(ev);
 				mFirstTouchY = mLastTouchY = getActiveY(ev);
+				mListener.onDown(v, mFirstTouchX, mFirstTouchY);
 				hasDragged = false;
 				hasScaled = false;
 				hasLongPressed = false;
@@ -109,12 +112,17 @@ public abstract class VersionedGestureDetector {
 				}
 				break;
 			case MotionEvent.ACTION_UP:
-				if (hasLongPressed) {
-					break;
-				}
-				stopLongPress();
-				if (!hasDragged && !hasScaled) {
-					mListener.onClick(v, getActiveX(ev), getActiveY(ev));
+				{
+					final float x = getActiveX(ev);
+					final float y = getActiveY(ev);
+					mListener.onUp(v, x, y);
+					if (hasLongPressed) {
+						break;
+					}
+					stopLongPress();
+					if (!hasDragged && !hasScaled) {
+						mListener.onClick(v, x, y);
+					}
 				}
 				break;
 			}

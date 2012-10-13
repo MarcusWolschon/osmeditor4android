@@ -474,7 +474,7 @@ public class Logic {
 		
 		if ((differenceX > tolerance) && (differenceY > tolerance))	return null;
 		
-		double dist = Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2));
+		double dist = Math.hypot(differenceX, differenceY);
 		return (dist > tolerance) ? null : dist;
 	}
 	
@@ -796,6 +796,103 @@ public class Logic {
 	}
 	
 	/**
+	 * If any ways are close to the node (within the tolerance), return the way.
+	 * @param nodeToJoin
+	 * @return
+	 */
+	public OsmElement findJoinableElement(Node nodeToJoin) {
+		OsmElement closestElement = null;
+		double closestDistance = Double.MAX_VALUE;
+		float jx = GeoMath.lonE7ToX(map.getWidth(), viewBox, nodeToJoin.getLon());
+		float jy = GeoMath.latE7ToY(map.getHeight(), viewBox, nodeToJoin.getLat());
+		// start by looking for the closest nodes
+		for (Node node : delegator.getCurrentStorage().getNodes()) {
+			if (node != nodeToJoin) {
+				Double distance = clickDistance(node, jx, jy);
+				if (distance != null && distance < closestDistance) {
+					closestDistance = distance;
+					closestElement = node;
+				}
+			}
+		}
+		if (closestElement == null) {
+			// fall back to closest ways
+			for (Way way : delegator.getCurrentStorage().getWays()) {
+				if (!way.hasNode(nodeToJoin)) {
+					List<Node> wayNodes = way.getNodes();
+					for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+						Node node1 = wayNodes.get(i - 1);
+						Node node2 = wayNodes.get(i);
+						float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
+						float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
+						float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
+						float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+						if (isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y)) {
+							double distance = GeoMath.getLineDistance(jx, jy, node1X, node1Y, node2X, node2Y);
+							if (distance < closestDistance) {
+								closestDistance = distance;
+								closestElement = way;
+							}
+						}
+					}
+				}
+			}
+		}
+		return closestElement;
+	}
+	
+	/**
+	 * Join a node to a node or way at the point on the way closest to the node.
+	 * @param element Node or Way that the node will be joined to.
+	 * @param nodeToJoin Node to be joined to the way.
+	 */
+	public void performJoin(OsmElement element, Node nodeToJoin) {
+		if (element instanceof Node) {
+			Node node = (Node)element;
+			createCheckpoint(R.string.undo_action_join);
+			delegator.mergeNodes(node, nodeToJoin);
+			map.invalidate();
+		}
+		if (element instanceof Way) {
+			Way way = (Way)element;
+			List<Node> wayNodes = way.getNodes();
+			for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+				Node node1 = wayNodes.get(i - 1);
+				Node node2 = wayNodes.get(i);
+				float x = GeoMath.lonE7ToX(map.getWidth(), viewBox, nodeToJoin.getLon());
+				float y = GeoMath.latE7ToY(map.getHeight(), viewBox, nodeToJoin.getLat());
+				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
+				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
+				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
+				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
+					float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
+					int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p[1]);
+					int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p[0]);
+					createCheckpoint(R.string.undo_action_join);
+					Node node = null;
+					if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
+						node = node1;
+					}
+					if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
+						node = node2;
+					}
+					if (node == null) {
+						// move the existing node onto the way and insert it into the way
+						delegator.updateLatLon(nodeToJoin, lat, lon);
+						delegator.addNodeToWayAfter(node1, nodeToJoin, way);
+					} else {
+						// merge node into tgtNode
+						delegator.mergeNodes(node, nodeToJoin);
+					}
+					map.invalidate();
+					return;
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Unjoin ways joined by the given node.
 	 * @param node Node that is joining the ways to be unjoined.
 	 */
@@ -884,9 +981,9 @@ public class Logic {
 		//create a new node on a way
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
-			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
-				Node nodeBefore = wayNodes.get(k);
-				node = createNodeOnWay(nodeBefore, wayNodes.get(k + 1), x, y);
+			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
+				Node nodeBefore = wayNodes.get(k - 1);
+				node = createNodeOnWay(nodeBefore, wayNodes.get(k), x, y);
 				if (node != null) {
 					delegator.insertElementSafe(node);
 					delegator.addNodeToWayAfter(nodeBefore, node, way);

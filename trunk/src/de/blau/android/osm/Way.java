@@ -127,6 +127,18 @@ public class Way extends OsmElement {
 	void reverse() {
 		Collections.reverse(nodes);
 	}
+	
+	/**
+	 * Replace an existing node in a way with a different node.
+	 * @param existing The existing node to be replaced.
+	 * @param newNode The new node.
+	 */
+	void replaceNode(Node existing, Node newNode) {
+		int idx;
+		while ((idx = nodes.indexOf(existing)) != -1) {
+			nodes.set(idx, newNode);
+		}
+	}
 
 	/**
 	 * Checks if a node is an end node of the way (i.e. either the first or the last one)
