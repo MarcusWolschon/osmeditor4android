@@ -7,7 +7,7 @@
     <string name="transfer_download_current_download">Descartar descarga &amp;</string>
     <string name="transfer_download_current_back">Volver (No hacer nada)</string>
     <string name="upload_problem_title">Problema con la subida</string>
-    <string name="upload_problem_message">No han sido subidos algunos o todos los datos. Pruebe a subirlos de nuevo para ver que ha fallado. La razón más posible es intentar borrar un nodo o ruta que es parte de una relación, pero Vespucci no soporta (aun) relaciones.</string>
+    <string name="upload_problem_message">No han sido subidos algunos o todos los datos. Pruebe a subirlos de nuevo para ver que ha fallado. La razón más posible es intentar borrar un nodo o vía que es parte de una relación, pero Vespucci no soporta (aun) relaciones.</string>
     <string name="no_login_data_title">Datos de login no establecidos</string>
     <string name="no_login_data_message">Por favor rellene la configuración de login-OSM en el formulario de preferencias.</string>
     <string name="no_connection_title">Sin conexión con el Servidor</string>
@@ -99,6 +99,8 @@
     <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
     <string name="menu_transfer_export">Exportar cambios</string>
     <string name="menu_save">Guardar en fichero</string>
+	<string name="menu_join">Unir</string>
+	<string name="menu_unjoin">Dividir</string>
     <!-- element action mode menu -->
     <string name="menu_tags">Etiquetas</string>
     <!-- Text should be as short as possible -->
@@ -106,17 +108,17 @@
     <string name="menu_merge">Unir</string>
     <string name="menu_reverse">Revertir</string>
     <string name="toast_oneway_reversed">Ha revertido una calle de sentido único. Por favor compruebe la etiqueta oneway y corríjalo si es necesario.</string>
-    <string name="deleteway_description">Va a eliminar una ruta. Puede mantener todos los nodos aun así, o eliminar los nodos que solo pertenecen a la ruta y no tienen ninguna etiqueta.</string>
-    <string name="deleteway_wayonly">Eliminar solo la ruta</string>
-    <string name="deleteway_wayandnodes">Eliminar ruta y nodos</string>
+    <string name="deleteway_description">Va a eliminar una vía. Puede mantener todos los nodos aun así, o eliminar los nodos que solo pertenecen a la vía y no tienen ninguna etiqueta.</string>
+    <string name="deleteway_wayonly">Eliminar solo la vía</string>
+    <string name="deleteway_wayandnodes">Eliminar vía y nodos</string>
     <!-- EasyEdit action mode titles -->
-    <string name="actionmode_wayselect">Ruta seleccionada</string>
+    <string name="actionmode_wayselect">Vía seleccionada</string>
     <string name="actionmode_nodeselect">Nodo seleccionado</string>
     <string name="actionmode_createpath">Creando camino</string>
     <!-- Preferences -->
     <string name="config_category_view">Configuraciones de Vista</string>
     <string name="config_maxStrokeWidth_title">anchura máxima de trazo</string>
-    <string name="config_maxStrokeWidth_summary">no dibujar rutas más finas que esta</string>
+    <string name="config_maxStrokeWidth_summary">no dibujar vías más finas que esta</string>
     <string name="config_showStats_title">Mostrar estadísticas</string>
     <string name="config_showStats_summary">Mostrar datos estadisticos y frames/seg en la esquina inferior izquierda.</string>
     <string name="config_showTolerance_title">Mostrar tolerancia</string>
@@ -190,12 +192,14 @@
     <string name="undo_action_add">insertar</string>
     <string name="undo_action_append">unir</string>
     <string name="undo_action_deletenode">borrar nodo</string>
-    <string name="undo_action_deleteway">borrar ruta</string>
-    <string name="undo_action_split_ways">dividir rutas</string>
-    <string name="undo_action_split_way">dividir ruta</string>
-    <string name="undo_action_merge_ways">unir rutas</string>
-    <string name="undo_action_reverse_way">invertir ruta</string>
+    <string name="undo_action_deleteway">borrar vía</string>
+    <string name="undo_action_split_ways">dividir vías</string>
+    <string name="undo_action_split_way">dividir vía</string>
+    <string name="undo_action_merge_ways">unir vías</string>
+    <string name="undo_action_reverse_way">invertir vía</string>
     <string name="undo_action_set_tags">añadir etiquetas</string>
+	<string name="undo_action_join">unir</string>
+	<string name="undo_action_unjoin_ways">dividir vías</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci ha fallado. Por favor envíe un informe de errores.</string>
     <string name="crash_notif_title">Vespucci ha fallado</string>
