@@ -230,7 +230,7 @@ public class Server {
 	 * @return
 	 */
 	public boolean isLoginSet() {
-		return username != null && password != null && !username.equals("") && !username.equals("");
+		return username != null && password != null && !username.equals("") && !password.equals("");
 	}
 
 	/**
@@ -301,7 +301,7 @@ public class Server {
 		connection.setReadTimeout(TIMEOUT);
 		connection.setRequestProperty("Authorization", "Basic " + Base64.encode(username + ":" + password));
 		connection.setRequestMethod(requestMethod);
-		connection.setDoOutput(true);
+		connection.setDoOutput(!"GET".equals(requestMethod));
 		connection.setDoInput(true);
 		return connection;
 	}
