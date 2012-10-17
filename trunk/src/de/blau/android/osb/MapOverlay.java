@@ -1,4 +1,4 @@
-package de.blau.android.views.overlay;
+package de.blau.android.osb;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,16 +10,16 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Handler;
+
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.osb.Bug;
-import de.blau.android.osb.Database;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.Paints;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
+import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
-public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
+public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	/** Maximum closed age to display: 7 days. */
 	private static final long MAX_CLOSED_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -76,7 +76,7 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 		}
 	};
 	
-	public OpenStreetBugsOverlay(final Map map) {
+	public MapOverlay(final Map map) {
 		this.map = map;
 		prev = new Rect();
 		cur = new Rect();
@@ -146,7 +146,7 @@ public class OpenStreetBugsOverlay extends OpenStreetMapViewOverlay {
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
 				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-					if (Math.sqrt(Math.pow(differenceX, 2) + Math.pow(differenceY, 2)) <= tolerance) {
+					if (Math.hypot(differenceX, differenceY) <= tolerance) {
 						result.add(b);
 					}
 				}

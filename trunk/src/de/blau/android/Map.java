@@ -37,7 +37,6 @@ import de.blau.android.resources.Paints;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -138,7 +137,7 @@ public class Map extends View implements IMapView {
 		
 		// create an overlay that displays pre-rendered tiles from the internet.
 		mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
-		mOverlays.add(new OpenStreetBugsOverlay(this));
+		mOverlays.add(new de.blau.android.osb.MapOverlay(this));
 		
 		iconRadius = Math.round((float)ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
 	}
@@ -152,10 +151,10 @@ public class Map extends View implements IMapView {
 		return null;
 	}
 	
-	public OpenStreetBugsOverlay getOpenStreetBugsOverlay() {
+	public de.blau.android.osb.MapOverlay getOpenStreetBugsOverlay() {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof OpenStreetBugsOverlay) {
-				return (OpenStreetBugsOverlay)osmvo;
+			if (osmvo instanceof de.blau.android.osb.MapOverlay) {
+				return (de.blau.android.osb.MapOverlay)osmvo;
 			}
 		}
 		return null;

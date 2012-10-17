@@ -78,7 +78,6 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.views.overlay.OpenStreetBugsOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 /**
@@ -816,8 +815,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			protected void onPostExecute(Boolean result) {
 				if (result && newBug) {
 					for (OpenStreetMapViewOverlay o : map.getOverlays()) {
-						if (o instanceof OpenStreetBugsOverlay) {
-							((OpenStreetBugsOverlay)o).addBug(bug);
+						if (o instanceof de.blau.android.osb.MapOverlay) {
+							((de.blau.android.osb.MapOverlay)o).addBug(bug);
 						}
 					}
 				}
@@ -937,7 +936,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		@Override
 		public void onClick(View v, float x, float y) {
-			OpenStreetBugsOverlay osbo = map.getOpenStreetBugsOverlay();
+			de.blau.android.osb.MapOverlay osbo = map.getOpenStreetBugsOverlay();
 			clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
 			
 			Mode mode = logic.getMode();
