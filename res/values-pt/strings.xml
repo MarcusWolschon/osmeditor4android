@@ -99,6 +99,8 @@
     <string name="menu_transfer_upload">Upload dos dados para o servidor OSM</string>
     <string name="menu_transfer_export">Exportar alterações</string>
     <string name="menu_save">Gravar para ficheiro</string>
+    <string name="menu_join">Unir</string>
+    <string name="menu_unjoin">Desunir</string>
     <!-- element action mode menu -->
     <string name="menu_tags">Tags</string>
     <!-- Text should be as short as possible -->
@@ -196,6 +198,8 @@
     <string name="undo_action_merge_ways">unir via</string>
     <string name="undo_action_reverse_way">inverter via</string>
     <string name="undo_action_set_tags">definir tags</string>
+    <string name="undo_action_join">unir</string>
+    <string name="undo_action_unjoin_ways">desunir vias</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci deixou de funcionar. Por favor envie um relatório de erro.</string>
     <string name="crash_notif_title">Vespucci deixou de funcionar</string>
