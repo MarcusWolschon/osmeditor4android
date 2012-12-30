@@ -195,6 +195,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 						tile.x >>= 1;
 						tile.y >>= 1;
 						--tile.zoomLevel;
+						mTileProvider.preCacheTile(tile);
 					}
 				}
 				if (mTileProvider.isTileAvailable(tile)) {
@@ -205,7 +206,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 						mPaint);
 				} else {
 					// Still no tile available - try smaller scale tiles
-					drawTile(c, osmv, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask);
+					drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask);
 				}
 			}
 		}
@@ -241,12 +242,13 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * space.
 	 * @param c Canvas to draw on.
 	 * @param osmv Map view area.
+	 * @param minz Minimum zoom level.
 	 * @param maxz Maximum zoom level to attempt - don't take too long searching.
 	 * @param z Zoom level to draw.
 	 * @param x Tile X to draw.
 	 * @param y Tile Y to draw.
 	 */
-	private void drawTile(Canvas c, IMapView osmv, int maxz, int z, int x, int y) {
+	private void drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y) {
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), z, x, y);
 		if (mTileProvider.isTileAvailable(tile)) {
 			c.drawBitmap(
@@ -254,15 +256,22 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
 				getScreenRectForTile(c, osmv, z, y, x),
 				mPaint);
-		} else if (z < maxz && z < myRendererInfo.getMaxZoomLevel()){
-			// Still no tile available - try smaller scale tiles
-			x <<= 1;
-			y <<= 1;
-			++z;
-			drawTile(c, osmv, maxz, z, x    , y    );
-			drawTile(c, osmv, maxz, z, x + 1, y    );
-			drawTile(c, osmv, maxz, z, x    , y + 1);
-			drawTile(c, osmv, maxz, z, x + 1, y + 1);
+		} else {
+			// Still no tile available
+			if (z > minz && z > myRendererInfo.getMinZoomLevel()) {
+				// try larger scale tile
+				drawTile(c, osmv, minz, z - 1, z - 1, x / 2, y / 2);
+			}
+			if (z < maxz && z < myRendererInfo.getMaxZoomLevel()) {
+				// try smaller scale tiles
+				x <<= 1;
+				y <<= 1;
+				++z;
+				drawTile(c, osmv, z, maxz, z, x    , y    );
+				drawTile(c, osmv, z, maxz, z, x + 1, y    );
+				drawTile(c, osmv, z, maxz, z, x    , y + 1);
+				drawTile(c, osmv, z, maxz, z, x + 1, y + 1);
+			}
 		}
 	}
 	
