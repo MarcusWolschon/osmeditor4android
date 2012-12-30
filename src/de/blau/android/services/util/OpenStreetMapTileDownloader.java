@@ -4,6 +4,7 @@ package de.blau.android.services.util;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -100,6 +101,10 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 					
 					URLConnection conn = new URL(tileURLString).openConnection();
 					conn.setRequestProperty("User-Agent", Application.userAgent);
+					if ("no-tile".equals(conn.getHeaderField("X-VE-Tile-Info"))) {
+						// handle special Bing header that indicates no tile is available
+						throw new FileNotFoundException("tile not available");
+					}
 					in = new BufferedInputStream(conn.getInputStream(), StreamUtils.IO_BUFFER_SIZE);
 					
 					final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
@@ -122,14 +127,17 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 					}
 					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, b);
 				}
-			} catch (IOException e) {
+			} catch (IOException ioe) {
 				try {
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
-				} catch (RemoteException e1) {
-					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + e.getClass().getSimpleName(), e);
+				} catch (RemoteException re) {
+					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName(), ioe);
 				}
-				if(Log.isLoggable(DEBUGTAG, Log.ERROR)) {
-					Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + e.getClass().getSimpleName(), e);
+				if (!(ioe instanceof FileNotFoundException)) {
+					// FileNotFound is an expected exception, any other IOException should be logged 
+					if(Log.isLoggable(DEBUGTAG, Log.ERROR)) {
+						Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName(), ioe);
+					}
 				}
 				/* TODO What to do when downloading tile caused an error?
 				 * Also remove it from the mPending?
