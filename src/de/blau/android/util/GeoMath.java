@@ -250,9 +250,31 @@ public class GeoMath {
 	 * @return the distance of the point from the line specified by node1 and node2
 	 */
 	public static double getLineDistance(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
-		// equation (14) on http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
-		return (Math.abs((node2X - node1X) * (node1Y - y) - (node1X - x) * (node2Y - node1Y)) /
-		                 Math.hypot(node2X - node1X, node2Y - node1Y));
+		// http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+		// (adaptation of Ben Gotow's post of 23-Jun-2012)
+		double a, b, c, d, dot, len2, t, xx, yy;
+		a = x - node1X;
+		b = y - node1Y;
+		c = node2X - node1X;
+		d = node2Y - node1Y;
+		dot = a * c + b * d;
+		len2 = c * c + d * d;
+		// find the closest point (xx,yy) on the line segment (node1..node2) to the point (x,y)
+		t = (len2 == 0.0) ? -1.0 : dot / len2;
+		if (t < 0.0) {
+			// closest point on infinite line is past node1 end
+			xx = node1X;
+			yy = node1Y;
+		} else if (t > 1.0) {
+			// closest point on infinite line is past node2 end
+			xx = node2X;
+			yy = node2Y;
+		} else {
+			// closest point is between node1 and node2
+			xx = node1X + t * c;
+			yy = node1Y + t * d;
+		}
+		return Math.hypot(x - xx, y - yy);
 	}
 	
 	/**
