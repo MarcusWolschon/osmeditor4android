@@ -31,7 +31,8 @@
 package de.blau.android.presets;
 
 //other imports
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 import android.content.Context;
@@ -74,57 +75,46 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
                                        final StorageDelegator streets,
                                        final String osmElementType,
                                        final long osmId) {
-        super(aContext, aTextViewResourceId, getArray(streets, aContext, getLocation(streets, osmElementType, osmId)));
+        super(aContext, aTextViewResourceId, getArray(streets, getLocation(streets, osmElementType, osmId)));
     }
 
     
     /**
      * Get all street-names in the area
      * @param streets
-     * @param aContext
      * @param location
      * @return all street-names
      */
-    private static String[] getArray(final StorageDelegator streets,
-    		final Context aContext, final int[] location) {
-    	List<Way> ways = streets.getCurrentStorage().getWays();
-    	TreeMap<Double, String> retval = new TreeMap<Double, String>();
-    	for (Way way : ways) {
-			if (way.getTagWithKey("highway") == null) {
-				continue;
-			}
-			String name = way.getTagWithKey("name");
-			if (name == null) {
-				continue;
-			}
-
-			if (!retval.containsValue(name)) {
-				double distance = getDistance(streets, way, location);
-
-				// other way with the same name but different distance
-				for (Way way2 : ways) {
-					if (way2.getTagWithKey("highway") == null) {
-						continue;
+    private static String[] getArray(final StorageDelegator streets, final int[] location) {
+		// build list of names with their closest distance to location
+		Map<String, Double> waysByName = new HashMap<String, Double>();
+		for (Way way : streets.getCurrentStorage().getWays()) {
+			if (way.getTagWithKey("highway") != null) {
+				String name = way.getTagWithKey("name");
+				if (name != null) {
+					double distance = getDistance(way, location);
+					if (waysByName.containsKey(name)) {
+						// way already in list - keep shortest distance
+						distance = Math.min(distance, waysByName.get(name));
 					}
-					String name2 = way2.getTagWithKey("name");
-					if (name2 == null || !name2.equalsIgnoreCase(name)) {
-						continue;
-					}
-					distance = Math.min(distance, getDistance(streets, way2, location));
+					waysByName.put(name, distance);
 				}
-				retval.put(distance, name);
 			}
+		}
+		// sort names by distance
+		Map<Double, String> retval = new TreeMap<Double, String>();
+		for (String name : waysByName.keySet()) {
+			retval.put(waysByName.get(name), name);
 		}
 		return retval.values().toArray(new String[retval.size()]);
 	}
 
     /**
-     * @param streets
      * @param way
      * @param location
      * @return the minimum distance of the given way to the given location
      */
-	private static double getDistance(final StorageDelegator streets, final Way way, final int[] location) {
+	private static double getDistance(final Way way, final int[] location) {
 		double distance = Double.MAX_VALUE;
 		if (location != null) {
 			Node n1 = null;
