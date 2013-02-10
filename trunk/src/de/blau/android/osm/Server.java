@@ -242,8 +242,8 @@ public class Server {
 		}
 	}
 
-	public int updateElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
-		int osmVersion = -1;
+	public long updateElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+		long osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
 //		elem.addOrUpdateTag(createdByTag, createdByKey);
@@ -260,7 +260,7 @@ public class Server {
 			}, changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
-			osmVersion = Integer.parseInt(readLine(in));
+			osmVersion = Long.parseLong(readLine(in));
 		} finally {
 			disconnect(connection);
 			SavingHelper.close(in);
@@ -306,8 +306,8 @@ public class Server {
 		return connection;
 	}
 
-	public int createElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
-		int osmId = -1;
+	public long createElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
+		long osmId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
 //		elem.addOrUpdateTag(createdByTag, createdByKey);
@@ -324,7 +324,7 @@ public class Server {
 			}, changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
-			osmId = Integer.parseInt(readLine(in));
+			osmId = Long.parseLong(readLine(in));
 		} finally {
 			disconnect(connection);
 			SavingHelper.close(in);
@@ -340,7 +340,7 @@ public class Server {
 	 * @throws IOException
 	 */
 	public void openChangeset(final String comment) throws MalformedURLException, ProtocolException, IOException {
-		int newChangesetId = -1;
+		long newChangesetId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
 
@@ -372,7 +372,7 @@ public class Server {
 			}
 			checkResponseCode(connection);
 			in = connection.getInputStream();
-			newChangesetId = Integer.parseInt(readLine(in));
+			newChangesetId = Long.parseLong(readLine(in));
 		} finally {
 			disconnect(connection);
 			SavingHelper.close(in);
