@@ -251,7 +251,7 @@ public class GeoMath {
 	 */
 	public static double getLineDistance(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
 		// http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
-		// (adaptation of Ben Gotow's post of 23-Jun-2012)
+		// (adaptation of Ben Gotow's post of 23-Jun-2012, originally Joshua's post of 28-Jul-2011)
 		double a, b, c, d, dot, len2, t, xx, yy;
 		a = x - node1X;
 		b = y - node1Y;

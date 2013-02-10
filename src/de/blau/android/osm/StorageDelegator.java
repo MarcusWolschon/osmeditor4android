@@ -529,7 +529,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			OsmElement element = elements.get(i);
 			switch (element.getState()) {
 			case OsmElement.STATE_CREATED:
-				int osmId = server.createElement(element);
+				long osmId = server.createElement(element);
 				if (osmId > 0) {
 					element.setOsmId(osmId);
 					if (apiStorage.removeElement(element)) {
@@ -541,7 +541,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 				break;
 			case OsmElement.STATE_MODIFIED:
-				int osmVersion = server.updateElement(element);
+				long osmVersion = server.updateElement(element);
 				if (osmVersion > 0) {
 					element.osmVersion = osmVersion;
 					if (apiStorage.removeElement(element)) {

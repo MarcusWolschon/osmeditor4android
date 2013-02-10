@@ -112,8 +112,8 @@ public class OsmParser extends DefaultHandler {
 	 */
 	private void parseOsmElement(final String name, final Attributes atts) throws OsmParseException {
 		try {
-			long osmId = Integer.parseInt(atts.getValue("id"));
-			long osmVersion = Integer.parseInt(atts.getValue("version"));
+			long osmId = Long.parseLong(atts.getValue("id"));
+			long osmVersion = Long.parseLong(atts.getValue("version"));
 			byte status = 0;
 			
 			if (isNode(name)) {
