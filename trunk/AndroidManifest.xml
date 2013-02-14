@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="18"
+	android:versionCode="19"
 	android:installLocation="auto"
 	>
 	
