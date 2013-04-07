@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Branch 0.9 has minimal relation support with the goal of keeping existing relation memberships and relations intact and consistent after elements have been edited. It currently doesn't support explicit editing of relations, however that is only a question of adding the necessary UI.
+Branch 0.9 has minimal relation support with the goal of keeping existing relation memberships and relations intact and consistent after elements have been edited. It currently doesn't support explicit editing of relations, however that is only a question of adding the necessary UI. An APK is available in the download section.
 
 = Features =
 
