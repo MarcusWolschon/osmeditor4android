@@ -335,15 +335,29 @@ public class StorageDelegator implements Serializable, Exportable {
 	
 	/**
 	 * Merges two ways by prepending/appending all nodes from the second way to the first one, then deleting the second one.
-	 * Tags are not handled; all tags from the second way are lost.
+	 * 
 	 * Updated for relation support
-	 * @param mergeInto Way to merge the other way into. This way will be kept.
-	 * @param mergeFrom Way to merge into the other. This way will be deleted.
+	 * @param mergeInto Way to merge the other way into. This way will be kept if it has a valid id.
+	 * @param mergeFrom Way to merge into the other. 
 	 */
 	public void mergeWays(Way mergeInto, Way mergeFrom) {
+		// first determine if one of the ways already has a valid id, if it is not and other way has valid id swap
+		// this helps preserve history
+		if ((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) {
+			// swap
+			Log.d("StorageDelegator", "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
+			Way tmpWay = mergeInto;
+			mergeInto = mergeFrom;
+			mergeFrom = tmpWay;
+			Log.d("StorageDelegator", "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
+		}
+		
 		// undo - mergeInto way saved here, mergeFrom way will not be changed directly and will be saved in removeWay
 		dirty = true;
 		undo.save(mergeInto);
+		
+		// merge tags
+		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
 		
 		List<Node> newNodes = new ArrayList<Node>(mergeFrom.getNodes());
 		boolean atBeginning;
