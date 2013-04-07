@@ -1,7 +1,7 @@
  * [Overview]
  * [News]
   * [GSoC2012]
-  * [relation_support_0.9 Relation Support]
+  * [Relation Support]
  * [Tutorial]
   * [EasyEdit]
  * [FAQ]
