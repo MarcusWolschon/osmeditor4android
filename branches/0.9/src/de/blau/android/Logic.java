@@ -781,18 +781,12 @@ public class Logic {
 	 * Merge two ways.
 	 * Ways must be valid (i.e. have at least two nodes) and mergeable
 	 * (i.e. have a common start/end node).
-	 * 
-	 * If the first way does not have tags, but the second one does, the tags will be copied.
-	 * Otherwise, only the tags of the first way will be kept.
 	 *  
 	 * @param mergeInto Way to merge the other way into. This way will be kept.
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
 	 */
 	public void performMerge(Way mergeInto, Way mergeFrom) {
 		createCheckpoint(R.string.undo_action_merge_ways);
-		if (mergeInto.getTags().isEmpty() && !mergeFrom.getTags().isEmpty()) {
-			delegator.setTags(mergeInto, mergeFrom.getTags());
-		}
 		delegator.mergeWays(mergeInto, mergeFrom);
 		map.invalidate();
 	}
