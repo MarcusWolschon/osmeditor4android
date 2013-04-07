@@ -1,0 +1,44 @@
+JOSM was originally designed and coded by Immanuel Scholz,
+and is now maintained by the OpenStreetMap community.
+
+The current JOSM maintainer is Dirk Stöcker.
+A lot of administration work is done by Paul Hartmann.
+
+Major code contributions from (in alphabetical order):
+
+Stefan Breunig
+David Earl
+Gabriel Ebner
+Dave Hansen
+Paul Hartmann
+Karl Guggisberg
+Matthias Julius
+Alexei Kasatkin
+Jiri Klement
+Ulf Lamping
+Simon Legner
+Raphael Mack
+Upliner Mikhalych
+Vincent Privat
+Frederik Ramm
+Dirk Stöcker
+
+Many minor contributions and patches by others; see SVN history
+at http://josm.openstreetmap.de/svn/ for details. Use
+"josm-dev AT openstreetmap.org" to contact still active authors.
+
+Copyright rests with the contributors.
+
+The jpeg metadata extraction code is from Drew Noakes
+(http://code.google.com/p/metadata-extractor/) and licensed
+with Apache license version 2.0.
+
+Most icons have been nicked from GNOME and the GIMP, both
+under GPL. Some are originally LGPL but redistributed here under 
+GPL. The world image is from onearth.pl.
+
+The Bzip2 code is from Keiron Liddle (Apache project) and licensed
+with Apache license version 2.0.
+
+The signpost code (http://code.google.com/p/oauth-signpost/)
+is from Matthias Käppler and licensed with the Apache License 2.0.
