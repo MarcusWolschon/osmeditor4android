@@ -1,0 +1,36 @@
+#summary Relation Support
+
+= Introduction =
+
+Branch 0.9 has minimal relation support with the goal of keeping existing relation memberships and relations intact and consistent after elements have been edited. It currently doesn't support explicit editing of relations, however that is only a question of adding the necessary UI.
+
+= Features =
+
+* relation membership display on tag editing form
+* spliting of ways retains relation membership in both resulting segments with the exception of restrictions where it tries to assign restriction membership to the correct part.
+* rendering of otherwise untagged ways that are part of a multipolygon is based on the mp tags
+
+= Implementation =
+
+The implementation is inline with the exsiting way and node implementation, a slight depature is that the elements now contain a list of parent relations. While this potentially leads to inconsistencies, it makes it unnecessary to scan all downloaded relations for membership (such an implementation would however be possible).
+
+= Other Changes =
+
+* some changes to the rendering were made. landuse and tracks now have seperate rendering, house color was changed.
+* loading and saving the data state failed on 2.3 devices and emulators due to stack overflows, moving these operation to separate threads seems to have fixed it, besides being slightly hackish, the allocated stack size probably needs some tuning.
+* a long press on a preset in the tag editor should remove it from the MRU list, currently this is still in work and should probably be solved in a different way.
+* added the trivial changes for basic Samsung multi window support
+
+= Open Issues =
+
+* more testing needs to be done
+* configuring alternative API URLs leads to crashes, we need to determine if this is a result of these changes or is unrelated
+
+= Further Work =
+
+* more testing
+* allow addition/deletion of relation membership
+* tag editing for relations
+* allow creation of restrictions and other relations that make sense on a mobile device
+* automatic used imagery layer changeset tag as P2 and iD produce
+* GUI clean up (reduce the number of modes for example the seperate split and append modes would seem to be unnecessary)
