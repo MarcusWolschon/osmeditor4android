@@ -12,7 +12,7 @@ Branch 0.9 has minimal relation support with the goal of keeping existing relati
 
 = Implementation =
 
-The implementation is inline with the exsiting way and node implementation, a slight depature is that the elements now contain a list of parent relations. While this potentially leads to inconsistencies, it makes it unnecessary to scan all downloaded relations for membership (such an implementation would however be possible).
+The implementation is in line with the exsiting way and node implementation, a slight depature is that the elements now contain a list of parent relations. While this potentially leads to inconsistencies, it makes it unnecessary to scan all downloaded relations for membership (such an implementation would however be possible).
 
 = Other Changes =
 
