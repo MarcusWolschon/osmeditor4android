@@ -371,6 +371,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		
 		mergeInto.addNodes(newNodes, atBeginning);
+		mergeInto.updateState(OsmElement.STATE_MODIFIED);
 		insertElementSafe(mergeInto);
 		mergeElementsRelations(mergeInto, mergeFrom);
 		removeWay(mergeFrom);
