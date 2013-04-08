@@ -544,6 +544,7 @@ public class Map extends View implements IMapView {
 		}
 		
 		String highway = way.getTagWithKey("highway"); // cache frequently accessed key
+		String natural = way.getTagWithKey("natural");
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {
@@ -558,7 +559,7 @@ public class Map extends View implements IMapView {
 		} else {
 			if (way.getTagWithKey("railway") != null) {
 				paintKey = Paints.RAILWAY;
-			} else if (way.getTagWithKey("waterway") != null) {
+			} else if ((way.getTagWithKey("waterway") != null) || (natural != null && natural.equals("water"))) {
 				paintKey = Paints.WATERWAY;
 			} else if (way.getTagWithKey("addr:interpolation") != null) {
 				paintKey = Paints.INTERPOLATION;
@@ -566,7 +567,7 @@ public class Map extends View implements IMapView {
 				paintKey = Paints.BOUNDARY;
 			} else if (way.getTagWithKey("building") != null) {
 				paintKey = Paints.BUILDING;
-			} else if (way.getTagWithKey("landuse") != null) {
+			} else if ((way.getTagWithKey("landuse") != null) || natural != null) {
 				paintKey = Paints.LANDUSE;
 			} else if (highway != null) {
 				if ("footway".equalsIgnoreCase(highway) || "cycleway".equalsIgnoreCase(highway)) {
@@ -581,7 +582,15 @@ public class Map extends View implements IMapView {
 						paintKey = Paints.BOUNDARY;
 					} else if (r.getTagWithKey("landuse") != null) {
 						paintKey = Paints.LANDUSE;
+					} else if (natural != null) {
+						if (natural.equals("water")) {
+							paintKey = Paints.WATERWAY;
+						}
+						else {
+							paintKey = Paints.LANDUSE;
+						}
 					}
+						
 				}
 			}
 			
