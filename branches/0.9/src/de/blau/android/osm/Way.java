@@ -39,6 +39,10 @@ public class Way extends OsmElement {
 	}
 
 	void addNode(final Node node) {
+		if ((nodes.size() > 0) && (nodes.get(nodes.size() - 1) == node)) {
+			Log.i("Way", "addNode attempt to add same node");
+			return;
+		}
 		nodes.add(node);
 	}
 
@@ -101,12 +105,23 @@ public class Way extends OsmElement {
 	}
 	
 	void removeNode(final Node node) {
+		int index = nodes.lastIndexOf(node);
+		if (index > 0 && index < (nodes.size()-1)) { // not the first or last node 
+			if (nodes.get(index-1) == nodes.get(index+1)) {
+				nodes.remove(index-1);
+				Log.i("Way", "removeNode removed duplicate node");
+			}
+		}
 		while (nodes.remove(node)) {
 			;
 		}
 	}
 
 	void appendNode(final Node refNode, final Node newNode) {
+		if (refNode == newNode) { // user error
+			Log.i("Way", "appendNode attempt to add same node");
+			return;
+		}
 		if (nodes.get(0) == refNode) {
 			nodes.add(0, newNode);
 		} else if (nodes.get(nodes.size() - 1) == refNode) {
@@ -115,6 +130,10 @@ public class Way extends OsmElement {
 	}
 
 	void addNodeAfter(final Node nodeBefore, final Node newNode) {
+		if (nodeBefore == newNode) { // user error
+			Log.i("Way", "addNodeAfter attempt to add same node");
+			return;
+		}
 		nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
 	}
 	
@@ -126,8 +145,26 @@ public class Way extends OsmElement {
 	 */
 	void addNodes(List<Node> newNodes, boolean atBeginning) {
 		if (atBeginning) {
+			if ((nodes.size() > 0) && nodes.get(0) == newNodes.get(newNodes.size()-1)) { // user error
+				Log.i("Way", "addNodes attempt to add same node");
+				if (newNodes.size() > 1) {
+					Log.i("Way", "retrying addNodes");
+					newNodes.remove(newNodes.size()-1);
+					addNodes(newNodes, atBeginning);
+				}
+				return;
+			}
 			nodes.addAll(0, newNodes);
 		} else {
+			if ((nodes.size() > 0) && newNodes.get(0) == nodes.get(nodes.size()-1)) { // user error
+				Log.i("Way", "addNodes attempt to add same node");
+				if (newNodes.size() > 1) {
+					Log.i("Way", "retrying addNodes");
+					newNodes.remove(0);
+					addNodes(newNodes, atBeginning);
+				}
+				return;
+			}
 			nodes.addAll(newNodes);
 		}
 	}
