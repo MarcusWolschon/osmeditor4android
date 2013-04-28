@@ -11,6 +11,12 @@
 			android:entryValues="@array/renderer_ids"
 			android:defaultValue="MAPNIK"
 		/>
+		<ListPreference
+			android:key="@string/config_mapProfile_key"
+			android:title="@string/config_mapProfile_title"
+			android:summary="@string/config_mapProfile_summary"
+			android:defaultValue="Default"
+		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableOpenStreetBugs_key"
 			android:title="@string/config_enableOpenStreetBugs_title"

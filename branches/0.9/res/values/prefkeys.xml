@@ -20,4 +20,5 @@
     <string name="config_selected_api">selectedAPI</string>
     <string name="config_forceContextMenu_key">forceContextMenu</string>
     <string name="config_advancedprefs_key">advanced</string>
+    <string name="config_mapProfile_key">profile</string>
 </resources>

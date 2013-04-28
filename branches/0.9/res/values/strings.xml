@@ -152,6 +152,8 @@
     <string name="config_forceContextMenu_summary">Always show the context menu in EasyEdit mode if the selection is ambiguous.</string>
     <string name="config_licensebutton_title">Authors and licenses</string>
     <string name="config_licensebutton_summary">Show authors and license information</string>
+	<string name="config_mapProfile_title">Map profile</string>
+	<string name="config_mapProfile_summary">Set style and visibility of elements</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

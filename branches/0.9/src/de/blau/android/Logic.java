@@ -34,7 +34,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.Paints;
+import de.blau.android.resources.Profile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 
@@ -200,10 +200,6 @@ public class Logic {
 	 */
 	private Map map;
 
-	/**
-	 * Needed for updating the strokes.
-	 */
-	private final Paints paints;
 	
 	private Set<OsmElement> clickableElements;
 
@@ -214,9 +210,8 @@ public class Logic {
 	 * @param map Instance of the Map. All new Values will be pushed to it.
 	 * @param paints Needed for updating the strokes on zooming.
 	 */
-	Logic(final Map map, final Paints paints) {
+	Logic(final Map map, final Profile profile) {
 		this.map = map;
-		this.paints = paints;
 
 		viewBox = delegator.getOriginalBox();
 		
@@ -225,7 +220,7 @@ public class Logic {
 		setSelectedNode(null);
 		setSelectedWay(null);
 
-		map.setPaints(paints);
+		// map.setPaints(paints);
 		map.setDelegator(delegator);
 		map.setViewBox(viewBox);
 	}
@@ -239,10 +234,23 @@ public class Logic {
 	 */
 	void setPrefs(final Preferences prefs) {
 		this.prefs = prefs;
-		paints.setAntiAliasing(prefs.isAntiAliasingEnabled());
+		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		map.invalidate();
 	}
 
+	
+	/**
+	 * 
+	 */
+	public void updateProfile() {
+		Profile.switchTo(prefs.getMapProfile());
+		Profile.updateStrokes(Logic.STROKE_FACTOR / viewBox.getWidth());
+		// zap the cached style for all ways
+		for (Way w:delegator.getCurrentStorage().getWays()) {
+			w.setFeatureProfile(null);
+		}
+	}
+	
 	/**
 	 * Sets new mode.
 	 * If the new mode is different from the current one,
@@ -355,14 +363,14 @@ public class Logic {
 			viewBox.zoomOut();
 		}
 		isInEditZoomRange();
-		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
 		map.invalidate();
 	}
 	
 	public void zoom(final float zoomFactor) {
 		viewBox.zoom(zoomFactor);
 		isInEditZoomRange();
-		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
 		map.postInvalidate();
 	}
 
@@ -406,7 +414,7 @@ public class Logic {
 		delegator.reset();
 		delegator.setOriginalBox(box);
 		viewBox.setRatio((float) map.getWidth() / map.getHeight());
-		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();
 	}
@@ -468,7 +476,7 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
+		final float tolerance = Profile.NODE_TOLERANCE_VALUE;
 		float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon()) - x);
 		float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat()) - y);
 		
@@ -1026,7 +1034,7 @@ public class Logic {
 	private boolean isPositionOnLine(final float x, final float y,
 			final float node1X, final float node1Y,
 			final float node2X, final float node2Y) {
-		float tolerance = Paints.WAY_TOLERANCE_VALUE / 2f;
+		float tolerance = Profile.WAY_TOLERANCE_VALUE / 2f;
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
 			return (GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y) < tolerance);
 		}
@@ -1115,7 +1123,7 @@ public class Logic {
 				}
 				View map = Application.mainActivity.getCurrentFocus();
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
+				Profile.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
 				map.invalidate();
 				if (result != 0) {
 					Application.mainActivity.showDialog(result);
@@ -1220,7 +1228,7 @@ public class Logic {
 				View map = Application.mainActivity.getCurrentFocus();
 				setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+				Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 				map.invalidate();
 				UndoStorage.updateIcon();
 			}
@@ -1368,8 +1376,7 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
-		paints.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / viewBox.getWidth()));
-		map.setPaints(paints);
+		Profile.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / viewBox.getWidth()));
 		map.setDelegator(delegator);
 		map.setViewBox(viewBox);
 	}

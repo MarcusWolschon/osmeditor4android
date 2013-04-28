@@ -73,7 +73,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.resources.Paints;
+import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
@@ -258,7 +258,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		loadOnResume = false;
 		if (logic == null) {
 			Log.i("Main", "onCreate - creating new logic");
-			logic = new Logic(map, new Paints(getApplicationContext().getResources()));
+			logic = new Logic(map, new Profile(getApplicationContext()));
 			if (isLastActivityAvailable()) {
 				// Start loading after resume to ensure loading dialog can be removed afterwards
 				loadOnResume = true;
@@ -313,6 +313,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (currentPreset == null) {
 			currentPreset = prefs.getPreset();
 		}
+		
+		logic.updateProfile();
+		
 		runningInstance = this;
 		
 		updateActionbarEditMode();
@@ -1247,8 +1250,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					float node2X = logic.getNodeScreenX(possibleNeighbor);
 					float node2Y = logic.getNodeScreenY(possibleNeighbor);
 					// Fast "square" checking is good enough
-					if (Math.abs(nodeX-node2X) < Paints.NODE_OVERLAP_TOLERANCE_VALUE ||
-						Math.abs(nodeY-node2Y) < Paints.NODE_OVERLAP_TOLERANCE_VALUE ) {
+					if (Math.abs(nodeX-node2X) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ||
+						Math.abs(nodeY-node2Y) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ) {
 							// The first node has an EXTREMELY close neighbour. Show context menu
 							return true;
 					}

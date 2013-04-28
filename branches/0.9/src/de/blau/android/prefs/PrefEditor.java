@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
+import de.blau.android.resources.Profile;
 
 /**
  * Simple class for Android's standard-Preference Activity
@@ -24,6 +26,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	
 	private Resources r;
 	private String KEY_MAPBG;
+	private String KEY_MAPPROFILE;
 	private String KEY_PREFLOGIN;
 	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
@@ -37,6 +40,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		addPreferencesFromResource(R.xml.preferences);
 		r = getResources();
 		KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
+		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
 		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
@@ -97,6 +101,30 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		};
 		mapbgpref.setOnPreferenceChangeListener(l);
 		l.onPreferenceChange(mapbgpref, prefs.backgroundLayer());
+		
+		ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPPROFILE);
+		String[] profileList = Profile.getProfileList();
+		mapProfilePref.setEntries(profileList);
+		mapProfilePref.setEntryValues(profileList);
+		OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				Log.d("PrefEditor", "onPreferenceChange mapProfile");
+				String id = (String)newValue;
+				String[] profileList = Profile.getProfileList();
+				String[] ids = profileList;
+				String[] names = profileList;
+				for (int i = 0; i < ids.length; i++) {
+					if (ids[i].equals(id)) {
+						preference.setSummary(names[i]);
+						break;
+					}
+				}
+				return true;
+			}
+		};
+		mapProfilePref.setOnPreferenceChangeListener(p);
+		p.onPreferenceChange(mapProfilePref, prefs.getMapProfile());
 		
 		Preference advprefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
 		advprefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

@@ -147,8 +147,8 @@ public class OsmParser extends DefaultHandler {
 			byte status = 0;
 			
 			if (isNode(name)) {
-				int lat = (int) (Double.parseDouble(atts.getValue("lat")) * 1E7);
-				int lon = (int) (Double.parseDouble(atts.getValue("lon")) * 1E7);
+				int lat = (int) (Double.valueOf(atts.getValue("lat")) * 1E7);
+				int lon = (int) (Double.valueOf(atts.getValue("lon")) * 1E7);
 				currentNode = OsmElementFactory.createNode(osmId, osmVersion, status, lat, lon);
 				Log.d(DEBUG_TAG, "Creating node " + osmId);
 			} else if (isWay(name)) {

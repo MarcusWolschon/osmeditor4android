@@ -14,7 +14,7 @@ import android.os.Handler;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.resources.Paints;
+import de.blau.android.resources.Profile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
@@ -139,7 +139,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	public List<Bug> getClickedBugs(final float x, final float y, final BoundingBox viewBox) {
 		List<Bug> result = new ArrayList<Bug>();
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
-			final float tolerance = Paints.NODE_TOLERANCE_VALUE;
+			final float tolerance = Profile.NODE_TOLERANCE_VALUE;
 			for (Bug b : bugs) {
 				int lat = b.getLat();
 				int lon = b.getLon();

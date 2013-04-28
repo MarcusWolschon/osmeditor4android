@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import de.blau.android.resources.Profile.FeatureProfile;
+
 import android.util.Log;
 
 public class Way extends OsmElement {
@@ -16,7 +18,7 @@ public class Way extends OsmElement {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1104911642016294265L;
+	private static final long serialVersionUID = 1104911642016294266L;
 	
 	private static final String[] importantHighways;
 
@@ -25,6 +27,8 @@ public class Way extends OsmElement {
 	public static final String NAME = "way";
 
 	public static final String NODE = "nd";
+	
+	transient FeatureProfile featureProfile = null; // FeatureProfile is currently not serializable
 	
 	static {
 		importantHighways = (
@@ -252,4 +256,25 @@ public class Way extends OsmElement {
 			return ElementType.WAY;
 		}
 	}
+	
+	@Override
+	void updateState(final byte newState) {
+		featureProfile = null; // force recalc of style
+		super.updateState(newState);
+	}
+	
+	@Override
+	void setState(final byte newState) {
+		featureProfile = null; // force recalc of style
+		super.setState(newState);
+	}
+	
+	public FeatureProfile getFeatureProfile() {
+		return featureProfile;
+	}
+	
+	public void setFeatureProfile(FeatureProfile fp) {
+		featureProfile = fp;
+	}
+	
 }

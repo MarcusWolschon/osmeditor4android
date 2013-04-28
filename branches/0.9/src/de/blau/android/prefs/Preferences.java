@@ -9,6 +9,7 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
+import de.blau.android.resources.Profile;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
@@ -28,6 +29,8 @@ public class Preferences {
 	private final boolean isOpenStreetBugsEnabled;
 	
 	private final String backgroundLayer;
+	
+	private final String mapProfile;
 	
 	private int gpsInterval;
 	
@@ -72,6 +75,13 @@ public class Preferences {
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
+		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
+		// check if we actually still have the profile
+		if (Profile.getProfile(tempMapProfile) == null) {
+			mapProfile = Profile.getDefaultProfileName(); //TODO should store this as new pref
+		} else {
+			mapProfile = tempMapProfile;
+		}
 		try {
 			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "5.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
@@ -122,6 +132,13 @@ public class Preferences {
 	 */
 	public String backgroundLayer() {
 		return backgroundLayer;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getMapProfile() {
+		return mapProfile;
 	}
 	
 	/**

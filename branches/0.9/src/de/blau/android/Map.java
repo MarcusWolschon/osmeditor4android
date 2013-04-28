@@ -18,6 +18,7 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
 import android.os.Build;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,7 +35,8 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.resources.Paints;
+import de.blau.android.resources.Profile;
+import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
@@ -66,8 +68,6 @@ public class Map extends View implements IMapView {
 	private final int iconRadius;
 	
 	private Preferences pref;
-	
-	private Paints paints;
 	
 	/** Direction we're pointing. 0-359 is valid, anything else is invalid.*/
 	private float orientation = -1f;
@@ -277,7 +277,7 @@ public class Map extends View implements IMapView {
 	private void paintGpsTrack(final Canvas canvas) {
 		if (tracker == null) return;
 		float[] linePoints = pointListToLinePointsArray(tracker.getTrackPoints());
-		canvas.drawLines(linePoints, paints.get(Paints.TRACK));
+		canvas.drawLines(linePoints, Profile.getCurrent(Profile.GPS_TRACK).getPaint());
 	}
 	
 	/**
@@ -300,15 +300,16 @@ public class Map extends View implements IMapView {
 				o = orientation;
 			}
 		}
+		Paint paint = Profile.getCurrent(Profile.GPS_POS).getPaint();
 		if (o < 0) {
 			// no orientation data available
-			canvas.drawCircle(x, y, paints.get(Paints.GPS_POS).getStrokeWidth(), paints.get(Paints.GPS_POS));
+			canvas.drawCircle(x, y, paint.getStrokeWidth(), paint);
 		} else {
 			// show the orientation using a pointy indicator
 			canvas.save();
 			canvas.translate(x, y);
 			canvas.rotate(o);
-			canvas.drawPath(Paints.ORIENTATION_PATH, paints.get(Paints.GPS_POS));
+			canvas.drawPath(Profile.ORIENTATION_PATH, paint);
 			canvas.restore();
 		}
 		if (displayLocation.hasAccuracy()) {
@@ -321,7 +322,7 @@ public class Map extends View implements IMapView {
 						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getTop()),
 						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getRight()),
 						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getBottom()));
-				canvas.drawOval(accuracyRect, paints.get(Paints.GPS_ACCURACY));
+				canvas.drawOval(accuracyRect, Profile.getCurrent(Profile.GPS_ACCURACY).getPaint());
 			} catch (OsmException e) {
 				// it doesn't matter if the location accuracy doesn't get drawn
 			}
@@ -331,7 +332,7 @@ public class Map extends View implements IMapView {
 	private void paintStats(final Canvas canvas, final int fps) {
 		int pos = 1;
 		String text = "";
-		Paint infotextPaint = paints.get(Paints.INFOTEXT);
+		Paint infotextPaint = Profile.getCurrent(Profile.INFOTEXT).getPaint();
 		float textSize = infotextPaint.getTextSize();
 		
 		BoundingBox viewBox = getViewBox();
@@ -384,22 +385,22 @@ public class Map extends View implements IMapView {
 		RectF rect = new RectF(left, top, right, bottom);
 		RectF screen = new RectF(0, 0, getWidth(), getHeight());
 		if (!rect.contains(screen)) {
+			Paint boxpaint = Profile.getCurrent(Profile.VIEWBOX).getPaint();
 			if (RectF.intersects(rect, screen)) {
 				// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
 				if (hasFullClippingSupport(canvas)) {
 					canvas.save();
 					canvas.clipRect(rect, Region.Op.DIFFERENCE);
-					canvas.drawRect(screen, paints.get(Paints.VIEWBOX));
+					canvas.drawRect(screen, boxpaint);
 					canvas.restore();
 				} else {
-					Paint boxpaint = paints.get(Paints.VIEWBOX);
 					canvas.drawRect(0, 0, screen.right, top, boxpaint); // Cover top
 					canvas.drawRect(0, bottom, screen.right, screen.bottom, boxpaint); // Cover bottom
 					canvas.drawRect(right, top, screen.right, bottom, boxpaint); // Cover right
 					canvas.drawRect(0, top, left, bottom, boxpaint); // Cover left
 				}
 			} else {
-				canvas.drawRect(screen, paints.get(Paints.VIEWBOX));
+				canvas.drawRect(screen, boxpaint);
 			}
 		}
 	}
@@ -431,37 +432,37 @@ public class Map extends View implements IMapView {
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
 			
-			int paintKey;
-			int paintKey2;
+			String featureKey;
+			String featureKey2;
 			if (node == tmpDrawingSelectedNode && tmpDrawingInEditRange) {
 				// general node style
-				paintKey = Paints.SELECTED_NODE;
+				featureKey = Profile.SELECTED_NODE;
 				// style for house numbers
-				paintKey2 = Paints.SELECTED_NODE_THIN;
+				featureKey2 = Profile.SELECTED_NODE_THIN;
 			} else if (node.hasProblem()) {
 				// general node style
-				paintKey = Paints.PROBLEM_NODE;
+				featureKey = Profile.PROBLEM_NODE;
 				// style for house numbers
-				paintKey2 = Paints.PROBLEM_NODE_THIN;
+				featureKey2 = Profile.PROBLEM_NODE_THIN;
 			} else {
 				// general node style
-				paintKey = Paints.NODE;
+				featureKey = Profile.NODE;
 				// style for house numbers
-				paintKey2 = Paints.NODE_THIN;
+				featureKey2 = Profile.NODE_THIN;
 			}
 
 			// draw house-numbers
 			if (node.getTagWithKey("addr:housenumber") != null && node.getTagWithKey("addr:housenumber").trim().length() > 0) {
-				Paint paint2 = paints.get(paintKey2);
+				Paint paint2 = Profile.getCurrent(featureKey2).getPaint();
 				canvas.drawCircle(x, y, 10, paint2);
 				String text = node.getTagWithKey("addr:housenumber");
 				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + 3, paint2);
 			} else { //TODO: draw other known elements different too
 				// draw regular nodes
-				canvas.drawPoint(x, y, paints.get(paintKey));
+				canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());
 			}
 			
-			if (showIcons && tmpPreset != null && paintKey != Paints.SELECTED_NODE) paintNodeIcon(node, canvas, x, y);
+			if (showIcons && tmpPreset != null && !featureKey.equals(Profile.SELECTED_NODE)) paintNodeIcon(node, canvas, x, y);
 		}
 	}
 	
@@ -504,8 +505,8 @@ public class Map extends View implements IMapView {
 			final float x, final float y) {
 		if (pref.isToleranceVisible() && tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingInEditRange
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
-			canvas.drawCircle(x, y, paints.get(Paints.NODE_TOLERANCE).getStrokeWidth(), paints
-					.get(Paints.NODE_TOLERANCE));
+			Paint p = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
+			canvas.drawCircle(x, y, p.getStrokeWidth(), p);
 		}
 	}
 
@@ -517,8 +518,7 @@ public class Map extends View implements IMapView {
 	 */
 	private void paintWay(final Canvas canvas, final Way way) {
 		float[] linePoints = pointListToLinePointsArray(way.getNodes());
-		int paintKey = Paints.WAY;
-		
+		Paint paint;
 		//TODO: order by occurrences
 		//setColorByTag(way, paint);
 		
@@ -534,72 +534,113 @@ public class Map extends View implements IMapView {
 					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT
 					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))
 				&& tmpDrawingInEditRange) {
-			canvas.drawLines(linePoints, paints.get(Paints.WAY_TOLERANCE));
+			canvas.drawLines(linePoints, Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint());
 		}
 		//draw selectedWay highlighting
 		boolean isSelected = (way == tmpDrawingSelectedWay && tmpDrawingInEditRange);
 		if  (isSelected) {
-			canvas.drawLines(linePoints, paints.get(Paints.SELECTED_WAY));
-			drawOnewayArrows(canvas, linePoints, false, paints.get(Paints.WAY_DIRECTION));
+			paint = Profile.getCurrent(Profile.SELECTED_WAY).getPaint();
+			canvas.drawLines(linePoints, paint);
+			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
+			drawOnewayArrows(canvas, linePoints, false, paint);
 		}
-		
-		String highway = way.getTagWithKey("highway"); // cache frequently accessed key
-		String natural = way.getTagWithKey("natural");
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {
-			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), paints.get(Paints.ONEWAY_DIRECTION));
+			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
+			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint());
 		}
 		
-		ArrayList<Relation> relations = way.getParentRelations();
+		// get default for ways
+		FeatureProfile fp = Profile.getCurrent(Profile.WAY);
 		
-		
+		// this logic needs to be separated out
 		if (way.hasProblem()) {
-			paintKey = Paints.PROBLEM_WAY;
+			fp = Profile.getCurrent(Profile.PROBLEM_WAY);
 		} else {
-			if (way.getTagWithKey("railway") != null) {
-				paintKey = Paints.RAILWAY;
-			} else if ((way.getTagWithKey("waterway") != null) || (natural != null && natural.equals("water"))) {
-				paintKey = Paints.WATERWAY;
-			} else if (way.getTagWithKey("addr:interpolation") != null) {
-				paintKey = Paints.INTERPOLATION;
-			} else if (way.getTagWithKey("boundary") != null) {
-				paintKey = Paints.BOUNDARY;
-			} else if (way.getTagWithKey("building") != null) {
-				paintKey = Paints.BUILDING;
-			} else if ((way.getTagWithKey("landuse") != null) || natural != null) {
-				paintKey = Paints.LANDUSE;
-			} else if (highway != null) {
-				if ("footway".equalsIgnoreCase(highway) || "cycleway".equalsIgnoreCase(highway)) {
-					paintKey = Paints.FOOTWAY;
-				} else if ("track".equalsIgnoreCase(highway))
-				{
-					paintKey = Paints.TRACKTYPE; 
-				} 
-			} else if (relations != null) { // check for any relation memberships with low prio
-				for (Relation r : relations) {
-					if (r.getTagWithKey("boundary") != null) {
-						paintKey = Paints.BOUNDARY;
-					} else if (r.getTagWithKey("landuse") != null) {
-						paintKey = Paints.LANDUSE;
-					} else if (natural != null) {
-						if (natural.equals("water")) {
-							paintKey = Paints.WATERWAY;
-						}
-						else {
-							paintKey = Paints.LANDUSE;
+			FeatureProfile wayFp = way.getFeatureProfile();
+			if (wayFp == null) {
+				// three levels of hierarchy for roads and special casing of tracks, two levels for everything else
+				String highwayType = way.getTagWithKey("highway");
+				if (highwayType != null) {
+					FeatureProfile tempFp = Profile.getCurrent("way-highway");
+					if (tempFp != null) {
+						fp = tempFp;
+						tempFp = Profile.getCurrent("way-highway-" + highwayType);
+						if (tempFp != null) {
+							fp = tempFp;
+							String highwaySubType;
+							if (highwayType.equals("track")) { // special case
+								highwaySubType = way.getTagWithKey("tracktype");
+							} else {
+								highwaySubType = way.getTagWithKey(highwayType);
+							}
+							if (highwaySubType != null) {
+								tempFp = Profile.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
+								if (tempFp != null) {
+									fp = tempFp;
+								}
+							}
 						}
 					}
-						
+				} else {
+					// order in the array defines precedence
+					String[] tags = {"building","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
+							"aerialway","military","historic"};
+					FeatureProfile tempFp = null;
+					for (String tag:tags) {
+						tempFp = getProfile(tag, way);
+						if (tempFp != null) {
+							fp = tempFp;
+							break;
+						}
+					}
+					if (tempFp == null) {
+						ArrayList<Relation> relations = way.getParentRelations();
+						// check for any relation memberships with low prio, take first one
+						String[] relationTags = {"boundary","landuse","natural"};
+						if (relations != null) { 
+							for (Relation r : relations) {
+								for (String tag:relationTags) {
+									tempFp = getProfile(tag, r);
+									if (tempFp != null) {
+										fp = tempFp;
+										break;
+									} 
+								}
+								if (tempFp != null) { // break out of loop over relations
+									break;
+								}
+							}
+						}
+					}
 				}
+				way.setFeatureProfile(fp);
+			} else {
+				fp = wayFp;
 			}
-			
 		}
+			
 		// draw the way itself
-		canvas.drawLines(linePoints, paints.get(paintKey));
+		canvas.drawLines(linePoints, fp.getPaint());
 	}
 	
 
+	FeatureProfile getProfile(String tag, OsmElement e) {
+		String mainType = e.getTagWithKey(tag);
+		FeatureProfile fp = null;
+		if (mainType != null) {
+			FeatureProfile tempFp = Profile.getCurrent("way-" + tag);
+			if (tempFp != null) {
+				fp = tempFp;
+				tempFp = Profile.getCurrent("way-" + tag + "-" + mainType);
+				if (tempFp != null) {
+					fp = tempFp;
+				}
+			}
+		}
+		return fp;
+	}
 	/**
 	 * Draws directional arrows for a way
 	 * @param canvas the canvas on which to draw
@@ -621,7 +662,7 @@ public class Map extends View implements IMapView {
 			canvas.translate(x,y);
 			float angle = (float)(Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
 			canvas.rotate(reverse ? angle-180 : angle);
-			canvas.drawPath(Paints.WAY_DIRECTION_PATH, paint);
+			canvas.drawPath(Profile.WAY_DIRECTION_PATH, paint);
 			canvas.restore();
 		}
 	}
@@ -639,6 +680,8 @@ public class Map extends View implements IMapView {
 		
 		//loop over all nodes
 		GeoPoint prevNode = null;
+		float prevX=0f;
+		float prevY=0f;
 		for (GeoPoint node : nodes) {
 			int nodeLon = node.getLon();
 			int nodeLat = node.getLat();
@@ -646,14 +689,24 @@ public class Map extends View implements IMapView {
 			if (node instanceof InterruptibleGeoPoint) {
 				interrupted = ((InterruptibleGeoPoint)node).isInterrupted();
 			}
+			float X = Float.MIN_VALUE;
+			float Y = Float.MIN_VALUE;
 			if (!interrupted && prevNode != null && box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
+				X = GeoMath.lonE7ToX(getWidth(), box, nodeLon);
+				Y = GeoMath.latE7ToY(getHeight(), box, nodeLat);
+				if (prevX == Float.MIN_VALUE) { // last segment didn't intersect
+					prevX = GeoMath.lonE7ToX(getWidth(), box, prevNode.getLon());
+					prevY = GeoMath.latE7ToY(getHeight(), box, prevNode.getLat());
+				}
 				// Line segment needs to be drawn
-				points.add(GeoMath.lonE7ToX(getWidth(), box, prevNode.getLon()));
-				points.add(GeoMath.latE7ToY(getHeight(), box, prevNode.getLat()));
-				points.add(GeoMath.lonE7ToX(getWidth(), box, nodeLon));
-				points.add(GeoMath.latE7ToY(getHeight(), box, nodeLat));
+				points.add(prevX);
+				points.add(prevY);
+				points.add(X);
+				points.add(Y);
 			}
 			prevNode = node;
+			prevX = X;
+			prevY = Y;
 		}
 		
 		// convert from ArrayList<Float> to float[]
@@ -722,9 +775,6 @@ public class Map extends View implements IMapView {
 		myViewBox = viewBox;
 	}
 	
-	void setPaints(final Paints paints) {
-		this.paints = paints;
-	}
 	
 	/**
 	 * You can add/remove/reorder your Overlays using the List of
