@@ -16,7 +16,7 @@ The implementation is in line with the exsiting way and node implementation, a s
 
 = Other Changes =
 
- * some changes to the rendering were made. landuse and tracks now have seperate rendering, house color was changed.
+ * some changes to the rendering were made. landuse and tracks now have seperate rendering, house color was changed. The rendering is now user selectable the old "everything black" style is available as "Default", this one as "Color". Further styles can be added, but please be aware that the current implementation is not likely to be long lived.
  * loading and saving the data state failed on 2.3 devices and emulators due to stack overflows, moving these operation to separate threads seems to have fixed it, besides being slightly hackish, the allocated stack size probably needs some tuning.
  * a long press on a preset in the tag editor should remove it from the MRU list, currently this is still in work and should probably be solved in a different way.
  * added the trivial changes for basic Samsung multi window support
