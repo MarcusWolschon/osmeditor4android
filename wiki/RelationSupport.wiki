@@ -21,10 +21,12 @@ The implementation is in line with the exsiting way and node implementation, a s
  * a long press on a preset in the tag editor should remove it from the MRU list, currently this is still in work and should probably be solved in a different way.
  * added the trivial changes for basic Samsung multi window support
  * merging of ways now tries to preserve existing way ids and uses conventional tag merging logic
+ * reversing a way, either explictly in EasyEdit mode or implicitly by merging ways with different directions, will now reverse direction dependent tags (*:forward, *:backward, *:left and *:right) silently. If a oneway tag is present, the explicit reversing will not change the value of oneway, assuming that this was the point of reversing in the first place.
 
 = Open Issues =
 
  * more testing needs to be done
+ * show warning on deleting relation member
  * configuring alternative API URLs leads to crashes, we need to determine if this is a result of these changes or is unrelated
 
 = Further Work =
