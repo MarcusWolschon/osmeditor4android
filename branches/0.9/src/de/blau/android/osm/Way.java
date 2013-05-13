@@ -2,10 +2,14 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -170,6 +174,60 @@ public class Way extends OsmElement {
 				return;
 			}
 			nodes.addAll(newNodes);
+		}
+	}
+	
+	/**
+	 * Return the direction dependent tags and associated values 
+	 * oneway, *:left, *:right, *:backward, *:forward
+	 * Probably we should check for issues with relation membership too 
+	 * @return
+	 */
+	public Map<String, String> getDirectionDependentTags() {
+		Map<String, String> result = null;
+		for (String key : tags.keySet()) {
+			if (key.equals("oneway") || key.endsWith(":left") || key.endsWith(":right") || key.endsWith(":backward") || key.endsWith(":forward")) {
+				if (result == null) {
+					result = new TreeMap<String, String>();
+				}
+				result.put(key, tags.get(key));
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Reverse the direction dependent tags and save them to tags
+	 * @param tags Map of all direction dependent tags
+	 * @param reverseOneway if false don't change the value of the oneway tag if present
+	 */
+	public void reverseDirectionDependentTags(Map<String, String> dirTags, boolean reverseOneway) {
+		for (String key : dirTags.keySet()) {
+			if (!key.equals("oneway") || reverseOneway) {
+				String value = tags.get(key);
+				tags.remove(key); // except in the case of oneway the key changes			
+				if (key.equals("oneway")) {
+					if (value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("true") || value.equals("1")) {
+						tags.put(key, "-1");
+					} else if (value.equalsIgnoreCase("reverse") || value.equals("-1")) {
+						tags.put(key, "yes");
+					}
+				} else if (key.endsWith(":left")) { // this would be more elegant in a loop
+					String tmpKey = key.substring(0, key.length()-5);
+					tags.put(tmpKey + ":right", value);
+				} else if (key.endsWith(":right")) {
+					String tmpKey = key.substring(0, key.length()-6);
+					tags.put(tmpKey + ":left", value);
+				} else if (key.endsWith(":backward")) {
+					String tmpKey = key.substring(0, key.length()-9);
+					tags.put(tmpKey + ":forward", value);
+				} else if (key.endsWith(":forward")) {
+					String tmpKey = key.substring(0, key.length()-8);
+					tags.put(tmpKey + ":backward", value);
+				} else {
+					// can't happen should throw an exception
+				}
+			}
 		}
 	}
 	

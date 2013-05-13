@@ -909,11 +909,13 @@ public class Logic {
 	/**
 	 * Reverse a way
 	 * @param way the way to reverse
+	 * @return true if reverseWay returned true, implying that tags had to be reversed
 	 */
-	public void performReverse(Way way) {
+	public boolean performReverse(Way way) {
 		createCheckpoint(R.string.undo_action_reverse_way);
-		delegator.reverseWay(way);
+		boolean hadToReverse = delegator.reverseWay(way);
 		map.invalidate();
+		return hadToReverse;
 	}
 	
 	public void performAppendStart(Way way, Node node) {

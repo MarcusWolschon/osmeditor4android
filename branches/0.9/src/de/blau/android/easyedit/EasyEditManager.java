@@ -625,8 +625,7 @@ public class EasyEditManager {
 		
 		private void reverseWay() {
 			Way way = (Way) element;
-			logic.performReverse(way);
-			if (way.getOneway() != 0) {
+			if (logic.performReverse(way)) {
 				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
 				main.performTagEdit(way);
 			}
@@ -667,8 +666,7 @@ public class EasyEditManager {
 						}
 					})
 				.show();
-		}
-		
+		}	
 	}
 	
 	private class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
@@ -703,8 +701,7 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setClickableElements(null);
 			super.onDestroyActionMode(mode);
-		}
-		
+		}	
 	}
 	
 	private class WayMergingActionModeCallback extends EasyEditActionModeCallback {
