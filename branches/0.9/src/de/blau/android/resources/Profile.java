@@ -367,12 +367,9 @@ public class Profile  extends DefaultHandler {
 		fp.setWidthFactor(0.5f);
 		featureProfiles.put(fp.getName(), fp);
 		
-
-		
-		name = "Default";
-
-		currentProfile = this;
 		if (availableProfiles == null) {
+			name = "Default";
+			currentProfile = this;
 			availableProfiles = new HashMap<String,Profile>();
 			availableProfiles.put(name,this);
 		}
@@ -562,6 +559,7 @@ public class Profile  extends DefaultHandler {
 			if (element.equals("profile")) {
 				name = atts.getValue("name");
 				if (featureProfiles == null) {
+					Log.i("Profile","Allocating new list of feature profiles for profile " + name);
 					featureProfiles = new HashMap<String, FeatureProfile>();
 				}
 			} else if (element.equals("feature")) {
@@ -578,10 +576,11 @@ public class Profile  extends DefaultHandler {
 				tempFeatureProfile.setEditable(Boolean.valueOf(atts.getValue("editable")).booleanValue());
 				tempFeatureProfile.setColor((int)Long.parseLong(atts.getValue("color"),16)); // workaround highest bit set problem
 				tempFeatureProfile.getPaint().setStyle(Style.valueOf(atts.getValue("style")));
+				
 				tempFeatureProfile.getPaint().setStrokeCap(Cap.valueOf(atts.getValue("cap")));
 				tempFeatureProfile.getPaint().setStrokeJoin(Join.valueOf(atts.getValue("join")));
 				if (!tempFeatureProfile.updateWidth()) {
-					tempFeatureProfile.setStrokeWidth(Float.parseFloat(atts.getValue("strokewidth")));
+					tempFeatureProfile.getPaint().setStrokeWidth(Float.parseFloat(atts.getValue("strokewidth")));
 				}
 				if (atts.getValue("typefacestyle") != null) {
 					tempFeatureProfile.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
