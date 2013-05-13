@@ -23,12 +23,12 @@
 		<interval length="2.0" />
 	</dash>
 </feature>
-<feature name="way-landuse" internal="false" updateWidth="true" widthFactor="0.5" editable="true" color="ff71BE80" style="FILL" cap="BUTT" join="MITER" />
+<feature name="way-landuse" internal="false" updateWidth="true" widthFactor="0.5" editable="true" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-railway" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="ffffffff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-waterway" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-building" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway_footway" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway_track" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffc69c49" style="FILL" cap="BUTT" join="MITER" />
+<feature name="way-highway_track" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffc69c49" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-addr:interpolation" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
 	<dash phase="1.0">
 		<interval length="2.0" />
