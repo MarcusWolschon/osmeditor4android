@@ -4,18 +4,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import de.blau.android.R;
 import de.blau.android.resources.Profile.FeatureProfile;
 
+import android.nfc.FormatException;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Way extends OsmElement {
 
@@ -186,7 +191,7 @@ public class Way extends OsmElement {
 	public Map<String, String> getDirectionDependentTags() {
 		Map<String, String> result = null;
 		for (String key : tags.keySet()) {
-			if (key.equals("oneway") || key.endsWith(":left") || key.endsWith(":right") || key.endsWith(":backward") || key.endsWith(":forward")) {
+			if (key.equals("oneway") || key.equals("incline") || key.equals("direction") || key.endsWith(":left") || key.endsWith(":right") || key.endsWith(":backward") || key.endsWith(":forward")) {
 				if (result == null) {
 					result = new TreeMap<String, String>();
 				}
@@ -196,6 +201,8 @@ public class Way extends OsmElement {
 		return result;
 	}
 	
+	
+	
 	/**
 	 * Reverse the direction dependent tags and save them to tags
 	 * @param tags Map of all direction dependent tags
@@ -204,13 +211,73 @@ public class Way extends OsmElement {
 	public void reverseDirectionDependentTags(Map<String, String> dirTags, boolean reverseOneway) {
 		for (String key : dirTags.keySet()) {
 			if (!key.equals("oneway") || reverseOneway) {
-				String value = tags.get(key);
+				String value = tags.get(key).trim();
 				tags.remove(key); // except in the case of oneway the key changes			
 				if (key.equals("oneway")) {
 					if (value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("true") || value.equals("1")) {
 						tags.put(key, "-1");
 					} else if (value.equalsIgnoreCase("reverse") || value.equals("-1")) {
 						tags.put(key, "yes");
+					}
+				} else if (key.equals("direction")) {
+					if (value.equals("up")) {
+						tags.put(key, "down");
+					} else if (value.equals("down")) {
+						tags.put(key, "up");
+					} else {
+						if (value.endsWith("°")) { //degrees
+							try {
+								String tmpVal = value.substring(0,value.length()-1);
+								tags.put(key, floatToString(((Float.valueOf(tmpVal)+180.0f) % 360.0f)) + "°");
+							} catch (NumberFormatException nex) {
+								// oops put back original values 
+								tags.put(key,value);
+							}
+						} else if (value.matches("-?\\d+(\\.\\d+)?")) { //degrees without degree symbol
+							try {
+								tags.put(key, floatToString(((Float.valueOf(value)+180.0f) % 360.0f)));
+							} catch (NumberFormatException nex) {
+								// oops put back original values 
+								tags.put(key,value);
+							}
+						} else { // cardinal directions
+							try {
+								String tmpVal = "";
+								for (int i=0;i<value.length();i++) {
+									switch (value.toUpperCase().charAt(i)) {
+										case 'N': tmpVal = tmpVal + 'S'; break;
+										case 'W': tmpVal = tmpVal + 'E'; break;
+										case 'S': tmpVal = tmpVal + 'N'; break;
+										case 'E': tmpVal = tmpVal + 'W'; break;
+										default: throw new FormatException(); 
+									}
+								}
+								tags.put(key,tmpVal);
+							} catch (FormatException fex) {
+								tags.put(key,value);
+							}
+						}
+					}
+				} else if (key.equals("incline")) {
+					if (value.equals("up")) {
+						tags.put(key, "down");
+					} else if (value.equals("down")) {
+						tags.put(key, "up");
+					} else {
+						try {
+							if (value.endsWith("°")) { //degrees
+								String tmpVal = value.substring(0,value.length()-1);
+								tags.put(key, floatToString((Float.valueOf(tmpVal)*-1)) + "°");
+							} else if (value.endsWith("%")) { // percent{
+								String tmpVal = value.substring(0,value.length()-1);
+								tags.put(key, floatToString((Float.valueOf(tmpVal)*-1)) + "%");
+							} else {
+								tags.put(key, floatToString((Float.valueOf(value)*-1)));
+							}
+						} catch (NumberFormatException nex) {
+							// oops put back original values 
+							tags.put(key,value);
+						}
 					}
 				} else if (key.endsWith(":left")) { // this would be more elegant in a loop
 					String tmpKey = key.substring(0, key.length()-5);
@@ -226,9 +293,18 @@ public class Way extends OsmElement {
 					tags.put(tmpKey + ":backward", value);
 				} else {
 					// can't happen should throw an exception
+					tags.put(key,value);
 				}
 			}
 		}
+	}
+	
+	String floatToString(float f)
+	{
+		if(f == (int) f)
+	        return String.format(Locale.US, "%d",(int)f);
+	    else
+	        return String.format(Locale.US,"%s",f);
 	}
 	
 	/**
@@ -282,6 +358,52 @@ public class Way extends OsmElement {
 		}
 		return 0;
 	}
+	
+	/**
+	 * There is a set of tags which lead to a way not being reversible, this is EXTREMLY stupid and should be depreciated immediately.
+	 * 
+	 * natural=cliff
+	 * natural=coastline
+	 * barrier=retaining_wall
+	 * barrier=kerb
+	 * barrier=guard_rail
+	 * man_made=embankment
+	 * barrier=city_wall if two_sided != yes
+	 * waterway=*
+	 * 
+	 * @return true if somebody added the brain dead tags
+	 */
+	public boolean notReversable()
+	{
+		boolean brainDead = false;
+		String waterway = getTagWithKey("waterway");
+		if (waterway != null) {
+			brainDead = true; // IHMO
+		} else {
+			String natural = getTagWithKey("natural");
+			if ((natural != null) && (natural.equals("cliff") || natural.equals("coastline"))) {
+				brainDead = true; // IHMO
+			} else {
+				String barrier = getTagWithKey("barrier");
+				if ((barrier != null) && barrier.equals("retaining_wall")) {
+					brainDead = true; // IHMO
+				} else if ((barrier != null) && barrier.equals("kerb")) {
+					brainDead = true; //
+				} else if ((barrier != null) && barrier.equals("guard_rail")) {
+					brainDead = true; //	
+				} else if ((barrier != null) && barrier.equals("city_wall") && ((getTagWithKey("two_sided") == null) || !getTagWithKey("two_sided").equals("yes"))) {
+					brainDead = true; // IMHO
+				} else {
+					String man_made = getTagWithKey("man_made");
+					if ((man_made != null) && man_made.equals("embankment")) {
+						brainDead = true; // IHMO
+					}
+				}
+			}
+		}
+		return brainDead;
+	}
+	
 	
 	/**
 	 * Test if the way has a problem.

@@ -793,10 +793,11 @@ public class Logic {
 	 * @param mergeInto Way to merge the other way into. This way will be kept.
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
 	 */
-	public void performMerge(Way mergeInto, Way mergeFrom) {
+	public boolean performMerge(Way mergeInto, Way mergeFrom) {
 		createCheckpoint(R.string.undo_action_merge_ways);
-		delegator.mergeWays(mergeInto, mergeFrom);
+		boolean mergeOK = delegator.mergeWays(mergeInto, mergeFrom);
 		map.invalidate();
+		return mergeOK;
 	}
 	
 	/**

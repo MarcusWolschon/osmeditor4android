@@ -340,8 +340,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * Updated for relation support
 	 * @param mergeInto Way to merge the other way into. This way will be kept if it has a valid id.
 	 * @param mergeFrom Way to merge into the other. 
+	 * @return false if we had tag conflicts
 	 */
-	public void mergeWays(Way mergeInto, Way mergeFrom) {
+	public boolean mergeWays(Way mergeInto, Way mergeFrom) {
+		boolean mergeOK = true;
+		
 		// first determine if one of the ways already has a valid id, if it is not and other way has valid id swap
 		// this helps preserve history
 		if ((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) {
@@ -369,6 +372,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (dirTags != null) {
 				mergeFrom.reverseDirectionDependentTags(dirTags, true);
 			}
+			mergeOK = !mergeFrom.notReversable();
 			Collections.reverse(newNodes);
 			newNodes.remove(newNodes.size()-1); // remove "last" (originally first) node after reversing
 		} else if (mergeInto.getLastNode().equals(mergeFrom.getFirstNode())) {
@@ -387,6 +391,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (dirTags != null) {
 				mergeFrom.reverseDirectionDependentTags(dirTags, true);
 			}
+			mergeOK = !mergeFrom.notReversable();
 			newNodes.remove(newNodes.size()-1); // remove last node before reversing
 			Collections.reverse(newNodes);
 		} else {
@@ -400,6 +405,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		mergeInto.updateState(OsmElement.STATE_MODIFIED);
 		insertElementSafe(mergeInto);
 		mergeElementsRelations(mergeInto, mergeFrom);
+		
+		return mergeOK;
 	}
 	
 	/**
