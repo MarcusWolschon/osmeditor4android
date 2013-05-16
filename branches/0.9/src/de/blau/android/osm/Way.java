@@ -191,11 +191,17 @@ public class Way extends OsmElement {
 	public Map<String, String> getDirectionDependentTags() {
 		Map<String, String> result = null;
 		for (String key : tags.keySet()) {
-			if (key.equals("oneway") || key.equals("incline") || key.equals("direction") || key.endsWith(":left") || key.endsWith(":right") || key.endsWith(":backward") || key.endsWith(":forward")) {
+			String value = tags.get(key);
+			if (key.equals("oneway") || key.equals("incline") 
+					|| key.equals("direction") || key.endsWith(":left") 
+					|| key.endsWith(":right") || key.endsWith(":backward") 
+					|| key.endsWith(":forward") 
+					|| value.equals("right") || value.equals("left") 
+					|| value.equals("forward") || value.equals("backward")) {
 				if (result == null) {
 					result = new TreeMap<String, String>();
 				}
-				result.put(key, tags.get(key));
+				result.put(key, value);
 			}
 		}
 		return result;
@@ -291,6 +297,14 @@ public class Way extends OsmElement {
 				} else if (key.endsWith(":forward")) {
 					String tmpKey = key.substring(0, key.length()-8);
 					tags.put(tmpKey + ":backward", value);
+				} else if (value.equals("right")) {  // doing this for all values is probably dangerous
+					tags.put(key, "left");
+				} else if (value.equals("left")) {
+					tags.put(key, "right");
+				} else if (value.equals("forward")) {
+					tags.put(key, "backward");
+				} else if (value.equals("backward")) {
+					tags.put(key, "forward");
 				} else {
 					// can't happen should throw an exception
 					tags.put(key,value);
