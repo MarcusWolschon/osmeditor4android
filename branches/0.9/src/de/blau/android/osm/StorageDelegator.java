@@ -134,6 +134,19 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * Create empty relation
+	 * @return
+	 */
+	public Relation createAndInsertReleation() {
+		// undo - nothing done here, way gets saved/marked on insert
+		dirty = true;
+		
+		Relation relation = factory.createRelationWithNewId();
+		insertElementUnsafe(relation);
+		return relation;
+	}
+	
+	/**
 	 * @param firstWayNode
 	 * @return
 	 */
@@ -400,6 +413,13 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		// merge tags (after any reversal has been done)
 		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
+		// if merging the tags creates multiple-value tags, mergeOK should be set to false
+		for (String v:mergeInto.getTags().values()) {
+			if (v.indexOf(";") >= 0) {
+				mergeOK = false;
+				break;
+			}
+		}
 		
 		mergeInto.addNodes(newNodes, atBeginning);
 		mergeInto.updateState(OsmElement.STATE_MODIFIED);
