@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.ColorDrawable;
@@ -49,6 +50,7 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -1091,7 +1093,23 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// no elements were touched, ignore
 				break;
 			case 1:
-				logic.performEraseNode((Node)clickedNodesAndWays.get(0));
+				Log.i("Delete mode", "delete node");
+				if (clickedNodesAndWays.get(0).hasParentRelations()) {
+					Log.i("Delete mode", "node has relations");
+					new AlertDialog.Builder(runningInstance)
+						.setTitle(R.string.delete)
+						.setMessage(R.string.deletenode_relation_description)
+						.setPositiveButton(R.string.deletenode,
+							new DialogInterface.OnClickListener() {	
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									logic.performEraseNode((Node)clickedNodesAndWays.get(0));
+								}
+							})
+						.show();
+				} else {
+					logic.performEraseNode((Node)clickedNodesAndWays.get(0));
+				}
 				break;
 			default:
 				v.showContextMenu();
@@ -1273,13 +1291,28 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					itemId -= clickedBugs.size();
 				}
 				if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
-					OsmElement element = clickedNodesAndWays.get(itemId);
+					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {
 					case MODE_TAG_EDIT:
 						performTagEdit(element);
 						break;
 					case MODE_ERASE:
-						logic.performEraseNode((Node) element);
+						if (element.hasParentRelations()) {
+							Log.i("Delete mode", "node has relations");
+							new AlertDialog.Builder(runningInstance)
+								.setTitle(R.string.delete)
+								.setMessage(R.string.deletenode_relation_description)
+								.setPositiveButton(R.string.deletenode,
+									new DialogInterface.OnClickListener() {	
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											logic.performEraseNode((Node)element);
+										}
+									})
+								.show();
+						} else {
+							logic.performEraseNode((Node)element);
+						}
 						break;
 					case MODE_SPLIT:
 						logic.performSplit((Node) element);
