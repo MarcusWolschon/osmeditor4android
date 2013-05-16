@@ -549,6 +549,9 @@ public class Map extends View implements IMapView {
 		if (onewayCode != 0) {
 			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
 			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint());
+		} else if (way.getTagWithKey("waterway") != null) { // waterways flow in the way direction
+			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
+			drawOnewayArrows(canvas, linePoints, false, fp.getPaint());
 		}
 		
 		// get default for ways
