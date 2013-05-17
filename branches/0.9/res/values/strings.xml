@@ -82,6 +82,9 @@
     <string name="menu_erase">Erase node</string>
     <string name="menu_split">Split</string>
     <string name="menu_append">Append</string>
+    <string name="menu_restriction">Add restriction</string>
+    <string name="menu_restriction_via">Add restriction via</string>
+    <string name="menu_restriction_to">Add restriction to</string>
     <string name="menu_tag">Edit tags</string>
     <string name="menu_openstreetbug">File OpenStreetBug</string>
     <string name="menu_easyedit">EasyEdit</string>
@@ -109,13 +112,13 @@
     <string name="menu_reverse">Reverse</string>
 	<string name="notreversable_description">The way is tagged with attributes that are direction dependent and cannot be reversed. Reversing the way will break the tagging.</string>
 	<string name="reverse_anyway">Reverse anyway</string>
-    <string name="toast_oneway_reversed">You reversed a oneway street. Please check the oneway tag and correct if necessary.</string>
-    <string name="toast_merge_tag_conflict">You merged ways that have conflicting tag values or direction dependant semantics. Please check the tags and correct if necessary.</string>
+    <string name="toast_oneway_reversed">You reversed a oneway street or a way with direction dependent tags. Please check the tags and correct if necessary.</string>
+    <string name="toast_merge_tag_conflict">You merged ways that have conflicting tag values or direction dependent semantics. Please check the tags and correct if necessary.</string>
     <string name="deleteway_description">You are about to delete a way.\n\nYou can either keep all nodes, or delete nodes that only belong to this way and do not have any tags.</string>
     <string name="deleteway_relation_description">You are about to delete a way that is a member of one or more relations. Removing the way from the relation(s) may render it/them invalid.\n\nYou can either keep all nodes, or delete nodes that only belong to this way and do not have any tags.</string>
     <string name="deleteway_wayonly">Delete way only</string>
     <string name="deleteway_wayandnodes">Delete way and nodes</string>
-    <string name="deletenode_relation_description">You are about to delete a node that is a member of one or more relations. Removing the way from the relation(s) may render it/them invalid.</string>
+    <string name="deletenode_relation_description">You are about to delete a node that is a member of one or more relations. Removing the node from the relation(s) may render it/them invalid.</string>
     <string name="deletenode">Delete node</string>
     <!-- EasyEdit action mode titles -->
     <string name="actionmode_wayselect">Way selected</string>
@@ -208,6 +211,7 @@
     <string name="undo_action_set_tags">set tags</string>
     <string name="undo_action_join">join</string>
     <string name="undo_action_unjoin_ways">unjoin ways</string>
+    <string name="undo_action_deleterelation">delete relation</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed</string>
@@ -217,5 +221,10 @@
     <string name="pref_enable_acra">Report application crashes</string>
     <string name="pref_acra_enabled">Crash reporting enabled</string>
     <string name="pref_acra_disabled">Crash reporting disabled</string>
+        <!--  -->
     <string name="relation_membership">Member of following relations</string>
+    <string name="relation_members">Relation members</string>
+    <string name="actionmode_relationselect">Relation selected</string>
+    <string name="deleterelation_relation_description">You are about to delete a relation that is a member of one or more relations. Removing the relation from the relation(s) may render it/them invalid.</string>
+    <string name="deleterelation">Delete relation</string>
 </resources>

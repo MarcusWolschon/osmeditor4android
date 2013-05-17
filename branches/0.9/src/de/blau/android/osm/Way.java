@@ -193,9 +193,12 @@ public class Way extends OsmElement {
 		for (String key : tags.keySet()) {
 			String value = tags.get(key);
 			if (key.equals("oneway") || key.equals("incline") 
+					|| key.equals("turn") || key.equals("turn:lanes")
 					|| key.equals("direction") || key.endsWith(":left") 
 					|| key.endsWith(":right") || key.endsWith(":backward") 
 					|| key.endsWith(":forward") 
+					|| key.contains(":forward:") || key.contains(":backward:")
+					|| key.contains(":right:") || key.contains(":left:")
 					|| value.equals("right") || value.equals("left") 
 					|| value.equals("forward") || value.equals("backward")) {
 				if (result == null) {
@@ -218,7 +221,7 @@ public class Way extends OsmElement {
 		for (String key : dirTags.keySet()) {
 			if (!key.equals("oneway") || reverseOneway) {
 				String value = tags.get(key).trim();
-				tags.remove(key); // except in the case of oneway the key changes			
+				tags.remove(key); //			
 				if (key.equals("oneway")) {
 					if (value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("true") || value.equals("1")) {
 						tags.put(key, "-1");
@@ -285,6 +288,29 @@ public class Way extends OsmElement {
 							tags.put(key,value);
 						}
 					}
+				} else if (key.equals("turn:lanes") || key.equals("turn")) { // turn:lane:forward/backward doesn't need to be handled special
+					String tmpValue = "";
+					for (String s:value.split("\\|")) {
+						String tmpValue2 = "";
+						for (String s2:s.split(";")) {
+							if (s2.indexOf("right") >= 0) {
+								s2 = s2.replace("right", "left");
+							} else if (s.indexOf("left") >= 0) {
+								s2 = s2.replace("left", "right");	
+							}
+							if (tmpValue2.equals("")) {	
+								tmpValue2 = s2;
+							} else {
+								tmpValue2 = s2 + ";" + tmpValue2; // reverse order 
+							}
+						}
+						if (tmpValue.equals("")) {	
+							tmpValue = tmpValue2;
+						} else {
+							tmpValue = tmpValue2 + "|" + tmpValue; // reverse order 
+						}
+					}
+					tags.put(key, tmpValue);
 				} else if (key.endsWith(":left")) { // this would be more elegant in a loop
 					String tmpKey = key.substring(0, key.length()-5);
 					tags.put(tmpKey + ":right", value);
@@ -297,6 +323,18 @@ public class Way extends OsmElement {
 				} else if (key.endsWith(":forward")) {
 					String tmpKey = key.substring(0, key.length()-8);
 					tags.put(tmpKey + ":backward", value);
+				} else if (key.indexOf(":forward:") >= 0) {
+					String tmpKey = key.replace(":forward:", ":backward:");
+					tags.put(tmpKey, value);
+				} else if (key.indexOf(":backward:") >= 0) {
+					String tmpKey = key.replace(":backward:", ":forward:");
+					tags.put(tmpKey, value);
+				} else if (key.indexOf(":right:") >= 0) {
+					String tmpKey = key.replace(":right:", ":left:");
+					tags.put(tmpKey, value);
+				} else if (key.indexOf(":left:") >= 0) {
+					String tmpKey = key.replace(":left:", ":right:");
+					tags.put(tmpKey, value);
 				} else if (value.equals("right")) {  // doing this for all values is probably dangerous
 					tags.put(key, "left");
 				} else if (value.equals("left")) {
