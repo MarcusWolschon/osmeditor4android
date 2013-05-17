@@ -109,6 +109,10 @@ public class Map extends View implements IMapView {
 	/** Caches the current "clickable elements" set during one onDraw pass */
 	private Set<OsmElement> tmpClickableElements;
 
+	/** used for highlighting relation members */
+	private Set<Way> tmpDrawingSelectedRelationWays;
+	private Set<Node> tmpDrawingSelectedRelationNodes;
+	
 	/** Caches the preset during one onDraw pass */
 	private Preset tmpPreset;
 	
@@ -189,6 +193,8 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
 		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
 		tmpClickableElements = Main.logic.getClickableElements();
+		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
+		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
 		tmpPreset = Main.getCurrentPreset();
 		
 		// Draw our Overlays.
@@ -434,7 +440,9 @@ public class Map extends View implements IMapView {
 			
 			String featureKey;
 			String featureKey2;
-			if (node == tmpDrawingSelectedNode && tmpDrawingInEditRange) {
+			if (node == tmpDrawingSelectedNode 
+					|| (tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) 
+					&& tmpDrawingInEditRange) {
 				// general node style
 				featureKey = Profile.SELECTED_NODE;
 				// style for house numbers
@@ -537,13 +545,15 @@ public class Map extends View implements IMapView {
 			canvas.drawLines(linePoints, Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint());
 		}
 		//draw selectedWay highlighting
-		boolean isSelected = (way == tmpDrawingSelectedWay && tmpDrawingInEditRange);
+		boolean isSelected = ((way == tmpDrawingSelectedWay 
+				|| (tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way))) 
+				&& tmpDrawingInEditRange);
 		if  (isSelected) {
 			paint = Profile.getCurrent(Profile.SELECTED_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
 			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
 			drawOnewayArrows(canvas, linePoints, false, paint);
-		}
+		} 
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {

@@ -28,7 +28,7 @@ public class Relation extends OsmElement {
 		members = new ArrayList<RelationMember>();
 	}
 
-	void addMember(final RelationMember member) {
+	public void addMember(final RelationMember member) {
 		members.add(member);
 	}
 

@@ -13,7 +13,7 @@ public class RelationMember implements Serializable {
 	/**
 	 * Constructor for members that have not been downloaded
 	 */
-	RelationMember(String t, long id, String r)
+	public RelationMember(String t, long id, String r)
 	{
 		type = t;
 		ref = id;
@@ -21,9 +21,9 @@ public class RelationMember implements Serializable {
 	}
 	
 	/**
-	 * Constructor for members that have not been downloaded
+	 * Constructor for members that have been downloaded
 	 */
-	RelationMember(String r, OsmElement e)
+	public RelationMember(String r, OsmElement e)
 	{
 		role = r;
 		element = e;

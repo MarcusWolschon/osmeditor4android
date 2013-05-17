@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.SortedMap;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -29,6 +32,8 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
@@ -202,6 +207,21 @@ public class Logic {
 
 	
 	private Set<OsmElement> clickableElements;
+	
+	/**
+	 * add relations to result of clicks/touches
+	 */
+	private boolean returnRelations = true;
+	
+	/**
+	 * ways belonging to a selected relation
+	 */
+	private Set<Way> selectedRelationWays = null;
+	
+	/**
+	 * nodes belonging to a selected relation
+	 */
+	private Set<Node> selectedRelationNodes = null;
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
@@ -430,6 +450,18 @@ public class Logic {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 		result.addAll(getClickedNodes(x, y));
 		result.addAll(getClickedWays(x, y));
+		if (returnRelations) {
+			// add any relations that the elements are members of
+			ArrayList<OsmElement> relations = new ArrayList<OsmElement>();
+			for (OsmElement e: result) {
+				for (Relation r: e.getParentRelations()) {
+					if (!relations.contains(r)) { // not very efficient
+						relations.add(r);
+					}
+				}
+			}
+			result.addAll(relations);
+		}
 		return result;
 	}
 
@@ -758,6 +790,19 @@ public class Logic {
 		map.invalidate();
 	}
 
+	/**
+	 * Catches the first relation at the given position and delegates the deletion to {@link #delegator}.
+	 * 
+	 * @param x screen-coordinate.
+	 * @param y screen-coordinate.
+	 */
+	public void performEraseRelation(final Relation relation) {
+		if (relation != null) {
+			createCheckpoint(R.string.undo_action_deleterelation);
+			delegator.removeRelation(relation);
+			map.invalidate();
+		}
+	}
 
 	/**
 	 * Splits all ways at the given node.
@@ -1410,6 +1455,15 @@ public class Logic {
 	}
 	
 	/**
+	 * Sets if we return relations when touching/clicking 
+	 * @param on true if we should return relations
+	 */
+	public void setReturnRelations(boolean on) {
+		returnRelations = on;
+	}
+	
+	
+	/**
 	 * Checks if an element exists, i.e. is in currentStorage
 	 * @param element the element that is to be checked
 	 * @return true if the element exists, false otherwise
@@ -1448,6 +1502,68 @@ public class Logic {
 			for (Entry<T, Double> entry : entries) result.add(entry.getKey());
 			return result;			
 		}
+	}
+
+	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay) {
+		
+		Relation restriction = delegator.createAndInsertReleation();
+		SortedMap<String,String> tags = new TreeMap<String,String>();
+		tags.put("restriction", "");
+		tags.put("type", "restriction");
+		delegator.setTags(restriction, tags);
+		RelationMember from = new RelationMember("from", fromWay);
+		restriction.addMember(from);
+		fromWay.addParentRelation(restriction);
+		RelationMember via = new RelationMember("via", viaElement);
+		restriction.addMember(via);
+		viaElement.addParentRelation(restriction);
+		RelationMember to = new RelationMember("to", toWay);
+		restriction.addMember(to);
+		toWay.addParentRelation(restriction);
+		
+		return restriction;
+	}
+
+	/**
+	 * Sets the set of ways that belong to a relation and should be highlighted. 
+	 * If set to null, the map will use default behaviour.
+	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
+	 */
+	public void setSelectedRelationWays(Set<Way> ways) {
+		selectedRelationWays = ways;
+	}
+	
+	public void addSelectedRelationWay(Way way) {
+		if (selectedRelationWays == null) {
+			selectedRelationWays = new HashSet<Way>();
+		}
+		selectedRelationWays.add(way);
+	}
+	
+	public Set<Way> getSelectedRelationWays() {
+		return selectedRelationWays;
+	}
+
+	/**
+	 * Sets the set of nodes that belong to a relation and should be highlighted. 
+	 * If set to null, the map will use default behaviour.
+	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
+	 */
+	public void setSelectedRelationNodes(Set<Node> nodes) {
+		selectedRelationNodes = nodes;
+	}
+	
+	public void addSelectedRelationNode(Node node) {
+		if (selectedRelationNodes == null) {
+			selectedRelationNodes = new HashSet<Node>();
+		}
+		selectedRelationNodes.add(node);
+	}
+	
+	public Set<Node> getSelectedRelationNodes() {
+		return selectedRelationNodes;
 	}
 	
 }

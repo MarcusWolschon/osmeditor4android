@@ -24,6 +24,8 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 
@@ -68,6 +70,21 @@ public class EasyEditManager {
 		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) currentActionMode.finish();
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
+		logic.setSelectedRelationWays(null);
+		logic.setSelectedRelationNodes(null);
+	}
+	
+	public void selectRelation(Relation r) {
+		for (RelationMember rm : r.getMembers()) {
+			OsmElement e = rm.getElement();
+			if (e != null) {
+				if (e.getName().equals("way")) {
+					logic.addSelectedRelationWay((Way) e);
+				} else if (e.getName().equals("node")) {
+					logic.addSelectedRelationNode((Node) e);
+				} 
+			}
+		}
 	}
 	
 	/**
@@ -80,6 +97,7 @@ public class EasyEditManager {
 			ActionMode.Callback cb = null;
 			if (element instanceof Node) cb = new NodeSelectionActionModeCallback((Node)element);
 			if (element instanceof Way ) cb = new  WaySelectionActionModeCallback((Way )element);
+			if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
 			if (cb != null) {
 				main.startActionMode(cb);
 				Toast.makeText(main, element.getDescription(), Toast.LENGTH_SHORT).show();
@@ -144,6 +162,7 @@ public class EasyEditManager {
 				&& (candidate.isEndNode(way.getFirstNode()) || candidate.isEndNode(way.getLastNode()))
 				&& (candidate.getTags().isEmpty() || way.getTags().isEmpty() || 
 						way.getTags().entrySet().equals(candidate.getTags().entrySet()) )
+						//TODO check for relations too
 				) {
 				result.add(candidate);
 			}
@@ -163,6 +182,52 @@ public class EasyEditManager {
 		}
 		// don't allow appending to circular ways
 		if (result.size() == 1) result.clear();
+		return result;
+	}
+	
+	/**
+	 * Finds which ways or nodes can be used as a via element in a restriction relation
+	 * 
+	 * @param way the from way
+	 * @return a list of all applicable objects
+	 */
+	private Set<OsmElement> findViaElements(Way way) {
+		Set<Way> candidates = new HashSet<Way>();
+		Set<OsmElement> result = new HashSet<OsmElement>();
+		candidates.addAll(logic.getWaysForNode(way.getFirstNode()));
+		candidates.addAll(logic.getWaysForNode(way.getLastNode()));
+		boolean firstNodeAdded = false;
+		boolean lastNodeAdded = false;
+		for (Way candidate : candidates) {
+			if ((way != candidate) && (way.getTagWithKey("highway") != null)) {
+				if (candidate.isEndNode(way.getFirstNode())) {
+					result.add(candidate);
+					if (!firstNodeAdded) {
+						firstNodeAdded = true;
+						result.add(way.getFirstNode());
+					}
+				} else if (candidate.isEndNode(way.getLastNode())) {
+					result.add(candidate);
+					if (!lastNodeAdded) {
+						lastNodeAdded = true;
+						result.add(way.getLastNode());
+					}
+				}
+				
+			}
+		}
+		return result;
+	}
+	
+	private Set<OsmElement> findToElements(Way way, Node commonNode) {
+		Set<Way> candidates = new HashSet<Way>();
+		Set<OsmElement> result = new HashSet<OsmElement>();
+		candidates.addAll(logic.getWaysForNode(commonNode));
+		for (Way candidate : candidates) {
+			if ((way != candidate) && (way.getTagWithKey("highway") != null)) {
+					result.add(candidate);
+			}
+		}
 		return result;
 	}
 	
@@ -576,8 +641,23 @@ public class EasyEditManager {
 		}
 		
 		protected void menuDelete(ActionMode mode) {
-			logic.performEraseNode((Node)element);
-			mode.finish();
+			if (element.hasParentRelations()) {
+				new AlertDialog.Builder(main)
+					.setTitle(R.string.delete)
+					.setMessage(R.string.deletenode_relation_description)
+					.setPositiveButton(R.string.deletenode,
+						new DialogInterface.OnClickListener() {	
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								logic.performEraseNode((Node)element);
+								currentActionMode.finish();
+							}
+						})
+					.show();
+			} else {
+				logic.performEraseNode((Node)element);
+				mode.finish();
+			}
 		}
 		
 	}
@@ -587,14 +667,17 @@ public class EasyEditManager {
 		private static final int MENUITEM_MERGE = 5;
 		private static final int MENUITEM_REVERSE = 6;
 		private static final int MENUITEM_APPEND = 7;
+		private static final int MENUITEM_RESTRICTION = 8;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
+		private Set<OsmElement> cachedViaElements;
 		
 		private WaySelectionActionModeCallback(Way way) {
 			super(way);
 			cachedMergeableWays = findMergeableWays(way);
 			cachedAppendableNodes = findAppendableNodes(way);
+			cachedViaElements = findViaElements(way);
 		}
 		
 		@Override
@@ -620,12 +703,30 @@ public class EasyEditManager {
 			if (cachedAppendableNodes.size() > 0) {
 				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
 			}
+			if ((((Way)element).getTagWithKey("highway") != null) && (cachedViaElements.size() > 0)) {
+				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(R.drawable.tag_menu_restriction);
+			}	
 			return true;
 		}
 		
 		private void reverseWay() {
-			Way way = (Way) element;
-			if (logic.performReverse(way)) {
+			final Way way = (Way) element;
+			if (way.notReversable()) {
+				new AlertDialog.Builder(main)
+				.setTitle(R.string.menu_reverse)
+				.setMessage(R.string.notreversable_description)
+				.setPositiveButton(R.string.reverse_anyway,
+					new DialogInterface.OnClickListener() {	
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							if (logic.performReverse(way)) { // true if it had oneway tag
+								Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
+								main.performTagEdit(way);
+							}
+						}
+					})
+				.show();		
+			} else if (logic.performReverse(way)) { // true if it had oneway tag
 				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
 				main.performTagEdit(way);
 			}
@@ -639,6 +740,7 @@ public class EasyEditManager {
 				case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback((Way)element, cachedMergeableWays)); break;
 				case MENUITEM_REVERSE: reverseWay(); break;
 				case MENUITEM_APPEND: main.startActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
+				case MENUITEM_RESTRICTION: main.startActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
 				default: return false;
 				}
 			}
@@ -646,9 +748,10 @@ public class EasyEditManager {
 		}
 		
 		protected void menuDelete(ActionMode mode) {
+			boolean isRelationMember = element.hasParentRelations();
 			new AlertDialog.Builder(main)
 				.setTitle(R.string.delete)
-				.setMessage(R.string.deleteway_description)
+				.setMessage(isRelationMember ? R.string.deleteway_relation_description : R.string.deleteway_description)
 				.setPositiveButton(R.string.deleteway_wayonly,
 					new DialogInterface.OnClickListener() {	
 						@Override
@@ -686,6 +789,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			mode.setTitle(R.string.menu_split);
 			logic.setClickableElements(nodes);
+			logic.setReturnRelations(false);
 			return true;
 		}
 		
@@ -700,6 +804,7 @@ public class EasyEditManager {
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
 			super.onDestroyActionMode(mode);
 		}	
 	}
@@ -718,6 +823,7 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			mode.setTitle(R.string.menu_merge);
 			logic.setClickableElements(ways);
+			logic.setReturnRelations(false);
 			super.onCreateActionMode(mode, menu);
 			return true;
 		}
@@ -725,14 +831,19 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be clicked
 			super.handleElementClick(element);
-			logic.performMerge(way, (Way)element);
-			main.startActionMode(new WaySelectionActionModeCallback(way));
+			if (!logic.performMerge(way, (Way)element)) {
+				Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
+				main.performTagEdit(way);
+			} else {
+				main.startActionMode(new WaySelectionActionModeCallback(way));
+			}
 			return true;
 		}
 		
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
 			super.onDestroyActionMode(mode);
 		}
 		
@@ -751,6 +862,7 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			mode.setTitle(R.string.menu_append);
 			logic.setClickableElements(nodes);
+			logic.setReturnRelations(false);
 			super.onCreateActionMode(mode, menu);
 			return true;
 		}
@@ -765,6 +877,195 @@ public class EasyEditManager {
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			super.onDestroyActionMode(mode);
+		}
+	}
+	
+	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
+	
+		private RelationSelectionActionModeCallback(Relation relation) {
+			super(relation);
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			super.onCreateActionMode(mode, menu);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			selectRelation((Relation) element);
+			main.invalidateMap();
+			mode.setTitle(R.string.actionmode_relationselect);
+			return true;
+		}
+		
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			super.onPrepareActionMode(mode, menu);
+
+			return true;
+		}
+		
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			super.onActionItemClicked(mode, item);
+			return true;
+		}
+		
+		protected void menuDelete(ActionMode mode) {
+			if (element.hasParentRelations()) {
+				new AlertDialog.Builder(main)
+					.setTitle(R.string.delete)
+					.setMessage(R.string.deleterelation_relation_description)
+					.setPositiveButton(R.string.deleterelation,
+						new DialogInterface.OnClickListener() {	
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								logic.performEraseRelation((Relation)element);
+								currentActionMode.finish();
+							}
+						})
+					.show();
+			} else {
+				logic.performEraseRelation((Relation)element);
+				mode.finish();
+			}
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			logic.setSelectedRelationWays(null);
+			logic.setSelectedRelationNodes(null);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			super.onDestroyActionMode(mode);
+		}
+	}
+	
+	private class RestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
+		private Way way;
+		private Set<OsmElement> viaElements;
+		public RestrictionFromElementActionModeCallback(Way way, Set<OsmElement> vias) {
+			super();
+			this.way = way;
+			viaElements = vias;
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			mode.setTitle(R.string.menu_restriction_via);
+			logic.setClickableElements(viaElements);
+			logic.setReturnRelations(false);
+			logic.setSelectedRelationWays(null); // just to be safe
+			logic.addSelectedRelationWay(way);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			super.onCreateActionMode(mode, menu);
+			return true;
+		}
+		
+		@Override
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
+			super.handleElementClick(element);
+			main.startActionMode(new RestrictionViaElementActionModeCallback(way, element));
+			return true;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			super.onDestroyActionMode(mode);
+		}
+	}
+	
+	private class RestrictionViaElementActionModeCallback extends EasyEditActionModeCallback {
+		private Way fromWay;
+		private OsmElement viaElement;
+		private Set<OsmElement> cachedToElements;
+
+		public RestrictionViaElementActionModeCallback(Way from, OsmElement via) {
+			super();
+			fromWay = from;
+			viaElement = via;
+			if (viaElement.getName().equals("node")) {
+				cachedToElements = findToElements(fromWay, (Node) viaElement);
+			} else {
+				// need to find the right end of the way
+				if (fromWay.hasNode(((Way) viaElement).getFirstNode())) {
+					cachedToElements = findToElements((Way) viaElement, ((Way)viaElement).getLastNode());
+				} else {
+					cachedToElements = findToElements((Way) viaElement, ((Way)viaElement).getFirstNode());
+				}
+			}
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			mode.setTitle(R.string.menu_restriction_to);
+			logic.setClickableElements(cachedToElements);
+			logic.setReturnRelations(false);
+			if (viaElement.getName().equals("node")) {
+				logic.addSelectedRelationNode((Node) viaElement);
+			} else {
+				logic.addSelectedRelationWay((Way) viaElement);
+			}
+			super.onCreateActionMode(mode, menu);
+			return true;
+		}
+		
+		@Override
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
+			super.handleElementClick(element);
+			main.startActionMode(new RestrictionToElementActionModeCallback(fromWay, viaElement, (Way) element));
+			return true;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			super.onDestroyActionMode(mode);
+		}
+	}
+	
+	private class RestrictionToElementActionModeCallback extends EasyEditActionModeCallback {
+		private Way fromWay;
+		private OsmElement viaElement;
+		private Way toWay;
+		
+		public RestrictionToElementActionModeCallback(Way from, OsmElement via, Way to) {
+			super();
+			fromWay = from;
+			viaElement = via;
+			toWay = to;
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			mode.setTitle(R.string.menu_restriction);
+			super.onCreateActionMode(mode, menu);
+			logic.addSelectedRelationWay(toWay);
+			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay);
+			Log.i("EasyEdit", "Created restriction");
+			main.performTagEdit(restriction);
+			return true;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			logic.setSelectedRelationWays(null);
+			logic.setSelectedRelationNodes(null);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
 			super.onDestroyActionMode(mode);
 		}
 	}

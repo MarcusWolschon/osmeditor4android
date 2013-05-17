@@ -386,6 +386,42 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 					relationsLayout.addView(v);
 				}
 			}
+			// if this is a relation get members
+			if (element.getName().equals("relation")) {
+			
+				ArrayList<RelationMember> members = (ArrayList<RelationMember>) ((Relation)element).getMembers();
+				if (members != null && members.size() > 0) {
+					TextView v = new TextView(this);
+					v.setText(getResources().getString(R.string.relation_members),TextView.BufferType.NORMAL);
+					v.setTypeface(null, Typeface.BOLD);
+					v.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+					v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+					v.setPadding(10, 5, 5, 10);
+					v.setSingleLine();
+					relationsLayout.addView(v);
+					int pos=1;
+					for (RelationMember rm :  members) {
+						v = new TextView(this);
+						v.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+						String desc = rm.getType() + "\t#" + Long.toString(rm.getRef());
+						OsmElement e = rm.getElement();
+						if (e != null) {
+							desc = desc + "\t" + e.getDescription();
+						} else {
+							desc = desc + "\tnot downloaded";
+						}
+						String role = rm.getRole();
+						if (role != null && !role.equals("")) {
+							desc = desc + "\trole " + role;
+						}
+						v.setText(desc,TextView.BufferType.NORMAL);
+						v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+						v.setPadding(10, 5, 5, 10);
+						v.setSingleLine();
+						relationsLayout.addView(v);
+					}
+				}
+			}
 		}
 	}
 	

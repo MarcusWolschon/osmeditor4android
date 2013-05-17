@@ -118,6 +118,8 @@ public class Preset {
 	protected final MultiHashMap<String, String> autosuggestWays = new MultiHashMap<String, String>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
 	protected final MultiHashMap<String, String> autosuggestClosedways = new MultiHashMap<String, String>(true);
+	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
+	protected final MultiHashMap<String, String> autosuggestRelations = new MultiHashMap<String, String>(true);
 	
 	/**
 	 * Serializable class for storing Most Recently Used information.
@@ -443,7 +445,7 @@ public class Preset {
 		private Drawable icon;
 		private BitmapDrawable mapIcon;
 		private PresetGroup parent;
-		private boolean appliesToWay, appliesToNode, appliesToClosedway; //appliesToRelation
+		private boolean appliesToWay, appliesToNode, appliesToClosedway, appliesToRelation;
 
 		/**
 		 * Creates the element, setting parent, name and icon, and registers with the parent
@@ -551,6 +553,16 @@ public class Preset {
 				if (parent != null) parent.setAppliesToClosedway();
 			}
 		}
+		
+		/**
+		 * Recursivly sets the flag indicating that this element is relevant for nodes
+		 */
+		protected void setAppliesToRelation() {
+			if (!appliesToRelation) {
+				appliesToRelation = true;
+				if (parent != null) parent.setAppliesToRelation();
+			}
+		}
 	}
 	
 	/**
@@ -653,12 +665,14 @@ public class Preset {
 				setAppliesToNode();
 				setAppliesToWay();
 				setAppliesToClosedway();
+				setAppliesToRelation();
 			} else {
 				String[] typesArray = types.split(",");
 				for (String type : typesArray) {
 					if ("node".equals(type)) setAppliesToNode();
 					else if ("way".equals(type)) setAppliesToWay();
 					else if ("closedway".equals(type)) setAppliesToClosedway();
+					else if ("relation".equals(type)) setAppliesToRelation();
 				}
 			}	
 			itemIndex = allItems.size();
@@ -678,6 +692,7 @@ public class Preset {
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? value : null);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? value : null);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? value : null);
+			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, value.length() > 0 ? value : null);
 		}
 		
 		/**
@@ -692,6 +707,7 @@ public class Preset {
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
+			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, valueArray);
 			
 			(optional ? optionalTags : recommendedTags).put(key,  valueArray);
 		}
@@ -812,6 +828,7 @@ public class Preset {
 		case NODE: return autosuggestNodes.getKeys();
 		case WAY: return autosuggestWays.getKeys();
 		case CLOSEDWAY: return autosuggestClosedways.getKeys();
+		case RELATION: return autosuggestRelations.getKeys();
 		}
 		return null; // should never happen, all cases are covered
 	}
@@ -822,6 +839,7 @@ public class Preset {
 		case NODE: source = autosuggestNodes.get(key); break;
 		case WAY: source = autosuggestWays.get(key); break;
 		case CLOSEDWAY:source = autosuggestClosedways.get(key); break;
+		case RELATION:source = autosuggestRelations.get(key); break;
 		}
 		if (source != null) {
 			return source;

@@ -563,6 +563,38 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * updated for relation support
+	 * @param node
+	 */
+	public void removeRelation(final Relation relation) {
+		// undo - node saved here, affected ways saved in removeWayNodes
+		dirty = true;
+		undo.save(relation);
+		
+		if (relation.state == Node.STATE_CREATED) {
+			apiStorage.removeElement(relation);
+		} else {
+			apiStorage.insertElementUnsafe(relation);
+		}
+		removeElementFromRelations(relation);
+		removeRelationFromMembers(relation);
+		currentStorage.removeRelation(relation);
+		relation.updateState(OsmElement.STATE_DELETED);
+	}
+	
+	/**
+	 * Remove backlinks in elements
+	 * @param relation
+	 */
+	public void removeRelationFromMembers(Relation relation) {
+		for (RelationMember rm: relation.getMembers()) {
+			OsmElement e = rm.getElement();
+			undo.save(e);
+			e.removeParentRelation(relation);
+		}
+	}
+	
+	/**
 	 * note since this sets the elements state it has to be called before deletion of the element
 	 * @param element
 	 */
