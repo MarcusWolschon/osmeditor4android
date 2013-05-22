@@ -651,7 +651,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			// Use a set to prevent duplicate keys appearing
 			Set<String> keys = new HashSet<String>();
 			
-			if (owner.autocompletePresetItem == null) {
+			if (owner.autocompletePresetItem == null && owner.preset != null) {
 				owner.autocompletePresetItem = owner.preset.findBestMatch(owner.getKeyValueMap(false));
 			}
 			
