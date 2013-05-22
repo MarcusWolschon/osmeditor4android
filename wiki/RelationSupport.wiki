@@ -2,13 +2,17 @@
 
 = Introduction =
 
-Branch 0.9 has minimal relation support with the goal of keeping existing relation memberships and relations intact and consistent after elements have been edited. It currently doesn't support explicit editing of relations, however that is only a question of adding the necessary UI. A beta build APK is available in the download section.
+Branch 0.9 has minimal relation support with the goal of keeping existing relation memberships and relations intact and consistent after elements have been edited. It currently supports explicit editing of relation tags, deletion of relations and adding turn restrictions.
+
+A beta build APK is available in the download section.
 
 = Features =
 
  * relation membership display on tag editing form
  * spliting of ways retains relation membership in both resulting segments with the exception of restrictions where it tries to assign restriction membership to the correct part.
- * rendering of otherwise untagged ways that are part of a multipolygon is based on the mp tags
+ * relations can be selected for tag editing and deletion by clicking on a member of the relation and selecting the relation in the popup.
+ * turn restrictions can be added, in EasyEdit mode select a way, then from the menu "Add restriction" then the "via" and "to" elements. 
+ * rendering of otherwise untagged ways that are part of a multipolygon is based on the mp tags.
 
 = Implementation =
 
@@ -18,22 +22,20 @@ The implementation is in line with the exsiting way and node implementation, a s
 
  * some changes to the rendering were made. landuse and tracks now have seperate rendering, house color was changed. The rendering is now user selectable the old "everything black" style is available as "Default", this one as "Color". Further styles can be added, but please be aware that the current implementation is not likely to be long lived.
  * loading and saving the data state failed on 2.3 devices and emulators due to stack overflows, moving these operation to separate threads seems to have fixed it, besides being slightly hackish, the allocated stack size probably needs some tuning.
- * a long press on a preset in the tag editor should remove it from the MRU list, currently this is still in work and should probably be solved in a different way.
+ * a long press on a preset in the tag editor will remove it from the preset list. 
  * added the trivial changes for basic Samsung multi window support
  * merging of ways now tries to preserve existing way ids and uses conventional tag merging logic
- * reversing a way, either explictly in EasyEdit mode or implicitly by merging ways with different directions, will now reverse direction dependent tags (*:forward, *:backward, *:left and *:right) silently. If a oneway tag is present, the explicit reversing will not change the value of oneway, assuming that this was the point of reversing in the first place.
+ * reversing a way, either explictly in EasyEdit mode or implicitly by merging ways with different directions, will now reverse direction dependent tags. If a oneway tag is present, the explicit reversing will not change the value of oneway, assuming that this was the point of reversing in the first place.
+ * reversing a "non-reverable" way will display a warning.
 
 = Open Issues =
 
  * more testing needs to be done
- * show warning on deleting relation member
- * configuring alternative API URLs leads to crashes, we need to determine if this is a result of these changes or is unrelated
+ * documentation
 
 = Further Work =
 
  * more testing
  * allow addition/deletion of relation membership
- * tag editing for relations
- * allow creation of restrictions and other relations that make sense on a mobile device
  * automatic used imagery layer changeset tag as P2 and iD produce
  * GUI clean up (reduce the number of modes for example the seperate split and append modes would seem to be unnecessary)
