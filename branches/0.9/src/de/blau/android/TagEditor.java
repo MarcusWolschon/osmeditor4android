@@ -173,6 +173,42 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	}
 	
 	/**
+	 * Focus on the value field of a tag with key "key" 
+	 * @param key
+	 * @return
+	 */
+	private boolean focusOnValue(String key) {
+		boolean found = false;
+		for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
+			TagEditRow ter = (TagEditRow)rowLayout.getChildAt(i);
+			if (ter.getKey().equals(key)) {
+				focusRowValue(rowIndex(ter));
+				found = true;
+				break;
+			}
+		}
+		return found;
+	}
+	
+	/**
+	 * Focus on the value field of the first tag with non empty key and empty value 
+	 * @param key
+	 * @return
+	 */
+	private boolean focusOnEmptyValue() {
+		boolean found = false;
+		for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
+			TagEditRow ter = (TagEditRow)rowLayout.getChildAt(i);
+			if (ter.getKey() != null && !ter.getKey().equals("") && ter.getValue().equals("")) {
+				focusRowValue(rowIndex(ter));
+				found = true;
+				break;
+			}
+		}
+		return found;
+	}
+	
+	/**
 	 * Move the focus to the key field of the specified row.
 	 * @param index The index of the row to move to, counting from 0.
 	 * @return true if the row was successfully focussed, false otherwise.
@@ -180,6 +216,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	private boolean focusRow(int index) {
 		TagEditRow row = (TagEditRow)rowLayout.getChildAt(index);
 		return row != null && row.keyEdit.requestFocus();
+	}
+	
+	/**
+	 * Move the focus to the value field of the specified row.
+	 * @param index The index of the row to move to, counting from 0.
+	 * @return true if the row was successfully focussed, false otherwise.
+	 */
+	private boolean focusRowValue(int index) {
+		TagEditRow row = (TagEditRow)rowLayout.getChildAt(index);
+		return row != null && row.valueEdit.requestFocus();
 	}
 	
 	@Override
@@ -226,6 +272,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayHomeAsUpEnabled(true);
+		if (loadData.focusOnKey != null) {
+			focusOnValue(loadData.focusOnKey);
+		} else {
+			focusOnEmptyValue(); // probably never actually works
+		}
 	}
 	
 	@Override
@@ -717,6 +768,14 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			return this;
 		}
 		
+		public String getKey() {
+			return keyEdit.getText().toString();
+		}
+		
+		public String getValue() {
+			return valueEdit.getText().toString();
+		}
+		
 		/**
 		 * Deletes this row
 		 */
@@ -898,6 +957,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		
 		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().putRecentlyUsed(item);
 		recreateRecentPresetView();
+		focusOnEmptyValue();
 	}
 	
 	/**
@@ -922,19 +982,30 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		public final String type;
 		public final Map<String,String> tags;
 		public final Map<String,String> originalTags;
+		public String focusOnKey = null;
 		
 		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags) {
+			this(osmId, type, tags, originalTags, null);
+		}
+		
+		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, String focusOnKey) {
 			this.osmId = osmId;
 			this.type = type;
 			this.tags = tags;
 			this.originalTags = originalTags;
+			this.focusOnKey = focusOnKey;
 		}
 		
 		public TagEditorData(OsmElement selectedElement) {
+			this(selectedElement, null);
+		}
+		
+		public TagEditorData(OsmElement selectedElement, String focusOnKey) {
 			osmId = selectedElement.getOsmId();
 			type = selectedElement.getName();
 			tags = new LinkedHashMap<String, String>(selectedElement.getTags());
 			originalTags = tags;
+			this.focusOnKey = focusOnKey;
 		}
 	}
 }

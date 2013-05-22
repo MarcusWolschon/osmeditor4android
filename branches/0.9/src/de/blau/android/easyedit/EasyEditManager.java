@@ -141,10 +141,10 @@ public class EasyEditManager {
 		if (possibleWay == null) {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
-				main.performTagEdit(possibleNode);
+				main.performTagEdit(possibleNode, null);
 			}
 		} else { // way was added
-			main.performTagEdit(possibleWay);
+			main.performTagEdit(possibleWay, null);
 		}
 	}
 	
@@ -539,7 +539,7 @@ public class EasyEditManager {
 		public boolean handleElementClick(OsmElement element) {
 			super.handleElementClick(element);
 			if (element == this.element) {
-				main.performTagEdit(element);
+				main.performTagEdit(element, null);
 				return true;
 			}
 			return false;
@@ -561,7 +561,7 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
-			case MENUITEM_TAG: main.performTagEdit(element); break;
+			case MENUITEM_TAG: main.performTagEdit(element, null); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
 			default: return false;
@@ -731,14 +731,14 @@ public class EasyEditManager {
 						public void onClick(DialogInterface dialog, int which) {
 							if (logic.performReverse(way)) { // true if it had oneway tag
 								Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
-								main.performTagEdit(way);
+								main.performTagEdit(way, null);
 							}
 						}
 					})
 				.show();		
 			} else if (logic.performReverse(way)) { // true if it had oneway tag
 				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
-				main.performTagEdit(way);
+				main.performTagEdit(way, null);
 			}
 		}
 		
@@ -843,7 +843,7 @@ public class EasyEditManager {
 			super.handleElementClick(element);
 			if (!logic.performMerge(way, (Way)element)) {
 				Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
-				main.performTagEdit(way);
+				main.performTagEdit(way, null);
 			} else {
 				main.startActionMode(new WaySelectionActionModeCallback(way));
 			}
@@ -1063,7 +1063,7 @@ public class EasyEditManager {
 			logic.addSelectedRelationWay(toWay);
 			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay);
 			Log.i("EasyEdit", "Created restriction");
-			main.performTagEdit(restriction);
+			main.performTagEdit(restriction, "restriction"); //TODO mv restriction to constant
 			return true;
 		}
 		

@@ -437,7 +437,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			OsmElement e = logic.getSelectedWay();
 			if (e == null) e = logic.getSelectedNode();
 			else logic.setSelectedNode(null);
-			if (e != null) performTagEdit(e);
+			if (e != null) performTagEdit(e, null);
 		}
 		return true;
 	}
@@ -879,8 +879,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 	/**
 	 * @param selectedElement
+	 * @param focusOn if not null focus on the value field of this key
 	 */
-	public void performTagEdit(final OsmElement selectedElement) {
+	public void performTagEdit(final OsmElement selectedElement, String focusOn) {
 		if (selectedElement instanceof Node) {
 			logic.setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
@@ -890,7 +891,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (selectedElement != null) {
 			if (logic.delegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
-				startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement));
+				startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement, focusOn));
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
@@ -1076,7 +1077,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				if (clickedBugs != null && clickedBugs.size() == 1) {
 					performBugEdit(clickedBugs.get(0));
 				} else {
-					performTagEdit(clickedNodesAndWays.get(0));
+					performTagEdit(clickedNodesAndWays.get(0), null);
 				}
 				break;
 			default:
@@ -1294,7 +1295,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {
 					case MODE_TAG_EDIT:
-						performTagEdit(element);
+						performTagEdit(element, null);
 						break;
 					case MODE_ERASE:
 						if (element.hasParentRelations()) {
