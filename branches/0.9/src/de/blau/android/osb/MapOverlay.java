@@ -139,7 +139,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	public List<Bug> getClickedBugs(final float x, final float y, final BoundingBox viewBox) {
 		List<Bug> result = new ArrayList<Bug>();
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
-			final float tolerance = Profile.NODE_TOLERANCE_VALUE;
+			final float tolerance = Profile.nodeToleranceValue;
 			for (Bug b : bugs) {
 				int lat = b.getLat();
 				int lon = b.getLon();

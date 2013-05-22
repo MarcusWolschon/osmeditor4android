@@ -508,7 +508,7 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		final float tolerance = Profile.NODE_TOLERANCE_VALUE;
+		final float tolerance = Profile.nodeToleranceValue;
 		float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon()) - x);
 		float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat()) - y);
 		
@@ -1082,7 +1082,7 @@ public class Logic {
 	private boolean isPositionOnLine(final float x, final float y,
 			final float node1X, final float node1Y,
 			final float node2X, final float node2Y) {
-		float tolerance = Profile.WAY_TOLERANCE_VALUE / 2f;
+		float tolerance = Profile.wayToleranceValue / 2f;
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
 			return (GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y) < tolerance);
 		}

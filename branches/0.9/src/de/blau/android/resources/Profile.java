@@ -199,11 +199,11 @@ public class Profile  extends DefaultHandler {
 	public static Profile currentProfile;
 	public static HashMap<String,Profile> availableProfiles;
 	
-	public static final float NODE_TOLERANCE_VALUE = 40f;
+	public static float nodeToleranceValue = 40f;
 	
 	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
 
-	public static final float WAY_TOLERANCE_VALUE = 40f;
+	public static float wayToleranceValue = 40f;
 
 	private static final int TOLERANCE_ALPHA = 40;
 	
@@ -308,7 +308,7 @@ public class Profile  extends DefaultHandler {
 		fp.setColor(resources.getColor(R.color.ccc_ocher));
 		fp.dontUpdate();
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
-		fp.getPaint().setStrokeWidth(WAY_TOLERANCE_VALUE);
+		fp.getPaint().setStrokeWidth(wayToleranceValue);
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(SELECTED_NODE);
@@ -344,7 +344,7 @@ public class Profile  extends DefaultHandler {
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
-		fp.getPaint().setStrokeWidth(NODE_TOLERANCE_VALUE);
+		fp.getPaint().setStrokeWidth(nodeToleranceValue);
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(INFOTEXT);
@@ -580,7 +580,14 @@ public class Profile  extends DefaultHandler {
 				tempFeatureProfile.getPaint().setStrokeCap(Cap.valueOf(atts.getValue("cap")));
 				tempFeatureProfile.getPaint().setStrokeJoin(Join.valueOf(atts.getValue("join")));
 				if (!tempFeatureProfile.updateWidth()) {
-					tempFeatureProfile.getPaint().setStrokeWidth(Float.parseFloat(atts.getValue("strokewidth")));
+					float strokeWidth = Float.parseFloat(atts.getValue("strokewidth"));
+					tempFeatureProfile.getPaint().setStrokeWidth(strokeWidth);
+					// special case if we are setting internal tolerance values
+					if (tempFeatureProfile.name.equals(NODE_TOLERANCE)) {
+						nodeToleranceValue = strokeWidth;
+					} else if (tempFeatureProfile.name.equals(WAY_TOLERANCE)) {
+						wayToleranceValue = strokeWidth;
+					}
 				}
 				if (atts.getValue("typefacestyle") != null) {
 					tempFeatureProfile.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));

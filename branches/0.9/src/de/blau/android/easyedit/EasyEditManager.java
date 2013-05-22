@@ -74,6 +74,10 @@ public class EasyEditManager {
 		logic.setSelectedRelationNodes(null);
 	}
 	
+	/**
+	 * Set relation members to be highlighted
+	 * @param r
+	 */
 	public void selectRelation(Relation r) {
 		for (RelationMember rm : r.getMembers()) {
 			OsmElement e = rm.getElement();
@@ -219,6 +223,12 @@ public class EasyEditManager {
 		return result;
 	}
 	
+	/**
+	 * Find possible elements for the "to" role of a restriction relation
+	 * @param way
+	 * @param commonNode
+	 * @return
+	 */
 	private Set<OsmElement> findToElements(Way way, Node commonNode) {
 		Set<Way> candidates = new HashSet<Way>();
 		Set<OsmElement> result = new HashSet<OsmElement>();
@@ -846,7 +856,6 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			super.onDestroyActionMode(mode);
 		}
-		
 	}
 	
 	private class WayAppendingActionModeCallback extends EasyEditActionModeCallback {
