@@ -327,7 +327,6 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 				@Override
 				public boolean onItemLongClick(PresetItem item) {
 					Log.d(DEBUG_TAG, "long click");
-					Main.resetPreset();
 					removePresetFromMRU(item);
 					return true;
 				}
