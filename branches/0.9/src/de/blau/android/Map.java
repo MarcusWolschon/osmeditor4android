@@ -587,23 +587,23 @@ public class Map extends View implements IMapView {
 					FeatureProfile tempFp = Profile.getCurrent("way-highway");
 					if (tempFp != null) {
 						fp = tempFp;
-						tempFp = Profile.getCurrent("way-highway-" + highwayType);
+					}
+					tempFp = Profile.getCurrent("way-highway-" + highwayType);
+					if (tempFp != null) {
+						fp = tempFp;
+					}
+					String highwaySubType;
+					if (highwayType.equals("track")) { // special case
+						highwaySubType = way.getTagWithKey("tracktype");
+					} else {
+						highwaySubType = way.getTagWithKey(highwayType);
+					}
+					if (highwaySubType != null) {
+						tempFp = Profile.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
 						if (tempFp != null) {
 							fp = tempFp;
-							String highwaySubType;
-							if (highwayType.equals("track")) { // special case
-								highwaySubType = way.getTagWithKey("tracktype");
-							} else {
-								highwaySubType = way.getTagWithKey(highwayType);
-							}
-							if (highwaySubType != null) {
-								tempFp = Profile.getCurrent("way-highway-" + highwayType + "-" + highwaySubType);
-								if (tempFp != null) {
-									fp = tempFp;
-								}
-							}
 						}
-					}
+					} 
 				} else {
 					// order in the array defines precedence
 					String[] tags = {"building","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
