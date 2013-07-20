@@ -63,6 +63,8 @@ public class Profile  extends DefaultHandler {
 	public final static String GPS_ACCURACY = "gps_accuracy";
 	public final static String SELECTED_NODE_THIN = "selected_node_thin";
 	public final static String NODE_THIN = "node_thin";
+	public final static String OPEN_NOTE = "open_note";
+	public final static String CLOSED_NOTE = "closed_note";
 	
 	
 	public class FeatureProfile {
@@ -365,6 +367,16 @@ public class Profile  extends DefaultHandler {
 		fp = new FeatureProfile(ONEWAY_DIRECTION,featureProfiles.get(WAY_DIRECTION));
 		fp.setColor(resources.getColor(R.color.ccc_blue));
 		fp.setWidthFactor(0.5f);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(OPEN_NOTE);
+		fp.setColor(resources.getColor(R.color.bug_open));
+		fp.getPaint().setAlpha(100);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(CLOSED_NOTE);
+		fp.setColor(resources.getColor(R.color.bug_closed));
+		fp.getPaint().setAlpha(100);
 		featureProfiles.put(fp.getName(), fp);
 		
 		if (availableProfiles == null) {

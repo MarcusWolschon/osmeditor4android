@@ -1,12 +1,17 @@
 package de.blau.android.osb;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+
+import android.net.ParseException;
+import android.text.Html;
+
 
 /**
  * A bug in the OpenStreetBugs database, or a prospective new bug.
@@ -25,30 +30,8 @@ public class Bug {
 	/** Bug state. */
 	boolean closed;
 	/** Bug comments. */
-	List<BugComment> comments = new ArrayList<BugComment>();
+	public List<BugComment> comments = null;
 	
-	/**
-	 * Create a bug for when the OSB site is down. Debugging only.
-	 * @param lat
-	 * @param lon
-	 * @param closed
-	 */
-	public Bug(int lat, int lon, boolean closed) {
-		// for debugging only
-		id = 0;
-		this.lat = lat;
-		this.lon = lon;
-		this.closed = closed;
-		comments.add(new BugComment("debugging", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-		comments.add(new BugComment("test", "NoName", new Date()));
-	}
 	
 	/**
 	 * Create a Bug from an OSB GPX XML wpt element.
@@ -58,27 +41,79 @@ public class Bug {
 	 * @throws NumberFormatException If there was a problem parsing the XML.
 	 */
 	public Bug(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
+		// note tag has already been read ... very ugly should refactor
 		lat = (int)(Double.parseDouble(parser.getAttributeValue(null, "lat")) * 1E7d);
 		lon = (int)(Double.parseDouble(parser.getAttributeValue(null, "lon")) * 1E7d);
+		parseBug(parser);
+	}
+	
+	public void parseBug(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
+
 		int eventType;
+		
+		final int START = 0;
+		final int COMMENTS = 1;
+		final int COMMENT = 2;
+		int state = START;
+		
+		String text = "No Text";
+		String nickname = "No Name"; 
+		Date timestamp = null;
+		
 		while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 			String tagName = parser.getName();
-			if (eventType == XmlPullParser.END_TAG) {
-				if ("wpt".equals(tagName)) {
-					break;
+			if (state == START) {
+				if (eventType == XmlPullParser.END_TAG) {
+					if ("note".equals(tagName)) {
+						break;
+					}
+				}
+				if (eventType == XmlPullParser.START_TAG) {
+					if ("note".equals(tagName)) {
+						lat = (int)(Double.parseDouble(parser.getAttributeValue(null, "lat")) * 1E7d);
+						lon = (int)(Double.parseDouble(parser.getAttributeValue(null, "lon")) * 1E7d);
+					}
+					if ("id".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						id = Long.parseLong(parser.getText().trim());
+					}
+					if ("status".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						closed = parser.getText().trim().equalsIgnoreCase("closed");
+					}
+					if ("comments".equals(tagName)) {
+						comments = new ArrayList<BugComment>();
+						state = COMMENTS;
+					}
 				}
 			}
-			if (eventType == XmlPullParser.START_TAG) {
-				if ("id".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-					id = Long.parseLong(parser.getText().trim());
+			else if (state == COMMENTS) {
+				if ((eventType == XmlPullParser.END_TAG) && "comments".equals(tagName)) {
+					state = START;
 				}
-				if ("closed".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-					closed = Integer.parseInt(parser.getText().trim()) != 0;
+				else if ((eventType == XmlPullParser.START_TAG) && "comment".equals(tagName)) {
+					state = COMMENT;
 				}
-				if ("desc".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-					for (String c : parser.getText().trim().split("\\<hr \\/\\>")) {
-						comments.add(new BugComment(c));
+			}
+			else if (state == COMMENT) {
+				if ((eventType == XmlPullParser.END_TAG) && "comment".equals(tagName)) {
+					comments.add(new BugComment(text, nickname, timestamp));
+					state = COMMENTS;
+				}
+				else if (eventType == XmlPullParser.START_TAG) {
+					if ("user".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						nickname = parser.getText().trim();
 					}
+					if ("html".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						text = parser.getText().trim();
+					}
+					if ("date".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+						try {
+							timestamp = df.parse(parser.getText().trim());
+						} catch (java.text.ParseException pex) {
+							timestamp = new Date();
+						}
+					}
+					
 				}
 			}
 		}
@@ -94,6 +129,7 @@ public class Bug {
 		this.lat = lat;
 		this.lon = lon;
 		closed = false;
+		comments = new ArrayList<BugComment>();
 	}
 	
 	/**
@@ -129,6 +165,20 @@ public class Bug {
 	}
 	
 	/**
+	 * Close the bug
+	 */
+	public void close() {
+		closed = true;
+	}
+	
+	/**
+	 * Close the bug
+	 */
+	public void reopen() {
+		closed = false;
+	}
+	
+	/**
 	 * Get the complete bug comment suitable for use with the OSB database.
 	 * @return All the comments concatenated (joined with &lt;hr /&gt;).
 	 */
@@ -149,7 +199,7 @@ public class Bug {
 	 * @return The first comment of the bug.
 	 */
 	public String getDescription() {
-		return "bug "+ ((comments.size() > 0) ? comments.get(0).getText() : "<new>");
+		return "note "+ ((comments.size() > 0) ? Html.fromHtml(comments.get(0).getText()) : "<new>"); //TODO externalize string
 	}
 	
 	/**

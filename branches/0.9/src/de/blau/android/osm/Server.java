@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.zip.GZIPInputStream;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -17,11 +21,15 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.graphics.Rect;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.osb.Bug;
+import de.blau.android.osb.BugComment;
+import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.Base64;
 import de.blau.android.util.SavingHelper;
 
@@ -519,5 +527,234 @@ public class Server {
 	 */
 	public String getBaseURL() {
 		return serverURL.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
+	}
+	
+	
+	/* New Notes API 
+	 * code mostly from old OSB implementation
+	 * the relevant API documentation is still in flux so this implementation may have issues
+	 */
+	
+	/**
+	 * Perform an HTTP request to download up to 100 bugs inside the specified area.
+	 * Blocks until the request is complete.
+	 * @param area Latitude/longitude *1E7 of area to download.
+	 * @return All the bugs in the given area.
+	 */
+	public Collection<Bug> getNotesForBox(Rect area, long limit) {
+		Collection<Bug> result = new ArrayList<Bug>();
+		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
+		try {
+			Log.d("Server", "getNotesForBox");
+			URL url = new URL(serverURL  + "notes?" +
+					"limit=" + limit + "&" +
+					"bbox=" +
+					(double)area.left / 1E7d +
+					"," + (double)area.bottom / 1E7d +
+					"," + (double)area.right / 1E7d +
+					"," + (double)area.top / 1E7d);
+			
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			boolean isServerGzipEnabled = false;
+
+			//--Start: header not yet send
+			con.setReadTimeout(TIMEOUT);
+			con.setConnectTimeout(TIMEOUT);
+			con.setRequestProperty("Accept-Encoding", "gzip");
+			con.setRequestProperty("User-Agent", Application.userAgent);
+
+			//--Start: got response header
+			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+			
+			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
+						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+			}
+
+			InputStream is;
+			if (isServerGzipEnabled) {
+				is = new GZIPInputStream(con.getInputStream());
+			} else {
+				is = con.getInputStream();
+			}
+			
+			XmlPullParser parser = xmlParserFactory.newPullParser();
+			parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
+			int eventType;
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();
+				if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
+					try {
+						result.add(new Bug(parser));
+					} catch (IOException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (XmlPullParserException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (NumberFormatException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					}
+				}
+			}
+		} catch (XmlPullParserException e) {
+			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+		} catch (IOException e) {
+			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+		}
+		
+
+		return result;
+	}
+	
+	
+	/**
+	 * Perform an HTTP request to add the specified comment to the specified bug.
+	 * Blocks until the request is complete.
+	 * @param bug The bug to add the comment to.
+	 * @param comment The comment to add to the bug.
+	 * @return true if the comment was successfully added.
+	 */
+	public boolean addComment(Bug bug, BugComment comment) {
+		if (bug.getId() != 0) {
+			// http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
+			HttpURLConnection connection = null;
+			try {
+				try {
+					connection = 
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/comment"  ), "POST");
+					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
+							.defaultCharset());
+		
+					out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
+					out.flush();
+					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
+								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+					}
+					
+					InputStream is = connection.getInputStream();	
+					XmlPullParser parser = xmlParserFactory.newPullParser();
+					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
+					bug.parseBug(parser); // replace contents with result from server 
+					return true;
+				} catch (XmlPullParserException e) {
+					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+				} catch (IOException e) {
+					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+				}
+			} finally {
+				disconnect(connection);
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Perform an HTTP request to add the specified bug to the OpenStreetBugs database.
+	 * Blocks until the request is complete.
+	 * @param bug The bug to add.
+	 * @param comment The first comment for the bug.
+	 * @return true if the bug was successfully added.
+	 */
+	public boolean addNote(Bug bug, BugComment comment) {
+		if (bug.getId() == 0 && bug.comments.size() == 0) {
+			// http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug description with author and date>&format=<Output format>
+			HttpURLConnection connection = null;
+			try {
+				try {
+					connection = 
+							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + ((double)bug.getLat() / 1E7d)+"&lon=" + ((double)bug.getLon() / 1E7d) ), "POST");
+					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
+							.defaultCharset());
+					out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
+					out.flush();
+					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
+								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+					}
+					
+					InputStream is = connection.getInputStream();
+					
+					XmlPullParser parser = xmlParserFactory.newPullParser();
+					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
+					bug.parseBug(parser); // replace contents with result from server 
+					return true;
+				} catch (XmlPullParserException e) {
+					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+				} catch (IOException e) {
+					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+				}		
+			} finally {
+				disconnect(connection);
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Perform an HTTP request to close the specified bug.
+	 * Blocks until the request is complete.
+	 * @param bug The bug to close.
+	 * @return true if the bug was successfully closed.
+	 */
+	public boolean closeNote(Bug bug) {
+		
+		if (bug.getId() != 0) {
+			HttpURLConnection connection = null;
+			try {
+				try {
+					connection = 
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/close"  ), "POST");
+					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
+								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+					}
+					bug.close();
+					return true;
+				}
+				catch (IOException e) {
+					Log.e("Vespucci", "Server.closeNote:Exception", e);
+				} 
+			} finally {
+				disconnect(connection);
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Perform an HTTP request to close the specified bug.
+	 * Blocks until the request is complete.
+	 * @param bug The bug to close.
+	 * @return true if the bug was successfully closed.
+	 */
+	public boolean reopenNote(Bug bug) {
+		
+		if (bug.getId() != 0) {
+			HttpURLConnection connection = null;
+			try {
+				try {
+					connection = 
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/reopen"  ), "POST");
+					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
+								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+					}
+					bug.reopen();
+					return true;
+				}
+				catch (IOException e) {
+					Log.e("Vespucci", "Server.closeNote:Exception", e);
+				} 
+			} finally {
+				disconnect(connection);
+			}
+		}
+		return false;
 	}
 }

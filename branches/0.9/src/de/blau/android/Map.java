@@ -67,7 +67,7 @@ public class Map extends View implements IMapView {
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
 	
-	private Preferences pref;
+	private Preferences prefs;
 	
 	/** Direction we're pointing. 0-359 is valid, anything else is invalid.*/
 	private float orientation = -1f;
@@ -140,11 +140,19 @@ public class Map extends View implements IMapView {
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
 		
-		// create an overlay that displays pre-rendered tiles from the internet.
-		mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
-		mOverlays.add(new de.blau.android.osb.MapOverlay(this));
+
 		
 		iconRadius = Math.round((float)ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
+	}
+	
+	public void createOverlays()
+	{
+		// create an overlay that displays pre-rendered tiles from the internet.
+		if (mOverlays.size() == 0) // only set once
+		{
+			mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
+			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
+		}
 	}
 	
 	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
@@ -207,7 +215,7 @@ public class Map extends View implements IMapView {
 		paintGpsPos(canvas);
 		time = System.currentTimeMillis() - time;
 		
-		if (pref.isStatsVisible()) {
+		if (prefs.isStatsVisible()) {
 			paintStats(canvas, (int) (1 / (time / 1000f)));
 		}
 	}
@@ -511,7 +519,7 @@ public class Map extends View implements IMapView {
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			final float x, final float y) {
-		if (pref.isToleranceVisible() && tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingInEditRange
+		if (prefs.isToleranceVisible() && tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingInEditRange
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
 			Paint p = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
 			canvas.drawCircle(x, y, p.getStrokeWidth(), p);
@@ -535,7 +543,7 @@ public class Map extends View implements IMapView {
 		
 		
 		//draw way tolerance
-		if (pref.isToleranceVisible()
+		if (prefs.isToleranceVisible()
 				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
 				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
 					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
@@ -753,18 +761,18 @@ public class Map extends View implements IMapView {
 	}
 	
 	public Preferences getPrefs() {
-		return pref;
+		return prefs;
 	}
 	
 	void setPrefs(final Preferences aPreference) {
-		pref = aPreference;
-		final OpenStreetMapTileServer ts = OpenStreetMapTileServer.get(getResources(), pref.backgroundLayer(), true);
+		prefs = aPreference;
+		final OpenStreetMapTileServer ts = OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay) {
 				((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(ts);
 			}
 		}
-		showIcons = pref.getShowIcons();
+		showIcons = prefs.getShowIcons();
 		iconcache.clear();
 	}
 	

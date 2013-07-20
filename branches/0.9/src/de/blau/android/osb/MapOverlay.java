@@ -14,6 +14,7 @@ import android.os.Handler;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
@@ -23,6 +24,9 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	/** Maximum closed age to display: 7 days. */
 	private static final long MAX_CLOSED_AGE = 7 * 24 * 60 * 60 * 1000;
+	
+	/** viewbox needs to be less wide than this for displaying bugs */ 
+	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 16;
 	
 	/** Previously requested area. */
 	private Rect prev;
@@ -45,6 +49,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** Event handlers for the overlay. */
 	private final Handler handler;
 	
+	private Server server;
+	
 	/** Request to update the bugs for the current view.
 	 * Ensure cur is set before invoking.
 	 */
@@ -53,7 +59,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			new AsyncTask<Void, Void, Collection<Bug>>() {
 				@Override
 				protected Collection<Bug> doInBackground(Void... params) {
-					return Database.get(cur);
+					return server.getNotesForBox(cur,100);
 				}
 				
 				@Override
@@ -76,19 +82,15 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		}
 	};
 	
-	public MapOverlay(final Map map) {
+	public MapOverlay(final Map map, Server s) {
 		this.map = map;
+		server = s;
 		prev = new Rect();
 		cur = new Rect();
 		bugs = new ArrayList<Bug>();
 		handler = new Handler();
-		Resources r = map.getContext().getApplicationContext().getResources();
-		openPaint = new Paint();
-		openPaint.setColor(r.getColor(R.color.bug_open));
-		openPaint.setAlpha(200);
-		closedPaint = new Paint();
-		closedPaint.setColor(r.getColor(R.color.bug_closed));
-		closedPaint.setAlpha(200);
+		openPaint = Profile.getCurrent(Profile.OPEN_NOTE).getPaint();
+		closedPaint = Profile.getCurrent(Profile.CLOSED_NOTE).getPaint();
 	}
 	
 	public boolean isReadyToDraw() {
@@ -106,6 +108,10 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			// big when zoomed out
 			final float radius = 1.0f + (float)osmv.getZoomLevel(viewPort) / 2.0f;
 			BoundingBox bb = osmv.getViewBox();
+			
+			if (bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) {
+				return;
+			}
 			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
 			if (!cur.equals(prev)) {
 				// map has moved/zoomed - need to refresh the bugs on display

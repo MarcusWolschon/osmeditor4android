@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -286,6 +287,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		prefs = new Preferences(this);
 		map.setPrefs(prefs);
 		logic.setPrefs(prefs);
+		
+		map.createOverlays();
 		map.requestFocus();
 		
 		undoListener = new UndoListener();
@@ -674,17 +677,22 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// Investigation of this in progress.... (AG 10-Apr-2011)
 				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
 				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
-				comments.setText(bug.getComment().replaceAll("<hr />", "\n"));
+				comments.setText(Html.fromHtml(bug.getComment())); // ugly
 				EditText comment = (EditText)ad.findViewById(R.id.openstreetbug_comment);
 				comment.setText("");
-				comment.setFocusable(!bug.isClosed());
-				comment.setFocusableInTouchMode(!bug.isClosed());
-				comment.setEnabled(!bug.isClosed());
+				comment.setFocusable( true);
+				comment.setFocusableInTouchMode(true);
+				comment.setEnabled(true);
 				CheckBox close = (CheckBox)ad.findViewById(R.id.openstreetbug_close);
 				close.setChecked(bug.isClosed());
-				close.setEnabled(!bug.isClosed() && bug.getId() != 0);
+				if (bug.isClosed()) {
+					close.setText(R.string.openstreetbug_edit_closed);
+				} else {
+					close.setText(R.string.openstreetbug_edit_close);
+				}
+				close.setEnabled(/* !bug.isClosed() && */ bug.getId() != 0);
 				Button commit = ad.getButton(AlertDialog.BUTTON_POSITIVE);
-				commit.setEnabled(!bug.isClosed());
+				commit.setEnabled(/* !bug.isClosed() */ true);
 				break;
 			}
 		}
@@ -815,16 +823,14 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			
 			@Override
-			protected Boolean doInBackground(String... args) {
+			protected Boolean doInBackground(Server... args) {
 				// execute() is called below with no arguments (args will be empty)
 				// getDisplayName() is deferred to here in case a lengthy OSM query
 				// is required to determine the nickname
-				String nickname = null;
+				
 				Server server = prefs.getServer();
-				if (server.isLoginSet()) {
-					nickname = server.getDisplayName();
-				}
-				return super.doInBackground(nickname);
+				
+				return super.doInBackground(server);
 			}
 			
 			@Override
