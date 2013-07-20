@@ -125,7 +125,7 @@ public class Logic {
 	 * Minimum width of the viewBox for showing the tolerance. When the viewBox is wider, no element selection is
 	 * possible.
 	 */
-	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000;
+	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000*2;
 
 	/**
 	 * In MODE_EDIT this value is used for the padding of the display border.
@@ -332,7 +332,7 @@ public class Logic {
 	 * @return true, if viewBox' width is smaller than {@link #TOLERANCE_MIN_VIEWBOX_WIDTH}.
 	 */
 	public boolean isInEditZoomRange() {
-		return viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH;
+		return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH);
 	}
 
 	/**

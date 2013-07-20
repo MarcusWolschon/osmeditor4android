@@ -25,8 +25,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** Maximum closed age to display: 7 days. */
 	private static final long MAX_CLOSED_AGE = 7 * 24 * 60 * 60 * 1000;
 	
-	/** viewbox needs to be less wide than this for displaying bugs */ 
-	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 16;
+	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
+	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 	
 	/** Previously requested area. */
 	private Rect prev;
@@ -109,7 +109,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			final float radius = 1.0f + (float)osmv.getZoomLevel(viewPort) / 2.0f;
 			BoundingBox bb = osmv.getViewBox();
 			
-			if (bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) {
+			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
 				return;
 			}
 			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
