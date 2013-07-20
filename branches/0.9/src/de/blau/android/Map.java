@@ -654,10 +654,10 @@ public class Map extends View implements IMapView {
 			FeatureProfile tempFp = Profile.getCurrent("way-" + tag);
 			if (tempFp != null) {
 				fp = tempFp;
-				tempFp = Profile.getCurrent("way-" + tag + "-" + mainType);
-				if (tempFp != null) {
-					fp = tempFp;
-				}
+			}
+			tempFp = Profile.getCurrent("way-" + tag + "-" + mainType);
+			if (tempFp != null) {
+				fp = tempFp;
 			}
 		}
 		return fp;
