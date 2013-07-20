@@ -135,8 +135,8 @@
     <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
     <string name="config_enableAntiAliasing_title">Enable Anti-Aliasing</string>
     <string name="config_enableAntiAliasing_summary">Makes the lines more smoothly.</string>
-    <string name="config_enableOpenStreetBugs_title">Enable OpenStreetBugs</string>
-    <string name="config_enableOpenStreetBugs_summary">Display bugs reported to OpenStreetBugs.</string>
+    <string name="config_enableOpenStreetBugs_title">Enable Notes display</string>
+    <string name="config_enableOpenStreetBugs_summary">Display, Edit and Create Notes/Errors.</string>
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
     <string name="config_category_server">Server Settings</string>
