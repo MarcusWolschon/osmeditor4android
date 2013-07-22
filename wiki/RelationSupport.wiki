@@ -27,6 +27,8 @@ The implementation is in line with the exsiting way and node implementation, a s
  * merging of ways now tries to preserve existing way ids and uses conventional tag merging logic
  * reversing a way, either explictly in EasyEdit mode or implicitly by merging ways with different directions, will now reverse direction dependent tags. If a oneway tag is present, the explicit reversing will not change the value of oneway, assuming that this was the point of reversing in the first place.
  * reversing a "non-reverable" way will display a warning.
+ * replaced OSM bugs support with support for the new Notes API (note the XML verion of the Notes API still has some issues which is the reason for the "unknown action" string in the display)
+ * quick way of re-enabling GPS following: The GPS marker will turn to white (default for now) when following and back to the standard blue when following has been turned off. Clicking/touching the marker will turn following back on. Initially the following still has to be turned on via the menu.
 
 = Open Issues =
 
