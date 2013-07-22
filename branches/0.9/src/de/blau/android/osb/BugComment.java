@@ -25,6 +25,8 @@ public class BugComment {
 	private String text;
 	/** The nickname associated with the comment. */
 	private String nickname;
+	/** The action associated with the comment. */
+	private String action;
 	/** The timestamp associated with the comment. */
 	private Date timestamp;
 	
@@ -44,9 +46,10 @@ public class BugComment {
 	 * @param nickname New nickname. Commas are stripped.
 	 * @param timestamp New timestamp.
 	 */
-	public BugComment(String text, String nickname, Date timestamp) {
+	public BugComment(String text, String nickname, String action,  Date timestamp) {
 		this.text = text.replaceAll("\\[", "");
 		this.nickname = nickname.replaceAll(",", "");
+		this.action = action;
 		this.timestamp = timestamp;
 	}
 	
@@ -80,7 +83,7 @@ public class BugComment {
 	 */
 	public String toString() {
 		String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
-		return text + " [" + nickname + date + "]";
+		return text + " [" + action + " " + nickname + date + "]";
 	}
 
 }

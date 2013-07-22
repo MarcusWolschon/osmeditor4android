@@ -58,6 +58,7 @@ public class Bug {
 		
 		String text = "No Text";
 		String nickname = "No Name"; 
+		String action = "Unknown action";
 		Date timestamp = null;
 		
 		while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
@@ -91,16 +92,23 @@ public class Bug {
 				}
 				else if ((eventType == XmlPullParser.START_TAG) && "comment".equals(tagName)) {
 					state = COMMENT;
+					text = "No Text";
+					nickname = "No Name"; 
+					action = "Unknown action";
+					timestamp = null;
 				}
 			}
 			else if (state == COMMENT) {
 				if ((eventType == XmlPullParser.END_TAG) && "comment".equals(tagName)) {
-					comments.add(new BugComment(text, nickname, timestamp));
+					comments.add(new BugComment(text, nickname, action, timestamp));
 					state = COMMENTS;
 				}
 				else if (eventType == XmlPullParser.START_TAG) {
 					if ("user".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						nickname = parser.getText().trim();
+					}
+					if ("action".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
+						action = parser.getText().trim();
 					}
 					if ("html".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						text = parser.getText().trim();
