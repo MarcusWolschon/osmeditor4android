@@ -80,6 +80,7 @@ import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
@@ -594,6 +595,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			setShowGPS(true);
 			if (map.getLocation() != null) onLocationChanged(map.getLocation());
 		}
+		map.setFollowGPS(follow);
 		triggerMenuInvalidation();
 	}
 	
@@ -606,6 +608,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private void toggleFollowGPS() {
 		boolean newState = !followGPS;
 		setFollowGPS(newState);
+		map.setFollowGPS(newState);
 	}
 	
 	private void enableLocationUpdates() {
@@ -964,6 +967,24 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 			Mode mode = logic.getMode();
 			boolean isInEditZoomRange = logic.isInEditZoomRange();
+			
+			
+			if (showGPS && !followGPS && map.getLocation() != null) {
+				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
+				final float tolerance = Profile.nodeToleranceValue;
+				float locX = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLongitude() * 1E7));
+				float locY = GeoMath.latE7ToY(map.getHeight(),map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7));
+				
+				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLongitude() * 1E7)) - x);
+				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7)) - y);
+				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
+					if (Math.hypot(differenceX, differenceY) <= tolerance) {
+						setFollowGPS(true);
+						map.invalidate();
+						return;
+					}
+				}
+			}
 			
 			if (isInEditZoomRange) {
 				switch (mode) {

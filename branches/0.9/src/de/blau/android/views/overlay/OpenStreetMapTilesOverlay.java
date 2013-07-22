@@ -77,6 +77,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		textPaint.setTypeface(Typeface.SANS_SERIF);
 		textPaint.setTextSize(12);
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
+		// mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
 	}
 	
 	public boolean isReadyToDraw() {

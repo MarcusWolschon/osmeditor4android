@@ -117,6 +117,7 @@ public class Map extends View implements IMapView {
 	private Preset tmpPreset;
 	
 	private Location displayLocation = null;
+	private boolean isFollowingGPS = false;
 
 	private TrackerService tracker;
 	
@@ -314,7 +315,13 @@ public class Map extends View implements IMapView {
 				o = orientation;
 			}
 		}
-		Paint paint = Profile.getCurrent(Profile.GPS_POS).getPaint();
+		Paint paint = null;
+		if (isFollowingGPS) {
+			paint = Profile.getCurrent(Profile.GPS_POS_FOLLOW).getPaint();
+		} else {
+			paint = Profile.getCurrent(Profile.GPS_POS).getPaint();
+		}
+	
 		if (o < 0) {
 			// no orientation data available
 			canvas.drawCircle(x, y, paint.getStrokeWidth(), paint);
@@ -845,4 +852,7 @@ public class Map extends View implements IMapView {
 		return displayLocation;
 	}
 	
+	public void setFollowGPS(boolean follow) {
+		isFollowingGPS = follow;
+	}
 }

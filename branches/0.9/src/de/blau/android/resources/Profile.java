@@ -60,6 +60,7 @@ public class Profile  extends DefaultHandler {
 	public final static String ONEWAY_DIRECTION = "oneway_direction";
 	public final static String WAY_TOLERANCE = "way_tolerance";
 	public final static String GPS_POS = "gps_pos";
+	public final static String GPS_POS_FOLLOW = "gps_pos_follow";
 	public final static String GPS_ACCURACY = "gps_accuracy";
 	public final static String SELECTED_NODE_THIN = "selected_node_thin";
 	public final static String NODE_THIN = "node_thin";
@@ -326,6 +327,10 @@ public class Profile  extends DefaultHandler {
 		fp = new FeatureProfile(GPS_POS,featureProfiles.get(GPS_TRACK)); 
 		fp.getPaint().setStyle(Style.FILL);
 		fp.setWidthFactor(2f);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(GPS_POS_FOLLOW,featureProfiles.get(GPS_POS)); 
+		fp.setColor(resources.getColor(R.color.ccc_white));
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(GPS_ACCURACY,featureProfiles.get(GPS_POS));

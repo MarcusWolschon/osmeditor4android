@@ -169,6 +169,7 @@ public class OpenStreetMapTileServer {
 	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight;
 	private Drawable brandLogo;
 	private Queue<String> subdomains = new LinkedList<String>();
+	private int defaultAlpha;
 	private Collection<Provider> providers = new ArrayList<Provider>();
 	
 	// ===========================================================
@@ -522,5 +523,4 @@ public class OpenStreetMapTileServer {
 		}
 		return quadKey.toString();
 	}
-	
 }
