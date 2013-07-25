@@ -18,6 +18,7 @@ Thanks to:
   Matthias Brandt (Code)
   Shu Higashi (Japanese translation)
   Simon Legner (German translation)
+  Simon Poole (Code)
   zibiczek (Polish translation)
 
 and anyone else we forgot!
