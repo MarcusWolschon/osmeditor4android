@@ -70,6 +70,7 @@ import de.blau.android.osb.CommitTask;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
@@ -754,7 +755,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (editorData.parents != null) {
 				logic.updateParentRelations(editorData.type, editorData.osmId, editorData.parents);
 			}
-			if (editorData.members != null) {
+			if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
 				logic.updateRelation(editorData.osmId, editorData.members);
 			}
 			map.invalidate();

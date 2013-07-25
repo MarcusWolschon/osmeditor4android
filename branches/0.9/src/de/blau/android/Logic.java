@@ -450,7 +450,7 @@ public class Logic {
 	public boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
 		OsmElement osmElement = delegator.getOsmElement(Relation.NAME, osmId);
 		if (osmElement == null) {
-			Log.e(DEBUG_TAG, "Attempted to update non-existing relation");
+			Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_update_relations);
