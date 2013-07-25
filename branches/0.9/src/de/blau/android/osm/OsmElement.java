@@ -243,6 +243,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * @return A description of the element.
 	 */
 	public String getDescription() {
+		return getDescription(true);
+	}
+	
+	public String getDescription(boolean withType) {
 		// Use the name if it exists
 		String name = getTagWithKey("name");
 		if (name != null && name.length() > 0) {
@@ -257,11 +261,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		for (String tag : importantTags) {
 			String value = getTagWithKey(tag);
 			if (value != null && value.length() > 0) {
-				return getName() + " " + tag + ":" + value;
+				return (withType ? getName() + " " : "") + tag + ":" + value;
 			}
 		}
 		// Failing the above, the OSM ID
-		return getName() + " #" + Long.toString(getOsmId());
+		return (withType ? getName() + " #" : "#") + Long.toString(getOsmId());
 	}
 	
 	/**

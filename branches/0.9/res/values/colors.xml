@@ -3,6 +3,7 @@
 	<color name="actionbar_bg">#aa000000</color>
 	<color name="tagedit_field_text">@android:color/white</color>
 	<color name="tagedit_field_bg">#d8000000</color>
+	<color name="tagedit_field_static_bg">#fa555555</color>
 	<color name="preset_text">@android:color/white</color>
 	<color name="preset_bg">#ff666666</color>
 	

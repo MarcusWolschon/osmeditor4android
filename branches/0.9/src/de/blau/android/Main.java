@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -747,7 +748,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (b != null && b.containsKey(TagEditor.TAGEDIT_DATA)) {
 			// Read data from extras
 			TagEditorData editorData = (TagEditorData) b.getSerializable(TagEditor.TAGEDIT_DATA);
-			logic.setTags(editorData.type, editorData.osmId, editorData.tags);
+			if (editorData.tags != null) {
+				logic.setTags(editorData.type, editorData.osmId, editorData.tags);
+			}
+			if (editorData.parents != null) {
+				logic.updateParentRelations(editorData.type, editorData.osmId, editorData.parents);
+			}
+			if (editorData.members != null) {
+				logic.updateRelation(editorData.osmId, editorData.members);
+			}
 			map.invalidate();
 		}
 	}

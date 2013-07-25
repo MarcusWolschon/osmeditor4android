@@ -10,6 +10,12 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
 
+/**
+ * Relation represents an OSM relation element which essentially is a collection of other OSM elements.
+ * 
+ * @author simon
+ *
+ */
 public class Relation extends OsmElement {
 
 	/**
@@ -45,11 +51,24 @@ public class Relation extends OsmElement {
 		}
 		return null;
 	}
+	
+	public RelationMember getMember(String type, long id) {
+		for (int i = 0; i < members.size(); i++) {
+			RelationMember member = members.get(i);
+			if (member.getRef() == id && member.getType().equals(type)) {
+				return member;
+			}
+		}
+		return null;
+	}
 
+	public int getPosition(RelationMember e) {
+		return members.indexOf(e);
+	}
+	
 	/**
-	 * Be careful to leave at least 2 nodes!
 	 * 
-	 * @return list of nodes allowing {@link Iterator#remove()}.
+	 * @return list of members allowing {@link Iterator#remove()}.
 	 */
 	Iterator<RelationMember> getRemovableMembers() {
 		return members.iterator();
@@ -65,6 +84,9 @@ public class Relation extends OsmElement {
 		String res = super.toString();
 		for (Map.Entry<String, String> tag : tags.entrySet()) {
 			res += "\t" + tag.getKey() + "=" + tag.getValue();
+		}
+		for (RelationMember m:members) {
+			res += "\t" + m.toString();
 		}
 		return res;
 	}
@@ -111,10 +133,17 @@ public class Relation extends OsmElement {
 		members.add(members.indexOf(memberBefore) + 1, newMember);
 	}
 	
+	void addMember(int pos, final RelationMember newMember) {
+		if (pos < 0 || pos > members.size()) {
+			pos = members.size(); // append
+		}
+		members.add(pos, newMember);
+	}
+	
 	/**
-	 * Adds multiple nodes to the way in the order in which they appear in the list.
+	 * Adds multiple elements to the relation in the order in which they appear in the list.
 	 * They can be either prepended or appended to the existing nodes.
-	 * @param newNodes a list of new nodes
+	 * @param newMembers a list of new members
 	 * @param atBeginning if true, nodes are prepended, otherwise, they are appended
 	 */
 	void addMembers(List<RelationMember> newMembers, boolean atBeginning) {
@@ -137,7 +166,7 @@ public class Relation extends OsmElement {
 	}
 	
 	/**
-	 * Replace an existing node in a relation with a different node.
+	 * Replace an existing member in a relation with a different member.
 	 * @param existing The existing member to be replaced.
 	 * @param newMember The new member.
 	 */
@@ -189,8 +218,8 @@ public class Relation extends OsmElement {
 
 	
 	/**
-	 * Test if the way has a problem.
-	 * @return true if the way has a problem, false if it doesn't.
+	 * Test if the relation has a problem.
+	 * @return true if the relation has a problem, false if it doesn't.
 	 */
 	protected boolean calcProblem() {
 		

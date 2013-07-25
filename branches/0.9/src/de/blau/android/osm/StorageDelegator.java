@@ -7,7 +7,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -586,7 +588,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * Remove backlinks in elements
 	 * @param relation
 	 */
-	public void removeRelationFromMembers(Relation relation) {
+	public void removeRelationFromMembers(final Relation relation) {
 		for (RelationMember rm: relation.getMembers()) {
 			OsmElement e = rm.getElement();
 			undo.save(e);
@@ -598,7 +600,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * note since this sets the elements state it has to be called before deletion of the element
 	 * @param element
 	 */
-	public void removeElementFromRelations(OsmElement element) {
+	public void removeElementFromRelations(final OsmElement element) {
 		if (element.hasParentRelations()) {
 			ArrayList<Relation> relations = new ArrayList<Relation>(element.getParentRelations()); // need copy!
 			for (Relation r : relations) {
@@ -618,11 +620,182 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
+	 * note since this sets the elements state it has to be called before deletion of the element
+	 * @param element
+	 */
+	public void removeElementFromRelation(final OsmElement element, Relation r) {
+		Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
+		dirty = true;
+		undo.save(r);
+		r.removeMember(r.getMember(element));
+		r.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(r);
+		undo.save(element);
+		element.removeParentRelation(r);
+		element.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(element);
+		Log.i("StorageDelegator", "... done");
+	}
+	
+	/*
+	 * remove non-downloaded element from relation
+	 */
+	public void removeElementFromRelation(String type, final Long elementId, Relation r) {
+		Log.i("StorageDelegator", "removing  #" + elementId + " from relation #" + r.getOsmId());
+		dirty = true;
+		undo.save(r);
+		r.removeMember(r.getMember(type, elementId));
+		r.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(r);
+		//
+		Log.i("StorageDelegator", "... done");
+	}
+	
+	public void addElementToRelation(final OsmElement e, final int pos, final String role, final Relation rel)
+	{
+		ArrayList<Relation> relations = e.getParentRelations();
+		if (!relations.contains(rel)) {
+			dirty = true;
+			undo.save(rel);
+			undo.save(e);
+
+			RelationMember newMember = new RelationMember(role, e);
+			rel.addMember(pos, newMember);
+			e.addParentRelation(rel);
+
+			rel.updateState(OsmElement.STATE_MODIFIED);
+			apiStorage.insertElementSafe(rel);
+		}
+		else {
+			Log.w("StorageDelegator", "element #" + e.getOsmId() + " already in relation #" + rel.getOsmId());
+		}
+	}
+	
+	/**
+	 * set role for e in relation rel to new value role
+	 * @param e
+	 * @param role
+	 * @param rel
+	 */
+	public void setRole(final OsmElement e, final String role, final Relation rel)
+	{
+		dirty = true;
+		undo.save(rel);
+
+		RelationMember oldRm = rel.getMember(e);
+		RelationMember rm = new RelationMember(oldRm); // necessary or else we will overwrite the role string in undo storage
+
+		rm.setRole(role);
+		rel.replaceMember(oldRm, rm);
+		
+		rel.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(rel);
+		Log.w("StorageDelegator", "set role for #" + e.getOsmId() + " to " + role + " in relation #" + rel.getOsmId());
+	}
+	
+	/**
+	 * set role for e in relation rel to new value role
+	 * @param e
+	 * @param role
+	 * @param rel
+	 */
+	public void setRole(final String type, final long elementId, final String role, final Relation rel)
+	{
+		dirty = true;
+		undo.save(rel);
+
+		RelationMember oldRm = rel.getMember(type, elementId);
+		RelationMember rm = new RelationMember(oldRm); // necessary or else we will overwrite the role string in undo storage
+
+		rm.setRole(role);
+		rel.replaceMember(oldRm, rm);
+		
+		rel.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(rel);
+		Log.w("StorageDelegator", "set role for #" + elementId+ " to " + role + " in relation #" + rel.getOsmId());
+	}
+	
+	/**
+	 * compare current relations e is a member of to new state parents and make it so
+	 * @param e
+	 * @param parents
+	 */
+	public void updateParentRelations(final OsmElement e,
+			final HashMap<Long, String> parents) {
+		
+		ArrayList<Relation> origParents = (ArrayList<Relation>) e.getParentRelations().clone();
+		
+		for (Relation o: origParents) { // find changes to existing memberships
+			if (!parents.containsKey(Long.valueOf(o.getOsmId()))) {
+				removeElementFromRelation(e, o); // saves undo state
+				continue;
+			}
+			if (parents.containsKey(Long.valueOf(o.getOsmId()))){
+				String newRole = parents.get(Long.valueOf(o.getOsmId()));
+				if (!o.getMember(e).getRole().equals(newRole)) {
+					setRole(e, newRole, o);
+				}
+			}
+		}
+		// note GUI does not exercise this currently
+		for (Long l : parents.keySet()) {
+			Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l.longValue());
+			if (!origParents.contains(r)) {
+				addElementToRelation(e, -1, parents.get(l), r); // append for now only
+			}
+		}
+	}
+	
+	/**
+	 * compare current list of relations members to new list and apply the necessary changes
+	 * currently doesn't handle additions or changes in sequence
+	 * @param r			the relation
+	 * @param members  	new list of members
+	 */
+	public void updateRelation(Relation r, ArrayList<RelationMemberDescription> members) {
+	
+		ArrayList<RelationMember> origMembers = (ArrayList<RelationMember>) (((ArrayList<RelationMember>) r.getMembers()).clone());
+		LinkedHashMap<String,RelationMemberDescription> membersHash = new LinkedHashMap<String,RelationMemberDescription>();
+		for (RelationMemberDescription rmd: members) {
+			membersHash.put(rmd.getType()+"-"+rmd.getRef(),rmd);
+		}
+		for (RelationMember o: origMembers) { // find changes to existing members
+			OsmElement e = o.getElement();
+			if (e != null) { // is downloaded
+				String key = e.getName()+"-"+e.getOsmId();
+				if (!membersHash.containsKey(key)) {
+					removeElementFromRelation(e, r); // saves undo state
+					continue;
+				}
+				String newRole = membersHash.get(key).getRole();
+				if (!o.getRole().equals(newRole)) {
+					setRole(e, newRole, r);
+				}
+			} else {
+				String key = o.getType()+"-"+o.getRef();
+				if (!membersHash.containsKey(key)) {
+					removeElementFromRelation(o.getType(), o.getRef(), r); // saves undo state
+					continue;
+				}
+				String newRole = membersHash.get(key).getRole();
+				if (!o.getRole().equals(newRole)) {
+					setRole(o.getType(), o.getRef(), newRole, r);
+				}
+			}
+		}
+		// TODO resorting and adding members
+		// get copy of current state
+		// origMembers = (ArrayList<RelationMember>) (((ArrayList<RelationMember>) r.getMembers()).clone());
+		
+	}
+
+	
+	/**
 	 * Assumes mergeFrom will deleted by caller and doesn't update back refs
 	 * @param mergeInto
 	 * @param mergeFrom
 	 */
-	public void mergeElementsRelations(OsmElement mergeInto, OsmElement mergeFrom ) {
+	public void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom ) {
 		ArrayList<Relation> fromRelations = new ArrayList<Relation>(mergeFrom.getParentRelations()); // copy just to be safe
 		ArrayList<Relation> toRelations = mergeInto.getParentRelations();
 		for (Relation r : fromRelations) {
@@ -642,7 +815,6 @@ public class StorageDelegator implements Serializable, Exportable {
 			} else {
 				// check for role conflict
 			}
-			
 		}
 	}
 	
@@ -894,4 +1066,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public String exportExtension() {
 		return "osc";
 	}
+
+
+
 }

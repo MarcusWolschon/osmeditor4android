@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -44,8 +46,10 @@ import android.widget.Toast;
 
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetGroup;
@@ -71,8 +75,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	/** The layout containing the presets */
 	private LinearLayout presetsLayout = null;
 	
-	/** The layout containing the relations */
-	private LinearLayout relationsLayout = null;
+	/** The layout containing the parent relations */
+	private LinearLayout parentRelationsLayout = null;
+	
+	/** The layout containing the members of a relation */
+	private LinearLayout relationMembersLayout = null;
 	
 	/**
 	 * The tag we use for Android-logging.
@@ -111,6 +118,12 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	 * The tags present when this editor was created (for undoing changes)
 	 */
 	private Map<String, String> originalTags;
+	
+	/**
+	 * the same for relations
+	 */
+	private HashMap<Long,String> originalParents;
+	private ArrayList<RelationMemberDescription> originalMembers;
 	
 	private PresetItem autocompletePresetItem = null;
 	Preset preset = null;
@@ -228,6 +241,45 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		return row != null && row.valueEdit.requestFocus();
 	}
 	
+	
+	/**
+	 */
+	private interface ParentRelationHandler {
+		abstract void handleParentRelation(final EditText roleEdit, final long relationId);
+	}
+	
+	/**
+	 * Perform some processing for each row in the parent relation view.
+	 * @param handler The handler that will be called for each row.
+	 */
+	private void processParentRelations(final ParentRelationHandler handler) {
+		final int size = parentRelationsLayout.getChildCount();
+		for (int i = 0; i < size; ++i) { 
+			View view = parentRelationsLayout.getChildAt(i);
+			RelationMembershipRow row = (RelationMembershipRow)view;
+			handler.handleParentRelation(row.roleEdit, row.relationId);
+		}
+	}
+	
+	/**
+	 */
+	private interface RelationMemberHandler {
+		abstract void handleRelationMember(final TextView typeView, final long elementId, final EditText roleEdit, final TextView descView);
+	}
+	
+	/**
+	 * Perform some processing for each row in the relation members view.
+	 * @param handler The handler that will be called for each rowr.
+	 */
+	private void processRelationMembers(final RelationMemberHandler handler) {
+		final int size = relationMembersLayout.getChildCount();
+		for (int i = 0; i < size; ++i) { 
+			View view = relationMembersLayout.getChildAt(i);
+			RelationMemberRow row = (RelationMemberRow)view;
+			handler.handleRelationMember(row.typeView, row.elementId, row.roleEdit, row.elementView);
+		}
+	}
+	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -244,8 +296,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
 		rowLayout = (LinearLayout) findViewById(R.id.edit_row_layout);
 		presetsLayout = (LinearLayout) findViewById(R.id.presets_layout);
-		relationsLayout = (LinearLayout) findViewById(R.id.relations_layout);
+		parentRelationsLayout = (LinearLayout) findViewById(R.id.relation_membership_layout);
+		relationMembersLayout = (LinearLayout) findViewById(R.id.relation_members_layout);
 		loaded = false;
+		
+		// tags
 		TagEditorData loadData;
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
@@ -263,12 +318,23 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
 		element = Main.logic.delegator.getOsmElement(type, osmId);
 		preset = Main.getCurrentPreset();
+
+		// presets
+		createRecentPresetView();
+		
+		// parent relations
+		originalParents = loadData.originalParents != null ? loadData.originalParents : loadData.parents;
+		createParentRelationView(loadData.parents);
+		
+		// members of this relation
+		originalMembers = loadData.originalMembers != null ? loadData.originalMembers : loadData.members;
+		createMembersView(loadData.members);
+		
 		loaded = true;
 		TagEditRow row = ensureEmptyRow();
 		row.keyEdit.requestFocus();
 		row.keyEdit.dismissDropDown();
-		createRecentPresetView();
-		createRelationView();
+		
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -362,6 +428,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	
 	private void doRevert() {
 		loadEdits(originalTags);
+		createParentRelationView(originalParents);
+		createMembersView(originalMembers);
 	}
 	
 	private void createRecentPresetView() {
@@ -391,6 +459,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			v.setPadding(20, 20, 20, 20);
 			v.setId(R.id.recentPresets);
 			presetsLayout.addView(v);
+			presetsLayout.setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -405,72 +474,35 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	}
 	
 	/** 
-	 * display relation memberships if any
+	 * display relation membership if any
+	 * @param parents 
 	 */
-	private void createRelationView() {
+	private void createParentRelationView(HashMap<Long,String> parents) {
 		
-		if (element != null) { 
-			ArrayList<Relation> pr = element.getParentRelations();
-			if (element.getParentRelations() != null && element.getParentRelations().size() > 0) {
-				TextView v = new TextView(this);
-				v.setText(getResources().getString(R.string.relation_membership),TextView.BufferType.NORMAL);
-				v.setTypeface(null, Typeface.BOLD);
-				v.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-				v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-				v.setPadding(10, 5, 5, 10);
-				v.setSingleLine();
-				relationsLayout.addView(v);
-				for (Relation r :  pr) {
-					RelationMember rm = r.getMember(element);
-					v = new TextView(this);
-					v.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-					String desc = r.getDescription();
-					String role = rm.getRole();
-					if (role != null && !role.equals("")) {
-						desc = desc + " role " + role;
-					}
-					v.setText(desc,TextView.BufferType.NORMAL);
-					v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-					v.setPadding(10, 5, 5, 10);
-					v.setSingleLine();
-					relationsLayout.addView(v);
-				}
+		if (parents != null && parents.size() > 0) {
+			LinearLayout l = (LinearLayout) findViewById(R.id.membership_heading_view);
+			l.setVisibility(View.VISIBLE);
+			parentRelationsLayout.removeAllViews();
+			for (Long id :  parents.keySet()) {
+				Relation r = (Relation) Main.logic.delegator.getOsmElement(Relation.NAME, id.longValue());
+				insertNewMembership(parents.get(id),r,0);
 			}
-			// if this is a relation get members
-			if (element.getName().equals("relation")) {
-			
-				ArrayList<RelationMember> members = (ArrayList<RelationMember>) ((Relation)element).getMembers();
-				if (members != null && members.size() > 0) {
-					TextView v = new TextView(this);
-					v.setText(getResources().getString(R.string.relation_members),TextView.BufferType.NORMAL);
-					v.setTypeface(null, Typeface.BOLD);
-					v.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-					v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-					v.setPadding(10, 5, 5, 10);
-					v.setSingleLine();
-					relationsLayout.addView(v);
-					int pos=1;
-					for (RelationMember rm :  members) {
-						v = new TextView(this);
-						v.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-						String desc = rm.getType() + "\t#" + Long.toString(rm.getRef());
-						OsmElement e = rm.getElement();
-						if (e != null) {
-							desc = desc + "\t" + e.getDescription();
-						} else {
-							desc = desc + "\tnot downloaded";
-						}
-						String role = rm.getRole();
-						if (role != null && !role.equals("")) {
-							desc = desc + "\trole " + role;
-						}
-						v.setText(desc,TextView.BufferType.NORMAL);
-						v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-						v.setPadding(10, 5, 5, 10);
-						v.setSingleLine();
-						relationsLayout.addView(v);
-					}
-				}
+		}
+	}
+		
+	/** 
+	 * display member elements of the relation if any
+	 * @param members 
+	 */
+	private void createMembersView(ArrayList<RelationMemberDescription> members) {
+		// if this is a relation get members
+
+		if (members != null && members.size() > 0) {
+			LinearLayout l = (LinearLayout) findViewById(R.id.member_heading_view);
+			l.setVisibility(View.VISIBLE);
+			relationMembersLayout.removeAllViews();
+			for (RelationMemberDescription rmd :  members) {
+				insertNewMember( members.indexOf(rmd) +"", rmd, -1);
 			}
 		}
 	}
@@ -504,6 +536,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_mapfeatures)));
 			startActivity(intent);
 			return true;
+		case R.id.tag_menu_resetMRU:
+			preset.resetRecentlyUsed();
+			recreateRecentPresetView();
+			return true;
 		}
 		
 		return false;
@@ -523,10 +559,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		
 		Intent intent = new Intent();
 		Map<String, String> currentTags = getKeyValueMap(false);
-		if (!currentTags.equals(originalTags)) {
+		HashMap<Long,String> currentParents = getParentRelationMap();
+		ArrayList<RelationMemberDescription> currentMembers = getMembersList();
+		// ArrayList<Relation> currentParents = 
+		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || !currentMembers.equals(originalMembers)) {
 			// changes were made
-			intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, currentTags, null));
+			intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, 
+					currentTags.equals(originalTags)? null : currentTags,  null, 
+							currentParents.equals(originalParents)?null:currentParents, null, currentMembers.equals(originalMembers)?null:currentMembers, null));
 		}
+		
 		setResult(RESULT_OK, intent);
 		finish();
 	}
@@ -550,7 +592,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	@Override
 	protected void onSaveInstanceState(final Bundle outState) {
 		// no call through. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
-		outState.putSerializable(TAGEDIT_DATA, new TagEditorData(osmId, type, getKeyValueMap(true), originalTags));
+		outState.putSerializable(TAGEDIT_DATA, new TagEditorData(osmId, type, getKeyValueMap(true), originalTags, getParentRelationMap(), originalParents, getMembersList(), originalMembers));
 	}
 	
 	/** When the Activity is interrupted, save MRUs*/
@@ -883,6 +925,341 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	}
 	
 	/**
+	 * Collect all interesting values from the parent relation view HashMap<String,String>, currently only teh role value
+	 * 
+	 * @return The HashMap<Long,String> of relation and role in that relation pairs.
+	 */
+	private HashMap<Long,String> getParentRelationMap() {
+		final HashMap<Long,String> parents = new HashMap<Long,String>();
+		processParentRelations(new ParentRelationHandler() {
+			@Override
+			public void handleParentRelation(final EditText roleEdit, final long relationId) {
+				String role = roleEdit.getText().toString().trim();
+				parents.put(Long.valueOf(relationId), role);
+			}
+		});
+		return parents;
+	}	
+	
+	/**
+	 * Collect all interesting values from the relation member view 
+	 * RelationMemberDescritption is an extended version of RelationMember that holds a textual description of the element 
+	 * instead of the element itself
+	 * 
+	 * @return ArrayList<RelationMemberDescription>.
+	 */
+	private ArrayList<RelationMemberDescription> getMembersList() {
+		final ArrayList<RelationMemberDescription> members = new ArrayList<RelationMemberDescription>();
+		processRelationMembers(new RelationMemberHandler() {
+			@Override
+			public void handleRelationMember(final TextView typeView, final long elementId, final EditText roleEdit, final TextView descView) {
+				String type = typeView.getText().toString().trim();
+				String role = roleEdit.getText().toString().trim();
+				String desc = descView.getText().toString().trim();
+				RelationMemberDescription rmd = new RelationMemberDescription(type,elementId,role,desc);
+				members.add(rmd);
+			}
+		});
+		return members;
+	}	
+	
+	/**
+	 * Insert a new row with a relation member
+	 * @param pos (currently unused)
+	 * @param rmd information on the relation member
+	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
+	 * @returns The new RelationMemberRow.
+	 */
+	protected RelationMemberRow insertNewMember(final String pos, final RelationMemberDescription rmd, final int position) {
+		RelationMemberRow row = (RelationMemberRow)View.inflate(this, R.layout.relation_member_row, null);
+		row.setValues(pos, rmd);
+		relationMembersLayout.addView(row, (position == -1) ? relationMembersLayout.getChildCount() : position);
+		return row;
+	}
+	
+	/**
+	 * A row representing an editable member of a relation, consisting of edits for role and display of other values and a delete button.
+	 */
+	public static class RelationMemberRow extends LinearLayout {
+		
+		private TagEditor owner;
+		private long elementId;
+		private AutoCompleteTextView roleEdit;
+		private TextView typeView;
+		private TextView elementView;
+		
+		public RelationMemberRow(Context context) {
+			super(context);
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+		}
+		
+		public RelationMemberRow(Context context, AttributeSet attrs) {
+			super(context, attrs);
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+		}
+		
+		public RelationMemberRow(Context context, AttributeSet attrs, int defStyle) {
+			super(context, attrs, defStyle);
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+		}
+		
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			if (isInEditMode()) return; // allow visual editor to work
+			
+			roleEdit = (AutoCompleteTextView)findViewById(R.id.editMemberRole);
+			roleEdit.setOnKeyListener(owner.myKeyListener);
+			//lastEditKey.setSingleLine(true);
+			
+			typeView = (TextView)findViewById(R.id.memberType);
+			
+			elementView = (TextView)findViewById(R.id.memberObject);
+			
+			roleEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					if (hasFocus) {
+						roleEdit.setAdapter(getRoleAutocompleteAdapter());
+						if (running && roleEdit.getText().length() == 0) roleEdit.showDropDown();
+					}
+				}
+			});
+			
+			
+			View deleteIcon = findViewById(R.id.iconDelete);
+			deleteIcon.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					deleteRow();
+				}
+			});
+			
+			
+			OnClickListener autocompleteOnClick = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v.hasFocus()) {
+						((AutoCompleteTextView)v).showDropDown();
+					}
+				}
+			};
+
+			roleEdit.setOnClickListener(autocompleteOnClick);
+		}
+		
+		/**
+		 * 
+		 * @return
+		 */
+		protected ArrayAdapter<String> getRoleAutocompleteAdapter() {
+			// Use a set to prevent duplicate keys appearing
+			Set<String> roles = new HashSet<String>();
+					
+			if ( owner.preset != null && owner.autocompletePresetItem != null) {
+				PresetItem relationPreset = owner.preset.findBestMatch(owner.getKeyValueMap(false));
+				if (relationPreset != null) {
+					roles.addAll(owner.autocompletePresetItem.getRoles());
+				}
+			}
+
+			List<String> result = new ArrayList<String>(roles);
+			Collections.sort(result);
+			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
+		}
+		
+		
+		/**
+		 * Sets the per row values for a relation member
+		 * @param pos not used
+		 * @param rmd the information on the relation member
+		 * @return elationMemberRow object for convenience
+		 */
+		public RelationMemberRow setValues(String pos, RelationMemberDescription rmd) {
+			
+			String desc = rmd.getDescription();
+			String objectType = rmd.getType() == null ? "--" : rmd.getType();
+			elementId = rmd.getRef();
+			roleEdit.setText(rmd.getRole());
+			typeView.setText(objectType);
+			elementView.setText(desc);
+			return this;
+		}
+		
+		public long getOsmId() {
+			return elementId;
+		}
+		
+		public String getRole() {
+			return roleEdit.getText().toString();
+		}
+		
+		/**
+		 * Deletes this row
+		 */
+		public void deleteRow() {
+			View cf = owner.getCurrentFocus();
+			if (cf == roleEdit) {
+				 owner.focusRow(0); // focus on first row of tag editing for now
+			}
+			owner.relationMembersLayout.removeView(this);
+		}
+		
+		/**
+		 * Checks if the fields in this row are empty
+		 * @return true if both fields are empty, false if at least one is filled
+		 */
+		public boolean isEmpty() {
+			return  roleEdit.getText().toString().trim().equals("");
+		}
+	}
+	
+	/**
+	 * Insert a new row with a parent relation 
+	 * 
+	 * @param role		role of this element in the relation
+	 * @param r			the relation
+	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
+	 * @return the new RelationMembershipRow
+	 */
+	protected RelationMembershipRow insertNewMembership(final String role, final Relation r, final int position) {
+		RelationMembershipRow row = (RelationMembershipRow)View.inflate(this, R.layout.relation_membership_row, null);
+		row.setValues(role, r);
+		parentRelationsLayout.addView(row, (position == -1) ? parentRelationsLayout.getChildCount() : position);
+		return row;
+	}
+	
+	/**
+	 * A row representing a parent relation with an edits for role and further values and a delete button.
+	 */
+	public static class RelationMembershipRow extends LinearLayout {
+		
+		private TagEditor owner;
+		private long relationId;
+		private AutoCompleteTextView roleEdit;
+		private TextView parentView;
+		
+		public RelationMembershipRow(Context context) {
+			super(context);
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+		}
+		
+		public RelationMembershipRow(Context context, AttributeSet attrs) {
+			super(context, attrs);
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+		}
+		
+		public RelationMembershipRow(Context context, AttributeSet attrs, int defStyle) {
+			super(context, attrs, defStyle);
+			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+		}
+		
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			if (isInEditMode()) return; // allow visual editor to work
+			
+			roleEdit = (AutoCompleteTextView)findViewById(R.id.editRole);
+			roleEdit.setOnKeyListener(owner.myKeyListener);
+			
+			parentView = (TextView)findViewById(R.id.viewParent);
+			
+			roleEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					if (hasFocus) {
+						roleEdit.setAdapter(getRoleAutocompleteAdapter());
+						if (running && roleEdit.getText().length() == 0) roleEdit.showDropDown();
+					}
+				}
+			});
+						
+			View deleteIcon = findViewById(R.id.iconDelete);
+			deleteIcon.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					new AlertDialog.Builder(owner)
+					.setTitle(R.string.delete)
+					.setMessage(R.string.delete_from_relation_description)
+					.setPositiveButton(R.string.delete,
+						new DialogInterface.OnClickListener() {	
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								deleteRow();
+							}
+						})
+					.show();					
+				}
+			});
+			
+			
+			OnClickListener autocompleteOnClick = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (v.hasFocus()) {
+						((AutoCompleteTextView)v).showDropDown();
+					}
+				}
+			};
+			
+			roleEdit.setOnClickListener(autocompleteOnClick);
+		}
+		
+		protected ArrayAdapter<String> getRoleAutocompleteAdapter() {
+			// Use a set to prevent duplicate keys appearing
+			Set<String> roles = new HashSet<String>();
+			Relation r = (Relation) Main.logic.delegator.getOsmElement(Relation.NAME, relationId);
+			if ( r!= null) {			
+				if ( owner.preset != null) {
+					PresetItem relationPreset = owner.preset.findBestMatch(r.getTags());
+					if (relationPreset != null) {
+						roles.addAll(relationPreset.getRoles());
+					}
+				}
+			}
+			
+			List<String> result = new ArrayList<String>(roles);
+			Collections.sort(result);
+			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
+		}
+		
+		
+		/**
+		 * Sets key and value values
+		 * @param aTagKey the key value to set
+		 * @param aTagValue the value value to set
+		 * @return the TagEditRow object for convenience
+		 */
+		public RelationMembershipRow setValues(String role, Relation r) {
+			relationId = r.getOsmId();
+			roleEdit.setText(role);
+			parentView.setText(r.getDescription());
+			return this;
+		}
+		
+		public long getOsmId() {
+			return relationId;
+		}
+	
+		
+		public String getRole() {
+			return roleEdit.getText().toString();
+		}
+		
+		
+		/**
+		 * Deletes this row
+		 */
+		public void deleteRow() {
+			View cf = owner.getCurrentFocus();
+			if (cf == roleEdit) {
+				owner.focusRow(0); // focus on first row of tag editing for now
+			}
+			owner.parentRelationsLayout.removeView(this);
+		}
+	}
+	
+	/**
 	 * @return the OSM ID of the element currently edited by the editor
 	 */
 	public long getOsmId() {
@@ -976,23 +1353,32 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	 * @author Jan
 	 */
 	public static class TagEditorData implements Serializable {
-		private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 2L;
 		
 		public final long osmId;
 		public final String type;
 		public final Map<String,String> tags;
 		public final Map<String,String> originalTags;
+		public final HashMap<Long,String> parents; // just store the ids and role
+		public final HashMap<Long,String> originalParents; // just store the ids and role
+		public final ArrayList<RelationMemberDescription> members;
+		public final ArrayList<RelationMemberDescription> originalMembers;
+		
 		public String focusOnKey = null;
 		
-		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags) {
-			this(osmId, type, tags, originalTags, null);
+		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long,String> parents, HashMap<Long,String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers) {
+			this(osmId, type, tags, originalTags, parents, originalParents, members, originalMembers, null);
 		}
 		
-		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, String focusOnKey) {
+		public TagEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long,String> parents, HashMap<Long,String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers, String focusOnKey) {
 			this.osmId = osmId;
 			this.type = type;
 			this.tags = tags;
 			this.originalTags = originalTags;
+			this.parents = parents;
+			this.originalParents = originalParents;
+			this.members = members;
+			this.originalMembers = originalMembers;
 			this.focusOnKey = focusOnKey;
 		}
 		
@@ -1005,6 +1391,33 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			type = selectedElement.getName();
 			tags = new LinkedHashMap<String, String>(selectedElement.getTags());
 			originalTags = tags;
+			HashMap<Long,String> tempParents = new HashMap<Long,String>();
+			if (selectedElement.getParentRelations() != null) {
+				for (Relation r:selectedElement.getParentRelations()) {
+					RelationMember rm = r.getMember(selectedElement);
+					tempParents.put(Long.valueOf(r.getOsmId()), rm.getRole());
+				}
+				parents = tempParents;
+				originalParents = parents;
+			}
+			else {
+				parents = null;
+				originalParents = null;
+			}
+			ArrayList<RelationMemberDescription> tempMembers = new ArrayList<RelationMemberDescription>();
+			if (selectedElement.getName().equals(Relation.NAME)) {
+				for (RelationMember rm:((Relation)selectedElement).getMembers()) {
+					RelationMemberDescription newRm = new RelationMemberDescription(rm);
+					tempMembers.add(newRm);
+				}
+				members = tempMembers;
+				originalMembers = members;
+			}
+			else {
+				members = null;
+				originalMembers = null;
+			}
+			
 			this.focusOnKey = focusOnKey;
 		}
 	}

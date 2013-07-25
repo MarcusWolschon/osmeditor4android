@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
@@ -242,6 +243,8 @@ public class Preset {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"));            		
             	} else if ("multiselect".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO full multiselect parsing/support?
+            	} else if ("role".equals(name)) {
+            		currentItem.addRole(attr.getValue("key")); 
             	}
             }
             
@@ -361,6 +364,16 @@ public class Preset {
 		// prevent duplicates
 		mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
 		mru.changed  = true;
+	}
+	
+	/**
+	 * Remove a preset
+	 * @param item the item to remove
+	 */
+	public void resetRecentlyUsed() {
+		mru.recentPresets = new LinkedList<Integer>(); 
+		mru.changed  = true;
+		saveMRU();
 	}
 	
 	/** Saves the current MRU data to a file */
@@ -520,6 +533,7 @@ public class Preset {
 				case NODE: return appliesToNode;
 				case WAY: return appliesToWay;
 				case CLOSEDWAY: return appliesToClosedway;
+				case RELATION: return appliesToRelation;
 			}
 			return true; // should never happen
 		}
@@ -655,6 +669,9 @@ public class Preset {
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
 		private LinkedHashMap<String, String[]> optionalTags = new LinkedHashMap<String, String[]>();
 		
+		/** Roles
+		 *  */
+		private LinkedList<String> roles =  new LinkedList<String>();
 		
 		private int itemIndex;
 
@@ -712,6 +729,10 @@ public class Preset {
 			(optional ? optionalTags : recommendedTags).put(key,  valueArray);
 		}
 
+		public void addRole(String value)
+		{
+			roles.add(value);
+		}
 		
 		/**
 		 * @return the fixed tags belonging to this item (unmodifiable)
@@ -730,6 +751,10 @@ public class Preset {
 
 		public Map<String,String[]> getOptionalTags() {
 			return Collections.unmodifiableMap(optionalTags);
+		}
+		
+		public List<String> getRoles() {
+			return Collections.unmodifiableList(roles);
 		}
 		
 		/**

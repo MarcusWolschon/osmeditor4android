@@ -2,9 +2,15 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 
+/**
+ * RelationMember stores the necessary information for a relation member, if the element field is null the element itself is not present
+ * (not downloaded typically) and only the osm id, type (needed to make the id unique) and role fields are stored.
+ * @author simon
+ *
+ */
 public class RelationMember implements Serializable {
 	
-	private static final long serialVersionUID = 1104911642016294266L;
+	private static final long serialVersionUID = 3L;
 	String	type = null;
 	long	ref;
 	String 	role = null;
@@ -13,7 +19,7 @@ public class RelationMember implements Serializable {
 	/**
 	 * Constructor for members that have not been downloaded
 	 */
-	public RelationMember(String t, long id, String r)
+	public RelationMember(final String t, final long id, final String r)
 	{
 		type = t;
 		ref = id;
@@ -23,10 +29,25 @@ public class RelationMember implements Serializable {
 	/**
 	 * Constructor for members that have been downloaded
 	 */
-	public RelationMember(String r, OsmElement e)
+	public RelationMember(final String r, final OsmElement e)
 	{
 		role = r;
 		element = e;
+	}
+	
+	/**
+	 * Constructor for copying, assumes that only role changes
+	 */
+	public RelationMember(final RelationMember rm)
+	{
+		if (rm.element == null) {
+			type = rm.type;
+			ref = rm.ref;
+			role = new String(rm.role);
+		} else {
+			role = new String(rm.role);
+			element = rm.element;
+		}
 	}
 	
 	public String getType() {
@@ -49,6 +70,10 @@ public class RelationMember implements Serializable {
 		return role;
 	}
 	
+	public void setRole(final String role) {
+		this.role = role;
+	}
+	
 	public OsmElement getElement() {
 		return element;
 	}
@@ -57,7 +82,11 @@ public class RelationMember implements Serializable {
 	 * set the element, used for post processing relations
 	 * @param e
 	 */
-	public void setElement(OsmElement e) {
+	public void setElement(final OsmElement e) {
 		element=e;
+	}
+	
+	public String toString() {
+		return role + " " + type + " " + ref;
 	}
 }

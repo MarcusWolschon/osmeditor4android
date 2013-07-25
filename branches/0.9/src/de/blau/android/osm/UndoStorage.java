@@ -187,7 +187,7 @@ public class UndoStorage implements Serializable {
 			
 			if (element instanceof Node) elements.put(element, new UndoNode((Node)element));
 			else if (element instanceof Way) elements.put(element, new UndoWay((Way)element));
-			else if (element instanceof Relation) elements.put(element, new UndoRelation((Relation)element));
+			else if (element instanceof Relation) elements.put(element, new UndoRelation((Relation)element)); 
 			else throw new IllegalArgumentException("Unsupported element type");
 		}
 		

@@ -34,6 +34,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
@@ -421,6 +422,39 @@ public class Logic {
 		} else {
 			createCheckpoint(R.string.undo_action_set_tags);
 			delegator.setTags(osmElement, tags);
+			return true;
+		}
+	}
+	
+	/**
+	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
+	 * All existing tags will be replaced.
+	 * 
+	 * @param type type of the element for the Tag-list.
+	 * @param osmId OSM-ID of the element.
+	 * @param tags Tag-List to be set.
+	 * @return false if no element exists for the given osmId/type.
+	 */
+	public boolean updateParentRelations(final String type, final long osmId, final HashMap<Long, String> parents) {
+		OsmElement osmElement = delegator.getOsmElement(type, osmId);
+		if (osmElement == null) {
+			Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
+			return false;
+		} else {
+			createCheckpoint(R.string.undo_action_update_relations);
+			delegator.updateParentRelations(osmElement, parents);	
+			return true;
+		}
+	}
+	
+	public boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
+		OsmElement osmElement = delegator.getOsmElement(Relation.NAME, osmId);
+		if (osmElement == null) {
+			Log.e(DEBUG_TAG, "Attempted to update non-existing relation");
+			return false;
+		} else {
+			createCheckpoint(R.string.undo_action_update_relations);
+			delegator.updateRelation((Relation)osmElement, members);	
 			return true;
 		}
 	}
@@ -1565,5 +1599,8 @@ public class Logic {
 	public Set<Node> getSelectedRelationNodes() {
 		return selectedRelationNodes;
 	}
+
+
+
 	
 }

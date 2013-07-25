@@ -54,6 +54,7 @@
     <string name="tag_menu_repeat">Repeat</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map Features Wiki</string>
+    <string name="tag_menu_resetMRU">Reset Presets</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>
     <string name="location_choose_radius">Choose radius:</string>
@@ -87,7 +88,7 @@
     <string name="menu_restriction_via">Add restriction via</string>
     <string name="menu_restriction_to">Add restriction to</string>
     <string name="menu_tag">Edit tags</string>
-    <string name="menu_openstreetbug">File OpenStreetBug</string>
+    <string name="menu_openstreetbug">Add Note</string>
     <string name="menu_easyedit">EasyEdit</string>
     <string name="menu_gps">GPS…</string>
     <string name="menu_gps_show">Show location</string>
@@ -213,6 +214,7 @@
     <string name="undo_action_join">join</string>
     <string name="undo_action_unjoin_ways">unjoin ways</string>
     <string name="undo_action_deleterelation">delete relation</string>
+    <string name="undo_action_update_relations">update relations</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed</string>
@@ -223,9 +225,14 @@
     <string name="pref_acra_enabled">Crash reporting enabled</string>
     <string name="pref_acra_disabled">Crash reporting disabled</string>
         <!--  -->
-    <string name="relation_membership">Member of following relations</string>
-    <string name="relation_members">Relation members</string>
+    <string name="role">Role</string>
+    <string name="membership_relation_heading">Member of relation</string>
+    <string name="relation">Relation</string>
+    <string name="position">Pos.</string>
+    <string name="type">Type</string>
+    <string name="object">Object</string>
     <string name="actionmode_relationselect">Relation selected</string>
     <string name="deleterelation_relation_description">You are about to delete a relation that is a member of one or more relations. Removing the relation from the relation(s) may render it/them invalid.</string>
     <string name="deleterelation">Delete relation</string>
+    <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
 </resources>
