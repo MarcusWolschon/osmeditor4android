@@ -415,7 +415,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
 		
-		modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled());
+		modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled(), prefs.depreciatedModesEnabled());
 		actionbar.setListNavigationCallbacks(modeDropdown, this);
 		
 		actionbar.show();
@@ -457,7 +457,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.d("Main", "onCreateOptionsMenu");
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
-		
+
 		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
@@ -468,7 +468,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		View undoView = undo.getActionView();
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);
-		
+	
 		return true;
 	}
 

@@ -24,6 +24,12 @@
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference
+			android:key="@string/config_enableDepreciatedModes_key"
+			android:title="@string/config_enableDepreciatedModes_title"
+			android:summary="@string/config_enableDepreciatedModes_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
 			android:title="@string/config_iconbutton_title"
 			android:key="@string/config_iconbutton_key"
 			android:summary="@string/config_iconbutton_summary"

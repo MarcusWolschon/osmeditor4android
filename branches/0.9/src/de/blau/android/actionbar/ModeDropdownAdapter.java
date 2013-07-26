@@ -21,6 +21,8 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 	private Context context;
 
 	private boolean showOpenStreetBug;
+	
+	private boolean depreciatedModesEnabled;
 
 	private HashSet<DataSetObserver> observers = new HashSet<DataSetObserver>();
 	
@@ -64,19 +66,22 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		return Math.round(dp * context.getResources().getDisplayMetrics().density);
 	}
 	
-	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug) {
+	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug, boolean depreciatedModesEnabled) {
 		this.context = context;
 		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.menu_move);
 		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
-		addItem(Logic.Mode.MODE_ADD, R.string.menu_add, R.drawable.menu_add);
-		addItem(Logic.Mode.MODE_EDIT, R.string.menu_edit, R.drawable.menu_edit);
-		addItem(Logic.Mode.MODE_TAG_EDIT, R.string.menu_tag, R.drawable.menu_tag);
-		addItem(Logic.Mode.MODE_APPEND, R.string.menu_append, R.drawable.menu_append);
-		addItem(Logic.Mode.MODE_ERASE, R.string.menu_erase, R.drawable.menu_erase);
-		addItem(Logic.Mode.MODE_SPLIT, R.string.menu_split, R.drawable.menu_split);
+		if (depreciatedModesEnabled) {
+			addItem(Logic.Mode.MODE_ADD, R.string.menu_add, R.drawable.menu_add);
+			addItem(Logic.Mode.MODE_EDIT, R.string.menu_edit, R.drawable.menu_edit);
+			addItem(Logic.Mode.MODE_TAG_EDIT, R.string.menu_tag, R.drawable.menu_tag);
+			addItem(Logic.Mode.MODE_APPEND, R.string.menu_append, R.drawable.menu_append);
+			addItem(Logic.Mode.MODE_ERASE, R.string.menu_erase, R.drawable.menu_erase);
+			addItem(Logic.Mode.MODE_SPLIT, R.string.menu_split, R.drawable.menu_split);
+		}
 		// OpenStreetBug item must be last so it can be easily hidden
 		addItem(Logic.Mode.MODE_OPENSTREETBUG, R.string.menu_openstreetbug, R.drawable.menu_openstreetbug);
 		this.showOpenStreetBug = showOpenStreetBug;
+		this.depreciatedModesEnabled = depreciatedModesEnabled;
 	}
 	
 
