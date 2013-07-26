@@ -8,7 +8,7 @@ A beta build APK is available in the download section.
 
 = Features =
 
- * relation membership display on tag editing form
+ * relation membership display on tag editing form with minimal editing (deletion of elements, changing of roles)
  * spliting of ways retains relation membership in both resulting segments with the exception of restrictions where it tries to assign restriction membership to the correct part.
  * relations can be selected for tag editing and deletion by clicking on a member of the relation and selecting the relation in the popup.
  * turn restrictions can be added, in EasyEdit mode select a way, then from the menu "Add restriction" then the "via" and "to" elements. 
@@ -29,6 +29,7 @@ The implementation is in line with the exsiting way and node implementation, a s
  * reversing a "non-reverable" way will display a warning.
  * replaced OSM bugs support with support for the new Notes API (note the XML verion of the Notes API still has some issues which is the reason for the "unknown action" string in the display)
  * quick way of re-enabling GPS following: The GPS marker will turn to white (default for now) when following and back to the standard blue when following has been turned off. Clicking/touching the marker will turn following back on. Initially the following still has to be turned on via the menu.
+ * "old" editing modes can be suppressed via a preference, default is to only show "Move", "EasyEdit" and (if enabled) the Notes/OSB mode.
 
 = Open Issues =
 
