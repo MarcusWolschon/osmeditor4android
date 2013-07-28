@@ -40,6 +40,7 @@
     <string name="toast_export_failed">Export failed</string>
     <string name="toast_export_success">Exported to %1$s</string>
     <string name="toast_preset_overwrote_tags">Notice - preset overwrote tag(s)</string>
+    <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <!-- Some generic labels -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

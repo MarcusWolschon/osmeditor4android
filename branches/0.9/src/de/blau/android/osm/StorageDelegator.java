@@ -28,7 +28,7 @@ import de.blau.android.util.SavingHelper.Exportable;
 
 public class StorageDelegator implements Serializable, Exportable {
 
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 
 	private Storage currentStorage;
 
@@ -877,7 +877,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Loads the storage data from the default storage file
 	 */
-	public void readFromFile() {
+	public boolean readFromFile() {
 		StorageDelegator newDelegator = savingHelper.load(FILENAME, true); 
 		if (newDelegator != null) {
 			Log.d("StorageDelegator", "read saved state");
@@ -886,8 +886,10 @@ public class StorageDelegator implements Serializable, Exportable {
 			undo = newDelegator.undo;
 			factory = newDelegator.factory;
 			dirty = false; // data was just read, i.e. memory and file are in sync
+			return true;
 		} else {
-			Log.d("StorageDelegator", "saved stats null");
+			Log.d("StorageDelegator", "saved state null");
+			return false;
 		}
 	}
 

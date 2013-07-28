@@ -26,6 +26,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
@@ -223,6 +224,7 @@ public class Logic {
 	 * nodes belonging to a selected relation
 	 */
 	private Set<Node> selectedRelationNodes = null;
+	
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
@@ -464,7 +466,16 @@ public class Logic {
 	 * 
 	 * @param box the new empty map-box. Don't mess up with the viewBox!
 	 */
-	void newEmptyMap(final BoundingBox box) {
+	void newEmptyMap(BoundingBox box) {
+		Log.e(DEBUG_TAG, "newEmptyMap");
+		if (box == null) { // probably should do a more general check if the BB is valid
+			try {
+				box = GeoMath.createBoundingBoxForCoordinates(0.0, 0.0, 5000000F); // 5000km around 0,0 temp. solution 
+			} catch (OsmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		delegator.reset();
 		delegator.setOriginalBox(box);
 		viewBox.setRatio((float) map.getWidth() / map.getHeight());
@@ -1277,46 +1288,47 @@ public class Logic {
 	}
 	
 	/**
-	 * Loads data from a file in the background.
+	 * Loads saved data and the edit mode from files.
+	 * 
+	 * @return true if sucessful
 	 */
-	void loadFromFile() {
-		new AsyncTask<Void, Void, Void>() {
+	boolean loadFromFile() { // sync version SavingHelper already runs a thread
 			
-			Mode loadedMode = null;
-			
-			@Override
-			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
-				Log.d("Logic", "loadFromFile onPreExecute");
-			}
-			
-			@Override
-			protected Void doInBackground(Void... params) {
-				delegator.readFromFile();
-				viewBox.setBorders(delegator.getOriginalBox());
-				loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void result) {
-				Log.d("Logic", "loadFromFile onPostExecute");
-				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
-				} catch (IllegalArgumentException e) {
-					 // Avoid crash if dialog is already dismissed
-					Log.d("Logic", "", e);
-				}
-				View map = Application.mainActivity.getCurrentFocus();
-				setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
-				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
-				map.invalidate();
-				UndoStorage.updateIcon();
-			}
-			
-		}.execute();
+		Mode loadedMode = null;
+		boolean readValidState = false;
+		
+		Log.d("Logic", "loadFromFile");
+		Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+
+		if (delegator.readFromFile()) {
+			viewBox.setBorders(delegator.getOriginalBox());
+			loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
+			readValidState = true;
+		} 
+
+		try {
+			Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+		} catch (IllegalArgumentException e) {
+			 // Avoid crash if dialog is already dismissed
+			Log.d("Logic", "", e);
+		}
+		
+		if (readValidState) {
+			Log.d("Logic", "loadfromFile: File read correctly");
+			View map = Application.mainActivity.getCurrentFocus();
+			setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
+			viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+			Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+			map.invalidate();
+			UndoStorage.updateIcon();
+			return true; 
+		}
+		else {
+			Log.d("Logic", "loadfromFile: File read failed");
+			return false;
+		}
 	}
+		
 
 	/**
 	 * Uploads to the server in the background.

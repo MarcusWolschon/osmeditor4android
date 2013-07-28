@@ -111,8 +111,8 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		
 		//Load Views
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.location_type_group);
-		Button loadMapButton = (Button) findViewById(R.id.location_button_current);
-		Button dontLoadMapButton = ((Button) findViewById(R.id.location_button_no_location));
+		// Button loadMapButton = (Button) findViewById(R.id.location_button_current);
+		// Button dontLoadMapButton = ((Button) findViewById(R.id.location_button_no_location));
 		EditText latEdit = (EditText) findViewById(R.id.location_lat_edit);
 		EditText lonEdit = (EditText) findViewById(R.id.location_lon_edit);
 		SeekBar seeker = (SeekBar) findViewById(R.id.location_radius_seeker);
@@ -121,11 +121,11 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		
 		//register listeners
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
-		radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, dontLoadMapButton, latEdit,
+		radioGroup.setOnCheckedChangeListener(createRadioGroupListener(null /* loadMapButton */, null /* dontLoadMapButton */, latEdit,
 			lonEdit));
 		OnClickListener onClickListener = createButtonListener(radioGroup, latEdit, lonEdit);
-		loadMapButton.setOnClickListener(onClickListener);
-		dontLoadMapButton.setOnClickListener(onClickListener);
+		// loadMapButton.setOnClickListener(onClickListener);
+		// dontLoadMapButton.setOnClickListener(onClickListener);
 		
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -202,8 +202,8 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			@Override
 			public void onCheckedChanged(final RadioGroup group, final int checkedId) {
 				LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
-				loadMapButton.setEnabled(true);
-				dontLoadMapButton.setEnabled(true);
+				// loadMapButton.setEnabled(true);
+				// dontLoadMapButton.setEnabled(true);
 				if (checkedId == R.id.location_coordinates) {
 					coordinateView.setVisibility(View.VISIBLE);
 					if (currentLocation != null) {

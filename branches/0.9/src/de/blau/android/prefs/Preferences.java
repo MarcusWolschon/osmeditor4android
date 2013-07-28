@@ -89,7 +89,7 @@ public class Preferences {
 			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "5.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsind config_gps_distance_key or config_gps_interval_key");
+			Log.w(getClass().getName(), "error parsing config_gps_distance_key or config_gps_interval_key");
 			gpsDistance = 5.0f;
 			gpsInterval = 1000;
 		}

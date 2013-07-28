@@ -269,6 +269,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// Start loading after resume to ensure loading dialog can be removed afterwards
 				loadOnResume = true;
 			} else {
+				openEmptyMap(null);
 				gotoBoxPicker();
 			}
 		} else {
@@ -315,7 +316,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			logic.downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
-			logic.loadFromFile();
+			if (!logic.loadFromFile()) {
+				gotoBoxPicker();
+				Toast.makeText(this, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+			}
 		}
 		
 		if (currentPreset == null) {
@@ -732,7 +736,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			BoundingBox box = new BoundingBox(left, bottom, right, top);
 			if (resultCode == RESULT_OK) {
 				performHttpLoad(box);
-			} else if (resultCode == RESULT_CANCELED) {
+			} else if (resultCode == RESULT_CANCELED) { // pointless, box will not be valid in this case
 				openEmptyMap(box);
 			}
 		} catch (OsmException e) {
