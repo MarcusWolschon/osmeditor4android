@@ -722,8 +722,16 @@ public class Server {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
 					}
+				
+					InputStream is = connection.getInputStream();
+					
+					XmlPullParser parser = xmlParserFactory.newPullParser();
+					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
+					bug.parseBug(parser); // replace contents with result from server 
 					bug.close();
 					return true;
+				} catch (XmlPullParserException e) {
+					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
 				}
 				catch (IOException e) {
 					Log.e("Vespucci", "Server.closeNote:Exception", e);
@@ -753,8 +761,15 @@ public class Server {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
 					}
+					InputStream is = connection.getInputStream();
+					
+					XmlPullParser parser = xmlParserFactory.newPullParser();
+					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
+					bug.parseBug(parser); // replace contents with result from server 
 					bug.reopen();
 					return true;
+				} catch (XmlPullParserException e) {
+					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
 				}
 				catch (IOException e) {
 					Log.e("Vespucci", "Server.closeNote:Exception", e);
