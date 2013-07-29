@@ -35,14 +35,14 @@
 			android:summary="@string/config_iconbutton_summary"
 			android:persistent="false"
 		/>
-		<!-- <EditTextPreference
+		<EditTextPreference
 			android:key="@string/config_maxStrokeWidth_key"
 			android:title="@string/config_maxStrokeWidth_title"
 			android:summary="@string/config_maxStrokeWidth_summary"
 			android:dialogTitle="@string/config_maxStrokeWidth_title"
 			android:numeric="decimal"
-			android:defaultValue="10.0"
-		/> -->
+			android:defaultValue="16.0"
+		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_server">
 		<de.blau.android.prefs.LoginDataPreference

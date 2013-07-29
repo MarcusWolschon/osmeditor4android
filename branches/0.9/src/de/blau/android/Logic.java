@@ -149,7 +149,7 @@ public class Logic {
 	 * Global factor for all nodes and lines.
 	 */
 	public static final float STROKE_FACTOR = 100000;
-
+	
 	/**
 	 * Filename of file containing the currently selected edit mode
 	 */
@@ -267,7 +267,7 @@ public class Logic {
 	 */
 	public void updateProfile() {
 		Profile.switchTo(prefs.getMapProfile());
-		Profile.updateStrokes(Logic.STROKE_FACTOR / viewBox.getWidth());
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		// zap the cached style for all ways
 		for (Way w:delegator.getCurrentStorage().getWays()) {
 			w.setFeatureProfile(null);
@@ -386,17 +386,27 @@ public class Logic {
 			viewBox.zoomOut();
 		}
 		isInEditZoomRange();
-		Profile.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 	}
 	
 	public void zoom(final float zoomFactor) {
 		viewBox.zoom(zoomFactor);
 		isInEditZoomRange();
-		Profile.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.postInvalidate();
 	}
 
+	/**
+	 * Return a stroke width value that increases with zoom and is capped at a configurable value
+	 * 
+	 * @param width   screenwidth in 10e7 deg.
+	 * @return 		  stroke width
+	 */
+	private float strokeWidth(int width){
+		return Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / width);
+	}
+	
 	/**
 	 * Create an undo checkpoint using a resource string as the name
 	 * @param stringId the resource id of the string representing the checkpoint name
@@ -479,7 +489,7 @@ public class Logic {
 		delegator.reset();
 		delegator.setOriginalBox(box);
 		viewBox.setRatio((float) map.getWidth() / map.getHeight());
-		Profile.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();
 	}
@@ -538,8 +548,7 @@ public class Logic {
 					break;
 				}
 			}
-		}
-		
+		}	
 		return result;
 	}
 	
@@ -1216,7 +1225,7 @@ public class Logic {
 				}
 				View map = Application.mainActivity.getCurrentFocus();
 				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				Profile.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
+				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
 				map.invalidate();
 				if (result != 0) {
 					Application.mainActivity.showDialog(result);
@@ -1318,7 +1327,7 @@ public class Logic {
 			View map = Application.mainActivity.getCurrentFocus();
 			setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
 			viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-			Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+			Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 			map.invalidate();
 			UndoStorage.updateIcon();
 			return true; 
@@ -1470,7 +1479,7 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
-		Profile.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
 		map.setDelegator(delegator);
 		map.setViewBox(viewBox);
 	}

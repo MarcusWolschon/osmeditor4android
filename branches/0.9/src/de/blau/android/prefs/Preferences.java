@@ -67,10 +67,10 @@ public class Preferences {
 		}
 		
 		try {
-			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
+			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "16"));
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
-			maxStrokeWidth = 10;
+			maxStrokeWidth = 16;
 		}
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), true);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
