@@ -307,7 +307,13 @@ public class Server {
 	 */
 	private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod)
 			throws IOException, MalformedURLException, ProtocolException {
+		return openConnectionForWriteAccess(url, requestMethod, "text/xml");
+	}
+	
+	private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod, final String contentType)
+			throws IOException, MalformedURLException, ProtocolException {
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestProperty("Content-Type", "" + contentType + "; charset=utf-8");
 		connection.setRequestProperty("User-Agent", Application.userAgent);
 		connection.setConnectTimeout(TIMEOUT);
 		connection.setReadTimeout(TIMEOUT);
@@ -611,7 +617,7 @@ public class Server {
 		return result;
 	}
 	
-	
+	//TODO rewrite to XML encoding
 	/**
 	 * Perform an HTTP request to add the specified comment to the specified bug.
 	 * Blocks until the request is complete.
@@ -626,7 +632,7 @@ public class Server {
 			try {
 				try {
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/comment"  ), "POST");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/comment"  ), "POST", "application/x-www-form-urlencoded");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 		
@@ -654,6 +660,7 @@ public class Server {
 		return false;
 	}
 	
+	//TODO rewrite to XML encoding
 	/**
 	 * Perform an HTTP request to add the specified bug to the OpenStreetBugs database.
 	 * Blocks until the request is complete.
@@ -668,7 +675,7 @@ public class Server {
 			try {
 				try {
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + ((double)bug.getLat() / 1E7d)+"&lon=" + ((double)bug.getLon() / 1E7d) ), "POST");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + ((double)bug.getLat() / 1E7d)+"&lon=" + ((double)bug.getLon() / 1E7d) ), "POST", "application/x-www-form-urlencoded");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 					out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
@@ -696,6 +703,7 @@ public class Server {
 		return false;
 	}
 	
+	//TODO rewrite to XML encoding
 	/**
 	 * Perform an HTTP request to close the specified bug.
 	 * Blocks until the request is complete.
@@ -709,7 +717,7 @@ public class Server {
 			try {
 				try {
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/close"  ), "POST");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/close"  ), "POST", "application/x-www-form-urlencoded");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
