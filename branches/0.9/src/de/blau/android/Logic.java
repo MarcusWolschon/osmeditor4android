@@ -268,6 +268,7 @@ public class Logic {
 	public void updateProfile() {
 		Profile.switchTo(prefs.getMapProfile());
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		// zap the cached style for all ways
 		for (Way w:delegator.getCurrentStorage().getWays()) {
 			w.setFeatureProfile(null);
