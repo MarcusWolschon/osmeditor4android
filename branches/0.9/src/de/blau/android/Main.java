@@ -316,10 +316,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			logic.downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
-			if (!logic.loadFromFile()) {
-				gotoBoxPicker();
-				Toast.makeText(this, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
-			}
+			logic.loadFromFile(getApplicationContext());
 		}
 		
 		if (currentPreset == null) {
@@ -461,7 +458,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.d("Main", "onCreateOptionsMenu");
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
-
+		
 		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());

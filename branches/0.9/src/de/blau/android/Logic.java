@@ -14,6 +14,9 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -22,6 +25,7 @@ import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -1297,48 +1301,81 @@ public class Logic {
 		}
 	}
 	
+
 	/**
-	 * Loads saved data and the edit mode from files.
-	 * 
-	 * @return true if sucessful
+	 * Loads data from a file in the background.
+	 * @param context 
 	 */
-	boolean loadFromFile() { // sync version SavingHelper already runs a thread
+	boolean loadFromFile(Context context) {
+
+		Context[] c = {context};
+		AsyncTask<Context, Void, Boolean> loader = new AsyncTask<Context, Void, Boolean>() {
 			
-		Mode loadedMode = null;
-		boolean readValidState = false;
-		
-		Log.d("Logic", "loadFromFile");
-		Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
-
-		if (delegator.readFromFile()) {
-			viewBox.setBorders(delegator.getOriginalBox());
-			loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
-			readValidState = true;
-		} 
-
-		try {
-			Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
-		} catch (IllegalArgumentException e) {
-			 // Avoid crash if dialog is already dismissed
-			Log.d("Logic", "", e);
-		}
-		
-		if (readValidState) {
-			Log.d("Logic", "loadfromFile: File read correctly");
-			View map = Application.mainActivity.getCurrentFocus();
-			setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
-			viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-			Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
-			map.invalidate();
-			UndoStorage.updateIcon();
-			return true; 
-		}
-		else {
-			Log.d("Logic", "loadfromFile: File read failed");
-			return false;
-		}
+			Mode loadedMode = null;
+			Context context;
+	
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				Log.d("Logic", "loadFromFile onPreExecute");
+			}
+			
+			@Override
+			protected Boolean doInBackground(Context... c) {
+				this.context = c[0];
+				if (delegator.readFromFile()) {
+					viewBox.setBorders(delegator.getOriginalBox());
+					loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
+					return new Boolean(true);
+				}
+				return new Boolean(false);
+			}
+			
+			@Override
+			protected void onPostExecute(Boolean result) {
+				Log.d("Logic", "loadFromFile onPostExecute");
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+					Log.d("Logic", "", e);
+				}
+				if (result.booleanValue()) {
+					Log.d("Logic", "loadfromFile: File read correctly");
+					View map = Application.mainActivity.getCurrentFocus();
+					setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
+					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+					map.invalidate();
+					UndoStorage.updateIcon();
+				}
+				else {
+					Log.d("Logic", "loadfromFile: File read failed");
+					Intent intent = new Intent(context, BoxPicker.class);
+					Application.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDINGBOX);
+					Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+				}
+			}
+		};
+		loader.execute(c);
+		return true;
+//		try {
+//			return ((Boolean)loader.get(1,TimeUnit.MINUTES)).booleanValue(); // probably better to supply a timeout 
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return false;
+//		} catch (ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return false;
+//		} catch (TimeoutException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return false;
+//		}
 	}
-		
 
 	/**
 	 * Uploads to the server in the background.
