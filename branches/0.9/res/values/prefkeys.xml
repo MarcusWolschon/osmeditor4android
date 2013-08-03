@@ -13,7 +13,9 @@
     <string name="config_password_key">password</string>
     <string name="config_gps_distance_key">distance</string>
     <string name="config_gps_interval_key">interval</string>
-    <string name="config_apibutton_key">apisettings-button</string>
+    <string name="config_api_button_key">apisettings-button</string>
+    <string name="config_api_url_key">apisettings-url</string>
+    <string name="config_api_oauth_key">apisettings-oauth</string>
     <string name="config_loginbutton_key">loginsettings-button</string>
     <string name="config_presetbutton_key">presetsettings-button</string>
     <string name="config_iconbutton_key">iconsettings-button</string>

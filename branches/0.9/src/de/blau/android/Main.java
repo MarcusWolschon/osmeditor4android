@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
+import oauth.signpost.http.HttpParameters;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -23,6 +29,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -83,6 +90,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
@@ -871,14 +879,66 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			if (logic.hasChanges()) {
-				showDialog(DialogFactory.CONFIRM_UPLOAD);
+			if (server.needOAuthHandshake()) {
+				oAuthHandshake(server);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+				if (logic.hasChanges()) {
+					showDialog(DialogFactory.CONFIRM_UPLOAD);
+				} else {
+					Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+				}
 			}
 		} else {
 			showDialog(DialogFactory.NO_LOGIN_DATA);
 		}
+	}
+	
+	
+
+	private void oAuthHandshake(Server server) {
+		Server[] s = {server};
+		AsyncTask<Server, Void, Void> loader = new AsyncTask<Server, Void, Void>() {
+				
+			@Override
+			protected void onPreExecute() {
+				Log.d("Main", "oAuthHandshake onPreExecute");
+			}
+			
+			@Override
+			protected Void doInBackground(Server... s) {
+				String url = s[0].getBaseURL();
+				OAuthHelper oa = new OAuthHelper(url);
+				Log.d("Main", "oauth auth url " + url);
+				try {
+					String authUrl = oa.getRequestToken();
+					Log.d("Main", "authURl " + authUrl);
+					Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
+					startActivity(myIntent);
+				} catch (OAuthMessageSignerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OAuthNotAuthorizedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OAuthExpectationFailedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OAuthCommunicationException e) {
+					// TODO Auto-generated catch block	
+					e.printStackTrace();
+				}
+				return null;
+			
+			}
+			
+			@Override
+			protected void onPostExecute(Void v) {
+				Log.d("Logic", "loadFromFile onPostExecute");
+				
+			}
+		};
+		loader.execute(s);
+		
 	}
 
 	/**

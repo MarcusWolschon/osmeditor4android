@@ -26,6 +26,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
+import de.blau.android.DialogFactory;
 import de.blau.android.R;
 
 /**

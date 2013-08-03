@@ -25,8 +25,8 @@
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableDepreciatedModes_key"
-			android:title="@string/config_enableDepreciatedModes_title"
-			android:summary="@string/config_enableDepreciatedModes_summary"
+			android:title="@string/config_enableDeprecatedModes_title"
+			android:summary="@string/config_enableDeprecatedModes_summary"
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference

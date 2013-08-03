@@ -54,9 +54,9 @@
 	<PreferenceCategory android:title="@string/config_category_server">
 		<Preference
 			android:title="@string/config_apibutton_title"
-			android:key="@string/config_apibutton_key"
-			android:summary="@string/config_apibutton_summary"
-		/>
+			android:key="@string/config_api_button_key"
+			android:summary="@string/config_apibutton_summary">
+		</Preference>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_acra">

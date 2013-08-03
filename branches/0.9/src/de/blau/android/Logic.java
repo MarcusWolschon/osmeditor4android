@@ -1306,7 +1306,7 @@ public class Logic {
 	 * Loads data from a file in the background.
 	 * @param context 
 	 */
-	boolean loadFromFile(Context context) {
+	void loadFromFile(Context context) {
 
 		Context[] c = {context};
 		AsyncTask<Context, Void, Boolean> loader = new AsyncTask<Context, Void, Boolean>() {
@@ -1359,22 +1359,6 @@ public class Logic {
 			}
 		};
 		loader.execute(c);
-		return true;
-//		try {
-//			return ((Boolean)loader.get(1,TimeUnit.MINUTES)).booleanValue(); // probably better to supply a timeout 
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		} catch (ExecutionException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		} catch (TimeoutException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
 	}
 
 	/**

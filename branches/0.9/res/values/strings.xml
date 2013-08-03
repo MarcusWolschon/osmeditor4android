@@ -139,13 +139,15 @@
     <string name="config_enableAntiAliasing_summary">Makes the lines more smoothly.</string>
     <string name="config_enableOpenStreetBugs_title">Enable Notes display</string>
     <string name="config_enableOpenStreetBugs_summary">Display, Edit and Create Notes/Errors.</string>
-    <string name="config_enableDepreciatedModes_title">Enable depreciated modes</string>
-    <string name="config_enableDepreciatedModes_summary">Enable New, Edit, Edit Tags, Append, Erase node and Split modes .</string>
+    <string name="config_enableDeprecatedModes_title">Enable deprecated modes</string>
+    <string name="config_enableDeprecatedModes_summary">Enable New, Edit, Edit Tags, Append, Erase node and Split modes .</string>
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
     <string name="config_category_server">Server Settings</string>
     <string name="config_apibutton_title">OSM API URL</string>
     <string name="config_apibutton_summary">You can set a non-standard API URL here. Usually should not be changed!</string>
+    <string name="config_api_url_title">API URL</string>
+    <string name="config_api_oauth_title">Use oauth</string>
     <string name="config_presetbutton_title">JOSM preset</string>
     <string name="config_presetbutton_summary">You can set up map element definitions here</string>
     <string name="config_iconbutton_title">Show node icons</string>
@@ -238,4 +240,5 @@
     <string name="deleterelation_relation_description">You are about to delete a relation that is a member of one or more relations. Removing the relation from the relation(s) may render it/them invalid.</string>
     <string name="deleterelation">Delete relation</string>
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
+    <string name="listedit_enable_oauth">Enable oauth</string>
 </resources>

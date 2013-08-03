@@ -58,16 +58,16 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 
 	protected static final int MENUITEM_EDIT = 0;
 	protected static final int MENUITEM_DELETE = 1;
-	private static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
+	protected static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
 	
 	protected static final String LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
 	private ListAdapter adapter;
 	protected final List<ListEditItem> items;
 
-	private ListEditItem selectedItem = null;
+	protected ListEditItem selectedItem = null;
 	
 	private boolean addingViaIntent = false;
-	private final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
+	protected final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
 	
 	public URLListEditActivity() {
 		ctx = this; // Change when changing Activity to Fragment
@@ -143,13 +143,14 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 		selectedItem = (ListEditItem)getListView().getItemAtPosition(info.position);
-		if (selectedItem != null && !selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
+		if (selectedItem != null && !selectedItem.id.equals(LISTITEM_ID_DEFAULT) ) {
 			menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
 			for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet() ) {
 				menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE,	r.getString(entry.getValue()))
 					.setOnMenuItemClickListener(this);
 			}
+			
 		}
 	}
 	
@@ -261,7 +262,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	 * Called by {@link #itemEditDialog(ListEditItem)} when an item is successfully created
 	 * @param item the new item
 	 */
-	private void finishCreateItem(ListEditItem item) {
+	protected void finishCreateItem(ListEditItem item) {
 		items.add(item);
 		updateAdapter();
 		onItemCreated(item);
@@ -298,7 +299,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	 * Called by {@link #itemEditDialog(ListEditItem)} when an item is successfully edited
 	 * @param item the new item
 	 */
-	private void finishEditItem(ListEditItem item) {
+	protected void finishEditItem(ListEditItem item) {
 		updateAdapter();
 		onItemEdited(item);
 	}
@@ -359,6 +360,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		public final String id;
 		public String name;
 		public String value;
+		public boolean enabled;
 		
 		/**
 		 * Create a new item with a new, random UUID and the given name and value
@@ -366,9 +368,13 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		 * @param value
 		 */
 		public ListEditItem(String name, String value) {
+			this(name, value, false);
+		}
+		public ListEditItem(String name, String value, boolean enabled) {
 			id = java.util.UUID.randomUUID().toString();
 			this.value = value;
 			this.name = name;
+			this.enabled = enabled;
 		}
 		
 		/**
@@ -379,9 +385,14 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		 * @param value
 		 */
 		public ListEditItem(String id, String name, String value) {
+			this(id, name, value, false);
+		}
+		
+		public ListEditItem(String id, String name, String value, boolean enabled) {
 			this.id = id;
 			this.value = value;
 			this.name = name;
+			this.enabled = enabled;
 		}
 
 		@Override

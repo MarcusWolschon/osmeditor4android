@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -16,12 +17,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.zip.GZIPInputStream;
 
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
+import oauth.signpost.http.HttpParameters;
+import oauth.signpost.http.HttpResponse;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
@@ -31,6 +48,7 @@ import de.blau.android.osb.Bug;
 import de.blau.android.osb.BugComment;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.Base64;
+import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 
 /**
@@ -60,6 +78,21 @@ public class Server {
 	private final String password;
 	
 	/**
+	 * use oauth
+	 */
+	private final boolean oauth;
+	
+	/**
+	 * oauth access token
+	 */
+	private String accesstoken;
+	
+	/**
+	 * oauth access token secret
+	 */
+	private String accesstokensecret;
+	
+	/**
 	 * display name of the user.
 	 */
 	private String display_name;
@@ -84,32 +117,31 @@ public class Server {
 	private final XmlPullParserFactory xmlParserFactory;
 
 	
-	
-	@Deprecated
-	public Server(final String username, final String password, final String generator) {
-		this("", username, password, generator);
-	}
-	
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
 	 * @param apiurl The OSM API URL to use (e.g. "http://api.openstreetmap.org/api/0.6/").
 	 * @param username
 	 * @param password
+	 * @param oauth 
 	 * @param generator the name of the editor.
 	 */
-	public Server(final String apiurl, final String username, final String password, final String generator) {
+	public Server(final String apiurl, final String username, final String password, boolean oauth, String accesstoken, String accesstokensecret, final String generator) {
 		Log.d("Server", "constructor");
 		if (apiurl != null && !apiurl.equals("")) {
 			this.serverURL = apiurl;
 		} else {
-			this.serverURL = "http://api.openstreetmap.org/api/"+version+"/";
-			// dev server this.serverURL = "http://api06.dev.openstreetmap.org/api/"+version+"/";
+			this.serverURL = "http://api.openstreetmap.org/api/"+version+"/"; // probably not needed anymore
 		}
 		this.password = password;
 		this.username = username;
+		this.oauth = oauth;
 		this.generator = generator;
+		this.accesstoken = accesstoken;
+		this.accesstokensecret = accesstokensecret;
+		
 		display_name = null;
 		Log.d("Server", "using " + this.username + " with " + this.serverURL);
+		Log.d("Server", "oAuth: " + this.oauth + " token " + this.accesstoken + " secret " + this.accesstokensecret);
 
 //		createdByTag = "created_by";
 //		createdByKey = generator;
@@ -242,7 +274,7 @@ public class Server {
 	 * @return
 	 */
 	public boolean isLoginSet() {
-		return username != null && password != null && !username.equals("") && !password.equals("");
+		return username != null && ((password != null && !username.equals("") && !password.equals("")) || oauth);
 	}
 
 	/**
@@ -312,13 +344,43 @@ public class Server {
 	
 	private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod, final String contentType)
 			throws IOException, MalformedURLException, ProtocolException {
+
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestProperty("Content-Type", "" + contentType + "; charset=utf-8");
 		connection.setRequestProperty("User-Agent", Application.userAgent);
 		connection.setConnectTimeout(TIMEOUT);
 		connection.setReadTimeout(TIMEOUT);
-		connection.setRequestProperty("Authorization", "Basic " + Base64.encode(username + ":" + password));
 		connection.setRequestMethod(requestMethod);
+
+		if (oauth) {
+			OAuthHelper oa = new OAuthHelper();
+			OAuthConsumer consumer = oa.getConsumer(getBaseURL());
+			consumer.setTokenWithSecret(accesstoken, accesstokensecret);	
+			// sign the request
+			try {
+				consumer.sign(connection);
+				HttpParameters h = consumer.getRequestParameters();
+//				Log.d("Server","OAuth signed parameters ");
+//				for (String s:h.keySet()) {
+//					for (String t:h.get(s)) {
+//						Log.d("Server",s + " " + t);
+//					}
+//				}
+				
+			} catch (OAuthMessageSignerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OAuthExpectationFailedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OAuthCommunicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		} else {
+			connection.setRequestProperty("Authorization", "Basic " + Base64.encode(username + ":" + password));
+		}
+		
 		connection.setDoOutput(!"GET".equals(requestMethod));
 		connection.setDoInput(true);
 		return connection;
@@ -617,7 +679,7 @@ public class Server {
 		return result;
 	}
 	
-	//TODO rewrite to XML encoding
+	//TODO rewrite to XML encoding (if supported)
 	/**
 	 * Perform an HTTP request to add the specified comment to the specified bug.
 	 * Blocks until the request is complete.
@@ -631,12 +693,13 @@ public class Server {
 			HttpURLConnection connection = null;
 			try {
 				try {
+					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/comment"  ), "POST", "application/x-www-form-urlencoded");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/comment?text="  +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/url");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 		
-					out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
+					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
 					out.flush();
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
@@ -674,11 +737,12 @@ public class Server {
 			HttpURLConnection connection = null;
 			try {
 				try {
+					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + ((double)bug.getLat() / 1E7d)+"&lon=" + ((double)bug.getLon() / 1E7d) ), "POST", "application/x-www-form-urlencoded");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + ((double)bug.getLat() / 1E7d)+"&lon=" + ((double)bug.getLon() / 1E7d) + "&text=" +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/xml");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
-					out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
+					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
 					out.flush();
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
@@ -716,8 +780,9 @@ public class Server {
 			HttpURLConnection connection = null;
 			try {
 				try {
+					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/close"  ), "POST", "application/x-www-form-urlencoded");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/close"  ), "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
@@ -744,7 +809,7 @@ public class Server {
 	}
 	
 	/**
-	 * Perform an HTTP request to close the specified bug.
+	 * Perform an HTTP request to reopen the specified bug.
 	 * Blocks until the request is complete.
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
@@ -756,7 +821,7 @@ public class Server {
 			try {
 				try {
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/reopen"  ), "POST");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/reopen"  ), "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
@@ -779,5 +844,9 @@ public class Server {
 			}
 		}
 		return false;
+	}
+
+	public boolean needOAuthHandshake() {
+		return oauth && ((accesstoken == null) || (accesstokensecret == null)) ;
 	}
 }

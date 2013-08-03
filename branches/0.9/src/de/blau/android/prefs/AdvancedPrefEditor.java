@@ -27,7 +27,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.advancedpreferences);
 		r = getResources();
-		KEY_PREFAPI = r.getString(R.string.config_apibutton_key);
+		KEY_PREFAPI = r.getString(R.string.config_api_button_key);
 		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
 		fixUpPrefs();
 		ActionBar actionbar = getSupportActionBar();

@@ -29,8 +29,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 2;
+	private final static int DATA_VERSION = 3;
 	private final static String LOGTAG = "AdvancedPrefDB";
+	
+	public final static String API_DEFAULT = "http://api.openstreetmap.org/api/0.6/";
 	
 	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
@@ -54,14 +56,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public synchronized void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER)");
+		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER, oauth INTEGER, accesstoken TEXT, accesstokensecret TEXT)");
 		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT)");
 	}
 
 	@Override
 	public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		Log.d(LOGTAG, "Upgrading API DB");
 		if (oldVersion <= 1 && newVersion >= 2) {
 			db.execSQL("ALTER TABLE apis ADD COLUMN showicon INTEGER DEFAULT 0");
+		}
+		if (oldVersion <= 2 && newVersion >= 3) {
+			db.execSQL("ALTER TABLE apis ADD COLUMN oauth INTEGER DEFAULT 0");
+			db.execSQL("ALTER TABLE apis ADD COLUMN accesstoken TEXT DEFAULT NULL");
+			db.execSQL("ALTER TABLE apis ADD COLUMN accesstokensecret TEXT DEFAULT NULL");
+			db.execSQL("UPDATE apis SET url='" + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
 	}
 	
@@ -74,7 +83,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(ID_DEFAULT, name, "", user, pass, ID_DEFAULT, false); // empty API URL => default API URL
+		addAPI(ID_DEFAULT, name, API_DEFAULT, user, pass, ID_DEFAULT, false, true); 
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -117,7 +126,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		API api = getCurrentAPI();
 		if (api == null) return null;
 		String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
-		return new Server(api.url, api.user, api.pass, version);
+		return new Server(api.url, api.user, api.pass, api.oauth, api.accesstoken, api.accesstokensecret, version);
 	}
 	
 	/**
@@ -126,14 +135,39 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param name
 	 * @param url
 	 */
-	public synchronized void setAPIDescriptors(String id, String name, String url) {
+	public synchronized void setAPIDescriptors(String id, String name, String url, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("name", name);
 		values.put("url", url);
+		values.put("oauth", oauth ? 1 : 0);
 		db.update("apis", values, "id = ?", new String[] {id});
+		if (!oauth) { // zap any key and secret
+			values = new ContentValues();
+			values.put("accesstoken", (String)null);
+			values.put("accesstokensecret", (String)null);
+			db.update("apis", values, "id = ?", new String[] {id});
+		}
 		db.close();
 	}
+	
+	/**
+	 * Sets access token and secret of the current API entry
+	 * @param id
+	 * @param token
+	 * @param secret
+	 */
+	public synchronized void setAPIAccessToken(String token, String secret) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values = new ContentValues();
+		values.put("accesstoken", token);
+		values.put("accesstokensecret", secret);
+		db.update("apis", values, "id = ?", new String[] {currentAPI});
+		Log.d("AdvancedPRefDatabase", "setAPIAccessToken " + token + " secret " + secret);
+		db.close();
+	}
+
 
 	/** Sets login data (user, password) for the current API */
 	public synchronized void setCurrentAPILogin(String user, String pass) {
@@ -165,7 +199,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/** adds a new API with the given values to the API database */
-	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset, boolean showicon) {
+	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset, boolean showicon, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("id", id);
@@ -174,7 +208,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("user", user);
 		values.put("pass", pass);
 		values.put("preset", preset);		
-		values.put("showicon", showicon? 1 : 0);		
+		values.put("showicon", showicon? 1 : 0);	
+		values.put("oauth", oauth? 1 : 0);
 		db.insert("apis", null, values);
 		db.close();
 	}
@@ -197,10 +232,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor dbresult = db.query(
 								"apis",
-								new String[] {"id", "name", "url", "user", "pass", "preset", "showicon"},
+								new String[] {"id", "name", "url", "user", "pass", "preset", "showicon", "oauth","accesstoken","accesstokensecret"},
 								id == null ? null : "id = ?",
 								id == null ? null : new String[] {id},
-								null, null, null);
+								null, null, null, null);
 		API[] result = new API[dbresult.getCount()];
 		dbresult.moveToFirst();
 		for (int i = 0; i < result.length; i++) {
@@ -210,7 +245,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 									dbresult.getString(3),
 									dbresult.getString(4),
 									dbresult.getString(5),
-									dbresult.getInt(6));
+									dbresult.getInt(6),
+									dbresult.getInt(7),
+									dbresult.getString(8),
+									dbresult.getString(9));
+			Log.d("AdvancedPrefDatabase", dbresult.getString(0) + " " + dbresult.getString(1) + " " + dbresult.getString(8) + " " + dbresult.getString(9));
 			dbresult.moveToNext();
 		}
 		dbresult.close();
@@ -229,8 +268,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		public final String user;
 		public final String pass;
 		public final String preset;
-		public final boolean showicon;		
-		public API(String id, String name, String url, String user, String pass, String preset, int showicon) {
+		public final boolean showicon;	
+		public final boolean oauth;
+		public String accesstoken;
+		public String accesstokensecret;
+		
+		public API(String id, String name, String url, String user, String pass, String preset, int showicon, int oauth, String accesstoken, String accesstokensecret) {
 			this.id = id;
 			this.name = name;
 			this.url = url;
@@ -238,6 +281,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			this.pass = pass;
 			this.preset = preset;
 			this.showicon = (showicon == 1);
+			this.oauth = (oauth == 1);
+			this.accesstoken = accesstoken;
+			this.accesstokensecret = accesstokensecret;
 		}
 	}
 

@@ -31,6 +31,8 @@ The source code may be obtained from the project page, currently located at http
 
 If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/.
 
+OAuth support for Vespucci is provided by the oauth-signpost library  http://code.google.com/p/oauth-signpost/ licensed under the Apache License, version 2.
+
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt
