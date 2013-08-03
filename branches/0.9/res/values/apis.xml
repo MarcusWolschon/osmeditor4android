@@ -13,7 +13,11 @@
         <item>2H4f8uLgkCYhYMPhTW7Y2ZtDLI02aVn8iIPEGZNn</item>
     </string-array>
     <string-array name="api_consumer_secrets">
-        <item>CSkZDiAH0pK53ouzYT5Xx6rU6At6OfTmx6mFavHj</item>
+        <item>KXtzsmxYtuZAjfkMuvPgRQXxMbKdDPHPcf2sX4mD</item>
         <item>RqTaG9ySgvODvjMvdHammvsKAUtyObNeBsVGajFS</item>
+    </string-array>
+        <string-array name="api_oauth_urls">
+        <item>http://www.openstreetmap.org/</item>
+        <item>http://master.apis.dev.openstreetmap.org/</item>
     </string-array>
 </resources>

@@ -36,15 +36,16 @@ public class OAuthHelper {
 		String urls[] = r.getStringArray(R.array.api_urls);
 		String keys[] = r.getStringArray(R.array.api_consumer_keys);
 		String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
+		String oauth_urls[] = r.getStringArray(R.array.api_oauth_urls);
 		for (int i=0;i < urls.length;i++ ) {
 			if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
 			    mConsumer = new CommonsHttpOAuthConsumer(keys[i], secrets[i]);
 			    Log.d("OAuthHelper", "Using " + osmBaseUrl + "oauth/request_token " + osmBaseUrl + "oauth/access_token " + osmBaseUrl + "oauth/authorize");
 			    Log.d("OAuthHelper", "With key " + keys[i] + " secret " + secrets[i]);
 			    mProvider = new CommonsHttpOAuthProvider(
-			    osmBaseUrl + "oauth/request_token",
-			    osmBaseUrl + "oauth/access_token",
-			    osmBaseUrl + "oauth/authorize");
+			    oauth_urls[i] + "oauth/request_token",
+			    oauth_urls[i] + "oauth/access_token",
+			    oauth_urls[i] + "oauth/authorize");
 			    mProvider.setOAuth10a(true);
 			    mCallbackUrl = "vespucci://oauth/"; //OAuth.OUT_OF_BAND; //
 			    return;

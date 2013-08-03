@@ -117,7 +117,7 @@ public class APIEditorActivity extends URLListEditActivity {
 			editValue.setText(tmpValue == null ? "" : tmpValue);
 			oauth.setChecked(false);
 		}
-		if (item.id.equals(LISTITEM_ID_DEFAULT)) {
+		if (item != null && item.id.equals(LISTITEM_ID_DEFAULT)) {
 			// name and value are not editable
 			editName.setEnabled(false);
 			editValue.setEnabled(false);

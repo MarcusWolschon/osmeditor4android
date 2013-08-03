@@ -204,6 +204,8 @@ public class Server {
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		boolean isServerGzipEnabled = false;
 
+		Log.d("Server", "getStreamForBox " + url.toString());
+		
 		//--Start: header not yet send
 		con.setReadTimeout(TIMEOUT);
 		con.setConnectTimeout(TIMEOUT);
@@ -274,7 +276,7 @@ public class Server {
 	 * @return
 	 */
 	public boolean isLoginSet() {
-		return username != null && ((password != null && !username.equals("") && !password.equals("")) || oauth);
+		return (username != null && (password != null && !username.equals("") && !password.equals(""))) || oauth;
 	}
 
 	/**

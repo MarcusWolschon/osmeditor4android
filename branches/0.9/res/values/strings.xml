@@ -241,4 +241,6 @@
     <string name="deleterelation">Delete relation</string>
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
     <string name="listedit_enable_oauth">Enable oauth</string>
+    <!--  -->
+    <string name="toast_oauth_handshake_failed">OAuth handshake failed, check that you have proper consumer keys</string>
 </resources>

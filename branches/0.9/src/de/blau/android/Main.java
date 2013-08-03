@@ -897,7 +897,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 	private void oAuthHandshake(Server server) {
 		Server[] s = {server};
-		AsyncTask<Server, Void, Void> loader = new AsyncTask<Server, Void, Void>() {
+		AsyncTask<Server, Void, Boolean> loader = new AsyncTask<Server, Void, Boolean>() {
 				
 			@Override
 			protected void onPreExecute() {
@@ -905,7 +905,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			
 			@Override
-			protected Void doInBackground(Server... s) {
+			protected Boolean doInBackground(Server... s) {
 				String url = s[0].getBaseURL();
 				OAuthHelper oa = new OAuthHelper(url);
 				Log.d("Main", "oauth auth url " + url);
@@ -914,27 +914,18 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					Log.d("Main", "authURl " + authUrl);
 					Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
 					startActivity(myIntent);
-				} catch (OAuthMessageSignerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (OAuthNotAuthorizedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (OAuthExpectationFailedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (OAuthCommunicationException e) {
-					// TODO Auto-generated catch block	
+					return new Boolean(true);
+				} catch (Exception e) {
+					Log.d("Main", "OAuth handshake failed");
 					e.printStackTrace();
 				}
-				return null;
-			
+				return new Boolean(false);
 			}
 			
 			@Override
-			protected void onPostExecute(Void v) {
+			protected void onPostExecute(Boolean result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
-				
+				if (!result.booleanValue()) Toast.makeText(getApplicationContext(), R.string.toast_oauth_handshake_failed, Toast.LENGTH_LONG).show();
 			}
 		};
 		loader.execute(s);
@@ -1314,8 +1305,17 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		 */
 		private void performBugEdit(final Bug bug) {
 			Log.d("Vespucci", "editing bug:"+bug);
+			final Server server = prefs.getServer();
+			if (server != null && server.isLoginSet()) {
+				if (server.needOAuthHandshake()) {
+					oAuthHandshake(server);
+				} else {
+					showDialog(DialogFactory.OPENSTREETBUG_EDIT);
+				}
+			} else {
+				showDialog(DialogFactory.NO_LOGIN_DATA);
+			}
 			logic.setSelectedBug(bug);
-			showDialog(DialogFactory.OPENSTREETBUG_EDIT);
 		}
 		
 		@Override
