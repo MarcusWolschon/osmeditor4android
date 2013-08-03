@@ -409,7 +409,9 @@ public class Logic {
 	 * @return 		  stroke width
 	 */
 	private float strokeWidth(int width){
-		return Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / width);
+		// prefs may not have been initialized
+		if (prefs != null ) return Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / width);
+		return STROKE_FACTOR / width;
 	}
 	
 	/**
