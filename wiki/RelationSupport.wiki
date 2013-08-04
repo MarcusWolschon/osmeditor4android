@@ -26,6 +26,8 @@ New installs have OAuth enabled by default for the main OSM site, old installs n
 
 Access token and secret can be deleted and new negation forced by de-selecting OAuth for the API in question, saving, then re-enabling. 
 
+If OAuth is enabled viewing an OSM Note will start the authorization sequence.
+
 = Other Changes =
 
  * some changes to the rendering were made. landuse and tracks now have separate rendering, house color was changed. The rendering is now user selectable the old "everything black" style is available as "Default", this one as "Color". Further styles can be added, but please be aware that the current implementation is not likely to be long lived.
