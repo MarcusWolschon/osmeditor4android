@@ -81,14 +81,15 @@ public class Relation extends OsmElement {
 
 	@Override
 	public String toString() {
-		String res = super.toString();
-		for (Map.Entry<String, String> tag : tags.entrySet()) {
-			res += "\t" + tag.getKey() + "=" + tag.getValue();
-		}
-		for (RelationMember m:members) {
-			res += "\t" + m.toString();
-		}
-		return res;
+//		String res = super.toString();
+//		for (Map.Entry<String, String> tag : tags.entrySet()) {
+//			res += "\t" + tag.getKey() + "=" + tag.getValue();
+//		}
+//		for (RelationMember m:members) {
+//			res += "\t" + m.toString();
+//		}
+//		return res;
+		return getDescription();
 	}
 
 	@Override

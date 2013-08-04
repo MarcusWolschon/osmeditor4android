@@ -23,7 +23,7 @@
         android:background="@color/tagedit_field_bg"
         android:completionThreshold="1"
         android:dropDownWidth="match_parent"
-        android:hint="@string/role"
+        android:hint="@string/role_lc"
         android:inputType="textNoSuggestions"
         android:minHeight="32dp"
         android:paddingLeft="5dp"
@@ -31,17 +31,19 @@
         android:singleLine="true"
         android:textColor="@color/tagedit_field_text" />
     
-    <TextView
-        android:id="@+id/viewParent"
+    <Spinner
+        android:id="@+id/editParent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
+        android:layout_marginBottom="4dp"
         android:layout_weight="2"
-        android:background="@color/tagedit_field_static_bg"
-        android:minHeight="34dp"
-        android:paddingLeft="5dp"
+        android:background="@color/tagedit_field_bg"
+        android:minHeight="32dp"
+        android:paddingLeft="0dp"
         android:paddingRight="5dp"
-        android:singleLine="true"
+        android:spinnerMode="dropdown"
+        android:dropDownWidth="match_parent"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
         android:textColor="@color/tagedit_field_text" />

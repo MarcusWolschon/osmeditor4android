@@ -55,6 +55,7 @@
     <string name="tag_menu_repeat">Repeat</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map Features Wiki</string>
+    <string name="tag_menu_addtorelation">Add to relation</string>
     <string name="tag_menu_resetMRU">Reset Presets</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>
@@ -231,6 +232,7 @@
     <string name="pref_acra_disabled">Crash reporting disabled</string>
         <!--  -->
     <string name="role">Role</string>
+    <string name="role_lc">role</string>
     <string name="membership_relation_heading">Member of relation</string>
     <string name="relation">Relation</string>
     <string name="position">Pos.</string>

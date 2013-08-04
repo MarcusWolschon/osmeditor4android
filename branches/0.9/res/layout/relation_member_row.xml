@@ -23,7 +23,7 @@
         android:background="@color/tagedit_field_bg"
         android:completionThreshold="1"
         android:dropDownWidth="match_parent"
-        android:hint="@string/role"
+        android:hint="@string/role_lc"
         android:inputType="textNoSuggestions"
         android:minHeight="32dp"
         android:paddingLeft="5dp"

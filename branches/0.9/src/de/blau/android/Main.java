@@ -928,8 +928,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				if (!result.booleanValue()) Toast.makeText(getApplicationContext(), R.string.toast_oauth_handshake_failed, Toast.LENGTH_LONG).show();
 			}
 		};
-		loader.execute(s);
-		
+		loader.execute(s);	
 	}
 
 	/**

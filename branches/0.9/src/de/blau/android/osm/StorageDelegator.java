@@ -737,11 +737,13 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 			}
 		}
-		// note GUI does not exercise this currently
+		// add as new member to relation
 		for (Long l : parents.keySet()) {
-			Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l.longValue());
-			if (!origParents.contains(r)) {
-				addElementToRelation(e, -1, parents.get(l), r); // append for now only
+			if (l.longValue() != -1) { // 
+				Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l.longValue());
+				if (!origParents.contains(r)) {
+					addElementToRelation(e, -1, parents.get(l), r); // append for now only
+				}
 			}
 		}
 	}

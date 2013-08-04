@@ -18,6 +18,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,11 +37,13 @@ import android.view.View.OnKeyListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +66,7 @@ import de.blau.android.util.SavingHelper;
  * 
  * @author mb
  */
-public class TagEditor extends SherlockActivity implements OnDismissListener {
+public class TagEditor extends SherlockActivity implements OnDismissListener, OnItemSelectedListener {
 	public static final String TAGEDIT_DATA = "dataClass";
 	
 	/** The layout containing the entire editor */
@@ -490,6 +493,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		}
 	}
 		
+	private void addToRelation() {
+		insertNewMembership(null,null,-1);
+	}
+	
 	/** 
 	 * display member elements of the relation if any
 	 * @param members 
@@ -535,6 +542,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		case R.id.tag_menu_mapfeatures:
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_mapfeatures)));
 			startActivity(intent);
+			return true;
+		case R.id.tag_menu_addtorelation:
+			addToRelation();
 			return true;
 		case R.id.tag_menu_resetMRU:
 			preset.resetRecentlyUsed();
@@ -925,7 +935,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	}
 	
 	/**
-	 * Collect all interesting values from the parent relation view HashMap<String,String>, currently only teh role value
+	 * Collect all interesting values from the parent relation view HashMap<String,String>, currently only the role value
 	 * 
 	 * @return The HashMap<Long,String> of relation and role in that relation pairs.
 	 */
@@ -1124,7 +1134,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	 */
 	protected RelationMembershipRow insertNewMembership(final String role, final Relation r, final int position) {
 		RelationMembershipRow row = (RelationMembershipRow)View.inflate(this, R.layout.relation_membership_row, null);
-		row.setValues(role, r);
+		if (r != null) row.setValues(role, r);
 		parentRelationsLayout.addView(row, (position == -1) ? parentRelationsLayout.getChildCount() : position);
 		return row;
 	}
@@ -1135,9 +1145,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 	public static class RelationMembershipRow extends LinearLayout {
 		
 		private TagEditor owner;
-		private long relationId;
+		private long relationId =-1; // flag value for new relation memberships
 		private AutoCompleteTextView roleEdit;
-		private TextView parentView;
+		private Spinner parentEdit;
+		private ArrayAdapter<String> roleAdapter; 
 		
 		public RelationMembershipRow(Context context) {
 			super(context);
@@ -1162,8 +1173,14 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			roleEdit = (AutoCompleteTextView)findViewById(R.id.editRole);
 			roleEdit.setOnKeyListener(owner.myKeyListener);
 			
-			parentView = (TextView)findViewById(R.id.viewParent);
+			parentEdit = (Spinner)findViewById(R.id.editParent);
+			ArrayAdapter a = getRelationSpinnerAdapter();
+			a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			parentEdit.setAdapter(a);
+			parentEdit.setOnItemSelectedListener(owner);
+
 			
+
 			roleEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
 				@Override
 				public void onFocusChange(View v, boolean hasFocus) {
@@ -1173,6 +1190,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 					}
 				}
 			});
+			
 						
 			View deleteIcon = findViewById(R.id.iconDelete);
 			deleteIcon.setOnClickListener(new OnClickListener() {
@@ -1209,6 +1227,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			// Use a set to prevent duplicate keys appearing
 			Set<String> roles = new HashSet<String>();
 			Relation r = (Relation) Main.logic.delegator.getOsmElement(Relation.NAME, relationId);
+			Log.d("TagEditor", "getRoleAutocompleteAdapter for relation " + r.getDescription());
 			if ( r!= null) {			
 				if ( owner.preset != null) {
 					PresetItem relationPreset = owner.preset.findBestMatch(r.getTags());
@@ -1220,7 +1239,17 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			
 			List<String> result = new ArrayList<String>(roles);
 			Collections.sort(result);
-			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
+			roleAdapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
+			
+			return roleAdapter;
+		}
+		
+		protected ArrayAdapter<Relation> getRelationSpinnerAdapter() {
+			//
+			
+			List<Relation> result = Main.logic.delegator.getCurrentStorage().getRelations();;
+			// Collections.sort(result);
+			return new ArrayAdapter<Relation>(owner, R.layout.autocomplete_row, result);
 		}
 		
 		
@@ -1233,7 +1262,21 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 		public RelationMembershipRow setValues(String role, Relation r) {
 			relationId = r.getOsmId();
 			roleEdit.setText(role);
-			parentView.setText(r.getDescription());
+			parentEdit.setSelection(Main.logic.delegator.getCurrentStorage().getRelations().indexOf(r));
+			return this;
+		}
+		
+		/**
+		 * Sets key and value values
+		 * @param aTagKey the key value to set
+		 * @param aTagValue the value value to set
+		 * @return the TagEditRow object for convenience
+		 */
+		public RelationMembershipRow setRelation(Relation r) {
+			relationId = r.getOsmId();
+			parentEdit.setSelection(Main.logic.delegator.getCurrentStorage().getRelations().indexOf(r));
+			Log.d("TagEditor", "Set parent relation to " + relationId + " " + r.getDescription());
+			roleEdit.setAdapter(getRoleAutocompleteAdapter()); // update 
 			return this;
 		}
 		
@@ -1258,6 +1301,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener {
 			owner.parentRelationsLayout.removeView(this);
 		}
 	}
+	    
+    public void onItemSelected(AdapterView<?> parent, View view, 
+            int pos, long id) {
+    	
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    	Log.d("TagEditor", ((Relation)parent.getItemAtPosition(pos)).getDescription());
+    	((RelationMembershipRow)view.getParent().getParent()).setRelation((Relation)parent.getItemAtPosition(pos));	
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+	
 	
 	/**
 	 * @return the OSM ID of the element currently edited by the editor
