@@ -24,7 +24,7 @@ OAuth is currently supported for the main production and development APIs, furth
 
 New installs have OAuth enabled by default for the main OSM site, old installs need to enable OAuth by going to advanced preferences / osm api url and long pressing on the default "OpenStreetMap" entry, select "Edit" and check the OAuth checkbox.
 
-Access token and secret can be deleted and new negation forced by de-selecting OAuth for the API in question, saving then re-enabling. 
+Access token and secret can be deleted and new negation forced by de-selecting OAuth for the API in question, saving, then re-enabling. 
 
 = Other Changes =
 
