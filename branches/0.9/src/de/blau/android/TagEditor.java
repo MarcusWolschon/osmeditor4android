@@ -99,6 +99,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	 */
 	private OsmElement element;
 	
+	private TagEditorData loadData;
+	
 	/**
 	 * Handles "enter" key presses.
 	 */
@@ -304,7 +306,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		loaded = false;
 		
 		// tags
-		TagEditorData loadData;
+
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from intent");
@@ -494,6 +496,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	}
 		
 	private void addToRelation() {
+		if ((loadData.parents == null) || (loadData.parents.size() == 0)) { // show heading if none there
+			LinearLayout l = (LinearLayout) findViewById(R.id.membership_heading_view);
+			l.setVisibility(View.VISIBLE);
+		}
 		insertNewMembership(null,null,-1);
 	}
 	
