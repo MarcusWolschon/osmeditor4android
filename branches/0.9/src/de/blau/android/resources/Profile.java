@@ -330,7 +330,9 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(GPS_POS_FOLLOW,featureProfiles.get(GPS_POS)); 
-		fp.setColor(resources.getColor(R.color.ccc_white));
+		fp.getPaint().setStyle(Style.STROKE);
+		fp.getPaint().setStrokeWidth(4.0f);
+		fp.dontUpdate();
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(GPS_ACCURACY,featureProfiles.get(GPS_POS));
