@@ -18,6 +18,7 @@
     <string name="progress_message">Loading data into memory…</string>
     <string name="progress_download_message">Downloading data from server…</string>
     <string name="upload_comment_label">Comment:</string>
+    <string name="upload_source_label">Source:</string>
     <string name="openstreetbug_new_title">New Note</string>
     <string name="openstreetbug_new_bug">Report Issue</string>
     <string name="openstreetbug_new_nodeway">Create Node/Way</string>

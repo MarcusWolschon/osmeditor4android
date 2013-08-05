@@ -417,11 +417,12 @@ public class Server {
 	/**
 	 * Open a new changeset.
 	 * @param comment Changeset comment.
+	 * @param source 
 	 * @throws MalformedURLException
 	 * @throws ProtocolException
 	 * @throws IOException
 	 */
-	public void openChangeset(final String comment) throws MalformedURLException, ProtocolException, IOException {
+	public void openChangeset(final String comment, final String source) throws MalformedURLException, ProtocolException, IOException {
 		long newChangesetId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
@@ -439,6 +440,10 @@ public class Server {
 					serializer.startTag("", "tag");
 					serializer.attribute("", "k", "comment");
 					serializer.attribute("", "v", comment);
+					serializer.endTag("", "tag");
+					serializer.startTag("", "tag");
+					serializer.attribute("", "k", "source");
+					serializer.attribute("", "v", source);
 					serializer.endTag("", "tag");
 					serializer.endTag("", "changeset");
 					endXml(serializer);

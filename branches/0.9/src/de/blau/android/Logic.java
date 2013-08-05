@@ -14,9 +14,6 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -1367,8 +1364,9 @@ public class Logic {
 	 * Uploads to the server in the background.
 	 * 
 	 * @param comment Changeset comment.
+	 * @param source 
 	 */
-	public void upload(final String comment) {
+	public void upload(final String comment, final String source) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
 			
@@ -1382,7 +1380,7 @@ public class Logic {
 			protected Integer doInBackground(Void... params) {
 				int result = 0;
 				try {
-					delegator.uploadToServer(server, comment);
+					delegator.uploadToServer(server, comment, source);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().handleException(e);

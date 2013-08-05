@@ -854,13 +854,13 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * 
 	 */
-	public void performUpload(final String comment) {
+	public void performUpload(final String comment, final String source) {
 		dismissDialog(DialogFactory.CONFIRM_UPLOAD);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
-				logic.upload(comment);
+				logic.upload(comment, source);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
