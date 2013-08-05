@@ -1353,12 +1353,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server);
 				} else {
+					logic.setSelectedBug(bug);
 					showDialog(DialogFactory.OPENSTREETBUG_EDIT);
 				}
 			} else {
 				showDialog(DialogFactory.NO_LOGIN_DATA);
 			}
-			logic.setSelectedBug(bug);
 		}
 		
 		@Override
