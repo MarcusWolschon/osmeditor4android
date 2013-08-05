@@ -46,6 +46,7 @@
     <string name="no">No</string>
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
+    <string name="locked">Locked</string>
     <!-- Strings in TagEditor -->
     <string name="key">key</string>
     <string name="value">value</string>

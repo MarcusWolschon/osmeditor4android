@@ -49,11 +49,14 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 import android.widget.ZoomControls;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -339,7 +342,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (!prefs.isOpenStreetBugsEnabled() && logic.getMode() == Mode.MODE_OPENSTREETBUG) {
 			logic.setMode(Mode.MODE_MOVE);
 		}
-		modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
+		if (modeDropdown != null)
+			modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
 		
 		if (tracker != null) tracker.setListener(this);
 		
@@ -418,22 +422,62 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Sets up the Action Bar.
 	 */
 	private void showActionBar() {
+		Log.d("Main", "showActionBar");
 		ActionBar actionbar = getSupportActionBar();
-		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
-		
-		modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled(), prefs.depreciatedModesEnabled());
-		actionbar.setListNavigationCallbacks(modeDropdown, this);
-		
+
+		if (prefs.depreciatedModesEnabled()) {
+			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+			modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled(), prefs.depreciatedModesEnabled());
+			actionbar.setListNavigationCallbacks(modeDropdown, this);	
+			ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
+			if (lock != null) lock.setVisibility(View.GONE);
+		} else {
+			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+			actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
+			View lockLayout = View.inflate(getApplicationContext(), R.layout.lock, null);
+			actionbar.setCustomView(lockLayout);
+			ToggleButton lock = setLock(logic.getMode());
+			findViewById(R.id.lock).setVisibility(View.VISIBLE);
+			lock.setOnClickListener(new View.OnClickListener() {
+			    public void onClick(View b) {
+			        Log.d("Main", "Lock pressed");
+			        if(((ToggleButton)b).isChecked()) {
+			        	logic.setMode(Logic.Mode.MODE_EASYEDIT);
+			        } else {
+			        	logic.setMode(Logic.Mode.MODE_MOVE);
+			        }
+			        onEditModeChanged();
+			    }
+			});
+		}	
+	
 		actionbar.show();
 		setSupportProgressBarIndeterminateVisibility(false);
 	}
 	
+	/**
+	 * Set lock button to locked or unlocked depending on the edit mode
+	 * @param mode
+	 * @return
+	 */
+	private ToggleButton setLock(Logic.Mode mode) {
+		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
+		lock.setChecked(mode == Logic.Mode.MODE_EASYEDIT);
+		logic.setMode(mode == Logic.Mode.MODE_EASYEDIT ? Logic.Mode.MODE_EASYEDIT : Logic.Mode.MODE_MOVE); // zap any other mode
+		return lock; // for convenience
+	}
+
 	
 	public void updateActionbarEditMode() {
-		getSupportActionBar().setSelectedNavigationItem(modeDropdown.getIndexForMode(logic.getMode()));
+		Log.d("Main", "updateActionbarEditMode");
+		if (modeDropdown != null && (prefs!=null && prefs.depreciatedModesEnabled())) 
+			getSupportActionBar().setSelectedNavigationItem(modeDropdown.getIndexForMode(logic.getMode()));
+		else { 
+			setLock(logic.getMode());
+		}
 	}
 	
 	public static void onEditModeChanged() {
