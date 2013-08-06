@@ -114,6 +114,8 @@ public class BoundingBox implements Serializable {
 	 */
 	private float ratio = 1;
 
+	private double mercartorDiff;
+
 	/**
 	 * Generates a bounding box with the given borders. Of course, left must be
 	 * left to right and top must be top of bottom.
@@ -435,8 +437,10 @@ public class BoundingBox implements Serializable {
 	 * @param latCenter the absolute latitude for the center
 	 */
 	public void moveTo(final int lonCenter, final int latCenter) {
-		// TODO is Mercator scaling adjustment required?
-		translate(lonCenter - left - width / 2, latCenter - bottom - height / 2);
+		// TODO scaling adjustment is better now but not perfect 
+		double halfHeight = height / 2;
+		double mercatorDiff = mercatorFactorPow3 * halfHeight - halfHeight;
+		translate(lonCenter - left - width / 2, latCenter - bottom - (int)(halfHeight - mercatorDiff));		
 	}
 
 	/**
