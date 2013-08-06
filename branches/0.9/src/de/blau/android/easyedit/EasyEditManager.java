@@ -265,6 +265,7 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			currentActionMode = null;
 			currentActionModeCallback = null;
+			logic.hideCrosshairs();
 			main.invalidateMap();
 			Log.d("EasyEditActionModeCallback", "onDestroyActionMode");
 		}
@@ -346,17 +347,21 @@ public class EasyEditManager {
 			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
 			case MENUITEM_OSB:
+				// todo check if authenticated
 				mode.finish();
 				logic.setSelectedBug(logic.makeNewBug(x, y));
 				main.showDialog(DialogFactory.OPENSTREETBUG_EDIT);
+				logic.hideCrosshairs();
 				return true;
 			case MENUITEM_NEWNODEWAY:
 				main.startActionMode(new PathCreationActionModeCallback(x, y));
+				logic.hideCrosshairs();
 				return true;
 			default:
 				Log.e("LongClickActionModeCallback", "Unknown menu item");
 				break;
 			}
+			logic.hideCrosshairs();
 			return false;
 		}
 	}
@@ -418,6 +423,7 @@ public class EasyEditManager {
 			} else {
 				pathCreateNode(x, y);
 			}
+			logic.hideCrosshairs();
 			return true;
 		}
 		

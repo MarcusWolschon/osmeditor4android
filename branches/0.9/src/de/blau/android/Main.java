@@ -1171,7 +1171,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			
 			if (logic.isInEditZoomRange()) {
+				map.showCrosshairs(x, y);
+				map.invalidate();
 				return easyEditManager.handleLongClick(v, x, y);
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
 			}
 			
 			return true; // long click handled

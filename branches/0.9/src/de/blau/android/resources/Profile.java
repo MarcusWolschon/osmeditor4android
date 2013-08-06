@@ -66,6 +66,7 @@ public class Profile  extends DefaultHandler {
 	public final static String NODE_THIN = "node_thin";
 	public final static String OPEN_NOTE = "open_note";
 	public final static String CLOSED_NOTE = "closed_note";
+	public final static String CROSSHAIRS = "crosshairs";
 	
 	
 	public class FeatureProfile {
@@ -210,7 +211,15 @@ public class Profile  extends DefaultHandler {
 
 	private static final int TOLERANCE_ALPHA = 40;
 	
+	/**
+	 * GPS arrow
+	 */
 	public static final Path ORIENTATION_PATH = new Path();
+	
+	/**
+	 * Crosshairs
+	 */
+	public static final Path CROSSHAIRS_PATH = new Path();
 	
 	/**
 	 * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes 
@@ -255,6 +264,11 @@ public class Profile  extends DefaultHandler {
 		ORIENTATION_PATH.lineTo(0, 10);
 		ORIENTATION_PATH.lineTo(-15, 20);
 		ORIENTATION_PATH.lineTo(0, -20);
+		
+		CROSSHAIRS_PATH.moveTo(0, -10);
+		CROSSHAIRS_PATH.lineTo(0, 10);
+		CROSSHAIRS_PATH.moveTo(10, 0);
+		CROSSHAIRS_PATH.lineTo(-10, 0);
 		
 		Log.i("Profile","setting up default profile elements");
 		featureProfiles = new HashMap<String, FeatureProfile>();
@@ -384,6 +398,12 @@ public class Profile  extends DefaultHandler {
 		fp = new FeatureProfile(CLOSED_NOTE);
 		fp.setColor(resources.getColor(R.color.bug_closed));
 		fp.getPaint().setAlpha(100);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(CROSSHAIRS); 
+		fp.getPaint().setStyle(Style.STROKE);
+		fp.getPaint().setStrokeWidth(1.0f);
+		fp.dontUpdate();
 		featureProfiles.put(fp.getName(), fp);
 		
 		if (availableProfiles == null) {

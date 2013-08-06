@@ -1644,6 +1644,12 @@ public class Logic {
 	}
 
 
-
+	public void showCrosshairs(float x, float y) {
+		map.showCrosshairs(x, y);
+	}
+	
+	public void hideCrosshairs() {
+		map.hideCrosshairs();
+	}
 	
 }

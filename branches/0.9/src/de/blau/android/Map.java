@@ -121,6 +121,13 @@ public class Map extends View implements IMapView {
 
 	private TrackerService tracker;
 	
+	/**
+	 * support for display a crosshairs at a position
+	 */
+	private boolean showCrosshairs = false;
+	private float crosshairsX = 0;
+	private float crosshairsY = 0;
+	
 	static {
 		Method m;
 		try {
@@ -140,8 +147,6 @@ public class Map extends View implements IMapView {
 		//Style me
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
-		
-
 		
 		iconRadius = Math.round((float)ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
 	}
@@ -214,6 +219,8 @@ public class Map extends View implements IMapView {
 		paintOsmData(canvas);
 		paintGpsTrack(canvas);
 		paintGpsPos(canvas);
+		paintCrosshairs(canvas);
+		
 		time = System.currentTimeMillis() - time;
 		
 		if (prefs.isStatsVisible()) {
@@ -221,6 +228,7 @@ public class Map extends View implements IMapView {
 		}
 	}
 	
+
 	@Override
 	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
@@ -287,6 +295,17 @@ public class Map extends View implements IMapView {
 			}
 		}
 		return super.onTrackballEvent(event);
+	}
+	
+	private void paintCrosshairs(Canvas canvas) {
+		// 
+		if (showCrosshairs) {
+			Paint paint = Profile.getCurrent(Profile.CROSSHAIRS).getPaint();
+			canvas.save();
+			canvas.translate(crosshairsX, crosshairsY);
+			canvas.drawPath(Profile.CROSSHAIRS_PATH, paint);
+			canvas.restore();
+		}
 	}
 	
 	private void paintGpsTrack(final Canvas canvas) {
@@ -803,6 +822,15 @@ public class Map extends View implements IMapView {
 		myViewBox = viewBox;
 	}
 	
+	public void showCrosshairs(float x, float y) {
+		showCrosshairs = true;
+		crosshairsX = x;
+		crosshairsY = y;
+	}
+	
+	public void hideCrosshairs() {
+		showCrosshairs = false;
+	}
 	
 	/**
 	 * You can add/remove/reorder your Overlays using the List of
