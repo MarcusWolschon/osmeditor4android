@@ -4,14 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
-import oauth.signpost.http.HttpParameters;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -49,9 +42,7 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -62,7 +53,6 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -437,6 +427,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		} else {
 			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 			actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
+			
 			View lockLayout = View.inflate(getApplicationContext(), R.layout.lock, null);
 			actionbar.setCustomView(lockLayout);
 			ToggleButton lock = setLock(logic.getMode());
@@ -521,7 +512,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		View undoView = undo.getActionView();
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);
-	
+		
 		return true;
 	}
 
