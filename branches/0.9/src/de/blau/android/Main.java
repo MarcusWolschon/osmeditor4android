@@ -636,13 +636,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	private void setFollowGPS(boolean follow) {
-		followGPS = follow;
-		if (follow) {
-			setShowGPS(true);
-			if (map.getLocation() != null) onLocationChanged(map.getLocation());
+		// Log.d("Main","setFollowGPS");
+		if (followGPS != follow) {
+			followGPS = follow;
+			if (follow) {
+				setShowGPS(true);
+				if (map.getLocation() != null) onLocationChanged(map.getLocation());
+			}
+			map.setFollowGPS(follow);
+			triggerMenuInvalidation();
 		}
-		map.setFollowGPS(follow);
-		triggerMenuInvalidation();
 	}
 	
 	private void toggleShowGPS() {
@@ -1636,7 +1639,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Use {@link #triggerMenuInvalidation()} to make it easier to debug and implement workarounds for android bugs.
 	 * Must be called from the main thread.
 	 */
-	public void invalidateOptionsMenu() {
+	public void invalidateOptionsMenu() { 
 		// Log.d(DEBUG_TAG, "invalidateOptionsMenu called");
 		super.invalidateOptionsMenu();
 	}
@@ -1647,8 +1650,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * MUST BE CALLED FROM THE MAIN/UI THREAD!
 	 */
 	public void triggerMenuInvalidation() {
-		//Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
-		invalidateOptionsMenu(); // TODO delay or make conditional to work around android bug?
+		Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
+		super.invalidateOptionsMenu(); // TODO delay or make conditional to work around android bug?
 	}
 	
 	/**

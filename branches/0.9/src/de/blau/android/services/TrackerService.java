@@ -109,7 +109,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 		tracking = true;
 		track.markNewSegment();
 		try {
-			Application.mainActivity.invalidateOptionsMenu();
+			Application.mainActivity.triggerMenuInvalidation();
 		} catch (Exception e) {} // ignore
 		updateGPSState();
 	}
