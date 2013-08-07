@@ -111,13 +111,18 @@ public class EasyEditManager {
 	
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
+
+
+
 		if (currentActionModeCallback instanceof PathCreationActionModeCallback) {
 			// we don't do long clicks while creating paths
+			Log.d("EasyEditManager","2");
 			return false;
 		}
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 		// TODO: Need to patch ABS, see https://github.com/JakeWharton/ActionBarSherlock/issues/642
 		if (main.startActionMode(new LongClickActionModeCallback(x, y)) == null) {
+			Log.d("EasyEditManager","3");
 			main.startActionMode(new PathCreationActionModeCallback(x, y));
 		}
 		return true;
@@ -311,6 +316,8 @@ public class EasyEditManager {
 	private class LongClickActionModeCallback extends EasyEditActionModeCallback {
 		private static final int MENUITEM_OSB = 1;
 		private static final int MENUITEM_NEWNODEWAY = 2;
+		private float startX;
+		private float startY;
 		private float x;
 		private float y;
 		
@@ -330,6 +337,10 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
 			mode.setTitle(R.string.menu_add);
+			// show crosshairs 
+			logic.showCrosshairs(x, y);
+			startX = x;
+			startY = y;
 			return isNeeded();
 		}
 		
@@ -339,6 +350,18 @@ public class EasyEditManager {
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(R.drawable.tag_menu_bug);
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
+			return true;
+		}
+		
+		/**
+		 * if we get a short click go to path creation mode
+		 */
+		@Override
+		public boolean handleClick(float x, float y) {
+			PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(startX, startY);
+			main.startActionMode(pcamc);
+			pcamc.handleClick(x, y);
+			logic.hideCrosshairs();
 			return true;
 		}
 		
@@ -361,7 +384,6 @@ public class EasyEditManager {
 				Log.e("LongClickActionModeCallback", "Unknown menu item");
 				break;
 			}
-			logic.hideCrosshairs();
 			return false;
 		}
 	}

@@ -103,7 +103,6 @@ public class UndoStorage implements Serializable {
 		}
 		undoCheckpoints.getLast().add(element);
 		redoCheckpoints.clear();
-		updateIcon();
 	}
 	
 	/**

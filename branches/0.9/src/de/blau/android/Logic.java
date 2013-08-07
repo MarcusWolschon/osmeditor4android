@@ -160,6 +160,11 @@ public class Logic {
 	private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<OsmElement, Node>();
 	/** Sorter instance for sorting ways by distance */
 	private static final DistanceSorter<Way, Way> waySorter = new DistanceSorter<Way, Way>();
+
+	/**
+	 * maximum number of nodes in a way for it still to be moveable, arbitrary number for now
+	 */
+	private static final int MAX_NODES_FOR_MOVE = 100;
 	
 	/**
 	 * See {@link StorageDelegator}.
@@ -192,6 +197,15 @@ public class Logic {
 	 * Set by {@link #handleTouchEventDown(float, float)}
 	 */
 	private boolean draggingNode = false;
+	
+	
+	/**
+	 * Are we currently dragging a way?
+	 * Set by {@link #handleTouchEventDown(float, float)}
+	 */
+	private boolean draggingWay = false;
+	private int startLat;
+	private int startLon;
 
 	/**
 	 * Current mode.
@@ -708,12 +722,29 @@ public class Logic {
 			map.invalidate();
 			draggingNode = (selectedNode != null);
 		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
-			draggingNode = (selectedNode != null && clickDistance(selectedNode, x, y) != null);
+			draggingNode = false;
+			draggingWay = false;
+			if (selectedNode != null && clickDistance(selectedNode, x, y) != null) draggingNode = true;
+			else {
+				if (selectedWay != null) {
+					Way clickedWay = getClickedWay(x, y);
+					if (clickedWay != null && (clickedWay.getOsmId() == selectedWay.getOsmId())) {
+						if (selectedWay.getNodes().size() <= MAX_NODES_FOR_MOVE) {
+							startLat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+							startLon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+							draggingWay = true;
+						}
+						else
+							Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
+					}		
+				}
+			}
 		} else {
 			draggingNode = false;
+			draggingWay = false;
 		}
-		if (draggingNode) {
-			createCheckpoint(R.string.undo_action_movenode);
+		if (draggingNode || draggingWay) {
+			createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
 		}
 	}
 
@@ -729,17 +760,23 @@ public class Logic {
 	 * @param relativeY The difference to the last absolute display-coordinate.
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-		if (draggingNode) {
+		if (draggingNode || draggingWay) {
 			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
 			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
 			// checkpoint created where draggingNode is set
-			delegator.updateLatLon(selectedNode, lat, lon);
+			if (draggingNode) delegator.updateLatLon(selectedNode, lat, lon);
+			else {
+				delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
+				// update 
+				startLat = lat;
+				startLon = lon;
+			}
 			translateOnBorderTouch(absoluteX, absoluteY);
-			map.invalidate();
 		} else {
 			performTranslation(relativeX, relativeY);
-			map.invalidate();
 		}
+		
+		map.invalidate();
 	}
 
 	/**
@@ -1646,6 +1683,7 @@ public class Logic {
 
 	public void showCrosshairs(float x, float y) {
 		map.showCrosshairs(x, y);
+		map.invalidate();
 	}
 	
 	public void hideCrosshairs() {

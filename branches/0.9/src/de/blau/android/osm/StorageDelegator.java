@@ -200,6 +200,28 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * Mode all nodes in a way, since the nodes keep their ids, the way itself isn't changes and doesn't need to be saved
+	 * apply translation only once to the first node if way is closed
+	 * @param way
+	 * @param deltaLatE7
+	 * @param deltaLonE7
+	 */
+	public void moveWay(final Way way, final int deltaLatE7, final int deltaLonE7) {
+		dirty = true;
+		Node firstNode = way.getFirstNode();
+		for (int i = 0; i < way.getNodes().size(); i++) { 
+			Node nd = way.getNodes().get(i);
+			if (i == 0 || !nd.equals(firstNode)) {
+				undo.save(nd);
+				apiStorage.insertElementSafe(nd);
+				nd.setLat(nd.getLat() + deltaLatE7);
+				nd.setLon(nd.getLon() + deltaLonE7);
+				nd.updateState(OsmElement.STATE_MODIFIED);
+			}
+		}
+	}
+	
+	/**
 	 * updated for relation support
 	 * @param node
 	 */
