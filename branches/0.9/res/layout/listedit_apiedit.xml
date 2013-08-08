@@ -9,7 +9,7 @@
         android:id="@+id/listedit_labelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/name" />
+        android:text="@string/api_name" />
 
 	<EditText
         android:id="@+id/listedit_editName"
@@ -23,7 +23,7 @@
         android:id="@+id/listedit_labelValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/url" />
+        android:text="@string/api_url" />
     
     <EditText
         android:id="@+id/listedit_editValue"

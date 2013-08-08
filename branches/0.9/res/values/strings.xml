@@ -204,6 +204,8 @@
     <string name="name">Name</string>
     <string name="url">URL</string>
     <string name="default_">Default</string>
+    <string name="api_name">API Name</string>
+    <string name="api_url">API URL</string>
     <!-- "default" is a reserved Java keyword... -->
     <string name="preset">Preset</string>
     <string name="api">API</string>
