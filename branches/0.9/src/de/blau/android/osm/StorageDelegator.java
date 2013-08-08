@@ -28,13 +28,15 @@ import de.blau.android.util.SavingHelper.Exportable;
 
 public class StorageDelegator implements Serializable, Exportable {
 
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 5L;
 
 	private Storage currentStorage;
 
 	private Storage apiStorage;
 
 	private UndoStorage undo;
+	
+	private ClipboardStorage clipboard;
 
 	/**
 	 * Indicates whether changes have been made since the last save to disk.
@@ -60,6 +62,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void setCurrentStorage(final Storage currentStorage) {
 		dirty = true;
 		apiStorage = new Storage();
+		clipboard = new ClipboardStorage();
 		this.currentStorage = currentStorage;
 		undo = new UndoStorage(currentStorage, apiStorage);
 	}
@@ -72,6 +75,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		apiStorage = new Storage();
 		currentStorage = new Storage();
+		clipboard = new ClipboardStorage();
 		undo = new UndoStorage(currentStorage, apiStorage);
 		factory = new OsmElementFactory();
 	}
@@ -842,6 +846,119 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 	
+	/**
+	 * ake a copy of the element and store it in the clipboard
+	 * @param e
+	 * @param lat
+	 * @param lon
+	 */
+	public void copyToClipboard(OsmElement e, int lat, int lon) {
+		dirty = true; // otherwise clipboard will not get saved without other changes
+		if (e instanceof Node) {
+			Node newNode = factory.createNodeWithNewId(((Node) e).getLat(), ((Node) e).getLon());
+			newNode.setTags(e.getTags());
+			clipboard.copyTo(newNode, lat, lon);
+		} else if (e instanceof Way) {
+			Way newWay = factory.createWayWithNewId();
+			newWay.setTags(e.getTags());
+			for (Node nd: ((Way)e).getNodes()) {
+				Node newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+				newNode.setTags(nd.getTags());
+				newWay.addNode(nd);
+			}
+			clipboard.copyTo(newWay, lat, lon);
+		}	
+	}
+	
+	/**
+	 * cut original element to clipboard, does -not- preserve relation memberships
+	 * @param e
+	 * @param lat
+	 * @param lon
+	 */
+	public void cutToClipboard(OsmElement e, int lat, int lon) {
+		dirty = true; // otherwise clipboard will not get saved without other changes
+		if (e instanceof Node) {
+			clipboard.cutTo(e, lat, lon);
+			removeNode((Node)e);
+		} else if (e instanceof Way) {
+
+			// clone all nodes that are members of other ways
+			ArrayList<Node> nodes = new ArrayList<Node>(((Way)e).getNodes());
+			for (Node nd: nodes) {
+				if (currentStorage.getWays(nd).size() > 1) { // 1 is expected (our way will be deleted later)
+					Log.d("StorageDelegator","Duplicating node");
+					Node newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+					newNode.setTags(nd.getTags());
+					((Way)e).replaceNode(nd, newNode);
+				}
+			}
+			clipboard.cutTo(e, lat, lon);
+			removeWay((Way)e);
+			nodes = new ArrayList<Node>(((Way)e).getNodes());
+			for (Node nd: nodes) {
+				removeNode(nd); // 
+			}
+		}
+	}
+	
+	public boolean pasteFromClipboard(int lat, int lon) {
+		OsmElement e = clipboard.pasteFrom();
+		// if the clipboard isn't empty now we need to clone the element
+		if (!clipboard.isEmpty()) { // paste from copy
+			if (e instanceof Node) {
+				Node newNode = factory.createNodeWithNewId(lat, lon);
+				newNode.setTags(e.getTags());
+				insertElementSafe(newNode);
+			} else if (e instanceof Way) {
+				Way newWay = factory.createWayWithNewId();
+				newWay.setTags(e.getTags());
+				int deltaLat = lat - clipboard.getSelectionLat();
+				int deltaLon = lon - clipboard.getSelectionLon();
+				Node firstNode = ((Way)e).getFirstNode();
+				List<Node> nodes = ((Way)e).getNodes();
+				for (int i = 0; i < nodes.size(); i++) { 
+					Node nd = nodes.get(i);
+					if (i == 0 || !nd.equals(firstNode)) {
+						Log.d("StorageDelegator", "Pasting to " + (nd.getLat() + deltaLat) + " " + (nd.getLon() + deltaLon));
+						Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
+						newNode.setTags(nd.getTags());
+						newWay.addNode(newNode);
+						insertElementSafe(newNode);
+					} else if (nd.equals(firstNode)) {
+						newWay.addNode(newWay.getFirstNode());
+					}
+				}
+				insertElementSafe(newWay);
+			}	
+		} else { // paste from cut
+			if (e instanceof Node) {
+				((Node)e).setLat(lat);
+				((Node)e).setLon(lon);
+			} else if (e instanceof Way) {
+				int deltaLat = lat - clipboard.getSelectionLat();
+				int deltaLon = lon - clipboard.getSelectionLon();
+				Node firstNode = ((Way)e).getFirstNode();
+				for (int i = 0; i < ((Way)e).getNodes().size(); i++) { 
+					Node nd = ((Way)e).getNodes().get(i);
+					if (i == 0 || !nd.equals(firstNode)) {
+						nd.setLat(nd.getLat() + deltaLat);
+						nd.setLon(nd.getLon() + deltaLon);
+						nd.updateState(OsmElement.STATE_MODIFIED);
+						insertElementSafe(nd); 
+					} 
+				}
+			}
+			e.updateState(OsmElement.STATE_MODIFIED);
+			insertElementSafe(e); 
+		}
+		return e != null;
+	}
+	
+	public boolean clipboardIsEmpty() {
+		return clipboard.isEmpty();
+	}
+
 	public Storage getCurrentStorage() {
 		return currentStorage;
 	}
@@ -908,6 +1025,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			currentStorage = newDelegator.currentStorage;
 			apiStorage = newDelegator.apiStorage;
 			undo = newDelegator.undo;
+			clipboard = newDelegator.clipboard;
 			factory = newDelegator.factory;
 			dirty = false; // data was just read, i.e. memory and file are in sync
 			return true;
@@ -955,11 +1073,17 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
 		server.openChangeset(comment, source);
+		Log.d("StorageDelegator","Uploading Nodes");
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
+		Log.d("StorageDelegator","Uploading Ways");
 		uploadCreatedOrModifiedElements(server, apiStorage.getWays());
+		Log.d("StorageDelegator","Uploading Relations");
 		uploadCreatedOrModifiedElements(server, apiStorage.getRelations());
+		Log.d("StorageDelegator","Deleting Relations");
 		uploadDeletedElements(server, apiStorage.getRelations());
+		Log.d("StorageDelegator","Deleting Ways");
 		uploadDeletedElements(server, apiStorage.getWays());
+		Log.d("StorageDelegator","Deleting Nodes");
 		uploadDeletedElements(server, apiStorage.getNodes());
 		
 		server.closeChangeset();
@@ -1006,6 +1130,8 @@ public class StorageDelegator implements Serializable, Exportable {
 					}
 					Log.w(DEBUG_TAG, "New " + element + " added to API");
 					element.setState(OsmElement.STATE_UNCHANGED);
+				} else {
+					Log.d(DEBUG_TAG, "Didn't get new ID: " + osmId);
 				}
 				break;
 			case OsmElement.STATE_MODIFIED:
@@ -1019,6 +1145,8 @@ public class StorageDelegator implements Serializable, Exportable {
 					}
 					Log.w(DEBUG_TAG, element + " updated in API");
 					element.setState(OsmElement.STATE_UNCHANGED);
+				} else {
+					Log.d(DEBUG_TAG, "Didn't get new version: " + osmVersion);
 				}
 				break;
 			}
@@ -1093,6 +1221,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public String exportExtension() {
 		return "osc";
 	}
+
 
 
 

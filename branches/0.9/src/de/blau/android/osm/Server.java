@@ -253,7 +253,7 @@ public class Server {
 	public boolean deleteElement(final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
 //		elem.addOrUpdateTag(createdByTag, createdByKey);
-
+		Log.d("Server","Deleting " + elem.getName() + " #" + elem.getOsmId());
 		try {
 			connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
 			sendPayload(connection, new XmlSerializable() {
@@ -293,7 +293,7 @@ public class Server {
 		HttpURLConnection connection = null;
 		InputStream in = null;
 //		elem.addOrUpdateTag(createdByTag, createdByKey);
-
+		Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId());
 		try {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
 			sendPayload(connection, new XmlSerializable() {

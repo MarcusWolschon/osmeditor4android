@@ -1429,6 +1429,7 @@ public class Logic {
 					case HttpStatus.SC_UNAUTHORIZED:
 						result = DialogFactory.WRONG_LOGIN;
 						break;
+					case HttpStatus.SC_NOT_FOUND:
 					case HttpStatus.SC_CONFLICT:
 					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_PRECONDITION_FAILED:
@@ -1688,6 +1689,43 @@ public class Logic {
 	
 	public void hideCrosshairs() {
 		map.hideCrosshairs();
+	}
+
+
+	public void copyToClipboard(OsmElement element) {
+		if (element instanceof Node) {
+			delegator.copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+		} else if (element instanceof Way) {
+			// use current centroid of way
+			int result[] = GeoMath.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
+			Log.d("Logic","centroid " + result[0] + " " + result[1]);
+			delegator.copyToClipboard(element, result[0], result[1]);
+		}
+	}
+
+
+	public void cutToClipboard(OsmElement element) {
+		createCheckpoint(R.string.undo_action_cut);
+		if (element instanceof Node) {
+			delegator.cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+		} else if (element instanceof Way) {
+			int result[] = GeoMath.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
+			Log.d("Logic","centroid " + result[0] + " " + result[1]);
+			delegator.cutToClipboard(element, result[0], result[1]);
+		}
+		map.invalidate();
+	}
+
+	public void pasteFromClipboard(float x, float y) {
+		createCheckpoint(R.string.undo_action_paste);
+		int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+		delegator.pasteFromClipboard(lat, lon);
+	}
+
+	public boolean clipboardIsEmpty() {
+		
+		return delegator.clipboardIsEmpty();
 	}
 	
 }

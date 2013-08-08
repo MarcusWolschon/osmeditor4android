@@ -134,7 +134,7 @@ public class Way extends OsmElement {
 	 * return true if first == last node, will not work for broken geometries
 	 * @return
 	 */
-	boolean isClosed() {
+	public boolean isClosed() {
 		return nodes.get(0).equals(nodes.get(nodes.size() - 1));
 	}
 

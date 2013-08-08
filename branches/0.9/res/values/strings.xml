@@ -112,6 +112,9 @@
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>
+    <string name="menu_copy">Copy</string>
+    <string name="menu_cut">Cut</string>
+    <string name="menu_paste">Paste</string>
     <!-- element action mode menu -->
     <string name="menu_tags">Tags</string>
     <!-- Text should be as short as possible -->
@@ -226,6 +229,8 @@
     <string name="undo_action_unjoin_ways">unjoin ways</string>
     <string name="undo_action_deleterelation">delete relation</string>
     <string name="undo_action_update_relations">update relations</string>
+    <string name="undo_action_cut">cut</string>
+    <string name="undo_action_paste">paste</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed</string>

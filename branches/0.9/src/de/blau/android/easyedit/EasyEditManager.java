@@ -28,6 +28,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.GeoMath;
 
 /**
  * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
@@ -112,17 +113,13 @@ public class EasyEditManager {
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
 
-
-
 		if (currentActionModeCallback instanceof PathCreationActionModeCallback) {
 			// we don't do long clicks while creating paths
-			Log.d("EasyEditManager","2");
 			return false;
 		}
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 		// TODO: Need to patch ABS, see https://github.com/JakeWharton/ActionBarSherlock/issues/642
 		if (main.startActionMode(new LongClickActionModeCallback(x, y)) == null) {
-			Log.d("EasyEditManager","3");
 			main.startActionMode(new PathCreationActionModeCallback(x, y));
 		}
 		return true;
@@ -258,6 +255,7 @@ public class EasyEditManager {
 	 *
 	 */
 	public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
+		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			currentActionMode = mode;
@@ -309,6 +307,7 @@ public class EasyEditManager {
 		/** {@inheritDoc} */ // placed here for convenience, allows to avoid unnecessary methods in subclasses
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			Log.e("EasyEditActionModeCallback", "onActionItemClicked");
 			return false;
 		}
 	}
@@ -316,6 +315,7 @@ public class EasyEditManager {
 	private class LongClickActionModeCallback extends EasyEditActionModeCallback {
 		private static final int MENUITEM_OSB = 1;
 		private static final int MENUITEM_NEWNODEWAY = 2;
+		private static final int MENUITEM_PASTE = 3;
 		private float startX;
 		private float startY;
 		private float x;
@@ -350,6 +350,9 @@ public class EasyEditManager {
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(R.drawable.tag_menu_bug);
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
+			if (!logic.clipboardIsEmpty()) {
+				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste);
+			}
 			return true;
 		}
 		
@@ -379,6 +382,11 @@ public class EasyEditManager {
 			case MENUITEM_NEWNODEWAY:
 				main.startActionMode(new PathCreationActionModeCallback(x, y));
 				logic.hideCrosshairs();
+				return true;
+			case MENUITEM_PASTE:
+				logic.pasteFromClipboard(startX, startY);
+				logic.hideCrosshairs();
+				mode.finish();
 				return true;
 			default:
 				Log.e("LongClickActionModeCallback", "Unknown menu item");
@@ -472,7 +480,7 @@ public class EasyEditManager {
 			if (logic.getSelectedNode() == null) {
 				// user clicked last node again -> finish adding
 				currentActionMode.finish();
-				tagApplicable(lastSelectedNode, lastSelectedWay);
+				tagApplicable(lastSelectedNode, lastSelectedWay); //TODO doesn't deselect way after tag edit
 			} else { // update cache for undo
 				createdWay = logic.getSelectedWay();
 				if (createdWay != null) {
@@ -550,6 +558,9 @@ public class EasyEditManager {
 		private static final int MENUITEM_TAG = 1;
 		private static final int MENUITEM_DELETE = 2;
 		private static final int MENUITEM_HISTORY = 3;
+		private static final int MENUITEM_COPY = 4;
+		private static final int MENUITEM_CUT = 5;
+		
 		
 		protected OsmElement element = null;
 		
@@ -582,6 +593,10 @@ public class EasyEditManager {
 			if (element.getOsmId() > 0){
 				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.NONE, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
 			}
+			if (!(element instanceof Relation)) {
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy);
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut);
+			}
 			return true;
 		}
 		
@@ -592,6 +607,8 @@ public class EasyEditManager {
 			case MENUITEM_TAG: main.performTagEdit(element, null); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
+			case MENUITEM_COPY: logic.copyToClipboard(element); break;
+			case MENUITEM_CUT: logic.cutToClipboard(element); break;
 			default: return false;
 			}
 			return true;
@@ -621,9 +638,9 @@ public class EasyEditManager {
 	}
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
-		private static final int MENUITEM_APPEND = 4;
-		private static final int MENUITEM_JOIN = 5;
-		private static final int MENUITEM_UNJOIN = 6;
+		private static final int MENUITEM_APPEND = 6;
+		private static final int MENUITEM_JOIN = 7;
+		private static final int MENUITEM_UNJOIN = 8;
 		
 		private OsmElement joinableElement = null;
 		
@@ -701,11 +718,11 @@ public class EasyEditManager {
 	}
 	
 	private class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
-		private static final int MENUITEM_SPLIT = 4;
-		private static final int MENUITEM_MERGE = 5;
-		private static final int MENUITEM_REVERSE = 6;
-		private static final int MENUITEM_APPEND = 7;
-		private static final int MENUITEM_RESTRICTION = 8;
+		private static final int MENUITEM_SPLIT = 6;
+		private static final int MENUITEM_MERGE = 7;
+		private static final int MENUITEM_REVERSE = 8;
+		private static final int MENUITEM_APPEND = 9;
+		private static final int MENUITEM_RESTRICTION = 10;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -713,6 +730,7 @@ public class EasyEditManager {
 		
 		private WaySelectionActionModeCallback(Way way) {
 			super(way);
+			Log.d("WaySelectionActionCallback", "constructor");
 			cachedMergeableWays = findMergeableWays(way);
 			cachedAppendableNodes = findAppendableNodes(way);
 			cachedViaElements = findViaElements(way);
@@ -721,6 +739,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
+			Log.d("WaySelectionActionCallback", "onCreateActionMode");
 			logic.setSelectedNode(null);
 			logic.setSelectedWay((Way)element);
 			main.invalidateMap();
@@ -731,6 +750,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
+			Log.d("WaySelectionActionCallback", "onPrepareActionMode");
 			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(R.drawable.tag_menu_reverse);
 			if (((Way)element).getNodes().size() > 2) {
 				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(R.drawable.tag_menu_split);
