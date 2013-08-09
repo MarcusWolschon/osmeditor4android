@@ -206,7 +206,16 @@ public class Logic {
 	private boolean draggingWay = false;
 	private int startLat;
 	private int startLon;
+	private float startY;
+	private float startX;
+	private float centroidY;
+	private float centroidX;
 
+	/**
+	 * 
+	 */
+	private boolean rotatingWay = false;
+	
 	/**
 	 * Current mode.
 	 */
@@ -727,24 +736,37 @@ public class Logic {
 			if (selectedNode != null && clickDistance(selectedNode, x, y) != null) draggingNode = true;
 			else {
 				if (selectedWay != null) {
-					Way clickedWay = getClickedWay(x, y);
-					if (clickedWay != null && (clickedWay.getOsmId() == selectedWay.getOsmId())) {
-						if (selectedWay.getNodes().size() <= MAX_NODES_FOR_MOVE) {
-							startLat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-							startLon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
-							draggingWay = true;
+					if (!rotatingWay) {	
+						Way clickedWay = getClickedWay(x, y);
+						if (clickedWay != null && (clickedWay.getOsmId() == selectedWay.getOsmId())) {
+							if (selectedWay.getNodes().size() <= MAX_NODES_FOR_MOVE) {
+								startLat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+								startLon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+								draggingWay = true;
+							}
+							else
+								Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
 						}
-						else
-							Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
-					}		
+					} else {
+						startX = x;
+						startY = y;
+						float centroid[] = Logic.centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWay);
+						centroidX = centroid[0];
+						centroidY = centroid[1];
+					}
+				} else {
+					rotatingWay = false;
 				}
 			}
 		} else {
 			draggingNode = false;
 			draggingWay = false;
+			rotatingWay = false;
 		}
 		if (draggingNode || draggingWay) {
 			createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+		} else if (rotatingWay) {
+			createCheckpoint(R.string.undo_action_rotateway);
 		}
 	}
 
@@ -772,6 +794,23 @@ public class Logic {
 				startLon = lon;
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
+		} else if (rotatingWay) {
+			
+			double aSq = (startY-absoluteY)*(startY-absoluteY) + (startX-absoluteX)*(startX-absoluteX);
+			double bSq = (absoluteY-centroidY)*(absoluteY-centroidY) + (absoluteX-centroidX)*(absoluteX-centroidX);
+			double cSq = (startY-centroidY)*(startY-centroidY) + (startX-centroidX)*(startX-centroidX);
+
+			double cosAngle = (bSq + cSq -aSq)/(2*Math.sqrt(bSq)*Math.sqrt(cSq)); 
+
+			int direction = 1; // 1 clockwise, -1 anti-clockwise
+			if ((startY > centroidY) && (startX > centroidX) && ((startY-absoluteY) > 0)) direction = -1;
+			else if ((startY < centroidY) && (startX < centroidX) && ((startY-absoluteY) < 0)) direction = -1;
+			else if ((startY < centroidY) && (startX > centroidX) && ((startY-absoluteY) > 0)) direction = -1;
+			else if ((startY > centroidY) && (startX < centroidX) && ((startY-absoluteY) < 0)) direction = -1;
+	
+			delegator.rotateWay(selectedWay, (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
+			startY = absoluteY;
+			startX = absoluteX;
 		} else {
 			performTranslation(relativeX, relativeY);
 		}
@@ -779,6 +818,10 @@ public class Logic {
 		map.invalidate();
 	}
 
+	public void setRoationMode() {
+		rotatingWay = true;
+	}
+	
 	/**
 	 * Converts screen-coords to gps-coords and delegates translation to {@link BoundingBox#translate(int, int)}.
 	 * GPS-Following will be disabled.
@@ -1697,7 +1740,7 @@ public class Logic {
 			delegator.copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
 			// use current centroid of way
-			int result[] = GeoMath.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
+			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
 			Log.d("Logic","centroid " + result[0] + " " + result[1]);
 			delegator.copyToClipboard(element, result[0], result[1]);
 		}
@@ -1709,7 +1752,7 @@ public class Logic {
 		if (element instanceof Node) {
 			delegator.cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
-			int result[] = GeoMath.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
+			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
 			Log.d("Logic","centroid " + result[0] + " " + result[1]);
 			delegator.cutToClipboard(element, result[0], result[1]);
 		}
@@ -1727,5 +1770,74 @@ public class Logic {
 		
 		return delegator.clipboardIsEmpty();
 	}
-	
+
+
+	/**
+	 * calculate the centroid of a way
+	 * @param viewvBox 
+	 * @param h 
+	 * @param w 
+	 * @param way
+	 * @return  WS84 coordinates of centroid
+	 */
+	public static int[] centroid(int w, int h, BoundingBox v, final Way way) {
+		float XY[] = centroidXY(w,h,v,way);
+		int lat = GeoMath.yToLatE7(h, v, XY[1]);
+		int lon = GeoMath.xToLonE7(w, v, XY[0]);
+		int result[] = {lat,lon};
+		return result;
+	}
+
+
+	/**
+	 * calculate the centroid of a way
+	 * @param viewvBox 
+	 * @param h 
+	 * @param w 
+	 * @param way
+	 * @return screen coordinates of centroid
+	 */
+	public static float[] centroidXY(int w, int h, BoundingBox v, final Way way) {
+		// 
+		List<Node> vertices = way.getNodes();
+		if (way.isClosed()) {
+			// see http://paulbourke.net/geometry/polygonmesh/
+			double A = 0;
+			double Y = 0;
+			double X = 0;
+			int vs = vertices.size();
+			for (int i = 0; i < vs ; i++ ) {
+				double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
+				double y1 = GeoMath.latE7ToY(h, v, vertices.get(i).getLat());
+				double x2 = GeoMath.lonE7ToX(w, v, vertices.get((i+1) % vs).getLon());
+				double y2 = GeoMath.latE7ToY(h, v, vertices.get((i+1) % vs).getLat());
+				A = A + (x1*y2 - x2*y1);
+				X = X + (x1+x2)*(x1*y2-x2*y1);
+				Y = Y + (y1+y2)*(x1*y2-x2*y1);
+			}
+			Y = Y/(3*A);
+			X = X/(3*A);
+			float result[] = {(float)X, (float)Y};
+			return result;
+		} else { //
+			double L = 0;
+			double Y = 0;
+			double X = 0;
+			int vs = vertices.size();
+			for (int i = 0; i < (vs-1) ; i++ ) {
+				double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
+				double y1 = GeoMath.latE7ToY(h, v, vertices.get(i).getLat());
+				double x2 = GeoMath.lonE7ToX(w, v, vertices.get(i+1).getLon());
+				double y2 = GeoMath.latE7ToY(h, v, vertices.get(i+1).getLat());
+				double len = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+				L = L + len;
+				X = X + len * (x1+x2)/2;
+				Y = Y + len * (y1+y2)/2;
+			}
+			Y = Y/L;
+			X = X/L;
+			float result[] = {(float)X, (float)Y};
+			return result;
+		}	
+	}	
 }

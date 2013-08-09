@@ -1,11 +1,8 @@
 package de.blau.android.util;
 
-import java.util.List;
 
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.Node;
-import de.blau.android.osm.Way;
 
 /**
  * GeoMath provides some calculating functions for mercator projection conversions and other math-utils.
@@ -315,57 +312,5 @@ public class GeoMath {
 			}
 		}
 		return new float[]{cx, cy};
-	}
-	
-	/**
-	 * calculate the centroid of a way
-	 * @param viewvBox 
-	 * @param h 
-	 * @param w 
-	 * @param way
-	 * @return
-	 */
-	public static int[] centroid(int w, int h, BoundingBox v, final Way way) {
-		// calculate in screen coords and convert back
-		List<Node> vertices = way.getNodes();
-		if (way.isClosed()) {
-			// see http://paulbourke.net/geometry/polygonmesh/
-			double A = 0;
-			double lat = 0;
-			double lon = 0;
-			int vs = vertices.size();
-			for (int i = 0; i < vs ; i++ ) {
-				double x1 = lonE7ToX(w, v, vertices.get(i).getLon());
-				double y1 = latE7ToY(h, v, vertices.get(i).getLat());
-				double x2 = lonE7ToX(w, v, vertices.get((i+1) % vs).getLon());
-				double y2 = latE7ToY(h, v, vertices.get((i+1) % vs).getLat());
-				A = A + (x1*y2 - x2*y1);
-				lon = lon + (x1+x2)*(x1*y2-x2*y1);
-				lat = lat + (y1+y2)*(x1*y2-x2*y1);
-			}
-			lat = yToLatE7(h, v, (float)(lat/(3*A)));
-			lon = xToLonE7(w, v, (float)(lon/(3*A)));
-			int result[] = {(int)lat, (int)lon};
-			return result;
-		} else { //
-			double L = 0;
-			double lat = 0;
-			double lon = 0;
-			int vs = vertices.size();
-			for (int i = 0; i < (vs-1) ; i++ ) {
-				double x1 = lonE7ToX(w, v, vertices.get(i).getLon());
-				double y1 = latE7ToY(h, v, vertices.get(i).getLat());
-				double x2 = lonE7ToX(w, v, vertices.get(i+1).getLon());
-				double y2 = latE7ToY(h, v, vertices.get(i+1).getLat());
-				double len = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
-				L = L + len;
-				lon = lon + len * (x1+x2)/2;
-				lat = lat + len * (y1+y2)/2;
-			}
-			lat = yToLatE7(h, v, (float)(lat/L));
-			lon = xToLonE7(w, v, (float)(lon/L));
-			int result[] = {(int)lat, (int)lon};
-			return result;
-		}	
 	}
 }

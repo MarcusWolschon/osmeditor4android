@@ -23,6 +23,7 @@ import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 
@@ -204,7 +205,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
-	 * Mode all nodes in a way, since the nodes keep their ids, the way itself isn't changes and doesn't need to be saved
+	 * Mode all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be saved
 	 * apply translation only once to the first node if way is closed
 	 * @param way
 	 * @param deltaLatE7
@@ -220,6 +221,39 @@ public class StorageDelegator implements Serializable, Exportable {
 				apiStorage.insertElementSafe(nd);
 				nd.setLat(nd.getLat() + deltaLatE7);
 				nd.setLon(nd.getLon() + deltaLonE7);
+				nd.updateState(OsmElement.STATE_MODIFIED);
+			}
+		}
+	}
+	
+	/**
+	 * Rotate all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be saved
+	 * apply translation only once to the first node if way is closed. Rotation is done in screen coords
+	 * @param way
+	 * @param v 
+	 * @param k 
+	 * @param j 
+	 * @param deltaLatE7
+	 * @param deltaLonE7
+	 */
+	public void rotateWay(final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h, BoundingBox v) {
+		// Log.d("StorageDelegator","Roating " + angle + " around " + pivotY + " " + pivotX );
+		dirty = true;
+		Node firstNode = way.getFirstNode();
+		for (int i = 0; i < way.getNodes().size(); i++) { 
+			Node nd = way.getNodes().get(i);
+			if (i == 0 || !nd.equals(firstNode)) {
+				undo.save(nd);
+				apiStorage.insertElementSafe(nd);
+
+				float nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
+				float nodeY = GeoMath.latE7ToY(h, v, nd.getLat());
+				float newX = pivotX + (nodeX-pivotX)*(float)Math.cos(angle) - direction * (nodeY-pivotY)*(float)Math.sin(angle);
+				float newY = pivotY + direction * (nodeX-pivotX)*(float)Math.sin(angle) + (nodeY-pivotY)*(float)Math.cos(angle);
+				int lat = GeoMath.yToLatE7(h, v, newY);
+				int lon = GeoMath.xToLonE7(w, v, newX);
+				nd.setLat(lat);
+				nd.setLon(lon);
 				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
 		}

@@ -341,7 +341,9 @@ public class EasyEditManager {
 			logic.showCrosshairs(x, y);
 			startX = x;
 			startY = y;
-			return isNeeded();
+			// return isNeeded();
+			// always required for paste
+			return true;
 		}
 		
 		@Override
@@ -723,6 +725,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_REVERSE = 8;
 		private static final int MENUITEM_APPEND = 9;
 		private static final int MENUITEM_RESTRICTION = 10;
+		private static final int MENUITEM_ROTATE = 11;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -764,6 +767,7 @@ public class EasyEditManager {
 			if ((((Way)element).getTagWithKey("highway") != null) && (cachedViaElements.size() > 0)) {
 				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(R.drawable.tag_menu_restriction);
 			}	
+			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate);
 			return true;
 		}
 		
@@ -799,6 +803,7 @@ public class EasyEditManager {
 				case MENUITEM_REVERSE: reverseWay(); break;
 				case MENUITEM_APPEND: main.startActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
 				case MENUITEM_RESTRICTION: main.startActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
+				case MENUITEM_ROTATE: logic.setRoationMode(); break;
 				default: return false;
 				}
 			}
