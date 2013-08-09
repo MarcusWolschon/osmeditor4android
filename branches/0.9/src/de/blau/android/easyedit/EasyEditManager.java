@@ -143,10 +143,12 @@ public class EasyEditManager {
 		if (possibleWay == null) {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
+				main.startActionMode(new NodeSelectionActionModeCallback(possibleNode));
 				main.performTagEdit(possibleNode, null);
 			}
 		} else { // way was added
-			main.performTagEdit(possibleWay, null);
+			main.startActionMode(new WaySelectionActionModeCallback(possibleWay));
+			main.performTagEdit(possibleWay, null);		
 		}
 	}
 	

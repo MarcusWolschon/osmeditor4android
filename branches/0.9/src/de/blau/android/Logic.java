@@ -811,10 +811,10 @@ public class Logic {
 			double cosAngle = (bSq + cSq -aSq)/(2*Math.sqrt(bSq)*Math.sqrt(cSq)); 
 
 			int direction = 1; // 1 clockwise, -1 anti-clockwise
-			if ((startY > centroidY) && (startX > centroidX) && ((startY-absoluteY) > 0)) direction = -1;
-			else if ((startY < centroidY) && (startX < centroidX) && ((startY-absoluteY) < 0)) direction = -1;
-			else if ((startY < centroidY) && (startX > centroidX) && ((startY-absoluteY) > 0)) direction = -1;
-			else if ((startY > centroidY) && (startX < centroidX) && ((startY-absoluteY) < 0)) direction = -1;
+			if ((startY >= centroidY) && (startX >= centroidX) && ((startY-absoluteY) > 0)) direction = -1;
+			else if ((startY <= centroidY) && (startX <= centroidX) && ((startY-absoluteY) < 0)) direction = -1;
+			else if ((startY <= centroidY) && (startX >= centroidX) && ((startY-absoluteY) > 0)) direction = -1;
+			else if ((startY >= centroidY) && (startX <= centroidX) && ((startY-absoluteY) < 0)) direction = -1;
 	
 			delegator.rotateWay(selectedWay, (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
 			startY = absoluteY;
