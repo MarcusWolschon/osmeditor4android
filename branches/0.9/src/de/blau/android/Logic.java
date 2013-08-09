@@ -750,12 +750,12 @@ public class Logic {
 					} else {
 						startX = x;
 						startY = y;
-						float centroid[] = Logic.centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWay);
-						centroidX = centroid[0];
-						centroidY = centroid[1];
 					}
 				} else {
-					rotatingWay = false;
+					if (rotatingWay) {
+						rotatingWay = false;
+						hideCrosshairs();
+					}
 				}
 			}
 		} else {
@@ -770,6 +770,14 @@ public class Logic {
 		}
 	}
 
+	public void showCrosshairsForCentroid()
+	{
+		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWay);
+		centroidX = centroid[0];
+		centroidY = centroid[1];
+		showCrosshairs(centroidX,centroidY);	
+	}
+	
 	/**
 	 * Handles a finger-movement on the touchscreen.
 	 * Moves a node when draggingNode was set by {@link #handleTouchEventDown(float, float)}.
@@ -1839,5 +1847,41 @@ public class Logic {
 			float result[] = {(float)X, (float)Y};
 			return result;
 		}	
+	}
+
+	/**
+	 * convienvce function
+	 * @param x
+	 * @return
+	 */
+	public int xtoLonE7(float x) {
+		return GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+	}
+
+	/**
+	 * convienvce function
+	 * @param y
+	 * @return
+	 */
+	public int ytoLonE7(float y) {
+		return GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+	}
+
+	/**
+	 * convienvce function
+	 * @param lon
+	 * @return
+	 */
+	public float lonE7toX(int lon) {
+		return 	GeoMath.lonE7ToX(map.getWidth(), viewBox, lon);
+	}
+
+	/**
+	 * convienvce function
+	 * @param lat
+	 * @return
+	 */
+	public float latE7toY(int lat) {
+		return 	GeoMath.latE7ToY(map.getHeight(), viewBox, lat);
 	}	
 }

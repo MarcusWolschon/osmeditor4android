@@ -318,6 +318,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_PASTE = 3;
 		private float startX;
 		private float startY;
+		private int startLon;
+		private int startLat;
 		private float x;
 		private float y;
 		
@@ -341,6 +343,8 @@ public class EasyEditManager {
 			logic.showCrosshairs(x, y);
 			startX = x;
 			startY = y;
+			startLon = logic.xtoLonE7(x);
+			startLat = logic.ytoLonE7(y);
 			// return isNeeded();
 			// always required for paste
 			return true;
@@ -363,7 +367,7 @@ public class EasyEditManager {
 		 */
 		@Override
 		public boolean handleClick(float x, float y) {
-			PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(startX, startY);
+			PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(logic.lonE7toX(startLon), logic.latE7toY(startLat));
 			main.startActionMode(pcamc);
 			pcamc.handleClick(x, y);
 			logic.hideCrosshairs();
@@ -803,7 +807,7 @@ public class EasyEditManager {
 				case MENUITEM_REVERSE: reverseWay(); break;
 				case MENUITEM_APPEND: main.startActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
 				case MENUITEM_RESTRICTION: main.startActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
-				case MENUITEM_ROTATE: logic.setRoationMode(); break;
+				case MENUITEM_ROTATE: logic.setRoationMode(); logic.showCrosshairsForCentroid(); break;
 				default: return false;
 				}
 			}

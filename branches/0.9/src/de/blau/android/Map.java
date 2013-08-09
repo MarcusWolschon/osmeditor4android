@@ -125,8 +125,8 @@ public class Map extends View implements IMapView {
 	 * support for display a crosshairs at a position
 	 */
 	private boolean showCrosshairs = false;
-	private float crosshairsX = 0;
-	private float crosshairsY = 0;
+	private int crosshairsLat = 0;
+	private int crosshairsLon = 0;
 	
 	static {
 		Method m;
@@ -302,7 +302,7 @@ public class Map extends View implements IMapView {
 		if (showCrosshairs) {
 			Paint paint = Profile.getCurrent(Profile.CROSSHAIRS).getPaint();
 			canvas.save();
-			canvas.translate(crosshairsX, crosshairsY);
+			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getViewBox(),crosshairsLat));
 			canvas.drawPath(Profile.CROSSHAIRS_PATH, paint);
 			canvas.restore();
 		}
@@ -824,8 +824,9 @@ public class Map extends View implements IMapView {
 	
 	public void showCrosshairs(float x, float y) {
 		showCrosshairs = true;
-		crosshairsX = x;
-		crosshairsY = y;
+		// store as lat lon for redraws on translation and zooming
+		crosshairsLat = GeoMath.yToLatE7(getHeight(), getViewBox(), y);
+		crosshairsLon = GeoMath.xToLonE7(getWidth() , getViewBox(), x);
 	}
 	
 	public void hideCrosshairs() {
