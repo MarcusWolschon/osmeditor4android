@@ -1,0 +1,37 @@
+All the translatable text in Vespucci has been concentrated into one file per language called 'strings.xml'.
+
+There are strings elsewhere in Vespucci that would be nice to be translated, but it is currently technically difficult to make them available. The background layer descriptions are one example.
+
+== transifex ==
+
+The translations are managed on transifex: https://www.transifex.com/projects/p/vespucci/
+
+Currently transfex polls the strings.xml in the 0.9 branch for changes, once the branch is merged into trunk that should change to the trunk version. 
+
+=== setting up transifex locally and retrieveing translations ===
+
+==== install ====
+
+get the transifex tx tool see http://support.transifex.com/customer/portal/articles/995605-installation
+
+in your OSMEditor directory execute
+
+tx init
+
+tx set --auto-local -r vespucci.main "res\values-<lang>\strings.xml" --source-lang en --source-file res\values\strings.xml
+(my installation is on a windows machine on *IX "\" -> "/")
+
+this command will generate a list of tx commands but not do anything, normally adding --execute would be enough to complete the installation however due to the special mapping for "cs" it is a tiny bit more involved:
+
+ * exceute all the commands from the list with exception of the one that specifies the mapping for "cs"
+ 
+ * execute tx set -r vespucci.main -l cs res\values-cs-rCZ\strings.xml 
+ 
+ ===== retrieving current translations ====
+ 
+ tx pull -a
+ 
+ will retrieve all translations configured above, skipping up to date translation files
+  
+ NOTE you will have to check if new translations have been added due to the "cs" issue and add such mappings manually 
+ 
