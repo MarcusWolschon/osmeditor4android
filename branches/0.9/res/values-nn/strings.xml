@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Åtvaring!</string>
@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Avbryt og last ned</string>
   <string name="transfer_download_current_back">Gå attende</string>
   <string name="upload_problem_title">Problem med opplasting</string>
-  <string name="upload_problem_message">Noko eller alle data vart ikkje lasta opp. Prøv om att og sjå kva data som feila. Mest truleg har du prøvd å sletta ein node eller veg som er del av ein relasjon. Vespucci stør ikkje relasjonar (enno).</string>
   <string name="no_login_data_title">Manglar brukaropplysningar</string>
   <string name="no_login_data_message">Fyll ut brukaropplysningar for OpenStreetMap under instillingar.</string>
   <string name="no_connection_title">Inkje samband med tenaren</string>
@@ -18,13 +17,9 @@
   <string name="progress_message">Les inn i minne…</string>
   <string name="progress_download_message">Lastar ned data fra tenaren…</string>
   <string name="upload_comment_label">Kommentar:</string>
-  <string name="openstreetbug_new_title">Ny OpenStreetBug</string>
-  <string name="openstreetbug_new_bug">Rapporter OpenStreetBug</string>
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
-  <string name="openstreetbug_edit_title">Endre OpenStreetBug</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <string name="openstreetbug_edit_close">Lukk feil</string>
   <string name="openstreetbug_commit_ok">Endringar lagra</string>
   <string name="openstreetbug_commit_fail">Kunne ikkje lagra endringar</string>
   <string name="unsaved_data_title">Åtvaring!</string>
@@ -80,7 +75,6 @@
   <string name="menu_split">Kløyv</string>
   <string name="menu_append">Hald fram</string>
   <string name="menu_tag">Endre tagger</string>
-  <string name="menu_openstreetbug">Legg inn OpenStreetBug</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis plassering</string>
   <string name="menu_gps_follow">Følj GPS-posisjon</string>
@@ -101,8 +95,6 @@
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
-  <string name="toast_oneway_reversed">Du har snudd ei einvegsgate. Kontroller einvegstaggen og rett den om nødvendig.</string>
-  <string name="deleteway_description">Du skal til å slette ein veg. Du kan enten halda på alle nodane, eller sletta nodar som berre høyrer til denne vegen, og ikkje har nokon taggar.</string>
   <string name="deleteway_wayonly">Slett berre vegen</string>
   <string name="deleteway_wayandnodes">Slett veg og nodar</string>
   <!--EasyEdit action mode titles-->
@@ -111,21 +103,17 @@
   <string name="actionmode_createpath">Lagar bane</string>
   <!--Preferences-->
   <string name="config_category_view">Vis innstillingar</string>
-  <string name="config_maxStrokeWidth_title">maksimum strekbreidd</string>
-  <string name="config_maxStrokeWidth_summary">ikkje teikn vegar tjukkare enn dette</string>
   <string name="config_showStats_title">Vis statistikk</string>
   <string name="config_showStats_summary">Viser datastatistikk og bilete/sek i nederste venstre hjørne.</string>
   <string name="config_showTolerance_title">Vis endringsområde</string>
-  <string name="config_showTolerance_summary">Visar område der element kan veljast.</string>
+  <string name="config_showTolerance_summary">Viser område der element kan veljast.</string>
   <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string>
-  <string name="config_enableAntiAliasing_summary">Gjer linjene mjukare.</string>
-  <string name="config_enableOpenStreetBugs_title">Slå på OpenStreetBugs</string>
-  <string name="config_enableOpenStreetBugs_summary">Vis feilrapportar frå OpenStreetBugs.</string>
   <string name="config_backgroundLayer_title">Kartbakgrunn</string>
   <string name="config_backgroundLayer_summary">Førehandsteikna kartbakgrunn</string>
   <string name="config_category_server">Tenar-innstillingar</string>
   <string name="config_apibutton_summary">Her kan du spesifisera ein ustandard API URL. Skal normalt ikkje endrast!</string>
   <string name="config_presetbutton_title">JOSM-knappar</string>
+  <string name="config_presetbutton_summary">Legg inn eige JOSM-knappesett.</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passar best på nodar.</string>
   <string name="config_loginbutton_title">Brukarkonto</string>
@@ -194,4 +182,6 @@
   <string name="pref_enable_acra">Rapporter program-krasjar</string>
   <string name="pref_acra_enabled">Krasjrapportering slått på</string>
   <string name="pref_acra_disabled">Krasjrapportering slått av</string>
+  <!--Misc relation related stuff-->
+  <!---->
 </resources>

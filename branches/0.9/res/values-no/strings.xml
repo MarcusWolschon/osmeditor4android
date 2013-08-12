@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Avbryt og last ned</string>
   <string name="transfer_download_current_back">Gå tilbake</string>
   <string name="upload_problem_title">Problem med opplasting</string>
-  <string name="upload_problem_message">Noe eller alle data ble ikke lasta opp. Prøv om igjen og se hva data som feila. Mest trolig har du prøvd å slette en node eller veg som er del av en relasjon. Vespucci støtter ikke relasjoner (enda).</string>
   <string name="no_login_data_title">Mangler brukeropplysninger</string>
   <string name="no_login_data_message">Fyll ut brukeropplysninger for OpenStreetMap under instillinger.</string>
   <string name="no_connection_title">Intet samband med teneren</string>
@@ -18,13 +17,9 @@
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>
   <string name="upload_comment_label">Kommentar:</string>
-  <string name="openstreetbug_new_title">Ny OpenStreetBug</string>
-  <string name="openstreetbug_new_bug">Rapporter OpenStreetBug</string>
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
-  <string name="openstreetbug_edit_title">Endre OpenStreetBug</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <string name="openstreetbug_edit_close">Lukk feil</string>
   <string name="openstreetbug_commit_ok">Endringer lagra</string>
   <string name="openstreetbug_commit_fail">Kunne ikke lagre endringer</string>
   <string name="unsaved_data_title">Advarsel!</string>
@@ -62,9 +57,12 @@
   <string name="location_text_unknown">ukjent</string>
   <string name="location_last_text_parameterized">Siste kjente posisjon: %1$s</string>
   <string name="location_current_text_parameterized">Nåværende posisjon: %1$s</string>
+  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
   <string name="location_text_metadata_accuracy">Nøyaktighet %1$1g meter,</string>
   <string name="location_map_text">Fra kart (kommer snart):</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
+  <string name="location_lat_label">Lat:</string>
+  <string name="location_lon_label">Lon:</string>
   <string name="location_load_button">Hent!</string>
   <string name="location_button_no_location">Ikke hent noe</string>
   <string name="location_label_no_location">(anbefales ikke)</string>
@@ -80,7 +78,6 @@
   <string name="menu_split">Kløyv</string>
   <string name="menu_append">Fortsett</string>
   <string name="menu_tag">Endre tagger</string>
-  <string name="menu_openstreetbug">Legg inn OpenStreetBug</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis plassering</string>
   <string name="menu_gps_follow">Følg GPS-posisjon</string>
@@ -101,8 +98,6 @@
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
-  <string name="toast_oneway_reversed">Du har snudd ei envegsgate. Kontroller envegstaggen og rett den om nødvendig.</string>
-  <string name="deleteway_description">Du skal til å slette en veg. Du kan enten beholde alle nodene, eller slette noder som bare hører til denne vegen, og ikke har noen tagger.</string>
   <string name="deleteway_wayonly">Slett bare vegen</string>
   <string name="deleteway_wayandnodes">Slett veg og noder</string>
   <!--EasyEdit action mode titles-->
@@ -111,16 +106,11 @@
   <string name="actionmode_createpath">Lager bane</string>
   <!--Preferences-->
   <string name="config_category_view">Vis innstillinger</string>
-  <string name="config_maxStrokeWidth_title">maksimum strekbredde</string>
-  <string name="config_maxStrokeWidth_summary">ikke tegn veger tykkere enn dette</string>
   <string name="config_showStats_title">Vis statistikk</string>
   <string name="config_showStats_summary">Viser datastatistikk og bilde/sek i nederste venstre hjørne.</string>
   <string name="config_showTolerance_title">Vis endringsområde</string>
   <string name="config_showTolerance_summary">Viser område hvor elementer kan velges.</string>
   <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string>
-  <string name="config_enableAntiAliasing_summary">Gjør linjene mykere.</string>
-  <string name="config_enableOpenStreetBugs_title">Slå på OpenStreetBugs</string>
-  <string name="config_enableOpenStreetBugs_summary">Vis feilrapporter fra OpenStreetBugs.</string>
   <string name="config_backgroundLayer_title">Kartbakgrunn</string>
   <string name="config_backgroundLayer_summary">Forehåndstegna kartbakgrunn</string>
   <string name="config_category_server">Tener-innstillinger</string>
@@ -194,4 +184,6 @@
   <string name="pref_enable_acra">Rapporter program-krasjer</string>
   <string name="pref_acra_enabled">Krasjrapportering slått på</string>
   <string name="pref_acra_disabled">Krasjrapportering slått av</string>
+  <!--Misc relation related stuff-->
+  <!---->
 </resources>

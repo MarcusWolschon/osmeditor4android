@@ -1,205 +1,194 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Dialogs -->
-    <string name="transfer_download_current_dialog_title">Attention !</string>
-    <string name="transfer_download_current_dialog_message">Il peut y avoir des changements. Voulez-vous les envoyer plutôt qu\'annuler ?</string>
-    <string name="transfer_download_current_upload">Envoi</string>
-    <string name="transfer_download_current_download">Annuler &amp; recevoir</string>
-    <string name="transfer_download_current_back">Retour (ne fait rien)</string>
-    <string name="upload_problem_title">Problème d\'envoi</string>
-    <string name="upload_problem_message">Toutes ou partie des données n\'ont pas été envoyées. Essayez d\'envoyer les données à nouveau pour voir ce qui a échoué. Le plus probable est une tentative de de suppression d\'un noeud ou d\'un chemin appartenant à une relation ; Vespucci ne gère pas (encore) les relations.</string>
-    <string name="no_login_data_title">Pas de nom d\'utilisateur</string>
-    <string name="no_login_data_message">Veuillez remplir le nom d\'utilisateur OSM dans les préférences.</string>
-    <string name="no_connection_title">Pas de connexion au Serveur</string>
-    <string name="no_connection_message">Ne peut pas se connecter au Serveur OSM. Veuillez vérifier votre connexion Internet ou essayez plus tard.</string>
-    <string name="wrong_login_data_title">Mauvais nom d\'utilisateur</string>
-    <string name="wrong_login_data_message">Le Serveur OSM ne peut pas vous authentifier. Veuillez vérifier votre nom d\'utilisateur dans les préférences.</string>
-    <string name="progress_title">Chargement</string>
-    <string name="progress_message">Chargement des données en mémoire…</string>
-    <string name="progress_download_message">Récupération des données du serveur…</string>
-    <string name="upload_comment_label">Commentaire:</string>
-    <string name="openstreetbug_new_title">Nouveau bug OpenStreetBug</string>
-    <string name="openstreetbug_new_bug">Signaler à OpenStreetBug</string>
-    <string name="openstreetbug_new_nodeway">Créer un noeud/chemin</string>
-    <string name="openstreetbug_edit_title">Modifier OpenStreetBug</string>
-    <string name="openstreetbug_commitbutton">Envoyer</string>
-    <string name="openstreetbug_comment_label">Commentaire:</string>
-    <string name="openstreetbug_edit_close">Fermer le bug</string>
-    <string name="openstreetbug_commit_ok">Modifications prises en compte</string>
-    <string name="openstreetbug_commit_fail">Erreur d\'enregistrement des modifications</string>
-    <string name="unsaved_data_title">Attention !</string>
-    <string name="unsaved_data_message">Des modifications non enregistrées seront abandonnées si vous continuez.</string>
-    <string name="unsaved_data_proceed">Continuer sans enregistrer</string>
-    <!-- Toaster -->
-    <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
-    <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
-    <string name="toast_not_in_edit_range">Veuillez zoomer pour éditer (Volume +/- ou Loupe/Shift)</string>
-    <string name="toast_save_done">Sauvegarde effectuée</string>
-    <string name="toast_not_in_bug_range">Veuillez zoomer pour ajouter un bug (Volume +/- ou Loupe/Shift)</string>
-    <string name="toast_export_failed">L\'export a échoué</string>
-    <string name="toast_export_success">Exporté vers %1$s</string>
-    <string name="toast_preset_overwrote_tags">Note : l\'application des attributs prédéfinis a écrasé un ou plusieurs attributs</string>
-    <!-- Some generic labels -->
-    <string name="yes">Oui</string>
-    <string name="no">Non</string>
-    <string name="okay">Valider</string>
-    <string name="cancel">Annuler</string>
-    <!-- Strings in TagEditor -->
-    <string name="key">clé</string>
-    <string name="value">valeur</string>
-    <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
-    <string name="tag_menu_sourcesurvey">Surveyed</string>
-    <string name="tag_menu_preset">Définitions</string>
-    <string name="tag_menu_repeat">Répéter</string>
-    <string name="tag_menu_revert">Annuler</string>
-    <string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
-    <!-- Strings in LocationPicker -->
-    <string name="location_headline">Charger Zone</string>
-    <string name="location_choose_radius">Choisir le rayon :</string>
-    <string name="location_default_radius">300m</string>
-    <string name="location_last_text">Dernier endroit visité :</string>
-    <string name="location_current_text">Endroit courant :</string>
-    <string name="location_text_unknown">inconnu</string>
-    <string name="location_last_text_parameterized">Dernier endroit visité: %1$s</string>
-    <string name="location_current_text_parameterized">Endroit courant: %1$s</string>
-    <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-    <string name="location_text_metadata_accuracy">Précision %1$1g m,</string>
-    <string name="location_map_text">Depuis carte (à venir bientôt)</string>
-    <string name="location_coordinates_text">Depuis coordonnées :</string>
-    <string name="location_lat_label">Lat :</string>
-    <string name="location_lon_label">Lon :</string>
-    <string name="location_load_button">Charger !</string>
-    <string name="location_button_no_location">Ne rien charger</string>
-    <string name="location_label_no_location">(non recommandé)</string>
-    <string name="location_nan_title">Mauvaise valeur d\'entrée !</string>
-    <string name="location_nan_message">Veuillez entrer les coordonnées avec décimales (ex. "52.333572","8.741185"). Lat doit être entre -85.0 et +85.0, et Lon doit être entre -175.0 et +175.0.</string>
-    <!-- Menu -->
-    <string name="menu_move">Naviguer</string>
-    <string name="menu_edit">Déplacer</string>
-    <string name="menu_add">Ajouter</string>
-    <string name="menu_config">Préférences</string>
-    <string name="menu_help">Aide</string>
-    <string name="menu_erase">Supprimer noeud</string>
-    <string name="menu_split">Scinder</string>
-    <string name="menu_append">Continuer</string>
-    <string name="menu_tag">Éditer tags</string>
-    <string name="menu_openstreetbug">Classeur OpenStreetBug</string>
-    <string name="menu_easyedit">EasyEdit</string>
-    <string name="menu_gps">GPS…</string>
-    <string name="menu_gps_show">Dessiner la position</string>
-    <string name="menu_gps_follow">Suivre la position du GPS</string>
-    <string name="menu_gps_start">Démarrer la trace GPS</string>
-    <string name="menu_gps_pause">Mettre en pause la trace GPS</string>
-    <string name="menu_gps_clear">Effacer la trace GPS</string>
-    <string name="menu_gps_upload">Envoi de la trace GPS</string>
-    <string name="menu_gps_export">Export de la trace GPS</string>
-    <string name="menu_transfer">Transfert des données…</string>
-    <string name="menu_transfer_download_current">Télécharger vue courante</string>
-    <string name="menu_transfer_download_other">Télécharger autre endroit…</string>
-    <string name="menu_transfer_upload">Envoi des données au serveur OSM</string>
-    <string name="menu_transfer_export">Export des modifications</string>
-    <string name="menu_save">Sauvegarde vers fichier</string>
-    <!-- element action mode menu -->
-    <string name="menu_tags">Tags</string>
-    <!-- Text should be as short as possible -->
-    <string name="menu_history">Historique</string>
-    <string name="menu_merge">Fusionner</string>
-    <string name="menu_reverse">Inverser</string>
-    <string name="toast_oneway_reversed">Vous avez inversé une route à sens unique. Merci de vérifier le tag oneway et de le corriger si nécessaire</string>
-    <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin. Vous pouvez soit conserver tous ses noeuds, soit supprimer les noeuds sans tags et n\'appartenant qu\'à ce chemin.</string>
-    <string name="deleteway_wayonly">Supprimer le chemin seulement</string>
-    <string name="deleteway_wayandnodes">Supprimer le chemin et ses noeuds</string>
-    <!-- EasyEdit action mode titles -->
-    <string name="actionmode_wayselect">Chemin sélectionné</string>
-    <string name="actionmode_nodeselect">Noeud sélectionné</string>
-    <string name="actionmode_createpath">Création du chemin</string>
-    <!-- Preferences -->
-    <string name="config_category_view">Voir Paramètres</string>
-    <string name="config_maxStrokeWidth_title">Largeur maxi de trait</string>
-    <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça</string>
-    <string name="config_showStats_title">Voir Statistiques</string>
-    <string name="config_showStats_summary">Affiche les stats et les images/sec dans le coin en bas à gauche.</string>
-    <string name="config_showTolerance_title">Voir Zone de Sélection</string>
-    <string name="config_showTolerance_summary">Affiche la zone où un élément a été sélectionné.</string>
-    <string name="config_enableAntiAliasing_title">Active l\'Anti-Aliasing</string>
-    <string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
-    <string name="config_enableOpenStreetBugs_title">Permettre OpenStreetBugs</string>
-    <string name="config_enableOpenStreetBugs_summary">Afficher les bugs signalés à OpenStreetBugs.</string>
-    <string name="config_backgroundLayer_title">Arrière-plan de la carte</string>
-    <string name="config_backgroundLayer_summary">Arrière-plan affiché derrière les données de la carte.</string>
-    <string name="config_category_server">Paramètres du serveur</string>
-    <string name="config_apibutton_title">URL de l\'API OSM</string>
-    <string name="config_apibutton_summary">Vous pouvez indiquer ici une URL non standard de l\'API. Ne pas modifier sans savoir ce que vous faites !</string>
-    <string name="config_presetbutton_title">Définitions d\'attributs JOSM</string>
-    <string name="config_presetbutton_summary">Vous pouvez installer ici des définitions d\'éléments cartographiques.</string>
-    <string name="config_iconbutton_title">Dessiner les icônes sur les noeuds</string>
-    <string name="config_iconbutton_summary">Afficher sur les noeuds l\'icône de la définition la plus proche.</string>
-    <string name="config_loginbutton_title">Compte d\'utilisateur</string>
-    <string name="config_username_title">Nom d\'utilisateur OSM</string>
-    <string name="config_username_summary">Nécessaire pour envoyer les données OSM. Créez-en un sur openstreetmap.org/user/new</string>
-    <string name="config_password_title">Mot de passe OSM</string>
-    <string name="config_password_summary">Ne pas confondre avec le mot de passe Wiki. Attention : stocké et transmis en clair !</string>
-    <string name="config_category_gps">Paramètres GPS</string>
-    <string name="config_gps_distance_title">Distance GPS Minimum</string>
-    <string name="config_gps_distance_summary">Distance de notification, en mètres (float). Les petites valeurs consomment la batterie.</string>
-    <string name="config_gps_interval_title">Intervalle Temps GPS Minimum</string>
-    <string name="config_gps_interval_summary">Temps de notification, en millisecondes. Les petites valeurs consomment la batterie.</string>
-    <string name="config_category_info">A propos</string>
-    <string name="config_licensebutton_title">Auteurs et licences</string>
-    <string name="config_licensebutton_summary">Afficher la liste des auteurs et les informations sur la licence.</string>
-    <!-- preset downloader messages -->
-    <string name="preset_update">Mettre à jour les définitions d\'éléments prédéfinis</string>
-    <string name="preset_download_successful">Définitions téléchargées avec succès</string>
-    <string name="preset_download_failed">Le fichier de définitions n\'a pas pu être téléchargé. Ces définitions ne fonctionneront pas.</string>
-    <string name="preset_download_parse_failed">Le fichier de définitions est invalide. Ces définitions ne fonctionneront pas.</string>
-    <string name="preset_download_missing_images">Le fichier de définitions a correctement été téléchargé. Cependant, le téléchargement de certaines icônes a échoué ; celles-ci seront donc manquantes.</string>
-    <!--  changes -->
-    <string name="changes_deleted">"%1$s" supprimé</string>
-    <string name="changes_changed">"%1$s" modifié</string>
-    <string name="changes_created">"%1$s" créé</string>
-    <string name="confirm_upload_title">Envoyer ?</string>
-    <string name="confirm_upload_text">Envoyer les modifications suivantes ?\n%1$s</string>
-    <!--  url handler activity -->
-    <string name="urldialog_add_preset">Ajouter un ensemble de définitions</string>
-    <string name="urldialog_preset_exists">Ces définitions existent déjà</string>
-    <string name="urldialog_api_exists">Une API avec cette URL existe déjà. Néanmoins, vous pouvez en ajouter une nouvelle (par exemple, pour changer facilement de compte).</string>
-    <string name="urldialog_api_preset_missing">Les définitions utilisées par cette API ne sont pas disponibles. Vous devriez les ajouter d\'abord.</string>
-    <string name="urldialog_add_api">Ajouter une API</string>
-    <string name="urldialog_nodata_text">L\'URL de configuration ne contient pas de données valides.</string>
-    <!--  common terms  -->
-    <string name="add">Ajouter</string>
-    <string name="edit">Modifier</string>
-    <string name="delete">Supprimer</string>
-    <string name="name">Nom</string>
-    <string name="url">URL</string>
-    <string name="default_">Défaut</string>
-    <!-- "default" is a reserved Java keyword... -->
-    <string name="preset">Définitions d\'attributs</string>
-    <string name="api">API</string>
-    <string name="undo">Défaire</string>
-    <string name="redo">Refaire</string>
-    <string name="undo_nothing">Plus rien à défaire</string>
-    <string name="tracking_active_title">Enregistrement de trace GPS en cours</string>
-    <string name="tracking_active_text">Vespucci enregistre une trace GPS</string>
-    <string name="gps_failure">Échec de l\'activation du GPS</string>
-    <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
-    <string name="undo_action_movenode">déplacement de noeud</string>
-    <string name="undo_action_add">ajout</string>
-    <string name="undo_action_append">prolongation</string>
-    <string name="undo_action_deletenode">suppression noeud</string>
-    <string name="undo_action_deleteway">suppression chemin</string>
-    <string name="undo_action_split_ways">scinder des chemins</string>
-    <string name="undo_action_split_way">scinder un chemin</string>
-    <string name="undo_action_merge_ways">fusion chemins</string>
-    <string name="undo_action_reverse_way">inversion chemin</string>
-    <string name="undo_action_set_tags">valorisation tags</string>
-    <!--  ACRA -->
-    <string name="crash_notif_ticker_text">Vespucci a planté. Merci d\'envoyer un rapport d\'erreur.</string>
-    <string name="crash_notif_title">Vespucci a planté</string>
-    <string name="crash_notif_text">Merci de cliquer ici pour aider à résoudre ce problème.</string>
-    <string name="crash_dialog_text">Une erreur inattendue s\'est produite, obligeant l\'application à s\'arrêter. S\'il vous plait, aidez nous à résoudre ce problème en nous envoyant les données relatives à l\'erreur. Tout ce que vous avez à faire est de cliquer sur \'OK\'.</string>
-    <string name="config_category_acra">Rapport de plantage</string>
-    <string name="pref_enable_acra">Signaler le plantage de l\'application</string>
-    <string name="pref_acra_enabled">Autoriser le rapport de plantage</string>
-    <string name="pref_acra_disabled">Interdire le rapport de plantage</string>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Attention !</string>
+  <string name="transfer_download_current_dialog_message">Il peut y avoir des changements. Voulez-vous les envoyer plutôt qu\'annuler ?</string>
+  <string name="transfer_download_current_upload">Envoi</string>
+  <string name="transfer_download_current_download">Annuler &amp; recevoir</string>
+  <string name="transfer_download_current_back">Retour (ne fait rien)</string>
+  <string name="upload_problem_title">Problème d\'envoi</string>
+  <string name="no_login_data_title">Pas de nom d\'utilisateur</string>
+  <string name="no_login_data_message">Veuillez remplir le nom d\'utilisateur OSM dans les préférences.</string>
+  <string name="no_connection_title">Pas de connexion au Serveur</string>
+  <string name="no_connection_message">Ne peut pas se connecter au Serveur OSM. Veuillez vérifier votre connexion Internet ou essayez plus tard.</string>
+  <string name="wrong_login_data_title">Mauvais nom d\'utilisateur</string>
+  <string name="wrong_login_data_message">Le Serveur OSM ne peut pas vous authentifier. Veuillez vérifier votre nom d\'utilisateur dans les préférences.</string>
+  <string name="progress_title">Chargement</string>
+  <string name="progress_message">Chargement des données en mémoire…</string>
+  <string name="progress_download_message">Récupération des données du serveur…</string>
+  <string name="upload_comment_label">Commentaire:</string>
+  <string name="openstreetbug_new_nodeway">Créer un noeud/chemin</string>
+  <string name="openstreetbug_commitbutton">Envoyer</string>
+  <string name="openstreetbug_comment_label">Commentaire:</string>
+  <string name="openstreetbug_commit_ok">Modifications prises en compte</string>
+  <string name="openstreetbug_commit_fail">Erreur d\'enregistrement des modifications</string>
+  <string name="unsaved_data_title">Attention !</string>
+  <string name="unsaved_data_message">Des modifications non enregistrées seront abandonnées si vous continuez.</string>
+  <string name="unsaved_data_proceed">Continuer sans enregistrer</string>
+  <!--Toaster-->
+  <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
+  <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
+  <string name="toast_not_in_edit_range">Veuillez zoomer pour éditer (Volume +/- ou Loupe/Shift)</string>
+  <string name="toast_save_done">Sauvegarde effectuée</string>
+  <string name="toast_not_in_bug_range">Veuillez zoomer pour ajouter un bug (Volume +/- ou Loupe/Shift)</string>
+  <string name="toast_export_failed">L\'export a échoué</string>
+  <string name="toast_export_success">Exporté vers %1$s</string>
+  <string name="toast_preset_overwrote_tags">Note : l\'application des attributs prédéfinis a écrasé un ou plusieurs attributs</string>
+  <!--Some generic labels-->
+  <string name="yes">Oui</string>
+  <string name="no">Non</string>
+  <string name="okay">Valider</string>
+  <string name="cancel">Annuler</string>
+  <!--Strings in TagEditor-->
+  <string name="key">clé</string>
+  <string name="value">valeur</string>
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
+  <string name="tag_menu_sourcesurvey">Surveyed</string>
+  <string name="tag_menu_preset">Définitions</string>
+  <string name="tag_menu_repeat">Répéter</string>
+  <string name="tag_menu_revert">Annuler</string>
+  <string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
+  <!--Strings in LocationPicker-->
+  <string name="location_headline">Charger Zone</string>
+  <string name="location_choose_radius">Choisir le rayon :</string>
+  <string name="location_default_radius">300m</string>
+  <string name="location_last_text">Dernier endroit visité :</string>
+  <string name="location_current_text">Endroit courant :</string>
+  <string name="location_text_unknown">inconnu</string>
+  <string name="location_last_text_parameterized">Dernier endroit visité: %1$s</string>
+  <string name="location_current_text_parameterized">Endroit courant: %1$s</string>
+  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+  <string name="location_text_metadata_accuracy">Précision %1$1g m,</string>
+  <string name="location_map_text">Depuis carte (à venir bientôt)</string>
+  <string name="location_coordinates_text">Depuis coordonnées :</string>
+  <string name="location_lat_label">Lat :</string>
+  <string name="location_lon_label">Lon :</string>
+  <string name="location_load_button">Charger !</string>
+  <string name="location_button_no_location">Ne rien charger</string>
+  <string name="location_label_no_location">(non recommandé)</string>
+  <string name="location_nan_title">Mauvaise valeur d\'entrée !</string>
+  <string name="location_nan_message">Veuillez entrer les coordonnées avec décimales (ex. \"52.333572\",\"8.741185\"). Lat doit être entre -85.0 et +85.0, et Lon doit être entre -175.0 et +175.0.</string>
+  <!--Menu-->
+  <string name="menu_move">Naviguer</string>
+  <string name="menu_edit">Déplacer</string>
+  <string name="menu_add">Ajouter</string>
+  <string name="menu_config">Préférences</string>
+  <string name="menu_help">Aide</string>
+  <string name="menu_erase">Supprimer noeud</string>
+  <string name="menu_split">Scinder</string>
+  <string name="menu_append">Continuer</string>
+  <string name="menu_tag">Éditer tags</string>
+  <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_gps">GPS…</string>
+  <string name="menu_gps_show">Dessiner la position</string>
+  <string name="menu_gps_follow">Suivre la position du GPS</string>
+  <string name="menu_gps_start">Démarrer la trace GPS</string>
+  <string name="menu_gps_pause">Mettre en pause la trace GPS</string>
+  <string name="menu_gps_clear">Effacer la trace GPS</string>
+  <string name="menu_gps_upload">Envoi de la trace GPS</string>
+  <string name="menu_gps_export">Export de la trace GPS</string>
+  <string name="menu_transfer">Transfert des données…</string>
+  <string name="menu_transfer_download_current">Télécharger vue courante</string>
+  <string name="menu_transfer_download_other">Télécharger autre endroit…</string>
+  <string name="menu_transfer_upload">Envoi des données au serveur OSM</string>
+  <string name="menu_transfer_export">Export des modifications</string>
+  <string name="menu_save">Sauvegarde vers fichier</string>
+  <!--element action mode menu-->
+  <string name="menu_tags">Tags</string>
+  <!--Text should be as short as possible-->
+  <string name="menu_history">Historique</string>
+  <string name="menu_merge">Fusionner</string>
+  <string name="menu_reverse">Inverser</string>
+  <string name="deleteway_wayonly">Supprimer le chemin seulement</string>
+  <string name="deleteway_wayandnodes">Supprimer le chemin et ses noeuds</string>
+  <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Chemin sélectionné</string>
+  <string name="actionmode_nodeselect">Noeud sélectionné</string>
+  <string name="actionmode_createpath">Création du chemin</string>
+  <!--Preferences-->
+  <string name="config_category_view">Voir Paramètres</string>
+  <string name="config_showStats_title">Voir Statistiques</string>
+  <string name="config_showStats_summary">Affiche les stats et les images/sec dans le coin en bas à gauche.</string>
+  <string name="config_showTolerance_title">Voir Zone de Sélection</string>
+  <string name="config_showTolerance_summary">Affiche la zone où un élément a été sélectionné.</string>
+  <string name="config_enableAntiAliasing_title">Active l\'Anti-Aliasing</string>
+  <string name="config_backgroundLayer_title">Arrière-plan de la carte</string>
+  <string name="config_backgroundLayer_summary">Arrière-plan affiché derrière les données de la carte.</string>
+  <string name="config_category_server">Paramètres du serveur</string>
+  <string name="config_apibutton_title">URL de l\'API OSM</string>
+  <string name="config_apibutton_summary">Vous pouvez indiquer ici une URL non standard de l\'API. Ne pas modifier sans savoir ce que vous faites !</string>
+  <string name="config_presetbutton_title">Définitions d\'attributs JOSM</string>
+  <string name="config_presetbutton_summary">Vous pouvez installer ici des définitions d\'éléments cartographiques.</string>
+  <string name="config_iconbutton_title">Dessiner les icônes sur les noeuds</string>
+  <string name="config_iconbutton_summary">Afficher sur les noeuds l\'icône de la définition la plus proche.</string>
+  <string name="config_loginbutton_title">Compte d\'utilisateur</string>
+  <string name="config_username_title">Nom d\'utilisateur OSM</string>
+  <string name="config_username_summary">Nécessaire pour envoyer les données OSM. Créez-en un sur openstreetmap.org/user/new</string>
+  <string name="config_password_title">Mot de passe OSM</string>
+  <string name="config_password_summary">Ne pas confondre avec le mot de passe Wiki. Attention : stocké et transmis en clair !</string>
+  <string name="config_category_gps">Paramètres GPS</string>
+  <string name="config_gps_distance_title">Distance GPS Minimum</string>
+  <string name="config_gps_distance_summary">Distance de notification, en mètres (float). Les petites valeurs consomment la batterie.</string>
+  <string name="config_gps_interval_title">Intervalle Temps GPS Minimum</string>
+  <string name="config_gps_interval_summary">Temps de notification, en millisecondes. Les petites valeurs consomment la batterie.</string>
+  <string name="config_category_info">A propos</string>
+  <string name="config_licensebutton_title">Auteurs et licences</string>
+  <string name="config_licensebutton_summary">Afficher la liste des auteurs et les informations sur la licence.</string>
+  <!--preset downloader messages-->
+  <string name="preset_update">Mettre à jour les définitions d\'éléments prédéfinis</string>
+  <string name="preset_download_successful">Définitions téléchargées avec succès</string>
+  <string name="preset_download_failed">Le fichier de définitions n\'a pas pu être téléchargé. Ces définitions ne fonctionneront pas.</string>
+  <string name="preset_download_parse_failed">Le fichier de définitions est invalide. Ces définitions ne fonctionneront pas.</string>
+  <string name="preset_download_missing_images">Le fichier de définitions a correctement été téléchargé. Cependant, le téléchargement de certaines icônes a échoué ; celles-ci seront donc manquantes.</string>
+  <!--changes-->
+  <string name="changes_deleted">\"%1$s\" supprimé</string>
+  <string name="changes_changed">\"%1$s\" modifié</string>
+  <string name="changes_created">\"%1$s\" créé</string>
+  <string name="confirm_upload_title">Envoyer ?</string>
+  <string name="confirm_upload_text">Envoyer les modifications suivantes ?\n%1$s</string>
+  <!--url handler activity-->
+  <string name="urldialog_add_preset">Ajouter un ensemble de définitions</string>
+  <string name="urldialog_preset_exists">Ces définitions existent déjà</string>
+  <string name="urldialog_api_exists">Une API avec cette URL existe déjà. Néanmoins, vous pouvez en ajouter une nouvelle (par exemple, pour changer facilement de compte).</string>
+  <string name="urldialog_api_preset_missing">Les définitions utilisées par cette API ne sont pas disponibles. Vous devriez les ajouter d\'abord.</string>
+  <string name="urldialog_add_api">Ajouter une API</string>
+  <string name="urldialog_nodata_text">L\'URL de configuration ne contient pas de données valides.</string>
+  <!--common terms-->
+  <string name="add">Ajouter</string>
+  <string name="edit">Modifier</string>
+  <string name="delete">Supprimer</string>
+  <string name="name">Nom</string>
+  <string name="url">URL</string>
+  <string name="default_">Défaut</string>
+  <!--"default" is a reserved Java keyword...-->
+  <string name="preset">Définitions d\'attributs</string>
+  <string name="api">API</string>
+  <string name="undo">Défaire</string>
+  <string name="redo">Refaire</string>
+  <string name="undo_nothing">Plus rien à défaire</string>
+  <string name="tracking_active_title">Enregistrement de trace GPS en cours</string>
+  <string name="tracking_active_text">Vespucci enregistre une trace GPS</string>
+  <string name="gps_failure">Échec de l\'activation du GPS</string>
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">déplacement de noeud</string>
+  <string name="undo_action_add">ajout</string>
+  <string name="undo_action_append">prolongation</string>
+  <string name="undo_action_deletenode">suppression noeud</string>
+  <string name="undo_action_deleteway">suppression chemin</string>
+  <string name="undo_action_split_ways">scinder des chemins</string>
+  <string name="undo_action_split_way">scinder un chemin</string>
+  <string name="undo_action_merge_ways">fusion chemins</string>
+  <string name="undo_action_reverse_way">inversion chemin</string>
+  <string name="undo_action_set_tags">valorisation tags</string>
+  <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci a planté. Merci d\'envoyer un rapport d\'erreur.</string>
+  <string name="crash_notif_title">Vespucci a planté</string>
+  <string name="crash_notif_text">Merci de cliquer ici pour aider à résoudre ce problème.</string>
+  <string name="crash_dialog_text">Une erreur inattendue s\'est produite, obligeant l\'application à s\'arrêter. S\'il vous plait, aidez nous à résoudre ce problème en nous envoyant les données relatives à l\'erreur. Tout ce que vous avez à faire est de cliquer sur \'OK\'.</string>
+  <string name="config_category_acra">Rapport de plantage</string>
+  <string name="pref_enable_acra">Signaler le plantage de l\'application</string>
+  <string name="pref_acra_enabled">Autoriser le rapport de plantage</string>
+  <string name="pref_acra_disabled">Interdire le rapport de plantage</string>
+  <!--Misc relation related stuff-->
+  <!---->
 </resources>

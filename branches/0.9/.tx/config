@@ -1,0 +1,27 @@
+[main]
+host = https://www.transifex.com
+
+[vespucci.main]
+source_file = res/values/strings.xml
+source_lang = en
+trans.ca = res/values-ca/strings.xml
+trans.cs = res/values-cs-rCZ/strings.xml
+trans.da = res/values-da/strings.xml
+trans.de = res/values-de/strings.xml
+trans.es = res/values-es/strings.xml
+trans.eu = res/values-eu/strings.xml
+trans.fr = res/values-fr/strings.xml
+trans.hr = res/values-hr/strings.xml
+trans.hu = res/values-hu/strings.xml
+trans.it = res/values-it/strings.xml
+trans.ja = res/values-ja/strings.xml
+trans.nb = res/values-nb/strings.xml
+trans.nn = res/values-nn/strings.xml
+trans.no = res/values-no/strings.xml
+trans.pl = res/values-pl/strings.xml
+trans.pt = res/values-pt/strings.xml
+trans.ru = res/values-ru/strings.xml
+trans.tr = res/values-tr/strings.xml
+trans.vi = res/values-vi/strings.xml
+trans.zh = res/values-zh/strings.xml
+
