@@ -8,7 +8,7 @@ The translations are managed on transifex: https://www.transifex.com/projects/p/
 
 Currently transfex polls the strings.xml in the 0.9 branch for changes, once the branch is merged into trunk that should change to the trunk version. 
 
-=== setting up transifex locally and retrieveing translations ===
+=== setting up transifex locally and retrieving translations ===
 
 ==== install ====
 
