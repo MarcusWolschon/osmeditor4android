@@ -1,22 +1,136 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Cẩn thận!</string>
+  <string name="transfer_download_current_upload">Tải lên</string>
+  <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
+  <string name="progress_title">Đang tải</string>
+  <string name="upload_source_label">Nguồn:</string>
+  <string name="openstreetbug_new_bug">Báo cáo Vấn đề</string>
+  <string name="openstreetbug_new_nodeway">Tạo Nốt/Lối</string>
+  <string name="openstreetbug_edit_close">Đóng</string>
+  <string name="openstreetbug_edit_closed">Đã đóng</string>
+  <string name="unsaved_data_title">Cẩn thận!</string>
   <!--Toaster-->
   <!--Some generic labels-->
+  <string name="yes">Có</string>
+  <string name="no">Không</string>
+  <string name="okay">OK</string>
+  <string name="cancel">Hủy bỏ</string>
+  <string name="locked">Khóa</string>
   <!--Strings in TagEditor-->
+  <string name="key">chìa khóa</string>
+  <string name="value">giá trị</string>
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Vi:Map_Features?uselang=vi</string>
+  <string name="tag_menu_repeat">Lặp lại</string>
+  <string name="tag_menu_addtorelation">Thêm vào quan hệ</string>
   <!--Strings in LocationPicker-->
+  <string name="location_headline">Tải Khu vực</string>
+  <string name="location_default_radius">300 m</string>
+  <string name="location_current_text">Vị trí hiện tại:</string>
+  <string name="location_text_unknown">không rõ</string>
+  <string name="location_lat_label">Vĩ độ:</string>
+  <string name="location_lon_label">Kinh độ:</string>
+  <string name="location_load_button">Tải!</string>
   <!--Menu-->
+  <string name="menu_move">Di chuyển</string>
+  <string name="menu_edit">Chỉnh sửa</string>
+  <string name="menu_add">Mới</string>
+  <string name="menu_config">Tùy chỉnh</string>
+  <string name="menu_help">Trợ giúp</string>
+  <string name="menu_erase">Xóa nốt</string>
+  <string name="menu_append">Gắn thêm</string>
+  <string name="menu_restriction">Thêm hạn chế</string>
+  <string name="menu_tag">Sửa thẻ</string>
+  <string name="menu_gps">GPS…</string>
+  <string name="menu_gps_show">Hiện vị trí</string>
+  <string name="menu_transfer_download_current">Tải về khu vực hiện tại</string>
+  <string name="menu_transfer_download_other">Tải về vị trí khác</string>
+  <string name="menu_transfer_upload">Tải dữ liệu lên máy chủ OSM</string>
+  <string name="menu_transfer_export">Xuất các thay đổi</string>
+  <string name="menu_save">Lưu vào tập tin</string>
+  <string name="menu_copy">Chép</string>
+  <string name="menu_cut">Cắt</string>
+  <string name="menu_paste">Dán</string>
+  <string name="menu_rotate">Quay</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Thẻ</string>
   <!--Text should be as short as possible-->
+  <string name="menu_history">Lịch sử</string>
+  <string name="menu_merge">Gộp</string>
+  <string name="menu_reverse">Đảo ngược</string>
+  <string name="deleteway_wayonly">Chỉ xóa lối</string>
+  <string name="deleteway_wayandnodes">Xóa lối và các nốt</string>
+  <string name="deletenode">Xóa nốt</string>
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Đã chọn lối</string>
+  <string name="actionmode_nodeselect">Đã chọn nốt</string>
+  <string name="actionmode_createpath">Đang tạo đường</string>
   <!--Preferences-->
+  <string name="config_category_view">Xem Thiết lập</string>
+  <string name="config_showStats_title">Xem thống kê</string>
+  <string name="config_backgroundLayer_title">Nền bản đồ</string>
+  <string name="config_category_server">Thiết lập Máy chủ</string>
+  <string name="config_apibutton_title">URL của API OSM</string>
+  <string name="config_api_url_title">URL của API</string>
+  <string name="config_api_oauth_title">Dùng OAuth</string>
+  <string name="listedit_enable_oauth">Bật OAuth</string>
+  <string name="config_iconbutton_title">Xem hình nốt</string>
+  <string name="config_loginbutton_title">Tài khoản người dùng</string>
+  <string name="config_username_title">Tên người dùng OSM</string>
+  <string name="config_password_title">Mật khẩu OSM</string>
+  <string name="config_category_gps">Thiết lập GPS</string>
+  <string name="config_category_info">Giới thiệu</string>
+  <string name="config_advancedprefs">Tùy chỉnh nâng cao</string>
+  <string name="config_licensebutton_title">Tác giả và giấy phép</string>
+  <string name="config_licensebutton_summary">Xem thông tin về tác giả và giấy phép</string>
   <!--preset downloader messages-->
   <!--changes-->
+  <string name="changes_deleted">Đã xóa “%1$s”</string>
+  <string name="changes_changed">Đã thay đổi “%1$s”</string>
+  <string name="changes_created">Đã tạo “%1$s”</string>
+  <string name="confirm_upload_title">Tải lên?</string>
+  <string name="confirm_upload_text">Tải lên các thay đổi sau?\n%1$s</string>
   <!--url handler activity-->
+  <string name="urldialog_add_api">Thêm API</string>
   <!--common terms-->
+  <string name="add">Thêm</string>
+  <string name="edit">Sửa</string>
+  <string name="delete">Xóa</string>
+  <string name="name">Tên</string>
+  <string name="url">URL</string>
+  <string name="default_">Mặc định</string>
+  <string name="api_name">Tên của API</string>
+  <string name="api_url">URL của API</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="api">API</string>
+  <string name="undo">Hoàn tác</string>
+  <string name="redo">Làm lại</string>
+  <string name="undo_nothing">không có gì để hoàn tác</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">di chuyển nốt</string>
+  <string name="undo_action_moveway">di chuyển lối</string>
+  <string name="undo_action_add">chèn</string>
+  <string name="undo_action_append">gắn thêm</string>
+  <string name="undo_action_deletenode">xóa nốt</string>
+  <string name="undo_action_deleteway">xóa lối</string>
+  <string name="undo_action_merge_ways">gộp lối</string>
+  <string name="undo_action_reverse_way">đảo ngược lối</string>
+  <string name="undo_action_set_tags">gắn thẻ</string>
+  <string name="undo_action_deleterelation">xóa quan hệ</string>
+  <string name="undo_action_update_relations">cập nhật quan hệ</string>
+  <string name="undo_action_cut">cắt</string>
+  <string name="undo_action_paste">dán</string>
+  <string name="undo_action_rotateway">quay lối</string>
   <!--ACRA-->
   <!--Misc relation related stuff-->
+  <string name="role">Vai trò</string>
+  <string name="role_lc">vai trò</string>
+  <string name="membership_relation_heading">Thành viên quan hệ</string>
+  <string name="relation">Quan hệ</string>
+  <string name="position">Vị trí</string>
+  <string name="type">Kiểu</string>
+  <string name="object">Đối tượng</string>
+  <string name="deleterelation">Xóa quan hệ</string>
   <!---->
 </resources>

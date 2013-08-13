@@ -22,20 +22,18 @@ the repository already includes a suitable .tx directory with config file, if th
 
 	tx init
 
-	tx set --auto-local -r vespucci.main "res\values-<lang>\strings.xml" --source-lang en --source-file res\values\strings.xml
+	tx set --auto-local -r vespucci.main "res\values-<lang>\strings.xml" --source-lang en --source-file res\values\strings.xml --execute
 	(my installation is on a windows machine on *IX "\" -> "/")
 
-	this command will generate a list of tx commands but not do anything, normally adding --execute would be enough to complete the installation however due to the special mapping for "cs" it is a tiny bit more involved:
-
- 	* exceute all the commands from the list with exception of the one that specifies the mapping for "cs"
- 
- 	* execute tx set -r vespucci.main -l cs res\values-cs-rCZ\strings.xml 
+	edit .tx/config and add
+	
+	lang_map = cs: cs-rCZ 
+	
+	to the [vespucci.main] section
  
  ===== retrieving current translations ====
  
  tx pull -a
  
- will retrieve all translations configured above, skipping up to date translation files
-  
- NOTE you will have to check if new translations have been added due to the "cs" issue and add such mappings manually if they haven't already been included in the tx config file 
+ will retrieve all translations configured above, skipping up to date translation files and creating new directories and strings.xml files for new languages.
  

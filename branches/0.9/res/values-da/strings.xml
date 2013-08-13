@@ -6,6 +6,7 @@
   <string name="transfer_download_current_upload">Upload</string>
   <string name="transfer_download_current_download">Afbryd &amp; download</string>
   <string name="transfer_download_current_back">Gå tilbage (gør intet)</string>
+  <string name="upload_problem_title">Problem Med Upload</string>
   <string name="no_login_data_title">Der er ingen logindata</string>
   <string name="no_login_data_message">Udfyld OSM-Login under Indstillinger.</string>
   <string name="no_connection_title">Ingen forbindelse til serveren</string>
@@ -15,11 +16,23 @@
   <string name="progress_title">Læser</string>
   <string name="progress_message">Læser ind i memory…</string>
   <string name="progress_download_message">Downloader data fra server…</string>
+  <string name="upload_comment_label">Kommentar:</string>
+  <string name="openstreetbug_new_nodeway">Opret Knude/Vej</string>
+  <string name="openstreetbug_commitbutton">Commit</string>
+  <string name="openstreetbug_comment_label">Kommentar:</string>
+  <string name="openstreetbug_commit_ok">Ændringer er gemt</string>
+  <string name="openstreetbug_commit_fail">Kunne ikke gemme ændringer</string>
+  <string name="unsaved_data_title">Bemærk!</string>
+  <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
+  <string name="unsaved_data_proceed">Kassér &amp; fortsæt</string>
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>
   <string name="toast_not_in_edit_range">Zoom ind for at rette (Volume Up/Down eller Lens/Shift)</string>
   <string name="toast_save_done">Gemning lykkedes</string>
+  <string name="toast_not_in_bug_range">Zoom venligst ind for at tilføje en bug (Volume Op/Ned eller Lens/Shift)</string>
+  <string name="toast_export_failed">Eksport mislykkedes</string>
+  <string name="toast_export_success">Eksporteret til %1$s</string>
   <!--Some generic labels-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
@@ -29,6 +42,7 @@
   <string name="key">nøgle</string>
   <string name="value">værdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_repeat">Gentag</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Indlæs område</string>
@@ -56,19 +70,35 @@
   <string name="menu_add">Ny</string>
   <string name="menu_config">Indstillinger</string>
   <string name="menu_erase">Slet knude</string>
+  <string name="menu_split">Opdel</string>
   <string name="menu_append">Fortsæt</string>
   <string name="menu_tag">Ret tags</string>
+  <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_gps">GPS…</string>
+  <string name="menu_gps_show">Vis lokalitet</string>
   <string name="menu_gps_follow">Følg GPS position</string>
+  <string name="menu_gps_start">Start GPS spor</string>
+  <string name="menu_gps_pause">Pause GPS spor</string>
+  <string name="menu_gps_clear">Slet GPS spor</string>
   <string name="menu_gps_upload">Upload GPS track</string>
+  <string name="menu_gps_export">Eksporter GPS spor</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
   <string name="menu_transfer_download_other">Download andet område</string>
   <string name="menu_transfer_upload">Upload data til OSM server</string>
+  <string name="menu_transfer_export">Eksporter ændringer</string>
   <string name="menu_save">Gem til en fil</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
+  <string name="menu_history">Historie</string>
+  <string name="menu_merge">Flet sammen</string>
+  <string name="deleteway_wayonly">Slet kun vej</string>
+  <string name="deleteway_wayandnodes">Slet vej og knuder</string>
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Vej valgt</string>
+  <string name="actionmode_nodeselect">Knude valgt</string>
+  <string name="actionmode_createpath">Opretter sti</string>
   <!--Preferences-->
   <string name="config_category_view">Vis Indstillinger</string>
   <string name="config_showStats_title">Vis statistik</string>
@@ -76,7 +106,13 @@
   <string name="config_showTolerance_title">Vis tolerance</string>
   <string name="config_showTolerance_summary">Viser et område, hvor et element kan vælges.</string>
   <string name="config_enableAntiAliasing_title">Vælg Anti-Aliasing</string>
+  <string name="config_backgroundLayer_title">Kortbaggrund</string>
+  <string name="config_backgroundLayer_summary">Den grafisk renderede kortbaggrund</string>
   <string name="config_category_server">Server Indstillinger</string>
+  <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">Du kan angive en ikke-standard API URL her. Bør normalt ikke ændres!</string>
+  <string name="config_presetbutton_title">JOSM indstilling</string>
+  <string name="config_presetbutton_summary">Du kan opsætte definitioner af kortelementer her</string>
   <string name="config_username_title">OSM Username</string>
   <string name="config_username_summary">Nødvendig for upload af OSM-Data. Hvis du ikke har et endnu, kan du få et her: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM Password</string>

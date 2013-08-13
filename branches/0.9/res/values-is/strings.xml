@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Varúð!</string>
+  <string name="transfer_download_current_dialog_message">Þú hefur gert breytingar. Viltu uppfæra þær í stað þess að henda þeim?</string>
+  <string name="transfer_download_current_upload">Uppfæra</string>
+  <string name="transfer_download_current_download">Henda &amp; sækja</string>
+  <string name="transfer_download_current_back">Til baka (gera ekkert)</string>
+  <string name="upload_problem_title">Vandamál við að uppfæra</string>
+  <!--Toaster-->
+  <!--Some generic labels-->
+  <!--Strings in TagEditor-->
+  <!--Strings in LocationPicker-->
+  <!--Menu-->
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit action mode titles-->
+  <!--Preferences-->
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <!--"default" is a reserved Java keyword...-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Misc relation related stuff-->
+  <!---->
+</resources>

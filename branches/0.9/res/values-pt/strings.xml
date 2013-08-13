@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Descartar &amp; download</string>
   <string name="transfer_download_current_back">Retroceder (Fazer nada)</string>
   <string name="upload_problem_title">Problema Com Upload</string>
+  <string name="upload_problem_message">Toda ou parte da informação não foi carregada no servidor. Tente carregar novamente para verificar o que falhou. A razão mais provável é um conflito de versões.</string>
   <string name="no_login_data_title">Sem dados de login</string>
   <string name="no_login_data_message">Por favor preencha as definições de login do OSM na janela de preferências.</string>
   <string name="no_connection_title">Sem Conexão ao Servidor</string>
@@ -17,9 +18,15 @@
   <string name="progress_message">Carregando dados em memória…</string>
   <string name="progress_download_message">Descarregando dados do servidor…</string>
   <string name="upload_comment_label">Comentário:</string>
+  <string name="upload_source_label">Fonte:</string>
+  <string name="openstreetbug_new_title">Nova Nota</string>
+  <string name="openstreetbug_new_bug">Reportar Problema</string>
   <string name="openstreetbug_new_nodeway">Criar Nó/Via</string>
+  <string name="openstreetbug_edit_title">Editar Nota</string>
   <string name="openstreetbug_commitbutton">Gravar</string>
   <string name="openstreetbug_comment_label">Comentário:</string>
+  <string name="openstreetbug_edit_close">Fechar</string>
+  <string name="openstreetbug_edit_closed">Fechado</string>
   <string name="openstreetbug_commit_ok">Alterações gravadas</string>
   <string name="openstreetbug_commit_fail">Não foi possível gravar as alterações</string>
   <string name="unsaved_data_title">Atenção!</string>
@@ -34,11 +41,17 @@
   <string name="toast_export_failed">Exportação falhou</string>
   <string name="toast_export_success">Exportado para %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - prédefinição sobrepôs tag(s)</string>
+  <string name="toast_oneway_reversed">Você inverteu uma via de sentido único ou uma via com tags dependentes da direcção. Por favor verifique as tags e corrija se necessário.</string>
+  <string name="toast_merge_tag_conflict">Você uniu vias que têm tags de direcção conflituantes ou semântica dependente da direcção. Por favor verifique as tags e corrija se necessário.</string>
+  <string name="toast_state_file_failed">Ficheiro de estado ilegível ou corrompido</string>
+  <string name="toast_too_many_nodes_for_move">Demasiados nós na via para ser possível mover</string>
+  <string name="toast_oauth_handshake_failed">Autenticação OAuth falhou, verifique que tem as chaves de consumidor apropriadas</string>
   <!--Some generic labels-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="okay">Ok</string>
   <string name="cancel">Cancelar</string>
+  <string name="locked">Bloqueado</string>
   <!--Strings in TagEditor-->
   <string name="key">chave</string>
   <string name="value">valor</string>
@@ -48,6 +61,8 @@
   <string name="tag_menu_repeat">Repetir</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki de Entidades do Mapa</string>
+  <string name="tag_menu_addtorelation">Adicionar à relação</string>
+  <string name="tag_menu_resetMRU">Repôr Prédefinições</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -77,7 +92,11 @@
   <string name="menu_erase">Apagar nó</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_append">Acrescentar</string>
+  <string name="menu_restriction">Adicionar restrição</string>
+  <string name="menu_restriction_via">Adicionar restrição via</string>
+  <string name="menu_restriction_to">Adicionar restrição a</string>
   <string name="menu_tag">Editar tags</string>
+  <string name="menu_openstreetbug">Adicionar Nota</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ver localização</string>
@@ -93,30 +112,53 @@
   <string name="menu_transfer_upload">Upload dos dados para o servidor OSM</string>
   <string name="menu_transfer_export">Exportar alterações</string>
   <string name="menu_save">Gravar para ficheiro</string>
+  <string name="menu_join">Unir</string>
+  <string name="menu_unjoin">Separar</string>
+  <string name="menu_copy">Copiar</string>
+  <string name="menu_cut">Cortar</string>
+  <string name="menu_paste">Colar</string>
+  <string name="menu_rotate">Rodar</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">História</string>
   <string name="menu_merge">Adicionar</string>
   <string name="menu_reverse">Inverter</string>
+  <string name="notreversable_description">Esta via está marcada com atributos que são dependentes da direcção e não pode ser invertida. Inverter a via invalidará os tags.</string>
+  <string name="reverse_anyway">Inverter mesmo assim</string>
+  <string name="deleteway_description">Esta prestes a apagar uma via.\n\nPode manter todos os nós, ou apagar apenas os nós que pertencem a esta via e que não possuem tags.</string>
+  <string name="deleteway_relation_description">Estás prestes a apagar uma via que é membro de uma ou mais relações. Remover a via destas relações pode torná-la(s) inválida(s).</string>
   <string name="deleteway_wayonly">Apagar apenas a via</string>
   <string name="deleteway_wayandnodes">Apagar via e nós</string>
+  <string name="deletenode_relation_description">Estás prestes a apagar um nó que é um membro de uma ou mais relações. Remover o nó das relações pode torná-las inválidas.</string>
+  <string name="deletenode">Apagar nó</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Via seleccionada</string>
   <string name="actionmode_nodeselect">Nó seleccionado</string>
+  <string name="actionmode_relationselect">Relação selecionada</string>
   <string name="actionmode_createpath">Criando caminho (path)</string>
   <!--Preferences-->
   <string name="config_category_view">Ver Definições</string>
+  <string name="config_maxStrokeWidth_title">Máx largura de linha</string>
+  <string name="config_maxStrokeWidth_summary">Não desenhar uma via mais larga que isto</string>
   <string name="config_showStats_title">Ver estatísticas</string>
   <string name="config_showStats_summary">Mostra estatístivas dos dados e frames/seg no canto inferior esquerdo.</string>
   <string name="config_showTolerance_title">Ver tolerância</string>
   <string name="config_showTolerance_summary">Mostra a área onde um elemento pode ser seleccionado.</string>
   <string name="config_enableAntiAliasing_title">Activar Suavização</string>
+  <string name="config_enableAntiAliasing_summary">Tornar linhas mais suaves.</string>
+  <string name="config_enableOpenStreetBugs_title">Activar visualização de Notas</string>
+  <string name="config_enableOpenStreetBugs_summary">Visualizar, Editar e Criar Notas/Erros.</string>
+  <string name="config_enableDeprecatedModes_title">Activar modos obsoletos</string>
+  <string name="config_enableDeprecatedModes_summary">Activar modos Novo, Editar, Editar Tags, Adicionar, Apagar nó e Separar.</string>
   <string name="config_backgroundLayer_title">Carta de base</string>
   <string name="config_backgroundLayer_summary">O mapa de fundo desenhado.</string>
   <string name="config_category_server">Definições do Servidor</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">Pode definir um URL da API do OSM diferente do usual. Em geral não deve ser alterado!</string>
+  <string name="config_api_url_title">URL da API</string>
+  <string name="config_api_oauth_title">Usar oauth</string>
+  <string name="listedit_enable_oauth">Activar oauth</string>
   <string name="config_presetbutton_title">Prédefinição JOSM</string>
   <string name="config_presetbutton_summary">Pode aqui definir definições de elementos do mapa.</string>
   <string name="config_iconbutton_title">Ver icones de nós</string>
@@ -137,6 +179,8 @@
   <string name="config_forceContextMenu_summary">Mostrar sempre o menu de contexto no modo EasyEdit se o modo de selecção for ambíguo.</string>
   <string name="config_licensebutton_title">Autores e licenças</string>
   <string name="config_licensebutton_summary">Ver informação sobre os autores e licenças</string>
+  <string name="config_mapProfile_title">Perfil do mapa</string>
+  <string name="config_mapProfile_summary">Definir estilo e visibilidade de elementos</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar prédefinições</string>
   <string name="preset_download_successful">Prédefinição descarregada com sucesso</string>
@@ -163,6 +207,8 @@
   <string name="name">Nome</string>
   <string name="url">URL</string>
   <string name="default_">Definição original</string>
+  <string name="api_name">Nome da API</string>
+  <string name="api_url">URL da API</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Prédefinição</string>
   <string name="api">API</string>
@@ -174,6 +220,7 @@
   <string name="gps_failure">Falha ao activar GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nó</string>
+  <string name="undo_action_moveway">mover via</string>
   <string name="undo_action_add">inserir</string>
   <string name="undo_action_append">adicionar</string>
   <string name="undo_action_deletenode">apagar nó</string>
@@ -183,6 +230,13 @@
   <string name="undo_action_merge_ways">unir via</string>
   <string name="undo_action_reverse_way">inverter via</string>
   <string name="undo_action_set_tags">definir tags</string>
+  <string name="undo_action_join">unir</string>
+  <string name="undo_action_unjoin_ways">separar vias</string>
+  <string name="undo_action_deleterelation">apagar relação</string>
+  <string name="undo_action_update_relations">actualizar relações</string>
+  <string name="undo_action_cut">cortar</string>
+  <string name="undo_action_paste">colar</string>
+  <string name="undo_action_rotateway">rodar via</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci deixou de funcionar. Por favor envie um relatório de erro.</string>
   <string name="crash_notif_title">Vespucci deixou de funcionar</string>
@@ -193,5 +247,15 @@
   <string name="pref_acra_enabled">Reportar erros activado</string>
   <string name="pref_acra_disabled">Reportar erros desactivado</string>
   <!--Misc relation related stuff-->
+  <string name="role">Grupo (\'Role\')</string>
+  <string name="role_lc">grupo (\'role\')</string>
+  <string name="membership_relation_heading">Membro de relação</string>
+  <string name="relation">Relação</string>
+  <string name="position">Pos.</string>
+  <string name="type">Tipo</string>
+  <string name="object">Objecto</string>
+  <string name="deleterelation_relation_description">Estás prestes a apagar a relação que é membro de uma ou mais relações. Remover a relação destas relações pode torná-la(s) inválida(s).</string>
+  <string name="deleterelation">Apagar relação</string>
+  <string name="delete_from_relation_description">Estás prestes a apagar este elemento na relação.</string>
   <!---->
 </resources>
