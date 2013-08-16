@@ -855,6 +855,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
 				logic.upload(comment, source);
+				logic.checkForMail();
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}

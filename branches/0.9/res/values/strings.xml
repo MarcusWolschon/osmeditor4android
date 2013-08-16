@@ -46,6 +46,7 @@
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
     <string name="toast_oauth_handshake_failed">OAuth handshake failed, check that you have proper consumer keys</string>
+    <string name="toast_unread_mail">You have %1$s unread mail(s) on the OpenStreetmap server</string>
     <!-- Some generic labels -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

@@ -95,7 +95,7 @@ public class Server {
 	/**
 	 * display name of the user.
 	 */
-	private String display_name;
+	private UserDetails userDetails;
 
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -139,7 +139,7 @@ public class Server {
 		this.accesstoken = accesstoken;
 		this.accesstokensecret = accesstokensecret;
 		
-		display_name = null;
+		userDetails = null;
 		Log.d("Server", "using " + this.username + " with " + this.serverURL);
 		Log.d("Server", "oAuth: " + this.oauth + " token " + this.accesstoken + " secret " + this.accesstokensecret);
 
@@ -156,40 +156,77 @@ public class Server {
 	}
 	
 	/**
-	 * Get the display name for the user.
+	 * display name and message counts is the only thing that is interesting
+	 * @author simon
+	 *
+	 */
+	public class UserDetails {
+		public String	display_name = "unknown";
+		public int	received = 0;
+		public int unread = 0;
+		public int sent = 0;
+	}
+	
+	/**
+	 * Get the details for the user.
 	 * @return The display name for the user, or null if it couldn't be determined.
 	 */
-	public String getDisplayName() {
-		if (display_name == null) {
-			// Haven't retrieved the display name from OSM - try to
+	public UserDetails getUserDetails() {
+		UserDetails result = null;
+		if (userDetails == null) {
+			// Haven't retrieved the detailsfrom OSM - try to
 			try {
 				HttpURLConnection connection = openConnectionForWriteAccess(getUserDetailsUrl(), "GET");
 				try {
-					connection.getOutputStream().close();
+					//connection.getOutputStream().close(); GET doesn't have an outputstream
 					checkResponseCode(connection);
 					XmlPullParser parser = xmlParserFactory.newPullParser();
 					parser.setInput(connection.getInputStream(), null);
 					int eventType;
+					result = new UserDetails();
+					boolean messages = false;
 					while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 						String tagName = parser.getName();
 						if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
-							display_name = parser.getAttributeValue(null, "display_name");
+							result.display_name = parser.getAttributeValue(null, "display_name");
+							Log.d("Server","getUserDetails display name " + result.display_name);
+						}
+						if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
+							messages = true;
+						}
+						if (eventType == XmlPullParser.END_TAG && "messages".equals(tagName)) {
+							messages = false;
+						}
+						if (messages) {
+							if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
+								result.received = Integer.parseInt(parser.getAttributeValue(null, "count"));
+								Log.d("Server","getUserDetails received " + result.received);
+								result.unread = Integer.parseInt(parser.getAttributeValue(null, "unread"));
+								Log.d("Server","getUserDetails unread " + result.unread);
+							}
+							if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
+								result.sent = Integer.parseInt(parser.getAttributeValue(null, "count"));
+								Log.d("Server","getUserDetails sent " + result.sent);
+							}
 						}
 					}
 				} finally {
 					disconnect(connection);
 				}
 			} catch (XmlPullParserException e) {
-				Log.e("Vespucci", "Problem accessing display name", e);
+				Log.e("Vespucci", "Problem accessing user details", e);
 			} catch (MalformedURLException e) {
-				Log.e("Vespucci", "Problem accessing display name", e);
+				Log.e("Vespucci", "Problem accessing user details", e);
 			} catch (ProtocolException e) {
-				Log.e("Vespucci", "Problem accessing display name", e);
+				Log.e("Vespucci", "Problem accessing user details", e);
 			} catch (IOException e) {
-				Log.e("Vespucci", "Problem accessing display name", e);
+				Log.e("Vespucci", "Problem accessing user details", e);
+			} catch (NumberFormatException e) {
+				Log.e("Vespucci", "Problem accessing user details", e);
 			}
-		}
-		return display_name;
+			return result;
+		} 
+		return userDetails; // might not make sense
 	}
 
 	/**
@@ -362,13 +399,6 @@ public class Server {
 			try {
 				consumer.sign(connection);
 				HttpParameters h = consumer.getRequestParameters();
-//				Log.d("Server","OAuth signed parameters ");
-//				for (String s:h.keySet()) {
-//					for (String t:h.get(s)) {
-//						Log.d("Server",s + " " + t);
-//					}
-//				}
-				
 			} catch (OAuthMessageSignerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

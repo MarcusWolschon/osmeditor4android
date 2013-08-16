@@ -38,6 +38,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
@@ -1529,6 +1530,37 @@ public class Logic {
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
 					Application.mainActivity.showDialog(result);
+				}
+			}
+			
+		}.execute();
+	}
+	
+	
+	public void checkForMail() {
+		final Server server = prefs.getServer();
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... params) {
+				int result = 0;
+				
+				UserDetails userDetails = server.getUserDetails();
+				if (userDetails != null) {
+					result = userDetails.unread;
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				if (result > 0) {
+					Context ctx = Application.mainActivity.getApplicationContext();
+					Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
 				}
 			}
 			
