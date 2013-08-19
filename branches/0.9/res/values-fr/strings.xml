@@ -93,6 +93,9 @@
   <string name="menu_transfer_upload">Envoi des données au serveur OSM</string>
   <string name="menu_transfer_export">Export des modifications</string>
   <string name="menu_save">Sauvegarde vers fichier</string>
+  <string name="menu_copy">Copier</string>
+  <string name="menu_cut">Couper</string>
+  <string name="menu_paste">Coller</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->

@@ -46,6 +46,9 @@
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
   <string name="toast_too_many_nodes_for_move">Der Weg hat zuviele Punkte um ihn zu verschieben</string>
   <string name="toast_oauth_handshake_failed">OAuth Verhandlung ist fehlgeschlagen. Bitte überprüfen ob die richtigen \"consumer keys\" vorhanden sind.</string>
+  <string name="toast_unread_mail">Es hat %1$s ungelesene Nachricht(en) auf dem OpenStreetmap Server</string>
+  <string name="toast_photo_indexing_started">Suche nach geo-refenzierte Fotos begonnen</string>
+  <string name="toast_photo_indexing_finished">Suche nach geo-refenzierte Fotos beendet</string>
   <!--Some generic labels-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -149,6 +152,8 @@
   <string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
   <string name="config_enableOpenStreetBugs_title">Notizen anzeigen</string>
   <string name="config_enableOpenStreetBugs_summary">Notizen erstellen, ändern und anzeigen</string>
+  <string name="config_enablePhotoLayer_title">Foto Layer einschalten</string>
+  <string name="config_enablePhotoLayer_summary">Geo-referenzierte Fotos anzeigen</string>
   <string name="config_enableDeprecatedModes_title">Veraltete Modi anzeigen</string>
   <string name="config_enableDeprecatedModes_summary">New, Edit, Edit Tags, Append, Erase node und Split Modi anzeigen.</string>
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>

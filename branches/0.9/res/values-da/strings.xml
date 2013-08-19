@@ -69,6 +69,7 @@
   <string name="menu_edit">Ret</string>
   <string name="menu_add">Ny</string>
   <string name="menu_config">Indstillinger</string>
+  <string name="menu_help">Hjælp</string>
   <string name="menu_erase">Slet knude</string>
   <string name="menu_split">Opdel</string>
   <string name="menu_append">Fortsæt</string>
@@ -88,6 +89,7 @@
   <string name="menu_transfer_upload">Upload data til OSM server</string>
   <string name="menu_transfer_export">Eksporter ændringer</string>
   <string name="menu_save">Gem til en fil</string>
+  <string name="menu_join">Flet sammen</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
@@ -113,6 +115,8 @@
   <string name="config_apibutton_summary">Du kan angive en ikke-standard API URL her. Bør normalt ikke ændres!</string>
   <string name="config_presetbutton_title">JOSM indstilling</string>
   <string name="config_presetbutton_summary">Du kan opsætte definitioner af kortelementer her</string>
+  <string name="config_iconbutton_title">Vis knude-ikoner</string>
+  <string name="config_loginbutton_title">Brugerkonto</string>
   <string name="config_username_title">OSM Username</string>
   <string name="config_username_summary">Nødvendig for upload af OSM-Data. Hvis du ikke har et endnu, kan du få et her: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM Password</string>
@@ -122,13 +126,58 @@
   <string name="config_gps_distance_summary">Mindste afstand mellem GPS-målinger, i meter (med komma). Lavere værdi giver kortere batteritid.</string>
   <string name="config_gps_interval_title">Mindste GPS-interval</string>
   <string name="config_gps_interval_summary">Mindste tidsinterval for GPS-målinger, i millisekunder. Lavere værdi giver kortere batteritid.</string>
+  <string name="config_category_info">Om</string>
+  <string name="config_advancedprefs">Avancerede indstillinger</string>
+  <string name="config_forceContextMenu_title">Brug altid kontekst-menu</string>
+  <string name="config_forceContextMenu_summary">Vis altid kontekst-menu i EasyEdit mode hvis valget er uklart</string>
+  <string name="config_licensebutton_title">Forfattere og licenser</string>
+  <string name="config_licensebutton_summary">Vis forfatter- og licensinformation</string>
   <!--preset downloader messages-->
   <!--changes-->
+  <string name="changes_deleted">\"%1$s\" slettet</string>
+  <string name="changes_changed">\"%1$s\" ændret</string>
+  <string name="changes_created">\"%1$s\" oprettet</string>
+  <string name="confirm_upload_title">Upload?</string>
+  <string name="confirm_upload_text">Vil du oplode de følgende ændringer?⏎\n%1$s</string>
   <!--url handler activity-->
+  <string name="urldialog_api_exists">En API med denne URL eksisterer allerede. Du kan tilføje en anden (f.eks. til nemt at skifte mellem konti)</string>
+  <string name="urldialog_add_api">Tilføj API</string>
+  <string name="urldialog_nodata_text">Konfigurations-URL\'en indeholder ikke gyldige data</string>
   <!--common terms-->
+  <string name="add">Tilføj</string>
+  <string name="edit">Rediger</string>
+  <string name="delete">Slet</string>
+  <string name="name">Navn</string>
+  <string name="url">URL</string>
+  <string name="default_">Standard</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="api">API</string>
+  <string name="undo">Fortryd</string>
+  <string name="redo">Gentag</string>
+  <string name="undo_nothing">intet at fortryde</string>
+  <string name="tracking_active_title">Optager GPS spor</string>
+  <string name="tracking_active_text">Vespucci optager et GPS spor</string>
+  <string name="gps_failure">Kunne ikke starte GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">flyt knude</string>
+  <string name="undo_action_add">indsæt</string>
+  <string name="undo_action_append">tilføj</string>
+  <string name="undo_action_deletenode">slet knude</string>
+  <string name="undo_action_deleteway">slet vej</string>
+  <string name="undo_action_split_ways">opdel veje</string>
+  <string name="undo_action_split_way">opdel vej</string>
+  <string name="undo_action_merge_ways">flet veje</string>
+  <string name="undo_action_reverse_way">vend vej om</string>
+  <string name="undo_action_set_tags">sæt tags</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci er crashet. Send venligst en fejlrapport</string>
+  <string name="crash_notif_title">Vespucci er crashet</string>
+  <string name="crash_notif_text">Klik her for at få hjælp til at udbedre fejlen</string>
+  <string name="crash_dialog_text">En uventet fejl opstod, som fik applikationen til at stoppe. Hjælp os venligst med at udbedre dette ved at sende os fejldata. Ald, du skal gøre, er at klikke \'OK\'.</string>
+  <string name="config_category_acra">Crash-rapportering</string>
+  <string name="pref_enable_acra">Rapporter applikations-crash</string>
+  <string name="pref_acra_enabled">Crash-rapportering er slået til</string>
+  <string name="pref_acra_disabled">Crash-rapportering er slået fra</string>
   <!--Misc relation related stuff-->
   <!---->
 </resources>

@@ -1,22 +1,143 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Atenció!</string>
+  <string name="transfer_download_current_dialog_message">Heu fet alguns canvis. Voleu pujar-los en comptes de descartar-los?</string>
+  <string name="transfer_download_current_upload">Puja</string>
+  <string name="transfer_download_current_download">Descarta i baixa</string>
+  <string name="transfer_download_current_back">Enrere (no facis res)</string>
+  <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
+  <string name="no_connection_title">No hi ha connexió amb el servidor</string>
+  <string name="wrong_login_data_title">Les dades d\'inici de sessió són incorrectes</string>
+  <string name="progress_title">Càrrega</string>
+  <string name="progress_message">S\'està carregant a la memòria...</string>
+  <string name="progress_download_message">S\'estan baixant dades des del servidor...</string>
+  <string name="upload_comment_label">Comentari:</string>
+  <string name="openstreetbug_new_nodeway">Crea un node/via</string>
+  <string name="openstreetbug_edit_title">Edita la nota</string>
+  <string name="openstreetbug_comment_label">Comentari:</string>
+  <string name="openstreetbug_edit_close">Tanca</string>
+  <string name="openstreetbug_edit_closed">Tancat</string>
+  <string name="openstreetbug_commit_ok">Canvis desats</string>
+  <string name="openstreetbug_commit_fail">No s\'han pogut desar els canvis</string>
+  <string name="unsaved_data_title">Atenció!</string>
+  <string name="unsaved_data_message">Teniu canvis sense desar que es descartaran si continueu.</string>
+  <string name="unsaved_data_proceed">Descarta i continua</string>
   <!--Toaster-->
+  <string name="toast_no_changes">No heu canviat res encara...</string>
+  <string name="toast_export_failed">L\'exportació ha fallat</string>
   <!--Some generic labels-->
+  <string name="yes">Sí</string>
+  <string name="no">No</string>
+  <string name="okay">D\'acord</string>
+  <string name="cancel">Cancel·la</string>
   <!--Strings in TagEditor-->
+  <string name="key">clau</string>
+  <string name="value">valor</string>
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Ca:Map_Features</string>
+  <string name="tag_menu_repeat">Repeteix</string>
+  <string name="tag_menu_addtorelation">Afegeix a la relació</string>
   <!--Strings in LocationPicker-->
+  <string name="location_headline">Carrega un àrea</string>
+  <string name="location_choose_radius">Trieu un radi:</string>
+  <string name="location_default_radius">300m</string>
+  <string name="location_last_text">Última ubicació coneguda:</string>
+  <string name="location_current_text">Ubicació actual:</string>
+  <string name="location_text_unknown">desconeguda</string>
+  <string name="location_last_text_parameterized">Última ubicació coneguda: %1$s</string>
+  <string name="location_current_text_parameterized">Ubicació actual: %1$s</string>
+  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
+  <string name="location_map_text">Des del mapa (properament)</string>
+  <string name="location_coordinates_text">Des de les coordenades:</string>
+  <string name="location_lat_label">Lat:</string>
+  <string name="location_lon_label">Lon:</string>
+  <string name="location_load_button">Carrega!</string>
+  <string name="location_button_no_location">No carreguis res</string>
+  <string name="location_label_no_location">(no recomenat)</string>
+  <string name="location_nan_title">Entrada incorrecta!</string>
   <!--Menu-->
+  <string name="menu_move">Mou</string>
+  <string name="menu_edit">Edita</string>
+  <string name="menu_add">Nou</string>
+  <string name="menu_config">Preferències</string>
+  <string name="menu_help">Ajuda</string>
+  <string name="menu_erase">Suprimeix el node</string>
+  <string name="menu_split">Divideix</string>
+  <string name="menu_append">Afegeix</string>
+  <string name="menu_restriction">Afegeix una restricció</string>
+  <string name="menu_tag">Edita les etiquetes</string>
+  <string name="menu_openstreetbug">Afegeix una nota</string>
+  <string name="menu_gps">GPS…</string>
+  <string name="menu_gps_show">Mostra la ubicació</string>
+  <string name="menu_gps_follow">Segueix la posició del GPS</string>
+  <string name="menu_transfer">Transfereix...</string>
+  <string name="menu_transfer_export">Exporta els canvis</string>
+  <string name="menu_save">Desa al fitxer</string>
+  <string name="menu_join">Uneix</string>
+  <string name="menu_copy">Copia</string>
+  <string name="menu_cut">Retalla</string>
+  <string name="menu_paste">Enganxa</string>
+  <string name="menu_rotate">Gira</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Etiquetes</string>
   <!--Text should be as short as possible-->
+  <string name="menu_history">Historial</string>
+  <string name="menu_merge">Uneix</string>
+  <string name="deletenode">Suprimeix el node</string>
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Via seleccionada</string>
+  <string name="actionmode_nodeselect">Node seleccionat</string>
   <!--Preferences-->
+  <string name="config_showStats_title">Mostra les estadístiques</string>
+  <string name="config_showTolerance_title">Mostra la tolerància</string>
+  <string name="config_category_server">Paràmetres del servidor</string>
+  <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_loginbutton_title">Compte d\'usuari</string>
+  <string name="config_username_title">Nom d\'usuari de l\'OSM</string>
+  <string name="config_password_title">Contrasenya de l\'OSM</string>
+  <string name="config_category_info">Quant a...</string>
+  <string name="config_advancedprefs">Preferències avançades</string>
+  <string name="config_forceContextMenu_title">Usa sempre el menú contextual</string>
+  <string name="config_licensebutton_title">Autors i llicències</string>
   <!--preset downloader messages-->
   <!--changes-->
   <!--url handler activity-->
+  <string name="urldialog_add_api">Afegeix una API</string>
   <!--common terms-->
+  <string name="add">Afegeix</string>
+  <string name="edit">Edita</string>
+  <string name="delete">Suprimeix</string>
+  <string name="name">Nom</string>
+  <string name="url">URL</string>
+  <string name="default_">Predeterminat</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="api">API</string>
+  <string name="undo">Desfés</string>
+  <string name="redo">Refés</string>
+  <string name="undo_nothing">no hi ha res a desfer</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">mou el node</string>
+  <string name="undo_action_moveway">mou la via</string>
+  <string name="undo_action_add">insereix</string>
+  <string name="undo_action_append">afegeix</string>
+  <string name="undo_action_deletenode">suprimeix el node</string>
+  <string name="undo_action_deleteway">suprimeix la via</string>
+  <string name="undo_action_split_ways">divideix les vies</string>
+  <string name="undo_action_split_way">divideix la via</string>
+  <string name="undo_action_merge_ways">fusiona les vies</string>
+  <string name="undo_action_join">uneix</string>
+  <string name="undo_action_deleterelation">suprimeix la relació</string>
+  <string name="undo_action_update_relations">actualitza les relacions</string>
+  <string name="undo_action_cut">retalla</string>
+  <string name="undo_action_paste">enganxa</string>
+  <string name="undo_action_rotateway">gira la via</string>
   <!--ACRA-->
   <!--Misc relation related stuff-->
+  <string name="role_lc">rol</string>
+  <string name="membership_relation_heading">Membre d\'una relació</string>
+  <string name="relation">Relació</string>
+  <string name="type">Tipus</string>
+  <string name="object">Objecte</string>
+  <string name="deleterelation">Suprimeix la relació</string>
   <!---->
 </resources>

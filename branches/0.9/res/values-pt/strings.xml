@@ -46,6 +46,7 @@
   <string name="toast_state_file_failed">Ficheiro de estado ilegível ou corrompido</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nós na via para ser possível mover</string>
   <string name="toast_oauth_handshake_failed">Autenticação OAuth falhou, verifique que tem as chaves de consumidor apropriadas</string>
+  <string name="toast_unread_mail">Tem %1$s mensagem(ens) por ler no servidor OpenStreetmap</string>
   <!--Some generic labels-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
