@@ -75,6 +75,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
+import de.blau.android.photos.Photo;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -1043,11 +1044,13 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 		private List<OsmElement> clickedNodesAndWays;
 		private List<Bug> clickedBugs;
+		private List<Photo> clickedPhotos;
 		
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
 			if (m.getAction() == MotionEvent.ACTION_DOWN) {
 				clickedBugs = null;
+				clickedPhotos = null;
 				clickedNodesAndWays = null;
 				logic.handleTouchEventDown(m.getX(), m.getY());
 			}
@@ -1065,16 +1068,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			de.blau.android.osb.MapOverlay osbo = map.getOpenStreetBugsOverlay();
 			clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
 			
+			de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
+			clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
+			
 			Mode mode = logic.getMode();
 			boolean isInEditZoomRange = logic.isInEditZoomRange();
 			
 			
 			if (showGPS && !followGPS && map.getLocation() != null) {
 				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
-				final float tolerance = Profile.nodeToleranceValue;
-				float locX = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLongitude() * 1E7));
-				float locY = GeoMath.latE7ToY(map.getHeight(),map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7));
-				
+				final float tolerance = Profile.nodeToleranceValue;				
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLongitude() * 1E7)) - x);
 				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7)) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
@@ -1313,7 +1316,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		public void performEasyEdit(final View v, final float x, final float y) {
 			if (!easyEditManager.actionModeHandledClick(x, y)) {
 				clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
-				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size()) {
+				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null)? 0 : clickedPhotos.size())) {
 				case 0:
 					// no elements were touched
 					easyEditManager.nothingTouched();
@@ -1322,6 +1325,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					// exactly one element touched
 					if (clickedBugs != null && clickedBugs.size() == 1) {
 						performBugEdit(clickedBugs.get(0));
+					}
+					else if (clickedPhotos != null && clickedPhotos.size() == 1) {
+						try {
+							Intent myIntent = new Intent(Intent.ACTION_VIEW); 
+							myIntent.setDataAndType(clickedPhotos.get(0).getRef(), "image/jpeg"); // black magic only works this way
+							startActivity(myIntent);
+						} catch (Exception ex) {
+							Log.d("Main", "Exception starting intent: " + ex);	
+						}
 					} else {
 						easyEditManager.editElement(clickedNodesAndWays.get(0));
 					}
@@ -1365,6 +1377,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		public void onCreateDefaultContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
 			int id = 0;
+			if (clickedPhotos != null) {
+				for (Photo p : clickedPhotos) {
+					menu.add(Menu.NONE, id++, Menu.NONE, p.getRef().getLastPathSegment()).setOnMenuItemClickListener(this);
+				}
+			}
 			if (clickedBugs != null) {
 				for (Bug b : clickedBugs) {
 					menu.add(Menu.NONE, id++, Menu.NONE, b.getDescription()).setOnMenuItemClickListener(this);
@@ -1388,6 +1405,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 			// If bugs are clicked, user should always choose
 			if (clickedBugs != null && clickedBugs.size() > 0) return true;
+			
+			// If photos are clicked, user should always choose
+			if (clickedPhotos != null && clickedPhotos.size() > 0) return true;
 			
 			if (clickedNodesAndWays.size() < 2) {
 				Log.e("Main", "WTF? menuRequired called for single item?");
@@ -1423,12 +1443,21 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		@Override
 		public boolean onMenuItemClick(final android.view.MenuItem item) {
 			int itemId = item.getItemId();
-			if (clickedBugs != null && itemId >= 0 && itemId < clickedBugs.size()) {
-				performBugEdit(clickedBugs.get(itemId));
-			} else {
-				if (clickedBugs != null) {
-					itemId -= clickedBugs.size();
+			int bugsItemId = itemId - ((clickedPhotos == null) ? 0 : clickedPhotos.size());
+			if ((clickedPhotos != null) && (itemId < clickedPhotos.size())) {
+				try {
+					Intent myIntent = new Intent(Intent.ACTION_VIEW); 
+					myIntent.setDataAndType(clickedPhotos.get(itemId).getRef(), "image/jpeg"); // black magic only works this way
+					startActivity(myIntent);
+				} catch (Exception ex) {
+					Log.d("Main", "Exception starting intent: " + ex);	
 				}
+			} else if (clickedBugs != null && bugsItemId >= 0 && bugsItemId < clickedBugs.size()) {
+				performBugEdit(clickedBugs.get(bugsItemId));
+			} else {
+				// this is dependent on which order items where added to the context menu
+				itemId -= (((clickedBugs == null) ? 0 : clickedBugs.size() ) + ((clickedPhotos == null) ? 0 : clickedPhotos.size()));
+				
 				if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
 					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {

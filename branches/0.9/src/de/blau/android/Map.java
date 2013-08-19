@@ -158,6 +158,7 @@ public class Map extends View implements IMapView {
 		{
 			mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
 			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
+			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
 		}
 	}
 	
@@ -174,6 +175,15 @@ public class Map extends View implements IMapView {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof de.blau.android.osb.MapOverlay) {
 				return (de.blau.android.osb.MapOverlay)osmvo;
+			}
+		}
+		return null;
+	}
+	
+	public de.blau.android.photos.MapOverlay getPhotosOverlay() {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			if (osmvo instanceof de.blau.android.photos.MapOverlay) {
+				return (de.blau.android.photos.MapOverlay)osmvo;
 			}
 		}
 		return null;
@@ -210,7 +220,6 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
 		tmpPreset = Main.getCurrentPreset();
-		
 		// Draw our Overlays.
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
@@ -266,6 +275,7 @@ public class Map extends View implements IMapView {
 		}
 		return super.onKeyUp(keyCode, event);
 	}
+	
 	
 	/**
 	 * As of Android 4.0.4, clipping with Op.DIFFERENCE is not supported if hardware acceleration is used.

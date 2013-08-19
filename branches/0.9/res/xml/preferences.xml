@@ -24,9 +24,9 @@
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference
-			android:key="@string/config_enableDepreciatedModes_key"
-			android:title="@string/config_enableDeprecatedModes_title"
-			android:summary="@string/config_enableDeprecatedModes_summary"
+			android:key="@string/config_enablePhotoLayer_key"
+			android:title="@string/config_enablePhotoLayer_title"
+			android:summary="@string/config_enablePhotoLayer_summary"
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference
@@ -34,6 +34,12 @@
 			android:key="@string/config_iconbutton_key"
 			android:summary="@string/config_iconbutton_summary"
 			android:persistent="false"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableDepreciatedModes_key"
+			android:title="@string/config_enableDeprecatedModes_title"
+			android:summary="@string/config_enableDeprecatedModes_summary"
+			android:defaultValue="false"
 		/>
 		<EditTextPreference
 			android:key="@string/config_maxStrokeWidth_key"

@@ -47,6 +47,8 @@
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
     <string name="toast_oauth_handshake_failed">OAuth handshake failed, check that you have proper consumer keys</string>
     <string name="toast_unread_mail">You have %1$s unread mail(s) on the OpenStreetmap server</string>
+    <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
+    <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
     <!-- Some generic labels -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -150,6 +152,8 @@
     <string name="config_enableAntiAliasing_summary">Makes the lines smoother.</string>
     <string name="config_enableOpenStreetBugs_title">Enable Notes display</string>
     <string name="config_enableOpenStreetBugs_summary">Display, Edit and Create Notes/Errors.</string>
+    <string name="config_enablePhotoLayer_title">Enable Photo layer</string>
+    <string name="config_enablePhotoLayer_summary">Display geo-referenced photos.</string>
     <string name="config_enableDeprecatedModes_title">Enable deprecated modes</string>
     <string name="config_enableDeprecatedModes_summary">Enable New, Edit, Edit Tags, Append, Erase node and Split modes .</string>
     <string name="config_backgroundLayer_title">Map background</string>

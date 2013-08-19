@@ -413,7 +413,7 @@ public class Logic {
 		}
 		isInEditZoomRange();
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
-		map.invalidate();
+		Log.d("Logic","invalidate called 1");
 	}
 	
 	public void zoom(final float zoomFactor) {

@@ -1,5 +1,9 @@
-package de.blau.android.osb;
+package de.blau.android.photos;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilenameFilter;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,11 +12,17 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 
+import de.blau.android.Application;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
@@ -20,10 +30,12 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
+/**
+ * implement a geo-referenced photo overlay, code stolen from the OSM implementation
+ * @author simon
+ *
+ */
 public class MapOverlay extends OpenStreetMapViewOverlay {
-	
-	/** Maximum closed age to display: 7 days. */
-	private static final long MAX_CLOSED_AGE = 7 * 24 * 60 * 60 * 1000;
 	
 	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
@@ -34,51 +46,57 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** Current area. */
 	private Rect cur;
 	
-	/** Paint for open bugs. */
-	private final Paint openPaint;
-	
-	/** Paint for closed bugs. */
-	private final Paint closedPaint;
-	
 	/** Map this is an overlay of. */
 	private final Map map;
 	
-	/** Bugs visible on the overlay. */
-	private Collection<Bug> bugs;
+	/** Photos visible on the overlay. */
+	private Collection<Photo> photos;
+	
+	/** have we already run a scan? */
+	private boolean indexed = false;
+	
+	private final Drawable icon;
 	
 	/** Event handlers for the overlay. */
 	private final Handler handler;
 	
-	private Server server;
-	
 	/** Request to update the bugs for the current view.
 	 * Ensure cur is set before invoking.
 	 */
-	private final Runnable getBugs = new Runnable() {
+	private final Runnable getPhotos = new Runnable() {
 		public void run() {
-			new AsyncTask<Void, Void, Collection<Bug>>() {
+			new AsyncTask<Void, Integer, Collection<Photo>>() {
+				
 				@Override
-				protected Collection<Bug> doInBackground(Void... params) {
-					if (!cur.equals(prev)) // attempt to suppress unnecessary invalidations
-						return server.getNotesForBox(cur,100);
-					else
-						return null;
+				protected Collection<Photo> doInBackground(Void... params) {
+					if (!cur.equals(prev)) { // attempt to suppress unnecessary invalidations
+						PhotoIndex pi = new PhotoIndex(Application.mainActivity);
+						if (!indexed) {
+							publishProgress(0);
+							pi.createOrUpdateIndex();
+							publishProgress(1);
+							indexed = true;
+						}
+						return pi.getPhotos(cur);
+					}
+					else return null;
 				}
 				
 				@Override
-				protected void onPostExecute(Collection<Bug> result) {
+				protected void onProgressUpdate(Integer ... progress) {
+					if (progress[0] == 0)
+						Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
+					if (progress[0] == 1)
+						Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
+				}
+				
+				@Override
+				protected void onPostExecute(Collection<Photo> result) {
 					if (!cur.equals(prev)) { // attempt to suppress unnecessary invalidations
 						prev.set(cur);
-						bugs.clear();
-						long now = System.currentTimeMillis();
-						for (Bug b : result) {
-							// add open bugs or closed bugs younger than 7 days
-							if (!b.isClosed() || (now - b.getMostRecentChange().getTime()) < MAX_CLOSED_AGE) {
-								bugs.add(b);
-							}
-						}
-	
-						if (!bugs.isEmpty()) {
+						photos.clear();
+						if (!result.isEmpty()) {
+							photos.addAll(result);
 							map.invalidate();
 						}
 					}
@@ -90,17 +108,15 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
-		server = s;
 		prev = new Rect();
 		cur = new Rect();
-		bugs = new ArrayList<Bug>();
+		photos = new ArrayList<Photo>();
 		handler = new Handler();
-		openPaint = Profile.getCurrent(Profile.OPEN_NOTE).getPaint();
-		closedPaint = Profile.getCurrent(Profile.CLOSED_NOTE).getPaint();
+		icon = Application.mainActivity.getResources().getDrawable(R.drawable.camera);
 	}
 	
 	public boolean isReadyToDraw() {
-		if (map.getPrefs().isOpenStreetBugsEnabled()) {
+		if (map.getPrefs().isPhotoLayerEnabled()) {
 			return map.getOpenStreetMapTilesOverlay().isReadyToDraw();
 		}
 		return true;
@@ -108,7 +124,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
-		if (map.getPrefs().isOpenStreetBugsEnabled()) {
+		if (map.getPrefs().isPhotoLayerEnabled()) {
 			final Rect viewPort = c.getClipBounds();
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
@@ -122,15 +138,18 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			if (!cur.equals(prev)) {
 				// map has moved/zoomed - need to refresh the bugs on display
 				// don't flood OSB with requests - wait for 2s
-				handler.removeCallbacks(getBugs);
-				handler.postDelayed(getBugs, 2000);
+				handler.removeCallbacks(getPhotos);
+				handler.postDelayed(getPhotos, 500); // half a second delay
 			}
 			// draw all the bugs on the map as slightly transparent circles
-			for (Bug b : bugs) {
-				if (bb.isIn(b.getLat(), b.getLon())) {
-					float x = GeoMath.lonE7ToX(viewPort.width() , bb, b.getLon());
-					float y = GeoMath.latE7ToY(viewPort.height(), bb, b.getLat());
-					c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
+			for (Photo p : photos) {
+				if (bb.isIn(p.getLat(), p.getLon())) {
+					int x = (int) GeoMath.lonE7ToX(viewPort.width() , bb, p.getLon());
+					int y = (int) GeoMath.latE7ToY(viewPort.height(), bb, p.getLat());
+					int w2 = icon.getIntrinsicWidth() / 2;
+					int h2 = icon.getIntrinsicHeight() / 2;
+					icon.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
+					icon.draw(c);
 				}
 			}
 		}
@@ -142,40 +161,30 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	}
 	
 	/**
-	 * Given screen coordinates, find all nearby bugs.
+	 * Given screen coordinates, find all nearby photos.
 	 * @param x Screen X-coordinate.
 	 * @param y Screen Y-coordinate.
 	 * @param viewBox Map view box.
 	 * @return List of bugs close to given location.
 	 */
-	public List<Bug> getClickedBugs(final float x, final float y, final BoundingBox viewBox) {
-		List<Bug> result = new ArrayList<Bug>();
-		if (map.getPrefs().isOpenStreetBugsEnabled()) {
+	public List<Photo> getClickedPhotos(final float x, final float y, final BoundingBox viewBox) {
+		List<Photo> result = new ArrayList<Photo>();
+		Log.d("photos.MapOverlay", "getClickedPhotos");	
+		if (map.getPrefs().isPhotoLayerEnabled()) {
 			final float tolerance = Profile.nodeToleranceValue;
-			for (Bug b : bugs) {
-				int lat = b.getLat();
-				int lon = b.getLon();
+			for (Photo p : photos) {
+				int lat = p.getLat();
+				int lon = p.getLon();
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
 				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
 					if (Math.hypot(differenceX, differenceY) <= tolerance) {
-						result.add(b);
+						result.add(p);
 					}
 				}
 			}
-			// For debugging the OSB editor when the OSB site is down:
-			//result.add(new Bug(GeoMath.yToLatE7(map.getHeight(), viewBox, y), GeoMath.xToLonE7(map.getWidth(), viewBox, x), true));
 		}
+		Log.d("photos.MapOverlay", "getClickedPhotos found " + result.size());
 		return result;
 	}
-	
-	/**
-	 * Add a bug to the overlay. Intended for when a bug is added to the map. The map will
-	 * need to be invalidated for the change to be shown.
-	 * @param bug New bug.
-	 */
-	public void addBug(final Bug bug) {
-		bugs.add(bug);
-	}
-	
 }

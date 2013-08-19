@@ -28,6 +28,8 @@ public class Preferences {
 	
 	private final boolean isOpenStreetBugsEnabled;
 	
+	private final boolean isPhotoLayerEnabled;
+	
 	private final boolean depreciatedModesEnabled;
 	
 	private final String backgroundLayer;
@@ -76,6 +78,7 @@ public class Preferences {
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
+		isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
 		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
@@ -128,6 +131,13 @@ public class Preferences {
 	 */
 	public boolean isOpenStreetBugsEnabled() {
 		return isOpenStreetBugsEnabled;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean isPhotoLayerEnabled() {
+		return isPhotoLayerEnabled;
 	}
 	
 	/**
