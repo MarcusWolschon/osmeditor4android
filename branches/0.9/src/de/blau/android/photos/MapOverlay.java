@@ -69,17 +69,14 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				
 				@Override
 				protected Collection<Photo> doInBackground(Void... params) {
-					if (!cur.equals(prev)) { // attempt to suppress unnecessary invalidations
-						PhotoIndex pi = new PhotoIndex(Application.mainActivity);
-						if (!indexed) {
-							publishProgress(0);
-							pi.createOrUpdateIndex();
-							publishProgress(1);
-							indexed = true;
-						}
-						return pi.getPhotos(cur);
+					PhotoIndex pi = new PhotoIndex(Application.mainActivity);
+					if (!indexed) {
+						publishProgress(0);
+						pi.createOrUpdateIndex();
+						publishProgress(1);
+						indexed = true;
 					}
-					else return null;
+					return pi.getPhotos(cur);
 				}
 				
 				@Override
@@ -92,13 +89,11 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				
 				@Override
 				protected void onPostExecute(Collection<Photo> result) {
-					if (!cur.equals(prev)) { // attempt to suppress unnecessary invalidations
-						prev.set(cur);
-						photos.clear();
-						if (!result.isEmpty()) {
-							photos.addAll(result);
-							map.invalidate();
-						}
+					prev.set(cur);
+					photos.clear();
+					if (!result.isEmpty()) {
+						photos.addAll(result);
+						map.invalidate(); // find our if a different layer is udating too, the ndon't invalidate
 					}
 				}
 				

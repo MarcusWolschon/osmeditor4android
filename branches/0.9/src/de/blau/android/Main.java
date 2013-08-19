@@ -1074,7 +1074,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			Mode mode = logic.getMode();
 			boolean isInEditZoomRange = logic.isInEditZoomRange();
 			
-			
 			if (showGPS && !followGPS && map.getLocation() != null) {
 				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
 				final float tolerance = Profile.nodeToleranceValue;				
@@ -1127,7 +1126,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				}
 				map.invalidate();
 			} else {
-				switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
+				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())) {
 				case 0:
 					if (!isInEditZoomRange) {
 						int res;
@@ -1155,7 +1154,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					}
 					break;
 				case 1:
-					performBugEdit(clickedBugs.get(0));
+					if ((clickedBugs != null) && (clickedBugs.size() > 0))
+						performBugEdit(clickedBugs.get(0));
+					else if ((clickedPhotos != null) && (clickedPhotos.size() > 0))
+						viewPhoto(clickedPhotos.get(0));
 					break;
 				default:
 					v.showContextMenu();
@@ -1164,6 +1166,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 		}
 		
+		private void viewPhoto(Photo photo) {
+			try {
+				Intent myIntent = new Intent(Intent.ACTION_VIEW); 
+				myIntent.setDataAndType(photo.getRef(), "image/jpeg"); // black magic only works this way
+				startActivity(myIntent);
+			} catch (Exception ex) {
+				Log.d("Main", "viewPhoto exception starting intent: " + ex);	
+			}
+		}
+
 		@Override
 		public void onUp(View v, float x, float y) {
 			if (logic.getMode() == Mode.MODE_EASYEDIT) {
@@ -1327,13 +1339,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 						performBugEdit(clickedBugs.get(0));
 					}
 					else if (clickedPhotos != null && clickedPhotos.size() == 1) {
-						try {
-							Intent myIntent = new Intent(Intent.ACTION_VIEW); 
-							myIntent.setDataAndType(clickedPhotos.get(0).getRef(), "image/jpeg"); // black magic only works this way
-							startActivity(myIntent);
-						} catch (Exception ex) {
-							Log.d("Main", "Exception starting intent: " + ex);	
-						}
+						viewPhoto(clickedPhotos.get(0));
 					} else {
 						easyEditManager.editElement(clickedNodesAndWays.get(0));
 					}
@@ -1445,13 +1451,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			int itemId = item.getItemId();
 			int bugsItemId = itemId - ((clickedPhotos == null) ? 0 : clickedPhotos.size());
 			if ((clickedPhotos != null) && (itemId < clickedPhotos.size())) {
-				try {
-					Intent myIntent = new Intent(Intent.ACTION_VIEW); 
-					myIntent.setDataAndType(clickedPhotos.get(itemId).getRef(), "image/jpeg"); // black magic only works this way
-					startActivity(myIntent);
-				} catch (Exception ex) {
-					Log.d("Main", "Exception starting intent: " + ex);	
-				}
+				viewPhoto(clickedPhotos.get(itemId));
 			} else if (clickedBugs != null && bugsItemId >= 0 && bugsItemId < clickedBugs.size()) {
 				performBugEdit(clickedBugs.get(bugsItemId));
 			} else {

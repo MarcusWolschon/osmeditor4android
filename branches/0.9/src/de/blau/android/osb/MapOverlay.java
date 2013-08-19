@@ -59,28 +59,23 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			new AsyncTask<Void, Void, Collection<Bug>>() {
 				@Override
 				protected Collection<Bug> doInBackground(Void... params) {
-					if (!cur.equals(prev)) // attempt to suppress unnecessary invalidations
-						return server.getNotesForBox(cur,100);
-					else
-						return null;
+					return server.getNotesForBox(cur,100);
 				}
 				
 				@Override
 				protected void onPostExecute(Collection<Bug> result) {
-					if (!cur.equals(prev)) { // attempt to suppress unnecessary invalidations
-						prev.set(cur);
-						bugs.clear();
-						long now = System.currentTimeMillis();
-						for (Bug b : result) {
-							// add open bugs or closed bugs younger than 7 days
-							if (!b.isClosed() || (now - b.getMostRecentChange().getTime()) < MAX_CLOSED_AGE) {
-								bugs.add(b);
-							}
+					prev.set(cur);
+					bugs.clear();
+					long now = System.currentTimeMillis();
+					for (Bug b : result) {
+						// add open bugs or closed bugs younger than 7 days
+						if (!b.isClosed() || (now - b.getMostRecentChange().getTime()) < MAX_CLOSED_AGE) {
+							bugs.add(b);
 						}
-	
-						if (!bugs.isEmpty()) {
-							map.invalidate();
-						}
+					}
+
+					if (!bugs.isEmpty()) {
+						map.invalidate(); // if other overlay is going invalidate we shoudn't
 					}
 				}
 				
