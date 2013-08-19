@@ -3,7 +3,7 @@ ActionBarSherlock
 
 You will need the ActionBarSherlock library, which in turn requires the "android support" library.
 
-The code was tested with ABS 4.1.0 and support library revision 10.
+The code was tested with ABS 4.4.0 and support library revision 10.
 
 You can find the android support lib in your SDK folder in one of:
 

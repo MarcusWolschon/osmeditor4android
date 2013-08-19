@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry combineaccessrules="false" kind="src" path="/library"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
@@ -8,5 +7,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK/library"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/Android/android-sdk/extras/android/support/v4/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/actionbarsherlock"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
