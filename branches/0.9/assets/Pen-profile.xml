@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <profile name="Pen">
 <!-- Vespucci internal -->
-<feature name="selected_node" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="fff6e497" style="FILL" cap="BUTT" join="MITER" />
 <feature name="gps_accuracy" internal="false" updateWidth="false" widthFactor="2.0" editable="true" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokewidth="0.0" />
-<feature name="problem_node_thin" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="problem_node_thin" internal="false" updateWidth="false" widthFactor="1.0" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0"/>
 <feature name="problem_way" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way_direction" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
 <feature name="selected_way" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
 <feature name="way_tolerance" internal="false" updateWidth="false" widthFactor="1.0" editable="true" color="40bd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="20.0" />
 <feature name="oneway_direction" internal="false" updateWidth="true" widthFactor="0.5" editable="true" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
 <feature name="gps_track" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" />
-<feature name="selected_node_thin" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="selected_node_thin" internal="false" updateWidth="false" widthFactor="1.0" editable="true" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0"/>
+<feature name="selected_node" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="fff6e497" style="FILL" cap="BUTT" join="MITER" />
 <feature name="problem_node" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
 <feature name="node_tolerance" internal="false" updateWidth="false" widthFactor="1.0" editable="true" color="40bd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
 <feature name="infotext" internal="false" updateWidth="false" widthFactor="1.0" editable="true" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" typefacestyle="0" textsize="12.0" /><feature name="viewbox" internal="false" updateWidth="false" widthFactor="1.0" editable="true" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" />
@@ -39,5 +39,5 @@
 </feature>
 <!-- OSM node based features -->
 <feature name="node" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ffb9121b" style="FILL" cap="BUTT" join="MITER" />
-<feature name="node_thin" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="node_thin" internal="false" updateWidth="false" widthFactor="1.0" editable="true" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0"/>
 </profile>

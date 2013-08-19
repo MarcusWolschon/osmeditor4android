@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -226,6 +227,8 @@ public class Profile  extends DefaultHandler {
 	 */
 	public static final Path WAY_DIRECTION_PATH = new Path();
 	
+	private static final String DEFAULT_PROFILE_NAME = "Default";
+	
 	static Resources myRes;
 	
 	public Profile(final Context ctx) {
@@ -301,6 +304,8 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(NODE_THIN);
+		fp.dontUpdate();
+		fp.getPaint().setStrokeWidth(1.0f);
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.getPaint().setStyle(Style.STROKE);
 		featureProfiles.put(fp.getName(), fp);
@@ -311,6 +316,8 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(PROBLEM_NODE_THIN);
+		fp.dontUpdate();
+		fp.getPaint().setStrokeWidth(1.0f);
 		fp.setColor(resources.getColor(R.color.problem));
 		fp.getPaint().setStyle(Style.STROKE);
 		featureProfiles.put(fp.getName(), fp);
@@ -334,6 +341,8 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(SELECTED_NODE_THIN);
+		fp.dontUpdate();
+		fp.getPaint().setStrokeWidth(1.0f);
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.getPaint().setStyle(Style.STROKE);
 		featureProfiles.put(fp.getName(), fp);
@@ -407,7 +416,7 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 		
 		if (availableProfiles == null) {
-			name = "Default";
+			name = DEFAULT_PROFILE_NAME;
 			currentProfile = this;
 			availableProfiles = new HashMap<String,Profile>();
 			availableProfiles.put(name,this);
@@ -467,12 +476,21 @@ public class Profile  extends DefaultHandler {
 	}
 	
 	/**
-	 * return list of available profiles
+	 * return list of available profiles (Defaut entry first, rest sorted)
 	 * @return
 	 */
 	public static String[] getProfileList() {
 		String[] res = new String[availableProfiles.size()];
-		for (int i=0;i<res.length;i++) {res[i] = (String)availableProfiles.keySet().toArray()[i];} // probably silly way of doing this
+		
+		res[0] = DEFAULT_PROFILE_NAME;
+		String keys[] = (new TreeMap<String, Profile>(availableProfiles)).keySet().toArray(new String[0]); // sort the list
+		int j = 1;
+		for (int i=0;i<res.length;i++) {
+			if (!keys[i].equals(DEFAULT_PROFILE_NAME)) {
+				res[j] = keys[i];
+				j++;
+			}
+		}    // probably silly way of doing this
 		return res;
 	}
 
