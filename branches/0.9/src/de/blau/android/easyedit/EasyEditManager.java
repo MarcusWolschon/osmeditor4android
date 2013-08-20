@@ -690,8 +690,12 @@ public class EasyEditManager {
 					main.startActionMode(new PathCreationActionModeCallback((Node)element));
 					break;
 				case MENUITEM_JOIN:
-					logic.performJoin(joinableElement, (Node)element);
-					mode.finish();
+					if (!logic.performJoin(joinableElement, (Node)element)) {
+						Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
+						main.performTagEdit((Node)element, null);
+					} else {
+						mode.finish();
+					}
 					break;
 				case MENUITEM_UNJOIN:
 					logic.performUnjoin((Node)element);

@@ -1059,14 +1059,15 @@ public class Logic {
 	 * @param element Node or Way that the node will be joined to.
 	 * @param nodeToJoin Node to be joined to the way.
 	 */
-	public void performJoin(OsmElement element, Node nodeToJoin) {
+	public boolean performJoin(OsmElement element, Node nodeToJoin) {
+		boolean mergeOK = true;
 		if (element instanceof Node) {
 			Node node = (Node)element;
 			createCheckpoint(R.string.undo_action_join);
-			delegator.mergeNodes(node, nodeToJoin);
+			mergeOK = delegator.mergeNodes(node, nodeToJoin);
 			map.invalidate();
 		}
-		if (element instanceof Way) {
+		else if (element instanceof Way) {
 			Way way = (Way)element;
 			List<Node> wayNodes = way.getNodes();
 			for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
@@ -1096,13 +1097,13 @@ public class Logic {
 						delegator.addNodeToWayAfter(node1, nodeToJoin, way);
 					} else {
 						// merge node into tgtNode
-						delegator.mergeNodes(node, nodeToJoin);
+						mergeOK = delegator.mergeNodes(node, nodeToJoin);
 					}
 					map.invalidate();
-					return;
 				}
 			}
 		}
+		return mergeOK;
 	}
 	
 	/**

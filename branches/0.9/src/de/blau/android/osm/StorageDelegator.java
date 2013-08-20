@@ -392,10 +392,19 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param mergeInto The node to merge into. Tags are combined.
 	 * @param mergeFrom The node to merge from. Is deleted.
 	 */
-	public void mergeNodes(Node mergeInto, Node mergeFrom) {
+	public boolean mergeNodes(Node mergeInto, Node mergeFrom) {
+		boolean mergeOK = true;
 		dirty = true;
+		mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove objects from relations.
 		// merge tags
 		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
+		// if merging the tags creates multiple-value tags, mergeOK should be set to false
+		for (String v:mergeInto.getTags().values()) {
+			if (v.indexOf(";") >= 0) {
+				mergeOK = false;
+				break;
+			}
+		}
 		// replace references to mergeFrom node in ways with mergeInto
 		for (Way way : currentStorage.getWays(mergeFrom)) {
 			replaceNodeInWay(mergeFrom, mergeInto, way);
@@ -406,7 +415,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		mergeElementsRelations(mergeInto, mergeFrom); 
 		// delete mergeFrom node
 		removeNode(mergeFrom);
-
+		return mergeOK;
 	}
 	
 	/**
@@ -430,6 +439,8 @@ public class StorageDelegator implements Serializable, Exportable {
 			mergeFrom = tmpWay;
 			Log.d("StorageDelegator", "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
 		}
+		
+		mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove ways from relations.
 		
 		// undo - mergeInto way saved here, mergeFrom way will not be changed directly and will be saved in removeWay
 		dirty = true;
@@ -490,6 +501,29 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		return mergeOK;
 	}
+	
+	/**
+	 * return true if elements have different roles in the same relation
+	 * @param o1
+	 * @param o2
+	 * @return
+	 */
+	private boolean roleConflict(OsmElement o1, OsmElement o2) {
+		
+		ArrayList<Relation> r1 = o1.getParentRelations();
+		ArrayList<Relation> r2 = o2.getParentRelations();
+		for (Relation r : r1) {
+			if (r2.contains(r)) {
+				RelationMember rm1 = r.getMember(o1);
+				RelationMember rm2 = r.getMember(o2);
+				if (!rm1.getRole().equals(rm2.getRole()))
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	
 	/**
 	 * Unjoins ways connected at the given node.
@@ -553,6 +587,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 	
+
 	/**
 	 * Reverses a way
 	 * @param way
@@ -874,8 +909,6 @@ public class StorageDelegator implements Serializable, Exportable {
 				mergeInto.addParentRelation(r);
 				mergeInto.updateState(OsmElement.STATE_MODIFIED);
 				apiStorage.insertElementSafe(mergeInto);
-			} else {
-				// check for role conflict
 			}
 		}
 	}
