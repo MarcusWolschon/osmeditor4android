@@ -1169,6 +1169,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		private void viewPhoto(Photo photo) {
 			try {
 				Intent myIntent = new Intent(Intent.ACTION_VIEW); 
+				myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				myIntent.setDataAndType(photo.getRef(), "image/jpeg"); // black magic only works this way
 				startActivity(myIntent);
 			} catch (Exception ex) {
