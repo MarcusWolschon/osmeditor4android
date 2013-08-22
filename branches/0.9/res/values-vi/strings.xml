@@ -8,11 +8,11 @@
   <string name="transfer_download_current_back">Quay lại (Không làm gì)</string>
   <string name="upload_problem_title">Vấn đề Tải lên</string>
   <string name="no_login_data_title">Dữ liệu đăng nhập không được xác định</string>
-  <string name="no_login_data_message">Xin vui lòng thiết lập OSM-Login trong biểu mẫu tùy chỉnh.</string>
+  <string name="no_login_data_message">Xin vui lòng thiết lập tài khoản OSM trong biểu mẫu tùy chỉnh.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
-  <string name="no_connection_message">Không thể kết nốt với OSM-Server. Xin vui lòng kiểm tra kết nối Internet của bạn hoặc thử lại sau.</string>
+  <string name="no_connection_message">Không thể kết nốt với máy chủ OSM. Xin vui lòng kiểm tra kết nối Internet của bạn hoặc thử lại sau.</string>
   <string name="wrong_login_data_title">Dữ liệu đăng nhập sai</string>
-  <string name="wrong_login_data_message">OSM-Server không thể xác nhận bạn. Xin vui lòng kiểm tra dữ liệu đăng nhập của bạn trong tùy chỉnh.</string>
+  <string name="wrong_login_data_message">Máy chủ OSM không thể xác nhận bạn. Xin vui lòng kiểm tra dữ liệu đăng nhập của bạn trong tùy chỉnh.</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
   <string name="progress_download_message">Đang tải về dữ liệu từ máy chủ…</string>
@@ -40,6 +40,8 @@
   <string name="toast_export_failed">Thất bại khi xuất</string>
   <string name="toast_export_success">Đã xuất ra %1$s</string>
   <string name="toast_preset_overwrote_tags">Chú ý: Các thẻ đặt trước đã ghi đè lên thẻ</string>
+  <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
+  <string name="toast_too_many_nodes_for_move">Lối sẽ được di chuyển có quá nhiều nốt</string>
   <string name="toast_unread_mail">Bạn có %1$s thư chưa đọc trên máy chủ OpenStreetMap</string>
   <!--Some generic labels-->
   <string name="yes">Có</string>
@@ -129,24 +131,44 @@
   <string name="config_category_view">Xem Thiết lập</string>
   <string name="config_showStats_title">Xem thống kê</string>
   <string name="config_showStats_summary">Hiển thị thống kế dữ liệu và số khung hình/giây ở phần phía dưới góc bên trái.</string>
+  <string name="config_showTolerance_title">Hiển thị mức chịu đựng</string>
+  <string name="config_showTolerance_summary">Hiển thị khu vực nơi đối tượng có thể được chọn</string>
+  <string name="config_enableAntiAliasing_title">Khử răng cưa</string>
+  <string name="config_enableOpenStreetBugs_title">Hiển thị Ghi chú</string>
+  <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
+  <string name="config_enablePhotoLayer_summary">Hiển thị các hình ảnh được định vị.</string>
+  <string name="config_enableDeprecatedModes_title">Bật các chế độ bị phản đối</string>
   <string name="config_backgroundLayer_title">Nền bản đồ</string>
   <string name="config_category_server">Thiết lập Máy chủ</string>
   <string name="config_apibutton_title">URL của API OSM</string>
+  <string name="config_apibutton_summary">Bạn có thể đặt URL đến một API không chuẩn tại đây. Thường không nên thay đổi thiết lập này.</string>
   <string name="config_api_url_title">URL của API</string>
   <string name="config_api_oauth_title">Dùng OAuth</string>
   <string name="listedit_enable_oauth">Bật OAuth</string>
   <string name="config_presetbutton_title">Thẻ đặt trước JOSM</string>
+  <string name="config_presetbutton_summary">Bạn có thể định nghĩa các đối tượng trên bản đồ tại đây</string>
   <string name="config_iconbutton_title">Xem hình nốt</string>
+  <string name="config_iconbutton_summary">Hiển thị hình tượng của thẻ đặt trước khớp nhất trên các nốt.</string>
   <string name="config_loginbutton_title">Tài khoản người dùng</string>
   <string name="config_username_title">Tên người dùng OSM</string>
+  <string name="config_username_summary">Cần thiết để tải lên dữ liệu OSM. Bạn có thể mở tài khoản tại http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Mật khẩu OSM</string>
+  <string name="config_password_summary">Không nhầm lẫn với mật khẩu trên wiki. Lưu ý: Mật khẩu này được truyền như văn bản thuần!</string>
   <string name="config_category_gps">Thiết lập GPS</string>
+  <string name="config_gps_distance_title">Tầm xa GPS Tối thiểu</string>
+  <string name="config_gps_interval_title">Khoảng GPS Tối thiểu</string>
   <string name="config_category_info">Giới thiệu</string>
   <string name="config_advancedprefs">Tùy chỉnh nâng cao</string>
+  <string name="config_forceContextMenu_title">Luôn dùng trình đơn ngữ cảnh</string>
+  <string name="config_forceContextMenu_summary">Luôn hiển thị trình đơn ngữ cảnh trong chế độ Sửa đổi Dễ dàng khi nào lựa chọn không rõ ràng</string>
   <string name="config_licensebutton_title">Tác giả và giấy phép</string>
   <string name="config_licensebutton_summary">Xem thông tin về tác giả và giấy phép</string>
   <!--preset downloader messages-->
   <string name="preset_update">Cập nhật thẻ đặt trước</string>
+  <string name="preset_download_successful">Thẻ đặt trước được tải về thành công</string>
+  <string name="preset_download_failed">Không thể tải về tập tin thẻ đặt trước. Thẻ đặt trước sẽ không có tác dụng.</string>
+  <string name="preset_download_parse_failed">Tập tin thẻ đặt trước không hợp lệ. Thẻ đặt trước sẽ không có tác dụng.</string>
+  <string name="preset_download_missing_images">Tập tin thẻ đặt trước đã được tải về thành công. Tuy nhiên, một số hình tượng không thể được tải về và sẽ không hiển thị.</string>
   <!--changes-->
   <string name="changes_deleted">Đã xóa “%1$s”</string>
   <string name="changes_changed">Đã thay đổi “%1$s”</string>
@@ -156,7 +178,10 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">Thêm thẻ đặt trước</string>
   <string name="urldialog_preset_exists">Thẻ đặt trước này đã tồn tại</string>
+  <string name="urldialog_api_exists">Đã có một API với URL này. Tuy nhiên, bạn có thể thêm một API khác, chẳng hạn để đổi tài khoản dễ dàng.</string>
+  <string name="urldialog_api_preset_missing">API sử dụng một thẻ đặt trước không có sẵn. Bạn nên thêm nó trước tiên.</string>
   <string name="urldialog_add_api">Thêm API</string>
+  <string name="urldialog_nodata_text">URL cấu hình không có dữ liệu hợp lệ.</string>
   <!--common terms-->
   <string name="add">Thêm</string>
   <string name="edit">Sửa</string>
@@ -195,6 +220,9 @@
   <string name="undo_action_paste">dán</string>
   <string name="undo_action_rotateway">quay lối</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci đã bị sự cố. Xin vui lòng báo cáo lỗi.</string>
+  <string name="crash_notif_title">Vespucci đã bị sự cố</string>
+  <string name="crash_notif_text">Xin vui lòng nhấn chuột vào đây để giúp giải quyết vấn đề.</string>
   <string name="config_category_acra">Báo cáo Sự cố</string>
   <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
   <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>

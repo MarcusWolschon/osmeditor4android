@@ -45,6 +45,7 @@
   <string name="no">Nie</string>
   <string name="okay">OK</string>
   <string name="cancel">Anuluj</string>
+  <string name="locked">Zablokowane</string>
   <!--Strings in TagEditor-->
   <string name="key">klucz</string>
   <string name="value">wartość</string>
@@ -86,6 +87,8 @@
   <string name="menu_split">Podziel drogę</string>
   <string name="menu_append">Dołącz</string>
   <string name="menu_restriction">Dodaj ograniczenie</string>
+  <string name="menu_restriction_via">Dodaj restrykcję przez</string>
+  <string name="menu_restriction_to">Dodaj restrykcję do`</string>
   <string name="menu_tag">Edytuj tagi</string>
   <string name="menu_openstreetbug">Dodaj notatkę</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -115,6 +118,7 @@
   <string name="menu_history">Historia</string>
   <string name="menu_merge">dołącz</string>
   <string name="menu_reverse">Odwróć</string>
+  <string name="reverse_anyway">Odwróć mimo to</string>
   <string name="deleteway_wayonly">Usuń tylko drogę</string>
   <string name="deleteway_wayandnodes">Usuń drogę i węzły</string>
   <string name="deletenode">Usuń węzeł</string>

@@ -42,7 +42,6 @@
   <string name="toast_export_success">%1$s-ra esportatu da</string>
   <string name="toast_preset_overwrote_tags">Oharra - aurrez gainidatzitako etiketa(k)</string>
   <string name="toast_oneway_reversed">Bide bakarreko kalea edo norabide etiketa duen bidea leheneratu duzu. Begiratu mesedez etiketak eta zuzen itzazu beharrezkoa izan ezkero.</string>
-  <string name="toast_merge_tag_conflict">Gatazkan dauden edo norabidearekiko menpekotasuna daukaten etiketa balioak dituzten bideak elkartu dituzu. Mesedez konprobatu etiketak eta zuzen itzazu beharrezkoak badira.</string>
   <string name="toast_state_file_failed">Egoera fitxategi irakurgaitza edo hondatua</string>
   <string name="toast_too_many_nodes_for_move">Mugitzeko bidean nodo gehiegi daude</string>
   <string name="toast_oauth_handshake_failed">OAuth autentikazioak huts egin du, konprobatu kontsumitzaile gako egokiak dituzula</string>

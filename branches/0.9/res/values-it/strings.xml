@@ -42,7 +42,6 @@
   <string name="toast_export_success">Esportat su %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - il preset ha sovracritto qualche tag</string>
   <string name="toast_oneway_reversed">Hai invertito una via a senso unico o una via con tag dipendenti dalla direzione. Controlla i tag e correggili se necessario.</string>
-  <string name="toast_merge_tag_conflict">Hai unito vie che hanno valori in conflitto per alcuni tag o semantica dipendente dalla direzione. Controlla i tag e correggili se necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <string name="toast_too_many_nodes_for_move">Troppi nodi nella via da spostare</string>
   <string name="toast_oauth_handshake_failed">Handshake OAuth fallito, controlla di avere le consumer keys appropriate</string>

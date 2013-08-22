@@ -42,7 +42,7 @@
   <string name="toast_export_success">Exportiert nach %1$s</string>
   <string name="toast_preset_overwrote_tags">Achtung: Die Vorlage hat ein oder mehrere Tags überschrieben</string>
   <string name="toast_oneway_reversed">Richtung einer Einbahnstrasse oder Weg mit richtungsabhängigen Tags geändert. Bitte Tags überprüfen und falls nötig, korrigieren. </string>
-  <string name="toast_merge_tag_conflict">Wege mit sich widersprechenden Tags oder richtungsabhängige Semantik zusammengeführt. Tags bitte überprüfen und, falls nötig, korrigieren,</string>
+  <string name="toast_merge_tag_conflict">Elemente mit sich widersprechenden Tags, richtungsabhängige Semantik oder sich widersprechende Rollen in derselben Relation zusammengeführt. Tags und Rollen bitte überprüfen und, falls nötig, korrigieren,</string>
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
   <string name="toast_too_many_nodes_for_move">Der Weg hat zuviele Punkte um ihn zu verschieben</string>
   <string name="toast_oauth_handshake_failed">OAuth Verhandlung ist fehlgeschlagen. Bitte überprüfen ob die richtigen \"consumer keys\" vorhanden sind.</string>

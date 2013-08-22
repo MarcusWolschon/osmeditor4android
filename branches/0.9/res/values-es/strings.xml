@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Descartar descarga &amp;</string>
   <string name="transfer_download_current_back">Volver (No hacer nada)</string>
   <string name="upload_problem_title">Problema con la subida</string>
+  <string name="upload_problem_message">Algunos o todos los datos no se ha subido. Trate de subir de nuevo para ver qué ha fallado. La causa más probable es un conflicto de versiones.</string>
   <string name="no_login_data_title">Datos de login no establecidos</string>
   <string name="no_login_data_message">Por favor rellene la configuración de login-OSM en el formulario de preferencias.</string>
   <string name="no_connection_title">Sin conexión con el Servidor</string>
@@ -17,9 +18,15 @@
   <string name="progress_message">Cargando datos en memoria…</string>
   <string name="progress_download_message">Descargando datos del servidor…</string>
   <string name="upload_comment_label">Comentario:</string>
+  <string name="upload_source_label">Fuente:</string>
+  <string name="openstreetbug_new_title">Nota Nueva</string>
+  <string name="openstreetbug_new_bug">Informar de un problema</string>
   <string name="openstreetbug_new_nodeway">Crear Nodo/Ruta</string>
+  <string name="openstreetbug_edit_title">Editar Nota</string>
   <string name="openstreetbug_commitbutton">Enviar</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
+  <string name="openstreetbug_edit_close">Cerrar</string>
+  <string name="openstreetbug_edit_closed">Cerrado</string>
   <string name="openstreetbug_commit_ok">Cambios guardados</string>
   <string name="openstreetbug_commit_fail">No se han podido guardar los cambios</string>
   <string name="unsaved_data_title">¡Cuidado!</string>
@@ -34,11 +41,13 @@
   <string name="toast_export_failed">Exportación fallida</string>
   <string name="toast_export_success">Exportado a %1$s</string>
   <string name="toast_preset_overwrote_tags">Aviso - preajustes sobreescriben etiqueta(s)</string>
+  <string name="toast_too_many_nodes_for_move">Demasiados nodos en camino para mover</string>
   <!--Some generic labels-->
   <string name="yes">Si</string>
   <string name="no">No</string>
   <string name="okay">Vale</string>
   <string name="cancel">Cancelar</string>
+  <string name="locked">Bloqueado</string>
   <!--Strings in TagEditor-->
   <string name="key">key</string>
   <string name="value">value</string>
@@ -48,6 +57,7 @@
   <string name="tag_menu_repeat">Repetir</string>
   <string name="tag_menu_revert">Revertir</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
+  <string name="tag_menu_resetMRU">Reajustar Predeterminados</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Area</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -77,7 +87,10 @@
   <string name="menu_erase">Eliminar nodo</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_append">Unir</string>
+  <string name="menu_restriction">Añadir restricción</string>
+  <string name="menu_restriction_to">Añadir restricción a</string>
   <string name="menu_tag">Editar etiquetas</string>
+  <string name="menu_openstreetbug">Añadir Nota</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostrar localización</string>
@@ -95,6 +108,10 @@
   <string name="menu_save">Guardar en fichero</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Dividir</string>
+  <string name="menu_copy">Copiar</string>
+  <string name="menu_cut">Cortar</string>
+  <string name="menu_paste">Pegar</string>
+  <string name="menu_rotate">Girar</string>
   <!--element action mode menu-->
   <string name="menu_tags">Etiquetas</string>
   <!--Text should be as short as possible-->
@@ -103,6 +120,7 @@
   <string name="menu_reverse">Revertir</string>
   <string name="deleteway_wayonly">Eliminar solo la vía</string>
   <string name="deleteway_wayandnodes">Eliminar vía y nodos</string>
+  <string name="deletenode">Borrar nodo</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vía seleccionada</string>
   <string name="actionmode_nodeselect">Nodo seleccionado</string>
@@ -114,6 +132,9 @@
   <string name="config_showTolerance_title">Mostrar tolerancia</string>
   <string name="config_showTolerance_summary">Mostrar el área donde un elemento puede ser seleccionado.</string>
   <string name="config_enableAntiAliasing_title">Habilitar Anti-Aliasing</string>
+  <string name="config_enableAntiAliasing_summary">Hace las líneas más suaves.</string>
+  <string name="config_enableOpenStreetBugs_title">Permitir la visualización de Notas</string>
+  <string name="config_enableOpenStreetBugs_summary">Ver, Editar y Crear Notas/Errores.</string>
   <string name="config_backgroundLayer_title">Mapa de fondo</string>
   <string name="config_backgroundLayer_summary">Mapa de fondo procesado gráficamente.</string>
   <string name="config_category_server">Configuraciones de Servidor</string>
@@ -139,6 +160,7 @@
   <string name="config_forceContextMenu_summary">Mostrar siempre el menú contextual en el modo EasyEdit si la selección es ambigua.</string>
   <string name="config_licensebutton_title">Autores y licencias</string>
   <string name="config_licensebutton_summary">Mostrar autores e información de licencia</string>
+  <string name="config_mapProfile_summary">Definir el estilo y la visibilidad de los elementos</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar preajustes</string>
   <string name="preset_download_successful">Preajustes descargados correctamente</string>
@@ -187,6 +209,9 @@
   <string name="undo_action_set_tags">añadir etiquetas</string>
   <string name="undo_action_join">unir</string>
   <string name="undo_action_unjoin_ways">dividir vías</string>
+  <string name="undo_action_cut">cortar</string>
+  <string name="undo_action_paste">pegar</string>
+  <string name="undo_action_rotateway">girar vía</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci ha fallado. Por favor envíe un informe de errores.</string>
   <string name="crash_notif_title">Vespucci ha fallado</string>
@@ -197,5 +222,9 @@
   <string name="pref_acra_enabled">Reportes de error habilitados</string>
   <string name="pref_acra_disabled">Reportes de error deshabilitados</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rol</string>
+  <string name="role_lc">rol</string>
+  <string name="type">Tipo</string>
+  <string name="object">Objeto</string>
   <!---->
 </resources>
