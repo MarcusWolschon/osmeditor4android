@@ -241,7 +241,12 @@ public class Map extends View implements IMapView {
 	@Override
 	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-		myViewBox.setRatio((float) w / h, true);
+		try {
+			myViewBox.setRatio((float) w / h, true);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/* Overlay Event Forwarders */
@@ -415,16 +420,16 @@ public class Map extends View implements IMapView {
 		}
 		
 		//Paint all nodes
+		BoundingBox originalBox = delegator.getOriginalBox().copy();
 		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			paintNode(canvas, nodes.get(i));
+			paintNode(canvas, nodes.get(i), originalBox);
 		}
 		
-		paintStorageBox(canvas);
+		paintStorageBox(canvas, originalBox);
 	}
 	
-	private void paintStorageBox(final Canvas canvas) {
-		BoundingBox originalBox = delegator.getOriginalBox();
+	private void paintStorageBox(final Canvas canvas, BoundingBox originalBox) {
 		int screenWidth = getWidth();
 		int screenHeight = getHeight();
 		BoundingBox viewBox = getViewBox();
@@ -461,7 +466,7 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the node shall be painted on.
 	 * @param node Node which shall be painted.
 	 */
-	private void paintNode(final Canvas canvas, final Node node) {
+	private void paintNode(final Canvas canvas, final Node node,BoundingBox originalBox) {
 		int lat = node.getLat();
 		int lon = node.getLon();
 		
@@ -479,7 +484,7 @@ public class Map extends View implements IMapView {
 						)
 				)
 			{
-				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
+				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y, originalBox);
 			}
 			
 			String featureKey;
@@ -554,9 +559,9 @@ public class Map extends View implements IMapView {
 	 * @param y
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
-			final float x, final float y) {
+			final float x, final float y, BoundingBox originalBox) {
 		if (prefs.isToleranceVisible() && tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingInEditRange
-				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon))) {
+				&& (nodeState != OsmElement.STATE_UNCHANGED || originalBox.isIn(lat, lon))) {
 			Paint p = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
 			canvas.drawCircle(x, y, p.getStrokeWidth(), p);
 		}

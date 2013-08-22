@@ -27,7 +27,7 @@ import android.widget.Toast;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 	
-	private final static int DATA_VERSION = 1;
+	private final static int DATA_VERSION = 2;
 	private final static String LOGTAG = "PhotoIndex";
 	private final Context ctx;
 
@@ -47,6 +47,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	public synchronized void onCreate(SQLiteDatabase db) {
 		Log.d(LOGTAG, "Creating photo index DB");
 		db.execSQL("CREATE TABLE IF NOT EXISTS photos (lat int, lon int, dir VARCHAR, name VARCHAR);");
+		db.execSQL("CREATE INDEX latidx ON photos (lat)");
+		db.execSQL("CREATE INDEX lonidx ON photos (lon)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS directories  (dir VARCHAR, last_scan int8);");
 		db.execSQL("INSERT INTO directories VALUES ('DCIM', 0);");
 		db.execSQL("INSERT INTO directories VALUES ('Vespucci', 0);");
@@ -56,7 +58,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	@Override
 	public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.d(LOGTAG, "Upgrading photo index DB");
-		
 	}
 	
 	public synchronized void createOrUpdateIndex()

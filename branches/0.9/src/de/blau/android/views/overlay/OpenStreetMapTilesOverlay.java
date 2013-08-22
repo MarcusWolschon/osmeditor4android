@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.Map;
@@ -140,10 +141,11 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		final Rect viewPort = c.getClipBounds();
 		final int zoomLevel = osmv.getZoomLevel(viewPort);
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile
-		final double lonLeft   = GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
-		final double lonRight  = GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.right ) / 1E7d;
-		final double latTop    = GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
-		final double latBottom = GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
+		// why would we calculate the coordinates when we already have them ????
+		final double lonLeft   = osmv.getViewBox().getLeft() / 1E7d; 	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
+		final double lonRight  = osmv.getViewBox().getRight() / 1E7d;	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.right ) / 1E7d;
+		final double latTop    = osmv.getViewBox().getTop() / 1E7d;		// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
+		final double latBottom = osmv.getViewBox().getBottom() / 1E7d;	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
 		
 		// pseudo-code for lon/lat to tile numbers
 		//n = 2 ^ zoom
@@ -286,17 +288,16 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 */
 	private Rect getScreenRectForTile(Canvas c, IMapView osmv,
 			final int zoomLevel, int y, int x) {
+
 		final Rect viewPort = c.getClipBounds();
 		double north = tile2lat(y    , zoomLevel);
 		double south = tile2lat(y + 1, zoomLevel);
 		double west  = tile2lon(x    , zoomLevel);
 		double east  = tile2lon(x + 1, zoomLevel);
-
 		int screenLeft   = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (west  * 1E7)));
 		int screenRight  = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (east  * 1E7)));
 		int screenTop    = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), osmv.getViewBox(), (int) (north * 1E7)));
 		int screenBottom = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), osmv.getViewBox(), (int) (south * 1E7)));
-
 		return new Rect(screenLeft, screenTop, screenRight, screenBottom);
 	}
 

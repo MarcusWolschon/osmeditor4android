@@ -136,7 +136,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				handler.removeCallbacks(getPhotos);
 				handler.postDelayed(getPhotos, 500); // half a second delay
 			}
-			// draw all the bugs on the map as slightly transparent circles
+			// draw all the photos
 			for (Photo p : photos) {
 				if (bb.isIn(p.getLat(), p.getLon())) {
 					int x = (int) GeoMath.lonE7ToX(viewPort.width() , bb, p.getLon());

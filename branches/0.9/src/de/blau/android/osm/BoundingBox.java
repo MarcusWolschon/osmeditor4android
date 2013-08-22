@@ -39,7 +39,7 @@ public class BoundingBox implements Serializable {
 	/**
 	 * The width of the bounding box. Always positive.
 	 */
-	private int width;
+	private long width;
 
 	/**
 	 * The height of the bounding box. Always positive.
@@ -95,7 +95,8 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Maximum width to zoom out.
 	 */
-	private static final int MAX_ZOOM_WIDTH = 500000000;
+	// private static final long MAX_ZOOM_WIDTH = 500000000L;
+	private static final long MAX_ZOOM_WIDTH =   3599999999L;
 
 	private static final String DEBUG_TAG = BoundingBox.class.getSimpleName();
 
@@ -128,16 +129,14 @@ public class BoundingBox implements Serializable {
 	 * {@link #MAX_LAT}/{@link #MAX_LON} (!{@link #isValid()})
 	 */
 	public BoundingBox(final int left, final int bottom, final int right, final int top) throws OsmException {
+		Log.d("BoundingBox","left " + left + " right " + right + " bottom " + bottom + " top " + top);
 		this.left = left;
 		this.bottom = bottom;
 		this.right = right;
 		this.top = top;
 		calcDimensions();
 		calcMercatorFactorPow3();
-		if (!isValid()) {
-			Log.e(DEBUG_TAG, toString());
-			throw new OsmException("left must be less than right and bottom must be less than top");
-		}
+		validate();
 	}
 
 	/**
@@ -173,7 +172,14 @@ public class BoundingBox implements Serializable {
 	 * @throws OsmException see {@link #BoundingBox(int, int, int, int)}
 	 */
 	public BoundingBox(final BoundingBox box) throws OsmException {
-		this(box.left, box.bottom, box.right, box.top);
+		// this(box.left, box.bottom, box.right, box.top); not good, forces a recalc of everything
+		this.left = box.left;
+		this.bottom = box.bottom;
+		this.right = box.right;
+		this.top = box.top;
+		this.width = box.width;
+		this.height = box.height;
+		this.mercatorFactorPow3 = box.mercatorFactorPow3;
 	}
 
 	/**
@@ -259,7 +265,7 @@ public class BoundingBox implements Serializable {
 	 * Get the width of the box.
 	 * @return The difference in 1E7 degrees between the right and left sides.
 	 */
-	public int getWidth() {
+	public long getWidth() {
 		return width;
 	}
 
@@ -333,13 +339,14 @@ public class BoundingBox implements Serializable {
 			right = left;
 			left = t;
 		}
-		width = right - left;
+		width = (long)right - (long)left;
 		if (top < bottom) {
 			t = top;
 			top = bottom;
 			bottom = t;
 		}
 		height = top - bottom;
+		// Log.d("BoundingBox", "width " + width + " height " + height);
 	}
 
 	/**
@@ -352,7 +359,7 @@ public class BoundingBox implements Serializable {
 		// to rounding errors.
 		final double centerLat = ((bottom + height / 2) / 1E7d);
 		// powers 3 because it would be needed in later usage of this factor
-		mercatorFactorPow3 = GeoMath.getMercartorFactorPow3(centerLat);
+		mercatorFactorPow3 = GeoMath.getMercatorFactorPow3(centerLat);
 	}
 
 	/**
@@ -361,7 +368,7 @@ public class BoundingBox implements Serializable {
 	 * the larger one will be resized to fit ratio.
 	 * @param ratio The new aspect ratio.
 	 */
-	public void setRatio(final float ratio) {
+	public void setRatio(final float ratio) throws OsmException {
 		setRatio(ratio, false);
 	}
 	
@@ -373,7 +380,7 @@ public class BoundingBox implements Serializable {
 	 * false, the new bounding box is sized such that the currently visible
 	 * area is still visible with the new aspect ratio applied.
 	 */
-	public void setRatio(final float ratio, final boolean preserveZoom) {
+	public void setRatio(final float ratio, final boolean preserveZoom) throws OsmException {
 		if ((ratio > 0) && (ratio != Float.NaN)) {
 			if (preserveZoom) {
 				// Apply the new aspect ratio, but preserve the level of zoom
@@ -401,7 +408,7 @@ public class BoundingBox implements Serializable {
 			else {
 				int singleBorderMovement;
 				// Ensure currently visible area is entirely visible in the new box
-				if ((width / height) < ratio) {
+				if ((width / (long)height) < ratio) {
 					// The actual box is wider than it should be.
 					/* Here comes the math:
 					 * width/height = ratio
@@ -426,6 +433,7 @@ public class BoundingBox implements Serializable {
 			// border-sizes changed. So we have to recalculate the dimensions.
 			calcDimensions();
 			this.ratio = ratio;
+			validate();
 		}
 	}
 
@@ -440,8 +448,14 @@ public class BoundingBox implements Serializable {
 		// TODO scaling adjustment is better now but not perfect 
 		double halfHeight = height / 2;
 		double mercatorDiff = mercatorFactorPow3 * halfHeight - halfHeight;
-		translate(lonCenter - left - width / 2, latCenter - bottom - (int)(halfHeight - mercatorDiff));		
+		try {
+			translate((lonCenter - left - (int)(width / 2L)), latCenter - bottom - (int)(halfHeight - mercatorDiff));
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
+	
 
 	/**
 	 * Relative translation.
@@ -449,21 +463,24 @@ public class BoundingBox implements Serializable {
 	 * @param lon the relative longitude change.
 	 * @param lat the relative latitude change.
 	 */
-	public void translate(final int lon, final int lat) {
+	public void translate(int lon, int lat) throws OsmException {
 		if (lon > 0 && right + lon > MAX_LON) {
-			return;
+			lon = MAX_LON - right;
 		} else if (lon < 0 && left + lon < -MAX_LON) {
-			return;
-		} else if (lat > 0 && top + lat > MAX_LAT) {
-			return;
-		} else if (lat < 0 && bottom + lat < -MAX_LAT) {
-			return;
+			lon = -MAX_LON - left;
+		} 
+		if (lat >  0 && top + lat > MAX_LAT) {
+			lat = MAX_LAT - top;
+		} else if (lat < 0 && bottom + lat < -MAX_LAT) {	
+			lat = -MAX_LAT - bottom;
 		}
 		left += lon;
 		right += lon;
 		top += lat;
 		bottom += lat;
+		
 		calcMercatorFactorPow3();
+		validate();
 	}
 	
 	/** Calculate the largest zoom-in factor that can be applied to the current
@@ -480,7 +497,7 @@ public class BoundingBox implements Serializable {
 	 * @return The largest allowable zoom-out factor.
 	 */
 	private float zoomOutLimit() {
-		return -(MAX_ZOOM_WIDTH - width) / 2f / width;
+		return -Math.min((MAX_ZOOM_WIDTH - width) / 2f / width, ((2*MAX_LAT-1) - height) / 2f /height);
 	}
 	
 	/**
@@ -503,16 +520,26 @@ public class BoundingBox implements Serializable {
 	 * Reduces this bounding box by the ZOOM_IN factor. The ratio of width and
 	 * height remains.
 	 */
-	public void zoomIn() {
-		zoom(ZOOM_IN);
+	public void zoomIn()  {
+		try {
+			zoom(ZOOM_IN);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Enlarges this bounding box by the ZOOM_OUT factor. The ratio of width
 	 * and height remains.
 	 */
-	public void zoomOut() {
-		zoom(ZOOM_OUT);
+	public void zoomOut()  {
+		try {
+			zoom(ZOOM_OUT);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -520,20 +547,21 @@ public class BoundingBox implements Serializable {
 	 * 
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
-	public void zoom(float zoomFactor) {
+	public void zoom(float zoomFactor) throws OsmException {
 		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
 		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
 
-		float verticalChange = width * zoomFactor;
-		float horizontalChange = height * zoomFactor;
-		left += verticalChange;
-		right -= verticalChange;
-		bottom += horizontalChange;
-		top -= horizontalChange;
+		float horizontalChange = width * zoomFactor;
+		float verticalChange = height * zoomFactor;
+		// should simply shift the center here
+		left = Math.max(-MAX_LON, left + (int)horizontalChange);
+		right = Math.min(MAX_LON, right - (int)horizontalChange);
+		bottom = Math.max(-MAX_LAT,bottom + (int)verticalChange);
+		top = Math.min(MAX_LAT, top - (int)verticalChange);
 		// Due to Mercator-Factor-Projection we have to translate to the new
 		// center.
 		translate(0, getZoomingTranslation(zoomFactor));
-		calcDimensions();
+
 		if (zoomCount++ % RESET_RATIO_AFTER_ZOOMCOUNT == 0) {
 			setRatio(ratio);
 		}
@@ -555,7 +583,7 @@ public class BoundingBox implements Serializable {
 	 * Sets the borders to the ones of newBox. Recalculates dimensions and
 	 * mercator-factor.
 	 * 
-	 * @param newBox bos with the new borders.
+	 * @param newBox box with the new borders.
 	 */
 	public void setBorders(final BoundingBox newBox) {
 		left = newBox.left;
@@ -569,7 +597,7 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Make the bounding box a valid request for the API, shrinking into its center if necessary.
 	 */
-	public void makeValidForApi() {
+	public void makeValidForApi() throws OsmException {
 		if (!isValidForApi()) {
 			int centerx = (left / 2 + right / 2); // divide first to stay < 2^32
 			int centery = (top + bottom) / 2;
@@ -580,6 +608,13 @@ public class BoundingBox implements Serializable {
 			calcDimensions();
 			calcMercatorFactorPow3();
 		}
+		validate();
 	}
-
+	
+	private void validate() throws OsmException {
+		if (!isValid()) {
+			Log.e(DEBUG_TAG, toString());
+			throw new OsmException("left must be less than right and bottom must be less than top");
+		}
+	}
 }

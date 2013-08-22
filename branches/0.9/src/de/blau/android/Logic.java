@@ -372,19 +372,24 @@ public class Logic {
 	 */
 	public void translate(final CursorPaddirection direction) {
 		float translation = viewBox.getWidth() * TRANSLATION_FACTOR;
-		switch (direction) {
-		case DIRECTION_LEFT:
-			viewBox.translate((int) -translation, 0);
-			break;
-		case DIRECTION_DOWN:
-			viewBox.translate(0, (int) (-translation / viewBox.getMercatorFactorPow3()));
-			break;
-		case DIRECTION_RIGHT:
-			viewBox.translate((int) translation, 0);
-			break;
-		case DIRECTION_UP:
-			viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3()));
-			break;
+		try {
+			switch (direction) {
+			case DIRECTION_LEFT:
+				viewBox.translate((int) -translation, 0);
+				break;
+			case DIRECTION_DOWN:
+				viewBox.translate(0, (int) (-translation / viewBox.getMercatorFactorPow3()));
+				break;
+			case DIRECTION_RIGHT:
+				viewBox.translate((int) translation, 0);
+				break;
+			case DIRECTION_UP:
+				viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3()));
+				break;
+			}
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		map.invalidate();
@@ -413,11 +418,16 @@ public class Logic {
 		}
 		isInEditZoomRange();
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
-		Log.d("Logic","invalidate called 1");
+		map.postInvalidate();
 	}
 	
 	public void zoom(final float zoomFactor) {
-		viewBox.zoom(zoomFactor);
+		try {
+			viewBox.zoom(zoomFactor);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		isInEditZoomRange();
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.postInvalidate();
@@ -429,7 +439,7 @@ public class Logic {
 	 * @param width   screenwidth in 10e7 deg.
 	 * @return 		  stroke width
 	 */
-	private float strokeWidth(int width){
+	private float strokeWidth(long width){
 		// prefs may not have been initialized
 		if (prefs != null ) return Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / width);
 		return STROKE_FACTOR / width;
@@ -516,7 +526,12 @@ public class Logic {
 		}
 		delegator.reset();
 		delegator.setOriginalBox(box);
-		viewBox.setRatio((float) map.getWidth() / map.getHeight());
+		try {
+			viewBox.setRatio((float) map.getWidth() / map.getHeight());
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();
@@ -837,9 +852,8 @@ public class Logic {
 			startY = absoluteY;
 			startX = absoluteX;
 		} else {
-			performTranslation(relativeX, relativeY);
-		}
-		
+				performTranslation(relativeX, relativeY);
+		}	
 		map.invalidate();
 	}
 
@@ -861,7 +875,12 @@ public class Logic {
 		int relativeLon = lon - viewBox.getLeft();
 		int relativeLat = lat - viewBox.getBottom();
 
-		viewBox.translate(relativeLon, relativeLat);
+		try {
+			viewBox.translate(relativeLon, relativeLat);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -1263,16 +1282,21 @@ public class Logic {
 	public void translateOnBorderTouch(final float x, final float y) {
 		int translationOnBorderTouch = (int) (viewBox.getWidth() * BORDER_TOCH_TRANSLATION_FACTOR);
 
-		if (x > map.getWidth() - PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(translationOnBorderTouch, 0);
-		} else if (x < PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(-translationOnBorderTouch, 0);
-		}
+		try {
+			if (x > map.getWidth() - PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(translationOnBorderTouch, 0);
+			} else if (x < PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(-translationOnBorderTouch, 0);
+			}
 
-		if (y > map.getHeight() - PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(0, -translationOnBorderTouch);
-		} else if (y < PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(0, translationOnBorderTouch);
+			if (y > map.getHeight() - PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(0, -translationOnBorderTouch);
+			} else if (y < PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(0, translationOnBorderTouch);
+			}
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -1282,7 +1306,12 @@ public class Logic {
 	 * @param mapBox Box defining the area to be loaded.
 	 */
 	void downloadBox(final BoundingBox mapBox) {
-		mapBox.makeValidForApi(); // TODO remove this? and replace with better error messaging
+		try {
+			mapBox.makeValidForApi();
+		} catch (OsmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} // TODO remove this? and replace with better error messaging
 		new AsyncTask<Void, Void, Integer>() {
 			
 			@Override
@@ -1334,7 +1363,12 @@ public class Logic {
 					Log.d("Logic", "", e);
 				}
 				View map = Application.mainActivity.getCurrentFocus();
-				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				try {
+					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
 				map.invalidate();
 				if (result != 0) {
@@ -1450,7 +1484,12 @@ public class Logic {
 					Log.d("Logic", "loadfromFile: File read correctly");
 					View map = Application.mainActivity.getCurrentFocus();
 					setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
-					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+					try {
+						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 					map.invalidate();
 					UndoStorage.updateIcon();

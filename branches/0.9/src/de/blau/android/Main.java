@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import org.acra.ACRA;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -271,7 +273,18 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// Start loading after resume to ensure loading dialog can be removed afterwards
 				loadOnResume = true;
 			} else {
-				openEmptyMap(null);
+				// check if we have a position
+				Location loc = getLastLocation();
+				BoundingBox box = null;
+				if (loc != null) {
+					try {
+						box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
+							loc.getLongitude(), 1000); // a km hardwired for now
+					} catch (OsmException e) {
+						ACRA.getErrorReporter().handleException(e);
+					}
+				}
+				openEmptyMap(box);
 				gotoBoxPicker();
 			}
 		} else {
@@ -281,6 +294,29 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		easyEditManager = new EasyEditManager(this, logic);
 		
+	}
+	
+	/**
+	 * Get the best last position
+	 */
+	private Location getLastLocation() {
+		Preferences prefs = new Preferences(this);
+		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		List<String> providers = locationManager.getProviders(true);
+		Location bestLocation = null;
+		for (String provider : providers) {
+			try {
+				Location location = locationManager.getLastKnownLocation(provider);
+				if (bestLocation == null || !bestLocation.hasAccuracy() ||
+						(location != null && location.hasAccuracy() &&
+								location.getAccuracy() < bestLocation.getAccuracy())) {
+					bestLocation = location;
+				}
+			} catch (IllegalArgumentException e) {
+			} catch (SecurityException e) {
+			}
+		}
+		return bestLocation;
 	}
 	
 	/**
@@ -1169,7 +1205,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		private void viewPhoto(Photo photo) {
 			try {
 				Intent myIntent = new Intent(Intent.ACTION_VIEW); 
-				myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				myIntent.setDataAndType(photo.getRef(), "image/jpeg"); // black magic only works this way
 				startActivity(myIntent);
 			} catch (Exception ex) {

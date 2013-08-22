@@ -29,7 +29,7 @@ import de.blau.android.util.SavingHelper.Exportable;
 
 public class StorageDelegator implements Serializable, Exportable {
 
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 6L;
 
 	private Storage currentStorage;
 

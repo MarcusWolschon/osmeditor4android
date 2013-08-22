@@ -32,7 +32,6 @@ public class Photo {
 	/** Longitude *1E7. */
 	int lon;
 	
-	
 	/**
 	 * Create a Bug from an OSB GPX XML wpt element.
 	 * @param parser Parser up to a wpt element.
@@ -57,7 +56,6 @@ public class Photo {
 		if(!exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF).equals("N"))	{
 			latf = -latf;
 		}
-       
 		lat = (int)(latf * 1E7d);
 		lon = (int)(lonf * 1E7d);
 		
