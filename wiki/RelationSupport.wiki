@@ -42,7 +42,8 @@ If OAuth is enabled viewing an OSM Note will start the authorization sequence.
  * quick way of re-enabling GPS following: The GPS marker will turn to white (default for now) when following and back to the standard blue when following has been turned off. Clicking/touching the marker will turn following back on. Initially the following still has to be turned on via the menu.
  * "old" editing modes can be suppressed via a preference, default is to only show lock/unlocked symbol to switch from "Move" and "EasyEdit" mode
  * move/drag way
- 
+ * geo-referenced photo layer. Vespucci will try to find photographs in DCIM, osmtracker, and Vespucci directories on internal and external storage.
+
 = Open Issues =
 
  * more testing needs to be done
