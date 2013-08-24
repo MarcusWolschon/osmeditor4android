@@ -2,11 +2,12 @@
 <resources>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attention !</string>
-  <string name="transfer_download_current_dialog_message">Il peut y avoir des changements. Voulez-vous les envoyer plutôt qu\'annuler ?</string>
+  <string name="transfer_download_current_dialog_message">Vous avez fait des modifications. Voulez-vous les envoyer plutôt que les abandonner ?</string>
   <string name="transfer_download_current_upload">Envoi</string>
-  <string name="transfer_download_current_download">Annuler &amp; recevoir</string>
+  <string name="transfer_download_current_download">Abandonner &amp; recevoir</string>
   <string name="transfer_download_current_back">Retour (ne fait rien)</string>
   <string name="upload_problem_title">Problème d\'envoi</string>
+  <string name="upload_problem_message">Tout ou une partie des données n\'ont pas été envoyées. Essayez d\'envoyer les données à nouveau pour voir ce qui a échoué. Le plus probable est un conflit de version.</string>
   <string name="no_login_data_title">Pas de nom d\'utilisateur</string>
   <string name="no_login_data_message">Veuillez remplir le nom d\'utilisateur OSM dans les préférences.</string>
   <string name="no_connection_title">Pas de connexion au Serveur</string>
@@ -17,9 +18,15 @@
   <string name="progress_message">Chargement des données en mémoire…</string>
   <string name="progress_download_message">Récupération des données du serveur…</string>
   <string name="upload_comment_label">Commentaire:</string>
+  <string name="upload_source_label">Source:</string>
+  <string name="openstreetbug_new_title">Nouvelle Note</string>
+  <string name="openstreetbug_new_bug">Signaler un problème</string>
   <string name="openstreetbug_new_nodeway">Créer un noeud/chemin</string>
+  <string name="openstreetbug_edit_title">Modifier Note</string>
   <string name="openstreetbug_commitbutton">Envoyer</string>
   <string name="openstreetbug_comment_label">Commentaire:</string>
+  <string name="openstreetbug_edit_close">Fermer</string>
+  <string name="openstreetbug_edit_closed">Fermé</string>
   <string name="openstreetbug_commit_ok">Modifications prises en compte</string>
   <string name="openstreetbug_commit_fail">Erreur d\'enregistrement des modifications</string>
   <string name="unsaved_data_title">Attention !</string>
@@ -34,11 +41,20 @@
   <string name="toast_export_failed">L\'export a échoué</string>
   <string name="toast_export_success">Exporté vers %1$s</string>
   <string name="toast_preset_overwrote_tags">Note : l\'application des attributs prédéfinis a écrasé un ou plusieurs attributs</string>
+  <string name="toast_oneway_reversed">Vous avez inversé une route à sens unique (oneway), ou un chemin contenant un tag dépendant de la direction. Merci de vérifier les tags et de les corriger si nécessaire.</string>
+  <string name="toast_merge_tag_conflict">Vous avez fusionné des éléments ayant des tags de valeurs incompatibles, dépendantes de la direction, ou ayant des rôles différents dans une même relation.  Merci de vérifier les tags et les rôles et de les corriger si nécessaire.</string>
+  <string name="toast_state_file_failed">Fichier d\'état illisible ou corrompu</string>
+  <string name="toast_too_many_nodes_for_move">Le chemin contient trop de nœuds pour être déplacé</string>
+  <string name="toast_oauth_handshake_failed">L\'authentification OAuth a échouée, merci de vérifier que vous avez les bonnes clés clientes.</string>
+  <string name="toast_unread_mail">Vous avez %1$s message(s) non lu(s) sur les serveur OpenStreetmap</string>
+  <string name="toast_photo_indexing_started">Début de l\'analyse des photos géo-référencées</string>
+  <string name="toast_photo_indexing_finished">Fin de l\'analyse des photos géo-référencées</string>
   <!--Some generic labels-->
   <string name="yes">Oui</string>
   <string name="no">Non</string>
   <string name="okay">Valider</string>
   <string name="cancel">Annuler</string>
+  <string name="locked">Verrouillé</string>
   <!--Strings in TagEditor-->
   <string name="key">clé</string>
   <string name="value">valeur</string>
@@ -48,6 +64,8 @@
   <string name="tag_menu_repeat">Répéter</string>
   <string name="tag_menu_revert">Annuler</string>
   <string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
+  <string name="tag_menu_addtorelation">Ajouter à la relation</string>
+  <string name="tag_menu_resetMRU">Réinitialiser les définitions d\'attributs</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Charger Zone</string>
   <string name="location_choose_radius">Choisir le rayon :</string>
@@ -77,7 +95,11 @@
   <string name="menu_erase">Supprimer noeud</string>
   <string name="menu_split">Scinder</string>
   <string name="menu_append">Continuer</string>
+  <string name="menu_restriction">Ajouter une restriction</string>
+  <string name="menu_restriction_via">Ajouter une restriction via</string>
+  <string name="menu_restriction_to">Ajouter une restriction vers</string>
   <string name="menu_tag">Éditer tags</string>
+  <string name="menu_openstreetbug">Ajouter une Note</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Dessiner la position</string>
@@ -93,33 +115,54 @@
   <string name="menu_transfer_upload">Envoi des données au serveur OSM</string>
   <string name="menu_transfer_export">Export des modifications</string>
   <string name="menu_save">Sauvegarde vers fichier</string>
+  <string name="menu_join">Fusionner</string>
+  <string name="menu_unjoin">Séparer</string>
   <string name="menu_copy">Copier</string>
   <string name="menu_cut">Couper</string>
   <string name="menu_paste">Coller</string>
+  <string name="menu_rotate">Pivoter</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historique</string>
   <string name="menu_merge">Fusionner</string>
   <string name="menu_reverse">Inverser</string>
+  <string name="notreversable_description">Ce chemin contient des tags dépendants de la direction et ne peut pas être inversé. Inverser ce chemin rendrait les tags incorrectes.</string>
+  <string name="reverse_anyway">Inverser quand même</string>
+  <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin.\n\nVous pouvez soit conserver tous ses nœuds, soit supprimer les nœuds sans tags et n\'appartenant qu\'à ce chemin.</string>
+  <string name="deleteway_relation_description">Vous êtes sur le point de supprimer un chemin qui appartient à une ou plusieurs relations. Supprimer un chemin d\'une relation peut la rendre non valide.</string>
   <string name="deleteway_wayonly">Supprimer le chemin seulement</string>
   <string name="deleteway_wayandnodes">Supprimer le chemin et ses noeuds</string>
+  <string name="deletenode_relation_description">Vous êtes sur le point de supprimer un nœud qui appartient à une ou plusieurs relations. Supprimer un nœud d\'une relation peut la rendre non valide.</string>
+  <string name="deletenode">Supprimer le nœud</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Chemin sélectionné</string>
   <string name="actionmode_nodeselect">Noeud sélectionné</string>
+  <string name="actionmode_relationselect">Relation sélectionnée</string>
   <string name="actionmode_createpath">Création du chemin</string>
   <!--Preferences-->
   <string name="config_category_view">Voir Paramètres</string>
+  <string name="config_maxStrokeWidth_title">Largeur maximale de ligne</string>
+  <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça</string>
   <string name="config_showStats_title">Voir Statistiques</string>
   <string name="config_showStats_summary">Affiche les stats et les images/sec dans le coin en bas à gauche.</string>
   <string name="config_showTolerance_title">Voir Zone de Sélection</string>
   <string name="config_showTolerance_summary">Affiche la zone où un élément a été sélectionné.</string>
   <string name="config_enableAntiAliasing_title">Active l\'Anti-Aliasing</string>
+  <string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
+  <string name="config_enableOpenStreetBugs_title">Active l\'affichage des Notes</string>
+  <string name="config_enableOpenStreetBugs_summary">Afficher, Modifier et Créer des Notes/Erreurs</string>
+  <string name="config_enablePhotoLayer_title">Activer la couche Photo</string>
+  <string name="config_enablePhotoLayer_summary">Afficher les photos géo-référencées.</string>
+  <string name="config_enableDeprecatedModes_title">Activer les modes obsolètes</string>
+  <string name="config_enableDeprecatedModes_summary">Activer les modes Ajouter, Éditer, Éditer Tags, Continuer, Effacer et Scinder.</string>
   <string name="config_backgroundLayer_title">Arrière-plan de la carte</string>
   <string name="config_backgroundLayer_summary">Arrière-plan affiché derrière les données de la carte.</string>
   <string name="config_category_server">Paramètres du serveur</string>
   <string name="config_apibutton_title">URL de l\'API OSM</string>
   <string name="config_apibutton_summary">Vous pouvez indiquer ici une URL non standard de l\'API. Ne pas modifier sans savoir ce que vous faites !</string>
+  <string name="config_api_oauth_title">Utiliser OAuth</string>
+  <string name="listedit_enable_oauth">Activer OAuth</string>
   <string name="config_presetbutton_title">Définitions d\'attributs JOSM</string>
   <string name="config_presetbutton_summary">Vous pouvez installer ici des définitions d\'éléments cartographiques.</string>
   <string name="config_iconbutton_title">Dessiner les icônes sur les noeuds</string>
@@ -135,8 +178,12 @@
   <string name="config_gps_interval_title">Intervalle Temps GPS Minimum</string>
   <string name="config_gps_interval_summary">Temps de notification, en millisecondes. Les petites valeurs consomment la batterie.</string>
   <string name="config_category_info">A propos</string>
+  <string name="config_advancedprefs">Préférences avancées</string>
+  <string name="config_forceContextMenu_title">Toujours utiliser le menu contextuel</string>
+  <string name="config_forceContextMenu_summary">Toujours afficher le menu contextuel dans le mode EasyEdit si la sélection est ambigüe.</string>
   <string name="config_licensebutton_title">Auteurs et licences</string>
   <string name="config_licensebutton_summary">Afficher la liste des auteurs et les informations sur la licence.</string>
+  <string name="config_mapProfile_summary">Définir le style et la visibilité des éléments</string>
   <!--preset downloader messages-->
   <string name="preset_update">Mettre à jour les définitions d\'éléments prédéfinis</string>
   <string name="preset_download_successful">Définitions téléchargées avec succès</string>
@@ -174,7 +221,8 @@
   <string name="gps_failure">Échec de l\'activation du GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">déplacement de noeud</string>
-  <string name="undo_action_add">ajout</string>
+  <string name="undo_action_moveway">déplacer le chemin</string>
+  <string name="undo_action_add">insérer</string>
   <string name="undo_action_append">prolongation</string>
   <string name="undo_action_deletenode">suppression noeud</string>
   <string name="undo_action_deleteway">suppression chemin</string>
@@ -183,6 +231,13 @@
   <string name="undo_action_merge_ways">fusion chemins</string>
   <string name="undo_action_reverse_way">inversion chemin</string>
   <string name="undo_action_set_tags">valorisation tags</string>
+  <string name="undo_action_join">fusionner</string>
+  <string name="undo_action_unjoin_ways">séparer les chemins</string>
+  <string name="undo_action_deleterelation">suppression relation</string>
+  <string name="undo_action_update_relations">Mettre à jour les relations</string>
+  <string name="undo_action_cut">couper</string>
+  <string name="undo_action_paste">coller</string>
+  <string name="undo_action_rotateway">Pivoter chemin</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci a planté. Merci d\'envoyer un rapport d\'erreur.</string>
   <string name="crash_notif_title">Vespucci a planté</string>
@@ -190,8 +245,15 @@
   <string name="crash_dialog_text">Une erreur inattendue s\'est produite, obligeant l\'application à s\'arrêter. S\'il vous plait, aidez nous à résoudre ce problème en nous envoyant les données relatives à l\'erreur. Tout ce que vous avez à faire est de cliquer sur \'OK\'.</string>
   <string name="config_category_acra">Rapport de plantage</string>
   <string name="pref_enable_acra">Signaler le plantage de l\'application</string>
-  <string name="pref_acra_enabled">Autoriser le rapport de plantage</string>
-  <string name="pref_acra_disabled">Interdire le rapport de plantage</string>
+  <string name="pref_acra_enabled">Rapport de plantage autorisé</string>
+  <string name="pref_acra_disabled">Rapport de plantage désactivé</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rôle</string>
+  <string name="role_lc">rôle</string>
+  <string name="membership_relation_heading">Membre de la relation</string>
+  <string name="relation">Relation</string>
+  <string name="deleterelation_relation_description">Vous êtes sur le point de supprimer une relation qui appartient à une ou plusieurs relations. Supprimer une relation d\'une autre relation peut rendre celle seconde non valide.</string>
+  <string name="deleterelation">Suppression relation</string>
+  <string name="delete_from_relation_description">Vous êtes sur le point de supprimer cet élément d\'une relation.</string>
   <!---->
 </resources>

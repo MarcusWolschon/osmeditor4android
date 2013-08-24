@@ -42,6 +42,7 @@
   <string name="toast_export_success">Exportado para %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - prédefinição sobrepôs tag(s)</string>
   <string name="toast_oneway_reversed">Você inverteu uma via de sentido único ou uma via com tags dependentes da direcção. Por favor verifique as tags e corrija se necessário.</string>
+  <string name="toast_merge_tag_conflict">Você uniu elementos que têm tags com valores conflituantes, ou semântica dependente da direcção ou \'roles\' diferentes na mesma relação. Por favor verifique as tags e \'roles\' e corrija se necessário.</string>
   <string name="toast_state_file_failed">Ficheiro de estado ilegível ou corrompido</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nós na via para ser possível mover</string>
   <string name="toast_oauth_handshake_failed">Autenticação OAuth falhou, verifique que tem as chaves de consumidor apropriadas</string>
