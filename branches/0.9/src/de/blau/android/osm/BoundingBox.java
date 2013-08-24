@@ -50,6 +50,13 @@ public class BoundingBox implements Serializable {
 	 * Factor for stretching the latitude to fit the Mercator Projection.
 	 */
 	private double mercatorFactorPow3;
+	
+
+	/**
+	 * Mercator value for the bottom of the BBos
+	 */
+	//TODO experimental code for using non-approx. projections
+	// private double bottomMercator;
 
 	/**
 	 * Delimiter for the bounding box as String representation.
@@ -115,8 +122,6 @@ public class BoundingBox implements Serializable {
 	 */
 	private float ratio = 1;
 
-	private double mercartorDiff;
-
 	/**
 	 * Generates a bounding box with the given borders. Of course, left must be
 	 * left to right and top must be top of bottom.
@@ -129,7 +134,6 @@ public class BoundingBox implements Serializable {
 	 * {@link #MAX_LAT}/{@link #MAX_LON} (!{@link #isValid()})
 	 */
 	public BoundingBox(final int left, final int bottom, final int right, final int top) throws OsmException {
-		Log.d("BoundingBox","left " + left + " right " + right + " bottom " + bottom + " top " + top);
 		this.left = left;
 		this.bottom = bottom;
 		this.right = right;
@@ -180,6 +184,8 @@ public class BoundingBox implements Serializable {
 		this.width = box.width;
 		this.height = box.height;
 		this.mercatorFactorPow3 = box.mercatorFactorPow3;
+		//TODO experimental code for using non-approx. projections
+		// this.bottomMercator = box.bottomMercator;
 	}
 
 	/**
@@ -360,6 +366,8 @@ public class BoundingBox implements Serializable {
 		final double centerLat = ((bottom + height / 2) / 1E7d);
 		// powers 3 because it would be needed in later usage of this factor
 		mercatorFactorPow3 = GeoMath.getMercatorFactorPow3(centerLat);
+		//TODO experimental code for using non-approx. projections
+		// bottomMercator = GeoMath.latE7ToMercator(bottom);
 	}
 
 	/**
@@ -460,25 +468,27 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Relative translation.
 	 * 
+	 * Note clamping based on direction of movement can cause problems, always check that we are in bounds
+	 * 
 	 * @param lon the relative longitude change.
 	 * @param lat the relative latitude change.
 	 */
 	public void translate(int lon, int lat) throws OsmException {
-		if (lon > 0 && right + lon > MAX_LON) {
+		if (right + lon > MAX_LON) {
 			lon = MAX_LON - right;
-		} else if (lon < 0 && left + lon < -MAX_LON) {
+		} else if (left + lon < -MAX_LON) {
 			lon = -MAX_LON - left;
 		} 
-		if (lat >  0 && top + lat > MAX_LAT) {
+		if (top + lat > MAX_LAT) {
 			lat = MAX_LAT - top;
-		} else if (lat < 0 && bottom + lat < -MAX_LAT) {	
+		} else if (bottom + lat < -MAX_LAT) {	
 			lat = -MAX_LAT - bottom;
 		}
 		left += lon;
 		right += lon;
 		top += lat;
 		bottom += lat;
-		
+
 		calcMercatorFactorPow3();
 		validate();
 	}
@@ -558,6 +568,7 @@ public class BoundingBox implements Serializable {
 		right = Math.min(MAX_LON, right - (int)horizontalChange);
 		bottom = Math.max(-MAX_LAT,bottom + (int)verticalChange);
 		top = Math.min(MAX_LAT, top - (int)verticalChange);
+		calcDimensions(); // need to do this or else centering will not work
 		// Due to Mercator-Factor-Projection we have to translate to the new
 		// center.
 		translate(0, getZoomingTranslation(zoomFactor));
@@ -617,4 +628,11 @@ public class BoundingBox implements Serializable {
 			throw new OsmException("left must be less than right and bottom must be less than top");
 		}
 	}
+
+	//TODO experimental code for using non-approx. projections
+//	public double getBottomMercator() {
+//		
+//		return bottomMercator;
+//	}
+	
 }

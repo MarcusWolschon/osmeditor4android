@@ -865,10 +865,10 @@ public class Map extends View implements IMapView {
 		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		
 		// Calculate lat/lon of view extents
-		final double latBottom = GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.bottom) / 1E7d;
-		final double lonRight  = GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.right ) / 1E7d;
-		final double latTop    = GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.top   ) / 1E7d;
-		final double lonLeft   = GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.left  ) / 1E7d;
+		final double latBottom = getViewBox().getBottom() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.bottom) / 1E7d;
+		final double lonRight  = getViewBox().getRight() / 1E7; // GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.right ) / 1E7d;
+		final double latTop    = getViewBox().getTop() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.top   ) / 1E7d;
+		final double lonLeft   = getViewBox().getLeft() / 1E7; // GeoMath.xToLonE7(viewPort.width() , getViewBox(), viewPort.left  ) / 1E7d;
 		
 		// Calculate tile x/y scaled 0.0 to 1.0
 		final double xTileRight  = (lonRight + 180d) / 360d;
@@ -887,8 +887,7 @@ public class Map extends View implements IMapView {
 		
 		// Sanity check result
 		zoom = Math.max(zoom, s.getMinZoomLevel());
-		zoom = Math.min(zoom, s.getMaxZoomLevel());
-		
+		zoom = Math.min(zoom, s.getMaxZoomLevel());	
 		return zoom;
 	}
 

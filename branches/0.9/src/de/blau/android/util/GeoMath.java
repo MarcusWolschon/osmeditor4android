@@ -79,7 +79,7 @@ public class GeoMath {
 	 * 
 	 * @see {@link http://en.wikipedia.org/wiki/Mercator_projection#Mathematics_of_the_projection}
 	 * @param lat the latitude as double value
-	 * @return the mercator-projected y-coordinate for a cartesian coordinate system.
+	 * @return the mercator-projected y-coordinate for a cartesian coordinate system in degrees.
 	 */
 	public static double latToMercator(double lat) {
 		lat = Math.min(MAX_LAT, lat);
@@ -208,6 +208,14 @@ public class GeoMath {
 		double ratio= viewBox.getMercatorFactorPow3() *  (double)(latE7 - viewBox.getBottom()) / (double)viewBox.getHeight();
 		return (float) ((screenHeight - ratio * screenHeight));
 	}
+
+//TODO experimental code for using non-approx. projections
+//	public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
+//		// note the last term should be pre-calculated too
+//		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
+//		Log.d("GeoMath","lat " + latE7 + " top M " + latE7ToMercator(latE7) + " bot M " + viewBox.getBottomMercator());
+//		return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
+//	}
 	
 	/**
 	 * Calculates the screen-coordinate to the given longitude.
@@ -216,7 +224,7 @@ public class GeoMath {
 	 * @return the x screen-coordinate for this longitude value.
 	 */
 	public static float lonE7ToX(final int screenWidth, final BoundingBox viewBox, final int lonE7) {
-		return (float) (lonE7 - viewBox.getLeft()) / viewBox.getWidth() * screenWidth;
+		return ((float) (((float)lonE7 - (float)viewBox.getLeft()) / (float)viewBox.getWidth())* (float)screenWidth);
 	}
 	
 	/**
@@ -230,6 +238,13 @@ public class GeoMath {
 		final double lat = ratio * viewBox.getHeight() + viewBox.getBottom();
 		return (int) Math.round(lat);
 	}
+
+//TODO experimental code for using non-approx. projections
+//	public static int yToLatE7(final int screenHeight, int screenWidth, final BoundingBox viewBox, final float y) {
+//		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
+//		double lat = mercatorToLatE7(viewBox.getBottomMercator() + ((double)screenHeight - y) / pixelRadius);
+//		return (int) Math.round(lat);
+//	}
 	
 	/**
 	 * Calculates the longitude value for the given x screen coordinate.
