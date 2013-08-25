@@ -6,20 +6,23 @@
  * Runs on mobile devices using the [http://www.android.com Android] platform
  * Functionality:
   * Create and edit new Nodes and Ways
+  * Move and rotate Ways
   * Append Nodes to existing Ways
   * Delete Nodes
   * Create, edit and delete Tags
   * Edit relations and create new turn restrictions
+  * JOSM presets support
   * Download and Upload to OSM-Server
   * Highlight unnamed highways, and ways/nodes with TODOs or FIXMEs
   * Add, comment and close OSM Notes
   * Use a variety of background tile layers as reference
   * Show the users GPS-Track with accuracy
   * Display the raw data
+  * Display geo-referenced photographs
 
 
 ==What is Vespucci NOT?==
- * a map-view or even a routing-application
+ * a map-view or a routing-application
  * a full replacement for [http://wiki.openstreetmap.org/wiki/JOSM JOSM] or the in-browser editors iD and Potlatch2
 
 = Screenshots =
