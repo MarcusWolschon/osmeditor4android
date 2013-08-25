@@ -1,38 +1,33 @@
 = An Introduction to Vespucci =
+(Updated for version 0.9)
 
 == Installation ==
+
 Just search for "vespucci" on the android market place and install it.
 
 == Initial Set-Up ==
-Press the Menu Button, then select 'More', then 'Preferences'.
-Select the "OSM Username", then the "OSM Password" and enter your OpenStreetMap username and password.  
-Note that this is your OpenStreetMap API username and password, not your Wiki one - they could be different!.
+
+Vespucci 0.9 supports OAuth authorization besides the classical username and password method. OAuth is preferable, particularly for mobile applications since it avoids sending passwords in the clear.
+
+New Vespucci installs will have OAuth enabled by default. On your first attempt to upload a page from the OSM website will be loaded. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you can return to Vespucci (using the back button) and retry the upload which now should succeed.
 
 == Editing Using Vespucci ==
 
 === Downloading OSM Data ===
-Press the Menu button, select 'More' then 'Transfer'.  Select "Download other location".  Select "Current Location" to download data near your current position.  Use the slider to specify how much data to townload, in terms of the radius from the selected location.   Select the "Load!" button to download the data (note the the Load! button is sometimes not visible on smaller screens so you have to scroll to the bottom to find it).
+
+Press the Menu button, select 'More' then 'Transfer'.  
+
+Select "Download other location".  Select "Current Location" to download data near your current position.  Use the slider to specify how much data to download, in terms of the radius from the selected location.   Select the "Load!" button to download the data (note the the Load! button is sometimes not visible on smaller screens so you have to scroll to the bottom to find it).
 
 Then Vespucci should center the map on your current location.
 
-Zoom in using the volume control buttons on the telephone.
+Zoom in using gestures, the zoom buttons or the volume control buttons on the telephone. 
 
-=== Moving Nodes ===
-Put Vespucci into 'Drag' Edit mode by selecting the menu button, and choosing "Edit".   Nodes are now shown with a circle around them - you can drag the nodes to re-position them.
+=== Editing ===
 
-
-=== Editing Tags ===
-Press the Menu button and select 'Edit Tags'.  Nodes and ways are now highlighted.   Pressing one of the highlighted nodes or ways will bring up an editable list of tag keys and values.  Extra tags can be edited by typing in the blank key/value boxes at the bottom of the list.
-
-=== Creating New Nodes and Ways ==
-Press the Menu button and select 'New'.  Clicking on the map creates a node.  Clicking on a different location creates a second node with a way joining them.   If you click near an existing node or way the new way will be linked to the existing node or way.
-
-=== Appending to Ways ===
-Pressing the Menu button and selecting 'Append' puts vespucci into append mode.
-This continues an existing way, at the opposite of 'New Node' which creates a new way.
-
-=== Deleting Nodes ===
-Press the Menu button, select 'More', then "Erase Node".  Clicking on a node will now delete it.  Note that there is no Undo button (yet), so be careful!!!.
+To avoid accidental edits Vespucci 0.9 will start up in "locked" mode, a mode that only allows zooming and moving the map. Pressing the red lock icon will "unlock" Vespucci and allow editing. Note: the old drop down menu can be enabled from the Preferences.
+ 
+The default editing mode is now what used to be called [EasyEdit] mode. 
 
 === Saving Your Changes ===
 Press the Menu button, select 'More' then 'Transfer' followed by "Upload data to OSM server".
