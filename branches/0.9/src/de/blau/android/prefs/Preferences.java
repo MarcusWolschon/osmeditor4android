@@ -74,7 +74,7 @@ public class Preferences {
 			Log.w(getClass().getName(), "error parsing config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
 			maxStrokeWidth = 16;
 		}
-		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), true);
+		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
