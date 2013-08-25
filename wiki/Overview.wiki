@@ -2,16 +2,17 @@
 
 
 ==What is Vespucci?==
- * An Editor for [http://www.openstreetmap.org OpenStreetMap]
+ * An offline (once you have downloaded data) Editor for [http://www.openstreetmap.org OpenStreetMap]
  * Runs on mobile devices using the [http://www.android.com Android] platform
  * Functionality:
   * Create and edit new Nodes and Ways
   * Append Nodes to existing Ways
   * Delete Nodes
   * Create, edit and delete Tags
+  * Edit relations and create new turn restrictions
   * Download and Upload to OSM-Server
   * Highlight unnamed highways, and ways/nodes with TODOs or FIXMEs
-  * Add, comment and close [http://www.openstreetbugs.org OpenStreetBugs]
+  * Add, comment and close OSM Notes
   * Use a variety of background tile layers as reference
   * Show the users GPS-Track with accuracy
   * Display the raw data
@@ -19,9 +20,7 @@
 
 ==What is Vespucci NOT?==
  * a map-view or even a routing-application
- * a professional-editing tool like [http://wiki.openstreetmap.org/wiki/JOSM JOSM] or [http://wiki.openstreetmap.org/wiki/Merkaartor Merkaator]
+ * a full replacement for [http://wiki.openstreetmap.org/wiki/JOSM JOSM] or the in-browser editors iD and Potlatch2
 
 = Screenshots =
-||Here you can see Vespucci in action. The blue line represents the GPS track. The red dots are nodes and black lines are ways. At bottom-left you can see the debug-info about FPS, storage values and the current [ViewBox]||[http://osmeditor4android.googlecode.com/files/VespucciOverview.png]||
-||*Vespucci in Edit Mode.* The light orange boxes around the elements shows the tolerance where the user can select that element (fingers are more imprecisely than mousepointers :-))||http://osmeditor4android.googlecode.com/files/CreateMode.png||
-||*Menu.* The primary menu lists the most important modes for direct access to the user. The icons are taken from [http://www.gimp.org/ GIMP].||[http://osmeditor4android.googlecode.com/files/icons.png]||
+[vespucci-09-screenshot.png]
