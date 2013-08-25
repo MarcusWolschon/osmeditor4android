@@ -11,7 +11,7 @@ On start up Vespucci will show you the "Download other location"/"Load Area" dia
 
 Alternatively you can dismiss the dialog by pressing the back button and pan and zoom to a location you want to edit and download the data then (see below: "Editing Using Vespucci").
 
-Once you have data loaded you will have it displayed in the default style: black ways and red square nodes. You can and probably should change this by going to the preferences screen and select a different "Map profile".
+Once you have data loaded you will have it displayed in the default style: black ways and red square nodes. You can and probably should change this by going to the preferences screen and selecting a different "Map profile".
 
 == Editing Using Vespucci ==
 
