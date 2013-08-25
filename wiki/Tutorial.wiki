@@ -1,4 +1,4 @@
-= An Introduction to Vespucci =
+= Vespucci Quick Start Guide =
 (Updated for version 0.9)
 
 == Installation ==
@@ -27,9 +27,13 @@ Zoom in using gestures, the zoom buttons or the volume control buttons on the te
 
 To avoid accidental edits Vespucci 0.9 will start up in "locked" mode, a mode that only allows zooming and moving the map. Pressing the red lock icon will "unlock" Vespucci and allow editing. Note: the old drop down menu can be enabled from the Preferences.
  
-The default editing mode is now what used to be called [EasyEdit] mode. 
+The default editing mode is now what used to be called [EasyEdit] mode. With the default settings nodes and ways that are selectable will have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple object it will present a selection menu. Selected objects are highlighted in yellow.
+
+Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, or via the menu key.
+ 
 
 === Saving Your Changes ===
+
 Press the Menu button, select 'More' then 'Transfer' followed by "Upload data to OSM server".
 Note that if you have only changed tags, but not created or moved nodes, Vespuci 0.6.2 says that you have not changed anything, so will not upload the data.  Move a note a little bit to persuade it.
 
