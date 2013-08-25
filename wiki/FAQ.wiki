@@ -10,7 +10,7 @@ That means: It is a light-weight, easy-to-use mapping tool on mobile Android dev
 ====What is Vespucci NOT?====
  * Vespucci is not a mobile map-viewer. It does not display pre-rendered tiles (e.g. Mapnik, Osmarender ...)
  * Vespucci is not a mobile navigation solution. It does not feature any routing algorithm.
- * Vespucci is not a professional editor like JOSM or Merkaator. It strives for maximum usability on mobile devices which are limited in many regards. It is not intended to support the full feature set of some other OSM editors running on fully blown PCs.
+ * Vespucci is not a full replacement for JOSM or Merkaator. It strives for maximum usability on mobile devices which are limited in many regards. It is not intended to support the full feature set of some other OSM editors running on fully blown PCs.
 
 
 ====I am already familiar with OSM editor xyz. Why should I use Vespucci? ====
@@ -20,14 +20,14 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 
 ====What do I need to get started with Vespucci? ====
 You need:
- * An Android device (or the emulator)
+ * An Android device (or the emulator) Release 0.9 has only been tested on Android 2.3 and later.
  * The Vespucci APK file (also available over the Android Market)
  * Some familiarity with [http://wiki.openstreetmap.org/wiki/Map_Features OSM Map features]
  * An [http://www.openstreetmap.org/user/new OSM account] 
 
 
 ====What is the status of Vespucci development? ==== 
-The current Vespucci version is 0.7.0. It's still in beta-stage.
+The current Vespucci version is 0.9.0.
 
 
 ====Is Vespucci available for other mobile platforms?==== 
@@ -54,10 +54,12 @@ There are plenty descriptions available (e.g. [http://openhandsetmagazine.com/20
 
 Currently, you can 
  * Add and move nodes and ways
+ * Move and rotate ways
  * Edit the tags of nodes and ways
  * Append nodes to existing ways
  * Delete existing nodes
  * Move existing nodes 
+ * Edit existing relations and add new turn restrictions
  * Download area around current location from OSM server
  * Download user-specified areas from OSM server
  * Create and save GPS tracks
@@ -73,18 +75,14 @@ Yes. Soft keyboard is available in portrait mode.
 Auto download is not yet support. If you want to help us in this issue, please answer on [http://code.google.com/p/osmeditor4android/issues/detail?id=14 issue 14].
 
 
-====Does Vespucci support OpenStreetBugs?====
-Yes.
+====Does Vespucci support OSM Notes?====
+Yes. OpenStreetBugs is no longer supported.
 
 
 ====What are the limits of Vespucci?====
 
 Vespucci is limited in the following sense:
- * Relations are not supported
- * Undo function is planned (see issue id 5)
- * Tool functions like 
-  * reverse way, combine way, simplify way, unglue ways are currently not implemented. 
- * No WSM download for the background (e.g. Yahoo aerials).
+ * No free form relation creation currently
  * No validator yet (see issue id 31)
 
  Remember, Android is intended to be lightweight and easy-to-use.
@@ -92,7 +90,7 @@ Vespucci is limited in the following sense:
 
 ====Which languages are supported?====
 
-English and German are the primary supported languages. We also have translations for: Czech, Danish, French, Hungarian, Italian, Japanese, Norwegian (including Bokmål and Nynorsk), Polish and Russian. These other translations may be patchy and/or incomplete as we rely on volunteered translation efforts. Any help in this area would be gratefully received.
+English and German are the primary supported languages. We also have translations for a number of other languages (please see link to transifex below for the current status). These other translations may be patchy and/or incomplete as we rely on volunteered translation efforts. Any help in this area would be gratefully received. Please see [https://www.transifex.com/projects/p/vespucci/]
 
 
 == 3. Usage ==
@@ -103,22 +101,20 @@ On startup, Vespucci requests which area to download. You can choose from the fo
  * Current location
  * Last known location 
  * Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.
- * Map (coming soon)
+
 For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when  downloading.)   
 
+You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the "Download current view" from the transfer menu.
 
 ====How can I upload new/changed data to the OSM server?====
 
-Choose "Menu | More | Transfer | Upload data to  OSM server".
+Choose "Upload data to  OSM server" from the transfer menu.
 (With other words: Data is not automatically uploaded!)
 
 
 ====Which user account is used when uploading data to the OSM server?====
 
-Vespucci uses the username and password that you provide through the following dialogs:
- "Menu | More | Preferences | OSM Username"
- "Menu | More | Preferences | OSM Password"
-Vespucci does not come with any "default user / password".
+Vespucci will use OAuth authorization as default. On your first upload you will be directed to an OSM page that we ask you to authorize your Vespucci install. It is not necessary nor recommended to store username/password on your device (it is however possible).
 
 
 ====How can I zoom into an area?====
