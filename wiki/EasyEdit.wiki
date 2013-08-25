@@ -4,7 +4,7 @@
 
 !EasyEdit is the editing mode developed by Jan Schejbal for the [GSoC2012 Google Summer of Code 2012].
 
-!EasyEdit unifies all the previous seven editing modes used by Vespucci (Move, New, Edit, Edit tags, Append, Erase node, and Split) into a single mode. The previous editing modes have been replaced by a "lock" mode (panning and zooming allowed) and an "unlocked" editing mode. The previous dropdown menu with the old modes can still be turned on via a preferences, however there is no reason to do so.
+!EasyEdit unifies all the previous seven editing modes used by Vespucci (Move, New, Edit, Edit tags, Append, Erase node, and Split) into a single mode. The previous editing modes have been replaced by a "lock" mode (panning and zooming allowed) and an "unlocked" editing mode. The dropdown menu with the old modes can still be turned on via a preferences, however there is no reason to do so.
 
 = Details =
 
