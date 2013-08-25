@@ -1,14 +1,13 @@
  * [Overview]
  * [News]
+  * [RelationSupport 0.9 release]
   * [GSoC2012]
-  * [RelationSupport]
  * [Tutorial]
   * [EasyEdit]
  * [FAQ]
  * Tech-Stuff
   * [Translating]
   * [CodeStructure]
-  * [PlansForRelease0_7]
   * [BingMaps] info
   * [CrashReporting]
   * [BuildNotes]
