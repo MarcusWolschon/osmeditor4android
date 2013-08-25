@@ -24,4 +24,5 @@
 
 = Screenshots =
 Vespucci on a tablet with geo-referenced photographs layer enabled.
+
 [http://osmeditor4android.googlecode.com/svn/wiki/vespucci-09-screenshot.png]
