@@ -906,9 +906,15 @@ public class EasyEditManager {
 			super.handleElementClick(element);
 			if (!logic.performMerge(way, (Way)element)) {
 				Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
-				main.performTagEdit(way, null);
+				if (way.getState() != OsmElement.STATE_DELETED)
+					main.performTagEdit(way, null);
+				else
+					main.performTagEdit(element, null);
 			} else {
-				main.startActionMode(new WaySelectionActionModeCallback(way));
+				if (way.getState() != OsmElement.STATE_DELETED)
+					main.startActionMode(new WaySelectionActionModeCallback(way));
+				else
+					main.startActionMode(new WaySelectionActionModeCallback((Way)element));
 			}
 			return true;
 		}
