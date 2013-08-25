@@ -23,4 +23,5 @@
  * a full replacement for [http://wiki.openstreetmap.org/wiki/JOSM JOSM] or the in-browser editors iD and Potlatch2
 
 = Screenshots =
-[vespucci-09-screenshot.png]
+Vespucci on a tablet with geo-referenced photographs layer enabled.
+[http://osmeditor4android.googlecode.com/svn/wiki/vespucci-09-screenshot.png]
