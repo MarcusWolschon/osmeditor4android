@@ -2,22 +2,22 @@
 
 = Introduction =
 
-Branch 0.9 has minimal relation support with the goal of keeping existing relation memberships and relations intact and consistent after elements have been edited. It currently supports explicit editing of relation tags, deletion of relations and adding turn restrictions.
+Branch 0.9 has relation support with the primary goal of keeping existing relation memberships and relations intact and consistent after elements have been edited. It currently supports explicit editing of relation tags, deletion of relations and adding turn restrictions.
 
-A beta build APK is available in the download section.
+An APK is available in the download section and it will be available in the google Play Store soon.
 
-= Features =
+
+[http://www.youtube.com/embed/FnU-b6EZ_sE Video showing most of the new features]
+
+
+= Relation related New features =
 
  * relation membership display on tag editing form with minimal editing (deletion of elements, changing of roles, changing parent relation)
  * objects can be added to relations that exist in the downloaded data
  * spliting of ways retains relation membership in both resulting segments with the exception of restrictions where it tries to assign restriction membership to the correct part.
  * relations can be selected for tag editing and deletion by clicking on a member of the relation and selecting the relation in the popup.
- * turn restrictions can be added, in EasyEdit mode select a way, then from the menu "Add restriction" then the "via" and "to" elements. 
+ * turn restrictions can be added, in edit ("unlocked", former EasyEdit) mode select a way, then from the menu "Add restriction" then the "via" and "to" elements. 
  * rendering of otherwise untagged ways that are part of a multipolygon is based on the multipolygon tags.
-
-= Relation Implementation =
-
-The implementation is in line with the existing way and node implementation. A slight departure is that the elements now contain a list of parent relations. While this potentially leads to inconsistencies, it makes it unnecessary to scan all downloaded relations for membership (such an implementation would however be possible).
 
 = OAuth =
 
@@ -42,15 +42,7 @@ If OAuth is enabled viewing an OSM Note will start the authorization sequence.
  * quick way of re-enabling GPS following: The GPS marker will turn to white (default for now) when following and back to the standard blue when following has been turned off. Clicking/touching the marker will turn following back on. Initially the following still has to be turned on via the menu.
  * "old" editing modes can be suppressed via a preference, default is to only show lock/unlocked symbol to switch from "Move" and "EasyEdit" mode
  * move/drag way
- * geo-referenced photo layer. Vespucci will try to find photographs in DCIM, osmtracker, and Vespucci directories on internal and external storage.
+ * copy, cut and paste of nodes and ways
+ * experimental geo-referenced photo layer. Vespucci will try to find photographs in DCIM, osmtracker, and Vespucci directories on internal and external storage.
 
-= Open Issues =
-
- * more testing needs to be done
- * documentation
-
-= Further Work =
-
- * more testing
- * automatic used imagery layer changeset tag as P2 and iD produce
- * GUI clean up
+ 
