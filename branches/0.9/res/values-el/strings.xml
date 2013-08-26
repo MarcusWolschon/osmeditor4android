@@ -1,22 +1,132 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Προσοχή!</string>
+  <string name="transfer_download_current_dialog_message">Έχετε κάνει μερικές αλλαγές. Θα θέλατε να τις ανεβάσετε ή θα τις απορρίψετε;</string>
+  <string name="transfer_download_current_upload">Αποστολή</string>
+  <string name="transfer_download_current_download">Απόρριψη και λήψη</string>
+  <string name="transfer_download_current_back">Επιστροφή (Μην κάνεις τίποτα)</string>
+  <string name="upload_problem_title">Πρόβλημα κατά την Αποστολή</string>
+  <string name="wrong_login_data_title">Λανθασμένες πληροφορίες σύνδεσης</string>
+  <string name="progress_title">Φόρτωση</string>
+  <string name="upload_comment_label">Σχόλιο</string>
+  <string name="upload_source_label">Προέλευση:</string>
+  <string name="openstreetbug_new_title">Νέα Σημείωση</string>
+  <string name="openstreetbug_new_nodeway">Δημιουργία Κόμβου/Διαδρομής</string>
+  <string name="openstreetbug_edit_title">Επεξεργασία Σημείωσης</string>
+  <string name="openstreetbug_comment_label">Σχόλιο:</string>
+  <string name="openstreetbug_edit_close">Κλείσιμο</string>
+  <string name="openstreetbug_edit_closed">Έκλεισε</string>
+  <string name="openstreetbug_commit_ok">Οι αλλαγές αποθηκεύτηκαν</string>
+  <string name="openstreetbug_commit_fail">Αδύνατη η αποθήκευση των αλλαγών</string>
+  <string name="unsaved_data_title">Προσοχή!</string>
+  <string name="unsaved_data_proceed">Απόρριψη και προχώρηση</string>
   <!--Toaster-->
+  <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα...</string>
+  <string name="toast_save_done">Αποθήκευση επιτυχές</string>
+  <string name="toast_export_failed">Εξαγωγή απέτυχε</string>
   <!--Some generic labels-->
+  <string name="yes">Ναι</string>
+  <string name="no">Όχι</string>
+  <string name="okay">Εντάξει</string>
+  <string name="cancel">Ακύρωση</string>
   <!--Strings in TagEditor-->
+  <string name="key">κλειδί</string>
+  <string name="value">τιμή</string>
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_repeat">Επανάληψη</string>
+  <string name="tag_menu_revert">Επαναφορά</string>
   <!--Strings in LocationPicker-->
+  <string name="location_last_text">Τελευταία γνωστή τοποθεσία:</string>
+  <string name="location_current_text">Τωρινή τοποθεσία:</string>
+  <string name="location_text_unknown">άγνωστη</string>
+  <string name="location_load_button">Φόρτωσε!</string>
+  <string name="location_button_no_location">Μην φορτώσεις τίποτα</string>
+  <string name="location_label_no_location">(δεν προτείνεται)</string>
   <!--Menu-->
+  <string name="menu_move">Μετακίνηση</string>
+  <string name="menu_edit">Επεξεργασία</string>
+  <string name="menu_add">Νέο</string>
+  <string name="menu_config">Προτιμήσεις</string>
+  <string name="menu_help">Βοήθεια</string>
+  <string name="menu_erase">Διαγραφή κόμβου</string>
+  <string name="menu_split">Διαίρεση</string>
+  <string name="menu_append">Προσάρτηση</string>
+  <string name="menu_tag">Επεξεργασία ετικετών</string>
+  <string name="menu_openstreetbug">Προσθήκη Σημείωσης</string>
+  <string name="menu_gps">GPS…</string>
+  <string name="menu_gps_show">Προβολή τοποθεσίας</string>
+  <string name="menu_transfer">Μεταφορά...</string>
+  <string name="menu_save">Αποθήκευση σε αρχείο</string>
+  <string name="menu_join">Σύνδεση</string>
+  <string name="menu_unjoin">Αποσύνδεση</string>
+  <string name="menu_copy">Αντιγραφή</string>
+  <string name="menu_cut">Αποκοπή</string>
+  <string name="menu_paste">Επικόλληση</string>
+  <string name="menu_rotate">Περιστροφή</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Ετικέτες</string>
   <!--Text should be as short as possible-->
+  <string name="menu_history">Ιστορικό</string>
+  <string name="menu_merge">Σύνδεση</string>
+  <string name="menu_reverse">Ανακατεύθυνση</string>
+  <string name="deleteway_wayonly">Διαγραφή διαδρομής μονο</string>
+  <string name="deleteway_wayandnodes">Διαγραφή διαδρομής και κόμβων</string>
+  <string name="deletenode">Διαγραφή κόμβου</string>
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Διαδρομή επιλέχτηκε</string>
+  <string name="actionmode_nodeselect">Κόμβος επιλέχτηκε</string>
+  <string name="actionmode_createpath">Δημιουργία διαδρομής</string>
   <!--Preferences-->
+  <string name="config_category_view">Προβολή Ρυθμίσεων</string>
+  <string name="config_showStats_title">Εμφάνιση στατιστικών</string>
+  <string name="config_category_server">Ρυθμίσεις Διακομιστή</string>
+  <string name="config_loginbutton_title">Λογαριασμός χρήστη</string>
+  <string name="config_username_title">Όνομα Χρήση OSM</string>
+  <string name="config_password_title">Κωδικός OSM</string>
+  <string name="config_category_gps">Ρυθμίσεις GPS</string>
+  <string name="config_category_info">Σχετικά</string>
+  <string name="config_advancedprefs">Προχωρημένες προτιμήσεις</string>
   <!--preset downloader messages-->
   <!--changes-->
+  <string name="confirm_upload_title">Αποστολή;</string>
   <!--url handler activity-->
   <!--common terms-->
+  <string name="add">Προσθήκη</string>
+  <string name="edit">Επεξεργασία</string>
+  <string name="delete">Διαγραφή</string>
+  <string name="name">Όνομα</string>
+  <string name="url">Σύνδεσμος</string>
+  <string name="default_">Προκαθωρισμένο</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="undo">Αναίρεση</string>
+  <string name="redo">Επαναπροσπάθεια</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">μετακίνηση κόμβου</string>
+  <string name="undo_action_moveway">μετακίνηση διαδρομής</string>
+  <string name="undo_action_add">εισαγωγή</string>
+  <string name="undo_action_append">προσάρτηση</string>
+  <string name="undo_action_deletenode">διαγραφή κόμβου</string>
+  <string name="undo_action_deleteway">διαγραφή διαδρομής</string>
+  <string name="undo_action_split_ways">διαίρεση διαδρομών</string>
+  <string name="undo_action_split_way">διαίρεση διαδρομής</string>
+  <string name="undo_action_merge_ways">σύνδεση διαδρομών</string>
+  <string name="undo_action_reverse_way">ανακατεύθυνση διαδρομής</string>
+  <string name="undo_action_set_tags">θέση ετικετών</string>
+  <string name="undo_action_join">σύνδεση</string>
+  <string name="undo_action_unjoin_ways">αποσύνδεση διαδρομών</string>
+  <string name="undo_action_deleterelation">διαγραφή σχέσης</string>
+  <string name="undo_action_update_relations">ενημέρωση σχέσεων</string>
+  <string name="undo_action_cut">αποκοπή</string>
+  <string name="undo_action_paste">επικόλληση</string>
+  <string name="undo_action_rotateway">περιστροφή διαδρομής</string>
   <!--ACRA-->
   <!--Misc relation related stuff-->
+  <string name="role">Ρόλος</string>
+  <string name="role_lc">ρόλος</string>
+  <string name="membership_relation_heading">Μέλος της σχέσης</string>
+  <string name="relation">Σχέση</string>
+  <string name="type">Τύπος</string>
+  <string name="object">Αντικείμενο</string>
   <!---->
 </resources>

@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Vứt bỏ &amp; tải về</string>
   <string name="transfer_download_current_back">Quay lại (Không làm gì)</string>
   <string name="upload_problem_title">Vấn đề Tải lên</string>
+  <string name="upload_problem_message">Một số hoặc tất cả dữ liệu không được tải lên. Hãy thử tải lên lần nữa để xem phần nào bị thất bại. Lý do đáng lẽ là một xung đột về số phiên bản.</string>
   <string name="no_login_data_title">Dữ liệu đăng nhập không được xác định</string>
   <string name="no_login_data_message">Xin vui lòng thiết lập tài khoản OSM trong biểu mẫu tùy chỉnh.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
@@ -40,9 +41,14 @@
   <string name="toast_export_failed">Thất bại khi xuất</string>
   <string name="toast_export_success">Đã xuất ra %1$s</string>
   <string name="toast_preset_overwrote_tags">Chú ý: Các thẻ đặt trước đã ghi đè lên thẻ</string>
+  <string name="toast_oneway_reversed">Bạn đã đảo ngược một con đường một chiều hoặc một lối có thẻ tùy thuộc vào chiều đường. Xin vui lòng kiểm tra và chỉnh lại các thẻ nếu cần.</string>
+  <string name="toast_merge_tag_conflict">Bạn đã gộp các phần tử có mâu thuẫn giá trị thẻ, mẫu thuẫn giá trị tùy thuộc chiều đường, hoặc vai trò khác nhau trong cùng một quan hệ. Xin vui lòng kiểm tra và chỉnh lại các thẻ và vai trò nếu cần.</string>
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
   <string name="toast_too_many_nodes_for_move">Lối sẽ được di chuyển có quá nhiều nốt</string>
+  <string name="toast_oauth_handshake_failed">Quá trình bắt tay OAuth bị thất bại; hãy kiểm tra có các chìa khóa trình khách (consumer) chính xác</string>
   <string name="toast_unread_mail">Bạn có %1$s thư chưa đọc trên máy chủ OpenStreetMap</string>
+  <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
+  <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <!--Some generic labels-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -90,6 +96,8 @@
   <string name="menu_split">Chia</string>
   <string name="menu_append">Gắn thêm</string>
   <string name="menu_restriction">Thêm hạn chế</string>
+  <string name="menu_restriction_via">Thêm hạn chế qua</string>
+  <string name="menu_restriction_to">Thêm hạn chế đến</string>
   <string name="menu_tag">Sửa thẻ</string>
   <string name="menu_openstreetbug">Thêm Ghi chú</string>
   <string name="menu_easyedit">Chỉnh sửa Dễ dàng</string>
@@ -119,8 +127,13 @@
   <string name="menu_history">Lịch sử</string>
   <string name="menu_merge">Gộp</string>
   <string name="menu_reverse">Đảo ngược</string>
+  <string name="notreversable_description">Lối có các thuộc tính tùy thuộc vào chiều đường và không thể đảo ngược. Việc đảo ngược lối sẽ mâu thuẫn với các thẻ.</string>
+  <string name="reverse_anyway">Cứ đảo ngược</string>
+  <string name="deleteway_description">Bạn sắp sửa xóa một lối.\n\nBạn có thể để yên các nốt, hoặc bạn có thể xóa các nốt chỉ trực thuộc lối này mà không có thẻ nào.</string>
+  <string name="deleteway_relation_description">Bạn sắp sửa xóa một lối trực thuộc một hay nhiều quan hệ. Việc xóa lối này có thể làm cho các quan hệ không còn hợp lệ.</string>
   <string name="deleteway_wayonly">Chỉ xóa lối</string>
   <string name="deleteway_wayandnodes">Xóa lối và các nốt</string>
+  <string name="deletenode_relation_description">Bạn sắp sửa xóa một nốt trực thuộc một hay nhiều quan hệ. Việc xóa nốt này có thể làm cho các quan hệ không còn hợp lệ.</string>
   <string name="deletenode">Xóa nốt</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Đã chọn lối</string>
@@ -129,16 +142,22 @@
   <string name="actionmode_createpath">Đang tạo đường</string>
   <!--Preferences-->
   <string name="config_category_view">Xem Thiết lập</string>
+  <string name="config_maxStrokeWidth_title">Chiều rộng đường kẻ tối đa</string>
+  <string name="config_maxStrokeWidth_summary">Không vẽ lối dày hơn chiều rộng này</string>
   <string name="config_showStats_title">Xem thống kê</string>
   <string name="config_showStats_summary">Hiển thị thống kế dữ liệu và số khung hình/giây ở phần phía dưới góc bên trái.</string>
   <string name="config_showTolerance_title">Hiển thị mức chịu đựng</string>
   <string name="config_showTolerance_summary">Hiển thị khu vực nơi đối tượng có thể được chọn</string>
   <string name="config_enableAntiAliasing_title">Khử răng cưa</string>
+  <string name="config_enableAntiAliasing_summary">Làm bằng phẳng các đường kẻ.</string>
   <string name="config_enableOpenStreetBugs_title">Hiển thị Ghi chú</string>
+  <string name="config_enableOpenStreetBugs_summary">Xem, Sửa, và Tạo Ghi chú hoặc Báo cáo Lỗi.</string>
   <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
   <string name="config_enablePhotoLayer_summary">Hiển thị các hình ảnh được định vị.</string>
   <string name="config_enableDeprecatedModes_title">Bật các chế độ bị phản đối</string>
+  <string name="config_enableDeprecatedModes_summary">Kích hoạt các chế độ Tạo Mới, Sửa, Sửa các Thẻ, Thêm, Xóa Nốt, và Cắt đôi.</string>
   <string name="config_backgroundLayer_title">Nền bản đồ</string>
+  <string name="config_backgroundLayer_summary">Hình nền của bản đồ.</string>
   <string name="config_category_server">Thiết lập Máy chủ</string>
   <string name="config_apibutton_title">URL của API OSM</string>
   <string name="config_apibutton_summary">Bạn có thể đặt URL đến một API không chuẩn tại đây. Thường không nên thay đổi thiết lập này.</string>
@@ -156,13 +175,17 @@
   <string name="config_password_summary">Không nhầm lẫn với mật khẩu trên wiki. Lưu ý: Mật khẩu này được truyền như văn bản thuần!</string>
   <string name="config_category_gps">Thiết lập GPS</string>
   <string name="config_gps_distance_title">Tầm xa GPS Tối thiểu</string>
+  <string name="config_gps_distance_summary">Khoảng cách tối thiểu giữa các tín hiệu GPS đo bằng mét (số kiểu float). Giá trị càng thấp càng tốn pin.</string>
   <string name="config_gps_interval_title">Khoảng GPS Tối thiểu</string>
+  <string name="config_gps_interval_summary">Khoảng thời gian tối thiểu giữa các tín hiệu GPS đo bằng mili giây. Giá trị càng thấp càng tốn pin.</string>
   <string name="config_category_info">Giới thiệu</string>
   <string name="config_advancedprefs">Tùy chỉnh nâng cao</string>
   <string name="config_forceContextMenu_title">Luôn dùng trình đơn ngữ cảnh</string>
   <string name="config_forceContextMenu_summary">Luôn hiển thị trình đơn ngữ cảnh trong chế độ Sửa đổi Dễ dàng khi nào lựa chọn không rõ ràng</string>
   <string name="config_licensebutton_title">Tác giả và giấy phép</string>
   <string name="config_licensebutton_summary">Xem thông tin về tác giả và giấy phép</string>
+  <string name="config_mapProfile_title">Thành phần bản đồ</string>
+  <string name="config_mapProfile_summary">Đặt kiểu và thuộc tính của các phần tử</string>
   <!--preset downloader messages-->
   <string name="preset_update">Cập nhật thẻ đặt trước</string>
   <string name="preset_download_successful">Thẻ đặt trước được tải về thành công</string>
@@ -223,6 +246,7 @@
   <string name="crash_notif_ticker_text">Vespucci đã bị sự cố. Xin vui lòng báo cáo lỗi.</string>
   <string name="crash_notif_title">Vespucci đã bị sự cố</string>
   <string name="crash_notif_text">Xin vui lòng nhấn chuột vào đây để giúp giải quyết vấn đề.</string>
+  <string name="crash_dialog_text">Ứng dụng phải ngừng vì lỗi bất ngờ. Xin vui lòng gửi các chi tiết về lỗi này cho chúng tôi để giúp chúng tôi khắc phục lỗi. Bạn chỉ việc bấm “OK”.</string>
   <string name="config_category_acra">Báo cáo Sự cố</string>
   <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
   <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>
@@ -235,6 +259,7 @@
   <string name="position">Vị trí</string>
   <string name="type">Kiểu</string>
   <string name="object">Đối tượng</string>
+  <string name="deleterelation_relation_description">Bạn sắp sửa xóa một quan hệ trực thuộc một hay nhiều quan hệ khác. Việc xóa quan hệ con có thể làm cho các quan hệ mẹ không còn hợp lệ.</string>
   <string name="deleterelation">Xóa quan hệ</string>
   <string name="delete_from_relation_description">Bạn sắp sửa xóa đối tượng này khỏi một quan hệ.</string>
   <!---->
