@@ -207,11 +207,7 @@ public class Profile  extends DefaultHandler {
 	public static Profile currentProfile;
 	public static HashMap<String,Profile> availableProfiles;
 	
-	public static float nodeToleranceValue = 40f;
-	
 	public static final float NODE_OVERLAP_TOLERANCE_VALUE = 10f;
-
-	public static float wayToleranceValue = 40f;
 
 	private static final int TOLERANCE_ALPHA = 40;
 	
@@ -233,6 +229,9 @@ public class Profile  extends DefaultHandler {
 	private static final String DEFAULT_PROFILE_NAME = "Default";
 	
 	static Resources myRes;
+	
+	public float nodeToleranceValue = 40f;
+	public float wayToleranceValue = 40f;
 	
 	public Profile(final Context ctx) {
 		// create default 
@@ -473,6 +472,14 @@ public class Profile  extends DefaultHandler {
 	 */
 	public static FeatureProfile getCurrent(final String key) {
 		return currentProfile.featureProfiles.get(key);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static Profile getCurrent() {
+		return currentProfile;
 	}
 	
 	/**

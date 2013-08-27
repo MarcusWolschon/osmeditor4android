@@ -166,7 +166,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		List<Photo> result = new ArrayList<Photo>();
 		Log.d("photos.MapOverlay", "getClickedPhotos");	
 		if (map.getPrefs().isPhotoLayerEnabled()) {
-			final float tolerance = Profile.nodeToleranceValue;
+			final float tolerance = Profile.getCurrent().nodeToleranceValue;
 			for (Photo p : photos) {
 				int lat = p.getLat();
 				int lon = p.getLon();

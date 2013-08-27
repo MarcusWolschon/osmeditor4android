@@ -1071,7 +1071,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * Stores the current storage data to the default storage file
 	 * @throws IOException
 	 */
-	public void writeToFile() throws IOException {
+	public void writeToFile() throws IOException { 
 		if (!dirty) {
 			Log.i("StorageDelegator", "storage delegator not dirty, skipping save");
 			return;
