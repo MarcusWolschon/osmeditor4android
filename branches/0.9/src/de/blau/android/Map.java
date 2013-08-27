@@ -488,32 +488,41 @@ public class Map extends View implements IMapView {
 			}
 			
 			String featureKey;
-			String featureKey2;
+			String featureKeyThin;
+			String featureKeyTagged;
 			if (node == tmpDrawingSelectedNode 
 					|| (tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) 
 					&& tmpDrawingInEditRange) {
 				// general node style
 				featureKey = Profile.SELECTED_NODE;
 				// style for house numbers
-				featureKey2 = Profile.SELECTED_NODE_THIN;
+				featureKeyThin = Profile.SELECTED_NODE_THIN;
+				// style for tagged nodes or otherwise important
+				featureKeyTagged = Profile.SELECTED_NODE_TAGGED;
 			} else if (node.hasProblem()) {
 				// general node style
 				featureKey = Profile.PROBLEM_NODE;
 				// style for house numbers
-				featureKey2 = Profile.PROBLEM_NODE_THIN;
+				featureKeyThin = Profile.PROBLEM_NODE_THIN;
+				// style for tagged nodes or otherwise important
+				featureKeyTagged = Profile.PROBLEM_NODE_TAGGED;
 			} else {
 				// general node style
 				featureKey = Profile.NODE;
 				// style for house numbers
-				featureKey2 = Profile.NODE_THIN;
+				featureKeyThin = Profile.NODE_THIN;
+				// style for tagged nodes or otherwise important
+				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
 			// draw house-numbers
 			if (node.getTagWithKey("addr:housenumber") != null && node.getTagWithKey("addr:housenumber").trim().length() > 0) {
-				Paint paint2 = Profile.getCurrent(featureKey2).getPaint();
+				Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
 				canvas.drawCircle(x, y, 10, paint2);
 				String text = node.getTagWithKey("addr:housenumber");
 				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + 3, paint2);
+			} else if (node.isTagged()) {
+				canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
 			} else { //TODO: draw other known elements different too
 				// draw regular nodes
 				canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());

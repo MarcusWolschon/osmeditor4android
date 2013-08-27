@@ -46,25 +46,28 @@ import de.blau.android.util.SavingHelper;
 public class Profile  extends DefaultHandler {
 	
 	// constants for the internal profiles
-	public final static String WAY = "way";
-	public final static String NODE = "node";
 	public final static String GPS_TRACK = "gps_track";
-	public final static String SELECTED_NODE = "selected_node";
-	public final static String SELECTED_WAY = "selected_way";
 	public final static String NODE_TOLERANCE = "node_tolerance";
 	public final static String INFOTEXT = "infotext";
 	public final static String VIEWBOX = "viewbox";
+	public final static String WAY = "way";
+	public final static String SELECTED_WAY = "selected_way";
 	public final static String PROBLEM_WAY = "problem_way";
+	public final static String NODE = "node";
+	public final static String NODE_THIN = "node_thin";
+	public static final String NODE_TAGGED = "node_tagged";
 	public final static String PROBLEM_NODE = "problem_node";
 	public final static String PROBLEM_NODE_THIN = "problem_node_thin";
+	public static final String PROBLEM_NODE_TAGGED = "problem_node_tagged";
+	public final static String SELECTED_NODE = "selected_node";
+	public final static String SELECTED_NODE_THIN = "selected_node_thin";
+	public static final String SELECTED_NODE_TAGGED = "selected_node_tagged";
 	public final static String WAY_DIRECTION = "way_direction";
 	public final static String ONEWAY_DIRECTION = "oneway_direction";
 	public final static String WAY_TOLERANCE = "way_tolerance";
 	public final static String GPS_POS = "gps_pos";
 	public final static String GPS_POS_FOLLOW = "gps_pos_follow";
 	public final static String GPS_ACCURACY = "gps_accuracy";
-	public final static String SELECTED_NODE_THIN = "selected_node_thin";
-	public final static String NODE_THIN = "node_thin";
 	public final static String OPEN_NOTE = "open_note";
 	public final static String CLOSED_NOTE = "closed_note";
 	public final static String CROSSHAIRS = "crosshairs";
@@ -300,6 +303,11 @@ public class Profile  extends DefaultHandler {
 		
 		fp = new FeatureProfile(NODE);
 		fp.setColor(resources.getColor(R.color.ccc_red));
+		fp.setWidthFactor(1f);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(NODE_TAGGED);
+		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.setWidthFactor(1.5f);
 		featureProfiles.put(fp.getName(), fp);
 
@@ -311,6 +319,11 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(PROBLEM_NODE);
+		fp.setColor(resources.getColor(R.color.problem));
+		fp.setWidthFactor(1f);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(PROBLEM_NODE_TAGGED);
 		fp.setColor(resources.getColor(R.color.problem));
 		fp.setWidthFactor(1.5f);
 		featureProfiles.put(fp.getName(), fp);
@@ -336,6 +349,11 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(SELECTED_NODE);
+		fp.setColor(resources.getColor(R.color.ccc_beige));
+		fp.setWidthFactor(1.5f);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(SELECTED_NODE_TAGGED);
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.setWidthFactor(2f);
 		featureProfiles.put(fp.getName(), fp);

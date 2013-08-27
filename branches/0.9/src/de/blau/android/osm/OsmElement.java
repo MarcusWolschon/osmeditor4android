@@ -162,6 +162,14 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	}
 	
 	/**
+	 * check if this element has tags of any kind
+	 * @return
+	 */
+	public boolean isTagged() {
+		return (tags != null) && (tags.size() > 0);
+	}
+	
+	/**
 	 * Merge the tags from two OsmElements into one set.
 	 * @param e1
 	 * @param e2
