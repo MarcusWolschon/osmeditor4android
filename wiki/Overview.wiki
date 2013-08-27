@@ -29,3 +29,7 @@
 Vespucci on a tablet with geo-referenced photographs layer enabled.
 
 [http://osmeditor4android.googlecode.com/svn/wiki/vespucci-09-screenshot.png]
+
+Further release 0.9 screenshots
+
+||[http://osmeditor4android.googlecode.com/svn/wiki/0.9-screenshots/10-way-operations.png]||[http://osmeditor4android.googlecode.com/svn/wiki/0.9-screenshots/11-tag-editor-way.png]||
