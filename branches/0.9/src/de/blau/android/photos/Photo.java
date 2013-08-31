@@ -11,6 +11,8 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import de.blau.android.util.ExtendedExifInterface;
+
 import android.media.ExifInterface;
 import android.net.ParseException;
 import android.net.Uri;
@@ -31,6 +33,11 @@ public class Photo {
 	int lat;
 	/** Longitude *1E7. */
 	int lon;
+	/**
+	 * compass direction
+	 */
+	int direction = 0; 
+	String directionRef = null; // if null direction not present
 	
 	/**
 	 * Create a Bug from an OSB GPX XML wpt element.
@@ -40,7 +47,7 @@ public class Photo {
 	 */
 	public Photo(File f) throws IOException, NumberFormatException {
 		// 
-		ExifInterface exif = new ExifInterface(f.toString()); // create the ExifInterface file
+		ExtendedExifInterface exif = new ExtendedExifInterface(f.toString()); // create the ExifInterface file
 
 		/** get the attribute. rest of the attributes are the same. i will add convertToDegree on the bottom (not required) **/
 		String lonStr = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
@@ -59,11 +66,26 @@ public class Photo {
 		lat = (int)(latf * 1E7d);
 		lon = (int)(lonf * 1E7d);
 		
+		String dir = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION);
+		if (dir != null) {
+			direction =(int) Double.parseDouble(dir);
+			directionRef = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION_REF);
+			Log.d("Photo","dir " + dir + " direction " + direction + " ref " + directionRef);
+		}
 	}
 	
 	public Photo(int lat, int lon, String ref) {
 		this.lat = lat;
 		this.lon = lon;
+		this.ref = ref;		
+	}
+	
+	public Photo(int lat, int lon, int direction, String ref) {
+		this.lat = lat;
+		this.lon = lon;
+		this.direction = direction;
+		this.directionRef = "M"; // magnetic north
+		Log.d("Photo","constructor direction " + direction + " ref " + directionRef);
 		this.ref = ref;
 	}
 	
@@ -117,4 +139,18 @@ public class Photo {
 		//return Uri.parse("content:/" + ref);
 	}
 	
+	/**
+	 * did we have a direction attribute
+	 */
+	public boolean hasDirection() {
+		return directionRef != null;
+	}
+	
+	/**
+	 * get the direction value
+	 * @return
+	 */
+	public int getDirection() {
+		return direction;
+	}
 }

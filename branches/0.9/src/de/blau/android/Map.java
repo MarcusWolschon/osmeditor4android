@@ -585,27 +585,21 @@ public class Map extends View implements IMapView {
 	private void paintWay(final Canvas canvas, final Way way) {
 		float[] linePoints = pointListToLinePointsArray(way.getNodes());
 		Paint paint;
-		//TODO: order by occurrences
-		//setColorByTag(way, paint);
-		
-		//DEBUG-Setting: Set a unique color for each way
-		//paint.setColor((int) Math.abs((way.getOsmId()) + 1199991) * 99991);
-		
 		
 		//draw way tolerance
-		if (prefs.isToleranceVisible()
+		if (tmpDrawingInEditRange // if we are not in editing rage none of the further checks are necessary
+				&& prefs.isToleranceVisible()
 				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
 				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
 					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
 					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT
-					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))
-				&& tmpDrawingInEditRange) {
+					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))) {
 			canvas.drawLines(linePoints, Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint());
 		}
 		//draw selectedWay highlighting
-		boolean isSelected = ((way == tmpDrawingSelectedWay 
-				|| (tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way))) 
-				&& tmpDrawingInEditRange);
+		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
+				&& (way == tmpDrawingSelectedWay 
+				|| (tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way)));
 		if  (isSelected) {
 			paint = Profile.getCurrent(Profile.SELECTED_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);

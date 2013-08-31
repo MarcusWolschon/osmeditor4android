@@ -27,7 +27,7 @@ import android.widget.Toast;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 	
-	private final static int DATA_VERSION = 2;
+	private final static int DATA_VERSION = 3;
 	private final static String LOGTAG = "PhotoIndex";
 	private final Context ctx;
 
@@ -46,7 +46,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	@Override
 	public synchronized void onCreate(SQLiteDatabase db) {
 		Log.d(LOGTAG, "Creating photo index DB");
-		db.execSQL("CREATE TABLE IF NOT EXISTS photos (lat int, lon int, dir VARCHAR, name VARCHAR);");
+		db.execSQL("CREATE TABLE IF NOT EXISTS photos (lat int, lon int, direction int DEFAULT NULL, dir VARCHAR, name VARCHAR);");
 		db.execSQL("CREATE INDEX latidx ON photos (lat)");
 		db.execSQL("CREATE INDEX lonidx ON photos (lon)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS directories  (dir VARCHAR, last_scan int8);");
@@ -58,6 +58,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	@Override
 	public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.d(LOGTAG, "Upgrading photo index DB");
+		if (oldVersion <= 2) {
+			db.execSQL("ALTER TABLE photos ADD direction int DEFAULT NULL");
+		}
 	}
 	
 	public synchronized void createOrUpdateIndex()
@@ -161,6 +164,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						ContentValues values = new ContentValues();
 						values.put("lat", p.getLat());
 						values.put("lon", p.getLon());
+						if (p.hasDirection()) {
+							values.put("direction", p.getDirection());
+						}
 						values.put("dir", indir.getAbsolutePath());
 						values.put("name", f.getName());
 						db.insert("photos", null, values);	
@@ -180,14 +186,18 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		Collection<Photo> result = new ArrayList<Photo>();
 		Cursor dbresult = db.query(
 				"photos",
-				new String[] {"lat", "lon", "dir", "name"},
+				new String[] {"lat", "lon", "direction", "dir", "name"},
 				"lat >= " + cur.bottom + " AND lat <= " + cur.top + " AND lon >= " + cur.left + " AND lon <= " + cur.right, 
 				null, null, null, null, null);
 		int photoCount = dbresult.getCount();
 		dbresult.moveToFirst();
 		// loop over the directories configured
 		for (int i = 0; i < photoCount; i++) {
-			result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(2) + "/" + dbresult.getString(3)));
+			if (dbresult.isNull(2) ) { // no direction
+				result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
+			} else {
+				result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
+			}
 			dbresult.moveToNext();
 		}
 		dbresult.close();

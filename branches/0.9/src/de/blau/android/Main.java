@@ -1208,6 +1208,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				myIntent.setDataAndType(photo.getRef(), "image/jpeg"); // black magic only works this way
 				startActivity(myIntent);
+				map.getPhotosOverlay().setSelected(photo);
+				//TODO may need a map.invalidate() here
 			} catch (Exception ex) {
 				Log.d("Main", "viewPhoto exception starting intent: " + ex);	
 			}

@@ -55,10 +55,17 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** have we already run a scan? */
 	private boolean indexed = false;
 	
+	/** default icon */
 	private final Drawable icon;
+
+	/** selected icon */
+	private final Drawable icon_selected;
 	
 	/** Event handlers for the overlay. */
 	private final Handler handler;
+	
+	/** last selected photo, may not be stil displayed */
+	private Photo selected = null;
 	
 	/** Request to update the bugs for the current view.
 	 * Ensure cur is set before invoking.
@@ -100,6 +107,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			}.execute();
 		}
 	};
+
 	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
@@ -108,6 +116,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		photos = new ArrayList<Photo>();
 		handler = new Handler();
 		icon = Application.mainActivity.getResources().getDrawable(R.drawable.camera);
+		icon_selected = Application.mainActivity.getResources().getDrawable(R.drawable.camera_green);
 	}
 	
 	public boolean isReadyToDraw() {
@@ -139,12 +148,23 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			// draw all the photos
 			for (Photo p : photos) {
 				if (bb.isIn(p.getLat(), p.getLon())) {
+					Drawable i;
+					if (p == selected) 
+						i = icon_selected;
+					else
+						i = icon;
 					int x = (int) GeoMath.lonE7ToX(viewPort.width() , bb, p.getLon());
 					int y = (int) GeoMath.latE7ToY(viewPort.height(), bb, p.getLat());
-					int w2 = icon.getIntrinsicWidth() / 2;
-					int h2 = icon.getIntrinsicHeight() / 2;
-					icon.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
-					icon.draw(c);
+					int w2 = i.getIntrinsicWidth() / 2;
+					int h2 = i.getIntrinsicHeight() / 2;
+					i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
+					if (p.hasDirection()) {
+						c.rotate(p.getDirection(), x, y);
+						i.draw(c);
+						c.rotate(-p.getDirection(), x, y);
+					} else {
+						i.draw(c);
+					}
 				}
 			}
 		}
@@ -181,5 +201,9 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		}
 		Log.d("photos.MapOverlay", "getClickedPhotos found " + result.size());
 		return result;
+	}
+
+	public void setSelected(Photo photo) {
+		selected  = photo;
 	}
 }
