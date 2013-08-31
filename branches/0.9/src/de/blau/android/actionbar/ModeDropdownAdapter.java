@@ -68,7 +68,7 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 	
 	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug, boolean depreciatedModesEnabled) {
 		this.context = context;
-		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.menu_move);
+		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.locked_small);
 		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
 		addItem(Logic.Mode.MODE_ADD, R.string.menu_add, R.drawable.menu_add);
 		addItem(Logic.Mode.MODE_EDIT, R.string.menu_edit, R.drawable.menu_edit);
