@@ -6,6 +6,8 @@
   <string name="transfer_download_current_upload">Nahrát</string>
   <string name="transfer_download_current_download">Zahodit a stáhnout</string>
   <string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
+  <string name="upload_problem_title">Problém s nahráváním</string>
+  <string name="upload_problem_message">Některá nebo všechna data nebyla odeslána. Zkuste je odeslat znovu pro zjištění, co je špatně. Nejpravděpodobnější chybou je konflikt verzí.</string>
   <string name="no_login_data_title">Přihlašovací údaje nejsou zadány</string>
   <string name="no_login_data_message">Prosím zadejte přihlašovací údaje OSM v nastavení.</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
@@ -15,6 +17,17 @@
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
+  <string name="upload_comment_label">Komentář:</string>
+  <string name="upload_source_label">Zdroj:</string>
+  <string name="openstreetbug_new_title">Nová poznámka</string>
+  <string name="openstreetbug_new_nodeway">Vytvořit Uzel/Cestu</string>
+  <string name="openstreetbug_edit_title">Upravit poznámku</string>
+  <string name="openstreetbug_commitbutton">Odeslat</string>
+  <string name="openstreetbug_comment_label">Komentář:</string>
+  <string name="openstreetbug_edit_close">Uzavřít</string>
+  <string name="openstreetbug_edit_closed">Uzavřeno</string>
+  <string name="openstreetbug_commit_ok">Změny uloženy</string>
+  <string name="openstreetbug_commit_fail">Změny nelze uložit</string>
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Máte neuložene data, které budou smaznány když budete pokračovat.</string>
   <string name="unsaved_data_proceed">Smazat &amp; pokračovat</string>
@@ -23,14 +36,20 @@
   <string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
   <string name="toast_not_in_edit_range">Prosím přibližte mapu pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_save_done">Uloženo</string>
+  <string name="toast_not_in_bug_range">Prosím přibližte mapu pro přidání chyby (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_export_failed">Export selhal</string>
-  <string name="toast_export_success">Exportováno to %1$s</string>
+  <string name="toast_export_success">Exportováno do %1$s</string>
   <string name="toast_preset_overwrote_tags">Pozor - předloha přepsala tag(y)</string>
+  <string name="toast_oneway_reversed">Otočili jste jednosměrnou cestu, nebo cestu se směrově závislými tagy. Zkontrolujte prosím tagy a upravte je, pokud je to nutné.</string>
+  <string name="toast_unread_mail">Máte %1$s nepřečtený(é) zprávu(y) na serveru OpenStreetmap</string>
+  <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
+  <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
   <!--Some generic labels-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="okay">Budiž</string>
   <string name="cancel">Zrušit</string>
+  <string name="locked">Uzamčeno</string>
   <!--Strings in TagEditor-->
   <string name="key">klíč</string>
   <string name="value">hodnota</string>
@@ -62,15 +81,20 @@
   <string name="menu_add">Nový</string>
   <string name="menu_config">Nastavení</string>
   <string name="menu_help">Nápověda</string>
-  <string name="menu_erase">Smazat</string>
+  <string name="menu_erase">Smazat uzel</string>
+  <string name="menu_split">Rozdělit</string>
   <string name="menu_append">Přidat</string>
+  <string name="menu_restriction">Přidat omezení</string>
+  <string name="menu_restriction_via">Přidat omezení přes</string>
+  <string name="menu_restriction_to">Přidat omezení do</string>
   <string name="menu_tag">Upravit tagy</string>
+  <string name="menu_openstreetbug">Přidat poznámku</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ukazovat polohu GPS</string>
   <string name="menu_gps_follow">Následovat polohu GPS</string>
   <string name="menu_gps_start">Spustit GPS stopu</string>
-  <string name="menu_gps_pause">Přerušit GPS stopu</string>
+  <string name="menu_gps_pause">Pozastavit GPS stopu</string>
   <string name="menu_gps_clear">Smazat GPS stopu</string>
   <string name="menu_gps_upload">Nahrát GPS stopu na server</string>
   <string name="menu_gps_export">Exportovat GPS stopu</string>
@@ -80,6 +104,9 @@
   <string name="menu_transfer_upload">Nahrát data na OSM server</string>
   <string name="menu_transfer_export">Exportovat změny</string>
   <string name="menu_save">Uložit do souboru</string>
+  <string name="menu_copy">Kopírovat</string>
+  <string name="menu_cut">Vyjmout</string>
+  <string name="menu_paste">Vložit</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tagy</string>
   <!--Text should be as short as possible-->
@@ -88,6 +115,7 @@
   <string name="menu_reverse">Obrátit cestu</string>
   <string name="deleteway_wayonly">Smazat pouze cestu</string>
   <string name="deleteway_wayandnodes">Smazat cestu a uzly</string>
+  <string name="deletenode">Smazat uzel</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Cesta vybrána</string>
   <string name="actionmode_nodeselect">Uzel vybrán</string>
@@ -99,6 +127,9 @@
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
   <string name="config_showTolerance_summary">Zobrazí oblast kde může být vybrán element.</string>
   <string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
+  <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
+  <string name="config_enablePhotoLayer_summary">Zobrazit fotografie s georeferencemi</string>
+  <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_apibutton_title">URL API OSM</string>
   <string name="config_apibutton_summary">Zde můźete zadat nestandardní adresu API. Obvykle se nemá měnit!</string>
@@ -117,6 +148,9 @@
   <string name="config_gps_interval_title">Minimální GPS interval</string>
   <string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
   <string name="config_category_info">Informace</string>
+  <string name="config_advancedprefs">Rozšířená nastavení</string>
+  <string name="config_forceContextMenu_title">Vždy používat kontextové menu</string>
+  <string name="config_forceContextMenu_summary">Vždy zobrazit kontextové menu v EasyEdit, pokud je výběr nejednoznačný</string>
   <string name="config_licensebutton_title">Autořy a licence</string>
   <string name="config_licensebutton_summary">Zobrazit autory a licenční informace</string>
   <!--preset downloader messages-->
@@ -126,6 +160,11 @@
   <string name="preset_download_parse_failed">Neplatní soubor předloh. Předlohy nebudou fungovat.</string>
   <string name="preset_download_missing_images">Soubor předloh úspešně stažen. Některé ikonky se nepodařilo stáhnout a budou chybět.</string>
   <!--changes-->
+  <string name="changes_deleted">\"%1$s\" smazáno</string>
+  <string name="changes_changed">\"%1$s\" změněno</string>
+  <string name="changes_created">\"%1$s\" vytvořeno</string>
+  <string name="confirm_upload_title">Odeslat?</string>
+  <string name="confirm_upload_text">Odeslat následující změny?⏎\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předlohu</string>
   <string name="urldialog_preset_exists">Tato předloha již existuje.</string>
@@ -144,7 +183,9 @@
   <string name="preset">Předloha</string>
   <string name="api">API</string>
   <string name="undo">Zpět</string>
-  <string name="tracking_active_title">Nahrává GPS stopu</string>
+  <string name="redo">Vpřed</string>
+  <string name="undo_nothing">Nic k vzetí zpět</string>
+  <string name="tracking_active_title">Nahrávání GPS stopy</string>
   <string name="tracking_active_text">Vespucci nahrává GPS stopu</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -159,6 +200,15 @@
   <string name="undo_action_reverse_way">obrátit cestu</string>
   <string name="undo_action_set_tags">nastavit tagy</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci spadl. Prosím odešlete nám chybové hlášení.</string>
+  <string name="crash_notif_title">Vespucci spadl.</string>
+  <string name="crash_notif_text">Prosím klikněte zde a pomozte nám opravit tuto chybu.</string>
+  <string name="crash_dialog_text">Nastala neočekávaná chyba, aplikace musela být ukončena. Pomozte nám prosím opravit tuto chybu zasláním chybového hlášení, vše co musíte udělat je kliknout na \'OK\'.</string>
+  <string name="config_category_acra">Hlášení pádu</string>
+  <string name="pref_enable_acra">Hlásí pády aplikace</string>
+  <string name="pref_acra_enabled">Hlášení pádů povoleno</string>
+  <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
   <!--Misc relation related stuff-->
+  <string name="object">Objekt</string>
   <!---->
 </resources>

@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Odrzuć &amp; pobierz</string>
   <string name="transfer_download_current_back">Wróć (nic nie rób)</string>
   <string name="upload_problem_title">Problem z wysyłaniem</string>
+  <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Wyślij ponownie, aby zobaczyć to, co nie powiodło się.Najbardziej prawdopodobną przyczyną jest konflikt wersji.</string>
   <string name="no_login_data_title">Brak danych logowania</string>
   <string name="no_login_data_message">Uzupełnij dane logowania w ustawieniach.</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>
@@ -29,7 +30,7 @@
   <string name="openstreetbug_commit_ok">Zapisano zmiany</string>
   <string name="openstreetbug_commit_fail">Nie można zapisać zmian</string>
   <string name="unsaved_data_title">Uwaga!</string>
-  <string name="unsaved_data_message">Masz niezapisane zmiany które utracisz jeśli będziesz kontynuował.</string>
+  <string name="unsaved_data_message">Masz niezapisane zmiany, które utracisz jeśli będziesz kontynuował.</string>
   <string name="unsaved_data_proceed">Odrzuć &amp; przejdź dalej</string>
   <!--Toaster-->
   <string name="toast_no_changes">Jeszcze nic nie zmieniłeś…</string>
@@ -40,6 +41,13 @@
   <string name="toast_export_failed">Eksport nieudany</string>
   <string name="toast_export_success">Eksportowano do %1$s</string>
   <string name="toast_preset_overwrote_tags">Uwaga - szablon nadpisze tag(i)</string>
+  <string name="toast_oneway_reversed">Zmieniłeś kierunek drogi jednokierunkowej lub drogi z kierunkiem zależnym od tagów. Sprawdź tagi dokonaj potrzebnych korekt.</string>
+  <string name="toast_merge_tag_conflict">Połączyłeś elementy, które mają sprzeczne wartości znaczników, kierunek zależny lub różne role w tej samej relacji. Proszę sprawdź znaczniki i role i popraw w razie potrzeby.</string>
+  <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik</string>
+  <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów do przesunięcia</string>
+  <string name="toast_unread_mail">Masz %1$ nie przeczytaną/e wiadomość/ci na serwerze OpenStreetmap</string>
+  <string name="toast_photo_indexing_started">Rozpoczęcie skanowanie zdjęć georeferencyjnych.</string>
+  <string name="toast_photo_indexing_finished">Zakończone skanowanie zdjęć georeferencyjnych.</string>
   <!--Some generic labels-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
@@ -118,9 +126,13 @@
   <string name="menu_history">Historia</string>
   <string name="menu_merge">dołącz</string>
   <string name="menu_reverse">Odwróć</string>
+  <string name="notreversable_description">Droga z atrybutem zależności od kierunku, który nie może być zmieniony. Zmiana kierunku drogi zniszczy tagowanie.</string>
   <string name="reverse_anyway">Odwróć mimo to</string>
+  <string name="deleteway_description">Masz zamiar usunąć drogę. ⏎\n⏎\nMożesz zachować wszystkie węzły, lub usunąć węzły, które należą tylko do tej drogi i nie mają żadnych znaczników.</string>
+  <string name="deleteway_relation_description">Zamierzasz usunąć drogę, która należy do jednej lub większej ilości relacji. Usunięcie drogi z relacji spowoduje jej/ich nieprawidłowość.</string>
   <string name="deleteway_wayonly">Usuń tylko drogę</string>
   <string name="deleteway_wayandnodes">Usuń drogę i węzły</string>
+  <string name="deletenode_relation_description">Masz zamiar usunąć węzeł, który jest członkiem jednej lub wielu relacji. Usuwanie węzła z relacji może spowodować jej / ich nieprawidłowość.</string>
   <string name="deletenode">Usuń węzeł</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Droga zaznaczona</string>
@@ -129,16 +141,28 @@
   <string name="actionmode_createpath">Tworzenie ścieżki</string>
   <!--Preferences-->
   <string name="config_category_view">Ustawienia</string>
+  <string name="config_maxStrokeWidth_title">Maksymalna długość linii</string>
+  <string name="config_maxStrokeWidth_summary">Nie rysuj drogi grubszej niż ta.</string>
   <string name="config_showStats_title">Pokaż statystyki</string>
   <string name="config_showStats_summary">Wyświetla szybkość obrazu w ramkach/sek. w dolnym lewym rogu.</string>
   <string name="config_showTolerance_title">Pokaż tolerancję</string>
   <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
   <string name="config_enableAntiAliasing_title">Włącz wygładzanie</string>
+  <string name="config_enableAntiAliasing_summary">Stwórz linię łagodną.</string>
+  <string name="config_enableOpenStreetBugs_title">Włącz wyświetlanie notatek</string>
+  <string name="config_enableOpenStreetBugs_summary">Wyświetl, Edytuj i utwórz notatkę/błąd</string>
+  <string name="config_enablePhotoLayer_title">Włącz warstwę foto</string>
+  <string name="config_enablePhotoLayer_summary">Wyświetl zdjęcia georeferencyjne.</string>
+  <string name="config_enableDeprecatedModes_title">Włącz nieaktualne tryby</string>
+  <string name="config_enableDeprecatedModes_summary">Włącz nowy, Edytuj, Edytuj  znaczniki, Dodaj, Usuń węzeł i tryb podziału.</string>
   <string name="config_backgroundLayer_title">Mapa jako tło</string>
   <string name="config_backgroundLayer_summary">Wybierz mapę, która zostanie użyta jako tło.</string>
   <string name="config_category_server">Dane logowania</string>
   <string name="config_apibutton_title">adres API OpenStreetMap</string>
   <string name="config_apibutton_summary">Możesz tu ustawić nie-standardowy adres API. Zazwyczaj nie powinno się tego robić.</string>
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Używaj  OAuth</string>
+  <string name="listedit_enable_oauth">Włącz OAuth</string>
   <string name="config_presetbutton_title">szablon JOSM</string>
   <string name="config_presetbutton_summary">Możesz tutaj ustawić definicje elementów mapy.</string>
   <string name="config_iconbutton_title">Pokaż ikony węzłów</string>
@@ -159,6 +183,8 @@
   <string name="config_forceContextMenu_summary">Zawsze pokazuj menu kontekstowe w trybie EasyEdit jeśli zaznaczenie jest dwuznaczne</string>
   <string name="config_licensebutton_title">Autorzy oraz licencje</string>
   <string name="config_licensebutton_summary">Pokaż autorów oraz informacje o licencji</string>
+  <string name="config_mapProfile_title">Profil mapy</string>
+  <string name="config_mapProfile_summary">Ustaw styl i widoczność elementów</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizuj szablon</string>
   <string name="preset_download_successful">Szablon został pobrany</string>
@@ -185,6 +211,8 @@
   <string name="name">Nazwa</string>
   <string name="url">URL</string>
   <string name="default_">Domyślne</string>
+  <string name="api_name">Nazwa API</string>
+  <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Szablon</string>
   <string name="api">API</string>
@@ -196,6 +224,7 @@
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">przesuń węzeł</string>
+  <string name="undo_action_moveway">przesuń drogę</string>
   <string name="undo_action_add">wstaw</string>
   <string name="undo_action_append">dołącz</string>
   <string name="undo_action_deletenode">usuń węzeł</string>
@@ -207,6 +236,11 @@
   <string name="undo_action_set_tags">ustaw tagi</string>
   <string name="undo_action_join">dołącz</string>
   <string name="undo_action_unjoin_ways">rozłącz drogi</string>
+  <string name="undo_action_deleterelation">Usuń relację</string>
+  <string name="undo_action_update_relations">Zaktualizuj relację</string>
+  <string name="undo_action_cut">Cięcie</string>
+  <string name="undo_action_paste">wstaw</string>
+  <string name="undo_action_rotateway">obróć drogę</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci miał awarię. Proszę wyślijraport błędu.</string>
   <string name="crash_notif_title">Vespucci miał awarię</string>
@@ -217,5 +251,14 @@
   <string name="pref_acra_enabled">Zgłaszanie awarii włączone</string>
   <string name="pref_acra_disabled">Zgłaszanie awarii wyłączone</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rola</string>
+  <string name="role_lc">rola</string>
+  <string name="membership_relation_heading">Członek relacji</string>
+  <string name="relation">Relacja</string>
+  <string name="type">Typ</string>
+  <string name="object">Objekt</string>
+  <string name="deleterelation_relation_description">Masz zamiar usunąć relację, która jest członkiem jednego lub większej ilości relacji. Usuwanie relacji z relacji może spowodować, jej/ich nieprawidłowość.</string>
+  <string name="deleterelation">Usuń relację</string>
+  <string name="delete_from_relation_description">Zamierzasz usunąć ten element z relacji.</string>
   <!---->
 </resources>
