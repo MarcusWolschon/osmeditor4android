@@ -116,6 +116,12 @@ public class Map extends View implements IMapView {
 	/** Caches the preset during one onDraw pass */
 	private Preset tmpPreset;
 	
+	/** Caches the Paint used for node tolerance */
+	Paint nodeTolerancePaint;
+	
+	/** Caches the Paint used for way tolerance */
+	Paint wayTolerancePaint;
+	
 	private Location displayLocation = null;
 	private boolean isFollowingGPS = false;
 
@@ -220,6 +226,9 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
 		tmpPreset = Main.getCurrentPreset();
+		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
+		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
+		
 		// Draw our Overlays.
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
@@ -477,7 +486,9 @@ public class Map extends View implements IMapView {
 			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
 			
 			//draw tolerance box
-			if (	(tmpClickableElements == null || tmpClickableElements.contains(node))
+			if (	tmpDrawingInEditRange
+					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
+					&& (tmpClickableElements == null || tmpClickableElements.contains(node))
 					&&	(tmpDrawingEditMode != Logic.Mode.MODE_APPEND
 						|| tmpDrawingSelectedNode != null
 						|| delegator.getCurrentStorage().isEndNode(node)
@@ -569,10 +580,9 @@ public class Map extends View implements IMapView {
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			final float x, final float y, BoundingBox originalBox) {
-		if (prefs.isToleranceVisible() && tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingInEditRange
+		if ( tmpDrawingEditMode != Logic.Mode.MODE_MOVE 
 				&& (nodeState != OsmElement.STATE_UNCHANGED || originalBox.isIn(lat, lon))) {
-			Paint p = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
-			canvas.drawCircle(x, y, p.getStrokeWidth(), p);
+			canvas.drawCircle(x, y, nodeTolerancePaint.getStrokeWidth(), nodeTolerancePaint);
 		}
 	}
 
@@ -588,13 +598,13 @@ public class Map extends View implements IMapView {
 		
 		//draw way tolerance
 		if (tmpDrawingInEditRange // if we are not in editing rage none of the further checks are necessary
-				&& prefs.isToleranceVisible()
+				&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(way))) // if prefs are turned off but we are doing an EasyEdit operation show anyway
 				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
 				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
 					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
 					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT
 					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))) {
-			canvas.drawLines(linePoints, Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint());
+			canvas.drawLines(linePoints, wayTolerancePaint);
 		}
 		//draw selectedWay highlighting
 		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
