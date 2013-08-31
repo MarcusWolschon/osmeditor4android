@@ -622,8 +622,8 @@ public class Map extends View implements IMapView {
 			drawOnewayArrows(canvas, linePoints, false, fp.getPaint());
 		}
 		
-		// get default for ways
-		FeatureProfile fp = Profile.getCurrent(Profile.WAY);
+		// 
+		FeatureProfile fp; // no need to get the default here
 		
 		// this logic needs to be separated out
 		if (way.hasProblem()) {
@@ -631,6 +631,7 @@ public class Map extends View implements IMapView {
 		} else {
 			FeatureProfile wayFp = way.getFeatureProfile();
 			if (wayFp == null) {
+				fp = Profile.getCurrent(Profile.WAY); // default for ways
 				// three levels of hierarchy for roads and special casing of tracks, two levels for everything else
 				String highwayType = way.getTagWithKey("highway");
 				if (highwayType != null) {
