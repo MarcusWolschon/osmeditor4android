@@ -3,7 +3,7 @@
 
 == Installation ==
 
-Just search for "vespucci" on the android market place and install it. Vespucci 0.9 is known to work with devices running Android 2.3 and later, 2.2 has been tested on an emulator. Earlier versions have not been tested. Pre-2.0 Android versions are not supported.
+The current Vespucci version is not available from the google Play Store at this point in time. Vespucci 0.9 is known to work with devices running Android 2.3 and later, 2.2 has been tested on an emulator. Earlier versions have not been tested. Pre-2.0 Android versions are not supported.
 
 == Initial Set-Up ==
 
