@@ -11,13 +11,14 @@
 	    <TextView
 	      android:id="@+id/upload_comment_label"
 	      android:layout_width="wrap_content"
-	      android:layout_height="32dp"
-	      
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
 	      android:text="@string/upload_comment_label"/>
 	    <EditText
 	      android:id="@+id/upload_comment"
 	      android:layout_toRightOf="@id/upload_comment_label"
-	       android:layout_alignBottom="@id/upload_comment_label"
+	      android:layout_alignBottom="@id/upload_comment_label"
+	      android:layout_alignTop="@id/upload_comment_label"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:inputType="text"
@@ -26,7 +27,8 @@
 	  <TextView
 	      android:id="@+id/upload_source_label"
 	      android:layout_width="wrap_content"
-	      android:layout_height="32dp"
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
 	      android:layout_below="@id/upload_comment_label"
 	      android:text="@string/upload_source_label"/>
 	   <EditText
@@ -34,6 +36,7 @@
 	      android:layout_below="@id/upload_comment"
 	      android:layout_alignLeft="@id/upload_comment"
 	      android:layout_alignBottom="@id/upload_source_label"
+	      android:layout_alignTop="@id/upload_source_label"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:inputType="text"/>
