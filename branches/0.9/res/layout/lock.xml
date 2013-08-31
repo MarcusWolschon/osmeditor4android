@@ -4,16 +4,15 @@
     android:layout_height="match_parent" 
     android:layout_gravity="center_vertical"
     android:gravity="center_vertical">
+
     <ToggleButton
         android:id="@+id/lock"
-        android:layout_width="32dp"
+        android:layout_width="@dimen/abs__action_bar_default_height"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:button="@drawable/lock"
-        android:scaleType="centerInside" 
-        android:textOn=""
-        android:textOff=""
         android:background="@android:color/transparent"
-        />
+        android:button="@drawable/lock"
+        android:gravity="center_vertical"
+        android:textOff=""
+        android:textOn="" />
 
 </RelativeLayout>
