@@ -1127,6 +1127,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (isInEditZoomRange) {
 				switch (mode) {
 				case MODE_MOVE:
+					Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
 					break;
 				case MODE_OPENSTREETBUG:
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
