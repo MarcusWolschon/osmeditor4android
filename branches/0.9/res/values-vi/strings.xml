@@ -36,6 +36,8 @@
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_upload_success">Đã hoàn tất tải lên máy chủ OSM.</string>
   <string name="toast_not_in_edit_range">Xin vui lòng phóng to để sửa đổi (Tăng/Giảm Âm lượng hoặc Lens/Shift)</string>
+  <string name="toast_unlock_to_edit">Mở khóa để sửa đổi</string>
+  <string name="toast_edit_outside_downloaded_area">Bạn không thể sửa đổi ở ngoài khu vực đã được tải về</string>
   <string name="toast_save_done">Đã lưu thành công</string>
   <string name="toast_not_in_bug_range">Xin vui lòng phóng to để báo cáo lỗi (Tăng/Giảm Âm lượng hoặc Lens/Shift)</string>
   <string name="toast_export_failed">Thất bại khi xuất</string>

@@ -14,6 +14,8 @@
   <string name="no_connection_message">Konnte keine Verbindung zum OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später nocheinmal.</string>
   <string name="wrong_login_data_title">Falscher Login angegeben.</string>
   <string name="wrong_login_data_message">Der OSM-Server konnte Sie nicht authentifizieren. Bitte überprüfen Sie ihren Login in den Einstellungen.</string>
+  <string name="data_conflict_title">Versionskonflikt</string>
+  <string name="data_conflict_message">Die Daten enhalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
   <string name="progress_download_message">Lade Daten vom Server…</string>
@@ -36,6 +38,8 @@
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
   <string name="toast_not_in_edit_range">Zum Editieren bitte hineinzoomen (Lautstärke Hoch/Runter oder Lupe/Shift)</string>
+  <string name="toast_unlock_to_edit">Entsperren um zu editieren.</string>
+  <string name="toast_edit_outside_downloaded_area">Außerhalb des heruntergeladenen Bereiches kann nicht editiert werden.</string>
   <string name="toast_save_done">Speichern erfolgreich</string>
   <string name="toast_not_in_bug_range">Zum Hinzugügen eines Fehlers bitte hineinzoomen (Lautstärke Hoch/Runter oder Lupe/Shift)</string>
   <string name="toast_export_failed">Export fehlgeschlagen</string>
@@ -94,6 +98,8 @@
   <string name="menu_help">Hilfe</string>
   <string name="menu_erase">Knoten löschen</string>
   <string name="menu_split">Weg aufspalten</string>
+  <string name="menu_closed_way_split_1">Geschlossenen Weg aufspalten, erster Knoten</string>
+  <string name="menu_closed_way_split_2">Geschlossenen Weg aufspalten, zweiter Knoten</string>
   <string name="menu_append">Anhängen</string>
   <string name="menu_restriction">Abbiegebeschränkung hinzufügen</string>
   <string name="menu_restriction_via">Einschränkung \"via\" hinzufügen</string>
@@ -111,6 +117,7 @@
   <string name="menu_gps_export">GPS-Track exportieren</string>
   <string name="menu_transfer">Übertragung…</string>
   <string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
+  <string name="menu_transfer_download_current_add">Diese Ansicht zu den Daten dazu laden </string>
   <string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
   <string name="menu_transfer_export">Änderungen exportieren</string>
