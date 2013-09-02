@@ -98,6 +98,8 @@
     <string name="menu_help">Help</string>
     <string name="menu_erase">Erase node</string>
     <string name="menu_split">Split</string>
+    <string name="menu_closed_way_split_1">Split closed way, first node</string>
+    <string name="menu_closed_way_split_2">Split closed way, second node</string>
     <string name="menu_append">Append</string>
     <string name="menu_restriction">Add restriction</string>
     <string name="menu_restriction_via">Add restriction via</string>

@@ -853,14 +853,19 @@ public class EasyEditManager {
 			super();
 			this.way = way;
 			nodes.addAll(way.getNodes());
-			nodes.remove(way.getFirstNode());
-			nodes.remove(way.getLastNode());
+			if (!way.isClosed()) { 
+				nodes.remove(way.getFirstNode());
+				nodes.remove(way.getLastNode());
+			} 
 		}
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
-			mode.setTitle(R.string.menu_split);
+			if (way.isClosed())
+				mode.setTitle(R.string.menu_closed_way_split_1);
+			else
+				mode.setTitle(R.string.menu_split);
 			logic.setClickableElements(nodes);
 			logic.setReturnRelations(false);
 			return true;
@@ -869,7 +874,49 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
-			logic.performSplit(way, (Node)element);
+			if (way.isClosed())
+				main.startActionMode(new ClosedWaySplittingActionModeCallback(way, (Node) element));
+			else {
+				logic.performSplit(way, (Node)element);
+				currentActionMode.finish();
+			}
+			return true;
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			super.onDestroyActionMode(mode);
+		}	
+	}
+	
+	private class ClosedWaySplittingActionModeCallback extends EasyEditActionModeCallback {
+		private Way way;
+		private Node node;
+		private Set<OsmElement> nodes = new HashSet<OsmElement>();
+		
+		public ClosedWaySplittingActionModeCallback(Way way, Node node) {
+			super();
+			this.way = way;
+			this.node = node;
+			nodes.addAll(way.getNodes());;
+			nodes.remove(node);
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			super.onCreateActionMode(mode, menu);
+			mode.setTitle(R.string.menu_closed_way_split_2);
+			logic.setClickableElements(nodes);
+			logic.setReturnRelations(false);
+			return true;
+		}
+		
+		@Override
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
+			super.handleElementClick(element);
+			logic.performClosedWaySplit(way, node, (Node)element);
 			currentActionMode.finish();
 			return true;
 		}

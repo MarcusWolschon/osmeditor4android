@@ -288,8 +288,104 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
+	/** 
+	 * split a (closed) way at two points
+	 * @param way
+	 * @param node1
+	 * @param node2
+	 */
+	public void splitAtNodes(Way way, Node node1, Node node2) {
+		Log.d("StorageDelegator", "splitAtNode way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
+		// undo - old way is saved here, new way is saved at insert
+		dirty = true;
+		undo.save(way);
+		
+		List<Node> nodes = way.getNodes();
+		if (nodes.size() < 3) {
+			return;
+		}
+		
+		/* convention iterate over list, copy everything between first split node found and 2nd split node found
+		 * if 2nd split node found first the same
+		 */
+		List<Node> nodesForNewWay = new LinkedList<Node>();
+		List<Node> nodesForOldWay1 = new LinkedList<Node>();
+		List<Node> nodesForOldWay2 = new LinkedList<Node>();
+		boolean found1 = false;
+		boolean found2 = false;
+		for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
+			Node wayNode = it.next();
+			if (!found1 && wayNode.getOsmId() == node1.getOsmId()) {
+				found1 = true;
+				nodesForNewWay.add(wayNode); 
+				if (!found2)
+					nodesForOldWay1.add(wayNode);
+				else
+					nodesForOldWay2.add(wayNode);
+			} else if (!found2 && wayNode.getOsmId() == node2.getOsmId()) {
+				found2 = true;
+				nodesForNewWay.add(wayNode);
+				if (!found1)
+					nodesForOldWay1.add(wayNode);
+				else
+					nodesForOldWay2.add(wayNode);
+			} else if ((found1 && !found2) || (!found1 && found2)) {
+				nodesForNewWay.add(wayNode);
+			} else if (!found1 && !found2) {
+				nodesForOldWay1.add(wayNode);
+			} else if (found1 && found2) {
+				nodesForOldWay2.add(wayNode);
+			}
+		}
+		
+		// shuffle the nodes around for the original way so that they are in sequence and the way isn't closed
+		Log.d("StorageDelegator","nodesForNewWay " + nodesForNewWay.size() + " oldNodes1 " + nodesForOldWay1.size() + " oldNodes2 " + nodesForOldWay2.size());
+		List<Node> oldNodes = way.getNodes();
+		oldNodes.clear();
+		if (nodesForOldWay1.size() == 0) {
+			oldNodes.addAll(nodesForOldWay2);
+		} else if (nodesForOldWay2.size() == 0) {
+			oldNodes.addAll(nodesForOldWay1);
+		} else if (nodesForOldWay1.get(0) == nodesForOldWay2.get(nodesForOldWay2.size()-1)) {
+			oldNodes.addAll(nodesForOldWay2);
+			nodesForOldWay1.remove(0);
+			oldNodes.addAll(nodesForOldWay1);
+		} else {
+			oldNodes.addAll(nodesForOldWay1);
+			nodesForOldWay2.remove(0);
+			oldNodes.addAll(nodesForOldWay2);
+		}
+		
+		way.updateState(OsmElement.STATE_MODIFIED);
+		apiStorage.insertElementSafe(way);
+
+		// create the new way
+		Way newWay = factory.createWayWithNewId();
+		newWay.addTags(way.getTags());
+		newWay.addNodes(nodesForNewWay, false);
+		insertElementUnsafe(newWay);
+		
+		// check for relation membership
+		ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
+		if (relations != null) {
+			dirty = true;
+			/* iterate through relations, add the new way to the relation, for now simply after the old way */
+			for (Relation r : relations) {
+				Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size()  + ") " +  r.getDescription());
+				RelationMember rm = r.getMember(way);
+				undo.save(r);
+				// no role specific code for now
+				RelationMember newMember = new RelationMember(rm.getRole(), newWay);
+				r.addMemberAfter(rm, newMember);
+				newWay.addParentRelation(r);
+				r.updateState(OsmElement.STATE_MODIFIED);
+				apiStorage.insertElementSafe(r);
+			}
+		}
+	}
+	
 	/**
-	 * updated for relation support
+	 * split way at node with relation support
 	 * @param way
 	 * @param node
 	 */
@@ -1457,6 +1553,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	public BoundingBox getLastBox() {
 		return currentStorage.getBoundingBoxes().get(getBoundingBoxes().size()-1);
 	}
+
+
 
 
 

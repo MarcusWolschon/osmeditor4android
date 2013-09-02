@@ -1013,6 +1013,19 @@ public class Logic {
 	}
 	
 	/**
+	 * Split a closed way, needs two nodes
+	 * @param way
+	 * @param node1
+	 * @param node2
+	 */
+	public void performClosedWaySplit(Way way, Node node1, Node node2) {
+		createCheckpoint(R.string.undo_action_split_way);
+		delegator.splitAtNodes(way, node1, node2);
+		map.invalidate();
+	}
+
+	
+	/**
 	 * Merge two ways.
 	 * Ways must be valid (i.e. have at least two nodes) and mergeable
 	 * (i.e. have a common start/end node).
@@ -1994,6 +2007,7 @@ public class Logic {
 	public float latE7toY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(), viewBox, lat);
 	}
+
 
 
 }
