@@ -76,6 +76,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	public long getOsmId() {
 		return osmId;
 	}
+	
+	public long getOsmVersion() {
+		return osmVersion;
+	}
 
 	void setOsmId(final long osmId) {
 		this.osmId = osmId;
@@ -213,10 +217,33 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	}
 	
 	/**
-	 * Add reference to parent relation
+	 * Add reference to parent relation 
+	 * Does not check id to avoid dups!
 	 */
 	public void addParentRelation(Relation relation) {
 		parentRelations.add(relation);
+	}
+	
+	/**
+	 * Check for parent relation
+	 * @param relation
+	 * @return
+	 */
+	public boolean hasParentRelation(Relation relation) {
+		return parentRelations.contains(relation);
+	}
+	
+	/**
+	 * Check for parent relation based on id
+	 * @param relation
+	 * @return
+	 */
+	public boolean hasParentRelation(long osmId) {
+		for (Relation r:parentRelations) {
+			if (osmId == r.getOsmId())
+				return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -226,7 +253,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		//  dedup
 		for (Relation r : relations) {
 			if (!parentRelations.contains(r)) {
-				parentRelations.add(r);
+				addParentRelation(r);
 			}
 		}
 	}
@@ -241,10 +268,23 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	
 	/**
 	 * Remove reference to parent relation
+	 * does not check for id
 	 */
 	public void removeParentRelation(Relation relation) {
 		parentRelations.remove(relation);
 	}
+	
+	/**
+	 * Remove reference to parent relation
+	 */
+	public void removeParentRelation(long osmId) {
+		ArrayList<Relation> tempRelList = new ArrayList<Relation>(parentRelations);
+		for (Relation r:tempRelList) {
+			if (osmId == r.getOsmId())
+				parentRelations.remove(r);
+		}
+	}
+
 
 	/**
 	 * Generate a human-readable description/summary of the element.

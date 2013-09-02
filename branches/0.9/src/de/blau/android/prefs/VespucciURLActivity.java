@@ -200,7 +200,6 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 					e.printStackTrace();
 				}
 				return null;
-			
 			}
 			
 			@Override

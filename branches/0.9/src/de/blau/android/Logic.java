@@ -261,7 +261,7 @@ public class Logic {
 	Logic(final Map map, final Profile profile) {
 		this.map = map;
 
-		viewBox = delegator.getOriginalBox();
+		viewBox = delegator.getLastBox();
 		
 		mode = Mode.MODE_MOVE;
 		setSelectedBug(null);
@@ -631,7 +631,7 @@ public class Logic {
 			int lat = node.getLat();
 			int lon = node.getLon();
 
-			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
+			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)) {
 				Double dist = clickDistance(node, x, y);
 				if (dist != null) result.put(node, dist);
 			}
@@ -1304,15 +1304,16 @@ public class Logic {
 	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
 	 * @param mapBox Box defining the area to be loaded.
+	 * @param add 
 	 */
-	void downloadBox(final BoundingBox mapBox) {
+	void downloadBox(final BoundingBox mapBox, boolean add) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} // TODO remove this? and replace with better error messaging
-		new AsyncTask<Void, Void, Integer>() {
+		new AsyncTask<Boolean, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
@@ -1320,19 +1321,37 @@ public class Logic {
 			}
 			
 			@Override
-			protected Integer doInBackground(Void... arg0) {
+			protected Integer doInBackground(Boolean... arg) {
 				int result = 0;
 				try {
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
 					try {
 						osmParser.start(in);
-						delegator.reset();
-						delegator.setCurrentStorage(osmParser.getStorage());
-						if (mapBox != null && delegator.isEmpty()) {
-							delegator.setOriginalBox(mapBox);
+						if (arg[0]) { // incremental load
+							if (!delegator.mergeData(osmParser.getStorage())) {
+								result = DialogFactory.DATA_CONFLICT;
+							} else {
+								if (mapBox != null) {
+									// if we are simply expanding the area no need keep the old bounding boxes
+									List origBbs = delegator.getBoundingBoxes();
+									List<BoundingBox> bbs = new ArrayList<BoundingBox>(origBbs);
+									for (BoundingBox bb:bbs) {
+										if (mapBox.contains(bb)) {
+											origBbs.remove(bb);
+										}
+									}
+									delegator.addBoundingBox(mapBox);
+								}
+							}
+						} else { // replace data with new download
+							delegator.reset();
+							delegator.setCurrentStorage(osmParser.getStorage());
+							if (mapBox != null && delegator.isEmpty()) {
+								delegator.setOriginalBox(mapBox);
+							}
 						}
-						viewBox.setBorders(delegator.getOriginalBox());
+						viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
 					} finally {
 						SavingHelper.close(in);
 					}
@@ -1377,14 +1396,15 @@ public class Logic {
 				UndoStorage.updateIcon();
 			}
 			
-		}.execute();
+		}.execute(add);
 	}
 
 	/**
+	 * @param add 
 	 * @see #downloadBox(Main, BoundingBox)
 	 */
-	void downloadCurrent() {
-		downloadBox(viewBox);
+	void downloadCurrent(boolean add) {
+		downloadBox(viewBox.copy(),add);
 	}
 	
 	/**
@@ -1392,8 +1412,10 @@ public class Logic {
 	 * @see #downloadBox(Main, BoundingBox)
 	 */
 	void downloadLast() {
-		BoundingBox box = delegator.getOriginalBox();
-		if (box != null && box.isValidForApi()) downloadBox(box);
+		delegator.reset();
+		for (BoundingBox box:delegator.getBoundingBoxes()) {
+			if (box != null && box.isValidForApi()) downloadBox(box, true);
+		}
 	}
 
 	/**
@@ -1464,7 +1486,7 @@ public class Logic {
 			protected Boolean doInBackground(Context... c) {
 				this.context = c[0];
 				if (delegator.readFromFile()) {
-					viewBox.setBorders(delegator.getOriginalBox());
+					viewBox.setBorders(delegator.getLastBox());
 					loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
 					return new Boolean(true);
 				}
@@ -1971,5 +1993,7 @@ public class Logic {
 	 */
 	public float latE7toY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(), viewBox, lat);
-	}	
+	}
+
+
 }

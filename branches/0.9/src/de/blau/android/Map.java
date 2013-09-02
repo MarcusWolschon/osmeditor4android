@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
@@ -294,12 +295,13 @@ public class Map extends View implements IMapView {
 	/**
 	 * As of Android 4.0.4, clipping with Op.DIFFERENCE is not supported if hardware acceleration is used.
 	 * (see http://android-developers.blogspot.de/2011/03/android-30-hardware-acceleration.html)
+	 * Op.DIFFERENCE and clipPatch supported as of 18
 	 * 
 	 * @param c Canvas to check
 	 * @return true if the canvas supports proper clipping with Op.DIFFERENCE
 	 */
 	private boolean hasFullClippingSupport(Canvas c) {
-		if (Build.VERSION.SDK_INT >= 11 && mIsHardwareAccelerated != null) {
+		if (Build.VERSION.SDK_INT >= 11 && Build.VERSION.SDK_INT < 18 && mIsHardwareAccelerated != null) {
 			try {
 				return !(Boolean)mIsHardwareAccelerated.invoke(c, (Object[])null);
 			} catch (IllegalArgumentException e) {
@@ -429,43 +431,49 @@ public class Map extends View implements IMapView {
 		}
 		
 		//Paint all nodes
-		BoundingBox originalBox = delegator.getOriginalBox().copy();
 		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			paintNode(canvas, nodes.get(i), originalBox);
+			paintNode(canvas, nodes.get(i));
 		}
 		
-		paintStorageBox(canvas, originalBox);
+		paintStorageBox(canvas, delegator.getBoundingBoxes());
 	}
 	
-	private void paintStorageBox(final Canvas canvas, BoundingBox originalBox) {
+	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
+		
+		Canvas c = canvas;
+		Bitmap b = null;
+		// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
+		// drawing to a bitmap however will currently not be accelerated
+		if (!hasFullClippingSupport(canvas)) {
+			b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+			c = new Canvas(b);
+		} else {
+			c.save();
+		}
 		int screenWidth = getWidth();
 		int screenHeight = getHeight();
 		BoundingBox viewBox = getViewBox();
-		float left = GeoMath.lonE7ToX(screenWidth, viewBox, originalBox.getLeft());
-		float right = GeoMath.lonE7ToX(screenWidth, viewBox, originalBox.getRight());
-		float bottom = GeoMath.latE7ToY(screenHeight, viewBox , originalBox.getBottom());
-		float top = GeoMath.latE7ToY(screenHeight, viewBox, originalBox.getTop());
-		RectF rect = new RectF(left, top, right, bottom);
+		Path path = new Path();
 		RectF screen = new RectF(0, 0, getWidth(), getHeight());
-		if (!rect.contains(screen)) {
-			Paint boxpaint = Profile.getCurrent(Profile.VIEWBOX).getPaint();
-			if (RectF.intersects(rect, screen)) {
-				// Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
-				if (hasFullClippingSupport(canvas)) {
-					canvas.save();
-					canvas.clipRect(rect, Region.Op.DIFFERENCE);
-					canvas.drawRect(screen, boxpaint);
-					canvas.restore();
-				} else {
-					canvas.drawRect(0, 0, screen.right, top, boxpaint); // Cover top
-					canvas.drawRect(0, bottom, screen.right, screen.bottom, boxpaint); // Cover bottom
-					canvas.drawRect(right, top, screen.right, bottom, boxpaint); // Cover right
-					canvas.drawRect(0, top, left, bottom, boxpaint); // Cover left
-				}
-			} else {
-				canvas.drawRect(screen, boxpaint);
-			}
+		for (BoundingBox bb:list) {
+			float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
+			float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
+			float bottom = GeoMath.latE7ToY(screenHeight, viewBox , bb.getBottom());
+			float top = GeoMath.latE7ToY(screenHeight, viewBox, bb.getTop());
+			RectF rect = new RectF(left, top, right, bottom);
+			rect.intersect(screen);
+			path.addRect(rect, Path.Direction.CW);
+		}
+	
+		Paint boxpaint = Profile.getCurrent(Profile.VIEWBOX).getPaint();
+		c.clipPath(path, Region.Op.DIFFERENCE);
+		c.drawRect(screen, boxpaint);
+			
+		if (!hasFullClippingSupport(canvas)) {
+			canvas.drawBitmap(b, 0, 0, null);
+		} else {
+			c.restore();
 		}
 	}
 	
@@ -475,7 +483,7 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the node shall be painted on.
 	 * @param node Node which shall be painted.
 	 */
-	private void paintNode(final Canvas canvas, final Node node,BoundingBox originalBox) {
+	private void paintNode(final Canvas canvas, final Node node) {
 		int lat = node.getLat();
 		int lon = node.getLon();
 		
@@ -495,7 +503,7 @@ public class Map extends View implements IMapView {
 						)
 				)
 			{
-				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y, originalBox);
+				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
 			}
 			
 			String featureKey;
@@ -579,9 +587,9 @@ public class Map extends View implements IMapView {
 	 * @param y
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
-			final float x, final float y, BoundingBox originalBox) {
+			final float x, final float y) {
 		if ( tmpDrawingEditMode != Logic.Mode.MODE_MOVE 
-				&& (nodeState != OsmElement.STATE_UNCHANGED || originalBox.isIn(lat, lon))) {
+				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
 			canvas.drawCircle(x, y, nodeTolerancePaint.getStrokeWidth(), nodeTolerancePaint);
 		}
 	}

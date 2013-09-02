@@ -608,7 +608,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			return true;
 
 		case R.id.menu_transfer_download_current:
-			onMenuDownloadCurrent();
+			onMenuDownloadCurrent(false);
+			return true;
+			
+		case R.id.menu_transfer_download_current_add:
+			onMenuDownloadCurrent(true);
 			return true;
 
 		case R.id.menu_transfer_download_other:
@@ -718,13 +722,14 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * When no {@link #delegator} is set, the user will be redirected to AreaPicker.<br>
 	 * When the user made some changes, {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
 	 * Otherwise the current viewBox will be re-downloaded from the server.
+	 * @param add 
 	 */
-	private void onMenuDownloadCurrent() {
+	private void onMenuDownloadCurrent(boolean add) {
 		Log.d("Main", "onMenuDownloadCurrent");
-		if (logic.hasChanges()) {
+		if (logic.hasChanges() && !add) {
 			showDialog(DialogFactory.DOWNLOAD_CURRENT_WITH_CHANGES);
 		} else {
-			performCurrentViewHttpLoad();
+			performCurrentViewHttpLoad(add);
 		}
 	}
 
@@ -870,12 +875,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 	}
 
-	public void performCurrentViewHttpLoad() {
-		logic.downloadCurrent();
+	public void performCurrentViewHttpLoad(boolean add) {
+		logic.downloadCurrent(add);
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		logic.downloadBox(box);
+		logic.downloadBox(box, false);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
@@ -1498,7 +1503,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// this is dependent on which order items where added to the context menu
 				itemId -= (((clickedBugs == null) ? 0 : clickedBugs.size() ) + ((clickedPhotos == null) ? 0 : clickedPhotos.size()));
 				
-				if (itemId >= 0 && itemId < clickedNodesAndWays.size()) {
+				if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
 					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {
 					case MODE_TAG_EDIT:

@@ -45,6 +45,8 @@ public class DialogFactory {
 	
 	public static final int OPENSTREETBUG_EDIT = 9;
 	
+	public static final int DATA_CONFLICT = 10;
+	
 	private final Main caller;
 	
 	private final Builder noLoginDataSet;
@@ -60,6 +62,8 @@ public class DialogFactory {
 	private final Builder confirmUpload;
 	
 	private final Builder openStreetBugEdit;
+	
+	private final Builder dataConflict;
 	
 	/**
 	 * @param caller
@@ -104,6 +108,9 @@ public class DialogFactory {
 		layout = inflater.inflate(R.layout.openstreetbug_edit, null);
 		openStreetBugEdit.setView(layout);
 		openStreetBugEdit.setPositiveButton(R.string.openstreetbug_commitbutton, new CommitListener(caller, (EditText)layout.findViewById(R.id.openstreetbug_comment), (CheckBox)layout.findViewById(R.id.openstreetbug_close)));
+	
+		dataConflict = createBasicDialog(R.string.data_conflict_title, R.string.data_conflict_message);
+		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
 	}
 	
 	/**
@@ -139,6 +146,9 @@ public class DialogFactory {
 			
 		case OPENSTREETBUG_EDIT:
 			return openStreetBugEdit.create();
+		
+		case DATA_CONFLICT:
+			return dataConflict.create();
 		}
 		
 		return null;

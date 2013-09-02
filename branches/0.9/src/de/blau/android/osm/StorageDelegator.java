@@ -1030,13 +1030,23 @@ public class StorageDelegator implements Serializable, Exportable {
 		return currentStorage;
 	}
 
-	public BoundingBox getOriginalBox() {
-		return currentStorage.getBoundingBox().copy();
-	}
+//	public BoundingBox getOriginalBox() {
+//		return currentStorage.getBoundingBox().copy();
+//	}
 
+	public List<BoundingBox> getBoundingBoxes() {
+		// TODO make a copy?
+		return  currentStorage.getBoundingBoxes();
+	}
+	
 	public void setOriginalBox(final BoundingBox box) {
 		dirty = true;
 		currentStorage.setBoundingBox(box);
+	}
+	
+	public void addBoundingBox(BoundingBox box) {
+		dirty = true;
+		currentStorage.addBoundingBox(box);
 	}
 
 	public int getApiNodeCount() {
@@ -1288,6 +1298,167 @@ public class StorageDelegator implements Serializable, Exportable {
 	public String exportExtension() {
 		return "osc";
 	}
+
+	/**
+	 * Merge additional data with existing, copy to a new storage because this may fail
+	 * @param storage
+	 */
+	public boolean mergeData(Storage storage) {
+		Log.d("StorageDelegator","mergeData called");
+		// make temp copy of current storage
+		Storage temp = new Storage();
+		boolean first = true;
+		for (BoundingBox bb:currentStorage.getBoundingBoxes()) {
+			if (first) {
+				temp.setBoundingBox(bb);
+				first = false;
+			} else {
+				temp.addBoundingBox(bb);
+			}
+		}
+		temp.getNodes().addAll(currentStorage.getNodes());
+		temp.getWays().addAll(currentStorage.getWays());
+		temp.getRelations().addAll(currentStorage.getRelations());
+		
+		// build indices for the existing data
+		HashMap<Long,Node> nodeIndex = new HashMap<Long, Node>();
+		for (Node n:temp.getNodes()) {
+			nodeIndex.put(n.getOsmId(),n);
+		}
+		HashMap<Long,Way> wayIndex = new HashMap<Long, Way>();
+		for (Way w:temp.getWays()) {
+			wayIndex.put(w.getOsmId(),w);
+		}
+		HashMap<Long,Relation> relationIndex = new HashMap<Long, Relation>();
+		for (Relation r:temp.getRelations()) {
+			relationIndex.put(r.getOsmId(),r);
+		}
+		
+		// add nodes
+		for (Node n:storage.getNodes()) {
+			if (!nodeIndex.containsKey(n.getOsmId())) { // new node no problem
+				temp.getNodes().add(n);
+				nodeIndex.put(n.getOsmId(),n);
+			} else {
+				Node existingNode = temp.getNode(n.getOsmId());
+				if (existingNode.getOsmVersion() >= n.getOsmVersion()) // larger just to be on the safe side
+					continue; // can use node we already have
+				else {
+					if (existingNode.isUnchanged()) {
+						temp.getNodes().remove(existingNode);
+						temp.getNodes().add(n);
+						nodeIndex.put(n.getOsmId(),n); // overwrite existing entry in index
+					} else
+						return false; // can't resolve conflicts, upload first
+				}
+			}
+		}
+		
+		// add ways
+		for (Way w:storage.getWays()) {
+			if (!wayIndex.containsKey(w.getOsmId())) { // new way no problem
+				temp.getWays().add(w);
+				wayIndex.put(w.getOsmId(),w);
+			} else {
+				Way existingWay = temp.getWay(w.getOsmId());
+				if (existingWay.getOsmVersion() >= w.getOsmVersion()) // larger just to be on the safe side
+					continue; // can use way we already have
+				else {
+					if (existingWay.isUnchanged()) {
+						temp.getWays().remove(existingWay);
+						temp.getWays().add(w);
+						wayIndex.put(w.getOsmId(),w); // overwrite existing entry in index
+					} else
+						return false; // can't resolve conflicts, upload first
+				}
+			}
+		}
+		
+		
+		// add relations
+		for (Relation r:storage.getRelations()) {
+			if (!relationIndex.containsKey(r.getOsmId())) { // new relation no problem
+				temp.getRelations().add(r);
+				relationIndex.put(r.getOsmId(),r);
+			} else {
+				Relation existingRelation = temp.getRelation(r.getOsmId());
+				if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the safe side
+					continue; // can use relation we already have
+				}
+				else {
+					if (existingRelation.isUnchanged()) {
+						temp.getRelations().remove(existingRelation);
+						temp.getRelations().add(r);
+						relationIndex.put(r.getOsmId(),r); // overwrite existing entry in index
+					} else
+						return false; // can't resolve conflicts, upload first
+				}
+			}
+		}
+		
+		// fixup relation back links and memberships 
+		for (Relation r:temp.getRelations()) {
+			for (RelationMember rm:r.getMembers()) {
+				if (rm.getType().equals(Node.NAME)) {
+					if (nodeIndex.containsKey(rm.getRef())) {
+						if (rm.getElement() == null) { // element newly downloaded
+							Node n = nodeIndex.get(rm.getRef());
+							rm.setElement(n);
+							if (n.hasParentRelation(r.getOsmId())) {
+								n.removeParentRelation(r.getOsmId()); // this removes based on id
+							}							   			  // net effect is to remove the old rel
+							n.addParentRelation(r);		   			  // and add the updated one
+						}
+					}
+				} else if (rm.getType().equals(Way.NAME)) {
+					if (wayIndex.containsKey(rm.getRef())) {
+						if (rm.getElement() == null) { // element newly downloaded
+							Way w = wayIndex.get(rm.getRef());
+							rm.setElement(w);
+							if (w.hasParentRelation(r.getOsmId())) {
+								w.removeParentRelation(r.getOsmId());
+							}
+							w.addParentRelation(r);
+						}
+					}
+				} else if (rm.getType().equals(Relation.NAME)) {
+					if (relationIndex.containsKey(rm.getRef())) {
+						if (rm.getElement() == null) { // element newly downloaded
+							Relation r2 = relationIndex.get(rm.getRef());
+							rm.setElement(r2);
+							if (r2.hasParentRelation(r.getOsmId())) {
+								r2.removeParentRelation(r.getOsmId());
+							}
+							r2.addParentRelation(r);
+						}
+					}
+				}
+			}
+		}
+		
+		currentStorage = temp;
+		return true; // Success
+	}
+
+	/**
+	 * Return true is coordinates where in the original bboxes from downloads, needs a more efficient implementation
+	 * @param lat
+	 * @param lon
+	 * @return
+	 */
+	public boolean isInDownload(int lat, int lon) {
+		for (BoundingBox bb:currentStorage.getBoundingBoxes()) {
+			if (bb.isIn(lat, lon))
+				return true;
+		}
+		return false;
+	}
+
+	public BoundingBox getLastBox() {
+		return currentStorage.getBoundingBoxes().get(getBoundingBoxes().size()-1);
+	}
+
+
 
 
 

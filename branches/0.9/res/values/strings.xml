@@ -14,6 +14,8 @@
     <string name="no_connection_message">Could not connect to the OSM-Server. Please check your Internet connection or try again later.</string>
     <string name="wrong_login_data_title">Wrong login data</string>
     <string name="wrong_login_data_message">The OSM-Server could not authenticate you. Please check your login data in the preferences.</string>
+    <string name="data_conflict_title">Version Conflict</string>
+    <string name="data_conflict_message">The data you are trying to download contains data that conflicts with your edits. Please try to upload your data first before retrying.</string>
     <string name="progress_title">Loading</string>
     <string name="progress_message">Loading data into memory…</string>
     <string name="progress_download_message">Downloading data from server…</string>
@@ -113,6 +115,7 @@
     <string name="menu_gps_export">Export GPS track</string>
     <string name="menu_transfer">Transfer…</string>
     <string name="menu_transfer_download_current">Download current view</string>
+    <string name="menu_transfer_download_current_add">Add current view to download</string>
     <string name="menu_transfer_download_other">Download other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_export">Export changes</string>

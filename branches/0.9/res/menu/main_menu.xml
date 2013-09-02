@@ -66,6 +66,10 @@
 					android:title="@string/menu_transfer_download_current"
 				/>
 				<item
+					android:id="@+id/menu_transfer_download_current_add"
+					android:title="@string/menu_transfer_download_current_add"
+				/>
+				<item
 					android:id="@+id/menu_transfer_download_other"
 					android:title="@string/menu_transfer_download_other"
 				/>

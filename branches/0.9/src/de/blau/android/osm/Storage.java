@@ -14,7 +14,7 @@ public class Storage implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3838107046050083564L;
+	private static final long serialVersionUID = 3838107046050083565L;
 
 	private final ArrayList<Node> nodes;
 
@@ -22,15 +22,17 @@ public class Storage implements Serializable {
 	
 	private final ArrayList<Relation> relations;
 
-	private BoundingBox bbox;
+	private ArrayList<BoundingBox> bboxes;
 
 	Storage() {
 		nodes = new ArrayList<Node>();
 		ways = new ArrayList<Way>();
 		relations = new ArrayList<Relation>();
 		try {
-			bbox = new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT, BoundingBox.MAX_LON,
-					BoundingBox.MAX_LAT);
+			bboxes = new ArrayList<BoundingBox>();
+			// a default entry may not make sense
+			bboxes.add(new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT, BoundingBox.MAX_LON,
+					BoundingBox.MAX_LAT));
 		} catch (OsmException e) {
 			Log.e("Vespucci", "Problem with bounding box", e);
 		}
@@ -197,12 +199,27 @@ public class Storage implements Serializable {
 		return false;
 	}
 
-	public BoundingBox getBoundingBox() {
-		return bbox;
+	public List<BoundingBox> getBoundingBoxes() {
+		return bboxes;
 	}
 
+	/**
+	 * Resets boundingbox list and adds this boundingbox
+	 * @param bbox
+	 */
 	void setBoundingBox(final BoundingBox bbox) {
-		this.bbox = bbox;
+		this.bboxes = new ArrayList<BoundingBox>();
+		this.bboxes.add(bbox);
+	}
+	
+	/**¨
+	 * Add this boundingbox to list
+	 * @param bbox
+	 */
+	void addBoundingBox(final BoundingBox bbox) {
+		if (this.bboxes == null)
+			this.bboxes = new ArrayList<BoundingBox>();
+		this.bboxes.add(bbox);
 	}
 
 	public boolean isEmpty() {

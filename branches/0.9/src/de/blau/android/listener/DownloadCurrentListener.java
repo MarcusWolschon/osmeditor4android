@@ -19,6 +19,6 @@ public class DownloadCurrentListener implements OnClickListener {
 	}
 
 	public void onClick(final DialogInterface dialog, final int which) {
-		caller.performCurrentViewHttpLoad();
+		caller.performCurrentViewHttpLoad(false);
 	}
 }

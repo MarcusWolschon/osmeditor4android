@@ -629,6 +629,10 @@ public class BoundingBox implements Serializable {
 		}
 	}
 
+	public boolean contains(BoundingBox bb) {
+		return (bb.bottom >= bottom) && (bb.top <= top) && (bb.left >= left) && (bb.right <= right);
+	}
+
 	//TODO experimental code for using non-approx. projections
 //	public double getBottomMercator() {
 //		
