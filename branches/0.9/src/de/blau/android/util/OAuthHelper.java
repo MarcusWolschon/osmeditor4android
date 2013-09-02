@@ -106,6 +106,8 @@ public class OAuthHelper {
 			throws OAuthMessageSignerException, OAuthNotAuthorizedException,
 			OAuthExpectationFailedException, OAuthCommunicationException {
 		Log.d("OAuthHelper", "verifier: " + verifier);
+		if (mProvider == null || mConsumer == null)
+			throw new OAuthExpectationFailedException("OAuthHelper not initialized!");
 		mProvider.retrieveAccessToken(mConsumer, verifier);
 		return new String[] {
 				mConsumer.getToken(), mConsumer.getTokenSecret()
