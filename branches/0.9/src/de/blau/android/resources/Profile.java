@@ -497,6 +497,8 @@ public class Profile  extends DefaultHandler {
 	 * @return
 	 */
 	public static Profile getProfile(String n) {
+		if (availableProfiles == null)
+			return null;
 		return availableProfiles.get(n);
 	}
 	

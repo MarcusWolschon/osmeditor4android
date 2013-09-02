@@ -99,6 +99,9 @@ public class SavingHelper<T extends Serializable> {
         	} catch (Exception e) {
         		Log.e("SavingHelper", "failed to save "+filename, e);
         		result = false;
+        	} catch (Error e) {
+        		Log.e("SavingHelper", "failed to save "+filename, e);
+        		result = false;
         	} finally {
         		SavingHelper.close(objectOut);
         		SavingHelper.close(out);
@@ -161,6 +164,9 @@ public class SavingHelper<T extends Serializable> {
 				Log.d("SavingHelper", "loaded " + filename + " successfully");
 				result = object;
 			} catch (Exception e) {
+				Log.e("SavingHelper", "failed to load " + filename, e);
+				result = null;
+			} catch (Error e) {
 				Log.e("SavingHelper", "failed to load " + filename, e);
 				result = null;
 			} finally {
