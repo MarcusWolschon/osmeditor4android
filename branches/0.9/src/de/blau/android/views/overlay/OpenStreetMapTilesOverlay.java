@@ -79,6 +79,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		textPaint.setTextSize(12);
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
 		// mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
+		Log.d("OpenStreetMapTilesOverlay","provider " + aRendererInfo.getId());
 	}
 	
 	public boolean isReadyToDraw() {
@@ -261,10 +262,13 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				mPaint);
 		} else {
 			// Still no tile available
-			if (z > minz && z > myRendererInfo.getMinZoomLevel()) {
-				// try larger scale tile
-				drawTile(c, osmv, minz, z - 1, z - 1, x / 2, y / 2);
-			}
+// this would seem to be silly since if a larger scale tile had been available we would have already used it
+// and it potentially simply does what we are already doing here
+// at least if we do have the tile we need to return after drawing it
+//			if (z > minz && z > myRendererInfo.getMinZoomLevel()) {
+//				// try larger scale tile
+//				drawTile(c, osmv, minz, z - 1, z - 1, x / 2, y / 2);
+//			}
 			if (z < maxz && z < myRendererInfo.getMaxZoomLevel()) {
 				// try smaller scale tiles
 				x <<= 1;

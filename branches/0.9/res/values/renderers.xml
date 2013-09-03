@@ -121,7 +121,7 @@
 -->
 <string-array name="renderer_configs">
   <item></item>
-  <item>http://${a|b|c}.tile.openstreetmap.org/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://${a|b|c}.tile.openstreetmap.org/$z/$x/$y.png .png 0 19 8</item>
   <item>http://tile.cloudmade.com/{cloudmadeapikey}/3/256/$z/$x/$y.png .png 0 18 8</item>
   <item>.jpg http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&amp;key={bingapikey}&amp;include=ImageryProviders&amp;output=xml http://go.microsoft.com/?linkid=9710837</item>
   <item>http://tile.opencyclemap.org/cycle/$z/$x/$y.png .png 0 17 8</item>
