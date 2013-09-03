@@ -163,7 +163,10 @@ public class Map extends View implements IMapView {
 		// create an overlay that displays pre-rendered tiles from the internet.
 		if (mOverlays.size() == 0) // only set once
 		{
-			mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
+			if (prefs == null) // just to be safe
+				mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
+			else
+				mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
 			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
 			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
 		}
