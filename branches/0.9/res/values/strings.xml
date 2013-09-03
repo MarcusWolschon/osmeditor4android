@@ -161,6 +161,8 @@
     <string name="config_enableOpenStreetBugs_summary">Display, Edit and Create Notes/Errors.</string>
     <string name="config_enablePhotoLayer_title">Enable Photo layer</string>
     <string name="config_enablePhotoLayer_summary">Display geo-referenced photos.</string>
+    <string name="config_enableKeepScreenOn_title">Keep screen on</string>
+    <string name="config_enableKeepScreenOn_summary">Do not turn the screen off to save power.</string>
     <string name="config_enableDeprecatedModes_title">Enable deprecated modes</string>
     <string name="config_enableDeprecatedModes_summary">Enable New, Edit, Edit Tags, Append, Erase node and Split modes .</string>
     <string name="config_backgroundLayer_title">Map background</string>

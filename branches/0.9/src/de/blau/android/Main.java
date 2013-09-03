@@ -332,6 +332,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		map.createOverlays();
 		map.requestFocus();
+		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		
 		undoListener = new UndoListener();
 		
@@ -376,6 +377,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		setShowGPS(showGPS); // reactive GPS listener if needed
 		setFollowGPS(followGPS);
+		
+		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 	}
 
 	@Override
