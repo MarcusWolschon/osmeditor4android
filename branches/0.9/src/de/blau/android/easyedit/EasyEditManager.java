@@ -1297,11 +1297,13 @@ public class EasyEditManager {
 //			logic.setSelectedRelationNodes(null);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			if ((members.size() > 0) && (relation == null))
-				main.performTagEdit(logic.createRelation(null, members),"type");
-			else {
-				logic.addMembers(relation, members);
-				main.performTagEdit(relation, null);
+			if (members.size() > 0) { // something was actually added
+				if (relation == null)
+					main.performTagEdit(logic.createRelation(null, members),"type");
+				else {
+					logic.addMembers(relation, members);
+					main.performTagEdit(relation, null);
+				}
 			}
 		}
 	}	
