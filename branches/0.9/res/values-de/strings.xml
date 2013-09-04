@@ -104,6 +104,8 @@
   <string name="menu_restriction">Abbiegebeschränkung hinzufügen</string>
   <string name="menu_restriction_via">Einschränkung \"via\" hinzufügen</string>
   <string name="menu_restriction_to">Einschränkung \"to\" hinzufügen</string>
+  <string name="menu_relation">Relation erstellen</string>
+  <string name="menu_add_relation_member">Relationsmitglied hinzufügen</string>
   <string name="menu_tag">Tags verändern</string>
   <string name="menu_openstreetbug">Notiz hinzufügen</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -161,6 +163,8 @@
   <string name="config_enableOpenStreetBugs_summary">Notizen erstellen, ändern und anzeigen</string>
   <string name="config_enablePhotoLayer_title">Foto Layer einschalten</string>
   <string name="config_enablePhotoLayer_summary">Geo-referenzierte Fotos anzeigen</string>
+  <string name="config_enableKeepScreenOn_title">Bildschirm nicht abschalten</string>
+  <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten um Energie zu sparen</string>
   <string name="config_enableDeprecatedModes_title">Veraltete Modi anzeigen</string>
   <string name="config_enableDeprecatedModes_summary">New, Edit, Edit Tags, Append, Erase node und Split Modi anzeigen.</string>
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>

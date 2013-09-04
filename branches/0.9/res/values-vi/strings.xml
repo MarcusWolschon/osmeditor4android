@@ -14,6 +14,8 @@
   <string name="no_connection_message">Không thể kết nốt với máy chủ OSM. Xin vui lòng kiểm tra kết nối Internet của bạn hoặc thử lại sau.</string>
   <string name="wrong_login_data_title">Dữ liệu đăng nhập sai</string>
   <string name="wrong_login_data_message">Máy chủ OSM không thể xác nhận bạn. Xin vui lòng kiểm tra dữ liệu đăng nhập của bạn trong tùy chỉnh.</string>
+  <string name="data_conflict_title">Xung đột về Số Phiên bản</string>
+  <string name="data_conflict_message">Không thể tải về dữ liệu này vì nó mâu thuẫn với các sửa đổi của bạn. Xin vui lòng thử tải lên dữ liệu của bạn trước khi thử lại.</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
   <string name="progress_download_message">Đang tải về dữ liệu từ máy chủ…</string>
@@ -96,10 +98,14 @@
   <string name="menu_help">Trợ giúp</string>
   <string name="menu_erase">Xóa nốt</string>
   <string name="menu_split">Chia</string>
+  <string name="menu_closed_way_split_1">Cắt đôi lối đóng, nốt đầu tiên</string>
+  <string name="menu_closed_way_split_2">Cắt đôi lối đóng, nốt thứ hai</string>
   <string name="menu_append">Gắn thêm</string>
   <string name="menu_restriction">Thêm hạn chế</string>
   <string name="menu_restriction_via">Thêm hạn chế qua</string>
   <string name="menu_restriction_to">Thêm hạn chế đến</string>
+  <string name="menu_relation">Tạo quan hệ</string>
+  <string name="menu_add_relation_member">Thêm thành viên vào quan hệ</string>
   <string name="menu_tag">Sửa thẻ</string>
   <string name="menu_openstreetbug">Thêm Ghi chú</string>
   <string name="menu_easyedit">Chỉnh sửa Dễ dàng</string>
@@ -113,6 +119,7 @@
   <string name="menu_gps_export">Xuất tuyến GPS</string>
   <string name="menu_transfer">Truyền đổi…</string>
   <string name="menu_transfer_download_current">Tải về khu vực hiện tại</string>
+  <string name="menu_transfer_download_current_add">Thêm khu vực hiện tại để tải về</string>
   <string name="menu_transfer_download_other">Tải về vị trí khác</string>
   <string name="menu_transfer_upload">Tải dữ liệu lên máy chủ OSM</string>
   <string name="menu_transfer_export">Xuất các thay đổi</string>
@@ -156,6 +163,8 @@
   <string name="config_enableOpenStreetBugs_summary">Xem, Sửa, và Tạo Ghi chú hoặc Báo cáo Lỗi.</string>
   <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
   <string name="config_enablePhotoLayer_summary">Hiển thị các hình ảnh được định vị.</string>
+  <string name="config_enableKeepScreenOn_title">Giữ cho màn hình luôn sáng</string>
+  <string name="config_enableKeepScreenOn_summary">Không tắt màn hình để duy trì năng lượng.</string>
   <string name="config_enableDeprecatedModes_title">Bật các chế độ bị phản đối</string>
   <string name="config_enableDeprecatedModes_summary">Kích hoạt các chế độ Tạo Mới, Sửa, Sửa các Thẻ, Thêm, Xóa Nốt, và Cắt đôi.</string>
   <string name="config_backgroundLayer_title">Nền bản đồ</string>

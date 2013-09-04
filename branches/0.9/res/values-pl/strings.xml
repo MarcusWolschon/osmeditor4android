@@ -36,6 +36,8 @@
   <string name="toast_no_changes">Jeszcze nic nie zmieniłeś…</string>
   <string name="toast_upload_success">Wysyłanie na serwer OSM zakończone.</string>
   <string name="toast_not_in_edit_range">Przybliż, by edytować (Volume Up/Down lub Lens/Shift)</string>
+  <string name="toast_unlock_to_edit">Odblokuj aby edytować</string>
+  <string name="toast_edit_outside_downloaded_area">Nie możesz edytować nie pobranego obszaru</string>
   <string name="toast_save_done">Zapisano</string>
   <string name="toast_not_in_bug_range">Przybliż, by dodać zgłosić błąd (Volume Up/Down lub Lens/Shift)</string>
   <string name="toast_export_failed">Eksport nieudany</string>
