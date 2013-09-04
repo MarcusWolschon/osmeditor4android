@@ -1213,6 +1213,7 @@ public class EasyEditManager {
 
 		private ArrayList<OsmElement> members;
 		private Relation relation = null;
+		private MenuItem revert = null;
 		
 		public AddRelationMemberActionModeCallback(OsmElement element) {
 			super();
@@ -1243,7 +1244,8 @@ public class EasyEditManager {
 			logic.setReturnRelations(false);
 			logic.setClickableElements(logic.findClickableElements(members));
 			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(R.drawable.tag_menu_revert);
-			menu.findItem(MENUITEM_REVERT).setVisible(false);
+			revert = menu.findItem(MENUITEM_REVERT);
+			revert.setVisible(false);
 			if (relation != null)
 				selectRelation(relation);
 			return true;
@@ -1252,7 +1254,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			if (members.size() > 0)
-				menu.findItem(MENUITEM_REVERT).setVisible(true);
+				revert.setVisible(true);
 			return true;
 		}
 		
@@ -1285,6 +1287,8 @@ public class EasyEditManager {
 			super.handleElementClick(element);
 			addElement(element);
 			logic.setClickableElements(logic.findClickableElements(members));
+			if (members.size() > 0)
+				revert.setVisible(true);
 			return true;
 		}
 		
