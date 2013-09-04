@@ -620,7 +620,7 @@ public class EasyEditManager {
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_COPY: logic.copyToClipboard(element); break;
 			case MENUITEM_CUT: logic.cutToClipboard(element); break;
-			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback((Way)element)); break;
+			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			default: return false;
 			}
 			return true;
@@ -1013,6 +1013,9 @@ public class EasyEditManager {
 	
 	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
 	
+		private static final int MENUITEM_ADD_RELATION_MEMBERS = 7;
+		
+		
 		private RelationSelectionActionModeCallback(Relation relation) {
 			super(relation);
 		}
@@ -1023,22 +1026,28 @@ public class EasyEditManager {
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
 			selectRelation((Relation) element);
+			mode.setTitle(R.string.actionmode_relationselect);	
 			main.invalidateMap();
-			mode.setTitle(R.string.actionmode_relationselect);
 			return true;
 		}
 		
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
-
+			menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member);
 			return true;
 		}
 		
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			super.onActionItemClicked(mode, item);
+			if (!super.onActionItemClicked(mode, item)) {
+				switch (item.getItemId()) {
+				case MENUITEM_ADD_RELATION_MEMBERS: main.startActionMode(new  AddRelationMemberActionModeCallback((Relation)element, null)); break;
+				default: return false;
+				}
+			}
 			return true;
+			
 		}
 		
 		protected void menuDelete(ActionMode mode) {
@@ -1203,11 +1212,20 @@ public class EasyEditManager {
 		private static final int MENUITEM_REVERT = 1;
 
 		private ArrayList<OsmElement> members;
+		private Relation relation = null;
 		
 		public AddRelationMemberActionModeCallback(OsmElement element) {
 			super();
 			members = new ArrayList<OsmElement>();
 			addElement(element);
+		}
+		
+		public AddRelationMemberActionModeCallback(Relation relation, OsmElement element) {
+			super();
+			members = new ArrayList<OsmElement>();
+			if (element != null)
+				addElement(element);
+			this.relation = relation;
 		}
 		
 		private void addElement(OsmElement element) {
@@ -1226,6 +1244,8 @@ public class EasyEditManager {
 			logic.setClickableElements(logic.findClickableElements(members));
 			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(R.drawable.tag_menu_revert);
 			menu.findItem(MENUITEM_REVERT).setVisible(false);
+			if (relation != null)
+				selectRelation(relation);
 			return true;
 		}
 		
@@ -1277,8 +1297,12 @@ public class EasyEditManager {
 //			logic.setSelectedRelationNodes(null);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			if (members.size() > 0)
+			if ((members.size() > 0) && (relation == null))
 				main.performTagEdit(logic.createRelation(null, members),"type");
+			else {
+				logic.addMembers(relation, members);
+				main.performTagEdit(relation, null);
+			}
 		}
 	}	
 }

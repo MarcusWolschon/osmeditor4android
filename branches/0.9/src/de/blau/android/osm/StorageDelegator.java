@@ -982,6 +982,21 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 	}
 
+	/**
+	 * Add further members without role to an existing relation
+	 * @param relation
+	 * @param members
+	 */
+	public void addMembersToRelation(Relation relation,	ArrayList<OsmElement> members) {
+		for (OsmElement e:members) {
+			RelationMember rm = new RelationMember("", e);
+			relation.addMember(rm);
+			e.addParentRelation(relation);
+		}
+		relation.updateState(OsmElement.STATE_MODIFIED);
+		insertElementSafe(relation);
+	}
+
 	
 	/**
 	 * Assumes mergeFrom will deleted by caller and doesn't update back refs
@@ -1553,9 +1568,6 @@ public class StorageDelegator implements Serializable, Exportable {
 	public BoundingBox getLastBox() {
 		return currentStorage.getBoundingBoxes().get(getBoundingBoxes().size()-1);
 	}
-
-
-
 
 
 

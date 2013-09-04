@@ -1831,7 +1831,6 @@ public class Logic {
 		else
 			tags.put("type", "");
 		delegator.setTags(relation, tags);
-
 		for (OsmElement e:members) {
 			RelationMember rm = new RelationMember("", e);
 			relation.addMember(rm);
@@ -1839,6 +1838,13 @@ public class Logic {
 		}
 		return relation;
 	}
+	
+	
+	public void addMembers(Relation relation, ArrayList<OsmElement> members) {
+		createCheckpoint(R.string.undo_action_update_relations);
+		delegator.addMembersToRelation(relation, members);
+	}
+	
 	/**
 	 * Sets the set of ways that belong to a relation and should be highlighted. 
 	 * If set to null, the map will use default behaviour.
@@ -2045,6 +2051,9 @@ public class Logic {
 	public float latE7toY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(), viewBox, lat);
 	}
+
+
+
 
 
 
