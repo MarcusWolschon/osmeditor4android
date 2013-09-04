@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -231,6 +232,19 @@ public class Relation extends OsmElement {
 	@Override
 	public ElementType getType() {
 		return ElementType.RELATION;
+	}
+
+	/**
+	 * return a list of the downloaded elements
+	 * @return
+	 */
+	public ArrayList<OsmElement> getMemberElements() {
+		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
+		for (RelationMember rm:getMembers()) {
+			if (rm.getElement()!=null)
+				result.add(rm.getElement());
+		}
+		return result;
 	}
 	
 	

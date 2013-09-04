@@ -665,6 +665,8 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setSelectedNode((Node)element);
 			logic.setSelectedWay(null);
+			logic.setSelectedRelationWays(null);
+			logic.setSelectedRelationNodes(null);
 			main.invalidateMap();
 			mode.setTitle(R.string.actionmode_nodeselect);
 			return true;
@@ -758,6 +760,8 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			Log.d("WaySelectionActionCallback", "onCreateActionMode");
 			logic.setSelectedNode(null);
+			logic.setSelectedRelationWays(null);
+			logic.setSelectedRelationNodes(null);
 			logic.setSelectedWay((Way)element);
 			main.invalidateMap();
 			mode.setTitle(R.string.actionmode_wayselect);
@@ -1242,12 +1246,11 @@ public class EasyEditManager {
 			mode.setTitle(R.string.menu_add_relation_member);
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(false);
-			logic.setClickableElements(logic.findClickableElements(members));
+
 			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(R.drawable.tag_menu_revert);
 			revert = menu.findItem(MENUITEM_REVERT);
 			revert.setVisible(false);
-			if (relation != null)
-				selectRelation(relation);
+			setClickableElements();
 			return true;
 		}
 		
@@ -1270,7 +1273,7 @@ public class EasyEditManager {
 						else if (element.getName().equals("node"))
 							logic.removeSelectedRelationNode((Node)element);
 						members.remove(element);
-						logic.setClickableElements(logic.findClickableElements(members));
+						setClickableElements();
 						main.invalidateMap();
 						if (members.size() == 0)
 							item.setVisible(false);
@@ -1286,10 +1289,19 @@ public class EasyEditManager {
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
 			super.handleElementClick(element);
 			addElement(element);
-			logic.setClickableElements(logic.findClickableElements(members));
+			setClickableElements();
 			if (members.size() > 0)
 				revert.setVisible(true);
 			return true;
+		}
+		
+		private void setClickableElements() {
+			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(members);
+			if (relation != null) {
+				selectRelation(relation);
+				excludes.addAll(relation.getMemberElements());
+			}
+			logic.setClickableElements(logic.findClickableElements(excludes));
 		}
 		
 		@Override
@@ -1297,8 +1309,6 @@ public class EasyEditManager {
 			super.onDestroyActionMode(mode);
 			logic.setClickableElements(null);
 			logic.setReturnRelations(true);
-//			logic.setSelectedRelationWays(null);
-//			logic.setSelectedRelationNodes(null);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
 			if (members.size() > 0) { // something was actually added
@@ -1308,6 +1318,9 @@ public class EasyEditManager {
 					logic.addMembers(relation, members);
 					main.performTagEdit(relation, null);
 				}
+			} else {
+				logic.setSelectedRelationWays(null);
+				logic.setSelectedRelationNodes(null);
 			}
 		}
 	}	
