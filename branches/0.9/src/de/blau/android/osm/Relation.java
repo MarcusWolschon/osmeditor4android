@@ -187,7 +187,7 @@ public class Relation extends OsmElement {
 		String description = "";
 		String type = getTagWithKey("type");
 		if (type != null){
-			description = type;
+			description = type.equals("") ? "unset relation type" : type;
 			if (type.equals("restriction")) {
 				String restriction = getTagWithKey("restriction");
 				if (restriction != null) {
@@ -207,7 +207,8 @@ public class Relation extends OsmElement {
 					description = "landuse " + l + " " + description ;
 				}
 			}
-		}
+		} else
+			description = "unset relation type";
 		String name = getTagWithKey("name");
 		if (name != null){
 			description = description + " " + name;

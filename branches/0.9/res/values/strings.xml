@@ -104,6 +104,8 @@
     <string name="menu_restriction">Add restriction</string>
     <string name="menu_restriction_via">Add restriction via</string>
     <string name="menu_restriction_to">Add restriction to</string>
+    <string name="menu_relation">Create relation</string>
+    <string name="menu_add_relation_member">Add relation member</string>
     <string name="menu_tag">Edit tags</string>
     <string name="menu_openstreetbug">Add Note</string>
     <string name="menu_easyedit">EasyEdit</string>

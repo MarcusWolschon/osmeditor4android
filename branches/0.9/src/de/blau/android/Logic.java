@@ -713,6 +713,15 @@ public class Logic {
 		return bestWay;
 	}
 	
+	public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
+		Set<OsmElement> result = new HashSet<OsmElement>();
+		result.addAll(delegator.getCurrentStorage().getNodes());
+		result.addAll(delegator.getCurrentStorage().getWays());
+		for (OsmElement e:excludes)
+			result.remove(e);
+		return result;
+	}
+	
 	/**
 	 * Get a list of all the Ways connected to the given Node.
 	 * @param node The Node.
@@ -1813,6 +1822,23 @@ public class Logic {
 		return restriction;
 	}
 
+	public Relation createRelation(String type, List<OsmElement> members ) {
+		
+		Relation relation = delegator.createAndInsertReleation();
+		SortedMap<String,String> tags = new TreeMap<String,String>();
+		if (type != null)
+			tags.put("type", type);
+		else
+			tags.put("type", "");
+		delegator.setTags(relation, tags);
+
+		for (OsmElement e:members) {
+			RelationMember rm = new RelationMember("", e);
+			relation.addMember(rm);
+			e.addParentRelation(relation);
+		}
+		return relation;
+	}
 	/**
 	 * Sets the set of ways that belong to a relation and should be highlighted. 
 	 * If set to null, the map will use default behaviour.
@@ -1828,6 +1854,12 @@ public class Logic {
 			selectedRelationWays = new HashSet<Way>();
 		}
 		selectedRelationWays.add(way);
+	}
+	
+	public void removeSelectedRelationWay(Way way) {
+		if (selectedRelationWays != null) {
+			selectedRelationWays.remove(way);
+		}
 	}
 	
 	public Set<Way> getSelectedRelationWays() {
@@ -1849,6 +1881,12 @@ public class Logic {
 			selectedRelationNodes = new HashSet<Node>();
 		}
 		selectedRelationNodes.add(node);
+	}
+	
+	public void removeSelectedRelationNode(Node node) {
+		if (selectedRelationNodes != null) {
+			selectedRelationNodes.remove(node);
+		}
 	}
 	
 	public Set<Node> getSelectedRelationNodes() {
