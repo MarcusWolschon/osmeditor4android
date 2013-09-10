@@ -1272,7 +1272,7 @@ public class EasyEditManager {
 							logic.removeSelectedRelationWay((Way)element);
 						else if (element.getName().equals("node"))
 							logic.removeSelectedRelationNode((Node)element);
-						members.remove(element);
+						members.remove(members.size()-1);
 						setClickableElements();
 						main.invalidateMap();
 						if (members.size() == 0)
