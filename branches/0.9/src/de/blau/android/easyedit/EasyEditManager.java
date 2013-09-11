@@ -1323,10 +1323,9 @@ public class EasyEditManager {
 					logic.addMembers(relation, members);
 					main.performTagEdit(relation, null);
 				}
-			} else {
-				logic.setSelectedRelationWays(null);
-				logic.setSelectedRelationNodes(null);
 			}
+			logic.setSelectedRelationWays(null);
+			logic.setSelectedRelationNodes(null);
 		}
 	}	
 }
