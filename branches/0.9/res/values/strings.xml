@@ -248,7 +248,8 @@
     <string name="undo_action_set_tags">set tags</string>
     <string name="undo_action_join">join</string>
     <string name="undo_action_unjoin_ways">unjoin ways</string>
-    <string name="undo_action_deleterelation">delete relation</string>
+    <string name="undo_action_create_relation">create relation</string>
+    <string name="undo_action_delete_relation">delete relation</string>
     <string name="undo_action_update_relations">update relations</string>
     <string name="undo_action_cut">cut</string>
     <string name="undo_action_paste">paste</string>

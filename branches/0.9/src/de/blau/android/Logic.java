@@ -1802,11 +1802,12 @@ public class Logic {
 		}
 	}
 
-	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay) {
+	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
 		
+		createCheckpoint(R.string.undo_action_create_relation);
 		Relation restriction = delegator.createAndInsertReleation();
 		SortedMap<String,String> tags = new TreeMap<String,String>();
-		tags.put("restriction", "");
+		tags.put("restriction", restriction_type == null ? "" : restriction_type);
 		tags.put("type", "restriction");
 		delegator.setTags(restriction, tags);
 		RelationMember from = new RelationMember("from", fromWay);
@@ -1824,6 +1825,7 @@ public class Logic {
 
 	public Relation createRelation(String type, List<OsmElement> members ) {
 		
+		createCheckpoint(R.string.undo_action_create_relation);
 		Relation relation = delegator.createAndInsertReleation();
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		if (type != null)

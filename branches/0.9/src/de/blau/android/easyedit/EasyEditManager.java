@@ -238,7 +238,7 @@ public class EasyEditManager {
 		Set<OsmElement> result = new HashSet<OsmElement>();
 		candidates.addAll(logic.getWaysForNode(commonNode));
 		for (Way candidate : candidates) {
-			if ((way != candidate) && (way.getTagWithKey("highway") != null)) {
+			if (way == null || ((way != candidate) && (way.getTagWithKey("highway") != null))) {
 					result.add(candidate);
 			}
 		}
@@ -1135,7 +1135,7 @@ public class EasyEditManager {
 			fromWay = from;
 			viaElement = via;
 			if (viaElement.getName().equals("node")) {
-				cachedToElements = findToElements(fromWay, (Node) viaElement);
+				cachedToElements = findToElements(null, (Node) viaElement);
 			} else {
 				// need to find the right end of the way
 				if (fromWay.hasNode(((Way) viaElement).getFirstNode())) {
@@ -1178,6 +1178,10 @@ public class EasyEditManager {
 	}
 	
 	private class RestrictionToElementActionModeCallback extends EasyEditActionModeCallback {
+		
+		final static String RESTRICTION_TAG = "restriction";
+		final static String NO_U_TURN_VALUE = "no_u_turn";
+		
 		private Way fromWay;
 		private OsmElement viaElement;
 		private Way toWay;
@@ -1194,14 +1198,15 @@ public class EasyEditManager {
 			mode.setTitle(R.string.menu_restriction);
 			super.onCreateActionMode(mode, menu);
 			logic.addSelectedRelationWay(toWay);
-			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay);
+			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, fromWay == toWay ? NO_U_TURN_VALUE : null);
 			Log.i("EasyEdit", "Created restriction");
-			main.performTagEdit(restriction, "restriction"); //TODO mv restriction to constant
-			return true;
+			main.performTagEdit(restriction, RESTRICTION_TAG);
+			main.startActionMode(new RelationSelectionActionModeCallback(restriction));
+			return false; // we are actually already finished
 		}
 		
 		@Override
-		public void onDestroyActionMode(ActionMode mode) {
+		public void onDestroyActionMode(ActionMode mode) { // note never called
 			logic.setClickableElements(null);
 			logic.setReturnRelations(true);
 			logic.setSelectedRelationWays(null);
