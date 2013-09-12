@@ -34,6 +34,8 @@ public class Preferences {
 	
 	private final boolean depreciatedModesEnabled;
 	
+	private final boolean useBackForUndo;
+	
 	private final String backgroundLayer;
 	
 	private final String mapProfile;
@@ -83,6 +85,7 @@ public class Preferences {
 		isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
 		isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
 		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
+		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
@@ -156,6 +159,13 @@ public class Preferences {
 	 */
 	public boolean depreciatedModesEnabled() {
 		return depreciatedModesEnabled;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean useBackForUndo() {
+		return useBackForUndo;
 	}
 	
 	/**

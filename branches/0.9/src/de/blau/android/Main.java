@@ -1051,6 +1051,44 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 	}
 
+	/**
+	 * potentially do some special stuff for invoking undo and exiting
+	 */
+	@Override
+	public void onBackPressed() {
+		// super.onBackPressed();
+		Log.d("Main","onBackPressed()");
+		String name = logic.getUndo().undo();
+		if ((name != null) && (prefs.useBackForUndo())) {
+			Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+		} else {
+		    new AlertDialog.Builder(this)
+	        .setTitle(R.string.exit_title)
+	        .setMessage(R.string.exit_text)
+	        .setNegativeButton(R.string.no, null)
+	        .setPositiveButton(R.string.yes, 
+	        	new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface arg0, int arg1) {
+		                Main.super.onBackPressed();
+		            }
+	        }).create().show();
+		}
+	}
+	
+	/**
+	 * catch back button in action modes where onBackPressed is not invoked
+	 * this is probably not guaranteed to work and will not in android 3.something
+	 */
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+	    if(easyEditManager.isProcessingAction()) {
+	        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+	        	if (easyEditManager.handleBackPressed())
+	        		return true;
+	        }
+	    }
+	    return super.dispatchKeyEvent(event);
+	}
 	
 	public class UndoListener implements OnClickListener, OnLongClickListener {
 

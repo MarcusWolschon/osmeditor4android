@@ -563,7 +563,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	
 	@Override
 	public void onBackPressed() {
-		sendResultAndFinish();
+		// sendResultAndFinish();
+	    new AlertDialog.Builder(this)
+        .setNeutralButton(R.string.cancel, null)
+        .setNegativeButton(R.string.tag_menu_revert,        	
+        		new DialogInterface.OnClickListener() {
+            	public void onClick(DialogInterface arg0, int arg1) {
+            		doRevert();
+            }})
+        .setPositiveButton(R.string.tag_menu_exit_no_save, 
+        	new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface arg0, int arg1) {
+	                TagEditor.super.onBackPressed();
+	            }
+        }).create().show();
 	}
 	
 	/**
@@ -1458,7 +1471,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			if (selectedElement.getParentRelations() != null) {
 				for (Relation r:selectedElement.getParentRelations()) {
 					RelationMember rm = r.getMember(selectedElement);
-					tempParents.put(Long.valueOf(r.getOsmId()), rm.getRole());
+					if (rm != null)
+						tempParents.put(Long.valueOf(r.getOsmId()), rm.getRole());
+					else
+						Log.e("TagEditor","inconsistency in relation membership");
 				}
 				parents = tempParents;
 				originalParents = parents;

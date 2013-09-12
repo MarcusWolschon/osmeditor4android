@@ -14,6 +14,12 @@
 			android:defaultValue="true"
 		/>
 		<CheckBoxPreference
+			android:key="@string/config_use_back_for_undo_key"
+			android:title="@string/config_use_back_for_undo_title"
+			android:summary="@string/config_use_back_for_undo_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
 			android:key="@string/config_enableAntiAliasing_key"
 			android:title="@string/config_enableAntiAliasing_title"
 			android:summary="@string/config_enableAntiAliasing_summary"
@@ -29,6 +35,14 @@
 			android:title="@string/config_presetbutton_title"
 			android:key="@string/config_presetbutton_key"
 			android:summary="@string/config_presetbutton_summary"
+		/>
+		<EditTextPreference
+			android:key="@string/config_maxStrokeWidth_key"
+			android:title="@string/config_maxStrokeWidth_title"
+			android:summary="@string/config_maxStrokeWidth_summary"
+			android:dialogTitle="@string/config_maxStrokeWidth_title"
+			android:numeric="decimal"
+			android:defaultValue="16.0"
 		/>
 	</PreferenceCategory>
 	

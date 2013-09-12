@@ -132,6 +132,16 @@ public class EasyEditManager {
 	}
 	
 	/**
+	 * call the onBackPressed method for the currently active action mode
+	 * @return
+	 */
+	public boolean handleBackPressed() {
+		if (currentActionModeCallback != null)
+			return currentActionModeCallback.onBackPressed();
+		return false;
+	}
+	
+	/**
 	 * Takes a parameter for a node and one for a way.
 	 * If the way is not null, opens a tag editor for the way.
 	 * Otherwise, opens a tag editor for the node
@@ -310,6 +320,14 @@ public class EasyEditManager {
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			Log.e("EasyEditActionModeCallback", "onActionItemClicked");
+			return false;
+		}
+		
+		/**
+		 * modify behavior of back button in action mode
+		 * @return
+		 */
+		public boolean onBackPressed() {
 			return false;
 		}
 	}
@@ -1089,6 +1107,7 @@ public class EasyEditManager {
 	private class RestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
 		private Set<OsmElement> viaElements;
+		private boolean viaSelected = false;
 		public RestrictionFromElementActionModeCallback(Way way, Set<OsmElement> vias) {
 			super();
 			this.way = way;
@@ -1111,6 +1130,7 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
+			viaSelected = true;
 			main.startActionMode(new RestrictionViaElementActionModeCallback(way, element));
 			return true;
 		}
@@ -1121,6 +1141,10 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
+			if (!viaSelected) { // back button or done pressed early
+				logic.setSelectedRelationWays(null);
+				logic.setSelectedRelationNodes(null);
+			}
 			super.onDestroyActionMode(mode);
 		}
 	}
@@ -1129,6 +1153,7 @@ public class EasyEditManager {
 		private Way fromWay;
 		private OsmElement viaElement;
 		private Set<OsmElement> cachedToElements;
+		private boolean toSelected = false;
 
 		public RestrictionViaElementActionModeCallback(Way from, OsmElement via) {
 			super();
@@ -1163,6 +1188,7 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
 			super.handleElementClick(element);
+			toSelected = true;
 			main.startActionMode(new RestrictionToElementActionModeCallback(fromWay, viaElement, (Way) element));
 			return true;
 		}
@@ -1173,6 +1199,11 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
+			if (!toSelected) {
+				// back button or done pressed early
+				logic.setSelectedRelationWays(null);
+				logic.setSelectedRelationNodes(null);
+			}
 			super.onDestroyActionMode(mode);
 		}
 	}
@@ -1223,6 +1254,7 @@ public class EasyEditManager {
 		private ArrayList<OsmElement> members;
 		private Relation relation = null;
 		private MenuItem revert = null;
+		private boolean backPressed = false;
 		
 		public AddRelationMemberActionModeCallback(OsmElement element) {
 			super();
@@ -1316,16 +1348,28 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			if (members.size() > 0) { // something was actually added
-				if (relation == null)
-					main.performTagEdit(logic.createRelation(null, members),"type");
-				else {
-					logic.addMembers(relation, members);
-					main.performTagEdit(relation, null);
+			if (!backPressed) {
+				if (members.size() > 0) { // something was actually added
+					if (relation == null)
+						main.performTagEdit(logic.createRelation(null, members),"type");
+					else {
+						logic.addMembers(relation, members);
+						main.performTagEdit(relation, null);
+					}
 				}
 			}
 			logic.setSelectedRelationWays(null);
 			logic.setSelectedRelationNodes(null);
 		}
+		
+		/**
+		 * back button should abort relation creation
+		 */
+		@Override
+		public boolean onBackPressed() {
+			backPressed = true;
+			return false; // call the normal stuff
+		}
+		
 	}	
 }

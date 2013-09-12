@@ -59,6 +59,9 @@
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
     <string name="locked">Locked</string>
+    <!-- Dialog for back button -->
+    <string name="exit_title">Really exit?</string>
+    <string name="exit_text">Are you sure you want to exit?</string>
     <!-- Strings in TagEditor -->
     <string name="key">key</string>
     <string name="value">value</string>
@@ -70,6 +73,7 @@
     <string name="tag_menu_mapfeatures">Map Features Wiki</string>
     <string name="tag_menu_addtorelation">Add to relation</string>
     <string name="tag_menu_resetMRU">Reset Presets</string>
+    <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>
     <string name="location_choose_radius">Choose radius:</string>
@@ -197,6 +201,8 @@
     <string name="config_licensebutton_summary">Show authors and license information</string>
 	<string name="config_mapProfile_title">Map profile</string>
 	<string name="config_mapProfile_summary">Set style and visibility of elements</string>
+	<string name="config_use_back_for_undo_title">Use back key for Undo</string>
+	<string name="config_use_back_for_undo_summary">Use the back key for undo in the main edit view</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

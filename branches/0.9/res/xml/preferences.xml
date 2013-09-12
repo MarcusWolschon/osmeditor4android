@@ -47,14 +47,6 @@
 			android:summary="@string/config_enableDeprecatedModes_summary"
 			android:defaultValue="false"
 		/>
-		<EditTextPreference
-			android:key="@string/config_maxStrokeWidth_key"
-			android:title="@string/config_maxStrokeWidth_title"
-			android:summary="@string/config_maxStrokeWidth_summary"
-			android:dialogTitle="@string/config_maxStrokeWidth_title"
-			android:numeric="decimal"
-			android:defaultValue="16.0"
-		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_server">
 		<de.blau.android.prefs.LoginDataPreference
