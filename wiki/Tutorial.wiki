@@ -15,7 +15,7 @@ Once you have data loaded you will have it displayed in the default style: black
 
 == Using GPS ==
 
-You can use Vespucci to create a GPX track and display if on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). If you have the later set 
+You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). If you have the later set 
 moving the screen manually or editing will cause the follow mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow.
 
 == Editing Using Vespucci ==
