@@ -989,7 +989,7 @@ public class Logic {
 	 */
 	public void performEraseRelation(final Relation relation) {
 		if (relation != null) {
-			createCheckpoint(R.string.undo_action_deleterelation);
+			createCheckpoint(R.string.undo_action_delete_relation);
 			delegator.removeRelation(relation);
 			map.invalidate();
 		}
