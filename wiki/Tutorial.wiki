@@ -1,9 +1,9 @@
 = Vespucci Quick Start Guide =
-(Updated for version 0.9)
+(Updated for version 0.9.1)
 
 == Installation ==
 
-The current Vespucci version is not available from the google Play Store at this point in time. Vespucci 0.9 is known to work with devices running Android 2.3 and later, 2.2 has been tested on an emulator. Earlier versions have not been tested. Pre-2.0 Android versions are not supported.
+Just search for "vespucci" on the android market place and install it. Vespucci 0.9 is known to work with devices running Android 2.3 and later, 2.2 has been tested on an emulator. Earlier versions have not been tested. Pre-2.0 Android versions are not supported.
 
 == Initial Set-Up ==
 
@@ -12,6 +12,11 @@ On start up Vespucci will show you the "Download other location"/"Load Area" dia
 Alternatively you can dismiss the dialog by pressing the back button and pan and zoom to a location you want to edit and download the data then (see below: "Editing Using Vespucci").
 
 Once you have data loaded you will have it displayed in the default style: black ways and red square nodes. You can and probably should change this by going to the preferences screen and selecting a different "Map profile".
+
+== Using GPS ==
+
+You can use Vespucci to create a GPX track and display if on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). If you have the later set 
+moving the screen manually or editing will cause the follow mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow.
 
 == Editing Using Vespucci ==
 
@@ -39,6 +44,16 @@ To avoid accidental edits Vespucci 0.9 will start up in "locked" mode, a mode th
 The default editing mode is now what used to be called [EasyEdit] mode. With the default settings nodes and ways that are selectable will have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple object it will present a selection menu. Selected objects are highlighted in yellow.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+
+=== Adding Turn Restrictions ===
+
+Vespucci 0.9 has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
+
+ * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, pleas use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
+ * select "Add restriction" from the menu
+ * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
+ * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction) 
+ * set the restriction type in the tag menu
 
 === Saving Your Changes ===
 
