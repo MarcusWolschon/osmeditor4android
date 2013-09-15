@@ -48,6 +48,7 @@
   <string name="okay">Vale</string>
   <string name="cancel">Cancelar</string>
   <string name="locked">Bloqueado</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">key</string>
   <string name="value">value</string>

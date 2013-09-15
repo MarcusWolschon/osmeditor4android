@@ -20,6 +20,7 @@
   <string name="no">Hayır</string>
   <string name="okay">Tamam</string>
   <string name="cancel">İpta</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <!--Strings in LocationPicker-->
   <string name="location_lat_label">Enl:</string>

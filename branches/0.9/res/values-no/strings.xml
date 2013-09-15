@@ -39,6 +39,7 @@
   <string name="no">Nei</string>
   <string name="okay">Ok</string>
   <string name="cancel">Avbryt</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">nøkkel</string>
   <string name="value">verdi</string>

@@ -15,7 +15,7 @@
 			android:key="@string/config_mapProfile_key"
 			android:title="@string/config_mapProfile_title"
 			android:summary="@string/config_mapProfile_summary"
-			android:defaultValue="Default"
+			android:defaultValue="Color Round Nodes"
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableOpenStreetBugs_key"

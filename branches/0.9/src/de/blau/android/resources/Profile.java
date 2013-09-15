@@ -226,7 +226,7 @@ public class Profile  extends DefaultHandler {
 	 */
 	public static final Path WAY_DIRECTION_PATH = new Path();
 	
-	private static final String DEFAULT_PROFILE_NAME = "Default";
+	private static final String BUILTIN_PROFILE_NAME = "Default";
 	
 	static Resources myRes;
 	
@@ -433,7 +433,7 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 		
 		if (availableProfiles == null) {
-			name = DEFAULT_PROFILE_NAME;
+			name = BUILTIN_PROFILE_NAME;
 			currentProfile = this;
 			availableProfiles = new HashMap<String,Profile>();
 			availableProfiles.put(name,this);
@@ -509,11 +509,11 @@ public class Profile  extends DefaultHandler {
 	public static String[] getProfileList() {
 		String[] res = new String[availableProfiles.size()];
 		
-		res[0] = DEFAULT_PROFILE_NAME;
+		res[0] = BUILTIN_PROFILE_NAME;
 		String keys[] = (new TreeMap<String, Profile>(availableProfiles)).keySet().toArray(new String[0]); // sort the list
 		int j = 1;
 		for (int i=0;i<res.length;i++) {
-			if (!keys[i].equals(DEFAULT_PROFILE_NAME)) {
+			if (!keys[i].equals(BUILTIN_PROFILE_NAME)) {
 				res[j] = keys[i];
 				j++;
 			}
@@ -772,8 +772,8 @@ public class Profile  extends DefaultHandler {
 		}
 	}
 	
-	public static String getDefaultProfileName() {
-		return "Default"; //TODO move to resources
+	public static String getBuiltinProfileName() {
+		return BUILTIN_PROFILE_NAME;
 	}
 }
 

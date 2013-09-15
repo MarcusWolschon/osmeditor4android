@@ -46,6 +46,7 @@
   <string name="okay">OK</string>
   <string name="cancel">Mégse</string>
   <string name="locked">Zárolva</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">kulcs</string>
   <string name="value">érték</string>
@@ -199,7 +200,6 @@
   <string name="undo_action_set_tags">címkék beállítása</string>
   <string name="undo_action_join">összekapcsolás</string>
   <string name="undo_action_unjoin_ways">vonalak szétválasztása</string>
-  <string name="undo_action_deleterelation">kapcsolat törlése</string>
   <string name="undo_action_update_relations">kapcsolatok frissítése</string>
   <string name="undo_action_cut">kivágás</string>
   <string name="undo_action_paste">beillesztés</string>

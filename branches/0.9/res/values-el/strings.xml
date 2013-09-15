@@ -40,6 +40,7 @@
   <string name="no">Όχι</string>
   <string name="okay">Εντάξει</string>
   <string name="cancel">Ακύρωση</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">κλειδί</string>
   <string name="value">τιμή</string>
@@ -164,7 +165,6 @@
   <string name="undo_action_set_tags">θέση ετικετών</string>
   <string name="undo_action_join">σύνδεση</string>
   <string name="undo_action_unjoin_ways">αποσύνδεση διαδρομών</string>
-  <string name="undo_action_deleterelation">διαγραφή σχέσης</string>
   <string name="undo_action_update_relations">ενημέρωση σχέσεων</string>
   <string name="undo_action_cut">αποκοπή</string>
   <string name="undo_action_paste">επικόλληση</string>

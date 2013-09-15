@@ -4,7 +4,7 @@
   <string name="transfer_download_current_dialog_title">Atenção!</string>
   <string name="transfer_download_current_dialog_message">Fez algumas alterações. Deseja fazer upload em vez de descartar?</string>
   <string name="transfer_download_current_upload">Upload</string>
-  <string name="transfer_download_current_download">Descartar &amp; download</string>
+  <string name="transfer_download_current_download">Descartar &amp; descarregar</string>
   <string name="transfer_download_current_back">Retroceder (Fazer nada)</string>
   <string name="upload_problem_title">Problema Com Upload</string>
   <string name="upload_problem_message">Toda ou parte da informação não foi carregada no servidor. Tente carregar novamente para verificar o que falhou. A razão mais provável é um conflito de versões.</string>
@@ -14,6 +14,8 @@
   <string name="no_connection_message">Não foi possível conectar com o Servidor OSM. Por favor verifique a ligação à Internet ou tente de novo mais tarde.</string>
   <string name="wrong_login_data_title">Dados de login errados</string>
   <string name="wrong_login_data_message">O Servidor OSM não conseguiu autenticá-lo(a). Por favor verifique os seus dados de login nas preferências.</string>
+  <string name="data_conflict_title">Conflito de Versão</string>
+  <string name="data_conflict_message">Os dados que está a tentar descarregar contêm dados que conflituem com as suas edições. Tente primeiro fazer o upload dos seus dados antes de tentar de novo.</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
   <string name="progress_download_message">Descarregando dados do servidor…</string>
@@ -36,6 +38,8 @@
   <string name="toast_no_changes">Não alterou nada ainda…</string>
   <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
   <string name="toast_not_in_edit_range">Por favor faça zoom in para editar (Volume +/- ou Lens/Shift)</string>
+  <string name="toast_unlock_to_edit">Desbloquear para editar</string>
+  <string name="toast_edit_outside_downloaded_area">Não pode editar fora da área descarregada</string>
   <string name="toast_save_done">Gravado com sucesso</string>
   <string name="toast_not_in_bug_range">Faça zoom in para adicionar um bug (Volume +/- ou Lente/Shift)</string>
   <string name="toast_export_failed">Exportação falhou</string>
@@ -55,6 +59,9 @@
   <string name="okay">Ok</string>
   <string name="cancel">Cancelar</string>
   <string name="locked">Bloqueado</string>
+  <!--Dialog for back button-->
+  <string name="exit_title">Quer mesmo sair?</string>
+  <string name="exit_text">Tem a certeza de que deseja sair?</string>
   <!--Strings in TagEditor-->
   <string name="key">chave</string>
   <string name="value">valor</string>
@@ -66,6 +73,7 @@
   <string name="tag_menu_mapfeatures">Wiki de Entidades do Mapa</string>
   <string name="tag_menu_addtorelation">Adicionar à relação</string>
   <string name="tag_menu_resetMRU">Repôr Prédefinições</string>
+  <string name="tag_menu_exit_no_save">Sair⏎\nsem gravar</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -94,10 +102,14 @@
   <string name="menu_help">Ajuda</string>
   <string name="menu_erase">Apagar nó</string>
   <string name="menu_split">Dividir</string>
+  <string name="menu_closed_way_split_1">Dividir via fechada, primeiro nó</string>
+  <string name="menu_closed_way_split_2">Dividir via fechada, segundo nó</string>
   <string name="menu_append">Acrescentar</string>
   <string name="menu_restriction">Adicionar restrição</string>
   <string name="menu_restriction_via">Adicionar restrição via</string>
   <string name="menu_restriction_to">Adicionar restrição a</string>
+  <string name="menu_relation">Criar relação</string>
+  <string name="menu_add_relation_member">Adicionar membro de relação</string>
   <string name="menu_tag">Editar tags</string>
   <string name="menu_openstreetbug">Adicionar Nota</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -111,6 +123,7 @@
   <string name="menu_gps_export">Exportar percurso GPS</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Download da vista corrente</string>
+  <string name="menu_transfer_download_current_add">Adicionar vista actual para descarregar</string>
   <string name="menu_transfer_download_other">Download de outra localização</string>
   <string name="menu_transfer_upload">Upload dos dados para o servidor OSM</string>
   <string name="menu_transfer_export">Exportar alterações</string>
@@ -154,6 +167,8 @@
   <string name="config_enableOpenStreetBugs_summary">Visualizar, Editar e Criar Notas/Erros.</string>
   <string name="config_enablePhotoLayer_title">Activar tema de Fotos</string>
   <string name="config_enablePhotoLayer_summary">Mostrar fotos georreferenciadas</string>
+  <string name="config_enableKeepScreenOn_title">Manter ecrã ligado</string>
+  <string name="config_enableKeepScreenOn_summary">Não desligar ecrã para poupar energia</string>
   <string name="config_enableDeprecatedModes_title">Activar modos obsoletos</string>
   <string name="config_enableDeprecatedModes_summary">Activar modos Novo, Editar, Editar Tags, Adicionar, Apagar nó e Separar.</string>
   <string name="config_backgroundLayer_title">Carta de base</string>
@@ -186,6 +201,8 @@
   <string name="config_licensebutton_summary">Ver informação sobre os autores e licenças</string>
   <string name="config_mapProfile_title">Perfil do mapa</string>
   <string name="config_mapProfile_summary">Definir estilo e visibilidade de elementos</string>
+  <string name="config_use_back_for_undo_title">Use a tecla de Retroceder (\'back\') para Desfazer</string>
+  <string name="config_use_back_for_undo_summary">Use a tecla Retroceder para desfazer na janela principal de edição</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar prédefinições</string>
   <string name="preset_download_successful">Prédefinição descarregada com sucesso</string>
@@ -237,7 +254,8 @@
   <string name="undo_action_set_tags">definir tags</string>
   <string name="undo_action_join">unir</string>
   <string name="undo_action_unjoin_ways">separar vias</string>
-  <string name="undo_action_deleterelation">apagar relação</string>
+  <string name="undo_action_create_relation">criar relação</string>
+  <string name="undo_action_delete_relation">apagar relação</string>
   <string name="undo_action_update_relations">actualizar relações</string>
   <string name="undo_action_cut">cortar</string>
   <string name="undo_action_paste">colar</string>

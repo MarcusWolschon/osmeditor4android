@@ -48,6 +48,8 @@ public class Preferences {
 
 	private boolean forceContextMenu;
 	
+	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
+	
 	/**
 	 * @param prefs
 	 * @param r
@@ -90,7 +92,10 @@ public class Preferences {
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
 		if (Profile.getProfile(tempMapProfile) == null) {
-			mapProfile = Profile.getDefaultProfileName(); //TODO should store this as new pref
+			if (Profile.getProfile(DEFAULT_MAP_PROFILE) == null) 
+				mapProfile = Profile.getBuiltinProfileName(); // built-in fall back
+			else
+				mapProfile = DEFAULT_MAP_PROFILE;
 		} else {
 			mapProfile = tempMapProfile;
 		}

@@ -31,6 +31,7 @@
   <string name="no">No</string>
   <string name="okay">D\'acord</string>
   <string name="cancel">Cancel·la</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">clau</string>
   <string name="value">valor</string>
@@ -126,7 +127,6 @@
   <string name="undo_action_split_way">divideix la via</string>
   <string name="undo_action_merge_ways">fusiona les vies</string>
   <string name="undo_action_join">uneix</string>
-  <string name="undo_action_deleterelation">suprimeix la relació</string>
   <string name="undo_action_update_relations">actualitza les relacions</string>
   <string name="undo_action_cut">retalla</string>
   <string name="undo_action_paste">enganxa</string>

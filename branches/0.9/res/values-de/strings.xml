@@ -59,6 +59,9 @@
   <string name="okay">Okay</string>
   <string name="cancel">Abbrechen</string>
   <string name="locked">Gesperrt</string>
+  <!--Dialog for back button-->
+  <string name="exit_title">Wirklich Vespucci verlassen?</string>
+  <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
   <!--Strings in TagEditor-->
   <string name="key">Schlüssel</string>
   <string name="value">Wert</string>
@@ -70,6 +73,7 @@
   <string name="tag_menu_mapfeatures">Map-Features-Wiki</string>
   <string name="tag_menu_addtorelation">Zu Relation hinzufügen</string>
   <string name="tag_menu_resetMRU">Vorlagen zurücksetzen</string>
+  <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
@@ -197,6 +201,8 @@
   <string name="config_licensebutton_summary">Zeige Autoren- und Lizenzinformationen</string>
   <string name="config_mapProfile_title">Datenanzeigestil</string>
   <string name="config_mapProfile_summary">Anzeige und sichtbarkeit der Datenelemente </string>
+  <string name="config_use_back_for_undo_title">Zurücktaste für Undo verwenden</string>
+  <string name="config_use_back_for_undo_summary">Zurücktaste in der Hauptansicht für Undo verwenden</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -248,7 +254,8 @@
   <string name="undo_action_set_tags">Tags setzen</string>
   <string name="undo_action_join">verbinden</string>
   <string name="undo_action_unjoin_ways">Wege trennen</string>
-  <string name="undo_action_deleterelation">Relation löschen</string>
+  <string name="undo_action_create_relation">Relation erstellen</string>
+  <string name="undo_action_delete_relation">Relation löschen</string>
   <string name="undo_action_update_relations">Relation aktualisieren</string>
   <string name="undo_action_cut">kopieren</string>
   <string name="undo_action_paste">einfügen</string>

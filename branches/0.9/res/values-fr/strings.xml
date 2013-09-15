@@ -55,6 +55,7 @@
   <string name="okay">Valider</string>
   <string name="cancel">Annuler</string>
   <string name="locked">Verrouillé</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">clé</string>
   <string name="value">valeur</string>
@@ -233,7 +234,6 @@
   <string name="undo_action_set_tags">valorisation tags</string>
   <string name="undo_action_join">fusionner</string>
   <string name="undo_action_unjoin_ways">séparer les chemins</string>
-  <string name="undo_action_deleterelation">suppression relation</string>
   <string name="undo_action_update_relations">Mettre à jour les relations</string>
   <string name="undo_action_cut">couper</string>
   <string name="undo_action_paste">coller</string>

@@ -56,6 +56,7 @@
   <string name="okay">OK</string>
   <string name="cancel">Anuluj</string>
   <string name="locked">Zablokowane</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">klucz</string>
   <string name="value">wartość</string>
@@ -238,7 +239,6 @@
   <string name="undo_action_set_tags">ustaw tagi</string>
   <string name="undo_action_join">dołącz</string>
   <string name="undo_action_unjoin_ways">rozłącz drogi</string>
-  <string name="undo_action_deleterelation">Usuń relację</string>
   <string name="undo_action_update_relations">Zaktualizuj relację</string>
   <string name="undo_action_cut">Cięcie</string>
   <string name="undo_action_paste">wstaw</string>

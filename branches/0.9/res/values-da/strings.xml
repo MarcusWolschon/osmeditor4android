@@ -38,6 +38,7 @@
   <string name="no">Nej</string>
   <string name="okay">OK</string>
   <string name="cancel">Annulér</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">nøgle</string>
   <string name="value">værdi</string>

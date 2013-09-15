@@ -31,6 +31,7 @@
   <string name="no">いいえ</string>
   <string name="okay">OK</string>
   <string name="cancel">中止</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">キー</string>
   <string name="value">値</string>

@@ -50,6 +50,7 @@
   <string name="okay">Budiž</string>
   <string name="cancel">Zrušit</string>
   <string name="locked">Uzamčeno</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">klíč</string>
   <string name="value">hodnota</string>
