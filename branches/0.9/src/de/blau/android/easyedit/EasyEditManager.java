@@ -113,9 +113,14 @@ public class EasyEditManager {
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
 
-		if (currentActionModeCallback instanceof PathCreationActionModeCallback) {
-			// we don't do long clicks while creating paths
-			return false;
+		if ((currentActionModeCallback instanceof PathCreationActionModeCallback) 
+			|| (currentActionModeCallback instanceof WaySelectionActionModeCallback)
+			|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
+			|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
+		{
+			// we don't do long clicks in the above modes
+			Log.d("EasyEditManager", "handleLongClick ignoring long click");
+			return false; // this probably should really return true aka click handled
 		}
 		v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 		// TODO: Need to patch ABS, see https://github.com/JakeWharton/ActionBarSherlock/issues/642
