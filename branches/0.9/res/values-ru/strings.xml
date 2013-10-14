@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Внимание!</string>
   <string name="transfer_download_current_dialog_message">Вы внесли изменения. Хотите передать их на сервер?</string>
@@ -22,6 +22,7 @@
   <string name="openstreetbug_new_title">Новая заметка</string>
   <string name="openstreetbug_new_nodeway">Создать точку/линию</string>
   <string name="openstreetbug_edit_title">Изменить заметку</string>
+  <string name="openstreetbug_commitbutton">Зафиксировать</string>
   <string name="openstreetbug_comment_label">Комментарий:</string>
   <string name="openstreetbug_edit_close">Закрыть</string>
   <string name="openstreetbug_edit_closed">Закрытая</string>
@@ -37,6 +38,7 @@
   <string name="toast_unlock_to_edit">Разблокируйте для правки</string>
   <string name="toast_edit_outside_downloaded_area">Вы не можете редактировать вне загруженной области</string>
   <string name="toast_save_done">Сохранено успешно</string>
+  <string name="toast_not_in_bug_range">Пожалуйста, увеличьте масштаб для добавления заметки (Громкость +/- или Движок масштаба)</string>
   <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
   <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
@@ -175,6 +177,7 @@
   <string name="config_licensebutton_summary">Показать информацию об авторах и лицензии</string>
   <string name="config_mapProfile_title">Профиль карты</string>
   <string name="config_mapProfile_summary">Управление стилем и видимостью элементов</string>
+  <string name="config_use_back_for_undo_title">Использовать кнопку назад для Отмены</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>
@@ -210,14 +213,18 @@
   <string name="undo_action_movenode">перемещение точки</string>
   <string name="undo_action_moveway">перемещение линии</string>
   <string name="undo_action_add">вставить</string>
+  <string name="undo_action_append">присоединить</string>
   <string name="undo_action_deletenode">удалить точку</string>
   <string name="undo_action_deleteway">удаление линии</string>
   <string name="undo_action_split_ways">разделение линий</string>
   <string name="undo_action_split_way">разбиение линии</string>
   <string name="undo_action_merge_ways">объединение линий</string>
+  <string name="undo_action_reverse_way">изменить направление</string>
   <string name="undo_action_set_tags">добавление тегов</string>
   <string name="undo_action_join">объединение</string>
   <string name="undo_action_unjoin_ways">разъединение линий</string>
+  <string name="undo_action_create_relation">  создать отношение</string>
+  <string name="undo_action_delete_relation">удаление отношение</string>
   <string name="undo_action_update_relations">обновление отношений</string>
   <string name="undo_action_cut">вырезать</string>
   <string name="undo_action_paste">вставить</string>

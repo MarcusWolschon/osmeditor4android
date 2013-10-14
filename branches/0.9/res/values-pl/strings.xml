@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Uwaga!</string>
   <string name="transfer_download_current_dialog_message">Wykonałeś kilka zmian. Chcesz je wysłać zamiast usunąć?</string>
@@ -14,6 +14,8 @@
   <string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
   <string name="wrong_login_data_title">Błędne dane logowania</string>
   <string name="wrong_login_data_message">Błąd logowania. Sprawdź poprawność swoich danych w ustawieniach.</string>
+  <string name="data_conflict_title">Konflikt wersji</string>
+  <string name="data_conflict_message">Dane, które próbujesz pobrać zawiera dane, które jest sprzeczne z wprowadzonymi zmianami. Najpierw spróbuj przesłać swoje dane przed ponowną próbą.</string>
   <string name="progress_title">Ładowanie</string>
   <string name="progress_message">Ładowanie danych do pamięci…</string>
   <string name="progress_download_message">Pobieranie danych z serwera…</string>
@@ -57,6 +59,8 @@
   <string name="cancel">Anuluj</string>
   <string name="locked">Zablokowane</string>
   <!--Dialog for back button-->
+  <string name="exit_title">rzeczywiście zakończyć?</string>
+  <string name="exit_text">Czy na pewno chcesz wyjść?</string>
   <!--Strings in TagEditor-->
   <string name="key">klucz</string>
   <string name="value">wartość</string>
@@ -68,6 +72,7 @@
   <string name="tag_menu_mapfeatures">Podstawy (Wiki)</string>
   <string name="tag_menu_addtorelation">Dodaj do relacji</string>
   <string name="tag_menu_resetMRU">Zresetuj szablony</string>
+  <string name="tag_menu_exit_no_save">Wyjście⏎\nbez zapisania</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Ładuj obszar</string>
   <string name="location_choose_radius">Wybierz promień:</string>
@@ -96,10 +101,14 @@
   <string name="menu_help">Pomoc</string>
   <string name="menu_erase">Skasuj węzeł</string>
   <string name="menu_split">Podziel drogę</string>
+  <string name="menu_closed_way_split_1">Podziel zamkniętą drogę, pierwszy węzeł</string>
+  <string name="menu_closed_way_split_2">Podziel zamkniętą drogę, drugi węzeł</string>
   <string name="menu_append">Dołącz</string>
   <string name="menu_restriction">Dodaj ograniczenie</string>
   <string name="menu_restriction_via">Dodaj restrykcję przez</string>
   <string name="menu_restriction_to">Dodaj restrykcję do`</string>
+  <string name="menu_relation">Utwórz relację</string>
+  <string name="menu_add_relation_member">Dodaj element relacji</string>
   <string name="menu_tag">Edytuj tagi</string>
   <string name="menu_openstreetbug">Dodaj notatkę</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -113,6 +122,7 @@
   <string name="menu_gps_export">Eksportuj ślad GPS</string>
   <string name="menu_transfer">Transfer…</string>
   <string name="menu_transfer_download_current">Pobierz bieżący widok</string>
+  <string name="menu_transfer_download_current_add">Dodaj bieżący widok do pobrania.</string>
   <string name="menu_transfer_download_other">Pobierz inny obszar</string>
   <string name="menu_transfer_upload">Wyślij dane do serwera OSM</string>
   <string name="menu_transfer_export">Wyślij zmiany</string>
@@ -156,6 +166,8 @@
   <string name="config_enableOpenStreetBugs_summary">Wyświetl, Edytuj i utwórz notatkę/błąd</string>
   <string name="config_enablePhotoLayer_title">Włącz warstwę foto</string>
   <string name="config_enablePhotoLayer_summary">Wyświetl zdjęcia georeferencyjne.</string>
+  <string name="config_enableKeepScreenOn_title">Ekran włączony</string>
+  <string name="config_enableKeepScreenOn_summary">Nie wyłączaj ekranu w celu oszczędzania baterii</string>
   <string name="config_enableDeprecatedModes_title">Włącz nieaktualne tryby</string>
   <string name="config_enableDeprecatedModes_summary">Włącz nowy, Edytuj, Edytuj  znaczniki, Dodaj, Usuń węzeł i tryb podziału.</string>
   <string name="config_backgroundLayer_title">Mapa jako tło</string>
@@ -188,6 +200,8 @@
   <string name="config_licensebutton_summary">Pokaż autorów oraz informacje o licencji</string>
   <string name="config_mapProfile_title">Profil mapy</string>
   <string name="config_mapProfile_summary">Ustaw styl i widoczność elementów</string>
+  <string name="config_use_back_for_undo_title">Użyj klawisza Wstecz w celu cofnięcia zmian</string>
+  <string name="config_use_back_for_undo_summary">Użyj klawisza wstecz aby zamknąć główne okno edycji</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizuj szablon</string>
   <string name="preset_download_successful">Szablon został pobrany</string>
@@ -239,6 +253,8 @@
   <string name="undo_action_set_tags">ustaw tagi</string>
   <string name="undo_action_join">dołącz</string>
   <string name="undo_action_unjoin_ways">rozłącz drogi</string>
+  <string name="undo_action_create_relation">utwórz relację</string>
+  <string name="undo_action_delete_relation">usuń relację</string>
   <string name="undo_action_update_relations">Zaktualizuj relację</string>
   <string name="undo_action_cut">Cięcie</string>
   <string name="undo_action_paste">wstaw</string>
@@ -257,6 +273,7 @@
   <string name="role_lc">rola</string>
   <string name="membership_relation_heading">Członek relacji</string>
   <string name="relation">Relacja</string>
+  <string name="position">Poz.</string>
   <string name="type">Typ</string>
   <string name="object">Objekt</string>
   <string name="deleterelation_relation_description">Masz zamiar usunąć relację, która jest członkiem jednego lub większej ilości relacji. Usuwanie relacji z relacji może spowodować, jej/ich nieprawidłowość.</string>
