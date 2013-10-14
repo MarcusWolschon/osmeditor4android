@@ -197,7 +197,6 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void updateLatLon(final Node node, final int latE7, final int lonE7) {
 		dirty = true;
 		undo.save(node);
-		
 		apiStorage.insertElementSafe(node);
 		node.setLat(latE7);
 		node.setLon(lonE7);

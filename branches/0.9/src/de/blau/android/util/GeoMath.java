@@ -210,12 +210,11 @@ public class GeoMath {
 	}
 
 //TODO experimental code for using non-approx. projections
-//	public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
-//		// note the last term should be pre-calculated too
-//		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
-//		Log.d("GeoMath","lat " + latE7 + " top M " + latE7ToMercator(latE7) + " bot M " + viewBox.getBottomMercator());
-//		return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
-//	}
+	public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
+		// note the last term should be pre-calculated too
+		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
+		return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
+	}
 	
 	/**
 	 * Calculates the screen-coordinate to the given longitude.
@@ -224,7 +223,7 @@ public class GeoMath {
 	 * @return the x screen-coordinate for this longitude value.
 	 */
 	public static float lonE7ToX(final int screenWidth, final BoundingBox viewBox, final int lonE7) {
-		return ((float) (((float)lonE7 - (float)viewBox.getLeft()) / (float)viewBox.getWidth())* (float)screenWidth);
+		return (float) ((((double)lonE7 - (double)viewBox.getLeft()) / (double)viewBox.getWidth())* (double)screenWidth);
 	}
 	
 	/**
@@ -234,17 +233,17 @@ public class GeoMath {
 	 * @return latitude representing by the given y-value, multiplied by 1E7
 	 */
 	public static int yToLatE7(final int screenHeight, final BoundingBox viewBox, final float y) {
-		final double ratio = ((screenHeight - y) / screenHeight) / viewBox.getMercatorFactorPow3();
-		final double lat = ratio * viewBox.getHeight() + viewBox.getBottom();
-		return (int) Math.round(lat);
+		final double ratio = (((double)screenHeight - y) / (double)screenHeight) / viewBox.getMercatorFactorPow3();
+		final double lat = ratio * (double)viewBox.getHeight() + (double)viewBox.getBottom();
+		return (int) lat;
 	}
 
 //TODO experimental code for using non-approx. projections
-//	public static int yToLatE7(final int screenHeight, int screenWidth, final BoundingBox viewBox, final float y) {
-//		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
-//		double lat = mercatorToLatE7(viewBox.getBottomMercator() + ((double)screenHeight - y) / pixelRadius);
-//		return (int) Math.round(lat);
-//	}
+	public static int yToLatE7(final int screenHeight, int screenWidth, final BoundingBox viewBox, final float y) {
+		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
+		double lat = mercatorToLatE7(viewBox.getBottomMercator() + ((double)screenHeight - y) / pixelRadius);
+		return (int) lat;
+	}
 	
 	/**
 	 * Calculates the longitude value for the given x screen coordinate.
@@ -253,7 +252,7 @@ public class GeoMath {
 	 * @return longitude representing by the given x-value, multiplied by 1E7
 	 */
 	public static int xToLonE7(final int screenWidth, final BoundingBox viewBox, final float x) {
-		return (int) (x / screenWidth * viewBox.getWidth()) + viewBox.getLeft();
+		return (int) (((double)x / (double)screenWidth * (double)viewBox.getWidth()) + (double)viewBox.getLeft());
 	}
 
 	/**

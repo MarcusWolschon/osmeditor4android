@@ -73,7 +73,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	    presetname = data.getQueryParameter("presetname");
 	    oauth_token = data.getQueryParameter("oauth_token");
 	    oauth_verifier = data.getQueryParameter("oauth_verifier");
-	    
+
 	    super.onStart();
 	}
 	
@@ -84,6 +84,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	    	mainView.setVisibility(View.GONE);
 	    	Log.i("VespucciURLActivity", "got oauth verifier " + oauth_token + " " + oauth_verifier);
 	    	oAuthHandshake(oauth_verifier);
+	    	setResult(RESULT_OK);
 	    	finish();
 	    }
 	    else {
@@ -176,7 +177,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			@Override
 			protected void onPreExecute() {
 			
-				Log.d("VespucciURLActivitiy", "oAuthHandshake onPreExecute");
+				Log.d("VespucciURLActivity", "oAuthHandshake onPreExecute");
 			}
 			
 			@Override
@@ -204,7 +205,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			
 			@Override
 			protected void onPostExecute(Void v) {
-				Log.d("Logic", "loadFromFile onPostExecute");
+				Log.d("VespucciURLActivity", "oAuthHandshake onPostExecute");
 				
 			}
 		};

@@ -1008,7 +1008,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 			@Override
 			protected void onPostExecute(Boolean result) {
-				Log.d("Logic", "loadFromFile onPostExecute");
+				Log.d("Main", "oAuthHandshake onPostExecute");
 				if (!result.booleanValue()) Toast.makeText(getApplicationContext(), R.string.toast_oauth_handshake_failed, Toast.LENGTH_LONG).show();
 			}
 		};

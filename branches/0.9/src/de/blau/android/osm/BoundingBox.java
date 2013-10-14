@@ -56,7 +56,7 @@ public class BoundingBox implements Serializable {
 	 * Mercator value for the bottom of the BBos
 	 */
 	//TODO experimental code for using non-approx. projections
-	// private double bottomMercator;
+	private double bottomMercator;
 
 	/**
 	 * Delimiter for the bounding box as String representation.
@@ -367,7 +367,7 @@ public class BoundingBox implements Serializable {
 		// powers 3 because it would be needed in later usage of this factor
 		mercatorFactorPow3 = GeoMath.getMercatorFactorPow3(centerLat);
 		//TODO experimental code for using non-approx. projections
-		// bottomMercator = GeoMath.latE7ToMercator(bottom);
+		bottomMercator = GeoMath.latE7ToMercator(bottom);
 	}
 
 	/**
@@ -634,9 +634,9 @@ public class BoundingBox implements Serializable {
 	}
 
 	//TODO experimental code for using non-approx. projections
-//	public double getBottomMercator() {
-//		
-//		return bottomMercator;
-//	}
+	public double getBottomMercator() {
+		
+		return bottomMercator;
+	}
 	
 }
