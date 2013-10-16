@@ -1644,7 +1644,11 @@ public class Logic {
 			protected void onPostExecute(Integer result) {
 				if (result > 0) {
 					Context ctx = Application.mainActivity.getApplicationContext();
-					Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
+					try {
+						Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
+					} catch (java.util.IllegalFormatFlagsException iffex) {
+						// do nothing ... this is stop bugs in the Android format parising crashing the upload, happens at least with the PL string
+					}
 				}
 			}
 			
