@@ -781,8 +781,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void removeRelationFromMembers(final Relation relation) {
 		for (RelationMember rm: relation.getMembers()) {
 			OsmElement e = rm.getElement();
-			undo.save(e);
-			e.removeParentRelation(relation);
+			if (e != null) { // if null the element wasn't downloaded
+				undo.save(e);
+				e.removeParentRelation(relation);
+			}
 		}
 	}
 	
