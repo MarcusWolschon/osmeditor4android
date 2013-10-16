@@ -211,7 +211,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		};
 		loader.execute(s);
 		try {
-			loader.get(1, TimeUnit.MINUTES);
+			loader.get(60, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
