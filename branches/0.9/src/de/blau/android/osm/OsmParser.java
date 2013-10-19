@@ -127,7 +127,11 @@ public class OsmParser extends DefaultHandler {
 			storage.insertNodeUnsafe(currentNode);
 			currentNode = null;
 		} else if (isWay(name)) {
-			storage.insertWayUnsafe(currentWay);
+			if (currentWay.getNodes() != null && currentWay.getNodes().size() > 0) {
+				storage.insertWayUnsafe(currentWay);
+			} else {
+				Log.e(DEBUG_TAG,"Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
+			}
 			currentWay = null;
 		} else if (isRelation(name)) {
 			storage.insertRelationUnsafe(currentRelation);

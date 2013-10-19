@@ -211,6 +211,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param deltaLonE7
 	 */
 	public void moveWay(final Way way, final int deltaLatE7, final int deltaLonE7) {
+		if (way.getNodes() == null) {
+			Log.d("StorageDelegator", "moveWay way " + way.getOsmId() + " has no nodes!");
+			return;
+		}
 		dirty = true;
 		Node firstNode = way.getFirstNode();
 		for (int i = 0; i < way.getNodes().size(); i++) { 
@@ -236,6 +240,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param deltaLonE7
 	 */
 	public void rotateWay(final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h, BoundingBox v) {
+		if (way.getNodes() == null) {
+			Log.d("StorageDelegator", "rotateWay way " + way.getOsmId() + " has no nodes!");
+			return;
+		}
 		// Log.d("StorageDelegator","Roating " + angle + " around " + pivotY + " " + pivotX );
 		dirty = true;
 		Node firstNode = way.getFirstNode();
