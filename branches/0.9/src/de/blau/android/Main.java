@@ -341,6 +341,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		logic.setSelectedBug(null);
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
+		logic.setSelectedRelation(null);
 	}
 
 	@Override
@@ -357,7 +358,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			loadOnResume = false;
 			logic.loadFromFile(getApplicationContext());
 		}
-		
+		logic.loadEditingState();
 		if (currentPreset == null) {
 			currentPreset = prefs.getPreset();
 		}
@@ -431,6 +432,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		} else {
 			showGPSFlagFile.delete();
 		}
+		// if something was selected save that
+		
 	}
 
 	/**
@@ -768,10 +771,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
 				Bug bug = logic.getSelectedBug();
-				// NullPointerException on following line
-				// dialog (and hence ad) cannot be null due to instanceof
-				// therefore bug must have been null
-				// Investigation of this in progress.... (AG 10-Apr-2011)
 				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
 				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
 				comments.setText(Html.fromHtml(bug.getComment())); // ugly

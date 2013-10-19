@@ -76,23 +76,6 @@ public class EasyEditManager {
 	}
 	
 	/**
-	 * Set relation members to be highlighted
-	 * @param r
-	 */
-	public void selectRelation(Relation r) {
-		for (RelationMember rm : r.getMembers()) {
-			OsmElement e = rm.getElement();
-			if (e != null) {
-				if (e.getName().equals("way")) {
-					logic.addSelectedRelationWay((Way) e);
-				} else if (e.getName().equals("node")) {
-					logic.addSelectedRelationNode((Node) e);
-				} 
-			}
-		}
-	}
-	
-	/**
 	 * Handle editing the given element.
 	 * @param element The OSM element to edit.
 	 */
@@ -668,6 +651,7 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
+			logic.setSelectedRelation(null);
 			super.onDestroyActionMode(mode);
 		}
 	}
@@ -1052,7 +1036,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
-			selectRelation((Relation) element);
+			logic.selectRelation((Relation) element);
 			mode.setTitle(R.string.actionmode_relationselect);	
 			main.invalidateMap();
 			return true;
@@ -1340,7 +1324,7 @@ public class EasyEditManager {
 		private void setClickableElements() {
 			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(members);
 			if (relation != null) {
-				selectRelation(relation);
+				logic.selectRelation(relation);
 				excludes.addAll(relation.getMemberElements());
 			}
 			logic.setClickableElements(logic.findClickableElements(excludes));

@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
+import de.blau.android.util.EditState;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 
@@ -153,10 +155,10 @@ public class Logic {
 	public static final float STROKE_FACTOR = 100000;
 	
 	/**
-	 * Filename of file containing the currently selected edit mode
+	 * Filename of file containing the currently edit state
 	 */
-	private static final String MODE_FILENAME = "editmode.state";
-
+	private static final String EDITSTATE_FILENAME = "edit.state";
+	
 	/** Sorter instance for sorting nodes by distance */
 	private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<OsmElement, Node>();
 	/** Sorter instance for sorting ways by distance */
@@ -187,6 +189,11 @@ public class Logic {
 	 * The user-selected way.
 	 */
 	private Way selectedWay;
+	
+	/**
+	 * The user-selected relation.
+	 */
+	private Relation selectedRelation;
 	
 	/**
 	 * The user-selected bug.
@@ -267,6 +274,7 @@ public class Logic {
 		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
+		setSelectedRelation(null);
 
 		// map.setPaints(paints);
 		map.setDelegator(delegator);
@@ -328,6 +336,7 @@ public class Logic {
 		default:
 			setSelectedNode(null);
 			setSelectedWay(null);
+			setSelectedRelation(null);
 			break;
 		}
 		map.invalidate();
@@ -1463,8 +1472,7 @@ public class Logic {
 			protected void onPostExecute(Void result) {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				if (showDone) {
-					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
-				}
+					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();				}
 			}
 			
 		}.execute();
@@ -1476,14 +1484,19 @@ public class Logic {
 	void save() {
 		try {
 			delegator.writeToFile();
-			if (new SavingHelper<Mode>().load(MODE_FILENAME, false) != mode) { // save only if changed
-				new SavingHelper<Mode>().save(MODE_FILENAME, mode, false);
-			}
+			EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug);
+			new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);
+			
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
 	}
 	
+	void loadEditingState() {
+		EditState editState = new SavingHelper<EditState>().load(EDITSTATE_FILENAME, false);
+		if(editState != null) // 
+			editState.setSelected(this);
+	}
 
 	/**
 	 * Loads data from a file in the background.
@@ -1494,7 +1507,7 @@ public class Logic {
 		Context[] c = {context};
 		AsyncTask<Context, Void, Boolean> loader = new AsyncTask<Context, Void, Boolean>() {
 			
-			Mode loadedMode = null;
+			
 			Context context;
 	
 			
@@ -1509,7 +1522,6 @@ public class Logic {
 				this.context = c[0];
 				if (delegator.readFromFile()) {
 					viewBox.setBorders(delegator.getLastBox());
-					loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
 					return new Boolean(true);
 				}
 				return new Boolean(false);
@@ -1527,7 +1539,7 @@ public class Logic {
 				if (result.booleanValue()) {
 					Log.d("Logic", "loadfromFile: File read correctly");
 					View map = Application.mainActivity.getCurrentFocus();
-					setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
+					
 					try {
 						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
 					} catch (OsmException e) {
@@ -1681,6 +1693,15 @@ public class Logic {
 	public void setSelectedWay(final Way selectedWay) {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
+	}
+	
+	/**
+	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
+	 */
+	public void setSelectedRelation(final Relation relation) {
+		this.selectedRelation = relation;
+		if (selectedRelation != null)
+			selectRelation(relation);
 	}
 	
 	/**
@@ -1878,6 +1899,24 @@ public class Logic {
 		return selectedRelationWays;
 	}
 
+	
+	/**
+	 * Set relation members to be highlighted
+	 * @param r
+	 */
+	public void selectRelation(Relation r) {
+		for (RelationMember rm : r.getMembers()) {
+			OsmElement e = rm.getElement();
+			if (e != null) {
+				if (e.getName().equals("way")) {
+					addSelectedRelationWay((Way) e);
+				} else if (e.getName().equals("node")) {
+					addSelectedRelationNode((Node) e);
+				} 
+			}
+		}
+	}
+	
 	/**
 	 * Sets the set of nodes that belong to a relation and should be highlighted. 
 	 * If set to null, the map will use default behaviour.

@@ -1,5 +1,6 @@
 package de.blau.android.osb;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,8 +12,13 @@ import android.util.Log;
  * An individual comment associated with an OpenStreetBug.
  * @author Andrew Gregory
  */
-public class BugComment {
+public class BugComment implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The preferred OSB date formats. */
 	private static final DateFormat bugDateFormats[] = {
 		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"), // preferred, used for output (see toString())

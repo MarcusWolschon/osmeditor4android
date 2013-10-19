@@ -1,6 +1,7 @@
 package de.blau.android.osb;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,9 +18,14 @@ import android.text.Html;
  * A bug in the OpenStreetBugs database, or a prospective new bug.
  * @author Andrew Gregory
  */
-public class Bug {
+public class Bug implements Serializable {
 	
 	/** Package accessible members - they are directly updated by the Database class. */
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	/** OSB Bug ID. */
 	long id;
