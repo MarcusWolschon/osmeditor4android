@@ -37,6 +37,7 @@ import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.resources.Profile.FeatureProfile;
@@ -507,6 +508,10 @@ public class Profile  extends DefaultHandler {
 	 * @return
 	 */
 	public static String[] getProfileList() {
+		if (availableProfiles == null) { // shouldn't happen
+			Profile p = new Profile(Application.mainActivity);
+			Log.e("Profile","getProfileList called before initialized");
+		}
 		String[] res = new String[availableProfiles.size()];
 		
 		res[0] = BUILTIN_PROFILE_NAME;

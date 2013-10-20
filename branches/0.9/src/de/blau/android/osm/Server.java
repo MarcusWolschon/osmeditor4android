@@ -329,8 +329,8 @@ public class Server {
 		long osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-//		elem.addOrUpdateTag(createdByTag, createdByKey);
-		Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId());
+//		elem.addOrUpdateTag(createdByTag, createdByKey); 
+		Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId() + " " + getUpdateUrl(elem));
 		try {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
 			sendPayload(connection, new XmlSerializable() {
