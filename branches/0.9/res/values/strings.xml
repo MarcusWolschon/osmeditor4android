@@ -53,6 +53,8 @@
     <string name="toast_unread_mail">You have %1$s unread mail(s) on the OpenStreetmap server</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
+    <string name="toast_download_bbox_failed">Download failed, probably because the area selected was too large.</string>
+    <string name="toast_download_failed">Download failed with error code %1$, message %2$</string>
     <!-- Some generic labels -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
