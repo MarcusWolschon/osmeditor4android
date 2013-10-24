@@ -36,11 +36,14 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 import de.blau.android.Application;
+import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
@@ -267,6 +270,16 @@ public class Server {
 		}
 
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+			if (con.getResponseCode() == 400) {
+				Application.mainActivity.runOnUiThread(new Runnable() {
+					  public void run() {
+						  Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
+					  }
+				});
+			}
+			else {
+				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
+			}
 			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
 					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
 		}
@@ -278,6 +291,27 @@ public class Server {
 		}
 	}
 
+	
+	class DownloadErrorToast implements Runnable {
+		int code;
+		String message;
+		
+		DownloadErrorToast(int code, String message) {
+			this.code = code;
+			this.message = message;
+		}
+		
+		public void run() {
+			try {
+				Context mainCtx = Application.mainActivity.getApplicationContext();
+				Toast.makeText(mainCtx,
+					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
+			} catch (java.util.IllegalFormatFlagsException iffex) {
+			  	// do nothing ... this is stop bugs in the Android format parsing crashing the upload, 
+			}
+		}
+	}
+	
 	/**
 	 * Sends an delete-request to the server.
 	 * 
