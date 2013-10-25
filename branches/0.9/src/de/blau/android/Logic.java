@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.Toast;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -1344,6 +1345,7 @@ public class Logic {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} // TODO remove this? and replace with better error messaging
+		
 		new AsyncTask<Boolean, Void, Integer>() {
 			
 			@Override
@@ -1388,15 +1390,19 @@ public class Logic {
 					}
 				} catch (SAXException e) {
 					Log.e("Vespucci", "Problem parsing", e);
-					ACRA.getErrorReporter().handleException(e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						// crash and burn
+						ACRA.getErrorReporter().handleException(e);
+					}
 				} catch (ParserConfigurationException e) {
+					// crash and burn
 					Log.e("Vespucci", "Problem parsing", e);
 					ACRA.getErrorReporter().handleException(e);
 				} catch (OsmServerException e) {
 					Log.e("Vespucci", "Problem downloading", e);
-					ACRA.getErrorReporter().handleException(e);
-					// TODO improve error reporting to end user
-					// eg bbox too big (400 Bad Request)
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
@@ -1419,11 +1425,17 @@ public class Logic {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
-				map.invalidate();
 				if (result != 0) {
+					if (result == DialogFactory.OUT_OF_MEMORY) {
+						System.gc();
+						if (delegator.isDirty()) {
+							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+						}
+					}
 					Application.mainActivity.showDialog(result);
 				}
+				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
+				map.invalidate();
 				UndoStorage.updateIcon();
 			}
 			

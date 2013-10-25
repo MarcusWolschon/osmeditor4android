@@ -16,6 +16,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmParseException;
+import de.blau.android.exception.StorageException;
 
 /**
  * Parses a XML (as InputStream), provided by XmlRetriever, and pushes generated OsmElements to the given Storage.
@@ -122,20 +123,24 @@ public class OsmParser extends DefaultHandler {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void endElement(final String uri, final String name, final String qName) {
-		if (isNode(name)) {
-			storage.insertNodeUnsafe(currentNode);
-			currentNode = null;
-		} else if (isWay(name)) {
-			if (currentWay.getNodes() != null && currentWay.getNodes().size() > 0) {
-				storage.insertWayUnsafe(currentWay);
-			} else {
-				Log.e(DEBUG_TAG,"Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
+	public void endElement(final String uri, final String name, final String qName) throws SAXException {
+		try {
+			if (isNode(name)) {
+				storage.insertNodeUnsafe(currentNode);
+				currentNode = null;
+			} else if (isWay(name)) {
+				if (currentWay.getNodes() != null && currentWay.getNodes().size() > 0) {
+					storage.insertWayUnsafe(currentWay);
+				} else {
+					Log.e(DEBUG_TAG,"Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
+				}
+				currentWay = null;
+			} else if (isRelation(name)) {
+				storage.insertRelationUnsafe(currentRelation);
+				currentRelation = null;
 			}
-			currentWay = null;
-		} else if (isRelation(name)) {
-			storage.insertRelationUnsafe(currentRelation);
-			currentRelation = null;
+		} catch (StorageException sex) {
+			throw new SAXException(sex);
 		}
 	}
 

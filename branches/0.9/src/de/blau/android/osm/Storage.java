@@ -8,6 +8,7 @@ import java.util.Map;
 
 import android.util.Log;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.StorageException;
 
 public class Storage implements Serializable {
 
@@ -147,26 +148,38 @@ public class Storage implements Serializable {
         return waynodes;
 	}
 
-	void insertNodeUnsafe(final Node node) {
-		 nodes.add(node);
+	void insertNodeUnsafe(final Node node) throws StorageException {
+		try {
+			nodes.add(node);
+		} catch (Error err) { // should really only be OutOfMemory
+			throw new StorageException(StorageException.OOM);
+		}
 
 	}
 
-	void insertWayUnsafe(final Way way) {
-		 ways.add(way);
+	void insertWayUnsafe(final Way way)  throws StorageException  {
+		try {
+			ways.add(way);
+		} catch (Error err) { // should really only be OutOfMemory
+			throw new StorageException(StorageException.OOM);
+		}
 	}
 
-	void insertRelationUnsafe(final Relation relation) {
-		relations.add(relation);
+	void insertRelationUnsafe(final Relation relation) throws StorageException  {
+		try {
+			relations.add(relation);
+		} catch (Error err) { // should really only be OutOfMemory
+			throw new StorageException(StorageException.OOM);
+		}
 	}
 	
-	void insertElementSafe(final OsmElement elem) {
+	void insertElementSafe(final OsmElement elem) throws StorageException {
 		if (!contains(elem)) {
 			insertElementUnsafe(elem);
 		}
 	}
 
-	void insertElementUnsafe(final OsmElement elem) {
+	void insertElementUnsafe(final OsmElement elem) throws StorageException {
 		if (elem instanceof Way) {
 			insertWayUnsafe((Way) elem);
 		} else if (elem instanceof Node) {

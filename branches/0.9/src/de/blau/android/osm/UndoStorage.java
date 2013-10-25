@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import android.util.Log;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.exception.StorageException;
 
 /**
  * This class provides undo support.
@@ -259,11 +260,16 @@ public class UndoStorage implements Serializable {
 		 */
 		public void restore() {
 			// Restore element existence
-			if (inCurrentStorage) currentStorage.insertElementSafe(element);
-			else currentStorage.removeElement(element);
-
-			if (inApiStorage) apiStorage.insertElementSafe(element);
-			else apiStorage.removeElement(element);
+			try {
+				if (inCurrentStorage) currentStorage.insertElementSafe(element);
+				else currentStorage.removeElement(element);
+	
+				if (inApiStorage) apiStorage.insertElementSafe(element);
+				else apiStorage.removeElement(element);
+			} catch (StorageException e) {
+				//TODO handle OOM
+				e.printStackTrace();
+			}
 			
 			// restore saved values
 			element.osmId      = osmId;

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -81,6 +82,10 @@ public class StorageDelegator implements Serializable, Exportable {
 		factory = new OsmElementFactory();
 	}
 
+	public boolean isDirty() {
+		return dirty;
+	}
+	
 	/**
 	 * Get the current undo instance.
 	 * For immediate use only - DO NOT CACHE THIS.
@@ -112,8 +117,13 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(elem);
 		
-		currentStorage.insertElementSafe(elem);
-		apiStorage.insertElementSafe(elem);
+		try {
+			currentStorage.insertElementSafe(elem);
+			apiStorage.insertElementSafe(elem);
+		} catch (StorageException e) {
+			// TODO handle OOMk
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -128,16 +138,25 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (elem.setTags(tags)) {
 			// OsmElement tags have changed
 			elem.updateState(OsmElement.STATE_MODIFIED);
-			apiStorage.insertElementSafe(elem);
+			try {
+				apiStorage.insertElementSafe(elem);
+			} catch (StorageException e) {
+				// TODO handle OOMk
+				e.printStackTrace();
+			}
 		}
 	}
 
 	private void insertElementUnsafe(final OsmElement elem) {
 		dirty = true;
 		undo.save(elem);
-		
-		currentStorage.insertElementUnsafe(elem);
-		apiStorage.insertElementUnsafe(elem);
+		try {
+			currentStorage.insertElementUnsafe(elem);
+			apiStorage.insertElementUnsafe(elem);
+		} catch (StorageException e) {
+			// TODO handle OOMk
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -171,36 +190,55 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(way);
 		
-		apiStorage.insertElementSafe(way);
-		way.addNode(node);
-		way.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			apiStorage.insertElementSafe(way);
+			way.addNode(node);
+			way.updateState(OsmElement.STATE_MODIFIED);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 	}
 
 	public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) {
 		dirty = true;
 		undo.save(way);
 		
-		apiStorage.insertElementSafe(way);
-		way.addNodeAfter(nodeBefore, newNode);
-		way.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			apiStorage.insertElementSafe(way);
+			way.addNodeAfter(nodeBefore, newNode);
+			way.updateState(OsmElement.STATE_MODIFIED);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 	}
 
 	public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) {
 		dirty = true;
 		undo.save(way);
-		
-		apiStorage.insertElementSafe(way);
-		way.appendNode(refNode, nextNode);
-		way.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			apiStorage.insertElementSafe(way);
+			way.appendNode(refNode, nextNode);
+			way.updateState(OsmElement.STATE_MODIFIED);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 	}
 
 	public void updateLatLon(final Node node, final int latE7, final int lonE7) {
 		dirty = true;
 		undo.save(node);
-		apiStorage.insertElementSafe(node);
-		node.setLat(latE7);
-		node.setLon(lonE7);
-		node.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			apiStorage.insertElementSafe(node);
+			node.setLat(latE7);
+			node.setLon(lonE7);
+			node.updateState(OsmElement.STATE_MODIFIED);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -216,16 +254,21 @@ public class StorageDelegator implements Serializable, Exportable {
 			return;
 		}
 		dirty = true;
-		Node firstNode = way.getFirstNode();
-		for (int i = 0; i < way.getNodes().size(); i++) { 
-			Node nd = way.getNodes().get(i);
-			if (i == 0 || !nd.equals(firstNode)) {
-				undo.save(nd);
-				apiStorage.insertElementSafe(nd);
-				nd.setLat(nd.getLat() + deltaLatE7);
-				nd.setLon(nd.getLon() + deltaLonE7);
-				nd.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			Node firstNode = way.getFirstNode();
+			for (int i = 0; i < way.getNodes().size(); i++) { 
+				Node nd = way.getNodes().get(i);
+				if (i == 0 || !nd.equals(firstNode)) {
+					undo.save(nd);
+					apiStorage.insertElementSafe(nd);
+					nd.setLat(nd.getLat() + deltaLatE7);
+					nd.setLon(nd.getLon() + deltaLonE7);
+					nd.updateState(OsmElement.STATE_MODIFIED);
+				}
 			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
 	}
 	
@@ -246,23 +289,28 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		// Log.d("StorageDelegator","Roating " + angle + " around " + pivotY + " " + pivotX );
 		dirty = true;
-		Node firstNode = way.getFirstNode();
-		for (int i = 0; i < way.getNodes().size(); i++) { 
-			Node nd = way.getNodes().get(i);
-			if (i == 0 || !nd.equals(firstNode)) {
-				undo.save(nd);
-				apiStorage.insertElementSafe(nd);
-
-				float nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
-				float nodeY = GeoMath.latE7ToY(h, v, nd.getLat());
-				float newX = pivotX + (nodeX-pivotX)*(float)Math.cos(angle) - direction * (nodeY-pivotY)*(float)Math.sin(angle);
-				float newY = pivotY + direction * (nodeX-pivotX)*(float)Math.sin(angle) + (nodeY-pivotY)*(float)Math.cos(angle);
-				int lat = GeoMath.yToLatE7(h, v, newY);
-				int lon = GeoMath.xToLonE7(w, v, newX);
-				nd.setLat(lat);
-				nd.setLon(lon);
-				nd.updateState(OsmElement.STATE_MODIFIED);
+		try {
+			Node firstNode = way.getFirstNode();
+			for (int i = 0; i < way.getNodes().size(); i++) { 
+				Node nd = way.getNodes().get(i);
+				if (i == 0 || !nd.equals(firstNode)) {
+					undo.save(nd);
+					apiStorage.insertElementSafe(nd);
+	
+					float nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
+					float nodeY = GeoMath.latE7ToY(h, v, nd.getLat());
+					float newX = pivotX + (nodeX-pivotX)*(float)Math.cos(angle) - direction * (nodeY-pivotY)*(float)Math.sin(angle);
+					float newY = pivotY + direction * (nodeX-pivotX)*(float)Math.sin(angle) + (nodeY-pivotY)*(float)Math.cos(angle);
+					int lat = GeoMath.yToLatE7(h, v, newY);
+					int lon = GeoMath.xToLonE7(w, v, newX);
+					nd.setLat(lat);
+					nd.setLon(lon);
+					nd.updateState(OsmElement.STATE_MODIFIED);
+				}
 			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
 	}
 	
@@ -274,16 +322,20 @@ public class StorageDelegator implements Serializable, Exportable {
 		// undo - node saved here, affected ways saved in removeWayNodes
 		dirty = true;
 		undo.save(node);
-		
-		if (node.state == Node.STATE_CREATED) {
-			apiStorage.removeElement(node);
-		} else {
-			apiStorage.insertElementUnsafe(node);
+		try {
+			if (node.state == Node.STATE_CREATED) {
+				apiStorage.removeElement(node);
+			} else {
+				apiStorage.insertElementUnsafe(node);
+			}
+			removeWayNodes(node);
+			removeElementFromRelations(node);
+			currentStorage.removeNode(node);
+			node.updateState(OsmElement.STATE_DELETED);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
-		removeWayNodes(node);
-		removeElementFromRelations(node);
-		currentStorage.removeNode(node);
-		node.updateState(OsmElement.STATE_DELETED);
 	}
 
 	public void splitAtNode(final Node node) {
@@ -362,32 +414,36 @@ public class StorageDelegator implements Serializable, Exportable {
 			nodesForOldWay2.remove(0);
 			oldNodes.addAll(nodesForOldWay2);
 		}
-		
-		way.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(way);
-
-		// create the new way
-		Way newWay = factory.createWayWithNewId();
-		newWay.addTags(way.getTags());
-		newWay.addNodes(nodesForNewWay, false);
-		insertElementUnsafe(newWay);
-		
-		// check for relation membership
-		ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
-		if (relations != null) {
-			dirty = true;
-			/* iterate through relations, add the new way to the relation, for now simply after the old way */
-			for (Relation r : relations) {
-				Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size()  + ") " +  r.getDescription());
-				RelationMember rm = r.getMember(way);
-				undo.save(r);
-				// no role specific code for now
-				RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-				r.addMemberAfter(rm, newMember);
-				newWay.addParentRelation(r);
-				r.updateState(OsmElement.STATE_MODIFIED);
-				apiStorage.insertElementSafe(r);
+		try {
+			way.updateState(OsmElement.STATE_MODIFIED);
+			apiStorage.insertElementSafe(way);
+	
+			// create the new way
+			Way newWay = factory.createWayWithNewId();
+			newWay.addTags(way.getTags());
+			newWay.addNodes(nodesForNewWay, false);
+			insertElementUnsafe(newWay);
+			
+			// check for relation membership
+			ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
+			if (relations != null) {
+				dirty = true;
+				/* iterate through relations, add the new way to the relation, for now simply after the old way */
+				for (Relation r : relations) {
+					Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size()  + ") " +  r.getDescription());
+					RelationMember rm = r.getMember(way);
+					undo.save(r);
+					// no role specific code for now
+					RelationMember newMember = new RelationMember(rm.getRole(), newWay);
+					r.addMemberAfter(rm, newMember);
+					newWay.addParentRelation(r);
+					r.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(r);
+				}
 			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
 	}
 	
@@ -423,69 +479,73 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (nodesForNewWay.size() < 1) {
 			return; // do not create 1-node way
 		}
-
-		way.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(way);
-
-		// create the new way
-		Way newWay = factory.createWayWithNewId();
-		newWay.addTags(way.getTags());
-		newWay.addNodes(nodesForNewWay, false);
-		insertElementUnsafe(newWay);
-		
-		// check for relation membership
-		ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
-		if (relations != null) {
-			dirty = true;
-			/* iterate through relations, for all except restrictions add the new way to the relation, for now simply after the old way */
-			for (Relation r : relations) {
-				Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size()  + ") " +  r.getDescription());
-				RelationMember rm = r.getMember(way);
-				undo.save(r);
-				String type = r.getTagWithKey("type");
-				if (type != null){
-					// attempt to handle turn restrictions correctly, if element is the via way, copying relation membership to both is ok
-					if (type.equals("restriction") && !rm.getRole().equals("via")) { 
-						// check if the old way has a node in common with the via relation member, if no assume the new way has
-						ArrayList<RelationMember> rl =  r.getMembersWithRole("via");
-						boolean foundVia=false;
-						for (int j=0;j<rl.size();j++)
-						{
-							RelationMember viaRm = rl.get(j);
-							OsmElement viaE = viaRm.getElement();
-							Log.d("StorageDelegator", "splitAtNode " + viaE.getOsmId());
-							if (viaE instanceof Node) {
-								if (((Way)rm.getElement()).hasNode((Node)viaE)) {
-									foundVia = true;
-								}
-							} else if (viaE instanceof Way) {
-								if (((Way)rm.getElement()).hasCommonNode((Way)viaE)) {
-									foundVia = true;
+		try {
+			way.updateState(OsmElement.STATE_MODIFIED);
+			apiStorage.insertElementSafe(way);
+	
+			// create the new way
+			Way newWay = factory.createWayWithNewId();
+			newWay.addTags(way.getTags());
+			newWay.addNodes(nodesForNewWay, false);
+			insertElementUnsafe(newWay);
+			
+			// check for relation membership
+			ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
+			if (relations != null) {
+				dirty = true;
+				/* iterate through relations, for all except restrictions add the new way to the relation, for now simply after the old way */
+				for (Relation r : relations) {
+					Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size()  + ") " +  r.getDescription());
+					RelationMember rm = r.getMember(way);
+					undo.save(r);
+					String type = r.getTagWithKey("type");
+					if (type != null){
+						// attempt to handle turn restrictions correctly, if element is the via way, copying relation membership to both is ok
+						if (type.equals("restriction") && !rm.getRole().equals("via")) { 
+							// check if the old way has a node in common with the via relation member, if no assume the new way has
+							ArrayList<RelationMember> rl =  r.getMembersWithRole("via");
+							boolean foundVia=false;
+							for (int j=0;j<rl.size();j++)
+							{
+								RelationMember viaRm = rl.get(j);
+								OsmElement viaE = viaRm.getElement();
+								Log.d("StorageDelegator", "splitAtNode " + viaE.getOsmId());
+								if (viaE instanceof Node) {
+									if (((Way)rm.getElement()).hasNode((Node)viaE)) {
+										foundVia = true;
+									}
+								} else if (viaE instanceof Way) {
+									if (((Way)rm.getElement()).hasCommonNode((Way)viaE)) {
+										foundVia = true;
+									}
 								}
 							}
-						}
-						Log.d("StorageDelegator", "splitAtNode foundVia " + foundVia);
-						if (!foundVia) {
-							// remove way from relation, add newWay to it
+							Log.d("StorageDelegator", "splitAtNode foundVia " + foundVia);
+							if (!foundVia) {
+								// remove way from relation, add newWay to it
+								RelationMember newMember = new RelationMember(rm.getRole(), newWay);
+								r.replaceMember(rm, newMember);
+								way.removeParentRelation(r); // way is dirty and will be changes anyway 
+								newWay.addParentRelation(r);
+							}
+						} else {
 							RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-							r.replaceMember(rm, newMember);
-							way.removeParentRelation(r); // way is dirty and will be changes anyway 
+							r.addMemberAfter(rm, newMember);
 							newWay.addParentRelation(r);
 						}
+						
 					} else {
 						RelationMember newMember = new RelationMember(rm.getRole(), newWay);
 						r.addMemberAfter(rm, newMember);
 						newWay.addParentRelation(r);
 					}
-					
-				} else {
-					RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-					r.addMemberAfter(rm, newMember);
-					newWay.addParentRelation(r);
+					r.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(r);
 				}
-				r.updateState(OsmElement.STATE_MODIFIED);
-				apiStorage.insertElementSafe(r);
 			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
 	}
 	
@@ -638,55 +698,60 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public void unjoinWays(final Node node) {
 		List<Way> ways = currentStorage.getWays(node);
-		if (ways.size() > 1) {
-			boolean first = true;
-			for (Way way : ways) {
-				if (first) {
-					// first way doesn't need to be changed
-					first = false;
-				} else {
-					// subsequent ways
-					dirty = true;
-					// create a new node that duplicates the given node
-					Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
-					newNode.addTags(node.getTags());
-					insertElementUnsafe(newNode);
-					// replace the given node in the way with the new node
-					undo.save(way);
-					List<Node> nodes = way.getNodes();
-					nodes.set(nodes.indexOf(node), newNode);
-					way.updateState(OsmElement.STATE_MODIFIED);
-					apiStorage.insertElementSafe(way);
-					
-					// check if node is in a relation, if yes, add to new node
-					// should probably check for restrictions
-					if  (node.hasParentRelations()) {
-						ArrayList<Relation> relations = node.getParentRelations();
-						/* iterate through relations, for all except restrictions add the new node to the relation, for now simply after the old node */
-						for (Relation r : relations) {
-							RelationMember rm = r.getMember(node);
-							undo.save(r);
-							String type = r.getTagWithKey("type");
-							if (type != null){
-								if (type.equals("restriction")) {
-									// doing nothing for now at least gives a chance of being right :-)
+		try {
+			if (ways.size() > 1) {
+				boolean first = true;
+				for (Way way : ways) {
+					if (first) {
+						// first way doesn't need to be changed
+						first = false;
+					} else {
+						// subsequent ways
+						dirty = true;
+						// create a new node that duplicates the given node
+						Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
+						newNode.addTags(node.getTags());
+						insertElementUnsafe(newNode);
+						// replace the given node in the way with the new node
+						undo.save(way);
+						List<Node> nodes = way.getNodes();
+						nodes.set(nodes.indexOf(node), newNode);
+						way.updateState(OsmElement.STATE_MODIFIED);
+						apiStorage.insertElementSafe(way);
+						
+						// check if node is in a relation, if yes, add to new node
+						// should probably check for restrictions
+						if  (node.hasParentRelations()) {
+							ArrayList<Relation> relations = node.getParentRelations();
+							/* iterate through relations, for all except restrictions add the new node to the relation, for now simply after the old node */
+							for (Relation r : relations) {
+								RelationMember rm = r.getMember(node);
+								undo.save(r);
+								String type = r.getTagWithKey("type");
+								if (type != null){
+									if (type.equals("restriction")) {
+										// doing nothing for now at least gives a chance of being right :-)
+									} else {
+										RelationMember newMember = new RelationMember(rm.getRole(), newNode);
+										r.addMemberAfter(rm, newMember);
+										newNode.addParentRelation(r);
+									}
+									
 								} else {
 									RelationMember newMember = new RelationMember(rm.getRole(), newNode);
 									r.addMemberAfter(rm, newMember);
 									newNode.addParentRelation(r);
 								}
-								
-							} else {
-								RelationMember newMember = new RelationMember(rm.getRole(), newNode);
-								r.addMemberAfter(rm, newMember);
-								newNode.addParentRelation(r);
+								r.updateState(OsmElement.STATE_MODIFIED);
+								apiStorage.insertElementSafe(r);
 							}
-							r.updateState(OsmElement.STATE_MODIFIED);
-							apiStorage.insertElementSafe(r);
 						}
 					}
 				}
 			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
 	}
 	
@@ -707,7 +772,12 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		way.reverse();
 		way.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(way);
+		try {
+			apiStorage.insertElementSafe(way);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 		return ((dirTags != null) && dirTags.containsKey("oneway"));
 	}
 
@@ -716,27 +786,36 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		way.replaceNode(existingNode, newNode);
 		way.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(way);
+		try {
+			apiStorage.insertElementSafe(way);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 	}
 
 	private int removeWayNodes(final Node node) {
 		// undo - node is not changed, affected way(s) are stored below
 		dirty = true;
-		
 		int deleted = 0;
-		List<Way> ways = currentStorage.getWays(node);
-		for (int i = 0, size = ways.size(); i < size; ++i) {
-			Way way = ways.get(i);
-			undo.save(way);
-			way.removeNode(node);
-			//remove way when less than two waynodes exist
-			if (way.getNodes().size() < 2) {
-				removeWay(way);
-			} else {
-				way.updateState(OsmElement.STATE_MODIFIED);
-				apiStorage.insertElementSafe(way);
+		try {
+			List<Way> ways = currentStorage.getWays(node);
+			for (int i = 0, size = ways.size(); i < size; ++i) {
+				Way way = ways.get(i);
+				undo.save(way);
+				way.removeNode(node);
+				//remove way when less than two waynodes exist
+				if (way.getNodes().size() < 2) {
+					removeWay(way);
+				} else {
+					way.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(way);
+				}
+				deleted++;
 			}
-			deleted++;
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
 		return deleted;
 	}
@@ -749,17 +828,21 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void removeWay(final Way way) {
 		dirty = true;
 		undo.save(way);
-
-		currentStorage.removeWay(way);
-		if (apiStorage.contains(way)) {
-			if (way.getState() == OsmElement.STATE_CREATED) {
-				apiStorage.removeElement(way);
+		try {
+			currentStorage.removeWay(way);
+			if (apiStorage.contains(way)) {
+				if (way.getState() == OsmElement.STATE_CREATED) {
+					apiStorage.removeElement(way);
+				}
+			} else {
+				apiStorage.insertElementUnsafe(way);
 			}
-		} else {
-			apiStorage.insertElementUnsafe(way);
+			removeElementFromRelations(way);
+			way.updateState(OsmElement.STATE_DELETED);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
-		removeElementFromRelations(way);
-		way.updateState(OsmElement.STATE_DELETED);
 	}
 
 	/**
@@ -770,16 +853,20 @@ public class StorageDelegator implements Serializable, Exportable {
 		// undo - node saved here, affected ways saved in removeWayNodes
 		dirty = true;
 		undo.save(relation);
-		
-		if (relation.state == Node.STATE_CREATED) {
-			apiStorage.removeElement(relation);
-		} else {
-			apiStorage.insertElementUnsafe(relation);
+		try {
+			if (relation.state == Node.STATE_CREATED) {
+				apiStorage.removeElement(relation);
+			} else {
+				apiStorage.insertElementUnsafe(relation);
+			}
+			removeElementFromRelations(relation);
+			removeRelationFromMembers(relation);
+			currentStorage.removeRelation(relation);
+			relation.updateState(OsmElement.STATE_DELETED);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
-		removeElementFromRelations(relation);
-		removeRelationFromMembers(relation);
-		currentStorage.removeRelation(relation);
-		relation.updateState(OsmElement.STATE_DELETED);
 	}
 	
 	/**
@@ -801,21 +888,26 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param element
 	 */
 	public void removeElementFromRelations(final OsmElement element) {
-		if (element.hasParentRelations()) {
-			ArrayList<Relation> relations = new ArrayList<Relation>(element.getParentRelations()); // need copy!
-			for (Relation r : relations) {
-				Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
-				dirty = true;
-				undo.save(r);
-				r.removeMember(r.getMember(element));
-				r.updateState(OsmElement.STATE_MODIFIED);
-				apiStorage.insertElementSafe(r);
-				undo.save(element);
-				element.removeParentRelation(r);
-				element.updateState(OsmElement.STATE_MODIFIED);
-				apiStorage.insertElementSafe(element);
-				Log.i("StorageDelegator", "... done");
+		try {
+			if (element.hasParentRelations()) {
+				ArrayList<Relation> relations = new ArrayList<Relation>(element.getParentRelations()); // need copy!
+				for (Relation r : relations) {
+					Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
+					dirty = true;
+					undo.save(r);
+					r.removeMember(r.getMember(element));
+					r.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(r);
+					undo.save(element);
+					element.removeParentRelation(r);
+					element.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(element);
+					Log.i("StorageDelegator", "... done");
+				}
 			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
 		}
 	}
 	
@@ -827,14 +919,19 @@ public class StorageDelegator implements Serializable, Exportable {
 		Log.i("StorageDelegator", "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
 		dirty = true;
 		undo.save(r);
-		r.removeMember(r.getMember(element));
-		r.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(r);
-		undo.save(element);
-		element.removeParentRelation(r);
-		element.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(element);
-		Log.i("StorageDelegator", "... done");
+		try {
+			r.removeMember(r.getMember(element));
+			r.updateState(OsmElement.STATE_MODIFIED);
+			apiStorage.insertElementSafe(r);
+			undo.save(element);
+			element.removeParentRelation(r);
+			element.updateState(OsmElement.STATE_MODIFIED);
+			apiStorage.insertElementSafe(element);
+			Log.i("StorageDelegator", "... done");
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 	}
 	
 	/*
@@ -846,7 +943,12 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(r);
 		r.removeMember(r.getMember(type, elementId));
 		r.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(r);
+		try {
+			apiStorage.insertElementSafe(r);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 		//
 		Log.i("StorageDelegator", "... done");
 	}
@@ -864,7 +966,12 @@ public class StorageDelegator implements Serializable, Exportable {
 			e.addParentRelation(rel);
 
 			rel.updateState(OsmElement.STATE_MODIFIED);
-			apiStorage.insertElementSafe(rel);
+			try {
+				apiStorage.insertElementSafe(rel);
+			} catch (StorageException sex) {
+				//TODO handle OOM
+				sex.printStackTrace();
+			}
 		}
 		else {
 			Log.w("StorageDelegator", "element #" + e.getOsmId() + " already in relation #" + rel.getOsmId());
@@ -889,7 +996,12 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.replaceMember(oldRm, rm);
 		
 		rel.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(rel);
+		try {
+			apiStorage.insertElementSafe(rel);
+		} catch (StorageException sex) {
+			//TODO handle OOM
+			sex.printStackTrace();
+		}
 		Log.w("StorageDelegator", "set role for #" + e.getOsmId() + " to " + role + " in relation #" + rel.getOsmId());
 	}
 	
@@ -911,7 +1023,12 @@ public class StorageDelegator implements Serializable, Exportable {
 		rel.replaceMember(oldRm, rm);
 		
 		rel.updateState(OsmElement.STATE_MODIFIED);
-		apiStorage.insertElementSafe(rel);
+		try {
+			apiStorage.insertElementSafe(rel);
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
 		Log.w("StorageDelegator", "set role for #" + elementId+ " to " + role + " in relation #" + rel.getOsmId());
 	}
 	
@@ -1016,21 +1133,25 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom ) {
 		ArrayList<Relation> fromRelations = new ArrayList<Relation>(mergeFrom.getParentRelations()); // copy just to be safe
 		ArrayList<Relation> toRelations = mergeInto.getParentRelations();
-		for (Relation r : fromRelations) {
-			if (!toRelations.contains(r)) {
-				dirty = true;
-				undo.save(r);
-				RelationMember rm = r.getMember(mergeFrom);
-				// create new member with same role
-				RelationMember newRm = new RelationMember(rm.getRole(), mergeInto);
-				// insert at same place
-				r.replaceMember(rm, newRm);
-				r.updateState(OsmElement.STATE_MODIFIED);
-				apiStorage.insertElementSafe(r);
-				mergeInto.addParentRelation(r);
-				mergeInto.updateState(OsmElement.STATE_MODIFIED);
-				apiStorage.insertElementSafe(mergeInto);
+		try {
+			for (Relation r : fromRelations) {
+				if (!toRelations.contains(r)) {
+					dirty = true;
+					undo.save(r);
+					RelationMember rm = r.getMember(mergeFrom);
+					// create new member with same role
+					RelationMember newRm = new RelationMember(rm.getRole(), mergeInto);
+					// insert at same place
+					r.replaceMember(rm, newRm);
+					r.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(r);
+					mergeInto.addParentRelation(r);
+					mergeInto.updateState(OsmElement.STATE_MODIFIED);
+					apiStorage.insertElementSafe(mergeInto);
+				}
 			}
+		} catch (StorageException sex) {
+			//TODO handle OOM
 		}
 	}
 	
@@ -1208,6 +1329,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			return;
 		}
 		
+		// TODO this doesn't really help with error conditions need to throw exception
 		if (savingHelper.save(FILENAME, this, true)) { 
 			dirty = false;
 		}

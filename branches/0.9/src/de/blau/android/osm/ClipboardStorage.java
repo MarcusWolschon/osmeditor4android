@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.blau.android.exception.StorageException;
+
 import android.util.Log;
 
 public class ClipboardStorage implements Serializable  {
@@ -52,7 +54,13 @@ public class ClipboardStorage implements Serializable  {
 		selectionLat = lat;
 		selectionLon = lon;
 		mode = Mode.COPY;
-		storage.insertElementUnsafe(e);
+		
+		try {
+			storage.insertElementUnsafe(e);
+		} catch (StorageException sex) {
+			// TODO handle oom situation
+			sex.printStackTrace();
+		}
 	}
 	
 	/**

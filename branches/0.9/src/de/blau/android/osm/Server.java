@@ -43,6 +43,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
+import de.blau.android.DialogFactory;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
@@ -255,7 +256,7 @@ public class Server {
 		//--Start: got response header
 		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 
-		// retry if we have no resopnse-code
+		// retry if we have no response-code
 		if (con.getResponseCode() == -1) {
 			Log.w(getClass().getName()+ ":getStreamForBox", "no valid http response-code, trying again");
 			con = (HttpURLConnection) url.openConnection();
@@ -744,6 +745,10 @@ public class Server {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
 		} catch (IOException e) {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+		} catch (OutOfMemoryError e) {
+			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+			// TODO ask the user to exit
+			return new ArrayList<Bug>(); // empty list
 		}
 		
 

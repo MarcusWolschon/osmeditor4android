@@ -47,6 +47,10 @@ public class DialogFactory {
 	
 	public static final int DATA_CONFLICT = 10;
 	
+	public static final int OUT_OF_MEMORY = 11;
+
+	public static final int OUT_OF_MEMORY_DIRTY = 12;
+	
 	private final Main caller;
 	
 	private final Builder noLoginDataSet;
@@ -64,6 +68,10 @@ public class DialogFactory {
 	private final Builder openStreetBugEdit;
 	
 	private final Builder dataConflict;
+	
+	private final Builder outOfMemory;
+	
+	private final Builder outOfMemoryDirty;
 	
 	/**
 	 * @param caller
@@ -111,6 +119,13 @@ public class DialogFactory {
 	
 		dataConflict = createBasicDialog(R.string.data_conflict_title, R.string.data_conflict_message);
 		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
+		
+		// displaying these dialogs might make things worse
+		outOfMemory = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_message);
+		outOfMemory.setPositiveButton(R.string.okay, doNothingListener);
+		
+		outOfMemoryDirty = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
+		outOfMemoryDirty.setPositiveButton(R.string.okay, doNothingListener);
 	}
 	
 	/**
@@ -149,6 +164,12 @@ public class DialogFactory {
 		
 		case DATA_CONFLICT:
 			return dataConflict.create();
+		
+		case OUT_OF_MEMORY:
+			return outOfMemory.create();
+			
+		case OUT_OF_MEMORY_DIRTY:
+			return outOfMemoryDirty.create();
 		}
 		
 		return null;
