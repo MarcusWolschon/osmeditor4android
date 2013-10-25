@@ -306,8 +306,8 @@ public class Server {
 				Context mainCtx = Application.mainActivity.getApplicationContext();
 				Toast.makeText(mainCtx,
 					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
-			} catch (java.util.IllegalFormatFlagsException iffex) {
-			  	// do nothing ... this is stop bugs in the Android format parsing crashing the upload, 
+			} catch (Exception ex) {
+			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, 
 			}
 		}
 	}
