@@ -58,7 +58,6 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Analizatua</string>
   <string name="tag_menu_preset">Aurrezarpenak</string>
-  <string name="tag_menu_repeat">Errepikatu</string>
   <string name="tag_menu_revert">Leheneratu</string>
   <string name="tag_menu_mapfeatures">Mapa ezaugarrien Wikia</string>
   <string name="tag_menu_addtorelation">Erlaziora gehitu</string>

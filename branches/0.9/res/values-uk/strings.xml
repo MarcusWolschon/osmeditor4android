@@ -61,7 +61,6 @@
   <string name="value">значення</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Uk:Map_Features</string>
   <string name="tag_menu_preset">Заготовки</string>
-  <string name="tag_menu_repeat">Повторити</string>
   <string name="tag_menu_mapfeatures">Умовні позначення</string>
   <string name="tag_menu_addtorelation">Додати у зв’язок</string>
   <string name="tag_menu_resetMRU">Скинути заготовки</string>

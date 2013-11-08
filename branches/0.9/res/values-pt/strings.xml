@@ -68,7 +68,6 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Mapeado</string>
   <string name="tag_menu_preset">Prédefinições</string>
-  <string name="tag_menu_repeat">Repetir</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki de Entidades do Mapa</string>
   <string name="tag_menu_addtorelation">Adicionar à relação</string>

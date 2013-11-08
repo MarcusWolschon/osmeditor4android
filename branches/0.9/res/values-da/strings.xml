@@ -43,7 +43,6 @@
   <string name="key">nøgle</string>
   <string name="value">værdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
-  <string name="tag_menu_repeat">Gentag</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Indlæs område</string>

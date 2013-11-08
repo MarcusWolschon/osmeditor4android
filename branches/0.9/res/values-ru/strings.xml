@@ -59,7 +59,6 @@
   <string name="value">значение</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/RU:Map_Features</string>
   <string name="tag_menu_preset">Заготовки</string>
-  <string name="tag_menu_repeat">Повторить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
   <string name="tag_menu_addtorelation">Добавить к отношению</string>
   <string name="tag_menu_resetMRU">Сбросить заготовки</string>

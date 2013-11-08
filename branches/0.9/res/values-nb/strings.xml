@@ -46,7 +46,6 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Kartlagt</string>
   <string name="tag_menu_preset">Knapper</string>
-  <string name="tag_menu_repeat">Gjenta</string>
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_menu_mapfeatures">Map features wiki</string>
   <!--Strings in LocationPicker-->

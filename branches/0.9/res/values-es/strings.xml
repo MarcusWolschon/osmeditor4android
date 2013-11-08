@@ -55,7 +55,6 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Encuestado</string>
   <string name="tag_menu_preset">Preajustes</string>
-  <string name="tag_menu_repeat">Repetir</string>
   <string name="tag_menu_revert">Revertir</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <string name="tag_menu_resetMRU">Reajustar Predeterminados</string>

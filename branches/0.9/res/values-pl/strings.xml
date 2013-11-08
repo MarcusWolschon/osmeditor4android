@@ -68,7 +68,6 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>
   <string name="tag_menu_sourcesurvey">Oceniony</string>
   <string name="tag_menu_preset">Szablony</string>
-  <string name="tag_menu_repeat">Powtórz</string>
   <string name="tag_menu_revert">Cofnij</string>
   <string name="tag_menu_mapfeatures">Podstawy (Wiki)</string>
   <string name="tag_menu_addtorelation">Dodaj do relacji</string>

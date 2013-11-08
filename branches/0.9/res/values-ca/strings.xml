@@ -45,7 +45,6 @@
   <string name="key">clau</string>
   <string name="value">valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Ca:Map_Features</string>
-  <string name="tag_menu_repeat">Repeteix</string>
   <string name="tag_menu_revert">Reverteix</string>
   <string name="tag_menu_addtorelation">Afegeix a la relació</string>
   <string name="tag_menu_exit_no_save">Surt\nsense desar</string>

@@ -62,7 +62,6 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
   <string name="tag_menu_sourcesurvey">Surveyed</string>
   <string name="tag_menu_preset">Définitions</string>
-  <string name="tag_menu_repeat">Répéter</string>
   <string name="tag_menu_revert">Annuler</string>
   <string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Ajouter à la relation</string>
