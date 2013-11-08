@@ -1328,7 +1328,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			Log.i("StorageDelegator", "storage delegator not dirty, skipping save");
 			return;
 		}
-		
+
 		// TODO this doesn't really help with error conditions need to throw exception
 		if (savingHelper.save(FILENAME, this, true)) { 
 			dirty = false;
@@ -1701,8 +1701,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		return currentStorage.getBoundingBoxes().get(getBoundingBoxes().size()-1);
 	}
 
-
-
-
-
+	/**
+	 * for debugging only
+	 */
+	public void logStorage() {
+		Log.d("StorageDelegator","storage dirty? " + isDirty());
+		Log.d("StorageDelegator","currentStorage");
+		currentStorage.logStorage();
+		Log.d("StorageDelegator","apiStorage");
+		apiStorage.logStorage();
+	}
 }

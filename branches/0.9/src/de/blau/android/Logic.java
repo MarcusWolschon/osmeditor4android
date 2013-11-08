@@ -1559,6 +1559,7 @@ public class Logic {
 						e.printStackTrace();
 					}
 					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+					loadEditingState();
 					map.invalidate();
 					UndoStorage.updateIcon();
 				}

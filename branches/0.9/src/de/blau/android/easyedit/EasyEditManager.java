@@ -142,11 +142,11 @@ public class EasyEditManager {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
 				main.startActionMode(new NodeSelectionActionModeCallback(possibleNode));
-				main.performTagEdit(possibleNode, null);
+				main.performTagEdit(possibleNode, null, false);
 			}
 		} else { // way was added
 			main.startActionMode(new WaySelectionActionModeCallback(possibleWay));
-			main.performTagEdit(possibleWay, null);		
+			main.performTagEdit(possibleWay, null, false);		
 		}
 	}
 	
@@ -570,11 +570,14 @@ public class EasyEditManager {
 	 */
 	private abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 		private static final int MENUITEM_TAG = 1;
+
 		private static final int MENUITEM_DELETE = 2;
 		private static final int MENUITEM_HISTORY = 3; 
 		private static final int MENUITEM_COPY = 4;
 		private static final int MENUITEM_CUT = 5;
 		private static final int MENUITEM_RELATION = 6;
+		
+		private static final int MENUITEM_TAG_LAST = 20;
 		
 		
 		protected OsmElement element = null;
@@ -593,7 +596,7 @@ public class EasyEditManager {
 		public boolean handleElementClick(OsmElement element) {
 			super.handleElementClick(element);
 			if (element == this.element) {
-				main.performTagEdit(element, null);
+				main.performTagEdit(element, null, false);
 				return true;
 			}
 			return false;
@@ -604,12 +607,12 @@ public class EasyEditManager {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags);
-			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.tag_menu_delete);
-
+			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
 				menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy);
 				menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut);
 			}
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.tag_menu_delete);
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation);
 			if (element.getOsmId() > 0){
 				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.CATEGORY_SECONDARY, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
@@ -621,7 +624,8 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
-			case MENUITEM_TAG: main.performTagEdit(element, null); break;
+			case MENUITEM_TAG: main.performTagEdit(element, null, false); break;
+			case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
 			case MENUITEM_COPY: logic.copyToClipboard(element); break;
@@ -705,7 +709,7 @@ public class EasyEditManager {
 				case MENUITEM_JOIN:
 					if (!logic.performJoin(joinableElement, (Node)element)) {
 						Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
-						main.performTagEdit((Node)element, null);
+						main.performTagEdit((Node)element, null, false);
 					} else {
 						mode.finish();
 					}
@@ -808,14 +812,14 @@ public class EasyEditManager {
 						public void onClick(DialogInterface dialog, int which) {
 							if (logic.performReverse(way)) { // true if it had oneway tag
 								Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
-								main.performTagEdit(way, null);
+								main.performTagEdit(way, null, false);
 							}
 						}
 					})
 				.show();		
 			} else if (logic.performReverse(way)) { // true if it had oneway tag
 				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
-				main.performTagEdit(way, null);
+				main.performTagEdit(way, null, false);
 			}
 		}
 		
@@ -969,9 +973,9 @@ public class EasyEditManager {
 			if (!logic.performMerge(way, (Way)element)) {
 				Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
 				if (way.getState() != OsmElement.STATE_DELETED)
-					main.performTagEdit(way, null);
+					main.performTagEdit(way, null, false);
 				else
-					main.performTagEdit(element, null);
+					main.performTagEdit(element, null, false);
 			} else {
 				if (way.getState() != OsmElement.STATE_DELETED)
 					main.startActionMode(new WaySelectionActionModeCallback(way));
@@ -1220,7 +1224,7 @@ public class EasyEditManager {
 			logic.addSelectedRelationWay(toWay);
 			Relation restriction = logic.createRestriction(fromWay, viaElement, toWay, fromWay == toWay ? NO_U_TURN_VALUE : null);
 			Log.i("EasyEdit", "Created restriction");
-			main.performTagEdit(restriction, RESTRICTION_TAG);
+			main.performTagEdit(restriction, RESTRICTION_TAG, false);
 			main.startActionMode(new RelationSelectionActionModeCallback(restriction));
 			return false; // we are actually already finished
 		}
@@ -1340,10 +1344,10 @@ public class EasyEditManager {
 			if (!backPressed) {
 				if (members.size() > 0) { // something was actually added
 					if (relation == null)
-						main.performTagEdit(logic.createRelation(null, members),"type");
+						main.performTagEdit(logic.createRelation(null, members),"type", false);
 					else {
 						logic.addMembers(relation, members);
-						main.performTagEdit(relation, null);
+						main.performTagEdit(relation, null, false);
 					}
 				}
 			}

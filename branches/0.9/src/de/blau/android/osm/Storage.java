@@ -248,4 +248,20 @@ public class Storage implements Serializable {
 		 }
 		 return false;
 	}
+
+	public void logStorage() {
+		// 
+		for (Node n:nodes) {
+			Log.d("Storage","Node " + n.getOsmId());
+			for (String k:n.getTags().keySet()) {
+				Log.d("Storage",k + "=" + n.getTags().get(k));
+			}
+		}
+		for (Way w:ways) {
+			Log.d("Storage","Way " + w.getOsmId());
+			for (String k:w.getTags().keySet()) {
+				Log.d("Storage",k + "=" + w.getTags().get(k));
+			}
+		}
+	}
 }

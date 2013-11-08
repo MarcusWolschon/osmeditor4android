@@ -28,7 +28,10 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -68,6 +71,7 @@ import de.blau.android.util.SavingHelper;
  */
 public class TagEditor extends SherlockActivity implements OnDismissListener, OnItemSelectedListener {
 	public static final String TAGEDIT_DATA = "dataClass";
+	public static final String TAGEDIT_LASTTAGS = "applyLastTags";
 	
 	/** The layout containing the entire editor */
 	private LinearLayout verticalLayout = null;
@@ -101,6 +105,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	
 	private TagEditorData loadData;
 	
+	private boolean applyLastTags = false;
+	
 	/**
 	 * Handles "enter" key presses.
 	 */
@@ -133,7 +139,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private PresetItem autocompletePresetItem = null;
 	Preset preset = null;
 	
-	private static final String LAST_TAGS_FILE = "lasttags.dat"; 
+	private static final String LAST_TAGS_FILE = "lasttags.dat";
+ 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
 	
@@ -311,11 +318,14 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from intent");
 			loadData = (TagEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
+			applyLastTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LASTTAGS); 
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
 			loadData = (TagEditorData)savedInstanceState.getSerializable(TAGEDIT_DATA);
+			// applyLastTags = (Boolean)savedInstanceState.getSerializable(TAGEDIT_LASTTAGS); not saved 
 		}
+
 		Log.d(DEBUG_TAG, "... done.");
 		osmId = loadData.osmId;
 		type = loadData.type;
@@ -348,6 +358,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		} else {
 			focusOnEmptyValue(); // probably never actually works
 		}
+		
+		// 
+		if (applyLastTags) doRepeatLast(true);
 	}
 	
 	@Override
@@ -424,8 +437,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 	}
 	
-	private void doRepeatLast() {
-		final Map<String, String> last = savingHelper.load(LAST_TAGS_FILE, false);
+	private void doRepeatLast(boolean merge) {
+		Map<String, String> last = savingHelper.load(LAST_TAGS_FILE, false);
+		if (merge) {
+			final Map<String, String> current = getKeyValueMap(false);
+			for (String k: current.keySet()) {
+				if (!last.containsKey(k)) {
+					last.put(k, current.get(k));
+				}
+			}
+		}
 		if (last != null) {
 			loadEdits(last);
 		}
@@ -540,7 +561,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			doPresets();
 			return true;
 		case R.id.tag_menu_repeat:
-			doRepeatLast();
+			doRepeatLast(true);
 			return true;
 		case R.id.tag_menu_revert:
 			doRevert();
@@ -713,7 +734,17 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 				public void onFocusChange(View v, boolean hasFocus) {
 					if (hasFocus) {
 						valueEdit.setAdapter(getValueAutocompleteAdapter());
-						if (running && valueEdit.getText().length() == 0) valueEdit.showDropDown();
+						if (running) {
+							if (valueEdit.getText().length() == 0) valueEdit.showDropDown();
+//							try { // hack to display numeric keyboard for numeric tag values
+//								  // unluckily thre is then no way to get an alpha-numeric keyboard
+//								int number = Integer.parseInt(valueEdit.getText().toString());
+//								valueEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
+//							} catch (NumberFormatException nfe) {
+//								// do nothing
+//							}
+						}
+						
 					}
 				}
 			});

@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
+import android.util.Log;
 import de.blau.android.R;
 
 public abstract class OsmElement implements Serializable, XmlSerializable {

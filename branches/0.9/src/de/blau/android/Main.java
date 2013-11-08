@@ -357,8 +357,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		} else if (loadOnResume) {
 			loadOnResume = false;
 			logic.loadFromFile(getApplicationContext());
+		} else { // loadFromFile already does this
+			logic.loadEditingState();
 		}
-		logic.loadEditingState();
 		if (currentPreset == null) {
 			currentPreset = prefs.getPreset();
 		}
@@ -530,7 +531,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			OsmElement e = logic.getSelectedWay();
 			if (e == null) e = logic.getSelectedNode();
 			else logic.setSelectedNode(null);
-			if (e != null) performTagEdit(e, null);
+			if (e != null) performTagEdit(e, null, false);
 		}
 		return true;
 	}
@@ -1033,8 +1034,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * @param selectedElement
 	 * @param focusOn if not null focus on the value field of this key
+	 * @param applyLastTags TODO
 	 */
-	public void performTagEdit(final OsmElement selectedElement, String focusOn) {
+	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastTags) {
 		if (selectedElement instanceof Node) {
 			logic.setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
@@ -1045,6 +1047,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic.delegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 				startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement, focusOn));
+				startTagEditor.putExtra(TagEditor.TAGEDIT_LASTTAGS, Boolean.valueOf(applyLastTags));
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
@@ -1057,9 +1060,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	public void onBackPressed() {
 		// super.onBackPressed();
 		Log.d("Main","onBackPressed()");
-		String name = logic.getUndo().undo();
-		if ((name != null) && (prefs.useBackForUndo())) {
-			Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+		if (prefs.useBackForUndo()) {
+			String name = logic.getUndo().undo();
+			if (name != null)
+				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 		} else {
 		    new AlertDialog.Builder(this)
 	        .setTitle(R.string.exit_title)
@@ -1306,7 +1310,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				if (clickedBugs != null && clickedBugs.size() == 1) {
 					performBugEdit(clickedBugs.get(0));
 				} else {
-					performTagEdit(clickedNodesAndWays.get(0), null);
+					performTagEdit(clickedNodesAndWays.get(0), null, false);
 				}
 				break;
 			default:
@@ -1547,7 +1551,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {
 					case MODE_TAG_EDIT:
-						performTagEdit(element, null);
+						performTagEdit(element, null, false);
 						break;
 					case MODE_ERASE:
 						if (element.hasParentRelations()) {
