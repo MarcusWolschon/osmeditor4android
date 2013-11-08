@@ -73,7 +73,7 @@
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>
     <string name="tag_menu_preset">Presets</string>
-    <string name="tag_menu_repeat">Repeat</string>
+    <string name="tag_menu_repeat">Repeat tags</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map Features Wiki</string>
     <string name="tag_menu_addtorelation">Add to relation</string>

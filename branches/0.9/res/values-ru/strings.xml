@@ -52,6 +52,8 @@
   <string name="cancel">Отменить</string>
   <string name="locked">Заблокировано</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Действительно выйти?</string>
+  <string name="exit_text">Вы действительно хотите выйти?</string>
   <!--Strings in TagEditor-->
   <string name="key">ключ</string>
   <string name="value">значение</string>
@@ -61,6 +63,7 @@
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
   <string name="tag_menu_addtorelation">Добавить к отношению</string>
   <string name="tag_menu_resetMRU">Сбросить заготовки</string>
+  <string name="tag_menu_exit_no_save">Выйти\nбез сохранения</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Область скачивания</string>
   <string name="location_choose_radius">Выберите радиус:</string>

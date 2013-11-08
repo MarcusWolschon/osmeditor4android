@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cẩn thận!</string>
   <string name="transfer_download_current_dialog_message">Bạn đã thực hiện một số thay đổi. Bạn có muốn tải lên các thay đổi thay vì vứt bỏ chúng?</string>
@@ -16,6 +16,9 @@
   <string name="wrong_login_data_message">Máy chủ OSM không thể xác nhận bạn. Xin vui lòng kiểm tra dữ liệu đăng nhập của bạn trong tùy chỉnh.</string>
   <string name="data_conflict_title">Xung đột về Số Phiên bản</string>
   <string name="data_conflict_message">Không thể tải về dữ liệu này vì nó mâu thuẫn với các sửa đổi của bạn. Xin vui lòng thử tải lên dữ liệu của bạn trước khi thử lại.</string>
+  <string name="out_of_memory_title">Hết Bộ nhớ</string>
+  <string name="out_of_memory_message">Việc tải dữ liệu yêu cầu chiếm hết bộ nhớ. Xin vui lòng khởi động lại và thử tải một khu vực nhỏ hơn.</string>
+  <string name="out_of_memory_dirty_message">Việc tải dữ liệu yêu cầu chiếm hết bộ nhớ. Xin vui lòng thử lưu các sửa đổi của bạn, khởi động lại, và thử tải một khu vực nhỏ hơn.</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
   <string name="progress_download_message">Đang tải về dữ liệu từ máy chủ…</string>
@@ -53,6 +56,8 @@
   <string name="toast_unread_mail">Bạn có %1$s thư chưa đọc trên máy chủ OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
+  <string name="toast_download_bbox_failed">Thất bại khi tải về, có lẽ vì khu vực được chọn quá lớn.</string>
+  <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
   <!--Some generic labels-->
   <string name="yes">Có</string>
   <string name="no">Không</string>

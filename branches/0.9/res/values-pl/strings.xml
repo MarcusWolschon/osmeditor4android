@@ -16,6 +16,7 @@
   <string name="wrong_login_data_message">Błąd logowania. Sprawdź poprawność swoich danych w ustawieniach.</string>
   <string name="data_conflict_title">Konflikt wersji</string>
   <string name="data_conflict_message">Dane, które próbujesz pobrać zawiera dane, które jest sprzeczne z wprowadzonymi zmianami. Najpierw spróbuj przesłać swoje dane przed ponowną próbą.</string>
+  <string name="out_of_memory_title">Brak pamięci</string>
   <string name="progress_title">Ładowanie</string>
   <string name="progress_message">Ładowanie danych do pamięci…</string>
   <string name="progress_download_message">Pobieranie danych z serwera…</string>

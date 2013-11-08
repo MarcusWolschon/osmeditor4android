@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderungen hochladen, anstatt sie zu verwerfen?</string>
@@ -16,6 +16,9 @@
   <string name="wrong_login_data_message">Der OSM-Server konnte Sie nicht authentifizieren. Bitte überprüfen Sie ihren Login in den Einstellungen.</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Die Daten enhalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
+  <string name="out_of_memory_title">Kein freier Speicher mehr.</string>
+  <string name="out_of_memory_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte neu starten und ein kleineres Gebiet versuchen.</string>
+  <string name="out_of_memory_dirty_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte die bereits gemachten Änderungen speichern, neu starten und ein kleineres Gebiet versuchen.</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
   <string name="progress_download_message">Lade Daten vom Server…</string>
@@ -53,6 +56,8 @@
   <string name="toast_unread_mail">Es hat %1$s ungelesene Nachricht(en) auf dem OpenStreetmap Server</string>
   <string name="toast_photo_indexing_started">Suche nach geo-refenzierte Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach geo-refenzierte Fotos beendet</string>
+  <string name="toast_download_bbox_failed">Download fehlgeschlagen, wahrscheinlich was das ausgewählte Gebiet zu gross.</string>
+  <string name="toast_download_failed">Downlod ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
   <!--Some generic labels-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
