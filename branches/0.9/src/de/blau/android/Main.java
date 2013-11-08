@@ -1064,19 +1064,28 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			String name = logic.getUndo().undo();
 			if (name != null)
 				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
-		} else {
-		    new AlertDialog.Builder(this)
-	        .setTitle(R.string.exit_title)
-	        .setMessage(R.string.exit_text)
-	        .setNegativeButton(R.string.no, null)
-	        .setPositiveButton(R.string.yes, 
-	        	new DialogInterface.OnClickListener() {
-		            public void onClick(DialogInterface arg0, int arg1) {
-		                Main.super.onBackPressed();
-		            }
-	        }).create().show();
-		}
+			else
+				exitOnBackPressed();
+		} else 
+			exitOnBackPressed();
 	}
+		
+	/**
+	 * pop up a dialog asking for confirmation and exit
+	 */
+	void exitOnBackPressed() {
+	    new AlertDialog.Builder(this)
+        .setTitle(R.string.exit_title)
+        .setMessage(R.string.exit_text)
+        .setNegativeButton(R.string.no, null)
+        .setPositiveButton(R.string.yes, 
+        	new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface arg0, int arg1) {
+	                Main.super.onBackPressed();
+	            }
+        }).create().show();
+	}
+		
 	
 	/**
 	 * catch back button in action modes where onBackPressed is not invoked
