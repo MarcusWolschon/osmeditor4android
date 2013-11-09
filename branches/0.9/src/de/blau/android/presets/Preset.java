@@ -256,6 +256,7 @@ public class Preset {
             	} else if ("optional".equals(name)) {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
+                    Log.d("Preset","PresetItem: " + currentItem.toString());
             		currentItem = null;
             	}
             }
@@ -416,13 +417,20 @@ public class Preset {
 		
 		// Find best
 		for (PresetItem possibleMatch : possibleMatches) {
-			if (possibleMatch.getTagCount() <= bestMatchStrength) continue; // isn't going to help
-			if (possibleMatch.matches(tags)) {
-				bestMatch = possibleMatch;
-				bestMatchStrength = bestMatch.getTagCount();
+			if ((possibleMatch.getTagCount() <= bestMatchStrength) && (possibleMatch.getRecommendedTags().size()) <= bestMatchStrength) continue; // isn't going to help
+			if (possibleMatch.getTagCount() > 0) { // has required tags
+				if (possibleMatch.matches(tags)) {
+					bestMatch = possibleMatch;
+					bestMatchStrength = bestMatch.getTagCount();
+				}
+			} else if (possibleMatch.getRecommendedTags().size() > 0) {
+				int matches = possibleMatch.matchesRecommended(tags);
+				if (matches > bestMatchStrength) {
+					bestMatch = possibleMatch;
+					bestMatchStrength = matches;
+				}
 			}
 		}
-		
 		return bestMatch;
 	}
 	
@@ -577,6 +585,11 @@ public class Preset {
 				if (parent != null) parent.setAppliesToRelation();
 			}
 		}
+		
+		@Override
+		public String toString() {
+			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation;
+		}
 	}
 	
 	/**
@@ -721,6 +734,10 @@ public class Preset {
 		public void addTag(boolean optional, String key, String values) {
 			String[] valueArray = (values == null) ? new String[0] : values.split(",");
 			
+			for (String v:valueArray) {
+				tagItems.add(key+"\t"+v, this);
+			}
+			
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
@@ -770,6 +787,28 @@ public class Preset {
 			}
 			return true;
 		}
+		
+		/**
+		 * Returns the number of matches between the list of recommended tags (really a misnomer) and the provided tags
+		 * @param tagSet
+		 * @return number of matches
+		 */
+		public int matchesRecommended(Map<String,String> tagSet) {
+			int matches = 0;
+			for (Entry<String, String[]> tag : recommendedTags.entrySet()) { // for each own tag
+				String otherTagValue = tagSet.get(tag.getKey());
+				if (otherTagValue != null) {
+					for (String v:tag.getValue()) {
+						if (v.equals(otherTagValue)) {
+							matches++;
+							break;
+						}
+					}
+				}
+			}
+			return matches;
+		}
+		
 
 		@Override
 		public View getView(Context ctx, final PresetClickHandler handler) {
@@ -794,6 +833,30 @@ public class Preset {
 
 		public int getItemIndex() {
 			return itemIndex;
+		}
+		
+		@Override
+		public String toString() {
+			String tagStrings = "";
+			tagStrings = " required: ";
+			for (String k:tags.keySet()) {
+				tagStrings = tagStrings + " " + k + "=" + tags.get(k);
+			}
+			tagStrings = tagStrings + " recommended: ";
+			for (String k:recommendedTags.keySet()) {
+				tagStrings = tagStrings + " " + k + "="; 
+				for (String v:recommendedTags.get(k)) {
+					tagStrings = tagStrings + " " + v;
+				}
+			}
+			tagStrings = tagStrings + " optional: ";
+			for (String k:optionalTags.keySet()) {
+				tagStrings = tagStrings + " " + k + "=";
+				for (String v:optionalTags.get(k)) {
+					tagStrings = tagStrings + " " + v;
+				}
+			}
+			return super.toString() + tagStrings;
 		}
 	}
 	

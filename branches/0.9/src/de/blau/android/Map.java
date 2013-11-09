@@ -543,11 +543,13 @@ public class Map extends View implements IMapView {
 				canvas.drawCircle(x, y, 10, paint2);
 				String text = node.getTagWithKey("addr:housenumber");
 				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + 3, paint2);
+				return; // don't want to be covered by icon
 			} else if (node.isTagged()) {
 				canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
 			} else { //TODO: draw other known elements different too
 				// draw regular nodes
 				canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());
+				return; // no tags -> no icon, so we can exit here
 			}
 			
 			if (showIcons && tmpPreset != null && !featureKey.equals(Profile.SELECTED_NODE)) paintNodeIcon(node, canvas, x, y);
