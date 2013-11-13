@@ -93,6 +93,20 @@
 	/>
 	
 	<item
+		android:id="@+id/menu_tools"
+		android:title="@string/menu_tools"
+		android:showAsAction="ifRoom"
+	>	
+		<menu>
+				<item
+					android:id="@+id/menu_tools_flush_tile_cache"
+					android:title="@string/menu_tools_flush_tile_cache"
+				/>
+	
+		</menu>
+	</item>
+	
+	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"
 		android:alphabeticShortcut="h"

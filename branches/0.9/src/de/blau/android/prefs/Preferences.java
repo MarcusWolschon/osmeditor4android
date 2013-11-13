@@ -45,6 +45,8 @@ public class Preferences {
 	private float gpsDistance;
 	
 	private float maxStrokeWidth;
+	
+	private int tileCacheSize; // in MB
 
 	private boolean forceContextMenu;
 	
@@ -79,6 +81,12 @@ public class Preferences {
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
 			maxStrokeWidth = 16;
+		}
+		try {
+			tileCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
+			tileCacheSize = 100;
 		}
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
@@ -116,6 +124,14 @@ public class Preferences {
 	public float getMaxStrokeWidth() {
 		return maxStrokeWidth;
 	}
+	
+	/**
+	 * @return the size of the tile cache in MB
+	 */
+	public int getTileCacheSize() {
+		return tileCacheSize;
+	}
+	
 	/**
 	 * @return
 	 */

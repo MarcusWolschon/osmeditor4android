@@ -3,6 +3,7 @@
     <!-- Preference keys -->
     <string name="config_showStats_key">showStats</string>
     <string name="config_maxStrokeWidth_key">maxStrokeWidth</string>
+    <string name="config_tileCacheSize_key">tileCacheSize</string>
     <string name="config_showTolerance_key">showTolerance</string>
     <string name="config_enableAntiAliasing_key">enableAntiAliasing</string>
     <string name="config_enableOpenStreetBugs_key">enableOpenStreetBugs</string>

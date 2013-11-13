@@ -63,7 +63,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	public OpenStreetMapTileFilesystemProvider(final Context ctx, final int aMaxFSCacheByteSize) {
 		mCtx = ctx;
 		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
-		mDatabase = new OpenStreetMapTileProviderDataBase(ctx);
+		mDatabase = new OpenStreetMapTileProviderDataBase(ctx, this);
 		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
 		mThreadPool = Executors.newFixedThreadPool(2);
 
@@ -80,6 +80,19 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	public int getCurrentFSCacheByteSize() {
 		return mCurrentFSCacheByteSize;
 	}
+
+
+	// ===========================================================
+	// Methods from SuperClass/Interfaces
+	// ===========================================================
+
+	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
+		return new TileLoader(aTile, aCallback);
+	};
+	
+	// ===========================================================
+	// Methods
+	// ===========================================================
 
 	public void saveFile(final OpenStreetMapTile tile, final byte[] someData) throws IOException{
 		final OutputStream bos = getOutput(tile);
@@ -125,19 +138,20 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		}
 	}
 
-	// ===========================================================
-	// Methods from SuperClass/Interfaces
-	// ===========================================================
-
-	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
-		return new TileLoader(aTile, aCallback);
-	};
+	/**
+	 * delete tiles for specific provider
+	 * @param rendererID
+	 */
+	public void flushCache(String rendererID) {
+		try {
+			mDatabase.flushCache(rendererID);
+		} catch (EmptyCacheException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	// ===========================================================
-	// Methods
-	// ===========================================================
-
-	private String buildPath(final OpenStreetMapTile tile) {
+	public String buildPath(final OpenStreetMapTile tile) {
 		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID, false);
 		String ext = renderer.getImageExtension();
 		return (ext == null) ? null :

@@ -86,6 +86,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		return myRendererInfo.isMetadataLoaded();
 	}
 	
+	public void flushTileCache() {
+		mTileProvider.flushCache(myRendererInfo.getId());
+	}
+	
 	public void onDestroy() {
 		super.onDestroy();
 		mTileProvider.clear();

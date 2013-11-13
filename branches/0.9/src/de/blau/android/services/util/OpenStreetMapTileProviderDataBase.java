@@ -1,6 +1,8 @@
 package de.blau.android.services.util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.ContentValues;
@@ -79,14 +81,15 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 												+ T_FSCACHE_TILE_Y + SQL_ARG;
 
 	
-//	private static final String T_FSCACHE_SELECT_LEAST_USED = "SELECT " + T_FSCACHE_NAME  + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE "  + T_FSCACHE_USAGECOUNT + " = (SELECT MIN(" + T_FSCACHE_USAGECOUNT + ") FROM "  + T_FSCACHE + ")";
-//	private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_NAME + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC";
+	private static final String T_FSCACHE_SELECT_LEAST_USED = "SELECT " + T_FSCACHE_RENDERER_ID  + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE "  + T_FSCACHE_USAGECOUNT + " = (SELECT MIN(" + T_FSCACHE_USAGECOUNT + ") FROM "  + T_FSCACHE + ")";
+	private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_RENDERER_ID  + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC";
 	
 	// ===========================================================
 	// Fields
 	// ===========================================================
 
 	protected final Context mCtx;
+	protected final OpenStreetMapTileFilesystemProvider mFSProvider;
 	protected final SQLiteDatabase mDatabase;
 	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
@@ -94,9 +97,10 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	// Constructors
 	// ===========================================================
 
-	public OpenStreetMapTileProviderDataBase(final Context context) {
+	public OpenStreetMapTileProviderDataBase(final Context context, OpenStreetMapTileFilesystemProvider openStreetMapTileFilesystemProvider) {
 		Log.i("OSMTileProviderDB", "creating database instance");
 		mCtx = context;
+		mFSProvider = openStreetMapTileFilesystemProvider;
 		mDatabase = new AndNavDatabaseHelper(context).getWritableDatabase();
 	}
 
@@ -148,34 +152,78 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	}
 
 	int deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
-//		final Cursor c = mDatabase.rawQuery(T_FSCACHE_SELECT_OLDEST, null);
-//		final ArrayList<String> deleteFromDB = new ArrayList<String>();
-//		int sizeGained = 0;
-//		if(c != null){
-//			String fileNameOfDeleted; 
-//			if(c.moveToFirst()){
-//				do{
-//					final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
-//					sizeGained += sizeItem;
-//					fileNameOfDeleted = c.getString(c.getColumnIndexOrThrow(T_FSCACHE_NAME));
-//
-//					deleteFromDB.add(fileNameOfDeleted);
-//					mCtx.deleteFile(fileNameOfDeleted);
-//
-//					if(DEBUGMODE)
-//						Log.i(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Deleted from FS: " + fileNameOfDeleted + " for " + sizeItem + " Bytes");
-//				}while(c.moveToNext() && sizeGained < pSizeNeeded);
-//			}else{
-//				c.close();
-//				throw new EmptyCacheException("Cache seems to be empty.");
-//			}
-//			c.close();
-//
-//			for(String fn : deleteFromDB)
-//				mDatabase.delete(T_FSCACHE, T_FSCACHE_NAME + "='" + fn + "'", null);
-//		}
-//		return sizeGained;
-		return 0;
+		final Cursor c = mDatabase.rawQuery(T_FSCACHE_SELECT_OLDEST, null);
+		final ArrayList<OpenStreetMapTile> deleteFromDB = new ArrayList<OpenStreetMapTile>();
+		int sizeGained = 0;
+		if(c != null){
+			OpenStreetMapTile tileToBeDeleted; 
+			if(c.moveToFirst()){
+				do{
+					final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
+					sizeGained += sizeItem;
+					
+					tileToBeDeleted = new OpenStreetMapTile(c.getString(c.getColumnIndexOrThrow(T_FSCACHE_RENDERER_ID)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
+							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
+
+					deleteFromDB.add(tileToBeDeleted);
+					// mCtx.deleteFile(mFSProvider.buildPath(tileToBeDeleted));
+					(new File(mFSProvider.buildPath(tileToBeDeleted))).delete();
+					
+					if(DEBUGMODE)
+						Log.i(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Deleted from FS: " + mFSProvider.buildPath(tileToBeDeleted) + " for " + sizeItem + " Bytes");
+				}while(c.moveToNext() && sizeGained < pSizeNeeded);
+			}else{
+				c.close();
+				throw new EmptyCacheException("Cache seems to be empty.");
+			}
+			c.close();
+
+			for(OpenStreetMapTile t : deleteFromDB) {
+				final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
+				mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+			}
+		}
+		return sizeGained;
+	}
+	
+	/**
+	 * Delete all tiles from cache for a specific renderer
+	 * @param rendererID
+	 * @throws EmptyCacheException
+	 */
+	public void flushCache(String rendererID) throws EmptyCacheException {
+		Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Flushing cache for " + rendererID); 
+		final Cursor c = mDatabase.rawQuery("SELECT " + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC", null);
+		final ArrayList<OpenStreetMapTile> deleteFromDB = new ArrayList<OpenStreetMapTile>();
+		int sizeGained = 0;
+		if(c != null){
+			OpenStreetMapTile tileToBeDeleted; 
+			if(c.moveToFirst()){
+				do{
+					final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
+					sizeGained += sizeItem;
+					
+					tileToBeDeleted = new OpenStreetMapTile(rendererID,c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
+							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
+
+					deleteFromDB.add(tileToBeDeleted);
+					// mCtx.deleteFile(mFSProvider.buildPath(tileToBeDeleted));
+					(new File(mFSProvider.buildPath(tileToBeDeleted))).delete();
+					
+					if(DEBUGMODE)
+						Log.i(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Deleted from FS: " + mFSProvider.buildPath(tileToBeDeleted) + " for " + sizeItem + " Bytes");
+				}while(c.moveToNext());
+			}else{
+				c.close();
+				throw new EmptyCacheException("Cache seems to be empty.");
+			}
+			c.close();
+
+			for(OpenStreetMapTile t : deleteFromDB) {
+				final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
+				mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+			}
+		}
 	}
 
 	// ===========================================================
@@ -242,4 +290,6 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	public void close() {
 		mDatabase.close();
 	}
+
+
 }

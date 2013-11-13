@@ -139,6 +139,8 @@
     <string name="menu_cut">Cut</string>
     <string name="menu_paste">Paste</string>
     <string name="menu_rotate">Rotate</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_tools_flush_tile_cache">Flush tile cache</string>
     <!-- element action mode menu -->
     <string name="menu_tags">Tags</string>
     <!-- Text should be as short as possible -->
@@ -162,6 +164,8 @@
     <string name="config_category_view">View Settings</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this</string>
+    <string name="config_tileCacheSize_title">Tile cache size</string>
+    <string name="config_tileCacheSize_summary">Total size of tile cache in MB</string>
     <string name="config_showStats_title">Show stats</string>
     <string name="config_showStats_summary">Displays data statistics and frames/sec in the lower left corner.</string>
     <string name="config_showTolerance_title">Show tolerance</string>

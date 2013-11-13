@@ -152,6 +152,17 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			}
 		}
 	}
+	
+	public void flushCache(String rendererId) {
+		mTileCache.clear(); // zap everything
+		try {
+			mTileService.flushCache(rendererId);
+		} catch (RemoteException e) {
+			Log.e("OpenStreetMapTileProvider", "RemoteException in flushCache()", e);
+		} catch (Exception e) {
+			Log.e("OpenStreetMapTileProvider", "Exception in flushCache()", e);
+		}
+	}
 
 	// ===========================================================
 	// Inner and Anonymous Classes
