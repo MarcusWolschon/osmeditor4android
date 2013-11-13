@@ -256,7 +256,7 @@ public class Preset {
             	} else if ("optional".equals(name)) {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
-                    Log.d("Preset","PresetItem: " + currentItem.toString());
+                    // Log.d("Preset","PresetItem: " + currentItem.toString());
             		currentItem = null;
             	}
             }
