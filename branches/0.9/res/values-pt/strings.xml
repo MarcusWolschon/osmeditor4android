@@ -16,6 +16,9 @@
   <string name="wrong_login_data_message">O Servidor OSM não conseguiu autenticá-lo(a). Por favor verifique os seus dados de login nas preferências.</string>
   <string name="data_conflict_title">Conflito de Versão</string>
   <string name="data_conflict_message">Os dados que está a tentar descarregar contêm dados que conflituem com as suas edições. Tente primeiro fazer o upload dos seus dados antes de tentar de novo.</string>
+  <string name="out_of_memory_title">Memória Esgotada</string>
+  <string name="out_of_memory_message">O Vespucci esgotou a memória ao carregar os dados indicados. Por favor, reinicie e tente carregar uma área menor.</string>
+  <string name="out_of_memory_dirty_message">O Vespucci esgotou a memória ao carregar os dados indicados. Por favor, tente guardar as suas edições, reiniciar e  tente de novo carregando uma área menor.</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
   <string name="progress_download_message">Descarregando dados do servidor…</string>
@@ -53,6 +56,8 @@
   <string name="toast_unread_mail">Tem %1$s mensagem(ens) por ler no servidor OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Iniciada procura por fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada procura de fotos georreferenciadas</string>
+  <string name="toast_download_bbox_failed">Descarga falhou, provavelmente porque a área seleccionada era demasiado grande.</string>
+  <string name="toast_download_failed">Descarga falhou com o erro de código %1$d, mensagem %2$s</string>
   <!--Some generic labels-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -68,6 +73,7 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Mapeado</string>
   <string name="tag_menu_preset">Prédefinições</string>
+  <string name="tag_menu_repeat">Repetir tags</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki de Entidades do Mapa</string>
   <string name="tag_menu_addtorelation">Adicionar à relação</string>

@@ -73,6 +73,7 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Vi:Map_Features?uselang=vi</string>
   <string name="tag_menu_sourcesurvey">Đã khảo sát</string>
   <string name="tag_menu_preset">Thẻ đặt trước</string>
+  <string name="tag_menu_repeat">Lặp lại các thẻ</string>
   <string name="tag_menu_revert">Lùi sửa</string>
   <string name="tag_menu_mapfeatures">Trang Chi tiết Bản đồ trên Wiki</string>
   <string name="tag_menu_addtorelation">Thêm vào quan hệ</string>

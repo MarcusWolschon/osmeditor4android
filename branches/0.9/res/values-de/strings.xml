@@ -139,6 +139,8 @@
   <string name="menu_cut">Auschneiden</string>
   <string name="menu_paste">Einfügen</string>
   <string name="menu_rotate">Drehen</string>
+  <string name="menu_tools">Werkzeuge</string>
+  <string name="menu_tools_flush_tile_cache">Tile Cache leeren</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
@@ -162,6 +164,8 @@
   <string name="config_category_view">Ansichtseinstellungen</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
+  <string name="config_tileCacheSize_title">Grösse des Tile Cache</string>
+  <string name="config_tileCacheSize_summary">Gesamtgrösse des Tile Cache</string>
   <string name="config_showStats_title">Zeige Statistiken</string>
   <string name="config_showStats_summary">Zeigt Statistiken (FPS/Knotenanzahl) unten links in der Ecke.</string>
   <string name="config_showTolerance_title">Zeige Toleranz</string>
