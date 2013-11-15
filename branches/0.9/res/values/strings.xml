@@ -22,6 +22,8 @@
     <string name="progress_title">Loading</string>
     <string name="progress_message">Loading data into memory…</string>
     <string name="progress_download_message">Downloading data from server…</string>
+    <string name="progress_general_title">Please wait</string>
+    <string name="progress_deleting_message">Deleting…</string>
     <string name="upload_comment_label">Comment:</string>
     <string name="upload_source_label">Source:</string>
     <string name="openstreetbug_new_title">New Note</string>

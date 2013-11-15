@@ -51,6 +51,10 @@ public class DialogFactory {
 
 	public static final int OUT_OF_MEMORY_DIRTY = 12;
 	
+	public static final int PROGRESS_DELETING = 13;
+	
+	// public static final int BACKGROUND_PROPERTIES = 14;
+	
 	private final Main caller;
 	
 	private final Builder noLoginDataSet;
@@ -72,6 +76,8 @@ public class DialogFactory {
 	private final Builder outOfMemory;
 	
 	private final Builder outOfMemoryDirty;
+	
+	// private final Builder backgroundProperties;
 	
 	/**
 	 * @param caller
@@ -126,6 +132,9 @@ public class DialogFactory {
 		
 		outOfMemoryDirty = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
 		outOfMemoryDirty.setPositiveButton(R.string.okay, doNothingListener);
+		
+//		backgroundProperties = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
+//		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
 	}
 	
 	/**
@@ -170,6 +179,9 @@ public class DialogFactory {
 			
 		case OUT_OF_MEMORY_DIRTY:
 			return outOfMemoryDirty.create();
+			
+		case PROGRESS_DELETING:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_deleting_message);
 		}
 		
 		return null;
@@ -217,8 +229,12 @@ public class DialogFactory {
 	}
 	
 	private ProgressDialog createBasicProgressDialog(final int messageId) {
+		return createBasicProgressDialog(R.string.progress_title, messageId);
+	}
+	
+	private ProgressDialog createBasicProgressDialog(final int titleId, final int messageId) {
 		ProgressDialog progress = new ProgressDialog(caller);
-		progress.setTitle(R.string.progress_title);
+		progress.setTitle(titleId);
 		progress.setIndeterminate(true);
 		progress.setCancelable(true);
 		progress.setMessage(caller.getResources().getString(messageId));

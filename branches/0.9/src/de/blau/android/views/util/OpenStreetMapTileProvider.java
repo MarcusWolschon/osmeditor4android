@@ -153,8 +153,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		}
 	}
 	
-	public void flushCache(String rendererId) {
-		mTileCache.clear(); // zap everything
+	public void flushCache(String rendererId) { 
 		try {
 			mTileService.flushCache(rendererId);
 		} catch (RemoteException e) {
@@ -162,6 +161,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		} catch (Exception e) {
 			Log.e("OpenStreetMapTileProvider", "Exception in flushCache()", e);
 		}
+		mTileCache.clear(); // zap everything in in memory cache
 	}
 
 	// ===========================================================

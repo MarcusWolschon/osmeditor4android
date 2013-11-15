@@ -1,5 +1,15 @@
 package de.blau.android.views.overlay;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.acra.ACRA;
+import org.xml.sax.SAXException;
+
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,14 +19,25 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import de.blau.android.Application;
+import de.blau.android.DialogFactory;
 import de.blau.android.Map;
+import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmServerException;
+import de.blau.android.exception.StorageException;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.UndoStorage;
+import de.blau.android.resources.Profile;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.OpenStreetMapTileProvider;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -87,7 +108,30 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	}
 	
 	public void flushTileCache() {
-		mTileProvider.flushCache(myRendererInfo.getId());
+		new AsyncTask<Void,Void,Void>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_DELETING);
+			}
+			
+			@Override
+			protected Void doInBackground(Void... params) {
+				mTileProvider.flushCache(myRendererInfo.getId());
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(Void result) {
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_DELETING);
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+				}
+			}
+			
+		}.execute();
+
 	}
 	
 	public void onDestroy() {
