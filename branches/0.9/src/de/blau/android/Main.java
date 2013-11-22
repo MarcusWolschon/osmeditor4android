@@ -644,6 +644,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			map.getOpenStreetMapTilesOverlay().flushTileCache();
 			return true;
 			
+//		case R.id.menu_tools_background_properties:
+//			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
+//			return true;
+			
 		}
 		
 		return false;
@@ -776,6 +780,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
 				Bug bug = logic.getSelectedBug();
+				if (bug==null) { // a quick hack to see if this stops this crashing now and then
+					Log.e("Main","onPrepareDialog bug is null");
+					// try to local editstate here ...
+					logic.loadEditingState();
+					if (bug==null) {
+						Log.e("Main","onPrepareDialog bug is null - invalid state");
+						Toast.makeText(getApplicationContext(), "Invalid editing state, please dismiss the dialog and report the problem!", Toast.LENGTH_LONG).show(); //TODO externalize the text
+						return;
+					}
+				}
 				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
 				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
 				comments.setText(Html.fromHtml(bug.getComment())); // ugly
@@ -1692,6 +1706,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	public void invalidateMap() {
 		map.invalidate();
+	}
+	
+	public Map getMap() {
+		return map;
 	}
 	
 	public void triggerMapContextMenu() {
