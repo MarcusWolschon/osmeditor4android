@@ -1496,12 +1496,14 @@ public class Logic {
 	void save() {
 		try {
 			delegator.writeToFile();
-			EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug);
-			new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);
-			
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
+	}
+	
+	void saveEditingState() {
+		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug);
+		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
 	void loadEditingState() {

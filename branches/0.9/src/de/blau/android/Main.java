@@ -385,11 +385,13 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 	@Override
 	protected void onPause() {
-		Log.d("Main", "onPause");
+		Log.d("Main", "onPause mode " + logic.getMode());
 		runningInstance = null;
 		disableLocationUpdates();
 		if (tracker != null) tracker.setListener(null);
 
+		// always save editing state
+		logic.saveEditingState();
 		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
 		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) saveData();
@@ -400,7 +402,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	@Override
 	protected void onStop() {
 		Log.d("Main", "onStop");
-		
+		// editing state has been saved in onPause
+	
 		// On devices with Android versions before Honeycomb, we already save data in onPause
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) saveData();
 		
@@ -500,8 +503,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	private ToggleButton setLock(Logic.Mode mode) {
 		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
+		mode = (mode == Logic.Mode.MODE_EASYEDIT) ? Logic.Mode.MODE_EASYEDIT : Logic.Mode.MODE_MOVE; // zap any other mode
 		lock.setChecked(mode == Logic.Mode.MODE_EASYEDIT);
-		logic.setMode(mode == Logic.Mode.MODE_EASYEDIT ? Logic.Mode.MODE_EASYEDIT : Logic.Mode.MODE_MOVE); // zap any other mode
+		logic.setMode(mode); 
 		return lock; // for convenience
 	}
 
