@@ -521,6 +521,9 @@ public class Map extends View implements IMapView {
 				featureKeyThin = Profile.SELECTED_NODE_THIN;
 				// style for tagged nodes or otherwise important
 				featureKeyTagged = Profile.SELECTED_NODE_TAGGED;
+				if (node == tmpDrawingSelectedNode && prefs.largeDragArea()) {
+					canvas.drawCircle(x, y, Profile.getCurrent().largDragToleranceRadius, Profile.getCurrent(Profile.NODE_DRAG_RADIUS).getPaint());
+				}
 			} else if (node.hasProblem()) {
 				// general node style
 				featureKey = Profile.PROBLEM_NODE;

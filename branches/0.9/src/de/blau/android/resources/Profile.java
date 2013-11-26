@@ -57,6 +57,7 @@ public class Profile  extends DefaultHandler {
 	public final static String NODE = "node";
 	public final static String NODE_THIN = "node_thin";
 	public static final String NODE_TAGGED = "node_tagged";
+	public static final String NODE_DRAG_RADIUS = "node_drag_radius";
 	public final static String PROBLEM_NODE = "problem_node";
 	public final static String PROBLEM_NODE_THIN = "problem_node_thin";
 	public static final String PROBLEM_NODE_TAGGED = "problem_node_tagged";
@@ -233,6 +234,8 @@ public class Profile  extends DefaultHandler {
 	
 	public float nodeToleranceValue = 40f;
 	public float wayToleranceValue = 40f;
+	public float largDragCircleRadius = 70f;
+	public float largDragToleranceRadius = 100f;
 	
 	public Profile(final Context ctx) {
 		// create default 
@@ -351,6 +354,14 @@ public class Profile  extends DefaultHandler {
 		fp = new FeatureProfile(SELECTED_NODE);
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.setWidthFactor(1.5f);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(NODE_DRAG_RADIUS );
+		fp.setColor(resources.getColor(R.color.ccc_beige));
+		fp.dontUpdate();
+		fp.getPaint().setStyle(Style.STROKE);
+		fp.getPaint().setAlpha(150);
+		fp.getPaint().setStrokeWidth(10f);
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(SELECTED_NODE_TAGGED);

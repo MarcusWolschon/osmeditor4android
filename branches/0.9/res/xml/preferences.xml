@@ -47,6 +47,12 @@
 			android:summary="@string/config_enableDeprecatedModes_summary"
 			android:defaultValue="false"
 		/>
+		<CheckBoxPreference
+			android:key="@string/config_largeDragArea_key"
+			android:title="@string/config_largeDragArea_title"
+			android:summary="@string/config_largeDragArea_summary"
+			android:defaultValue="false"
+		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_server">
 		<de.blau.android.prefs.LoginDataPreference

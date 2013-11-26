@@ -615,7 +615,10 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		final float tolerance = Profile.getCurrent().nodeToleranceValue;
+		float tolerance = Profile.getCurrent().nodeToleranceValue;
+		if (prefs.largeDragArea() && node == selectedNode) {
+			tolerance = Profile.getCurrent().largDragToleranceRadius;
+		}
 		float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon()) - x);
 		float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat()) - y);
 		
@@ -768,7 +771,13 @@ public class Logic {
 		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
 			draggingNode = false;
 			draggingWay = false;
-			if (selectedNode != null && clickDistance(selectedNode, x, y) != null) draggingNode = true;
+			if (selectedNode != null && clickDistance(selectedNode, x, y) != null) {
+				draggingNode = true;
+				if (prefs.largeDragArea()) {
+					startX = GeoMath.lonE7ToX(map.getWidth(), viewBox, selectedNode.getLon());
+					startY = GeoMath.latE7ToY(map.getHeight(), viewBox, selectedNode.getLat());
+				}
+			}
 			else {
 				if (selectedWay != null) {
 					if (!rotatingWay) {	
@@ -826,11 +835,26 @@ public class Logic {
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
 		if (draggingNode || draggingWay) {
-			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
-			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
+			int lat;
+			int lon;
 			// checkpoint created where draggingNode is set
-			if (draggingNode) delegator.updateLatLon(selectedNode, lat, lon);
+			if (draggingNode) {
+				if (prefs.largeDragArea()) {
+					startY = startY + relativeY;
+					startX = startX - relativeX;
+					lat = GeoMath.yToLatE7(map.getHeight(), viewBox, startY);
+					lon = GeoMath.xToLonE7(map.getWidth(), viewBox,  startX);
+				}	
+				else {
+					lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
+					lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
+				}
+				
+				delegator.updateLatLon(selectedNode, lat, lon);
+			}
 			else {
+				lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
+				lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
 				delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
 				// update 
 				startLat = lat;

@@ -36,6 +36,8 @@ public class Preferences {
 	
 	private final boolean useBackForUndo;
 	
+	private final boolean largeDragArea;
+	
 	private final String backgroundLayer;
 	
 	private final String mapProfile;
@@ -96,6 +98,7 @@ public class Preferences {
 		isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
 		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
 		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
+		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
@@ -187,6 +190,13 @@ public class Preferences {
 	 */
 	public boolean useBackForUndo() {
 		return useBackForUndo;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean largeDragArea() {
+		return largeDragArea;
 	}
 	
 	/**

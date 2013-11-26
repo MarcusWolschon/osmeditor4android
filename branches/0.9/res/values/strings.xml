@@ -143,6 +143,8 @@
     <string name="menu_rotate">Rotate</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_tile_cache">Flush tile cache</string>
+    <string name="menu_tools_background_properties">Background properties</string>
+    <string name="menu_tools_background_opacity">Background opacity</string>
     <!-- element action mode menu -->
     <string name="menu_tags">Tags</string>
     <!-- Text should be as short as possible -->
@@ -214,6 +216,8 @@
 	<string name="config_mapProfile_summary">Set style and visibility of elements</string>
 	<string name="config_use_back_for_undo_title">Use back key for Undo</string>
 	<string name="config_use_back_for_undo_summary">Use the back key for undo in the main edit view</string>
+	<string name="config_largeDragArea_title">Large node drag area</string>
+	<string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
