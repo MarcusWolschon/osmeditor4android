@@ -111,7 +111,7 @@ public class Preferences {
 			mapProfile = tempMapProfile;
 		}
 		try {
-			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "5.0"));
+			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "2.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_gps_distance_key or config_gps_interval_key");
