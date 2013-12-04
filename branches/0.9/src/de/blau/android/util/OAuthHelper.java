@@ -2,12 +2,14 @@ package de.blau.android.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.concurrent.ExecutionException;
 
 import de.blau.android.Application;
 import de.blau.android.R;
 
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import oauth.signpost.OAuth;
@@ -94,11 +96,50 @@ public class OAuthHelper {
 		return null;
 	}
 	
-	public String getRequestToken()
-			throws OAuthMessageSignerException, OAuthNotAuthorizedException,
-			OAuthExpectationFailedException, OAuthCommunicationException {
-		String authUrl = mProvider.retrieveRequestToken(mConsumer, mCallbackUrl);
-		return authUrl;
+	/**
+	 * 
+	 * @return null if fails
+	 */
+	public String getRequestToken() {	 
+		class MyTask extends  AsyncTask<Void, Void, String> {
+			 String result;
+			 
+			@Override
+			protected void onPreExecute() {
+				Log.d("Main", "oAuthHandshake onPreExecute");
+			}
+			
+			@Override
+			protected String doInBackground(Void... params) {
+		
+				try {
+					String authUrl = mProvider.retrieveRequestToken(mConsumer, mCallbackUrl);
+					return authUrl;
+				} catch (Exception e) {
+					Log.d("Main", "OAuth handshake failed");
+					e.printStackTrace();
+				}
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(String authUrl) {
+				Log.d("Main", "oAuthHandshake onPostExecute");
+				result = authUrl;	
+			}
+		};
+		MyTask loader = new MyTask();
+		loader.execute();	
+		try {
+			return (String) loader.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	

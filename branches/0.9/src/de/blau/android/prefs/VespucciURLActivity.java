@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
@@ -206,7 +207,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			@Override
 			protected void onPostExecute(Void v) {
 				Log.d("VespucciURLActivity", "oAuthHandshake onPostExecute");
-				
+				Application.mainActivity.finishOAuth();
 			}
 		};
 		loader.execute(s);

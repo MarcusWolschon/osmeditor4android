@@ -6,6 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
+
 import org.acra.ACRA;
 
 import android.app.AlertDialog;
@@ -42,6 +47,9 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -133,6 +141,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 		}
 	};
+	
+	/**
+	 * webview for logging in and authorizing OAuth
+	 */
+	private WebView oAuthWebView;
+	
+	/**
+	 * out main layout
+	 */
+	private RelativeLayout rl;
 
 	/** The map View. */
 	private Map map;
@@ -226,7 +244,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		
-		RelativeLayout rl = new RelativeLayout(getApplicationContext());
+		rl = new RelativeLayout(getApplicationContext());
 		if (map != null) {
 			map.onDestroy();
 		}
@@ -1000,41 +1018,64 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 	
 	
-
+	/**
+	 * 
+	 * @param server
+	 */
 	private void oAuthHandshake(Server server) {
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.hide();
 		Server[] s = {server};
-		AsyncTask<Server, Void, Boolean> loader = new AsyncTask<Server, Void, Boolean>() {
-				
-			@Override
-			protected void onPreExecute() {
-				Log.d("Main", "oAuthHandshake onPreExecute");
-			}
-			
-			@Override
-			protected Boolean doInBackground(Server... s) {
-				String url = s[0].getBaseURL();
-				OAuthHelper oa = new OAuthHelper(url);
-				Log.d("Main", "oauth auth url " + url);
-				try {
-					String authUrl = oa.getRequestToken();
-					Log.d("Main", "authURl " + authUrl);
-					Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
-					startActivity(myIntent);
-					return new Boolean(true);
-				} catch (Exception e) {
-					Log.d("Main", "OAuth handshake failed");
-					e.printStackTrace();
-				}
-				return new Boolean(false);
-			}
-			
-			@Override
-			protected void onPostExecute(Boolean result) {
-				Log.d("Main", "oAuthHandshake onPostExecute");
-				if (!result.booleanValue()) Toast.makeText(getApplicationContext(), R.string.toast_oauth_handshake_failed, Toast.LENGTH_LONG).show();
-			}
-		};
-		loader.execute(s);	
+		String url = s[0].getBaseURL();
+		OAuthHelper oa = new OAuthHelper(url);
+		Log.d("Main", "oauth auth url " + url);
+	
+		String authUrl = oa.getRequestToken();
+		if (authUrl == null) {
+			Toast.makeText(Main.this, getResources().getString(R.string.toast_oauth_handshake_failed), Toast.LENGTH_LONG).show();
+			return;
+		}
+		Log.d("Main", "authURl " + authUrl);
+		oAuthWebView = new WebView(Application.mainActivity);
+		rl.addView(oAuthWebView);
+		// setContentView(webview);
+		oAuthWebView.getSettings().setJavaScriptEnabled(true);
+		oAuthWebView.getSettings().setAllowContentAccess(true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+			oAuthWebView.getLayoutParams().height = LayoutParams.MATCH_PARENT;
+			oAuthWebView.getLayoutParams().width = LayoutParams.MATCH_PARENT;
+		}
+		class MyWebViewClient extends WebViewClient {
+		    @Override
+		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		    	if (!url.contains("vespucci")) {
+		            // load in in this webview
+		            view.loadUrl(url);
+		            return true;
+		        }
+		        // vespucci URL
+		        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		        startActivity(intent);
+		        return true;
+		    }
+		}
+		
+		oAuthWebView.setWebViewClient(new MyWebViewClient());
+		oAuthWebView.loadUrl(authUrl);
+	}
+	
+	/**
+	 * removes the webview
+	 */
+	public void finishOAuth() {
+		Log.d("Main","finishOAuth");
+		rl.removeView(oAuthWebView);
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.show();
+		oAuthWebView.clearView();
+		oAuthWebView.setVisibility(View.GONE);
+		oAuthWebView.removeAllViews();
+		oAuthWebView.destroy();
 	}
 
 	/**
