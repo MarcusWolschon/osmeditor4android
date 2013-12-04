@@ -115,7 +115,7 @@ public class Preferences {
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_gps_distance_key or config_gps_interval_key");
-			gpsDistance = 5.0f;
+			gpsDistance = 2.0f;
 			gpsInterval = 1000;
 		}
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
