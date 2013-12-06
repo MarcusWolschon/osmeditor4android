@@ -34,6 +34,7 @@ import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.PixelXorXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.util.Log;
@@ -73,6 +74,7 @@ public class Profile  extends DefaultHandler {
 	public final static String OPEN_NOTE = "open_note";
 	public final static String CLOSED_NOTE = "closed_note";
 	public final static String CROSSHAIRS = "crosshairs";
+	public final static String HANDLE = "handle";
 	
 	
 	public class FeatureProfile {
@@ -224,6 +226,11 @@ public class Profile  extends DefaultHandler {
 	public static final Path CROSSHAIRS_PATH = new Path();
 	
 	/**
+	 * X
+	 */
+	public static final Path X_PATH = new Path();
+	
+	/**
 	 * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes 
 	 */
 	public static final Path WAY_DIRECTION_PATH = new Path();
@@ -236,6 +243,7 @@ public class Profile  extends DefaultHandler {
 	public float wayToleranceValue = 40f;
 	public float largDragCircleRadius = 70f;
 	public float largDragToleranceRadius = 100f;
+	public float minLenForHandle = 3 * nodeToleranceValue;
 	
 	public Profile(final Context ctx) {
 		// create default 
@@ -279,6 +287,11 @@ public class Profile  extends DefaultHandler {
 		CROSSHAIRS_PATH.moveTo(10, 0);
 		CROSSHAIRS_PATH.lineTo(-10, 0);
 		
+		X_PATH.moveTo(-3, -3);
+		X_PATH.lineTo(3, 3);
+		X_PATH.moveTo(3, -3);
+		X_PATH.lineTo(-3, 3);
+		
 		Log.i("Profile","setting up default profile elements");
 		featureProfiles = new HashMap<String, FeatureProfile>();
 
@@ -302,6 +315,15 @@ public class Profile  extends DefaultHandler {
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(125);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(HANDLE);
+		fp.dontUpdate();
+		fp.setColor(Color.WHITE);
+		fp.setWidthFactor(1f);
+		fp.getPaint().setStyle(Style.STROKE);
+		// fp.getPaint().setStrokeCap(Cap.ROUND);
+		// fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(NODE);

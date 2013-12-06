@@ -12,6 +12,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -123,6 +124,8 @@ public class Map extends View implements IMapView {
 	/** Caches the Paint used for way tolerance */
 	Paint wayTolerancePaint;
 	
+	private ArrayList<Float> handles;
+	
 	private Location displayLocation = null;
 	private boolean isFollowingGPS = false;
 
@@ -232,6 +235,7 @@ public class Map extends View implements IMapView {
 		tmpPreset = Main.getCurrentPreset();
 		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
 		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
+		handles = null;
 		
 		// Draw our Overlays.
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
@@ -239,6 +243,7 @@ public class Map extends View implements IMapView {
 		}
 		
 		paintOsmData(canvas);
+		paintHandles(canvas);
 		paintGpsTrack(canvas);
 		paintGpsPos(canvas);
 		paintCrosshairs(canvas);
@@ -715,9 +720,47 @@ public class Map extends View implements IMapView {
 			
 		// draw the way itself
 		canvas.drawLines(linePoints, fp.getPaint());
+		
+		if (!isSelected) {
+			// add "geometry improvement" handles
+			for (int i = 2; i < linePoints.length; i=i+4) {
+				float x0 = linePoints[i-2];
+				float y0 = linePoints[i-1];
+				float xDelta = linePoints[i] - x0;
+				float yDelta = linePoints[i+1] - y0;
+				
+				double len = Math.hypot(xDelta,yDelta);
+				if (len > Profile.getCurrent().minLenForHandle) {
+					if (handles == null) handles =new ArrayList<Float>();
+					handles.add(x0 + xDelta/2);
+					handles.add(y0 + yDelta/2);
+				}
+			}
+		}
 	}
 	
 
+	void paintHandles(Canvas canvas) {
+		if (handles != null) {
+			canvas.save();
+			float lastX = 0;
+			float lastY = 0;
+			for (int i = 0; i < handles.size(); i=i+2) {
+				// draw handle
+				// canvas.drawCircle(x0 + xDelta/2, y0 + yDelta/2, 5, Profile.getCurrent(Profile.HANDLE).getPaint());
+				// canvas.drawPoint(x0 + xDelta/2, y0 + yDelta/2, Profile.getCurrent(Profile.HANDLE).getPaint());
+				float X = handles.get(i);
+				float Y = handles.get(i+1);
+				canvas.translate(X-lastX, Y-lastY);
+				lastX = X;
+				lastY = Y;
+				canvas.drawPath(Profile.X_PATH, Profile.getCurrent(Profile.HANDLE).getPaint());
+			}
+			canvas.restore();	
+		}
+	}
+	
+	
 	FeatureProfile getProfile(String tag, OsmElement e) {
 		String mainType = e.getTagWithKey(tag);
 		FeatureProfile fp = null;

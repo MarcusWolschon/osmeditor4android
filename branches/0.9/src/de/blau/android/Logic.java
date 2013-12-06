@@ -221,6 +221,11 @@ public class Logic {
 	private float centroidX;
 
 	/**
+	 * Are we currently draggign a handle?
+	 */
+	private boolean draggingHandle = false;
+	
+	/**
 	 * 
 	 */
 	private boolean rotatingWay = false;
@@ -258,6 +263,10 @@ public class Logic {
 	 */
 	private Set<Node> selectedRelationNodes = null;
 	
+	/**
+	 * 
+	 */
+	private Handle selectedHandle = null;
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
@@ -591,6 +600,7 @@ public class Logic {
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
 				Node node1 = wayNodes.get(k);
 				Node node2 = wayNodes.get(k + 1);
+				// TODO only project once per node
 				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
 				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
 				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
@@ -600,6 +610,62 @@ public class Logic {
 					result.put(way, GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y));
 					break;
 				}
+			}
+		}	
+		return result;
+	}
+	
+	class Handle {
+		float x;
+		float y;
+		
+		Handle(float x, float y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+	
+	/**
+	 * Returns all ways with a mid-way segment handle tolerance from the given coordinates, and their distances from them.
+	 * @param x x display coordinate
+	 * @param y y display coordinate
+	 * @return a hash map mapping Ways to distances
+	 */
+	Handle getClickedWayHandleWithDistances(final float x, final float y) {
+		
+		Handle result = null;
+		double bestDistance = Double.MAX_VALUE;
+		
+		for (Way way : delegator.getCurrentStorage().getWays()) {
+			List<Node> wayNodes = way.getNodes();
+
+			if (clickableElements != null && !clickableElements.contains(way)) continue;
+
+			//Iterate over all WayNodes, but not the last one.
+			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
+				Node node1 = wayNodes.get(k);
+				Node node2 = wayNodes.get(k + 1);
+				// TODO only project once per node
+				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
+				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
+				float xDelta = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon()) - node1X;
+				float yDelta = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat()) - node1Y;
+				
+				float handleX = node1X + xDelta/2; 
+				float handleY = node1Y + yDelta/2;
+
+				float differenceX = Math.abs(handleX - x);
+				float differenceY = Math.abs(handleY - y);
+				
+				if ((differenceX > Profile.getCurrent().nodeToleranceValue) && (differenceY > Profile.getCurrent().nodeToleranceValue))	continue;
+				if (Math.hypot(xDelta,yDelta) <= Profile.getCurrent().minLenForHandle) continue;
+				
+				double dist = Math.hypot(differenceX, differenceY);
+				if ((dist <= Profile.getCurrent().nodeToleranceValue/2) && (dist < bestDistance)) {
+					bestDistance = dist;
+					result = new Handle(handleX, handleY);
+				}
+				
 			}
 		}	
 		return result;
@@ -649,7 +715,6 @@ public class Logic {
 				if (dist != null) result.put(node, dist);
 			}
 		}
-		
 		return result;
 	}
 	
@@ -771,6 +836,7 @@ public class Logic {
 		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
 			draggingNode = false;
 			draggingWay = false;
+			draggingHandle = false;
 			if (selectedNode != null && clickDistance(selectedNode, x, y) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
@@ -799,6 +865,15 @@ public class Logic {
 					if (rotatingWay) {
 						rotatingWay = false;
 						hideCrosshairs();
+					} else {
+						if (selectedNode != null) setSelectedNode(null);
+						// way center / handle
+						Handle handle = getClickedWayHandleWithDistances(x, y);
+						if (handle != null) {
+							Log.d("Logic","start handle drag");
+							selectedHandle = handle;
+							draggingHandle = true;
+						}
 					}
 				}
 			}
@@ -806,6 +881,7 @@ public class Logic {
 			draggingNode = false;
 			draggingWay = false;
 			rotatingWay = false;
+			draggingHandle = false;
 		}
 		if (draggingNode || draggingWay) {
 			createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
@@ -834,11 +910,23 @@ public class Logic {
 	 * @param relativeY The difference to the last absolute display-coordinate.
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-		if (draggingNode || draggingWay) {
+		if (draggingNode || draggingWay || (draggingHandle && selectedHandle != null)) {
 			int lat;
 			int lon;
 			// checkpoint created where draggingNode is set
-			if (draggingNode) {
+			if (draggingNode || (draggingHandle && selectedHandle != null)) {
+				if (draggingHandle) { // create node only if we are really dragging
+					Log.d("Logic","creating node at handle position");
+					performAdd(selectedHandle.x, selectedHandle.y);
+					selectedHandle = null;
+					draggingNode = true;
+					draggingHandle = false;
+					if (prefs.largeDragArea()) {
+						startX = GeoMath.lonE7ToX(map.getWidth(), viewBox, selectedNode.getLon());
+						startY = GeoMath.latE7ToY(map.getHeight(), viewBox, selectedNode.getLat());
+					}
+					Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
+				}
 				if (prefs.largeDragArea()) {
 					startY = startY + relativeY;
 					startX = startX - relativeX;
@@ -1111,6 +1199,7 @@ public class Logic {
 					for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
 						Node node1 = wayNodes.get(i - 1);
 						Node node2 = wayNodes.get(i);
+						// TODO only project once per node
 						float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
 						float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
 						float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
@@ -1150,6 +1239,7 @@ public class Logic {
 				Node node2 = wayNodes.get(i);
 				float x = GeoMath.lonE7ToX(map.getWidth(), viewBox, nodeToJoin.getLon());
 				float y = GeoMath.latE7ToY(map.getHeight(), viewBox, nodeToJoin.getLat());
+				// TODO only project once per node
 				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
 				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
 				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());

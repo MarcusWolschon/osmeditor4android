@@ -171,7 +171,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * The manager for the EasyEdit mode
 	 */
-	private EasyEditManager easyEditManager;
+	public EasyEditManager easyEditManager;
 
 	/**
 	 * The logic that manipulates the model. (non-UI)<br/>
