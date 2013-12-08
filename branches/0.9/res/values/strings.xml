@@ -141,6 +141,7 @@
     <string name="menu_cut">Cut</string>
     <string name="menu_paste">Paste</string>
     <string name="menu_rotate">Rotate</string>
+    <string name="menu_orthogonalize">Orthogonalize</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_tile_cache">Flush tile cache</string>
     <string name="menu_tools_background_properties">Background properties</string>
@@ -275,6 +276,7 @@
     <string name="undo_action_cut">cut</string>
     <string name="undo_action_paste">paste</string>
     <string name="undo_action_rotateway">rotate way</string>
+    <string name="undo_action_orthogonalize">orthogonalize way</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed</string>

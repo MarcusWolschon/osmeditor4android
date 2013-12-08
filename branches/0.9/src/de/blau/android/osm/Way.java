@@ -522,7 +522,7 @@ public class Way extends OsmElement {
 			// unsurveyed road
 			return true;
 		}
-		if (getTagWithKey("name") == null) {
+		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null)) {
 			// unnamed way - only the important ones need names
 			for (String h : importantHighways) {
 				if (h.equalsIgnoreCase(highway)) {

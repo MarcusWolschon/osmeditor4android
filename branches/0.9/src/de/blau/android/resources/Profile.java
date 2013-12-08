@@ -319,11 +319,11 @@ public class Profile  extends DefaultHandler {
 		
 		fp = new FeatureProfile(HANDLE);
 		fp.dontUpdate();
-		fp.setColor(Color.WHITE);
+		fp.setColor(Color.BLACK);
 		fp.setWidthFactor(1f);
 		fp.getPaint().setStyle(Style.STROKE);
 		// fp.getPaint().setStrokeCap(Cap.ROUND);
-		// fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
+		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(NODE);
