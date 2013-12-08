@@ -657,11 +657,12 @@ public class Logic {
 				float differenceX = Math.abs(handleX - x);
 				float differenceY = Math.abs(handleY - y);
 				
-				if ((differenceX > Profile.getCurrent().nodeToleranceValue) && (differenceY > Profile.getCurrent().nodeToleranceValue))	continue;
+				if ((differenceX > Profile.getCurrent().wayToleranceValue) && (differenceY > Profile.getCurrent().wayToleranceValue))	continue;
 				if (Math.hypot(xDelta,yDelta) <= Profile.getCurrent().minLenForHandle) continue;
 				
 				double dist = Math.hypot(differenceX, differenceY);
-				if ((dist <= Profile.getCurrent().nodeToleranceValue/2) && (dist < bestDistance)) {
+				// TODO better choice for tolerance 
+				if ((dist <= Profile.getCurrent().wayToleranceValue) && (dist < bestDistance)) {
 					bestDistance = dist;
 					result = new Handle(handleX, handleY);
 				}
@@ -926,6 +927,7 @@ public class Logic {
 						}
 						Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
 					}
+					else return;
 				}
 				if (prefs.largeDragArea()) {
 					startY = startY + relativeY;
