@@ -3,6 +3,8 @@ package de.blau.android.util;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import de.blau.android.Application;
 import de.blau.android.R;
@@ -131,11 +133,14 @@ public class OAuthHelper {
 		MyTask loader = new MyTask();
 		loader.execute();	
 		try {
-			return (String) loader.get();
+			return (String) loader.get(10, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
