@@ -272,6 +272,35 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 	
+	public void orthogonalizeWay(Way way) {
+		// TODO Auto-generated method stub
+		if ((way.getNodes() == null) || (way.getNodes().size()<3)) {
+			Log.d("StorageDelegator", "moveWay way " + way.getOsmId() + " has no nodes or less than 3!");
+			return;
+		}
+		dirty = true;
+//		try {
+//			// save nodes for undo
+//			Node firstNode = way.getFirstNode();
+//			for (int i = 0; i < way.getNodes().size(); i++) { 
+//				Node nd = way.getNodes().get(i);
+//				if (i == 0 || !nd.equals(firstNode)) {
+//					undo.save(nd);
+//				}
+//			}
+//			for (int iterations = 0; iterations < 100; iterations++) {
+//				
+////			apiStorage.insertElementSafe(nd);
+////			nd.setLat(nd.getLat() + deltaLatE7);
+////			nd.setLon(nd.getLon() + deltaLonE7);
+////			nd.updateState(OsmElement.STATE_MODIFIED);
+//			}
+//		} catch (StorageException e) {
+//			//TODO handle OOM
+//			e.printStackTrace();
+//		}
+	}
+	
 	/**
 	 * Rotate all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be saved
 	 * apply translation only once to the first node if way is closed. Rotation is done in screen coords
@@ -326,7 +355,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (node.state == Node.STATE_CREATED) {
 				apiStorage.removeElement(node);
 			} else {
-				apiStorage.insertElementUnsafe(node);
+				apiStorage.insertElementSafe(node);
 			}
 			removeWayNodes(node);
 			removeElementFromRelations(node);
@@ -835,7 +864,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.removeElement(way);
 				}
 			} else {
-				apiStorage.insertElementUnsafe(way);
+				apiStorage.insertElementSafe(way);
 			}
 			removeElementFromRelations(way);
 			way.updateState(OsmElement.STATE_DELETED);
@@ -857,7 +886,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (relation.state == Node.STATE_CREATED) {
 				apiStorage.removeElement(relation);
 			} else {
-				apiStorage.insertElementUnsafe(relation);
+				apiStorage.insertElementSafe(relation);
 			}
 			removeElementFromRelations(relation);
 			removeRelationFromMembers(relation);
