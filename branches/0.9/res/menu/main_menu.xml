@@ -95,6 +95,7 @@
 	<item
 		android:id="@+id/menu_tools"
 		android:title="@string/menu_tools"
+		android:icon="@drawable/menu_tools"
 		android:showAsAction="ifRoom"
 	>	
 		<menu>
@@ -102,6 +103,10 @@
 					android:id="@+id/menu_tools_flush_tile_cache"
 					android:title="@string/menu_tools_flush_tile_cache"
 				/>
+<!-- 				<item -->
+<!-- 					android:id="@+id/menu_tools_background_properties" -->
+<!-- 					android:title="@string/menu_tools_background_properties" -->
+<!-- 				/> -->
 	
 		</menu>
 	</item>
