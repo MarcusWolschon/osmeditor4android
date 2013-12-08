@@ -866,7 +866,6 @@ public class Logic {
 						rotatingWay = false;
 						hideCrosshairs();
 					} else {
-						if (selectedNode != null) setSelectedNode(null);
 						// way center / handle
 						Handle handle = getClickedWayHandleWithDistances(x, y);
 						if (handle != null) {
@@ -917,15 +916,16 @@ public class Logic {
 			if (draggingNode || (draggingHandle && selectedHandle != null)) {
 				if (draggingHandle) { // create node only if we are really dragging
 					Log.d("Logic","creating node at handle position");
-					performAdd(selectedHandle.x, selectedHandle.y);
-					selectedHandle = null;
-					draggingNode = true;
-					draggingHandle = false;
-					if (prefs.largeDragArea()) {
-						startX = GeoMath.lonE7ToX(map.getWidth(), viewBox, selectedNode.getLon());
-						startY = GeoMath.latE7ToY(map.getHeight(), viewBox, selectedNode.getLat());
+					if (performAddOnWay(selectedHandle.x, selectedHandle.y)) {
+						selectedHandle = null;
+						draggingNode = true;
+						draggingHandle = false;
+						if (prefs.largeDragArea()) {
+							startX = GeoMath.lonE7ToX(map.getWidth(), viewBox, selectedNode.getLon());
+							startY = GeoMath.latE7ToY(map.getHeight(), viewBox, selectedNode.getLat());
+						}
+						Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
 					}
-					Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
 				}
 				if (prefs.largeDragArea()) {
 					startY = startY + relativeY;
@@ -988,7 +988,7 @@ public class Logic {
 		map.invalidate();
 	}
 
-	public void setRoationMode() {
+	public void setRotationMode() {
 		rotatingWay = true;
 	}
 	
@@ -1070,6 +1070,27 @@ public class Logic {
 		}
 		setSelectedNode(lSelectedNode);
 		setSelectedWay(lSelectedWay);
+	}
+	
+	/**
+	 * Executes an add-command for x,y but only if on way. Adds new node to storage. Will switch selected node,
+	 * 
+	 * @param x screen-coordinate
+	 * @param y screen-coordinate
+	 */
+	public boolean performAddOnWay(final float x, final float y) {
+		createCheckpoint(R.string.undo_action_add);
+		Node savedSelectedNode = selectedNode;
+		
+		Node newSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
+
+		if (newSelectedNode == null) {
+			newSelectedNode = savedSelectedNode;
+			return false;
+		}
+			
+		setSelectedNode(newSelectedNode);
+		return true;
 	}
 	
 	/**
@@ -1170,6 +1191,19 @@ public class Logic {
 		map.invalidate();
 		return mergeOK;
 	}
+	
+	
+	/**
+	 * Orthogonalize a way (aka make angles 90°)
+	 * @param way
+	 */
+	public void performOrthogonalize(Way way) {
+		if (way.getNodes().size() < 3) return;
+		createCheckpoint(R.string.undo_action_orthogonalize);
+		delegator.orthogonalizeWay(way);
+		map.invalidate();
+	}
+
 	
 	/**
 	 * If any ways are close to the node (within the tolerance), return the way.
@@ -2225,9 +2259,6 @@ public class Logic {
 	public float latE7toY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(), viewBox, lat);
 	}
-
-
-
 
 
 
