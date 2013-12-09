@@ -694,7 +694,7 @@ public class Map extends View implements IMapView {
 					if (tempFp == null) {
 						ArrayList<Relation> relations = way.getParentRelations();
 						// check for any relation memberships with low prio, take first one
-						String[] relationTags = {"boundary","landuse","natural","waterway"};
+						String[] relationTags = {"boundary","landuse","natural","waterway","building"};
 						if (relations != null) { 
 							for (Relation r : relations) {
 								for (String tag:relationTags) {
