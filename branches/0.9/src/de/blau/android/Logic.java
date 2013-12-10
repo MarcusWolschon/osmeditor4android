@@ -1037,6 +1037,7 @@ public class Logic {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
+				delegator.saveToUndo(lSelectedNode);
 				delegator.insertElementSafe(lSelectedNode);
 			}
 		} else {
@@ -1051,6 +1052,7 @@ public class Logic {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
+				delegator.saveToUndo(lSelectedNode);
 				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
 				delegator.insertElementSafe(lSelectedNode);
 			} else {
@@ -1372,6 +1374,7 @@ public class Logic {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
 				node = delegator.getFactory().createNodeWithNewId(lat, lon);
+				delegator.saveToUndo(node);
 				delegator.insertElementSafe(node);
 			}
 			delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
@@ -1434,7 +1437,9 @@ public class Logic {
 			float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
 			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p[1]);
 			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p[0]);
-			return delegator.getFactory().createNodeWithNewId(lat, lon);
+			Node node = delegator.getFactory().createNodeWithNewId(lat, lon);
+			delegator.saveToUndo(node);
+			return node;
 		}
 		return null;
 	}
