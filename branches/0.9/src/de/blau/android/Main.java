@@ -1033,6 +1033,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		String authUrl = oa.getRequestToken();
 		if (authUrl == null) {
 			Toast.makeText(Main.this, getResources().getString(R.string.toast_oauth_handshake_failed), Toast.LENGTH_LONG).show();
+			actionbar.show();
 			return;
 		}
 		Log.d("Main", "authURl " + authUrl);

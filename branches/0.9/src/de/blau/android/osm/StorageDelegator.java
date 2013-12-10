@@ -22,8 +22,10 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.Main;
+import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -272,33 +274,157 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 	
+	/**
+	 * "square" a way/polygon, based on the algorithm used by iD and before that by P2, originally written by Matt Amos
+	 * @param way
+	 */
 	public void orthogonalizeWay(Way way) {
-		// TODO Auto-generated method stub
+		final int threshold = 10; // degrees within right or straight to alter
+		final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
+		final double upperThreshold = Math.cos(threshold * Math.PI / 180);
+		final double epsilon = 1e-4;
+		
 		if ((way.getNodes() == null) || (way.getNodes().size()<3)) {
-			Log.d("StorageDelegator", "moveWay way " + way.getOsmId() + " has no nodes or less than 3!");
+			Log.d("StorageDelegator", "orthogonalize way " + way.getOsmId() + " has no nodes or less than 3!");
 			return;
 		}
 		dirty = true;
-//		try {
-//			// save nodes for undo
-//			Node firstNode = way.getFirstNode();
-//			for (int i = 0; i < way.getNodes().size(); i++) { 
-//				Node nd = way.getNodes().get(i);
-//				if (i == 0 || !nd.equals(firstNode)) {
-//					undo.save(nd);
-//				}
-//			}
-//			for (int iterations = 0; iterations < 100; iterations++) {
-//				
-////			apiStorage.insertElementSafe(nd);
-////			nd.setLat(nd.getLat() + deltaLatE7);
-////			nd.setLon(nd.getLon() + deltaLonE7);
-////			nd.updateState(OsmElement.STATE_MODIFIED);
-//			}
-//		} catch (StorageException e) {
-//			//TODO handle OOM
-//			e.printStackTrace();
-//		}
+		try {
+			// save nodes for undo
+			Node firstNode = way.getFirstNode();
+			for (int i = 0; i < way.getNodes().size(); i++) { 
+				Node nd = way.getNodes().get(i);
+				if (i == 0 || !nd.equals(firstNode)) {
+					undo.save(nd);
+				}
+			}
+			Coordinates coords[] = nodeListToCooardinateArray(way.getNodes());
+			Coordinates a, b, c, p, q;
+			int start = 0;
+			int end = coords.length;
+			if (!way.isClosed()) {
+				start = 1;
+				end = end-1;
+			}
+			// iterate until score is low enough
+			for (int iteration = 0; iteration < 1000; iteration++) {
+				Coordinates motions[] = new Coordinates[coords.length];
+				for (int i=start;i<end;i++) {
+					a = coords[(i - 1 + coords.length) % coords.length];
+					b = coords[i];
+			        c = coords[(i + 1) % coords.length];
+			        p = a.subtract(b);
+			        q = c.subtract(b);
+			        double scale = 2 * Math.min(Math.hypot(p.x,p.y), Math.hypot(q.x,q.y));
+		            p = normalize(p, 1.0);
+		            q = normalize(q, 1.0);
+		            double dotp = filter((double)(p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+
+		            // nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).   
+		            if (dotp < -0.707106781186547) {
+		            	dotp += 1.0;
+		            }
+		            motions[i] = normalize(p.add(q), 0.1 * dotp * scale);
+				}
+				// apply position changes
+				for (int i=start;i<end;i++) {
+					coords[i] = coords[i].add(motions[i]);
+				}
+				// calculate score
+				double score = 0.0;
+				for (int i=start;i<end;i++) {
+					// yes I know that this -nearly- dups the code above
+					a = coords[(i - 1 + coords.length) % coords.length];
+					b = coords[i];
+			        c = coords[(i + 1) % coords.length];
+			        p = a.subtract(b);
+			        q = c.subtract(b);
+			        p = normalize(p, 1.0);
+		            q = normalize(q, 1.0);
+		            double dotp = filter((double)(p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+		            
+		            score = score + 2.0 * Math.min(Math.abs(dotp-1.0), Math.min(Math.abs(dotp), Math.abs(dotp+1.0)));
+				}
+				// Log.d("StorageDelegator", "orthogonalize way iteration/score " + iteration + "/" + score);
+				if (score < epsilon) break;
+			}
+			
+			// prepare updated nodes for upload
+			int width = Application.mainActivity.getMap().getWidth();
+			int height = Application.mainActivity.getMap().getHeight();
+			BoundingBox box = Application.mainActivity.getMap().getViewBox();
+			for (int i = 0; i < way.getNodes().size(); i++) { 
+				Node nd = way.getNodes().get(i);
+				if (i == 0 || !nd.equals(firstNode)) {
+					nd.setLon(GeoMath.xToLonE7(width, box, coords[i].x));
+					nd.setLat(GeoMath.yToLatE7(height, box, coords[i].y));
+					apiStorage.insertElementSafe(nd);
+					nd.updateState(OsmElement.STATE_MODIFIED);
+				}
+			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
+	}
+	
+	// TODO move this and following code somewhere else and generalize
+	private Coordinates normalize(Coordinates p, double scale) {
+		Coordinates result = p;
+		double length = p.length();
+		if (length != 0) {
+			result = p.divide(length);
+		}
+		return result.multiply(scale);
+	}
+	
+	private double filter(double v, double lower, double upper) {
+		return (lower > Math.abs(v)) || (Math.abs(v) > upper) ? v : 0.0;
+	}
+	
+	private class Coordinates {
+		float x;
+		float y;
+		
+		Coordinates (float x, float y) {
+			this.x = x;
+			this.y = y;
+		}
+		
+		Coordinates subtract(Coordinates s) {
+			return new Coordinates(this.x-s.x,this.y-s.y);
+		}
+		
+		Coordinates add(Coordinates p) {
+			return new Coordinates(this.x+p.x,this.y+p.y);
+		}
+		
+		Coordinates multiply(double m) {
+			return new Coordinates((float)(this.x*m),(float)(this.y*m));
+		}
+		
+		Coordinates divide(double d) {
+			return new Coordinates((float)(this.x/d),(float)(this.y/d));
+		}
+		
+		float length() {
+			return (float)Math.hypot(x, y);
+		}
+	}
+	
+	private Coordinates[] nodeListToCooardinateArray(List<Node>nodes) {
+		Coordinates points[] = new Coordinates[nodes.size()];
+		int width = Application.mainActivity.getMap().getWidth();
+		int height = Application.mainActivity.getMap().getHeight();
+		BoundingBox box = Application.mainActivity.getMap().getViewBox();
+		
+		//loop over all nodes
+		for (int i=0;i<nodes.size();i++) {
+			points[i] = new Coordinates(0.0f,0.0f);
+			points[i].x = GeoMath.lonE7ToX(width, box, nodes.get(i).getLon());
+			points[i].y = GeoMath.latE7ToY(height, box, nodes.get(i).getLat());
+		}
+		return points;
 	}
 	
 	/**
@@ -1372,6 +1498,14 @@ public class StorageDelegator implements Serializable, Exportable {
 		if (newDelegator != null) {
 			Log.d("StorageDelegator", "read saved state");
 			currentStorage = newDelegator.currentStorage;
+			if (currentStorage.getBoundingBoxes() == null) { // can happen if data was added before load
+				try {
+					currentStorage.setBoundingBox(currentStorage.calcBoundingBoxFromData());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			apiStorage = newDelegator.apiStorage;
 			undo = newDelegator.undo;
 			clipboard = newDelegator.clipboard;
