@@ -638,5 +638,20 @@ public class BoundingBox implements Serializable {
 		
 		return bottomMercator;
 	}
+
+	public void setTop(int lat) {
+		this.top = lat;
+	}
 	
+	public void setBottom(int lat) {
+		this.bottom = lat;
+	}
+	
+	public void setRight(int lon) {
+		this.right = lon;
+	}
+	
+	public void setLeft(int lon) {
+		this.left = lon;
+	}
 }
