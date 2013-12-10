@@ -264,4 +264,22 @@ public class Storage implements Serializable {
 			}
 		}
 	}
+
+	/**
+	 * Calculate a bound box just covering the data
+	 * @return
+	 * @throws OsmException
+	 */
+	public BoundingBox calcBoundingBoxFromData() throws OsmException {
+		BoundingBox result  = new BoundingBox(0, 0, 0, 0);
+		if (nodes != null) {
+			for (Node n:nodes) {
+				if (n.getLat() > result.getTop()) result.setTop(n.getLat());
+				else if (n.getLat() < result.getBottom()) result.setBottom(n.getLat());
+				if (n.getLon() > result.getRight()) result.setRight(n.getLon());
+				else if (n.getLon() < result.getLeft()) result.setLeft(n.getLon());
+			}
+		}
+		return result;
+	}
 }
