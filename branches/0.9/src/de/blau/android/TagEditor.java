@@ -439,15 +439,15 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	
 	private void doRepeatLast(boolean merge) {
 		Map<String, String> last = savingHelper.load(LAST_TAGS_FILE, false);
-		if (merge) {
-			final Map<String, String> current = getKeyValueMap(false);
-			for (String k: current.keySet()) {
-				if (!last.containsKey(k)) {
-					last.put(k, current.get(k));
+		if (last != null) {
+			if (merge) {
+				final Map<String, String> current = getKeyValueMap(false);
+				for (String k: current.keySet()) {
+					if (!last.containsKey(k)) {
+						last.put(k, current.get(k));
+					}
 				}
 			}
-		}
-		if (last != null) {
 			loadEdits(last);
 		}
 	}
