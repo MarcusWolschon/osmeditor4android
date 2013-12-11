@@ -682,10 +682,11 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		float tolerance = Profile.getCurrent().nodeToleranceValue;
-		if (prefs.largeDragArea() && node == selectedNode) {
-			tolerance = Profile.getCurrent().largDragToleranceRadius;
-		}
+		return clickDistance(node, x, y, Profile.getCurrent().nodeToleranceValue);
+	}
+
+	private Double clickDistance(Node node, final float x, final float y, float tolerance) {
+
 		float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon()) - x);
 		float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat()) - y);
 		
@@ -838,7 +839,7 @@ public class Logic {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
-			if (selectedNode != null && clickDistance(selectedNode, x, y) != null) {
+			if (selectedNode != null && clickDistance(selectedNode, x, y, prefs.largeDragArea()? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
 					startX = GeoMath.lonE7ToX(map.getWidth(), viewBox, selectedNode.getLon());
@@ -1361,6 +1362,7 @@ public class Logic {
 	}
 	
 	public void performAppendAppend(final float x, final float y) {
+		Log.d("Logic","performAppendAppend");
 		createCheckpoint(R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
 		Way lSelectedWay = getSelectedWay();
