@@ -11,7 +11,7 @@
   <string name="no_login_data_title">Datos de login no establecidos</string>
   <string name="no_login_data_message">Por favor rellene la configuración de login-OSM en el formulario de preferencias.</string>
   <string name="no_connection_title">Sin conexión con el Servidor</string>
-  <string name="no_connection_message">No se puede conectar al servidor-OSM. Por favor compruebe su conexión a internet o intentelo más tarde.</string>
+  <string name="no_connection_message">No se puede conectar al servidor de OSM. Por favor compruebe su conexión a internet o intentelo más tarde.</string>
   <string name="wrong_login_data_title">Datos de login incorrectos</string>
   <string name="wrong_login_data_message">El servidor-OSM no puede autenticarle. Por favor compruebe sus datos de login en las preferencias.</string>
   <string name="progress_title">Cargando</string>
@@ -19,7 +19,7 @@
   <string name="progress_download_message">Descargando datos del servidor…</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fuente:</string>
-  <string name="openstreetbug_new_title">Nota Nueva</string>
+  <string name="openstreetbug_new_title">Nota nueva</string>
   <string name="openstreetbug_new_bug">Informar de un problema</string>
   <string name="openstreetbug_new_nodeway">Crear Nodo/Ruta</string>
   <string name="openstreetbug_edit_title">Editar Nota</string>
@@ -30,34 +30,39 @@
   <string name="openstreetbug_commit_ok">Cambios guardados</string>
   <string name="openstreetbug_commit_fail">No se han podido guardar los cambios</string>
   <string name="unsaved_data_title">¡Cuidado!</string>
-  <string name="unsaved_data_message">Tiene cambios sin guardar que se descartaran si continúa.</string>
+  <string name="unsaved_data_message">Tiene cambios sin guardar que se descartarán si continúa.</string>
   <string name="unsaved_data_proceed">Descartar &amp; continuar</string>
   <!--Toaster-->
-  <string name="toast_no_changes">No ha cambiado nada aun…</string>
+  <string name="toast_no_changes">No ha cambiado nada aún…</string>
   <string name="toast_upload_success">Finalizada la subida al servidor de OSM.</string>
   <string name="toast_not_in_edit_range">Por favor haga zoom para editar (Volumen Arriba/Abajo o Lens/Shift)</string>
-  <string name="toast_save_done">Guardado exitoso</string>
+  <string name="toast_save_done">Guardado exitosamente</string>
   <string name="toast_not_in_bug_range">Por favor haga zoom para añadir un bug (Volumen Arriba/Abajo o Lens/Shift)</string>
   <string name="toast_export_failed">Exportación fallida</string>
   <string name="toast_export_success">Exportado a %1$s</string>
   <string name="toast_preset_overwrote_tags">Aviso - preajustes sobreescriben etiqueta(s)</string>
+  <string name="toast_oneway_reversed">Ud. invirtió una calle de sentido único o una vía con etiquetas de dirección. Por favor, revise las etiquetas y corríjalas si es necesario.</string>
+  <string name="toast_state_file_failed">No puede leer el archivo de estado</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nodos en camino para mover</string>
   <!--Some generic labels-->
-  <string name="yes">Si</string>
+  <string name="yes">Sí</string>
   <string name="no">No</string>
-  <string name="okay">Vale</string>
+  <string name="okay">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="locked">Bloqueado</string>
   <!--Dialog for back button-->
   <!--Strings in TagEditor-->
-  <string name="key">key</string>
+  <string name="key">clave</string>
   <string name="value">value</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Encuestado</string>
   <string name="tag_menu_preset">Preajustes</string>
+  <string name="tag_menu_repeat">Repetir etiquetas</string>
   <string name="tag_menu_revert">Revertir</string>
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
+  <string name="tag_menu_addtorelation">Agregar a relación</string>
   <string name="tag_menu_resetMRU">Reajustar Predeterminados</string>
+  <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Area</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -105,19 +110,22 @@
   <string name="menu_transfer_download_other">Descargar otra localización</string>
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_export">Exportar cambios</string>
-  <string name="menu_save">Guardar en fichero</string>
+  <string name="menu_save">Guardar archivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Dividir</string>
   <string name="menu_copy">Copiar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Pegar</string>
   <string name="menu_rotate">Girar</string>
+  <string name="menu_tools">Herramientas</string>
   <!--element action mode menu-->
   <string name="menu_tags">Etiquetas</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
   <string name="menu_merge">Unir</string>
   <string name="menu_reverse">Revertir</string>
+  <string name="reverse_anyway">Revertir de todas formas.</string>
+  <string name="deleteway_description">Está a punto de eliminar un camino.\n\nPuede conservar todos los nodos o eliminar solo los que pertenecen a este camino y no tienen ninguna etiqueta.</string>
   <string name="deleteway_wayonly">Eliminar solo la vía</string>
   <string name="deleteway_wayandnodes">Eliminar vía y nodos</string>
   <string name="deletenode">Borrar nodo</string>
@@ -126,7 +134,7 @@
   <string name="actionmode_nodeselect">Nodo seleccionado</string>
   <string name="actionmode_createpath">Creando camino</string>
   <!--Preferences-->
-  <string name="config_category_view">Configuraciones de Vista</string>
+  <string name="config_category_view">Configuraciones de vista</string>
   <string name="config_showStats_title">Mostrar estadísticas</string>
   <string name="config_showStats_summary">Mostrar datos estadisticos y frames/seg en la esquina inferior izquierda.</string>
   <string name="config_showTolerance_title">Mostrar tolerancia</string>
@@ -142,18 +150,18 @@
   <string name="config_apibutton_summary">Puede establecer una API URL no estandar aquí. ¡Normalmalmente no debería cambiarla!</string>
   <string name="config_presetbutton_title">Preajustes JOSM</string>
   <string name="config_presetbutton_summary">Puede configurar definiciones de elementos de mapa aquí</string>
-  <string name="config_iconbutton_title">Mostrar iconos en nodos</string>
-  <string name="config_iconbutton_summary">Mostrar sobre los nodos los iconos preestablecidos que mejor encajen.</string>
+  <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
+  <string name="config_iconbutton_summary">Mostrar sobre los nodos el ícono del preajuste de mejor coincidencia.</string>
   <string name="config_loginbutton_title">Cuenta de usuario</string>
   <string name="config_username_title">Nombre de usuario OSM</string>
-  <string name="config_username_summary">Necesario para subir los datos-OSM. Si no tiene aun, consiga uno en http://www.openstreetmap.org/user/new</string>
+  <string name="config_username_summary">Necesario para subir los datos OSM. Si no la tiene aún, puede conseguirla en http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Contraseña OSM</string>
-  <string name="config_password_summary">No lo confunda con la contraseña de la Wiki. Recuerde: ¡Es almacenada y enviada en texto plano!</string>
+  <string name="config_password_summary">No la confunda con la contraseña de la Wiki. Recuerde: ¡Es almacenada y enviada en texto plano!</string>
   <string name="config_category_gps">Ajustes GPS</string>
-  <string name="config_gps_distance_title">Distancia minima GPS</string>
-  <string name="config_gps_distance_summary">Distancia minima para intervalos de notificaciones GPS, en metros (float). Valores bajos usan más batería.</string>
+  <string name="config_gps_distance_title">Distancia mínima GPS</string>
+  <string name="config_gps_distance_summary">Distancia mínima para intervalos de notificaciones GPS, en metros (float). Valores bajos utilizan más batería.</string>
   <string name="config_gps_interval_title">Intervalo GPS mínimo</string>
-  <string name="config_gps_interval_summary">Tiempo de intervalo mínimo de notificaciones GPS, en milisegundos. Valores bajos usan más batería.</string>
+  <string name="config_gps_interval_summary">Intervalo de tiempo mínimo de notificaciones GPS, en milisegundos. Valores bajos utilizan más batería.</string>
   <string name="config_category_info">Acerca de</string>
   <string name="config_advancedprefs">Preferencias avanzadas</string>
   <string name="config_forceContextMenu_title">Usar siempre menú contextual</string>
@@ -164,9 +172,9 @@
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar preajustes</string>
   <string name="preset_download_successful">Preajustes descargados correctamente</string>
-  <string name="preset_download_failed">El fichero de preajustes no se ha podido descargar. Los preajustes no funcionaran.</string>
-  <string name="preset_download_parse_failed">El fichero de preajustes es invalido. Los preajustes no funcionaran.</string>
-  <string name="preset_download_missing_images">El fichero de preajustes se ha descargado correctamente. A pesar de eso, algunos iconos pueden no haberse descargado y pueden faltar.</string>
+  <string name="preset_download_failed">El archivo de preajustes no se ha podido descargar. Los preajustes no funcionarán.</string>
+  <string name="preset_download_parse_failed">El archivo de preajustes es invalido. Los preajustes no funcionarán.</string>
+  <string name="preset_download_missing_images">El archivo de preajustes se ha descargado correctamente. Sin embargo, algunos íconos no se descargaron y pueden faltar.</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" borrado</string>
   <string name="changes_changed">\"%1$s\" modificado</string>
@@ -179,7 +187,7 @@
   <string name="urldialog_api_exists">Una API con esta URL ya existe. Aun así, puede añadir otra (p.ej. para cambiar de cuenta facilmente).</string>
   <string name="urldialog_api_preset_missing">El preajuste usado por la API no está disponible. Debería añadirla antes.</string>
   <string name="urldialog_add_api">Añadir API</string>
-  <string name="urldialog_nodata_text">La URL de configuracion no contiene datos validos.</string>
+  <string name="urldialog_nodata_text">La URL de configuración no contiene datos validos.</string>
   <!--common terms-->
   <string name="add">Añadir</string>
   <string name="edit">Editar</string>
@@ -216,11 +224,11 @@
   <string name="crash_notif_ticker_text">Vespucci ha fallado. Por favor envíe un informe de errores.</string>
   <string name="crash_notif_title">Vespucci ha fallado</string>
   <string name="crash_notif_text">Por favor haga click aquí para ayudar a corregir el error.</string>
-  <string name="crash_dialog_text">Ha ocurrido un error inesperado forzando a la aplicación a detenerse. Por favor ayudenos a corregirlo enviandonos los datos del error, todo lo que tiene que hacer es hacer click en \'Vale\'.</string>
+  <string name="crash_dialog_text">Ha ocurrido un error inesperado forzando a la aplicación a detenerse. Por favor ayudenos a corregirlo enviandonos los datos del error, todo lo que tiene que hacer es hacer click en \'OK\'.</string>
   <string name="config_category_acra">Reportando fallo</string>
   <string name="pref_enable_acra">Reportar errores de la aplicación</string>
-  <string name="pref_acra_enabled">Reportes de error habilitados</string>
-  <string name="pref_acra_disabled">Reportes de error deshabilitados</string>
+  <string name="pref_acra_enabled">Reporte de error habilitado</string>
+  <string name="pref_acra_disabled">Reporte de error deshabilitado</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="role_lc">rol</string>

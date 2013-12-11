@@ -17,6 +17,8 @@
   <string name="progress_title">Скачивание</string>
   <string name="progress_message">Загрузка данных в память…</string>
   <string name="progress_download_message">Скачивание данных с сервера…</string>
+  <string name="progress_general_title">Подождите</string>
+  <string name="progress_deleting_message">Удаление...</string>
   <string name="upload_comment_label">Комментарий:</string>
   <string name="upload_source_label">Источник:</string>
   <string name="openstreetbug_new_title">Новая заметка</string>
@@ -45,6 +47,7 @@
   <string name="toast_unread_mail">У вас %1$s непрочитанных сообщения(й) на сервере OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Начато сканирование геопривязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование геопривязанных фото</string>
+  <string name="toast_download_failed">Загрузка прервана, код ошибки %1$d, сообщение %2$s</string>
   <!--Some generic labels-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -121,6 +124,7 @@
   <string name="menu_cut">Вырезать</string>
   <string name="menu_paste">Вставить</string>
   <string name="menu_rotate">Повернуть</string>
+  <string name="menu_tools">Инструменты</string>
   <!--element action mode menu-->
   <string name="menu_tags">Теги</string>
   <!--Text should be as short as possible-->

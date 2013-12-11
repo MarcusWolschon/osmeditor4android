@@ -22,6 +22,8 @@
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
   <string name="progress_download_message">Descarregando dados do servidor…</string>
+  <string name="progress_general_title">Por favor aguarda</string>
+  <string name="progress_deleting_message">Apagando...</string>
   <string name="upload_comment_label">Comentário:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="openstreetbug_new_title">Nova Nota</string>
@@ -139,6 +141,8 @@
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Colar</string>
   <string name="menu_rotate">Rodar</string>
+  <string name="menu_tools">Ferramentas</string>
+  <string name="menu_tools_flush_tile_cache">Limpar cache de tiles</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
@@ -162,6 +166,8 @@
   <string name="config_category_view">Ver Definições</string>
   <string name="config_maxStrokeWidth_title">Máx largura de linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma via mais larga que isto</string>
+  <string name="config_tileCacheSize_title">Tamanho da cache de tiles</string>
+  <string name="config_tileCacheSize_summary">Tamanho total da cache de tiles em MB</string>
   <string name="config_showStats_title">Ver estatísticas</string>
   <string name="config_showStats_summary">Mostra estatístivas dos dados e frames/seg no canto inferior esquerdo.</string>
   <string name="config_showTolerance_title">Ver tolerância</string>

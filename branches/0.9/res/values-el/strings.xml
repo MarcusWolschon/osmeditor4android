@@ -47,7 +47,7 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Χαρτογραφήθικε</string>
   <string name="tag_menu_revert">Επαναφορά</string>
-  <string name="tag_menu_mapfeatures">Wiki χαρακτηριστικών χάρτη</string>
+  <string name="tag_menu_mapfeatures">Wiki Χαρακτηριστικών Χάρτη</string>
   <string name="tag_menu_addtorelation">Προσθήκη στη σχέση</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Φόρτωση περιοχής</string>
@@ -80,7 +80,7 @@
   <string name="menu_restriction">Προσθήκη περιορισμού</string>
   <string name="menu_restriction_via">Προσθήκη περιορισμού μέσω</string>
   <string name="menu_restriction_to">Προσθήκη περιορισμού προς</string>
-  <string name="menu_tag">Επεξεργασία ετικετών</string>
+  <string name="menu_tag">Επεξεργασία χαρακτηριστικών</string>
   <string name="menu_openstreetbug">Προσθήκη Σημείωσης</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Προβολή τοποθεσίας</string>
@@ -102,7 +102,7 @@
   <string name="menu_paste">Επικόλληση</string>
   <string name="menu_rotate">Περιστροφή</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Ετικέτες</string>
+  <string name="menu_tags">Χαρακτηριστικά</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Ιστορικό</string>
   <string name="menu_merge">Σύνδεση</string>
@@ -161,7 +161,7 @@
   <string name="undo_action_split_way">διαίρεση διαδρομής</string>
   <string name="undo_action_merge_ways">σύνδεση διαδρομών</string>
   <string name="undo_action_reverse_way">ανακατεύθυνση διαδρομής</string>
-  <string name="undo_action_set_tags">θέση ετικετών</string>
+  <string name="undo_action_set_tags">θέση χαρακτηριστικών</string>
   <string name="undo_action_join">σύνδεση</string>
   <string name="undo_action_unjoin_ways">αποσύνδεση διαδρομών</string>
   <string name="undo_action_update_relations">ενημέρωση σχέσεων</string>

@@ -22,6 +22,8 @@
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
   <string name="progress_download_message">Lade Daten vom Server…</string>
+  <string name="progress_general_title">Bitte warten</string>
+  <string name="progress_deleting_message">Löschen...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
@@ -139,8 +141,11 @@
   <string name="menu_cut">Auschneiden</string>
   <string name="menu_paste">Einfügen</string>
   <string name="menu_rotate">Drehen</string>
+  <string name="menu_orthogonalize">Rechtwinklig machen</string>
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_tile_cache">Tile Cache leeren</string>
+  <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
+  <string name="menu_tools_background_opacity">Hintergrundtransparenz</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
@@ -212,6 +217,8 @@
   <string name="config_mapProfile_summary">Anzeige und sichtbarkeit der Datenelemente </string>
   <string name="config_use_back_for_undo_title">Zurücktaste für Undo verwenden</string>
   <string name="config_use_back_for_undo_summary">Zurücktaste in der Hauptansicht für Undo verwenden</string>
+  <string name="config_largeDragArea_title">Grosser Bereich um Punkte zu bewegen</string>
+  <string name="config_largeDragArea_summary">Macht einen grösseren Bereich verfügbar um Punkte zu verschieben</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -269,6 +276,7 @@
   <string name="undo_action_cut">kopieren</string>
   <string name="undo_action_paste">einfügen</string>
   <string name="undo_action_rotateway">Weg drehen</string>
+  <string name="undo_action_orthogonalize">weg rechtwinklig machen</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci ist abgestürzt. Bitte senden Sie einen Fehlerreport.</string>
   <string name="crash_notif_title">Vespucci ist abgestürzt</string>
