@@ -1277,7 +1277,6 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			// Use a set to prevent duplicate keys appearing
 			Set<String> roles = new HashSet<String>();
 			Relation r = (Relation) Main.logic.delegator.getOsmElement(Relation.NAME, relationId);
-			Log.d("TagEditor", "getRoleAutocompleteAdapter for relation " + r.getDescription());
 			if ( r!= null) {			
 				if ( owner.preset != null) {
 					PresetItem relationPreset = owner.preset.findBestMatch(r.getTags());
