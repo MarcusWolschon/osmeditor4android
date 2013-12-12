@@ -77,11 +77,13 @@ public class UndoStorage implements Serializable {
 	 * @param name the name of the checkpoint, used for debugging and display purposes
 	 */
 	public void createCheckpoint(String name) {
+		Log.d("UndoStorage", "creating checkpoint " + name);
 		if (undoCheckpoints.isEmpty() || !undoCheckpoints.getLast().isEmpty()) {
 			undoCheckpoints.add(new Checkpoint(name));
 			redoCheckpoints.clear();
 		} else {
 			// Empty checkpoint exists, just rename it
+			Log.d("UndoStorage", "renaming checkpoint " + name);
 			undoCheckpoints.getLast().name = name;
 		}
 		
@@ -89,6 +91,14 @@ public class UndoStorage implements Serializable {
 			undoCheckpoints.removeFirst();
 		}
 		updateIcon();
+	}
+	
+	/**
+	 * remove checkpoint from list. typically called when we otherwise would have an empty checkpoint at the top
+	 */
+	public void removeCheckpoint(String name) {
+		if (!undoCheckpoints.isEmpty() && undoCheckpoints.getLast().isEmpty() && undoCheckpoints.getLast().name.equals(name))
+			undoCheckpoints.removeLast();
 	}
 	
 	/**

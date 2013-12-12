@@ -472,6 +472,14 @@ public class Logic {
 		delegator.getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
 	}
 	
+	/**
+	 * Remove an undo checkpoint using a resource string as the name
+	 * @param stringId the resource id of the string representing the checkpoint name
+	 */
+	private void removeCheckpoint(int stringId) {
+		delegator.getUndo().removeCheckpoint(Application.mainActivity.getResources().getString(stringId));
+	}
+	
 
 	/**
 	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
@@ -884,6 +892,7 @@ public class Logic {
 			rotatingWay = false;
 			draggingHandle = false;
 		}
+		Log.d("Logic","handleTouchEventDown creating checkpoints");
 		if (draggingNode || draggingWay) {
 			createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
 		} else if (rotatingWay) {
@@ -1025,6 +1034,7 @@ public class Logic {
 	 * @param y screen-coordinate
 	 */
 	public void performAdd(final float x, final float y) {
+		Log.d("Logic","performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
 		Node lSelectedNode = selectedNode;
@@ -1038,7 +1048,6 @@ public class Logic {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.saveToUndo(lSelectedNode);
 				delegator.insertElementSafe(lSelectedNode);
 			}
 		} else {
@@ -1053,13 +1062,13 @@ public class Logic {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.saveToUndo(lSelectedNode);
 				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
 				delegator.insertElementSafe(lSelectedNode);
 			} else {
 				//User clicks an existing Node
 				if (nextNode == lSelectedNode) {
 					//User clicks the last Node -> end here with adding
+					removeCheckpoint(R.string.undo_action_add);
 					lSelectedNode = null;
 					lSelectedWay = null;
 				} else {
@@ -1376,7 +1385,6 @@ public class Logic {
 				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
 				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
 				node = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.saveToUndo(node);
 				delegator.insertElementSafe(node);
 			}
 			delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
@@ -1440,7 +1448,6 @@ public class Logic {
 			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p[1]);
 			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p[0]);
 			Node node = delegator.getFactory().createNodeWithNewId(lat, lon);
-			delegator.saveToUndo(node);
 			return node;
 		}
 		return null;

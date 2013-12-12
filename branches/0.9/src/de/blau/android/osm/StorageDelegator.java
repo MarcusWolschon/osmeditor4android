@@ -106,13 +106,6 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
-	 * Needed when creating nodes
-	 */
-	public void saveToUndo(OsmElement e) {
-		undo.save(e);
-	}
-	
-	/**
 	 * Get the current OsmElementFactory instance used by this delegator.
 	 * Use only the factory returned by this to create new element IDs for insertion into this delegator!
 	 * For immediate use only - DO NOT CACHE THIS.
