@@ -362,6 +362,20 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	}
 	
 	/**
+	 * return a string giving the problem
+	 */
+	public String describeProblem() {
+		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
+		for (String key : tags.keySet()) {
+			// test key and value against pattern
+			if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+				return key + ": " + tags.get(key);
+			}
+		}
+		return "";
+	}
+	
+	/**
 	 * Test if the element has a noted problem. A noted problem is where someone has
 	 * tagged the element with a "fixme" or "todo" key/value.
 	 * @return true if the element has a noted problem, false if it doesn't.

@@ -60,6 +60,8 @@
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
     <string name="toast_download_bbox_failed">Download failed, probably because the area selected was too large.</string>
     <string name="toast_download_failed">Download failed with error code %1$d, message %2$s</string>
+    <string name="toast_unsurveyed_road">Unsurveyed road</string>
+    <string name="toast_noname">Road has no name or ref</string>
     <!-- Some generic labels -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

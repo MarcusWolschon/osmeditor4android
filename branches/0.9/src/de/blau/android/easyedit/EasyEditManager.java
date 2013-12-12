@@ -88,7 +88,12 @@ public class EasyEditManager {
 			if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
 			if (cb != null) {
 				main.startActionMode(cb);
-				Toast.makeText(main, element.getDescription(), Toast.LENGTH_SHORT).show();
+				String toast = element.getDescription();
+				if (element.hasProblem()) {
+					String problem = element.describeProblem();
+					toast = !problem.equals("") ? toast + "\n" + problem : toast;
+				}
+				Toast.makeText(main, toast, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

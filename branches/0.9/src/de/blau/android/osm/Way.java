@@ -15,6 +15,7 @@ import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.resources.Profile.FeatureProfile;
 
@@ -531,6 +532,31 @@ public class Way extends OsmElement {
 			}
 		}
 		return super.calcProblem();
+	}
+	
+	public String describeProblem() {
+		String superProblem = super.describeProblem();
+		String wayProblem = "";
+		String highway = getTagWithKey("highway");
+		if ("road".equalsIgnoreCase(highway)) {
+			wayProblem = Application.mainActivity.getString(R.string.toast_unsurveyed_road);
+		}
+		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null)) {
+			boolean isImportant = false;
+			for (String h : importantHighways) {
+				if (h.equalsIgnoreCase(highway)) {
+					isImportant = true;
+					break;
+				}
+			}
+			if (isImportant) {
+				wayProblem = !wayProblem.equals("") ? wayProblem +", " :  Application.mainActivity.getString(R.string.toast_noname);
+			}
+		}
+		if (!superProblem.equals("")) 
+			return superProblem + (!wayProblem.equals("") ? "\n" + wayProblem : "");
+		else
+			return wayProblem;
 	}
 	
 	@Override
