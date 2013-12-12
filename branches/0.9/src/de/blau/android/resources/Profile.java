@@ -243,7 +243,7 @@ public class Profile  extends DefaultHandler {
 	public float wayToleranceValue = 40f;
 	public float largDragCircleRadius = 70f;
 	public float largDragToleranceRadius = 100f;
-	public float minLenForHandle = 3 * nodeToleranceValue;
+	public float minLenForHandle = 5 * nodeToleranceValue;
 	
 	public Profile(final Context ctx) {
 		// create default 
