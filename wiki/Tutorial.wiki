@@ -18,7 +18,7 @@ Alternatively you can dismiss the dialog by pressing the back button and pan and
  * Node icons. Default: off.
  * Keep screen on. Default: off.
  * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
- * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: on. 
+ * Always show context menu (in "Advanced Preferences"). When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: on. 
 
 == Using GPS ==
 
