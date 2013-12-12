@@ -51,6 +51,10 @@ The default editing mode is now what used to be called [EasyEdit] mode. With the
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
+==== Selecting / De-selecting ====
+
+A single click on an object will select the object and highlight it, a second click on the same object will open the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else simply touch the object in question, there is no need to de-select first. 
+
 ==== Adding a new Node/Point or Way ====
 
 Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol, touching the same location again will create a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
@@ -64,7 +68,11 @@ If you zoom in far enough you will see a small "x" in the middle of way segments
 
 Selected nodes and ways can be copied or cut and then pasted one or multiple times to a new location. Cutting with retain the osm id and version. To paste long click the location you want to paste to, you will see a cross hair symbol marking the location, select "Paste" from the menu.
 
-=== Adding Turn Restrictions ===
+==== Efficiently Adding Addresses ====
+
+The tag editor has a repeat last tag function which will merge the tags of the last objects tags displayed in the tag editor with the current ones. Example use: add address tags to first building on a street, continue a long the street using the last tags function to add the address and then edit the house number.
+
+==== Adding Turn Restrictions ====
 
 Vespucci 0.9 has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
 
