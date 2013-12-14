@@ -585,19 +585,27 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	@Override
 	public void onBackPressed() {
 		// sendResultAndFinish();
-	    new AlertDialog.Builder(this)
-        .setNeutralButton(R.string.cancel, null)
-        .setNegativeButton(R.string.tag_menu_revert,        	
-        		new DialogInterface.OnClickListener() {
-            	public void onClick(DialogInterface arg0, int arg1) {
-            		doRevert();
-            }})
-        .setPositiveButton(R.string.tag_menu_exit_no_save, 
-        	new DialogInterface.OnClickListener() {
-	            public void onClick(DialogInterface arg0, int arg1) {
-	                TagEditor.super.onBackPressed();
-	            }
-        }).create().show();
+		Map<String, String> currentTags = getKeyValueMap(false);
+		HashMap<Long,String> currentParents = getParentRelationMap();
+		ArrayList<RelationMemberDescription> currentMembers = getMembersList();
+		// if we haven't edited just exit
+		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		    new AlertDialog.Builder(this)
+	        .setNeutralButton(R.string.cancel, null)
+	        .setNegativeButton(R.string.tag_menu_revert,        	
+	        		new DialogInterface.OnClickListener() {
+	            	public void onClick(DialogInterface arg0, int arg1) {
+	            		doRevert();
+	            }})
+	        .setPositiveButton(R.string.tag_menu_exit_no_save, 
+	        	new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface arg0, int arg1) {
+		                TagEditor.super.onBackPressed();
+		            }
+	        }).create().show();
+		} else {
+			TagEditor.super.onBackPressed();
+		}
 	}
 	
 	/**
@@ -611,8 +619,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		Map<String, String> currentTags = getKeyValueMap(false);
 		HashMap<Long,String> currentParents = getParentRelationMap();
 		ArrayList<RelationMemberDescription> currentMembers = getMembersList();
-		// ArrayList<Relation> currentParents = 
-		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || !currentMembers.equals(originalMembers)) {
+		
+		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
 			// changes were made
 			intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, 
 					currentTags.equals(originalTags)? null : currentTags,  null, 
