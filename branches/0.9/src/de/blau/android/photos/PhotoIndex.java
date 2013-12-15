@@ -2,6 +2,7 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -16,6 +17,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Rect;
 import android.os.Environment;
@@ -148,7 +150,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 				Log.d(LOGTAG,"deleteing refs for reindex");
 				try {
 					db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
-				} catch (Exception ex) { Log.d(LOGTAG, ex.toString()); ACRA.getErrorReporter().handleException(ex);}
+				} catch (SQLiteException sqex) { Log.d(LOGTAG, sqex.toString()); ACRA.getErrorReporter().handleException(sqex);}
 				needsReindex = true;
 			}
 			// now process 
@@ -173,8 +175,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						}
 						values.put("dir", indir.getAbsolutePath());
 						values.put("name", f.getName());
-						db.insert("photos", null, values);	
-					} catch (Exception ex) { Log.d(LOGTAG, ex.toString()); ACRA.getErrorReporter().handleException(ex);}
+						db.insert("photos", null, values); 
+					} catch (SQLiteException sqex) { Log.d(LOGTAG, sqex.toString()); ACRA.getErrorReporter().handleException(sqex);
+					} catch (Exception ex) { } // ignore
 				}
 			}
 		}
