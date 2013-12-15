@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import org.acra.ACRA;
+
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
@@ -144,7 +146,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			if (indir.lastModified() >= lastScan) { // directory was modified
 				// remove all entries
 				Log.d(LOGTAG,"deleteing refs for reindex");
-				db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
+				try {
+					db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
+				} catch (Exception ex) { Log.d(LOGTAG, ex.toString()); ACRA.getErrorReporter().handleException(ex);}
 				needsReindex = true;
 			}
 			// now process 
@@ -170,7 +174,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						values.put("dir", indir.getAbsolutePath());
 						values.put("name", f.getName());
 						db.insert("photos", null, values);	
-					} catch (Exception ex) { Log.d(LOGTAG, ex.toString());}
+					} catch (Exception ex) { Log.d(LOGTAG, ex.toString()); ACRA.getErrorReporter().handleException(ex);}
 				}
 			}
 		}

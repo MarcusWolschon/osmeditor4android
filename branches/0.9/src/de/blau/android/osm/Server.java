@@ -27,6 +27,7 @@ import oauth.signpost.exception.OAuthNotAuthorizedException;
 import oauth.signpost.http.HttpParameters;
 import oauth.signpost.http.HttpResponse;
 
+import org.acra.ACRA;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -308,7 +309,8 @@ public class Server {
 				Toast.makeText(mainCtx,
 					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
 			} catch (Exception ex) {
-			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, 
+			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely casued by a translation error 
+				ACRA.getErrorReporter().handleException(ex);
 			}
 		}
 	}
