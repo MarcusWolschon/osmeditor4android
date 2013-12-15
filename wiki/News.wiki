@@ -6,7 +6,7 @@
 2013-12-15: Improvements centered around making geometry editing easier and more efficient.
 
  * Lots of issues resolved
- * Added "geometry improvement" handles (small "x"s like in iD or JOSM. Dragging such a handle on a non-selected way will add a node at the location, selection tolerance is that same as for ways. 
+ * Added "geometry improvement" handles (small "x"s like in iD or JOSM). Dragging such a handle on a non-selected way will add a node at the location, selection tolerance is that same as for ways. 
  * Experimental fix to the "fat finger problem", by providing a large drag area for nodes when selected. This can be turned on in the preferences.
  * Updated presets and icons.
  * Improved map styling 
