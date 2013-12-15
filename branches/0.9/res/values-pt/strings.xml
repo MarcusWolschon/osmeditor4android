@@ -60,6 +60,8 @@
   <string name="toast_photo_indexing_finished">Terminada procura de fotos georreferenciadas</string>
   <string name="toast_download_bbox_failed">Descarga falhou, provavelmente porque a área seleccionada era demasiado grande.</string>
   <string name="toast_download_failed">Descarga falhou com o erro de código %1$d, mensagem %2$s</string>
+  <string name="toast_unsurveyed_road">Via não levantada</string>
+  <string name="toast_noname">Via não tem nome ou ref</string>
   <!--Some generic labels-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -141,8 +143,11 @@
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Colar</string>
   <string name="menu_rotate">Rodar</string>
+  <string name="menu_orthogonalize">Ortogonalizar</string>
   <string name="menu_tools">Ferramentas</string>
   <string name="menu_tools_flush_tile_cache">Limpar cache de tiles</string>
+  <string name="menu_tools_background_properties">Propriedades do fundo</string>
+  <string name="menu_tools_background_opacity">Opacidade do Fundo</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
@@ -214,6 +219,8 @@
   <string name="config_mapProfile_summary">Definir estilo e visibilidade de elementos</string>
   <string name="config_use_back_for_undo_title">Use a tecla de Retroceder (\'back\') para Desfazer</string>
   <string name="config_use_back_for_undo_summary">Use a tecla Retroceder para desfazer na janela principal de edição</string>
+  <string name="config_largeDragArea_title">Área grande de arrasto de nó</string>
+  <string name="config_largeDragArea_summary">Forneça a área grande para arrasto de nós</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar prédefinições</string>
   <string name="preset_download_successful">Prédefinição descarregada com sucesso</string>
@@ -271,6 +278,7 @@
   <string name="undo_action_cut">cortar</string>
   <string name="undo_action_paste">colar</string>
   <string name="undo_action_rotateway">rodar via</string>
+  <string name="undo_action_orthogonalize">ortogonalizar via</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci deixou de funcionar. Por favor envie um relatório de erro.</string>
   <string name="crash_notif_title">Vespucci deixou de funcionar</string>

@@ -60,6 +60,8 @@
   <string name="toast_photo_indexing_finished">Suche nach geo-refenzierte Fotos beendet</string>
   <string name="toast_download_bbox_failed">Download fehlgeschlagen, wahrscheinlich was das ausgewählte Gebiet zu gross.</string>
   <string name="toast_download_failed">Downlod ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
+  <string name="toast_unsurveyed_road">Strasse nicht überprüft</string>
+  <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
   <!--Some generic labels-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>

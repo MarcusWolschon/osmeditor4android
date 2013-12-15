@@ -60,6 +60,8 @@
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_bbox_failed">Thất bại khi tải về, có lẽ vì khu vực được chọn quá lớn.</string>
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
+  <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
+  <string name="toast_noname">Đường không có tên hoặc số</string>
   <!--Some generic labels-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
