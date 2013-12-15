@@ -1,5 +1,5 @@
 = Vespucci Quick Start Guide =
-(Updated for version 0.9.1)
+(Updated for version 0.9.3)
 
 == Installation ==
 
