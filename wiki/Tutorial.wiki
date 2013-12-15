@@ -88,4 +88,4 @@ Select the same button or menu item you did for the download and now select "Upl
 
 Vespucci 0.9 supports OAuth authorization besides the classical username and password method. OAuth is preferable, particularly for mobile applications since it avoids sending passwords in the clear.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website will be loaded. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you can return to Vespucci (using the back button) and retry the upload, which now should succeed.
+New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website will be loaded. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci and should retry the upload, which now should succeed.
