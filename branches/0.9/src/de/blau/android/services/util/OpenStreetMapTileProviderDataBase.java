@@ -152,6 +152,10 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	}
 
 	int deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
+		if (!mDatabase.isOpen()) { // this seems to happen, protect against crashing
+			Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG,"deleteOldest called on closed DB");
+			return 0;
+		}
 		final Cursor c = mDatabase.rawQuery(T_FSCACHE_SELECT_OLDEST, null);
 		final ArrayList<OpenStreetMapTile> deleteFromDB = new ArrayList<OpenStreetMapTile>();
 		int sizeGained = 0;
