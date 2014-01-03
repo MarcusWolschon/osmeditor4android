@@ -234,6 +234,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	 * Call when the object is no longer needed to close the database
 	 */
 	public void destroy() {
+		Log.d(DEBUGTAG, "Closing tile database");
 		mDatabase.close();
 	};
 	
