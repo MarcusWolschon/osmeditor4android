@@ -1232,7 +1232,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			roleEdit.setOnKeyListener(owner.myKeyListener);
 			
 			parentEdit = (Spinner)findViewById(R.id.editParent);
-			ArrayAdapter a = getRelationSpinnerAdapter();
+			ArrayAdapter<Relation> a = getRelationSpinnerAdapter();
 			a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			parentEdit.setAdapter(a);
 			parentEdit.setOnItemSelectedListener(owner);
