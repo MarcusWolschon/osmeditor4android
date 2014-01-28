@@ -9,14 +9,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.ActionBar;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -36,7 +41,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 		super();
 		addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
 	}
-	
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		db = new AdvancedPrefDatabase(this);
@@ -52,14 +57,16 @@ public class PresetEditorActivity extends URLListEditActivity {
 	protected void onLoadList(List<ListEditItem> items) {
 		PresetInfo[] presets = db.getPresets();
 		for (PresetInfo preset : presets) {
-			items.add(new ListEditItem(preset.id, preset.name, preset.url));
+			items.add(new ListEditItem(preset.id, preset.name, preset.url, false, preset.active));
 		}
 	}
 
 	@Override
 	protected void onItemClicked(ListEditItem item) {
-		db.setCurrentAPIPreset(item.id);
-		finish();
+		item.active = !item.active;
+		db.setPresetState(item.id, item.active);
+		Main.resetPreset();
+		// finish();
 	}
 
 	@Override

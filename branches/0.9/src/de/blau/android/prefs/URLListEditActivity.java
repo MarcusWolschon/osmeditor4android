@@ -14,14 +14,22 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 
@@ -31,7 +39,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
+import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.TagEditor;
 
 /**
  * This activity allows the user to edit a list of URLs.
@@ -83,9 +93,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		r = getResources();
-
 		onLoadList(items);
-		
 		TextView v = (TextView)View.inflate(ctx, android.R.layout.simple_list_item_1, null);
 		v.setText(r.getString(getAddTextResId()));
 		v.setTextColor(ctx.getResources().getColor(android.R.color.darker_gray));
@@ -135,6 +143,9 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 			// clicked on "new" button
 			itemEditDialog(null);
 		} else {
+			Log.d("URLListEditActivity","Item clicked");
+			ListItem listItem = (ListItem)view;
+			listItem.setChecked(!listItem.isChecked());
 			onItemClicked((ListEditItem)item);
 		}
 	}
@@ -150,7 +161,6 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 				menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE,	r.getString(entry.getValue()))
 					.setOnMenuItemClickListener(this);
 			}
-			
 		}
 	}
 	
@@ -361,6 +371,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		public String name;
 		public String value;
 		public boolean enabled;
+		public boolean active;
 		
 		/**
 		 * Create a new item with a new, random UUID and the given name and value
@@ -375,6 +386,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 			this.value = value;
 			this.name = name;
 			this.enabled = enabled;
+			this.active = false;
 		}
 		
 		/**
@@ -393,6 +405,15 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 			this.value = value;
 			this.name = name;
 			this.enabled = enabled;
+			this.active = false;
+		}
+		
+		public ListEditItem(String id, String name, String value, boolean enabled, boolean active) {
+			this.id = id;
+			this.value = value;
+			this.name = name;
+			this.enabled = enabled;
+			this.active = active;
 		}
 
 		@Override
@@ -408,22 +429,22 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	private class ListEditAdapter extends ArrayAdapter<ListEditItem> {
 
 		public ListEditAdapter(Context context, List<ListEditItem> items) {
-			super(context, android.R.layout.simple_list_item_2, items);
+			super(context, R.layout.list_item, items);
 		}
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			TwoLineListItem v;
-			if (convertView instanceof TwoLineListItem) {
-				v = (TwoLineListItem)convertView;
+			ListItem v;
+			if (convertView instanceof ListItem) {
+				v = (ListItem)convertView;
 			} else {
-				v = (TwoLineListItem)View.inflate(ctx, android.R.layout.simple_list_item_2, null);
+				v = (ListItem)View.inflate(ctx, R.layout.list_item, null);
 			}
-			v.getText1().setText(getItem(position).name);
-			v.getText2().setText(getItem(position).value);
+			v.setText1(getItem(position).name);
+			v.setText2(getItem(position).value);
+			v.setChecked(getItem(position).active);
 			return v;
-		}
-		
+		}	
 	}
 
 	public List<ListEditItem> getItems() {
@@ -436,5 +457,48 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public boolean isAddingViaIntent() {
 		return addingViaIntent;
 	}
+	
+	public static class ListItem extends LinearLayout {
+		
+		private TextView text1;
+		private TextView text2;
+		private CheckBox checkBox;
+		
+		public ListItem(Context context) {
+			super(context);
+		}
+		
+		public ListItem(Context context, AttributeSet attrs) {
+			super(context, attrs);
+		}
+		
+		public ListItem(Context context, AttributeSet attrs, int defStyle) {
+			super(context, attrs, defStyle);
+		}
 
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			
+			text1 = (TextView)findViewById(R.id.listItemText1);
+			text2 = (TextView)findViewById(R.id.listItemText2);
+			checkBox = (CheckBox)findViewById(R.id.listItemCheckBox);
+		}
+		
+		public void setChecked(boolean checked) {
+			checkBox.setChecked(checked);
+		}
+		
+		public boolean isChecked() {
+			return checkBox.isChecked();
+		}
+		
+		public void setText1(String txt) {
+			text1.setText(txt);
+		}
+		
+		public void setText2(String txt) {
+			text2.setText(txt);
+		}
+	}
 }

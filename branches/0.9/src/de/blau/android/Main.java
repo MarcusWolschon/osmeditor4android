@@ -183,7 +183,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * The currently selected preset
 	 */
-	private static Preset currentPreset;
+	private static Preset[] currentPresets;
 
 	/**
 	 * Flag indicating whether the map will be re-downloaded once the activity resumes
@@ -378,8 +378,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		} else { // loadFromFile already does this
 			logic.loadEditingState();
 		}
-		if (currentPreset == null) {
-			currentPreset = prefs.getPreset();
+		if (currentPresets == null) {
+			currentPresets = prefs.getPreset();
 		}
 		
 		logic.updateProfile();
@@ -1781,15 +1781,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * @return the currentPreset
 	 */
-	public static Preset getCurrentPreset() {
-		return currentPreset;
+	public static Preset[] getCurrentPresets() {
+		return currentPresets;
 	}
 
 	/**
 	 * Resets the current preset, causing it to be re-parsed
 	 */
 	public static void resetPreset() {
-		currentPreset = null;
+		currentPresets = null; 
 	}
 	
 	public String getBaseURL() {

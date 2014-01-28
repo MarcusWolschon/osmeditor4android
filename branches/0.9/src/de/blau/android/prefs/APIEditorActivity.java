@@ -1,8 +1,10 @@
 package de.blau.android.prefs;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -14,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,15 +55,22 @@ public class APIEditorActivity extends URLListEditActivity {
 	@Override
 	protected void onLoadList(List<ListEditItem> items) {
 		API[] apis = db.getAPIs();
+		API current = db.getCurrentAPI();
 		for (API api : apis) {
-			items.add(new ListEditItem(api.id, api.name, api.url, api.oauth));
+			items.add(new ListEditItem(api.id, api.name, api.url, api.oauth, current.id.equals(api.id)));
 		}
 	}
 
 	@Override
 	protected void onItemClicked(ListEditItem item) {
 		db.selectAPI(item.id);
-		finish();
+		// this is a bit hackish
+		for (ListEditItem lei:items) {
+			lei.active = false;
+		}
+		item.active = true;
+		updateAdapter();
+		// finish();
 	}
 
 	@Override

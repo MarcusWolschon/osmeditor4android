@@ -220,7 +220,7 @@ public class Preferences {
 		return advancedPrefs.getServerObject();
 	}
 	
-	public Preset getPreset() {
+	public Preset[] getPreset() {
 		return advancedPrefs.getCurrentPresetObject();
 	}
 	

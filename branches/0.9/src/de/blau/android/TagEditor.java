@@ -137,7 +137,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private ArrayList<RelationMemberDescription> originalMembers;
 	
 	private PresetItem autocompletePresetItem = null;
-	Preset preset = null;
+	Preset[] presets = null;
 	
 	private static final String LAST_TAGS_FILE = "lasttags.dat";
  
@@ -332,7 +332,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		loadEdits(loadData.tags);
 		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
 		element = Main.logic.delegator.getOsmElement(type, osmId);
-		preset = Main.getCurrentPreset();
+		presets = Main.getCurrentPresets();
 
 		// presets
 		createRecentPresetView();
@@ -432,7 +432,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	}
 	
 	private void doPresets() {
-		if (Main.getCurrentPreset() != null) {
+		if (Main.getCurrentPresets() != null) {
 			showPresetDialog();
 		}
 	}
@@ -459,10 +459,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	}
 	
 	private void createRecentPresetView() {
-		Preset preset = Main.getCurrentPreset();
-		if (preset != null && element != null && preset.hasMRU()) {
+		Preset[] presets = Main.getCurrentPresets();
+	
+		if (presets.length >= 1 && presets[0] != null && element != null && presets[0].hasMRU()) {
 			ElementType filterType = element.getType();
-			View v = preset.getRecentPresetView(this, new PresetClickHandler() {
+			View v = presets[0].getRecentPresetView(this, presets, new PresetClickHandler() { //TODO this should really be a call of a static method
 				@Override
 				public void onItemClick(PresetItem item) {
 					Log.d(DEBUG_TAG, "normal click");
@@ -481,11 +482,13 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 					// should not have groups
 				}
 			}, filterType);
+		
 			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
 			v.setPadding(20, 20, 20, 20);
 			v.setId(R.id.recentPresets);
 			presetsLayout.addView(v);
 			presetsLayout.setVisibility(View.VISIBLE);
+			
 		}
 	}
 	
@@ -574,7 +577,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			addToRelation();
 			return true;
 		case R.id.tag_menu_resetMRU:
-			preset.resetRecentlyUsed();
+			for (Preset p:presets)
+				p.resetRecentlyUsed();
 			recreateRecentPresetView();
 			return true;
 		}
@@ -657,7 +661,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	@Override
 	protected void onPause() {
 		running = false;
-		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().saveMRU();
+		if (Main.getCurrentPresets() != null)  {
+			for (Preset p:Main.getCurrentPresets())
+				p.saveMRU();
+		}
 		super.onPause();
 	}
 
@@ -812,8 +819,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			// Use a set to prevent duplicate keys appearing
 			Set<String> keys = new HashSet<String>();
 			
-			if (owner.autocompletePresetItem == null && owner.preset != null) {
-				owner.autocompletePresetItem = owner.preset.findBestMatch(owner.getKeyValueMap(false));
+			if (owner.autocompletePresetItem == null && owner.presets != null) {
+				owner.autocompletePresetItem = Preset.findBestMatch(owner.presets,owner.getKeyValueMap(false));
 			}
 			
 			if (owner.autocompletePresetItem != null) {
@@ -822,8 +829,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 				keys.addAll(owner.autocompletePresetItem.getOptionalTags().keySet());
 			}
 			
-			if (owner.preset != null && owner.element != null) {
-				keys.addAll(owner.preset.getAutocompleteKeys(owner.element.getType()));
+			if (owner.presets != null && owner.element != null) {
+				keys.addAll(Preset.getAutocompleteKeys(owner.presets, owner.element.getType()));
 			}
 			
 			keys.removeAll(owner.getUsedKeys(keyEdit));
@@ -842,8 +849,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 				if (isStreetName) {
 					adapter = getStreetNameAutocompleteAdapter();
 				} else {
-					if (owner.preset != null && owner.element != null) {
-						Collection<String> values = owner.preset.getAutocompleteValues(owner.element.getType(), key);
+					if (owner.presets != null && owner.element != null) {
+						Collection<String> values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
 						if (values != null && !values.isEmpty()) {
 							List<String> result = new ArrayList<String>(values);
 							Collections.sort(result);
@@ -1124,8 +1131,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			// Use a set to prevent duplicate keys appearing
 			Set<String> roles = new HashSet<String>();
 					
-			if ( owner.preset != null && owner.autocompletePresetItem != null) {
-				PresetItem relationPreset = owner.preset.findBestMatch(owner.getKeyValueMap(false));
+			if ( owner.presets != null && owner.autocompletePresetItem != null) {
+				PresetItem relationPreset = Preset.findBestMatch(owner.presets,owner.getKeyValueMap(false));
 				if (relationPreset != null) {
 					roles.addAll(owner.autocompletePresetItem.getRoles());
 				}
@@ -1286,8 +1293,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			Set<String> roles = new HashSet<String>();
 			Relation r = (Relation) Main.logic.delegator.getOsmElement(Relation.NAME, relationId);
 			if ( r!= null) {			
-				if ( owner.preset != null) {
-					PresetItem relationPreset = owner.preset.findBestMatch(r.getTags());
+				if ( owner.presets != null) {
+					PresetItem relationPreset = Preset.findBestMatch(owner.presets,r.getTags());
 					if (relationPreset != null) {
 						roles.addAll(relationPreset.getRoles());
 					}
@@ -1403,8 +1410,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	 * Shows the preset dialog for choosing which preset to apply
 	 */
 	private void showPresetDialog() {
-		if (Main.getCurrentPreset() != null && element != null) {
-			presetDialog = new PresetDialog(this, Main.getCurrentPreset(), element);
+		if (Main.getCurrentPresets() != null && element != null) {
+			presetDialog = new PresetDialog(this, Main.getCurrentPresets(), element);
 			presetDialog.setOnDismissListener(this);
 			presetDialog.show();
 		}
@@ -1446,7 +1453,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		loadEdits(currentValues);
 		if (replacedValue) Toast.makeText(this, R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
 		
-		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().putRecentlyUsed(item);
+		//
+		Preset[] presets = Main.getCurrentPresets();
+		if (presets != null) {
+			for (Preset p:presets) {
+				if (p.contains(item)) {
+					p.putRecentlyUsed(item);
+					break;
+				}
+			}
+		}
 		recreateRecentPresetView();
 		focusOnEmptyValue();
 	}
@@ -1457,7 +1473,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	 */
 	private void removePresetFromMRU(PresetItem item) {
 		
-		if (Main.getCurrentPreset() != null) Main.getCurrentPreset().removeRecentlyUsed(item);
+		//
+		Preset[] presets = Main.getCurrentPresets();
+		if (presets != null) {
+			for (Preset p:presets) {
+				if (p.contains(item)) {
+					p.removeRecentlyUsed(item);
+					break;
+				}
+			}
+		}
 		recreateRecentPresetView();
 	}
 	

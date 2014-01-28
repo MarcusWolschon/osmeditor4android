@@ -14,6 +14,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -324,16 +325,27 @@ public class Preset {
 		return rootGroup;
 	}
 	
+	/*
+	 * return true if the item is from this Preset
+	 */
+	public boolean contains(PresetItem pi) {
+		return allItems.contains(pi);
+	}
+	
 	/**
 	 * Returns a view showing the most recently used presets
 	 * @param handler the handler which will handle clicks on the presets
 	 * @param type filter to show only presets applying to this type
 	 * @return the view
 	 */
-	public View getRecentPresetView(Context ctx, PresetClickHandler handler, ElementType type) {
+	public View getRecentPresetView(Context ctx, Preset[] presets, PresetClickHandler handler, ElementType type) {
 		PresetGroup recent = new PresetGroup(null, "recent", null);
-		for (int index : mru.recentPresets) {
-			recent.addElement(allItems.get(index));
+		for (Preset p: presets) {
+			if (p != null && p.hasMRU()) {
+				for (int index : p.mru.recentPresets) {
+					recent.addElement(p.allItems.get(index));
+				}
+			}
 		}
 		return recent.getGroupView(ctx, handler, type);
 	}
@@ -392,7 +404,6 @@ public class Preset {
 	}
 
 	/**
-	 * WARNING - UNTESTED
 	 * 
 	 * Finds the preset item best matching a certain tag set, or null if no preset item matches.
 	 * To match, all (mandatory) tags of the preset item need to be in the tag set.
@@ -404,15 +415,19 @@ public class Preset {
 	 * @param tags tags to check against (i.e. tags of a map element)
 	 * @return null, or the "best" matching item for the given tag set
 	 */
-	public PresetItem findBestMatch(Map<String,String> tags) {
+	static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags) {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
 		// Build candidate list
 		LinkedHashSet<PresetItem> possibleMatches = new LinkedHashSet<PresetItem>();
-		for (Entry<String, String> tag : tags.entrySet()) {
-			String tagString = tag.getKey()+"\t"+tag.getValue();
-			possibleMatches.addAll(tagItems.get(tagString));
+		for (Preset p:presets) {
+			if (p != null) {
+				for (Entry<String, String> tag : tags.entrySet()) {
+					String tagString = tag.getKey()+"\t"+tag.getValue();
+					possibleMatches.addAll(p.tagItems.get(tagString));
+				}
+			}
 		}
 		
 		// Find best
@@ -506,6 +521,10 @@ public class Preset {
 		
 		public PresetGroup getParent() {
 			return parent;
+		}
+		
+		public void setParent(PresetGroup pg) {
+			parent = pg;
 		}
 		
 		/**
@@ -625,6 +644,10 @@ public class Preset {
 
 		public void addElement(PresetElement element) {
 			elements.add(element);
+		}
+		
+		public ArrayList<PresetElement> getElements() {
+			return elements;
 		}
 		
 		/**
@@ -911,30 +934,32 @@ public class Preset {
 		public void onGroupClick(PresetGroup group);
 	}
 
-	public Collection<String> getAutocompleteKeys(ElementType type) {
-		switch (type) {
-		case NODE: return autosuggestNodes.getKeys();
-		case WAY: return autosuggestWays.getKeys();
-		case CLOSEDWAY: return autosuggestClosedways.getKeys();
-		case RELATION: return autosuggestRelations.getKeys();
+	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
+		Collection<String> result = new HashSet<String>();
+		for (Preset p:presets) {
+			switch (type) {
+			case NODE: result.addAll(p.autosuggestNodes.getKeys()); break;
+			case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
+			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
+			case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
+			default: return null; // should never happen, all cases are covered
+			}
 		}
-		return null; // should never happen, all cases are covered
+		return result; 
 	}
 	
-	public Collection<String> getAutocompleteValues(ElementType type, String key) {
-		Collection<String> source = null;
-		switch (type) {
-		case NODE: source = autosuggestNodes.get(key); break;
-		case WAY: source = autosuggestWays.get(key); break;
-		case CLOSEDWAY:source = autosuggestClosedways.get(key); break;
-		case RELATION:source = autosuggestRelations.get(key); break;
+	static public Collection<String> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
+		Collection<String> result = new HashSet<String>();
+		for (Preset p:presets) {
+			switch (type) {
+			case NODE: result.addAll(p.autosuggestNodes.get(key)); break;
+			case WAY: result.addAll(p.autosuggestWays.get(key)); break;
+			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
+			case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
+			default: return Collections.emptyList();
+			}
 		}
-		if (source != null) {
-			return source;
-		} else {
-			return Collections.emptyList();
-		}
+		return result;
 	}
-	
 }
 

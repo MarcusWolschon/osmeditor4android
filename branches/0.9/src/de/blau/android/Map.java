@@ -116,7 +116,7 @@ public class Map extends View implements IMapView {
 	private Set<Node> tmpDrawingSelectedRelationNodes;
 	
 	/** Caches the preset during one onDraw pass */
-	private Preset tmpPreset;
+	private Preset[] tmpPresets;
 	
 	/** Caches the Paint used for node tolerance */
 	Paint nodeTolerancePaint;
@@ -208,7 +208,7 @@ public class Map extends View implements IMapView {
 		}
 		tracker = null;
 		iconcache.clear();
-		tmpPreset = null;
+		tmpPresets = null;
 	}
 	
 	public void onLowMemory() {
@@ -232,7 +232,7 @@ public class Map extends View implements IMapView {
 		tmpClickableElements = Main.logic.getClickableElements();
 		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
-		tmpPreset = Main.getCurrentPreset();
+		tmpPresets = Main.getCurrentPresets();
 		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
 		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
 		handles = null;
@@ -559,7 +559,7 @@ public class Map extends View implements IMapView {
 				return; // no tags -> no icon, so we can exit here
 			}
 			
-			if (showIcons && tmpPreset != null && !featureKey.equals(Profile.SELECTED_NODE)) paintNodeIcon(node, canvas, x, y);
+			if (showIcons && tmpPresets != null && !featureKey.equals(Profile.SELECTED_NODE)) paintNodeIcon(node, canvas, x, y);
 		}
 	}
 	
@@ -577,7 +577,7 @@ public class Map extends View implements IMapView {
 			icon = iconcache.get(tags); // may be null!
 		} else {
 			// icon not cached, ask the preset, render to a bitmap and cache result
-			PresetItem match = tmpPreset.findBestMatch(tags);
+			PresetItem match = Preset.findBestMatch(tmpPresets,tags);
 			if (match != null && match.getMapIcon() != null) {
 				icon = Bitmap.createBitmap(iconRadius*2, iconRadius*2, Config.ARGB_8888);
 				match.getMapIcon().draw(new Canvas(icon));
