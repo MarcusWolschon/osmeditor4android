@@ -356,8 +356,8 @@ public class EasyEditManager {
 			logic.showCrosshairs(x, y);
 			startX = x;
 			startY = y;
-			startLon = logic.xtoLonE7(x);
-			startLat = logic.ytoLonE7(y);
+			startLon = logic.xToLonE7(x);
+			startLat = logic.yToLatE7(y);
 			// return isNeeded();
 			// always required for paste
 			return true;
@@ -380,7 +380,7 @@ public class EasyEditManager {
 		 */
 		@Override
 		public boolean handleClick(float x, float y) {
-			PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(logic.lonE7toX(startLon), logic.latE7toY(startLat));
+			PathCreationActionModeCallback pcamc = new PathCreationActionModeCallback(logic.lonE7ToX(startLon), logic.latE7ToY(startLat));
 			main.startActionMode(pcamc);
 			pcamc.handleClick(x, y);
 			logic.hideCrosshairs();

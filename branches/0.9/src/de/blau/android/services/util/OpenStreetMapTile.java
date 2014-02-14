@@ -1,5 +1,7 @@
 package de.blau.android.services.util;
 
+import android.util.Log;
+
 /**
  * This class merely holds the coordinates embedded in the url of a tile.<br/>
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06
@@ -29,7 +31,7 @@ public class OpenStreetMapTile {
 	
 	@Override
 	public String toString() {
-		return rendererID + "/" + zoomLevel + "/" + x + "/" + y;
+		// Log.d("OpenStreetMapTile","Tile " + rendererID + "/" + zoomLevel + "/" + x + "/" + y);
+		return rendererID + "/" + zoomLevel + "/" + x + "/" + y; 
 	}
-
 }

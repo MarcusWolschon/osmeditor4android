@@ -24,7 +24,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	// Constants
 	// ===========================================================
 	
-	private static final long serialVersionUID = 3345124753192560741L;
+	private static final long serialVersionUID = 3345124753192560742L;
 
 	// ===========================================================
 	// Fields

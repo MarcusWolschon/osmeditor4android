@@ -154,7 +154,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 					else
 						i = icon;
 					int x = (int) GeoMath.lonE7ToX(viewPort.width() , bb, p.getLon());
-					int y = (int) GeoMath.latE7ToY(viewPort.height(), bb, p.getLat());
+					int y = (int) GeoMath.latE7ToY(viewPort.height(), viewPort.width() ,bb, p.getLat());
 					int w2 = i.getIntrinsicWidth() / 2;
 					int h2 = i.getIntrinsicHeight() / 2;
 					i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
@@ -191,7 +191,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				int lat = p.getLat();
 				int lon = p.getLon();
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
+				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
 					if (Math.hypot(differenceX, differenceY) <= tolerance) {
 						result.add(p);

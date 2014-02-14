@@ -26,6 +26,8 @@ public class GeoMath {
 	
 	public static final double MAX_LAT = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
 	
+	public static final int MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int)(MAX_LAT* 1E7d));
+	
 	/**
 	 * The arithmetic middle of the two WGS84 reference-ellipsoids.
 	 */
@@ -209,7 +211,7 @@ public class GeoMath {
 		return (float) ((screenHeight - ratio * screenHeight));
 	}
 
-//TODO experimental code for using non-approx. projections
+    //TODO experimental code for using non-approx. projections
 	public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
 		// note the last term should be pre-calculated too
 		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);

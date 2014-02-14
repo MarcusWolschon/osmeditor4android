@@ -184,8 +184,7 @@ public class BoundingBox implements Serializable {
 		this.width = box.width;
 		this.height = box.height;
 		this.mercatorFactorPow3 = box.mercatorFactorPow3;
-		//TODO experimental code for using non-approx. projections
-		// this.bottomMercator = box.bottomMercator;
+		this.bottomMercator = box.bottomMercator;
 	}
 
 	/**
@@ -389,41 +388,44 @@ public class BoundingBox implements Serializable {
 	 * area is still visible with the new aspect ratio applied.
 	 */
 	public void setRatio(final float ratio, final boolean preserveZoom) throws OsmException {
+		long mTop = GeoMath.latE7ToMercatorE7(top); // note long or else we get an int overflow on calculating the center
+		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
+		long mHeight = mTop - mBottom;
 		if ((ratio > 0) && (ratio != Float.NaN)) {
 			if (preserveZoom) {
 				// Apply the new aspect ratio, but preserve the level of zoom
 				// so that for example, rotating portrait<-->landscape won't
 				// zoom out
-				int centerx = (left / 2 + right / 2); // divide first to stay < 2^32
-				int centery = (top + bottom) / 2;
-				int smallest = Math.min(Math.abs(right - left), Math.abs(bottom - top)) / 2;
-				if (ratio < 1.0f) {
-					// tall
-					left = centerx - smallest;
-					right = centerx + smallest;
-					smallest = (int)((float)smallest / ratio);
-					top = centery + smallest;
-					bottom = centery - smallest;
+				int centerX = (left / 2 + right / 2); // divide first to stay < 2^32
+				long centerY = (mTop + mBottom) / 2;
+				int currentWidth2 = Math.abs(right - left) / 2;
+				
+				left = centerX - currentWidth2;
+				right = centerX + currentWidth2;
+				int currentHeight2 = (int)((float)currentWidth2 / ratio);
+				// 
+				if ((centerY + currentHeight2) > GeoMath.MAX_MLAT_E7) { 
+					mTop = GeoMath.MAX_MLAT_E7;
+					mBottom = GeoMath.MAX_MLAT_E7 - 2*currentHeight2;
+				} else if ((centerY - currentHeight2) < -GeoMath.MAX_MLAT_E7) {
+					mBottom = -GeoMath.MAX_MLAT_E7;
+					mTop = -GeoMath.MAX_MLAT_E7 + 2*currentHeight2;
 				} else {
-					// wide
-					top = centery + smallest;
-					bottom = centery - smallest;
-					smallest = (int)((float)smallest * ratio);
-					left = centerx - smallest;
-					right = centerx + smallest;
+					mTop = centerY + currentHeight2;
+					mBottom = centerY - currentHeight2;
 				}
 			}
 			else {
 				int singleBorderMovement;
 				// Ensure currently visible area is entirely visible in the new box
-				if ((width / (long)height) < ratio) {
+				if ((width / (long)(mHeight)) < ratio) {
 					// The actual box is wider than it should be.
 					/* Here comes the math:
 					 * width/height = ratio
 					 * width = ratio * height
 					 * newWidth = width - ratio * height
 					 */
-					singleBorderMovement = Math.round((width - ratio * height) / 2);
+					singleBorderMovement = Math.round((width - ratio * mHeight) / 2);
 					left += singleBorderMovement;
 					right -= singleBorderMovement;
 				} else {
@@ -433,13 +435,16 @@ public class BoundingBox implements Serializable {
 					 * height = width/ratio
 					 * newHeight = height - width/ratio
 					 */
-					singleBorderMovement = Math.round((height - width / ratio) / 2);
-					bottom += singleBorderMovement;
-					top -= singleBorderMovement;
+					singleBorderMovement = Math.round((mHeight - width / ratio) / 2);
+					mBottom += singleBorderMovement;
+					mTop -= singleBorderMovement;
 				}
 			}
+			top = GeoMath.mercatorE7ToLatE7((int)mTop);
+			bottom = GeoMath.mercatorE7ToLatE7((int)mBottom);
 			// border-sizes changed. So we have to recalculate the dimensions.
 			calcDimensions();
+			calcMercatorFactorPow3();
 			this.ratio = ratio;
 			validate();
 		}
@@ -453,11 +458,13 @@ public class BoundingBox implements Serializable {
 	 * @param latCenter the absolute latitude for the center
 	 */
 	public void moveTo(final int lonCenter, final int latCenter) {
-		// TODO scaling adjustment is better now but not perfect 
-		double halfHeight = height / 2;
-		double mercatorDiff = mercatorFactorPow3 * halfHeight - halfHeight;
+		// new middle in mercator
+		double mLatCenter = GeoMath.latE7ToMercator(latCenter);
+		double mTop = GeoMath.latE7ToMercator(top);
+		int newBottom = GeoMath.mercatorToLatE7(mLatCenter - (mTop - bottomMercator)/2);
+		
 		try {
-			translate((lonCenter - left - (int)(width / 2L)), latCenter - bottom - (int)(halfHeight - mercatorDiff));
+			translate((lonCenter - left - (int)(width / 2L)), newBottom - bottom);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -481,15 +488,14 @@ public class BoundingBox implements Serializable {
 		} 
 		if (top + lat > MAX_LAT) {
 			lat = MAX_LAT - top;
-		} else if (bottom + lat < -MAX_LAT) {	
+		} else if (bottom + lat < -MAX_LAT) {
 			lat = -MAX_LAT - bottom;
 		}
 		left += lon;
 		right += lon;
 		top += lat;
 		bottom += lat;
-
-		calcMercatorFactorPow3();
+		setRatio(ratio, true); //TODO slightly expensive likely to be better to do everything in mercator
 		validate();
 	}
 	
@@ -560,22 +566,21 @@ public class BoundingBox implements Serializable {
 	public void zoom(float zoomFactor) throws OsmException {
 		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
 		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
-
+	
+		int mTop = GeoMath.latE7ToMercatorE7(top);
+		int mBottom = GeoMath.latE7ToMercatorE7(bottom);
+		int mHeight = mTop - mBottom;
+		
 		float horizontalChange = width * zoomFactor;
-		float verticalChange = height * zoomFactor;
-		// should simply shift the center here
+		float verticalChange = mHeight * zoomFactor;
+		// 
 		left = Math.max(-MAX_LON, left + (int)horizontalChange);
 		right = Math.min(MAX_LON, right - (int)horizontalChange);
-		bottom = Math.max(-MAX_LAT,bottom + (int)verticalChange);
-		top = Math.min(MAX_LAT, top - (int)verticalChange);
-		calcDimensions(); // need to do this or else centering will not work
-		// Due to Mercator-Factor-Projection we have to translate to the new
-		// center.
-		translate(0, getZoomingTranslation(zoomFactor));
+		bottom = Math.max(-MAX_LAT, GeoMath.mercatorE7ToLatE7(mBottom + (int)verticalChange));
+		top = Math.min(MAX_LAT, GeoMath.mercatorE7ToLatE7(mTop - (int)verticalChange));
 
-		if (zoomCount++ % RESET_RATIO_AFTER_ZOOMCOUNT == 0) {
-			setRatio(ratio);
-		}
+		calcDimensions(); // need to do this or else centering will not work
+		calcMercatorFactorPow3();
 	}
 
 	/**

@@ -397,13 +397,13 @@ public class Logic {
 				viewBox.translate((int) -translation, 0);
 				break;
 			case DIRECTION_DOWN:
-				viewBox.translate(0, (int) (-translation / viewBox.getMercatorFactorPow3()));
+				viewBox.translate(0, (int) (-translation / viewBox.getMercatorFactorPow3())); //TODO do with proper proj
 				break;
 			case DIRECTION_RIGHT:
 				viewBox.translate((int) translation, 0);
 				break;
 			case DIRECTION_UP:
-				viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3()));
+				viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3())); //TODO do with proper proj
 				break;
 			}
 		} catch (OsmException e) {
@@ -609,10 +609,10 @@ public class Logic {
 				Node node1 = wayNodes.get(k);
 				Node node2 = wayNodes.get(k + 1);
 				// TODO only project once per node
-				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float node2X = lonE7ToX(node2.getLon());
+				float node2Y = latE7ToY(node2.getLat());
 
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 					result.put(way, GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y));
@@ -654,10 +654,10 @@ public class Logic {
 				Node node1 = wayNodes.get(k);
 				Node node2 = wayNodes.get(k + 1);
 				// TODO only project once per node
-				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-				float xDelta = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon()) - node1X;
-				float yDelta = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat()) - node1Y;
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float xDelta = lonE7ToX(node2.getLon()) - node1X;
+				float yDelta = latE7ToY(node2.getLat()) - node1Y;
 				
 				float handleX = node1X + xDelta/2; 
 				float handleY = node1Y + yDelta/2;
@@ -695,8 +695,8 @@ public class Logic {
 
 	private Double clickDistance(Node node, final float x, final float y, float tolerance) {
 
-		float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon()) - x);
-		float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat()) - y);
+		float differenceX = Math.abs(lonE7ToX(node.getLon()) - x);
+		float differenceY = Math.abs(latE7ToY(node.getLat()) - y);
 		
 		if ((differenceX > tolerance) && (differenceY > tolerance))	return null;
 		
@@ -850,8 +850,8 @@ public class Logic {
 			if (selectedNode != null && clickDistance(selectedNode, x, y, prefs.largeDragArea()? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
-					startX = GeoMath.lonE7ToX(map.getWidth(), viewBox, selectedNode.getLon());
-					startY = GeoMath.latE7ToY(map.getHeight(), viewBox, selectedNode.getLat());
+					startX = lonE7ToX(selectedNode.getLon());
+					startY = latE7ToY(selectedNode.getLat());
 				}
 			}
 			else {
@@ -860,8 +860,8 @@ public class Logic {
 						Way clickedWay = getClickedWay(x, y);
 						if (clickedWay != null && (clickedWay.getOsmId() == selectedWay.getOsmId())) {
 							if (selectedWay.getNodes().size() <= MAX_NODES_FOR_MOVE) {
-								startLat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-								startLon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+								startLat = yToLatE7(y);
+								startLon = xToLonE7(x);
 								draggingWay = true;
 							}
 							else
@@ -932,8 +932,8 @@ public class Logic {
 						draggingNode = true;
 						draggingHandle = false;
 						if (prefs.largeDragArea()) {
-							startX = GeoMath.lonE7ToX(map.getWidth(), viewBox, selectedNode.getLon());
-							startY = GeoMath.latE7ToY(map.getHeight(), viewBox, selectedNode.getLat());
+							startX = lonE7ToX(selectedNode.getLon());
+							startY = latE7ToY( selectedNode.getLat());
 						}
 						Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
 					}
@@ -942,19 +942,19 @@ public class Logic {
 				if (prefs.largeDragArea()) {
 					startY = startY + relativeY;
 					startX = startX - relativeX;
-					lat = GeoMath.yToLatE7(map.getHeight(), viewBox, startY);
-					lon = GeoMath.xToLonE7(map.getWidth(), viewBox,  startX);
+					lat = yToLatE7(startY);
+					lon = xToLonE7(startX);
 				}	
 				else {
-					lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
-					lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
+					lat = yToLatE7(absoluteY);
+					lon = xToLonE7(absoluteX);
 				}
 				
 				delegator.updateLatLon(selectedNode, lat, lon);
 			}
 			else {
-				lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
-				lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
+				lat = yToLatE7(absoluteY);
+				lon = xToLonE7(absoluteX);
 				delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
 				// update 
 				startLat = lat;
@@ -1013,8 +1013,8 @@ public class Logic {
 	 */
 	private void performTranslation(final float screenTransX, final float screenTransY) {
 		int height = map.getHeight();
-		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, screenTransX);
-		int lat = GeoMath.yToLatE7(height, viewBox, height - screenTransY);
+		int lon = xToLonE7(screenTransX);
+		int lat = yToLatE7(height - screenTransY);
 		int relativeLon = lon - viewBox.getLeft();
 		int relativeLat = lat - viewBox.getBottom();
 
@@ -1045,8 +1045,8 @@ public class Logic {
 			lSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
 			if (lSelectedNode == null) {
 				//A complete new Node...
-				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+				int lat = yToLatE7(y);
+				int lon = xToLonE7(x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(lSelectedNode);
 			}
@@ -1059,8 +1059,8 @@ public class Logic {
 					//This is the second Node, so we create a new Way and add the previous selected node to this way
 					lSelectedWay = delegator.createAndInsertWay(lSelectedNode);
 				}
-				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+				int lat = yToLatE7(y);
+				int lon = xToLonE7(x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
 				delegator.insertElementSafe(lSelectedNode);
@@ -1227,8 +1227,8 @@ public class Logic {
 	public OsmElement findJoinableElement(Node nodeToJoin) {
 		OsmElement closestElement = null;
 		double closestDistance = Double.MAX_VALUE;
-		float jx = GeoMath.lonE7ToX(map.getWidth(), viewBox, nodeToJoin.getLon());
-		float jy = GeoMath.latE7ToY(map.getHeight(), viewBox, nodeToJoin.getLat());
+		float jx = lonE7ToX(nodeToJoin.getLon());
+		float jy = latE7ToY(nodeToJoin.getLat());
 		// start by looking for the closest nodes
 		for (Node node : delegator.getCurrentStorage().getNodes()) {
 			if (node != nodeToJoin) {
@@ -1248,10 +1248,10 @@ public class Logic {
 						Node node1 = wayNodes.get(i - 1);
 						Node node2 = wayNodes.get(i);
 						// TODO only project once per node
-						float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-						float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-						float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-						float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+						float node1X = lonE7ToX(node1.getLon());
+						float node1Y = latE7ToY(node1.getLat());
+						float node2X = lonE7ToX( node2.getLon());
+						float node2Y = latE7ToY(node2.getLat());
 						if (isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y)) {
 							double distance = GeoMath.getLineDistance(jx, jy, node1X, node1Y, node2X, node2Y);
 							if (distance < closestDistance) {
@@ -1285,17 +1285,17 @@ public class Logic {
 			for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
 				Node node1 = wayNodes.get(i - 1);
 				Node node2 = wayNodes.get(i);
-				float x = GeoMath.lonE7ToX(map.getWidth(), viewBox, nodeToJoin.getLon());
-				float y = GeoMath.latE7ToY(map.getHeight(), viewBox, nodeToJoin.getLat());
+				float x = lonE7ToX(nodeToJoin.getLon());
+				float y = latE7ToY(nodeToJoin.getLat());
 				// TODO only project once per node
-				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float node2X = lonE7ToX(node2.getLon());
+				float node2Y = latE7ToY(node2.getLat());
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 					float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
-					int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p[1]);
-					int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p[0]);
+					int lat = yToLatE7(p[1]);
+					int lon = xToLonE7(p[0]);
 					createCheckpoint(R.string.undo_action_join);
 					Node node = null;
 					if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
@@ -1382,8 +1382,8 @@ public class Logic {
 			lSelectedWay = null;
 		} else {
 			if (node == null) {
-				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+				int lat = yToLatE7(y);
+				int lon = xToLonE7(x);
 				node = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(node);
 			}
@@ -1437,16 +1437,16 @@ public class Logic {
 	 */
 	private Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
 		//Nodes have to be converted to screen-coordinates, due to a better tolerance-check.
-		float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-		float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-		float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-		float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+		float node1X = lonE7ToX(node1.getLon());
+		float node1Y = latE7ToY(node1.getLat());
+		float node2X = lonE7ToX(node2.getLon());
+		float node2Y = latE7ToY(node2.getLat());
 
 		//At first, we check if the x,y is in the bounding box clamping by node1 and node2.
 		if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 			float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
-			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p[1]);
-			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p[0]);
+			int lat = yToLatE7(p[1]);
+			int lon = xToLonE7(p[0]);
 			Node node = delegator.getFactory().createNodeWithNewId(lat, lon);
 			return node;
 		}
@@ -1612,6 +1612,7 @@ public class Logic {
 	 * @see #downloadBox(Main, BoundingBox)
 	 */
 	void downloadCurrent(boolean add) {
+		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
 		downloadBox(viewBox.copy(),add);
 	}
 	
@@ -1854,8 +1855,8 @@ public class Logic {
 	 * @return The new bug, which must have a comment added before it can be submitted to OSB.
 	 */
 	public Bug makeNewBug(final float x, final float y) {
-		int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+		int lat = yToLatE7(y);
+		int lon = xToLonE7(x);
 		return new Bug(lat, lon);
 	}
 	
@@ -1977,11 +1978,11 @@ public class Logic {
 	
 	/** Get the X screen coordinate for a node on the screen. */
 	public float getNodeScreenX(Node node) {
-		return GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon());
+		return lonE7ToX(node.getLon());
 	}
 	
 	public float getNodeScreenY(Node node) {
-		return GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat());
+		return latE7ToY(node.getLat());
 	}
 	
 	/** Helper class for ordering nodes/ways by distance from a click */
@@ -2161,8 +2162,8 @@ public class Logic {
 
 	public void pasteFromClipboard(float x, float y) {
 		createCheckpoint(R.string.undo_action_paste);
-		int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+		int lat = yToLatE7(y);
+		int lon = xToLonE7(x);
 		delegator.pasteFromClipboard(lat, lon);
 	}
 
@@ -2182,7 +2183,7 @@ public class Logic {
 	 */
 	public static int[] centroid(int w, int h, BoundingBox v, final Way way) {
 		float XY[] = centroidXY(w,h,v,way);
-		int lat = GeoMath.yToLatE7(h, v, XY[1]);
+		int lat = GeoMath.yToLatE7(h, w, v, XY[1]);
 		int lon = GeoMath.xToLonE7(w, v, XY[0]);
 		int result[] = {lat,lon};
 		return result;
@@ -2208,9 +2209,9 @@ public class Logic {
 			int vs = vertices.size();
 			for (int i = 0; i < vs ; i++ ) {
 				double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
-				double y1 = GeoMath.latE7ToY(h, v, vertices.get(i).getLat());
+				double y1 = GeoMath.latE7ToY(h, w, v, vertices.get(i).getLat());
 				double x2 = GeoMath.lonE7ToX(w, v, vertices.get((i+1) % vs).getLon());
-				double y2 = GeoMath.latE7ToY(h, v, vertices.get((i+1) % vs).getLat());
+				double y2 = GeoMath.latE7ToY(h, w, v, vertices.get((i+1) % vs).getLat());
 				A = A + (x1*y2 - x2*y1);
 				X = X + (x1+x2)*(x1*y2-x2*y1);
 				Y = Y + (y1+y2)*(x1*y2-x2*y1);
@@ -2226,9 +2227,9 @@ public class Logic {
 			int vs = vertices.size();
 			for (int i = 0; i < (vs-1) ; i++ ) {
 				double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
-				double y1 = GeoMath.latE7ToY(h, v, vertices.get(i).getLat());
+				double y1 = GeoMath.latE7ToY(h, w, v, vertices.get(i).getLat());
 				double x2 = GeoMath.lonE7ToX(w, v, vertices.get(i+1).getLon());
-				double y2 = GeoMath.latE7ToY(h, v, vertices.get(i+1).getLat());
+				double y2 = GeoMath.latE7ToY(h, w, v, vertices.get(i+1).getLat());
 				double len = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
 				L = L + len;
 				X = X + len * (x1+x2)/2;
@@ -2242,41 +2243,38 @@ public class Logic {
 	}
 
 	/**
-	 * convienvce function
+	 * convenience function
 	 * @param x
 	 * @return
 	 */
-	public int xtoLonE7(float x) {
+	public int xToLonE7(float x) {
 		return GeoMath.xToLonE7(map.getWidth(), viewBox, x);
 	}
 
 	/**
-	 * convienvce function
+	 * convenience function
 	 * @param y
 	 * @return
 	 */
-	public int ytoLonE7(float y) {
-		return GeoMath.yToLatE7(map.getHeight(), viewBox, y);
+	public int yToLatE7(float y) {
+		return GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, y);
 	}
 
 	/**
-	 * convienvce function
+	 * convenience function
 	 * @param lon
 	 * @return
 	 */
-	public float lonE7toX(int lon) {
+	public float lonE7ToX(int lon) {
 		return 	GeoMath.lonE7ToX(map.getWidth(), viewBox, lon);
 	}
 
 	/**
-	 * convienvce function
+	 * convenience function
 	 * @param lat
 	 * @return
 	 */
-	public float latE7toY(int lat) {
-		return 	GeoMath.latE7ToY(map.getHeight(), viewBox, lat);
+	public float latE7ToY(int lat) {
+		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
 	}
-
-
-
 }

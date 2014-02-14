@@ -108,7 +108,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
-		Main.resetPreset();
+		// Main.resetPreset();
 	}
 	
 	/**

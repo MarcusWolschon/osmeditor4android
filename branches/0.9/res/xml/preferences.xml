@@ -18,6 +18,12 @@
 			android:defaultValue="Color Round Nodes"
 		/>
 		<CheckBoxPreference
+			android:key="@string/config_enableGPSOverlay_key"
+			android:title="@string/config_enableGPSOverlay_title"
+			android:summary="@string/config_enableGPSOverlay_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
 			android:key="@string/config_enableOpenStreetBugs_key"
 			android:title="@string/config_enableOpenStreetBugs_title"
 			android:summary="@string/config_enableOpenStreetBugs_summary"

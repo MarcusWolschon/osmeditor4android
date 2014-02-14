@@ -357,7 +357,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				Node nd = way.getNodes().get(i);
 				if (i == 0 || !nd.equals(firstNode)) {
 					nd.setLon(GeoMath.xToLonE7(width, box, coords[i].x));
-					nd.setLat(GeoMath.yToLatE7(height, box, coords[i].y));
+					nd.setLat(GeoMath.yToLatE7(height, width, box, coords[i].y));
 					apiStorage.insertElementSafe(nd);
 					nd.updateState(OsmElement.STATE_MODIFIED);
 				}
@@ -422,7 +422,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		for (int i=0;i<nodes.size();i++) {
 			points[i] = new Coordinates(0.0f,0.0f);
 			points[i].x = GeoMath.lonE7ToX(width, box, nodes.get(i).getLon());
-			points[i].y = GeoMath.latE7ToY(height, box, nodes.get(i).getLat());
+			points[i].y = GeoMath.latE7ToY(height, width, box, nodes.get(i).getLat());
 		}
 		return points;
 	}
@@ -453,10 +453,10 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.insertElementSafe(nd);
 	
 					float nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
-					float nodeY = GeoMath.latE7ToY(h, v, nd.getLat());
+					float nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
 					float newX = pivotX + (nodeX-pivotX)*(float)Math.cos(angle) - direction * (nodeY-pivotY)*(float)Math.sin(angle);
 					float newY = pivotY + direction * (nodeX-pivotX)*(float)Math.sin(angle) + (nodeY-pivotY)*(float)Math.cos(angle);
-					int lat = GeoMath.yToLatE7(h, v, newY);
+					int lat = GeoMath.yToLatE7(h, w, v, newY);
 					int lon = GeoMath.xToLonE7(w, v, newX);
 					nd.setLat(lat);
 					nd.setLon(lon);

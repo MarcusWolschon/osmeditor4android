@@ -38,6 +38,7 @@
   <item>USGS Topographic</item>
   <item>USGS LgSc Aerial</item>
   <item>British Columbia Mosaic</item>
+  <item>OSM GPS</item>
   <!-- Following are untested:
   <item>Haiti GeoEye Jan13</item>
   <item>Haiti GeoEye Jan13+</item>
@@ -91,6 +92,7 @@
   <item>USGSTOPO</item>
   <item>USGSAERIAL</item>
   <item>BCMOSAIC</item>
+  <item>OSMGPS</item>
   <!-- Following are untested:
   <item>HAITIJAN13</item>
   <item>HAITIJAN13P</item>
@@ -157,6 +159,7 @@
   <item>http://${a|b|c}.tile.openstreetmap.us/usgs_scanned_topos/$z/$x/$y.png .png 0 18 8</item>
   <item>http://${a|b|c}.tile.openstreetmap.us/usgs_large_scale/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://${a|b|c|d}.imagery.paulnorman.ca/tiles/bc_mosaic/$z/$x/$y.png .png 0 18 8</item>
+  <item>http://gps-${a|b|c}.tile.openstreetmap.org/lines/$z/$x/$y.png .png 0 20 8</item>
   <!-- Following are untested:
   <item>http://gravitystorm.dev.openstreetmap.org/imagery/haiti/$z/$x/$y.jpg .jpg 0 18 8</item>
   <item>http://maps.nypl.org/tilecache/1/geoeye/$z/$x/$y.jpg .jpg 0 18 8</item>

@@ -124,7 +124,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			for (Bug b : bugs) {
 				if (bb.isIn(b.getLat(), b.getLon())) {
 					float x = GeoMath.lonE7ToX(viewPort.width() , bb, b.getLon());
-					float y = GeoMath.latE7ToY(viewPort.height(), bb, b.getLat());
+					float y = GeoMath.latE7ToY(viewPort.height(), viewPort.width(), bb, b.getLat());
 					c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
 				}
 			}
@@ -151,7 +151,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				int lat = b.getLat();
 				int lon = b.getLon();
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, lat) - y);
+				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
 					if (Math.hypot(differenceX, differenceY) <= tolerance) {
 						result.add(b);

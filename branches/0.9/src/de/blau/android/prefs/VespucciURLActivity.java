@@ -120,10 +120,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			    	apiPresetInfo = null;
 		    	}
 		    }
-		    
-	
-	
-		    
+
 	    	((Button)mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
 	    	((Button)mainView.findViewById(R.id.urldialog_buttonAddAPI)).setOnClickListener(this);
 

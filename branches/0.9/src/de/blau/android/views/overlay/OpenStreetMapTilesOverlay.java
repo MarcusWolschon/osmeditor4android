@@ -11,6 +11,7 @@ import org.acra.ACRA;
 import org.xml.sax.SAXException;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -78,6 +79,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	protected final OpenStreetMapTileProvider mTileProvider;
 	protected final Paint mPaint = new Paint();
 	protected final Paint textPaint = new Paint();
+	
 
 	/**
 	 * 
@@ -193,25 +195,35 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		// why would we calculate the coordinates when we already have them ????
 		final double lonLeft   =  osmv.getViewBox().getLeft() / 1E7d; 	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
 		final double lonRight  =  osmv.getViewBox().getRight() / 1E7d;	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.right ) / 1E7d;
-		final double latTop    =  osmv.getViewBox().getTop() / 1E7d;	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
-		final double latBottom =  osmv.getViewBox().getBottom() / 1E7d;	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
+		final double latTop    =  Math.toRadians(osmv.getViewBox().getTop() / 1E7d);	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
+		final double latBottom =  Math.toRadians(osmv.getViewBox().getBottom() / 1E7d);	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
 		
 		// pseudo-code for lon/lat to tile numbers
 		//n = 2 ^ zoom
 		//xtile = ((lon_deg + 180) / 360) * n
 		//ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / PI)) / 2 * n
-		final int xTileLeft   = (int) Math.floor(((lonLeft  + 180d) / 360d) * Math.pow(2d, zoomLevel));
-		final int xTileRight  = (int) Math.floor(((lonRight + 180d) / 360d) * Math.pow(2d, zoomLevel));
-		final int yTileTop    = (int) Math.floor((1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d * Math.pow(2d, zoomLevel));
-		final int yTileBottom = (int) Math.floor((1d - Math.log(Math.tan(Math.toRadians(latBottom)) + 1d / Math.cos(Math.toRadians(latBottom))) / Math.PI) / 2d * Math.pow(2d, zoomLevel));
-	
+		final double n = Math.pow(2d, zoomLevel);
+		final int xTileLeft   = (int) Math.floor(((lonLeft  + 180d) / 360d) * n);
+		final int xTileRight  = (int) Math.floor(((lonRight + 180d) / 360d) * n);
+
+		final int yTileTop    = (int) Math.floor((1d - Math.log(Math.tan(latTop) + 1d / Math.cos(latTop)) / Math.PI) * n / 2d);
+		final int yTileBottom = (int) Math.floor((1d - Math.log(Math.tan(latBottom) + 1d / Math.cos(latBottom)) / Math.PI) * n / 2d);
+
 		final int tileNeededLeft   = Math.min(xTileLeft, xTileRight);
 		final int tileNeededRight  = Math.max(xTileLeft, xTileRight);
 		final int tileNeededTop    = Math.min(yTileTop, yTileBottom);
 		final int tileNeededBottom = Math.max(yTileTop, yTileBottom);
 		
+//		Log.d("OpenStreetMapTileOverlay","zoom " + zoomLevel + " tile left " + xTileLeft + " right " + xTileRight + " top " +yTileTop + " bottom " + yTileBottom);
+//		Log.d("OpenStreetMapTileOverlay","lonLeft " + lonLeft + " lonRight " + lonRight + " latTop " + Math.toDegrees(latTop)+ " latBottom " + Math.toDegrees(latBottom));
+		
 		final int mapTileMask = (1 << zoomLevel) - 1;
 		
+		Rect destRect = null; // destination rect for bit map
+		int destIncX = 0, destIncY = 0;
+		int xPos = 0, yPos = 0;
+		
+		boolean squareTiles = myRendererInfo.getTileWidth() == myRendererInfo.getTileHeight();
 		// Draw all the MapTiles that intersect with the screen
 		// y = y tile number (latitude)
 		for (int y = tileNeededTop; y <= tileNeededBottom; y++) {
@@ -222,18 +234,26 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				tile.x = x & mapTileMask;
 				tile.y = y & mapTileMask;
 				
+				// destination rect
+				if (destRect == null) { // avoid recalculating this for every tile
+					destRect = getScreenRectForTile(c, osmv, zoomLevel, y, x, squareTiles);
+					destIncX = destRect.width();
+					destIncY = destRect.height();
+				}
+				
 				// Set the size and top left corner on the source bitmap
 				int sw = myRendererInfo.getTileWidth();
 				int sh = myRendererInfo.getTileHeight();
 				int tx = 0;
 				int ty = 0;
-				
-				if (!mTileProvider.isTileAvailable(tile)) {
+				Bitmap tileBitmap = mTileProvider.getMapTile(tile);
+				if (tileBitmap == null) {
+					// Log.d("OpenStreetMapTileOverlay","tile not available trying larger");
 					// Preferred tile is not available - request it
-					mTileProvider.preCacheTile(tile);
+					// mTileProvider.preCacheTile(tile); already done in getMapTile
 					// See if there are any alternative tiles available - try
 					// using larger tiles
-					while (!mTileProvider.isTileAvailable(tile) && tile.zoomLevel > myRendererInfo.getMinZoomLevel()) {
+					while ((tileBitmap == null) && tile.zoomLevel > myRendererInfo.getMinZoomLevel()) {
 						// As we zoom out to larger-scale tiles, we want to
 						// draw smaller and smaller sections of them
 						sw >>= 1; // smaller size
@@ -247,20 +267,26 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 						tile.x >>= 1;
 						tile.y >>= 1;
 						--tile.zoomLevel;
-						mTileProvider.preCacheTile(tile);
+						tileBitmap = mTileProvider.getMapTile(tile);
+						// mTileProvider.preCacheTile(tile);
 					}
 				}
-				if (mTileProvider.isTileAvailable(tile)) {
+
+				if (tileBitmap != null) {
 					c.drawBitmap(
-						mTileProvider.getMapTile(tile),
+						tileBitmap,
 						new Rect(tx, ty, tx + sw, ty + sh),
-						getScreenRectForTile(c, osmv, zoomLevel, y, x),
+						new Rect(destRect.left + xPos, destRect.top + yPos, destRect.right + xPos,  destRect.bottom + yPos),
 						mPaint);
 				} else {
 					// Still no tile available - try smaller scale tiles
-					drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask);
+					drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles);
 				}
+				// Log.d("OpenStreetMapTileOverlay","Dest rect " + (destRect.left + xPos) + " " + (destRect.right + xPos) + " " + (destRect.top + yPos) +  " " + (destRect.bottom + yPos));
+				xPos += destIncX;
 			}
+			xPos = 0;
+			yPos += destIncY;
 		}
 		
 		// Draw the tile layer branding logo (if it exists)
@@ -300,13 +326,13 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @param x Tile X to draw.
 	 * @param y Tile Y to draw.
 	 */
-	private void drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y) {
+	private void drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles) {
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), z, x, y);
 		if (mTileProvider.isTileAvailable(tile)) {
 			c.drawBitmap(
 				mTileProvider.getMapTile(tile),
 				new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
-				getScreenRectForTile(c, osmv, z, y, x),
+				getScreenRectForTile(c, osmv, z, y, x, squareTiles),
 				mPaint);
 		} else {
 			// Still no tile available
@@ -322,15 +348,16 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				x <<= 1;
 				y <<= 1;
 				++z;
-				drawTile(c, osmv, z, maxz, z, x    , y    );
-				drawTile(c, osmv, z, maxz, z, x + 1, y    );
-				drawTile(c, osmv, z, maxz, z, x    , y + 1);
-				drawTile(c, osmv, z, maxz, z, x + 1, y + 1);
+				drawTile(c, osmv, z, maxz, z, x    , y    , squareTiles);
+				drawTile(c, osmv, z, maxz, z, x + 1, y    , squareTiles);
+				drawTile(c, osmv, z, maxz, z, x    , y + 1, squareTiles);
+				drawTile(c, osmv, z, maxz, z, x + 1, y + 1, squareTiles);
 			}
 		}
 	}
 	
 	/**
+	 * NOTE: currently assumes square tiles
 	 * @param c the canvas we draw to (we need its clip-bound's width and height)
 	 * @param osmv the view with its viewBox
 	 * @param zoomLevel the zoom-level of the tile
@@ -339,7 +366,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @return the rectangle of screen-coordinates it consumes.
 	 */
 	private Rect getScreenRectForTile(Canvas c, IMapView osmv,
-			final int zoomLevel, int y, int x) {
+			final int zoomLevel, int y, int x, boolean squareTiles) {
 
 		final Rect viewPort = c.getClipBounds();
 		double north = tile2lat(y    , zoomLevel);
@@ -349,9 +376,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 
 		int screenLeft   = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (west  * 1E7)));
 		int screenRight  = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (east  * 1E7)));
-		int screenTop    = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), osmv.getViewBox(), (int) (north * 1E7)));
-		int screenBottom = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), osmv.getViewBox(), (int) (south * 1E7)));
-
+		int screenTop    = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) (north * 1E7)));
+		int screenBottom = squareTiles ? screenTop + (screenRight - screenLeft) : (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) (south * 1E7)));
+		// Log.d("OpenStreeMapTileOverlay", "Dest Rect " + screenLeft + " " + screenTop + " " +  screenRight + " " + screenBottom);
 		return new Rect(screenLeft, screenTop, screenRight, screenBottom);
 	}
 
@@ -405,6 +432,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 */
 	private static class SimpleInvalidationHandler extends Handler {
 		private View v;
+		private int viewInvalidates = 0;
+		
 		public SimpleInvalidationHandler(View v) {
 			super();
 			this.v = v;
@@ -413,7 +442,18 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		public void handleMessage(final Message msg) {
 			switch (msg.what) {
 				case OpenStreetMapTile.MAPTILE_SUCCESS_ID:
-					v.invalidate();
+				    if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
+						Handler handler = new Handler(); 
+					    handler.postDelayed(new Runnable() { 
+					         public void run() { 
+					        	 // Log.d("OpenStreetMapOverlay", "SimpleInvalidationHandler #viewInvalidates " + viewInvalidates);
+					        	 viewInvalidates = 0;
+					             v.invalidate();
+					         } 
+					    }, 100); // wait 1/10th of a second
+					    viewInvalidates++;
+				    } else
+				    	viewInvalidates++;
 					break;
 			}
 		}

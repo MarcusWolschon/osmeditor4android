@@ -42,6 +42,7 @@ import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
+import de.blau.android.views.overlay.OpenStreetMapGPSTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -124,6 +125,9 @@ public class Map extends View implements IMapView {
 	/** Caches the Paint used for way tolerance */
 	Paint wayTolerancePaint;
 	
+	/** cached zoom level, calculated once per onDraw pass **/
+	int zoomLevel = 0;
+	
 	private ArrayList<Float> handles;
 	
 	private Location displayLocation = null;
@@ -168,8 +172,12 @@ public class Map extends View implements IMapView {
 		{
 			if (prefs == null) // just to be safe
 				mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
-			else
-				mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
+			else {
+				// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
+				OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null);
+				mOverlays.add(osmto);
+				mOverlays.add(new OpenStreetMapGPSTilesOverlay(this));
+			}
 			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
 			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
 		}
@@ -177,7 +185,7 @@ public class Map extends View implements IMapView {
 	
 	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof OpenStreetMapTilesOverlay) {
+			if ((osmvo instanceof OpenStreetMapTilesOverlay) && !(osmvo instanceof OpenStreetMapGPSTilesOverlay)) {
 				return (OpenStreetMapTilesOverlay)osmvo;
 			}
 		}
@@ -224,7 +232,9 @@ public class Map extends View implements IMapView {
 	protected void onDraw(final Canvas canvas) {
 		super.onDraw(canvas);
 		long time = System.currentTimeMillis();
-		
+
+		zoomLevel = calcZoomLevel(canvas.getClipBounds());
+
 		tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		tmpDrawingEditMode = Main.logic.getMode();
 		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
@@ -242,10 +252,15 @@ public class Map extends View implements IMapView {
 			osmvo.onManagedDraw(canvas, this);
 		}
 		
-		paintOsmData(canvas);
-		paintGpsTrack(canvas);
+		if (zoomLevel >12)
+			paintOsmData(canvas);
+		if (zoomLevel > 10) {
+			paintStorageBox(canvas, delegator.getBoundingBoxes());
+			paintGpsTrack(canvas);
+		}
 		paintGpsPos(canvas);
-		paintCrosshairs(canvas);
+		if (tmpDrawingInEditRange)
+			paintCrosshairs(canvas);
 		
 		time = System.currentTimeMillis() - time;
 		
@@ -335,7 +350,7 @@ public class Map extends View implements IMapView {
 		if (showCrosshairs) {
 			Paint paint = Profile.getCurrent(Profile.CROSSHAIRS).getPaint();
 			canvas.save();
-			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getViewBox(),crosshairsLat));
+			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat));
 			canvas.drawPath(Profile.CROSSHAIRS_PATH, paint);
 			canvas.restore();
 		}
@@ -354,7 +369,7 @@ public class Map extends View implements IMapView {
 		if (displayLocation == null) return;
 		BoundingBox viewBox = getViewBox();
 		float x = GeoMath.lonE7ToX(getWidth(), viewBox, (int)(displayLocation.getLongitude() * 1E7));
-		float y = GeoMath.latE7ToY(getHeight(), viewBox, (int)(displayLocation.getLatitude() * 1E7));
+		float y = zoomLevel > 12 ? GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int)(displayLocation.getLatitude() * 1E7)) : GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int)(displayLocation.getLatitude() * 1E7));
 
 		float o = -1f;
 		if (displayLocation.hasBearing() && displayLocation.hasSpeed() && displayLocation.getSpeed() > 1.4f) {
@@ -392,9 +407,9 @@ public class Map extends View implements IMapView {
 						displayLocation .getAccuracy());
 				RectF accuracyRect = new RectF(
 						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getLeft()),
-						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getTop()),
+						GeoMath.latE7ToY(getHeight(), getWidth() , viewBox, accuracyBox.getTop()),
 						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getRight()),
-						GeoMath.latE7ToY(getHeight(), viewBox, accuracyBox.getBottom()));
+						GeoMath.latE7ToY(getHeight(), getWidth() , viewBox, accuracyBox.getBottom()));
 				canvas.drawOval(accuracyRect, Profile.getCurrent(Profile.GPS_ACCURACY).getPaint());
 			} catch (OsmException e) {
 				// it doesn't matter if the location accuracy doesn't get drawn
@@ -443,7 +458,6 @@ public class Map extends View implements IMapView {
 			paintNode(canvas, nodes.get(i));
 		}
 		paintHandles(canvas);
-		paintStorageBox(canvas, delegator.getBoundingBoxes());
 	}
 	
 	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
@@ -466,8 +480,8 @@ public class Map extends View implements IMapView {
 		for (BoundingBox bb:list) {
 			float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
 			float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
-			float bottom = GeoMath.latE7ToY(screenHeight, viewBox , bb.getBottom());
-			float top = GeoMath.latE7ToY(screenHeight, viewBox, bb.getTop());
+			float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox , bb.getBottom());
+			float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
 			RectF rect = new RectF(left, top, right, bottom);
 			rect.intersect(screen);
 			path.addRect(rect, Path.Direction.CW);
@@ -498,7 +512,7 @@ public class Map extends View implements IMapView {
 		BoundingBox viewBox = getViewBox();
 		if (viewBox.isIn(lat, lon)) {
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
-			float y = GeoMath.latE7ToY(getHeight(), viewBox, lat);
+			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 			
 			//draw tolerance box
 			if (	tmpDrawingInEditRange
@@ -827,10 +841,10 @@ public class Map extends View implements IMapView {
 			float Y = Float.MIN_VALUE;
 			if (!interrupted && prevNode != null && box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
 				X = GeoMath.lonE7ToX(getWidth(), box, nodeLon);
-				Y = GeoMath.latE7ToY(getHeight(), box, nodeLat);
+				Y = GeoMath.latE7ToY(getHeight(), getWidth(), box, nodeLat);
 				if (prevX == Float.MIN_VALUE) { // last segment didn't intersect
 					prevX = GeoMath.lonE7ToX(getWidth(), box, prevNode.getLon());
-					prevY = GeoMath.latE7ToY(getHeight(), box, prevNode.getLat());
+					prevY = GeoMath.latE7ToY(getHeight(), getWidth(), box, prevNode.getLat());
 				}
 				// Line segment needs to be drawn
 				points.add(prevX);
@@ -881,7 +895,7 @@ public class Map extends View implements IMapView {
 		prefs = aPreference;
 		final OpenStreetMapTileServer ts = OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof OpenStreetMapTilesOverlay) {
+			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapGPSTilesOverlay)) {
 				((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(ts);
 			}
 		}
@@ -907,12 +921,18 @@ public class Map extends View implements IMapView {
 	
 	void setViewBox(final BoundingBox viewBox) {
 		myViewBox = viewBox;
+		try {
+			myViewBox.setRatio((float) getWidth()/ getHeight(), false);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void showCrosshairs(float x, float y) {
 		showCrosshairs = true;
 		// store as lat lon for redraws on translation and zooming
-		crosshairsLat = GeoMath.yToLatE7(getHeight(), getViewBox(), y);
+		crosshairsLat = GeoMath.yToLatE7(getHeight(), getWidth(), getViewBox(), y);
 		crosshairsLon = GeoMath.xToLonE7(getWidth() , getViewBox(), x);
 	}
 	
@@ -934,7 +954,13 @@ public class Map extends View implements IMapView {
 	 */
 	@Override
 	public int getZoomLevel(final Rect viewPort) {
+		return zoomLevel;
+	}
+	
+	public int calcZoomLevel(final Rect viewPort) {
 		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
+		if (!s.isMetadataLoaded()) // protection on startup
+			return 0;
 		
 		// Calculate lat/lon of view extents
 		final double latBottom = getViewBox().getBottom() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(), viewPort.bottom) / 1E7d;

@@ -1236,7 +1236,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
 				final float tolerance = Profile.getCurrent().nodeToleranceValue;				
 				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLongitude() * 1E7)) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7)) - y);
+				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), (int)(map.getLocation().getLatitude() * 1E7)) - y);
 				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
 					if (Math.hypot(differenceX, differenceY) <= tolerance) {
 						setFollowGPS(true);

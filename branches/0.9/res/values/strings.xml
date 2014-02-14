@@ -187,6 +187,8 @@
     <string name="config_enableKeepScreenOn_summary">Do not turn the screen off to save power.</string>
     <string name="config_enableDeprecatedModes_title">Enable deprecated modes</string>
     <string name="config_enableDeprecatedModes_summary">Enable New, Edit, Edit Tags, Append, Erase node and Split modes .</string>
+    <string name="config_enableGPSOverlay_title">Enable GPS track overlay</string>
+    <string name="config_enableGPSOverlay_summary">Enable overlay with GPS tracks from OpenStreetMap</string>
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
     <string name="config_category_server">Server Settings</string>

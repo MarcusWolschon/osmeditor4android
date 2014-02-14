@@ -126,11 +126,12 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	}
 
 	public Bitmap getMapTile(final OpenStreetMapTile aTile) {
-		if (isTileAvailable(aTile)) {
+		Bitmap tile = mTileCache.getMapTile(aTile); 
+		if (tile != null) {
 			// from cache
 			//if (DEBUGMODE)
 			//	Log.i(DEBUGTAG, "MapTileCache succeded for: " + aTile.toString());
-			return mTileCache.getMapTile(aTile);
+			return tile;
 		} else {
 			// from service
 			if (DEBUGMODE)

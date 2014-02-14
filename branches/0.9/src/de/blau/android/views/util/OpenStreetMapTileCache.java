@@ -2,6 +2,7 @@
 package  de.blau.android.views.util;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import de.blau.android.services.util.OpenStreetMapTile;
 
 /**
@@ -36,6 +37,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	 * @param aMaximumCacheBytes Maximum cache size in bytes.
 	 */
 	public OpenStreetMapTileCache(final long aMaximumCacheBytes){
+		Log.d("OpenStreetMapTileCache","Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
 		mCachedTiles = new LRUMapTileCache(aMaximumCacheBytes);
 	}
 
