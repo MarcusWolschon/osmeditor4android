@@ -29,10 +29,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 4;
+	private final static int DATA_VERSION = 5;
 	private final static String LOGTAG = "AdvancedPrefDB";
 	
-	public final static String API_DEFAULT = "http://api.openstreetmap.org/api/0.6/";
+	public final static String API_DEFAULT = "https://api.openstreetmap.org/api/0.6/";
 	
 	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
@@ -51,7 +51,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		PREF_SELECTED_API = r.getString(R.string.config_selected_api);
 		currentAPI = prefs.getString(PREF_SELECTED_API, null);
 		if (currentAPI == null) migrateAPI();
-		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "");
+		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "", true);
 	}
 
 	@Override
@@ -75,6 +75,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		if (oldVersion <= 3 && newVersion >= 4) {
 			db.execSQL("ALTER TABLE presets ADD COLUMN active INTEGER DEFAULT 0");
 			db.execSQL("UPDATE presets SET active=1 WHERE id='default'");
+		}
+		if (oldVersion <= 4 && newVersion >= 5) {
+			db.execSQL("UPDATE apis SET url='"  + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
 	}
 	
@@ -395,13 +398,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 
-	/** adds a new Preset with the given values to the Preset database */
-	public synchronized void addPreset(String id, String name, String url) {
+	/** adds a new Preset with the given values to the Preset database 
+	 * @param active TODO*/
+	public synchronized void addPreset(String id, String name, String url, boolean active) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);
 		values.put("url", url);
+		values.put("active", active ? 1 : 0);
 		db.insert("presets", null, values);
 		db.close();
 	}

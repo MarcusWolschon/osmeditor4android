@@ -10,22 +10,29 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 import java.util.zip.GZIPInputStream;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.basic.HttpURLConnectionRequestAdapter;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
 import oauth.signpost.http.HttpParameters;
+import oauth.signpost.http.HttpRequest;
 import oauth.signpost.http.HttpResponse;
+import oauth.signpost.signature.SignatureBaseString;
 
 import org.acra.ACRA;
 import org.apache.http.client.HttpClient;
@@ -420,7 +427,6 @@ public class Server {
 	
 	private HttpURLConnection openConnectionForWriteAccess(final URL url, final String requestMethod, final String contentType)
 			throws IOException, MalformedURLException, ProtocolException {
-
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestProperty("Content-Type", "" + contentType + "; charset=utf-8");
 		connection.setRequestProperty("User-Agent", Application.userAgent);
@@ -435,7 +441,8 @@ public class Server {
 			// sign the request
 			try {
 				consumer.sign(connection);
-				HttpParameters h = consumer.getRequestParameters();
+				// HttpParameters h = consumer.getRequestParameters();
+				
 			} catch (OAuthMessageSignerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

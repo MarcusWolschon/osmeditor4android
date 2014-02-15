@@ -143,7 +143,7 @@ public class APIEditorActivity extends URLListEditActivity {
 				if (item == null) {
 					// new item
 					if (!value.equals("")) {
-						finishCreateItem(new ListEditItem(name, value));
+						finishCreateItem(new ListEditItem(name, value, oauth.isChecked()));
 					}
 				} else {
 					item.name = name;

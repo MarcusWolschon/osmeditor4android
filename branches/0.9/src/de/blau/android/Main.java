@@ -1003,15 +1003,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			if (server.needOAuthHandshake()) {
-				oAuthHandshake(server);
+			if (logic.hasChanges()) {
+				if (server.needOAuthHandshake()) {
+					oAuthHandshake(server);
+					Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+					return;
+				} 
+				showDialog(DialogFactory.CONFIRM_UPLOAD);
 			} else {
-				if (logic.hasChanges()) {
-					showDialog(DialogFactory.CONFIRM_UPLOAD);
-				} else {
-					Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
-				}
-			}
+				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+			}		
 		} else {
 			showDialog(DialogFactory.NO_LOGIN_DATA);
 		}

@@ -71,7 +71,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 
 	@Override
 	protected void onItemCreated(ListEditItem item) {
-		db.addPreset(item.id, item.name, item.value);
+		db.addPreset(item.id, item.name, item.value, false);
 		downloadPresetData(item);
 		if (!isAddingViaIntent()) {
 			db.setCurrentAPIPreset(item.id);
