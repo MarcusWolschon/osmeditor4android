@@ -461,7 +461,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private void createRecentPresetView() {
 		Preset[] presets = Main.getCurrentPresets();
 	
-		if (presets.length >= 1 && presets[0] != null && element != null && presets[0].hasMRU()) {
+		if (presets != null && presets.length >= 1 && presets[0] != null && element != null && presets[0].hasMRU()) {
 			ElementType filterType = element.getType();
 			View v = presets[0].getRecentPresetView(this, presets, new PresetClickHandler() { //TODO this should really be a call of a static method
 				@Override

@@ -589,7 +589,7 @@ public class Map extends View implements IMapView {
 		SortedMap<String, String> tags = element.getTags();
 		if (iconcache.containsKey(tags)) {
 			icon = iconcache.get(tags); // may be null!
-		} else {
+		} else if (tmpPresets != null) {
 			// icon not cached, ask the preset, render to a bitmap and cache result
 			PresetItem match = Preset.findBestMatch(tmpPresets,tags);
 			if (match != null && match.getMapIcon() != null) {
