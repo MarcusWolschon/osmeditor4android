@@ -111,7 +111,7 @@
   <string name="menu_gps_pause">Приостановить GPS трек</string>
   <string name="menu_gps_clear">Удалить GPS трек</string>
   <string name="menu_gps_upload">Передать GPS трек на сервер</string>
-  <string name="menu_gps_export">Экспотр GPS трека</string>
+  <string name="menu_gps_export">Экспорт GPS трека</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Скачать текущее местоположение</string>
   <string name="menu_transfer_download_other">Скачать другое место</string>

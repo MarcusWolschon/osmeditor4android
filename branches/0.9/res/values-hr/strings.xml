@@ -6,6 +6,7 @@
   <string name="transfer_download_current_upload">Spremi</string>
   <string name="transfer_download_current_download">Obriši i skini nove</string>
   <string name="transfer_download_current_back">Odustani</string>
+  <string name="upload_problem_title">Problemi sa slanjem</string>
   <string name="no_login_data_title">Niste upisali podatke za prijavu</string>
   <string name="no_login_data_message">Molim upišite podatke za prijavu na Openstreetmap u postavkama.</string>
   <string name="no_connection_title">Poslužitelj nedostupan</string>
@@ -16,16 +17,22 @@
   <string name="progress_message">Učitavanje podataka u memoriju…</string>
   <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
   <string name="upload_comment_label">Komentar:</string>
+  <string name="openstreetbug_new_nodeway">Stvori točku/liniju</string>
   <string name="openstreetbug_commitbutton">Spremi</string>
   <string name="openstreetbug_comment_label">Komentar:</string>
   <string name="openstreetbug_commit_ok">Promjene spremljene</string>
   <string name="openstreetbug_commit_fail">Ne mogu spremiti promjene</string>
+  <string name="unsaved_data_title">Oprez!</string>
+  <string name="unsaved_data_message">Imate nespremljenih promjena koje će se odbaciti ako nastavite.</string>
+  <string name="unsaved_data_proceed">Odbaci i nastavi</string>
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
   <string name="toast_not_in_edit_range">Zumirajte kako bi mogli uređivati, područje preširoko.</string>
   <string name="toast_save_done">Spremanje uspješno.</string>
   <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
+  <string name="toast_export_failed">Izvoz nije uspio</string>
+  <string name="toast_export_success">Izvezeno u %1$s</string>
   <!--Some generic labels-->
   <string name="yes">Da</string>
   <string name="no">Ne</string>
@@ -36,6 +43,7 @@
   <string name="key">oznaka</string>
   <string name="value">vrijednost</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_revert">Vrati</string>
   <string name="tag_menu_mapfeatures">Oznake na Wiki-u</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Učitaj površinu</string>
@@ -73,10 +81,20 @@
   <string name="menu_transfer_download_current">Skini trenutni pogled</string>
   <string name="menu_transfer_download_other">Skini drugu lokaciju</string>
   <string name="menu_transfer_upload">Spremi na OSM poslužitelj</string>
+  <string name="menu_transfer_export">Izvezi promjene</string>
   <string name="menu_save">Spremi u datoteku</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Oznake</string>
   <!--Text should be as short as possible-->
+  <string name="menu_history">Povijest</string>
+  <string name="menu_merge">Spoji</string>
+  <string name="menu_reverse">Obrni smjer</string>
+  <string name="deleteway_wayonly">Obriši samo liniju</string>
+  <string name="deleteway_wayandnodes">Obriši liniju i točke</string>
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Odabrana linija</string>
+  <string name="actionmode_nodeselect">Odabrana točka</string>
+  <string name="actionmode_createpath">Stvaranje linije</string>
   <!--Preferences-->
   <string name="config_category_view">Postavke</string>
   <string name="config_showStats_title">Statistika</string>
@@ -87,6 +105,7 @@
   <string name="config_backgroundLayer_title">Karta u pozadini</string>
   <string name="config_backgroundLayer_summary">Odabir karte u pozadini.</string>
   <string name="config_category_server">Postavke servera</string>
+  <string name="config_loginbutton_title">Korisnički račun</string>
   <string name="config_username_title">OSM korisničko ime</string>
   <string name="config_username_summary">Potrebno za spremanje OSM podataka na server. Ako ga još nemate, registrirajte se na http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM lozinka</string>
@@ -105,6 +124,7 @@
   <string name="confirm_upload_text">Poslati slijedeće promjene na poslužitelj?\n%1$s</string>
   <!--url handler activity-->
   <!--common terms-->
+  <string name="name">Ime</string>
   <!--"default" is a reserved Java keyword...-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <!--ACRA-->
