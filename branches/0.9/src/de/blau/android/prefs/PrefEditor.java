@@ -27,7 +27,6 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	private Resources r;
 	private String KEY_MAPBG;
 	private String KEY_MAPPROFILE;
-	private String KEY_PREFLOGIN;
 	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
 	private String KEY_LICENSE;
@@ -41,7 +40,6 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		r = getResources();
 		KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
 		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
-		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
@@ -56,13 +54,10 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		Log.d("PrefEditor", "onResume");
 		super.onResume();
 		
-		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
 		CheckBoxPreference iconspref = (CheckBoxPreference) getPreferenceScreen().findPreference(KEY_PREFICONS);
 		AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
 		API current = db.getCurrentAPI();
-		// setSummary doesn't like being passed a NULL pointer .... disabled the code for now
-		// loginpref.setSummary(current.id.equals(AdvancedPrefDatabase.ID_DEFAULT) ? R.string.config_username_summary : null);
-		loginpref.setSummary(R.string.config_username_summary);
+
 		iconspref.setChecked(current.showicon);
 		Log.d("PrefEditor", "onResume done");
 	}

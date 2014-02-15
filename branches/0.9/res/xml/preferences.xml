@@ -60,15 +60,6 @@
 			android:defaultValue="false"
 		/>
 	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/config_category_server">
-		<de.blau.android.prefs.LoginDataPreference
-			android:key="@string/config_loginbutton_key"
-			android:title="@string/config_loginbutton_title"
-			android:summary="@string/config_username_summary"
-			android:dialogTitle="@string/config_loginbutton_title"
-			android:singleLine="true"
-		/>
-	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_advancedprefs">
 		<Preference

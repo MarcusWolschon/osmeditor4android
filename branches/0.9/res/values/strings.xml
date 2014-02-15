@@ -203,7 +203,7 @@
     <string name="config_iconbutton_summary">Show the icon of the best-matching preset above nodes.</string>
     <string name="config_loginbutton_title">User account</string>
     <string name="config_username_title">OSM Username</string>
-    <string name="config_username_summary">Needed for uploading OSM-Data. If you do not have any yet, get one at http://www.openstreetmap.org/user/new</string>
+    <string name="config_username_summary">Configuration needed for uploading OSM-Data only if you are not using OAuth. Accounts are available at http://www.openstreetmap.org/user/new</string>
     <string name="config_password_title">OSM Password</string>
     <string name="config_password_summary">Do not mistake it for the Wiki password. Remember: It is stored and transmitted in plain-text!</string>
     <string name="config_category_gps">GPS Settings</string>

@@ -20,6 +20,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 	private Resources r;
 	private String KEY_PREFAPI;
 	private String KEY_PREFPRESET;
+	private String KEY_PREFLOGIN;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 		r = getResources();
 		KEY_PREFAPI = r.getString(R.string.config_api_button_key);
 		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
+		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		fixUpPrefs();
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -46,6 +48,10 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 		} else {
 			apipref.setSummary(current.name.equals("") ? current.url : current.name);
 		}
+		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
+		// setSummary doesn't like being passed a NULL pointer .... disabled the code for now
+		// loginpref.setSummary(current.id.equals(AdvancedPrefDatabase.ID_DEFAULT) ? R.string.config_username_summary : null);
+		loginpref.setSummary(R.string.config_username_summary);
 	}
 	
 	@Override

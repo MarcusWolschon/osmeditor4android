@@ -27,7 +27,9 @@
 	<application
 		android:name="de.blau.android.Application"
 		android:label="@string/app_name"
-		android:icon="@drawable/osm_logo" android:debuggable="false">
+		android:icon="@drawable/osm_logo" 
+		android:debuggable="false"
+		android:largeHeap="true" >
 		<activity
 			android:name="Main"
 			android:theme="@style/Theme.customMain"
