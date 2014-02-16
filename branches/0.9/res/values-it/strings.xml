@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Problema con il caricamento</string>
   <string name="upload_problem_message">Impossibile caricare alcuni o tutti i dati. Prova il caricamento nuovamente per vedere cosa è fallito. La ragione più probabile è un conflitto di versione.</string>
-  <string name="no_login_data_title">Nessun dato di accesso impostato</string>
-  <string name="no_login_data_message">Riempi le impostazioni di accesso a OSM nella scheda delle preferenze.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>
   <string name="no_connection_message">Impossibile connettersi al server OSM. Verifica la connessione ad Internet o riprova più tardi.</string>
-  <string name="wrong_login_data_title">Dati di accesso errati</string>
-  <string name="wrong_login_data_message">Il server OSM non può autenticarti. Verifica i dati di accesso nelle preferenze.</string>
   <string name="progress_title">Caricamento</string>
   <string name="progress_message">Caricamento dati in memoria…</string>
   <string name="progress_download_message">Scaricamento dati dal server…</string>
@@ -163,7 +159,6 @@
   <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.\n</string>
   <string name="config_loginbutton_title">Account utente</string>
   <string name="config_username_title">Nome utente OSM</string>
-  <string name="config_username_summary">Necessario per caricare i dati OSM. Se non ne possiedi uno, ottienilo da http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Password OSM</string>
   <string name="config_password_summary">Da non confondere con la password del wiki. Ricorda: viene salvata e trasmetta in testo puro!</string>
   <string name="config_category_gps">Impostazioni GPS</string>

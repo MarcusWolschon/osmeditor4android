@@ -7,12 +7,8 @@
   <string name="transfer_download_current_download">Отменить и скачать</string>
   <string name="transfer_download_current_back">Назад (ничего не менять)</string>
   <string name="upload_problem_title">Проблема с передачей</string>
-  <string name="no_login_data_title">Не введен логин и пароль</string>
-  <string name="no_login_data_message">Пожалуйста, заполните данные для входа на OSM сервер в настройках.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
   <string name="no_connection_message">Невозможно соединиться с OSM сервером. Проверьте ваше подключение к интернету и попробуйте еще раз.</string>
-  <string name="wrong_login_data_title">Неправильный логин или пароль</string>
-  <string name="wrong_login_data_message">OSM сервер не авторизовал вас. Проверьте данные для входа в настройках программы.</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="progress_title">Скачивание</string>
   <string name="progress_message">Загрузка данных в память…</string>
@@ -168,7 +164,6 @@
   <string name="config_iconbutton_title">Показывать иконки точек</string>
   <string name="config_loginbutton_title">Учётная запись</string>
   <string name="config_username_title">Логин на сервер OSM</string>
-  <string name="config_username_summary">Необходимо для передачи изменений на сервер OSM. Если вы еще не зарегистрировались, сделайте это здесь https://www.openstreetmap.org/user/new?uselang=ru</string>
   <string name="config_password_title">Пароль на сервер OSM</string>
   <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните: Он хранится и передается незашифрованным!</string>
   <string name="config_category_gps">Настройка GPS</string>

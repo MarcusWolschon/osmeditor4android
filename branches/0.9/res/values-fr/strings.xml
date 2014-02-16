@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Retour (ne fait rien)</string>
   <string name="upload_problem_title">Problème d\'envoi</string>
   <string name="upload_problem_message">Tout ou une partie des données n\'ont pas été envoyées. Essayez d\'envoyer les données à nouveau pour voir ce qui a échoué. Le plus probable est un conflit de version.</string>
-  <string name="no_login_data_title">Pas de nom d\'utilisateur</string>
-  <string name="no_login_data_message">Veuillez remplir le nom d\'utilisateur OSM dans les préférences.</string>
   <string name="no_connection_title">Pas de connexion au Serveur</string>
   <string name="no_connection_message">Ne peut pas se connecter au Serveur OSM. Veuillez vérifier votre connexion Internet ou essayez plus tard.</string>
-  <string name="wrong_login_data_title">Mauvais nom d\'utilisateur</string>
-  <string name="wrong_login_data_message">Le Serveur OSM ne peut pas vous authentifier. Veuillez vérifier votre nom d\'utilisateur dans les préférences.</string>
   <string name="progress_title">Chargement</string>
   <string name="progress_message">Chargement des données en mémoire…</string>
   <string name="progress_download_message">Récupération des données du serveur…</string>
@@ -169,7 +165,6 @@
   <string name="config_iconbutton_summary">Afficher sur les noeuds l\'icône de la définition la plus proche.</string>
   <string name="config_loginbutton_title">Compte d\'utilisateur</string>
   <string name="config_username_title">Nom d\'utilisateur OSM</string>
-  <string name="config_username_summary">Nécessaire pour envoyer les données OSM. Créez-en un sur openstreetmap.org/user/new</string>
   <string name="config_password_title">Mot de passe OSM</string>
   <string name="config_password_summary">Ne pas confondre avec le mot de passe Wiki. Attention : stocké et transmis en clair !</string>
   <string name="config_category_gps">Paramètres GPS</string>

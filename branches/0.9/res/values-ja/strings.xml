@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">戻る (何もしない)</string>
   <string name="upload_problem_title">アップロードで問題発生</string>
   <string name="upload_problem_message">全てもしくは一部のデータがアップロードされていません。もう一度アップロードして何に失敗しているかを確認してください。もっともありがちな理由はバージョンの不一致です。</string>
-  <string name="no_login_data_title">ログイン情報がありません</string>
-  <string name="no_login_data_message">設定フォーム内のOSM-ログイン設定を入力してください。</string>
   <string name="no_connection_title">サーバに接続していません</string>
   <string name="no_connection_message">OSMサーバに接続できませんでした。インターネット接続を確認してやり直してください。</string>
-  <string name="wrong_login_data_title">ログイン情報誤り</string>
-  <string name="wrong_login_data_message">OSMサーバはあなたを認証できませんでした。設定内のログイン情報をチェックしてください。</string>
   <string name="data_conflict_title">バージョン間の不一致</string>
   <string name="data_conflict_message">ダウンロードしようとしたデータは編集した内容と合致しないデータを含みます。リトライする前にあなたの持つデータのアップロードを試してください。</string>
   <string name="out_of_memory_title">メモリー不足</string>
@@ -201,7 +197,6 @@
   <string name="config_iconbutton_summary">ノード上のもっとも適合したプリセットアイコンを表示</string>
   <string name="config_loginbutton_title">ユーザーアカウント</string>
   <string name="config_username_title">OSMユーザ名</string>
-  <string name="config_username_summary">OSMデータのアップロードに必要。もし持っていなければ、 http://www.openstreetmap.org/user/new で取得してください。</string>
   <string name="config_password_title">OSMパスワード</string>
   <string name="config_password_summary">Wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
   <string name="config_category_gps">GPS 設定</string>

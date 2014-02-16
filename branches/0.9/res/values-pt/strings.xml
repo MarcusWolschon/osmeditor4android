@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Retroceder (Fazer nada)</string>
   <string name="upload_problem_title">Problema Com Upload</string>
   <string name="upload_problem_message">Toda ou parte da informação não foi carregada no servidor. Tente carregar novamente para verificar o que falhou. A razão mais provável é um conflito de versões.</string>
-  <string name="no_login_data_title">Sem dados de login</string>
-  <string name="no_login_data_message">Por favor preencha as definições de login do OSM na janela de preferências.</string>
   <string name="no_connection_title">Sem Conexão ao Servidor</string>
   <string name="no_connection_message">Não foi possível conectar com o Servidor OSM. Por favor verifique a ligação à Internet ou tente de novo mais tarde.</string>
-  <string name="wrong_login_data_title">Dados de login errados</string>
-  <string name="wrong_login_data_message">O Servidor OSM não conseguiu autenticá-lo(a). Por favor verifique os seus dados de login nas preferências.</string>
   <string name="data_conflict_title">Conflito de Versão</string>
   <string name="data_conflict_message">Os dados que está a tentar descarregar contêm dados que conflituem com as suas edições. Tente primeiro fazer o upload dos seus dados antes de tentar de novo.</string>
   <string name="out_of_memory_title">Memória Esgotada</string>
@@ -201,7 +197,6 @@
   <string name="config_iconbutton_summary">Mostra o icone da prédefinição mais ajustada por cima dos nós.</string>
   <string name="config_loginbutton_title">Conta do utilizador</string>
   <string name="config_username_title">Utilizador OSM</string>
-  <string name="config_username_summary">Necessário para fazer o upload de dados OSM. Se ainda não tem um, obtenha-o em http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Palavra-chave OSM</string>
   <string name="config_password_summary">Não confunda com a palavra-chave do Wiki. Lembre-se: É guardade e transmitida em texto simples!</string>
   <string name="config_category_gps">Definições GPS</string>

@@ -7,12 +7,8 @@
   <string name="transfer_download_current_download">Απόρριψη και λήψη</string>
   <string name="transfer_download_current_back">Επιστροφή (Μην κάνεις τίποτα)</string>
   <string name="upload_problem_title">Πρόβλημα κατά την Αποστολή</string>
-  <string name="no_login_data_title">Δεν ορίστηκαν δεδομένα σύνδεσης</string>
-  <string name="no_login_data_message">Παρακαλώ συμπληρώστε τις ρυθμίσεις εισόδου στο OSM στη φόρμα προτιμήσεων.</string>
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>
   <string name="no_connection_message">Δεν είναι δυνατή η σύνδεση στον διακομιστή OSM. Παρακαλώ ελέγξτε την σύνδεση σας ή δοκιμάστε αργότερα.</string>
-  <string name="wrong_login_data_title">Λανθασμένες πληροφορίες σύνδεσης</string>
-  <string name="wrong_login_data_message">Ο διακομιστής OSM δεν μπορεί να σας πιστοποιήσει. Παρακαλώ ελέγξτε τα δεδομένα εισόδου σας στις προτιμήσεις.</string>
   <string name="progress_title">Φόρτωση</string>
   <string name="progress_message">Φόρτωση δεδομένων στη μνήμη...</string>
   <string name="progress_download_message">Λήψη δεδομένων από τον διακομιστή...</string>
@@ -122,7 +118,6 @@
   <string name="config_category_server">Ρυθμίσεις Διακομιστή</string>
   <string name="config_loginbutton_title">Λογαριασμός χρήστη</string>
   <string name="config_username_title">Όνομα Χρήση OSM</string>
-  <string name="config_username_summary">Απαιτείται για την αποστολή δεδομένων OSM. εάν δεν έχετε κάποιο, δημιουργήστε ένα στο </string>
   <string name="config_password_title">Κωδικός OSM</string>
   <string name="config_category_gps">Ρυθμίσεις GPS</string>
   <string name="config_gps_distance_title">Ελάχιστη απόσταση </string>

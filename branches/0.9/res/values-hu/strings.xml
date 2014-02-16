@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Vissza (ne történjen semmi)</string>
   <string name="upload_problem_title">Probléma a feltöltéssel</string>
   <string name="upload_problem_message">Nem sikerült feltölteni néhány, vagy az összes adatot. Próbáld újra feltölteni, hogy lásd, mit nem sikerült. A leggyakoribb ok a verzióütközés.</string>
-  <string name="no_login_data_title">A bejelentkezési adatok nincsenek beállítva</string>
-  <string name="no_login_data_message">Kérlek töltsd ki az OSM bejelentkezési beállításokat a beállítási űrlapon.</string>
   <string name="no_connection_title">Nincs kapcsolat a szerverrel</string>
   <string name="no_connection_message">Nem lehet kapcsolódni az OSM szerverhez. Kérlek ellenőrizd az internet-kapcsolatodat, vagy később próbáld újra.</string>
-  <string name="wrong_login_data_title">Rossz bejelentkezési adat</string>
-  <string name="wrong_login_data_message">Az OSM szerver nem tud azonosítani téged. Kérlek ellenőrizd a bejelentkezési adataidat a beállításoknál.</string>
   <string name="progress_title">Betöltés</string>
   <string name="progress_message">Adatok betöltése a memóriába…</string>
   <string name="progress_download_message">Adatok letöltése a szerverről…</string>
@@ -149,7 +145,6 @@
   <string name="config_iconbutton_summary">A legjobban illeszkedő preset ikonjainak megjelenítése a pontok fölött.</string>
   <string name="config_loginbutton_title">Felhasználói fiók</string>
   <string name="config_username_title">OSM felhasználónév</string>
-  <string name="config_username_summary">OSM adatok feltöltéséhez szükséges. Ha még nincs neked, itt szerezhetsz egyet: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM jelszó</string>
   <string name="config_password_summary">Ne téveszd össze a Wiki jelszóval. Ne feledd: síma szövegként kerül tárolásra és átvitelre!</string>
   <string name="config_category_gps">GPS beállításai</string>

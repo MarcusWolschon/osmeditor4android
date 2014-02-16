@@ -7,12 +7,8 @@
   <string name="transfer_download_current_download">Avbryt og last ned</string>
   <string name="transfer_download_current_back">Gå attende</string>
   <string name="upload_problem_title">Problem med opplasting</string>
-  <string name="no_login_data_title">Manglar brukaropplysningar</string>
-  <string name="no_login_data_message">Fyll ut brukaropplysningar for OpenStreetMap under instillingar.</string>
   <string name="no_connection_title">Inkje samband med tenaren</string>
   <string name="no_connection_message">Kunne ikkje kobla til OSM-tenaren. Sjekk internettforbindelsen din eller prøv om att seinare.</string>
-  <string name="wrong_login_data_title">Feil brukaropplysningar</string>
-  <string name="wrong_login_data_message">OSM-tenaren ville ikkje godkjenne deg. Sjekk brukaropplysningane dine under innstillingar.</string>
   <string name="progress_title">Les</string>
   <string name="progress_message">Les inn i minne…</string>
   <string name="progress_download_message">Lastar ned data fra tenaren…</string>
@@ -118,7 +114,6 @@
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passar best på nodar.</string>
   <string name="config_loginbutton_title">Brukarkonto</string>
   <string name="config_username_title">OpenStreetMap-brukarnamn</string>
-  <string name="config_username_summary">Nødvendig for å lasta opp til OpenStreetMap. Hvis du ikkje har brukarnamn enno, kan du få deg det her: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OpenStreetMap-passord</string>
   <string name="config_password_summary">Må ikkje forvekslast med Wiki-passordet. Obs: Det blir lagra og sendt som lesbar tekst!</string>
   <string name="config_category_gps">GPS-instillingar</string>

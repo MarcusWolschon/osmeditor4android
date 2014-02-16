@@ -7,12 +7,8 @@
   <string name="transfer_download_current_download">Afbryd &amp; download</string>
   <string name="transfer_download_current_back">Gå tilbage (gør intet)</string>
   <string name="upload_problem_title">Problem Med Upload</string>
-  <string name="no_login_data_title">Der er ingen logindata</string>
-  <string name="no_login_data_message">Udfyld OSM-Login under Indstillinger.</string>
   <string name="no_connection_title">Ingen forbindelse til serveren</string>
   <string name="no_connection_message">Kunne ikke forbinde til OSM-Serveren. Check din internet forbindelse eller prøv igen senere.</string>
-  <string name="wrong_login_data_title">Forkert login</string>
-  <string name="wrong_login_data_message">OSM-Serveren kunne ikke godkende dig. Check dine login data under Indstillinger.</string>
   <string name="progress_title">Læser</string>
   <string name="progress_message">Læser ind i memory…</string>
   <string name="progress_download_message">Downloader data fra server…</string>
@@ -118,7 +114,6 @@
   <string name="config_iconbutton_title">Vis knude-ikoner</string>
   <string name="config_loginbutton_title">Brugerkonto</string>
   <string name="config_username_title">OSM Username</string>
-  <string name="config_username_summary">Nødvendig for upload af OSM-Data. Hvis du ikke har et endnu, kan du få et her: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM Password</string>
   <string name="config_password_summary">Forveksel ikke dette med Wiki password\'et. Husk: Det bliver gemt og sendt som læsbar tekst!</string>
   <string name="config_category_gps">GPS Indstillinger</string>

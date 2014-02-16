@@ -8,7 +8,6 @@
   <string name="transfer_download_current_back">Enrere (no facis res)</string>
   <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
-  <string name="wrong_login_data_title">Les dades d\'inici de sessió són incorrectes</string>
   <string name="data_conflict_title">Conflicte de versions</string>
   <string name="out_of_memory_title">Sense memòria</string>
   <string name="progress_title">Càrrega</string>

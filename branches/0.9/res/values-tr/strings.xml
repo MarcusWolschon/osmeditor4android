@@ -3,10 +3,8 @@
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
   <string name="transfer_download_current_upload">Yükle</string>
-  <string name="no_login_data_message">Tercihler formundaki OSM-Giriş ayarlarını eksiksiz doldurun.</string>
   <string name="no_connection_title">Sunucu Bağlantısı Yok</string>
   <string name="no_connection_message">OSM-Sunucu\'ya bağlanamadı. İnternet bağlantınızı kontrol edin veya daha sonra tekrar deneyin.</string>
-  <string name="wrong_login_data_title">Hatalı giriş verisi</string>
   <string name="progress_title">Yükleniyor</string>
   <string name="progress_download_message">Sunucudan veriler indiriliyor...</string>
   <string name="upload_comment_label">Yorum:</string>

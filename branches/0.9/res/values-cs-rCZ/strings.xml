@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
   <string name="upload_problem_title">Problém s nahráváním</string>
   <string name="upload_problem_message">Některá nebo všechna data nebyla odeslána. Zkuste je odeslat znovu pro zjištění, co je špatně. Nejpravděpodobnější chybou je konflikt verzí.</string>
-  <string name="no_login_data_title">Přihlašovací údaje nejsou zadány</string>
-  <string name="no_login_data_message">Prosím zadejte přihlašovací údaje OSM v nastavení.</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
-  <string name="wrong_login_data_title">Špatné přihlašovací údaje</string>
-  <string name="wrong_login_data_message">OSM server Vás nemohl autentizovat. Ověřte prosím v nastavení své už. jméno a heslo.</string>
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
@@ -140,7 +136,6 @@
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předlohy na uzlech.</string>
   <string name="config_loginbutton_title">Uživatelský ůčet</string>
   <string name="config_username_title">OSM už. jméno</string>
-  <string name="config_username_summary">Potřebné pro nahrávání OSM dat. Pokud ještě žádné nemáté, navštivte http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM heslo</string>
   <string name="config_password_summary">Nezaměňte ho za heslo do Wiki. Pamatujte: Je ukládáno a odesíláno v otevřeném formátu!</string>
   <string name="config_category_gps">Nastavení GPS</string>

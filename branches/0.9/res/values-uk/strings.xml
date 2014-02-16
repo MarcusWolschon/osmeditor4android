@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Назад (нічого не міняти)</string>
   <string name="upload_problem_title">Проблема з вивантаженням</string>
   <string name="upload_problem_message">Деякі або й усі дані не були вивантажені. Спробуйте вивантажити знову, щоб побачити, що не вдалося. Найбільш вірогідною причиною є конфлікт версій.</string>
-  <string name="no_login_data_title">Не введений логін і пароль</string>
-  <string name="no_login_data_message">Будь ласка, заповніть  в налаштуваннях дані для входу на сервер OpenStreetMap.</string>
   <string name="no_connection_title">Немає з’єднання з сервером</string>
   <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше підключення до Інтернет та спробуйте ще раз.</string>
-  <string name="wrong_login_data_title">Неправильний логін чи пароль</string>
-  <string name="wrong_login_data_message">Сервер OpenStreetMap не авторизував Вас. Перевірте дані для входу в налаштуваннях програми.</string>
   <string name="data_conflict_title">Конфлікт версій</string>
   <string name="progress_title">Звантажування</string>
   <string name="progress_message">Завантаження даних в пам’ять…</string>
@@ -166,7 +162,6 @@
   <string name="config_iconbutton_title">Показувати значки точок</string>
   <string name="config_loginbutton_title">Обліковий запис</string>
   <string name="config_username_title">Логін на сервер OpenStreetMap</string>
-  <string name="config_username_summary">Необхідно для передачі змін на сервер OpenStreetMap. Якщо Ви ще не зареєструвалися, зробіть це тут: https://www.openstreetmap.org/user/new?uselang=uk</string>
   <string name="config_password_title">Пароль на сервер OpenStreetMap</string>
   <string name="config_password_summary">Не переплутайте його з паролем для Wiki. Пам’ятайте: він зберігається і передається незашифрованим!</string>
   <string name="config_category_gps">Налаштування GPS</string>

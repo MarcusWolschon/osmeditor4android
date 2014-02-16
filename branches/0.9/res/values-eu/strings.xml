@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Atzera (Ezer ez egin)</string>
   <string name="upload_problem_title">Igotzean arazoa egon da</string>
   <string name="upload_problem_message">Datuak ez dira igo. Zeinek failatzen duen ikusteko saiatu berriro igotzen. Seguru aski arrazoia bertsioen arteko konfliktoa da. </string>
-  <string name="no_login_data_title">Ez dago login datu bateraturik</string>
-  <string name="no_login_data_message">Bete mesedez zure OSM-ko erabiltzailaren ezarpena hobespenetan.</string>
   <string name="no_connection_title">Ez dago Zerbitzarira konexiorik</string>
   <string name="no_connection_message">OSM Zerbitzarira ezin izan da konektatu. Egiaztatu mesedez zure Interneterako konexioa edo saiatu berriro gero.</string>
-  <string name="wrong_login_data_title">Saio hasierako datu okerra</string>
-  <string name="wrong_login_data_message">OSM Zerbitzariak ezin zaitu identifikatu.  Egiaztatu mesedez zure saio hasierako datuak hopespenetan.</string>
   <string name="progress_title">Kargatzen</string>
   <string name="progress_message">Datuak memorian kargatzen...</string>
   <string name="progress_download_message">Datuak Zerbitzaritik kargatzen...</string>
@@ -164,7 +160,6 @@
   <string name="config_iconbutton_summary">Nodoen arteko aurrezarpen hoberenaren ikonoa erakutsi</string>
   <string name="config_loginbutton_title">Erabiltzaile kontua</string>
   <string name="config_username_title">OSM Erabiltzailea</string>
-  <string name="config_username_summary">OSM Datuak igotzeko beharrezkoa. Dagoeneko ez baduzu, lortu zazu bat http://www.openstreetmap.org/user/new helbidean</string>
   <string name="config_password_title">OSM Pasahitza</string>
   <string name="config_password_summary">Ez nahastu Wikiko pasahitzarekin. Gogoratu: testu planoan gordea eta transmititua da.</string>
   <string name="config_category_gps">GPSaren Ezarpenak</string>

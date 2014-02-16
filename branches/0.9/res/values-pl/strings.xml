@@ -8,12 +8,8 @@
   <string name="transfer_download_current_back">Wróć (nic nie rób)</string>
   <string name="upload_problem_title">Problem z wysyłaniem</string>
   <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Wyślij ponownie, aby zobaczyć to, co nie powiodło się.Najbardziej prawdopodobną przyczyną jest konflikt wersji.</string>
-  <string name="no_login_data_title">Brak danych logowania</string>
-  <string name="no_login_data_message">Uzupełnij dane logowania w ustawieniach.</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>
   <string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
-  <string name="wrong_login_data_title">Błędne dane logowania</string>
-  <string name="wrong_login_data_message">Błąd logowania. Sprawdź poprawność swoich danych w ustawieniach.</string>
   <string name="data_conflict_title">Konflikt wersji</string>
   <string name="data_conflict_message">Dane, które próbujesz pobrać zawiera dane, które jest sprzeczne z wprowadzonymi zmianami. Najpierw spróbuj przesłać swoje dane przed ponowną próbą.</string>
   <string name="out_of_memory_title">Brak pamięci</string>
@@ -184,7 +180,6 @@
   <string name="config_iconbutton_summary">Pokaż ikonę najbardziej pasującego szablonu nad węzłem.</string>
   <string name="config_loginbutton_title">Konto użytkownika</string>
   <string name="config_username_title">Nazwa konta OSM</string>
-  <string name="config_username_summary">Potrzebne do wysłania danych na serwer OSM. Jeśli jeszcze nie masz, załóż na https://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Hasło do konta OSM</string>
   <string name="config_password_summary">Pamiętaj: Hasło jest przechowywane i wysyłane w postaci czystego tekstu!</string>
   <string name="config_category_gps">Ustawienia GPS</string>

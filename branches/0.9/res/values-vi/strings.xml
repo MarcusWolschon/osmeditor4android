@@ -8,12 +8,10 @@
   <string name="transfer_download_current_back">Quay lại (Không làm gì)</string>
   <string name="upload_problem_title">Vấn đề Tải lên</string>
   <string name="upload_problem_message">Một số hoặc tất cả dữ liệu không được tải lên. Hãy thử tải lên lần nữa để xem phần nào bị thất bại. Lý do đáng lẽ là một xung đột về số phiên bản.</string>
-  <string name="no_login_data_title">Dữ liệu đăng nhập không được xác định</string>
-  <string name="no_login_data_message">Xin vui lòng thiết lập tài khoản OSM trong biểu mẫu tùy chỉnh.</string>
+  <string name="no_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
   <string name="no_connection_message">Không thể kết nốt với máy chủ OSM. Xin vui lòng kiểm tra kết nối Internet của bạn hoặc thử lại sau.</string>
-  <string name="wrong_login_data_title">Dữ liệu đăng nhập sai</string>
-  <string name="wrong_login_data_message">Máy chủ OSM không thể xác nhận bạn. Xin vui lòng kiểm tra dữ liệu đăng nhập của bạn trong tùy chỉnh.</string>
+  <string name="wrong_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="data_conflict_title">Xung đột về Số Phiên bản</string>
   <string name="data_conflict_message">Không thể tải về dữ liệu này vì nó mâu thuẫn với các sửa đổi của bạn. Xin vui lòng thử tải lên dữ liệu của bạn trước khi thử lại.</string>
   <string name="out_of_memory_title">Hết Bộ nhớ</string>
@@ -62,6 +60,7 @@
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
   <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
   <string name="toast_noname">Đường không có tên hoặc số</string>
+  <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth và thử tải lên lại.</string>
   <!--Some generic labels-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -187,6 +186,8 @@
   <string name="config_enableKeepScreenOn_summary">Không tắt màn hình để duy trì năng lượng.</string>
   <string name="config_enableDeprecatedModes_title">Bật các chế độ bị phản đối</string>
   <string name="config_enableDeprecatedModes_summary">Kích hoạt các chế độ Tạo Mới, Sửa, Sửa các Thẻ, Thêm, Xóa Nốt, và Cắt đôi.</string>
+  <string name="config_enableGPSOverlay_title">Hiển thị lớp phủ tuyến đường GPS</string>
+  <string name="config_enableGPSOverlay_summary">Hiển thị lớp phủ có tuyến đường GPS từ OpenStreetMap</string>
   <string name="config_backgroundLayer_title">Nền bản đồ</string>
   <string name="config_backgroundLayer_summary">Hình nền của bản đồ.</string>
   <string name="config_category_server">Thiết lập Máy chủ</string>
@@ -201,7 +202,7 @@
   <string name="config_iconbutton_summary">Hiển thị hình tượng của thẻ đặt trước khớp nhất trên các nốt.</string>
   <string name="config_loginbutton_title">Tài khoản người dùng</string>
   <string name="config_username_title">Tên người dùng OSM</string>
-  <string name="config_username_summary">Cần thiết để tải lên dữ liệu OSM. Bạn có thể mở tài khoản tại http://www.openstreetmap.org/user/new</string>
+  <string name="config_username_summary">Nếu bạn không sử dụng OAuth, bạn cần mở tài khoản để tải lên dữ liệu OSM. Bạn có thể mở tài khoản tại http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Mật khẩu OSM</string>
   <string name="config_password_summary">Không nhầm lẫn với mật khẩu trên wiki. Lưu ý: Mật khẩu này được truyền như văn bản thuần!</string>
   <string name="config_category_gps">Thiết lập GPS</string>

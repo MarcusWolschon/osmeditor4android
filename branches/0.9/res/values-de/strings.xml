@@ -8,12 +8,12 @@
   <string name="transfer_download_current_back">Zurück</string>
   <string name="upload_problem_title">Problem während des Hochladens</string>
   <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Nochmals versuchen um Fehler möglicherweise zu sehen. Am wahrscheinlichsten ist ein Versionskonflikt.</string>
-  <string name="no_login_data_title">Kein Login angegeben</string>
-  <string name="no_login_data_message">Bitte geben Sie die Logindaten in den Einstellungen ein.</string>
+  <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
+  <string name="no_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
   <string name="no_connection_message">Konnte keine Verbindung zum OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später nocheinmal.</string>
-  <string name="wrong_login_data_title">Falscher Login angegeben.</string>
-  <string name="wrong_login_data_message">Der OSM-Server konnte Sie nicht authentifizieren. Bitte überprüfen Sie ihren Login in den Einstellungen.</string>
+  <string name="wrong_login_data_title">Authentifizierung fehlgeschlagen</string>
+  <string name="wrong_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Die Daten enhalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
   <string name="out_of_memory_title">Kein freier Speicher mehr.</string>
@@ -62,6 +62,7 @@
   <string name="toast_download_failed">Downlod ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
   <string name="toast_unsurveyed_road">Strasse nicht überprüft</string>
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
+  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben und dann nochmals versuchen. </string>
   <!--Some generic labels-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -201,7 +202,7 @@
   <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>
   <string name="config_username_title">OSM-Benutzername</string>
-  <string name="config_username_summary">Wird gebraucht, um OSM Daten hochzuladen. Falls Sie noch keinen haben, registrieren Sie sich unter http://www.openstreetmap.org/user/new</string>
+  <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
   <string name="config_password_title">OSM-Passwort</string>
   <string name="config_password_summary">Nicht mit dem Wiki-Passwort verwechseln. Beachten Sie: Das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
   <string name="config_category_gps">GPS-Einstellungen</string>
