@@ -1042,11 +1042,13 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		rl.addView(oAuthWebView);
 		// setContentView(webview);
 		oAuthWebView.getSettings().setJavaScriptEnabled(true);
-		oAuthWebView.getSettings().setAllowContentAccess(true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+			oAuthWebView.getSettings().setAllowContentAccess(true);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
 			oAuthWebView.getLayoutParams().height = LayoutParams.MATCH_PARENT;
 			oAuthWebView.getLayoutParams().width = LayoutParams.MATCH_PARENT;
 		}
+		oAuthWebView.requestFocus(View.FOCUS_DOWN);
 		class MyWebViewClient extends WebViewClient {
 		    @Override
 		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
