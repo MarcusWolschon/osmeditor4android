@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
@@ -53,7 +56,9 @@ public class DialogFactory {
 	
 	public static final int PROGRESS_DELETING = 13;
 	
-	// public static final int BACKGROUND_PROPERTIES = 14;
+	public static final int BACKGROUND_PROPERTIES = 14;
+	
+	public static final int INVALID_DATA_RECEIVED = 15;
 	
 	private final Main caller;
 	
@@ -77,7 +82,9 @@ public class DialogFactory {
 	
 	private final Builder outOfMemoryDirty;
 	
-	// private final Builder backgroundProperties;
+	private final Builder backgroundProperties;
+	
+	private final Builder invalidDataReceived;
 	
 	/**
 	 * @param caller
@@ -93,10 +100,10 @@ public class DialogFactory {
 		DoNothingListener doNothingListener = new DoNothingListener();
 		
 		noLoginDataSet = createBasicDialog(R.string.no_login_data_title, R.string.no_login_data_message);
-		noLoginDataSet.setPositiveButton(R.string.okay, gotoPreferencesListener);
+		noLoginDataSet.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
 		wrongLogin = createBasicDialog(R.string.wrong_login_data_title, R.string.wrong_login_data_message);
-		wrongLogin.setPositiveButton(R.string.okay, gotoPreferencesListener);
+		wrongLogin.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
 		noConnection = createBasicDialog(R.string.no_connection_title, R.string.no_connection_message);
 		noConnection.setPositiveButton(R.string.okay, doNothingListener);
@@ -133,8 +140,15 @@ public class DialogFactory {
 		outOfMemoryDirty = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
 		outOfMemoryDirty.setPositiveButton(R.string.okay, doNothingListener);
 		
-//		backgroundProperties = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
-//		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
+		backgroundProperties = createBackgroundPropertiesDialog();
+		layout = inflater.inflate(R.layout.background_properties, null);
+		backgroundProperties.setView(layout);
+		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
+		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_opacity_seeker);
+		seeker.setOnSeekBarChangeListener(createSeekBarListener());
+		
+		invalidDataReceived = createBasicDialog(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
+		invalidDataReceived.setPositiveButton(R.string.okay, doNothingListener);
 	}
 	
 	/**
@@ -182,7 +196,13 @@ public class DialogFactory {
 			
 		case PROGRESS_DELETING:
 			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_deleting_message);
-		}
+			
+		case BACKGROUND_PROPERTIES:
+			return backgroundProperties.create();
+		
+		case INVALID_DATA_RECEIVED:
+			return invalidDataReceived.create();
+	}
 		
 		return null;
 	}
@@ -226,6 +246,36 @@ public class DialogFactory {
 			dialog.setMessage(messageId);
 		}
 		return dialog;
+	}
+	
+	/**
+	 * @param titleId the resource-id of the title
+	 * @param messageId the resource-id of the message
+	 * @return a dialog-builder
+	 */
+	private Builder createBackgroundPropertiesDialog() {
+		Builder dialog = new AlertDialog.Builder(caller);
+		dialog.setTitle(R.string.menu_tools_background_properties);
+		return dialog;
+	}
+	
+	private OnSeekBarChangeListener createSeekBarListener() {
+		return new OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
+				Map map = Application.mainActivity.getMap();
+				map.getOpenStreetMapTilesOverlay().setAlpha(progress);
+				map.invalidate();
+			}
+			
+			@Override
+			public void onStartTrackingTouch(final SeekBar seekBar) {
+			}
+			
+			@Override
+			public void onStopTrackingTouch(final SeekBar arg0) {
+			}
+		};
 	}
 	
 	private ProgressDialog createBasicProgressDialog(final int messageId) {

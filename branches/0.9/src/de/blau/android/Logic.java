@@ -1558,14 +1558,13 @@ public class Logic {
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
 						result = DialogFactory.OUT_OF_MEMORY;
 					} else {
-						// crash and burn
-						ACRA.getErrorReporter().handleException(e);
+						result = DialogFactory.INVALID_DATA_RECEIVED;
 					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
-					ACRA.getErrorReporter().handleException(e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
 					Log.e("Vespucci", "Problem downloading", e);
 				} catch (IOException e) {
