@@ -92,7 +92,7 @@ public class Server {
 	/**
 	 * use oauth
 	 */
-	private final boolean oauth;
+	private boolean oauth;
 	
 	/**
 	 * oauth access token
@@ -933,5 +933,17 @@ public class Server {
 
 	public boolean needOAuthHandshake() {
 		return oauth && ((accesstoken == null) || (accesstokensecret == null)) ;
+	}
+	
+	/**
+	 * Override the oauth flag from the API configuration, only needed if inconsistent config
+	 * @param t
+	 */
+	public void setOAuth(boolean t) {
+		oauth = t;
+	}
+	
+	public boolean getOAuth() {
+		return oauth;
 	}
 }

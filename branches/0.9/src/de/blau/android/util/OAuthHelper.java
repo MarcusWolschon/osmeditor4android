@@ -8,6 +8,7 @@ import java.util.concurrent.TimeoutException;
 
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.exception.OsmException;
 
 import android.content.res.Resources;
 import android.net.Uri;
@@ -35,7 +36,7 @@ public class OAuthHelper {
 	private static OAuthProvider mProvider;
 	private static String mCallbackUrl;
 	
-	public OAuthHelper(String osmBaseUrl) {
+	public OAuthHelper(String osmBaseUrl) throws OsmException {
 		Resources r = Application.mainActivity.getResources();
 		String urls[] = r.getStringArray(R.array.api_urls);
 		String keys[] = r.getStringArray(R.array.api_consumer_keys);
@@ -56,7 +57,7 @@ public class OAuthHelper {
 			}
 		}
 		Log.d("OAuthHelper", "No matching API for " + osmBaseUrl + "found");
-		//TODO protect against failure
+		throw new OsmException("No matching OAuth configuration found for this API");
 	}
 	
 	public OAuthHelper(String osmBaseUrl, String consumerKey, String consumerSecret, String callbackUrl)

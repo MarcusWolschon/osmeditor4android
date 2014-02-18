@@ -26,6 +26,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
@@ -392,7 +393,14 @@ public class EasyEditManager {
 			super.onActionItemClicked(mode, item);
 			switch (item.getItemId()) {
 			case MENUITEM_OSB:
-				// todo check if authenticated
+				// 
+				final Server server = new Preferences(main).getServer();
+				if (server != null && server.isLoginSet() && server.needOAuthHandshake()) {
+					main.oAuthHandshake(server);
+					if (server.getOAuth()) // if still set
+						Toast.makeText(main.getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+					return true;
+				} 
 				mode.finish();
 				logic.setSelectedBug(logic.makeNewBug(x, y));
 				main.showDialog(DialogFactory.OPENSTREETBUG_EDIT);

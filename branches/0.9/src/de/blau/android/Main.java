@@ -1006,7 +1006,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic.hasChanges()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server);
-					Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+					if (server.getOAuth()) // if still set
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
 					return;
 				} 
 				showDialog(DialogFactory.CONFIRM_UPLOAD);
@@ -1023,12 +1024,21 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * 
 	 * @param server
 	 */
-	private void oAuthHandshake(Server server) {
+	public void oAuthHandshake(Server server) {
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.hide();
 		Server[] s = {server};
 		String url = s[0].getBaseURL();
-		OAuthHelper oa = new OAuthHelper(url);
+		OAuthHelper oa;
+		try {
+			oa = new OAuthHelper(url);
+		}
+		catch (OsmException oe) {
+			server.setOAuth(false); // upps something went wrong turn oauth off
+			actionbar.show();
+			Toast.makeText(Main.this, getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
+			return;
+		}
 		Log.d("Main", "oauth auth url " + url);
 	
 		String authUrl = oa.getRequestToken();
@@ -1535,6 +1545,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (server != null && server.isLoginSet()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server);
+					if (server.getOAuth()) // if still set
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
 				} else {
 					logic.setSelectedBug(bug);
 					showDialog(DialogFactory.OPENSTREETBUG_EDIT);
