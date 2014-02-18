@@ -716,8 +716,9 @@ public class Server {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+				return new ArrayList<Bug>(); //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+//				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
+//						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
 			}
 
 			InputStream is;
@@ -752,8 +753,10 @@ public class Server {
 			}
 		} catch (XmlPullParserException e) {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+			return new ArrayList<Bug>(); // empty list
 		} catch (IOException e) {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+			return new ArrayList<Bug>(); // empty list
 		} catch (OutOfMemoryError e) {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
 			// TODO ask the user to exit

@@ -64,6 +64,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				
 				@Override
 				protected void onPostExecute(Collection<Bug> result) {
+					if (result == null)
+						return;
 					prev.set(cur);
 					bugs.clear();
 					long now = System.currentTimeMillis();

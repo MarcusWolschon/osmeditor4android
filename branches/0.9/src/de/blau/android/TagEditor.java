@@ -593,7 +593,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		HashMap<Long,String> currentParents = getParentRelationMap();
 		ArrayList<RelationMemberDescription> currentMembers = getMembersList();
 		// if we haven't edited just exit
-		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
 		    new AlertDialog.Builder(this)
 	        .setNeutralButton(R.string.cancel, null)
 	        .setNegativeButton(R.string.tag_menu_revert,        	
@@ -624,7 +624,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		HashMap<Long,String> currentParents = getParentRelationMap();
 		ArrayList<RelationMemberDescription> currentMembers = getMembersList();
 		
-		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
 			// changes were made
 			intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, 
 					currentTags.equals(originalTags)? null : currentTags,  null, 
