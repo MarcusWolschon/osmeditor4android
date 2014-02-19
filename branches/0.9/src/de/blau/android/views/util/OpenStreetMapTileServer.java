@@ -171,6 +171,8 @@ public class OpenStreetMapTileServer {
 	private Queue<String> subdomains = new LinkedList<String>();
 	private int defaultAlpha;
 	private Collection<Provider> providers = new ArrayList<Provider>();
+	private double offsetLon = 0; // offsets in WGS84 needed to align imagery ... 
+	private double offsetLat = 0;
 	
 	// ===========================================================
 	// Constructors
@@ -440,6 +442,39 @@ public class OpenStreetMapTileServer {
 	 */
 	public String getTouUri() {
 		return touUri;
+	}
+	
+	
+	/**
+	 * Get the latE7 offset
+	 * @return offset in WGS84
+	 */
+	public double getLatOffset() {
+		return offsetLat;
+	}
+	
+	/**
+	 * Get the lonE7 offset
+	 * @return offset in WGS84
+	 */
+	public double getLonOffset() {
+		return offsetLon;
+	}
+	
+	/**
+	 * Set the lat offset
+	 * @param o in WGS84
+	 */
+	public void setLatOffset(double o) {
+		offsetLat = o;
+	}
+	
+	/**
+	 * Set the lon offset
+	 * @param o in WGS84
+	 */
+	public void setLonOffset(double o) {
+		offsetLon = o;
 	}
 	
 	/**

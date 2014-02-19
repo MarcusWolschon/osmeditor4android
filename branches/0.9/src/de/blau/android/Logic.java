@@ -49,6 +49,7 @@ import de.blau.android.resources.Profile;
 import de.blau.android.util.EditState;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Contains several responsibilities of Logic-Work:
@@ -108,7 +109,11 @@ public class Logic {
 		/**
 		 * easy editing mode supporting multiple operations and menu-based tagging
 		 */
-		MODE_EASYEDIT
+		MODE_EASYEDIT,
+		/**
+		 * Background alignment mode
+		 */
+		MODE_ALIGN_BACKGROUND
 	}
 
 	/**
@@ -988,13 +993,14 @@ public class Logic {
 			else if ((startY >= startX) && (absoluteY >= absoluteX)) {
 				direction = (startY < absoluteY) ? -1: 1;			
 			}
-
-			
 	
 			delegator.rotateWay(selectedWay, (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
 			startY = absoluteY;
 			startX = absoluteX;
 		} else {
+			if (mode == Mode.MODE_ALIGN_BACKGROUND)
+				performBackgroundOffset(relativeX, relativeY);
+			else
 				performTranslation(relativeX, relativeY);
 		}	
 		map.invalidate();
@@ -1024,6 +1030,25 @@ public class Logic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Converts screen-coords to gps-coords and offests background layer.
+	 * 
+	 * @param screenTransX Movement on the screen.
+	 * @param screenTransY Movement on the screen.
+	 */
+	private void performBackgroundOffset(final float screenTransX, final float screenTransY) {
+		int height = map.getHeight();
+		int lon = xToLonE7(screenTransX);
+		int lat = yToLatE7(height - screenTransY);
+		int relativeLon = lon - viewBox.getLeft();
+		int relativeLat = lat - viewBox.getBottom();
+		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+		double lonOffset = osmts.getLonOffset();
+		osmts.setLonOffset(lonOffset - (double)relativeLon/1E7d);
+		double latOffset = osmts.getLatOffset();
+		osmts.setLatOffset(latOffset - (double)relativeLat/1E7d);
 	}
 
 	/**
@@ -1667,14 +1692,17 @@ public class Logic {
 	}
 	
 	void saveEditingState() {
-		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug);
+		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts.getLonOffset(), osmts.getLatOffset());
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
 	void loadEditingState() {
 		EditState editState = new SavingHelper<EditState>().load(EDITSTATE_FILENAME, false);
-		if(editState != null) // 
+		if(editState != null) { // 
 			editState.setSelected(this);
+			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
+		}
 	}
 
 	/**

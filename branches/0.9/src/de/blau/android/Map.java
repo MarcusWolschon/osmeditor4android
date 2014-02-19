@@ -614,7 +614,7 @@ public class Map extends View implements IMapView {
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
 			final float x, final float y) {
-		if ( tmpDrawingEditMode != Logic.Mode.MODE_MOVE 
+		if ( (tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
 			canvas.drawCircle(x, y, nodeTolerancePaint.getStrokeWidth(), nodeTolerancePaint);
 		}

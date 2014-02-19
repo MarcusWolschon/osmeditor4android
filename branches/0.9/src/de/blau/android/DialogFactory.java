@@ -11,6 +11,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -146,7 +147,7 @@ public class DialogFactory {
 		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
 		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_opacity_seeker);
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
-		
+				
 		invalidDataReceived = createBasicDialog(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
 		invalidDataReceived.setPositiveButton(R.string.okay, doNothingListener);
 	}
@@ -199,7 +200,7 @@ public class DialogFactory {
 			
 		case BACKGROUND_PROPERTIES:
 			return backgroundProperties.create();
-		
+			
 		case INVALID_DATA_RECEIVED:
 			return invalidDataReceived.create();
 	}

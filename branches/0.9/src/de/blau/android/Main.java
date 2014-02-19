@@ -521,8 +521,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	private ToggleButton setLock(Logic.Mode mode) {
 		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
-		mode = (mode == Logic.Mode.MODE_EASYEDIT) ? Logic.Mode.MODE_EASYEDIT : Logic.Mode.MODE_MOVE; // zap any other mode
-		lock.setChecked(mode == Logic.Mode.MODE_EASYEDIT);
+		switch (mode) {
+		case MODE_EASYEDIT:
+		case MODE_ALIGN_BACKGROUND:
+			lock.setChecked(true);
+			break;
+		default: 
+			mode = Mode.MODE_MOVE;
+			lock.setChecked(false);
+		}
 		logic.setMode(mode); 
 		return lock; // for convenience
 	}
@@ -664,6 +671,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		case R.id.menu_tools_flush_tile_cache:
 			map.getOpenStreetMapTilesOverlay().flushTileCache();
+			return true;
+			
+		case R.id.menu_tools_background_align:
+			Mode oldMode = logic.getMode();
+			logic.setMode(Mode.MODE_ALIGN_BACKGROUND);
+			startActionMode(new BackgroundAlignmentActionModeCallback(oldMode));
 			return true;
 			
 //		case R.id.menu_tools_background_properties:

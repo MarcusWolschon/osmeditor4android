@@ -191,12 +191,14 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		//some performance.
 		final Rect viewPort = c.getClipBounds();
 		final int zoomLevel = osmv.getZoomLevel(viewPort);
+		final double lonOffset = myRendererInfo.getLonOffset();
+		final double latOffset = myRendererInfo.getLatOffset();
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile
 		// why would we calculate the coordinates when we already have them ????
-		final double lonLeft   =  osmv.getViewBox().getLeft() / 1E7d; 	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
-		final double lonRight  =  osmv.getViewBox().getRight() / 1E7d;	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.right ) / 1E7d;
-		final double latTop    =  Math.toRadians(osmv.getViewBox().getTop() / 1E7d);	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
-		final double latBottom =  Math.toRadians(osmv.getViewBox().getBottom() / 1E7d);	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
+		final double lonLeft   =  osmv.getViewBox().getLeft() / 1E7d - (lonOffset > 0 ? lonOffset : 0d); 	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.left  ) / 1E7d;
+		final double lonRight  =  osmv.getViewBox().getRight() / 1E7d - (lonOffset < 0 ? lonOffset : 0d);	// GeoMath.xToLonE7(viewPort.width() , osmv.getViewBox(), viewPort.right ) / 1E7d;
+		final double latTop    =  Math.toRadians(osmv.getViewBox().getTop() / 1E7d - (latOffset < 0 ? latOffset : 0d));	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.top   ) / 1E7d;
+		final double latBottom =  Math.toRadians(osmv.getViewBox().getBottom() / 1E7d - (latOffset > 0 ? latOffset : 0d));	// GeoMath.yToLatE7(viewPort.height(), osmv.getViewBox(), viewPort.bottom) / 1E7d;
 		
 		// pseudo-code for lon/lat to tile numbers
 		//n = 2 ^ zoom
@@ -215,6 +217,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		final int tileNeededBottom = Math.max(yTileTop, yTileBottom);
 		
 //		Log.d("OpenStreetMapTileOverlay","zoom " + zoomLevel + " tile left " + xTileLeft + " right " + xTileRight + " top " +yTileTop + " bottom " + yTileBottom);
+//		Log.d("OpenStreetMapTileOverlay"," top " + tileNeededTop + " bottom " + tileNeededBottom);
 //		Log.d("OpenStreetMapTileOverlay","lonLeft " + lonLeft + " lonRight " + lonRight + " latTop " + Math.toDegrees(latTop)+ " latBottom " + Math.toDegrees(latBottom));
 		
 		final int mapTileMask = (1 << zoomLevel) - 1;
@@ -236,7 +239,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				
 				// destination rect
 				if (destRect == null) { // avoid recalculating this for every tile
-					destRect = getScreenRectForTile(c, osmv, zoomLevel, y, x, squareTiles);
+					destRect = getScreenRectForTile(c, osmv, zoomLevel, y, x, squareTiles, lonOffset, latOffset);
 					destIncX = destRect.width();
 					destIncY = destRect.height();
 				}
@@ -280,7 +283,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 						mPaint);
 				} else {
 					// Still no tile available - try smaller scale tiles
-					drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles);
+					drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset);
 				}
 				// Log.d("OpenStreetMapTileOverlay","Dest rect " + (destRect.left + xPos) + " " + (destRect.right + xPos) + " " + (destRect.top + yPos) +  " " + (destRect.bottom + yPos));
 				xPos += destIncX;
@@ -325,14 +328,16 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @param z Zoom level to draw.
 	 * @param x Tile X to draw.
 	 * @param y Tile Y to draw.
+	 * @param lonOffset TODO
+	 * @param latOffset TODO
 	 */
-	private void drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles) {
+	private void drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), z, x, y);
 		if (mTileProvider.isTileAvailable(tile)) {
 			c.drawBitmap(
 				mTileProvider.getMapTile(tile),
 				new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
-				getScreenRectForTile(c, osmv, z, y, x, squareTiles),
+				getScreenRectForTile(c, osmv, z, y, x, squareTiles, lonOffset, latOffset),
 				mPaint);
 		} else {
 			// Still no tile available
@@ -348,10 +353,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				x <<= 1;
 				y <<= 1;
 				++z;
-				drawTile(c, osmv, z, maxz, z, x    , y    , squareTiles);
-				drawTile(c, osmv, z, maxz, z, x + 1, y    , squareTiles);
-				drawTile(c, osmv, z, maxz, z, x    , y + 1, squareTiles);
-				drawTile(c, osmv, z, maxz, z, x + 1, y + 1, squareTiles);
+				drawTile(c, osmv, z, maxz, z, x    , y    , squareTiles, lonOffset, latOffset);
+				drawTile(c, osmv, z, maxz, z, x + 1, y    , squareTiles, lonOffset, latOffset);
+				drawTile(c, osmv, z, maxz, z, x    , y + 1, squareTiles, lonOffset, latOffset);
+				drawTile(c, osmv, z, maxz, z, x + 1, y + 1, squareTiles, lonOffset, latOffset);
 			}
 		}
 	}
@@ -363,10 +368,12 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @param zoomLevel the zoom-level of the tile
 	 * @param y the y-number of the tile
 	 * @param x the x-number of the tile
+	 * @param lonOffset TODO
+	 * @param latOffset TODO
 	 * @return the rectangle of screen-coordinates it consumes.
 	 */
 	private Rect getScreenRectForTile(Canvas c, IMapView osmv,
-			final int zoomLevel, int y, int x, boolean squareTiles) {
+			final int zoomLevel, int y, int x, boolean squareTiles, double lonOffset, double latOffset) {
 
 		final Rect viewPort = c.getClipBounds();
 		double north = tile2lat(y    , zoomLevel);
@@ -374,10 +381,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		double west  = tile2lon(x    , zoomLevel);
 		double east  = tile2lon(x + 1, zoomLevel);
 
-		int screenLeft   = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (west  * 1E7)));
-		int screenRight  = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) (east  * 1E7)));
-		int screenTop    = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) (north * 1E7)));
-		int screenBottom = squareTiles ? screenTop + (screenRight - screenLeft) : (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) (south * 1E7)));
+		int screenLeft   = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) ((west + lonOffset) * 1E7)));
+		int screenRight  = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) ((east + lonOffset) * 1E7)));
+		int screenTop    = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) ((north + latOffset)* 1E7)));
+		int screenBottom = squareTiles ? screenTop + (screenRight - screenLeft) : (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) ((south + latOffset)* 1E7)));
 		// Log.d("OpenStreeMapTileOverlay", "Dest Rect " + screenLeft + " " + screenTop + " " +  screenRight + " " + screenBottom);
 		return new Rect(screenLeft, screenTop, screenRight, screenBottom);
 	}

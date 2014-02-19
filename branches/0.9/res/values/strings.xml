@@ -151,6 +151,8 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_tile_cache">Flush tile cache</string>
     <string name="menu_tools_background_properties">Background properties</string>
+    <string name="menu_tools_background_align">Align background</string>
+    <string name="menu_tools_background_align_reset">Reset</string>
     <string name="menu_tools_background_opacity">Background opacity</string>
     <!-- element action mode menu -->
     <string name="menu_tags">Tags</string>
