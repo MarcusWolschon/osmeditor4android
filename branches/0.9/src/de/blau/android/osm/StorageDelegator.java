@@ -1742,10 +1742,17 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		// add nodes
 		for (Node n:storage.getNodes()) {
-			if (!nodeIndex.containsKey(n.getOsmId())) { // new node no problem
+			Node apiNode = apiStorage.getNode(n.getOsmId()); // can contain deleted elements
+			if (!nodeIndex.containsKey(n.getOsmId()) &&  apiNode == null) { // new node no problem
 				temp.getNodes().add(n);
 				nodeIndex.put(n.getOsmId(),n);
 			} else {
+				if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
+					if (apiNode.getOsmVersion() >= n.getOsmVersion())
+						continue; // can use node we already have
+					else
+						return false; // can't resolve conflicts, upload first
+				}
 				Node existingNode = temp.getNode(n.getOsmId());
 				if (existingNode.getOsmVersion() >= n.getOsmVersion()) // larger just to be on the safe side
 					continue; // can use node we already have
@@ -1762,10 +1769,17 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		// add ways
 		for (Way w:storage.getWays()) {
-			if (!wayIndex.containsKey(w.getOsmId())) { // new way no problem
+			Way apiWay = apiStorage.getWay(w.getOsmId()); // can contain deleted elements
+			if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
 				temp.getWays().add(w);
 				wayIndex.put(w.getOsmId(),w);
 			} else {
+				if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
+					if (apiWay.getOsmVersion() >= w.getOsmVersion())
+						continue; // can use way we already have
+					else
+						return false; // can't resolve conflicts, upload first
+				}
 				Way existingWay = temp.getWay(w.getOsmId());
 				if (existingWay.getOsmVersion() >= w.getOsmVersion()) // larger just to be on the safe side
 					continue; // can use way we already have
@@ -1779,14 +1793,20 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 			}
 		}
-		
-		
+				
 		// add relations
 		for (Relation r:storage.getRelations()) {
-			if (!relationIndex.containsKey(r.getOsmId())) { // new relation no problem
+			Relation apiRelation = apiStorage.getRelation(r.getOsmId()); // can contain deleted elements
+			if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
 				temp.getRelations().add(r);
 				relationIndex.put(r.getOsmId(),r);
 			} else {
+				if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
+					if (apiRelation.getOsmVersion() >= r.getOsmVersion())
+						continue; // can use relation we already have
+					else
+						return false; // can't resolve conflicts, upload first
+				}
 				Relation existingRelation = temp.getRelation(r.getOsmId());
 				if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the safe side
 					continue; // can use relation we already have
