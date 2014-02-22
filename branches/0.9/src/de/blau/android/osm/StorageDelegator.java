@@ -1863,6 +1863,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		
 		currentStorage = temp;
+		undo.setCurrentStorage(temp);
 		return true; // Success
 	}
 

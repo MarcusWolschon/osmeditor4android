@@ -40,7 +40,7 @@ public class UndoStorage implements Serializable {
 	private static final String TAG = "UndoStorage";
 	
 	// Original storages for "contains" checks and restoration
-	private final Storage currentStorage;
+	private Storage currentStorage;
 	private final Storage apiStorage;
 	
 	private final LinkedList<Checkpoint> undoCheckpoints = new LinkedList<Checkpoint>();
@@ -59,6 +59,14 @@ public class UndoStorage implements Serializable {
 	public UndoStorage(Storage currentStorage, Storage apiStorage) {
 		this.currentStorage = currentStorage;
 		this.apiStorage = apiStorage;
+	}
+	
+	/**
+	 * Set currentStorage without creating a new instance
+	 * @param currentStorage
+	 */
+	public void setCurrentStorage(Storage currentStorage) {
+		this.currentStorage = currentStorage;
 	}
 	
 	/**
