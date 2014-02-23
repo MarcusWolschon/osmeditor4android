@@ -559,7 +559,7 @@ public class Logic {
 		delegator.reset();
 		delegator.setOriginalBox(box);
 		try {
-			viewBox.setRatio((float) map.getWidth() / map.getHeight(),false);
+			viewBox.setRatio((float) map.getWidth() / map.getHeight(), true);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

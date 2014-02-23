@@ -2,13 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
-	<LinearLayout 
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/vertical_layout"
-		android:padding="5dp"
-	>
+
+	<LinearLayout
+	    android:id="@+id/vertical_layout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="5dp" >
+
 		<LinearLayout 
 			android:orientation="vertical"
 			android:layout_width="fill_parent"
@@ -32,40 +33,47 @@
     		android:orientation="horizontal"
     		android:visibility="gone">
     		<TextView
-    		    android:layout_width="32dp"
-        		android:layout_height="32dp"
+    		    android:layout_width="34dp"
+        		android:layout_height="34dp"
         	/>
-			<TextView
-	        	android:id="@+id/membership_role_heading_view"
-        		android:layout_width="fill_parent"
-        		android:layout_height="wrap_content"
-        		android:layout_marginBottom="4dp"
-        		android:layout_marginRight="3dp"
-        		android:layout_weight="3"
-        		android:background="@color/ccc_darkred"
-        		android:minHeight="32dp"
-        		android:paddingLeft="5dp"
-        		android:paddingRight="5dp"
-        		android:singleLine="true"
-        		android:gravity="center_vertical"
-        		android:text="@string/role"
-        		android:textColor="@color/tagedit_field_text"
-	        />
-			<TextView
-		        android:id="@+id/membership_relation_heading_view"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="3dp"
-		        android:layout_marginBottom="4dp"
-		        android:layout_weight="2"
-		        android:background="@color/ccc_darkred"
-		        android:minHeight="32dp"
-		        android:paddingLeft="5dp"
-		        android:paddingRight="5dp"
-		        android:singleLine="true"
-		        android:gravity="center_vertical"
-		        android:text="@string/membership_relation_heading"
-		        android:textColor="@color/tagedit_field_text" />
+    		<LinearLayout 
+				android:orientation="horizontal"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/dark_grey"
+			>
+				<TextView
+		        	android:id="@+id/membership_role_heading_view"
+	        		android:layout_width="fill_parent"
+	        		android:layout_height="wrap_content"
+	        		android:layout_marginBottom="2dp"
+	        		android:layout_marginRight="2dp"
+	        		android:layout_weight="3"
+	        		android:background="@color/ccc_darkred"
+	        		android:minHeight="34dp"
+	        		android:paddingLeft="5dp"
+	        		android:paddingRight="5dp"
+	        		android:singleLine="true"
+	        		android:gravity="center_vertical"
+	        		android:text="@string/role"
+	        		android:textColor="@color/tagedit_field_text"
+		        />
+				<TextView
+			        android:id="@+id/membership_relation_heading_view"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="0dp"
+			        android:layout_marginBottom="2dp"
+			        android:layout_weight="2"
+			        android:background="@color/ccc_darkred"
+			        android:minHeight="34dp"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        android:singleLine="true"
+			        android:gravity="center_vertical"
+			        android:text="@string/membership_relation_heading"
+			        android:textColor="@color/tagedit_field_text" />
+			</LinearLayout>
 		</LinearLayout>
 		<LinearLayout 
 			android:orientation="vertical"
@@ -81,54 +89,61 @@
     		android:orientation="horizontal"
 			android:visibility="gone">
     		<TextView
-    		    android:layout_width="32dp"
-        		android:layout_height="32dp"
+    		    android:layout_width="34dp"
+        		android:layout_height="34dp"
         	/>
-			<TextView
-	        	android:id="@+id/member_role_heading_view"
-        		android:layout_width="fill_parent"
-        		android:layout_height="wrap_content"
-        		android:layout_marginBottom="4dp"
-        		android:layout_marginRight="3dp"
-        		android:layout_weight="3"
-        		android:background="@color/ccc_darkred"
-        		android:minHeight="32dp"
-        		android:paddingLeft="5dp"
-        		android:paddingRight="5dp"
-        		android:singleLine="true"
-        		android:gravity="center_vertical"
-        		android:text="@string/role"
-        		android:textColor="@color/tagedit_field_text"
-	        />
-			<TextView
-		        android:id="@+id/member_type_heading_view"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginBottom="4dp"
-		        android:layout_marginRight="3dp"
-		        android:layout_weight="3"
-		        android:background="@color/ccc_darkred"
-		        android:minHeight="32dp"
-		        android:paddingLeft="5dp"
-		        android:paddingRight="5dp"
-		        android:singleLine="true"
-		        android:gravity="center_vertical"
-		        android:text="@string/type"
-		        android:textColor="@color/tagedit_field_text" />
-			<TextView
-		        android:id="@+id/member_object_heading_view"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginBottom="4dp"
-		        android:layout_weight="2"
-		        android:background="@color/ccc_darkred"
-		        android:minHeight="32dp"
-		        android:paddingLeft="5dp"
-		        android:paddingRight="5dp"
-		        android:singleLine="true"
-		        android:gravity="center_vertical"
-		        android:text="@string/object"
-		        android:textColor="@color/tagedit_field_text" />
+    		<LinearLayout 
+				android:orientation="horizontal"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/dark_grey"
+			>
+				<TextView
+		        	android:id="@+id/member_role_heading_view"
+	        		android:layout_width="fill_parent"
+	        		android:layout_height="wrap_content"
+	        		android:layout_marginBottom="2dp"
+	        		android:layout_marginRight="2dp"
+	        		android:layout_weight="3"
+	        		android:background="@color/ccc_darkred"
+	        		android:minHeight="34dp"
+	        		android:paddingLeft="5dp"
+	        		android:paddingRight="5dp"
+	        		android:singleLine="true"
+	        		android:gravity="center_vertical"
+	        		android:text="@string/role"
+	        		android:textColor="@color/tagedit_field_text"
+		        />
+				<TextView
+			        android:id="@+id/member_type_heading_view"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginBottom="2dp"
+			        android:layout_marginRight="2dp"
+			        android:layout_weight="3"
+			        android:background="@color/ccc_darkred"
+			        android:minHeight="34dp"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        android:singleLine="true"
+			        android:gravity="center_vertical"
+			        android:text="@string/type"
+			        android:textColor="@color/tagedit_field_text" />
+				<TextView
+			        android:id="@+id/member_object_heading_view"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginBottom="2dp"
+			        android:layout_weight="2"
+			        android:background="@color/ccc_darkred"
+			        android:minHeight="34dp"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        android:singleLine="true"
+			        android:gravity="center_vertical"
+			        android:text="@string/object"
+			        android:textColor="@color/tagedit_field_text" />
+			</LinearLayout>
 		</LinearLayout>
 		<LinearLayout 
 			android:orientation="vertical"

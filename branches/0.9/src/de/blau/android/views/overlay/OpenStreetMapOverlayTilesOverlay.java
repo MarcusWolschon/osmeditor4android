@@ -19,7 +19,7 @@ public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay 
 	
 	@Override
 	public boolean isReadyToDraw() {
-		if (!map.getPrefs().overlayLayer().equals("NONE")) {
+		if (!getRendererInfo().getId().equals("NONE")) {
 			return super.isReadyToDraw();
 		}
 		return true;
@@ -27,7 +27,7 @@ public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay 
 	
 	@Override
 	public void onDraw(Canvas c, IMapView osmv) {
-		if (!map.getPrefs().overlayLayer().equals("NONE"))
+		if (!getRendererInfo().getId().equals("NONE"))
 			super.onDraw(c, osmv);
 	}
 }

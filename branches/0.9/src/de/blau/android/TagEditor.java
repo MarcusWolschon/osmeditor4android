@@ -38,6 +38,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -1372,7 +1373,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
     	Log.d("TagEditor", ((Relation)parent.getItemAtPosition(pos)).getDescription());
-    	((RelationMembershipRow)view.getParent().getParent()).setRelation((Relation)parent.getItemAtPosition(pos));	
+    	ViewParent pv = view.getParent();
+    	while (!(pv instanceof RelationMembershipRow))
+    		pv = pv.getParent();
+    	((RelationMembershipRow)pv).setRelation((Relation)parent.getItemAtPosition(pos));	
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
