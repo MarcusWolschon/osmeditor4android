@@ -878,7 +878,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (resultCode == RESULT_OK) {
 				performHttpLoad(box);
 			} else if (resultCode == RESULT_CANCELED) { // pointless, box will not be valid in this case
-				openEmptyMap(box);
+				openEmptyMap(null);
 			}
 		} catch (OsmException e) {
 			//Values should be done checked in LocationPciker.

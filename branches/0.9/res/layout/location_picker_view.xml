@@ -126,15 +126,15 @@
 				android:layout_weight="1"
 				android:enabled="false"
 			/>
-<!-- 			<Button -->
-<!-- 				android:layout_width="wrap_content" -->
-<!-- 				android:layout_height="wrap_content" -->
-<!-- 				android:id="@+id/location_button_no_location" -->
-<!-- 				android:text="@string/location_button_no_location" -->
-<!-- 				android:gravity="center" -->
-<!-- 				android:layout_weight="1" -->
-<!-- 				android:enabled="true" -->
-<!-- 			/> -->
+			<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/location_button_no_location"
+				android:text="@string/location_load_dismiss"
+				android:gravity="center"
+				android:layout_weight="1"
+				android:enabled="true"
+			/>
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

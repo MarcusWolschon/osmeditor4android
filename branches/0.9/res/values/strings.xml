@@ -102,9 +102,8 @@
     <string name="location_coordinates_text">From coordinates:</string>
     <string name="location_lat_label">Lat:</string>
     <string name="location_lon_label">Lon:</string>
-    <string name="location_load_button">Load!</string>
-    <string name="location_button_no_location">Don\'t load anything</string>
-    <string name="location_label_no_location">(not recommended)</string>
+    <string name="location_load_button">Load</string>
+    <string name="location_load_dismiss">Dismiss</string>
     <string name="location_nan_title">Wrong Input!</string>
     <string name="location_nan_message">Please insert decimal formatted coordinates (eg. "52.333572","8.741185"). Lat has to lay between -85.0 and +85.0, and Lon has to lay between -175.0 and +175.0.</string>
     <!-- Menu -->

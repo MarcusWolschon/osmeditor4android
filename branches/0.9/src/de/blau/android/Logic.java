@@ -550,7 +550,7 @@ public class Logic {
 		Log.e(DEBUG_TAG, "newEmptyMap");
 		if (box == null) { // probably should do a more general check if the BB is valid
 			try {
-				box = GeoMath.createBoundingBoxForCoordinates(0.0, 0.0, 5000000F); // 5000km around 0,0 temp. solution 
+				box = new BoundingBox(-180.0d, -GeoMath.MAX_LAT, +180.0d, GeoMath.MAX_LAT); // maximum possible size in mercator projection
 			} catch (OsmException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -559,7 +559,7 @@ public class Logic {
 		delegator.reset();
 		delegator.setOriginalBox(box);
 		try {
-			viewBox.setRatio((float) map.getWidth() / map.getHeight());
+			viewBox.setRatio((float) map.getWidth() / map.getHeight(),false);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -22,12 +22,6 @@
 			android:defaultValue="Color Round Nodes"
 		/>
 		<CheckBoxPreference
-			android:key="@string/config_enableGPSOverlay_key"
-			android:title="@string/config_enableGPSOverlay_title"
-			android:summary="@string/config_enableGPSOverlay_summary"
-			android:defaultValue="false"
-		/>
-		<CheckBoxPreference
 			android:key="@string/config_enableOpenStreetBugs_key"
 			android:title="@string/config_enableOpenStreetBugs_title"
 			android:summary="@string/config_enableOpenStreetBugs_summary"
@@ -49,12 +43,6 @@
 			android:title="@string/config_enableKeepScreenOn_title"
 			android:key="@string/config_enableKeepScreenOn_key"
 			android:summary="@string/config_enableKeepScreenOn_summary"
-			android:defaultValue="false"
-		/>
-		<CheckBoxPreference
-			android:key="@string/config_enableDepreciatedModes_key"
-			android:title="@string/config_enableDeprecatedModes_title"
-			android:summary="@string/config_enableDeprecatedModes_summary"
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference

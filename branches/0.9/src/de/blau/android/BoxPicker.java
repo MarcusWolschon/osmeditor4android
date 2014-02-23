@@ -112,7 +112,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		//Load Views
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.location_type_group);
 		Button loadMapButton = (Button) findViewById(R.id.location_button_current);
-		// Button dontLoadMapButton = ((Button) findViewById(R.id.location_button_no_location));
+		Button dontLoadMapButton = ((Button) findViewById(R.id.location_button_no_location));
 		EditText latEdit = (EditText) findViewById(R.id.location_lat_edit);
 		EditText lonEdit = (EditText) findViewById(R.id.location_lon_edit);
 		SeekBar seeker = (SeekBar) findViewById(R.id.location_radius_seeker);
@@ -125,7 +125,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			lonEdit));
 		OnClickListener onClickListener = createButtonListener(radioGroup, latEdit, lonEdit);
 		loadMapButton.setOnClickListener(onClickListener);
-		// dontLoadMapButton.setOnClickListener(onClickListener);
+		dontLoadMapButton.setOnClickListener(onClickListener);
 		
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -282,6 +282,8 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	private void performClick(final int buttonId, final int checkedRadioButtonId, final String lat, final String lon) {
 		BoundingBox box = null;
 		int resultState = (buttonId == R.id.location_button_current) ? RESULT_OK : RESULT_CANCELED;
+		if (resultState == RESULT_CANCELED)
+			finish();
 		
 		switch (checkedRadioButtonId) {
 		case R.id.location_current:

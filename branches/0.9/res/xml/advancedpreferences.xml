@@ -5,7 +5,7 @@
 			android:key="@string/config_forceContextMenu_key"
 			android:title="@string/config_forceContextMenu_title"
 			android:summary="@string/config_forceContextMenu_summary"
-			android:defaultValue="true"
+			android:defaultValue="false"
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_showTolerance_key"
@@ -29,7 +29,13 @@
 			android:key="@string/config_showStats_key"
 			android:title="@string/config_showStats_title"
 			android:summary="@string/config_showStats_summary"
-			android:defaultValue="true"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableDepreciatedModes_key"
+			android:title="@string/config_enableDeprecatedModes_title"
+			android:summary="@string/config_enableDeprecatedModes_summary"
+			android:defaultValue="false"
 		/>
 		<Preference
 			android:title="@string/config_presetbutton_title"
