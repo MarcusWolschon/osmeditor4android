@@ -7,9 +7,13 @@
 			android:key="@string/config_backgroundLayer_key"
 			android:title="@string/config_backgroundLayer_title"
 			android:summary="@string/config_backgroundLayer_summary"
-			android:entries="@array/renderer_names"
-			android:entryValues="@array/renderer_ids"
 			android:defaultValue="MAPNIK"
+		/>
+		<ListPreference
+			android:key="@string/config_overlayLayer_key"
+			android:title="@string/config_overlayLayer_title"
+			android:summary="@string/config_overlayLayer_summary"
+			android:defaultValue="NONE"
 		/>
 		<ListPreference
 			android:key="@string/config_mapProfile_key"

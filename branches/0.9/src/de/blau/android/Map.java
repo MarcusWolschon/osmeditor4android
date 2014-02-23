@@ -42,7 +42,7 @@ import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.OpenStreetMapGPSTilesOverlay;
+import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -174,9 +174,10 @@ public class Map extends View implements IMapView {
 				mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.getDefault(getResources(), true), null));
 			else {
 				// mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null));
-				OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true), null);
+				OpenStreetMapTilesOverlay osmto = new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(Application.mainActivity, prefs.backgroundLayer(), true), null);
+				// Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
 				mOverlays.add(osmto);
-				mOverlays.add(new OpenStreetMapGPSTilesOverlay(this));
+				mOverlays.add(new OpenStreetMapOverlayTilesOverlay(this));
 			}
 			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
 			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
@@ -185,7 +186,7 @@ public class Map extends View implements IMapView {
 	
 	public OpenStreetMapTilesOverlay getOpenStreetMapTilesOverlay() {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if ((osmvo instanceof OpenStreetMapTilesOverlay) && !(osmvo instanceof OpenStreetMapGPSTilesOverlay)) {
+			if ((osmvo instanceof OpenStreetMapTilesOverlay) && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
 				return (OpenStreetMapTilesOverlay)osmvo;
 			}
 		}
@@ -893,10 +894,13 @@ public class Map extends View implements IMapView {
 	
 	void setPrefs(final Preferences aPreference) {
 		prefs = aPreference;
-		final OpenStreetMapTileServer ts = OpenStreetMapTileServer.get(getResources(), prefs.backgroundLayer(), true);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapGPSTilesOverlay)) {
-				((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(ts);
+			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
+				final OpenStreetMapTileServer backgroundTS = OpenStreetMapTileServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
+				((OpenStreetMapTilesOverlay)osmvo).setRendererInfo(backgroundTS);
+			} else if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
+				final OpenStreetMapTileServer overlayTS = OpenStreetMapTileServer.get(Application.mainActivity, prefs.overlayLayer(), true);
+				((OpenStreetMapOverlayTilesOverlay)osmvo).setRendererInfo(overlayTS);
 			}
 		}
 		showIcons = prefs.getShowIcons();

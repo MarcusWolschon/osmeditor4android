@@ -54,7 +54,7 @@ public class OpenStreetMapTileProviderService extends Service {
 	private final IOpenStreetMapTileProviderService.Stub mBinder = new IOpenStreetMapTileProviderService.Stub() {
 		//@Override
 		public String[] getTileProviders() throws RemoteException {
-			return OpenStreetMapTileServer.getIds(getApplicationContext().getResources());
+			return OpenStreetMapTileServer.getIds(false);
 		}
 		//@Override
 		public void getMapTile(String rendererID, int zoomLevel, int tileX,
@@ -69,5 +69,4 @@ public class OpenStreetMapTileProviderService extends Service {
 			mFileSystemProvider.flushCache(rendererId);
 		}
 	};
-
 }

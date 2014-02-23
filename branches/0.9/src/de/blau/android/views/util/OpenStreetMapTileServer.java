@@ -3,18 +3,24 @@ package  de.blau.android.views.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Queue;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
@@ -24,7 +30,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.exception.OsmException;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.util.jsonreader.JsonReader;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.
@@ -49,6 +58,7 @@ public class OpenStreetMapTileServer {
 			/** Zoom and area of this coverage area. */
 			private int zoomMin;
 			private int zoomMax;
+			private BoundingBox bbox = null;
 			private RectF area = new RectF(); // left<=right, top<=bottom
 			/**
 			 * Create a coverage area given XML data.
@@ -58,6 +68,12 @@ public class OpenStreetMapTileServer {
 			 */
 			public CoverageArea(XmlPullParser parser) throws IOException, NumberFormatException, XmlPullParserException {
 				int eventType;
+				double bottom = 0.0d;
+				double top = 0.0d;
+				double left = 0.0d;
+				double right = 0.0d;
+				
+				
 				while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 					String tagName = parser.getName();
 					if (eventType == XmlPullParser.END_TAG) {
@@ -72,23 +88,29 @@ public class OpenStreetMapTileServer {
 						if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 							zoomMax = Integer.parseInt(parser.getText().trim());
 						}
-						// NOTE: North->bottom and South->top is apparently reversed, but
-						// that is what is required for RectF.intersects() to work.
 						if ("NorthLatitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-							area.bottom = Float.parseFloat(parser.getText().trim());
+							top = Double.parseDouble(parser.getText().trim());
 						}
 						if ("SouthLatitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-							area.top = Float.parseFloat(parser.getText().trim());
+							bottom = Double.parseDouble(parser.getText().trim());
 						}
 						if ("EastLongitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-							area.right = Float.parseFloat(parser.getText().trim());
+							right = Double.parseDouble(parser.getText().trim());
 						}
 						if ("WestLongitude".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-							area.left = Float.parseFloat(parser.getText().trim());
+							left = Double.parseDouble(parser.getText().trim());
 						}
 					}
 				}
+				bbox = new BoundingBox(left,bottom,right,top);
 			}
+			
+			public CoverageArea(int zoomMin, int zoomMax, BoundingBox bbox) {
+				this.zoomMin = zoomMin;
+				this.zoomMax = zoomMax;
+				this.bbox = bbox;
+			}
+			
 			/**
 			 * Test if the given zoom and area is covered by this coverage area.
 			 * @param zoom The zoom level to test.
@@ -96,8 +118,12 @@ public class OpenStreetMapTileServer {
 			 * @return true if the given zoom and area are covered by this
 			 * coverage area.
 			 */
-			public boolean covers(int zoom, RectF area) {
-				return (zoom >= zoomMin && zoom <= zoomMax && RectF.intersects(this.area, area));
+			public boolean covers(int zoom, BoundingBox area) {
+				return (zoom >= zoomMin && zoom <= zoomMax && (this.bbox == null || this.bbox.intersects(area)));
+			}
+			
+			public boolean covers(BoundingBox area) {
+				return this.bbox == null || this.bbox.intersects(area);
 			}
 		}
 		/** Attribution for this provider. */
@@ -133,6 +159,15 @@ public class OpenStreetMapTileServer {
 				}
 			}
 		}
+		
+		
+		public Provider() {
+		}
+		
+		public void addCoverageArea(CoverageArea ca) {
+			coverageAreas.add(ca);
+		}
+		
 		/**
 		 * Get the attribution for this provider.
 		 * @return The attribution for this provider.
@@ -146,7 +181,7 @@ public class OpenStreetMapTileServer {
 		 * @param area Map area to test.
 		 * @return true if the provider has coverage of the given zoom and area.
 		 */
-		public boolean covers(int zoom, RectF area) {
+		public boolean covers(int zoom, BoundingBox area) {
 			for (CoverageArea a : coverageAreas) {
 				if (a.covers(zoom, area)) {
 					return true;
@@ -154,9 +189,21 @@ public class OpenStreetMapTileServer {
 			}
 			return false;
 		}
+		
+		public boolean covers(BoundingBox area) {
+			if (coverageAreas.size() == 0)
+				return true;
+			for (CoverageArea a : coverageAreas) {
+				if (a.covers(area)) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 	
-	private static OpenStreetMapTileServer cached = null;
+	private static OpenStreetMapTileServer cachedBackground = null;
+	private static OpenStreetMapTileServer cachedOverlay = null;
 	
 	private Resources r;
 	
@@ -165,7 +212,8 @@ public class OpenStreetMapTileServer {
 	// ===========================================================
 	
 	private boolean metadataLoaded;
-	private String id, tileUrl, imageFilenameExtension, touUri;
+	private String id, name, tileUrl, imageFilenameExtension, touUri;
+	private boolean overlay, defaultLayer;
 	private int zoomLevelMin, zoomLevelMax, tileWidth, tileHeight;
 	private Drawable brandLogo;
 	private Queue<String> subdomains = new LinkedList<String>();
@@ -173,6 +221,10 @@ public class OpenStreetMapTileServer {
 	private Collection<Provider> providers = new ArrayList<Provider>();
 	private double offsetLon = 0; // offsets in WGS84 needed to align imagery ... 
 	private double offsetLat = 0;
+	
+	private static HashMap<String,OpenStreetMapTileServer> backgroundServerList =new HashMap<String,OpenStreetMapTileServer>();
+	private static HashMap<String,OpenStreetMapTileServer> overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
+	private static boolean ready = false;
 	
 	// ===========================================================
 	// Constructors
@@ -217,6 +269,24 @@ public class OpenStreetMapTileServer {
 					}
 					if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						tileUrl = parser.getText().trim();
+						//Log.d("OpenStreetMapTileServer","loadInfo tileUrl " + tileUrl);
+						int extPos = tileUrl.lastIndexOf(".jpeg"); //TODO fix this awlful hack
+						if (extPos >= 0)
+							imageFilenameExtension = ".jpg";
+						// extract switch values
+						final String SWITCH_START = "{switch:";
+						int switchPos = tileUrl.indexOf(SWITCH_START);
+						if (switchPos >= 0) {
+							int switchEnd = tileUrl.indexOf("}",switchPos);
+							if (switchEnd >= 0) {
+								String switchValues = tileUrl.substring(switchPos+SWITCH_START.length(), switchEnd);
+								for (String subdomain : switchValues.split(",")) {
+									subdomains.add(subdomain);
+								}
+								StringBuffer t = new StringBuffer(tileUrl);
+								tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
+							}
+						}
 					}
 					if ("string".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
 						subdomains.add(parser.getText().trim());
@@ -256,64 +326,89 @@ public class OpenStreetMapTileServer {
 		}
 	}
 	
-	private OpenStreetMapTileServer(final Resources r, final String id, final String config, final boolean async) {
-		String[] cfgItems = config.split("\\s+");
+	/**
+	 * 
+	 * @param r
+	 * @param id
+	 * @param name
+	 * @param url
+	 * @param type
+	 * @param overlay
+	 * @param zoomLevelMin
+	 * @param zoomLevelMax
+	 * @param tileWidth
+	 * @param tileHeight
+	 * @param async			run loadInfo in a AsyncTask needed for main process
+	 */
+	private OpenStreetMapTileServer(final Resources r, final String id, final String name, final String url, final String type, 
+			final boolean overlay, final boolean defaultLayer, final Provider provider, final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, boolean async) {
 		this.r = r;
 		this.id = id;
-		switch (cfgItems.length) {
-		case 5:
-			tileUrl = cfgItems[0];
-			int subStart = tileUrl.indexOf("${");
-			if (subStart != -1) {
-				// convert something like "${a|b|c}" into "{subdomain}"
-				// and a subdomains array like ["a", "b", "c"]
-				int subEnd = tileUrl.indexOf("}", subStart);
-				for (String subdomain : tileUrl.substring(subStart + 2, subEnd).split("\\|")) {
-					subdomains.add(subdomain);
-				}
-				StringBuffer t = new StringBuffer(tileUrl);
-				tileUrl = t.replace(subStart, subEnd + 1, "{subdomain}").toString();
-			}
-			imageFilenameExtension = cfgItems[1];
-			touUri = null;
-			zoomLevelMin = Integer.parseInt(cfgItems[2]);
-			zoomLevelMax = Integer.parseInt(cfgItems[3]);
-			int zoom = Integer.parseInt(cfgItems[4]);
-			tileWidth = 1 << zoom;
-			tileHeight = 1 << zoom;
-			brandLogo = null;
-			metadataLoaded = true;
-			break;
-		case 2:
-		case 3:
-			imageFilenameExtension = cfgItems[0];
-			touUri = (cfgItems.length > 2) ? cfgItems[2] : null;
+		this.name = name;
+		tileUrl = url;
+		this.overlay = overlay;
+		this.defaultLayer = defaultLayer;
+		this.zoomLevelMin = zoomLevelMin; 
+		this.zoomLevelMax = zoomLevelMax;
+		this.tileWidth = tileWidth; 
+		this.tileHeight = tileHeight;
+		if (provider != null)
+			providers.add(provider);
+		
+		metadataLoaded = true;
+		
+		if (name == null) {
+			// parse error or other fatal issue
+			this.name = "INVALID";
+		}
+		if (this.id == null) {
+			// generate id from name
+			this.id = name.replaceAll("[\\W\\_]","");
+		}
+		// 
+		this.id = this.id.toUpperCase();
+
+		if (type.equals("bing")) { // hopelessly hardcoded
+			Log.d("OpenStreetMapTileServer","bing url " + tileUrl);
+			metadataLoaded = false;
+
 			if (async) {
-				metadataLoaded = false;
 				new AsyncTask<String, Void, Void>() {
 					@Override
 					protected Void doInBackground(String... params) {
 						loadInfo(params[0]);
 						return null;
 					}
-				}.execute(cfgItems[1]);
-			} else {
-				loadInfo(cfgItems[1]);
+				}.execute(tileUrl);
+			} else 
+				loadInfo(tileUrl);
+			return;
+		} else if (type.equals("scanex")) { // hopelessly hardcoded
+			tileUrl = "http://irs.gis-lab.info/?layers="+tileUrl.toLowerCase()+"&request=GetTile&z={zoom}&x={x}&y={y}";
+			imageFilenameExtension = ".jpg";
+			return;
+		}
+		
+		int extPos = tileUrl.lastIndexOf('.');
+		if (extPos >= 0)
+			imageFilenameExtension = tileUrl.substring(extPos);
+		// extract switch values
+		final String SWITCH_START = "{switch:";
+		int switchPos = tileUrl.indexOf(SWITCH_START);
+		if (switchPos >= 0) {
+			int switchEnd = tileUrl.indexOf("}",switchPos);
+			if (switchEnd >= 0) {
+				String switchValues = tileUrl.substring(switchPos+SWITCH_START.length(), switchEnd);
+				for (String subdomain : switchValues.split(",")) {
+					subdomains.add(subdomain);
+				}
+				StringBuffer t = new StringBuffer(tileUrl);
+				tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
 			}
-			break;
-		default:
-			tileUrl = "";
-			imageFilenameExtension = "";
-			touUri = null;
-			zoomLevelMin = 0;
-			zoomLevelMax = 21;
-			tileWidth = 256;
-			tileHeight = 256;
-			brandLogo = null;
-			metadataLoaded = true;
-			break;
 		}
 	}
+	
+	
 	
 	/**
 	 * Get the default tile layer.
@@ -322,7 +417,7 @@ public class OpenStreetMapTileServer {
 	 */
 	public static OpenStreetMapTileServer getDefault(final Resources r, final boolean async) {
 		// ask for an invalid renderer, so we'll get the fallback default
-		return get(r, "", async);
+		return get(Application.mainActivity, "", async);
 	}
 	
 	/**
@@ -332,20 +427,215 @@ public class OpenStreetMapTileServer {
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
 	 * @return
 	 */
-	public synchronized static OpenStreetMapTileServer get(final Resources r, final String id, final boolean async) {
-		if (cached == null || !cached.id.equals(id)) {
-			String ids[] = r.getStringArray(R.array.renderer_ids);
-			String cfgs[] = r.getStringArray(R.array.renderer_configs);
-			cached = null;
-			for (int i = 0; i < ids.length; ++i) {
-				if (ids[i].equals(id) ||
-						// check for default renderer MAPNIK here
-						(cached == null && "MAPNIK".equals(ids[i]))) {
-					cached = new OpenStreetMapTileServer(r, ids[i], cfgs[i], async);
+
+	
+	public synchronized static OpenStreetMapTileServer get(final Context ctx, final String id, final boolean async) {	
+		Resources r = ctx.getResources();
+		
+		synchronized (backgroundServerList) {
+			if (!ready) {
+	//			backgroundServerList = new HashMap<String,OpenStreetMapTileServer>();
+	//			overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
+				
+				AssetManager assetManager = ctx.getAssets();
+				
+				String[] imageryFiles = {"imagery.json","imagery_vespucci.json"}; // entries in later files will overwrite earlier ones
+				for (String fn:imageryFiles) {
+					try {
+						InputStream is = assetManager.open(fn);
+						JsonReader reader = new JsonReader(new InputStreamReader(is));
+						try {
+							
+							try {
+								reader.beginArray();
+								while (reader.hasNext()) {
+									OpenStreetMapTileServer osmts = readServer(reader, r, async);
+									if (osmts != null) {
+										//Log.d("OpenStreetMapTileServer","Adding overlay=" + osmts.overlay + " " + osmts.toString());
+										if (osmts.overlay) {
+											overlayServerList.put(osmts.id,osmts);
+										}
+										else {
+											backgroundServerList.put(osmts.id,osmts);
+										}
+									}
+								}
+								reader.endArray();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+						}
+						finally {
+						       reader.close();
+						}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				ready = true;
 			}
 		}
-		return cached;
+		// Log.d("OpenStreetMapTileServer", "id " + id + " list size " + backgroundServerList.size() + " " + overlayServerList.size() + " cached " + (cachedBackground == null?"null":cachedBackground.id));
+		
+		if (cachedBackground != null && cachedBackground.id.equals(id))
+			return cachedBackground;
+		else if (cachedOverlay != null && cachedOverlay.id.equals(id))
+			return cachedOverlay; 
+		else { 
+			OpenStreetMapTileServer tempOSMTS =  overlayServerList.get(id);
+			boolean overlay = tempOSMTS != null;
+			
+			if (overlay) {
+				if (cachedOverlay == null || !cachedOverlay.id.equals(id)) {
+					cachedOverlay = overlayServerList.get(id);
+					if (cachedOverlay == null)
+						cachedOverlay = overlayServerList.get("NONE");
+					Log.d("OpenStreetMapTileServer", "cachedOverlay " + (cachedOverlay == null?"null":cachedOverlay.id));
+				}
+				return cachedOverlay;
+			} else { 
+				if (cachedBackground == null || !cachedBackground.id.equals(id)) {
+					cachedBackground = backgroundServerList.get(id);
+					if (cachedBackground == null)
+						cachedBackground = backgroundServerList.get("MAPNIK");
+						// Log.d("OpenStreetMapTileServer", "cached " + (cachedBackground == null?"null":cachedBackground.id));
+				}
+				return cachedBackground;
+			}
+		} 
+	}
+	
+	private static OpenStreetMapTileServer readServer(JsonReader reader, final Resources r, boolean async) {
+		String id = null;
+		String name = null;
+		String url = null;
+		String type = null;
+		boolean overlay = false;
+		boolean defaultLayer = false;
+		Provider.CoverageArea extent = null;
+		Provider provider = null;
+		try {
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String jsonName = reader.nextName();
+				if (jsonName.equals("type")) {
+					type = reader.nextString(); 
+			    } else if (jsonName.equals("id")) {
+					id = reader.nextString();
+			    } else if (jsonName.equals("url")) {
+			        url = reader.nextString();
+			    } else if (jsonName.equals("name")) {
+			    	name = reader.nextString();
+			    } else if (jsonName.equals("overlay")) {
+			    	overlay = reader.nextBoolean();
+			    } else if (jsonName.equals("default")) {
+			    	defaultLayer = reader.nextBoolean();
+			    } else if (jsonName.equals("extent")) {
+			    	extent = readExtent(reader);
+			    	if (extent != null) {
+			    		if (provider == null)
+			    			provider = new Provider();
+			    		provider.addCoverageArea(extent);
+			    	}
+			    } else if (jsonName.equals("attribution")) {
+			    	if (provider == null) 
+			    		provider = new Provider();
+			    	readAttribution(reader, provider);
+			    } else {
+			    	reader.skipValue();
+			    }
+			}
+			reader.endObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (type.equals("wms"))
+			return null;
+		OpenStreetMapTileServer osmts = new OpenStreetMapTileServer(r, id, name, url, type, overlay, defaultLayer, provider, 
+				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, async);
+		return osmts;
+	}
+	
+	private static Provider.CoverageArea readExtent(JsonReader reader) {
+		int zoomMin = 0;
+		int zoomMax = 18;
+		BoundingBox bbox = null;
+		try {
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String jsonName = reader.nextName();
+				if (jsonName.equals("max_zoom")) {
+					zoomMax = reader.nextInt();
+				} else if (jsonName.equals("min_zoom")) {
+					zoomMin = reader.nextInt();
+				} else if (jsonName.equals("bbox")) {
+					bbox = readBbox(reader);
+				} else{
+			    	reader.skipValue();
+			    }
+			}
+			reader.endObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new Provider.CoverageArea(zoomMin, zoomMax, bbox);
+	}
+	
+	private static BoundingBox readBbox(JsonReader reader) {
+		double left = 0, right = 0, top = 0, bottom = 0;
+		BoundingBox bbox;
+		try {
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String jsonName = reader.nextName();
+				if (jsonName.equals("min_lon")) {
+					left = reader.nextDouble();
+				} else if (jsonName.equals("max_lon")) {
+					right = reader.nextDouble();
+				} else if (jsonName.equals("min_lat")) {
+					bottom = reader.nextDouble();
+				} else if (jsonName.equals("max_lat")) {
+					top = reader.nextDouble();
+				} else{
+			    	reader.skipValue();
+			    }
+			}
+			reader.endObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			bbox = new BoundingBox(left, bottom, right, top);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		return bbox;
+	}
+	
+	private static void readAttribution(JsonReader reader, Provider provider) {
+	
+		try {
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String jsonName = reader.nextName();
+				if (jsonName.equals("text")) {
+					provider.attribution = reader.nextString();
+				} else{
+			    	reader.skipValue();
+			    }
+			}
+			reader.endObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// ===========================================================
@@ -405,6 +695,7 @@ public class OpenStreetMapTileServer {
 	 * @return Image filename extension, eg ".png".
 	 */
 	public String getImageExtension() {
+		// Log.d("OpenStreetMapTileServer","extension " + imageFilenameExtension);
 		return imageFilenameExtension;
 	}
 	
@@ -421,17 +712,16 @@ public class OpenStreetMapTileServer {
 	 * Get the attributions that apply to the given map display.
 	 * @param zoom Zoom level of the display.
 	 * @param area Displayed area to get the attributions of.
-	 *  NOTE: left<=right and top<=bottom,
-	 *  i.e. left=west,right=east,top=south,bottom=north
 	 * @return Collections of attributions that apply to the specified area and zoom.
 	 */
-	public Collection<String> getAttributions(final int zoom, final RectF area) {
+	public Collection<String> getAttributions(final int zoom, final BoundingBox area) {
 		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		Collection<String> ret = new ArrayList<String>();
 		for (Provider p : providers) {
-			if (p.covers(zoom, area)) {
-				ret.add(p.getAttribution());
-			}
+			if (p.getAttribution() != null)
+				if (p.covers(zoom, area)) {
+					ret.add(p.getAttribution());
+				}
 		}
 		return ret;
 	}
@@ -478,13 +768,156 @@ public class OpenStreetMapTileServer {
 	}
 	
 	/**
-	 * Get all the available tile layer IDs.
-	 * @param r Application resources.
+	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order
+	 * @param filtered only return servers that overlap/intersect with the current bbox
 	 * @return All available tile layer IDs.
 	 */
-	public static String[] getIds(final Resources r) {
-		return r.getStringArray(R.array.renderer_ids);
+	public static String[] getIds(boolean filtered) {
+		LinkedList<String> ids = new LinkedList<String>();
+		boolean noneSeen = false;
+		TreeSet<String> sortedKeySet = new TreeSet<String>(backgroundServerList.keySet());
+		for (String key:sortedKeySet) {
+			OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+			if (filtered) {
+				if (osmts.providers.size() > 0) {
+					boolean covers = false; // default is to not include  
+					for (Provider p:osmts.providers) {
+						if (p.covers(Application.mainActivity.getMap().getViewBox())) { 
+							covers = true;
+							break;
+						}
+					}
+					if (!covers) {
+						continue;
+					}
+				}
+			}
+			
+			if (osmts.defaultLayer) {
+				if (noneSeen)
+					ids.add(1,key);
+				else
+					ids.add(0,key);
+				if (key.equals("NONE"))
+					noneSeen = true;
+			} else
+				ids.addLast(key);
+		}
+		String [] result = new String[ids.size()];
+		for (int i = 0; i<result.length; i++)
+			result[i] = ids.get(i);
+		return  result;
 	}
+	
+	/**
+	 * Get tile server names
+	 * @param filtered
+	 * @return
+	 */
+	public static String[] getNames(boolean filtered) {
+		ArrayList<String> names = new ArrayList<String>();
+		for (String key:getIds(filtered)) {
+			OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+			names.add(osmts.name);
+		}
+		String [] result = new String[names.size()];
+		for (int i = 0; i<result.length; i++)
+			result[i] = names.get(i);
+		return  result;
+	}
+	
+	/**
+	 * Get tile server names from list of ids
+	 * @param ids
+	 * @return
+	 */
+	public static String[] getNames(String[] ids) {
+		ArrayList<String> names = new ArrayList<String>();
+		for (String key:ids) {
+			OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+			names.add(osmts.name);
+		}
+		String [] result = new String[names.size()];
+		for (int i = 0; i<result.length; i++)
+			result[i] = names.get(i);
+		return  result;
+	}
+	/**
+	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order
+	 * @param filtered only return servers that overlap/intersect with the current bbox
+	 * @return All available tile layer IDs.
+	 */
+	public static String[] getOverlayIds(boolean filtered) {
+		LinkedList<String> ids = new LinkedList<String>();
+		boolean noneSeen = false;
+		TreeSet<String> sortedKeySet = new TreeSet<String>(overlayServerList.keySet());
+		for (String key:sortedKeySet) {
+			OpenStreetMapTileServer osmts = overlayServerList.get(key);
+			if (filtered) {
+				if (osmts.providers.size() > 0) {
+					boolean covers = false; // default is to not include  
+					for (Provider p:osmts.providers) {
+						if (p.covers(Application.mainActivity.getMap().getViewBox())) { 
+							covers = true;
+							break;
+						}
+					}
+					if (!covers) {
+						continue;
+					}
+				}
+			}
+			
+			if (osmts.defaultLayer) {
+				if (noneSeen)
+					ids.add(1,key);
+				else
+					ids.add(0,key);
+				if (key.equals("NONE"))
+					noneSeen = true;
+			} else
+				ids.addLast(key);
+		}
+		String [] result = new String[ids.size()];
+		for (int i = 0; i<result.length; i++)
+			result[i] = ids.get(i);
+		return  result;
+	}
+	
+	/**
+	 * Get tile server names
+	 * @param filtered
+	 * @return
+	 */
+	public static String[] getOverlayNames(boolean filtered) {
+		ArrayList<String> names = new ArrayList<String>();
+		for (String key:getIds(filtered)) {
+			OpenStreetMapTileServer osmts = overlayServerList.get(key);
+			names.add(osmts.name);
+		}
+		String [] result = new String[names.size()];
+		for (int i = 0; i<result.length; i++)
+			result[i] = names.get(i);
+		return  result;
+	}
+	
+	/**
+	 * Get tile server names from list of ids
+	 * @param ids
+	 * @return
+	 */
+	public static String[] getOverlayNames(String[] ids) {
+		ArrayList<String> names = new ArrayList<String>();
+		for (String key:ids) {
+			OpenStreetMapTileServer osmts = overlayServerList.get(key);
+			names.add(osmts.name);
+		}
+		String [] result = new String[names.size()];
+		for (int i = 0; i<result.length; i++)
+			result[i] = names.get(i);
+		return  result;
+	}
+	
 	
 	private static String replaceParameter(final String s, final String param, final String value) {
 		String result = s;
@@ -517,10 +950,10 @@ public class OpenStreetMapTileServer {
 		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		String result = tileUrl;
 		
-		// Position-sensitive replacements - Potlatch !/!/! syntax
-		result = result.replaceFirst("\\!", Integer.toString(aTile.zoomLevel));
-		result = result.replaceFirst("\\!", Integer.toString(aTile.x));
-		result = result.replaceFirst("\\!", Integer.toString(aTile.y));
+//		// Position-sensitive replacements - Potlatch !/!/! syntax
+//		result = result.replaceFirst("\\!", Integer.toString(aTile.zoomLevel));
+//		result = result.replaceFirst("\\!", Integer.toString(aTile.x));
+//		result = result.replaceFirst("\\!", Integer.toString(aTile.y));
 		
 		// Named replacements
 		result = replaceParameter(result, "zoom", Integer.toString(aTile.zoomLevel));
@@ -537,7 +970,7 @@ public class OpenStreetMapTileServer {
 		}
 		if (subdomain != null) result = replaceParameter(result, "subdomain", subdomain);
 		
-		return replaceGeneralParameters(result);
+		return result;
 	}
 	
 	/**
@@ -557,5 +990,9 @@ public class OpenStreetMapTileServer {
 			quadKey.append(digit);
 		}
 		return quadKey.toString();
+	}
+	
+	public String toString() {
+		return 	"ID: " + id + " Name " + name + " maxZoom " + zoomLevelMax + " Tile URL " + tileUrl;
 	}
 }

@@ -113,7 +113,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 * Calculate the amount of memory used by the cache.
 	 * @return The number of bytes used by the cache.
 	 */
-	private long cacheSizeBytes() {
+	public long cacheSizeBytes() {
 		long result = 0;
 		for (Bitmap b : values()) {
 			if (b != null && !b.isRecycled()) {
@@ -121,6 +121,10 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 			}
 		}
 		return result;
+	}
+	
+	public long getMaxCacheSize() {
+		return maxCacheSize;
 	}
 
 	/**

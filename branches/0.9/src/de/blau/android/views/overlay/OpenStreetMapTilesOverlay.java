@@ -156,9 +156,16 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	}
 	
 	public void setRendererInfo(final OpenStreetMapTileServer aRendererInfo) {
+		if (myRendererInfo != aRendererInfo) {
+			// ...
+		}
 		myRendererInfo = aRendererInfo;
 	}
 
+	public OpenStreetMapTileProvider getTileProvider() {
+		return mTileProvider;
+	}
+	
 	public void setAlpha(int a) {
 		mPaint.setAlpha(a);
 	}
@@ -305,7 +312,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			brandLogo.draw(c);
 		}
 		// Draw the attributions (if any)
-		for (String attr : myRendererInfo.getAttributions(zoomLevel, new RectF((float)lonLeft, (float)latBottom, (float)lonRight, (float)latTop))) {
+		for (String attr : myRendererInfo.getAttributions(zoomLevel, osmv.getViewBox())) {
 			c.drawText(attr, tapArea.left, tapArea.top, textPaint);
 			tapArea.top -= textPaint.getTextSize();
 			tapArea.right = Math.max(tapArea.right, tapArea.left + (int)textPaint.measureText(attr));

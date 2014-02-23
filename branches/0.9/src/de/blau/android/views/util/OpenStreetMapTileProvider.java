@@ -175,8 +175,18 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	private IOpenStreetMapTileProviderCallback mServiceCallback = new IOpenStreetMapTileProviderCallback.Stub() {
 		
 		//@Override
-		public void mapTileLoaded(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final Bitmap aTile) throws RemoteException {
+		public void mapTileLoaded(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final byte[] data) throws RemoteException {
+			BitmapFactory.Options options = new BitmapFactory.Options();
+	        options.inPreferredConfig =  Bitmap.Config.RGB_565;
+	        
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
+			long start = System.currentTimeMillis();
+			Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+			long duration = System.currentTimeMillis() - start;
+			if (aTile == null) {
+				throw new RemoteException("decodeByteArray returned null");
+			}
+			// Log.d("OpenStreetMapTileProvider", "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight() + " time to decode " + duration);
 			mTileCache.putTile(t, aTile);
 			pending.remove(t.toString());
 			mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
@@ -194,5 +204,9 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			//mTileService.getMapTile(rendererID, zoomLevel, tileX, tileY, this);
 		}
 	};
+
+	public String getCacheUsageInfo() {
+		return mTileCache.getCacheUsageInfo();
+	}
 	
 }

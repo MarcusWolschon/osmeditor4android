@@ -16,6 +16,7 @@ import de.blau.android.LicenseViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.resources.Profile;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Simple class for Android's standard-Preference Activity
@@ -26,6 +27,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	
 	private Resources r;
 	private String KEY_MAPBG;
+	private String KEY_MAPOL;
 	private String KEY_MAPPROFILE;
 	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
@@ -39,6 +41,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		addPreferencesFromResource(R.xml.preferences);
 		r = getResources();
 		KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
+		KEY_MAPOL = r.getString(R.string.config_overlayLayer_key);
 		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
@@ -77,14 +80,17 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	private void fixUpPrefs() {
 		Preferences prefs = new Preferences(this);
 		
-		Preference mapbgpref = getPreferenceScreen().findPreference(KEY_MAPBG);
+		ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPBG);
+		String[] ids = OpenStreetMapTileServer.getIds(true);
+		mapbgpref.setEntries(OpenStreetMapTileServer.getNames(ids));
+		mapbgpref.setEntryValues(ids);
 		OnPreferenceChangeListener l = new OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				Log.d("PrefEditor", "onPreferenceChange");
 				String id = (String)newValue;
-				String[] ids = r.getStringArray(R.array.renderer_ids);
-				String[] names = r.getStringArray(R.array.renderer_names);
+				String[] ids = OpenStreetMapTileServer.getIds(false); // r.getStringArray(R.array.renderer_ids);
+				String[] names = OpenStreetMapTileServer.getNames(ids); // r.getStringArray(R.array.renderer_names);
 				for (int i = 0; i < ids.length; i++) {
 					if (ids[i].equals(id)) {
 						preference.setSummary(names[i]);
@@ -96,6 +102,29 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		};
 		mapbgpref.setOnPreferenceChangeListener(l);
 		l.onPreferenceChange(mapbgpref, prefs.backgroundLayer());
+		
+		ListPreference mapolpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPOL);
+		String[] overlayIds = OpenStreetMapTileServer.getOverlayIds(true);
+		mapolpref.setEntries(OpenStreetMapTileServer.getOverlayNames(overlayIds));
+		mapolpref.setEntryValues(overlayIds);
+		OnPreferenceChangeListener ol = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				Log.d("PrefEditor", "onPreferenceChange");
+				String id = (String)newValue;
+				String[] ids = OpenStreetMapTileServer.getOverlayIds(false); // r.getStringArray(R.array.renderer_ids);
+				String[] names = OpenStreetMapTileServer.getOverlayNames(ids); // r.getStringArray(R.array.renderer_names);
+				for (int i = 0; i < ids.length; i++) {
+					if (ids[i].equals(id)) {
+						preference.setSummary(names[i]);
+						break;
+					}
+				}
+				return true;
+			}
+		};
+		mapolpref.setOnPreferenceChangeListener(ol);
+		ol.onPreferenceChange(mapolpref, prefs.overlayLayer());
 		
 		ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPPROFILE);
 		String[] profileList = Profile.getProfileList();

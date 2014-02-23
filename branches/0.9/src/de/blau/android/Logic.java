@@ -1693,7 +1693,7 @@ public class Logic {
 	
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts.getLonOffset(), osmts.getLatOffset());
+		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts);
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	

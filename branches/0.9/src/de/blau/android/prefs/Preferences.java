@@ -30,8 +30,6 @@ public class Preferences {
 	
 	private final boolean isPhotoLayerEnabled;
 	
-	private final boolean isGPSOverlayEnabled;
-	
 	private final boolean isKeepScreenOnEnabled;
 	
 	private final boolean depreciatedModesEnabled;
@@ -41,6 +39,8 @@ public class Preferences {
 	private final boolean largeDragArea;
 	
 	private final String backgroundLayer;
+	
+	private final String overlayLayer;
 	
 	private final String mapProfile;
 	
@@ -101,8 +101,8 @@ public class Preferences {
 		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
 		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
 		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
-		isGPSOverlayEnabled = prefs.getBoolean(r.getString(R.string.config_enableGPSOverlay_key), false);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
+		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
 		if (Profile.getProfile(tempMapProfile) == null) {
@@ -182,14 +182,6 @@ public class Preferences {
 	}
 	
 	/**
-	 * 
-	 * @return
-	 */
-	public boolean isGPSOverlayEnabled() {
-		return isGPSOverlayEnabled;
-	}
-	
-	/**
 	 * @return
 	 */
 	public boolean depreciatedModesEnabled() {
@@ -215,6 +207,13 @@ public class Preferences {
 	 */
 	public String backgroundLayer() {
 		return backgroundLayer;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String overlayLayer() {
+		return overlayLayer;
 	}
 	
 	/**

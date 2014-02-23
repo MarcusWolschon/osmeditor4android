@@ -3,6 +3,7 @@ package de.blau.android.services.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -152,7 +153,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	}
 	
 	public String buildPath(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID, false);
+		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, tile.rendererID, false);
 		String ext = renderer.getImageExtension();
 		return (ext == null) ? null :
 				Environment.getExternalStorageDirectory().getPath()
@@ -204,22 +205,30 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 			}
 			InputStream in = null;
 			try {
-				in = getInput(mTile);
-				final Bitmap bmp = BitmapFactory.decodeStream(in);
-				if (bmp != null) {
-					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, bmp);
-
+				String path = buildPath(mTile);
+				if (path == null) {
+					throw new FileNotFoundException("null tile path");
+				}
+				File tileFile = new File(path);
+				byte[] data = new byte[(int)tileFile.length()];
+				DataInputStream dataIs = new DataInputStream(new FileInputStream(tileFile));
+					dataIs.readFully(data);
+					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
 					if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 						Log.d(DEBUGTAG, "Loaded: " + mTile.toString());
-				} else {
-					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
-					if (Log.isLoggable(DEBUGTAG, Log.DEBUG))	// only log in debug mode, though it's an error message
-						Log.e(DEBUGTAG, "Error Loading MapTile from FS.");
-				}
 			} catch (FileNotFoundException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.i(DEBUGTAG, "FS failed, request for download.");
 				mTileDownloader.loadMapTileAsync(mTile, mCallback);
+			} catch (IOException e) {
+				try {
+					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))	// only log in debug mode, though it's an error message
+					Log.e(DEBUGTAG, "Error Loading MapTile from FS.");
 			} catch (RemoteException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.e(DEBUGTAG, "Service failed", e);

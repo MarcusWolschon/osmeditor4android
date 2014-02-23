@@ -67,7 +67,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	 */
 	public static long defaultCacheBytes() {
 		// Default to using half the available memory
-		return Runtime.getRuntime().maxMemory() / 4;
+		return Runtime.getRuntime().maxMemory() / 8;
 	}
 	
 	/**
@@ -92,6 +92,12 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	public void onLowMemory() {
 		mCachedTiles.onLowMemory();
 	}
+
+	public String getCacheUsageInfo() {
+		return "Size " + mCachedTiles.cacheSizeBytes() + " of maximum " + mCachedTiles.getMaxCacheSize() + " #entries " + mCachedTiles.size();
+	}
+	
+	
 	
 	// ===========================================================
 	// Inner and Anonymous Classes

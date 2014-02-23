@@ -317,6 +317,13 @@ public class BoundingBox implements Serializable {
 		}
 		return true;
 	}
+	
+	public boolean intersects(final BoundingBox b) {
+		// this is naturally only true on the plain, probably should use mercator coordinates
+		//Log.d("BoundingBox","intersects " + left + "/" + bottom  + "/"  + right + "/" + top + "  " + b.left + "/" + b.bottom  + "/"  + b.right + "/" + b.top);
+		return (Math.abs((long)left + (long)width/2 - (long)b.left - (long)b.width/2) * 2 < ((long)width + (long)b.width)) &&
+		         (Math.abs((long)bottom + (long)height/2 - (long)b.bottom - (long)b.height/2) * 2 < ((long)height + (long)b.height));
+	}
 
 	/**
 	 * Checks if an intersection with a line between lat/lon and lat2/lon2 is

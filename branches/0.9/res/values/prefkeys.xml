@@ -12,6 +12,7 @@
     <string name="config_enableDepreciatedModes_key">depreciatedModesEnabled</string>
     <string name="config_enableGPSOverlay_key">enableGPSOverlay</string>
     <string name="config_backgroundLayer_key">backgroundLayer</string>
+    <string name="config_overlayLayer_key">overlayLayer</string>
     <string name="config_category_server_key">category_server</string>
     <string name="config_username_key">username</string>
     <string name="config_password_key">password</string>
