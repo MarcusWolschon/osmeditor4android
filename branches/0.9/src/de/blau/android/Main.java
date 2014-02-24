@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.acra.ACRA;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -1032,6 +1033,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * 
 	 * @param server
 	 */
+	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi" })
 	public void oAuthHandshake(Server server) {
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.hide();
@@ -1058,7 +1060,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.d("Main", "authURl " + authUrl);
 		oAuthWebView = new WebView(Application.mainActivity);
 		rl.addView(oAuthWebView);
-		// setContentView(webview);
 		oAuthWebView.getSettings().setJavaScriptEnabled(true);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 			oAuthWebView.getSettings().setAllowContentAccess(true);
@@ -1347,6 +1348,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 		}
 		
+		@SuppressLint("InlinedApi")
 		private void viewPhoto(Photo photo) {
 			try {
 				Intent myIntent = new Intent(Intent.ACTION_VIEW); 
