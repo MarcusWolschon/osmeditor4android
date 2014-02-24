@@ -83,10 +83,8 @@ public class OsmParser extends DefaultHandler {
 		{
 			Relation r = storage.getRelation(rm.ref);
 			if (r != null) {
-				if (r != null) {
-					rm.setElement(r);
-					Log.d(DEBUG_TAG, "Added relation " + rm.ref);
-				}
+				rm.setElement(r);
+				Log.d(DEBUG_TAG, "Added relation " + rm.ref);
 			}
 		}
 		Log.d(DEBUG_TAG, "Finished parsing input.");

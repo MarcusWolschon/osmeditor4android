@@ -466,11 +466,13 @@ public class Profile  extends DefaultHandler {
 		fp.dontUpdate();
 		featureProfiles.put(fp.getName(), fp);
 		
-		if (availableProfiles == null) {
-			name = BUILTIN_PROFILE_NAME;
-			currentProfile = this;
-			availableProfiles = new HashMap<String,Profile>();
-			availableProfiles.put(name,this);
+		synchronized (this) {
+			if (availableProfiles == null) {
+				name = BUILTIN_PROFILE_NAME;
+				currentProfile = this;
+				availableProfiles = new HashMap<String,Profile>();
+				availableProfiles.put(name,this);
+			}
 		}
 		Log.i("Profile","... done");
 	}
@@ -734,9 +736,11 @@ public class Profile  extends DefaultHandler {
 		} else if (element.equals("feature")) {
 			if (tempFeatureProfile == null) {
 				Log.i("Profile","FeatureProfile is null");
+				return;
 			}
 			if (tempFeatureProfile.getName() == null) {
 				Log.i("Profile","FeatureProfile name is null");
+				return;
 			}
 			// overwrites existing profiles
 			featureProfiles.put(tempFeatureProfile.getName(),tempFeatureProfile);

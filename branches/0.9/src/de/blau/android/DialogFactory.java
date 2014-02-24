@@ -97,7 +97,6 @@ public class DialogFactory {
 		final Context context = caller.getApplicationContext();
 		final LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		GotoPreferencesListener gotoPreferencesListener = new GotoPreferencesListener(caller);
 		DoNothingListener doNothingListener = new DoNothingListener();
 		
 		noLoginDataSet = createBasicDialog(R.string.no_login_data_title, R.string.no_login_data_message);

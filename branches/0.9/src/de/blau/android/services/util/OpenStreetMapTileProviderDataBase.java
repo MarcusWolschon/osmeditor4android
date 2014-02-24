@@ -242,8 +242,8 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 				if(c.moveToFirst()){
 					ret = c.getInt(c.getColumnIndexOrThrow(TMP_COLUMN));
 				}
+				c.close();
 			}
-			c.close();
 		}
 
 		return ret;

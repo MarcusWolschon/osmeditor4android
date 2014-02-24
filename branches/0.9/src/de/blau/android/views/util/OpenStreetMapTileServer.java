@@ -1,6 +1,7 @@
 // Created by plusminus on 18:23:16 - 25.09.2008
 package  de.blau.android.views.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,6 +28,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
@@ -439,7 +441,7 @@ public class OpenStreetMapTileServer {
 				
 				AssetManager assetManager = ctx.getAssets();
 				
-				String[] imageryFiles = {"imagery.json","imagery_vespucci.json"}; // entries in later files will overwrite earlier ones
+				String[] imageryFiles = {"imagery_vespucci.json","imagery.json"}; // entries in earlier files will not be overwritten by later ones
 				for (String fn:imageryFiles) {
 					try {
 						InputStream is = assetManager.open(fn);
@@ -451,11 +453,13 @@ public class OpenStreetMapTileServer {
 								while (reader.hasNext()) {
 									OpenStreetMapTileServer osmts = readServer(reader, r, async);
 									if (osmts != null) {
-										//Log.d("OpenStreetMapTileServer","Adding overlay=" + osmts.overlay + " " + osmts.toString());
-										if (osmts.overlay) {
+										// Log.d("OpenStreetMapTileServer","Adding overlay=" + osmts.overlay + " " + osmts.toString());
+										if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
+											// Log.d("OpenStreetMapTileServer","overlay done");
 											overlayServerList.put(osmts.id,osmts);
 										}
-										else {
+										else if (!backgroundServerList.containsKey(osmts.id)){
+											// Log.d("OpenStreetMapTileServer","background done");
 											backgroundServerList.put(osmts.id,osmts);
 										}
 									}
@@ -552,7 +556,7 @@ public class OpenStreetMapTileServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (type.equals("wms"))
+		if (type == null || type.equals("wms"))
 			return null;
 		OpenStreetMapTileServer osmts = new OpenStreetMapTileServer(r, id, name, url, type, overlay, defaultLayer, provider, 
 				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, async);

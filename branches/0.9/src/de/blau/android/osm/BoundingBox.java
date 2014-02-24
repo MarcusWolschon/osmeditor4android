@@ -398,7 +398,7 @@ public class BoundingBox implements Serializable {
 		long mTop = GeoMath.latE7ToMercatorE7(top); // note long or else we get an int overflow on calculating the center
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom;
-		if ((ratio > 0) && (ratio != Float.NaN)) {
+		if ((ratio > 0) && !Float.isNaN(ratio)) {
 			if (preserveZoom) {
 				// Apply the new aspect ratio, but preserve the level of zoom
 				// so that for example, rotating portrait<-->landscape won't

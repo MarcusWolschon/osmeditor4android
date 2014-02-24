@@ -318,7 +318,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Get the best last position
 	 */
 	private Location getLastLocation() {
-		Preferences prefs = new Preferences(this);
 		LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		List<String> providers = locationManager.getProviders(true);
 		Location bestLocation = null;
