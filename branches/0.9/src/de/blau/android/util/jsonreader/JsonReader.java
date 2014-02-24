@@ -489,7 +489,7 @@ public final class JsonReader implements Closeable {
         } catch (NumberFormatException ignored) {
             double asDouble = Double.parseDouble(value); // don't catch this NumberFormatException
             result = (long) asDouble;
-            if ((double) result != asDouble) {
+            if (result != asDouble) {
                 throw new NumberFormatException(value);
             }
         }
@@ -520,7 +520,7 @@ public final class JsonReader implements Closeable {
         } catch (NumberFormatException ignored) {
             double asDouble = Double.parseDouble(value); // don't catch this NumberFormatException
             result = (int) asDouble;
-            if ((double) result != asDouble) {
+            if (result != asDouble) {
                 throw new NumberFormatException(value);
             }
         }
@@ -532,7 +532,8 @@ public final class JsonReader implements Closeable {
     /**
      * Closes this JSON reader and the underlying {@link Reader}.
      */
-    public void close() throws IOException {
+    @Override
+	public void close() throws IOException {
         value = null;
         token = null;
         stack.clear();

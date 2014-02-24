@@ -1,25 +1,14 @@
 package de.blau.android.prefs;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -27,9 +16,6 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
-import de.blau.android.prefs.URLListEditActivity.ListEditItem;
-import de.blau.android.util.OAuthHelper;
-import de.blau.android.Application;
 import de.blau.android.R;
 
 /** Provides an activity for editing the API list */
@@ -136,6 +122,7 @@ public class APIEditorActivity extends URLListEditActivity {
 		builder.setView(mainView);
 
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = editName.getText().toString();
 				String value = editValue.getText().toString();
@@ -155,6 +142,7 @@ public class APIEditorActivity extends URLListEditActivity {
 		});
 
 		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				dialog.cancel();
 			}

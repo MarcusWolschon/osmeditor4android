@@ -1,7 +1,5 @@
 package de.blau.android.osb;
 
-import java.util.Date;
-
 import de.blau.android.osm.Server;
 
 import android.os.AsyncTask;

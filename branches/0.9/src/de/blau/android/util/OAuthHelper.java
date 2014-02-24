@@ -1,7 +1,6 @@
 package de.blau.android.util;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -11,7 +10,6 @@ import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -134,7 +132,7 @@ public class OAuthHelper {
 		MyTask loader = new MyTask();
 		loader.execute();	
 		try {
-			return (String) loader.get(10, TimeUnit.SECONDS);
+			return loader.get(10, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

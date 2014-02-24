@@ -1,20 +1,13 @@
 package de.blau.android.photos;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,7 +15,6 @@ import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
@@ -71,6 +63,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	 * Ensure cur is set before invoking.
 	 */
 	private final Runnable getPhotos = new Runnable() {
+		@Override
 		public void run() {
 			new AsyncTask<Void, Integer, Collection<Photo>>() {
 				
@@ -119,6 +112,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		icon_selected = Application.mainActivity.getResources().getDrawable(R.drawable.camera_green);
 	}
 	
+	@Override
 	public boolean isReadyToDraw() {
 		if (map.getPrefs().isPhotoLayerEnabled()) {
 			return map.getOpenStreetMapTilesOverlay().isReadyToDraw();
@@ -132,7 +126,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			final Rect viewPort = c.getClipBounds();
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
-			final float radius = 1.0f + (float)osmv.getZoomLevel(viewPort) / 2.0f;
+			final float radius = 1.0f + osmv.getZoomLevel(viewPort) / 2.0f;
 			BoundingBox bb = osmv.getViewBox();
 			
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {

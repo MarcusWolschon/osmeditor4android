@@ -321,8 +321,8 @@ public class BoundingBox implements Serializable {
 	public boolean intersects(final BoundingBox b) {
 		// this is naturally only true on the plain, probably should use mercator coordinates
 		//Log.d("BoundingBox","intersects " + left + "/" + bottom  + "/"  + right + "/" + top + "  " + b.left + "/" + b.bottom  + "/"  + b.right + "/" + b.top);
-		return (Math.abs((long)left + (long)width/2 - (long)b.left - (long)b.width/2) * 2 < ((long)width + (long)b.width)) &&
-		         (Math.abs((long)bottom + (long)height/2 - (long)b.bottom - (long)b.height/2) * 2 < ((long)height + (long)b.height));
+		return (Math.abs(left + width/2 - b.left - b.width/2) * 2 < (width + b.width)) &&
+		         (Math.abs(bottom + (long)height/2 - b.bottom - (long)b.height/2) * 2 < ((long)height + (long)b.height));
 	}
 
 	/**
@@ -409,7 +409,7 @@ public class BoundingBox implements Serializable {
 				
 				left = centerX - currentWidth2;
 				right = centerX + currentWidth2;
-				int currentHeight2 = (int)((float)currentWidth2 / ratio);
+				int currentHeight2 = (int)(currentWidth2 / ratio);
 				// 
 				if ((centerY + currentHeight2) > GeoMath.MAX_MLAT_E7) { 
 					mTop = GeoMath.MAX_MLAT_E7;
@@ -425,7 +425,7 @@ public class BoundingBox implements Serializable {
 			else {
 				int singleBorderMovement;
 				// Ensure currently visible area is entirely visible in the new box
-				if ((width / (long)(mHeight)) < ratio) {
+				if ((width / (mHeight)) < ratio) {
 					// The actual box is wider than it should be.
 					/* Here comes the math:
 					 * width/height = ratio

@@ -172,7 +172,8 @@ public class WrappingLayout extends LinearLayout {
 		
 		relayoutInProgress = false;
 		post(new Runnable() {
-		    public void run() {
+		    @Override
+			public void run() {
 		        requestLayout();
 		        invalidate();
 		    }
@@ -235,7 +236,7 @@ public class WrappingLayout extends LinearLayout {
 			container.setOrientation(LinearLayout.VERTICAL);
 			
 			LayoutParams innerLayoutParams =
-				new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			
 			final int availableSpace = container.getWidth() - container.getPaddingLeft() - container.getPaddingRight();
 			int usedSpace = 0;

@@ -23,6 +23,7 @@ public class UploadListener implements OnClickListener {
 		this.sourceField = sourceField;
 	}
 	
+	@Override
 	public void onClick(final DialogInterface dialog, final int which) {
 		caller.performUpload(commentField.getText().toString(), sourceField.getText().toString());
 	}

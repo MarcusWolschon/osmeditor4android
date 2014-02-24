@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
@@ -134,16 +133,16 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.urldialog_buttonAddPreset:
 			intent = new Intent(this, PresetEditorActivity.class);
-			intent.setAction(PresetEditorActivity.ACTION_NEW);
-			intent.putExtra(PresetEditorActivity.EXTRA_NAME, presetname);
-			intent.putExtra(PresetEditorActivity.EXTRA_VALUE, preseturl);
+			intent.setAction(URLListEditActivity.ACTION_NEW);
+			intent.putExtra(URLListEditActivity.EXTRA_NAME, presetname);
+			intent.putExtra(URLListEditActivity.EXTRA_VALUE, preseturl);
 			startActivityForResult(intent, REQUEST_PRESETEDIT);
 			break;
 		case R.id.urldialog_buttonAddAPI:
 			intent = new Intent(this, APIEditorActivity.class);
-			intent.setAction(PresetEditorActivity.ACTION_NEW);
-			intent.putExtra(PresetEditorActivity.EXTRA_NAME, apiname);
-			intent.putExtra(PresetEditorActivity.EXTRA_VALUE, apiurl);
+			intent.setAction(URLListEditActivity.ACTION_NEW);
+			intent.putExtra(URLListEditActivity.EXTRA_NAME, apiname);
+			intent.putExtra(URLListEditActivity.EXTRA_VALUE, apiurl);
 			startActivityForResult(intent, REQUEST_APIEDIT);
 			break;
 		}
@@ -152,7 +151,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_APIEDIT && resultCode == RESULT_OK) {
-			ListEditItem item = (ListEditItem)data.getExtras().get(APIEditorActivity.EXTRA_ITEM);
+			ListEditItem item = (ListEditItem)data.getExtras().get(URLListEditActivity.EXTRA_ITEM);
 			if (item != null) {
 				prefdb.selectAPI(item.id);
 				if (apiuser != null && !apiuser.equals("")) {

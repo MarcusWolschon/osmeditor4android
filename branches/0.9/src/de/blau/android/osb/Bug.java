@@ -10,7 +10,6 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.net.ParseException;
 import android.text.Html;
 
 

@@ -61,6 +61,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	/**
 	 * Overrides clear() to also clear the LRU list.
 	 */
+	@Override
 	public synchronized void clear() {
 		list.clear();
 		for (Bitmap b : values()) {
@@ -139,6 +140,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 *         indicate that the cache previously associated <code>null</code>
 	 *         with the specified key
 	 */
+	@Override
 	public synchronized Bitmap put(final String key, final Bitmap value) {
 		if (maxCacheSize == 0 || value == null){
 			return null;

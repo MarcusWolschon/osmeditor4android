@@ -1,7 +1,6 @@
 // Created by plusminus on 18:23:16 - 25.09.2008
 package  de.blau.android.views.util;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,7 +12,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Queue;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -28,10 +26,8 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
-import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.services.util.OpenStreetMapTile;
@@ -996,6 +992,7 @@ public class OpenStreetMapTileServer {
 		return quadKey.toString();
 	}
 	
+	@Override
 	public String toString() {
 		return 	"ID: " + id + " Name " + name + " maxZoom " + zoomLevelMax + " Tile URL " + tileUrl;
 	}

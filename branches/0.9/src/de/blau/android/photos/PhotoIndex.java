@@ -2,16 +2,11 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import org.acra.ACRA;
-
-import de.blau.android.Application;
-import de.blau.android.R;
-import de.blau.android.prefs.AdvancedPrefDatabase.API;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,7 +17,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Rect;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Scan the system for geo ref photos and store is in a DB
@@ -37,6 +31,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 
 	
 	class JpgFilter implements FilenameFilter {
+		@Override
 		public boolean accept(File dir, String name) {
 			return name.endsWith(".jpg");
 		}

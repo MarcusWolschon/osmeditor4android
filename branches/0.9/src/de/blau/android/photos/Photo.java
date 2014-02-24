@@ -2,22 +2,10 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import de.blau.android.util.ExtendedExifInterface;
 
 import android.media.ExifInterface;
-import android.net.ParseException;
 import android.net.Uri;
-import android.os.Environment;
-import android.text.Html;
 import android.util.Log;
 
 

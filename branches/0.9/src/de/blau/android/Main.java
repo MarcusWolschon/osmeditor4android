@@ -6,11 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
-
 import org.acra.ACRA;
 
 import android.app.AlertDialog;
@@ -29,7 +24,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -47,7 +41,6 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -263,18 +256,20 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		// Set up the zoom in/out controls
 		zoomControls = new ZoomControls(getApplicationContext());
 		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				logic.zoom(Logic.ZOOM_IN);
 				updateZoomControls();
 			}
 		});
 		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				logic.zoom(Logic.ZOOM_OUT);
 				updateZoomControls();
 			}
 		});
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		rl.addView(zoomControls, rlp);
@@ -497,7 +492,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			ToggleButton lock = setLock(logic.getMode());
 			findViewById(R.id.lock).setVisibility(View.VISIBLE);
 			lock.setOnClickListener(new View.OnClickListener() {
-			    public void onClick(View b) {
+			    @Override
+				public void onClick(View b) {
 			        Log.d("Main", "Lock pressed");
 			        if(((ToggleButton)b).isChecked()) {
 			        	logic.setMode(Logic.Mode.MODE_EASYEDIT);
@@ -840,7 +836,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					close.setText(R.string.openstreetbug_edit_close);
 				}
 				close.setEnabled(/* !bug.isClosed() && */ bug.getId() != 0);
-				Button commit = ad.getButton(AlertDialog.BUTTON_POSITIVE);
+				Button commit = ad.getButton(DialogInterface.BUTTON_POSITIVE);
 				commit.setEnabled(/* !bug.isClosed() */ true);
 				break;
 			}
@@ -1067,8 +1063,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 			oAuthWebView.getSettings().setAllowContentAccess(true);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-			oAuthWebView.getLayoutParams().height = LayoutParams.MATCH_PARENT;
-			oAuthWebView.getLayoutParams().width = LayoutParams.MATCH_PARENT;
+			oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+			oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 		}
 		oAuthWebView.requestFocus(View.FOCUS_DOWN);
 		class MyWebViewClient extends WebViewClient {
@@ -1169,7 +1165,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
         .setNegativeButton(R.string.no, null)
         .setPositiveButton(R.string.yes, 
         	new DialogInterface.OnClickListener() {
-	            public void onClick(DialogInterface arg0, int arg1) {
+	            @Override
+				public void onClick(DialogInterface arg0, int arg1) {
 	                Main.super.onBackPressed();
 	            }
         }).create().show();

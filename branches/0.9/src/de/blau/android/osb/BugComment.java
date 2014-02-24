@@ -2,11 +2,8 @@ package de.blau.android.osb;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import android.util.Log;
 
 /**
  * An individual comment associated with an OpenStreetBug.
@@ -87,6 +84,7 @@ public class BugComment implements Serializable {
 	 * Convert the bug to a string.
 	 * @return The bug comment in the preferred OSB format.
 	 */
+	@Override
 	public String toString() {
 		String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
 		return text + " [" + action + " " + nickname + date + "]";

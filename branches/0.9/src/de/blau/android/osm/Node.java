@@ -45,10 +45,12 @@ public class Node extends OsmElement implements GeoPoint {
 		this.lon = lon;
 	}
 
+	@Override
 	public int getLat() {
 		return lat;
 	}
 
+	@Override
 	public int getLon() {
 		return lon;
 	}
@@ -84,8 +86,8 @@ public class Node extends OsmElement implements GeoPoint {
 		s.attribute("", "id", Long.toString(osmId));
 		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
-		s.attribute("", "lat", Double.toString((double) (lat / 1E7)));
-		s.attribute("", "lon", Double.toString((double) (lon / 1E7)));
+		s.attribute("", "lat", Double.toString((lat / 1E7)));
+		s.attribute("", "lon", Double.toString((lon / 1E7)));
 		tagsToXml(s);
 		s.endTag("", "node");
 	}

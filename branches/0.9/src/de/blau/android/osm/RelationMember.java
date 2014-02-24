@@ -86,6 +86,7 @@ public class RelationMember implements Serializable {
 		element=e;
 	}
 	
+	@Override
 	public String toString() {
 		return role + " " + type + " " + ref;
 	}

@@ -1,7 +1,5 @@
 package de.blau.android.services.util;
 
-import android.util.Log;
-
 /**
  * This class merely holds the coordinates embedded in the url of a tile.<br/>
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06

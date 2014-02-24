@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.view.View;
 import de.blau.android.Application;
 import de.blau.android.Map;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 

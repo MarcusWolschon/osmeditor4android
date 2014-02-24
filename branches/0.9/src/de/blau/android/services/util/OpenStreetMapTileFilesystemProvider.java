@@ -14,8 +14,6 @@ import java.io.OutputStream;
 import java.util.concurrent.Executors;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
@@ -87,6 +85,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	// Methods from SuperClass/Interfaces
 	// ===========================================================
 
+	@Override
 	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
 		return new TileLoader(aTile, aCallback);
 	};
@@ -199,6 +198,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		}
 
 		//@Override
+		@Override
 		public void run() {
 			synchronized (OpenStreetMapTileFilesystemProvider.this) {
 				OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);

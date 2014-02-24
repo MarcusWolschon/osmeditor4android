@@ -2,15 +2,11 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -19,10 +15,7 @@ import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.resources.Profile.FeatureProfile;
 
-import android.net.ParseException;
-import android.nfc.FormatException;
 import android.util.Log;
-import android.widget.Toast;
 
 public class Way extends OsmElement {
 
@@ -517,6 +510,7 @@ public class Way extends OsmElement {
 	 * Test if the way has a problem.
 	 * @return true if the way has a problem, false if it doesn't.
 	 */
+	@Override
 	protected boolean calcProblem() {
 		String highway = getTagWithKey("highway"); // cache frequently accessed key
 		if ("road".equalsIgnoreCase(highway)) {
@@ -534,6 +528,7 @@ public class Way extends OsmElement {
 		return super.calcProblem();
 	}
 	
+	@Override
 	public String describeProblem() {
 		String superProblem = super.describeProblem();
 		String wayProblem = "";

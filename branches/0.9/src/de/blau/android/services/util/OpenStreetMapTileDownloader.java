@@ -13,8 +13,6 @@ import java.net.URLConnection;
 import java.util.concurrent.Executors;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.Application;
@@ -64,6 +62,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// Methods from SuperClass/Interfaces
 	// ===========================================================
 
+	@Override
 	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
 		return new TileLoader(aTile, aCallback);
 	};
@@ -89,6 +88,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 		}
 		
 		//@Override
+		@Override
 		public void run() {
 			InputStream in = null;
 			OutputStream out = null;

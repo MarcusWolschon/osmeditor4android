@@ -77,6 +77,7 @@ public class OsmParser extends DefaultHandler {
 	/**
 	 * needed for post processing of relations
 	 */
+	@Override
 	public void endDocument() {
 		Log.d(DEBUG_TAG, "Post processing relations.");
 		for (RelationMember rm : missingRelations)

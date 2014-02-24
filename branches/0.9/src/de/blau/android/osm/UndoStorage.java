@@ -315,6 +315,7 @@ public class UndoStorage implements Serializable {
 			lon = originalNode.lon;
 		}
 		
+		@Override
 		public void restore() {
 			super.restore();
 			((Node)element).lat = lat;
@@ -335,6 +336,7 @@ public class UndoStorage implements Serializable {
 			nodes = new ArrayList<Node>(originalWay.nodes);
 		}
 		
+		@Override
 		public void restore() {
 			super.restore();
 			((Way)element).nodes.clear();
@@ -355,6 +357,7 @@ public class UndoStorage implements Serializable {
 			members = new ArrayList<RelationMember>(originalRelation.members);
 		}
 		
+		@Override
 		public void restore() {
 			super.restore();
 			((Relation)element).members.clear();

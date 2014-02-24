@@ -6,11 +6,8 @@ import java.io.IOException;
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Metadata;
-import com.drew.metadata.MetadataException;
 import com.drew.metadata.exif.GpsDirectory;
 
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.media.ExifInterface;
 import android.util.Log;
 

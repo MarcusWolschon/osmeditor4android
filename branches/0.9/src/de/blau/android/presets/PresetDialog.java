@@ -6,9 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.LinearLayout;
-
-import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset.PresetClickHandler;
@@ -92,6 +89,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	/**
 	 * for now do the same
 	 */
+	@Override
 	public boolean onItemLongClick(PresetItem item) {
 		dialogResult = item;
 		dismiss();

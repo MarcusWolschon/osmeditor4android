@@ -20,13 +20,11 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
 import android.util.Log;
-import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
-import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -316,7 +314,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			        double scale = 2 * Math.min(Math.hypot(p.x,p.y), Math.hypot(q.x,q.y));
 		            p = normalize(p, 1.0);
 		            q = normalize(q, 1.0);
-		            double dotp = filter((double)(p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+		            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
 
 		            // nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).   
 		            if (dotp < -0.707106781186547) {
@@ -339,7 +337,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			        q = c.subtract(b);
 			        p = normalize(p, 1.0);
 		            q = normalize(q, 1.0);
-		            double dotp = filter((double)(p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+		            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
 		            
 		            score = score + 2.0 * Math.min(Math.abs(dotp-1.0), Math.min(Math.abs(dotp), Math.abs(dotp+1.0)));
 				}
@@ -473,7 +471,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(node);
 		try {
-			if (node.state == Node.STATE_CREATED) {
+			if (node.state == OsmElement.STATE_CREATED) {
 				apiStorage.removeElement(node);
 			} else {
 				apiStorage.insertElementSafe(node);
@@ -1004,7 +1002,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(relation);
 		try {
-			if (relation.state == Node.STATE_CREATED) {
+			if (relation.state == OsmElement.STATE_CREATED) {
 				apiStorage.removeElement(relation);
 			} else {
 				apiStorage.insertElementSafe(relation);

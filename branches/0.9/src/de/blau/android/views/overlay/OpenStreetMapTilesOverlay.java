@@ -1,22 +1,11 @@
 package de.blau.android.views.overlay;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.acra.ACRA;
-import org.xml.sax.SAXException;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -29,16 +18,8 @@ import android.view.View;
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.Map;
-import de.blau.android.exception.OsmException;
-import de.blau.android.exception.OsmServerException;
-import de.blau.android.exception.StorageException;
-import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmParser;
-import de.blau.android.osm.UndoStorage;
-import de.blau.android.resources.Profile;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.OpenStreetMapTileProvider;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -105,6 +86,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		Log.d("OpenStreetMapTilesOverlay","provider " + aRendererInfo.getId());
 	}
 	
+	@Override
 	public boolean isReadyToDraw() {
 		return myRendererInfo.isMetadataLoaded();
 	}
@@ -136,6 +118,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 
 	}
 	
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		mTileProvider.clear();
@@ -388,9 +371,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		double west  = tile2lon(x    , zoomLevel);
 		double east  = tile2lon(x + 1, zoomLevel);
 
-		int screenLeft   = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) ((west + lonOffset) * 1E7)));
-		int screenRight  = (int) Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) ((east + lonOffset) * 1E7)));
-		int screenTop    = (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) ((north + latOffset)* 1E7)));
+		int screenLeft   = Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) ((west + lonOffset) * 1E7)));
+		int screenRight  = Math.round(GeoMath.lonE7ToX(viewPort.width() , osmv.getViewBox(), (int) ((east + lonOffset) * 1E7)));
+		int screenTop    = Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) ((north + latOffset)* 1E7)));
 		int screenBottom = squareTiles ? screenTop + (screenRight - screenLeft) : (int) Math.round(GeoMath.latE7ToY(viewPort.height(), viewPort.width(), osmv.getViewBox(), (int) ((south + latOffset)* 1E7)));
 		// Log.d("OpenStreeMapTileOverlay", "Dest Rect " + screenLeft + " " + screenTop + " " +  screenRight + " " + screenBottom);
 		return new Rect(screenLeft, screenTop, screenRight, screenBottom);
@@ -459,7 +442,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				    if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
 						Handler handler = new Handler(); 
 					    handler.postDelayed(new Runnable() { 
-					         public void run() { 
+					         @Override
+							public void run() { 
 					        	 // Log.d("OpenStreetMapOverlay", "SimpleInvalidationHandler #viewInvalidates " + viewInvalidates);
 					        	 viewInvalidates = 0;
 					             v.invalidate();

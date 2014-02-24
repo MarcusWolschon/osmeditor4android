@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -12,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import de.blau.android.Map;
-import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
@@ -55,6 +53,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	 * Ensure cur is set before invoking.
 	 */
 	private final Runnable getBugs = new Runnable() {
+		@Override
 		public void run() {
 			new AsyncTask<Void, Void, Collection<Bug>>() {
 				@Override
@@ -96,6 +95,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		closedPaint = Profile.getCurrent(Profile.CLOSED_NOTE).getPaint();
 	}
 	
+	@Override
 	public boolean isReadyToDraw() {
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
 			return map.getOpenStreetMapTilesOverlay().isReadyToDraw();
@@ -109,7 +109,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			final Rect viewPort = c.getClipBounds();
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
-			final float radius = 1.0f + (float)osmv.getZoomLevel(viewPort) / 2.0f;
+			final float radius = 1.0f + osmv.getZoomLevel(viewPort) / 2.0f;
 			BoundingBox bb = osmv.getViewBox();
 			
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {

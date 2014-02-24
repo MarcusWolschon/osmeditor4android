@@ -9,19 +9,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.actionbarsherlock.app.ActionBar;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import de.blau.android.Main;
 import de.blau.android.R;

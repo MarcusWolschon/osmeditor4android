@@ -9,7 +9,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -40,10 +39,7 @@ import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.exception.OsmParseException;
-import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.resources.Profile.FeatureProfile.DashPath;
-import de.blau.android.util.SavingHelper;
 
 public class Profile  extends DefaultHandler {
 	
@@ -729,6 +725,7 @@ public class Profile  extends DefaultHandler {
 		}
 	}
 	
+	@Override
 	public void endElement(final String uri, final String element, final String qName) {
 		if (element == null) {Log.i("Profile","element is null"); return;};
 		if (element.equals("profile")) {
@@ -767,6 +764,7 @@ public class Profile  extends DefaultHandler {
 	}
 	
 	class ProfileFilter implements FilenameFilter {
+		@Override
 		public boolean accept(File dir, String name) {
 			return name.endsWith("-profile.xml");
 		}

@@ -9,49 +9,28 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import oauth.signpost.OAuthConsumer;
-import oauth.signpost.basic.DefaultOAuthConsumer;
-import oauth.signpost.basic.HttpURLConnectionRequestAdapter;
-import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
-import oauth.signpost.http.HttpParameters;
-import oauth.signpost.http.HttpRequest;
-import oauth.signpost.http.HttpResponse;
-import oauth.signpost.signature.SignatureBaseString;
-
 import org.acra.ACRA;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
-import de.blau.android.DialogFactory;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
@@ -281,7 +260,8 @@ public class Server {
 		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			if (con.getResponseCode() == 400) {
 				Application.mainActivity.runOnUiThread(new Runnable() {
-					  public void run() {
+					  @Override
+					public void run() {
 						  Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
 					  }
 				});
@@ -310,6 +290,7 @@ public class Server {
 			this.message = message;
 		}
 		
+		@Override
 		public void run() {
 			try {
 				Context mainCtx = Application.mainActivity.getApplicationContext();
@@ -698,10 +679,10 @@ public class Server {
 			URL url = new URL(serverURL  + "notes?" +
 					"limit=" + limit + "&" +
 					"bbox=" +
-					(double)area.left / 1E7d +
-					"," + (double)area.bottom / 1E7d +
-					"," + (double)area.right / 1E7d +
-					"," + (double)area.top / 1E7d);
+					area.left / 1E7d +
+					"," + area.bottom / 1E7d +
+					"," + area.right / 1E7d +
+					"," + area.top / 1E7d);
 			
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			boolean isServerGzipEnabled = false;
@@ -827,7 +808,7 @@ public class Server {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + ((double)bug.getLat() / 1E7d)+"&lon=" + ((double)bug.getLon() / 1E7d) + "&text=" +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/xml");
+							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + (bug.getLat() / 1E7d)+"&lon=" + (bug.getLon() / 1E7d) + "&text=" +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/xml");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");

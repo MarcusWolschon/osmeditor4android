@@ -18,30 +18,22 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TwoLineListItem;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
-import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.TagEditor;
 
 /**
  * This activity allows the user to edit a list of URLs.
@@ -231,6 +223,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		builder.setView(mainView);
 
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = editName.getText().toString();
 				String value = editValue.getText().toString();
@@ -248,6 +241,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		});
 
 		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				dialog.cancel();
 			}

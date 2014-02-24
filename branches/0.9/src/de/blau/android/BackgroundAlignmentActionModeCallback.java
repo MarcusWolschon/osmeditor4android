@@ -55,7 +55,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
-		Application.mainActivity.logic.setMode(oldMode);
+		Main.logic.setMode(oldMode);
 
 	}
 

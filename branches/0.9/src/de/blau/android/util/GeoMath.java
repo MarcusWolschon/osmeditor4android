@@ -1,7 +1,6 @@
 package de.blau.android.util;
 
 
-import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
@@ -95,7 +94,7 @@ public class GeoMath {
 	 * @return
 	 */
 	public static double latE7ToMercator(final int latE7) {
-		return latToMercator((double)latE7 / 1E7d);
+		return latToMercator(latE7 / 1E7d);
 	}
 	
 	/**
@@ -104,7 +103,7 @@ public class GeoMath {
 	 * @return the mercator-projected y-coordinate for a cartesian coordinate system, multiplied by 1E7.
 	 */
 	public static int latE7ToMercatorE7(final int latE7) {
-		return (int) (latToMercator((double)latE7 / 1E7d) * 1E7d);
+		return (int) (latToMercator(latE7 / 1E7d) * 1E7d);
 	}
 	
 	/**
@@ -124,7 +123,7 @@ public class GeoMath {
 	 * @return
 	 */
 	public static double mercatorE7ToLat(final int mer) {
-		return mercatorToLat((double)mer / (double)1E7);
+		return mercatorToLat(mer / 1E7);
 	}
 	
 	/**
@@ -142,7 +141,7 @@ public class GeoMath {
 	 * @return the latitude value, multiplied by 1E7
 	 */
 	public static int mercatorE7ToLatE7(final int mer) {
-		return (int) (mercatorToLat((double)mer / (double)1E7) * 1E7);
+		return (int) (mercatorToLat(mer / 1E7) * 1E7);
 	}
 	
 	/**
@@ -207,14 +206,14 @@ public class GeoMath {
 	 * @return the y screen-coordinate for this latitude value.
 	 */
 	public static float latE7ToY(final int screenHeight, final BoundingBox viewBox, final int latE7) {
-		double ratio= viewBox.getMercatorFactorPow3() *  (double)(latE7 - viewBox.getBottom()) / (double)viewBox.getHeight();
+		double ratio= viewBox.getMercatorFactorPow3() *  (latE7 - viewBox.getBottom()) / viewBox.getHeight();
 		return (float) ((screenHeight - ratio * screenHeight));
 	}
 
     //TODO experimental code for using non-approx. projections
 	public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
 		// note the last term should be pre-calculated too
-		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
+		double pixelRadius = screenWidth/(viewBox.getWidth()/1E7d);
 		return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
 	}
 	
@@ -225,7 +224,7 @@ public class GeoMath {
 	 * @return the x screen-coordinate for this longitude value.
 	 */
 	public static float lonE7ToX(final int screenWidth, final BoundingBox viewBox, final int lonE7) {
-		return (float) ((((double)lonE7 - (double)viewBox.getLeft()) / (double)viewBox.getWidth())* (double)screenWidth);
+		return (float) ((((double)lonE7 - (double)viewBox.getLeft()) / viewBox.getWidth())* screenWidth);
 	}
 	
 	/**
@@ -235,14 +234,14 @@ public class GeoMath {
 	 * @return latitude representing by the given y-value, multiplied by 1E7
 	 */
 	public static int yToLatE7(final int screenHeight, final BoundingBox viewBox, final float y) {
-		final double ratio = (((double)screenHeight - y) / (double)screenHeight) / viewBox.getMercatorFactorPow3();
-		final double lat = ratio * (double)viewBox.getHeight() + (double)viewBox.getBottom();
+		final double ratio = (((double)screenHeight - y) / screenHeight) / viewBox.getMercatorFactorPow3();
+		final double lat = ratio * viewBox.getHeight() + viewBox.getBottom();
 		return (int) lat;
 	}
 
 //TODO experimental code for using non-approx. projections
 	public static int yToLatE7(final int screenHeight, int screenWidth, final BoundingBox viewBox, final float y) {
-		double pixelRadius = (double)screenWidth/((double)viewBox.getWidth()/1E7d);
+		double pixelRadius = screenWidth/(viewBox.getWidth()/1E7d);
 		double lat = mercatorToLatE7(viewBox.getBottomMercator() + ((double)screenHeight - y) / pixelRadius);
 		return (int) lat;
 	}
@@ -254,7 +253,7 @@ public class GeoMath {
 	 * @return longitude representing by the given x-value, multiplied by 1E7
 	 */
 	public static int xToLonE7(final int screenWidth, final BoundingBox viewBox, final float x) {
-		return (int) (((double)x / (double)screenWidth * (double)viewBox.getWidth()) + (double)viewBox.getLeft());
+		return (int) (((double)x / (double)screenWidth * viewBox.getWidth()) + viewBox.getLeft());
 	}
 
 	/**

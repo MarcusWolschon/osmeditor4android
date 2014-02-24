@@ -2,10 +2,7 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;

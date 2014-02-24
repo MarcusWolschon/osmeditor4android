@@ -12,7 +12,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -20,7 +19,6 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
 import android.os.Build;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -162,7 +160,7 @@ public class Map extends View implements IMapView {
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
 		
-		iconRadius = Math.round((float)ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
+		iconRadius = Math.round(ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
 	}
 	
 	public void createOverlays()
@@ -869,6 +867,7 @@ public class Map extends View implements IMapView {
 	/**
 	 * ${@inheritDoc}.
 	 */
+	@Override
 	public BoundingBox getViewBox() {
 		return myViewBox;
 	}
@@ -979,8 +978,8 @@ public class Map extends View implements IMapView {
 		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
 		
 		// Calculate the ideal zoom to fit into the view
-		final double xTiles = ((double)viewPort.width()  / (xTileRight  - xTileLeft)) / s.getTileWidth();
-		final double yTiles = ((double)viewPort.height() / (yTileBottom - yTileTop )) / s.getTileHeight();
+		final double xTiles = (viewPort.width()  / (xTileRight  - xTileLeft)) / s.getTileWidth();
+		final double yTiles = (viewPort.height() / (yTileBottom - yTileTop )) / s.getTileHeight();
 		final double xZoom = Math.log(xTiles) / Math.log(2d);
 		final double yZoom = Math.log(yTiles) / Math.log(2d);
 		

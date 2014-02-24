@@ -2,11 +2,8 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
 import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
@@ -224,6 +221,7 @@ public class Relation extends OsmElement {
 	 * Test if the relation has a problem.
 	 * @return true if the relation has a problem, false if it doesn't.
 	 */
+	@Override
 	protected boolean calcProblem() {
 		
 		return super.calcProblem();

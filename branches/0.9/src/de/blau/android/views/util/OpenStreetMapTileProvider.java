@@ -84,6 +84,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	// Methods from SuperClass/Interfaces
 	// ===========================================================
 
+	@Override
 	public void onServiceConnected(android.content.ComponentName name, android.os.IBinder service) {
 		mTileService = IOpenStreetMapTileProviderService.Stub.asInterface(service);
 		mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
@@ -91,6 +92,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	};
 	
 	//@Override
+	@Override
 	public void onServiceDisconnected(ComponentName name) {
 		mTileService = null;
 		Log.d("MapTileProviderService", "disconnected");
@@ -175,6 +177,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	private IOpenStreetMapTileProviderCallback mServiceCallback = new IOpenStreetMapTileProviderCallback.Stub() {
 		
 		//@Override
+		@Override
 		public void mapTileLoaded(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final byte[] data) throws RemoteException {
 			BitmapFactory.Options options = new BitmapFactory.Options();
 	        options.inPreferredConfig =  Bitmap.Config.RGB_565;
@@ -195,6 +198,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		}
 		
 		//@Override
+		@Override
 		public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY) throws RemoteException {
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
 			pending.remove(t.toString());

@@ -2,7 +2,6 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
@@ -1046,9 +1045,9 @@ public class Logic {
 		int relativeLat = lat - viewBox.getBottom();
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		double lonOffset = osmts.getLonOffset();
-		osmts.setLonOffset(lonOffset - (double)relativeLon/1E7d);
+		osmts.setLonOffset(lonOffset - relativeLon/1E7d);
 		double latOffset = osmts.getLatOffset();
-		osmts.setLatOffset(latOffset - (double)relativeLat/1E7d);
+		osmts.setLatOffset(latOffset - relativeLat/1E7d);
 	}
 
 	/**
@@ -2016,6 +2015,7 @@ public class Logic {
 	private static class DistanceSorter<OUTTYPE extends OsmElement, T extends OUTTYPE> {
 		private Comparator<Entry<T, Double>> comparator =
 			new Comparator<Entry<T, Double>>() {
+				@Override
 				public int compare(Entry<T,Double> lhs, Entry<T,Double> rhs) {
 					if (lhs == rhs) return 0;
 					if (lhs.getValue() > rhs.getValue()) return 1;

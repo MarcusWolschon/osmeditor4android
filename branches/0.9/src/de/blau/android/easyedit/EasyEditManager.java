@@ -25,11 +25,9 @@ import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.GeoMath;
 
 /**
  * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
@@ -722,7 +720,7 @@ public class EasyEditManager {
 				case MENUITEM_JOIN:
 					if (!logic.performJoin(joinableElement, (Node)element)) {
 						Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
-						main.performTagEdit((Node)element, null, false);
+						main.performTagEdit(element, null, false);
 					} else {
 						mode.finish();
 					}
@@ -737,6 +735,7 @@ public class EasyEditManager {
 			return true;
 		}
 		
+		@Override
 		protected void menuDelete(ActionMode mode) {
 			if (element.hasParentRelations()) {
 				new AlertDialog.Builder(main)
@@ -857,6 +856,7 @@ public class EasyEditManager {
 			return true;
 		}
 		
+		@Override
 		protected void menuDelete(ActionMode mode) {
 			boolean isRelationMember = element.hasParentRelations();
 			new AlertDialog.Builder(main)
@@ -1083,6 +1083,7 @@ public class EasyEditManager {
 			
 		}
 		
+		@Override
 		protected void menuDelete(ActionMode mode) {
 			if (element.hasParentRelations()) {
 				new AlertDialog.Builder(main)

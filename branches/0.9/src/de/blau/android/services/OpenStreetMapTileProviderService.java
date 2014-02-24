@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
@@ -53,10 +52,12 @@ public class OpenStreetMapTileProviderService extends Service {
 	 */
 	private final IOpenStreetMapTileProviderService.Stub mBinder = new IOpenStreetMapTileProviderService.Stub() {
 		//@Override
+		@Override
 		public String[] getTileProviders() throws RemoteException {
 			return OpenStreetMapTileServer.getIds(false);
 		}
 		//@Override
+		@Override
 		public void getMapTile(String rendererID, int zoomLevel, int tileX,
 				int tileY, IOpenStreetMapTileProviderCallback callback)
 				throws RemoteException {
@@ -65,6 +66,7 @@ public class OpenStreetMapTileProviderService extends Service {
 			mFileSystemProvider.loadMapTileAsync(tile, callback);
 		}
 		
+		@Override
 		public void flushCache(String rendererId) {
 			mFileSystemProvider.flushCache(rendererId);
 		}

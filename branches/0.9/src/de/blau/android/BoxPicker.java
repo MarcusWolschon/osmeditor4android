@@ -393,6 +393,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		dialog.setTitle(R.string.location_nan_title);
 		dialog.setMessage(R.string.location_nan_message);
 		dialog.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(final DialogInterface dialog, final int whichButton) {}
 		});
 		return dialog.create();

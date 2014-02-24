@@ -18,26 +18,20 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
-import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -46,14 +40,12 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
@@ -599,12 +591,14 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	        .setNeutralButton(R.string.cancel, null)
 	        .setNegativeButton(R.string.tag_menu_revert,        	
 	        		new DialogInterface.OnClickListener() {
-	            	public void onClick(DialogInterface arg0, int arg1) {
+	            	@Override
+					public void onClick(DialogInterface arg0, int arg1) {
 	            		doRevert();
 	            }})
 	        .setPositiveButton(R.string.tag_menu_exit_no_save, 
 	        	new DialogInterface.OnClickListener() {
-		            public void onClick(DialogInterface arg0, int arg1) {
+		            @Override
+					public void onClick(DialogInterface arg0, int arg1) {
 		                TagEditor.super.onBackPressed();
 		            }
 	        }).create().show();
@@ -1367,7 +1361,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 	}
 	    
-    public void onItemSelected(AdapterView<?> parent, View view, 
+    @Override
+	public void onItemSelected(AdapterView<?> parent, View view, 
             int pos, long id) {
     	
         // An item was selected. You can retrieve the selected item using
@@ -1379,7 +1374,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
     	((RelationMembershipRow)pv).setRelation((Relation)parent.getItemAtPosition(pos));	
     }
 
-    public void onNothingSelected(AdapterView<?> parent) {
+    @Override
+	public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
 	
