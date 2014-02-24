@@ -8,6 +8,7 @@ import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -257,16 +258,13 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		dirty = true;
 		try {
-			Node firstNode = way.getFirstNode();
-			for (int i = 0; i < way.getNodes().size(); i++) { 
-				Node nd = way.getNodes().get(i);
-				if (i == 0 || !nd.equals(firstNode)) {
-					undo.save(nd);
-					apiStorage.insertElementSafe(nd);
-					nd.setLat(nd.getLat() + deltaLatE7);
-					nd.setLon(nd.getLon() + deltaLonE7);
-					nd.updateState(OsmElement.STATE_MODIFIED);
-				}
+			HashSet<Node> nodes = new HashSet<Node>(way.getNodes()); // Guarantee uniqueness
+			for (Node nd:nodes) { 
+				undo.save(nd);
+				apiStorage.insertElementSafe(nd);
+				nd.setLat(nd.getLat() + deltaLatE7);
+				nd.setLon(nd.getLon() + deltaLonE7);
+				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -445,23 +443,20 @@ public class StorageDelegator implements Serializable, Exportable {
 		// Log.d("StorageDelegator","Roating " + angle + " around " + pivotY + " " + pivotX );
 		dirty = true;
 		try {
-			Node firstNode = way.getFirstNode();
-			for (int i = 0; i < way.getNodes().size(); i++) { 
-				Node nd = way.getNodes().get(i);
-				if (i == 0 || !nd.equals(firstNode)) {
-					undo.save(nd);
-					apiStorage.insertElementSafe(nd);
-	
-					float nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
-					float nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
-					float newX = pivotX + (nodeX-pivotX)*(float)Math.cos(angle) - direction * (nodeY-pivotY)*(float)Math.sin(angle);
-					float newY = pivotY + direction * (nodeX-pivotX)*(float)Math.sin(angle) + (nodeY-pivotY)*(float)Math.cos(angle);
-					int lat = GeoMath.yToLatE7(h, w, v, newY);
-					int lon = GeoMath.xToLonE7(w, v, newX);
-					nd.setLat(lat);
-					nd.setLon(lon);
-					nd.updateState(OsmElement.STATE_MODIFIED);
-				}
+			HashSet<Node> nodes = new HashSet<Node>(way.getNodes()); // Guarantee uniqness
+			for (Node nd:nodes) { 
+				undo.save(nd);		
+				apiStorage.insertElementSafe(nd);
+
+				float nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
+				float nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
+				float newX = pivotX + (nodeX-pivotX)*(float)Math.cos(angle) - direction * (nodeY-pivotY)*(float)Math.sin(angle);
+				float newY = pivotY + direction * (nodeX-pivotX)*(float)Math.sin(angle) + (nodeY-pivotY)*(float)Math.cos(angle);
+				int lat = GeoMath.yToLatE7(h, w, v, newY);
+				int lon = GeoMath.xToLonE7(w, v, newX);
+				nd.setLat(lat);
+				nd.setLon(lon);
+				nd.updateState(OsmElement.STATE_MODIFIED);
 			}
 		} catch (StorageException e) {
 			//TODO handle OOM
