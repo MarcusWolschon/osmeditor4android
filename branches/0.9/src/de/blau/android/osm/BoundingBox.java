@@ -87,7 +87,7 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Maximum latitude ({@link GeoMath#MAX_LAT}) in 1E7.
 	 */
-	public static final int MAX_LAT = (int) (GeoMath.MAX_LAT * 1E7);
+	public static final int MAX_LAT_E7 = (int) (GeoMath.MAX_LAT * 1E7);
 
 	/**
 	 * Maximum Longitude.
@@ -131,7 +131,7 @@ public class BoundingBox implements Serializable {
 	 * @param right degree of the right Border, multiplied by 1E7
 	 * @param top degree of the top Border, multiplied by 1E7
 	 * @throws OsmException when the borders are mixed up or outside of
-	 * {@link #MAX_LAT}/{@link #MAX_LON} (!{@link #isValid()})
+	 * {@link #MAX_LAT_E7}/{@link #MAX_LON} (!{@link #isValid()})
 	 */
 	public BoundingBox(final int left, final int bottom, final int right, final int top) throws OsmException {
 		this.left = left;
@@ -213,8 +213,8 @@ public class BoundingBox implements Serializable {
 	 * @return true if left is less than right and bottom is less than top.
 	 */
 	public boolean isValid() {
-		return (left < right) && (bottom < top) && (left >= -MAX_LON) && (right <= MAX_LON) && (top <= MAX_LAT)
-				&& (bottom >= -MAX_LAT);
+		return (left < right) && (bottom < top) && (left >= -MAX_LON) && (right <= MAX_LON) && (top <= MAX_LAT_E7)
+				&& (bottom >= -MAX_LAT_E7);
 	}
 
 	/**
@@ -413,10 +413,10 @@ public class BoundingBox implements Serializable {
 				// 
 				if ((centerY + currentHeight2) > GeoMath.MAX_MLAT_E7) { 
 					mTop = GeoMath.MAX_MLAT_E7;
-					mBottom = GeoMath.MAX_MLAT_E7 - 2*currentHeight2;
+					mBottom = Math.max(-GeoMath.MAX_MLAT_E7, GeoMath.MAX_MLAT_E7 - 2*currentHeight2);
 				} else if ((centerY - currentHeight2) < -GeoMath.MAX_MLAT_E7) {
 					mBottom = -GeoMath.MAX_MLAT_E7;
-					mTop = -GeoMath.MAX_MLAT_E7 + 2*currentHeight2;
+					mTop = Math.min(GeoMath.MAX_MLAT_E7, -GeoMath.MAX_MLAT_E7 + 2*currentHeight2);
 				} else {
 					mTop = centerY + currentHeight2;
 					mBottom = centerY - currentHeight2;
@@ -488,15 +488,15 @@ public class BoundingBox implements Serializable {
 	 * @param lat the relative latitude change.
 	 */
 	public void translate(int lon, int lat) throws OsmException {
-		if (right + lon > MAX_LON) {
+		if ((long)right + (long)lon > (long)MAX_LON) {
 			lon = MAX_LON - right;
-		} else if (left + lon < -MAX_LON) {
+		} else if ((long)left + (long)lon < (long)-MAX_LON) {
 			lon = -MAX_LON - left;
 		} 
-		if (top + lat > MAX_LAT) {
-			lat = MAX_LAT - top;
-		} else if (bottom + lat < -MAX_LAT) {
-			lat = -MAX_LAT - bottom;
+		if (top + lat > MAX_LAT_E7) {
+			lat = MAX_LAT_E7 - top;
+		} else if (bottom + lat < -MAX_LAT_E7) {
+			lat = -MAX_LAT_E7 - bottom;
 		}
 		left += lon;
 		right += lon;
@@ -520,7 +520,10 @@ public class BoundingBox implements Serializable {
 	 * @return The largest allowable zoom-out factor.
 	 */
 	private float zoomOutLimit() {
-		return -Math.min((MAX_ZOOM_WIDTH - width) / 2f / width, ((2*MAX_LAT-1) - height) / 2f /height);
+		long mTop = GeoMath.latE7ToMercatorE7(top);
+		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
+		long mHeight = mTop - mBottom; 
+		return -Math.min((MAX_ZOOM_WIDTH - width) / 2f / width, ((2l*(long)GeoMath.MAX_MLAT_E7) - mHeight) / 2f /mHeight);
 	}
 	
 	/**
@@ -536,7 +539,8 @@ public class BoundingBox implements Serializable {
 	 * @return true if the box can be zoomed out, false if it can't.
 	 */
 	public boolean canZoomOut() {
-		return (ZOOM_OUT > zoomOutLimit());
+		// return (ZOOM_OUT > zoomOutLimit());
+		return zoomOutLimit() < -3.1E-9; // determined experimental
 	}
 	
 	/**
@@ -574,18 +578,51 @@ public class BoundingBox implements Serializable {
 		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
 		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
 	
-		int mTop = GeoMath.latE7ToMercatorE7(top);
-		int mBottom = GeoMath.latE7ToMercatorE7(bottom);
-		int mHeight = mTop - mBottom;
+		long mTop = GeoMath.latE7ToMercatorE7(top);
+		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
+		long mHeight = mTop - mBottom;
 		
 		float horizontalChange = width * zoomFactor;
 		float verticalChange = mHeight * zoomFactor;
 		// 
-		left = Math.max(-MAX_LON, left + (int)horizontalChange);
-		right = Math.min(MAX_LON, right - (int)horizontalChange);
-		bottom = Math.max(-MAX_LAT, GeoMath.mercatorE7ToLatE7(mBottom + (int)verticalChange));
-		top = Math.min(MAX_LAT, GeoMath.mercatorE7ToLatE7(mTop - (int)verticalChange));
+		if (left + (int)horizontalChange < -MAX_LON) {
+			int rest = left + (int)horizontalChange + (int)MAX_LON;
+			left = -MAX_LON;
+			right = right - rest;
+		} else {
+			left = left + (int)horizontalChange;
+		}
+		if (right - (int)horizontalChange > MAX_LON) {
+			int rest = right - (int)horizontalChange - MAX_LON;
+			right = MAX_LON;
+			left = Math.max(-MAX_LON,left + rest);
+		} else {
+			right = right - (int)horizontalChange;
+		}
+		// left = Math.max(-MAX_LON, left + (int)horizontalChange);
+		// right = Math.min(MAX_LON, right - (int)horizontalChange);
+		
+		if ((mBottom + (long)verticalChange) < -GeoMath.MAX_MLAT_E7) {
+			long rest = mBottom + (long)verticalChange + (long)GeoMath.MAX_MLAT_E7;
+			mBottom = - GeoMath.MAX_MLAT_E7;
+			mTop = mTop - rest;	
+		} else {
+			mBottom = mBottom + (long)verticalChange;
+		}
+		if ((mTop - (long)verticalChange) > GeoMath.MAX_MLAT_E7) {
+			long rest = mTop - (long)verticalChange - (long)GeoMath.MAX_MLAT_E7;
+			mTop = GeoMath.MAX_MLAT_E7;
+			mBottom = Math.max(-GeoMath.MAX_MLAT_E7,mBottom - rest);	
+		} else {
+			mTop = mTop - (long)verticalChange;
+		}
+		bottom = GeoMath.mercatorE7ToLatE7((int)mBottom);
+		top = GeoMath.mercatorE7ToLatE7((int)mTop);
+		// bottom = Math.max(-MAX_LAT_E7, GeoMath.mercatorE7ToLatE7((int)(mBottom + (long)verticalChange)));
+		// top = Math.min(MAX_LAT_E7, GeoMath.mercatorE7ToLatE7((int)(mTop - (long)verticalChange)));
 
+		// setRatio(ratio, true);
+		
 		calcDimensions(); // need to do this or else centering will not work
 		calcMercatorFactorPow3();
 	}

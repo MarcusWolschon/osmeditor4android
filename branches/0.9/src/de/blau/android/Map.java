@@ -19,6 +19,7 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
 import android.os.Build;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -116,6 +117,9 @@ public class Map extends View implements IMapView {
 	
 	/** Caches the preset during one onDraw pass */
 	private Preset[] tmpPresets;
+	
+	/** Temp Rect during onDraw */
+	private Rect tmpRect = new Rect();
 	
 	/** Caches the Paint used for node tolerance */
 	Paint nodeTolerancePaint;
@@ -231,8 +235,9 @@ public class Map extends View implements IMapView {
 	protected void onDraw(final Canvas canvas) {
 		super.onDraw(canvas);
 		long time = System.currentTimeMillis();
-
-		zoomLevel = calcZoomLevel(canvas.getClipBounds());
+		
+		canvas.getClipBounds(tmpRect);
+		zoomLevel = calcZoomLevel(tmpRect);
 
 		tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		tmpDrawingEditMode = Main.logic.getMode();
@@ -960,6 +965,11 @@ public class Map extends View implements IMapView {
 		return zoomLevel;
 	}
 	
+	/**
+	 * This calculates the best tile zoom level to use (not the actual zoom level of the map!)
+	 * @param viewPort
+	 * @return the tile zoom level
+	 */
 	public int calcZoomLevel(final Rect viewPort) {
 		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		if (!s.isMetadataLoaded()) // protection on startup
@@ -983,12 +993,10 @@ public class Map extends View implements IMapView {
 		final double xZoom = Math.log(xTiles) / Math.log(2d);
 		final double yZoom = Math.log(yTiles) / Math.log(2d);
 		
+		// Log.d("Map","xzoom " + xZoom + " yzoom " + yZoom);
 		// Zoom out to the next integer step
-		int zoom = (int)Math.floor(Math.min(xZoom, yZoom));
+		int zoom = (int)Math.floor(Math.max(0, Math.min(xZoom, yZoom)));
 		
-		// Sanity check result
-		zoom = Math.max(zoom, s.getMinZoomLevel());
-		zoom = Math.min(zoom, s.getMaxZoomLevel());	
 		return zoom;
 	}
 

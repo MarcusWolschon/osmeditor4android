@@ -223,6 +223,7 @@ public class OpenStreetMapTileServer {
 	private static HashMap<String,OpenStreetMapTileServer> backgroundServerList =new HashMap<String,OpenStreetMapTileServer>();
 	private static HashMap<String,OpenStreetMapTileServer> overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
 	private static boolean ready = false;
+
 	
 	// ===========================================================
 	// Constructors
@@ -307,20 +308,20 @@ public class OpenStreetMapTileServer {
 						} catch (IOException e) {
 							// if the provider can't be parsed, we can't do
 							// much about it
-							Log.e("Vespucci", "ImageryProvider problem", e);
+							Log.e("OpenStreetMapTileServer", "ImageryProvider problem", e);
 						} catch (XmlPullParserException e) {
 							// if the provider can't be parsed, we can't do
 							// much about it
-							Log.e("Vespucci", "ImageryProvider problem", e);
+							Log.e("OpenStreetMapTileServer", "ImageryProvider problem", e);
 						}
 					}
 				}
 			}
 			metadataLoaded = true;
 		} catch (IOException e) {
-			Log.e("Vespucci", "Tileserver problem", e);
+			Log.e("OpenStreetMapTileServer", "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
 		} catch (XmlPullParserException e) {
-			Log.e("Vespucci", "Tileserver problem", e);
+			Log.e("OpenStreetMapTileServer", "Tileserver problem (XmlPullParserException) metadata URL " + metadataUrl, e);
 		}
 	}
 	
@@ -366,7 +367,10 @@ public class OpenStreetMapTileServer {
 		// 
 		this.id = this.id.toUpperCase();
 
-		if (type.equals("bing")) { // hopelessly hardcoded
+		//TODO think of a elegant way to do this
+		if (type.equals("bing")) { // hopelessly hardwired
+			if (backgroundServerList.containsKey(this.id))
+				return; // awful hack to avoid calling loadInfo more than once in this process 
 			Log.d("OpenStreetMapTileServer","bing url " + tileUrl);
 			metadataLoaded = false;
 
@@ -381,7 +385,7 @@ public class OpenStreetMapTileServer {
 			} else 
 				loadInfo(tileUrl);
 			return;
-		} else if (type.equals("scanex")) { // hopelessly hardcoded
+		} else if (type.equals("scanex")) { // hopelessly hardwired
 			tileUrl = "http://irs.gis-lab.info/?layers="+tileUrl.toLowerCase()+"&request=GetTile&z={zoom}&x={x}&y={y}";
 			imageFilenameExtension = ".jpg";
 			return;
@@ -432,9 +436,8 @@ public class OpenStreetMapTileServer {
 		
 		synchronized (backgroundServerList) {
 			if (!ready) {
-	//			backgroundServerList = new HashMap<String,OpenStreetMapTileServer>();
-	//			overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
-				
+				Log.d("OpenStreetMapTileServer","Parsing configuration files");
+
 				AssetManager assetManager = ctx.getAssets();
 				
 				String[] imageryFiles = {"imagery_vespucci.json","imagery.json"}; // entries in earlier files will not be overwritten by later ones
@@ -449,13 +452,12 @@ public class OpenStreetMapTileServer {
 								while (reader.hasNext()) {
 									OpenStreetMapTileServer osmts = readServer(reader, r, async);
 									if (osmts != null) {
-										// Log.d("OpenStreetMapTileServer","Adding overlay=" + osmts.overlay + " " + osmts.toString());
 										if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
-											// Log.d("OpenStreetMapTileServer","overlay done");
+											// Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
 											overlayServerList.put(osmts.id,osmts);
 										}
 										else if (!backgroundServerList.containsKey(osmts.id)){
-											// Log.d("OpenStreetMapTileServer","background done");
+											// Log.d("OpenStreetMapTileServer","Adding background " + osmts.overlay + " " + osmts.toString());
 											backgroundServerList.put(osmts.id,osmts);
 										}
 									}
@@ -490,7 +492,7 @@ public class OpenStreetMapTileServer {
 			if (overlay) {
 				if (cachedOverlay == null || !cachedOverlay.id.equals(id)) {
 					cachedOverlay = overlayServerList.get(id);
-					if (cachedOverlay == null)
+					if (cachedOverlay == null || !cachedOverlay.metadataLoaded)
 						cachedOverlay = overlayServerList.get("NONE");
 					Log.d("OpenStreetMapTileServer", "cachedOverlay " + (cachedOverlay == null?"null":cachedOverlay.id));
 				}
@@ -498,9 +500,9 @@ public class OpenStreetMapTileServer {
 			} else { 
 				if (cachedBackground == null || !cachedBackground.id.equals(id)) {
 					cachedBackground = backgroundServerList.get(id);
-					if (cachedBackground == null)
+					if (cachedBackground == null || !cachedBackground.metadataLoaded)
 						cachedBackground = backgroundServerList.get("MAPNIK");
-						// Log.d("OpenStreetMapTileServer", "cached " + (cachedBackground == null?"null":cachedBackground.id));
+					Log.d("OpenStreetMapTileServer", "requested id " + id + " cached " + (cachedBackground == null?"null":cachedBackground.id));
 				}
 				return cachedBackground;
 			}

@@ -46,7 +46,8 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	/**
 	 * place holder if tile not available
 	 */
-	protected final Bitmap mLoadingMapTile;
+	//protected final Bitmap mLoadingMapTile;
+	protected final Bitmap mNoTilesTile;
 
 	protected Context mCtx;
 	/**
@@ -65,8 +66,8 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	public OpenStreetMapTileProvider(final Context ctx,
 			final Handler aDownloadFinishedListener) {
 		mCtx = ctx;
-		mLoadingMapTile = BitmapFactory.decodeResource(ctx.getResources(),
-				R.drawable.maptile_loading);
+		mNoTilesTile = BitmapFactory.decodeResource(ctx.getResources(),
+				R.drawable.no_tiles);
 		mTileCache = new OpenStreetMapTileCache();
 		
 		if(!ctx.bindService(new Intent(IOpenStreetMapTileProviderService.class.getName()), this, Context.BIND_AUTO_CREATE)) {
@@ -177,15 +178,14 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	private IOpenStreetMapTileProviderCallback mServiceCallback = new IOpenStreetMapTileProviderCallback.Stub() {
 		
 		//@Override
-		@Override
 		public void mapTileLoaded(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final byte[] data) throws RemoteException {
 			BitmapFactory.Options options = new BitmapFactory.Options();
 	        options.inPreferredConfig =  Bitmap.Config.RGB_565;
 	        
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
-			long start = System.currentTimeMillis();
+			//long start = System.currentTimeMillis();
 			Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-			long duration = System.currentTimeMillis() - start;
+			// long duration = System.currentTimeMillis() - start;
 			if (aTile == null) {
 				throw new RemoteException("decodeByteArray returned null");
 			}
@@ -198,14 +198,14 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		}
 		
 		//@Override
-		@Override
 		public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY) throws RemoteException {
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
+			mTileCache.putTile(t, mNoTilesTile, false);
 			pending.remove(t.toString());
-			if (DEBUGMODE) {
-				Log.e(DEBUGTAG, "MapTile download error.");
-			}
-			//mTileService.getMapTile(rendererID, zoomLevel, tileX, tileY, this);
+			//if (DEBUGMODE) {
+				Log.e(DEBUGTAG, "MapTile download error " + t.toString());
+			//}
+			mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
 		}
 	};
 

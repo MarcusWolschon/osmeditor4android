@@ -23,7 +23,6 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.blau.android.util.StringPool;
 
 
 /**

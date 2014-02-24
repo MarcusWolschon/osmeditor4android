@@ -52,21 +52,17 @@ public class OpenStreetMapTileProviderService extends Service {
 	 */
 	private final IOpenStreetMapTileProviderService.Stub mBinder = new IOpenStreetMapTileProviderService.Stub() {
 		//@Override
-		@Override
 		public String[] getTileProviders() throws RemoteException {
 			return OpenStreetMapTileServer.getIds(false);
 		}
 		//@Override
-		@Override
 		public void getMapTile(String rendererID, int zoomLevel, int tileX,
 				int tileY, IOpenStreetMapTileProviderCallback callback)
 				throws RemoteException {
-
 			OpenStreetMapTile tile = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
 			mFileSystemProvider.loadMapTileAsync(tile, callback);
 		}
 		
-		@Override
 		public void flushCache(String rendererId) {
 			mFileSystemProvider.flushCache(rendererId);
 		}

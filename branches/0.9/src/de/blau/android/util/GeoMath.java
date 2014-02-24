@@ -173,12 +173,12 @@ public class GeoMath {
 			right = BoundingBox.MAX_LON;
 			left = right - horizontalRadiusDegree * 2d;
 		}
-		if (bottom < -BoundingBox.MAX_LAT) {
-			bottom = -BoundingBox.MAX_LAT;
+		if (bottom < -BoundingBox.MAX_LAT_E7) {
+			bottom = -BoundingBox.MAX_LAT_E7;
 			top = bottom + verticalRadiusDegree * 2d;
 		}
-		if (top > BoundingBox.MAX_LAT) {
-			top = BoundingBox.MAX_LAT;
+		if (top > BoundingBox.MAX_LAT_E7) {
+			top = BoundingBox.MAX_LAT_E7;
 			bottom = top - verticalRadiusDegree * 2d;
 		}
 		return new BoundingBox(left, bottom, right, top);

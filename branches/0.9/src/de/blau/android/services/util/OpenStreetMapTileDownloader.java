@@ -73,7 +73,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 
 	private String buildURL(final OpenStreetMapTile tile) {
 		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, tile.rendererID, false);
-		// Log.d("OpenStreetMapTileDownloader"," " + renderer.getTileURLString(tile));
+		// Log.d("OpenStreetMapTileDownloader","metadata loaded "+ renderer.isMetadataLoaded() + " " + renderer.getTileURLString(tile));
 		return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
 	}
 
@@ -118,13 +118,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 					if (data.length == 0) {
 						throw new IOException("no tile data");
 					}
-//					BitmapFactory.Options options = new BitmapFactory.Options();
-//			        options.inPreferredConfig =  Bitmap.Config.RGB_565;
-//			        
-//					Bitmap b = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-//					if (b == null) {
-//						throw new IOException("decodeByteArray returned null");
-//					}
+					
 					OpenStreetMapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
 					if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 						Log.d(DEBUGTAG, "Maptile saved to: " + tileURLString);
@@ -135,7 +129,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 				try {
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
 				} catch (RemoteException re) {
-					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName(), ioe);
+					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + re, ioe);
 				}
 				if (!(ioe instanceof FileNotFoundException)) {
 					// FileNotFound is an expected exception, any other IOException should be logged 

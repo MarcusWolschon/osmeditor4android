@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.blau.android.util;
+package de.blau.android.util.jsonreader;
 
 /**
  * A pool of string instances. Unlike the {@link String#intern() VM&#39;s

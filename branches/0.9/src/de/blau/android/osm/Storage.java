@@ -29,8 +29,8 @@ public class Storage implements Serializable {
 		try {
 			bboxes = new ArrayList<BoundingBox>();
 			// a default entry may not make sense
-			bboxes.add(new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT, BoundingBox.MAX_LON,
-					BoundingBox.MAX_LAT));
+			bboxes.add(new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON,
+					BoundingBox.MAX_LAT_E7));
 		} catch (OsmException e) {
 			Log.e("Vespucci", "Problem with bounding box", e);
 		}
