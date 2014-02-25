@@ -17,6 +17,9 @@ import de.blau.android.services.IOpenStreetMapTileProviderCallback;
  */
 public abstract class OpenStreetMapAsyncTileProvider {
 
+	public static final int IOERR = 1;
+	public static final int DOESNOTEXIST = 2;
+	
 	protected ExecutorService mThreadPool;
 	private final HashSet<String> mPending = new HashSet<String>();
 	

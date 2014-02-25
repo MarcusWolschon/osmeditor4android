@@ -181,10 +181,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		//some performance.
 		final Rect viewPort = c.getClipBounds();
 		final int zoomLevel = osmv.getZoomLevel(viewPort);
-		if (zoomLevel < myRendererInfo.getMinZoomLevel()) {
-			Log.d("OpenStreetMapTilesOverlay","Tiles for " + myRendererInfo.getId() + " are not available for zoom " + zoomLevel);
-			return;
-		}
+//		if (zoomLevel < myRendererInfo.getMinZoomLevel()) {
+//			Log.d("OpenStreetMapTilesOverlay","Tiles for " + myRendererInfo.getId() + " are not available for zoom " + zoomLevel);
+//			return;
+//		}
 		final double lonOffset = myRendererInfo.getLonOffset();
 		final double latOffset = myRendererInfo.getLatOffset();
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile

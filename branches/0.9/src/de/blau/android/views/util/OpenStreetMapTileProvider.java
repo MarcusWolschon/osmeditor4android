@@ -16,6 +16,7 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.services.IOpenStreetMapTileProviderService;
+import de.blau.android.services.util.OpenStreetMapAsyncTileProvider;
 import de.blau.android.services.util.OpenStreetMapTile;
 
 /**
@@ -198,9 +199,10 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		}
 		
 		//@Override
-		public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY) throws RemoteException {
+		public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason) throws RemoteException {
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
-			mTileCache.putTile(t, mNoTilesTile, false);
+			if (reason == OpenStreetMapAsyncTileProvider.DOESNOTEXIST) // only show error tile if we have no chance of getting the proper one
+				mTileCache.putTile(t, mNoTilesTile, false);
 			pending.remove(t.toString());
 			//if (DEBUGMODE) {
 				Log.e(DEBUGTAG, "MapTile download error " + t.toString());

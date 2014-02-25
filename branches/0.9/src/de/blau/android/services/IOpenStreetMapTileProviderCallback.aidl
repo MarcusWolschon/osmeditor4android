@@ -22,6 +22,6 @@ interface IOpenStreetMapTileProviderCallback {
 
 	void mapTileLoaded(in String rendererID, in int zoomLevel, in int tileX, in int tileY, in byte[] aImage);
 
-	void mapTileFailed(in String rendererID, in int zoomLevel, in int tileX, in int tileY);
+	void mapTileFailed(in String rendererID, in int zoomLevel, in int tileX, in int tileY, in int reason);
 
 }

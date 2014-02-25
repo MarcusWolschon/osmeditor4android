@@ -205,6 +205,11 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 			}
 			InputStream in = null;
 			try {
+				OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, mTile.rendererID, false);
+				if (mTile.zoomLevel < renderer.getMinZoomLevel()) { // the tile doesn't exist no point in trying to get it
+					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
+					return;
+				}
 				String path = buildPath(mTile);
 				if (path == null) {
 					throw new FileNotFoundException("null tile path");
@@ -222,7 +227,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				mTileDownloader.loadMapTileAsync(mTile, mCallback);
 			} catch (IOException e) {
 				try {
-					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
+					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, IOERR);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
