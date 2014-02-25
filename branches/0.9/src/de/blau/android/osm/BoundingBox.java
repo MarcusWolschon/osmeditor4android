@@ -403,12 +403,13 @@ public class BoundingBox implements Serializable {
 				// Apply the new aspect ratio, but preserve the level of zoom
 				// so that for example, rotating portrait<-->landscape won't
 				// zoom out
-				int centerX = (left / 2 + right / 2); // divide first to stay < 2^32
+				long centerX = (left / 2 + right / 2); // divide first to stay < 2^32
 				long centerY = (mTop + mBottom) / 2;
-				int currentWidth2 = Math.abs(right - left) / 2;
+				long currentWidth2 = Math.abs((long)right - (long)left) / 2;
 				
-				left = centerX - currentWidth2;
-				right = centerX + currentWidth2;
+				left = (int) (centerX - currentWidth2);
+				right = (int) (centerX + currentWidth2);
+				
 				int currentHeight2 = (int)(currentWidth2 / ratio);
 				// 
 				if ((centerY + currentHeight2) > GeoMath.MAX_MLAT_E7) { 
@@ -582,39 +583,43 @@ public class BoundingBox implements Serializable {
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom;
 		
-		float horizontalChange = width * zoomFactor;
-		float verticalChange = mHeight * zoomFactor;
+		long horizontalChange = (long)(width * zoomFactor);
+		long verticalChange = (long)(mHeight * zoomFactor);
+		long tmpLeft=left; 
+		long tmpRight=right;
 		// 
-		if (left + (int)horizontalChange < -MAX_LON) {
-			int rest = left + (int)horizontalChange + (int)MAX_LON;
-			left = -MAX_LON;
-			right = right - rest;
+		if (tmpLeft + horizontalChange < (long)-MAX_LON) {
+			long rest = left + horizontalChange + (long)MAX_LON;
+			tmpLeft = -MAX_LON;
+			tmpRight = tmpRight - rest;
 		} else {
-			left = left + (int)horizontalChange;
+			tmpLeft = tmpLeft + horizontalChange;
 		}
-		if (right - (int)horizontalChange > MAX_LON) {
-			int rest = right - (int)horizontalChange - MAX_LON;
-			right = MAX_LON;
-			left = Math.max(-MAX_LON,left + rest);
+		if (tmpRight - horizontalChange > (long)MAX_LON) {
+			long rest = tmpRight - horizontalChange - (long)MAX_LON;
+			tmpRight = MAX_LON;
+			tmpLeft = Math.max((long)-MAX_LON,tmpLeft + rest);
 		} else {
-			right = right - (int)horizontalChange;
+			tmpRight = tmpRight - horizontalChange;
 		}
+		left = (int)tmpLeft;
+		right = (int)tmpRight;
 		// left = Math.max(-MAX_LON, left + (int)horizontalChange);
 		// right = Math.min(MAX_LON, right - (int)horizontalChange);
 		
-		if ((mBottom + (long)verticalChange) < -GeoMath.MAX_MLAT_E7) {
+		if ((mBottom + verticalChange) < -GeoMath.MAX_MLAT_E7) {
 			long rest = mBottom + (long)verticalChange + (long)GeoMath.MAX_MLAT_E7;
 			mBottom = - GeoMath.MAX_MLAT_E7;
 			mTop = mTop - rest;	
 		} else {
-			mBottom = mBottom + (long)verticalChange;
+			mBottom = mBottom + verticalChange;
 		}
-		if ((mTop - (long)verticalChange) > GeoMath.MAX_MLAT_E7) {
-			long rest = mTop - (long)verticalChange - (long)GeoMath.MAX_MLAT_E7;
+		if ((mTop - verticalChange) > (long)GeoMath.MAX_MLAT_E7) {
+			long rest = mTop - verticalChange - (long)GeoMath.MAX_MLAT_E7;
 			mTop = GeoMath.MAX_MLAT_E7;
 			mBottom = Math.max(-GeoMath.MAX_MLAT_E7,mBottom - rest);	
 		} else {
-			mTop = mTop - (long)verticalChange;
+			mTop = mTop - verticalChange;
 		}
 		bottom = GeoMath.mercatorE7ToLatE7((int)mBottom);
 		top = GeoMath.mercatorE7ToLatE7((int)mTop);

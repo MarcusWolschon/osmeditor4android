@@ -996,6 +996,7 @@ public class Map extends View implements IMapView {
 		// Log.d("Map","xzoom " + xZoom + " yzoom " + yZoom);
 		// Zoom out to the next integer step
 		int zoom = (int)Math.floor(Math.max(0, Math.min(xZoom, yZoom)));
+		zoom = Math.min(zoom, s.getMaxZoomLevel());	
 		
 		return zoom;
 	}
