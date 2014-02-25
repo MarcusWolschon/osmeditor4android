@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.Serializable;
 
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
 
@@ -398,32 +399,61 @@ public class BoundingBox implements Serializable {
 		long mTop = GeoMath.latE7ToMercatorE7(top); // note long or else we get an int overflow on calculating the center
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom;
+		
+		//Log.d("BoundingBox","current ratio " + this.ratio + " new ratio " + ratio);
 		if ((ratio > 0) && !Float.isNaN(ratio)) {
 			if (preserveZoom) {
 				// Apply the new aspect ratio, but preserve the level of zoom
 				// so that for example, rotating portrait<-->landscape won't
 				// zoom out
-				long centerX = (left / 2 + right / 2); // divide first to stay < 2^32
-				long centerY = (mTop + mBottom) / 2;
-				long currentWidth2 = Math.abs((long)right - (long)left) / 2;
+				long centerX = (left / 2 + right / 2L); // divide first to stay < 2^32
+				long centerY = (mTop + mBottom) / 2L;
 				
-				left = (int) (centerX - currentWidth2);
-				right = (int) (centerX + currentWidth2);
-				
-				int currentHeight2 = (int)(currentWidth2 / ratio);
-				// 
-				if ((centerY + currentHeight2) > GeoMath.MAX_MLAT_E7) { 
-					mTop = GeoMath.MAX_MLAT_E7;
-					mBottom = Math.max(-GeoMath.MAX_MLAT_E7, GeoMath.MAX_MLAT_E7 - 2*currentHeight2);
-				} else if ((centerY - currentHeight2) < -GeoMath.MAX_MLAT_E7) {
-					mBottom = -GeoMath.MAX_MLAT_E7;
-					mTop = Math.min(GeoMath.MAX_MLAT_E7, -GeoMath.MAX_MLAT_E7 + 2*currentHeight2);
-				} else {
-					mTop = centerY + currentHeight2;
-					mBottom = centerY - currentHeight2;
+				long newHeight2 = 0;
+				long newWidth2 = 0;
+				if (ratio < 1.0) { // portrait
+					if (width < mHeight) { 
+						newHeight2 = (long)((width / 2L) / ratio);
+						newWidth2 = (long)(width / 2L);
+					} else { // switch landscape --> portrait
+						float pixelDeg = (float)Application.mainActivity.getMap().getHeight()/(float)width; // height was the old width
+						newWidth2 = (long)(Application.mainActivity.getMap().getWidth() / pixelDeg)/2L;
+						newHeight2 = (long)(newWidth2 / ratio );
+					}
+				} else { // landscape
+					if (width < mHeight) { // switch portrait -> landscape
+						float pixelDeg = (float)Application.mainActivity.getMap().getHeight()/(float)width; // height was the old width
+						newWidth2 = (long)(Application.mainActivity.getMap().getWidth() / pixelDeg)/2L;
+						newHeight2 = (long)(newWidth2 / ratio );
+					} else {
+						newHeight2 =(long)((width / 2L) / ratio);
+						newWidth2 = (long)(width / 2L);
+					}
 				}
-			}
-			else {
+				
+				if (centerX + newWidth2 > MAX_LON) {
+					right = MAX_LON;
+					left = (int) Math.max(-MAX_LON, MAX_LON - 2*newWidth2);
+				} else if (centerX - newWidth2 < -MAX_LON) {
+					left = -MAX_LON;
+					right = (int) Math.min(MAX_LON, centerX + 2*newWidth2);
+				} else {
+					left = (int) (centerX - newWidth2);
+					right = (int) (centerX + newWidth2);
+				}
+				
+				// 
+				if ((centerY + newHeight2) > GeoMath.MAX_MLAT_E7) { 
+					mTop = GeoMath.MAX_MLAT_E7;
+					mBottom = Math.max(-GeoMath.MAX_MLAT_E7, GeoMath.MAX_MLAT_E7 - 2*newHeight2);
+				} else if ((centerY - newHeight2) < -GeoMath.MAX_MLAT_E7) {
+					mBottom = -GeoMath.MAX_MLAT_E7;
+					mTop = Math.min(GeoMath.MAX_MLAT_E7, -GeoMath.MAX_MLAT_E7 + 2*newHeight2);
+				} else {
+					mTop = centerY + newHeight2;
+					mBottom = centerY - newHeight2;
+				}
+			} else {
 				int singleBorderMovement;
 				// Ensure currently visible area is entirely visible in the new box
 				if ((width / (mHeight)) < ratio) {
@@ -576,6 +606,7 @@ public class BoundingBox implements Serializable {
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
 	public void zoom(float zoomFactor) throws OsmException {
+		Log.d("BoundingBox","zoom " + this.toString());
 		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
 		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
 	
@@ -630,18 +661,6 @@ public class BoundingBox implements Serializable {
 		
 		calcDimensions(); // need to do this or else centering will not work
 		calcMercatorFactorPow3();
-	}
-
-	/**
-	 * Translation needed to set the middle back in the middle when we've got
-	 * a mercator-factor.
-	 * 
-	 * @return the translation value for center-correction.
-	 */
-	private int getZoomingTranslation(final float zoomfactor) {
-		double halfHeight = height / 2.0;
-		double mercatorDiff = mercatorFactorPow3 * halfHeight - halfHeight;
-		return (int) -(mercatorDiff * zoomfactor);
 	}
 
 	/**

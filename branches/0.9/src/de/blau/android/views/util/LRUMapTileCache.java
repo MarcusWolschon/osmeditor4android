@@ -2,7 +2,6 @@
 package de.blau.android.views.util;
 
 import java.io.Serializable;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.LinkedList;
 
