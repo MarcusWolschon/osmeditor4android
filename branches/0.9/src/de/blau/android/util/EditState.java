@@ -11,6 +11,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.views.util.OpenStreetMapTileServer;
+import de.blau.android.util.Offset;
 
 /**
  * Save the edit state accros pause / resume cycles
@@ -18,15 +19,15 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 5L;
 	Mode savedMode;
 	Node savedNode;
 	Way	savedWay;
 	Relation savedRelation;
 	Bug	savedBug;
 	String savedTileServerID;
-	double savedLonOffset;
-	double savedLatOffset;
+	Offset[] savedOffsets;
+	
 	
 	public EditState(Mode mode, Node selectedNode, Way selectedWay,
 			Relation selectedRelation, Bug selectedBug, OpenStreetMapTileServer osmts) {
@@ -36,8 +37,7 @@ public class EditState implements Serializable {
 		savedRelation = selectedRelation;
 		savedBug = selectedBug;
 		savedTileServerID = osmts.getId();
-		savedLonOffset = osmts.getLonOffset();
-		savedLatOffset = osmts.getLatOffset();
+		savedOffsets = osmts.getOffsets();
 	}
 	
 	public void setSelected(Logic logic) {
@@ -56,8 +56,7 @@ public class EditState implements Serializable {
 		Log.d("EditState","setOffset saved id " + savedTileServerID + " current id " + osmts.getId());
 		if (osmts.getId().equals(savedTileServerID)) {
 			Log.d("EditState","restoring offset");
-			osmts.setLonOffset(savedLonOffset);
-			osmts.setLatOffset(savedLatOffset);
+			osmts.setOffsets(savedOffsets);
 		}
 	}
 }

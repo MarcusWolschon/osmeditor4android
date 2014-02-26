@@ -106,10 +106,10 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
-			final Rect viewPort = c.getClipBounds();
+			
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
-			final float radius = 1.0f + osmv.getZoomLevel(viewPort) / 2.0f;
+			final float radius = 1.0f + osmv.getZoomLevel() / 2.0f;
 			BoundingBox bb = osmv.getViewBox();
 			
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
@@ -125,8 +125,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			// draw all the bugs on the map as slightly transparent circles
 			for (Bug b : bugs) {
 				if (bb.isIn(b.getLat(), b.getLon())) {
-					float x = GeoMath.lonE7ToX(viewPort.width() , bb, b.getLon());
-					float y = GeoMath.latE7ToY(viewPort.height(), viewPort.width(), bb, b.getLat());
+					float x = GeoMath.lonE7ToX(c.getWidth() , bb, b.getLon());
+					float y = GeoMath.latE7ToY(c.getHeight(), c.getWidth(), bb, b.getLat());
 					c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
 				}
 			}

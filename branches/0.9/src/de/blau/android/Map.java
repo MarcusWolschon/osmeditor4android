@@ -14,7 +14,6 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
@@ -24,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
+import de.blau.android.Logic.Mode;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
@@ -40,6 +40,7 @@ import de.blau.android.resources.Profile;
 import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Offset;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
@@ -117,9 +118,6 @@ public class Map extends View implements IMapView {
 	
 	/** Caches the preset during one onDraw pass */
 	private Preset[] tmpPresets;
-	
-	/** Temp Rect during onDraw */
-	private Rect tmpRect = new Rect();
 	
 	/** Caches the Paint used for node tolerance */
 	Paint nodeTolerancePaint;
@@ -236,8 +234,7 @@ public class Map extends View implements IMapView {
 		super.onDraw(canvas);
 		long time = System.currentTimeMillis();
 		
-		canvas.getClipBounds(tmpRect);
-		zoomLevel = calcZoomLevel(tmpRect);
+		zoomLevel = calcZoomLevel(canvas);
 
 		tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		tmpDrawingEditMode = Main.logic.getMode();
@@ -259,12 +256,17 @@ public class Map extends View implements IMapView {
 		if (zoomLevel >12)
 			paintOsmData(canvas);
 		if (zoomLevel > 10) {
-			paintStorageBox(canvas, delegator.getBoundingBoxes());
+			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
+				paintStorageBox(canvas, delegator.getBoundingBoxes());
 			paintGpsTrack(canvas);
 		}
 		paintGpsPos(canvas);
 		if (tmpDrawingInEditRange)
 			paintCrosshairs(canvas);
+		
+		if (tmpDrawingEditMode == Mode.MODE_ALIGN_BACKGROUND) {
+			paintZoomAndOffset(canvas);
+		}
 		
 		time = System.currentTimeMillis() - time;
 		
@@ -445,6 +447,20 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
+	 * Paint the current tile zoom level and offset ... very ugly
+	 * @param canvas
+	 */
+	private void paintZoomAndOffset(final Canvas canvas) {
+		int pos = Application.mainActivity.getSupportActionBar().getHeight() + 5; 
+		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
+		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format("%.5f",o.lon) + "/" +  String.format("%.5f",o.lat) : "0.00000/0.00000");
+		Paint infotextPaint = Profile.getCurrent(Profile.INFOTEXT).getPaint();
+		infotextPaint.setFakeBoldText(true);
+		float textSize = infotextPaint.getTextSize();
+		canvas.drawText(text, 5, pos + textSize, infotextPaint);
+	}
+	
+	/**
 	 * Paints all OSM data on the given canvas.
 	 * 
 	 * @param canvas Canvas, where the data shall be painted on.
@@ -517,7 +533,7 @@ public class Map extends View implements IMapView {
 		if (viewBox.isIn(lat, lon)) {
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
-			
+
 			//draw tolerance box
 			if (	tmpDrawingInEditRange
 					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
@@ -633,7 +649,6 @@ public class Map extends View implements IMapView {
 	private void paintWay(final Canvas canvas, final Way way) {
 		float[] linePoints = pointListToLinePointsArray(way.getNodes());
 		Paint paint;
-		
 		//draw way tolerance
 		if (tmpDrawingInEditRange // if we are not in editing rage none of the further checks are necessary
 				&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(way))) // if prefs are turned off but we are doing an EasyEdit operation show anyway
@@ -961,7 +976,7 @@ public class Map extends View implements IMapView {
 	 * ${@inheritDoc}.
 	 */
 	@Override
-	public int getZoomLevel(final Rect viewPort) {
+	public int getZoomLevel() {
 		return zoomLevel;
 	}
 	
@@ -970,7 +985,7 @@ public class Map extends View implements IMapView {
 	 * @param viewPort
 	 * @return the tile zoom level
 	 */
-	public int calcZoomLevel(final Rect viewPort) {
+	public int calcZoomLevel(Canvas canvas) {
 		final OpenStreetMapTileServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
 		if (!s.isMetadataLoaded()) // protection on startup
 			return 0;
@@ -988,12 +1003,11 @@ public class Map extends View implements IMapView {
 		final double yTileTop    = (1d - Math.log(Math.tan(Math.toRadians(latTop   )) + 1d / Math.cos(Math.toRadians(latTop   ))) / Math.PI) / 2d;
 		
 		// Calculate the ideal zoom to fit into the view
-		final double xTiles = (viewPort.width()  / (xTileRight  - xTileLeft)) / s.getTileWidth();
-		final double yTiles = (viewPort.height() / (yTileBottom - yTileTop )) / s.getTileHeight();
+		final double xTiles = (canvas.getWidth()  / (xTileRight  - xTileLeft)) / s.getTileWidth();
+		final double yTiles = (canvas.getHeight() / (yTileBottom - yTileTop )) / s.getTileHeight();
 		final double xZoom = Math.log(xTiles) / Math.log(2d);
 		final double yZoom = Math.log(yTiles) / Math.log(2d);
 		
-		// Log.d("Map","xzoom " + xZoom + " yzoom " + yZoom);
 		// Zoom out to the next integer step
 		int zoom = (int)Math.floor(Math.max(0, Math.min(xZoom, yZoom)));
 		zoom = Math.min(zoom, s.getMaxZoomLevel());	

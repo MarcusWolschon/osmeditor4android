@@ -49,6 +49,7 @@ import de.blau.android.util.EditState;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.util.OpenStreetMapTileServer;
+import de.blau.android.util.Offset;
 
 /**
  * Contains several responsibilities of Logic-Work:
@@ -1044,10 +1045,14 @@ public class Logic {
 		int relativeLon = lon - viewBox.getLeft();
 		int relativeLat = lat - viewBox.getBottom();
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		double lonOffset = osmts.getLonOffset();
-		osmts.setLonOffset(lonOffset - relativeLon/1E7d);
-		double latOffset = osmts.getLatOffset();
-		osmts.setLatOffset(latOffset - relativeLat/1E7d);
+		double lonOffset = 0d;
+		double latOffset = 0d;
+		Offset o = osmts.getOffset(map.getZoomLevel());
+		if (o != null) {
+			lonOffset = o.lon;
+			latOffset = o.lat;
+		}
+		osmts.setOffset(map.getZoomLevel(),lonOffset - relativeLon/1E7d, latOffset - relativeLat/1E7d);
 	}
 
 	/**

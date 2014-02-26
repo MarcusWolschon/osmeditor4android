@@ -4,14 +4,18 @@ package  de.blau.android.views.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Queue;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -31,6 +35,7 @@ import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.util.Offset;
 import de.blau.android.util.jsonreader.JsonReader;
 
 /**
@@ -208,6 +213,7 @@ public class OpenStreetMapTileServer {
 	// ===========================================================
 	// Fields
 	// ===========================================================
+
 	
 	private boolean metadataLoaded;
 	private String id, name, tileUrl, imageFilenameExtension, touUri;
@@ -217,8 +223,7 @@ public class OpenStreetMapTileServer {
 	private Queue<String> subdomains = new LinkedList<String>();
 	private int defaultAlpha;
 	private Collection<Provider> providers = new ArrayList<Provider>();
-	private double offsetLon = 0; // offsets in WGS84 needed to align imagery ... 
-	private double offsetLat = 0;
+	private Offset[] offsets;
 	
 	private static HashMap<String,OpenStreetMapTileServer> backgroundServerList =new HashMap<String,OpenStreetMapTileServer>();
 	private static HashMap<String,OpenStreetMapTileServer> overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
@@ -351,6 +356,7 @@ public class OpenStreetMapTileServer {
 		this.zoomLevelMax = zoomLevelMax;
 		this.tileWidth = tileWidth; 
 		this.tileHeight = tileHeight;
+		this.offsets = new Offset[zoomLevelMax-zoomLevelMin+1];
 		if (provider != null)
 			providers.add(provider);
 		
@@ -739,34 +745,63 @@ public class OpenStreetMapTileServer {
 	
 	/**
 	 * Get the latE7 offset
-	 * @return offset in WGS84
+	 * @param zoomLevel TODO
+	 * @return offset in WGS84, null == no offset
 	 */
-	public double getLatOffset() {
-		return offsetLat;
-	}
-	
-	/**
-	 * Get the lonE7 offset
-	 * @return offset in WGS84
-	 */
-	public double getLonOffset() {
-		return offsetLon;
+	public Offset getOffset(int zoomLevel) {
+		if (zoomLevel < zoomLevelMin) {
+			return null;
+		}
+		if (zoomLevel > zoomLevelMax) {
+			return offsets[zoomLevelMax-zoomLevelMin];
+		}
+		return offsets[zoomLevel-zoomLevelMin];	
 	}
 	
 	/**
 	 * Set the lat offset
 	 * @param o in WGS84
 	 */
-	public void setLatOffset(double o) {
-		offsetLat = o;
+	public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
+		Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
+		if (zoomLevel < zoomLevelMin || zoomLevel > zoomLevelMax) {
+			return; // do nothing
+		}
+		if (offsets[zoomLevel-zoomLevelMin]==null)
+			offsets[zoomLevel-zoomLevelMin] = new Offset();
+		offsets[zoomLevel-zoomLevelMin].lon = offsetLon;
+		offsets[zoomLevel-zoomLevelMin].lat = offsetLat;
+	}
+		
+	/**
+	 * Set the offset for all zoom levels
+	 * @param o in WGS84
+	 */
+	public void setOffset(double offsetLon, double offsetLat) {
+		for (int i=0;i<offsets.length;i++) {
+			if (offsets[i] == null)
+				offsets[i] = new Offset();
+			offsets[i].lon = offsetLon;
+			offsets[i].lat = offsetLat;
+		}
 	}
 	
 	/**
-	 * Set the lon offset
+	 * Set the offset for a range of zoom levels
 	 * @param o in WGS84
 	 */
-	public void setLonOffset(double o) {
-		offsetLon = o;
+	public void setOffset(int startZoom, int endZoom, double offsetLon, double offsetLat) {
+		for (int z=startZoom;z<=endZoom;z++) {
+			setOffset(z, offsetLon, offsetLat);
+		}
+	}
+	
+	public Offset[] getOffsets() {
+		return offsets;
+	}
+	
+	public void setOffsets(Offset[] offsets) {
+		this.offsets = offsets;
 	}
 	
 	/**
@@ -993,6 +1028,68 @@ public class OpenStreetMapTileServer {
 		}
 		return quadKey.toString();
 	}
+	
+	/**
+	 * This is essentially the code in in the reference implementation see
+	 * https://trac.openstreetmap.org/browser/subversion/applications/editors/josm/plugins/imagery_offset_db/src/iodb/ImageryIdGenerator.java#L14
+	 * @return the id for a imagery offset database query
+	 */
+	public String getImageryOffsetId() {
+        if( tileUrl == null )
+  	            return null;
+  	
+        // predefined layers
+        if(id.equals("BING"))
+            return "bing";
+
+        if(tileUrl.contains("irs.gis-lab.info"))
+            return "scanex_irs";
+
+        // Remove protocol
+        int i = tileUrl.indexOf("://");
+        tileUrl = tileUrl.substring(i + 3);
+
+        // Split URL into address and query string
+        i = tileUrl.indexOf('?');
+        String query = "";
+        if( i > 0 ) {
+            query = tileUrl.substring(i);
+            tileUrl = tileUrl.substring(0, i);
+        }
+
+        TreeMap<String, String> qparams = new TreeMap<String, String>();
+        String[] qparamsStr = query.length() > 1 ? query.substring(1).split("&") : new String[0];
+        for( String param : qparamsStr ) {
+            String[] kv = param.split("=");
+            kv[0] = kv[0].toLowerCase();
+            // TMS: skip parameters with variable values
+            if( kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0 )
+                continue;
+            qparams.put(kv[0].toLowerCase(), kv.length > 1 ? kv[1] : null);
+        }
+
+        // Reconstruct query parameters
+        StringBuilder sb = new StringBuilder();
+        for( String qk : qparams.keySet() ) {
+            if( sb.length() > 0 )
+                sb.append('&');
+            else if( query.length() > 0 )
+                sb.append('?');
+            sb.append(qk).append('=').append(qparams.get(qk));
+        }
+        query = sb.toString();
+
+        // TMS: remove /{zoom} and /{y}.png parts
+        tileUrl = tileUrl.replaceAll("\\/\\{[^}]+\\}(?:\\.\\w+)?", "");
+        // TMS: remove variable parts
+        tileUrl = tileUrl.replaceAll("\\{[^}]+\\}", "");
+        while( tileUrl.contains("..") )
+            tileUrl = tileUrl.replace("..", ".");
+        if( tileUrl.startsWith(".") )
+            tileUrl = tileUrl.substring(1);
+
+        return tileUrl + query;
+    }
 	
 	@Override
 	public String toString() {

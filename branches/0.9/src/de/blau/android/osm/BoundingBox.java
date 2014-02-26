@@ -606,7 +606,7 @@ public class BoundingBox implements Serializable {
 	 * @param zoomFactor factor enlarge/reduce the borders.
 	 */
 	public void zoom(float zoomFactor) throws OsmException {
-		Log.d("BoundingBox","zoom " + this.toString());
+		// Log.d("BoundingBox","zoom " + this.toString());
 		zoomFactor = Math.min(zoomInLimit(), zoomFactor);
 		zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
 	
@@ -726,5 +726,11 @@ public class BoundingBox implements Serializable {
 	
 	public void setLeft(int lon) {
 		this.left = lon;
+	}
+	
+	public double getCenterLat() {
+		int mBottom = GeoMath.latE7ToMercatorE7(bottom);
+		int mHeight = GeoMath.latE7ToMercatorE7(top) - mBottom;
+		return GeoMath.mercatorE7ToLat(mBottom + mHeight/2); 
 	}
 }

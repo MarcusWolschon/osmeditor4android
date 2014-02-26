@@ -83,7 +83,7 @@ public class DialogFactory {
 	private final Builder backgroundProperties;
 	
 	private final Builder invalidDataReceived;
-	
+		
 	/**
 	 * @param caller
 	 */
@@ -229,7 +229,7 @@ public class DialogFactory {
 		dialog.setNegativeButton(R.string.cancel, null);
 		return dialog.create();
 	}
-	
+		
 	/**
 	 * @param titleId the resource-id of the title
 	 * @param messageId the resource-id of the message

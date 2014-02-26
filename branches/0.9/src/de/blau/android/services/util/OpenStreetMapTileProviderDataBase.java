@@ -150,7 +150,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 			mDatabase.insert(T_FSCACHE, null, cv);
 		}
 	}
-
+	
 	int deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
 		if (!mDatabase.isOpen()) { // this seems to happen, protect against crashing
 			Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG,"deleteOldest called on closed DB");
@@ -170,6 +170,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
 
 					deleteFromDB.add(tileToBeDeleted);
+					Log.d("OpenStreetMapTileProvierDatabase","deleteOldest " + tileToBeDeleted.toString());
 					// mCtx.deleteFile(mFSProvider.buildPath(tileToBeDeleted));
 					(new File(mFSProvider.buildPath(tileToBeDeleted))).delete();
 					
@@ -209,7 +210,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 					
 					tileToBeDeleted = new OpenStreetMapTile(rendererID,c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
 							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
-
+					Log.d("OpenStreetMapTileProvierDatabase","deleteOldest " + tileToBeDeleted.toString());
 					deleteFromDB.add(tileToBeDeleted);
 					// mCtx.deleteFile(mFSProvider.buildPath(tileToBeDeleted));
 					(new File(mFSProvider.buildPath(tileToBeDeleted))).delete();

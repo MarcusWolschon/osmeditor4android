@@ -123,10 +123,9 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		if (map.getPrefs().isPhotoLayerEnabled()) {
-			final Rect viewPort = c.getClipBounds();
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
-			final float radius = 1.0f + osmv.getZoomLevel(viewPort) / 2.0f;
+			final float radius = 1.0f + osmv.getZoomLevel() / 2.0f;
 			BoundingBox bb = osmv.getViewBox();
 			
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
@@ -147,8 +146,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 						i = icon_selected;
 					else
 						i = icon;
-					int x = (int) GeoMath.lonE7ToX(viewPort.width() , bb, p.getLon());
-					int y = (int) GeoMath.latE7ToY(viewPort.height(), viewPort.width() ,bb, p.getLat());
+					int x = (int) GeoMath.lonE7ToX(c.getWidth() , bb, p.getLon());
+					int y = (int) GeoMath.latE7ToY(c.getHeight(), c.getWidth() ,bb, p.getLat());
 					int w2 = i.getIntrinsicWidth() / 2;
 					int h2 = i.getIntrinsicHeight() / 2;
 					i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
