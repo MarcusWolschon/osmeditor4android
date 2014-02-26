@@ -56,9 +56,6 @@
   <string name="location_text_metadata_accuracy">Nøyaktighet %1$1g meter,</string>
   <string name="location_map_text">Fra kart (kommer snart):</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
-  <string name="location_load_button">Hent!</string>
-  <string name="location_button_no_location">Ikke hent noe</string>
-  <string name="location_label_no_location">(anbefales ikke)</string>
   <string name="location_nan_title">Feil inndata!</string>
   <string name="location_nan_message">Tast inn koordinater med desimaler (f.eks. \"52.333572\",\"8.741185\"). Lat skal være mellom -85.0 og +85.0, og Lon skal være mellom -175.0 og +175.0.</string>
   <!--Menu-->

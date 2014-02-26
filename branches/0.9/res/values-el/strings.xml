@@ -59,9 +59,6 @@
   <string name="location_coordinates_text">Από συντεταγμένες:</string>
   <string name="location_lat_label">Γ. Πλ:</string>
   <string name="location_lon_label">Γ. Μηκ:</string>
-  <string name="location_load_button">Φόρτωσε!</string>
-  <string name="location_button_no_location">Μην φορτώσεις τίποτα</string>
-  <string name="location_label_no_location">(δεν προτείνεται)</string>
   <string name="location_nan_title">Λάθος Εισαγωγή!</string>
   <string name="location_nan_message">Παρακαλώ εισάγετε συντεταγμένες με δεκαδικό τρόπο (πχ. \"52.333572\",\"8.741185\"). Το Γ. πλ πρέπει να είναι μεταξύ -85.0 και +85.0, και το Γ. Μηκ μεταξύ -175.0 και +175.0.</string>
   <!--Menu-->

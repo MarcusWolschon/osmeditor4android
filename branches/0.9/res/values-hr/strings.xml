@@ -56,9 +56,6 @@
   <string name="location_coordinates_text">Iz koordinata:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Učitaj!</string>
-  <string name="location_button_no_location">Nemoj učitati ništa</string>
-  <string name="location_label_no_location">(nije preporučljivo)</string>
   <string name="location_nan_title">Loš upis!</string>
   <string name="location_nan_message">Upišite koordinate u decimalnom formatu (npr. \"52.333572\",\"8.741185\"). Lat mora biti između -85.0 i +85.0, a Lon mora biti između -175.0 i +175.0.</string>
   <!--Menu-->

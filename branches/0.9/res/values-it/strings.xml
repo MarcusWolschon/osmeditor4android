@@ -73,9 +73,6 @@
   <string name="location_coordinates_text">Dalle coordinate:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Carica!</string>
-  <string name="location_button_no_location">Non caricare niente</string>
-  <string name="location_label_no_location">(non raccomandato)</string>
   <string name="location_nan_title">Dati errati!</string>
   <string name="location_nan_message">Inserisci le coordinate nel formato decimale (es. \"52.333572\",\"8.741185\"). La latitudine deve essere compresa tra -85.0 e +85.0, e la longitudine tra -175.0 e +175.0.</string>
   <!--Menu-->

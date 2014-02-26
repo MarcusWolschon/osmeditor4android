@@ -77,9 +77,6 @@
   <string name="location_coordinates_text">Depuis coordonnées :</string>
   <string name="location_lat_label">Lat :</string>
   <string name="location_lon_label">Lon :</string>
-  <string name="location_load_button">Charger !</string>
-  <string name="location_button_no_location">Ne rien charger</string>
-  <string name="location_label_no_location">(non recommandé)</string>
   <string name="location_nan_title">Mauvaise valeur d\'entrée !</string>
   <string name="location_nan_message">Veuillez entrer les coordonnées avec décimales (ex. \"52.333572\",\"8.741185\"). Lat doit être entre -85.0 et +85.0, et Lon doit être entre -175.0 et +175.0.</string>
   <!--Menu-->

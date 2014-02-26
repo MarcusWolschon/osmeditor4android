@@ -64,9 +64,6 @@
   <string name="location_coordinates_text">Koordinátákból:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Betöltés!</string>
-  <string name="location_button_no_location">Ne tölts be semmit</string>
-  <string name="location_label_no_location">(nem ajánlott)</string>
   <string name="location_nan_title">Rossz bevitel!</string>
   <string name="location_nan_message">Tizedesvesszővel elválasztott koordinátákat adj meg (pl. \"52.333572\",\"8.741185\"). A Lat értékének -85.0 és +85.0 között, a Lon értékének pedig -175.0 és +175.0 között kell lennie.</string>
   <!--Menu-->

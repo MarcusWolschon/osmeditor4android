@@ -55,9 +55,6 @@
   <string name="location_coordinates_text">Fra koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Hent!</string>
-  <string name="location_button_no_location">Hent intet</string>
-  <string name="location_label_no_location">(anbefales ikke)</string>
   <string name="location_nan_title">Forkert Input!</string>
   <string name="location_nan_message">Indtast koordinater med decimaler (f.eks. \"52.333572\",\"8.741185\"). Lat skal være mellem -85.0 og +85.0, og Lon skal være mellem -175.0 og +175.0.</string>
   <!--Menu-->

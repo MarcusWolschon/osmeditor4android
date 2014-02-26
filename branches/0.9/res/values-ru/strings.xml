@@ -77,9 +77,6 @@
   <string name="location_coordinates_text">По координатам:</string>
   <string name="location_lat_label">Шир.:</string>
   <string name="location_lon_label">Дол.:</string>
-  <string name="location_load_button">Скачать!</string>
-  <string name="location_button_no_location">Ничего не скачивать</string>
-  <string name="location_label_no_location">(не рекомендовано)</string>
   <string name="location_nan_title">Неверный ввод!</string>
   <string name="location_nan_message">Пожалуйста указывайте координаты в десятичном формате (\"52.333572\",\"8.741185\"). Широта в пределах -85.0 и +85.0, а долгота в пределах -175.0 и +175.0.</string>
   <!--Menu-->

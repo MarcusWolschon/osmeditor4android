@@ -84,9 +84,6 @@
   <string name="location_coordinates_text">Wg współrzędnych:</string>
   <string name="location_lat_label">Szer:</string>
   <string name="location_lon_label">Dł:</string>
-  <string name="location_load_button">Load!</string>
-  <string name="location_button_no_location">Nie ładuj niczego</string>
-  <string name="location_label_no_location">(niezalecane)</string>
   <string name="location_nan_title">Złe dane!</string>
   <string name="location_nan_message">Wprowadź współrzędne w formacie dziesiętnym (np. \"52.333572\",\"22.741185\"). </string>
   <!--Menu-->

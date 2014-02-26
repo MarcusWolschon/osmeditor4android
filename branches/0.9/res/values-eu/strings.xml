@@ -73,9 +73,6 @@
   <string name="location_coordinates_text">Koordenadetatik:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Kargatu!</string>
-  <string name="location_button_no_location">Ez kargatu ezer</string>
-  <string name="location_label_no_location">(ez gomendatua)</string>
   <string name="location_nan_title">Sarrera okerra!</string>
   <string name="location_nan_message">Sartu mesedez hamartar formatuko koordenadak (adibidez \"52.333572\",\"8.741185\"). Latitude -85.0 eta +85.0 artean egon behar du eta Longitudea -175.0 eta +175.0 artean.</string>
   <!--Menu-->

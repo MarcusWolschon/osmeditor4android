@@ -67,9 +67,6 @@
   <string name="location_coordinates_text">Podle souřadnic:</string>
   <string name="location_lat_label">Zem. šířka:</string>
   <string name="location_lon_label">Zem. délka:</string>
-  <string name="location_load_button">Načíst!</string>
-  <string name="location_button_no_location">Nenačítat nic</string>
-  <string name="location_label_no_location">(nedoporučeno)</string>
   <string name="location_nan_title">Špatný formát!</string>
   <string name="location_nan_message">Zadejte prosim souřadnice v desetinném formátu (např. \"52.333572\", \"8.741185\"). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
   <!--Menu-->

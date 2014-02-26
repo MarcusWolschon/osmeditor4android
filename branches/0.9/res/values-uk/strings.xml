@@ -76,9 +76,6 @@
   <string name="location_coordinates_text">За координатами: </string>
   <string name="location_lat_label">Шир.: </string>
   <string name="location_lon_label">Довг.: </string>
-  <string name="location_load_button">Звантажити!</string>
-  <string name="location_button_no_location">Нічого не звантажувати</string>
-  <string name="location_label_no_location">(не рекомендоване)</string>
   <string name="location_nan_title">Невірне введення!</string>
   <string name="location_nan_message">Будь ласка, вказуйте координати у десятковому форматі (напр., „52.333572“, „8.741185“). Широта у межах -85.0 та +85.0, а довгота у межах -175.0 та +175.0.</string>
   <!--Menu-->

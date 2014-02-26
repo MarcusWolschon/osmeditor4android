@@ -7,18 +7,23 @@
   <string name="transfer_download_current_download">Descarta i baixa</string>
   <string name="transfer_download_current_back">Enrere (no facis res)</string>
   <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
+  <string name="no_login_data_title">L\'autenticació ha fallat</string>
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
+  <string name="wrong_login_data_title">L\'autenticació ha fallat</string>
   <string name="data_conflict_title">Conflicte de versions</string>
   <string name="out_of_memory_title">Sense memòria</string>
   <string name="progress_title">Càrrega</string>
   <string name="progress_message">S\'està carregant a la memòria...</string>
   <string name="progress_download_message">S\'estan baixant dades des del servidor...</string>
+  <string name="progress_general_title">Espereu</string>
+  <string name="progress_deleting_message">S\'està suprimint...</string>
   <string name="upload_comment_label">Comentari:</string>
   <string name="upload_source_label">Origen:</string>
   <string name="openstreetbug_new_title">Nota nova:</string>
   <string name="openstreetbug_new_bug">Informa d\'un problema</string>
   <string name="openstreetbug_new_nodeway">Crea un node/via</string>
   <string name="openstreetbug_edit_title">Edita la nota</string>
+  <string name="openstreetbug_commitbutton">Publica</string>
   <string name="openstreetbug_comment_label">Comentari:</string>
   <string name="openstreetbug_edit_close">Tanca</string>
   <string name="openstreetbug_edit_closed">Tancat</string>
@@ -61,9 +66,6 @@
   <string name="location_coordinates_text">Des de les coordenades:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Carrega!</string>
-  <string name="location_button_no_location">No carreguis res</string>
-  <string name="location_label_no_location">(no recomenat)</string>
   <string name="location_nan_title">Entrada incorrecta!</string>
   <!--Menu-->
   <string name="menu_move">Mou</string>
@@ -101,6 +103,10 @@
   <string name="menu_cut">Retalla</string>
   <string name="menu_paste">Enganxa</string>
   <string name="menu_rotate">Gira</string>
+  <string name="menu_orthogonalize">Ortogonalitza</string>
+  <string name="menu_tools">Eines</string>
+  <string name="menu_tools_background_properties">Propietats del fons</string>
+  <string name="menu_tools_background_opacity">Opacitat del fons</string>
   <!--element action mode menu-->
   <string name="menu_tags">Etiquetes</string>
   <!--Text should be as short as possible-->
@@ -116,11 +122,13 @@
   <string name="actionmode_nodeselect">Node seleccionat</string>
   <string name="actionmode_relationselect">Relació seleccionada</string>
   <!--Preferences-->
+  <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
   <string name="config_showStats_title">Mostra les estadístiques</string>
   <string name="config_showStats_summary">Mostra les dades estadístiques i els marcs/segon a la cantonada inferior esquerra.</string>
   <string name="config_showTolerance_title">Mostra la tolerància</string>
   <string name="config_showTolerance_summary">Mostra l\'àrea on es pot seleccionar un element.</string>
   <string name="config_enableAntiAliasing_title">Habilita l\'anti-aliàsing</string>
+  <string name="config_enableOpenStreetBugs_title">Habilita la visualització de les notes</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, edita i crea notes o errors.</string>
   <string name="config_enablePhotoLayer_title">Habilita la capa fotogràfica</string>
   <string name="config_enableKeepScreenOn_summary">No apaguis la pantalla per estalviar energia.</string>
@@ -190,6 +198,7 @@
   <string name="undo_action_paste">enganxa</string>
   <string name="undo_action_rotateway">gira la via</string>
   <!--ACRA-->
+  <string name="crash_notif_title">El Vespucci ha fallat</string>
   <string name="crash_notif_text">Feu clic aquí per ajudar a corregir el problema.</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>

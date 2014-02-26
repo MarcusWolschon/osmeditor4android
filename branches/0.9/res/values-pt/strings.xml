@@ -8,13 +8,19 @@
   <string name="transfer_download_current_back">Retroceder (Fazer nada)</string>
   <string name="upload_problem_title">Problema Com Upload</string>
   <string name="upload_problem_message">Toda ou parte da informação não foi carregada no servidor. Tente carregar novamente para verificar o que falhou. A razão mais provável é um conflito de versões.</string>
+  <string name="no_login_data_title">Autenticação falhou</string>
+  <string name="no_login_data_message">Se está a usar OAuth há provavelmente um bug, por favor envie um relatório de problema, se está a usar um login com palavra-chave (não recomendado) por favor verifique que estão correctos.</string>
   <string name="no_connection_title">Sem Conexão ao Servidor</string>
   <string name="no_connection_message">Não foi possível conectar com o Servidor OSM. Por favor verifique a ligação à Internet ou tente de novo mais tarde.</string>
+  <string name="wrong_login_data_title">Autenticação falhou</string>
+  <string name="wrong_login_data_message">Se está a usar OAuth há provavelmente um bug, por favor envie um relatório de problema, se está a usar um login com palavra-chave (não recomendado) por favor verifique que estão correctos.</string>
   <string name="data_conflict_title">Conflito de Versão</string>
   <string name="data_conflict_message">Os dados que está a tentar descarregar contêm dados que conflituem com as suas edições. Tente primeiro fazer o upload dos seus dados antes de tentar de novo.</string>
   <string name="out_of_memory_title">Memória Esgotada</string>
   <string name="out_of_memory_message">O Vespucci esgotou a memória ao carregar os dados indicados. Por favor, reinicie e tente carregar uma área menor.</string>
   <string name="out_of_memory_dirty_message">O Vespucci esgotou a memória ao carregar os dados indicados. Por favor, tente guardar as suas edições, reiniciar e  tente de novo carregando uma área menor.</string>
+  <string name="invalid_data_received_title">Dados Inválidos Recebidos</string>
+  <string name="invalid_data_received_message">Vespucci recebeu dados inválidos do servidor. Se acredita que está a fazer algo correcto, por favor crie um relatório de erro (bug report).</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
   <string name="progress_download_message">Descarregando dados do servidor…</string>
@@ -58,6 +64,8 @@
   <string name="toast_download_failed">Descarga falhou com o erro de código %1$d, mensagem %2$s</string>
   <string name="toast_unsurveyed_road">Via não levantada</string>
   <string name="toast_noname">Via não tem nome ou ref</string>
+  <string name="toast_oauth">Por favor, permita acesso OAuth à sua conta OSM e tente de novo o envio de dados.</string>
+  <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API actual, por favor indique login e palava-chave.</string>
   <!--Some generic labels-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -94,9 +102,8 @@
   <string name="location_coordinates_text">A partir de coordenadas:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Carregar!</string>
-  <string name="location_button_no_location">Não carregar nada</string>
-  <string name="location_label_no_location">(não recomendado)</string>
+  <string name="location_load_button">Carregar</string>
+  <string name="location_load_dismiss">Dispensar</string>
   <string name="location_nan_title">Dados Errados!</string>
   <string name="location_nan_message">Por favor insira coordenadas em formato decimal (eg. \"52.333572\",\"8.741185\"). Lat deve estar entre -85.0 e +85.0, e Lon deve estar entre -175.0 e +175.0.</string>
   <!--Menu-->
@@ -143,6 +150,8 @@
   <string name="menu_tools">Ferramentas</string>
   <string name="menu_tools_flush_tile_cache">Limpar cache de tiles</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
+  <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
+  <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_opacity">Opacidade do Fundo</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
@@ -183,8 +192,12 @@
   <string name="config_enableKeepScreenOn_summary">Não desligar ecrã para poupar energia</string>
   <string name="config_enableDeprecatedModes_title">Activar modos obsoletos</string>
   <string name="config_enableDeprecatedModes_summary">Activar modos Novo, Editar, Editar Tags, Adicionar, Apagar nó e Separar.</string>
+  <string name="config_enableGPSOverlay_title">Activar tema do percurso GPS</string>
+  <string name="config_enableGPSOverlay_summary">Activar tema de percursos GPS a partir do OpenStreetMap</string>
   <string name="config_backgroundLayer_title">Carta de base</string>
   <string name="config_backgroundLayer_summary">O mapa de fundo desenhado.</string>
+  <string name="config_overlayLayer_title">Tema sobreposto do mapa</string>
+  <string name="config_overlayLayer_summary">O tema gráfico desenhado sobre o mapa.</string>
   <string name="config_category_server">Definições do Servidor</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">Pode definir um URL da API do OSM diferente do usual. Em geral não deve ser alterado!</string>
@@ -197,6 +210,7 @@
   <string name="config_iconbutton_summary">Mostra o icone da prédefinição mais ajustada por cima dos nós.</string>
   <string name="config_loginbutton_title">Conta do utilizador</string>
   <string name="config_username_title">Utilizador OSM</string>
+  <string name="config_username_summary">É necessária configuração para o envio de OSM-Data apenas se está a usar OAuth. Contas estão disponíveis em http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Palavra-chave OSM</string>
   <string name="config_password_summary">Não confunda com a palavra-chave do Wiki. Lembre-se: É guardade e transmitida em texto simples!</string>
   <string name="config_category_gps">Definições GPS</string>

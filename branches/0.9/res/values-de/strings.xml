@@ -99,9 +99,6 @@
   <string name="location_coordinates_text">Von Koordinaten:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_load_button">Lade!</string>
-  <string name="location_button_no_location">Lade nichts</string>
-  <string name="location_label_no_location">(nicht empfohlen)</string>
   <string name="location_nan_title">Falsche Eingabe!</string>
   <string name="location_nan_message">Bitte gib die Koordinaten als Fließkommazahlen ein (z.B. \"52.333572\",\"8.741185\"). Lat muss zwischen -85.0 und +85.0, Lon muss zwischen -175.0 und +175.0 liegen.</string>
   <!--Menu-->

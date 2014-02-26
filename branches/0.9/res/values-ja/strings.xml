@@ -94,9 +94,6 @@
   <string name="location_coordinates_text">座標から:</string>
   <string name="location_lat_label">緯度:</string>
   <string name="location_lon_label">経度:</string>
-  <string name="location_load_button">ロード！</string>
-  <string name="location_button_no_location">何もロードしない</string>
-  <string name="location_label_no_location">(非推奨)</string>
   <string name="location_nan_title">入力誤り！</string>
   <string name="location_nan_message">10進数形式の座標を挿入してください (例. \"52.333572\",\"8.741185\")。緯度の範囲は -85.0 と +85.0の間、経度は -175.0 と +175.0の間です。</string>
   <!--Menu-->
