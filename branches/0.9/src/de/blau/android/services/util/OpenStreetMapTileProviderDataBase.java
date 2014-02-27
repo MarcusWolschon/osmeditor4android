@@ -79,10 +79,15 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 												+ T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND
 												+ T_FSCACHE_TILE_X + SQL_ARG + AND
 												+ T_FSCACHE_TILE_Y + SQL_ARG;
-
+	
+	private static final String T_FSCACHE_WHERE_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND
+														+ T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND
+														+ T_FSCACHE_TILE_X + SQL_ARG + AND
+														+ T_FSCACHE_TILE_Y + SQL_ARG + AND
+														+ T_FSCACHE_FILESIZE + "=0";
 	
 	private static final String T_FSCACHE_SELECT_LEAST_USED = "SELECT " + T_FSCACHE_RENDERER_ID  + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE "  + T_FSCACHE_USAGECOUNT + " = (SELECT MIN(" + T_FSCACHE_USAGECOUNT + ") FROM "  + T_FSCACHE + ")";
-	private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_RENDERER_ID  + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC";
+	private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_RENDERER_ID  + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_FILESIZE + " > 0 ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC";
 	
 	// ===========================================================
 	// Fields
@@ -109,6 +114,17 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 		if (mDatabase.isOpen()) {
 			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
 			final Cursor c = mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE, args, null, null, null);
+			existed = c.getCount() > 0;
+			c.close();
+		}
+		return existed;
+	}
+	
+	public boolean isInvalid(final OpenStreetMapTile aTile) {
+		boolean existed = false;
+		if (mDatabase.isOpen()) {
+			final String[] args = new String[]{"" + aTile.rendererID, "" + aTile.zoomLevel, "" + aTile.x, "" + aTile.y};
+			final Cursor c = mDatabase.query(T_FSCACHE, new String[]{T_FSCACHE_RENDERER_ID}, T_FSCACHE_WHERE_INVALID, args, null, null, null);
 			existed = c.getCount() > 0;
 			c.close();
 		}
@@ -207,14 +223,18 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 				do{
 					final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
 					sizeGained += sizeItem;
+				
 					
 					tileToBeDeleted = new OpenStreetMapTile(rendererID,c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)),
 							c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
 					Log.d("OpenStreetMapTileProvierDatabase","deleteOldest " + tileToBeDeleted.toString());
+			
 					deleteFromDB.add(tileToBeDeleted);
-					// mCtx.deleteFile(mFSProvider.buildPath(tileToBeDeleted));
-					(new File(mFSProvider.buildPath(tileToBeDeleted))).delete();
 					
+					if (sizeItem > 0) { // 0 size marker for invalid tiles
+						// mCtx.deleteFile(mFSProvider.buildPath(tileToBeDeleted));
+						(new File(mFSProvider.buildPath(tileToBeDeleted))).delete();
+					}
 					if(DEBUGMODE)
 						Log.i(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Deleted from FS: " + mFSProvider.buildPath(tileToBeDeleted) + " for " + sizeItem + " Bytes");
 				}while(c.moveToNext());

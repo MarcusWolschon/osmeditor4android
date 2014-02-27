@@ -201,7 +201,13 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		@Override
 		public void run() {
 			synchronized (OpenStreetMapTileFilesystemProvider.this) {
-				OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
+				if (OpenStreetMapTileFilesystemProvider.this.mDatabase.hasTile(mTile)) {
+					OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
+					if (OpenStreetMapTileFilesystemProvider.this.mDatabase.isInvalid(mTile)) {
+						// Log.i(DEBUGTAG, "TileLoader " + mTile.toString() + " is invalid, skipping");
+						return; // the finally clause will remove the tile from the pending list
+					}
+				}
 			}
 			InputStream in = null;
 			try {
@@ -250,6 +256,10 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	public void destroy() {
 		Log.d(DEBUGTAG, "Closing tile database");
 		mDatabase.close();
+	}
+
+	public void markAsInvalid(OpenStreetMapTile mTile) {
+		mDatabase.addTileOrIncrement(mTile, 0);	
 	};
 	
 }

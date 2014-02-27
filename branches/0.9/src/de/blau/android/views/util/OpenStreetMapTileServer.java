@@ -125,6 +125,10 @@ public class OpenStreetMapTileServer {
 			public boolean covers(BoundingBox area) {
 				return this.bbox == null || this.bbox.intersects(area);
 			}
+			
+			public boolean covers(double lon, double lat) {
+				return this.bbox == null || this.bbox.isIn((int)(lat*1E7d), (int)(lon*1E7d));
+			}
 		}
 		/** Attribution for this provider. */
 		private String attribution;
@@ -199,6 +203,24 @@ public class OpenStreetMapTileServer {
 				}
 			}
 			return false;
+		}
+		
+		public CoverageArea getCoverageArea(double lon, double lat) {
+			if (coverageAreas.size() == 0)
+				return null;
+			CoverageArea result = null;
+			for (CoverageArea a : coverageAreas) {
+				if (a.covers(lon,lat)) {
+					if (result == null)
+						result = a;
+					else {
+						if (a.zoomMax > result.zoomMax)
+							result = a;
+					}
+				}
+				Log.d("OpenStreetMapTileServer","maxZoom " + a.zoomMax);
+			}
+			return result;
 		}
 	}
 	
@@ -692,6 +714,16 @@ public class OpenStreetMapTileServer {
 	 */
 	public int getMaxZoomLevel() {
 		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
+//		if (providers != null && providers.size() > 0) {
+//			zoomLevelMax = 0;
+//			BoundingBox bbox = Application.mainActivity.getMap().getViewBox();
+//			for (Provider p:providers) {
+//				Provider.CoverageArea ca = p.getCoverageArea((bbox.getLeft() + bbox.getWidth()/2)/1E7d, bbox.getCenterLat());
+//				if (ca != null && ca.zoomMax > zoomLevelMax)
+//					zoomLevelMax = ca.zoomMax;
+//				Log.d("OpenStreetMapTileServer","Provider " + p.getAttribution() + " max zoom " + zoomLevelMax);
+//			}
+//		}
 		return zoomLevelMax;
 	}
 	

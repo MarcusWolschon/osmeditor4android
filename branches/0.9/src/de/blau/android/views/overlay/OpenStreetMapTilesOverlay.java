@@ -254,6 +254,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				Bitmap tileBitmap = mTileProvider.getMapTile(tile);
 				if (tileBitmap == null) {
 					// Log.d("OpenStreetMapTileOverlay","tile not available trying larger");
+					// OVERZOOM
 					// Preferred tile is not available - request it
 					// mTileProvider.preCacheTile(tile); already done in getMapTile
 					// See if there are any alternative tiles available - try
@@ -342,14 +343,6 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				getScreenRectForTile(c, osmv, z, y, x, squareTiles, lonOffset, latOffset),
 				mPaint);
 		} else {
-			// Still no tile available
-// this would seem to be silly since if a larger scale tile had been available we would have already used it
-// and it potentially simply does what we are already doing here
-// at least if we do have the tile we need to return after drawing it
-//			if (z > minz && z > myRendererInfo.getMinZoomLevel()) {
-//				// try larger scale tile
-//				drawTile(c, osmv, minz, z - 1, z - 1, x / 2, y / 2);
-//			}
 			if (z < maxz && z < myRendererInfo.getMaxZoomLevel()) {
 				// try smaller scale tiles
 				x <<= 1;
