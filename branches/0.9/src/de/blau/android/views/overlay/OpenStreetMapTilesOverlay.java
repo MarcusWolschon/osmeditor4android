@@ -79,6 +79,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		} else {
 			mTileProvider = aTileProvider;
 		}
+		// TODO externalize
 		textPaint.setColor(Color.WHITE);
 		textPaint.setTypeface(Typeface.SANS_SERIF);
 		textPaint.setTextSize(12);

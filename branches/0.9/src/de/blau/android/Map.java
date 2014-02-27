@@ -12,10 +12,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Build;
 import android.util.Log;
@@ -135,6 +137,8 @@ public class Map extends View implements IMapView {
 
 	private TrackerService tracker;
 	
+	private Paint textPaint = new Paint();
+	
 	/**
 	 * support for display a crosshairs at a position
 	 */
@@ -163,6 +167,12 @@ public class Map extends View implements IMapView {
 		setDrawingCacheEnabled(false);
 		
 		iconRadius = Math.round(ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
+		
+		// TODO externalize
+		textPaint.setColor(Color.WHITE);
+		textPaint.setTypeface(Typeface.SANS_SERIF);
+		textPaint.setTextSize(12);
+		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
 	}
 	
 	public void createOverlays()
@@ -454,10 +464,8 @@ public class Map extends View implements IMapView {
 		int pos = Application.mainActivity.getSupportActionBar().getHeight() + 5; 
 		Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
 		String text = "Z " + zoomLevel + " Offset " +  (o != null ? String.format("%.5f",o.lon) + "/" +  String.format("%.5f",o.lat) : "0.00000/0.00000");
-		Paint infotextPaint = Profile.getCurrent(Profile.INFOTEXT).getPaint();
-		infotextPaint.setFakeBoldText(true);
-		float textSize = infotextPaint.getTextSize();
-		canvas.drawText(text, 5, pos + textSize, infotextPaint);
+		float textSize = textPaint.getTextSize();
+		canvas.drawText(text, 5, pos + textSize, textPaint);
 	}
 	
 	/**

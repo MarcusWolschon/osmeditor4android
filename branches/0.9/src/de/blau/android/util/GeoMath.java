@@ -330,6 +330,14 @@ public class GeoMath {
 		return new float[]{cx, cy};
 	}
 	
+	/**
+	 * Caculate the haversine distance between two points
+	 * @param lon1
+	 * @param lat1
+	 * @param lon2
+	 * @param lat2
+	 * @return distance between the two point in meters
+	 */
 	public static double haversineDistance(double lon1, double lat1, double lon2, double lat2) {
 	 	
 		double dLat = Math.toRadians(lat2-lat1);

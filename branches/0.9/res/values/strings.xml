@@ -41,6 +41,13 @@
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
     <string name="unsaved_data_proceed">Discard &amp; proceed</string>
+    <string name="imagery_offset_title">Imagery Offset</string>
+    <string name="imagery_offset_not_found">No offsets found in 10km radius!</string>
+    <string name="imagery_offset_author">Author</string>
+    <string name="imagery_offset_offset">Offset</string>
+    <string name="imagery_offset_zoom">Zoom</string>
+    <string name="imagery_offset_distance">Distance</string>
+        
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_upload_success">Upload to OSM server finished.</string>
@@ -66,12 +73,14 @@
     <string name="toast_noname">Road has no name or ref</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account and then retry the upload.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
-    <!-- Some generic labels -->
+    <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="okay">Okay</string>
     <string name="cancel">Cancel</string>
     <string name="locked">Locked</string>
+    <string name="next">Next</string>
+    <string name="apply">Apply</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -103,7 +112,7 @@
     <string name="location_lat_label">Lat:</string>
     <string name="location_lon_label">Lon:</string>
     <string name="location_load_button">Load</string>
-    <string name="location_load_dismiss">Dismiss</string>
+    <string name="location_load_dismiss">Go to map</string>
     <string name="location_nan_title">Wrong Input!</string>
     <string name="location_nan_message">Please insert decimal formatted coordinates (eg. "52.333572","8.741185"). Lat has to lay between -85.0 and +85.0, and Lon has to lay between -175.0 and +175.0.</string>
     <!-- Menu -->
@@ -152,7 +161,14 @@
     <string name="menu_tools_background_properties">Background properties</string>
     <string name="menu_tools_background_align">Align background</string>
     <string name="menu_tools_background_align_reset">Reset</string>
+    <string name="menu_tools_background_align_zero">Zero</string>
+    <string name="menu_tools_background_align_retrieve_from_db">From DB</string>
+    <string name="menu_tools_background_align_retrieve_from_device">From Device</string>
+    <string name="menu_tools_background_align_retrieve_save_db">Save to DB</string>
+    <string name="menu_tools_background_align_retrieve_save_device">Save to Device</string>
+    <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
     <string name="menu_tools_background_opacity">Background opacity</string>
+    
     <!-- element action mode menu -->
     <string name="menu_tags">Tags</string>
     <!-- Text should be as short as possible -->

@@ -4,17 +4,14 @@ package  de.blau.android.views.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Queue;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -324,7 +321,7 @@ public class OpenStreetMapTileServer {
 			}
 			metadataLoaded = true;
 		} catch (IOException e) {
-			Log.e("OpenStreetMapTileServer", "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
+			Log.d("OpenStreetMapTileServer", "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
 		} catch (XmlPullParserException e) {
 			Log.e("OpenStreetMapTileServer", "Tileserver problem (XmlPullParserException) metadata URL " + metadataUrl, e);
 		}
@@ -763,7 +760,7 @@ public class OpenStreetMapTileServer {
 	 * @param o in WGS84
 	 */
 	public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
-		Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
+		// Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
 		if (zoomLevel < zoomLevelMin || zoomLevel > zoomLevelMax) {
 			return; // do nothing
 		}
