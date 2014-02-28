@@ -58,7 +58,7 @@
   <string name="toast_download_failed">ダウンロード失敗。エラーコード　%1$d　メッセージ　%2$s</string>
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称もしくは参照無しの道</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">はい</string>
   <string name="no">いいえ</string>
   <string name="okay">OK</string>

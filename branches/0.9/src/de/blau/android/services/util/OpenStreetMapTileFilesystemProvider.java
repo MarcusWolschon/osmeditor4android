@@ -209,7 +209,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 					}
 				}
 			}
-			InputStream in = null;
+			DataInputStream dataIs = null;
 			try {
 				OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, mTile.rendererID, false);
 				if (mTile.zoomLevel < renderer.getMinZoomLevel()) { // the tile doesn't exist no point in trying to get it
@@ -222,11 +222,11 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				}
 				File tileFile = new File(path);
 				byte[] data = new byte[(int)tileFile.length()];
-				DataInputStream dataIs = new DataInputStream(new FileInputStream(tileFile));
-					dataIs.readFully(data);
-					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
-					if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
-						Log.d(DEBUGTAG, "Loaded: " + mTile.toString());
+				dataIs = new DataInputStream(new FileInputStream(tileFile));
+				dataIs.readFully(data);
+				mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
+					Log.d(DEBUGTAG, "Loaded: " + mTile.toString());
 			} catch (FileNotFoundException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.i(DEBUGTAG, "FS failed, request for download.");
@@ -244,7 +244,13 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.e(DEBUGTAG, "Service failed", e);
 			} finally {
-				StreamUtils.closeStream(in);
+				try {
+					if (dataIs != null)
+						dataIs.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				finished();
 			}
 		}

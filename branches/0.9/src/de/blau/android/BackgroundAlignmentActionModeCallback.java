@@ -10,7 +10,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -145,7 +144,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 						reader.beginArray();
 						while (reader.hasNext()) {
 							ImageryOffset imOffset = readOffset(reader);
-							if (imOffset != null)
+							if (imOffset != null && imOffset.deprecated == null) //TODO handle deprecated 
 								result.add(imOffset);
 						}
 						reader.endArray();
@@ -182,7 +181,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			final BoundingBox bbox = map.getViewBox();
 			final double centerLat = bbox.getCenterLat();
 			final double centerLon = (bbox.getLeft() + bbox.getWidth()/2)/1E7d;
-			Comparator cmp = new Comparator<ImageryOffset>() {
+			Comparator<ImageryOffset> cmp = new Comparator<ImageryOffset>() {
 		        @Override
 		        public int compare(ImageryOffset  offset1, ImageryOffset  offset2)
 		        {
@@ -259,7 +258,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			        result.maxZoom = reader.nextInt();
 			    } else if (jsonName.equals("description")) {
 			    	result.description = reader.nextString();
-			    } else {
+			    } else if (jsonName.equals("deprecated")) {
+			    	result.deprecated = readDeprecated(reader);
+			    }else {
 			    	reader.skipValue();
 			    }
 			}
@@ -272,7 +273,32 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		}
 		return null;
 	}
-
+	
+	protected DeprecationNote readDeprecated(JsonReader reader) {
+		DeprecationNote result = new DeprecationNote();
+		try {
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String jsonName = reader.nextName();
+				if (jsonName.equals("author")) {
+			    	result.author = reader.nextString();
+			    } else if (jsonName.equals("reason")) {
+			    	result.reason = reader.nextString();
+			    }else if (jsonName.equals("date")) {
+			    	result.date = reader.nextString();
+			    } else{
+			    	reader.skipValue();
+			    }
+			}
+			reader.endObject();
+			return result;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private class ImageryOffset {
 	    long id;
 	    double lat = 0;
@@ -285,6 +311,13 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	    int maxZoom = 18;
 	    double imageryLat = 0;
 	    double imageryLon = 0;
+	    DeprecationNote deprecated = null;
+	}
+	
+	private class DeprecationNote {
+		String author;
+		String date;
+		String reason;
 	}
 	
 	/**

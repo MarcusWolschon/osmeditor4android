@@ -13,7 +13,7 @@
   <string name="openstreetbug_commit_fail">Değişiklikler kaydedilemedi</string>
   <string name="unsaved_data_title">Dikkat!</string>
   <!--Toaster-->
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
   <string name="okay">Tamam</string>

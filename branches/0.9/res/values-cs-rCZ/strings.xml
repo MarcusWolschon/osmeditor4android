@@ -40,7 +40,7 @@
   <string name="toast_unread_mail">Máte %1$s nepřečtený(é) zprávu(y) na serveru OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
   <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="okay">Budiž</string>

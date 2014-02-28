@@ -41,7 +41,7 @@
   <string name="toast_state_file_failed">Egoera fitxategi irakurgaitza edo hondatua</string>
   <string name="toast_too_many_nodes_for_move">Mugitzeko bidean nodo gehiegi daude</string>
   <string name="toast_oauth_handshake_failed">OAuth autentikazioak huts egin du, konprobatu kontsumitzaile gako egokiak dituzula</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Bai</string>
   <string name="no">Ez</string>
   <string name="okay">Ados</string>

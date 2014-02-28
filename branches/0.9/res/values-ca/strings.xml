@@ -36,7 +36,7 @@
   <string name="toast_no_changes">No heu canviat res encara...</string>
   <string name="toast_save_done">S\'ha desat correctament</string>
   <string name="toast_export_failed">L\'exportació ha fallat</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="okay">D\'acord</string>

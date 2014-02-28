@@ -342,6 +342,11 @@ public class Logic {
 		case MODE_EDIT:
 			// do nothing
 			break;
+		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
+		if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
+			Log.d("Logic","weird state of edit mode, resetting");
+			setMode(Mode.MODE_MOVE);
+		}
 		case MODE_EASYEDIT:
 		case MODE_ADD:
 		case MODE_ERASE:

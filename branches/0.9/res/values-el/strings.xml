@@ -31,7 +31,7 @@
   <string name="toast_save_done">Αποθήκευση επιτυχής</string>
   <string name="toast_export_failed">Η Εξαγωγή απέτυχε</string>
   <string name="toast_export_success">Εξήχθη στο </string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Ναι</string>
   <string name="no">Όχι</string>
   <string name="okay">Εντάξει</string>

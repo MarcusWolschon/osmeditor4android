@@ -45,7 +45,7 @@
   <string name="toast_unread_mail">Vous avez %1$s message(s) non lu(s) sur les serveur OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Début de l\'analyse des photos géo-référencées</string>
   <string name="toast_photo_indexing_finished">Fin de l\'analyse des photos géo-référencées</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Oui</string>
   <string name="no">Non</string>
   <string name="okay">Valider</string>

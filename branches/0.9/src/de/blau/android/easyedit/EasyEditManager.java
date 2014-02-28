@@ -335,12 +335,6 @@ public class EasyEditManager {
 		private float x;
 		private float y;
 		
-		private boolean isNeeded() {
-			// Test if this action mode is actually necessary
-			Preferences prefs = new Preferences(main.getApplicationContext());
-			return prefs.isOpenStreetBugsEnabled();
-		}
-		
 		public LongClickActionModeCallback(float x, float y) {
 			super();
 			this.x = x;

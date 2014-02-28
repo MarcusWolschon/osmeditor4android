@@ -4,7 +4,7 @@
   <string name="upload_comment_label">نظر:</string>
   <string name="openstreetbug_commit_ok">تغييرات ذخيره شد</string>
   <!--Toaster-->
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">بله</string>
   <string name="no">خير</string>
   <!--Dialog for back button-->

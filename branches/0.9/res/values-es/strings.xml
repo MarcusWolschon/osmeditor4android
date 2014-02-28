@@ -40,7 +40,7 @@
   <string name="toast_oneway_reversed">Ud. invirtió una calle de sentido único o una vía con etiquetas de dirección. Por favor, revise las etiquetas y corríjalas si es necesario.</string>
   <string name="toast_state_file_failed">No puede leer el archivo de estado</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nodos en camino para mover</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="okay">OK</string>

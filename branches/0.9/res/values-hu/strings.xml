@@ -36,7 +36,7 @@
   <string name="toast_unread_mail">%1$s olvasatlan leveled van az OpenStreetmap szerveren</string>
   <string name="toast_photo_indexing_started">Georeferált fényképek keresése elkezdődött</string>
   <string name="toast_photo_indexing_finished">Georeferált fényképek keresése befejeződött</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Igen</string>
   <string name="no">Nem</string>
   <string name="okay">OK</string>

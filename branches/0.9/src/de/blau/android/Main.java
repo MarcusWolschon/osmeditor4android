@@ -206,7 +206,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private TrackerService tracker = null;
 
 	private UndoListener undoListener;
-
+	
+	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
+	
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
 	 */
@@ -217,7 +219,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
-		Log.i("Main", "onCreate");
+		Log.i("Main", "onCreate " + (savedInstanceState != null?" no saved state " : " saved state exists"));
 		setTheme(R.style.Theme_customMain);
 		
 		super.onCreate(savedInstanceState);
@@ -344,10 +346,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		map.createOverlays();
 		map.requestFocus();
-		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		
 		undoListener = new UndoListener();
-		
+
 		showActionBar();
 		
 		logic.setSelectedBug(null);
@@ -580,7 +581,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		View undoView = undo.getActionView();
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);
-		
+
 		return true;
 	}
 
@@ -669,9 +670,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			return true;
 			
 		case R.id.menu_tools_background_align:
-			Mode oldMode = logic.getMode();
-			logic.setMode(Mode.MODE_ALIGN_BACKGROUND);
-			startActionMode(new BackgroundAlignmentActionModeCallback(oldMode));
+			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
+			
+			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(oldMode);
+			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
+			startActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
 			
 //		case R.id.menu_tools_background_properties:
@@ -1032,7 +1035,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * 
 	 * @param server
 	 */
-	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi" })
+	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
 	public void oAuthHandshake(Server server) {
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.hide();
@@ -1207,12 +1210,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (undo.canUndo() || undo.canRedo()) {
 				UndoDialogFactory.showUndoDialog(Main.this, undo);
 			} else {
-				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();				
+				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
 			return true;
 		}
 	}
-
+	
 	/**
 	 * A TouchListener for all gestures made on the touchscreen.
 	 * 
@@ -1887,6 +1890,13 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		// DO NOT IGONORE "wrong thread" EXCEPTIONS FROM THIS.
 		// It *will* mess up your menu in many creative ways.
 		Application.mainActivity.triggerMenuInvalidation();
+	}
+
+	/**
+	 * @return the backgroundAlignmentActionModeCallback
+	 */
+	public BackgroundAlignmentActionModeCallback getBackgroundAlignmentActionModeCallback() {
+		return backgroundAlignmentActionModeCallback;
 	}
 
 }

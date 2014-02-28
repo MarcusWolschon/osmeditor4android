@@ -43,7 +43,7 @@
   <string name="toast_unread_mail">У Вас %1$s непрочитаних повідомлень на сервері OpenStreetMap</string>
   <string name="toast_photo_indexing_started">Розпочато сканування геоприв’язаних світлин</string>
   <string name="toast_photo_indexing_finished">Закінчено сканування геоприв’язаних світлин</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Так</string>
   <string name="no">Ні</string>
   <string name="okay">Гаразд</string>

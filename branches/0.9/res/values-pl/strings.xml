@@ -46,10 +46,10 @@
   <string name="toast_merge_tag_conflict">Połączyłeś elementy, które mają sprzeczne wartości znaczników, kierunek zależny lub różne role w tej samej relacji. Proszę sprawdź znaczniki i role i popraw w razie potrzeby.</string>
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik</string>
   <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów do przesunięcia</string>
-  <string name="toast_unread_mail">Masz %1$ nie przeczytaną/e wiadomość/ci na serwerze OpenStreetmap</string>
+  <string name="toast_unread_mail">Masz %1$s nie przeczytaną/e wiadomość/ci na serwerze OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Rozpoczęcie skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończone skanowanie zdjęć georeferencyjnych.</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
   <string name="okay">OK</string>

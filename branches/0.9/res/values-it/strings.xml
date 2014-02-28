@@ -41,7 +41,7 @@
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <string name="toast_too_many_nodes_for_move">Troppi nodi nella via da spostare</string>
   <string name="toast_oauth_handshake_failed">Handshake OAuth fallito, controlla di avere le consumer keys appropriate</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
   <string name="okay">Ok</string>

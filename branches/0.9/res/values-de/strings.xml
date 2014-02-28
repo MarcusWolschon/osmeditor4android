@@ -11,14 +11,16 @@
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
-  <string name="no_connection_message">Konnte keine Verbindung zum OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später nocheinmal.</string>
+  <string name="no_connection_message">Konnte keine Verbindung zum OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später noch einmal.</string>
   <string name="wrong_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="wrong_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="data_conflict_title">Versionskonflikt</string>
-  <string name="data_conflict_message">Die Daten enhalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
+  <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
   <string name="out_of_memory_title">Kein freier Speicher mehr.</string>
   <string name="out_of_memory_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte neu starten und ein kleineres Gebiet versuchen.</string>
   <string name="out_of_memory_dirty_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte die bereits gemachten Änderungen speichern, neu starten und ein kleineres Gebiet versuchen.</string>
+  <string name="invalid_data_received_title">Ungültige Daten erhalten</string>
+  <string name="invalid_data_received_message">Vespucci hat ungültige Daten vom Server empfangen. Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen.</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
   <string name="progress_download_message">Lade Daten vom Server…</string>
@@ -39,6 +41,12 @@
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden ungespeicherte Änderungen verworfen.</string>
   <string name="unsaved_data_proceed">Verwerfen &amp; fortfahren</string>
+  <string name="imagery_offset_title">Hintergrund Versatz</string>
+  <string name="imagery_offset_not_found">Im Radius von 10km wurde kein Versatz gefunden!</string>
+  <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_offset">Versatz</string>
+  <string name="imagery_offset_zoom">Zoomstufe</string>
+  <string name="imagery_offset_distance">Entfernung</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -63,12 +71,15 @@
   <string name="toast_unsurveyed_road">Strasse nicht überprüft</string>
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben und dann nochmals versuchen. </string>
-  <!--Some generic labels-->
+  <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
+  <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
   <string name="okay">Okay</string>
   <string name="cancel">Abbrechen</string>
   <string name="locked">Gesperrt</string>
+  <string name="next">Nächstes</string>
+  <string name="apply">Anwenden</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -99,6 +110,8 @@
   <string name="location_coordinates_text">Von Koordinaten:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_load_button">Laden</string>
+  <string name="location_load_dismiss">Zur Karte</string>
   <string name="location_nan_title">Falsche Eingabe!</string>
   <string name="location_nan_message">Bitte gib die Koordinaten als Fließkommazahlen ein (z.B. \"52.333572\",\"8.741185\"). Lat muss zwischen -85.0 und +85.0, Lon muss zwischen -175.0 und +175.0 liegen.</string>
   <!--Menu-->
@@ -145,6 +158,14 @@
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_tile_cache">Tile Cache leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
+  <string name="menu_tools_background_align">Hintergrund justieren</string>
+  <string name="menu_tools_background_align_reset">Zurücksetzen</string>
+  <string name="menu_tools_background_align_zero">Auf Null setzen</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Von DB</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Vom Gerät</string>
+  <string name="menu_tools_background_align_retrieve_save_db">In DB speichern</string>
+  <string name="menu_tools_background_align_retrieve_save_device">Auf Gerät speichern</string>
+  <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="menu_tools_background_opacity">Hintergrundtransparenz</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
@@ -187,6 +208,8 @@
   <string name="config_enableDeprecatedModes_summary">New, Edit, Edit Tags, Append, Erase node und Split Modi anzeigen.</string>
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Das Bild, das im Hintergrund der Karte angezeigt wird.</string>
+  <string name="config_overlayLayer_title">Karten Overlay</string>
+  <string name="config_overlayLayer_summary">Das Bild, das über der Karte angezeigt wird.</string>
   <string name="config_category_server">Server-Einstellungen</string>
   <string name="config_apibutton_title">OSM-API-URL</string>
   <string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>

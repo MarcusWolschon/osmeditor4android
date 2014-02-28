@@ -66,7 +66,7 @@
   <string name="toast_noname">Đường không có tên hoặc số</string>
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth và thử tải lên lại.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="okay">OK</string>
@@ -103,7 +103,6 @@
   <string name="location_lat_label">Vĩ độ:</string>
   <string name="location_lon_label">Kinh độ:</string>
   <string name="location_load_button">Tải</string>
-  <string name="location_load_dismiss">Bỏ</string>
   <string name="location_nan_title">Đã nhập Dữ liệu Không hợp lệ!</string>
   <string name="location_nan_message">Xin vui lòng nhập tọa độ theo số thập phân (ví dụ \"52.333572\",\"8.741185\"). Vĩ độ phải giữa -85,0 và +85,0, và kinh độ phải giữa -175,0 và +175,0.</string>
   <!--Menu-->

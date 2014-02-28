@@ -66,7 +66,7 @@
   <string name="toast_noname">Via não tem nome ou ref</string>
   <string name="toast_oauth">Por favor, permita acesso OAuth à sua conta OSM e tente de novo o envio de dados.</string>
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API actual, por favor indique login e palava-chave.</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="okay">Ok</string>
@@ -103,7 +103,6 @@
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
   <string name="location_load_button">Carregar</string>
-  <string name="location_load_dismiss">Dispensar</string>
   <string name="location_nan_title">Dados Errados!</string>
   <string name="location_nan_message">Por favor insira coordenadas em formato decimal (eg. \"52.333572\",\"8.741185\"). Lat deve estar entre -85.0 e +85.0, e Lon deve estar entre -175.0 e +175.0.</string>
   <!--Menu-->

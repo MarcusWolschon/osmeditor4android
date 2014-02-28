@@ -29,7 +29,7 @@
   <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
   <string name="toast_export_failed">Izvoz nije uspio</string>
   <string name="toast_export_success">Izvezeno u %1$s</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Da</string>
   <string name="no">Ne</string>
   <string name="okay">U redu</string>

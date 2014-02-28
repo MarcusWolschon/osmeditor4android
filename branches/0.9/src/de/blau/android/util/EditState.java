@@ -3,7 +3,7 @@ package de.blau.android.util;
 import java.io.Serializable;
 
 import android.util.Log;
-
+import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
 import de.blau.android.osb.Bug;
@@ -42,13 +42,14 @@ public class EditState implements Serializable {
 	
 	public void setSelected(Logic logic) {
 		logic.setMode(savedMode == null ? Mode.MODE_MOVE : savedMode);
+		Log.d("EditState","savedMode " + savedMode);
 		if (logic.exists(savedNode))
 			logic.setSelectedNode(savedNode);
 		if (logic.exists(savedWay))
 			logic.setSelectedWay(savedWay);
 		if (logic.exists(savedRelation))
 			logic.setSelectedRelation(savedRelation);
-		// ths currently edited bug is not stored anywhere
+		// 
 		logic.setSelectedBug(savedBug);
 	}
 	
