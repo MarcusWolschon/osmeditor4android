@@ -477,7 +477,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			}, filterType);
 		
 			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-			v.setPadding(20, 20, 20, 20);
+			v.setPadding(5, 5, 5, 5);
 			v.setId(R.id.recentPresets);
 			presetsLayout.addView(v);
 			presetsLayout.setVisibility(View.VISIBLE);

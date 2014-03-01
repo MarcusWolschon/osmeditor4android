@@ -112,29 +112,30 @@
 		/>
 		
 		<LinearLayout
-			android:layout_marginTop="20dp"
-			android:orientation="horizontal"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-		>
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginTop="20dp"
+		    android:orientation="horizontal" >
+
 			<Button
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/location_button_current"
-				android:text="@string/location_load_button"
-				android:gravity="center"
-				android:layout_weight="1"
-				android:enabled="false"
-			/>
+			    android:id="@+id/location_button_current"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:enabled="false"
+			    android:gravity="center"
+			    android:text="@string/location_load_button" />
+
 			<Button
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/location_button_no_location"
-				android:text="@string/location_load_dismiss"
-				android:gravity="center"
-				android:layout_weight="1"
-				android:enabled="true"
-			/>
+			    android:id="@+id/location_button_no_location"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:enabled="true"
+			    android:gravity="center"
+			    android:text="@string/location_load_dismiss" />
+
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

@@ -505,7 +505,7 @@ public class Preset {
 
 		public Drawable getIcon() {
 			if (icon == null && iconpath != null) {
-				icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
+				icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
 				iconpath = null;
 			}
 			return icon;
@@ -540,9 +540,9 @@ public class Preset {
 			v.setTextColor(res.getColor(R.color.preset_text));
 			v.setBackgroundColor(res.getColor(R.color.preset_bg));
 			v.setCompoundDrawables(null, getIcon(), null, null);
-			v.setCompoundDrawablePadding((int)(8*density));
-			v.setWidth((int)(100*density));
-			v.setHeight((int)(100*density));
+			v.setCompoundDrawablePadding((int)(4*density));
+			v.setWidth((int)(72*density));
+			v.setHeight((int)(72*density));
 			v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 			return v;
 		}

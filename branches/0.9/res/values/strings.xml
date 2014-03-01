@@ -42,6 +42,7 @@
     <string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
     <string name="unsaved_data_proceed">Discard &amp; proceed</string>
     <string name="imagery_offset_title">Imagery Offset</string>
+    <string name="imagery_offset_description">Description</string>
     <string name="imagery_offset_not_found">No offsets found in 10km radius!</string>
     <string name="imagery_offset_author">Author</string>
     <string name="imagery_offset_offset">Offset</string>
