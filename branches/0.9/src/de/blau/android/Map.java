@@ -857,6 +857,8 @@ public class Map extends View implements IMapView {
 		GeoPoint prevNode = null;
 		float prevX=0f;
 		float prevY=0f;
+		int w = getWidth();
+		int h = getHeight();
 		for (GeoPoint node : nodes) {
 			int nodeLon = node.getLon();
 			int nodeLat = node.getLat();
@@ -867,11 +869,11 @@ public class Map extends View implements IMapView {
 			float X = Float.MIN_VALUE;
 			float Y = Float.MIN_VALUE;
 			if (!interrupted && prevNode != null && box.intersects(nodeLat, nodeLon, prevNode.getLat(), prevNode.getLon())) {
-				X = GeoMath.lonE7ToX(getWidth(), box, nodeLon);
-				Y = GeoMath.latE7ToY(getHeight(), getWidth(), box, nodeLat);
+				X = GeoMath.lonE7ToX(w, box, nodeLon);
+				Y = GeoMath.latE7ToY(h, w, box, nodeLat);
 				if (prevX == Float.MIN_VALUE) { // last segment didn't intersect
-					prevX = GeoMath.lonE7ToX(getWidth(), box, prevNode.getLon());
-					prevY = GeoMath.latE7ToY(getHeight(), getWidth(), box, prevNode.getLat());
+					prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
+					prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
 				}
 				// Line segment needs to be drawn
 				points.add(prevX);

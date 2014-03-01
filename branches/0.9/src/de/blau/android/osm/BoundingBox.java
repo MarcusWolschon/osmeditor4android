@@ -406,8 +406,8 @@ public class BoundingBox implements Serializable {
 				// Apply the new aspect ratio, but preserve the level of zoom
 				// so that for example, rotating portrait<-->landscape won't
 				// zoom out
-				long centerX = (left / 2 + right / 2L); // divide first to stay < 2^32
-				long centerY = (mTop + mBottom) / 2L;
+				long centerX = left + width / 2L; // divide first to stay < 2^32
+				long centerY = mBottom + mHeight / 2L;
 				
 				long newHeight2 = 0;
 				long newWidth2 = 0;
@@ -706,7 +706,10 @@ public class BoundingBox implements Serializable {
 		return (bb.bottom >= bottom) && (bb.top <= top) && (bb.left >= left) && (bb.right <= right);
 	}
 
-	//TODO experimental code for using non-approx. projections
+	/**
+	 * Return pre-caclulated meraator value of bottom of the bounding box
+	 * @return
+	 */
 	public double getBottomMercator() {
 		
 		return bottomMercator;

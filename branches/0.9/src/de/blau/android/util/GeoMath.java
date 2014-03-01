@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 
+import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
@@ -82,6 +83,8 @@ public class GeoMath {
 	 * @param lat the latitude as double value
 	 * @return the mercator-projected y-coordinate for a cartesian coordinate system in degrees.
 	 */
+	//TODO clamping is likely to lead to issues for objects extending past +-MAX_LAT given that they will never be in a drawing box 
+	// this should simple throw an exception and let the drawing code handle it
 	public static double latToMercator(double lat) {
 		lat = Math.min(MAX_LAT, lat);
 		lat = Math.max(-MAX_LAT, lat);
@@ -123,7 +126,7 @@ public class GeoMath {
 	 * @return
 	 */
 	public static double mercatorE7ToLat(final int mer) {
-		return mercatorToLat(mer / 1E7);
+		return mercatorToLat(mer / 1E7d);
 	}
 	
 	/**
@@ -132,7 +135,7 @@ public class GeoMath {
 	 * @return the latitude value, multiplied by 1E7
 	 */
 	public static int mercatorToLatE7(final double mer) {
-		return (int) (mercatorToLat(mer) * 1E7);
+		return (int) (mercatorToLat(mer) * 1E7d);
 	}
 	
 	/**
@@ -141,7 +144,7 @@ public class GeoMath {
 	 * @return the latitude value, multiplied by 1E7
 	 */
 	public static int mercatorE7ToLatE7(final int mer) {
-		return (int) (mercatorToLat(mer / 1E7) * 1E7);
+		return (int) (mercatorToLat(mer / 1E7d) * 1E7d);
 	}
 	
 	/**
@@ -185,11 +188,11 @@ public class GeoMath {
 	}
 	
 	public static double convertMetersToGeoDistance(final float meters) {
-		return _180_PI * meters / EARTH_RADIUS;
+		return _180_PI * meters / (double)EARTH_RADIUS;
 	}
 	
 	public static int convertMetersToGeoDistanceE7(final float meters) {
-		return (int) (_180_PI * meters * 1E7 / EARTH_RADIUS);
+		return (int) (_180_PI * meters * 1E7d / (double)EARTH_RADIUS);
 	}
 	
 	public static double getMercatorFactorPow3(final double lat) {
@@ -205,15 +208,10 @@ public class GeoMath {
 	 * @param latE7 latitude, multiplied by 1E7.
 	 * @return the y screen-coordinate for this latitude value.
 	 */
-	public static float latE7ToY(final int screenHeight, final BoundingBox viewBox, final int latE7) {
-		double ratio= viewBox.getMercatorFactorPow3() *  (latE7 - viewBox.getBottom()) / viewBox.getHeight();
-		return (float) ((screenHeight - ratio * screenHeight));
-	}
-
-    //TODO experimental code for using non-approx. projections
 	public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
 		// note the last term should be pre-calculated too
-		double pixelRadius = screenWidth/(viewBox.getWidth()/1E7d);
+		double pixelRadius = (double)screenWidth/(viewBox.getWidth()/1E7d);
+		// Log.d("GeoMath","screen width " + screenWidth + " width " + viewBox.getWidth() + " height " + screenHeight + " mercator " + latE7ToMercator(latE7) );
 		return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
 	}
 	
@@ -224,7 +222,7 @@ public class GeoMath {
 	 * @return the x screen-coordinate for this longitude value.
 	 */
 	public static float lonE7ToX(final int screenWidth, final BoundingBox viewBox, final int lonE7) {
-		return (float) ((((double)lonE7 - (double)viewBox.getLeft()) / viewBox.getWidth())* screenWidth);
+		return (float) ((double)(lonE7 - viewBox.getLeft()) / (double)viewBox.getWidth())* screenWidth;
 	}
 	
 	/**
@@ -233,13 +231,6 @@ public class GeoMath {
 	 * @param y the y-coordinate from the screen
 	 * @return latitude representing by the given y-value, multiplied by 1E7
 	 */
-	public static int yToLatE7(final int screenHeight, final BoundingBox viewBox, final float y) {
-		final double ratio = (((double)screenHeight - y) / screenHeight) / viewBox.getMercatorFactorPow3();
-		final double lat = ratio * viewBox.getHeight() + viewBox.getBottom();
-		return (int) lat;
-	}
-
-//TODO experimental code for using non-approx. projections
 	public static int yToLatE7(final int screenHeight, int screenWidth, final BoundingBox viewBox, final float y) {
 		double pixelRadius = screenWidth/(viewBox.getWidth()/1E7d);
 		double lat = mercatorToLatE7(viewBox.getBottomMercator() + ((double)screenHeight - y) / pixelRadius);

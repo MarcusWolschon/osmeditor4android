@@ -75,6 +75,7 @@
     <string name="toast_noname">Road has no name or ref</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account and then retry the upload.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
+    <string name="toast_timeout">Timeout with server</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

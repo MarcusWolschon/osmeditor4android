@@ -678,8 +678,8 @@ public class Preset {
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
-			wrappingLayout.setHorizontalSpacing((int)(10*density));
-			wrappingLayout.setVerticalSpacing((int)(10*density));
+			wrappingLayout.setHorizontalSpacing((int)(5*density));
+			wrappingLayout.setVerticalSpacing((int)(5*density));
 			ArrayList<PresetElement> filteredElements = filterElements(elements, type);
 			ArrayList<View> childViews = new ArrayList<View>();
 			for (PresetElement element : filteredElements) {

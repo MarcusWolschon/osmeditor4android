@@ -454,7 +454,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					        	 viewInvalidates = 0;
 					             v.invalidate();
 					         } 
-					    }, 50); // wait 1/20th of a second
+					    }, 100); // wait 1/10th of a second
 					    viewInvalidates++;
 				    } else
 				    	viewInvalidates++;

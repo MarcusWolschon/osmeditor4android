@@ -95,7 +95,10 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			break;
 		case MENUITEM_APPLY2ALL: 
 			Offset o = osmts.getOffset(map.getZoomLevel());
-			osmts.setOffset(o.lon,o.lat);
+			if (o != null)
+				osmts.setOffset(o.lon,o.lat);
+			else
+				osmts.setOffset(0.0d,0.0d);
 			break;
 		case MENUITEM_QUERYDB: 
 			getOffsetFromDB();
@@ -211,6 +214,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				} else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(Application.mainActivity);
 					builder.setMessage(R.string.imagery_offset_not_found).setTitle(R.string.imagery_offset_title);
+					builder.setPositiveButton(R.string.okay, null);
 					AlertDialog dialog = builder.create();
 					dialog.show();
 				}
@@ -222,8 +226,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			AlertDialog.Builder builder = new AlertDialog.Builder(Application.mainActivity);
+			builder.setMessage(R.string.toast_timeout).setTitle(R.string.imagery_offset_title);
+			builder.setPositiveButton(R.string.okay, null);
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
 	}
 
