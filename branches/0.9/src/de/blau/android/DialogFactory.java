@@ -58,6 +58,11 @@ public class DialogFactory {
 	
 	public static final int INVALID_DATA_RECEIVED = 15;
 	
+	public static final int PROGRESS_SEARCHING = 16;
+	
+	public static final int PROGRESS_SAVING = 17;
+	
+	
 	private final Main caller;
 	
 	private final Builder noLoginDataSet;
@@ -193,6 +198,12 @@ public class DialogFactory {
 			
 		case PROGRESS_DELETING:
 			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_deleting_message);
+			
+		case PROGRESS_SEARCHING:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_searching_message);
+		
+		case PROGRESS_SAVING:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_saving_message);
 			
 		case BACKGROUND_PROPERTIES:
 			return backgroundProperties.create();

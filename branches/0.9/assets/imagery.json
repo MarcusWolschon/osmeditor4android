@@ -61564,7 +61564,7 @@
         "url": "http://tile.openstreetmap.org/{zoom}/{x}/{y}.png", 
         "default": true, 
         "extent": {
-            "max_zoom": 18
+            "max_zoom": 19
         }, 
         "type": "tms", 
         "id": "MAPNIK",

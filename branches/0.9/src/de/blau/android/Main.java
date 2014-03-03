@@ -68,6 +68,7 @@ import de.blau.android.actionbar.ModeDropdownAdapter;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
+import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.CommitTask;
 import de.blau.android.osm.BoundingBox;
@@ -530,6 +531,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		return lock; // for convenience
 	}
 
+	public void setMode(Logic.Mode mode) {
+		logic.setMode(mode); 
+	}
 	
 	public void updateActionbarEditMode() {
 		Log.d("Main", "updateActionbarEditMode");

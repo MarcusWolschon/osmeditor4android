@@ -19,7 +19,7 @@ import de.blau.android.util.Offset;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 6L;
 	Mode savedMode;
 	Node savedNode;
 	Way	savedWay;
@@ -27,7 +27,8 @@ public class EditState implements Serializable {
 	Bug	savedBug;
 	String savedTileServerID;
 	Offset[] savedOffsets;
-	
+	int savedMinZoom;
+
 	
 	public EditState(Mode mode, Node selectedNode, Way selectedWay,
 			Relation selectedRelation, Bug selectedBug, OpenStreetMapTileServer osmts) {
@@ -38,6 +39,7 @@ public class EditState implements Serializable {
 		savedBug = selectedBug;
 		savedTileServerID = osmts.getId();
 		savedOffsets = osmts.getOffsets();
+		savedMinZoom = osmts.getMinZoomLevel();
 	}
 	
 	public void setSelected(Logic logic) {
@@ -57,7 +59,9 @@ public class EditState implements Serializable {
 		Log.d("EditState","setOffset saved id " + savedTileServerID + " current id " + osmts.getId());
 		if (osmts.getId().equals(savedTileServerID)) {
 			Log.d("EditState","restoring offset");
-			osmts.setOffsets(savedOffsets);
+			if (savedOffsets.length == osmts.getOffsets().length && savedMinZoom == osmts.getMinZoomLevel()) { // check for config change 
+				osmts.setOffsets(savedOffsets);
+			}
 		}
 	}
 }

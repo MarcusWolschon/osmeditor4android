@@ -214,9 +214,23 @@ public class GeoMath {
 		// Log.d("GeoMath","screen width " + screenWidth + " width " + viewBox.getWidth() + " height " + screenHeight + " mercator " + latE7ToMercator(latE7) );
 		return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
 	}
+	/**
+	 * Non scaled version. Calculates the screen-coordinate to the given latitude.
+	 * @param screenHeight
+	 * @param screenWidth
+	 * @param viewBox
+	 * @param lat
+	 * @return
+	 */
+	public static float latToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final double lat) {
+		// note the last term should be pre-calculated too
+		double pixelRadius = (double)screenWidth/(viewBox.getWidth()/1E7d);
+		// Log.d("GeoMath","screen width " + screenWidth + " width " + viewBox.getWidth() + " height " + screenHeight + " mercator " + latE7ToMercator(latE7) );
+		return (float) (screenHeight - (latToMercator(lat) - viewBox.getBottomMercator()) * pixelRadius);
+	}
 	
 	/**
-	 * Calculates the screen-coordinate to the given longitude.
+	 * Non-scaled version. Calculates the screen-coordinate to the given longitude.
 	 * 
 	 * @param lonE7 the longitude, multiplied by 1E7.
 	 * @return the x screen-coordinate for this longitude value.

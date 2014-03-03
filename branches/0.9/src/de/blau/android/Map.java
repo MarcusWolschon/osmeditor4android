@@ -921,7 +921,7 @@ public class Map extends View implements IMapView {
 		return prefs;
 	}
 	
-	void setPrefs(final Preferences aPreference) {
+	public void setPrefs(final Preferences aPreference) {
 		prefs = aPreference;
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {

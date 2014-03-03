@@ -6,18 +6,26 @@ import java.util.Iterator;
 import java.util.Set;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -28,6 +36,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.GeoMath;
 
 /**
  * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
@@ -670,6 +679,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_JOIN = 8;
 		private static final int MENUITEM_UNJOIN = 9;
 		
+		private static final int MENUITEM_SET_POSITION = 14;
+		
 		private OsmElement joinableElement = null;
 		
 		private NodeSelectionActionModeCallback(Node node) {
@@ -701,6 +712,7 @@ public class EasyEditManager {
 			if (logic.getWaysForNode((Node)element).size() > 1) {
 				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split);
 			}
+			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SECONDARY, R.string.menu_set_position).setIcon(R.drawable.menu_gps);
 			return true;
 		}
 		
@@ -722,6 +734,9 @@ public class EasyEditManager {
 				case MENUITEM_UNJOIN:
 					logic.performUnjoin((Node)element);
 					mode.finish();
+					break;
+				case MENUITEM_SET_POSITION: 
+					setPosition(); 
 					break;
 				default: return false;
 				}
@@ -750,6 +765,54 @@ public class EasyEditManager {
 			}
 		}
 		
+		private void setPosition() {
+			if (element instanceof Node) {
+				// show dialog to set lon/lat
+				createSetPositionDialog(((Node)element).getLon(), ((Node)element).getLat()).show();
+			}
+		}
+		
+		Dialog 	createSetPositionDialog(int lonE7, int latE7) {
+			final Context context = Application.mainActivity.getApplicationContext();
+		
+			final LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			Builder dialog = new AlertDialog.Builder(Application.mainActivity);
+			dialog.setTitle(R.string.menu_set_position);
+			
+			View layout = inflater.inflate(R.layout.set_position, null);
+			dialog.setView(layout);
+			TextView datum = (TextView) layout.findViewById(R.id.set_position_datum); // TODO add conversion to/from other datums
+			datum.setText("WGS84");
+			EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
+			lon.setText(String.format("%.7f", lonE7/1E7d));
+			EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);
+			lat.setText(String.format("%.7f", latE7/1E7d));
+			
+			dialog.setPositiveButton(R.string.set, createSetButtonListener(lon, lat, (Node)element));		
+			dialog.setNegativeButton(R.string.cancel, null);
+	
+			return dialog.create();
+		}
+		
+		/**
+		 * Create an onClick listener that sets the coordnaties in the node 
+		 * @return the OnClickListnener
+		 */
+		private OnClickListener createSetButtonListener(final EditText lonField, final EditText latField, final Node node) {
+			return new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					double lon = Double.valueOf(lonField.getText().toString());
+					double lat = Double.valueOf(latField.getText().toString());
+					if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+						logic.performSetPosition(node,lon,lat);
+					} else {
+						createSetPositionDialog((int)(lon*1E7), (int)(lat*1E7)).show();
+						Toast.makeText(main, R.string.coordinates_out_of_range, Toast.LENGTH_LONG).show();
+					}
+				}
+			};
+		}
 	}
 	
 	private class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {

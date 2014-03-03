@@ -26,6 +26,8 @@
     <string name="progress_download_message">Downloading data from server…</string>
     <string name="progress_general_title">Please wait</string>
     <string name="progress_deleting_message">Deleting…</string>
+    <string name="progress_searching_message">Searching…</string>
+    <string name="progress_saving_message">Saving…</string>
     <string name="upload_comment_label">Comment:</string>
     <string name="upload_source_label">Source:</string>
     <string name="openstreetbug_new_title">New Note</string>
@@ -49,6 +51,7 @@
     <string name="imagery_offset_date">Created</string>
     <string name="imagery_offset_zoom">Zoom</string>
     <string name="imagery_offset_distance">Distance</string>
+    <string name="set_position_datum_label">Geodetic datum</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -57,6 +60,7 @@
     <string name="toast_unlock_to_edit">Unlock to edit</string>
     <string name="toast_edit_outside_downloaded_area">You cannot edit outside ot the downloaded area</string>
     <string name="toast_save_done">Save successful</string>
+    <string name="toast_save_failed">Save failed</string>
     <string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
     <string name="toast_export_failed">Export failed</string>
     <string name="toast_export_success">Exported to %1$s</string>
@@ -76,6 +80,7 @@
     <string name="toast_oauth">Please allow OAuth access to your OSM account and then retry the upload.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
     <string name="toast_timeout">Timeout with server</string>
+    <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -84,6 +89,7 @@
     <string name="locked">Locked</string>
     <string name="next">Next</string>
     <string name="apply">Apply</string>
+    <string name="set">Set</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -125,6 +131,7 @@
     <string name="menu_config">Preferences</string>
     <string name="menu_help">Help</string>
     <string name="menu_erase">Erase node</string>
+    <string name="menu_set_position">Position</string>
     <string name="menu_split">Split</string>
     <string name="menu_closed_way_split_1">Split closed way, first node</string>
     <string name="menu_closed_way_split_2">Split closed way, second node</string>
@@ -167,8 +174,8 @@
     <string name="menu_tools_background_align_zero">Zero</string>
     <string name="menu_tools_background_align_retrieve_from_db">From DB</string>
     <string name="menu_tools_background_align_retrieve_from_device">From Device</string>
-    <string name="menu_tools_background_align_retrieve_save_db">Save to DB</string>
-    <string name="menu_tools_background_align_retrieve_save_device">Save to Device</string>
+    <string name="menu_tools_background_align_save_db">Save to DB</string>
+    <string name="menu_tools_background_align_save_device">Save to Device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
     <string name="menu_tools_background_opacity">Background opacity</string>
     

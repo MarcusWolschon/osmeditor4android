@@ -1154,6 +1154,24 @@ public class Logic {
 			map.invalidate();
 		}
 	}
+	
+
+	/**
+	 * set new coordinates and center BBox on them
+	 * @param node
+	 * @param lon
+	 * @param lat
+	 */
+	public void performSetPosition(Node node, double lon, double lat) {
+		if (node != null) {
+			createCheckpoint(R.string.undo_action_movenode);
+			int lonE7 = (int)(lon*1E7d);
+			int latE7 = (int)(lat*1E7d);
+			delegator.updateLatLon(node, latE7, lonE7);
+			viewBox.moveTo(lonE7, latE7);
+			map.invalidate();
+		}
+	}
 
 	/**
 	 * Deletes a way.
@@ -2314,4 +2332,5 @@ public class Logic {
 	public float latE7ToY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
 	}
+
 }

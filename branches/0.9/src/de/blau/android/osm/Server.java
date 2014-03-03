@@ -165,7 +165,7 @@ public class Server {
 	public UserDetails getUserDetails() {
 		UserDetails result = null;
 		if (userDetails == null) {
-			// Haven't retrieved the detailsfrom OSM - try to
+			// Haven't retrieved the details from OSM - try to
 			try {
 				HttpURLConnection connection = openConnectionForWriteAccess(getUserDetailsUrl(), "GET");
 				try {
@@ -220,6 +220,14 @@ public class Server {
 		return userDetails; // might not make sense
 	}
 
+	/**
+	 * return the username for this server, may be null 
+	 * @return
+	 */
+	public String getDisplayName() {
+		return username;
+	}
+	
 	/**
 	 * @param area
 	 * @return
@@ -539,6 +547,9 @@ public class Server {
 	 * @throws OsmException
 	 */
 	private void checkResponseCode(final HttpURLConnection connection) throws IOException, OsmException {
+		if (connection == null ) {
+			throw new OsmServerException(-1,"Unknown error");
+		}
 		int responsecode = connection.getResponseCode();
 		Log.d("Server", "response code " + responsecode);
 		if (responsecode == -1) throw new IOException("Invalid response from server");

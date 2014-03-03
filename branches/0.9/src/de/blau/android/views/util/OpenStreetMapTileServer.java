@@ -31,6 +31,7 @@ import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.util.Offset;
 import de.blau.android.util.jsonreader.JsonReader;
@@ -247,6 +248,7 @@ public class OpenStreetMapTileServer {
 	private static HashMap<String,OpenStreetMapTileServer> backgroundServerList =new HashMap<String,OpenStreetMapTileServer>();
 	private static HashMap<String,OpenStreetMapTileServer> overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
 	private static boolean ready = false;
+	private static Context myCtx;
 
 	
 	// ===========================================================
@@ -342,6 +344,10 @@ public class OpenStreetMapTileServer {
 				}
 			}
 			metadataLoaded = true;
+			// once we've got here, a selected layer that was previously non-available might now be available ... reset map preferences
+			if (myCtx == Application.mainActivity) { // don't do this in the service
+				Application.mainActivity.getMap().setPrefs(new Preferences(myCtx));
+			}
 		} catch (IOException e) {
 			Log.d("OpenStreetMapTileServer", "Tileserver problem (IOException) metadata URL " + metadataUrl, e);
 		} catch (XmlPullParserException e) {
@@ -458,6 +464,7 @@ public class OpenStreetMapTileServer {
 	
 	public synchronized static OpenStreetMapTileServer get(final Context ctx, final String id, final boolean async) {	
 		Resources r = ctx.getResources();
+		myCtx = ctx;
 		
 		synchronized (backgroundServerList) {
 			if (!ready) {
