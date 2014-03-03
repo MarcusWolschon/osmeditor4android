@@ -79,6 +79,17 @@
 				<data android:scheme="vespucci" />
 			</intent-filter>
 		</activity>
+		<activity
+			android:name="de.blau.android.GeoUrlActivity"
+			tools:ignore="ExportedActivity"
+			>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="geo" />
+			</intent-filter>
+		</activity>
 		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
 		<activity
 			android:name="org.acra.CrashReportDialog"

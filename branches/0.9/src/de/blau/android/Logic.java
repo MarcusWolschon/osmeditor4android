@@ -1552,7 +1552,7 @@ public class Logic {
 	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
 	 * @param mapBox Box defining the area to be loaded.
-	 * @param add 
+	 * @param add if true add this data to existing
 	 */
 	void downloadBox(final BoundingBox mapBox, boolean add) {
 		try {

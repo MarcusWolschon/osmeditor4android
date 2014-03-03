@@ -200,6 +200,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Will be automatically given to the tracker service on connect.
 	 */
 	private boolean wantLocationUpdates = false;
+	
+	private GeoUrlActivity.GeoUrlData geoData = null;
 
 	/**
 	 * The current instance of the tracker service
@@ -221,6 +223,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.i("Main", "onCreate " + (savedInstanceState != null?" no saved state " : " saved state exists"));
+		geoData = (GeoUrlActivity.GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+		
 		setTheme(R.style.Theme_customMain);
 		
 		super.onCreate(savedInstanceState);
@@ -289,19 +293,21 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// Start loading after resume to ensure loading dialog can be removed afterwards
 				loadOnResume = true;
 			} else {
-				// check if we have a position
-				Location loc = getLastLocation();
-				BoundingBox box = null;
-				if (loc != null) {
-					try {
-						box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
-							loc.getLongitude(), 1000); // a km hardwired for now
-					} catch (OsmException e) {
-						ACRA.getErrorReporter().handleException(e);
+				if (geoData == null) {
+					// check if we have a position
+					Location loc = getLastLocation();
+					BoundingBox box = null;
+					if (loc != null) {
+						try {
+							box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
+								loc.getLongitude(), 1000); // a km hardwired for now
+						} catch (OsmException e) {
+							ACRA.getErrorReporter().handleException(e);
+						}
 					}
+					openEmptyMap(box);
+					gotoBoxPicker();
 				}
-				openEmptyMap(box);
-				gotoBoxPicker();
 			}
 		} else {
 			Log.i("Main", "onCreate - using logic from getLastNonConfigurationInstance");
@@ -395,6 +401,18 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		setFollowGPS(followGPS);
 		
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
+		
+		if (geoData != null) {
+			Log.d("Main","got position from geo: url " + geoData.getLat() + "/" + geoData.getLon());
+			BoundingBox bbox;
+			try {
+				bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), 50);
+				logic.downloadBox(bbox, logic.delegator.isDirty());
+			} catch (OsmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
