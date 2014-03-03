@@ -254,6 +254,8 @@
 	<string name="config_use_back_for_undo_summary">Use the back key for undo in the main edit view</string>
 	<string name="config_largeDragArea_title">Large node drag area</string>
 	<string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
+	<string name="config_extTriggeredDownloadRadius_title">Download radius</string>
+	<string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

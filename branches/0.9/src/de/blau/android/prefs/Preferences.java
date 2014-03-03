@@ -52,6 +52,8 @@ public class Preferences {
 	
 	private int tileCacheSize; // in MB
 
+	private int downloadRadius; // in m
+	
 	private boolean forceContextMenu;
 	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
@@ -91,6 +93,12 @@ public class Preferences {
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
 			tileCacheSize = 100;
+		}
+		try {
+			downloadRadius = Integer.parseInt(prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
+			downloadRadius = 50;
 		}
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
@@ -256,4 +264,10 @@ public class Preferences {
 		return forceContextMenu;
 	}
 	
+	/**
+	 * @return
+	 */
+	public int getDownloadRadius() {
+		return downloadRadius;
+	}
 }

@@ -404,14 +404,22 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		if (geoData != null) {
 			Log.d("Main","got position from geo: url " + geoData.getLat() + "/" + geoData.getLon());
-			BoundingBox bbox;
-			try {
-				bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), 50);
-				logic.downloadBox(bbox, logic.delegator.isDirty());
-			} catch (OsmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (prefs.getDownloadRadius() != 0) { // download
+				BoundingBox bbox;
+				try {
+					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius());
+					logic.downloadBox(bbox, logic.delegator.isDirty());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
+				Log.d("Main","moving to position");
+				map.getViewBox().moveTo((int)(geoData.getLon()*1E7), (int)(geoData.getLat()*1E7));
+				map.invalidate();
 			}
+			geoData=null; // zap to stop repeated downloads
 		}
 	}
 

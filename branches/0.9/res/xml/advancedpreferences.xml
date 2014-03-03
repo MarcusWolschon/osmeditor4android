@@ -43,6 +43,14 @@
 			android:summary="@string/config_presetbutton_summary"
 		/>
 		<EditTextPreference
+			android:key="@string/config_extTriggeredDownloadRadius_key"
+			android:title="@string/config_extTriggeredDownloadRadius_title"
+			android:summary="@string/config_extTriggeredDownloadRadius_summary"
+			android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
+			android:numeric="integer"
+			android:defaultValue="50"
+		/>
+		<EditTextPreference
 			android:key="@string/config_maxStrokeWidth_key"
 			android:title="@string/config_maxStrokeWidth_title"
 			android:summary="@string/config_maxStrokeWidth_summary"
