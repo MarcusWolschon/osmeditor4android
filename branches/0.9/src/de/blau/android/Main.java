@@ -61,8 +61,10 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
+import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
+import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.TagEditor.TagEditorData;
 import de.blau.android.actionbar.ModeDropdownAdapter;
 import de.blau.android.actionbar.UndoDialogFactory;
@@ -201,7 +203,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	private boolean wantLocationUpdates = false;
 	
-	private GeoUrlActivity.GeoUrlData geoData = null;
+	private GeoUrlData geoData = null;
+	private RemoteControlUrlData rcData = null;
 
 	/**
 	 * The current instance of the tracker service
@@ -223,7 +226,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.i("Main", "onCreate " + (savedInstanceState != null?" no saved state " : " saved state exists"));
-		geoData = (GeoUrlActivity.GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+		// minimal support for geo: uris and JOSM styl remote control
+		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
 		
 		setTheme(R.style.Theme_customMain);
 		
@@ -293,7 +298,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				// Start loading after resume to ensure loading dialog can be removed afterwards
 				loadOnResume = true;
 			} else {
-				if (geoData == null) {
+				if (geoData == null && rcData == null) {
 					// check if we have a position
 					Location loc = getLastLocation();
 					BoundingBox box = null;
@@ -363,6 +368,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		logic.setSelectedWay(null);
 		logic.setSelectedRelation(null);
 	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		Log.d("Main", "onNewIntent storage dirty " + logic.delegator.isDirty());
+		setIntent(intent);
+		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+	}
 
 	@Override
 	protected void onResume() {
@@ -403,12 +417,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		
 		if (geoData != null) {
-			Log.d("Main","got position from geo: url " + geoData.getLat() + "/" + geoData.getLon());
+			Log.d("Main","got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + logic.delegator.isDirty());
 			if (prefs.getDownloadRadius() != 0) { // download
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius());
-					logic.downloadBox(bbox, logic.delegator.isDirty());
+					logic.downloadBox(bbox, true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
 				} catch (OsmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -420,6 +434,18 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				map.invalidate();
 			}
 			geoData=null; // zap to stop repeated downloads
+		} 
+		if (rcData != null) {
+			Log.d("Main","got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
+			if (rcData.load()) { // download
+				logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
+			} else {
+				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
+				Log.d("Main","moving to position");
+				map.getViewBox().setBorders(rcData.getBox());
+				map.invalidate();
+			}
+			rcData=null; // zap to stop repeated downloads
 		}
 	}
 

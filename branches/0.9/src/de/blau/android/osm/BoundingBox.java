@@ -674,8 +674,15 @@ public class BoundingBox implements Serializable {
 		right = newBox.right;
 		top = newBox.top;
 		bottom = newBox.bottom;
-		calcDimensions();
-		calcMercatorFactorPow3();
+		try {
+//			setRatio(ratio, true);
+//			validate();
+			calcDimensions(); // 
+			calcMercatorFactorPow3();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //TODO slightly expensive likely to be better to do everything in mercator
 	}
 	
 	/**

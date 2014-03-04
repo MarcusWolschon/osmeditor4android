@@ -45,30 +45,40 @@ public class GeoUrlActivity extends Activity {
 		Uri data = getIntent().getData(); 
 		Log.d("GeoURLActivity",data.toString());
 	    Intent intent = new Intent(this, Main.class);
-		String[] params = data.getSchemeSpecificPart().split(";");
-		if (params != null && params.length >= 1) {
-			String[] coords = params[0].split(",");
-			boolean wgs84 = true; // for now the only supported datum
-			if (params.length > 1) {
-				for (String p:params) {
-					if (p.toLowerCase().matches("crs=.*")) {
-						wgs84 = p.toLowerCase().matches("crs=wgs84");
-						Log.d("GeoUrlActivity","crs found " + p + ", is wgs84 is " + wgs84);
+	    String[] query = data.getSchemeSpecificPart().split("\\?"); // used by osmand likely not standard conform
+	    if (query != null && query.length >= 1) {
+			String[] params = query[0].split(";");
+			if (params != null && params.length >= 1) {
+				String[] coords = params[0].split(",");
+				boolean wgs84 = true; // for now the only supported datum
+				if (params.length > 1) {
+					for (String p:params) {
+						if (p.toLowerCase().matches("crs=.*")) {
+							wgs84 = p.toLowerCase().matches("crs=wgs84");
+							Log.d("GeoUrlActivity","crs found " + p + ", is wgs84 is " + wgs84);
+						}
+					}
+				}
+				if (coords != null && coords.length >= 2 && wgs84) {
+					try {
+						double lat = Double.valueOf(coords[0]);
+						double lon = Double.valueOf(coords[1]);
+						if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+							GeoUrlData geoData = new GeoUrlData();
+							geoData.setLat(lat);
+							geoData.setLon(lon);
+							intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							intent.putExtra(GEODATA, geoData);
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}
-			if (coords != null && coords.length >= 2 && wgs84) {
-				double lat = Double.valueOf(coords[0]);
-				double lon = Double.valueOf(coords[1]);
-				if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-					GeoUrlData geoData = new GeoUrlData();
-					geoData.setLat(lat);
-					geoData.setLon(lon);
-					intent.putExtra(GEODATA, geoData);
-				}
-			}
-		}
+	    }
 	    startActivity(intent);
+	    finish();
 	}
 	
 	public static class GeoUrlData implements Serializable {
