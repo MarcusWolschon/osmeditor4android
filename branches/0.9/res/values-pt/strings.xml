@@ -41,6 +41,14 @@
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Tem alterações por gravar que serão descartadas se prosseguir.</string>
   <string name="unsaved_data_proceed">Descartar &amp; prosseguir</string>
+  <string name="imagery_offset_title">Desvio da Imagem</string>
+  <string name="imagery_offset_description">Descrição</string>
+  <string name="imagery_offset_not_found">Nenhum desvio detectado num raio de 10km!</string>
+  <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_offset">Desvio</string>
+  <string name="imagery_offset_date">Criado</string>
+  <string name="imagery_offset_zoom">Zoom</string>
+  <string name="imagery_offset_distance">Distância</string>
   <!--Toaster-->
   <string name="toast_no_changes">Não alterou nada ainda…</string>
   <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
@@ -66,12 +74,15 @@
   <string name="toast_noname">Via não tem nome ou ref</string>
   <string name="toast_oauth">Por favor, permita acesso OAuth à sua conta OSM e tente de novo o envio de dados.</string>
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API actual, por favor indique login e palava-chave.</string>
+  <string name="toast_timeout">Tempo excedido com servidor</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="okay">Ok</string>
   <string name="cancel">Cancelar</string>
   <string name="locked">Bloqueado</string>
+  <string name="next">Próximo</string>
+  <string name="apply">Aplicar</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
   <string name="exit_text">Tem a certeza de que deseja sair?</string>
@@ -103,6 +114,7 @@
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
   <string name="location_load_button">Carregar</string>
+  <string name="location_load_dismiss">Ir para mapa</string>
   <string name="location_nan_title">Dados Errados!</string>
   <string name="location_nan_message">Por favor insira coordenadas em formato decimal (eg. \"52.333572\",\"8.741185\"). Lat deve estar entre -85.0 e +85.0, e Lon deve estar entre -175.0 e +175.0.</string>
   <!--Menu-->
@@ -151,6 +163,10 @@
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
   <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
   <string name="menu_tools_background_align_reset">Reset</string>
+  <string name="menu_tools_background_align_zero">Zero</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Da BD</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Para Dispositivo</string>
+  <string name="menu_tools_background_align_apply2all">Aplicar (todos os Zooms)</string>
   <string name="menu_tools_background_opacity">Opacidade do Fundo</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
@@ -191,8 +207,6 @@
   <string name="config_enableKeepScreenOn_summary">Não desligar ecrã para poupar energia</string>
   <string name="config_enableDeprecatedModes_title">Activar modos obsoletos</string>
   <string name="config_enableDeprecatedModes_summary">Activar modos Novo, Editar, Editar Tags, Adicionar, Apagar nó e Separar.</string>
-  <string name="config_enableGPSOverlay_title">Activar tema do percurso GPS</string>
-  <string name="config_enableGPSOverlay_summary">Activar tema de percursos GPS a partir do OpenStreetMap</string>
   <string name="config_backgroundLayer_title">Carta de base</string>
   <string name="config_backgroundLayer_summary">O mapa de fundo desenhado.</string>
   <string name="config_overlayLayer_title">Tema sobreposto do mapa</string>

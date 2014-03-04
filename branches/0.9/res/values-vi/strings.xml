@@ -41,6 +41,14 @@
   <string name="unsaved_data_title">Cẩn thận!</string>
   <string name="unsaved_data_message">Nếu bạn tiếp tục, các thay đổi chưa lưu của bạn sẽ bị mất.</string>
   <string name="unsaved_data_proceed">Vứt bỏ &amp; tiếp tục</string>
+  <string name="imagery_offset_title">Độ chệch Hình ảnh</string>
+  <string name="imagery_offset_description">Miêu tả</string>
+  <string name="imagery_offset_not_found">Không tìm thấy độ chệch trong vòng 10 km!</string>
+  <string name="imagery_offset_author">Tác giả</string>
+  <string name="imagery_offset_offset">Độ chệch</string>
+  <string name="imagery_offset_date">Ngày tạo</string>
+  <string name="imagery_offset_zoom">Thu phóng</string>
+  <string name="imagery_offset_distance">Tầm xa</string>
   <!--Toaster-->
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_upload_success">Đã hoàn tất tải lên máy chủ OSM.</string>
@@ -66,12 +74,15 @@
   <string name="toast_noname">Đường không có tên hoặc số</string>
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth và thử tải lên lại.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
+  <string name="toast_timeout">Hết thời gian chờ máy chủ</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="okay">OK</string>
   <string name="cancel">Hủy bỏ</string>
   <string name="locked">Khóa</string>
+  <string name="next">Sau</string>
+  <string name="apply">Áp dụng</string>
   <!--Dialog for back button-->
   <string name="exit_title">Thoát?</string>
   <string name="exit_text">Bạn có chắc chắn muốn thoát?</string>
@@ -103,6 +114,7 @@
   <string name="location_lat_label">Vĩ độ:</string>
   <string name="location_lon_label">Kinh độ:</string>
   <string name="location_load_button">Tải</string>
+  <string name="location_load_dismiss">Đi đến bản đồ</string>
   <string name="location_nan_title">Đã nhập Dữ liệu Không hợp lệ!</string>
   <string name="location_nan_message">Xin vui lòng nhập tọa độ theo số thập phân (ví dụ \"52.333572\",\"8.741185\"). Vĩ độ phải giữa -85,0 và +85,0, và kinh độ phải giữa -175,0 và +175,0.</string>
   <!--Menu-->
@@ -151,6 +163,10 @@
   <string name="menu_tools_background_properties">Thuộc tính nền</string>
   <string name="menu_tools_background_align">Điều chỉnh hình nền</string>
   <string name="menu_tools_background_align_reset">Đặt lại</string>
+  <string name="menu_tools_background_align_zero">Không</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Từ CSDL</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Từ Thiết bị</string>
+  <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
   <string name="menu_tools_background_opacity">Tính đục</string>
   <!--element action mode menu-->
   <string name="menu_tags">Thẻ</string>
@@ -191,8 +207,6 @@
   <string name="config_enableKeepScreenOn_summary">Không tắt màn hình để duy trì năng lượng.</string>
   <string name="config_enableDeprecatedModes_title">Bật các chế độ bị phản đối</string>
   <string name="config_enableDeprecatedModes_summary">Kích hoạt các chế độ Tạo Mới, Sửa, Sửa các Thẻ, Thêm, Xóa Nốt, và Cắt đôi.</string>
-  <string name="config_enableGPSOverlay_title">Hiển thị lớp phủ tuyến đường GPS</string>
-  <string name="config_enableGPSOverlay_summary">Hiển thị lớp phủ có tuyến đường GPS từ OpenStreetMap</string>
   <string name="config_backgroundLayer_title">Nền bản đồ</string>
   <string name="config_backgroundLayer_summary">Hình nền của bản đồ.</string>
   <string name="config_overlayLayer_title">Lớp phủ bản đồ</string>

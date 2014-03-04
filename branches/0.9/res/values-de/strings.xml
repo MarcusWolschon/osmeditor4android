@@ -26,6 +26,8 @@
   <string name="progress_download_message">Lade Daten vom Server…</string>
   <string name="progress_general_title">Bitte warten</string>
   <string name="progress_deleting_message">Löschen...</string>
+  <string name="progress_searching_message">Am Suchen...</string>
+  <string name="progress_saving_message">Am Speichern...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
@@ -42,9 +44,11 @@
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden ungespeicherte Änderungen verworfen.</string>
   <string name="unsaved_data_proceed">Verwerfen &amp; fortfahren</string>
   <string name="imagery_offset_title">Hintergrund Versatz</string>
+  <string name="imagery_offset_description">Beschreibung</string>
   <string name="imagery_offset_not_found">Im Radius von 10km wurde kein Versatz gefunden!</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_offset">Versatz</string>
+  <string name="imagery_offset_date">Erstellt</string>
   <string name="imagery_offset_zoom">Zoomstufe</string>
   <string name="imagery_offset_distance">Entfernung</string>
   <!--Toaster-->
@@ -54,6 +58,7 @@
   <string name="toast_unlock_to_edit">Entsperren um zu editieren.</string>
   <string name="toast_edit_outside_downloaded_area">Außerhalb des heruntergeladenen Bereiches kann nicht editiert werden.</string>
   <string name="toast_save_done">Speichern erfolgreich</string>
+  <string name="toast_save_failed">Speichern fehlgeschlagen</string>
   <string name="toast_not_in_bug_range">Zum Hinzugügen eines Fehlers bitte hineinzoomen (Lautstärke Hoch/Runter oder Lupe/Shift)</string>
   <string name="toast_export_failed">Export fehlgeschlagen</string>
   <string name="toast_export_success">Exportiert nach %1$s</string>
@@ -72,6 +77,8 @@
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben und dann nochmals versuchen. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
+  <string name="toast_timeout">Zeitüberschreitung</string>
+  <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -80,6 +87,7 @@
   <string name="locked">Gesperrt</string>
   <string name="next">Nächstes</string>
   <string name="apply">Anwenden</string>
+  <string name="set">Setzen</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -121,6 +129,7 @@
   <string name="menu_config">Einstellungen</string>
   <string name="menu_help">Hilfe</string>
   <string name="menu_erase">Knoten löschen</string>
+  <string name="menu_set_position">Position</string>
   <string name="menu_split">Weg aufspalten</string>
   <string name="menu_closed_way_split_1">Geschlossenen Weg aufspalten, erster Knoten</string>
   <string name="menu_closed_way_split_2">Geschlossenen Weg aufspalten, zweiter Knoten</string>
@@ -163,8 +172,8 @@
   <string name="menu_tools_background_align_zero">Auf Null setzen</string>
   <string name="menu_tools_background_align_retrieve_from_db">Von DB</string>
   <string name="menu_tools_background_align_retrieve_from_device">Vom Gerät</string>
-  <string name="menu_tools_background_align_retrieve_save_db">In DB speichern</string>
-  <string name="menu_tools_background_align_retrieve_save_device">Auf Gerät speichern</string>
+  <string name="menu_tools_background_align_save_db">In DB speichern</string>
+  <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="menu_tools_background_opacity">Hintergrundtransparenz</string>
   <!--element action mode menu-->
@@ -242,6 +251,8 @@
   <string name="config_use_back_for_undo_summary">Zurücktaste in der Hauptansicht für Undo verwenden</string>
   <string name="config_largeDragArea_title">Grosser Bereich um Punkte zu bewegen</string>
   <string name="config_largeDragArea_summary">Macht einen grösseren Bereich verfügbar um Punkte zu verschieben</string>
+  <string name="config_extTriggeredDownloadRadius_title">Download Radius</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Radius in Meter für extern ausgelöste Downloads</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>

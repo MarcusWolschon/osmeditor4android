@@ -8,14 +8,17 @@
   <string name="transfer_download_current_back">Wróć (nic nie rób)</string>
   <string name="upload_problem_title">Problem z wysyłaniem</string>
   <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Wyślij ponownie, aby zobaczyć to, co nie powiodło się.Najbardziej prawdopodobną przyczyną jest konflikt wersji.</string>
+  <string name="no_login_data_title">Autoryzacja nieudana</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>
   <string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
+  <string name="wrong_login_data_title">Uwierzytelnianie nieudane</string>
   <string name="data_conflict_title">Konflikt wersji</string>
   <string name="data_conflict_message">Dane, które próbujesz pobrać zawiera dane, które jest sprzeczne z wprowadzonymi zmianami. Najpierw spróbuj przesłać swoje dane przed ponowną próbą.</string>
   <string name="out_of_memory_title">Brak pamięci</string>
   <string name="progress_title">Ładowanie</string>
   <string name="progress_message">Ładowanie danych do pamięci…</string>
   <string name="progress_download_message">Pobieranie danych z serwera…</string>
+  <string name="progress_deleting_message">Usuwanie..</string>
   <string name="upload_comment_label">Komentarz:</string>
   <string name="upload_source_label">Źródło:</string>
   <string name="openstreetbug_new_title">Nowa notatka</string>
@@ -31,6 +34,10 @@
   <string name="unsaved_data_title">Uwaga!</string>
   <string name="unsaved_data_message">Masz niezapisane zmiany, które utracisz jeśli będziesz kontynuował.</string>
   <string name="unsaved_data_proceed">Odrzuć &amp; przejdź dalej</string>
+  <string name="imagery_offset_title">Przesunięcie obrazu</string>
+  <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_offset">Przesunięcie</string>
+  <string name="imagery_offset_distance">Dystans</string>
   <!--Toaster-->
   <string name="toast_no_changes">Jeszcze nic nie zmieniłeś…</string>
   <string name="toast_upload_success">Wysyłanie na serwer OSM zakończone.</string>
@@ -55,6 +62,8 @@
   <string name="okay">OK</string>
   <string name="cancel">Anuluj</string>
   <string name="locked">Zablokowane</string>
+  <string name="next">Dalej</string>
+  <string name="apply">Zastosuj</string>
   <!--Dialog for back button-->
   <string name="exit_title">rzeczywiście zakończyć?</string>
   <string name="exit_text">Czy na pewno chcesz wyjść?</string>
@@ -84,6 +93,7 @@
   <string name="location_coordinates_text">Wg współrzędnych:</string>
   <string name="location_lat_label">Szer:</string>
   <string name="location_lon_label">Dł:</string>
+  <string name="location_load_button">Załaduj</string>
   <string name="location_nan_title">Złe dane!</string>
   <string name="location_nan_message">Wprowadź współrzędne w formacie dziesiętnym (np. \"52.333572\",\"22.741185\"). </string>
   <!--Menu-->
@@ -126,6 +136,10 @@
   <string name="menu_cut">Wytnij</string>
   <string name="menu_paste">Wklej</string>
   <string name="menu_rotate">Obróć</string>
+  <string name="menu_tools">Narzędzia</string>
+  <string name="menu_tools_background_properties">Właściwości tła</string>
+  <string name="menu_tools_background_align_reset">Reset</string>
+  <string name="menu_tools_background_opacity">Przeźroczystosć tła</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tagi</string>
   <!--Text should be as short as possible-->
@@ -165,6 +179,7 @@
   <string name="config_enableDeprecatedModes_summary">Włącz nowy, Edytuj, Edytuj  znaczniki, Dodaj, Usuń węzeł i tryb podziału.</string>
   <string name="config_backgroundLayer_title">Mapa jako tło</string>
   <string name="config_backgroundLayer_summary">Wybierz mapę, która zostanie użyta jako tło.</string>
+  <string name="config_overlayLayer_title">Nakładka mapy</string>
   <string name="config_category_server">Dane logowania</string>
   <string name="config_apibutton_title">adres API OpenStreetMap</string>
   <string name="config_apibutton_summary">Możesz tu ustawić nie-standardowy adres API. Zazwyczaj nie powinno się tego robić.</string>
