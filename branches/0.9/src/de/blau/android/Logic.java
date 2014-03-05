@@ -1776,9 +1776,14 @@ public class Logic {
 					
 					try {
 						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					} catch (Exception e) {
+						// invalid dimensions of similar error
+						try {
+							viewBox.setBorders(new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
+						} catch (OsmException e1) {
+							// Can't happen?
+							e1.printStackTrace();
+						}
 					}
 					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 					loadEditingState();
