@@ -54,7 +54,9 @@ public class Preferences {
 
 	private int downloadRadius; // in m
 	
-	private boolean forceContextMenu;
+	private final boolean forceContextMenu;
+	
+	private final boolean enableNameSuggestions;
 	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
@@ -109,6 +111,7 @@ public class Preferences {
 		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
 		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
 		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
+		enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
@@ -262,6 +265,10 @@ public class Preferences {
 	
 	public boolean getForceContextMenu() {
 		return forceContextMenu;
+	}
+	
+	public boolean getEnableNameSuggestions() {
+		return enableNameSuggestions;
 	}
 	
 	/**

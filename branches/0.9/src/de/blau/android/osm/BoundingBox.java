@@ -675,10 +675,9 @@ public class BoundingBox implements Serializable {
 		top = newBox.top;
 		bottom = newBox.bottom;
 		try {
-//			setRatio(ratio, true);
-//			validate();
-			calcDimensions(); // 
-			calcMercatorFactorPow3();
+			calcDimensions(); // neede to recalc width
+			setRatio(ratio, true);
+			validate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

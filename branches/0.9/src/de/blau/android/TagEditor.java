@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -19,8 +20,10 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.net.Uri;
@@ -43,12 +46,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetGroup;
@@ -136,6 +141,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
  
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
+	
+	
+	private static Names names = null;
 	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
@@ -295,6 +303,17 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		
 		// Disabled because it slows down the Motorola Milestone/Droid
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		
+		Preferences prefs = new Preferences(this);
+		if (prefs.getEnableNameSuggestions()) {
+			if (names == null) {
+				// this should be done async if it takes too long
+				names = new Names(this);
+				// names.dump2Log();
+			}
+		} else {
+			names = null; // might have been on before, zap now
+		}
 		
 		setContentView(R.layout.tag_view);
 		
@@ -698,10 +717,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
 		
-		public TagEditRow(Context context, AttributeSet attrs, int defStyle) {
-			super(context, attrs, defStyle);
-			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
-		}
+//		public TagEditRow(Context context, AttributeSet attrs, int defStyle) {
+//			super(context, attrs, defStyle);
+//			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+//		}
 		
 		@Override
 		protected void onFinishInflate() {
@@ -747,7 +766,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 						if (running) {
 							if (valueEdit.getText().length() == 0) valueEdit.showDropDown();
 //							try { // hack to display numeric keyboard for numeric tag values
-//								  // unluckily thre is then no way to get an alpha-numeric keyboard
+//								  // unluckily there is then no way to get an alpha-numeric keyboard
 //								int number = Integer.parseInt(valueEdit.getText().toString());
 //								valueEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
 //							} catch (NumberFormatException nfe) {
@@ -755,6 +774,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 //							}
 						}
 						
+					}
+				}
+				
+
+			});
+			
+			valueEdit.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Log.d("TagEdit","onItemClicked value");
+					Object o = parent.getItemAtPosition(position);
+					if (o instanceof Names.NameAndTags) {
+						valueEdit.setText(((NameAndTags)o).getName());
+						owner.applyTagSuggestions(((NameAndTags)o).getTags());
 					}
 				}
 			});
@@ -809,7 +842,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			keyEdit.addTextChangedListener(emptyWatcher);
 			valueEdit.addTextChangedListener(emptyWatcher);
 		}
-		
+	
 		protected ArrayAdapter<String> getKeyAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
 			Set<String> keys = new HashSet<String>();
@@ -835,14 +868,22 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			return new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 		}
 		
-		protected ArrayAdapter<String> getValueAutocompleteAdapter() {
-			ArrayAdapter<String> adapter = null;
+		protected ArrayAdapter<?> getValueAutocompleteAdapter() {
+			ArrayAdapter<?> adapter = null;
 			String key = keyEdit.getText().toString();
 			if (key != null && key.length() > 0) {
 				boolean isStreetName = ("addr:street".equalsIgnoreCase(key) ||
 						("name".equalsIgnoreCase(key) && owner.getUsedKeys(null).contains("highway")));
+				boolean isEmpty = owner.getUsedKeys(keyEdit).size() == 0;
 				if (isStreetName) {
 					adapter = getStreetNameAutocompleteAdapter();
+				} else if (key.equals("name") && (names != null)) {
+					ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(owner.getKeyValueMap(true)));
+					if (values != null && !values.isEmpty()) {
+						ArrayList<NameAndTags> result = values;
+						Collections.sort(result);
+						adapter = new ArrayAdapter<NameAndTags>(owner, R.layout.autocomplete_row, result);
+					}
 				} else {
 					if (owner.presets != null && owner.element != null) {
 						Collection<String> values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
@@ -914,6 +955,38 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 				&& valueEdit.getText().toString().trim().equals("");
 		}
 		
+	}
+	
+	/**
+	 * Appy tags from name suggestion list, ask if overwriting
+	 * @param tags
+	 */
+	private void applyTagSuggestions(Names.TagMap tags) {
+		final LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+		
+		boolean replacedValue = false;	
+		
+		// Fixed tags, always have a value. We overwrite mercilessly.
+		for (Entry<String, String> tag : tags.entrySet()) {
+			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
+			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) replacedValue = true;
+		}
+		if (replacedValue) {
+			Builder dialog = new AlertDialog.Builder(this);
+			dialog.setTitle(R.string.tag_editor_name_suggestion);
+			dialog.setMessage(R.string.tag_editor_name_suggestion_overwrite_message);
+			dialog.setPositiveButton(R.string.replace, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					loadEdits(currentValues);
+				}
+			});
+			dialog.setNegativeButton(R.string.cancel, null);
+			dialog.create().show();
+		} else
+			loadEdits(currentValues);
+		
+		focusOnEmptyValue();
 	}
 	
 	/**
@@ -1068,10 +1141,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
 		
-		public RelationMemberRow(Context context, AttributeSet attrs, int defStyle) {
-			super(context, attrs, defStyle);
-			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
-		}
+//		public RelationMemberRow(Context context, AttributeSet attrs, int defStyle) {
+//			super(context, attrs, defStyle);
+//			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+//		}
 		
 		@Override
 		protected void onFinishInflate() {
@@ -1220,10 +1293,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
 		
-		public RelationMembershipRow(Context context, AttributeSet attrs, int defStyle) {
-			super(context, attrs, defStyle);
-			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
-		}
+//		public RelationMembershipRow(Context context, AttributeSet attrs, int defStyle) {
+//			super(context, attrs, defStyle);
+//			owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
+//		}
 		
 		@Override
 		protected void onFinishInflate() {

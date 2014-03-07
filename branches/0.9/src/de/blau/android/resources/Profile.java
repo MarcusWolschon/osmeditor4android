@@ -89,7 +89,7 @@ public class Profile  extends DefaultHandler {
 		}
 		
 		FeatureProfile (String n, Paint p) {
-			Log.i("FeatureProfile","setting up feature " + n);
+			// Log.i("FeatureProfile","setting up feature " + n);
 			name = n;
 			editable = true;
 			internal = false;
@@ -114,7 +114,7 @@ public class Profile  extends DefaultHandler {
 				Log.i("FeatureProfile","setting up feature " + n + " profile is null!");
 				return;
 			}
-			Log.i("FeatureProfile","setting up feature " + n + " from " + fp.getName());
+			// Log.i("FeatureProfile","setting up feature " + n + " from " + fp.getName());
 			name = n;
 			editable = fp.editable;
 			internal = fp.internal;
@@ -683,10 +683,10 @@ public class Profile  extends DefaultHandler {
 					featureProfiles = new HashMap<String, FeatureProfile>();
 				}
 			} else if (element.equals("feature")) {
-				Log.i("Profile", atts.getLength() + " attributes");
-				for (int i=0;i<atts.getLength();i++) {
-					Log.i("Profile",atts.getLocalName(i) + "=" + atts.getValue(i));
-				}
+//				Log.i("Profile", atts.getLength() + " attributes");
+//				for (int i=0;i<atts.getLength();i++) {
+//					Log.i("Profile",atts.getLocalName(i) + "=" + atts.getValue(i));
+//				}
 				tempFeatureProfile = new FeatureProfile(atts.getValue("name"));
 				tempFeatureProfile.setInternal(Boolean.valueOf(atts.getValue("internal")).booleanValue());
 				if (!Boolean.valueOf(atts.getValue("updateWidth")).booleanValue()) {
@@ -713,7 +713,7 @@ public class Profile  extends DefaultHandler {
 					tempFeatureProfile.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
 					tempFeatureProfile.getPaint().setTextSize(Float.parseFloat(atts.getValue("textsize")));
 				}
-				Log.i("Profile","startElement finshed parsing feature");
+				// Log.i("Profile","startElement finshed parsing feature");
 			} else if (element.equals("dash")) {
 				tempPhase = Float.parseFloat(atts.getValue("phase"));
 				tempIntervals = new ArrayList<Float>();
@@ -741,7 +741,7 @@ public class Profile  extends DefaultHandler {
 			}
 			// overwrites existing profiles
 			featureProfiles.put(tempFeatureProfile.getName(),tempFeatureProfile);
-			Log.i("Profile","adding to list of features");
+			// Log.i("Profile","adding to list of features");
 		} else if (element.equals("dash")) {
 			float[] tIntervals = new float[tempIntervals.size()];
 			for (int i=0; i<tIntervals.length;i++) {tIntervals[i] = tempIntervals.get(i).floatValue();}

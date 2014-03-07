@@ -167,14 +167,14 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 		}
 	}
 	
-	int deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
+	long deleteOldest(final int pSizeNeeded) throws EmptyCacheException {
 		if (!mDatabase.isOpen()) { // this seems to happen, protect against crashing
 			Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG,"deleteOldest called on closed DB");
 			return 0;
 		}
 		final Cursor c = mDatabase.rawQuery(T_FSCACHE_SELECT_OLDEST, null);
 		final ArrayList<OpenStreetMapTile> deleteFromDB = new ArrayList<OpenStreetMapTile>();
-		int sizeGained = 0;
+		long sizeGained = 0;
 		if(c != null){
 			OpenStreetMapTile tileToBeDeleted; 
 			if(c.moveToFirst()){
@@ -216,7 +216,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 		Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Flushing cache for " + rendererID); 
 		final Cursor c = mDatabase.rawQuery("SELECT " + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + "," + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_RENDERER_ID + "='" + rendererID + "' ORDER BY " + T_FSCACHE_TIMESTAMP + " ASC", null);
 		final ArrayList<OpenStreetMapTile> deleteFromDB = new ArrayList<OpenStreetMapTile>();
-		int sizeGained = 0;
+		long sizeGained = 0;
 		if(c != null){
 			OpenStreetMapTile tileToBeDeleted; 
 			if(c.moveToFirst()){

@@ -32,4 +32,5 @@
     <string name="config_use_back_for_undo_key">backForUndo</string>
     <string name="config_largeDragArea_key">largeDragArea</string>
     <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadius</string>
+    <string name="config_enableNameSuggestions_key">enableNameSuggestions</string>
 </resources>

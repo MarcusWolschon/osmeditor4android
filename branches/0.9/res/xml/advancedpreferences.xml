@@ -66,6 +66,12 @@
 			android:numeric="integer"
 			android:defaultValue="100"
 		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableNameSuggestions_key"
+			android:title="@string/config_enableNameSuggestions_title"
+			android:summary="@string/config_enableNameSuggestions_summary"
+			android:defaultValue="true"
+		/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_gps">

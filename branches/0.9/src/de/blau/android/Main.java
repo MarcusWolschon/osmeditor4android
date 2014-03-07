@@ -29,10 +29,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
@@ -47,6 +49,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,6 +75,7 @@ import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.names.Names;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.CommitTask;
 import de.blau.android.osm.BoundingBox;
@@ -262,8 +267,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
 		map.setOnKeyListener(new MapKeyListener());
+		
+		rl.addView(map); 
+		
 		mDetector = VersionedGestureDetector.newInstance(getApplicationContext(), mapTouchListener);
-		rl.addView(map);
 		
 		// Set up the zoom in/out controls
 		zoomControls = new ZoomControls(getApplicationContext());
@@ -285,8 +292,18 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		rl.addView(zoomControls, rlp);
-		
+
+//		DrawerLayout dl = new DrawerLayout(this);
+//		dl.addView(rl);
+//		LinearLayout il = new LinearLayout(this);
+//		il.setGravity(Gravity.RIGHT);
+//		il.setMinimumWidth(48);
+//		dl.addView(il);
+//		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
+//		il.addView(lock);
 		setContentView(rl);
+		
+// 		dl.openDrawer(Gravity.RIGHT);
 		
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
@@ -320,7 +337,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		easyEditManager = new EasyEditManager(this, logic);
-		
+	
 	}
 	
 	/**
@@ -1954,5 +1971,4 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	public BackgroundAlignmentActionModeCallback getBackgroundAlignmentActionModeCallback() {
 		return backgroundAlignmentActionModeCallback;
 	}
-
 }

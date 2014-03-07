@@ -52,6 +52,8 @@
     <string name="imagery_offset_zoom">Zoom</string>
     <string name="imagery_offset_distance">Distance</string>
     <string name="set_position_datum_label">Geodetic datum</string>
+    <string name="tag_editor_name_suggestion">Name suggestion</string>
+    <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -90,6 +92,7 @@
     <string name="next">Next</string>
     <string name="apply">Apply</string>
     <string name="set">Set</string>
+    <string name="replace">Replace</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -256,6 +259,8 @@
 	<string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
 	<string name="config_extTriggeredDownloadRadius_title">Download radius</string>
 	<string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
+	<string name="config_enableNameSuggestions_title">Enable name suggestions</string>
+	<string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

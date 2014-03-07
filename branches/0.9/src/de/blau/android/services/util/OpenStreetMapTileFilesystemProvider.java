@@ -225,6 +225,8 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				dataIs = new DataInputStream(new FileInputStream(tileFile));
 				dataIs.readFully(data);
 				mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+				// the following will add back tiles to the DB if the DB was deleted
+				OpenStreetMapTileFilesystemProvider.this.mDatabase.addTileOrIncrement(mTile, (int)tileFile.length());
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.d(DEBUGTAG, "Loaded: " + mTile.toString());
 			} catch (FileNotFoundException e) {
