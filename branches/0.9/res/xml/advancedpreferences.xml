@@ -72,6 +72,12 @@
 			android:summary="@string/config_enableNameSuggestions_summary"
 			android:defaultValue="true"
 		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableAutoPreset_key"
+			android:title="@string/config_enableAutoPreset_title"
+			android:summary="@string/config_enableAutoPreset_summary"
+			android:defaultValue="true"
+		/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_gps">

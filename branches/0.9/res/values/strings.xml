@@ -169,6 +169,7 @@
     <string name="menu_paste">Paste</string>
     <string name="menu_rotate">Rotate</string>
     <string name="menu_orthogonalize">Orthogonalize</string>
+    <string name="menu_circulize">Arrange in circle</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_tile_cache">Flush tile cache</string>
     <string name="menu_tools_background_properties">Background properties</string>
@@ -261,6 +262,8 @@
 	<string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
 	<string name="config_enableNameSuggestions_title">Enable name suggestions</string>
 	<string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
+	<string name="config_enableAutoPreset_title">Enable auto preset</string>
+	<string name="config_enableAutoPreset_summary">Automatically add preset when name suggestion is selected</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
@@ -319,6 +322,7 @@
     <string name="undo_action_paste">paste</string>
     <string name="undo_action_rotateway">rotate way</string>
     <string name="undo_action_orthogonalize">orthogonalize way</string>
+    <string name="undo_action_circulize">arrange in circle</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed</string>

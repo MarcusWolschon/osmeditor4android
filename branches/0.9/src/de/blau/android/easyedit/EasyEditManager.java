@@ -823,6 +823,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_RESTRICTION = 11;
 		private static final int MENUITEM_ROTATE = 12;
 		private static final int MENUITEM_ORTHOGONALIZE = 13;
+		private static final int MENUITEM_CIRCULIZE = 14;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -870,6 +871,9 @@ public class EasyEditManager {
 			if (((Way)element).getNodes().size() > 2) {
 				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize);
 			}
+			if (((Way)element).getNodes().size() > 2 && ((Way)element).isClosed()) {
+				menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
+			}
 			return true;
 		}
 		
@@ -907,6 +911,7 @@ public class EasyEditManager {
 				case MENUITEM_RESTRICTION: main.startActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
 				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
 				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); break;
+				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); break;
 				default: return false;
 				}
 			}

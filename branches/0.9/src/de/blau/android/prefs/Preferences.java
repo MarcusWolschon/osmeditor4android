@@ -58,6 +58,8 @@ public class Preferences {
 	
 	private final boolean enableNameSuggestions;
 	
+	private final boolean enableAutoPreset;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -112,6 +114,7 @@ public class Preferences {
 		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
 		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
 		enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
+		enableAutoPreset = prefs.getBoolean(r.getString(R.string.config_enableAutoPreset_key), true);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
@@ -276,5 +279,10 @@ public class Preferences {
 	 */
 	public int getDownloadRadius() {
 		return downloadRadius;
+	}
+
+	public boolean enableAutoPreset() {
+		// 
+		return enableAutoPreset;
 	}
 }

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Atenţie!</string>
+  <string name="transfer_download_current_dialog_message">Ai făcut câteva modificări. Vrei sa le încarci în loc să renunţi la ele _</string>
+  <string name="transfer_download_current_upload">Încarcă</string>
+  <string name="transfer_download_current_download">Renunţă şi descarcă</string>
+  <string name="no_connection_title">Nu există conexiune cu Serverul</string>
+  <string name="upload_comment_label">Comentariu:</string>
+  <!--Toaster-->
+  <!--Some generic labels/buttons-->
+  <string name="yes">Da</string>
+  <string name="no">Nu</string>
+  <string name="okay">Ok</string>
+  <string name="cancel">Renunţă</string>
+  <!--Dialog for back button-->
+  <!--Strings in TagEditor-->
+  <string name="value">valoare</string>
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <!--Strings in LocationPicker-->
+  <string name="location_text_unknown">necunoscut</string>
+  <string name="location_last_text_parameterized">Ultima locaţie cunoscută: %1$s</string>
+  <string name="location_current_text_parameterized">Locaţie curentă: %1$s</string>
+  <string name="location_text_metadata_accuracy">Acurateţe %1$1g metri,</string>
+  <!--Menu-->
+  <string name="menu_config">Preferinţe</string>
+  <string name="menu_help">Ajutor</string>
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit action mode titles-->
+  <!--Preferences-->
+  <string name="config_showStats_title">Arată statistici</string>
+  <string name="config_showTolerance_title">Arată toleranţa</string>
+  <string name="config_backgroundLayer_title">Hartă de fundal</string>
+  <string name="config_category_server">Setările Serverului</string>
+  <string name="config_category_info">Despre</string>
+  <string name="config_advancedprefs">Setări avansate</string>
+  <!--preset downloader messages-->
+  <!--changes-->
+  <string name="changes_deleted">\"%1$s\" sters</string>
+  <string name="changes_changed">\"%1$s\" modificat</string>
+  <string name="changes_created">\"%1$s\" creat</string>
+  <!--url handler activity-->
+  <!--common terms-->
+  <string name="add">Adaugă</string>
+  <string name="edit">Editează</string>
+  <string name="delete">Sterge</string>
+  <string name="name">Nume</string>
+  <!--"default" is a reserved Java keyword...-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Misc relation related stuff-->
+  <!---->
+</resources>

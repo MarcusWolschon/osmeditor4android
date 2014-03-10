@@ -271,6 +271,57 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
+	 * arrange way nodes in a circle
+	 * @param center
+	 * @param way
+	 */
+	public void circulizeWay(int[] c, Way way) {
+		if ((way.getNodes() == null) || (way.getNodes().size()<3)) {
+			Log.d("StorageDelegator", "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
+			return;
+		}
+		dirty = true;
+		try {
+			HashSet<Node> nodes = new HashSet<Node>(way.getNodes()); // Guarantee uniqueness
+			Coordinates coords[] = nodeListToCooardinateArray(new ArrayList<Node>(nodes));
+			
+			// save nodes for undo
+			for (Node nd:nodes) { 
+				undo.save(nd);
+			}
+
+			int width = Application.mainActivity.getMap().getWidth();
+			int height = Application.mainActivity.getMap().getHeight();
+			BoundingBox box = Application.mainActivity.getMap().getViewBox();
+			Coordinates center = new Coordinates(GeoMath.lonE7ToX(width, box, c[1]), GeoMath.latE7ToY(height,width, box, c[0]));
+			
+			// caclulate average radius
+			double r = 0.0f;
+			for (Coordinates p:coords) {
+				Log.d("StorageDelegator","r="+Math.sqrt((p.x-center.x)*(p.x-center.x)+(p.y-center.y)*(p.y-center.y)));
+				r = r + Math.sqrt((p.x-center.x)*(p.x-center.x)+(p.y-center.y)*(p.y-center.y));
+			}
+			r = r / coords.length;
+			for (Coordinates p:coords) {
+				double ratio = r/Math.sqrt((p.x-center.x)*(p.x-center.x)+(p.y-center.y)*(p.y-center.y));
+				p.x = (float) ((p.x-center.x) * ratio)+center.x;
+				p.y = (float) ((p.y-center.y) * ratio)+center.y;
+			}
+			int i=0;
+			for (Node nd:nodes) { 
+				nd.setLon(GeoMath.xToLonE7(width, box, coords[i].x));
+				nd.setLat(GeoMath.yToLatE7(height, width, box, coords[i].y));
+				apiStorage.insertElementSafe(nd);
+				nd.updateState(OsmElement.STATE_MODIFIED);
+				i++;
+			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * "square" a way/polygon, based on the algorithm used by iD and before that by P2, originally written by Matt Amos
 	 * @param way
 	 */

@@ -9,6 +9,7 @@ import java.util.List;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -16,6 +17,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -36,6 +38,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,13 +47,18 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -255,6 +263,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		
 		rl = new RelativeLayout(getApplicationContext());
+		
 		if (map != null) {
 			map.onDestroy();
 		}
@@ -292,18 +301,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		rl.addView(zoomControls, rlp);
-
-//		DrawerLayout dl = new DrawerLayout(this);
-//		dl.addView(rl);
-//		LinearLayout il = new LinearLayout(this);
-//		il.setGravity(Gravity.RIGHT);
-//		il.setMinimumWidth(48);
-//		dl.addView(il);
-//		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
-//		il.addView(lock);
-		setContentView(rl);
 		
-// 		dl.openDrawer(Gravity.RIGHT);
+		setContentView(rl);
 		
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();

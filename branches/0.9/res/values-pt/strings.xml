@@ -26,6 +26,8 @@
   <string name="progress_download_message">Descarregando dados do servidor…</string>
   <string name="progress_general_title">Por favor aguarda</string>
   <string name="progress_deleting_message">Apagando...</string>
+  <string name="progress_searching_message">Procurando...</string>
+  <string name="progress_saving_message">Gravando...</string>
   <string name="upload_comment_label">Comentário:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="openstreetbug_new_title">Nova Nota</string>
@@ -49,6 +51,7 @@
   <string name="imagery_offset_date">Criado</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
+  <string name="set_position_datum_label">Datum geodético</string>
   <!--Toaster-->
   <string name="toast_no_changes">Não alterou nada ainda…</string>
   <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
@@ -56,6 +59,7 @@
   <string name="toast_unlock_to_edit">Desbloquear para editar</string>
   <string name="toast_edit_outside_downloaded_area">Não pode editar fora da área descarregada</string>
   <string name="toast_save_done">Gravado com sucesso</string>
+  <string name="toast_save_failed">Gravar falhou</string>
   <string name="toast_not_in_bug_range">Faça zoom in para adicionar um bug (Volume +/- ou Lente/Shift)</string>
   <string name="toast_export_failed">Exportação falhou</string>
   <string name="toast_export_success">Exportado para %1$s</string>
@@ -75,6 +79,7 @@
   <string name="toast_oauth">Por favor, permita acesso OAuth à sua conta OSM e tente de novo o envio de dados.</string>
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API actual, por favor indique login e palava-chave.</string>
   <string name="toast_timeout">Tempo excedido com servidor</string>
+  <string name="coordinates_out_of_range">Longitude deve estar entre -180º/+180º, latitude entre -85º/+85º</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -83,6 +88,7 @@
   <string name="locked">Bloqueado</string>
   <string name="next">Próximo</string>
   <string name="apply">Aplicar</string>
+  <string name="set">Definir</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
   <string name="exit_text">Tem a certeza de que deseja sair?</string>
@@ -124,6 +130,7 @@
   <string name="menu_config">Preferências</string>
   <string name="menu_help">Ajuda</string>
   <string name="menu_erase">Apagar nó</string>
+  <string name="menu_set_position">Posição</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_closed_way_split_1">Dividir via fechada, primeiro nó</string>
   <string name="menu_closed_way_split_2">Dividir via fechada, segundo nó</string>
@@ -166,6 +173,8 @@
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_align_retrieve_from_db">Da BD</string>
   <string name="menu_tools_background_align_retrieve_from_device">Para Dispositivo</string>
+  <string name="menu_tools_background_align_save_db">Gravar para BD</string>
+  <string name="menu_tools_background_align_save_device">Gravar para o Dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos os Zooms)</string>
   <string name="menu_tools_background_opacity">Opacidade do Fundo</string>
   <!--element action mode menu-->
@@ -243,6 +252,8 @@
   <string name="config_use_back_for_undo_summary">Use a tecla Retroceder para desfazer na janela principal de edição</string>
   <string name="config_largeDragArea_title">Área grande de arrasto de nó</string>
   <string name="config_largeDragArea_summary">Forneça a área grande para arrasto de nós</string>
+  <string name="config_extTriggeredDownloadRadius_title">Radio para descarregar</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Raio (m) das descargas despoletadas externamente, 0 = centro no mapa apenas.</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar prédefinições</string>
   <string name="preset_download_successful">Prédefinição descarregada com sucesso</string>

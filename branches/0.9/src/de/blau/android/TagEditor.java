@@ -145,6 +145,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	
 	private static Names names = null;
 	
+	private Preferences prefs = null;
+	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
 	 * @author Andrew Gregory
@@ -304,7 +306,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		// Disabled because it slows down the Motorola Milestone/Droid
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		
-		Preferences prefs = new Preferences(this);
+		prefs = new Preferences(this);
 		if (prefs.getEnableNameSuggestions()) {
 			if (names == null) {
 				// this should be done async if it takes too long
@@ -872,12 +874,14 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			ArrayAdapter<?> adapter = null;
 			String key = keyEdit.getText().toString();
 			if (key != null && key.length() > 0) {
+				HashSet<String> usedKeys = (HashSet<String>) owner.getUsedKeys(null);
 				boolean isStreetName = ("addr:street".equalsIgnoreCase(key) ||
-						("name".equalsIgnoreCase(key) && owner.getUsedKeys(null).contains("highway")));
-				boolean isEmpty = owner.getUsedKeys(keyEdit).size() == 0;
+						("name".equalsIgnoreCase(key) && usedKeys.contains("highway")));
+				boolean noNameSuggestions = usedKeys.contains("highway") || usedKeys.contains("waterway") 
+						|| usedKeys.contains("landuse") || usedKeys.contains("natural") || usedKeys.contains("railway");
 				if (isStreetName) {
 					adapter = getStreetNameAutocompleteAdapter();
-				} else if (key.equals("name") && (names != null)) {
+				} else if (key.equals("name") && (names != null) && !noNameSuggestions) {
 					ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(owner.getKeyValueMap(true)));
 					if (values != null && !values.isEmpty()) {
 						ArrayList<NameAndTags> result = values;
@@ -986,7 +990,13 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		} else
 			loadEdits(currentValues);
 		
-		focusOnEmptyValue();
+// TODO while applying presets automatically seems like a good idea, it needs some further thought
+		if (prefs.enableAutoPreset()) {
+			PresetItem p = Preset.findBestMatch(presets,getKeyValueMap(false));
+			if (p!=null) {
+				applyPreset(p, false); 
+			}
+		}
 	}
 	
 	/**
@@ -1507,6 +1517,14 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	 * @param item the preset to apply
 	 */
 	private void applyPreset(PresetItem item) {
+		applyPreset(item, true);
+	}
+	
+	/**
+	 * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag set
+	 * @param item the preset to apply
+	 */
+	private void applyPreset(PresetItem item, boolean addToMRU) {
 		autocompletePresetItem = item;
 		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
 		
@@ -1527,16 +1545,18 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		if (replacedValue) Toast.makeText(this, R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
 		
 		//
+		if (addToMRU) {
 		Preset[] presets = Main.getCurrentPresets();
-		if (presets != null) {
-			for (Preset p:presets) {
-				if (p.contains(item)) {
-					p.putRecentlyUsed(item);
-					break;
+			if (presets != null) {
+				for (Preset p:presets) {
+					if (p.contains(item)) {
+						p.putRecentlyUsed(item);
+						break;
+					}
 				}
 			}
+			recreateRecentPresetView();
 		}
-		recreateRecentPresetView();
 		focusOnEmptyValue();
 	}
 	

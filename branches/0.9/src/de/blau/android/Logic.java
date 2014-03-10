@@ -2302,6 +2302,20 @@ public class Logic {
 		}	
 	}
 
+	
+	/**
+	 * Arrange way points in a circle
+	 * @param way
+	 */
+	public void performCirculize(Way way) {
+		if (way.getNodes().size() < 3) return;
+		createCheckpoint(R.string.undo_action_circulize);
+		int[] center = centroid(map.getWidth(), map.getHeight(), map.getViewBox(), way);
+		delegator.circulizeWay(center, way);
+		map.invalidate();
+	}
+
+	
 	/**
 	 * convenience function
 	 * @param x

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -235,19 +236,23 @@ public class Names {
 		Collection<NameAndTags> result = new ArrayList<NameAndTags>();
 		
 		String origTagKey = tm.toString();
+		TreeSet<String> seen = new TreeSet<String>();
 		// check categories for similar tags and add names from them too
 		for (String category:categories.getKeys()) {    	// loop over categories
 			Set<String>set = categories.get(category);
 			if (set.contains(origTagKey)) {
 				for (String catTagKey:set) {				// loop over categories content
-					for (String tagKey:tagList.keySet()) { 	
-						if (tagKey.contains(catTagKey)) {	
-							TagMap storedTagMap = tagList.get(tagKey);
-							for (String n:tags2namesList.get(storedTagMap)) {
-								NameAndTags nt = new NameAndTags(n,storedTagMap);
-								result.add(nt);
+					if (!seen.contains(catTagKey)) {		// suppress dups
+						for (String tagKey:tagList.keySet()) { 	
+							if (tagKey.contains(catTagKey)) {	
+								TagMap storedTagMap = tagList.get(tagKey);
+								for (String n:tags2namesList.get(storedTagMap)) {
+									NameAndTags nt = new NameAndTags(n,storedTagMap);
+									result.add(nt);
+								}
 							}
 						}
+						seen.add(catTagKey);
 					}
 				}
 			}

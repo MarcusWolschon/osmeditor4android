@@ -33,4 +33,5 @@
     <string name="config_largeDragArea_key">largeDragArea</string>
     <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadius</string>
     <string name="config_enableNameSuggestions_key">enableNameSuggestions</string>
+    <string name="config_enableAutoPreset_key">enableAutoPreset</string>
 </resources>
