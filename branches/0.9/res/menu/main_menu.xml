@@ -31,6 +31,10 @@
 					android:alphabeticShortcut="f"
 				/>
 				<item
+					android:id="@+id/menu_gps_goto"
+					android:title="@string/menu_gps_goto"
+				/>
+				<item
 					android:id="@+id/menu_gps_start"
 					android:title="@string/menu_gps_start"
 				/>
@@ -114,7 +118,11 @@
 	
 		</menu>
 	</item>
-	
+	<item
+		android:id="@+id/menu_find"
+		android:title="@string/menu_find"
+		android:showAsAction="ifRoom"
+	/>		
 	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"

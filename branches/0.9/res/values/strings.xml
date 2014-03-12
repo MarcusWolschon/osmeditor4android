@@ -54,6 +54,8 @@
     <string name="set_position_datum_label">Geodetic datum</string>
     <string name="tag_editor_name_suggestion">Name suggestion</string>
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
+    <string name="search_results_title">Search results</string>
+    <string name="find_message">Enter search string</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -83,6 +85,8 @@
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
     <string name="toast_timeout">Timeout with server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
+    <string name="toast_nothing_found">Nothing found</string>
+    <string name="toast_statesave_failed">Saving the current state failed!\nThis a fatal error, trying to write an export file for later recovery with JOSM.</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -123,6 +127,7 @@
     <string name="location_coordinates_text">From coordinates:</string>
     <string name="location_lat_label">Lat:</string>
     <string name="location_lon_label">Lon:</string>
+    <string name="location_search_label">Search:</string>
     <string name="location_load_button">Load</string>
     <string name="location_load_dismiss">Go to map</string>
     <string name="location_nan_title">Wrong Input!</string>
@@ -132,6 +137,7 @@
     <string name="menu_edit">Edit</string>
     <string name="menu_add">New</string>
     <string name="menu_config">Preferences</string>
+    <string name="menu_find">Find</string>
     <string name="menu_help">Help</string>
     <string name="menu_erase">Erase node</string>
     <string name="menu_set_position">Position</string>
@@ -150,6 +156,7 @@
     <string name="menu_gps">GPS…</string>
     <string name="menu_gps_show">Show location</string>
     <string name="menu_gps_follow">Follow GPS position</string>
+    <string name="menu_gps_goto">Goto GPS position</string>
     <string name="menu_gps_start">Start GPS track</string>
     <string name="menu_gps_pause">Pause GPS track</string>
     <string name="menu_gps_clear">Clear GPS track</string>

@@ -20,8 +20,10 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
 import android.util.Log;
+import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
@@ -1531,6 +1533,11 @@ public class StorageDelegator implements Serializable, Exportable {
 		// TODO this doesn't really help with error conditions need to throw exception
 		if (savingHelper.save(FILENAME, this, true)) { 
 			dirty = false;
+		} else {
+			// this is essentially catastrophic and can only happen if something went really wrong
+			// running out of memory or disk, or HW failure
+			Toast.makeText(Application.mainActivity, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+			SavingHelper.asyncExport(Application.mainActivity, this);
 		}
 	}
 
@@ -1835,6 +1842,15 @@ public class StorageDelegator implements Serializable, Exportable {
 					} else
 						return false; // can't resolve conflicts, upload first
 				}
+			}
+		}
+		
+		// fix up way nodes
+		// all nodes should be in storage now, however new ways will have references to copies not in storage
+		for (Way w:temp.getWays()) {
+			List<Node> nodes = w.getNodes();
+			for (int i=0;i<nodes.size();i++) {
+				nodes.set(i,nodeIndex.get(nodes.get(i).getOsmId())); 
 			}
 		}
 				

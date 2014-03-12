@@ -461,6 +461,14 @@ public class Logic {
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.postInvalidate();
 	}
+	
+	/**
+	 * set zoom to a specific tile zoom level
+	 * @param z
+	 */
+	public void setZoom(int z) {
+		viewBox.setZoom(z);
+	}
 
 	/**
 	 * Return a stroke width value that increases with zoom and is capped at a configurable value
@@ -561,9 +569,17 @@ public class Logic {
 				e.printStackTrace();
 			}
 		}
-		delegator.reset();
-		delegator.setOriginalBox(box);
+		
+		// not checking will zap edits
+		if (!delegator.isDirty()) {
+			delegator.reset();
+			// delegator.setOriginalBox(box); not needed IMHO
+		} else {
+			//TODO show warning
+		}
+
 		try {
+			viewBox.setBorders(box);
 			viewBox.setRatio((float) map.getWidth() / map.getHeight(), true);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block

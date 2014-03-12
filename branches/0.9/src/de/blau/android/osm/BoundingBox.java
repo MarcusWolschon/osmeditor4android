@@ -400,6 +400,21 @@ public class BoundingBox implements Serializable {
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom;
 		
+		
+		if (width <= 0 || mHeight <=0) {
+			// should't happen, but just in case
+			Log.d("BoundingBox","Width or height zero: " + width + "/" + height);
+			BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(GeoMath.mercatorE7ToLat((int) (mBottom+mHeight/2)), GeoMath.mercatorE7ToLat((int) (left+width/2)), 10.0f);
+			left = bbox.left;
+			bottom = bbox.bottom;
+			right = bbox.right;
+			top = bbox.top;
+			calcDimensions();
+			mTop = GeoMath.latE7ToMercatorE7(top); // note long or else we get an int overflow on calculating the center
+			mBottom = GeoMath.latE7ToMercatorE7(bottom);
+			mHeight = mTop - mBottom;
+		}
+		
 		//Log.d("BoundingBox","current ratio " + this.ratio + " new ratio " + ratio);
 		if ((ratio > 0) && !Float.isNaN(ratio)) {
 			if (preserveZoom) {
@@ -492,8 +507,8 @@ public class BoundingBox implements Serializable {
 	 * Performs a translation so the center of this bounding box will be at
 	 * (lonCenter|latCenter).
 	 * 
-	 * @param lonCenter the absolute longitude for the center
-	 * @param latCenter the absolute latitude for the center
+	 * @param lonCenter the absolute longitude for the center (deg*1E7)
+	 * @param latCenter the absolute latitude for the center (deg*1E7)
 	 */
 	public void moveTo(final int lonCenter, final int latCenter) {
 		// new middle in mercator
@@ -660,6 +675,29 @@ public class BoundingBox implements Serializable {
 		// setRatio(ratio, true);
 		
 		calcDimensions(); // need to do this or else centering will not work
+		calcMercatorFactorPow3();
+	}
+	
+	/**
+	 * set current zoom level to a tile zoom level equivalent, powers of 2 assuming 256x256 tiles
+	 * maintain center of bounding box
+	 * @param tileZoomLevel
+	 */
+	public void setZoom(int tileZoomLevel) {
+		// setting an exact zoom level implies one screen pixel == one tile pixel
+		// calculate one pixel in degrees (mercator) at this zoom level
+		double degE7PerPixel = 3600000000.0d / (256*Math.pow(2, tileZoomLevel));
+		double wDegE7 = Application.mainActivity.getMap().getWidth() * degE7PerPixel;
+		double hDegE7 = Application.mainActivity.getMap().getHeight() * degE7PerPixel;
+		long centerLon = left + width/2;
+		left = (int) (centerLon - wDegE7/2);
+		right = (int) (left + wDegE7);
+		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
+		long mTop = GeoMath.latE7ToMercatorE7(top);
+		long centerLat = mBottom + (mTop-mBottom)/2;
+		bottom = GeoMath.mercatorE7ToLatE7((int)(centerLat - hDegE7/2));
+		top = GeoMath.mercatorE7ToLatE7((int)(centerLat + hDegE7/2));
+		calcDimensions(); // 
 		calcMercatorFactorPow3();
 	}
 

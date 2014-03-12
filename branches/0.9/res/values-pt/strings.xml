@@ -52,6 +52,8 @@
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
   <string name="set_position_datum_label">Datum geodético</string>
+  <string name="tag_editor_name_suggestion">Sugestão de nome</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de tags com valores mais populares.</string>
   <!--Toaster-->
   <string name="toast_no_changes">Não alterou nada ainda…</string>
   <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
@@ -89,6 +91,7 @@
   <string name="next">Próximo</string>
   <string name="apply">Aplicar</string>
   <string name="set">Definir</string>
+  <string name="replace">Substituir</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
   <string name="exit_text">Tem a certeza de que deseja sair?</string>
@@ -165,6 +168,7 @@
   <string name="menu_paste">Colar</string>
   <string name="menu_rotate">Rodar</string>
   <string name="menu_orthogonalize">Ortogonalizar</string>
+  <string name="menu_circulize">Dispor em círculo</string>
   <string name="menu_tools">Ferramentas</string>
   <string name="menu_tools_flush_tile_cache">Limpar cache de tiles</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
@@ -254,6 +258,10 @@
   <string name="config_largeDragArea_summary">Forneça a área grande para arrasto de nós</string>
   <string name="config_extTriggeredDownloadRadius_title">Radio para descarregar</string>
   <string name="config_extTriggeredDownloadRadius_summary">Raio (m) das descargas despoletadas externamente, 0 = centro no mapa apenas.</string>
+  <string name="config_enableNameSuggestions_title">Acivar sugestões de nome</string>
+  <string name="config_enableNameSuggestions_summary">Liga a apresentação de sugestões para a tag de nome</string>
+  <string name="config_enableAutoPreset_title">Activar prédefinições automáticas</string>
+  <string name="config_enableAutoPreset_summary">Adicionar prédefinição automaticamente quando uma sugestão de nome é selecionada</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar prédefinições</string>
   <string name="preset_download_successful">Prédefinição descarregada com sucesso</string>
@@ -312,6 +320,7 @@
   <string name="undo_action_paste">colar</string>
   <string name="undo_action_rotateway">rodar via</string>
   <string name="undo_action_orthogonalize">ortogonalizar via</string>
+  <string name="undo_action_circulize">dispor em círculo</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci deixou de funcionar. Por favor envie um relatório de erro.</string>
   <string name="crash_notif_title">Vespucci deixou de funcionar</string>

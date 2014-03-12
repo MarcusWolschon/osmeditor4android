@@ -9,17 +9,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osb.CommitListener;
+import de.blau.android.util.Search;
+import de.blau.android.util.Search.SearchResult;
 
 /**
  * Encapsulates Dialog-Creation from {@link Main} and delegates the creation-command to {@link android.app.Dialog.Builder}.
@@ -62,7 +69,8 @@ public class DialogFactory {
 	
 	public static final int PROGRESS_SAVING = 17;
 	
-	
+	public static final int SEARCH = 18;
+		
 	private final Main caller;
 	
 	private final Builder noLoginDataSet;
@@ -88,7 +96,7 @@ public class DialogFactory {
 	private final Builder backgroundProperties;
 	
 	private final Builder invalidDataReceived;
-		
+			
 	/**
 	 * @param caller
 	 */
@@ -210,7 +218,10 @@ public class DialogFactory {
 			
 		case INVALID_DATA_RECEIVED:
 			return invalidDataReceived.create();
-	}
+			
+		case SEARCH:
+			return createSearchDialog(caller);
+		}
 		
 		return null;
 	}
@@ -299,4 +310,39 @@ public class DialogFactory {
 		return progress;
 	}
 	
+	private Dialog createSearchDialog(final Main caller) {
+		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		Builder searchBuilder = createBasicDialog(R.string.menu_find, R.string.find_message);
+		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
+		searchBuilder.setView(searchLayout);
+		EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
+		searchBuilder.setNegativeButton(R.string.cancel, null);
+		final Dialog searchDialog = searchBuilder.create();
+		
+		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
+			@Override
+			public void onItemFound(SearchResult sr) {
+				// turn this off or else we get bounced back to our current GPS position
+				caller.setFollowGPS(false);
+				caller.getMap().setFollowGPS(true);
+				//
+				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
+				caller.logic.setZoom(19);
+				searchDialog.dismiss();
+			}
+		};
+		searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+		    @Override
+		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+		            Search search = new Search(caller, searchItemFoundCallback);
+		            search.find(v.getText().toString());
+		            return true;
+		        }
+		        return false;
+		    }
+		});
+		
+		return searchDialog;
+	}
 }

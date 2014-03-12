@@ -4,12 +4,13 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	>
+
 	<LinearLayout
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:paddingRight="10dp"
-		>
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginRight="10dp"
+	    android:orientation="vertical"
+	    android:paddingRight="10dp" >
 		
 		<TextView
 			android:text="@string/location_headline" 
@@ -52,6 +53,7 @@
 				android:id="@+id/location_coordinates_layout"
 				android:gravity="center"
 				android:visibility="gone"
+				android:paddingLeft="10dp"
 			>
 				<TextView
 					android:text="@string/location_lat_label" 
@@ -84,11 +86,33 @@
 				/>
 			</LinearLayout>
 		</RadioGroup>
-		
+		<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:paddingLeft="10dp" >
+		    	<TextView
+					android:text="@string/location_search_label" 
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+				/>
+				<EditText
+					android:id="@+id/location_search_edit"
+					android:imeOptions="actionSearch" 
+    				android:inputType="text"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:singleLine="true"
+					android:layout_weight="1"
+				/>
+		</LinearLayout>
+
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
 		>
 			<TextView
 			    android:paddingLeft="10dp"

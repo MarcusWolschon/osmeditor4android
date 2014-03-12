@@ -669,6 +669,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
 			return true;
 			
+		case R.id.menu_find:
+			showDialog(DialogFactory.SEARCH);
+			return true;
+			
 		case R.id.menu_help:
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://wiki.openstreetmap.org/wiki/Vespucci/Help"));
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -682,6 +686,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 		case R.id.menu_gps_follow:
 			toggleFollowGPS();
+			return true;
+			
+		case R.id.menu_gps_goto:
+			setFollowGPS(true);
+			map.setFollowGPS(true);
+			logic.setZoom(19);
 			return true;
 
 		case R.id.menu_gps_start:
@@ -796,7 +806,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 	}
 
-	private void setFollowGPS(boolean follow) {
+	public void setFollowGPS(boolean follow) {
 		// Log.d("Main","setFollowGPS");
 		if (followGPS != follow) {
 			followGPS = follow;
@@ -947,8 +957,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			BoundingBox box = new BoundingBox(left, bottom, right, top);
 			if (resultCode == RESULT_OK) {
 				performHttpLoad(box);
-			} else if (resultCode == RESULT_CANCELED) { // pointless, box will not be valid in this case
-				openEmptyMap(null);
+			} else if (resultCode == RESULT_CANCELED) { // 
+				Log.d("Main","opening empty map on " + (box != null ? box.toString() : " null bbox"));
+				openEmptyMap(box); // we may have a valid box
 			}
 		} catch (OsmException e) {
 			//Values should be done checked in LocationPciker.

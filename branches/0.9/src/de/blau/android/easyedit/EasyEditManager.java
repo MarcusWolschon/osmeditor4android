@@ -712,7 +712,7 @@ public class EasyEditManager {
 			if (logic.getWaysForNode((Node)element).size() > 1) {
 				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split);
 			}
-			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SECONDARY, R.string.menu_set_position).setIcon(R.drawable.menu_gps);
+			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.NONE, R.string.menu_set_position).setIcon(R.drawable.menu_gps);
 			return true;
 		}
 		

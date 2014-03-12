@@ -5,6 +5,7 @@ package de.blau.android.imageryoffset;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -66,7 +67,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private static final int MENUITEM_SAVE2DB = 6;
 	private static final int MENUITEM_SAVELOCAL = 7;
 	
-	private static final String OFFSET_SERVER = "http://offsets.textual.ru/";
+	private static final String OFFSET_SERVER = "http://offsets.textual.ru/";//TODO set in prefs
 	
 	Mode oldMode;
 	Offset[] oldOffsets;
@@ -197,7 +198,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_SEARCHING);
 			} catch (IllegalArgumentException e) {
 				 // Avoid crash if dialog is already dismissed
-				Log.d("Logic", "", e);
+				Log.d("BackgroundAlignmentActionModeCallback", "", e);
 			}
 		}
 	};
@@ -244,7 +245,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_SAVING);
 			} catch (IllegalArgumentException e) {
 				 // Avoid crash if dialog is already dismissed
-				Log.d("Logic", "", e);
+				Log.d("BackgroundAlignmentActionModeCallback", "", e);
 			}
 			if (res == 200)
 				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
@@ -480,11 +481,17 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	    DeprecationNote deprecated = null;
 	    
 		public String toSaveUrl() {
-			return OFFSET_SERVER+"store?lat="+ URLEncoder.encode(String.format("%.7f",lat))+"&lon="+URLEncoder.encode(String.format("%.7f",lon))
-					+"&author="+URLEncoder.encode(author)
-					+"&description="+URLEncoder.encode(description)
-					+"&imagery="+URLEncoder.encode(imageryId)
-					+"&imlat="+URLEncoder.encode(String.format("%.7f",imageryLat))+"&imlon="+URLEncoder.encode(String.format("%.7f",imageryLon));
+			try {
+				return OFFSET_SERVER+"store?lat="+ URLEncoder.encode(String.format("%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format("%.7f",lon),"UTF-8")
+						+"&author="+URLEncoder.encode(author,"UTF-8")
+						+"&description="+URLEncoder.encode(description,"UTF-8")
+						+"&imagery="+URLEncoder.encode(imageryId,"UTF-8")
+						+"&imlat="+URLEncoder.encode(String.format("%.7f",imageryLat))+"&imlon="+URLEncoder.encode(String.format("%.7f",imageryLon),"UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
 		}
 	}
 	
