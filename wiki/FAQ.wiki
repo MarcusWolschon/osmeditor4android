@@ -47,6 +47,17 @@ Just download and install like any other app =)
 Installation of the Vespucci APK is like any other APK. 
 There are plenty descriptions available (e.g. [http://openhandsetmagazine.com/2008/01/tips-how-to-install-apk-files-on-android-emulator/ 1 ], [http://www.androidfreeware.org/tutorials/how-to-install-apk-files-on-android-device-emulator 2 ], [http://www.freeware4android.com/2008/07/30/tutorial-installing-apk-files-on-android-device-emulator.html  3 ], [http://clipmarks.com/clipmark/FB4A2E39-6DA1-4EBC-BBF0-5131E1AC6128/ 4 ])
 
+====Running Vespucci on "old and small" devices====
+
+Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.2 and later, 
+however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap. 
+This can be as low as 16MB. If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints 
+should be helpful (ordered in decreasing order of importance):
+* turn off any map overlay
+* only load small map areas and don't excessively use the incremental load facility
+* turn off notes and photo overlay
+* turn off name suggestions
+* don't add large presets
 
 == 2. Features ==
 
