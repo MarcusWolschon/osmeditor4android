@@ -21,7 +21,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 ====What do I need to get started with Vespucci? ====
 You need:
  * An Android device (or the emulator) Release 0.9 has only been tested on Android 2.3 and later.
- * The Vespucci APK file (also available over the Android Market)
+ * The Vespucci APK file (also available over the Android Market and F-Droid)
  * Some familiarity with [http://wiki.openstreetmap.org/wiki/Map_Features OSM Map features]
  * An [http://www.openstreetmap.org/user/new OSM account] 
 
@@ -36,7 +36,7 @@ No. Android uses a specialized VM implementation designed for mobile device use,
 
 ====How can I obtain Vespucci? ==== 
  * You can [http://market.android.com/search?q=vespucci download it from the Android Market] (Search for "Vespucci")
- * The Vespucci APK can be downloaded from the [http://code.google.com/p/osmeditor4android Vespucci project page]
+ * The Vespucci APK can be downloaded from [https://drive.google.com/?authuser=0#folders/0B9pKLmh8s1h8TnJCS0FjMnQybWc Vespucci release on google drive] and [https://drive.google.com/?authuser=0#folders/0B9pKLmh8s1h8bFI5bGd4VnhYWkk test builds]
 
 
 ====How can I install Vespucci on my Android device? ==== 
@@ -82,7 +82,6 @@ Yes. OpenStreetBugs is no longer supported.
 ====What are the limits of Vespucci?====
 
 Vespucci is limited in the following sense:
- * No free form relation creation currently
  * No validator yet (see issue id 31)
 
  Remember, Android is intended to be lightweight and easy-to-use.
@@ -101,6 +100,7 @@ On startup, Vespucci requests which area to download. You can choose from the fo
  * Current location
  * Last known location 
  * Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.
+ * Search for a location (New in 0.9.4, requires network connectivity)
 
 For all download options, the additional parameter "Radius" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when  downloading.)   
 
