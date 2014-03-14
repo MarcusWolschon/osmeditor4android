@@ -11,11 +11,10 @@ import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.resources.Profile.FeatureProfile;
-
-import android.util.Log;
 
 public class Way extends OsmElement {
 

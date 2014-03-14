@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-import de.blau.android.exception.StorageException;
-
 import android.util.Log;
+import de.blau.android.exception.StorageException;
 
 public class ClipboardStorage implements Serializable  {
 	

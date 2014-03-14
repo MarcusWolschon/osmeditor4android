@@ -3,7 +3,6 @@ package de.blau.android.util;
 import java.io.Serializable;
 
 import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
 import de.blau.android.osb.Bug;
@@ -11,7 +10,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.views.util.OpenStreetMapTileServer;
-import de.blau.android.util.Offset;
 
 /**
  * Save the edit state accros pause / resume cycles

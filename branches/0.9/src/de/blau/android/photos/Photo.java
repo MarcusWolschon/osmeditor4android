@@ -2,11 +2,11 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.IOException;
-import de.blau.android.util.ExtendedExifInterface;
 
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.util.Log;
+import de.blau.android.util.ExtendedExifInterface;
 
 
 /**

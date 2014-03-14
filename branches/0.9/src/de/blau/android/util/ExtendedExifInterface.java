@@ -3,13 +3,13 @@ package de.blau.android.util;
 import java.io.File;
 import java.io.IOException;
 
+import android.media.ExifInterface;
+import android.util.Log;
+
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.GpsDirectory;
-
-import android.media.ExifInterface;
-import android.util.Log;
 
 /**
  * Workaround android SDK brokeness

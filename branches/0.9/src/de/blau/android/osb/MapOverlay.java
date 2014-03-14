@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Handler;
-
 import de.blau.android.Map;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;

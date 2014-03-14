@@ -1,9 +1,5 @@
 package de.blau.android.prefs;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -12,6 +8,11 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;

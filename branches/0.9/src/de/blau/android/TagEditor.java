@@ -13,12 +13,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -46,6 +40,13 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
@@ -72,7 +73,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	public static final String TAGEDIT_LASTTAGS = "applyLastTags";
 	
 	/** The layout containing the entire editor */
-	private LinearLayout verticalLayout = null;
+	private LinearLayout verticalLayout;
 	
 	/** The layout containing the edit rows */
 	private LinearLayout rowLayout = null;

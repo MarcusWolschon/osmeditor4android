@@ -16,6 +16,8 @@
 
 package de.blau.android.util.jsonreader;
 
+import android.util.JsonWriter;
+
 /**
  * A structure, name or value type in a JSON-encoded string.
  */

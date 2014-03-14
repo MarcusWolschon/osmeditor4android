@@ -109,16 +109,6 @@ public class BoundingBox implements Serializable {
 	private static final String DEBUG_TAG = BoundingBox.class.getSimpleName();
 
 	/**
-	 * Count of Zoom operations.
-	 */
-	private int zoomCount = 0;
-
-	/**
-	 * Number of zoom operations after which should the ratio reset.
-	 */
-	private static final int RESET_RATIO_AFTER_ZOOMCOUNT = 1;
-
-	/**
 	 * The ratio of this BoundingBox. Only needed when it's used as a viewbox.
 	 */
 	private float ratio = 1;

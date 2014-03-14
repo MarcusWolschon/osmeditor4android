@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -35,27 +34,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.ActionMode.Callback;
 
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
-import de.blau.android.Logic;
-import de.blau.android.Main;
+import de.blau.android.Logic.Mode;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.Logic.Mode;
-import de.blau.android.R.id;
-import de.blau.android.R.layout;
-import de.blau.android.R.string;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Offset;
 import de.blau.android.util.jsonreader.JsonReader;
 import de.blau.android.views.util.OpenStreetMapTileServer;
-import de.blau.android.util.Offset;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
 	
@@ -486,7 +480,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 						+"&author="+URLEncoder.encode(author,"UTF-8")
 						+"&description="+URLEncoder.encode(description,"UTF-8")
 						+"&imagery="+URLEncoder.encode(imageryId,"UTF-8")
-						+"&imlat="+URLEncoder.encode(String.format("%.7f",imageryLat))+"&imlon="+URLEncoder.encode(String.format("%.7f",imageryLon),"UTF-8");
+						+"&imlat="+URLEncoder.encode(String.format("%.7f",imageryLat),"UTF-8")+"&imlon="+URLEncoder.encode(String.format("%.7f",imageryLon),"UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -54,6 +54,8 @@
   <string name="set_position_datum_label">Mốc trắc địa</string>
   <string name="tag_editor_name_suggestion">Gợi ý tên gọi</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Gợi ý này có thể thay thế một số giá trị thẻ bằng giá trị phổ biến hơn.</string>
+  <string name="search_results_title">Kết quả tìm kiếm</string>
+  <string name="find_message">Nhập truy vấn</string>
   <!--Toaster-->
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_upload_success">Đã hoàn tất tải lên máy chủ OSM.</string>
@@ -82,6 +84,8 @@
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
   <string name="toast_timeout">Hết thời gian chờ máy chủ</string>
   <string name="coordinates_out_of_range">Kinh độ phải nằm giữa −180°/+180°; vĩ độ phải nằm giữa −85°/85°</string>
+  <string name="toast_nothing_found">Không tìm thấy kết quả</string>
+  <string name="toast_statesave_failed">Thất bại khi lưu trạng thái hiện tại!\nLỗi không thể vượt qua khi ghi tập tin xuất để khôi phục sau dùng JOSM.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -122,6 +126,7 @@
   <string name="location_coordinates_text">Từ tọa độ:</string>
   <string name="location_lat_label">Vĩ độ:</string>
   <string name="location_lon_label">Kinh độ:</string>
+  <string name="location_search_label">Tìm kiếm:</string>
   <string name="location_load_button">Tải</string>
   <string name="location_load_dismiss">Đi đến bản đồ</string>
   <string name="location_nan_title">Đã nhập Dữ liệu Không hợp lệ!</string>
@@ -131,6 +136,7 @@
   <string name="menu_edit">Chỉnh sửa</string>
   <string name="menu_add">Mới</string>
   <string name="menu_config">Tùy chỉnh</string>
+  <string name="menu_find">Tìm</string>
   <string name="menu_help">Trợ giúp</string>
   <string name="menu_erase">Xóa nốt</string>
   <string name="menu_set_position">Vị trí</string>
@@ -149,6 +155,7 @@
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Hiện vị trí</string>
   <string name="menu_gps_follow">Theo dõi vị trí GPS</string>
+  <string name="menu_gps_goto">Đi đến vị trí GPS</string>
   <string name="menu_gps_start">Bắt đầu tuyến GPS</string>
   <string name="menu_gps_pause">Tạm dừng tuyến GPS</string>
   <string name="menu_gps_clear">Dọn dẹp tuyến GPS</string>

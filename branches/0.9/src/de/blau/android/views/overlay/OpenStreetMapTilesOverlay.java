@@ -20,10 +20,10 @@ import de.blau.android.DialogFactory;
 import de.blau.android.Map;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Offset;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.OpenStreetMapTileProvider;
 import de.blau.android.views.util.OpenStreetMapTileServer;
-import de.blau.android.util.Offset;
 
 /**
  * Overlay that draws downloaded tiles which may be displayed on top of an

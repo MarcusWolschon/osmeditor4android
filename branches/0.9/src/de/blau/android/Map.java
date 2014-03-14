@@ -20,11 +20,9 @@ import android.graphics.Region;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Build;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-
 import de.blau.android.Logic.Mode;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;

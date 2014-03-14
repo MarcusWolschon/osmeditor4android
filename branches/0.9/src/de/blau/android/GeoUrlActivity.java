@@ -1,30 +1,13 @@
 package de.blau.android;
 
 import java.io.Serializable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-import de.blau.android.R;
-import de.blau.android.prefs.AdvancedPrefDatabase.API;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.OAuthHelper;
 
 /**
  * Start vespucci with geo: URLs.

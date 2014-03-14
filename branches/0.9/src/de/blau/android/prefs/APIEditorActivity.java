@@ -3,20 +3,21 @@ package de.blau.android.prefs;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.actionbarsherlock.view.Menu;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import de.blau.android.prefs.AdvancedPrefDatabase.API;
+
+import com.actionbarsherlock.view.Menu;
+
 import de.blau.android.R;
+import de.blau.android.prefs.AdvancedPrefDatabase.API;
 
 /** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {

@@ -51,6 +51,11 @@
   <string name="imagery_offset_date">Erstellt</string>
   <string name="imagery_offset_zoom">Zoomstufe</string>
   <string name="imagery_offset_distance">Entfernung</string>
+  <string name="set_position_datum_label">Geodätisches Datum</string>
+  <string name="tag_editor_name_suggestion">Vorschläge für Namen</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
+  <string name="search_results_title">Suchresultate</string>
+  <string name="find_message">Suchanfrage eingeben</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -79,6 +84,8 @@
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
+  <string name="toast_nothing_found">Kein Resutat gefunden</string>
+  <string name="toast_statesave_failed">Speichern des aktuellen Zustandes ist fehlgeschlagen!\nDies ist ein schwerwiegender Fehler, es wird versucht eine Exportdatei für die spätere Verwendung in JOSM zu schreiben.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -88,6 +95,7 @@
   <string name="next">Nächstes</string>
   <string name="apply">Anwenden</string>
   <string name="set">Setzen</string>
+  <string name="replace">Ersetzen</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -118,6 +126,7 @@
   <string name="location_coordinates_text">Von Koordinaten:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_search_label">Suche</string>
   <string name="location_load_button">Laden</string>
   <string name="location_load_dismiss">Zur Karte</string>
   <string name="location_nan_title">Falsche Eingabe!</string>
@@ -127,6 +136,7 @@
   <string name="menu_edit">Verändern</string>
   <string name="menu_add">Neu</string>
   <string name="menu_config">Einstellungen</string>
+  <string name="menu_find">Finde</string>
   <string name="menu_help">Hilfe</string>
   <string name="menu_erase">Knoten löschen</string>
   <string name="menu_set_position">Position</string>
@@ -145,6 +155,7 @@
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">GPS-Position anzeigen</string>
   <string name="menu_gps_follow">GPS-Position folgen</string>
+  <string name="menu_gps_goto">Gehe zu GPS Position</string>
   <string name="menu_gps_start">GPS-Track starten</string>
   <string name="menu_gps_pause">GPS-Track pausieren</string>
   <string name="menu_gps_clear">GPS-Track löschen</string>
@@ -164,6 +175,7 @@
   <string name="menu_paste">Einfügen</string>
   <string name="menu_rotate">Drehen</string>
   <string name="menu_orthogonalize">Rechtwinklig machen</string>
+  <string name="menu_circulize">Im Kreis anordnen</string>
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_tile_cache">Tile Cache leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
@@ -253,6 +265,10 @@
   <string name="config_largeDragArea_summary">Macht einen grösseren Bereich verfügbar um Punkte zu verschieben</string>
   <string name="config_extTriggeredDownloadRadius_title">Download Radius</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radius in Meter für extern ausgelöste Downloads</string>
+  <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
+  <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
+  <string name="config_enableAutoPreset_title">Auto Preset einschalten</string>
+  <string name="config_enableAutoPreset_summary">Automatisch zutreffenden Preset anwenden wenn ein Namensvorschlag angewendet wird</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -311,6 +327,7 @@
   <string name="undo_action_paste">einfügen</string>
   <string name="undo_action_rotateway">Weg drehen</string>
   <string name="undo_action_orthogonalize">weg rechtwinklig machen</string>
+  <string name="undo_action_circulize">im Kreis anordnen</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci ist abgestürzt. Bitte senden Sie einen Fehlerreport.</string>
   <string name="crash_notif_title">Vespucci ist abgestürzt</string>

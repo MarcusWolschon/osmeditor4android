@@ -12,24 +12,17 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TextView.OnEditorActionListener;
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.R;
@@ -88,11 +81,21 @@ public class Search {
 		}
 	}
 	
+	/**
+	 * Constructor
+	 * @param ctx
+	 * @param callback will be called when search result is selected
+	 */
 	public Search(Context ctx, SearchItemFoundCallback callback) {
 		this.ctx = ctx;
 		this.callback = callback;
 	}
 
+	/**
+	 * Query nominatim and then display a list of results to pick from
+	 * @param q
+	 * @return
+	 */
 	public boolean find(String q) {
 		QueryNominatim querier = new QueryNominatim();
 		querier.execute(q);

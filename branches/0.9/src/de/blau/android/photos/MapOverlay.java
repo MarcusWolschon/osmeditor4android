@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
-
 import de.blau.android.Application;
 import de.blau.android.Map;
 import de.blau.android.R;

@@ -1,25 +1,12 @@
 package de.blau.android;
 
-import java.util.ArrayList;
-
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.gesture.Gesture;
-import android.gesture.GestureLibraries;
-import android.gesture.GestureLibrary;
-import android.gesture.GestureOverlayView;
-import android.gesture.GestureOverlayView.OnGesturePerformedListener;
-import android.gesture.Prediction;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 /**
  * From: http://android-developers.blogspot.com/2010/07/how-to-have-your-cupcake-and-eat-it-too.html

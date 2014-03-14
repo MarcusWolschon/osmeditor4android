@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;

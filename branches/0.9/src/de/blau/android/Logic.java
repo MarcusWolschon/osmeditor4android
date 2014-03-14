@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.SortedMap;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -47,9 +47,9 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
 import de.blau.android.util.EditState;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.util.OpenStreetMapTileServer;
-import de.blau.android.util.Offset;
 
 /**
  * Contains several responsibilities of Logic-Work:
@@ -570,7 +570,7 @@ public class Logic {
 			}
 		}
 		
-		// not checking will zap edits
+		// not checking will zap edits, given that this method will only be called when we are not downloading, not a good thing
 		if (!delegator.isDirty()) {
 			delegator.reset();
 			// delegator.setOriginalBox(box); not needed IMHO
@@ -579,7 +579,7 @@ public class Logic {
 		}
 
 		try {
-			viewBox.setBorders(box);
+			viewBox.setBorders(box); // note find bugs warning here can be ignored
 			viewBox.setRatio((float) map.getWidth() / map.getHeight(), true);
 		} catch (OsmException e) {
 			// TODO Auto-generated catch block
@@ -1772,9 +1772,9 @@ public class Logic {
 				this.context = c[0];
 				if (delegator.readFromFile()) {
 					viewBox.setBorders(delegator.getLastBox());
-					return new Boolean(true);
+					return Boolean.valueOf(true);
 				}
-				return new Boolean(false);
+				return Boolean.valueOf(false);
 			}
 			
 			@Override

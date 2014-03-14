@@ -1,7 +1,6 @@
 // Created by plusminus on 21:46:22 - 25.09.2008
 package  de.blau.android.views.util;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 

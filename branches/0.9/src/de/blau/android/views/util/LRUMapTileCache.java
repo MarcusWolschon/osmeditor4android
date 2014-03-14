@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 /**
  * Simple LRU cache for any type of object. Implemented as an extended
