@@ -53,11 +53,12 @@ Modern (0.8 and up) Vespucci versions have been tested and found to work on Andr
 however older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap. 
 This can be as low as 16MB. If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints 
 should be helpful (ordered in decreasing order of importance):
-* turn off any map overlay
-* only load small map areas and don't excessively use the incremental load facility
-* turn off notes and photo overlay
-* turn off name suggestions
-* don't add large presets
+
+ * turn off any map overlay
+ * only load small map areas and don't excessively use the incremental load facility
+ * turn off notes and photo overlay
+ * turn off name suggestions
+ * don't add large presets
 
 == 2. Features ==
 
@@ -75,7 +76,6 @@ Currently, you can
  * Download user-specified areas from OSM server
  * Create and save GPS tracks
  * All edit functions in portrait and landscape mode
-
 
 ====My Android device does not have a physical keyboard. Does Vespucci support a soft keyboard? ==== 
  
