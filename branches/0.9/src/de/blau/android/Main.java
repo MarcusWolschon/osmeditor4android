@@ -70,6 +70,7 @@ import de.blau.android.actionbar.ModeDropdownAdapter;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.CommitTask;
@@ -1360,7 +1361,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 					}
 					break;
 				case MODE_ADD:
-					logic.performAdd(x, y);
+					try {
+						logic.performAdd(x, y);
+					} catch (OsmIllegalOperationException e) {
+						Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+					}
 					break;
 				case MODE_TAG_EDIT:
 					selectElementForTagEdit(v, x, y);
@@ -1578,7 +1583,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				}
 			} else if (lSelectedWay.isEndNode(lSelectedNode)) {
 				// TODO Resolve multiple possible selections
-				logic.performAppendAppend(x, y);
+				try {
+					logic.performAppendAppend(x, y);
+				} catch (OsmIllegalOperationException e) {
+					Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+				}
 			}
 		}
 		

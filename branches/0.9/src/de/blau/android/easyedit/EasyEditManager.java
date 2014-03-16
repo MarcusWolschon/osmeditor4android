@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
@@ -30,6 +31,7 @@ import de.blau.android.DialogFactory;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -479,7 +481,11 @@ public class EasyEditManager {
 					logic.performAppendStart(appendTargetNode);
 				}
 			} else {
-				pathCreateNode(x, y);
+				try {
+					pathCreateNode(x, y);
+				} catch (OsmIllegalOperationException e) {
+					Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+				}
 			}
 			logic.hideCrosshairs();
 			return true;
@@ -488,7 +494,11 @@ public class EasyEditManager {
 		@Override
 		public boolean handleClick(float x, float y) {
 			super.handleClick(x, y);
-			pathCreateNode(x, y);
+			try {
+				pathCreateNode(x, y);
+			} catch (OsmIllegalOperationException e) {
+				Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+			}
 			return true;
 		}
 		
@@ -496,8 +506,9 @@ public class EasyEditManager {
 		 * Creates/adds a node into a path during path creation
 		 * @param x x screen coordinate
 		 * @param y y screen coordinate
+		 * @throws OsmIllegalOperationException 
 		 */
-		private void pathCreateNode(float x, float y) {
+		private void pathCreateNode(float x, float y) throws OsmIllegalOperationException {
 			Node lastSelectedNode = logic.getSelectedNode();
 			Way lastSelectedWay = logic.getSelectedWay();
 			if (appendTargetNode != null) {
@@ -584,7 +595,6 @@ public class EasyEditManager {
 	 */
 	private abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 		private static final int MENUITEM_TAG = 1;
-
 		private static final int MENUITEM_DELETE = 2;
 		private static final int MENUITEM_HISTORY = 3; 
 		private static final int MENUITEM_COPY = 4;
@@ -621,12 +631,12 @@ public class EasyEditManager {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags);
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.tag_menu_delete);
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
 				menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy);
 				menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut);
 			}
-			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.tag_menu_delete);
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation);
 			if (element.getOsmId() > 0){
 				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.CATEGORY_SECONDARY, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
@@ -696,6 +706,7 @@ public class EasyEditManager {
 			logic.setSelectedRelationNodes(null);
 			main.invalidateMap();
 			mode.setTitle(R.string.actionmode_nodeselect);
+			// mode.setTitleOptionalHint(true); // no need to display the title, only available in 4.1 up
 			return true;
 		}
 		
@@ -724,11 +735,17 @@ public class EasyEditManager {
 					main.startActionMode(new PathCreationActionModeCallback((Node)element));
 					break;
 				case MENUITEM_JOIN:
-					if (!logic.performJoin(joinableElement, (Node)element)) {
-						Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
-						main.performTagEdit(element, null, false);
-					} else {
-						mode.finish();
+					try {
+						if (!logic.performJoin(joinableElement, (Node) element)) {
+							Toast.makeText(main,
+									R.string.toast_merge_tag_conflict,
+									Toast.LENGTH_LONG).show();
+							main.performTagEdit(element, null, false);
+						} else {
+							mode.finish();
+						}
+					} catch (OsmIllegalOperationException e) {
+						Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 					}
 					break;
 				case MENUITEM_UNJOIN:
@@ -1050,17 +1067,24 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be clicked
 			super.handleElementClick(element);
-			if (!logic.performMerge(way, (Way)element)) {
-				Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
-				if (way.getState() != OsmElement.STATE_DELETED)
-					main.performTagEdit(way, null, false);
-				else
-					main.performTagEdit(element, null, false);
-			} else {
-				if (way.getState() != OsmElement.STATE_DELETED)
-					main.startActionMode(new WaySelectionActionModeCallback(way));
-				else
-					main.startActionMode(new WaySelectionActionModeCallback((Way)element));
+			try {
+				if (!logic.performMerge(way, (Way)element)) {
+					Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
+					if (way.getState() != OsmElement.STATE_DELETED)
+						main.performTagEdit(way, null, false);
+					else
+						main.performTagEdit(element, null, false);
+				} else {
+					if (way.getState() != OsmElement.STATE_DELETED)
+						main.startActionMode(new WaySelectionActionModeCallback(way));
+					else
+						main.startActionMode(new WaySelectionActionModeCallback((Way)element));
+				}
+			} catch (OsmIllegalOperationException e) {
+				Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+			} catch (NotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			return true;
 		}

@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.osb.Bug;
@@ -944,6 +945,7 @@ public class Logic {
 	 * @param absoluteY The absolute display-coordinate.
 	 * @param relativeX The difference to the last absolute display-coordinate.
 	 * @param relativeY The difference to the last absolute display-coordinate.
+	 * @throws OsmIllegalOperationException 
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
 		if (draggingNode || draggingWay || (draggingHandle && selectedHandle != null)) {
@@ -953,17 +955,22 @@ public class Logic {
 			if (draggingNode || (draggingHandle && selectedHandle != null)) {
 				if (draggingHandle) { // create node only if we are really dragging
 					Log.d("Logic","creating node at handle position");
-					if (performAddOnWay(selectedHandle.x, selectedHandle.y)) {
-						selectedHandle = null;
-						draggingNode = true;
-						draggingHandle = false;
-						if (prefs.largeDragArea()) {
-							startX = lonE7ToX(selectedNode.getLon());
-							startY = latE7ToY( selectedNode.getLat());
+					try {
+						if (performAddOnWay(selectedHandle.x, selectedHandle.y)) {
+							selectedHandle = null;
+							draggingNode = true;
+							draggingHandle = false;
+							if (prefs.largeDragArea()) {
+								startX = lonE7ToX(selectedNode.getLon());
+								startY = latE7ToY( selectedNode.getLat());
+							}
+							Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
 						}
-						Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
+						else return;
+					} catch (OsmIllegalOperationException e) {
+						Toast.makeText(Application.mainActivity, e.getMessage(), Toast.LENGTH_LONG).show();
+						return;
 					}
-					else return;
 				}
 				if (prefs.largeDragArea()) {
 					startY = startY + relativeY;
@@ -1082,8 +1089,9 @@ public class Logic {
 	 * 
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
+	 * @throws OsmIllegalOperationException 
 	 */
-	public void performAdd(final float x, final float y) {
+	public void performAdd(final float x, final float y) throws OsmIllegalOperationException {
 		Log.d("Logic","performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
@@ -1141,8 +1149,9 @@ public class Logic {
 	 * 
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
+	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean performAddOnWay(final float x, final float y) {
+	public boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNode;
 		
@@ -1266,8 +1275,9 @@ public class Logic {
 	 *  
 	 * @param mergeInto Way to merge the other way into. This way will be kept.
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
+	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean performMerge(Way mergeInto, Way mergeFrom) {
+	public boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
 		boolean mergeOK = delegator.mergeWays(mergeInto, mergeFrom);
 		map.invalidate();
@@ -1338,8 +1348,9 @@ public class Logic {
 	 * Join a node to a node or way at the point on the way closest to the node.
 	 * @param element Node or Way that the node will be joined to.
 	 * @param nodeToJoin Node to be joined to the way.
+	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean performJoin(OsmElement element, Node nodeToJoin) {
+	public boolean performJoin(OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
 		boolean mergeOK = true;
 		if (element instanceof Node) {
 			Node node = (Node)element;
@@ -1438,7 +1449,7 @@ public class Logic {
 		performAppendStart(lSelectedWay, lSelectedNode);
 	}
 	
-	public void performAppendAppend(final float x, final float y) {
+	public void performAppendAppend(final float x, final float y) throws OsmIllegalOperationException {
 		Log.d("Logic","performAppendAppend");
 		createCheckpoint(R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
@@ -1455,7 +1466,12 @@ public class Logic {
 				node = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(node);
 			}
-			delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+			try {
+				delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+			} catch (OsmIllegalOperationException e) {
+				delegator.removeNode(node);
+				throw new OsmIllegalOperationException(e);
+			}
 			lSelectedNode = node;
 		}
 		setSelectedNode(lSelectedNode);
@@ -1470,8 +1486,9 @@ public class Logic {
 	 * @param x the x screen coordinate
 	 * @param y the y screen coordinate
 	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
+	 * @throws OsmIllegalOperationException 
 	 */
-	private Node getClickedNodeOrCreatedWayNode(final float x, final float y) {
+	private Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
 		Node node = getClickedNode(x, y);
 		if (node != null) {
 			return node;
@@ -1484,7 +1501,12 @@ public class Logic {
 				node = createNodeOnWay(nodeBefore, wayNodes.get(k), x, y);
 				if (node != null) {
 					delegator.insertElementSafe(node);
-					delegator.addNodeToWayAfter(nodeBefore, node, way);
+					try {
+						delegator.addNodeToWayAfter(nodeBefore, node, way);
+					} catch (OsmIllegalOperationException e) {
+						delegator.removeNode(node);
+						throw new OsmIllegalOperationException(e);
+					}
 					return node;
 				}
 			}

@@ -339,6 +339,8 @@
     <string name="pref_enable_acra">Report application crashes</string>
     <string name="pref_acra_enabled">Crash reporting enabled</string>
     <string name="pref_acra_disabled">Crash reporting disabled</string>
+    <!-- Exceptions messages -->
+    <string name="exception_too_many_nodes">This operation would create a way with too many nodes.</string>
     <!--  Misc relation related stuff -->
     <string name="role">Role</string>
     <string name="role_lc">role</string>

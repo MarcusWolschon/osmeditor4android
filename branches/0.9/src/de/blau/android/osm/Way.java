@@ -31,6 +31,8 @@ public class Way extends OsmElement {
 
 	public static final String NODE = "nd";
 	
+	public static final int MAX_WAY_NODES = 2000;
+	
 	transient FeatureProfile featureProfile = null; // FeatureProfile is currently not serializable
 	
 	static {
@@ -584,4 +586,11 @@ public class Way extends OsmElement {
 		featureProfile = fp;
 	}
 	
+	/** 
+	 * return the number of nodes in the is way
+	 * @return
+	 */
+	public int length() {
+		return nodes.size();
+	}
 }

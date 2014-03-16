@@ -25,6 +25,7 @@ import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.util.GeoMath;
@@ -189,11 +190,13 @@ public class StorageDelegator implements Serializable, Exportable {
 		return way;
 	}
 
-	public void addNodeToWay(final Node node, final Way way) {
+	public void addNodeToWay(final Node node, final Way way) throws OsmIllegalOperationException {
 		dirty = true;
 		undo.save(way);
 		
 		try {
+			if (way.length() + 1 > Way.MAX_WAY_NODES)
+				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNode(node);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -203,11 +206,13 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) {
+	public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) throws OsmIllegalOperationException {
 		dirty = true;
 		undo.save(way);
 		
 		try {
+			if (way.length() + 1 > Way.MAX_WAY_NODES)
+				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNodeAfter(nodeBefore, newNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -217,10 +222,12 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) {
+	public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) throws OsmIllegalOperationException {
 		dirty = true;
 		undo.save(way);
 		try {
+			if (way.length() + 1 > Way.MAX_WAY_NODES)
+				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.appendNode(refNode, nextNode);
 			way.updateState(OsmElement.STATE_MODIFIED);
@@ -789,9 +796,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param mergeInto Way to merge the other way into. This way will be kept if it has a valid id.
 	 * @param mergeFrom Way to merge into the other. 
 	 * @return false if we had tag conflicts
+	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean mergeWays(Way mergeInto, Way mergeFrom) {
+	public boolean mergeWays(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		boolean mergeOK = true;
+		
+		if ((mergeInto.length() + mergeFrom.length()) > Way.MAX_WAY_NODES)
+			throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 		
 		// first determine if one of the ways already has a valid id, if it is not and other way has valid id swap
 		// this helps preserve history
