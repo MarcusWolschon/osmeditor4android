@@ -179,7 +179,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		if (l != null) {
 			lastLocation = l;
 		}
-		setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, lastLocation);
+		setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, lastLocation, null);
 	}
 	
 	@Override
@@ -450,8 +450,11 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		Log.w(DEBUG_TAG, "Got location: " + newLocation);
 		if (newLocation != null) {
 			if (isNewLocationMoreAccurate(newLocation)) {
-				setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation);
+				setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation, null);
 				currentLocation = newLocation;
+				if (lastLocation != null) {
+					setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, newLocation, lastLocation);
+				}
 			}
 		}
 	}
@@ -461,8 +464,9 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	 * @param buttonId The resource ID of the radio button.
 	 * @param textId The resource ID of the button text.
 	 * @param location The location data to update the button text (may be null).
+	 * @param lastLocation TODO
 	 */
-	private void setLocationRadioButton(final int buttonId, final int textId, final Location location) {
+	private void setLocationRadioButton(final int buttonId, final int textId, final Location location, Location lastLocation) {
 		String locationMetaData = getString(R.string.location_text_unknown);
 		if (location != null) {
 			String accuracyMetaData = "";
@@ -473,8 +477,28 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			if (location.hasAccuracy()) {
 				accuracyMetaData += getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
 			}
-			accuracyMetaData += location.getProvider() + ")";
-			locationMetaData = getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData);
+			accuracyMetaData += " " + location.getProvider() + ")";
+			long fixTime = Math.max(0,(System.currentTimeMillis()-location.getTime())/1000);
+			//TODO slightly hackish, should be localized correctly
+			String fixString = "";
+			if (fixTime > 24*3600) {
+				fixString = fixTime / (24*3600) + " " + getString(R.string.days);
+			} else if (fixTime > 3600) {
+				fixString = fixTime / 3600 + " " + getString(R.string.hours);
+			} else if (fixTime > 60) {
+				fixString = fixTime / 60 + " " + getString(R.string.minutes);
+			} else {
+				fixString = fixTime + " " + getString(R.string.seconds);
+			}
+			if (lastLocation != null && currentLocation != null) { // add distance from old location
+				int fixDistance = Math.round(lastLocation.distanceTo(currentLocation));
+				if (fixDistance > 1000) {
+					fixString = Math.round(fixDistance/1000.0) + " " + getString(R.string.km) + " " + fixString;
+				} else {
+					fixString = fixDistance + " " + getString(R.string.meter) + " " + fixString;
+				}
+			}
+			locationMetaData = getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData, fixString);
 		}
 		RadioButton rb = (RadioButton)findViewById(buttonId);
 		rb.setEnabled(location != null);

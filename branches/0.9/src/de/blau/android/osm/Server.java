@@ -539,6 +539,7 @@ public class Server {
 			checkResponseCode(connection);
 		} finally {
 			disconnect(connection);
+			changesetId = -1;
 		}
 	}
 

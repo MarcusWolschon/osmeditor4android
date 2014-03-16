@@ -121,8 +121,8 @@
     <string name="location_text_unknown">unknown</string>
     <string name="location_last_text_parameterized">Last known location: %1$s</string>
     <string name="location_current_text_parameterized">Current location: %1$s</string>
-    <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-    <string name="location_text_metadata_accuracy">Accuracy %1$1g meter,</string>
+    <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
+    <string name="location_text_metadata_accuracy">Accuracy %1$2.0f meter,</string>
     <string name="location_map_text">From map (coming soon)</string>
     <string name="location_coordinates_text">From coordinates:</string>
     <string name="location_lat_label">Lat:</string>
@@ -352,6 +352,11 @@
     <string name="deleterelation_relation_description">You are about to delete a relation that is a member of one or more relations. Removing the relation from the relation(s) may render it/them invalid.</string>
     <string name="deleterelation">Delete relation</string>
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
-    <!--  -->
-    
+    <!-- time and distance  -->
+    <string name="days">days</string>
+    <string name="hours">hours</string>
+    <string name="minutes">minutes</string>
+    <string name="seconds">seconds</string>
+    <string name="km">km</string>
+    <string name="meter">meter</string>
 </resources>
