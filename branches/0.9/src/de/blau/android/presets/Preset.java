@@ -97,6 +97,12 @@ public class Preset {
 	private static final String MRUFILE = "mru.dat";
 	public static final String APKPRESET_URLPREFIX = "apk:";
 	
+	// hardwired layout stuff
+	public static final int SPACING = 5;
+	
+	//
+	private static final int MAX_MRU_SIZE = 50;
+	
 	/** The directory containing all data (xml, MRU data, images) about this preset */
 	private File directory;
 
@@ -363,7 +369,7 @@ public class Preset {
 		// prevent duplicates
 		mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
 		mru.recentPresets.addFirst(id);
-		if (mru.recentPresets.size() > 50) mru.recentPresets.removeLast();
+		if (mru.recentPresets.size() > MAX_MRU_SIZE) mru.recentPresets.removeLast();
 		mru.changed  = true;
 	}
 
@@ -677,8 +683,8 @@ public class Preset {
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
-			wrappingLayout.setHorizontalSpacing((int)(5*density));
-			wrappingLayout.setVerticalSpacing((int)(5*density));
+			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));
+			wrappingLayout.setVerticalSpacing((int)(SPACING*density));
 			ArrayList<PresetElement> filteredElements = filterElements(elements, type);
 			ArrayList<View> childViews = new ArrayList<View>();
 			for (PresetElement element : filteredElements) {

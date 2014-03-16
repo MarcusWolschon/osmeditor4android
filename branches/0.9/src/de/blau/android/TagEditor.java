@@ -72,9 +72,6 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	public static final String TAGEDIT_DATA = "dataClass";
 	public static final String TAGEDIT_LASTTAGS = "applyLastTags";
 	
-	/** The layout containing the entire editor */
-	private LinearLayout verticalLayout;
-	
 	/** The layout containing the edit rows */
 	private LinearLayout rowLayout = null;
 	
@@ -320,7 +317,6 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		
 		setContentView(R.layout.tag_view);
 		
-		verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
 		rowLayout = (LinearLayout) findViewById(R.id.edit_row_layout);
 		presetsLayout = (LinearLayout) findViewById(R.id.presets_layout);
 		parentRelationsLayout = (LinearLayout) findViewById(R.id.relation_membership_layout);
@@ -499,7 +495,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			}, filterType);
 		
 			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-			v.setPadding(5, 5, 5, 5);
+			v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
 			v.setId(R.id.recentPresets);
 			presetsLayout.addView(v);
 			presetsLayout.setVisibility(View.VISIBLE);

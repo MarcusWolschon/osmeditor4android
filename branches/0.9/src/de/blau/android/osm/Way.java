@@ -506,6 +506,10 @@ public class Way extends OsmElement {
 		return brainDead;
 	}
 	
+	private boolean hasTagWithValue(String tag, String value) {
+		String tagValue = getTagWithKey(tag);
+		return tagValue != null ? tagValue.equalsIgnoreCase(value) : false;
+	}
 	
 	/**
 	 * Test if the way has a problem.
@@ -518,7 +522,8 @@ public class Way extends OsmElement {
 			// unsurveyed road
 			return true;
 		}
-		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null)) {
+		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null) 
+				&& !(hasTagWithValue("noname","yes") || hasTagWithValue("validate:no_name","yes"))) {
 			// unnamed way - only the important ones need names
 			for (String h : importantHighways) {
 				if (h.equalsIgnoreCase(highway)) {
@@ -537,7 +542,8 @@ public class Way extends OsmElement {
 		if ("road".equalsIgnoreCase(highway)) {
 			wayProblem = Application.mainActivity.getString(R.string.toast_unsurveyed_road);
 		}
-		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null)) {
+		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null)
+				&& !(hasTagWithValue("noname","yes") || hasTagWithValue("validate:no_name","yes"))) {
 			boolean isImportant = false;
 			for (String h : importantHighways) {
 				if (h.equalsIgnoreCase(highway)) {
