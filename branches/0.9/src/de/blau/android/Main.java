@@ -735,8 +735,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			undoListener.onClick(null);
 			return true;
 			
-		case R.id.menu_tools_flush_tile_cache:
+		case R.id.menu_tools_flush_background_tile_cache:
 			map.getOpenStreetMapTilesOverlay().flushTileCache();
+			return true;
+			
+		case R.id.menu_tools_flush_overlay_tile_cache:
+			map.getOpenStreetMapOverlayTilesOverlay().flushTileCache();
 			return true;
 			
 		case R.id.menu_tools_background_align:

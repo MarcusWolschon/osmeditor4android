@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.acra.ACRA;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.MediaScannerConnection;
@@ -52,12 +54,13 @@ public class SavingHelper<T extends Serializable> {
 		{
 			Log.d("SavingHelper", "preparing to save " + filename);
 			SaveThread r = new SaveThread(filename, object, compress);
-			Thread t = new Thread(null, r, "SaveThread", 50000);
+			Thread t = new Thread(null, r, "SaveThread", 100000);
 			t.start();
 			t.join(20000); // wait max 20 s for thread to finish
 			Log.d("SavingHelper", "save thread finished");
 			return r.getResult();
 		} catch (Exception e) {
+			ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			return false;
 		}
 	}
@@ -98,9 +101,11 @@ public class SavingHelper<T extends Serializable> {
         		result = true;
         	} catch (Exception e) {
         		Log.e("SavingHelper", "failed to save "+filename, e);
+        		ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
         		result = false;
         	} catch (Error e) {
         		Log.e("SavingHelper", "failed to save "+filename, e);
+        		ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
         		result = false;
         	} finally {
         		SavingHelper.close(objectOut);
@@ -122,12 +127,13 @@ public class SavingHelper<T extends Serializable> {
 		{
 			Log.d("SavingHelper", "preparing to load " + filename);
 			LoadThread r = new LoadThread(filename, compressed);
-			Thread t = new Thread(null, r, "LoadThread", 50000);
+			Thread t = new Thread(null, r, "LoadThread", 100000);
 			t.start();
 			t.join(20000); // wait max 20 s for thread to finish
 			Log.d("SavingHelper", "load thread finished");
 			return r.getResult();
 		} catch (Exception e) {
+			ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			return null;
 		}
 	}

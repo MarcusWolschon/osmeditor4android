@@ -104,8 +104,12 @@
 	>	
 		<menu>
 				<item
-					android:id="@+id/menu_tools_flush_tile_cache"
-					android:title="@string/menu_tools_flush_tile_cache"
+					android:id="@+id/menu_tools_flush_background_tile_cache"
+					android:title="@string/menu_tools_flush_background_tile_cache"
+				/>
+				<item
+					android:id="@+id/menu_tools_flush_overlay_tile_cache"
+					android:title="@string/menu_tools_flush_overlay_tile_cache"
 				/>
 				<item
 					android:id="@+id/menu_tools_background_align"

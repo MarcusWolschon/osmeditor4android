@@ -201,6 +201,19 @@ public class Map extends View implements IMapView {
 		return null;
 	}
 	
+	/**
+	 * The names of these clases are patently silly and should be refactored
+	 * @return
+	 */
+	public OpenStreetMapOverlayTilesOverlay getOpenStreetMapOverlayTilesOverlay() {
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			if (osmvo instanceof OpenStreetMapOverlayTilesOverlay) {
+				return (OpenStreetMapOverlayTilesOverlay)osmvo;
+			}
+		}
+		return null;
+	}
+	
 	public de.blau.android.osb.MapOverlay getOpenStreetBugsOverlay() {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof de.blau.android.osb.MapOverlay) {
@@ -257,6 +270,7 @@ public class Map extends View implements IMapView {
 		handles = null;
 		
 		// Draw our Overlays.
+		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds());
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
 		}

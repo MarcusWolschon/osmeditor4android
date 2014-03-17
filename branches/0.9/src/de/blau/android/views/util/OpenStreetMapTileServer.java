@@ -370,7 +370,8 @@ public class OpenStreetMapTileServer {
 	 * @param async			run loadInfo in a AsyncTask needed for main process
 	 */
 	private OpenStreetMapTileServer(final Resources r, final String id, final String name, final String url, final String type, 
-			final boolean overlay, final boolean defaultLayer, final Provider provider, final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, boolean async) {
+			final boolean overlay, final boolean defaultLayer, final Provider provider, final String termsOfUseUrl,
+			final int zoomLevelMin, final int zoomLevelMax, final int tileWidth, final int  tileHeight, boolean async) {
 		this.r = r;
 		this.id = id;
 		this.name = name;
@@ -381,6 +382,7 @@ public class OpenStreetMapTileServer {
 		this.zoomLevelMax = zoomLevelMax;
 		this.tileWidth = tileWidth; 
 		this.tileHeight = tileHeight;
+		this.touUri = termsOfUseUrl;
 		this.offsets = new Offset[zoomLevelMax-zoomLevelMin+1];
 		if (provider != null)
 			providers.add(provider);
@@ -550,6 +552,7 @@ public class OpenStreetMapTileServer {
 		boolean defaultLayer = false;
 		Provider.CoverageArea extent = null;
 		Provider provider = null;
+		String termsOfUseUrl = null;
 		try {
 			reader.beginObject();
 			while (reader.hasNext()) {
@@ -576,7 +579,7 @@ public class OpenStreetMapTileServer {
 			    } else if (jsonName.equals("attribution")) {
 			    	if (provider == null) 
 			    		provider = new Provider();
-			    	readAttribution(reader, provider);
+			    	readAttribution(reader, provider, termsOfUseUrl);
 			    } else {
 			    	reader.skipValue();
 			    }
@@ -588,7 +591,7 @@ public class OpenStreetMapTileServer {
 		}
 		if (type == null || type.equals("wms"))
 			return null;
-		OpenStreetMapTileServer osmts = new OpenStreetMapTileServer(r, id, name, url, type, overlay, defaultLayer, provider, 
+		OpenStreetMapTileServer osmts = new OpenStreetMapTileServer(r, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl,
 				extent != null ? extent.zoomMin : 0, extent != null ? extent.zoomMax : 18, 256, 256, async);
 		return osmts;
 	}
@@ -653,7 +656,7 @@ public class OpenStreetMapTileServer {
 		return bbox;
 	}
 	
-	private static void readAttribution(JsonReader reader, Provider provider) {
+	private static void readAttribution(JsonReader reader, Provider provider, String termsOfUseUrl) {
 	
 		try {
 			reader.beginObject();
@@ -661,7 +664,9 @@ public class OpenStreetMapTileServer {
 				String jsonName = reader.nextName();
 				if (jsonName.equals("text")) {
 					provider.attribution = reader.nextString();
-				} else{
+				} else if (jsonName.equals("url")) {
+					termsOfUseUrl = reader.nextString();
+				} else {
 			    	reader.skipValue();
 			    }
 			}

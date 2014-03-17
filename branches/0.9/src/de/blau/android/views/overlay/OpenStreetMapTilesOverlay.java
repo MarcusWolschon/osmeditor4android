@@ -46,7 +46,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	/** Tap tracking */
 	private float downX, downY;
 	private boolean moved;
-	private Rect tapArea = new Rect();
+	private static Rect tapArea = null;
 	
 	/**
 	 * The view we are a part of.
@@ -297,10 +297,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		}
 		
 		// Draw the tile layer branding logo (if it exists)
-		tapArea.left = 0;
-		tapArea.right = 0;
-		tapArea.top = viewPort.bottom;
-		tapArea.bottom = viewPort.bottom;
+		if (tapArea == null) {
+			resetAttributionArea(viewPort);
+		}
 		Drawable brandLogo = myRendererInfo.getBrandLogo();
 		if (brandLogo != null) {
 			tapArea.top -= brandLogo.getIntrinsicHeight();
@@ -321,6 +320,16 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		if (tapArea.height() < TAPAREA_MIN_HEIGHT) {
 			tapArea.top = tapArea.bottom - TAPAREA_MIN_HEIGHT;
 		}
+	}
+
+	public static void resetAttributionArea(Rect viewPort) {
+		if (tapArea == null) {
+			tapArea = new Rect();
+		}
+		tapArea.left = 0;
+		tapArea.right = 0;
+		tapArea.top = viewPort.bottom;
+		tapArea.bottom = viewPort.bottom;
 	}
 	
 	/** Recursively search the cache for smaller tiles to fill in the required
