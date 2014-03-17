@@ -133,3 +133,8 @@ Vespucci will use OAuth authorization as default for new installs. On your first
  * Use the pinch-to-zoom multi-touch gesture.
  * Use the on-screen zoom controls.
  * Use the volume buttons of your Android device.
+ 
+====Conflict resolution====
+
+Currently vespucci does not have built in conflict resolution capability. However you can export all your changes to a .osc file, open that with JOSM 
+and use JOSMs conflict resolution capabilities to resolve the issue.  
