@@ -317,9 +317,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		if (tapArea.width() < TAPAREA_MIN_WIDTH) {
 			tapArea.right = tapArea.left + TAPAREA_MIN_WIDTH;
 		}
-		if (tapArea.height() < TAPAREA_MIN_HEIGHT) {
-			tapArea.top = tapArea.bottom - TAPAREA_MIN_HEIGHT;
-		}
+//TODO fix, causes problems with multiple layers
+//		if (tapArea.height() < TAPAREA_MIN_HEIGHT) {
+//			tapArea.top = tapArea.bottom - TAPAREA_MIN_HEIGHT;
+//		}
 	}
 
 	public static void resetAttributionArea(Rect viewPort) {
