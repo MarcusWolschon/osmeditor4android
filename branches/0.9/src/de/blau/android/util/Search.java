@@ -94,9 +94,8 @@ public class Search {
 	/**
 	 * Query nominatim and then display a list of results to pick from
 	 * @param q
-	 * @return
 	 */
-	public boolean find(String q) {
+	public void find(String q) {
 		QueryNominatim querier = new QueryNominatim();
 		querier.execute(q);
 		try {
@@ -117,8 +116,7 @@ public class Search {
 			Toast.makeText(ctx, R.string.toast_timeout, Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
-		Log.d("Search","returning false");
-		return false;
+		
 	}
 	
 
@@ -234,6 +232,7 @@ public class Search {
 		lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {
 		    public void onItemClick(AdapterView parent, View v, int position, long id) {
 		        // 
+		    	// Log.d("Search","Result at pos " + position + " clicked");
 		    	callback.onItemFound(searchResults.get(position));
 		    	dialog.dismiss();
 		    	

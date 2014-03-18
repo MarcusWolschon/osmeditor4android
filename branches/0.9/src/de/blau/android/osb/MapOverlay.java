@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Handler;
+import de.blau.android.Application;
 import de.blau.android.Map;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
@@ -117,15 +118,17 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
 			if (!cur.equals(prev)) {
 				// map has moved/zoomed - need to refresh the bugs on display
-				// don't flood OSB with requests - wait for 2s
+				// don't flood OSB with requests - wait for 1s
 				handler.removeCallbacks(getBugs);
-				handler.postDelayed(getBugs, 2000);
+				handler.postDelayed(getBugs, 1000);
 			}
 			// draw all the bugs on the map as slightly transparent circles
+			int w = Application.mainActivity.getMap().getWidth();
+			int h = Application.mainActivity.getMap().getHeight();
 			for (Bug b : bugs) {
 				if (bb.isIn(b.getLat(), b.getLon())) {
-					float x = GeoMath.lonE7ToX(c.getWidth() , bb, b.getLon());
-					float y = GeoMath.latE7ToY(c.getHeight(), c.getWidth(), bb, b.getLat());
+					float x = GeoMath.lonE7ToX(w , bb, b.getLon());
+					float y = GeoMath.latE7ToY(h, w, bb, b.getLat()); 
 					c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
 				}
 			}

@@ -143,7 +143,8 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 		return ret;
 	}
 
-	public int addTileOrIncrement(final OpenStreetMapTile aTile, final int aByteFilesize) {
+	public synchronized int addTileOrIncrement(final OpenStreetMapTile aTile, final int aByteFilesize) { 
+		// there seems to be danger for  a race condition here
 		if (incrementUse(aTile)) {
 			if(DEBUGMODE)
 				Log.d(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "Tile existed");

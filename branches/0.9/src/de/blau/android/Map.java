@@ -397,8 +397,8 @@ public class Map extends View implements IMapView {
 		if (displayLocation == null) return;
 		BoundingBox viewBox = getViewBox();
 		float x = GeoMath.lonE7ToX(getWidth(), viewBox, (int)(displayLocation.getLongitude() * 1E7));
-		float y = zoomLevel > 12 ? GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int)(displayLocation.getLatitude() * 1E7)) : GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int)(displayLocation.getLatitude() * 1E7));
-
+		float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int)(displayLocation.getLatitude() * 1E7)); 
+				                
 		float o = -1f;
 		if (displayLocation.hasBearing() && displayLocation.hasSpeed() && displayLocation.getSpeed() > 1.4f) {
 			// 1.4m/s ~= 5km/h ~= walking pace

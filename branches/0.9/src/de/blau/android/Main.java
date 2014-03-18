@@ -42,6 +42,7 @@ import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -670,7 +671,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		case R.id.menu_gps_show:
 			toggleShowGPS();
 			return true;
-			
 
 		case R.id.menu_gps_follow:
 			toggleFollowGPS();
@@ -885,6 +885,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				TextView changes = (TextView)ad.findViewById(R.id.upload_changes);
 				changes.setText(getString(R.string.confirm_upload_text, getPendingChanges()));
 				break;
+			case DialogFactory.SEARCH:
+				dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
 				Bug bug = logic.getSelectedBug();
 				if (bug==null) { // a quick hack to see if this stops this crashing now and then
@@ -915,6 +918,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				close.setEnabled(/* !bug.isClosed() && */ bug.getId() != 0);
 				Button commit = ad.getButton(DialogInterface.BUTTON_POSITIVE);
 				commit.setEnabled(/* !bug.isClosed() */ true);
+				dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 				break;
 			}
 		}

@@ -323,10 +323,10 @@ public class DialogFactory {
 			public void onItemFound(SearchResult sr) {
 				// turn this off or else we get bounced back to our current GPS position
 				caller.setFollowGPS(false);
-				caller.getMap().setFollowGPS(true);
+				caller.getMap().setFollowGPS(false);
 				//
-				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 				caller.logic.setZoom(19);
+				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 				searchDialog.dismiss();
 			}
 		};
