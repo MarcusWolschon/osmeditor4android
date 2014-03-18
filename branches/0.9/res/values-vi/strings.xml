@@ -120,8 +120,8 @@
   <string name="location_text_unknown">không rõ</string>
   <string name="location_last_text_parameterized">Vị trí cuối cùng được xác định: %s$1</string>
   <string name="location_current_text_parameterized">Vị trí hiện tại: %1$s</string>
-  <string name="location_text_metadata_location">Vĩ %1$4g, Kinh %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Chính xác đến %1$1g mét,</string>
+  <string name="location_text_metadata_location">\nVĩ %1$4g, Kinh %2$4g\n%3$s %4$s trước đây</string>
+  <string name="location_text_metadata_accuracy">Chính xác đến %1$2.0f mét,</string>
   <string name="location_map_text">Từ bản đồ (sắp tới)</string>
   <string name="location_coordinates_text">Từ tọa độ:</string>
   <string name="location_lat_label">Vĩ độ:</string>
@@ -177,7 +177,8 @@
   <string name="menu_orthogonalize">Làm vuông góc</string>
   <string name="menu_circulize">Làm tròn</string>
   <string name="menu_tools">Công cụ</string>
-  <string name="menu_tools_flush_tile_cache">Xóa sạch bộ nhớ đệm mảnh</string>
+  <string name="menu_tools_flush_background_tile_cache">Xóa sạch bộ nhớ đệm mảnh nền</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Xóa sạch bộ nhớ đệm mảnh phủ</string>
   <string name="menu_tools_background_properties">Thuộc tính nền</string>
   <string name="menu_tools_background_align">Điều chỉnh hình nền</string>
   <string name="menu_tools_background_align_reset">Đặt lại</string>
@@ -329,14 +330,16 @@
   <string name="undo_action_orthogonalize">làm vuông góc lối</string>
   <string name="undo_action_circulize">làm tròn</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci đã bị sự cố. Xin vui lòng báo cáo lỗi.</string>
-  <string name="crash_notif_title">Vespucci đã bị sự cố</string>
+  <string name="crash_notif_ticker_text">Vespucci đã bị sự cố hoặc gặp một vấn đề đáng kể. Xin vui lòng báo cáo lỗi.</string>
+  <string name="crash_notif_title">Vespucci đã bị sự cố hoặc gặp vấn đề đáng kể.</string>
   <string name="crash_notif_text">Xin vui lòng nhấn chuột vào đây để giúp giải quyết vấn đề.</string>
-  <string name="crash_dialog_text">Ứng dụng phải ngừng vì lỗi bất ngờ. Xin vui lòng gửi các chi tiết về lỗi này cho chúng tôi để giúp chúng tôi khắc phục lỗi. Bạn chỉ việc bấm “OK”.</string>
+  <string name="crash_dialog_text">Ứng dụng phải ngừng hoặc báo cáo lỗi vì một lỗi bất ngờ. Xin vui lòng gửi các chi tiết về lỗi này cho chúng tôi để giúp chúng tôi khắc phục lỗi. Bạn chỉ việc bấm “OK”.</string>
   <string name="config_category_acra">Báo cáo Sự cố</string>
   <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
   <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>
   <string name="pref_acra_disabled">Báo cáo sự cố được tắt</string>
+  <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Tác vụ này sẽ tạo lối có quá nhiều nốt.</string>
   <!--Misc relation related stuff-->
   <string name="role">Vai trò</string>
   <string name="role_lc">vai trò</string>
@@ -348,5 +351,11 @@
   <string name="deleterelation_relation_description">Bạn sắp sửa xóa một quan hệ trực thuộc một hay nhiều quan hệ khác. Việc xóa quan hệ con có thể làm cho các quan hệ mẹ không còn hợp lệ.</string>
   <string name="deleterelation">Xóa quan hệ</string>
   <string name="delete_from_relation_description">Bạn sắp sửa xóa đối tượng này khỏi một quan hệ.</string>
-  <!---->
+  <!--time and distance-->
+  <string name="days">ngày</string>
+  <string name="hours">giờ</string>
+  <string name="minutes">phút</string>
+  <string name="seconds">giây</string>
+  <string name="km">km</string>
+  <string name="meter">mét</string>
 </resources>

@@ -67,8 +67,6 @@
   <string name="location_text_unknown">ezezaguna</string>
   <string name="location_last_text_parameterized">Azkeneko kokapena: %1$s</string>
   <string name="location_current_text_parameterized">Oraingo kokapena: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g. Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Zehaztasuna %1$1g metrokoa da.</string>
   <string name="location_map_text">Mapatik (laster)</string>
   <string name="location_coordinates_text">Koordenadetatik:</string>
   <string name="location_lat_label">Lat:</string>
@@ -228,14 +226,12 @@
   <string name="undo_action_paste">itsatsi</string>
   <string name="undo_action_rotateway">bidea biratu</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci izorratu egin da. Errorearen berri eman mesedez.</string>
-  <string name="crash_notif_title">Vespucci izorratu egin da</string>
   <string name="crash_notif_text">Arren, klikatu hemen arazoa konpontzen laguntzeko.</string>
-  <string name="crash_dialog_text">Ustekabeko akatsa gertatu da aplikazioa gelditzeko behartzerakoan. Mesedez lagundu akatsa konpontzen errore datuak bidaltzen, egin behar duzun guztia \'Ados\' botoia sakatzea da.</string>
   <string name="config_category_acra">Haustura Jakinarazpena</string>
   <string name="pref_enable_acra">Aplikazioa hautsi dela jakinarazi</string>
   <string name="pref_acra_enabled">Haustura jakinarazpena gaituta</string>
   <string name="pref_acra_disabled">Hautsura jakinarazpena ezgaitua</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
   <string name="role_lc">rola</string>
@@ -247,5 +243,5 @@
   <string name="deleterelation_relation_description">Erlazio bat edo gehiagoren partaide den bide bat ezabatzeko zorian zaude. Bidea erlazioetatik kentzeak erlazioak baliogabetu ditzazke.</string>
   <string name="deleterelation">Erlazioa ezabatu</string>
   <string name="delete_from_relation_description">Elementu hau erlazio batetatik ezabatzeko zorian zaude</string>
-  <!---->
+  <!--time and distance-->
 </resources>

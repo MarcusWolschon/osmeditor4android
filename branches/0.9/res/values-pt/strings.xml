@@ -116,8 +116,6 @@
   <string name="location_text_unknown">desconhecida</string>
   <string name="location_last_text_parameterized">Última localização conhecida: %1$s</string>
   <string name="location_current_text_parameterized">Localização actual: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Precisão %1$1g metros,</string>
   <string name="location_map_text">A partir do mapa (em breve)</string>
   <string name="location_coordinates_text">A partir de coordenadas:</string>
   <string name="location_lat_label">Lat:</string>
@@ -170,7 +168,6 @@
   <string name="menu_orthogonalize">Ortogonalizar</string>
   <string name="menu_circulize">Dispor em círculo</string>
   <string name="menu_tools">Ferramentas</string>
-  <string name="menu_tools_flush_tile_cache">Limpar cache de tiles</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
   <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
   <string name="menu_tools_background_align_reset">Reset</string>
@@ -322,14 +319,12 @@
   <string name="undo_action_orthogonalize">ortogonalizar via</string>
   <string name="undo_action_circulize">dispor em círculo</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci deixou de funcionar. Por favor envie um relatório de erro.</string>
-  <string name="crash_notif_title">Vespucci deixou de funcionar</string>
   <string name="crash_notif_text">Clique aqui para ajudar a resolver o problema.</string>
-  <string name="crash_dialog_text">Um erro inesperado ocorreu forçando a aplicação a terminar. Ajude-nos a corrigir este erro enviando-nos os dados do erro, apenas tem de clicar \'OK\'.</string>
   <string name="config_category_acra">Relatórios de Erro</string>
   <string name="pref_enable_acra">Reportar erros da aplicação</string>
   <string name="pref_acra_enabled">Reportar erros activado</string>
   <string name="pref_acra_disabled">Reportar erros desactivado</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Grupo (\'Role\')</string>
   <string name="role_lc">grupo (\'role\')</string>
@@ -341,5 +336,5 @@
   <string name="deleterelation_relation_description">Estás prestes a apagar a relação que é membro de uma ou mais relações. Remover a relação destas relações pode torná-la(s) inválida(s).</string>
   <string name="deleterelation">Apagar relação</string>
   <string name="delete_from_relation_description">Estás prestes a apagar este elemento na relação.</string>
-  <!---->
+  <!--time and distance-->
 </resources>

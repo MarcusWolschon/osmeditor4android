@@ -7,17 +7,23 @@
   <string name="transfer_download_current_download">Отменить и скачать</string>
   <string name="transfer_download_current_back">Назад (ничего не менять)</string>
   <string name="upload_problem_title">Проблема с передачей</string>
+  <string name="no_login_data_title">Ошибка аутентификации</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
-  <string name="no_connection_message">Невозможно соединиться с OSM сервером. Проверьте ваше подключение к интернету и попробуйте еще раз.</string>
+  <string name="no_connection_message">Невозможно соединиться с сервером OSM. Проверьте ваше подключение к интернету и попробуйте еще раз.</string>
+  <string name="wrong_login_data_title">Ошибка аутентификации</string>
   <string name="data_conflict_title">Конфликт версий</string>
+  <string name="out_of_memory_title">Недостаточно памяти</string>
   <string name="progress_title">Скачивание</string>
   <string name="progress_message">Загрузка данных в память…</string>
   <string name="progress_download_message">Скачивание данных с сервера…</string>
   <string name="progress_general_title">Подождите</string>
   <string name="progress_deleting_message">Удаление...</string>
+  <string name="progress_searching_message">Поиск…</string>
+  <string name="progress_saving_message">Сохранение…</string>
   <string name="upload_comment_label">Комментарий:</string>
   <string name="upload_source_label">Источник:</string>
   <string name="openstreetbug_new_title">Новая заметка</string>
+  <string name="openstreetbug_new_bug">Сообщить об ошибке</string>
   <string name="openstreetbug_new_nodeway">Создать точку/линию</string>
   <string name="openstreetbug_edit_title">Изменить заметку</string>
   <string name="openstreetbug_commitbutton">Зафиксировать</string>
@@ -29,6 +35,15 @@
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">У вас есть несохраненные изменения, которые будут потеряны при продолжении.</string>
   <string name="unsaved_data_proceed">Отменить и продолжить</string>
+  <string name="imagery_offset_description">Описание</string>
+  <string name="imagery_offset_author">Автор</string>
+  <string name="imagery_offset_offset">Смещение</string>
+  <string name="imagery_offset_date">Создано</string>
+  <string name="imagery_offset_zoom">Масштаб</string>
+  <string name="imagery_offset_distance">Расстояние</string>
+  <string name="tag_editor_name_suggestion">Предложение названия</string>
+  <string name="search_results_title">Результаты поиска</string>
+  <string name="find_message">Введите строку поиска</string>
   <!--Toaster-->
   <string name="toast_no_changes">Вы ничего не изменили…</string>
   <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
@@ -36,20 +51,30 @@
   <string name="toast_unlock_to_edit">Разблокируйте для правки</string>
   <string name="toast_edit_outside_downloaded_area">Вы не можете редактировать вне загруженной области</string>
   <string name="toast_save_done">Сохранено успешно</string>
+  <string name="toast_save_failed">Не удалось сохранить</string>
   <string name="toast_not_in_bug_range">Пожалуйста, увеличьте масштаб для добавления заметки (Громкость +/- или Движок масштаба)</string>
   <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
+  <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
   <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
   <string name="toast_unread_mail">У вас %1$s непрочитанных сообщения(й) на сервере OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Начато сканирование геопривязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование геопривязанных фото</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки %1$d, сообщение %2$s</string>
+  <string name="toast_noname">У дороги нет ни имени, ни ссылки</string>
+  <string name="toast_no_oauth">Нет доступной конфигурации OAuth для текущего API, укажите логин и пароль.</string>
+  <string name="toast_timeout">Таймаут соединения с сервером</string>
+  <string name="coordinates_out_of_range">Долгота должна быть в пределах от -180° до +180°, широта от -85° до +85°</string>
+  <string name="toast_nothing_found">Ничего не найдено</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
   <string name="okay">OK</string>
   <string name="cancel">Отменить</string>
   <string name="locked">Заблокировано</string>
+  <string name="next">Далее</string>
+  <string name="apply">Применить</string>
+  <string name="replace">Заменить</string>
   <!--Dialog for back button-->
   <string name="exit_title">Действительно выйти?</string>
   <string name="exit_text">Вы действительно хотите выйти?</string>
@@ -58,6 +83,8 @@
   <string name="value">значение</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/RU:Map_Features</string>
   <string name="tag_menu_preset">Заготовки</string>
+  <string name="tag_menu_repeat">Повторить теги</string>
+  <string name="tag_menu_revert">Отменить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
   <string name="tag_menu_addtorelation">Добавить к отношению</string>
   <string name="tag_menu_resetMRU">Сбросить заготовки</string>
@@ -71,12 +98,14 @@
   <string name="location_text_unknown">unknown</string>
   <string name="location_last_text_parameterized">Последняя определенная позиция: %1$s</string>
   <string name="location_current_text_parameterized">Текущая позиция: %1$s</string>
-  <string name="location_text_metadata_location">Шир %1$4g, Дол %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Точность %1$1g метров,</string>
+  <string name="location_text_metadata_accuracy">Точность %1$2.0f метра,</string>
   <string name="location_map_text">Указать на карте (пока не реализовано)</string>
   <string name="location_coordinates_text">По координатам:</string>
   <string name="location_lat_label">Шир.:</string>
   <string name="location_lon_label">Дол.:</string>
+  <string name="location_search_label">Поиск:</string>
+  <string name="location_load_button">Загрузить</string>
+  <string name="location_load_dismiss">Перейти к карте</string>
   <string name="location_nan_title">Неверный ввод!</string>
   <string name="location_nan_message">Пожалуйста указывайте координаты в десятичном формате (\"52.333572\",\"8.741185\"). Широта в пределах -85.0 и +85.0, а долгота в пределах -175.0 и +175.0.</string>
   <!--Menu-->
@@ -84,8 +113,10 @@
   <string name="menu_edit">Править</string>
   <string name="menu_add">Новый</string>
   <string name="menu_config">Настройки</string>
+  <string name="menu_find">Найти</string>
   <string name="menu_help">Справка</string>
   <string name="menu_erase">Удалить точку</string>
+  <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
   <string name="menu_closed_way_split_1">Разбить замкнутую линию, первая точка</string>
   <string name="menu_closed_way_split_2">Разбить замкнутую линию, вторая точка</string>
@@ -100,13 +131,15 @@
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показывать положение</string>
   <string name="menu_gps_follow">Следовать за GPS</string>
-  <string name="menu_gps_start">Начать GPS трек</string>
-  <string name="menu_gps_pause">Приостановить GPS трек</string>
-  <string name="menu_gps_clear">Удалить GPS трек</string>
-  <string name="menu_gps_upload">Передать GPS трек на сервер</string>
-  <string name="menu_gps_export">Экспорт GPS трека</string>
+  <string name="menu_gps_goto">Перейти к позиции GPS</string>
+  <string name="menu_gps_start">Начать GPS-трек</string>
+  <string name="menu_gps_pause">Приостановить GPS-трек</string>
+  <string name="menu_gps_clear">Удалить GPS-трек</string>
+  <string name="menu_gps_upload">Передать GPS-трек на сервер</string>
+  <string name="menu_gps_export">Экспорт GPS-трека</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Скачать текущее местоположение</string>
+  <string name="menu_transfer_download_current_add">Добавить текущий вид для скачивания</string>
   <string name="menu_transfer_download_other">Скачать другое место</string>
   <string name="menu_transfer_upload">Передача данных на сервер OSM</string>
   <string name="menu_transfer_export">Экспорт изменений</string>
@@ -118,6 +151,15 @@
   <string name="menu_paste">Вставить</string>
   <string name="menu_rotate">Повернуть</string>
   <string name="menu_tools">Инструменты</string>
+  <string name="menu_tools_background_properties">Свойства фона</string>
+  <string name="menu_tools_background_align_reset">Сбросить</string>
+  <string name="menu_tools_background_align_zero">Ноль</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Из базы</string>
+  <string name="menu_tools_background_align_retrieve_from_device">С устройства</string>
+  <string name="menu_tools_background_align_save_db">Сохранить в базу</string>
+  <string name="menu_tools_background_align_save_device">Сохранить на устройство</string>
+  <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
+  <string name="menu_tools_background_opacity">Прозрачность фона</string>
   <!--element action mode menu-->
   <string name="menu_tags">Теги</string>
   <!--Text should be as short as possible-->
@@ -137,6 +179,8 @@
   <string name="config_category_view">Настройки просмотра</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_summary">Не рисовать линию толще, чем эта</string>
+  <string name="config_tileCacheSize_title">Размер кеша</string>
+  <string name="config_tileCacheSize_summary">Общий размер кеша в МБ</string>
   <string name="config_showStats_title">Показать статистику</string>
   <string name="config_showStats_summary">Отображать быстродействие кадр/сек. в нижнем левом углу.</string>
   <string name="config_showTolerance_title">Показать захват</string>
@@ -149,6 +193,7 @@
   <string name="config_enablePhotoLayer_summary">Показывать геопривязанные фото</string>
   <string name="config_enableKeepScreenOn_title">Не гасить экран</string>
   <string name="config_enableKeepScreenOn_summary">Не отключать экран для сохранения энергии.</string>
+  <string name="config_enableDeprecatedModes_title">Разрешить устаревшие состояния</string>
   <string name="config_backgroundLayer_title">Фоновая карта</string>
   <string name="config_backgroundLayer_summary">Растровая фоновая карта.</string>
   <string name="config_category_server">Настройки входа</string>
@@ -163,7 +208,7 @@
   <string name="config_username_title">Логин на сервер OSM</string>
   <string name="config_password_title">Пароль на сервер OSM</string>
   <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните: Он хранится и передается незашифрованным!</string>
-  <string name="config_category_gps">Настройка GPS</string>
+  <string name="config_category_gps">Настройки GPS</string>
   <string name="config_gps_distance_title">Расстояние опроса GPS</string>
   <string name="config_gps_distance_summary">Минимальный интервал для опроса GPS в метрах. Меньшее значение приводит к большему расходу аккумулятора.</string>
   <string name="config_gps_interval_title">Интервал опроса GPS</string>
@@ -176,6 +221,8 @@
   <string name="config_mapProfile_title">Профиль карты</string>
   <string name="config_mapProfile_summary">Управление стилем и видимостью элементов</string>
   <string name="config_use_back_for_undo_title">Использовать кнопку назад для Отмены</string>
+  <string name="config_enableNameSuggestions_title">Разрешить предложения названий</string>
+  <string name="config_enableNameSuggestions_summary">Включить предложение для тега названия</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>
@@ -204,8 +251,8 @@
   <string name="undo">Отменить</string>
   <string name="redo">Повторить</string>
   <string name="undo_nothing">нет изменений для отмены</string>
-  <string name="tracking_active_title">Запись GPS трека</string>
-  <string name="tracking_active_text">Vespucci записsdftn GPS трек</string>
+  <string name="tracking_active_title">Запись GPS-трека</string>
+  <string name="tracking_active_text">Vespucci записывает GPS-трек</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">перемещение точки</string>
@@ -228,6 +275,12 @@
   <string name="undo_action_paste">вставить</string>
   <string name="undo_action_rotateway">повернуть линию</string>
   <!--ACRA-->
+  <string name="crash_notif_text">Кликните сюда, чтобы помочь исправить ошибку</string>
+  <string name="config_category_acra">Отчёт о сбое</string>
+  <string name="pref_enable_acra">Сообщать о сбоях в приложении</string>
+  <string name="pref_acra_enabled">Отчёты о сбоях разрешены</string>
+  <string name="pref_acra_disabled">Отчёты о сбоях не разрешены</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>
@@ -238,5 +291,11 @@
   <string name="object">Объект</string>
   <string name="deleterelation">Удалить отношение</string>
   <string name="delete_from_relation_description">Вы собираетесь удалить этот элемент из отношения.</string>
-  <!---->
+  <!--time and distance-->
+  <string name="days">дней</string>
+  <string name="hours">часов</string>
+  <string name="minutes">минут</string>
+  <string name="seconds">секунд</string>
+  <string name="km">км</string>
+  <string name="meter">метров</string>
 </resources>

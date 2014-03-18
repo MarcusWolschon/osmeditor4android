@@ -67,8 +67,6 @@
   <string name="location_text_unknown">sconosciuto</string>
   <string name="location_last_text_parameterized">Ultima posizione conosciuta: %1$s</string>
   <string name="location_current_text_parameterized">Posizione attuale: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Accuracy %1$1g m,</string>
   <string name="location_map_text">Dalla mappa (in arrivo)</string>
   <string name="location_coordinates_text">Dalle coordinate:</string>
   <string name="location_lat_label">Lat:</string>
@@ -227,14 +225,12 @@
   <string name="undo_action_paste">incolla</string>
   <string name="undo_action_rotateway">ruota via</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci è crashato. Manda un rapporto sull\'errore.</string>
-  <string name="crash_notif_title">Vespucci è crashato</string>
   <string name="crash_notif_text">Clicca qui per aiutare a risolvere il problema.</string>
-  <string name="crash_dialog_text">Un errore inatteso si è verificato costringendo l\'applicazione ad un arresto forzato. Aiutaci a risolvere il problema mandandoci informazioni sull\'errore, basta fare clic su \'OK\'.</string>
   <string name="config_category_acra">Segnalazione crash</string>
   <string name="pref_enable_acra">Segnala i crash dell\'applicazione</string>
   <string name="pref_acra_enabled">Segnalazione crash abilitata</string>
   <string name="pref_acra_disabled">Segnalazione crash disabilitata</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Ruolo</string>
   <string name="role_lc">ruolo</string>
@@ -246,5 +242,5 @@
   <string name="deleterelation_relation_description">Stai per cancellare una relazione membro di una o più relazioni. Cancellare la relazione dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
   <string name="deleterelation">Cancella relazione</string>
   <string name="delete_from_relation_description">Stai per cancellare questo elemento da una relazione.</string>
-  <!---->
+  <!--time and distance-->
 </resources>

@@ -13,9 +13,12 @@
   <string name="progress_message">Učitavanje podataka u memoriju…</string>
   <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
   <string name="upload_comment_label">Komentar:</string>
+  <string name="openstreetbug_new_title">Nova bilješka</string>
   <string name="openstreetbug_new_nodeway">Stvori točku/liniju</string>
+  <string name="openstreetbug_edit_title">Uredi bilješku</string>
   <string name="openstreetbug_commitbutton">Spremi</string>
   <string name="openstreetbug_comment_label">Komentar:</string>
+  <string name="openstreetbug_edit_close">Zatvori</string>
   <string name="openstreetbug_commit_ok">Promjene spremljene</string>
   <string name="openstreetbug_commit_fail">Ne mogu spremiti promjene</string>
   <string name="unsaved_data_title">Oprez!</string>
@@ -39,6 +42,7 @@
   <string name="key">oznaka</string>
   <string name="value">vrijednost</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_repeat">Ponovi oznake</string>
   <string name="tag_menu_revert">Vrati</string>
   <string name="tag_menu_mapfeatures">Oznake na Wiki-u</string>
   <!--Strings in LocationPicker-->
@@ -50,12 +54,11 @@
   <string name="location_text_unknown">nepoznato</string>
   <string name="location_last_text_parameterized">Zadnja poznata pozicija: %1$s</string>
   <string name="location_current_text_parameterized">Trenutna pozicija: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Točnost %1$1g m,</string>
   <string name="location_map_text">Iz karte (uskoro dolazi)</string>
   <string name="location_coordinates_text">Iz koordinata:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_load_button">Učitaj</string>
   <string name="location_nan_title">Loš upis!</string>
   <string name="location_nan_message">Upišite koordinate u decimalnom formatu (npr. \"52.333572\",\"8.741185\"). Lat mora biti između -85.0 i +85.0, a Lon mora biti između -175.0 i +175.0.</string>
   <!--Menu-->
@@ -63,13 +66,19 @@
   <string name="menu_edit">Promijeni</string>
   <string name="menu_add">Novo</string>
   <string name="menu_config">Postavke</string>
+  <string name="menu_help">Pomoć</string>
   <string name="menu_erase">Obriši točku</string>
   <string name="menu_split">Podijeli put</string>
   <string name="menu_append">Nastavi</string>
   <string name="menu_tag">Uredi oznake</string>
+  <string name="menu_openstreetbug">Dodaj bilješku</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_follow">Prati GPS poziciju</string>
+  <string name="menu_gps_start">Pokreni GPS trag</string>
+  <string name="menu_gps_pause">Pauziraj GPS trag</string>
+  <string name="menu_gps_clear">Obriši GPS trag</string>
   <string name="menu_gps_upload">Pošalji GPS trag</string>
+  <string name="menu_gps_export">Izvezi GPS trag</string>
   <string name="menu_transfer">Prijenos…</string>
   <string name="menu_transfer_download_current">Skini trenutni pogled</string>
   <string name="menu_transfer_download_other">Skini drugu lokaciju</string>
@@ -90,6 +99,7 @@
   <string name="actionmode_createpath">Stvaranje linije</string>
   <!--Preferences-->
   <string name="config_category_view">Postavke</string>
+  <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
   <string name="config_showStats_title">Statistika</string>
   <string name="config_showStats_summary">Prikaže statistiku podataka i frame/sec u donjem lijevom kutu.</string>
   <string name="config_showTolerance_title">Površina tolerancije</string>
@@ -116,10 +126,20 @@
   <string name="confirm_upload_text">Poslati slijedeće promjene na poslužitelj?\n%1$s</string>
   <!--url handler activity-->
   <!--common terms-->
+  <string name="add">Dodaj</string>
+  <string name="edit">Uredi</string>
+  <string name="delete">Obriši</string>
   <string name="name">Ime</string>
+  <string name="url">URL</string>
   <!--"default" is a reserved Java keyword...-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_append">nastavi</string>
+  <string name="undo_action_deletenode">obriši točku</string>
+  <string name="undo_action_deleteway">obriši put</string>
+  <string name="undo_action_split_ways">podijeli putove</string>
+  <string name="undo_action_split_way">podijeli put</string>
   <!--ACRA-->
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
-  <!---->
+  <!--time and distance-->
 </resources>

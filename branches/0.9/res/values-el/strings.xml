@@ -54,8 +54,6 @@
   <string name="location_text_unknown">άγνωστη</string>
   <string name="location_last_text_parameterized">Τελευταία γνωστή τοποθεσία: </string>
   <string name="location_current_text_parameterized">Τωρινή τοποθεσία:</string>
-  <string name="location_text_metadata_location">Γ. Πλ %1$4g, Γ. Μηκ %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Ακρίβεια %1$1g μέτρα,</string>
   <string name="location_coordinates_text">Από συντεταγμένες:</string>
   <string name="location_lat_label">Γ. Πλ:</string>
   <string name="location_lon_label">Γ. Μηκ:</string>
@@ -161,6 +159,7 @@
   <string name="undo_action_paste">επικόλληση</string>
   <string name="undo_action_rotateway">περιστροφή διαδρομής</string>
   <!--ACRA-->
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
   <string name="role_lc">ρόλος</string>
@@ -171,5 +170,5 @@
   <string name="object">Αντικείμενο</string>
   <string name="deleterelation">Διαγραφή σχέσης</string>
   <string name="delete_from_relation_description">Πρόκειται να διαγράψετε αυτό το αντικείμενο από μια σχέση.</string>
-  <!---->
+  <!--time and distance-->
 </resources>

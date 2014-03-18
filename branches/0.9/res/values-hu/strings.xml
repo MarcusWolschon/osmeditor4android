@@ -58,8 +58,6 @@
   <string name="location_text_unknown">unknown</string>
   <string name="location_last_text_parameterized">Legutóbbi ismert hely: %1$s</string>
   <string name="location_current_text_parameterized">Jelenlegi hely: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Accuracy %1$1g m,</string>
   <string name="location_map_text">Térképről (hamarosan)</string>
   <string name="location_coordinates_text">Koordinátákból:</string>
   <string name="location_lat_label">Lat:</string>
@@ -197,8 +195,7 @@
   <string name="undo_action_paste">beillesztés</string>
   <string name="undo_action_rotateway">vonal forgatása</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">A Vespucci összeomlott. Kérlek küldj hibajelentést.</string>
-  <string name="crash_notif_title">A Vespucci összeomlott</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Szerep</string>
   <string name="role_lc">szerep</string>
@@ -208,5 +205,5 @@
   <string name="type">Típus</string>
   <string name="object">Objektum</string>
   <string name="deleterelation">Kapcsolat törlése</string>
-  <!---->
+  <!--time and distance-->
 </resources>

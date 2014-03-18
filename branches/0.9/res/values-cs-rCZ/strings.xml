@@ -61,8 +61,6 @@
   <string name="location_text_unknown">unknown</string>
   <string name="location_last_text_parameterized">Poslední známá poloha: %1$s</string>
   <string name="location_current_text_parameterized">Aktuální poloha: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Accuracy %1$1g m,</string>
   <string name="location_map_text">Z mapy (připravujeme)</string>
   <string name="location_coordinates_text">Podle souřadnic:</string>
   <string name="location_lat_label">Zem. šířka:</string>
@@ -193,15 +191,13 @@
   <string name="undo_action_reverse_way">obrátit cestu</string>
   <string name="undo_action_set_tags">nastavit tagy</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci spadl. Prosím odešlete nám chybové hlášení.</string>
-  <string name="crash_notif_title">Vespucci spadl.</string>
   <string name="crash_notif_text">Prosím klikněte zde a pomozte nám opravit tuto chybu.</string>
-  <string name="crash_dialog_text">Nastala neočekávaná chyba, aplikace musela být ukončena. Pomozte nám prosím opravit tuto chybu zasláním chybového hlášení, vše co musíte udělat je kliknout na \'OK\'.</string>
   <string name="config_category_acra">Hlášení pádu</string>
   <string name="pref_enable_acra">Hlásí pády aplikace</string>
   <string name="pref_acra_enabled">Hlášení pádů povoleno</string>
   <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="object">Objekt</string>
-  <!---->
+  <!--time and distance-->
 </resources>

@@ -71,8 +71,6 @@
   <string name="location_text_unknown">inconnu</string>
   <string name="location_last_text_parameterized">Dernier endroit visité: %1$s</string>
   <string name="location_current_text_parameterized">Endroit courant: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Précision %1$1g m,</string>
   <string name="location_map_text">Depuis carte (à venir bientôt)</string>
   <string name="location_coordinates_text">Depuis coordonnées :</string>
   <string name="location_lat_label">Lat :</string>
@@ -230,14 +228,12 @@
   <string name="undo_action_paste">coller</string>
   <string name="undo_action_rotateway">Pivoter chemin</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci a planté. Merci d\'envoyer un rapport d\'erreur.</string>
-  <string name="crash_notif_title">Vespucci a planté</string>
   <string name="crash_notif_text">Merci de cliquer ici pour aider à résoudre ce problème.</string>
-  <string name="crash_dialog_text">Une erreur inattendue s\'est produite, obligeant l\'application à s\'arrêter. S\'il vous plait, aidez nous à résoudre ce problème en nous envoyant les données relatives à l\'erreur. Tout ce que vous avez à faire est de cliquer sur \'OK\'.</string>
   <string name="config_category_acra">Rapport de plantage</string>
   <string name="pref_enable_acra">Signaler le plantage de l\'application</string>
   <string name="pref_acra_enabled">Rapport de plantage autorisé</string>
   <string name="pref_acra_disabled">Rapport de plantage désactivé</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Rôle</string>
   <string name="role_lc">rôle</string>
@@ -246,5 +242,5 @@
   <string name="deleterelation_relation_description">Vous êtes sur le point de supprimer une relation qui appartient à une ou plusieurs relations. Supprimer une relation d\'une autre relation peut rendre celle seconde non valide.</string>
   <string name="deleterelation">Suppression relation</string>
   <string name="delete_from_relation_description">Vous êtes sur le point de supprimer cet élément d\'une relation.</string>
-  <!---->
+  <!--time and distance-->
 </resources>

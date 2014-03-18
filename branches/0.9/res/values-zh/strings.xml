@@ -18,6 +18,7 @@
   <!--"default" is a reserved Java keyword...-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <!--ACRA-->
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
-  <!---->
+  <!--time and distance-->
 </resources>

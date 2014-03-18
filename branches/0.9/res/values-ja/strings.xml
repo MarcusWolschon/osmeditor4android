@@ -8,18 +8,26 @@
   <string name="transfer_download_current_back">戻る (何もしない)</string>
   <string name="upload_problem_title">アップロードで問題発生</string>
   <string name="upload_problem_message">全てもしくは一部のデータがアップロードされていません。もう一度アップロードして何に失敗しているかを確認してください。もっともありがちな理由はバージョンの不一致です。</string>
+  <string name="no_login_data_title">認証失敗</string>
+  <string name="no_login_data_message">OAuthを利用している場合、これはバグです。発生した事象のレポートを送ってください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="no_connection_title">サーバに接続していません</string>
   <string name="no_connection_message">OSMサーバに接続できませんでした。インターネット接続を確認してやり直してください。</string>
+  <string name="wrong_login_data_title">認証失敗</string>
+  <string name="wrong_login_data_message">OAuthを利用している場合、これはバグです。発生した事象のレポートを送ってください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="data_conflict_title">バージョン間の不一致</string>
   <string name="data_conflict_message">ダウンロードしようとしたデータは編集した内容と合致しないデータを含みます。リトライする前にあなたの持つデータのアップロードを試してください。</string>
   <string name="out_of_memory_title">メモリー不足</string>
   <string name="out_of_memory_message">Vespucciは指定されたデータをロードしようとしてメモリ不足をおこしました。リスタートしてより小さなエリアで再度実行してください。</string>
   <string name="out_of_memory_dirty_message">Vespucciは指定されたデータをロードしようとしてメモリ不足をおこしました。編集結果のセーブを試みて、リスタートしより小さなエリアのロードを試してください。</string>
+  <string name="invalid_data_received_title">不正なデータを受信</string>
+  <string name="invalid_data_received_message">Vespucciはサーバから不正なデータを受信しました。操作に間違いがないことを確認し、バグレポートを送ってください。</string>
   <string name="progress_title">ロード中</string>
   <string name="progress_message">データをメモリにロード中…</string>
   <string name="progress_download_message">サーバからデータをダウンロード中…</string>
   <string name="progress_general_title">しばらくお待ちください</string>
   <string name="progress_deleting_message">削除...</string>
+  <string name="progress_searching_message">検索中...</string>
+  <string name="progress_saving_message">保存中...</string>
   <string name="upload_comment_label">コメント:</string>
   <string name="upload_source_label">ソース:</string>
   <string name="openstreetbug_new_title">新規ノート</string>
@@ -35,6 +43,17 @@
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">このまま進めると、セーブしていない変更は破棄されます</string>
   <string name="unsaved_data_proceed">破棄 &amp; 進める</string>
+  <string name="imagery_offset_title">画像オフセット</string>
+  <string name="imagery_offset_description">説明</string>
+  <string name="imagery_offset_not_found">10km半径以内にオフセットがありません！</string>
+  <string name="imagery_offset_author">作者</string>
+  <string name="imagery_offset_offset">オフセット</string>
+  <string name="imagery_offset_date">作成完了</string>
+  <string name="imagery_offset_zoom">ズーム</string>
+  <string name="imagery_offset_distance">距離</string>
+  <string name="tag_editor_name_suggestion">名称の提案</string>
+  <string name="search_results_title">検索結果</string>
+  <string name="find_message">検索文字列</string>
   <!--Toaster-->
   <string name="toast_no_changes">変更がありません…</string>
   <string name="toast_upload_success">OSMサーバへのアップロードは完了しました。</string>
@@ -42,6 +61,7 @@
   <string name="toast_unlock_to_edit">編集するためにロック解除する</string>
   <string name="toast_edit_outside_downloaded_area">ダウンロードしたエリアの外側は編集することができません</string>
   <string name="toast_save_done">保存しました</string>
+  <string name="toast_save_failed">保存失敗</string>
   <string name="toast_not_in_bug_range">ズームインしてバグを追加してください (ボリュームUp/Down または Lens/Shift)</string>
   <string name="toast_export_failed">エクスポートは失敗しました</string>
   <string name="toast_export_success">%1$s へエクスポート</string>
@@ -58,12 +78,22 @@
   <string name="toast_download_failed">ダウンロード失敗。エラーコード　%1$d　メッセージ　%2$s</string>
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称もしくは参照無しの道</string>
+  <string name="toast_oauth">OSMアカウントへのOAuthアクセスを許可し、アップロードを再度実行してください。</string>
+  <string name="toast_no_oauth">現在のAPIでOAuth設定が利用できません。ログイン名とパスワードを利用してください。</string>
+  <string name="toast_timeout">サーバタイムアウト</string>
+  <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
+  <string name="toast_nothing_found">検索結果なし</string>
+  <string name="toast_statesave_failed">情報の保存に失敗しました！\nこれは致命的なエラーです。エクスポートしたファイルを後でJOSMを使って編集してください。</string>
   <!--Some generic labels/buttons-->
   <string name="yes">はい</string>
   <string name="no">いいえ</string>
   <string name="okay">OK</string>
   <string name="cancel">中止</string>
   <string name="locked">ロック済</string>
+  <string name="next">次</string>
+  <string name="apply">適用</string>
+  <string name="set">セット</string>
+  <string name="replace">入れ替え</string>
   <!--Dialog for back button-->
   <string name="exit_title">本当に終了しますか？</string>
   <string name="exit_text">あなたは本当に終了したいのですか？</string>
@@ -88,12 +118,15 @@
   <string name="location_text_unknown">不明</string>
   <string name="location_last_text_parameterized">前回の位置: %1$s</string>
   <string name="location_current_text_parameterized">現在の位置: %1$s</string>
-  <string name="location_text_metadata_location">緯度 %1$4g, 経度 %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">精度 %1$1g メートル,</string>
+  <string name="location_text_metadata_location">\n緯度 %1$4g, 経度 %2$4g\n%3$s %4$s 前</string>
+  <string name="location_text_metadata_accuracy">精度 %1$2.0f メートル,</string>
   <string name="location_map_text">マップから (近日実装予定)</string>
   <string name="location_coordinates_text">座標から:</string>
   <string name="location_lat_label">緯度:</string>
   <string name="location_lon_label">経度:</string>
+  <string name="location_search_label">検索:</string>
+  <string name="location_load_button">読み込み</string>
+  <string name="location_load_dismiss">地図を表示</string>
   <string name="location_nan_title">入力誤り！</string>
   <string name="location_nan_message">10進数形式の座標を挿入してください (例. \"52.333572\",\"8.741185\")。緯度の範囲は -85.0 と +85.0の間、経度は -175.0 と +175.0の間です。</string>
   <!--Menu-->
@@ -103,6 +136,7 @@
   <string name="menu_config">設定</string>
   <string name="menu_help">ヘルプ</string>
   <string name="menu_erase">ノード削除</string>
+  <string name="menu_set_position">位置</string>
   <string name="menu_split">ウェイ分割</string>
   <string name="menu_closed_way_split_1">クローズドウェイを分割、最初のノード</string>
   <string name="menu_closed_way_split_2">クローズドウェイを分割、次のノード</string>
@@ -118,6 +152,7 @@
   <string name="menu_gps">GPS操作…</string>
   <string name="menu_gps_show">位置を表示</string>
   <string name="menu_gps_follow">GPSの位置を追跡</string>
+  <string name="menu_gps_goto">GPS位置へ移動</string>
   <string name="menu_gps_start">GPSによるトラッキング開始</string>
   <string name="menu_gps_pause">GPSトラッキングを一時停止</string>
   <string name="menu_gps_clear">GPSトラッキング結果をクリア</string>
@@ -138,8 +173,17 @@
   <string name="menu_rotate">回転</string>
   <string name="menu_orthogonalize">直交化</string>
   <string name="menu_tools">ツール</string>
-  <string name="menu_tools_flush_tile_cache">キャッシュをクリア</string>
+  <string name="menu_tools_flush_background_tile_cache">背景画像タイルキャッシュを全削除</string>
+  <string name="menu_tools_flush_overlay_tile_cache">オーバーレイのタイルキャッシュを全削除</string>
   <string name="menu_tools_background_properties">背景のプロパティ</string>
+  <string name="menu_tools_background_align">背景画像の調整</string>
+  <string name="menu_tools_background_align_reset">リセット</string>
+  <string name="menu_tools_background_align_zero">ゼロ</string>
+  <string name="menu_tools_background_align_retrieve_from_db">DBから読み込み</string>
+  <string name="menu_tools_background_align_retrieve_from_device">デバイスから</string>
+  <string name="menu_tools_background_align_save_db">DBへ保存</string>
+  <string name="menu_tools_background_align_save_device">デバイスへ保存</string>
+  <string name="menu_tools_background_align_apply2all">適用 (すべてのズーム)</string>
   <string name="menu_tools_background_opacity">背景の不透明度</string>
   <!--element action mode menu-->
   <string name="menu_tags">タグ</string>
@@ -182,6 +226,7 @@
   <string name="config_enableDeprecatedModes_summary">編集タグの新規、編集、ノードの追加、削除、モードの分割を利用可能にする</string>
   <string name="config_backgroundLayer_title">マップの背景</string>
   <string name="config_backgroundLayer_summary">グラフィカルに描画されたマップの背景。</string>
+  <string name="config_overlayLayer_title">マップオーバーレイ</string>
   <string name="config_category_server">サーバ設定</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">非標準のAPI URLをここに設定できます。ほぼ変更してはなりません。</string>
@@ -213,6 +258,11 @@
   <string name="config_use_back_for_undo_summary">メイン編集ビュー内でバックキーを使ってやり直し</string>
   <string name="config_largeDragArea_title">大きなノードのドラッグエリア</string>
   <string name="config_largeDragArea_summary">ノードをドラッグするために大きなエリアを用意する</string>
+  <string name="config_extTriggeredDownloadRadius_title">ダウンロード半径</string>
+  <string name="config_enableNameSuggestions_title">名称の提案を有効化</string>
+  <string name="config_enableNameSuggestions_summary">nameタグの提案を有効化</string>
+  <string name="config_enableAutoPreset_title">自動プリセット有効化</string>
+  <string name="config_enableAutoPreset_summary">名称の提案が選択された際、自動的にプリセットを入力</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
   <string name="preset_download_successful">プリセットのダウンロードに成功しました</string>
@@ -272,14 +322,16 @@
   <string name="undo_action_rotateway">ウェイを回転</string>
   <string name="undo_action_orthogonalize">直交したウェイ</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucciがクラッシュしました。エラーレポートを送ってください。</string>
-  <string name="crash_notif_title">Vespucciはクラッシュしました</string>
+  <string name="crash_notif_ticker_text">Vespucciのクラッシュ、あるいは深刻なエラーが発生しました。エラーレポートを送ってください。</string>
+  <string name="crash_notif_title">Vespucciのクラッシュ、あるいは深刻なエラーが発生しました。</string>
   <string name="crash_notif_text">この問題を解決するためにここをクリックしてください</string>
-  <string name="crash_dialog_text">予期せぬエラーが発生したためアプリケーションが停止しました。エラーに関する情報を送信して不具合修正にご協力ください。OKをクリックしてください。</string>
+  <string name="crash_dialog_text">予期しない事象が発生し、アプリケーションからのログ出力や強制停止が発生しました。エラーデータを送っていただき、不具合の修正にご協力ください。\'OK\'をクリックしてください。</string>
   <string name="config_category_acra">クラッシュレポート</string>
   <string name="pref_enable_acra">アプリケーションのクラッシュを報告</string>
   <string name="pref_acra_enabled">クラッシュレポートが利用可能</string>
   <string name="pref_acra_disabled">クラッシュレポートは停止</string>
+  <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">大量のノードが付与されたウェイが作成されます。</string>
   <!--Misc relation related stuff-->
   <string name="role">ロール</string>
   <string name="role_lc">ロール</string>
@@ -291,5 +343,11 @@
   <string name="deleterelation_relation_description">ひとつかそれ以上のリレーションのメンバーであるリレーションを削除しようとしています。リレーション(s)からリレーションを削除することでそれらは不正な状態になる可能性があります。</string>
   <string name="deleterelation">リレーションを削除</string>
   <string name="delete_from_relation_description">この要素をリレーションから削除しようとしています。</string>
-  <!---->
+  <!--time and distance-->
+  <string name="days">日</string>
+  <string name="hours">時</string>
+  <string name="minutes">分</string>
+  <string name="seconds">秒</string>
+  <string name="km">キロメートル</string>
+  <string name="meter">メートル</string>
 </resources>

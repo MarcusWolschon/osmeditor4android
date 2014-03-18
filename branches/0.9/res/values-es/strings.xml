@@ -68,8 +68,6 @@
   <string name="location_text_unknown">desconocida</string>
   <string name="location_last_text_parameterized">Última localización conocida: %1$s</string>
   <string name="location_current_text_parameterized">Localización actual: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Precisión %1$1g metros,</string>
   <string name="location_map_text">Desde mapa (proximamente)</string>
   <string name="location_coordinates_text">Desde coordenadas:</string>
   <string name="location_lat_label">Lat:</string>
@@ -213,18 +211,16 @@
   <string name="undo_action_paste">pegar</string>
   <string name="undo_action_rotateway">girar vía</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci ha fallado. Por favor envíe un informe de errores.</string>
-  <string name="crash_notif_title">Vespucci ha fallado</string>
   <string name="crash_notif_text">Por favor haga click aquí para ayudar a corregir el error.</string>
-  <string name="crash_dialog_text">Ha ocurrido un error inesperado forzando a la aplicación a detenerse. Por favor ayudenos a corregirlo enviandonos los datos del error, todo lo que tiene que hacer es hacer click en \'OK\'.</string>
   <string name="config_category_acra">Reportando fallo</string>
   <string name="pref_enable_acra">Reportar errores de la aplicación</string>
   <string name="pref_acra_enabled">Reporte de error habilitado</string>
   <string name="pref_acra_disabled">Reporte de error deshabilitado</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="role_lc">rol</string>
   <string name="type">Tipo</string>
   <string name="object">Objeto</string>
-  <!---->
+  <!--time and distance-->
 </resources>

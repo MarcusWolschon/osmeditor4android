@@ -21,7 +21,6 @@
   <string name="location_text_unknown">necunoscut</string>
   <string name="location_last_text_parameterized">Ultima locaţie cunoscută: %1$s</string>
   <string name="location_current_text_parameterized">Locaţie curentă: %1$s</string>
-  <string name="location_text_metadata_accuracy">Acurateţe %1$1g metri,</string>
   <!--Menu-->
   <string name="menu_config">Preferinţe</string>
   <string name="menu_help">Ajutor</string>
@@ -49,6 +48,7 @@
   <!--"default" is a reserved Java keyword...-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <!--ACRA-->
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
-  <!---->
+  <!--time and distance-->
 </resources>

@@ -120,8 +120,8 @@
   <string name="location_text_unknown">unbekannt</string>
   <string name="location_last_text_parameterized">Letzte bekannte Position: %1$s</string>
   <string name="location_current_text_parameterized">Aktuelle Position: %1$s</string>
-  <string name="location_text_metadata_location">Lat %1$4g, Lon %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Genauigkeit %1$1g Meter,</string>
+  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g %3$s vor %4$s</string>
+  <string name="location_text_metadata_accuracy">Genauigkeit %1$2.0f Meter,</string>
   <string name="location_map_text">Von Karte (geplant)</string>
   <string name="location_coordinates_text">Von Koordinaten:</string>
   <string name="location_lat_label">Lat:</string>
@@ -177,7 +177,8 @@
   <string name="menu_orthogonalize">Rechtwinklig machen</string>
   <string name="menu_circulize">Im Kreis anordnen</string>
   <string name="menu_tools">Werkzeuge</string>
-  <string name="menu_tools_flush_tile_cache">Tile Cache leeren</string>
+  <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
   <string name="menu_tools_background_align">Hintergrund justieren</string>
   <string name="menu_tools_background_align_reset">Zurücksetzen</string>
@@ -329,14 +330,16 @@
   <string name="undo_action_orthogonalize">weg rechtwinklig machen</string>
   <string name="undo_action_circulize">im Kreis anordnen</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci ist abgestürzt. Bitte senden Sie einen Fehlerreport.</string>
-  <string name="crash_notif_title">Vespucci ist abgestürzt</string>
+  <string name="crash_notif_ticker_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt. Bitte senden Sie einen Fehlerreport.</string>
+  <string name="crash_notif_title">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.</string>
   <string name="crash_notif_text">Klicken Sie hier, um bei der Lösung des Problems zu helfen.</string>
   <string name="crash_dialog_text">Ein unerwarteter Fehler ist aufgetreten. Bitte helfen Sie uns bei der Behebung, indem Sie uns die fehlerbezogenen Daten schicken – Dazu müssen Sie lediglich auf \'OK\' klicken.</string>
   <string name="config_category_acra">Fehlerreport</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
   <string name="pref_acra_enabled">Fehlerreport aktiviert</string>
   <string name="pref_acra_disabled">Fehlerreport deaktiviert</string>
+  <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Diese Operation würde ein Weg mit zu vielen Knoten erstellen.</string>
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
   <string name="role_lc">Rolle</string>
@@ -348,5 +351,11 @@
   <string name="deleterelation_relation_description">Diese Relation ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deleterelation">Relation löschen</string>
   <string name="delete_from_relation_description">Dieses Element wird aus der Relation gelöscht.</string>
-  <!---->
+  <!--time and distance-->
+  <string name="days">Tage</string>
+  <string name="hours">Stunden</string>
+  <string name="minutes">Minuten</string>
+  <string name="seconds">Sekunden</string>
+  <string name="km">KM</string>
+  <string name="meter">Meter</string>
 </resources>

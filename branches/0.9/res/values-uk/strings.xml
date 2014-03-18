@@ -70,8 +70,6 @@
   <string name="location_text_unknown">невідомо</string>
   <string name="location_last_text_parameterized">Останнє відоме розташування: %1$s</string>
   <string name="location_current_text_parameterized">Поточне розташування: %1$s</string>
-  <string name="location_text_metadata_location">Шир. %1$4g, Довг. %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Точність %1$1g метрів, </string>
   <string name="location_map_text">Вказати на мапі (наразі не реалізовано)</string>
   <string name="location_coordinates_text">За координатами: </string>
   <string name="location_lat_label">Шир.: </string>
@@ -226,14 +224,12 @@
   <string name="undo_action_paste">вставити</string>
   <string name="undo_action_rotateway">повернути лінію</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Веспуччі зазнав аварії. Будь ласка, відправте звіт про помилку.</string>
-  <string name="crash_notif_title">Веспуччі зазнав аварії</string>
   <string name="crash_notif_text">Будь ласка, натисніть тут, щоб допомогти вирішити проблему.</string>
-  <string name="crash_dialog_text">Сталася неочікувана помилка, що змушує застосунок завершити роботу. Будь ласка, допоможіть нам виправити це, відправивши нам дані про помилку, все що Вам потрібно зробити, це натиснути „Гаразд“.</string>
   <string name="config_category_acra">Звітування про помилки</string>
   <string name="pref_enable_acra">Повідомлення про збій програми</string>
   <string name="pref_acra_enabled">Звітування про помилки включене</string>
   <string name="pref_acra_disabled">Звітування про помилки відключене</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>
@@ -244,5 +240,5 @@
   <string name="object">Об’єкт</string>
   <string name="deleterelation">Вилучити зв’язок</string>
   <string name="delete_from_relation_description">Ви збираєтеся вилучити цей елемент зі зв’язку.</string>
-  <!---->
+  <!--time and distance-->
 </resources>

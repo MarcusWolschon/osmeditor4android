@@ -87,8 +87,6 @@
   <string name="location_text_unknown">nieznane</string>
   <string name="location_last_text_parameterized">Ostatnia znana pozycja: %1$s</string>
   <string name="location_current_text_parameterized">Obecna pozycja: %1$s</string>
-  <string name="location_text_metadata_location">Szer. %1$4g, Dł. %2$4g %3$s</string>
-  <string name="location_text_metadata_accuracy">Dokładność %1$1g m,</string>
   <string name="location_map_text">Z mapy (wkrótce)</string>
   <string name="location_coordinates_text">Wg współrzędnych:</string>
   <string name="location_lat_label">Szer:</string>
@@ -267,14 +265,12 @@
   <string name="undo_action_paste">wstaw</string>
   <string name="undo_action_rotateway">obróć drogę</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci miał awarię. Proszę wyślijraport błędu.</string>
-  <string name="crash_notif_title">Vespucci miał awarię</string>
   <string name="crash_notif_text">Proszę kliknij tutaj aby pomóc naprawić ten błąd.</string>
-  <string name="crash_dialog_text">Wystąpił błąd który zmusił aplikację do zamknięcia. Proszę pomóż nam naprawić go wysyłając dane o nim, jedne co musisz zrobić to kliknąć \'OK\'.</string>
   <string name="config_category_acra">Zgłaszanie awarii</string>
   <string name="pref_enable_acra">Zgłoś awarie aplikacji</string>
   <string name="pref_acra_enabled">Zgłaszanie awarii włączone</string>
   <string name="pref_acra_disabled">Zgłaszanie awarii wyłączone</string>
+  <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
   <string name="role_lc">rola</string>
@@ -286,5 +282,5 @@
   <string name="deleterelation_relation_description">Masz zamiar usunąć relację, która jest członkiem jednego lub większej ilości relacji. Usuwanie relacji z relacji może spowodować, jej/ich nieprawidłowość.</string>
   <string name="deleterelation">Usuń relację</string>
   <string name="delete_from_relation_description">Zamierzasz usunąć ten element z relacji.</string>
-  <!---->
+  <!--time and distance-->
 </resources>
