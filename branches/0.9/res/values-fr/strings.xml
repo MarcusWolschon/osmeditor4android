@@ -8,11 +8,19 @@
   <string name="transfer_download_current_back">Retour (ne fait rien)</string>
   <string name="upload_problem_title">Problème d\'envoi</string>
   <string name="upload_problem_message">Tout ou une partie des données n\'ont pas été envoyées. Essayez d\'envoyer les données à nouveau pour voir ce qui a échoué. Le plus probable est un conflit de version.</string>
+  <string name="no_login_data_title">Authentification échouée</string>
   <string name="no_connection_title">Pas de connexion au Serveur</string>
   <string name="no_connection_message">Ne peut pas se connecter au Serveur OSM. Veuillez vérifier votre connexion Internet ou essayez plus tard.</string>
+  <string name="wrong_login_data_title">Authentification échouée</string>
+  <string name="data_conflict_title">Conflit de version</string>
+  <string name="invalid_data_received_title">Données invalides reçues</string>
   <string name="progress_title">Chargement</string>
   <string name="progress_message">Chargement des données en mémoire…</string>
   <string name="progress_download_message">Récupération des données du serveur…</string>
+  <string name="progress_general_title">Veuillez patiente</string>
+  <string name="progress_deleting_message">Suppression...</string>
+  <string name="progress_searching_message">Recherche...</string>
+  <string name="progress_saving_message">Sauvegarde...</string>
   <string name="upload_comment_label">Commentaire:</string>
   <string name="upload_source_label">Source:</string>
   <string name="openstreetbug_new_title">Nouvelle Note</string>
@@ -28,11 +36,23 @@
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Des modifications non enregistrées seront abandonnées si vous continuez.</string>
   <string name="unsaved_data_proceed">Continuer sans enregistrer</string>
+  <string name="imagery_offset_description">Description</string>
+  <string name="imagery_offset_author">Auteu</string>
+  <string name="imagery_offset_offset">Décalage</string>
+  <string name="imagery_offset_date">Créé</string>
+  <string name="imagery_offset_zoom">Zoom</string>
+  <string name="imagery_offset_distance">Distance</string>
+  <string name="tag_editor_name_suggestion">Suggestion de nom</string>
+  <string name="search_results_title">Résultats de la recherch</string>
+  <string name="find_message">Entrez l\'objet de la recherche</string>
   <!--Toaster-->
   <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
   <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
   <string name="toast_not_in_edit_range">Veuillez zoomer pour éditer (Volume +/- ou Loupe/Shift)</string>
+  <string name="toast_unlock_to_edit">Déverrouillez pour éditer</string>
+  <string name="toast_edit_outside_downloaded_area">Vous ne pouvez pas éditer en dehors de la zone téléchargée</string>
   <string name="toast_save_done">Sauvegarde effectuée</string>
+  <string name="toast_save_failed">Sauvegarde échouée</string>
   <string name="toast_not_in_bug_range">Veuillez zoomer pour ajouter un bug (Volume +/- ou Loupe/Shift)</string>
   <string name="toast_export_failed">L\'export a échoué</string>
   <string name="toast_export_success">Exporté vers %1$s</string>
@@ -45,13 +65,21 @@
   <string name="toast_unread_mail">Vous avez %1$s message(s) non lu(s) sur les serveur OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Début de l\'analyse des photos géo-référencées</string>
   <string name="toast_photo_indexing_finished">Fin de l\'analyse des photos géo-référencées</string>
+  <string name="toast_download_bbox_failed">Le téléchargement a échoué, sans doute car la zone sélectionnée était trop grande.</string>
+  <string name="toast_download_failed">Le téléchargement a échoué avec le code d\'erreur %1$d, message %2$s</string>
+  <string name="toast_nothing_found">Rien de trouvé</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Oui</string>
   <string name="no">Non</string>
   <string name="okay">Valider</string>
   <string name="cancel">Annuler</string>
   <string name="locked">Verrouillé</string>
+  <string name="next">Suivant</string>
+  <string name="apply">Applique</string>
+  <string name="set">Définir</string>
+  <string name="replace">Remplacer</string>
   <!--Dialog for back button-->
+  <string name="exit_text">Voulez-vous vraiment quitter ?</string>
   <!--Strings in TagEditor-->
   <string name="key">clé</string>
   <string name="value">valeur</string>
@@ -62,6 +90,7 @@
   <string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Ajouter à la relation</string>
   <string name="tag_menu_resetMRU">Réinitialiser les définitions d\'attributs</string>
+  <string name="tag_menu_exit_no_save">Quitter\nsans sauvegarde</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Charger Zone</string>
   <string name="location_choose_radius">Choisir le rayon :</string>
@@ -75,6 +104,9 @@
   <string name="location_coordinates_text">Depuis coordonnées :</string>
   <string name="location_lat_label">Lat :</string>
   <string name="location_lon_label">Lon :</string>
+  <string name="location_search_label">Chercher :</string>
+  <string name="location_load_button">Charger</string>
+  <string name="location_load_dismiss">Aller à la carte</string>
   <string name="location_nan_title">Mauvaise valeur d\'entrée !</string>
   <string name="location_nan_message">Veuillez entrer les coordonnées avec décimales (ex. \"52.333572\",\"8.741185\"). Lat doit être entre -85.0 et +85.0, et Lon doit être entre -175.0 et +175.0.</string>
   <!--Menu-->
@@ -82,8 +114,10 @@
   <string name="menu_edit">Déplacer</string>
   <string name="menu_add">Ajouter</string>
   <string name="menu_config">Préférences</string>
+  <string name="menu_find">Trouve</string>
   <string name="menu_help">Aide</string>
   <string name="menu_erase">Supprimer noeud</string>
+  <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
   <string name="menu_append">Continuer</string>
   <string name="menu_restriction">Ajouter une restriction</string>
@@ -95,6 +129,7 @@
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Dessiner la position</string>
   <string name="menu_gps_follow">Suivre la position du GPS</string>
+  <string name="menu_gps_goto">Aller à la position GPS</string>
   <string name="menu_gps_start">Démarrer la trace GPS</string>
   <string name="menu_gps_pause">Mettre en pause la trace GPS</string>
   <string name="menu_gps_clear">Effacer la trace GPS</string>
@@ -112,6 +147,17 @@
   <string name="menu_cut">Couper</string>
   <string name="menu_paste">Coller</string>
   <string name="menu_rotate">Pivoter</string>
+  <string name="menu_circulize">Arranger en cercle</string>
+  <string name="menu_tools">Outils</string>
+  <string name="menu_tools_background_properties">Propriétés du fond</string>
+  <string name="menu_tools_background_align_reset">Réinitialiser</string>
+  <string name="menu_tools_background_align_zero">Zéro</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Depuis la BDD</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Depuis l\'appareil</string>
+  <string name="menu_tools_background_align_save_db">Sauvegarder vers la BDD</string>
+  <string name="menu_tools_background_align_save_device">Sauvegarder vers l\'apparei</string>
+  <string name="menu_tools_background_align_apply2all">Appliquer (tous les zooms)</string>
+  <string name="menu_tools_background_opacity">Opacité du fond</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
@@ -145,6 +191,8 @@
   <string name="config_enableOpenStreetBugs_summary">Afficher, Modifier et Créer des Notes/Erreurs</string>
   <string name="config_enablePhotoLayer_title">Activer la couche Photo</string>
   <string name="config_enablePhotoLayer_summary">Afficher les photos géo-référencées.</string>
+  <string name="config_enableKeepScreenOn_title">Garder l\'écran actif</string>
+  <string name="config_enableKeepScreenOn_summary">Ne pas éteindre l\'écran (pour économiser l\'énergie).</string>
   <string name="config_enableDeprecatedModes_title">Activer les modes obsolètes</string>
   <string name="config_enableDeprecatedModes_summary">Activer les modes Ajouter, Éditer, Éditer Tags, Continuer, Effacer et Scinder.</string>
   <string name="config_backgroundLayer_title">Arrière-plan de la carte</string>
@@ -152,6 +200,7 @@
   <string name="config_category_server">Paramètres du serveur</string>
   <string name="config_apibutton_title">URL de l\'API OSM</string>
   <string name="config_apibutton_summary">Vous pouvez indiquer ici une URL non standard de l\'API. Ne pas modifier sans savoir ce que vous faites !</string>
+  <string name="config_api_url_title">URL de l\'API</string>
   <string name="config_api_oauth_title">Utiliser OAuth</string>
   <string name="listedit_enable_oauth">Activer OAuth</string>
   <string name="config_presetbutton_title">Définitions d\'attributs JOSM</string>
@@ -173,7 +222,12 @@
   <string name="config_forceContextMenu_summary">Toujours afficher le menu contextuel dans le mode EasyEdit si la sélection est ambigüe.</string>
   <string name="config_licensebutton_title">Auteurs et licences</string>
   <string name="config_licensebutton_summary">Afficher la liste des auteurs et les informations sur la licence.</string>
+  <string name="config_mapProfile_title">Profil de la carte</string>
   <string name="config_mapProfile_summary">Définir le style et la visibilité des éléments</string>
+  <string name="config_extTriggeredDownloadRadius_title">Rayon de téléchargement</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Rayon en mètres des téléchargements ordonnés, 0 = centre de la carte seulement.</string>
+  <string name="config_enableNameSuggestions_title">Activer les suggestions de nom</string>
+  <string name="config_enableAutoPreset_title">Activer le pré-réglage automatique</string>
   <!--preset downloader messages-->
   <string name="preset_update">Mettre à jour les définitions d\'éléments prédéfinis</string>
   <string name="preset_download_successful">Définitions téléchargées avec succès</string>
@@ -200,6 +254,8 @@
   <string name="name">Nom</string>
   <string name="url">URL</string>
   <string name="default_">Défaut</string>
+  <string name="api_name">Nom de l\'API</string>
+  <string name="api_url">URL de l\'API</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Définitions d\'attributs</string>
   <string name="api">API</string>
@@ -227,6 +283,7 @@
   <string name="undo_action_cut">couper</string>
   <string name="undo_action_paste">coller</string>
   <string name="undo_action_rotateway">Pivoter chemin</string>
+  <string name="undo_action_circulize">arranger en cercle</string>
   <!--ACRA-->
   <string name="crash_notif_text">Merci de cliquer ici pour aider à résoudre ce problème.</string>
   <string name="config_category_acra">Rapport de plantage</string>
@@ -239,8 +296,17 @@
   <string name="role_lc">rôle</string>
   <string name="membership_relation_heading">Membre de la relation</string>
   <string name="relation">Relation</string>
+  <string name="position">Pos.</string>
+  <string name="type">Type</string>
+  <string name="object">Objet</string>
   <string name="deleterelation_relation_description">Vous êtes sur le point de supprimer une relation qui appartient à une ou plusieurs relations. Supprimer une relation d\'une autre relation peut rendre celle seconde non valide.</string>
   <string name="deleterelation">Suppression relation</string>
   <string name="delete_from_relation_description">Vous êtes sur le point de supprimer cet élément d\'une relation.</string>
   <!--time and distance-->
+  <string name="days">jours</string>
+  <string name="hours">heure</string>
+  <string name="minutes">minutes</string>
+  <string name="seconds">seconde</string>
+  <string name="km">km</string>
+  <string name="meter">mètre</string>
 </resources>

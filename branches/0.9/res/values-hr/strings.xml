@@ -7,37 +7,54 @@
   <string name="transfer_download_current_download">Obriši i skini nove</string>
   <string name="transfer_download_current_back">Odustani</string>
   <string name="upload_problem_title">Problemi sa slanjem</string>
+  <string name="upload_problem_message">Dio ili svi podaci nisu spremljeni. Pokušajte spremiti ponovo kako bi vidjeli gdje je greška. Najvjerojatniji razlog je konflikt u verziji.</string>
+  <string name="no_login_data_title">Prijava nije uspjela</string>
   <string name="no_connection_title">Poslužitelj nedostupan</string>
   <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>
+  <string name="wrong_login_data_title">Prijava nije uspjela</string>
+  <string name="data_conflict_title">Konflikt verzija</string>
   <string name="progress_title">Učitavanje</string>
   <string name="progress_message">Učitavanje podataka u memoriju…</string>
   <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
+  <string name="progress_general_title">Molim pričekajte</string>
+  <string name="progress_deleting_message">Brisanje...</string>
   <string name="upload_comment_label">Komentar:</string>
+  <string name="upload_source_label">Izvor:</string>
   <string name="openstreetbug_new_title">Nova bilješka</string>
+  <string name="openstreetbug_new_bug">Prijavi problem</string>
   <string name="openstreetbug_new_nodeway">Stvori točku/liniju</string>
   <string name="openstreetbug_edit_title">Uredi bilješku</string>
   <string name="openstreetbug_commitbutton">Spremi</string>
   <string name="openstreetbug_comment_label">Komentar:</string>
   <string name="openstreetbug_edit_close">Zatvori</string>
+  <string name="openstreetbug_edit_closed">Zatvoren</string>
   <string name="openstreetbug_commit_ok">Promjene spremljene</string>
   <string name="openstreetbug_commit_fail">Ne mogu spremiti promjene</string>
   <string name="unsaved_data_title">Oprez!</string>
   <string name="unsaved_data_message">Imate nespremljenih promjena koje će se odbaciti ako nastavite.</string>
   <string name="unsaved_data_proceed">Odbaci i nastavi</string>
+  <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_offset">Pomak</string>
+  <string name="imagery_offset_distance">Daljina</string>
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
   <string name="toast_not_in_edit_range">Zumirajte kako bi mogli uređivati, područje preširoko.</string>
+  <string name="toast_unlock_to_edit">Otključaj za uređivanje</string>
   <string name="toast_save_done">Spremanje uspješno.</string>
   <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
   <string name="toast_export_failed">Izvoz nije uspio</string>
   <string name="toast_export_success">Izvezeno u %1$s</string>
+  <string name="toast_noname">Prometnica nema ime ili ref</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Da</string>
   <string name="no">Ne</string>
   <string name="okay">U redu</string>
   <string name="cancel">Odustani</string>
+  <string name="locked">Zaključano</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Stvarno izaći?</string>
+  <string name="exit_text">Jeste li sigurni da želite izaći?</string>
   <!--Strings in TagEditor-->
   <string name="key">oznaka</string>
   <string name="value">vrijednost</string>
@@ -45,6 +62,7 @@
   <string name="tag_menu_repeat">Ponovi oznake</string>
   <string name="tag_menu_revert">Vrati</string>
   <string name="tag_menu_mapfeatures">Oznake na Wiki-u</string>
+  <string name="tag_menu_addtorelation">Dodaj relaciji</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Učitaj površinu</string>
   <string name="location_choose_radius">Odaberi veličinu površine:</string>
@@ -70,9 +88,14 @@
   <string name="menu_erase">Obriši točku</string>
   <string name="menu_split">Podijeli put</string>
   <string name="menu_append">Nastavi</string>
+  <string name="menu_restriction">Dodaj zabranu</string>
+  <string name="menu_restriction_via">Dodaj zabranu via</string>
+  <string name="menu_restriction_to">Dodaj zabranu do</string>
+  <string name="menu_relation">Stvori relaciju</string>
   <string name="menu_tag">Uredi oznake</string>
   <string name="menu_openstreetbug">Dodaj bilješku</string>
   <string name="menu_gps">GPS…</string>
+  <string name="menu_gps_show">Prikaži lokaciju</string>
   <string name="menu_gps_follow">Prati GPS poziciju</string>
   <string name="menu_gps_start">Pokreni GPS trag</string>
   <string name="menu_gps_pause">Pauziraj GPS trag</string>
@@ -81,21 +104,38 @@
   <string name="menu_gps_export">Izvezi GPS trag</string>
   <string name="menu_transfer">Prijenos…</string>
   <string name="menu_transfer_download_current">Skini trenutni pogled</string>
+  <string name="menu_transfer_download_current_add">Dodaj trenutni pogled skinutim</string>
   <string name="menu_transfer_download_other">Skini drugu lokaciju</string>
   <string name="menu_transfer_upload">Spremi na OSM poslužitelj</string>
   <string name="menu_transfer_export">Izvezi promjene</string>
   <string name="menu_save">Spremi u datoteku</string>
+  <string name="menu_join">Spoji</string>
+  <string name="menu_unjoin">Odspoji</string>
+  <string name="menu_copy">Kopiraj</string>
+  <string name="menu_cut">Izreži</string>
+  <string name="menu_paste">Zalijepi</string>
+  <string name="menu_rotate">Rotiraj</string>
+  <string name="menu_orthogonalize">Ispravi kutove</string>
+  <string name="menu_tools">Alati</string>
+  <string name="menu_tools_background_properties">Opcije pozadine</string>
+  <string name="menu_tools_background_align_save_db">Spremi u bazu</string>
+  <string name="menu_tools_background_opacity">Prozirnost pozadine</string>
   <!--element action mode menu-->
   <string name="menu_tags">Oznake</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Povijest</string>
   <string name="menu_merge">Spoji</string>
   <string name="menu_reverse">Obrni smjer</string>
+  <string name="reverse_anyway">Svejedno promjeni smjer</string>
+  <string name="deleteway_relation_description">Spremate se obrisati put koji je član jedne ili više relacija. Micanje ovog puta iz relacije ili relacija bi ih moglo pokvariti.</string>
   <string name="deleteway_wayonly">Obriši samo liniju</string>
   <string name="deleteway_wayandnodes">Obriši liniju i točke</string>
+  <string name="deletenode_relation_description">Spremate se obrisati točku koja je član jedne ili više relacija. Micanje ove točke iz relacije ili relacija bi ih moglo pokvariti.</string>
+  <string name="deletenode">Obriši točku</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Odabrana linija</string>
   <string name="actionmode_nodeselect">Odabrana točka</string>
+  <string name="actionmode_relationselect">Relacija odabrana</string>
   <string name="actionmode_createpath">Stvaranje linije</string>
   <!--Preferences-->
   <string name="config_category_view">Postavke</string>
@@ -105,9 +145,14 @@
   <string name="config_showTolerance_title">Površina tolerancije</string>
   <string name="config_showTolerance_summary">Prikaže površinu u kojoj se element može označiti.</string>
   <string name="config_enableAntiAliasing_title">Omogući Anti-Aliasing</string>
+  <string name="config_enablePhotoLayer_title">Uključi sloj sa fotografijama</string>
+  <string name="config_enablePhotoLayer_summary">Prikaži geo-referencirane fotke.</string>
   <string name="config_backgroundLayer_title">Karta u pozadini</string>
   <string name="config_backgroundLayer_summary">Odabir karte u pozadini.</string>
   <string name="config_category_server">Postavke servera</string>
+  <string name="config_api_oauth_title">Koristi oauth</string>
+  <string name="listedit_enable_oauth">Uključi oauth</string>
+  <string name="config_iconbutton_title">Prikaži ikone točaka</string>
   <string name="config_loginbutton_title">Korisnički račun</string>
   <string name="config_username_title">OSM korisničko ime</string>
   <string name="config_password_title">OSM lozinka</string>
@@ -132,14 +177,38 @@
   <string name="name">Ime</string>
   <string name="url">URL</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="undo">Opovrgni</string>
+  <string name="redo">Ponovi</string>
+  <string name="tracking_active_title">Snimam GPS trag</string>
+  <string name="tracking_active_text">Vespucci snima GPS trag</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">pomakni točku</string>
+  <string name="undo_action_moveway">pomakni put</string>
   <string name="undo_action_append">nastavi</string>
   <string name="undo_action_deletenode">obriši točku</string>
   <string name="undo_action_deleteway">obriši put</string>
   <string name="undo_action_split_ways">podijeli putove</string>
   <string name="undo_action_split_way">podijeli put</string>
+  <string name="undo_action_merge_ways">spoji putove</string>
+  <string name="undo_action_reverse_way">obrni smjer puta</string>
+  <string name="undo_action_set_tags">postavi oznake</string>
+  <string name="undo_action_join">spoji</string>
+  <string name="undo_action_unjoin_ways">odspoji putove</string>
+  <string name="undo_action_create_relation">stvori relaciju</string>
+  <string name="undo_action_delete_relation">obriši relaciju</string>
+  <string name="undo_action_cut">izreži</string>
+  <string name="undo_action_paste">zalijepi</string>
+  <string name="undo_action_rotateway">rotiraj put</string>
+  <string name="undo_action_orthogonalize">ispravi kutove puta</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
+  <string name="role">Rola</string>
+  <string name="role_lc">rola</string>
+  <string name="relation">Relacija</string>
+  <string name="type">Tip</string>
+  <string name="object">Objekt</string>
+  <string name="deleterelation">Obriši relaciju</string>
+  <string name="delete_from_relation_description">Spremate se obrisati ovaj element iz relacije</string>
   <!--time and distance-->
 </resources>

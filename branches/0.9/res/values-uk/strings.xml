@@ -8,8 +8,10 @@
   <string name="transfer_download_current_back">Назад (нічого не міняти)</string>
   <string name="upload_problem_title">Проблема з вивантаженням</string>
   <string name="upload_problem_message">Деякі або й усі дані не були вивантажені. Спробуйте вивантажити знову, щоб побачити, що не вдалося. Найбільш вірогідною причиною є конфлікт версій.</string>
+  <string name="no_login_data_title">Помилка автентифікації</string>
   <string name="no_connection_title">Немає з’єднання з сервером</string>
   <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше підключення до Інтернет та спробуйте ще раз.</string>
+  <string name="wrong_login_data_title">Помилка автентифікації</string>
   <string name="data_conflict_title">Конфлікт версій</string>
   <string name="progress_title">Звантажування</string>
   <string name="progress_message">Завантаження даних в пам’ять…</string>
@@ -57,6 +59,8 @@
   <string name="value">значення</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Uk:Map_Features</string>
   <string name="tag_menu_preset">Заготовки</string>
+  <string name="tag_menu_repeat">Повторити теґи</string>
+  <string name="tag_menu_revert">Скасувати</string>
   <string name="tag_menu_mapfeatures">Умовні позначення</string>
   <string name="tag_menu_addtorelation">Додати у зв’язок</string>
   <string name="tag_menu_resetMRU">Скинути заготовки</string>
