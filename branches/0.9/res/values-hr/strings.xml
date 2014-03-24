@@ -13,11 +13,14 @@
   <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>
   <string name="wrong_login_data_title">Prijava nije uspjela</string>
   <string name="data_conflict_title">Konflikt verzija</string>
+  <string name="out_of_memory_title">Nestalo memorije</string>
   <string name="progress_title">Učitavanje</string>
   <string name="progress_message">Učitavanje podataka u memoriju…</string>
   <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
   <string name="progress_general_title">Molim pričekajte</string>
   <string name="progress_deleting_message">Brisanje...</string>
+  <string name="progress_searching_message">Traženje...</string>
+  <string name="progress_saving_message">Spremanje...</string>
   <string name="upload_comment_label">Komentar:</string>
   <string name="upload_source_label">Izvor:</string>
   <string name="openstreetbug_new_title">Nova bilješka</string>
@@ -33,25 +36,31 @@
   <string name="unsaved_data_title">Oprez!</string>
   <string name="unsaved_data_message">Imate nespremljenih promjena koje će se odbaciti ako nastavite.</string>
   <string name="unsaved_data_proceed">Odbaci i nastavi</string>
+  <string name="imagery_offset_description">Opis</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_offset">Pomak</string>
+  <string name="imagery_offset_date">Stvoreno</string>
   <string name="imagery_offset_distance">Daljina</string>
+  <string name="search_results_title">Rezultati traženja</string>
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
   <string name="toast_not_in_edit_range">Zumirajte kako bi mogli uređivati, područje preširoko.</string>
   <string name="toast_unlock_to_edit">Otključaj za uređivanje</string>
   <string name="toast_save_done">Spremanje uspješno.</string>
+  <string name="toast_save_failed">Spremanje nije uspjelo</string>
   <string name="toast_not_in_bug_range">Zumirajte kako bi mogli prijaviti bug.</string>
   <string name="toast_export_failed">Izvoz nije uspio</string>
   <string name="toast_export_success">Izvezeno u %1$s</string>
   <string name="toast_noname">Prometnica nema ime ili ref</string>
+  <string name="toast_nothing_found">Ništa nije nađeno</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Da</string>
   <string name="no">Ne</string>
   <string name="okay">U redu</string>
   <string name="cancel">Odustani</string>
   <string name="locked">Zaključano</string>
+  <string name="replace">Zamjeni</string>
   <!--Dialog for back button-->
   <string name="exit_title">Stvarno izaći?</string>
   <string name="exit_text">Jeste li sigurni da želite izaći?</string>
@@ -76,6 +85,7 @@
   <string name="location_coordinates_text">Iz koordinata:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_search_label">Traži:</string>
   <string name="location_load_button">Učitaj</string>
   <string name="location_nan_title">Loš upis!</string>
   <string name="location_nan_message">Upišite koordinate u decimalnom formatu (npr. \"52.333572\",\"8.741185\"). Lat mora biti između -85.0 i +85.0, a Lon mora biti između -175.0 i +175.0.</string>
@@ -94,6 +104,7 @@
   <string name="menu_relation">Stvori relaciju</string>
   <string name="menu_tag">Uredi oznake</string>
   <string name="menu_openstreetbug">Dodaj bilješku</string>
+  <string name="menu_easyedit">MultiAlat</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Prikaži lokaciju</string>
   <string name="menu_gps_follow">Prati GPS poziciju</string>
@@ -162,6 +173,8 @@
   <string name="config_gps_distance_summary">Minimalna udaljenost za GPS poziv, u metrima (float). Manje vrijednosti troše više baterije.</string>
   <string name="config_gps_interval_title">Minimalni GPS interval</string>
   <string name="config_gps_interval_summary">Minimalni vremenski interval GPS poziva, u milisekundama. Manje vrijednosti troše više baterije.</string>
+  <string name="config_category_info">Više o</string>
+  <string name="config_advancedprefs">Napredne postavke</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" obrisano</string>
@@ -179,6 +192,7 @@
   <!--"default" is a reserved Java keyword...-->
   <string name="undo">Opovrgni</string>
   <string name="redo">Ponovi</string>
+  <string name="undo_nothing">nema se što opovrgnuti</string>
   <string name="tracking_active_title">Snimam GPS trag</string>
   <string name="tracking_active_text">Vespucci snima GPS trag</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -200,7 +214,11 @@
   <string name="undo_action_paste">zalijepi</string>
   <string name="undo_action_rotateway">rotiraj put</string>
   <string name="undo_action_orthogonalize">ispravi kutove puta</string>
+  <string name="undo_action_circulize">rasporedi u kružnicu</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci se raspao ili je našao ozbiljni problem. Molimo pošaljite izvještaj o grešci.</string>
+  <string name="crash_notif_title">Vespucci se raspao ili je našao ozbiljni problem.</string>
+  <string name="crash_notif_text">Molimo kliknite ovo kako bi pomogli popraviti problem.</string>
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
@@ -211,4 +229,10 @@
   <string name="deleterelation">Obriši relaciju</string>
   <string name="delete_from_relation_description">Spremate se obrisati ovaj element iz relacije</string>
   <!--time and distance-->
+  <string name="days">dani</string>
+  <string name="hours">sati</string>
+  <string name="minutes">minute</string>
+  <string name="seconds">sekunde</string>
+  <string name="km">km</string>
+  <string name="meter">metar</string>
 </resources>

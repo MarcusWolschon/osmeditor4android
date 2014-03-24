@@ -98,6 +98,7 @@
   <string name="location_text_unknown">unknown</string>
   <string name="location_last_text_parameterized">Последняя определенная позиция: %1$s</string>
   <string name="location_current_text_parameterized">Текущая позиция: %1$s</string>
+  <string name="location_text_metadata_location">\nШир %1$4g, Дол %2$4g\n%3$s %4$s назад</string>
   <string name="location_text_metadata_accuracy">Точность %1$2.0f метра,</string>
   <string name="location_map_text">Указать на карте (пока не реализовано)</string>
   <string name="location_coordinates_text">По координатам:</string>
