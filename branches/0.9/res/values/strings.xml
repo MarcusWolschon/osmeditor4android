@@ -201,6 +201,7 @@
 	<string name="reverse_anyway">Reverse anyway</string>
     <string name="deleteway_description">You are about to delete a way.\n\nYou can either keep all nodes, or delete nodes that only belong to this way and do not have any tags.</string>
     <string name="deleteway_relation_description">You are about to delete a way that is a member of one or more relations. Removing the way from the relation(s) may render it/them invalid.</string>
+    <string name="deleteway_nodesnotdownloaded_description">The way contains nodes outside of the downloaded area and cannot be deleted without creating an inconsistent state. Download the whole way first before retrying.</string>
     <string name="deleteway_wayonly">Delete way only</string>
     <string name="deleteway_wayandnodes">Delete way and nodes</string>
     <string name="deletenode_relation_description">You are about to delete a node that is a member of one or more relations. Removing the node from the relation(s) may render it/them invalid.</string>

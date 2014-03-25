@@ -857,6 +857,20 @@ public class Logic {
 	}
 	
 	/**
+	 * Check all nodes in way if they are actually in the downloaded data
+	 * @param way
+	 * @return true if the above is the case
+	 */
+	public boolean isInDownload(Way way) {
+		for (Node n:way.getNodes()) {
+			if (!delegator.isInDownload(n.getLat(), n.getLon())){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
 	 * user is in edit-mode a touched node will bet set to selected. draggingNode will be set if a node is to be moved.
 	 * A eventual movement of this node will be done in {@link #handleTouchEventMove(float, float, float, float, boolean)}.

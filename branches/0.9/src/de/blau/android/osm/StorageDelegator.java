@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.acra.ACRA;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -1861,7 +1862,15 @@ public class StorageDelegator implements Serializable, Exportable {
 		for (Way w:temp.getWays()) {
 			List<Node> nodes = w.getNodes();
 			for (int i=0;i<nodes.size();i++) {
-				nodes.set(i,nodeIndex.get(nodes.get(i).getOsmId())); 
+				Node n = nodeIndex.get(nodes.get(i).getOsmId());
+				if (n != null) {
+					nodes.set(i,n);
+				} else {
+					// node might have been deleted, aka somebody deleted nodes outside of the down loaded data bounding box
+					Log.e("StorageDelegator","mergeData null way node");
+					ACRA.getErrorReporter().handleException(null);
+					return false;
+				}
 			}
 		}
 				

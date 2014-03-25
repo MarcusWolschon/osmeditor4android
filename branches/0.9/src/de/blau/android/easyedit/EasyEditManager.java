@@ -938,26 +938,36 @@ public class EasyEditManager {
 		@Override
 		protected void menuDelete(ActionMode mode) {
 			boolean isRelationMember = element.hasParentRelations();
-			new AlertDialog.Builder(main)
+			boolean allNodesDownloaded = logic.isInDownload((Way)element);
+			
+			if ( allNodesDownloaded) {
+				new AlertDialog.Builder(main)
+					.setTitle(R.string.delete)
+					.setMessage(isRelationMember ? R.string.deleteway_relation_description : R.string.deleteway_description)
+					.setPositiveButton(R.string.deleteway_wayonly,
+						new DialogInterface.OnClickListener() {	
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								logic.performEraseWay((Way)element, false);
+								currentActionMode.finish();
+							}
+						})
+					.setNeutralButton(R.string.deleteway_wayandnodes,
+						new DialogInterface.OnClickListener() {	
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								logic.performEraseWay((Way)element, true);
+								currentActionMode.finish();
+							}
+						})
+					.show();
+			} else {
+				new AlertDialog.Builder(main)
 				.setTitle(R.string.delete)
-				.setMessage(isRelationMember ? R.string.deleteway_relation_description : R.string.deleteway_description)
-				.setPositiveButton(R.string.deleteway_wayonly,
-					new DialogInterface.OnClickListener() {	
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							logic.performEraseWay((Way)element, false);
-							currentActionMode.finish();
-						}
-					})
-				.setNeutralButton(R.string.deleteway_wayandnodes,
-					new DialogInterface.OnClickListener() {	
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							logic.performEraseWay((Way)element, true);
-							currentActionMode.finish();
-						}
-					})
+				.setMessage(R.string.deleteway_nodesnotdownloaded_description)
+				.setPositiveButton(R.string.okay, null)
 				.show();
+			}
 		}	
 	}
 	
