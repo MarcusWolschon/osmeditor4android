@@ -71,7 +71,7 @@ If you zoom in far enough you will see a small "x" in the middle of way segments
 
 ==== Cut, Copy & Paste ====
 
-Selected nodes and ways can be copied or cut and then pasted one or multiple times to a new location. Cutting with retain the osm id and version. To paste long click the location you want to paste to, you will see a cross hair symbol marking the location, select "Paste" from the menu.
+Selected nodes and ways can be copied or cut and then pasted one or multiple times to a new location. Cutting will retain the osm id and version. To paste long click the location you want to paste to, you will see a cross hair symbol marking the location, select "Paste" from the menu.
 
 ==== Efficiently Adding Addresses ====
 
@@ -95,6 +95,6 @@ Vespucci 0.9 supports OAuth authorization besides the classical username and pas
 
 New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website will be loaded. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci and should retry the upload, which now should succeed.
 
-=== Resolving conflicts on uploads
+=== Resolving conflicts on uploads ===
 
 Currently Vespucci doesn't have a built in conflict resolver. If you do get a conflict on upload, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and upload them with JOSM.  
