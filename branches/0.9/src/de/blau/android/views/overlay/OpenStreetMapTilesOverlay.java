@@ -426,7 +426,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		case MotionEvent.ACTION_MOVE:
 			moved |= (Math.abs(event.getX() - downX) > 20 ||
 					  Math.abs(event.getY() - downY) > 20);
-			if (done && !moved && tapArea.contains((int)event.getX(), (int)event.getY())) {
+			if (done && !moved && (tapArea != null) && tapArea.contains((int)event.getX(), (int)event.getY())) {
 				String touUri = myRendererInfo.getTouUri();
 				if (touUri != null) {
 					// Display the End User Terms Of Use (in the browser)
