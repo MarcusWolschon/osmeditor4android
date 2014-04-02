@@ -199,6 +199,7 @@
   <string name="reverse_anyway">Trotzdem umkehren</string>
   <string name="deleteway_description">Weg löschen.\n\nAllen Punkte behalten oder nur Punkte löschen die nur zu diesem Weg gehören und keine Tags haben.</string>
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte ausserhald des heruntergeladenen Bereiches und kann nicht gelöscht werden. Bitte zuerst den ganzen Bereich um den Weg herunterladen. </string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg und Knoten löschen</string>
   <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>

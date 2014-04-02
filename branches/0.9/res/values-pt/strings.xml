@@ -54,6 +54,8 @@
   <string name="set_position_datum_label">Datum geodético</string>
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de tags com valores mais populares.</string>
+  <string name="search_results_title">Resultados da pesquisa</string>
+  <string name="find_message">Introduza o texto de pesquisa</string>
   <!--Toaster-->
   <string name="toast_no_changes">Não alterou nada ainda…</string>
   <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
@@ -82,6 +84,8 @@
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API actual, por favor indique login e palava-chave.</string>
   <string name="toast_timeout">Tempo excedido com servidor</string>
   <string name="coordinates_out_of_range">Longitude deve estar entre -180º/+180º, latitude entre -85º/+85º</string>
+  <string name="toast_nothing_found">Nada encontrado</string>
+  <string name="toast_statesave_failed">A gravação do estado actual falhou!\nEste é um erro fatal, tentando escrever um ficheiro de exportação para recuperação posterior no JOSM.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -116,10 +120,13 @@
   <string name="location_text_unknown">desconhecida</string>
   <string name="location_last_text_parameterized">Última localização conhecida: %1$s</string>
   <string name="location_current_text_parameterized">Localização actual: %1$s</string>
+  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nhá %3$s %4$s</string>
+  <string name="location_text_metadata_accuracy">Precisão %1$2.0f metro,</string>
   <string name="location_map_text">A partir do mapa (em breve)</string>
   <string name="location_coordinates_text">A partir de coordenadas:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_search_label">Pesquisa:</string>
   <string name="location_load_button">Carregar</string>
   <string name="location_load_dismiss">Ir para mapa</string>
   <string name="location_nan_title">Dados Errados!</string>
@@ -129,6 +136,7 @@
   <string name="menu_edit">Editar</string>
   <string name="menu_add">Novo</string>
   <string name="menu_config">Preferências</string>
+  <string name="menu_find">Encontrar</string>
   <string name="menu_help">Ajuda</string>
   <string name="menu_erase">Apagar nó</string>
   <string name="menu_set_position">Posição</string>
@@ -147,6 +155,7 @@
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ver localização</string>
   <string name="menu_gps_follow">Seguir posição GPS</string>
+  <string name="menu_gps_goto">Ir para posição GPS</string>
   <string name="menu_gps_start">Iniciar percurso GPS</string>
   <string name="menu_gps_pause">Pausa no percurso GPS</string>
   <string name="menu_gps_clear">Limpar percurso GPS</string>
@@ -168,6 +177,8 @@
   <string name="menu_orthogonalize">Ortogonalizar</string>
   <string name="menu_circulize">Dispor em círculo</string>
   <string name="menu_tools">Ferramentas</string>
+  <string name="menu_tools_flush_background_tile_cache">Descartar cache das tiles de fundo</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Descartar cache das tiles de sobreposição</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
   <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
   <string name="menu_tools_background_align_reset">Reset</string>
@@ -188,6 +199,7 @@
   <string name="reverse_anyway">Inverter mesmo assim</string>
   <string name="deleteway_description">Esta prestes a apagar uma via.\n\nPode manter todos os nós, ou apagar apenas os nós que pertencem a esta via e que não possuem tags.</string>
   <string name="deleteway_relation_description">Estás prestes a apagar uma via que é membro de uma ou mais relações. Remover a via destas relações pode torná-la(s) inválida(s).</string>
+  <string name="deleteway_nodesnotdownloaded_description">A via contém nós fora da área descarregada e não pode ser apagada sem criar um estado inconsistente. Descarregue toda a via antes de tentar novamente.</string>
   <string name="deleteway_wayonly">Apagar apenas a via</string>
   <string name="deleteway_wayandnodes">Apagar via e nós</string>
   <string name="deletenode_relation_description">Estás prestes a apagar um nó que é um membro de uma ou mais relações. Remover o nó das relações pode torná-las inválidas.</string>
@@ -319,12 +331,16 @@
   <string name="undo_action_orthogonalize">ortogonalizar via</string>
   <string name="undo_action_circulize">dispor em círculo</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci deixou de funcionar. Por favor envie um relatório de erro.</string>
+  <string name="crash_notif_title">Vespucci deixou de funcionar e fechou.</string>
   <string name="crash_notif_text">Clique aqui para ajudar a resolver o problema.</string>
+  <string name="crash_dialog_text">Um erro inesperado ocorreu forçando a aplicação a parar ou reportar um erro. Por favor ajude-nos a resolvê-lo enviando-nos os dados do erro, tudo o que tem de fazer é tocar em \'OK\'.</string>
   <string name="config_category_acra">Relatórios de Erro</string>
   <string name="pref_enable_acra">Reportar erros da aplicação</string>
   <string name="pref_acra_enabled">Reportar erros activado</string>
   <string name="pref_acra_disabled">Reportar erros desactivado</string>
   <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Esta operação criaria uma via com demasiados nós.</string>
   <!--Misc relation related stuff-->
   <string name="role">Grupo (\'Role\')</string>
   <string name="role_lc">grupo (\'role\')</string>
@@ -337,4 +353,10 @@
   <string name="deleterelation">Apagar relação</string>
   <string name="delete_from_relation_description">Estás prestes a apagar este elemento na relação.</string>
   <!--time and distance-->
+  <string name="days">dias</string>
+  <string name="hours">horas</string>
+  <string name="minutes">minutos</string>
+  <string name="seconds">segundos</string>
+  <string name="km">km</string>
+  <string name="meter">metro</string>
 </resources>

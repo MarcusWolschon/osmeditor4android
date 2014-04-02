@@ -398,6 +398,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			logic.loadFromFile(getApplicationContext());
 		} else { // loadFromFile already does this
 			logic.loadEditingState();
+			map.invalidate();
 		}
 		if (currentPresets == null) {
 			currentPresets = prefs.getPreset();

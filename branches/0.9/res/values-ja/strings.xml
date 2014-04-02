@@ -97,8 +97,8 @@
   <string name="set">セット</string>
   <string name="replace">入れ替え</string>
   <!--Dialog for back button-->
-  <string name="exit_title">本当に終了しますか？</string>
-  <string name="exit_text">あなたは本当に終了したいのですか？</string>
+  <string name="exit_title">終了しますか？</string>
+  <string name="exit_text">本当に終了してしまってよいでしょうか？</string>
   <!--Strings in TagEditor-->
   <string name="key">キー</string>
   <string name="value">値</string>
@@ -199,6 +199,7 @@
   <string name="reverse_anyway">とにかく逆走する</string>
   <string name="deleteway_description">ウェイを削除しようとしています。\n\nこのウェイに付属して何もタグを持たないノードについてはそのままにしておくことも、削除することも可能です。</string>
   <string name="deleteway_relation_description">ひとつ以上のリレーションにメンバーとして所属しているウェイを削除しようとしています。リレーションからこのウェイを削除することにより、リレーションが不正な状態になる可能性があります。</string>
+  <string name="deleteway_nodesnotdownloaded_description">ウェイがダウンロード範囲外のノードデータを含んでいるため、削除してしまうことで、データの一貫性が確保できなくなります。削除をリトライする際には、まずウェイ全体をダウンロードするようにしてください。</string>
   <string name="deleteway_wayonly">ウェイのみを削除</string>
   <string name="deleteway_wayandnodes">ウェイとノードを削除</string>
   <string name="deletenode_relation_description">ひとつ以上のリレーションにメンバーとして所属しているノードを削除しようとしています。リレーションからこのノードを削除することにより、リレーションが不正な状態になる可能性があります。</string>

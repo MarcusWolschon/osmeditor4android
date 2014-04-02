@@ -90,15 +90,17 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 * @param extra Extra space to take away from the cache size. Used to make room
 	 * for new items before adding them so that the total cache never exceeds the limit.
 	 */
-	private void applyCacheLimit(long extra) {
+	private synchronized void applyCacheLimit(long extra) {
 		long limit = maxCacheSize - extra;
 		if (limit < 0) {
 			limit = 0;
 		}
-		while (cacheSizeBytes() > limit && !list.isEmpty()) {
+		long cacheSize = cacheSizeBytes();
+		while (cacheSize > limit && !list.isEmpty()) {
 			CacheElement ce = list.getLast();
 			Bitmap b = remove(ce.key);
 			if (b != null && !b.isRecycled() && ce.recycleable) {
+				cacheSize -= b.getRowBytes() * b.getHeight();
 				b.recycle();
 			}
 		}

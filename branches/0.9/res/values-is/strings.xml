@@ -170,6 +170,7 @@
   <string name="config_enableKeepScreenOn_summary">Ekki slökkva á skjá til að spara orku.</string>
   <string name="config_enableDeprecatedModes_title">Sýna úrelta hami</string>
   <string name="config_enableDeprecatedModes_summary">Leyfa ham til að bæta við, breyta, eyða hnútum og skipta upp ferlum.</string>
+  <string name="config_backgroundLayer_title">Bakgrunnur korts</string>
   <string name="config_overlayLayer_title">Kortlag</string>
   <string name="config_overlayLayer_summary">Myndrænt framsetta kortið.</string>
   <string name="config_category_server">Stillingar netþjóns</string>

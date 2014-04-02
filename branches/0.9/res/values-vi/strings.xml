@@ -199,6 +199,7 @@
   <string name="reverse_anyway">Cứ đảo ngược</string>
   <string name="deleteway_description">Bạn sắp sửa xóa một lối.\n\nBạn có thể để yên các nốt, hoặc bạn có thể xóa các nốt chỉ trực thuộc lối này mà không có thẻ nào.</string>
   <string name="deleteway_relation_description">Bạn sắp sửa xóa một lối trực thuộc một hay nhiều quan hệ. Việc xóa lối này có thể làm cho các quan hệ không còn hợp lệ.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Không thể xóa lối này một cách nhất quán, vì nó có nốt nằm bên ngoài khu vực đã tải về. Hãy tải về toàn bộ lối này và thử lại.</string>
   <string name="deleteway_wayonly">Chỉ xóa lối</string>
   <string name="deleteway_wayandnodes">Xóa lối và các nốt</string>
   <string name="deletenode_relation_description">Bạn sắp sửa xóa một nốt trực thuộc một hay nhiều quan hệ. Việc xóa nốt này có thể làm cho các quan hệ không còn hợp lệ.</string>
