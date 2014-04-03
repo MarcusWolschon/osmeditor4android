@@ -1906,37 +1906,31 @@ public class StorageDelegator implements Serializable, Exportable {
 		for (Relation r:temp.getRelations()) {
 			for (RelationMember rm:r.getMembers()) {
 				if (rm.getType().equals(Node.NAME)) {
-					if (nodeIndex.containsKey(rm.getRef())) {
-						if (rm.getElement() == null) { // element newly downloaded
-							Node n = nodeIndex.get(rm.getRef());
-							rm.setElement(n);
-							if (n.hasParentRelation(r.getOsmId())) {
-								n.removeParentRelation(r.getOsmId()); // this removes based on id
-							}							   			  // net effect is to remove the old rel
-							n.addParentRelation(r);		   			  // and add the updated one
-						}
+					if (nodeIndex.containsKey(rm.getRef())) { // if node is downloaded always re-set it
+						Node n = nodeIndex.get(rm.getRef());
+						rm.setElement(n);
+						if (n.hasParentRelation(r.getOsmId())) {
+							n.removeParentRelation(r.getOsmId()); // this removes based on id
+						}							   			  // net effect is to remove the old rel
+						n.addParentRelation(r);		   			  // and add the updated one
 					}
-				} else if (rm.getType().equals(Way.NAME)) {
+				} else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
 					if (wayIndex.containsKey(rm.getRef())) {
-						if (rm.getElement() == null) { // element newly downloaded
-							Way w = wayIndex.get(rm.getRef());
-							rm.setElement(w);
-							if (w.hasParentRelation(r.getOsmId())) {
-								w.removeParentRelation(r.getOsmId());
-							}
-							w.addParentRelation(r);
+						Way w = wayIndex.get(rm.getRef());
+						rm.setElement(w);
+						if (w.hasParentRelation(r.getOsmId())) {
+							w.removeParentRelation(r.getOsmId());
 						}
+						w.addParentRelation(r);
 					}
-				} else if (rm.getType().equals(Relation.NAME)) {
+				} else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
 					if (relationIndex.containsKey(rm.getRef())) {
-						if (rm.getElement() == null) { // element newly downloaded
-							Relation r2 = relationIndex.get(rm.getRef());
-							rm.setElement(r2);
-							if (r2.hasParentRelation(r.getOsmId())) {
-								r2.removeParentRelation(r.getOsmId());
-							}
-							r2.addParentRelation(r);
+						Relation r2 = relationIndex.get(rm.getRef());
+						rm.setElement(r2);
+						if (r2.hasParentRelation(r.getOsmId())) {
+							r2.removeParentRelation(r.getOsmId());
 						}
+						r2.addParentRelation(r);
 					}
 				}
 			}
