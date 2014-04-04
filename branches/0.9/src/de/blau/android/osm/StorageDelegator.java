@@ -1913,6 +1913,13 @@ public class StorageDelegator implements Serializable, Exportable {
 							n.removeParentRelation(r.getOsmId()); // this removes based on id
 						}							   			  // net effect is to remove the old rel
 						n.addParentRelation(r);		   			  // and add the updated one
+					} else { // check if deleted
+						Node apiNode = apiStorage.getNode(rm.getRef());
+						if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
+							Log.e("StorageDelegator","mergeData deleted node in downloaded relation");
+							ACRA.getErrorReporter().handleException(null);
+							return false; // can't resolve conflicts, upload first
+						}
 					}
 				} else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
 					if (wayIndex.containsKey(rm.getRef())) {
@@ -1922,6 +1929,13 @@ public class StorageDelegator implements Serializable, Exportable {
 							w.removeParentRelation(r.getOsmId());
 						}
 						w.addParentRelation(r);
+					} else { // check if deleted
+						Way apiWay = apiStorage.getWay(rm.getRef());
+						if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
+							Log.e("StorageDelegator","mergeData deleted way in downloaded relation");
+							ACRA.getErrorReporter().handleException(null);
+							return false; // can't resolve conflicts, upload first
+						}
 					}
 				} else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
 					if (relationIndex.containsKey(rm.getRef())) {
@@ -1931,6 +1945,13 @@ public class StorageDelegator implements Serializable, Exportable {
 							r2.removeParentRelation(r.getOsmId());
 						}
 						r2.addParentRelation(r);
+					} else { // check if deleted
+						Relation apiRel = apiStorage.getRelation(rm.getRef());
+						if (apiRel != null && apiRel.getState() == OsmElement.STATE_DELETED) {
+							Log.e("StorageDelegator","mergeData deleted relation in downloaded relation");
+							ACRA.getErrorReporter().handleException(null);
+							return false; // can't resolve conflicts, upload first
+						}
 					}
 				}
 			}
