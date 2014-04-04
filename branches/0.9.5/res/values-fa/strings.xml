@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Dialogs-->
+  <string name="upload_comment_label">نظر:</string>
+  <string name="openstreetbug_commit_ok">تغييرات ذخيره شد</string>
+  <!--Toaster-->
+  <!--Some generic labels/buttons-->
+  <string name="yes">بله</string>
+  <string name="no">خير</string>
+  <!--Dialog for back button-->
+  <!--Strings in TagEditor-->
+  <string name="key">کليد</string>
+  <string name="value">مقدار</string>
+  <!--Strings in LocationPicker-->
+  <string name="location_text_unknown">نامشخص</string>
+  <!--Menu-->
+  <string name="menu_edit">ويرايش</string>
+  <string name="menu_add">جديد</string>
+  <string name="menu_config">کارايي</string>
+  <string name="menu_help">راهنما</string>
+  <string name="menu_gps">جي پي اس ...</string>
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit action mode titles-->
+  <!--Preferences-->
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <!--"default" is a reserved Java keyword...-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Misc relation related stuff-->
+  <!--time and distance-->
+</resources>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	package="de.blau.android"
+	android:versionName="@string/app_version"
+	android:versionCode="29"
+	android:installLocation="auto"
+	>
+	
+	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
+	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+	<uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
+	<uses-feature android:name="android.hardware.faketouch" />
+	-->
+	<uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
+	<uses-feature android:name="android.hardware.location" android:required="false" />
+	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
+	<uses-feature android:name="android.hardware.location.network" android:required="false" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- cache tiles -->
+	
+	
+	
+	<application
+		android:name="de.blau.android.Application"
+		android:label="@string/app_name"
+		android:icon="@drawable/osm_logo" 
+		android:debuggable="false"
+		android:largeHeap="true" 
+		android:allowBackup="true" >
+		<activity
+			android:name="Main"
+			android:theme="@style/Theme.customMain"
+			android:configChanges="orientation|screenSize|keyboardHidden"
+			android:launchMode="singleTask"
+			>
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+				<!-- harmless addition for samsung multi window support -->
+				<category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".prefs.PrefEditor"
+			android:theme="@style/Theme.Sherlock"
+		/>
+		<activity
+			android:name=".prefs.AdvancedPrefEditor"
+			android:theme="@style/Theme.Sherlock"
+			android:label="@string/app_name_version"
+		/>
+		<activity
+			android:name="BoxPicker"
+			android:theme="@style/Theme.Sherlock"
+		/>
+		<activity
+			android:name="TagEditor"
+			android:theme="@style/Theme.customTagEditor"
+			android:configChanges="orientation|screenSize|keyboardHidden"
+		/>
+		<activity
+			android:name=".prefs.APIEditorActivity"
+			android:theme="@style/Theme.Sherlock"
+		/>
+		<activity
+			android:name=".prefs.PresetEditorActivity"
+			android:theme="@style/Theme.Sherlock"
+		/>
+		<activity
+			android:name=".prefs.VespucciURLActivity"
+			tools:ignore="ExportedActivity"
+			>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="vespucci" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name="de.blau.android.GeoUrlActivity"
+			tools:ignore="ExportedActivity"
+			>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="geo" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name="de.blau.android.RemoteControlUrlActivity"
+			tools:ignore="ExportedActivity"
+			>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="127.0.0.1" android:port="8111"/>
+				<data android:scheme="https" android:host="127.0.0.1" android:port="8111"/>
+			</intent-filter>
+		</activity>
+		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
+		<activity
+			android:name="org.acra.CrashReportDialog"
+			android:theme="@android:style/Theme.Dialog"
+			android:launchMode="singleInstance"
+			android:excludeFromRecents="true"
+			android:finishOnTaskLaunch="true"
+		/>
+		
+		<!-- Service to download tiles -->
+		<service
+			android:name=".services.OpenStreetMapTileProviderService"
+			android:process=":remote"
+			android:exported="false"
+			android:label="OpenStreetMapTileProviderService"
+			>
+			<intent-filter>
+				<action android:name="de.blau.android.services.IOpenStreetMapTileProviderService" />
+			</intent-filter>
+		</service>
+		<!--  Service for GPS tracking -->
+		<service android:name=".services.TrackerService" android:label="TrackerService" />
+		<!-- harmless addition for samsung multi window support -->
+		<uses-library android:required="false" android:name="com.sec.android.app.multiwindow"> </uses-library>
+		<meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
+	</application>
+	<!-- moving this here seems to fix some weird problems -->
+	<!-- minSdkVersion is set to 7 to match ActionBarSherlock, but should be able to be set to 4 when ABS supports it -->
+	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14" />
+</manifest> 
