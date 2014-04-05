@@ -819,13 +819,23 @@ public class EasyEditManager {
 			return new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					double lon = Double.valueOf(lonField.getText().toString());
-					double lat = Double.valueOf(latField.getText().toString());
-					if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-						logic.performSetPosition(node,lon,lat);
-					} else {
+					double lon = 0d;
+					double lat = 0d;
+					try {
+						lon = Double.valueOf(lonField.getText().toString());
+						lat = Double.valueOf(latField.getText().toString());
+						if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+							logic.performSetPosition(node,lon,lat);
+						} else {
+							createSetPositionDialog((int)(lon*1E7), (int)(lat*1E7)).show();
+							Toast.makeText(main, R.string.coordinates_out_of_range, Toast.LENGTH_LONG).show();
+						}
+					} catch (NumberFormatException e) {
 						createSetPositionDialog((int)(lon*1E7), (int)(lat*1E7)).show();
-						Toast.makeText(main, R.string.coordinates_out_of_range, Toast.LENGTH_LONG).show();
+						Toast.makeText(main, R.string.toast_number_format, Toast.LENGTH_LONG).show();
+					} catch (NotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			};

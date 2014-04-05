@@ -85,6 +85,7 @@
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
     <string name="toast_timeout">Timeout with server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
+    <string name="toast_number_format">Wrong number format</string>
     <string name="toast_nothing_found">Nothing found</string>
     <string name="toast_statesave_failed">Saving the current state failed!\nThis a fatal error, trying to write an export file for later recovery with JOSM.</string>
     <!-- Some generic labels/buttons -->
