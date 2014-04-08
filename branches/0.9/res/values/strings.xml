@@ -62,7 +62,7 @@
     <string name="toast_upload_success">Upload to OSM server finished.</string>
     <string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
     <string name="toast_unlock_to_edit">Unlock to edit</string>
-    <string name="toast_edit_outside_downloaded_area">You cannot edit outside ot the downloaded area</string>
+    <string name="toast_edit_outside_downloaded_area">You cannot edit outside of the downloaded area</string>
     <string name="toast_save_done">Save successful</string>
     <string name="toast_save_failed">Save failed</string>
     <string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
