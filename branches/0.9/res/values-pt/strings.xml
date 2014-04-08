@@ -84,6 +84,7 @@
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API actual, por favor indique login e palava-chave.</string>
   <string name="toast_timeout">Tempo excedido com servidor</string>
   <string name="coordinates_out_of_range">Longitude deve estar entre -180º/+180º, latitude entre -85º/+85º</string>
+  <string name="toast_number_format">Formato de número errado</string>
   <string name="toast_nothing_found">Nada encontrado</string>
   <string name="toast_statesave_failed">A gravação do estado actual falhou!\nEste é um erro fatal, tentando escrever um ficheiro de exportação para recuperação posterior no JOSM.</string>
   <!--Some generic labels/buttons-->

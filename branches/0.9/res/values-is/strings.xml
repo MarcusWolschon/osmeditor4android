@@ -19,6 +19,7 @@
   <string name="progress_deleting_message">Eyði...</string>
   <string name="progress_searching_message">Leita...</string>
   <string name="openstreetbug_new_title">Ný athugasemd</string>
+  <string name="openstreetbug_new_bug">Tilkynna vandamál</string>
   <string name="openstreetbug_new_nodeway">Búa til hnút/feril</string>
   <string name="openstreetbug_edit_title">Breyta athugasemd</string>
   <string name="openstreetbug_commitbutton">Staðfesta</string>
@@ -40,6 +41,7 @@
   <string name="set_position_datum_label">Geodetic datum</string>
   <string name="tag_editor_name_suggestion">Nafnatillaga</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Þessi tillaga getur skipt út sumum merkingum fyrir algengari gildi.</string>
+  <string name="search_results_title">Leitarniðurstöður</string>
   <!--Toaster-->
   <string name="toast_no_changes">Þú hefur ekki gert neinar breytingar...</string>
   <string name="toast_upload_success">Uppfærslu til OSM lokið.</string>
@@ -61,9 +63,12 @@
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
   <string name="toast_noname">Vegur hefur hvorki nafn né númer</string>
   <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir núverandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
+  <string name="toast_number_format">Vitlaust talnasniðmát</string>
   <string name="toast_nothing_found">Ekkert fannst</string>
   <string name="toast_statesave_failed">Gat ekki vistað núverandi stöðu! \nBý til breytingaskrá sem hægt verður að nota með JOSM.</string>
   <!--Some generic labels/buttons-->
+  <string name="no">Nei</string>
+  <string name="cancel">Hætta við</string>
   <string name="locked">Læst</string>
   <string name="next">Næst</string>
   <string name="set">Setja</string>
@@ -83,6 +88,7 @@
   <!--Strings in LocationPicker-->
   <string name="location_headline">Hlaða svæði</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_last_text">Síðasta staðsetning:</string>
   <string name="location_current_text">Núverandi staðsetning:</string>
   <string name="location_text_unknown">óþekkt</string>
   <string name="location_current_text_parameterized">Núverandi staðsetning: %1$s</string>
@@ -92,14 +98,17 @@
   <string name="location_search_label">Leita:</string>
   <string name="location_load_button">Hlaða</string>
   <string name="location_load_dismiss">Skoða kort</string>
+  <string name="location_nan_title">Vitlaus innsláttur! </string>
   <string name="location_nan_message">Vinsamlegast settu hnitin inn í tugakerfi (t.d. \"52.333572\",\"8.741185\"). Breiddargráður eru milli -85.0 og +85.0,  lengdargráður milli -175.0 og +175.0.</string>
   <!--Menu-->
   <string name="menu_move">Færa</string>
   <string name="menu_edit">Breyta</string>
   <string name="menu_add">Nýr</string>
   <string name="menu_config">Valkostir</string>
+  <string name="menu_find">Finna</string>
   <string name="menu_help">Hjálp</string>
   <string name="menu_erase">Eyða hnút</string>
+  <string name="menu_set_position">Staðsetning</string>
   <string name="menu_split">Skipta</string>
   <string name="menu_closed_way_split_1">Skipta upp ferli, fyrsti hnútur</string>
   <string name="menu_closed_way_split_2">Skipta um lokuðu ferlu, annar hnútur</string>
@@ -144,6 +153,7 @@
   <!--Text should be as short as possible-->
   <string name="menu_history">Saga</string>
   <string name="menu_reverse">Snúa við</string>
+  <string name="deleteway_nodesnotdownloaded_description">Þetta inniheldur hnúta utan svæðisins sem náð var í, því er ekki hægt að eyða þessu. Niðurhalaðu öllum tengdum hnútum og reyndu svo aftur.</string>
   <string name="deleteway_wayonly">Eyða aðeins ferli</string>
   <string name="deleteway_wayandnodes">Eyða ferlum og hnútum</string>
   <string name="deletenode_relation_description">Þú ert að fara að eyða hnúti sem tilheyrir venslum. Að eyða hnútnum getur gert venslin ónothæf.</string>
@@ -202,6 +212,7 @@
   <string name="config_largeDragArea_summary">Sýna stórt svæði til að draga hnúta</string>
   <string name="config_extTriggeredDownloadRadius_title">Niðurhala radíus</string>
   <string name="config_enableNameSuggestions_title">Virkja nafnatillögur</string>
+  <string name="config_enableNameSuggestions_summary">Leyfa tillögur að nafna-tagi</string>
   <string name="config_enableAutoPreset_title">Virkja sjálfstillingar</string>
   <!--preset downloader messages-->
   <string name="preset_download_successful">Náði í forstillingar</string>
@@ -236,6 +247,7 @@
   <string name="undo_action_deleteway">eyða ferli</string>
   <string name="undo_action_split_ways">skipt upp ferlum</string>
   <string name="undo_action_split_way">skipta ferli</string>
+  <string name="undo_action_merge_ways">sameina ferla</string>
   <string name="undo_action_join">tengja</string>
   <string name="undo_action_unjoin_ways">aftengja ferla</string>
   <string name="undo_action_create_relation">búa til vensl</string>
@@ -248,14 +260,17 @@
   <!--ACRA-->
   <string name="crash_notif_title">Vespucci hefur hrunið eða lent í alvarlegri villu.</string>
   <string name="crash_notif_text">Vinsamlegast smellið hér til að senda villuboð.</string>
+  <string name="config_category_acra">Villutilkynningar</string>
   <string name="pref_enable_acra">Tilkynna forritsvillur</string>
   <string name="pref_acra_enabled">Villutilkynningar virkjaðar</string>
   <string name="pref_acra_disabled">Tilkynni ekki hrunvillur</string>
   <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Þetta byggi til ferli með of mörgum hnútum. </string>
   <!--Misc relation related stuff-->
   <string name="role">Hlutverk</string>
   <string name="role_lc">hlutverk</string>
   <string name="relation">Vensl</string>
+  <string name="position">Staðs.</string>
   <string name="type">Tegund</string>
   <string name="deleterelation_relation_description">Þú ert um það bil að eyða venslum sem tilheyra fleiri venslum. Eyðingin getur skemmt þau, ekki gera þetta nema þú sért alveg handviss.</string>
   <string name="delete_from_relation_description">Þú ert að fara að eyða þessu úr venslum.</string>
