@@ -13,9 +13,12 @@
   <string name="no_connection_title">Nessuna connessione al server</string>
   <string name="no_connection_message">Impossibile connettersi al server OSM. Verifica la connessione ad Internet o riprova più tardi.</string>
   <string name="wrong_login_data_title">Autenticazione fallita.</string>
+  <string name="wrong_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="data_conflict_title">Conflitto di versione</string>
+  <string name="data_conflict_message">I dati che stai cercando di scaricare contengono elementi che vanno in conflitto con le tue modifiche. Carica i tuoi dati prima di riprovare.</string>
   <string name="out_of_memory_title">Memoria esaurita</string>
   <string name="out_of_memory_message">Vespucci ha esaurito la memoria tentando di caricare i dati richiesti. Riavvialo e prova a caricare un\'area più piccola.</string>
+  <string name="out_of_memory_dirty_message">Vespucci ha esaurito la memoria tentando di caricare i dati richiesti. Salva i tuoi dati, riavvialo e prova a caricare un\'area più piccola.</string>
   <string name="invalid_data_received_title">Dati ricevuti non validi</string>
   <string name="invalid_data_received_message">Vespucci ha ricevuto dei dati invalidi dal server. Se pensi di aver fatto tutto correttamente,    inviaci un rapporto sul bug.</string>
   <string name="progress_title">Caricamento</string>
@@ -42,9 +45,13 @@
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
   <string name="imagery_offset_title">Offset delle immagini</string>
   <string name="imagery_offset_description">Descrizione</string>
+  <string name="imagery_offset_not_found">Nessun dato di allineamento è stato trovato nel raggio di 10km!</string>
   <string name="imagery_offset_author">Autore</string>
+  <string name="imagery_offset_offset">Allineamento</string>
   <string name="imagery_offset_date">Creato</string>
+  <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
+  <string name="set_position_datum_label">datum geodetico</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
@@ -54,7 +61,7 @@
   <string name="toast_upload_success">Caricamento nel server OSM completato.</string>
   <string name="toast_not_in_edit_range">Ingrandisci per modificare (Volume Su/Giù o Lente/Interruttore)</string>
   <string name="toast_unlock_to_edit">Sblocca per modificare</string>
-  <string name="toast_edit_outside_downloaded_area">Non puoi modificare all\'esterno dell\'aera scaricata</string>
+  <string name="toast_edit_outside_downloaded_area">Non puoi modificare all\'esterno dell\'area scaricata</string>
   <string name="toast_save_done">Salvato con successo</string>
   <string name="toast_save_failed">Salvataggio fallito</string>
   <string name="toast_not_in_bug_range">Ingrandisci per aggiungere una segnalazione (Volume Su/Giù o Lente/Interruttore)</string>
@@ -62,6 +69,7 @@
   <string name="toast_export_success">Esportat su %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - il preset ha sovracritto qualche tag</string>
   <string name="toast_oneway_reversed">Hai invertito una via a senso unico o una via con tag dipendenti dalla direzione. Controlla i tag e correggili se necessario.</string>
+  <string name="toast_merge_tag_conflict">Hai unito degli oggetti che hanno valori di etichette, semantica dipendente dalla direzione oppure ruoli diversi nella stessa relazione incompatibili. Controlla le etichette e i ruoli e correggili se necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <string name="toast_too_many_nodes_for_move">Troppi nodi nella via da spostare</string>
   <string name="toast_oauth_handshake_failed">Handshake OAuth fallito, controlla di avere le consumer keys appropriate</string>
@@ -70,12 +78,15 @@
   <string name="toast_photo_indexing_finished">È terminata la ricerca delle foto geo-referenziate</string>
   <string name="toast_download_bbox_failed">Scaricamento fallito, probabilmente perché l\'area selezionata era troppo grande.</string>
   <string name="toast_download_failed">Scaricamento fallito con codice di errore %1$d, messaggio %2$s</string>
+  <string name="toast_unsurveyed_road">Strada non classificata</string>
   <string name="toast_noname">La strada non ha un nome o un codice di riferimento</string>
   <string name="toast_oauth">Abilita l\'accesso OAuth nel tuo account OSM e poi ritenta il caricamento.</string>
+  <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_number_format">Formato del numero invalido</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
+  <string name="toast_statesave_failed">Salvataggio dello stato corrente fallito\nQuesto è un errore fatale, tento di scrivere un file da usare successivamente con JOSM.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -172,6 +183,7 @@
   <string name="menu_tools_background_properties">Proprietà dello sfondo</string>
   <string name="menu_tools_background_align">Allinea lo sfondo</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
+  <string name="menu_tools_background_align_zero">Azzera</string>
   <string name="menu_tools_background_align_retrieve_from_db">Dal DB</string>
   <string name="menu_tools_background_align_retrieve_from_device">Dal Dispositivo</string>
   <string name="menu_tools_background_align_save_db">Salva sul DB</string>
@@ -188,6 +200,7 @@
   <string name="reverse_anyway">Inverti comunque</string>
   <string name="deleteway_description">Stai per cancellare una via.\n\nPuoi scegliere di mantenere tutti i nodi, o cancellare i nodi che appartengono  solo a questa via e che non hanno alcun tag.</string>
   <string name="deleteway_relation_description">Stai per cancellare una via membro di una o più relazioni. Cancellare la via dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
+  <string name="deleteway_nodesnotdownloaded_description">La strada contiene dei nodi al di fuori dell\'area scaricata e non può essere eliminata senza portare ad uno stato inconsistente. Scarica l\'intera strada prima di riprovare.</string>
   <string name="deleteway_wayonly">Cancella solo la via</string>
   <string name="deleteway_wayandnodes">Cancella via e nodi</string>
   <string name="deletenode_relation_description">Stai per cancellare un nodo membro di una o più relazioni. Cancellare il nodo dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
@@ -233,6 +246,7 @@
   <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.\n</string>
   <string name="config_loginbutton_title">Account utente</string>
   <string name="config_username_title">Nome utente OSM</string>
+  <string name="config_username_summary">La configurazione è necessaria per caricare dati su OSM solo se non usi OAuth. Puoi creare un account al link http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Password OSM</string>
   <string name="config_password_summary">Da non confondere con la password del wiki. Ricorda: viene salvata e trasmetta in testo puro!</string>
   <string name="config_category_gps">Impostazioni GPS</string>
@@ -249,9 +263,15 @@
   <string name="config_mapProfile_title">Profilo della mappa</string>
   <string name="config_mapProfile_summary">Imposta stile e visibilità degli elementi</string>
   <string name="config_use_back_for_undo_title">Usa il tasto indietro per annullare</string>
-  <string name="config_extTriggeredDownloadRadius_title">Scarica il raggio</string>
+  <string name="config_use_back_for_undo_summary">Usa il tasto indietro per annullare nella schermata principale</string>
+  <string name="config_largeDragArea_title">Area di trascinamento dei nodi estesa</string>
+  <string name="config_largeDragArea_summary">Disegna un\'area più grande quando trascini un nodo</string>
+  <string name="config_extTriggeredDownloadRadius_title">Scarica nel raggio di</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Raggio (in metri) dell\'area da scaricare, 0 = solo il centro della mappa.</string>
   <string name="config_enableNameSuggestions_title">Abilita il suggerimento dei nomi</string>
   <string name="config_enableNameSuggestions_summary">Abilita i suggerimenti dei nomi</string>
+  <string name="config_enableAutoPreset_title">Abilita i preset automatici</string>
+  <string name="config_enableAutoPreset_summary">Aggiungi automaticamente i preset quando è selezionato il suggerimento del nome</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna preset</string>
   <string name="preset_download_successful">Preset scaricati con successo</string>
@@ -312,8 +332,10 @@
   <string name="undo_action_orthogonalize">Ortogonalizza la via</string>
   <string name="undo_action_circulize">disponi in cerchio</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci si è chiuso improvvisamente o ha incontrato un problema grave. Invia una segnalazione di errore.</string>
   <string name="crash_notif_title">Vespucci si è chiuso improvvisamente o ha incontrato un problema grave.</string>
   <string name="crash_notif_text">Clicca qui per aiutare a risolvere il problema.</string>
+  <string name="crash_dialog_text">Si è verificato un errore inaspettato che ha obbligato l\'applicazione a smettere di funzionare o a segnalare un errore. Aiutaci a risolvere questo problema inviandoci i dati dell\'errore, devi soltanto premere \'OK\'.</string>
   <string name="config_category_acra">Segnalazione crash</string>
   <string name="pref_enable_acra">Segnala i crash dell\'applicazione</string>
   <string name="pref_acra_enabled">Segnalazione crash abilitata</string>

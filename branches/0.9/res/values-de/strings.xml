@@ -84,6 +84,7 @@
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
+  <string name="toast_number_format">Falsches Zahlenformat</string>
   <string name="toast_nothing_found">Kein Resutat gefunden</string>
   <string name="toast_statesave_failed">Speichern des aktuellen Zustandes ist fehlgeschlagen!\nDies ist ein schwerwiegender Fehler, es wird versucht eine Exportdatei für die spätere Verwendung in JOSM zu schreiben.</string>
   <!--Some generic labels/buttons-->

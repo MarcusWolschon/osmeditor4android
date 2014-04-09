@@ -519,7 +519,8 @@ public class EasyEditManager {
 			}
 			if (logic.getSelectedNode() == null) {
 				// user clicked last node again -> finish adding
-				currentActionMode.finish();
+				if (currentActionMode != null) // TODO for unknown reasons this now and then seems to be null
+					currentActionMode.finish();
 				tagApplicable(lastSelectedNode, lastSelectedWay); //TODO doesn't deselect way after tag edit
 			} else { // update cache for undo
 				createdWay = logic.getSelectedWay();

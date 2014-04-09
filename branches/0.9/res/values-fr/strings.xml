@@ -50,7 +50,6 @@
   <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
   <string name="toast_not_in_edit_range">Veuillez zoomer pour éditer (Volume +/- ou Loupe/Shift)</string>
   <string name="toast_unlock_to_edit">Déverrouillez pour éditer</string>
-  <string name="toast_edit_outside_downloaded_area">Vous ne pouvez pas éditer en dehors de la zone téléchargée</string>
   <string name="toast_save_done">Sauvegarde effectuée</string>
   <string name="toast_save_failed">Sauvegarde échouée</string>
   <string name="toast_not_in_bug_range">Veuillez zoomer pour ajouter un bug (Volume +/- ou Loupe/Shift)</string>

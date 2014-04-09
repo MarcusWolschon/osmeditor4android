@@ -36,7 +36,6 @@
   <string name="toast_upload_success">Вивантаження на сервер OpenStreetMap завершене.</string>
   <string name="toast_not_in_edit_range">Будь ласка, збільшіть масштаб щоб редагувати (Гучність +/- або Рушій масштабу)</string>
   <string name="toast_unlock_to_edit">Розблокуйте для редагування</string>
-  <string name="toast_edit_outside_downloaded_area">Ви не можете редагувати поза звантаженої області</string>
   <string name="toast_save_done">Збережено успішно</string>
   <string name="toast_not_in_bug_range">Будь ласка, збільшіть масштаб щоб додавати нотатки (Гучність +/- або Рушій масштабу)</string>
   <string name="toast_export_failed">Збій експорту</string>
