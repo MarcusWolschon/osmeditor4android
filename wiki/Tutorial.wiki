@@ -14,11 +14,12 @@ Alternatively you can dismiss the dialog by pressing the back button and pan and
 ==== Settings that you might want to change ====
 
  * Background layer
- * Overlay layer
+ * Overlay layer (note adding an overlay layer is not recommended on older devices with a small amount of memory).
  * Notes display (open Notes will be displayed as a red filled circle, closed Notes the same in blue). Default: off.
  * Node icons. Default: off.
  * Keep screen on. Default: off.
  * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+ * "Map profile": the default rendering of elements and the touch areas is suitable for a medium pixel density display. You may need to either switch to one of the other "pre-made" profiles (for example to the "color round nodes hires" profile) or customize one yourself, if you have a device with different display parameters or if you want to add special rendering for specific elements.
  
 Advanced preferences
  * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
