@@ -1901,7 +1901,9 @@ public class Logic {
 						break;
 					}
 				} catch (final IOException e) {
+					Log.e("DEBUG_TAG", "server url " + server.getBaseURL());
 					result = DialogFactory.NO_CONNECTION;
+					// ACRA.getErrorReporter().handleException(e);
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);

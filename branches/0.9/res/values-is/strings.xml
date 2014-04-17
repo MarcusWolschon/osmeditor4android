@@ -7,6 +7,8 @@
   <string name="transfer_download_current_download">Henda &amp; sækja</string>
   <string name="transfer_download_current_back">Til baka (gera ekkert)</string>
   <string name="upload_problem_title">Vandamál við að uppfæra</string>
+  <string name="upload_problem_message">Ekki tókst að hlaða upp. Prófaðu aftur til að sjá villuboð. Líklegasta skýringin er útgáfumisræmi.</string>
+  <string name="no_login_data_title">Auðkenning mistókst</string>
   <string name="no_connection_title">Engin tenging við netþjón</string>
   <string name="no_connection_message">Gat ekki tengst OSM-þjóni. Athugaðu internettenginguna eða reyndu aftur síðar.</string>
   <string name="wrong_login_data_title">Auðkenning mistókst</string>
@@ -62,6 +64,7 @@
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
   <string name="toast_noname">Vegur hefur hvorki nafn né númer</string>
+  <string name="toast_oauth">Gefðu OAuth réttindi að OSM-notanda þínum og reyndu svo aftur.</string>
   <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir núverandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
   <string name="toast_number_format">Vitlaust talnasniðmát</string>
   <string name="toast_nothing_found">Ekkert fannst</string>
@@ -93,6 +96,7 @@
   <string name="location_text_unknown">óþekkt</string>
   <string name="location_current_text_parameterized">Núverandi staðsetning: %1$s</string>
   <string name="location_text_metadata_accuracy">Nákvæmni %1$2.0f metrar,</string>
+  <string name="location_coordinates_text">Frá hnitum:</string>
   <string name="location_lat_label">Breidd.:</string>
   <string name="location_lon_label">Lengd:</string>
   <string name="location_search_label">Leita:</string>
@@ -120,6 +124,7 @@
   <string name="menu_add_relation_member">Bæta við í vensl</string>
   <string name="menu_tag">Breyta tögum</string>
   <string name="menu_openstreetbug">Ný athugasemd</string>
+  <string name="menu_gps_show">Sýna staðsetningu</string>
   <string name="menu_gps_follow">Fylgja GPS-staðsetningu</string>
   <string name="menu_gps_goto">Fara á GPS-staðsetningu</string>
   <string name="menu_gps_pause">Pása GPS-upptöku</string>
@@ -135,6 +140,7 @@
   <string name="menu_paste">Líma</string>
   <string name="menu_rotate">Snúa</string>
   <string name="menu_orthogonalize">Hornrétta</string>
+  <string name="menu_circulize">Raða í hring</string>
   <string name="menu_tools">Tól</string>
   <string name="menu_tools_flush_background_tile_cache">Hreinsa bakgrunnageymslu</string>
   <string name="menu_tools_flush_overlay_tile_cache">Hreinsa vistuð kortyfirlit</string>
@@ -152,7 +158,9 @@
   <string name="menu_tags">Tög</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Saga</string>
+  <string name="menu_merge">Sameina</string>
   <string name="menu_reverse">Snúa við</string>
+  <string name="notreversable_description">Eigindi á leiðinni treysta á að hún vísi í viðkomandi átt. Að snúa áttinni við skemmir þau.</string>
   <string name="deleteway_nodesnotdownloaded_description">Þetta inniheldur hnúta utan svæðisins sem náð var í, því er ekki hægt að eyða þessu. Niðurhalaðu öllum tengdum hnútum og reyndu svo aftur.</string>
   <string name="deleteway_wayonly">Eyða aðeins ferli</string>
   <string name="deleteway_wayandnodes">Eyða ferlum og hnútum</string>
@@ -185,6 +193,7 @@
   <string name="config_overlayLayer_summary">Myndrænt framsetta kortið.</string>
   <string name="config_category_server">Stillingar netþjóns</string>
   <string name="config_apibutton_title">OSM API veffang</string>
+  <string name="config_api_oauth_title">Auðkenning með oauth</string>
   <string name="listedit_enable_oauth">Virkja oauth</string>
   <string name="config_presetbutton_title">JOSM forstillingar</string>
   <string name="config_presetbutton_summary">Þú getur still kortskilgreingar hér</string>
@@ -221,12 +230,14 @@
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" eytt</string>
   <string name="changes_changed">\"%1$s\" breytt</string>
+  <string name="confirm_upload_title">Upphlaða? </string>
   <string name="confirm_upload_text">Senda eftirtaldar breytingar?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Bæta við forstillingu</string>
   <string name="urldialog_api_preset_missing">Forstilling notuð af API er ekki tiltæk. Þú ættir að bæta henni við.</string>
   <string name="urldialog_add_api">Bæta við API</string>
   <!--common terms-->
+  <string name="add">Bæta við</string>
   <string name="edit">Breyta</string>
   <string name="delete">Eyða</string>
   <string name="name">Nafn</string>
@@ -258,6 +269,7 @@
   <string name="undo_action_orthogonalize">hornrétta feril</string>
   <string name="undo_action_circulize">gera að hring</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci hefur hrunið eða lent í alvarlegri villu. Vinsamlegast sendu villutilkynningu.</string>
   <string name="crash_notif_title">Vespucci hefur hrunið eða lent í alvarlegri villu.</string>
   <string name="crash_notif_text">Vinsamlegast smellið hér til að senda villuboð.</string>
   <string name="config_category_acra">Villutilkynningar</string>
@@ -272,6 +284,7 @@
   <string name="relation">Vensl</string>
   <string name="position">Staðs.</string>
   <string name="type">Tegund</string>
+  <string name="object">Hlutur</string>
   <string name="deleterelation_relation_description">Þú ert um það bil að eyða venslum sem tilheyra fleiri venslum. Eyðingin getur skemmt þau, ekki gera þetta nema þú sért alveg handviss.</string>
   <string name="delete_from_relation_description">Þú ert að fara að eyða þessu úr venslum.</string>
   <!--time and distance-->
