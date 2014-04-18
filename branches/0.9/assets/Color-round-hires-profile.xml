@@ -15,6 +15,8 @@
 <feature name="problem_node" internal="true" updateWidth="true" widthFactor="1" editable="true" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
 <feature name="problem_node_tagged" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
 <feature name="node_tolerance" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="80.0" />
+<feature name="large_drag_area" internal="true" radius="140.0" touchRadius="200.0"/>
+<feature name="marker_scale" internal="true" scale="2.0"/>
 <feature name="infotext" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" typefacestyle="0" textsize="12.0" />
 <feature name="viewbox" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" />
 <feature name="gps_pos" internal="true" updateWidth="true" widthFactor="2.0" editable="true" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" />

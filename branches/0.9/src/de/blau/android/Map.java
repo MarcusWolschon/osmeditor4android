@@ -379,7 +379,7 @@ public class Map extends View implements IMapView {
 			Paint paint = Profile.getCurrent(Profile.CROSSHAIRS).getPaint();
 			canvas.save();
 			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat));
-			canvas.drawPath(Profile.CROSSHAIRS_PATH, paint);
+			canvas.drawPath(Profile.getCurrent().crosshairs_path, paint);
 			canvas.restore();
 		}
 	}
@@ -425,7 +425,7 @@ public class Map extends View implements IMapView {
 			canvas.save();
 			canvas.translate(x, y);
 			canvas.rotate(o);
-			canvas.drawPath(Profile.ORIENTATION_PATH, paint);
+			canvas.drawPath(Profile.getCurrent().orientation_path, paint);
 			canvas.restore();
 		}
 		if (displayLocation.hasAccuracy()) {
@@ -806,7 +806,7 @@ public class Map extends View implements IMapView {
 				canvas.translate(X-lastX, Y-lastY);
 				lastX = X;
 				lastY = Y;
-				canvas.drawPath(Profile.X_PATH, Profile.getCurrent(Profile.HANDLE).getPaint());
+				canvas.drawPath(Profile.getCurrent().x_path, Profile.getCurrent(Profile.HANDLE).getPaint());
 			}
 			canvas.restore();	
 		}

@@ -64,6 +64,8 @@ public class Profile  extends DefaultHandler {
 	public final static String WAY_DIRECTION = "way_direction";
 	public final static String ONEWAY_DIRECTION = "oneway_direction";
 	public final static String WAY_TOLERANCE = "way_tolerance";
+	public final static String LARGE_DRAG_AREA = "large_drag_area";
+	public final static String MARKER_SCALE = "marker_scale";
 	public final static String GPS_POS = "gps_pos";
 	public final static String GPS_POS_FOLLOW = "gps_pos_follow";
 	public final static String GPS_ACCURACY = "gps_accuracy";
@@ -214,17 +216,17 @@ public class Profile  extends DefaultHandler {
 	/**
 	 * GPS arrow
 	 */
-	public static final Path ORIENTATION_PATH = new Path();
+	public Path orientation_path = new Path();
 	
 	/**
 	 * Crosshairs
 	 */
-	public static final Path CROSSHAIRS_PATH = new Path();
+	public Path crosshairs_path = new Path();
 	
 	/**
 	 * X
 	 */
-	public static final Path X_PATH = new Path();
+	public Path x_path = new Path();
 	
 	/**
 	 * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes 
@@ -272,21 +274,21 @@ public class Profile  extends DefaultHandler {
 	 */
 	private void init(final Resources resources) {
 		
-		ORIENTATION_PATH.moveTo(0,-20);
-		ORIENTATION_PATH.lineTo(15, 20);
-		ORIENTATION_PATH.lineTo(0, 10);
-		ORIENTATION_PATH.lineTo(-15, 20);
-		ORIENTATION_PATH.lineTo(0, -20);
+		orientation_path.moveTo(0,-20);
+		orientation_path.lineTo(15, 20);
+		orientation_path.lineTo(0, 10);
+		orientation_path.lineTo(-15, 20);
+		orientation_path.lineTo(0, -20);
 		
-		CROSSHAIRS_PATH.moveTo(0, -10);
-		CROSSHAIRS_PATH.lineTo(0, 10);
-		CROSSHAIRS_PATH.moveTo(10, 0);
-		CROSSHAIRS_PATH.lineTo(-10, 0);
+		crosshairs_path.moveTo(0, -10);
+		crosshairs_path.lineTo(0, 10);
+		crosshairs_path.moveTo(10, 0);
+		crosshairs_path.lineTo(-10, 0);
 		
-		X_PATH.moveTo(-3, -3);
-		X_PATH.lineTo(3, 3);
-		X_PATH.moveTo(3, -3);
-		X_PATH.lineTo(-3, 3);
+		x_path.moveTo(-3, -3);
+		x_path.lineTo(3, 3);
+		x_path.moveTo(3, -3);
+		x_path.lineTo(-3, 3);
 		
 		Log.i("Profile","setting up default profile elements");
 		featureProfiles = new HashMap<String, FeatureProfile>();
@@ -688,6 +690,36 @@ public class Profile  extends DefaultHandler {
 //					Log.i("Profile",atts.getLocalName(i) + "=" + atts.getValue(i));
 //				}
 				tempFeatureProfile = new FeatureProfile(atts.getValue("name"));
+				if (tempFeatureProfile.name.equals(LARGE_DRAG_AREA)) {
+					// special handling
+					largDragCircleRadius = Float.parseFloat(atts.getValue("radius"));
+					largDragToleranceRadius = Float.parseFloat(atts.getValue("touchRadius"));
+					return;
+				}
+				if (tempFeatureProfile.name.equals(MARKER_SCALE)) {
+					float scale = Float.parseFloat(atts.getValue("scale"));
+					orientation_path = new Path();
+					orientation_path.moveTo(0,-20*scale);
+					orientation_path.lineTo(15*scale, 20*scale);
+					orientation_path.lineTo(0, 10*scale);
+					orientation_path.lineTo(-15*scale, 20*scale);
+					orientation_path.lineTo(0, -20*scale);
+				
+					crosshairs_path = new Path();
+					int arm = (int) (10*scale);
+					crosshairs_path.moveTo(0, -arm);
+					crosshairs_path.lineTo(0, arm);
+					crosshairs_path.moveTo(arm, 0);
+					crosshairs_path.lineTo(-arm, 0);
+					
+					x_path = new Path();
+					arm = (int) (3*scale);
+					x_path.moveTo(-arm, -arm);
+					x_path.lineTo(arm, arm);
+					x_path.moveTo(arm, -arm);
+					x_path.lineTo(-arm, arm);
+				}
+				
 				tempFeatureProfile.setInternal(Boolean.valueOf(atts.getValue("internal")).booleanValue());
 				if (!Boolean.valueOf(atts.getValue("updateWidth")).booleanValue()) {
 					tempFeatureProfile.dontUpdate();
@@ -707,7 +739,7 @@ public class Profile  extends DefaultHandler {
 						nodeToleranceValue = strokeWidth;
 					} else if (tempFeatureProfile.name.equals(WAY_TOLERANCE)) {
 						wayToleranceValue = strokeWidth;
-					}
+					} 
 				}
 				if (atts.getValue("typefacestyle") != null) {
 					tempFeatureProfile.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
