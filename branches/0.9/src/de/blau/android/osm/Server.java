@@ -514,6 +514,7 @@ public class Server {
 				}
 			};
 			connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
+			// Log.d("Server", "openChangeset follow redirects is " + connection.getFollowRedirects());
 			sendPayload(connection, xmlData, changesetId);
 			if (connection.getResponseCode() == -1) {
 				//sometimes we get an invalid response-code the first time.
