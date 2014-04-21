@@ -1177,7 +1177,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		rl.removeView(oAuthWebView);
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.show();
-		oAuthWebView.clearView();
+		oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
 		oAuthWebView.setVisibility(View.GONE);
 		oAuthWebView.removeAllViews();
 		oAuthWebView.destroy();
