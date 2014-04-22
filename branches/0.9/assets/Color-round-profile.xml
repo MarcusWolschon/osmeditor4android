@@ -12,7 +12,7 @@
 <feature name="selected_node" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
 <feature name="selected_node_tagged" internal="true" updateWidth="true" widthFactor="2.0" editable="true" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
 <feature name="selected_node_thin" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0"/>
-<feature name="problem_node" internal="true" updateWidth="true" widthFactor="1" editable="true" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
+<feature name="problem_node" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
 <feature name="problem_node_tagged" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
 <feature name="node_tolerance" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="40.0" />
 <feature name="infotext" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" typefacestyle="0" textsize="12.0" />
@@ -65,7 +65,7 @@
 	</dash>
 </feature>
 <!-- OSM node based features -->
-<feature name="node" internal="true" updateWidth="true" widthFactor="1" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
+<feature name="node" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
 <feature name="node_tagged" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
 <feature name="node_thin" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0"/>
 </profile>
