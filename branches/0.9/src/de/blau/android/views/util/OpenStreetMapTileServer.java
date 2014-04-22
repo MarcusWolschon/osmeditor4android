@@ -478,7 +478,7 @@ public class OpenStreetMapTileServer {
 				for (String fn:imageryFiles) {
 					try {
 						InputStream is = assetManager.open(fn);
-						JsonReader reader = new JsonReader(new InputStreamReader(is));
+						JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
 						try {
 							
 							try {

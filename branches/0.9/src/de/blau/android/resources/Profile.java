@@ -47,6 +47,7 @@ public class Profile  extends DefaultHandler {
 	public final static String GPS_TRACK = "gps_track";
 	public final static String NODE_TOLERANCE = "node_tolerance";
 	public final static String INFOTEXT = "infotext";
+	public final static String ATTRIBUTION_TEXT = "attribution_text";
 	public final static String VIEWBOX = "viewbox";
 	public final static String WAY = "way";
 	public final static String SELECTED_WAY = "selected_way";
@@ -435,6 +436,14 @@ public class Profile  extends DefaultHandler {
 		fp.getPaint().setTextSize(12);
 		featureProfiles.put(fp.getName(), fp);
 		
+		fp = new FeatureProfile(ATTRIBUTION_TEXT);
+		fp.setColor(Color.WHITE);
+		fp.dontUpdate();
+		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+		fp.getPaint().setTextSize(12);
+		fp.getPaint().setShadowLayer(1, 0, 0, Color.BLACK);
+		featureProfiles.put(fp.getName(), fp);
+		
 		fp = new FeatureProfile(WAY_DIRECTION);
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.setWidthFactor(0.8f);
@@ -744,6 +753,8 @@ public class Profile  extends DefaultHandler {
 				if (atts.getValue("typefacestyle") != null) {
 					tempFeatureProfile.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
 					tempFeatureProfile.getPaint().setTextSize(Float.parseFloat(atts.getValue("textsize")));
+					if (atts.getValue("shadow") != null)
+						tempFeatureProfile.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
 				}
 				// Log.i("Profile","startElement finshed parsing feature");
 			} else if (element.equals("dash")) {

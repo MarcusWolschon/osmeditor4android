@@ -54,6 +54,7 @@
   <string name="toast_export_failed">Útflutningur mistókst</string>
   <string name="toast_export_success">Flutt í %1$s</string>
   <string name="toast_preset_overwrote_tags">Athugið - forstilling yfirskrifaði tög</string>
+  <string name="toast_oneway_reversed">Þú breyttir áttinni á einstefnugötu eða ferli með merkingum sem reiða á einstefnu. Vinsamlegast skoðaðu merkingarnar og leiðréttu ef þarf.</string>
   <string name="toast_merge_tag_conflict">Þú steyptir saman eigindum með mismunandi hegðan. Vinsamlegast fullvissaðu þig um að þetta eigi í raun að vera svo eða lagaðu ef þarf.</string>
   <string name="toast_state_file_failed">Ólæsileg eða biluð skrá</string>
   <string name="toast_too_many_nodes_for_move">Of margir hnútar í ferlinu til að færa</string>
@@ -70,7 +71,9 @@
   <string name="toast_nothing_found">Ekkert fannst</string>
   <string name="toast_statesave_failed">Gat ekki vistað núverandi stöðu! \nBý til breytingaskrá sem hægt verður að nota með JOSM.</string>
   <!--Some generic labels/buttons-->
+  <string name="yes">Já</string>
   <string name="no">Nei</string>
+  <string name="okay">Í lagi</string>
   <string name="cancel">Hætta við</string>
   <string name="locked">Læst</string>
   <string name="next">Næst</string>
@@ -81,8 +84,10 @@
   <string name="exit_text">Viltu örugglega hætta? </string>
   <!--Strings in TagEditor-->
   <string name="key">lykill</string>
+  <string name="value">gildi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Skoðað á vettvangi</string>
+  <string name="tag_menu_preset">Forstillingar</string>
   <string name="tag_menu_repeat">Endurtaka tög</string>
   <string name="tag_menu_revert">Afturkalla</string>
   <string name="tag_menu_mapfeatures">Wkisíða fyrir kortaeigindi</string>
@@ -90,12 +95,15 @@
   <string name="tag_menu_exit_no_save">Hætta\nán þess að vista</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Hlaða svæði</string>
+  <string name="location_choose_radius">Veldu radíus:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Síðasta staðsetning:</string>
   <string name="location_current_text">Núverandi staðsetning:</string>
   <string name="location_text_unknown">óþekkt</string>
+  <string name="location_last_text_parameterized">Síðast þekkta staðsetning: %1$s</string>
   <string name="location_current_text_parameterized">Núverandi staðsetning: %1$s</string>
   <string name="location_text_metadata_accuracy">Nákvæmni %1$2.0f metrar,</string>
+  <string name="location_map_text">Frá korti (í næstu útgáfu)</string>
   <string name="location_coordinates_text">Frá hnitum:</string>
   <string name="location_lat_label">Breidd.:</string>
   <string name="location_lon_label">Lengd:</string>
@@ -124,16 +132,22 @@
   <string name="menu_add_relation_member">Bæta við í vensl</string>
   <string name="menu_tag">Breyta tögum</string>
   <string name="menu_openstreetbug">Ný athugasemd</string>
+  <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_gps">GPS....</string>
   <string name="menu_gps_show">Sýna staðsetningu</string>
   <string name="menu_gps_follow">Fylgja GPS-staðsetningu</string>
   <string name="menu_gps_goto">Fara á GPS-staðsetningu</string>
+  <string name="menu_gps_start">Hefja GPS-slóð</string>
   <string name="menu_gps_pause">Pása GPS-upptöku</string>
   <string name="menu_gps_clear">Hreinsa GPS-slóð</string>
   <string name="menu_gps_upload">Upphlaða GPS-slóð</string>
+  <string name="menu_gps_export">Flytja GPS-slóð út</string>
   <string name="menu_transfer">Færi gögn...</string>
   <string name="menu_transfer_download_current">Niðurhala núverandi sýn</string>
   <string name="menu_transfer_download_other">Ná í aðra staði</string>
+  <string name="menu_transfer_upload">Uppfæra á OSM</string>
   <string name="menu_transfer_export">Flytja breytingar út</string>
+  <string name="menu_save">Vista í skrá</string>
   <string name="menu_unjoin">Sundra</string>
   <string name="menu_copy">Afrita</string>
   <string name="menu_cut">Klippa</string>
@@ -161,6 +175,7 @@
   <string name="menu_merge">Sameina</string>
   <string name="menu_reverse">Snúa við</string>
   <string name="notreversable_description">Eigindi á leiðinni treysta á að hún vísi í viðkomandi átt. Að snúa áttinni við skemmir þau.</string>
+  <string name="deleteway_description">Þú ert um það bil að eyða ferli.\n\nÞú getur annað hvort geymt alla hnútana, eða eytt bara þeim hnútum sem tilheyra þessu ferli og eru ekki sérstaklega merktir öðruvísi.</string>
   <string name="deleteway_nodesnotdownloaded_description">Þetta inniheldur hnúta utan svæðisins sem náð var í, því er ekki hægt að eyða þessu. Niðurhalaðu öllum tengdum hnútum og reyndu svo aftur.</string>
   <string name="deleteway_wayonly">Eyða aðeins ferli</string>
   <string name="deleteway_wayandnodes">Eyða ferlum og hnútum</string>
@@ -178,9 +193,11 @@
   <string name="config_tileCacheSize_summary">Heildarstærð myndargeymslu í MB</string>
   <string name="config_showStats_title">Sýna tölfræði</string>
   <string name="config_showStats_summary">Sýnir tölfræði og rammar/sek í neðra vinstra horni. </string>
+  <string name="config_showTolerance_title">Sýna vikmörk</string>
   <string name="config_showTolerance_summary">Sýna svæðið þar sem hægt er að velja eigindi.</string>
   <string name="config_enableAntiAliasing_title">Virkja textasléttun</string>
   <string name="config_enableAntiAliasing_summary">Slétta línur. </string>
+  <string name="config_enableOpenStreetBugs_title">Virkja athugasemdasýn</string>
   <string name="config_enableOpenStreetBugs_summary">Sýna, breyta og búa til athugasemdir/villur.</string>
   <string name="config_enablePhotoLayer_title">Virkja ljósmyndasýn</string>
   <string name="config_enablePhotoLayer_summary">Sýna myndir með staðsetningu. </string>
@@ -189,16 +206,19 @@
   <string name="config_enableDeprecatedModes_title">Sýna úrelta hami</string>
   <string name="config_enableDeprecatedModes_summary">Leyfa ham til að bæta við, breyta, eyða hnútum og skipta upp ferlum.</string>
   <string name="config_backgroundLayer_title">Bakgrunnur korts</string>
+  <string name="config_backgroundLayer_summary">Myndrænt kort sem bakgrunnur.</string>
   <string name="config_overlayLayer_title">Kortlag</string>
   <string name="config_overlayLayer_summary">Myndrænt framsetta kortið.</string>
   <string name="config_category_server">Stillingar netþjóns</string>
   <string name="config_apibutton_title">OSM API veffang</string>
+  <string name="config_apibutton_summary">Þú getur sett inn sérsniðna slóð á API hér. Ætti yfirleitt ekki að breyta!</string>
   <string name="config_api_oauth_title">Auðkenning með oauth</string>
   <string name="listedit_enable_oauth">Virkja oauth</string>
   <string name="config_presetbutton_title">JOSM forstillingar</string>
   <string name="config_presetbutton_summary">Þú getur still kortskilgreingar hér</string>
   <string name="config_iconbutton_title">Sýna táknmyndir hnúta</string>
   <string name="config_iconbutton_summary">Sýna táknmynd af nálægustu forstillingu fyrir ofan hnúta.</string>
+  <string name="config_loginbutton_title">Notandareikningur</string>
   <string name="config_username_title">OSM notandanafn</string>
   <string name="config_username_summary">Stillingar þarf fyrir upphleðslu gagna eingöngu ef þú ert ekki að nota OAuth. Notanda er hægt að stofna á http://www.openstreetmap.org/user/new\n</string>
   <string name="config_password_title">OSM lykilorð</string>
@@ -224,16 +244,20 @@
   <string name="config_enableNameSuggestions_summary">Leyfa tillögur að nafna-tagi</string>
   <string name="config_enableAutoPreset_title">Virkja sjálfstillingar</string>
   <!--preset downloader messages-->
+  <string name="preset_update">Uppfæra forstillingar</string>
   <string name="preset_download_successful">Náði í forstillingar</string>
+  <string name="preset_download_failed">Ekki hægt að sækja forstilliskrá. Forstillingar munu ekki virka.</string>
   <string name="preset_download_parse_failed">Forstilliskrá inniheldur villu. Forstillingar munu ekki virka. </string>
   <string name="preset_download_missing_images">Forstilliskrá er tilbúin. Ekki náðist þó að fá allar táknmyndir og þær mun vanta.</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" eytt</string>
   <string name="changes_changed">\"%1$s\" breytt</string>
+  <string name="changes_created">Bjó til \"%1$s\"</string>
   <string name="confirm_upload_title">Upphlaða? </string>
   <string name="confirm_upload_text">Senda eftirtaldar breytingar?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Bæta við forstillingu</string>
+  <string name="urldialog_preset_exists">Þessi forstilling er þegar til</string>
   <string name="urldialog_api_preset_missing">Forstilling notuð af API er ekki tiltæk. Þú ættir að bæta henni við.</string>
   <string name="urldialog_add_api">Bæta við API</string>
   <!--common terms-->
@@ -289,7 +313,9 @@
   <string name="delete_from_relation_description">Þú ert að fara að eyða þessu úr venslum.</string>
   <!--time and distance-->
   <string name="days">dagar</string>
+  <string name="hours">klukkutímar</string>
   <string name="minutes">mínútur</string>
+  <string name="seconds">sekúndur</string>
   <string name="km">km</string>
   <string name="meter">metri</string>
 </resources>

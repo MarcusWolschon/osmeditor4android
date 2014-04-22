@@ -84,7 +84,7 @@
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
-  <string name="toast_number_format">Formato del numero invalido</string>
+  <string name="toast_number_format">Formato del numero non valido</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
   <string name="toast_statesave_failed">Salvataggio dello stato corrente fallito\nQuesto è un errore fatale, tento di scrivere un file da usare successivamente con JOSM.</string>
   <!--Some generic labels/buttons-->
