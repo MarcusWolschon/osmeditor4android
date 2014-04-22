@@ -727,6 +727,7 @@ public class Profile  extends DefaultHandler {
 					x_path.lineTo(arm, arm);
 					x_path.moveTo(arm, -arm);
 					x_path.lineTo(-arm, arm);
+					return;
 				}
 				
 				tempFeatureProfile.setInternal(Boolean.valueOf(atts.getValue("internal")).booleanValue());
