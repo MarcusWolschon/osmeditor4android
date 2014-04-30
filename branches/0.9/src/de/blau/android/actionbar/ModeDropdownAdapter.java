@@ -12,6 +12,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.util.Density;
 
 /** Adapter providing icons for the ActionBar edit mode dropdown */
 public class ModeDropdownAdapter implements SpinnerAdapter {
@@ -48,22 +49,13 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		 */
 		private TextView getView(boolean pad) {
 			TextView view = new TextView(context);
-			int padding = dpToPx(10);
+			int padding = Density.dpToPx(10); //TODO create constant
 			if (pad) view.setPadding(padding, padding, padding, padding);
 			view.setText(label);
 			view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
 			view.setCompoundDrawablePadding(padding);
 			return view;
 		}
-	}
-	
-	/**
-	 * Converts a size in dp to pixels
-	 * @param dp size in display point
-	 * @return size in pixels (for the current display metrics)
-	 */
-	private int dpToPx(int dp) {
-		return Math.round(dp * context.getResources().getDisplayMetrics().density);
 	}
 	
 	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug, boolean depreciatedModesEnabled) {

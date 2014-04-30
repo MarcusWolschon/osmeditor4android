@@ -213,7 +213,7 @@
   <!--Preferences-->
   <string name="config_category_view">Mostra impostazioni</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
-  <string name="config_maxStrokeWidth_summary">Non disegnare una via più spessa di questo</string>
+  <string name="config_maxStrokeWidth_summary">Valore massimo per lo spessore di una via</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
   <string name="config_tileCacheSize_summary">Dimensione totale della cache dei tasselli in MB</string>
   <string name="config_showStats_title">Mostra statistiche</string>

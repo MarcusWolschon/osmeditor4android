@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import de.blau.android.util.Density;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 
@@ -108,7 +109,7 @@ public class PresetIconManager {
 			
 			BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
 			drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
-			int pxsize = dpToPx(size);
+			int pxsize = Density.dpToPx(size);
 			drawable.setBounds(0, 0, pxsize, pxsize);
 			return drawable;
 		} catch (Exception e) {
@@ -129,21 +130,12 @@ public class PresetIconManager {
 			return result;
 		} else {
 			Drawable placeholder = new ColorDrawable(android.R.color.transparent);
-			int pxsize = dpToPx(size);
+			int pxsize = Density.dpToPx(size);
 			placeholder.setBounds(0,0, pxsize, pxsize);
 			return placeholder;
 		}
 	}
 
-	/**
-	 * Converts a size in dp to pixels
-	 * @param dp size in display point
-	 * @return size in pixels (for the current display metrics)
-	 */
-	private int dpToPx(int dp) {
-		return Math.round(dp * context.getResources().getDisplayMetrics().density);
-	}
-	
 	/**
 	 * Creates a unique identifier for the given value
 	 * @param value the value to hash

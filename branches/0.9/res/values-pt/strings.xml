@@ -61,6 +61,7 @@
   <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
   <string name="toast_not_in_edit_range">Por favor faça zoom in para editar (Volume +/- ou Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Desbloquear para editar</string>
+  <string name="toast_edit_outside_downloaded_area">Você não pode editar fora da área descarregada</string>
   <string name="toast_save_done">Gravado com sucesso</string>
   <string name="toast_save_failed">Gravar falhou</string>
   <string name="toast_not_in_bug_range">Faça zoom in para adicionar um bug (Volume +/- ou Lente/Shift)</string>

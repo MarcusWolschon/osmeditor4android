@@ -1,6 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">احتیاط! </string>
+  <string name="transfer_download_current_dialog_message">شما تعدادی تغییر انجام داده اید. میخواهید به جای دور انداختن آنها را آپلود کنید؟ </string>
+  <string name="transfer_download_current_upload">آپلود</string>
+  <string name="transfer_download_current_download">دور انداختن و دانلود</string>
+  <string name="transfer_download_current_back">برگشت(هیچی) </string>
+  <string name="upload_problem_title">مشکل با آپلود</string>
   <string name="upload_comment_label">نظر:</string>
   <string name="openstreetbug_commit_ok">تغييرات ذخيره شد</string>
   <!--Toaster-->
