@@ -1648,7 +1648,8 @@ public class Logic {
 						} else { // replace data with new download
 							delegator.reset();
 							delegator.setCurrentStorage(osmParser.getStorage());
-							if (mapBox != null && delegator.isEmpty()) {
+							if (mapBox != null) {
+								Log.d("Logic","setting original bbox");
 								delegator.setOriginalBox(mapBox);
 							}
 						}
