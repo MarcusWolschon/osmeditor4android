@@ -17,6 +17,8 @@
   <string name="progress_download_message">S\'estan baixant dades des del servidor...</string>
   <string name="progress_general_title">Espereu</string>
   <string name="progress_deleting_message">S\'està suprimint...</string>
+  <string name="progress_searching_message">Cercant...</string>
+  <string name="progress_saving_message">Enregistrant...</string>
   <string name="upload_comment_label">Comentari:</string>
   <string name="upload_source_label">Origen:</string>
   <string name="openstreetbug_new_title">Nota nova:</string>
@@ -32,16 +34,25 @@
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Teniu canvis sense desar que es descartaran si continueu.</string>
   <string name="unsaved_data_proceed">Descarta i continua</string>
+  <string name="imagery_offset_description">Descripció</string>
+  <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_date">Creat</string>
+  <string name="imagery_offset_distance">Distància</string>
   <!--Toaster-->
   <string name="toast_no_changes">No heu canviat res encara...</string>
+  <string name="toast_upload_success">Ha finalitzat la pujada al servidor OSM.</string>
   <string name="toast_save_done">S\'ha desat correctament</string>
   <string name="toast_export_failed">L\'exportació ha fallat</string>
+  <string name="toast_export_success">Exportat a %1$s</string>
+  <string name="toast_oneway_reversed">Heu canviat el sentit d\'una via de sentit únic amb etiquetes que depenen de la direcció. Si us plau verifiqueu les etiquetes i corregiu-les si fos necessari.</string>
+  <string name="toast_number_format">Format de nombre incorrecte</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="okay">D\'acord</string>
   <string name="cancel">Cancel·la</string>
   <string name="locked">Blocat</string>
+  <string name="next">Següent</string>
   <!--Dialog for back button-->
   <string name="exit_title">Realment voleu sortir?</string>
   <string name="exit_text">Esteu segur de voler sortir?</string>
@@ -49,6 +60,8 @@
   <string name="key">clau</string>
   <string name="value">valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Ca:Map_Features</string>
+  <string name="tag_menu_preset">Predefinicions</string>
+  <string name="tag_menu_repeat">Repeteix etiquetes</string>
   <string name="tag_menu_revert">Reverteix</string>
   <string name="tag_menu_addtorelation">Afegeix a la relació</string>
   <string name="tag_menu_exit_no_save">Surt\nsense desar</string>
@@ -61,11 +74,15 @@
   <string name="location_text_unknown">desconeguda</string>
   <string name="location_last_text_parameterized">Última ubicació coneguda: %1$s</string>
   <string name="location_current_text_parameterized">Ubicació actual: %1$s</string>
+  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nfa %3$s %4$s</string>
+  <string name="location_text_metadata_accuracy">Precisió %1$2.0f metre,</string>
   <string name="location_map_text">Des del mapa (properament)</string>
   <string name="location_coordinates_text">Des de les coordenades:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <string name="location_load_button">Carrega</string>
   <string name="location_nan_title">Entrada incorrecta!</string>
+  <string name="location_nan_message">Si us plau, indiqueu les coordenades en format decimal (p.ex. \"52.333572\",\"8.741185\"). La latitud ha d\'estar entre -85.0 i +85.0 i la longitud entre -175.0 i +175.0.</string>
   <!--Menu-->
   <string name="menu_move">Mou</string>
   <string name="menu_edit">Edita</string>
@@ -73,6 +90,7 @@
   <string name="menu_config">Preferències</string>
   <string name="menu_help">Ajuda</string>
   <string name="menu_erase">Suprimeix el node</string>
+  <string name="menu_set_position">Posició</string>
   <string name="menu_split">Divideix</string>
   <string name="menu_append">Afegeix</string>
   <string name="menu_restriction">Afegeix una restricció</string>
@@ -113,6 +131,7 @@
   <string name="menu_merge">Uneix</string>
   <string name="menu_reverse">Canvia el sentit</string>
   <string name="reverse_anyway">Canvia el sentit igualment</string>
+  <string name="deleteway_description">Sou a punt de suprimir una via.\n\nPodeu optar per conservar tots els seus nodes o bé per suprimir els nodes que formen part de la vila i no tenen cap etiqueta.</string>
   <string name="deleteway_wayonly">Suprimeix només aquesta via</string>
   <string name="deleteway_wayandnodes">Suprimeix la via i els nodes</string>
   <string name="deletenode">Suprimeix el node</string>
@@ -211,4 +230,10 @@
   <string name="object">Objecte</string>
   <string name="deleterelation">Suprimeix la relació</string>
   <!--time and distance-->
+  <string name="days">dies</string>
+  <string name="hours">hores</string>
+  <string name="minutes">minuts</string>
+  <string name="seconds">segons</string>
+  <string name="km">km</string>
+  <string name="meter">metre</string>
 </resources>
