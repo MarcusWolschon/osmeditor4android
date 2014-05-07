@@ -1169,7 +1169,7 @@ public class Logic {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNode;
 		
-		Node newSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
+		Node newSelectedNode = getCreatedWayNode(x, y);
 
 		if (newSelectedNode == null) {
 			newSelectedNode = savedSelectedNode;
@@ -1507,6 +1507,20 @@ public class Logic {
 		if (node != null) {
 			return node;
 		}
+		return getCreatedWayNode(x, y);
+	}
+	
+	/**
+	 * If x,y lays on a way, a new node at this location will be created, stored in
+	 * storage and returned.
+	 * 
+	 * @param x the x screen coordinate
+	 * @param y the y screen coordinate
+	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
+	 * @throws OsmIllegalOperationException 
+	 */
+	private Node getCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
+		Node node = null;
 		//create a new node on a way
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
