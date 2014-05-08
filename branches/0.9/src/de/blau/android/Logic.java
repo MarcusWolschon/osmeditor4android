@@ -1521,25 +1521,47 @@ public class Logic {
 	 */
 	private Node getCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
 		Node node = null;
+		Node savedNode1 = null;
+		Node savedNode2 = null;
+		Way savedWay = null;
+		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
-				Node nodeBefore = wayNodes.get(k - 1);
-				node = createNodeOnWay(nodeBefore, wayNodes.get(k), x, y);
-				if (node != null) {
-					delegator.insertElementSafe(node);
-					try {
-						delegator.addNodeToWayAfter(nodeBefore, node, way);
-					} catch (OsmIllegalOperationException e) {
-						delegator.removeNode(node);
-						throw new OsmIllegalOperationException(e);
+				Node node1 = wayNodes.get(k - 1);
+				Node node2 = wayNodes.get(k);
+				// TODO only project once per node
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float node2X = lonE7ToX(node2.getLon());
+				float node2Y = latE7ToY(node2.getLat());
+
+				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
+					double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);
+					if ((savedNode1 == null && savedNode2 == null) || distance < savedDistance) {
+						savedNode1 = node1;
+						savedNode2 = node2;
+						savedDistance = distance;
+						savedWay = way;
 					}
-					return node;
 				}
 			}
 		}
-		return null;
+		// way found that is in toleance range
+		if (savedNode1 != null && savedNode2 != null) {		
+			node = createNodeOnWay(savedNode1, savedNode2, x, y);
+			if (node != null) {
+				delegator.insertElementSafe(node);
+				try {
+					delegator.addNodeToWayAfter(savedNode1, node, savedWay);
+				} catch (OsmIllegalOperationException e) {
+					delegator.removeNode(node);
+					throw new OsmIllegalOperationException(e);
+				}
+			}	
+		}
+		return node;
 	}
 
 	/**
