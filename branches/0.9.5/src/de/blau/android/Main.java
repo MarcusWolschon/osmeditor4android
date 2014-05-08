@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.acra.ACRA;
@@ -27,6 +28,7 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.text.Html;
@@ -117,6 +119,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Requests a list of {@link Tag Tags} as an activity-result.
 	 */
 	public static final int REQUEST_EDIT_TAG = 1;
+	
+	/**
+	 * Requests a file as an activity-result.
+	 */
+	public static final int READ_OSM_FILE_SELECT_CODE = 2;
+	
+	/**
+	 * Requests a file as an activity-result.
+	 */
+	public static final int WRITE_OSM_FILE_SELECT_CODE = 3;
 
 	private DialogFactory dialogFactory;
 	
@@ -199,6 +211,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private File showGPSFlagFile = null;
 	private boolean showGPS;
 	private boolean followGPS;
+	private boolean autoDownload;
 	/**
 	 * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}.
 	 * Will be automatically given to the tracker service on connect.
@@ -216,6 +229,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private UndoListener undoListener;
 	
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
+
+	private Location previousLocation = null;
 	
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -637,6 +652,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
 		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
+		// menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
@@ -710,6 +726,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			return true;
 
+		case R.id.menu_gps_autodownload:
+			setAutoDownload(!autoDownload);
+			Log.d("Main","Setting autoDownload to " + autoDownload);
+			triggerMenuInvalidation();
+			return true;
+			
 		case R.id.menu_transfer_download_current:
 			onMenuDownloadCurrent(false);
 			return true;
@@ -730,6 +752,22 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic == null || logic.delegator == null) return true;
 			SavingHelper.asyncExport(this, logic.delegator);
 			return true;
+			
+		case R.id.menu_transfer_read_file:
+			if (logic == null || logic.delegator == null) return true;
+			showFileChooser(READ_OSM_FILE_SELECT_CODE);
+			// logic.readOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/test.xml", false);
+			return true;
+			
+		case R.id.menu_transfer_save_file:
+			if (logic == null || logic.delegator == null) return true;
+			showDialog(DialogFactory.SAVE_FILE);
+//			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
+//			File sdcard = Environment.getExternalStorageDirectory();
+//			File outdir = new File(sdcard, "Vespucci");
+//			outdir.mkdir(); // ensure directory exists;
+//			logic.writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/test_write.xml");
+			return true;
 
 		case R.id.menu_undo:
 			// should not happen
@@ -746,7 +784,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		case R.id.menu_tools_background_align:
 			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
-			
 			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(oldMode);
 			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
 			startActionMode(getBackgroundAlignmentActionModeCallback());
@@ -761,7 +798,28 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		return false;
 	}
 
-	private void setShowGPS(boolean show) {
+	private void showFileChooser(int purpose) {
+	    Intent intent = new Intent(Intent.ACTION_PICK); 
+	    intent.setType("*/*"); 
+	    intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+	    try {
+	        startActivityForResult(
+	                Intent.createChooser(intent, purpose == WRITE_OSM_FILE_SELECT_CODE ? getString(R.string.save_file) : getString(R.string.read_file)),
+	                purpose);
+	    } catch (android.content.ActivityNotFoundException ex) {
+	        // Potentially direct the user to the Market with a Dialog
+	        Toast.makeText(this, R.string.toast_missing_filemanager, 
+	                Toast.LENGTH_SHORT).show();
+	    }
+	}
+	
+	protected void setAutoDownload(boolean b) {
+		Log.d("Main", "autoDownload: "+ b);
+		autoDownload = b;
+	}
+	
+	protected void setShowGPS(boolean show) {
 		if (show && !ensureGPSProviderEnabled()) {
 			show = false;
 		}
@@ -936,6 +994,18 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			handleBoxPickerResult(resultCode, data);
 		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
 			handleTagEditorResult(data);
+		} else if (requestCode == READ_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
+			// Get the Uri of the selected file 
+	        Uri uri = data.getData();
+	        Log.d("Main", "Read file Uri: " + uri.toString());
+	        logic.readOsmFile(uri.getPath(), false);
+	        map.invalidate();
+		} else if (requestCode == WRITE_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
+			// Get the Uri of the selected file 
+	        Uri uri = data.getData();
+	        Log.d("Main", "Write file Uri: " + uri.toString());
+	        logic.writeOsmFile(uri.getPath());
+	        map.invalidate();
 		}
 	}
 
@@ -1177,7 +1247,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		rl.removeView(oAuthWebView);
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.show();
-		oAuthWebView.clearView();
+		oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
 		oAuthWebView.setVisibility(View.GONE);
 		oAuthWebView.removeAllViews();
 		oAuthWebView.destroy();
@@ -1937,6 +2007,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 	@Override
 	public void onLocationChanged(Location location) {
+		
 		if (followGPS) {
 			BoundingBox viewBox = map.getViewBox();
 			// ensure the view is zoomed in to at least the most zoomed-out
@@ -1944,6 +2015,24 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				viewBox.zoomIn();
 			}
 			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
+			// some heuristics for now to keep downloading to a minimum
+			// speed needs to be <= 6km/h (aka brisk walking speed) and we need to have moved half the download radius
+			if (autoDownload) { // && (location.getSpeed() < (6000f/3600f))  
+					// && (previousLocation == null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/2)) {
+				if (prefs.getDownloadRadius() != 0) { // download
+					try {
+						BoundingBox newBox = GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), prefs.getDownloadRadius());
+						ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes()), newBox); 
+						for (BoundingBox b:bboxes) {
+							logic.downloadBox(b, true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
+						}
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				previousLocation  = location;
+			}
 		}
 		if (showGPS) {
 			map.setLocation(location);

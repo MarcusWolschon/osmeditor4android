@@ -1,16 +1,144 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Coidado!</string>
+  <string name="transfer_download_current_dialog_message">Fixeches algúns cambios. Queres subilos ou descartalos?</string>
+  <string name="transfer_download_current_upload">Subir</string>
+  <string name="transfer_download_current_download">Descartar e descargar</string>
+  <string name="transfer_download_current_back">Volver (Non facer nada)</string>
+  <string name="upload_problem_title">Problema coa subida</string>
+  <string name="upload_problem_message">Non foron subidos tódolos datos. Intenta subilos outra vez para ver o que falla. A causa máis probable é un conflito de versións.</string>
+  <string name="no_login_data_title">Fallo de autenticación</string>
+  <string name="no_login_data_message">Se estás usando OAuth, isto é probablemente un erro; por favor, envía un informe do problema. Se estás usando usuario e contrasinal (non recomendado), comproba que se introduciron correctamente.</string>
+  <string name="no_connection_title">Non hai conexión co servidor</string>
+  <string name="no_connection_message">Non se puido conectar ao servidor OSM. Por favor, comproba a túa conexión a internet ou volve a intentalo máis tarde.</string>
+  <string name="wrong_login_data_title">Fallo de autenticación</string>
+  <string name="wrong_login_data_message">Se estás usando OAuth, isto é probablemente un erro; por favor, envía un informe do problema. Se estás usando usuario e contrasinal (non recomendado), comproba que se introduciron correctamente.</string>
+  <string name="progress_title">Cargando</string>
+  <string name="progress_message">Cargando datos na memoria...</string>
+  <string name="progress_download_message">Descargando datos desde o servidor...</string>
+  <string name="upload_comment_label">Comentario:</string>
+  <string name="openstreetbug_new_title">Nova Nota</string>
+  <string name="openstreetbug_new_bug">Informar dun problema</string>
+  <string name="openstreetbug_new_nodeway">Crear Punto/Vía</string>
+  <string name="openstreetbug_edit_title">Editar Nota</string>
+  <string name="openstreetbug_commitbutton">Enviar</string>
+  <string name="openstreetbug_comment_label">Comentario:</string>
+  <string name="openstreetbug_edit_close">Pechar</string>
+  <string name="openstreetbug_commit_ok">Cambios gardados</string>
+  <string name="openstreetbug_commit_fail">Non se puideron gardar os cambios</string>
+  <string name="unsaved_data_title">Coidado!</string>
+  <string name="unsaved_data_message">Tes cambios sen gardar que serán descartados se continúas.</string>
+  <string name="unsaved_data_proceed">Descartar e continuar</string>
   <!--Toaster-->
+  <string name="toast_no_changes">Aínda non cambiaches nada</string>
+  <string name="toast_upload_success">Subida ao servidor de OSM finalizada.</string>
+  <string name="toast_not_in_edit_range">Por favor, fai zoom para editar (Volume +/- ou Lens/Shift)</string>
+  <string name="toast_save_done">Gardado correctamente</string>
+  <string name="toast_not_in_bug_range">Por favor, fai zoom para engadir un erro (Volume +/- ou Lens/Shift)</string>
+  <string name="toast_export_failed">Fallou a exportación</string>
+  <string name="toast_export_success">Exportado a %1$s</string>
+  <string name="toast_preset_overwrote_tags">Aviso: o preaxuste sobreescribiu unha ou varias etiquetas</string>
+  <string name="toast_oneway_reversed">Invertiches unha rúa de sentido único ou unha vía con etiquetas dependentes do sentido. Comproba as etiquetas e corríxeas se é necesario.</string>
   <!--Some generic labels/buttons-->
+  <string name="yes">Si</string>
+  <string name="no">Non</string>
+  <string name="okay">Vale</string>
+  <string name="cancel">Cancelar</string>
   <!--Dialog for back button-->
   <!--Strings in TagEditor-->
+  <string name="key">clave</string>
+  <string name="value">valor</string>
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_sourcesurvey">Analizado</string>
+  <string name="tag_menu_preset">Preaxustes</string>
+  <string name="tag_menu_repeat">Repetir etiquetas</string>
+  <string name="tag_menu_revert">Reverter</string>
+  <string name="tag_menu_mapfeatures">Wiki sobre os elementos do mapa</string>
   <!--Strings in LocationPicker-->
+  <string name="location_headline">Cargar Área</string>
+  <string name="location_choose_radius">Elixe o radio:</string>
+  <string name="location_default_radius">300m</string>
+  <string name="location_last_text">Última posición coñecida:</string>
+  <string name="location_current_text">Posición actual:</string>
+  <string name="location_text_unknown">descoñecida</string>
+  <string name="location_last_text_parameterized">Última posición coñecida: %1$s</string>
+  <string name="location_current_text_parameterized">Posición actual: %1$s</string>
+  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s fai %4$s</string>
+  <string name="location_text_metadata_accuracy">Precisión %1$2.0f metros,</string>
+  <string name="location_map_text">Desde o mapa (próximamente)</string>
+  <string name="location_coordinates_text">Desde coordenadas:</string>
+  <string name="location_lat_label">Lat:</string>
+  <string name="location_lon_label">Lon:</string>
+  <string name="location_load_button">Cargar</string>
+  <string name="location_nan_title">Datos de entrada incorrectos!</string>
+  <string name="location_nan_message">Por favor, introduce as coordenadas en formato decimal (p.ex. \"52.333572\",\"8.741185\"). Lat debe estar entre -85.0 e +85.0, e Lon debe estar entre -175.0 e +175.0.</string>
   <!--Menu-->
+  <string name="menu_move">Mover</string>
+  <string name="menu_edit">Editar</string>
+  <string name="menu_add">Novo</string>
+  <string name="menu_config">Preferencias</string>
+  <string name="menu_help">Axuda</string>
+  <string name="menu_erase">Borrar punto</string>
+  <string name="menu_split">Dividir</string>
+  <string name="menu_append">Engadir</string>
+  <string name="menu_tag">Editar etiquetas</string>
+  <string name="menu_openstreetbug">Engadir Nota</string>
+  <string name="menu_easyedit">Edición Fácil</string>
+  <string name="menu_gps">GPS...</string>
+  <string name="menu_gps_show">Mostrar localización</string>
+  <string name="menu_gps_follow">Seguir posición GPS</string>
+  <string name="menu_gps_start">Iniciar pista GPS</string>
+  <string name="menu_gps_pause">Pausar pista GPS</string>
+  <string name="menu_gps_clear">Borrar pista GPS</string>
+  <string name="menu_gps_upload">Subir pista GPS</string>
+  <string name="menu_gps_export">Exportar pista GPS</string>
+  <string name="menu_transfer">Transferir...</string>
+  <string name="menu_transfer_download_current">Descargar vista actual</string>
+  <string name="menu_transfer_download_other">Descargar outra localización</string>
+  <string name="menu_transfer_upload">Subir datos ao servidor OSM</string>
+  <string name="menu_transfer_export">Exportar cambios</string>
+  <string name="menu_save">Gardar en ficheiro</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Etiquetas</string>
   <!--Text should be as short as possible-->
+  <string name="menu_history">Historial</string>
+  <string name="menu_merge">Unir</string>
+  <string name="menu_reverse">Inverter</string>
+  <string name="deleteway_description">Estás a punto de borrar unha vía.\n\nPodes manter tódolos puntos, ou borrar os que só pertenzan a esta vía e non teñan etiquetas.</string>
+  <string name="deleteway_wayonly">Borrar só a vía</string>
+  <string name="deleteway_wayandnodes">Borrar vía e puntos</string>
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">Vía seleccionada</string>
+  <string name="actionmode_nodeselect">Punto seleccionado</string>
+  <string name="actionmode_createpath">Creando camiño</string>
   <!--Preferences-->
+  <string name="config_category_view">Ver Axustes</string>
+  <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
+  <string name="config_maxStrokeWidth_summary">Non debuxar unha vía máis ancha que isto</string>
+  <string name="config_showStats_title">Mostrar estadísticas</string>
+  <string name="config_showStats_summary">Mostrar estadísticas de datos e fotogramas/seg na esquina inferior esquerda</string>
+  <string name="config_showTolerance_title">Mostrar tolerancia</string>
+  <string name="config_showTolerance_summary">Mostra a área onde un elemento pode ser seleccionado.</string>
+  <string name="config_enableAntiAliasing_title">Activar Anti-Aliasing</string>
+  <string name="config_enableAntiAliasing_summary">Facer as liñas máis suaves.</string>
+  <string name="config_enableOpenStreetBugs_title">Mostrar Notas</string>
+  <string name="config_enableOpenStreetBugs_summary">Mostrar, editar e crear Notas/Erros.</string>
+  <string name="config_backgroundLayer_title">Fondo de mapa</string>
+  <string name="config_backgroundLayer_summary">O fondo gráfico do mapa</string>
+  <string name="config_category_server">Axustes do Servidor</string>
+  <string name="config_apibutton_title">URL da API de OSM</string>
+  <string name="config_apibutton_summary">Aquí podes axustar a URL dunha API non estándar. Normalmente non debería cambiarse!</string>
+  <string name="config_presetbutton_title">Preaxuste JOSM</string>
+  <string name="config_presetbutton_summary">Aquí podes axustar definicións de elementos do mapa.</string>
+  <string name="config_iconbutton_title">Mostrar iconas dos puntos</string>
+  <string name="config_iconbutton_summary">Mostrar a icona do preaxuste máis coincidente sobre os puntos.</string>
+  <string name="config_loginbutton_title">Conta de usuario</string>
+  <string name="config_username_title">Nome de usuario de OSM</string>
+  <string name="config_username_summary">Necesítase configuración para subir os datos de OSM só se non estás usando OAuth. Podes conseguir unha conta en http://www.openstreetmap.org/user/new</string>
+  <string name="config_password_title">Contrasinal de OSM</string>
+  <string name="config_password_summary">Non o confundas co contrasinal da Wiki. Recorda: almacénase e transmítese en texto plano!</string>
+  <string name="config_category_gps">Axustes GPS</string>
   <!--preset downloader messages-->
   <!--changes-->
   <!--url handler activity-->

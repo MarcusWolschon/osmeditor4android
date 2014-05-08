@@ -1,12 +1,20 @@
 package de.blau.android;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,10 +28,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.acra.ACRA;
 import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -41,6 +51,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
@@ -606,9 +617,11 @@ public class Logic {
 			// add any relations that the elements are members of
 			ArrayList<OsmElement> relations = new ArrayList<OsmElement>();
 			for (OsmElement e: result) {
-				for (Relation r: e.getParentRelations()) {
-					if (!relations.contains(r)) { // not very efficient
-						relations.add(r);
+				if (e.getParentRelations() != null) {
+					for (Relation r: e.getParentRelations()) {
+						if (!relations.contains(r)) { // not very efficient
+							relations.add(r);
+						}
 					}
 				}
 			}
@@ -1507,25 +1520,47 @@ public class Logic {
 		if (node != null) {
 			return node;
 		}
+		Node savedNode1 = null;
+		Node savedNode2 = null;
+		Way savedWay = null;
+		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
-				Node nodeBefore = wayNodes.get(k - 1);
-				node = createNodeOnWay(nodeBefore, wayNodes.get(k), x, y);
-				if (node != null) {
-					delegator.insertElementSafe(node);
-					try {
-						delegator.addNodeToWayAfter(nodeBefore, node, way);
-					} catch (OsmIllegalOperationException e) {
-						delegator.removeNode(node);
-						throw new OsmIllegalOperationException(e);
+				Node node1 = wayNodes.get(k - 1);
+				Node node2 = wayNodes.get(k);
+				// TODO only project once per node
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float node2X = lonE7ToX(node2.getLon());
+				float node2Y = latE7ToY(node2.getLat());
+
+				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
+					double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);
+					if ((savedNode1 == null && savedNode2 == null) || distance < savedDistance) {
+						savedNode1 = node1;
+						savedNode2 = node2;
+						savedDistance = distance;
+						savedWay = way;
 					}
-					return node;
 				}
 			}
 		}
-		return null;
+		// way found that is in toleance range
+		if (savedNode1 != null && savedNode2 != null) {		
+			node = createNodeOnWay(savedNode1, savedNode2, x, y);
+			if (node != null) {
+				delegator.insertElementSafe(node);
+				try {
+					delegator.addNodeToWayAfter(savedNode1, node, savedWay);
+				} catch (OsmIllegalOperationException e) {
+					delegator.removeNode(node);
+					throw new OsmIllegalOperationException(e);
+				}
+			}	
+		}
+		return node;
 	}
 
 	/**
@@ -1648,7 +1683,8 @@ public class Logic {
 						} else { // replace data with new download
 							delegator.reset();
 							delegator.setCurrentStorage(osmParser.getStorage());
-							if (mapBox != null && delegator.isEmpty()) {
+							if (mapBox != null) {
+								Log.d("Logic","setting original bbox");
 								delegator.setOriginalBox(mapBox);
 							}
 						}
@@ -1730,6 +1766,160 @@ public class Logic {
 		}
 	}
 
+	/**
+	 * Read a file in (J)OSM format from device
+	 * @param fileName
+	 * @param add unused currently
+	 */
+	void readOsmFile(final String fileName, boolean add) {
+	
+		new AsyncTask<Boolean, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+			}
+			
+			@Override
+			protected Integer doInBackground(Boolean... arg) {
+				int result = 0;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					final InputStream in = new BufferedInputStream(new FileInputStream(new File(fileName)));
+;
+					try {
+						osmParser.start(in);
+						
+						delegator.reset();
+						delegator.setCurrentStorage(osmParser.getStorage());
+						delegator.fixupApiStorage();
+						
+						viewBox.setBorders(delegator.getLastBox()); // set to current or previous
+					} finally {
+						SavingHelper.close(in);
+					}
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e("Vespucci", "Problem parsing", e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem reading", e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+					Log.d("Logic", "", e);
+				}
+				View map = Application.mainActivity.getCurrentFocus();
+				try {
+					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (result != 0) {
+					if (result == DialogFactory.OUT_OF_MEMORY) {
+						System.gc();
+						if (delegator.isDirty()) {
+							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+						}
+					}
+					Application.mainActivity.showDialog(result);
+				}
+				Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+				map.invalidate();
+				UndoStorage.updateIcon();
+			}
+			
+		}.execute(add);
+	}
+
+	/**
+	 * Write data to a file in (J)OSM compatible format
+	 * @param fileName
+	 */
+	public void writeOsmFile(final String fileName) {
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_SAVING);
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				int result = 0;
+				try {
+					final OutputStream out = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
+
+					try {
+						delegator.save(out);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (XmlPullParserException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} finally {
+						SavingHelper.close(out);
+					}
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem writing", e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_SAVING);
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+					Log.d("Logic", "", e);
+				}
+				View map = Application.mainActivity.getCurrentFocus();
+				try {
+					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (result != 0) {
+					if (result == DialogFactory.OUT_OF_MEMORY) {
+						System.gc();
+						if (delegator.isDirty()) {
+							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+						}
+					}
+					Application.mainActivity.showDialog(result);
+				}
+			}
+			
+		}.execute();
+	}
+
+	
+	
 	/**
 	 * Saves to a file in the background.
 	 * 
@@ -1852,6 +2042,7 @@ public class Logic {
 		};
 		loader.execute(c);
 	}
+	
 
 	/**
 	 * Uploads to the server in the background.
@@ -2403,5 +2594,4 @@ public class Logic {
 	public float latE7ToY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
 	}
-
 }

@@ -55,6 +55,11 @@
 					android:id="@+id/menu_gps_export"
 					android:title="@string/menu_gps_export"
 				/>
+				<item
+					android:id="@+id/menu_gps_autodownload"
+					android:title="@string/menu_gps_autodownload"
+					android:checkable="true"
+				/>
 			</menu>
 	</item>
 	
@@ -84,6 +89,14 @@
 				<item
 					android:id="@+id/menu_transfer_export"
 					android:title="@string/menu_transfer_export"
+				/>
+				<item
+					android:id="@+id/menu_transfer_read_file"
+					android:title="@string/menu_transfer_read_file"
+				/>
+				<item
+					android:id="@+id/menu_transfer_save_file"
+					android:title="@string/menu_transfer_save_file"
 				/>
 			</menu>
 	</item>

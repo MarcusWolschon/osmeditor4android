@@ -61,7 +61,6 @@
   <string name="toast_upload_success">OSMサーバへのアップロードが完了しました</string>
   <string name="toast_not_in_edit_range">ズームインしてから編集してください(ボリュームUp/Down または Lens/Shift)</string>
   <string name="toast_unlock_to_edit">編集するためにはロックを解除してください</string>
-  <string name="toast_edit_outside_downloaded_area">ダウンロードしたエリアの外側は編集することができません</string>
   <string name="toast_save_done">保存しました</string>
   <string name="toast_save_failed">保存失敗</string>
   <string name="toast_not_in_bug_range">ズームインしてバグを追加してください (ボリュームUp/Down または Lens/Shift)</string>

@@ -22,6 +22,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -33,6 +34,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.OpenStreetMapTile;
+import de.blau.android.util.Density;
 import de.blau.android.util.Offset;
 import de.blau.android.util.jsonreader.JsonReader;
 
@@ -289,7 +291,10 @@ public class OpenStreetMapTileServer {
 							URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
 							conn.setRequestProperty("User-Agent", Application.userAgent);
 							InputStream bis = conn.getInputStream();
-							brandLogo = new BitmapDrawable(r, BitmapFactory.decodeStream(bis));
+							Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
+							// scale according to density
+							if (brandLogoBitmap != null)
+								brandLogo = new BitmapDrawable(r,Bitmap.createScaledBitmap(brandLogoBitmap, Density.dpToPx(myCtx,brandLogoBitmap.getWidth()), Density.dpToPx(myCtx,brandLogoBitmap.getHeight()), false)); 
 						}
 					}
 					if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
@@ -478,7 +483,7 @@ public class OpenStreetMapTileServer {
 				for (String fn:imageryFiles) {
 					try {
 						InputStream is = assetManager.open(fn);
-						JsonReader reader = new JsonReader(new InputStreamReader(is));
+						JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
 						try {
 							
 							try {

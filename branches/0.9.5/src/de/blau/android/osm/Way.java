@@ -99,6 +99,30 @@ public class Way extends OsmElement {
 		tagsToXml(s);
 		s.endTag("", "way");
 	}
+	
+	@Override
+	public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException,
+			IllegalStateException, IOException {
+		s.startTag("", "way");
+		s.attribute("", "id", Long.toString(osmId));
+		if (state == OsmElement.STATE_DELETED) {
+			s.attribute("", "action", "delete");
+		} else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
+			s.attribute("", "action", "modify");
+		}
+		s.attribute("", "version", Long.toString(osmVersion));
+		s.attribute("", "visible", "true");
+
+		for (Node node : nodes) {
+			s.startTag("", "nd");
+			s.attribute("", "ref", Long.toString(node.getOsmId()));
+			s.endTag("", "nd");
+		}
+
+		tagsToXml(s);
+		s.endTag("", "way");
+	}
+	
 
 	public boolean hasNode(final Node node) {
 		return nodes.contains(node);

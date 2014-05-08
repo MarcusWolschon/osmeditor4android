@@ -35,7 +35,7 @@ import de.blau.android.exception.StorageException;
  * @author Jan Schejbal
  */
 public class UndoStorage implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private static final String TAG = "UndoStorage";
 	
@@ -270,7 +270,11 @@ public class UndoStorage implements Serializable {
 			inCurrentStorage = currentStorage.contains(originalElement);
 			inApiStorage     = apiStorage.contains(originalElement);
 			
-			parentRelations = new ArrayList<Relation>(originalElement.parentRelations);
+			if (originalElement.parentRelations != null) {
+				parentRelations = new ArrayList<Relation>(originalElement.parentRelations);
+			} else {
+				parentRelations = null;
+			}
 		}
 		
 		/**
@@ -295,8 +299,10 @@ public class UndoStorage implements Serializable {
 			element.state      = state;
 			element.setTags(tags);
 			
-			element.parentRelations.clear();
-			element.parentRelations.addAll(parentRelations);
+			if (parentRelations != null) {
+				element.parentRelations = new ArrayList<Relation>();
+				element.parentRelations.addAll(parentRelations);
+			}
 		}
 	}
 	

@@ -18,6 +18,7 @@ import android.view.View;
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.Map;
+import de.blau.android.resources.Profile;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
@@ -60,7 +61,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	/** Current renderer */
 	protected final OpenStreetMapTileProvider mTileProvider;
 	protected final Paint mPaint = new Paint();
-	protected final Paint textPaint = new Paint();
+	protected Paint textPaint = new Paint();
 	
 
 	/**
@@ -79,11 +80,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		} else {
 			mTileProvider = aTileProvider;
 		}
-		// TODO externalize
-		textPaint.setColor(Color.WHITE);
-		textPaint.setTypeface(Typeface.SANS_SERIF);
-		textPaint.setTextSize(12);
-		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
+		// 
+		textPaint = Profile.getCurrent(Profile.ATTRIBUTION_TEXT).getPaint();
 		// mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
 		Log.d("OpenStreetMapTilesOverlay","provider " + aRendererInfo.getId());
 	}

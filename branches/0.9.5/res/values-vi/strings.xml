@@ -84,6 +84,7 @@
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
   <string name="toast_timeout">Hết thời gian chờ máy chủ</string>
   <string name="coordinates_out_of_range">Kinh độ phải nằm giữa −180°/+180°; vĩ độ phải nằm giữa −85°/85°</string>
+  <string name="toast_number_format">Dạng số sai</string>
   <string name="toast_nothing_found">Không tìm thấy kết quả</string>
   <string name="toast_statesave_failed">Thất bại khi lưu trạng thái hiện tại!\nLỗi không thể vượt qua khi ghi tập tin xuất để khôi phục sau dùng JOSM.</string>
   <!--Some generic labels/buttons-->

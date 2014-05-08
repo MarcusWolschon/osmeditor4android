@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.os.Environment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +70,8 @@ public class DialogFactory {
 	public static final int PROGRESS_SAVING = 17;
 	
 	public static final int SEARCH = 18;
+
+	public static final int SAVE_FILE = 19;
 		
 	private final Main caller;
 	
@@ -220,6 +223,9 @@ public class DialogFactory {
 			
 		case SEARCH:
 			return createSearchDialog(caller);
+			
+		case SAVE_FILE:
+			return createSaveFileDialog(caller);
 		}
 		
 		return null;
@@ -316,6 +322,7 @@ public class DialogFactory {
 		searchBuilder.setView(searchLayout);
 		EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
 		searchBuilder.setNegativeButton(R.string.cancel, null);
+		
 		final Dialog searchDialog = searchBuilder.create();
 		
 		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
@@ -343,5 +350,24 @@ public class DialogFactory {
 		});
 		
 		return searchDialog;
+	}
+	
+	private Dialog createSaveFileDialog(final Main caller) {
+		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		Builder saveFileBuilder = createBasicDialog(R.string.save_file, 0);
+		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.save_file, null);
+		saveFileBuilder.setView(searchLayout);
+		final EditText saveFileEdit = (EditText) searchLayout.findViewById(R.id.save_file_edit);
+		saveFileBuilder.setNegativeButton(R.string.cancel, null);
+		saveFileBuilder.setPositiveButton(R.string.save, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				caller.logic.writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
+			}
+		});
+		
+		final Dialog saveFileDialog = saveFileBuilder.create();
+		
+		return saveFileDialog;
 	}
 }

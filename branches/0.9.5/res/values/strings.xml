@@ -56,13 +56,15 @@
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
     <string name="search_results_title">Search results</string>
     <string name="find_message">Enter search string</string>
+    <string name="read_file">Select file to read</string>
+    <string name="save_file">Enter file to save to</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_upload_success">Upload to OSM server finished.</string>
     <string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
     <string name="toast_unlock_to_edit">Unlock to edit</string>
-    <string name="toast_edit_outside_downloaded_area">You cannot edit outside ot the downloaded area</string>
+    <string name="toast_edit_outside_downloaded_area">You cannot edit outside of the downloaded area</string>
     <string name="toast_save_done">Save successful</string>
     <string name="toast_save_failed">Save failed</string>
     <string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
@@ -87,6 +89,7 @@
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
     <string name="toast_nothing_found">Nothing found</string>
     <string name="toast_statesave_failed">Saving the current state failed!\nThis a fatal error, trying to write an export file for later recovery with JOSM.</string>
+    <string name="toast_missing_filemanager">Please install a File Manager.</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -97,6 +100,7 @@
     <string name="apply">Apply</string>
     <string name="set">Set</string>
     <string name="replace">Replace</string>
+    <string name="save">Save</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -162,12 +166,15 @@
     <string name="menu_gps_clear">Clear GPS track</string>
     <string name="menu_gps_upload">Upload GPS track</string>
     <string name="menu_gps_export">Export GPS track</string>
+    <string name="menu_gps_autodownload">Auto download</string>
     <string name="menu_transfer">Transfer…</string>
     <string name="menu_transfer_download_current">Download current view</string>
     <string name="menu_transfer_download_current_add">Add current view to download</string>
     <string name="menu_transfer_download_other">Download other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_export">Export changes</string>
+    <string name="menu_transfer_read_file">Read from file</string>
+    <string name="menu_transfer_save_file">Save to file</string>
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>

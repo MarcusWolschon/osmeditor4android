@@ -17,7 +17,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.content.res.Resources;
 import de.blau.android.R;
 
-public abstract class OsmElement implements Serializable, XmlSerializable {
+public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	protected byte state;
 	
-	protected final ArrayList<Relation> parentRelations;
+	protected ArrayList<Relation> parentRelations;
 	
 	/**
 	 * hasProblem() is an expensive test, so the results are cached.
@@ -69,7 +69,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		this.osmVersion = osmVersion;
 		this.tags = new TreeMap<String, String>();
 		this.state = state;
-		this.parentRelations = new ArrayList<Relation>();
+		this.parentRelations = null;
 		cachedHasProblem = null;
 	}
 
@@ -221,6 +221,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * Does not check id to avoid dups!
 	 */
 	public void addParentRelation(Relation relation) {
+		if (parentRelations == null) {
+			parentRelations = new ArrayList<Relation>();
+		}
 		parentRelations.add(relation);
 	}
 	
@@ -230,7 +233,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * @return
 	 */
 	public boolean hasParentRelation(Relation relation) {
-		return parentRelations.contains(relation);
+		return (parentRelations == null ? false : parentRelations.contains(relation));
 	}
 	
 	/**
@@ -239,6 +242,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * @return
 	 */
 	public boolean hasParentRelation(long osmId) {
+		if (parentRelations == null) {
+			return false;
+		}
 		for (Relation r:parentRelations) {
 			if (osmId == r.getOsmId())
 				return true;
@@ -250,6 +256,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * Add all parent relations, avoids dups
 	 */
 	public void addParentRelations(ArrayList<Relation> relations) {
+		if (parentRelations == null) {
+			parentRelations = new ArrayList<Relation>();
+		}
 		//  dedup
 		for (Relation r : relations) {
 			if (!parentRelations.contains(r)) {
@@ -271,17 +280,21 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	 * does not check for id
 	 */
 	public void removeParentRelation(Relation relation) {
-		parentRelations.remove(relation);
+		if (parentRelations != null) {
+			parentRelations.remove(relation);
+		}
 	}
 	
 	/**
 	 * Remove reference to parent relation
 	 */
 	public void removeParentRelation(long osmId) {
-		ArrayList<Relation> tempRelList = new ArrayList<Relation>(parentRelations);
-		for (Relation r:tempRelList) {
-			if (osmId == r.getOsmId())
-				parentRelations.remove(r);
+		if (parentRelations != null) {
+			ArrayList<Relation> tempRelList = new ArrayList<Relation>(parentRelations);
+			for (Relation r:tempRelList) {
+				if (osmId == r.getOsmId())
+					parentRelations.remove(r);
+			}
 		}
 	}
 

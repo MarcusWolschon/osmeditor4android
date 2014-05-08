@@ -92,6 +92,24 @@ public class Node extends OsmElement implements GeoPoint {
 		tagsToXml(s);
 		s.endTag("", "node");
 	}
+	
+	@Override
+	public void toJosmXml(final XmlSerializer s)
+			throws IllegalArgumentException, IllegalStateException, IOException {
+		s.startTag("", "node");
+		s.attribute("", "id", Long.toString(osmId));
+		if (state == OsmElement.STATE_DELETED) {
+			s.attribute("", "action", "delete");
+		} else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
+			s.attribute("", "action", "modify");
+		}
+		s.attribute("", "version", Long.toString(osmVersion));
+		s.attribute("", "visible", "true");
+		s.attribute("", "lat", Double.toString((lat / 1E7)));
+		s.attribute("", "lon", Double.toString((lon / 1E7)));
+		tagsToXml(s);
+		s.endTag("", "node");
+	}
 
 	@Override
 	public ElementType getType() {

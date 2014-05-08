@@ -39,6 +39,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.resources.Profile;
 import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.services.TrackerService;
+import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.views.IMapView;
@@ -66,9 +67,15 @@ public class Map extends View implements IMapView {
 	
 	/** Use reflection to access Canvas method only available in API11. */
 	private static final Method mIsHardwareAccelerated;
+
+	private static final int HOUSE_NUMBER_RADIUS = 10;
 	
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
+	
+	private final int houseNumberRadius;
+	
+	private final int verticalNumberOffset;
 	
 	private Preferences prefs;
 	
@@ -164,7 +171,9 @@ public class Map extends View implements IMapView {
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
 		
-		iconRadius = Math.round(ICON_SIZE_DP * context.getResources().getDisplayMetrics().density / 2.0f);
+		iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
+		houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
+		verticalNumberOffset = Density.dpToPx(3);
 		
 		// TODO externalize
 		textPaint.setColor(Color.WHITE);
@@ -379,7 +388,7 @@ public class Map extends View implements IMapView {
 			Paint paint = Profile.getCurrent(Profile.CROSSHAIRS).getPaint();
 			canvas.save();
 			canvas.translate(GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon), GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(),crosshairsLat));
-			canvas.drawPath(Profile.CROSSHAIRS_PATH, paint);
+			canvas.drawPath(Profile.getCurrent().crosshairs_path, paint);
 			canvas.restore();
 		}
 	}
@@ -425,7 +434,7 @@ public class Map extends View implements IMapView {
 			canvas.save();
 			canvas.translate(x, y);
 			canvas.rotate(o);
-			canvas.drawPath(Profile.ORIENTATION_PATH, paint);
+			canvas.drawPath(Profile.getCurrent().orientation_path, paint);
 			canvas.restore();
 		}
 		if (displayLocation.hasAccuracy()) {
@@ -601,9 +610,9 @@ public class Map extends View implements IMapView {
 			// draw house-numbers
 			if (node.getTagWithKey("addr:housenumber") != null && node.getTagWithKey("addr:housenumber").trim().length() > 0) {
 				Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
-				canvas.drawCircle(x, y, 10, paint2);
+				canvas.drawCircle(x, y, houseNumberRadius, paint2);
 				String text = node.getTagWithKey("addr:housenumber");
-				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + 3, paint2);
+				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + verticalNumberOffset, paint2);
 				return; // don't want to be covered by icon
 			} else if (node.isTagged()) {
 				canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
@@ -806,7 +815,7 @@ public class Map extends View implements IMapView {
 				canvas.translate(X-lastX, Y-lastY);
 				lastX = X;
 				lastY = Y;
-				canvas.drawPath(Profile.X_PATH, Profile.getCurrent(Profile.HANDLE).getPaint());
+				canvas.drawPath(Profile.getCurrent().x_path, Profile.getCurrent(Profile.HANDLE).getPaint());
 			}
 			canvas.restore();	
 		}

@@ -100,7 +100,7 @@ public class Search {
 		querier.execute(q);
 		try {
 			ArrayList<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
-			if (result.size() > 0) {
+			if (result != null && result.size() > 0) {
 				Dialog sr = createSearchResultsDialog(result);
 				sr.show();
 			} else {

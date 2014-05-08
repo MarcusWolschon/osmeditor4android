@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Set;
 
 import android.app.AlertDialog;
@@ -518,7 +519,8 @@ public class EasyEditManager {
 			}
 			if (logic.getSelectedNode() == null) {
 				// user clicked last node again -> finish adding
-				currentActionMode.finish();
+				if (currentActionMode != null) // TODO for unknown reasons this now and then seems to be null
+					currentActionMode.finish();
 				tagApplicable(lastSelectedNode, lastSelectedWay); //TODO doesn't deselect way after tag edit
 			} else { // update cache for undo
 				createdWay = logic.getSelectedWay();
@@ -801,9 +803,9 @@ public class EasyEditManager {
 			TextView datum = (TextView) layout.findViewById(R.id.set_position_datum); // TODO add conversion to/from other datums
 			datum.setText("WGS84");
 			EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
-			lon.setText(String.format("%.7f", lonE7/1E7d));
+			lon.setText(String.format(Locale.US,"%.7f", lonE7/1E7d));
 			EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);
-			lat.setText(String.format("%.7f", latE7/1E7d));
+			lat.setText(String.format(Locale.US,"%.7f", latE7/1E7d));
 			
 			dialog.setPositiveButton(R.string.set, createSetButtonListener(lon, lat, (Node)element));		
 			dialog.setNegativeButton(R.string.cancel, null);

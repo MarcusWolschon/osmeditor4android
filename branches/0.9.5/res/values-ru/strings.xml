@@ -49,7 +49,6 @@
   <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
   <string name="toast_not_in_edit_range">Пожалуйста, увеличьте масштаб для редактирования  (Громкость +/- или Движок масштаба)</string>
   <string name="toast_unlock_to_edit">Разблокируйте для правки</string>
-  <string name="toast_edit_outside_downloaded_area">Вы не можете редактировать вне загруженной области</string>
   <string name="toast_save_done">Сохранено успешно</string>
   <string name="toast_save_failed">Не удалось сохранить</string>
   <string name="toast_not_in_bug_range">Пожалуйста, увеличьте масштаб для добавления заметки (Громкость +/- или Движок масштаба)</string>
