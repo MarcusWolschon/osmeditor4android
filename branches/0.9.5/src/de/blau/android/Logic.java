@@ -1640,8 +1640,9 @@ public class Logic {
 	 * 
 	 * @param mapBox Box defining the area to be loaded.
 	 * @param add if true add this data to existing
+	 * @param auto download is being done automatically, try not mess up/move the display
 	 */
-	void downloadBox(final BoundingBox mapBox, boolean add) {
+	void downloadBox(final BoundingBox mapBox, final boolean add, final boolean auto) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -1653,7 +1654,9 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				if (!auto) {
+					Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				}
 			}
 			
 			@Override
@@ -1688,7 +1691,9 @@ public class Logic {
 								delegator.setOriginalBox(mapBox);
 							}
 						}
-						viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
+						if (!auto) {
+							viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
+						}
 					} finally {
 						SavingHelper.close(in);
 					}
@@ -1716,30 +1721,33 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
-				} catch (IllegalArgumentException e) {
-					 // Avoid crash if dialog is already dismissed
-					Log.d("Logic", "", e);
-				}
-				View map = Application.mainActivity.getCurrentFocus();
-				try {
-					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				} catch (OsmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (result != 0) {
-					if (result == DialogFactory.OUT_OF_MEMORY) {
-						System.gc();
-						if (delegator.isDirty()) {
-							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
-						}
+				if (!auto) {
+					try {
+						Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					} catch (IllegalArgumentException e) {
+						 // Avoid crash if dialog is already dismissed
+						Log.d("Logic", "", e);
 					}
-					Application.mainActivity.showDialog(result);
+					
+					View map = Application.mainActivity.getCurrentFocus();
+					try {
+						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (result != 0) {
+						if (result == DialogFactory.OUT_OF_MEMORY) {
+							System.gc();
+							if (delegator.isDirty()) {
+								result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+							}
+						}
+						Application.mainActivity.showDialog(result);
+					}
+					Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
+					map.invalidate();
 				}
-				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
-				map.invalidate();
 				UndoStorage.updateIcon();
 			}
 			
@@ -1748,21 +1756,21 @@ public class Logic {
 
 	/**
 	 * @param add 
-	 * @see #downloadBox(Main, BoundingBox)
+	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadCurrent(boolean add) {
 		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
-		downloadBox(viewBox.copy(),add);
+		downloadBox(viewBox.copy(),add, false);
 	}
 	
 	/**
 	 * Re-downloads the same area as last time
-	 * @see #downloadBox(Main, BoundingBox)
+	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadLast() {
 		delegator.reset();
 		for (BoundingBox box:delegator.getBoundingBoxes()) {
-			if (box != null && box.isValidForApi()) downloadBox(box, true);
+			if (box != null && box.isValidForApi()) downloadBox(box, true, false);
 		}
 	}
 

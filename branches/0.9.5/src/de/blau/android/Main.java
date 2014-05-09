@@ -443,7 +443,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius());
-					logic.downloadBox(bbox, true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
+					logic.downloadBox(bbox, true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
 				} catch (OsmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -459,7 +459,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (rcData != null) {
 			Log.d("Main","got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
-				logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
+				logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
 			} else {
 				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
 				Log.d("Main","moving to position");
@@ -652,7 +652,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
 		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
-		// menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
+		menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
@@ -1084,7 +1084,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		logic.downloadBox(box, false);
+		logic.downloadBox(box, false, false);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
@@ -2006,25 +2006,23 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	@Override
-	public void onLocationChanged(Location location) {
-		
+	public void onLocationChanged(Location location) {		
 		if (followGPS) {
 			BoundingBox viewBox = map.getViewBox();
 			// ensure the view is zoomed in to at least the most zoomed-out
 			while (!viewBox.canZoomOut() && viewBox.canZoomIn()) {
 				viewBox.zoomIn();
 			}
-			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 			// some heuristics for now to keep downloading to a minimum
-			// speed needs to be <= 6km/h (aka brisk walking speed) and we need to have moved half the download radius
-			if (autoDownload) { // && (location.getSpeed() < (6000f/3600f))  
-					// && (previousLocation == null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/2)) {
+			// speed needs to be <= 6km/h (aka brisk walking speed) and we need to be less than half the download radius away from the nearest bb-side
+			if (autoDownload && (location.getSpeed() < (6000f/3600f))  
+					&& (previousLocation == null || distanceToSide(location) <= prefs.getDownloadRadius()/2)) {
 				if (prefs.getDownloadRadius() != 0) { // download
 					try {
 						BoundingBox newBox = GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), prefs.getDownloadRadius());
 						ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes()), newBox); 
 						for (BoundingBox b:bboxes) {
-							logic.downloadBox(b, true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
+							logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
 						}
 					} catch (OsmException e) {
 						// TODO Auto-generated catch block
@@ -2033,11 +2031,45 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				}
 				previousLocation  = location;
 			}
+			
+			// re-center on current position
+			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 		}
 		if (showGPS) {
 			map.setLocation(location);
 		}
 		map.invalidate();
+	}
+	
+	private int distanceToSide(Location location) {
+		int result = Integer.MAX_VALUE; // 
+		double lon = location.getLongitude();
+		double lat = location.getLatitude();
+		for (BoundingBox b:logic.delegator.getBoundingBoxes()) {
+			if (b.isIn((int)(lat*1E7),(int)(lon*1E7))) {
+				double latCenter = b.getCenterLat();
+				double lonCenter = (b.getLeft() + b.getWidth()/2)/1E7d;
+				double dLeft = lonCenter - b.getLeft()/1E7d;
+				double dRight = b.getRight()/1E7d - lonCenter;
+				double dLon = Math.min(dLeft,dRight);
+				double dTop = latCenter - b.getBottom()/1E7d;
+				double dBottom = b.getTop()/1E7d - latCenter;
+				double dLat = Math.min(dTop, dBottom);
+				
+				int tmpResult;
+				if (dLat < dLon) {
+					// top or bottom is closest
+					tmpResult = (int)GeoMath.haversineDistance(lon, lat, lon, lat+dLat);
+				} else {
+					// left or right is closest
+					tmpResult = (int)GeoMath.haversineDistance(lon, lat, lon+dLon, lat);
+				}
+				if (tmpResult < result) {
+					result = tmpResult;
+				}
+			}
+		}
+		return result == Integer.MAX_VALUE ? 0 : result; // 0 == outside of bb
 	}
 	
 	
