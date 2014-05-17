@@ -699,13 +699,18 @@ public class StorageDelegator implements Serializable, Exportable {
 			insertElementUnsafe(newWay);
 			
 			// check for relation membership
-			ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
-			if (relations != null) {
+			if (way.getParentRelations() != null) {
+				ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
 				dirty = true;
 				/* iterate through relations, for all except restrictions add the new way to the relation, for now simply after the old way */
 				for (Relation r : relations) {
 					Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size()  + ") " +  r.getDescription());
 					RelationMember rm = r.getMember(way);
+					if (rm == null) {
+						Log.d("StorageDelegator", "Unconsistent state detected way " + way.getOsmId() + " should be relation member" );
+						ACRA.getErrorReporter().handleException(null);	
+						continue;
+					}
 					undo.save(r);
 					String type = r.getTagWithKey("type");
 					if (type != null){
