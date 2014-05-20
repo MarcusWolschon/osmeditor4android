@@ -482,11 +482,12 @@ public class Server {
 	 * Open a new changeset.
 	 * @param comment Changeset comment.
 	 * @param source 
+	 * @param imagery TODO
 	 * @throws MalformedURLException
 	 * @throws ProtocolException
 	 * @throws IOException
 	 */
-	public void openChangeset(final String comment, final String source) throws MalformedURLException, ProtocolException, IOException {
+	public void openChangeset(final String comment, final String source, final String imagery) throws MalformedURLException, ProtocolException, IOException {
 		long newChangesetId = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
@@ -501,14 +502,24 @@ public class Server {
 					serializer.attribute("", "k", "created_by");
 					serializer.attribute("", "v", generator);
 					serializer.endTag("", "tag");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "comment");
-					serializer.attribute("", "v", comment);
-					serializer.endTag("", "tag");
-					serializer.startTag("", "tag");
-					serializer.attribute("", "k", "source");
-					serializer.attribute("", "v", source);
-					serializer.endTag("", "tag");
+					if (comment != null && comment.length() > 0) {
+						serializer.startTag("", "tag");
+						serializer.attribute("", "k", "comment");
+						serializer.attribute("", "v", comment);
+						serializer.endTag("", "tag");
+					}
+					if (source != null && source.length() > 0) {
+						serializer.startTag("", "tag");
+						serializer.attribute("", "k", "source");
+						serializer.attribute("", "v", source);
+						serializer.endTag("", "tag");
+					}
+					if (imagery != null && imagery.length() > 0) {
+						serializer.startTag("", "tag");
+						serializer.attribute("", "k", "imagery_used");
+						serializer.attribute("", "v", imagery);
+						serializer.endTag("", "tag");
+					}
 					serializer.endTag("", "changeset");
 					endXml(serializer);
 				}

@@ -1628,7 +1628,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			OsmServerException, IOException {
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
-		server.openChangeset(comment, source);
+		server.openChangeset(comment, source, null);
 		Log.d("StorageDelegator","Uploading Nodes");
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
 		Log.d("StorageDelegator","Uploading Ways");
@@ -1668,6 +1668,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
+	//TODO make a shallow copy of the list instead of bookkeeping here
 	private void uploadCreatedOrModifiedElements(final Server server, final List<? extends OsmElement> elements)
 			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 		Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: number of elements " + elements.size() );
