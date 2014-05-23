@@ -1947,8 +1947,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 		}
-		if (showGPS) {
-			lastLocation  = location;
+		lastLocation  = location;
+		if (showGPS) {	
 			map.setLocation(location);
 		}
 		map.invalidate();
