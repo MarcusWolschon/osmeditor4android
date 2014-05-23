@@ -216,6 +216,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private UndoListener undoListener;
 	
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
+
+	private Location lastLocation = null;
 	
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -805,7 +807,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			followGPS = follow;
 			if (follow) {
 				setShowGPS(true);
-				if (map.getLocation() != null) onLocationChanged(map.getLocation());
+				if (lastLocation != null) onLocationChanged(lastLocation);
 			}
 			map.setFollowGPS(follow);
 			triggerMenuInvalidation();
@@ -1946,6 +1948,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 		}
 		if (showGPS) {
+			lastLocation  = location;
 			map.setLocation(location);
 		}
 		map.invalidate();
