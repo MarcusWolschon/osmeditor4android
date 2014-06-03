@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import android.util.Log;
 import de.blau.android.exception.OsmException;
@@ -21,14 +22,14 @@ public class Storage implements Serializable {
 	
 	private final ArrayList<Relation> relations;
 
-	private ArrayList<BoundingBox> bboxes;
+	private List<BoundingBox> bboxes;
 
 	Storage() {
 		nodes = new ArrayList<Node>();
 		ways = new ArrayList<Way>();
 		relations = new ArrayList<Relation>();
 		try {
-			bboxes = new ArrayList<BoundingBox>();
+			bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
 			// a default entry may not make sense
 			bboxes.add(new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON,
 					BoundingBox.MAX_LAT_E7));
@@ -223,7 +224,7 @@ public class Storage implements Serializable {
 		this.bboxes.add(bbox);
 	}
 	
-	/**¨
+	/**ï¿½
 	 * Add this boundingbox to list
 	 * @param bbox
 	 */

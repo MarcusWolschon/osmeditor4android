@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -14,6 +16,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
@@ -340,12 +344,14 @@ public class EasyEditManager {
 		private static final int MENUITEM_OSB = 1;
 		private static final int MENUITEM_NEWNODEWAY = 2;
 		private static final int MENUITEM_PASTE = 3;
+		private static final int MENUITEM_NEWNODE_GPS = 4;
 		private float startX;
 		private float startY;
 		private int startLon;
 		private int startLat;
 		private float x;
 		private float y;
+		LocationManager locationManager = null;
 		
 		public LongClickActionModeCallback(float x, float y) {
 			super();
@@ -376,6 +382,11 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
 			if (!logic.clipboardIsEmpty()) {
 				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste);
+			}
+			// check if GPS is enabled
+			locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(R.drawable.menu_gps);
 			}
 			return true;
 		}
@@ -419,11 +430,51 @@ public class EasyEditManager {
 				logic.hideCrosshairs();
 				mode.finish();
 				return true;
+			case MENUITEM_NEWNODE_GPS:
+				logic.hideCrosshairs();
+				try {
+					logic.performAdd(x, y);
+					Node node = logic.getSelectedNode();
+					if (locationManager != null && node != null) {
+						Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+						if (location != null) {
+							double lon = location.getLongitude();
+							double lat = location.getLatitude();
+							if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+								logic.performSetPosition(node,lon,lat);
+								TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+								if (location.hasAltitude()) {
+									tags.put("ele", Double.toString(location.getAltitude()));
+									tags.put("ele:msl", Double.toString(location.getAltitude()));
+									tags.put("source:ele", "GPS");
+								}
+								tags.put("source", "GPS");
+								logic.setTags(Node.NAME, node.getOsmId(), tags);
+							}
+						}
+					}
+					currentActionMode.finish();
+				} catch (OsmIllegalOperationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return true;
 			default:
 				Log.e("LongClickActionModeCallback", "Unknown menu item");
 				break;
 			}
 			return false;
+		}
+		
+		/**
+		 * Path creation action mode is ending
+		 */
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			Node lastSelectedNode = logic.getSelectedNode();
+			logic.setSelectedNode(null);
+			if (lastSelectedNode != null) tagApplicable(lastSelectedNode, null);
+			super.onDestroyActionMode(mode);
 		}
 	}
 	
@@ -654,8 +705,8 @@ public class EasyEditManager {
 			case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
-			case MENUITEM_COPY: logic.copyToClipboard(element); break;
-			case MENUITEM_CUT: logic.cutToClipboard(element); break;
+			case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
+			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			default: return false;
 			}

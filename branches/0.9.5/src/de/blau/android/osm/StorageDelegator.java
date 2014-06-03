@@ -739,13 +739,18 @@ public class StorageDelegator implements Serializable, Exportable {
 			insertElementUnsafe(newWay);
 			
 			// check for relation membership
-			if (way.hasParentRelations()) {
+			if (way.getParentRelations() != null) {
 				ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
 				dirty = true;
 				/* iterate through relations, for all except restrictions add the new way to the relation, for now simply after the old way */
 				for (Relation r : relations) {
 					Log.d("StorageDelegator", "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size()  + ") " +  r.getDescription());
 					RelationMember rm = r.getMember(way);
+					if (rm == null) {
+						Log.d("StorageDelegator", "Unconsistent state detected way " + way.getOsmId() + " should be relation member" );
+						ACRA.getErrorReporter().handleException(null);	
+						continue;
+					}
 					undo.save(r);
 					String type = r.getTagWithKey("type");
 					if (type != null){
@@ -1667,7 +1672,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			OsmServerException, IOException {
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
-		server.openChangeset(comment, source);
+		server.openChangeset(comment, source, null);
 		Log.d("StorageDelegator","Uploading Nodes");
 		uploadCreatedOrModifiedElements(server, apiStorage.getNodes());
 		Log.d("StorageDelegator","Uploading Ways");
@@ -1707,6 +1712,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
+	//TODO make a shallow copy of the list instead of bookkeeping here
 	private void uploadCreatedOrModifiedElements(final Server server, final List<? extends OsmElement> elements)
 			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 		Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: number of elements " + elements.size() );
@@ -1884,7 +1890,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * Merge additional data with existing, copy to a new storage because this may fail
 	 * @param storage
 	 */
-	public boolean mergeData(Storage storage) {
+	synchronized public boolean mergeData(Storage storage) {
 		Log.d("StorageDelegator","mergeData called");
 		// make temp copy of current storage
 		Storage temp = new Storage();
@@ -2081,7 +2087,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @return
 	 */
 	public boolean isInDownload(int lat, int lon) {
-		for (BoundingBox bb:currentStorage.getBoundingBoxes()) {
+		for (BoundingBox bb:new ArrayList<BoundingBox>(currentStorage.getBoundingBoxes())) { // make shallow copy
 			if (bb.isIn(lat, lon))
 				return true;
 		}

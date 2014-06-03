@@ -231,7 +231,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
 
 	private Location previousLocation = null;
-	
+
+	private Location lastLocation = null;
+
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
 	 */
@@ -863,7 +865,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			followGPS = follow;
 			if (follow) {
 				setShowGPS(true);
-				if (map.getLocation() != null) onLocationChanged(map.getLocation());
+				if (lastLocation != null) onLocationChanged(lastLocation);
 			}
 			map.setFollowGPS(follow);
 			triggerMenuInvalidation();
@@ -2014,38 +2016,54 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				viewBox.zoomIn();
 			}
 			// some heuristics for now to keep downloading to a minimum
-			// speed needs to be <= 6km/h (aka brisk walking speed) and we need to be less than half the download radius away from the nearest bb-side
-			if (autoDownload && (location.getSpeed() < (6000f/3600f))  
-					&& (previousLocation == null || distanceToSide(location) <= prefs.getDownloadRadius()/2)) {
-				if (prefs.getDownloadRadius() != 0) { // download
-					try {
-						BoundingBox newBox = GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), prefs.getDownloadRadius());
-						ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes()), newBox); 
-						for (BoundingBox b:bboxes) {
-							logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
+			// speed needs to be <= 6km/h (aka brisk walking speed) 
+			if (autoDownload && (location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
+				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes());
+				NextCenter nextCenter = getNextCenter(bbList,previousLocation, location);
+				if (previousLocation == null || nextCenter == null || nextCenter.distance >= prefs.getDownloadRadius()) {
+					if (prefs.getDownloadRadius() != 0) { // download
+						try {
+							BoundingBox newBox = GeoMath.createBoundingBoxForCoordinates(nextCenter == null ? location.getLatitude() : nextCenter.lat, 
+									nextCenter == null ? location.getLongitude() : nextCenter.lon, prefs.getDownloadRadius());
+							ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+							for (BoundingBox b:bboxes) {
+								logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
+							}
+						} catch (OsmException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
+					previousLocation  = location;
 				}
-				previousLocation  = location;
 			}
 			
 			// re-center on current position
 			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 		}
-		if (showGPS) {
+		lastLocation  = location;
+		if (showGPS) {		
 			map.setLocation(location);
 		}
 		map.invalidate();
 	}
 	
-	private int distanceToSide(Location location) {
-		int result = Integer.MAX_VALUE; // 
+	class NextCenter {
+		double 	lat;
+		double 	lon;
+		int		distance  = Integer.MAX_VALUE;
+	}
+	/**
+	 * Return a suitable position for the center of the next BB
+	 * @param location
+	 * @return
+	 */
+	private NextCenter getNextCenter(ArrayList<BoundingBox> bbs,Location prevLocation, Location location) {
+		NextCenter result = new NextCenter();
+		
 		double lon = location.getLongitude();
 		double lat = location.getLatitude();
-		for (BoundingBox b:logic.delegator.getBoundingBoxes()) {
+		for (BoundingBox b:bbs) {
 			if (b.isIn((int)(lat*1E7),(int)(lon*1E7))) {
 				double latCenter = b.getCenterLat();
 				double lonCenter = (b.getLeft() + b.getWidth()/2)/1E7d;
@@ -2057,19 +2075,46 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				double dLat = Math.min(dTop, dBottom);
 				
 				int tmpResult;
+				double tmpLat = lat;
+				double tmpLon = lon;
+				double halfBBWidth = GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
 				if (dLat < dLon) {
 					// top or bottom is closest
 					tmpResult = (int)GeoMath.haversineDistance(lon, lat, lon, lat+dLat);
+					if (dTop < dBottom) {
+						tmpLat = b.getTop()/1E7d + halfBBWidth;
+					} else {
+						tmpLat = b.getBottom()/1E7d - halfBBWidth;
+					}
 				} else {
 					// left or right is closest
 					tmpResult = (int)GeoMath.haversineDistance(lon, lat, lon+dLon, lat);
+					if (dLeft < dRight) {
+						tmpLon = b.getLeft()/1E7d - halfBBWidth;
+					} else {
+						tmpLon = b.getRight()/1E7d + halfBBWidth;
+					}
 				}
-				if (tmpResult < result) {
-					result = tmpResult;
+				if (tmpResult < result.distance) {
+					// check if point is not in one of the other bounding boxes
+					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(bbs);
+					bbList.remove(b); // remove the current bb
+					boolean found = false;
+					for (BoundingBox b2:bbList) {
+						if (b2.isIn((int)(tmpLat*1E7),(int)(tmpLon*1E7))) {
+							found = true;
+							break;
+						}
+					}
+					if (!found) {
+						result.distance = tmpResult;
+						result.lat = tmpLat;
+						result.lon = tmpLon;
+					}
 				}
 			}
 		}
-		return result == Integer.MAX_VALUE ? 0 : result; // 0 == outside of bb
+		return result.distance == Integer.MAX_VALUE ? null : result; // 0 == outside of bb
 	}
 	
 	

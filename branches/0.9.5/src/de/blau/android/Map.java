@@ -288,7 +288,7 @@ public class Map extends View implements IMapView {
 			paintOsmData(canvas);
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
-				paintStorageBox(canvas, delegator.getBoundingBoxes());
+				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modiciaftion issues
 			paintGpsTrack(canvas);
 		}
 		paintGpsPos(canvas);

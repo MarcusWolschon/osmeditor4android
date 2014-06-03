@@ -61,6 +61,7 @@
   <string name="toast_upload_success">OSMサーバへのアップロードが完了しました</string>
   <string name="toast_not_in_edit_range">ズームインしてから編集してください(ボリュームUp/Down または Lens/Shift)</string>
   <string name="toast_unlock_to_edit">編集するためにはロックを解除してください</string>
+  <string name="toast_edit_outside_downloaded_area">ダウンロード済みの範囲より外は編集できません</string>
   <string name="toast_save_done">保存しました</string>
   <string name="toast_save_failed">保存失敗</string>
   <string name="toast_not_in_bug_range">ズームインしてバグを追加してください (ボリュームUp/Down または Lens/Shift)</string>
@@ -83,6 +84,7 @@
   <string name="toast_no_oauth">現在のAPIでOAuth設定が利用できません。ログイン名とパスワードを利用してください。</string>
   <string name="toast_timeout">サーバタイムアウト</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
+  <string name="toast_number_format">数字のフォーマットに誤りがあります</string>
   <string name="toast_nothing_found">検索結果なし</string>
   <string name="toast_statesave_failed">情報の保存に失敗しました！\nこれは致命的なエラーです。エクスポートしたファイルを後でJOSMを使って編集してください。</string>
   <!--Some generic labels/buttons-->
