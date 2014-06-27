@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 /**
@@ -244,7 +245,7 @@ public class WrappingLayout extends LinearLayout {
 			LinearLayout inner = new LinearLayout(context);
 			inner.setGravity(rowGravity);
 			inner.setOrientation(LinearLayout.HORIZONTAL);
-			container.addView(inner, new LayoutParams(innerLayoutParams));
+			container.addView(inner, new LayoutParams((ViewGroup.MarginLayoutParams)innerLayoutParams));
 			
 			// For new rows, set margin
 			innerLayoutParams.topMargin = vspace;
