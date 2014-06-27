@@ -54,7 +54,7 @@ public class SavingHelper<T extends Serializable> {
 		{
 			Log.d("SavingHelper", "preparing to save " + filename);
 			SaveThread r = new SaveThread(filename, object, compress);
-			Thread t = new Thread(null, r, "SaveThread", 100000);
+			Thread t = new Thread(null, r, "SaveThread", 200000);
 			t.start();
 			t.join(20000); // wait max 20 s for thread to finish
 			Log.d("SavingHelper", "save thread finished");
