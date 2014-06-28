@@ -357,6 +357,8 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
 			mode.setTitle(R.string.menu_add);
+			mode.setSubtitle(null);
+			// mode.setTitleOptionalHint(true);
 			// show crosshairs 
 			logic.showCrosshairs(x, y);
 			startX = x;
@@ -472,7 +474,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
-			mode.setTitle(R.string.actionmode_createpath);
+			mode.setSubtitle(R.string.actionmode_createpath);
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(appendTargetNode);
 			if (appendTargetNode != null) {
@@ -708,6 +710,7 @@ public class EasyEditManager {
 			logic.setSelectedRelationNodes(null);
 			main.invalidateMap();
 			mode.setTitle(R.string.actionmode_nodeselect);
+			mode.setSubtitle(null);
 			// mode.setTitleOptionalHint(true); // no need to display the title, only available in 4.1 up
 			return true;
 		}
@@ -876,6 +879,7 @@ public class EasyEditManager {
 			logic.setSelectedWay((Way)element);
 			main.invalidateMap();
 			mode.setTitle(R.string.actionmode_wayselect);
+			mode.setSubtitle(null);
 			return true;
 		}
 		
@@ -1001,9 +1005,9 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
 			if (way.isClosed())
-				mode.setTitle(R.string.menu_closed_way_split_1);
+				mode.setSubtitle(R.string.menu_closed_way_split_1);
 			else
-				mode.setTitle(R.string.menu_split);
+				mode.setSubtitle(R.string.menu_split);
 			logic.setClickableElements(nodes);
 			logic.setReturnRelations(false);
 			return true;
@@ -1045,7 +1049,7 @@ public class EasyEditManager {
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			super.onCreateActionMode(mode, menu);
-			mode.setTitle(R.string.menu_closed_way_split_2);
+			mode.setSubtitle(R.string.menu_closed_way_split_2);
 			logic.setClickableElements(nodes);
 			logic.setReturnRelations(false);
 			return true;
@@ -1079,7 +1083,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			mode.setTitle(R.string.menu_merge);
+			mode.setSubtitle(R.string.menu_merge);
 			logic.setClickableElements(ways);
 			logic.setReturnRelations(false);
 			super.onCreateActionMode(mode, menu);
@@ -1130,7 +1134,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			mode.setTitle(R.string.menu_append);
+			mode.setSubtitle(R.string.menu_append);
 			logic.setClickableElements(nodes);
 			logic.setReturnRelations(false);
 			super.onCreateActionMode(mode, menu);
@@ -1168,6 +1172,7 @@ public class EasyEditManager {
 			logic.setSelectedWay(null);
 			logic.selectRelation((Relation) element);
 			mode.setTitle(R.string.actionmode_relationselect);	
+			mode.setSubtitle(null);
 			main.invalidateMap();
 			return true;
 		}
@@ -1400,7 +1405,8 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			mode.setTitle(R.string.menu_add_relation_member);
+			mode.setTitle(R.string.menu_relation);
+			mode.setSubtitle(R.string.menu_add_relation_member);
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(false);
 
