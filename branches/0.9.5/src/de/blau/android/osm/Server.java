@@ -108,6 +108,8 @@ public class Server {
 
 	private final XmlPullParserFactory xmlParserFactory;
 
+	private DiscardedTags discardedTags;
+
 	
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
@@ -135,9 +137,6 @@ public class Server {
 		Log.d("Server", "using " + this.username + " with " + this.serverURL);
 		Log.d("Server", "oAuth: " + this.oauth + " token " + this.accesstoken + " secret " + this.accesstokensecret);
 
-//		createdByTag = "created_by";
-//		createdByKey = generator;
-
 		XmlPullParserFactory factory = null;
 		try {
 			factory = XmlPullParserFactory.newInstance();
@@ -145,6 +144,9 @@ public class Server {
 			Log.e("Vespucci", "Problem creating parser factory", e);
 		}
 		xmlParserFactory = factory;
+		
+		// initialize list of redundant tags
+		discardedTags = new DiscardedTags();
 	}
 	
 	/**
@@ -363,10 +365,11 @@ public class Server {
 		long osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-//		elem.addOrUpdateTag(createdByTag, createdByKey); 
 		Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId() + " " + getUpdateUrl(elem));
 		try {
 			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
+			// remove redundant tags
+			discardedTags.remove(elem);
 			sendPayload(connection, new XmlSerializable() {
 				@Override
 				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
