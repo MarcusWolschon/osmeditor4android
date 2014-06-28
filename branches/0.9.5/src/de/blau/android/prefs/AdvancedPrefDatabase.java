@@ -40,6 +40,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	/** The ID of the currently active API */
 	private String currentAPI;
 	
+	/** The ID of the currently active API */
+	private Server currentServer = null;
+	
 	private Context context;
 
 
@@ -111,6 +114,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
+		currentServer = null; // force recreation of Server object
 		// Main.resetPreset();
 	}
 	
@@ -132,8 +136,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	public Server getServerObject() {
 		API api = getCurrentAPI();
 		if (api == null) return null;
-		String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
-		return new Server(api.url, api.user, api.pass, api.oauth, api.accesstoken, api.accesstokensecret, version);
+		if (currentServer == null) { // only create when necessary
+			String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
+			currentServer =  new Server(api.url, api.user, api.pass, api.oauth, api.accesstoken, api.accesstokensecret, version);
+		}
+		return currentServer;
 	}
 	
 	/**

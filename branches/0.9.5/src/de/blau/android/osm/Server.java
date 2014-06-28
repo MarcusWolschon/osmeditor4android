@@ -495,6 +495,16 @@ public class Server {
 		HttpURLConnection connection = null;
 		InputStream in = null;
 
+		if (changesetId != -1) { // potentially still open, check if really the case
+			Changeset cs = getChangeset(changesetId);
+			if (cs != null && cs.open) {
+				Log.d("Server","Changeset #" + changesetId + " still open, reusing");
+				updateChangeset(changesetId, comment, source, imagery);
+				return;
+			} else {
+				changesetId = -1;
+			}
+		}
 		try {
 			XmlSerializable xmlData = new XmlSerializable() {
 				@Override
@@ -554,6 +564,96 @@ public class Server {
 		} finally {
 			disconnect(connection);
 			changesetId = -1;
+		}
+	}
+	
+	/**
+	 * Right now just what we need
+	 * @author simon
+	 *
+	 */
+	public class Changeset {
+		public boolean open = false;
+	}
+	
+	public Changeset getChangeset(long id) {
+		Changeset result = null;
+		HttpURLConnection connection = null;
+		try {
+			connection = openConnectionForWriteAccess(getChangesetUrl(changesetId), "GET");
+			checkResponseCode(connection);
+		
+			XmlPullParser parser = xmlParserFactory.newPullParser();
+			parser.setInput(connection.getInputStream(), null);
+			int eventType;
+			result = new Changeset();
+		
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();
+				if (eventType == XmlPullParser.START_TAG && "changeset".equals(tagName)) {
+					result.open = parser.getAttributeValue(null, "open").equals("true");
+					Log.d("Server","Changeset #" + id + " is " + (result.open ? "open":"closed"));
+				}
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnect(connection);
+		}
+		return result;
+	}
+	
+
+	public void updateChangeset(final long changesetId, final String comment, final String source, final String imagery) throws MalformedURLException, ProtocolException, IOException {
+		
+		HttpURLConnection connection = null;
+		InputStream in = null;
+
+		try {
+			XmlSerializable xmlData = new XmlSerializable() {
+				@Override
+				public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+					startXml(serializer);
+					serializer.startTag("", "changeset");
+					if (comment != null && comment.length() > 0) {
+						serializer.startTag("", "tag");
+						serializer.attribute("", "k", "comment");
+						serializer.attribute("", "v", comment);
+						serializer.endTag("", "tag");
+					}
+					if (source != null && source.length() > 0) {
+						serializer.startTag("", "tag");
+						serializer.attribute("", "k", "source");
+						serializer.attribute("", "v", source);
+						serializer.endTag("", "tag");
+					}
+					if (imagery != null && imagery.length() > 0) {
+						serializer.startTag("", "tag");
+						serializer.attribute("", "k", "imagery_used");
+						serializer.attribute("", "v", imagery);
+						serializer.endTag("", "tag");
+					}
+					serializer.endTag("", "changeset");
+					endXml(serializer);
+				}
+			};
+			connection = openConnectionForWriteAccess(getChangesetUrl(changesetId), "PUT");
+			sendPayload(connection, xmlData, changesetId);
+			checkResponseCode(connection);
+			// ignore response for now
+		} finally {
+			disconnect(connection);
+			SavingHelper.close(in);
 		}
 	}
 
@@ -619,6 +719,10 @@ public class Server {
 
 	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
 		return new URL(serverURL  + "changeset/" + changesetId + "/close");
+	}
+	
+	private URL getChangesetUrl(long changesetId) throws MalformedURLException {
+		return new URL(serverURL  + "changeset/" + changesetId);
 	}
 
 	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {

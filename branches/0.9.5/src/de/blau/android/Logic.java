@@ -2061,8 +2061,9 @@ public class Logic {
 	 * 
 	 * @param comment Changeset comment.
 	 * @param source 
+	 * @param closeChangeset TODO
 	 */
-	public void upload(final String comment, final String source) {
+	public void upload(final String comment, final String source, final boolean closeChangeset) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
 			
@@ -2076,7 +2077,7 @@ public class Logic {
 			protected Integer doInBackground(Void... params) {
 				int result = 0;
 				try {
-					delegator.uploadToServer(server, comment, source);
+					delegator.uploadToServer(server, comment, source, closeChangeset);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().handleException(e);

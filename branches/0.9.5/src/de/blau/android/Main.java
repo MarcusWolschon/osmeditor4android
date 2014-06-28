@@ -1093,15 +1093,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	/**
+	 * @param closeChangeset TODO
 	 * 
 	 */
-	public void performUpload(final String comment, final String source) {
+	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
 		dismissDialog(DialogFactory.CONFIRM_UPLOAD);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
-				logic.upload(comment, source);
+				logic.upload(comment, source, closeChangeset);
 				logic.checkForMail();
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();

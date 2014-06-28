@@ -25,6 +25,7 @@ import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osb.CommitListener;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
 
@@ -138,7 +139,10 @@ public class DialogFactory {
 		confirmUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
 		confirmUpload.setView(layout);
-		confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller, (EditText)layout.findViewById(R.id.upload_comment), (EditText)layout.findViewById(R.id.upload_source)));
+		CheckBox closeChangeset = (CheckBox)layout.findViewById(R.id.upload_close_changeset);
+		closeChangeset.setChecked(new Preferences(caller).closeChangesetOnSave());
+		confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller, (EditText)layout.findViewById(R.id.upload_comment), 
+					(EditText)layout.findViewById(R.id.upload_source), closeChangeset));
 		confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 		
 		openStreetBugEdit = createBasicDialog(R.string.openstreetbug_edit_title, 0); // body gets replaced later

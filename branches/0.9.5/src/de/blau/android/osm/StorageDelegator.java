@@ -1663,12 +1663,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param server Server to upload changes to.
 	 * @param comment Changeset comment.
 	 * @param source 
+	 * @param closeChangeset TODO
 	 * @throws MalformedURLException
 	 * @throws ProtocolException
 	 * @throws OsmServerException
 	 * @throws IOException
 	 */
-	public synchronized void uploadToServer(final Server server, final String comment, String source) throws MalformedURLException, ProtocolException,
+	public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeChangeset) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
@@ -1686,7 +1687,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		Log.d("StorageDelegator","Deleting Nodes");
 		uploadDeletedElements(server, apiStorage.getNodes());
 		
-		server.closeChangeset();
+		if (closeChangeset) {
+			server.closeChangeset();
+		}
 		// yes, again, just to be sure
 		dirty = true;
 		
