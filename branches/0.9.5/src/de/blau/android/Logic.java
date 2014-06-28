@@ -1874,25 +1874,29 @@ public class Logic {
 			protected Integer doInBackground(Void... arg) {
 				int result = 0;
 				try {
-					final OutputStream out = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
-
+					File sdcard = Environment.getExternalStorageDirectory();
+					File outdir = new File(sdcard, "Vespucci");
+					outdir.mkdir(); // ensure directory exists;
+					File outfile = new File(fileName);
+					Log.d("Logic","Saving to " + outfile.getPath());
+					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
 					try {
 						delegator.save(out);
 					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						result = DialogFactory.FILE_WRITE_FAILED;
+						Log.e("Logic", "Problem writing", e);
 					} catch (IllegalStateException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						result = DialogFactory.FILE_WRITE_FAILED;
+						Log.e("Logic", "Problem writing", e);
 					} catch (XmlPullParserException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						result = DialogFactory.FILE_WRITE_FAILED;
+						Log.e("Logic", "Problem writing", e);
 					} finally {
 						SavingHelper.close(out);
 					}
 				} catch (IOException e) {
-					result = DialogFactory.NO_CONNECTION;
-					Log.e("Vespucci", "Problem writing", e);
+					result = DialogFactory.FILE_WRITE_FAILED;
+					Log.e("Logic", "Problem writing", e);
 				}
 				return result;
 			}

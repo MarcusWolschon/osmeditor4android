@@ -800,7 +800,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	private void showFileChooser(int purpose) {
-	    Intent intent = new Intent(Intent.ACTION_PICK); 
+	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT); 
 	    intent.setType("*/*"); 
 	    intent.addCategory(Intent.CATEGORY_OPENABLE);
 

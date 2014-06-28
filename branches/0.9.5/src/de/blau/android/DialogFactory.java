@@ -72,6 +72,8 @@ public class DialogFactory {
 	public static final int SEARCH = 18;
 
 	public static final int SAVE_FILE = 19;
+
+	public static final int FILE_WRITE_FAILED = 20;
 		
 	private final Main caller;
 	
@@ -98,6 +100,8 @@ public class DialogFactory {
 	private final Builder backgroundProperties;
 	
 	private final Builder invalidDataReceived;
+	
+	private final Builder fileWriteFailed;
 			
 	/**
 	 * @param caller
@@ -161,6 +165,9 @@ public class DialogFactory {
 				
 		invalidDataReceived = createBasicDialog(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
 		invalidDataReceived.setPositiveButton(R.string.okay, doNothingListener);
+		
+		fileWriteFailed = createBasicDialog(R.string.file_write_failed_title, R.string.file_write_failed_message);
+		fileWriteFailed.setPositiveButton(R.string.okay, doNothingListener);
 	}
 	
 	/**
