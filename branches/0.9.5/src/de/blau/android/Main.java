@@ -342,7 +342,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		easyEditManager = new EasyEditManager(this, logic);
-	
 	}
 	
 	/**

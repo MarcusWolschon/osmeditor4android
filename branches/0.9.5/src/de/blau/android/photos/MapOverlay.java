@@ -22,7 +22,7 @@ import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 /**
- * implement a geo-referenced photo overlay, code stolen from the OSM implementation
+ * implement a geo-referenced photo overlay, code stolen from the OSB implementation
  * @author simon
  *
  */
