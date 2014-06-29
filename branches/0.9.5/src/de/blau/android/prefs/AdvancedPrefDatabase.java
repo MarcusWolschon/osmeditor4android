@@ -163,6 +163,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			db.update("apis", values, "id = ?", new String[] {id});
 		}
 		db.close();
+		currentServer = null; // force recreation of Server object
 	}
 	
 	/**
@@ -180,6 +181,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.update("apis", values, "id = ?", new String[] {currentAPI});
 		Log.d("AdvancedPRefDatabase", "setAPIAccessToken " + token + " secret " + secret);
 		db.close();
+		currentServer = null; // force recreation of Server object
 	}
 
 
@@ -191,6 +193,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("pass", pass);
 		db.update("apis", values, "id = ?", new String[] {currentAPI});
 		db.close();
+		currentServer = null; // force recreation of Server object
 	}
 	
 	/** Changes the preset (by name) applying to the current API */ 
