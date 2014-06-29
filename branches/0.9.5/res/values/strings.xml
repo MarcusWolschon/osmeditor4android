@@ -111,6 +111,7 @@
     <string name="key">key</string>
     <string name="value">value</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+    <string name="tag_menu_address">Add address tags</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>
     <string name="tag_menu_preset">Presets</string>
     <string name="tag_menu_repeat">Repeat tags</string>

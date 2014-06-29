@@ -345,6 +345,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_NEWNODEWAY = 2;
 		private static final int MENUITEM_PASTE = 3;
 		private static final int MENUITEM_NEWNODE_GPS = 4;
+		private static final int MENUITEM_NEWNODE_ADDRESS = 5;
 		private float startX;
 		private float startY;
 		private int startLon;
@@ -352,6 +353,7 @@ public class EasyEditManager {
 		private float x;
 		private float y;
 		LocationManager locationManager = null;
+		private boolean addAddressTags = false;
 		
 		public LongClickActionModeCallback(float x, float y) {
 			super();
@@ -382,6 +384,7 @@ public class EasyEditManager {
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(R.drawable.tag_menu_bug);
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
+			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address);
 			if (!logic.clipboardIsEmpty()) {
 				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste);
 			}
@@ -427,6 +430,18 @@ public class EasyEditManager {
 				main.startActionMode(new PathCreationActionModeCallback(x, y));
 				logic.hideCrosshairs();
 				return true;
+			case MENUITEM_NEWNODE_ADDRESS:
+				logic.hideCrosshairs();
+				try {
+					logic.setSelectedNode(null);
+					logic.performAdd(x, y);
+				} catch (OsmIllegalOperationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				addAddressTags = true;
+				currentActionMode.finish();
+				return true;
 			case MENUITEM_PASTE:
 				logic.pasteFromClipboard(startX, startY);
 				logic.hideCrosshairs();
@@ -435,6 +450,7 @@ public class EasyEditManager {
 			case MENUITEM_NEWNODE_GPS:
 				logic.hideCrosshairs();
 				try {
+					logic.setSelectedNode(null);
 					logic.performAdd(x, y);
 					Node node = logic.getSelectedNode();
 					if (locationManager != null && node != null) {
@@ -475,7 +491,11 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			Node lastSelectedNode = logic.getSelectedNode();
 			logic.setSelectedNode(null);
-			if (lastSelectedNode != null) tagApplicable(lastSelectedNode, null);
+			// special casing for address tags requires code dup here
+			if (lastSelectedNode != null) {
+				//main.startActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
+				main.performTagEdit(lastSelectedNode, null, addAddressTags);
+			}
 			super.onDestroyActionMode(mode);
 		}
 	}

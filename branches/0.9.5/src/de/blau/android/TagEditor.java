@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -51,9 +52,11 @@ import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
@@ -70,7 +73,7 @@ import de.blau.android.util.SavingHelper;
  */
 public class TagEditor extends SherlockActivity implements OnDismissListener, OnItemSelectedListener {
 	public static final String TAGEDIT_DATA = "dataClass";
-	public static final String TAGEDIT_LASTTAGS = "applyLastTags";
+	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
 	
 	/** The layout containing the edit rows */
 	private LinearLayout rowLayout = null;
@@ -101,7 +104,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	
 	private TagEditorData loadData;
 	
-	private boolean applyLastTags = false;
+	private boolean applyLastAddressTags = false;
 	
 	/**
 	 * Handles "enter" key presses.
@@ -136,9 +139,15 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	Preset[] presets = null;
 	
 	private static final String LAST_TAGS_FILE = "lasttags.dat";
+	
+	private static final String ADDRESS_TAGS_FILE = "addresstags.dat";
  
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
+	
+	// use array list to circumvent serialization issue
+	private SavingHelper<LinkedList<Address>> savingHelperAddress
+				= new SavingHelper<LinkedList<Address>>();
 	
 	
 	private static Names names = null;
@@ -329,7 +338,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from intent");
 			loadData = (TagEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
-			applyLastTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LASTTAGS); 
+			applyLastAddressTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS); 
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
@@ -371,7 +380,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 		
 		// 
-		if (applyLastTags) doRepeatLast(true);
+		if (applyLastAddressTags) doAddressTags();
 	}
 	
 	@Override
@@ -461,6 +470,66 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			}
 			loadEdits(last);
 		}
+	}
+	
+	
+	/**
+	 * add address tags
+	 */
+	private void doAddressTags() {
+		Address last = null;
+		LinkedList<Address> lastAddresses = null;
+		try {
+			lastAddresses = savingHelperAddress.load(ADDRESS_TAGS_FILE, false);
+			Log.d("TagEditor","doAddressTags read " + lastAddresses.size() + " addresses");
+		} catch (Exception e) {
+			//TODO be more specific
+		}
+		if (lastAddresses != null && lastAddresses.size() > 0) {
+			last = new Address(lastAddresses.get(0));
+			final Map<String, String> current = getKeyValueMap(false);
+			// existing address tags override the last ones
+			for (String k: current.keySet()) {
+				last.tags.put(k, current.get(k));
+			}
+			//TODO guess new house number and street here
+		} 
+		if (last == null){
+			last = new Address(); 
+			LinkedHashMap<String, String> tags = last.tags;
+			// fill with Karlsruher schema
+			 
+			tags.put("addr:housenumber", "");
+			tags.put("addr:street", "");
+			tags.put("addr:postcode", "");
+			tags.put("addr:city", "");
+			tags.put("addr:country", "");
+			tags.put("addr:full", "");
+			// the following are less used but may be necessary
+			tags.put("addr:housename", "");
+			tags.put("addr:place", "");
+			tags.put("addr:hamlet", "");
+			tags.put("addr:suburb", "");
+			tags.put("addr:subdistrict", "");
+			tags.put("addr:district", "");
+			tags.put("addr:province", "");
+			tags.put("addr:state", "");
+			tags.put("addr:flats", "");
+			tags.put("addr:door", "");
+			tags.put("addr:unit", "");
+		}
+		// is this a node on a building outline, if yes add entrance=yes if it doesn't exist
+		if (getType().equals(Node.NAME)) {
+			for (Way w:Main.logic.getWaysForNode((Node)Main.logic.delegator.getOsmElement(Node.NAME, getOsmId()))) {
+				if (w.hasTagKey("building")) {
+					if (!last.tags.containsKey("entrance")) {
+						last.tags.put("entrance", "yes");
+					}
+					break;
+				}
+			}
+		}
+		loadEdits(last.tags);
 	}
 	
 	private void doRevert() {
@@ -568,6 +637,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		case android.R.id.home:
 			sendResultAndFinish();
 			return true;
+		case R.id.tag_menu_address:
+			doAddressTags();
+			return true;
 		case R.id.tag_menu_sourcesurvey:
 			doSourceSurvey();
 			return true;
@@ -630,7 +702,34 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	 */
 	protected void sendResultAndFinish() {
 		// Save current tags for "repeat last" button
-		savingHelper.save(LAST_TAGS_FILE, getKeyValueMap(false), false);
+		LinkedHashMap<String,String> tags = getKeyValueMap(false);
+		savingHelper.save(LAST_TAGS_FILE, tags, false);
+		// save any address tags for "last address tags"
+		LinkedHashMap<String,String> addressTags = new LinkedHashMap<String,String>();
+		for (String key:tags.keySet()) {
+			if (key.startsWith("addr:")) {
+				addressTags.put(key, tags.get(key));
+			}
+		}
+		if (addressTags.size() > 0) {
+			LinkedList<Address> lastAddresses = null;
+			try {
+				lastAddresses = savingHelperAddress.load(ADDRESS_TAGS_FILE, false);
+				Log.d("TagEditor","sendResultAndFinish Read " + lastAddresses.size() + " addresses");
+			} catch (Exception e) {
+				//TODO be more specific
+			}
+
+			if (lastAddresses == null) {
+				lastAddresses = new LinkedList<Address>();
+			}
+			if (lastAddresses.size() >= 10) { //arbitrary limit for now
+				lastAddresses.removeLast();
+			}
+			Address current = new Address(getType(), getOsmId(), addressTags);
+			lastAddresses.addFirst(current);
+			savingHelperAddress.save(ADDRESS_TAGS_FILE, lastAddresses, false);
+		}
 		
 		Intent intent = new Intent();
 		Map<String, String> currentTags = getKeyValueMap(false);

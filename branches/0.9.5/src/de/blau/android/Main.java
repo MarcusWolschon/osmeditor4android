@@ -1274,9 +1274,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * @param selectedElement
 	 * @param focusOn if not null focus on the value field of this key
-	 * @param applyLastTags TODO
+	 * @param applyLastAddressTags add address tags to the object being edited
 	 */
-	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastTags) {
+	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags) {
 		if (selectedElement instanceof Node) {
 			logic.setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
@@ -1287,7 +1287,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic.delegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 				startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement, focusOn));
-				startTagEditor.putExtra(TagEditor.TAGEDIT_LASTTAGS, Boolean.valueOf(applyLastTags));
+				startTagEditor.putExtra(TagEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
