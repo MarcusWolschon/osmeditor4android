@@ -1535,6 +1535,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		@Override
 		public boolean onLongClick(final View v, final float x, final float y) {
 			if (logic.getMode() != Mode.MODE_EASYEDIT) {
+				if (logic.getMode() == Mode.MODE_MOVE) {
+					// display context menu
+					de.blau.android.osb.MapOverlay osbo = map.getOpenStreetBugsOverlay();
+					clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
+					de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
+					clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
+					clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+					return true; 
+				}
 				return false; // ignore long clicks
 			}
 			
@@ -1749,8 +1758,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				}
 			}
 			if (clickedNodesAndWays != null) {
+				Mode mode = logic.getMode();
 				for (OsmElement e : clickedNodesAndWays) {
-					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
+					android.view.MenuItem mi = menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
+					mi.setEnabled(mode != Mode.MODE_MOVE);
 				}
 			}
 		}
@@ -1859,6 +1870,34 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				}
 			}
 			return true;
+		}
+		
+		/**
+		 * Show toasts displaying the info on nearby objects
+		 */
+		void displayInfo(final float x, final float y) {
+			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+			// clieckedPhotos and 
+			if (clickedPhotos != null) {
+				for (Photo p : clickedPhotos) {
+					Toast.makeText(getApplicationContext(), p.getRef().getLastPathSegment(), Toast.LENGTH_SHORT).show();
+				}
+			}
+			if (clickedBugs != null) {
+				for (Bug b : clickedBugs) {
+					Toast.makeText(getApplicationContext(), b.getDescription(), Toast.LENGTH_SHORT).show();
+				}
+			}
+			if (clickedNodesAndWays != null) {
+				for (OsmElement e : clickedNodesAndWays) {
+					String toast = e.getDescription();
+					if (e.hasProblem()) {
+						String problem = e.describeProblem();
+						toast = !problem.equals("") ? toast + "\n" + problem : toast;
+					}
+					Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
+				}
+			}	
 		}
 	}
 
