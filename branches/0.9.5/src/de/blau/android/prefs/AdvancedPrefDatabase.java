@@ -41,7 +41,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private String currentAPI;
 	
 	/** The ID of the currently active API */
-	private Server currentServer = null;
+	private static Server currentServer = null;
 	
 	private Context context;
 
