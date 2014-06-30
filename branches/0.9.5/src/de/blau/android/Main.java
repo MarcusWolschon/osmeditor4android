@@ -2059,15 +2059,18 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (autoDownload && (location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
 				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes());
 				NextCenter nextCenter = getNextCenter(bbList,previousLocation, location);
-				if (previousLocation == null || nextCenter == null || nextCenter.distance >= prefs.getDownloadRadius()) {
+				// Log.d("Main","nextCenter.distance " + (nextCenter != null ? nextCenter.distance:-1));
+				if (previousLocation == null || nextCenter == null ||  nextCenter.distance > 0) {
 					if (prefs.getDownloadRadius() != 0) { // download
 						try {
 							BoundingBox newBox = GeoMath.createBoundingBoxForCoordinates(nextCenter == null ? location.getLatitude() : nextCenter.lat, 
 									nextCenter == null ? location.getLongitude() : nextCenter.lon, prefs.getDownloadRadius());
-							ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
-							for (BoundingBox b:bboxes) {
-								logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
-							}
+							logic.downloadBox(newBox, true, true);
+// This is likely not worth the trouble
+//							ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+//							for (BoundingBox b:bboxes) {
+//								logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
+//							}
 						} catch (OsmException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -2102,43 +2105,50 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		double lon = location.getLongitude();
 		double lat = location.getLatitude();
+		double mlat = GeoMath.latToMercator(lat);
+		double halfBBWidth = GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
 		for (BoundingBox b:bbs) {
 			if (b.isIn((int)(lat*1E7),(int)(lon*1E7))) {
-				double latCenter = b.getCenterLat();
-				double lonCenter = (b.getLeft() + b.getWidth()/2)/1E7d;
-				double dLeft = lonCenter - b.getLeft()/1E7d;
-				double dRight = b.getRight()/1E7d - lonCenter;
+				double mBottom = GeoMath.latE7ToMercator(b.getBottom());
+				double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
+				double dLeft = lon - b.getLeft()/1E7d;
+				double dRight = b.getRight()/1E7d - lon;
 				double dLon = Math.min(dLeft,dRight);
-				double dTop = latCenter - b.getBottom()/1E7d;
-				double dBottom = b.getTop()/1E7d - latCenter;
+				double dTop = mBottom + mHeight - mlat;
+				double dBottom = mlat - mBottom;
 				double dLat = Math.min(dTop, dBottom);
 				
-				int tmpResult;
+				Log.d("Main","dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
+				 
+				int tmpDistance;
+				double tmpMLat = mlat;
 				double tmpLat = lat;
 				double tmpLon = lon;
-				double halfBBWidth = GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
+				
 				if (dLat < dLon) {
 					// top or bottom is closest
-					tmpResult = (int)GeoMath.haversineDistance(lon, lat, lon, lat+dLat);
 					if (dTop < dBottom) {
-						tmpLat = b.getTop()/1E7d + halfBBWidth;
+						tmpMLat = mBottom + mHeight + halfBBWidth;
 					} else {
-						tmpLat = b.getBottom()/1E7d - halfBBWidth;
+						tmpMLat = mBottom - halfBBWidth;
 					}
+					tmpLat = GeoMath.mercatorToLat(tmpMLat);
+					tmpDistance = (int)GeoMath.haversineDistance(lon, lat, lon, tmpLat);
 				} else {
 					// left or right is closest
-					tmpResult = (int)GeoMath.haversineDistance(lon, lat, lon+dLon, lat);
 					if (dLeft < dRight) {
 						tmpLon = b.getLeft()/1E7d - halfBBWidth;
 					} else {
 						tmpLon = b.getRight()/1E7d + halfBBWidth;
 					}
+					tmpDistance = (int)GeoMath.haversineDistance(lon, lat, tmpLon, lat);
 				}
-				if (tmpResult < result.distance) {
+				if (tmpDistance < result.distance) {
 					// check if point is not in one of the other bounding boxes
 					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(bbs);
 					bbList.remove(b); // remove the current bb
 					boolean found = false;
+					
 					for (BoundingBox b2:bbList) {
 						if (b2.isIn((int)(tmpLat*1E7),(int)(tmpLon*1E7))) {
 							found = true;
@@ -2146,7 +2156,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 						}
 					}
 					if (!found) {
-						result.distance = tmpResult;
+						result.distance = tmpDistance;
 						result.lat = tmpLat;
 						result.lon = tmpLon;
 					}
