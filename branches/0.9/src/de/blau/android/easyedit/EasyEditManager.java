@@ -567,7 +567,9 @@ public class EasyEditManager {
 				 }
 				 if (createdNodes.isEmpty()) {
 					 // all nodes have been deleted, cancel action mode
-					 currentActionMode.finish();
+					 if (currentActionMode != null) { //TODO shouldn't happen but crash reports indicate it does
+						 currentActionMode.finish();
+					 }
 				 } else {
 					 // select last node
 					 logic.setSelectedNode(createdNodes.get(createdNodes.size()-1));
