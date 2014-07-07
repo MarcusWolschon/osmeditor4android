@@ -41,6 +41,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
@@ -225,7 +226,7 @@ public class EasyEditManager {
 		boolean firstNodeAdded = false;
 		boolean lastNodeAdded = false;
 		for (Way candidate : candidates) {
-			if ((way != candidate) && (way.getTagWithKey("highway") != null)) {
+			if ((way != candidate) && (way.getTagWithKey(Tags.KEY_HIGHWAY) != null)) {
 				if (candidate.isEndNode(way.getFirstNode())) {
 					result.add(candidate);
 					if (!firstNodeAdded) {
@@ -256,7 +257,7 @@ public class EasyEditManager {
 		Set<OsmElement> result = new HashSet<OsmElement>();
 		candidates.addAll(logic.getWaysForNode(commonNode));
 		for (Way candidate : candidates) {
-			if (way == null || ((way != candidate) && (way.getTagWithKey("highway") != null))) {
+			if (way == null || ((way != candidate) && (way.getTagWithKey(Tags.KEY_HIGHWAY) != null))) {
 					result.add(candidate);
 			}
 		}
@@ -382,11 +383,11 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address);
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(R.drawable.tag_menu_bug);
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
-			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address);
 			if (!logic.clipboardIsEmpty()) {
-				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste);
+				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(R.drawable.ic_menu_paste_holo_dark);
 			}
 			// check if GPS is enabled
 			locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
@@ -462,11 +463,11 @@ public class EasyEditManager {
 								logic.performSetPosition(node,lon,lat);
 								TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 								if (location.hasAltitude()) {
-									tags.put("ele", Double.toString(location.getAltitude()));
-									tags.put("ele:msl", Double.toString(location.getAltitude()));
-									tags.put("source:ele", "GPS");
+									tags.put(Tags.KEY_ELE, String.format("%.1f",location.getAltitude()));
+									tags.put(Tags.KEY_ELE_MSL, String.format("%.1f",location.getAltitude()));
+									tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
 								}
-								tags.put("source", "GPS");
+								tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
 								logic.setTags(Node.NAME, node.getOsmId(), tags);
 							}
 						}
@@ -638,7 +639,9 @@ public class EasyEditManager {
 				 }
 				 if (createdNodes.isEmpty()) {
 					 // all nodes have been deleted, cancel action mode
-					 currentActionMode.finish();
+					 if (currentActionMode != null) { //TODO shouldn't happen but does
+						 currentActionMode.finish();
+					 }
 				 } else {
 					 // select last node
 					 logic.setSelectedNode(createdNodes.get(createdNodes.size()-1));
@@ -709,8 +712,8 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.tag_menu_delete);
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy);
-				menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut);
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark);
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark);
 			}
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation);
 			if (element.getOsmId() > 0){
