@@ -265,7 +265,7 @@ public class Storage implements Serializable {
 	}
 
 	/**
-	 * Calculate a bound box just covering the data
+	 * Calculate a bounding box just covering the data
 	 * @return
 	 * @throws OsmException
 	 */

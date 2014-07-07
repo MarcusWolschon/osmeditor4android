@@ -232,6 +232,96 @@ public class Server {
 	}
 	
 	/**
+	 * display name and message counts is the only thing that is interesting
+	 * @author simon
+	 *
+	 */
+	public static enum Status {
+		ONLINE,
+		READONLY,
+		OFFLINE
+	}
+	
+	public class Capabilities {
+		public String	minVersion = "";
+		public String	maxVersion = "";
+		public Status dbStatus = Status.OFFLINE;
+		public Status apiStatus = Status.OFFLINE;
+		public Status gpxStatus = Status.OFFLINE;
+		
+		public Status stringToStatus(String s) {
+			if (s.equals("online")) {
+				return Status.ONLINE;
+			} else if (s.equals("readonly")) {
+				return Status.READONLY;
+			} else {
+				return Status.OFFLINE;
+			}
+		}
+	}
+	
+	/**
+	 * Get the details for the user.
+	 * @return The display name for the user, or null if it couldn't be determined.
+	 */
+	public Capabilities getCapabilities() {
+		Capabilities result = null;
+		Capabilities capabilities = null; // cache maybe later 
+		if (capabilities == null) {
+			// Haven't retrieved the details from OSM - try to
+			try {
+				URL capabilitiesURL = getCapabilitiesUrl();
+				if (capabilitiesURL == null) {
+					throw new MalformedURLException();
+				}
+				Log.d("Server","getCapabilities using " + capabilitiesURL.toString());
+				HttpURLConnection con = (HttpURLConnection) capabilitiesURL.openConnection();
+				//--Start: header not yet send
+				con.setReadTimeout(TIMEOUT);
+				con.setConnectTimeout(TIMEOUT);
+				con.setRequestProperty("User-Agent", Application.userAgent);
+				try {
+					//connection.getOutputStream().close(); GET doesn't have an outputstream
+					checkResponseCode(con);
+					XmlPullParser parser = xmlParserFactory.newPullParser();
+					parser.setInput(con.getInputStream(), null);
+					int eventType;
+					result = new Capabilities();
+					while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+						String tagName = parser.getName();
+						if (eventType == XmlPullParser.START_TAG && "version".equals(tagName)) {
+							result.minVersion = parser.getAttributeValue(null, "minimum");
+							result.maxVersion = parser.getAttributeValue(null, "maximum");
+							Log.d("Server","getCapabilities min/max API version " + result.minVersion + "/" + result.maxVersion);
+						}
+						if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
+							result.dbStatus = result.stringToStatus(parser.getAttributeValue(null, "database"));
+							result.apiStatus = result.stringToStatus(parser.getAttributeValue(null, "api"));
+							result.gpxStatus = result.stringToStatus(parser.getAttributeValue(null, "gpx"));
+							Log.d("Server","getCapabilities service status FB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
+						}	
+					}
+				} finally {
+					disconnect(con);
+				}
+			} catch (XmlPullParserException e) {
+				Log.e("Vespucci", "Problem accessing capabilities", e);
+			} catch (MalformedURLException e) {
+				Log.e("Vespucci", "Problem accessing capabilities", e);
+			} catch (ProtocolException e) {
+				Log.e("Vespucci", "Problem accessing capabilities", e);
+			} catch (IOException e) {
+				Log.e("Vespucci", "Problem accessing capabilities", e);
+			} catch (NumberFormatException e) {
+				Log.e("Vespucci", "Problem accessing capabilities", e);
+			}
+			return result;
+		} 
+		return capabilities; // might not make sense
+	}
+
+	
+	/**
 	 * @param area
 	 * @return
 	 * @throws IOException
@@ -736,6 +826,16 @@ public class Server {
 	
 	private URL getUserDetailsUrl() throws MalformedURLException {
 		return new URL(serverURL  + "user/details");
+	}
+	
+	private URL getCapabilitiesUrl() throws MalformedURLException {
+		// need to strip version from serverURL
+		int apiPos = serverURL.indexOf("api/");
+		if (apiPos > 0) {
+			String noVersionURL = serverURL.substring(0, apiPos) + "api/";
+			return new URL(noVersionURL  + "capabilities");
+		}
+		return null;
 	}
 
 	public XmlSerializer getXmlSerializer() {
