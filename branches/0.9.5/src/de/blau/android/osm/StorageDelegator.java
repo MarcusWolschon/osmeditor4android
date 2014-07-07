@@ -752,12 +752,12 @@ public class StorageDelegator implements Serializable, Exportable {
 						continue;
 					}
 					undo.save(r);
-					String type = r.getTagWithKey("type");
+					String type = r.getTagWithKey(Tags.KEY_TYPE);
 					if (type != null){
 						// attempt to handle turn restrictions correctly, if element is the via way, copying relation membership to both is ok
-						if (type.equals("restriction") && !rm.getRole().equals("via")) { 
+						if (type.equals(Tags.VALUE_RESTRICTION) && !rm.getRole().equals(Tags.VALUE_VIA)) { 
 							// check if the old way has a node in common with the via relation member, if no assume the new way has
-							ArrayList<RelationMember> rl =  r.getMembersWithRole("via");
+							ArrayList<RelationMember> rl =  r.getMembersWithRole(Tags.VALUE_VIA);
 							boolean foundVia=false;
 							for (int j=0;j<rl.size();j++)
 							{
@@ -985,9 +985,9 @@ public class StorageDelegator implements Serializable, Exportable {
 							for (Relation r : relations) {
 								RelationMember rm = r.getMember(node);
 								undo.save(r);
-								String type = r.getTagWithKey("type");
+								String type = r.getTagWithKey(Tags.KEY_TYPE);
 								if (type != null){
-									if (type.equals("restriction")) {
+									if (type.equals(Tags.VALUE_RESTRICTION)) {
 										// doing nothing for now at least gives a chance of being right :-)
 									} else {
 										RelationMember newMember = new RelationMember(rm.getRole(), newNode);
@@ -1036,7 +1036,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
-		return ((dirTags != null) && dirTags.containsKey("oneway"));
+		return ((dirTags != null) && dirTags.containsKey(Tags.KEY_ONEWAY));
 	}
 
 	private void replaceNodeInWay(final Node existingNode, final Node newNode, final Way way) {

@@ -502,26 +502,26 @@ public class Way extends OsmElement {
 	public boolean notReversable()
 	{
 		boolean brainDead = false;
-		String waterway = getTagWithKey("waterway");
+		String waterway = getTagWithKey(Tags.KEY_WATERWAY);
 		if (waterway != null) {
 			brainDead = true; // IHMO
 		} else {
-			String natural = getTagWithKey("natural");
-			if ((natural != null) && (natural.equals("cliff") || natural.equals("coastline"))) {
+			String natural = getTagWithKey(Tags.KEY_NATURAL);
+			if ((natural != null) && (natural.equals(Tags.VALUE_CLIFF) || natural.equals(Tags.VALUE_COASTLINE))) {
 				brainDead = true; // IHMO
 			} else {
-				String barrier = getTagWithKey("barrier");
-				if ((barrier != null) && barrier.equals("retaining_wall")) {
+				String barrier = getTagWithKey(Tags.KEY_BARRIER);
+				if ((barrier != null) && barrier.equals(Tags.VALUE_RETAINING_WALL)) {
 					brainDead = true; // IHMO
-				} else if ((barrier != null) && barrier.equals("kerb")) {
+				} else if ((barrier != null) && barrier.equals(Tags.VALUE_KERB)) {
 					brainDead = true; //
-				} else if ((barrier != null) && barrier.equals("guard_rail")) {
+				} else if ((barrier != null) && barrier.equals(Tags.VALUE_GUARD_RAIL)) {
 					brainDead = true; //	
-				} else if ((barrier != null) && barrier.equals("city_wall") && ((getTagWithKey("two_sided") == null) || !getTagWithKey("two_sided").equals("yes"))) {
+				} else if ((barrier != null) && barrier.equals(Tags.VALUE_CITY_WALL) && ((getTagWithKey(Tags.KEY_TWO_SIDED) == null) || !getTagWithKey(Tags.KEY_TWO_SIDED).equals(Tags.VALUE_YES))) {
 					brainDead = true; // IMHO
 				} else {
-					String man_made = getTagWithKey("man_made");
-					if ((man_made != null) && man_made.equals("embankment")) {
+					String man_made = getTagWithKey(Tags.KEY_MAN_MADE);
+					if ((man_made != null) && man_made.equals(Tags.VALUE_EMBANKMENT)) {
 						brainDead = true; // IHMO
 					}
 				}
@@ -541,13 +541,13 @@ public class Way extends OsmElement {
 	 */
 	@Override
 	protected boolean calcProblem() {
-		String highway = getTagWithKey("highway"); // cache frequently accessed key
-		if ("road".equalsIgnoreCase(highway)) {
+		String highway = getTagWithKey(Tags.KEY_HIGHWAY); // cache frequently accessed key
+		if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
 			// unsurveyed road
 			return true;
 		}
-		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null) 
-				&& !(hasTagWithValue("noname","yes") || hasTagWithValue("validate:no_name","yes"))) {
+		if ((getTagWithKey(Tags.KEY_NAME) == null) && (getTagWithKey(Tags.KEY_REF) == null) 
+				&& !(hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
 			// unnamed way - only the important ones need names
 			for (String h : importantHighways) {
 				if (h.equalsIgnoreCase(highway)) {
@@ -562,12 +562,12 @@ public class Way extends OsmElement {
 	public String describeProblem() {
 		String superProblem = super.describeProblem();
 		String wayProblem = "";
-		String highway = getTagWithKey("highway");
-		if ("road".equalsIgnoreCase(highway)) {
+		String highway = getTagWithKey(Tags.KEY_HIGHWAY);
+		if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
 			wayProblem = Application.mainActivity.getString(R.string.toast_unsurveyed_road);
 		}
-		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null)
-				&& !(hasTagWithValue("noname","yes") || hasTagWithValue("validate:no_name","yes"))) {
+		if ((getTagWithKey(Tags.KEY_NAME) == null) && (getTagWithKey(Tags.KEY_REF) == null)
+				&& !(hasTagWithValue(Tags.KEY_NONAME,Tags.VALUE_YES) || hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME,Tags.VALUE_YES))) {
 			boolean isImportant = false;
 			for (String h : importantHighways) {
 				if (h.equalsIgnoreCase(highway)) {
