@@ -296,7 +296,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		
 		// Draw the tile layer branding logo (if it exists)
 		if (tapArea == null) {
-			resetAttributionArea(viewPort);
+			resetAttributionArea(viewPort, 0);
 		}
 		Drawable brandLogo = myRendererInfo.getBrandLogo();
 		if (brandLogo != null) {
@@ -321,14 +321,14 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 //		}
 	}
 
-	public static void resetAttributionArea(Rect viewPort) {
+	public static void resetAttributionArea(Rect viewPort, int bottomOffset) {
 		if (tapArea == null) {
 			tapArea = new Rect();
 		}
 		tapArea.left = 0;
 		tapArea.right = 0;
-		tapArea.top = viewPort.bottom;
-		tapArea.bottom = viewPort.bottom;
+		tapArea.top = viewPort.bottom - bottomOffset;
+		tapArea.bottom = viewPort.bottom - bottomOffset;
 	}
 	
 	/** Recursively search the cache for smaller tiles to fill in the required

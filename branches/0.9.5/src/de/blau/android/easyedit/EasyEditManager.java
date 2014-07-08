@@ -15,10 +15,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -60,6 +62,9 @@ public class EasyEditManager {
 	private ActionMode currentActionMode = null;
 	private EasyEditActionModeCallback currentActionModeCallback = null;
 	
+	private int iconsDisplayed = 0;
+	private int maxIcons = 0;
+	
 	public EasyEditManager(Main main, Logic logic) {
 		this.main = main;
 		this.logic = logic;
@@ -67,6 +72,19 @@ public class EasyEditManager {
 	
 	public boolean isProcessingAction() {
 		return (currentActionModeCallback != null);
+	}
+	
+	/**
+	 * If we have more space on screen (tablett) try to force more icons in to the menu bar
+	 * @return
+	 */
+	private int showAlways() {
+		if (iconsDisplayed < maxIcons) {  
+			iconsDisplayed++;
+			return MenuItem.SHOW_AS_ACTION_ALWAYS;
+		} else {
+			return MenuItem.SHOW_AS_ACTION_IF_ROOM;
+		}
 	}
 	
 	/**
@@ -279,9 +297,18 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
 			currentActionMode = mode;
 			currentActionModeCallback = this;
-			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
+			
+			// hardcoded calculation of how many icons we want to display
+			//TODO de-hardcode
+			if (main.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+				DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
+			    float widthDp = metrics.widthPixels / metrics.density;
+			    Log.d("EasyEditManager","pixel width " + metrics.widthPixels + " DP width " + widthDp);
+				maxIcons = (int) (widthDp/2/64-1);
+			}
 			return false;
 		}
 		
@@ -322,6 +349,7 @@ public class EasyEditManager {
 		/** {@inheritDoc} */ // placed here for convenience, allows to avoid unnecessary methods in subclasses
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			iconsDisplayed = 0;
 			return false;
 		}
 		
@@ -492,12 +520,12 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			Node lastSelectedNode = logic.getSelectedNode();
 			logic.setSelectedNode(null);
+			super.onDestroyActionMode(mode);
 			// special casing for address tags requires code dup here
 			if (lastSelectedNode != null) {
 				//main.startActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
 				main.performTagEdit(lastSelectedNode, null, addAddressTags);
 			}
-			super.onDestroyActionMode(mode);
 		}
 	}
 	
@@ -681,7 +709,6 @@ public class EasyEditManager {
 		
 		private static final int MENUITEM_TAG_LAST = 20;
 		
-		
 		protected OsmElement element = null;
 		
 		public ElementSelectionActionModeCallback(OsmElement element) {
@@ -708,17 +735,18 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags);
-			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.tag_menu_delete);
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark);
-				menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark);
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SYSTEM, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SYSTEM, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
 			}
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation);
-			if (element.getOsmId() > 0){
+			if (element.getOsmId() > 0) {
 				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.CATEGORY_SECONDARY, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
 			}
+			
 			return true;
 		}
 		
@@ -793,16 +821,17 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			if (logic.isEndNode((Node)element)) {
-				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append).setShowAsAction(showAlways());
 			}
 			joinableElement = logic.findJoinableElement((Node)element);
 			if (joinableElement != null) {
-				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(R.drawable.tag_menu_merge);
+				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(R.drawable.tag_menu_merge).setShowAsAction(showAlways());
 			}
 			if (logic.getWaysForNode((Node)element).size() > 1) {
-				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split);
+				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.NONE, R.string.menu_set_position).setIcon(R.drawable.menu_gps);
+			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.NONE, R.string.menu_set_position).setIcon(R.drawable.menu_gps).setShowAsAction(showAlways());
+
 			return true;
 		}
 		
@@ -920,6 +949,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_ROTATE = 12;
 		private static final int MENUITEM_ORTHOGONALIZE = 13;
 		private static final int MENUITEM_CIRCULIZE = 14;
+		private static final int MENUITEM_ADDRESS = 15;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -951,23 +981,26 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			Log.d("WaySelectionActionCallback", "onPrepareActionMode");
-			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(R.drawable.tag_menu_reverse);
+			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING)) {
+				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address).setShowAsAction(showAlways());
+			}
+			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(R.drawable.tag_menu_reverse).setShowAsAction(showAlways());
 			if (((Way)element).getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(R.drawable.tag_menu_split);
+				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
 			}
 			if (cachedMergeableWays.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(R.drawable.tag_menu_merge);
+				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(R.drawable.tag_menu_merge).setShowAsAction(showAlways());
 			}
 			if (cachedAppendableNodes.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append).setShowAsAction(showAlways());
 			}
-			if ((((Way)element).getTagWithKey("highway") != null) && (cachedViaElements.size() > 0)) {
-				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(R.drawable.tag_menu_restriction);
-			}	
-			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate);
+			if (((Way)element).getTagWithKey(Tags.KEY_HIGHWAY) != null && (cachedViaElements.size() > 0)) {
+				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(R.drawable.tag_menu_restriction).setShowAsAction(showAlways());	
+			}
 			if (((Way)element).getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize);
+				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(R.drawable.menu_ortho).setShowAsAction(showAlways());
 			}
+			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(R.drawable.ic_menu_rotate).setShowAsAction(showAlways());
 			if (((Way)element).getNodes().size() > 2 && ((Way)element).isClosed()) {
 				menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
 			}
@@ -1009,6 +1042,7 @@ public class EasyEditManager {
 				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
 				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); break;
 				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); break;
+				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true); break;
 				default: return false;
 				}
 			}
@@ -1223,7 +1257,6 @@ public class EasyEditManager {
 	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
 	
 		private static final int MENUITEM_ADD_RELATION_MEMBERS = 7;
-		
 		
 		private RelationSelectionActionModeCallback(Relation relation) {
 			super(relation);

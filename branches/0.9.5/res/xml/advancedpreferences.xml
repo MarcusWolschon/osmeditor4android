@@ -84,6 +84,12 @@
 			android:summary="@string/config_enableAutoPreset_summary"
 			android:defaultValue="true"
 		/>
+		<CheckBoxPreference
+			android:key="@string/config_splitActionBarEnabled_key"
+			android:title="@string/config_splitActionBarEnabled_title"
+			android:summary="@string/config_splitActionBarEnabled_summary"
+			android:defaultValue="true"
+		/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_gps">

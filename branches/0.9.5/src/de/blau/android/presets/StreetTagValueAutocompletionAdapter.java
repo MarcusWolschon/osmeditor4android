@@ -36,9 +36,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import de.blau.android.TagEditor;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
@@ -62,6 +64,9 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      */
     @SuppressWarnings("unused")
 	private static final String DEBUG_TAG = StreetTagValueAutocompletionAdapter.class.getName();
+    
+    private String[] names;
+    private Map<String, Long> waysById = new HashMap<String, Long>();
 
     /**
      * 
@@ -75,7 +80,11 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
                                        final StorageDelegator streets,
                                        final String osmElementType,
                                        final long osmId) {
-        super(aContext, aTextViewResourceId, getArray(streets, getLocation(streets, osmElementType, osmId)));
+        super(aContext, aTextViewResourceId);
+        names = getArray(streets, getLocation(streets, osmElementType, osmId));
+        for (String s:names) {
+        	super.add(s);
+        }
     }
 
     
@@ -85,19 +94,26 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      * @param location
      * @return all street-names
      */
-    private static String[] getArray(final StorageDelegator streets, final int[] location) {
+    private String[] getArray(final StorageDelegator streets, final int[] location) {
 		// build list of names with their closest distance to location
 		Map<String, Double> waysByName = new HashMap<String, Double>();
+		
 		for (Way way : streets.getCurrentStorage().getWays()) {
 			if (way.getTagWithKey("highway") != null) {
 				String name = way.getTagWithKey("name");
+				long iD = way.getOsmId();
 				if (name != null) {
 					double distance = getDistance(way, location);
 					if (waysByName.containsKey(name)) {
 						// way already in list - keep shortest distance
-						distance = Math.min(distance, waysByName.get(name));
+						if (distance <  waysByName.get(name)) {
+							waysByName.put(name, distance);
+							waysById.put(name,Long.valueOf(iD));
+						}
+					} else {
+						waysByName.put(name, distance);
+						waysById.put(name,Long.valueOf(iD));
 					}
-					waysByName.put(name, distance);
 				}
 			}
 		}
@@ -106,6 +122,7 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
 		for (String name : waysByName.keySet()) {
 			retval.put(waysByName.get(name), name);
 		}
+		 
 		return retval.values().toArray(new String[retval.size()]);
 	}
 
@@ -157,6 +174,20 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
 		return null;
 	}
 
+	public String[] getNames() {
+		return names;
+	}
+	
+	public long getId(String name) throws OsmException {
+		Log.d("StreetTagValueAutocompletionAdapter","looking for " + name);
+		Long iD = waysById.get(name);
+		if (iD != null) {
+			return iD.longValue();
+		}
+		else {
+			throw new OsmException("way not found in adapter");
+		}
+	}
 }
 
 

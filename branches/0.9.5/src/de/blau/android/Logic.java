@@ -2055,7 +2055,16 @@ public class Logic {
 		loader.execute(c);
 	}
 	
-
+	/**
+	 * Return not only the error code, but the element involved
+	 * @author simon
+	 *
+	 */
+	public class UploadResult {
+		int error = 0;
+		String type;
+		long osmId;
+	}
 	/**
 	 * Uploads to the server in the background.
 	 * 
@@ -2065,7 +2074,7 @@ public class Logic {
 	 */
 	public void upload(final String comment, final String source, final boolean closeChangeset) {
 		final Server server = prefs.getServer();
-		new AsyncTask<Void, Void, Integer>() {
+		new AsyncTask<Void, Void, UploadResult>() {
 			
 			@Override
 			protected void onPreExecute() {
@@ -2074,8 +2083,8 @@ public class Logic {
 			}
 			
 			@Override
-			protected Integer doInBackground(Void... params) {
-				int result = 0;
+			protected UploadResult doInBackground(Void... params) {
+				UploadResult result = new UploadResult();
 				try {
 					delegator.uploadToServer(server, comment, source, closeChangeset);
 				} catch (final MalformedURLException e) {
@@ -2087,16 +2096,19 @@ public class Logic {
 				} catch (final OsmServerException e) {
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
-						result = DialogFactory.WRONG_LOGIN;
+						result.error = DialogFactory.WRONG_LOGIN;
+						break;
+					case HttpStatus.SC_BAD_REQUEST:
+					case HttpStatus.SC_PRECONDITION_FAILED:
+					case HttpStatus.SC_CONFLICT:
+						result.error = DialogFactory.UPLOAD_PROBLEM;
 						break;
 					case HttpStatus.SC_NOT_FOUND:
-					case HttpStatus.SC_CONFLICT:
 					case HttpStatus.SC_GONE:
-					case HttpStatus.SC_PRECONDITION_FAILED:
 					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
 					case HttpStatus.SC_BAD_GATEWAY:
 					case HttpStatus.SC_SERVICE_UNAVAILABLE:
-						result = DialogFactory.UPLOAD_PROBLEM;
+						result.error = DialogFactory.UPLOAD_PROBLEM;
 						break;
 					//TODO: implement other state handling
 					default:
@@ -2105,7 +2117,7 @@ public class Logic {
 						break;
 					}
 				} catch (final IOException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result.error = DialogFactory.NO_CONNECTION;
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
@@ -2115,13 +2127,13 @@ public class Logic {
 			}
 			
 			@Override
-			protected void onPostExecute(Integer result) {
+			protected void onPostExecute(UploadResult result) {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
-				if (result != 0) {
-					Application.mainActivity.showDialog(result);
+				if (result.error != 0) {
+					Application.mainActivity.showDialog(result.error);
 				}
 			}
 			

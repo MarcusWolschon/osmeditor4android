@@ -298,6 +298,7 @@ public class GeoMath {
 		return Math.hypot(x - xx, y - yy);
 	}
 	
+	
 	/**
 	 * Calculates the point on the line (node1X,node1Y)-(node2X,node2Y) that is
 	 * closest to the point (x,y).

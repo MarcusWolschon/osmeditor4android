@@ -287,6 +287,8 @@
 	<string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
 	<string name="config_enableAutoPreset_title">Enable auto preset</string>
 	<string name="config_enableAutoPreset_summary">Automatically add preset when name suggestion is selected</string>
+	<string name="config_splitActionBarEnabled_title">Enable split action bar</string>
+	<string name="config_splitActionBarEnabled_summary">Allow split action bar, use is device specific. Requires restart and an Android version >= 4.0</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

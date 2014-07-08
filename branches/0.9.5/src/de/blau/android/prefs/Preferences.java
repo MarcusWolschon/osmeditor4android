@@ -62,6 +62,8 @@ public class Preferences {
 	
 	private final boolean closeChangesetOnSave;
 	
+	private final boolean splitActionBarEnabled;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -118,6 +120,7 @@ public class Preferences {
 		enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
 		enableAutoPreset = prefs.getBoolean(r.getString(R.string.config_enableAutoPreset_key), true);
 		closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
+		splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
@@ -294,5 +297,10 @@ public class Preferences {
 	 */
 	public boolean closeChangesetOnSave() {
 		return closeChangesetOnSave;
+	}
+
+	public boolean splitActionBarEnabled() {
+		// TODO Auto-generated method stub
+		return splitActionBarEnabled;
 	}
 }

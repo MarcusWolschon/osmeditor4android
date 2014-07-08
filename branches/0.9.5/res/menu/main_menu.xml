@@ -138,6 +138,7 @@
 	<item
 		android:id="@+id/menu_find"
 		android:title="@string/menu_find"
+		android:icon="@drawable/ic_menu_search_holo_dark"
 		android:showAsAction="ifRoom"
 	/>		
 	<item

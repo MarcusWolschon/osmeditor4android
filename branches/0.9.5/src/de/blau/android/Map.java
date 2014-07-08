@@ -279,7 +279,7 @@ public class Map extends View implements IMapView {
 		handles = null;
 		
 		// Draw our Overlays.
-		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds());
+		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds(), 0);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
 		}

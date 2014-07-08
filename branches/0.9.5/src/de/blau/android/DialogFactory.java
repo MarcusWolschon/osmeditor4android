@@ -331,8 +331,10 @@ public class DialogFactory {
 		Builder searchBuilder = createBasicDialog(R.string.menu_find, R.string.find_message);
 		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 		searchBuilder.setView(searchLayout);
-		EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
+		final EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
+		searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		searchBuilder.setNegativeButton(R.string.cancel, null);
+		
 		
 		final Dialog searchDialog = searchBuilder.create();
 		
@@ -348,6 +350,7 @@ public class DialogFactory {
 				searchDialog.dismiss();
 			}
 		};
+		
 		searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 		    @Override
 		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

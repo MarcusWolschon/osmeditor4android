@@ -17,6 +17,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -33,6 +35,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.text.Html;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -59,6 +62,7 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.internal.ResourcesCompat;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -242,6 +246,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.i("Main", "onCreate " + (savedInstanceState != null?" no saved state " : " saved state exists"));
@@ -266,7 +271,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		prefs = new Preferences(this);
+		if (prefs.splitActionBarEnabled()) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
+			}
+			// besides hacking ABS, there is no equivalent method to enable this for ABS
+		} else {
+			requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		}
+		
 		
 		rl = new RelativeLayout(getApplicationContext());
 		
@@ -303,6 +317,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				updateZoomControls();
 			}
 		});
+
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -373,7 +388,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	protected void onStart() {
 		Log.d("Main", "onStart");
 		super.onStart();
-		prefs = new Preferences(this);
+		if (prefs == null) {
+			prefs = new Preferences(this);
+		}
 		logic.setPrefs(prefs);
 		map.setPrefs(prefs);
 		
@@ -383,7 +400,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		undoListener = new UndoListener();
 
 		showActionBar();
-		
+	
 		logic.setSelectedBug(null);
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
@@ -543,6 +560,17 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		return logic;
 	}
 
+	
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (easyEditManager.isProcessingAction()) {
+			easyEditManager.invalidate();
+		}
+	}
+
+	
 	/**
 	 * Sets up the Action Bar.
 	 */
@@ -550,6 +578,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.d("Main", "showActionBar");
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
+		actionbar.setSplitBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
+		actionbar.setStackedBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg))); // this probably isn't ever necessary
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
 
