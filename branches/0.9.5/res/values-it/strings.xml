@@ -84,7 +84,6 @@
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
-  <string name="toast_number_format">Formato del numero non valido</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
   <string name="toast_statesave_failed">Salvataggio dello stato corrente fallito\nQuesto è un errore fatale, tento di scrivere un file da usare successivamente con JOSM.</string>
   <!--Some generic labels/buttons-->
@@ -142,14 +141,11 @@
   <string name="menu_erase">Cancella nodo</string>
   <string name="menu_set_position">Posizione</string>
   <string name="menu_split">Dividi</string>
-  <string name="menu_closed_way_split_1">Dividi strada chiusa, primo nodo</string>
-  <string name="menu_closed_way_split_2">Dividi strada chiusa, secondo nodo</string>
   <string name="menu_append">Aggiungi</string>
   <string name="menu_restriction">Aggiungi restrizione</string>
   <string name="menu_restriction_via">Aggiungi restrizione attraverso</string>
   <string name="menu_restriction_to">Aggiungi restrizione a</string>
   <string name="menu_relation">Crea una relazione</string>
-  <string name="menu_add_relation_member">Aggiungi un membro alla relazione</string>
   <string name="menu_tag">Modifica etichette</string>
   <string name="menu_openstreetbug">Aggiungi nota</string>
   <string name="menu_easyedit">ModificheFacili</string>

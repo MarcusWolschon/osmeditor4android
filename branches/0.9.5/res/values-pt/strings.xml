@@ -21,6 +21,8 @@
   <string name="out_of_memory_dirty_message">O Vespucci esgotou a memória ao carregar os dados indicados. Por favor, tente guardar as suas edições, reiniciar e  tente de novo carregando uma área menor.</string>
   <string name="invalid_data_received_title">Dados Inválidos Recebidos</string>
   <string name="invalid_data_received_message">Vespucci recebeu dados inválidos do servidor. Se acredita que está a fazer algo correcto, por favor crie um relatório de erro (bug report).</string>
+  <string name="file_write_failed_title">Falha na gravação do arquivo</string>
+  <string name="file_write_failed_message">Não foi possível gravar no arquivo escolhido</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
   <string name="progress_download_message">Descarregando dados do servidor…</string>
@@ -30,6 +32,7 @@
   <string name="progress_saving_message">Gravando...</string>
   <string name="upload_comment_label">Comentário:</string>
   <string name="upload_source_label">Fonte:</string>
+  <string name="upload_close_changeset_label">Fechar o conjunto de alterações:</string>
   <string name="openstreetbug_new_title">Nova Nota</string>
   <string name="openstreetbug_new_bug">Reportar Problema</string>
   <string name="openstreetbug_new_nodeway">Criar Nó/Via</string>
@@ -56,6 +59,8 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de tags com valores mais populares.</string>
   <string name="search_results_title">Resultados da pesquisa</string>
   <string name="find_message">Introduza o texto de pesquisa</string>
+  <string name="read_file">Selecione o arquivo para ler</string>
+  <string name="save_file">Digite o arquivo à salvar</string>
   <!--Toaster-->
   <string name="toast_no_changes">Não alterou nada ainda…</string>
   <string name="toast_upload_success">Terminou o upload para o servidor OSM.</string>
@@ -84,9 +89,9 @@
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API actual, por favor indique login e palava-chave.</string>
   <string name="toast_timeout">Tempo excedido com servidor</string>
   <string name="coordinates_out_of_range">Longitude deve estar entre -180º/+180º, latitude entre -85º/+85º</string>
-  <string name="toast_number_format">Formato de número errado</string>
   <string name="toast_nothing_found">Nada encontrado</string>
   <string name="toast_statesave_failed">A gravação do estado actual falhou!\nEste é um erro fatal, tentando escrever um ficheiro de exportação para recuperação posterior no JOSM.</string>
+  <string name="toast_missing_filemanager">Por favor instale um gerenciador de arquivos.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -97,6 +102,7 @@
   <string name="apply">Aplicar</string>
   <string name="set">Definir</string>
   <string name="replace">Substituir</string>
+  <string name="save">Salvar</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
   <string name="exit_text">Tem a certeza de que deseja sair?</string>
@@ -104,6 +110,7 @@
   <string name="key">chave</string>
   <string name="value">valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_address">Incluir tags de endereço</string>
   <string name="tag_menu_sourcesurvey">Mapeado</string>
   <string name="tag_menu_preset">Prédefinições</string>
   <string name="tag_menu_repeat">Repetir tags</string>
@@ -142,14 +149,14 @@
   <string name="menu_erase">Apagar nó</string>
   <string name="menu_set_position">Posição</string>
   <string name="menu_split">Dividir</string>
-  <string name="menu_closed_way_split_1">Dividir via fechada, primeiro nó</string>
-  <string name="menu_closed_way_split_2">Dividir via fechada, segundo nó</string>
+  <string name="menu_closed_way_split_1">Dividir via fechada, 1º nó</string>
+  <string name="menu_closed_way_split_2">Dividir via fechada, 2º nó</string>
   <string name="menu_append">Acrescentar</string>
   <string name="menu_restriction">Adicionar restrição</string>
   <string name="menu_restriction_via">Adicionar restrição via</string>
   <string name="menu_restriction_to">Adicionar restrição a</string>
   <string name="menu_relation">Criar relação</string>
-  <string name="menu_add_relation_member">Adicionar membro de relação</string>
+  <string name="menu_add_relation_member">Adicionar membro</string>
   <string name="menu_tag">Editar tags</string>
   <string name="menu_openstreetbug">Adicionar Nota</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -162,12 +169,15 @@
   <string name="menu_gps_clear">Limpar percurso GPS</string>
   <string name="menu_gps_upload">Upload do percurso GPS</string>
   <string name="menu_gps_export">Exportar percurso GPS</string>
+  <string name="menu_gps_autodownload">Download automático</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Download da vista corrente</string>
   <string name="menu_transfer_download_current_add">Adicionar vista actual para descarregar</string>
   <string name="menu_transfer_download_other">Download de outra localização</string>
   <string name="menu_transfer_upload">Upload dos dados para o servidor OSM</string>
   <string name="menu_transfer_export">Exportar alterações</string>
+  <string name="menu_transfer_read_file">Ler do arquivo</string>
+  <string name="menu_transfer_save_file">Salvar para arquivo</string>
   <string name="menu_save">Gravar para ficheiro</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -177,6 +187,7 @@
   <string name="menu_rotate">Rodar</string>
   <string name="menu_orthogonalize">Ortogonalizar</string>
   <string name="menu_circulize">Dispor em círculo</string>
+  <string name="menu_newnode_gps">Novo nó na posição do GPS</string>
   <string name="menu_tools">Ferramentas</string>
   <string name="menu_tools_flush_background_tile_cache">Descartar cache das tiles de fundo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Descartar cache das tiles de sobreposição</string>
@@ -230,6 +241,8 @@
   <string name="config_enableKeepScreenOn_summary">Não desligar ecrã para poupar energia</string>
   <string name="config_enableDeprecatedModes_title">Activar modos obsoletos</string>
   <string name="config_enableDeprecatedModes_summary">Activar modos Novo, Editar, Editar Tags, Adicionar, Apagar nó e Separar.</string>
+  <string name="config_closeChangesetOnSave_title">Fechar os conjuntos de alterações</string>
+  <string name="config_closeChangesetOnSave_summary">Fechar os conjuntos de alterações por padrão ao salvar</string>
   <string name="config_backgroundLayer_title">Carta de base</string>
   <string name="config_backgroundLayer_summary">O mapa de fundo desenhado.</string>
   <string name="config_overlayLayer_title">Tema sobreposto do mapa</string>

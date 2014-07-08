@@ -45,7 +45,6 @@
   <string name="toast_export_failed">L\'exportació ha fallat</string>
   <string name="toast_export_success">Exportat a %1$s</string>
   <string name="toast_oneway_reversed">Heu canviat el sentit d\'una via de sentit únic amb etiquetes que depenen de la direcció. Si us plau verifiqueu les etiquetes i corregiu-les si fos necessari.</string>
-  <string name="toast_number_format">Format de nombre incorrecte</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -97,7 +96,6 @@
   <string name="menu_restriction_via">Afegeix una via de restricció</string>
   <string name="menu_restriction_to">Afegeix una restricció a</string>
   <string name="menu_relation">Crea una relació</string>
-  <string name="menu_add_relation_member">Afegeix un membre a la relació</string>
   <string name="menu_tag">Edita les etiquetes</string>
   <string name="menu_openstreetbug">Afegeix una nota</string>
   <string name="menu_easyedit">EasyEdit</string>

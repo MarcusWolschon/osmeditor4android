@@ -101,14 +101,11 @@
   <string name="menu_help">Pomoc</string>
   <string name="menu_erase">Skasuj węzeł</string>
   <string name="menu_split">Podziel drogę</string>
-  <string name="menu_closed_way_split_1">Podziel zamkniętą drogę, pierwszy węzeł</string>
-  <string name="menu_closed_way_split_2">Podziel zamkniętą drogę, drugi węzeł</string>
   <string name="menu_append">Dołącz</string>
   <string name="menu_restriction">Dodaj ograniczenie</string>
   <string name="menu_restriction_via">Dodaj restrykcję przez</string>
   <string name="menu_restriction_to">Dodaj restrykcję do`</string>
   <string name="menu_relation">Utwórz relację</string>
-  <string name="menu_add_relation_member">Dodaj element relacji</string>
   <string name="menu_tag">Edytuj tagi</string>
   <string name="menu_openstreetbug">Dodaj notatkę</string>
   <string name="menu_easyedit">EasyEdit</string>

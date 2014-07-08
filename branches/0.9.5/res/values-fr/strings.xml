@@ -21,6 +21,7 @@
   <string name="out_of_memory_dirty_message">Pas assez de mémoire disponible pour charger les données voulues. Essayez de sauvegarder vos modifications, redémarrer et de charger une zone plus petite.</string>
   <string name="invalid_data_received_title">Données invalides reçues</string>
   <string name="invalid_data_received_message">Vespucci a reçu des données invalides de la part du serveur. Si vous pensiez faire une opération correcte, merci de nous envoyer un rapport de bug.</string>
+  <string name="file_write_failed_title">Échec de l\'écriture du fichier</string>
   <string name="progress_title">Chargement</string>
   <string name="progress_message">Chargement des données en mémoire…</string>
   <string name="progress_download_message">Récupération des données du serveur…</string>
@@ -56,6 +57,8 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Cette suggestion peut remplacer certaines valeurs d\'attributs par des valeurs plus courantes.</string>
   <string name="search_results_title">Résultats de la recherche</string>
   <string name="find_message">Entrez le terme à rechercher</string>
+  <string name="read_file">Sélectionnez le fichier à lire</string>
+  <string name="save_file">Entrez le fichier dans lequel sauvegarder</string>
   <!--Toaster-->
   <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
   <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
@@ -84,9 +87,9 @@
   <string name="toast_no_oauth">OAuth n\'est pas disponible avec l\'API courante. Vous devez renseigner votre identifiant et mot de passe.</string>
   <string name="toast_timeout">Le serveur n\'a pas répondu</string>
   <string name="coordinates_out_of_range">La longitude doit être comprise entre -180° et +180° et la latitude entre -85° et +85°</string>
-  <string name="toast_number_format">Mauvais format numérique</string>
   <string name="toast_nothing_found">Aucun résultat</string>
   <string name="toast_statesave_failed">L\'enregistrement a échoué\nUne erreur s\'est produite lors de l\'export du fichier pour une récupération dans JOSM.</string>
+  <string name="toast_missing_filemanager">Merci d\'installer un gestionnaire de fichiers</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Oui</string>
   <string name="no">Non</string>
@@ -97,6 +100,7 @@
   <string name="apply">Appliquer</string>
   <string name="set">Définir</string>
   <string name="replace">Remplacer</string>
+  <string name="save">Enregistrer</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vraiment quitter ?</string>
   <string name="exit_text">Êtes-vous certain de vouloir quitter ?</string>
@@ -142,14 +146,14 @@
   <string name="menu_erase">Supprimer noeud</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
-  <string name="menu_closed_way_split_1">Premier nœud de scission</string>
-  <string name="menu_closed_way_split_2">Second nœud de scission</string>
+  <string name="menu_closed_way_split_1">Découpage d\'un chemin fermé, 1er nœud</string>
+  <string name="menu_closed_way_split_2">Découpage d\'un chemin fermé, 2ème nœud</string>
   <string name="menu_append">Prolonger</string>
   <string name="menu_restriction">Ajouter une restriction</string>
   <string name="menu_restriction_via">Ajouter une restriction via</string>
   <string name="menu_restriction_to">Ajouter une restriction vers</string>
   <string name="menu_relation">Créer une relation</string>
-  <string name="menu_add_relation_member">Ajouter des membres</string>
+  <string name="menu_add_relation_member">Ajouter un membre</string>
   <string name="menu_tag">Éditer les attributs</string>
   <string name="menu_openstreetbug">Ajouter une note</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -162,12 +166,15 @@
   <string name="menu_gps_clear">Effacer la trace GPS</string>
   <string name="menu_gps_upload">Envoi de la trace GPS</string>
   <string name="menu_gps_export">Export de la trace GPS</string>
+  <string name="menu_gps_autodownload">Téléchargement automatique</string>
   <string name="menu_transfer">Transfert des données…</string>
   <string name="menu_transfer_download_current">Télécharger la vue courante</string>
   <string name="menu_transfer_download_current_add">Ajouter les données de la vue courante</string>
   <string name="menu_transfer_download_other">Télécharger autre endroit…</string>
   <string name="menu_transfer_upload">Envoyer les données au serveur OSM</string>
   <string name="menu_transfer_export">Exporter les modifications</string>
+  <string name="menu_transfer_read_file">Lire depuis le fichier</string>
+  <string name="menu_transfer_save_file">Enregistrer dans le fichier</string>
   <string name="menu_save">Sauvegarde vers fichier</string>
   <string name="menu_join">Fusionner</string>
   <string name="menu_unjoin">Séparer</string>
@@ -177,6 +184,7 @@
   <string name="menu_rotate">Pivoter</string>
   <string name="menu_orthogonalize">Rendre orthogonal</string>
   <string name="menu_circulize">Placer en cercle</string>
+  <string name="menu_newnode_gps">Créer nœud à la position courante</string>
   <string name="menu_tools">Outils</string>
   <string name="menu_tools_flush_background_tile_cache">Vider le cache des tuiles de fond</string>
   <string name="menu_tools_flush_overlay_tile_cache">Vider le cache des tuiles en surimpression</string>

@@ -87,14 +87,11 @@
   <string name="menu_help">Довідка</string>
   <string name="menu_erase">Вилучити точку</string>
   <string name="menu_split">Розділити</string>
-  <string name="menu_closed_way_split_1">Розбити замкнуту лінію, перша точка</string>
-  <string name="menu_closed_way_split_2">Розбити замкнуту лінію, друга точка</string>
   <string name="menu_append">Додати</string>
   <string name="menu_restriction">Додати обмеження</string>
   <string name="menu_restriction_via">Додати обмеження „через“</string>
   <string name="menu_restriction_to">Додати обмеження „до“</string>
   <string name="menu_relation">Створити зв’язок</string>
-  <string name="menu_add_relation_member">Додати учасника зв’язку</string>
   <string name="menu_tag">Редагувати мітки</string>
   <string name="menu_openstreetbug">Додати нотатку</string>
   <string name="menu_gps">GPS…</string>

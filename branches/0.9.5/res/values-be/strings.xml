@@ -3,6 +3,9 @@
   <!--Dialogs-->
   <!--Toaster-->
   <!--Some generic labels/buttons-->
+  <string name="yes">Так</string>
+  <string name="no">Не</string>
+  <string name="cancel">Скасаваць</string>
   <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <!--Strings in LocationPicker-->

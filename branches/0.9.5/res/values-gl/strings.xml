@@ -18,6 +18,7 @@
   <string name="progress_message">Cargando datos na memoria...</string>
   <string name="progress_download_message">Descargando datos desde o servidor...</string>
   <string name="upload_comment_label">Comentario:</string>
+  <string name="upload_source_label">Fonte:</string>
   <string name="openstreetbug_new_title">Nova Nota</string>
   <string name="openstreetbug_new_bug">Informar dun problema</string>
   <string name="openstreetbug_new_nodeway">Crear Punto/Vía</string>
@@ -25,6 +26,7 @@
   <string name="openstreetbug_commitbutton">Enviar</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_edit_close">Pechar</string>
+  <string name="openstreetbug_edit_closed">Cerrado</string>
   <string name="openstreetbug_commit_ok">Cambios gardados</string>
   <string name="openstreetbug_commit_fail">Non se puideron gardar os cambios</string>
   <string name="unsaved_data_title">Coidado!</string>
@@ -40,11 +42,16 @@
   <string name="toast_export_success">Exportado a %1$s</string>
   <string name="toast_preset_overwrote_tags">Aviso: o preaxuste sobreescribiu unha ou varias etiquetas</string>
   <string name="toast_oneway_reversed">Invertiches unha rúa de sentido único ou unha vía con etiquetas dependentes do sentido. Comproba as etiquetas e corríxeas se é necesario.</string>
+  <string name="toast_merge_tag_conflict">Combinaches elementos que teñen valores de etiqueta conflictivos, semántica dependente da dirección ou roles diferentes na mesma relación. Por favor, comproba as etiquetas e os roles e corríxeos se é necesario.</string>
+  <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexible</string>
+  <string name="toast_too_many_nodes_for_move">Hai demasiados puntos na vía para mover</string>
+  <string name="toast_oauth_handshake_failed">A inicialización de OAuth fallou. Comproba que tes as claves de consumidor axeitadas.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Si</string>
   <string name="no">Non</string>
   <string name="okay">Vale</string>
   <string name="cancel">Cancelar</string>
+  <string name="locked">Bloqueado</string>
   <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">clave</string>
@@ -55,6 +62,8 @@
   <string name="tag_menu_repeat">Repetir etiquetas</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki sobre os elementos do mapa</string>
+  <string name="tag_menu_addtorelation">Engadir á relación</string>
+  <string name="tag_menu_resetMRU">Reiniciar Preaxustes</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elixe o radio:</string>
@@ -82,6 +91,9 @@
   <string name="menu_erase">Borrar punto</string>
   <string name="menu_split">Dividir</string>
   <string name="menu_append">Engadir</string>
+  <string name="menu_restriction">Engadir restrición</string>
+  <string name="menu_restriction_via">Engadir restrición mediante</string>
+  <string name="menu_restriction_to">Engadir restrición a</string>
   <string name="menu_tag">Editar etiquetas</string>
   <string name="menu_openstreetbug">Engadir Nota</string>
   <string name="menu_easyedit">Edición Fácil</string>
@@ -99,18 +111,30 @@
   <string name="menu_transfer_upload">Subir datos ao servidor OSM</string>
   <string name="menu_transfer_export">Exportar cambios</string>
   <string name="menu_save">Gardar en ficheiro</string>
+  <string name="menu_join">Unir</string>
+  <string name="menu_unjoin">Separar</string>
+  <string name="menu_copy">Copiar</string>
+  <string name="menu_cut">Cortar</string>
+  <string name="menu_paste">Pegar</string>
+  <string name="menu_rotate">Rotar</string>
   <!--element action mode menu-->
   <string name="menu_tags">Etiquetas</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
-  <string name="menu_merge">Unir</string>
+  <string name="menu_merge">Combinar</string>
   <string name="menu_reverse">Inverter</string>
+  <string name="notreversable_description">A vía está etiquetada con atributos que son dependentes da dirección e non poden ser invertidos. Se invirtes a vía, corromperase o etiquetado.</string>
+  <string name="reverse_anyway">Invertir de todas formas</string>
   <string name="deleteway_description">Estás a punto de borrar unha vía.\n\nPodes manter tódolos puntos, ou borrar os que só pertenzan a esta vía e non teñan etiquetas.</string>
+  <string name="deleteway_relation_description">Estás a punto de borrar unha vía que é un membro dunha ou máis relacións. Se eliminas a vía da(s) relación(s), pode que quede(n) inválida(s).</string>
   <string name="deleteway_wayonly">Borrar só a vía</string>
   <string name="deleteway_wayandnodes">Borrar vía e puntos</string>
+  <string name="deletenode_relation_description">Estás a punto de borrar un punto que é un membro dunha ou máis relacións. Se eliminas a punto da(s) relación(s), pode que quede(n) inválida(s).</string>
+  <string name="deletenode">Borrar punto</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vía seleccionada</string>
   <string name="actionmode_nodeselect">Punto seleccionado</string>
+  <string name="actionmode_relationselect">Relación seleccionada</string>
   <string name="actionmode_createpath">Creando camiño</string>
   <!--Preferences-->
   <string name="config_category_view">Ver Axustes</string>
@@ -124,6 +148,8 @@
   <string name="config_enableAntiAliasing_summary">Facer as liñas máis suaves.</string>
   <string name="config_enableOpenStreetBugs_title">Mostrar Notas</string>
   <string name="config_enableOpenStreetBugs_summary">Mostrar, editar e crear Notas/Erros.</string>
+  <string name="config_enableDeprecatedModes_title">Habilitar modos obsoletos</string>
+  <string name="config_enableDeprecatedModes_summary">Habilitar os modos Novo, Editar, Editar etiquetas, Engadir, Eliminar punto e Dividir.</string>
   <string name="config_backgroundLayer_title">Fondo de mapa</string>
   <string name="config_backgroundLayer_summary">O fondo gráfico do mapa</string>
   <string name="config_category_server">Axustes do Servidor</string>
@@ -139,13 +165,73 @@
   <string name="config_password_title">Contrasinal de OSM</string>
   <string name="config_password_summary">Non o confundas co contrasinal da Wiki. Recorda: almacénase e transmítese en texto plano!</string>
   <string name="config_category_gps">Axustes GPS</string>
+  <string name="config_gps_distance_title">Mínima distancia GPS</string>
+  <string name="config_gps_distance_summary">O intervalo de distancia mínimo para notificacións GPS, en metros (decimal). Valores baixos causarán maior uso de batería.</string>
+  <string name="config_gps_interval_title">Intervalo GPS mínimo</string>
+  <string name="config_gps_interval_summary">O intervalo de tempo mínimo para notificacións GPS, en milisegundos. Valores baixos causarán maior uso de batería.</string>
+  <string name="config_category_info">Acerca de</string>
+  <string name="config_advancedprefs">Preferencias avanzadas</string>
+  <string name="config_forceContextMenu_title">Usar sempre o menú contextual</string>
+  <string name="config_forceContextMenu_summary">Mostrar sempre o menú contextual no modo de Edición Fácil se a selección é ambigua.</string>
+  <string name="config_licensebutton_title">Autores e licenzas</string>
+  <string name="config_licensebutton_summary">Mostrar autores e información sobre as licenzas</string>
   <!--preset downloader messages-->
+  <string name="preset_update">Actualizar preaxuste</string>
+  <string name="preset_download_successful">Preaxuste descargado correctamente</string>
+  <string name="preset_download_failed">O ficheiro do preaxuste non se puido descargar. O preaxuste non funcionará.</string>
+  <string name="preset_download_parse_failed">O ficheiro do preaxuste é inválido. O preaxuste non funcionará.</string>
+  <string name="preset_download_missing_images">O ficheiro do preaxuste descargouse correctamente, pero algunhas iconas non se puideron descargar, polo que faltarán.</string>
   <!--changes-->
+  <string name="changes_deleted">\"%1$s\" borrado</string>
+  <string name="changes_changed">\"%1$s\" modificado</string>
+  <string name="changes_created">\"%1$s\" creado</string>
+  <string name="confirm_upload_title">Subir?</string>
+  <string name="confirm_upload_text">Subir os seguintes cambios?\n%1$s</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">Engadir preaxuste</string>
+  <string name="urldialog_preset_exists">Este preaxuste xa existe</string>
+  <string name="urldialog_api_exists">Xa existe unha API con esta URL. Non obstante, podes engadir outra (p. ex. para cambiar de conta fácilmente).</string>
+  <string name="urldialog_api_preset_missing">O preaxuste usado pola API non está dispoñible. Deberías engadila primeiro.</string>
+  <string name="urldialog_add_api">Engadir API</string>
+  <string name="urldialog_nodata_text">A URL de configuración non contén ningún dato válido.</string>
   <!--common terms-->
+  <string name="add">Engadir</string>
+  <string name="edit">Editar</string>
+  <string name="delete">Borrar</string>
+  <string name="name">Nome</string>
+  <string name="url">URL</string>
+  <string name="default_">Por defecto</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="preset">Preaxuste</string>
+  <string name="api">API</string>
+  <string name="undo">Desfacer</string>
+  <string name="redo">Refacer</string>
+  <string name="undo_nothing">nada para desfacer</string>
+  <string name="tracking_active_title">Gravando pista GPS</string>
+  <string name="tracking_active_text">Vespucci está gravando unha pista GPS</string>
+  <string name="gps_failure">Fallo ao habilitar o GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">mover punto</string>
+  <string name="undo_action_add">insertar</string>
+  <string name="undo_action_append">engadir</string>
+  <string name="undo_action_deletenode">borrar punto</string>
+  <string name="undo_action_deleteway">borrar vía</string>
+  <string name="undo_action_split_ways">dividir vías</string>
+  <string name="undo_action_split_way">dividir vía</string>
+  <string name="undo_action_merge_ways">combinar vías</string>
+  <string name="undo_action_reverse_way">invertir vía</string>
+  <string name="undo_action_set_tags">axustar etiquetas</string>
+  <string name="undo_action_join">unir</string>
+  <string name="undo_action_unjoin_ways">separar vías</string>
   <!--ACRA-->
+  <string name="crash_notif_ticker_text">Vespucci fallou ou encontrou un problema grave. Por favor, envía un informe de erros.</string>
+  <string name="crash_notif_title">Vespucci fallou ou encontrou un problema grave.</string>
+  <string name="crash_notif_text">Por favor, pulsa aquí para axudar a corrixir o problema.</string>
+  <string name="crash_dialog_text">Ocorreu un problema inesperado que forzou á aplicación a deterse ou a informar dun erro. Por favor, axúdanos a corrixilo enviándonos os datos do erro; o único que tes que facer é pulsar en \"OK\".</string>
+  <string name="config_category_acra">Informe de fallo</string>
+  <string name="pref_enable_acra">Informar de fallos na aplicación</string>
+  <string name="pref_acra_enabled">Informe de fallos habilitado</string>
+  <string name="pref_acra_disabled">Informe de fallos deshabilitado</string>
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <!--time and distance-->

@@ -7,12 +7,17 @@
   <string name="transfer_download_current_download">Απόρριψη και λήψη</string>
   <string name="transfer_download_current_back">Επιστροφή (Μην κάνεις τίποτα)</string>
   <string name="upload_problem_title">Πρόβλημα κατά την Αποστολή</string>
+  <string name="no_login_data_title">Πιστοποίηση απέτυχε</string>
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>
   <string name="no_connection_message">Δεν είναι δυνατή η σύνδεση στον διακομιστή OSM. Παρακαλώ ελέγξτε την σύνδεση σας ή δοκιμάστε αργότερα.</string>
+  <string name="wrong_login_data_title">Πιστοποίηση απέτυχε</string>
   <string name="progress_title">Φόρτωση</string>
-  <string name="progress_message">Φόρτωση δεδομένων στη μνήμη...</string>
-  <string name="progress_download_message">Λήψη δεδομένων από τον διακομιστή...</string>
-  <string name="progress_saving_message">Αποθήκευεται...</string>
+  <string name="progress_message">Φόρτωση δεδομένων στη μνήμη…</string>
+  <string name="progress_download_message">Λήψη δεδομένων από τον διακομιστή…</string>
+  <string name="progress_general_title">Παρακαλώ περιμένετε</string>
+  <string name="progress_deleting_message">Γίνεται διαγραφή…</string>
+  <string name="progress_searching_message">Γίνεται αναζήτηση…</string>
+  <string name="progress_saving_message">Γίνεται αποθήκευση…</string>
   <string name="upload_comment_label">Σχόλιο:</string>
   <string name="upload_source_label">Προέλευση:</string>
   <string name="openstreetbug_new_title">Νέα Σημείωση</string>
@@ -27,11 +32,14 @@
   <string name="unsaved_data_message">Έχετε μη αποθηκευμένες αλλαγές οι οποίες θα χαθούν αν συνεχίσετε.</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
   <string name="imagery_offset_description">Περιγραφή</string>
+  <string name="imagery_offset_author">Δημιουργός</string>
   <string name="imagery_offset_date">Δημιουργήθηκε</string>
+  <string name="imagery_offset_zoom">Μεγέθυνση</string>
+  <string name="imagery_offset_distance">Απόσταση</string>
   <string name="search_results_title">Αποτελέσματα αναζήτησης</string>
   <string name="find_message">Εισάγετε κείμενο αναζήτησης</string>
   <!--Toaster-->
-  <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα...</string>
+  <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="toast_upload_success">Η αποστολή στον διακομιστή OSM τελείωσε.</string>
   <string name="toast_save_done">Αποθήκευση επιτυχής</string>
   <string name="toast_export_failed">Η Εξαγωγή απέτυχε</string>
@@ -55,6 +63,7 @@
   <string name="tag_menu_revert">Επαναφορά</string>
   <string name="tag_menu_mapfeatures">Wiki Χαρακτηριστικών Χάρτη</string>
   <string name="tag_menu_addtorelation">Προσθήκη στη σχέση</string>
+  <string name="tag_menu_resetMRU">Επαναφορά στα Προκαθορισμένα</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Φόρτωση περιοχής</string>
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
@@ -69,6 +78,7 @@
   <string name="location_coordinates_text">Από συντεταγμένες:</string>
   <string name="location_lat_label">Γ. Πλ:</string>
   <string name="location_lon_label">Γ. Μηκ:</string>
+  <string name="location_search_label">Αναζήτηση:</string>
   <string name="location_load_button">Φόρτωση</string>
   <string name="location_nan_title">Λάθος Εισαγωγή!</string>
   <string name="location_nan_message">Παρακαλώ εισάγετε συντεταγμένες με δεκαδικό τρόπο (πχ. \"52.333572\",\"8.741185\"). Το Γ. πλ πρέπει να είναι μεταξύ -85.0 και +85.0, και το Γ. Μηκ μεταξύ -175.0 και +175.0.</string>
@@ -77,6 +87,7 @@
   <string name="menu_edit">Επεξεργασία</string>
   <string name="menu_add">Νέο</string>
   <string name="menu_config">Προτιμήσεις</string>
+  <string name="menu_find">Έυρεση</string>
   <string name="menu_help">Βοήθεια</string>
   <string name="menu_erase">Διαγραφή κόμβου</string>
   <string name="menu_set_position">Θέση</string>
@@ -94,7 +105,7 @@
   <string name="menu_gps_clear">Καθαρισμός ίχνους </string>
   <string name="menu_gps_upload">Αποστολή ίχνους </string>
   <string name="menu_gps_export">Εξαγωγή ίχνους </string>
-  <string name="menu_transfer">Μεταφορά...</string>
+  <string name="menu_transfer">Γίνεται μεταφορά…</string>
   <string name="menu_transfer_download_current">Λήψη τρέχουσας προβολής</string>
   <string name="menu_transfer_download_other">Λήψη άλλης τοποθεσίας</string>
   <string name="menu_transfer_upload">Αποστολή δεδομένων στον διακομιστή </string>
@@ -106,6 +117,7 @@
   <string name="menu_cut">Αποκοπή</string>
   <string name="menu_paste">Επικόλληση</string>
   <string name="menu_rotate">Περιστροφή</string>
+  <string name="menu_tools_background_align_reset">Επαναφορά</string>
   <string name="menu_tools_background_align_zero">Μηδέν</string>
   <string name="menu_tools_background_align_retrieve_from_db">Από Βάση Δεδομένων</string>
   <string name="menu_tools_background_align_retrieve_from_device">Από Συσκευή</string>
@@ -128,9 +140,14 @@
   <!--Preferences-->
   <string name="config_category_view">Προβολή Ρυθμίσεων</string>
   <string name="config_showStats_title">Εμφάνιση στατιστικών</string>
+  <string name="config_enableAntiAliasing_title">Ενεργοποίηση Εξομάλυνσης Εικόνας</string>
+  <string name="config_enableOpenStreetBugs_title">Ενεργοποίηση Προβολής Σημειώσεων</string>
   <string name="config_enablePhotoLayer_summary">Εμφάνιση γεω-αναφερώμενων φωτογραφιών.</string>
   <string name="config_backgroundLayer_title">Παρασκήνιο χάρτη</string>
   <string name="config_category_server">Ρυθμίσεις Διακομιστή</string>
+  <string name="config_apibutton_title">URL για το OSM API</string>
+  <string name="config_api_url_title">URL API</string>
+  <string name="config_presetbutton_title">Προκαθορισμένο JOSM</string>
   <string name="config_loginbutton_title">Λογαριασμός χρήστη</string>
   <string name="config_username_title">Όνομα Χρήση OSM</string>
   <string name="config_password_title">Κωδικός OSM</string>
@@ -147,6 +164,7 @@
   <string name="confirm_upload_title">Αποστολή;</string>
   <string name="confirm_upload_text">Αποστολή των παρακάτω αλλαγών;\n%1$s</string>
   <!--url handler activity-->
+  <string name="urldialog_add_api">Προσθήκη API</string>
   <!--common terms-->
   <string name="add">Προσθήκη</string>
   <string name="edit">Επεξεργασία</string>
@@ -154,7 +172,11 @@
   <string name="name">Όνομα</string>
   <string name="url">Σύνδεσμος</string>
   <string name="default_">Προκαθορισμένο</string>
+  <string name="api_name">Όνομα API</string>
+  <string name="api_url">URL API</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="preset">Προκαθορισμένο</string>
+  <string name="api">API</string>
   <string name="undo">Αναίρεση</string>
   <string name="redo">Επαναφορά</string>
   <string name="undo_nothing">τίποτα προς αναίρεση</string>

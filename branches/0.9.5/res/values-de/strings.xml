@@ -21,6 +21,8 @@
   <string name="out_of_memory_dirty_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte die bereits gemachten Änderungen speichern, neu starten und ein kleineres Gebiet versuchen.</string>
   <string name="invalid_data_received_title">Ungültige Daten erhalten</string>
   <string name="invalid_data_received_message">Vespucci hat ungültige Daten vom Server empfangen. Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen.</string>
+  <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
+  <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
   <string name="progress_download_message">Lade Daten vom Server…</string>
@@ -30,6 +32,7 @@
   <string name="progress_saving_message">Am Speichern...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
+  <string name="upload_close_changeset_label">Changeset schliessen</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
   <string name="openstreetbug_new_nodeway">Knoten/Weg erstellen</string>
@@ -56,6 +59,8 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
   <string name="search_results_title">Suchresultate</string>
   <string name="find_message">Suchanfrage eingeben</string>
+  <string name="read_file">Datei zum Lesen auswählen</string>
+  <string name="save_file">Datei zum Speichern angeben</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -84,9 +89,9 @@
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
-  <string name="toast_number_format">Falsches Zahlenformat</string>
   <string name="toast_nothing_found">Kein Resutat gefunden</string>
   <string name="toast_statesave_failed">Speichern des aktuellen Zustandes ist fehlgeschlagen!\nDies ist ein schwerwiegender Fehler, es wird versucht eine Exportdatei für die spätere Verwendung in JOSM zu schreiben.</string>
+  <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -97,6 +102,7 @@
   <string name="apply">Anwenden</string>
   <string name="set">Setzen</string>
   <string name="replace">Ersetzen</string>
+  <string name="save">Speichern</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -104,6 +110,7 @@
   <string name="key">Schlüssel</string>
   <string name="value">Wert</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/DE:Map_Features</string>
+  <string name="tag_menu_address">Tags für Adressen hinzufügen</string>
   <string name="tag_menu_sourcesurvey">Surveyed</string>
   <string name="tag_menu_preset">Vorlagen</string>
   <string name="tag_menu_repeat">Tags wiederholen</string>
@@ -142,14 +149,14 @@
   <string name="menu_erase">Knoten löschen</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Weg aufspalten</string>
-  <string name="menu_closed_way_split_1">Geschlossenen Weg aufspalten, erster Knoten</string>
-  <string name="menu_closed_way_split_2">Geschlossenen Weg aufspalten, zweiter Knoten</string>
+  <string name="menu_closed_way_split_1">Geschlossenen Weg aufspalten, 1. Knoten</string>
+  <string name="menu_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
   <string name="menu_append">Anhängen</string>
   <string name="menu_restriction">Abbiegebeschränkung hinzufügen</string>
   <string name="menu_restriction_via">Einschränkung \"via\" hinzufügen</string>
   <string name="menu_restriction_to">Einschränkung \"to\" hinzufügen</string>
   <string name="menu_relation">Relation erstellen</string>
-  <string name="menu_add_relation_member">Relationsmitglied hinzufügen</string>
+  <string name="menu_add_relation_member">Mitglied hinzufügen</string>
   <string name="menu_tag">Tags verändern</string>
   <string name="menu_openstreetbug">Notiz hinzufügen</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -162,12 +169,15 @@
   <string name="menu_gps_clear">GPS-Track löschen</string>
   <string name="menu_gps_upload">GPS-Track hochladen</string>
   <string name="menu_gps_export">GPS-Track exportieren</string>
+  <string name="menu_gps_autodownload">Automatischer Download</string>
   <string name="menu_transfer">Übertragung…</string>
   <string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_download_current_add">Diese Ansicht zu den Daten dazu laden </string>
   <string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
   <string name="menu_transfer_export">Änderungen exportieren</string>
+  <string name="menu_transfer_read_file">Von Datei lesen</string>
+  <string name="menu_transfer_save_file">In Datei speichern</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -177,6 +187,7 @@
   <string name="menu_rotate">Drehen</string>
   <string name="menu_orthogonalize">Rechtwinklig machen</string>
   <string name="menu_circulize">Im Kreis anordnen</string>
+  <string name="menu_newnode_gps">Neuer Knoten an GPS Pos.</string>
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
   <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
@@ -230,6 +241,8 @@
   <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten um Energie zu sparen</string>
   <string name="config_enableDeprecatedModes_title">Veraltete Modi anzeigen</string>
   <string name="config_enableDeprecatedModes_summary">New, Edit, Edit Tags, Append, Erase node und Split Modi anzeigen.</string>
+  <string name="config_closeChangesetOnSave_title">Changesets schliessen</string>
+  <string name="config_closeChangesetOnSave_summary">Changeset beim Speichern schliessen</string>
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Das Bild, das im Hintergrund der Karte angezeigt wird.</string>
   <string name="config_overlayLayer_title">Karten Overlay</string>
