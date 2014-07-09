@@ -742,7 +742,7 @@ public class EasyEditManager {
 				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SYSTEM, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
 				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SYSTEM, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation).setIcon(R.drawable.relation);
+			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
 			if (element.getOsmId() > 0) {
 				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.CATEGORY_SECONDARY, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
 			}
