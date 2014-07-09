@@ -896,11 +896,13 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		HashMap<Long,String> currentParents = getParentRelationMap();
 		ArrayList<RelationMemberDescription> currentMembers = getMembersList();
 		
-		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		if (!currentTags.equals(originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) 
+				|| (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
 			// changes were made
 			intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, 
 					currentTags.equals(originalTags)? null : currentTags,  null, 
-							currentParents.equals(originalParents)?null:currentParents, null, currentMembers.equals(originalMembers)?null:currentMembers, null));
+					(originalParents==null && currentParents.size()==0) || currentParents.equals(originalParents)?null:currentParents, null, 
+					currentMembers.equals(originalMembers)?null:currentMembers, null));
 		}
 		
 		setResult(RESULT_OK, intent);
