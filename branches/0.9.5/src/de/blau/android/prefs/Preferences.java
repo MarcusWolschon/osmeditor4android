@@ -126,10 +126,14 @@ public class Preferences {
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
 		if (Profile.getProfile(tempMapProfile) == null) {
-			if (Profile.getProfile(DEFAULT_MAP_PROFILE) == null) 
+			if (Profile.getProfile(DEFAULT_MAP_PROFILE) == null) {
+				Log.w(getClass().getName(), "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
 				mapProfile = Profile.getBuiltinProfileName(); // built-in fall back
-			else
+			}
+			else {
+				Log.w(getClass().getName(), "Using default profile");
 				mapProfile = DEFAULT_MAP_PROFILE;
+			}
 		} else {
 			mapProfile = tempMapProfile;
 		}

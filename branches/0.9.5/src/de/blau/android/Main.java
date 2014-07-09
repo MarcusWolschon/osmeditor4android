@@ -388,9 +388,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	protected void onStart() {
 		Log.d("Main", "onStart");
 		super.onStart();
-		if (prefs == null) {
-			prefs = new Preferences(this);
-		}
+
+		prefs = new Preferences(this);
 		logic.setPrefs(prefs);
 		map.setPrefs(prefs);
 		
