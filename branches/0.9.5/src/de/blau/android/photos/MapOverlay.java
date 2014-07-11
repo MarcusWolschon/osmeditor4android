@@ -138,6 +138,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				handler.postDelayed(getPhotos, 500); // half a second delay
 			}
 			// draw all the photos
+			int w = Application.mainActivity.getMap().getWidth();
+			int h = Application.mainActivity.getMap().getHeight();
 			for (Photo p : photos) {
 				if (bb.isIn(p.getLat(), p.getLon())) {
 					Drawable i;
@@ -145,8 +147,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 						i = icon_selected;
 					else
 						i = icon;
-					int x = (int) GeoMath.lonE7ToX(c.getWidth() , bb, p.getLon());
-					int y = (int) GeoMath.latE7ToY(c.getHeight(), c.getWidth() ,bb, p.getLat());
+					int x = (int) GeoMath.lonE7ToX(w , bb, p.getLon());
+					int y = (int) GeoMath.latE7ToY(h, w ,bb, p.getLat());
 					int w2 = i.getIntrinsicWidth() / 2;
 					int h2 = i.getIntrinsicHeight() / 2;
 					i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
