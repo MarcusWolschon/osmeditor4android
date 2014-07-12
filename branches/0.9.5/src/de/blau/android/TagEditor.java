@@ -540,7 +540,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			ArrayList<String> names = new ArrayList<String>(Arrays.asList(adapter.getNames()));
 			if (names != null && names.size() > 0) {
 				LinkedHashMap<String, String> tags = newAddress.tags;
-				if (names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) <= 2) { // check if still in the top 3
+				Log.d("TagEditor","tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
+				if (names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) > 2) { // check if still in the top 3
+					Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + names.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
 					// nope -> zap
 					tags.put(Tags.KEY_ADDR_STREET, names.get(0));
 					if (tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
