@@ -437,6 +437,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		logic.updateProfile();
+		map.updateProfile();
 		
 		runningInstance = this;
 		

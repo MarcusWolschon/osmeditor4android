@@ -270,15 +270,20 @@ public class Storage implements Serializable {
 	 * @throws OsmException
 	 */
 	public BoundingBox calcBoundingBoxFromData() throws OsmException {
-		BoundingBox result  = new BoundingBox(0, 0, 0, 0);
+		int top = 0;
+		int bottom = 0;
+		int left = 0;
+		int right = 0;
+		
 		if (nodes != null) {
 			for (Node n:nodes) {
-				if (n.getLat() > result.getTop()) result.setTop(n.getLat());
-				else if (n.getLat() < result.getBottom()) result.setBottom(n.getLat());
-				if (n.getLon() > result.getRight()) result.setRight(n.getLon());
-				else if (n.getLon() < result.getLeft()) result.setLeft(n.getLon());
+				if (n.getLat() > top) top = n.getLat();
+				else if (n.getLat() < bottom) bottom = n.getLat();
+				if (n.getLon() > right) right = n.getLon();
+				else if (n.getLon() < left) left = n.getLon();
 			}
 		}
+		BoundingBox result  = new BoundingBox(left, bottom, right, top);
 		return result;
 	}
 }

@@ -549,15 +549,15 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 						tags.put(Tags.KEY_ADDR_HOUSENUMBER, "");
 					}
 				}
+				String street = tags.get(Tags.KEY_ADDR_STREET); // should now have the final version
 				try {
-					newAddress.setSide(adapter.getId(tags.get(Tags.KEY_ADDR_STREET)));
+					newAddress.setSide(adapter.getId(street));
 				} catch (OsmException e) { // street not in adapter
 					newAddress.side = Side.UNKNOWN;
 				}
 				Log.d("TagEditor","side " + newAddress.getSide());
 				Side side = newAddress.getSide();
 				// find the addresses corresponding to the current street
-				String street = tags.get(Tags.KEY_ADDR_STREET);
 				if (street != null && lastAddresses != null) {
 					TreeMap<Integer,Address> list = new TreeMap<Integer,Address>(); //list sorted by house numbers
 					for (Address a:lastAddresses) {
@@ -584,7 +584,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 					// - if the nearest node is somewhere in the middle determine on which side of it we are, 
 					// - inc/dec in that direction
 					// If everything works out correctly even if a prediction is wrong, entering the correct number should improve the next prediction
-					//TODO the following assumes that the road is not doubling back or similar, aka that the addresses are more or less in a straight line, use the length along the road instead (which is not simple in OSM)
+					//TODO the following assumes that the road is not doubling back or similar, aka that the addresses are more or less in a straight line, 
+					//     use the length along the way defined by the addresses instead
 					//
 					if (list.size() >= 2) {
 						try {
@@ -594,9 +595,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 							int inc = 1;
 							float incTotal = 0;
 							float incCount = 0;
-							ArrayList<Integer> listA = new ArrayList<Integer>(list.keySet());
-							for (int i=0;i<listA.size()-1;i++) {
-								int diff = listA.get(i+1).intValue()-listA.get(i).intValue();
+							ArrayList<Integer> numbers = new ArrayList<Integer>(list.keySet());
+							for (int i=0;i<numbers.size()-1;i++) {
+								int diff = numbers.get(i+1).intValue()-numbers.get(i).intValue();
 								if (diff > 0 && diff <= 2) {
 									incTotal = incTotal + diff;
 									incCount++;
@@ -609,20 +610,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 							double distanceFirst = 0;
 							double distanceLast = 0;
 							double distance = Double.MAX_VALUE;
-							for (int i=0;i<listA.size();i++) {
+							for (int i=0;i<numbers.size();i++) {
 								// determine the nearest existing address
-								int number = Integer.valueOf(listA.get(i));
+								int number = Integer.valueOf(numbers.get(i));
 								Address a = list.get(number);
 								double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
 								if (newDistance < distance) {
 									distance = newDistance;
 									nearest = number;
-									prev = listA.get(Math.max(0, i-1));
-									post = listA.get(Math.min(listA.size()-1, i+1));
+									prev = numbers.get(Math.max(0, i-1));
+									post = numbers.get(Math.min(numbers.size()-1, i+1));
 								}
 								if (i==0) {
 									distanceFirst = newDistance;
-								} else if (i==listA.size()-1) {
+								} else if (i==numbers.size()-1) {
 									distanceLast = newDistance;
 								}
 							}
@@ -642,8 +643,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 									inc = -inc;
 								} // else already correct
 							} 
-						
-							Log.d("TagEditor","First " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc + " prev " + prev + " post " + post);
+							// Toast.makeText(this, "First " + firstNumber + " last " + lastNumber + " nearest " + nearest + "inc " + inc + " prev " + prev + " post " + post + " side " + side, Toast.LENGTH_LONG).show();
+							Log.d("TagEditor","First " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc + " prev " + prev + " post " + post + " side " + side);
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + Math.max(1, nearest+inc));
 						} catch (NumberFormatException nfe){
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "");

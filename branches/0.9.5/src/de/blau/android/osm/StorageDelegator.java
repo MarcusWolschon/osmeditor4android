@@ -2084,7 +2084,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
-	 * Return true is coordinates where in the original bboxes from downloads, needs a more efficient implementation
+	 * Return true if coordinates were in the original bboxes from downloads, needs a more efficient implementation
 	 * @param lat
 	 * @param lon
 	 * @return

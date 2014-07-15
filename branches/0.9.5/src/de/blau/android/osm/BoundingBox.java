@@ -753,19 +753,23 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 		return bottomMercator;
 	}
 
-	public void setTop(int latE7) {
+	/**
+	 * The setters are private since without calling calcDimensions the BB will be left in an inconsistent state
+	 * @param latE7
+	 */
+	private void setTop(int latE7) {
 		this.top = latE7;
 	}
 	
-	public void setBottom(int latE7) {
+	private void setBottom(int latE7) {
 		this.bottom = latE7;
 	}
 	
-	public void setRight(int lonE7) {
+	private void setRight(int lonE7) {
 		this.right = lonE7;
 	}
 	
-	public void setLeft(int lonE7) {
+	private void setLeft(int lonE7) {
 		this.left = lonE7;
 	}
 	
@@ -808,7 +812,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 						// right
 						if (rb.right > b.right) {
 							temp.add(new BoundingBox(b.right, rb.bottom, rb.right, rb.top));
+							rb.setRight(b.right);
 						}
+						rb.calcDimensions();
+						rb.calcMercatorFactorPow3();
 					} catch (OsmException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

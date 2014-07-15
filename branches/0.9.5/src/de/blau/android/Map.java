@@ -20,6 +20,8 @@ import android.graphics.Region;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -144,6 +146,13 @@ public class Map extends View implements IMapView {
 	
 	private Paint textPaint = new Paint();
 	
+	// maximum number of nodes that can be on screen to allow edits
+	private long maxOnScreenNodes = 100; // arbitrary init value
+	// nodes that would fit in the not downloaded part of the screen
+	private long unusedNodeSpace = 0;
+	// current value
+	private long nodesOnScreenCount = 0;
+	
 	/**
 	 * support for display a crosshairs at a position
 	 */
@@ -265,8 +274,8 @@ public class Map extends View implements IMapView {
 		long time = System.currentTimeMillis();
 		
 		zoomLevel = calcZoomLevel(canvas);
-
-		tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
+		
+		// tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		tmpDrawingEditMode = Main.logic.getMode();
 		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
 		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
@@ -274,8 +283,6 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
 		tmpPresets = Main.getCurrentPresets();
-		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
-		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
 		handles = null;
 		
 		// Draw our Overlays.
@@ -495,20 +502,57 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the data shall be painted on.
 	 */
 	private void paintOsmData(final Canvas canvas) {
+		// first find all nodes that we need to display (for density calculations)
+		List<Node> nodes = delegator.getCurrentStorage().getNodes();
+		ArrayList<Node> paintNodes = new ArrayList<Node>(); 
+		BoundingBox viewBox = getViewBox();
+		nodesOnScreenCount = 0;
+		for (Node n:nodes) {
+			if (viewBox.isIn(n.getLat(), n.getLon())) {
+				paintNodes.add(n);
+				nodesOnScreenCount++;
+			}
+		}
+// TODO code is currently disabled because it is not quite satisfactory
+//		// calculate how much of the screen is actually not covered by downloads and can be ignored
+//		unusedNodeSpace = 0;
+//		ArrayList<BoundingBox> emptyBoxes;
+//		try {
+//			double mHeight = GeoMath.latE7ToMercatorE7(viewBox.getTop()) - viewBox.getBottomMercator();
+//			emptyBoxes = BoundingBox.newBoxes((ArrayList<BoundingBox>) delegator.getBoundingBoxes(), new BoundingBox(viewBox));
+//			for (BoundingBox b: emptyBoxes) {
+//				unusedNodeSpace = unusedNodeSpace + Math.round(maxOnScreenNodes*(b.getWidth()*(GeoMath.latE7ToMercatorE7(b.getTop()) - b.getBottomMercator())/(double)(viewBox.getWidth()*mHeight)));
+//			}
+//		} catch (OsmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+		// 
+		tmpDrawingInEditRange = Main.logic.isInEditZoomRange(); // do this after density calc
+		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();
 		for (int i = 0, size = ways.size(); i < size; ++i) {
 			paintWay(canvas, ways.get(i));
 		}
 		
-		//Paint all nodes
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
-		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			paintNode(canvas, nodes.get(i));
+		//Paint nodes
+		for (Node n:paintNodes) {
+			paintNode(canvas, n);
 		}
 		paintHandles(canvas);
 	}
 	
+	/**
+	 * 
+	 * @return true if too many nodes are on screen for editing
+	 */
+	public boolean tooManyNodes() {
+		return false;
+// TODO code is currently disabled because it is not quite satisfactory
+//		return nodesOnScreenCount>(maxOnScreenNodes-unusedNodeSpace);
+	}
+
 	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
 		
 		Canvas c = canvas;
@@ -527,13 +571,15 @@ public class Map extends View implements IMapView {
 		Path path = new Path();
 		RectF screen = new RectF(0, 0, getWidth(), getHeight());
 		for (BoundingBox bb:list) {
-			float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
-			float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
-			float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox , bb.getBottom());
-			float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
-			RectF rect = new RectF(left, top, right, bottom);
-			rect.intersect(screen);
-			path.addRect(rect, Path.Direction.CW);
+			if (viewBox.intersects(bb)) { // only need to do this if we are on screen
+				float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
+				float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
+				float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox , bb.getBottom());
+				float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
+				RectF rect = new RectF(left, top, right, bottom);
+				rect.intersect(screen);
+				path.addRect(rect, Path.Direction.CW);
+			}
 		}
 	
 		Paint boxpaint = Profile.getCurrent(Profile.VIEWBOX).getPaint();
@@ -559,7 +605,7 @@ public class Map extends View implements IMapView {
 		
 		//Paint only nodes inside the viewBox.
 		BoundingBox viewBox = getViewBox();
-		if (viewBox.isIn(lat, lon)) {
+//		if (viewBox.isIn(lat, lon)) {
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 
@@ -623,7 +669,7 @@ public class Map extends View implements IMapView {
 			}
 			
 			if (showIcons && tmpPresets != null && !featureKey.equals(Profile.SELECTED_NODE)) paintNodeIcon(node, canvas, x, y);
-		}
+//		}
 	}
 	
 	/**
@@ -955,6 +1001,16 @@ public class Map extends View implements IMapView {
 		}
 		showIcons = prefs.getShowIcons();
 		iconcache.clear();
+	}
+	
+	public void updateProfile () {
+		// changes when profile changes
+		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
+		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
+		//TODO really only needs to be recalculated on profile change 
+		DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
+		maxOnScreenNodes = (long) (metrics.widthPixels*metrics.heightPixels/ (nodeTolerancePaint.getStrokeWidth()*nodeTolerancePaint.getStrokeWidth())/3); // one third is based on testing
+		Log.d("Map","maxOnScreenNodes " + maxOnScreenNodes);
 	}
 	
 	void setOrientation(final float orientation) {

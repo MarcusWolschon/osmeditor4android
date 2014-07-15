@@ -285,6 +285,8 @@
   <string name="config_enableNameSuggestions_summary">Gợi ý giá trị cho thẻ tên gọi</string>
   <string name="config_enableAutoPreset_title">Tự động đặt trước các thẻ</string>
   <string name="config_enableAutoPreset_summary">Tự động đặt trước thẻ khi chọn gợi ý tên gọi</string>
+  <string name="config_splitActionBarEnabled_title">Chia đôi thanh tác vụ</string>
+  <string name="config_splitActionBarEnabled_summary">Thanh tác vụ chỉ có chia đôi được tùy thiết bị. Cần khởi động lại và phiên bản Android &gt;= 4.0.</string>
   <!--preset downloader messages-->
   <string name="preset_update">Cập nhật thẻ đặt trước</string>
   <string name="preset_download_successful">Thẻ đặt trước được tải về thành công</string>
