@@ -135,10 +135,10 @@ public class EasyEditManager {
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
 
-		if ((currentActionModeCallback instanceof PathCreationActionModeCallback) 
-			|| (currentActionModeCallback instanceof WaySelectionActionModeCallback)
-			|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
-			|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
+		if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) 
+//			|| (currentActionModeCallback instanceof WaySelectionActionModeCallback)
+//			|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
+//			|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
 		{
 			// we don't do long clicks in the above modes
 			Log.d("EasyEditManager", "handleLongClick ignoring long click");
@@ -469,7 +469,11 @@ public class EasyEditManager {
 					e1.printStackTrace();
 				}
 				addAddressTags = true;
-				currentActionMode.finish();
+				Node lastSelectedNode = logic.getSelectedNode();
+				if (lastSelectedNode != null) {
+					main.startActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
+					main.performTagEdit(lastSelectedNode, null, addAddressTags);
+				}
 				return true;
 			case MENUITEM_PASTE:
 				logic.pasteFromClipboard(startX, startY);
@@ -518,14 +522,8 @@ public class EasyEditManager {
 		 */
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
-			Node lastSelectedNode = logic.getSelectedNode();
 			logic.setSelectedNode(null);
 			super.onDestroyActionMode(mode);
-			// special casing for address tags requires code dup here
-			if (lastSelectedNode != null) {
-				//main.startActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
-				main.performTagEdit(lastSelectedNode, null, addAddressTags);
-			}
 		}
 	}
 	
