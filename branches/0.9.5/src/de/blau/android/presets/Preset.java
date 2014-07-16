@@ -14,6 +14,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -212,6 +213,8 @@ public class Preset {
         	private PresetItem currentItem = null;
         	/** true if we are currently processing the optional section of an item */
         	private boolean inOptionalSection = false;
+        	/** hold reference to chunks */
+        	private HashMap<String,PresetItem> chunks = new HashMap<String,PresetItem>();
 
         	{
         		groupstack.push(rootGroup);
@@ -230,6 +233,9 @@ public class Preset {
             		if (currentItem != null) throw new SAXException("Nested items are not allowed");
             		PresetGroup parent = groupstack.peek();
             		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), attr.getValue("type"));
+            	} else if ("chunk".equals(name)) {
+                	if (currentItem != null) throw new SAXException("Nested items are not allowed");
+                	currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), attr.getValue("type"));
             	} else if ("separator".equals(name)) {
             		new PresetSeparator(groupstack.peek());
             	} else if ("optional".equals(name)) {
@@ -251,6 +257,14 @@ public class Preset {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO full multiselect parsing/support?
             	} else if ("role".equals(name)) {
             		currentItem.addRole(attr.getValue("key")); 
+            	} else if ("reference".equals(name)) {
+            		PresetItem chunk = chunks.get(attr.getValue("ref"));
+            		Log.d("Preset","Preset before chunk: " + currentItem.toString());
+            		if (chunk != null) {
+            			currentItem.tags.putAll(chunk.getTags());
+            			currentItem.optionalTags.putAll(chunk.getOptionalTags());
+            			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
+            		}
             	}
             }
             
@@ -263,6 +277,9 @@ public class Preset {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
                     // Log.d("Preset","PresetItem: " + currentItem.toString());
+            		currentItem = null;
+            	} else if ("chunk".equals(name)) {
+                    chunks.put(currentItem.getName(),currentItem);
             		currentItem = null;
             	}
             }
