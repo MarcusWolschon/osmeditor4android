@@ -104,6 +104,8 @@
     <string name="set">Set</string>
     <string name="replace">Replace</string>
     <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="foward">Forward</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -119,6 +121,7 @@
     <string name="tag_menu_mapfeatures">Map Features Wiki</string>
     <string name="tag_menu_addtorelation">Add to relation</string>
     <string name="tag_menu_resetMRU">Reset Presets</string>
+    <string name="tag_menu_reset_address_prediction">Reset address prediction</string>
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>

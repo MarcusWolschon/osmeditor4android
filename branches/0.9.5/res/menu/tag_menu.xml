@@ -41,6 +41,11 @@
         android:title="@string/tag_menu_addtorelation"
         android:showAsAction="never"
     />
+     <item
+        android:id="@+id/tag_menu_reset_address_prediction"
+        android:title="@string/tag_menu_reset_address_prediction"
+        android:showAsAction="never"
+    />
     <item
         android:id="@+id/tag_menu_resetMRU"
         android:title="@string/tag_menu_resetMRU"

@@ -258,8 +258,7 @@ public class Preset {
             	} else if ("role".equals(name)) {
             		currentItem.addRole(attr.getValue("key")); 
             	} else if ("reference".equals(name)) {
-            		PresetItem chunk = chunks.get(attr.getValue("ref"));
-            		Log.d("Preset","Preset before chunk: " + currentItem.toString());
+            		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
             		if (chunk != null) {
             			currentItem.tags.putAll(chunk.getTags());
             			currentItem.optionalTags.putAll(chunk.getOptionalTags());
