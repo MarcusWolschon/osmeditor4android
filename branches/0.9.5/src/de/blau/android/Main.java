@@ -711,9 +711,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			return true;
 			
 		case R.id.menu_help:
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://wiki.openstreetmap.org/wiki/Vespucci/Help"));
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
+			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
+			startHelpViewer.putExtra(HelpViewer.TOPIC, "intro");
+			startActivity(startHelpViewer);
 			return true;
 
 		case R.id.menu_gps_show:

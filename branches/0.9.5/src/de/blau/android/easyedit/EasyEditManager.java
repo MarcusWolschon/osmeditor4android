@@ -35,6 +35,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
+import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -64,6 +65,11 @@ public class EasyEditManager {
 	
 	private int iconsDisplayed = 0;
 	private int maxIcons = 0;
+	
+	private final static int GROUP_MODE = 0;
+	private final static int GROUP_BASE = 1;
+	
+	private static final int MENUITEM_HELP = 0;
 	
 	public EasyEditManager(Main main, Logic logic) {
 		this.main = main;
@@ -357,6 +363,12 @@ public class EasyEditManager {
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			Log.e("EasyEditActionModeCallback", "onActionItemClicked");
+			if (item.getItemId() == MENUITEM_HELP) {
+				Intent startHelpViewer = new Intent(main.getApplicationContext(), HelpViewer.class);
+				startHelpViewer.putExtra(HelpViewer.TOPIC, currentActionMode.getTitle().toString() 
+						+ (currentActionMode.getSubtitle() != null && !currentActionMode.getSubtitle().equals("") ? " - " + currentActionMode.getSubtitle().toString() : ""));
+				main.startActivity(startHelpViewer);
+			}
 			return false;
 		}
 		
@@ -422,6 +434,7 @@ public class EasyEditManager {
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(R.drawable.menu_gps);
 			}
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help);
 			return true;
 		}
 		
@@ -639,6 +652,7 @@ public class EasyEditManager {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(R.drawable.undo);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help);
 			return true;
 		}
 		
@@ -737,14 +751,14 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SYSTEM, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
-				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SYSTEM, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
+			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
 			if (element.getOsmId() > 0) {
-				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.CATEGORY_SECONDARY, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
+				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
 			}
-			
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help);
 			return true;
 		}
 		
@@ -829,7 +843,6 @@ public class EasyEditManager {
 				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
 			}
 			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.NONE, R.string.menu_set_position).setIcon(R.drawable.menu_gps).setShowAsAction(showAlways());
-
 			return true;
 		}
 		

@@ -104,6 +104,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
+		<activity android:name="HelpViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
 		<activity
 			android:name="org.acra.CrashReportDialog"
 			android:theme="@android:style/Theme.Dialog"
