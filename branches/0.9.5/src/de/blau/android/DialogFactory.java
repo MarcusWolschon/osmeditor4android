@@ -75,6 +75,8 @@ public class DialogFactory {
 	public static final int SAVE_FILE = 19;
 
 	public static final int FILE_WRITE_FAILED = 20;
+
+	public static final int NEWBIE = 21;
 		
 	private final Main caller;
 	
@@ -103,6 +105,8 @@ public class DialogFactory {
 	private final Builder invalidDataReceived;
 	
 	private final Builder fileWriteFailed;
+	
+	private final Builder newbie;
 			
 	/**
 	 * @param caller
@@ -172,6 +176,17 @@ public class DialogFactory {
 		
 		fileWriteFailed = createBasicDialog(R.string.file_write_failed_title, R.string.file_write_failed_message);
 		fileWriteFailed.setPositiveButton(R.string.okay, doNothingListener);
+		
+		newbie = createBasicDialog(R.string.welcome_title, R.string.welcome_message);
+		newbie.setPositiveButton(R.string.okay, doNothingListener);
+		newbie.setNeutralButton(R.string.read_introduction, 	new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
+						startHelpViewer.putExtra(HelpViewer.TOPIC, caller.getString(R.string.introduction));
+						caller.startActivity(startHelpViewer);
+					}
+				});
 	}
 	
 	/**
@@ -237,6 +252,12 @@ public class DialogFactory {
 			
 		case SAVE_FILE:
 			return createSaveFileDialog(caller);
+			
+		case FILE_WRITE_FAILED:
+			return fileWriteFailed.create();
+			
+		case NEWBIE:
+			return newbie.create();
 		}
 		
 		return null;

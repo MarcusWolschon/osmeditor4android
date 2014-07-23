@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.acra.ACRA;
@@ -133,6 +134,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Requests a file as an activity-result.
 	 */
 	public static final int WRITE_OSM_FILE_SELECT_CODE = 3;
+	
+	/**
+	 * Where we install the current version of vespucci
+	 */
+	private static final String VERSION_FILE = "version.dat"; 
 
 	private DialogFactory dialogFactory;
 	
@@ -357,6 +363,19 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		easyEditManager = new EasyEditManager(this, logic);
+		
+		// check if first time user and display something if yes
+		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
+		String lastVersion = savingHelperVersion.load(VERSION_FILE, false);
+		if (lastVersion == null || lastVersion.equals("")) {
+			// newbie, display welcome dialog
+			Log.d("Main","showing welcome dialog");
+			showDialog(DialogFactory.NEWBIE);
+		} else {
+			// for now simply current version
+			// TODO display change log or similar on major changes
+		}
+		savingHelperVersion.save(VERSION_FILE, getString(R.string.app_version), false);
 	}
 	
 	/**
@@ -712,7 +731,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		case R.id.menu_help:
 			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, "intro");
+			startHelpViewer.putExtra(HelpViewer.TOPIC, getString(R.string.introduction));
 			startActivity(startHelpViewer);
 			return true;
 

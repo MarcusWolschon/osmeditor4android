@@ -23,6 +23,9 @@
     <string name="invalid_data_received_message">Vespucci received invalid data from the server. If you believe that what you were trying to do is correct, please file a bug report.</string>
     <string name="file_write_failed_title">File write failed</string>
     <string name="file_write_failed_message">Could not write to selected file.</string>
+    <string name="welcome_title">Welcome!</string>
+    <string name="welcome_message">Thank you for using Vespucci.\n\nTo get started you need to know two things:\n\n* tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode\n\n* to add a new object: long press, tapping in the same place will add a node, tapping further away will start a way.\n\nHave fun!</string>
+    <string name="read_introduction">Read the introduction now</string>
     <string name="progress_title">Loading</string>
     <string name="progress_message">Loading data into memory…</string>
     <string name="progress_download_message">Downloading data from server…</string>
@@ -380,4 +383,6 @@
     <string name="seconds">seconds</string>
     <string name="km">km</string>
     <string name="meter">meter</string>
+    <!-- Help system  -->
+    <string name="introduction">Introduction</string>
 </resources>
