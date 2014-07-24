@@ -58,12 +58,14 @@ public class HelpViewer extends SherlockActivity {
 		setContentView(helpView);
 		
 		String helpFile = "help/" + Locale.getDefault() + "/"  + topic + ".html";
+		Log.d("HelpViwer","1 Looking for help file: " + helpFile);
 		try {
-			if (!Arrays.asList(getResources().getAssets().list("")).contains("helpFile")) {
+			if (!Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault())).contains(topic + ".html")) {
 				helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topic + ".html";
-				if (!Arrays.asList(getResources().getAssets().list("")).contains("helpFile")) {
+				Log.d("HelpViwer","2 Looking for help file: " + helpFile);
+				if (!Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage())).contains(topic + ".html")) {
 					helpFile = "help/en/"  + topic + ".html";
-					if (!Arrays.asList(getResources().getAssets().list("")).contains("helpFile")) {
+					if (!Arrays.asList(getResources().getAssets().list("help/en")).contains(topic + ".html")) {
 						helpFile = "help/en/no_help.html";
 					}
 				} 
