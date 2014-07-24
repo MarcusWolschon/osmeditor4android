@@ -434,7 +434,7 @@ public class EasyEditManager {
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(R.drawable.menu_gps);
 			}
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
 			return true;
 		}
 		
@@ -652,7 +652,7 @@ public class EasyEditManager {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(R.drawable.undo);
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
 			return true;
 		}
 		
@@ -758,7 +758,7 @@ public class EasyEditManager {
 			if (element.getOsmId() > 0) {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
 			}
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
 			return true;
 		}
 		
@@ -842,7 +842,7 @@ public class EasyEditManager {
 			if (logic.getWaysForNode((Node)element).size() > 1) {
 				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.NONE, R.string.menu_set_position).setIcon(R.drawable.menu_gps).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position).setIcon(R.drawable.menu_gps).setShowAsAction(showAlways());
 			return true;
 		}
 		

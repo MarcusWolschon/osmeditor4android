@@ -51,4 +51,9 @@
         android:title="@string/tag_menu_resetMRU"
         android:showAsAction="never"
     />
+        <item
+        android:id="@+id/tag_menu_help"
+        android:title="@string/menu_help"
+        android:showAsAction="never"
+    />
 </menu>

@@ -605,7 +605,7 @@ public class Map extends View implements IMapView {
 		
 		//Paint only nodes inside the viewBox.
 		BoundingBox viewBox = getViewBox();
-//		if (viewBox.isIn(lat, lon)) {
+//		if (viewBox.isIn(lat, lon)) { // we are only passed nodes that are in the viewBox
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 

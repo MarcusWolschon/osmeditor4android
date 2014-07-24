@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MyProject" default="dist" basedir=".">
+	<description>
+		simple example build file
+	</description>
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+	
+	<property name="wikitext.standalone" value=""/><!-- path to wikitext standalone package -->
+
+	<path id="wikitext.classpath">
+		<fileset dir="${wikitext.standalone}">
+			<include name="org.eclipse.mylyn.wikitext.*core*.jar"/>
+		</fileset>
+	</path>
+
+	<taskdef classpathref="wikitext.classpath" resource="org/eclipse/mylyn/wikitext/core/util/anttask/tasks.properties" />
+	
+	<target name="generate-html" depends="init"
+		description="Generate HTML from markdown source">
+		<wikitext-to-html markupLanguage="Markdown">
+			<fileset dir="${basedir}">
+				<include name="markdown/en/*.md" />
+			</fileset>
+		</wikitext-to-html>
+	</target>
+</project>

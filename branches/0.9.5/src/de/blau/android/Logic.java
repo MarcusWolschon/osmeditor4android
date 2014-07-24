@@ -884,6 +884,15 @@ public class Logic {
 	}
 	
 	/**
+	 * Check if node is in  downloaded data
+	 * @param node
+	 * @return true if the above is the case
+	 */
+	public boolean isInDownload(Node n) {
+		return delegator.isInDownload(n.getLat(), n.getLon());
+	}
+	
+	/**
 	 * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
 	 * user is in edit-mode a touched node will bet set to selected. draggingNode will be set if a node is to be moved.
 	 * A eventual movement of this node will be done in {@link #handleTouchEventMove(float, float, float, float, boolean)}.
@@ -1134,6 +1143,11 @@ public class Logic {
 				int lon = xToLonE7(x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(lSelectedNode);
+				if (!delegator.isInDownload(lat, lon)) {
+					// warning toast
+					Log.d("Logic","Outside of download");
+					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				}
 			}
 		} else {
 			//this is not the first node
@@ -1149,6 +1163,11 @@ public class Logic {
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
 				delegator.insertElementSafe(lSelectedNode);
+				if (!delegator.isInDownload(lat, lon)) {
+					// warning toast
+					Log.d("Logic","Outside of download");
+					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				}
 			} else {
 				//User clicks an existing Node
 				if (nextNode == lSelectedNode) {
@@ -1204,6 +1223,10 @@ public class Logic {
 			createCheckpoint(R.string.undo_action_deletenode);
 			delegator.removeNode(node);
 			map.invalidate();
+			if (!isInDownload(node)) {
+				// warning toast
+				Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 	
@@ -1492,6 +1515,10 @@ public class Logic {
 				int lon = xToLonE7(x);
 				node = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(node);
+				if (!delegator.isInDownload(lat, lon)) {
+					// warning toast
+					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				}
 			}
 			try {
 				delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);

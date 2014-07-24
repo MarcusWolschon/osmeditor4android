@@ -839,9 +839,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			startActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
 			
-//		case R.id.menu_tools_background_properties:
-//			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
-//			return true;
+		case R.id.menu_tools_background_properties:
+			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
+			return true;
 			
 		}
 		

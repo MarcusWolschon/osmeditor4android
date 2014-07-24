@@ -923,6 +923,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			savingHelperAddress.save(ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
 			lastAddresses = null;
 			return true;
+		case R.id.tag_menu_help:
+			Intent startHelpViewer = new Intent(this, HelpViewer.class);
+			startHelpViewer.putExtra(HelpViewer.TOPIC, "TagEditor");
+			startActivity(startHelpViewer);
+			return true;
 		}
 		
 		return false;

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -149,8 +151,17 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		return mTileProvider;
 	}
 	
-	public void setAlpha(int a) {
-		mPaint.setAlpha(a);
+	public void setContrast(float a) {
+		// mPaint.setAlpha(a);
+		float scale = a + 1.f;
+        float translate = (-.5f * scale + .5f) * 255.f;
+        ColorMatrix cm = new ColorMatrix();
+        cm.set(new float[] {
+            scale, 0, 0, 0, translate,
+            0, scale, 0, 0, translate,
+            0, 0, scale, 0, translate,
+            0, 0, 0, 1, 0 });
+        mPaint.setColorFilter(new ColorMatrixColorFilter(cm));
 	}
 
 	/**

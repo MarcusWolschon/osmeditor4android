@@ -168,7 +168,7 @@ public class DialogFactory {
 		layout = inflater.inflate(R.layout.background_properties, null);
 		backgroundProperties.setView(layout);
 		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
-		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_opacity_seeker);
+		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 				
 		invalidDataReceived = createBasicDialog(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
@@ -320,7 +320,7 @@ public class DialogFactory {
 			@Override
 			public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
 				Map map = Application.mainActivity.getMap();
-				map.getOpenStreetMapTilesOverlay().setAlpha(progress);
+				map.getOpenStreetMapTilesOverlay().setContrast(progress/127.5f - 1f); // range from -1 to +1
 				map.invalidate();
 			}
 			
