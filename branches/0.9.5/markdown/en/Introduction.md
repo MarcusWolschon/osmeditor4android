@@ -12,25 +12,21 @@ Depending on screen size and age of your device editing actions may either be ac
 
 ### Downloading OSM Data
 
-Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfer" menu item. This will display four options:
+Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
- * Download current view
- * Add current view to download
- * Download other location
- * Upload data to OSM server
- * Export changes
- * Read from file
- * Save to file
+ * **Download current view** - download the area visible on the screen and replace any existing data (requires network connectivity)
+ * **Add current view to download** - download the area visible on the screen and merge it with existing data (requires network connectivity)
+ * **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location requires network connectivity
+ * **Upload data to OSM server** - upload edits to OpenStreetMap (requires authentication) (requires network connectivity)
+ * **Export changes** - write a ".osc" format file containing the current edits, this acan be read for example by JOSM
+ * **Read from file** - read a a JOSM compatible XML format file
+ * **Save to file** - save as a JOSM compatible XML format file
 
-"Download current view" will do what it says, "Download other location" will allow you to use GPS, manually entered coordinates or such obtained from Nominatim by an online search to select the area to be downloaded.
-
-Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
-
-Zoom in using gestures, the zoom buttons or the volume control buttons on the telephone. 
+The easiest open is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
 
 ### Editing
 
-To avoid accidental edits Vespucci will start up in "locked" mode, a mode that only allows zooming and moving the map.
+To avoid accidental edits Vespucci will start up in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![](../images/locked.png) icon to unlock the screen.
  
 With the default settings nodes and ways that are selectable will have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple object it will present a selection menu. Selected objects are highlighted in yellow.
 
@@ -101,5 +97,4 @@ moving the screen manually or editing will cause the follow mode to be disabled 
  * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
  * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
-[More Information](topics.html)
 

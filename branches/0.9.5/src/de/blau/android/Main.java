@@ -731,7 +731,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		case R.id.menu_help:
 			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, getString(R.string.introduction));
+			startHelpViewer.putExtra(HelpViewer.TOPIC, "Main");
 			startActivity(startHelpViewer);
 			return true;
 

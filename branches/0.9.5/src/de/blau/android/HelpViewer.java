@@ -3,6 +3,7 @@ package de.blau.android;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -12,10 +13,17 @@ import android.net.Uri;
 import android.os.Bundle;
 
 
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -34,32 +42,72 @@ public class HelpViewer extends SherlockActivity {
 	
 	public static final String TOPIC = "topic";
 	WebView helpView;
+	
+	// drawer that will be our ToC
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
+	ArrayAdapter<String> tocAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		String topic = (String)getIntent().getSerializableExtra(TOPIC);
-		setTheme(R.style.Theme_customMain);
+		setTheme(R.style.Theme_customHelpViewer);
 		ActionBar actionbar = getSupportActionBar();
-		if (actionbar != null) {
-			ColorDrawable c = new ColorDrawable(Application.mainActivity.getResources().getColor(R.color.actionbar_bg));
-			actionbar.setBackgroundDrawable(c);
-			actionbar.setSplitBackgroundDrawable(c);
-			actionbar.setStackedBackgroundDrawable(c); // this probably isn't ever necessary
-			actionbar.setDisplayShowHomeEnabled(true);
-			actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);
-			actionbar.setDisplayShowTitleEnabled(true);
-			actionbar.show();
-
-		} else {
-			Log.d("HelpViewer", "No actionbar");
+		if (actionbar == null) {
+			Log.d("HelpViewer", "No actionbar"); // fail?
 		}
-		helpView = new WebView(this);
-		setContentView(helpView);
+		ColorDrawable c = new ColorDrawable(Application.mainActivity.getResources().getColor(R.color.actionbar_bg));
+		actionbar.setBackgroundDrawable(c);
+		actionbar.setSplitBackgroundDrawable(c);
+		actionbar.setStackedBackgroundDrawable(c); // this probably isn't ever necessary
+		actionbar.setDisplayShowHomeEnabled(true);
+		actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);
+		actionbar.setDisplayShowTitleEnabled(true);
+		actionbar.show();
+
+		setContentView(R.layout.help_drawer);
 		
-		String helpFile = "help/" + Locale.getDefault() + "/"  + topic + ".html";
-		Log.d("HelpViwer","1 Looking for help file: " + helpFile);
+		// add our real content
+		FrameLayout fl =  (FrameLayout) findViewById(R.id.content_frame);
+		helpView = new WebView(this);
+		fl.addView(helpView);
+		
+		// set up the drawer
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.help_drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.help_left_drawer);
+		
+		actionbar.setHomeButtonEnabled(true);
+		actionbar.setDisplayHomeAsUpEnabled(true);
+		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.okay, R.string.okay);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		
 		try {
+			ArrayList<String> tocList = new ArrayList<String>();
+			String[] languages = {Locale.getDefault().toString(),Locale.getDefault().getLanguage(),"en"};
+			for (String l:languages) { 		
+				for (String s:getResources().getAssets().list("help/"+l)) {
+					if (s.equals("") || !Character.isUpperCase(s.charAt(0))) {
+						continue;
+					}
+					String n = s.replace(".html", "");
+					if (!tocList.contains(n)) {
+						tocList.add(n);
+					}
+				}	
+			}
+			
+			String[] toc = new String[tocList.size()];
+			tocList.toArray(toc);
+			
+			tocAdapter = new ArrayAdapter<String>(this, R.layout.help_drawer_item,R.id.help_drawer_item, toc);
+			
+			mDrawerList.setAdapter(tocAdapter);
+			mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+			
+			String helpFile = "help/" + Locale.getDefault() + "/"  + topic + ".html";
+			Log.d("HelpViwer","1 Looking for help file: " + helpFile);
 			if (!Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault())).contains(topic + ".html")) {
 				helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topic + ".html";
 				Log.d("HelpViwer","2 Looking for help file: " + helpFile);
@@ -104,9 +152,25 @@ public class HelpViewer extends SherlockActivity {
 				helpView.goForward();
 			}
 			return true;
+		case android.R.id.home:
+			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+				mDrawerLayout.closeDrawer(mDrawerList);
+			} else {
+				mDrawerLayout.openDrawer(mDrawerList);
+			}
+			return true;
 		}
 		return false;
 	}
 	
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			
+			helpView.loadUrl("file:///android_asset/help/en/" + tocAdapter.getItem(position) +".html");
+			mDrawerLayout.closeDrawer(mDrawerList);
+			mDrawerList.setSelected(false);
+		}
 
+	}
 }
