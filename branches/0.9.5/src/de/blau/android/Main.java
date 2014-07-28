@@ -87,7 +87,9 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.photos.Photo;
@@ -134,6 +136,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Requests a file as an activity-result.
 	 */
 	public static final int WRITE_OSM_FILE_SELECT_CODE = 3;
+	
+	/**
+	 * Requests a file as an activity-result.
+	 */
+	public static final int READ_GPX_FILE_SELECT_CODE = 4;
 	
 	/**
 	 * Where we install the current version of vespucci
@@ -418,11 +425,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		undoListener = new UndoListener();
 
 		showActionBar();
-	
-		logic.setSelectedBug(null);
-		logic.setSelectedNode(null);
-		logic.setSelectedWay(null);
-		logic.setSelectedRelation(null);
+
+// de-selecting causes issues when only onStart is called and the editins state is nor reloaded	
+//		logic.setSelectedBug(null);
+//		logic.setSelectedNode(null);
+//		logic.setSelectedWay(null);
+//		logic.setSelectedRelation(null);
 	}
 	
 	@Override
@@ -467,7 +475,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (modeDropdown != null)
 			modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
 		
-		if (tracker != null) tracker.setListener(this);
+		if (getTracker() != null) getTracker().setListener(this);
 		
 		setShowGPS(showGPS); // reactive GPS listener if needed
 		setFollowGPS(followGPS);
@@ -512,7 +520,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.d("Main", "onPause mode " + logic.getMode());
 		runningInstance = null;
 		disableLocationUpdates();
-		if (tracker != null) tracker.setListener(null);
+		if (getTracker() != null) getTracker().setListener(null);
 
 		// always save editing state
 		logic.saveEditingState();
@@ -538,7 +546,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	protected void onDestroy() {
 		Log.d("Main", "onDestroy");
 		map.onDestroy();
-		if (tracker != null) tracker.setListener(null);
+		if (getTracker() != null) getTracker().setListener(null);
 		try {
 			unbindService(this);
 		} catch (Exception e) {} // ignore errors, this is just cleanup
@@ -700,8 +708,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
-		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
-		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
+		menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking());
+		menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking());
+		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
+		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
+		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
@@ -747,32 +758,67 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			setFollowGPS(true);
 			map.setFollowGPS(true);
 			logic.setZoom(19);
+			map.invalidate();
 			return true;
 
 		case R.id.menu_gps_start:
-			if (tracker != null && ensureGPSProviderEnabled()) {
-				tracker.startTracking();
+			if (getTracker() != null && ensureGPSProviderEnabled()) {
+				getTracker().startTracking();
 				setFollowGPS(true);
 				triggerMenuInvalidation();
 			}
 			return true;
 
 		case R.id.menu_gps_pause:
-			if (tracker != null && ensureGPSProviderEnabled()) {
-				tracker.stopTracking(false);
+			if (getTracker() != null && ensureGPSProviderEnabled()) {
+				getTracker().stopTracking(false);
 				triggerMenuInvalidation();
 			}
 			return true;
 
 		case R.id.menu_gps_clear:
-			if (tracker != null) tracker.stopTracking(true);
+			if (getTracker() != null) getTracker().stopTracking(true);
 			triggerMenuInvalidation();
 			map.invalidate();
 			return true;
 			
+		case R.id.menu_gps_upload:
+			final Server server = prefs.getServer();
+			if (server != null && server.isLoginSet()) {
+				if (server.needOAuthHandshake()) {
+					oAuthHandshake(server);
+					if (server.getOAuth()) { // if still set
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth_retry, Toast.LENGTH_LONG).show();
+						return true;
+					} 
+				}	
+				showDialog(DialogFactory.GPX_UPLOAD);
+				// performTrackUpload("Test","Test",Visibility.PUBLIC);
+			} else {
+				showDialog(DialogFactory.NO_LOGIN_DATA);
+			}
+			return true;
+			
 		case R.id.menu_gps_export:
-			if (tracker != null) {
-				SavingHelper.asyncExport(this, tracker);
+			if (getTracker() != null) {
+				SavingHelper.asyncExport(this, getTracker());
+			}
+			return true;
+			
+		case R.id.menu_gps_import:
+			if (logic == null || logic.delegator == null) return true;
+			showFileChooser(READ_GPX_FILE_SELECT_CODE);
+			return true;
+			
+		case R.id.menu_gps_goto_start:
+			List<TrackPoint> l = tracker.getTrackPoints();
+			if (l != null && l.size() > 0) {
+				Log.d("Main","Going to start of track");
+				setFollowGPS(false);
+				map.setFollowGPS(false);
+				map.getViewBox().moveTo(l.get(0).getLon(), l.get(0).getLat());
+				logic.setZoom(19);
+				map.invalidate();
 			}
 			return true;
 
@@ -806,17 +852,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		case R.id.menu_transfer_read_file:
 			if (logic == null || logic.delegator == null) return true;
 			showFileChooser(READ_OSM_FILE_SELECT_CODE);
-			// logic.readOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/test.xml", false);
 			return true;
 			
 		case R.id.menu_transfer_save_file:
 			if (logic == null || logic.delegator == null) return true;
 			showDialog(DialogFactory.SAVE_FILE);
 //			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
-//			File sdcard = Environment.getExternalStorageDirectory();
-//			File outdir = new File(sdcard, "Vespucci");
-//			outdir.mkdir(); // ensure directory exists;
-//			logic.writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/test_write.xml");
 			return true;
 
 		case R.id.menu_undo:
@@ -854,9 +895,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	    intent.addCategory(Intent.CATEGORY_OPENABLE);
 
 	    try {
-	        startActivityForResult(
-	                Intent.createChooser(intent, purpose == WRITE_OSM_FILE_SELECT_CODE ? getString(R.string.save_file) : getString(R.string.read_file)),
-	                purpose);
+//	        startActivityForResult(
+//	                Intent.createChooser(intent, purpose == WRITE_OSM_FILE_SELECT_CODE ? getString(R.string.save_file) : getString(R.string.read_file)),
+//	                purpose);
+	    	startActivityForResult(intent,purpose);
 	    } catch (android.content.ActivityNotFoundException ex) {
 	        // Potentially direct the user to the Market with a Dialog
 	        Toast.makeText(this, R.string.toast_missing_filemanager, 
@@ -938,14 +980,14 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
 		}
 		wantLocationUpdates = true;
-		if (tracker != null) tracker.setListenerNeedsGPS(true);
+		if (getTracker() != null) getTracker().setListenerNeedsGPS(true);
 	}
 	
 	private void disableLocationUpdates() {
 		if (wantLocationUpdates == false) return;
 		if (sensorManager != null) sensorManager.unregisterListener(sensorListener);
 		wantLocationUpdates  = false;
-		if (tracker != null) tracker.setListenerNeedsGPS(false);
+		if (getTracker() != null) getTracker().setListenerNeedsGPS(false);
 	}
 
 	/**
@@ -1048,13 +1090,42 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			// Get the Uri of the selected file 
 	        Uri uri = data.getData();
 	        Log.d("Main", "Read file Uri: " + uri.toString());
-	        logic.readOsmFile(uri.getPath(), false);
+	        try {
+				logic.readOsmFile(uri, false);
+			} catch (FileNotFoundException e) {
+				try {
+					Toast.makeText(this,getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+				} catch (Exception ex) {
+					// protect against translation errors
+				}
+			}
 	        map.invalidate();
 		} else if (requestCode == WRITE_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
 			// Get the Uri of the selected file 
 	        Uri uri = data.getData();
 	        Log.d("Main", "Write file Uri: " + uri.toString());
 	        logic.writeOsmFile(uri.getPath());
+	        map.invalidate();
+		} else if (requestCode == READ_GPX_FILE_SELECT_CODE && resultCode == RESULT_OK) {
+			// Get the Uri of the selected file 
+	        Uri uri = data.getData();
+	        Log.d("Main", "Read gpx file Uri: " + uri.toString());
+	        if (getTracker() != null) {
+	        	if (getTracker().getTrackPoints().size() > 0 ) {
+	        		DialogFactory.createExistingTrackDialog(this, uri).show();
+	        	} else {
+	        		getTracker().stopTracking(false);
+	        		try {
+						getTracker().importGPXFile(uri);
+					} catch (FileNotFoundException e) {
+						try {
+							Toast.makeText(this,getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+						} catch (Exception ex) {
+							// protect against translation errors
+						}
+					}
+	        	}
+	        }
 	        map.invalidate();
 		}
 	}
@@ -1142,7 +1213,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	/**
-	 * @param closeChangeset TODO
+	 * @param closeChangeset 
 	 * 
 	 */
 	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
@@ -1207,6 +1278,23 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		}.execute();
 	}
+	
+	/**
+	 * @param closeChangeset TODO
+	 * 
+	 */
+	public void performTrackUpload(final String description, final String tags, final Visibility visibility) {
+		
+		final Server server = prefs.getServer();
+
+		if (server != null && server.isLoginSet()) {
+			logic.uploadTrack(getTracker().getTrack(), description, tags, visibility);
+			logic.checkForMail();
+		} else {
+			showDialog(DialogFactory.NO_LOGIN_DATA);
+		}
+	}
+	
 
 	/**
 	 * 
@@ -1219,7 +1307,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server);
 					if (server.getOAuth()) // if still set
-						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth_retry, Toast.LENGTH_LONG).show();
 					return;
 				} 
 				showDialog(DialogFactory.CONFIRM_UPLOAD);
@@ -2079,10 +2167,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	@Override
 	public void onServiceConnected(ComponentName name, IBinder service) {
 		Log.i("Main", "Tracker service connected");
-		tracker = (((TrackerBinder)service).getService());
-		map.setTracker(tracker);
-		tracker.setListener(this);
-		tracker.setListenerNeedsGPS(wantLocationUpdates);
+		setTracker((((TrackerBinder)service).getService()));
+		map.setTracker(getTracker());
+		getTracker().setListener(this);
+		getTracker().setListenerNeedsGPS(wantLocationUpdates);
 		triggerMenuInvalidation();
 	}
 
@@ -2090,7 +2178,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	public void onServiceDisconnected(ComponentName name) {
 		// should never happen, but just to be sure
 		Log.i("Main", "Tracker service disconnected");
-		tracker = null;
+		setTracker(null);
 		map.setTracker(null);
 		triggerMenuInvalidation();
 	}
@@ -2243,7 +2331,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	public static void triggerMenuInvalidationStatic() {
 		if (Application.mainActivity == null) return;
-		// DO NOT IGONORE "wrong thread" EXCEPTIONS FROM THIS.
+		// DO NOT IGNORE "wrong thread" EXCEPTIONS FROM THIS.
 		// It *will* mess up your menu in many creative ways.
 		Application.mainActivity.triggerMenuInvalidation();
 	}
@@ -2253,5 +2341,19 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	public BackgroundAlignmentActionModeCallback getBackgroundAlignmentActionModeCallback() {
 		return backgroundAlignmentActionModeCallback;
+	}
+
+	/**
+	 * @return the tracker
+	 */
+	public TrackerService getTracker() {
+		return tracker;
+	}
+
+	/**
+	 * @param tracker the tracker to set
+	 */
+	public void setTracker(TrackerService tracker) {
+		this.tracker = tracker;
 	}
 }

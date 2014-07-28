@@ -36,6 +36,9 @@
     <string name="upload_comment_label">Comment:</string>
     <string name="upload_source_label">Source:</string>
     <string name="upload_close_changeset_label">Close changeset:</string>
+    <string name="upload_gpx_description_label">Description</string>
+    <string name="upload_gpx_tags_label">Tags</string>
+    <string name="upload_gpx_visibility_label">Visibility</string>
     <string name="openstreetbug_new_title">New Note</string>
     <string name="openstreetbug_new_bug">Report Issue</string>
     <string name="openstreetbug_new_nodeway">Create Node/Way</string>
@@ -64,6 +67,8 @@
     <string name="find_message">Enter search string</string>
     <string name="read_file">Select file to read</string>
     <string name="save_file">Enter file to save to</string>
+    <string name="existing_track_title">Existing track data</string>
+    <string name="existing_track_message">You already have existing track data. You may want to cancel and save first.</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -89,7 +94,8 @@
     <string name="toast_download_failed">Download failed with error code %1$d, message %2$s</string>
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road has no name or ref</string>
-    <string name="toast_oauth">Please allow OAuth access to your OSM account and then retry the upload.</string>
+    <string name="toast_oauth_retry">Please allow OAuth access to your OSM account and then retry the upload.</string>
+    <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
     <string name="toast_timeout">Timeout with server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
@@ -97,6 +103,8 @@
     <string name="toast_statesave_failed">Saving the current state failed!\nThis a fatal error, trying to write an export file for later recovery with JOSM.</string>
     <string name="toast_missing_filemanager">Please install a File Manager.</string>
     <string name="toast_outside_of_download">You are editing outside of the downloaded data.</string>
+    <string name="toast_file_not_found">%1$s not found.</string>
+    <string name="toast_imported_track_points">Imported %1$s track points.</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -110,6 +118,7 @@
     <string name="save">Save</string>
     <string name="back">Back</string>
     <string name="foward">Forward</string>
+    <string name="keep">Keep</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -177,6 +186,8 @@
     <string name="menu_gps_clear">Clear GPS track</string>
     <string name="menu_gps_upload">Upload GPS track</string>
     <string name="menu_gps_export">Export GPS track</string>
+    <string name="menu_gps_import">Import GPS track</string>
+    <string name="menu_gps_goto_start">Goto start of track</string>
     <string name="menu_gps_autodownload">Auto download</string>
     <string name="menu_transfer">Transfer…</string>
     <string name="menu_transfer_download_current">Download current view</string>
@@ -386,4 +397,11 @@
     <string name="meter">meter</string>
     <!-- Help system  -->
     <string name="introduction">Introduction</string>
+    <!-- Arrays -->
+    <string-array name="gpx_visibility">
+	<item>private</item>
+	<item>public</item>
+	<item>trackable</item>
+	<item>identifiable</item>
+	</string-array>
 </resources>

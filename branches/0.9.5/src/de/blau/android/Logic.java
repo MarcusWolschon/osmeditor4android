@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +31,10 @@ import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -51,12 +54,15 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
+import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
+import de.blau.android.services.TrackerService;
 import de.blau.android.util.EditState;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
@@ -1805,9 +1811,19 @@ public class Logic {
 	 * Read a file in (J)OSM format from device
 	 * @param fileName
 	 * @param add unused currently
+	 * @throws FileNotFoundException 
 	 */
-	void readOsmFile(final String fileName, boolean add) {
+	void readOsmFile(final Uri uri, boolean add) throws FileNotFoundException {
 	
+		final InputStream is;
+		
+		if (uri.getScheme().equals("file")) {
+			is = new FileInputStream(new File(uri.getPath()));
+		} else {
+			ContentResolver cr = Application.mainActivity.getContentResolver();
+			is = cr.openInputStream(uri);
+		}
+		
 		new AsyncTask<Boolean, Void, Integer>() {
 			
 			@Override
@@ -1820,7 +1836,7 @@ public class Logic {
 				int result = 0;
 				try {
 					final OsmParser osmParser = new OsmParser();
-					final InputStream in = new BufferedInputStream(new FileInputStream(new File(fileName)));
+					final InputStream in = new BufferedInputStream(is);
 ;
 					try {
 						osmParser.start(in);
@@ -2156,7 +2172,9 @@ public class Logic {
 			@Override
 			protected void onPostExecute(UploadResult result) {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
-				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				if (result.error == 0) {
+					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				}
 				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result.error != 0) {
@@ -2168,6 +2186,84 @@ public class Logic {
 	}
 	
 	
+
+	public void uploadTrack(final Track track, final String description, final String tags, final Visibility visibility) {
+		final Server server = prefs.getServer();
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... params) {
+				int result = 0;
+				try {
+					server.uploadTrack(track, description, tags, visibility);
+				} catch (final MalformedURLException e) {
+					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().handleException(e);
+				} catch (final ProtocolException e) {
+					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().handleException(e);
+				} catch (final OsmServerException e) {
+					switch (e.getErrorCode()) {
+					case HttpStatus.SC_UNAUTHORIZED:
+						result = DialogFactory.WRONG_LOGIN;
+						break;
+					case HttpStatus.SC_BAD_REQUEST:
+					case HttpStatus.SC_PRECONDITION_FAILED:
+					case HttpStatus.SC_CONFLICT:
+						result = DialogFactory.UPLOAD_PROBLEM;
+						break;
+					case HttpStatus.SC_NOT_FOUND:
+					case HttpStatus.SC_GONE:
+					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
+					case HttpStatus.SC_BAD_GATEWAY:
+					case HttpStatus.SC_SERVICE_UNAVAILABLE:
+						result = DialogFactory.UPLOAD_PROBLEM;
+						break;
+					//TODO: implement other state handling
+					default:
+						Log.e(DEBUG_TAG, "", e);
+						ACRA.getErrorReporter().handleException(e);
+						break;
+					}
+				} catch (final IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e(DEBUG_TAG, "", e);
+				} catch (final NullPointerException e) {
+					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().handleException(e);
+				} catch (IllegalArgumentException e) {
+					result = DialogFactory.UPLOAD_PROBLEM;
+				} catch (IllegalStateException e) {
+					result = DialogFactory.UPLOAD_PROBLEM;
+				} catch (XmlPullParserException e) {
+					result = DialogFactory.UPLOAD_PROBLEM;
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
+				if (result == 0) {
+					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				}
+				Application.mainActivity.getCurrentFocus().invalidate();
+				if (result != 0) {
+					Application.mainActivity.showDialog(result);
+				}
+			}
+			
+		}.execute();
+	}
+	
+	/**
+	 * Sow a toast indiciating how many unread mails are on the server
+	 */
 	public void checkForMail() {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
@@ -2194,7 +2290,7 @@ public class Logic {
 					try {
 						Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
 					} catch (java.util.IllegalFormatFlagsException iffex) {
-						// do nothing ... this is stop bugs in the Android format parising crashing the upload, happens at least with the PL string
+						// do nothing ... this is stop bugs in the Android format parsing crashing the upload, happens at least with the PL string
 					}
 				}
 			}

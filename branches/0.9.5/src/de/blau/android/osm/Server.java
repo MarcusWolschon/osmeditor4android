@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -12,8 +13,11 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import oauth.signpost.OAuthConsumer;
@@ -1012,9 +1016,9 @@ public class Server {
 					bug.parseBug(parser); // replace contents with result from server 
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+					Log.e("Server", "addComment:Exception", e);
 				} catch (IOException e) {
-					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+					Log.e("Server", "addComment:Exception", e);
 				}
 			} finally {
 				disconnect(connection);
@@ -1056,9 +1060,9 @@ public class Server {
 					bug.parseBug(parser); // replace contents with result from server 
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+					Log.e("Server", "addNote:Exception", e);
 				} catch (IOException e) {
-					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+					Log.e("Server", "addNote:Exception", e);
 				}		
 			} finally {
 				disconnect(connection);
@@ -1096,10 +1100,10 @@ public class Server {
 					bug.close();
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+					Log.e("Server", "closeNote:Exception", e);
 				}
 				catch (IOException e) {
-					Log.e("Vespucci", "Server.closeNote:Exception", e);
+					Log.e("Server", "closeNote:Exception", e);
 				} 
 			} finally {
 				disconnect(connection);
@@ -1134,10 +1138,10 @@ public class Server {
 					bug.reopen();
 					return true;
 				} catch (XmlPullParserException e) {
-					Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
+					Log.e("Server", "reopenNote:Exception", e);
 				}
 				catch (IOException e) {
-					Log.e("Vespucci", "Server.closeNote:Exception", e);
+					Log.e("Server", "reopenNote:Exception", e);
 				} 
 			} finally {
 				disconnect(connection);
@@ -1145,7 +1149,67 @@ public class Server {
 		}
 		return false;
 	}
+	
+	/**
+	 * GPS track API
+	 */
+	public enum Visibility {
+		PRIVATE,
+		PUBLIC,
+		TRACKABLE,
+		IDENTIFIABLE
+	}
+	
+	/**
+	 * @throws IOException 
+	 * @throws ProtocolException 
+	 * @throws MalformedURLException 
+	 * @throws XmlPullParserException 
+	 * @throws IllegalStateException 
+	 * @throws IllegalArgumentException 
+	 
+	 */
+	public void uploadTrack(Track track, String description, String tags, Visibility visibility) throws MalformedURLException, ProtocolException, IOException, IllegalArgumentException, IllegalStateException, XmlPullParserException {
+		HttpURLConnection connection = null;
+		try {
+			// 
+			String boundary="*VESPUCCI*";
+			String seperator="--"+boundary+"\r\n";
+			connection = 
+					openConnectionForWriteAccess(new URL(serverURL  + "gpx/create"), "POST", "multipart/form-data;boundary="+boundary);
+			OutputStream os = connection.getOutputStream();
+			OutputStreamWriter out = new OutputStreamWriter(os, Charset .defaultCharset());
+			out.write(seperator);
+			out.write("Content-Disposition: form-data; name=\"description\"\r\n\r\n"); 
+			out.write(description + "\r\n");
+			out.write(seperator);
+			out.write("Content-Disposition: form-data; name=\"tags\"\r\n\r\n");
+			out.write(tags + "\r\n");
+			out.write(seperator);
+			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
+			out.write(visibility.name().toLowerCase() + "\r\n");
+			out.write(seperator);
+			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + new SimpleDateFormat("yyyy-MM-dd'T'HHmmss").format(new Date())+".gpx\"\r\n");
+			out.write("Content-Type: application/gpx+xml\r\n\r\n");
+			out.flush();
+			track.exportToGPX(os);
+			os.flush();
+			out.write("\r\n");
+			out.write("--"+boundary+"--\r\n");
+			out.flush();
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
+						+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+			}
+		} finally {
+			disconnect(connection);
+		}
+	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean needOAuthHandshake() {
 		return oauth && ((accesstoken == null) || (accesstokensecret == null)) ;
 	}

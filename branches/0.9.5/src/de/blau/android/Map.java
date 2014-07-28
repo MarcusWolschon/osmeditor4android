@@ -275,7 +275,7 @@ public class Map extends View implements IMapView {
 		
 		zoomLevel = calcZoomLevel(canvas);
 		
-		// tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
+		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		tmpDrawingEditMode = Main.logic.getMode();
 		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
 		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
@@ -610,7 +610,7 @@ public class Map extends View implements IMapView {
 			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 
 			//draw tolerance box
-			if (	tmpDrawingInEditRange
+			if (tmpDrawingInEditRange
 					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
 					&& (tmpClickableElements == null || tmpClickableElements.contains(node))
 					&&	(tmpDrawingEditMode != Logic.Mode.MODE_APPEND
@@ -1009,8 +1009,8 @@ public class Map extends View implements IMapView {
 		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
 		//TODO really only needs to be recalculated on profile change 
 		DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
-		maxOnScreenNodes = (long) (metrics.widthPixels*metrics.heightPixels/ (nodeTolerancePaint.getStrokeWidth()*nodeTolerancePaint.getStrokeWidth())/3); // one third is based on testing
-		Log.d("Map","maxOnScreenNodes " + maxOnScreenNodes);
+//		maxOnScreenNodes = (long) (metrics.widthPixels*metrics.heightPixels/ (nodeTolerancePaint.getStrokeWidth()*nodeTolerancePaint.getStrokeWidth())/3); // one third is based on testing
+//		Log.d("Map","maxOnScreenNodes " + maxOnScreenNodes);
 	}
 	
 	void setOrientation(final float orientation) {

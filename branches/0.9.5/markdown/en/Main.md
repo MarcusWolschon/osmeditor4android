@@ -24,7 +24,7 @@ Tapping the icon once will undo the last operation. A long press will display a 
  * **Start GPS track** - start recording a GPX track
  * **Pause GPS track** - pause recording the current GPX track
  * **Clear GPS track** - clear the current GPX track
- * **Upload GPS track** - upload the current GPX track
+ * **Upload GPS track** - upload the current GPX track *(currently not implemented)*
  * **Export GPS track** - export track to file
  * **Auto download** - automatically download the area around the current position (speed needs to be below 6 km/h) *(requires network connectivity)*
 

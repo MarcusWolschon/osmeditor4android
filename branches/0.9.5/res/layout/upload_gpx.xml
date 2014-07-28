@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+  <RelativeLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/upload_gpx_controls"
+      android:layout_width="fill_parent"
+	  android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true">
+	    <TextView
+	      android:id="@+id/upload_gpx_description_label"
+	      android:layout_width="wrap_content"
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
+	      android:text="@string/upload_gpx_description_label"/>
+	    <EditText
+	      android:id="@+id/upload_gpx_description"
+	      android:layout_toRightOf="@id/upload_gpx_description_label"
+	      android:layout_alignBottom="@id/upload_gpx_description_label"
+	      android:layout_alignTop="@id/upload_gpx_description_label"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:inputType="text"
+	      />
+	
+	  <TextView
+	      android:id="@+id/upload_gpx_tags_label"
+	      android:layout_width="wrap_content"
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
+	      android:layout_below="@id/upload_gpx_description_label"
+	      android:text="@string/upload_gpx_tags_label"/>
+	   <EditText
+	      android:id="@+id/upload_gpx_tags"
+	      android:layout_below="@id/upload_gpx_description"
+	      android:layout_alignLeft="@id/upload_gpx_description"
+	      android:layout_alignBottom="@id/upload_gpx_tags_label"
+	      android:layout_alignTop="@id/upload_gpx_tags_label"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:inputType="text"/>
+		<TextView
+	      android:id="@+id/upload_gpx_visibility_label"
+	      android:layout_width="wrap_content"
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
+	      android:layout_below="@id/upload_gpx_tags_label"
+	      android:text="@string/upload_gpx_visibility_label"/>
+
+		<Spinner
+		    android:id="@+id/upload_gpx_visibility"
+		    android:layout_width="wrap_content"
+		    android:layout_height="48dp"
+		    android:entries="@array/gpx_visibility"
+		    android:layout_alignLeft="@id/upload_gpx_tags"
+	      	android:layout_alignBottom="@id/upload_gpx_visibility_label"
+	      	android:layout_alignTop="@id/upload_gpx_visibility_label" />
+
+</RelativeLayout>
+ 

@@ -1,32 +1,54 @@
 package de.blau.android.services;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.GpsStatus.NmeaListener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import de.blau.android.Application;
+import de.blau.android.DialogFactory;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.OsmException;
+import de.blau.android.exception.StorageException;
+import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Track;
+import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.Profile;
 import de.blau.android.services.util.ServiceCompat;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 
-public class TrackerService extends Service implements LocationListener, Exportable {
+public class TrackerService extends Service implements LocationListener, NmeaListener, Exportable {
 
 	private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
@@ -181,6 +203,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 		Log.d(TAG, "Provider disabled: " + provider);
 		gpsEnabled = false;
 		locationManager.removeUpdates(this);
+		// locationManager.removeNmeaListener(this);
 	}
 
 	@Override
@@ -206,6 +229,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 			try {
 				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(),
 						prefs.getGpsDistance(), this);
+				// locationManager.addNmeaListener(this);
 			} catch (Exception e) {
 				Log.e(TAG, "Failed to enable GPS", e);
 				Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_SHORT).show();				
@@ -229,4 +253,68 @@ public class TrackerService extends Service implements LocationListener, Exporta
 		externalListener = listener;
 	}
 
+	/**
+	 * Read a file in GPX format from device
+	 * @param fileName
+	 * @param add unused currently
+	 * @throws FileNotFoundException 
+	 */
+	public void importGPXFile(final Uri uri) throws FileNotFoundException {
+		
+		final InputStream is;
+		
+		if (uri.getScheme().equals("file")) {
+			is = new FileInputStream(new File(uri.getPath()));
+		} else {
+			ContentResolver cr = getContentResolver();
+			is = cr.openInputStream(uri);
+		}
+		
+		final int existingPoints = track.getTrackPoints().size();
+	
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				int result = 0;
+				InputStream in;
+				in = new BufferedInputStream(is);
+				try {
+					track.importFromGPX(in);
+				} finally {
+					SavingHelper.close(in);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					Toast.makeText(Application.mainActivity.getApplicationContext(), 
+							Application.mainActivity.getApplicationContext().getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints), Toast.LENGTH_LONG).show();
+					// the following is extremely ugly
+					Main.triggerMenuInvalidationStatic();
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+					Log.d("TrackerService", "", e);
+				}
+			}
+			
+		}.execute();
+	}
+
+	public Track getTrack() {
+		return track;
+	}
+
+	@Override
+	public void onNmeaReceived(long timestamp, String nmea) {
+		Log.d("TrackerService","NEMA " + nmea);
+	}
 }

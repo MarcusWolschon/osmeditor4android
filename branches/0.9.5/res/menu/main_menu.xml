@@ -49,11 +49,18 @@
 				<item
 					android:id="@+id/menu_gps_upload"
 					android:title="@string/menu_gps_upload"
-					android:enabled="false"
 				/>
 				<item
 					android:id="@+id/menu_gps_export"
 					android:title="@string/menu_gps_export"
+				/>
+				<item
+					android:id="@+id/menu_gps_import"
+					android:title="@string/menu_gps_import"
+				/>
+				<item
+					android:id="@+id/menu_gps_goto_start"
+					android:title="@string/menu_gps_goto_start"
 				/>
 				<item
 					android:id="@+id/menu_gps_autodownload"

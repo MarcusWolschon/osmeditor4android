@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import java.io.FileNotFoundException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -9,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,11 +21,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
+import de.blau.android.listener.GpxUploadListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osb.CommitListener;
 import de.blau.android.prefs.Preferences;
@@ -77,6 +83,8 @@ public class DialogFactory {
 	public static final int FILE_WRITE_FAILED = 20;
 
 	public static final int NEWBIE = 21;
+	
+	public static final int GPX_UPLOAD = 22;
 		
 	private final Main caller;
 	
@@ -107,6 +115,8 @@ public class DialogFactory {
 	private final Builder fileWriteFailed;
 	
 	private final Builder newbie;
+	
+	private final Builder gpxUpload;
 			
 	/**
 	 * @param caller
@@ -187,6 +197,13 @@ public class DialogFactory {
 						caller.startActivity(startHelpViewer);
 					}
 				});
+		
+		gpxUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
+		layout = inflater.inflate(R.layout.upload_gpx, null);
+		gpxUpload.setView(layout);
+		gpxUpload.setPositiveButton(R.string.transfer_download_current_upload, new GpxUploadListener(caller, (EditText)layout.findViewById(R.id.upload_gpx_description), 
+				(EditText)layout.findViewById(R.id.upload_gpx_tags), (Spinner)layout.findViewById(R.id.upload_gpx_visibility)));
+		gpxUpload.setNegativeButton(R.string.cancel, doNothingListener);
 	}
 	
 	/**
@@ -258,6 +275,9 @@ public class DialogFactory {
 			
 		case NEWBIE:
 			return newbie.create();
+			
+		case GPX_UPLOAD:
+			return gpxUpload.create();
 		}
 		
 		return null;
@@ -405,4 +425,50 @@ public class DialogFactory {
 		
 		return saveFileDialog;
 	}
+	
+	/**
+	 * @param titleId the resource-id of the title
+	 * @param messageId the resource-id of the message
+	 * @return a dialog-builder
+	 */
+	public static Builder createExistingTrackDialog(final Main caller, final Uri uri) {
+		Builder existingTrack = new AlertDialog.Builder(Application.mainActivity);
+		existingTrack.setIcon(R.drawable.alert_dialog_icon);
+		existingTrack.setTitle(R.string.existing_track_title);
+		existingTrack.setMessage(R.string.existing_track_message);
+		
+		existingTrack.setPositiveButton(R.string.replace, 	new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				caller.getTracker().stopTracking(true);
+				try {
+					caller.getTracker().importGPXFile(uri);
+				} catch (FileNotFoundException e) {
+					try {
+						Toast.makeText(caller,caller.getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+					} catch (Exception ex) {
+						// protect against translation errors
+					}
+				}
+			}
+		});
+		existingTrack.setNeutralButton(R.string.keep, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				caller.getTracker().stopTracking(false);
+				try {
+					caller.getTracker().importGPXFile(uri);
+				} catch (FileNotFoundException e) {
+					try {
+						Toast.makeText(caller,caller.getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+					} catch (Exception ex) {
+						// protect against translation errors
+					}
+				}
+			}
+		});
+		existingTrack.setNegativeButton(R.string.cancel, null);
+		return existingTrack;
+	}
+	
 }
