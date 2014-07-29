@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -1808,6 +1811,159 @@ public class Logic {
 	}
 
 	/**
+	 * Return a single element from the API
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+	OsmElement downloadElement(final String type, final long id) {
+		
+		class MyTask extends AsyncTask<Void, Void, OsmElement> {
+			int result = 0;
+			
+			@Override
+			protected void onPreExecute() {
+	
+			}
+			
+			@Override
+			protected OsmElement doInBackground(Void... arg) {
+				OsmElement element = null;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					final InputStream in = prefs.getServer().getStreamForElement(null, type, id);
+					try {
+						osmParser.start(in);
+						element = osmParser.getStorage().getOsmElement(type, id);
+					} finally {
+						SavingHelper.close(in);
+					}
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e("Vespucci", "Problem parsing", e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
+				} catch (OsmServerException e) {
+					Log.e("Vespucci", "Problem downloading", e);
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem downloading", e);
+				}
+				return element;
+			}
+			
+			@Override
+			protected void onPostExecute(OsmElement result) {
+				// potentially do something if there is an error
+			}
+			
+		};
+		MyTask loader = new MyTask();
+		loader.execute();
+		
+		try {
+			return loader.get(20, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			return null;
+		} catch (ExecutionException e) {
+			return null;
+		} catch (TimeoutException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Update a single element from the API
+	 * @param type
+	 * @param id
+	 */
+	int updateElement(final String type, final long id) {
+		class MyTask extends AsyncTask<Void, Void, Integer> {
+			@Override
+			protected void onPreExecute() {
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				int result = 0;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					if (!type.equals(Node.NAME)) {
+						final InputStream in = prefs.getServer().getStreamForElement("full", type, id);
+						try {
+							osmParser.start(in);
+						} finally {
+							SavingHelper.close(in);
+						}
+					} else {
+						// TODO this currently does not retrieve ways the updated node may be a member of
+						InputStream in = prefs.getServer().getStreamForElement(null, type, id);
+						try {
+							osmParser.start(in);
+						} finally {
+							SavingHelper.close(in);
+						}
+						in = prefs.getServer().getStreamForElement("relations", type, id);
+						try {
+							osmParser.start(in);
+						} finally {
+							SavingHelper.close(in);
+						}
+					}
+					if (!delegator.mergeData(osmParser.getStorage())) {
+						result = DialogFactory.DATA_CONFLICT;
+					} 
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e("Vespucci", "Problem parsing", e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
+				} catch (OsmServerException e) {
+					Log.e("Vespucci", "Problem downloading", e);
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem downloading", e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				// potentially do something if there is an error
+			}
+			
+		};
+		MyTask loader = new MyTask();
+		loader.execute();
+		
+		try {
+			return loader.get(20, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			return -1;
+		} catch (ExecutionException e) {
+			return -1;
+		} catch (TimeoutException e) {
+			return -1;
+		}
+	}
+	
+	/**
 	 * Read a file in (J)OSM format from device
 	 * @param fileName
 	 * @param add unused currently
@@ -2104,9 +2260,11 @@ public class Logic {
 	 *
 	 */
 	public class UploadResult {
-		int error = 0;
-		String type;
-		long osmId;
+		public int error = 0;
+		public int httpError = 0;
+		public String elementType;
+		public long osmId;
+		public String message;
 	}
 	/**
 	 * Uploads to the server in the background.
@@ -2137,15 +2295,19 @@ public class Logic {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
+					result.httpError = e.getErrorCode();
+					result.message = e.getMessage();
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
 						result.error = DialogFactory.WRONG_LOGIN;
 						break;
-					case HttpStatus.SC_BAD_REQUEST:
-					case HttpStatus.SC_PRECONDITION_FAILED:
 					case HttpStatus.SC_CONFLICT:
-						result.error = DialogFactory.UPLOAD_PROBLEM;
+					case HttpStatus.SC_PRECONDITION_FAILED:
+						result.error = DialogFactory.UPLOAD_CONFLICT;
+						result.elementType = e.getElementType();
+						result.osmId = e.getElementId();
 						break;
+					case HttpStatus.SC_BAD_REQUEST:
 					case HttpStatus.SC_NOT_FOUND:
 					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
@@ -2177,7 +2339,9 @@ public class Logic {
 				}
 				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
-				if (result.error != 0) {
+				if (result.error == DialogFactory.UPLOAD_CONFLICT) {
+					DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
+				} else if (result.error != 0) {
 					Application.mainActivity.showDialog(result.error);
 				}
 			}
@@ -2576,6 +2740,24 @@ public class Logic {
 		return selectedRelationNodes;
 	}
 
+	public void fixElementWithConflict(long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
+		createCheckpoint(R.string.undo_action_fix_conflict);
+
+		if (elementOnServer == null) { // deleted
+			// given that the element is deleted on the server we likely need to add it back to ways and relations there too
+			if (elementLocal.getName().equals(Node.NAME)) {
+				for (Way w:getWaysForNode((Node)elementLocal)) {
+					delegator.setOsmVersion(w,w.getOsmVersion()+1);
+				}
+			}
+			if (elementLocal.hasParentRelations()) {
+				for (Relation r:elementLocal.getParentRelations()) {
+					delegator.setOsmVersion(r,r.getOsmVersion()+1);
+				}
+			}
+		}
+		delegator.setOsmVersion(elementLocal,newVersion);
+	}
 
 	public void showCrosshairs(float x, float y) {
 		map.showCrosshairs(x, y);

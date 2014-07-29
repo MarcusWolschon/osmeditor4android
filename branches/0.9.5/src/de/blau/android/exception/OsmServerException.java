@@ -44,6 +44,15 @@ public class OsmServerException extends OsmException {
 		return type + " #" + osmId;
 	}
 
+	public long getElementId() {
+		return  osmId;
+	}
+	
+	public String getElementType() {
+		return  type;
+	}
+	
+	
 	/**
 	 * 
 	 * @param errorCode the HTTP response-code

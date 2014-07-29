@@ -101,7 +101,7 @@ public class OAuthHelper {
 	 */
 	public String getRequestToken() {	 
 		class MyTask extends  AsyncTask<Void, Void, String> {
-			 String result;
+			String result;
 			 
 			@Override
 			protected void onPreExecute() {

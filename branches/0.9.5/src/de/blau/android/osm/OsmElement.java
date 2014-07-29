@@ -80,6 +80,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	public long getOsmVersion() {
 		return osmVersion;
 	}
+	
+	void setOsmVersion(long osmVersion) {
+		this.osmVersion = osmVersion;
+	}
 
 	void setOsmId(final long osmId) {
 		this.osmId = osmId;

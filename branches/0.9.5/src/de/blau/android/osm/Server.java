@@ -384,6 +384,69 @@ public class Server {
 			return con.getInputStream();
 		}
 	}
+	
+	/**
+	 * Get a single element from the API
+	 * @param full TODO
+	 * @param type
+	 * @param id
+	 * @return
+	 * @throws OsmServerException
+	 * @throws IOException
+	 */
+	public InputStream getStreamForElement(String mode, final String type, final long id) throws OsmServerException, IOException {
+		Log.d("Server", "getStreamForElement");
+		URL url = new URL(serverURL + type + "/" + id + (mode != null ? "/" + mode : ""));
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		boolean isServerGzipEnabled = false;
+
+		Log.d("Server", "getStreamForElement " + url.toString());
+		
+		//--Start: header not yet send
+		con.setReadTimeout(TIMEOUT);
+		con.setConnectTimeout(TIMEOUT);
+		con.setRequestProperty("Accept-Encoding", "gzip");
+		con.setRequestProperty("User-Agent", Application.userAgent);
+
+		//--Start: got response header
+		isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+
+		// retry if we have no response-code
+		if (con.getResponseCode() == -1) {
+			Log.w(getClass().getName()+ ":getStreamForElement", "no valid http response-code, trying again");
+			con = (HttpURLConnection) url.openConnection();
+			//--Start: header not yet send
+			con.setReadTimeout(TIMEOUT);
+			con.setConnectTimeout(TIMEOUT);
+			con.setRequestProperty("Accept-Encoding", "gzip");
+			con.setRequestProperty("User-Agent", Application.userAgent);
+
+			//--Start: got response header
+			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+		}
+
+		if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+			if (con.getResponseCode() == 400) {
+				Application.mainActivity.runOnUiThread(new Runnable() {
+					  @Override
+					public void run() {
+						  Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_download_bbox_failed, Toast.LENGTH_LONG).show();
+					  }
+				});
+			}
+			else {
+				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
+			}
+			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
+					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+		}
+
+		if (isServerGzipEnabled) {
+			return new GZIPInputStream(con.getInputStream());
+		} else {
+			return con.getInputStream();
+		}
+	}
 
 	
 	class DownloadErrorToast implements Runnable {
@@ -432,7 +495,7 @@ public class Server {
 					endChangeXml(serializer, action);
 				}
 			}, changesetId);
-			checkResponseCode(connection);
+			checkResponseCode(connection, elem);
 		} finally {
 			disconnect(connection);
 		}
@@ -472,7 +535,7 @@ public class Server {
 					endXml(serializer);
 				}
 			}, changesetId);
-			checkResponseCode(connection);
+			checkResponseCode(connection, elem);
 			in = connection.getInputStream();
 			osmVersion = Long.parseLong(readLine(in));
 		} finally {
@@ -757,6 +820,15 @@ public class Server {
 	 * @throws OsmException
 	 */
 	private void checkResponseCode(final HttpURLConnection connection) throws IOException, OsmException {
+		checkResponseCode(connection, null);
+	}
+	
+	/**
+	 * @param connection
+	 * @throws IOException
+	 * @throws OsmException
+	 */
+	private void checkResponseCode(final HttpURLConnection connection, final OsmElement e) throws IOException, OsmException {
 		if (connection == null ) {
 			throw new OsmServerException(-1,"Unknown error");
 		}
@@ -769,7 +841,11 @@ public class Server {
 				responseMessage = "";
 			}
 			InputStream in = connection.getErrorStream();
-			throw new OsmServerException(responsecode, responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
+			if (e == null) {
+				throw new OsmServerException(responsecode, responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
+			} else {
+				throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), responsecode + "=\"" + responseMessage + "\" ErrorMessage: " + readStream(in));
+			}
 			//TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
 		}
 	}

@@ -2084,6 +2084,26 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * This is only used when trying to fix conflicts
+	 * @param element
+	 */
+	public void removeFromUpload(OsmElement element) {
+		apiStorage.removeElement(element);
+		element.setState(OsmElement.STATE_UNCHANGED);
+	}
+	
+	/**
+	 * This is only used when trying to fix conflicts
+	 * @param element
+	 * @param version
+	 */
+	public void setOsmVersion(OsmElement element, long version) {
+		element.setOsmVersion(version);
+		element.setState(OsmElement.STATE_MODIFIED);
+		insertElementSafe(element);
+	}
+	
+	/**
 	 * Return true if coordinates were in the original bboxes from downloads, needs a more efficient implementation
 	 * @param lat
 	 * @param lon

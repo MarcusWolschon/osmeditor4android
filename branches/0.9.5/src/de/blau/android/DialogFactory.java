@@ -25,12 +25,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import de.blau.android.Logic.UploadResult;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.GpxUploadListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osb.CommitListener;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
@@ -85,6 +90,8 @@ public class DialogFactory {
 	public static final int NEWBIE = 21;
 	
 	public static final int GPX_UPLOAD = 22;
+	
+	public static final int UPLOAD_CONFLICT = 23;
 		
 	private final Main caller;
 	
@@ -386,7 +393,7 @@ public class DialogFactory {
 				caller.setFollowGPS(false);
 				caller.getMap().setFollowGPS(false);
 				//
-				caller.logic.setZoom(19);
+				Main.logic.setZoom(19);
 				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 				searchDialog.dismiss();
 			}
@@ -417,7 +424,7 @@ public class DialogFactory {
 		saveFileBuilder.setPositiveButton(R.string.save, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				caller.logic.writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
+				Main.logic.writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
 			}
 		});
 		
@@ -471,4 +478,56 @@ public class DialogFactory {
 		return existingTrack;
 	}
 	
+	/**
+	 * @param titleId the resource-id of the title
+	 * @param messageId the resource-id of the message
+	 * @return a dialog-builder
+	 */
+	public static Builder createUploadConflictDialog(final Main caller, UploadResult result) {
+		Builder uploadConflict = new AlertDialog.Builder(Application.mainActivity);
+		uploadConflict.setIcon(R.drawable.alert_dialog_icon);
+		uploadConflict.setTitle(R.string.upload_conflict_title);
+		final OsmElement elementOnServer = Main.logic.downloadElement(result.elementType, result.osmId);
+		final OsmElement elementLocal = Main.logic.delegator.getOsmElement(result.elementType, result.osmId);
+		final long newVersion;
+		try {
+			boolean useServerOnly = false;
+			if (elementOnServer != null) {
+				if (elementLocal.getState()==OsmElement.STATE_DELETED) {
+					uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_referential, elementLocal.getDescription()));
+					useServerOnly = true;
+				} else {
+					uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_version, elementLocal.getDescription(), elementLocal.getOsmVersion(), elementOnServer.getOsmVersion()));
+				}
+				newVersion = elementOnServer.getOsmVersion();
+			} else {
+				uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(), elementLocal.getOsmVersion()));
+				newVersion = elementLocal.getOsmVersion() + 1;
+			}
+			if (!useServerOnly) {
+				uploadConflict.setPositiveButton(R.string.use_local_version, 	new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Main.logic.fixElementWithConflict(newVersion, elementLocal, elementOnServer);
+						caller.confirmUpload();
+					}
+				});
+			}
+			uploadConflict.setNeutralButton(R.string.use_server_version,new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Main.logic.delegator.removeFromUpload(elementLocal);
+					Main.logic.updateElement(elementLocal.getName(), elementLocal.getOsmId());
+					if (!Main.logic.delegator.getApiStorage().isEmpty()) {
+						caller.confirmUpload();
+					}
+				}
+			});
+		} catch (Exception e) {
+			// protect against translation problems
+			e.printStackTrace();
+		}
+		uploadConflict.setNegativeButton(R.string.cancel, null);
+		return uploadConflict;
+	}
 }

@@ -7,7 +7,13 @@
     <string name="transfer_download_current_download">Discard &amp; download</string>
     <string name="transfer_download_current_back">Back (Do nothing)</string>
     <string name="upload_problem_title">Problem With Upload</string>
-    <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again to see what failed. The most likely reason is a version conflict.</string>
+    <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again later if this was only a temporary problem.</string>
+    <string name="upload_conflict_title">Upload conflict</string>
+    <string name="upload_conflict_message_version">%1$s \nhas local version %2$s \nand on the server %3$s </string>
+	<string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the sever</string>
+	<string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
+    <string name="use_local_version">Use local version</string>
+    <string name="use_server_version">Use version on server</string>
     <string name="no_login_data_title">Authentication failed</string>
     <string name="no_login_data_message">If you are using OAuth this is likely a bug, please send a problem report, if you are using login and password (not recommended) please check that they are entered correctly.</string>
     <string name="no_connection_title">No Connection to Server</string>
@@ -366,6 +372,7 @@
     <string name="undo_action_rotateway">rotate way</string>
     <string name="undo_action_orthogonalize">orthogonalize way</string>
     <string name="undo_action_circulize">arrange in circle</string>
+    <string name="undo_action_fix_conflict">fix conflict</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed or found a serious issue. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed or found a serious issue.</string>
