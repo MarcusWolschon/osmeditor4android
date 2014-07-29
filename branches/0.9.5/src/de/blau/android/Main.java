@@ -39,12 +39,14 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
@@ -309,6 +311,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
 		map.setOnKeyListener(new MapKeyListener());
+		
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { // 12 upwards
+			map.setOnGenericMotionListener(new MotionEventListener());
+		}
 		
 		rl.addView(map); 
 		
@@ -2105,7 +2111,36 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			logic.translate(direction);
 		}
 	}
-
+	
+	/**
+	 * Mouse scroll wheel support
+	 * @author simon
+	 *
+	 */
+	@SuppressLint("NewApi")
+	public class MotionEventListener implements OnGenericMotionListener
+	{
+		@SuppressLint("NewApi")
+		@Override
+		public boolean onGenericMotion(View arg0,MotionEvent event) {
+			if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_SCROLL:
+					if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f) {
+						logic.zoom(Logic.ZOOM_IN);
+						
+					} else {
+						logic.zoom(Logic.ZOOM_OUT);
+					}
+					updateZoomControls();
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	
+	
 	/**
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
