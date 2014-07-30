@@ -166,10 +166,11 @@ public class HelpViewer extends SherlockActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			
-			helpView.loadUrl("file:///android_asset/help/en/" + tocAdapter.getItem(position) +".html");
+			String topic = tocAdapter.getItem(position);
+			helpView.loadUrl("file:///android_asset/help/en/" + topic +".html");
 			mDrawerLayout.closeDrawer(mDrawerList);
 			mDrawerList.setSelected(false);
+			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + topic);
 		}
 
 	}

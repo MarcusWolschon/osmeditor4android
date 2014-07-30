@@ -30,7 +30,7 @@ Tapping the icon once will reset the tags to the values as they were when the Ta
 
 Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form. 
 
-## Map Features Wiki
+## ![](../images/tag_menu_mapfeatures.png) Map Features Wiki
 
 Invoke a web browser on the map features page in the OpenStreetMap wiki. *(requires network connectivity)* 
 

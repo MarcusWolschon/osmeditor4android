@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Скасувати й звантажити</string>
   <string name="transfer_download_current_back">Назад (нічого не міняти)</string>
   <string name="upload_problem_title">Проблема з вивантаженням</string>
-  <string name="upload_problem_message">Деякі або й усі дані не були вивантажені. Спробуйте вивантажити знову, щоб побачити, що не вдалося. Найбільш вірогідною причиною є конфлікт версій.</string>
   <string name="no_login_data_title">Помилка автентифікації</string>
   <string name="no_connection_title">Немає з’єднання з сервером</string>
   <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше підключення до Інтернет та спробуйте ще раз.</string>
@@ -241,4 +240,6 @@
   <string name="deleterelation">Вилучити зв’язок</string>
   <string name="delete_from_relation_description">Ви збираєтеся вилучити цей елемент зі зв’язку.</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

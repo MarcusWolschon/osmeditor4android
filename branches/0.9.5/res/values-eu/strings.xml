@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Baztertu &amp; deskargatu</string>
   <string name="transfer_download_current_back">Atzera (Ezer ez egin)</string>
   <string name="upload_problem_title">Igotzean arazoa egon da</string>
-  <string name="upload_problem_message">Datuak ez dira igo. Zeinek failatzen duen ikusteko saiatu berriro igotzen. Seguru aski arrazoia bertsioen arteko konfliktoa da. </string>
   <string name="no_connection_title">Ez dago Zerbitzarira konexiorik</string>
   <string name="no_connection_message">OSM Zerbitzarira ezin izan da konektatu. Egiaztatu mesedez zure Interneterako konexioa edo saiatu berriro gero.</string>
   <string name="progress_title">Kargatzen</string>
@@ -244,4 +243,6 @@
   <string name="deleterelation">Erlazioa ezabatu</string>
   <string name="delete_from_relation_description">Elementu hau erlazio batetatik ezabatzeko zorian zaude</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

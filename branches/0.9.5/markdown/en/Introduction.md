@@ -1,5 +1,7 @@
 # Vespucci Introduction
 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Android 2.3 to 4.4. A word of caution is however necessary, while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+
 ## First time use
 
 On start up Vespucci will show you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
@@ -96,5 +98,9 @@ moving the screen manually or editing will cause the follow mode to be disabled 
 
  * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
  * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+ 
+## Reporting Problems
+ 
+If you, hopefully not, experience a crash with Vespucci, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://code.google.com/p/osmeditor4android/issues/list). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

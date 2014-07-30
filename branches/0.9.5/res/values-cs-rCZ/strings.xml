@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Zahodit a stáhnout</string>
   <string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
   <string name="upload_problem_title">Problém s nahráváním</string>
-  <string name="upload_problem_message">Některá nebo všechna data nebyla odeslána. Zkuste je odeslat znovu pro zjištění, co je špatně. Nejpravděpodobnější chybou je konflikt verzí.</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
   <string name="progress_title">Načítám</string>
@@ -200,4 +199,6 @@
   <!--Misc relation related stuff-->
   <string name="object">Objekt</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

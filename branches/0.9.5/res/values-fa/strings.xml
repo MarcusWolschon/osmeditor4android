@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">دور انداختن و دانلود</string>
   <string name="transfer_download_current_back">برگشت(هیچی) </string>
   <string name="upload_problem_title">مشکل با آپلود</string>
-  <string name="upload_problem_message">تعدادی یا همه ی داده ها آپلود نشد. دوباره سعی  کنید آپلود کنید تا خطاها را ببینید. اغلب خطاهای احتمالی  تضاد نسخه است. </string>
   <string name="no_login_data_title">تایید اعتبار ناموفق</string>
   <string name="no_login_data_message">اگر از OAuth استفاده میکنید، این احتمالا یک باگ است، لطفا یک گزارش مشکل ارسال کنید، اگر شما از لاگین و پسوورد استفاده میکنید(توصیه نمیشود) لطفا چک کنید ورودی ها درست باشد. </string>
   <string name="no_connection_title">اتصالی به سرور نیست</string>
@@ -249,4 +248,6 @@
   <string name="seconds">ثانیه</string>
   <string name="km">کیلومتر</string>
   <string name="meter">متر</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

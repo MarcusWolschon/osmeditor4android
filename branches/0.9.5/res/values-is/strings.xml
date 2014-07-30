@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Henda &amp; sækja</string>
   <string name="transfer_download_current_back">Til baka (gera ekkert)</string>
   <string name="upload_problem_title">Vandamál við að uppfæra</string>
-  <string name="upload_problem_message">Ekki tókst að hlaða upp. Prófaðu aftur til að sjá villuboð. Líklegasta skýringin er útgáfumisræmi.</string>
   <string name="no_login_data_title">Auðkenning mistókst</string>
   <string name="no_connection_title">Engin tenging við netþjón</string>
   <string name="no_connection_message">Gat ekki tengst OSM-þjóni. Athugaðu internettenginguna eða reyndu aftur síðar.</string>
@@ -65,7 +64,6 @@
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
   <string name="toast_noname">Vegur hefur hvorki nafn né númer</string>
-  <string name="toast_oauth">Gefðu OAuth réttindi að OSM-notanda þínum og reyndu svo aftur.</string>
   <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir núverandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
   <string name="toast_nothing_found">Ekkert fannst</string>
   <string name="toast_statesave_failed">Gat ekki vistað núverandi stöðu! \nBý til breytingaskrá sem hægt verður að nota með JOSM.</string>
@@ -163,7 +161,6 @@
   <string name="menu_tools_background_align_save_db">Vista í gagnagrunni</string>
   <string name="menu_tools_background_align_save_device">Vista á tæki</string>
   <string name="menu_tools_background_align_apply2all">Virkja (allar þysjanir)</string>
-  <string name="menu_tools_background_opacity">Sjáanleiki bakgrunns</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tög</string>
   <!--Text should be as short as possible-->
@@ -314,4 +311,6 @@
   <string name="seconds">sekúndur</string>
   <string name="km">km</string>
   <string name="meter">metri</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

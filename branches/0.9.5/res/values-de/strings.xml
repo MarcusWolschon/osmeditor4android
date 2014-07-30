@@ -7,7 +7,13 @@
   <string name="transfer_download_current_download">Verwerfen</string>
   <string name="transfer_download_current_back">Zurück</string>
   <string name="upload_problem_title">Problem während des Hochladens</string>
-  <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Nochmals versuchen um Fehler möglicherweise zu sehen. Am wahrscheinlichsten ist ein Versionskonflikt.</string>
+  <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Falls dies nur ein temporäres Problem war versuchen sie es später nochmals. </string>
+  <string name="upload_conflict_title">Konflikt beim Hochladen</string>
+  <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$s \nund auf dem Server %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$s \nund ist auf dem Server gelöscht</string>
+  <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server </string>
+  <string name="use_local_version">Lokale Version verwenden</string>
+  <string name="use_server_version">Version auf dem Server verwenden</string>
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
@@ -23,6 +29,9 @@
   <string name="invalid_data_received_message">Vespucci hat ungültige Daten vom Server empfangen. Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen.</string>
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
+  <string name="welcome_title">Willkommen!</string>
+  <string name="welcome_message">Danke das Du Vespucci benutzt..\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen, lange auf dem Schirm tippen, nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg fängt ein Weg an.\n\nViel Spass!</string>
+  <string name="read_introduction">Die Einführung jetzt lesen</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
   <string name="progress_download_message">Lade Daten vom Server…</string>
@@ -33,6 +42,9 @@
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="upload_close_changeset_label">Changeset schliessen</string>
+  <string name="upload_gpx_description_label">Beschreibung</string>
+  <string name="upload_gpx_tags_label">Tags</string>
+  <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
   <string name="openstreetbug_new_nodeway">Knoten/Weg erstellen</string>
@@ -61,6 +73,8 @@
   <string name="find_message">Suchanfrage eingeben</string>
   <string name="read_file">Datei zum Lesen auswählen</string>
   <string name="save_file">Datei zum Speichern angeben</string>
+  <string name="existing_track_title">Trackdaten vorhanden</string>
+  <string name="existing_track_message">Es sind bestehende Trackdaten vorhanden. Möglicherweise sollten die zuerst gespeichert werden.</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -85,13 +99,17 @@
   <string name="toast_download_failed">Downlod ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
   <string name="toast_unsurveyed_road">Strasse nicht überprüft</string>
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
-  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben und dann nochmals versuchen. </string>
+  <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM Konto erlauben und dann den Upload nochmals versuchen. </string>
+  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlaubenn. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
   <string name="toast_nothing_found">Kein Resutat gefunden</string>
   <string name="toast_statesave_failed">Speichern des aktuellen Zustandes ist fehlgeschlagen!\nDies ist ein schwerwiegender Fehler, es wird versucht eine Exportdatei für die spätere Verwendung in JOSM zu schreiben.</string>
   <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
+  <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
+  <string name="toast_file_not_found">%1$s nicht gefunden.</string>
+  <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -103,6 +121,9 @@
   <string name="set">Setzen</string>
   <string name="replace">Ersetzen</string>
   <string name="save">Speichern</string>
+  <string name="back">Zurück</string>
+  <string name="foward">Vorwärts</string>
+  <string name="keep">Behalten</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -118,6 +139,7 @@
   <string name="tag_menu_mapfeatures">Map-Features-Wiki</string>
   <string name="tag_menu_addtorelation">Zu Relation hinzufügen</string>
   <string name="tag_menu_resetMRU">Vorlagen zurücksetzen</string>
+  <string name="tag_menu_reset_address_prediction">Adressvorhersage zurücksetzen</string>
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
@@ -169,6 +191,8 @@
   <string name="menu_gps_clear">GPS-Track löschen</string>
   <string name="menu_gps_upload">GPS-Track hochladen</string>
   <string name="menu_gps_export">GPS-Track exportieren</string>
+  <string name="menu_gps_import">GPS Track importieren</string>
+  <string name="menu_gps_goto_start">An den Anfang des Tracks</string>
   <string name="menu_gps_autodownload">Automatischer Download</string>
   <string name="menu_transfer">Übertragung…</string>
   <string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
@@ -200,7 +224,7 @@
   <string name="menu_tools_background_align_save_db">In DB speichern</string>
   <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
-  <string name="menu_tools_background_opacity">Hintergrundtransparenz</string>
+  <string name="menu_tools_background_contrast">Kontrast</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
@@ -285,6 +309,8 @@
   <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
   <string name="config_enableAutoPreset_title">Auto Preset einschalten</string>
   <string name="config_enableAutoPreset_summary">Automatisch zutreffenden Preset anwenden wenn ein Namensvorschlag angewendet wird</string>
+  <string name="config_splitActionBarEnabled_title">Geteilte Action Bar erlauben</string>
+  <string name="config_splitActionBarEnabled_summary">Geteilte Action Bar erlauben, Nutzung hängt vom Gerät ab. Benötigt einen Neustart und eine Android Version &gt;= 4.0</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -344,6 +370,7 @@
   <string name="undo_action_rotateway">Weg drehen</string>
   <string name="undo_action_orthogonalize">weg rechtwinklig machen</string>
   <string name="undo_action_circulize">im Kreis anordnen</string>
+  <string name="undo_action_fix_conflict">Konfliktbehebung</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt. Bitte senden Sie einen Fehlerreport.</string>
   <string name="crash_notif_title">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.</string>
@@ -373,4 +400,13 @@
   <string name="seconds">Sekunden</string>
   <string name="km">KM</string>
   <string name="meter">Meter</string>
+  <!--Help system-->
+  <string name="introduction">Einführung</string>
+  <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>privat</item>
+    <item>öffentlich</item>
+    <item>verfolgbar</item>
+    <item>identifizierbar</item>
+  </string-array>
 </resources>

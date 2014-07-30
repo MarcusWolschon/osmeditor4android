@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Увага!</string>
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <string name="yes">Так</string>
@@ -24,4 +25,6 @@
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

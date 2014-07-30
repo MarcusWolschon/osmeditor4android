@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">編集を破棄 &amp; ダウンロード</string>
   <string name="transfer_download_current_back">戻る (何もしない)</string>
   <string name="upload_problem_title">アップロードで問題発生</string>
-  <string name="upload_problem_message">データの一部、あるいは全体がアップロードされていません。もう一度アップロードし、失敗している原因を確認してください。もっともありがちな理由はバージョンの不一致です。</string>
   <string name="no_login_data_title">認証失敗</string>
   <string name="no_login_data_message">OAuthを利用している場合、これはバグです。発生した事象のレポートを送ってください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="no_connection_title">サーバに接続していません</string>
@@ -80,7 +79,6 @@
   <string name="toast_download_failed">ダウンロード失敗。エラーコード %1$d メッセージ %2$s</string>
   <string name="toast_unsurveyed_road">未調査の道</string>
   <string name="toast_noname">名称もしくは参照無しの道</string>
-  <string name="toast_oauth">OSMアカウントへのOAuthアクセスを許可し、アップロードを再度実行してください。</string>
   <string name="toast_no_oauth">現在のAPIでOAuth設定が利用できません。ログイン名とパスワードを利用してください。</string>
   <string name="toast_timeout">サーバタイムアウト</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
@@ -185,7 +183,6 @@
   <string name="menu_tools_background_align_save_db">DBへ保存</string>
   <string name="menu_tools_background_align_save_device">デバイスへ保存</string>
   <string name="menu_tools_background_align_apply2all">適用 (すべてのズーム)</string>
-  <string name="menu_tools_background_opacity">背景画像の透明度</string>
   <!--element action mode menu-->
   <string name="menu_tags">タグ</string>
   <!--Text should be as short as possible-->
@@ -356,4 +353,6 @@
   <string name="seconds">秒</string>
   <string name="km">キロメートル</string>
   <string name="meter">メートル</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

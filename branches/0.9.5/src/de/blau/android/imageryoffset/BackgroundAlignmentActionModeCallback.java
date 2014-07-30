@@ -24,6 +24,7 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -40,6 +41,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
+import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -60,6 +62,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private static final int MENUITEM_ZERO = 5;
 	private static final int MENUITEM_SAVE2DB = 6;
 	private static final int MENUITEM_SAVELOCAL = 7;
+	private static final int MENUITEM_HELP = 8;
 	
 	private static final String OFFSET_SERVER = "http://offsets.textual.ru/";//TODO set in prefs
 	
@@ -94,6 +97,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
 		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db);
 		// menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
+		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
 		return true;
 	}
 
@@ -125,6 +129,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			break;
 		case MENUITEM_SAVELOCAL:
 			break;
+		case MENUITEM_HELP:
+			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
+			startHelpViewer.putExtra(HelpViewer.TOPIC, mode.getTitle().toString());
+			Application.mainActivity.startActivity(startHelpViewer);
+			return true;
 		default: return false;
 		}
 		return true;

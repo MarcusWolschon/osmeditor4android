@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Descartar e descargar</string>
   <string name="transfer_download_current_back">Volver (Non facer nada)</string>
   <string name="upload_problem_title">Problema coa subida</string>
-  <string name="upload_problem_message">Non foron subidos tódolos datos. Intenta subilos outra vez para ver o que falla. A causa máis probable é un conflito de versións.</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
   <string name="no_login_data_message">Se estás usando OAuth, isto é probablemente un erro; por favor, envía un informe do problema. Se estás usando usuario e contrasinal (non recomendado), comproba que se introduciron correctamente.</string>
   <string name="no_connection_title">Non hai conexión co servidor</string>
@@ -235,4 +234,6 @@
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

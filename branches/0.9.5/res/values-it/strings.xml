@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Annulla &amp; scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Problema con il caricamento</string>
-  <string name="upload_problem_message">Impossibile caricare alcuni o tutti i dati. Prova il caricamento nuovamente per vedere cosa è fallito. La ragione più probabile è un conflitto di versione.</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>
@@ -21,6 +20,10 @@
   <string name="out_of_memory_dirty_message">Vespucci ha esaurito la memoria tentando di caricare i dati richiesti. Salva i tuoi dati, riavvialo e prova a caricare un\'area più piccola.</string>
   <string name="invalid_data_received_title">Dati ricevuti non validi</string>
   <string name="invalid_data_received_message">Vespucci ha ricevuto dei dati invalidi dal server. Se pensi di aver fatto tutto correttamente,    inviaci un rapporto sul bug.</string>
+  <string name="file_write_failed_title">Scrittura del file non riuscita</string>
+  <string name="file_write_failed_message">Impossibile scrivere sul file selezionato.</string>
+  <string name="welcome_title">Benvenuto!</string>
+  <string name="read_introduction">Leggi l\'introduzione adesso</string>
   <string name="progress_title">Caricamento</string>
   <string name="progress_message">Caricamento dati in memoria…</string>
   <string name="progress_download_message">Scaricamento dati dal server…</string>
@@ -56,6 +59,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
+  <string name="save_file">Inserisci il file dove salvare</string>
   <!--Toaster-->
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_upload_success">Caricamento nel server OSM completato.</string>
@@ -80,12 +84,12 @@
   <string name="toast_download_failed">Scaricamento fallito con codice di errore %1$d, messaggio %2$s</string>
   <string name="toast_unsurveyed_road">Strada non classificata</string>
   <string name="toast_noname">La strada non ha un nome o un codice di riferimento</string>
-  <string name="toast_oauth">Abilita l\'accesso OAuth nel tuo account OSM e poi ritenta il caricamento.</string>
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
   <string name="toast_statesave_failed">Salvataggio dello stato corrente fallito\nQuesto è un errore fatale, tento di scrivere un file da usare successivamente con JOSM.</string>
+  <string name="toast_missing_filemanager">Installa un file manager</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -96,6 +100,9 @@
   <string name="apply">Applica</string>
   <string name="set">Imposta</string>
   <string name="replace">Sostituisci</string>
+  <string name="save">Salva</string>
+  <string name="back">Indietro</string>
+  <string name="foward">Avanti</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vuoi uscire veramente?</string>
   <string name="exit_text">Sei sicuro che vuoi uscire?</string>
@@ -144,8 +151,9 @@
   <string name="menu_append">Aggiungi</string>
   <string name="menu_restriction">Aggiungi restrizione</string>
   <string name="menu_restriction_via">Aggiungi restrizione attraverso</string>
-  <string name="menu_restriction_to">Aggiungi restrizione a</string>
+  <string name="menu_restriction_to">Aggiungi restrizione verso</string>
   <string name="menu_relation">Crea una relazione</string>
+  <string name="menu_add_relation_member">Aggiungi membro</string>
   <string name="menu_tag">Modifica etichette</string>
   <string name="menu_openstreetbug">Aggiungi nota</string>
   <string name="menu_easyedit">ModificheFacili</string>
@@ -158,12 +166,14 @@
   <string name="menu_gps_clear">Cancella traccia GPS</string>
   <string name="menu_gps_upload">Carica traccia GPS</string>
   <string name="menu_gps_export">Esporta traccia GPS</string>
+  <string name="menu_gps_autodownload">Scarica automaticamente</string>
   <string name="menu_transfer">Trasferimento…</string>
   <string name="menu_transfer_download_current">Scarica vista attuale</string>
   <string name="menu_transfer_download_current_add">Aggiungi la vista corrente ai dati scaricati</string>
   <string name="menu_transfer_download_other">Scarica altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_export">Esporta modifiche</string>
+  <string name="menu_transfer_save_file">Salva su file</string>
   <string name="menu_save">Salva file</string>
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
@@ -185,11 +195,11 @@
   <string name="menu_tools_background_align_save_db">Salva sul DB</string>
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Applica (a tutti gli ingrandimenti)</string>
-  <string name="menu_tools_background_opacity">Opacità dello sfondo</string>
+  <string name="menu_tools_background_contrast">Contrasto</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tag</string>
   <!--Text should be as short as possible-->
-  <string name="menu_history">Storia</string>
+  <string name="menu_history">Cronologia</string>
   <string name="menu_merge">Unisci</string>
   <string name="menu_reverse">Inverti</string>
   <string name="notreversable_description">La via è taggata con attributi dipendenti dalla direzione e non può essere invertita. Invertire la via invaliderebbe i tag.</string>
@@ -356,4 +366,7 @@
   <string name="seconds">secondi</string>
   <string name="km">km</string>
   <string name="meter">metri</string>
+  <!--Help system-->
+  <string name="introduction">Introduzione</string>
+  <!--Arrays-->
 </resources>

@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Odrzuć &amp; pobierz</string>
   <string name="transfer_download_current_back">Wróć (nic nie rób)</string>
   <string name="upload_problem_title">Problem z wysyłaniem</string>
-  <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Wyślij ponownie, aby zobaczyć to, co nie powiodło się.Najbardziej prawdopodobną przyczyną jest konflikt wersji.</string>
   <string name="no_login_data_title">Autoryzacja nieudana</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>
   <string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
@@ -133,7 +132,6 @@
   <string name="menu_tools">Narzędzia</string>
   <string name="menu_tools_background_properties">Właściwości tła</string>
   <string name="menu_tools_background_align_reset">Reset</string>
-  <string name="menu_tools_background_opacity">Przeźroczystosć tła</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tagi</string>
   <!--Text should be as short as possible-->
@@ -279,4 +277,6 @@
   <string name="deleterelation">Usuń relację</string>
   <string name="delete_from_relation_description">Zamierzasz usunąć ten element z relacji.</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

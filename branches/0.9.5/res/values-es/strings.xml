@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Descartar &amp; descargar</string>
   <string name="transfer_download_current_back">Volver (No hacer nada)</string>
   <string name="upload_problem_title">Problema con la subida</string>
-  <string name="upload_problem_message">Algunos o todos los datos no se ha subido. Trate de subir de nuevo para ver qué ha fallado. La causa más probable es un conflicto de versiones.</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
   <string name="no_login_data_message">Si está usando OAuth, esto es posiblemente un error; por favor, envíe un informe del problema. Si está usando usuario y contraseña (no recomendado), compruebe que se han introducido correctamente.</string>
   <string name="no_connection_title">Sin conexión con el Servidor</string>
@@ -260,4 +259,6 @@
   <string name="type">Tipo</string>
   <string name="object">Objeto</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

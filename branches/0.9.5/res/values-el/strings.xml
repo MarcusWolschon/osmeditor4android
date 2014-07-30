@@ -219,4 +219,6 @@
   <string name="seconds">δευτερόλεπτα</string>
   <string name="km">χλμ</string>
   <string name="meter">μέτρο</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

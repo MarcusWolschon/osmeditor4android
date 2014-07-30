@@ -121,7 +121,6 @@
   <string name="menu_orthogonalize">Ortogonalitza</string>
   <string name="menu_tools">Eines</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
-  <string name="menu_tools_background_opacity">Opacitat del fons</string>
   <!--element action mode menu-->
   <string name="menu_tags">Etiquetes</string>
   <!--Text should be as short as possible-->
@@ -234,4 +233,6 @@
   <string name="seconds">segons</string>
   <string name="km">km</string>
   <string name="meter">metre</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

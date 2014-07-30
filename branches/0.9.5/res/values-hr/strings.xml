@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Obriši i skini nove</string>
   <string name="transfer_download_current_back">Odustani</string>
   <string name="upload_problem_title">Problemi sa slanjem</string>
-  <string name="upload_problem_message">Dio ili svi podaci nisu spremljeni. Pokušajte spremiti ponovo kako bi vidjeli gdje je greška. Najvjerojatniji razlog je konflikt u verziji.</string>
   <string name="no_login_data_title">Prijava nije uspjela</string>
   <string name="no_connection_title">Poslužitelj nedostupan</string>
   <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>
@@ -130,7 +129,6 @@
   <string name="menu_tools">Alati</string>
   <string name="menu_tools_background_properties">Opcije pozadine</string>
   <string name="menu_tools_background_align_save_db">Spremi u bazu</string>
-  <string name="menu_tools_background_opacity">Prozirnost pozadine</string>
   <!--element action mode menu-->
   <string name="menu_tags">Oznake</string>
   <!--Text should be as short as possible-->
@@ -235,4 +233,6 @@
   <string name="seconds">sekunde</string>
   <string name="km">km</string>
   <string name="meter">metar</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

@@ -517,7 +517,11 @@ public class DialogFactory {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Main.logic.delegator.removeFromUpload(elementLocal);
-					Main.logic.updateElement(elementLocal.getName(), elementLocal.getOsmId());
+					if (elementOnServer != null) {
+						Main.logic.updateElement(elementLocal.getName(), elementLocal.getOsmId());
+					} else { // delete local element
+						Main.logic.updateToDeleted(elementLocal);
+					}
 					if (!Main.logic.delegator.getApiStorage().isEmpty()) {
 						caller.confirmUpload();
 					}

@@ -1963,6 +1963,25 @@ public class Logic {
 		}
 	}
 	
+
+	/**
+	 * Element is deleted on server, delete locally but don't upload
+	 * A bit iffy because of memberships in other objects
+	 * @param e
+	 */
+	public void updateToDeleted(OsmElement e) {
+		createCheckpoint(R.string.undo_action_fix_conflict);
+		if (e.getName().equals(Node.NAME)) {
+			delegator.removeNode((Node)e);
+		} else if (e.getName().equals(Way.NAME)) {
+			delegator.removeWay((Way)e);
+		} else if (e.getName().equals(Relation.NAME)) {
+			delegator.removeRelation((Relation)e);
+		}
+		delegator.removeFromUpload(e);
+		map.invalidate();		
+	}
+	
 	/**
 	 * Read a file in (J)OSM format from device
 	 * @param fileName
@@ -2924,4 +2943,5 @@ public class Logic {
 	public float latE7ToY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
 	}
+
 }

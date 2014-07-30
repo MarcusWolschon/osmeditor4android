@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Abandonner &amp; recevoir</string>
   <string name="transfer_download_current_back">Retour (ne rien faire)</string>
   <string name="upload_problem_title">Problème d\'envoi</string>
-  <string name="upload_problem_message">Tout ou une partie des données n\'ont pas été envoyées. Essayez d\'envoyer les données à nouveau pour voir ce qui a échoué. Le plus probable est un conflit de version.</string>
   <string name="no_login_data_title">Authentification échouée</string>
   <string name="no_login_data_message">Si vous utilisez OAuth, ceci est probablement un bogue, merci de rapporter le problème. Si vous utilisez un login et un mot de passe (non recommandé) vérifiez que vous les avez renseigné correctement.</string>
   <string name="no_connection_title">Pas de connexion au serveur</string>
@@ -83,7 +82,6 @@
   <string name="toast_download_failed">Le téléchargement a échoué avec le code d\'erreur %1$d, message %2$s</string>
   <string name="toast_unsurveyed_road">Route non vérifiée</string>
   <string name="toast_noname">Nom ou référence manquant</string>
-  <string name="toast_oauth">Autorisez l\'accès à votre compte OSM via OAuth et réessayez d\'envoyer vos données.</string>
   <string name="toast_no_oauth">OAuth n\'est pas disponible avec l\'API courante. Vous devez renseigner votre identifiant et mot de passe.</string>
   <string name="toast_timeout">Le serveur n\'a pas répondu</string>
   <string name="coordinates_out_of_range">La longitude doit être comprise entre -180° et +180° et la latitude entre -85° et +85°</string>
@@ -197,7 +195,6 @@
   <string name="menu_tools_background_align_save_db">Sauvegarder vers la BDD</string>
   <string name="menu_tools_background_align_save_device">Sauvegarder vers l\'appareil</string>
   <string name="menu_tools_background_align_apply2all">Appliquer (tous les zooms)</string>
-  <string name="menu_tools_background_opacity">Opacité du fond</string>
   <!--element action mode menu-->
   <string name="menu_tags">Attributs</string>
   <!--Text should be as short as possible-->
@@ -368,4 +365,6 @@
   <string name="seconds">secondes</string>
   <string name="km">km</string>
   <string name="meter">mètre</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

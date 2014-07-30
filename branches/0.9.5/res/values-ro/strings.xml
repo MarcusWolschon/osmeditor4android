@@ -97,7 +97,6 @@
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_align_save_db">Salvează în baza de date</string>
   <string name="menu_tools_background_align_save_device">Salvează în dispozitiv</string>
-  <string name="menu_tools_background_opacity">Opacitatea fundalului</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Istoric</string>
@@ -148,4 +147,6 @@
   <string name="seconds">secunde</string>
   <string name="km">km</string>
   <string name="meter">metru</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

@@ -7,7 +7,13 @@
   <string name="transfer_download_current_download">Vứt bỏ &amp; tải về</string>
   <string name="transfer_download_current_back">Quay lại (Không làm gì)</string>
   <string name="upload_problem_title">Vấn đề Tải lên</string>
-  <string name="upload_problem_message">Một số hoặc tất cả dữ liệu không được tải lên. Hãy thử tải lên lần nữa để xem phần nào bị thất bại. Lý do đáng lẽ là một xung đột về số phiên bản.</string>
+  <string name="upload_problem_message">Một số hoặc tất cả dữ liệu không được tải lên. Hãy thử tải lên lần nữa để xem có phải là một vấn đề tạm thời.</string>
+  <string name="upload_conflict_title">Tải lên mâu thuẫn</string>
+  <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi máy chủ có %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi nó bị xóa trên máy chủ</string>
+  <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại \ntrong khi còn có tham chiếu trên máy chủ </string>
+  <string name="use_local_version">Dùng phiên bản trong điện thoại</string>
+  <string name="use_server_version">Dùng phiên bản trên máy chủ</string>
   <string name="no_login_data_title">Thất bại khi xác thực</string>
   <string name="no_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
@@ -23,6 +29,9 @@
   <string name="invalid_data_received_message">Vespucci đã nhận dữ liệu không hợp lệ từ máy chủ. Nếu bạn chắc chắn rằng tác vụ có hợp lệ, xin vui lòng báo cáo lỗi.</string>
   <string name="file_write_failed_title">Thất bại khi ghi vào tập tin</string>
   <string name="file_write_failed_message">Không thể ghi vào tập tin đã chọn.</string>
+  <string name="welcome_title">Chào mừng!</string>
+  <string name="welcome_message">Cám ơn bạn vì sử dụng Vespucci.\n\nĐể bắt đầu, hãy nhớ:\n\n* chạm vào hình ổ khóa ở phía trên bên trái để bật/tắt chế độ khóa (không sửa đổi)\n\n* để thêm một đối tượng mới, chạm lâu, rồi chạm lần nữa cùng chỗ để tạo nốt, hoặc chạm xa hơn để bắt đầu vẽ lối\n\nChúc vui vẻ!</string>
+  <string name="read_introduction">Đọc hướng dẫn</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
   <string name="progress_download_message">Đang tải về dữ liệu từ máy chủ…</string>
@@ -33,6 +42,9 @@
   <string name="upload_comment_label">Miêu tả:</string>
   <string name="upload_source_label">Nguồn:</string>
   <string name="upload_close_changeset_label">Đóng bộ thay đổi:</string>
+  <string name="upload_gpx_description_label">Miêu tả</string>
+  <string name="upload_gpx_tags_label">Thẻ</string>
+  <string name="upload_gpx_visibility_label">Mức xuất hiện</string>
   <string name="openstreetbug_new_title">Ghi chú Mới</string>
   <string name="openstreetbug_new_bug">Báo cáo Vấn đề</string>
   <string name="openstreetbug_new_nodeway">Tạo Nốt/Lối</string>
@@ -61,6 +73,8 @@
   <string name="find_message">Nhập truy vấn</string>
   <string name="read_file">Chọn tập tin để đọc</string>
   <string name="save_file">Nhập tập tin để ghi vào</string>
+  <string name="existing_track_title">Dữ liệu tuyến đường đã tồn tại</string>
+  <string name="existing_track_message">Bạn đã có dữ liệu tuyến đường. Có lẽ bạn muốn hủy và lưu trước tiên.</string>
   <!--Toaster-->
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_upload_success">Đã hoàn tất tải lên máy chủ OSM.</string>
@@ -85,13 +99,17 @@
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
   <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
   <string name="toast_noname">Đường không có tên hoặc số</string>
-  <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth và thử tải lên lại.</string>
+  <string name="toast_oauth_retry">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth và thử tải lên lại.</string>
+  <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
   <string name="toast_timeout">Hết thời gian chờ máy chủ</string>
   <string name="coordinates_out_of_range">Kinh độ phải nằm giữa −180°/+180°; vĩ độ phải nằm giữa −85°/85°</string>
   <string name="toast_nothing_found">Không tìm thấy kết quả</string>
   <string name="toast_statesave_failed">Thất bại khi lưu trạng thái hiện tại!\nLỗi không thể vượt qua khi ghi tập tin xuất để khôi phục sau dùng JOSM.</string>
   <string name="toast_missing_filemanager">Vui lòng cài đặt một Trình quản lý Tập tin.</string>
+  <string name="toast_outside_of_download">Bạn đang sửa đổi ở ngoài khu vực đã được tải về.</string>
+  <string name="toast_file_not_found">Không tìm thấy %1$s.</string>
+  <string name="toast_imported_track_points">Đã nhập %1$s điểm tuyến đường.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -103,6 +121,9 @@
   <string name="set">Đặt</string>
   <string name="replace">Thay thế</string>
   <string name="save">Lưu</string>
+  <string name="back">Lùi</string>
+  <string name="foward">Tiến</string>
+  <string name="keep">Giữ</string>
   <!--Dialog for back button-->
   <string name="exit_title">Thoát?</string>
   <string name="exit_text">Bạn có chắc chắn muốn thoát?</string>
@@ -118,6 +139,7 @@
   <string name="tag_menu_mapfeatures">Trang Chi tiết Bản đồ trên Wiki</string>
   <string name="tag_menu_addtorelation">Thêm vào quan hệ</string>
   <string name="tag_menu_resetMRU">Đặt lại các Thẻ đặt trước</string>
+  <string name="tag_menu_reset_address_prediction">Đặt lại suy đoán địa chỉ</string>
   <string name="tag_menu_exit_no_save">Thoát\nmà không lưu</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Tải Khu vực</string>
@@ -169,6 +191,8 @@
   <string name="menu_gps_clear">Dọn dẹp tuyến GPS</string>
   <string name="menu_gps_upload">Tải lên tuyến GPS</string>
   <string name="menu_gps_export">Xuất tuyến GPS</string>
+  <string name="menu_gps_import">Nhập tuyến đường GPS</string>
+  <string name="menu_gps_goto_start">Đi đến đầu tuyến đường</string>
   <string name="menu_gps_autodownload">Tải về tự động</string>
   <string name="menu_transfer">Truyền đổi…</string>
   <string name="menu_transfer_download_current">Tải về khu vực hiện tại</string>
@@ -200,7 +224,7 @@
   <string name="menu_tools_background_align_save_db">Lưu vào CSDL</string>
   <string name="menu_tools_background_align_save_device">Lưu vào Thiết bị</string>
   <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
-  <string name="menu_tools_background_opacity">Tính đục</string>
+  <string name="menu_tools_background_contrast">Độ tương phản</string>
   <!--element action mode menu-->
   <string name="menu_tags">Thẻ</string>
   <!--Text should be as short as possible-->
@@ -346,6 +370,7 @@
   <string name="undo_action_rotateway">quay lối</string>
   <string name="undo_action_orthogonalize">làm vuông góc lối</string>
   <string name="undo_action_circulize">làm tròn</string>
+  <string name="undo_action_fix_conflict">sửa sự mâu thuẫn</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci đã bị sự cố hoặc gặp một vấn đề đáng kể. Xin vui lòng báo cáo lỗi.</string>
   <string name="crash_notif_title">Vespucci đã bị sự cố hoặc gặp vấn đề đáng kể.</string>
@@ -375,4 +400,13 @@
   <string name="seconds">giây</string>
   <string name="km">km</string>
   <string name="meter">mét</string>
+  <!--Help system-->
+  <string name="introduction">Hướng dẫn</string>
+  <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>riêng</item>
+    <item>công khai</item>
+    <item>theo dõi được</item>
+    <item>nhận ra được</item>
+  </string-array>
 </resources>
