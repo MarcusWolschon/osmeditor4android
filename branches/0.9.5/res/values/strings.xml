@@ -313,6 +313,10 @@
 	<string name="config_enableAutoPreset_summary">Automatically add preset when name suggestion is selected</string>
 	<string name="config_splitActionBarEnabled_title">Enable split action bar</string>
 	<string name="config_splitActionBarEnabled_summary">Allow split action bar, use is device specific. Requires restart and an Android version >= 4.0</string>
+	<string name="config_gps_source_title">GPS source</string>
+	<string name="config_gps_source_summary">Source of GPS location updates</string>
+	<string name="config_gps_source_tcp_title">NMEA network source</string>
+	<string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
@@ -411,4 +415,11 @@
 	<item>trackable</item>
 	<item>identifiable</item>
 	</string-array>
+	<string-array name="gps_source">
+	<item>Internal</item>
+	<item>Internal NMEA</item>
+	<item>NMEA from TCP client</item>
+	<item>NMEA from TCP server</item>
+	</string-array>
+	
 </resources>

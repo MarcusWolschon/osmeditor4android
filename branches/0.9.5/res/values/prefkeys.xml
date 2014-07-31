@@ -36,4 +36,12 @@
     <string name="config_enableAutoPreset_key">enableAutoPreset</string>
     <string name="config_closeChangesetOnSave_key">closeChangesetOnSave</string>
     <string name="config_splitActionBarEnabled_key">splitActionBarEnabled</string>
+    <string name="config_gps_source_key">gpsSourceKey</string>
+    <string-array name="gps_source_keys">
+	<item>internal</item>
+	<item>nmea</item>
+	<item>tcpclient</item>
+	<item>tcpserver</item>
+	</string-array>
+	<string name="config_gps_source_tcp_key">gpsTcpSourceKey</string>
 </resources>

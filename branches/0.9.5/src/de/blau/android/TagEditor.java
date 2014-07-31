@@ -564,10 +564,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 		StreetTagValueAutocompletionAdapter adapter = (StreetTagValueAutocompletionAdapter) getStreetNameAutocompleteAdapter();
 		if (lastAddresses != null && lastAddresses.size() > 0) {
-			newAddress = new Address(getType(), getOsmId(),lastAddresses.get(0).tags);
+			newAddress = new Address(getType(), getOsmId(),lastAddresses.get(0).tags); // last address we added
 		} 
 
-		if (newAddress == null) { // make sure we have the address
+		if (newAddress == null) { // make sure we have the address object
 			newAddress = new Address(getType(), getOsmId(), new LinkedHashMap<String, String>()); 
 		}
 		// merge in any existing tags
@@ -580,9 +580,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			if (names != null && names.size() > 0) {
 				LinkedHashMap<String, String> tags = newAddress.tags;
 				Log.d("TagEditor","tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
+				Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + names.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
 				if (!newAddress.tags.containsKey(Tags.KEY_ADDR_STREET) 
 						|| newAddress.tags.get(Tags.KEY_ADDR_STREET).equals("") 
-						|| names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) > 2) { // check if has street and still in the top 3
+						|| names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) > 2 
+						|| names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) < 0)  { // check if has street and still in the top 3
 					Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + names.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
 					// nope -> zap
 					tags.put(Tags.KEY_ADDR_STREET, names.get(0));

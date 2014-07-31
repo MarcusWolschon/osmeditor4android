@@ -93,6 +93,21 @@
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_gps">
+		<ListPreference 
+		    android:key="@string/config_gps_source_key"
+		    android:title="@string/config_gps_source_title"
+			android:summary="@string/config_gps_source_summary"
+			android:entries="@array/gps_source"
+			android:entryValues="@array/gps_source_keys"
+			android:defaultValue="internal"
+		    />
+		<EditTextPreference
+			android:key="@string/config_gps_source_tcp_key"
+			android:title="@string/config_gps_source_tcp_title"
+			android:summary="@string/config_gps_source_tcp_summary"
+			android:dialogTitle="@string/config_gps_source_tcp_title"
+			android:defaultValue="127.0.0.1:1958"
+		/>
 		<EditTextPreference
 			android:key="@string/config_gps_interval_key"
 			android:title="@string/config_gps_interval_title"
@@ -109,6 +124,7 @@
 			android:numeric="decimal"
 			android:defaultValue="5.0"
 		/>
+		
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_server">

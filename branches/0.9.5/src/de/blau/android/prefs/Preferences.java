@@ -64,6 +64,9 @@ public class Preferences {
 	
 	private final boolean splitActionBarEnabled;
 	
+	private final String gpsSource;
+	private final String gpsTcpSource;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -137,6 +140,8 @@ public class Preferences {
 		} else {
 			mapProfile = tempMapProfile;
 		}
+		gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), "internal");
+		gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
 		try {
 			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "2.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
@@ -262,6 +267,20 @@ public class Preferences {
 		return advancedPrefs.getCurrentAPI().showicon;
 	}
 
+	/**
+	 * @return
+	 */
+	public String getGpsSource() {
+		return gpsSource;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getGpsTcpSource() {
+		return gpsTcpSource;
+	}
+	
 	/**
 	 * @return
 	 */
