@@ -142,6 +142,7 @@
     <string name="tag_menu_resetMRU">Reset Presets</string>
     <string name="tag_menu_reset_address_prediction">Reset address prediction</string>
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
+    <string name="tag_value_hint">Tap for values</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>
     <string name="location_choose_radius">Choose radius:</string>

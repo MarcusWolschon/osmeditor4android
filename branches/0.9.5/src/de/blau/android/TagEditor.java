@@ -1121,6 +1121,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	protected TagEditRow insertNewEdit(final String aTagKey, final String aTagValue, final int position) {
 		TagEditRow row = (TagEditRow)View.inflate(this, R.layout.tag_edit_row, null);
 		row.setValues(aTagKey, aTagValue);
+		if (autocompletePresetItem != null) { // set hints even if value isen't empty
+			String hint = autocompletePresetItem.getHint(aTagKey);
+			if (hint != null) { 
+				row.valueEdit.setHint(hint);
+			} else if (autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
+				row.valueEdit.setHint(R.string.tag_value_hint);
+			}
+			if (row.valueEdit.getText().toString().length() == 0) {
+				String defaultValue = autocompletePresetItem.getDefault(aTagKey);
+				if (defaultValue != null) { //
+					row.valueEdit.setText(defaultValue);
+				} 
+			}
+		}
 		rowLayout.addView(row, (position == -1) ? rowLayout.getChildCount() : position);
 		return row;
 	}
@@ -1180,6 +1194,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 							valueEdit.setText(adapter.getItem(0));
 						}
 					} else{
+						if (owner.autocompletePresetItem != null) {
+							String hint = owner.autocompletePresetItem.getHint(parent.getItemAtPosition(position).toString());
+							if (hint != null) { //
+								valueEdit.setHint(hint);
+							} else if (owner.autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || owner.autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
+								valueEdit.setHint(R.string.tag_value_hint);
+							}
+							if (valueEdit.getText().toString().length() == 0) {
+								String defaultValue = owner.autocompletePresetItem.getDefault(parent.getItemAtPosition(position).toString());
+								if (defaultValue != null) { //
+									valueEdit.setText(defaultValue);
+								} 
+							}
+						}
 						// set focus on value
 						valueEdit.requestFocus();
 					}
@@ -1214,8 +1242,6 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 						
 					}
 				}
-				
-
 			});
 			
 			valueEdit.setOnItemClickListener(new OnItemClickListener() {
@@ -1332,7 +1358,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 					if (owner.presets != null && owner.element != null) {
 						Collection<String> values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
 						if (values != null && !values.isEmpty()) {
-							List<String> result = new ArrayList<String>(values);
+							ArrayList<String> result = new ArrayList<String>(values);
 							Collections.sort(result);
 							adapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 						}
@@ -1962,12 +1988,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
 			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
-			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) replacedValue = true;
+			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) {
+				replacedValue = true;
+			}
 		}
 		
 		// Recommended tags, no fixed value is given. We add only those that do not already exist.
 		for (Entry<String, String[]> tag : item.getRecommendedTags().entrySet()) {
-			if (!currentValues.containsKey(tag.getKey())) currentValues.put(tag.getKey(), "");
+			if (!currentValues.containsKey(tag.getKey())) {
+				currentValues.put(tag.getKey(), "");
+			}
 		}
 		
 		loadEdits(currentValues);
@@ -1975,7 +2005,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		
 		//
 		if (addToMRU) {
-		Preset[] presets = Main.getCurrentPresets();
+			Preset[] presets = Main.getCurrentPresets();
 			if (presets != null) {
 				for (Preset p:presets) {
 					if (p.contains(item)) {

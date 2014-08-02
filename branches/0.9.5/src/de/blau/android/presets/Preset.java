@@ -249,12 +249,39 @@ public class Preset {
             		}
             	} else if ("text".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), null);
+            		String text = attr.getValue("text");
+            		if (text != null) {
+            			currentItem.addHint(attr.getValue("key"),text);
+            		}
             	} else if ("check".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), "yes,no");            		
+            		String value_on = attr.getValue("value_on");
+            		String value_off = attr.getValue("value_off");
+            		String values = (value_on != null?value_on:"yes") + (value_off != null?","+value_off:",no");
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), values);
+            		String defaultValue = attr.getValue("default");
+            		if (defaultValue != null) {
+            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            		}
             	} else if ("combo".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"));            		
+            		String delimiter = attr.getValue("delimiter");
+            		if (delimiter == null) {
+            			delimiter = ","; // combo uses "," as default
+            		}
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"), delimiter);   
+            		String defaultValue = attr.getValue("default");
+            		if (defaultValue != null) {
+            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            		}
             	} else if ("multiselect".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO full multiselect parsing/support?
+            		String delimiter = attr.getValue("delimiter");
+            		if (delimiter == null) {
+            			delimiter = ";"; // multiselect uses ";" as default
+            		}
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"), delimiter); 
+            		String defaultValue = attr.getValue("default");
+            		if (defaultValue != null) {
+            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            		}
             	} else if ("role".equals(name)) {
             		currentItem.addRole(attr.getValue("key")); 
             	} else if ("reference".equals(name)) {
@@ -726,6 +753,16 @@ public class Preset {
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
 		private LinkedHashMap<String, String[]> optionalTags = new LinkedHashMap<String, String[]>();
 		
+		/**
+		 * Hints to be displayed in a suitable form
+		 */
+		private LinkedHashMap<String, String> hints = new LinkedHashMap<String, String>();
+		
+		/**
+		 * Default values
+		 */
+		private LinkedHashMap<String, String> defaults = new LinkedHashMap<String, String>();
+		
 		/** Roles
 		 *  */
 		private LinkedList<String> roles =  new LinkedList<String>();
@@ -776,7 +813,10 @@ public class Preset {
 		 * @param values values string from the XML (comma-separated list of possible values)
 		 */
 		public void addTag(boolean optional, String key, String values) {
-			String[] valueArray = (values == null) ? new String[0] : values.split(",");
+			addTag(optional, key, values, ",");
+		}
+		public void addTag(boolean optional, String key, String values, String seperator) {
+			String[] valueArray = (values == null) ? new String[0] : values.split(seperator);
 			
 			for (String v:valueArray) {
 				tagItems.add(key+"\t"+v, this);
@@ -793,6 +833,33 @@ public class Preset {
 		public void addRole(String value)
 		{
 			roles.add(value);
+		}
+		
+		/**
+		 * Save hint for the tag
+		 * @param key
+		 * @param hint
+		 */
+		public void addHint(String key, String hint) {
+			hints.put(key, hint);
+		}
+		
+		public String getHint(String key) {
+			return hints.get(key);
+		}
+
+		/**
+		 * Save default for the tag
+		 * @param key
+		 * @param defaultValue
+		 */
+		public void addDefault(String key, String defaultValue) {
+			defaults.put(key, defaultValue);
+			
+		}
+		
+		public String getDefault(String key) {
+			return defaults.get(key);
 		}
 		
 		/**
