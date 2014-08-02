@@ -67,6 +67,7 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetGroup;
@@ -165,6 +166,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private Preferences prefs = null;
 	
 	private StreetTagValueAutocompletionAdapter streetNameAutocompleteAdapter = null;
+	
+	private PlaceTagValueAutocompletionAdapter placeNameAutocompleteAdapter = null;
 	
 	private LinkedList<Address> lastAddresses = null;
 	
@@ -512,7 +515,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private void seedAddressList(String street,long streetId, OsmElement e,LinkedList<Address> addresses) {
 		if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
 			Address seed = new Address(e.getName(), e.getOsmId(),getAddressTags(e.getTags()));
-			seed.setSide(streetId);
+			if (streetId > 0) {
+				seed.setSide(streetId);
+			}
 			if (addresses.size() >= MAX_SAVED_ADDRESSES) { //arbitrary limit for now
 				addresses.removeLast();
 			}
@@ -531,8 +536,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> lastAddresses ) {
 		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
 		for (Address a:lastAddresses) {
-			if (a != null && a.tags != null && a.tags.get(Tags.KEY_ADDR_STREET) != null 
-					&& a.tags.get(Tags.KEY_ADDR_STREET).equals(street) && a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
+			if (a != null && a.tags != null 
+					&& ((a.tags.get(Tags.KEY_ADDR_STREET) != null && a.tags.get(Tags.KEY_ADDR_STREET).equals(street)) 
+							|| (a.tags.get(Tags.KEY_ADDR_PLACE) != null && a.tags.get(Tags.KEY_ADDR_PLACE).equals(street)))
+					&& a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
 					&& a.getSide() == side) {
 				Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
 				String[] numbers = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER).split("\\,");
@@ -550,7 +557,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	
 	/**
 	 * Add address tags
-	 * This uses a file to cache/save the address information over invocations of the TagEditor
+	 * This uses a file to cache/save the address information over invocations of the TagEditor, if the cache doesn't have entries for a specific street/place 
+	 * an attempt tp extract the information from the downloaded data is made
 	 */
 	private void doAddressTags() {
 		Address newAddress = null;
@@ -562,7 +570,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		} catch (Exception e) {
 			//TODO be more specific
 		}
-		StreetTagValueAutocompletionAdapter adapter = (StreetTagValueAutocompletionAdapter) getStreetNameAutocompleteAdapter();
+		StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter) getStreetNameAutocompleteAdapter();
+		// PlaceTagValueAutocompletionAdapter placeAdapter = (PlaceTagValueAutocompletionAdapter) getPlaceNameAutocompleteAdapter();
 		if (lastAddresses != null && lastAddresses.size() > 0) {
 			newAddress = new Address(getType(), getOsmId(),lastAddresses.get(0).tags); // last address we added
 		} 
@@ -574,28 +583,36 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		for (String k: current.keySet()) {
 			newAddress.tags.put(k, current.get(k));
 		}
-		if (adapter != null) {
+		boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
+		if (streetAdapter != null || hasPlace) {
 			// the auto completion arrays should now be calculated, retrieve street names if any
-			ArrayList<String> names = new ArrayList<String>(Arrays.asList(adapter.getNames()));
-			if (names != null && names.size() > 0) {
+			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(streetAdapter.getNames()));
+			// ArrayList<String> placeNames = new ArrayList<String>(Arrays.asList(placeAdapter.getNames()));		
+			if ((streetNames != null && streetNames.size() > 0) || hasPlace) {
 				LinkedHashMap<String, String> tags = newAddress.tags;
 				Log.d("TagEditor","tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
-				Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + names.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
-				if (!newAddress.tags.containsKey(Tags.KEY_ADDR_STREET) 
-						|| newAddress.tags.get(Tags.KEY_ADDR_STREET).equals("") 
-						|| names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) > 2 
-						|| names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) < 0)  { // check if has street and still in the top 3
-					Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + names.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
-					// nope -> zap
-					tags.put(Tags.KEY_ADDR_STREET, names.get(0));
-					if (tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-						tags.put(Tags.KEY_ADDR_HOUSENUMBER, "");
+				Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
+				String street;		
+				if (!hasPlace) {
+					if (!newAddress.tags.containsKey(Tags.KEY_ADDR_STREET) 
+							|| newAddress.tags.get(Tags.KEY_ADDR_STREET).equals("") 
+							|| streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)) > 2 
+							|| streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)) < 0)  { // check if has street and still in the top 3
+						Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
+						// nope -> zap
+						tags.put(Tags.KEY_ADDR_STREET, streetNames.get(0));
+						if (tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "");
+						}
 					}
-				}
-				String street = tags.get(Tags.KEY_ADDR_STREET); // should now have the final suggestion for a street
-				try {
-					newAddress.setSide(adapter.getId(street));
-				} catch (OsmException e) { // street not in adapter
+					street = tags.get(Tags.KEY_ADDR_STREET); // should now have the final suggestion for a street
+					try {
+						newAddress.setSide(streetAdapter.getId(street));
+					} catch (OsmException e) { // street not in adapter
+						newAddress.side = Side.UNKNOWN;
+					}
+				} else { // ADDR_PLACE minimal support, don't overwrite with street
+					street = tags.get(Tags.KEY_ADDR_PLACE);
 					newAddress.side = Side.UNKNOWN;
 				}
 				Log.d("TagEditor","side " + newAddress.getSide());
@@ -606,7 +623,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 					if (list.size() == 0) { // try to seed lastAddresses from OSM data
 						try {
 							Log.d("TagEditor","street " + street);
-							long streetId = adapter.getId(street);
+							long streetId = -1;
+							if  (!hasPlace) {
+								streetId = streetAdapter.getId(street);
+							}
 							// nodes
 							for (Node n:Main.logic.delegator.getCurrentStorage().getNodes()) {
 								seedAddressList(street,streetId,(OsmElement)n,lastAddresses);
@@ -1074,6 +1094,22 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 		return streetNameAutocompleteAdapter;
 	}
+	
+	/**
+	 * Gets an adapter for the autocompletion of place names based on the neighborhood of the edited item.
+	 * @return
+	 */
+	private ArrayAdapter<String> getPlaceNameAutocompleteAdapter() {
+		if (Main.logic == null || Main.logic.delegator == null) {
+			return null;
+		}
+		if (placeNameAutocompleteAdapter == null) {
+			placeNameAutocompleteAdapter =	new PlaceTagValueAutocompletionAdapter(this,
+					R.layout.autocomplete_row, Main.logic.delegator,
+					type, osmId);
+		}
+		return placeNameAutocompleteAdapter;
+	}
 
 	/**
 	 * Insert a new row with one key and one value to edit.
@@ -1137,7 +1173,13 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 						if (adapter != null && adapter.getCount() > 0) {
 							valueEdit.setText(adapter.getItem(0));
 						}
-					} else {
+					} else if (Tags.KEY_ADDR_PLACE.equals(parent.getItemAtPosition(position)) &&
+							valueEdit.getText().toString().length() == 0) {
+						ArrayAdapter<String> adapter = owner.getPlaceNameAutocompleteAdapter();
+						if (adapter != null && adapter.getCount() > 0) {
+							valueEdit.setText(adapter.getItem(0));
+						}
+					} else{
 						// set focus on value
 						valueEdit.requestFocus();
 					}
@@ -1271,10 +1313,14 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 				HashSet<String> usedKeys = (HashSet<String>) owner.getUsedKeys(null);
 				boolean isStreetName = (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) ||
 						(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_HIGHWAY)));
+				boolean isPlaceName = (Tags.KEY_ADDR_PLACE.equalsIgnoreCase(key) ||
+						(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_PLACE)));
 				boolean noNameSuggestions = usedKeys.contains(Tags.KEY_HIGHWAY) || usedKeys.contains(Tags.KEY_WATERWAY) 
 						|| usedKeys.contains(Tags.KEY_LANDUSE) || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY);
 				if (isStreetName) {
 					adapter = owner.getStreetNameAutocompleteAdapter();
+				} else if (isPlaceName) {
+					adapter = owner.getPlaceNameAutocompleteAdapter();
 				} else if (key.equals(Tags.KEY_NAME) && (names != null) && !noNameSuggestions) {
 					ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(owner.getKeyValueMap(true)));
 					if (values != null && !values.isEmpty()) {

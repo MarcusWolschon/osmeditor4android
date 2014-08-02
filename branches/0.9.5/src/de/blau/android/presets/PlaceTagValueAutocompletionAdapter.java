@@ -59,16 +59,17 @@ import de.blau.android.util.GeoMath;
  * that is for the VALUE  for the key "addr:street" .</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
-public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
+public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<String> {
 
     /**
      * The tag we use for Android-logging.
      */
     @SuppressWarnings("unused")
-	private static final String DEBUG_TAG = StreetTagValueAutocompletionAdapter.class.getName();
+	private static final String DEBUG_TAG = PlaceTagValueAutocompletionAdapter.class.getName();
     
     private String[] names;
     private Map<String, Long> idsByNames = new HashMap<String, Long>();
+    private Map<String, String> typeByNames = new HashMap<String, String>();
 
     /**
      * 
@@ -77,12 +78,14 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      * @param osmId 
      * @param type 
      */
-    public StreetTagValueAutocompletionAdapter(final Context aContext, final int aTextViewResourceId,
+    public PlaceTagValueAutocompletionAdapter(final Context aContext,
+                                       final int aTextViewResourceId,
                                        final StorageDelegator delegator,
                                        final String osmElementType,
                                        final long osmId) {
         super(aContext, aTextViewResourceId);
-        names = getArray(delegator, PlaceTagValueAutocompletionAdapter.getLocation(delegator, osmElementType, osmId));
+        Log.d("PlaceTagValuesCompletionAdapter","Constructor ...");
+        names = getArray(delegator, getLocation(delegator, osmElementType, osmId));
         for (String s:names) {
         	super.add(s);
         }
@@ -97,31 +100,57 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      */
     private String[] getArray(final StorageDelegator delegator, final int[] location) {
 		// build list of names with their closest distance to location
-		Map<String, Double> distancesByNames = new HashMap<String, Double>();
+		Map<String, Double> distancesByName = new HashMap<String, Double>();
 		
+		Log.d("PlaceTagValuesCompletionAdapter","searching for palce ways...");
 		for (Way way : delegator.getCurrentStorage().getWays()) {
-			if (way.getTagWithKey("highway") != null) {
+			if (way.getTagWithKey("place") != null) {
 				String name = way.getTagWithKey("name");
 				long iD = way.getOsmId();
 				if (name != null) {
 					double distance = getDistance(way, location);
-					if (distancesByNames.containsKey(name)) {
+					if (distancesByName.containsKey(name)) {
 						// way already in list - keep shortest distance
-						if (distance <  distancesByNames.get(name)) {
-							distancesByNames.put(name, distance);
+						if (distance <  distancesByName.get(name)) {
+							distancesByName.put(name, distance);
 							idsByNames.put(name,Long.valueOf(iD));
+							typeByNames.put(name,Way.NAME);
 						}
 					} else {
-						distancesByNames.put(name, distance);
+						distancesByName.put(name, distance);
 						idsByNames.put(name,Long.valueOf(iD));
+						typeByNames.put(name,Way.NAME);
+					}
+				}
+			}
+		}
+		Log.d("PlaceTagValuesCompletionAdapter","searching for place nodes...");
+		for (Node node : delegator.getCurrentStorage().getNodes()) {
+			if (node.getTagWithKey("place") != null) {
+				String name = node.getTagWithKey("name");
+				Log.d("PlaceTagValuesCompletionAdapter","adding " + name);
+				long iD = node.getOsmId();
+				if (name != null) {
+					double distance = Math.hypot(location[0] - node.getLat(),location[1] - node.getLon());
+					if (distancesByName.containsKey(name)) {
+						// way already in list - keep shortest distance
+						if (distance <  distancesByName.get(name)) {
+							distancesByName.put(name, distance);
+							idsByNames.put(name,Long.valueOf(iD));
+							typeByNames.put(name,Node.NAME);
+						}
+					} else {
+						distancesByName.put(name, distance);
+						idsByNames.put(name,Long.valueOf(iD));
+						typeByNames.put(name,Node.NAME);
 					}
 				}
 			}
 		}
 		// sort names by distance
 		Map<Double, String> retval = new TreeMap<Double, String>();
-		for (String name : distancesByNames.keySet()) {
-			retval.put(distancesByNames.get(name), name);
+		for (String name : distancesByName.keySet()) {
+			retval.put(distancesByName.get(name), name);
 		}
 		 
 		return retval.values().toArray(new String[retval.size()]);
@@ -152,6 +181,26 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
 		return distance;
 	}
 
+	/**
+     * Get the location of the center of the given osm-element
+     * @param delegator
+     * @param osmElementType
+     * @param osmId
+     * @return {lat, lon} or null
+     */
+	static int[] getLocation(final StorageDelegator delegator,
+			final String osmElementType, long osmId) {
+		OsmElement osmElement = delegator.getOsmElement(osmElementType, osmId);
+		if (osmElement instanceof Node) {
+			Node n = (Node) osmElement;
+			return new int[] {n.getLat(), n.getLon()};
+		}
+		if (osmElement instanceof Way) {
+			de.blau.android.Map map = Application.mainActivity.getMap();
+			return Logic.centroid(map.getWidth(), map.getHeight(), map.getViewBox(),(Way)osmElement);
+		}
+		return null;
+	}
 
 	public String[] getNames() {
 		return names;
