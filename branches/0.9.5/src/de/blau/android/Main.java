@@ -1523,6 +1523,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		private List<OsmElement> clickedNodesAndWays;
 		private List<Bug> clickedBugs;
 		private List<Photo> clickedPhotos;
+
+		private boolean touching;
 		
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
@@ -1538,7 +1540,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		@Override
 		public void onDown(View v, float x, float y) {
-			// DO NOTHING
+			touching=true;
 		}
 		
 		@Override
@@ -1673,6 +1675,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic.getMode() == Mode.MODE_EASYEDIT) {
 				easyEditManager.invalidate();
 			}
+			touching=false;
 		}
 		
 		@Override

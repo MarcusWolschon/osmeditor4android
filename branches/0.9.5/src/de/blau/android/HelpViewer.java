@@ -57,7 +57,7 @@ public class HelpViewer extends SherlockActivity {
 		if (actionbar == null) {
 			Log.d("HelpViewer", "No actionbar"); // fail?
 		}
-		ColorDrawable c = new ColorDrawable(Application.mainActivity.getResources().getColor(R.color.actionbar_bg));
+		ColorDrawable c = new ColorDrawable(getResources().getColor(R.color.actionbar_bg));
 		actionbar.setBackgroundDrawable(c);
 		actionbar.setSplitBackgroundDrawable(c);
 		actionbar.setStackedBackgroundDrawable(c); // this probably isn't ever necessary

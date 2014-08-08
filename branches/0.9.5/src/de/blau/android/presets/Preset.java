@@ -256,7 +256,8 @@ public class Preset {
             	} else if ("check".equals(name)) {
             		String value_on = attr.getValue("value_on");
             		String value_off = attr.getValue("value_off");
-            		String values = (value_on != null?value_on:"yes") + (value_off != null?","+value_off:",no");
+            		String disable_off = attr.getValue("disable_off");
+            		String values = (value_on != null?value_on:"yes") + (disable_off == null?(value_off != null?","+value_off:",no"):"");
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), values);
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {

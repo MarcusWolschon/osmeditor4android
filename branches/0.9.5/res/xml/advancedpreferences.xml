@@ -140,6 +140,12 @@
 			android:dialogTitle="@string/config_loginbutton_title"
 			android:singleLine="true"
 		/>
+		<EditTextPreference
+			android:key="@string/config_offsetServer_key"
+			android:title="@string/config_offsetServer_title"
+			android:summary="@string/config_offsetServer_summary"
+			android:defaultValue="http://offsets.textual.ru/"
+		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_acra">
 		<CheckBoxPreference android:key="acra.enable"

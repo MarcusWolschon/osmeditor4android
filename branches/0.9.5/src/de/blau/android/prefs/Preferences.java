@@ -67,6 +67,8 @@ public class Preferences {
 	private final String gpsSource;
 	private final String gpsTcpSource;
 	
+	private final String offsetServer;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -151,6 +153,7 @@ public class Preferences {
 			gpsInterval = 1000;
 		}
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
+		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
 	}
 	
 	/**
@@ -323,7 +326,10 @@ public class Preferences {
 	}
 
 	public boolean splitActionBarEnabled() {
-		// TODO Auto-generated method stub
 		return splitActionBarEnabled;
+	}
+
+	public String getOffsetServer() {
+		return offsetServer;
 	}
 }

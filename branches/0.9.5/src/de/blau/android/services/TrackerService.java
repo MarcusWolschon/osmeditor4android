@@ -429,7 +429,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 					if (s.equals("GNS")) {
 						String[] values = withoutChecksum.split(",",-12); // java magic
 						if (values.length==13) {
-							if ((values.length >= 2 && !values[6].toUpperCase().startsWith("NN") || (values.length == 1 && !values[6].toUpperCase().equals("N")))) { // at least one "good" system needs a fix
+							if (((values.length >= 2 && !values[6].toUpperCase().startsWith("NN") || (values.length == 1 && !values[6].toUpperCase().equals("N")))) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
 								lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase().equals("N")?1:-1);
 								lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase().equals("E")?1:-1);
 								hdop = Double.parseDouble(values[8]);
@@ -442,7 +442,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 					} else if (s.equals("GGA")) {
 						String[] values = withoutChecksum.split(",",-14); // java magic
 						if (values.length==15) {
-							if (!values[6].equals("0")) { // we need a fix
+							if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we need a fix
 								lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase().equals("N")?1:-1);
 								lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase().equals("E")?1:-1);
 								hdop = Double.parseDouble(values[8]);

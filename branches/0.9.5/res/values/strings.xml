@@ -280,6 +280,8 @@
     <string name="config_api_url_title">API URL</string>
     <string name="config_api_oauth_title">Use oauth</string>
     <string name="listedit_enable_oauth">Enable oauth</string>
+    <string name="config_offsetServer_title">Offset Server</string>
+    <string name="config_offsetServer_summary">URL for the imagery offset server</string>
     <string name="config_presetbutton_title">JOSM preset</string>
     <string name="config_presetbutton_summary">You can set up map element definitions here</string>
     <string name="config_iconbutton_title">Show node icons</string>
