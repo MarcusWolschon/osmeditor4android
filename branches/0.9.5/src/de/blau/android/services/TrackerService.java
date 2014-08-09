@@ -634,8 +634,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 					try {
 						serverSocket.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						// ignore
 					}
 				}
 			}

@@ -408,8 +408,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 
-	/** adds a new Preset with the given values to the Preset database 
-	 * @param active TODO*/
+	/**
+	 * adds a new Preset with the given values to the Preset databas
+	 * @param id
+	 * @param name
+	 * @param url
+	 * @param active
+	 */
 	public synchronized void addPreset(String id, String name, String url, boolean active) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
