@@ -1031,12 +1031,14 @@ public class Logic {
 				delegator.updateLatLon(selectedNode, lat, lon);
 			}
 			else {
-				lat = yToLatE7(absoluteY);
-				lon = xToLonE7(absoluteX);
-				delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
-				// update 
-				startLat = lat;
-				startLon = lon;
+				if (selectedWay != null) { // shouldn't happen but might be a race condition
+					lat = yToLatE7(absoluteY);
+					lon = xToLonE7(absoluteX);
+					delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
+					// update 
+					startLat = lat;
+					startLon = lon;
+				}
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
 		} else if (rotatingWay) {

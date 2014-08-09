@@ -1061,7 +1061,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			for (int i = 0, size = ways.size(); i < size; ++i) {
 				Way way = ways.get(i);
 				undo.save(way);
-				if (way.isClosed() && way.isEndNode(node)) {
+				if (way.isClosed() && way.isEndNode(node) && way.getNodes().size() > 1) { // note protection against degenerate closed ways
 					way.removeNode(node);
 					way.addNode(way.getFirstNode());
 				} else {
