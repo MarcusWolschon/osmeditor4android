@@ -8,9 +8,14 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.acra.ACRA;
+
 import android.util.Log;
+import android.widget.Toast;
+import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.exception.StorageException;
 
 /**
@@ -116,12 +121,17 @@ public class UndoStorage implements Serializable {
 	 * @param element the element to save
 	 */
 	protected void save(OsmElement element) {
+		try {
 		if (undoCheckpoints.isEmpty()) {
 			Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
 			return;
 		}
 		undoCheckpoints.getLast().add(element);
 		redoCheckpoints.clear();
+		} catch (Exception ex) {
+			ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report
+			Toast.makeText(Application.mainActivity, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	/**
@@ -200,7 +210,7 @@ public class UndoStorage implements Serializable {
 		 * Called before any changes to the element occur via {@link UndoStorage#save(OsmElement)}.
 		 * @param element the element to save
 		 */
-		public void add(OsmElement element) {
+		public void add(OsmElement element) throws IllegalArgumentException {
 			if (elements.containsKey(element)) return;
 			
 			if (element instanceof Node) elements.put(element, new UndoNode((Node)element));

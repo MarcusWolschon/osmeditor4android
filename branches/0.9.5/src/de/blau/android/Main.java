@@ -1178,8 +1178,14 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
 				logic.updateRelation(editorData.osmId, editorData.members);
 			}
-			map.invalidate();
 		}
+		if (logic.getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
+			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			logic.setSelectedRelation(null);
+		}
+		map.invalidate();
 	}
 	
 	@Override

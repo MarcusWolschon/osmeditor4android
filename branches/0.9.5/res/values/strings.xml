@@ -111,6 +111,7 @@
     <string name="toast_outside_of_download">You are editing outside of the downloaded data.</string>
     <string name="toast_file_not_found">%1$s not found.</string>
     <string name="toast_imported_track_points">Imported %1$s track points.</string>
+    <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

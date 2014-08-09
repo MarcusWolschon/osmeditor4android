@@ -76,6 +76,10 @@ public class EasyEditManager {
 		this.logic = logic;
 	}
 	
+	/**
+	 * Returns true if a actionmode is currently active
+	 * @return
+	 */
 	public boolean isProcessingAction() {
 		return (currentActionModeCallback != null);
 	}
@@ -181,16 +185,21 @@ public class EasyEditManager {
 	 * (unless the node is also null, then nothing happens).
 	 * @param possibleNode a node that was edited, or null
 	 * @param possibleWay a way that was edited, or null
+	 * @param select TODO
 	 */
-	private void tagApplicable(Node possibleNode, Way possibleWay) {
+	private void tagApplicable(Node possibleNode, Way possibleWay, boolean select) {
 		if (possibleWay == null) {
 			// Single node was added
 			if (possibleNode != null) { // null-check to be sure
-				main.startActionMode(new NodeSelectionActionModeCallback(possibleNode));
+				if (select) {
+					main.startActionMode(new NodeSelectionActionModeCallback(possibleNode));
+				}
 				main.performTagEdit(possibleNode, null, false);
 			}
 		} else { // way was added
-			main.startActionMode(new WaySelectionActionModeCallback(possibleWay));
+			if (select) {
+				main.startActionMode(new WaySelectionActionModeCallback(possibleWay));
+			}
 			main.performTagEdit(possibleWay, null, false);		
 		}
 	}
@@ -634,15 +643,13 @@ public class EasyEditManager {
 				// user clicked last node again -> finish adding
 				if (currentActionMode != null) // TODO for unknown reasons this now and then seems to be null
 					currentActionMode.finish();
-				tagApplicable(lastSelectedNode, lastSelectedWay); //TODO doesn't deselect way after tag edit
+				tagApplicable(lastSelectedNode, lastSelectedWay, true); 
 			} else { // update cache for undo
 				createdWay = logic.getSelectedWay();
-				if (createdWay != null) {
-					createdNodes = new ArrayList<Node>(createdWay.getNodes());
-				} else {
+				if (createdWay == null) {	
 					createdNodes = new ArrayList<Node>();
-					createdNodes.add(logic.getSelectedNode());
 				}
+				createdNodes.add(logic.getSelectedNode());		
 			}
 			main.invalidateMap();
 		}
@@ -672,21 +679,27 @@ public class EasyEditManager {
 		
 		private void handleUndo() {
 			logic.getUndo().undo();
-			if (logic.getSelectedNode() == null) { // should always happen, node removed
-				 Iterator<Node> nodeIterator = createdNodes.iterator();
-				 while (nodeIterator.hasNext()) { // remove nodes that do not exist anymore
-					 if (!logic.exists(nodeIterator.next())) nodeIterator.remove();
-				 }
-				 if (createdNodes.isEmpty()) {
-					 // all nodes have been deleted, cancel action mode
-					 if (currentActionMode != null) { //TODO shouldn't happen but does
-						 currentActionMode.finish();
-					 }
-				 } else {
-					 // select last node
-					 logic.setSelectedNode(createdNodes.get(createdNodes.size()-1));
-				 }
+			if (logic.getSelectedNode() == null) { // should always happen when we added a new node and removed it
+				Iterator<Node> nodeIterator = createdNodes.iterator();
+				while (nodeIterator.hasNext()) { // remove nodes that do not exist anymore
+					if (!logic.exists(nodeIterator.next())) nodeIterator.remove();
+				}
+			} else {
+				// remove existing node from list
+				createdNodes.remove(logic.getSelectedNode());
 			}
+			// exit or select the previous node
+			if (createdNodes.isEmpty()) {
+				logic.setSelectedNode(null);
+				// all nodes have been deleted, cancel action mode
+				if (currentActionMode != null) { //TODO shouldn't happen but does
+					currentActionMode.finish();
+				}
+			} else {
+				// select last node
+				logic.setSelectedNode(createdNodes.get(createdNodes.size()-1));
+			}
+
 			createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
 			main.invalidateMap();
 		}
@@ -700,8 +713,10 @@ public class EasyEditManager {
 			Way lastSelectedWay = logic.getSelectedWay();
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(null);
-			if (appendTargetNode == null) tagApplicable(lastSelectedNode, lastSelectedWay);
 			super.onDestroyActionMode(mode);
+			if (appendTargetNode == null) { // doesn't work as intended element selected modes get zapped, don't try to select because of this
+				tagApplicable(lastSelectedNode, lastSelectedWay, false); 
+			}
 		}
 	}
 	
