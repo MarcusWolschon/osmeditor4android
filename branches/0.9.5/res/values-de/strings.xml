@@ -141,6 +141,7 @@
   <string name="tag_menu_resetMRU">Vorlagen zurücksetzen</string>
   <string name="tag_menu_reset_address_prediction">Adressvorhersage zurücksetzen</string>
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
+  <string name="tag_value_hint">Tippen für mögliche Werte</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
@@ -277,6 +278,8 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">OAuth verwenden</string>
   <string name="listedit_enable_oauth">OAuth erlauben</string>
+  <string name="config_offsetServer_title">Versatzserver</string>
+  <string name="config_offsetServer_summary">URL für den Versatzserver</string>
   <string name="config_presetbutton_title">Vorlagensatz</string>
   <string name="config_presetbutton_summary">Sie können hier Definitionen von Kartenelementen einstellen.</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
@@ -311,6 +314,10 @@
   <string name="config_enableAutoPreset_summary">Automatisch zutreffenden Preset anwenden wenn ein Namensvorschlag angewendet wird</string>
   <string name="config_splitActionBarEnabled_title">Geteilte Action Bar erlauben</string>
   <string name="config_splitActionBarEnabled_summary">Geteilte Action Bar erlauben, Nutzung hängt vom Gerät ab. Benötigt einen Neustart und eine Android Version &gt;= 4.0</string>
+  <string name="config_gps_source_title">GPS Quelle</string>
+  <string name="config_gps_source_summary">Quelle für GPS-Daten </string>
+  <string name="config_gps_source_tcp_title">NMEA Netzwerkquelle</string>
+  <string name="config_gps_source_tcp_summary">Adresse der TCP NMEA-Quelle als host:port</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -408,5 +415,11 @@
     <item>öffentlich</item>
     <item>verfolgbar</item>
     <item>identifizierbar</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Intern</item>
+    <item>Intern NMEA</item>
+    <item>NMEA von TCP Client</item>
+    <item>NMEA von TCP Server</item>
   </string-array>
 </resources>
