@@ -274,7 +274,7 @@ public class WrappingLayout extends LinearLayout {
 						inner = new LinearLayout(context);
 						inner.setOrientation(LinearLayout.HORIZONTAL);
 						inner.setGravity(rowGravity);
-						container.addView(inner, new LayoutParams(innerLayoutParams));
+						container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams)innerLayoutParams));
 						usedSpace = 0;
 					}
 				}
