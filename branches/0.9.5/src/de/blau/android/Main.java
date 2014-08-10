@@ -1397,10 +1397,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		rl.removeView(oAuthWebView);
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.show();
-		oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
-		oAuthWebView.setVisibility(View.GONE);
-		oAuthWebView.removeAllViews();
-		oAuthWebView.destroy();
+		try {
+			// the below loadUrl, even though the "official" way to do it,
+			// seems to be prone to crash on some devices.
+			oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
+			oAuthWebView.setVisibility(View.GONE);
+			oAuthWebView.removeAllViews();
+			oAuthWebView.destroy();
+		} catch (Exception ex) { 
+			ACRA.getErrorReporter().handleException(ex);
+		}
 	}
 
 	/**
