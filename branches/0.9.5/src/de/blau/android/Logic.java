@@ -247,7 +247,7 @@ public class Logic {
 	private float centroidX;
 
 	/**
-	 * Are we currently draggign a handle?
+	 * Are we currently dragging a handle?
 	 */
 	private boolean draggingHandle = false;
 	
@@ -992,7 +992,7 @@ public class Logic {
 	 * @param relativeY The difference to the last absolute display-coordinate.
 	 * @throws OsmIllegalOperationException 
 	 */
-	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
+	synchronized void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
 		if (draggingNode || draggingWay || (draggingHandle && selectedHandle != null)) {
 			int lat;
 			int lon;
@@ -2508,7 +2508,7 @@ public class Logic {
 	/**
 	 * Internal setter to set the internal value
 	 */
-	public void setSelectedNode(final Node selectedNode) {
+	public synchronized void setSelectedNode(final Node selectedNode) {
 		this.selectedNode = selectedNode;
 		map.setSelectedNode(selectedNode);
 	}
@@ -2516,7 +2516,7 @@ public class Logic {
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
-	public void setSelectedWay(final Way selectedWay) {
+	public synchronized void setSelectedWay(final Way selectedWay) {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
 	}
@@ -2524,7 +2524,7 @@ public class Logic {
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
-	public void setSelectedRelation(final Relation relation) {
+	public synchronized void setSelectedRelation(final Relation relation) {
 		this.selectedRelation = relation;
 		if (selectedRelation != null)
 			selectRelation(relation);
@@ -2534,7 +2534,7 @@ public class Logic {
 	 * Set the currently selected bug.
 	 * @param selectedBug The selected bug.
 	 */
-	public void setSelectedBug(final Bug selectedBug) {
+	public synchronized void setSelectedBug(final Bug selectedBug) {
 		this.selectedBug = selectedBug;
 	}
 
