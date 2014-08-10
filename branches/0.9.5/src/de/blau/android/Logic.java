@@ -1749,6 +1749,7 @@ public class Logic {
 					Log.e("Vespucci", "Problem parsing", e);
 					result = DialogFactory.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
+					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
@@ -1774,14 +1775,19 @@ public class Logic {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
 					if (result != 0) {
 						if (result == DialogFactory.OUT_OF_MEMORY) {
 							System.gc();
 							if (delegator.isDirty()) {
 								result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 							}
+						}	
+						try {
+							Application.mainActivity.showDialog(result);
+						} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+							ACRA.getErrorReporter().handleException(ex);
 						}
-						Application.mainActivity.showDialog(result);
 					}
 					Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
 					map.invalidate();
@@ -2068,7 +2074,11 @@ public class Logic {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					Application.mainActivity.showDialog(result);
+					try {
+						Application.mainActivity.showDialog(result);
+					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+						ACRA.getErrorReporter().handleException(ex);
+					}
 				}
 				Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 				map.invalidate();
