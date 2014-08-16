@@ -1737,6 +1737,7 @@ public class Logic {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
+					Log.d("Logic","showing dialog");
 					Application.mainActivity.showDialog(result);
 				}
 				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
