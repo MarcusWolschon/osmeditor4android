@@ -22,6 +22,10 @@ Create an OpenStreetMap Note at the point.
 
 Start the path/way creation mode, just as if you had touch the screen again.
 
+### ![](../images/ic_menu_paste_holo_light.png) Paste
+
+Copy the object in internal copy and paste buffer to the current position. If the object was originally cut this has the same effect as if you moved the object to the new position and the buffer will be empty after the operation. 
+
 ### ![](../images/menu_gps.png) New node at GPS pos.
 
 This will create a node at the current GPS position and add elevation tags to it. Note it doesn't matter where on the screen you originally touched, the node will be created at the GPS location.

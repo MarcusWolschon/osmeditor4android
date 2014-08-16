@@ -21,7 +21,7 @@ Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transf
  * **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location requires network connectivity
  * **Upload data to OSM server** - upload edits to OpenStreetMap (requires authentication) (requires network connectivity)
  * **Export changes** - write a ".osc" format file containing the current edits, this acan be read for example by JOSM
- * **Read from file** - read a a JOSM compatible XML format file
+ * **Read from file** - read a (J)OSM compatible XML format file
  * **Save to file** - save as a JOSM compatible XML format file
 
 The easiest open is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
@@ -31,6 +31,8 @@ The easiest open is to zoom and pan to the location you want to edit and then to
 To avoid accidental edits Vespucci will start up in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![](../images/locked.png) icon to unlock the screen.
  
 With the default settings nodes and ways that are selectable will have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple object it will present a selection menu. Selected objects are highlighted in yellow.
+
+It is a good strategy to zoom in if you are attempting to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
@@ -43,6 +45,10 @@ A single click on an object will select the object and highlight it, a second cl
 Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol, touching the same location again will create a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
 Simply touch the screen where you want further nodes of the way to be created and to finish touch the final node twice. If the initial node is located on a way, the node will be inserted in to the way automatically.
 
+#### Moving a Node or Way
+
+Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences you will get a large area around the selected node that makes it easier to position the object. 
+
 #### Improving Way Geometry
 
 If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note to avoid accidental creation of nodes the touch tolerance for this operation is fairly small.
@@ -53,7 +59,15 @@ Selected nodes and ways can be copied or cut and then pasted one or multiple tim
 
 #### Efficiently Adding Addresses
 
-The tag editor has a repeat last tag function which will merge the tags of the last objects tags displayed in the tag editor with the current ones. Example use: add address tags to first building on a street, continue a long the street using the last tags function to add the address and then edit the house number.
+Vespucci has a "add address tags" function that tries to make surveying addresses more efficient. It can be selected  
+
+* after a long press: vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a **entrance=yes"" tag to the node. The tag editor will be started on the object in question for any further changes that need to be made. 
+* in the node/way selected modes: vespucci will add address tags as above and start the tag editor.
+* in the tag editor.
+
+House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+
+Consider using this with the "Auto-download" mode.  
 
 #### Adding Turn Restrictions
 
@@ -67,6 +81,8 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
 
 ### Saving Your Changes
 
+*(requires network connectivity)*
+
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
 Vespucci supports OAuth authorization besides the classical username and password method. OAuth is preferable, particularly for mobile applications since it avoids sending passwords in the clear.
@@ -75,12 +91,24 @@ New Vespucci installs will have OAuth enabled by default. On your first attempt 
 
 #### Resolving conflicts on uploads
 
-Currently Vespucci doesn't have a built in conflict resolver. If you do get a conflict on upload, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and upload them with JOSM.  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict Resolution).  
 
 ## Using GPS
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). If you have the later set 
-moving the screen manually or editing will cause the follow mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow.
+You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+
+If you have the later set, moving the screen manually or editing will cause the follow GPS mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
+
+### Auto-Download
+
+*(requires network connectivity)*
+
+If "Show location" and "Follow GPS Position" are enabled vespucci allows you to auto download a small area (default 50m radius) around your current position. Just as above if you move the screen manually or change the geometry of an object you will have to re-enable "Follow GPS Position" when you want to continue. 
+
+Notes:
+
+* you need to download an initial area manually
+* the function only works below 6km/h (brisk walking speed) to avoid causing issues with the OpenStreetMap API
 
 
 ## Customizing Vespucci
@@ -88,7 +116,7 @@ moving the screen manually or editing will cause the follow mode to be disabled 
 ### Settings that you might want to change
 
  * Background layer
- * Overlay layer
+ * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
  * Notes display (open Notes will be displayed as a red filled circle, closed Notes the same in blue). Default: off.
  * Node icons. Default: off.
  * Keep screen on. Default: off.
