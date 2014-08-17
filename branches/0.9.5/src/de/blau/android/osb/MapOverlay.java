@@ -14,6 +14,7 @@ import de.blau.android.Map;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
+import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
@@ -109,7 +110,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
-			final float radius = 1.0f + osmv.getZoomLevel() / 2.0f;
+			final float radius = Density.dpToPx(1.0f + osmv.getZoomLevel() / 2.0f);
 			BoundingBox bb = osmv.getViewBox();
 			
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
