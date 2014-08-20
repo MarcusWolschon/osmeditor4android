@@ -15,6 +15,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.Typeface;
@@ -34,6 +35,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -74,6 +76,8 @@ public class Map extends View implements IMapView {
 	
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
+	
+	private final int iconSelectedBorder;
 	
 	private final int houseNumberRadius;
 	
@@ -183,6 +187,7 @@ public class Map extends View implements IMapView {
 		iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
 		houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
 		verticalNumberOffset = Density.dpToPx(3);
+		iconSelectedBorder = Density.dpToPx(2);
 		
 		// TODO externalize
 		textPaint.setColor(Color.WHITE);
@@ -602,6 +607,7 @@ public class Map extends View implements IMapView {
 	private void paintNode(final Canvas canvas, final Node node) {
 		int lat = node.getLat();
 		int lon = node.getLon();
+		boolean isSelected = false;
 		
 		//Paint only nodes inside the viewBox.
 		BoundingBox viewBox = getViewBox();
@@ -637,6 +643,7 @@ public class Map extends View implements IMapView {
 				if (node == tmpDrawingSelectedNode && prefs.largeDragArea()) {
 					canvas.drawCircle(x, y, Profile.getCurrent().largDragToleranceRadius, Profile.getCurrent(Profile.NODE_DRAG_RADIUS).getPaint());
 				}
+				isSelected = true;
 			} else if (node.hasProblem()) {
 				// general node style
 				featureKey = Profile.PROBLEM_NODE;
@@ -653,22 +660,23 @@ public class Map extends View implements IMapView {
 				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
-			// draw house-numbers
-			if (node.getTagWithKey("addr:housenumber") != null && node.getTagWithKey("addr:housenumber").trim().length() > 0) {
-				Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
-				canvas.drawCircle(x, y, houseNumberRadius, paint2);
-				String text = node.getTagWithKey("addr:housenumber");
-				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + verticalNumberOffset, paint2);
-				return; // don't want to be covered by icon
-			} else if (node.isTagged()) {
-				canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
-			} else { //TODO: draw other known elements different too
+			if (node.isTagged()) {
+				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
+					Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
+					canvas.drawCircle(x, y, houseNumberRadius, paint2);
+					canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2);
+				} else {
+					if (showIcons && tmpPresets != null) {
+						paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
+					} else {
+						canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
+					}
+				}
+			} else { 
 				// draw regular nodes
 				canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());
-				return; // no tags -> no icon, so we can exit here
 			}
-			
-			if (showIcons && tmpPresets != null && !featureKey.equals(Profile.SELECTED_NODE)) paintNodeIcon(node, canvas, x, y);
 //		}
 	}
 	
@@ -679,7 +687,7 @@ public class Map extends View implements IMapView {
 	 * @param x the x position where the center of the icon goes
 	 * @param y the y position where the center of the icon goes
 	 */
-	private void paintNodeIcon(OsmElement element, Canvas canvas, float x, float y) {
+	private void paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
 		Bitmap icon = null;
 		SortedMap<String, String> tags = element.getTags();
 		if (iconcache.containsKey(tags)) {
@@ -689,13 +697,20 @@ public class Map extends View implements IMapView {
 			PresetItem match = Preset.findBestMatch(tmpPresets,tags);
 			if (match != null && match.getMapIcon() != null) {
 				icon = Bitmap.createBitmap(iconRadius*2, iconRadius*2, Config.ARGB_8888);
+				// icon.eraseColor(Color.WHITE); // replace nothing with white?
 				match.getMapIcon().draw(new Canvas(icon));
 			}
 			iconcache.put(tags, icon);
 		}
 		if (icon != null) {
+			int w2 = icon.getWidth()/2;
+			int h2 = icon.getHeight()/2;
+			if (featureKey != null) { // selected
+				Rect r = new Rect( (int)x - w2 - iconSelectedBorder, (int)y - h2 - iconSelectedBorder, (int)x + w2 + iconSelectedBorder, (int)y + h2 + iconSelectedBorder);
+				canvas.drawRect(r, Profile.getCurrent(featureKey).getPaint());
+			}
 			// we have an icon! draw it.
-			canvas.drawBitmap(icon, x - iconRadius, y - iconRadius, null);
+			canvas.drawBitmap(icon, x - w2, y - h2, null);
 		}
 	}
 
