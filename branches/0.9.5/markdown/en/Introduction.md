@@ -16,10 +16,10 @@ Depending on screen size and age of your device editing actions may either be ac
 
 Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
- * **Download current view** - download the area visible on the screen and replace any existing data (requires network connectivity)
- * **Add current view to download** - download the area visible on the screen and merge it with existing data (requires network connectivity)
- * **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location requires network connectivity
- * **Upload data to OSM server** - upload edits to OpenStreetMap (requires authentication) (requires network connectivity)
+ * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
+ * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+ * **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
+ * **Upload data to OSM server** - upload edits to OpenStreetMap "(requires authentication)" *(requires network connectivity)*
  * **Export changes** - write a ".osc" format file containing the current edits, this acan be read for example by JOSM
  * **Read from file** - read a (J)OSM compatible XML format file
  * **Save to file** - save as a JOSM compatible XML format file

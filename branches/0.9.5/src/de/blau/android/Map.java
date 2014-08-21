@@ -667,9 +667,7 @@ public class Map extends View implements IMapView {
 					canvas.drawCircle(x, y, houseNumberRadius, paint2);
 					canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2);
 				} else {
-					if (showIcons && tmpPresets != null) {
-						paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
-					} else {
+					if (!showIcons || tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null)) {
 						canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
 					}
 				}
@@ -687,7 +685,7 @@ public class Map extends View implements IMapView {
 	 * @param x the x position where the center of the icon goes
 	 * @param y the y position where the center of the icon goes
 	 */
-	private void paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
+	private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
 		Bitmap icon = null;
 		SortedMap<String, String> tags = element.getTags();
 		if (iconcache.containsKey(tags)) {
@@ -711,7 +709,9 @@ public class Map extends View implements IMapView {
 			}
 			// we have an icon! draw it.
 			canvas.drawBitmap(icon, x - w2, y - h2, null);
+			return true;
 		}
+		return false;
 	}
 
 	/**
