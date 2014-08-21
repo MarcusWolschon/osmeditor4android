@@ -5,13 +5,13 @@
   <string name="transfer_download_current_dialog_message">您有做了一些變更。您是否想上傳它們而非放棄？</string>
   <string name="transfer_download_current_upload">上傳</string>
   <string name="transfer_download_current_download">放棄與下載</string>
-  <string name="transfer_download_current_back">返回(閒置)</string>
-  <string name="upload_problem_title">上傳的問題</string>
+  <string name="transfer_download_current_back">返回 (閒置)</string>
+  <string name="upload_problem_title">問題上傳</string>
   <string name="upload_problem_message">有一些或全部的資料未被上傳。如果這只是一個臨時的問題，請以後再嘗試上傳。</string>
   <string name="upload_conflict_title">上傳衝突</string>
   <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$s \n和在伺服器上的 %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \n擁有的本機版本 %2$s \n在伺服器上已被刪除</string>
-  <string name="upload_conflict_message_referential">%1$s \n本機的已被刪除 \n但是在伺服器上有引用</string>
+  <string name="upload_conflict_message_referential">%1$s \n本機的已被刪除 \n但是在伺服器上可取得參考</string>
   <string name="use_local_version">使用本機版本</string>
   <string name="use_server_version">使用伺服器上的版本</string>
   <string name="no_login_data_title">驗證失敗</string>
@@ -19,19 +19,19 @@
   <string name="no_connection_title">未連接到伺服器</string>
   <string name="no_connection_message">無法連線到 OSM 伺服器。請檢查您的網路連線或稍後再試。</string>
   <string name="wrong_login_data_title">驗證失敗</string>
-  <string name="wrong_login_data_message">如果您正在使用 OAuth 這可能是一個 錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
+  <string name="wrong_login_data_message">如果您正在使用 OAuth 這可能是一個錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
   <string name="data_conflict_title">版本衝突</string>
   <string name="data_conflict_message">您正嘗試下載的資料中，所包含的資料與您的編輯衝突。\n請在重試之前，先試著上傳您的資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
   <string name="out_of_memory_message">Vespucci 載入所要求的資料，已耗盡記憶體。請重新開機，並嘗試載入較小的區域。</string>
   <string name="out_of_memory_dirty_message">Vespucci 載入所要求的資料，已耗盡記憶體。請試著儲存您的編輯，重新開機，並嘗試載入較小的區域。</string>
   <string name="invalid_data_received_title">收到的資料無效</string>
-  <string name="invalid_data_received_message">Vespucci 從伺服器收到無效的資料。如果您認為您嘗試所做的是正確的，請提交錯誤報告。</string>
-  <string name="file_write_failed_title">檔案寫入失敗</string>
+  <string name="invalid_data_received_message">Vespucci 從伺服器收到無效的資料。如果您認為您所嘗試做的是正確的，請提交錯誤報告。</string>
+  <string name="file_write_failed_title">寫入檔案失敗</string>
   <string name="file_write_failed_message">無法寫入到所選定的檔案。</string>
   <string name="welcome_title">歡迎！</string>
-  <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n* 要增加一個新的物件：長按，在同一個地方輕按，會增加一個節點，離更遠處輕按會開始一條道路。\n\n玩得愉快！</string>
-  <string name="read_introduction">現在閱讀介紹</string>
+  <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n* 要增加一個新的物件：長按，在同一個地方點按，會增加一個節點，離更遠處輕點會開始一條路徑。\n\n玩得愉快！</string>
+  <string name="read_introduction">現在閱讀入門介紹</string>
   <string name="progress_title">載入</string>
   <string name="progress_message">載入資料到記憶體中…</string>
   <string name="progress_download_message">正從伺服器下載資料…</string>
@@ -43,11 +43,11 @@
   <string name="upload_source_label">來源：</string>
   <string name="upload_close_changeset_label">關閉變更：</string>
   <string name="upload_gpx_description_label">記述</string>
-  <string name="upload_gpx_tags_label">標簽</string>
+  <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
   <string name="openstreetbug_new_title">新註解</string>
   <string name="openstreetbug_new_bug">回報問題</string>
-  <string name="openstreetbug_new_nodeway">建立節點或道路</string>
+  <string name="openstreetbug_new_nodeway">建立節點或路徑</string>
   <string name="openstreetbug_edit_title">編輯註解</string>
   <string name="openstreetbug_commitbutton">送交</string>
   <string name="openstreetbug_comment_label">評論：</string>
@@ -60,15 +60,15 @@
   <string name="unsaved_data_proceed">放棄和繼續</string>
   <string name="imagery_offset_title">影像偏移量</string>
   <string name="imagery_offset_description">記述</string>
-  <string name="imagery_offset_not_found">在半徑 10 公里的範圍未發現偏移量！</string>
+  <string name="imagery_offset_not_found">在半徑 10 公里的範圍未發現偏移！</string>
   <string name="imagery_offset_author">作者</string>
-  <string name="imagery_offset_offset">偏移量</string>
+  <string name="imagery_offset_offset">偏移</string>
   <string name="imagery_offset_date">已建立</string>
   <string name="imagery_offset_zoom">縮放</string>
   <string name="imagery_offset_distance">距離</string>
   <string name="set_position_datum_label">大地基準點</string>
   <string name="tag_editor_name_suggestion">建議名稱</string>
-  <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標簽值。</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
   <string name="search_results_title">搜尋結果</string>
   <string name="find_message">輸入搜尋字串</string>
   <string name="read_file">選擇要讀取的檔案</string>
@@ -78,21 +78,21 @@
   <!--Toaster-->
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_upload_success">上傳到 OSM 的伺服器完成了。</string>
-  <string name="toast_not_in_edit_range">請放大以編輯(音量上/下或鏡頭/移動)</string>
+  <string name="toast_not_in_edit_range">請放大來編輯(音量鍵上/下)</string>
   <string name="toast_unlock_to_edit">解鎖以編輯</string>
   <string name="toast_edit_outside_downloaded_area">您不能編輯下載區域之外的</string>
   <string name="toast_save_done">儲存成功</string>
   <string name="toast_save_failed">儲存失敗</string>
-  <string name="toast_not_in_bug_range">請放大以增加一個錯誤(音量上/下)</string>
+  <string name="toast_not_in_bug_range">請放大來增加一個錯誤(音量鍵上/下)</string>
   <string name="toast_export_failed">匯出失敗</string>
   <string name="toast_export_success">已匯出到  %1$s</string>
-  <string name="toast_preset_overwrote_tags">注意-預置覆蓋了標簽</string>
-  <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標簽。如果有必要，請檢查標簽並訂正。</string>
-  <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標簽值，在相同的關係，方向是依據語義或不同的作用。請檢查標簽和作用，並在有必要時訂正。</string>
+  <string name="toast_preset_overwrote_tags">注意-預置覆蓋了標籤</string>
+  <string name="toast_oneway_reversed">您已反轉了單行道或路徑方向依據的標籤。如果有必要，請檢查標籤並訂正。</string>
+  <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據語義或不同的作用。請檢查標籤和作用，並在有必要時訂正。</string>
   <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
-  <string name="toast_too_many_nodes_for_move">在道路上的節點過多要移動</string>
+  <string name="toast_too_many_nodes_for_move">在路徑上要移動的節點過多</string>
   <string name="toast_oauth_handshake_failed">OAuth 交握失敗，請檢查您有正確的用戶密鑰</string>
-  <string name="toast_unread_mail">您有 %1$s 的未讀郵件，在 OpenStreetMap 的伺服器上</string>
+  <string name="toast_unread_mail">在 OpenStreetMap 的伺服器上，您有 %1$s 的未讀郵件</string>
   <string name="toast_photo_indexing_started">開始掃描地理參考圖片</string>
   <string name="toast_photo_indexing_finished">掃描地理參考圖片完成</string>
   <string name="toast_download_bbox_failed">下載失敗，可能是因為所選區域過大。</string>
@@ -105,11 +105,12 @@
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
-  <string name="toast_statesave_failed">儲存目前的狀態失敗！\n這一個致命的錯誤，試著寫入一個檔案匯出，用於以後 JOSM 恢復。</string>
+  <string name="toast_statesave_failed">儲存目前的狀態失敗！\n這一個致命的錯誤，試著寫入一個檔案後匯出，用於以後 JOSM 恢復。</string>
   <string name="toast_missing_filemanager">請安裝檔案管理。</string>
   <string name="toast_outside_of_download">您正在編輯已下載之外的資料</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
   <string name="toast_imported_track_points">已匯入 %1$s 軌跡標點</string>
+  <string name="toast_inconsistent_state">檢測到不相容的狀態，請發送錯誤報告！</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -131,16 +132,17 @@
   <string name="key">關鍵字</string>
   <string name="value">值</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
-  <string name="tag_menu_address">增加位址標簽</string>
+  <string name="tag_menu_address">增加地址標籤</string>
   <string name="tag_menu_sourcesurvey">勘查</string>
   <string name="tag_menu_preset">預置</string>
-  <string name="tag_menu_repeat">重複的標簽</string>
+  <string name="tag_menu_repeat">重複的標籤</string>
   <string name="tag_menu_revert">回復</string>
   <string name="tag_menu_mapfeatures">維基地圖圖徵</string>
-  <string name="tag_menu_addtorelation">增加到關聯</string>
+  <string name="tag_menu_addtorelation">增加到關係</string>
   <string name="tag_menu_resetMRU">重置預置</string>
   <string name="tag_menu_reset_address_prediction">重置地址預測</string>
   <string name="tag_menu_exit_no_save">退出\n不儲存</string>
+  <string name="tag_value_hint">指定值</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">載入區域</string>
   <string name="location_choose_radius">選取半徑：</string>
@@ -152,8 +154,8 @@
   <string name="location_current_text_parameterized">目前位置：%1$s</string>
   <string name="location_text_metadata_location">\n緯度 %1$4g、經度 %2$4g\n%3$s %4$s 之前</string>
   <string name="location_text_metadata_accuracy">精確度 %1$2.0f 公尺，</string>
-  <string name="location_map_text">來自地圖（即將推出）</string>
-  <string name="location_coordinates_text">來自坐標：</string>
+  <string name="location_map_text">從地圖（即將推出）</string>
+  <string name="location_coordinates_text">從坐標：</string>
   <string name="location_lat_label">緯度：</string>
   <string name="location_lon_label">經度：</string>
   <string name="location_search_label">搜尋：</string>
@@ -171,15 +173,15 @@
   <string name="menu_erase">抹除節點</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">拆分</string>
-  <string name="menu_closed_way_split_1">第 1 節點拆分封閉道路</string>
-  <string name="menu_closed_way_split_2">第 2 節點拆分封閉道路</string>
+  <string name="menu_closed_way_split_1">第 1 節點拆分封閉路徑</string>
+  <string name="menu_closed_way_split_2">第 2 節點拆分封閉路徑</string>
   <string name="menu_append">追加</string>
-  <string name="menu_restriction">增加限制</string>
+  <string name="menu_restriction">增加管制</string>
   <string name="menu_restriction_via">透過增加限制</string>
-  <string name="menu_restriction_to">增加限制到</string>
+  <string name="menu_restriction_to">增加管制到</string>
   <string name="menu_relation">建立關係</string>
   <string name="menu_add_relation_member">增加成員</string>
-  <string name="menu_tag">編輯標簽</string>
+  <string name="menu_tag">編輯標籤</string>
   <string name="menu_openstreetbug">增加註解</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_gps">GPS…</string>
@@ -196,7 +198,7 @@
   <string name="menu_gps_autodownload">自動下載</string>
   <string name="menu_transfer">傳輸…</string>
   <string name="menu_transfer_download_current">下載目前的檢視</string>
-  <string name="menu_transfer_download_current_add">增加目前的檢視以下載</string>
+  <string name="menu_transfer_download_current_add">增加目前檢視的作下載</string>
   <string name="menu_transfer_download_other">下載其它位置</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_export">匯出變更</string>
@@ -226,29 +228,29 @@
   <string name="menu_tools_background_align_apply2all">套用(所有縮放)</string>
   <string name="menu_tools_background_contrast">對比</string>
   <!--element action mode menu-->
-  <string name="menu_tags">標簽</string>
+  <string name="menu_tags">標籤</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">履歷</string>
   <string name="menu_merge">加入</string>
   <string name="menu_reverse">反向</string>
-  <string name="notreversable_description">該道路是有標記與屬性的，那是方向依據並且不能反向。反向道路將會破壞標簽。</string>
+  <string name="notreversable_description">該路徑是有標記與屬性的，那是方向依據並且不能反向。反向路徑將會破壞標籤。</string>
   <string name="reverse_anyway">仍然反向</string>
-  <string name="deleteway_description">您即將刪除一條道路。\n\n您可以保留所有節點，或者刪除只屬於這條道路，並且沒有任何標簽的節點。</string>
-  <string name="deleteway_relation_description">您將要刪除的道路，它是一個或多個關係中的成員。從關係中移除了道路，可能會使得它或它們變成無效。</string>
-  <string name="deleteway_nodesnotdownloaded_description">道路含有在下載區域之外的節點，不能在還沒有建立並且不一致的狀態中刪除。先下載整道路然後重試。</string>
-  <string name="deleteway_wayonly">只刪除道路</string>
-  <string name="deleteway_wayandnodes">刪除道路和節點</string>
+  <string name="deleteway_description">您即將刪除一條路徑。\n\n您可以保留所有節點，或者刪除只屬於這條路徑，並且沒有任何標籤的節點。</string>
+  <string name="deleteway_relation_description">您將要刪除的路徑，它是一個或多個關係中的成員。從關係中移除了路徑，可能會使得它或它們變成無效。</string>
+  <string name="deleteway_nodesnotdownloaded_description">路徑含有在下載區域之外的節點，不能在還沒有建立並且不一致的狀態中刪除。先下載整體路徑然後再重試。</string>
+  <string name="deleteway_wayonly">只刪除路徑</string>
+  <string name="deleteway_wayandnodes">刪除路徑和節點</string>
   <string name="deletenode_relation_description">您將要刪除的節點，它是一個或多個關係中的成員。從關係中移除了節點，可能會使得它或它們變成無效。</string>
   <string name="deletenode">刪除節點</string>
   <!--EasyEdit action mode titles-->
-  <string name="actionmode_wayselect">道路已選取</string>
+  <string name="actionmode_wayselect">路徑已選取</string>
   <string name="actionmode_nodeselect">節點已選取</string>
   <string name="actionmode_relationselect">已選取關係</string>
   <string name="actionmode_createpath">建立路徑</string>
   <!--Preferences-->
   <string name="config_category_view">檢視設定</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
-  <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路</string>
+  <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的路徑</string>
   <string name="config_tileCacheSize_title">圖磚快取大小</string>
   <string name="config_tileCacheSize_summary">圖磚快取以 MB 為單位合計大小</string>
   <string name="config_showStats_title">顯示統計</string>
@@ -277,6 +279,8 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">使用 oauth</string>
   <string name="listedit_enable_oauth">啟用 oauth</string>
+  <string name="config_offsetServer_title">偏移伺服器</string>
+  <string name="config_offsetServer_summary">圖片偏移伺服器的網址</string>
   <string name="config_presetbutton_title">JOSM 預置</string>
   <string name="config_presetbutton_summary">您可以在這裡設置地圖元件定義</string>
   <string name="config_iconbutton_title">顯示節點圖示</string>
@@ -294,7 +298,7 @@
   <string name="config_category_info">關於</string>
   <string name="config_advancedprefs">進階參數選項</string>
   <string name="config_forceContextMenu_title">總是使用快顯選單</string>
-  <string name="config_forceContextMenu_summary">如果所選不明確的，永遠在 EasyEdit 模式下顯示快顯選單。</string>
+  <string name="config_forceContextMenu_summary">如果選用是不分明的，始終在 EasyEdit 模式下顯示快顯選單。</string>
   <string name="config_licensebutton_title">作者和授權</string>
   <string name="config_licensebutton_summary">顯示作者和授權資訊</string>
   <string name="config_mapProfile_title">地圖設定檔</string>
@@ -306,7 +310,7 @@
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
   <string name="config_enableNameSuggestions_title">啟用建議名稱</string>
-  <string name="config_enableNameSuggestions_summary">為名稱標簽開啟建議</string>
+  <string name="config_enableNameSuggestions_summary">為名稱標籤開啟建議</string>
   <string name="config_enableAutoPreset_title">啟用自動預置</string>
   <string name="config_enableAutoPreset_summary">當選擇了名稱建議時自動加入預置</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
@@ -330,7 +334,8 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
-  <string name="urldialog_api_preset_missing">所使用的 API 預置為可使用的。您應該先增加。</string>
+  <string name="urldialog_api_exists">這個 API 的網址已經存在。不過，您可以增加另一個 (例如，方便地切換帳號)。</string>
+  <string name="urldialog_api_preset_missing">所使用的 API 預置為不可使用的。您應該先增加。</string>
   <string name="urldialog_add_api">增加 API</string>
   <string name="urldialog_nodata_text">組態 URL 未包含有效的資料。</string>
   <!--common terms-->
@@ -353,25 +358,25 @@
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">移動節點</string>
-  <string name="undo_action_moveway">移動道路</string>
+  <string name="undo_action_moveway">移動路徑</string>
   <string name="undo_action_add">插入</string>
   <string name="undo_action_append">追加</string>
   <string name="undo_action_deletenode">刪除節點</string>
-  <string name="undo_action_deleteway">刪除道路</string>
-  <string name="undo_action_split_ways">拆分道路</string>
-  <string name="undo_action_split_way">拆分道路</string>
-  <string name="undo_action_merge_ways">合併道路</string>
-  <string name="undo_action_reverse_way">道路反向</string>
-  <string name="undo_action_set_tags">設定標簽</string>
+  <string name="undo_action_deleteway">刪除路徑</string>
+  <string name="undo_action_split_ways">拆分路徑</string>
+  <string name="undo_action_split_way">拆分路徑</string>
+  <string name="undo_action_merge_ways">合併路徑</string>
+  <string name="undo_action_reverse_way">反轉路徑</string>
+  <string name="undo_action_set_tags">設定標籤</string>
   <string name="undo_action_join">加入</string>
-  <string name="undo_action_unjoin_ways">不加入道路</string>
+  <string name="undo_action_unjoin_ways">不加入路徑</string>
   <string name="undo_action_create_relation">建立關係</string>
   <string name="undo_action_delete_relation">刪除關係</string>
   <string name="undo_action_update_relations">更新關係</string>
   <string name="undo_action_cut">剪下</string>
   <string name="undo_action_paste">貼上</string>
-  <string name="undo_action_rotateway">旋轉道路</string>
-  <string name="undo_action_orthogonalize">正交方式</string>
+  <string name="undo_action_rotateway">旋轉路徑</string>
+  <string name="undo_action_orthogonalize">直角化路徑</string>
   <string name="undo_action_circulize">在圓週排列</string>
   <string name="undo_action_fix_conflict">修正衝突</string>
   <!--ACRA-->
@@ -384,7 +389,7 @@
   <string name="pref_acra_enabled">已啟用錯誤回報</string>
   <string name="pref_acra_disabled">已停用錯誤回報</string>
   <!--Exceptions messages-->
-  <string name="exception_too_many_nodes">此操作會造成一條過多節點的道路。</string>
+  <string name="exception_too_many_nodes">此操作會造成一條過多節點的路徑。</string>
   <!--Misc relation related stuff-->
   <string name="role">作用</string>
   <string name="role_lc">作用</string>

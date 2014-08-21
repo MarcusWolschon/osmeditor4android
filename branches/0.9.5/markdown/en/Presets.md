@@ -11,7 +11,7 @@ To manage the presets go to the "Preferences" screen and then to the "Advanced P
 
 **Add preset** will add a new preset, you need to supply an URL and a name. Vespucci will download the preset file and any icons referenced by URL. *(requires network connectivity)*
 
-Most current JOSM presets can be found in this list [http://josm.openstreetmap.de/wiki/Presets](http://josm.openstreetmap.de/wiki/Presets) Prests in a ZIP archive are currently not supported.
+Most current JOSM presets can be found in this list [http://josm.openstreetmap.de/wiki/Presets](http://josm.openstreetmap.de/wiki/Presets) Presets in a ZIP archive are currently not supported.
 
 
 
