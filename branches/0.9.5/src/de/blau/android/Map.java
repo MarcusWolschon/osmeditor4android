@@ -898,6 +898,7 @@ public class Map extends View implements IMapView {
 		}
 		return fp;
 	}
+	
 	/**
 	 * Draws directional arrows for a way
 	 * @param canvas the canvas on which to draw
