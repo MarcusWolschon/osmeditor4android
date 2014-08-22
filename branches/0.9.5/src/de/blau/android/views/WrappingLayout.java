@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
  * will yield the horizontal linear layouts that may be replaced at any time.
  * 
  * This layout should be usable via inflation from XML - the original children
- * are loaded into this class, wrapped in liear layouts and then re-inserted.
+ * are loaded into this class, wrapped in linear layouts and then re-inserted.
  * However, advanced attributes need to be set in the code.
  * 
  * @author Jan Schejbal
@@ -244,21 +244,19 @@ public class WrappingLayout extends LinearLayout {
 			LinearLayout inner = new LinearLayout(context);
 			inner.setGravity(rowGravity);
 			inner.setOrientation(LinearLayout.HORIZONTAL);
-			container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams)innerLayoutParams));
-			
-			// For new rows, set margin
+			// not only For new rows, set margin
 			innerLayoutParams.topMargin = vspace;
-			
+			container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams)innerLayoutParams));
+
 			if (availableSpace == 0) {
 				Log.e(LOGTAG, "No width information - read documentation!");
 			}
 			
 			for (View child : children) {
 				int childWidth = getViewWidth(child);
-				if (inner.getChildCount() > 0) { // if row is empty, no space checking is done
+				if (true /* inner.getChildCount() > 0 */) { // if row is empty, no space checking is done
 					if ((usedSpace + hspace + childWidth) <= availableSpace) {
-						// adding to current row
-						
+						// adding to current row						
 						// add horizontal spacing if necessary
 						if (hspace > 0) { 
 							if (rightToLeft) {
@@ -285,7 +283,6 @@ public class WrappingLayout extends LinearLayout {
 					inner.addView(child);
 				}
 				usedSpace += childWidth;
-
 			}
 		}
 		

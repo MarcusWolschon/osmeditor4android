@@ -929,7 +929,18 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			doRevert();
 			return true;
 		case R.id.tag_menu_mapfeatures:
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_mapfeatures)));
+			Uri uri = null;
+			LinkedHashMap<String, String> map = getKeyValueMap(false);
+			if (map !=null) {
+				PresetItem p =  Preset.findBestMatch(presets,map);
+				if (p != null) {
+					uri = p.getMapFeatures();
+				}
+			}
+			if (uri == null) {
+				uri = Uri.parse(getString(R.string.link_mapfeatures));
+			}
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 			startActivity(intent);
 			return true;
 		case R.id.tag_menu_addtorelation:

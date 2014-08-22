@@ -9,6 +9,8 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -253,6 +256,8 @@ public class Preset {
             		if (text != null) {
             			currentItem.addHint(attr.getValue("key"),text);
             		}
+            	} else if ("link".equals(name)) {
+            		currentItem.setMapFeatures(attr.getValue("href")); // just English for now
             	} else if ("check".equals(name)) {
             		String value_on = attr.getValue("value_on");
             		String value_off = attr.getValue("value_off");
@@ -531,6 +536,7 @@ public class Preset {
 		private BitmapDrawable mapIcon;
 		private PresetGroup parent;
 		private boolean appliesToWay, appliesToNode, appliesToClosedway, appliesToRelation;
+		private Uri mapFeatures;
 
 		/**
 		 * Creates the element, setting parent, name and icon, and registers with the parent
@@ -654,6 +660,16 @@ public class Preset {
 			}
 		}
 		
+		protected void setMapFeatures(String url) {
+			if (url != null) {
+				mapFeatures = Uri.parse(url);
+			}
+		}
+		
+		public Uri getMapFeatures() {
+			return mapFeatures;
+		}
+		
 		@Override
 		public String toString() {
 			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation;
@@ -675,7 +691,6 @@ public class Preset {
 			v.setMinimumWidth(99999); // for WrappingLayout
 			return v;
 		}
-		
 	}
 	
 	/**
@@ -715,7 +730,6 @@ public class Preset {
 					}
 				});
 			}
-
 			return v;
 		}
 		
@@ -723,7 +737,7 @@ public class Preset {
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
 		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type) {
-			ScrollView scrollView = new ScrollView(ctx);
+			ScrollView scrollView = new ScrollView(ctx);		
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
