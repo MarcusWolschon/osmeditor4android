@@ -331,7 +331,7 @@ public class Preset {
 		PresetMRUInfo tmpMRU;
 		ObjectInputStream mruReader = null;
         try {
-        	mruReader = new ObjectInputStream(new FileInputStream(new File(directory, getMRUFileName())));
+        	mruReader = new ObjectInputStream(new FileInputStream(new File(directory, MRUFILE)));
         	tmpMRU = (PresetMRUInfo) mruReader.readObject();
         	if (!tmpMRU.presetHash.equals(hashValue)) throw new InvalidObjectException("hash mismatch");
         } catch (Exception e) {
@@ -342,10 +342,6 @@ public class Preset {
 				try { if (mruReader != null) mruReader.close(); } catch (Exception e) {} // ignore IO exceptions
         }
     	return tmpMRU;
-	}
-	
-	private String getMRUFileName() {
-		return rootGroup.getName() + "-" + MRUFILE;
 	}
 	
 	/**
@@ -455,7 +451,7 @@ public class Preset {
 		if (mru.changed) {
 			try {
 				ObjectOutputStream out =
-					new ObjectOutputStream(new FileOutputStream(new File(directory, getMRUFileName())));
+					new ObjectOutputStream(new FileOutputStream(new File(directory, MRUFILE)));
 				out.writeObject(mru);
 				out.close();
 			} catch (Exception e) {

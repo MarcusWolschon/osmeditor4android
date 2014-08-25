@@ -16,7 +16,9 @@ Add address tags for the object. This function will try to predict the house num
 
 ## ![](../images/tag_menu_preset.png) Search and apply preset
 
-Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the TagEditor screen below the tags. The recently used preset screen can be completly emptied with the corresponding menu item, individual presets can be removed by a long press.
+Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the TagEditor screen below the tags. The recently used preset screen can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.
+
+The light grey buttons in the preset dialog indicate groups of presets, dark grey are presets. Navigating to the previous screen is accomplished with the back button.
 
 ## ![](../images/tag_menu_apply_preset.png) Apply best preset
 
