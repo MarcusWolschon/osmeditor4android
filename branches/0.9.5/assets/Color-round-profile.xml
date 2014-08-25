@@ -42,8 +42,9 @@
 <feature name="way-highway-construction" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="88888888" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-proposed" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="88888888" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-pedestrian" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" />
+<feature name="way-highway-path" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffc69c49" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-highway-footway" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-steps" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" >
+<feature name="way-highway-steps" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffff4500" style="STROKE" cap="BUTT" join="MITER" >
 	<dash phase="1.0">
 		<interval length="1.0" />
 		<interval length="1.0" />
@@ -100,6 +101,12 @@
 	</dash>
 </feature>
 <feature name="way-amenity-motorcycle_parking" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff99CCFF" style="STROKE" cap="BUTT" join="MITER">
+	<dash phase="1.0">
+		<interval length="2.0" />
+		<interval length="2.0" />
+	</dash>
+</feature>
+<feature name="way-leisure-playground" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="fff4a460" style="STROKE" cap="BUTT" join="MITER">
 	<dash phase="1.0">
 		<interval length="2.0" />
 		<interval length="2.0" />

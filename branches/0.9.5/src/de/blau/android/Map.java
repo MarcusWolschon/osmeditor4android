@@ -804,7 +804,7 @@ public class Map extends View implements IMapView {
 					} 
 				} else {
 					// order in the array defines precedence
-					String[] tags = {"building","railway","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
+					String[] tags = {"building","railway","leisure","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
 							"aerialway","military","historic"};
 					FeatureProfile tempFp = null;
 					for (String tag:tags) {
@@ -817,7 +817,7 @@ public class Map extends View implements IMapView {
 					if (tempFp == null) {
 						ArrayList<Relation> relations = way.getParentRelations();
 						// check for any relation memberships with low prio, take first one
-						String[] relationTags = {"boundary","landuse","natural","waterway","building"};
+						String[] relationTags = {"boundary","leisure","landuse","natural","waterway","building"};
 						if (relations != null) { 
 							for (Relation r : relations) {
 								for (String tag:relationTags) {
