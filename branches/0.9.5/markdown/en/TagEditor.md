@@ -18,6 +18,10 @@ Add address tags for the object. This function will try to predict the house num
 
 Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the TagEditor screen below the tags. The recently used preset screen can be completly emptied with the corresponding menu item, individual presets can be removed by a long press.
 
+## ![](../images/tag_menu_apply_preset.png) Apply best preset
+
+Will locate the best matching preset to the existing tags and apply the preset adding further suggested fields.
+
 ## ![](../images/tag_menu_repeat.png) Repeat last tags
 
 Merge the tags from the last invocation of the TagEditor. Tags with the same keys will get the values from the previous invocation, tags not present will remain. 

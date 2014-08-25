@@ -701,11 +701,11 @@ public class Map extends View implements IMapView {
 			iconcache.put(tags, icon);
 		}
 		if (icon != null) {
-			int w2 = icon.getWidth()/2;
-			int h2 = icon.getHeight()/2;
+			float w2 = icon.getWidth()/2f;
+			float h2 = icon.getHeight()/2f;
 			if (featureKey != null) { // selected
-				Rect r = new Rect( (int)x - w2 - iconSelectedBorder, (int)y - h2 - iconSelectedBorder, (int)x + w2 + iconSelectedBorder, (int)y + h2 + iconSelectedBorder);
-				canvas.drawRoundRect(new RectF(r), iconSelectedBorder, iconSelectedBorder, Profile.getCurrent(featureKey).getPaint());
+				RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
+				canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, Profile.getCurrent(featureKey).getPaint());
 			}
 			// we have an icon! draw it.
 			canvas.drawBitmap(icon, x - w2, y - h2, null);

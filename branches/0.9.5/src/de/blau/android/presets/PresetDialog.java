@@ -2,6 +2,9 @@ package de.blau.android.presets;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.KeyEvent;
@@ -32,7 +35,9 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	 * @param element the OSM element to which the preset will be applied (used for filtering)
 	 */
 	public PresetDialog(Context context, Preset[] presets, OsmElement element) {
-		super(context, android.R.style.Theme_DeviceDefault_NoActionBar);
+		// super(context, android.R.style.Theme_DeviceDefault_NoActionBar);
+		super(context,R.style.Theme_customTagEditor);
+		
 		this.context = context;
 		this.element = element;
 		
@@ -57,7 +62,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	
 	private void updateView() {
 		View view = currentGroup.getGroupView(context, this, element.getType());
-		view.setBackgroundColor(context.getResources().getColor(R.color.preset_bg));
+		view.setBackgroundColor(context.getResources().getColor(R.color.abs__background_holo_dark));
 		setContentView(view);
 	}
 	

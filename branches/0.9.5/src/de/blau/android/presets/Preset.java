@@ -39,8 +39,11 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -328,7 +331,7 @@ public class Preset {
 		PresetMRUInfo tmpMRU;
 		ObjectInputStream mruReader = null;
         try {
-        	mruReader = new ObjectInputStream(new FileInputStream(new File(directory, MRUFILE)));
+        	mruReader = new ObjectInputStream(new FileInputStream(new File(directory, getMRUFileName())));
         	tmpMRU = (PresetMRUInfo) mruReader.readObject();
         	if (!tmpMRU.presetHash.equals(hashValue)) throw new InvalidObjectException("hash mismatch");
         } catch (Exception e) {
@@ -339,6 +342,10 @@ public class Preset {
 				try { if (mruReader != null) mruReader.close(); } catch (Exception e) {} // ignore IO exceptions
         }
     	return tmpMRU;
+	}
+	
+	private String getMRUFileName() {
+		return rootGroup.getName() + "-" + MRUFILE;
 	}
 	
 	/**
@@ -448,7 +455,7 @@ public class Preset {
 		if (mru.changed) {
 			try {
 				ObjectOutputStream out =
-					new ObjectOutputStream(new FileOutputStream(new File(directory, MRUFILE)));
+					new ObjectOutputStream(new FileOutputStream(new File(directory, getMRUFileName())));
 				out.writeObject(mru);
 				out.close();
 			} catch (Exception e) {
@@ -589,13 +596,27 @@ public class Preset {
 		 */
 		private final TextView getBaseView(Context ctx) {
 			Resources res = ctx.getResources();
+//			GradientDrawable shape =  new GradientDrawable();
+//			shape.setCornerRadius(8);
 			TextView v = new TextView(ctx);
 			float density = res.getDisplayMetrics().density;
 			v.setText(getName());
 			v.setTextColor(res.getColor(R.color.preset_text));
-			v.setBackgroundColor(res.getColor(R.color.preset_bg));
-			v.setCompoundDrawables(null, getIcon(), null, null);
-			v.setCompoundDrawablePadding((int)(4*density));
+			v.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+			v.setEllipsize(TextUtils.TruncateAt.END);
+			v.setMaxLines(2);
+			v.setPadding((int)(4*density), (int)(4*density), (int)(4*density), (int)(4*density));
+			// v.setBackgroundDrawable(shape);
+			if (this instanceof PresetGroup) {
+				v.setBackgroundColor(res.getColor(R.color.dark_grey));
+			} else {
+				v.setBackgroundColor(res.getColor(R.color.preset_bg));
+			}
+			Drawable icon = getIcon();
+			if (icon != null) {
+				v.setCompoundDrawables(null, getIcon(), null, null);
+				v.setCompoundDrawablePadding((int)(4*density));
+			}
 			v.setWidth((int)(72*density));
 			v.setHeight((int)(72*density));
 			v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
@@ -1040,12 +1061,14 @@ public class Preset {
 	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
 		Collection<String> result = new HashSet<String>();
 		for (Preset p:presets) {
-			switch (type) {
-			case NODE: result.addAll(p.autosuggestNodes.getKeys()); break;
-			case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
-			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
-			case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
-			default: return null; // should never happen, all cases are covered
+			if (p!=null) {
+				switch (type) {
+				case NODE: result.addAll(p.autosuggestNodes.getKeys()); break;
+				case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
+				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
+				case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
+				default: return null; // should never happen, all cases are covered
+				}
 			}
 		}
 		return result; 
@@ -1054,12 +1077,14 @@ public class Preset {
 	static public Collection<String> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
 		Collection<String> result = new HashSet<String>();
 		for (Preset p:presets) {
-			switch (type) {
-			case NODE: result.addAll(p.autosuggestNodes.get(key)); break;
-			case WAY: result.addAll(p.autosuggestWays.get(key)); break;
-			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
-			case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
-			default: return Collections.emptyList();
+			if (p!=null) {
+				switch (type) {
+				case NODE: result.addAll(p.autosuggestNodes.get(key)); break;
+				case WAY: result.addAll(p.autosuggestWays.get(key)); break;
+				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
+				case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
+				default: return Collections.emptyList();
+				}
 			}
 		}
 		return result;

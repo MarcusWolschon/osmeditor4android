@@ -39,6 +39,7 @@ import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -806,34 +807,45 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private void createRecentPresetView() {
 		Preset[] presets = Main.getCurrentPresets();
 	
-		if (presets != null && presets.length >= 1 && presets[0] != null && element != null && presets[0].hasMRU()) {
-			ElementType filterType = element.getType();
-			View v = presets[0].getRecentPresetView(this, presets, new PresetClickHandler() { //TODO this should really be a call of a static method
-				@Override
-				public void onItemClick(PresetItem item) {
-					Log.d(DEBUG_TAG, "normal click");
-					applyPreset(item);
+		if (presets != null && presets.length >= 1 && element != null) {
+			// check if any of the presets has a MRU
+			boolean mruFound = false;
+			for (Preset p:presets) {
+				if (p!=null) {
+					if (p.hasMRU()) {
+						mruFound = true;
+						break;
+					}
 				}
-				
-				@Override
-				public boolean onItemLongClick(PresetItem item) {
-					Log.d(DEBUG_TAG, "long click");
-					removePresetFromMRU(item);
-					return true;
-				}
-				
-				@Override
-				public void onGroupClick(PresetGroup group) {
-					// should not have groups
-				}
-			}, filterType);
-		
-			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-			v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
-			v.setId(R.id.recentPresets);
-			presetsLayout.addView(v);
-			presetsLayout.setVisibility(View.VISIBLE);
-			
+			}
+			if (mruFound) {
+				ElementType filterType = element.getType();
+				View v = presets[0].getRecentPresetView(this, presets, new PresetClickHandler() { //TODO this should really be a call of a static method, all MRUs get added to this view
+					@Override
+					public void onItemClick(PresetItem item) {
+						Log.d(DEBUG_TAG, "normal click");
+						applyPreset(item);
+					}
+
+					@Override
+					public boolean onItemLongClick(PresetItem item) {
+						Log.d(DEBUG_TAG, "long click");
+						removePresetFromMRU(item);
+						return true;
+					}
+
+					@Override
+					public void onGroupClick(PresetGroup group) {
+						// should not have groups
+					}
+				}, filterType);
+
+				v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+				v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
+				v.setId(R.id.recentPresets);
+				presetsLayout.addView(v);
+				presetsLayout.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 	
@@ -921,6 +933,12 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			return true;
 		case R.id.tag_menu_preset:
 			doPresets();
+			return true;
+		case R.id.tag_menu_apply_preset:
+			PresetItem pi = Preset.findBestMatch(presets,getKeyValueMap(false));
+			if (pi!=null) {
+				applyPreset(pi, false); 
+			}
 			return true;
 		case R.id.tag_menu_repeat:
 			doRepeatLast(true);
@@ -1081,8 +1099,11 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	protected void onPause() {
 		running = false;
 		if (Main.getCurrentPresets() != null)  {
-			for (Preset p:Main.getCurrentPresets())
-				p.saveMRU();
+			for (Preset p:Main.getCurrentPresets()) {
+				if (p!=null) {
+					p.saveMRU();
+				}
+			}
 		}
 		if (lastAddresses != null) {
 			savingHelperAddress.save(ADDRESS_TAGS_FILE, lastAddresses, false);

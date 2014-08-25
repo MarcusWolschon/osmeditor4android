@@ -136,6 +136,7 @@
     <string name="tag_menu_address">Add address tags</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>
     <string name="tag_menu_preset">Presets</string>
+    <string name="tag_menu_apply_preset">Apply best reset</string>
     <string name="tag_menu_repeat">Repeat tags</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map Features Wiki</string>
