@@ -104,8 +104,6 @@
   <string name="config_backgroundLayer_summary">Førehandsteikna kartbakgrunn</string>
   <string name="config_category_server">Tenar-innstillingar</string>
   <string name="config_apibutton_summary">Her kan du spesifisera ein ustandard API URL. Skal normalt ikkje endrast!</string>
-  <string name="config_presetbutton_title">JOSM-knappar</string>
-  <string name="config_presetbutton_summary">Legg inn eige JOSM-knappesett.</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passar best på nodar.</string>
   <string name="config_loginbutton_title">Brukarkonto</string>

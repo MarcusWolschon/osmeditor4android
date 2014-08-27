@@ -154,8 +154,6 @@
   <string name="config_category_server">Axustes do Servidor</string>
   <string name="config_apibutton_title">URL da API de OSM</string>
   <string name="config_apibutton_summary">Aquí podes axustar a URL dunha API non estándar. Normalmente non debería cambiarse!</string>
-  <string name="config_presetbutton_title">Preaxuste JOSM</string>
-  <string name="config_presetbutton_summary">Aquí podes axustar definicións de elementos do mapa.</string>
   <string name="config_iconbutton_title">Mostrar iconas dos puntos</string>
   <string name="config_iconbutton_summary">Mostrar a icona do preaxuste máis coincidente sobre os puntos.</string>
   <string name="config_loginbutton_title">Conta de usuario</string>

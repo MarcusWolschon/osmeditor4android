@@ -135,6 +135,7 @@
   <string name="tag_menu_address">增加地址標籤</string>
   <string name="tag_menu_sourcesurvey">勘查</string>
   <string name="tag_menu_preset">預置</string>
+  <string name="tag_menu_apply_preset">套用最佳重置</string>
   <string name="tag_menu_repeat">重複的標籤</string>
   <string name="tag_menu_revert">回復</string>
   <string name="tag_menu_mapfeatures">維基地圖圖徵</string>
@@ -281,8 +282,8 @@
   <string name="listedit_enable_oauth">啟用 oauth</string>
   <string name="config_offsetServer_title">偏移伺服器</string>
   <string name="config_offsetServer_summary">圖片偏移伺服器的網址</string>
-  <string name="config_presetbutton_title">JOSM 預置</string>
-  <string name="config_presetbutton_summary">您可以在這裡設置地圖元件定義</string>
+  <string name="config_presetbutton_title">預置</string>
+  <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>
   <string name="config_iconbutton_title">顯示節點圖示</string>
   <string name="config_iconbutton_summary">顯示上面節點最相配的預置圖示。</string>
   <string name="config_loginbutton_title">使用者帳號</string>

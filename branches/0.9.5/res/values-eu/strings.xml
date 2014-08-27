@@ -148,8 +148,6 @@
   <string name="config_api_url_title">APIaren URLa</string>
   <string name="config_api_oauth_title">Oauth erabili</string>
   <string name="listedit_enable_oauth">Oauth gaitu</string>
-  <string name="config_presetbutton_title">JOSMeko aurrezarpenak</string>
-  <string name="config_presetbutton_summary">Mapako elementuen definizioak ezarri ditzakezu hemen</string>
   <string name="config_iconbutton_title">Nodoen ikonoak erakutsi</string>
   <string name="config_iconbutton_summary">Nodoen arteko aurrezarpen hoberenaren ikonoa erakutsi</string>
   <string name="config_loginbutton_title">Erabiltzaile kontua</string>

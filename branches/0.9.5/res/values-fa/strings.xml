@@ -162,8 +162,6 @@
   <string name="config_category_server">تنظیمات سرور</string>
   <string name="config_apibutton_title">آدرس ای پی آی OSM</string>
   <string name="config_apibutton_summary">میتوانید یک آدرس ای پی آی غیر استاندارد اینجا تنظیم کنید. معمولا نباید تغییر یابد!</string>
-  <string name="config_presetbutton_title">پیش تنظیم JOSM</string>
-  <string name="config_presetbutton_summary">میتوانید تعاریف المنت های نقشه را اینجا تنظیم کنید</string>
   <string name="config_iconbutton_title">نمایش آیکون های گره</string>
   <string name="config_iconbutton_summary">نمایش آیکون بهترین پیش تنظیم سازگار دور گره ها.</string>
   <string name="config_loginbutton_title">حساب کاربری</string>

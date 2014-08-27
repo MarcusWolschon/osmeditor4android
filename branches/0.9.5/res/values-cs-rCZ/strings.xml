@@ -124,8 +124,6 @@
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_apibutton_title">URL API OSM</string>
   <string name="config_apibutton_summary">Zde můźete zadat nestandardní adresu API. Obvykle se nemá měnit!</string>
-  <string name="config_presetbutton_title">Předlohy</string>
-  <string name="config_presetbutton_summary">Zde můžete nastavit definice mapových značek.</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předlohy na uzlech.</string>
   <string name="config_loginbutton_title">Uživatelský ůčet</string>

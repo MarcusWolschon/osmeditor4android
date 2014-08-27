@@ -160,8 +160,6 @@
   <string name="config_apibutton_summary">Puede establecer una API URL no estandar aquí. ¡Normalmalmente no debería cambiarla!</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Usar oauth</string>
-  <string name="config_presetbutton_title">Preajustes JOSM</string>
-  <string name="config_presetbutton_summary">Puede configurar definiciones de elementos de mapa aquí</string>
   <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
   <string name="config_iconbutton_summary">Mostrar sobre los nodos el ícono del preajuste de mejor coincidencia.</string>
   <string name="config_loginbutton_title">Cuenta de usuario</string>

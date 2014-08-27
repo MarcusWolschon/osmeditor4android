@@ -277,8 +277,6 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Oauth　を利用</string>
   <string name="listedit_enable_oauth">Oauth　を利用可能にする</string>
-  <string name="config_presetbutton_title">JOSMプリセット</string>
-  <string name="config_presetbutton_summary">地図要素定義をここで設定できます</string>
   <string name="config_iconbutton_title">ノードアイコンを表示</string>
   <string name="config_iconbutton_summary">ノード上のもっとも適合したプリセットアイコンを表示</string>
   <string name="config_loginbutton_title">ユーザーアカウント</string>

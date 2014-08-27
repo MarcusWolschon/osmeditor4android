@@ -246,8 +246,6 @@
   <string name="config_api_url_title">URL dell\'API</string>
   <string name="config_api_oauth_title">Usa oauth</string>
   <string name="listedit_enable_oauth">Abilita oauth</string>
-  <string name="config_presetbutton_title">Preset JOSM</string>
-  <string name="config_presetbutton_summary">Puoi aggiungere definizioni per gli elementi della mappa qui</string>
   <string name="config_iconbutton_title">Mostra icone dei nodi</string>
   <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.\n</string>
   <string name="config_loginbutton_title">Account utente</string>

@@ -178,8 +178,6 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Używaj  OAuth</string>
   <string name="listedit_enable_oauth">Włącz OAuth</string>
-  <string name="config_presetbutton_title">szablon JOSM</string>
-  <string name="config_presetbutton_summary">Możesz tutaj ustawić definicje elementów mapy.</string>
   <string name="config_iconbutton_title">Pokaż ikony węzłów</string>
   <string name="config_iconbutton_summary">Pokaż ikonę najbardziej pasującego szablonu nad węzłem.</string>
   <string name="config_loginbutton_title">Konto użytkownika</string>

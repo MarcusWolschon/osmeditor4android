@@ -110,6 +110,7 @@
   <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
   <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
+  <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -134,6 +135,7 @@
   <string name="tag_menu_address">Tags für Adressen hinzufügen</string>
   <string name="tag_menu_sourcesurvey">Surveyed</string>
   <string name="tag_menu_preset">Vorlagen</string>
+  <string name="tag_menu_apply_preset">Passende Vorlage anwenden</string>
   <string name="tag_menu_repeat">Tags wiederholen</string>
   <string name="tag_menu_revert">Rückgängig</string>
   <string name="tag_menu_mapfeatures">Map-Features-Wiki</string>
@@ -280,8 +282,8 @@
   <string name="listedit_enable_oauth">OAuth erlauben</string>
   <string name="config_offsetServer_title">Versatzserver</string>
   <string name="config_offsetServer_summary">URL für den Versatzserver</string>
-  <string name="config_presetbutton_title">Vorlagensatz</string>
-  <string name="config_presetbutton_summary">Sie können hier Definitionen von Kartenelementen einstellen.</string>
+  <string name="config_presetbutton_title">Vorlagen</string>
+  <string name="config_presetbutton_summary">JOSM kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
   <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>

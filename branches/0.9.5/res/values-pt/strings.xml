@@ -270,8 +270,6 @@
   <string name="config_api_url_title">URL da API</string>
   <string name="config_api_oauth_title">Usar oauth</string>
   <string name="listedit_enable_oauth">Ativar oauth</string>
-  <string name="config_presetbutton_title">Predefinição JOSM</string>
-  <string name="config_presetbutton_summary">Você pode ajustar as definições de elementos do mapa aqui.</string>
   <string name="config_iconbutton_title">Ver ícones dos nós</string>
   <string name="config_iconbutton_summary">Mostra o ícone da predefinição mais adequada sobre os nós.</string>
   <string name="config_loginbutton_title">Conta do usuário</string>

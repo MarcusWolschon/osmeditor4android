@@ -106,7 +106,6 @@
   <string name="config_backgroundLayer_summary">Forehåndstegna kartbakgrunn</string>
   <string name="config_category_server">Tener-innstillinger</string>
   <string name="config_apibutton_summary">Her kan du spesifisere en ustandard API URL. Skal normalt ikke endres!</string>
-  <string name="config_presetbutton_title">JOSM-knapper</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
   <string name="config_loginbutton_title">Brukerkonto</string>

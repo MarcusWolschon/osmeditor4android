@@ -207,8 +207,6 @@
   <string name="config_apibutton_summary">Þú getur sett inn sérsniðna slóð á API hér. Ætti yfirleitt ekki að breyta!</string>
   <string name="config_api_oauth_title">Auðkenning með oauth</string>
   <string name="listedit_enable_oauth">Virkja oauth</string>
-  <string name="config_presetbutton_title">JOSM forstillingar</string>
-  <string name="config_presetbutton_summary">Þú getur still kortskilgreingar hér</string>
   <string name="config_iconbutton_title">Sýna táknmyndir hnúta</string>
   <string name="config_iconbutton_summary">Sýna táknmynd af nálægustu forstillingu fyrir ofan hnúta.</string>
   <string name="config_loginbutton_title">Notandareikningur</string>

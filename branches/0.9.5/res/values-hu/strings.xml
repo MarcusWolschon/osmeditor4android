@@ -201,8 +201,6 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">OAuth használata</string>
   <string name="listedit_enable_oauth">OAuth engedélyezése</string>
-  <string name="config_presetbutton_title">JOSM címkekészlet</string>
-  <string name="config_presetbutton_summary">Térképelem definíciókat tudsz itt beállítani</string>
   <string name="config_iconbutton_title">Pont ikonok megjelenítése</string>
   <string name="config_iconbutton_summary">A legjobban illeszkedő preset ikonjainak megjelenítése a pontok fölött.</string>
   <string name="config_loginbutton_title">Felhasználói fiók</string>

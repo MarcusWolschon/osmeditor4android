@@ -152,7 +152,6 @@
   <string name="config_api_url_title">URL для API</string>
   <string name="config_api_oauth_title">Використовувати OAuth</string>
   <string name="listedit_enable_oauth">Включити OAuth</string>
-  <string name="config_presetbutton_title">Заготовки JOSM</string>
   <string name="config_iconbutton_title">Показувати значки точок</string>
   <string name="config_loginbutton_title">Обліковий запис</string>
   <string name="config_username_title">Логін на сервер OpenStreetMap</string>
