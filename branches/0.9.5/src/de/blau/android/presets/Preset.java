@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -238,10 +239,18 @@ public class Preset {
             	} else if ("item".equals(name)) {
             		if (currentItem != null) throw new SAXException("Nested items are not allowed");
             		PresetGroup parent = groupstack.peek();
-            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), attr.getValue("type"));
+            		String type = attr.getValue("type");
+            		if (type == null) {
+            			type = attr.getValue("gtype"); // note gtype seems to be undocumented
+            		}
+            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), type);
             	} else if ("chunk".equals(name)) {
                 	if (currentItem != null) throw new SAXException("Nested items are not allowed");
-                	currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), attr.getValue("type"));
+                	String type = attr.getValue("type");
+            		if (type == null) {
+            			type = attr.getValue("gtype"); // note gtype seems to be undocumented
+            		}
+                	currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), type);
             	} else if ("separator".equals(name)) {
             		new PresetSeparator(groupstack.peek());
             	} else if ("optional".equals(name)) {
@@ -848,7 +857,7 @@ public class Preset {
 			addTag(optional, key, values, ",");
 		}
 		public void addTag(boolean optional, String key, String values, String seperator) {
-			String[] valueArray = (values == null) ? new String[0] : values.split(seperator);
+			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(seperator));
 			
 			for (String v:valueArray) {
 				tagItems.add(key+"\t"+v, this);

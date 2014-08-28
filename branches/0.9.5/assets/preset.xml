@@ -7921,4 +7921,736 @@ Note that for a match, at least one positive and no negative is required.
             </roles>
         </item> <!-- Tunnel -->
     </group> <!-- Relations -->
+    <group name="Crafts" icon="icons/png/craft_builder_16008.png">
+        <item name="Agricultural engines" icon="icons/png/craft_agricultural_engines_16001.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=agricultural_engines"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=agricultural_engines" />
+            <space />
+            <key key="craft" value="agricultural_engines" />
+            <reference ref="name_oh" />
+        </item> <!-- Agricultural engines -->
+        <item name="Basket maker" icon="icons/png/craft_basket_maker_16002.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=basket_maker"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=basket_maker" />
+            <space />
+            <key key="craft" value="basket_maker" />
+            <reference ref="name_oh" />
+        </item> <!-- Basket maker -->
+        <item name="Beekeeper" icon="icons/png/craft_beekeeper_16003.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=beekeeper"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=beekeeper" />
+            <space />
+            <key key="craft" value="beekeeper" />
+            <reference ref="name_oh" />
+        </item> <!-- Beekeeper -->
+        <item name="Blacksmith" icon="icons/png/craft_blacksmith_16004.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=blacksmith"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=blacksmith" />
+            <space />
+            <key key="craft" value="blacksmith" />
+            <reference ref="name_oh" />
+        </item> <!-- Blacksmith -->
+        <item name="Boatbuilder" icon="icons/png/craft_boatbuilder_16005.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=boatbuilder"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=boatbuilder" />
+            <space />
+            <key key="craft" value="boatbuilder" />
+            <reference ref="name_oh" />
+        </item> <!-- Boatbuilder -->
+        <item name="Bookbinder" icon="icons/png/craft_bookbinder_16006.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=bookbinder"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=bookbinder" />
+            <space />
+            <key key="craft" value="bookbinder" />
+            <reference ref="name_oh" />
+        </item> <!-- Bookbinder -->
+        <item name="Brewery" icon="icons/png/craft_brewery_16007.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=brewery"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=brewery" />
+            <space />
+            <key key="craft" value="brewery" />
+            <reference ref="name_oh" />
+        </item> <!-- Brewery -->
+        <item name="Builder" icon="icons/png/craft_builder_16008.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=builder"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=builder" />
+            <space />
+            <key key="craft" value="builder" />
+            <reference ref="name_oh" />
+        </item> <!-- Builder -->
+        <item name="Cabinet maker" icon="icons/png/craft_cabinet_maker_16009.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=cabinet_maker"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=cabinet_maker" />
+            <space />
+            <key key="craft" value="cabinet_maker" />
+            <reference ref="name_oh" />
+        </item> <!-- Cabinet maker -->
+        <item name="Carpenter" icon="icons/png/craft_carpenter_16010.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=carpenter"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=carpenter" />
+            <space />
+            <key key="craft" value="carpenter" />
+            <reference ref="name_oh" />
+        </item> <!-- Carpenter -->
+        <item name="Carpet layer" icon="icons/png/craft_carpet_layer_16020.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=carpet_layer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=carpet_layer" />
+            <space />
+            <key key="craft" value="carpet_layer" />
+            <reference ref="name_oh" />
+        </item> <!-- Carpet layer -->
+        <item name="Caterer" icon="icons/png/craft_caterer_16021.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=caterer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=caterer" />
+            <space />
+            <key key="craft" value="caterer" />
+            <reference ref="name_oh" />
+        </item> <!-- Caterer -->
+        <item name="Cleaning" icon="icons/png/craft_cleaning_16022.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=cleaning"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=cleaning" />
+            <space />
+            <key key="craft" value="cleaning" />
+            <reference ref="name_oh" />
+        </item> <!-- Cleaning -->
+        <item name="Clockmaker" icon="icons/png/craft_clockmaker_16023.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=clockmaker"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=clockmaker" />
+            <space />
+            <key key="craft" value="clockmaker" />
+            <reference ref="name_oh" />
+        </item> <!-- Clockmaker -->
+        <item name="Distillery" icon="icons/png/craft_distillery_16024.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=distillery"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=distillery" />
+            <space />
+            <key key="craft" value="distillery" />
+            <reference ref="name_oh" />
+        </item> <!-- Distillery -->
+        <item name="Electrician" icon="icons/png/craft_electrician_16025.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=electrician"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=electrician" />
+            <space />
+            <key key="craft" value="electrician" />
+            <reference ref="name_oh" />
+        </item> <!-- Electrician -->
+        <item name="Falles" icon="icons/png/craft_falles_16026.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=falles"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=falles" />
+            <space />
+            <key key="craft" value="falles" />
+            <reference ref="name_oh" />
+        </item> <!-- Falles -->
+        <item name="Glass" icon="icons/png/craft_glass_16027.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=glass"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=glass" />
+            <space />
+            <key key="craft" value="glass" />
+            <reference ref="name_oh" />
+        </item> <!-- Glass -->
+        <item name="Glaziery" icon="icons/png/craft_glaziery_16028.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=glaziery"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=glaziery" />
+            <space />
+            <key key="craft" value="glaziery" />
+            <reference ref="name_oh" />
+        </item> <!-- Glaziery -->
+        <item name="Handicraft" icon="icons/png/craft_handicraft_16029.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=handicraft"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=handicraft" />
+            <space />
+            <key key="craft" value="handicraft" />
+            <reference ref="name_oh" />
+        </item> <!-- Handicraft -->
+        <item name="Heating engineer" icon="icons/png/craft_heating_engineer_16030.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=heating_engineer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=heating_engineer" />
+            <space />
+            <key key="craft" value="heating_engineer" />
+            <reference ref="name_oh" />
+        </item> <!-- Heating engineer -->
+        <item name="Hvac" icon="icons/png/craft_hvac_16040.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=hvac"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=hvac" />
+            <space />
+            <key key="craft" value="hvac" />
+            <reference ref="name_oh" />
+        </item> <!-- Hvac -->
+        <item name="Insulation" icon="icons/png/craft_insulation_16041.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=insulation"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=insulation" />
+            <space />
+            <key key="craft" value="insulation" />
+            <reference ref="name_oh" />
+        </item> <!-- Insulation -->
+        <item name="Joiner" icon="icons/png/craft_joiner_16042.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=joiner"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=joiner" />
+            <space />
+            <key key="craft" value="joiner" />
+            <reference ref="name_oh" />
+        </item> <!-- Joiner -->
+        <item name="Key cutter" icon="icons/png/craft_key_cutter_16043.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=key_cutter"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=key_cutter" />
+            <space />
+            <key key="craft" value="key_cutter" />
+            <reference ref="name_oh" />
+        </item> <!-- Key cutter -->
+        <item name="Leather" icon="icons/png/craft_leather_16045.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=leather"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=leather" />
+            <space />
+            <key key="craft" value="leather" />
+            <reference ref="name_oh" />
+        </item> <!-- Leather -->
+        <item name="Locksmith" icon="icons/png/craft_locksmith_16046.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=locksmith"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=locksmith" />
+            <space />
+            <key key="craft" value="locksmith" />
+            <reference ref="name_oh" />
+        </item> <!-- Locksmith -->
+        <item name="Mason" icon="icons/png/craft_mason_16047.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=mason"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=mason" />
+            <space />
+            <key key="craft" value="mason" />
+            <reference ref="name_oh" />
+        </item> <!-- Mason -->
+        <item name="Metal construction" icon="icons/png/craft_metal_construction_16048.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=metal_construction"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=metal_construction" />
+            <space />
+            <key key="craft" value="metal_construction" />
+            <reference ref="name_oh" />
+        </item> <!-- Metal construction -->
+        <item name="Metal works" icon="icons/png/craft_metal_works_16049.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=metal_works"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=metal_works" />
+            <space />
+            <key key="craft" value="metal_works" />
+            <reference ref="name_oh" />
+        </item> <!-- Metal works -->
+        <item name="Painter" icon="icons/png/craft_painter_16050.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=painter"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=painter" />
+            <space />
+            <key key="craft" value="painter" />
+            <reference ref="name_oh" />
+        </item> <!-- Painter -->
+        <item name="Parquet layer" icon="icons/png/craft_parquet_layer_16060.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=parquet_layer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=parquet_layer" />
+            <space />
+            <key key="craft" value="parquet_layer" />
+            <reference ref="name_oh" />
+        </item> <!-- Parquet layer -->
+        <item name="Photographic laboratory" icon="icons/png/craft_photographic_laboratory_16061.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=photographic_laboratory"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=photographic_laboratory" />
+            <space />
+            <key key="craft" value="photographic_laboratory" />
+            <reference ref="name_oh" />
+        </item> <!-- Photographic laboratory -->
+        <item name="Plasterer" icon="icons/png/craft_plasterer_16062.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=plasterer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=plasterer" />
+            <space />
+            <key key="craft" value="plasterer" />
+            <reference ref="name_oh" />
+        </item> <!-- Plasterer -->
+        <item name="Plumber" icon="icons/png/craft_plumber_16063.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=plumber"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=plumber" />
+            <space />
+            <key key="craft" value="plumber" />
+            <reference ref="name_oh" />
+        </item> <!-- Plumber -->
+        <item name="Pottery" icon="icons/png/craft_pottery_16064.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=pottery"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=pottery" />
+            <space />
+            <key key="craft" value="pottery" />
+            <reference ref="name_oh" />
+        </item> <!-- Pottery -->
+        <item name="Rigger" icon="icons/png/craft_rigger_16065.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=rigger"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=rigger" />
+            <space />
+            <key key="craft" value="rigger" />
+            <reference ref="name_oh" />
+        </item> <!-- Rigger -->
+        <item name="Roofer" icon="icons/png/craft_roofer_16066.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=roofer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=roofer" />
+            <space />
+            <key key="craft" value="roofer" />
+            <reference ref="name_oh" />
+        </item> <!-- Roofer -->
+        <item name="Saddler" icon="icons/png/craft_saddler_16067.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=saddler"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=saddler" />
+            <space />
+            <key key="craft" value="saddler" />
+            <reference ref="name_oh" />
+        </item> <!-- Saddler -->
+        <item name="Sailmaker" icon="icons/png/craft_sailmaker_16068.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=sailmaker"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sailmaker" />
+            <space />
+            <key key="craft" value="sailmaker" />
+            <reference ref="name_oh" />
+        </item> <!-- Sailmaker -->
+        <item name="Sawmill" icon="icons/png/craft_sawmill_16069.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=sawmill"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sawmill" />
+            <space />
+            <key key="craft" value="sawmill" />
+            <reference ref="name_oh" />
+        </item> <!-- Sawmill -->
+        <item name="Scaffolder" icon="icons/png/craft_scaffolder_16070.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=scaffolder"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=scaffolder" />
+            <space />
+            <key key="craft" value="scaffolder" />
+            <reference ref="name_oh" />
+        </item> <!-- Scaffolder -->
+        <item name="Sculptor" icon="icons/png/craft_sculptor_16080.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=sculptor"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sculptor" />
+            <space />
+            <key key="craft" value="sculptor" />
+            <reference ref="name_oh" />
+        </item> <!-- Sculptor -->
+        <item name="Stand builder" icon="icons/png/craft_stand_builder_16081.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=stand_builder"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=stand_builder" />
+            <space />
+            <key key="craft" value="stand_builder" />
+            <reference ref="name_oh" />
+        </item> <!-- Stand builder -->
+        <item name="Stonemason" icon="icons/png/craft_stonemason_16082.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=stonemason"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=stonemason" />
+            <space />
+            <key key="craft" value="stonemason" />
+            <reference ref="name_oh" />
+        </item> <!-- Stonemason -->
+        <item name="Sun protection" icon="icons/png/craft_sun_protection_16083.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=sun_protection"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sun_protection" />
+            <space />
+            <key key="craft" value="sun_protection" />
+            <reference ref="name_oh" />
+        </item> <!-- Sun protection -->
+        <item name="Sweep" icon="icons/png/craft_sweep_16084.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=sweep"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sweep" />
+            <space />
+            <key key="craft" value="sweep" />
+            <reference ref="name_oh" />
+        </item> <!-- Sweep -->
+        <item name="Tailor" icon="icons/png/craft_tailor_16085.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=tailor"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=tailor" />
+            <space />
+            <key key="craft" value="tailor" />
+            <reference ref="name_oh" />
+        </item> <!-- Tailor -->
+        <item name="Tiler" icon="icons/png/craft_tiler_16086.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=tiler"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=tiler" />
+            <space />
+            <key key="craft" value="tiler" />
+            <reference ref="name_oh" />
+        </item> <!-- Tiler -->
+        <item name="Tinsmith" icon="icons/png/craft_tinsmith_16087.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=tinsmith"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=tinsmith" />
+            <space />
+            <key key="craft" value="tinsmith" />
+            <reference ref="name_oh" />
+        </item> <!-- Tinsmith -->
+        <item name="Turner" icon="icons/png/craft_turner_16088.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=turner"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=turner" />
+            <space />
+            <key key="craft" value="turner" />
+            <reference ref="name_oh" />
+        </item> <!-- Turner -->
+        <item name="Upholsterer" icon="icons/png/craft_upholsterer_16089.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=upholsterer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=upholsterer" />
+            <space />
+            <key key="craft" value="upholsterer" />
+            <reference ref="name_oh" />
+        </item> <!-- Upholsterer -->
+        <item name="Watchmaker" icon="icons/png/craft_watchmaker_16090.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=watchmaker"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=watchmaker" />
+            <space />
+            <key key="craft" value="watchmaker" />
+            <reference ref="name_oh" />
+        </item> <!-- Watchmaker -->
+        <item name="Window construction" icon="icons/png/craft_window_construction_16100.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=window_construction"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=window_construction" />
+            <space />
+            <key key="craft" value="window_construction" />
+            <reference ref="name_oh" />
+        </item> <!-- Window construction -->
+        <item name="Confectionery" icon="icons/png/craft_confectionery_16101.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=confectionery"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=confectionery" />
+            <space />
+            <key key="craft" value="confectionery" />
+            <reference ref="name_oh" />
+        </item> <!-- Confectionery -->
+        <item name="Construction" icon="icons/png/craft_construction_16102.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=construction"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=construction" />
+            <space />
+            <key key="craft" value="construction" />
+            <reference ref="name_oh" />
+        </item> <!-- Construction -->
+        <item name="Electronics" icon="icons/png/craft_electronics_16103.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=electronics"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=electronics" />
+            <space />
+            <key key="craft" value="electronics" />
+            <reference ref="name_oh" />
+        </item> <!-- Electronics -->
+        <item name="Furniture" icon="icons/png/craft_furniture_16104.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=furniture"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=furniture" />
+            <space />
+            <key key="craft" value="furniture" />
+            <reference ref="name_oh" />
+        </item> <!-- Furniture -->
+        <item name="Gardener" icon="icons/png/craft_gardener_16105.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=gardener"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=gardener" />
+            <space />
+            <key key="craft" value="gardener" />
+            <reference ref="name_oh" />
+        </item> <!-- Gardener -->
+        <item name="Photographer" icon="icons/png/craft_photographer_16106.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=photographer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=photographer" />
+            <space />
+            <key key="craft" value="photographer" />
+            <reference ref="name_oh" />
+        </item> <!-- Photographer -->
+        <item name="Print shop" icon="icons/png/craft_print_shop_16107.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=print_shop"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=print_shop" />
+            <space />
+            <key key="craft" value="print_shop" />
+            <reference ref="name_oh" />
+        </item> <!-- Print shop -->
+        <item name="Shoemaker" icon="icons/png/craft_shoemaker_16108.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=shoemaker"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=shoemaker" />
+            <space />
+            <key key="craft" value="shoemaker" />
+            <reference ref="name_oh" />
+        </item> <!-- Shoemaker -->
+        <item name="Winery" icon="icons/png/craft_winery_16109.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=winery"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=winery" />
+            <space />
+            <key key="craft" value="winery" />
+            <reference ref="name_oh" />
+        </item> <!-- Winery -->
+        <item name="Laboratory" icon="icons/png/craft_laboratory_16110.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=laboratory"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=laboratory" />
+            <space />
+            <key key="craft" value="laboratory" />
+            <reference ref="name_oh" />
+        </item> <!-- Laboratory -->
+        <item name="Dressmaker" icon="icons/png/craft_dressmaker_16111.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=dressmaker"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=dressmaker" />
+            <space />
+            <key key="craft" value="dressmaker" />
+            <reference ref="name_oh" />
+        </item> <!-- Dressmaker -->
+        <item name="Jeweller" icon="icons/png/craft_jeweller_16112.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=jeweller"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=jeweller" />
+            <space />
+            <key key="craft" value="jeweller" />
+            <reference ref="name_oh" />
+        </item> <!-- Jeweller -->
+        <item name="Optician" icon="icons/png/craft_optician_16113.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=optician"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=optician" />
+            <space />
+            <key key="craft" value="optician" />
+            <reference ref="name_oh" />
+        </item> <!-- Optician -->
+        <item name="Photo studio" icon="icons/png/craft_photo_studio_16114.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=photo_studio"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=photo_studio" />
+            <space />
+            <key key="craft" value="photo_studio" />
+            <reference ref="name_oh" />
+        </item> <!-- Photo studio -->
+    </group> <!-- Crafts -->
+    <group name="Offices" icon="icons/png/office_company_25027.png">
+        <item name="Administrative" icon="icons/png/office_administrative_25001.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=administrative"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=administrative" />
+            <space />
+            <key key="office" value="administrative" />
+            <reference ref="name_oh" />
+        </item> <!-- Administrative -->
+        <item name="Advertising agency" icon="icons/png/office_advertising_agency_25002.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=advertising_agency"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=advertising_agency" />
+            <space />
+            <key key="office" value="advertising_agency" />
+            <reference ref="name_oh" />
+        </item> <!-- Advertising agency -->
+        <item name="Employment agency" icon="icons/png/office_employment_agency_25003.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=employment_agency"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=employment_agency" />
+            <space />
+            <key key="office" value="employment_agency" />
+            <reference ref="name_oh" />
+        </item> <!-- Employment agency -->
+        <item name="Estate agent" icon="icons/png/office_estate_agent_25005.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=estate_agent"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=estate_agent" />
+            <space />
+            <key key="office" value="estate_agent" />
+            <reference ref="name_oh" />
+        </item> <!-- Estate agent -->
+        <item name="Government" icon="icons/png/office_government_25006.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=government"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=government" />
+            <space />
+            <key key="office" value="government" />
+            <reference ref="name_oh" />
+        </item> <!-- Government -->
+        <item name="Insurance" icon="icons/png/office_insurance_25007.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=insurance"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=insurance" />
+            <space />
+            <key key="office" value="insurance" />
+            <reference ref="name_oh" />
+        </item> <!-- Insurance -->
+        <item name="It" icon="icons/png/office_it_25008.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=it"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=it" />
+            <space />
+            <key key="office" value="it" />
+            <reference ref="name_oh" />
+        </item> <!-- It -->
+        <item name="Lawyer" icon="icons/png/office_lawyer_25009.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=lawyer"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=lawyer" />
+            <space />
+            <key key="office" value="lawyer" />
+            <reference ref="name_oh" />
+        </item> <!-- Lawyer -->
+        <item name="Ngo" icon="icons/png/office_ngo_25010.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=ngo"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=ngo" />
+            <space />
+            <key key="office" value="ngo" />
+            <reference ref="name_oh" />
+        </item> <!-- Ngo -->
+        <item name="Political party" icon="icons/png/office_political_party_25020.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=political_party"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=political_party" />
+            <space />
+            <key key="office" value="political_party" />
+            <reference ref="name_oh" />
+        </item> <!-- Political party -->
+        <item name="Telecommunication" icon="icons/png/office_telecommunication_25021.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=telecommunication"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=telecommunication" />
+            <space />
+            <key key="office" value="telecommunication" />
+            <reference ref="name_oh" />
+        </item> <!-- Telecommunication -->
+        <item name="Travel agent" icon="icons/png/office_travel_agent_25022.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=travel_agent"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=travel_agent" />
+            <space />
+            <key key="office" value="travel_agent" />
+            <reference ref="name_oh" />
+        </item> <!-- Travel agent -->
+        <item name="Accountant" icon="icons/png/office_accountant_25023.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=accountant"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=accountant" />
+            <space />
+            <key key="office" value="accountant" />
+            <reference ref="name_oh" />
+        </item> <!-- Accountant -->
+        <item name="Architect" icon="icons/png/office_architect_25024.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=architect"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=architect" />
+            <space />
+            <key key="office" value="architect" />
+            <reference ref="name_oh" />
+        </item> <!-- Architect -->
+        <item name="Association" icon="icons/png/office_association_25025.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=association"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=association" />
+            <space />
+            <key key="office" value="association" />
+            <reference ref="name_oh" />
+        </item> <!-- Association -->
+        <item name="Camping" icon="icons/png/office_camping_25026.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=camping"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=camping" />
+            <space />
+            <key key="office" value="camping" />
+            <reference ref="name_oh" />
+        </item> <!-- Camping -->
+        <item name="Company" icon="icons/png/office_company_25027.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=company"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=company" />
+            <space />
+            <key key="office" value="company" />
+            <reference ref="name_oh" />
+        </item> <!-- Company -->
+        <item name="Educational institution" icon="icons/png/office_educational_institution_25028.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=educational_institution"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=educational_institution" />
+            <space />
+            <key key="office" value="educational_institution" />
+            <reference ref="name_oh" />
+        </item> <!-- Educational institution -->
+        <item name="Foundation" icon="icons/png/office_foundation_25029.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=foundation"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=foundation" />
+            <space />
+            <key key="office" value="foundation" />
+            <reference ref="name_oh" />
+        </item> <!-- Foundation -->
+        <item name="Guide" icon="icons/png/office_guide_25030.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=guide"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=guide" />
+            <space />
+            <key key="office" value="guide" />
+            <reference ref="name_oh" />
+        </item> <!-- Guide -->
+        <item name="Newspaper" icon="icons/png/office_newspaper_25040.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=newspaper"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=newspaper" />
+            <space />
+            <key key="office" value="newspaper" />
+            <reference ref="name_oh" />
+        </item> <!-- Newspaper -->
+        <item name="Quango" icon="icons/png/office_quango_25041.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=quango"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=quango" />
+            <space />
+            <key key="office" value="quango" />
+            <reference ref="name_oh" />
+        </item> <!-- Quango -->
+        <item name="Research" icon="icons/png/office_research_25042.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=research"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=research" />
+            <space />
+            <key key="office" value="research" />
+            <reference ref="name_oh" />
+        </item> <!-- Research -->
+        <item name="Tax advisor" icon="icons/png/office_tax_advisor_25043.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=tax_advisor"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=tax_advisor" />
+            <space />
+            <key key="office" value="tax_advisor" />
+            <reference ref="name_oh" />
+        </item> <!-- Tax advisor -->
+        <item name="Consulting" icon="icons/png/office_consulting_25044.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=consulting"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=consulting" />
+            <space />
+            <key key="office" value="consulting" />
+            <reference ref="name_oh" />
+        </item> <!-- Consulting -->
+        <item name="Cooperative" icon="icons/png/office_cooperative_25045.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=cooperative"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=cooperative" />
+            <space />
+            <key key="office" value="cooperative" />
+            <reference ref="name_oh" />
+        </item> <!-- Cooperative -->
+        <item name="Financial" icon="icons/png/office_financial_25046.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=financial"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=financial" />
+            <space />
+            <key key="office" value="financial" />
+            <reference ref="name_oh" />
+        </item> <!-- Financial -->
+        <item name="Forestry" icon="icons/png/office_forestry_25047.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=forestry"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=forestry" />
+            <space />
+            <key key="office" value="forestry" />
+            <reference ref="name_oh" />
+        </item> <!-- Forestry -->
+        <item name="Logistics" icon="icons/png/office_logistics_25048.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=logistics"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=logistics" />
+            <space />
+            <key key="office" value="logistics" />
+            <reference ref="name_oh" />
+        </item> <!-- Logistics -->
+        <item name="Notary" icon="icons/png/office_notary_25049.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=notary"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=notary" />
+            <space />
+            <key key="office" value="notary" />
+            <reference ref="name_oh" />
+        </item> <!-- Notary -->
+        <item name="Parish" icon="icons/png/office_parish_25050.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=parish"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=parish" />
+            <space />
+            <key key="office" value="parish" />
+            <reference ref="name_oh" />
+        </item> <!-- Parish -->
+        <item name="Physician" icon="icons/png/office_physician_25051.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=physician"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=physician" />
+            <space />
+            <key key="office" value="physician" />
+            <reference ref="name_oh" />
+        </item> <!-- Physician -->
+        <item name="Publisher" icon="icons/png/office_publisher_25052.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=publisher"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=publisher" />
+            <space />
+            <key key="office" value="publisher" />
+            <reference ref="name_oh" />
+        </item> <!-- Publisher -->
+        <item name="Register" icon="icons/png/office_register_25053.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=register"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=register" />
+            <space />
+            <key key="office" value="register" />
+            <reference ref="name_oh" />
+        </item> <!-- Register -->
+        <item name="Therapist" icon="icons/png/office_therapist_25054.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=therapist"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=therapist" />
+            <space />
+            <key key="office" value="therapist" />
+            <reference ref="name_oh" />
+        </item> <!-- Therapist -->
+        <item name="Vacant" icon="icons/png/office_vacant_25055.png" type="node,closedway,relation">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:office=vacant"
+            	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:office=vacant" />
+            <space />
+            <key key="office" value="vacant" />
+            <reference ref="name_oh" />
+        </item> <!-- Vacant -->
+    </group> <!-- Offices -->
 </presets>
