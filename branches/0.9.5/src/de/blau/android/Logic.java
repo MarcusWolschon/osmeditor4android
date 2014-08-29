@@ -1786,6 +1786,7 @@ public class Logic {
 						try {
 							Application.mainActivity.showDialog(result);
 						} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(ex);
 						}
 					}
@@ -2077,6 +2078,7 @@ public class Logic {
 					try {
 						Application.mainActivity.showDialog(result);
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
 					}
 				}
@@ -2321,9 +2323,11 @@ public class Logic {
 					delegator.uploadToServer(server, comment, source, closeChangeset);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final ProtocolException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
 					result.httpError = e.getErrorCode();
@@ -2349,6 +2353,7 @@ public class Logic {
 					//TODO: implement other state handling
 					default:
 						Log.e(DEBUG_TAG, "", e);
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(e);
 						break;
 					}
@@ -2357,6 +2362,7 @@ public class Logic {
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				}
 				return result;
@@ -2398,9 +2404,11 @@ public class Logic {
 					server.uploadTrack(track, description, tags, visibility);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final ProtocolException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
 					switch (e.getErrorCode()) {
@@ -2422,6 +2430,7 @@ public class Logic {
 					//TODO: implement other state handling
 					default:
 						Log.e(DEBUG_TAG, "", e);
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(e);
 						break;
 					}
@@ -2430,6 +2439,7 @@ public class Logic {
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (IllegalArgumentException e) {
 					result = DialogFactory.UPLOAD_PROBLEM;

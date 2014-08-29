@@ -468,6 +468,15 @@ public class Preset {
 			}
 		}
 	}
+	
+    
+    public String toJSON() {
+    	String result = "";
+    	for (PresetItem pi:allItems) {
+    		result = result + pi.toJSON();
+    	}
+    	return result;
+    }
 
 	/**
 	 * 
@@ -1009,6 +1018,28 @@ public class Preset {
 				}
 			}
 			return super.toString() + tagStrings;
+		}
+		
+		public String toJSON() {
+			String jsonString = "";
+			for (String k:tags.keySet()) {
+				jsonString = jsonString + tagToJSON(k, tags.get(k));
+			}
+			for (String k:recommendedTags.keySet()) {
+				for (String v:recommendedTags.get(k)) {
+					jsonString = jsonString + tagToJSON(k, v);
+				}
+			}
+			for (String k:optionalTags.keySet()) {
+				for (String v:optionalTags.get(k)) {
+					jsonString = jsonString + tagToJSON(k, v);
+				}
+			}
+			return jsonString;
+		}
+		
+		private String tagToJSON(String key, String value) {
+			return "{ \"key\": \"" + key + "\"" + (value == null ? "" : " \"value\": \"" + value + "\"") + " },\n";
 		}
 	}
 	

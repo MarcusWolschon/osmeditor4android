@@ -748,6 +748,7 @@ public class StorageDelegator implements Serializable, Exportable {
 					RelationMember rm = r.getMember(way);
 					if (rm == null) {
 						Log.d("StorageDelegator", "Unconsistent state detected way " + way.getOsmId() + " should be relation member" );
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(null);	
 						continue;
 					}
@@ -1989,6 +1990,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				} else {
 					// node might have been deleted, aka somebody deleted nodes outside of the down loaded data bounding box
 					Log.e("StorageDelegator","mergeData null way node");
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(null);
 					return false;
 				}

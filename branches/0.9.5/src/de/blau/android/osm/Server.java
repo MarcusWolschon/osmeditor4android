@@ -466,6 +466,7 @@ public class Server {
 					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
 			} catch (Exception ex) {
 			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely casued by a translation error 
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 				ACRA.getErrorReporter().handleException(ex);
 			}
 		}

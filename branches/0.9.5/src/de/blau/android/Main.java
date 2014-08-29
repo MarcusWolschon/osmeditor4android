@@ -363,6 +363,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 							box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
 								loc.getLongitude(), 1000); // a km hardwired for now
 						} catch (OsmException e) {
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(e);
 						}
 					}
@@ -1405,6 +1406,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			oAuthWebView.removeAllViews();
 			oAuthWebView.destroy();
 		} catch (Exception ex) { 
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex);
 		}
 	}

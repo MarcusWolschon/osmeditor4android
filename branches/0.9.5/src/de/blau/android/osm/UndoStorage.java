@@ -129,6 +129,7 @@ public class UndoStorage implements Serializable {
 		undoCheckpoints.getLast().add(element);
 		redoCheckpoints.clear();
 		} catch (Exception ex) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report
 			Toast.makeText(Application.mainActivity, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
 		}

@@ -135,6 +135,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			db.close();
 		} catch (SQLiteException ex) {
 			// Don't crash just report
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex);
 		}
 	}
@@ -150,7 +151,11 @@ public class PhotoIndex extends SQLiteOpenHelper {
 				Log.d(LOGTAG,"deleteing refs for reindex");
 				try {
 					db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
-				} catch (SQLiteException sqex) { Log.d(LOGTAG, sqex.toString()); ACRA.getErrorReporter().handleException(sqex);}
+				} catch (SQLiteException sqex) { 
+					Log.d(LOGTAG, sqex.toString()); 
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(sqex);
+				}
 				needsReindex = true;
 			}
 			// now process 
@@ -176,8 +181,14 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						values.put("dir", indir.getAbsolutePath());
 						values.put("name", f.getName());
 						db.insert("photos", null, values); 
-					} catch (SQLiteException sqex) { Log.d(LOGTAG, sqex.toString()); ACRA.getErrorReporter().handleException(sqex);
-					} catch (Exception ex) { } // ignore
+					} catch (SQLiteException sqex) { 
+						Log.d(LOGTAG, sqex.toString());
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(sqex);
+					} catch (Exception ex) { 
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(ex);
+					} // ignore
 				}
 			}
 		}
