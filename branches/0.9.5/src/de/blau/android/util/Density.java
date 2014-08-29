@@ -9,14 +9,18 @@ public class Density {
 	 * @param dp size in display point
 	 * @return size in pixels (for the current display metrics)
 	 */
-	static public int dpToPx(int dp) {
+	public static int dpToPx(int dp) {
 		return Math.round(dp * Application.mainActivity.getResources().getDisplayMetrics().density);
 	}
 	
-	static public float dpToPx(float dp) {
+	public static float dpToPx(float dp) {
 		return Math.round(dp * Application.mainActivity.getResources().getDisplayMetrics().density);
 	}
 
+	public static float dpToPx(Context ctx, float dp) {
+		return Math.round(dp * ctx.getResources().getDisplayMetrics().density);
+	}
+	
 	public static int dpToPx(Context ctx, int dp) {
 		return Math.round(dp * ctx.getResources().getDisplayMetrics().density);
 	}
