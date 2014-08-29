@@ -321,11 +321,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					d.show();
 				} else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(Application.mainActivity);
-					if (offsetList == null) {
-						builder.setMessage(R.string.imagery_offset_not_found).setTitle(R.string.imagery_offset_title);
-					} else { // empty result
-						builder.setMessage(loader.getError()).setTitle(R.string.imagery_offset_title);
-					}
+					builder.setMessage(R.string.imagery_offset_not_found).setTitle(R.string.imagery_offset_title);
 					builder.setPositiveButton(R.string.okay, null);
 					AlertDialog dialog = builder.create();
 					dialog.show();
