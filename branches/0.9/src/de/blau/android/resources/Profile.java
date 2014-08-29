@@ -239,13 +239,16 @@ public class Profile  extends DefaultHandler {
 	
 	static Resources myRes;
 	
-	public float nodeToleranceValue = Density.dpToPx(40f); // TODO move to constant
-	public float wayToleranceValue = Density.dpToPx(40f);
-	public float largDragCircleRadius = Density.dpToPx(70f);
-	public float largDragToleranceRadius = Density.dpToPx(100f);
-	public float minLenForHandle = 5 * nodeToleranceValue;
+	public float nodeToleranceValue;
+	public float wayToleranceValue;
+	public float largDragCircleRadius;
+	public float largDragToleranceRadius;
+	public float minLenForHandle;
+
+	private final Context ctx;
 	
 	public Profile(final Context ctx) {
+		this.ctx = ctx;
 		// create default 
 		myRes = ctx.getResources();
 		init(myRes);
@@ -257,6 +260,7 @@ public class Profile  extends DefaultHandler {
 	
 	public Profile(String n, Profile from) {
 		// copy existing profile
+		this.ctx = from.ctx;
 		name = n;
 		featureProfiles = new HashMap<String, FeatureProfile>();
 		for (FeatureProfile fp : from.featureProfiles.values()) {
@@ -264,7 +268,8 @@ public class Profile  extends DefaultHandler {
 		}
 	}
 	
-	public Profile(InputStream is) {
+	public Profile(Context ctx, InputStream is) {
+		this.ctx = ctx;
 		// create a profile from a file
 		init(myRes); // defaults for internal styles 
 		read(is);
@@ -275,20 +280,25 @@ public class Profile  extends DefaultHandler {
 	 * @param resources
 	 */
 	private void init(final Resources resources) {
+		nodeToleranceValue = Density.dpToPx(ctx,40f); // TODO move to constant
+		wayToleranceValue = Density.dpToPx(ctx,40f);
+		largDragCircleRadius = Density.dpToPx(ctx,70f);
+		largDragToleranceRadius = Density.dpToPx(ctx,100f);
+		minLenForHandle = 5 * nodeToleranceValue;
 		
-		orientation_path.moveTo(0,(int) Density.dpToPx(-20));
-		orientation_path.lineTo((int) Density.dpToPx(15), (int) Density.dpToPx(20));
-		orientation_path.lineTo(0, (int) Density.dpToPx(10));
-		orientation_path.lineTo((int) Density.dpToPx(-15), (int) Density.dpToPx(20));
-		orientation_path.lineTo(0, (int) Density.dpToPx(-20));
+		orientation_path.moveTo(0,(int) Density.dpToPx(ctx,-20));
+		orientation_path.lineTo((int) Density.dpToPx(ctx,15), (int) Density.dpToPx(ctx,20));
+		orientation_path.lineTo(0, (int) Density.dpToPx(ctx,10));
+		orientation_path.lineTo((int) Density.dpToPx(ctx,-15), (int) Density.dpToPx(ctx,20));
+		orientation_path.lineTo(0, (int) Density.dpToPx(ctx,-20));
 	
-		int arm = (int) Density.dpToPx(10);
+		int arm = (int) Density.dpToPx(ctx,10);
 		crosshairs_path.moveTo(0, -arm);
 		crosshairs_path.lineTo(0, arm);
 		crosshairs_path.moveTo(arm, 0);
 		crosshairs_path.lineTo(-arm, 0);
 		
-		arm = (int) Density.dpToPx(4);
+		arm = (int) Density.dpToPx(ctx,4);
 		x_path.moveTo(-arm, -arm);
 		x_path.lineTo(arm, arm);
 		x_path.moveTo(arm, -arm);
@@ -326,7 +336,7 @@ public class Profile  extends DefaultHandler {
 		fp.getPaint().setStyle(Style.STROKE);
 		// fp.getPaint().setStrokeCap(Cap.ROUND);
 		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
-		fp.getPaint().setStrokeWidth(Density.dpToPx(1.0f));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(NODE);
@@ -341,11 +351,11 @@ public class Profile  extends DefaultHandler {
 
 		fp = new FeatureProfile(NODE_THIN);
 		fp.dontUpdate();
-		fp.getPaint().setStrokeWidth(Density.dpToPx(1.0f));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
-		fp.getPaint().setTextSize(Density.dpToPx(12));
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(PROBLEM_NODE);
@@ -360,11 +370,11 @@ public class Profile  extends DefaultHandler {
 
 		fp = new FeatureProfile(PROBLEM_NODE_THIN);
 		fp.dontUpdate();
-		fp.getPaint().setStrokeWidth(Density.dpToPx(1.0f));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.setColor(resources.getColor(R.color.problem));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
-		fp.getPaint().setTextSize(Density.dpToPx(12));
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(GPS_TRACK,featureProfiles.get(WAY)); 	
@@ -377,7 +387,7 @@ public class Profile  extends DefaultHandler {
 		fp.setColor(resources.getColor(R.color.ccc_ocher));
 		fp.dontUpdate();
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
-		fp.getPaint().setStrokeWidth(Density.dpToPx(wayToleranceValue));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,wayToleranceValue));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(SELECTED_NODE);
@@ -390,7 +400,7 @@ public class Profile  extends DefaultHandler {
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setAlpha(150);
-		fp.getPaint().setStrokeWidth(Density.dpToPx(10f));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,10f));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(SELECTED_NODE_TAGGED);
@@ -400,11 +410,11 @@ public class Profile  extends DefaultHandler {
 
 		fp = new FeatureProfile(SELECTED_NODE_THIN);
 		fp.dontUpdate();
-		fp.getPaint().setStrokeWidth(Density.dpToPx(1.0f));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
-		fp.getPaint().setTextSize(Density.dpToPx(12));
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(GPS_POS,featureProfiles.get(GPS_TRACK)); 
@@ -414,7 +424,7 @@ public class Profile  extends DefaultHandler {
 		
 		fp = new FeatureProfile(GPS_POS_FOLLOW,featureProfiles.get(GPS_POS)); 
 		fp.getPaint().setStyle(Style.STROKE);
-		fp.getPaint().setStrokeWidth(Density.dpToPx(4.0f));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,4.0f));
 		fp.dontUpdate();
 		featureProfiles.put(fp.getName(), fp);
 
@@ -436,21 +446,21 @@ public class Profile  extends DefaultHandler {
 		fp.dontUpdate();
 		fp.getPaint().setStyle(Style.FILL);
 		fp.getPaint().setAlpha(TOLERANCE_ALPHA);
-		fp.getPaint().setStrokeWidth(Density.dpToPx(nodeToleranceValue));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,nodeToleranceValue));
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(INFOTEXT);
 		fp.setColor(Color.BLACK);
 		fp.dontUpdate();
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
-		fp.getPaint().setTextSize(Density.dpToPx(12));
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(ATTRIBUTION_TEXT);
 		fp.setColor(Color.WHITE);
 		fp.dontUpdate();
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
-		fp.getPaint().setTextSize(Density.dpToPx(12));
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
 		fp.getPaint().setShadowLayer(1, 0, 0, Color.BLACK);
 		featureProfiles.put(fp.getName(), fp);
 		
@@ -479,7 +489,7 @@ public class Profile  extends DefaultHandler {
 		
 		fp = new FeatureProfile(CROSSHAIRS); 
 		fp.getPaint().setStyle(Style.STROKE);
-		fp.getPaint().setStrokeWidth(Density.dpToPx(1.0f));
+		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.dontUpdate();
 		featureProfiles.put(fp.getName(), fp);
 		
@@ -711,28 +721,28 @@ public class Profile  extends DefaultHandler {
 				tempFeatureProfile = new FeatureProfile(atts.getValue("name"));
 				if (tempFeatureProfile.name.equals(LARGE_DRAG_AREA)) {
 					// special handling
-					largDragCircleRadius = Density.dpToPx(Float.parseFloat(atts.getValue("radius")));
-					largDragToleranceRadius = Density.dpToPx(Float.parseFloat(atts.getValue("touchRadius")));
+					largDragCircleRadius = Density.dpToPx(ctx,Float.parseFloat(atts.getValue("radius")));
+					largDragToleranceRadius = Density.dpToPx(ctx,Float.parseFloat(atts.getValue("touchRadius")));
 					return;
 				}
 				if (tempFeatureProfile.name.equals(MARKER_SCALE)) {
 					float scale = Float.parseFloat(atts.getValue("scale"));
 					orientation_path = new Path();
-					orientation_path.moveTo(0,(int) Density.dpToPx(-20)*scale);
-					orientation_path.lineTo((int) Density.dpToPx(15)*scale, (int) Density.dpToPx(20)*scale);
-					orientation_path.lineTo(0, (int) Density.dpToPx(10)*scale);
-					orientation_path.lineTo((int) Density.dpToPx(-15)*scale, (int) Density.dpToPx(20)*scale);
-					orientation_path.lineTo(0, (int) Density.dpToPx(-20)*scale);
+					orientation_path.moveTo(0,(int) Density.dpToPx(ctx,-20)*scale);
+					orientation_path.lineTo((int) Density.dpToPx(ctx,15)*scale, (int) Density.dpToPx(ctx,20)*scale);
+					orientation_path.lineTo(0, (int) Density.dpToPx(ctx,10)*scale);
+					orientation_path.lineTo((int) Density.dpToPx(ctx,-15)*scale, (int) Density.dpToPx(ctx,20)*scale);
+					orientation_path.lineTo(0, (int) Density.dpToPx(ctx,-20)*scale);
 				
 					crosshairs_path = new Path();
-					int arm = (int) Density.dpToPx(10*scale);
+					int arm = (int) Density.dpToPx(ctx,10*scale);
 					crosshairs_path.moveTo(0, -arm);
 					crosshairs_path.lineTo(0, arm);
 					crosshairs_path.moveTo(arm, 0);
 					crosshairs_path.lineTo(-arm, 0);
 					
 					x_path = new Path();
-					arm = (int) Density.dpToPx(3*scale);
+					arm = (int) Density.dpToPx(ctx,3*scale);
 					x_path.moveTo(-arm, -arm);
 					x_path.lineTo(arm, arm);
 					x_path.moveTo(arm, -arm);
@@ -752,7 +762,7 @@ public class Profile  extends DefaultHandler {
 				tempFeatureProfile.getPaint().setStrokeCap(Cap.valueOf(atts.getValue("cap")));
 				tempFeatureProfile.getPaint().setStrokeJoin(Join.valueOf(atts.getValue("join")));
 				if (!tempFeatureProfile.updateWidth()) {
-					float strokeWidth = Density.dpToPx(Float.parseFloat(atts.getValue("strokewidth")));
+					float strokeWidth = Density.dpToPx(ctx,Float.parseFloat(atts.getValue("strokewidth")));
 					tempFeatureProfile.getPaint().setStrokeWidth(strokeWidth);
 					// special case if we are setting internal tolerance values
 					if (tempFeatureProfile.name.equals(NODE_TOLERANCE)) {
@@ -763,7 +773,7 @@ public class Profile  extends DefaultHandler {
 				}
 				if (atts.getValue("typefacestyle") != null) {
 					tempFeatureProfile.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
-					tempFeatureProfile.getPaint().setTextSize(Density.dpToPx(Float.parseFloat(atts.getValue("textsize"))));
+					tempFeatureProfile.getPaint().setTextSize(Density.dpToPx(ctx,Float.parseFloat(atts.getValue("textsize"))));
 					if (atts.getValue("shadow") != null)
 						tempFeatureProfile.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
 				}
@@ -839,7 +849,7 @@ public class Profile  extends DefaultHandler {
 					if (fn.endsWith("-profile.xml")) {
 						Log.i("Profile","Creating profile from file in assets directory " + fn);
 						InputStream is = assetManager.open(fn);
-						Profile p = new Profile(is);
+						Profile p = new Profile(ctx, is);
 						availableProfiles.put(p.name,p);
 					}
 				}
@@ -856,7 +866,7 @@ public class Profile  extends DefaultHandler {
 					Log.i("Profile","Creating profile from " + f.getName());
 					try {
 						InputStream is = new FileInputStream(f);
-						Profile p = new Profile(is);
+						Profile p = new Profile(ctx, is);
 						// overwrites profile with same name
 						availableProfiles.put(p.name,p);
 					} catch (Exception ex) { Log.i("Profile", ex.toString());}
