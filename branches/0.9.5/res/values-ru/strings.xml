@@ -110,7 +110,6 @@
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
   <string name="tag_menu_addtorelation">Добавить к отношению</string>
   <string name="tag_menu_resetMRU">Сбросить заготовки</string>
-  <string name="tag_menu_exit_no_save">Выйти\nбез сохранения</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Область скачивания</string>
   <string name="location_choose_radius">Выберите радиус:</string>
@@ -120,7 +119,6 @@
   <string name="location_text_unknown">unknown</string>
   <string name="location_last_text_parameterized">Последняя определенная позиция: %1$s</string>
   <string name="location_current_text_parameterized">Текущая позиция: %1$s</string>
-  <string name="location_text_metadata_location">\nШир %1$4g, Дол %2$4g\n%3$s %4$s назад</string>
   <string name="location_text_metadata_accuracy">Точность %1$2.0f метра,</string>
   <string name="location_map_text">Указать на карте (пока не реализовано)</string>
   <string name="location_coordinates_text">По координатам:</string>
@@ -196,7 +194,6 @@
   <string name="menu_merge">Объединить</string>
   <string name="menu_reverse">Изменить направление</string>
   <string name="reverse_anyway">Всё равно изменить направление</string>
-  <string name="deleteway_description">Вы собираетесь удалить линию\n\nМожно оставить все точки или удалить точки, которые принадлежать только этой линии и не имеют никаких тегов.</string>
   <string name="deleteway_wayonly">Удалить только линию</string>
   <string name="deleteway_wayandnodes">Удалить линию и точки</string>
   <string name="deletenode">Удалить точку</string>
@@ -265,7 +262,6 @@
   <string name="changes_changed">\"%1$s\" изменено</string>
   <string name="changes_created">\"%1$s\" создано</string>
   <string name="confirm_upload_title">Передать?</string>
-  <string name="confirm_upload_text">Передать следующие изменения?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Добавить заготовку</string>
   <string name="urldialog_preset_exists">Эта заготовка уже существует</string>

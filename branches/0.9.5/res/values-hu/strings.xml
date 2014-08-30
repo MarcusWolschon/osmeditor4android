@@ -88,7 +88,6 @@
   <string name="tag_menu_revert">Alaphelyzet</string>
   <string name="tag_menu_mapfeatures">Térképjellemzők Wiki</string>
   <string name="tag_menu_addtorelation">Hozzáadás kapcsolathoz</string>
-  <string name="tag_menu_exit_no_save">Kilépés\nmentés nélkül</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Terület betöltése</string>
   <string name="location_choose_radius">Sugár választása:</string>
@@ -165,7 +164,6 @@
   <string name="menu_reverse">Megfordítás</string>
   <string name="notreversable_description">A vonal olyan attribútumokat tartalmaz, amelyek függnek az iránytól, és nem lehet őket megfordítani. A vonal megfordítása hibás címkéket eredményez.</string>
   <string name="reverse_anyway">Megfordítás mindenképp</string>
-  <string name="deleteway_description">Egy vonal törlésére készülsz.\n\nMegtarthatod az összes pontot, vagy törölheted azokat a pontokat, amik csak ehhez a vonalhoz tartoznak és nincsenek címkéik.</string>
   <string name="deleteway_wayonly">Csak vonal törlése</string>
   <string name="deleteway_wayandnodes">Vonal és pontok törlése</string>
   <string name="deletenode">Pont törlése</string>
@@ -227,7 +225,6 @@
   <string name="changes_changed">\"%1$s\" módosítva</string>
   <string name="changes_created">\"%1$s\" létrehozva</string>
   <string name="confirm_upload_title">Feltöltöd?</string>
-  <string name="confirm_upload_text">Feltöltöd az alábbi változtatásokat?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_api">API hozzáadása</string>
   <!--common terms-->

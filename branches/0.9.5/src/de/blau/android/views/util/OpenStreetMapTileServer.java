@@ -1099,6 +1099,9 @@ public class OpenStreetMapTileServer {
         
         // Remove protocol
         int i = tileUrl.indexOf("://");
+        if (i == -1) { // TODO more sanity checks
+        	return "invalid_URL";
+        }
         tileUrl = tileUrl.substring(i + 3);
 
         // Split URL into address and query string

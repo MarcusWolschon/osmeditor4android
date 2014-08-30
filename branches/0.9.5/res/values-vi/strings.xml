@@ -11,7 +11,7 @@
   <string name="upload_conflict_title">Tải lên mâu thuẫn</string>
   <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi máy chủ có %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi nó bị xóa trên máy chủ</string>
-  <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại \ntrong khi còn có tham chiếu trên máy chủ </string>
+  <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
   <string name="use_local_version">Dùng phiên bản trong điện thoại</string>
   <string name="use_server_version">Dùng phiên bản trên máy chủ</string>
   <string name="no_login_data_title">Thất bại khi xác thực</string>
@@ -153,7 +153,8 @@
   <string name="location_text_unknown">không rõ</string>
   <string name="location_last_text_parameterized">Vị trí cuối cùng được xác định: %s$1</string>
   <string name="location_current_text_parameterized">Vị trí hiện tại: %1$s</string>
-  <string name="location_text_metadata_location">\nVĩ %1$4g, Kinh %2$4g\n%3$s %4$s trước đây</string>
+  <string name="location_text_metadata_location">
+\nVĩ %1$4g, Kinh %2$4g\n%3$s %4$s trước đây</string>
   <string name="location_text_metadata_accuracy">Chính xác đến %1$2.0f mét,</string>
   <string name="location_map_text">Từ bản đồ (sắp tới)</string>
   <string name="location_coordinates_text">Từ tọa độ:</string>

@@ -9,9 +9,12 @@
   <string name="upload_problem_title">Problème d\'envoi</string>
   <string name="upload_problem_message">Tout ou une partie des données n\'a pas été envoyée. Réessayez plus tard, le problème peut être temporaire</string>
   <string name="upload_conflict_title">Conflit durant l\'envoi</string>
-  <string name="upload_conflict_message_version">%1$s\nla version locale est %2$s\ncontre %3$s sur le serveur</string>
-  <string name="upload_conflict_message_deleted">%1$s\nla version locale est %2$s\net a été supprimé du serveur</string>
-  <string name="upload_conflict_message_referential">%1$s\na été supprimé localement\nmais existe toujours sur le serveur</string>
+  <string name="upload_conflict_message_version">%1$s
+la version locale est %2$s
+contre %3$s sur le serveur</string>
+  <string name="upload_conflict_message_deleted">%1$s
+la version locale est %2$s
+et a été supprimé du serveur</string>
   <string name="use_local_version">Utiliser la version locale</string>
   <string name="use_server_version">Utiliser la version du serveur</string>
   <string name="no_login_data_title">Authentification échouée</string>
@@ -30,7 +33,15 @@
   <string name="file_write_failed_title">Échec de l\'écriture du fichier</string>
   <string name="file_write_failed_message">Impossible d\'écrire dans le fichier sélectionné</string>
   <string name="welcome_title">Bienvenue !</string>
-  <string name="welcome_message">Merci d\'utiliser Vespucci\n\nVoici quelques choses à savoir avant de commencer :\n\n* appuyez sur l\'icône de cadenas dans le coin supérieur droit pour verrouiller ou déverrouiller l\'édition\n\n* pour ajouter un nouvel objet : appui long à un emplacement puis pressez une seconde fois pour ajouter un nœud. Un nouvel appui autre part tracera un chemon.\n\nAmusez-vous bien !</string>
+  <string name="welcome_message">Merci d\'utiliser Vespucci
+
+Voici quelques choses à savoir avant de commencer :
+
+* appuyez sur l\'icône de cadenas dans le coin supérieur droit pour verrouiller ou déverrouiller l\'édition
+
+* pour ajouter un nouvel objet : appui long à un emplacement puis pressez une seconde fois pour ajouter un nœud. Un nouvel appui autre part tracera un chemon.
+
+Amusez-vous bien !</string>
   <string name="read_introduction">Lire l\'introduction</string>
   <string name="progress_title">Chargement</string>
   <string name="progress_message">Chargement des données en mémoire…</string>
@@ -105,7 +116,8 @@
   <string name="toast_timeout">Le serveur n\'a pas répondu</string>
   <string name="coordinates_out_of_range">La longitude doit être comprise entre -180° et +180° et la latitude entre -85° et +85°</string>
   <string name="toast_nothing_found">Aucun résultat</string>
-  <string name="toast_statesave_failed">L\'enregistrement a échoué\nUne erreur s\'est produite lors de l\'export du fichier pour une récupération dans JOSM.</string>
+  <string name="toast_statesave_failed">L\'enregistrement a échoué
+Une erreur s\'est produite lors de l\'export du fichier pour une récupération dans JOSM.</string>
   <string name="toast_missing_filemanager">Merci d\'installer un gestionnaire de fichiers</string>
   <string name="toast_outside_of_download">Impossible d\'éditer en dehors de la zone où sont disponibles les données</string>
   <string name="toast_file_not_found">%1$s introuvable.</string>
@@ -141,7 +153,6 @@
   <string name="tag_menu_addtorelation">Ajouter à la relation</string>
   <string name="tag_menu_resetMRU">Réinitialiser les modèles d\'attributs</string>
   <string name="tag_menu_reset_address_prediction">Remise à zéro de la prédiction des adresses</string>
-  <string name="tag_menu_exit_no_save">Quitter\nsans sauvegarder</string>
   <string name="tag_value_hint">Appuyez pour voir les valeurs</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Télécharger une zone</string>
@@ -152,7 +163,9 @@
   <string name="location_text_unknown">inconnu</string>
   <string name="location_last_text_parameterized">Dernière position connue : %1$s</string>
   <string name="location_current_text_parameterized">Position actuelle: %1$s</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nil y a %3$s %4$s</string>
+  <string name="location_text_metadata_location">
+Lat %1$4g, Lon %2$4g
+il y a %3$s %4$s</string>
   <string name="location_text_metadata_accuracy">Précision de %1$2.0f mètres,</string>
   <string name="location_map_text">Depuis carte (non implémenté)</string>
   <string name="location_coordinates_text">Depuis les coordonnées :</string>
@@ -235,7 +248,7 @@
   <string name="menu_reverse">Inverser</string>
   <string name="notreversable_description">Ce chemin contient des attributs dépendants du sens et ne peut pas être inversé. Inverser ce chemin rendrait ces attributs incorrects.</string>
   <string name="reverse_anyway">Inverser quand même</string>
-  <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin.\n\nVous pouvez soit conserver tous ses nœuds, soit supprimer les nœuds sans tags et n\'appartenant qu\'à ce chemin.</string>
+  <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin. Vous pouvez soit conserver tous ses noeuds, soit supprimer les noeuds sans tags et n\'appartenant qu\'à ce chemin.</string>
   <string name="deleteway_relation_description">Vous êtes sur le point de supprimer un chemin qui appartient à une ou plusieurs relations. Supprimer un chemin d\'une relation peut la rendre non valide.</string>
   <string name="deleteway_nodesnotdownloaded_description">Le chemin contient des nœuds en dehors de la zone téléchargée et ne peut pas être supprimé sans endommager les données. Téléchargel le nœud entier et réessayez.</string>
   <string name="deleteway_wayonly">Supprimer le chemin seulement</string>
@@ -330,7 +343,8 @@
   <string name="changes_changed">\"%1$s\" modifié</string>
   <string name="changes_created">\"%1$s\" créé</string>
   <string name="confirm_upload_title">Envoyer ?</string>
-  <string name="confirm_upload_text">Envoyer les modifications suivantes ?\n%1$s</string>
+  <string name="confirm_upload_text">Envoyer les modifications suivantes ?
+%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
   <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>

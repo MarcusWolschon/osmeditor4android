@@ -95,7 +95,6 @@
   <string name="location_text_unknown">ناشناخته</string>
   <string name="location_last_text_parameterized">آخرین مکان شناخته شده: %1$s</string>
   <string name="location_current_text_parameterized">مکان فعلی: %1$s</string>
-  <string name="location_text_metadata_location">\nعرض %1$4g, طول %2$4g\n%3$s %4$s قبل</string>
   <string name="location_text_metadata_accuracy">دقت %1$2.0f متر،</string>
   <string name="location_map_text">از نقشه (به زودی)</string>
   <string name="location_coordinates_text">از مختصات:</string>
@@ -138,7 +137,6 @@
   <string name="menu_history">تاریخچه</string>
   <string name="menu_merge">پیوند دادن</string>
   <string name="menu_reverse">معکوس کردن</string>
-  <string name="deleteway_description">شما در شرف حذف یک راه هستید.\n\nشما هم میتوانید همه ی گره ها را حفظ کنید، یا گره هایی که در مسیر این راه هستند و هیچ برچسبی ندارند را حذف کنید.</string>
   <string name="deleteway_wayonly">فقط حذف راه</string>
   <string name="deleteway_wayandnodes">حذف راه و گره ها</string>
   <!--EasyEdit action mode titles-->
@@ -191,7 +189,6 @@
   <string name="changes_changed">\"%1$s\" تغییر کرد</string>
   <string name="changes_created">\"%1$s\" ایجاد شد</string>
   <string name="confirm_upload_title">آپلود؟</string>
-  <string name="confirm_upload_text">آپلود تغییرات زیر؟\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">افزودن پیش تنظیم</string>
   <string name="urldialog_preset_exists">این پیش تنظیم از قبل وجود دارد</string>

@@ -9,9 +9,6 @@
   <string name="upload_problem_title">アップロードで問題発生</string>
   <string name="upload_problem_message">全てもしくは一部のデータがアップロードされていません。一時的な問題の可能性もあるので、しばらくたってからもう一度アップロードしてください。</string>
   <string name="upload_conflict_title">アップロードされたデータの整合性が取れません</string>
-  <string name="upload_conflict_message_version">%1$s\nについて、ローカルにあるバージョンは %2$s\nですが、サーバー上にあるものは %3$s です。 </string>
-  <string name="upload_conflict_message_deleted">%1$s\nについて、ローカルにあるバージョンは %2$s\nですが、サーバー上では削除されています。 </string>
-  <string name="upload_conflict_message_referential">%1$s\nについてローカルでは削除されていますが\nサーバー上にはまだ存在しています。 </string>
   <string name="use_local_version">ローカルにあるバージョンを使用する</string>
   <string name="use_server_version">サーバー上にあるバージョンを使用する</string>
   <string name="no_login_data_title">認証失敗</string>
@@ -30,7 +27,6 @@
   <string name="file_write_failed_title">ファイル書込みに失敗</string>
   <string name="file_write_failed_message">選択したファイルに書き込むことが出来ませんでした。</string>
   <string name="welcome_title">ようこそ！</string>
-  <string name="welcome_message">Vespucciをご利用いただきありがとうございます。\n使い始める前にまず二つのことを知る必要があります：\n＊左上にある鍵アイコンをタップすることで、(編集が出来ない)ロックモードとアンロックモードを切り替えられます。\n＊新しいオブジェクトを追加する場合：長押しして、同じ場所をタップすればノードの追加、離れた場所をタップすればウェイの追加です。\n楽しくご活用ください！</string>
   <string name="read_introduction">導入説明をお読みください</string>
   <string name="progress_title">ロード中</string>
   <string name="progress_message">データをメモリにロード中…</string>
@@ -105,7 +101,6 @@
   <string name="toast_timeout">サーバタイムアウト</string>
   <string name="coordinates_out_of_range">経度の値は -180°/+180° 以内です。緯度は -85°/85° です。</string>
   <string name="toast_nothing_found">検索結果なし</string>
-  <string name="toast_statesave_failed">情報の保存に失敗しました！\nこれは致命的なエラーです。エクスポートしたファイルを後でJOSMを使って編集してください。</string>
   <string name="toast_missing_filemanager">ファイル管理ソフトをインストールしてください。</string>
   <string name="toast_outside_of_download">ダウンロードされたデータを外部アプリケーションで編集します。</string>
   <string name="toast_file_not_found">%1$s が見つかりません。</string>
@@ -140,7 +135,6 @@
   <string name="tag_menu_addtorelation">リレーションを追加</string>
   <string name="tag_menu_resetMRU">プリセットをリセット</string>
   <string name="tag_menu_reset_address_prediction">アドレス予測をリセットする</string>
-  <string name="tag_menu_exit_no_save">終了\nセーブ無しで</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">ロードするエリア</string>
   <string name="location_choose_radius">半径を選択:</string>
@@ -150,7 +144,6 @@
   <string name="location_text_unknown">不明</string>
   <string name="location_last_text_parameterized">前回の位置: %1$s</string>
   <string name="location_current_text_parameterized">現在の位置: %1$s</string>
-  <string name="location_text_metadata_location">\n緯度 %1$4g, 経度 %2$4g\n%3$s %4$s 前</string>
   <string name="location_text_metadata_accuracy">精度 %1$2.0f メートル,</string>
   <string name="location_map_text">マップから (近日実装予定)</string>
   <string name="location_coordinates_text">座標から:</string>
@@ -233,7 +226,6 @@
   <string name="menu_reverse">逆方向の</string>
   <string name="notreversable_description">ウェイは方向依存の属性を持つタグがついているため逆走できません。ウェイの逆走はタグ付けを破壊します。</string>
   <string name="reverse_anyway">とにかく逆走する</string>
-  <string name="deleteway_description">ウェイを削除しようとしています。\n\nこのウェイに付属して何もタグを持たないノードについてはそのままにしておくことも、削除することも可能です。</string>
   <string name="deleteway_relation_description">ひとつ以上のリレーションにメンバーとして所属しているウェイを削除しようとしています。リレーションからこのウェイを削除することにより、リレーションが不正な状態になる可能性があります。</string>
   <string name="deleteway_nodesnotdownloaded_description">ウェイがダウンロード範囲外のノードデータを含んでいるため、削除してしまうことで、データの一貫性が確保できなくなります。削除をリトライする際には、まずウェイ全体をダウンロードするようにしてください。</string>
   <string name="deleteway_wayonly">ウェイのみを削除</string>
@@ -320,7 +312,6 @@
   <string name="changes_changed">\"%1$s\" の変更</string>
   <string name="changes_created">\"%1$s\" の作成</string>
   <string name="confirm_upload_title">アップロード？</string>
-  <string name="confirm_upload_text">次の変更をアップロードしますか？\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">プリセットを追加</string>
   <string name="urldialog_preset_exists">プリセットは既に存在しています</string>

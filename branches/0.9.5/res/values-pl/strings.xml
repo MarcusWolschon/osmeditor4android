@@ -75,7 +75,6 @@
   <string name="tag_menu_mapfeatures">Podstawy (Wiki)</string>
   <string name="tag_menu_addtorelation">Dodaj do relacji</string>
   <string name="tag_menu_resetMRU">Zresetuj szablony</string>
-  <string name="tag_menu_exit_no_save">Wyjście⏎\nbez zapisania</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Ładuj obszar</string>
   <string name="location_choose_radius">Wybierz promień:</string>
@@ -140,7 +139,6 @@
   <string name="menu_reverse">Odwróć</string>
   <string name="notreversable_description">Droga z atrybutem zależności od kierunku, który nie może być zmieniony. Zmiana kierunku drogi zniszczy tagowanie.</string>
   <string name="reverse_anyway">Odwróć mimo to</string>
-  <string name="deleteway_description">Masz zamiar usunąć drogę. ⏎\n⏎\nMożesz zachować wszystkie węzły, lub usunąć węzły, które należą tylko do tej drogi i nie mają żadnych znaczników.</string>
   <string name="deleteway_relation_description">Zamierzasz usunąć drogę, która należy do jednej lub większej ilości relacji. Usunięcie drogi z relacji spowoduje jej/ich nieprawidłowość.</string>
   <string name="deleteway_wayonly">Usuń tylko drogę</string>
   <string name="deleteway_wayandnodes">Usuń drogę i węzły</string>
@@ -210,7 +208,6 @@
   <string name="changes_changed">\"%1$s\" zmieniono</string>
   <string name="changes_created">\"%1$s\" utworzono</string>
   <string name="confirm_upload_title">Wysłać?</string>
-  <string name="confirm_upload_text">Wysłać zmiany?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>

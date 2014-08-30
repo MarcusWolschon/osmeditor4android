@@ -88,7 +88,6 @@
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
-  <string name="toast_statesave_failed">Salvataggio dello stato corrente fallito\nQuesto è un errore fatale, tento di scrivere un file da usare successivamente con JOSM.</string>
   <string name="toast_missing_filemanager">Installa un file manager</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
@@ -117,7 +116,6 @@
   <string name="tag_menu_mapfeatures">Wiki funzioni mappe</string>
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
   <string name="tag_menu_resetMRU">Reimposta preset</string>
-  <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carica area</string>
   <string name="location_choose_radius">Scegli raggio:</string>
@@ -127,7 +125,6 @@
   <string name="location_text_unknown">sconosciuto</string>
   <string name="location_last_text_parameterized">Ultima posizione conosciuta: %1$s</string>
   <string name="location_current_text_parameterized">Posizione attuale: %1$s</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s fa</string>
   <string name="location_text_metadata_accuracy">Precisione di %1$2.0f metri,</string>
   <string name="location_map_text">Dalla mappa (in arrivo)</string>
   <string name="location_coordinates_text">Dalle coordinate:</string>
@@ -204,7 +201,6 @@
   <string name="menu_reverse">Inverti</string>
   <string name="notreversable_description">La via è taggata con attributi dipendenti dalla direzione e non può essere invertita. Invertire la via invaliderebbe i tag.</string>
   <string name="reverse_anyway">Inverti comunque</string>
-  <string name="deleteway_description">Stai per cancellare una via.\n\nPuoi scegliere di mantenere tutti i nodi, o cancellare i nodi che appartengono  solo a questa via e che non hanno alcun tag.</string>
   <string name="deleteway_relation_description">Stai per cancellare una via membro di una o più relazioni. Cancellare la via dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
   <string name="deleteway_nodesnotdownloaded_description">La strada contiene dei nodi al di fuori dell\'area scaricata e non può essere eliminata senza portare ad uno stato inconsistente. Scarica l\'intera strada prima di riprovare.</string>
   <string name="deleteway_wayonly">Cancella solo la via</string>
@@ -247,7 +243,8 @@
   <string name="config_api_oauth_title">Usa oauth</string>
   <string name="listedit_enable_oauth">Abilita oauth</string>
   <string name="config_iconbutton_title">Mostra icone dei nodi</string>
-  <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.\n</string>
+  <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.
+</string>
   <string name="config_loginbutton_title">Account utente</string>
   <string name="config_username_title">Nome utente OSM</string>
   <string name="config_username_summary">La configurazione è necessaria per caricare dati su OSM solo se non usi OAuth. Puoi creare un account al link http://www.openstreetmap.org/user/new</string>
@@ -261,7 +258,8 @@
   <string name="config_category_info">Informazioni</string>
   <string name="config_advancedprefs">Preferenze avanzate</string>
   <string name="config_forceContextMenu_title">Usa sempre menu contestuale</string>
-  <string name="config_forceContextMenu_summary">Mostra sempre il menu contestuale in modalità ModificheFacili se la selezione è ambigua\n</string>
+  <string name="config_forceContextMenu_summary">Mostra sempre il menu contestuale in modalità ModificheFacili se la selezione è ambigua
+</string>
   <string name="config_licensebutton_title">Autori e licenze</string>
   <string name="config_licensebutton_summary">Mostra informazioni su autori e licenze</string>
   <string name="config_mapProfile_title">Profilo della mappa</string>
@@ -287,7 +285,6 @@
   <string name="changes_changed">\"%1$s\" modificato</string>
   <string name="changes_created">\"%1$s\" creato</string>
   <string name="confirm_upload_title">Carica?</string>
-  <string name="confirm_upload_text">Carica le seguenti modifiche?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi preset</string>
   <string name="urldialog_preset_exists">Questo preset esiste già</string>

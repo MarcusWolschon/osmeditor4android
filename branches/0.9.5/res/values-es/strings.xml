@@ -62,7 +62,6 @@
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Agregar a relación</string>
   <string name="tag_menu_resetMRU">Reajustar Predeterminados</string>
-  <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -72,7 +71,6 @@
   <string name="location_text_unknown">desconocida</string>
   <string name="location_last_text_parameterized">Última localización conocida: %1$s</string>
   <string name="location_current_text_parameterized">Localización actual: %1$s</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nhace %3$s %4$s</string>
   <string name="location_text_metadata_accuracy">Precisión %1$2.0f metros,</string>
   <string name="location_map_text">Desde mapa (proximamente)</string>
   <string name="location_coordinates_text">Desde coordenadas:</string>
@@ -125,7 +123,6 @@
   <string name="menu_merge">Unir</string>
   <string name="menu_reverse">Revertir</string>
   <string name="reverse_anyway">Revertir de todas formas.</string>
-  <string name="deleteway_description">Está a punto de eliminar un camino.\n\nPuede conservar todos los nodos o eliminar solo los que pertenecen a este camino y no tienen ninguna etiqueta.</string>
   <string name="deleteway_wayonly">Eliminar solo la vía</string>
   <string name="deleteway_wayandnodes">Eliminar vía y nodos</string>
   <string name="deletenode">Borrar nodo</string>
@@ -201,7 +198,6 @@
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">¿Subir?</string>
-  <string name="confirm_upload_text">¿Subir los siguientes cambios?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Añadir preajuste</string>
   <string name="urldialog_preset_exists">Este preajuste ya existe</string>

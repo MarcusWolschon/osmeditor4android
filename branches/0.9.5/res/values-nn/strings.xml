@@ -132,7 +132,6 @@
   <string name="changes_changed">«%1$s» endra</string>
   <string name="changes_created">«%1$s» oppretta</string>
   <string name="confirm_upload_title">Last opp?</string>
-  <string name="confirm_upload_text">Last opp dei følgjande endringane?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_api_exists">Ein API med denne URLen finst allereie, men du kan leggja til ein til (t.d. for å lett skifte konto).</string>
   <string name="urldialog_add_api">Legg til API</string>

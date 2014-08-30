@@ -9,19 +9,20 @@
   <string name="upload_problem_title">問題上傳</string>
   <string name="upload_problem_message">有一些或全部的資料未被上傳。如果這只是一個臨時的問題，請以後再嘗試上傳。</string>
   <string name="upload_conflict_title">上傳衝突</string>
-  <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$s \n和在伺服器上的 %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \n擁有的本機版本 %2$s \n在伺服器上已被刪除</string>
-  <string name="upload_conflict_message_referential">%1$s \n本機的已被刪除 \n但是在伺服器上可取得參考</string>
+  <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$s \n和在伺服器上的 %3$s</string>
+  <string name="upload_conflict_message_deleted">%1$s \n持有的本機版本 %2$s \n在伺服器上已被刪除</string>
+  <string name="upload_conflict_message_referential">%1$s \n本機的已被刪除，\n但是在伺服器上可取得參考</string>
   <string name="use_local_version">使用本機版本</string>
   <string name="use_server_version">使用伺服器上的版本</string>
   <string name="no_login_data_title">驗證失敗</string>
-  <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一個 錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
+  <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一個錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
   <string name="no_connection_title">未連接到伺服器</string>
   <string name="no_connection_message">無法連線到 OSM 伺服器。請檢查您的網路連線或稍後再試。</string>
   <string name="wrong_login_data_title">驗證失敗</string>
   <string name="wrong_login_data_message">如果您正在使用 OAuth 這可能是一個錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
   <string name="data_conflict_title">版本衝突</string>
-  <string name="data_conflict_message">您正嘗試下載的資料中，所包含的資料與您的編輯衝突。\n請在重試之前，先試著上傳您的資料。</string>
+  <string name="data_conflict_message">您正嘗試下載的資料中，所包含的資料與您的編輯衝突。
+請在重試之前，先試著上傳您的資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
   <string name="out_of_memory_message">Vespucci 載入所要求的資料，已耗盡記憶體。請重新開機，並嘗試載入較小的區域。</string>
   <string name="out_of_memory_dirty_message">Vespucci 載入所要求的資料，已耗盡記憶體。請試著儲存您的編輯，重新開機，並嘗試載入較小的區域。</string>
@@ -30,7 +31,7 @@
   <string name="file_write_failed_title">寫入檔案失敗</string>
   <string name="file_write_failed_message">無法寫入到所選定的檔案。</string>
   <string name="welcome_title">歡迎！</string>
-  <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n* 要增加一個新的物件：長按，在同一個地方點按，會增加一個節點，離更遠處輕點會開始一條路徑。\n\n玩得愉快！</string>
+  <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n*要增加一個新的物件：長按，在同一個地方輕按，會增加一個節點，離更遠處輕按會開始一條道路。\n\n玩得愉快！</string>
   <string name="read_introduction">現在閱讀入門介紹</string>
   <string name="progress_title">載入</string>
   <string name="progress_message">載入資料到記憶體中…</string>
@@ -105,7 +106,7 @@
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
-  <string name="toast_statesave_failed">儲存目前的狀態失敗！\n這一個致命的錯誤，試著寫入一個檔案後匯出，用於以後 JOSM 恢復。</string>
+  <string name="toast_statesave_failed">儲存目前的狀態失敗！\n這一個致命的錯誤，試著寫入一個檔案匯出，用於以後 JOSM 恢復。</string>
   <string name="toast_missing_filemanager">請安裝檔案管理。</string>
   <string name="toast_outside_of_download">您正在編輯已下載之外的資料</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
@@ -153,7 +154,8 @@
   <string name="location_text_unknown">未知的</string>
   <string name="location_last_text_parameterized">最後已知的位置：%1$s</string>
   <string name="location_current_text_parameterized">目前位置：%1$s</string>
-  <string name="location_text_metadata_location">\n緯度 %1$4g、經度 %2$4g\n%3$s %4$s 之前</string>
+  <string name="location_text_metadata_location">
+緯度 %1$4g、經度 %2$4g\n%3$s %4$s 之前</string>
   <string name="location_text_metadata_accuracy">精確度 %1$2.0f 公尺，</string>
   <string name="location_map_text">從地圖（即將推出）</string>
   <string name="location_coordinates_text">從坐標：</string>
@@ -288,7 +290,8 @@
   <string name="config_iconbutton_summary">顯示上面節點最相配的預置圖示。</string>
   <string name="config_loginbutton_title">使用者帳號</string>
   <string name="config_username_title">OSM 使用者名稱</string>
-  <string name="config_username_summary">如果您不使用 OAuth，只組態需要上傳的 OSM 資料。\n帳號可用在 http://www.openstreetmap.org/user/new</string>
+  <string name="config_username_summary">如果您不使用 OAuth，只組態需要上傳的 OSM 資料。
+帳號可用在 http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM 密碼</string>
   <string name="config_password_summary">不要誤認為是維基密碼。請記住：它是以純文字存儲和傳輸！</string>
   <string name="config_category_gps">GPS 設定</string>

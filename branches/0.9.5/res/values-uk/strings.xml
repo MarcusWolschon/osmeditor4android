@@ -62,7 +62,6 @@
   <string name="tag_menu_mapfeatures">Умовні позначення</string>
   <string name="tag_menu_addtorelation">Додати у зв’язок</string>
   <string name="tag_menu_resetMRU">Скинути заготовки</string>
-  <string name="tag_menu_exit_no_save">Вихід\nбез збереження</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Область звантажування</string>
   <string name="location_choose_radius">Виберіть радіус: </string>
@@ -119,7 +118,6 @@
   <string name="menu_history">Історія</string>
   <string name="menu_merge">Об’єднати</string>
   <string name="menu_reverse">Змінити напрямок</string>
-  <string name="deleteway_description">Ви збираєтеся вилучити лінію.\n\nМожна залишити усі точки або ж вилучити точки, які належать лише цій лінії і не мають жодних міток.</string>
   <string name="deleteway_wayonly">Вилучити лише лінію</string>
   <string name="deleteway_wayandnodes">Вилучити лінію та точки</string>
   <string name="deletenode">Вилучити точку</string>
@@ -178,7 +176,6 @@
   <string name="changes_changed">„%1$s“ змінено</string>
   <string name="changes_created">„%1$s“ створено</string>
   <string name="confirm_upload_title">Вивантажити?</string>
-  <string name="confirm_upload_text">Вивантажити наступні зміни? %1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Додати заготовку</string>
   <string name="urldialog_preset_exists">Ця заготовка вже існує</string>

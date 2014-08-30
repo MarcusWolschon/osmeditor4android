@@ -55,7 +55,6 @@
   <string name="key">cheie</string>
   <string name="value">valoare</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
-  <string name="tag_menu_exit_no_save">Ieșire\nFără salvare\n</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Incarcă zona</string>
   <string name="location_choose_radius">Alegeţi raza:</string>
@@ -133,7 +132,8 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_create_relation">crează legătura</string>
   <string name="undo_action_delete_relation">șterge legătura</string>
-  <string name="undo_action_cut">taie\n </string>
+  <string name="undo_action_cut">taie
+ </string>
   <string name="undo_action_circulize">aranjează în cerc</string>
   <!--ACRA-->
   <!--Exceptions messages-->
