@@ -21,4 +21,10 @@
         <item name="android:actionBarStyle">@style/TagEditorActionBar</item>
     </style>
     
+    <style name="Theme.customHelpViewer" parent="style/Theme.Sherlock">
+        <!-- need to specify once for ActionBarSherlock, once for android native -->
+        <item name="actionDropDownStyle">@style/customActionBarDropdown</item>
+        <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+        <item name="homeAsUpIndicator">@drawable/ic_drawer</item>
+    </style>
 </resources>

@@ -45,7 +45,6 @@
   <string name="toast_export_failed">L\'exportació ha fallat</string>
   <string name="toast_export_success">Exportat a %1$s</string>
   <string name="toast_oneway_reversed">Heu canviat el sentit d\'una via de sentit únic amb etiquetes que depenen de la direcció. Si us plau verifiqueu les etiquetes i corregiu-les si fos necessari.</string>
-  <string name="toast_number_format">Format de nombre incorrecte</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -64,7 +63,6 @@
   <string name="tag_menu_repeat">Repeteix etiquetes</string>
   <string name="tag_menu_revert">Reverteix</string>
   <string name="tag_menu_addtorelation">Afegeix a la relació</string>
-  <string name="tag_menu_exit_no_save">Surt\nsense desar</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carrega un àrea</string>
   <string name="location_choose_radius">Trieu un radi:</string>
@@ -74,7 +72,6 @@
   <string name="location_text_unknown">desconeguda</string>
   <string name="location_last_text_parameterized">Última ubicació coneguda: %1$s</string>
   <string name="location_current_text_parameterized">Ubicació actual: %1$s</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nfa %3$s %4$s</string>
   <string name="location_text_metadata_accuracy">Precisió %1$2.0f metre,</string>
   <string name="location_map_text">Des del mapa (properament)</string>
   <string name="location_coordinates_text">Des de les coordenades:</string>
@@ -97,7 +94,6 @@
   <string name="menu_restriction_via">Afegeix una via de restricció</string>
   <string name="menu_restriction_to">Afegeix una restricció a</string>
   <string name="menu_relation">Crea una relació</string>
-  <string name="menu_add_relation_member">Afegeix un membre a la relació</string>
   <string name="menu_tag">Edita les etiquetes</string>
   <string name="menu_openstreetbug">Afegeix una nota</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -123,7 +119,6 @@
   <string name="menu_orthogonalize">Ortogonalitza</string>
   <string name="menu_tools">Eines</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
-  <string name="menu_tools_background_opacity">Opacitat del fons</string>
   <!--element action mode menu-->
   <string name="menu_tags">Etiquetes</string>
   <!--Text should be as short as possible-->
@@ -131,7 +126,6 @@
   <string name="menu_merge">Uneix</string>
   <string name="menu_reverse">Canvia el sentit</string>
   <string name="reverse_anyway">Canvia el sentit igualment</string>
-  <string name="deleteway_description">Sou a punt de suprimir una via.\n\nPodeu optar per conservar tots els seus nodes o bé per suprimir els nodes que formen part de la vila i no tenen cap etiqueta.</string>
   <string name="deleteway_wayonly">Suprimeix només aquesta via</string>
   <string name="deleteway_wayandnodes">Suprimeix la via i els nodes</string>
   <string name="deletenode">Suprimeix el node</string>
@@ -179,7 +173,6 @@
   <string name="changes_changed">S\'ha canviat \"%1$s\"</string>
   <string name="changes_created">S\'ha creat \"%1$s\"</string>
   <string name="confirm_upload_title">Voleu pujar-ho?</string>
-  <string name="confirm_upload_text">Voleu pujar els canvis següents?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_api">Afegeix una API</string>
   <string name="urldialog_nodata_text">L\'URL de configuració no conté dades vàlides.</string>
@@ -236,4 +229,6 @@
   <string name="seconds">segons</string>
   <string name="km">km</string>
   <string name="meter">metre</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

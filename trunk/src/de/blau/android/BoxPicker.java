@@ -352,6 +352,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			box = GeoMath.createBoundingBoxForCoordinates(currentLocation.getLatitude(),
 				currentLocation.getLongitude(), currentRadius);
 		} catch (OsmException e) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e);
 		}
 		return box;
@@ -367,6 +368,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			box = GeoMath.createBoundingBoxForCoordinates(lastLocation.getLatitude(),
 					lastLocation.getLongitude(), currentRadius);
 		} catch (OsmException e) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e);
 		}
 		return box;

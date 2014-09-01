@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import java.io.FileNotFoundException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -9,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +21,22 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import de.blau.android.Logic.UploadResult;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
+import de.blau.android.listener.GpxUploadListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osb.CommitListener;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
 
@@ -69,6 +82,16 @@ public class DialogFactory {
 	public static final int PROGRESS_SAVING = 17;
 	
 	public static final int SEARCH = 18;
+
+	public static final int SAVE_FILE = 19;
+
+	public static final int FILE_WRITE_FAILED = 20;
+
+	public static final int NEWBIE = 21;
+	
+	public static final int GPX_UPLOAD = 22;
+	
+	public static final int UPLOAD_CONFLICT = 23;
 		
 	private final Main caller;
 	
@@ -95,6 +118,12 @@ public class DialogFactory {
 	private final Builder backgroundProperties;
 	
 	private final Builder invalidDataReceived;
+	
+	private final Builder fileWriteFailed;
+	
+	private final Builder newbie;
+	
+	private final Builder gpxUpload;
 			
 	/**
 	 * @param caller
@@ -131,7 +160,10 @@ public class DialogFactory {
 		confirmUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
 		confirmUpload.setView(layout);
-		confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller, (EditText)layout.findViewById(R.id.upload_comment), (EditText)layout.findViewById(R.id.upload_source)));
+		CheckBox closeChangeset = (CheckBox)layout.findViewById(R.id.upload_close_changeset);
+		closeChangeset.setChecked(new Preferences(caller).closeChangesetOnSave());
+		confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller, (EditText)layout.findViewById(R.id.upload_comment), 
+					(EditText)layout.findViewById(R.id.upload_source), closeChangeset));
 		confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 		
 		openStreetBugEdit = createBasicDialog(R.string.openstreetbug_edit_title, 0); // body gets replaced later
@@ -153,11 +185,32 @@ public class DialogFactory {
 		layout = inflater.inflate(R.layout.background_properties, null);
 		backgroundProperties.setView(layout);
 		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
-		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_opacity_seeker);
+		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 				
 		invalidDataReceived = createBasicDialog(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
 		invalidDataReceived.setPositiveButton(R.string.okay, doNothingListener);
+		
+		fileWriteFailed = createBasicDialog(R.string.file_write_failed_title, R.string.file_write_failed_message);
+		fileWriteFailed.setPositiveButton(R.string.okay, doNothingListener);
+		
+		newbie = createBasicDialog(R.string.welcome_title, R.string.welcome_message);
+		newbie.setPositiveButton(R.string.okay, doNothingListener);
+		newbie.setNeutralButton(R.string.read_introduction, 	new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
+						startHelpViewer.putExtra(HelpViewer.TOPIC, caller.getString(R.string.introduction));
+						caller.startActivity(startHelpViewer);
+					}
+				});
+		
+		gpxUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
+		layout = inflater.inflate(R.layout.upload_gpx, null);
+		gpxUpload.setView(layout);
+		gpxUpload.setPositiveButton(R.string.transfer_download_current_upload, new GpxUploadListener(caller, (EditText)layout.findViewById(R.id.upload_gpx_description), 
+				(EditText)layout.findViewById(R.id.upload_gpx_tags), (Spinner)layout.findViewById(R.id.upload_gpx_visibility)));
+		gpxUpload.setNegativeButton(R.string.cancel, doNothingListener);
 	}
 	
 	/**
@@ -220,6 +273,18 @@ public class DialogFactory {
 			
 		case SEARCH:
 			return createSearchDialog(caller);
+			
+		case SAVE_FILE:
+			return createSaveFileDialog(caller);
+			
+		case FILE_WRITE_FAILED:
+			return fileWriteFailed.create();
+			
+		case NEWBIE:
+			return newbie.create();
+			
+		case GPX_UPLOAD:
+			return gpxUpload.create();
 		}
 		
 		return null;
@@ -282,7 +347,7 @@ public class DialogFactory {
 			@Override
 			public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
 				Map map = Application.mainActivity.getMap();
-				map.getOpenStreetMapTilesOverlay().setAlpha(progress);
+				map.getOpenStreetMapTilesOverlay().setContrast(progress/127.5f - 1f); // range from -1 to +1
 				map.invalidate();
 			}
 			
@@ -314,8 +379,11 @@ public class DialogFactory {
 		Builder searchBuilder = createBasicDialog(R.string.menu_find, R.string.find_message);
 		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 		searchBuilder.setView(searchLayout);
-		EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
+		final EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
+		searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		searchBuilder.setNegativeButton(R.string.cancel, null);
+		
+		
 		final Dialog searchDialog = searchBuilder.create();
 		
 		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
@@ -325,11 +393,12 @@ public class DialogFactory {
 				caller.setFollowGPS(false);
 				caller.getMap().setFollowGPS(false);
 				//
-				caller.logic.setZoom(19);
+				Main.logic.setZoom(19);
 				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 				searchDialog.dismiss();
 			}
 		};
+		
 		searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 		    @Override
 		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -343,5 +412,126 @@ public class DialogFactory {
 		});
 		
 		return searchDialog;
+	}
+	
+	private Dialog createSaveFileDialog(final Main caller) {
+		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		Builder saveFileBuilder = createBasicDialog(R.string.save_file, 0);
+		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.save_file, null);
+		saveFileBuilder.setView(searchLayout);
+		final EditText saveFileEdit = (EditText) searchLayout.findViewById(R.id.save_file_edit);
+		saveFileBuilder.setNegativeButton(R.string.cancel, null);
+		saveFileBuilder.setPositiveButton(R.string.save, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Main.logic.writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
+			}
+		});
+		
+		final Dialog saveFileDialog = saveFileBuilder.create();
+		
+		return saveFileDialog;
+	}
+	
+	/**
+	 * @param titleId the resource-id of the title
+	 * @param messageId the resource-id of the message
+	 * @return a dialog-builder
+	 */
+	public static Builder createExistingTrackDialog(final Main caller, final Uri uri) {
+		Builder existingTrack = new AlertDialog.Builder(Application.mainActivity);
+		existingTrack.setIcon(R.drawable.alert_dialog_icon);
+		existingTrack.setTitle(R.string.existing_track_title);
+		existingTrack.setMessage(R.string.existing_track_message);
+		
+		existingTrack.setPositiveButton(R.string.replace, 	new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				caller.getTracker().stopTracking(true);
+				try {
+					caller.getTracker().importGPXFile(uri);
+				} catch (FileNotFoundException e) {
+					try {
+						Toast.makeText(caller,caller.getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+					} catch (Exception ex) {
+						// protect against translation errors
+					}
+				}
+			}
+		});
+		existingTrack.setNeutralButton(R.string.keep, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				caller.getTracker().stopTracking(false);
+				try {
+					caller.getTracker().importGPXFile(uri);
+				} catch (FileNotFoundException e) {
+					try {
+						Toast.makeText(caller,caller.getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+					} catch (Exception ex) {
+						// protect against translation errors
+					}
+				}
+			}
+		});
+		existingTrack.setNegativeButton(R.string.cancel, null);
+		return existingTrack;
+	}
+	
+	/**
+	 * @param titleId the resource-id of the title
+	 * @param messageId the resource-id of the message
+	 * @return a dialog-builder
+	 */
+	public static Builder createUploadConflictDialog(final Main caller, UploadResult result) {
+		Builder uploadConflict = new AlertDialog.Builder(Application.mainActivity);
+		uploadConflict.setIcon(R.drawable.alert_dialog_icon);
+		uploadConflict.setTitle(R.string.upload_conflict_title);
+		final OsmElement elementOnServer = Main.logic.downloadElement(result.elementType, result.osmId);
+		final OsmElement elementLocal = Main.logic.delegator.getOsmElement(result.elementType, result.osmId);
+		final long newVersion;
+		try {
+			boolean useServerOnly = false;
+			if (elementOnServer != null) {
+				if (elementLocal.getState()==OsmElement.STATE_DELETED) {
+					uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_referential, elementLocal.getDescription()));
+					useServerOnly = true;
+				} else {
+					uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_version, elementLocal.getDescription(), elementLocal.getOsmVersion(), elementOnServer.getOsmVersion()));
+				}
+				newVersion = elementOnServer.getOsmVersion();
+			} else {
+				uploadConflict.setMessage(caller.getResources().getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(), elementLocal.getOsmVersion()));
+				newVersion = elementLocal.getOsmVersion() + 1;
+			}
+			if (!useServerOnly) {
+				uploadConflict.setPositiveButton(R.string.use_local_version, 	new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Main.logic.fixElementWithConflict(newVersion, elementLocal, elementOnServer);
+						caller.confirmUpload();
+					}
+				});
+			}
+			uploadConflict.setNeutralButton(R.string.use_server_version,new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Main.logic.delegator.removeFromUpload(elementLocal);
+					if (elementOnServer != null) {
+						Main.logic.updateElement(elementLocal.getName(), elementLocal.getOsmId());
+					} else { // delete local element
+						Main.logic.updateToDeleted(elementLocal);
+					}
+					if (!Main.logic.delegator.getApiStorage().isEmpty()) {
+						caller.confirmUpload();
+					}
+				}
+			});
+		} catch (Exception e) {
+			// protect against translation problems
+			e.printStackTrace();
+		}
+		uploadConflict.setNegativeButton(R.string.cancel, null);
+		return uploadConflict;
 	}
 }

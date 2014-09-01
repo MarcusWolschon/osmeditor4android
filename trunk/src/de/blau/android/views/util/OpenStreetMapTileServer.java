@@ -1085,14 +1085,23 @@ public class OpenStreetMapTileServer {
   	            return null;
   	
         // predefined layers
-        if(id.equals("BING"))
+        if(id.equals("BING")) {
             return "bing";
+        }
 
-        if(tileUrl.contains("irs.gis-lab.info"))
+        if(tileUrl.contains("irs.gis-lab.info")) {
             return "scanex_irs";
+        }
 
+        if(id.equalsIgnoreCase("Mapbox")) {
+            return "mapbox";
+        }
+        
         // Remove protocol
         int i = tileUrl.indexOf("://");
+        if (i == -1) { // TODO more sanity checks
+        	return "invalid_URL";
+        }
         tileUrl = tileUrl.substring(i + 3);
 
         // Split URL into address and query string

@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Descartar &amp; descargar</string>
   <string name="transfer_download_current_back">Volver (No hacer nada)</string>
   <string name="upload_problem_title">Problema con la subida</string>
-  <string name="upload_problem_message">Algunos o todos los datos no se ha subido. Trate de subir de nuevo para ver qué ha fallado. La causa más probable es un conflicto de versiones.</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
   <string name="no_login_data_message">Si está usando OAuth, esto es posiblemente un error; por favor, envíe un informe del problema. Si está usando usuario y contraseña (no recomendado), compruebe que se han introducido correctamente.</string>
   <string name="no_connection_title">Sin conexión con el Servidor</string>
@@ -63,7 +62,6 @@
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Agregar a relación</string>
   <string name="tag_menu_resetMRU">Reajustar Predeterminados</string>
-  <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -73,7 +71,6 @@
   <string name="location_text_unknown">desconocida</string>
   <string name="location_last_text_parameterized">Última localización conocida: %1$s</string>
   <string name="location_current_text_parameterized">Localización actual: %1$s</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nhace %3$s %4$s</string>
   <string name="location_text_metadata_accuracy">Precisión %1$2.0f metros,</string>
   <string name="location_map_text">Desde mapa (proximamente)</string>
   <string name="location_coordinates_text">Desde coordenadas:</string>
@@ -126,7 +123,6 @@
   <string name="menu_merge">Unir</string>
   <string name="menu_reverse">Revertir</string>
   <string name="reverse_anyway">Revertir de todas formas.</string>
-  <string name="deleteway_description">Está a punto de eliminar un camino.\n\nPuede conservar todos los nodos o eliminar solo los que pertenecen a este camino y no tienen ninguna etiqueta.</string>
   <string name="deleteway_wayonly">Eliminar solo la vía</string>
   <string name="deleteway_wayandnodes">Eliminar vía y nodos</string>
   <string name="deletenode">Borrar nodo</string>
@@ -161,8 +157,6 @@
   <string name="config_apibutton_summary">Puede establecer una API URL no estandar aquí. ¡Normalmalmente no debería cambiarla!</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Usar oauth</string>
-  <string name="config_presetbutton_title">Preajustes JOSM</string>
-  <string name="config_presetbutton_summary">Puede configurar definiciones de elementos de mapa aquí</string>
   <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
   <string name="config_iconbutton_summary">Mostrar sobre los nodos el ícono del preajuste de mejor coincidencia.</string>
   <string name="config_loginbutton_title">Cuenta de usuario</string>
@@ -204,7 +198,6 @@
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">¿Subir?</string>
-  <string name="confirm_upload_text">¿Subir los siguientes cambios?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Añadir preajuste</string>
   <string name="urldialog_preset_exists">Este preajuste ya existe</string>
@@ -260,4 +253,6 @@
   <string name="type">Tipo</string>
   <string name="object">Objeto</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

@@ -60,6 +60,7 @@ public class SavingHelper<T extends Serializable> {
 			Log.d("SavingHelper", "save thread finished");
 			return r.getResult();
 		} catch (Exception e) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			return false;
 		}
@@ -101,10 +102,12 @@ public class SavingHelper<T extends Serializable> {
         		result = true;
         	} catch (Exception e) {
         		Log.e("SavingHelper", "failed to save "+filename, e);
+        		ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
         		ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
         		result = false;
         	} catch (Error e) {
         		Log.e("SavingHelper", "failed to save "+filename, e);
+        		ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
         		ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
         		result = false;
         	} finally {
@@ -133,6 +136,7 @@ public class SavingHelper<T extends Serializable> {
 			Log.d("SavingHelper", "load thread finished");
 			return r.getResult();
 		} catch (Exception e) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			return null;
 		}

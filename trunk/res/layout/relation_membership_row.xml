@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/iconDelete"
-        android:src="@drawable/delete_x_black"
+        android:src="@drawable/delete_x_white"
         android:contentDescription="@string/delete"
         android:layout_width="34dp"
         android:layout_height="34dp"

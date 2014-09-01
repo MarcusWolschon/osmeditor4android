@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.acra.ACRA;
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -35,7 +36,7 @@ import de.blau.android.util.SavingHelper.Exportable;
 
 public class StorageDelegator implements Serializable, Exportable {
 
-	private static final long serialVersionUID = 6L;
+	private static final long serialVersionUID = 7L;
 
 	private Storage currentStorage;
 
@@ -160,6 +161,45 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementUnsafe(elem);
 		} catch (StorageException e) {
 			// TODO handle OOMk
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Create apiStorage (aka the changes to the original data) based on state field of the elements.
+	 * Assumes that apiStorage is empty.
+	 */
+	public void fixupApiStorage() {
+		try {
+			List<Node> nl = new ArrayList<Node>(currentStorage.getNodes());
+			for (Node n:nl) {
+				if (n.getState()==OsmElement.STATE_MODIFIED || n.getState()==OsmElement.STATE_DELETED) {
+					apiStorage.insertElementUnsafe(n);
+				}
+				if (n.getState()==OsmElement.STATE_DELETED) {
+					currentStorage.removeElement(n);
+				}
+			}
+			List<Way> wl = new ArrayList<Way>(currentStorage.getWays());
+			for (Way w:wl) {
+				if (w.getState()==OsmElement.STATE_MODIFIED || w.getState()==OsmElement.STATE_DELETED) {
+					apiStorage.insertElementUnsafe(w);
+				}
+				if (w.getState()==OsmElement.STATE_DELETED) {
+					currentStorage.removeElement(w);
+				}
+			}
+			List<Relation> rl = new ArrayList<Relation>(currentStorage.getRelations());
+			for (Relation r:rl) {
+				if (r.getState()==OsmElement.STATE_MODIFIED || r.getState()==OsmElement.STATE_DELETED) {
+					apiStorage.insertElementUnsafe(r);
+				}
+				if (r.getState()==OsmElement.STATE_DELETED) {
+					currentStorage.removeElement(r);
+				}
+			}
+		} catch (StorageException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -634,8 +674,8 @@ public class StorageDelegator implements Serializable, Exportable {
 			insertElementUnsafe(newWay);
 			
 			// check for relation membership
-			ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
-			if (relations != null) {
+			if (way.hasParentRelations()) {
+				ArrayList<Relation> relations = new ArrayList<Relation>(way.getParentRelations()); // copy !
 				dirty = true;
 				/* iterate through relations, add the new way to the relation, for now simply after the old way */
 				for (Relation r : relations) {
@@ -708,16 +748,17 @@ public class StorageDelegator implements Serializable, Exportable {
 					RelationMember rm = r.getMember(way);
 					if (rm == null) {
 						Log.d("StorageDelegator", "Unconsistent state detected way " + way.getOsmId() + " should be relation member" );
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(null);	
 						continue;
 					}
 					undo.save(r);
-					String type = r.getTagWithKey("type");
+					String type = r.getTagWithKey(Tags.KEY_TYPE);
 					if (type != null){
 						// attempt to handle turn restrictions correctly, if element is the via way, copying relation membership to both is ok
-						if (type.equals("restriction") && !rm.getRole().equals("via")) { 
+						if (type.equals(Tags.VALUE_RESTRICTION) && !rm.getRole().equals(Tags.VALUE_VIA)) { 
 							// check if the old way has a node in common with the via relation member, if no assume the new way has
-							ArrayList<RelationMember> rl =  r.getMembersWithRole("via");
+							ArrayList<RelationMember> rl =  r.getMembersWithRole(Tags.VALUE_VIA);
 							boolean foundVia=false;
 							for (int j=0;j<rl.size();j++)
 							{
@@ -891,8 +932,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	private boolean roleConflict(OsmElement o1, OsmElement o2) {
 		
-		ArrayList<Relation> r1 = o1.getParentRelations();
-		ArrayList<Relation> r2 = o2.getParentRelations();
+		ArrayList<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<Relation>();
+		ArrayList<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<Relation>();
 		for (Relation r : r1) {
 			if (r2.contains(r)) {
 				RelationMember rm1 = r.getMember(o1);
@@ -945,9 +986,9 @@ public class StorageDelegator implements Serializable, Exportable {
 							for (Relation r : relations) {
 								RelationMember rm = r.getMember(node);
 								undo.save(r);
-								String type = r.getTagWithKey("type");
+								String type = r.getTagWithKey(Tags.KEY_TYPE);
 								if (type != null){
-									if (type.equals("restriction")) {
+									if (type.equals(Tags.VALUE_RESTRICTION)) {
 										// doing nothing for now at least gives a chance of being right :-)
 									} else {
 										RelationMember newMember = new RelationMember(rm.getRole(), newNode);
@@ -996,7 +1037,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
-		return ((dirTags != null) && dirTags.containsKey("oneway"));
+		return ((dirTags != null) && dirTags.containsKey(Tags.KEY_ONEWAY));
 	}
 
 	private void replaceNodeInWay(final Node existingNode, final Node newNode, final Way way) {
@@ -1179,7 +1220,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void addElementToRelation(final OsmElement e, final int pos, final String role, final Relation rel)
 	{
 		ArrayList<Relation> relations = e.getParentRelations();
-		if (!relations.contains(rel)) {
+		if (relations == null || !relations.contains(rel)) {
 			dirty = true;
 			undo.save(rel);
 			undo.save(e);
@@ -1263,7 +1304,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void updateParentRelations(final OsmElement e,
 			final HashMap<Long, String> parents) {
 		
-		ArrayList<Relation> origParents = (ArrayList<Relation>) e.getParentRelations().clone();
+		ArrayList<Relation> origParents = e.getParentRelations() != null ? (ArrayList<Relation>) e.getParentRelations().clone() : new ArrayList<Relation>();
 		
 		for (Relation o: origParents) { // find changes to existing memberships
 			if (!parents.containsKey(Long.valueOf(o.getOsmId()))) {
@@ -1354,8 +1395,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param mergeFrom
 	 */
 	public void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom ) {
-		ArrayList<Relation> fromRelations = new ArrayList<Relation>(mergeFrom.getParentRelations()); // copy just to be safe
-		ArrayList<Relation> toRelations = mergeInto.getParentRelations();
+		ArrayList<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<Relation>(mergeFrom.getParentRelations()) : new ArrayList<Relation>(); // copy just to be safe
+		ArrayList<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<Relation>();
 		try {
 			for (Relation r : fromRelations) {
 				if (!toRelations.contains(r)) {
@@ -1491,6 +1532,10 @@ public class StorageDelegator implements Serializable, Exportable {
 		return clipboard.isEmpty();
 	}
 
+	public Storage getApiStorage() {
+		return apiStorage;
+	}
+	
 	public Storage getCurrentStorage() {
 		return currentStorage;
 	}
@@ -1619,12 +1664,13 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param server Server to upload changes to.
 	 * @param comment Changeset comment.
 	 * @param source 
+	 * @param closeChangeset TODO
 	 * @throws MalformedURLException
 	 * @throws ProtocolException
 	 * @throws OsmServerException
 	 * @throws IOException
 	 */
-	public synchronized void uploadToServer(final Server server, final String comment, String source) throws MalformedURLException, ProtocolException,
+	public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeChangeset) throws MalformedURLException, ProtocolException,
 			OsmServerException, IOException {
 		dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
 		// upload methods set dirty flag too, in case the file is saved during an upload
@@ -1642,7 +1688,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		Log.d("StorageDelegator","Deleting Nodes");
 		uploadDeletedElements(server, apiStorage.getNodes());
 		
-		server.closeChangeset();
+		if (closeChangeset) {
+			server.closeChangeset();
+		}
 		// yes, again, just to be sure
 		dirty = true;
 		
@@ -1780,10 +1828,73 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * saves currentStorage + deleted objects to a file. 
+	 * @throws XmlPullParserException 
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 * @throws IllegalArgumentException 
+	 */
+	public void save(OutputStream outputStream) throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException  {
+		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
+		serializer.setOutput(outputStream, "UTF-8");
+		serializer.startDocument("UTF-8", null);
+		serializer.startTag(null, "osm");
+		serializer.attribute(null, "generator", Application.userAgent);
+		serializer.attribute(null, "version", "0.6");
+		serializer.attribute(null, "upload", "true");
+		
+		ArrayList<Node> saveNodes = new ArrayList<Node>(currentStorage.getNodes());
+		ArrayList<Way> saveWays = new ArrayList<Way>(currentStorage.getWays());
+		ArrayList<Relation> saveRelations = new ArrayList<Relation>(currentStorage.getRelations());
+		
+		for (Node elem : apiStorage.getNodes()) {
+			if (elem.state == OsmElement.STATE_DELETED) {
+				Log.d("StorageDelegator", "deleted node added to list for save, id " + elem.osmId);
+				saveNodes.add(elem);
+			}
+		}
+		for (Way elem : apiStorage.getWays()) {
+			if (elem.state == OsmElement.STATE_DELETED) {
+				Log.d("StorageDelegator", "deleted way added to list for save, id " + elem.osmId);
+				saveWays.add(elem);
+			}
+		}
+		for (Way elem : apiStorage.getWays()) {
+			if (elem.state == OsmElement.STATE_DELETED) {
+				Log.d("StorageDelegator", "deleted way added to list for save, id " + elem.osmId);
+				saveWays.add(elem);
+			}
+		}
+		
+		// TODO output bounding boxes
+		for (BoundingBox b:currentStorage.getBoundingBoxes()) {
+			b.toJosmXml(serializer);
+		}
+		
+		//TODO sort arrays here
+		
+		if (!saveNodes.isEmpty()) {
+			for (OsmElement elem : saveNodes) elem.toJosmXml(serializer);
+		}
+		if (!saveWays.isEmpty()) {
+			for (OsmElement elem : saveWays) elem.toJosmXml(serializer);
+		}
+		if (!saveRelations.isEmpty()) {
+			for (OsmElement elem : saveRelations) elem.toJosmXml(serializer);
+		}
+		
+		
+		serializer.endTag(null, "osm");
+		serializer.endDocument();
+	}
+
+	
+	
+	/**
 	 * Merge additional data with existing, copy to a new storage because this may fail
 	 * @param storage
 	 */
-	public boolean mergeData(Storage storage) {
+	synchronized public boolean mergeData(Storage storage) {
 		Log.d("StorageDelegator","mergeData called");
 		// make temp copy of current storage
 		Storage temp = new Storage();
@@ -1879,6 +1990,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				} else {
 					// node might have been deleted, aka somebody deleted nodes outside of the down loaded data bounding box
 					Log.e("StorageDelegator","mergeData null way node");
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(null);
 					return false;
 				}
@@ -1974,13 +2086,33 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
-	 * Return true is coordinates where in the original bboxes from downloads, needs a more efficient implementation
+	 * This is only used when trying to fix conflicts
+	 * @param element
+	 */
+	public void removeFromUpload(OsmElement element) {
+		apiStorage.removeElement(element);
+		element.setState(OsmElement.STATE_UNCHANGED);
+	}
+	
+	/**
+	 * This is only used when trying to fix conflicts
+	 * @param element
+	 * @param version
+	 */
+	public void setOsmVersion(OsmElement element, long version) {
+		element.setOsmVersion(version);
+		element.setState(OsmElement.STATE_MODIFIED);
+		insertElementSafe(element);
+	}
+	
+	/**
+	 * Return true if coordinates were in the original bboxes from downloads, needs a more efficient implementation
 	 * @param lat
 	 * @param lon
 	 * @return
 	 */
 	public boolean isInDownload(int lat, int lon) {
-		for (BoundingBox bb:currentStorage.getBoundingBoxes()) {
+		for (BoundingBox bb:new ArrayList<BoundingBox>(currentStorage.getBoundingBoxes())) { // make shallow copy
 			if (bb.isIn(lat, lon))
 				return true;
 		}

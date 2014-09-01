@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Henda &amp; sækja</string>
   <string name="transfer_download_current_back">Til baka (gera ekkert)</string>
   <string name="upload_problem_title">Vandamál við að uppfæra</string>
-  <string name="upload_problem_message">Ekki tókst að hlaða upp. Prófaðu aftur til að sjá villuboð. Líklegasta skýringin er útgáfumisræmi.</string>
   <string name="no_login_data_title">Auðkenning mistókst</string>
   <string name="no_connection_title">Engin tenging við netþjón</string>
   <string name="no_connection_message">Gat ekki tengst OSM-þjóni. Athugaðu internettenginguna eða reyndu aftur síðar.</string>
@@ -65,11 +64,8 @@
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
   <string name="toast_noname">Vegur hefur hvorki nafn né númer</string>
-  <string name="toast_oauth">Gefðu OAuth réttindi að OSM-notanda þínum og reyndu svo aftur.</string>
   <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir núverandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
-  <string name="toast_number_format">Vitlaust talnasniðmát</string>
   <string name="toast_nothing_found">Ekkert fannst</string>
-  <string name="toast_statesave_failed">Gat ekki vistað núverandi stöðu! \nBý til breytingaskrá sem hægt verður að nota með JOSM.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Já</string>
   <string name="no">Nei</string>
@@ -92,7 +88,6 @@
   <string name="tag_menu_revert">Afturkalla</string>
   <string name="tag_menu_mapfeatures">Wkisíða fyrir kortaeigindi</string>
   <string name="tag_menu_addtorelation">Bæta við vensl</string>
-  <string name="tag_menu_exit_no_save">Hætta\nán þess að vista</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Hlaða svæði</string>
   <string name="location_choose_radius">Veldu radíus:</string>
@@ -122,14 +117,11 @@
   <string name="menu_erase">Eyða hnút</string>
   <string name="menu_set_position">Staðsetning</string>
   <string name="menu_split">Skipta</string>
-  <string name="menu_closed_way_split_1">Skipta upp ferli, fyrsti hnútur</string>
-  <string name="menu_closed_way_split_2">Skipta um lokuðu ferlu, annar hnútur</string>
   <string name="menu_append">Bæta við</string>
   <string name="menu_restriction">Bæta við hindrun</string>
   <string name="menu_restriction_via">Bæta við takmörkun</string>
   <string name="menu_restriction_to">Bæta takmörkun við</string>
   <string name="menu_relation">Búa til vensl</string>
-  <string name="menu_add_relation_member">Bæta við í vensl</string>
   <string name="menu_tag">Breyta tögum</string>
   <string name="menu_openstreetbug">Ný athugasemd</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -167,7 +159,6 @@
   <string name="menu_tools_background_align_save_db">Vista í gagnagrunni</string>
   <string name="menu_tools_background_align_save_device">Vista á tæki</string>
   <string name="menu_tools_background_align_apply2all">Virkja (allar þysjanir)</string>
-  <string name="menu_tools_background_opacity">Sjáanleiki bakgrunns</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tög</string>
   <!--Text should be as short as possible-->
@@ -175,7 +166,6 @@
   <string name="menu_merge">Sameina</string>
   <string name="menu_reverse">Snúa við</string>
   <string name="notreversable_description">Eigindi á leiðinni treysta á að hún vísi í viðkomandi átt. Að snúa áttinni við skemmir þau.</string>
-  <string name="deleteway_description">Þú ert um það bil að eyða ferli.\n\nÞú getur annað hvort geymt alla hnútana, eða eytt bara þeim hnútum sem tilheyra þessu ferli og eru ekki sérstaklega merktir öðruvísi.</string>
   <string name="deleteway_nodesnotdownloaded_description">Þetta inniheldur hnúta utan svæðisins sem náð var í, því er ekki hægt að eyða þessu. Niðurhalaðu öllum tengdum hnútum og reyndu svo aftur.</string>
   <string name="deleteway_wayonly">Eyða aðeins ferli</string>
   <string name="deleteway_wayandnodes">Eyða ferlum og hnútum</string>
@@ -214,13 +204,12 @@
   <string name="config_apibutton_summary">Þú getur sett inn sérsniðna slóð á API hér. Ætti yfirleitt ekki að breyta!</string>
   <string name="config_api_oauth_title">Auðkenning með oauth</string>
   <string name="listedit_enable_oauth">Virkja oauth</string>
-  <string name="config_presetbutton_title">JOSM forstillingar</string>
-  <string name="config_presetbutton_summary">Þú getur still kortskilgreingar hér</string>
   <string name="config_iconbutton_title">Sýna táknmyndir hnúta</string>
   <string name="config_iconbutton_summary">Sýna táknmynd af nálægustu forstillingu fyrir ofan hnúta.</string>
   <string name="config_loginbutton_title">Notandareikningur</string>
   <string name="config_username_title">OSM notandanafn</string>
-  <string name="config_username_summary">Stillingar þarf fyrir upphleðslu gagna eingöngu ef þú ert ekki að nota OAuth. Notanda er hægt að stofna á http://www.openstreetmap.org/user/new\n</string>
+  <string name="config_username_summary">Stillingar þarf fyrir upphleðslu gagna eingöngu ef þú ert ekki að nota OAuth. Notanda er hægt að stofna á http://www.openstreetmap.org/user/new
+</string>
   <string name="config_password_title">OSM lykilorð</string>
   <string name="config_password_summary">Ekki rugla saman við wiki-lykilorðið. Mundu: Það er geymt og flutt sem ódulkóðaður texti!</string>
   <string name="config_category_gps">GPS-stillingar</string>
@@ -254,7 +243,6 @@
   <string name="changes_changed">\"%1$s\" breytt</string>
   <string name="changes_created">Bjó til \"%1$s\"</string>
   <string name="confirm_upload_title">Upphlaða? </string>
-  <string name="confirm_upload_text">Senda eftirtaldar breytingar?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Bæta við forstillingu</string>
   <string name="urldialog_preset_exists">Þessi forstilling er þegar til</string>
@@ -318,4 +306,6 @@
   <string name="seconds">sekúndur</string>
   <string name="km">km</string>
   <string name="meter">metri</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

@@ -40,7 +40,7 @@ import de.blau.android.exception.StorageException;
  * @author Jan Schejbal
  */
 public class UndoStorage implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private static final String TAG = "UndoStorage";
 	
@@ -122,15 +122,16 @@ public class UndoStorage implements Serializable {
 	 */
 	protected void save(OsmElement element) {
 		try {
-			if (undoCheckpoints.isEmpty()) {
-				Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
-				return;
-			}
-			undoCheckpoints.getLast().add(element);
-			redoCheckpoints.clear();
+		if (undoCheckpoints.isEmpty()) {
+			Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
+			return;
+		}
+		undoCheckpoints.getLast().add(element);
+		redoCheckpoints.clear();
 		} catch (Exception ex) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report
-			Toast.makeText(Application.mainActivity, "Inconsistent state detected, please send the error report!", Toast.LENGTH_LONG).show();
+			Toast.makeText(Application.mainActivity, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -210,7 +211,7 @@ public class UndoStorage implements Serializable {
 		 * Called before any changes to the element occur via {@link UndoStorage#save(OsmElement)}.
 		 * @param element the element to save
 		 */
-		public void add(OsmElement element) {
+		public void add(OsmElement element) throws IllegalArgumentException {
 			if (elements.containsKey(element)) return;
 			
 			if (element instanceof Node) elements.put(element, new UndoNode((Node)element));
@@ -280,7 +281,11 @@ public class UndoStorage implements Serializable {
 			inCurrentStorage = currentStorage.contains(originalElement);
 			inApiStorage     = apiStorage.contains(originalElement);
 			
-			parentRelations = new ArrayList<Relation>(originalElement.parentRelations);
+			if (originalElement.parentRelations != null) {
+				parentRelations = new ArrayList<Relation>(originalElement.parentRelations);
+			} else {
+				parentRelations = null;
+			}
 		}
 		
 		/**
@@ -305,8 +310,10 @@ public class UndoStorage implements Serializable {
 			element.state      = state;
 			element.setTags(tags);
 			
-			element.parentRelations.clear();
-			element.parentRelations.addAll(parentRelations);
+			if (parentRelations != null) {
+				element.parentRelations = new ArrayList<Relation>();
+				element.parentRelations.addAll(parentRelations);
+			}
 		}
 	}
 	

@@ -39,7 +39,6 @@
   <string name="toast_save_done">Salvat</string>
   <string name="toast_export_failed">Exportarea nu a reușit</string>
   <string name="toast_export_success">Exportat la %1$s</string>
-  <string name="toast_number_format">Format incorect pentru număr</string>
   <string name="toast_nothing_found">Nu am găsit nimic</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Da</string>
@@ -56,7 +55,6 @@
   <string name="key">cheie</string>
   <string name="value">valoare</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
-  <string name="tag_menu_exit_no_save">Ieșire\nFără salvare\n</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Incarcă zona</string>
   <string name="location_choose_radius">Alegeţi raza:</string>
@@ -98,7 +96,6 @@
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_align_save_db">Salvează în baza de date</string>
   <string name="menu_tools_background_align_save_device">Salvează în dispozitiv</string>
-  <string name="menu_tools_background_opacity">Opacitatea fundalului</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Istoric</string>
@@ -135,7 +132,8 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_create_relation">crează legătura</string>
   <string name="undo_action_delete_relation">șterge legătura</string>
-  <string name="undo_action_cut">taie\n </string>
+  <string name="undo_action_cut">taie
+ </string>
   <string name="undo_action_circulize">aranjează în cerc</string>
   <!--ACRA-->
   <!--Exceptions messages-->
@@ -149,4 +147,6 @@
   <string name="seconds">secunde</string>
   <string name="km">km</string>
   <string name="meter">metru</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

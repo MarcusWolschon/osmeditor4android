@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import android.util.Log;
 import de.blau.android.exception.OsmException;
@@ -21,14 +22,14 @@ public class Storage implements Serializable {
 	
 	private final ArrayList<Relation> relations;
 
-	private ArrayList<BoundingBox> bboxes;
+	private List<BoundingBox> bboxes;
 
 	Storage() {
 		nodes = new ArrayList<Node>();
 		ways = new ArrayList<Way>();
 		relations = new ArrayList<Relation>();
 		try {
-			bboxes = new ArrayList<BoundingBox>();
+			bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
 			// a default entry may not make sense
 			bboxes.add(new BoundingBox(-BoundingBox.MAX_LON, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON,
 					BoundingBox.MAX_LAT_E7));
@@ -223,7 +224,7 @@ public class Storage implements Serializable {
 		this.bboxes.add(bbox);
 	}
 	
-	/**¨
+	/**ï¿½
 	 * Add this boundingbox to list
 	 * @param bbox
 	 */
@@ -264,20 +265,25 @@ public class Storage implements Serializable {
 	}
 
 	/**
-	 * Calculate a bound box just covering the data
+	 * Calculate a bounding box just covering the data
 	 * @return
 	 * @throws OsmException
 	 */
 	public BoundingBox calcBoundingBoxFromData() throws OsmException {
-		BoundingBox result  = new BoundingBox(0, 0, 0, 0);
+		int top = 0;
+		int bottom = 0;
+		int left = 0;
+		int right = 0;
+		
 		if (nodes != null) {
 			for (Node n:nodes) {
-				if (n.getLat() > result.getTop()) result.setTop(n.getLat());
-				else if (n.getLat() < result.getBottom()) result.setBottom(n.getLat());
-				if (n.getLon() > result.getRight()) result.setRight(n.getLon());
-				else if (n.getLon() < result.getLeft()) result.setLeft(n.getLon());
+				if (n.getLat() > top) top = n.getLat();
+				else if (n.getLat() < bottom) bottom = n.getLat();
+				if (n.getLon() > right) right = n.getLon();
+				else if (n.getLon() < left) left = n.getLon();
 			}
 		}
+		BoundingBox result  = new BoundingBox(left, bottom, right, top);
 		return result;
 	}
 }

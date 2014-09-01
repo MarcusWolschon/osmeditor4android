@@ -4,29 +4,29 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	>
+
 	<LinearLayout
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:paddingRight="10dp"
-		>
-		
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="4dp"
+	    android:orientation="vertical"
+	    >
+
 		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-		>
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_margin="16dp"
+		    android:orientation="horizontal" >
 			<TextView
-			    android:paddingLeft="10dp"
-				android:text="@string/menu_tools_background_opacity" 
+				android:text="@string/menu_tools_background_contrast" 
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 			/>
 		</LinearLayout>
 		<SeekBar
-			android:id="@+id/background_opacity_seeker"
+			android:id="@+id/background_contrast_seeker"
 			android:max="255"
-			android:progress="255"
+			android:progress="127"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 		/>

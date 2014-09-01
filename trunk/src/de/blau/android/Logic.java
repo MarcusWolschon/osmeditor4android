@@ -1,16 +1,28 @@
 package de.blau.android;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -20,10 +32,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.acra.ACRA;
 import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -41,11 +57,15 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
+import de.blau.android.osm.Server.Visibility;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
+import de.blau.android.services.TrackerService;
 import de.blau.android.util.EditState;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
@@ -227,7 +247,7 @@ public class Logic {
 	private float centroidX;
 
 	/**
-	 * Are we currently draggign a handle?
+	 * Are we currently dragging a handle?
 	 */
 	private boolean draggingHandle = false;
 	
@@ -391,7 +411,7 @@ public class Logic {
 	 * @return true, if viewBox' width is smaller than {@link #TOLERANCE_MIN_VIEWBOX_WIDTH}.
 	 */
 	public boolean isInEditZoomRange() {
-		return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH);
+		return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH) && !map.tooManyNodes();
 	}
 
 	/**
@@ -606,9 +626,11 @@ public class Logic {
 			// add any relations that the elements are members of
 			ArrayList<OsmElement> relations = new ArrayList<OsmElement>();
 			for (OsmElement e: result) {
-				for (Relation r: e.getParentRelations()) {
-					if (!relations.contains(r)) { // not very efficient
-						relations.add(r);
+				if (e.getParentRelations() != null) {
+					for (Relation r: e.getParentRelations()) {
+						if (!relations.contains(r)) { // not very efficient
+							relations.add(r);
+						}
 					}
 				}
 			}
@@ -871,6 +893,15 @@ public class Logic {
 	}
 	
 	/**
+	 * Check if node is in  downloaded data
+	 * @param node
+	 * @return true if the above is the case
+	 */
+	public boolean isInDownload(Node n) {
+		return delegator.isInDownload(n.getLat(), n.getLon());
+	}
+	
+	/**
 	 * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
 	 * user is in edit-mode a touched node will bet set to selected. draggingNode will be set if a node is to be moved.
 	 * A eventual movement of this node will be done in {@link #handleTouchEventMove(float, float, float, float, boolean)}.
@@ -961,7 +992,7 @@ public class Logic {
 	 * @param relativeY The difference to the last absolute display-coordinate.
 	 * @throws OsmIllegalOperationException 
 	 */
-	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
+	synchronized void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
 		if (draggingNode || draggingWay || (draggingHandle && selectedHandle != null)) {
 			int lat;
 			int lon;
@@ -1000,12 +1031,14 @@ public class Logic {
 				delegator.updateLatLon(selectedNode, lat, lon);
 			}
 			else {
-				lat = yToLatE7(absoluteY);
-				lon = xToLonE7(absoluteX);
-				delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
-				// update 
-				startLat = lat;
-				startLon = lon;
+				if (selectedWay != null) { // shouldn't happen but might be a race condition
+					lat = yToLatE7(absoluteY);
+					lon = xToLonE7(absoluteX);
+					delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
+					// update 
+					startLat = lat;
+					startLon = lon;
+				}
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
 		} else if (rotatingWay) {
@@ -1121,6 +1154,11 @@ public class Logic {
 				int lon = xToLonE7(x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(lSelectedNode);
+				if (!delegator.isInDownload(lat, lon)) {
+					// warning toast
+					Log.d("Logic","Outside of download");
+					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				}
 			}
 		} else {
 			//this is not the first node
@@ -1136,6 +1174,11 @@ public class Logic {
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
 				delegator.insertElementSafe(lSelectedNode);
+				if (!delegator.isInDownload(lat, lon)) {
+					// warning toast
+					Log.d("Logic","Outside of download");
+					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				}
 			} else {
 				//User clicks an existing Node
 				if (nextNode == lSelectedNode) {
@@ -1169,7 +1212,7 @@ public class Logic {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNode;
 		
-		Node newSelectedNode = getCreatedWayNode(x, y);
+		Node newSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
 
 		if (newSelectedNode == null) {
 			newSelectedNode = savedSelectedNode;
@@ -1191,6 +1234,10 @@ public class Logic {
 			createCheckpoint(R.string.undo_action_deletenode);
 			delegator.removeNode(node);
 			map.invalidate();
+			if (!isInDownload(node)) {
+				// warning toast
+				Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 	
@@ -1479,6 +1526,10 @@ public class Logic {
 				int lon = xToLonE7(x);
 				node = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(node);
+				if (!delegator.isInDownload(lat, lon)) {
+					// warning toast
+					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+				}
 			}
 			try {
 				delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
@@ -1507,20 +1558,6 @@ public class Logic {
 		if (node != null) {
 			return node;
 		}
-		return getCreatedWayNode(x, y);
-	}
-	
-	/**
-	 * If x,y lays on a way, a new node at this location will be created, stored in
-	 * storage and returned.
-	 * 
-	 * @param x the x screen coordinate
-	 * @param y the y screen coordinate
-	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
-	 * @throws OsmIllegalOperationException 
-	 */
-	private Node getCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
-		Node node = null;
 		Node savedNode1 = null;
 		Node savedNode2 = null;
 		Way savedWay = null;
@@ -1641,8 +1678,9 @@ public class Logic {
 	 * 
 	 * @param mapBox Box defining the area to be loaded.
 	 * @param add if true add this data to existing
+	 * @param auto download is being done automatically, try not mess up/move the display
 	 */
-	void downloadBox(final BoundingBox mapBox, boolean add) {
+	void downloadBox(final BoundingBox mapBox, final boolean add, final boolean auto) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -1654,7 +1692,9 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				if (!auto) {
+					Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				}
 			}
 			
 			@Override
@@ -1689,7 +1729,121 @@ public class Logic {
 								delegator.setOriginalBox(mapBox);
 							}
 						}
-						viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
+						if (!auto) {
+							viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
+						}
+					} finally {
+						SavingHelper.close(in);
+					}
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e("Vespucci", "Problem parsing", e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
+				} catch (OsmServerException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem downloading", e);
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem downloading", e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				if (!auto) {
+					try {
+						Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					} catch (IllegalArgumentException e) {
+						 // Avoid crash if dialog is already dismissed
+						Log.d("Logic", "", e);
+					}
+					
+					View map = Application.mainActivity.getCurrentFocus();
+					try {
+						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					if (result != 0) {
+						if (result == DialogFactory.OUT_OF_MEMORY) {
+							System.gc();
+							if (delegator.isDirty()) {
+								result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+							}
+						}	
+						try {
+							Application.mainActivity.showDialog(result);
+						} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+							ACRA.getErrorReporter().handleException(ex);
+						}
+					}
+					Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
+					map.invalidate();
+				}
+				UndoStorage.updateIcon();
+			}
+			
+		}.execute(add);
+	}
+
+	/**
+	 * @param add 
+	 * @see #downloadBox(Main, BoundingBox, boolean)
+	 */
+	void downloadCurrent(boolean add) {
+		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
+		downloadBox(viewBox.copy(),add, false);
+	}
+	
+	/**
+	 * Re-downloads the same area as last time
+	 * @see #downloadBox(Main, BoundingBox, boolean)
+	 */
+	void downloadLast() {
+		delegator.reset();
+		for (BoundingBox box:delegator.getBoundingBoxes()) {
+			if (box != null && box.isValidForApi()) downloadBox(box, true, false);
+		}
+	}
+
+	/**
+	 * Return a single element from the API
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+	OsmElement downloadElement(final String type, final long id) {
+		
+		class MyTask extends AsyncTask<Void, Void, OsmElement> {
+			int result = 0;
+			
+			@Override
+			protected void onPreExecute() {
+	
+			}
+			
+			@Override
+			protected OsmElement doInBackground(Void... arg) {
+				OsmElement element = null;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					final InputStream in = prefs.getServer().getStreamForElement(null, type, id);
+					try {
+						osmParser.start(in);
+						element = osmParser.getStorage().getOsmElement(type, id);
 					} finally {
 						SavingHelper.close(in);
 					}
@@ -1711,6 +1865,190 @@ public class Logic {
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
+				}
+				return element;
+			}
+			
+			@Override
+			protected void onPostExecute(OsmElement result) {
+				// potentially do something if there is an error
+			}
+			
+		};
+		MyTask loader = new MyTask();
+		loader.execute();
+		
+		try {
+			return loader.get(20, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			return null;
+		} catch (ExecutionException e) {
+			return null;
+		} catch (TimeoutException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Update a single element from the API
+	 * @param type
+	 * @param id
+	 */
+	int updateElement(final String type, final long id) {
+		class MyTask extends AsyncTask<Void, Void, Integer> {
+			@Override
+			protected void onPreExecute() {
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				int result = 0;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					if (!type.equals(Node.NAME)) {
+						final InputStream in = prefs.getServer().getStreamForElement("full", type, id);
+						try {
+							osmParser.start(in);
+						} finally {
+							SavingHelper.close(in);
+						}
+					} else {
+						// TODO this currently does not retrieve ways the updated node may be a member of
+						InputStream in = prefs.getServer().getStreamForElement(null, type, id);
+						try {
+							osmParser.start(in);
+						} finally {
+							SavingHelper.close(in);
+						}
+						in = prefs.getServer().getStreamForElement("relations", type, id);
+						try {
+							osmParser.start(in);
+						} finally {
+							SavingHelper.close(in);
+						}
+					}
+					if (!delegator.mergeData(osmParser.getStorage())) {
+						result = DialogFactory.DATA_CONFLICT;
+					} 
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e("Vespucci", "Problem parsing", e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
+				} catch (OsmServerException e) {
+					Log.e("Vespucci", "Problem downloading", e);
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem downloading", e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				// potentially do something if there is an error
+			}
+			
+		};
+		MyTask loader = new MyTask();
+		loader.execute();
+		
+		try {
+			return loader.get(20, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			return -1;
+		} catch (ExecutionException e) {
+			return -1;
+		} catch (TimeoutException e) {
+			return -1;
+		}
+	}
+	
+
+	/**
+	 * Element is deleted on server, delete locally but don't upload
+	 * A bit iffy because of memberships in other objects
+	 * @param e
+	 */
+	public void updateToDeleted(OsmElement e) {
+		createCheckpoint(R.string.undo_action_fix_conflict);
+		if (e.getName().equals(Node.NAME)) {
+			delegator.removeNode((Node)e);
+		} else if (e.getName().equals(Way.NAME)) {
+			delegator.removeWay((Way)e);
+		} else if (e.getName().equals(Relation.NAME)) {
+			delegator.removeRelation((Relation)e);
+		}
+		delegator.removeFromUpload(e);
+		map.invalidate();		
+	}
+	
+	/**
+	 * Read a file in (J)OSM format from device
+	 * @param fileName
+	 * @param add unused currently
+	 * @throws FileNotFoundException 
+	 */
+	void readOsmFile(final Uri uri, boolean add) throws FileNotFoundException {
+	
+		final InputStream is;
+		
+		if (uri.getScheme().equals("file")) {
+			is = new FileInputStream(new File(uri.getPath()));
+		} else {
+			ContentResolver cr = Application.mainActivity.getContentResolver();
+			is = cr.openInputStream(uri);
+		}
+		
+		new AsyncTask<Boolean, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+			}
+			
+			@Override
+			protected Integer doInBackground(Boolean... arg) {
+				int result = 0;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					final InputStream in = new BufferedInputStream(is);
+;
+					try {
+						osmParser.start(in);
+						
+						delegator.reset();
+						delegator.setCurrentStorage(osmParser.getStorage());
+						delegator.fixupApiStorage();
+						
+						viewBox.setBorders(delegator.getLastBox()); // set to current or previous
+					} finally {
+						SavingHelper.close(in);
+					}
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e("Vespucci", "Problem parsing", e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem reading", e);
 				}
 				return result;
 			}
@@ -1737,10 +2075,14 @@ public class Logic {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					Log.d("Logic","showing dialog");
-					Application.mainActivity.showDialog(result);
+					try {
+						Application.mainActivity.showDialog(result);
+					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(ex);
+					}
 				}
-				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
+				Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 				map.invalidate();
 				UndoStorage.updateIcon();
 			}
@@ -1749,25 +2091,79 @@ public class Logic {
 	}
 
 	/**
-	 * @param add 
-	 * @see #downloadBox(Main, BoundingBox)
+	 * Write data to a file in (J)OSM compatible format
+	 * @param fileName
 	 */
-	void downloadCurrent(boolean add) {
-		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
-		downloadBox(viewBox.copy(),add);
-	}
-	
-	/**
-	 * Re-downloads the same area as last time
-	 * @see #downloadBox(Main, BoundingBox)
-	 */
-	void downloadLast() {
-		delegator.reset();
-		for (BoundingBox box:delegator.getBoundingBoxes()) {
-			if (box != null && box.isValidForApi()) downloadBox(box, true);
-		}
+	public void writeOsmFile(final String fileName) {
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_SAVING);
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				int result = 0;
+				try {
+					File sdcard = Environment.getExternalStorageDirectory();
+					File outdir = new File(sdcard, "Vespucci");
+					outdir.mkdir(); // ensure directory exists;
+					File outfile = new File(fileName);
+					Log.d("Logic","Saving to " + outfile.getPath());
+					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
+					try {
+						delegator.save(out);
+					} catch (IllegalArgumentException e) {
+						result = DialogFactory.FILE_WRITE_FAILED;
+						Log.e("Logic", "Problem writing", e);
+					} catch (IllegalStateException e) {
+						result = DialogFactory.FILE_WRITE_FAILED;
+						Log.e("Logic", "Problem writing", e);
+					} catch (XmlPullParserException e) {
+						result = DialogFactory.FILE_WRITE_FAILED;
+						Log.e("Logic", "Problem writing", e);
+					} finally {
+						SavingHelper.close(out);
+					}
+				} catch (IOException e) {
+					result = DialogFactory.FILE_WRITE_FAILED;
+					Log.e("Logic", "Problem writing", e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_SAVING);
+				} catch (IllegalArgumentException e) {
+					 // Avoid crash if dialog is already dismissed
+					Log.d("Logic", "", e);
+				}
+				View map = Application.mainActivity.getCurrentFocus();
+				try {
+					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (result != 0) {
+					if (result == DialogFactory.OUT_OF_MEMORY) {
+						System.gc();
+						if (delegator.isDirty()) {
+							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+						}
+					}
+					Application.mainActivity.showDialog(result);
+				}
+			}
+			
+		}.execute();
 	}
 
+	
+	
 	/**
 	 * Saves to a file in the background.
 	 * 
@@ -1890,16 +2286,29 @@ public class Logic {
 		};
 		loader.execute(c);
 	}
-
+	
+	/**
+	 * Return not only the error code, but the element involved
+	 * @author simon
+	 *
+	 */
+	public class UploadResult {
+		public int error = 0;
+		public int httpError = 0;
+		public String elementType;
+		public long osmId;
+		public String message;
+	}
 	/**
 	 * Uploads to the server in the background.
 	 * 
 	 * @param comment Changeset comment.
 	 * @param source 
+	 * @param closeChangeset TODO
 	 */
-	public void upload(final String comment, final String source) {
+	public void upload(final String comment, final String source, final boolean closeChangeset) {
 		final Server server = prefs.getServer();
-		new AsyncTask<Void, Void, Integer>() {
+		new AsyncTask<Void, Void, UploadResult>() {
 			
 			@Override
 			protected void onPreExecute() {
@@ -1908,25 +2317,111 @@ public class Logic {
 			}
 			
 			@Override
-			protected Integer doInBackground(Void... params) {
-				int result = 0;
+			protected UploadResult doInBackground(Void... params) {
+				UploadResult result = new UploadResult();
 				try {
-					delegator.uploadToServer(server, comment, source);
+					delegator.uploadToServer(server, comment, source, closeChangeset);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final ProtocolException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(e);
+				} catch (final OsmServerException e) {
+					result.httpError = e.getErrorCode();
+					result.message = e.getMessage();
+					switch (e.getErrorCode()) {
+					case HttpStatus.SC_UNAUTHORIZED:
+						result.error = DialogFactory.WRONG_LOGIN;
+						break;
+					case HttpStatus.SC_CONFLICT:
+					case HttpStatus.SC_PRECONDITION_FAILED:
+						result.error = DialogFactory.UPLOAD_CONFLICT;
+						result.elementType = e.getElementType();
+						result.osmId = e.getElementId();
+						break;
+					case HttpStatus.SC_BAD_REQUEST:
+					case HttpStatus.SC_NOT_FOUND:
+					case HttpStatus.SC_GONE:
+					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
+					case HttpStatus.SC_BAD_GATEWAY:
+					case HttpStatus.SC_SERVICE_UNAVAILABLE:
+						result.error = DialogFactory.UPLOAD_PROBLEM;
+						break;
+					//TODO: implement other state handling
+					default:
+						Log.e(DEBUG_TAG, "", e);
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(e);
+						break;
+					}
+				} catch (final IOException e) {
+					result.error = DialogFactory.NO_CONNECTION;
+					Log.e(DEBUG_TAG, "", e);
+				} catch (final NullPointerException e) {
+					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(e);
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(UploadResult result) {
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
+				if (result.error == 0) {
+					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				}
+				delegator.clearUndo();
+				Application.mainActivity.getCurrentFocus().invalidate();
+				if (result.error == DialogFactory.UPLOAD_CONFLICT) {
+					DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
+				} else if (result.error != 0) {
+					Application.mainActivity.showDialog(result.error);
+				}
+			}
+			
+		}.execute();
+	}
+	
+	
+
+	public void uploadTrack(final Track track, final String description, final String tags, final Visibility visibility) {
+		final Server server = prefs.getServer();
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... params) {
+				int result = 0;
+				try {
+					server.uploadTrack(track, description, tags, visibility);
+				} catch (final MalformedURLException e) {
+					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(e);
+				} catch (final ProtocolException e) {
+					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (final OsmServerException e) {
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
 						result = DialogFactory.WRONG_LOGIN;
 						break;
-					case HttpStatus.SC_NOT_FOUND:
-					case HttpStatus.SC_CONFLICT:
-					case HttpStatus.SC_GONE:
+					case HttpStatus.SC_BAD_REQUEST:
 					case HttpStatus.SC_PRECONDITION_FAILED:
+					case HttpStatus.SC_CONFLICT:
+						result = DialogFactory.UPLOAD_PROBLEM;
+						break;
+					case HttpStatus.SC_NOT_FOUND:
+					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
 					case HttpStatus.SC_BAD_GATEWAY:
 					case HttpStatus.SC_SERVICE_UNAVAILABLE:
@@ -1935,17 +2430,23 @@ public class Logic {
 					//TODO: implement other state handling
 					default:
 						Log.e(DEBUG_TAG, "", e);
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(e);
 						break;
 					}
 				} catch (final IOException e) {
-					Log.e("DEBUG_TAG", "server url " + server.getBaseURL());
 					result = DialogFactory.NO_CONNECTION;
-					// ACRA.getErrorReporter().handleException(e);
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
+				} catch (IllegalArgumentException e) {
+					result = DialogFactory.UPLOAD_PROBLEM;
+				} catch (IllegalStateException e) {
+					result = DialogFactory.UPLOAD_PROBLEM;
+				} catch (XmlPullParserException e) {
+					result = DialogFactory.UPLOAD_PROBLEM;
 				}
 				return result;
 			}
@@ -1953,8 +2454,9 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
-				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
-				delegator.clearUndo();
+				if (result == 0) {
+					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+				}
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
 					Application.mainActivity.showDialog(result);
@@ -1964,7 +2466,9 @@ public class Logic {
 		}.execute();
 	}
 	
-	
+	/**
+	 * Sow a toast indiciating how many unread mails are on the server
+	 */
 	public void checkForMail() {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
@@ -1991,7 +2495,7 @@ public class Logic {
 					try {
 						Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
 					} catch (java.util.IllegalFormatFlagsException iffex) {
-						// do nothing ... this is stop bugs in the Android format parising crashing the upload, happens at least with the PL string
+						// do nothing ... this is stop bugs in the Android format parsing crashing the upload, happens at least with the PL string
 					}
 				}
 			}
@@ -2014,7 +2518,7 @@ public class Logic {
 	/**
 	 * Internal setter to set the internal value
 	 */
-	public void setSelectedNode(final Node selectedNode) {
+	public synchronized void setSelectedNode(final Node selectedNode) {
 		this.selectedNode = selectedNode;
 		map.setSelectedNode(selectedNode);
 	}
@@ -2022,7 +2526,7 @@ public class Logic {
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
-	public void setSelectedWay(final Way selectedWay) {
+	public synchronized void setSelectedWay(final Way selectedWay) {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
 	}
@@ -2030,7 +2534,7 @@ public class Logic {
 	/**
 	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
-	public void setSelectedRelation(final Relation relation) {
+	public synchronized void setSelectedRelation(final Relation relation) {
 		this.selectedRelation = relation;
 		if (selectedRelation != null)
 			selectRelation(relation);
@@ -2040,7 +2544,7 @@ public class Logic {
 	 * Set the currently selected bug.
 	 * @param selectedBug The selected bug.
 	 */
-	public void setSelectedBug(final Bug selectedBug) {
+	public synchronized void setSelectedBug(final Bug selectedBug) {
 		this.selectedBug = selectedBug;
 	}
 
@@ -2277,6 +2781,24 @@ public class Logic {
 		return selectedRelationNodes;
 	}
 
+	public void fixElementWithConflict(long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
+		createCheckpoint(R.string.undo_action_fix_conflict);
+
+		if (elementOnServer == null) { // deleted
+			// given that the element is deleted on the server we likely need to add it back to ways and relations there too
+			if (elementLocal.getName().equals(Node.NAME)) {
+				for (Way w:getWaysForNode((Node)elementLocal)) {
+					delegator.setOsmVersion(w,w.getOsmVersion()+1);
+				}
+			}
+			if (elementLocal.hasParentRelations()) {
+				for (Relation r:elementLocal.getParentRelations()) {
+					delegator.setOsmVersion(r,r.getOsmVersion()+1);
+				}
+			}
+		}
+		delegator.setOsmVersion(elementLocal,newVersion);
+	}
 
 	public void showCrosshairs(float x, float y) {
 		map.showCrosshairs(x, y);

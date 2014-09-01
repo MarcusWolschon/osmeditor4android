@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Elvetés és letöltés</string>
   <string name="transfer_download_current_back">Vissza (ne történjen semmi)</string>
   <string name="upload_problem_title">Probléma a feltöltéssel</string>
-  <string name="upload_problem_message">Nem sikerült feltölteni néhány, vagy az összes adatot. Próbáld újra feltölteni, hogy lásd, mit nem sikerült. A leggyakoribb ok a verzióütközés.</string>
   <string name="no_login_data_title">A hitelesítés nem sikerült</string>
   <string name="no_login_data_message">OAuth használata esetén ez valószínűleg egy hiba, kérlek küldj egy hibajelentést. Ha felhasználónevet és jelszót adtál meg (nem javasolt), kérlek ellenőrizd, hogy helyesek-e.</string>
   <string name="no_connection_title">Nincs kapcsolat a szerverrel</string>
@@ -65,7 +64,6 @@
   <string name="toast_photo_indexing_finished">Georeferált fényképek keresése befejeződött</string>
   <string name="toast_download_bbox_failed">A letöltés nem sikerült (a kijelölt terület valószínűleg túl nagy volt).</string>
   <string name="toast_download_failed">Sikertelen letöltés, hibakód: %1$d, üzenet: %2$s.</string>
-  <string name="toast_number_format">Hibás számformátum</string>
   <string name="toast_nothing_found">Nincs találat</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Igen</string>
@@ -77,6 +75,7 @@
   <string name="apply">Alkalmaz</string>
   <string name="set">Beállít</string>
   <string name="replace">Csere</string>
+  <string name="save">Mentés</string>
   <!--Dialog for back button-->
   <string name="exit_title">Biztosan kilépsz?</string>
   <string name="exit_text">Biztos vagy benne, hogy ki akarsz lépni?</string>
@@ -89,7 +88,6 @@
   <string name="tag_menu_revert">Alaphelyzet</string>
   <string name="tag_menu_mapfeatures">Térképjellemzők Wiki</string>
   <string name="tag_menu_addtorelation">Hozzáadás kapcsolathoz</string>
-  <string name="tag_menu_exit_no_save">Kilépés\nmentés nélkül</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Terület betöltése</string>
   <string name="location_choose_radius">Sugár választása:</string>
@@ -135,11 +133,14 @@
   <string name="menu_gps_clear">GPS rögzítés </string>
   <string name="menu_gps_upload">GPS nyomvonal feltöltése</string>
   <string name="menu_gps_export">GPS nyomvonal exportálása</string>
+  <string name="menu_gps_autodownload">Automatikus letöltés</string>
   <string name="menu_transfer">Átvitel…</string>
   <string name="menu_transfer_download_current">Jelenlegi nézet letöltése</string>
   <string name="menu_transfer_download_other">Egyéb hely letöltése</string>
   <string name="menu_transfer_upload">Adatok feltöltése az OSM szerverre</string>
   <string name="menu_transfer_export">Változtatások exportálása</string>
+  <string name="menu_transfer_read_file">Beolvasás fájlból</string>
+  <string name="menu_transfer_save_file">Mentés fájlba</string>
   <string name="menu_save">Mentés fájlba</string>
   <string name="menu_join">Összekapcsolás</string>
   <string name="menu_unjoin">Szétválasztás</string>
@@ -155,7 +156,6 @@
   <string name="menu_tools_background_align_retrieve_from_db">Adatbázisból</string>
   <string name="menu_tools_background_align_retrieve_from_device">Eszközről</string>
   <string name="menu_tools_background_align_apply2all">Alkalmaz (minden nagyítás)</string>
-  <string name="menu_tools_background_opacity">A háttér áttetszősége</string>
   <!--element action mode menu-->
   <string name="menu_tags">Címkék</string>
   <!--Text should be as short as possible-->
@@ -164,7 +164,6 @@
   <string name="menu_reverse">Megfordítás</string>
   <string name="notreversable_description">A vonal olyan attribútumokat tartalmaz, amelyek függnek az iránytól, és nem lehet őket megfordítani. A vonal megfordítása hibás címkéket eredményez.</string>
   <string name="reverse_anyway">Megfordítás mindenképp</string>
-  <string name="deleteway_description">Egy vonal törlésére készülsz.\n\nMegtarthatod az összes pontot, vagy törölheted azokat a pontokat, amik csak ehhez a vonalhoz tartoznak és nincsenek címkéik.</string>
   <string name="deleteway_wayonly">Csak vonal törlése</string>
   <string name="deleteway_wayandnodes">Vonal és pontok törlése</string>
   <string name="deletenode">Pont törlése</string>
@@ -200,8 +199,6 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">OAuth használata</string>
   <string name="listedit_enable_oauth">OAuth engedélyezése</string>
-  <string name="config_presetbutton_title">JOSM címkekészlet</string>
-  <string name="config_presetbutton_summary">Térképelem definíciókat tudsz itt beállítani</string>
   <string name="config_iconbutton_title">Pont ikonok megjelenítése</string>
   <string name="config_iconbutton_summary">A legjobban illeszkedő preset ikonjainak megjelenítése a pontok fölött.</string>
   <string name="config_loginbutton_title">Felhasználói fiók</string>
@@ -228,7 +225,6 @@
   <string name="changes_changed">\"%1$s\" módosítva</string>
   <string name="changes_created">\"%1$s\" létrehozva</string>
   <string name="confirm_upload_title">Feltöltöd?</string>
-  <string name="confirm_upload_text">Feltöltöd az alábbi változtatásokat?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_api">API hozzáadása</string>
   <!--common terms-->
@@ -292,4 +288,6 @@
   <string name="seconds">másodperc</string>
   <string name="km">km</string>
   <string name="meter">méter</string>
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

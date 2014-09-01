@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.acra.ACRA;
@@ -16,6 +18,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -27,18 +31,22 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.text.Html;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
@@ -57,6 +65,7 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.internal.ResourcesCompat;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -80,7 +89,9 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.photos.Photo;
@@ -117,6 +128,26 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Requests a list of {@link Tag Tags} as an activity-result.
 	 */
 	public static final int REQUEST_EDIT_TAG = 1;
+	
+	/**
+	 * Requests a file as an activity-result.
+	 */
+	public static final int READ_OSM_FILE_SELECT_CODE = 2;
+	
+	/**
+	 * Requests a file as an activity-result.
+	 */
+	public static final int WRITE_OSM_FILE_SELECT_CODE = 3;
+	
+	/**
+	 * Requests a file as an activity-result.
+	 */
+	public static final int READ_GPX_FILE_SELECT_CODE = 4;
+	
+	/**
+	 * Where we install the current version of vespucci
+	 */
+	private static final String VERSION_FILE = "version.dat"; 
 
 	private DialogFactory dialogFactory;
 	
@@ -199,6 +230,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private File showGPSFlagFile = null;
 	private boolean showGPS;
 	private boolean followGPS;
+	private boolean autoDownload;
 	/**
 	 * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}.
 	 * Will be automatically given to the tracker service on connect.
@@ -217,8 +249,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
 
+	private Location previousLocation = null;
+
 	private Location lastLocation = null;
-	
+
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
 	 */
@@ -227,6 +261,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.i("Main", "onCreate " + (savedInstanceState != null?" no saved state " : " saved state exists"));
@@ -251,7 +286,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		prefs = new Preferences(this);
+		if (prefs.splitActionBarEnabled()) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
+			}
+			// besides hacking ABS, there is no equivalent method to enable this for ABS
+		} else {
+			requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		}
+		
 		
 		rl = new RelativeLayout(getApplicationContext());
 		
@@ -267,6 +311,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		map.setOnTouchListener(mapTouchListener);
 		map.setOnCreateContextMenuListener(mapTouchListener);
 		map.setOnKeyListener(new MapKeyListener());
+		
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { // 12 upwards
+			map.setOnGenericMotionListener(new MotionEventListener());
+		}
 		
 		rl.addView(map); 
 		
@@ -288,6 +336,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				updateZoomControls();
 			}
 		});
+
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -314,6 +363,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 							box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
 								loc.getLongitude(), 1000); // a km hardwired for now
 						} catch (OsmException e) {
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(e);
 						}
 					}
@@ -327,7 +377,19 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		easyEditManager = new EasyEditManager(this, logic);
-	
+		
+		// check if first time user and display something if yes
+		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
+		String lastVersion = savingHelperVersion.load(VERSION_FILE, false);
+		if (lastVersion == null || lastVersion.equals("")) {
+			// newbie, display welcome dialog
+			Log.d("Main","showing welcome dialog");
+			showDialog(DialogFactory.NEWBIE);
+		} else {
+			// for now simply current version
+			// TODO display change log or similar on major changes
+		}
+		savingHelperVersion.save(VERSION_FILE, getString(R.string.app_version), false);
 	}
 	
 	/**
@@ -359,6 +421,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	protected void onStart() {
 		Log.d("Main", "onStart");
 		super.onStart();
+
 		prefs = new Preferences(this);
 		logic.setPrefs(prefs);
 		map.setPrefs(prefs);
@@ -369,11 +432,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		undoListener = new UndoListener();
 
 		showActionBar();
-		
-		logic.setSelectedBug(null);
-		logic.setSelectedNode(null);
-		logic.setSelectedWay(null);
-		logic.setSelectedRelation(null);
+
+// de-selecting causes issues when only onStart is called and the editins state is nor reloaded	
+//		logic.setSelectedBug(null);
+//		logic.setSelectedNode(null);
+//		logic.setSelectedWay(null);
+//		logic.setSelectedRelation(null);
 	}
 	
 	@Override
@@ -407,6 +471,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		
 		logic.updateProfile();
+		map.updateProfile();
 		
 		runningInstance = this;
 		
@@ -417,7 +482,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (modeDropdown != null)
 			modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
 		
-		if (tracker != null) tracker.setListener(this);
+		if (getTracker() != null) getTracker().setListener(this);
 		
 		setShowGPS(showGPS); // reactive GPS listener if needed
 		setFollowGPS(followGPS);
@@ -430,7 +495,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius());
-					logic.downloadBox(bbox, true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
+					logic.downloadBox(bbox, true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
 				} catch (OsmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -446,7 +511,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		if (rcData != null) {
 			Log.d("Main","got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
-				logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
+				logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
 			} else {
 				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
 				Log.d("Main","moving to position");
@@ -462,7 +527,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.d("Main", "onPause mode " + logic.getMode());
 		runningInstance = null;
 		disableLocationUpdates();
-		if (tracker != null) tracker.setListener(null);
+		if (getTracker() != null) getTracker().setListener(null);
 
 		// always save editing state
 		logic.saveEditingState();
@@ -488,7 +553,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	protected void onDestroy() {
 		Log.d("Main", "onDestroy");
 		map.onDestroy();
-		if (tracker != null) tracker.setListener(null);
+		if (getTracker() != null) getTracker().setListener(null);
 		try {
 			unbindService(this);
 		} catch (Exception e) {} // ignore errors, this is just cleanup
@@ -529,6 +594,17 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		return logic;
 	}
 
+	
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (easyEditManager.isProcessingAction()) {
+			easyEditManager.invalidate();
+		}
+	}
+
+	
 	/**
 	 * Sets up the Action Bar.
 	 */
@@ -536,6 +612,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		Log.d("Main", "showActionBar");
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
+		actionbar.setSplitBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
+		actionbar.setStackedBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg))); // this probably isn't ever necessary
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
 
@@ -637,8 +715,12 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
-		menu.findItem(R.id.menu_gps_start).setEnabled(tracker != null && !tracker.isTracking());
-		menu.findItem(R.id.menu_gps_pause).setEnabled(tracker != null && tracker.isTracking());
+		menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking());
+		menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking());
+		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
+		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
+		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
+		menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
@@ -666,9 +748,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			return true;
 			
 		case R.id.menu_help:
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://wiki.openstreetmap.org/wiki/Vespucci/Help"));
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
+			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
+			startHelpViewer.putExtra(HelpViewer.TOPIC, "Main");
+			startActivity(startHelpViewer);
 			return true;
 
 		case R.id.menu_gps_show:
@@ -683,35 +765,76 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			setFollowGPS(true);
 			map.setFollowGPS(true);
 			logic.setZoom(19);
+			map.invalidate();
 			return true;
 
 		case R.id.menu_gps_start:
-			if (tracker != null && ensureGPSProviderEnabled()) {
-				tracker.startTracking();
+			if (getTracker() != null && ensureGPSProviderEnabled()) {
+				getTracker().startTracking();
 				setFollowGPS(true);
 				triggerMenuInvalidation();
 			}
 			return true;
 
 		case R.id.menu_gps_pause:
-			if (tracker != null && ensureGPSProviderEnabled()) {
-				tracker.stopTracking(false);
+			if (getTracker() != null && ensureGPSProviderEnabled()) {
+				getTracker().stopTracking(false);
 				triggerMenuInvalidation();
 			}
 			return true;
 
 		case R.id.menu_gps_clear:
-			if (tracker != null) tracker.stopTracking(true);
+			if (getTracker() != null) getTracker().stopTracking(true);
 			triggerMenuInvalidation();
 			map.invalidate();
 			return true;
 			
+		case R.id.menu_gps_upload:
+			final Server server = prefs.getServer();
+			if (server != null && server.isLoginSet()) {
+				if (server.needOAuthHandshake()) {
+					oAuthHandshake(server);
+					if (server.getOAuth()) { // if still set
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth_retry, Toast.LENGTH_LONG).show();
+						return true;
+					} 
+				}	
+				showDialog(DialogFactory.GPX_UPLOAD);
+				// performTrackUpload("Test","Test",Visibility.PUBLIC);
+			} else {
+				showDialog(DialogFactory.NO_LOGIN_DATA);
+			}
+			return true;
+			
 		case R.id.menu_gps_export:
-			if (tracker != null) {
-				SavingHelper.asyncExport(this, tracker);
+			if (getTracker() != null) {
+				SavingHelper.asyncExport(this, getTracker());
+			}
+			return true;
+			
+		case R.id.menu_gps_import:
+			if (logic == null || logic.delegator == null) return true;
+			showFileChooser(READ_GPX_FILE_SELECT_CODE);
+			return true;
+			
+		case R.id.menu_gps_goto_start:
+			List<TrackPoint> l = tracker.getTrackPoints();
+			if (l != null && l.size() > 0) {
+				Log.d("Main","Going to start of track");
+				setFollowGPS(false);
+				map.setFollowGPS(false);
+				map.getViewBox().moveTo(l.get(0).getLon(), l.get(0).getLat());
+				logic.setZoom(19);
+				map.invalidate();
 			}
 			return true;
 
+		case R.id.menu_gps_autodownload:
+			setAutoDownload(!autoDownload);
+			Log.d("Main","Setting autoDownload to " + autoDownload);
+			triggerMenuInvalidation();
+			return true;
+			
 		case R.id.menu_transfer_download_current:
 			onMenuDownloadCurrent(false);
 			return true;
@@ -732,6 +855,17 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic == null || logic.delegator == null) return true;
 			SavingHelper.asyncExport(this, logic.delegator);
 			return true;
+			
+		case R.id.menu_transfer_read_file:
+			if (logic == null || logic.delegator == null) return true;
+			showFileChooser(READ_OSM_FILE_SELECT_CODE);
+			return true;
+			
+		case R.id.menu_transfer_save_file:
+			if (logic == null || logic.delegator == null) return true;
+			showDialog(DialogFactory.SAVE_FILE);
+//			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
+			return true;
 
 		case R.id.menu_undo:
 			// should not happen
@@ -748,22 +882,43 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		case R.id.menu_tools_background_align:
 			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
-			
 			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(oldMode);
 			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
 			startActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
 			
-//		case R.id.menu_tools_background_properties:
-//			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
-//			return true;
+		case R.id.menu_tools_background_properties:
+			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
+			return true;
 			
 		}
 		
 		return false;
 	}
 
-	private void setShowGPS(boolean show) {
+	private void showFileChooser(int purpose) {
+	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT); 
+	    intent.setType("*/*"); 
+	    intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+	    try {
+//	        startActivityForResult(
+//	                Intent.createChooser(intent, purpose == WRITE_OSM_FILE_SELECT_CODE ? getString(R.string.save_file) : getString(R.string.read_file)),
+//	                purpose);
+	    	startActivityForResult(intent,purpose);
+	    } catch (android.content.ActivityNotFoundException ex) {
+	        // Potentially direct the user to the Market with a Dialog
+	        Toast.makeText(this, R.string.toast_missing_filemanager, 
+	                Toast.LENGTH_SHORT).show();
+	    }
+	}
+	
+	protected void setAutoDownload(boolean b) {
+		Log.d("Main", "autoDownload: "+ b);
+		autoDownload = b;
+	}
+	
+	protected void setShowGPS(boolean show) {
 		if (show && !ensureGPSProviderEnabled()) {
 			show = false;
 		}
@@ -832,14 +987,14 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
 		}
 		wantLocationUpdates = true;
-		if (tracker != null) tracker.setListenerNeedsGPS(true);
+		if (getTracker() != null) getTracker().setListenerNeedsGPS(true);
 	}
 	
 	private void disableLocationUpdates() {
 		if (wantLocationUpdates == false) return;
 		if (sensorManager != null) sensorManager.unregisterListener(sensorListener);
 		wantLocationUpdates  = false;
-		if (tracker != null) tracker.setListenerNeedsGPS(false);
+		if (getTracker() != null) getTracker().setListenerNeedsGPS(false);
 	}
 
 	/**
@@ -938,6 +1093,47 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			handleBoxPickerResult(resultCode, data);
 		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
 			handleTagEditorResult(data);
+		} else if (requestCode == READ_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
+			// Get the Uri of the selected file 
+	        Uri uri = data.getData();
+	        Log.d("Main", "Read file Uri: " + uri.toString());
+	        try {
+				logic.readOsmFile(uri, false);
+			} catch (FileNotFoundException e) {
+				try {
+					Toast.makeText(this,getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+				} catch (Exception ex) {
+					// protect against translation errors
+				}
+			}
+	        map.invalidate();
+		} else if (requestCode == WRITE_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
+			// Get the Uri of the selected file 
+	        Uri uri = data.getData();
+	        Log.d("Main", "Write file Uri: " + uri.toString());
+	        logic.writeOsmFile(uri.getPath());
+	        map.invalidate();
+		} else if (requestCode == READ_GPX_FILE_SELECT_CODE && resultCode == RESULT_OK) {
+			// Get the Uri of the selected file 
+	        Uri uri = data.getData();
+	        Log.d("Main", "Read gpx file Uri: " + uri.toString());
+	        if (getTracker() != null) {
+	        	if (getTracker().getTrackPoints().size() > 0 ) {
+	        		DialogFactory.createExistingTrackDialog(this, uri).show();
+	        	} else {
+	        		getTracker().stopTracking(false);
+	        		try {
+						getTracker().importGPXFile(uri);
+					} catch (FileNotFoundException e) {
+						try {
+							Toast.makeText(this,getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+						} catch (Exception ex) {
+							// protect against translation errors
+						}
+					}
+	        	}
+	        }
+	        map.invalidate();
 		}
 	}
 
@@ -983,8 +1179,14 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
 				logic.updateRelation(editorData.osmId, editorData.members);
 			}
-			map.invalidate();
 		}
+		if (logic.getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
+			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			logic.setSelectedRelation(null);
+		}
+		map.invalidate();
 	}
 	
 	@Override
@@ -1016,7 +1218,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		logic.downloadBox(box, false);
+		logic.downloadBox(box, false, false);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
@@ -1024,15 +1226,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	}
 
 	/**
+	 * @param closeChangeset 
 	 * 
 	 */
-	public void performUpload(final String comment, final String source) {
+	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
 		dismissDialog(DialogFactory.CONFIRM_UPLOAD);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
 			if (logic.hasChanges()) {
-				logic.upload(comment, source);
+				logic.upload(comment, source, closeChangeset);
 				logic.checkForMail();
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
@@ -1088,6 +1291,22 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			
 		}.execute();
 	}
+	
+	/**
+	 * 
+	 */
+	public void performTrackUpload(final String description, final String tags, final Visibility visibility) {
+		
+		final Server server = prefs.getServer();
+
+		if (server != null && server.isLoginSet()) {
+			logic.uploadTrack(getTracker().getTrack(), description, tags, visibility);
+			logic.checkForMail();
+		} else {
+			showDialog(DialogFactory.NO_LOGIN_DATA);
+		}
+	}
+	
 
 	/**
 	 * 
@@ -1100,7 +1319,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server);
 					if (server.getOAuth()) // if still set
-						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth_retry, Toast.LENGTH_LONG).show();
 					return;
 				} 
 				showDialog(DialogFactory.CONFIRM_UPLOAD);
@@ -1179,10 +1398,17 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		rl.removeView(oAuthWebView);
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.show();
-		oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
-		oAuthWebView.setVisibility(View.GONE);
-		oAuthWebView.removeAllViews();
-		oAuthWebView.destroy();
+		try {
+			// the below loadUrl, even though the "official" way to do it,
+			// seems to be prone to crash on some devices.
+			oAuthWebView.loadUrl("about:blank"); // workaround clearView issues
+			oAuthWebView.setVisibility(View.GONE);
+			oAuthWebView.removeAllViews();
+			oAuthWebView.destroy();
+		} catch (Exception ex) { 
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(ex);
+		}
 	}
 
 	/**
@@ -1204,9 +1430,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	/**
 	 * @param selectedElement
 	 * @param focusOn if not null focus on the value field of this key
-	 * @param applyLastTags TODO
+	 * @param applyLastAddressTags add address tags to the object being edited
 	 */
-	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastTags) {
+	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags) {
 		if (selectedElement instanceof Node) {
 			logic.setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
@@ -1217,7 +1443,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic.delegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
 				startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement, focusOn));
-				startTagEditor.putExtra(TagEditor.TAGEDIT_LASTTAGS, Boolean.valueOf(applyLastTags));
+				startTagEditor.putExtra(TagEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
@@ -1310,6 +1536,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		private List<OsmElement> clickedNodesAndWays;
 		private List<Bug> clickedBugs;
 		private List<Photo> clickedPhotos;
+
+		private boolean touching;
 		
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
@@ -1325,7 +1553,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		@Override
 		public void onDown(View v, float x, float y) {
-			// DO NOTHING
+			touching=true;
 		}
 		
 		@Override
@@ -1460,11 +1688,21 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			if (logic.getMode() == Mode.MODE_EASYEDIT) {
 				easyEditManager.invalidate();
 			}
+			touching=false;
 		}
 		
 		@Override
 		public boolean onLongClick(final View v, final float x, final float y) {
 			if (logic.getMode() != Mode.MODE_EASYEDIT) {
+				if (logic.getMode() == Mode.MODE_MOVE) {
+					// display context menu
+					de.blau.android.osb.MapOverlay osbo = map.getOpenStreetBugsOverlay();
+					clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
+					de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
+					clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
+					clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+					return true; 
+				}
 				return false; // ignore long clicks
 			}
 			
@@ -1679,8 +1917,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				}
 			}
 			if (clickedNodesAndWays != null) {
+				Mode mode = logic.getMode();
 				for (OsmElement e : clickedNodesAndWays) {
-					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
+					android.view.MenuItem mi = menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
+					mi.setEnabled(mode != Mode.MODE_MOVE);
 				}
 			}
 		}
@@ -1790,6 +2030,34 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			}
 			return true;
 		}
+		
+		/**
+		 * Show toasts displaying the info on nearby objects
+		 */
+		void displayInfo(final float x, final float y) {
+			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+			// clieckedPhotos and 
+			if (clickedPhotos != null) {
+				for (Photo p : clickedPhotos) {
+					Toast.makeText(getApplicationContext(), p.getRef().getLastPathSegment(), Toast.LENGTH_SHORT).show();
+				}
+			}
+			if (clickedBugs != null) {
+				for (Bug b : clickedBugs) {
+					Toast.makeText(getApplicationContext(), b.getDescription(), Toast.LENGTH_SHORT).show();
+				}
+			}
+			if (clickedNodesAndWays != null) {
+				for (OsmElement e : clickedNodesAndWays) {
+					String toast = e.getDescription();
+					if (e.hasProblem()) {
+						String problem = e.describeProblem();
+						toast = !problem.equals("") ? toast + "\n" + problem : toast;
+					}
+					Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
+				}
+			}	
+		}
 	}
 
 	/**
@@ -1859,7 +2127,36 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			logic.translate(direction);
 		}
 	}
-
+	
+	/**
+	 * Mouse scroll wheel support
+	 * @author simon
+	 *
+	 */
+	@SuppressLint("NewApi")
+	public class MotionEventListener implements OnGenericMotionListener
+	{
+		@SuppressLint("NewApi")
+		@Override
+		public boolean onGenericMotion(View arg0,MotionEvent event) {
+			if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_SCROLL:
+					if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f) {
+						logic.zoom(Logic.ZOOM_IN);
+						
+					} else {
+						logic.zoom(Logic.ZOOM_OUT);
+					}
+					updateZoomControls();
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	
+	
 	/**
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
@@ -1921,10 +2218,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	@Override
 	public void onServiceConnected(ComponentName name, IBinder service) {
 		Log.i("Main", "Tracker service connected");
-		tracker = (((TrackerBinder)service).getService());
-		map.setTracker(tracker);
-		tracker.setListener(this);
-		tracker.setListenerNeedsGPS(wantLocationUpdates);
+		setTracker((((TrackerBinder)service).getService()));
+		map.setTracker(getTracker());
+		getTracker().setListener(this);
+		getTracker().setListenerNeedsGPS(wantLocationUpdates);
 		triggerMenuInvalidation();
 	}
 
@@ -1932,26 +2229,129 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	public void onServiceDisconnected(ComponentName name) {
 		// should never happen, but just to be sure
 		Log.i("Main", "Tracker service disconnected");
-		tracker = null;
+		setTracker(null);
 		map.setTracker(null);
 		triggerMenuInvalidation();
 	}
 
 	@Override
-	public void onLocationChanged(Location location) {
+	public void onLocationChanged(Location location) {		
 		if (followGPS) {
 			BoundingBox viewBox = map.getViewBox();
 			// ensure the view is zoomed in to at least the most zoomed-out
 			while (!viewBox.canZoomOut() && viewBox.canZoomIn()) {
 				viewBox.zoomIn();
 			}
+			// some heuristics for now to keep downloading to a minimum
+			// speed needs to be <= 6km/h (aka brisk walking speed) 
+			if (autoDownload && (location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
+				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes());
+				NextCenter nextCenter = getNextCenter(bbList,previousLocation, location);
+				// Log.d("Main","nextCenter.distance " + (nextCenter != null ? nextCenter.distance:-1));
+				if (previousLocation == null || nextCenter == null ||  nextCenter.distance > 0) {
+					if (prefs.getDownloadRadius() != 0) { // download
+						try {
+							BoundingBox newBox = GeoMath.createBoundingBoxForCoordinates(nextCenter == null ? location.getLatitude() : nextCenter.lat, 
+									nextCenter == null ? location.getLongitude() : nextCenter.lon, prefs.getDownloadRadius());
+							logic.downloadBox(newBox, true, true);
+// This is likely not worth the trouble
+//							ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+//							for (BoundingBox b:bboxes) {
+//								logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
+//							}
+						} catch (OsmException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					previousLocation  = location;
+				}
+			}
+			
+			// re-center on current position
 			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 		}
 		lastLocation  = location;
-		if (showGPS) {	
+		if (showGPS) {		
 			map.setLocation(location);
 		}
 		map.invalidate();
+	}
+	
+	class NextCenter {
+		double 	lat;
+		double 	lon;
+		int		distance  = Integer.MAX_VALUE;
+	}
+	/**
+	 * Return a suitable position for the center of the next BB
+	 * @param location
+	 * @return
+	 */
+	private NextCenter getNextCenter(ArrayList<BoundingBox> bbs,Location prevLocation, Location location) {
+		NextCenter result = new NextCenter();
+		
+		double lon = location.getLongitude();
+		double lat = location.getLatitude();
+		double mlat = GeoMath.latToMercator(lat);
+		double halfBBWidth = GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
+		for (BoundingBox b:bbs) {
+			if (b.isIn((int)(lat*1E7),(int)(lon*1E7))) {
+				double mBottom = GeoMath.latE7ToMercator(b.getBottom());
+				double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
+				double dLeft = lon - b.getLeft()/1E7d;
+				double dRight = b.getRight()/1E7d - lon;
+				double dLon = Math.min(dLeft,dRight);
+				double dTop = mBottom + mHeight - mlat;
+				double dBottom = mlat - mBottom;
+				double dLat = Math.min(dTop, dBottom);
+				
+				Log.d("Main","dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
+				 
+				int tmpDistance;
+				double tmpMLat = mlat;
+				double tmpLat = lat;
+				double tmpLon = lon;
+				
+				if (dLat < dLon) {
+					// top or bottom is closest
+					if (dTop < dBottom) {
+						tmpMLat = mBottom + mHeight + halfBBWidth;
+					} else {
+						tmpMLat = mBottom - halfBBWidth;
+					}
+					tmpLat = GeoMath.mercatorToLat(tmpMLat);
+					tmpDistance = (int)GeoMath.haversineDistance(lon, lat, lon, tmpLat);
+				} else {
+					// left or right is closest
+					if (dLeft < dRight) {
+						tmpLon = b.getLeft()/1E7d - halfBBWidth;
+					} else {
+						tmpLon = b.getRight()/1E7d + halfBBWidth;
+					}
+					tmpDistance = (int)GeoMath.haversineDistance(lon, lat, tmpLon, lat);
+				}
+				if (tmpDistance < result.distance) {
+					// check if point is not in one of the other bounding boxes
+					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(bbs);
+					bbList.remove(b); // remove the current bb
+					boolean found = false;
+					
+					for (BoundingBox b2:bbList) {
+						if (b2.isIn((int)(tmpLat*1E7),(int)(tmpLon*1E7))) {
+							found = true;
+							break;
+						}
+					}
+					if (!found) {
+						result.distance = tmpDistance;
+						result.lat = tmpLat;
+						result.lon = tmpLon;
+					}
+				}
+			}
+		}
+		return result.distance == Integer.MAX_VALUE ? null : result; // 0 == outside of bb
 	}
 	
 	
@@ -1982,7 +2382,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	public static void triggerMenuInvalidationStatic() {
 		if (Application.mainActivity == null) return;
-		// DO NOT IGONORE "wrong thread" EXCEPTIONS FROM THIS.
+		// DO NOT IGNORE "wrong thread" EXCEPTIONS FROM THIS.
 		// It *will* mess up your menu in many creative ways.
 		Application.mainActivity.triggerMenuInvalidation();
 	}
@@ -1992,5 +2392,19 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	public BackgroundAlignmentActionModeCallback getBackgroundAlignmentActionModeCallback() {
 		return backgroundAlignmentActionModeCallback;
+	}
+
+	/**
+	 * @return the tracker
+	 */
+	public TrackerService getTracker() {
+		return tracker;
+	}
+
+	/**
+	 * @param tracker the tracker to set
+	 */
+	public void setTracker(TrackerService tracker) {
+		this.tracker = tracker;
 	}
 }

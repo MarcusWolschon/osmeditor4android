@@ -60,6 +60,15 @@ public class Preferences {
 	
 	private final boolean enableAutoPreset;
 	
+	private final boolean closeChangesetOnSave;
+	
+	private final boolean splitActionBarEnabled;
+	
+	private final String gpsSource;
+	private final String gpsTcpSource;
+	
+	private final String offsetServer;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -115,18 +124,26 @@ public class Preferences {
 		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
 		enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
 		enableAutoPreset = prefs.getBoolean(r.getString(R.string.config_enableAutoPreset_key), true);
+		closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
+		splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
 		if (Profile.getProfile(tempMapProfile) == null) {
-			if (Profile.getProfile(DEFAULT_MAP_PROFILE) == null) 
+			if (Profile.getProfile(DEFAULT_MAP_PROFILE) == null) {
+				Log.w(getClass().getName(), "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
 				mapProfile = Profile.getBuiltinProfileName(); // built-in fall back
-			else
+			}
+			else {
+				Log.w(getClass().getName(), "Using default profile");
 				mapProfile = DEFAULT_MAP_PROFILE;
+			}
 		} else {
 			mapProfile = tempMapProfile;
 		}
+		gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), "internal");
+		gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
 		try {
 			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "2.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
@@ -136,6 +153,7 @@ public class Preferences {
 			gpsInterval = 1000;
 		}
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
+		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
 	}
 	
 	/**
@@ -255,6 +273,20 @@ public class Preferences {
 	/**
 	 * @return
 	 */
+	public String getGpsSource() {
+		return gpsSource;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getGpsTcpSource() {
+		return gpsTcpSource;
+	}
+	
+	/**
+	 * @return
+	 */
 	public int getGpsInterval() {
 		return gpsInterval;
 	}
@@ -284,5 +316,20 @@ public class Preferences {
 	public boolean enableAutoPreset() {
 		// 
 		return enableAutoPreset;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean closeChangesetOnSave() {
+		return closeChangesetOnSave;
+	}
+
+	public boolean splitActionBarEnabled() {
+		return splitActionBarEnabled;
+	}
+
+	public String getOffsetServer() {
+		return offsetServer;
 	}
 }

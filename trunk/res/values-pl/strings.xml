@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Odrzuć &amp; pobierz</string>
   <string name="transfer_download_current_back">Wróć (nic nie rób)</string>
   <string name="upload_problem_title">Problem z wysyłaniem</string>
-  <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Wyślij ponownie, aby zobaczyć to, co nie powiodło się.Najbardziej prawdopodobną przyczyną jest konflikt wersji.</string>
   <string name="no_login_data_title">Autoryzacja nieudana</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>
   <string name="no_connection_message">Nie można połączyć się z serwerem OSM. Sprawdź swoje połączenie z Internetem i spróbuj ponownie.</string>
@@ -76,7 +75,6 @@
   <string name="tag_menu_mapfeatures">Podstawy (Wiki)</string>
   <string name="tag_menu_addtorelation">Dodaj do relacji</string>
   <string name="tag_menu_resetMRU">Zresetuj szablony</string>
-  <string name="tag_menu_exit_no_save">Wyjście⏎\nbez zapisania</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Ładuj obszar</string>
   <string name="location_choose_radius">Wybierz promień:</string>
@@ -101,14 +99,11 @@
   <string name="menu_help">Pomoc</string>
   <string name="menu_erase">Skasuj węzeł</string>
   <string name="menu_split">Podziel drogę</string>
-  <string name="menu_closed_way_split_1">Podziel zamkniętą drogę, pierwszy węzeł</string>
-  <string name="menu_closed_way_split_2">Podziel zamkniętą drogę, drugi węzeł</string>
   <string name="menu_append">Dołącz</string>
   <string name="menu_restriction">Dodaj ograniczenie</string>
   <string name="menu_restriction_via">Dodaj restrykcję przez</string>
   <string name="menu_restriction_to">Dodaj restrykcję do`</string>
   <string name="menu_relation">Utwórz relację</string>
-  <string name="menu_add_relation_member">Dodaj element relacji</string>
   <string name="menu_tag">Edytuj tagi</string>
   <string name="menu_openstreetbug">Dodaj notatkę</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -136,7 +131,6 @@
   <string name="menu_tools">Narzędzia</string>
   <string name="menu_tools_background_properties">Właściwości tła</string>
   <string name="menu_tools_background_align_reset">Reset</string>
-  <string name="menu_tools_background_opacity">Przeźroczystosć tła</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tagi</string>
   <!--Text should be as short as possible-->
@@ -145,7 +139,6 @@
   <string name="menu_reverse">Odwróć</string>
   <string name="notreversable_description">Droga z atrybutem zależności od kierunku, który nie może być zmieniony. Zmiana kierunku drogi zniszczy tagowanie.</string>
   <string name="reverse_anyway">Odwróć mimo to</string>
-  <string name="deleteway_description">Masz zamiar usunąć drogę. ⏎\n⏎\nMożesz zachować wszystkie węzły, lub usunąć węzły, które należą tylko do tej drogi i nie mają żadnych znaczników.</string>
   <string name="deleteway_relation_description">Zamierzasz usunąć drogę, która należy do jednej lub większej ilości relacji. Usunięcie drogi z relacji spowoduje jej/ich nieprawidłowość.</string>
   <string name="deleteway_wayonly">Usuń tylko drogę</string>
   <string name="deleteway_wayandnodes">Usuń drogę i węzły</string>
@@ -183,8 +176,6 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Używaj  OAuth</string>
   <string name="listedit_enable_oauth">Włącz OAuth</string>
-  <string name="config_presetbutton_title">szablon JOSM</string>
-  <string name="config_presetbutton_summary">Możesz tutaj ustawić definicje elementów mapy.</string>
   <string name="config_iconbutton_title">Pokaż ikony węzłów</string>
   <string name="config_iconbutton_summary">Pokaż ikonę najbardziej pasującego szablonu nad węzłem.</string>
   <string name="config_loginbutton_title">Konto użytkownika</string>
@@ -217,7 +208,6 @@
   <string name="changes_changed">\"%1$s\" zmieniono</string>
   <string name="changes_created">\"%1$s\" utworzono</string>
   <string name="confirm_upload_title">Wysłać?</string>
-  <string name="confirm_upload_text">Wysłać zmiany?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>
@@ -282,4 +272,6 @@
   <string name="deleterelation">Usuń relację</string>
   <string name="delete_from_relation_description">Zamierzasz usunąć ten element z relacji.</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

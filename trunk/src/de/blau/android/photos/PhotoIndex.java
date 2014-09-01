@@ -2,6 +2,7 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -81,57 +82,63 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			}
 		}
 		
-		SQLiteDatabase db = getWritableDatabase();
-		Cursor dbresult = db.query(
-				"directories",
-				new String[] {"dir", "last_scan"},
-				null, null, null, null, null, null);
-		int dirCount = dbresult.getCount();
-		dbresult.moveToFirst();
-		// loop over the directories configured
-		for (int i = 0; i < dirCount; i++) {
-			String dir = dbresult.getString(0);
-			long lastScan = dbresult.getLong(1);
-			Log.d(LOGTAG, dbresult.getString(0) + " " + dbresult.getLong(1));
-			// loop over all possible mount points
-			for (String m:mountPoints) {
-				File indir = new File(m + "/" + dir);
-				Log.d(LOGTAG, "Scanning directory " + indir.getAbsolutePath());
-				if (indir.exists()) {			
-					Cursor dbresult2 = db.query(
-							"photos",
-							new String[] {"distinct dir"},
-							"dir LIKE '" + indir.getAbsolutePath() + "%'", 
-							null, null, null, null, null);
-					int dirCount2 = dbresult2.getCount();
-					dbresult2.moveToFirst();
-					for (int j = 0; j < dirCount2; j++) {
-						String dir2 = dbresult2.getString(0);
-						Log.d(LOGTAG, "Checking dir " + dir2);
-						File pDir = new File(dir2);
-						if (!pDir.exists()) {
-							Log.d(LOGTAG, "Deleting entries for gone dir " + dir2);
-							db.delete("photos","dir = '" + dir2 + "'", null);
+		try {
+			SQLiteDatabase db = getWritableDatabase();
+			Cursor dbresult = db.query(
+					"directories",
+					new String[] {"dir", "last_scan"},
+					null, null, null, null, null, null);
+			int dirCount = dbresult.getCount();
+			dbresult.moveToFirst();
+			// loop over the directories configured
+			for (int i = 0; i < dirCount; i++) {
+				String dir = dbresult.getString(0);
+				long lastScan = dbresult.getLong(1);
+				Log.d(LOGTAG, dbresult.getString(0) + " " + dbresult.getLong(1));
+				// loop over all possible mount points
+				for (String m:mountPoints) {
+					File indir = new File(m + "/" + dir);
+					Log.d(LOGTAG, "Scanning directory " + indir.getAbsolutePath());
+					if (indir.exists()) {			
+						Cursor dbresult2 = db.query(
+								"photos",
+								new String[] {"distinct dir"},
+								"dir LIKE '" + indir.getAbsolutePath() + "%'", 
+								null, null, null, null, null);
+						int dirCount2 = dbresult2.getCount();
+						dbresult2.moveToFirst();
+						for (int j = 0; j < dirCount2; j++) {
+							String dir2 = dbresult2.getString(0);
+							Log.d(LOGTAG, "Checking dir " + dir2);
+							File pDir = new File(dir2);
+							if (!pDir.exists()) {
+								Log.d(LOGTAG, "Deleting entries for gone dir " + dir2);
+								db.delete("photos","dir = '" + dir2 + "'", null);
+							}
+							dbresult2.moveToNext();
 						}
-						dbresult2.moveToNext();
+						dbresult2.close();
+						scanDir(db, indir.getAbsolutePath(), lastScan);
+						ContentValues values = new ContentValues();
+						Log.d(LOGTAG,"updating last scan for " + indir.getName() + " to " + System.currentTimeMillis());
+						values.put("last_scan", System.currentTimeMillis());	
+						db.update("directories", values, "dir = '" + indir.getName() + "'", null);
+					} else {
+						Log.d(LOGTAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
+						// remove all entries for this directory
+						db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
+						db.delete("photos","dir LIKE '" + indir.getAbsolutePath() + "/%'", null);
 					}
-					dbresult2.close();
-					scanDir(db, indir.getAbsolutePath(), lastScan);
-					ContentValues values = new ContentValues();
-					Log.d(LOGTAG,"updating last scan for " + indir.getName() + " to " + System.currentTimeMillis());
-					values.put("last_scan", System.currentTimeMillis());	
-					db.update("directories", values, "dir = '" + indir.getName() + "'", null);
-				} else {
-					Log.d(LOGTAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
-					// remove all entries for this directory
-					db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
-					db.delete("photos","dir LIKE '" + indir.getAbsolutePath() + "/%'", null);
 				}
+				dbresult.moveToNext();
 			}
-			dbresult.moveToNext();
+			dbresult.close();
+			db.close();
+		} catch (SQLiteException ex) {
+			// Don't crash just report
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(ex);
 		}
-		dbresult.close();
-		db.close();
 	}
 	
 	private void scanDir(SQLiteDatabase db, String dir, long lastScan) {
@@ -145,7 +152,11 @@ public class PhotoIndex extends SQLiteOpenHelper {
 				Log.d(LOGTAG,"deleteing refs for reindex");
 				try {
 					db.delete("photos","dir = '" + indir.getAbsolutePath() + "'", null);
-				} catch (SQLiteException sqex) { Log.d(LOGTAG, sqex.toString()); ACRA.getErrorReporter().handleException(sqex);}
+				} catch (SQLiteException sqex) { 
+					Log.d(LOGTAG, sqex.toString()); 
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(sqex);
+				}
 				needsReindex = true;
 			}
 			// now process 
@@ -171,8 +182,16 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						values.put("dir", indir.getAbsolutePath());
 						values.put("name", f.getName());
 						db.insert("photos", null, values); 
-					} catch (SQLiteException sqex) { Log.d(LOGTAG, sqex.toString()); ACRA.getErrorReporter().handleException(sqex);
-					} catch (Exception ex) { } // ignore
+					} catch (SQLiteException sqex) { 
+						Log.d(LOGTAG, sqex.toString());
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(sqex);
+					} catch (IOException ioex) {
+						// ignore silently broken pictures are not our business
+					} catch (Exception ex) { 
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(ex);
+					} // ignore
 				}
 			}
 		}
@@ -184,26 +203,31 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public Collection<Photo> getPhotos(Rect cur) {
-		SQLiteDatabase db = getReadableDatabase();
 		Collection<Photo> result = new ArrayList<Photo>();
-		Cursor dbresult = db.query(
-				"photos",
-				new String[] {"lat", "lon", "direction", "dir", "name"},
-				"lat >= " + cur.bottom + " AND lat <= " + cur.top + " AND lon >= " + cur.left + " AND lon <= " + cur.right, 
-				null, null, null, null, null);
-		int photoCount = dbresult.getCount();
-		dbresult.moveToFirst();
-		// loop over the directories configured
-		for (int i = 0; i < photoCount; i++) {
-			if (dbresult.isNull(2) ) { // no direction
-				result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
-			} else {
-				result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
+		try {
+			SQLiteDatabase db = getReadableDatabase();
+			Cursor dbresult = db.query(
+					"photos",
+					new String[] {"lat", "lon", "direction", "dir", "name"},
+					"lat >= " + cur.bottom + " AND lat <= " + cur.top + " AND lon >= " + cur.left + " AND lon <= " + cur.right, 
+					null, null, null, null, null);
+			int photoCount = dbresult.getCount();
+			dbresult.moveToFirst();
+			// loop over the directories configured
+			for (int i = 0; i < photoCount; i++) {
+				if (dbresult.isNull(2) ) { // no direction
+					result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
+				} else {
+					result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
+				}
+				dbresult.moveToNext();
 			}
-			dbresult.moveToNext();
+			dbresult.close();
+			db.close();
+		} catch (SQLiteException ex) {
+			// shoudn't happen (getReadableDatabase failed), simply report for now
+			ACRA.getErrorReporter().handleException(ex);
 		}
-		dbresult.close();
-		db.close();
 		Log.i(LOGTAG,"Found " + result.size() + " photos");
 		return result;
 	}
