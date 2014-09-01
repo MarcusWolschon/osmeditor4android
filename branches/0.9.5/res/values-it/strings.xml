@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Annulla &amp; scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Problema con il caricamento</string>
+  <string name="use_local_version">Usa la versione locale</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>

@@ -23,6 +23,15 @@
   <string name="file_write_failed_title">Falha na gravação do arquivo</string>
   <string name="file_write_failed_message">Não foi possível gravar no arquivo escolhido.</string>
   <string name="welcome_title">Bem vindo!</string>
+  <string name="welcome_message">Obrigado por usar o Vespucci.
+
+Para começar você precisa saber duas coisas:
+
+* pressionando o ícone do cadeado no canto superior esquerdo irá alternar entre os modos travado (não será permitida edição) e destravado
+
+* para incluir um novo objeto: mantenha pressionado por um longo período no local onde pretende criar o nó, e se após isso pressionar em outro local irá iniciar o traçado de uma via.
+
+Divirta-se!</string>
   <string name="read_introduction">Leia a introdução agora</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
@@ -97,6 +106,8 @@
   <string name="toast_timeout">Tempo excedido com servidor</string>
   <string name="coordinates_out_of_range">Longitude deve estar entre -180º/+180º, latitude entre -85º/+85º</string>
   <string name="toast_nothing_found">Nada encontrado</string>
+  <string name="toast_statesave_failed">A gravação do estado actual falhou!
+Este é um erro fatal, tentando escrever um ficheiro de exportação para recuperação posterior no JOSM.</string>
   <string name="toast_missing_filemanager">Por favor instale um gerenciador de arquivos.</string>
   <string name="toast_outside_of_download">Você está editando fora da área descarregada.</string>
   <string name="toast_file_not_found">%1$s não encontrado.</string>
@@ -131,6 +142,8 @@
   <string name="tag_menu_addtorelation">Adicionar à relação</string>
   <string name="tag_menu_resetMRU">Repôr Predefinições</string>
   <string name="tag_menu_reset_address_prediction">Redefinir previsão de endereço</string>
+  <string name="tag_menu_exit_no_save">Sair
+sem gravar</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -140,6 +153,9 @@
   <string name="location_text_unknown">desconhecida</string>
   <string name="location_last_text_parameterized">Última localização conhecida: %1$s</string>
   <string name="location_current_text_parameterized">Localização atual: %1$s</string>
+  <string name="location_text_metadata_location">
+Lat %1$4g, Lon %2$4g
+há %3$s %4$s</string>
   <string name="location_text_metadata_accuracy">Precisão %1$2.0f metro,</string>
   <string name="location_map_text">A partir do mapa (em breve)</string>
   <string name="location_coordinates_text">A partir de coordenadas:</string>
@@ -222,6 +238,7 @@
   <string name="menu_reverse">Inverter</string>
   <string name="notreversable_description">Esta via está marcada com atributos que são dependentes da direção e não pode ser invertida. Inverter a via invalidará os tags.</string>
   <string name="reverse_anyway">Inverter mesmo assim</string>
+  <string name="deleteway_description">Está prestes a apagar uma via. Pode optar por manter todos os nós, ou apagar os nós que pertencem apenas a esta via e não possuêm tags.</string>
   <string name="deleteway_relation_description">Estás prestes a apagar uma via que é membro de uma ou mais relações. Remover a via destas relações pode torná-la(s) inválida(s).</string>
   <string name="deleteway_nodesnotdownloaded_description">A via contém nós fora da área descarregada e não pode ser apagada sem criar um estado inconsistente. Descarregue toda a via antes de tentar novamente.</string>
   <string name="deleteway_wayonly">Apagar apenas a via</string>
@@ -265,6 +282,7 @@
   <string name="config_api_url_title">URL da API</string>
   <string name="config_api_oauth_title">Usar oauth</string>
   <string name="listedit_enable_oauth">Ativar oauth</string>
+  <string name="config_presetbutton_title">Prédefinições</string>
   <string name="config_iconbutton_title">Ver ícones dos nós</string>
   <string name="config_iconbutton_summary">Mostra o ícone da predefinição mais adequada sobre os nós.</string>
   <string name="config_loginbutton_title">Conta do usuário</string>
@@ -308,6 +326,8 @@
   <string name="changes_changed">\"%1$s\" alterados(as)</string>
   <string name="changes_created">\"%1$s\" criados(as)</string>
   <string name="confirm_upload_title">Upload?</string>
+  <string name="confirm_upload_text">Upload das seguintes alterações?
+%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Adicionar predefinição</string>
   <string name="urldialog_preset_exists">Esta predefinição já existe</string>

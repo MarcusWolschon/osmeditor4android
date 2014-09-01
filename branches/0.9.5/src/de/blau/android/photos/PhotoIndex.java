@@ -2,6 +2,7 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -185,6 +186,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						Log.d(LOGTAG, sqex.toString());
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(sqex);
+					} catch (IOException ioex) {
+						// ignore silently broken pictures are not our business
 					} catch (Exception ex) { 
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
