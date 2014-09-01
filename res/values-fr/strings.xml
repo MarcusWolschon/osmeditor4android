@@ -7,7 +7,17 @@
   <string name="transfer_download_current_download">Abandonner &amp; recevoir</string>
   <string name="transfer_download_current_back">Retour (ne rien faire)</string>
   <string name="upload_problem_title">Problème d\'envoi</string>
-  <string name="upload_problem_message">Tout ou une partie des données n\'ont pas été envoyées. Essayez d\'envoyer les données à nouveau pour voir ce qui a échoué. Le plus probable est un conflit de version.</string>
+  <string name="upload_problem_message">Tout ou une partie des données n\'a pas été envoyée. Réessayez plus tard, le problème peut être temporaire</string>
+  <string name="upload_conflict_title">Conflit durant l\'envoi</string>
+  <string name="upload_conflict_message_version">%1$s
+la version locale est %2$s
+contre %3$s sur le serveur</string>
+  <string name="upload_conflict_message_deleted">%1$s
+la version locale est %2$s
+et a été supprimé du serveur</string>
+  <string name="upload_conflict_message_referential">%1$s \na été supprimé localement \nmais existe toujours sur le serveur</string>
+  <string name="use_local_version">Utiliser la version locale</string>
+  <string name="use_server_version">Utiliser la version du serveur</string>
   <string name="no_login_data_title">Authentification échouée</string>
   <string name="no_login_data_message">Si vous utilisez OAuth, ceci est probablement un bogue, merci de rapporter le problème. Si vous utilisez un login et un mot de passe (non recommandé) vérifiez que vous les avez renseigné correctement.</string>
   <string name="no_connection_title">Pas de connexion au serveur</string>
@@ -21,6 +31,19 @@
   <string name="out_of_memory_dirty_message">Pas assez de mémoire disponible pour charger les données voulues. Essayez de sauvegarder vos modifications, redémarrer et de charger une zone plus petite.</string>
   <string name="invalid_data_received_title">Données invalides reçues</string>
   <string name="invalid_data_received_message">Vespucci a reçu des données invalides de la part du serveur. Si vous pensiez faire une opération correcte, merci de nous envoyer un rapport de bug.</string>
+  <string name="file_write_failed_title">Échec de l\'écriture du fichier</string>
+  <string name="file_write_failed_message">Impossible d\'écrire dans le fichier sélectionné</string>
+  <string name="welcome_title">Bienvenue !</string>
+  <string name="welcome_message">Merci d\'utiliser Vespucci
+
+Voici quelques choses à savoir avant de commencer :
+
+* appuyez sur l\'icône de cadenas dans le coin supérieur droit pour verrouiller ou déverrouiller l\'édition
+
+* pour ajouter un nouvel objet : appui long à un emplacement puis pressez une seconde fois pour ajouter un nœud. Un nouvel appui autre part tracera un chemon.
+
+Amusez-vous bien !</string>
+  <string name="read_introduction">Lire l\'introduction</string>
   <string name="progress_title">Chargement</string>
   <string name="progress_message">Chargement des données en mémoire…</string>
   <string name="progress_download_message">Récupération des données du serveur…</string>
@@ -30,6 +53,10 @@
   <string name="progress_saving_message">Sauvegarde...</string>
   <string name="upload_comment_label">Commentaire:</string>
   <string name="upload_source_label">Source:</string>
+  <string name="upload_close_changeset_label">Côture du groupe de modifications :</string>
+  <string name="upload_gpx_description_label">Description</string>
+  <string name="upload_gpx_tags_label">Tags</string>
+  <string name="upload_gpx_visibility_label">Visibilité</string>
   <string name="openstreetbug_new_title">Nouvelle note</string>
   <string name="openstreetbug_new_bug">Signaler un problème</string>
   <string name="openstreetbug_new_nodeway">Créer un nœud/chemin</string>
@@ -56,6 +83,10 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Cette suggestion peut remplacer certaines valeurs d\'attributs par des valeurs plus courantes.</string>
   <string name="search_results_title">Résultats de la recherche</string>
   <string name="find_message">Entrez le terme à rechercher</string>
+  <string name="read_file">Sélectionnez le fichier à lire</string>
+  <string name="save_file">Entrez le fichier dans lequel sauvegarder</string>
+  <string name="existing_track_title">Traces existantes</string>
+  <string name="existing_track_message">Une trace existe déjà. Vous voulez peut-être l\'annuler et l\'enregister d\'abord.</string>
   <!--Toaster-->
   <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
   <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
@@ -80,13 +111,19 @@
   <string name="toast_download_failed">Le téléchargement a échoué avec le code d\'erreur %1$d, message %2$s</string>
   <string name="toast_unsurveyed_road">Route non vérifiée</string>
   <string name="toast_noname">Nom ou référence manquant</string>
-  <string name="toast_oauth">Autorisez l\'accès à votre compte OSM via OAuth et réessayez d\'envoyer vos données.</string>
+  <string name="toast_oauth_retry">Autorisez l\'accès à votre compte OSM via OAuth et réessayez</string>
+  <string name="toast_oauth">Veuillez autoriser l\'accès à votre compte OSM via OAuth</string>
   <string name="toast_no_oauth">OAuth n\'est pas disponible avec l\'API courante. Vous devez renseigner votre identifiant et mot de passe.</string>
   <string name="toast_timeout">Le serveur n\'a pas répondu</string>
   <string name="coordinates_out_of_range">La longitude doit être comprise entre -180° et +180° et la latitude entre -85° et +85°</string>
-  <string name="toast_number_format">Mauvais format numérique</string>
   <string name="toast_nothing_found">Aucun résultat</string>
-  <string name="toast_statesave_failed">L\'enregistrement a échoué\nUne erreur s\'est produite lors de l\'export du fichier pour une récupération dans JOSM.</string>
+  <string name="toast_statesave_failed">L\'enregistrement a échoué
+Une erreur s\'est produite lors de l\'export du fichier pour une récupération dans JOSM.</string>
+  <string name="toast_missing_filemanager">Merci d\'installer un gestionnaire de fichiers</string>
+  <string name="toast_outside_of_download">Impossible d\'éditer en dehors de la zone où sont disponibles les données</string>
+  <string name="toast_file_not_found">%1$s introuvable.</string>
+  <string name="toast_imported_track_points">%1$s points importés</string>
+  <string name="toast_inconsistent_state">État instable détecté, merci d\'envoyer un rapport d\'erreur!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Oui</string>
   <string name="no">Non</string>
@@ -97,6 +134,10 @@
   <string name="apply">Appliquer</string>
   <string name="set">Définir</string>
   <string name="replace">Remplacer</string>
+  <string name="save">Enregistrer</string>
+  <string name="back">Retour</string>
+  <string name="foward">Avance</string>
+  <string name="keep">Conserver</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vraiment quitter ?</string>
   <string name="exit_text">Êtes-vous certain de vouloir quitter ?</string>
@@ -104,14 +145,18 @@
   <string name="key">clé</string>
   <string name="value">valeur</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
+  <string name="tag_menu_address">Ajouter un tag d\'adresse</string>
   <string name="tag_menu_sourcesurvey">Vérifié sur le terrain</string>
   <string name="tag_menu_preset">Modèles d\'attributs</string>
+  <string name="tag_menu_apply_preset">Appliquer la meilleure réinitialisation</string>
   <string name="tag_menu_repeat">Réutiliser les attributs</string>
   <string name="tag_menu_revert">Rétablir</string>
   <string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Ajouter à la relation</string>
   <string name="tag_menu_resetMRU">Réinitialiser les modèles d\'attributs</string>
+  <string name="tag_menu_reset_address_prediction">Remise à zéro de la prédiction des adresses</string>
   <string name="tag_menu_exit_no_save">Quitter\nsans sauvegarder</string>
+  <string name="tag_value_hint">Appuyez pour voir les valeurs</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Télécharger une zone</string>
   <string name="location_choose_radius">Rayon :</string>
@@ -121,7 +166,9 @@
   <string name="location_text_unknown">inconnu</string>
   <string name="location_last_text_parameterized">Dernière position connue : %1$s</string>
   <string name="location_current_text_parameterized">Position actuelle: %1$s</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\nil y a %3$s %4$s</string>
+  <string name="location_text_metadata_location">
+Lat %1$4g, Lon %2$4g
+il y a %3$s %4$s</string>
   <string name="location_text_metadata_accuracy">Précision de %1$2.0f mètres,</string>
   <string name="location_map_text">Depuis carte (non implémenté)</string>
   <string name="location_coordinates_text">Depuis les coordonnées :</string>
@@ -142,14 +189,14 @@
   <string name="menu_erase">Supprimer noeud</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
-  <string name="menu_closed_way_split_1">Premier nœud de scission</string>
-  <string name="menu_closed_way_split_2">Second nœud de scission</string>
+  <string name="menu_closed_way_split_1">Découpage d\'un chemin fermé, 1er nœud</string>
+  <string name="menu_closed_way_split_2">Découpage d\'un chemin fermé, 2ème nœud</string>
   <string name="menu_append">Prolonger</string>
   <string name="menu_restriction">Ajouter une restriction</string>
   <string name="menu_restriction_via">Ajouter une restriction via</string>
   <string name="menu_restriction_to">Ajouter une restriction vers</string>
   <string name="menu_relation">Créer une relation</string>
-  <string name="menu_add_relation_member">Ajouter des membres</string>
+  <string name="menu_add_relation_member">Ajouter un membre</string>
   <string name="menu_tag">Éditer les attributs</string>
   <string name="menu_openstreetbug">Ajouter une note</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -162,12 +209,17 @@
   <string name="menu_gps_clear">Effacer la trace GPS</string>
   <string name="menu_gps_upload">Envoi de la trace GPS</string>
   <string name="menu_gps_export">Export de la trace GPS</string>
+  <string name="menu_gps_import">Importer une trace GPS</string>
+  <string name="menu_gps_goto_start">Aller au début de la trace</string>
+  <string name="menu_gps_autodownload">Téléchargement automatique</string>
   <string name="menu_transfer">Transfert des données…</string>
   <string name="menu_transfer_download_current">Télécharger la vue courante</string>
   <string name="menu_transfer_download_current_add">Ajouter les données de la vue courante</string>
   <string name="menu_transfer_download_other">Télécharger autre endroit…</string>
   <string name="menu_transfer_upload">Envoyer les données au serveur OSM</string>
   <string name="menu_transfer_export">Exporter les modifications</string>
+  <string name="menu_transfer_read_file">Lire depuis le fichier</string>
+  <string name="menu_transfer_save_file">Enregistrer dans le fichier</string>
   <string name="menu_save">Sauvegarde vers fichier</string>
   <string name="menu_join">Fusionner</string>
   <string name="menu_unjoin">Séparer</string>
@@ -177,6 +229,7 @@
   <string name="menu_rotate">Pivoter</string>
   <string name="menu_orthogonalize">Rendre orthogonal</string>
   <string name="menu_circulize">Placer en cercle</string>
+  <string name="menu_newnode_gps">Créer nœud à la position courante</string>
   <string name="menu_tools">Outils</string>
   <string name="menu_tools_flush_background_tile_cache">Vider le cache des tuiles de fond</string>
   <string name="menu_tools_flush_overlay_tile_cache">Vider le cache des tuiles en surimpression</string>
@@ -189,7 +242,7 @@
   <string name="menu_tools_background_align_save_db">Sauvegarder vers la BDD</string>
   <string name="menu_tools_background_align_save_device">Sauvegarder vers l\'appareil</string>
   <string name="menu_tools_background_align_apply2all">Appliquer (tous les zooms)</string>
-  <string name="menu_tools_background_opacity">Opacité du fond</string>
+  <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
   <string name="menu_tags">Attributs</string>
   <!--Text should be as short as possible-->
@@ -198,7 +251,7 @@
   <string name="menu_reverse">Inverser</string>
   <string name="notreversable_description">Ce chemin contient des attributs dépendants du sens et ne peut pas être inversé. Inverser ce chemin rendrait ces attributs incorrects.</string>
   <string name="reverse_anyway">Inverser quand même</string>
-  <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin.\n\nVous pouvez soit conserver tous ses nœuds, soit supprimer les nœuds sans tags et n\'appartenant qu\'à ce chemin.</string>
+  <string name="deleteway_description">Vous êtes sur le point de supprimer un chemin. Vous pouvez soit conserver tous ses noeuds, soit supprimer les noeuds sans tags et n\'appartenant qu\'à ce chemin.</string>
   <string name="deleteway_relation_description">Vous êtes sur le point de supprimer un chemin qui appartient à une ou plusieurs relations. Supprimer un chemin d\'une relation peut la rendre non valide.</string>
   <string name="deleteway_nodesnotdownloaded_description">Le chemin contient des nœuds en dehors de la zone téléchargée et ne peut pas être supprimé sans endommager les données. Téléchargel le nœud entier et réessayez.</string>
   <string name="deleteway_wayonly">Supprimer le chemin seulement</string>
@@ -230,6 +283,8 @@
   <string name="config_enableKeepScreenOn_summary">Ne pas éteindre l\'écran (pour économiser l\'énergie).</string>
   <string name="config_enableDeprecatedModes_title">Activer les modes obsolètes</string>
   <string name="config_enableDeprecatedModes_summary">Activer les modes Ajouter, Éditer, Éditer Tags, Continuer, Effacer et Scinder.</string>
+  <string name="config_closeChangesetOnSave_title">Fermer les groupes de modifications</string>
+  <string name="config_closeChangesetOnSave_summary">Par défaut, fermer les groupes de modifications à l\'enregistrement</string>
   <string name="config_backgroundLayer_title">Fond de carte</string>
   <string name="config_backgroundLayer_summary">Arrière-plan affiché derrière les données de la carte.</string>
   <string name="config_overlayLayer_title">Couche supplémentaire</string>
@@ -240,8 +295,10 @@
   <string name="config_api_url_title">URL de l\'API</string>
   <string name="config_api_oauth_title">Utiliser OAuth</string>
   <string name="listedit_enable_oauth">Activer OAuth</string>
-  <string name="config_presetbutton_title">Modèles d\'attributs de JOSM</string>
-  <string name="config_presetbutton_summary">Vous pouvez installer ici des modèles d\'éléments cartographiques.</string>
+  <string name="config_offsetServer_title">Serveur de décalage</string>
+  <string name="config_offsetServer_summary">URL du serveur de décalage de l\'imagerie</string>
+  <string name="config_presetbutton_title">Modèles d\'attributs</string>
+  <string name="config_presetbutton_summary">Ajouter et activer des modèles d\'attributs de JOSM</string>
   <string name="config_iconbutton_title">Dessiner les icônes sur les nœuds</string>
   <string name="config_iconbutton_summary">Afficher sur les noeuds l\'icône du modèle d\'attributs le plus proche.</string>
   <string name="config_loginbutton_title">Compte d\'utilisateur</string>
@@ -272,6 +329,12 @@
   <string name="config_enableNameSuggestions_summary">Activer les suggestions pour les attributs de nom</string>
   <string name="config_enableAutoPreset_title">Activer les attributs automatiques</string>
   <string name="config_enableAutoPreset_summary">Remplit automatiquement certains attributs quand un nom suggéré est choisi</string>
+  <string name="config_splitActionBarEnabled_title">Activer la barre d\'action divisée</string>
+  <string name="config_splitActionBarEnabled_summary">Utilise la barre d\'action divisée si l\'appareil est compatible. Nécessite Android &gt;= 4.0 et le redémarrage de l\'application</string>
+  <string name="config_gps_source_title">Source GPS</string>
+  <string name="config_gps_source_summary">Source des mise à jour d\'emplacement GPS</string>
+  <string name="config_gps_source_tcp_title">Utiliser le réseau NMEA</string>
+  <string name="config_gps_source_tcp_summary">Adresse du service NMEA via TCP (sous la forme hôte:port)</string>
   <!--preset downloader messages-->
   <string name="preset_update">Mettre à jour les modèles d\'attributs</string>
   <string name="preset_download_successful">Modèles d\'attributs téléchargés avec succès</string>
@@ -283,7 +346,8 @@
   <string name="changes_changed">\"%1$s\" modifié</string>
   <string name="changes_created">\"%1$s\" créé</string>
   <string name="confirm_upload_title">Envoyer ?</string>
-  <string name="confirm_upload_text">Envoyer les modifications suivantes ?\n%1$s</string>
+  <string name="confirm_upload_text">Envoyer les modifications suivantes ?
+%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
   <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>
@@ -331,6 +395,7 @@
   <string name="undo_action_rotateway">Rotation d\'un chemin</string>
   <string name="undo_action_orthogonalize">forme rendue orthogonale</string>
   <string name="undo_action_circulize">disposition en cercle</string>
+  <string name="undo_action_fix_conflict">résoudre le conflit</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci a planté ou a détecté un grave dysfonctionnement. Merci d\'envoyer un rapport d\'erreur</string>
   <string name="crash_notif_title">Vespucci a planté ou a détecté un grave dysfonctionnement.</string>
@@ -360,4 +425,19 @@
   <string name="seconds">secondes</string>
   <string name="km">km</string>
   <string name="meter">mètre</string>
+  <!--Help system-->
+  <string name="introduction">Introduction</string>
+  <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>privé</item>
+    <item>public</item>
+    <item>suivable</item>
+    <item>identifiable</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Interne</item>
+    <item>NMEA interne</item>
+    <item>NMEA depuis un client TCP</item>
+    <item>NMEA depuis un serveur TCP</item>
+  </string-array>
 </resources>

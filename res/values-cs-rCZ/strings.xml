@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Zahodit a stáhnout</string>
   <string name="transfer_download_current_back">Zpět (Nedělá nic)</string>
   <string name="upload_problem_title">Problém s nahráváním</string>
-  <string name="upload_problem_message">Některá nebo všechna data nebyla odeslána. Zkuste je odeslat znovu pro zjištění, co je špatně. Nejpravděpodobnější chybou je konflikt verzí.</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
   <string name="progress_title">Načítám</string>
@@ -125,8 +124,6 @@
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_apibutton_title">URL API OSM</string>
   <string name="config_apibutton_summary">Zde můźete zadat nestandardní adresu API. Obvykle se nemá měnit!</string>
-  <string name="config_presetbutton_title">Předlohy</string>
-  <string name="config_presetbutton_summary">Zde můžete nastavit definice mapových značek.</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předlohy na uzlech.</string>
   <string name="config_loginbutton_title">Uživatelský ůčet</string>
@@ -155,7 +152,6 @@
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
   <string name="confirm_upload_title">Odeslat?</string>
-  <string name="confirm_upload_text">Odeslat následující změny?⏎\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předlohu</string>
   <string name="urldialog_preset_exists">Tato předloha již existuje.</string>
@@ -200,4 +196,6 @@
   <!--Misc relation related stuff-->
   <string name="object">Objekt</string>
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

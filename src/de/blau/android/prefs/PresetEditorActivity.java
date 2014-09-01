@@ -193,7 +193,10 @@ public class PresetEditorActivity extends URLListEditActivity {
 					Log.d("PresetEditorActivity", "Downloading " + url + " to " + presetDir + "/" + filename);
 					HttpURLConnection conn = (HttpURLConnection)((new URL(url)).openConnection());
 					conn.setInstanceFollowRedirects(true);
-					if (conn.getResponseCode() != 200) return false;
+					if (conn.getResponseCode() != 200) {
+						Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
+						return false;
+					}
 					InputStream downloadStream = conn.getInputStream();
 					OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));
 					StreamUtils.copy(downloadStream, fileStream);

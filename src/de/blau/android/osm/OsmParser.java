@@ -144,6 +144,7 @@ public class OsmParser extends DefaultHandler {
 	}
 
 	/**
+	 * parse API 0.6 output and JOSM OSM files
 	 * @param name
 	 * @param atts
 	 * @throws OsmParseException
@@ -151,8 +152,20 @@ public class OsmParser extends DefaultHandler {
 	private void parseOsmElement(final String name, final Attributes atts) throws OsmParseException {
 		try {
 			long osmId = Long.parseLong(atts.getValue("id"));
-			long osmVersion = Long.parseLong(atts.getValue("version"));
-			byte status = 0;
+			String version = atts.getValue("version");
+			long osmVersion = version == null ? 0 : Long.parseLong(atts.getValue("version")); // hack for JOSM file format support
+			String action = atts.getValue("action");
+			byte status = OsmElement.STATE_UNCHANGED;
+			if (action != null) {
+				if (action.equalsIgnoreCase("modify")) {
+					status = OsmElement.STATE_MODIFIED;
+					if (osmId < 0) {
+						status = OsmElement.STATE_CREATED;
+					}
+				} else if (action.equalsIgnoreCase("delete")) {
+					status = OsmElement.STATE_DELETED;
+				}
+			}
 			
 			if (isNode(name)) {
 				int lat = (int) (Double.valueOf(atts.getValue("lat")) * 1E7);
@@ -201,7 +214,12 @@ public class OsmParser extends DefaultHandler {
 			float minlon = Float.parseFloat(atts.getValue("minlon"));
 			float maxlon = Float.parseFloat(atts.getValue("maxlon"));
 			try {
-				storage.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
+				if (storage.getBoundingBoxes() == null) {
+					storage.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
+				} else {
+					storage.addBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
+				}
+				Log.d(DEBUG_TAG, "Creating bounding box " + minlon + " " + minlat + " " + maxlon + " " + maxlat);
 			} catch (OsmException e) {
 				throw new OsmParseException("Bounds are not correct");
 			}
@@ -220,6 +238,7 @@ public class OsmParser extends DefaultHandler {
 				Log.e(DEBUG_TAG, "No currentWay set!");
 			} else {
 				long nodeOsmId = Long.parseLong(atts.getValue("ref"));
+				// Log.d("OsmParser","parseWayNode " + nodeOsmId);
 				Node node = storage.getNode(nodeOsmId);
 				currentWay.addNode(node);
 			}
@@ -245,7 +264,7 @@ public class OsmParser extends DefaultHandler {
 				if (isNode(type)) {
 					Node n = storage.getNode(ref);
 					if (n != null) {
-						n.parentRelations.add(currentRelation);
+						n.addParentRelation(currentRelation);
 						member = new RelationMember(role, n);
 					} else {
 						member = new RelationMember(type, ref, role);
@@ -254,7 +273,7 @@ public class OsmParser extends DefaultHandler {
 				} else if (isWay(type)) {
 					Way w = storage.getWay(ref);
 					if (w != null) {
-						w.parentRelations.add(currentRelation);
+						w.addParentRelation(currentRelation);
 						member = new RelationMember(role, w);
 					} else {
 						member = new RelationMember(type, ref, role);
@@ -263,7 +282,7 @@ public class OsmParser extends DefaultHandler {
 				} else if (isRelation(type)) {
 					Relation r = storage.getRelation(ref);
 					if (r != null) {
-						r.parentRelations.add(currentRelation);
+						r.addParentRelation(currentRelation);
 						member = new RelationMember(role, r);
 					} else {
 						// these need to be saved and reprocessed

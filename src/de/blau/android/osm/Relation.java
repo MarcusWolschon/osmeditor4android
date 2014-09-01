@@ -110,7 +110,32 @@ public class Relation extends OsmElement {
 		tagsToXml(s);
 		s.endTag("", "relation");
 	}
+	
+	@Override
+	public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException,
+			IllegalStateException, IOException {
+		s.startTag("", "relation");
+		s.attribute("", "id", Long.toString(osmId));
+		if (state == OsmElement.STATE_DELETED) {
+			s.attribute("", "action", "delete");
+		} else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
+			s.attribute("", "action", "modify");
+		}
+		s.attribute("", "version", Long.toString(osmVersion));
+		s.attribute("", "visible", "true");
+		
+		for (RelationMember member : members) {
+			s.startTag("", "member");
+			s.attribute("", "type", member.getType());
+			s.attribute("", "ref", Long.toString(member.getRef()));
+			s.attribute("", "role", member.getRole());
+			s.endTag("", "member");
+		}
 
+		tagsToXml(s);
+		s.endTag("", "relation");
+	}
+	
 	public boolean hasMember(final RelationMember member) {
 		return members.contains(member);
 	}

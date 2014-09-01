@@ -9,11 +9,14 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -22,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -36,7 +40,11 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -212,6 +220,8 @@ public class Preset {
         	private PresetItem currentItem = null;
         	/** true if we are currently processing the optional section of an item */
         	private boolean inOptionalSection = false;
+        	/** hold reference to chunks */
+        	private HashMap<String,PresetItem> chunks = new HashMap<String,PresetItem>();
 
         	{
         		groupstack.push(rootGroup);
@@ -229,7 +239,18 @@ public class Preset {
             	} else if ("item".equals(name)) {
             		if (currentItem != null) throw new SAXException("Nested items are not allowed");
             		PresetGroup parent = groupstack.peek();
-            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), attr.getValue("type"));
+            		String type = attr.getValue("type");
+            		if (type == null) {
+            			type = attr.getValue("gtype"); // note gtype seems to be undocumented
+            		}
+            		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), type);
+            	} else if ("chunk".equals(name)) {
+                	if (currentItem != null) throw new SAXException("Nested items are not allowed");
+                	String type = attr.getValue("type");
+            		if (type == null) {
+            			type = attr.getValue("gtype"); // note gtype seems to be undocumented
+            		}
+                	currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), type);
             	} else if ("separator".equals(name)) {
             		new PresetSeparator(groupstack.peek());
             	} else if ("optional".equals(name)) {
@@ -243,14 +264,51 @@ public class Preset {
             		}
             	} else if ("text".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), null);
+            		String text = attr.getValue("text");
+            		if (text != null) {
+            			currentItem.addHint(attr.getValue("key"),text);
+            		}
+            	} else if ("link".equals(name)) {
+            		currentItem.setMapFeatures(attr.getValue("href")); // just English for now
             	} else if ("check".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), "yes,no");            		
+            		String value_on = attr.getValue("value_on");
+            		String value_off = attr.getValue("value_off");
+            		String disable_off = attr.getValue("disable_off");
+            		String values = (value_on != null?value_on:"yes") + (disable_off == null?(value_off != null?","+value_off:",no"):"");
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), values);
+            		String defaultValue = attr.getValue("default");
+            		if (defaultValue != null) {
+            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            		}
             	} else if ("combo".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"));            		
+            		String delimiter = attr.getValue("delimiter");
+            		if (delimiter == null) {
+            			delimiter = ","; // combo uses "," as default
+            		}
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"), delimiter);   
+            		String defaultValue = attr.getValue("default");
+            		if (defaultValue != null) {
+            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            		}
             	} else if ("multiselect".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO full multiselect parsing/support?
+            		String delimiter = attr.getValue("delimiter");
+            		if (delimiter == null) {
+            			delimiter = ";"; // multiselect uses ";" as default
+            		}
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"), delimiter); 
+            		String defaultValue = attr.getValue("default");
+            		if (defaultValue != null) {
+            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            		}
             	} else if ("role".equals(name)) {
             		currentItem.addRole(attr.getValue("key")); 
+            	} else if ("reference".equals(name)) {
+            		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
+            		if (chunk != null) {
+            			currentItem.tags.putAll(chunk.getTags());
+            			currentItem.optionalTags.putAll(chunk.getOptionalTags());
+            			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
+            		}
             	}
             }
             
@@ -263,6 +321,9 @@ public class Preset {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
                     // Log.d("Preset","PresetItem: " + currentItem.toString());
+            		currentItem = null;
+            	} else if ("chunk".equals(name)) {
+                    chunks.put(currentItem.getName(),currentItem);
             		currentItem = null;
             	}
             }
@@ -407,6 +468,15 @@ public class Preset {
 			}
 		}
 	}
+	
+    
+    public String toJSON() {
+    	String result = "";
+    	for (PresetItem pi:allItems) {
+    		result = result + pi.toJSON();
+    	}
+    	return result;
+    }
 
 	/**
 	 * 
@@ -487,6 +557,7 @@ public class Preset {
 		private BitmapDrawable mapIcon;
 		private PresetGroup parent;
 		private boolean appliesToWay, appliesToNode, appliesToClosedway, appliesToRelation;
+		private Uri mapFeatures;
 
 		/**
 		 * Creates the element, setting parent, name and icon, and registers with the parent
@@ -539,13 +610,27 @@ public class Preset {
 		 */
 		private final TextView getBaseView(Context ctx) {
 			Resources res = ctx.getResources();
+//			GradientDrawable shape =  new GradientDrawable();
+//			shape.setCornerRadius(8);
 			TextView v = new TextView(ctx);
 			float density = res.getDisplayMetrics().density;
 			v.setText(getName());
 			v.setTextColor(res.getColor(R.color.preset_text));
-			v.setBackgroundColor(res.getColor(R.color.preset_bg));
-			v.setCompoundDrawables(null, getIcon(), null, null);
-			v.setCompoundDrawablePadding((int)(4*density));
+			v.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+			v.setEllipsize(TextUtils.TruncateAt.END);
+			v.setMaxLines(2);
+			v.setPadding((int)(4*density), (int)(4*density), (int)(4*density), (int)(4*density));
+			// v.setBackgroundDrawable(shape);
+			if (this instanceof PresetGroup) {
+				v.setBackgroundColor(res.getColor(R.color.dark_grey));
+			} else {
+				v.setBackgroundColor(res.getColor(R.color.preset_bg));
+			}
+			Drawable icon = getIcon();
+			if (icon != null) {
+				v.setCompoundDrawables(null, getIcon(), null, null);
+				v.setCompoundDrawablePadding((int)(4*density));
+			}
 			v.setWidth((int)(72*density));
 			v.setHeight((int)(72*density));
 			v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
@@ -610,6 +695,16 @@ public class Preset {
 			}
 		}
 		
+		protected void setMapFeatures(String url) {
+			if (url != null) {
+				mapFeatures = Uri.parse(url);
+			}
+		}
+		
+		public Uri getMapFeatures() {
+			return mapFeatures;
+		}
+		
 		@Override
 		public String toString() {
 			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation;
@@ -631,7 +726,6 @@ public class Preset {
 			v.setMinimumWidth(99999); // for WrappingLayout
 			return v;
 		}
-		
 	}
 	
 	/**
@@ -671,7 +765,6 @@ public class Preset {
 					}
 				});
 			}
-
 			return v;
 		}
 		
@@ -679,7 +772,7 @@ public class Preset {
 		 * @return a view showing the content (nodes, subgroups) of this group
 		 */
 		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type) {
-			ScrollView scrollView = new ScrollView(ctx);
+			ScrollView scrollView = new ScrollView(ctx);		
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
@@ -709,6 +802,16 @@ public class Preset {
 		/** Tags that are in the optional section.
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
 		private LinkedHashMap<String, String[]> optionalTags = new LinkedHashMap<String, String[]>();
+		
+		/**
+		 * Hints to be displayed in a suitable form
+		 */
+		private LinkedHashMap<String, String> hints = new LinkedHashMap<String, String>();
+		
+		/**
+		 * Default values
+		 */
+		private LinkedHashMap<String, String> defaults = new LinkedHashMap<String, String>();
 		
 		/** Roles
 		 *  */
@@ -760,7 +863,10 @@ public class Preset {
 		 * @param values values string from the XML (comma-separated list of possible values)
 		 */
 		public void addTag(boolean optional, String key, String values) {
-			String[] valueArray = (values == null) ? new String[0] : values.split(",");
+			addTag(optional, key, values, ",");
+		}
+		public void addTag(boolean optional, String key, String values, String seperator) {
+			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(seperator));
 			
 			for (String v:valueArray) {
 				tagItems.add(key+"\t"+v, this);
@@ -777,6 +883,33 @@ public class Preset {
 		public void addRole(String value)
 		{
 			roles.add(value);
+		}
+		
+		/**
+		 * Save hint for the tag
+		 * @param key
+		 * @param hint
+		 */
+		public void addHint(String key, String hint) {
+			hints.put(key, hint);
+		}
+		
+		public String getHint(String key) {
+			return hints.get(key);
+		}
+
+		/**
+		 * Save default for the tag
+		 * @param key
+		 * @param defaultValue
+		 */
+		public void addDefault(String key, String defaultValue) {
+			defaults.put(key, defaultValue);
+			
+		}
+		
+		public String getDefault(String key) {
+			return defaults.get(key);
 		}
 		
 		/**
@@ -886,6 +1019,28 @@ public class Preset {
 			}
 			return super.toString() + tagStrings;
 		}
+		
+		public String toJSON() {
+			String jsonString = "";
+			for (String k:tags.keySet()) {
+				jsonString = jsonString + tagToJSON(k, tags.get(k));
+			}
+			for (String k:recommendedTags.keySet()) {
+				for (String v:recommendedTags.get(k)) {
+					jsonString = jsonString + tagToJSON(k, v);
+				}
+			}
+			for (String k:optionalTags.keySet()) {
+				for (String v:optionalTags.get(k)) {
+					jsonString = jsonString + tagToJSON(k, v);
+				}
+			}
+			return jsonString;
+		}
+		
+		private String tagToJSON(String key, String value) {
+			return "{ \"key\": \"" + key + "\"" + (value == null ? "" : " \"value\": \"" + value + "\"") + " },\n";
+		}
 	}
 	
 	
@@ -942,12 +1097,14 @@ public class Preset {
 	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
 		Collection<String> result = new HashSet<String>();
 		for (Preset p:presets) {
-			switch (type) {
-			case NODE: result.addAll(p.autosuggestNodes.getKeys()); break;
-			case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
-			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
-			case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
-			default: return null; // should never happen, all cases are covered
+			if (p!=null) {
+				switch (type) {
+				case NODE: result.addAll(p.autosuggestNodes.getKeys()); break;
+				case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
+				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
+				case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
+				default: return null; // should never happen, all cases are covered
+				}
 			}
 		}
 		return result; 
@@ -956,12 +1113,14 @@ public class Preset {
 	static public Collection<String> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
 		Collection<String> result = new HashSet<String>();
 		for (Preset p:presets) {
-			switch (type) {
-			case NODE: result.addAll(p.autosuggestNodes.get(key)); break;
-			case WAY: result.addAll(p.autosuggestWays.get(key)); break;
-			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
-			case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
-			default: return Collections.emptyList();
+			if (p!=null) {
+				switch (type) {
+				case NODE: result.addAll(p.autosuggestNodes.get(key)); break;
+				case WAY: result.addAll(p.autosuggestWays.get(key)); break;
+				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
+				case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
+				default: return Collections.emptyList();
+				}
 			}
 		}
 		return result;

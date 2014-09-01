@@ -10,10 +10,19 @@ public class OsmServerException extends OsmException {
 	private static final long serialVersionUID = 2767654576083786633L;
 
 	private final int errorCode;
+	private String type = "none";
+	private long osmId = -1;
 
 	public OsmServerException(final int errorCode, final String string) {
 		super(string);
 		this.errorCode = errorCode;
+	}
+	
+	public OsmServerException(final int errorCode, final String type, final long osmId, final String string) {
+		super(string);
+		this.errorCode = errorCode;
+		this.type = type;
+		this.osmId = osmId;
 	}
 
 	   /** 
@@ -30,7 +39,20 @@ public class OsmServerException extends OsmException {
 	public int getErrorCode() {
 		return errorCode;
 	}
+	
+	public String getElementDescription() {
+		return type + " #" + osmId;
+	}
 
+	public long getElementId() {
+		return  osmId;
+	}
+	
+	public String getElementType() {
+		return  type;
+	}
+	
+	
 	/**
 	 * 
 	 * @param errorCode the HTTP response-code

@@ -1,6 +1,10 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
 import de.blau.android.Application;
@@ -13,7 +17,7 @@ import de.blau.android.util.GeoMath;
  * 
  * @author mb
  */
-public class BoundingBox implements Serializable {
+public class BoundingBox implements Serializable, JosmXmlSerializable {
 
 	private static final long serialVersionUID = -2708721312405863618L;
 
@@ -280,12 +284,12 @@ public class BoundingBox implements Serializable {
 	/**
 	 * Checks if lat/lon is in this bounding box.
 	 * 
-	 * @param lat
-	 * @param lon
+	 * @param latE7
+	 * @param lonE7
 	 * @return true if lat/lon is inside this bounding box.
 	 */
-	public boolean isIn(final int lat, final int lon) {
-		return lon >= left && lon <= right && lat >= bottom && lat <= top;
+	public boolean isIn(final int latE7, final int lonE7) {
+		return lonE7 >= left && lonE7 <= right && latE7 >= bottom && latE7 <= top;
 	}
 
 	/**
@@ -749,25 +753,91 @@ public class BoundingBox implements Serializable {
 		return bottomMercator;
 	}
 
-	public void setTop(int lat) {
-		this.top = lat;
+	/**
+	 * The setters are private since without calling calcDimensions the BB will be left in an inconsistent state
+	 * @param latE7
+	 */
+	private void setTop(int latE7) {
+		this.top = latE7;
 	}
 	
-	public void setBottom(int lat) {
-		this.bottom = lat;
+	private void setBottom(int latE7) {
+		this.bottom = latE7;
 	}
 	
-	public void setRight(int lon) {
-		this.right = lon;
+	private void setRight(int lonE7) {
+		this.right = lonE7;
 	}
 	
-	public void setLeft(int lon) {
-		this.left = lon;
+	private void setLeft(int lonE7) {
+		this.left = lonE7;
 	}
 	
 	public double getCenterLat() {
 		int mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		int mHeight = GeoMath.latE7ToMercatorE7(top) - mBottom;
 		return GeoMath.mercatorE7ToLat(mBottom + mHeight/2); 
+	}
+	
+	/**
+	 * Given a list of existing bounding boxes and a new bbox. Return a list of pieces of the new bbox that complete the coverage
+	 * @param existing
+	 * @param newBox
+	 * @return
+	 * @throws OsmException 
+	 */
+	public static ArrayList<BoundingBox> newBoxes(ArrayList<BoundingBox> existing, BoundingBox newBox) {
+		ArrayList<BoundingBox> result = new ArrayList<BoundingBox>();
+		result.add(newBox);
+		for (BoundingBox b:existing) {
+			ArrayList<BoundingBox> temp = new ArrayList<BoundingBox>();
+			for (BoundingBox rb:result) {
+				if (b.intersects(rb)) {
+					try {
+						// higher than b
+						if (rb.top > b.top) {
+							temp.add(new BoundingBox(rb.left, b.top, rb.right, rb.top));
+							rb.setTop(b.top);
+						}
+						// lower than b
+						if (rb.bottom < b.bottom) {
+							temp.add(new BoundingBox(rb.left, rb.bottom, rb.right, b.bottom));
+							rb.setBottom(b.bottom);
+						}
+						// left
+						if (rb.left < b.left) {
+							temp.add(new BoundingBox(rb.left, rb.bottom, b.left, rb.top));
+							rb.setLeft(b.left);
+						}
+						// right
+						if (rb.right > b.right) {
+							temp.add(new BoundingBox(b.right, rb.bottom, rb.right, rb.top));
+							rb.setRight(b.right);
+						}
+						rb.calcDimensions();
+						rb.calcMercatorFactorPow3();
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					temp.add(rb);
+				}
+			}
+			result = temp;
+		}
+		return result;
+	}
+	
+	@Override
+	public void toJosmXml(final XmlSerializer s)
+			throws IllegalArgumentException, IllegalStateException, IOException {
+		s.startTag("", "bounds");
+		s.attribute("", "origin", "");
+		s.attribute("", "maxlon", Double.toString((right / 1E7)));
+		s.attribute("", "maxlat", Double.toString((top / 1E7)));
+		s.attribute("", "minlon", Double.toString((left / 1E7)));
+		s.attribute("", "minlat", Double.toString((bottom / 1E7)));
+		s.endTag("", "bounds");
 	}
 }

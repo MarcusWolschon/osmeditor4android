@@ -2,25 +2,31 @@ package de.blau.android;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,6 +39,7 @@ import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -46,21 +53,29 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
+import de.blau.android.Address.Side;
+import de.blau.android.exception.OsmException;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetDialog;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 
 /**
@@ -70,7 +85,7 @@ import de.blau.android.util.SavingHelper;
  */
 public class TagEditor extends SherlockActivity implements OnDismissListener, OnItemSelectedListener {
 	public static final String TAGEDIT_DATA = "dataClass";
-	public static final String TAGEDIT_LASTTAGS = "applyLastTags";
+	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
 	
 	/** The layout containing the edit rows */
 	private LinearLayout rowLayout = null;
@@ -101,7 +116,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	
 	private TagEditorData loadData;
 	
-	private boolean applyLastTags = false;
+	private boolean applyLastAddressTags = false;
 	
 	/**
 	 * Handles "enter" key presses.
@@ -136,14 +151,26 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	Preset[] presets = null;
 	
 	private static final String LAST_TAGS_FILE = "lasttags.dat";
+	
+	private static final String ADDRESS_TAGS_FILE = "addresstags.dat";
+	private static final int MAX_SAVED_ADDRESSES = 100;
  
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
+	
+	private SavingHelper<LinkedList<Address>> savingHelperAddress
+				= new SavingHelper<LinkedList<Address>>();
 	
 	
 	private static Names names = null;
 	
 	private Preferences prefs = null;
+	
+	private StreetTagValueAutocompletionAdapter streetNameAutocompleteAdapter = null;
+	
+	private PlaceTagValueAutocompletionAdapter placeNameAutocompleteAdapter = null;
+	
+	private LinkedList<Address> lastAddresses = null;
 	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
@@ -293,6 +320,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 	}
 	
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -305,6 +333,13 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		
 		prefs = new Preferences(this);
+		if (prefs.splitActionBarEnabled()) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
+			}
+			// besides hacking ABS, there is no equivalent method to enable this for ABS
+		} 
+		
 		if (prefs.getEnableNameSuggestions()) {
 			if (names == null) {
 				// this should be done async if it takes too long
@@ -329,7 +364,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from intent");
 			loadData = (TagEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
-			applyLastTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LASTTAGS); 
+			applyLastAddressTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS); 
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
@@ -371,13 +406,21 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 		
 		// 
-		if (applyLastTags) doRepeatLast(true);
+		if (applyLastAddressTags) doAddressTags();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		running = true;
+		if (lastAddresses == null) {
+			try {
+				lastAddresses = savingHelperAddress.load(ADDRESS_TAGS_FILE, false);
+				Log.d("TagEditor","onResume read " + lastAddresses.size() + " addresses");
+			} catch (Exception e) {
+				//TODO be more specific
+			}
+		}
 	}
 	
 	/**
@@ -430,7 +473,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 						keyEdit.setText(key);
 					}
 					if (key.equals(sourceKey)) {
-						valueEdit.setText("survey");
+						valueEdit.setText(Tags.VALUE_SURVEY);
 						sourceSet[0] = true;
 					}
 				}
@@ -438,7 +481,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		});
 		if (!sourceSet[0]) {
 			// source wasn't set above - add a new pair
-			insertNewEdit(sourceKey, "survey", -1);
+			insertNewEdit(sourceKey, Tags.VALUE_SURVEY, -1);
 		}
 	}
 	
@@ -463,6 +506,298 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 	}
 	
+	/**
+	 * Add an address from OSM data to the address cache
+	 * @param street
+	 * @param streetId
+	 * @param e
+	 * @param addresses
+	 */
+	private void seedAddressList(String street,long streetId, OsmElement e,LinkedList<Address> addresses) {
+		if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+			Address seed = new Address(e.getName(), e.getOsmId(),getAddressTags(e.getTags()));
+			if (streetId > 0) {
+				seed.setSide(streetId);
+			}
+			if (addresses.size() >= MAX_SAVED_ADDRESSES) { //arbitrary limit for now
+				addresses.removeLast();
+			}
+			addresses.addFirst(seed);
+			Log.d("TagEditor","seedAddressList added " + seed.tags.toString());
+		}
+	}
+	
+	/**
+	 * REturn a sorted list of house numbers and the associated address objects
+	 * @param street
+	 * @param side
+	 * @param lastAddresses
+	 * @return
+	 */
+	private TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> lastAddresses ) {
+		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
+		for (Address a:lastAddresses) {
+			if (a != null && a.tags != null 
+					&& ((a.tags.get(Tags.KEY_ADDR_STREET) != null && a.tags.get(Tags.KEY_ADDR_STREET).equals(street)) 
+							|| (a.tags.get(Tags.KEY_ADDR_PLACE) != null && a.tags.get(Tags.KEY_ADDR_PLACE).equals(street)))
+					&& a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
+					&& a.getSide() == side) {
+				Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
+				String[] numbers = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER).split("\\,");
+				for (String n:numbers) {
+					Log.d("TagEditor","add number  " + n);
+					try {
+						result.put(Integer.valueOf(getNumber(n)),a);
+					} catch (NumberFormatException nfe){
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Add address tags
+	 * This uses a file to cache/save the address information over invocations of the TagEditor, if the cache doesn't have entries for a specific street/place 
+	 * an attempt tp extract the information from the downloaded data is made
+	 */
+	private void doAddressTags() {
+		Address newAddress = null;
+		
+		final Map<String, String> current = getKeyValueMap(false);
+		try {
+			lastAddresses = savingHelperAddress.load(ADDRESS_TAGS_FILE, false);
+			Log.d("TagEditor","doAddressTags read " + lastAddresses.size() + " addresses");
+		} catch (Exception e) {
+			//TODO be more specific
+		}
+		StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter) getStreetNameAutocompleteAdapter();
+		// PlaceTagValueAutocompletionAdapter placeAdapter = (PlaceTagValueAutocompletionAdapter) getPlaceNameAutocompleteAdapter();
+		if (lastAddresses != null && lastAddresses.size() > 0) {
+			newAddress = new Address(getType(), getOsmId(),lastAddresses.get(0).tags); // last address we added
+		} 
+
+		if (newAddress == null) { // make sure we have the address object
+			newAddress = new Address(getType(), getOsmId(), new LinkedHashMap<String, String>()); 
+		}
+		// merge in any existing tags
+		for (String k: current.keySet()) {
+			newAddress.tags.put(k, current.get(k));
+		}
+		boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
+		if (streetAdapter != null || hasPlace) {
+			// the auto completion arrays should now be calculated, retrieve street names if any
+			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(streetAdapter.getNames()));
+			// ArrayList<String> placeNames = new ArrayList<String>(Arrays.asList(placeAdapter.getNames()));		
+			if ((streetNames != null && streetNames.size() > 0) || hasPlace) {
+				LinkedHashMap<String, String> tags = newAddress.tags;
+				Log.d("TagEditor","tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
+				Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
+				String street;		
+				if (!hasPlace) {
+					if (!newAddress.tags.containsKey(Tags.KEY_ADDR_STREET) 
+							|| newAddress.tags.get(Tags.KEY_ADDR_STREET).equals("") 
+							|| streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)) > 2 
+							|| streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)) < 0)  { // check if has street and still in the top 3
+						Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
+						// nope -> zap
+						tags.put(Tags.KEY_ADDR_STREET, streetNames.get(0));
+						if (tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "");
+						}
+					}
+					street = tags.get(Tags.KEY_ADDR_STREET); // should now have the final suggestion for a street
+					try {
+						newAddress.setSide(streetAdapter.getId(street));
+					} catch (OsmException e) { // street not in adapter
+						newAddress.side = Side.UNKNOWN;
+					}
+				} else { // ADDR_PLACE minimal support, don't overwrite with street
+					street = tags.get(Tags.KEY_ADDR_PLACE);
+					newAddress.side = Side.UNKNOWN;
+				}
+				Log.d("TagEditor","side " + newAddress.getSide());
+				Side side = newAddress.getSide();
+				// find the addresses corresponding to the current street
+				if (street != null && lastAddresses != null) {
+					TreeMap<Integer,Address> list = getHouseNumbers(street, side, lastAddresses);
+					if (list.size() == 0) { // try to seed lastAddresses from OSM data
+						try {
+							Log.d("TagEditor","street " + street);
+							long streetId = -1;
+							if  (!hasPlace) {
+								streetId = streetAdapter.getId(street);
+							}
+							// nodes
+							for (Node n:Main.logic.delegator.getCurrentStorage().getNodes()) {
+								seedAddressList(street,streetId,(OsmElement)n,lastAddresses);
+							}
+							// ways
+							for (Way w:Main.logic.delegator.getCurrentStorage().getWays()) {
+								seedAddressList(street,streetId,(OsmElement)w,lastAddresses);
+							}
+							// and try again
+							list = getHouseNumbers(street, side, lastAddresses);
+
+						} catch (OsmException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					// try to predict the next number
+					//
+					// - get all existing numbers for the side of the street we are on
+					// - determine if the increment per number is 1 or 2 (for now everything else is ignored)
+					// - determine the nearest address node
+					// - if it is the last or first node and we are at one side use that and add or subtract the increment
+					// - if the nearest node is somewhere in the middle determine on which side of it we are, 
+					// - inc/dec in that direction
+					// If everything works out correctly even if a prediction is wrong, entering the correct number should improve the next prediction
+					//TODO the following assumes that the road is not doubling back or similar, aka that the addresses are more or less in a straight line, 
+					//     use the length along the way defined by the addresses instead
+					//
+					if (list.size() >= 2) {
+						try {
+							int firstNumber = list.firstKey();
+							int lastNumber = list.lastKey();
+							// 
+							int inc = 1;
+							float incTotal = 0;
+							float incCount = 0;
+							ArrayList<Integer> numbers = new ArrayList<Integer>(list.keySet());
+							for (int i=0;i<numbers.size()-1;i++) {
+								int diff = numbers.get(i+1).intValue()-numbers.get(i).intValue();
+								if (diff > 0 && diff <= 2) {
+									incTotal = incTotal + diff;
+									incCount++;
+								}
+							}
+							inc = Math.round(incTotal/incCount);
+							int nearest = -1; 
+							int prev = -1;
+							int post = -1;
+							double distanceFirst = 0;
+							double distanceLast = 0;
+							double distance = Double.MAX_VALUE;
+							for (int i=0;i<numbers.size();i++) {
+								// determine the nearest existing address
+								int number = Integer.valueOf(numbers.get(i));
+								Address a = list.get(number);
+								double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
+								if (newDistance < distance) {
+									distance = newDistance;
+									nearest = number;
+									prev = numbers.get(Math.max(0, i-1));
+									post = numbers.get(Math.min(numbers.size()-1, i+1));
+								}
+								if (i==0) {
+									distanceFirst = newDistance;
+								} else if (i==numbers.size()-1) {
+									distanceLast = newDistance;
+								}
+							}
+							//
+							double distanceTotal = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(lastNumber).lon, list.get(lastNumber).lat);
+							if (nearest == firstNumber) { 
+								if (distanceLast > distanceTotal) {
+									inc = -inc;
+								}
+							} else if (nearest == lastNumber) { 
+								if (distanceFirst < distanceTotal) {
+									inc = -inc;
+								}
+							} else {
+								double distanceNearestFirst = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(nearest).lon, list.get(nearest).lat);
+								if (distanceFirst < distanceNearestFirst) {
+									inc = -inc;
+								} // else already correct
+							} 
+							// Toast.makeText(this, "First " + firstNumber + " last " + lastNumber + " nearest " + nearest + "inc " + inc + " prev " + prev + " post " + post + " side " + side, Toast.LENGTH_LONG).show();
+							Log.d("TagEditor","First " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc + " prev " + prev + " post " + post + " side " + side);
+							// first apply tags from nearest address if they don't already exist
+							for (String key:list.get(nearest).tags.keySet()) {
+								if (!tags.containsKey(key)) {
+									tags.put(key,list.get(nearest).tags.get(key));
+								}
+							}
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + Math.max(1, nearest+inc));
+						} catch (NumberFormatException nfe){
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "");
+						}
+					} else if (list.size() == 1) {
+						// can't do prediction with only one value 
+						// apply tags from sole existing address if they don't already exist
+						for (String key:list.get(list.firstKey()).tags.keySet()) {
+							if (!tags.containsKey(key)) {
+								tags.put(key,list.get(list.firstKey()).tags.get(key));
+							}
+						}
+					}
+				}
+			} else { // last ditch attemot
+				LinkedHashMap<String, String> tags = new LinkedHashMap<String, String>();
+				// fill with Karlsruher schema
+				tags.put(Tags.KEY_ADDR_HOUSENUMBER, "");
+				tags.put(Tags.KEY_ADDR_STREET, "");
+				tags.put(Tags.KEY_ADDR_POSTCODE, "");
+				tags.put(Tags.KEY_ADDR_CITY, "");
+				tags.put(Tags.KEY_ADDR_COUNTRY, "");
+				tags.put(Tags.KEY_ADDR_FULL, "");
+				// the following are less used but may be necessary
+				tags.put(Tags.KEY_ADDR_HOUSENAME, "");
+				tags.put(Tags.KEY_ADDR_PLACE, "");
+				tags.put(Tags.KEY_ADDR_HAMLET, "");
+				tags.put(Tags.KEY_ADDR_SUBURB, "");
+				tags.put(Tags.KEY_ADDR_SUBDISTRICT, "");
+				tags.put(Tags.KEY_ADDR_DISTRICT, "");
+				tags.put(Tags.KEY_ADDR_PROVINCE, "");
+				tags.put(Tags.KEY_ADDR_STATE, "");
+				tags.put(Tags.KEY_ADDR_FLATS, "");
+				tags.put(Tags.KEY_ADDR_DOOR, "");
+				tags.put(Tags.KEY_ADDR_UNIT, "");
+				newAddress.tags.putAll(tags); 
+			}
+		}
+		
+		// is this a node on a building outline, if yes add entrance=yes if it doesn't already exist
+		if (getType().equals(Node.NAME)) {
+			boolean isOnBuilding = false;
+			for (Way w:Main.logic.getWaysForNode((Node)Main.logic.delegator.getOsmElement(Node.NAME, getOsmId()))) {
+				if (w.hasTagKey(Tags.KEY_BUILDING)) {
+					isOnBuilding = true;
+				} else if (w.getParentRelations() != null) { // need to check relations too
+					for (Relation r:w.getParentRelations()) {
+						if (r.hasTagKey(Tags.KEY_BUILDING) || r.hasTag(Tags.KEY_TYPE, Tags.VALUE_BUILDING)) {
+							isOnBuilding = true;
+							break;
+						}
+					}
+				}
+				if (isOnBuilding) {
+					break;
+				}
+			}
+			if (isOnBuilding && !newAddress.tags.containsKey(Tags.KEY_ENTRANCE)) {
+				newAddress.tags.put(Tags.KEY_ENTRANCE, "yes");
+			}
+		}
+		loadEdits(newAddress.tags);
+	}
+	
+	private int getNumber(String hn) throws NumberFormatException {
+		StringBuffer sb = new StringBuffer();
+		for (Character c:hn.toCharArray()) {
+			if (Character.isDigit(c)) {
+				sb.append(c);
+			}
+		}
+		if (sb.toString().equals("")) {
+			return 0;
+		} else {
+			return Integer.parseInt(sb.toString());
+		}
+	}
+	
 	private void doRevert() {
 		loadEdits(originalTags);
 		createParentRelationView(originalParents);
@@ -472,34 +807,45 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	private void createRecentPresetView() {
 		Preset[] presets = Main.getCurrentPresets();
 	
-		if (presets != null && presets.length >= 1 && presets[0] != null && element != null && presets[0].hasMRU()) {
-			ElementType filterType = element.getType();
-			View v = presets[0].getRecentPresetView(this, presets, new PresetClickHandler() { //TODO this should really be a call of a static method
-				@Override
-				public void onItemClick(PresetItem item) {
-					Log.d(DEBUG_TAG, "normal click");
-					applyPreset(item);
+		if (presets != null && presets.length >= 1 && element != null) {
+			// check if any of the presets has a MRU
+			boolean mruFound = false;
+			for (Preset p:presets) {
+				if (p!=null) {
+					if (p.hasMRU()) {
+						mruFound = true;
+						break;
+					}
 				}
-				
-				@Override
-				public boolean onItemLongClick(PresetItem item) {
-					Log.d(DEBUG_TAG, "long click");
-					removePresetFromMRU(item);
-					return true;
-				}
-				
-				@Override
-				public void onGroupClick(PresetGroup group) {
-					// should not have groups
-				}
-			}, filterType);
-		
-			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-			v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
-			v.setId(R.id.recentPresets);
-			presetsLayout.addView(v);
-			presetsLayout.setVisibility(View.VISIBLE);
-			
+			}
+			if (mruFound) {
+				ElementType filterType = element.getType();
+				View v = presets[0].getRecentPresetView(this, presets, new PresetClickHandler() { //TODO this should really be a call of a static method, all MRUs get added to this view
+					@Override
+					public void onItemClick(PresetItem item) {
+						Log.d(DEBUG_TAG, "normal click");
+						applyPreset(item);
+					}
+
+					@Override
+					public boolean onItemLongClick(PresetItem item) {
+						Log.d(DEBUG_TAG, "long click");
+						removePresetFromMRU(item);
+						return true;
+					}
+
+					@Override
+					public void onGroupClick(PresetGroup group) {
+						// should not have groups
+					}
+				}, filterType);
+
+				v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+				v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
+				v.setId(R.id.recentPresets);
+				presetsLayout.addView(v);
+				presetsLayout.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 	
@@ -559,7 +905,18 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.tag_menu, menu);
+
 		return true;
+	}
+	
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		// disable address tagging for stuff that won't have an address
+		menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) || element.hasTagKey(Tags.KEY_BUILDING));
+		
+	    return true;
 	}
 	
 	@Override
@@ -568,11 +925,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		case android.R.id.home:
 			sendResultAndFinish();
 			return true;
+		case R.id.tag_menu_address:
+			doAddressTags();
+			return true;
 		case R.id.tag_menu_sourcesurvey:
 			doSourceSurvey();
 			return true;
 		case R.id.tag_menu_preset:
 			doPresets();
+			return true;
+		case R.id.tag_menu_apply_preset:
+			PresetItem pi = Preset.findBestMatch(presets,getKeyValueMap(false));
+			if (pi!=null) {
+				applyPreset(pi, false); 
+			}
 			return true;
 		case R.id.tag_menu_repeat:
 			doRepeatLast(true);
@@ -581,7 +947,18 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			doRevert();
 			return true;
 		case R.id.tag_menu_mapfeatures:
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_mapfeatures)));
+			Uri uri = null;
+			LinkedHashMap<String, String> map = getKeyValueMap(false);
+			if (map !=null) {
+				PresetItem p =  Preset.findBestMatch(presets,map);
+				if (p != null) {
+					uri = p.getMapFeatures();
+				}
+			}
+			if (uri == null) {
+				uri = Uri.parse(getString(R.string.link_mapfeatures));
+			}
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 			startActivity(intent);
 			return true;
 		case R.id.tag_menu_addtorelation:
@@ -591,6 +968,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			for (Preset p:presets)
 				p.resetRecentlyUsed();
 			recreateRecentPresetView();
+			return true;
+		case R.id.tag_menu_reset_address_prediction:
+			// simply overwrite with an empty file
+			savingHelperAddress.save(ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
+			lastAddresses = null;
+			return true;
+		case R.id.tag_menu_help:
+			Intent startHelpViewer = new Intent(this, HelpViewer.class);
+			startHelpViewer.putExtra(HelpViewer.TOPIC, "TagEditor");
+			startActivity(startHelpViewer);
 			return true;
 		}
 		
@@ -625,23 +1012,60 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		}
 	}
 	
+	protected LinkedHashMap<String,String> getAddressTags(Map<String,String> sortedMap) {
+		LinkedHashMap<String,String> result = new LinkedHashMap<String,String>();
+		for (String key:sortedMap.keySet()) {
+			if (key.startsWith("addr:")) {
+				result.put(key, sortedMap.get(key));
+			}
+		}
+		return result;
+	}
+	
 	/**
 	 * 
 	 */
 	protected void sendResultAndFinish() {
 		// Save current tags for "repeat last" button
-		savingHelper.save(LAST_TAGS_FILE, getKeyValueMap(false), false);
+		LinkedHashMap<String,String> tags = getKeyValueMap(false);
+		savingHelper.save(LAST_TAGS_FILE, tags, false);
+		// save any address tags for "last address tags"
+		LinkedHashMap<String,String> addressTags = getAddressTags(tags);
+		// this needs to be done after the edit again in case the street name of what ever has changes 
+		if (addressTags.size() > 0) {
+			if (lastAddresses == null) {
+				lastAddresses = new LinkedList<Address>();
+			}
+			if (lastAddresses.size() >= MAX_SAVED_ADDRESSES) { //arbitrary limit for now
+				lastAddresses.removeLast();
+			}
+			Address current = new Address(getType(), getOsmId(), addressTags);
+			if (streetNameAutocompleteAdapter!= null) {
+				String streetName = tags.get(Tags.KEY_ADDR_STREET);
+				if (streetName != null) {
+					try {
+						current.setSide(streetNameAutocompleteAdapter.getId(streetName));
+					} catch (OsmException e) {
+						current.side = Side.UNKNOWN;
+					}
+				}
+			}
+			lastAddresses.addFirst(current);
+			savingHelperAddress.save(ADDRESS_TAGS_FILE, lastAddresses, false);
+		}
 		
 		Intent intent = new Intent();
 		Map<String, String> currentTags = getKeyValueMap(false);
 		HashMap<Long,String> currentParents = getParentRelationMap();
 		ArrayList<RelationMemberDescription> currentMembers = getMembersList();
 		
-		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		if (!currentTags.equals(originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) 
+				|| (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
 			// changes were made
 			intent.putExtra(TAGEDIT_DATA, new TagEditorData(osmId, type, 
 					currentTags.equals(originalTags)? null : currentTags,  null, 
-							currentParents.equals(originalParents)?null:currentParents, null, currentMembers.equals(originalMembers)?null:currentMembers, null));
+					(originalParents==null && currentParents.size()==0) || currentParents.equals(originalParents)?null:currentParents, null, 
+					currentMembers.equals(originalMembers)?null:currentMembers, null));
 		}
 		
 		setResult(RESULT_OK, intent);
@@ -670,15 +1094,53 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		outState.putSerializable(TAGEDIT_DATA, new TagEditorData(osmId, type, getKeyValueMap(true), originalTags, getParentRelationMap(), originalParents, getMembersList(), originalMembers));
 	}
 	
-	/** When the Activity is interrupted, save MRUs*/
+	/** When the Activity is interrupted, save MRUs and address cache*/
 	@Override
 	protected void onPause() {
 		running = false;
 		if (Main.getCurrentPresets() != null)  {
-			for (Preset p:Main.getCurrentPresets())
-				p.saveMRU();
+			for (Preset p:Main.getCurrentPresets()) {
+				if (p!=null) {
+					p.saveMRU();
+				}
+			}
+		}
+		if (lastAddresses != null) {
+			savingHelperAddress.save(ADDRESS_TAGS_FILE, lastAddresses, false);
 		}
 		super.onPause();
+	}
+	
+	/**
+	 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
+	 * @return
+	 */
+	private ArrayAdapter<String> getStreetNameAutocompleteAdapter() {
+		if (Main.logic == null || Main.logic.delegator == null) {
+			return null;
+		}
+		if (streetNameAutocompleteAdapter == null) {
+			streetNameAutocompleteAdapter =	new StreetTagValueAutocompletionAdapter(this,
+					R.layout.autocomplete_row, Main.logic.delegator,
+					type, osmId);
+		}
+		return streetNameAutocompleteAdapter;
+	}
+	
+	/**
+	 * Gets an adapter for the autocompletion of place names based on the neighborhood of the edited item.
+	 * @return
+	 */
+	private ArrayAdapter<String> getPlaceNameAutocompleteAdapter() {
+		if (Main.logic == null || Main.logic.delegator == null) {
+			return null;
+		}
+		if (placeNameAutocompleteAdapter == null) {
+			placeNameAutocompleteAdapter =	new PlaceTagValueAutocompletionAdapter(this,
+					R.layout.autocomplete_row, Main.logic.delegator,
+					type, osmId);
+		}
+		return placeNameAutocompleteAdapter;
 	}
 
 	/**
@@ -691,6 +1153,20 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	protected TagEditRow insertNewEdit(final String aTagKey, final String aTagValue, final int position) {
 		TagEditRow row = (TagEditRow)View.inflate(this, R.layout.tag_edit_row, null);
 		row.setValues(aTagKey, aTagValue);
+		if (autocompletePresetItem != null) { // set hints even if value isen't empty
+			String hint = autocompletePresetItem.getHint(aTagKey);
+			if (hint != null) { 
+				row.valueEdit.setHint(hint);
+			} else if (autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
+				row.valueEdit.setHint(R.string.tag_value_hint);
+			}
+			if (row.valueEdit.getText().toString().length() == 0) {
+				String defaultValue = autocompletePresetItem.getDefault(aTagKey);
+				if (defaultValue != null) { //
+					row.valueEdit.setText(defaultValue);
+				} 
+			}
+		}
 		rowLayout.addView(row, (position == -1) ? rowLayout.getChildCount() : position);
 		return row;
 	}
@@ -737,12 +1213,35 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			keyEdit.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if ("addr:street".equals(parent.getItemAtPosition(position)) &&
+					if (Tags.KEY_ADDR_STREET.equals(parent.getItemAtPosition(position)) &&
 							valueEdit.getText().toString().length() == 0) {
-						ArrayAdapter<String> adapter = getStreetNameAutocompleteAdapter();
+						ArrayAdapter<String> adapter = owner.getStreetNameAutocompleteAdapter();
 						if (adapter != null && adapter.getCount() > 0) {
 							valueEdit.setText(adapter.getItem(0));
 						}
+					} else if (Tags.KEY_ADDR_PLACE.equals(parent.getItemAtPosition(position)) &&
+							valueEdit.getText().toString().length() == 0) {
+						ArrayAdapter<String> adapter = owner.getPlaceNameAutocompleteAdapter();
+						if (adapter != null && adapter.getCount() > 0) {
+							valueEdit.setText(adapter.getItem(0));
+						}
+					} else{
+						if (owner.autocompletePresetItem != null) {
+							String hint = owner.autocompletePresetItem.getHint(parent.getItemAtPosition(position).toString());
+							if (hint != null) { //
+								valueEdit.setHint(hint);
+							} else if (owner.autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || owner.autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
+								valueEdit.setHint(R.string.tag_value_hint);
+							}
+							if (valueEdit.getText().toString().length() == 0) {
+								String defaultValue = owner.autocompletePresetItem.getDefault(parent.getItemAtPosition(position).toString());
+								if (defaultValue != null) { //
+									valueEdit.setText(defaultValue);
+								} 
+							}
+						}
+						// set focus on value
+						valueEdit.requestFocus();
 					}
 				}
 			});
@@ -775,8 +1274,6 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 						
 					}
 				}
-				
-
 			});
 			
 			valueEdit.setOnItemClickListener(new OnItemClickListener() {
@@ -872,13 +1369,17 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			String key = keyEdit.getText().toString();
 			if (key != null && key.length() > 0) {
 				HashSet<String> usedKeys = (HashSet<String>) owner.getUsedKeys(null);
-				boolean isStreetName = ("addr:street".equalsIgnoreCase(key) ||
-						("name".equalsIgnoreCase(key) && usedKeys.contains("highway")));
-				boolean noNameSuggestions = usedKeys.contains("highway") || usedKeys.contains("waterway") 
-						|| usedKeys.contains("landuse") || usedKeys.contains("natural") || usedKeys.contains("railway");
+				boolean isStreetName = (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) ||
+						(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_HIGHWAY)));
+				boolean isPlaceName = (Tags.KEY_ADDR_PLACE.equalsIgnoreCase(key) ||
+						(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_PLACE)));
+				boolean noNameSuggestions = usedKeys.contains(Tags.KEY_HIGHWAY) || usedKeys.contains(Tags.KEY_WATERWAY) 
+						|| usedKeys.contains(Tags.KEY_LANDUSE) || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY);
 				if (isStreetName) {
-					adapter = getStreetNameAutocompleteAdapter();
-				} else if (key.equals("name") && (names != null) && !noNameSuggestions) {
+					adapter = owner.getStreetNameAutocompleteAdapter();
+				} else if (isPlaceName) {
+					adapter = owner.getPlaceNameAutocompleteAdapter();
+				} else if (key.equals(Tags.KEY_NAME) && (names != null) && !noNameSuggestions) {
 					ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(owner.getKeyValueMap(true)));
 					if (values != null && !values.isEmpty()) {
 						ArrayList<NameAndTags> result = values;
@@ -889,7 +1390,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 					if (owner.presets != null && owner.element != null) {
 						Collection<String> values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
 						if (values != null && !values.isEmpty()) {
-							List<String> result = new ArrayList<String>(values);
+							ArrayList<String> result = new ArrayList<String>(values);
 							Collections.sort(result);
 							adapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 						}
@@ -898,18 +1399,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			}
 			return adapter;
 		}
-		
-		/**
-		 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
-		 * @return
-		 */
-		private ArrayAdapter<String> getStreetNameAutocompleteAdapter() {
-			return (Main.logic == null || Main.logic.delegator == null) ? null :
-				new StreetTagValueAutocompletionAdapter(owner,
-						R.layout.autocomplete_row, Main.logic.delegator,
-						owner.type, owner.osmId);
-		}
-		
+				
 		/**
 		 * Sets key and value values
 		 * @param aTagKey the key value to set
@@ -1530,12 +2020,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
 			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
-			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) replacedValue = true;
+			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) {
+				replacedValue = true;
+			}
 		}
 		
 		// Recommended tags, no fixed value is given. We add only those that do not already exist.
 		for (Entry<String, String[]> tag : item.getRecommendedTags().entrySet()) {
-			if (!currentValues.containsKey(tag.getKey())) currentValues.put(tag.getKey(), "");
+			if (!currentValues.containsKey(tag.getKey())) {
+				currentValues.put(tag.getKey(), "");
+			}
 		}
 		
 		loadEdits(currentValues);
@@ -1543,7 +2037,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		
 		//
 		if (addToMRU) {
-		Preset[] presets = Main.getCurrentPresets();
+			Preset[] presets = Main.getCurrentPresets();
 			if (presets != null) {
 				for (Preset p:presets) {
 					if (p.contains(item)) {

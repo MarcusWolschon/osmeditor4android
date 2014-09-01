@@ -40,6 +40,25 @@
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:inputType="text"/>
+		<TextView
+	      android:id="@+id/upload_close_changeset_label"
+	      android:layout_width="wrap_content"
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
+	      android:layout_below="@id/upload_source_label"
+	      android:text="@string/upload_close_changeset_label"/>
+	   <CheckBox
+	       android:id="@+id/upload_close_changeset"
+	       android:layout_width="wrap_content"
+	       android:layout_height="48dp"
+	       android:gravity="center_vertical"
+	       android:layout_below="@id/upload_source"
+	       android:layout_alignRight="@id/upload_source"
+	       android:layout_alignBottom="@id/upload_close_changeset_label"
+	       android:layout_alignTop="@id/upload_close_changeset_label"
+	       android:text=""
+	     />
+
 	</RelativeLayout>
  
   <ScrollView

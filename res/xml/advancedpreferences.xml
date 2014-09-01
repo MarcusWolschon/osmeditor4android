@@ -32,6 +32,12 @@
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference
+			android:key="@string/config_closeChangesetOnSave_key"
+			android:title="@string/config_closeChangesetOnSave_title"
+			android:summary="@string/config_closeChangesetOnSave_summary"
+			android:defaultValue="true"
+		/>
+		<CheckBoxPreference
 			android:key="@string/config_enableDepreciatedModes_key"
 			android:title="@string/config_enableDeprecatedModes_title"
 			android:summary="@string/config_enableDeprecatedModes_summary"
@@ -78,9 +84,30 @@
 			android:summary="@string/config_enableAutoPreset_summary"
 			android:defaultValue="true"
 		/>
+		<CheckBoxPreference
+			android:key="@string/config_splitActionBarEnabled_key"
+			android:title="@string/config_splitActionBarEnabled_title"
+			android:summary="@string/config_splitActionBarEnabled_summary"
+			android:defaultValue="true"
+		/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_gps">
+		<ListPreference 
+		    android:key="@string/config_gps_source_key"
+		    android:title="@string/config_gps_source_title"
+			android:summary="@string/config_gps_source_summary"
+			android:entries="@array/gps_source"
+			android:entryValues="@array/gps_source_keys"
+			android:defaultValue="internal"
+		    />
+		<EditTextPreference
+			android:key="@string/config_gps_source_tcp_key"
+			android:title="@string/config_gps_source_tcp_title"
+			android:summary="@string/config_gps_source_tcp_summary"
+			android:dialogTitle="@string/config_gps_source_tcp_title"
+			android:defaultValue="127.0.0.1:1958"
+		/>
 		<EditTextPreference
 			android:key="@string/config_gps_interval_key"
 			android:title="@string/config_gps_interval_title"
@@ -97,6 +124,7 @@
 			android:numeric="decimal"
 			android:defaultValue="5.0"
 		/>
+		
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_server">
@@ -111,6 +139,12 @@
 			android:summary="@string/config_username_summary"
 			android:dialogTitle="@string/config_loginbutton_title"
 			android:singleLine="true"
+		/>
+		<EditTextPreference
+			android:key="@string/config_offsetServer_key"
+			android:title="@string/config_offsetServer_title"
+			android:summary="@string/config_offsetServer_summary"
+			android:defaultValue="http://offsets.textual.ru/"
 		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/config_category_acra">

@@ -7,7 +7,6 @@
   <string name="transfer_download_current_download">Descartar e descargar</string>
   <string name="transfer_download_current_back">Volver (Non facer nada)</string>
   <string name="upload_problem_title">Problema coa subida</string>
-  <string name="upload_problem_message">Non foron subidos tódolos datos. Intenta subilos outra vez para ver o que falla. A causa máis probable é un conflito de versións.</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
   <string name="no_login_data_message">Se estás usando OAuth, isto é probablemente un erro; por favor, envía un informe do problema. Se estás usando usuario e contrasinal (non recomendado), comproba que se introduciron correctamente.</string>
   <string name="no_connection_title">Non hai conexión co servidor</string>
@@ -73,7 +72,6 @@
   <string name="location_text_unknown">descoñecida</string>
   <string name="location_last_text_parameterized">Última posición coñecida: %1$s</string>
   <string name="location_current_text_parameterized">Posición actual: %1$s</string>
-  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s fai %4$s</string>
   <string name="location_text_metadata_accuracy">Precisión %1$2.0f metros,</string>
   <string name="location_map_text">Desde o mapa (próximamente)</string>
   <string name="location_coordinates_text">Desde coordenadas:</string>
@@ -125,7 +123,6 @@
   <string name="menu_reverse">Inverter</string>
   <string name="notreversable_description">A vía está etiquetada con atributos que son dependentes da dirección e non poden ser invertidos. Se invirtes a vía, corromperase o etiquetado.</string>
   <string name="reverse_anyway">Invertir de todas formas</string>
-  <string name="deleteway_description">Estás a punto de borrar unha vía.\n\nPodes manter tódolos puntos, ou borrar os que só pertenzan a esta vía e non teñan etiquetas.</string>
   <string name="deleteway_relation_description">Estás a punto de borrar unha vía que é un membro dunha ou máis relacións. Se eliminas a vía da(s) relación(s), pode que quede(n) inválida(s).</string>
   <string name="deleteway_wayonly">Borrar só a vía</string>
   <string name="deleteway_wayandnodes">Borrar vía e puntos</string>
@@ -155,8 +152,6 @@
   <string name="config_category_server">Axustes do Servidor</string>
   <string name="config_apibutton_title">URL da API de OSM</string>
   <string name="config_apibutton_summary">Aquí podes axustar a URL dunha API non estándar. Normalmente non debería cambiarse!</string>
-  <string name="config_presetbutton_title">Preaxuste JOSM</string>
-  <string name="config_presetbutton_summary">Aquí podes axustar definicións de elementos do mapa.</string>
   <string name="config_iconbutton_title">Mostrar iconas dos puntos</string>
   <string name="config_iconbutton_summary">Mostrar a icona do preaxuste máis coincidente sobre os puntos.</string>
   <string name="config_loginbutton_title">Conta de usuario</string>
@@ -186,7 +181,6 @@
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">Subir?</string>
-  <string name="confirm_upload_text">Subir os seguintes cambios?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Engadir preaxuste</string>
   <string name="urldialog_preset_exists">Este preaxuste xa existe</string>
@@ -235,4 +229,6 @@
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

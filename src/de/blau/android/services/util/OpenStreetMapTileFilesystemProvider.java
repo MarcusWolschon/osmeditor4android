@@ -101,23 +101,29 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		bos.close();
 
 		synchronized (this) {
-			final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData.length);
-			mCurrentFSCacheByteSize += bytesGrown;
-
-			if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
-				Log.i(DEBUGTAG, "FSCache Size is now: " + mCurrentFSCacheByteSize + " Bytes");
-
-			/* If Cache is full... */
 			try {
+				final int bytesGrown = mDatabase.addTileOrIncrement(tile, someData.length);
+				mCurrentFSCacheByteSize += bytesGrown;
 
-				if (mCurrentFSCacheByteSize > mMaxFSCacheByteSize){
-					if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
-						Log.d(DEBUGTAG, "Freeing FS cache...");
-					mCurrentFSCacheByteSize -= mDatabase.deleteOldest((int)(mMaxFSCacheByteSize * 0.05f)); // Free 5% of cache
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
+					Log.i(DEBUGTAG, "FSCache Size is now: " + mCurrentFSCacheByteSize + " Bytes");
+
+				/* If Cache is full... */
+				try {
+
+					if (mCurrentFSCacheByteSize > mMaxFSCacheByteSize){
+						if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
+							Log.d(DEBUGTAG, "Freeing FS cache...");
+						mCurrentFSCacheByteSize -= mDatabase.deleteOldest((int)(mMaxFSCacheByteSize * 0.05f)); // Free 5% of cache
+					}
+				} catch (EmptyCacheException e) {
+					if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
+						Log.e(DEBUGTAG, "Cache empty", e);
 				}
-			} catch (EmptyCacheException e) {
-				if(Log.isLoggable(DEBUGTAG, Log.DEBUG))
-					Log.e(DEBUGTAG, "Cache empty", e);
+			} catch (IllegalStateException e) {
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+					Log.e(DEBUGTAG, "Tile saving failed", e);
+				}
 			}
 		}
 	}
@@ -146,8 +152,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		try {
 			mDatabase.flushCache(rendererID);
 		} catch (EmptyCacheException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+				Log.e(DEBUGTAG, "Flushing tile cache failed", e);
+			}
 		}
 	}
 	
@@ -200,17 +207,18 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		//@Override
 		@Override
 		public void run() {
-			synchronized (OpenStreetMapTileFilesystemProvider.this) {
-				if (OpenStreetMapTileFilesystemProvider.this.mDatabase.hasTile(mTile)) {
-					OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
-					if (OpenStreetMapTileFilesystemProvider.this.mDatabase.isInvalid(mTile)) {
-						// Log.i(DEBUGTAG, "TileLoader " + mTile.toString() + " is invalid, skipping");
-						return; // the finally clause will remove the tile from the pending list
-					}
-				}
-			}
 			DataInputStream dataIs = null;
 			try {
+				synchronized (OpenStreetMapTileFilesystemProvider.this) {
+					if (OpenStreetMapTileFilesystemProvider.this.mDatabase.hasTile(mTile)) {
+						OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
+						if (OpenStreetMapTileFilesystemProvider.this.mDatabase.isInvalid(mTile)) {
+							// Log.i(DEBUGTAG, "TileLoader " + mTile.toString() + " is invalid, skipping");
+							return; // the finally clause will remove the tile from the pending list
+						}
+					}
+				}
+	
 				OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, mTile.rendererID, false);
 				if (mTile.zoomLevel < renderer.getMinZoomLevel()) { // the tile doesn't exist no point in trying to get it
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
@@ -237,21 +245,27 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				try {
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, IOERR);
 				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+						Log.e(DEBUGTAG, "Error marking tile as failed", e);
+					}
 				}
-				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))	// only log in debug mode, though it's an error message
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {	// only log in debug mode, though it's an error message
 					Log.e(DEBUGTAG, "Error Loading MapTile from FS.");
+				}
 			} catch (RemoteException e) {
-				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 					Log.e(DEBUGTAG, "Service failed", e);
+				}
+			} catch (IllegalStateException e) {
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+					Log.e(DEBUGTAG, "Tile loading failed", e);
+				}
 			} finally {
 				try {
 					if (dataIs != null)
 						dataIs.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					// ignore
 				}
 				finished();
 			}

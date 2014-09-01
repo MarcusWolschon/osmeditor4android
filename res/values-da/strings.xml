@@ -104,8 +104,6 @@
   <string name="config_category_server">Server Indstillinger</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">Du kan angive en ikke-standard API URL her. Bør normalt ikke ændres!</string>
-  <string name="config_presetbutton_title">JOSM indstilling</string>
-  <string name="config_presetbutton_summary">Du kan opsætte definitioner af kortelementer her</string>
   <string name="config_iconbutton_title">Vis knude-ikoner</string>
   <string name="config_loginbutton_title">Brugerkonto</string>
   <string name="config_username_title">OSM Username</string>
@@ -128,7 +126,6 @@
   <string name="changes_changed">\"%1$s\" ændret</string>
   <string name="changes_created">\"%1$s\" oprettet</string>
   <string name="confirm_upload_title">Upload?</string>
-  <string name="confirm_upload_text">Vil du oplode de følgende ændringer?⏎\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_api_exists">En API med denne URL eksisterer allerede. Du kan tilføje en anden (f.eks. til nemt at skifte mellem konti)</string>
   <string name="urldialog_add_api">Tilføj API</string>
@@ -168,4 +165,6 @@
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

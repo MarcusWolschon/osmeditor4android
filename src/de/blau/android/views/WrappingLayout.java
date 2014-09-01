@@ -8,8 +8,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * This is an ugly hack providing something like a flow layout.
@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
  * will yield the horizontal linear layouts that may be replaced at any time.
  * 
  * This layout should be usable via inflation from XML - the original children
- * are loaded into this class, wrapped in liear layouts and then re-inserted.
+ * are loaded into this class, wrapped in linear layouts and then re-inserted.
  * However, advanced attributes need to be set in the code.
  * 
  * @author Jan Schejbal
@@ -199,6 +199,9 @@ public class WrappingLayout extends LinearLayout {
 		private int hspace = 0;
 		private int vspace = 0;
 		
+		private boolean widthAdjustmentDone = false;
+		private int newWidth = 0;
+		
 		private static final int MEASURE_SPEC_UNSPECIFIED = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
 
 		
@@ -242,43 +245,51 @@ public class WrappingLayout extends LinearLayout {
 			final int availableSpace = container.getWidth() - container.getPaddingLeft() - container.getPaddingRight();
 			int usedSpace = 0;
 			
+			if (children != null && children.size() > 0 && !widthAdjustmentDone) {
+				int childWidth = getViewWidth(children.get(0));
+				float times = (availableSpace - hspace)/(float)(childWidth + hspace);
+				newWidth = (availableSpace - (((int)times+1)*hspace))/((int)times);
+				widthAdjustmentDone = true;
+			}
+			
 			LinearLayout inner = new LinearLayout(context);
 			inner.setGravity(rowGravity);
 			inner.setOrientation(LinearLayout.HORIZONTAL);
-			container.addView(inner, new LayoutParams((ViewGroup.MarginLayoutParams)innerLayoutParams));
-			
-			// For new rows, set margin
+			// not only For new rows, set margin
 			innerLayoutParams.topMargin = vspace;
-			
+			container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams)innerLayoutParams));
+
 			if (availableSpace == 0) {
 				Log.e(LOGTAG, "No width information - read documentation!");
 			}
 			
 			for (View child : children) {
 				int childWidth = getViewWidth(child);
-				if (inner.getChildCount() > 0) { // if row is empty, no space checking is done
-					if ((usedSpace + hspace + childWidth) <= availableSpace) {
-						// adding to current row
-						
-						// add horizontal spacing if necessary
-						if (hspace > 0) { 
-							if (rightToLeft) {
-								inner.addView(new SpacerView(context, hspace, 0), 0);
-							} else {
-								inner.addView(new SpacerView(context, hspace, 0));
-							}
-							usedSpace += hspace;
-						}
-					} else {
-						// did not fit, create new row
-						inner = new LinearLayout(context);
-						inner.setOrientation(LinearLayout.HORIZONTAL);
-						inner.setGravity(rowGravity);
-						container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams)innerLayoutParams));
-						usedSpace = 0;
-					}
+				if (newWidth > childWidth) { //TODOthis will fail with non square children views
+					((TextView)child).setWidth(newWidth);
+					((TextView)child).setHeight(newWidth);
 				}
-							
+				childWidth = getViewWidth(child);
+				
+				if ((usedSpace + hspace + childWidth) > availableSpace) {
+					// did not fit, create new row
+					inner = new LinearLayout(context);
+					inner.setOrientation(LinearLayout.HORIZONTAL);
+					inner.setGravity(rowGravity);
+					container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams)innerLayoutParams));
+					usedSpace = 0;
+				}
+				// adding to current row						
+				// add horizontal spacing if necessary
+				if (hspace > 0) { 
+					if (rightToLeft) {
+						inner.addView(new SpacerView(context, hspace, 0), 0);
+					} else {
+						inner.addView(new SpacerView(context, hspace, 0));
+					}
+					usedSpace += hspace;
+				}
+
 				// add to whatever is the current row now
 				if (rightToLeft) {
 					inner.addView(child, 0);
@@ -286,7 +297,6 @@ public class WrappingLayout extends LinearLayout {
 					inner.addView(child);
 				}
 				usedSpace += childWidth;
-
 			}
 		}
 		

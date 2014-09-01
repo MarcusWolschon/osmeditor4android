@@ -9,24 +9,44 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Path;
+import android.graphics.Typeface;
+import android.graphics.Paint.Cap;
+import android.graphics.Paint.Join;
+import android.graphics.Paint.Style;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
+import de.blau.android.resources.Profile.FeatureProfile;
+import de.blau.android.util.Density;
 import de.blau.android.util.SavingHelper;
 
 /**
@@ -35,7 +55,7 @@ import de.blau.android.util.SavingHelper;
  * Content saving happens continuously to avoid large delays when closing.
  * A BufferedOutputStream is used to prevent large amounts of flash wear.
  */
-public class Track {
+public class Track extends DefaultHandler {
 	private static final String TAG = "Track";
 	
 	private final ArrayList<TrackPoint> track;
@@ -43,6 +63,17 @@ public class Track {
 	private final String SAVEFILE = "track.dat";
 	
 	private final Context ctx;
+
+	/**
+	 * For conversion from UNIX epoch time and back
+	 */
+	private static final SimpleDateFormat ISO8601FORMAT;
+	private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+	static {
+		// Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
+		ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
 	
 	/**
 	 * if loadingFinished is true, indicates how many records the save file contains
@@ -110,7 +141,7 @@ public class Track {
 	}
 	
 	public List<TrackPoint> getTrackPoints() {
-		return track;
+		return new ArrayList<TrackPoint>(track); // need a shallow copy here
 	}
 	
 	@Override
@@ -340,8 +371,12 @@ public class Track {
 	
 	/**
 	 * Writes GPX data to the output stream.
+	 * @throws XmlPullParserException 
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 * @throws IllegalArgumentException 
 	 */
-	public void exportToGPX(OutputStream outputStream) throws Exception {
+	public void exportToGPX(OutputStream outputStream) throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException  {
 		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 		serializer.setOutput(outputStream, "UTF-8");
 		serializer.startDocument("UTF-8", null);
@@ -370,6 +405,105 @@ public class Track {
 	}
 	
 	/**
+	 * Reads GPX data from the output stream.
+	 */
+	public void importFromGPX(InputStream is) {
+		try {
+			start(is);
+		} catch (Exception e) {
+			Log.e("Track", "importFromGPX failed " + e);
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * start parsing a GPX file
+	 * @param in
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
+	public void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParser saxParser = factory.newSAXParser();
+		saxParser.parse(in, this);
+	}
+	
+	/**
+	 * minimalistic GPX file parser
+	 */
+	private boolean newSegment = false;
+	private double parsedLat;
+	private double parsedLon;
+	private double parsedEle =  Double.NaN;
+	private long parsedTime = 0L;
+	private static enum State {
+		NONE, TIME, ELE
+	}
+	private State state = State.NONE;
+
+	@Override
+	public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
+		try {
+			if (element.equals("gpx")) {
+				state = State.NONE;
+				Log.d("Track","parsing gpx");
+			} else if (element.equals("trk")) {
+				Log.d("Track","parsing trk");
+			} else if (element.equals("trkseg")) {
+				Log.d("Track","parsing trkseg");
+				newSegment = true;
+			} else if (element.equals("trkpt")) {
+				parsedLat = Double.parseDouble(atts.getValue("lat"));
+				parsedLon = Double.parseDouble(atts.getValue("lon"));
+			} else if (element.equals("time")) {
+				state = State.TIME;
+			} else if (element.equals("ele")) {
+				state = State.ELE;
+			} 
+		} catch (Exception e) {
+			Log.e("Profil", "Parse Exception", e);
+		}
+	}
+
+	
+	@Override
+	public void characters(char[] ch, int start, int length) {
+
+		switch(state) {
+		case NONE:
+			return;
+		case ELE:
+			parsedEle = Double.parseDouble(new String(ch,start,length));
+			return;
+		case TIME:
+			try {
+				parsedTime = ISO8601FORMAT.parse(new String(ch,start,length)).getTime();
+			} catch (ParseException e) {
+				parsedTime = 0L;
+			}
+			return;
+		}
+	}
+	
+	@Override
+	public void endElement(final String uri, final String element, final String qName) {
+		if (element.equals("gpx")) {
+		} else if (element.equals("trk")) {
+		} else if (element.equals("trkseg")) {
+		} else if (element.equals("trkpt")) {
+			track.add(new TrackPoint(newSegment?TrackPoint.FLAG_NEWSEGMENT:0, parsedLat, parsedLon, parsedEle, parsedTime));
+			newSegment = false;
+			parsedEle =  Double.NaN;
+			parsedTime = 0L;
+		} else if (element.equals("time")) {
+			state = State.NONE;
+		} else if (element.equals("ele")) {
+			state = State.NONE;
+		} 
+	}
+	
+	/**
 	 * This is a class to store location points and provide storing/serialization for them.
 	 * Everything considered less relevant is commented out to save space.
 	 * If you chose that this should be included in the GPX, uncomment it,
@@ -381,13 +515,13 @@ public class Track {
 	 */
 	public static class TrackPoint implements InterruptibleGeoPoint {
 		
-		private static final SimpleDateFormat ISO8601FORMAT;
-		private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-		static {
-			// Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
-			ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-			ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
-		}
+//		private static final SimpleDateFormat ISO8601FORMAT;
+//		private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//		static {
+//			// Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
+//			ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+//			ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+//		}
 		
 		public static final int FORMAT_VERSION = 2;
 		public static final int RECORD_SIZE = 1+4*8;
@@ -414,6 +548,7 @@ public class Track {
 		}
 		
 		private TrackPoint(byte flags, double latitude, double longitude, double altitude, long time) {
+			// Log.d("Track","new trkpt " + flags + " " +  latitude+ " " + longitude+ " " + altitude+ " " + time);
 			this.flags = flags;
 			this.latitude = latitude;
 			this.longitude = longitude;

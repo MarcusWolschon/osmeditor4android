@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -13,8 +15,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -29,6 +35,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
+import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -37,6 +44,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
@@ -55,13 +63,38 @@ public class EasyEditManager {
 	private ActionMode currentActionMode = null;
 	private EasyEditActionModeCallback currentActionModeCallback = null;
 	
+	private int iconsDisplayed = 0;
+	private int maxIcons = 0;
+	
+	private final static int GROUP_MODE = 0;
+	private final static int GROUP_BASE = 1;
+	
+	private static final int MENUITEM_HELP = 0;
+	
 	public EasyEditManager(Main main, Logic logic) {
 		this.main = main;
 		this.logic = logic;
 	}
 	
+	/**
+	 * Returns true if a actionmode is currently active
+	 * @return
+	 */
 	public boolean isProcessingAction() {
 		return (currentActionModeCallback != null);
+	}
+	
+	/**
+	 * If we have more space on screen (tablett) try to force more icons in to the menu bar
+	 * @return
+	 */
+	private int showAlways() {
+		if (iconsDisplayed < maxIcons) {  
+			iconsDisplayed++;
+			return MenuItem.SHOW_AS_ACTION_ALWAYS;
+		} else {
+			return MenuItem.SHOW_AS_ACTION_IF_ROOM;
+		}
 	}
 	
 	/**
@@ -112,10 +145,10 @@ public class EasyEditManager {
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
 
-		if ((currentActionModeCallback instanceof PathCreationActionModeCallback) 
-			|| (currentActionModeCallback instanceof WaySelectionActionModeCallback)
-			|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
-			|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
+		if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) 
+//			|| (currentActionModeCallback instanceof WaySelectionActionModeCallback)
+//			|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
+//			|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
 		{
 			// we don't do long clicks in the above modes
 			Log.d("EasyEditManager", "handleLongClick ignoring long click");
@@ -152,6 +185,7 @@ public class EasyEditManager {
 	 * (unless the node is also null, then nothing happens).
 	 * @param possibleNode a node that was edited, or null
 	 * @param possibleWay a way that was edited, or null
+	 * @param select TODO
 	 */
 	private void tagApplicable(Node possibleNode, Way possibleWay, boolean select) {
 		if (possibleWay == null) {
@@ -225,7 +259,7 @@ public class EasyEditManager {
 		boolean firstNodeAdded = false;
 		boolean lastNodeAdded = false;
 		for (Way candidate : candidates) {
-			if ((way != candidate) && (way.getTagWithKey("highway") != null)) {
+			if ((way != candidate) && (way.getTagWithKey(Tags.KEY_HIGHWAY) != null)) {
 				if (candidate.isEndNode(way.getFirstNode())) {
 					result.add(candidate);
 					if (!firstNodeAdded) {
@@ -256,7 +290,7 @@ public class EasyEditManager {
 		Set<OsmElement> result = new HashSet<OsmElement>();
 		candidates.addAll(logic.getWaysForNode(commonNode));
 		for (Way candidate : candidates) {
-			if (way == null || ((way != candidate) && (way.getTagWithKey("highway") != null))) {
+			if (way == null || ((way != candidate) && (way.getTagWithKey(Tags.KEY_HIGHWAY) != null))) {
 					result.add(candidate);
 			}
 		}
@@ -278,9 +312,18 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
 			currentActionMode = mode;
 			currentActionModeCallback = this;
-			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
+			
+			// hardcoded calculation of how many icons we want to display
+			//TODO de-hardcode
+			if (main.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+				DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
+			    float widthDp = metrics.widthPixels / metrics.density;
+			    Log.d("EasyEditManager","pixel width " + metrics.widthPixels + " DP width " + widthDp);
+				maxIcons = (int) (widthDp/2/64-1);
+			}
 			return false;
 		}
 		
@@ -321,6 +364,7 @@ public class EasyEditManager {
 		/** {@inheritDoc} */ // placed here for convenience, allows to avoid unnecessary methods in subclasses
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			iconsDisplayed = 0;
 			return false;
 		}
 		
@@ -328,6 +372,12 @@ public class EasyEditManager {
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			Log.e("EasyEditActionModeCallback", "onActionItemClicked");
+			if (item.getItemId() == MENUITEM_HELP) {
+				Intent startHelpViewer = new Intent(main.getApplicationContext(), HelpViewer.class);
+				startHelpViewer.putExtra(HelpViewer.TOPIC, currentActionMode.getTitle().toString() 
+						+ (currentActionMode.getSubtitle() != null && !currentActionMode.getSubtitle().equals("") ? " - " + currentActionMode.getSubtitle().toString() : ""));
+				main.startActivity(startHelpViewer);
+			}
 			return false;
 		}
 		
@@ -344,12 +394,16 @@ public class EasyEditManager {
 		private static final int MENUITEM_OSB = 1;
 		private static final int MENUITEM_NEWNODEWAY = 2;
 		private static final int MENUITEM_PASTE = 3;
+		private static final int MENUITEM_NEWNODE_GPS = 4;
+		private static final int MENUITEM_NEWNODE_ADDRESS = 5;
 		private float startX;
 		private float startY;
 		private int startLon;
 		private int startLat;
 		private float x;
 		private float y;
+		LocationManager locationManager = null;
+		private boolean addAddressTags = false;
 		
 		public LongClickActionModeCallback(float x, float y) {
 			super();
@@ -378,11 +432,18 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address);
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(R.drawable.tag_menu_bug);
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
 			if (!logic.clipboardIsEmpty()) {
-				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste);
+				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(R.drawable.ic_menu_paste_holo_dark);
 			}
+			// check if GPS is enabled
+			locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(R.drawable.menu_gps);
+			}
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
 			return true;
 		}
 		
@@ -420,16 +481,71 @@ public class EasyEditManager {
 				main.startActionMode(new PathCreationActionModeCallback(x, y));
 				logic.hideCrosshairs();
 				return true;
+			case MENUITEM_NEWNODE_ADDRESS:
+				logic.hideCrosshairs();
+				try {
+					logic.setSelectedNode(null);
+					logic.performAdd(x, y);
+				} catch (OsmIllegalOperationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				addAddressTags = true;
+				Node lastSelectedNode = logic.getSelectedNode();
+				if (lastSelectedNode != null) {
+					main.startActionMode(new NodeSelectionActionModeCallback(lastSelectedNode));
+					main.performTagEdit(lastSelectedNode, null, addAddressTags);
+				}
+				return true;
 			case MENUITEM_PASTE:
 				logic.pasteFromClipboard(startX, startY);
 				logic.hideCrosshairs();
 				mode.finish();
+				return true;
+			case MENUITEM_NEWNODE_GPS:
+				logic.hideCrosshairs();
+				try {
+					logic.setSelectedNode(null);
+					logic.performAdd(x, y);
+					Node node = logic.getSelectedNode();
+					if (locationManager != null && node != null) {
+						Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+						if (location != null) {
+							double lon = location.getLongitude();
+							double lat = location.getLatitude();
+							if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+								logic.performSetPosition(node,lon,lat);
+								TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+								if (location.hasAltitude()) {
+									tags.put(Tags.KEY_ELE, String.format("%.1f",location.getAltitude()));
+									tags.put(Tags.KEY_ELE_MSL, String.format("%.1f",location.getAltitude()));
+									tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
+								}
+								tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
+								logic.setTags(Node.NAME, node.getOsmId(), tags);
+							}
+						}
+					}
+					currentActionMode.finish();
+				} catch (OsmIllegalOperationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return true;
 			default:
 				Log.e("LongClickActionModeCallback", "Unknown menu item");
 				break;
 			}
 			return false;
+		}
+		
+		/**
+		 * Path creation action mode is ending
+		 */
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			logic.setSelectedNode(null);
+			super.onDestroyActionMode(mode);
 		}
 	}
 	
@@ -543,6 +659,7 @@ public class EasyEditManager {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
 			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(R.drawable.undo);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
 			return true;
 		}
 		
@@ -596,8 +713,10 @@ public class EasyEditManager {
 			Way lastSelectedWay = logic.getSelectedWay();
 			logic.setSelectedWay(null);
 			logic.setSelectedNode(null);
-			if (appendTargetNode == null) tagApplicable(lastSelectedNode, lastSelectedWay, true);
 			super.onDestroyActionMode(mode);
+			if (appendTargetNode == null) { // doesn't work as intended element selected modes get zapped, don't try to select because of this
+				tagApplicable(lastSelectedNode, lastSelectedWay, false); 
+			}
 		}
 	}
 	
@@ -616,7 +735,6 @@ public class EasyEditManager {
 		private static final int MENUITEM_RELATION = 6;
 		
 		private static final int MENUITEM_TAG_LAST = 20;
-		
 		
 		protected OsmElement element = null;
 		
@@ -644,17 +762,18 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags);
-			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.tag_menu_delete);
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy);
-				menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut);
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SECONDARY, R.string.menu_relation);
-			if (element.getOsmId() > 0){
-				menu.add(Menu.NONE, MENUITEM_HISTORY, Menu.CATEGORY_SECONDARY, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
+			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
+			if (element.getOsmId() > 0) {
+				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
 			}
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
 			return true;
 		}
 		
@@ -666,8 +785,8 @@ public class EasyEditManager {
 			case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
 			case MENUITEM_DELETE: menuDelete(mode); break;
 			case MENUITEM_HISTORY: showHistory(); break;
-			case MENUITEM_COPY: logic.copyToClipboard(element); break;
-			case MENUITEM_CUT: logic.cutToClipboard(element); break;
+			case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
+			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			default: return false;
 			}
@@ -729,16 +848,16 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			if (logic.isEndNode((Node)element)) {
-				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append).setShowAsAction(showAlways());
 			}
 			joinableElement = logic.findJoinableElement((Node)element);
 			if (joinableElement != null) {
-				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(R.drawable.tag_menu_merge);
+				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(R.drawable.tag_menu_merge).setShowAsAction(showAlways());
 			}
 			if (logic.getWaysForNode((Node)element).size() > 1) {
-				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split);
+				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.NONE, R.string.menu_set_position).setIcon(R.drawable.menu_gps);
+			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position).setIcon(R.drawable.menu_gps).setShowAsAction(showAlways());
 			return true;
 		}
 		
@@ -834,23 +953,13 @@ public class EasyEditManager {
 			return new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					double lon = 0d;
-					double lat = 0d;
-					try {
-						lon = Double.valueOf(lonField.getText().toString());
-						lat = Double.valueOf(latField.getText().toString());
-						if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-							logic.performSetPosition(node,lon,lat);
-						} else {
-							createSetPositionDialog((int)(lon*1E7), (int)(lat*1E7)).show();
-							Toast.makeText(main, R.string.coordinates_out_of_range, Toast.LENGTH_LONG).show();
-						}
-					} catch (NumberFormatException e) {
+					double lon = Double.valueOf(lonField.getText().toString());
+					double lat = Double.valueOf(latField.getText().toString());
+					if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+						logic.performSetPosition(node,lon,lat);
+					} else {
 						createSetPositionDialog((int)(lon*1E7), (int)(lat*1E7)).show();
-						Toast.makeText(main, R.string.toast_number_format, Toast.LENGTH_LONG).show();
-					} catch (NotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Toast.makeText(main, R.string.coordinates_out_of_range, Toast.LENGTH_LONG).show();
 					}
 				}
 			};
@@ -866,6 +975,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_ROTATE = 12;
 		private static final int MENUITEM_ORTHOGONALIZE = 13;
 		private static final int MENUITEM_CIRCULIZE = 14;
+		private static final int MENUITEM_ADDRESS = 15;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -897,23 +1007,26 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			Log.d("WaySelectionActionCallback", "onPrepareActionMode");
-			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(R.drawable.tag_menu_reverse);
+			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING)) {
+				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address).setShowAsAction(showAlways());
+			}
+			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(R.drawable.tag_menu_reverse).setShowAsAction(showAlways());
 			if (((Way)element).getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(R.drawable.tag_menu_split);
+				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
 			}
 			if (cachedMergeableWays.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(R.drawable.tag_menu_merge);
+				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(R.drawable.tag_menu_merge).setShowAsAction(showAlways());
 			}
 			if (cachedAppendableNodes.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append);
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append).setShowAsAction(showAlways());
 			}
-			if ((((Way)element).getTagWithKey("highway") != null) && (cachedViaElements.size() > 0)) {
-				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(R.drawable.tag_menu_restriction);
-			}	
-			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate);
+			if (((Way)element).getTagWithKey(Tags.KEY_HIGHWAY) != null && (cachedViaElements.size() > 0)) {
+				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(R.drawable.tag_menu_restriction).setShowAsAction(showAlways());	
+			}
 			if (((Way)element).getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize);
+				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(R.drawable.menu_ortho).setShowAsAction(showAlways());
 			}
+			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(R.drawable.ic_menu_rotate).setShowAsAction(showAlways());
 			if (((Way)element).getNodes().size() > 2 && ((Way)element).isClosed()) {
 				menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
 			}
@@ -955,6 +1068,7 @@ public class EasyEditManager {
 				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
 				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); break;
 				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); break;
+				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true); break;
 				default: return false;
 				}
 			}
@@ -1169,7 +1283,6 @@ public class EasyEditManager {
 	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
 	
 		private static final int MENUITEM_ADD_RELATION_MEMBERS = 7;
-		
 		
 		private RelationSelectionActionModeCallback(Relation relation) {
 			super(relation);

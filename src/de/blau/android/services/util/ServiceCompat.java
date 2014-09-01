@@ -34,8 +34,10 @@ public class ServiceCompat {
 		try {
 			method.invoke(mService, args);
 		} catch (InvocationTargetException e) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e);
 		} catch (IllegalAccessException e) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(e);
 		}
 	}
@@ -92,6 +94,7 @@ public class ServiceCompat {
 		try {
 			mSetForeground = service.getClass().getMethod("setForeground", mSetForegroundSignature);
 		} catch (NoSuchMethodException e) {
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(new IllegalStateException(
 					"OS doesn't have Service.startForeground OR Service.setForeground!"));
 		}

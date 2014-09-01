@@ -24,6 +24,7 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -40,6 +41,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
+import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -49,6 +51,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.jsonreader.JsonReader;
+import de.blau.android.util.jsonreader.JsonToken;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
@@ -60,10 +63,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private static final int MENUITEM_ZERO = 5;
 	private static final int MENUITEM_SAVE2DB = 6;
 	private static final int MENUITEM_SAVELOCAL = 7;
-	
-	private static final String OFFSET_SERVER = "http://offsets.textual.ru/";//TODO set in prefs
+	private static final int MENUITEM_HELP = 8;
 	
 	Mode oldMode;
+	private final Preferences prefs;
+	private final String offsetServer;
+	
 	Offset[] oldOffsets;
 	
 	OpenStreetMapTileServer osmts;
@@ -76,6 +81,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		map = Application.mainActivity.getMap();
 		osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		oldOffsets = osmts.getOffsets().clone();
+		prefs = new Preferences(Application.mainActivity);
+		offsetServer = prefs.getOffsetServer();
 	}
 
 	@Override
@@ -94,6 +101,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
 		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db);
 		// menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
+		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
 		return true;
 	}
 
@@ -125,6 +133,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			break;
 		case MENUITEM_SAVELOCAL:
 			break;
+		case MENUITEM_HELP:
+			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
+			startHelpViewer.putExtra(HelpViewer.TOPIC, mode.getTitle().toString());
+			Application.mainActivity.startActivity(startHelpViewer);
+			return true;
 		default: return false;
 		}
 		return true;
@@ -136,6 +149,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 *
 	 */
 	private class OffsetLoader extends AsyncTask<Integer, Void, ArrayList<ImageryOffset>> {
+		
+		String error = null;
 
 		@Override
 		protected void onPreExecute() {
@@ -149,7 +164,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			double centerLon = (bbox.getLeft() + ((long)bbox.getRight() - (long)bbox.getLeft())/2L) / 1E7d;
 			try {
 				Integer radius = params[0];
-				String urlString = OFFSET_SERVER + "get?lat=" + bbox.getCenterLat() + "&lon=" + centerLon 
+				String urlString = offsetServer + "get?lat=" + bbox.getCenterLat() + "&lon=" + centerLon 
 						+ (radius != null && radius > 0 ? "&radius=" + radius : "") + "&imagery=" + osmts.getImageryOffsetId() + "&format=json";
 				Log.d("BackgroundAlignmentActionModeCallback","urlString " + urlString);
 				URL url = new URL(urlString);
@@ -160,16 +175,31 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				try {
 					
 					try {
-						reader.beginArray();
-						while (reader.hasNext()) {
-							ImageryOffset imOffset = readOffset(reader);
-							if (imOffset != null && imOffset.deprecated == null) //TODO handle deprecated 
-								result.add(imOffset);
-						}
-						reader.endArray();
+						JsonToken token = reader.peek();
+						if (token.equals(JsonToken.BEGIN_ARRAY)) {
+							reader.beginArray();
+							while (reader.hasNext()) {
+								ImageryOffset imOffset = readOffset(reader);
+								if (imOffset != null && imOffset.deprecated == null) //TODO handle deprecated 
+									result.add(imOffset);
+							}
+							reader.endArray();
+						} else if (token.equals(JsonToken.BEGIN_OBJECT)) {
+							reader.beginObject();
+							while (reader.hasNext()) {
+								String jsonName = reader.nextName();
+								if (jsonName.equals("error")) {
+									error = reader.nextString();
+								} else {
+									reader.skipValue();
+								}
+							}
+							return null;
+						} // can't happen ?
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						error = e.getMessage();
+					} catch (IllegalStateException e) {
+						error = e.getMessage();
 					}
 					return result;
 				}
@@ -177,12 +207,10 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				       reader.close();
 				}			
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				error = e.getMessage();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				error = e.getMessage();
+			}			
 			return null;
 		}
 		
@@ -195,6 +223,10 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				Log.d("BackgroundAlignmentActionModeCallback", "", e);
 			}
 		}
+		
+		String getError() {
+			return error;
+		}
 	};
 	
 	/**
@@ -203,6 +235,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 *
 	 */
 	private class OffsetSaver extends AsyncTask<ImageryOffset, Void, Integer> {
+		String error = null;
 
 		@Override
 		protected void onPreExecute() {
@@ -223,12 +256,10 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				InputStream is = conn.getInputStream();
 				return conn.getResponseCode();
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				error = e.getMessage();
 				return -2;
 			} catch (Exception /*IOException*/ e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				error = e.getMessage();
 				return -1;
 			} 
 		}
@@ -246,10 +277,15 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			else
 				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_failed, Toast.LENGTH_SHORT).show();
 		}
+		
+		String getError() {
+			return error;
+		}
 	};
 
 	private void getOffsetFromDB() {
 		OffsetLoader loader = new OffsetLoader(); 
+		String error = null;
 		
 		try {
 			// first try for our view box
@@ -291,19 +327,15 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 					dialog.show();
 				}
 			}
+			return;
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			error = e.getMessage();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			error = e.getMessage();
 		} catch (TimeoutException e) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(Application.mainActivity);
-			builder.setMessage(R.string.toast_timeout).setTitle(R.string.imagery_offset_title);
-			builder.setPositiveButton(R.string.okay, null);
-			AlertDialog dialog = builder.create();
-			dialog.show();
+			error = Application.mainActivity.getString(R.string.toast_timeout);
 		}
+		displayError(error);
 	}
 	
 	private void saveOffsetsToDB() {
@@ -314,9 +346,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		Offset lastOffset = null;
 		ImageryOffset im = null;
 		String author = null;
+		String error = null;
 		
 		// try to find current display name
-		final Preferences prefs = new Preferences(Application.mainActivity);
 		final Server server = prefs.getServer();
 		if (server != null) {
 			if (!server.needOAuthHandshake()) {
@@ -337,15 +369,14 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 						author = server.getDisplayName(); // maybe it has been configured
 					}
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					error = e.getMessage();
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					error = e.getMessage();
 				} catch (TimeoutException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					error = Application.mainActivity.getString(R.string.toast_timeout);
 				}
+				displayError(error);
+				error=null;
 			} else {
 				author = server.getDisplayName(); // maybe it has been configured
 			}	
@@ -383,76 +414,78 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		} 
 	}
 
-	protected ImageryOffset readOffset(JsonReader reader) {
+	private void displayError(String error) {
+		if (error != null) { // try to avoid code dup
+			AlertDialog.Builder builder = new AlertDialog.Builder(Application.mainActivity);
+			builder.setMessage(error).setTitle(R.string.imagery_offset_title);
+			builder.setPositiveButton(R.string.okay, null);
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+	}
+
+	protected ImageryOffset readOffset(JsonReader reader) throws IOException {
 		String type = null;
 		ImageryOffset result = new ImageryOffset();
-		try {
-			reader.beginObject();
-			while (reader.hasNext()) {
-				String jsonName = reader.nextName();
-				if (jsonName.equals("type")) {
-					type = reader.nextString();
-			    } else if (jsonName.equals("id")) {
-					result.id = reader.nextLong();
-			    } else if (jsonName.equals("lat")) {
-			        result.lat = reader.nextDouble();
-			    } else if (jsonName.equals("lon")) {
-			        result.lon = reader.nextDouble();
-			    } else if (jsonName.equals("author")) {
-			    	result.author = reader.nextString();
-			    } else if (jsonName.equals("date")) {
-			    	result.date = reader.nextString();
-			    } else if (jsonName.equals("imagery")) {
-			    	result.imageryId = reader.nextString();
-			    } else if (jsonName.equals("imlat")) {
-			        result.imageryLat = reader.nextDouble();
-			    } else if (jsonName.equals("imlon")) {
-			        result.imageryLon = reader.nextDouble();
-			    } else if (jsonName.equals("min-zoom")) {
-			        result.minZoom = reader.nextInt();
-			    } else if (jsonName.equals("max-zoom")) {
-			        result.maxZoom = reader.nextInt();
-			    } else if (jsonName.equals("description")) {
-			    	result.description = reader.nextString();
-			    } else if (jsonName.equals("deprecated")) {
-			    	result.deprecated = readDeprecated(reader);
-			    }else {
-			    	reader.skipValue();
-			    }
+
+		reader.beginObject();
+		while (reader.hasNext()) {
+			String jsonName = reader.nextName();
+			if (jsonName.equals("type")) {
+				type = reader.nextString();
+			} else if (jsonName.equals("id")) {
+				result.id = reader.nextLong();
+			} else if (jsonName.equals("lat")) {
+				result.lat = reader.nextDouble();
+			} else if (jsonName.equals("lon")) {
+				result.lon = reader.nextDouble();
+			} else if (jsonName.equals("author")) {
+				result.author = reader.nextString();
+			} else if (jsonName.equals("date")) {
+				result.date = reader.nextString();
+			} else if (jsonName.equals("imagery")) {
+				result.imageryId = reader.nextString();
+			} else if (jsonName.equals("imlat")) {
+				result.imageryLat = reader.nextDouble();
+			} else if (jsonName.equals("imlon")) {
+				result.imageryLon = reader.nextDouble();
+			} else if (jsonName.equals("min-zoom")) {
+				result.minZoom = reader.nextInt();
+			} else if (jsonName.equals("max-zoom")) {
+				result.maxZoom = reader.nextInt();
+			} else if (jsonName.equals("description")) {
+				result.description = reader.nextString();
+			} else if (jsonName.equals("deprecated")) {
+				result.deprecated = readDeprecated(reader);
+			}else {
+				reader.skipValue();
 			}
-			reader.endObject();
-			if (type.equals("offset"))
-					return result;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		reader.endObject();
+		if (type.equals("offset"))
+			return result;
+
 		return null;
 	}
 	
-	protected DeprecationNote readDeprecated(JsonReader reader) {
+	protected DeprecationNote readDeprecated(JsonReader reader) throws IOException {
 		DeprecationNote result = new DeprecationNote();
-		try {
-			reader.beginObject();
-			while (reader.hasNext()) {
-				String jsonName = reader.nextName();
-				if (jsonName.equals("author")) {
-			    	result.author = reader.nextString();
-			    } else if (jsonName.equals("reason")) {
-			    	result.reason = reader.nextString();
-			    }else if (jsonName.equals("date")) {
-			    	result.date = reader.nextString();
-			    } else{
-			    	reader.skipValue();
-			    }
+
+		reader.beginObject();
+		while (reader.hasNext()) {
+			String jsonName = reader.nextName();
+			if (jsonName.equals("author")) {
+				result.author = reader.nextString();
+			} else if (jsonName.equals("reason")) {
+				result.reason = reader.nextString();
+			}else if (jsonName.equals("date")) {
+				result.date = reader.nextString();
+			} else{
+				reader.skipValue();
 			}
-			reader.endObject();
-			return result;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return null;
+		reader.endObject();
+		return result;
 	}
 	
 	/**
@@ -476,14 +509,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	    
 		public String toSaveUrl() {
 			try {
-				return OFFSET_SERVER+"store?lat="+ URLEncoder.encode(String.format("%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format("%.7f",lon),"UTF-8")
+				return offsetServer+"store?lat="+ URLEncoder.encode(String.format("%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format("%.7f",lon),"UTF-8")
 						+"&author="+URLEncoder.encode(author,"UTF-8")
 						+"&description="+URLEncoder.encode(description,"UTF-8")
 						+"&imagery="+URLEncoder.encode(imageryId,"UTF-8")
 						+"&imlat="+URLEncoder.encode(String.format("%.7f",imageryLat),"UTF-8")+"&imlon="+URLEncoder.encode(String.format("%.7f",imageryLon),"UTF-8");
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 				return null;
 			}
 		}
@@ -552,9 +583,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 * @return the OnClickListnener
 	 */
 	OnClickListener createSaveButtonListener(final EditText description, final EditText author, final int index, final ArrayList <ImageryOffset> saveOffsetList) {
+		
 		return new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				String error = null;
 				ImageryOffset offset = saveOffsetList.get(index);
 				if (offset == null)
 					return;
@@ -564,6 +597,20 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				Log.d("Background...",offset.toSaveUrl());
 				OffsetSaver saver = new OffsetSaver();
 				saver.execute(offset);
+				try {
+					int result = saver.get();
+					if (result < 0) {
+						error = saver.getError();
+					}
+				} catch (InterruptedException e) {
+					error = e.getMessage();
+				} catch (ExecutionException e) {
+					error = e.getMessage();
+				}
+				if (error != null) {
+					displayError(error);
+					return; // don't continue is something went wrong 
+				}
 				
 				if (index < (saveOffsetList.size()-1)) {
 					// save retyping if it stays the same

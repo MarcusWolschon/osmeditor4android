@@ -15,11 +15,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +35,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -72,6 +76,8 @@ public class Map extends View implements IMapView {
 	
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
+	
+	private final int iconSelectedBorder;
 	
 	private final int houseNumberRadius;
 	
@@ -144,6 +150,13 @@ public class Map extends View implements IMapView {
 	
 	private Paint textPaint = new Paint();
 	
+	// maximum number of nodes that can be on screen to allow edits
+	private long maxOnScreenNodes = 100; // arbitrary init value
+	// nodes that would fit in the not downloaded part of the screen
+	private long unusedNodeSpace = 0;
+	// current value
+	private long nodesOnScreenCount = 0;
+	
 	/**
 	 * support for display a crosshairs at a position
 	 */
@@ -174,6 +187,7 @@ public class Map extends View implements IMapView {
 		iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
 		houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
 		verticalNumberOffset = Density.dpToPx(3);
+		iconSelectedBorder = Density.dpToPx(2);
 		
 		// TODO externalize
 		textPaint.setColor(Color.WHITE);
@@ -265,8 +279,8 @@ public class Map extends View implements IMapView {
 		long time = System.currentTimeMillis();
 		
 		zoomLevel = calcZoomLevel(canvas);
-
-		tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
+		
+		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		tmpDrawingEditMode = Main.logic.getMode();
 		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
 		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
@@ -274,12 +288,10 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
 		tmpPresets = Main.getCurrentPresets();
-		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
-		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
 		handles = null;
 		
 		// Draw our Overlays.
-		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds());
+		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds(), 0);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			osmvo.onManagedDraw(canvas, this);
 		}
@@ -288,7 +300,7 @@ public class Map extends View implements IMapView {
 			paintOsmData(canvas);
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
-				paintStorageBox(canvas, delegator.getBoundingBoxes());
+				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modiciaftion issues
 			paintGpsTrack(canvas);
 		}
 		paintGpsPos(canvas);
@@ -495,20 +507,57 @@ public class Map extends View implements IMapView {
 	 * @param canvas Canvas, where the data shall be painted on.
 	 */
 	private void paintOsmData(final Canvas canvas) {
+		// first find all nodes that we need to display (for density calculations)
+		List<Node> nodes = delegator.getCurrentStorage().getNodes();
+		ArrayList<Node> paintNodes = new ArrayList<Node>(); 
+		BoundingBox viewBox = getViewBox();
+		nodesOnScreenCount = 0;
+		for (Node n:nodes) {
+			if (viewBox.isIn(n.getLat(), n.getLon())) {
+				paintNodes.add(n);
+				nodesOnScreenCount++;
+			}
+		}
+// TODO code is currently disabled because it is not quite satisfactory
+//		// calculate how much of the screen is actually not covered by downloads and can be ignored
+//		unusedNodeSpace = 0;
+//		ArrayList<BoundingBox> emptyBoxes;
+//		try {
+//			double mHeight = GeoMath.latE7ToMercatorE7(viewBox.getTop()) - viewBox.getBottomMercator();
+//			emptyBoxes = BoundingBox.newBoxes((ArrayList<BoundingBox>) delegator.getBoundingBoxes(), new BoundingBox(viewBox));
+//			for (BoundingBox b: emptyBoxes) {
+//				unusedNodeSpace = unusedNodeSpace + Math.round(maxOnScreenNodes*(b.getWidth()*(GeoMath.latE7ToMercatorE7(b.getTop()) - b.getBottomMercator())/(double)(viewBox.getWidth()*mHeight)));
+//			}
+//		} catch (OsmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+		// 
+		tmpDrawingInEditRange = Main.logic.isInEditZoomRange(); // do this after density calc
+		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();
 		for (int i = 0, size = ways.size(); i < size; ++i) {
 			paintWay(canvas, ways.get(i));
 		}
 		
-		//Paint all nodes
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
-		for (int i = 0, size = nodes.size(); i < size; ++i) {
-			paintNode(canvas, nodes.get(i));
+		//Paint nodes
+		for (Node n:paintNodes) {
+			paintNode(canvas, n);
 		}
 		paintHandles(canvas);
 	}
 	
+	/**
+	 * 
+	 * @return true if too many nodes are on screen for editing
+	 */
+	public boolean tooManyNodes() {
+		return false;
+// TODO code is currently disabled because it is not quite satisfactory
+//		return nodesOnScreenCount>(maxOnScreenNodes-unusedNodeSpace);
+	}
+
 	private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
 		
 		Canvas c = canvas;
@@ -527,13 +576,15 @@ public class Map extends View implements IMapView {
 		Path path = new Path();
 		RectF screen = new RectF(0, 0, getWidth(), getHeight());
 		for (BoundingBox bb:list) {
-			float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
-			float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
-			float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox , bb.getBottom());
-			float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
-			RectF rect = new RectF(left, top, right, bottom);
-			rect.intersect(screen);
-			path.addRect(rect, Path.Direction.CW);
+			if (viewBox.intersects(bb)) { // only need to do this if we are on screen
+				float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
+				float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
+				float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox , bb.getBottom());
+				float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
+				RectF rect = new RectF(left, top, right, bottom);
+				rect.intersect(screen);
+				path.addRect(rect, Path.Direction.CW);
+			}
 		}
 	
 		Paint boxpaint = Profile.getCurrent(Profile.VIEWBOX).getPaint();
@@ -556,15 +607,16 @@ public class Map extends View implements IMapView {
 	private void paintNode(final Canvas canvas, final Node node) {
 		int lat = node.getLat();
 		int lon = node.getLon();
+		boolean isSelected = false;
 		
 		//Paint only nodes inside the viewBox.
 		BoundingBox viewBox = getViewBox();
-		if (viewBox.isIn(lat, lon)) {
+//		if (viewBox.isIn(lat, lon)) { // we are only passed nodes that are in the viewBox
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 
 			//draw tolerance box
-			if (	tmpDrawingInEditRange
+			if (tmpDrawingInEditRange
 					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
 					&& (tmpClickableElements == null || tmpClickableElements.contains(node))
 					&&	(tmpDrawingEditMode != Logic.Mode.MODE_APPEND
@@ -591,6 +643,7 @@ public class Map extends View implements IMapView {
 				if (node == tmpDrawingSelectedNode && prefs.largeDragArea()) {
 					canvas.drawCircle(x, y, Profile.getCurrent().largDragToleranceRadius, Profile.getCurrent(Profile.NODE_DRAG_RADIUS).getPaint());
 				}
+				isSelected = true;
 			} else if (node.hasProblem()) {
 				// general node style
 				featureKey = Profile.PROBLEM_NODE;
@@ -607,23 +660,22 @@ public class Map extends View implements IMapView {
 				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
-			// draw house-numbers
-			if (node.getTagWithKey("addr:housenumber") != null && node.getTagWithKey("addr:housenumber").trim().length() > 0) {
-				Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
-				canvas.drawCircle(x, y, houseNumberRadius, paint2);
-				String text = node.getTagWithKey("addr:housenumber");
-				canvas.drawText(text, x - (paint2.measureText(text) / 2), y + verticalNumberOffset, paint2);
-				return; // don't want to be covered by icon
-			} else if (node.isTagged()) {
-				canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
-			} else { //TODO: draw other known elements different too
+			if (node.isTagged()) {
+				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
+					Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
+					canvas.drawCircle(x, y, houseNumberRadius, paint2);
+					canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2);
+				} else {
+					if (!showIcons || tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null)) {
+						canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
+					}
+				}
+			} else { 
 				// draw regular nodes
 				canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());
-				return; // no tags -> no icon, so we can exit here
 			}
-			
-			if (showIcons && tmpPresets != null && !featureKey.equals(Profile.SELECTED_NODE)) paintNodeIcon(node, canvas, x, y);
-		}
+//		}
 	}
 	
 	/**
@@ -633,7 +685,7 @@ public class Map extends View implements IMapView {
 	 * @param x the x position where the center of the icon goes
 	 * @param y the y position where the center of the icon goes
 	 */
-	private void paintNodeIcon(OsmElement element, Canvas canvas, float x, float y) {
+	private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
 		Bitmap icon = null;
 		SortedMap<String, String> tags = element.getTags();
 		if (iconcache.containsKey(tags)) {
@@ -643,14 +695,23 @@ public class Map extends View implements IMapView {
 			PresetItem match = Preset.findBestMatch(tmpPresets,tags);
 			if (match != null && match.getMapIcon() != null) {
 				icon = Bitmap.createBitmap(iconRadius*2, iconRadius*2, Config.ARGB_8888);
+				// icon.eraseColor(Color.WHITE); // replace nothing with white?
 				match.getMapIcon().draw(new Canvas(icon));
 			}
 			iconcache.put(tags, icon);
 		}
 		if (icon != null) {
+			float w2 = icon.getWidth()/2f;
+			float h2 = icon.getHeight()/2f;
+			if (featureKey != null) { // selected
+				RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
+				canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, Profile.getCurrent(featureKey).getPaint());
+			}
 			// we have an icon! draw it.
-			canvas.drawBitmap(icon, x - iconRadius, y - iconRadius, null);
+			canvas.drawBitmap(icon, x - w2, y - h2, null);
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -743,7 +804,7 @@ public class Map extends View implements IMapView {
 					} 
 				} else {
 					// order in the array defines precedence
-					String[] tags = {"building","railway","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
+					String[] tags = {"building","railway","leisure","landuse","waterway","natural","addr:interpolation","boundary","amenity","shop","power",
 							"aerialway","military","historic"};
 					FeatureProfile tempFp = null;
 					for (String tag:tags) {
@@ -756,7 +817,7 @@ public class Map extends View implements IMapView {
 					if (tempFp == null) {
 						ArrayList<Relation> relations = way.getParentRelations();
 						// check for any relation memberships with low prio, take first one
-						String[] relationTags = {"boundary","landuse","natural","waterway","building"};
+						String[] relationTags = {"boundary","leisure","landuse","natural","waterway","building"};
 						if (relations != null) { 
 							for (Relation r : relations) {
 								for (String tag:relationTags) {
@@ -837,6 +898,7 @@ public class Map extends View implements IMapView {
 		}
 		return fp;
 	}
+	
 	/**
 	 * Draws directional arrows for a way
 	 * @param canvas the canvas on which to draw
@@ -955,6 +1017,16 @@ public class Map extends View implements IMapView {
 		}
 		showIcons = prefs.getShowIcons();
 		iconcache.clear();
+	}
+	
+	public void updateProfile () {
+		// changes when profile changes
+		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
+		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
+		//TODO really only needs to be recalculated on profile change 
+		DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
+//		maxOnScreenNodes = (long) (metrics.widthPixels*metrics.heightPixels/ (nodeTolerancePaint.getStrokeWidth()*nodeTolerancePaint.getStrokeWidth())/3); // one third is based on testing
+//		Log.d("Map","maxOnScreenNodes " + maxOnScreenNodes);
 	}
 	
 	void setOrientation(final float orientation) {

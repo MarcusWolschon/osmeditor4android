@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="32"
+	android:versionCode="33"
 	android:installLocation="auto"
 	>
 	
@@ -23,8 +23,6 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- cache tiles -->
 	
-	
-	
 	<application
 		android:name="de.blau.android.Application"
 		android:label="@string/app_name"
@@ -36,8 +34,8 @@
 			android:name="Main"
 			android:theme="@style/Theme.customMain"
 			android:configChanges="orientation|screenSize|keyboardHidden"
-			android:launchMode="singleTask"
-			>
+			android:launchMode="singleTask">
+		    
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -106,6 +104,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
+		<activity android:name="HelpViewer" android:theme="@style/Theme.customHelpViewer" />
 		<activity
 			android:name="org.acra.CrashReportDialog"
 			android:theme="@android:style/Theme.Dialog"
@@ -133,5 +132,5 @@
 	</application>
 	<!-- moving this here seems to fix some weird problems -->
 	<!-- minSdkVersion is set to 7 to match ActionBarSherlock, but should be able to be set to 4 when ABS supports it -->
-	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14" />
+	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16" />
 </manifest> 

@@ -104,8 +104,6 @@
   <string name="config_backgroundLayer_summary">Førehandsteikna kartbakgrunn</string>
   <string name="config_category_server">Tenar-innstillingar</string>
   <string name="config_apibutton_summary">Her kan du spesifisera ein ustandard API URL. Skal normalt ikkje endrast!</string>
-  <string name="config_presetbutton_title">JOSM-knappar</string>
-  <string name="config_presetbutton_summary">Legg inn eige JOSM-knappesett.</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passar best på nodar.</string>
   <string name="config_loginbutton_title">Brukarkonto</string>
@@ -134,7 +132,6 @@
   <string name="changes_changed">«%1$s» endra</string>
   <string name="changes_created">«%1$s» oppretta</string>
   <string name="confirm_upload_title">Last opp?</string>
-  <string name="confirm_upload_text">Last opp dei følgjande endringane?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_api_exists">Ein API med denne URLen finst allereie, men du kan leggja til ein til (t.d. for å lett skifte konto).</string>
   <string name="urldialog_add_api">Legg til API</string>
@@ -173,4 +170,6 @@
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
 </resources>

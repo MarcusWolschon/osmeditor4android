@@ -40,6 +40,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	/** The ID of the currently active API */
 	private String currentAPI;
 	
+	/** The ID of the currently active API */
+	private static Server currentServer = null;
+	
 	private Context context;
 
 
@@ -111,6 +114,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
+		currentServer = null; // force recreation of Server object
 		// Main.resetPreset();
 	}
 	
@@ -132,8 +136,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	public Server getServerObject() {
 		API api = getCurrentAPI();
 		if (api == null) return null;
-		String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
-		return new Server(api.url, api.user, api.pass, api.oauth, api.accesstoken, api.accesstokensecret, version);
+		if (currentServer == null) { // only create when necessary
+			String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
+			currentServer =  new Server(api.url, api.user, api.pass, api.oauth, api.accesstoken, api.accesstokensecret, version);
+		}
+		return currentServer;
 	}
 	
 	/**
@@ -156,6 +163,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			db.update("apis", values, "id = ?", new String[] {id});
 		}
 		db.close();
+		currentServer = null; // force recreation of Server object
 	}
 	
 	/**
@@ -173,6 +181,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.update("apis", values, "id = ?", new String[] {currentAPI});
 		Log.d("AdvancedPRefDatabase", "setAPIAccessToken " + token + " secret " + secret);
 		db.close();
+		currentServer = null; // force recreation of Server object
 	}
 
 
@@ -184,6 +193,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("pass", pass);
 		db.update("apis", values, "id = ?", new String[] {currentAPI});
 		db.close();
+		currentServer = null; // force recreation of Server object
 	}
 	
 	/** Changes the preset (by name) applying to the current API */ 
@@ -398,8 +408,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 
-	/** adds a new Preset with the given values to the Preset database 
-	 * @param active TODO*/
+	/**
+	 * adds a new Preset with the given values to the Preset databas
+	 * @param id
+	 * @param name
+	 * @param url
+	 * @param active
+	 */
 	public synchronized void addPreset(String id, String name, String url, boolean active) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
