@@ -14,9 +14,11 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
@@ -38,12 +40,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -95,6 +97,12 @@ public class Preset {
 	private static final String MRUFILE = "mru.dat";
 	public static final String APKPRESET_URLPREFIX = "apk:";
 	
+	// hardwired layout stuff
+	public static final int SPACING = 5;
+	
+	//
+	private static final int MAX_MRU_SIZE = 50;
+	
 	/** The directory containing all data (xml, MRU data, images) about this preset */
 	private File directory;
 
@@ -117,6 +125,8 @@ public class Preset {
 	protected final MultiHashMap<String, String> autosuggestWays = new MultiHashMap<String, String>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
 	protected final MultiHashMap<String, String> autosuggestClosedways = new MultiHashMap<String, String>(true);
+	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
+	protected final MultiHashMap<String, String> autosuggestRelations = new MultiHashMap<String, String>(true);
 	
 	/**
 	 * Serializable class for storing Most Recently Used information.
@@ -239,6 +249,8 @@ public class Preset {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"));            		
             	} else if ("multiselect".equals(name)) {
             		currentItem.addTag(inOptionalSection, attr.getValue("key"), null); // TODO full multiselect parsing/support?
+            	} else if ("role".equals(name)) {
+            		currentItem.addRole(attr.getValue("key")); 
             	}
             }
             
@@ -250,6 +262,7 @@ public class Preset {
             	} else if ("optional".equals(name)) {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
+                    // Log.d("Preset","PresetItem: " + currentItem.toString());
             		currentItem = null;
             	}
             }
@@ -317,18 +330,34 @@ public class Preset {
 		return rootGroup;
 	}
 	
+	/*
+	 * return true if the item is from this Preset
+	 */
+	public boolean contains(PresetItem pi) {
+		return allItems.contains(pi);
+	}
+	
 	/**
 	 * Returns a view showing the most recently used presets
 	 * @param handler the handler which will handle clicks on the presets
 	 * @param type filter to show only presets applying to this type
 	 * @return the view
 	 */
-	public View getRecentPresetView(Context ctx, PresetClickHandler handler, ElementType type) {
+	public View getRecentPresetView(Context ctx, Preset[] presets, PresetClickHandler handler, ElementType type) {
 		PresetGroup recent = new PresetGroup(null, "recent", null);
-		for (int index : mru.recentPresets) {
-			recent.addElement(allItems.get(index));
+		for (Preset p: presets) {
+			if (p != null && p.hasMRU()) {
+				for (int index : p.mru.recentPresets) {
+					recent.addElement(p.allItems.get(index));
+				}
+			}
 		}
 		return recent.getGroupView(ctx, handler, type);
+	}
+	
+	public boolean hasMRU()
+	{
+		return mru.recentPresets.size() > 0;
 	}
 	
 	/**
@@ -340,10 +369,31 @@ public class Preset {
 		// prevent duplicates
 		mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
 		mru.recentPresets.addFirst(id);
-		if (mru.recentPresets.size() > 50) mru.recentPresets.removeLast();
+		if (mru.recentPresets.size() > MAX_MRU_SIZE) mru.recentPresets.removeLast();
 		mru.changed  = true;
 	}
 
+	/**
+	 * Remove a preset
+	 * @param item the item to remove
+	 */
+	public void removeRecentlyUsed(PresetItem item) {
+		Integer id = item.getItemIndex();
+		// prevent duplicates
+		mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
+		mru.changed  = true;
+	}
+	
+	/**
+	 * Remove a preset
+	 * @param item the item to remove
+	 */
+	public void resetRecentlyUsed() {
+		mru.recentPresets = new LinkedList<Integer>(); 
+		mru.changed  = true;
+		saveMRU();
+	}
+	
 	/** Saves the current MRU data to a file */
 	public void saveMRU() {
 		if (mru.changed) {
@@ -359,7 +409,6 @@ public class Preset {
 	}
 
 	/**
-	 * WARNING - UNTESTED
 	 * 
 	 * Finds the preset item best matching a certain tag set, or null if no preset item matches.
 	 * To match, all (mandatory) tags of the preset item need to be in the tag set.
@@ -371,26 +420,37 @@ public class Preset {
 	 * @param tags tags to check against (i.e. tags of a map element)
 	 * @return null, or the "best" matching item for the given tag set
 	 */
-	public PresetItem findBestMatch(Map<String,String> tags) {
+	static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags) {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
 		// Build candidate list
 		LinkedHashSet<PresetItem> possibleMatches = new LinkedHashSet<PresetItem>();
-		for (Entry<String, String> tag : tags.entrySet()) {
-			String tagString = tag.getKey()+"\t"+tag.getValue();
-			possibleMatches.addAll(tagItems.get(tagString));
+		for (Preset p:presets) {
+			if (p != null) {
+				for (Entry<String, String> tag : tags.entrySet()) {
+					String tagString = tag.getKey()+"\t"+tag.getValue();
+					possibleMatches.addAll(p.tagItems.get(tagString));
+				}
+			}
 		}
 		
 		// Find best
 		for (PresetItem possibleMatch : possibleMatches) {
-			if (possibleMatch.getTagCount() <= bestMatchStrength) continue; // isn't going to help
-			if (possibleMatch.matches(tags)) {
-				bestMatch = possibleMatch;
-				bestMatchStrength = bestMatch.getTagCount();
+			if ((possibleMatch.getTagCount() <= bestMatchStrength) && (possibleMatch.getRecommendedTags().size()) <= bestMatchStrength) continue; // isn't going to help
+			if (possibleMatch.getTagCount() > 0) { // has required tags
+				if (possibleMatch.matches(tags)) {
+					bestMatch = possibleMatch;
+					bestMatchStrength = bestMatch.getTagCount();
+				}
+			} else if (possibleMatch.getRecommendedTags().size() > 0) {
+				int matches = possibleMatch.matchesRecommended(tags);
+				if (matches > bestMatchStrength) {
+					bestMatch = possibleMatch;
+					bestMatchStrength = matches;
+				}
 			}
 		}
-		
 		return bestMatch;
 	}
 	
@@ -426,7 +486,7 @@ public class Preset {
 		private Drawable icon;
 		private BitmapDrawable mapIcon;
 		private PresetGroup parent;
-		private boolean appliesToWay, appliesToNode, appliesToClosedway; //appliesToRelation
+		private boolean appliesToWay, appliesToNode, appliesToClosedway, appliesToRelation;
 
 		/**
 		 * Creates the element, setting parent, name and icon, and registers with the parent
@@ -450,7 +510,7 @@ public class Preset {
 
 		public Drawable getIcon() {
 			if (icon == null && iconpath != null) {
-				icon = iconManager.getDrawableOrPlaceholder(iconpath, 48);
+				icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
 				iconpath = null;
 			}
 			return icon;
@@ -468,6 +528,10 @@ public class Preset {
 			return parent;
 		}
 		
+		public void setParent(PresetGroup pg) {
+			parent = pg;
+		}
+		
 		/**
 		 * Returns a basic view representing the current element (i.e. a button with icon and name).
 		 * Can (and should) be used when implementing {@link #getView(PresetClickHandler)}.
@@ -481,9 +545,9 @@ public class Preset {
 			v.setTextColor(res.getColor(R.color.preset_text));
 			v.setBackgroundColor(res.getColor(R.color.preset_bg));
 			v.setCompoundDrawables(null, getIcon(), null, null);
-			v.setCompoundDrawablePadding((int)(8*density));
-			v.setWidth((int)(100*density));
-			v.setHeight((int)(100*density));
+			v.setCompoundDrawablePadding((int)(4*density));
+			v.setWidth((int)(72*density));
+			v.setHeight((int)(72*density));
 			v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 			return v;
 		}
@@ -501,6 +565,7 @@ public class Preset {
 				case NODE: return appliesToNode;
 				case WAY: return appliesToWay;
 				case CLOSEDWAY: return appliesToClosedway;
+				case RELATION: return appliesToRelation;
 			}
 			return true; // should never happen
 		}
@@ -533,6 +598,21 @@ public class Preset {
 				appliesToClosedway = true;
 				if (parent != null) parent.setAppliesToClosedway();
 			}
+		}
+		
+		/**
+		 * Recursivly sets the flag indicating that this element is relevant for nodes
+		 */
+		protected void setAppliesToRelation() {
+			if (!appliesToRelation) {
+				appliesToRelation = true;
+				if (parent != null) parent.setAppliesToRelation();
+			}
+		}
+		
+		@Override
+		public String toString() {
+			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation;
 		}
 	}
 	
@@ -571,6 +651,10 @@ public class Preset {
 			elements.add(element);
 		}
 		
+		public ArrayList<PresetElement> getElements() {
+			return elements;
+		}
+		
 		/**
 		 * Returns a view showing this group's icon
 		 * @param handler the handler handling clicks on the icon
@@ -599,8 +683,8 @@ public class Preset {
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
-			wrappingLayout.setHorizontalSpacing((int)(10*density));
-			wrappingLayout.setVerticalSpacing((int)(10*density));
+			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));
+			wrappingLayout.setVerticalSpacing((int)(SPACING*density));
 			ArrayList<PresetElement> filteredElements = filterElements(elements, type);
 			ArrayList<View> childViews = new ArrayList<View>();
 			for (PresetElement element : filteredElements) {
@@ -626,6 +710,9 @@ public class Preset {
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
 		private LinkedHashMap<String, String[]> optionalTags = new LinkedHashMap<String, String[]>();
 		
+		/** Roles
+		 *  */
+		private LinkedList<String> roles =  new LinkedList<String>();
 		
 		private int itemIndex;
 
@@ -636,12 +723,14 @@ public class Preset {
 				setAppliesToNode();
 				setAppliesToWay();
 				setAppliesToClosedway();
+				setAppliesToRelation();
 			} else {
 				String[] typesArray = types.split(",");
 				for (String type : typesArray) {
 					if ("node".equals(type)) setAppliesToNode();
 					else if ("way".equals(type)) setAppliesToWay();
 					else if ("closedway".equals(type)) setAppliesToClosedway();
+					else if ("relation".equals(type)) setAppliesToRelation();
 				}
 			}	
 			itemIndex = allItems.size();
@@ -661,6 +750,7 @@ public class Preset {
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? value : null);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? value : null);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? value : null);
+			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, value.length() > 0 ? value : null);
 		}
 		
 		/**
@@ -672,13 +762,22 @@ public class Preset {
 		public void addTag(boolean optional, String key, String values) {
 			String[] valueArray = (values == null) ? new String[0] : values.split(",");
 			
+			for (String v:valueArray) {
+				tagItems.add(key+"\t"+v, this);
+			}
+			
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
+			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, valueArray);
 			
 			(optional ? optionalTags : recommendedTags).put(key,  valueArray);
 		}
 
+		public void addRole(String value)
+		{
+			roles.add(value);
+		}
 		
 		/**
 		 * @return the fixed tags belonging to this item (unmodifiable)
@@ -699,6 +798,10 @@ public class Preset {
 			return Collections.unmodifiableMap(optionalTags);
 		}
 		
+		public List<String> getRoles() {
+			return Collections.unmodifiableList(roles);
+		}
+		
 		/**
 		 * Checks if all tags belonging to this item exist in the given tagSet,
 		 * i.e. the node to which the tagSet belongs could be what this preset specifies.
@@ -712,6 +815,28 @@ public class Preset {
 			}
 			return true;
 		}
+		
+		/**
+		 * Returns the number of matches between the list of recommended tags (really a misnomer) and the provided tags
+		 * @param tagSet
+		 * @return number of matches
+		 */
+		public int matchesRecommended(Map<String,String> tagSet) {
+			int matches = 0;
+			for (Entry<String, String[]> tag : recommendedTags.entrySet()) { // for each own tag
+				String otherTagValue = tagSet.get(tag.getKey());
+				if (otherTagValue != null) {
+					for (String v:tag.getValue()) {
+						if (v.equals(otherTagValue)) {
+							matches++;
+							break;
+						}
+					}
+				}
+			}
+			return matches;
+		}
+		
 
 		@Override
 		public View getView(Context ctx, final PresetClickHandler handler) {
@@ -722,6 +847,13 @@ public class Preset {
 					public void onClick(View v) {
 						handler.onItemClick(PresetItem.this);
 					}
+					
+				});
+				v.setOnLongClickListener(new OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						return handler.onItemLongClick(PresetItem.this);
+					}	
 				});
 			}
 			return v;
@@ -729,6 +861,30 @@ public class Preset {
 
 		public int getItemIndex() {
 			return itemIndex;
+		}
+		
+		@Override
+		public String toString() {
+			String tagStrings = "";
+			tagStrings = " required: ";
+			for (String k:tags.keySet()) {
+				tagStrings = tagStrings + " " + k + "=" + tags.get(k);
+			}
+			tagStrings = tagStrings + " recommended: ";
+			for (String k:recommendedTags.keySet()) {
+				tagStrings = tagStrings + " " + k + "="; 
+				for (String v:recommendedTags.get(k)) {
+					tagStrings = tagStrings + " " + v;
+				}
+			}
+			tagStrings = tagStrings + " optional: ";
+			for (String k:optionalTags.keySet()) {
+				tagStrings = tagStrings + " " + k + "=";
+				for (String v:optionalTags.get(k)) {
+					tagStrings = tagStrings + " " + v;
+				}
+			}
+			return super.toString() + tagStrings;
 		}
 	}
 	
@@ -779,31 +935,36 @@ public class Preset {
 	/** Interface for handlers handling clicks on item or group icons */
 	public interface PresetClickHandler {
 		public void onItemClick(PresetItem item);
+		public boolean onItemLongClick(PresetItem item);
 		public void onGroupClick(PresetGroup group);
 	}
 
-	public Collection<String> getAutocompleteKeys(ElementType type) {
-		switch (type) {
-		case NODE: return autosuggestNodes.getKeys();
-		case WAY: return autosuggestWays.getKeys();
-		case CLOSEDWAY: return autosuggestClosedways.getKeys();
+	static public Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
+		Collection<String> result = new HashSet<String>();
+		for (Preset p:presets) {
+			switch (type) {
+			case NODE: result.addAll(p.autosuggestNodes.getKeys()); break;
+			case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
+			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
+			case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
+			default: return null; // should never happen, all cases are covered
+			}
 		}
-		return null; // should never happen, all cases are covered
+		return result; 
 	}
 	
-	public Collection<String> getAutocompleteValues(ElementType type, String key) {
-		Collection<String> source = null;
-		switch (type) {
-		case NODE: source = autosuggestNodes.get(key); break;
-		case WAY: source = autosuggestWays.get(key); break;
-		case CLOSEDWAY:source = autosuggestClosedways.get(key); break;
+	static public Collection<String> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
+		Collection<String> result = new HashSet<String>();
+		for (Preset p:presets) {
+			switch (type) {
+			case NODE: result.addAll(p.autosuggestNodes.get(key)); break;
+			case WAY: result.addAll(p.autosuggestWays.get(key)); break;
+			case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
+			case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
+			default: return Collections.emptyList();
+			}
 		}
-		if (source != null) {
-			return source;
-		} else {
-			return Collections.emptyList();
-		}
+		return result;
 	}
-	
 }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -19,14 +20,17 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 	private Resources r;
 	private String KEY_PREFAPI;
 	private String KEY_PREFPRESET;
+	private String KEY_PREFLOGIN;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d("AdvancedPrefEditor", "onCreate");
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.advancedpreferences);
 		r = getResources();
-		KEY_PREFAPI = r.getString(R.string.config_apibutton_key);
+		KEY_PREFAPI = r.getString(R.string.config_api_button_key);
 		KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
+		KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
 		fixUpPrefs();
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -34,6 +38,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 	
 	@Override
 	public void onResume() {
+		Log.d("AdvancedPrefEditor", "onResume");
 		super.onResume();
 		Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
 		AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
@@ -43,10 +48,15 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 		} else {
 			apipref.setSummary(current.name.equals("") ? current.url : current.name);
 		}
+		Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
+		// setSummary doesn't like being passed a NULL pointer .... disabled the code for now
+		// loginpref.setSummary(current.id.equals(AdvancedPrefDatabase.ID_DEFAULT) ? R.string.config_username_summary : null);
+		loginpref.setSummary(R.string.config_username_summary);
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
+		Log.d("AdvancedPrefEditor", "onOptionsItemSelected");
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			finish();
@@ -62,6 +72,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 		presetpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
+				Log.d("AdvancedPrefEditor", "onPreferenceClick");
 				startActivity(new Intent(AdvancedPrefEditor.this, PresetEditorActivity.class));
 				return true;
 			}
@@ -71,6 +82,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 		apipref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
+				Log.d("AdvancedPrefEditor", "onPreferenceClick 2");
 				Intent intent = new Intent(AdvancedPrefEditor.this, APIEditorActivity.class);
 				if (Main.hasChanges()) {
 					DialogFactory.createDataLossActivityDialog(AdvancedPrefEditor.this, intent, -1).show();

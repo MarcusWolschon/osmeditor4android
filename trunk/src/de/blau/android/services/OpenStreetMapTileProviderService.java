@@ -4,6 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -24,8 +26,14 @@ public class OpenStreetMapTileProviderService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Preferences prefs = new Preferences(getApplicationContext());
+		int tileCacheSize = 100; // just in case we can't read the prefs
+		if (prefs != null) {
+			tileCacheSize = prefs.getTileCacheSize();
+		}
+		Log.d("OpenStreetMapTilePRoviderService", "Setting cache size to " + tileCacheSize);
 		mFileSystemProvider = new OpenStreetMapTileFilesystemProvider(
-				getBaseContext(), 4 * 1024 * 1024); // 4MB FSCache
+				getBaseContext(),tileCacheSize * 1024 * 1024); //  FSCache
 	}
 	
 	@Override
@@ -45,16 +53,18 @@ public class OpenStreetMapTileProviderService extends Service {
 	private final IOpenStreetMapTileProviderService.Stub mBinder = new IOpenStreetMapTileProviderService.Stub() {
 		//@Override
 		public String[] getTileProviders() throws RemoteException {
-			return OpenStreetMapTileServer.getIds(getApplicationContext().getResources());
+			return OpenStreetMapTileServer.getIds(false);
 		}
 		//@Override
 		public void getMapTile(String rendererID, int zoomLevel, int tileX,
 				int tileY, IOpenStreetMapTileProviderCallback callback)
 				throws RemoteException {
-
 			OpenStreetMapTile tile = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
 			mFileSystemProvider.loadMapTileAsync(tile, callback);
 		}
+		
+		public void flushCache(String rendererId) {
+			mFileSystemProvider.flushCache(rendererId);
+		}
 	};
-
 }

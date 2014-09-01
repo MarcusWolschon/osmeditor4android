@@ -207,7 +207,10 @@ public class Track {
 			@Override
 			protected Void doInBackground(Void... params) {
 				loadingLock.lock();
-				if (!isOpen) return null; // if this has been closed by close() in the meantime, STOP
+				if (!isOpen) {
+					loadingLock.unlock();
+					return null; // if this has been closed by close() in the meantime, STOP
+				}
 				
 				File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
 				boolean success = load();
@@ -233,6 +236,7 @@ public class Track {
 				return null;
 			}
 			
+			@Override
 			protected void onPostExecute(Void result) {
 				track.addAll(0, loaded);
 				loadingFinished = true;
@@ -455,12 +459,12 @@ public class Track {
 		public double getLongitude() { return longitude; }
 		public long   getTime()      { return time; }
 		
-		public boolean hasAltitude() { return altitude != Double.NaN; }
+		public boolean hasAltitude() { return !Double.isNaN(altitude); }
 		// public boolean hasAccuracy() { return accuracy != null; }
 		// public boolean hasBearing()  { return bearing != null; }
 		// public boolean hasSpeed()    { return speed != null; }
 		
-		public double getAltitude() { return altitude != Double.NaN ? altitude : 0d; }
+		public double getAltitude() { return  !Double.isNaN(altitude) ? altitude : 0d; }
 		// public float  getAccuracy() { return accuracy != null ? accuracy : 0f; }
 		// public float  getBearing()  { return bearing != null  ? bearing  : 0f; }
 		// public float  getSpeed()    { return speed != null    ? speed    : 0f; }

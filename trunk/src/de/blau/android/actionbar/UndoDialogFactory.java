@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;
+import de.blau.android.util.Density;
 
 public class UndoDialogFactory {
 
@@ -72,7 +72,7 @@ public class UndoDialogFactory {
 			super(ctx);
 			Resources r = ctx.getResources();
 			setText(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name);
-			int pad = dpToPx(ctx, 15);
+			int pad = Density.dpToPx(15);
 			setPadding(pad, pad, pad, pad);
 			setTextColor(r.getColor(isRedo ? android.R.color.primary_text_light : android.R.color.primary_text_dark));
 			setBackgroundColor(r.getColor(isRedo ? android.R.color.background_light : android.R.color.background_dark));
@@ -82,15 +82,6 @@ public class UndoDialogFactory {
 			this.index = index;
 			this.isRedo = isRedo;
 		}
-	}
-	
-	/**
-	 * Converts a size in dp to pixels
-	 * @param dp size in display point
-	 * @return size in pixels (for the current display metrics)
-	 */
-	private static int dpToPx(Context ctx, int dp) {
-		return Math.round(dp * ctx.getResources().getDisplayMetrics().density);
 	}
 
 }

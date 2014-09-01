@@ -20,6 +20,7 @@ public class GotoPreferencesListener implements OnClickListener {
 		this.caller = caller;
 	}
 
+	@Override
 	public void onClick(final DialogInterface dialog, final int which) {
 		caller.startActivity(new Intent(caller, PrefEditor.class));
 	}

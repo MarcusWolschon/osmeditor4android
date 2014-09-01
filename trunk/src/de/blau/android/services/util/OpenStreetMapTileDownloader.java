@@ -13,8 +13,6 @@ import java.net.URLConnection;
 import java.util.concurrent.Executors;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.Application;
@@ -64,6 +62,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// Methods from SuperClass/Interfaces
 	// ===========================================================
 
+	@Override
 	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
 		return new TileLoader(aTile, aCallback);
 	};
@@ -73,7 +72,8 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	// ===========================================================
 
 	private String buildURL(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID, false);
+		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, tile.rendererID, false);
+		// Log.d("OpenStreetMapTileDownloader","metadata loaded "+ renderer.isMetadataLoaded() + " " + renderer.getTileURLString(tile));
 		return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
 	}
 
@@ -88,6 +88,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 		}
 		
 		//@Override
+		@Override
 		public void run() {
 			InputStream in = null;
 			OutputStream out = null;
@@ -117,26 +118,26 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 					if (data.length == 0) {
 						throw new IOException("no tile data");
 					}
-					Bitmap b = BitmapFactory.decodeByteArray(data, 0, data.length);
-					if (b == null) {
-						throw new IOException("decodeByteArray returned null");
-					}
+					
 					OpenStreetMapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
 					if(Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 						Log.d(DEBUGTAG, "Maptile saved to: " + tileURLString);
 					}
-					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, b);
+					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
 				}
 			} catch (IOException ioe) {
 				try {
-					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
+					int reason = ioe instanceof FileNotFoundException ? DOESNOTEXIST : IOERR;
+					if (reason == DOESNOTEXIST)
+						OpenStreetMapTileDownloader.this.mMapTileFSProvider.markAsInvalid(mTile);
+					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y,reason);
 				} catch (RemoteException re) {
-					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName(), ioe);
+					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + re, ioe);
 				}
 				if (!(ioe instanceof FileNotFoundException)) {
 					// FileNotFound is an expected exception, any other IOException should be logged 
 					if(Log.isLoggable(DEBUGTAG, Log.ERROR)) {
-						Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName(), ioe);
+						Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString, ioe);
 					}
 				}
 				/* TODO What to do when downloading tile caused an error?

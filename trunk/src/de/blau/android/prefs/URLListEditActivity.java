@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
@@ -21,9 +23,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.TwoLineListItem;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -58,16 +61,16 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 
 	protected static final int MENUITEM_EDIT = 0;
 	protected static final int MENUITEM_DELETE = 1;
-	private static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
+	protected static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
 	
 	protected static final String LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
 	private ListAdapter adapter;
 	protected final List<ListEditItem> items;
 
-	private ListEditItem selectedItem = null;
+	protected ListEditItem selectedItem = null;
 	
 	private boolean addingViaIntent = false;
-	private final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
+	protected final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<Integer, Integer>();
 	
 	public URLListEditActivity() {
 		ctx = this; // Change when changing Activity to Fragment
@@ -83,9 +86,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		r = getResources();
-
 		onLoadList(items);
-		
 		TextView v = (TextView)View.inflate(ctx, android.R.layout.simple_list_item_1, null);
 		v.setText(r.getString(getAddTextResId()));
 		v.setTextColor(ctx.getResources().getColor(android.R.color.darker_gray));
@@ -135,6 +136,9 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 			// clicked on "new" button
 			itemEditDialog(null);
 		} else {
+			Log.d("URLListEditActivity","Item clicked");
+			ListItem listItem = (ListItem)view;
+			listItem.setChecked(!listItem.isChecked());
 			onItemClicked((ListEditItem)item);
 		}
 	}
@@ -143,7 +147,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 		selectedItem = (ListEditItem)getListView().getItemAtPosition(info.position);
-		if (selectedItem != null && !selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
+		if (selectedItem != null && !selectedItem.id.equals(LISTITEM_ID_DEFAULT) ) {
 			menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
 			for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet() ) {
@@ -220,6 +224,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		builder.setView(mainView);
 
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String name = editName.getText().toString();
 				String value = editValue.getText().toString();
@@ -237,6 +242,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		});
 
 		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				dialog.cancel();
 			}
@@ -261,7 +267,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	 * Called by {@link #itemEditDialog(ListEditItem)} when an item is successfully created
 	 * @param item the new item
 	 */
-	private void finishCreateItem(ListEditItem item) {
+	protected void finishCreateItem(ListEditItem item) {
 		items.add(item);
 		updateAdapter();
 		onItemCreated(item);
@@ -298,7 +304,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	 * Called by {@link #itemEditDialog(ListEditItem)} when an item is successfully edited
 	 * @param item the new item
 	 */
-	private void finishEditItem(ListEditItem item) {
+	protected void finishEditItem(ListEditItem item) {
 		updateAdapter();
 		onItemEdited(item);
 	}
@@ -359,6 +365,8 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		public final String id;
 		public String name;
 		public String value;
+		public boolean enabled;
+		public boolean active;
 		
 		/**
 		 * Create a new item with a new, random UUID and the given name and value
@@ -366,9 +374,14 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		 * @param value
 		 */
 		public ListEditItem(String name, String value) {
+			this(name, value, false);
+		}
+		public ListEditItem(String name, String value, boolean enabled) {
 			id = java.util.UUID.randomUUID().toString();
 			this.value = value;
 			this.name = name;
+			this.enabled = enabled;
+			this.active = false;
 		}
 		
 		/**
@@ -379,9 +392,23 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 		 * @param value
 		 */
 		public ListEditItem(String id, String name, String value) {
+			this(id, name, value, false);
+		}
+		
+		public ListEditItem(String id, String name, String value, boolean enabled) {
 			this.id = id;
 			this.value = value;
 			this.name = name;
+			this.enabled = enabled;
+			this.active = false;
+		}
+		
+		public ListEditItem(String id, String name, String value, boolean enabled, boolean active) {
+			this.id = id;
+			this.value = value;
+			this.name = name;
+			this.enabled = enabled;
+			this.active = active;
 		}
 
 		@Override
@@ -397,22 +424,22 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	private class ListEditAdapter extends ArrayAdapter<ListEditItem> {
 
 		public ListEditAdapter(Context context, List<ListEditItem> items) {
-			super(context, android.R.layout.simple_list_item_2, items);
+			super(context, R.layout.list_item, items);
 		}
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			TwoLineListItem v;
-			if (convertView instanceof TwoLineListItem) {
-				v = (TwoLineListItem)convertView;
+			ListItem v;
+			if (convertView instanceof ListItem) {
+				v = (ListItem)convertView;
 			} else {
-				v = (TwoLineListItem)View.inflate(ctx, android.R.layout.simple_list_item_2, null);
+				v = (ListItem)View.inflate(ctx, R.layout.list_item, null);
 			}
-			v.getText1().setText(getItem(position).name);
-			v.getText2().setText(getItem(position).value);
+			v.setText1(getItem(position).name);
+			v.setText2(getItem(position).value);
+			v.setChecked(getItem(position).active);
 			return v;
-		}
-		
+		}	
 	}
 
 	public List<ListEditItem> getItems() {
@@ -425,5 +452,48 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public boolean isAddingViaIntent() {
 		return addingViaIntent;
 	}
+	
+	public static class ListItem extends LinearLayout {
+		
+		private TextView text1;
+		private TextView text2;
+		private CheckBox checkBox;
+		
+		public ListItem(Context context) {
+			super(context);
+		}
+		
+		public ListItem(Context context, AttributeSet attrs) {
+			super(context, attrs);
+		}
+		
+		public ListItem(Context context, AttributeSet attrs, int defStyle) {
+			super(context, attrs, defStyle);
+		}
 
+		@Override
+		protected void onFinishInflate() {
+			super.onFinishInflate();
+			
+			text1 = (TextView)findViewById(R.id.listItemText1);
+			text2 = (TextView)findViewById(R.id.listItemText2);
+			checkBox = (CheckBox)findViewById(R.id.listItemCheckBox);
+		}
+		
+		public void setChecked(boolean checked) {
+			checkBox.setChecked(checked);
+		}
+		
+		public boolean isChecked() {
+			return checkBox.isChecked();
+		}
+		
+		public void setText1(String txt) {
+			text1.setText(txt);
+		}
+		
+		public void setText2(String txt) {
+			text2.setText(txt);
+		}
+	}
 }

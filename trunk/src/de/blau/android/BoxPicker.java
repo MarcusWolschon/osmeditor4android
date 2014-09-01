@@ -4,10 +4,6 @@ import java.util.List;
 
 import org.acra.ACRA;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -19,8 +15,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,10 +28,17 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Search;
+import de.blau.android.util.Search.SearchResult;
 
 /**
  * Activity where the user can pick a Location and a radius (more precisely: a
@@ -77,6 +82,8 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	 * Last known location.
 	 */
 	private Location lastLocation = null;
+
+	private Context ctx;
 	
 	/**
 	 * Tag for Intent extras.
@@ -107,25 +114,52 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ctx = this;
 		setContentView(R.layout.location_picker_view);
 		
 		//Load Views
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.location_type_group);
-		Button loadMapButton = (Button) findViewById(R.id.location_button_current);
+		final Button loadMapButton = (Button) findViewById(R.id.location_button_current);
 		Button dontLoadMapButton = ((Button) findViewById(R.id.location_button_no_location));
-		EditText latEdit = (EditText) findViewById(R.id.location_lat_edit);
-		EditText lonEdit = (EditText) findViewById(R.id.location_lon_edit);
+		final EditText latEdit = (EditText) findViewById(R.id.location_lat_edit);
+		final EditText lonEdit = (EditText) findViewById(R.id.location_lon_edit);
+		EditText searchEdit = (EditText) findViewById(R.id.location_search_edit);
 		SeekBar seeker = (SeekBar) findViewById(R.id.location_radius_seeker);
 		
 		currentRadius = seeker.getProgress();
 		
 		//register listeners
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
-		radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, dontLoadMapButton, latEdit,
+		radioGroup.setOnCheckedChangeListener(createRadioGroupListener(loadMapButton, null /* dontLoadMapButton */, latEdit,
 			lonEdit));
 		OnClickListener onClickListener = createButtonListener(radioGroup, latEdit, lonEdit);
 		loadMapButton.setOnClickListener(onClickListener);
 		dontLoadMapButton.setOnClickListener(onClickListener);
+		
+		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
+			@Override
+			public void onItemFound(SearchResult sr) {
+				RadioButton rb = (RadioButton) findViewById(R.id.location_coordinates);
+				rb.setChecked(true); // note potential race condition with setting the lat/lon	
+				LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
+				coordinateView.setVisibility(View.VISIBLE);
+				loadMapButton.setEnabled(true);
+				latEdit.setText(Double.toString(sr.getLat()));
+            	lonEdit.setText(Double.toString(sr.getLon()));
+			}
+		};
+		
+		searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+		    @Override
+		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+		            Search search = new Search(ctx, searchItemFoundCallback);
+		            search.find(v.getText().toString());
+		            return true;
+		        }
+		        return false;
+		    }
+		});
 		
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -145,7 +179,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		if (l != null) {
 			lastLocation = l;
 		}
-		setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, lastLocation);
+		setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, lastLocation, null);
 	}
 	
 	@Override
@@ -203,15 +237,18 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			public void onCheckedChanged(final RadioGroup group, final int checkedId) {
 				LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
 				loadMapButton.setEnabled(true);
-				dontLoadMapButton.setEnabled(true);
+				// dontLoadMapButton.setEnabled(true);
 				if (checkedId == R.id.location_coordinates) {
 					coordinateView.setVisibility(View.VISIBLE);
-					if (currentLocation != null) {
-						latEdit.setText(Double.toString(currentLocation.getLatitude()));
-						lonEdit.setText(Double.toString(currentLocation.getLongitude()));
-					} else if (lastLocation != null) {
-						latEdit.setText(Double.toString(lastLocation.getLatitude()));
-						lonEdit.setText(Double.toString(lastLocation.getLongitude()));
+					// don't overwrite existing values...
+					if (latEdit.getText().length() == 0 && lonEdit.getText().length() == 0) {
+						if (currentLocation != null) {
+							latEdit.setText(Double.toString(currentLocation.getLatitude()));
+							lonEdit.setText(Double.toString(currentLocation.getLongitude()));
+						} else if (lastLocation != null) {
+							latEdit.setText(Double.toString(lastLocation.getLatitude()));
+							lonEdit.setText(Double.toString(lastLocation.getLongitude()));
+						}
 					}
 				} else {
 					coordinateView.setVisibility(View.GONE);
@@ -282,6 +319,9 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	private void performClick(final int buttonId, final int checkedRadioButtonId, final String lat, final String lon) {
 		BoundingBox box = null;
 		int resultState = (buttonId == R.id.location_button_current) ? RESULT_OK : RESULT_CANCELED;
+// return bbox even if cancelled
+//		if (resultState == RESULT_CANCELED)
+//			finish();
 		
 		switch (checkedRadioButtonId) {
 		case R.id.location_current:
@@ -297,6 +337,8 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		
 		if (box != null) {
 			sendResultAndExit(box, resultState);
+		} else {
+			finish();
 		}
 	}
 
@@ -391,6 +433,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		dialog.setTitle(R.string.location_nan_title);
 		dialog.setMessage(R.string.location_nan_message);
 		dialog.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(final DialogInterface dialog, final int whichButton) {}
 		});
 		return dialog.create();
@@ -407,8 +450,11 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		Log.w(DEBUG_TAG, "Got location: " + newLocation);
 		if (newLocation != null) {
 			if (isNewLocationMoreAccurate(newLocation)) {
-				setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation);
+				setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation, null);
 				currentLocation = newLocation;
+				if (lastLocation != null) {
+					setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, newLocation, lastLocation);
+				}
 			}
 		}
 	}
@@ -418,8 +464,9 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	 * @param buttonId The resource ID of the radio button.
 	 * @param textId The resource ID of the button text.
 	 * @param location The location data to update the button text (may be null).
+	 * @param lastLocation TODO
 	 */
-	private void setLocationRadioButton(final int buttonId, final int textId, final Location location) {
+	private void setLocationRadioButton(final int buttonId, final int textId, final Location location, Location lastLocation) {
 		String locationMetaData = getString(R.string.location_text_unknown);
 		if (location != null) {
 			String accuracyMetaData = "";
@@ -430,8 +477,28 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			if (location.hasAccuracy()) {
 				accuracyMetaData += getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
 			}
-			accuracyMetaData += location.getProvider() + ")";
-			locationMetaData = getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData);
+			accuracyMetaData += " " + location.getProvider() + ")";
+			long fixTime = Math.max(0,(System.currentTimeMillis()-location.getTime())/1000);
+			//TODO slightly hackish, should be localized correctly
+			String fixString = "";
+			if (fixTime > 24*3600) {
+				fixString = fixTime / (24*3600) + " " + getString(R.string.days);
+			} else if (fixTime > 3600) {
+				fixString = fixTime / 3600 + " " + getString(R.string.hours);
+			} else if (fixTime > 60) {
+				fixString = fixTime / 60 + " " + getString(R.string.minutes);
+			} else {
+				fixString = fixTime + " " + getString(R.string.seconds);
+			}
+			if (lastLocation != null && currentLocation != null) { // add distance from old location
+				int fixDistance = Math.round(lastLocation.distanceTo(currentLocation));
+				if (fixDistance > 1000) {
+					fixString = Math.round(fixDistance/1000.0) + " " + getString(R.string.km) + " " + fixString;
+				} else {
+					fixString = fixDistance + " " + getString(R.string.meter) + " " + fixString;
+				}
+			}
+			locationMetaData = getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData, fixString);
 		}
 		RadioButton rb = (RadioButton)findViewById(buttonId);
 		rb.setEnabled(location != null);

@@ -9,16 +9,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
-import de.blau.android.listener.GotoPreferencesListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osb.CommitListener;
+import de.blau.android.util.Search;
+import de.blau.android.util.Search.SearchResult;
 
 /**
  * Encapsulates Dialog-Creation from {@link Main} and delegates the creation-command to {@link android.app.Dialog.Builder}.
@@ -45,6 +52,24 @@ public class DialogFactory {
 	
 	public static final int OPENSTREETBUG_EDIT = 9;
 	
+	public static final int DATA_CONFLICT = 10;
+	
+	public static final int OUT_OF_MEMORY = 11;
+
+	public static final int OUT_OF_MEMORY_DIRTY = 12;
+	
+	public static final int PROGRESS_DELETING = 13;
+	
+	public static final int BACKGROUND_PROPERTIES = 14;
+	
+	public static final int INVALID_DATA_RECEIVED = 15;
+	
+	public static final int PROGRESS_SEARCHING = 16;
+	
+	public static final int PROGRESS_SAVING = 17;
+	
+	public static final int SEARCH = 18;
+		
 	private final Main caller;
 	
 	private final Builder noLoginDataSet;
@@ -61,6 +86,16 @@ public class DialogFactory {
 	
 	private final Builder openStreetBugEdit;
 	
+	private final Builder dataConflict;
+	
+	private final Builder outOfMemory;
+	
+	private final Builder outOfMemoryDirty;
+	
+	private final Builder backgroundProperties;
+	
+	private final Builder invalidDataReceived;
+			
 	/**
 	 * @param caller
 	 */
@@ -71,14 +106,13 @@ public class DialogFactory {
 		final Context context = caller.getApplicationContext();
 		final LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		GotoPreferencesListener gotoPreferencesListener = new GotoPreferencesListener(caller);
 		DoNothingListener doNothingListener = new DoNothingListener();
 		
 		noLoginDataSet = createBasicDialog(R.string.no_login_data_title, R.string.no_login_data_message);
-		noLoginDataSet.setPositiveButton(R.string.okay, gotoPreferencesListener);
+		noLoginDataSet.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
 		wrongLogin = createBasicDialog(R.string.wrong_login_data_title, R.string.wrong_login_data_message);
-		wrongLogin.setPositiveButton(R.string.okay, gotoPreferencesListener);
+		wrongLogin.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
 		noConnection = createBasicDialog(R.string.no_connection_title, R.string.no_connection_message);
 		noConnection.setPositiveButton(R.string.okay, doNothingListener);
@@ -97,13 +131,33 @@ public class DialogFactory {
 		confirmUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
 		confirmUpload.setView(layout);
-		confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller, (EditText)layout.findViewById(R.id.upload_comment)));
+		confirmUpload.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener(caller, (EditText)layout.findViewById(R.id.upload_comment), (EditText)layout.findViewById(R.id.upload_source)));
 		confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 		
 		openStreetBugEdit = createBasicDialog(R.string.openstreetbug_edit_title, 0); // body gets replaced later
 		layout = inflater.inflate(R.layout.openstreetbug_edit, null);
 		openStreetBugEdit.setView(layout);
 		openStreetBugEdit.setPositiveButton(R.string.openstreetbug_commitbutton, new CommitListener(caller, (EditText)layout.findViewById(R.id.openstreetbug_comment), (CheckBox)layout.findViewById(R.id.openstreetbug_close)));
+	
+		dataConflict = createBasicDialog(R.string.data_conflict_title, R.string.data_conflict_message);
+		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
+		
+		// displaying these dialogs might make things worse
+		outOfMemory = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_message);
+		outOfMemory.setPositiveButton(R.string.okay, doNothingListener);
+		
+		outOfMemoryDirty = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
+		outOfMemoryDirty.setPositiveButton(R.string.okay, doNothingListener);
+		
+		backgroundProperties = createBackgroundPropertiesDialog();
+		layout = inflater.inflate(R.layout.background_properties, null);
+		backgroundProperties.setView(layout);
+		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
+		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_opacity_seeker);
+		seeker.setOnSeekBarChangeListener(createSeekBarListener());
+				
+		invalidDataReceived = createBasicDialog(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
+		invalidDataReceived.setPositiveButton(R.string.okay, doNothingListener);
 	}
 	
 	/**
@@ -139,6 +193,33 @@ public class DialogFactory {
 			
 		case OPENSTREETBUG_EDIT:
 			return openStreetBugEdit.create();
+		
+		case DATA_CONFLICT:
+			return dataConflict.create();
+		
+		case OUT_OF_MEMORY:
+			return outOfMemory.create();
+			
+		case OUT_OF_MEMORY_DIRTY:
+			return outOfMemoryDirty.create();
+			
+		case PROGRESS_DELETING:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_deleting_message);
+			
+		case PROGRESS_SEARCHING:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_searching_message);
+		
+		case PROGRESS_SAVING:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_saving_message);
+			
+		case BACKGROUND_PROPERTIES:
+			return backgroundProperties.create();
+			
+		case INVALID_DATA_RECEIVED:
+			return invalidDataReceived.create();
+			
+		case SEARCH:
+			return createSearchDialog(caller);
 		}
 		
 		return null;
@@ -169,7 +250,7 @@ public class DialogFactory {
 		dialog.setNegativeButton(R.string.cancel, null);
 		return dialog.create();
 	}
-	
+		
 	/**
 	 * @param titleId the resource-id of the title
 	 * @param messageId the resource-id of the message
@@ -185,13 +266,82 @@ public class DialogFactory {
 		return dialog;
 	}
 	
+	/**
+	 * @param titleId the resource-id of the title
+	 * @param messageId the resource-id of the message
+	 * @return a dialog-builder
+	 */
+	private Builder createBackgroundPropertiesDialog() {
+		Builder dialog = new AlertDialog.Builder(caller);
+		dialog.setTitle(R.string.menu_tools_background_properties);
+		return dialog;
+	}
+	
+	private OnSeekBarChangeListener createSeekBarListener() {
+		return new OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
+				Map map = Application.mainActivity.getMap();
+				map.getOpenStreetMapTilesOverlay().setAlpha(progress);
+				map.invalidate();
+			}
+			
+			@Override
+			public void onStartTrackingTouch(final SeekBar seekBar) {
+			}
+			
+			@Override
+			public void onStopTrackingTouch(final SeekBar arg0) {
+			}
+		};
+	}
+	
 	private ProgressDialog createBasicProgressDialog(final int messageId) {
+		return createBasicProgressDialog(R.string.progress_title, messageId);
+	}
+	
+	private ProgressDialog createBasicProgressDialog(final int titleId, final int messageId) {
 		ProgressDialog progress = new ProgressDialog(caller);
-		progress.setTitle(R.string.progress_title);
+		progress.setTitle(titleId);
 		progress.setIndeterminate(true);
 		progress.setCancelable(true);
 		progress.setMessage(caller.getResources().getString(messageId));
 		return progress;
 	}
 	
+	private Dialog createSearchDialog(final Main caller) {
+		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		Builder searchBuilder = createBasicDialog(R.string.menu_find, R.string.find_message);
+		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
+		searchBuilder.setView(searchLayout);
+		EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
+		searchBuilder.setNegativeButton(R.string.cancel, null);
+		final Dialog searchDialog = searchBuilder.create();
+		
+		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
+			@Override
+			public void onItemFound(SearchResult sr) {
+				// turn this off or else we get bounced back to our current GPS position
+				caller.setFollowGPS(false);
+				caller.getMap().setFollowGPS(false);
+				//
+				caller.logic.setZoom(19);
+				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
+				searchDialog.dismiss();
+			}
+		};
+		searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+		    @Override
+		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+		            Search search = new Search(caller, searchItemFoundCallback);
+		            search.find(v.getText().toString());
+		            return true;
+		        }
+		        return false;
+		    }
+		});
+		
+		return searchDialog;
+	}
 }

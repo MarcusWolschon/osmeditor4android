@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
 	<item
 		android:id="@+id/menu_undo"
 		android:title="@string/undo"
@@ -30,6 +29,10 @@
 					android:title="@string/menu_gps_follow"
 					android:checkable="true"
 					android:alphabeticShortcut="f"
+				/>
+				<item
+					android:id="@+id/menu_gps_goto"
+					android:title="@string/menu_gps_goto"
 				/>
 				<item
 					android:id="@+id/menu_gps_start"
@@ -67,6 +70,10 @@
 					android:title="@string/menu_transfer_download_current"
 				/>
 				<item
+					android:id="@+id/menu_transfer_download_current_add"
+					android:title="@string/menu_transfer_download_current_add"
+				/>
+				<item
 					android:id="@+id/menu_transfer_download_other"
 					android:title="@string/menu_transfer_download_other"
 				/>
@@ -89,6 +96,37 @@
 		android:showAsAction="ifRoom"
 	/>
 	
+	<item
+		android:id="@+id/menu_tools"
+		android:title="@string/menu_tools"
+		android:icon="@drawable/menu_tools"
+		android:showAsAction="ifRoom"
+	>	
+		<menu>
+				<item
+					android:id="@+id/menu_tools_flush_background_tile_cache"
+					android:title="@string/menu_tools_flush_background_tile_cache"
+				/>
+				<item
+					android:id="@+id/menu_tools_flush_overlay_tile_cache"
+					android:title="@string/menu_tools_flush_overlay_tile_cache"
+				/>
+				<item
+					android:id="@+id/menu_tools_background_align"
+					android:title="@string/menu_tools_background_align"
+				/>
+<!-- 				<item -->
+<!-- 					android:id="@+id/menu_tools_background_properties" -->
+<!-- 					android:title="@string/menu_tools_background_properties" -->
+<!-- 				/> -->
+	
+		</menu>
+	</item>
+	<item
+		android:id="@+id/menu_find"
+		android:title="@string/menu_find"
+		android:showAsAction="ifRoom"
+	/>		
 	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"

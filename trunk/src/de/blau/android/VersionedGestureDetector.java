@@ -16,7 +16,9 @@ import android.view.View;
 public abstract class VersionedGestureDetector {
 	private static final float DRAG_THRESHOLD = 20f;
 	public static final long LONG_PRESS_DELAY = 500;
+	
 	OnGestureListener mListener;
+	
 	
 	public abstract boolean onTouchEvent(View v, MotionEvent ev);
 	

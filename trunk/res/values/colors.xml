@@ -3,6 +3,7 @@
 	<color name="actionbar_bg">#aa000000</color>
 	<color name="tagedit_field_text">@android:color/white</color>
 	<color name="tagedit_field_bg">#d8000000</color>
+	<color name="tagedit_field_static_bg">#fa555555</color>
 	<color name="preset_text">@android:color/white</color>
 	<color name="preset_bg">#ff666666</color>
 	
@@ -13,7 +14,8 @@
 	<color name="ccc_white">#fcfae1</color>
 	<color name="ccc_ocher">#bd8d46</color>
 	<color name="grey">#0F0F0F</color>
-	<color name="stroke">#000</color>
+	<color name="light_grey">#eeeeee</color>
+	<color name="dark_grey">#aaaaaa</color><color name="stroke">#000</color>
 	<color name="problem">#F0F</color>
 	<color name="motorway">#809BC0</color>
 	<color name="trunk">#7FC97F</color>
@@ -52,4 +54,5 @@
 	<drawable name="screen_background_black">#ff000000</drawable>
 	<drawable name="translucent_background">#e0000000</drawable>
 	<drawable name="transparent_background">#00000000</drawable>
+	
 </resources>

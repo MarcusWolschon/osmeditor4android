@@ -12,6 +12,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.util.Density;
 
 /** Adapter providing icons for the ActionBar edit mode dropdown */
 public class ModeDropdownAdapter implements SpinnerAdapter {
@@ -21,6 +22,8 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 	private Context context;
 
 	private boolean showOpenStreetBug;
+	
+	private boolean depreciatedModesEnabled;
 
 	private HashSet<DataSetObserver> observers = new HashSet<DataSetObserver>();
 	
@@ -46,7 +49,7 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		 */
 		private TextView getView(boolean pad) {
 			TextView view = new TextView(context);
-			int padding = dpToPx(10);
+			int padding = Density.dpToPx(10); //TODO create constant
 			if (pad) view.setPadding(padding, padding, padding, padding);
 			view.setText(label);
 			view.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -55,18 +58,9 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		}
 	}
 	
-	/**
-	 * Converts a size in dp to pixels
-	 * @param dp size in display point
-	 * @return size in pixels (for the current display metrics)
-	 */
-	private int dpToPx(int dp) {
-		return Math.round(dp * context.getResources().getDisplayMetrics().density);
-	}
-	
-	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug) {
+	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug, boolean depreciatedModesEnabled) {
 		this.context = context;
-		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.menu_move);
+		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.locked_small);
 		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
 		addItem(Logic.Mode.MODE_ADD, R.string.menu_add, R.drawable.menu_add);
 		addItem(Logic.Mode.MODE_EDIT, R.string.menu_edit, R.drawable.menu_edit);
@@ -77,6 +71,7 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		// OpenStreetBug item must be last so it can be easily hidden
 		addItem(Logic.Mode.MODE_OPENSTREETBUG, R.string.menu_openstreetbug, R.drawable.menu_openstreetbug);
 		this.showOpenStreetBug = showOpenStreetBug;
+		this.depreciatedModesEnabled = depreciatedModesEnabled;
 	}
 	
 

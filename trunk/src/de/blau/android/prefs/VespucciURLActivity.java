@@ -1,18 +1,29 @@
 package de.blau.android.prefs;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
+import de.blau.android.util.OAuthHelper;
 
 /**
  * Will process vespucci:// URLs.
@@ -31,10 +42,11 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	private static final int REQUEST_PRESETEDIT = 0;
 	private static final int REQUEST_APIEDIT = 1;
 	
-	private String apiurl, apiname, apiuser, apipass, apipreseturl, apiicons;
+	private String apiurl, apiname, apiuser, apipass, apipreseturl, apiicons, apioauth;
 	private String preseturl, presetname;
 	private PresetInfo existingPreset = null;
 	private PresetInfo apiPresetInfo = null;
+	private String oauth_token, oauth_verifier;
 	AdvancedPrefDatabase prefdb;
 	
 	private View mainView;
@@ -56,51 +68,62 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	    apipass    = data.getQueryParameter("apipass");
 	    apipreseturl  = data.getQueryParameter("apipreset");
 	    apiicons   = data.getQueryParameter("apiicons");
+	    apioauth   = data.getQueryParameter("apioauth");
 	    preseturl  = data.getQueryParameter("preseturl");
 	    presetname = data.getQueryParameter("presetname");
-	    
+	    oauth_token = data.getQueryParameter("oauth_token");
+	    oauth_verifier = data.getQueryParameter("oauth_verifier");
+
 	    super.onStart();
 	}
 	
 	@Override
 	protected void onResume() {
 		Log.i("VespucciURLActivity", "onResume");
-		mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null && apiurl == null ? View.VISIBLE : View.GONE);
-		
-    	mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(preseturl != null ? View.VISIBLE : View.GONE);
-	    if (preseturl != null) {
-	    	((TextView)mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
-	    	((TextView)mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
-	    	existingPreset = prefdb.getPresetByURL(preseturl);
-	    	mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
-	    	mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+	    if ((oauth_token != null) && (oauth_verifier != null)) {
+	    	mainView.setVisibility(View.GONE);
+	    	Log.i("VespucciURLActivity", "got oauth verifier " + oauth_token + " " + oauth_verifier);
+	    	oAuthHandshake(oauth_verifier);
+	    	setResult(RESULT_OK);
+	    	finish();
 	    }
-	    
-    	mainView.findViewById(R.id.urldialog_layoutAPI).setVisibility(apiurl != null ? View.VISIBLE : View.GONE);
-	    if (apiurl != null) {
-	    	((TextView)mainView.findViewById(R.id.urldialog_textAPIName)).setText(apiname);
-	    	((TextView)mainView.findViewById(R.id.urldialog_textAPIURL)).setText(apiurl);
-	    	boolean hasAPI = false;
-	    	for (API api : prefdb.getAPIs()) {
-	    		if (api.url.equals(apiurl)) {
-	    			hasAPI = true;
-	    			break;
-	    		}
-	    	}
-	    	mainView.findViewById(R.id.urldialog_textAPIExists).setVisibility(hasAPI ? View.VISIBLE : View.GONE);
-	    	if (apipreseturl != null) {
-	    		apiPresetInfo = prefdb.getPresetByURL(apipreseturl);
-		    	mainView.findViewById(R.id.urldialog_textAPIPresetMissing).setVisibility(apiPresetInfo == null? View.VISIBLE : View.GONE);
-	    	} else {
-		    	mainView.findViewById(R.id.urldialog_textAPIPresetMissing).setVisibility(View.GONE);
-		    	apiPresetInfo = null;
-	    	}
-	    }
-	    
-    	((Button)mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
-    	((Button)mainView.findViewById(R.id.urldialog_buttonAddAPI)).setOnClickListener(this);
+	    else {
+			mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null && apiurl == null ? View.VISIBLE : View.GONE);
+			
+	    	mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(preseturl != null ? View.VISIBLE : View.GONE);
+		    if (preseturl != null) {
+		    	((TextView)mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
+		    	((TextView)mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
+		    	existingPreset = prefdb.getPresetByURL(preseturl);
+		    	mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
+		    	mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+		    }
+		    
+	    	mainView.findViewById(R.id.urldialog_layoutAPI).setVisibility(apiurl != null ? View.VISIBLE : View.GONE);
+		    if (apiurl != null) {
+		    	((TextView)mainView.findViewById(R.id.urldialog_textAPIName)).setText(apiname);
+		    	((TextView)mainView.findViewById(R.id.urldialog_textAPIURL)).setText(apiurl);
+		    	boolean hasAPI = false;
+		    	for (API api : prefdb.getAPIs()) {
+		    		if (api.url.equals(apiurl)) {
+		    			hasAPI = true;
+		    			break;
+		    		}
+		    	}
+		    	mainView.findViewById(R.id.urldialog_textAPIExists).setVisibility(hasAPI ? View.VISIBLE : View.GONE);
+		    	if (apipreseturl != null) {
+		    		apiPresetInfo = prefdb.getPresetByURL(apipreseturl);
+			    	mainView.findViewById(R.id.urldialog_textAPIPresetMissing).setVisibility(apiPresetInfo == null? View.VISIBLE : View.GONE);
+		    	} else {
+			    	mainView.findViewById(R.id.urldialog_textAPIPresetMissing).setVisibility(View.GONE);
+			    	apiPresetInfo = null;
+		    	}
+		    }
 
-	    
+	    	((Button)mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
+	    	((Button)mainView.findViewById(R.id.urldialog_buttonAddAPI)).setOnClickListener(this);
+
+	    }
 		super.onResume();
 	}
 
@@ -110,16 +133,16 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.urldialog_buttonAddPreset:
 			intent = new Intent(this, PresetEditorActivity.class);
-			intent.setAction(PresetEditorActivity.ACTION_NEW);
-			intent.putExtra(PresetEditorActivity.EXTRA_NAME, presetname);
-			intent.putExtra(PresetEditorActivity.EXTRA_VALUE, preseturl);
+			intent.setAction(URLListEditActivity.ACTION_NEW);
+			intent.putExtra(URLListEditActivity.EXTRA_NAME, presetname);
+			intent.putExtra(URLListEditActivity.EXTRA_VALUE, preseturl);
 			startActivityForResult(intent, REQUEST_PRESETEDIT);
 			break;
 		case R.id.urldialog_buttonAddAPI:
 			intent = new Intent(this, APIEditorActivity.class);
-			intent.setAction(PresetEditorActivity.ACTION_NEW);
-			intent.putExtra(PresetEditorActivity.EXTRA_NAME, apiname);
-			intent.putExtra(PresetEditorActivity.EXTRA_VALUE, apiurl);
+			intent.setAction(URLListEditActivity.ACTION_NEW);
+			intent.putExtra(URLListEditActivity.EXTRA_NAME, apiname);
+			intent.putExtra(URLListEditActivity.EXTRA_VALUE, apiurl);
 			startActivityForResult(intent, REQUEST_APIEDIT);
 			break;
 		}
@@ -128,7 +151,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_APIEDIT && resultCode == RESULT_OK) {
-			ListEditItem item = (ListEditItem)data.getExtras().get(APIEditorActivity.EXTRA_ITEM);
+			ListEditItem item = (ListEditItem)data.getExtras().get(URLListEditActivity.EXTRA_ITEM);
 			if (item != null) {
 				prefdb.selectAPI(item.id);
 				if (apiuser != null && !apiuser.equals("")) {
@@ -141,6 +164,60 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 					prefdb.setCurrentAPIShowIcons(true);
 				}
 			}
+		}
+	}
+	
+	private void oAuthHandshake(String verifier) {
+		String[] s = {verifier};
+		AsyncTask<String, Void, Void> loader = new AsyncTask<String, Void, Void>() {
+				
+			@Override
+			protected void onPreExecute() {
+			
+				Log.d("VespucciURLActivity", "oAuthHandshake onPreExecute");
+			}
+			
+			@Override
+			protected Void doInBackground(String... s) {
+
+		    	OAuthHelper oa = new OAuthHelper(); // if we got here it has already been initialized once
+		    	try {
+					String access[] = oa.getAccessToken(s[0]);
+					prefdb.setAPIAccessToken(access[0], access[1]);
+				} catch (OAuthMessageSignerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OAuthNotAuthorizedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OAuthExpectationFailedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OAuthCommunicationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(Void v) {
+				Log.d("VespucciURLActivity", "oAuthHandshake onPostExecute");
+				Application.mainActivity.finishOAuth();
+			}
+		};
+		loader.execute(s);
+		try {
+			loader.get(60, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

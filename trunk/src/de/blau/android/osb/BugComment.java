@@ -1,21 +1,24 @@
 package de.blau.android.osb;
 
+import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import android.util.Log;
 
 /**
  * An individual comment associated with an OpenStreetBug.
  * @author Andrew Gregory
  */
-public class BugComment {
+public class BugComment implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The preferred OSB date formats. */
 	private static final DateFormat bugDateFormats[] = {
-		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), // preferred, used for output (see toString())
+		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"), // preferred, used for output (see toString())
 		new SimpleDateFormat("yy-MM-dd HH:mm:ss"  ), // alternate preferred
 		new SimpleDateFormat("dd.MM.yy HH:mm:ss"  ), // German
 		new SimpleDateFormat("dd/MM/yy HH:mm:ss"  )  // European
@@ -25,6 +28,8 @@ public class BugComment {
 	private String text;
 	/** The nickname associated with the comment. */
 	private String nickname;
+	/** The action associated with the comment. */
+	private String action;
 	/** The timestamp associated with the comment. */
 	private Date timestamp;
 	
@@ -35,35 +40,7 @@ public class BugComment {
 	 * @param description A description obtained from the OSB database.
 	 */
 	public BugComment(String description) {
-		int textEnd = description.indexOf("[");
-		if (textEnd < 0) textEnd = description.length();
-		text = description.substring(0, textEnd).trim();
-		int nicknameEnd = description.indexOf(",", textEnd);
-		if (nicknameEnd < 0) nicknameEnd = description.length();
-		try {
-			nickname = description.substring(textEnd + 1, nicknameEnd).trim();
-		} catch (IndexOutOfBoundsException e) {
-			nickname = "";
-		}
-		int dateEnd = description.indexOf("]", nicknameEnd);
-		if (dateEnd < 0) dateEnd = description.length();
-		try {
-			String date = description.substring(nicknameEnd + 1, dateEnd).trim();
-			for (DateFormat df : bugDateFormats) {
-				try {
-					timestamp = df.parse(date);
-					break;
-				} catch (ParseException e) {
-					// couldn't parse that format - try the next format
-				}
-			}
-			if (timestamp == null) {
-				Log.d("Vespucci", "BugComment:Couldn't parse:"+date);
-			}
-		} catch (IndexOutOfBoundsException e) {
-			// could not find the end of the nickname, therefore could not find the date
-			// leave timestamp null
-		}
+		text = description;
 	}
 	
 	/**
@@ -72,9 +49,10 @@ public class BugComment {
 	 * @param nickname New nickname. Commas are stripped.
 	 * @param timestamp New timestamp.
 	 */
-	public BugComment(String text, String nickname, Date timestamp) {
+	public BugComment(String text, String nickname, String action,  Date timestamp) {
 		this.text = text.replaceAll("\\[", "");
 		this.nickname = nickname.replaceAll(",", "");
+		this.action = action;
 		this.timestamp = timestamp;
 	}
 	
@@ -106,9 +84,10 @@ public class BugComment {
 	 * Convert the bug to a string.
 	 * @return The bug comment in the preferred OSB format.
 	 */
+	@Override
 	public String toString() {
 		String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
-		return text + " [" + nickname + date + "]";
+		return text + " [" + action + " " + nickname + date + "]";
 	}
 
 }

@@ -40,6 +40,15 @@ public class MultiHashMap<K, V> {
 			map = new HashMap<K, Set<V>>();
 		}
 	}
+	
+	/**
+	 * Check for key in map
+	 * @param key
+	 * @return true if key exists in map
+	 */
+	public boolean containsKey(K key) {
+		return map.containsKey(key);
+	}
 		
 	/**
 	 * Adds item to the set of values associated with the key (null items are not added)

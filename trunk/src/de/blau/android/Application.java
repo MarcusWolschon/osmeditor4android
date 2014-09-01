@@ -5,7 +5,7 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 @ReportsCrashes(
-	formKey = "dEtPR2twakdQbS1TbTVQNjdKeHBiLXc6MQ",
+	formKey = "dEYwdXN5T0FqTTBCVnMxc2k3bFJsSGc6MQ",
 	mode = ReportingInteractionMode.NOTIFICATION,
 	resNotifTickerText = R.string.crash_notif_ticker_text,
 	resNotifTitle = R.string.crash_notif_title,

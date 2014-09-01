@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:paddingLeft="20dp"
+		android:paddingRight="20dp"
+		 >
+    	
+		<EditText
+		   
+			android:id="@+id/location_search_edit"
+			android:imeOptions="actionSearch" 
+  			android:inputType="text"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:layout_weight="1"
+		/>
+</LinearLayout>

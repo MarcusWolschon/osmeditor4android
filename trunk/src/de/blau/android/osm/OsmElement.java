@@ -2,12 +2,13 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -47,6 +48,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 
 	protected byte state;
 	
+	protected final ArrayList<Relation> parentRelations;
+	
 	/**
 	 * hasProblem() is an expensive test, so the results are cached.
 	 */
@@ -66,11 +69,16 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		this.osmVersion = osmVersion;
 		this.tags = new TreeMap<String, String>();
 		this.state = state;
+		this.parentRelations = new ArrayList<Relation>();
 		cachedHasProblem = null;
 	}
 
 	public long getOsmId() {
 		return osmId;
+	}
+	
+	public long getOsmVersion() {
+		return osmVersion;
 	}
 
 	void setOsmId(final long osmId) {
@@ -158,6 +166,14 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	}
 	
 	/**
+	 * check if this element has tags of any kind
+	 * @return
+	 */
+	public boolean isTagged() {
+		return (tags != null) && (tags.size() > 0);
+	}
+	
+	/**
 	 * Merge the tags from two OsmElements into one set.
 	 * @param e1
 	 * @param e2
@@ -199,12 +215,86 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	public boolean isUnchanged() {
 		return state == STATE_UNCHANGED;
 	}
+	
+	/**
+	 * Add reference to parent relation 
+	 * Does not check id to avoid dups!
+	 */
+	public void addParentRelation(Relation relation) {
+		parentRelations.add(relation);
+	}
+	
+	/**
+	 * Check for parent relation
+	 * @param relation
+	 * @return
+	 */
+	public boolean hasParentRelation(Relation relation) {
+		return parentRelations.contains(relation);
+	}
+	
+	/**
+	 * Check for parent relation based on id
+	 * @param relation
+	 * @return
+	 */
+	public boolean hasParentRelation(long osmId) {
+		for (Relation r:parentRelations) {
+			if (osmId == r.getOsmId())
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Add all parent relations, avoids dups
+	 */
+	public void addParentRelations(ArrayList<Relation> relations) {
+		//  dedup
+		for (Relation r : relations) {
+			if (!parentRelations.contains(r)) {
+				addParentRelation(r);
+			}
+		}
+	}
+	
+	public ArrayList<Relation> getParentRelations() {
+		return parentRelations;
+	}
+	
+	public boolean hasParentRelations() {
+		return (parentRelations != null) && (parentRelations.size() > 0);
+	}
+	
+	/**
+	 * Remove reference to parent relation
+	 * does not check for id
+	 */
+	public void removeParentRelation(Relation relation) {
+		parentRelations.remove(relation);
+	}
+	
+	/**
+	 * Remove reference to parent relation
+	 */
+	public void removeParentRelation(long osmId) {
+		ArrayList<Relation> tempRelList = new ArrayList<Relation>(parentRelations);
+		for (Relation r:tempRelList) {
+			if (osmId == r.getOsmId())
+				parentRelations.remove(r);
+		}
+	}
+
 
 	/**
 	 * Generate a human-readable description/summary of the element.
 	 * @return A description of the element.
 	 */
 	public String getDescription() {
+		return getDescription(true);
+	}
+	
+	public String getDescription(boolean withType) {
 		// Use the name if it exists
 		String name = getTagWithKey("name");
 		if (name != null && name.length() > 0) {
@@ -219,11 +309,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 		for (String tag : importantTags) {
 			String value = getTagWithKey(tag);
 			if (value != null && value.length() > 0) {
-				return getName() + " " + tag + ":" + value;
+				return (withType ? getName() + " " : "") + tag + ":" + value;
 			}
 		}
 		// Failing the above, the OSM ID
-		return getName() + " #" + Long.toString(getOsmId());
+		return (withType ? getName() + " #" : "#") + Long.toString(getOsmId());
 	}
 	
 	/**
@@ -271,6 +361,20 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	}
 	
 	/**
+	 * return a string giving the problem
+	 */
+	public String describeProblem() {
+		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
+		for (String key : tags.keySet()) {
+			// test key and value against pattern
+			if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+				return key + ": " + tags.get(key);
+			}
+		}
+		return "";
+	}
+	
+	/**
 	 * Test if the element has a noted problem. A noted problem is where someone has
 	 * tagged the element with a "fixme" or "todo" key/value.
 	 * @return true if the element has a noted problem, false if it doesn't.
@@ -293,6 +397,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable {
 	public enum ElementType {
 		NODE,
 		WAY,
-		CLOSEDWAY
+		CLOSEDWAY,
+		RELATION
 	}
 }

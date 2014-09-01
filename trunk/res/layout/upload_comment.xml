@@ -2,25 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
+
   <RelativeLayout
-    android:id="@+id/upload_comment_controls"
-    android:layout_alignParentBottom="true"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    <TextView
-      android:id="@+id/upload_comment_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/upload_comment_label"/>
-    <EditText
-      android:id="@+id/upload_comment"
-      android:layout_alignTop="@id/upload_comment_label"
-      android:layout_toRightOf="@id/upload_comment_label"
+      android:id="@+id/upload_comment_controls"
       android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:inputType="text"
-      />
-  </RelativeLayout>
+	  android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true">
+	    <TextView
+	      android:id="@+id/upload_comment_label"
+	      android:layout_width="wrap_content"
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
+	      android:text="@string/upload_comment_label"/>
+	    <EditText
+	      android:id="@+id/upload_comment"
+	      android:layout_toRightOf="@id/upload_comment_label"
+	      android:layout_alignBottom="@id/upload_comment_label"
+	      android:layout_alignTop="@id/upload_comment_label"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:inputType="text"
+	      />
+	
+	  <TextView
+	      android:id="@+id/upload_source_label"
+	      android:layout_width="wrap_content"
+	      android:layout_height="48dp"
+	      android:gravity="center_vertical"
+	      android:layout_below="@id/upload_comment_label"
+	      android:text="@string/upload_source_label"/>
+	   <EditText
+	      android:id="@+id/upload_source"
+	      android:layout_below="@id/upload_comment"
+	      android:layout_alignLeft="@id/upload_comment"
+	      android:layout_alignBottom="@id/upload_source_label"
+	      android:layout_alignTop="@id/upload_source_label"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:inputType="text"/>
+	</RelativeLayout>
+ 
   <ScrollView
     android:layout_alignParentTop="true"
     android:layout_above="@id/upload_comment_controls"

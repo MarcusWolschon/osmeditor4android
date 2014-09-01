@@ -36,7 +36,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 		super();
 		addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
 	}
-	
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		db = new AdvancedPrefDatabase(this);
@@ -52,19 +52,21 @@ public class PresetEditorActivity extends URLListEditActivity {
 	protected void onLoadList(List<ListEditItem> items) {
 		PresetInfo[] presets = db.getPresets();
 		for (PresetInfo preset : presets) {
-			items.add(new ListEditItem(preset.id, preset.name, preset.url));
+			items.add(new ListEditItem(preset.id, preset.name, preset.url, false, preset.active));
 		}
 	}
 
 	@Override
 	protected void onItemClicked(ListEditItem item) {
-		db.setCurrentAPIPreset(item.id);
-		finish();
+		item.active = !item.active;
+		db.setPresetState(item.id, item.active);
+		Main.resetPreset();
+		// finish();
 	}
 
 	@Override
 	protected void onItemCreated(ListEditItem item) {
-		db.addPreset(item.id, item.name, item.value);
+		db.addPreset(item.id, item.name, item.value, false);
 		downloadPresetData(item);
 		if (!isAddingViaIntent()) {
 			db.setCurrentAPIPreset(item.id);
