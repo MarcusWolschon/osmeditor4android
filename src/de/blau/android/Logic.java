@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -19,24 +22,35 @@ import org.apache.http.HttpStatus;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.Paints;
+import de.blau.android.resources.Profile;
+import de.blau.android.util.EditState;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Contains several responsibilities of Logic-Work:
@@ -96,7 +110,11 @@ public class Logic {
 		/**
 		 * easy editing mode supporting multiple operations and menu-based tagging
 		 */
-		MODE_EASYEDIT
+		MODE_EASYEDIT,
+		/**
+		 * Background alignment mode
+		 */
+		MODE_ALIGN_BACKGROUND
 	}
 
 	/**
@@ -120,7 +138,7 @@ public class Logic {
 	 * Minimum width of the viewBox for showing the tolerance. When the viewBox is wider, no element selection is
 	 * possible.
 	 */
-	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000;
+	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000*2;
 
 	/**
 	 * In MODE_EDIT this value is used for the padding of the display border.
@@ -142,16 +160,21 @@ public class Logic {
 	 * Global factor for all nodes and lines.
 	 */
 	public static final float STROKE_FACTOR = 100000;
-
+	
 	/**
-	 * Filename of file containing the currently selected edit mode
+	 * Filename of file containing the currently edit state
 	 */
-	private static final String MODE_FILENAME = "editmode.state";
-
+	private static final String EDITSTATE_FILENAME = "edit.state";
+	
 	/** Sorter instance for sorting nodes by distance */
 	private static final DistanceSorter<OsmElement, Node> nodeSorter = new DistanceSorter<OsmElement, Node>();
 	/** Sorter instance for sorting ways by distance */
 	private static final DistanceSorter<Way, Way> waySorter = new DistanceSorter<Way, Way>();
+
+	/**
+	 * maximum number of nodes in a way for it still to be moveable, arbitrary number for now
+	 */
+	private static final int MAX_NODES_FOR_MOVE = 100;
 	
 	/**
 	 * See {@link StorageDelegator}.
@@ -175,6 +198,11 @@ public class Logic {
 	private Way selectedWay;
 	
 	/**
+	 * The user-selected relation.
+	 */
+	private Relation selectedRelation;
+	
+	/**
 	 * The user-selected bug.
 	 */
 	private Bug selectedBug;
@@ -184,7 +212,30 @@ public class Logic {
 	 * Set by {@link #handleTouchEventDown(float, float)}
 	 */
 	private boolean draggingNode = false;
+	
+	
+	/**
+	 * Are we currently dragging a way?
+	 * Set by {@link #handleTouchEventDown(float, float)}
+	 */
+	private boolean draggingWay = false;
+	private int startLat;
+	private int startLon;
+	private float startY;
+	private float startX;
+	private float centroidY;
+	private float centroidX;
 
+	/**
+	 * Are we currently draggign a handle?
+	 */
+	private boolean draggingHandle = false;
+	
+	/**
+	 * 
+	 */
+	private boolean rotatingWay = false;
+	
 	/**
 	 * Current mode.
 	 */
@@ -200,12 +251,28 @@ public class Logic {
 	 */
 	private Map map;
 
-	/**
-	 * Needed for updating the strokes.
-	 */
-	private final Paints paints;
 	
 	private Set<OsmElement> clickableElements;
+	
+	/**
+	 * add relations to result of clicks/touches
+	 */
+	private boolean returnRelations = true;
+	
+	/**
+	 * ways belonging to a selected relation
+	 */
+	private Set<Way> selectedRelationWays = null;
+	
+	/**
+	 * nodes belonging to a selected relation
+	 */
+	private Set<Node> selectedRelationNodes = null;
+	
+	/**
+	 * 
+	 */
+	private Handle selectedHandle = null;
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
@@ -214,18 +281,18 @@ public class Logic {
 	 * @param map Instance of the Map. All new Values will be pushed to it.
 	 * @param paints Needed for updating the strokes on zooming.
 	 */
-	Logic(final Map map, final Paints paints) {
+	Logic(final Map map, final Profile profile) {
 		this.map = map;
-		this.paints = paints;
 
-		viewBox = delegator.getOriginalBox();
+		viewBox = delegator.getLastBox();
 		
 		mode = Mode.MODE_MOVE;
 		setSelectedBug(null);
 		setSelectedNode(null);
 		setSelectedWay(null);
+		setSelectedRelation(null);
 
-		map.setPaints(paints);
+		// map.setPaints(paints);
 		map.setDelegator(delegator);
 		map.setViewBox(viewBox);
 	}
@@ -239,10 +306,24 @@ public class Logic {
 	 */
 	void setPrefs(final Preferences prefs) {
 		this.prefs = prefs;
-		paints.setAntiAliasing(prefs.isAntiAliasingEnabled());
+		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		map.invalidate();
 	}
 
+	
+	/**
+	 * 
+	 */
+	public void updateProfile() {
+		Profile.switchTo(prefs.getMapProfile());
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
+		// zap the cached style for all ways
+		for (Way w:delegator.getCurrentStorage().getWays()) {
+			w.setFeatureProfile(null);
+		}
+	}
+	
 	/**
 	 * Sets new mode.
 	 * If the new mode is different from the current one,
@@ -262,6 +343,11 @@ public class Logic {
 		case MODE_EDIT:
 			// do nothing
 			break;
+		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
+		if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
+			Log.d("Logic","weird state of edit mode, resetting");
+			setMode(Mode.MODE_MOVE);
+		}
 		case MODE_EASYEDIT:
 		case MODE_ADD:
 		case MODE_ERASE:
@@ -271,6 +357,7 @@ public class Logic {
 		default:
 			setSelectedNode(null);
 			setSelectedWay(null);
+			setSelectedRelation(null);
 			break;
 		}
 		map.invalidate();
@@ -304,7 +391,7 @@ public class Logic {
 	 * @return true, if viewBox' width is smaller than {@link #TOLERANCE_MIN_VIEWBOX_WIDTH}.
 	 */
 	public boolean isInEditZoomRange() {
-		return viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH;
+		return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH);
 	}
 
 	/**
@@ -315,19 +402,24 @@ public class Logic {
 	 */
 	public void translate(final CursorPaddirection direction) {
 		float translation = viewBox.getWidth() * TRANSLATION_FACTOR;
-		switch (direction) {
-		case DIRECTION_LEFT:
-			viewBox.translate((int) -translation, 0);
-			break;
-		case DIRECTION_DOWN:
-			viewBox.translate(0, (int) (-translation / viewBox.getMercatorFactorPow3()));
-			break;
-		case DIRECTION_RIGHT:
-			viewBox.translate((int) translation, 0);
-			break;
-		case DIRECTION_UP:
-			viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3()));
-			break;
+		try {
+			switch (direction) {
+			case DIRECTION_LEFT:
+				viewBox.translate((int) -translation, 0);
+				break;
+			case DIRECTION_DOWN:
+				viewBox.translate(0, (int) (-translation / viewBox.getMercatorFactorPow3())); //TODO do with proper proj
+				break;
+			case DIRECTION_RIGHT:
+				viewBox.translate((int) translation, 0);
+				break;
+			case DIRECTION_UP:
+				viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3())); //TODO do with proper proj
+				break;
+			}
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		map.invalidate();
@@ -355,23 +447,56 @@ public class Logic {
 			viewBox.zoomOut();
 		}
 		isInEditZoomRange();
-		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
-		map.invalidate();
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		map.postInvalidate();
 	}
 	
 	public void zoom(final float zoomFactor) {
-		viewBox.zoom(zoomFactor);
+		try {
+			viewBox.zoom(zoomFactor);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		isInEditZoomRange();
-		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.postInvalidate();
 	}
+	
+	/**
+	 * set zoom to a specific tile zoom level
+	 * @param z
+	 */
+	public void setZoom(int z) {
+		viewBox.setZoom(z);
+	}
 
+	/**
+	 * Return a stroke width value that increases with zoom and is capped at a configurable value
+	 * 
+	 * @param width   screenwidth in 10e7 deg.
+	 * @return 		  stroke width
+	 */
+	private float strokeWidth(long width){
+		// prefs may not have been initialized
+		if (prefs != null ) return Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / width);
+		return STROKE_FACTOR / width;
+	}
+	
 	/**
 	 * Create an undo checkpoint using a resource string as the name
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void createCheckpoint(int stringId) {
 		delegator.getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
+	}
+	
+	/**
+	 * Remove an undo checkpoint using a resource string as the name
+	 * @param stringId the resource id of the string representing the checkpoint name
+	 */
+	private void removeCheckpoint(int stringId) {
+		delegator.getUndo().removeCheckpoint(Application.mainActivity.getResources().getString(stringId));
 	}
 	
 
@@ -396,17 +521,72 @@ public class Logic {
 			return true;
 		}
 	}
+	
+	/**
+	 * Delegates the setting of the Tag-list to {@link StorageDelegator}.
+	 * All existing tags will be replaced.
+	 * 
+	 * @param type type of the element for the Tag-list.
+	 * @param osmId OSM-ID of the element.
+	 * @param tags Tag-List to be set.
+	 * @return false if no element exists for the given osmId/type.
+	 */
+	public boolean updateParentRelations(final String type, final long osmId, final HashMap<Long, String> parents) {
+		OsmElement osmElement = delegator.getOsmElement(type, osmId);
+		if (osmElement == null) {
+			Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
+			return false;
+		} else {
+			createCheckpoint(R.string.undo_action_update_relations);
+			delegator.updateParentRelations(osmElement, parents);	
+			return true;
+		}
+	}
+	
+	public boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
+		OsmElement osmElement = delegator.getOsmElement(Relation.NAME, osmId);
+		if (osmElement == null) {
+			Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
+			return false;
+		} else {
+			createCheckpoint(R.string.undo_action_update_relations);
+			delegator.updateRelation((Relation)osmElement, members);	
+			return true;
+		}
+	}
 
 	/**
 	 * Prepares the screen for an empty map. Strokes will be updated and map will be repainted.
 	 * 
 	 * @param box the new empty map-box. Don't mess up with the viewBox!
 	 */
-	void newEmptyMap(final BoundingBox box) {
-		delegator.reset();
-		delegator.setOriginalBox(box);
-		viewBox.setRatio((float) map.getWidth() / map.getHeight());
-		paints.updateStrokes((STROKE_FACTOR / viewBox.getWidth()));
+	void newEmptyMap(BoundingBox box) {
+		Log.e(DEBUG_TAG, "newEmptyMap");
+		if (box == null) { // probably should do a more general check if the BB is valid
+			try {
+				box = new BoundingBox(-180.0d, -GeoMath.MAX_LAT, +180.0d, GeoMath.MAX_LAT); // maximum possible size in mercator projection
+			} catch (OsmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		// not checking will zap edits, given that this method will only be called when we are not downloading, not a good thing
+		if (!delegator.isDirty()) {
+			delegator.reset();
+			// delegator.setOriginalBox(box); not needed IMHO
+		} else {
+			//TODO show warning
+		}
+
+		try {
+			viewBox.setBorders(box); // note find bugs warning here can be ignored
+			viewBox.setRatio((float) map.getWidth() / map.getHeight(), true);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();
 	}
@@ -422,6 +602,18 @@ public class Logic {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 		result.addAll(getClickedNodes(x, y));
 		result.addAll(getClickedWays(x, y));
+		if (returnRelations) {
+			// add any relations that the elements are members of
+			ArrayList<OsmElement> relations = new ArrayList<OsmElement>();
+			for (OsmElement e: result) {
+				for (Relation r: e.getParentRelations()) {
+					if (!relations.contains(r)) { // not very efficient
+						relations.add(r);
+					}
+				}
+			}
+			result.addAll(relations);
+		}
 		return result;
 	}
 
@@ -443,18 +635,75 @@ public class Logic {
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
 				Node node1 = wayNodes.get(k);
 				Node node2 = wayNodes.get(k + 1);
-				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+				// TODO only project once per node
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float node2X = lonE7ToX(node2.getLon());
+				float node2Y = latE7ToY(node2.getLat());
 
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 					result.put(way, GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y));
 					break;
 				}
 			}
-		}
+		}	
+		return result;
+	}
+	
+	class Handle {
+		float x;
+		float y;
 		
+		Handle(float x, float y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+	
+	/**
+	 * Returns all ways with a mid-way segment handle tolerance from the given coordinates, and their distances from them.
+	 * @param x x display coordinate
+	 * @param y y display coordinate
+	 * @return a hash map mapping Ways to distances
+	 */
+	Handle getClickedWayHandleWithDistances(final float x, final float y) {
+		
+		Handle result = null;
+		double bestDistance = Double.MAX_VALUE;
+		
+		for (Way way : delegator.getCurrentStorage().getWays()) {
+			List<Node> wayNodes = way.getNodes();
+
+			if (clickableElements != null && !clickableElements.contains(way)) continue;
+
+			//Iterate over all WayNodes, but not the last one.
+			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
+				Node node1 = wayNodes.get(k);
+				Node node2 = wayNodes.get(k + 1);
+				// TODO only project once per node
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float xDelta = lonE7ToX(node2.getLon()) - node1X;
+				float yDelta = latE7ToY(node2.getLat()) - node1Y;
+				
+				float handleX = node1X + xDelta/2; 
+				float handleY = node1Y + yDelta/2;
+
+				float differenceX = Math.abs(handleX - x);
+				float differenceY = Math.abs(handleY - y);
+				
+				if ((differenceX > Profile.getCurrent().wayToleranceValue) && (differenceY > Profile.getCurrent().wayToleranceValue))	continue;
+				if (Math.hypot(xDelta,yDelta) <= Profile.getCurrent().minLenForHandle) continue;
+				
+				double dist = Math.hypot(differenceX, differenceY);
+				// TODO better choice for tolerance 
+				if ((dist <= Profile.getCurrent().wayToleranceValue) && (dist < bestDistance)) {
+					bestDistance = dist;
+					result = new Handle(handleX, handleY);
+				}
+				
+			}
+		}	
 		return result;
 	}
 	
@@ -468,9 +717,13 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		final float tolerance = Paints.NODE_TOLERANCE_VALUE;
-		float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon()) - x);
-		float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat()) - y);
+		return clickDistance(node, x, y, Profile.getCurrent().nodeToleranceValue);
+	}
+
+	private Double clickDistance(Node node, final float x, final float y, float tolerance) {
+
+		float differenceX = Math.abs(lonE7ToX(node.getLon()) - x);
+		float differenceY = Math.abs(latE7ToY(node.getLat()) - y);
 		
 		if ((differenceX > tolerance) && (differenceY > tolerance))	return null;
 		
@@ -494,12 +747,11 @@ public class Logic {
 			int lat = node.getLat();
 			int lon = node.getLon();
 
-			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.getOriginalBox().isIn(lat, lon)) {
+			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)) {
 				Double dist = clickDistance(node, x, y);
 				if (dist != null) result.put(node, dist);
 			}
 		}
-		
 		return result;
 	}
 	
@@ -576,6 +828,15 @@ public class Logic {
 		return bestWay;
 	}
 	
+	public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
+		Set<OsmElement> result = new HashSet<OsmElement>();
+		result.addAll(delegator.getCurrentStorage().getNodes());
+		result.addAll(delegator.getCurrentStorage().getWays());
+		for (OsmElement e:excludes)
+			result.remove(e);
+		return result;
+	}
+	
 	/**
 	 * Get a list of all the Ways connected to the given Node.
 	 * @param node The Node.
@@ -596,6 +857,20 @@ public class Logic {
 	}
 	
 	/**
+	 * Check all nodes in way if they are actually in the downloaded data
+	 * @param way
+	 * @return true if the above is the case
+	 */
+	public boolean isInDownload(Way way) {
+		for (Node n:way.getNodes()) {
+			if (!delegator.isInDownload(n.getLat(), n.getLon())){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
 	 * user is in edit-mode a touched node will bet set to selected. draggingNode will be set if a node is to be moved.
 	 * A eventual movement of this node will be done in {@link #handleTouchEventMove(float, float, float, float, boolean)}.
@@ -610,15 +885,70 @@ public class Logic {
 			map.invalidate();
 			draggingNode = (selectedNode != null);
 		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
-			draggingNode = (selectedNode != null && clickDistance(selectedNode, x, y) != null);
+			draggingNode = false;
+			draggingWay = false;
+			draggingHandle = false;
+			if (selectedNode != null && clickDistance(selectedNode, x, y, prefs.largeDragArea()? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
+				draggingNode = true;
+				if (prefs.largeDragArea()) {
+					startX = lonE7ToX(selectedNode.getLon());
+					startY = latE7ToY(selectedNode.getLat());
+				}
+			}
+			else {
+				if (selectedWay != null) {
+					if (!rotatingWay) {	
+						Way clickedWay = getClickedWay(x, y);
+						if (clickedWay != null && (clickedWay.getOsmId() == selectedWay.getOsmId())) {
+							if (selectedWay.getNodes().size() <= MAX_NODES_FOR_MOVE) {
+								startLat = yToLatE7(y);
+								startLon = xToLonE7(x);
+								draggingWay = true;
+							}
+							else
+								Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
+						}
+					} else {
+						startX = x;
+						startY = y;
+					}
+				} else {
+					if (rotatingWay) {
+						rotatingWay = false;
+						hideCrosshairs();
+					} else {
+						// way center / handle
+						Handle handle = getClickedWayHandleWithDistances(x, y);
+						if (handle != null) {
+							Log.d("Logic","start handle drag");
+							selectedHandle = handle;
+							draggingHandle = true;
+						}
+					}
+				}
+			}
 		} else {
 			draggingNode = false;
+			draggingWay = false;
+			rotatingWay = false;
+			draggingHandle = false;
 		}
-		if (draggingNode) {
-			createCheckpoint(R.string.undo_action_movenode);
+		Log.d("Logic","handleTouchEventDown creating checkpoints");
+		if (draggingNode || draggingWay) {
+			createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+		} else if (rotatingWay) {
+			createCheckpoint(R.string.undo_action_rotateway);
 		}
 	}
 
+	public void showCrosshairsForCentroid()
+	{
+		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWay);
+		centroidX = centroid[0];
+		centroidY = centroid[1];
+		showCrosshairs(centroidX,centroidY);	
+	}
+	
 	/**
 	 * Handles a finger-movement on the touchscreen.
 	 * Moves a node when draggingNode was set by {@link #handleTouchEventDown(float, float)}.
@@ -629,21 +959,99 @@ public class Logic {
 	 * @param absoluteY The absolute display-coordinate.
 	 * @param relativeX The difference to the last absolute display-coordinate.
 	 * @param relativeY The difference to the last absolute display-coordinate.
+	 * @throws OsmIllegalOperationException 
 	 */
 	void handleTouchEventMove(final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-		if (draggingNode) {
-			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, absoluteY);
-			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, absoluteX);
+		if (draggingNode || draggingWay || (draggingHandle && selectedHandle != null)) {
+			int lat;
+			int lon;
 			// checkpoint created where draggingNode is set
-			delegator.updateLatLon(selectedNode, lat, lon);
+			if (draggingNode || (draggingHandle && selectedHandle != null)) {
+				if (draggingHandle) { // create node only if we are really dragging
+					Log.d("Logic","creating node at handle position");
+					try {
+						if (performAddOnWay(selectedHandle.x, selectedHandle.y)) {
+							selectedHandle = null;
+							draggingNode = true;
+							draggingHandle = false;
+							if (prefs.largeDragArea()) {
+								startX = lonE7ToX(selectedNode.getLon());
+								startY = latE7ToY( selectedNode.getLat());
+							}
+							Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
+						}
+						else return;
+					} catch (OsmIllegalOperationException e) {
+						Toast.makeText(Application.mainActivity, e.getMessage(), Toast.LENGTH_LONG).show();
+						return;
+					}
+				}
+				if (prefs.largeDragArea()) {
+					startY = startY + relativeY;
+					startX = startX - relativeX;
+					lat = yToLatE7(startY);
+					lon = xToLonE7(startX);
+				}	
+				else {
+					lat = yToLatE7(absoluteY);
+					lon = xToLonE7(absoluteX);
+				}
+				
+				delegator.updateLatLon(selectedNode, lat, lon);
+			}
+			else {
+				lat = yToLatE7(absoluteY);
+				lon = xToLonE7(absoluteX);
+				delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
+				// update 
+				startLat = lat;
+				startLon = lon;
+			}
 			translateOnBorderTouch(absoluteX, absoluteY);
-			map.invalidate();
+		} else if (rotatingWay) {
+			
+			double aSq = (startY-absoluteY)*(startY-absoluteY) + (startX-absoluteX)*(startX-absoluteX);
+			double bSq = (absoluteY-centroidY)*(absoluteY-centroidY) + (absoluteX-centroidX)*(absoluteX-centroidX);
+			double cSq = (startY-centroidY)*(startY-centroidY) + (startX-centroidX)*(startX-centroidX);
+
+			double cosAngle = (bSq + cSq -aSq)/(2*Math.sqrt(bSq)*Math.sqrt(cSq)); 
+
+			int direction = 1; // 1 clockwise, -1 anti-clockwise
+			// not perfect but works good enough
+			if ((startY <= centroidY) && (absoluteY <= centroidY)) {
+				direction = (startX > absoluteX) ? -1 : 1;
+			} else if ((startX >= centroidX) && (absoluteX >= centroidX)) {
+				direction = (startY > absoluteY) ?  -1 : 1;
+			}
+			else if ((startY >= centroidY) && (absoluteY >= centroidY)) {
+				direction = (startX < absoluteX) ? -1 : 1;
+			}
+			else if ((startX < centroidX) && (absoluteX < centroidX)) {
+				direction = (startY < absoluteY) ? -1 : 1;
+			}
+			else if ((startY < startX) && (absoluteY < absoluteX)) {
+				direction = (startY > absoluteY) ? -1: 1;
+			}
+			else if ((startY >= startX) && (absoluteY >= absoluteX)) {
+				direction = (startY < absoluteY) ? -1: 1;			
+			}
+	
+			delegator.rotateWay(selectedWay, (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
+			startY = absoluteY;
+			startX = absoluteX;
 		} else {
-			performTranslation(relativeX, relativeY);
-			map.invalidate();
-		}
+			if (mode == Mode.MODE_ALIGN_BACKGROUND)
+				performBackgroundOffset(relativeX, relativeY);
+			else
+				performTranslation(relativeX, relativeY);
+		}	
+		map.invalidate();
 	}
 
+	public void setRotationMode() {
+		rotatingWay = true;
+	}
+	
 	/**
 	 * Converts screen-coords to gps-coords and delegates translation to {@link BoundingBox#translate(int, int)}.
 	 * GPS-Following will be disabled.
@@ -653,12 +1061,40 @@ public class Logic {
 	 */
 	private void performTranslation(final float screenTransX, final float screenTransY) {
 		int height = map.getHeight();
-		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, screenTransX);
-		int lat = GeoMath.yToLatE7(height, viewBox, height - screenTransY);
+		int lon = xToLonE7(screenTransX);
+		int lat = yToLatE7(height - screenTransY);
 		int relativeLon = lon - viewBox.getLeft();
 		int relativeLat = lat - viewBox.getBottom();
 
-		viewBox.translate(relativeLon, relativeLat);
+		try {
+			viewBox.translate(relativeLon, relativeLat);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Converts screen-coords to gps-coords and offests background layer.
+	 * 
+	 * @param screenTransX Movement on the screen.
+	 * @param screenTransY Movement on the screen.
+	 */
+	private void performBackgroundOffset(final float screenTransX, final float screenTransY) {
+		int height = map.getHeight();
+		int lon = xToLonE7(screenTransX);
+		int lat = yToLatE7(height - screenTransY);
+		int relativeLon = lon - viewBox.getLeft();
+		int relativeLat = lat - viewBox.getBottom();
+		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+		double lonOffset = 0d;
+		double latOffset = 0d;
+		Offset o = osmts.getOffset(map.getZoomLevel());
+		if (o != null) {
+			lonOffset = o.lon;
+			latOffset = o.lat;
+		}
+		osmts.setOffset(map.getZoomLevel(),lonOffset - relativeLon/1E7d, latOffset - relativeLat/1E7d);
 	}
 
 	/**
@@ -667,8 +1103,10 @@ public class Logic {
 	 * 
 	 * @param x screen-coordinate
 	 * @param y screen-coordinate
+	 * @throws OsmIllegalOperationException 
 	 */
-	public void performAdd(final float x, final float y) {
+	public void performAdd(final float x, final float y) throws OsmIllegalOperationException {
+		Log.d("Logic","performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
 		Node lSelectedNode = selectedNode;
@@ -679,8 +1117,8 @@ public class Logic {
 			lSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
 			if (lSelectedNode == null) {
 				//A complete new Node...
-				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+				int lat = yToLatE7(y);
+				int lon = xToLonE7(x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(lSelectedNode);
 			}
@@ -693,8 +1131,8 @@ public class Logic {
 					//This is the second Node, so we create a new Way and add the previous selected node to this way
 					lSelectedWay = delegator.createAndInsertWay(lSelectedNode);
 				}
-				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+				int lat = yToLatE7(y);
+				int lon = xToLonE7(x);
 				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
 				delegator.insertElementSafe(lSelectedNode);
@@ -702,6 +1140,7 @@ public class Logic {
 				//User clicks an existing Node
 				if (nextNode == lSelectedNode) {
 					//User clicks the last Node -> end here with adding
+					removeCheckpoint(R.string.undo_action_add);
 					lSelectedNode = null;
 					lSelectedWay = null;
 				} else {
@@ -720,6 +1159,28 @@ public class Logic {
 	}
 	
 	/**
+	 * Executes an add-command for x,y but only if on way. Adds new node to storage. Will switch selected node,
+	 * 
+	 * @param x screen-coordinate
+	 * @param y screen-coordinate
+	 * @throws OsmIllegalOperationException 
+	 */
+	public boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
+		createCheckpoint(R.string.undo_action_add);
+		Node savedSelectedNode = selectedNode;
+		
+		Node newSelectedNode = getCreatedWayNode(x, y);
+
+		if (newSelectedNode == null) {
+			newSelectedNode = savedSelectedNode;
+			return false;
+		}
+			
+		setSelectedNode(newSelectedNode);
+		return true;
+	}
+	
+	/**
 	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
 	 * 
 	 * @param x screen-coordinate.
@@ -729,6 +1190,24 @@ public class Logic {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_deletenode);
 			delegator.removeNode(node);
+			map.invalidate();
+		}
+	}
+	
+
+	/**
+	 * set new coordinates and center BBox on them
+	 * @param node
+	 * @param lon
+	 * @param lat
+	 */
+	public void performSetPosition(Node node, double lon, double lat) {
+		if (node != null) {
+			createCheckpoint(R.string.undo_action_movenode);
+			int lonE7 = (int)(lon*1E7d);
+			int latE7 = (int)(lat*1E7d);
+			delegator.updateLatLon(node, latE7, lonE7);
+			viewBox.moveTo(lonE7, latE7);
 			map.invalidate();
 		}
 	}
@@ -750,6 +1229,19 @@ public class Logic {
 		map.invalidate();
 	}
 
+	/**
+	 * Catches the first relation at the given position and delegates the deletion to {@link #delegator}.
+	 * 
+	 * @param x screen-coordinate.
+	 * @param y screen-coordinate.
+	 */
+	public void performEraseRelation(final Relation relation) {
+		if (relation != null) {
+			createCheckpoint(R.string.undo_action_delete_relation);
+			delegator.removeRelation(relation);
+			map.invalidate();
+		}
+	}
 
 	/**
 	 * Splits all ways at the given node.
@@ -758,6 +1250,7 @@ public class Logic {
 	 */
 	public void performSplit(final Node node) {
 		if (node != null) {
+			// setSelectedNode(node);
 			createCheckpoint(R.string.undo_action_split_ways);
 			delegator.splitAtNode(node);
 			map.invalidate();
@@ -770,30 +1263,53 @@ public class Logic {
 	 * @param node the node at which the way should be split
 	 */
 	public void performSplit(final Way way, final Node node) {
+		// setSelectedNode(node);
 		createCheckpoint(R.string.undo_action_split_way);
 		delegator.splitAtNode(way, node);
 		map.invalidate();
 	}
 	
 	/**
+	 * Split a closed way, needs two nodes
+	 * @param way
+	 * @param node1
+	 * @param node2
+	 */
+	public void performClosedWaySplit(Way way, Node node1, Node node2) {
+		createCheckpoint(R.string.undo_action_split_way);
+		delegator.splitAtNodes(way, node1, node2);
+		map.invalidate();
+	}
+
+	
+	/**
 	 * Merge two ways.
 	 * Ways must be valid (i.e. have at least two nodes) and mergeable
 	 * (i.e. have a common start/end node).
-	 * 
-	 * If the first way does not have tags, but the second one does, the tags will be copied.
-	 * Otherwise, only the tags of the first way will be kept.
 	 *  
 	 * @param mergeInto Way to merge the other way into. This way will be kept.
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
+	 * @throws OsmIllegalOperationException 
 	 */
-	public void performMerge(Way mergeInto, Way mergeFrom) {
+	public boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
-		if (mergeInto.getTags().isEmpty() && !mergeFrom.getTags().isEmpty()) {
-			delegator.setTags(mergeInto, mergeFrom.getTags());
-		}
-		delegator.mergeWays(mergeInto, mergeFrom);
+		boolean mergeOK = delegator.mergeWays(mergeInto, mergeFrom);
+		map.invalidate();
+		return mergeOK;
+	}
+	
+	
+	/**
+	 * Orthogonalize a way (aka make angles 90°)
+	 * @param way
+	 */
+	public void performOrthogonalize(Way way) {
+		if (way.getNodes().size() < 3) return;
+		createCheckpoint(R.string.undo_action_orthogonalize);
+		delegator.orthogonalizeWay(way);
 		map.invalidate();
 	}
+
 	
 	/**
 	 * If any ways are close to the node (within the tolerance), return the way.
@@ -803,8 +1319,8 @@ public class Logic {
 	public OsmElement findJoinableElement(Node nodeToJoin) {
 		OsmElement closestElement = null;
 		double closestDistance = Double.MAX_VALUE;
-		float jx = GeoMath.lonE7ToX(map.getWidth(), viewBox, nodeToJoin.getLon());
-		float jy = GeoMath.latE7ToY(map.getHeight(), viewBox, nodeToJoin.getLat());
+		float jx = lonE7ToX(nodeToJoin.getLon());
+		float jy = latE7ToY(nodeToJoin.getLat());
 		// start by looking for the closest nodes
 		for (Node node : delegator.getCurrentStorage().getNodes()) {
 			if (node != nodeToJoin) {
@@ -823,10 +1339,11 @@ public class Logic {
 					for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
 						Node node1 = wayNodes.get(i - 1);
 						Node node2 = wayNodes.get(i);
-						float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-						float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-						float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-						float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+						// TODO only project once per node
+						float node1X = lonE7ToX(node1.getLon());
+						float node1Y = latE7ToY(node1.getLat());
+						float node2X = lonE7ToX( node2.getLon());
+						float node2Y = latE7ToY(node2.getLat());
 						if (isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y)) {
 							double distance = GeoMath.getLineDistance(jx, jy, node1X, node1Y, node2X, node2Y);
 							if (distance < closestDistance) {
@@ -845,30 +1362,33 @@ public class Logic {
 	 * Join a node to a node or way at the point on the way closest to the node.
 	 * @param element Node or Way that the node will be joined to.
 	 * @param nodeToJoin Node to be joined to the way.
+	 * @throws OsmIllegalOperationException 
 	 */
-	public void performJoin(OsmElement element, Node nodeToJoin) {
+	public boolean performJoin(OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
+		boolean mergeOK = true;
 		if (element instanceof Node) {
 			Node node = (Node)element;
 			createCheckpoint(R.string.undo_action_join);
-			delegator.mergeNodes(node, nodeToJoin);
+			mergeOK = delegator.mergeNodes(node, nodeToJoin);
 			map.invalidate();
 		}
-		if (element instanceof Way) {
+		else if (element instanceof Way) {
 			Way way = (Way)element;
 			List<Node> wayNodes = way.getNodes();
 			for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
 				Node node1 = wayNodes.get(i - 1);
 				Node node2 = wayNodes.get(i);
-				float x = GeoMath.lonE7ToX(map.getWidth(), viewBox, nodeToJoin.getLon());
-				float y = GeoMath.latE7ToY(map.getHeight(), viewBox, nodeToJoin.getLat());
-				float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-				float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-				float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-				float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+				float x = lonE7ToX(nodeToJoin.getLon());
+				float y = latE7ToY(nodeToJoin.getLat());
+				// TODO only project once per node
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float node2X = lonE7ToX(node2.getLon());
+				float node2Y = latE7ToY(node2.getLat());
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 					float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
-					int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p[1]);
-					int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p[0]);
+					int lat = yToLatE7(p[1]);
+					int lon = xToLonE7(p[0]);
 					createCheckpoint(R.string.undo_action_join);
 					Node node = null;
 					if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
@@ -883,13 +1403,13 @@ public class Logic {
 						delegator.addNodeToWayAfter(node1, nodeToJoin, way);
 					} else {
 						// merge node into tgtNode
-						delegator.mergeNodes(node, nodeToJoin);
+						mergeOK = delegator.mergeNodes(node, nodeToJoin);
 					}
 					map.invalidate();
-					return;
 				}
 			}
 		}
+		return mergeOK;
 	}
 	
 	/**
@@ -905,11 +1425,13 @@ public class Logic {
 	/**
 	 * Reverse a way
 	 * @param way the way to reverse
+	 * @return true if reverseWay returned true, implying that tags had to be reversed
 	 */
-	public void performReverse(Way way) {
+	public boolean performReverse(Way way) {
 		createCheckpoint(R.string.undo_action_reverse_way);
-		delegator.reverseWay(way);
+		boolean hadToReverse = delegator.reverseWay(way);
 		map.invalidate();
+		return hadToReverse;
 	}
 	
 	public void performAppendStart(Way way, Node node) {
@@ -941,7 +1463,8 @@ public class Logic {
 		performAppendStart(lSelectedWay, lSelectedNode);
 	}
 	
-	public void performAppendAppend(final float x, final float y) {
+	public void performAppendAppend(final float x, final float y) throws OsmIllegalOperationException {
+		Log.d("Logic","performAppendAppend");
 		createCheckpoint(R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
 		Way lSelectedWay = getSelectedWay();
@@ -952,12 +1475,17 @@ public class Logic {
 			lSelectedWay = null;
 		} else {
 			if (node == null) {
-				int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-				int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+				int lat = yToLatE7(y);
+				int lon = xToLonE7(x);
 				node = delegator.getFactory().createNodeWithNewId(lat, lon);
 				delegator.insertElementSafe(node);
 			}
-			delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+			try {
+				delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+			} catch (OsmIllegalOperationException e) {
+				delegator.removeNode(node);
+				throw new OsmIllegalOperationException(e);
+			}
 			lSelectedNode = node;
 		}
 		setSelectedNode(lSelectedNode);
@@ -972,26 +1500,68 @@ public class Logic {
 	 * @param x the x screen coordinate
 	 * @param y the y screen coordinate
 	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
+	 * @throws OsmIllegalOperationException 
 	 */
-	private Node getClickedNodeOrCreatedWayNode(final float x, final float y) {
+	private Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
 		Node node = getClickedNode(x, y);
 		if (node != null) {
 			return node;
 		}
+		return getCreatedWayNode(x, y);
+	}
+	
+	/**
+	 * If x,y lays on a way, a new node at this location will be created, stored in
+	 * storage and returned.
+	 * 
+	 * @param x the x screen coordinate
+	 * @param y the y screen coordinate
+	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
+	 * @throws OsmIllegalOperationException 
+	 */
+	private Node getCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
+		Node node = null;
+		Node savedNode1 = null;
+		Node savedNode2 = null;
+		Way savedWay = null;
+		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
 		for (Way way : delegator.getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
-				Node nodeBefore = wayNodes.get(k - 1);
-				node = createNodeOnWay(nodeBefore, wayNodes.get(k), x, y);
-				if (node != null) {
-					delegator.insertElementSafe(node);
-					delegator.addNodeToWayAfter(nodeBefore, node, way);
-					return node;
+				Node node1 = wayNodes.get(k - 1);
+				Node node2 = wayNodes.get(k);
+				// TODO only project once per node
+				float node1X = lonE7ToX(node1.getLon());
+				float node1Y = latE7ToY(node1.getLat());
+				float node2X = lonE7ToX(node2.getLon());
+				float node2Y = latE7ToY(node2.getLat());
+
+				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
+					double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);
+					if ((savedNode1 == null && savedNode2 == null) || distance < savedDistance) {
+						savedNode1 = node1;
+						savedNode2 = node2;
+						savedDistance = distance;
+						savedWay = way;
+					}
 				}
 			}
 		}
-		return null;
+		// way found that is in toleance range
+		if (savedNode1 != null && savedNode2 != null) {		
+			node = createNodeOnWay(savedNode1, savedNode2, x, y);
+			if (node != null) {
+				delegator.insertElementSafe(node);
+				try {
+					delegator.addNodeToWayAfter(savedNode1, node, savedWay);
+				} catch (OsmIllegalOperationException e) {
+					delegator.removeNode(node);
+					throw new OsmIllegalOperationException(e);
+				}
+			}	
+		}
+		return node;
 	}
 
 	/**
@@ -1007,17 +1577,18 @@ public class Logic {
 	 */
 	private Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
 		//Nodes have to be converted to screen-coordinates, due to a better tolerance-check.
-		float node1X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node1.getLon());
-		float node1Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node1.getLat());
-		float node2X = GeoMath.lonE7ToX(map.getWidth(), viewBox, node2.getLon());
-		float node2Y = GeoMath.latE7ToY(map.getHeight(), viewBox, node2.getLat());
+		float node1X = lonE7ToX(node1.getLon());
+		float node1Y = latE7ToY(node1.getLat());
+		float node2X = lonE7ToX(node2.getLon());
+		float node2Y = latE7ToY(node2.getLat());
 
 		//At first, we check if the x,y is in the bounding box clamping by node1 and node2.
 		if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 			float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
-			int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, p[1]);
-			int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, p[0]);
-			return delegator.getFactory().createNodeWithNewId(lat, lon);
+			int lat = yToLatE7(p[1]);
+			int lon = xToLonE7(p[0]);
+			Node node = delegator.getFactory().createNodeWithNewId(lat, lon);
+			return node;
 		}
 		return null;
 	}
@@ -1030,7 +1601,7 @@ public class Logic {
 	private boolean isPositionOnLine(final float x, final float y,
 			final float node1X, final float node1Y,
 			final float node2X, final float node2Y) {
-		float tolerance = Paints.WAY_TOLERANCE_VALUE / 2f;
+		float tolerance = Profile.getCurrent().wayToleranceValue / 2f;
 		if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
 			return (GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y) < tolerance);
 		}
@@ -1047,16 +1618,21 @@ public class Logic {
 	public void translateOnBorderTouch(final float x, final float y) {
 		int translationOnBorderTouch = (int) (viewBox.getWidth() * BORDER_TOCH_TRANSLATION_FACTOR);
 
-		if (x > map.getWidth() - PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(translationOnBorderTouch, 0);
-		} else if (x < PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(-translationOnBorderTouch, 0);
-		}
+		try {
+			if (x > map.getWidth() - PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(translationOnBorderTouch, 0);
+			} else if (x < PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(-translationOnBorderTouch, 0);
+			}
 
-		if (y > map.getHeight() - PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(0, -translationOnBorderTouch);
-		} else if (y < PADDING_ON_BORDER_TOUCH) {
-			viewBox.translate(0, translationOnBorderTouch);
+			if (y > map.getHeight() - PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(0, -translationOnBorderTouch);
+			} else if (y < PADDING_ON_BORDER_TOUCH) {
+				viewBox.translate(0, translationOnBorderTouch);
+			}
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -1064,10 +1640,17 @@ public class Logic {
 	 * Loads the area defined by mapBox from the OSM-Server.
 	 * 
 	 * @param mapBox Box defining the area to be loaded.
+	 * @param add if true add this data to existing
 	 */
-	void downloadBox(final BoundingBox mapBox) {
-		mapBox.makeValidForApi(); // TODO remove this? and replace with better error messaging
-		new AsyncTask<Void, Void, Integer>() {
+	void downloadBox(final BoundingBox mapBox, boolean add) {
+		try {
+			mapBox.makeValidForApi();
+		} catch (OsmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} // TODO remove this? and replace with better error messaging
+		
+		new AsyncTask<Boolean, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
@@ -1075,33 +1658,56 @@ public class Logic {
 			}
 			
 			@Override
-			protected Integer doInBackground(Void... arg0) {
+			protected Integer doInBackground(Boolean... arg) {
 				int result = 0;
 				try {
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
 					try {
 						osmParser.start(in);
-						delegator.reset();
-						delegator.setCurrentStorage(osmParser.getStorage());
-						if (mapBox != null && delegator.isEmpty()) {
-							delegator.setOriginalBox(mapBox);
+						if (arg[0]) { // incremental load
+							if (!delegator.mergeData(osmParser.getStorage())) {
+								result = DialogFactory.DATA_CONFLICT;
+							} else {
+								if (mapBox != null) {
+									// if we are simply expanding the area no need keep the old bounding boxes
+									List<BoundingBox> origBbs = delegator.getBoundingBoxes();
+									List<BoundingBox> bbs = new ArrayList<BoundingBox>(origBbs);
+									for (BoundingBox bb:bbs) {
+										if (mapBox.contains(bb)) {
+											origBbs.remove(bb);
+										}
+									}
+									delegator.addBoundingBox(mapBox);
+								}
+							}
+						} else { // replace data with new download
+							delegator.reset();
+							delegator.setCurrentStorage(osmParser.getStorage());
+							if (mapBox != null) {
+								Log.d("Logic","setting original bbox");
+								delegator.setOriginalBox(mapBox);
+							}
 						}
-						viewBox.setBorders(delegator.getOriginalBox());
+						viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
 					} finally {
 						SavingHelper.close(in);
 					}
 				} catch (SAXException e) {
 					Log.e("Vespucci", "Problem parsing", e);
-					ACRA.getErrorReporter().handleException(e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
 				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
-					ACRA.getErrorReporter().handleException(e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
 					Log.e("Vespucci", "Problem downloading", e);
-					ACRA.getErrorReporter().handleException(e);
-					// TODO improve error reporting to end user
-					// eg bbox too big (400 Bad Request)
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
@@ -1118,23 +1724,37 @@ public class Logic {
 					Log.d("Logic", "", e);
 				}
 				View map = Application.mainActivity.getCurrentFocus();
-				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				paints.updateStrokes((STROKE_FACTOR / mapBox.getWidth()));
-				map.invalidate();
+				try {
+					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (result != 0) {
+					if (result == DialogFactory.OUT_OF_MEMORY) {
+						System.gc();
+						if (delegator.isDirty()) {
+							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+						}
+					}
+					Log.d("Logic","showing dialog");
 					Application.mainActivity.showDialog(result);
 				}
+				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
+				map.invalidate();
 				UndoStorage.updateIcon();
 			}
 			
-		}.execute();
+		}.execute(add);
 	}
 
 	/**
+	 * @param add 
 	 * @see #downloadBox(Main, BoundingBox)
 	 */
-	void downloadCurrent() {
-		downloadBox(viewBox);
+	void downloadCurrent(boolean add) {
+		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
+		downloadBox(viewBox.copy(),add);
 	}
 	
 	/**
@@ -1142,8 +1762,10 @@ public class Logic {
 	 * @see #downloadBox(Main, BoundingBox)
 	 */
 	void downloadLast() {
-		BoundingBox box = delegator.getOriginalBox();
-		if (box != null && box.isValidForApi()) downloadBox(box);
+		delegator.reset();
+		for (BoundingBox box:delegator.getBoundingBoxes()) {
+			if (box != null && box.isValidForApi()) downloadBox(box, true);
+		}
 	}
 
 	/**
@@ -1169,8 +1791,7 @@ public class Logic {
 			protected void onPostExecute(Void result) {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				if (showDone) {
-					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
-				}
+					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();				}
 			}
 			
 		}.execute();
@@ -1182,21 +1803,37 @@ public class Logic {
 	void save() {
 		try {
 			delegator.writeToFile();
-			if (new SavingHelper<Mode>().load(MODE_FILENAME, false) != mode) { // save only if changed
-				new SavingHelper<Mode>().save(MODE_FILENAME, mode, false);
-			}
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
 	}
 	
+	void saveEditingState() {
+		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts);
+		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
+	}
+	
+	void loadEditingState() {
+		EditState editState = new SavingHelper<EditState>().load(EDITSTATE_FILENAME, false);
+		if(editState != null) { // 
+			editState.setSelected(this);
+			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
+		}
+	}
+
 	/**
 	 * Loads data from a file in the background.
+	 * @param context 
 	 */
-	void loadFromFile() {
-		new AsyncTask<Void, Void, Void>() {
+	void loadFromFile(Context context) {
+
+		Context[] c = {context};
+		AsyncTask<Context, Void, Boolean> loader = new AsyncTask<Context, Void, Boolean>() {
 			
-			Mode loadedMode = null;
+			
+			Context context;
+	
 			
 			@Override
 			protected void onPreExecute() {
@@ -1205,15 +1842,17 @@ public class Logic {
 			}
 			
 			@Override
-			protected Void doInBackground(Void... params) {
-				delegator.readFromFile();
-				viewBox.setBorders(delegator.getOriginalBox());
-				loadedMode = new SavingHelper<Mode>().load(MODE_FILENAME, false);
-				return null;
+			protected Boolean doInBackground(Context... c) {
+				this.context = c[0];
+				if (delegator.readFromFile()) {
+					viewBox.setBorders(delegator.getLastBox());
+					return Boolean.valueOf(true);
+				}
+				return Boolean.valueOf(false);
 			}
 			
 			@Override
-			protected void onPostExecute(Void result) {
+			protected void onPostExecute(Boolean result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
 				try {
 					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
@@ -1221,23 +1860,44 @@ public class Logic {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
 				}
-				View map = Application.mainActivity.getCurrentFocus();
-				setMode(loadedMode == null ? Mode.MODE_MOVE : loadedMode);
-				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-				paints.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
-				map.invalidate();
-				UndoStorage.updateIcon();
+				if (result.booleanValue()) {
+					Log.d("Logic", "loadfromFile: File read correctly");
+					View map = Application.mainActivity.getCurrentFocus();
+					
+					try {
+						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+					} catch (Exception e) {
+						// invalid dimensions of similar error
+						try {
+							viewBox.setBorders(new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
+						} catch (OsmException e1) {
+							// Can't happen?
+							e1.printStackTrace();
+						}
+					}
+					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+					loadEditingState();
+					map.invalidate();
+					UndoStorage.updateIcon();
+				}
+				else {
+					Log.d("Logic", "loadfromFile: File read failed");
+					Intent intent = new Intent(context, BoxPicker.class);
+					Application.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDINGBOX);
+					Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+				}
 			}
-			
-		}.execute();
+		};
+		loader.execute(c);
 	}
 
 	/**
 	 * Uploads to the server in the background.
 	 * 
 	 * @param comment Changeset comment.
+	 * @param source 
 	 */
-	public void upload(final String comment) {
+	public void upload(final String comment, final String source) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
 			
@@ -1251,7 +1911,7 @@ public class Logic {
 			protected Integer doInBackground(Void... params) {
 				int result = 0;
 				try {
-					delegator.uploadToServer(server, comment);
+					delegator.uploadToServer(server, comment, source);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().handleException(e);
@@ -1263,6 +1923,7 @@ public class Logic {
 					case HttpStatus.SC_UNAUTHORIZED:
 						result = DialogFactory.WRONG_LOGIN;
 						break;
+					case HttpStatus.SC_NOT_FOUND:
 					case HttpStatus.SC_CONFLICT:
 					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_PRECONDITION_FAILED:
@@ -1278,7 +1939,9 @@ public class Logic {
 						break;
 					}
 				} catch (final IOException e) {
+					Log.e("DEBUG_TAG", "server url " + server.getBaseURL());
 					result = DialogFactory.NO_CONNECTION;
+					// ACRA.getErrorReporter().handleException(e);
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
@@ -1301,6 +1964,41 @@ public class Logic {
 		}.execute();
 	}
 	
+	
+	public void checkForMail() {
+		final Server server = prefs.getServer();
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... params) {
+				int result = 0;
+				
+				UserDetails userDetails = server.getUserDetails();
+				if (userDetails != null) {
+					result = userDetails.unread;
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				if (result > 0) {
+					Context ctx = Application.mainActivity.getApplicationContext();
+					try {
+						Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unread_mail, result), Toast.LENGTH_LONG).show();
+					} catch (java.util.IllegalFormatFlagsException iffex) {
+						// do nothing ... this is stop bugs in the Android format parising crashing the upload, happens at least with the PL string
+					}
+				}
+			}
+			
+		}.execute();
+	}
+	
 	/**
 	 * Make a new bug at the given screen X/Y coordinates.
 	 * @param x The screen X-coordinate of the bug.
@@ -1308,8 +2006,8 @@ public class Logic {
 	 * @return The new bug, which must have a comment added before it can be submitted to OSB.
 	 */
 	public Bug makeNewBug(final float x, final float y) {
-		int lat = GeoMath.yToLatE7(map.getHeight(), viewBox, y);
-		int lon = GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+		int lat = yToLatE7(y);
+		int lon = xToLonE7(x);
 		return new Bug(lat, lon);
 	}
 	
@@ -1327,6 +2025,15 @@ public class Logic {
 	public void setSelectedWay(final Way selectedWay) {
 		this.selectedWay = selectedWay;
 		map.setSelectedWay(selectedWay);
+	}
+	
+	/**
+	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
+	 */
+	public void setSelectedRelation(final Relation relation) {
+		this.selectedRelation = relation;
+		if (selectedRelation != null)
+			selectRelation(relation);
 	}
 	
 	/**
@@ -1372,8 +2079,7 @@ public class Logic {
 	 */
 	public void setMap(Map map) {
 		this.map = map;
-		paints.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), STROKE_FACTOR / viewBox.getWidth()));
-		map.setPaints(paints);
+		Profile.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
 		map.setDelegator(delegator);
 		map.setViewBox(viewBox);
 	}
@@ -1404,6 +2110,15 @@ public class Logic {
 	}
 	
 	/**
+	 * Sets if we return relations when touching/clicking 
+	 * @param on true if we should return relations
+	 */
+	public void setReturnRelations(boolean on) {
+		returnRelations = on;
+	}
+	
+	
+	/**
 	 * Checks if an element exists, i.e. is in currentStorage
 	 * @param element the element that is to be checked
 	 * @return true if the element exists, false otherwise
@@ -1414,17 +2129,18 @@ public class Logic {
 	
 	/** Get the X screen coordinate for a node on the screen. */
 	public float getNodeScreenX(Node node) {
-		return GeoMath.lonE7ToX(map.getWidth(), viewBox, node.getLon());
+		return lonE7ToX(node.getLon());
 	}
 	
 	public float getNodeScreenY(Node node) {
-		return GeoMath.latE7ToY(map.getHeight(), viewBox, node.getLat());
+		return latE7ToY(node.getLat());
 	}
 	
 	/** Helper class for ordering nodes/ways by distance from a click */
 	private static class DistanceSorter<OUTTYPE extends OsmElement, T extends OUTTYPE> {
 		private Comparator<Entry<T, Double>> comparator =
 			new Comparator<Entry<T, Double>>() {
+				@Override
 				public int compare(Entry<T,Double> lhs, Entry<T,Double> rhs) {
 					if (lhs == rhs) return 0;
 					if (lhs.getValue() > rhs.getValue()) return 1;
@@ -1443,5 +2159,289 @@ public class Logic {
 			return result;			
 		}
 	}
+
+	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
+		
+		createCheckpoint(R.string.undo_action_create_relation);
+		Relation restriction = delegator.createAndInsertReleation();
+		SortedMap<String,String> tags = new TreeMap<String,String>();
+		tags.put("restriction", restriction_type == null ? "" : restriction_type);
+		tags.put("type", "restriction");
+		delegator.setTags(restriction, tags);
+		RelationMember from = new RelationMember("from", fromWay);
+		restriction.addMember(from);
+		fromWay.addParentRelation(restriction);
+		RelationMember via = new RelationMember("via", viaElement);
+		restriction.addMember(via);
+		viaElement.addParentRelation(restriction);
+		RelationMember to = new RelationMember("to", toWay);
+		restriction.addMember(to);
+		toWay.addParentRelation(restriction);
+		
+		return restriction;
+	}
+
+	public Relation createRelation(String type, List<OsmElement> members ) {
+		
+		createCheckpoint(R.string.undo_action_create_relation);
+		Relation relation = delegator.createAndInsertReleation();
+		SortedMap<String,String> tags = new TreeMap<String,String>();
+		if (type != null)
+			tags.put("type", type);
+		else
+			tags.put("type", "");
+		delegator.setTags(relation, tags);
+		for (OsmElement e:members) {
+			RelationMember rm = new RelationMember("", e);
+			relation.addMember(rm);
+			e.addParentRelation(relation);
+		}
+		return relation;
+	}
 	
+	
+	public void addMembers(Relation relation, ArrayList<OsmElement> members) {
+		createCheckpoint(R.string.undo_action_update_relations);
+		delegator.addMembersToRelation(relation, members);
+	}
+	
+	/**
+	 * Sets the set of ways that belong to a relation and should be highlighted. 
+	 * If set to null, the map will use default behaviour.
+	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
+	 */
+	public void setSelectedRelationWays(Set<Way> ways) {
+		selectedRelationWays = ways;
+	}
+	
+	public void addSelectedRelationWay(Way way) {
+		if (selectedRelationWays == null) {
+			selectedRelationWays = new HashSet<Way>();
+		}
+		selectedRelationWays.add(way);
+	}
+	
+	public void removeSelectedRelationWay(Way way) {
+		if (selectedRelationWays != null) {
+			selectedRelationWays.remove(way);
+		}
+	}
+	
+	public Set<Way> getSelectedRelationWays() {
+		return selectedRelationWays;
+	}
+
+	
+	/**
+	 * Set relation members to be highlighted
+	 * @param r
+	 */
+	public void selectRelation(Relation r) {
+		for (RelationMember rm : r.getMembers()) {
+			OsmElement e = rm.getElement();
+			if (e != null) {
+				if (e.getName().equals("way")) {
+					addSelectedRelationWay((Way) e);
+				} else if (e.getName().equals("node")) {
+					addSelectedRelationNode((Node) e);
+				} 
+			}
+		}
+	}
+	
+	/**
+	 * Sets the set of nodes that belong to a relation and should be highlighted. 
+	 * If set to null, the map will use default behaviour.
+	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
+	 */
+	public void setSelectedRelationNodes(Set<Node> nodes) {
+		selectedRelationNodes = nodes;
+	}
+	
+	public void addSelectedRelationNode(Node node) {
+		if (selectedRelationNodes == null) {
+			selectedRelationNodes = new HashSet<Node>();
+		}
+		selectedRelationNodes.add(node);
+	}
+	
+	public void removeSelectedRelationNode(Node node) {
+		if (selectedRelationNodes != null) {
+			selectedRelationNodes.remove(node);
+		}
+	}
+	
+	public Set<Node> getSelectedRelationNodes() {
+		return selectedRelationNodes;
+	}
+
+
+	public void showCrosshairs(float x, float y) {
+		map.showCrosshairs(x, y);
+		map.invalidate();
+	}
+	
+	public void hideCrosshairs() {
+		map.hideCrosshairs();
+	}
+
+
+	public void copyToClipboard(OsmElement element) {
+		if (element instanceof Node) {
+			delegator.copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+		} else if (element instanceof Way) {
+			// use current centroid of way
+			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
+			Log.d("Logic","centroid " + result[0] + " " + result[1]);
+			delegator.copyToClipboard(element, result[0], result[1]);
+		}
+	}
+
+
+	public void cutToClipboard(OsmElement element) {
+		createCheckpoint(R.string.undo_action_cut);
+		if (element instanceof Node) {
+			delegator.cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+		} else if (element instanceof Way) {
+			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
+			Log.d("Logic","centroid " + result[0] + " " + result[1]);
+			delegator.cutToClipboard(element, result[0], result[1]);
+		}
+		map.invalidate();
+	}
+
+	public void pasteFromClipboard(float x, float y) {
+		createCheckpoint(R.string.undo_action_paste);
+		int lat = yToLatE7(y);
+		int lon = xToLonE7(x);
+		delegator.pasteFromClipboard(lat, lon);
+	}
+
+	public boolean clipboardIsEmpty() {
+		
+		return delegator.clipboardIsEmpty();
+	}
+
+
+	/**
+	 * calculate the centroid of a way
+	 * @param viewvBox 
+	 * @param h 
+	 * @param w 
+	 * @param way
+	 * @return  WS84 coordinates of centroid
+	 */
+	public static int[] centroid(int w, int h, BoundingBox v, final Way way) {
+		float XY[] = centroidXY(w,h,v,way);
+		int lat = GeoMath.yToLatE7(h, w, v, XY[1]);
+		int lon = GeoMath.xToLonE7(w, v, XY[0]);
+		int result[] = {lat,lon};
+		return result;
+	}
+
+
+	/**
+	 * calculate the centroid of a way
+	 * @param viewvBox 
+	 * @param h 
+	 * @param w 
+	 * @param way
+	 * @return screen coordinates of centroid
+	 */
+	public static float[] centroidXY(int w, int h, BoundingBox v, final Way way) {
+		// 
+		List<Node> vertices = way.getNodes();
+		if (way.isClosed()) {
+			// see http://paulbourke.net/geometry/polygonmesh/
+			double A = 0;
+			double Y = 0;
+			double X = 0;
+			int vs = vertices.size();
+			for (int i = 0; i < vs ; i++ ) {
+				double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
+				double y1 = GeoMath.latE7ToY(h, w, v, vertices.get(i).getLat());
+				double x2 = GeoMath.lonE7ToX(w, v, vertices.get((i+1) % vs).getLon());
+				double y2 = GeoMath.latE7ToY(h, w, v, vertices.get((i+1) % vs).getLat());
+				A = A + (x1*y2 - x2*y1);
+				X = X + (x1+x2)*(x1*y2-x2*y1);
+				Y = Y + (y1+y2)*(x1*y2-x2*y1);
+			}
+			Y = Y/(3*A);
+			X = X/(3*A);
+			float result[] = {(float)X, (float)Y};
+			return result;
+		} else { //
+			double L = 0;
+			double Y = 0;
+			double X = 0;
+			int vs = vertices.size();
+			for (int i = 0; i < (vs-1) ; i++ ) {
+				double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
+				double y1 = GeoMath.latE7ToY(h, w, v, vertices.get(i).getLat());
+				double x2 = GeoMath.lonE7ToX(w, v, vertices.get(i+1).getLon());
+				double y2 = GeoMath.latE7ToY(h, w, v, vertices.get(i+1).getLat());
+				double len = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+				L = L + len;
+				X = X + len * (x1+x2)/2;
+				Y = Y + len * (y1+y2)/2;
+			}
+			Y = Y/L;
+			X = X/L;
+			float result[] = {(float)X, (float)Y};
+			return result;
+		}	
+	}
+
+	
+	/**
+	 * Arrange way points in a circle
+	 * @param way
+	 */
+	public void performCirculize(Way way) {
+		if (way.getNodes().size() < 3) return;
+		createCheckpoint(R.string.undo_action_circulize);
+		int[] center = centroid(map.getWidth(), map.getHeight(), map.getViewBox(), way);
+		delegator.circulizeWay(center, way);
+		map.invalidate();
+	}
+
+	
+	/**
+	 * convenience function
+	 * @param x
+	 * @return
+	 */
+	public int xToLonE7(float x) {
+		return GeoMath.xToLonE7(map.getWidth(), viewBox, x);
+	}
+
+	/**
+	 * convenience function
+	 * @param y
+	 * @return
+	 */
+	public int yToLatE7(float y) {
+		return GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, y);
+	}
+
+	/**
+	 * convenience function
+	 * @param lon
+	 * @return
+	 */
+	public float lonE7ToX(int lon) {
+		return 	GeoMath.lonE7ToX(map.getWidth(), viewBox, lon);
+	}
+
+	/**
+	 * convenience function
+	 * @param lat
+	 * @return
+	 */
+	public float latE7ToY(int lat) {
+		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
+	}
+
 }

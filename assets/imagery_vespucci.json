@@ -1,0 +1,29 @@
+[
+	{
+		"id": "NONE",
+		"overlay": false,
+		"url": "", 
+        "type": "tms", 
+        "name": "None",
+        "default":true 
+    },
+    {
+		"id": "NONE",
+		"overlay": true,
+		"url": "", 
+        "type": "tms", 
+        "name": "None",
+        "default":true 
+    },
+    {
+        "name": "Bing aerial imagery", 
+        "url": "http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&key={bingapikey}&include=ImageryProviders&output=xml", 
+        "default": true, 
+        "extent": {
+            "max_zoom": 22
+        }, 
+        "type": "bing", 
+        "id": "BING", 
+        "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAdVBMVEX/phX/04r/////6cX/zXz/7Mz/vFD/u0z/1I7/tT3/yXH/uEX/v1f/rCT/2pz/vlP/qRz/4a//yG3/xmn//Pj/9eb/+/T/897/t0H/wl7/sTL//vv/+O3/2Jn/7dD/+vH/9+n/3KT/tDr/9OL/8Nf/26D/ynSCVQVOAAAAkklEQVR4Xq3R1w7DIBQD0NiQne69d///E3tvBYVU6UsVPyEdCYycIOlOv5AB004Aaf6DCpLtF4yxp8tkFMGCkiEkKyGz9qCxrkxuhLIAeaijMvAwi/vMycJDuyi5/AVUaPwTPik5UdCDiWCjtd5Q70TK+KKD26M+6o+tdGxwIlmFPeyZn1yuraFKFOnt/sCz/81f+9UEaf1lPCAAAAAASUVORK5CYII="
+    }
+]

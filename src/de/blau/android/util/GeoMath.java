@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
@@ -10,19 +11,21 @@ import de.blau.android.osm.BoundingBox;
  */
 public class GeoMath {
 	
-	public static final double _180_PI = 180 / Math.PI;
+	public static final double _180_PI = 180d / Math.PI;
 	
-	public static final double _360_PI = 360 / Math.PI;
+	public static final double _360_PI = 360d / Math.PI;
 	
-	public static final double PI_360 = Math.PI / 360;
+	public static final double PI_360 = Math.PI / 360d;
 	
-	public static final double PI_180 = Math.PI / 180;
+	public static final double PI_180 = Math.PI / 180d;
 	
-	public static final double PI_4 = Math.PI / 4;
+	public static final double PI_4 = Math.PI / 4d;
 	
-	public static final double PI_2 = Math.PI / 2;
+	public static final double PI_2 = Math.PI / 2d;
 	
-	public static final double MAX_LAT = -(PI_360 * Math.atan(Math.pow(Math.E, Math.PI)) - 90);
+	public static final double MAX_LAT = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
+	
+	public static final int MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int)(MAX_LAT* 1E7d));
 	
 	/**
 	 * The arithmetic middle of the two WGS84 reference-ellipsoids.
@@ -77,8 +80,10 @@ public class GeoMath {
 	 * 
 	 * @see {@link http://en.wikipedia.org/wiki/Mercator_projection#Mathematics_of_the_projection}
 	 * @param lat the latitude as double value
-	 * @return the mercator-projected y-coordinate for a cartesian coordinate system.
+	 * @return the mercator-projected y-coordinate for a cartesian coordinate system in degrees.
 	 */
+	//TODO clamping is likely to lead to issues for objects extending past +-MAX_LAT given that they will never be in a drawing box 
+	// this should simple throw an exception and let the drawing code handle it
 	public static double latToMercator(double lat) {
 		lat = Math.min(MAX_LAT, lat);
 		lat = Math.max(-MAX_LAT, lat);
@@ -91,7 +96,7 @@ public class GeoMath {
 	 * @return
 	 */
 	public static double latE7ToMercator(final int latE7) {
-		return latToMercator(latE7 / 1E7);
+		return latToMercator(latE7 / 1E7d);
 	}
 	
 	/**
@@ -100,7 +105,7 @@ public class GeoMath {
 	 * @return the mercator-projected y-coordinate for a cartesian coordinate system, multiplied by 1E7.
 	 */
 	public static int latE7ToMercatorE7(final int latE7) {
-		return (int) (latToMercator(latE7 / 1E7) * 1E7);
+		return (int) (latToMercator(latE7 / 1E7d) * 1E7d);
 	}
 	
 	/**
@@ -111,7 +116,7 @@ public class GeoMath {
 	 * @return the latitude value.
 	 */
 	public static double mercatorToLat(final double mer) {
-		return _180_PI * (2 * Math.atan(Math.exp(mer * PI_180)) - PI_2);
+		return _180_PI * (2d * Math.atan(Math.exp(mer * PI_180)) - PI_2);
 	}
 	
 	/**
@@ -119,8 +124,8 @@ public class GeoMath {
 	 * @param mer the mercator projected coordinate, multiplied by 1E7
 	 * @return
 	 */
-	public static double mercartorE7ToLat(final int mer) {
-		return mercatorToLat(mer / 1E7);
+	public static double mercatorE7ToLat(final int mer) {
+		return mercatorToLat(mer / 1E7d);
 	}
 	
 	/**
@@ -128,8 +133,8 @@ public class GeoMath {
 	 * @param mer
 	 * @return the latitude value, multiplied by 1E7
 	 */
-	public static int mercartorToLatE7(final double mer) {
-		return (int) (mercatorToLat(mer) * 1E7);
+	public static int mercatorToLatE7(final double mer) {
+		return (int) (mercatorToLat(mer) * 1E7d);
 	}
 	
 	/**
@@ -137,8 +142,8 @@ public class GeoMath {
 	 * @param mer the mercator projected coordinate, multiplied by 1E7
 	 * @return the latitude value, multiplied by 1E7
 	 */
-	public static int mercartorE7ToLatE7(final int mer) {
-		return (int) (mercatorToLat(mer / 1E7) * 1E7);
+	public static int mercatorE7ToLatE7(final int mer) {
+		return (int) (mercatorToLat(mer / 1E7d) * 1E7d);
 	}
 	
 	/**
@@ -157,7 +162,7 @@ public class GeoMath {
 		if (horizontalRadiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7 / 2d) {
 			horizontalRadiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7 / 2d;
 		}
-		double verticalRadiusDegree = horizontalRadiusDegree / getMercartorFactorPow3(lat);
+		double verticalRadiusDegree = horizontalRadiusDegree / getMercatorFactorPow3(lat);
 		double left = lon - horizontalRadiusDegree;
 		double right = lon + horizontalRadiusDegree;
 		double bottom = lat - verticalRadiusDegree;
@@ -170,26 +175,26 @@ public class GeoMath {
 			right = BoundingBox.MAX_LON;
 			left = right - horizontalRadiusDegree * 2d;
 		}
-		if (bottom < -BoundingBox.MAX_LAT) {
-			bottom = -BoundingBox.MAX_LAT;
+		if (bottom < -BoundingBox.MAX_LAT_E7) {
+			bottom = -BoundingBox.MAX_LAT_E7;
 			top = bottom + verticalRadiusDegree * 2d;
 		}
-		if (top > BoundingBox.MAX_LAT) {
-			top = BoundingBox.MAX_LAT;
+		if (top > BoundingBox.MAX_LAT_E7) {
+			top = BoundingBox.MAX_LAT_E7;
 			bottom = top - verticalRadiusDegree * 2d;
 		}
 		return new BoundingBox(left, bottom, right, top);
 	}
 	
 	public static double convertMetersToGeoDistance(final float meters) {
-		return _180_PI * meters / EARTH_RADIUS;
+		return _180_PI * meters / (double)EARTH_RADIUS;
 	}
 	
 	public static int convertMetersToGeoDistanceE7(final float meters) {
-		return (int) (_180_PI * meters * 1E7 / EARTH_RADIUS);
+		return (int) (_180_PI * meters * 1E7d / (double)EARTH_RADIUS);
 	}
 	
-	public static double getMercartorFactorPow3(final double lat) {
+	public static double getMercatorFactorPow3(final double lat) {
 		if (lat == 0.0) {
 			return 1;
 		}
@@ -202,19 +207,35 @@ public class GeoMath {
 	 * @param latE7 latitude, multiplied by 1E7.
 	 * @return the y screen-coordinate for this latitude value.
 	 */
-	public static float latE7ToY(final int screenHeight, final BoundingBox viewBox, final int latE7) {
-		double ratio = viewBox.getMercatorFactorPow3() * (latE7 - viewBox.getBottom()) / viewBox.getHeight();
-		return (float) ((screenHeight - ratio * screenHeight));
+	public static float latE7ToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final int latE7) {
+		// note the last term should be pre-calculated too
+		double pixelRadius = (double)screenWidth/(viewBox.getWidth()/1E7d);
+		// Log.d("GeoMath","screen width " + screenWidth + " width " + viewBox.getWidth() + " height " + screenHeight + " mercator " + latE7ToMercator(latE7) );
+		return (float) (screenHeight - (latE7ToMercator(latE7) - viewBox.getBottomMercator()) * pixelRadius);
+	}
+	/**
+	 * Non scaled version. Calculates the screen-coordinate to the given latitude.
+	 * @param screenHeight
+	 * @param screenWidth
+	 * @param viewBox
+	 * @param lat
+	 * @return
+	 */
+	public static float latToY(final int screenHeight, int screenWidth, final BoundingBox viewBox, final double lat) {
+		// note the last term should be pre-calculated too
+		double pixelRadius = (double)screenWidth/(viewBox.getWidth()/1E7d);
+		// Log.d("GeoMath","screen width " + screenWidth + " width " + viewBox.getWidth() + " height " + screenHeight + " mercator " + latE7ToMercator(latE7) );
+		return (float) (screenHeight - (latToMercator(lat) - viewBox.getBottomMercator()) * pixelRadius);
 	}
 	
 	/**
-	 * Calculates the screen-coordinate to the given longitude.
+	 * Non-scaled version. Calculates the screen-coordinate to the given longitude.
 	 * 
 	 * @param lonE7 the longitude, multiplied by 1E7.
 	 * @return the x screen-coordinate for this longitude value.
 	 */
 	public static float lonE7ToX(final int screenWidth, final BoundingBox viewBox, final int lonE7) {
-		return (float) (lonE7 - viewBox.getLeft()) / viewBox.getWidth() * screenWidth;
+		return (float) ((double)(lonE7 - viewBox.getLeft()) / (double)viewBox.getWidth())* screenWidth;
 	}
 	
 	/**
@@ -223,10 +244,10 @@ public class GeoMath {
 	 * @param y the y-coordinate from the screen
 	 * @return latitude representing by the given y-value, multiplied by 1E7
 	 */
-	public static int yToLatE7(final int screenHeight, final BoundingBox viewBox, final float y) {
-		final double ratio = ((screenHeight - y) / screenHeight) / viewBox.getMercatorFactorPow3();
-		final double lat = ratio * viewBox.getHeight() + viewBox.getBottom();
-		return (int) Math.round(lat);
+	public static int yToLatE7(final int screenHeight, int screenWidth, final BoundingBox viewBox, final float y) {
+		double pixelRadius = screenWidth/(viewBox.getWidth()/1E7d);
+		double lat = mercatorToLatE7(viewBox.getBottomMercator() + ((double)screenHeight - y) / pixelRadius);
+		return (int) lat;
 	}
 	
 	/**
@@ -236,7 +257,7 @@ public class GeoMath {
 	 * @return longitude representing by the given x-value, multiplied by 1E7
 	 */
 	public static int xToLonE7(final int screenWidth, final BoundingBox viewBox, final float x) {
-		return (int) (x / screenWidth * viewBox.getWidth()) + viewBox.getLeft();
+		return (int) (((double)x / (double)screenWidth * viewBox.getWidth()) + viewBox.getLeft());
 	}
 
 	/**
@@ -311,5 +332,25 @@ public class GeoMath {
 			}
 		}
 		return new float[]{cx, cy};
+	}
+	
+	/**
+	 * Caculate the haversine distance between two points
+	 * @param lon1
+	 * @param lat1
+	 * @param lon2
+	 * @param lat2
+	 * @return distance between the two point in meters
+	 */
+	public static double haversineDistance(double lon1, double lat1, double lon2, double lat2) {
+	 	
+		double dLat = Math.toRadians(lat2-lat1);
+		double dLon = Math.toRadians(lon2-lon1);
+		lat1 = Math.toRadians(lat1);
+		lat2 = Math.toRadians(lat2);
+
+		double a = Math.sin(dLat/2) * Math.sin(dLat/2) +  Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+		return EARTH_RADIUS * c;
 	}
 }

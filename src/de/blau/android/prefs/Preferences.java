@@ -9,6 +9,7 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
+import de.blau.android.resources.Profile;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
@@ -27,15 +28,39 @@ public class Preferences {
 	
 	private final boolean isOpenStreetBugsEnabled;
 	
+	private final boolean isPhotoLayerEnabled;
+	
+	private final boolean isKeepScreenOnEnabled;
+	
+	private final boolean depreciatedModesEnabled;
+	
+	private final boolean useBackForUndo;
+	
+	private final boolean largeDragArea;
+	
 	private final String backgroundLayer;
+	
+	private final String overlayLayer;
+	
+	private final String mapProfile;
 	
 	private int gpsInterval;
 	
 	private float gpsDistance;
 	
 	private float maxStrokeWidth;
+	
+	private int tileCacheSize; // in MB
 
-	private boolean forceContextMenu;
+	private int downloadRadius; // in m
+	
+	private final boolean forceContextMenu;
+	
+	private final boolean enableNameSuggestions;
+	
+	private final boolean enableAutoPreset;
+	
+	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
 	 * @param prefs
@@ -62,22 +87,52 @@ public class Preferences {
 		}
 		
 		try {
-			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
+			maxStrokeWidth = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "16"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsind config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
-			maxStrokeWidth = 10;
+			Log.w(getClass().getName(), "error parsing config_maxStrokeWidth_key=" + prefs.getString(r.getString(R.string.config_maxStrokeWidth_key), "10"));
+			maxStrokeWidth = 16;
 		}
-		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), true);
+		try {
+			tileCacheSize = Integer.parseInt(prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_tileCacheSize_key=" + prefs.getString(r.getString(R.string.config_tileCacheSize_key), "10"));
+			tileCacheSize = 100;
+		}
+		try {
+			downloadRadius = Integer.parseInt(prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
+			downloadRadius = 50;
+		}
+		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
+		isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
+		isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
+		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
+		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
+		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
+		enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
+		enableAutoPreset = prefs.getBoolean(r.getString(R.string.config_enableAutoPreset_key), true);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
+		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
+		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
+		// check if we actually still have the profile
+		if (Profile.getProfile(tempMapProfile) == null) {
+			if (Profile.getProfile(DEFAULT_MAP_PROFILE) == null) 
+				mapProfile = Profile.getBuiltinProfileName(); // built-in fall back
+			else
+				mapProfile = DEFAULT_MAP_PROFILE;
+		} else {
+			mapProfile = tempMapProfile;
+		}
 		try {
-			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "5.0"));
+			gpsDistance = Float.parseFloat(prefs.getString(r.getString(R.string.config_gps_distance_key), "2.0"));
 			gpsInterval = Integer.parseInt(prefs.getString(r.getString(R.string.config_gps_interval_key), "1000"));
 		} catch (NumberFormatException e) {
-			Log.w(getClass().getName(), "error parsind config_gps_distance_key or config_gps_interval_key");
-			gpsDistance = 5.0f;
+			Log.w(getClass().getName(), "error parsing config_gps_distance_key or config_gps_interval_key");
+			gpsDistance = 2.0f;
 			gpsInterval = 1000;
 		}
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
@@ -89,6 +144,14 @@ public class Preferences {
 	public float getMaxStrokeWidth() {
 		return maxStrokeWidth;
 	}
+	
+	/**
+	 * @return the size of the tile cache in MB
+	 */
+	public int getTileCacheSize() {
+		return tileCacheSize;
+	}
+	
 	/**
 	 * @return
 	 */
@@ -120,8 +183,58 @@ public class Preferences {
 	/**
 	 * @return
 	 */
+	public boolean isPhotoLayerEnabled() {
+		return isPhotoLayerEnabled;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isKeepScreenOnEnabled() {
+		return isKeepScreenOnEnabled;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean depreciatedModesEnabled() {
+		return depreciatedModesEnabled;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean useBackForUndo() {
+		return useBackForUndo;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean largeDragArea() {
+		return largeDragArea;
+	}
+	
+	/**
+	 * @return
+	 */
 	public String backgroundLayer() {
 		return backgroundLayer;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String overlayLayer() {
+		return overlayLayer;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getMapProfile() {
+		return mapProfile;
 	}
 	
 	/**
@@ -131,7 +244,7 @@ public class Preferences {
 		return advancedPrefs.getServerObject();
 	}
 	
-	public Preset getPreset() {
+	public Preset[] getPreset() {
 		return advancedPrefs.getCurrentPresetObject();
 	}
 	
@@ -157,4 +270,19 @@ public class Preferences {
 		return forceContextMenu;
 	}
 	
+	public boolean getEnableNameSuggestions() {
+		return enableNameSuggestions;
+	}
+	
+	/**
+	 * @return
+	 */
+	public int getDownloadRadius() {
+		return downloadRadius;
+	}
+
+	public boolean enableAutoPreset() {
+		// 
+		return enableAutoPreset;
+	}
 }

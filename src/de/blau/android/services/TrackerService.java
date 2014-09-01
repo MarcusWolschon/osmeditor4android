@@ -109,7 +109,7 @@ public class TrackerService extends Service implements LocationListener, Exporta
 		tracking = true;
 		track.markNewSegment();
 		try {
-			Application.mainActivity.invalidateOptionsMenu();
+			Application.mainActivity.triggerMenuInvalidation();
 		} catch (Exception e) {} // ignore
 		updateGPSState();
 	}
@@ -145,10 +145,12 @@ public class TrackerService extends Service implements LocationListener, Exporta
 	/**
 	 * Exports the GPX data
 	 */
+	@Override
 	public void export(OutputStream outputStream) throws Exception {
 		track.exportToGPX(outputStream);
 	}
 	
+	@Override
 	public String exportExtension() {
 		return "gpx";
 	}

@@ -1,16 +1,15 @@
 package de.blau.android.osb;
 
-import java.util.Date;
-
 import android.os.AsyncTask;
 import android.util.Log;
+import de.blau.android.osm.Server;
 
 /**
  * Task to commit changes to an OpenStreetBug.
  * @author Andrew Gregory
  *
  */
-public class CommitTask extends AsyncTask<String, Void, Boolean> {
+public class CommitTask extends AsyncTask<Server, Void, Boolean> {
 	
 	/** Bug associated with the commit. */
 	protected final Bug bug;
@@ -38,23 +37,26 @@ public class CommitTask extends AsyncTask<String, Void, Boolean> {
 	 * will be used.
 	 */
 	@Override
-	protected Boolean doInBackground(String... nickname) {
+	protected Boolean doInBackground(Server... servers) {
 		boolean result = true;
+		Server server = servers[0];
+		if (bug.isClosed() && !close) { // reopen, do this before trying to add anything
+			result = server.reopenNote(bug);
+			if (result) {
+				bug.reopen();
+			}
+		}
 		if (!bug.isClosed()) {
 			Log.d("Vespucci", "CommitTask.doInBackground:Updating OSB");
 			if (comment != null && comment.length() > 0) {
-				// Fall back to "NoName" if nickname isn't set
-				String nn = (nickname == null || nickname.length == 0 ||
-								nickname[0] == null || nickname[0].length() == 0)
-						? "NoName" : nickname[0];
 				// Make the comment
-				BugComment bc = new BugComment(comment, nn, new Date());
+				BugComment bc = new BugComment(comment);
 				// Add or edit the bug as appropriate
-				result = (bug.getId() == 0) ? Database.add(bug, bc) : Database.edit(bug, bc);
+				result = (bug.getId() == 0) ? server.addNote(bug, bc) : server.addComment(bug, bc);
 			}
-			// Close the bug if requested, but only if there haven't been any problems
+			// Close  the bug if requested, but only if there haven't been any problems
 			if (result && close) {
-				result = Database.close(bug);
+					result = server.closeNote(bug);
 			}
 		}
 		return result;

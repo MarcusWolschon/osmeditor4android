@@ -8,9 +8,15 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.acra.ACRA;
+
 import android.util.Log;
+import android.widget.Toast;
+import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.R;
+import de.blau.android.exception.StorageException;
 
 /**
  * This class provides undo support.
@@ -39,7 +45,7 @@ public class UndoStorage implements Serializable {
 	private static final String TAG = "UndoStorage";
 	
 	// Original storages for "contains" checks and restoration
-	private final Storage currentStorage;
+	private Storage currentStorage;
 	private final Storage apiStorage;
 	
 	private final LinkedList<Checkpoint> undoCheckpoints = new LinkedList<Checkpoint>();
@@ -61,6 +67,14 @@ public class UndoStorage implements Serializable {
 	}
 	
 	/**
+	 * Set currentStorage without creating a new instance
+	 * @param currentStorage
+	 */
+	public void setCurrentStorage(Storage currentStorage) {
+		this.currentStorage = currentStorage;
+	}
+	
+	/**
 	 * Updates the "undo" icon visibility by invalidating the menu.
 	 * Avoid calling this off the main thread, or bad things may happen to your menu.
 	 */
@@ -76,11 +90,13 @@ public class UndoStorage implements Serializable {
 	 * @param name the name of the checkpoint, used for debugging and display purposes
 	 */
 	public void createCheckpoint(String name) {
+		Log.d("UndoStorage", "creating checkpoint " + name);
 		if (undoCheckpoints.isEmpty() || !undoCheckpoints.getLast().isEmpty()) {
 			undoCheckpoints.add(new Checkpoint(name));
 			redoCheckpoints.clear();
 		} else {
 			// Empty checkpoint exists, just rename it
+			Log.d("UndoStorage", "renaming checkpoint " + name);
 			undoCheckpoints.getLast().name = name;
 		}
 		
@@ -91,19 +107,31 @@ public class UndoStorage implements Serializable {
 	}
 	
 	/**
+	 * remove checkpoint from list. typically called when we otherwise would have an empty checkpoint at the top
+	 */
+	public void removeCheckpoint(String name) {
+		if (!undoCheckpoints.isEmpty() && undoCheckpoints.getLast().isEmpty() && undoCheckpoints.getLast().name.equals(name))
+			undoCheckpoints.removeLast();
+	}
+	
+	/**
 	 * Saves the current state of the element in the checkpoint. Call before any changes to the element.
 	 * A checkpoint needs to be created first using {@link #createCheckpoint(String)}, 
 	 * otherwise an error is logged and the function does nothing.
 	 * @param element the element to save
 	 */
 	protected void save(OsmElement element) {
-		if (undoCheckpoints.isEmpty()) {
-			Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
-			return;
+		try {
+			if (undoCheckpoints.isEmpty()) {
+				Log.e(TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
+				return;
+			}
+			undoCheckpoints.getLast().add(element);
+			redoCheckpoints.clear();
+		} catch (Exception ex) {
+			ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report
+			Toast.makeText(Application.mainActivity, "Inconsistent state detected, please send the error report!", Toast.LENGTH_LONG).show();
 		}
-		undoCheckpoints.getLast().add(element);
-		redoCheckpoints.clear();
-		updateIcon();
 	}
 	
 	/**
@@ -187,6 +215,7 @@ public class UndoStorage implements Serializable {
 			
 			if (element instanceof Node) elements.put(element, new UndoNode((Node)element));
 			else if (element instanceof Way) elements.put(element, new UndoWay((Way)element));
+			else if (element instanceof Relation) elements.put(element, new UndoRelation((Relation)element)); 
 			else throw new IllegalArgumentException("Unsupported element type");
 		}
 		
@@ -237,6 +266,8 @@ public class UndoStorage implements Serializable {
 		
 		private final boolean inCurrentStorage;
 		private final boolean inApiStorage;
+		
+		private final ArrayList<Relation> parentRelations;
 
 		public UndoElement(OsmElement originalElement) {
 			element    = originalElement;
@@ -248,6 +279,8 @@ public class UndoStorage implements Serializable {
 			
 			inCurrentStorage = currentStorage.contains(originalElement);
 			inApiStorage     = apiStorage.contains(originalElement);
+			
+			parentRelations = new ArrayList<Relation>(originalElement.parentRelations);
 		}
 		
 		/**
@@ -255,17 +288,25 @@ public class UndoStorage implements Serializable {
 		 */
 		public void restore() {
 			// Restore element existence
-			if (inCurrentStorage) currentStorage.insertElementSafe(element);
-			else currentStorage.removeElement(element);
-
-			if (inApiStorage) apiStorage.insertElementSafe(element);
-			else apiStorage.removeElement(element);
+			try {
+				if (inCurrentStorage) currentStorage.insertElementSafe(element);
+				else currentStorage.removeElement(element);
+	
+				if (inApiStorage) apiStorage.insertElementSafe(element);
+				else apiStorage.removeElement(element);
+			} catch (StorageException e) {
+				//TODO handle OOM
+				e.printStackTrace();
+			}
 			
 			// restore saved values
 			element.osmId      = osmId;
 			element.osmVersion = osmVersion;
 			element.state      = state;
 			element.setTags(tags);
+			
+			element.parentRelations.clear();
+			element.parentRelations.addAll(parentRelations);
 		}
 	}
 	
@@ -284,6 +325,7 @@ public class UndoStorage implements Serializable {
 			lon = originalNode.lon;
 		}
 		
+		@Override
 		public void restore() {
 			super.restore();
 			((Node)element).lat = lat;
@@ -304,10 +346,32 @@ public class UndoStorage implements Serializable {
 			nodes = new ArrayList<Node>(originalWay.nodes);
 		}
 		
+		@Override
 		public void restore() {
 			super.restore();
 			((Way)element).nodes.clear();
 			((Way)element).nodes.addAll(nodes);
+		}
+	}
+	
+	/**
+	 * Stores a past state of a relation
+	 * @see UndoElement
+	 */
+	private class UndoRelation extends UndoElement implements Serializable {
+		private static final long serialVersionUID = 1L;
+		private ArrayList<RelationMember> members;
+
+		public UndoRelation(Relation originalRelation) {
+			super(originalRelation);
+			members = new ArrayList<RelationMember>(originalRelation.members);
+		}
+		
+		@Override
+		public void restore() {
+			super.restore();
+			((Relation)element).members.clear();
+			((Relation)element).members.addAll(members);
 		}
 	}
 

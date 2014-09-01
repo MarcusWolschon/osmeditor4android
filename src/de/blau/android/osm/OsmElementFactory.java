@@ -9,6 +9,8 @@ public class OsmElementFactory implements Serializable {
 	private long wayId = 0;
 
 	private long nodeId = 0;
+	
+	private long relationId = 0;
 
 	public static Node createNode(long osmId, long osmVersion, byte status, int lat, int lon) {
 		return new Node(osmId, osmVersion, status, lat, lon);
@@ -24,5 +26,13 @@ public class OsmElementFactory implements Serializable {
 
 	public Way createWayWithNewId() {
 		return createWay(--wayId, 1, OsmElement.STATE_CREATED);
+	}
+	
+	public static Relation createRelation(long osmId, long osmVersion, byte status) {
+		return new Relation(osmId, osmVersion, status);
+	}
+
+	public Relation createRelationWithNewId() {
+		return createRelation(--relationId, 1, OsmElement.STATE_CREATED);
 	}
 }

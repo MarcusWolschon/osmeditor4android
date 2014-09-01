@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 /**
@@ -172,7 +173,8 @@ public class WrappingLayout extends LinearLayout {
 		
 		relayoutInProgress = false;
 		post(new Runnable() {
-		    public void run() {
+		    @Override
+			public void run() {
 		        requestLayout();
 		        invalidate();
 		    }
@@ -235,7 +237,7 @@ public class WrappingLayout extends LinearLayout {
 			container.setOrientation(LinearLayout.VERTICAL);
 			
 			LayoutParams innerLayoutParams =
-				new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			
 			final int availableSpace = container.getWidth() - container.getPaddingLeft() - container.getPaddingRight();
 			int usedSpace = 0;
@@ -243,7 +245,7 @@ public class WrappingLayout extends LinearLayout {
 			LinearLayout inner = new LinearLayout(context);
 			inner.setGravity(rowGravity);
 			inner.setOrientation(LinearLayout.HORIZONTAL);
-			container.addView(inner, new LayoutParams(innerLayoutParams));
+			container.addView(inner, new LayoutParams((ViewGroup.MarginLayoutParams)innerLayoutParams));
 			
 			// For new rows, set margin
 			innerLayoutParams.topMargin = vspace;
@@ -272,7 +274,7 @@ public class WrappingLayout extends LinearLayout {
 						inner = new LinearLayout(context);
 						inner.setOrientation(LinearLayout.HORIZONTAL);
 						inner.setGravity(rowGravity);
-						container.addView(inner, new LayoutParams(innerLayoutParams));
+						container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams)innerLayoutParams));
 						usedSpace = 0;
 					}
 				}

@@ -5,16 +5,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
+
+import android.util.Log;
+import de.blau.android.Application;
+import de.blau.android.R;
+import de.blau.android.resources.Profile.FeatureProfile;
 
 public class Way extends OsmElement {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1104911642016294265L;
+	private static final long serialVersionUID = 1104911642016294266L;
 	
 	private static final String[] importantHighways;
 
@@ -23,6 +30,10 @@ public class Way extends OsmElement {
 	public static final String NAME = "way";
 
 	public static final String NODE = "nd";
+	
+	public static final int MAX_WAY_NODES = 2000;
+	
+	transient FeatureProfile featureProfile = null; // FeatureProfile is currently not serializable
 	
 	static {
 		importantHighways = (
@@ -37,6 +48,10 @@ public class Way extends OsmElement {
 	}
 
 	void addNode(final Node node) {
+		if ((nodes.size() > 0) && (nodes.get(nodes.size() - 1) == node)) {
+			Log.i("Way", "addNode attempt to add same node");
+			return;
+		}
 		nodes.add(node);
 	}
 
@@ -89,13 +104,41 @@ public class Way extends OsmElement {
 		return nodes.contains(node);
 	}
 
+	public boolean hasCommonNode(final Way way) {
+		for (Node n : this.nodes) {
+			if (way.hasNode(n)) {
+				return true;
+			}
+		}
+ 		return false;
+	}
+	
 	void removeNode(final Node node) {
+		int index = nodes.lastIndexOf(node);
+		if (index > 0 && index < (nodes.size()-1)) { // not the first or last node 
+			if (nodes.get(index-1) == nodes.get(index+1)) {
+				nodes.remove(index-1);
+				Log.i("Way", "removeNode removed duplicate node");
+			}
+		}
 		while (nodes.remove(node)) {
 			;
 		}
 	}
+	
+	/**
+	 * return true if first == last node, will not work for broken geometries
+	 * @return
+	 */
+	public boolean isClosed() {
+		return nodes.get(0).equals(nodes.get(nodes.size() - 1));
+	}
 
 	void appendNode(final Node refNode, final Node newNode) {
+		if (refNode == newNode) { // user error
+			Log.i("Way", "appendNode attempt to add same node");
+			return;
+		}
 		if (nodes.get(0) == refNode) {
 			nodes.add(0, newNode);
 		} else if (nodes.get(nodes.size() - 1) == refNode) {
@@ -104,6 +147,10 @@ public class Way extends OsmElement {
 	}
 
 	void addNodeAfter(final Node nodeBefore, final Node newNode) {
+		if (nodeBefore == newNode) { // user error
+			Log.i("Way", "addNodeAfter attempt to add same node");
+			return;
+		}
 		nodes.add(nodes.indexOf(nodeBefore) + 1, newNode);
 	}
 	
@@ -115,10 +162,251 @@ public class Way extends OsmElement {
 	 */
 	void addNodes(List<Node> newNodes, boolean atBeginning) {
 		if (atBeginning) {
+			if ((nodes.size() > 0) && nodes.get(0) == newNodes.get(newNodes.size()-1)) { // user error
+				Log.i("Way", "addNodes attempt to add same node");
+				if (newNodes.size() > 1) {
+					Log.i("Way", "retrying addNodes");
+					newNodes.remove(newNodes.size()-1);
+					addNodes(newNodes, atBeginning);
+				}
+				return;
+			}
 			nodes.addAll(0, newNodes);
 		} else {
+			if ((nodes.size() > 0) && newNodes.get(0) == nodes.get(nodes.size()-1)) { // user error
+				Log.i("Way", "addNodes attempt to add same node");
+				if (newNodes.size() > 1) {
+					Log.i("Way", "retrying addNodes");
+					newNodes.remove(0);
+					addNodes(newNodes, atBeginning);
+				}
+				return;
+			}
 			nodes.addAll(newNodes);
 		}
+	}
+	
+	/**
+	 * Return the direction dependent tags and associated values 
+	 * oneway, *:left, *:right, *:backward, *:forward
+	 * Probably we should check for issues with relation membership too 
+	 * @return
+	 */
+	public Map<String, String> getDirectionDependentTags() {
+		Map<String, String> result = null;
+		for (String key : tags.keySet()) {
+			String value = tags.get(key);
+			if (key.equals("oneway") || key.equals("incline") 
+					|| key.equals("turn") || key.equals("turn:lanes")
+					|| key.equals("direction") || key.endsWith(":left") 
+					|| key.endsWith(":right") || key.endsWith(":backward") 
+					|| key.endsWith(":forward") 
+					|| key.contains(":forward:") || key.contains(":backward:")
+					|| key.contains(":right:") || key.contains(":left:")
+					|| value.equals("right") || value.equals("left") 
+					|| value.equals("forward") || value.equals("backward")) {
+				if (result == null) {
+					result = new TreeMap<String, String>();
+				}
+				result.put(key, value);
+			}
+		}
+		return result;
+	}
+	
+	private String reverseCardinalDirection(final String value) throws NumberFormatException
+	{
+		String tmpVal = "";
+		for (int i=0;i<value.length();i++) {
+			switch (value.toUpperCase().charAt(i)) {
+				case 'N': tmpVal = tmpVal + 'S'; break;
+				case 'W': tmpVal = tmpVal + 'E'; break;
+				case 'S': tmpVal = tmpVal + 'N'; break;
+				case 'E': tmpVal = tmpVal + 'W'; break;
+				default: throw new NumberFormatException(); 
+			}
+		}
+		return tmpVal;
+	}
+	
+	private String reverseDirection(final String value) {
+		if (value.equals("up")) {
+			return "down";
+		} else if (value.equals("down")) {
+			return "up";
+		} else {
+			if (value.endsWith("°")) { //degrees
+				try {
+					String tmpVal = value.substring(0,value.length()-1);
+					return floatToString(((Float.valueOf(tmpVal)+180.0f) % 360.0f)) + "°";
+				} catch (NumberFormatException nex) {
+					// oops put back original values 
+					return value;
+				}
+			} else if (value.matches("-?\\d+(\\.\\d+)?")) { //degrees without degree symbol
+				try {
+					return floatToString(((Float.valueOf(value)+180.0f) % 360.0f));
+				} catch (NumberFormatException nex) {
+					// oops put back original values 
+					return value;
+				}
+			} else { // cardinal directions
+				try {
+					return reverseCardinalDirection(value);
+				} catch (NumberFormatException fex) {
+					return value;
+				}
+			}
+		}
+	}
+	
+	private String reverseTurnLanes(final String value) {
+		String tmpValue = "";
+		for (String s:value.split("\\|")) {
+			String tmpValue2 = "";
+			for (String s2:s.split(";")) {
+				if (s2.indexOf("right") >= 0) {
+					s2 = s2.replace("right", "left");
+				} else if (s.indexOf("left") >= 0) {
+					s2 = s2.replace("left", "right");	
+				}
+				if (tmpValue2.equals("")) {	
+					tmpValue2 = s2;
+				} else {
+					tmpValue2 = s2 + ";" + tmpValue2; // reverse order 
+				}
+			}
+			if (tmpValue.equals("")) {	
+				tmpValue = tmpValue2;
+			} else {
+				tmpValue = tmpValue2 + "|" + tmpValue; // reverse order 
+			}
+		}
+		return tmpValue;
+	}
+	
+	private String reverseIncline(final String value) {
+		String tmpVal;
+		if (value.equals("up")) {
+			return "down";
+		} else if (value.equals("down")) {
+			return "up";
+		} else {
+			try {
+				if (value.endsWith("°")) { //degrees
+					tmpVal = value.substring(0,value.length()-1);
+					return floatToString((Float.valueOf(tmpVal)*-1)) + "°";
+				} else if (value.endsWith("%")) { // percent{
+					tmpVal = value.substring(0,value.length()-1);
+					return floatToString((Float.valueOf(tmpVal)*-1)) + "%";
+				} else {
+					return floatToString((Float.valueOf(value)*-1));
+				}
+			} catch (NumberFormatException nex) {
+				// oops put back original values 
+				return value;
+			}
+		}
+
+	}
+	
+	private String reverseOneway(final String value) {
+		if (value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("true") || value.equals("1")) {
+			return "-1";
+		} else if (value.equalsIgnoreCase("reverse") || value.equals("-1")) {
+			return "yes";
+		}
+		return value;
+	}
+	
+	/**
+	 * Reverse the direction dependent tags and save them to tags
+	 * Note this code in its original version ran in to complexity limits on Android 2.2 (and probably older). Eliminating if .. else if constructs seems to have
+	 * resolved this
+	 * @param tags Map of all direction dependent tags
+	 * @param reverseOneway if false don't change the value of the oneway tag if present
+	 */
+	public void reverseDirectionDependentTags(Map<String, String> dirTags, boolean reverseOneway) {
+		for (String key : dirTags.keySet()) {
+			if (!key.equals("oneway") || reverseOneway) {
+				String value = tags.get(key).trim();
+				tags.remove(key); //			
+				if (key.equals("oneway")) {
+					tags.put(key, reverseOneway(value));
+					continue;
+				} 
+				if (key.equals("direction")) {
+					tags.put(key, reverseDirection(value));
+					continue;
+				} 
+				if (key.equals("incline")) {
+					tags.put(key, reverseIncline(value));
+					continue;
+				} 
+				if (key.equals("turn:lanes") || key.equals("turn")) { // turn:lane:forward/backward doesn't need to be handled special
+					tags.put(key,reverseTurnLanes(value));
+					continue;
+				} 
+				if (key.endsWith(":left")) { // this would be more elegant in a loop
+					tags.put(key.substring(0, key.length()-5) + ":right", value);
+					continue;
+				} 
+				if (key.endsWith(":right")) {
+					tags.put(key.substring(0, key.length()-6) + ":left", value);
+					continue;
+				} 
+				if (key.endsWith(":backward")) {
+					tags.put(key.substring(0, key.length()-9) + ":forward", value);
+					continue;
+				} 
+				if (key.endsWith(":forward")) {
+					tags.put(key.substring(0, key.length()-8) + ":backward", value);
+					continue;
+				} 
+				if (key.indexOf(":forward:") >= 0) {
+					tags.put(key.replace(":forward:", ":backward:"), value);
+					continue;
+				} 
+				if (key.indexOf(":backward:") >= 0) {
+					tags.put(key.replace(":backward:", ":forward:"), value);
+					continue;
+				} 
+				if (key.indexOf(":right:") >= 0) {
+					tags.put(key.replace(":right:", ":left:"), value);
+					continue;
+				} 
+				if (key.indexOf(":left:") >= 0) {
+					tags.put(key.replace(":left:", ":right:"), value);
+					continue;
+				} 
+				if (value.equals("right")) {  // doing this for all values is probably dangerous
+					tags.put(key, "left");
+					continue;
+				} 
+				if (value.equals("left")) {
+					tags.put(key, "right");
+					continue;
+				} 
+				if (value.equals("forward")) {
+					tags.put(key, "backward");
+					continue;
+				} 
+				if (value.equals("backward")) {
+					tags.put(key, "forward");
+					continue;
+				} 
+				// can't happen should throw an exception
+				tags.put(key,value);
+			}
+		}
+	}
+	
+	String floatToString(float f)
+	{
+		if(f == (int) f)
+	        return String.format(Locale.US, "%d",(int)f);
+	    else
+	        return String.format(Locale.US,"%s",f);
 	}
 	
 	/**
@@ -174,16 +462,68 @@ public class Way extends OsmElement {
 	}
 	
 	/**
+	 * There is a set of tags which lead to a way not being reversible, this is EXTREMLY stupid and should be depreciated immediately.
+	 * 
+	 * natural=cliff
+	 * natural=coastline
+	 * barrier=retaining_wall
+	 * barrier=kerb
+	 * barrier=guard_rail
+	 * man_made=embankment
+	 * barrier=city_wall if two_sided != yes
+	 * waterway=*
+	 * 
+	 * @return true if somebody added the brain dead tags
+	 */
+	public boolean notReversable()
+	{
+		boolean brainDead = false;
+		String waterway = getTagWithKey("waterway");
+		if (waterway != null) {
+			brainDead = true; // IHMO
+		} else {
+			String natural = getTagWithKey("natural");
+			if ((natural != null) && (natural.equals("cliff") || natural.equals("coastline"))) {
+				brainDead = true; // IHMO
+			} else {
+				String barrier = getTagWithKey("barrier");
+				if ((barrier != null) && barrier.equals("retaining_wall")) {
+					brainDead = true; // IHMO
+				} else if ((barrier != null) && barrier.equals("kerb")) {
+					brainDead = true; //
+				} else if ((barrier != null) && barrier.equals("guard_rail")) {
+					brainDead = true; //	
+				} else if ((barrier != null) && barrier.equals("city_wall") && ((getTagWithKey("two_sided") == null) || !getTagWithKey("two_sided").equals("yes"))) {
+					brainDead = true; // IMHO
+				} else {
+					String man_made = getTagWithKey("man_made");
+					if ((man_made != null) && man_made.equals("embankment")) {
+						brainDead = true; // IHMO
+					}
+				}
+			}
+		}
+		return brainDead;
+	}
+	
+	private boolean hasTagWithValue(String tag, String value) {
+		String tagValue = getTagWithKey(tag);
+		return tagValue != null ? tagValue.equalsIgnoreCase(value) : false;
+	}
+	
+	/**
 	 * Test if the way has a problem.
 	 * @return true if the way has a problem, false if it doesn't.
 	 */
+	@Override
 	protected boolean calcProblem() {
 		String highway = getTagWithKey("highway"); // cache frequently accessed key
 		if ("road".equalsIgnoreCase(highway)) {
 			// unsurveyed road
 			return true;
 		}
-		if (getTagWithKey("name") == null) {
+		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null) 
+				&& !(hasTagWithValue("noname","yes") || hasTagWithValue("validate:no_name","yes"))) {
 			// unnamed way - only the important ones need names
 			for (String h : importantHighways) {
 				if (h.equalsIgnoreCase(highway)) {
@@ -195,6 +535,33 @@ public class Way extends OsmElement {
 	}
 	
 	@Override
+	public String describeProblem() {
+		String superProblem = super.describeProblem();
+		String wayProblem = "";
+		String highway = getTagWithKey("highway");
+		if ("road".equalsIgnoreCase(highway)) {
+			wayProblem = Application.mainActivity.getString(R.string.toast_unsurveyed_road);
+		}
+		if ((getTagWithKey("name") == null) && (getTagWithKey("ref") == null)
+				&& !(hasTagWithValue("noname","yes") || hasTagWithValue("validate:no_name","yes"))) {
+			boolean isImportant = false;
+			for (String h : importantHighways) {
+				if (h.equalsIgnoreCase(highway)) {
+					isImportant = true;
+					break;
+				}
+			}
+			if (isImportant) {
+				wayProblem = !wayProblem.equals("") ? wayProblem +", " :  Application.mainActivity.getString(R.string.toast_noname);
+			}
+		}
+		if (!superProblem.equals("")) 
+			return superProblem + (!wayProblem.equals("") ? "\n" + wayProblem : "");
+		else
+			return wayProblem;
+	}
+	
+	@Override
 	public ElementType getType() {
 		if (nodes.size() < 2) return ElementType.WAY; // should not happen
 		
@@ -203,5 +570,33 @@ public class Way extends OsmElement {
 		} else {
 			return ElementType.WAY;
 		}
+	}
+	
+	@Override
+	void updateState(final byte newState) {
+		featureProfile = null; // force recalc of style
+		super.updateState(newState);
+	}
+	
+	@Override
+	void setState(final byte newState) {
+		featureProfile = null; // force recalc of style
+		super.setState(newState);
+	}
+	
+	public FeatureProfile getFeatureProfile() {
+		return featureProfile;
+	}
+	
+	public void setFeatureProfile(FeatureProfile fp) {
+		featureProfile = fp;
+	}
+	
+	/** 
+	 * return the number of nodes in the is way
+	 * @return
+	 */
+	public int length() {
+		return nodes.size();
 	}
 }

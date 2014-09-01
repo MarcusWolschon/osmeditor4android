@@ -1,7 +1,6 @@
 package de.blau.android.views;
 
 
-import android.graphics.Rect;
 import de.blau.android.osm.BoundingBox;
 
 /**
@@ -13,11 +12,10 @@ public interface IMapView {
 
 	/**
 	 * Get the current ZoomLevel for the map tiles.
-	 * @param viewPort 
 	 * @return the current ZoomLevel between 0 (equator) and 18/19(closest),
 	 *         depending on the Renderer chosen.
 	 */
-	public abstract int getZoomLevel(final Rect viewPort);
+	public abstract int getZoomLevel();
 
 	/**
 	 * @return The visible area in decimal-degree (WGS84) -space.

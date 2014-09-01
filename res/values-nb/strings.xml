@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort endringer. Vil du laste dem opp i stedet for å avbryte?</string>
@@ -7,24 +7,15 @@
   <string name="transfer_download_current_download">Avbryt og last ned</string>
   <string name="transfer_download_current_back">Gå tilbake</string>
   <string name="upload_problem_title">Problem med opplasting</string>
-  <string name="upload_problem_message">Noe eller alle data ble ikke lasta opp. Prøv om igjen og se hva data som feila. Mest trolig har du prøvd å slette en node eller veg som er del av en relasjon. Vespucci støtter ikke relasjoner (enda).</string>
-  <string name="no_login_data_title">Mangler brukeropplysninger</string>
-  <string name="no_login_data_message">Fyll ut brukeropplysninger for OpenStreetMap under instillinger.</string>
   <string name="no_connection_title">Intet samband med teneren</string>
   <string name="no_connection_message">Kunne ikke koble til OSM-teneren. Sjekk internettforbindelsen din eller prøv igjen senere.</string>
-  <string name="wrong_login_data_title">Feil brukeropplysninger</string>
-  <string name="wrong_login_data_message">OSM-teneren ville ikke godkjenne deg. Sjekk brukeropplysningene dine under innstillinger.</string>
   <string name="progress_title">Leser</string>
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>
   <string name="upload_comment_label">Kommentar:</string>
-  <string name="openstreetbug_new_title">Ny OpenStreetBug</string>
-  <string name="openstreetbug_new_bug">Rapporter OpenStreetBug</string>
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
-  <string name="openstreetbug_edit_title">Endre OpenStreetBug</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <string name="openstreetbug_edit_close">Lukk feil</string>
   <string name="openstreetbug_commit_ok">Endringer lagra</string>
   <string name="openstreetbug_commit_fail">Kunne ikke lagre endringer</string>
   <string name="unsaved_data_title">Advarsel!</string>
@@ -39,18 +30,18 @@
   <string name="toast_export_failed">Eksport feila</string>
   <string name="toast_export_success">Eksporterte til %1$s</string>
   <string name="toast_preset_overwrote_tags">Merk: Knapp overskrev tagg(er)</string>
-  <!--Some generic labels-->
+  <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>
   <string name="okay">Ok</string>
   <string name="cancel">Avbryt</string>
+  <!--Dialog for back button-->
   <!--Strings in TagEditor-->
   <string name="key">nøkkel</string>
   <string name="value">verdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_sourcesurvey">Kartlagt</string>
   <string name="tag_menu_preset">Knapper</string>
-  <string name="tag_menu_repeat">Gjenta</string>
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_menu_mapfeatures">Map features wiki</string>
   <!--Strings in LocationPicker-->
@@ -62,12 +53,8 @@
   <string name="location_text_unknown">ukjent</string>
   <string name="location_last_text_parameterized">Siste kjente posisjon: %1$s</string>
   <string name="location_current_text_parameterized">Nåværende posisjon: %1$s</string>
-  <string name="location_text_metadata_accuracy">Nøyaktighet %1$1g meter,</string>
   <string name="location_map_text">Fra kart (kommer snart):</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
-  <string name="location_load_button">Hent!</string>
-  <string name="location_button_no_location">Ikke hent noe</string>
-  <string name="location_label_no_location">(anbefales ikke)</string>
   <string name="location_nan_title">Feil inndata!</string>
   <string name="location_nan_message">Tast inn koordinater med desimaler (f.eks. \"52.333572\",\"8.741185\"). Lat skal være mellom -85.0 og +85.0, og Lon skal være mellom -175.0 og +175.0.</string>
   <!--Menu-->
@@ -80,7 +67,6 @@
   <string name="menu_split">Kløyv</string>
   <string name="menu_append">Fortsett</string>
   <string name="menu_tag">Endre tagger</string>
-  <string name="menu_openstreetbug">Legg inn OpenStreetBug</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis plassering</string>
   <string name="menu_gps_follow">Følg GPS-posisjon</string>
@@ -101,8 +87,6 @@
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
-  <string name="toast_oneway_reversed">Du har snudd ei envegsgate. Kontroller envegstaggen og rett den om nødvendig.</string>
-  <string name="deleteway_description">Du skal til å slette en veg. Du kan enten beholde alle nodene, eller slette noder som bare hører til denne vegen, og ikke har noen tagger.</string>
   <string name="deleteway_wayonly">Slett bare vegen</string>
   <string name="deleteway_wayandnodes">Slett veg og noder</string>
   <!--EasyEdit action mode titles-->
@@ -111,26 +95,21 @@
   <string name="actionmode_createpath">Lager bane</string>
   <!--Preferences-->
   <string name="config_category_view">Vis innstillinger</string>
-  <string name="config_maxStrokeWidth_title">maksimum strekbredde</string>
-  <string name="config_maxStrokeWidth_summary">ikke tegn veger tykkere enn dette</string>
   <string name="config_showStats_title">Vis statistikk</string>
   <string name="config_showStats_summary">Viser datastatistikk og bilde/sek i nederste venstre hjørne.</string>
   <string name="config_showTolerance_title">Vis endringsområde</string>
   <string name="config_showTolerance_summary">Viser område hvor elementer kan velges.</string>
   <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string>
-  <string name="config_enableAntiAliasing_summary">Gjør linjene mykere.</string>
-  <string name="config_enableOpenStreetBugs_title">Slå på OpenStreetBugs</string>
-  <string name="config_enableOpenStreetBugs_summary">Vis feilrapporter fra OpenStreetBugs.</string>
   <string name="config_backgroundLayer_title">Kartbakgrunn</string>
   <string name="config_backgroundLayer_summary">Forehåndstegna kartbakgrunn</string>
   <string name="config_category_server">Tener-innstillinger</string>
   <string name="config_apibutton_summary">Her kan du spesifisere en ustandard API URL. Skal normalt ikke endres!</string>
   <string name="config_presetbutton_title">JOSM-knapper</string>
+  <string name="config_presetbutton_summary">Legg inn eget JOSM-knappesett.</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
   <string name="config_loginbutton_title">Brukerkonto</string>
   <string name="config_username_title">OpenStreetMap-brukernavn</string>
-  <string name="config_username_summary">Nødvendig for å laste opp til OpenStreetMap. Hvis du ikke har brukernavn ennå, kan du få deg det her: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OpenStreetMap-passord</string>
   <string name="config_password_summary">Må ikke forveksles med Wiki-passordet. Obs: Det blir lagret og sendt som lesbar tekst!</string>
   <string name="config_category_gps">GPS-instillinger</string>
@@ -186,12 +165,12 @@
   <string name="undo_action_reverse_way">snu vegar</string>
   <string name="undo_action_set_tags">legg til taggar</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci har krasja. Vær god og send inn feilrapport.</string>
-  <string name="crash_notif_title">Vespucci har krasja.</string>
   <string name="crash_notif_text">Trykk her for å hjelpe til med å løse problemet.</string>
-  <string name="crash_dialog_text">En uventa feil har fått programmet til å stoppe. Vær god og hjelp oss med å løse problemet ved å sende oss feildata. Alt du trenger å gjøre er å trykke på «OK».</string>
   <string name="config_category_acra">Krasj-rapportering</string>
   <string name="pref_enable_acra">Rapporter program-krasjer</string>
   <string name="pref_acra_enabled">Krasjrapportering slått på</string>
   <string name="pref_acra_disabled">Krasjrapportering slått av</string>
+  <!--Exceptions messages-->
+  <!--Misc relation related stuff-->
+  <!--time and distance-->
 </resources>

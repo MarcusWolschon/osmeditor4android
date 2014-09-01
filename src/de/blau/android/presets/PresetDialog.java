@@ -1,13 +1,15 @@
 package de.blau.android.presets;
 
+import java.util.ArrayList;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;
-
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset.PresetClickHandler;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 
@@ -19,6 +21,7 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	private OsmElement element;
 	
 	private PresetGroup currentGroup;
+	private PresetGroup rootGroup;
 	
 	private PresetItem dialogResult = null; 
 	
@@ -28,13 +31,27 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	 * @param preset the Preset data to use
 	 * @param element the OSM element to which the preset will be applied (used for filtering)
 	 */
-	public PresetDialog(Context context, Preset preset, OsmElement element) {
+	public PresetDialog(Context context, Preset[] presets, OsmElement element) {
 		super(context, android.R.style.Theme_DeviceDefault_NoActionBar);
 		this.context = context;
 		this.element = element;
 		
-		currentGroup = preset.getRootGroup();
-		
+		if (presets.length == 1)
+			currentGroup = presets[0].getRootGroup();
+		else {
+			// a bit of a hack ... this adds the elements from other presets to the root group of the first one
+			rootGroup = presets[0].getRootGroup();
+			ArrayList<PresetElement> rootElements = rootGroup.getElements();
+			for (int i=1;i<presets.length;i++) {
+				for (PresetElement e:presets[i].getRootGroup().getElements()) {
+					if (!rootElements.contains(e)) { // only do this if not already present
+						rootGroup.addElement(e);
+						e.setParent(rootGroup);
+					}
+				}
+			}
+			currentGroup = rootGroup;
+		}	
 		updateView();
 	}
 	
@@ -67,6 +84,16 @@ public class PresetDialog extends Dialog implements PresetClickHandler {
 	public void onItemClick(PresetItem item) {
 		dialogResult = item;
 		dismiss();
+	}
+	
+	/**
+	 * for now do the same
+	 */
+	@Override
+	public boolean onItemLongClick(PresetItem item) {
+		dialogResult = item;
+		dismiss();
+		return true;
 	}
 	
 	/**

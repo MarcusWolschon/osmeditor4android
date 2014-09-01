@@ -29,8 +29,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private final SharedPreferences prefs;
 	private final String PREF_SELECTED_API;
 
-	private final static int DATA_VERSION = 2;
+	private final static int DATA_VERSION = 5;
 	private final static String LOGTAG = "AdvancedPrefDB";
+	
+	public final static String API_DEFAULT = "https://api.openstreetmap.org/api/0.6/";
 	
 	/** The ID string for the default API and the default Preset */
 	public final static String ID_DEFAULT = "default";
@@ -49,19 +51,33 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		PREF_SELECTED_API = r.getString(R.string.config_selected_api);
 		currentAPI = prefs.getString(PREF_SELECTED_API, null);
 		if (currentAPI == null) migrateAPI();
-		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "");
+		if (getPreset(ID_DEFAULT) == null) addPreset(ID_DEFAULT, "OpenStreetMap", "", true);
 	}
 
 	@Override
 	public synchronized void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER)");
-		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT)");
+		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
+		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT, active INTEGER DEFAULT 0)");
 	}
 
 	@Override
 	public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		Log.d(LOGTAG, "Upgrading API DB");
 		if (oldVersion <= 1 && newVersion >= 2) {
 			db.execSQL("ALTER TABLE apis ADD COLUMN showicon INTEGER DEFAULT 0");
+		}
+		if (oldVersion <= 2 && newVersion >= 3) {
+			db.execSQL("ALTER TABLE apis ADD COLUMN oauth INTEGER DEFAULT 0");
+			db.execSQL("ALTER TABLE apis ADD COLUMN accesstoken TEXT DEFAULT NULL");
+			db.execSQL("ALTER TABLE apis ADD COLUMN accesstokensecret TEXT DEFAULT NULL");
+			db.execSQL("UPDATE apis SET url='" + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
+		}
+		if (oldVersion <= 3 && newVersion >= 4) {
+			db.execSQL("ALTER TABLE presets ADD COLUMN active INTEGER DEFAULT 0");
+			db.execSQL("UPDATE presets SET active=1 WHERE id='default'");
+		}
+		if (oldVersion <= 4 && newVersion >= 5) {
+			db.execSQL("UPDATE apis SET url='"  + API_DEFAULT + "' WHERE id='"+ ID_DEFAULT + "'");
 		}
 	}
 	
@@ -74,7 +90,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		String pass = prefs.getString(r.getString(R.string.config_password_key), "");
 		String name = "OpenStreetMap";
 		Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
-		addAPI(ID_DEFAULT, name, "", user, pass, ID_DEFAULT, false); // empty API URL => default API URL
+		addAPI(ID_DEFAULT, name, API_DEFAULT, user, pass, ID_DEFAULT, false, true); 
 		Log.d(LOGTAG, "Selecting default API");
 		selectAPI(ID_DEFAULT);
 		Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -95,7 +111,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
 		currentAPI = id;
 		Main.prepareRedownload();
-		Main.resetPreset();
+		// Main.resetPreset();
 	}
 	
 	/**
@@ -117,7 +133,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		API api = getCurrentAPI();
 		if (api == null) return null;
 		String version = r.getString(R.string.app_name) + " " + r.getString(R.string.app_version);
-		return new Server(api.url, api.user, api.pass, version);
+		return new Server(api.url, api.user, api.pass, api.oauth, api.accesstoken, api.accesstokensecret, version);
 	}
 	
 	/**
@@ -126,14 +142,39 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @param name
 	 * @param url
 	 */
-	public synchronized void setAPIDescriptors(String id, String name, String url) {
+	public synchronized void setAPIDescriptors(String id, String name, String url, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("name", name);
 		values.put("url", url);
+		values.put("oauth", oauth ? 1 : 0);
 		db.update("apis", values, "id = ?", new String[] {id});
+		if (!oauth) { // zap any key and secret
+			values = new ContentValues();
+			values.put("accesstoken", (String)null);
+			values.put("accesstokensecret", (String)null);
+			db.update("apis", values, "id = ?", new String[] {id});
+		}
 		db.close();
 	}
+	
+	/**
+	 * Sets access token and secret of the current API entry
+	 * @param id
+	 * @param token
+	 * @param secret
+	 */
+	public synchronized void setAPIAccessToken(String token, String secret) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values = new ContentValues();
+		values.put("accesstoken", token);
+		values.put("accesstokensecret", secret);
+		db.update("apis", values, "id = ?", new String[] {currentAPI});
+		Log.d("AdvancedPRefDatabase", "setAPIAccessToken " + token + " secret " + secret);
+		db.close();
+	}
+
 
 	/** Sets login data (user, password) for the current API */
 	public synchronized void setCurrentAPILogin(String user, String pass) {
@@ -165,7 +206,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/** adds a new API with the given values to the API database */
-	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset, boolean showicon) {
+	public synchronized void addAPI(String id, String name, String url, String user, String pass, String preset, boolean showicon, boolean oauth) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("id", id);
@@ -174,7 +215,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("user", user);
 		values.put("pass", pass);
 		values.put("preset", preset);		
-		values.put("showicon", showicon? 1 : 0);		
+		values.put("showicon", showicon? 1 : 0);	
+		values.put("oauth", oauth? 1 : 0);
 		db.insert("apis", null, values);
 		db.close();
 	}
@@ -197,10 +239,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor dbresult = db.query(
 								"apis",
-								new String[] {"id", "name", "url", "user", "pass", "preset", "showicon"},
+								new String[] {"id", "name", "url", "user", "pass", "preset", "showicon", "oauth","accesstoken","accesstokensecret"},
 								id == null ? null : "id = ?",
 								id == null ? null : new String[] {id},
-								null, null, null);
+								null, null, null, null);
 		API[] result = new API[dbresult.getCount()];
 		dbresult.moveToFirst();
 		for (int i = 0; i < result.length; i++) {
@@ -210,7 +252,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 									dbresult.getString(3),
 									dbresult.getString(4),
 									dbresult.getString(5),
-									dbresult.getInt(6));
+									dbresult.getInt(6),
+									dbresult.getInt(7),
+									dbresult.getString(8),
+									dbresult.getString(9));
+			Log.d("AdvancedPrefDatabase", dbresult.getString(0) + " " + dbresult.getString(1) + " " + dbresult.getString(8) + " " + dbresult.getString(9));
 			dbresult.moveToNext();
 		}
 		dbresult.close();
@@ -229,8 +275,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		public final String user;
 		public final String pass;
 		public final String preset;
-		public final boolean showicon;		
-		public API(String id, String name, String url, String user, String pass, String preset, int showicon) {
+		public final boolean showicon;	
+		public final boolean oauth;
+		public String accesstoken;
+		public String accesstokensecret;
+		
+		public API(String id, String name, String url, String user, String pass, String preset, int showicon, int oauth, String accesstoken, String accesstokensecret) {
 			this.id = id;
 			this.name = name;
 			this.url = url;
@@ -238,6 +288,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			this.pass = pass;
 			this.preset = preset;
 			this.showicon = (showicon == 1);
+			this.oauth = (oauth == 1);
+			this.accesstoken = accesstoken;
+			this.accesstokensecret = accesstokensecret;
 		}
 	}
 
@@ -245,21 +298,29 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * Creates an object for the currently selected preset
 	 * @return a corresponding preset object, or null if no valid preset is selected or the preset cannot be created
 	 */
-	public Preset getCurrentPresetObject() {
-		API api = getCurrentAPI();
-		if (api == null || api.preset == null || api.preset.equals("")) return null;
-		PresetInfo presetinfo = getPreset(api.preset);
-		try {
-			if (presetinfo.url.startsWith(Preset.APKPRESET_URLPREFIX)) {
-				return new Preset(context, getPresetDirectory(presetinfo.id),
-						presetinfo.url.substring(Preset.APKPRESET_URLPREFIX.length()));
-			} else {
-				return new Preset(context, getPresetDirectory(presetinfo.id), null);
+	public Preset[] getCurrentPresetObject() {
+		PresetInfo[] presetInfos = getActivePresets();
+		if (presetInfos == null || presetInfos.length == 0) return null;
+		Preset activePresets[] = new Preset[presetInfos.length];
+		for (int i=0; i<presetInfos.length; i++){
+			PresetInfo pi = presetInfos[i];
+			try {
+				Log.d(LOGTAG,"Adding preset " + pi.name);
+				if (pi.url.startsWith(Preset.APKPRESET_URLPREFIX)) {
+					activePresets[i] = new Preset(context, getPresetDirectory(pi.id),
+							pi.url.substring(Preset.APKPRESET_URLPREFIX.length()));
+				} else {
+					activePresets[i] = new Preset(context, getPresetDirectory(pi.id), null);
+				}
+			} catch (Exception e) {
+				Log.e(LOGTAG, "Failed to create preset", e);
+				activePresets[i] = null;
 			}
-		} catch (Exception e) {
-			Log.e(LOGTAG, "Failed to create preset", e);
-			return null;
 		}
+		if (activePresets.length >= 1) { 
+			return activePresets;
+		} 
+		return null;
 	}
 	
 	/** returns an array of PresetInfos for all currently known presets */
@@ -281,6 +342,31 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		return found[0];
 	}
 	
+	/** returns an array of PresetInfos for all active presets */
+	public PresetInfo[] getActivePresets() {
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor dbresult = db.query(
+								"presets",
+								new String[] {"id", "name", "url", "lastupdate", "active"},
+								"active=1",
+								null,
+								null, null, null, null);
+		PresetInfo[] result = new PresetInfo[dbresult.getCount()];
+		Log.d(LOGTAG,"#prefs " + result.length);
+		dbresult.moveToFirst();
+		for (int i = 0; i < result.length; i++) {
+			Log.d(LOGTAG,"Reading pref " + i + " " + dbresult.getString(1));
+			result[i] = new PresetInfo(dbresult.getString(0),
+									dbresult.getString(1),
+									dbresult.getString(2),
+									dbresult.getString(3),
+									dbresult.getInt(4) == 1);
+			dbresult.moveToNext();
+		}
+		dbresult.close();
+		db.close();
+		return result;
+	}
 	
 	/**
 	 * Fetches all Presets matching the given ID, or all Presets if id is null
@@ -292,7 +378,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor dbresult = db.query(
 								"presets",
-								new String[] {"id", "name", "url", "lastupdate"},
+								new String[] {"id", "name", "url", "lastupdate", "active"},
 								value == null ? null : (byURL ? "url = ?" : "id = ?"),
 								value == null ? null : new String[] {value},
 								null, null, null);
@@ -302,7 +388,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 			result[i] = new PresetInfo(dbresult.getString(0),
 									dbresult.getString(1),
 									dbresult.getString(2),
-									dbresult.getString(3));
+									dbresult.getString(3),
+									dbresult.getInt(4) == 1);
 			dbresult.moveToNext();
 		}
 		dbresult.close();
@@ -311,13 +398,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 
-	/** adds a new Preset with the given values to the Preset database */
-	public synchronized void addPreset(String id, String name, String url) {
+	/** adds a new Preset with the given values to the Preset database 
+	 * @param active TODO*/
+	public synchronized void addPreset(String id, String name, String url, boolean active) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("id", id);
 		values.put("name", name);
 		values.put("url", url);
+		values.put("active", active ? 1 : 0);
 		db.insert("presets", null, values);
 		db.close();
 	}
@@ -334,13 +423,26 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 
 	/** 
-	 * Sets the lastupdate value of the givenpreset to now
+	 * Sets the lastupdate value of the given preset to now
 	 * @param id the ID of the preset to update
 	 * */
 	public synchronized void setPresetLastupdateNow(String id) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("lastupdate", ((Long)System.currentTimeMillis()).toString());
+		db.update("presets", values, "id = ?", new String[] {id});
+		db.close();
+	}
+
+	/** 
+	 * Sets the sctive value of the given preset to now
+	 * @param id the ID of the preset to update
+	 * */
+	public synchronized void setPresetState(String id, boolean active) {
+		Log.d(LOGTAG,"Setting pref " + id + " active to " + active);
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("active", active ? 1 : 0);
 		db.update("presets", values, "id = ?", new String[] {id});
 		db.close();
 	}
@@ -369,8 +471,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		public final String url;
 		/** Timestamp (long, millis since epoch) when this preset was last downloaded*/
 		public final long lastupdate;
+		public final boolean active;
 		
-		public PresetInfo(String id, String name, String url, String lastUpdate) {
+		public PresetInfo(String id, String name, String url, String lastUpdate, boolean active) {
 			this.id = id;
 			this.name = name;
 			this.url = url;
@@ -381,6 +484,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 				tmpLastupdate = 0;
 			}
 			this.lastupdate = tmpLastupdate;
+			this.active = active;
 		}
 	}
 

@@ -29,7 +29,7 @@ public class OpenStreetMapTile {
 	
 	@Override
 	public String toString() {
-		return rendererID + "/" + zoomLevel + "/" + x + "/" + y;
+		// Log.d("OpenStreetMapTile","Tile " + rendererID + "/" + zoomLevel + "/" + x + "/" + y);
+		return rendererID + "/" + zoomLevel + "/" + x + "/" + y; 
 	}
-
 }

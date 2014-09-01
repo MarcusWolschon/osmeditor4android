@@ -2,6 +2,7 @@
 package  de.blau.android.views.util;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import de.blau.android.services.util.OpenStreetMapTile;
 
 /**
@@ -36,6 +37,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	 * @param aMaximumCacheBytes Maximum cache size in bytes.
 	 */
 	public OpenStreetMapTileCache(final long aMaximumCacheBytes){
+		Log.d("OpenStreetMapTileCache","Created new in memory tile cache with " + aMaximumCacheBytes + " bytes");
 		mCachedTiles = new LRUMapTileCache(aMaximumCacheBytes);
 	}
 
@@ -48,7 +50,11 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	}
 
 	public synchronized void putTile(final OpenStreetMapTile aTile, final Bitmap aImage) {
-		mCachedTiles.put(aTile.toString(), aImage);
+		mCachedTiles.put(aTile.toString(), aImage, true);
+	}
+	
+	public synchronized void putTile(final OpenStreetMapTile aTile, final Bitmap aImage, final boolean recycleable) {
+		mCachedTiles.put(aTile.toString(), aImage, recycleable);
 	}
 
 	// ===========================================================
@@ -65,7 +71,7 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	 */
 	public static long defaultCacheBytes() {
 		// Default to using half the available memory
-		return Runtime.getRuntime().maxMemory() / 4;
+		return Runtime.getRuntime().maxMemory() / 8;
 	}
 	
 	/**
@@ -90,6 +96,12 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 	public void onLowMemory() {
 		mCachedTiles.onLowMemory();
 	}
+
+	public String getCacheUsageInfo() {
+		return "Size " + mCachedTiles.cacheSizeBytes() + " of maximum " + mCachedTiles.getMaxCacheSize() + " #entries " + mCachedTiles.size();
+	}
+	
+	
 	
 	// ===========================================================
 	// Inner and Anonymous Classes

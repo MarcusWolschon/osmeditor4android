@@ -4,12 +4,13 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	>
+
 	<LinearLayout
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:paddingRight="10dp"
-		>
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginRight="10dp"
+	    android:orientation="vertical"
+	    android:paddingRight="10dp" >
 		
 		<TextView
 			android:text="@string/location_headline" 
@@ -36,11 +37,11 @@
 				android:text="@string/location_current_text"
 				android:enabled="false"
 			/>
-			<RadioButton
-				android:id="@+id/location_map" 
-				android:text="@string/location_map_text"
-				android:enabled="false"
-			/>
+<!-- 			<RadioButton -->
+<!-- 				android:id="@+id/location_map"  -->
+<!-- 				android:text="@string/location_map_text" -->
+<!-- 				android:enabled="false" -->
+<!-- 			/> -->
 			<RadioButton
 				android:id="@+id/location_coordinates" 
 				android:text="@string/location_coordinates_text"
@@ -52,6 +53,7 @@
 				android:id="@+id/location_coordinates_layout"
 				android:gravity="center"
 				android:visibility="gone"
+				android:paddingLeft="10dp"
 			>
 				<TextView
 					android:text="@string/location_lat_label" 
@@ -84,13 +86,36 @@
 				/>
 			</LinearLayout>
 		</RadioGroup>
-		
+		<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:paddingLeft="10dp" >
+		    	<TextView
+					android:text="@string/location_search_label" 
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+				/>
+				<EditText
+					android:id="@+id/location_search_edit"
+					android:imeOptions="actionSearch" 
+    				android:inputType="text"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:singleLine="true"
+					android:layout_weight="1"
+				/>
+		</LinearLayout>
+
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
 		>
 			<TextView
+			    android:paddingLeft="10dp"
 				android:text="@string/location_choose_radius" 
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -111,29 +136,30 @@
 		/>
 		
 		<LinearLayout
-			android:layout_marginTop="20dp"
-			android:orientation="horizontal"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-		>
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginTop="20dp"
+		    android:orientation="horizontal" >
+
 			<Button
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/location_button_current"
-				android:text="@string/location_load_button"
-				android:gravity="center"
-				android:layout_weight="1"
-				android:enabled="false"
-			/>
+			    android:id="@+id/location_button_current"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:enabled="false"
+			    android:gravity="center"
+			    android:text="@string/location_load_button" />
+
 			<Button
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/location_button_no_location"
-				android:text="@string/location_button_no_location"
-				android:gravity="center"
-				android:layout_weight="1"
-				android:enabled="false"
-			/>
+			    android:id="@+id/location_button_no_location"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:enabled="true"
+			    android:gravity="center"
+			    android:text="@string/location_load_dismiss" />
+
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

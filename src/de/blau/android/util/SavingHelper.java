@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.acra.ACRA;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.MediaScannerConnection;
@@ -39,63 +41,149 @@ public class SavingHelper<T extends Serializable> {
 	/**
 	 * Serializes the given object and writes it to a private file with the given name
 	 * 
+	 * Original version was running out of stack, fixed by moving to a thread
+	 * 
 	 * @param filename filename of the save file
 	 * @param object object to save
 	 * @param compress true if the output should be gzip-compressed, false if it should be written without compression
 	 * @return true if successful, false if saving failed for some reason
 	 */
 	public synchronized boolean save(String filename, T object, boolean compress) {
-		OutputStream out = null;
-		ObjectOutputStream objectOut = null;
-		try {
-			Context context = Application.mainActivity.getApplicationContext();
-			out = context.openFileOutput(filename, Context.MODE_PRIVATE);
-			if (compress) {
-				out = new GZIPOutputStream(out);
-			}
-			objectOut = new ObjectOutputStream(out);
-			objectOut.writeObject(object);
-			Log.i("SavingHelper", "saved " + filename + " successfully");
-			return true;
+		
+		try
+		{
+			Log.d("SavingHelper", "preparing to save " + filename);
+			SaveThread r = new SaveThread(filename, object, compress);
+			Thread t = new Thread(null, r, "SaveThread", 200000);
+			t.start();
+			t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this limits the size of the file that can be saved
+			Log.d("SavingHelper", "save thread finished");
+			return r.getResult();
 		} catch (Exception e) {
-			Log.e("SavingHelper", "failed to save "+filename, e);
+			ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			return false;
-		} finally {
-			SavingHelper.close(objectOut);
-			SavingHelper.close(out);
 		}
+	}
+		
+	public class SaveThread implements Runnable {
+		
+		String filename;
+		T	object;
+		boolean compress;
+		boolean result;
+		
+		SaveThread(String fn, T obj, boolean c) {
+			filename = fn;
+			object = obj;
+			compress = c;
+			
+		}
+		
+		public boolean getResult() {
+			return result;
+		}
+		
+		@Override
+		public void run() {
+
+        	OutputStream out = null;
+        	ObjectOutputStream objectOut = null;
+        	try {
+        		Log.i("SavingHelper", "saving  " + filename);
+        		Context context = Application.mainActivity.getApplicationContext();
+        		out = context.openFileOutput(filename, Context.MODE_PRIVATE);
+        		if (compress) {
+        			out = new GZIPOutputStream(out);
+        		}
+        		objectOut = new ObjectOutputStream(out);
+        		objectOut.writeObject(object);
+        		Log.i("SavingHelper", "saved " + filename + " successfully");
+        		result = true;
+        	} catch (Exception e) {
+        		Log.e("SavingHelper", "failed to save "+filename, e);
+        		ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
+        		result = false;
+        	} catch (Error e) {
+        		Log.e("SavingHelper", "failed to save "+filename, e);
+        		ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
+        		result = false;
+        	} finally {
+        		SavingHelper.close(objectOut);
+        		SavingHelper.close(out);
+        	}
+        }
 	}
 	
 	/**
 	 * Loads and deserializes a single object from the given file
-	 * 
+	 * Original version was running out of stack, fixed by moving to a thread
+	 *  
 	 * @param filename filename of the save file
 	 * @param compressed true if the output is gzip-compressed, false if it is uncompressed
 	 * @return the deserialized object if successful, null if loading/deserialization/casting failed
 	 */
 	public synchronized T load(String filename, boolean compressed) {
-		InputStream in = null;
-		ObjectInputStream objectIn = null;
-		try {
-			Context context = Application.mainActivity.getApplicationContext();
-			in = context.openFileInput(filename);
-			if (compressed) {
-				in = new GZIPInputStream(in);
-			}
-			objectIn = new ObjectInputStream(in);
-			@SuppressWarnings("unchecked") // casting exceptions are caught by the exception handler
-			T object = (T) objectIn.readObject();
-			Log.i("SavingHelper", "loaded " + filename + " successfully");
-			return object;
+		try
+		{
+			Log.d("SavingHelper", "preparing to load " + filename);
+			LoadThread r = new LoadThread(filename, compressed);
+			Thread t = new Thread(null, r, "LoadThread", 200000);
+			t.start();
+			t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this limits the size of the file that can be loaded
+			Log.d("SavingHelper", "load thread finished");
+			return r.getResult();
 		} catch (Exception e) {
-			Log.e("SavingHelper", "failed to load " + filename, e);
+			ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			return null;
-		} finally {
-			SavingHelper.close(objectIn);
-			SavingHelper.close(in);
+		}
+	}
+	
+	public class LoadThread implements Runnable {
+		
+		String filename;
+		boolean compressed;
+		T result;
+		
+		LoadThread(String fn,  boolean c) {
+			filename = fn;
+			compressed = c;
+		}
+		
+		public T getResult() {
+			return result;
+		}
+		
+		@Override
+		public void run() {
+
+			InputStream in = null;
+			ObjectInputStream objectIn = null;
+			try {
+				Log.d("SavingHelper", "loading  " + filename);
+				Context context = Application.mainActivity.getApplicationContext();
+				in = context.openFileInput(filename);
+				if (compressed) {
+					in = new GZIPInputStream(in);
+				}
+				objectIn = new ObjectInputStream(in);
+				@SuppressWarnings("unchecked") // casting exceptions are caught by the exception handler
+				T object = (T) objectIn.readObject();
+				Log.d("SavingHelper", "loaded " + filename + " successfully");
+				result = object;
+			} catch (Exception e) {
+				Log.e("SavingHelper", "failed to load " + filename, e);
+				result = null;
+			} catch (Error e) {
+				Log.e("SavingHelper", "failed to load " + filename, e);
+				result = null;
+			} finally {
+				SavingHelper.close(objectIn);
+				SavingHelper.close(in);
+			}
 		}
 	}
 
+	
 	/**
 	 * Convenience function - closes the given stream (can be any Closable), catching and logging exceptions
 	 * @param stream a Closeable to close
@@ -139,6 +227,7 @@ public class SavingHelper<T extends Serializable> {
 				return filename;
 			}
 			
+			@Override
 			protected void onPostExecute(String result) {
 				if (result == null) {
 					Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();

@@ -3,6 +3,7 @@ package de.blau.android.services.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,8 +14,6 @@ import java.io.OutputStream;
 import java.util.concurrent.Executors;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
@@ -63,7 +62,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	public OpenStreetMapTileFilesystemProvider(final Context ctx, final int aMaxFSCacheByteSize) {
 		mCtx = ctx;
 		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
-		mDatabase = new OpenStreetMapTileProviderDataBase(ctx);
+		mDatabase = new OpenStreetMapTileProviderDataBase(ctx, this);
 		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
 		mThreadPool = Executors.newFixedThreadPool(2);
 
@@ -80,6 +79,20 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	public int getCurrentFSCacheByteSize() {
 		return mCurrentFSCacheByteSize;
 	}
+
+
+	// ===========================================================
+	// Methods from SuperClass/Interfaces
+	// ===========================================================
+
+	@Override
+	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
+		return new TileLoader(aTile, aCallback);
+	};
+	
+	// ===========================================================
+	// Methods
+	// ===========================================================
 
 	public void saveFile(final OpenStreetMapTile tile, final byte[] someData) throws IOException{
 		final OutputStream bos = getOutput(tile);
@@ -125,20 +138,21 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		}
 	}
 
-	// ===========================================================
-	// Methods from SuperClass/Interfaces
-	// ===========================================================
-
-	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
-		return new TileLoader(aTile, aCallback);
-	};
+	/**
+	 * delete tiles for specific provider
+	 * @param rendererID
+	 */
+	public void flushCache(String rendererID) {
+		try {
+			mDatabase.flushCache(rendererID);
+		} catch (EmptyCacheException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	// ===========================================================
-	// Methods
-	// ===========================================================
-
-	private String buildPath(final OpenStreetMapTile tile) {
-		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx.getResources(), tile.rendererID, false);
+	public String buildPath(final OpenStreetMapTile tile) {
+		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, tile.rendererID, false);
 		String ext = renderer.getImageExtension();
 		return (ext == null) ? null :
 				Environment.getExternalStorageDirectory().getPath()
@@ -184,33 +198,61 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		}
 
 		//@Override
+		@Override
 		public void run() {
 			synchronized (OpenStreetMapTileFilesystemProvider.this) {
-				OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
-			}
-			InputStream in = null;
-			try {
-				in = getInput(mTile);
-				final Bitmap bmp = BitmapFactory.decodeStream(in);
-				if (bmp != null) {
-					mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, bmp);
-
-					if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
-						Log.d(DEBUGTAG, "Loaded: " + mTile.toString());
-				} else {
-					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y);
-					if (Log.isLoggable(DEBUGTAG, Log.DEBUG))	// only log in debug mode, though it's an error message
-						Log.e(DEBUGTAG, "Error Loading MapTile from FS.");
+				if (OpenStreetMapTileFilesystemProvider.this.mDatabase.hasTile(mTile)) {
+					OpenStreetMapTileFilesystemProvider.this.mDatabase.incrementUse(mTile);
+					if (OpenStreetMapTileFilesystemProvider.this.mDatabase.isInvalid(mTile)) {
+						// Log.i(DEBUGTAG, "TileLoader " + mTile.toString() + " is invalid, skipping");
+						return; // the finally clause will remove the tile from the pending list
+					}
 				}
+			}
+			DataInputStream dataIs = null;
+			try {
+				OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, mTile.rendererID, false);
+				if (mTile.zoomLevel < renderer.getMinZoomLevel()) { // the tile doesn't exist no point in trying to get it
+					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
+					return;
+				}
+				String path = buildPath(mTile);
+				if (path == null) {
+					throw new FileNotFoundException("null tile path");
+				}
+				File tileFile = new File(path);
+				byte[] data = new byte[(int)tileFile.length()];
+				dataIs = new DataInputStream(new FileInputStream(tileFile));
+				dataIs.readFully(data);
+				mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+				// the following will add back tiles to the DB if the DB was deleted
+				OpenStreetMapTileFilesystemProvider.this.mDatabase.addTileOrIncrement(mTile, (int)tileFile.length());
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
+					Log.d(DEBUGTAG, "Loaded: " + mTile.toString());
 			} catch (FileNotFoundException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.i(DEBUGTAG, "FS failed, request for download.");
 				mTileDownloader.loadMapTileAsync(mTile, mCallback);
+			} catch (IOException e) {
+				try {
+					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, IOERR);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))	// only log in debug mode, though it's an error message
+					Log.e(DEBUGTAG, "Error Loading MapTile from FS.");
 			} catch (RemoteException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG))
 					Log.e(DEBUGTAG, "Service failed", e);
 			} finally {
-				StreamUtils.closeStream(in);
+				try {
+					if (dataIs != null)
+						dataIs.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				finished();
 			}
 		}
@@ -220,7 +262,12 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	 * Call when the object is no longer needed to close the database
 	 */
 	public void destroy() {
+		Log.d(DEBUGTAG, "Closing tile database");
 		mDatabase.close();
+	}
+
+	public void markAsInvalid(OpenStreetMapTile mTile) {
+		mDatabase.addTileOrIncrement(mTile, 0);	
 	};
 	
 }

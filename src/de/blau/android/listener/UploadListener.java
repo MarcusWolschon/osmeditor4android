@@ -12,17 +12,20 @@ public class UploadListener implements OnClickListener {
 	
 	private final Main caller;
 	private final EditText commentField;
+	private final EditText sourceField;
 	
 	/**
 	 * @param caller
 	 */
-	public UploadListener(final Main caller, final EditText commentField) {
+	public UploadListener(final Main caller, final EditText commentField, final EditText sourceField) {
 		this.caller = caller;
 		this.commentField = commentField;
+		this.sourceField = sourceField;
 	}
 	
+	@Override
 	public void onClick(final DialogInterface dialog, final int which) {
-		caller.performUpload(commentField.getText().toString());
+		caller.performUpload(commentField.getText().toString(), sourceField.getText().toString());
 	}
 	
 }
