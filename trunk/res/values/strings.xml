@@ -10,7 +10,7 @@
     <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again later if this was only a temporary problem.</string>
     <string name="upload_conflict_title">Upload conflict</string>
     <string name="upload_conflict_message_version">%1$s \nhas local version %2$s \nand on the server %3$s </string>
-	<string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the sever</string>
+	<string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>
 	<string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
     <string name="use_local_version">Use local version</string>
     <string name="use_server_version">Use version on server</string>
