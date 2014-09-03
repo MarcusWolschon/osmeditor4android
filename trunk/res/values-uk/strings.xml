@@ -7,6 +7,8 @@
   <string name="transfer_download_current_download">Скасувати й звантажити</string>
   <string name="transfer_download_current_back">Назад (нічого не міняти)</string>
   <string name="upload_problem_title">Проблема з вивантаженням</string>
+  <string name="upload_conflict_title">Конфлікт вивантаження</string>
+  <string name="upload_conflict_message_version">%1$s \n має локальну версію  %2$s \n та версію на сервері %3$s</string>
   <string name="no_login_data_title">Помилка автентифікації</string>
   <string name="no_connection_title">Немає з’єднання з сервером</string>
   <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше підключення до Інтернет та спробуйте ще раз.</string>

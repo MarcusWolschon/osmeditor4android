@@ -7,6 +7,9 @@
   <string name="transfer_download_current_download">Henda &amp; sækja</string>
   <string name="transfer_download_current_back">Til baka (gera ekkert)</string>
   <string name="upload_problem_title">Vandamál við að uppfæra</string>
+  <string name="upload_problem_message">Ekki tókst að senda öll gögnin. Reyndu aftur síðar ef þetta skyldi vera tímabundið vandamál.</string>
+  <string name="upload_conflict_title">Villa - samsláttur</string>
+  <string name="upload_conflict_message_version">%1$s \ner með útgáfu %2$s \nog á þjóninum er %3$s</string>
   <string name="no_login_data_title">Auðkenning mistókst</string>
   <string name="no_connection_title">Engin tenging við netþjón</string>
   <string name="no_connection_message">Gat ekki tengst OSM-þjóni. Athugaðu internettenginguna eða reyndu aftur síðar.</string>

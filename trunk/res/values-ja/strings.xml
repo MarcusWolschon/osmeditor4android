@@ -121,6 +121,7 @@
   <string name="toast_outside_of_download">ダウンロードされたデータを外部アプリケーションで編集します。</string>
   <string name="toast_file_not_found">%1$s が見つかりません。</string>
   <string name="toast_imported_track_points">インポートされた %1$s のトラックポイント</string>
+  <string name="toast_inconsistent_state">エラーが発生しました。改善のため、エラーレポートを送付ください。</string>
   <!--Some generic labels/buttons-->
   <string name="yes">はい</string>
   <string name="no">いいえ</string>
@@ -145,6 +146,7 @@
   <string name="tag_menu_address">アドレスタグを加える</string>
   <string name="tag_menu_sourcesurvey">調査済み</string>
   <string name="tag_menu_preset">プリセット</string>
+  <string name="tag_menu_apply_preset">Apply best reset</string>
   <string name="tag_menu_repeat">タグを繰り返す</string>
   <string name="tag_menu_revert">復帰</string>
   <string name="tag_menu_mapfeatures">マップフィーチャー Wiki</string>
@@ -153,6 +155,7 @@
   <string name="tag_menu_reset_address_prediction">アドレス予測をリセットする</string>
   <string name="tag_menu_exit_no_save">終了
 セーブ無しで</string>
+  <string name="tag_value_hint">タップして値入力</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">ロードするエリア</string>
   <string name="location_choose_radius">半径を選択:</string>
@@ -293,7 +296,10 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Oauth　を利用</string>
   <string name="listedit_enable_oauth">Oauth　を利用可能にする</string>
+  <string name="config_offsetServer_title">オフセットサーバ</string>
+  <string name="config_offsetServer_summary">画像オフセットサーバURL</string>
   <string name="config_presetbutton_title">プリセット</string>
+  <string name="config_presetbutton_summary">JOSM互換プリセット追加と有効化</string>
   <string name="config_iconbutton_title">ノードアイコンを表示</string>
   <string name="config_iconbutton_summary">ノード上のもっとも適合したプリセットアイコンを表示</string>
   <string name="config_loginbutton_title">ユーザーアカウント</string>
@@ -326,6 +332,10 @@
   <string name="config_enableAutoPreset_summary">名称の提案が選択された際、自動的にプリセットを入力</string>
   <string name="config_splitActionBarEnabled_title">分割アクションバーを利用可にする</string>
   <string name="config_splitActionBarEnabled_summary">分割アクションバーの使用はデバイス固有設定となります。設定後リスタートおよびAndroidのバージョンは &gt;= 4.0 が必要です。</string>
+  <string name="config_gps_source_title">GPSソース</string>
+  <string name="config_gps_source_summary">GPS位置更新ソース</string>
+  <string name="config_gps_source_tcp_title">NMEAネットワークソース</string>
+  <string name="config_gps_source_tcp_summary">TCP NMEAソースアドレス host:post形式</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
   <string name="preset_download_successful">プリセットのダウンロードに成功しました</string>
@@ -424,5 +434,11 @@
     <item>パブリック</item>
     <item>トラック可能</item>
     <item>認識可能</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>内部</item>
+    <item>内部 NMEA</item>
+    <item>TCPクライアント経由NMEA</item>
+    <item>TCPサーバ経由NMEA</item>
   </string-array>
 </resources>

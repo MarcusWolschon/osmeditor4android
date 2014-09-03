@@ -7,12 +7,17 @@
   <string name="transfer_download_current_download">Obriši i skini nove</string>
   <string name="transfer_download_current_back">Odustani</string>
   <string name="upload_problem_title">Problemi sa slanjem</string>
+  <string name="upload_problem_message">Svi ili dio podataka nije poslan. Pokušajte poslati kasnije ako je ovo privremeni problem.</string>
+  <string name="upload_conflict_title">Konflikt u podacima</string>
+  <string name="use_local_version">Koristi lokalnu verziju</string>
+  <string name="use_server_version">Koristi verziju sa poslužitelja</string>
   <string name="no_login_data_title">Prijava nije uspjela</string>
   <string name="no_connection_title">Poslužitelj nedostupan</string>
   <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>
   <string name="wrong_login_data_title">Prijava nije uspjela</string>
   <string name="data_conflict_title">Konflikt verzija</string>
   <string name="out_of_memory_title">Nestalo memorije</string>
+  <string name="welcome_title">Dobrodošli!</string>
   <string name="progress_title">Učitavanje</string>
   <string name="progress_message">Učitavanje podataka u memoriju…</string>
   <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
@@ -22,6 +27,8 @@
   <string name="progress_saving_message">Spremanje...</string>
   <string name="upload_comment_label">Komentar:</string>
   <string name="upload_source_label">Izvor:</string>
+  <string name="upload_close_changeset_label">Zatvaranje changeseta:</string>
+  <string name="upload_gpx_tags_label">Oznake</string>
   <string name="openstreetbug_new_title">Nova bilješka</string>
   <string name="openstreetbug_new_bug">Prijavi problem</string>
   <string name="openstreetbug_new_nodeway">Stvori točku/liniju</string>
@@ -35,7 +42,9 @@
   <string name="unsaved_data_title">Oprez!</string>
   <string name="unsaved_data_message">Imate nespremljenih promjena koje će se odbaciti ako nastavite.</string>
   <string name="unsaved_data_proceed">Odbaci i nastavi</string>
+  <string name="imagery_offset_title">Pomaci pozadina.</string>
   <string name="imagery_offset_description">Opis</string>
+  <string name="imagery_offset_not_found">Pomaci pozadine nisu pronađeni unutar 10 km!</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_offset">Pomak</string>
   <string name="imagery_offset_date">Stvoreno</string>
