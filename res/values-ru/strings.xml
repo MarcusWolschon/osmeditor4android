@@ -11,9 +11,6 @@
   <string name="upload_conflict_message_version">%1$s
 имеет локальную версию %2$s
 и версию на сервере %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s
-имеет локальную версию %2$s
-и было удалено на сервере</string>
   <string name="upload_conflict_message_referential">%1$s
 было удалено локально
 но имеет ссылки на сервере</string>

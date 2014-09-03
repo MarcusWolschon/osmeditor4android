@@ -7,6 +7,12 @@
   <string name="transfer_download_current_download">Descartar &amp; descarregar</string>
   <string name="transfer_download_current_back">Voltar (Fazer nada)</string>
   <string name="upload_problem_title">Problema com o Upload</string>
+  <string name="upload_problem_message">Todo ou parte dos dados não foram enviados para o servidor. Tente realizar o upload novamente mais tarde caso este seja apenas um problema temporário.</string>
+  <string name="upload_conflict_title">Conflito no upload</string>
+  <string name="upload_conflict_message_version">%1$s \nhá versão local %2$s \ne no servidor %3$s </string>
+  <string name="upload_conflict_message_referential">%1$s \nfoi apagado localmente \nmas há referências no servidor</string>
+  <string name="use_local_version">Usar a versão local</string>
+  <string name="use_server_version">Usar a versão no servidor</string>
   <string name="no_login_data_title">Autenticação falhou</string>
   <string name="no_login_data_message">Se está a usar OAuth há provavelmente um bug, por favor envie um relatório de problema, se está a usar um login com palavra-chave (não recomendado) por favor verifique que estão correctos.</string>
   <string name="no_connection_title">Sem Conexão ao Servidor</string>
@@ -112,6 +118,7 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <string name="toast_outside_of_download">Você está editando fora da área descarregada.</string>
   <string name="toast_file_not_found">%1$s não encontrado.</string>
   <string name="toast_imported_track_points">Importados %1$s pontos de percurso.</string>
+  <string name="toast_inconsistent_state">Detectado estado inconsistente, por favor envie um relatório de erro!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -136,6 +143,7 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <string name="tag_menu_address">Incluir tags de endereço</string>
   <string name="tag_menu_sourcesurvey">Inspecionado</string>
   <string name="tag_menu_preset">Predefinições</string>
+  <string name="tag_menu_apply_preset">Aplicar a melhor redefinição</string>
   <string name="tag_menu_repeat">Repetir tags</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki de Entidades do Mapa</string>
@@ -144,6 +152,7 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <string name="tag_menu_reset_address_prediction">Redefinir previsão de endereço</string>
   <string name="tag_menu_exit_no_save">Sair
 sem gravar</string>
+  <string name="tag_value_hint">Pressione para os valores</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -282,7 +291,10 @@ há %3$s %4$s</string>
   <string name="config_api_url_title">URL da API</string>
   <string name="config_api_oauth_title">Usar oauth</string>
   <string name="listedit_enable_oauth">Ativar oauth</string>
+  <string name="config_offsetServer_title">Servidor de desalinhamento</string>
+  <string name="config_offsetServer_summary">URL do servidor de desalinhamento da imagem de fundo</string>
   <string name="config_presetbutton_title">Prédefinições</string>
+  <string name="config_presetbutton_summary">Adicionar e habilitar predefinições compatíveis com o JOSM</string>
   <string name="config_iconbutton_title">Ver ícones dos nós</string>
   <string name="config_iconbutton_summary">Mostra o ícone da predefinição mais adequada sobre os nós.</string>
   <string name="config_loginbutton_title">Conta do usuário</string>
@@ -315,6 +327,10 @@ há %3$s %4$s</string>
   <string name="config_enableAutoPreset_summary">Adicionar predefinição automaticamente quando uma sugestão de nome é selecionada</string>
   <string name="config_splitActionBarEnabled_title">Habilitar barra de divisão de ação</string>
   <string name="config_splitActionBarEnabled_summary">Permitir a barra de divisão de ação, seu uso é específico a dispositivos. Necessita reiniciar e uma versão do Android &gt;= 4.0</string>
+  <string name="config_gps_source_title">Fonte GPS</string>
+  <string name="config_gps_source_summary">Fonte das atualizações de posicionamento GPS</string>
+  <string name="config_gps_source_tcp_title">Fonte da rede NMEA</string>
+  <string name="config_gps_source_tcp_summary">Endereço da fonte TCP NMEA como host:porta</string>
   <!--preset downloader messages-->
   <string name="preset_update">Atualizar predefinições</string>
   <string name="preset_download_successful">Predefinição descarregada com sucesso</string>
@@ -375,6 +391,7 @@ há %3$s %4$s</string>
   <string name="undo_action_rotateway">girar via</string>
   <string name="undo_action_orthogonalize">ortogonalizar via</string>
   <string name="undo_action_circulize">dispor em círculo</string>
+  <string name="undo_action_fix_conflict">corrigir conflito</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">O Vespucci travou. Por favor envie um relatório de erro.</string>
   <string name="crash_notif_title">O Vespucci travou.</string>
@@ -412,5 +429,11 @@ há %3$s %4$s</string>
     <item>público</item>
     <item>rastreável</item>
     <item>identificável</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Interno</item>
+    <item>NMEA interno</item>
+    <item>NMEA a partir do cliente TCP</item>
+    <item>NMEA a partir do servidor TCP</item>
   </string-array>
 </resources>

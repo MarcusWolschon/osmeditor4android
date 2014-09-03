@@ -12,9 +12,7 @@
   <string name="upload_conflict_message_version">%1$s
 la version locale est %2$s
 contre %3$s sur le serveur</string>
-  <string name="upload_conflict_message_deleted">%1$s
-la version locale est %2$s
-et a été supprimé du serveur</string>
+  <string name="upload_conflict_message_deleted">%1$s \nla version locale est %2$s \net a été supprimé du serveur</string>
   <string name="upload_conflict_message_referential">%1$s \na été supprimé localement \nmais existe toujours sur le serveur</string>
   <string name="use_local_version">Utiliser la version locale</string>
   <string name="use_server_version">Utiliser la version du serveur</string>

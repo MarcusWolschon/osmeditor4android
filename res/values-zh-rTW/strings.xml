@@ -10,7 +10,6 @@
   <string name="upload_problem_message">有一些或全部的資料未被上傳。如果這只是一個臨時的問題，請以後再嘗試上傳。</string>
   <string name="upload_conflict_title">上傳衝突</string>
   <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$s \n和在伺服器上的 %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \n持有的本機版本 %2$s \n在伺服器上已被刪除</string>
   <string name="upload_conflict_message_referential">%1$s \n本機的已被刪除，\n但是在伺服器上可取得參考</string>
   <string name="use_local_version">使用本機版本</string>
   <string name="use_server_version">使用伺服器上的版本</string>

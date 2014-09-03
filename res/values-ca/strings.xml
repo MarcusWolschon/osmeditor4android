@@ -7,11 +7,17 @@
   <string name="transfer_download_current_download">Descarta i baixa</string>
   <string name="transfer_download_current_back">Enrere (no facis res)</string>
   <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
+  <string name="upload_conflict_message_version">%1$s \nté un versió local %2$s \ni al servidor %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s \nté una versió local %2$s \ni s\'ha suprimit del servidor</string>
+  <string name="use_local_version">Usa la versió local</string>
+  <string name="use_server_version">Usa la versió del servidor</string>
   <string name="no_login_data_title">L\'autenticació ha fallat</string>
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
   <string name="wrong_login_data_title">L\'autenticació ha fallat</string>
   <string name="data_conflict_title">Conflicte de versions</string>
   <string name="out_of_memory_title">Sense memòria</string>
+  <string name="welcome_title">Us donem la benvinguda!</string>
+  <string name="read_introduction">Llegiu la introducció ara</string>
   <string name="progress_title">Càrrega</string>
   <string name="progress_message">S\'està carregant a la memòria...</string>
   <string name="progress_download_message">S\'estan baixant dades des del servidor...</string>
@@ -21,6 +27,10 @@
   <string name="progress_saving_message">Enregistrant...</string>
   <string name="upload_comment_label">Comentari:</string>
   <string name="upload_source_label">Origen:</string>
+  <string name="upload_close_changeset_label">Tanca el conjunt de canvis:</string>
+  <string name="upload_gpx_description_label">Descripció</string>
+  <string name="upload_gpx_tags_label">Etiquetes</string>
+  <string name="upload_gpx_visibility_label">Visibilitat</string>
   <string name="openstreetbug_new_title">Nota nova:</string>
   <string name="openstreetbug_new_bug">Informa d\'un problema</string>
   <string name="openstreetbug_new_nodeway">Crea un node/via</string>
@@ -34,14 +44,26 @@
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Teniu canvis sense desar que es descartaran si continueu.</string>
   <string name="unsaved_data_proceed">Descarta i continua</string>
+  <string name="imagery_offset_title">Desplaçament de la imatge</string>
   <string name="imagery_offset_description">Descripció</string>
   <string name="imagery_offset_author">Autor</string>
+  <string name="imagery_offset_offset">Deplaçament</string>
   <string name="imagery_offset_date">Creat</string>
+  <string name="imagery_offset_zoom">Escala</string>
   <string name="imagery_offset_distance">Distància</string>
+  <string name="tag_editor_name_suggestion">Suggeriment del nom</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Aquest suggeriment pot substituir alguns valors d\'etiquetes amb valors més populars.</string>
+  <string name="search_results_title">Resultats de la cerca</string>
+  <string name="find_message">Introduïu la cadena a cercar</string>
+  <string name="read_file">Seleccioneu el fitxer a llegir</string>
+  <string name="save_file">Introduïu el fitxer a desar</string>
   <!--Toaster-->
   <string name="toast_no_changes">No heu canviat res encara...</string>
   <string name="toast_upload_success">Ha finalitzat la pujada al servidor OSM.</string>
+  <string name="toast_unlock_to_edit">Desbloqueu per a editar</string>
+  <string name="toast_edit_outside_downloaded_area">No podeu editar fora de l\'àrea baixada</string>
   <string name="toast_save_done">S\'ha desat correctament</string>
+  <string name="toast_save_failed">S\'ha produït un error en desar</string>
   <string name="toast_export_failed">L\'exportació ha fallat</string>
   <string name="toast_export_success">Exportat a %1$s</string>
   <string name="toast_oneway_reversed">Heu canviat el sentit d\'una via de sentit únic amb etiquetes que depenen de la direcció. Si us plau verifiqueu les etiquetes i corregiu-les si fos necessari.</string>
@@ -134,6 +156,7 @@
   <string name="actionmode_nodeselect">Node seleccionat</string>
   <string name="actionmode_relationselect">Relació seleccionada</string>
   <!--Preferences-->
+  <string name="config_category_view">Mostra la configuració</string>
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
   <string name="config_tileCacheSize_summary">Mida total en MB de la memòria cau per les tessel·les</string>
@@ -142,10 +165,13 @@
   <string name="config_showTolerance_title">Mostra la tolerància</string>
   <string name="config_showTolerance_summary">Mostra l\'àrea on es pot seleccionar un element.</string>
   <string name="config_enableAntiAliasing_title">Habilita l\'anti-aliàsing</string>
+  <string name="config_enableAntiAliasing_summary">Fa les línies més fines.</string>
   <string name="config_enableOpenStreetBugs_title">Habilita la visualització de les notes</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, edita i crea notes o errors.</string>
   <string name="config_enablePhotoLayer_title">Habilita la capa fotogràfica</string>
+  <string name="config_enablePhotoLayer_summary">Mostra les fotos georeferenciades.</string>
   <string name="config_enableKeepScreenOn_summary">No apaguis la pantalla per estalviar energia.</string>
+  <string name="config_closeChangesetOnSave_title">Tanca els conjunts de canvis</string>
   <string name="config_backgroundLayer_title">Fons del mapa</string>
   <string name="config_backgroundLayer_summary">El fons del mapa renderitzat.</string>
   <string name="config_category_server">Paràmetres del servidor</string>
@@ -219,6 +245,7 @@
   <string name="role_lc">rol</string>
   <string name="membership_relation_heading">Membre d\'una relació</string>
   <string name="relation">Relació</string>
+  <string name="position">Pos.</string>
   <string name="type">Tipus</string>
   <string name="object">Objecte</string>
   <string name="deleterelation">Suprimeix la relació</string>
@@ -230,5 +257,7 @@
   <string name="km">km</string>
   <string name="meter">metre</string>
   <!--Help system-->
+  <string name="introduction">Introducció</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility"/>
 </resources>
