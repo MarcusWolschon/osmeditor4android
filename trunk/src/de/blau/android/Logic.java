@@ -1453,6 +1453,7 @@ public class Logic {
 						mergeOK = delegator.mergeNodes(node, nodeToJoin);
 					}
 					map.invalidate();
+					break; // need to leave loop !!!
 				}
 			}
 		}
