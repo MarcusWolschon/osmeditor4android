@@ -1,7 +1,0 @@
-An offline help system for Vespucci is currently in work.
-
-The source for the help files is in the markdown directory, currently these need to be converted from markdown to html manually and then copied to the corresponding directories in assets.
-
-Help with automating the build process would be welcome.
-
-Note: the "Editing Example" with the accompanying screenshots is currently not included in the "official" builds due to size.

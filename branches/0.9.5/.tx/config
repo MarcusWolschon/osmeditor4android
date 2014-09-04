@@ -1,9 +1,0 @@
-[main]
-host = https://www.transifex.com
-
-[vespucci.main]
-file_filter = res/values-<lang>/strings.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW
-source_file = res/values/strings.xml
-source_lang = en
-
