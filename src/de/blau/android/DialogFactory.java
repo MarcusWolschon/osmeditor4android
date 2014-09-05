@@ -195,7 +195,12 @@ public class DialogFactory {
 		fileWriteFailed.setPositiveButton(R.string.okay, doNothingListener);
 		
 		newbie = createBasicDialog(R.string.welcome_title, R.string.welcome_message);
-		newbie.setPositiveButton(R.string.okay, doNothingListener);
+		newbie.setPositiveButton(R.string.okay, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						caller.gotoBoxPicker();
+					}
+				});
 		newbie.setNeutralButton(R.string.read_introduction, 	new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
