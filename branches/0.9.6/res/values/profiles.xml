@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- Preference names in same order as renderer_ids below -->
+<string-array name="profile_names">
+    <item>Default</item>
+    <item>Classic</item>
+</string-array>
+<!-- Preference values in same order as renderer_names above -->
+<string-array name="profile_ids">
+	<item>Default</item>
+	<item>Classic</item>
+</string-array>
+</resources>
