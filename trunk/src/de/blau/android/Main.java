@@ -344,6 +344,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		setContentView(rl);
 		
+		// check if first time user and display something if yes
+		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
+		String lastVersion = savingHelperVersion.load(VERSION_FILE, false);
+		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
+		
 		//Load previous logic (inkl. StorageDelegator)
 		logic = (Logic) getLastNonConfigurationInstance();
 		loadOnResume = false;
@@ -368,7 +373,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 						}
 					}
 					openEmptyMap(box);
-					gotoBoxPicker();
+					
+					// only show box picker if we are not showing welcome dialog
+					if (!newInstall) {
+						gotoBoxPicker();
+					}
 				}
 			}
 		} else {
@@ -378,10 +387,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		
 		easyEditManager = new EasyEditManager(this, logic);
 		
-		// check if first time user and display something if yes
-		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
-		String lastVersion = savingHelperVersion.load(VERSION_FILE, false);
-		if (lastVersion == null || lastVersion.equals("")) {
+		// show welcome dialog
+		if (newInstall) {
 			// newbie, display welcome dialog
 			Log.d("Main","showing welcome dialog");
 			showDialog(DialogFactory.NEWBIE);
@@ -432,12 +439,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		undoListener = new UndoListener();
 
 		showActionBar();
-
-// de-selecting causes issues when only onStart is called and the editins state is nor reloaded	
-//		logic.setSelectedBug(null);
-//		logic.setSelectedNode(null);
-//		logic.setSelectedWay(null);
-//		logic.setSelectedRelation(null);
 	}
 	
 	@Override
