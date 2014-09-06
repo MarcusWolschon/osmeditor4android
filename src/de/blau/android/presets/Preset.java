@@ -1039,7 +1039,7 @@ public class Preset {
 		}
 		
 		private String tagToJSON(String key, String value) {
-			return "{ \"key\": \"" + key + "\"" + (value == null ? "" : " \"value\": \"" + value + "\"") + " },\n";
+			return "{ \"key\": \"" + key + "\"" + (value == null ? "" : ", \"value\": \"" + value + "\"") + " },\n";
 		}
 	}
 	
