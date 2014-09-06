@@ -1023,14 +1023,17 @@ public class Preset {
 		public String toJSON() {
 			String jsonString = "";
 			for (String k:tags.keySet()) {
+				jsonString = jsonString + tagToJSON(k, null);
 				jsonString = jsonString + tagToJSON(k, tags.get(k));
 			}
 			for (String k:recommendedTags.keySet()) {
+				jsonString = jsonString + tagToJSON(k, null);
 				for (String v:recommendedTags.get(k)) {
 					jsonString = jsonString + tagToJSON(k, v);
 				}
 			}
 			for (String k:optionalTags.keySet()) {
+				jsonString = jsonString + tagToJSON(k, null);
 				for (String v:optionalTags.get(k)) {
 					jsonString = jsonString + tagToJSON(k, v);
 				}

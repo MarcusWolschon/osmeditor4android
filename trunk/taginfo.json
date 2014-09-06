@@ -14,8 +14,7 @@
 	},
 	"tags":[
 		{
-			"key":"access",
-			"value":"*"
+			"key":"access"
 		},
 		{
 			"key":"access",
@@ -62,36 +61,28 @@
 			"value":"yes"
 		},
 		{
-			"key":"addr:city",
-			"value":"*"
+			"key":"addr:city"
 		},
 		{
-			"key":"addr:country",
-			"value":"*"
+			"key":"addr:country"
 		},
 		{
-			"key":"addr:district",
-			"value":"*"
+			"key":"addr:district"
 		},
 		{
-			"key":"addr:flats",
-			"value":"*"
+			"key":"addr:flats"
 		},
 		{
-			"key":"addr:hamlet",
-			"value":"*"
+			"key":"addr:hamlet"
 		},
 		{
-			"key":"addr:housename",
-			"value":"*"
+			"key":"addr:housename"
 		},
 		{
-			"key":"addr:housenumber",
-			"value":"*"
+			"key":"addr:housenumber"
 		},
 		{
-			"key":"addr:inclusion",
-			"value":"*"
+			"key":"addr:inclusion"
 		},
 		{
 			"key":"addr:inclusion",
@@ -106,8 +97,7 @@
 			"value":"potential"
 		},
 		{
-			"key":"addr:interpolation",
-			"value":"*"
+			"key":"addr:interpolation"
 		},
 		{
 			"key":"addr:interpolation",
@@ -126,20 +116,16 @@
 			"value":"odd"
 		},
 		{
-			"key":"addr:place",
-			"value":"*"
+			"key":"addr:place"
 		},
 		{
-			"key":"addr:postcode",
-			"value":"*"
+			"key":"addr:postcode"
 		},
 		{
-			"key":"addr:province",
-			"value":"*"
+			"key":"addr:province"
 		},
 		{
-			"key":"addr:state",
-			"value":"*"
+			"key":"addr:state"
 		},
 		{
 			"key":"addr:state",
@@ -366,20 +352,16 @@
 			"value":"WV"
 		},
 		{
-			"key":"addr:street",
-			"value":"*"
+			"key":"addr:street"
 		},
 		{
-			"key":"addr:subdistrict",
-			"value":"*"
+			"key":"addr:subdistrict"
 		},
 		{
-			"key":"addr:suburb",
-			"value":"*"
+			"key":"addr:suburb"
 		},
 		{
-			"key":"admin_level",
-			"value":"*"
+			"key":"admin_level"
 		},
 		{
 			"key":"admin_level",
@@ -422,8 +404,10 @@
 			"value":"9"
 		},
 		{
-			"key":"aerialway:bubble",
-			"value":"*"
+			"key":"aerialway"
+		},
+		{
+			"key":"aerialway:bubble"
 		},
 		{
 			"key":"aerialway:bubble",
@@ -434,16 +418,13 @@
 			"value":"yes"
 		},
 		{
-			"key":"aerialway:capacity",
-			"value":"*"
+			"key":"aerialway:capacity"
 		},
 		{
-			"key":"aerialway:duration",
-			"value":"*"
+			"key":"aerialway:duration"
 		},
 		{
-			"key":"aerialway:heating",
-			"value":"*"
+			"key":"aerialway:heating"
 		},
 		{
 			"key":"aerialway:heating",
@@ -454,12 +435,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"aerialway:occupancy",
-			"value":"*"
-		},
-		{
-			"key":"aerialway",
-			"value":"*"
+			"key":"aerialway:occupancy"
 		},
 		{
 			"key":"aerialway",
@@ -522,8 +498,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"aeroway",
-			"value":"*"
+			"key":"aeroway"
 		},
 		{
 			"key":"aeroway",
@@ -558,8 +533,7 @@
 			"value":"windsock"
 		},
 		{
-			"key":"agricultural",
-			"value":"*"
+			"key":"agricultural"
 		},
 		{
 			"key":"agricultural",
@@ -590,12 +564,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"alt_name",
-			"value":"*"
+			"key":"alt_name"
 		},
 		{
-			"key":"amenity",
-			"value":"*"
+			"key":"amenity"
 		},
 		{
 			"key":"amenity",
@@ -890,12 +862,10 @@
 			"value":"waste_disposal"
 		},
 		{
-			"key":"amperage",
-			"value":"*"
+			"key":"amperage"
 		},
 		{
-			"key":"arcade:left",
-			"value":"*"
+			"key":"arcade:left"
 		},
 		{
 			"key":"arcade:left",
@@ -906,8 +876,7 @@
 			"value":"open"
 		},
 		{
-			"key":"arcade:right",
-			"value":"*"
+			"key":"arcade:right"
 		},
 		{
 			"key":"arcade:right",
@@ -918,8 +887,7 @@
 			"value":"open"
 		},
 		{
-			"key":"area",
-			"value":"*"
+			"key":"area"
 		},
 		{
 			"key":"area",
@@ -930,12 +898,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"artist_name",
-			"value":"*"
+			"key":"artist_name"
 		},
 		{
-			"key":"artwork_type",
-			"value":"*"
+			"key":"artwork_type"
 		},
 		{
 			"key":"artwork_type",
@@ -950,12 +916,10 @@
 			"value":"statue"
 		},
 		{
-			"key":"ascent",
-			"value":"*"
+			"key":"ascent"
 		},
 		{
-			"key":"atm",
-			"value":"*"
+			"key":"atm"
 		},
 		{
 			"key":"atm",
@@ -966,8 +930,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"avalanche_protector:left",
-			"value":"*"
+			"key":"avalanche_protector:left"
 		},
 		{
 			"key":"avalanche_protector:left",
@@ -978,8 +941,7 @@
 			"value":"open"
 		},
 		{
-			"key":"avalanche_protector:right",
-			"value":"*"
+			"key":"avalanche_protector:right"
 		},
 		{
 			"key":"avalanche_protector:right",
@@ -990,8 +952,7 @@
 			"value":"open"
 		},
 		{
-			"key":"backrest",
-			"value":"*"
+			"key":"backrest"
 		},
 		{
 			"key":"backrest",
@@ -1002,8 +963,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"barometer",
-			"value":"*"
+			"key":"barometer"
 		},
 		{
 			"key":"barometer",
@@ -1014,8 +974,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"barrier",
-			"value":"*"
+			"key":"barrier"
 		},
 		{
 			"key":"barrier",
@@ -1126,8 +1085,7 @@
 			"value":"wall"
 		},
 		{
-			"key":"bench",
-			"value":"*"
+			"key":"bench"
 		},
 		{
 			"key":"bench",
@@ -1138,8 +1096,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"bicycle_parking",
-			"value":"*"
+			"key":"bicycle"
+		},
+		{
+			"key":"bicycle_parking"
 		},
 		{
 			"key":"bicycle_parking",
@@ -1178,16 +1138,11 @@
 			"value":"wall_loops"
 		},
 		{
-			"key":"bicycle_road",
-			"value":"*"
+			"key":"bicycle_road"
 		},
 		{
 			"key":"bicycle_road",
 			"value":"yes"
-		},
-		{
-			"key":"bicycle",
-			"value":"*"
 		},
 		{
 			"key":"bicycle",
@@ -1222,8 +1177,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"board_type",
-			"value":"*"
+			"key":"board_type"
 		},
 		{
 			"key":"board_type",
@@ -1250,8 +1204,7 @@
 			"value":"wildlife"
 		},
 		{
-			"key":"bollard",
-			"value":"*"
+			"key":"bollard"
 		},
 		{
 			"key":"bollard",
@@ -1262,8 +1215,7 @@
 			"value":"rising"
 		},
 		{
-			"key":"boundary",
-			"value":"*"
+			"key":"boundary"
 		},
 		{
 			"key":"boundary",
@@ -1290,8 +1242,10 @@
 			"value":"postal_code"
 		},
 		{
-			"key":"branch:type",
-			"value":"*"
+			"key":"branch"
+		},
+		{
+			"key":"branch:type"
 		},
 		{
 			"key":"branch:type",
@@ -1310,12 +1264,7 @@
 			"value":"tap"
 		},
 		{
-			"key":"branch",
-			"value":"*"
-		},
-		{
-			"key":"brand",
-			"value":"*"
+			"key":"brand"
 		},
 		{
 			"key":"brand",
@@ -1410,8 +1359,7 @@
 			"value":"Total"
 		},
 		{
-			"key":"bridge",
-			"value":"*"
+			"key":"bridge"
 		},
 		{
 			"key":"bridge",
@@ -1454,8 +1402,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"building",
-			"value":"*"
+			"key":"building"
 		},
 		{
 			"key":"building",
@@ -1586,8 +1533,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"bus",
-			"value":"*"
+			"key":"bus"
 		},
 		{
 			"key":"bus",
@@ -1598,8 +1544,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"cables",
-			"value":"*"
+			"key":"cables"
 		},
 		{
 			"key":"cables",
@@ -1622,16 +1567,13 @@
 			"value":"9"
 		},
 		{
-			"key":"camera:angle",
-			"value":"*"
+			"key":"camera:angle"
 		},
 		{
-			"key":"camera:direction",
-			"value":"*"
+			"key":"camera:direction"
 		},
 		{
-			"key":"camera:mount",
-			"value":"*"
+			"key":"camera:mount"
 		},
 		{
 			"key":"camera:mount",
@@ -1646,8 +1588,7 @@
 			"value":"wall"
 		},
 		{
-			"key":"camera:type",
-			"value":"*"
+			"key":"camera:type"
 		},
 		{
 			"key":"camera:type",
@@ -1662,8 +1603,10 @@
 			"value":"panning"
 		},
 		{
-			"key":"capacity:disabled",
-			"value":"*"
+			"key":"capacity"
+		},
+		{
+			"key":"capacity:disabled"
 		},
 		{
 			"key":"capacity:disabled",
@@ -1690,8 +1633,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"capacity:parent",
-			"value":"*"
+			"key":"capacity:parent"
 		},
 		{
 			"key":"capacity:parent",
@@ -1718,12 +1660,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"capacity",
-			"value":"*"
-		},
-		{
-			"key":"capacity:women",
-			"value":"*"
+			"key":"capacity:women"
 		},
 		{
 			"key":"capacity:women",
@@ -1750,8 +1687,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"cargo",
-			"value":"*"
+			"key":"cargo"
 		},
 		{
 			"key":"cargo",
@@ -1774,8 +1710,7 @@
 			"value":"vehicle"
 		},
 		{
-			"key":"circuits",
-			"value":"*"
+			"key":"circuits"
 		},
 		{
 			"key":"circuits",
@@ -1790,8 +1725,7 @@
 			"value":"3"
 		},
 		{
-			"key":"clothes",
-			"value":"*"
+			"key":"clothes"
 		},
 		{
 			"key":"clothes",
@@ -1806,8 +1740,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"collection_times",
-			"value":"*"
+			"key":"collection_times"
 		},
 		{
 			"key":"collection_times",
@@ -1822,8 +1755,7 @@
 			"value":"Mo-Fr 15:00,17:45,19:00,23:00; Sa 15:10; Su 10:30,23:00"
 		},
 		{
-			"key":"colonnade:left",
-			"value":"*"
+			"key":"colonnade:left"
 		},
 		{
 			"key":"colonnade:left",
@@ -1834,8 +1766,7 @@
 			"value":"open"
 		},
 		{
-			"key":"colonnade:right",
-			"value":"*"
+			"key":"colonnade:right"
 		},
 		{
 			"key":"colonnade:right",
@@ -1846,20 +1777,16 @@
 			"value":"open"
 		},
 		{
-			"key":"colour:arrow",
-			"value":"*"
+			"key":"colour"
 		},
 		{
-			"key":"colour:back",
-			"value":"*"
+			"key":"colour:arrow"
 		},
 		{
-			"key":"colour:text",
-			"value":"*"
+			"key":"colour:back"
 		},
 		{
-			"key":"colour",
-			"value":"*"
+			"key":"colour:text"
 		},
 		{
 			"key":"colour",
@@ -1898,16 +1825,14 @@
 			"value":"white"
 		},
 		{
-			"key":"communication",
-			"value":"*"
+			"key":"communication"
 		},
 		{
 			"key":"communication",
 			"value":"line"
 		},
 		{
-			"key":"compensator",
-			"value":"*"
+			"key":"compensator"
 		},
 		{
 			"key":"compensator",
@@ -1942,24 +1867,19 @@
 			"value":"synchronous_condenser"
 		},
 		{
-			"key":"contact:email",
-			"value":"*"
+			"key":"contact:email"
 		},
 		{
-			"key":"contact:fax",
-			"value":"*"
+			"key":"contact:fax"
 		},
 		{
-			"key":"contact:phone",
-			"value":"*"
+			"key":"contact:phone"
 		},
 		{
-			"key":"contact:website",
-			"value":"*"
+			"key":"contact:website"
 		},
 		{
-			"key":"converter",
-			"value":"*"
+			"key":"converter"
 		},
 		{
 			"key":"converter",
@@ -1974,8 +1894,7 @@
 			"value":"vsc"
 		},
 		{
-			"key":"covered",
-			"value":"*"
+			"key":"covered"
 		},
 		{
 			"key":"covered",
@@ -1994,8 +1913,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"craft",
-			"value":"*"
+			"key":"craft"
 		},
 		{
 			"key":"craft",
@@ -2270,8 +2188,10 @@
 			"value":"winery"
 		},
 		{
-			"key":"crossing:barrier",
-			"value":"*"
+			"key":"crossing"
+		},
+		{
+			"key":"crossing:barrier"
 		},
 		{
 			"key":"crossing:barrier",
@@ -2294,8 +2214,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"crossing:bell",
-			"value":"*"
+			"key":"crossing:bell"
 		},
 		{
 			"key":"crossing:bell",
@@ -2306,8 +2225,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"crossing:light",
-			"value":"*"
+			"key":"crossing:light"
 		},
 		{
 			"key":"crossing:light",
@@ -2318,8 +2236,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"crossing_ref",
-			"value":"*"
+			"key":"crossing_ref"
 		},
 		{
 			"key":"crossing_ref",
@@ -2347,10 +2264,6 @@
 		},
 		{
 			"key":"crossing",
-			"value":"*"
-		},
-		{
-			"key":"crossing",
 			"value":"island"
 		},
 		{
@@ -2374,8 +2287,7 @@
 			"value":"unmarked"
 		},
 		{
-			"key":"cuisine",
-			"value":"*"
+			"key":"cuisine"
 		},
 		{
 			"key":"cuisine",
@@ -2458,16 +2370,17 @@
 			"value":"turkish"
 		},
 		{
-			"key":"cutting",
-			"value":"*"
+			"key":"cutting"
 		},
 		{
 			"key":"cutting",
 			"value":"yes"
 		},
 		{
-			"key":"cycleway:left",
-			"value":"*"
+			"key":"cycleway"
+		},
+		{
+			"key":"cycleway:left"
 		},
 		{
 			"key":"cycleway:left",
@@ -2498,8 +2411,7 @@
 			"value":"track"
 		},
 		{
-			"key":"cycleway:right",
-			"value":"*"
+			"key":"cycleway:right"
 		},
 		{
 			"key":"cycleway:right",
@@ -2531,10 +2443,6 @@
 		},
 		{
 			"key":"cycleway",
-			"value":"*"
-		},
-		{
-			"key":"cycleway",
 			"value":"lane"
 		},
 		{
@@ -2562,8 +2470,7 @@
 			"value":"track"
 		},
 		{
-			"key":"date",
-			"value":"*"
+			"key":"date"
 		},
 		{
 			"key":"date",
@@ -2574,8 +2481,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"denomination",
-			"value":"*"
+			"key":"denomination"
 		},
 		{
 			"key":"denomination",
@@ -2702,20 +2608,19 @@
 			"value":"vajrayana"
 		},
 		{
-			"key":"depth",
-			"value":"*"
+			"key":"depth"
 		},
 		{
-			"key":"descent",
-			"value":"*"
+			"key":"descent"
 		},
 		{
-			"key":"description",
-			"value":"*"
+			"key":"description"
 		},
 		{
-			"key":"design:incomplete",
-			"value":"*"
+			"key":"design"
+		},
+		{
+			"key":"design:incomplete"
 		},
 		{
 			"key":"design:incomplete",
@@ -2724,10 +2629,6 @@
 		{
 			"key":"design:incomplete",
 			"value":"yes"
-		},
-		{
-			"key":"design",
-			"value":"*"
 		},
 		{
 			"key":"design",
@@ -2826,24 +2727,20 @@
 			"value":"y-frame"
 		},
 		{
-			"key":"destination",
-			"value":"*"
+			"key":"destination"
 		},
 		{
-			"key":"detour",
-			"value":"*"
+			"key":"detour"
 		},
 		{
-			"key":"direction",
-			"value":"*"
+			"key":"direction"
 		},
 		{
 			"key":"direction",
 			"value":"clockwise"
 		},
 		{
-			"key":"dispensing",
-			"value":"*"
+			"key":"dispensing"
 		},
 		{
 			"key":"dispensing",
@@ -2854,8 +2751,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"display:analog",
-			"value":"*"
+			"key":"display"
+		},
+		{
+			"key":"display:analog"
 		},
 		{
 			"key":"display:analog",
@@ -2866,8 +2765,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"display:digital",
-			"value":"*"
+			"key":"display:digital"
 		},
 		{
 			"key":"display:digital",
@@ -2876,10 +2774,6 @@
 		{
 			"key":"display:digital",
 			"value":"yes"
-		},
-		{
-			"key":"display",
-			"value":"*"
 		},
 		{
 			"key":"display",
@@ -2898,12 +2792,10 @@
 			"value":"unorthodox"
 		},
 		{
-			"key":"distance",
-			"value":"*"
+			"key":"distance"
 		},
 		{
-			"key":"disused",
-			"value":"*"
+			"key":"disused"
 		},
 		{
 			"key":"disused",
@@ -2914,8 +2806,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"drinking_water",
-			"value":"*"
+			"key":"drinking_water"
 		},
 		{
 			"key":"drinking_water",
@@ -2930,8 +2821,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"drive_through",
-			"value":"*"
+			"key":"drive_through"
 		},
 		{
 			"key":"drive_through",
@@ -2942,8 +2832,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"electrified",
-			"value":"*"
+			"key":"ele"
+		},
+		{
+			"key":"electrified"
 		},
 		{
 			"key":"electrified",
@@ -2962,24 +2854,17 @@
 			"value":"yes"
 		},
 		{
-			"key":"ele",
-			"value":"*"
+			"key":"email"
 		},
 		{
-			"key":"email",
-			"value":"*"
-		},
-		{
-			"key":"embankment",
-			"value":"*"
+			"key":"embankment"
 		},
 		{
 			"key":"embankment",
 			"value":"yes"
 		},
 		{
-			"key":"emergency",
-			"value":"*"
+			"key":"emergency"
 		},
 		{
 			"key":"emergency",
@@ -3022,8 +2907,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"enforcement",
-			"value":"*"
+			"key":"enforcement"
 		},
 		{
 			"key":"enforcement",
@@ -3050,8 +2934,7 @@
 			"value":"traffic_signals"
 		},
 		{
-			"key":"entrance",
-			"value":"*"
+			"key":"entrance"
 		},
 		{
 			"key":"entrance",
@@ -3074,12 +2957,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"exit_to",
-			"value":"*"
+			"key":"exit_to"
 		},
 		{
-			"key":"fair_trade",
-			"value":"*"
+			"key":"fair_trade"
 		},
 		{
 			"key":"fair_trade",
@@ -3094,12 +2975,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"fax",
-			"value":"*"
+			"key":"fax"
 		},
 		{
-			"key":"fee",
-			"value":"*"
+			"key":"fee"
 		},
 		{
 			"key":"fee",
@@ -3114,8 +2993,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fence_type",
-			"value":"*"
+			"key":"fence_type"
 		},
 		{
 			"key":"fence_type",
@@ -3150,8 +3028,7 @@
 			"value":"wood"
 		},
 		{
-			"key":"ferry",
-			"value":"*"
+			"key":"ferry"
 		},
 		{
 			"key":"ferry",
@@ -3162,12 +3039,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"fire_hydrant:count",
-			"value":"*"
+			"key":"fire_hydrant:count"
 		},
 		{
-			"key":"fire_hydrant:diameter",
-			"value":"*"
+			"key":"fire_hydrant:diameter"
 		},
 		{
 			"key":"fire_hydrant:diameter",
@@ -3202,8 +3077,7 @@
 			"value":"80"
 		},
 		{
-			"key":"fire_hydrant:position",
-			"value":"*"
+			"key":"fire_hydrant:position"
 		},
 		{
 			"key":"fire_hydrant:position",
@@ -3222,8 +3096,7 @@
 			"value":"sidewalk"
 		},
 		{
-			"key":"fire_hydrant:pressure",
-			"value":"*"
+			"key":"fire_hydrant:pressure"
 		},
 		{
 			"key":"fire_hydrant:pressure",
@@ -3242,8 +3115,7 @@
 			"value":"suction"
 		},
 		{
-			"key":"fire_hydrant:type",
-			"value":"*"
+			"key":"fire_hydrant:type"
 		},
 		{
 			"key":"fire_hydrant:type",
@@ -3262,8 +3134,7 @@
 			"value":"wall"
 		},
 		{
-			"key":"fireplace",
-			"value":"*"
+			"key":"fireplace"
 		},
 		{
 			"key":"fireplace",
@@ -3274,8 +3145,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"foot",
-			"value":"*"
+			"key":"foot"
 		},
 		{
 			"key":"foot",
@@ -3314,16 +3184,14 @@
 			"value":"yes"
 		},
 		{
-			"key":"ford",
-			"value":"*"
+			"key":"ford"
 		},
 		{
 			"key":"ford",
 			"value":"yes"
 		},
 		{
-			"key":"frequency",
-			"value":"*"
+			"key":"frequency"
 		},
 		{
 			"key":"frequency",
@@ -3346,12 +3214,13 @@
 			"value":"60"
 		},
 		{
-			"key":"from",
-			"value":"*"
+			"key":"from"
 		},
 		{
-			"key":"fuel:1_25",
-			"value":"*"
+			"key":"fuel"
+		},
+		{
+			"key":"fuel:1_25"
 		},
 		{
 			"key":"fuel:1_25",
@@ -3362,8 +3231,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:1_50",
-			"value":"*"
+			"key":"fuel:1_50"
 		},
 		{
 			"key":"fuel:1_50",
@@ -3374,8 +3242,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:biodiesel",
-			"value":"*"
+			"key":"fuel:biodiesel"
 		},
 		{
 			"key":"fuel:biodiesel",
@@ -3386,8 +3253,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:cng",
-			"value":"*"
+			"key":"fuel:cng"
 		},
 		{
 			"key":"fuel:cng",
@@ -3398,8 +3264,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:diesel",
-			"value":"*"
+			"key":"fuel:diesel"
 		},
 		{
 			"key":"fuel:diesel",
@@ -3410,8 +3275,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:e10",
-			"value":"*"
+			"key":"fuel:e10"
 		},
 		{
 			"key":"fuel:e10",
@@ -3422,8 +3286,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:e85",
-			"value":"*"
+			"key":"fuel:e85"
 		},
 		{
 			"key":"fuel:e85",
@@ -3434,8 +3297,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:GTL_diesel",
-			"value":"*"
+			"key":"fuel:GTL_diesel"
 		},
 		{
 			"key":"fuel:GTL_diesel",
@@ -3446,8 +3308,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:HGV_diesel",
-			"value":"*"
+			"key":"fuel:HGV_diesel"
 		},
 		{
 			"key":"fuel:HGV_diesel",
@@ -3458,8 +3319,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:lpg",
-			"value":"*"
+			"key":"fuel:lpg"
 		},
 		{
 			"key":"fuel:lpg",
@@ -3470,8 +3330,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:octane_100",
-			"value":"*"
+			"key":"fuel:octane_100"
 		},
 		{
 			"key":"fuel:octane_100",
@@ -3482,8 +3341,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:octane_80",
-			"value":"*"
+			"key":"fuel:octane_80"
 		},
 		{
 			"key":"fuel:octane_80",
@@ -3494,8 +3352,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:octane_91",
-			"value":"*"
+			"key":"fuel:octane_91"
 		},
 		{
 			"key":"fuel:octane_91",
@@ -3506,8 +3363,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:octane_92",
-			"value":"*"
+			"key":"fuel:octane_92"
 		},
 		{
 			"key":"fuel:octane_92",
@@ -3518,8 +3374,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:octane_95",
-			"value":"*"
+			"key":"fuel:octane_95"
 		},
 		{
 			"key":"fuel:octane_95",
@@ -3530,8 +3385,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"fuel:octane_98",
-			"value":"*"
+			"key":"fuel:octane_98"
 		},
 		{
 			"key":"fuel:octane_98",
@@ -3540,10 +3394,6 @@
 		{
 			"key":"fuel:octane_98",
 			"value":"yes"
-		},
-		{
-			"key":"fuel",
-			"value":"*"
 		},
 		{
 			"key":"fuel",
@@ -3558,8 +3408,7 @@
 			"value":"wood"
 		},
 		{
-			"key":"funicular",
-			"value":"*"
+			"key":"funicular"
 		},
 		{
 			"key":"funicular",
@@ -3570,8 +3419,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"gaelic_games:camogie",
-			"value":"*"
+			"key":"gaelic_games:camogie"
 		},
 		{
 			"key":"gaelic_games:camogie",
@@ -3582,8 +3430,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"gaelic_games:football",
-			"value":"*"
+			"key":"gaelic_games:football"
 		},
 		{
 			"key":"gaelic_games:football",
@@ -3594,8 +3441,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"gaelic_games:hurling",
-			"value":"*"
+			"key":"gaelic_games:hurling"
 		},
 		{
 			"key":"gaelic_games:hurling",
@@ -3606,8 +3452,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"gaelic_games:rounders",
-			"value":"*"
+			"key":"gaelic_games:rounders"
 		},
 		{
 			"key":"gaelic_games:rounders",
@@ -3618,8 +3463,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"gas_insulated",
-			"value":"*"
+			"key":"gas_insulated"
 		},
 		{
 			"key":"gas_insulated",
@@ -3630,8 +3474,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"gauge",
-			"value":"*"
+			"key":"gauge"
 		},
 		{
 			"key":"gauge",
@@ -3690,8 +3533,7 @@
 			"value":"914"
 		},
 		{
-			"key":"generator:method",
-			"value":"*"
+			"key":"generator:method"
 		},
 		{
 			"key":"generator:method",
@@ -3750,8 +3592,7 @@
 			"value":"wind_turbine"
 		},
 		{
-			"key":"generator:output:biogas",
-			"value":"*"
+			"key":"generator:output:biogas"
 		},
 		{
 			"key":"generator:output:biogas",
@@ -3774,8 +3615,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:cold_air",
-			"value":"*"
+			"key":"generator:output:cold_air"
 		},
 		{
 			"key":"generator:output:cold_air",
@@ -3798,8 +3638,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:cold_water",
-			"value":"*"
+			"key":"generator:output:cold_water"
 		},
 		{
 			"key":"generator:output:cold_water",
@@ -3822,8 +3661,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:compressed_air",
-			"value":"*"
+			"key":"generator:output:compressed_air"
 		},
 		{
 			"key":"generator:output:compressed_air",
@@ -3846,8 +3684,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:electricity",
-			"value":"*"
+			"key":"generator:output:electricity"
 		},
 		{
 			"key":"generator:output:electricity",
@@ -3870,8 +3707,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:hot_air",
-			"value":"*"
+			"key":"generator:output:hot_air"
 		},
 		{
 			"key":"generator:output:hot_air",
@@ -3894,8 +3730,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:hot_water",
-			"value":"*"
+			"key":"generator:output:hot_water"
 		},
 		{
 			"key":"generator:output:hot_water",
@@ -3918,8 +3753,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:steam",
-			"value":"*"
+			"key":"generator:output:steam"
 		},
 		{
 			"key":"generator:output:steam",
@@ -3942,8 +3776,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:output:vacuum",
-			"value":"*"
+			"key":"generator:output:vacuum"
 		},
 		{
 			"key":"generator:output:vacuum",
@@ -3966,8 +3799,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"generator:source",
-			"value":"*"
+			"key":"generator:source"
 		},
 		{
 			"key":"generator:source",
@@ -4038,8 +3870,7 @@
 			"value":"wind"
 		},
 		{
-			"key":"generator:type",
-			"value":"*"
+			"key":"generator:type"
 		},
 		{
 			"key":"generator:type",
@@ -4078,20 +3909,17 @@
 			"value":"vertical_axis"
 		},
 		{
-			"key":"genus",
-			"value":"*"
+			"key":"genus"
 		},
 		{
-			"key":"geological",
-			"value":"*"
+			"key":"geological"
 		},
 		{
 			"key":"geological",
 			"value":"palaeontological_site"
 		},
 		{
-			"key":"goods",
-			"value":"*"
+			"key":"goods"
 		},
 		{
 			"key":"goods",
@@ -4134,8 +3962,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"grassland",
-			"value":"*"
+			"key":"grassland"
 		},
 		{
 			"key":"grassland",
@@ -4162,8 +3989,7 @@
 			"value":"veld"
 		},
 		{
-			"key":"headframe",
-			"value":"*"
+			"key":"headframe"
 		},
 		{
 			"key":"headframe",
@@ -4174,8 +4000,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"height",
-			"value":"*"
+			"key":"height"
 		},
 		{
 			"key":"height",
@@ -4206,8 +4031,7 @@
 			"value":"low"
 		},
 		{
-			"key":"hgv",
-			"value":"*"
+			"key":"hgv"
 		},
 		{
 			"key":"hgv",
@@ -4250,8 +4074,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"hide",
-			"value":"*"
+			"key":"hide"
 		},
 		{
 			"key":"hide",
@@ -4266,8 +4089,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"highway",
-			"value":"*"
+			"key":"highway"
 		},
 		{
 			"key":"highway",
@@ -4442,8 +4264,7 @@
 			"value":"unclassified"
 		},
 		{
-			"key":"hiking",
-			"value":"*"
+			"key":"hiking"
 		},
 		{
 			"key":"hiking",
@@ -4454,8 +4275,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"historic",
-			"value":"*"
+			"key":"historic"
 		},
 		{
 			"key":"historic",
@@ -4494,8 +4314,7 @@
 			"value":"wayside_shrine"
 		},
 		{
-			"key":"horse",
-			"value":"*"
+			"key":"horse"
 		},
 		{
 			"key":"horse",
@@ -4530,8 +4349,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"hov",
-			"value":"*"
+			"key":"hov"
 		},
 		{
 			"key":"hov",
@@ -4562,8 +4380,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"hygrometer",
-			"value":"*"
+			"key":"hygrometer"
 		},
 		{
 			"key":"hygrometer",
@@ -4574,24 +4391,20 @@
 			"value":"yes"
 		},
 		{
-			"key":"iata",
-			"value":"*"
+			"key":"iata"
 		},
 		{
-			"key":"icao",
-			"value":"*"
+			"key":"icao"
 		},
 		{
-			"key":"image",
-			"value":"*"
+			"key":"image"
 		},
 		{
-			"key":"incline",
-			"value":"*"
+			"key":"incline"
 		},
 		{
 			"key":"incline",
-			"value":"-10°"
+			"value":"-10Â°"
 		},
 		{
 			"key":"incline",
@@ -4599,7 +4412,7 @@
 		},
 		{
 			"key":"incline",
-			"value":"10°"
+			"value":"10Â°"
 		},
 		{
 			"key":"incline",
@@ -4614,8 +4427,7 @@
 			"value":"up"
 		},
 		{
-			"key":"indoor",
-			"value":"*"
+			"key":"indoor"
 		},
 		{
 			"key":"indoor",
@@ -4626,8 +4438,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"information",
-			"value":"*"
+			"key":"information"
 		},
 		{
 			"key":"information",
@@ -4654,16 +4465,17 @@
 			"value":"terminal"
 		},
 		{
-			"key":"intermittent",
-			"value":"*"
+			"key":"intermittent"
 		},
 		{
 			"key":"intermittent",
 			"value":"yes"
 		},
 		{
-			"key":"internet_access:fee",
-			"value":"*"
+			"key":"internet_access"
+		},
+		{
+			"key":"internet_access:fee"
 		},
 		{
 			"key":"internet_access:fee",
@@ -4672,10 +4484,6 @@
 		{
 			"key":"internet_access:fee",
 			"value":"yes"
-		},
-		{
-			"key":"internet_access",
-			"value":"*"
 		},
 		{
 			"key":"internet_access",
@@ -4698,12 +4506,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"int_name",
-			"value":"*"
+			"key":"int_name"
 		},
 		{
-			"key":"junction",
-			"value":"*"
+			"key":"junction"
 		},
 		{
 			"key":"junction",
@@ -4718,8 +4524,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"landuse",
-			"value":"*"
+			"key":"landuse"
 		},
 		{
 			"key":"landuse",
@@ -4834,8 +4639,7 @@
 			"value":"vineyard"
 		},
 		{
-			"key":"lanes",
-			"value":"*"
+			"key":"lanes"
 		},
 		{
 			"key":"lanes",
@@ -4858,8 +4662,7 @@
 			"value":"5"
 		},
 		{
-			"key":"layer",
-			"value":"*"
+			"key":"layer"
 		},
 		{
 			"key":"layer",
@@ -4906,8 +4709,7 @@
 			"value":"5"
 		},
 		{
-			"key":"leaf_cycle",
-			"value":"*"
+			"key":"leaf_cycle"
 		},
 		{
 			"key":"leaf_cycle",
@@ -4930,8 +4732,7 @@
 			"value":"semi_evergreen"
 		},
 		{
-			"key":"leaf_type",
-			"value":"*"
+			"key":"leaf_type"
 		},
 		{
 			"key":"leaf_type",
@@ -4950,8 +4751,7 @@
 			"value":"needleleaved"
 		},
 		{
-			"key":"leisure",
-			"value":"*"
+			"key":"leisure"
 		},
 		{
 			"key":"leisure",
@@ -5034,12 +4834,10 @@
 			"value":"water_park"
 		},
 		{
-			"key":"length",
-			"value":"*"
+			"key":"length"
 		},
 		{
-			"key":"license_classes",
-			"value":"*"
+			"key":"license_classes"
 		},
 		{
 			"key":"license_classes",
@@ -5050,8 +4848,7 @@
 			"value":"A;A1;B;BE;C"
 		},
 		{
-			"key":"line",
-			"value":"*"
+			"key":"line"
 		},
 		{
 			"key":"line",
@@ -5062,8 +4859,7 @@
 			"value":"busbar"
 		},
 		{
-			"key":"lit",
-			"value":"*"
+			"key":"lit"
 		},
 		{
 			"key":"lit",
@@ -5078,8 +4874,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"location",
-			"value":"*"
+			"key":"location"
 		},
 		{
 			"key":"location",
@@ -5110,8 +4905,7 @@
 			"value":"underwater"
 		},
 		{
-			"key":"lock",
-			"value":"*"
+			"key":"lock"
 		},
 		{
 			"key":"lock",
@@ -5126,12 +4920,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"loc_name",
-			"value":"*"
+			"key":"loc_name"
 		},
 		{
-			"key":"man_made",
-			"value":"*"
+			"key":"man_made"
 		},
 		{
 			"key":"man_made",
@@ -5234,8 +5026,7 @@
 			"value":"works"
 		},
 		{
-			"key":"map_size",
-			"value":"*"
+			"key":"map_size"
 		},
 		{
 			"key":"map_size",
@@ -5250,8 +5041,7 @@
 			"value":"site"
 		},
 		{
-			"key":"map_type",
-			"value":"*"
+			"key":"map_type"
 		},
 		{
 			"key":"map_type",
@@ -5270,8 +5060,7 @@
 			"value":"toposcope"
 		},
 		{
-			"key":"material",
-			"value":"*"
+			"key":"material"
 		},
 		{
 			"key":"material",
@@ -5298,32 +5087,25 @@
 			"value":"wood"
 		},
 		{
-			"key":"maxaxleload",
-			"value":"*"
+			"key":"maxaxleload"
 		},
 		{
-			"key":"maxheight",
-			"value":"*"
+			"key":"maxheight"
 		},
 		{
-			"key":"maxlength",
-			"value":"*"
+			"key":"maxlength"
 		},
 		{
-			"key":"maxspeed",
-			"value":"*"
+			"key":"maxspeed"
 		},
 		{
-			"key":"maxweight",
-			"value":"*"
+			"key":"maxweight"
 		},
 		{
-			"key":"maxwidth",
-			"value":"*"
+			"key":"maxwidth"
 		},
 		{
-			"key":"microbrewery",
-			"value":"*"
+			"key":"microbrewery"
 		},
 		{
 			"key":"microbrewery",
@@ -5334,8 +5116,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"mineshaft_type",
-			"value":"*"
+			"key":"mineshaft_type"
 		},
 		{
 			"key":"mineshaft_type",
@@ -5346,12 +5127,10 @@
 			"value":"winding"
 		},
 		{
-			"key":"minspeed",
-			"value":"*"
+			"key":"minspeed"
 		},
 		{
-			"key":"monitoring:air_quality",
-			"value":"*"
+			"key":"monitoring:air_quality"
 		},
 		{
 			"key":"monitoring:air_quality",
@@ -5362,8 +5141,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:galileo",
-			"value":"*"
+			"key":"monitoring:galileo"
 		},
 		{
 			"key":"monitoring:galileo",
@@ -5374,8 +5152,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:glonass",
-			"value":"*"
+			"key":"monitoring:glonass"
 		},
 		{
 			"key":"monitoring:glonass",
@@ -5386,8 +5163,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:gps",
-			"value":"*"
+			"key":"monitoring:gps"
 		},
 		{
 			"key":"monitoring:gps",
@@ -5398,8 +5174,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:noise",
-			"value":"*"
+			"key":"monitoring:noise"
 		},
 		{
 			"key":"monitoring:noise",
@@ -5410,8 +5185,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:radiation",
-			"value":"*"
+			"key":"monitoring:radiation"
 		},
 		{
 			"key":"monitoring:radiation",
@@ -5422,8 +5196,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:seismic_activity",
-			"value":"*"
+			"key":"monitoring:seismic_activity"
 		},
 		{
 			"key":"monitoring:seismic_activity",
@@ -5434,8 +5207,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:tide_gauge",
-			"value":"*"
+			"key":"monitoring:tide_gauge"
 		},
 		{
 			"key":"monitoring:tide_gauge",
@@ -5446,8 +5218,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:traffic",
-			"value":"*"
+			"key":"monitoring:traffic"
 		},
 		{
 			"key":"monitoring:traffic",
@@ -5458,8 +5229,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:water_level",
-			"value":"*"
+			"key":"monitoring:water_level"
 		},
 		{
 			"key":"monitoring:water_level",
@@ -5470,8 +5240,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monitoring:weather",
-			"value":"*"
+			"key":"monitoring:weather"
 		},
 		{
 			"key":"monitoring:weather",
@@ -5482,8 +5251,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"monorail",
-			"value":"*"
+			"key":"monorail"
 		},
 		{
 			"key":"monorail",
@@ -5494,8 +5262,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"motorcar",
-			"value":"*"
+			"key":"motorcar"
 		},
 		{
 			"key":"motorcar",
@@ -5538,8 +5305,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"motorcycle",
-			"value":"*"
+			"key":"motorcycle"
 		},
 		{
 			"key":"motorcycle",
@@ -5582,8 +5348,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"motorroad",
-			"value":"*"
+			"key":"motorroad"
 		},
 		{
 			"key":"motorroad",
@@ -5594,8 +5359,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"motor_vehicle",
-			"value":"*"
+			"key":"motor_vehicle"
 		},
 		{
 			"key":"motor_vehicle",
@@ -5638,16 +5402,17 @@
 			"value":"yes"
 		},
 		{
-			"key":"mountain_pass",
-			"value":"*"
+			"key":"mountain_pass"
 		},
 		{
 			"key":"mountain_pass",
 			"value":"yes"
 		},
 		{
-			"key":"mtb:scale",
-			"value":"*"
+			"key":"mtb"
+		},
+		{
+			"key":"mtb:scale"
 		},
 		{
 			"key":"mtb:scale",
@@ -5675,10 +5440,6 @@
 		},
 		{
 			"key":"mtb",
-			"value":"*"
-		},
-		{
-			"key":"mtb",
 			"value":"no"
 		},
 		{
@@ -5686,20 +5447,16 @@
 			"value":"yes"
 		},
 		{
-			"key":"name:botanical",
-			"value":"*"
+			"key":"name"
 		},
 		{
-			"key":"name",
-			"value":"*"
+			"key":"name:botanical"
 		},
 		{
-			"key":"nat_name",
-			"value":"*"
+			"key":"nat_name"
 		},
 		{
-			"key":"natural",
-			"value":"*"
+			"key":"natural"
 		},
 		{
 			"key":"natural",
@@ -5802,8 +5559,7 @@
 			"value":"wood"
 		},
 		{
-			"key":"network",
-			"value":"*"
+			"key":"network"
 		},
 		{
 			"key":"network",
@@ -5838,8 +5594,7 @@
 			"value":"rwn"
 		},
 		{
-			"key":"noexit",
-			"value":"*"
+			"key":"noexit"
 		},
 		{
 			"key":"noexit",
@@ -5850,12 +5605,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"note",
-			"value":"*"
+			"key":"note"
 		},
 		{
-			"key":"office",
-			"value":"*"
+			"key":"office"
 		},
 		{
 			"key":"office",
@@ -6002,16 +5755,16 @@
 			"value":"vacant"
 		},
 		{
-			"key":"official_name",
-			"value":"*"
+			"key":"official_name"
 		},
 		{
-			"key":"old_name",
-			"value":"*"
+			"key":"old_name"
 		},
 		{
-			"key":"oneway:bicycle",
-			"value":"*"
+			"key":"oneway"
+		},
+		{
+			"key":"oneway:bicycle"
 		},
 		{
 			"key":"oneway:bicycle",
@@ -6023,10 +5776,6 @@
 		},
 		{
 			"key":"oneway",
-			"value":"*"
-		},
-		{
-			"key":"oneway",
 			"value":"no"
 		},
 		{
@@ -6034,8 +5783,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"opening_hours",
-			"value":"*"
+			"key":"opening_hours"
 		},
 		{
 			"key":"opening_hours",
@@ -6078,12 +5826,10 @@
 			"value":"week 1-53/2 Fr 09:00-12:00; week 2-52/2 We 09:00-12:00"
 		},
 		{
-			"key":"operator",
-			"value":"*"
+			"key":"operator"
 		},
 		{
-			"key":"organic",
-			"value":"*"
+			"key":"organic"
 		},
 		{
 			"key":"organic",
@@ -6098,8 +5844,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"overtaking",
-			"value":"*"
+			"key":"overtaking"
 		},
 		{
 			"key":"overtaking",
@@ -6122,8 +5867,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"parking",
-			"value":"*"
+			"key":"parking"
 		},
 		{
 			"key":"parking",
@@ -6142,8 +5886,7 @@
 			"value":"underground"
 		},
 		{
-			"key":"park_ride",
-			"value":"*"
+			"key":"park_ride"
 		},
 		{
 			"key":"park_ride",
@@ -6174,8 +5917,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"parts",
-			"value":"*"
+			"key":"parts"
 		},
 		{
 			"key":"parts",
@@ -6194,8 +5936,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"passing_places",
-			"value":"*"
+			"key":"passing_places"
 		},
 		{
 			"key":"passing_places",
@@ -6206,8 +5947,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"payment:account_cards",
-			"value":"*"
+			"key":"payment:account_cards"
 		},
 		{
 			"key":"payment:account_cards",
@@ -6218,8 +5958,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"payment:coins",
-			"value":"*"
+			"key":"payment:coins"
 		},
 		{
 			"key":"payment:coins",
@@ -6230,8 +5969,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"payment:credit_cards",
-			"value":"*"
+			"key":"payment:credit_cards"
 		},
 		{
 			"key":"payment:credit_cards",
@@ -6242,8 +5980,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"payment:debit_cards",
-			"value":"*"
+			"key":"payment:debit_cards"
 		},
 		{
 			"key":"payment:debit_cards",
@@ -6254,8 +5991,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"payment:electronic_purses",
-			"value":"*"
+			"key":"payment:electronic_purses"
 		},
 		{
 			"key":"payment:electronic_purses",
@@ -6266,8 +6002,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"payment:notes",
-			"value":"*"
+			"key":"payment:notes"
 		},
 		{
 			"key":"payment:notes",
@@ -6278,8 +6013,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"payment:telephone_cards",
-			"value":"*"
+			"key":"payment:telephone_cards"
 		},
 		{
 			"key":"payment:telephone_cards",
@@ -6290,8 +6024,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"phases",
-			"value":"*"
+			"key":"phases"
 		},
 		{
 			"key":"phases",
@@ -6302,12 +6035,10 @@
 			"value":"3"
 		},
 		{
-			"key":"phone",
-			"value":"*"
+			"key":"phone"
 		},
 		{
-			"key":"piste:difficulty",
-			"value":"*"
+			"key":"piste:difficulty"
 		},
 		{
 			"key":"piste:difficulty",
@@ -6334,8 +6065,7 @@
 			"value":"novice"
 		},
 		{
-			"key":"piste:grooming",
-			"value":"*"
+			"key":"piste:grooming"
 		},
 		{
 			"key":"piste:grooming",
@@ -6362,8 +6092,7 @@
 			"value":"skating"
 		},
 		{
-			"key":"piste:type",
-			"value":"*"
+			"key":"piste:type"
 		},
 		{
 			"key":"piste:type",
@@ -6386,8 +6115,7 @@
 			"value":"snow_park"
 		},
 		{
-			"key":"place",
-			"value":"*"
+			"key":"place"
 		},
 		{
 			"key":"place",
@@ -6454,8 +6182,7 @@
 			"value":"village"
 		},
 		{
-			"key":"plant:output:cold_air",
-			"value":"*"
+			"key":"plant:output:cold_air"
 		},
 		{
 			"key":"plant:output:cold_air",
@@ -6478,8 +6205,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"plant:output:cold_water",
-			"value":"*"
+			"key":"plant:output:cold_water"
 		},
 		{
 			"key":"plant:output:cold_water",
@@ -6502,8 +6228,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"plant:output:compressed_air",
-			"value":"*"
+			"key":"plant:output:compressed_air"
 		},
 		{
 			"key":"plant:output:compressed_air",
@@ -6526,8 +6251,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"plant:output:electricity",
-			"value":"*"
+			"key":"plant:output:electricity"
 		},
 		{
 			"key":"plant:output:electricity",
@@ -6550,8 +6274,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"plant:output:hot_air",
-			"value":"*"
+			"key":"plant:output:hot_air"
 		},
 		{
 			"key":"plant:output:hot_air",
@@ -6574,8 +6297,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"plant:output:hot_water",
-			"value":"*"
+			"key":"plant:output:hot_water"
 		},
 		{
 			"key":"plant:output:hot_water",
@@ -6598,8 +6320,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"plant:output:steam",
-			"value":"*"
+			"key":"plant:output:steam"
 		},
 		{
 			"key":"plant:output:steam",
@@ -6622,8 +6343,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"plant:output:vacuum",
-			"value":"*"
+			"key":"plant:output:vacuum"
 		},
 		{
 			"key":"plant:output:vacuum",
@@ -6646,8 +6366,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"poles",
-			"value":"*"
+			"key":"poles"
 		},
 		{
 			"key":"poles",
@@ -6658,8 +6377,7 @@
 			"value":"monopole"
 		},
 		{
-			"key":"political_division",
-			"value":"*"
+			"key":"political_division"
 		},
 		{
 			"key":"political_division",
@@ -6674,16 +6392,16 @@
 			"value":"ward"
 		},
 		{
-			"key":"population",
-			"value":"*"
+			"key":"population"
 		},
 		{
-			"key":"postal_code",
-			"value":"*"
+			"key":"postal_code"
 		},
 		{
-			"key":"power_supply",
-			"value":"*"
+			"key":"power"
+		},
+		{
+			"key":"power_supply"
 		},
 		{
 			"key":"power_supply",
@@ -6692,10 +6410,6 @@
 		{
 			"key":"power_supply",
 			"value":"yes"
-		},
-		{
-			"key":"power",
-			"value":"*"
 		},
 		{
 			"key":"power",
@@ -6754,8 +6468,7 @@
 			"value":"transformer"
 		},
 		{
-			"key":"psv",
-			"value":"*"
+			"key":"psv"
 		},
 		{
 			"key":"psv",
@@ -6786,8 +6499,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"public_transport",
-			"value":"*"
+			"key":"public_transport"
 		},
 		{
 			"key":"public_transport",
@@ -6806,8 +6518,7 @@
 			"value":"stop_position"
 		},
 		{
-			"key":"public_transport:version",
-			"value":"*"
+			"key":"public_transport:version"
 		},
 		{
 			"key":"public_transport:version",
@@ -6818,8 +6529,7 @@
 			"value":"2"
 		},
 		{
-			"key":"railway",
-			"value":"*"
+			"key":"railway"
 		},
 		{
 			"key":"railway",
@@ -6902,8 +6612,7 @@
 			"value":"turntable"
 		},
 		{
-			"key":"rating",
-			"value":"*"
+			"key":"rating"
 		},
 		{
 			"key":"rating",
@@ -6938,8 +6647,7 @@
 			"value":"5 Mvar"
 		},
 		{
-			"key":"recording:automated",
-			"value":"*"
+			"key":"recording:automated"
 		},
 		{
 			"key":"recording:automated",
@@ -6950,8 +6658,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recording:manually",
-			"value":"*"
+			"key":"recording:manually"
 		},
 		{
 			"key":"recording:manually",
@@ -6962,8 +6669,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recording:remote",
-			"value":"*"
+			"key":"recording:remote"
 		},
 		{
 			"key":"recording:remote",
@@ -6974,8 +6680,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recycling:batteries",
-			"value":"*"
+			"key":"recycling:batteries"
 		},
 		{
 			"key":"recycling:batteries",
@@ -6986,8 +6691,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recycling:cans",
-			"value":"*"
+			"key":"recycling:cans"
 		},
 		{
 			"key":"recycling:cans",
@@ -6998,8 +6702,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recycling:clothes",
-			"value":"*"
+			"key":"recycling:clothes"
 		},
 		{
 			"key":"recycling:clothes",
@@ -7010,8 +6713,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recycling:glass",
-			"value":"*"
+			"key":"recycling:glass"
 		},
 		{
 			"key":"recycling:glass",
@@ -7022,8 +6724,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recycling:paper",
-			"value":"*"
+			"key":"recycling:paper"
 		},
 		{
 			"key":"recycling:paper",
@@ -7034,8 +6735,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recycling:scrap_metal",
-			"value":"*"
+			"key":"recycling:scrap_metal"
 		},
 		{
 			"key":"recycling:scrap_metal",
@@ -7046,8 +6746,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"recycling_type",
-			"value":"*"
+			"key":"recycling_type"
 		},
 		{
 			"key":"recycling_type",
@@ -7058,36 +6757,28 @@
 			"value":"container"
 		},
 		{
-			"key":"ref:fgkz",
-			"value":"*"
+			"key":"ref"
 		},
 		{
-			"key":"ref:gnbc",
-			"value":"*"
+			"key":"ref:fgkz"
 		},
 		{
-			"key":"ref:gnis",
-			"value":"*"
+			"key":"ref:gnbc"
 		},
 		{
-			"key":"ref:regine",
-			"value":"*"
+			"key":"ref:gnis"
 		},
 		{
-			"key":"ref:sandre",
-			"value":"*"
+			"key":"ref:regine"
 		},
 		{
-			"key":"ref",
-			"value":"*"
+			"key":"ref:sandre"
 		},
 		{
-			"key":"reg_name",
-			"value":"*"
+			"key":"reg_name"
 		},
 		{
-			"key":"religion",
-			"value":"*"
+			"key":"religion"
 		},
 		{
 			"key":"religion",
@@ -7142,8 +6833,7 @@
 			"value":"zoroastrian"
 		},
 		{
-			"key":"rental",
-			"value":"*"
+			"key":"rental"
 		},
 		{
 			"key":"rental",
@@ -7158,8 +6848,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"repair",
-			"value":"*"
+			"key":"repair"
 		},
 		{
 			"key":"repair",
@@ -7178,8 +6867,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"resource",
-			"value":"*"
+			"key":"resource"
 		},
 		{
 			"key":"resource",
@@ -7250,8 +6938,7 @@
 			"value":"zircon"
 		},
 		{
-			"key":"restriction",
-			"value":"*"
+			"key":"restriction"
 		},
 		{
 			"key":"restriction",
@@ -7282,8 +6969,7 @@
 			"value":"only_straight_on"
 		},
 		{
-			"key":"roundtrip",
-			"value":"*"
+			"key":"roundtrip"
 		},
 		{
 			"key":"roundtrip",
@@ -7294,8 +6980,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"route_master",
-			"value":"*"
+			"key":"route"
+		},
+		{
+			"key":"route_master"
 		},
 		{
 			"key":"route_master",
@@ -7328,10 +7016,6 @@
 		{
 			"key":"route_master",
 			"value":"trolleybus"
-		},
-		{
-			"key":"route",
-			"value":"*"
 		},
 		{
 			"key":"route",
@@ -7398,12 +7082,10 @@
 			"value":"trolleybus"
 		},
 		{
-			"key":"sac_scale",
-			"value":"*"
+			"key":"sac_scale"
 		},
 		{
-			"key":"safety_inspection",
-			"value":"*"
+			"key":"safety_inspection"
 		},
 		{
 			"key":"safety_inspection",
@@ -7411,7 +7093,7 @@
 		},
 		{
 			"key":"safety_inspection",
-			"value":"GTÜ"
+			"value":"GTÃœ"
 		},
 		{
 			"key":"safety_inspection",
@@ -7423,15 +7105,14 @@
 		},
 		{
 			"key":"safety_inspection",
-			"value":"TÜV"
+			"value":"TÃœV"
 		},
 		{
 			"key":"safety_inspection",
 			"value":"yes"
 		},
 		{
-			"key":"sale",
-			"value":"*"
+			"key":"sale"
 		},
 		{
 			"key":"sale",
@@ -7446,16 +7127,14 @@
 			"value":"yes"
 		},
 		{
-			"key":"salt",
-			"value":"*"
+			"key":"salt"
 		},
 		{
 			"key":"salt",
 			"value":"yes"
 		},
 		{
-			"key":"seats",
-			"value":"*"
+			"key":"seats"
 		},
 		{
 			"key":"seats",
@@ -7494,8 +7173,7 @@
 			"value":"9"
 		},
 		{
-			"key":"second_hand",
-			"value":"*"
+			"key":"second_hand"
 		},
 		{
 			"key":"second_hand",
@@ -7510,8 +7188,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"segregated",
-			"value":"*"
+			"key":"segregated"
 		},
 		{
 			"key":"segregated",
@@ -7522,8 +7199,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"service:bicycle:cleaning",
-			"value":"*"
+			"key":"service"
+		},
+		{
+			"key":"service:bicycle:cleaning"
 		},
 		{
 			"key":"service:bicycle:cleaning",
@@ -7534,8 +7213,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"service:bicycle:diy",
-			"value":"*"
+			"key":"service:bicycle:diy"
 		},
 		{
 			"key":"service:bicycle:diy",
@@ -7546,8 +7224,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"service:bicycle:pump",
-			"value":"*"
+			"key":"service:bicycle:pump"
 		},
 		{
 			"key":"service:bicycle:pump",
@@ -7558,8 +7235,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"service:bicycle:rental",
-			"value":"*"
+			"key":"service:bicycle:rental"
 		},
 		{
 			"key":"service:bicycle:rental",
@@ -7570,8 +7246,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"service:bicycle:repair",
-			"value":"*"
+			"key":"service:bicycle:repair"
 		},
 		{
 			"key":"service:bicycle:repair",
@@ -7582,8 +7257,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"service:bicycle:retail",
-			"value":"*"
+			"key":"service:bicycle:retail"
 		},
 		{
 			"key":"service:bicycle:retail",
@@ -7594,8 +7268,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"service:bicycle:second_hand",
-			"value":"*"
+			"key":"service:bicycle:second_hand"
 		},
 		{
 			"key":"service:bicycle:second_hand",
@@ -7606,12 +7279,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"services",
-			"value":"*"
+			"key":"services"
 		},
 		{
-			"key":"service_times",
-			"value":"*"
+			"key":"service_times"
 		},
 		{
 			"key":"service_times",
@@ -7647,10 +7318,6 @@
 		},
 		{
 			"key":"service",
-			"value":"*"
-		},
-		{
-			"key":"service",
 			"value":"alley"
 		},
 		{
@@ -7678,8 +7345,7 @@
 			"value":"yard"
 		},
 		{
-			"key":"share_taxi",
-			"value":"*"
+			"key":"share_taxi"
 		},
 		{
 			"key":"share_taxi",
@@ -7690,8 +7356,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"shelter_type",
-			"value":"*"
+			"key":"shelter"
+		},
+		{
+			"key":"shelter_type"
 		},
 		{
 			"key":"shelter_type",
@@ -7711,10 +7379,6 @@
 		},
 		{
 			"key":"shelter",
-			"value":"*"
-		},
-		{
-			"key":"shelter",
 			"value":"no"
 		},
 		{
@@ -7726,8 +7390,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"shop",
-			"value":"*"
+			"key":"shop"
 		},
 		{
 			"key":"shop",
@@ -8022,12 +7685,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"short_name",
-			"value":"*"
+			"key":"short_name"
 		},
 		{
-			"key":"ski",
-			"value":"*"
+			"key":"ski"
 		},
 		{
 			"key":"ski",
@@ -8054,8 +7715,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"smoking",
-			"value":"*"
+			"key":"smoking"
 		},
 		{
 			"key":"smoking",
@@ -8078,8 +7738,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"snowmobile",
-			"value":"*"
+			"key":"snowmobile"
 		},
 		{
 			"key":"snowmobile",
@@ -8114,8 +7773,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"social_facility:for",
-			"value":"*"
+			"key":"social_facility"
+		},
+		{
+			"key":"social_facility:for"
 		},
 		{
 			"key":"social_facility:for",
@@ -8123,19 +7784,13 @@
 		},
 		{
 			"key":"social_facility",
-			"value":"*"
-		},
-		{
-			"key":"social_facility",
 			"value":"group_home"
 		},
 		{
-			"key":"species",
-			"value":"*"
+			"key":"species"
 		},
 		{
-			"key":"sport",
-			"value":"*"
+			"key":"sport"
 		},
 		{
 			"key":"sport",
@@ -8326,8 +7981,7 @@
 			"value":"volleyball"
 		},
 		{
-			"key":"stars",
-			"value":"*"
+			"key":"stars"
 		},
 		{
 			"key":"stars",
@@ -8358,12 +8012,10 @@
 			"value":"7"
 		},
 		{
-			"key":"start_date",
-			"value":"*"
+			"key":"start_date"
 		},
 		{
-			"key":"stay",
-			"value":"*"
+			"key":"stay"
 		},
 		{
 			"key":"stay",
@@ -8382,12 +8034,10 @@
 			"value":"30-60"
 		},
 		{
-			"key":"step_count",
-			"value":"*"
+			"key":"step_count"
 		},
 		{
-			"key":"stile",
-			"value":"*"
+			"key":"stile"
 		},
 		{
 			"key":"stile",
@@ -8402,8 +8052,7 @@
 			"value":"stepover"
 		},
 		{
-			"key":"structure",
-			"value":"*"
+			"key":"structure"
 		},
 		{
 			"key":"structure",
@@ -8418,8 +8067,7 @@
 			"value":"tubular"
 		},
 		{
-			"key":"substation",
-			"value":"*"
+			"key":"substation"
 		},
 		{
 			"key":"substation",
@@ -8454,8 +8102,7 @@
 			"value":"transmission"
 		},
 		{
-			"key":"subway",
-			"value":"*"
+			"key":"subway"
 		},
 		{
 			"key":"subway",
@@ -8466,8 +8113,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"supervised",
-			"value":"*"
+			"key":"supervised"
 		},
 		{
 			"key":"supervised",
@@ -8482,8 +8128,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"support",
-			"value":"*"
+			"key":"support"
 		},
 		{
 			"key":"support",
@@ -8502,8 +8147,7 @@
 			"value":"wall_mounted"
 		},
 		{
-			"key":"surface",
-			"value":"*"
+			"key":"surface"
 		},
 		{
 			"key":"surface",
@@ -8586,16 +8230,14 @@
 			"value":"wood"
 		},
 		{
-			"key":"surveillance:type",
-			"value":"*"
+			"key":"surveillance"
+		},
+		{
+			"key":"surveillance:type"
 		},
 		{
 			"key":"surveillance:type",
 			"value":"camera"
-		},
-		{
-			"key":"surveillance",
-			"value":"*"
 		},
 		{
 			"key":"surveillance",
@@ -8610,8 +8252,7 @@
 			"value":"public"
 		},
 		{
-			"key":"surveillance:zone",
-			"value":"*"
+			"key":"surveillance:zone"
 		},
 		{
 			"key":"surveillance:zone",
@@ -8638,8 +8279,7 @@
 			"value":"traffic"
 		},
 		{
-			"key":"swing_gate:type",
-			"value":"*"
+			"key":"swing_gate:type"
 		},
 		{
 			"key":"swing_gate:type",
@@ -8650,12 +8290,10 @@
 			"value":"single"
 		},
 		{
-			"key":"symbol",
-			"value":"*"
+			"key":"symbol"
 		},
 		{
-			"key":"tactile_paving",
-			"value":"*"
+			"key":"tactile_paving"
 		},
 		{
 			"key":"tactile_paving",
@@ -8666,12 +8304,10 @@
 			"value":"yes"
 		},
 		{
-			"key":"taxon",
-			"value":"*"
+			"key":"taxon"
 		},
 		{
-			"key":"tents",
-			"value":"*"
+			"key":"tents"
 		},
 		{
 			"key":"tents",
@@ -8682,8 +8318,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"thermometer",
-			"value":"*"
+			"key":"thermometer"
 		},
 		{
 			"key":"thermometer",
@@ -8694,12 +8329,16 @@
 			"value":"yes"
 		},
 		{
-			"key":"time",
-			"value":"*"
+			"key":"time"
 		},
 		{
-			"key":"toilets:disposal",
-			"value":"*"
+			"key":"to"
+		},
+		{
+			"key":"toilets"
+		},
+		{
+			"key":"toilets:disposal"
 		},
 		{
 			"key":"toilets:disposal",
@@ -8718,8 +8357,7 @@
 			"value":"pitlatrine"
 		},
 		{
-			"key":"toilets:position",
-			"value":"*"
+			"key":"toilets:position"
 		},
 		{
 			"key":"toilets:position",
@@ -8739,10 +8377,6 @@
 		},
 		{
 			"key":"toilets",
-			"value":"*"
-		},
-		{
-			"key":"toilets",
 			"value":"no"
 		},
 		{
@@ -8750,8 +8384,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"toll",
-			"value":"*"
+			"key":"toll"
 		},
 		{
 			"key":"toll",
@@ -8762,8 +8395,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"tourism",
-			"value":"*"
+			"key":"tourism"
 		},
 		{
 			"key":"tourism",
@@ -8830,8 +8462,7 @@
 			"value":"zoo"
 		},
 		{
-			"key":"tourist_bus",
-			"value":"*"
+			"key":"tourist_bus"
 		},
 		{
 			"key":"tourist_bus",
@@ -8842,12 +8473,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"to",
-			"value":"*"
-		},
-		{
-			"key":"tower:type",
-			"value":"*"
+			"key":"tower:type"
 		},
 		{
 			"key":"tower:type",
@@ -8886,8 +8512,7 @@
 			"value":"transposing"
 		},
 		{
-			"key":"tracks",
-			"value":"*"
+			"key":"tracks"
 		},
 		{
 			"key":"tracks",
@@ -8906,8 +8531,7 @@
 			"value":"4"
 		},
 		{
-			"key":"tracktype",
-			"value":"*"
+			"key":"tracktype"
 		},
 		{
 			"key":"tracktype",
@@ -8930,8 +8554,7 @@
 			"value":"grade5"
 		},
 		{
-			"key":"traffic_calming",
-			"value":"*"
+			"key":"traffic_calming"
 		},
 		{
 			"key":"traffic_calming",
@@ -8970,16 +8593,14 @@
 			"value":"yes"
 		},
 		{
-			"key":"traffic_sign",
-			"value":"*"
+			"key":"traffic_sign"
 		},
 		{
 			"key":"traffic_sign",
 			"value":"city_limit"
 		},
 		{
-			"key":"trail_visibility",
-			"value":"*"
+			"key":"trail_visibility"
 		},
 		{
 			"key":"trail_visibility",
@@ -9006,8 +8627,7 @@
 			"value":"no"
 		},
 		{
-			"key":"train",
-			"value":"*"
+			"key":"train"
 		},
 		{
 			"key":"train",
@@ -9018,8 +8638,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"tram",
-			"value":"*"
+			"key":"tram"
 		},
 		{
 			"key":"tram",
@@ -9030,8 +8649,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"transformer",
-			"value":"*"
+			"key":"transformer"
 		},
 		{
 			"key":"transformer",
@@ -9062,8 +8680,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"triple_tower",
-			"value":"*"
+			"key":"triple_tower"
 		},
 		{
 			"key":"triple_tower",
@@ -9074,8 +8691,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"trolleybus",
-			"value":"*"
+			"key":"trolleybus"
 		},
 		{
 			"key":"trolleybus",
@@ -9086,8 +8702,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"tunnel",
-			"value":"*"
+			"key":"tunnel"
 		},
 		{
 			"key":"tunnel",
@@ -9106,8 +8721,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"type",
-			"value":"*"
+			"key":"type"
 		},
 		{
 			"key":"type",
@@ -9198,16 +8812,13 @@
 			"value":"waterway"
 		},
 		{
-			"key":"uic_name",
-			"value":"*"
+			"key":"uic_name"
 		},
 		{
-			"key":"uic_ref",
-			"value":"*"
+			"key":"uic_ref"
 		},
 		{
-			"key":"usage",
-			"value":"*"
+			"key":"usage"
 		},
 		{
 			"key":"usage",
@@ -9234,8 +8845,7 @@
 			"value":"tourism"
 		},
 		{
-			"key":"vehicle",
-			"value":"*"
+			"key":"vehicle"
 		},
 		{
 			"key":"vehicle",
@@ -9270,8 +8880,7 @@
 			"value":"yes"
 		},
 		{
-			"key":"vending",
-			"value":"*"
+			"key":"vending"
 		},
 		{
 			"key":"vending",
@@ -9350,12 +8959,10 @@
 			"value":"vouchers"
 		},
 		{
-			"key":"via",
-			"value":"*"
+			"key":"via"
 		},
 		{
-			"key":"visibility",
-			"value":"*"
+			"key":"visibility"
 		},
 		{
 			"key":"visibility",
@@ -9370,8 +8977,7 @@
 			"value":"street"
 		},
 		{
-			"key":"volcano:status",
-			"value":"*"
+			"key":"volcano:status"
 		},
 		{
 			"key":"volcano:status",
@@ -9386,8 +8992,7 @@
 			"value":"extinct"
 		},
 		{
-			"key":"volcano:type",
-			"value":"*"
+			"key":"volcano:type"
 		},
 		{
 			"key":"volcano:type",
@@ -9402,8 +9007,7 @@
 			"value":"stratovolcano"
 		},
 		{
-			"key":"voltage",
-			"value":"*"
+			"key":"voltage"
 		},
 		{
 			"key":"voltage",
@@ -9634,8 +9238,7 @@
 			"value":"medium"
 		},
 		{
-			"key":"water",
-			"value":"*"
+			"key":"water"
 		},
 		{
 			"key":"water",
@@ -9666,8 +9269,7 @@
 			"value":"river"
 		},
 		{
-			"key":"waterway",
-			"value":"*"
+			"key":"waterway"
 		},
 		{
 			"key":"waterway",
@@ -9726,12 +9328,10 @@
 			"value":"weir"
 		},
 		{
-			"key":"website",
-			"value":"*"
+			"key":"website"
 		},
 		{
-			"key":"wetland",
-			"value":"*"
+			"key":"wetland"
 		},
 		{
 			"key":"wetland",
@@ -9762,8 +9362,7 @@
 			"value":"tidalflat"
 		},
 		{
-			"key":"wheelchair",
-			"value":"*"
+			"key":"wheelchair"
 		},
 		{
 			"key":"wheelchair",
@@ -9790,16 +9389,13 @@
 			"value":"yes"
 		},
 		{
-			"key":"width",
-			"value":"*"
+			"key":"width"
 		},
 		{
-			"key":"wikipedia",
-			"value":"*"
+			"key":"wikipedia"
 		},
 		{
-			"key":"wires",
-			"value":"*"
+			"key":"wires"
 		},
 		{
 			"key":"wires",
@@ -9829,6 +9425,5 @@
 			"key":"wires",
 			"value":"triple"
 		}
-		
 	]
 }
