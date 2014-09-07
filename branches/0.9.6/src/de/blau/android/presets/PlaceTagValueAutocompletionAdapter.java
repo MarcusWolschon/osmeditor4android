@@ -46,8 +46,10 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MultiHashMap;
 
 
 /**
@@ -101,59 +103,71 @@ public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<String> {
     private String[] getArray(final StorageDelegator delegator, final int[] location) {
 		// build list of names with their closest distance to location
 		Map<String, Double> distancesByName = new HashMap<String, Double>();
-		
-		Log.d("PlaceTagValuesCompletionAdapter","searching for palce ways...");
+		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME};
+		Log.d("PlaceTagValuesCompletionAdapter","searching for place ways...");
 		for (Way way : delegator.getCurrentStorage().getWays()) {
-			if (way.getTagWithKey("place") != null) {
-				String name = way.getTagWithKey("name");
+			if (way.getTagWithKey(Tags.KEY_PLACE) != null) {
+				double distance = -1D;
 				long iD = way.getOsmId();
-				if (name != null) {
-					double distance = getDistance(way, location);
-					if (distancesByName.containsKey(name)) {
-						// way already in list - keep shortest distance
-						if (distance <  distancesByName.get(name)) {
+				
+				for (String tag:nameTags) { 
+					String name = way.getTagWithKey(tag);
+					if (name != null) {
+						if (distance == -1D) { // only calc once
+							distance = getDistance(way, location);
+						}
+						if (distancesByName.containsKey(name)) {
+							// way already in list - keep shortest distance
+							if (distance <  distancesByName.get(name)) {
+								distancesByName.put(name, distance);
+								idsByNames.put(name,Long.valueOf(iD));
+								typeByNames.put(name,Way.NAME);
+							}
+						} else {
 							distancesByName.put(name, distance);
 							idsByNames.put(name,Long.valueOf(iD));
 							typeByNames.put(name,Way.NAME);
 						}
-					} else {
-						distancesByName.put(name, distance);
-						idsByNames.put(name,Long.valueOf(iD));
-						typeByNames.put(name,Way.NAME);
 					}
 				}
 			}
 		}
 		Log.d("PlaceTagValuesCompletionAdapter","searching for place nodes...");
 		for (Node node : delegator.getCurrentStorage().getNodes()) {
-			if (node.getTagWithKey("place") != null) {
-				String name = node.getTagWithKey("name");
-				Log.d("PlaceTagValuesCompletionAdapter","adding " + name);
+			if (node.getTagWithKey(Tags.KEY_PLACE) != null) {
+				double distance = -1D;
 				long iD = node.getOsmId();
-				if (name != null) {
-					double distance = Math.hypot(location[0] - node.getLat(),location[1] - node.getLon());
-					if (distancesByName.containsKey(name)) {
-						// way already in list - keep shortest distance
-						if (distance <  distancesByName.get(name)) {
+
+				for (String tag:nameTags) {
+					String name = node.getTagWithKey(tag);
+					Log.d("PlaceTagValuesCompletionAdapter","adding " + name);
+					if (name != null) {
+						if (distance == -1D) { // only calc once
+							distance = Math.hypot(location[0] - node.getLat(),location[1] - node.getLon());
+						}
+						if (distancesByName.containsKey(name)) {
+							// way already in list - keep shortest distance
+							if (distance <  distancesByName.get(name)) {
+								distancesByName.put(name, distance);
+								idsByNames.put(name,Long.valueOf(iD));
+								typeByNames.put(name,Node.NAME);
+							}
+						} else {
 							distancesByName.put(name, distance);
 							idsByNames.put(name,Long.valueOf(iD));
 							typeByNames.put(name,Node.NAME);
 						}
-					} else {
-						distancesByName.put(name, distance);
-						idsByNames.put(name,Long.valueOf(iD));
-						typeByNames.put(name,Node.NAME);
 					}
 				}
 			}
 		}
 		// sort names by distance
-		Map<Double, String> retval = new TreeMap<Double, String>();
+		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true);
 		for (String name : distancesByName.keySet()) {
-			retval.put(distancesByName.get(name), name);
+			retval.add(distancesByName.get(name), name);
 		}
 		 
-		return retval.values().toArray(new String[retval.size()]);
+		return retval.getValues().toArray(new String[retval.getValues().size()]);
 	}
 
     /**
