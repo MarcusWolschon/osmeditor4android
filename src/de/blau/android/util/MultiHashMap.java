@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -120,4 +121,15 @@ public class MultiHashMap<K, V> {
 		return map.keySet();
 	}
 
+	/** 
+	 * return all values
+	 * @return
+	 */
+	public Set<V> getValues() {
+		Set<V> retval = new LinkedHashSet<V>();
+		for (K key: getKeys()) {
+			retval.addAll(get(key));
+		}
+		return retval;
+	}
 }
