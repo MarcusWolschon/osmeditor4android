@@ -1140,6 +1140,11 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
+			// protect against race conditions
+			if (!(element instanceof Node)) {
+				// TODO fix properly
+				return false;
+			}
 			if (way.isClosed())
 				main.startActionMode(new ClosedWaySplittingActionModeCallback(way, (Node) element));
 			else {
@@ -1217,6 +1222,14 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be clicked
 			super.handleElementClick(element);
+			// race conditions with touch events seem to make the impossible possible
+			//TODO fix properly
+			if (!(element instanceof Way)) {
+				return false;
+			}
+			if (!findMergeableWays(way).contains((Way)element)) {
+				return false;
+			}
 			try {
 				if (!logic.performMerge(way, (Way)element)) {
 					Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();

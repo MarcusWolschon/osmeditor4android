@@ -949,6 +949,7 @@ public class Logic {
 						hideCrosshairs();
 					} else {
 						// way center / handle
+						// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
 						Handle handle = getClickedWayHandleWithDistances(x, y);
 						if (handle != null) {
 							Log.d("Logic","start handle drag");
