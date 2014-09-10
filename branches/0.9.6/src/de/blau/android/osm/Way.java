@@ -31,7 +31,7 @@ public class Way extends OsmElement {
 
 	public static final String NODE = "nd";
 	
-	public static final int MAX_WAY_NODES = 2000;
+	public static int maxWayNodes = 2000; // if API has a different value it will replace this
 	
 	transient FeatureProfile featureProfile = null; // FeatureProfile is currently not serializable
 	

@@ -92,6 +92,8 @@ public class DialogFactory {
 	public static final int GPX_UPLOAD = 22;
 	
 	public static final int UPLOAD_CONFLICT = 23;
+
+	public static final int API_OFFLINE = 24;
 		
 	private final Main caller;
 	
@@ -110,6 +112,8 @@ public class DialogFactory {
 	private final Builder openStreetBugEdit;
 	
 	private final Builder dataConflict;
+	
+	private final Builder apiOffline;
 	
 	private final Builder outOfMemory;
 	
@@ -173,6 +177,9 @@ public class DialogFactory {
 	
 		dataConflict = createBasicDialog(R.string.data_conflict_title, R.string.data_conflict_message);
 		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
+		
+		apiOffline = createBasicDialog(R.string.api_offline_title, R.string.api_offline_message);
+		apiOffline.setPositiveButton(R.string.okay, doNothingListener);
 		
 		// displaying these dialogs might make things worse
 		outOfMemory = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_message);
@@ -254,6 +261,9 @@ public class DialogFactory {
 		
 		case DATA_CONFLICT:
 			return dataConflict.create();
+			
+		case API_OFFLINE:
+			return apiOffline.create();
 		
 		case OUT_OF_MEMORY:
 			return outOfMemory.create();

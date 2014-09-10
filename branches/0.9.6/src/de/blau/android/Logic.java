@@ -49,6 +49,7 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
@@ -949,6 +950,7 @@ public class Logic {
 						hideCrosshairs();
 					} else {
 						// way center / handle
+						// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
 						Handle handle = getClickedWayHandleWithDistances(x, y);
 						if (handle != null) {
 							Log.d("Logic","start handle drag");
@@ -1702,6 +1704,13 @@ public class Logic {
 			protected Integer doInBackground(Boolean... arg) {
 				int result = 0;
 				try {
+					Server server = prefs.getServer();
+					if (!auto) { //TODO debatable if this really makes sense, but saves an API call per download, potentially download once
+						server.getCapabilities();
+						if (!(server.apiAvailable() && server.readableDB())) {
+							return DialogFactory.API_OFFLINE;
+						}
+					}
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
 					try {
@@ -1750,7 +1759,7 @@ public class Logic {
 					Log.e("Vespucci", "Problem parsing", e);
 					result = DialogFactory.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = e.getErrorCode();
 					Log.e("Vespucci", "Problem downloading", e);
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
@@ -2321,6 +2330,11 @@ public class Logic {
 			protected UploadResult doInBackground(Void... params) {
 				UploadResult result = new UploadResult();
 				try {
+					server.getCapabilities(); // update status
+					if (!(server.apiAvailable() && server.writableDB())) {
+						result.error =  DialogFactory.API_OFFLINE;
+						return result;
+					}
 					delegator.uploadToServer(server, comment, source, closeChangeset);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
