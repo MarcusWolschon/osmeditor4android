@@ -22,6 +22,8 @@
     <string name="wrong_login_data_message">If you are using OAuth this is likely a bug, please send a problem report, if you are using login and password (not recommended) please check that they are entered correctly.</string>
     <string name="data_conflict_title">Version Conflict</string>
     <string name="data_conflict_message">The data you are trying to download contains data that conflicts with your edits. Please try to upload your data first before retrying.</string>
+    <string name="api_offline_title">API Offline</string>
+    <string name="api_offline_message">The API is currently offline and does not allow data to be retrieved or written.</string>
     <string name="out_of_memory_title">Out of Memory</string>
     <string name="out_of_memory_message">Vespucci has run out of memory loading the requested data. Please restart and try loading a smaller area.</string>
     <string name="out_of_memory_dirty_message">Vespucci has run out of memory loading the requested data. Please attempt to save your edits, restart and try loading a smaller area.</string>

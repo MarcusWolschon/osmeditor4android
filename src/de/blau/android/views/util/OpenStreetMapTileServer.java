@@ -1,6 +1,8 @@
 // Created by plusminus on 18:23:16 - 25.09.2008
 package  de.blau.android.views.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +16,8 @@ import java.util.Locale;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -28,6 +32,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
@@ -428,7 +433,7 @@ public class OpenStreetMapTileServer {
 			imageFilenameExtension = ".jpg";
 			return;
 		}
-		
+	
 		int extPos = tileUrl.lastIndexOf('.');
 		if (extPos >= 0)
 			imageFilenameExtension = tileUrl.substring(extPos);
@@ -461,14 +466,50 @@ public class OpenStreetMapTileServer {
 	}
 	
 	/**
+	 * Parse json files for imagery configs and add them to backgroundServerList or overlayServerList
+	 * @param r
+	 * @param is
+	 * @param async
+	 * @throws IOException
+	 */
+	private static void parseImageryFile(Resources r, InputStream is, final boolean async) throws IOException {
+		JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+		try {
+			
+			try {
+				reader.beginArray();
+				while (reader.hasNext()) {
+					OpenStreetMapTileServer osmts = readServer(reader, r, async);
+					if (osmts != null) {
+						if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
+							// Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
+							overlayServerList.put(osmts.id,osmts);
+						}
+						else if (!backgroundServerList.containsKey(osmts.id)){
+							// Log.d("OpenStreetMapTileServer","Adding background " + osmts.overlay + " " + osmts.toString());
+							backgroundServerList.put(osmts.id,osmts);
+						}
+					}
+				}
+				reader.endArray();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+		finally {
+		       reader.close();
+		}
+	}
+	
+	/**
 	 * Get the tile server information for a specified tile server id. If the given
-	 * id cannot be found, a default renderer is selected.
+	 * id cannot be found, a default renderer is selected. 
+	 * Note: will read the the config files it that hasn't happend yet
 	 * @param r The application resources.
 	 * @param id The internal id of the tile layer, eg "MAPNIK"
 	 * @return
 	 */
-
-	
 	public synchronized static OpenStreetMapTileServer get(final Context ctx, final String id, final boolean async) {	
 		Resources r = ctx.getResources();
 		myCtx = ctx;
@@ -476,40 +517,23 @@ public class OpenStreetMapTileServer {
 		synchronized (backgroundServerList) {
 			if (!ready) {
 				Log.d("OpenStreetMapTileServer","Parsing configuration files");
-
-				AssetManager assetManager = ctx.getAssets();
 				
+				File sdcard = Environment.getExternalStorageDirectory();
+				String userImagery = sdcard.getPath() + "/Vespucci/imagery.json";
+				Log.i("OpenStreetMapTileServer","Trying to read custom imagery from " + userImagery);
+				try {
+					InputStream is = new FileInputStream(new File(userImagery));		
+					parseImageryFile(r, is, async);
+				} catch (IOException e) {
+					// Don't care if reading fails
+				}
+						
+				AssetManager assetManager = ctx.getAssets();	
 				String[] imageryFiles = {"imagery_vespucci.json","imagery.json"}; // entries in earlier files will not be overwritten by later ones
 				for (String fn:imageryFiles) {
 					try {
 						InputStream is = assetManager.open(fn);
-						JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
-						try {
-							
-							try {
-								reader.beginArray();
-								while (reader.hasNext()) {
-									OpenStreetMapTileServer osmts = readServer(reader, r, async);
-									if (osmts != null) {
-										if (osmts.overlay && !overlayServerList.containsKey(osmts.id)) {
-											// Log.d("OpenStreetMapTileServer","Adding overlay " + osmts.overlay + " " + osmts.toString());
-											overlayServerList.put(osmts.id,osmts);
-										}
-										else if (!backgroundServerList.containsKey(osmts.id)){
-											// Log.d("OpenStreetMapTileServer","Adding background " + osmts.overlay + " " + osmts.toString());
-											backgroundServerList.put(osmts.id,osmts);
-										}
-									}
-								}
-								reader.endArray();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} 
-						}
-						finally {
-						       reader.close();
-						}
+						parseImageryFile(r, is, async);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -1001,13 +1025,15 @@ public class OpenStreetMapTileServer {
 		return  result;
 	}
 	
-	
+	/*
+	 * 
+	 */
 	private static String replaceParameter(final String s, final String param, final String value) {
 		String result = s;
 		// replace "${param}"
-		result = result.replaceFirst("\\$\\{" + param + "\\}", value);
+		// not used in imagery index result = result.replaceFirst("\\$\\{" + param + "\\}", value);
 		// replace "$param"
-		result = result.replaceFirst("\\$" + param, value);
+		// not used in imagery index result = result.replaceFirst("\\$" + param, value);
 		// replace "{param}"
 		result = result.replaceFirst("\\{" + param + "\\}", value);
 		return result;
@@ -1019,8 +1045,6 @@ public class OpenStreetMapTileServer {
 		result = replaceParameter(result, "culture", l.getLanguage().toLowerCase() + "-" + l.getCountry().toLowerCase());
 		// Bing API key assigned to Andrew Gregory
 		result = replaceParameter(result, "bingapikey", "AtCQFkJNgUBEVk9qiNMBCNExDMVCiz5Hgvn20tpG3AfONcQUcumDChHDnhhNs0YA");
-		// Cloudmade API key assigned to Andrew Gregory
-		result = replaceParameter(result, "cloudmadeapikey", "9dce5357e52940298136dcf75b8e056b");
 		return result;
 	}
 	
@@ -1033,16 +1057,14 @@ public class OpenStreetMapTileServer {
 		if (!metadataLoaded) throw new IllegalStateException("metadata not loaded");
 		String result = tileUrl;
 		
-//		// Position-sensitive replacements - Potlatch !/!/! syntax
-//		result = result.replaceFirst("\\!", Integer.toString(aTile.zoomLevel));
-//		result = result.replaceFirst("\\!", Integer.toString(aTile.x));
-//		result = result.replaceFirst("\\!", Integer.toString(aTile.y));
-		
 		// Named replacements
 		result = replaceParameter(result, "zoom", Integer.toString(aTile.zoomLevel));
 		result = replaceParameter(result, "z", Integer.toString(aTile.zoomLevel));
 		result = replaceParameter(result, "x", Integer.toString(aTile.x));
 		result = replaceParameter(result, "y", Integer.toString(aTile.y));
+		int ymax = 1 << aTile.zoomLevel;
+		int y = ymax - aTile.y - 1;
+		result = replaceParameter(result, "-y", Integer.toString(y));
 		result = replaceParameter(result, "quadkey", quadTree(aTile));
 		
 		// Rotate through the list of subdomains
@@ -1052,7 +1074,7 @@ public class OpenStreetMapTileServer {
 			if (subdomain != null) subdomains.add(subdomain);
 		}
 		if (subdomain != null) result = replaceParameter(result, "subdomain", subdomain);
-		
+		// Log.d("OpenStreetMapTileServer",result);
 		return result;
 	}
 	
@@ -1145,6 +1167,42 @@ public class OpenStreetMapTileServer {
 
         return tileUrl + query;
     }
+	
+	/**
+	 * Remove all background and overlay entries that match the supplied blacklist
+	 * @param blacklist
+	 */
+	public static void applyBlacklist(ArrayList<String> blacklist) {
+		// first compile the regexs
+		ArrayList<Pattern> patterns = new ArrayList<Pattern>();
+		for (String regex:blacklist) {
+			patterns.add(Pattern.compile(regex));
+		}
+		for (Pattern p:patterns) {
+			for (String key:new TreeSet<String>(backgroundServerList.keySet())) { // shallow copy
+				OpenStreetMapTileServer osmts = backgroundServerList.get(key);
+				Matcher m = p.matcher(osmts.tileUrl);
+				if (m.find()) {
+					backgroundServerList.remove(key);
+					if (cachedBackground.equals(osmts)) {
+						cachedBackground = null;
+					}
+					Log.d("OpenStreetMapTileServer","Removed background tile layer " + key);
+				}
+			}
+			for (String key:new TreeSet<String>(overlayServerList.keySet())) { // shallow copy
+				OpenStreetMapTileServer osmts = overlayServerList.get(key);
+				Matcher m = p.matcher(osmts.tileUrl);
+				if (m.find()) {
+					overlayServerList.remove(key);
+					if (cachedOverlay.equals(osmts)) {
+						cachedOverlay = null;
+					}
+					Log.d("OpenStreetMapTileServer","Removed overlay tile layer " + key);
+				}
+			}
+		}
+	}
 	
 	@Override
 	public String toString() {

@@ -81,6 +81,9 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	private void fixUpPrefs() {
 		Preferences prefs = new Preferences(this);
 		
+		// remove any problematic imagery URLs
+		OpenStreetMapTileServer.applyBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
+		
 		ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPBG);
 		String[] ids = OpenStreetMapTileServer.getIds(true);
 		mapbgpref.setEntries(OpenStreetMapTileServer.getNames(ids));
