@@ -256,6 +256,7 @@ public class OpenStreetMapTileServer {
 	private static HashMap<String,OpenStreetMapTileServer> overlayServerList = new HashMap<String,OpenStreetMapTileServer>();
 	private static boolean ready = false;
 	private static Context myCtx;
+	private static ArrayList<String> imageryBlacklist = null;
 
 	
 	// ===========================================================
@@ -538,6 +539,9 @@ public class OpenStreetMapTileServer {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				}
+				if (imageryBlacklist != null) {
+					applyBlacklist(imageryBlacklist);
 				}
 				ready = true;
 			}
@@ -1184,7 +1188,7 @@ public class OpenStreetMapTileServer {
 				Matcher m = p.matcher(osmts.tileUrl);
 				if (m.find()) {
 					backgroundServerList.remove(key);
-					if (cachedBackground.equals(osmts)) {
+					if (cachedBackground != null && cachedBackground.equals(osmts)) {
 						cachedBackground = null;
 					}
 					Log.d("OpenStreetMapTileServer","Removed background tile layer " + key);
@@ -1195,7 +1199,7 @@ public class OpenStreetMapTileServer {
 				Matcher m = p.matcher(osmts.tileUrl);
 				if (m.find()) {
 					overlayServerList.remove(key);
-					if (cachedOverlay.equals(osmts)) {
+					if (cachedOverlay != null && cachedOverlay.equals(osmts)) {
 						cachedOverlay = null;
 					}
 					Log.d("OpenStreetMapTileServer","Removed overlay tile layer " + key);
@@ -1204,8 +1208,14 @@ public class OpenStreetMapTileServer {
 		}
 	}
 	
+	public static void setBlacklist(ArrayList<String> bl) {
+		imageryBlacklist  = bl;
+	}
+	
 	@Override
 	public String toString() {
 		return 	"ID: " + id + " Name " + name + " maxZoom " + zoomLevelMax + " Tile URL " + tileUrl;
 	}
+
+
 }

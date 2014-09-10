@@ -1006,6 +1006,7 @@ public class Map extends View implements IMapView {
 	
 	public void setPrefs(final Preferences aPreference) {
 		prefs = aPreference;
+		OpenStreetMapTileServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
 				final OpenStreetMapTileServer backgroundTS = OpenStreetMapTileServer.get(Application.mainActivity, prefs.backgroundLayer(), true);
