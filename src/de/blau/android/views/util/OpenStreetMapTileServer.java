@@ -428,7 +428,7 @@ public class OpenStreetMapTileServer {
 			imageFilenameExtension = ".jpg";
 			return;
 		}
-		
+	
 		int extPos = tileUrl.lastIndexOf('.');
 		if (extPos >= 0)
 			imageFilenameExtension = tileUrl.substring(extPos);
@@ -1001,13 +1001,15 @@ public class OpenStreetMapTileServer {
 		return  result;
 	}
 	
-	
+	/*
+	 * 
+	 */
 	private static String replaceParameter(final String s, final String param, final String value) {
 		String result = s;
 		// replace "${param}"
-		result = result.replaceFirst("\\$\\{" + param + "\\}", value);
+		// not used in imagery index result = result.replaceFirst("\\$\\{" + param + "\\}", value);
 		// replace "$param"
-		result = result.replaceFirst("\\$" + param, value);
+		// not used in imagery index result = result.replaceFirst("\\$" + param, value);
 		// replace "{param}"
 		result = result.replaceFirst("\\{" + param + "\\}", value);
 		return result;
@@ -1043,6 +1045,9 @@ public class OpenStreetMapTileServer {
 		result = replaceParameter(result, "z", Integer.toString(aTile.zoomLevel));
 		result = replaceParameter(result, "x", Integer.toString(aTile.x));
 		result = replaceParameter(result, "y", Integer.toString(aTile.y));
+		int ymax = 1 << aTile.zoomLevel;
+		int y = ymax - aTile.y - 1;
+		result = replaceParameter(result, "-y", Integer.toString(y));
 		result = replaceParameter(result, "quadkey", quadTree(aTile));
 		
 		// Rotate through the list of subdomains
@@ -1052,7 +1057,7 @@ public class OpenStreetMapTileServer {
 			if (subdomain != null) subdomains.add(subdomain);
 		}
 		if (subdomain != null) result = replaceParameter(result, "subdomain", subdomain);
-		
+		// Log.d("OpenStreetMapTileServer",result);
 		return result;
 	}
 	
