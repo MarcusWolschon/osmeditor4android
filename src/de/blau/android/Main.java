@@ -106,6 +106,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
+import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -432,7 +433,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		prefs = new Preferences(this);
 		logic.setPrefs(prefs);
 		map.setPrefs(prefs);
-		
 		map.createOverlays();
 		map.requestFocus();
 		
