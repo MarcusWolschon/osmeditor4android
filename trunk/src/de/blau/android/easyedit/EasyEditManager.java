@@ -1591,6 +1591,7 @@ public class EasyEditManager {
 			setClickableElements();
 			if (members.size() > 0)
 				revert.setVisible(true);
+			main.invalidateMap();
 			return true;
 		}
 		
