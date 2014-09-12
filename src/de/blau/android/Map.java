@@ -116,18 +116,18 @@ public class Map extends View implements IMapView {
 	/** Caches the edit mode during one onDraw pass */
 	private Logic.Mode tmpDrawingEditMode;
 	
-	/** Caches the currently selected node during one onDraw pass */
-	private Node tmpDrawingSelectedNode;
+	/** Caches the currently selected nodes during one onDraw pass */
+	private List<Node> tmpDrawingSelectedNodes;
 
-	/** Caches the currently selected way during one onDraw pass */
-	private Way tmpDrawingSelectedWay;
+	/** Caches the currently selected ways during one onDraw pass */
+	private List<Way> tmpDrawingSelectedWays;
 	
 	/** Caches the current "clickable elements" set during one onDraw pass */
 	private Set<OsmElement> tmpClickableElements;
 
 	/** used for highlighting relation members */
-	private Set<Way> tmpDrawingSelectedRelationWays;
-	private Set<Node> tmpDrawingSelectedRelationNodes;
+	private List<Way> tmpDrawingSelectedRelationWays;
+	private List<Node> tmpDrawingSelectedRelationNodes;
 	
 	/** Caches the preset during one onDraw pass */
 	private Preset[] tmpPresets;
@@ -282,8 +282,8 @@ public class Map extends View implements IMapView {
 		
 		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
 		tmpDrawingEditMode = Main.logic.getMode();
-		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
-		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
+		tmpDrawingSelectedNodes = Main.logic.getSelectedNodes();
+		tmpDrawingSelectedWays = Main.logic.getSelectedWays();
 		tmpClickableElements = Main.logic.getClickableElements();
 		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
@@ -619,10 +619,6 @@ public class Map extends View implements IMapView {
 			if (tmpDrawingInEditRange
 					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
 					&& (tmpClickableElements == null || tmpClickableElements.contains(node))
-					&&	(tmpDrawingEditMode != Logic.Mode.MODE_APPEND
-						|| tmpDrawingSelectedNode != null
-						|| delegator.getCurrentStorage().isEndNode(node)
-						)
 				)
 			{
 				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
@@ -631,18 +627,24 @@ public class Map extends View implements IMapView {
 			String featureKey;
 			String featureKeyThin;
 			String featureKeyTagged;
-			if (node == tmpDrawingSelectedNode 
-					|| (tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) 
-					&& tmpDrawingInEditRange) {
+			if (tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node) && tmpDrawingInEditRange) {
 				// general node style
 				featureKey = Profile.SELECTED_NODE;
 				// style for house numbers
 				featureKeyThin = Profile.SELECTED_NODE_THIN;
 				// style for tagged nodes or otherwise important
 				featureKeyTagged = Profile.SELECTED_NODE_TAGGED;
-				if (node == tmpDrawingSelectedNode && prefs.largeDragArea()) {
+				if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()) { // don't draw large areas in multi-select mode
 					canvas.drawCircle(x, y, Profile.getCurrent().largDragToleranceRadius, Profile.getCurrent(Profile.NODE_DRAG_RADIUS).getPaint());
 				}
+				isSelected = true;
+			} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
+				// general node style
+				featureKey = Profile.SELECTED_RELATION_NODE;
+				// style for house numbers
+				featureKeyThin = Profile.SELECTED_RELATION_NODE_THIN;
+				// style for tagged nodes or otherwise important
+				featureKeyTagged = Profile.SELECTED_RELATION_NODE_TAGGED;
 				isSelected = true;
 			} else if (node.hasProblem()) {
 				// general node style
@@ -745,20 +747,26 @@ public class Map extends View implements IMapView {
 				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
 				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
 					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
-					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT
-					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))) {
+					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT)) {
 			canvas.drawLines(linePoints, wayTolerancePaint);
 		}
 		//draw selectedWay highlighting
 		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
-				&& (way == tmpDrawingSelectedWay 
-				|| (tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way)));
+				&& tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way) ;
+		boolean isMemberOfSelectedRelation = tmpDrawingInEditRange 
+				&& tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);		
+				
 		if  (isSelected) {
 			paint = Profile.getCurrent(Profile.SELECTED_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
 			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
 			drawOnewayArrows(canvas, linePoints, false, paint);
-		} 
+		} else if (isMemberOfSelectedRelation) {
+			paint = Profile.getCurrent(Profile.SELECTED_RELATION_WAY).getPaint();
+			canvas.drawLines(linePoints, paint);
+			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
+			drawOnewayArrows(canvas, linePoints, false, paint);
+		}
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {
@@ -988,16 +996,16 @@ public class Map extends View implements IMapView {
 	/**
 	 * @param aSelectedNode the currently selected node to edit.
 	 */
-	void setSelectedNode(final Node aSelectedNode) {
-		tmpDrawingSelectedNode = aSelectedNode;
+	void setSelectedNodes(final List<Node> aSelectedNodes) {
+		tmpDrawingSelectedNodes = aSelectedNodes;
 	}
 	
 	/**
 	 * 
 	 * @param aSelectedWay the currently selected way to edit.
 	 */
-	void setSelectedWay(final Way aSelectedWay) {
-		tmpDrawingSelectedWay = aSelectedWay;
+	void setSelectedWays(final List<Way> aSelectedWays) {
+		tmpDrawingSelectedWays = aSelectedWays;
 	}
 	
 	public Preferences getPrefs() {

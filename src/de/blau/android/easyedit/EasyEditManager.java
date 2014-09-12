@@ -43,6 +43,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -112,7 +113,12 @@ public class EasyEditManager {
 	 */
 	public void nothingTouched() {
 		// User clicked an empty area. If something is selected, deselect it.
-		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) currentActionMode.finish();
+		if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+			return; // don't deselect all just because we didn't hit anything TODO display a toast
+		}
+		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) {
+			currentActionMode.finish();
+		}
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
 		logic.setSelectedRelationWays(null);
@@ -733,10 +739,13 @@ public class EasyEditManager {
 		private static final int MENUITEM_COPY = 4;
 		private static final int MENUITEM_CUT = 5;
 		private static final int MENUITEM_RELATION = 6;
+		private static final int MENUITEM_EXTEND_SELECTION = 7;
 		
 		private static final int MENUITEM_TAG_LAST = 20;
 		
 		protected OsmElement element = null;
+		
+		protected boolean deselect = true;
 		
 		public ElementSelectionActionModeCallback(OsmElement element) {
 			super();
@@ -769,6 +778,7 @@ public class EasyEditManager {
 				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
 				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
 			}
+			menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(R.drawable.extend_selection).setShowAsAction(showAlways());;;
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
 			if (element.getOsmId() > 0) {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
@@ -788,6 +798,7 @@ public class EasyEditManager {
 			case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
+			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startActionMode(new  ExtendSelectionActionModeCallback(element)); break;
 			default: return false;
 			}
 			return true;
@@ -810,19 +821,26 @@ public class EasyEditManager {
 		 */
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
-			logic.setSelectedNode(null);
-			logic.setSelectedWay(null);
-			logic.setSelectedRelation(null);
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);			
+			if (deselect) {
+				logic.setSelectedNode(null);
+				logic.setSelectedWay(null);
+				logic.setSelectedRelation(null);
+				logic.setSelectedRelationWays(null);
+				logic.setSelectedRelationNodes(null);
+				logic.setSelectedRelationRelations(null);
+			}
 			super.onDestroyActionMode(mode);
 		}
 	}
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
-		private static final int MENUITEM_APPEND = 7;
-		private static final int MENUITEM_JOIN = 8;
-		private static final int MENUITEM_UNJOIN = 9;
+		private static final int MENUITEM_APPEND = 8;
+		private static final int MENUITEM_JOIN = 9;
+		private static final int MENUITEM_UNJOIN = 10;
 		
-		private static final int MENUITEM_SET_POSITION = 14;
+		private static final int MENUITEM_SET_POSITION = 15;
 		
 		private OsmElement joinableElement = null;
 		
@@ -967,15 +985,15 @@ public class EasyEditManager {
 	}
 	
 	private class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
-		private static final int MENUITEM_SPLIT = 7;
-		private static final int MENUITEM_MERGE = 8;
-		private static final int MENUITEM_REVERSE = 9;
-		private static final int MENUITEM_APPEND = 10;
-		private static final int MENUITEM_RESTRICTION = 11;
-		private static final int MENUITEM_ROTATE = 12;
-		private static final int MENUITEM_ORTHOGONALIZE = 13;
-		private static final int MENUITEM_CIRCULIZE = 14;
-		private static final int MENUITEM_ADDRESS = 15;
+		private static final int MENUITEM_SPLIT = 8;
+		private static final int MENUITEM_MERGE = 9;
+		private static final int MENUITEM_REVERSE = 10;
+		private static final int MENUITEM_APPEND = 11;
+		private static final int MENUITEM_RESTRICTION = 12;
+		private static final int MENUITEM_ROTATE = 13;
+		private static final int MENUITEM_ORTHOGONALIZE = 14;
+		private static final int MENUITEM_CIRCULIZE = 15;
+		private static final int MENUITEM_ADDRESS = 16;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -1295,7 +1313,8 @@ public class EasyEditManager {
 	
 	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
 	
-		private static final int MENUITEM_ADD_RELATION_MEMBERS = 7;
+		private static final int MENUITEM_ADD_RELATION_MEMBERS = 8;
+		private static final int MENUITEM_SELECT_RELATION_MEMBERS = 9;
 		
 		private RelationSelectionActionModeCallback(Relation relation) {
 			super(relation);
@@ -1316,7 +1335,10 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
-			menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member);
+			menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member).setIcon(R.drawable.relation_add_member).setShowAsAction(showAlways());
+			if (((Relation)element).getMembers() != null) {
+				menu.add(Menu.NONE, MENUITEM_SELECT_RELATION_MEMBERS, Menu.NONE, R.string.menu_select_relation_members).setIcon(R.drawable.relation_members).setShowAsAction(showAlways());
+			}
 			return true;
 		}
 		
@@ -1325,11 +1347,22 @@ public class EasyEditManager {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
 				case MENUITEM_ADD_RELATION_MEMBERS: main.startActionMode(new  AddRelationMemberActionModeCallback((Relation)element, null)); break;
+				case MENUITEM_SELECT_RELATION_MEMBERS:
+					ArrayList<OsmElement> selection = new ArrayList<OsmElement>();
+					if (((Relation)element).getMembers() != null) {
+						for (RelationMember rm : ((Relation)element).getMembers()) {
+							selection.add(rm.getElement());
+						}
+					}
+					if (selection.size() > 0) {
+						deselect = false;
+						main.startActionMode(new  ExtendSelectionActionModeCallback(selection));
+					} 
+					break;
 				default: return false;
 				}
 			}
 			return true;
-			
 		}
 		
 		@Override
@@ -1351,17 +1384,6 @@ public class EasyEditManager {
 				logic.performEraseRelation((Relation)element);
 				mode.finish();
 			}
-		}
-		
-		@Override
-		public void onDestroyActionMode(ActionMode mode) {
-			logic.setClickableElements(null);
-			logic.setReturnRelations(true);
-			logic.setSelectedRelationWays(null);
-			logic.setSelectedRelationNodes(null);
-			logic.setSelectedNode(null);
-			logic.setSelectedWay(null);
-			super.onDestroyActionMode(mode);
 		}
 	}
 	
@@ -1517,6 +1539,12 @@ public class EasyEditManager {
 		private MenuItem revert = null;
 		private boolean backPressed = false;
 		
+		
+		public AddRelationMemberActionModeCallback(ArrayList<OsmElement> selection) {
+			super();
+			members = new ArrayList<OsmElement>(selection);
+		}
+		
 		public AddRelationMemberActionModeCallback(OsmElement element) {
 			super();
 			members = new ArrayList<OsmElement>();
@@ -1533,10 +1561,13 @@ public class EasyEditManager {
 		
 		private void addElement(OsmElement element) {
 			members.add(element);
-			if (element.getName().equals("way"))
+			if (element.getName().equals("way")) {
 				logic.addSelectedRelationWay((Way)element);
-			else if (element.getName().equals("node"))
+			} else if (element.getName().equals("node")) {
 				logic.addSelectedRelationNode((Node)element);
+			} else if (element.getName().equals("relation")) {
+				logic.addSelectedRelationRelation((Relation)element);
+			}
 		}
 		
 		@Override
@@ -1544,7 +1575,7 @@ public class EasyEditManager {
 			mode.setTitle(R.string.menu_relation);
 			mode.setSubtitle(R.string.menu_add_relation_member);
 			super.onCreateActionMode(mode, menu);
-			logic.setReturnRelations(false);
+			logic.setReturnRelations(true); // can add relations
 
 			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(R.drawable.tag_menu_revert);
 			revert = menu.findItem(MENUITEM_REVERT);
@@ -1591,6 +1622,7 @@ public class EasyEditManager {
 			setClickableElements();
 			if (members.size() > 0)
 				revert.setVisible(true);
+			main.invalidateMap();
 			return true;
 		}
 		
@@ -1610,6 +1642,7 @@ public class EasyEditManager {
 			logic.setReturnRelations(true);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
+			logic.setSelectedRelation(null);
 			if (!backPressed) {
 				if (members.size() > 0) { // something was actually added
 					if (relation == null)
@@ -1622,6 +1655,7 @@ public class EasyEditManager {
 			}
 			logic.setSelectedRelationWays(null);
 			logic.setSelectedRelationNodes(null);
+			logic.setSelectedRelationRelations(null);
 		}
 		
 		/**
@@ -1632,6 +1666,192 @@ public class EasyEditManager {
 			backPressed = true;
 			return false; // call the normal stuff
 		}
-		
 	}	
+	
+	private class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
+		
+		private static final int MENUITEM_TAG = 2;
+		private static final int MENUITEM_DELETE = 3;
+		private static final int MENUITEM_COPY = 4;
+		private static final int MENUITEM_CUT = 5;
+		private static final int MENUITEM_RELATION = 6;
+
+		private ArrayList<OsmElement> selection;
+	
+		private boolean backPressed = false;
+		private boolean deselect = true;
+				
+		public ExtendSelectionActionModeCallback(ArrayList<OsmElement> elements) {
+			super();
+			selection = new ArrayList<OsmElement>();
+			for (OsmElement e: elements) {
+				if (e != null) {
+					addOrRemoveElement(e);
+				}
+			}
+		}
+		
+		public ExtendSelectionActionModeCallback(OsmElement element) {
+			super();
+			Log.d("EasyEditMangager","Multi-Select create " + element);
+			selection = new ArrayList<OsmElement>();
+			if (element != null) {
+				addOrRemoveElement(element);
+			}
+		}
+		
+		private void addOrRemoveElement(OsmElement element) {
+			if (!selection.contains(element)) {
+				selection.add(element);
+				if (element.getName().equals("way")) {
+					logic.addSelectedWay((Way)element);
+				} else if (element.getName().equals("node")) {
+					logic.addSelectedNode((Node)element);
+				} else if (element.getName().equals("relation")) {
+					logic.addSelectedRelation((Relation)element);
+				}
+			} else {
+				selection.remove(element);
+				if (element.getName().equals("way")) {
+					logic.removeSelectedWay((Way)element);
+				} else if (element.getName().equals("node")) {
+					logic.removeSelectedNode((Node)element);
+				} else if (element.getName().equals("relation")) {
+					logic.removeSelectedRelation((Relation)element);
+				}
+			}
+			main.invalidateMap();
+		}
+		
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			mode.setTitle(R.string.actionmode_multiselect);
+			super.onCreateActionMode(mode, menu);
+			logic.setReturnRelations(true); // can add relations
+			setClickableElements();
+			return true;
+		}
+		
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			menu.clear();
+			
+			// menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;
+			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
+			// if (!(element instanceof Relation)) {
+			//	menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
+			//	menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
+			//}
+			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
+			return true;
+		}
+		
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			if (!super.onActionItemClicked(mode, item)) {
+				switch (item.getItemId()) {
+				
+				// case MENUITEM_TAG: main.performTagEdit(element, null, false); break;
+				// case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
+				case MENUITEM_DELETE: menuDelete(false); break;
+				
+				// case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
+				// case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
+				case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
+			
+				default: return false;
+				}
+			}
+			return true;
+		}
+		
+		@Override
+		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
+			Log.d("EasyEditMangager","Multi-Select add " + element);
+			addOrRemoveElement(element);
+			setClickableElements();
+			main.invalidateMap();
+			return true;
+		}
+		
+		private void setClickableElements() {
+			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(selection);
+//			logic.setClickableElements(logic.findClickableElements(excludes));
+		}
+		
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			super.onDestroyActionMode(mode);
+			logic.setClickableElements(null);
+			logic.setReturnRelations(true);
+			if (deselect) {
+				logic.setSelectedRelationWays(null);
+				logic.setSelectedRelationNodes(null);
+				logic.setSelectedRelationRelations(null);
+				logic.setSelectedWay(null);
+				logic.setSelectedNode(null);
+				logic.setSelectedRelation(null);
+				main.invalidateMap();
+			}
+		}
+		
+		private void menuDelete(boolean deleteFromRelations) {
+			
+			Log.d("EasyEditManager","Multi-select menuDelete " + deleteFromRelations + " " + selection);
+			boolean deleteWayNodes = false;
+			
+			// check for relation membership
+			if (!deleteFromRelations) {
+				for (OsmElement e:selection) {
+					if (e.hasParentRelations()) {
+						new AlertDialog.Builder(main)
+						.setTitle(R.string.delete)
+						.setMessage(R.string.delete_from_relation_description)
+						.setPositiveButton(R.string.delete,
+							new DialogInterface.OnClickListener() {	
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									menuDelete(true);
+								}
+							})
+						.show();
+						return;
+					}
+				}
+			}
+			
+			// need to make three passes 	
+			for (OsmElement e:selection) {	
+				if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
+					logic.performEraseRelation((Relation)e);
+				}
+			}	
+			for (OsmElement e:selection) {	
+				if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
+					if (logic.isInDownload((Way)e)) {
+						logic.performEraseWay((Way)e, true); // TODO maybe we don't want to delete the nodes
+					} else {
+						// TODO toast
+					}
+				}
+			}
+			for (OsmElement e:selection) {	
+				if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
+					logic.performEraseNode((Node)e);
+				}
+			}
+			currentActionMode.finish();
+		}	
+		
+		/**
+		 * back button should abort relation creation
+		 */
+		@Override
+		public boolean onBackPressed() {
+			backPressed = true;
+			return false; // call the normal stuff
+		}
+	}
 }

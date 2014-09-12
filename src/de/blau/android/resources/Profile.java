@@ -52,6 +52,7 @@ public class Profile  extends DefaultHandler {
 	public final static String VIEWBOX = "viewbox";
 	public final static String WAY = "way";
 	public final static String SELECTED_WAY = "selected_way";
+	public final static String SELECTED_RELATION_WAY = "selected_relation_way";
 	public final static String PROBLEM_WAY = "problem_way";
 	public final static String NODE = "node";
 	public final static String NODE_THIN = "node_thin";
@@ -63,6 +64,9 @@ public class Profile  extends DefaultHandler {
 	public final static String SELECTED_NODE = "selected_node";
 	public final static String SELECTED_NODE_THIN = "selected_node_thin";
 	public static final String SELECTED_NODE_TAGGED = "selected_node_tagged";
+	public final static String SELECTED_RELATION_NODE = "selected_relation_node";
+	public final static String SELECTED_RELATION_NODE_THIN = "selected_relation_node_thin";
+	public static final String SELECTED_RELATION_NODE_TAGGED = "selected_relation_node_tagged";
 	public final static String WAY_DIRECTION = "way_direction";
 	public final static String ONEWAY_DIRECTION = "oneway_direction";
 	public final static String WAY_TOLERANCE = "way_tolerance";
@@ -395,6 +399,10 @@ public class Profile  extends DefaultHandler {
 		fp.setWidthFactor(1.5f);
 		featureProfiles.put(fp.getName(), fp);
 		
+		fp = new FeatureProfile(SELECTED_RELATION_NODE, featureProfiles.get(SELECTED_NODE));
+		fp.setColor(resources.getColor(R.color.relation));
+		featureProfiles.put(fp.getName(), fp);
+		
 		fp = new FeatureProfile(NODE_DRAG_RADIUS );
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.dontUpdate();
@@ -407,6 +415,10 @@ public class Profile  extends DefaultHandler {
 		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.setWidthFactor(2f);
 		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(SELECTED_RELATION_NODE_TAGGED, featureProfiles.get(SELECTED_NODE_TAGGED));
+		fp.setColor(resources.getColor(R.color.relation));
+		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(SELECTED_NODE_THIN);
 		fp.dontUpdate();
@@ -415,6 +427,10 @@ public class Profile  extends DefaultHandler {
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
 		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(SELECTED_RELATION_NODE_THIN, featureProfiles.get(SELECTED_NODE_THIN));
+		fp.setColor(resources.getColor(R.color.relation));
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(GPS_POS,featureProfiles.get(GPS_TRACK)); 
@@ -435,10 +451,14 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(SELECTED_WAY,featureProfiles.get(WAY)); 	
-		fp.setColor(resources.getColor(R.color.tertiary));
+		fp.setColor(resources.getColor(R.color.ccc_beige));
 		fp.setWidthFactor(2f);
 		fp.getPaint().setStrokeCap(Cap.ROUND);
 		fp.getPaint().setStrokeJoin(Join.ROUND);
+		featureProfiles.put(fp.getName(), fp);
+		
+		fp = new FeatureProfile(SELECTED_RELATION_WAY,featureProfiles.get(SELECTED_WAY));
+		fp.setColor(resources.getColor(R.color.relation));
 		featureProfiles.put(fp.getName(), fp);
 
 		fp = new FeatureProfile(NODE_TOLERANCE);
