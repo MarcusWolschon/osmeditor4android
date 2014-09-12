@@ -18,6 +18,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -101,10 +102,6 @@ public class Logic {
 		 */
 		MODE_MOVE,
 		/**
-		 * edit ways and nodes by tapping the screen
-		 */
-		MODE_EDIT,
-		/**
 		 * add nodes by tapping the screen
 		 */
 		MODE_ADD,
@@ -112,10 +109,6 @@ public class Logic {
 		 * erase ways and nodes by tapping the screen
 		 */
 		MODE_ERASE,
-		/**
-		 * append nodes to the end of a way by tapping the screen
-		 */
-		MODE_APPEND,
 		/**
 		 * edit tags of ways and nodes by tapping the screen
 		 */
@@ -211,17 +204,37 @@ public class Logic {
 	/**
 	 * The user-selected node.
 	 */
-	private Node selectedNode;
+	private List<Node> selectedNodes;
 
 	/**
 	 * The user-selected way.
 	 */
-	private Way selectedWay;
+	private List<Way> selectedWays;
 	
 	/**
 	 * The user-selected relation.
 	 */
-	private Relation selectedRelation;
+	private List<Relation> selectedRelations;
+	
+	/* The following are lists because elements could be add multiple times
+	 * adding them once per selected relation and teh same for deletion avoids 
+	 * having to maintain a coune 
+	 */
+	/**
+	 * ways belonging to a selected relation
+	 */
+	private List<Way> selectedRelationWays = null;
+	
+	/**
+	 * nodes belonging to a selected relation
+	 */
+	private List<Node> selectedRelationNodes = null;
+	
+	/**
+	 * relations belonging to a selected relation 
+	 */
+	private List<Relation> selectedRelationRelations = null;
+	
 	
 	/**
 	 * The user-selected bug.
@@ -280,15 +293,7 @@ public class Logic {
 	 */
 	private boolean returnRelations = true;
 	
-	/**
-	 * ways belonging to a selected relation
-	 */
-	private Set<Way> selectedRelationWays = null;
-	
-	/**
-	 * nodes belonging to a selected relation
-	 */
-	private Set<Node> selectedRelationNodes = null;
+
 	
 	/**
 	 * 
@@ -360,9 +365,6 @@ public class Logic {
 		setSelectedBug(null);
 		switch (mode) {
 		case MODE_TAG_EDIT:
-		case MODE_APPEND:
-		case MODE_EDIT:
-			// do nothing
 			break;
 		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
 		if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
@@ -911,28 +913,24 @@ public class Logic {
 	 * @param y display-coord.
 	 */
 	void handleTouchEventDown(final float x, final float y) {
-		if (isInEditZoomRange() && mode == Mode.MODE_EDIT) {
-			// TODO Need to handle multiple possible targets here too (Issue #6)
-			setSelectedNode(getClickedNode(x, y));
-			map.invalidate();
-			draggingNode = (selectedNode != null);
-		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
+		boolean draggingMultiselect = false;
+		if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
-			if (selectedNode != null && clickDistance(selectedNode, x, y, prefs.largeDragArea()? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
+			if (selectedNodes != null && selectedNodes.size() == 1 && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea()? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
-					startX = lonE7ToX(selectedNode.getLon());
-					startY = latE7ToY(selectedNode.getLat());
+					startX = lonE7ToX(selectedNodes.get(0).getLon());
+					startY = latE7ToY(selectedNodes.get(0).getLat());
 				}
 			}
 			else {
-				if (selectedWay != null) {
+				if (selectedWays != null && selectedWays.size() == 1) {
 					if (!rotatingWay) {	
 						Way clickedWay = getClickedWay(x, y);
-						if (clickedWay != null && (clickedWay.getOsmId() == selectedWay.getOsmId())) {
-							if (selectedWay.getNodes().size() <= MAX_NODES_FOR_MOVE) {
+						if (clickedWay != null && (clickedWay.getOsmId() == selectedWays.get(0).getOsmId())) {
+							if (selectedWays.get(0).getNodes().size() <= MAX_NODES_FOR_MOVE) {
 								startLat = yToLatE7(y);
 								startLon = xToLonE7(x);
 								draggingWay = true;
@@ -945,17 +943,49 @@ public class Logic {
 						startY = y;
 					}
 				} else {
-					if (rotatingWay) {
-						rotatingWay = false;
-						hideCrosshairs();
+					if ((selectedWays != null && selectedWays.size() > 1) ||  (selectedNodes != null && selectedNodes.size() > 1) 
+							|| ((selectedWays != null && selectedWays.size() == 1) ||  (selectedNodes != null && selectedNodes.size() == 1))) {
+						// multi-select
+						boolean foundSelected = false;
+						if (selectedWays != null) {
+							List<Way> clickedWays = getClickedWays(x, y);
+							for (Way w:clickedWays) {
+								if (selectedWays.contains(w)) {
+									foundSelected = true;
+									break;
+								}
+							}
+						}
+						if (!foundSelected && selectedNodes != null) {
+							List<OsmElement> clickedNodes = getClickedNodes(x,y);
+							for (OsmElement n:clickedNodes) {
+								if (selectedNodes.contains(n)) {
+									foundSelected = true;
+									break;
+								}
+							}
+						}
+						if (foundSelected) {
+							startLat = yToLatE7(y);
+							startLon = xToLonE7(x);
+							startX = x;
+							startY = y;
+							draggingMultiselect = true;
+							draggingWay = true;
+						}
 					} else {
-						// way center / handle
-						// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
-						Handle handle = getClickedWayHandleWithDistances(x, y);
-						if (handle != null) {
-							Log.d("Logic","start handle drag");
-							selectedHandle = handle;
-							draggingHandle = true;
+						if (rotatingWay) {
+							rotatingWay = false;
+							hideCrosshairs();
+						} else {
+							// way center / handle
+							// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
+							Handle handle = getClickedWayHandleWithDistances(x, y);
+							if (handle != null) {
+								Log.d("Logic","start handle drag");
+								selectedHandle = handle;
+								draggingHandle = true;
+							}
 						}
 					}
 				}
@@ -968,7 +998,11 @@ public class Logic {
 		}
 		Log.d("Logic","handleTouchEventDown creating checkpoints");
 		if (draggingNode || draggingWay) {
-			createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+			if (draggingMultiselect) {
+				createCheckpoint(R.string.undo_action_moveobjects);
+			} else {
+				createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+			}
 		} else if (rotatingWay) {
 			createCheckpoint(R.string.undo_action_rotateway);
 		}
@@ -976,7 +1010,7 @@ public class Logic {
 
 	public void showCrosshairsForCentroid()
 	{
-		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWay);
+		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWays.get(0));
 		centroidX = centroid[0];
 		centroidY = centroid[1];
 		showCrosshairs(centroidX,centroidY);	
@@ -1008,10 +1042,10 @@ public class Logic {
 							draggingNode = true;
 							draggingHandle = false;
 							if (prefs.largeDragArea()) {
-								startX = lonE7ToX(selectedNode.getLon());
-								startY = latE7ToY( selectedNode.getLat());
+								startX = lonE7ToX(selectedNodes.get(0).getLon());
+								startY = latE7ToY( selectedNodes.get(0).getLat());
 							}
-							Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
+							Application.mainActivity.easyEditManager.editElement(selectedNodes.get(0)); // this can only happen in EasyEdit mode
 						}
 						else return;
 					} catch (OsmIllegalOperationException e) {
@@ -1030,17 +1064,25 @@ public class Logic {
 					lon = xToLonE7(absoluteX);
 				}
 				
-				delegator.updateLatLon(selectedNode, lat, lon);
+				delegator.updateLatLon(selectedNodes.get(0), lat, lon);
 			}
-			else {
-				if (selectedWay != null) { // shouldn't happen but might be a race condition
-					lat = yToLatE7(absoluteY);
-					lon = xToLonE7(absoluteX);
-					delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
-					// update 
-					startLat = lat;
-					startLon = lon;
+			else { // way dragging and multi-select
+				lat = yToLatE7(absoluteY);
+				lon = xToLonE7(absoluteX);
+				if (selectedWays != null && selectedWays.size() > 0) { // shouldn't happen but might be a race condition
+					for (Way w:selectedWays) {
+						delegator.moveWay(w, lat - startLat, lon - startLon);
+					}
+					
 				}
+				if (selectedNodes != null && selectedNodes.size() > 0) {
+					for (Node n:selectedNodes) {
+						delegator.updateLatLon(n, n.getLat() + lat - startLat, n.getLon() + lon - startLon);
+					}
+				}
+				// update 
+				startLat = lat;
+				startLon = lon;
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
 		} else if (rotatingWay) {
@@ -1071,7 +1113,7 @@ public class Logic {
 				direction = (startY < absoluteY) ? -1: 1;			
 			}
 	
-			delegator.rotateWay(selectedWay, (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
+			delegator.rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
 			startY = absoluteY;
 			startX = absoluteX;
 		} else {
@@ -1144,8 +1186,8 @@ public class Logic {
 		Log.d("Logic","performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
-		Node lSelectedNode = selectedNode;
-		Way lSelectedWay = selectedWay;
+		Node lSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
+		Way lSelectedWay = selectedWays != null && selectedWays.size() > 0 ? selectedWays.get(0) : null;
 
 		if (lSelectedNode == null) {
 			//This will be the first node.
@@ -1212,7 +1254,7 @@ public class Logic {
 	 */
 	public boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
-		Node savedSelectedNode = selectedNode;
+		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
 		Node newSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
 
@@ -2216,7 +2258,7 @@ public class Logic {
 	
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts);
+		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts);
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
@@ -2531,28 +2573,110 @@ public class Logic {
 	}
 	
 	/**
-	 * Internal setter to set the internal value
+	 *  Setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
 	public synchronized void setSelectedNode(final Node selectedNode) {
-		this.selectedNode = selectedNode;
-		map.setSelectedNode(selectedNode);
-	}
-
-	/**
-	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
-	 */
-	public synchronized void setSelectedWay(final Way selectedWay) {
-		this.selectedWay = selectedWay;
-		map.setSelectedWay(selectedWay);
+		if (selectedNode != null) { // always restart
+			selectedNodes = new LinkedList<Node>();
+			selectedNodes.add(selectedNode);
+		} else {
+			selectedNodes = null;
+		}
+		map.setSelectedNodes(selectedNodes);
 	}
 	
 	/**
-	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
+	 * Add nodes to the internal list
 	 */
-	public synchronized void setSelectedRelation(final Relation relation) {
-		this.selectedRelation = relation;
-		if (selectedRelation != null)
-			selectRelation(relation);
+	public synchronized void addSelectedNode(final Node selectedNode) {
+		if (selectedNodes == null) {
+			setSelectedNode(selectedNode);
+		} else {
+			if (!selectedNodes.contains(selectedNode)) {
+				selectedNodes.add(selectedNode);
+			}
+		}
+	}
+	
+	public void removeSelectedNode(Node node) {
+		if (selectedNodes != null) {
+			selectedNodes.remove(node);
+			if (selectedNodes.size() == 0) {
+				selectedNodes = null;
+			}
+		}
+	}
+	
+	/**
+	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 */
+	public synchronized void setSelectedWay(final Way selectedWay) {
+		if (selectedWay != null) {  // always restart
+			selectedWays = new LinkedList<Way>();
+			selectedWays.add(selectedWay);
+		} else {
+			selectedWays = null;
+		}
+		map.setSelectedWays(selectedWays);
+	}
+	
+	/**
+	 * Add wayss to the internal list
+	 */
+	public synchronized void addSelectedWay(final Way selectedWay) {
+		if (selectedWays == null) {
+			setSelectedWay(selectedWay);
+		} else {
+			if (!selectedWays.contains(selectedWay)) {
+				selectedWays.add(selectedWay);
+			}
+		}
+	}
+	
+	public void removeSelectedWay(Way way) {
+		if (selectedWays != null) {
+			selectedWays.remove(way);
+			if (selectedWays.size() == 0) {
+				selectedWays = null;
+			}
+		}
+	}
+	
+	/**
+	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 */
+	public synchronized void setSelectedRelation(final Relation selectedRelation) {
+		if (selectedRelations != null) {  // always restart
+			selectedRelations = new LinkedList<Relation>();
+			selectedRelations.add(selectedRelation);
+		} else {
+			selectedRelations = null;
+		}
+		if (selectedRelation != null) {
+			selectRelation(selectedRelation);
+		}
+	}
+	
+	public void removeSelectedRelation(Relation relation) {
+		if (selectedRelations != null) {
+			selectedRelations.remove(relation);
+			if (selectedRelations.size() == 0) {
+				selectedRelations = null;
+			}
+		}
+	}
+	
+	/**
+	 * Add Relationss to the internal list
+	 */
+	public synchronized void addSelectedRelation(final Relation selectedRelation) {
+		if (selectedRelations == null) {
+			setSelectedRelation(selectedRelation);
+		} else {
+			if (!selectedRelations.contains(selectedRelation)) {
+				selectedRelations.add(selectedRelation);
+			}
+		}
 	}
 	
 	/**
@@ -2564,23 +2688,50 @@ public class Logic {
 	}
 
 	/**
-	 * @return the selectedNode
+	 * @return the selectedNode (currently simply the first in the list)
 	 */
 	public final Node getSelectedNode() {
-		if (selectedNode != null && !exists(selectedNode)) {
-			selectedNode = null; // clear selection if node was deleted
+		if (selectedNodes != null && selectedNodes.size() > 0) {
+			if (!exists(selectedNodes.get(0))) {
+				selectedNodes = null; // clear selection if node was deleted
+				return null;
+			} else {
+				return selectedNodes.get(0);
+			}
 		}
-		return selectedNode;
+		return null;
 	}
 
 	/**
-	 * @return the selectedWay
+	 * Get list of selected nodes
+	 * @return
+	 */
+	public List<Node> getSelectedNodes() {
+		return selectedNodes;
+	}
+
+
+	/**
+	 * @return the selectedWay (currently simply the first in the list)
 	 */
 	public final Way getSelectedWay() {
-		if (selectedWay != null && !exists(selectedWay)) {
-			selectedWay = null; // clear selection if way was deleted
+		if (selectedWays != null && selectedWays.size() > 0) {
+			if (!exists(selectedWays.get(0))) {
+				selectedWays = null; // clear selection if node was deleted
+				return null;
+			} else {
+				return selectedWays.get(0);
+			}
 		}
-		return selectedWay;
+		return null;
+	}
+	
+	/**
+	 * Get list of selected ways
+	 * @return
+	 */
+	public List<Way> getSelectedWays() {
+		return selectedWays;
 	}
 	
 	/**
@@ -2730,13 +2881,13 @@ public class Logic {
 	 * If set to a non-null value, the map will highlight only elements in the list.
 	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
-	public void setSelectedRelationWays(Set<Way> ways) {
+	public void setSelectedRelationWays(List<Way> ways) {
 		selectedRelationWays = ways;
 	}
 	
 	public void addSelectedRelationWay(Way way) {
 		if (selectedRelationWays == null) {
-			selectedRelationWays = new HashSet<Way>();
+			selectedRelationWays = new LinkedList<Way>();
 		}
 		selectedRelationWays.add(way);
 	}
@@ -2747,7 +2898,7 @@ public class Logic {
 		}
 	}
 	
-	public Set<Way> getSelectedRelationWays() {
+	public List<Way> getSelectedRelationWays() {
 		return selectedRelationWays;
 	}
 
@@ -2764,6 +2915,8 @@ public class Logic {
 					addSelectedRelationWay((Way) e);
 				} else if (e.getName().equals("node")) {
 					addSelectedRelationNode((Node) e);
+				} else if (e.getName().equals("relation") && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
+					addSelectedRelationRelation((Relation) e);
 				} 
 			}
 		}
@@ -2775,13 +2928,13 @@ public class Logic {
 	 * If set to a non-null value, the map will highlight only elements in the list.
 	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
-	public void setSelectedRelationNodes(Set<Node> nodes) {
+	public void setSelectedRelationNodes(List<Node> nodes) {
 		selectedRelationNodes = nodes;
 	}
 	
 	public void addSelectedRelationNode(Node node) {
 		if (selectedRelationNodes == null) {
-			selectedRelationNodes = new HashSet<Node>();
+			selectedRelationNodes = new LinkedList<Node>();
 		}
 		selectedRelationNodes.add(node);
 	}
@@ -2792,10 +2945,43 @@ public class Logic {
 		}
 	}
 	
-	public Set<Node> getSelectedRelationNodes() {
+	public List<Node> getSelectedRelationNodes() {
 		return selectedRelationNodes;
 	}
-
+	
+	/**
+	 * Sets the set of relations that belong to a relation and should be highlighted. 
+	 * If set to null, the map will use default behaviour.
+	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
+	 */
+	public void setSelectedRelationRelations(List<Relation> relations) {
+		selectedRelationRelations = relations;
+		if (selectedRelationRelations != null) {
+			for (Relation r:selectedRelationRelations) {
+				selectRelation(r);
+			}
+		}
+	}
+	
+	public void addSelectedRelationRelation(Relation relation) {
+		if (selectedRelationRelations == null) {
+			selectedRelationRelations = new LinkedList<Relation>();
+		}
+		selectedRelationRelations.add(relation);
+	}
+	
+	public void removeSelectedRelationRelation(Relation relation) {
+		if (selectedRelationRelations != null) {
+			selectedRelationRelations.remove(relation);
+		}
+	}
+	
+	public List<Relation> getSelectedRelationRelations() {
+		return selectedRelationRelations;
+	}
+	
+	
 	public void fixElementWithConflict(long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
 		createCheckpoint(R.string.undo_action_fix_conflict);
 

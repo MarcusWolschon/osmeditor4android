@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.io.Serializable;
+import java.util.List;
 
 import android.util.Log;
 import de.blau.android.Logic;
@@ -17,23 +18,23 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 6L;
+	private static final long serialVersionUID = 7L;
 	Mode savedMode;
-	Node savedNode;
-	Way	savedWay;
-	Relation savedRelation;
+	List<Node> savedNodes;
+	List<Way> savedWays;
+	List<Relation> savedRelations;
 	Bug	savedBug;
 	String savedTileServerID;
 	Offset[] savedOffsets;
 	int savedMinZoom;
 
 	
-	public EditState(Mode mode, Node selectedNode, Way selectedWay,
-			Relation selectedRelation, Bug selectedBug, OpenStreetMapTileServer osmts) {
+	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
+			List<Relation> selectedRelations, Bug selectedBug, OpenStreetMapTileServer osmts) {
 		savedMode = mode;
-		savedNode = selectedNode;
-		savedWay = selectedWay;
-		savedRelation = selectedRelation;
+		savedNodes = selectedNodes;
+		savedWays = selectedWays;
+		savedRelations = selectedRelations;
 		savedBug = selectedBug;
 		savedTileServerID = osmts.getId();
 		savedOffsets = osmts.getOffsets();
@@ -43,12 +44,27 @@ public class EditState implements Serializable {
 	public void setSelected(Logic logic) {
 		logic.setMode(savedMode == null ? Mode.MODE_MOVE : savedMode);
 		Log.d("EditState","savedMode " + savedMode);
-		if (logic.exists(savedNode))
-			logic.setSelectedNode(savedNode);
-		if (logic.exists(savedWay))
-			logic.setSelectedWay(savedWay);
-		if (logic.exists(savedRelation))
-			logic.setSelectedRelation(savedRelation);
+		if (savedNodes != null) {
+			for (Node n:savedNodes) {
+				if (logic.exists(n)) {
+					logic.addSelectedNode(n);
+				}
+			}
+		}
+		if (savedWays != null) {
+			for (Way w:savedWays) {
+				if (logic.exists(w)) {
+					logic.addSelectedWay(w);
+				}
+			}
+		}
+		if (savedRelations != null) {
+			for (Relation r:savedRelations) {
+				if (logic.exists(r)) {
+					logic.addSelectedRelation(r);
+				}
+			}
+		}
 		// 
 		logic.setSelectedBug(savedBug);
 	}

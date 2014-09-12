@@ -1532,8 +1532,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
-		private AppendMode appendMode;
-
 		private List<OsmElement> clickedNodesAndWays;
 		private List<Bug> clickedBugs;
 		private List<Photo> clickedPhotos;
@@ -1616,9 +1614,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				case MODE_SPLIT:
 					selectElementForSplit(v, x, y);
 					break;
-				case MODE_APPEND:
-					performAppend(v, x, y);
-					break;
 				case MODE_EASYEDIT:
 					performEasyEdit(v, x, y);
 					break;
@@ -1633,8 +1628,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 						int res;
 						switch (mode) {
 						case MODE_ADD:
-						case MODE_EDIT:
-						case MODE_APPEND:
 						case MODE_ERASE:
 						case MODE_SPLIT:
 						case MODE_TAG_EDIT:
@@ -1801,43 +1794,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			default:
 				v.showContextMenu();
 				break;
-			}
-		}
-
-		/**
-		 * Appends a new Node to a selected Way. If any Way was yet selected, the user have to select one end-node
-		 * first. When the user clicks on an empty area, a new node will generated. When he clicks on a existing way,
-		 * the new node will be generated on that way. when he selects a different node, this one will be used. when he
-		 * selects the previous selected node, it will be de-selected.
-		 * 
-		 * @param x the click-position on the display.
-		 * @param y the click-position on the display.
-		 */
-		public void performAppend(final View v, final float x, final float y) {
-			Node lSelectedNode = logic.getSelectedNode();
-			Way lSelectedWay = logic.getSelectedWay();
-
-			if (lSelectedWay == null) {
-				clickedNodesAndWays = logic.getClickedEndNodes(x, y);
-				switch (clickedNodesAndWays.size()) {
-				case 0:
-					// no elements touched, ignore
-					break;
-				case 1:
-					logic.performAppendStart(clickedNodesAndWays.get(0));
-					break;
-				default:
-					appendMode = AppendMode.APPEND_START;
-					v.showContextMenu();
-					break;
-				}
-			} else if (lSelectedWay.isEndNode(lSelectedNode)) {
-				// TODO Resolve multiple possible selections
-				try {
-					logic.performAppendAppend(x, y);
-				} catch (OsmIllegalOperationException e) {
-					Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-				}
 			}
 		}
 		
@@ -2010,16 +1966,6 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 						break;
 					case MODE_SPLIT:
 						logic.performSplit((Node) element);
-						break;
-					case MODE_APPEND:
-						switch (appendMode) {
-						case APPEND_START:
-							logic.performAppendStart(element);
-							break;
-						case APPEND_APPEND:
-							// TODO
-							break;
-						}
 						break;
 					case MODE_EASYEDIT:
 						easyEditManager.editElement(element);

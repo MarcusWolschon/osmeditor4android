@@ -17,6 +17,7 @@
 	<color name="light_grey">#eeeeee</color>
 	<color name="dark_grey">#aaaaaa</color><color name="stroke">#000</color>
 	<color name="problem">#F0F</color>
+	<color name="relation">#A8FF7D</color>
 	<color name="motorway">#809BC0</color>
 	<color name="trunk">#7FC97F</color>
 	<color name="primary">#E46D71</color>

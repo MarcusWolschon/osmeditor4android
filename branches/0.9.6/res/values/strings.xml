@@ -185,6 +185,7 @@
     <string name="menu_restriction_to">Add restriction to</string>
     <string name="menu_relation">Create relation</string>
     <string name="menu_add_relation_member">Add member</string>
+    <string name="menu_select_relation_members">Select members</string>
     <string name="menu_tag">Edit tags</string>
     <string name="menu_openstreetbug">Add Note</string>
     <string name="menu_easyedit">EasyEdit</string>
@@ -218,6 +219,7 @@
     <string name="menu_orthogonalize">Orthogonalize</string>
     <string name="menu_circulize">Arrange in circle</string>
     <string name="menu_newnode_gps">New node at GPS pos.</string>
+    <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>
@@ -252,6 +254,7 @@
     <string name="actionmode_nodeselect">Node selected</string>
     <string name="actionmode_relationselect">Relation selected</string>
     <string name="actionmode_createpath">Creating path</string>
+    <string name="actionmode_multiselect">Multi-Select</string>
     <!-- Preferences -->
     <string name="config_category_view">View Settings</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
@@ -364,6 +367,7 @@
     <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">move node</string>
     <string name="undo_action_moveway">move way</string>
+    <string name="undo_action_moveobjects">move objects</string>
     <string name="undo_action_add">insert</string>
     <string name="undo_action_append">append</string>
     <string name="undo_action_deletenode">delete node</string>
