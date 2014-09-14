@@ -1271,6 +1271,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 			@Override
 			protected void onPostExecute(Void result) {
+				map.getPhotosOverlay().resetRect();
 				map.invalidate(); 
 			}
 
