@@ -871,7 +871,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			parentRelationsLayout.removeAllViews();
 			for (Long id :  parents.keySet()) {
 				Relation r = (Relation) Main.logic.delegator.getOsmElement(Relation.NAME, id.longValue());
-				insertNewMembership(parents.get(id),r,0);
+				insertNewMembership(parents.get(id),r,0, false);
 			}
 		}
 	}
@@ -881,7 +881,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			LinearLayout l = (LinearLayout) findViewById(R.id.membership_heading_view);
 			l.setVisibility(View.VISIBLE);
 		}
-		insertNewMembership(null,null,-1);
+		insertNewMembership(null,null,-1, true);
 	}
 	
 	/** 
@@ -1760,12 +1760,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	 * @param role		role of this element in the relation
 	 * @param r			the relation
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
+	 * @param showSpinner TODO
 	 * @return the new RelationMembershipRow
 	 */
-	protected RelationMembershipRow insertNewMembership(final String role, final Relation r, final int position) {
+	protected RelationMembershipRow insertNewMembership(final String role, final Relation r, final int position, boolean showSpinner) {
 		RelationMembershipRow row = (RelationMembershipRow)View.inflate(this, R.layout.relation_membership_row, null);
-		if (r != null) row.setValues(role, r);
+		if (r != null) {
+			row.setValues(role, r);
+		}
 		parentRelationsLayout.addView(row, (position == -1) ? parentRelationsLayout.getChildCount() : position);
+		row.showSpinner = showSpinner;
 		return row;
 	}
 	
@@ -1779,6 +1783,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		private AutoCompleteTextView roleEdit;
 		private Spinner parentEdit;
 		private ArrayAdapter<String> roleAdapter; 
+		public boolean showSpinner = false;
 		
 		public RelationMembershipRow(Context context) {
 			super(context);
@@ -1929,6 +1934,18 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 			}
 			owner.parentRelationsLayout.removeView(this);
 		}
+		
+		/**
+		 * awlful hack to show spinner after insert
+		 */
+		@Override
+		public void onWindowFocusChanged (boolean hasFocus) {
+			super.onWindowFocusChanged(hasFocus);
+			if (showSpinner) {
+				parentEdit.performClick();
+				showSpinner = false;
+			}
+		}
 	}
 	    
     @Override
@@ -1939,8 +1956,9 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
         // parent.getItemAtPosition(pos)
     	Log.d("TagEditor", ((Relation)parent.getItemAtPosition(pos)).getDescription());
     	ViewParent pv = view.getParent();
-    	while (!(pv instanceof RelationMembershipRow))
+    	while (!(pv instanceof RelationMembershipRow)) {
     		pv = pv.getParent();
+    	}
     	((RelationMembershipRow)pv).setRelation((Relation)parent.getItemAtPosition(pos));	
     }
 

@@ -114,6 +114,7 @@
     <string name="toast_file_not_found">%1$s not found.</string>
     <string name="toast_imported_track_points">Imported %1$s track points.</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
+    <string name="toast_camera_error">Error starting camera app: %1$s</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -189,6 +190,7 @@
     <string name="menu_tag">Edit tags</string>
     <string name="menu_openstreetbug">Add Note</string>
     <string name="menu_easyedit">EasyEdit</string>
+    <string name="menu_camera">Camera</string>
     <string name="menu_gps">GPS…</string>
     <string name="menu_gps_show">Show location</string>
     <string name="menu_gps_follow">Follow GPS position</string>
@@ -256,7 +258,9 @@
     <string name="actionmode_createpath">Creating path</string>
     <string name="actionmode_multiselect">Multi-Select</string>
     <!-- Preferences -->
-    <string name="config_category_view">View Settings</string>
+    <string name="config_category_view">User Interface Settings</string>
+    <string name="config_showCameraAction_title">Show camera action</string>
+    <string name="config_showCameraAction_summary">Show camera icon on action bar</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this</string>
     <string name="config_tileCacheSize_title">Tile cache size</string>
@@ -327,6 +331,7 @@
 	<string name="config_gps_source_summary">Source of GPS location updates</string>
 	<string name="config_gps_source_tcp_title">NMEA network source</string>
 	<string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port</string>
+	<string name="config_category_misc">Miscellaneous</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

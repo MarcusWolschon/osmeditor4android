@@ -37,6 +37,7 @@
     <string name="config_closeChangesetOnSave_key">closeChangesetOnSave</string>
     <string name="config_splitActionBarEnabled_key">splitActionBarEnabled</string>
     <string name="config_offsetServer_key">offsetServer</string>
+    <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_gps_source_key">gpsSourceKey</string>
     <string-array name="gps_source_keys">
 	<item>internal</item>
