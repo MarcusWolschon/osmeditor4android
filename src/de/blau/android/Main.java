@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
@@ -29,10 +33,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Html;
 import android.util.Log;
@@ -95,6 +101,7 @@ import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.photos.Photo;
+import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -144,6 +151,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 * Requests a file as an activity-result.
 	 */
 	public static final int READ_GPX_FILE_SELECT_CODE = 4;
+	
+	/**
+	 * Requests an activity-result.
+	 */
+	public static final int REQUEST_IMAGE_CAPTURE = 5;
 	
 	/**
 	 * Where we install the current version of vespucci
@@ -714,6 +726,15 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
 		
+		// only show camera icon if we have a camera, and a camera app is installed 
+		PackageManager pm = getPackageManager();
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null) {
+			menu.findItem(R.id.menu_camera).setShowAsAction(prefs.showCameraAction() ? MenuItem.SHOW_AS_ACTION_ALWAYS: MenuItem.SHOW_AS_ACTION_NEVER);
+		} else {
+			menu.findItem(R.id.menu_camera).setVisible(false);
+		}
+		
 		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
 		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
 		menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking());
@@ -752,6 +773,20 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
 			startHelpViewer.putExtra(HelpViewer.TOPIC, "Main");
 			startActivity(startHelpViewer);
+			return true;
+			
+		case R.id.menu_camera:
+			Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			try {
+				startCamera.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(getImageFile()));
+				startActivityForResult(startCamera, REQUEST_IMAGE_CAPTURE);	
+			} catch (Exception ex) {
+				try {
+					Toast.makeText(this,getResources().getString(R.string.toast_camera_error, ex.getMessage()), Toast.LENGTH_LONG).show();
+				} catch (Exception e) {
+					// protect against translation errors
+				}
+			}
 			return true;
 
 		case R.id.menu_gps_show:
@@ -892,11 +927,33 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
 			return true;
 			
-		}
-		
+		}	
 		return false;
 	}
 
+	@SuppressLint("NewApi")
+	private File getImageFile() throws IOException {
+	    // Create an image file name
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    String imageFileName = timeStamp;
+	    File outdir = null;
+//	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+//	    	outdir = Environment.getExternalStoragePublicDirectory(
+//	                Environment.DIRECTORY_PICTURES);
+//	    	outdir.mkdir();
+//	    } else { // oS version 8
+	    	File sdcard = Environment.getExternalStorageDirectory();
+	    	outdir = new File(sdcard, "Vespucci");
+	    	outdir.mkdir(); // ensure directory exists;
+	    	outdir = new File(outdir,"Pictures");
+	    	outdir.mkdir();
+//	    }
+	    
+	    File imageFile = File.createTempFile(imageFileName,".jpg",outdir);
+	    Log.d("Main","createImageFile " + imageFile.getAbsolutePath());
+	    return imageFile;
+	}
+	
 	private void showFileChooser(int purpose) {
 	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT); 
 	    intent.setType("*/*"); 
@@ -1135,6 +1192,8 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	        	}
 	        }
 	        map.invalidate();
+		} else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && prefs.isPhotoLayerEnabled()) {
+			reindexPhotos();
 		}
 	}
 
@@ -1188,6 +1247,34 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			logic.setSelectedRelation(null);
 		}
 		map.invalidate();
+	}
+	
+	void reindexPhotos() {
+		new AsyncTask<Void, Integer, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				PhotoIndex pi = new PhotoIndex(Application.mainActivity);
+				publishProgress(0);
+				pi.createOrUpdateIndex();
+				publishProgress(1);
+				return null;
+			}
+
+			@Override
+			protected void onProgressUpdate(Integer ... progress) {
+				if (progress[0] == 0)
+					Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
+				if (progress[0] == 1)
+					Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				map.invalidate(); 
+			}
+
+		}.execute();
 	}
 	
 	@Override

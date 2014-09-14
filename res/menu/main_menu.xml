@@ -11,6 +11,13 @@
 	/>
     	
 	<item
+		android:id="@+id/menu_camera"
+		android:title="@string/menu_camera"
+		android:icon="@drawable/camera"
+		android:showAsAction="always"
+	/>	
+	
+	<item
 		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
 		android:icon="@drawable/menu_gps"

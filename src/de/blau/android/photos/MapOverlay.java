@@ -107,7 +107,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		cur = new Rect();
 		photos = new ArrayList<Photo>();
 		handler = new Handler();
-		icon = Application.mainActivity.getResources().getDrawable(R.drawable.camera);
+		icon = Application.mainActivity.getResources().getDrawable(R.drawable.camera_red);
 		icon_selected = Application.mainActivity.getResources().getDrawable(R.drawable.camera_green);
 	}
 	
@@ -132,8 +132,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			}
 			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
 			if (!cur.equals(prev)) {
-				// map has moved/zoomed - need to refresh the bugs on display
-				// don't flood OSB with requests - wait for 2s
+				// map has moved/zoomed - need to refresh the photos on display
 				handler.removeCallbacks(getPhotos);
 				handler.postDelayed(getPhotos, 500); // half a second delay
 			}

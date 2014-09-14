@@ -69,6 +69,8 @@ public class Preferences {
 	
 	private final String offsetServer;
 	
+	private final boolean showCameraAction;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -154,6 +156,7 @@ public class Preferences {
 		}
 		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
+		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 	}
 	
 	/**
@@ -331,5 +334,9 @@ public class Preferences {
 
 	public String getOffsetServer() {
 		return offsetServer;
+	}
+	
+	public boolean showCameraAction() {
+		return showCameraAction;
 	}
 }
