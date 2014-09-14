@@ -839,6 +839,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_APPEND = 8;
 		private static final int MENUITEM_JOIN = 9;
 		private static final int MENUITEM_UNJOIN = 10;
+		private static final int MENUITEM_EXTRACT = 11;
 		
 		private static final int MENUITEM_SET_POSITION = 15;
 		
@@ -872,8 +873,12 @@ public class EasyEditManager {
 			if (joinableElement != null) {
 				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(R.drawable.tag_menu_merge).setShowAsAction(showAlways());
 			}
-			if (logic.getWaysForNode((Node)element).size() > 1) {
+			int wayMembershipCount = logic.getWaysForNode((Node)element).size();
+			if (wayMembershipCount > 1) {
 				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
+			}
+			if (wayMembershipCount > 0) {
+				menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract).setIcon(R.drawable.extract_node).setShowAsAction(showAlways());
 			}
 			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position).setIcon(R.drawable.menu_gps).setShowAsAction(showAlways());
 			return true;
@@ -903,6 +908,9 @@ public class EasyEditManager {
 				case MENUITEM_UNJOIN:
 					logic.performUnjoin((Node)element);
 					mode.finish();
+					break;
+				case MENUITEM_EXTRACT:
+					logic.performExtract((Node)element);
 					break;
 				case MENUITEM_SET_POSITION: 
 					setPosition(); 
