@@ -1401,6 +1401,19 @@ public class Logic {
 		map.invalidate();
 	}
 
+	/**
+	 * Replace node in all ways it is a member of with a new node,
+	 * leaving node selected, if it already is. Note: relation memberships are not modified
+	 * 
+	 * @param node
+	 */
+	public void performExtract(final Node node) {
+		if (node != null) {
+			createCheckpoint(R.string.undo_action_extract_node);
+			delegator.replaceNode(node);
+			map.invalidate();
+		}
+	}
 	
 	/**
 	 * If any ways are close to the node (within the tolerance), return the way.

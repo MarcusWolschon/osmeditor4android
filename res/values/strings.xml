@@ -178,6 +178,7 @@
     <string name="menu_erase">Erase node</string>
     <string name="menu_set_position">Position</string>
     <string name="menu_split">Split</string>
+    <string name="menu_extract">Extract node</string>
     <string name="menu_closed_way_split_1">Split closed way, 1st node</string>
     <string name="menu_closed_way_split_2">Split closed way, 2nd node</string>
     <string name="menu_append">Append</string>
@@ -393,6 +394,7 @@
     <string name="undo_action_orthogonalize">orthogonalize way</string>
     <string name="undo_action_circulize">arrange in circle</string>
     <string name="undo_action_fix_conflict">fix conflict</string>
+    <string name="undo_action_extract_node">extract node</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed or found a serious issue. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed or found a serious issue.</string>

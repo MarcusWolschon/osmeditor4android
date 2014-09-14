@@ -802,8 +802,8 @@ public class StorageDelegator implements Serializable, Exportable {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
-	}
-	
+	}	
+
 	/**
 	 * Merge two nodes into one.
 	 * Updated for relation support
@@ -1011,6 +1011,22 @@ public class StorageDelegator implements Serializable, Exportable {
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Replace the given node in any ways it is member of.
+	 * @param node The node to be replaced.
+	 */
+	public void replaceNode(final  Node node) {
+		List<Way> ways = currentStorage.getWays(node);
+		if (ways.size() > 0) {
+			Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
+			insertElementUnsafe(newNode);
+			dirty = true;
+			for (Way way : ways) {
+				replaceNodeInWay(node, newNode,  way);
+			}
 		}
 	}
 	
