@@ -168,6 +168,10 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		// do nothing
 	}
 	
+	public void resetRect() {
+		prev = new Rect();
+	}
+	
 	/**
 	 * Given screen coordinates, find all nearby photos.
 	 * @param x Screen X-coordinate.
