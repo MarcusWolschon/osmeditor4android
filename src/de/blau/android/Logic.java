@@ -1786,7 +1786,9 @@ public class Logic {
 							}
 						}	
 						try {
-							Application.mainActivity.showDialog(result);
+							if (!Application.mainActivity.isFinishing()) {
+								Application.mainActivity.showDialog(result);
+							}
 						} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(ex);
@@ -2078,7 +2080,9 @@ public class Logic {
 						}
 					}
 					try {
-						Application.mainActivity.showDialog(result);
+						if (!Application.mainActivity.isFinishing()) {
+							Application.mainActivity.showDialog(result);
+						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
@@ -2157,7 +2161,9 @@ public class Logic {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					Application.mainActivity.showDialog(result);
+					if (!Application.mainActivity.isFinishing()) {
+						Application.mainActivity.showDialog(result);
+					}
 				}
 			}
 			
@@ -2378,10 +2384,12 @@ public class Logic {
 				}
 				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
-				if (result.error == DialogFactory.UPLOAD_CONFLICT) {
-					DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
-				} else if (result.error != 0) {
-					Application.mainActivity.showDialog(result.error);
+				if (!Application.mainActivity.isFinishing()) {
+					if (result.error == DialogFactory.UPLOAD_CONFLICT) {
+						DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
+					} else if (result.error != 0) {
+						Application.mainActivity.showDialog(result.error);
+					}
 				}
 			}
 			
@@ -2461,7 +2469,9 @@ public class Logic {
 				}
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
-					Application.mainActivity.showDialog(result);
+					if (!Application.mainActivity.isFinishing()) {
+						Application.mainActivity.showDialog(result);
+					}
 				}
 			}
 			
