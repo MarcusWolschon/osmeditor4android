@@ -43,6 +43,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.Main.UndoListener;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -87,6 +88,15 @@ public class EasyEditManager {
 	 */
 	public boolean isProcessingAction() {
 		return (currentActionModeCallback != null);
+	}
+	
+	/**
+	 * call if you need to abort the current action mode
+	 */
+	public void finish() {
+		if (currentActionMode != null) {
+			currentActionMode.finish();
+		}
 	}
 	
 	/**
@@ -737,6 +747,7 @@ public class EasyEditManager {
 	 *
 	 */
 	private abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
+		private static final int MENUITEM_UNDO = 0;
 		private static final int MENUITEM_TAG = 1;
 		private static final int MENUITEM_DELETE = 2;
 		private static final int MENUITEM_HISTORY = 3; 
@@ -752,9 +763,12 @@ public class EasyEditManager {
 		
 		protected boolean deselect = true;
 		
+		protected UndoListener undoListener; 
+		
 		public ElementSelectionActionModeCallback(OsmElement element) {
 			super();
 			this.element = element;
+			undoListener = main.new UndoListener(); 
 		}
 		
 		/**
@@ -776,6 +790,14 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			
+			main.getSupportMenuInflater().inflate(R.menu.undo_action, menu);
+			MenuItem undo = menu.findItem(R.id.undo_action);
+			undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
+			View undoView = undo.getActionView();
+			undoView.setOnClickListener(undoListener);
+			undoView.setOnLongClickListener(undoListener);
+			
 			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);

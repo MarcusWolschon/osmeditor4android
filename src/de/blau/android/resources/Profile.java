@@ -510,6 +510,7 @@ public class Profile  extends DefaultHandler {
 		fp = new FeatureProfile(CROSSHAIRS); 
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
+		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
 		fp.dontUpdate();
 		featureProfiles.put(fp.getName(), fp);
 		

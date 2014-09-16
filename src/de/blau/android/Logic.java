@@ -2733,6 +2733,13 @@ public class Logic {
 		return selectedNodes;
 	}
 
+	/**
+	 * Return how many nodes are selected
+	 * @return
+	 */
+	public int selectedNodesCount() {
+		return selectedNodes == null ? 0 : selectedNodes.size();
+	}
 
 	/**
 	 * @return the selectedWay (currently simply the first in the list)
@@ -2755,6 +2762,63 @@ public class Logic {
 	 */
 	public List<Way> getSelectedWays() {
 		return selectedWays;
+	}
+	
+	/**
+	 * Return how many ways are selected
+	 * @return
+	 */
+	public int selectedWaysCount() {
+		return selectedWays == null ? 0 : selectedWays.size();
+	}
+	
+	/**
+	 * Get list of selected ways
+	 * @return
+	 */
+	public List<Relation> getSelectedRelations() {
+		return selectedRelations;
+	}
+	
+	/**
+	 * Return how many ways are selected
+	 * @return
+	 */
+	public int selectedRelationsCount() {
+		return selectedRelations == null ? 0 : selectedRelations.size();
+	}
+	
+	/**
+	 * Check is all selected elements exist, return true if we actually had to remove something
+	 * @return
+	 */
+	boolean resyncSelected() {
+		boolean result = false;
+		if (selectedNodes != null && selectedNodes.size() > 0) {
+			for (Node n:new ArrayList<Node>(selectedNodes)) {
+				if (!delegator.getCurrentStorage().contains(n)) {
+					selectedNodes.remove(n);
+					result = true;
+				}
+			}
+		}
+		if (selectedWays != null && selectedWays.size() > 0) {
+			for (Way w:new ArrayList<Way>(selectedWays)) {
+				if (!delegator.getCurrentStorage().contains(w)) {
+					selectedWays.remove(w);
+					result = true;
+				}
+			}
+		}
+		if (selectedRelations != null && selectedRelations.size() > 0) {
+			for (Relation r:new ArrayList<Relation>(selectedRelations)) {
+				if (!delegator.getCurrentStorage().contains(r)) {
+					selectedRelations.remove(r);
+					result = true;
+				}
+			}
+		}
+		return result;
 	}
 	
 	/**
@@ -3189,5 +3253,4 @@ public class Logic {
 	public float latE7ToY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
 	}
-
 }

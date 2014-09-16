@@ -262,7 +262,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	private TrackerService tracker = null;
 
-	private UndoListener undoListener;
+	public UndoListener undoListener;
 	
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
 
@@ -1595,6 +1595,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			} else {
 				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
+			}
+			// check that we haven't just removed a selected element
+			if (logic.resyncSelected()) {
+				// only need to test if anything at all is still selected
+				if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0 ) {
+					easyEditManager.finish();
+				}
 			}
 			map.invalidate();
 		}
