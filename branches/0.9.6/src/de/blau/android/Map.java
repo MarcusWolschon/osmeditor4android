@@ -296,8 +296,9 @@ public class Map extends View implements IMapView {
 			osmvo.onManagedDraw(canvas, this);
 		}
 		
-		if (zoomLevel >12)
+		if (zoomLevel >12) {
 			paintOsmData(canvas);
+		}
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
 				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modiciaftion issues
