@@ -1849,7 +1849,9 @@ public class Logic {
 							}
 						}	
 						try {
-							Application.mainActivity.showDialog(result);
+							if (!Application.mainActivity.isFinishing()) {
+								Application.mainActivity.showDialog(result);
+							}
 						} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(ex);
@@ -2141,7 +2143,9 @@ public class Logic {
 						}
 					}
 					try {
-						Application.mainActivity.showDialog(result);
+						if (!Application.mainActivity.isFinishing()) {
+							Application.mainActivity.showDialog(result);
+						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
@@ -2220,7 +2224,9 @@ public class Logic {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
-					Application.mainActivity.showDialog(result);
+					if (!Application.mainActivity.isFinishing()) {
+						Application.mainActivity.showDialog(result);
+					}
 				}
 			}
 			
@@ -2446,10 +2452,12 @@ public class Logic {
 				}
 				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
-				if (result.error == DialogFactory.UPLOAD_CONFLICT) {
-					DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
-				} else if (result.error != 0) {
-					Application.mainActivity.showDialog(result.error);
+				if (!Application.mainActivity.isFinishing()) {
+					if (result.error == DialogFactory.UPLOAD_CONFLICT) {
+						DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
+					} else if (result.error != 0) {
+						Application.mainActivity.showDialog(result.error);
+					}
 				}
 			}
 			
@@ -2529,7 +2537,9 @@ public class Logic {
 				}
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
-					Application.mainActivity.showDialog(result);
+					if (!Application.mainActivity.isFinishing()) {
+						Application.mainActivity.showDialog(result);
+					}
 				}
 			}
 			
@@ -2924,11 +2934,11 @@ public class Logic {
 		for (RelationMember rm : r.getMembers()) {
 			OsmElement e = rm.getElement();
 			if (e != null) {
-				if (e.getName().equals("way")) {
+				if (e.getName().equals(Way.NAME)) {
 					addSelectedRelationWay((Way) e);
-				} else if (e.getName().equals("node")) {
+				} else if (e.getName().equals(Node.NAME)) {
 					addSelectedRelationNode((Node) e);
-				} else if (e.getName().equals("relation") && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
+				} else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
 					addSelectedRelationRelation((Relation) e);
 				} 
 			}

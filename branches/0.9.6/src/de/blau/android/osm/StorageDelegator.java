@@ -236,7 +236,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		
 		try {
-			if (way.length() + 1 > Way.maxWayNodes)
+			if (way.nodeCount() + 1 > Way.maxWayNodes)
 				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNode(node);
@@ -252,7 +252,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		
 		try {
-			if (way.length() + 1 > Way.maxWayNodes)
+			if (way.nodeCount() + 1 > Way.maxWayNodes)
 				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.addNodeAfter(nodeBefore, newNode);
@@ -267,7 +267,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(way);
 		try {
-			if (way.length() + 1 > Way.maxWayNodes)
+			if (way.nodeCount() + 1 > Way.maxWayNodes)
 				throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 			apiStorage.insertElementSafe(way);
 			way.appendNode(refNode, nextNode);
@@ -848,7 +848,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public boolean mergeWays(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		boolean mergeOK = true;
 		
-		if ((mergeInto.length() + mergeFrom.length()) > Way.maxWayNodes)
+		if ((mergeInto.nodeCount() + mergeFrom.nodeCount()) > Way.maxWayNodes)
 			throw new OsmIllegalOperationException(Application.mainActivity.getString(R.string.exception_too_many_nodes));
 		
 		// first determine if one of the ways already has a valid id, if it is not and other way has valid id swap

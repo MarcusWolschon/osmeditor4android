@@ -40,6 +40,9 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
@@ -71,6 +74,7 @@ import android.widget.ZoomControls;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.ResourcesCompat;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -120,7 +124,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  * 
  * @author mb
  */
-public class Main extends SherlockActivity implements OnNavigationListener, ServiceConnection, TrackerLocationListener {
+public class Main extends SherlockFragmentActivity implements OnNavigationListener, ServiceConnection, TrackerLocationListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -362,42 +366,36 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		String lastVersion = savingHelperVersion.load(VERSION_FILE, false);
 		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
 		
-		//Load previous logic (inkl. StorageDelegator)
-		logic = (Logic) getLastNonConfigurationInstance();
 		loadOnResume = false;
-		if (logic == null) {
-			Log.i("Main", "onCreate - creating new logic");
-			logic = new Logic(map, new Profile(getApplicationContext()));
-			if (isLastActivityAvailable()) {
-				// Start loading after resume to ensure loading dialog can be removed afterwards
-				loadOnResume = true;
-			} else {
-				if (geoData == null && rcData == null) {
-					// check if we have a position
-					Location loc = getLastLocation();
-					BoundingBox box = null;
-					if (loc != null) {
-						try {
-							box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
+		
+		Log.i("Main", "onCreate - creating new logic");
+		logic = new Logic(map, new Profile(getApplicationContext()));
+		if (isLastActivityAvailable()) {
+			// Start loading after resume to ensure loading dialog can be removed afterwards
+			loadOnResume = true;
+		} else {
+			if (geoData == null && rcData == null) {
+				// check if we have a position
+				Location loc = getLastLocation();
+				BoundingBox box = null;
+				if (loc != null) {
+					try {
+						box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
 								loc.getLongitude(), 1000); // a km hardwired for now
-						} catch (OsmException e) {
-							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-							ACRA.getErrorReporter().handleException(e);
-						}
-					}
-					openEmptyMap(box);
-					
-					// only show box picker if we are not showing welcome dialog
-					if (!newInstall) {
-						gotoBoxPicker();
+					} catch (OsmException e) {
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(e);
 					}
 				}
+				openEmptyMap(box);
+
+				// only show box picker if we are not showing welcome dialog
+				if (!newInstall) {
+					gotoBoxPicker();
+				}
 			}
-		} else {
-			Log.i("Main", "onCreate - using logic from getLastNonConfigurationInstance");
-			logic.setMap(map);
 		}
-		
+	
 		easyEditManager = new EasyEditManager(this, logic);
 		
 		// show welcome dialog
@@ -601,11 +599,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		zoomControls.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
 	}
 	
-	@Override
-	public Object onRetainNonConfigurationInstance() {
-		Log.d("Main", "onRetainNonConfigurationInstance");
-		return logic;
-	}
+//	@Override
+//	public Object onRetainNonConfigurationInstance() {
+//		Log.d("Main", "onRetainNonConfigurationInstance");
+//		return logic;
+//	}
 
 	
 	
@@ -1965,7 +1963,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				Mode mode = logic.getMode();
 				for (OsmElement e : clickedNodesAndWays) {
 					android.view.MenuItem mi = menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
-					mi.setEnabled(mode != Mode.MODE_MOVE);
+					// mi.setEnabled(mode != Mode.MODE_MOVE);
 				}
 			}
 		}
@@ -2031,6 +2029,9 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 				if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
 					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (logic.getMode()) {
+					case MODE_MOVE:
+						showElementInfo(element);
+						break;
 					case MODE_TAG_EDIT:
 						performTagEdit(element, null, false);
 						break;
@@ -2441,5 +2442,23 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	 */
 	public void setTracker(TrackerService tracker) {
 		this.tracker = tracker;
+	}
+
+	/**
+	 * Display some information about the element, for now simply as Dialog
+	 * @param element
+	 */
+	public void showElementInfo(OsmElement element) {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+	    Fragment prev = fm.findFragmentByTag("fragment_element_info");
+	    if (prev != null) {
+	        ft.remove(prev);
+	    }
+	    ft.addToBackStack(null);
+	    ft.commit();
+
+        ElementInfoFragment elementInfoDialog = ElementInfoFragment.newInstance(element);
+        elementInfoDialog.show(fm, "fragment_element_info");
 	}
 }

@@ -77,6 +77,17 @@
     <string name="save_file">Enter file to save to</string>
     <string name="existing_track_title">Existing track data</string>
     <string name="existing_track_message">You already have existing track data. You may want to cancel and save first.</string>
+    <string name="element_information">Element information</string>
+    <string name="id">Id</string>
+    <string name="nodes">Nodes</string>
+    <string name="relation_membership">Relation membership</string>
+    <string name="problem">Problem</string>
+    <string name="members">Members</string>
+    <string name="closed">Closed</string>
+    <string name="version">Version</string>
+    <string name="length_m">Length (m)</string>
+    <string name="not_downloaded">Not downloaded</string>
+    <string name="empty_role">empty role</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -102,6 +113,7 @@
     <string name="toast_download_failed">Download failed with error code %1$d, message %2$s</string>
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road has no name or ref</string>
+    <string name="toast_notype">Relation has no type</string>
     <string name="toast_oauth_retry">Please allow OAuth access to your OSM account and then retry the upload.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
@@ -223,6 +235,7 @@
     <string name="menu_circulize">Arrange in circle</string>
     <string name="menu_newnode_gps">New node at GPS pos.</string>
     <string name="menu_extend_selection">Extend selection</string>
+    <string name="menu_information">Info</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>

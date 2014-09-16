@@ -55,6 +55,9 @@ import android.widget.BaseAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
@@ -830,10 +833,10 @@ public class Preset {
 			} else {
 				String[] typesArray = types.split(",");
 				for (String type : typesArray) {
-					if ("node".equals(type)) setAppliesToNode();
-					else if ("way".equals(type)) setAppliesToWay();
+					if (Node.NAME.equals(type)) setAppliesToNode();
+					else if (Way.NAME.equals(type)) setAppliesToWay();
 					else if ("closedway".equals(type)) setAppliesToClosedway();
-					else if ("relation".equals(type)) setAppliesToRelation();
+					else if (Relation.NAME.equals(type)) setAppliesToRelation();
 				}
 			}	
 			itemIndex = allItems.size();

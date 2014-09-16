@@ -405,6 +405,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		return cachedHasProblem;
 	}
 	
+	/**
+	 * Call if you have made a change that potentially changes the problem state of the element
+	 */
+	public void resetHasProblem() {
+		cachedHasProblem = null;
+	}
 	
 	/** (see also {@link #getName()} - this returns the full type, differentiating between open and closed ways) 
 	 * @return the {@link ElementType} of the element */

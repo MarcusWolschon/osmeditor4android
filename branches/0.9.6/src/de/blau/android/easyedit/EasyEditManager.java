@@ -20,6 +20,9 @@ import android.content.res.Resources.NotFoundException;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
@@ -35,6 +38,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
+import de.blau.android.ElementInfoFragment;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -740,6 +744,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_CUT = 5;
 		private static final int MENUITEM_RELATION = 6;
 		private static final int MENUITEM_EXTEND_SELECTION = 7;
+		private static final int MENUITEM_ELEMENT_INFO = 8;
 		
 		private static final int MENUITEM_TAG_LAST = 20;
 		
@@ -783,6 +788,7 @@ public class EasyEditManager {
 			if (element.getOsmId() > 0) {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
 			}
+			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setIcon(R.drawable.tag_menu_mapfeatures);;
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
 			return true;
 		}
@@ -799,6 +805,7 @@ public class EasyEditManager {
 			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startActionMode(new  ExtendSelectionActionModeCallback(element)); break;
+			case MENUITEM_ELEMENT_INFO: main.showElementInfo(element); break;
 			default: return false;
 			}
 			return true;
@@ -836,10 +843,10 @@ public class EasyEditManager {
 	}
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
-		private static final int MENUITEM_APPEND = 8;
-		private static final int MENUITEM_JOIN = 9;
-		private static final int MENUITEM_UNJOIN = 10;
-		private static final int MENUITEM_EXTRACT = 11;
+		private static final int MENUITEM_APPEND = 9;
+		private static final int MENUITEM_JOIN = 10;
+		private static final int MENUITEM_UNJOIN = 11;
+		private static final int MENUITEM_EXTRACT = 12;
 		
 		private static final int MENUITEM_SET_POSITION = 15;
 		
@@ -993,15 +1000,15 @@ public class EasyEditManager {
 	}
 	
 	private class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
-		private static final int MENUITEM_SPLIT = 8;
-		private static final int MENUITEM_MERGE = 9;
-		private static final int MENUITEM_REVERSE = 10;
-		private static final int MENUITEM_APPEND = 11;
-		private static final int MENUITEM_RESTRICTION = 12;
-		private static final int MENUITEM_ROTATE = 13;
-		private static final int MENUITEM_ORTHOGONALIZE = 14;
-		private static final int MENUITEM_CIRCULIZE = 15;
-		private static final int MENUITEM_ADDRESS = 16;
+		private static final int MENUITEM_SPLIT = 9;
+		private static final int MENUITEM_MERGE = 10;
+		private static final int MENUITEM_REVERSE = 11;
+		private static final int MENUITEM_APPEND = 12;
+		private static final int MENUITEM_RESTRICTION = 13;
+		private static final int MENUITEM_ROTATE = 14;
+		private static final int MENUITEM_ORTHOGONALIZE = 15;
+		private static final int MENUITEM_CIRCULIZE = 16;
+		private static final int MENUITEM_ADDRESS = 17;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -1321,8 +1328,8 @@ public class EasyEditManager {
 	
 	private class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
 	
-		private static final int MENUITEM_ADD_RELATION_MEMBERS = 8;
-		private static final int MENUITEM_SELECT_RELATION_MEMBERS = 9;
+		private static final int MENUITEM_ADD_RELATION_MEMBERS = 9;
+		private static final int MENUITEM_SELECT_RELATION_MEMBERS = 10;
 		
 		private RelationSelectionActionModeCallback(Relation relation) {
 			super(relation);
@@ -1450,7 +1457,7 @@ public class EasyEditManager {
 			super();
 			fromWay = from;
 			viaElement = via;
-			if (viaElement.getName().equals("node")) {
+			if (viaElement.getName().equals(Node.NAME)) {
 				cachedToElements = findToElements(null, (Node) viaElement);
 			} else {
 				// need to find the right end of the way
@@ -1467,7 +1474,7 @@ public class EasyEditManager {
 			mode.setTitle(R.string.menu_restriction_to);
 			logic.setClickableElements(cachedToElements);
 			logic.setReturnRelations(false);
-			if (viaElement.getName().equals("node")) {
+			if (viaElement.getName().equals(Node.NAME)) {
 				logic.addSelectedRelationNode((Node) viaElement);
 			} else {
 				logic.addSelectedRelationWay((Way) viaElement);
@@ -1569,11 +1576,11 @@ public class EasyEditManager {
 		
 		private void addElement(OsmElement element) {
 			members.add(element);
-			if (element.getName().equals("way")) {
+			if (element.getName().equals(Way.NAME)) {
 				logic.addSelectedRelationWay((Way)element);
-			} else if (element.getName().equals("node")) {
+			} else if (element.getName().equals(Node.NAME)) {
 				logic.addSelectedRelationNode((Node)element);
-			} else if (element.getName().equals("relation")) {
+			} else if (element.getName().equals(Relation.NAME)) {
 				logic.addSelectedRelationRelation((Relation)element);
 			}
 		}
@@ -1606,9 +1613,9 @@ public class EasyEditManager {
 				case MENUITEM_REVERT: // remove last item in list
 					if(members.size() > 0) {
 						OsmElement element = members.get(members.size()-1);
-						if (element.getName().equals("way"))
+						if (element.getName().equals(Way.NAME))
 							logic.removeSelectedRelationWay((Way)element);
-						else if (element.getName().equals("node"))
+						else if (element.getName().equals(Node.NAME))
 							logic.removeSelectedRelationNode((Node)element);
 						members.remove(members.size()-1);
 						setClickableElements();
@@ -1711,20 +1718,20 @@ public class EasyEditManager {
 		private void addOrRemoveElement(OsmElement element) {
 			if (!selection.contains(element)) {
 				selection.add(element);
-				if (element.getName().equals("way")) {
+				if (element.getName().equals(Way.NAME)) {
 					logic.addSelectedWay((Way)element);
-				} else if (element.getName().equals("node")) {
+				} else if (element.getName().equals(Node.NAME)) {
 					logic.addSelectedNode((Node)element);
-				} else if (element.getName().equals("relation")) {
+				} else if (element.getName().equals(Relation.NAME)) {
 					logic.addSelectedRelation((Relation)element);
 				}
 			} else {
 				selection.remove(element);
-				if (element.getName().equals("way")) {
+				if (element.getName().equals(Way.NAME)) {
 					logic.removeSelectedWay((Way)element);
-				} else if (element.getName().equals("node")) {
+				} else if (element.getName().equals(Node.NAME)) {
 					logic.removeSelectedNode((Node)element);
-				} else if (element.getName().equals("relation")) {
+				} else if (element.getName().equals(Relation.NAME)) {
 					logic.removeSelectedRelation((Relation)element);
 				}
 			}

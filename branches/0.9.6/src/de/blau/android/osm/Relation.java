@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import de.blau.android.Application;
+import de.blau.android.R;
 import android.util.Log;
 
 /**
@@ -249,8 +251,25 @@ public class Relation extends OsmElement {
 	 */
 	@Override
 	protected boolean calcProblem() {
-		
+		String type = getTagWithKey(Tags.KEY_TYPE);
+		if (type==null || type.equals("")) {
+			return true;
+		}
 		return super.calcProblem();
+	}
+	
+	@Override
+	public String describeProblem() {
+		String superProblem = super.describeProblem();
+		String relationProblem = "";
+		String type = getTagWithKey(Tags.KEY_TYPE);
+		if (type==null || type.equals("")) {
+			relationProblem = Application.mainActivity.getString(R.string.toast_notype);
+		}
+		if (!superProblem.equals("")) 
+			return superProblem + (!relationProblem.equals("") ? "\n" + relationProblem : "");
+		else
+			return relationProblem;
 	}
 
 	@Override
