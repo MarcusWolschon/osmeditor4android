@@ -6,12 +6,16 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Html;
 import android.text.TextUtils.TruncateAt;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +98,15 @@ public class ElementInfoFragment extends DialogFragment {
         		tl.addView(divider());
         		tl.addView(createRow(R.string.menu_tags,null,tp));
         		for (String k:e.getTags().keySet()) {
-        			tl.addView(createRow(k,e.getTags().get(k),tp));
+        			String value = e.getTags().get(k);
+        			// special handling for some stuff
+        			if (k.equals(Tags.KEY_WIKIPEDIA)) {
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikipedia.org/wiki/"+value+"\">"+value+"</a>"),tp));
+        			} else if (k.equals(Tags.KEY_WIKIDATA)) {
+        				tl.addView(createRow(k, Html.fromHtml("<a href=\"http://wikidata.org/wiki/"+value+"\">"+value+"</a>"),tp));
+        			} else {
+        				tl.addView(createRow(k,value,tp));
+        			}
         		}
         	}
         	
@@ -113,7 +125,7 @@ public class ElementInfoFragment extends DialogFragment {
         return sv;
     }
     
-    private TableRow createRow(String cell1, String cell2, TableLayout.LayoutParams tp) {
+    private TableRow createRow(String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
     	TableRow tr = new TableRow(getActivity());
     	TextView cell = new TextView(getActivity());
     	cell.setText(cell1);
@@ -125,6 +137,8 @@ public class ElementInfoFragment extends DialogFragment {
     	cell = new TextView(getActivity());
     	if (cell2 != null) {
     		cell.setText(cell2);
+    		Linkify.addLinks(cell,Linkify.WEB_URLS);
+    		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
     		cell.setEllipsize(TruncateAt.MARQUEE);
     		tr.addView(cell);
@@ -133,7 +147,7 @@ public class ElementInfoFragment extends DialogFragment {
     	return tr;
     }
     
-    private TableRow createRow(int cell1, String cell2, TableLayout.LayoutParams tp) {
+    private TableRow createRow(int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
     	TableRow tr = new TableRow(getActivity());
     	TextView cell = new TextView(getActivity());
     	cell.setText(cell1);
@@ -145,6 +159,8 @@ public class ElementInfoFragment extends DialogFragment {
     	cell = new TextView(getActivity());
     	if (cell2 != null) {
     		cell.setText(cell2);
+    		Linkify.addLinks(cell,Linkify.WEB_URLS);
+    		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
     		cell.setEllipsize(TruncateAt.MARQUEE);
     		tr.addView(cell);

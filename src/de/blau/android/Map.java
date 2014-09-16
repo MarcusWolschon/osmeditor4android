@@ -773,7 +773,7 @@ public class Map extends View implements IMapView {
 		if (onewayCode != 0) {
 			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
 			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint());
-		} else if (way.getTagWithKey("waterway") != null) { // waterways flow in the way direction
+		} else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
 			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
 			drawOnewayArrows(canvas, linePoints, false, fp.getPaint());
 		}
@@ -789,7 +789,7 @@ public class Map extends View implements IMapView {
 			if (wayFp == null) {
 				fp = Profile.getCurrent(Profile.WAY); // default for ways
 				// three levels of hierarchy for roads and special casing of tracks, two levels for everything else
-				String highwayType = way.getTagWithKey("highway");
+				String highwayType = way.getTagWithKey(Tags.KEY_HIGHWAY);
 				if (highwayType != null) {
 					FeatureProfile tempFp = Profile.getCurrent("way-highway");
 					if (tempFp != null) {

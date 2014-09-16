@@ -67,5 +67,8 @@ public class Tags {
 	public static final String KEY_SOURCE_ELE = "ele:source";
 	//
 	public static final String VALUE_YES = "yes";
+	//
+	public static final Object KEY_WIKIPEDIA = "wikipedia";
+	public static final Object KEY_WIKIPDATA = "wikidata";
 	
 }
