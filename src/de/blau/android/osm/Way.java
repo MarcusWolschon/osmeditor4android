@@ -15,6 +15,7 @@ import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.resources.Profile.FeatureProfile;
+import de.blau.android.util.GeoMath;
 
 public class Way extends OsmElement {
 
@@ -620,7 +621,21 @@ public class Way extends OsmElement {
 	 * return the number of nodes in the is way
 	 * @return
 	 */
-	public int length() {
-		return nodes.size();
+	public int nodeCount() {
+		return nodes == null ? 0 : nodes.size();
+	}
+	
+	/** 
+	 * return the length in m
+	 * @return
+	 */
+	public double length() {
+		double result = 0d;
+		if (nodes != null) {
+			for (int i = 0; i < (nodes.size() - 1); i++) {
+				result = result + GeoMath.haversineDistance(nodes.get(i).getLon()/1E7D, nodes.get(i).getLat()/1E7D, nodes.get(i+1).getLon()/1E7D, nodes.get(i+1).getLat()/1E7D);
+			}
+		}
+		return result;
 	}
 }
