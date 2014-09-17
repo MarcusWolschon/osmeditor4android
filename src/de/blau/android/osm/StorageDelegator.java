@@ -1645,15 +1645,15 @@ public class StorageDelegator implements Serializable, Exportable {
 	public List<String> listChanges(final Resources aResources) {
 		List<String> retval = new ArrayList<String>();
 		
-		for (Node node : apiStorage.getNodes()) {
+		for (Node node : new ArrayList<Node>(apiStorage.getNodes())) {
 			retval.add(node.getStateDescription(aResources));
 		}
 		
-		for (Way way : apiStorage.getWays()) {
+		for (Way way : new ArrayList<Way>(apiStorage.getWays())) {
 			retval.add(way.getStateDescription(aResources));
 		}
 		
-		for (Relation relation : apiStorage.getRelations()) {
+		for (Relation relation : new ArrayList<Relation>(apiStorage.getRelations())) {
 			retval.add(relation.getStateDescription(aResources));
 		}
 		return retval;
