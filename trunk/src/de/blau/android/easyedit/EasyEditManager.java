@@ -1450,6 +1450,9 @@ public class EasyEditManager {
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
 			super.handleElementClick(element);
 			toSelected = true;
+			if (!(element instanceof Way)) {
+				return true; // shouldn't happen just ignore it
+			}
 			main.startActionMode(new RestrictionToElementActionModeCallback(fromWay, viaElement, (Way) element));
 			return true;
 		}
