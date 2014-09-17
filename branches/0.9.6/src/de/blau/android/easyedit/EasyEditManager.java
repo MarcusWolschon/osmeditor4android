@@ -1715,6 +1715,8 @@ public class EasyEditManager {
 
 		private ArrayList<OsmElement> selection;
 	
+		protected UndoListener undoListener; 
+		
 		private boolean backPressed = false;
 		private boolean deselect = true;
 				
@@ -1772,6 +1774,13 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			menu.clear();
+			
+			main.getSupportMenuInflater().inflate(R.menu.undo_action, menu);
+			MenuItem undo = menu.findItem(R.id.undo_action);
+			undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
+			View undoView = undo.getActionView();
+			undoView.setOnClickListener(undoListener);
+			undoView.setOnLongClickListener(undoListener);
 			
 			// menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;

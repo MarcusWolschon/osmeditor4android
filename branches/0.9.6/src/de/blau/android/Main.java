@@ -2462,7 +2462,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	    if (prev != null) {
 	        ft.remove(prev);
 	    }
-	    ft.addToBackStack(null);
 	    ft.commit();
 
         ElementInfoFragment elementInfoDialog = ElementInfoFragment.newInstance(element);
