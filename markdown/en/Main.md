@@ -16,6 +16,11 @@ The lock icon will always be located in the upper left corner of your devices sc
 
 Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. *Some operations consist of multiple simpler actions that will be listed as individual items.*
 
+## ![](../images/camera.png) Camera
+
+Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures 
+directory, however this depends on the specific camera app.
+
 ## ![](../images/menu_gps.png) GPS
 
  * **Show location** - show arrow symbol at current position

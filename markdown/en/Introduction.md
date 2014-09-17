@@ -4,13 +4,13 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 ## First time use
 
-On start up Vespucci will show you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
+On start up, if you choose not to view this document,  Vespucci will show you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
 
 Alternatively you can dismiss the dialog by pressing the back button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
 
 ## Editing with Vespucci
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, or via the menu key.
+Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
 
 ### Downloading OSM Data
 
@@ -78,7 +78,11 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
  * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
  * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction) 
  * set the restriction type in the tag menu
-
+ 
+### Vespucci in "locked" mode
+ 
+When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+  
 ### Saving Your Changes
 
 *(requires network connectivity)*
@@ -88,6 +92,8 @@ Select the same button or menu item you did for the download and now select "Upl
 Vespucci supports OAuth authorization besides the classical username and password method. OAuth is preferable, particularly for mobile applications since it avoids sending passwords in the clear.
 
 New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website will be loaded. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci and should retry the upload, which now should succeed.
+
+If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
 #### Resolving conflicts on uploads
 
@@ -117,13 +123,15 @@ Notes:
 
  * Background layer
  * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
- * Notes display (open Notes will be displayed as a red filled circle, closed Notes the same in blue). Default: off.
+ * Notes display. Open Notes will be displayed as a red filled circle, closed Notes the same in blue. Default: off.
+ * Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
  * Node icons. Default: off.
  * Keep screen on. Default: off.
  * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
  
 #### Advanced preferences
 
+ * Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
  * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
  * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
  
