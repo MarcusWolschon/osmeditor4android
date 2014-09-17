@@ -1,6 +1,47 @@
 #summary Vespucci Development News
 #labels Featured
 
+=Version 0.9.5=
+
+2014-08-01:
+
+ * Auto download
+ * Added function to add node at current GPS position (visible in the long press menu).
+ * Fast address tags adding with prototype house number prediction
+ * Split action bar on newer phones and more top bar buttons on tablets
+ * Import and upload of GPS tracks
+ * On device help.
+ * Basic conflict resolution
+ * Substantially better icons for on map display
+ * Standard JOSM preset extended to include further object categories
+ * Remove unnecessary and unneeded tags automatically
+ * JOSM compatible OSM file reading and saving (requires a file explorer or similar for now to select files for reading)
+ * Refactored relation code should reduce memory footprint and improve performance
+ * Support for external sources of GPS information (for example RTKLIB)
+
+and naturally lots of bug fixes and stability improvements.
+
+=Version 0.9.4=
+
+2014-0324: This release contains a lot of “under the hood” improvements and some work on making the UI more consistent and easier to use. 
+
+In particular the following changes have been made
+
+ * selectable overlay layer.
+ * support for multiple simultaneous presets.
+ * added find action to lookup location with nominatim. 
+ * add per zoom level imagery offsets with support for querying and saving to the imagery offset database or manual entry. 
+ * added support for name suggestions and auto preset setting.
+ * added goto current GPS location.
+ * added action to arrange nodes of a closed way in a circle. 
+ * limited support for geo: URIs and JOSM style remote control.
+ * add action to directly set position of node by entering coordinates. 
+ * major rework of imagery provider configuration, now based on https://github.com/osmlab/editor-imagery-index .  
+ * make https API default.
+ * major refactoring of projection code. 
+ * lots of bug fixes and stability improvements.
+
+
 =Version 0.9.3=
 
 2013-12-15: Improvements centered around making geometry editing easier and more efficient.
