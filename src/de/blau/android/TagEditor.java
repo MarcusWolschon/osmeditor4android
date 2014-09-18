@@ -16,7 +16,10 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.acra.ACRA;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -377,7 +380,16 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		type = loadData.type;
 		loadEdits(loadData.tags);
 		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
+		
+		// sanity check
+		if (Main.logic == null || Main.logic.delegator == null) {
+			abort();
+		}
 		element = Main.logic.delegator.getOsmElement(type, osmId);
+		// and another sanity check
+		if (element == null) {
+			abort();
+		}
 		presets = Main.getCurrentPresets();
 
 		// presets
@@ -407,6 +419,12 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 		
 		// 
 		if (applyLastAddressTags) doAddressTags();
+	}
+	
+	private void abort() {
+		Toast.makeText(this, R.string.toast_inconsistent_state, Toast.LENGTH_LONG).show();
+		ACRA.getErrorReporter().handleException(null);
+		finish();
 	}
 	
 	@Override
