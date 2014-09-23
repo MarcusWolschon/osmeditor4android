@@ -78,6 +78,7 @@
   <string name="next">Næst</string>
   <string name="set">Setja</string>
   <string name="replace">Skipta út</string>
+  <string name="back">til baka</string>
   <!--Dialog for back button-->
   <string name="exit_title">Viltu örugglega hætta?</string>
   <string name="exit_text">Viltu örugglega hætta? </string>
@@ -137,6 +138,7 @@
   <string name="menu_gps_clear">Hreinsa GPS-slóð</string>
   <string name="menu_gps_upload">Upphlaða GPS-slóð</string>
   <string name="menu_gps_export">Flytja GPS-slóð út</string>
+  <string name="menu_gps_autodownload">Sjálfvirkt niðurhal</string>
   <string name="menu_transfer">Færi gögn...</string>
   <string name="menu_transfer_download_current">Niðurhala núverandi sýn</string>
   <string name="menu_transfer_download_other">Ná í aðra staði</string>
@@ -310,5 +312,6 @@
   <string name="km">km</string>
   <string name="meter">metri</string>
   <!--Help system-->
+  <string name="introduction">Kynning</string>
   <!--Arrays-->
 </resources>

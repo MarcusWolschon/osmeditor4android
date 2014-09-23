@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Annulla &amp; scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Problema con il caricamento</string>
+  <string name="upload_conflict_title">Conflitto di caricamento</string>
   <string name="use_local_version">Usa la versione locale</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
@@ -34,6 +35,7 @@
   <string name="progress_saving_message">Sto salvando...</string>
   <string name="upload_comment_label">Commento:</string>
   <string name="upload_source_label">Sorgente:</string>
+  <string name="upload_gpx_visibility_label">Visibilità</string>
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
   <string name="openstreetbug_new_nodeway">Crea nodo/via</string>
@@ -60,6 +62,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
+  <string name="read_file">Seleziona file da leggere</string>
   <string name="save_file">Inserisci il file dove salvare</string>
   <!--Toaster-->
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
@@ -103,6 +106,7 @@
   <string name="save">Salva</string>
   <string name="back">Indietro</string>
   <string name="foward">Avanti</string>
+  <string name="keep">Mantieni</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vuoi uscire veramente?</string>
   <string name="exit_text">Sei sicuro che vuoi uscire?</string>
@@ -243,6 +247,7 @@
   <string name="config_api_url_title">URL dell\'API</string>
   <string name="config_api_oauth_title">Usa oauth</string>
   <string name="listedit_enable_oauth">Abilita oauth</string>
+  <string name="config_presetbutton_title">Preset</string>
   <string name="config_iconbutton_title">Mostra icone dei nodi</string>
   <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.
 </string>
