@@ -221,6 +221,7 @@
     <string name="menu_transfer_download_current_add">Add current view to download</string>
     <string name="menu_transfer_download_other">Download other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
+    <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_export">Export changes</string>
     <string name="menu_transfer_read_file">Read from file</string>
     <string name="menu_transfer_save_file">Save to file</string>

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -748,6 +750,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);
 
+		final Server server = prefs.getServer();
+		if (server.hasOpenChangeset()) {
+			menu.findItem(R.id.menu_transfer_close_changeset).setVisible(true);
+		} else {
+			menu.findItem(R.id.menu_transfer_close_changeset).setVisible(false);
+		}
 		return true;
 	}
 
@@ -758,6 +766,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		Log.d("Main", "onOptionsItemSelected");
+		final Server server = prefs.getServer();
 		switch (item.getItemId()) {
 		case R.id.menu_confing:
 			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
@@ -824,7 +833,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 			
 		case R.id.menu_gps_upload:
-			final Server server = prefs.getServer();
+
 			if (server != null && server.isLoginSet()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server);
@@ -839,7 +848,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				showDialog(DialogFactory.NO_LOGIN_DATA);
 			}
 			return true;
-			
+
 		case R.id.menu_gps_export:
 			if (getTracker() != null) {
 				SavingHelper.asyncExport(this, getTracker());
@@ -883,6 +892,29 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		case R.id.menu_transfer_upload:
 			confirmUpload();
+			return true;
+			
+		case R.id.menu_transfer_close_changeset:
+			if (server.hasOpenChangeset()) {
+				// fail silently if it doesn't work, next upload will open a new changeset in any case
+				new AsyncTask<Void, Integer, Void>() {
+					@Override
+					protected Void doInBackground(Void... params) {
+						try {
+							server.closeChangeset();
+						} catch (MalformedURLException e) {
+						} catch (ProtocolException e) {
+						} catch (IOException e) {
+						}
+						return null;
+					}
+					
+					@Override
+					protected void onPostExecute(Void result) {
+						triggerMenuInvalidation();
+					}
+				}.execute();
+			}
 			return true;
 		
 		case R.id.menu_transfer_export:

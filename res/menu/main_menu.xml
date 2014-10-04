@@ -101,6 +101,10 @@
 					android:title="@string/menu_transfer_upload"
 				/>
 				<item
+					android:id="@+id/menu_transfer_close_changeset"
+					android:title="@string/menu_transfer_close_changeset"
+				/>
+				<item
 					android:id="@+id/menu_transfer_export"
 					android:title="@string/menu_transfer_export"
 				/>
