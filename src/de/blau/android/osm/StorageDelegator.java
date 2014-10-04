@@ -321,6 +321,33 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
+	 * Move a list of nodes apply translation only once 
+	 * @param allNodes
+	 * @param deltaLatE7
+	 * @param deltaLonE7
+	 */
+	public void moveNodes(final List allNodes, final int deltaLatE7, final int deltaLonE7) {
+		if (allNodes == null) {
+			Log.d("StorageDelegator", "moveNodes  no nodes!");
+			return;
+		}
+		dirty = true;
+		try {
+			HashSet<Node> nodes = new HashSet<Node>(allNodes); // Guarantee uniqueness
+			for (Node nd:nodes) { 
+				undo.save(nd);
+				apiStorage.insertElementSafe(nd);
+				nd.setLat(nd.getLat() + deltaLatE7);
+				nd.setLon(nd.getLon() + deltaLonE7);
+				nd.updateState(OsmElement.STATE_MODIFIED);
+			}
+		} catch (StorageException e) {
+			//TODO handle OOM
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * arrange way nodes in a circle
 	 * @param center
 	 * @param way

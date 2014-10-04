@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string translatable="false" name="app_name">Vespucci</string>
-    <string translatable="false" name="app_version">0.9.6.0.896</string>
-    <string translatable="false" name="app_name_version">Vespucci 0.9.6b896</string>
+    <string translatable="false" name="app_version">0.9.6.0.897</string>
+    <string translatable="false" name="app_name_version">Vespucci 0.9.6b897</string>
 </resources>
