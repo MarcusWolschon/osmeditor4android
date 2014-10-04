@@ -672,6 +672,14 @@ public class Server {
 		}
 		return osmId;
 	}
+	
+	/**
+	 * Test if changeset is at least potentially still open.
+	 * @return
+	 */
+	public boolean hasOpenChangeset() {
+		return changesetId != -1;
+	}
 
 	/**
 	 * Open a new changeset.
@@ -747,6 +755,13 @@ public class Server {
 		changesetId = newChangesetId;
 	}
 
+	/**
+	 * Close the current open changeset, will zap the stored id even if the closing fails, 
+	 * this will force using a new changeset on the next upload
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws IOException
+	 */
 	public void closeChangeset() throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
 

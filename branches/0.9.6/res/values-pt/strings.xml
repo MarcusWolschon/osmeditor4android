@@ -10,6 +10,7 @@
   <string name="upload_problem_message">Todo ou parte dos dados não foram enviados para o servidor. Tente realizar o upload novamente mais tarde caso este seja apenas um problema temporário.</string>
   <string name="upload_conflict_title">Conflito no upload</string>
   <string name="upload_conflict_message_version">%1$s \nhá versão local %2$s \ne no servidor %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s /nhas versão local %2$s /nand foi apagada no servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfoi apagado localmente \nmas há referências no servidor</string>
   <string name="use_local_version">Usar a versão local</string>
   <string name="use_server_version">Usar a versão no servidor</string>

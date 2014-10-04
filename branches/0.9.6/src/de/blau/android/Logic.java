@@ -918,7 +918,7 @@ public class Logic {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
-			if (selectedNodes != null && selectedNodes.size() == 1 && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea()? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
+			if (selectedNodes != null && selectedNodes.size() == 1 && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea() && selectedWays == null? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
 					startX = lonE7ToX(selectedNodes.get(0).getLon());
@@ -2449,6 +2449,7 @@ public class Logic {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				if (result.error == 0) {
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+					Application.mainActivity.triggerMenuInvalidation();
 				}
 				delegator.clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();

@@ -98,7 +98,7 @@
   <string name="toast_photo_indexing_finished">掃描地理參考圖片完成</string>
   <string name="toast_download_bbox_failed">下載失敗，可能是因為所選區域過大。</string>
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
-  <string name="toast_unsurveyed_road">無勘查的路</string>
+  <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路沒有名稱或參照</string>
   <string name="toast_oauth_retry">請允許 OAuth 進入您的 OSM 帳號，然後重新嘗試上傳。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
@@ -117,7 +117,7 @@
   <string name="no">否</string>
   <string name="okay">確定</string>
   <string name="cancel">取消</string>
-  <string name="locked">鎖定</string>
+  <string name="locked">已鎖定</string>
   <string name="next">下一頁</string>
   <string name="apply">套用</string>
   <string name="set">設定</string>
@@ -134,7 +134,7 @@
   <string name="value">值</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">增加地址標籤</string>
-  <string name="tag_menu_sourcesurvey">勘查</string>
+  <string name="tag_menu_sourcesurvey">已勘測</string>
   <string name="tag_menu_preset">預置</string>
   <string name="tag_menu_apply_preset">套用最佳重置</string>
   <string name="tag_menu_repeat">重複的標籤</string>
