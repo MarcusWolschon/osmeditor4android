@@ -1069,17 +1069,18 @@ public class Logic {
 			else { // way dragging and multi-select
 				lat = yToLatE7(absoluteY);
 				lon = xToLonE7(absoluteX);
+				ArrayList<Node> nodes = new ArrayList<Node>();
 				if (selectedWays != null && selectedWays.size() > 0) { // shouldn't happen but might be a race condition
 					for (Way w:selectedWays) {
-						delegator.moveWay(w, lat - startLat, lon - startLon);
-					}
-					
+						nodes.addAll(w.getNodes());
+					}	
 				}
 				if (selectedNodes != null && selectedNodes.size() > 0) {
 					for (Node n:selectedNodes) {
-						delegator.updateLatLon(n, n.getLat() + lat - startLat, n.getLon() + lon - startLon);
+						nodes.add(n);
 					}
 				}
+				delegator.moveNodes(nodes, lat - startLat, lon - startLon);
 				// update 
 				startLat = lat;
 				startLon = lon;
