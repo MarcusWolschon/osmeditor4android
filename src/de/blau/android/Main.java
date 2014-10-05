@@ -777,7 +777,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 			
 		case R.id.menu_help:
-			ACRA.getErrorReporter().handleException(null);
 			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
 			startHelpViewer.putExtra(HelpViewer.TOPIC, "Main");
 			startActivity(startHelpViewer);
