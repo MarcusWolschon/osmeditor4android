@@ -8,6 +8,8 @@ You can now do one of three things:
 * **touch some other place on the screen** - this will create a way from the initial location to this location, the way acan be further extended by adding further node. Touching the last location completes the way and starts the tag editor. 
 * **select a menu item** see below
 
+Both the last node and the complete way can be moved without leaving "New" mode.
+
 ## Further actions  
 
 ### ![](../images/address.png) Add address tags
