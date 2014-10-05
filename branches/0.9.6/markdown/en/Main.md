@@ -41,6 +41,7 @@ Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfe
  * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *requires network connectivity*
  * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+ * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Export changes** - write a ".osc" format file containing the current edits
  * **Read from file** - read a a JOSM compatible XML format file
  * **Save to file** - save as a JOSM compatible XML format file

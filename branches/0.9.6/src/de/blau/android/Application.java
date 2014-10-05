@@ -5,7 +5,12 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 @ReportsCrashes(
-	formKey = "dEYwdXN5T0FqTTBCVnMxc2k3bFJsSGc6MQ",
+	formKey = "",
+	reportType = org.acra.sender.HttpSender.Type.JSON,
+	httpMethod = org.acra.sender.HttpSender.Method.PUT,
+	formUri = "http://acralyzer.vespucci.io:5984/acra-vespucci/_design/acra-storage/_update/report",
+	formUriBasicAuthLogin = "vespucci",
+	formUriBasicAuthPassword = "ymsjgNr4sG7zrqps",
 	mode = ReportingInteractionMode.NOTIFICATION,
 	resNotifTickerText = R.string.crash_notif_ticker_text,
 	resNotifTitle = R.string.crash_notif_title,
