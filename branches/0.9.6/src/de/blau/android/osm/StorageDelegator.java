@@ -1601,7 +1601,12 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		currentStorage.addBoundingBox(box);
 	}
-
+	
+	public void deleteBoundingBox(BoundingBox box) {
+		dirty = true;
+		currentStorage.deleteBoundingBox(box);
+	}
+	
 	public int getApiNodeCount() {
 		return apiStorage.getNodes().size();
 	}

@@ -2,6 +2,7 @@
 package de.blau.android.views.overlay;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -52,6 +53,7 @@ public abstract class OpenStreetMapViewOverlay {
 	 * and after that do a final draw. This is very useful, i sth. to be drawn
 	 * needs to be <b>topmost</b>.
 	 */
+	@SuppressLint("WrongCall")
 	public void onManagedDraw(final Canvas c, final IMapView osmv) {
 		try {
 			if (isReadyToDraw()) {
