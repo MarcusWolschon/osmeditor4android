@@ -2321,26 +2321,27 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			// speed needs to be <= 6km/h (aka brisk walking speed) 
 			if (autoDownload && (location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
 				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes());
-				NextCenter nextCenter = getNextCenter(bbList,previousLocation, location);
-				// Log.d("Main","nextCenter.distance " + (nextCenter != null ? nextCenter.distance:-1));
-				if (previousLocation == null || nextCenter == null ||  nextCenter.distance > 0) {
+				BoundingBox newBox = getNextBox(bbList,previousLocation, location);
+				if (newBox != null) {
 					if (prefs.getDownloadRadius() != 0) { // download
-						try {
-							BoundingBox newBox = GeoMath.createBoundingBoxForCoordinates(nextCenter == null ? location.getLatitude() : nextCenter.lat, 
-									nextCenter == null ? location.getLongitude() : nextCenter.lon, prefs.getDownloadRadius());
-							logic.downloadBox(newBox, true, true);
-// This is likely not worth the trouble
-//							ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
-//							for (BoundingBox b:bboxes) {
-//								logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
-//							}
-						} catch (OsmException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+//						logic.delegator.addBoundingBox(newBox); // will be filled once download is complete
+//						logic.downloadBox(newBox, true, true);
+						// This is likely not worth the trouble
+						ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+						for (BoundingBox b:bboxes) {
+							if (b.getWidth() < 0.000001 || b.getHeight() < 0.000001) {
+								// ignore super small bb likely due to rounding errors
+								Log.d("Main","getNextCenter very small bb " + b.toString());
+								continue;
+							}
+							logic.delegator.addBoundingBox(b);  // will be filled once download is complete
+							Log.d("Main","getNextCenter loading " + b.toString());
+							logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
 						}
 					}
 					previousLocation  = location;
 				}
+
 			}
 			
 			// re-center on current position
@@ -2353,80 +2354,75 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		map.invalidate();
 	}
 	
-	class NextCenter {
-		double 	lat;
-		double 	lon;
-		int		distance  = Integer.MAX_VALUE;
+	boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {
+	
+		for (BoundingBox b:bbs) {
+			if (b.isIn(latE7, lonE7)) {
+				return true;
+			}
+		}
+		return false;
 	}
+	
 	/**
-	 * Return a suitable position for the center of the next BB
+	 * Return a suitable next BB, simply creates a raster of the download radius size
 	 * @param location
 	 * @return
 	 */
-	private NextCenter getNextCenter(ArrayList<BoundingBox> bbs,Location prevLocation, Location location) {
-		NextCenter result = new NextCenter();
+	private BoundingBox getNextBox(ArrayList<BoundingBox> bbs,Location prevLocation, Location location) {
+	
 		
 		double lon = location.getLongitude();
 		double lat = location.getLatitude();
 		double mlat = GeoMath.latToMercator(lat);
-		double halfBBWidth = GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
-		for (BoundingBox b:bbs) {
-			if (b.isIn((int)(lat*1E7),(int)(lon*1E7))) {
-				double mBottom = GeoMath.latE7ToMercator(b.getBottom());
-				double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
-				double dLeft = lon - b.getLeft()/1E7d;
-				double dRight = b.getRight()/1E7d - lon;
-				double dLon = Math.min(dLeft,dRight);
-				double dTop = mBottom + mHeight - mlat;
-				double dBottom = mlat - mBottom;
-				double dLat = Math.min(dTop, dBottom);
-				
-				Log.d("Main","dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
-				 
-				int tmpDistance;
-				double tmpMLat = mlat;
-				double tmpLat = lat;
-				double tmpLon = lon;
-				
-				if (dLat < dLon) {
-					// top or bottom is closest
-					if (dTop < dBottom) {
-						tmpMLat = mBottom + mHeight + halfBBWidth;
-					} else {
-						tmpMLat = mBottom - halfBBWidth;
-					}
-					tmpLat = GeoMath.mercatorToLat(tmpMLat);
-					tmpDistance = (int)GeoMath.haversineDistance(lon, lat, lon, tmpLat);
-				} else {
-					// left or right is closest
-					if (dLeft < dRight) {
-						tmpLon = b.getLeft()/1E7d - halfBBWidth;
-					} else {
-						tmpLon = b.getRight()/1E7d + halfBBWidth;
-					}
-					tmpDistance = (int)GeoMath.haversineDistance(lon, lat, tmpLon, lat);
-				}
-				if (tmpDistance < result.distance) {
-					// check if point is not in one of the other bounding boxes
-					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(bbs);
-					bbList.remove(b); // remove the current bb
-					boolean found = false;
-					
-					for (BoundingBox b2:bbList) {
-						if (b2.isIn((int)(tmpLat*1E7),(int)(tmpLon*1E7))) {
-							found = true;
-							break;
-						}
-					}
-					if (!found) {
-						result.distance = tmpDistance;
-						result.lat = tmpLat;
-						result.lon = tmpLon;
-					}
-				}
+		double width = 2*GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
+		
+		int currentLeftE7 = (int) (Math.floor(lon / width)*width * 1E7);
+		double currentMBottom = Math.floor(mlat/ width)*width;
+		int currentBottomE7 = (int) (GeoMath.mercatorToLat(currentMBottom) * 1E7);
+		int widthE7 = (int) (width*1E7);
+		
+		try {
+			BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7, currentBottomE7 + widthE7);
+
+			if (!bbLoaded(bbs, (int)(lon*1E7D), (int)(lat*1E7D))) {
+				return b;
 			}
-		}
-		return result.distance == Integer.MAX_VALUE ? null : result; // 0 == outside of bb
+
+			double bRight = b.getRight()/1E7d;
+			double bLeft = b.getLeft()/1E7d;
+			double mBottom = GeoMath.latE7ToMercator(b.getBottom());
+			double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
+			double dLeft = lon - bLeft;
+			double dRight = bRight - lon;
+			
+			double dTop = mBottom + mHeight - mlat;
+			double dBottom = mlat - mBottom;
+			
+			Log.d("Main","getNextCenter dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
+			Log.d("Main","getNextCenter " + b.toString());
+
+
+			// top or bottom is closest
+			if (dTop < dBottom) { // top closest
+				if (dLeft < dRight) {
+					return new BoundingBox(b.getLeft()-widthE7, b.getBottom(), b.getRight(), b.getTop() + widthE7);
+				} else {
+					return new BoundingBox(b.getLeft(), b.getBottom(), b.getRight() + widthE7, b.getTop() + widthE7);
+				}	
+			} else {
+				if (dLeft < dRight) {
+					return new BoundingBox(b.getLeft()-widthE7, b.getBottom()-widthE7, b.getRight(), b.getTop() );
+				} else {
+					return new BoundingBox(b.getLeft(), b.getBottom()-widthE7, b.getRight() + widthE7, b.getTop());
+				}	
+			}
+
+
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}	
 	}
 	
 	

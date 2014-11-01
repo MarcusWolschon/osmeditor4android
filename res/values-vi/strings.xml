@@ -10,6 +10,7 @@
   <string name="upload_problem_message">Một số hoặc tất cả dữ liệu không được tải lên. Hãy thử tải lên lần nữa để xem có phải là một vấn đề tạm thời.</string>
   <string name="upload_conflict_title">Tải lên mâu thuẫn</string>
   <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi máy chủ có %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$s \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
   <string name="use_local_version">Dùng phiên bản trong điện thoại</string>
   <string name="use_server_version">Dùng phiên bản trên máy chủ</string>

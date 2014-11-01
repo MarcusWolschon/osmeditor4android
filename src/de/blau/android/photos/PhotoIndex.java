@@ -164,6 +164,12 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			if (list == null) {
 				return;
 			}
+			// check if we shouldn't process this directory, not the most efficient way likely
+			for (File f:list) {
+				if (f.getName().equals(".novespucci")) {
+					return;
+				}
+			}
 			for (File f:list) {
 				if (f.isDirectory()) {
 					//recursive decent

@@ -1809,17 +1809,29 @@ public class Logic {
 					} else {
 						result = DialogFactory.INVALID_DATA_RECEIVED;
 					}
+					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						delegator.deleteBoundingBox(mapBox);
+					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
 					result = DialogFactory.INVALID_DATA_RECEIVED;
+					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						delegator.deleteBoundingBox(mapBox);
+					}
 				} catch (OsmServerException e) {
 					result = e.getErrorCode();
 					Log.e("Vespucci", "Problem downloading", e);
+					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						delegator.deleteBoundingBox(mapBox);
+					}
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
+					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						delegator.deleteBoundingBox(mapBox);
+					}
 				}
 				return result;
 			}

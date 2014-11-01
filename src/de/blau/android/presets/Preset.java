@@ -559,7 +559,10 @@ public class Preset {
 		private Drawable icon;
 		private BitmapDrawable mapIcon;
 		private PresetGroup parent;
-		private boolean appliesToWay, appliesToNode, appliesToClosedway, appliesToRelation;
+		protected boolean appliesToWay;
+		protected boolean appliesToNode;
+		protected boolean appliesToClosedway;
+		protected boolean appliesToRelation;
 		private Uri mapFeatures;
 
 		/**
@@ -1022,7 +1025,7 @@ public class Preset {
 			}
 			return super.toString() + tagStrings;
 		}
-		
+	
 		public String toJSON() {
 			String jsonString = "";
 			for (String k:tags.keySet()) {
@@ -1045,7 +1048,24 @@ public class Preset {
 		}
 		
 		private String tagToJSON(String key, String value) {
-			return "{ \"key\": \"" + key + "\"" + (value == null ? "" : ", \"value\": \"" + value + "\"") + " },\n";
+			String result = "{ \"key\": \"" + key + "\"" + (value == null ? "" : ", \"value\": \"" + value + "\"");
+			result = result + " , \"object_types\": [";
+			if (appliesToNode) {
+				result = result + "\"node\"";
+			}
+			if (appliesToRelation) {
+				if (appliesToNode) {
+					result = result + ",";
+				}
+				result = result + "\"node\"";
+			}
+			if (appliesToWay || appliesToClosedway) {
+				if (appliesToRelation) {
+					result = result + ",";
+				}
+				result = result + "\"way\"";
+			}			
+			return  result + "]},\n";
 		}
 	}
 	
