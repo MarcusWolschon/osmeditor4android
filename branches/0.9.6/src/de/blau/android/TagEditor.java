@@ -253,7 +253,7 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	 */
 	private boolean focusOnEmptyValue() {
 		boolean found = false;
-		for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
+		for (int i = 0; i < rowLayout.getChildCount(); i++) {
 			TagEditRow ter = (TagEditRow)rowLayout.getChildAt(i);
 			if (ter.getKey() != null && !ter.getKey().equals("") && ter.getValue().equals("")) {
 				focusRowValue(rowIndex(ter));
@@ -1033,7 +1033,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	protected LinkedHashMap<String,String> getAddressTags(Map<String,String> sortedMap) {
 		LinkedHashMap<String,String> result = new LinkedHashMap<String,String>();
 		for (String key:sortedMap.keySet()) {
-			if (key.startsWith("addr:")) {
+			// include everything except interpolation related tags
+			if (key.startsWith(Tags.KEY_ADDR_BASE) && !key.startsWith(Tags.KEY_ADDR_INTERPOLATION) && !key.startsWith(Tags.KEY_ADDR_INCLUSION)) {
 				result.put(key, sortedMap.get(key));
 			}
 		}

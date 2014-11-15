@@ -91,7 +91,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  */
 public class Logic {
 
-	private static final String DEBUG_TAG = Main.class.getSimpleName();
+	private static final String DEBUG_TAG = Logic.class.getSimpleName();
 
 	/**
 	 * Enums for modes.
@@ -918,7 +918,7 @@ public class Logic {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
-			if (selectedNodes != null && selectedNodes.size() == 1 && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea() && selectedWays == null? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
+			if (selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea() ? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
 					startX = lonE7ToX(selectedNodes.get(0).getLon());
@@ -926,7 +926,7 @@ public class Logic {
 				}
 			}
 			else {
-				if (selectedWays != null && selectedWays.size() == 1) {
+				if (selectedWays != null && selectedWays.size() == 1 && selectedNodes == null) {
 					if (!rotatingWay) {	
 						Way clickedWay = getClickedWay(x, y);
 						if (clickedWay != null && (clickedWay.getOsmId() == selectedWays.get(0).getOsmId())) {
@@ -946,6 +946,7 @@ public class Logic {
 					if ((selectedWays != null && selectedWays.size() > 1) ||  (selectedNodes != null && selectedNodes.size() > 1) 
 							|| ((selectedWays != null && selectedWays.size() == 1) ||  (selectedNodes != null && selectedNodes.size() == 1))) {
 						// multi-select
+						Log.d(DEBUG_TAG, "Multi select detected");
 						boolean foundSelected = false;
 						if (selectedWays != null) {
 							List<Way> clickedWays = getClickedWays(x, y);
@@ -1033,7 +1034,7 @@ public class Logic {
 			int lat;
 			int lon;
 			// checkpoint created where draggingNode is set
-			if (draggingNode || (draggingHandle && selectedHandle != null)) {
+			if ((draggingNode && (selectedNodes.size() == 1 || selectedWays ==  null)) || (draggingHandle && selectedHandle != null)) {
 				if (draggingHandle) { // create node only if we are really dragging
 					Log.d("Logic","creating node at handle position");
 					try {
