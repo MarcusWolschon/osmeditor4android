@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 public class Tags {
 	// Karlsruher schema
+	public static final String KEY_ADDR_BASE = "addr:";
 	public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
 	public static final String KEY_ADDR_STREET = "addr:street";
 	public static final String KEY_ADDR_POSTCODE = "addr:postcode";
@@ -20,6 +21,14 @@ public class Tags {
 	public static final String KEY_ADDR_FLATS = "addr:flats";
 	public static final String KEY_ADDR_DOOR = "addr:door";
 	public static final String KEY_ADDR_UNIT = "addr:unit";
+	// address interpolation
+	public static final String KEY_ADDR_INTERPOLATION = "addr:interpolation";
+	public static final String VALUE_ODD = "odd";
+	public static final String VALUE_EVEN = "even";
+	public static final String KEY_ADDR_INCLUSION = "addr:inclusion";
+	public static final String VALUE_ACTUAL = "actual";
+	public static final String VALUE_ESTIMATE = "estimate";
+	public static final String VALUE_POTENTIAL = "potential";
 	// other address related stuff
 	public static final String KEY_BUILDING = "building";
 	public static final String KEY_ENTRANCE = "entrance";
