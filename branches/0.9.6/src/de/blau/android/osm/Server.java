@@ -886,6 +886,11 @@ public class Server {
 		Log.d("Server", "response code " + responsecode);
 		if (responsecode == -1) throw new IOException("Invalid response from server");
 		if (responsecode != HttpURLConnection.HTTP_OK) {
+			if (responsecode == HttpURLConnection.HTTP_GONE && e.getState()==OsmElement.STATE_DELETED) {
+				//FIXME we tried to delete an already deleted element: log, but ignore, maybe it would be better to ask user
+				Log.d("Server", e.getOsmId() + " already deleted on server");
+				return;
+			}
 			String responseMessage = connection.getResponseMessage();
 			if (responseMessage == null) {
 				responseMessage = "";
