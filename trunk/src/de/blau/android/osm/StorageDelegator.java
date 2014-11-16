@@ -1700,6 +1700,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
+	//TODO make a shallow copy of the list instead of bookkeeping here
 	private void uploadDeletedElements(final Server server, final List<? extends OsmElement> elements)
 			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 		for (int i = 0, size = elements.size(); i < size; ++i) {
