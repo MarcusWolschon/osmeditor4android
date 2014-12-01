@@ -71,7 +71,7 @@ public class SavingHelper<T extends Serializable> {
 		String filename;
 		T	object;
 		boolean compress;
-		boolean result;
+		boolean result = false;
 		
 		SaveThread(String fn, T obj, boolean c) {
 			filename = fn;
