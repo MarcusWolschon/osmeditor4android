@@ -258,8 +258,8 @@
   <string name="config_tileCacheSize_summary">圖磚快取以 MB 為單位合計大小</string>
   <string name="config_showStats_title">顯示統計</string>
   <string name="config_showStats_summary">在左下角顯示資料的統計和畫格/秒。</string>
-  <string name="config_showTolerance_title">顯示公差</string>
-  <string name="config_showTolerance_summary">顯示那裡的元件可以被選擇的區域。</string>
+  <string name="config_showTolerance_title">顯示選取誤差</string>
+  <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
   <string name="config_enableOpenStreetBugs_title">啟用註解顯示</string>
@@ -287,11 +287,11 @@
   <string name="config_presetbutton_title">預置</string>
   <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>
   <string name="config_iconbutton_title">顯示節點圖示</string>
-  <string name="config_iconbutton_summary">顯示上面節點最相配的預置圖示。</string>
+  <string name="config_iconbutton_summary">在節點上面顯示最相配的預置圖示。</string>
   <string name="config_loginbutton_title">使用者帳號</string>
   <string name="config_username_title">OSM 使用者名稱</string>
-  <string name="config_username_summary">如果您不使用 OAuth，只組態需要上傳的 OSM 資料。
-帳號可用在 http://www.openstreetmap.org/user/new</string>
+  <string name="config_username_summary">如果您不使用 OAuth，才要設定上傳 OSM 資料用的帳號。
+帳號可在這申請 http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM 密碼</string>
   <string name="config_password_summary">不要誤認為是維基密碼。請記住：它是以純文字存儲和傳輸！</string>
   <string name="config_category_gps">GPS 設定</string>
@@ -302,7 +302,7 @@
   <string name="config_category_info">關於</string>
   <string name="config_advancedprefs">進階參數選項</string>
   <string name="config_forceContextMenu_title">總是使用快顯選單</string>
-  <string name="config_forceContextMenu_summary">如果選用是不分明的，始終在 EasyEdit 模式下顯示快顯選單。</string>
+  <string name="config_forceContextMenu_summary">如果選取是不明確的，始終在 EasyEdit 模式下顯示快顯選單。</string>
   <string name="config_licensebutton_title">作者和授權</string>
   <string name="config_licensebutton_summary">顯示作者和授權資訊</string>
   <string name="config_mapProfile_title">地圖設定檔</string>
