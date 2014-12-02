@@ -177,9 +177,13 @@ public class SavingHelper<T extends Serializable> {
 			} catch (Exception e) {
 				Log.e("SavingHelper", "failed to load " + filename, e);
 				result = null;
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+				ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			} catch (Error e) {
 				Log.e("SavingHelper", "failed to load " + filename, e);
 				result = null;
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+				ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
 			} finally {
 				SavingHelper.close(objectIn);
 				SavingHelper.close(in);
