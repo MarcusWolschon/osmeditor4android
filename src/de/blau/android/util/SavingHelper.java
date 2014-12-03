@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -165,7 +166,14 @@ public class SavingHelper<T extends Serializable> {
 			try {
 				Log.d("SavingHelper", "loading  " + filename);
 				Context context = Application.mainActivity.getApplicationContext();
-				in = context.openFileInput(filename);
+				try {
+					in = context.openFileInput(filename);
+				} catch (FileNotFoundException fnfe) {
+					// this happens a lot and shouldn't generate an error report
+					Log.e("SavingHelper", "file not found " + filename);
+					result = null;
+					return;
+				}
 				if (compressed) {
 					in = new GZIPInputStream(in);
 				}
