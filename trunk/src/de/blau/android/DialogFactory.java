@@ -35,6 +35,7 @@ import de.blau.android.osb.CommitListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
@@ -141,7 +142,16 @@ public class DialogFactory {
 		noLoginDataSet.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
 		wrongLogin = createBasicDialog(R.string.wrong_login_data_title, R.string.wrong_login_data_message);
-		wrongLogin.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
+		wrongLogin.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be used
+		final Server server = new Preferences(caller).getServer();
+		if (server.getOAuth()) {
+			wrongLogin.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					caller.oAuthHandshake(server);
+				}
+			});
+		}
 		
 		noConnection = createBasicDialog(R.string.no_connection_title, R.string.no_connection_message);
 		noConnection.setPositiveButton(R.string.okay, doNothingListener);

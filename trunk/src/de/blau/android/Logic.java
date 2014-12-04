@@ -2342,6 +2342,7 @@ public class Logic {
 					result.message = e.getMessage();
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
+					case HttpStatus.SC_FORBIDDEN:
 						result.error = DialogFactory.WRONG_LOGIN;
 						break;
 					case HttpStatus.SC_CONFLICT:
