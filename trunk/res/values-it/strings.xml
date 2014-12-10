@@ -58,7 +58,7 @@
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
-  <string name="imagery_offset_title">Offset delle immagini</string>
+  <string name="imagery_offset_title">Allineamento delle immagini</string>
   <string name="imagery_offset_description">Descrizione</string>
   <string name="imagery_offset_not_found">Nessun dato di allineamento è stato trovato nel raggio di 10km!</string>
   <string name="imagery_offset_author">Autore</string>
@@ -134,12 +134,12 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Aggiungi le etichette dell\'indirizzo civico</string>
   <string name="tag_menu_sourcesurvey">Da rilevamento</string>
-  <string name="tag_menu_preset">Preset</string>
+  <string name="tag_menu_preset">Preimpostazioni</string>
   <string name="tag_menu_repeat">Ripeti etichette</string>
   <string name="tag_menu_revert">Ripristina</string>
   <string name="tag_menu_mapfeatures">Wiki funzioni mappe</string>
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
-  <string name="tag_menu_resetMRU">Reimposta preset</string>
+  <string name="tag_menu_resetMRU">Azzera preimpostazioni</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
   <string name="tag_menu_exit_no_save">Esci senza salvare</string>
   <string name="tag_value_hint">Tocca per aggiungere i valori</string>
@@ -280,7 +280,10 @@
   <string name="config_api_url_title">URL dell\'API</string>
   <string name="config_api_oauth_title">Usa oauth</string>
   <string name="listedit_enable_oauth">Abilita oauth</string>
-  <string name="config_presetbutton_title">Preset</string>
+  <string name="config_offsetServer_title">Server degli allineamenti</string>
+  <string name="config_offsetServer_summary">Indirizzo del server per gli allineamenti delle foto aeree</string>
+  <string name="config_presetbutton_title">Preimpostazioni</string>
+  <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
   <string name="config_iconbutton_title">Mostra icone dei nodi</string>
   <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.
 </string>
@@ -313,6 +316,8 @@
   <string name="config_enableNameSuggestions_summary">Abilita i suggerimenti dei nomi</string>
   <string name="config_enableAutoPreset_title">Abilita i preset automatici</string>
   <string name="config_enableAutoPreset_summary">Aggiungi automaticamente i preset quando è selezionato il suggerimento del nome</string>
+  <string name="config_gps_source_tcp_title">Dispositivo della rete NMEA</string>
+  <string name="config_gps_source_tcp_summary">Indirizzo della sorgente NMEA TCP nel formato sito:porta</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna preset</string>
   <string name="preset_download_successful">Preset scaricati con successo</string>
@@ -324,6 +329,7 @@
   <string name="changes_changed">\"%1$s\" modificato</string>
   <string name="changes_created">\"%1$s\" creato</string>
   <string name="confirm_upload_title">Carica?</string>
+  <string name="confirm_upload_text">Carica le seguenti modifiche?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi preset</string>
   <string name="urldialog_preset_exists">Questo preset esiste già</string>
@@ -371,6 +377,7 @@
   <string name="undo_action_rotateway">ruota via</string>
   <string name="undo_action_orthogonalize">Ortogonalizza la via</string>
   <string name="undo_action_circulize">disponi in cerchio</string>
+  <string name="undo_action_fix_conflict">Risolvi il conflitto</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci si è chiuso improvvisamente o ha incontrato un problema grave. Invia una segnalazione di errore.</string>
   <string name="crash_notif_title">Vespucci si è chiuso improvvisamente o ha incontrato un problema grave.</string>
