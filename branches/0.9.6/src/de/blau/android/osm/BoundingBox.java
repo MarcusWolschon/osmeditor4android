@@ -675,7 +675,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 	/**
 	 * set current zoom level to a tile zoom level equivalent, powers of 2 assuming 256x256 tiles
 	 * maintain center of bounding box
-	 * @param tileZoomLevel
+	 * @param tileZoomLevel The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
 	 */
 	public void setZoom(int tileZoomLevel) {
 		// setting an exact zoom level implies one screen pixel == one tile pixel
