@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.acra.ACRA;
 import org.xmlpull.v1.XmlPullParserException;
@@ -45,6 +48,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	private UndoStorage undo;
 	
 	private ClipboardStorage clipboard;
+	
+	/**
+	 * when reading state lockout writing/reading 
+	 */
+	private ReentrantLock readingLock = new ReentrantLock();
 
 	/**
 	 * Indicates whether changes have been made since the last save to disk.
@@ -1597,14 +1605,19 @@ public class StorageDelegator implements Serializable, Exportable {
 			return;
 		}
 
-		// TODO this doesn't really help with error conditions need to throw exception
-		if (savingHelper.save(FILENAME, this, true)) { 
-			dirty = false;
+		if (readingLock.tryLock()) {
+			// TODO this doesn't really help with error conditions need to throw exception
+			if (savingHelper.save(FILENAME, this, true)) { 
+				dirty = false;
+			} else {
+				// this is essentially catastrophic and can only happen if something went really wrong
+				// running out of memory or disk, or HW failure
+				Toast.makeText(Application.mainActivity, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+				SavingHelper.asyncExport(Application.mainActivity, this);
+			}
+			readingLock.unlock();
 		} else {
-			// this is essentially catastrophic and can only happen if something went really wrong
-			// running out of memory or disk, or HW failure
-			Toast.makeText(Application.mainActivity, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
-			SavingHelper.asyncExport(Application.mainActivity, this);
+			Log.i("StorageDelegator", "storage delegator state being read, skipping save");
 		}
 	}
 
@@ -1612,27 +1625,34 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * Loads the storage data from the default storage file
 	 */
 	public boolean readFromFile() {
-		StorageDelegator newDelegator = savingHelper.load(FILENAME, true); 
-		if (newDelegator != null) {
-			Log.d("StorageDelegator", "read saved state");
-			currentStorage = newDelegator.currentStorage;
-			if (currentStorage.getBoundingBoxes() == null) { // can happen if data was added before load
-				try {
-					currentStorage.setBoundingBox(currentStorage.calcBoundingBoxFromData());
-				} catch (OsmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		try {
+			readingLock.lock();
+			StorageDelegator newDelegator = savingHelper.load(FILENAME, true); 
+
+
+			if (newDelegator != null) {
+				Log.d("StorageDelegator", "read saved state");
+				currentStorage = newDelegator.currentStorage;
+				if (currentStorage.getBoundingBoxes() == null) { // can happen if data was added before load
+					try {
+						currentStorage.setBoundingBox(currentStorage.calcBoundingBoxFromData());
+					} catch (OsmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				apiStorage = newDelegator.apiStorage;
+				undo = newDelegator.undo;
+				clipboard = newDelegator.clipboard;
+				factory = newDelegator.factory;
+				dirty = false; // data was just read, i.e. memory and file are in sync
+				return true;
+			} else {
+				Log.d("StorageDelegator", "saved state null");
+				return false;
 			}
-			apiStorage = newDelegator.apiStorage;
-			undo = newDelegator.undo;
-			clipboard = newDelegator.clipboard;
-			factory = newDelegator.factory;
-			dirty = false; // data was just read, i.e. memory and file are in sync
-			return true;
-		} else {
-			Log.d("StorageDelegator", "saved state null");
-			return false;
+		} finally {
+			readingLock.unlock();
 		}
 	}
 

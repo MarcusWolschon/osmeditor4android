@@ -2231,9 +2231,13 @@ public class Logic {
 	 * @param context 
 	 */
 	void loadFromFile(Context context) {
+		
+		final int READ_FAILED = 0;
+		final int READ_OK = 1;
+		final int READ_BACKUP = 2;
 
 		Context[] c = {context};
-		AsyncTask<Context, Void, Boolean> loader = new AsyncTask<Context, Void, Boolean>() {
+		AsyncTask<Context, Void, Integer> loader = new AsyncTask<Context, Void, Integer>() {
 			
 			
 			Context context;
@@ -2246,17 +2250,32 @@ public class Logic {
 			}
 			
 			@Override
-			protected Boolean doInBackground(Context... c) {
+			protected Integer doInBackground(Context... c) {
 				this.context = c[0];
 				if (delegator.readFromFile()) {
 					viewBox.setBorders(delegator.getLastBox());
-					return Boolean.valueOf(true);
+					return Integer.valueOf(READ_OK);
+				} else {
+//	Experimental code for reading from backup file				
+//					FileInputStream in = null;
+//					try {
+//						in = context.openFileInput(StorageDelegator.FILENAME + ".backup");
+//					} catch (final FileNotFoundException e) {
+//						return Integer.valueOf(READ_FAILED);
+//					} finally {
+//						SavingHelper.close(in);
+//					}
+//					Log.d("Logic", "loadfromFile: trying backup");
+//					if (delegator.readFromFile()) {
+//						viewBox.setBorders(delegator.getLastBox());
+//						return Integer.valueOf(READ_BACKUP);
+//					}
 				}
-				return Boolean.valueOf(false);
+				return Integer.valueOf(READ_FAILED);
 			}
 			
 			@Override
-			protected void onPostExecute(Boolean result) {
+			protected void onPostExecute(Integer result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
 				try {
 					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
@@ -2264,7 +2283,7 @@ public class Logic {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
 				}
-				if (result.booleanValue()) {
+				if (result.intValue() != READ_FAILED) {
 					Log.d("Logic", "loadfromFile: File read correctly");
 					View map = Application.mainActivity.getCurrentFocus();
 					
@@ -2283,6 +2302,9 @@ public class Logic {
 					loadEditingState();
 					map.invalidate();
 					UndoStorage.updateIcon();
+					if (result.intValue() == READ_BACKUP) { 
+						Toast.makeText(Application.mainActivity, "Corrupted state file, used backup file!", Toast.LENGTH_LONG).show();
+					}
 				}
 				else {
 					Log.d("Logic", "loadfromFile: File read failed");
