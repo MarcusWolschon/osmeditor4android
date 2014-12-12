@@ -130,6 +130,7 @@
   <string name="menu_transfer_download_other">Λήψη άλλης τοποθεσίας</string>
   <string name="menu_transfer_upload">Αποστολή δεδομένων στον διακομιστή </string>
   <string name="menu_transfer_export">Εξαγωγή αλλαγών</string>
+  <string name="menu_transfer_read_file">Ανάγνωση από αρχείο</string>
   <string name="menu_transfer_save_file">Αποθήκευση σε αρχείο</string>
   <string name="menu_save">Αποθήκευση σε αρχείο</string>
   <string name="menu_join">Σύνδεση</string>
@@ -163,6 +164,7 @@
   <string name="actionmode_createpath">Δημιουργία διαδρομής</string>
   <!--Preferences-->
   <string name="config_category_view">Προβολή Ρυθμίσεων</string>
+  <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
   <string name="config_showStats_title">Εμφάνιση στατιστικών</string>
   <string name="config_enableAntiAliasing_title">Ενεργοποίηση Εξομάλυνσης Εικόνας</string>
   <string name="config_enableOpenStreetBugs_title">Ενεργοποίηση Προβολής Σημειώσεων</string>
@@ -204,6 +206,7 @@
   <string name="undo">Αναίρεση</string>
   <string name="redo">Επαναφορά</string>
   <string name="undo_nothing">τίποτα προς αναίρεση</string>
+  <string name="tracking_active_title">Καταγραφή ίχνους GPX</string>
   <string name="tracking_active_text">Ο Vespucci καταγράφει ένα ίχνος </string>
   <string name="gps_failure">Αποτυχία ενεργοποίησης </string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -226,6 +229,8 @@
   <string name="undo_action_cut">αποκοπή</string>
   <string name="undo_action_paste">επικόλληση</string>
   <string name="undo_action_rotateway">περιστροφή διαδρομής</string>
+  <string name="undo_action_circulize">Τακτοποίηση σε κύκλο</string>
+  <string name="undo_action_fix_conflict">επίλυση διένεξης</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
