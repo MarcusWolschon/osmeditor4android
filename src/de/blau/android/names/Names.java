@@ -117,20 +117,20 @@ public class Names {
 							String key = null;
 							reader.beginObject();
 							while (reader.hasNext()) {
-								key = reader.nextName();
+								key = reader.nextName(); // amenity, shop
 								// value object
 								String value = null;
 								reader.beginObject();
-								while (reader.hasNext()) {
+								while (reader.hasNext()) { // restaurant, fast_food, ....
 									value = reader.nextName();
 									// name object
 									String name = null;
-									TagMap secondaryTags = null;
 									int count = 0;
 									reader.beginObject();
 									while (reader.hasNext()) {
-										name = reader.nextName();
+										name = reader.nextName(); // name of estabishment
 										reader.beginObject();
+										TagMap secondaryTags = null; // any extra tags store here
 										while (reader.hasNext()) {
 											String jsonName = reader.nextName();
 											if (jsonName.equals("count")) {

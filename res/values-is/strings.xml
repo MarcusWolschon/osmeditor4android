@@ -18,8 +18,10 @@
   <string name="data_conflict_message">Gögnin sem þú ert að ná í rekast á við breytingar sem þú hefur gert. Sendu gögn þín áður en þú reynir aftur.</string>
   <string name="out_of_memory_title">Vinnsluminni fullt</string>
   <string name="invalid_data_received_message">Vespucci fékk ógild gögn frá netþjóni. Ef þú telur að þú hafir réttara fyrir þér tilkynntu þá forritsvillu.</string>
+  <string name="welcome_title">Velkomin! </string>
   <string name="progress_title">Hleð</string>
   <string name="progress_message">Hleð gögnum í minni...</string>
+  <string name="progress_general_title">Vinsamlegast bíðið</string>
   <string name="progress_deleting_message">Eyði...</string>
   <string name="progress_searching_message">Leita...</string>
   <string name="openstreetbug_new_title">Ný athugasemd</string>
@@ -144,6 +146,7 @@
   <string name="menu_transfer_download_other">Ná í aðra staði</string>
   <string name="menu_transfer_upload">Uppfæra á OSM</string>
   <string name="menu_transfer_export">Flytja breytingar út</string>
+  <string name="menu_transfer_read_file">Lesa skrá</string>
   <string name="menu_save">Vista í skrá</string>
   <string name="menu_unjoin">Sundra</string>
   <string name="menu_copy">Afrita</string>
@@ -207,6 +210,7 @@
   <string name="config_category_server">Stillingar netþjóns</string>
   <string name="config_apibutton_title">OSM API veffang</string>
   <string name="config_apibutton_summary">Þú getur sett inn sérsniðna slóð á API hér. Ætti yfirleitt ekki að breyta!</string>
+  <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Auðkenning með oauth</string>
   <string name="listedit_enable_oauth">Virkja oauth</string>
   <string name="config_iconbutton_title">Sýna táknmyndir hnúta</string>
@@ -260,6 +264,7 @@
   <string name="name">Nafn</string>
   <string name="url">Veffang</string>
   <string name="default_">Sjálfgefið</string>
+  <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="api">API</string>
   <string name="undo">Hætta við</string>
