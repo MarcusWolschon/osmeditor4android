@@ -296,16 +296,15 @@ public class Logic {
 
 	
 	/**
-	 * 
+	 * The currently selected handle to be dragged to create a new node in a way.
 	 */
 	private Handle selectedHandle = null;
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
 	 * 
-	 * @param locationManager Needed for the Tracker. Should be instanced in Main.
 	 * @param map Instance of the Map. All new Values will be pushed to it.
-	 * @param paints Needed for updating the strokes on zooming.
+	 * @param profile The drawing profile used by the map to paint the objects on screen.
 	 */
 	Logic(final Map map, final Profile profile) {
 		this.map = map;
@@ -338,7 +337,8 @@ public class Logic {
 
 	
 	/**
-	 * 
+	 * Informs the current drawing profile of the user preferences affecting
+	 * drawing, the current screen properties, and clears the way cache.
 	 */
 	public void updateProfile() {
 		Profile.switchTo(prefs.getMapProfile());
@@ -386,6 +386,9 @@ public class Logic {
 		map.invalidate();
 	}
 
+	/**
+	 * Returns the current mode that the program is in.
+	 */
 	public Mode getMode() {
 		return mode;
 	}
@@ -402,6 +405,7 @@ public class Logic {
 	/**
 	 * Get the current undo instance.
 	 * For immediate use only - DO NOT CACHE THIS.
+	 * 
 	 * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.  
 	 */
 	public UndoStorage getUndo() {
@@ -450,6 +454,7 @@ public class Logic {
 	
 	/**
 	 * Test if the requested zoom operation can be performed.
+	 * 
 	 * @param zoomIn The zoom operation: ZOOM_IN or ZOOM_OUT.
 	 * @return true if the zoom operation can be performed, false if it can't.
 	 */
@@ -458,10 +463,11 @@ public class Logic {
 	}
 	
 	/**
-	 * Zooms in or out. Checks if the new viewBox is close enough for editing and sends this value to map. Strokes will
-	 * be updated and map will be repainted.
+	 * Zooms in or out. Checks if the new viewBox is close enough for editing
+	 * and sends this value to map. Strokes will be updated and map will be repainted.
 	 * 
-	 * @param zoomIn true for zooming in.
+	 * @param zoomIn
+	 *            true for zooming in.
 	 */
 	public void zoom(final boolean zoomIn) {
 		if (zoomIn) {
@@ -469,11 +475,16 @@ public class Logic {
 		} else {
 			viewBox.zoomOut();
 		}
-		isInEditZoomRange();
+		isInEditZoomRange(); //FIXME - This line does nothing.
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.postInvalidate();
 	}
 	
+	/**
+	 * Zooms the map in or out by the given factor and updates the map view after zooming.
+	 * 
+	 * @param zoomFactor The factor to zoom by, negative values zoom out, positive zooms in.
+	 */
 	public void zoom(final float zoomFactor) {
 		try {
 			viewBox.zoom(zoomFactor);
@@ -481,14 +492,15 @@ public class Logic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		isInEditZoomRange();
+		isInEditZoomRange(); //FIXME - This line does nothing.
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.postInvalidate();
 	}
 	
 	/**
-	 * set zoom to a specific tile zoom level
-	 * @param z
+	 * Set the zoom to a specific tile zoom level.
+	 * 
+	 * @param z The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
 	 */
 	public void setZoom(int z) {
 		viewBox.setZoom(z);
@@ -508,6 +520,7 @@ public class Logic {
 	
 	/**
 	 * Create an undo checkpoint using a resource string as the name
+	 * 
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void createCheckpoint(int stringId) {
@@ -516,6 +529,7 @@ public class Logic {
 	
 	/**
 	 * Remove an undo checkpoint using a resource string as the name
+	 * 
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void removeCheckpoint(int stringId) {
@@ -566,6 +580,13 @@ public class Logic {
 		}
 	}
 	
+	/**
+	 * Updates the list of members in the selected relation.
+	 * Actual work is delegated out to {@link StorageDelegator}.
+	 * 
+	 * @param osmId The OSM ID of the relation to change.
+	 * @param members The new list of members to set for the given relation.
+	 */
 	public boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
 		OsmElement osmElement = delegator.getOsmElement(Relation.NAME, osmId);
 		if (osmElement == null) {
@@ -644,6 +665,7 @@ public class Logic {
 
 	/**
 	 * Returns all ways within way tolerance from the given coordinates, and their distances from them.
+	 * 
 	 * @param x x display coordinate
 	 * @param y y display coordinate
 	 * @return a hash map mapping Ways to distances
@@ -675,6 +697,9 @@ public class Logic {
 		return result;
 	}
 	
+	/**
+	 * The small mid segment 'x' handles that allow dragging to easily add a new node to a way.
+	 */
 	class Handle {
 		float x;
 		float y;
@@ -687,6 +712,7 @@ public class Logic {
 	
 	/**
 	 * Returns all ways with a mid-way segment handle tolerance from the given coordinates, and their distances from them.
+	 * 
 	 * @param x x display coordinate
 	 * @param y y display coordinate
 	 * @return a hash map mapping Ways to distances
@@ -735,6 +761,7 @@ public class Logic {
 	/**
 	 * Calculates the on-screen distance between a node and the screen coordinate of a click.
 	 * Returns null if the node was outside the click tolerance.
+	 * 
 	 * @param node the node
 	 * @param x the x coordinate of the clicked point
 	 * @param y the y coordinate of the clicked point
@@ -758,6 +785,7 @@ public class Logic {
 	
 	/**
 	 * Returns all nodes within node tolerance from the given coordinates, and their distances from them.
+	 * 
 	 * @param x x display coordinate
 	 * @param y y display coordinate
 	 * @return a hash map mapping Nodes to distances
@@ -791,6 +819,13 @@ public class Logic {
 		return nodeSorter.sort(getClickedNodesWithDistances(x, y));
 	}
 
+	/**
+	 * Searches for a way end node at x,y plus the shown node-tolerance. The Node has to lay in the mapBox.
+	 * 
+	 * @param x display-coordinate.
+	 * @param y display-coordinate.
+	 * @return all end nodes within tolerance found in the currentStorage node-list, ordered ascending by distance.
+	 */
 	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
 		List<OsmElement> result = new ArrayList<OsmElement>();
 		List<OsmElement> allNodes = getClickedNodes(x, y);
@@ -826,6 +861,7 @@ public class Logic {
 
 	/**
 	 * Returns all ways within click tolerance from the given coordinate 
+	 * 
 	 * @param x x display-coordinate.
 	 * @param y y display-coordinate.
 	 * @return the ways
@@ -836,6 +872,7 @@ public class Logic {
 	
 	/**
 	 * Returns the closest way (within tolerance) to the given coordinates
+	 * 
 	 * @param x the x display-coordinate.
 	 * @param y the y display-coordinate.
 	 * @return the closest way, or null if no way is found within the tolerance
@@ -853,6 +890,14 @@ public class Logic {
 		return bestWay;
 	}
 	
+	/**
+	 * Returns a list of all the clickable OSM elements in storage (does not
+	 * restrict to the current screen). Before returning the list is "pruned" to
+	 * remove any elements on the exclude list.
+	 * 
+	 * @param excludes The list of OSM elements to exclude from the results.
+	 * @return
+	 */
 	public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
 		Set<OsmElement> result = new HashSet<OsmElement>();
 		result.addAll(delegator.getCurrentStorage().getNodes());
@@ -864,6 +909,7 @@ public class Logic {
 	
 	/**
 	 * Get a list of all the Ways connected to the given Node.
+	 * 
 	 * @param node The Node.
 	 * @return A list of all Ways connected to the Node.
 	 */
@@ -874,6 +920,7 @@ public class Logic {
 	/**
 	 * Test if the given Node is an end node of a Way. Isolated nodes not part
 	 * of a way are not considered an end node.
+	 * 
 	 * @param node Node to test.
 	 * @return true if the Node is an end node of a Way, false otherwise.
 	 */
@@ -882,8 +929,9 @@ public class Logic {
 	}
 	
 	/**
-	 * Check all nodes in way if they are actually in the downloaded data
-	 * @param way
+	 * Check all nodes in way to see if the bbox of the downloaded data.
+	 * 
+	 * @param way the way whose nodes should be checked
 	 * @return true if the above is the case
 	 */
 	public boolean isInDownload(Way way) {
@@ -896,7 +944,8 @@ public class Logic {
 	}
 	
 	/**
-	 * Check if node is in  downloaded data
+	 * Check if node is in the bbox for the downloaded data
+	 * 
 	 * @param node
 	 * @return true if the above is the case
 	 */
@@ -1009,6 +1058,9 @@ public class Logic {
 		}
 	}
 
+	/**
+	 * Calculates the coordinates for the center of the screen and displays a crosshair there. 
+	 */
 	public void showCrosshairsForCentroid()
 	{
 		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWays.get(0));
@@ -1127,6 +1179,10 @@ public class Logic {
 		map.invalidate();
 	}
 
+	/**
+	 * Puts the editor into the mode where the selected way will be rotated by
+	 * the handleTouchEventMove function on move events.
+	 */
 	public void setRotationMode() {
 		rotatingWay = true;
 	}
@@ -1290,6 +1346,7 @@ public class Logic {
 
 	/**
 	 * set new coordinates and center BBox on them
+	 * 
 	 * @param node
 	 * @param lon
 	 * @param lat
@@ -1307,6 +1364,7 @@ public class Logic {
 
 	/**
 	 * Deletes a way.
+	 * 
 	 * @param way the way to be deleted
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
 	 */
@@ -1393,7 +1451,7 @@ public class Logic {
 	
 	
 	/**
-	 * Orthogonalize a way (aka make angles 90°)
+	 * Orthogonalize a way (aka make angles 90ï¿½)
 	 * @param way
 	 */
 	public void performOrthogonalize(Way way) {
@@ -1881,7 +1939,10 @@ public class Logic {
 	}
 
 	/**
-	 * @param add 
+	 * Calls the actual downloadBox function using the current map view as the
+	 * bounding box for the download.
+	 * 
+	 * @param add add if true add this data to existing
 	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadCurrent(boolean add) {
@@ -1891,6 +1952,7 @@ public class Logic {
 	
 	/**
 	 * Re-downloads the same area as last time
+	 * 
 	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadLast() {
@@ -1902,6 +1964,7 @@ public class Logic {
 
 	/**
 	 * Return a single element from the API
+	 * 
 	 * @param type
 	 * @param id
 	 * @return
@@ -1972,6 +2035,7 @@ public class Logic {
 	
 	/**
 	 * Update a single element from the API
+	 * 
 	 * @param type
 	 * @param id
 	 */
@@ -2057,6 +2121,7 @@ public class Logic {
 	/**
 	 * Element is deleted on server, delete locally but don't upload
 	 * A bit iffy because of memberships in other objects
+	 * 
 	 * @param e
 	 */
 	public void updateToDeleted(OsmElement e) {
@@ -2074,6 +2139,7 @@ public class Logic {
 	
 	/**
 	 * Read a file in (J)OSM format from device
+	 * 
 	 * @param fileName
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
@@ -2175,6 +2241,7 @@ public class Logic {
 
 	/**
 	 * Write data to a file in (J)OSM compatible format
+	 * 
 	 * @param fileName
 	 */
 	public void writeOsmFile(final String fileName) {
@@ -2289,12 +2356,18 @@ public class Logic {
 		}
 	}
 	
+	/**
+	 * Saves the current editing state (selected objects, editing mode, etc) to file.
+	 */
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts);
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
+	/**
+	 * Loads the current editing state (selected objects, editing mode, etc) from file.
+	 */
 	void loadEditingState() {
 		EditState editState = new SavingHelper<EditState>().load(EDITSTATE_FILENAME, false);
 		if(editState != null) { // 
@@ -2305,6 +2378,7 @@ public class Logic {
 
 	/**
 	 * Loads data from a file in the background.
+	 * 
 	 * @param context 
 	 */
 	void loadFromFile(Context context) {
@@ -2373,9 +2447,13 @@ public class Logic {
 	}
 	
 	/**
+	 * A small class to store the result returned from the OSM server after
+	 * trying to upload changes. The response includes things like the HTTP
+	 * response code, conflict information, etc.
+	 * 
 	 * Return not only the error code, but the element involved
+	 * 
 	 * @author simon
-	 *
 	 */
 	public class UploadResult {
 		public int error = 0;
@@ -2384,12 +2462,13 @@ public class Logic {
 		public long osmId;
 		public String message;
 	}
+
 	/**
 	 * Uploads to the server in the background.
 	 * 
 	 * @param comment Changeset comment.
-	 * @param source 
-	 * @param closeChangeset TODO
+	 * @param source The changeset source tag to add.
+	 * @param closeChangeset Whether to close the changeset after upload or not.
 	 */
 	public void upload(final String comment, final String source, final boolean closeChangeset) {
 		final Server server = prefs.getServer();
@@ -2481,6 +2560,14 @@ public class Logic {
 	
 	
 
+	/**
+	 * Uploads a GPS track to the server.
+	 * 
+	 * @param track the track to upload
+	 * @param description a description of the track sent to the server
+	 * @param tags the tags to apply to the GPS track (comma delimeted)
+	 * @param visibility the track visibility, one of the following: private, public, trackable, identifiable
+	 */
 	public void uploadTrack(final Track track, final String description, final String tags, final Visibility visibility) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
@@ -2600,6 +2687,7 @@ public class Logic {
 	
 	/**
 	 * Make a new bug at the given screen X/Y coordinates.
+	 * 
 	 * @param x The screen X-coordinate of the bug.
 	 * @param y The screen Y-coordinate of the bug.
 	 * @return The new bug, which must have a comment added before it can be submitted to OSB.
@@ -2659,7 +2747,7 @@ public class Logic {
 	}
 	
 	/**
-	 * Add wayss to the internal list
+	 * Adds the given way to the list of currently selected ways.
 	 */
 	public synchronized void addSelectedWay(final Way selectedWay) {
 		if (selectedWays == null) {
@@ -2671,6 +2759,9 @@ public class Logic {
 		}
 	}
 	
+	/**
+	 * Removes the given way from the list of currently selected ways.
+	 */
 	public void removeSelectedWay(Way way) {
 		if (selectedWays != null) {
 			selectedWays.remove(way);
@@ -2705,7 +2796,7 @@ public class Logic {
 	}
 	
 	/**
-	 * Add Relationss to the internal list
+	 * Adds the given relation to the list of currently selected relations.
 	 */
 	public synchronized void addSelectedRelation(final Relation selectedRelation) {
 		if (selectedRelations == null) {
@@ -2719,6 +2810,7 @@ public class Logic {
 	
 	/**
 	 * Set the currently selected bug.
+	 * 
 	 * @param selectedBug The selected bug.
 	 */
 	public synchronized void setSelectedBug(final Bug selectedBug) {
@@ -2742,7 +2834,6 @@ public class Logic {
 
 	/**
 	 * Get list of selected nodes
-	 * @return
 	 */
 	public List<Node> getSelectedNodes() {
 		return selectedNodes;
@@ -2750,7 +2841,6 @@ public class Logic {
 
 	/**
 	 * Return how many nodes are selected
-	 * @return
 	 */
 	public int selectedNodesCount() {
 		return selectedNodes == null ? 0 : selectedNodes.size();
@@ -2773,7 +2863,6 @@ public class Logic {
 	
 	/**
 	 * Get list of selected ways
-	 * @return
 	 */
 	public List<Way> getSelectedWays() {
 		return selectedWays;
@@ -2781,7 +2870,6 @@ public class Logic {
 	
 	/**
 	 * Return how many ways are selected
-	 * @return
 	 */
 	public int selectedWaysCount() {
 		return selectedWays == null ? 0 : selectedWays.size();
@@ -2789,7 +2877,6 @@ public class Logic {
 	
 	/**
 	 * Get list of selected ways
-	 * @return
 	 */
 	public List<Relation> getSelectedRelations() {
 		return selectedRelations;
@@ -2797,7 +2884,6 @@ public class Logic {
 	
 	/**
 	 * Return how many ways are selected
-	 * @return
 	 */
 	public int selectedRelationsCount() {
 		return selectedRelations == null ? 0 : selectedRelations.size();
@@ -2805,7 +2891,6 @@ public class Logic {
 	
 	/**
 	 * Check is all selected elements exist, return true if we actually had to remove something
-	 * @return
 	 */
 	boolean resyncSelected() {
 		boolean result = false;
@@ -2838,6 +2923,7 @@ public class Logic {
 	
 	/**
 	 * Get the selected bug.
+	 * 
 	 * @return The selected bug.
 	 */
 	public final Bug getSelectedBug() {
@@ -2865,8 +2951,9 @@ public class Logic {
 
 	/**
 	 * Sets the set of elements that can currently be clicked.
-	 * If set to null, the map will use default behaviour.
-	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * <li>If set to null, the map will use default behaviour.</li>
+	 * <li>If set to a non-null value, the map will highlight only elements in the list.</li>
+	 * 
 	 * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
 	public void setClickableElements(Set<OsmElement> clickable) {
@@ -2874,7 +2961,6 @@ public class Logic {
 	}
 	
 	/**
-	 * @return 
 	 * @return the list of clickable elements. May be null, meaning no restrictions on clickable elements
 	 */
 	public Set<OsmElement> getClickableElements() {
@@ -2882,7 +2968,8 @@ public class Logic {
 	}
 	
 	/**
-	 * Sets if we return relations when touching/clicking 
+	 * Sets if we return relations when touching/clicking.
+	 * 
 	 * @param on true if we should return relations
 	 */
 	public void setReturnRelations(boolean on) {
@@ -2892,6 +2979,7 @@ public class Logic {
 	
 	/**
 	 * Checks if an element exists, i.e. is in currentStorage
+	 * 
 	 * @param element the element that is to be checked
 	 * @return true if the element exists, false otherwise
 	 */
@@ -2899,11 +2987,20 @@ public class Logic {
 		return delegator.getCurrentStorage().contains(element);
 	}
 	
-	/** Get the X screen coordinate for a node on the screen. */
+	/**
+	 * @return the X coordinate (in pixels) of the given node's position on the
+	 *         screen (note that the returned position may be outside of the
+	 *         screens bounds).
+	 */
 	public float getNodeScreenX(Node node) {
 		return lonE7ToX(node.getLon());
 	}
-	
+
+	/**
+	 * @return the Y coordinate (in pixels) of the given node's position on the
+	 *         screen (note that the returned position may be outside of the
+	 *         screens bounds).
+	 */
 	public float getNodeScreenY(Node node) {
 		return latE7ToY(node.getLat());
 	}
@@ -2932,6 +3029,15 @@ public class Logic {
 		}
 	}
 
+	/**
+	 * Creates a turn restriction relation using the given objects as the members in the relation.
+	 * 
+	 * @param fromWay the way on which turning off of is restricted in some fashion
+	 * @param viaElement the "intersection node" at which the turn is restricted
+	 * @param toWay the way that the turn restriction prevents turning onto
+	 * @param restriction_type the kind of turn which is restricted
+	 * @return a relation element for the turn restriction
+	 */
 	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
@@ -2953,6 +3059,13 @@ public class Logic {
 		return restriction;
 	}
 
+	/**
+	 * Creates a new relation containing the given members.
+	 * 
+	 * @param type the 'type=*' tag to set on the relation itself
+	 * @param members the osm elements to include in the relation
+	 * @return the new relation
+	 */
 	public Relation createRelation(String type, List<OsmElement> members ) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
@@ -2972,6 +3085,9 @@ public class Logic {
 	}
 	
 	
+	/**
+	 * Adds the list of elements to the given relation with an empty role set for each new member.
+	 */
 	public void addMembers(Relation relation, ArrayList<OsmElement> members) {
 		createCheckpoint(R.string.undo_action_update_relations);
 		delegator.addMembersToRelation(relation, members);
@@ -3103,6 +3219,9 @@ public class Logic {
 		delegator.setOsmVersion(elementLocal,newVersion);
 	}
 
+	/**
+	 * Displays a crosshair marker on the screen at the coordinates given (in pixels).
+	 */
 	public void showCrosshairs(float x, float y) {
 		map.showCrosshairs(x, y);
 		map.invalidate();
