@@ -19,7 +19,8 @@
     <string name="no_connection_title">No Connection to Server</string>
     <string name="no_connection_message">Could not connect to the OSM-Server. Please check your Internet connection or try again later.</string>
     <string name="wrong_login_data_title">Authentication failed</string>
-    <string name="wrong_login_data_message">If you are using OAuth this is likely a bug, please send a problem report, if you are using login and password (not recommended) please check that they are entered correctly.</string>
+    <string name="wrong_login_data_message">If you are using OAuth you should re-authenticate and then retry, if you are using login and password (not recommended) please check that they are entered correctly.</string>
+    <string name="wrong_login_data_re_authenticate">Re-Authenticate</string>
     <string name="data_conflict_title">Version Conflict</string>
     <string name="data_conflict_message">The data you are trying to download contains data that conflicts with your edits. Please try to upload your data first before retrying.</string>
     <string name="api_offline_title">API Offline</string>
@@ -151,7 +152,7 @@
     <string name="tag_menu_address">Add address tags</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>
     <string name="tag_menu_preset">Presets</string>
-    <string name="tag_menu_apply_preset">Apply best reset</string>
+    <string name="tag_menu_apply_preset">Apply best preset</string>
     <string name="tag_menu_repeat">Repeat tags</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map Features Wiki</string>
@@ -160,6 +161,7 @@
     <string name="tag_menu_reset_address_prediction">Reset address prediction</string>
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
     <string name="tag_value_hint">Tap for values</string>
+    <string name="tag_action_title">Tags selected</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>
     <string name="location_choose_radius">Choose radius:</string>
