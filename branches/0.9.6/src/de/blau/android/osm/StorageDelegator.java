@@ -52,8 +52,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * when reading state lockout writing/reading 
 	 */
-	private ReentrantLock readingLock = new ReentrantLock();
-
+	private transient ReentrantLock readingLock = new ReentrantLock();
+	
 	/**
 	 * Indicates whether changes have been made since the last save to disk.
 	 * Since a newly created storage is not saved, the constructor sets it to true.
@@ -1648,6 +1648,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @throws IOException
 	 */
 	public void writeToFile() throws IOException { 
+		if (apiStorage == null || currentStorage == null || (apiStorage.isEmpty() && currentStorage.isEmpty())) {
+			// don't write empty state files
+			Log.i("StorageDelegator", "storage delegator empty, skipping save");
+			return;
+		}
 		if (!dirty) {
 			Log.i("StorageDelegator", "storage delegator not dirty, skipping save");
 			return;
