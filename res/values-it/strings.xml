@@ -7,7 +7,7 @@
   <string name="transfer_download_current_download">Annulla &amp; scarica</string>
   <string name="transfer_download_current_back">Indietro (non fare niente)</string>
   <string name="upload_problem_title">Problema con il caricamento</string>
-  <string name="upload_problem_message">I dati non sono stati caricati in parte o del tutto. Se è un problema temporaneo, prova a caricare di nuovo più tardi.</string>
+  <string name="upload_problem_message">I dati non sono stati parzialmente o totalmente caricati. Se si tratta di un problema temporaneo, prova a caricare di nuovo più tardi.</string>
   <string name="upload_conflict_title">Conflitto di caricamento</string>
   <string name="upload_conflict_message_version">%1$s \nha la versione locale %2$s \nmentre sul server è %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$s \nmentre sul server risulta eliminata</string>
@@ -141,7 +141,7 @@
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
   <string name="tag_menu_resetMRU">Azzera preimpostazioni</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
-  <string name="tag_menu_exit_no_save">Esci senza salvare</string>
+  <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
   <string name="tag_value_hint">Tocca per aggiungere i valori</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carica area</string>

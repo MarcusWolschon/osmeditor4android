@@ -234,6 +234,10 @@ public class Storage implements Serializable {
 		this.bboxes.add(bbox);
 	}
 
+	/**
+	 * Return true if this storage is empty
+	 * @return true if empty
+	 */
 	public boolean isEmpty() {
 		return nodes.isEmpty() && ways.isEmpty() && relations.isEmpty();
 	}
