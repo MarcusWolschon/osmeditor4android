@@ -24,6 +24,7 @@
   <string name="progress_general_title">Vinsamlegast bíðið</string>
   <string name="progress_deleting_message">Eyði...</string>
   <string name="progress_searching_message">Leita...</string>
+  <string name="upload_gpx_visibility_label">Sýnileiki</string>
   <string name="openstreetbug_new_title">Ný athugasemd</string>
   <string name="openstreetbug_new_bug">Tilkynna vandamál</string>
   <string name="openstreetbug_new_nodeway">Búa til hnút/feril</string>

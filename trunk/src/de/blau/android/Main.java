@@ -1406,6 +1406,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			oAuthWebView.setVisibility(View.GONE);
 			oAuthWebView.removeAllViews();
 			oAuthWebView.destroy();
+			oAuthWebView = null; 
 		} catch (Exception ex) { 
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex);
@@ -1457,6 +1458,11 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	public void onBackPressed() {
 		// super.onBackPressed();
 		Log.d("Main","onBackPressed()");
+		if (oAuthWebView != null && oAuthWebView.canGoBack()) { 
+			// we are displaying the oAuthWebView and somebody might want to navigate back
+			oAuthWebView.goBack();
+			return;
+		}
 		if (prefs.useBackForUndo()) {
 			String name = logic.getUndo().undo();
 			if (name != null)

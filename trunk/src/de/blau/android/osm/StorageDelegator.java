@@ -1601,7 +1601,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public void writeToFile() throws IOException { 
 		if (apiStorage == null || currentStorage == null || (apiStorage.isEmpty() && currentStorage.isEmpty())) {
-			// don't write empty state files
+			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
 			Log.i("StorageDelegator", "storage delegator empty, skipping save");
 			return;
 		}
