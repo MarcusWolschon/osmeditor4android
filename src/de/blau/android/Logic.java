@@ -985,6 +985,9 @@ public class Logic {
 	public void showCrosshairsForCentroid()
 	{
 		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWay);
+		if (centroid==null) {
+			return;
+		}
 		centroidX = centroid[0];
 		centroidY = centroid[1];
 		showCrosshairs(centroidX,centroidY);	
@@ -2901,6 +2904,9 @@ public class Logic {
 	 */
 	public static int[] centroid(int w, int h, BoundingBox v, final Way way) {
 		float XY[] = centroidXY(w,h,v,way);
+		if (XY == null) {
+			return null;
+		}
 		int lat = GeoMath.yToLatE7(h, w, v, XY[1]);
 		int lon = GeoMath.xToLonE7(w, v, XY[0]);
 		int result[] = {lat,lon};
@@ -2917,6 +2923,9 @@ public class Logic {
 	 * @return screen coordinates of centroid
 	 */
 	public static float[] centroidXY(int w, int h, BoundingBox v, final Way way) {
+		if (way == null) {
+			return null;
+		}
 		// 
 		List<Node> vertices = way.getNodes();
 		if (way.isClosed()) {
