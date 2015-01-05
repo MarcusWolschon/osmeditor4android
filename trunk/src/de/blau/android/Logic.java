@@ -468,6 +468,9 @@ public class Logic {
 		}
 		isInEditZoomRange();
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		if (rotatingWay) {
+			showCrosshairsForCentroid();
+		}
 		map.postInvalidate();
 	}
 	
@@ -480,6 +483,9 @@ public class Logic {
 		}
 		isInEditZoomRange();
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		if (rotatingWay) {
+			showCrosshairsForCentroid();
+		}
 		map.postInvalidate();
 	}
 	
@@ -489,6 +495,9 @@ public class Logic {
 	 */
 	public void setZoom(int z) {
 		viewBox.setZoom(z);
+		if (rotatingWay) {
+			showCrosshairsForCentroid();
+		}
 	}
 
 	/**
