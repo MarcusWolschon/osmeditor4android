@@ -47,8 +47,10 @@ public class Address implements Serializable {
 		case CLOSEDWAY:
 			de.blau.android.Map map = Application.mainActivity.getMap();
 			int[] center = Logic.centroid(map.getWidth(), map.getHeight(), map.getViewBox(), (Way)e);
-			lat = center[0]/1E7F;
-			lon = center[1]/1E7F;
+			if (center != null) { 
+				lat = center[0]/1E7F;
+				lon = center[1]/1E7F;
+			}
 			break;
 		case RELATION:
 			// doing nothing is probably best for now
