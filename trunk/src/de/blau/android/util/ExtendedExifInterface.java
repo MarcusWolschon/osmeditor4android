@@ -30,17 +30,19 @@ public class ExtendedExifInterface extends ExifInterface {
 		try {
 			 metadata = JpegMetadataReader.readMetadata(jpegFile);
 		} catch (JpegProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// broken Jpeg, ignore
+			throw new IOException(e.getMessage());
+		} catch (Exception ex) {
+			// other stuff broken ...  for example AarayIndexOutOfBounds
+			throw new IOException(ex.getMessage());
 		}
-		
 	}	
 	
 	@Override
 	public String getAttribute(String tag) {
 		if (!tag.equals(TAG_GPS_IMG_DIRECTION) && !tag.equals(TAG_GPS_IMG_DIRECTION_REF)) {
 			return super.getAttribute(tag);
-		} else {
+		} else if (metadata != null) {
 			// obtain the Exif directory
 			GpsDirectory directory = metadata.getDirectory(GpsDirectory.class);
 
@@ -61,6 +63,9 @@ public class ExtendedExifInterface extends ExifInterface {
 				Log.d("ExtendedExifInterface", "No direction information");
 				return null;
 			}
+		} else {
+			Log.d("ExtendedExifInterface", "No valid metadata");
+			return null;
 		}
 	}
 }
