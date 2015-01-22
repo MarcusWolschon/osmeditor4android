@@ -67,11 +67,13 @@
   <string name="imagery_offset_date">Создано</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Расстояние</string>
+  <string name="set_position_datum_label">Геодезическая система координат</string>
   <string name="tag_editor_name_suggestion">Предложение названия</string>
   <string name="search_results_title">Результаты поиска</string>
   <string name="find_message">Введите строку поиска</string>
   <string name="read_file">Выберете файл для чтения</string>
   <string name="save_file">Введите файл для сохранения</string>
+  <string name="existing_track_title">Существующие данные трека</string>
   <!--Toaster-->
   <string name="toast_no_changes">Вы ничего не изменили…</string>
   <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
@@ -130,6 +132,7 @@
   <string name="tag_menu_address">Добавить теги адреса</string>
   <string name="tag_menu_sourcesurvey">Обследованный</string>
   <string name="tag_menu_preset">Заготовки</string>
+  <string name="tag_menu_apply_preset">Применить лучшую перезагрузку</string>
   <string name="tag_menu_repeat">Повторить теги</string>
   <string name="tag_menu_revert">Отменить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
@@ -179,6 +182,7 @@
   <string name="menu_add_relation_member">Добавить участника</string>
   <string name="menu_tag">Править тэги</string>
   <string name="menu_openstreetbug">Добавить заметку</string>
+  <string name="menu_easyedit">Прост. ред-ние</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показывать положение</string>
   <string name="menu_gps_follow">Следовать за GPS</string>
@@ -211,6 +215,7 @@
   <string name="menu_newnode_gps">Новая точка на позиции GPS.</string>
   <string name="menu_tools">Инструменты</string>
   <string name="menu_tools_flush_background_tile_cache">Очистить кэш квадратов карты</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Очистить кэш наложений</string>
   <string name="menu_tools_background_properties">Свойства фона</string>
   <string name="menu_tools_background_align">Выровнять подложку</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
@@ -291,6 +296,7 @@
   <string name="config_extTriggeredDownloadRadius_title">Радиус скачивания</string>
   <string name="config_enableNameSuggestions_title">Разрешить предложения названий</string>
   <string name="config_enableNameSuggestions_summary">Включить предложение для тега названия</string>
+  <string name="config_enableAutoPreset_title">Включить автонастройку</string>
   <string name="config_gps_source_title">Источник GPS</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
