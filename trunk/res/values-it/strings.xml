@@ -97,7 +97,7 @@
   <string name="toast_photo_indexing_finished">È terminata la ricerca delle foto geo-referenziate</string>
   <string name="toast_download_bbox_failed">Scaricamento fallito, probabilmente perché l\'area selezionata era troppo grande.</string>
   <string name="toast_download_failed">Scaricamento fallito con codice di errore %1$d, messaggio %2$s</string>
-  <string name="toast_unsurveyed_road">Strada non classificata</string>
+  <string name="toast_unsurveyed_road">Strada non verificata</string>
   <string name="toast_noname">La strada non ha un nome o un codice di riferimento</string>
   <string name="toast_oauth_retry">Abilita l\'accesso OAuth del tuo account OSM e riprova il caricamento.</string>
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
@@ -316,6 +316,10 @@
   <string name="config_enableNameSuggestions_summary">Abilita i suggerimenti dei nomi</string>
   <string name="config_enableAutoPreset_title">Abilita i preset automatici</string>
   <string name="config_enableAutoPreset_summary">Aggiungi automaticamente i preset quando è selezionato il suggerimento del nome</string>
+  <string name="config_splitActionBarEnabled_title">Abilita la split action bar</string>
+  <string name="config_splitActionBarEnabled_summary">Imposta la split action bar il cui uso dipende dal dispositivo.  Richiede il riavvio dell\'app e una versione di Android &gt;=4.0</string>
+  <string name="config_gps_source_title">Dispositivo GPS</string>
+  <string name="config_gps_source_summary">La fonte del segnale GPS per la rilevazione della posizione.</string>
   <string name="config_gps_source_tcp_title">Dispositivo della rete NMEA</string>
   <string name="config_gps_source_tcp_summary">Indirizzo della sorgente NMEA TCP nel formato sito:porta</string>
   <!--preset downloader messages-->
@@ -410,4 +414,16 @@
   <!--Help system-->
   <string name="introduction">Introduzione</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>privato</item>
+    <item>pubblico</item>
+    <item>rintracciabile</item>
+    <item>identificabile</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Interno</item>
+    <item>Interno NMEA</item>
+    <item>NMEA da client TCP</item>
+    <item>NMEA da server TCP</item>
+  </string-array>
 </resources>
