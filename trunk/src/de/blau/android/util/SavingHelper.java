@@ -95,13 +95,15 @@ public class SavingHelper<T extends Serializable> {
         	try {
         		Log.i("SavingHelper", "saving  " + filename);
         		Context context = Application.mainActivity.getApplicationContext();
-        		rename(context, filename, filename + ".backup"); // don't overwrite
-        		out = context.openFileOutput(filename, Context.MODE_PRIVATE);
+        		String tempFilename = filename + "." + System.currentTimeMillis();
+        		out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
         		if (compress) {
         			out = new GZIPOutputStream(out);
         		}
         		objectOut = new ObjectOutputStream(out);
         		objectOut.writeObject(object);
+        		rename(context, filename, filename + ".backup"); // don't overwrite last saved state
+        		rename(context, tempFilename, filename); 		 // rename to expected name 
         		Log.i("SavingHelper", "saved " + filename + " successfully");
         		result = true;
         	} catch (Exception e) {
