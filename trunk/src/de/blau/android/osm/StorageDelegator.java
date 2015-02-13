@@ -39,7 +39,7 @@ import de.blau.android.util.SavingHelper.Exportable;
 
 public class StorageDelegator implements Serializable, Exportable {
 
-	private static final long serialVersionUID = 7L;
+	private static final long serialVersionUID = 8L;
 
 	private Storage currentStorage;
 
@@ -98,6 +98,11 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	public boolean isDirty() {
 		return dirty;
+	}
+	
+	public void dirty() {
+		dirty = true;
+		Log.d("StorageDelegator", "setting delegator to dirty");
 	}
 	
 	/**
