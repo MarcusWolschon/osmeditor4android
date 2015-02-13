@@ -567,17 +567,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	private void saveData() {
 		Log.i("Main", "saving data");
 		logic.save();
-		if (showGPS) {
-			try {
-				showGPSFlagFile.createNewFile();
-			} catch (IOException e) {
-				Log.e("Main", "failed to create showGPS flag file");
-			}
-		} else {
-			showGPSFlagFile.delete();
-		}
 		// if something was selected save that
-		
 	}
 
 	/**
@@ -914,12 +904,16 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 	    }
 	}
 	
-	protected void setAutoDownload(boolean b) {
+	public void setAutoDownload(boolean b) {
 		Log.d("Main", "autoDownload: "+ b);
 		autoDownload = b;
 	}
 	
-	protected void setShowGPS(boolean show) {
+	protected boolean getAutoDownload() {
+		return autoDownload;
+	}
+	
+	public void setShowGPS(boolean show) {
 		if (show && !ensureGPSProviderEnabled()) {
 			show = false;
 		}
@@ -934,6 +928,10 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		}
 		map.invalidate();
 		triggerMenuInvalidation();
+	}
+	
+	protected boolean getShowGPS() {
+		return showGPS;
 	}
 	
 	/**
@@ -1510,7 +1508,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 
 		@Override
 		public void onClick(View arg0) {
-			String name = logic.getUndo().undo();
+			String name = logic.undo();
 			if (name != null) {
 				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			} else {
@@ -1523,7 +1521,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 		public boolean onLongClick(View v) {
 			UndoStorage undo = logic.getUndo();
 			if (undo.canUndo() || undo.canRedo()) {
-				UndoDialogFactory.showUndoDialog(Main.this, undo);
+				UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
 			} else {
 				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}

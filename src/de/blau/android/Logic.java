@@ -405,6 +405,18 @@ public class Logic {
 		return delegator.getUndo();
 	}
 
+	public String undo() {
+		String name = delegator.getUndo().undo();
+		delegator.dirty();
+		return name;
+	}
+	
+	public String redo() {
+		String name = delegator.getUndo().redo();
+		delegator.dirty();
+		return name;
+	}
+	
 	/**
 	 * Checks if the viewBox is close enough to the viewBox to be in the ability to edit something.
 	 * 
@@ -2226,7 +2238,7 @@ public class Logic {
 	
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts);
+		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts, Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload());
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
@@ -2235,6 +2247,7 @@ public class Logic {
 		if(editState != null) { // 
 			editState.setSelected(this);
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
+			editState.setMiscState(Application.mainActivity);
 		}
 	}
 
