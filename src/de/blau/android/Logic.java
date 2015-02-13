@@ -405,12 +405,20 @@ public class Logic {
 		return delegator.getUndo();
 	}
 
+	/**
+	 * Wrapper to ensure the dirty flag is set 
+	 * @return
+	 */
 	public String undo() {
 		String name = delegator.getUndo().undo();
 		delegator.dirty();
 		return name;
 	}
 	
+	/**
+	 * Wrapper to ensure the dirty flag is set 
+	 * @return
+	 */
 	public String redo() {
 		String name = delegator.getUndo().redo();
 		delegator.dirty();
