@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -400,7 +401,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				im.minZoom = z + osmts.getMinZoomLevel();
 				im.maxZoom = im.minZoom;
 				Calendar c = Calendar.getInstance();
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 				im.date = simpleDateFormat.format(c.getTime());
 				im.author = author;
 				offsetList.add(im);
