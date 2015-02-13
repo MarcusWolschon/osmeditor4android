@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import org.acra.ACRA;
 
@@ -98,7 +99,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	protected final Context mCtx;
 	protected final OpenStreetMapTileFilesystemProvider mFSProvider;
 	protected final SQLiteDatabase mDatabase;
-	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US);
 
 	// ===========================================================
 	// Constructors

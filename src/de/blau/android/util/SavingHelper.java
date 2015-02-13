@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -254,7 +255,7 @@ public class SavingHelper<T extends Serializable> {
 				File sdcard = Environment.getExternalStorageDirectory();
 				File outdir = new File(sdcard, "Vespucci");
 				outdir.mkdir(); // ensure directory exists;
-				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss").format(new Date())+"."+exportable.exportExtension();
+				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+"."+exportable.exportExtension();
 				File outfile = new File(outdir, filename);
 				OutputStream outputStream = null;
 				try {
