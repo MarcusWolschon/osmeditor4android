@@ -71,7 +71,7 @@ public class Track extends DefaultHandler {
 	private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 	static {
 		// Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
-		ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.US);
 		ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 	

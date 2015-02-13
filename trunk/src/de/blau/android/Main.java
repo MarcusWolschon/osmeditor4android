@@ -1462,7 +1462,7 @@ public class Main extends SherlockActivity implements OnNavigationListener, Serv
 			return;
 		}
 		if (prefs.useBackForUndo()) {
-			String name = logic.getUndo().undo();
+			String name = logic.undo();
 			if (name != null)
 				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			else

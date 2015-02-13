@@ -678,7 +678,7 @@ public class EasyEditManager {
 		}
 		
 		private void handleUndo() {
-			logic.getUndo().undo();
+			logic.undo();
 			if (logic.getSelectedNode() == null) { // should always happen when we added a new node and removed it
 				Iterator<Node> nodeIterator = createdNodes.iterator();
 				while (nodeIterator.hasNext()) { // remove nodes that do not exist anymore
