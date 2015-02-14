@@ -511,13 +511,23 @@ public class Map extends View implements IMapView {
 		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 		ArrayList<Node> paintNodes = new ArrayList<Node>(); 
 		BoundingBox viewBox = getViewBox();
+		boolean includesSelectedNode = false;
 		nodesOnScreenCount = 0;
 		for (Node n:nodes) {
 			if (viewBox.isIn(n.getLat(), n.getLon())) {
+				if (n == tmpDrawingSelectedNode) {
+					includesSelectedNode = true;
+				}
 				paintNodes.add(n);
 				nodesOnScreenCount++;
 			}
 		}
+		// the following should guarantee that if the selected node is off screen but the handle not, the handle gets drawn
+		// note this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
+		if (tmpDrawingSelectedNode != null && !includesSelectedNode) {
+			paintNodes.add(tmpDrawingSelectedNode);
+		}
+		
 // TODO code is currently disabled because it is not quite satisfactory
 //		// calculate how much of the screen is actually not covered by downloads and can be ignored
 //		unusedNodeSpace = 0;
