@@ -70,6 +70,8 @@
   <string name="back">Πίσω</string>
   <string name="foward">Εμπρός</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Να γίνει έξοδος;</string>
+  <string name="exit_text">Θέλετε σίγουρα να κλείσετε το πρόγραμμα;</string>
   <!--Strings in TagEditor-->
   <string name="key">κλειδί</string>
   <string name="value">τιμή</string>
@@ -81,6 +83,7 @@
   <string name="tag_menu_mapfeatures">Wiki Χαρακτηριστικών Χάρτη</string>
   <string name="tag_menu_addtorelation">Προσθήκη στη σχέση</string>
   <string name="tag_menu_resetMRU">Επαναφορά στα Προκαθορισμένα</string>
+  <string name="tag_menu_exit_no_save">Έξοδος χωρίς αποθήκευση</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Φόρτωση περιοχής</string>
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
@@ -232,6 +235,10 @@
   <string name="undo_action_circulize">Τακτοποίηση σε κύκλο</string>
   <string name="undo_action_fix_conflict">επίλυση διένεξης</string>
   <!--ACRA-->
+  <string name="config_category_acra">Αυτόματη Αναφορά Σφαλμάτων</string>
+  <string name="pref_enable_acra">Ανέφερε σφάλματα</string>
+  <string name="pref_acra_enabled">Αναφορά σφαλμάτων ενεργή</string>
+  <string name="pref_acra_disabled">Αναφορά σφαλμάτων ανενεργή</string>
   <!--Exceptions messages-->
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
@@ -251,5 +258,6 @@
   <string name="km">χλμ</string>
   <string name="meter">μέτρο</string>
   <!--Help system-->
+  <string name="introduction">Εισαγωγή</string>
   <!--Arrays-->
 </resources>

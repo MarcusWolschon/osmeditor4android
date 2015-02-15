@@ -42,13 +42,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import de.blau.android.Application;
 import de.blau.android.Logic;
-import de.blau.android.TagEditor;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
 
@@ -58,7 +58,7 @@ import de.blau.android.util.MultiHashMap;
  * TagKeyAutocompletionAdapter.java<br/>
  * created: 12.06.2010 10:43:37 <br/>
  *<br/><br/>
- * <b>Adapter for the {@link AutoCompleteTextView} in the {@link TagEditor}
+ * <b>Adapter for the {@link AutoCompleteTextView} in the {@link PropertyEditor}
  * that is for the VALUE  for the key "addr:street" .</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */

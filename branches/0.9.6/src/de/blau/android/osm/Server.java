@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
 import oauth.signpost.OAuthConsumer;
@@ -1320,7 +1321,7 @@ public class Server {
 			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
 			out.write(visibility.name().toLowerCase() + "\r\n");
 			out.write(seperator);
-			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + new SimpleDateFormat("yyyy-MM-dd'T'HHmmss").format(new Date())+".gpx\"\r\n");
+			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".gpx\"\r\n");
 			out.write("Content-Type: application/gpx+xml\r\n\r\n");
 			out.flush();
 			track.exportToGPX(os);

@@ -281,12 +281,12 @@ public class Map extends View implements IMapView {
 		zoomLevel = calcZoomLevel(canvas);
 		
 		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
-		tmpDrawingEditMode = Main.logic.getMode();
-		tmpDrawingSelectedNodes = Main.logic.getSelectedNodes();
-		tmpDrawingSelectedWays = Main.logic.getSelectedWays();
-		tmpClickableElements = Main.logic.getClickableElements();
-		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
-		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
+		tmpDrawingEditMode = Main.getLogic().getMode();
+		tmpDrawingSelectedNodes = Main.getLogic().getSelectedNodes();
+		tmpDrawingSelectedWays = Main.getLogic().getSelectedWays();
+		tmpClickableElements = Main.getLogic().getClickableElements();
+		tmpDrawingSelectedRelationWays = Main.getLogic().getSelectedRelationWays();
+		tmpDrawingSelectedRelationNodes = Main.getLogic().getSelectedRelationNodes();
 		tmpPresets = Main.getCurrentPresets();
 		handles = null;
 		
@@ -519,6 +519,17 @@ public class Map extends View implements IMapView {
 				nodesOnScreenCount++;
 			}
 		}
+		// the following should guarantee that if the selected node is off screen but the handle not, the handle gets drawn
+		// note this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
+		// TODO check if we can't avoid searching paintNodes multiple times
+		if (tmpDrawingSelectedNodes != null) {
+			for (Node n:tmpDrawingSelectedNodes) {
+				if (!paintNodes.contains(n)) {
+					paintNodes.add(n);
+				}
+			}
+		}
+		
 // TODO code is currently disabled because it is not quite satisfactory
 //		// calculate how much of the screen is actually not covered by downloads and can be ignored
 //		unusedNodeSpace = 0;
@@ -534,7 +545,7 @@ public class Map extends View implements IMapView {
 //			e.printStackTrace();
 //		} 
 		// 
-		tmpDrawingInEditRange = Main.logic.isInEditZoomRange(); // do this after density calc
+		tmpDrawingInEditRange = Main.getLogic().isInEditZoomRange(); // do this after density calc
 		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();

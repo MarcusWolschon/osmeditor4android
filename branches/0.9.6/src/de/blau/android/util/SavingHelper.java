@@ -2,16 +2,19 @@ package de.blau.android.util;
 
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -71,7 +74,7 @@ public class SavingHelper<T extends Serializable> {
 		String filename;
 		T	object;
 		boolean compress;
-		boolean result;
+		boolean result = false;
 		
 		SaveThread(String fn, T obj, boolean c) {
 			filename = fn;
@@ -92,12 +95,15 @@ public class SavingHelper<T extends Serializable> {
         	try {
         		Log.i("SavingHelper", "saving  " + filename);
         		Context context = Application.mainActivity.getApplicationContext();
-        		out = context.openFileOutput(filename, Context.MODE_PRIVATE);
+        		String tempFilename = filename + "." + System.currentTimeMillis();
+        		out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
         		if (compress) {
         			out = new GZIPOutputStream(out);
         		}
         		objectOut = new ObjectOutputStream(out);
         		objectOut.writeObject(object);
+        		rename(context, filename, filename + ".backup"); // don't overwrite last saved state
+        		rename(context, tempFilename, filename); 		 // rename to expected name 
         		Log.i("SavingHelper", "saved " + filename + " successfully");
         		result = true;
         	} catch (Exception e) {
@@ -177,9 +183,17 @@ public class SavingHelper<T extends Serializable> {
 			} catch (Exception e) {
 				Log.e("SavingHelper", "failed to load " + filename, e);
 				result = null;
+				if (e instanceof InvalidClassException) { // serial id mismatch, will typically happen on upgrades
+					// do nothing 
+				} else {
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(e); //
+				}
 			} catch (Error e) {
 				Log.e("SavingHelper", "failed to load " + filename, e);
 				result = null;
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+				ACRA.getErrorReporter().handleException(e); // 
 			} finally {
 				SavingHelper.close(objectIn);
 				SavingHelper.close(in);
@@ -197,9 +211,28 @@ public class SavingHelper<T extends Serializable> {
 			try {
 				stream.close();
 			} catch (IOException e) {
-				Log.e("Vespucci", "Problem closing", e);
+				Log.e("SavingHelper", "Problem closing", e);
 			}
 		}
+	}
+	
+	/**
+	 * Rename existing file in same directory if target file exists, delete
+	 * Code nicked from http://stackoverflow.com/users/325442/mr-bungle
+	 * @param context
+	 * @param originalFileName
+	 * @param newFileName
+	 */
+	static void rename(Context context, String originalFileName, String newFileName) {
+	    File originalFile = context.getFileStreamPath(originalFileName);
+	    if (originalFile.exists()) {
+	    	Log.d("SavingHelper", "renaming " + originalFileName + " size " + originalFile.length() + " to " + newFileName);
+	    	File newFile = new File(originalFile.getParent(), newFileName);
+	    	if (newFile.exists()) {
+	    		context.deleteFile(newFileName);        
+	    	}
+	    	originalFile.renameTo(newFile);
+	    }
 	}
 
 	/**
@@ -214,7 +247,7 @@ public class SavingHelper<T extends Serializable> {
 				File sdcard = Environment.getExternalStorageDirectory();
 				File outdir = new File(sdcard, "Vespucci");
 				outdir.mkdir(); // ensure directory exists;
-				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss").format(new Date())+"."+exportable.exportExtension();
+				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+"."+exportable.exportExtension();
 				File outfile = new File(outdir, filename);
 				OutputStream outputStream = null;
 				try {

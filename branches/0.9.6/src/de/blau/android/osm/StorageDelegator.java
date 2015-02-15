@@ -39,7 +39,7 @@ import de.blau.android.util.SavingHelper.Exportable;
 
 public class StorageDelegator implements Serializable, Exportable {
 
-	private static final long serialVersionUID = 7L;
+	private static final long serialVersionUID = 8L;
 
 	private Storage currentStorage;
 
@@ -98,6 +98,11 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	public boolean isDirty() {
 		return dirty;
+	}
+	
+	public void dirty() {
+		dirty = true;
+		Log.d("StorageDelegator", "setting delegator to dirty");
 	}
 	
 	/**
@@ -623,6 +628,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	public void splitAtNode(final Node node) {
+		Log.d("StorageDelegator", "splitAtNode for all ways");
 		// undo - nothing done here, everything done in splitAtNode
 		dirty = true;
 		List<Way> ways = currentStorage.getWays(node);
@@ -638,7 +644,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param node2
 	 */
 	public void splitAtNodes(Way way, Node node1, Node node2) {
-		Log.d("StorageDelegator", "splitAtNode way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
+		Log.d("StorageDelegator", "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
 		// undo - old way is saved here, new way is saved at insert
 		dirty = true;
 		undo.save(way);
@@ -743,7 +749,8 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		
 		List<Node> nodes = way.getNodes();
-		if (nodes.size() < 3) {
+		if (nodes.size() < 3 || way.isEndNode(node)) { // protect against producing single node ways FIXME give feedback that this is not good
+			Log.d("StorageDelegator", "splitAtNode can't split " + nodes.size() + " node long way at this node");
 			return;
 		}
 		// we assume this node is only contained in the way once.
@@ -760,7 +767,8 @@ public class StorageDelegator implements Serializable, Exportable {
 				it.remove();
 			}
 		}
-		if (nodesForNewWay.size() < 1) {
+		if (nodesForNewWay.size() <= 1) {
+			Log.d("StorageDelegator", "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
 			return; // do not create 1-node way
 		}
 		try {
@@ -1649,7 +1657,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public void writeToFile() throws IOException { 
 		if (apiStorage == null || currentStorage == null || (apiStorage.isEmpty() && currentStorage.isEmpty())) {
-			// don't write empty state files
+			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
 			Log.i("StorageDelegator", "storage delegator empty, skipping save");
 			return;
 		}

@@ -698,7 +698,7 @@ public class EasyEditManager {
 		}
 		
 		private void handleUndo() {
-			logic.getUndo().undo();
+			logic.undo();
 			if (logic.getSelectedNode() == null) { // should always happen when we added a new node and removed it
 				Iterator<Node> nodeIterator = createdNodes.iterator();
 				while (nodeIterator.hasNext()) { // remove nodes that do not exist anymore
@@ -799,7 +799,7 @@ public class EasyEditManager {
 			undoView.setOnLongClickListener(undoListener);
 			
 			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
-			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
 				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
