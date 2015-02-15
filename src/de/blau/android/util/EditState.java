@@ -6,6 +6,7 @@ import java.util.List;
 import android.util.Log;
 import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
+import de.blau.android.Main;
 import de.blau.android.osb.Bug;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
@@ -18,19 +19,21 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 7L;
-	Mode savedMode;
-	List<Node> savedNodes;
-	List<Way> savedWays;
-	List<Relation> savedRelations;
-	Bug	savedBug;
-	String savedTileServerID;
-	Offset[] savedOffsets;
-	int savedMinZoom;
+	private static final long serialVersionUID = 8L;
+	final Mode savedMode;
+	final List<Node> savedNodes;
+	final List<Way> savedWays;
+	final List<Relation> savedRelations;
+	final Bug	savedBug;
+	final String savedTileServerID;
+	final Offset[] savedOffsets;
+	final int savedMinZoom;
+	final boolean savedShowGPS;
+	final boolean savedAutoDownload;
 
-	
 	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
-			List<Relation> selectedRelations, Bug selectedBug, OpenStreetMapTileServer osmts) {
+			List<Relation> selectedRelations, Bug selectedBug, OpenStreetMapTileServer osmts, 
+			boolean showGPS, boolean autoDownload) {
 		savedMode = mode;
 		savedNodes = selectedNodes;
 		savedWays = selectedWays;
@@ -39,6 +42,8 @@ public class EditState implements Serializable {
 		savedTileServerID = osmts.getId();
 		savedOffsets = osmts.getOffsets();
 		savedMinZoom = osmts.getMinZoomLevel();
+		savedShowGPS = showGPS;
+		savedAutoDownload = autoDownload;
 	}
 	
 	public void setSelected(Logic logic) {
@@ -67,6 +72,11 @@ public class EditState implements Serializable {
 		}
 		// 
 		logic.setSelectedBug(savedBug);
+	}
+	
+	public void setMiscState(Main main) {
+		main.setShowGPS(savedShowGPS);
+		main.setAutoDownload(savedAutoDownload);
 	}
 	
 	public void setOffset(OpenStreetMapTileServer osmts) {

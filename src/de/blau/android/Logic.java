@@ -193,7 +193,7 @@ public class Logic {
 	/**
 	 * See {@link StorageDelegator}.
 	 */
-	protected final StorageDelegator delegator = new StorageDelegator();
+	private final StorageDelegator delegator = new StorageDelegator();
 
 	/**
 	 * Stores the {@link Preferences} as soon as they are available.
@@ -309,7 +309,7 @@ public class Logic {
 	Logic(final Map map, final Profile profile) {
 		this.map = map;
 
-		viewBox = delegator.getLastBox();
+		viewBox = getDelegator().getLastBox();
 		
 		mode = Mode.MODE_MOVE;
 		setSelectedBug(null);
@@ -318,7 +318,7 @@ public class Logic {
 		setSelectedRelation(null);
 
 		// map.setPaints(paints);
-		map.setDelegator(delegator);
+		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
 	}
 
@@ -345,7 +345,7 @@ public class Logic {
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		// zap the cached style for all ways
-		for (Way w:delegator.getCurrentStorage().getWays()) {
+		for (Way w:getDelegator().getCurrentStorage().getWays()) {
 			w.setFeatureProfile(null);
 		}
 	}
@@ -399,7 +399,7 @@ public class Logic {
 	 * @return {@link StorageDelegator#hasChanges()}
 	 */
 	public boolean hasChanges() {
-		return delegator.hasChanges();
+		return getDelegator().hasChanges();
 	}
 	
 	/**
@@ -409,9 +409,29 @@ public class Logic {
 	 * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.  
 	 */
 	public UndoStorage getUndo() {
-		return delegator.getUndo();
+		return getDelegator().getUndo();
 	}
 
+	/**
+	 * Wrapper to ensure the dirty flag is set 
+	 * @return
+	 */
+	public String undo() {
+		String name = delegator.getUndo().undo();
+		delegator.dirty();
+		return name;
+	}
+	
+	/**
+	 * Wrapper to ensure the dirty flag is set 
+	 * @return
+	 */
+	public String redo() {
+		String name = delegator.getUndo().redo();
+		delegator.dirty();
+		return name;
+	}
+	
 	/**
 	 * Checks if the viewBox is close enough to the viewBox to be in the ability to edit something.
 	 * 
@@ -477,6 +497,9 @@ public class Logic {
 		}
 		isInEditZoomRange(); //FIXME - This line does nothing.
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		if (rotatingWay) {
+			showCrosshairsForCentroid();
+		}
 		map.postInvalidate();
 	}
 	
@@ -494,6 +517,9 @@ public class Logic {
 		}
 		isInEditZoomRange(); //FIXME - This line does nothing.
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		if (rotatingWay) {
+			showCrosshairsForCentroid();
+		}
 		map.postInvalidate();
 	}
 	
@@ -504,6 +530,9 @@ public class Logic {
 	 */
 	public void setZoom(int z) {
 		viewBox.setZoom(z);
+		if (rotatingWay) {
+			showCrosshairsForCentroid();
+		}
 	}
 
 	/**
@@ -524,7 +553,7 @@ public class Logic {
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void createCheckpoint(int stringId) {
-		delegator.getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
 	}
 	
 	/**
@@ -533,7 +562,7 @@ public class Logic {
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void removeCheckpoint(int stringId) {
-		delegator.getUndo().removeCheckpoint(Application.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().removeCheckpoint(Application.mainActivity.getResources().getString(stringId));
 	}
 	
 
@@ -547,14 +576,14 @@ public class Logic {
 	 * @return false if no element exists for the given osmId/type.
 	 */
 	public boolean setTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
-		OsmElement osmElement = delegator.getOsmElement(type, osmId);
+		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_set_tags);
-			delegator.setTags(osmElement, tags);
+			getDelegator().setTags(osmElement, tags);
 			return true;
 		}
 	}
@@ -569,13 +598,13 @@ public class Logic {
 	 * @return false if no element exists for the given osmId/type.
 	 */
 	public boolean updateParentRelations(final String type, final long osmId, final HashMap<Long, String> parents) {
-		OsmElement osmElement = delegator.getOsmElement(type, osmId);
+		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_update_relations);
-			delegator.updateParentRelations(osmElement, parents);	
+			getDelegator().updateParentRelations(osmElement, parents);	
 			return true;
 		}
 	}
@@ -588,13 +617,13 @@ public class Logic {
 	 * @param members The new list of members to set for the given relation.
 	 */
 	public boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
-		OsmElement osmElement = delegator.getOsmElement(Relation.NAME, osmId);
+		OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_update_relations);
-			delegator.updateRelation((Relation)osmElement, members);	
+			getDelegator().updateRelation((Relation)osmElement, members);	
 			return true;
 		}
 	}
@@ -616,8 +645,8 @@ public class Logic {
 		}
 		
 		// not checking will zap edits, given that this method will only be called when we are not downloading, not a good thing
-		if (!delegator.isDirty()) {
-			delegator.reset();
+		if (!getDelegator().isDirty()) {
+			getDelegator().reset();
 			// delegator.setOriginalBox(box); not needed IMHO
 		} else {
 			//TODO show warning
@@ -673,7 +702,7 @@ public class Logic {
 	public HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
 		HashMap<Way, Double> result = new HashMap<Way, Double>();
 
-		for (Way way : delegator.getCurrentStorage().getWays()) {
+		for (Way way : getDelegator().getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 
 			if (clickableElements != null && !clickableElements.contains(way)) continue;
@@ -722,7 +751,7 @@ public class Logic {
 		Handle result = null;
 		double bestDistance = Double.MAX_VALUE;
 		
-		for (Way way : delegator.getCurrentStorage().getWays()) {
+		for (Way way : getDelegator().getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 
 			if (clickableElements != null && !clickableElements.contains(way)) continue;
@@ -792,7 +821,7 @@ public class Logic {
 	 */
 	public HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y) {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
+		List<Node> nodes = getDelegator().getCurrentStorage().getNodes();
 
 		for (Node node : nodes) {
 			if (clickableElements != null && !clickableElements.contains(node)) continue;
@@ -800,7 +829,7 @@ public class Logic {
 			int lat = node.getLat();
 			int lon = node.getLon();
 
-			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)) {
+			if (node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lat, lon)) {
 				Double dist = clickDistance(node, x, y);
 				if (dist != null) result.put(node, dist);
 			}
@@ -831,7 +860,7 @@ public class Logic {
 		List<OsmElement> allNodes = getClickedNodes(x, y);
 
 		for (OsmElement osmElement : allNodes) {
-			if (delegator.getCurrentStorage().isEndNode((Node) osmElement))
+			if (getDelegator().getCurrentStorage().isEndNode((Node) osmElement))
 				result.add(osmElement);
 		}
 
@@ -900,8 +929,8 @@ public class Logic {
 	 */
 	public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
 		Set<OsmElement> result = new HashSet<OsmElement>();
-		result.addAll(delegator.getCurrentStorage().getNodes());
-		result.addAll(delegator.getCurrentStorage().getWays());
+		result.addAll(getDelegator().getCurrentStorage().getNodes());
+		result.addAll(getDelegator().getCurrentStorage().getWays());
 		for (OsmElement e:excludes)
 			result.remove(e);
 		return result;
@@ -914,7 +943,7 @@ public class Logic {
 	 * @return A list of all Ways connected to the Node.
 	 */
 	public List<Way> getWaysForNode(final Node node) {
-		return delegator.getCurrentStorage().getWays(node);
+		return getDelegator().getCurrentStorage().getWays(node);
 	}
 
 	/**
@@ -925,7 +954,7 @@ public class Logic {
 	 * @return true if the Node is an end node of a Way, false otherwise.
 	 */
 	public boolean isEndNode(final Node node) {
-		return delegator.getCurrentStorage().isEndNode(node);
+		return getDelegator().getCurrentStorage().isEndNode(node);
 	}
 	
 	/**
@@ -936,7 +965,7 @@ public class Logic {
 	 */
 	public boolean isInDownload(Way way) {
 		for (Node n:way.getNodes()) {
-			if (!delegator.isInDownload(n.getLat(), n.getLon())){
+			if (!getDelegator().isInDownload(n.getLat(), n.getLon())){
 				return false;
 			}
 		}
@@ -950,7 +979,7 @@ public class Logic {
 	 * @return true if the above is the case
 	 */
 	public boolean isInDownload(Node n) {
-		return delegator.isInDownload(n.getLat(), n.getLon());
+		return getDelegator().isInDownload(n.getLat(), n.getLon());
 	}
 	
 	/**
@@ -992,9 +1021,9 @@ public class Logic {
 						startY = y;
 					}
 				} else {
+					// check for multi-select
 					if ((selectedWays != null && selectedWays.size() > 1) ||  (selectedNodes != null && selectedNodes.size() > 1) 
-							|| ((selectedWays != null && selectedWays.size() == 1) ||  (selectedNodes != null && selectedNodes.size() == 1))) {
-						// multi-select
+							|| ((selectedWays != null && selectedWays.size() >= 1) && (selectedNodes != null && selectedNodes.size() >= 1))) {
 						Log.d(DEBUG_TAG, "Multi select detected");
 						boolean foundSelected = false;
 						if (selectedWays != null) {
@@ -1063,10 +1092,18 @@ public class Logic {
 	 */
 	public void showCrosshairsForCentroid()
 	{
-		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWays.get(0));
-		centroidX = centroid[0];
-		centroidY = centroid[1];
-		showCrosshairs(centroidX,centroidY);	
+		synchronized(selectedWays) {
+			if (selectedWays == null) {
+				return;
+			}
+			float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWays.get(0));
+			if (centroid==null) {
+				return;
+			}
+			centroidX = centroid[0];
+			centroidY = centroid[1];
+			showCrosshairs(centroidX,centroidY);	
+		}
 	}
 	
 	/**
@@ -1117,7 +1154,7 @@ public class Logic {
 					lon = xToLonE7(absoluteX);
 				}
 				
-				delegator.updateLatLon(selectedNodes.get(0), lat, lon);
+				getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
 			}
 			else { // way dragging and multi-select
 				lat = yToLatE7(absoluteY);
@@ -1133,7 +1170,7 @@ public class Logic {
 						nodes.add(n);
 					}
 				}
-				delegator.moveNodes(nodes, lat - startLat, lon - startLon);
+				getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
 				// update 
 				startLat = lat;
 				startLon = lon;
@@ -1167,7 +1204,7 @@ public class Logic {
 				direction = (startY < absoluteY) ? -1: 1;			
 			}
 	
-			delegator.rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
+			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
 			startY = absoluteY;
 			startX = absoluteX;
 		} else {
@@ -1254,9 +1291,9 @@ public class Logic {
 				//A complete new Node...
 				int lat = yToLatE7(y);
 				int lon = xToLonE7(x);
-				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.insertElementSafe(lSelectedNode);
-				if (!delegator.isInDownload(lat, lon)) {
+				lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+				getDelegator().insertElementSafe(lSelectedNode);
+				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Log.d("Logic","Outside of download");
 					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
@@ -1269,14 +1306,14 @@ public class Logic {
 				//clicked on empty space -> create a new Node
 				if (lSelectedWay == null) {
 					//This is the second Node, so we create a new Way and add the previous selected node to this way
-					lSelectedWay = delegator.createAndInsertWay(lSelectedNode);
+					lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
 				}
 				int lat = yToLatE7(y);
 				int lon = xToLonE7(x);
-				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
-				delegator.insertElementSafe(lSelectedNode);
-				if (!delegator.isInDownload(lat, lon)) {
+				lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+				getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
+				getDelegator().insertElementSafe(lSelectedNode);
+				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Log.d("Logic","Outside of download");
 					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
@@ -1291,10 +1328,10 @@ public class Logic {
 				} else {
 					//Create a new way with the existing node, which was clicked.
 					if (lSelectedWay == null) {
-						lSelectedWay = delegator.createAndInsertWay(lSelectedNode);
+						lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
 					}
 					//Add the new Node.
-					delegator.addNodeToWay(nextNode, lSelectedWay);
+					getDelegator().addNodeToWay(nextNode, lSelectedWay);
 					lSelectedNode = nextNode;
 				}
 			}
@@ -1334,7 +1371,7 @@ public class Logic {
 	public void performEraseNode(final Node node) {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_deletenode);
-			delegator.removeNode(node);
+			getDelegator().removeNode(node);
 			map.invalidate();
 			if (!isInDownload(node)) {
 				// warning toast
@@ -1356,7 +1393,7 @@ public class Logic {
 			createCheckpoint(R.string.undo_action_movenode);
 			int lonE7 = (int)(lon*1E7d);
 			int latE7 = (int)(lat*1E7d);
-			delegator.updateLatLon(node, latE7, lonE7);
+			getDelegator().updateLatLon(node, latE7, lonE7);
 			viewBox.moveTo(lonE7, latE7);
 			map.invalidate();
 		}
@@ -1371,10 +1408,10 @@ public class Logic {
 	public void performEraseWay(final Way way, final boolean deleteOrphanNodes) {
 		createCheckpoint(R.string.undo_action_deleteway);
 		ArrayList<Node> nodes = deleteOrphanNodes ? new ArrayList<Node>(way.getNodes()) : null;
-		delegator.removeWay(way);
+		getDelegator().removeWay(way);
 		if (deleteOrphanNodes) {
 			for (Node node : nodes) {
-				if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty()) delegator.removeNode(node);
+				if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty()) getDelegator().removeNode(node);
 			}
 		}
 		map.invalidate();
@@ -1389,7 +1426,7 @@ public class Logic {
 	public void performEraseRelation(final Relation relation) {
 		if (relation != null) {
 			createCheckpoint(R.string.undo_action_delete_relation);
-			delegator.removeRelation(relation);
+			getDelegator().removeRelation(relation);
 			map.invalidate();
 		}
 	}
@@ -1403,7 +1440,7 @@ public class Logic {
 		if (node != null) {
 			// setSelectedNode(node);
 			createCheckpoint(R.string.undo_action_split_ways);
-			delegator.splitAtNode(node);
+			getDelegator().splitAtNode(node);
 			map.invalidate();
 		}
 	}
@@ -1416,7 +1453,7 @@ public class Logic {
 	public void performSplit(final Way way, final Node node) {
 		// setSelectedNode(node);
 		createCheckpoint(R.string.undo_action_split_way);
-		delegator.splitAtNode(way, node);
+		getDelegator().splitAtNode(way, node);
 		map.invalidate();
 	}
 	
@@ -1428,7 +1465,7 @@ public class Logic {
 	 */
 	public void performClosedWaySplit(Way way, Node node1, Node node2) {
 		createCheckpoint(R.string.undo_action_split_way);
-		delegator.splitAtNodes(way, node1, node2);
+		getDelegator().splitAtNodes(way, node1, node2);
 		map.invalidate();
 	}
 
@@ -1444,7 +1481,7 @@ public class Logic {
 	 */
 	public boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
-		boolean mergeOK = delegator.mergeWays(mergeInto, mergeFrom);
+		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
 		map.invalidate();
 		return mergeOK;
 	}
@@ -1457,7 +1494,7 @@ public class Logic {
 	public void performOrthogonalize(Way way) {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(R.string.undo_action_orthogonalize);
-		delegator.orthogonalizeWay(way);
+		getDelegator().orthogonalizeWay(way);
 		map.invalidate();
 	}
 
@@ -1470,7 +1507,7 @@ public class Logic {
 	public void performExtract(final Node node) {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_extract_node);
-			delegator.replaceNode(node);
+			getDelegator().replaceNode(node);
 			map.invalidate();
 		}
 	}
@@ -1486,7 +1523,7 @@ public class Logic {
 		float jx = lonE7ToX(nodeToJoin.getLon());
 		float jy = latE7ToY(nodeToJoin.getLat());
 		// start by looking for the closest nodes
-		for (Node node : delegator.getCurrentStorage().getNodes()) {
+		for (Node node : getDelegator().getCurrentStorage().getNodes()) {
 			if (node != nodeToJoin) {
 				Double distance = clickDistance(node, jx, jy);
 				if (distance != null && distance < closestDistance) {
@@ -1497,7 +1534,7 @@ public class Logic {
 		}
 		if (closestElement == null) {
 			// fall back to closest ways
-			for (Way way : delegator.getCurrentStorage().getWays()) {
+			for (Way way : getDelegator().getCurrentStorage().getWays()) {
 				if (!way.hasNode(nodeToJoin)) {
 					List<Node> wayNodes = way.getNodes();
 					for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
@@ -1533,7 +1570,7 @@ public class Logic {
 		if (element instanceof Node) {
 			Node node = (Node)element;
 			createCheckpoint(R.string.undo_action_join);
-			mergeOK = delegator.mergeNodes(node, nodeToJoin);
+			mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 			map.invalidate();
 		}
 		else if (element instanceof Way) {
@@ -1563,11 +1600,11 @@ public class Logic {
 					}
 					if (node == null) {
 						// move the existing node onto the way and insert it into the way
-						delegator.updateLatLon(nodeToJoin, lat, lon);
-						delegator.addNodeToWayAfter(node1, nodeToJoin, way);
+						getDelegator().updateLatLon(nodeToJoin, lat, lon);
+						getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
 					} else {
 						// merge node into tgtNode
-						mergeOK = delegator.mergeNodes(node, nodeToJoin);
+						mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 					}
 					map.invalidate();
 					break; // need to leave loop !!!
@@ -1583,7 +1620,7 @@ public class Logic {
 	 */
 	public void performUnjoin(Node node) {
 		createCheckpoint(R.string.undo_action_unjoin_ways);
-		delegator.unjoinWays(node);
+		getDelegator().unjoinWays(node);
 		map.invalidate();
 	}
 	
@@ -1594,7 +1631,7 @@ public class Logic {
 	 */
 	public boolean performReverse(Way way) {
 		createCheckpoint(R.string.undo_action_reverse_way);
-		boolean hadToReverse = delegator.reverseWay(way);
+		boolean hadToReverse = getDelegator().reverseWay(way);
 		map.invalidate();
 		return hadToReverse;
 	}
@@ -1612,7 +1649,7 @@ public class Logic {
 		if (element != null) {
 			if (element instanceof Node) {
 				lSelectedNode = (Node) element;
-				List<Way> ways = delegator.getCurrentStorage().getWays(lSelectedNode);
+				List<Way> ways = getDelegator().getCurrentStorage().getWays(lSelectedNode);
 				// TODO Resolve possible multiple ways that end at the node
 				for (Way way : ways) {
 					if (way.isEndNode(lSelectedNode)) {
@@ -1642,17 +1679,17 @@ public class Logic {
 			if (node == null) {
 				int lat = yToLatE7(y);
 				int lon = xToLonE7(x);
-				node = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.insertElementSafe(node);
-				if (!delegator.isInDownload(lat, lon)) {
+				node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+				getDelegator().insertElementSafe(node);
+				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
 				}
 			}
 			try {
-				delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+				getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
 			} catch (OsmIllegalOperationException e) {
-				delegator.removeNode(node);
+				getDelegator().removeNode(node);
 				throw new OsmIllegalOperationException(e);
 			}
 			lSelectedNode = node;
@@ -1681,7 +1718,7 @@ public class Logic {
 		Way savedWay = null;
 		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
-		for (Way way : delegator.getCurrentStorage().getWays()) {
+		for (Way way : getDelegator().getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
 				Node node1 = wayNodes.get(k - 1);
@@ -1707,11 +1744,11 @@ public class Logic {
 		if (savedNode1 != null && savedNode2 != null) {		
 			node = createNodeOnWay(savedNode1, savedNode2, x, y);
 			if (node != null) {
-				delegator.insertElementSafe(node);
+				getDelegator().insertElementSafe(node);
 				try {
-					delegator.addNodeToWayAfter(savedNode1, node, savedWay);
+					getDelegator().addNodeToWayAfter(savedNode1, node, savedWay);
 				} catch (OsmIllegalOperationException e) {
-					delegator.removeNode(node);
+					getDelegator().removeNode(node);
 					throw new OsmIllegalOperationException(e);
 				}
 			}	
@@ -1742,7 +1779,7 @@ public class Logic {
 			float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
 			int lat = yToLatE7(p[1]);
 			int lon = xToLonE7(p[0]);
-			Node node = delegator.getFactory().createNodeWithNewId(lat, lon);
+			Node node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
 			return node;
 		}
 		return null;
@@ -1831,31 +1868,31 @@ public class Logic {
 					try {
 						osmParser.start(in);
 						if (arg[0]) { // incremental load
-							if (!delegator.mergeData(osmParser.getStorage())) {
+							if (!getDelegator().mergeData(osmParser.getStorage())) {
 								result = DialogFactory.DATA_CONFLICT;
 							} else {
 								if (mapBox != null) {
 									// if we are simply expanding the area no need keep the old bounding boxes
-									List<BoundingBox> origBbs = delegator.getBoundingBoxes();
+									List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
 									List<BoundingBox> bbs = new ArrayList<BoundingBox>(origBbs);
 									for (BoundingBox bb:bbs) {
 										if (mapBox.contains(bb)) {
 											origBbs.remove(bb);
 										}
 									}
-									delegator.addBoundingBox(mapBox);
+									getDelegator().addBoundingBox(mapBox);
 								}
 							}
 						} else { // replace data with new download
-							delegator.reset();
-							delegator.setCurrentStorage(osmParser.getStorage());
+							getDelegator().reset();
+							getDelegator().setCurrentStorage(osmParser.getStorage());
 							if (mapBox != null) {
 								Log.d("Logic","setting original bbox");
-								delegator.setOriginalBox(mapBox);
+								getDelegator().setOriginalBox(mapBox);
 							}
 						}
 						if (!auto) {
-							viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
+							viewBox.setBorders(mapBox != null ? mapBox : getDelegator().getLastBox()); // set to current or previous
 						}
 					} finally {
 						SavingHelper.close(in);
@@ -1868,28 +1905,28 @@ public class Logic {
 					} else {
 						result = DialogFactory.INVALID_DATA_RECEIVED;
 					}
-					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
-						delegator.deleteBoundingBox(mapBox);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
 					result = DialogFactory.INVALID_DATA_RECEIVED;
-					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
-						delegator.deleteBoundingBox(mapBox);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (OsmServerException e) {
 					result = e.getErrorCode();
 					Log.e("Vespucci", "Problem downloading", e);
-					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
-						delegator.deleteBoundingBox(mapBox);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
-					if (delegator.getBoundingBoxes().contains(mapBox)) { // remove if download failed
-						delegator.deleteBoundingBox(mapBox);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
 					}
 				}
 				return result;
@@ -1916,7 +1953,7 @@ public class Logic {
 					if (result != 0) {
 						if (result == DialogFactory.OUT_OF_MEMORY) {
 							System.gc();
-							if (delegator.isDirty()) {
+							if (getDelegator().isDirty()) {
 								result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 							}
 						}	
@@ -1956,8 +1993,8 @@ public class Logic {
 	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadLast() {
-		delegator.reset();
-		for (BoundingBox box:delegator.getBoundingBoxes()) {
+		getDelegator().reset();
+		for (BoundingBox box:getDelegator().getBoundingBoxes()) {
 			if (box != null && box.isValidForApi()) downloadBox(box, true, false);
 		}
 	}
@@ -2072,7 +2109,7 @@ public class Logic {
 							SavingHelper.close(in);
 						}
 					}
-					if (!delegator.mergeData(osmParser.getStorage())) {
+					if (!getDelegator().mergeData(osmParser.getStorage())) {
 						result = DialogFactory.DATA_CONFLICT;
 					} 
 				} catch (SAXException e) {
@@ -2127,13 +2164,13 @@ public class Logic {
 	public void updateToDeleted(OsmElement e) {
 		createCheckpoint(R.string.undo_action_fix_conflict);
 		if (e.getName().equals(Node.NAME)) {
-			delegator.removeNode((Node)e);
+			getDelegator().removeNode((Node)e);
 		} else if (e.getName().equals(Way.NAME)) {
-			delegator.removeWay((Way)e);
+			getDelegator().removeWay((Way)e);
 		} else if (e.getName().equals(Relation.NAME)) {
-			delegator.removeRelation((Relation)e);
+			getDelegator().removeRelation((Relation)e);
 		}
-		delegator.removeFromUpload(e);
+		getDelegator().removeFromUpload(e);
 		map.invalidate();		
 	}
 	
@@ -2172,11 +2209,11 @@ public class Logic {
 					try {
 						osmParser.start(in);
 						
-						delegator.reset();
-						delegator.setCurrentStorage(osmParser.getStorage());
-						delegator.fixupApiStorage();
+						getDelegator().reset();
+						getDelegator().setCurrentStorage(osmParser.getStorage());
+						getDelegator().fixupApiStorage();
 						
-						viewBox.setBorders(delegator.getLastBox()); // set to current or previous
+						viewBox.setBorders(getDelegator().getLastBox()); // set to current or previous
 					} finally {
 						SavingHelper.close(in);
 					}
@@ -2218,7 +2255,7 @@ public class Logic {
 				if (result != 0) {
 					if (result == DialogFactory.OUT_OF_MEMORY) {
 						System.gc();
-						if (delegator.isDirty()) {
+						if (getDelegator().isDirty()) {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
@@ -2263,7 +2300,7 @@ public class Logic {
 					Log.d("Logic","Saving to " + outfile.getPath());
 					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
 					try {
-						delegator.save(out);
+						getDelegator().save(out);
 					} catch (IllegalArgumentException e) {
 						result = DialogFactory.FILE_WRITE_FAILED;
 						Log.e("Logic", "Problem writing", e);
@@ -2301,7 +2338,7 @@ public class Logic {
 				if (result != 0) {
 					if (result == DialogFactory.OUT_OF_MEMORY) {
 						System.gc();
-						if (delegator.isDirty()) {
+						if (getDelegator().isDirty()) {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
@@ -2350,7 +2387,7 @@ public class Logic {
 	 */
 	void save() {
 		try {
-			delegator.writeToFile();
+			getDelegator().writeToFile();
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
@@ -2361,7 +2398,7 @@ public class Logic {
 	 */
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts);
+		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload());
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
@@ -2373,6 +2410,7 @@ public class Logic {
 		if(editState != null) { // 
 			editState.setSelected(this);
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
+			editState.setMiscState(Application.mainActivity);
 		}
 	}
 
@@ -2382,9 +2420,13 @@ public class Logic {
 	 * @param context 
 	 */
 	void loadFromFile(Context context) {
+		
+		final int READ_FAILED = 0;
+		final int READ_OK = 1;
+		final int READ_BACKUP = 2;
 
 		Context[] c = {context};
-		AsyncTask<Context, Void, Boolean> loader = new AsyncTask<Context, Void, Boolean>() {
+		AsyncTask<Context, Void, Integer> loader = new AsyncTask<Context, Void, Integer>() {
 			
 			
 			Context context;
@@ -2397,17 +2439,32 @@ public class Logic {
 			}
 			
 			@Override
-			protected Boolean doInBackground(Context... c) {
+			protected Integer doInBackground(Context... c) {
 				this.context = c[0];
-				if (delegator.readFromFile()) {
-					viewBox.setBorders(delegator.getLastBox());
-					return Boolean.valueOf(true);
+				if (getDelegator().readFromFile()) {
+					viewBox.setBorders(getDelegator().getLastBox());
+					return Integer.valueOf(READ_OK);
+				} else {
+//	Experimental code for reading from backup file				
+//					FileInputStream in = null;
+//					try {
+//						in = context.openFileInput(StorageDelegator.FILENAME + ".backup");
+//					} catch (final FileNotFoundException e) {
+//						return Integer.valueOf(READ_FAILED);
+//					} finally {
+//						SavingHelper.close(in);
+//					}
+//					Log.d("Logic", "loadfromFile: trying backup");
+//					if (delegator.readFromFile()) {
+//						viewBox.setBorders(delegator.getLastBox());
+//						return Integer.valueOf(READ_BACKUP);
+//					}
 				}
-				return Boolean.valueOf(false);
+				return Integer.valueOf(READ_FAILED);
 			}
 			
 			@Override
-			protected void onPostExecute(Boolean result) {
+			protected void onPostExecute(Integer result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
 				try {
 					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
@@ -2415,7 +2472,7 @@ public class Logic {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
 				}
-				if (result.booleanValue()) {
+				if (result.intValue() != READ_FAILED) {
 					Log.d("Logic", "loadfromFile: File read correctly");
 					View map = Application.mainActivity.getCurrentFocus();
 					
@@ -2434,6 +2491,9 @@ public class Logic {
 					loadEditingState();
 					map.invalidate();
 					UndoStorage.updateIcon();
+					if (result.intValue() == READ_BACKUP) { 
+						Toast.makeText(Application.mainActivity, "Corrupted state file, used backup file!", Toast.LENGTH_LONG).show();
+					}
 				}
 				else {
 					Log.d("Logic", "loadfromFile: File read failed");
@@ -2477,7 +2537,7 @@ public class Logic {
 			@Override
 			protected void onPreExecute() {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
-				delegator.clearUndo();
+				getDelegator().clearUndo();
 			}
 			
 			@Override
@@ -2489,7 +2549,7 @@ public class Logic {
 						result.error =  DialogFactory.API_OFFLINE;
 						return result;
 					}
-					delegator.uploadToServer(server, comment, source, closeChangeset);
+					getDelegator().uploadToServer(server, comment, source, closeChangeset);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -2503,6 +2563,7 @@ public class Logic {
 					result.message = e.getMessage();
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
+					case HttpStatus.SC_FORBIDDEN:
 						result.error = DialogFactory.WRONG_LOGIN;
 						break;
 					case HttpStatus.SC_CONFLICT:
@@ -2544,7 +2605,7 @@ public class Logic {
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 					Application.mainActivity.triggerMenuInvalidation();
 				}
-				delegator.clearUndo();
+				getDelegator().clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (!Application.mainActivity.isFinishing()) {
 					if (result.error == DialogFactory.UPLOAD_CONFLICT) {
@@ -2896,7 +2957,7 @@ public class Logic {
 		boolean result = false;
 		if (selectedNodes != null && selectedNodes.size() > 0) {
 			for (Node n:new ArrayList<Node>(selectedNodes)) {
-				if (!delegator.getCurrentStorage().contains(n)) {
+				if (!getDelegator().getCurrentStorage().contains(n)) {
 					selectedNodes.remove(n);
 					result = true;
 				}
@@ -2904,7 +2965,7 @@ public class Logic {
 		}
 		if (selectedWays != null && selectedWays.size() > 0) {
 			for (Way w:new ArrayList<Way>(selectedWays)) {
-				if (!delegator.getCurrentStorage().contains(w)) {
+				if (!getDelegator().getCurrentStorage().contains(w)) {
 					selectedWays.remove(w);
 					result = true;
 				}
@@ -2912,7 +2973,7 @@ public class Logic {
 		}
 		if (selectedRelations != null && selectedRelations.size() > 0) {
 			for (Relation r:new ArrayList<Relation>(selectedRelations)) {
-				if (!delegator.getCurrentStorage().contains(r)) {
+				if (!getDelegator().getCurrentStorage().contains(r)) {
 					selectedRelations.remove(r);
 					result = true;
 				}
@@ -2938,7 +2999,7 @@ public class Logic {
 	public void setMap(Map map) {
 		this.map = map;
 		Profile.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
-		map.setDelegator(delegator);
+		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
 	}
 	
@@ -2946,7 +3007,7 @@ public class Logic {
 	 * @return a list of all pending changes to upload
 	 */
 	public List<String> getPendingChanges(final Context aCaller) {
-		return delegator.listChanges(aCaller.getResources());
+		return getDelegator().listChanges(aCaller.getResources());
 	}
 
 	/**
@@ -2984,7 +3045,7 @@ public class Logic {
 	 * @return true if the element exists, false otherwise
 	 */
 	public boolean exists(OsmElement element) {
-		return delegator.getCurrentStorage().contains(element);
+		return getDelegator().getCurrentStorage().contains(element);
 	}
 	
 	/**
@@ -3041,11 +3102,11 @@ public class Logic {
 	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
-		Relation restriction = delegator.createAndInsertReleation();
+		Relation restriction = getDelegator().createAndInsertReleation();
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		tags.put("restriction", restriction_type == null ? "" : restriction_type);
 		tags.put("type", "restriction");
-		delegator.setTags(restriction, tags);
+		getDelegator().setTags(restriction, tags);
 		RelationMember from = new RelationMember("from", fromWay);
 		restriction.addMember(from);
 		fromWay.addParentRelation(restriction);
@@ -3069,13 +3130,13 @@ public class Logic {
 	public Relation createRelation(String type, List<OsmElement> members ) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
-		Relation relation = delegator.createAndInsertReleation();
+		Relation relation = getDelegator().createAndInsertReleation();
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		if (type != null)
 			tags.put("type", type);
 		else
 			tags.put("type", "");
-		delegator.setTags(relation, tags);
+		getDelegator().setTags(relation, tags);
 		for (OsmElement e:members) {
 			RelationMember rm = new RelationMember("", e);
 			relation.addMember(rm);
@@ -3090,7 +3151,7 @@ public class Logic {
 	 */
 	public void addMembers(Relation relation, ArrayList<OsmElement> members) {
 		createCheckpoint(R.string.undo_action_update_relations);
-		delegator.addMembersToRelation(relation, members);
+		getDelegator().addMembersToRelation(relation, members);
 	}
 	
 	/**
@@ -3207,16 +3268,16 @@ public class Logic {
 			// given that the element is deleted on the server we likely need to add it back to ways and relations there too
 			if (elementLocal.getName().equals(Node.NAME)) {
 				for (Way w:getWaysForNode((Node)elementLocal)) {
-					delegator.setOsmVersion(w,w.getOsmVersion()+1);
+					getDelegator().setOsmVersion(w,w.getOsmVersion()+1);
 				}
 			}
 			if (elementLocal.hasParentRelations()) {
 				for (Relation r:elementLocal.getParentRelations()) {
-					delegator.setOsmVersion(r,r.getOsmVersion()+1);
+					getDelegator().setOsmVersion(r,r.getOsmVersion()+1);
 				}
 			}
 		}
-		delegator.setOsmVersion(elementLocal,newVersion);
+		getDelegator().setOsmVersion(elementLocal,newVersion);
 	}
 
 	/**
@@ -3234,12 +3295,12 @@ public class Logic {
 
 	public void copyToClipboard(OsmElement element) {
 		if (element instanceof Node) {
-			delegator.copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+			getDelegator().copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
 			// use current centroid of way
 			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
 			Log.d("Logic","centroid " + result[0] + " " + result[1]);
-			delegator.copyToClipboard(element, result[0], result[1]);
+			getDelegator().copyToClipboard(element, result[0], result[1]);
 		}
 	}
 
@@ -3247,11 +3308,11 @@ public class Logic {
 	public void cutToClipboard(OsmElement element) {
 		createCheckpoint(R.string.undo_action_cut);
 		if (element instanceof Node) {
-			delegator.cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+			getDelegator().cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
 			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
 			Log.d("Logic","centroid " + result[0] + " " + result[1]);
-			delegator.cutToClipboard(element, result[0], result[1]);
+			getDelegator().cutToClipboard(element, result[0], result[1]);
 		}
 		map.invalidate();
 	}
@@ -3260,12 +3321,12 @@ public class Logic {
 		createCheckpoint(R.string.undo_action_paste);
 		int lat = yToLatE7(y);
 		int lon = xToLonE7(x);
-		delegator.pasteFromClipboard(lat, lon);
+		getDelegator().pasteFromClipboard(lat, lon);
 	}
 
 	public boolean clipboardIsEmpty() {
 		
-		return delegator.clipboardIsEmpty();
+		return getDelegator().clipboardIsEmpty();
 	}
 
 
@@ -3279,6 +3340,9 @@ public class Logic {
 	 */
 	public static int[] centroid(int w, int h, BoundingBox v, final Way way) {
 		float XY[] = centroidXY(w,h,v,way);
+		if (XY == null) {
+			return null;
+		}
 		int lat = GeoMath.yToLatE7(h, w, v, XY[1]);
 		int lon = GeoMath.xToLonE7(w, v, XY[0]);
 		int result[] = {lat,lon};
@@ -3295,6 +3359,9 @@ public class Logic {
 	 * @return screen coordinates of centroid
 	 */
 	public static float[] centroidXY(int w, int h, BoundingBox v, final Way way) {
+		if (way == null) {
+			return null;
+		}
 		// 
 		List<Node> vertices = way.getNodes();
 		if (way.isClosed()) {
@@ -3347,7 +3414,7 @@ public class Logic {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(R.string.undo_action_circulize);
 		int[] center = centroid(map.getWidth(), map.getHeight(), map.getViewBox(), way);
-		delegator.circulizeWay(center, way);
+		getDelegator().circulizeWay(center, way);
 		map.invalidate();
 	}
 
@@ -3386,5 +3453,13 @@ public class Logic {
 	 */
 	public float latE7ToY(int lat) {
 		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
+	}
+
+
+	/**
+	 * @return the delegator
+	 */
+	public StorageDelegator getDelegator() {
+		return delegator;
 	}
 }

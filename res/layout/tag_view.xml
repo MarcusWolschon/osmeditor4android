@@ -8,7 +8,8 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
-	    android:padding="5dp" >
+	    android:background="@color/tagedit_field_static_bg"
+	    android:padding="0dp" >
 
 		<LinearLayout 
 			android:orientation="vertical"

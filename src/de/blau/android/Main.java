@@ -87,7 +87,6 @@ import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
-import de.blau.android.TagEditor.TagEditorData;
 import de.blau.android.actionbar.ModeDropdownAdapter;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
@@ -111,6 +110,8 @@ import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
+import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
@@ -226,7 +227,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
 	 * If may be null or not reflect the current state if accessed from outside this activity.
 	 */
-	protected static Logic logic;
+	private static Logic logic;
 	
 	/**
 	 * The currently selected preset
@@ -344,14 +345,14 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				logic.zoom(Logic.ZOOM_IN);
+				getLogic().zoom(Logic.ZOOM_IN);
 				updateZoomControls();
 			}
 		});
 		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				logic.zoom(Logic.ZOOM_OUT);
+				getLogic().zoom(Logic.ZOOM_OUT);
 				updateZoomControls();
 			}
 		});
@@ -398,7 +399,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			}
 		}
 	
-		easyEditManager = new EasyEditManager(this, logic);
+		easyEditManager = new EasyEditManager(this, getLogic());
 		
 		// show welcome dialog
 		if (newInstall) {
@@ -443,7 +444,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		super.onStart();
 
 		prefs = new Preferences(this);
-		logic.setPrefs(prefs);
+		getLogic().setPrefs(prefs);
 		map.setPrefs(prefs);
 		map.createOverlays();
 		map.requestFocus();
@@ -456,7 +457,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-		Log.d("Main", "onNewIntent storage dirty " + logic.delegator.isDirty());
+		Log.d("Main", "onNewIntent storage dirty " + getLogic().getDelegator().isDirty());
 		setIntent(intent);
 		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
 		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
@@ -471,26 +472,26 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		if (redownloadOnResume) {
 			redownloadOnResume = false;
-			logic.downloadLast();
+			getLogic().downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
-			logic.loadFromFile(getApplicationContext());
+			getLogic().loadFromFile(getApplicationContext());
 		} else { // loadFromFile already does this
-			logic.loadEditingState();
+			getLogic().loadEditingState();
 			map.invalidate();
 		}
 		if (currentPresets == null) {
 			currentPresets = prefs.getPreset();
 		}
 		
-		logic.updateProfile();
+		getLogic().updateProfile();
 		map.updateProfile();
 		
 		runningInstance = this;
 		
 		updateActionbarEditMode();
-		if (!prefs.isOpenStreetBugsEnabled() && logic.getMode() == Mode.MODE_OPENSTREETBUG) {
-			logic.setMode(Mode.MODE_MOVE);
+		if (!prefs.isOpenStreetBugsEnabled() && getLogic().getMode() == Mode.MODE_OPENSTREETBUG) {
+			getLogic().setMode(Mode.MODE_MOVE);
 		}
 		if (modeDropdown != null)
 			modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
@@ -503,12 +504,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		
 		if (geoData != null) {
-			Log.d("Main","got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + logic.delegator.isDirty());
+			Log.d("Main","got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + getLogic().getDelegator().isDirty());
 			if (prefs.getDownloadRadius() != 0) { // download
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius());
-					logic.downloadBox(bbox, true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
+					getLogic().downloadBox(bbox, true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
 				} catch (OsmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -524,7 +525,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (rcData != null) {
 			Log.d("Main","got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
-				logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
+				getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
 			} else {
 				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
 				Log.d("Main","moving to position");
@@ -537,13 +538,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 	@Override
 	protected void onPause() {
-		Log.d("Main", "onPause mode " + logic.getMode());
+		Log.d("Main", "onPause mode " + getLogic().getMode());
 		runningInstance = null;
 		disableLocationUpdates();
 		if (getTracker() != null) getTracker().setListener(null);
 
 		// always save editing state
-		logic.saveEditingState();
+		getLogic().saveEditingState();
 		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
 		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) saveData();
@@ -578,18 +579,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	private void saveData() {
 		Log.i("Main", "saving data");
-		logic.save();
-		if (showGPS) {
-			try {
-				showGPSFlagFile.createNewFile();
-			} catch (IOException e) {
-				Log.e("Main", "failed to create showGPS flag file");
-			}
-		} else {
-			showGPSFlagFile.delete();
-		}
+		getLogic().save();
 		// if something was selected save that
-		
 	}
 
 	/**
@@ -597,8 +588,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * to zoom in/out.
 	 */
 	private void updateZoomControls() {
-		zoomControls.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
-		zoomControls.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+		zoomControls.setIsZoomInEnabled(getLogic().canZoom(Logic.ZOOM_IN));
+		zoomControls.setIsZoomOutEnabled(getLogic().canZoom(Logic.ZOOM_OUT));
 	}
 	
 //	@Override
@@ -642,16 +633,16 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			
 			View lockLayout = View.inflate(getApplicationContext(), R.layout.lock, null);
 			actionbar.setCustomView(lockLayout);
-			ToggleButton lock = setLock(logic.getMode());
+			ToggleButton lock = setLock(getLogic().getMode());
 			findViewById(R.id.lock).setVisibility(View.VISIBLE);
 			lock.setOnClickListener(new View.OnClickListener() {
 			    @Override
 				public void onClick(View b) {
 			        Log.d("Main", "Lock pressed");
 			        if(((ToggleButton)b).isChecked()) {
-			        	logic.setMode(Logic.Mode.MODE_EASYEDIT);
+			        	getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
 			        } else {
-			        	logic.setMode(Logic.Mode.MODE_MOVE);
+			        	getLogic().setMode(Logic.Mode.MODE_MOVE);
 			        }
 			        onEditModeChanged();
 			    }
@@ -678,20 +669,20 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			mode = Mode.MODE_MOVE;
 			lock.setChecked(false);
 		}
-		logic.setMode(mode); 
+		getLogic().setMode(mode); 
 		return lock; // for convenience
 	}
 
 	public void setMode(Logic.Mode mode) {
-		logic.setMode(mode); 
+		getLogic().setMode(mode); 
 	}
 	
 	public void updateActionbarEditMode() {
 		Log.d("Main", "updateActionbarEditMode");
 		if (modeDropdown != null && (prefs!=null && prefs.depreciatedModesEnabled())) 
-			getSupportActionBar().setSelectedNavigationItem(modeDropdown.getIndexForMode(logic.getMode()));
+			getSupportActionBar().setSelectedNavigationItem(modeDropdown.getIndexForMode(getLogic().getMode()));
 		else { 
-			setLock(logic.getMode());
+			setLock(getLogic().getMode());
 		}
 	}
 	
@@ -704,13 +695,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		Log.d("Main", "onNavigationItemSelected");
 		Mode mode = modeDropdown.getModeForItem(itemPosition);
-		logic.setMode(mode);
+		getLogic().setMode(mode);
 		if (mode == Mode.MODE_TAG_EDIT) {
 			// if something is already/still selected, edit its tags
 			// prefer ways over nodes, and deselect what we're *not* editing
-			OsmElement e = logic.getSelectedWay();
-			if (e == null) e = logic.getSelectedNode();
-			else logic.setSelectedNode(null);
+			OsmElement e = getLogic().getSelectedWay();
+			if (e == null) e = getLogic().getSelectedNode();
+			else getLogic().setSelectedNode(null);
 			if (e != null) performTagEdit(e, null, false);
 		}
 		return true;
@@ -745,7 +736,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
-		undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
+		undo.setVisible(getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo());
 		View undoView = undo.getActionView();
 		undoView.setOnClickListener(undoListener);
 		undoView.setOnLongClickListener(undoListener);
@@ -807,7 +798,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		case R.id.menu_gps_goto:
 			setFollowGPS(true);
 			map.setFollowGPS(true);
-			logic.setZoom(19);
+			getLogic().setZoom(19);
 			map.invalidate();
 			return true;
 
@@ -856,7 +847,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 			
 		case R.id.menu_gps_import:
-			if (logic == null || logic.delegator == null) return true;
+			if (getLogic() == null || getLogic().getDelegator() == null) return true;
 			showFileChooser(READ_GPX_FILE_SELECT_CODE);
 			return true;
 			
@@ -867,7 +858,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				setFollowGPS(false);
 				map.setFollowGPS(false);
 				map.getViewBox().moveTo(l.get(0).getLon(), l.get(0).getLat());
-				logic.setZoom(19);
+				getLogic().setZoom(19);
 				map.invalidate();
 			}
 			return true;
@@ -918,17 +909,17 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 		
 		case R.id.menu_transfer_export:
-			if (logic == null || logic.delegator == null) return true;
-			SavingHelper.asyncExport(this, logic.delegator);
+			if (getLogic() == null || getLogic().getDelegator() == null) return true;
+			SavingHelper.asyncExport(this, getLogic().getDelegator());
 			return true;
 			
 		case R.id.menu_transfer_read_file:
-			if (logic == null || logic.delegator == null) return true;
+			if (getLogic() == null || getLogic().getDelegator() == null) return true;
 			showFileChooser(READ_OSM_FILE_SELECT_CODE);
 			return true;
 			
 		case R.id.menu_transfer_save_file:
-			if (logic == null || logic.delegator == null) return true;
+			if (getLogic() == null || getLogic().getDelegator() == null) return true;
 			showDialog(DialogFactory.SAVE_FILE);
 //			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
 			return true;
@@ -947,9 +938,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 			
 		case R.id.menu_tools_background_align:
-			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
+			Mode oldMode = getLogic().getMode() != Mode.MODE_ALIGN_BACKGROUND ? getLogic().getMode() : Mode.MODE_MOVE; // protect against weird state
 			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(oldMode);
-			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
+			getLogic().setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
 			startActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
 			
@@ -1001,12 +992,16 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	    }
 	}
 	
-	protected void setAutoDownload(boolean b) {
+	public void setAutoDownload(boolean b) {
 		Log.d("Main", "autoDownload: "+ b);
 		autoDownload = b;
 	}
 	
-	protected void setShowGPS(boolean show) {
+	protected boolean getAutoDownload() {
+		return autoDownload;
+	}
+	
+	public void setShowGPS(boolean show) {
 		if (show && !ensureGPSProviderEnabled()) {
 			show = false;
 		}
@@ -1021,6 +1016,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		}
 		map.invalidate();
 		triggerMenuInvalidation();
+	}
+	
+	protected boolean getShowGPS() {
+		return showGPS;
 	}
 	
 	/**
@@ -1094,7 +1093,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	private void onMenuDownloadCurrent(boolean add) {
 		Log.d("Main", "onMenuDownloadCurrent");
-		if (logic.hasChanges() && !add) {
+		if (getLogic().hasChanges() && !add) {
 			showDialog(DialogFactory.DOWNLOAD_CURRENT_WITH_CHANGES);
 		} else {
 			performCurrentViewHttpLoad(add);
@@ -1135,11 +1134,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 				break;
 			case DialogFactory.OPENSTREETBUG_EDIT:
-				Bug bug = logic.getSelectedBug();
+				Bug bug = getLogic().getSelectedBug();
 				if (bug==null) { // a quick hack to see if this stops this crashing now and then
 					Log.e("Main","onPrepareDialog bug is null");
 					// try to local editstate here ...
-					logic.loadEditingState();
+					getLogic().loadEditingState();
 					if (bug==null) {
 						Log.e("Main","onPrepareDialog bug is null - invalid state");
 						Toast.makeText(getApplicationContext(), "Invalid editing state, please dismiss the dialog and report the problem!", Toast.LENGTH_LONG).show(); //TODO externalize the text
@@ -1186,7 +1185,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	        Uri uri = data.getData();
 	        Log.d("Main", "Read file Uri: " + uri.toString());
 	        try {
-				logic.readOsmFile(uri, false);
+				getLogic().readOsmFile(uri, false);
 			} catch (FileNotFoundException e) {
 				try {
 					Toast.makeText(this,getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
@@ -1199,7 +1198,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			// Get the Uri of the selected file 
 	        Uri uri = data.getData();
 	        Log.d("Main", "Write file Uri: " + uri.toString());
-	        logic.writeOsmFile(uri.getPath());
+	        getLogic().writeOsmFile(uri.getPath());
 	        map.invalidate();
 		} else if (requestCode == READ_GPX_FILE_SELECT_CODE && resultCode == RESULT_OK) {
 			// Get the Uri of the selected file 
@@ -1257,24 +1256,24 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	private void handleTagEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
-		if (b != null && b.containsKey(TagEditor.TAGEDIT_DATA)) {
+		if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
 			// Read data from extras
-			TagEditorData editorData = (TagEditorData) b.getSerializable(TagEditor.TAGEDIT_DATA);
+			PropertyEditorData editorData = (PropertyEditorData) b.getSerializable(PropertyEditor.TAGEDIT_DATA);
 			if (editorData.tags != null) {
-				logic.setTags(editorData.type, editorData.osmId, editorData.tags);
+				getLogic().setTags(editorData.type, editorData.osmId, editorData.tags);
 			}
 			if (editorData.parents != null) {
-				logic.updateParentRelations(editorData.type, editorData.osmId, editorData.parents);
+				getLogic().updateParentRelations(editorData.type, editorData.osmId, editorData.parents);
 			}
 			if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
-				logic.updateRelation(editorData.osmId, editorData.members);
+				getLogic().updateRelation(editorData.osmId, editorData.members);
 			}
 		}
-		if (logic.getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
+		if (getLogic().getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
 			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
-			logic.setSelectedNode(null);
-			logic.setSelectedWay(null);
-			logic.setSelectedRelation(null);
+			getLogic().setSelectedNode(null);
+			getLogic().setSelectedWay(null);
+			getLogic().setSelectedRelation(null);
 		}
 		map.invalidate();
 	}
@@ -1333,15 +1332,15 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	}
 
 	public void performCurrentViewHttpLoad(boolean add) {
-		logic.downloadCurrent(add);
+		getLogic().downloadCurrent(add);
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		logic.downloadBox(box, false, false);
+		getLogic().downloadBox(box, false, false);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
-		logic.newEmptyMap(box);
+		getLogic().newEmptyMap(box);
 	}
 
 	/**
@@ -1353,9 +1352,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			if (logic.hasChanges()) {
-				logic.upload(comment, source, closeChangeset);
-				logic.checkForMail();
+			if (getLogic().hasChanges()) {
+				getLogic().upload(comment, source, closeChangeset);
+				getLogic().checkForMail();
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
@@ -1372,7 +1371,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	public void performOpenStreetBugCommit(final String comment, final boolean close) {
 		Log.d("Vespucci", "Main.performOpenStreetBugCommit");
 		dismissDialog(DialogFactory.OPENSTREETBUG_EDIT);
-		new CommitTask(logic.getSelectedBug(), comment, close) {
+		new CommitTask(getLogic().getSelectedBug(), comment, close) {
 			
 			/** Flag to track if the bug is new. */
 			private boolean newBug;
@@ -1419,8 +1418,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			logic.uploadTrack(getTracker().getTrack(), description, tags, visibility);
-			logic.checkForMail();
+			getLogic().uploadTrack(getTracker().getTrack(), description, tags, visibility);
+			getLogic().checkForMail();
 		} else {
 			showDialog(DialogFactory.NO_LOGIN_DATA);
 		}
@@ -1434,7 +1433,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			if (logic.hasChanges()) {
+			if (getLogic().hasChanges()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server);
 					if (server.getOAuth()) // if still set
@@ -1524,6 +1523,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			oAuthWebView.setVisibility(View.GONE);
 			oAuthWebView.removeAllViews();
 			oAuthWebView.destroy();
+			oAuthWebView = null; 
 		} catch (Exception ex) { 
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex);
@@ -1535,7 +1535,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	public void gotoBoxPicker() {
 		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
-		if (logic.hasChanges()) {
+		if (getLogic().hasChanges()) {
 			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDINGBOX).show();
 		} else {
 			startActivityForResult(intent, REQUEST_BOUNDINGBOX);
@@ -1553,16 +1553,16 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags) {
 		if (selectedElement instanceof Node) {
-			logic.setSelectedNode((Node) selectedElement);
+			getLogic().setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
-			logic.setSelectedWay((Way) selectedElement);
+			getLogic().setSelectedWay((Way) selectedElement);
 		}
 	
 		if (selectedElement != null) {
-			if (logic.delegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
-				Intent startTagEditor = new Intent(getApplicationContext(), TagEditor.class);
-				startTagEditor.putExtra(TagEditor.TAGEDIT_DATA, new TagEditorData(selectedElement, focusOn));
-				startTagEditor.putExtra(TagEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
+			if (getLogic().getDelegator().getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
+				Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
+				startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, new PropertyEditorData(selectedElement, focusOn));
+				startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
@@ -1575,8 +1575,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	public void onBackPressed() {
 		// super.onBackPressed();
 		Log.d("Main","onBackPressed()");
+		if (oAuthWebView != null && oAuthWebView.canGoBack()) { 
+			// we are displaying the oAuthWebView and somebody might want to navigate back
+			oAuthWebView.goBack();
+			return;
+		}
 		if (prefs.useBackForUndo()) {
-			String name = logic.getUndo().undo();
+			String name = logic.undo();
 			if (name != null)
 				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			else
@@ -1622,16 +1627,16 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		@Override
 		public void onClick(View arg0) {
-			String name = logic.getUndo().undo();
+			String name = logic.undo();
 			if (name != null) {
 				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			} else {
 				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
 			// check that we haven't just removed a selected element
-			if (logic.resyncSelected()) {
+			if (getLogic().resyncSelected()) {
 				// only need to test if anything at all is still selected
-				if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0 ) {
+				if (getLogic().selectedNodesCount() + getLogic().selectedWaysCount() + getLogic().selectedRelationsCount() == 0 ) {
 					easyEditManager.finish();
 				}
 			}
@@ -1640,9 +1645,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		@Override
 		public boolean onLongClick(View v) {
-			UndoStorage undo = logic.getUndo();
+			UndoStorage undo = getLogic().getUndo();
 			if (undo.canUndo() || undo.canRedo()) {
-				UndoDialogFactory.showUndoDialog(Main.this, undo);
+				UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
 			} else {
 				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
@@ -1669,7 +1674,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				clickedBugs = null;
 				clickedPhotos = null;
 				clickedNodesAndWays = null;
-				logic.handleTouchEventDown(m.getX(), m.getY());
+				getLogic().handleTouchEventDown(m.getX(), m.getY());
 			}
 			mDetector.onTouchEvent(v, m);
 			return v.onTouchEvent(m);
@@ -1688,8 +1693,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 			clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
 			
-			Mode mode = logic.getMode();
-			boolean isInEditZoomRange = logic.isInEditZoomRange();
+			Mode mode = getLogic().getMode();
+			boolean isInEditZoomRange = getLogic().isInEditZoomRange();
 			
 			if (showGPS && !followGPS && map.getLocation() != null) {
 				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
@@ -1713,7 +1718,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				case MODE_OPENSTREETBUG:
 					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
 					case 0:
-						performBugEdit(logic.makeNewBug(x, y));
+						performBugEdit(getLogic().makeNewBug(x, y));
 						break;
 					case 1:
 						performBugEdit(clickedBugs.get(0));
@@ -1725,7 +1730,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 					break;
 				case MODE_ADD:
 					try {
-						logic.performAdd(x, y);
+						getLogic().performAdd(x, y);
 					} catch (OsmIllegalOperationException e) {
 						Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 					}
@@ -1804,7 +1809,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		@Override
 		public void onUp(View v, float x, float y) {
-			if (logic.getMode() == Mode.MODE_EASYEDIT) {
+			if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
 				easyEditManager.invalidate();
 			}
 			touching=false;
@@ -1812,20 +1817,20 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		@Override
 		public boolean onLongClick(final View v, final float x, final float y) {
-			if (logic.getMode() != Mode.MODE_EASYEDIT) {
-				if (logic.getMode() == Mode.MODE_MOVE) {
+			if (getLogic().getMode() != Mode.MODE_EASYEDIT) {
+				if (getLogic().getMode() == Mode.MODE_MOVE) {
 					// display context menu
 					de.blau.android.osb.MapOverlay osbo = map.getOpenStreetBugsOverlay();
 					clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
 					de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 					clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
-					clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+					clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
 					return true; 
 				}
 				return false; // ignore long clicks
 			}
 			
-			if (logic.isInEditZoomRange()) {
+			if (getLogic().isInEditZoomRange()) {
 				return easyEditManager.handleLongClick(v, x, y);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
@@ -1836,18 +1841,18 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
-			logic.handleTouchEventMove(x, y, -dx, dy);
+			getLogic().handleTouchEventMove(x, y, -dx, dy);
 			setFollowGPS(false);
 		}
 		
 		@Override
 		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
-			logic.zoom((curSpan - prevSpan) / prevSpan);
+			getLogic().zoom((curSpan - prevSpan) / prevSpan);
 			updateZoomControls();
 		}
 		
 		private void selectElementForTagEdit(final View v, final float x, final float y) {
-			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
 			switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size()) {
 			case 0:
 				// no elements were touched, ignore
@@ -1868,7 +1873,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		}
 
 		private void selectElementForErase(final View v, final float x, final float y) {
-			clickedNodesAndWays = logic.getClickedNodes(x, y);
+			clickedNodesAndWays = getLogic().getClickedNodes(x, y);
 			switch (clickedNodesAndWays.size()) {
 			case 0:
 				// no elements were touched, ignore
@@ -1884,12 +1889,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 							new DialogInterface.OnClickListener() {	
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									logic.performEraseNode((Node)clickedNodesAndWays.get(0));
+									getLogic().performEraseNode((Node)clickedNodesAndWays.get(0));
 								}
 							})
 						.show();
 				} else {
-					logic.performEraseNode((Node)clickedNodesAndWays.get(0));
+					getLogic().performEraseNode((Node)clickedNodesAndWays.get(0));
 				}
 				break;
 			default:
@@ -1899,7 +1904,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		}
 
 		private void selectElementForSplit(final View v, final float x, final float y) {
-			clickedNodesAndWays = logic.getClickedNodes(x, y);
+			clickedNodesAndWays = getLogic().getClickedNodes(x, y);
 
 			//TODO remove nodes with no ways from list
 //			for (Iterator iterator = clickedNodesAndWays.iterator(); iterator.hasNext();) {
@@ -1914,7 +1919,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				// no elements were touched, ignore
 				break;
 			case 1:
-				logic.performSplit((Node)clickedNodesAndWays.get(0));
+				getLogic().performSplit((Node)clickedNodesAndWays.get(0));
 				break;
 			default:
 				v.showContextMenu();
@@ -1930,7 +1935,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		 */
 		public void performEasyEdit(final View v, final float x, final float y) {
 			if (!easyEditManager.actionModeHandledClick(x, y)) {
-				clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+				clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
 				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null)? 0 : clickedPhotos.size())) {
 				case 0:
 					// no elements were touched
@@ -1973,7 +1978,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 					if (server.getOAuth()) // if still set
 						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
 				} else {
-					logic.setSelectedBug(bug);
+					getLogic().setSelectedBug(bug);
 					showDialog(DialogFactory.OPENSTREETBUG_EDIT);
 				}
 			} else {
@@ -1999,7 +2004,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				}
 			}
 			if (clickedNodesAndWays != null) {
-				Mode mode = logic.getMode();
+				Mode mode = getLogic().getMode();
 				for (OsmElement e : clickedNodesAndWays) {
 					android.view.MenuItem mi = menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
 					// mi.setEnabled(mode != Mode.MODE_MOVE);
@@ -2032,13 +2037,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				// Usually, we just take the first node.
 				// However, check for *very* closely overlapping nodes first.
 				Node candidate = (Node) clickedNodesAndWays.get(0);
-				float nodeX = logic.getNodeScreenX(candidate);
-				float nodeY = logic.getNodeScreenY(candidate);
+				float nodeX = getLogic().getNodeScreenX(candidate);
+				float nodeY = getLogic().getNodeScreenY(candidate);
 				for (int i = 1; i < clickedNodesAndWays.size(); i++) {
 					if (!(clickedNodesAndWays.get(i) instanceof Node)) break;
 					Node possibleNeighbor = (Node)clickedNodesAndWays.get(i);
-					float node2X = logic.getNodeScreenX(possibleNeighbor);
-					float node2Y = logic.getNodeScreenY(possibleNeighbor);
+					float node2X = getLogic().getNodeScreenX(possibleNeighbor);
+					float node2Y = getLogic().getNodeScreenY(possibleNeighbor);
 					// Fast "square" checking is good enough
 					if (Math.abs(nodeX-node2X) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ||
 						Math.abs(nodeY-node2Y) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ) {
@@ -2067,7 +2072,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				
 				if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
 					final OsmElement element = clickedNodesAndWays.get(itemId);
-					switch (logic.getMode()) {
+					switch (getLogic().getMode()) {
 					case MODE_MOVE:
 						showElementInfo(element);
 						break;
@@ -2084,16 +2089,16 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 									new DialogInterface.OnClickListener() {	
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
-											logic.performEraseNode((Node)element);
+											getLogic().performEraseNode((Node)element);
 										}
 									})
 								.show();
 						} else {
-							logic.performEraseNode((Node)element);
+							getLogic().performEraseNode((Node)element);
 						}
 						break;
 					case MODE_SPLIT:
-						logic.performSplit((Node) element);
+						getLogic().performSplit((Node) element);
 						break;
 					case MODE_EASYEDIT:
 						easyEditManager.editElement(element);
@@ -2110,7 +2115,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		 * Show toasts displaying the info on nearby objects
 		 */
 		void displayInfo(final float x, final float y) {
-			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
 			// clieckedPhotos and 
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
@@ -2180,14 +2185,14 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 						
 					case KeyEvent.KEYCODE_VOLUME_UP:
 					case KeyEvent.KEYCODE_SEARCH:
-						logic.zoom(Logic.ZOOM_IN);
+						getLogic().zoom(Logic.ZOOM_IN);
 						updateZoomControls();
 						return true;
 						
 					case KeyEvent.KEYCODE_VOLUME_DOWN:
 					case KeyEvent.KEYCODE_SHIFT_LEFT:
 					case KeyEvent.KEYCODE_SHIFT_RIGHT:
-						logic.zoom(Logic.ZOOM_OUT);
+						getLogic().zoom(Logic.ZOOM_OUT);
 						updateZoomControls();
 						return true;
 					}
@@ -2199,7 +2204,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		private void translate(final CursorPaddirection direction) {
 			setFollowGPS(false);
-			logic.translate(direction);
+			getLogic().translate(direction);
 		}
 	}
 	
@@ -2218,10 +2223,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_SCROLL:
 					if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f) {
-						logic.zoom(Logic.ZOOM_IN);
+						getLogic().zoom(Logic.ZOOM_IN);
 						
 					} else {
-						logic.zoom(Logic.ZOOM_OUT);
+						getLogic().zoom(Logic.ZOOM_OUT);
 					}
 					updateZoomControls();
 					return true;
@@ -2236,7 +2241,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
 	public String getPendingChanges() {
-		List<String> changes = logic.getPendingChanges(this);
+		List<String> changes = getLogic().getPendingChanges(this);
 		StringBuilder retval = new StringBuilder();
 		for (String change : changes) {
 			retval.append(change).append('\n');
@@ -2260,8 +2265,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	}
 	
 	public static boolean hasChanges() {
-		if (logic == null) return false;
-		return logic.hasChanges();
+		if (getLogic() == null) return false;
+		return getLogic().hasChanges();
 	}
 	
 	/**
@@ -2320,7 +2325,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			// some heuristics for now to keep downloading to a minimum
 			// speed needs to be <= 6km/h (aka brisk walking speed) 
 			if (autoDownload && (location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
-				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(logic.delegator.getBoundingBoxes());
+				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(getLogic().getDelegator().getBoundingBoxes());
 				BoundingBox newBox = getNextBox(bbList,previousLocation, location);
 				if (newBox != null) {
 					if (prefs.getDownloadRadius() != 0) { // download
@@ -2334,9 +2339,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 								Log.d("Main","getNextCenter very small bb " + b.toString());
 								continue;
 							}
-							logic.delegator.addBoundingBox(b);  // will be filled once download is complete
+							getLogic().getDelegator().addBoundingBox(b);  // will be filled once download is complete
 							Log.d("Main","getNextCenter loading " + b.toString());
-							logic.downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
+							getLogic().downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
 						}
 					}
 					previousLocation  = location;
@@ -2494,5 +2499,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
         ElementInfoFragment elementInfoDialog = ElementInfoFragment.newInstance(element);
         elementInfoDialog.show(fm, "fragment_element_info");
+	}
+
+	/**
+	 * @return the logic
+	 */
+	public static Logic getLogic() {
+		return logic;
 	}
 }

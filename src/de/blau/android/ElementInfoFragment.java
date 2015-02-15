@@ -24,6 +24,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+/**
+ * Very simple dialog fragment to display some info on an OSM element
+ * @author simon
+ *
+ */
 public class ElementInfoFragment extends DialogFragment {
 
     /**

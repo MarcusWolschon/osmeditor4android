@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;
@@ -18,7 +19,7 @@ import de.blau.android.util.Density;
 
 public class UndoDialogFactory {
 
-	public static void showUndoDialog(final Main main, final UndoStorage undo) {
+	public static void showUndoDialog(final Main main, final Logic logic, final UndoStorage undo) {
 		Builder dialog = new Builder(main);
 		dialog.setTitle(R.string.undo);
 		
@@ -39,9 +40,9 @@ public class UndoDialogFactory {
 				UndoDialogItem item = adapter.getItem(which);
 				for (int i = 0; i < item.index; i++) {
 					if (item.isRedo) {
-						undo.redo();
+						logic.redo();
 					} else {
-						undo.undo();
+						logic.undo();
 					}
 				}
 				dialog.dismiss();

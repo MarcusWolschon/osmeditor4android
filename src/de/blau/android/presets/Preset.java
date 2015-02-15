@@ -52,6 +52,8 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import de.blau.android.R;
@@ -636,6 +638,10 @@ public class Preset {
 			if (icon != null) {
 				v.setCompoundDrawables(null, getIcon(), null, null);
 				v.setCompoundDrawablePadding((int)(4*density));
+			} else {
+				// no icon
+				LinearLayout.LayoutParams vlp = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT);
+				v.setLayoutParams(vlp);
 			}
 			v.setWidth((int)(72*density));
 			v.setHeight((int)(72*density));

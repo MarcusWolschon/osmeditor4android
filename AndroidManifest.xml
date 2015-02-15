@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="38"
+	android:versionCode="40"
 	android:installLocation="auto"
 	>
 	
@@ -57,7 +57,7 @@
 			android:theme="@style/Theme.Sherlock"
 		/>
 		<activity
-			android:name="TagEditor"
+			android:name=".propertyeditor.PropertyEditor"
 			android:theme="@style/Theme.customTagEditor"
 			android:configChanges="orientation|screenSize|keyboardHidden"
 		/>

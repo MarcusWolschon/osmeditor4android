@@ -35,6 +35,7 @@ import de.blau.android.osb.CommitListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
@@ -145,7 +146,16 @@ public class DialogFactory {
 		noLoginDataSet.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
 		wrongLogin = createBasicDialog(R.string.wrong_login_data_title, R.string.wrong_login_data_message);
-		wrongLogin.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
+		wrongLogin.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be used
+		final Server server = new Preferences(caller).getServer();
+		if (server.getOAuth()) {
+			wrongLogin.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					caller.oAuthHandshake(server);
+				}
+			});
+		}
 		
 		noConnection = createBasicDialog(R.string.no_connection_title, R.string.no_connection_message);
 		noConnection.setPositiveButton(R.string.okay, doNothingListener);
@@ -408,7 +418,7 @@ public class DialogFactory {
 				caller.setFollowGPS(false);
 				caller.getMap().setFollowGPS(false);
 				//
-				Main.logic.setZoom(19);
+				Main.getLogic().setZoom(19);
 				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 				searchDialog.dismiss();
 			}
@@ -439,7 +449,7 @@ public class DialogFactory {
 		saveFileBuilder.setPositiveButton(R.string.save, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Main.logic.writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
+				Main.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
 			}
 		});
 		
@@ -502,8 +512,8 @@ public class DialogFactory {
 		Builder uploadConflict = new AlertDialog.Builder(Application.mainActivity);
 		uploadConflict.setIcon(R.drawable.alert_dialog_icon);
 		uploadConflict.setTitle(R.string.upload_conflict_title);
-		final OsmElement elementOnServer = Main.logic.downloadElement(result.elementType, result.osmId);
-		final OsmElement elementLocal = Main.logic.delegator.getOsmElement(result.elementType, result.osmId);
+		final OsmElement elementOnServer = Main.getLogic().downloadElement(result.elementType, result.osmId);
+		final OsmElement elementLocal = Main.getLogic().getDelegator().getOsmElement(result.elementType, result.osmId);
 		final long newVersion;
 		try {
 			boolean useServerOnly = false;
@@ -523,7 +533,7 @@ public class DialogFactory {
 				uploadConflict.setPositiveButton(R.string.use_local_version, 	new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Main.logic.fixElementWithConflict(newVersion, elementLocal, elementOnServer);
+						Main.getLogic().fixElementWithConflict(newVersion, elementLocal, elementOnServer);
 						caller.confirmUpload();
 					}
 				});
@@ -531,13 +541,13 @@ public class DialogFactory {
 			uploadConflict.setNeutralButton(R.string.use_server_version,new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Main.logic.delegator.removeFromUpload(elementLocal);
+					Main.getLogic().getDelegator().removeFromUpload(elementLocal);
 					if (elementOnServer != null) {
-						Main.logic.updateElement(elementLocal.getName(), elementLocal.getOsmId());
+						Main.getLogic().updateElement(elementLocal.getName(), elementLocal.getOsmId());
 					} else { // delete local element
-						Main.logic.updateToDeleted(elementLocal);
+						Main.getLogic().updateToDeleted(elementLocal);
 					}
-					if (!Main.logic.delegator.getApiStorage().isEmpty()) {
+					if (!Main.getLogic().getDelegator().getApiStorage().isEmpty()) {
 						caller.confirmUpload();
 					}
 				}

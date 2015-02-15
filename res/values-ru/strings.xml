@@ -7,6 +7,7 @@
   <string name="transfer_download_current_download">Отменить и скачать</string>
   <string name="transfer_download_current_back">Назад (ничего не менять)</string>
   <string name="upload_problem_title">Проблема с передачей</string>
+  <string name="upload_problem_message">Некоторые данные не переданы на сервер. Попробуйте снова через некоторое время если это была временная проблема.</string>
   <string name="upload_conflict_title">Конфликт загрузки</string>
   <string name="upload_conflict_message_version">%1$s
 имеет локальную версию %2$s
@@ -24,7 +25,10 @@
   <string name="wrong_login_data_message">Если вы используете OAuth, то это вероятно ошибка, пожалуйста отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="out_of_memory_title">Недостаточно памяти</string>
+  <string name="out_of_memory_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста начните снова и загрузите меньшую область</string>
+  <string name="out_of_memory_dirty_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста попробуйте сохранить ваши правки, перезапустите программу и попробуйте загрузить меньшую область</string>
   <string name="invalid_data_received_title">Получены некорректные данные</string>
+  <string name="invalid_data_received_message">Vespucci получил неверные данные от сервера. Если вы считаете что делали всё правильно, пожалуйста сообщите об ошибке разработчикам.</string>
   <string name="file_write_failed_title">Сбой записи в файл</string>
   <string name="file_write_failed_message">Не удалось записать в выбранный файл.</string>
   <string name="welcome_title">Добро пожаловать!</string>
@@ -55,6 +59,7 @@
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">У вас есть несохраненные изменения, которые будут потеряны при продолжении.</string>
   <string name="unsaved_data_proceed">Отменить и продолжить</string>
+  <string name="imagery_offset_title">Смещение снимка</string>
   <string name="imagery_offset_description">Описание</string>
   <string name="imagery_offset_not_found">В радиусе 10 км смещения не найдены!</string>
   <string name="imagery_offset_author">Автор</string>
@@ -62,11 +67,13 @@
   <string name="imagery_offset_date">Создано</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Расстояние</string>
+  <string name="set_position_datum_label">Геодезическая система координат</string>
   <string name="tag_editor_name_suggestion">Предложение названия</string>
   <string name="search_results_title">Результаты поиска</string>
   <string name="find_message">Введите строку поиска</string>
   <string name="read_file">Выберете файл для чтения</string>
   <string name="save_file">Введите файл для сохранения</string>
+  <string name="existing_track_title">Существующие данные трека</string>
   <!--Toaster-->
   <string name="toast_no_changes">Вы ничего не изменили…</string>
   <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
@@ -78,13 +85,16 @@
   <string name="toast_not_in_bug_range">Пожалуйста, увеличьте масштаб для добавления заметки (Громкость +/- или Движок масштаба)</string>
   <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
+  <string name="toast_preset_overwrote_tags">Внимание: заготовка перезаписала тег(и)</string>
   <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
   <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
   <string name="toast_oauth_handshake_failed">Рукопожатие OAuth не удалось, проверьте, что у вас есть подходящий consumer key.</string>
   <string name="toast_unread_mail">У вас %1$s непрочитанных сообщения(й) на сервере OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Начато сканирование геопривязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование геопривязанных фото</string>
+  <string name="toast_download_bbox_failed">Скачивание не удалось потому как выбранная территория была слишком большой.</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки %1$d, сообщение %2$s</string>
+  <string name="toast_unsurveyed_road">Необследованная дорога</string>
   <string name="toast_noname">У дороги нет ни имени, ни ссылки</string>
   <string name="toast_oauth_retry">Разрешите OAuth-доступ к своему OSM-аккаунту и затем повторите загрузку.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
@@ -92,10 +102,12 @@
   <string name="toast_timeout">Таймаут соединения с сервером</string>
   <string name="coordinates_out_of_range">Долгота должна быть в пределах от -180° до +180°, широта от -85° до +85°</string>
   <string name="toast_nothing_found">Ничего не найдено</string>
+  <string name="toast_statesave_failed">Сохранение не удалось!\nЭто необратимая ошибка, пытаюсь записать файл экспорта для последующего восстановления в JOSM.</string>
   <string name="toast_missing_filemanager">Установите менеджер файлов.</string>
   <string name="toast_outside_of_download">Вы редактируете за пределами скаченных данных.</string>
   <string name="toast_file_not_found">%1$s не найдено.</string>
   <string name="toast_imported_track_points">Импортировано %1$s точек трека.</string>
+  <string name="toast_inconsistent_state">Обнаружен inconsistent state, пожалуйста отправьте отчёт об ошибке разработчикам!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -109,6 +121,7 @@
   <string name="save">Сохранить</string>
   <string name="back">Назад</string>
   <string name="foward">Вперёд</string>
+  <string name="keep">Оставить</string>
   <!--Dialog for back button-->
   <string name="exit_title">Действительно выйти?</string>
   <string name="exit_text">Вы действительно хотите выйти?</string>
@@ -117,7 +130,9 @@
   <string name="value">значение</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/RU:Map_Features</string>
   <string name="tag_menu_address">Добавить теги адреса</string>
+  <string name="tag_menu_sourcesurvey">Обследованный</string>
   <string name="tag_menu_preset">Заготовки</string>
+  <string name="tag_menu_apply_preset">Применить лучшую перезагрузку</string>
   <string name="tag_menu_repeat">Повторить теги</string>
   <string name="tag_menu_revert">Отменить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
@@ -167,6 +182,7 @@
   <string name="menu_add_relation_member">Добавить участника</string>
   <string name="menu_tag">Править тэги</string>
   <string name="menu_openstreetbug">Добавить заметку</string>
+  <string name="menu_easyedit">Прост. ред-ние</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показывать положение</string>
   <string name="menu_gps_follow">Следовать за GPS</string>
@@ -177,6 +193,7 @@
   <string name="menu_gps_upload">Передать GPS-трек на сервер</string>
   <string name="menu_gps_export">Экспорт GPS-трека</string>
   <string name="menu_gps_import">Импортировать GPS-трек</string>
+  <string name="menu_gps_goto_start">Перейти к началу трека</string>
   <string name="menu_gps_autodownload">Автоскачивание</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Скачать текущее местоположение</string>
@@ -194,9 +211,13 @@
   <string name="menu_paste">Вставить</string>
   <string name="menu_rotate">Повернуть</string>
   <string name="menu_orthogonalize">Ортогонализировать</string>
+  <string name="menu_circulize">Выстроить в круг</string>
   <string name="menu_newnode_gps">Новая точка на позиции GPS.</string>
   <string name="menu_tools">Инструменты</string>
+  <string name="menu_tools_flush_background_tile_cache">Очистить кэш квадратов карты</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Очистить кэш наложений</string>
   <string name="menu_tools_background_properties">Свойства фона</string>
+  <string name="menu_tools_background_align">Выровнять подложку</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
   <string name="menu_tools_background_align_zero">Ноль</string>
   <string name="menu_tools_background_align_retrieve_from_db">Из базы</string>
@@ -250,6 +271,7 @@
   <string name="config_api_oauth_title">Использовать oauth</string>
   <string name="listedit_enable_oauth">Включить oauth</string>
   <string name="config_offsetServer_title">Сервер смещений</string>
+  <string name="config_offsetServer_summary">URL сервера смещений снимков</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_iconbutton_title">Показывать иконки точек</string>
   <string name="config_loginbutton_title">Учётная запись</string>
@@ -269,9 +291,12 @@
   <string name="config_mapProfile_title">Профиль карты</string>
   <string name="config_mapProfile_summary">Управление стилем и видимостью элементов</string>
   <string name="config_use_back_for_undo_title">Использовать кнопку назад для Отмены</string>
+  <string name="config_largeDragArea_title">Перемещение точек на мелком масштабе</string>
+  <string name="config_largeDragArea_summary">Разрешить перемещать точки на большие расстояния</string>
   <string name="config_extTriggeredDownloadRadius_title">Радиус скачивания</string>
   <string name="config_enableNameSuggestions_title">Разрешить предложения названий</string>
   <string name="config_enableNameSuggestions_summary">Включить предложение для тега названия</string>
+  <string name="config_enableAutoPreset_title">Включить автонастройку</string>
   <string name="config_gps_source_title">Источник GPS</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
@@ -325,6 +350,7 @@
   <string name="undo_action_paste">вставить</string>
   <string name="undo_action_rotateway">повернуть линию</string>
   <string name="undo_action_orthogonalize">ортогонализировать линию</string>
+  <string name="undo_action_circulize">выстроить в круг</string>
   <string name="undo_action_fix_conflict">исправить конфликт</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci «упал» или выявил серьёзную проблему. Пожалуйста, отправьте отчёт об ошибке.</string>

@@ -4,6 +4,9 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+
+import org.acra.ACRA;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -96,7 +99,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	protected final Context mCtx;
 	protected final OpenStreetMapTileFilesystemProvider mFSProvider;
 	protected final SQLiteDatabase mDatabase;
-	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US);
 
 	// ===========================================================
 	// Constructors
@@ -138,7 +141,18 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 			ContentValues cv = new ContentValues();
 			cv.put(T_FSCACHE_USAGECOUNT, T_FSCACHE_USAGECOUNT + " + 1");
 			cv.put(T_FSCACHE_TIMESTAMP, getNowAsIso8601());
-			ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
+			
+			try {
+				ret = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, args) > 0;
+			} catch (Exception e) {
+				if (e instanceof NullPointerException) {
+					// just log ... likely these are really spurious
+					Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "NPE in incrementUse");
+				} else {
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(e);	
+				}
+			}
 		}
 		return ret;
 	}
@@ -202,7 +216,19 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 
 			for(OpenStreetMapTile t : deleteFromDB) {
 				final String[] args = new String[]{"" + t.rendererID, "" + t.zoomLevel, "" + t.x, "" + t.y};
-				mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+				try {
+					if (mDatabase.isOpen()) { // note we have already deleted the on disks tiles so it is not really an issue if we don't delete everything from the DB
+						mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, args);
+					}
+				} catch (Exception e) {
+					if (e instanceof NullPointerException) {
+						// just log ... likely these are really spurious
+						Log.e(OpenStreetMapTileFilesystemProvider.DEBUGTAG, "NPE in deleteOldest");
+					} else {
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(e);	
+					}
+				}
 			}
 		}
 		return sizeGained;
