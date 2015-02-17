@@ -3,6 +3,7 @@ package de.blau.android.presets;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InvalidObjectException;
@@ -63,6 +64,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.resources.Profile;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.views.WrappingLayout;
@@ -162,6 +164,13 @@ public class Preset {
 	}
 	protected final PresetMRUInfo mru;
 	
+	private class PresetFilter implements FilenameFilter {
+		@Override
+		public boolean accept(File dir, String name) {
+			return name.endsWith(".xml");
+		}
+	}
+	
 	/**
 	 * Creates a preset object.
 	 * @param ctx context (used for preset loading)
@@ -187,7 +196,16 @@ public class Preset {
 		} else {
 			Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
 			iconManager = new PresetIconManager(ctx, directory.toString(), null);
-			fileStream = new FileInputStream(new File(directory, PRESETXML));
+			File indir = new File(directory.toString());
+			fileStream = null; // force crash and burn
+			if (indir != null) {
+				File[] list = indir.listFiles(new PresetFilter());
+				if (list != null && list.length > 0) { // simply use the first XML file found
+					Log.i("Preset", "Preset file name " + list[0].getName());
+					fileStream = new FileInputStream(new File(directory, list[0].getName()));
+				}
+			} 
+				
 		}
 		
 		DigestInputStream hashStream = new DigestInputStream(

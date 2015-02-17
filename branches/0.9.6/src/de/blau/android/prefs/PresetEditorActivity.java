@@ -1,13 +1,18 @@
 package de.blau.android.prefs;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -125,6 +130,10 @@ public class PresetEditorActivity extends URLListEditActivity {
 			private final int RESULT_PRESET_NOT_PARSABLE = 3; 
 			private final int RESULT_DOWNLOAD_CANCELED = 4; 
 			
+			private final int DOWNLOADED_PRESET_ERROR = -1;
+			private final int DOWNLOADED_PRESET_XML = 0;
+			private final int DOWNLOADED_PRESET_ZIP = 1;
+			
 			@Override
 			protected void onPreExecute() {
 				progress = new ProgressDialog(PresetEditorActivity.this);
@@ -143,22 +152,25 @@ public class PresetEditorActivity extends URLListEditActivity {
 			
 			@Override
 			protected Integer doInBackground(Void... args) {
-				if (!download(item.value, Preset.PRESETXML)) {
+				int downloadResult = download(item.value, Preset.PRESETXML);
+				if (downloadResult == DOWNLOADED_PRESET_ERROR) {
 					return RESULT_TOTAL_FAILURE;
-				}
-				
+				} else if (downloadResult == DOWNLOADED_PRESET_ZIP) {
+					return RESULT_TOTAL_SUCCESS;
+				} // fall through to further processing
+					
 				ArrayList<String> urls = Preset.parseForURLs(presetDir);
 				if (urls == null) {
 					Log.e("PresetEditorActivity", "Could not parse preset for URLs");
 					return RESULT_PRESET_NOT_PARSABLE;
 				}
-				
+
 				boolean allImagesSuccessful = true;
 				int count = 0;
 				for (String url : urls) {
 					if (canceled) return RESULT_DOWNLOAD_CANCELED;
 					count++;
-					allImagesSuccessful &= download(url, null);
+					allImagesSuccessful &= (download(url, null) == DOWNLOADED_PRESET_XML);
 					publishProgress(count, url.length());
 				}
 				return allImagesSuccessful? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
@@ -182,9 +194,9 @@ public class PresetEditorActivity extends URLListEditActivity {
 			 *    If null, the URL will be hashed using the PresetIconManager hash function
 			 *    and the file will be saved to hashvalue.png
 			 *    (where "hashvalue" will be replaced with the URL hash).
-			 * @return true if file was successfully downloaded, false otherwise
+			 * @return code indicating result
 			 */
-			private boolean download(String url, String filename) {
+			private int download(String url, String filename) {
 				if (filename == null) {
 					filename = PresetIconManager.hash(url)+".png";
 				}
@@ -195,20 +207,31 @@ public class PresetEditorActivity extends URLListEditActivity {
 					conn.setInstanceFollowRedirects(true);
 					if (conn.getResponseCode() != 200) {
 						Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
-						return false;
+						return DOWNLOADED_PRESET_ERROR;
+					}
+					boolean zip = conn.getContentType().equalsIgnoreCase("application/zip");
+					if (zip) {
+						filename = "temp.zip";
 					}
 					InputStream downloadStream = conn.getInputStream();
 					OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));
 					StreamUtils.copy(downloadStream, fileStream);
 					downloadStream.close();
 					fileStream.close();
-					return true;
+					
+					if (zip) {
+						if (unpackZip(presetDir.getPath() + "/",filename)) {
+							(new File(presetDir, "temp.zip")).delete();
+							return DOWNLOADED_PRESET_ZIP;
+						}
+					}
+					return DOWNLOADED_PRESET_XML;
 				} catch (Exception e) {
 					Log.w("PresetDownloader", "Could not download file " + url, e);
-					return false;
+					return DOWNLOADED_PRESET_ERROR;
 				}				
 			}
-
+			
 			@Override
 			protected void onPostExecute(Integer result) {
 				progress.dismiss();
@@ -266,5 +289,59 @@ public class PresetEditorActivity extends URLListEditActivity {
 		return false;
 	}
 
+	/**
+	 * Code from http://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android
+	 * @param presetDir
+	 * @param zipname
+	 * @return
+	 */
+	private boolean unpackZip(String presetDir, String zipname)
+	{       
+	     InputStream is;
+	     ZipInputStream zis;
+	     try 
+	     {
+	         String filename;
+	         is = new FileInputStream(presetDir + zipname);
+	         zis = new ZipInputStream(new BufferedInputStream(is));          
+	         ZipEntry ze;
+	         byte[] buffer = new byte[1024];
+	         int count;
 
+	         while ((ze = zis.getNextEntry()) != null) 
+	         {
+	             // zapis do souboru
+	             filename = ze.getName();
+
+	             // Need to create directories if not exists, or
+	             // it will generate an Exception...
+	             if (ze.isDirectory()) {
+	                File fmd = new File(presetDir + filename);
+	                fmd.mkdirs();
+	                continue;
+	             }
+
+	             FileOutputStream fout = new FileOutputStream(presetDir + filename);
+
+	             // cteni zipu a zapis
+	             while ((count = zis.read(buffer)) != -1) 
+	             {
+	                 fout.write(buffer, 0, count);             
+	             }
+
+	             fout.close();               
+	             zis.closeEntry();
+	         }
+
+	         zis.close();
+	     } 
+	     catch(IOException e)
+	     {
+	         e.printStackTrace();
+	         return false;
+	     }
+
+	    return true;
+	}
+	
 }

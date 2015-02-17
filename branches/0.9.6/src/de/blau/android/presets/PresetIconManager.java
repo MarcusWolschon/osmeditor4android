@@ -87,7 +87,8 @@ public class PresetIconManager {
 	 * Gets a drawable for a URL.<br>
 	 * If the URL is a HTTP(S) URL and a base path is given, it will be checked for the downloaded drawable.<br>
 	 * Otherwise, the URL will be considered a relative path, checked for ".." to avoid path traversal,
-	 * and it will be attempted to load the corresponding image from the asset image directory.<br>
+	 * and it will be attempted to load the corresponding image from the asset image directory. Handles
+	 * icons directly in a zipped presets director too.<br>
 	 * @param url either a local preset url of the format "presets/xyz.png", or a http/https url
 	 * @param size icon size in dp
 	 * @return null if icon file not found or a drawable of [size]x[size] dp.
@@ -97,8 +98,12 @@ public class PresetIconManager {
 		
 		InputStream pngStream = null;
 		try {
-			if (basePath != null && (url.startsWith("http://") || url.startsWith("https://"))) {
-				pngStream = new FileInputStream(basePath+"/"+hash(url)+".png");
+			if (basePath != null && externalAssetPackage == null) {
+				if ((url.startsWith("http://") || url.startsWith("https://"))) {
+					pngStream = new FileInputStream(basePath+"/"+hash(url)+".png");
+				} else if (url.endsWith(".png") && !url.contains("..")) {
+					pngStream = new FileInputStream(basePath+"/"+url);
+				}
 			} else if (!url.contains("..")) {
 				pngStream = openAsset(ASSET_IMAGE_PREFIX+url, true);
 			} else {
