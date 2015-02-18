@@ -136,6 +136,10 @@ public class Preset {
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
 	protected final MultiHashMap<String, String> autosuggestRelations = new MultiHashMap<String, String>(true);
 	
+	/** store current combo or multiselect key */
+	private String listKey = null;
+	private ArrayList<String> listValues = null;
+	
 	/**
 	 * Serializable class for storing Most Recently Used information.
 	 * Hash is used to check compatibility.
@@ -263,7 +267,7 @@ public class Preset {
             			currentItem.addTag(true, attr.getValue("key"), attr.getValue("value"));
             		}
             	} else if ("text".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), null);
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), (String)null);
             		String text = attr.getValue("text");
             		if (text != null) {
             			currentItem.addHint(attr.getValue("key"),text);
@@ -285,7 +289,13 @@ public class Preset {
             		if (delimiter == null) {
             			delimiter = ","; // combo uses "," as default
             		}
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"), delimiter);   
+            		String comboValues = attr.getValue("values");
+            		if (comboValues != null) {
+            			currentItem.addTag(inOptionalSection, attr.getValue("key"), comboValues, delimiter);
+            		} else {
+            			listKey = attr.getValue("key");
+            			listValues = new ArrayList<String>();
+            		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
             			currentItem.addDefault(attr.getValue("key"),defaultValue);
@@ -295,7 +305,13 @@ public class Preset {
             		if (delimiter == null) {
             			delimiter = ";"; // multiselect uses ";" as default
             		}
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), attr.getValue("values"), delimiter); 
+            		String multiselectValues = attr.getValue("values");
+            		if (multiselectValues != null) {
+            			currentItem.addTag(inOptionalSection, attr.getValue("key"), multiselectValues, delimiter); 
+            		} else {
+            			listKey = attr.getValue("key");
+            			listValues = new ArrayList<String>();
+            		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
             			currentItem.addDefault(attr.getValue("key"),defaultValue);
@@ -308,10 +324,23 @@ public class Preset {
             			currentItem.tags.putAll(chunk.getTags());
             			currentItem.optionalTags.putAll(chunk.getOptionalTags());
             			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
+            			currentItem.hints.putAll(chunk.hints);
+            			currentItem.defaults.putAll(chunk.defaults);
+            			currentItem.roles.addAll(chunk.roles);
+            			currentItem.linkedPresetNames.addAll(chunk.linkedPresetNames);
+            		}
+            	} else if ("list_entry".equals(name)) {
+            		// for now just get the actual value
+            		if (listValues != null) {
+            			listValues.add(attr.getValue("value"));
+            		}
+            	} else if ("preset_link".equals(name)) {
+            		String presetName = attr.getValue("preset_name");
+            		if (presetName != null) {
+            			currentItem.addLinkedPresetName(presetName);
             		}
             	}
             }
-            
             
             @Override
             public void endElement(String name) throws SAXException {
@@ -322,9 +351,20 @@ public class Preset {
             	} else if ("item".equals(name)) {
                     // Log.d("Preset","PresetItem: " + currentItem.toString());
             		currentItem = null;
+              		listKey = null;
+            		listValues = null;
             	} else if ("chunk".equals(name)) {
                     chunks.put(currentItem.getName(),currentItem);
             		currentItem = null;
+              		listKey = null;
+            		listValues = null;
+            	} else if ("combo".equals(name) || "multiselect".equals(name)) {
+            		if (listKey != null && listValues != null) {
+            			String[] v = new String[listValues.size()];
+            			currentItem.addTag(inOptionalSection, listKey, listValues.toArray(v));
+            		}
+            		listKey = null;
+            		listValues = null;
             	}
             }
         });
@@ -399,6 +439,21 @@ public class Preset {
 	}
 	
 	/**
+	 * Return the index of the preset by sequential search FIXME
+	 * @param name
+	 * @return
+	 */
+	public Integer getItemIndexByName(String name) {
+		Log.d("Preset","getItemIndexByName " + name);
+		for (PresetItem pi:allItems) {
+			if (pi.getName().equals(name)) {
+				return Integer.valueOf(pi.getItemIndex());
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Returns a view showing the most recently used presets
 	 * @param handler the handler which will handle clicks on the presets
 	 * @param type filter to show only presets applying to this type
@@ -428,9 +483,20 @@ public class Preset {
 	public void putRecentlyUsed(PresetItem item) {
 		Integer id = item.getItemIndex();
 		// prevent duplicates
-		mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
+		if (!mru.recentPresets.remove(id)) { // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
+			// preset is not in the list, add linked presets first
+			PresetItem pi = allItems.get(id.intValue());
+			for (String n:pi.linkedPresetNames) {
+				mru.recentPresets.addFirst(getItemIndexByName(n));
+				if (mru.recentPresets.size() > MAX_MRU_SIZE) {
+					mru.recentPresets.removeLast();
+				}
+			}
+		}	
 		mru.recentPresets.addFirst(id);
-		if (mru.recentPresets.size() > MAX_MRU_SIZE) mru.recentPresets.removeLast();
+		if (mru.recentPresets.size() > MAX_MRU_SIZE) {
+			mru.recentPresets.removeLast();
+		}
 		mru.changed  = true;
 	}
 
@@ -813,9 +879,15 @@ public class Preset {
 		 */
 		private LinkedHashMap<String, String> defaults = new LinkedHashMap<String, String>();
 		
-		/** Roles
-		 *  */
+		/**
+		 * Roles
+		 */
 		private LinkedList<String> roles =  new LinkedList<String>();
+		
+		/**
+		 * Linked names of presets
+		 */
+		private LinkedList<String> linkedPresetNames = new LinkedList<String>();
 		
 		private int itemIndex;
 
@@ -865,9 +937,13 @@ public class Preset {
 		public void addTag(boolean optional, String key, String values) {
 			addTag(optional, key, values, ",");
 		}
+		
 		public void addTag(boolean optional, String key, String values, String seperator) {
 			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(seperator));
-			
+			addTag(optional, key, valueArray);
+		}
+		
+		public void addTag(boolean optional, String key, String[] valueArray) {
 			for (String v:valueArray) {
 				tagItems.add(key+"\t"+v, this);
 			}
@@ -910,6 +986,10 @@ public class Preset {
 		
 		public String getDefault(String key) {
 			return defaults.get(key);
+		}
+		
+		public void addLinkedPresetName(String presetName) {
+			linkedPresetNames.add(presetName);
 		}
 		
 		/**
