@@ -487,8 +487,8 @@ public class Preset {
 		PresetGroup recent = new PresetGroup(null, "recent", null);
 		for (Preset p: presets) {
 			if (p != null && p.hasMRU()) {
-				for (int index : p.mru.recentPresets) {
-					recent.addElement(p.allItems.get(index));
+				for (Integer index : p.mru.recentPresets) {
+					recent.addElement(p.allItems.get(index.intValue()));
 				}
 			}
 		}
@@ -510,11 +510,18 @@ public class Preset {
 		if (!mru.recentPresets.remove(id)) { // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
 			// preset is not in the list, add linked presets first
 			PresetItem pi = allItems.get(id.intValue());
-			for (String n:pi.linkedPresetNames) {
+			LinkedList<String>linkedPresetNames = new LinkedList<String>(pi.linkedPresetNames);
+			Collections.reverse(linkedPresetNames);
+			for (String n:linkedPresetNames) {
 				if (!mru.recentPresets.contains(id)) {
-					mru.recentPresets.addFirst(getItemIndexByName(n));
-					if (mru.recentPresets.size() > MAX_MRU_SIZE) {
-						mru.recentPresets.removeLast();
+					Integer presetIndex = getItemIndexByName(n);
+					if (presetIndex != null) { // null if the link wasn't found
+						mru.recentPresets.addFirst(presetIndex);
+						if (mru.recentPresets.size() > MAX_MRU_SIZE) {
+							mru.recentPresets.removeLast();
+						}
+					} else {
+						Log.e("Preset","linked preset not found for " + n + " in preset " + pi.getName());
 					}
 				}
 			}
