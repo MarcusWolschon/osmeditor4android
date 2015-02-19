@@ -1078,13 +1078,17 @@ public class PropertyEditor extends SherlockFragmentActivity implements OnDismis
 						adapter = new ArrayAdapter<NameAndTags>(owner, R.layout.autocomplete_row, result);
 					}
 				} else {
-					if (owner.presets != null && owner.element != null) {
-						Collection<String> values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
-						if (values != null && !values.isEmpty()) {
-							ArrayList<String> result = new ArrayList<String>(values);
-							Collections.sort(result);
-							adapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
-						}
+					Collection<String> values = null;
+					if (owner.autocompletePresetItem != null) { // note this will use the last applied preset which may be wrong FIXME
+						values = owner.autocompletePresetItem.getAutocompleteValues(key);
+					} 
+					if (values == null && owner.presets != null && owner.element != null) {
+						values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
+					}
+					if (values != null && !values.isEmpty()) {
+						ArrayList<String> result = new ArrayList<String>(values);
+						Collections.sort(result);
+						adapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 					}
 				}
 			}
