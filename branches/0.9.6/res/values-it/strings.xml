@@ -85,7 +85,7 @@
   <string name="toast_save_failed">Salvataggio fallito</string>
   <string name="toast_not_in_bug_range">Ingrandisci per aggiungere una segnalazione (Volume Su/Giù o Lente/Interruttore)</string>
   <string name="toast_export_failed">Esportazione fallita</string>
-  <string name="toast_export_success">Esportat su %1$s</string>
+  <string name="toast_export_success">Esportato su %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - il preset ha sovracritto qualche tag</string>
   <string name="toast_oneway_reversed">Hai invertito una via a senso unico o una via con tag dipendenti dalla direzione. Controlla i tag e correggili se necessario.</string>
   <string name="toast_merge_tag_conflict">Hai unito degli oggetti che hanno valori di etichette, semantica dipendente dalla direzione oppure ruoli diversi nella stessa relazione incompatibili. Controlla le etichette e i ruoli e correggili se necessario.</string>
@@ -135,6 +135,7 @@
   <string name="tag_menu_address">Aggiungi le etichette dell\'indirizzo civico</string>
   <string name="tag_menu_sourcesurvey">Da rilevamento</string>
   <string name="tag_menu_preset">Preimpostazioni</string>
+  <string name="tag_menu_apply_preset">Aggiungi il predefinito più adatto</string>
   <string name="tag_menu_repeat">Ripeti etichette</string>
   <string name="tag_menu_revert">Ripristina</string>
   <string name="tag_menu_mapfeatures">Wiki funzioni mappe</string>
