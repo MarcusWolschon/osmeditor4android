@@ -1406,13 +1406,17 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 						adapter = new ArrayAdapter<NameAndTags>(owner, R.layout.autocomplete_row, result);
 					}
 				} else {
-					if (owner.presets != null && owner.element != null) {
-						Collection<String> values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
-						if (values != null && !values.isEmpty()) {
-							ArrayList<String> result = new ArrayList<String>(values);
-							Collections.sort(result);
-							adapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
-						}
+					Collection<String> values = null;
+					if (owner.autocompletePresetItem != null) { // note this will use the last applied preset which may be wrong FIXME
+						values = owner.autocompletePresetItem.getAutocompleteValues(key);
+					} 
+					if (values == null && owner.presets != null && owner.element != null) {
+						values = Preset.getAutocompleteValues(owner.presets,owner.element.getType(), key);
+					}
+					if (values != null && !values.isEmpty()) {
+						ArrayList<String> result = new ArrayList<String>(values);
+						Collections.sort(result);
+						adapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 					}
 				}
 			}
@@ -2050,6 +2054,8 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 				currentValues.put(tag.getKey(), "");
 			}
 		}
+		
+		// FIXME find a reasonable way to add optional tags
 		
 		loadEdits(currentValues);
 		if (replacedValue) Toast.makeText(this, R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();

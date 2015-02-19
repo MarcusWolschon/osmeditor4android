@@ -14,6 +14,7 @@ import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -326,7 +327,7 @@ public class Preset {
             			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
             			currentItem.hints.putAll(chunk.hints);
             			currentItem.defaults.putAll(chunk.defaults);
-            			currentItem.roles.addAll(chunk.roles);
+            			currentItem.roles.addAll(chunk.roles); // FIXME this and the following could lead to duplicate entries
             			currentItem.linkedPresetNames.addAll(chunk.linkedPresetNames);
             		}
             	} else if ("list_entry".equals(name)) {
@@ -487,9 +488,11 @@ public class Preset {
 			// preset is not in the list, add linked presets first
 			PresetItem pi = allItems.get(id.intValue());
 			for (String n:pi.linkedPresetNames) {
-				mru.recentPresets.addFirst(getItemIndexByName(n));
-				if (mru.recentPresets.size() > MAX_MRU_SIZE) {
-					mru.recentPresets.removeLast();
+				if (!mru.recentPresets.contains(id)) {
+					mru.recentPresets.addFirst(getItemIndexByName(n));
+					if (mru.recentPresets.size() > MAX_MRU_SIZE) {
+						mru.recentPresets.removeLast();
+					}
 				}
 			}
 		}	
@@ -1013,6 +1016,21 @@ public class Preset {
 		
 		public List<String> getRoles() {
 			return Collections.unmodifiableList(roles);
+		}
+		
+		/**
+		 * Return a ist of the values suitable for autocomplete
+		 * @param key
+		 * @return
+		 */
+		public Collection<String> getAutocompleteValues(String key) {
+			Collection<String> result = new HashSet<String>();
+			if (recommendedTags.containsKey(key)) {
+				result.addAll(Arrays.asList(recommendedTags.get(key)));
+			} else if (optionalTags.containsKey(key)) {
+				result.addAll(Arrays.asList(optionalTags.get(key)));
+			}
+			return result;
 		}
 		
 		/**
