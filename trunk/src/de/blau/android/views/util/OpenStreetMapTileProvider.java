@@ -47,7 +47,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 	/**
 	 * place holder if tile not available
 	 */
-	//protected final Bitmap mLoadingMapTile;
+	protected final Bitmap mLoadingMapTile;
 	protected final Bitmap mNoTilesTile;
 
 	protected Context mCtx;
@@ -68,6 +68,8 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			final Handler aDownloadFinishedListener) {
 		mCtx = ctx;
 		mNoTilesTile = BitmapFactory.decodeResource(ctx.getResources(),
+				R.drawable.no_tiles);
+		mLoadingMapTile = BitmapFactory.decodeResource(ctx.getResources(),
 				R.drawable.no_tiles);
 		mTileCache = new OpenStreetMapTileCache();
 		
@@ -134,7 +136,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		if (tile != null) {
 			// from cache
 			//if (DEBUGMODE)
-			//	Log.i(DEBUGTAG, "MapTileCache succeded for: " + aTile.toString());
+			//	Log.i(DEBUGTAG, "MapTileCache succeeded for: " + aTile.toString());
 			return tile;
 		} else {
 			// from service
@@ -181,7 +183,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		//@Override
 		public void mapTileLoaded(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final byte[] data) throws RemoteException {
 			BitmapFactory.Options options = new BitmapFactory.Options();
-	        options.inPreferredConfig =  Bitmap.Config.RGB_565;
+	        options.inPreferredConfig = Bitmap.Config.ARGB_8888; // Bitmap.Config.RGB_565;
 	        
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
 			//long start = System.currentTimeMillis();
@@ -211,12 +213,32 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			//if (DEBUGMODE) {
 				Log.e(DEBUGTAG, "MapTile download error " + t.toString());
 			//}
-			mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
+			// don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
 		}
 	};
 
 	public String getCacheUsageInfo() {
 		return mTileCache.getCacheUsageInfo();
 	}
+
+	/**
+	 * Store a bitmap directly in to the memory cache
+	 * @param tile tile parameters
+	 * @param b bitmap
+	 */
+	public void cacheTile(OpenStreetMapTile tile, Bitmap b) {
+		if (mTileCache != null) {
+			mTileCache.putTile(tile, b, true); 
+		}
+	}
 	
+	/**
+	 * Store an error tile in the cache
+	 * @param tile tile parameters
+	 */
+	public void cacheError(OpenStreetMapTile tile) {
+		if (mTileCache != null) {
+			mTileCache.putTile(tile, mLoadingMapTile, false);
+		}
+	}
 }

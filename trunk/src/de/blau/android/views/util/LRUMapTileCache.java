@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * Simple LRU cache for any type of object. Implemented as an extended
@@ -97,6 +98,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		}
 		long cacheSize = cacheSizeBytes();
 		while (cacheSize > limit && !list.isEmpty()) {
+			Log.d("LRUMapTileCache","removing bitmap from in memory cache");
 			CacheElement ce = list.getLast();
 			Bitmap b = remove(ce.key);
 			if (b != null && !b.isRecycled() && ce.recycleable) {

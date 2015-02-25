@@ -27,6 +27,13 @@ public class OpenStreetMapTile {
 		y = tileY;
 	}
 	
+	public OpenStreetMapTile(OpenStreetMapTile tile) {
+		this.rendererID = tile.rendererID;
+		this.zoomLevel = tile.zoomLevel;
+		this.x = tile.x;
+		this.y = tile.y;
+	}
+
 	@Override
 	public String toString() {
 		// Log.d("OpenStreetMapTile","Tile " + rendererID + "/" + zoomLevel + "/" + x + "/" + y);
