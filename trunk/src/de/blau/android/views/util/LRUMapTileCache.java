@@ -39,11 +39,13 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	private class CacheElement implements Serializable {
 		private static final long serialVersionUID = 1;
 		boolean recycleable = true;
+		long owner = 0;
 		String key;
 		
-		public CacheElement(String key, boolean recycleable) {
+		public CacheElement(String key, boolean recycleable, long owner) {
 			this.key = key;
 			this.recycleable = recycleable;
+			this.owner = owner;
 		}
 	}
 	
@@ -91,21 +93,27 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 * @param extra Extra space to take away from the cache size. Used to make room
 	 * for new items before adding them so that the total cache never exceeds the limit.
 	 */
-	private synchronized void applyCacheLimit(long extra) {
+	private synchronized boolean applyCacheLimit(long extra, long owner) {
 		long limit = maxCacheSize - extra;
 		if (limit < 0) {
 			limit = 0;
 		}
 		long cacheSize = cacheSizeBytes();
 		while (cacheSize > limit && !list.isEmpty()) {
-			Log.d("LRUMapTileCache","removing bitmap from in memory cache");
+			// Log.d("LRUMapTileCache","removing bitmap from in memory cache");
 			CacheElement ce = list.getLast();
+			if (ce.owner == owner && owner != 0) {
+				// cache is being thrashed because it is too small, fail
+				Log.d("LRUMapTileCache","cache too small, failing");
+				return false;
+			}
 			Bitmap b = remove(ce.key);
 			if (b != null && !b.isRecycled() && ce.recycleable) {
 				cacheSize -= b.getRowBytes() * b.getHeight();
 				b.recycle();
 			}
 		}
+		return true; // success
 	}
 	
 	/**
@@ -113,7 +121,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 */
 	public void onLowMemory() {
 		maxCacheSize /= 2;
-		applyCacheLimit(0);
+		applyCacheLimit(0, 0);
 	}
 	
 	@Override
@@ -158,7 +166,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 *         indicate that the cache previously associated <code>null</code>
 	 *         with the specified key
 	 */
-	public synchronized Bitmap put(final String key, final Bitmap value, boolean recycleable) {
+	public synchronized Bitmap put(final String key, final Bitmap value, boolean recycleable, long owner) {
 		// Log.d("LRUMapTileCache","put " + key + " " + recycleable);
 		if (maxCacheSize == 0 || value == null){
 			return null;
@@ -166,10 +174,21 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 
 		// if the key isn't in the cache and the cache is full...
 		if (!containsKey(key)) {
-			applyCacheLimit(value.getRowBytes() * value.getHeight());
+			long bitmapSize = value.getRowBytes() * value.getHeight();
+			if (!applyCacheLimit(bitmapSize, owner)) {
+				// failed: cache is to small to handle all tiles necessary for one draw cycle
+				// see if we can expand by 50%
+				if (maxCacheSize < (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) && (maxCacheSize/2 > bitmapSize)) {
+					Log.w("LRUMapTileCache","expanding memory tile cache from " + maxCacheSize + " to " + (maxCacheSize + maxCacheSize/2));
+					maxCacheSize = maxCacheSize + maxCacheSize/2;
+				} else {
+					return null; // can't expand any more
+				}
+			}
+			
 		}
 
-		updateKey(key, recycleable);
+		updateKey(key, recycleable, owner);
 		// Log.d("LRUMapTileCache","put done");
 		return super.put(key, value);
 	}
@@ -193,7 +212,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 			}
 		}
 		if (toUpdate != null)
-			updateKey(key,toUpdate.recycleable);
+			updateKey(key,toUpdate.recycleable, toUpdate.owner);
 		// Log.d("LRUMapTileCache","get done");
 		return value;
 	}
@@ -216,8 +235,9 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 * list is where least recently used items live).
 	 * 
 	 * @param key of the value to move to the top of the list
+	 * @param owner TODO
 	 */
-	private synchronized void updateKey(final String key, final boolean recycleable) {
+	private synchronized void updateKey(final String key, final boolean recycleable, long owner) {
 		// Log.d("LRUMapTileCache","updateKey " + key);
 		CacheElement toRemove = null;
 		for (CacheElement ce:list) {
@@ -228,7 +248,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 		}
 		if (toRemove != null)
 			list.remove(toRemove);
-		list.addFirst(new CacheElement(key, recycleable));
+		list.addFirst(new CacheElement(key, recycleable, owner));
 		// Log.d("LRUMapTileCache","updateKey done");
 	}
 	
