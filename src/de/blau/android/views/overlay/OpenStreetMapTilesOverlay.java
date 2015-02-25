@@ -193,6 +193,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	public void onDraw(Canvas c, IMapView osmv) {
 		try {
 			drawing = true;
+			long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which invocation of onDraw the tile belongs too
 			// Do some calculations and drag attributes to local variables to save
 			//some performance.
 			final Rect viewPort = c.getClipBounds();
@@ -272,9 +273,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					int sh = myRendererInfo.getTileHeight();
 					int tx = 0;
 					int ty = 0;
-					Bitmap tileBitmap = mTileProvider.getMapTile(tile);
+					Bitmap tileBitmap = mTileProvider.getMapTile(tile, owner);
 					if (tileBitmap == null) {
-						Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
+						// Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
 						// OVERZOOM
 						// Preferred tile is not available - request it
 						// mTileProvider.preCacheTile(tile); already done in getMapTile
@@ -295,9 +296,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			tile.x >>= 1;
 			tile.y >>= 1;
 			--tile.zoomLevel;
-			Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
+			// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
 			if (mTileProvider.isTileAvailable(tile)) { // Guarantees that we only try this for stuff in the cache
-				tileBitmap = mTileProvider.getMapTile(tile);
+				tileBitmap = mTileProvider.getMapTile(tile, owner);
 			}
 						}
 					}
@@ -310,8 +311,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 								mPaint);
 					} else {
 						// Still no tile available - try smaller scale tiles
-						if (!drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
-							Log.d("OpenStreetMapTileOverlay","no usable tiles found");
+						if (!drawTile(owner, c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
+							// Log.d("OpenStreetMapTileOverlay","no usable tiles found");
 							// store an error tile
 							tile.zoomLevel = zoomLevel;
 							tile.x = x & mapTileMask;
@@ -371,6 +372,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	
 	/** Recursively search the cache for smaller tiles to fill in the required
 	 * space.
+	 * @param owner TODO
 	 * @param c Canvas to draw on.
 	 * @param osmv Map view area.
 	 * @param minz Minimum zoom level.
@@ -381,11 +383,11 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 * @param lonOffset TODO
 	 * @param latOffset TODO
 	 */
-	private boolean drawTile(Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
+	private boolean drawTile(long owner, Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), z, x, y);
 		if (mTileProvider.isTileAvailable(tile)) {
 			c.drawBitmap(
-				mTileProvider.getMapTile(tile),
+				mTileProvider.getMapTile(tile, owner),
 				new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
 				getScreenRectForTile(c, osmv, z, y, x, squareTiles, lonOffset, latOffset),
 				mPaint);
@@ -398,10 +400,10 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 				y <<= 1;
 				++z;
 				// Log.d("OpenStreetMapTileOverlay","trying higher zoom level " + z);
-				boolean result = drawTile(c, osmv, z, maxz, z, x    , y    , squareTiles, lonOffset, latOffset);
-				result = drawTile(c, osmv, z, maxz, z, x + 1, y    , squareTiles, lonOffset, latOffset) && result;
-				result = drawTile(c, osmv, z, maxz, z, x    , y + 1, squareTiles, lonOffset, latOffset) && result;
-				result = drawTile(c, osmv, z, maxz, z, x + 1, y + 1, squareTiles, lonOffset, latOffset) && result;
+				boolean result = drawTile(owner, c, osmv, z, maxz, z    , x    , y, squareTiles, lonOffset, latOffset);
+				result = drawTile(owner, c, osmv, z, maxz, z, x + 1    , y, squareTiles, lonOffset, latOffset) && result;
+				result = drawTile(owner, c, osmv, z, maxz, z    , x, y + 1, squareTiles, lonOffset, latOffset) && result;
+				result = drawTile(owner, c, osmv, z, maxz, z, x + 1, y + 1, squareTiles, lonOffset, latOffset) && result;
 				return result;
 			} else {
 				// final fail
@@ -496,6 +498,18 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			super();
 			this.v = v;
 		}
+		
+		class R implements Runnable { 
+	         @Override
+			public void run() { 
+	        	 // Log.d("OpenStreetMapOverlay", "SimpleInvalidationHandler #viewInvalidates " + viewInvalidates);
+	        	 // if (!drawing) { // don't invalidate when we are drawing
+	        		 viewInvalidates = 0;
+	             	 v.invalidate();
+	        	 //} 
+	         } 
+	    }
+		
 		@Override
 		public void handleMessage(final Message msg) {
 			switch (msg.what) {
@@ -503,16 +517,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					// Log.d("OpenStreetMapTileOverlay","received invalidate");
 				    if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
 						Handler handler = new Handler(); 
-					    handler.postDelayed(new Runnable() { 
-					         @Override
-							public void run() { 
-					        	 // Log.d("OpenStreetMapOverlay", "SimpleInvalidationHandler #viewInvalidates " + viewInvalidates);
-					        	 if (!drawing) { // don't invalidate when we are drawing
-					        		 viewInvalidates = 0;
-					             	 v.invalidate();
-					        	 }
-					         } 
-					    }, 200); // wait 1/5th of a second
+					    handler.postDelayed(new R(), 50); // wait 1/20th of a second
 					    viewInvalidates++;
 				    } else
 				    	viewInvalidates++;
