@@ -275,7 +275,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					int ty = 0;
 					Bitmap tileBitmap = mTileProvider.getMapTile(tile, owner);
 					if (tileBitmap == null) {
-						// Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
+						Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
 						// OVERZOOM
 						// Preferred tile is not available - request it
 						// mTileProvider.preCacheTile(tile); already done in getMapTile
@@ -286,20 +286,21 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 							// As we zoom out to larger-scale tiles, we want to
 							// draw smaller and smaller sections of them
 							sw >>= 1; // smaller size
-				sh >>= 1;
-			tx >>= 1; // smaller offsets
-			ty >>= 1;
-			// select the correct quarter
-			if ((tile.x & 1) != 0) tx += (myRendererInfo.getTileWidth() >> 1);
-			if ((tile.y & 1) != 0) ty += (myRendererInfo.getTileHeight() >> 1);
-			// zoom out to next level
-			tile.x >>= 1;
-			tile.y >>= 1;
-			--tile.zoomLevel;
-			// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
-			if (mTileProvider.isTileAvailable(tile)) { // Guarantees that we only try this for stuff in the cache
-				tileBitmap = mTileProvider.getMapTile(tile, owner);
-			}
+							sh >>= 1;
+							tx >>= 1; // smaller offsets
+							ty >>= 1;
+							// select the correct quarter
+							if ((tile.x & 1) != 0) { tx += (myRendererInfo.getTileWidth() >> 1); }
+							if ((tile.y & 1) != 0) { ty += (myRendererInfo.getTileHeight() >> 1); }
+							// zoom out to next level
+							tile.x >>= 1;
+							tile.y >>= 1;
+							--tile.zoomLevel;
+							// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
+							if (mTileProvider.isTileAvailable(tile)) { // Guarantees that we only try this for stuff in the cache
+								Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
+								tileBitmap = mTileProvider.getMapTile(tile, owner);
+							}
 						}
 					}
 
@@ -312,7 +313,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					} else {
 						// Still no tile available - try smaller scale tiles
 						if (!drawTile(owner, c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
-							// Log.d("OpenStreetMapTileOverlay","no usable tiles found");
+							Log.d("OpenStreetMapTileOverlay","no usable tiles found");
 							// store an error tile
 							tile.zoomLevel = zoomLevel;
 							tile.x = x & mapTileMask;
@@ -386,6 +387,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	private boolean drawTile(long owner, Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), z, x, y);
 		if (mTileProvider.isTileAvailable(tile)) {
+			Log.d("OpenStreetMapTileOverlay","smaller tile " + tile.toString() + " available");
 			c.drawBitmap(
 				mTileProvider.getMapTile(tile, owner),
 				new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
@@ -434,7 +436,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		int h = c.getClipBounds().height();
 		int screenLeft   = (int) GeoMath.lonE7ToX(w , osmv.getViewBox(), (int) ((west + lonOffset) * 1E7));
 		
-		int tileWidth = (int)((double)(east - west) * 1E7 * w / osmv.getViewBox().getWidth()); // calculate here to avoid rounding differences
+		int tileWidth = (int) Math.round((double)(east - west) * 1E7 * w / osmv.getViewBox().getWidth()); // calculate here to avoid rounding differences
 
 		int screenTop    = (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((north + latOffset)* 1E7));
 		int screenBottom = squareTiles ? screenTop + tileWidth : (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((tile2lat(y + 1, zoomLevel) + latOffset)* 1E7));
