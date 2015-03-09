@@ -3,6 +3,7 @@ package  de.blau.android.views.util;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import de.blau.android.exception.StorageException;
 import de.blau.android.services.util.OpenStreetMapTile;
 
 /**
@@ -49,11 +50,11 @@ public class OpenStreetMapTileCache implements OpenStreetMapViewConstants{
 		return mCachedTiles.get(aTile.toString());
 	}
 
-	public synchronized boolean putTile(final OpenStreetMapTile aTile, final Bitmap aImage, final long owner) {
+	public synchronized boolean putTile(final OpenStreetMapTile aTile, final Bitmap aImage, final long owner) throws StorageException {
 		return mCachedTiles.put(aTile.toString(), aImage, true, owner) != null;
 	}
 	
-	public synchronized boolean putTile(final OpenStreetMapTile aTile, final Bitmap aImage, final boolean recycleable, final long owner) {
+	public synchronized boolean putTile(final OpenStreetMapTile aTile, final Bitmap aImage, final boolean recycleable, final long owner) throws StorageException {
 		return mCachedTiles.put(aTile.toString(), aImage, recycleable, owner) != null;
 	}
 

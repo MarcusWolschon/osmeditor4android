@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.R;
+import de.blau.android.exception.StorageException;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;
 import de.blau.android.services.IOpenStreetMapTileProviderService;
 import de.blau.android.services.util.OpenStreetMapAsyncTileProvider;
@@ -204,11 +205,13 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			if (aTile == null) {
 				throw new RemoteException();
 			}
-			// Log.d("OpenStreetMapTileProvider", "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight() + " time to decode " + duration);
-			if (mTileCache.putTile(t, aTile,pending.get(t.toString()).longValue())) {
+			// Log.d("OpenStreetMapTileProvider", "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
+			try {
+				mTileCache.putTile(t, aTile,pending.get(t.toString()).longValue());
 				pending.remove(t.toString());
 				mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
-			} else {
+				// Log.d("OpenStreetMapTileProvider", "Sending tile success message");
+			} catch (StorageException e) {
 				// unable to cache tile
 				if (!smallHeap) { // reduce tile size to half
 					smallHeap = true;
@@ -228,8 +231,14 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			if (reason == OpenStreetMapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting the proper one
 				OpenStreetMapTileServer osmts = OpenStreetMapTileServer.get(mCtx, rendererID, false);
 				//TODO check if we are inside the providers bounding box
-				if (zoomLevel < Math.max(0,osmts.getMinZoomLevel()-1)) // allow one level of under zoom
-					mTileCache.putTile(t, mNoTilesTile, false,0);
+				if (zoomLevel < Math.max(0,osmts.getMinZoomLevel()-1)) {
+					try {
+						mTileCache.putTile(t, mNoTilesTile, false,0);
+					} catch (StorageException e) {
+						// TODO Auto-generated catch block
+						// e.printStackTrace();
+					}
+				}
 			}
 			pending.remove(t.toString());
 			//if (DEBUGMODE) {

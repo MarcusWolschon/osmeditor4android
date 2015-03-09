@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import de.blau.android.exception.StorageException;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -155,7 +156,7 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	}
 
 	/**
-	 * Overrides <code>put()</code> so that it also updates the LRU list.
+	 * Overrides <code>put()</code> so that it also updates the LRU list. Interesting enough the slight change in signature does work
 	 * 
 	 * @param key
 	 *            key with which the specified value is to be associated
@@ -165,8 +166,9 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 	 *         was no mapping for key; a <code>null</code> return can also
 	 *         indicate that the cache previously associated <code>null</code>
 	 *         with the specified key
+	 * @throws StorageException 
 	 */
-	public synchronized Bitmap put(final String key, final Bitmap value, boolean recycleable, long owner) {
+	public synchronized Bitmap put(final String key, final Bitmap value, boolean recycleable, long owner) throws StorageException {
 		// Log.d("LRUMapTileCache","put " + key + " " + recycleable);
 		if (maxCacheSize == 0 || value == null){
 			return null;
@@ -182,10 +184,9 @@ public class LRUMapTileCache extends HashMap<String, Bitmap> {
 					Log.w("LRUMapTileCache","expanding memory tile cache from " + maxCacheSize + " to " + (maxCacheSize + maxCacheSize/2));
 					maxCacheSize = maxCacheSize + maxCacheSize/2;
 				} else {
-					return null; // can't expand any more
+					throw new StorageException(StorageException.OOM); // can't expand any more
 				}
 			}
-			
 		}
 
 		updateKey(key, recycleable, owner);
