@@ -274,6 +274,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	private Location lastLocation = null;
 
 	/**
+	 * file we asked the camera app to create (ugly) 
+	 */
+	File imageFile = null;
+	
+	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
 	 */
 	private static Main runningInstance;
@@ -776,7 +781,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		case R.id.menu_camera:
 			Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			try {
-				startCamera.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(getImageFile()));
+				imageFile = getImageFile();
+				startCamera.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(imageFile));
 				startActivityForResult(startCamera, REQUEST_IMAGE_CAPTURE);	
 			} catch (Exception ex) {
 				try {
@@ -1222,7 +1228,16 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	        }
 	        map.invalidate();
 		} else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && prefs.isPhotoLayerEnabled()) {
-			reindexPhotos();
+			// reindexPhotos();
+			if (imageFile != null) {
+				PhotoIndex pi = new PhotoIndex(this);
+				pi.addPhoto(imageFile);
+				map.getPhotosOverlay().resetRect();
+				map.invalidate(); 
+			} else {
+				Log.e("Main","imageFile == null");
+			}
+			
 		}
 	}
 
@@ -1305,6 +1320,27 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			}
 
 		}.execute();
+	}
+	
+	/**
+	 * Restore the file name for a photograph
+	 * @param savedImageFileName
+	 */
+	public void setImageFileName(String savedImageFileName) {
+		if (savedImageFileName != null) {
+			imageFile = new File(savedImageFileName);
+		}
+	}
+
+	/**
+	 * Return the file name for a photograph
+	 * @return
+	 */
+	public String getImageFileName() {
+		if (imageFile != null) {
+			return imageFile.getAbsolutePath();
+		}
+		return null;
 	}
 	
 	@Override

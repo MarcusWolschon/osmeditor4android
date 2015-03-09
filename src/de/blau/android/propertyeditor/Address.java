@@ -423,7 +423,7 @@ public class Address implements Serializable {
 		LinkedHashMap<String,String> result = new LinkedHashMap<String,String>();
 		for (String key:sortedMap.keySet()) {
 			// include everything except interpolation related tags
-			if (key.startsWith(Tags.KEY_ADDR_BASE) && !key.startsWith(Tags.KEY_ADDR_INTERPOLATION) && !key.startsWith(Tags.KEY_ADDR_INCLUSION)) {
+			if (key.startsWith(Tags.KEY_ADDR_BASE) && !key.startsWith(Tags.KEY_ADDR_INTERPOLATION) && !key.startsWith(Tags.KEY_ADDR_HOUSENAME) && !key.startsWith(Tags.KEY_ADDR_INCLUSION)) {
 				result.put(key, sortedMap.get(key));
 			}
 		}
