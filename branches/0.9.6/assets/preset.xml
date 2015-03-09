@@ -952,7 +952,7 @@
             <key key="segregated" value="no" />
             <optional>
                 <reference ref="name_layer" />
-                <reference ref="surfacesmoothness" />
+                <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
                 <check key="passing_places" text="Passing Places" />
             </optional>
@@ -8111,7 +8111,7 @@
                 <text key="name" text="Name" />
             </optional>
             <roles>
-                <role key="outer" text="outer segment" requisite="required" type="way.closedway" />
+                <role key="outer" text="outer segment" requisite="required" type="way,closedway" />
                 <role key="inner" text="inner segment" requisite="optional" type="way,closedway" />
             </roles>
         </item> <!-- Multipolygon -->

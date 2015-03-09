@@ -2398,7 +2398,8 @@ public class Logic {
 	 */
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload());
+		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, 
+				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),Application.mainActivity.getImageFileName());
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	

@@ -19,7 +19,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 8L;
+	private static final long serialVersionUID = 9L;
 	final Mode savedMode;
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
@@ -30,10 +30,11 @@ public class EditState implements Serializable {
 	final int savedMinZoom;
 	final boolean savedShowGPS;
 	final boolean savedAutoDownload;
+	final String savedImageFileName;
 
 	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
 			List<Relation> selectedRelations, Bug selectedBug, OpenStreetMapTileServer osmts, 
-			boolean showGPS, boolean autoDownload) {
+			boolean showGPS, boolean autoDownload, String imageFileName) {
 		savedMode = mode;
 		savedNodes = selectedNodes;
 		savedWays = selectedWays;
@@ -44,6 +45,7 @@ public class EditState implements Serializable {
 		savedMinZoom = osmts.getMinZoomLevel();
 		savedShowGPS = showGPS;
 		savedAutoDownload = autoDownload;
+		savedImageFileName = imageFileName;
 	}
 	
 	public void setSelected(Logic logic) {
@@ -77,6 +79,7 @@ public class EditState implements Serializable {
 	public void setMiscState(Main main) {
 		main.setShowGPS(savedShowGPS);
 		main.setAutoDownload(savedAutoDownload);
+		main.setImageFileName(savedImageFileName);
 	}
 	
 	public void setOffset(OpenStreetMapTileServer osmts) {

@@ -33,7 +33,7 @@
     <string name="file_write_failed_title">File write failed</string>
     <string name="file_write_failed_message">Could not write to selected file.</string>
     <string name="welcome_title">Welcome!</string>
-    <string name="welcome_message">Thank you for using Vespucci.\n\nTo get started you need to know two things:\n\n* tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode\n\n* to add a new object: long press, tapping in the same place will add a node, tapping further away will start a way.\n\nHave fun!</string>
+    <string name="welcome_message">Thank you for using Vespucci.\n\nTo get started you need to know two things:\n\n* tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode\n\n* to add a new object: long press, tapping in the same place will add a node, tapping further away will start a way.\n\nDo not forget to download the area you want to edit.\n\nHave fun!</string>
     <string name="read_introduction">Read the introduction now</string>
     <string name="progress_title">Loading</string>
     <string name="progress_message">Loading data into memory…</string>
