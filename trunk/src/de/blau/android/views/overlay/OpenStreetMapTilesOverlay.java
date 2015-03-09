@@ -275,7 +275,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					int ty = 0;
 					Bitmap tileBitmap = mTileProvider.getMapTile(tile, owner);
 					if (tileBitmap == null) {
-						Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
+						// Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
 						// OVERZOOM
 						// Preferred tile is not available - request it
 						// mTileProvider.preCacheTile(tile); already done in getMapTile
@@ -298,7 +298,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 							--tile.zoomLevel;
 							// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
 							if (mTileProvider.isTileAvailable(tile)) { // Guarantees that we only try this for stuff in the cache
-								Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
+								// Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
 								tileBitmap = mTileProvider.getMapTile(tile, owner);
 							}
 						}
@@ -313,7 +313,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					} else {
 						// Still no tile available - try smaller scale tiles
 						if (!drawTile(owner, c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
-							Log.d("OpenStreetMapTileOverlay","no usable tiles found");
+							// Log.d("OpenStreetMapTileOverlay","no usable tiles found");
 							// store an error tile
 							tile.zoomLevel = zoomLevel;
 							tile.x = x & mapTileMask;
@@ -387,7 +387,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	private boolean drawTile(long owner, Canvas c, IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset, double latOffset) {
 		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), z, x, y);
 		if (mTileProvider.isTileAvailable(tile)) {
-			Log.d("OpenStreetMapTileOverlay","smaller tile " + tile.toString() + " available");
+			// Log.d("OpenStreetMapTileOverlay","smaller tile " + tile.toString() + " available");
 			c.drawBitmap(
 				mTileProvider.getMapTile(tile, owner),
 				new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
@@ -436,8 +436,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		int h = c.getClipBounds().height();
 		int screenLeft   = (int) GeoMath.lonE7ToX(w , osmv.getViewBox(), (int) ((west + lonOffset) * 1E7));
 		
-		int tileWidth = (int) Math.round((double)(east - west) * 1E7 * w / osmv.getViewBox().getWidth()); // calculate here to avoid rounding differences
-
+		int tileWidth = 1 + (int) Math.floor((double)(east - west) * 1E7 * w / osmv.getViewBox().getWidth()); // calculate here to avoid rounding differences
+		
 		int screenTop    = (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((north + latOffset)* 1E7));
 		int screenBottom = squareTiles ? screenTop + tileWidth : (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((tile2lat(y + 1, zoomLevel) + latOffset)* 1E7));
 		// Log.d("OpenStreeMapTileOverlay", "Dest Rect " + screenLeft + " " + screenTop + " " +  screenRight + " " + screenBottom);
@@ -519,7 +519,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					// Log.d("OpenStreetMapTileOverlay","received invalidate");
 				    if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
 						Handler handler = new Handler(); 
-					    handler.postDelayed(new R(), 50); // wait 1/20th of a second
+					    handler.postDelayed(new R(), 100); // wait 1/10th of a second
 					    viewInvalidates++;
 				    } else
 				    	viewInvalidates++;
