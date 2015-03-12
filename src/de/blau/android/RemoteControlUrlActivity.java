@@ -28,6 +28,7 @@ public class RemoteControlUrlActivity extends Activity {
 		Uri data = getIntent().getData(); 
 		Log.d("RemoteControlUrlActivity",data.toString());
 	    Intent intent = new Intent(this, Main.class);
+	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    String command = data.getPath();
 	    if (command.startsWith("/")) {
 	    	command = command.substring(1);
@@ -43,7 +44,6 @@ public class RemoteControlUrlActivity extends Activity {
 				RemoteControlUrlData rcData = new RemoteControlUrlData();
 				rcData.setBox(new BoundingBox(left, bottom, right, top));
 				rcData.setLoad(command.equals("load_and_zoom"));
-				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				Log.d("RemoteControlUrlActivity","bbox " + rcData.getBox() + " load " + rcData.load());
 				intent.putExtra(RCDATA, rcData);
 
