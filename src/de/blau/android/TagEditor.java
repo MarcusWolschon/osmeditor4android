@@ -932,8 +932,10 @@ public class TagEditor extends SherlockActivity implements OnDismissListener, On
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 		// disable address tagging for stuff that won't have an address
-		menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) || element.hasTagKey(Tags.KEY_BUILDING));
-		
+		MenuItem ma = menu.findItem(R.id.tag_menu_address);
+		if (ma != null && element != null) {
+			ma.setVisible(!type.equals(Way.NAME) || element.hasTagKey(Tags.KEY_BUILDING));
+		}
 	    return true;
 	}
 	

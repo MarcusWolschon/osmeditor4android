@@ -44,11 +44,15 @@ public class Photo {
 		}
 		float lonf = convertToDegree(lonStr);
 
-		if(!exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF).equals("E"))	{ // deal with the negative degrees
+		String lonRef = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
+		if(lonRef != null && !lonRef.equals("E"))	{ // deal with the negative degrees
 			lonf = -lonf;	
 		}
+		
 		float latf = convertToDegree(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE));
-		if(!exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF).equals("N"))	{
+		
+		String latRef = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
+		if(latRef != null && !latRef.equals("N"))	{
 			latf = -latf;
 		}
 		lat = (int)(latf * 1E7d);
