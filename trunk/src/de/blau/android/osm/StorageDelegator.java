@@ -583,6 +583,10 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void removeNode(final Node node) {
 		// undo - node saved here, affected ways saved in removeWayNodes
 		dirty = true;
+		if (node.state == OsmElement.STATE_DELETED) {
+			Log.d("StorageDelegator", "removeNode: nore already deleted " + node.getOsmId());
+			return; // node was already deleted
+		}
 		undo.save(node);
 		try {
 			if (node.state == OsmElement.STATE_CREATED) {

@@ -1299,7 +1299,7 @@ public class Logic {
 	 */
 	public void performEraseWay(final Way way, final boolean deleteOrphanNodes) {
 		createCheckpoint(R.string.undo_action_deleteway);
-		ArrayList<Node> nodes = deleteOrphanNodes ? new ArrayList<Node>(way.getNodes()) : null;
+		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<Node>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
 		delegator.removeWay(way);
 		if (deleteOrphanNodes) {
 			for (Node node : nodes) {

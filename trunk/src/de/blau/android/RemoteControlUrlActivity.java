@@ -44,6 +44,7 @@ public class RemoteControlUrlActivity extends Activity {
 				RemoteControlUrlData rcData = new RemoteControlUrlData();
 				rcData.setBox(new BoundingBox(left, bottom, right, top));
 				rcData.setLoad(command.equals("load_and_zoom"));
+				
 				Log.d("RemoteControlUrlActivity","bbox " + rcData.getBox() + " load " + rcData.load());
 				intent.putExtra(RCDATA, rcData);
 
