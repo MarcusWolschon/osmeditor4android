@@ -28,6 +28,7 @@ public class RemoteControlUrlActivity extends Activity {
 		Uri data = getIntent().getData(); 
 		Log.d("RemoteControlUrlActivity",data.toString());
 	    Intent intent = new Intent(this, Main.class);
+	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    String command = data.getPath();
 	    if (command.startsWith("/")) {
 	    	command = command.substring(1);
@@ -43,8 +44,12 @@ public class RemoteControlUrlActivity extends Activity {
 				RemoteControlUrlData rcData = new RemoteControlUrlData();
 				rcData.setBox(new BoundingBox(left, bottom, right, top));
 				rcData.setLoad(command.equals("load_and_zoom"));
-				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				
 				Log.d("RemoteControlUrlActivity","bbox " + rcData.getBox() + " load " + rcData.load());
+				String select = data.getQueryParameter("select");
+				if (rcData.load() && select != null) {
+					rcData.setSelect(select);
+				}
 				intent.putExtra(RCDATA, rcData);
 
 			} catch (NumberFormatException e) {
@@ -65,11 +70,22 @@ public class RemoteControlUrlActivity extends Activity {
 		private static final long serialVersionUID = 1L;
 		private boolean load = false;
 		private BoundingBox box;
+		private String select = null;
 		/**
 		 * @return the box
 		 */
 		public BoundingBox getBox() {
 			return box;
+		}
+		/**
+		 * return string with elements to select
+		 * @return
+		 */
+		public String getSelect() {
+			return select;
+		}
+		public void setSelect(String select) {
+			this.select = select;
 		}
 		/**
 		 * @param box the box to set

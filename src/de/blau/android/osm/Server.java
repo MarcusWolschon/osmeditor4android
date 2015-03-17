@@ -573,7 +573,11 @@ public class Server {
 			}, changesetId);
 			checkResponseCode(connection, elem);
 			in = connection.getInputStream();
-			osmVersion = Long.parseLong(readLine(in));
+			try {
+				osmVersion = Long.parseLong(readLine(in));
+			} catch (NumberFormatException e) {
+				throw new OsmServerException(-1,"Server returned illegal element version " + e.getMessage());
+			}
 		} finally {
 			disconnect(connection);
 			SavingHelper.close(in);
@@ -666,7 +670,11 @@ public class Server {
 			}, changesetId);
 			checkResponseCode(connection);
 			in = connection.getInputStream();
-			osmId = Long.parseLong(readLine(in));
+			try {
+				osmId = Long.parseLong(readLine(in));
+			} catch (NumberFormatException e) {
+				throw new OsmServerException(-1,"Server returned illegal element id " + e.getMessage());
+			}
 		} finally {
 			disconnect(connection);
 			SavingHelper.close(in);
@@ -748,7 +756,11 @@ public class Server {
 			}
 			checkResponseCode(connection);
 			in = connection.getInputStream();
-			newChangesetId = Long.parseLong(readLine(in));
+			try {
+				newChangesetId = Long.parseLong(readLine(in));
+			} catch (NumberFormatException e) {
+				throw new OsmServerException(-1,"Server returned illegal changeset id " + e.getMessage());
+			}
 		} finally {
 			disconnect(connection);
 			SavingHelper.close(in);

@@ -278,6 +278,8 @@
     <string name="config_category_view">User Interface Settings</string>
     <string name="config_showCameraAction_title">Show camera action</string>
     <string name="config_showCameraAction_summary">Show camera icon on action bar</string>
+    <string name="config_generateAlerts_title">Generate notifications</string>
+    <string name="config_generateAlerts_summary">Generate notifications for data with problems or notes</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this</string>
     <string name="config_tileCacheSize_title">Tile cache size</string>
@@ -422,6 +424,10 @@
     <string name="pref_acra_disabled">Crash reporting disabled</string>
     <!-- Exceptions messages -->
     <string name="exception_too_many_nodes">This operation would create a way with too many nodes.</string>
+    <!--  Notifications -->
+    <string name="alert_data_issue">OSM data issue detected</string>
+    <string name="alert_note">Nearby OSM note detected</string>
+    <string name="alert_distance_direction">in %1$d m %2$s</string>
     <!--  Misc relation related stuff -->
     <string name="role">Role</string>
     <string name="role_lc">role</string>

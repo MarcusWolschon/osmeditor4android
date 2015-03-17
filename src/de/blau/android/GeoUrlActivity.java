@@ -28,6 +28,7 @@ public class GeoUrlActivity extends Activity {
 		Uri data = getIntent().getData(); 
 		Log.d("GeoURLActivity",data.toString());
 	    Intent intent = new Intent(this, Main.class);
+	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    String[] query = data.getSchemeSpecificPart().split("\\?"); // used by osmand likely not standard conform
 	    if (query != null && query.length >= 1) {
 			String[] params = query[0].split(";");
@@ -50,7 +51,6 @@ public class GeoUrlActivity extends Activity {
 							GeoUrlData geoData = new GeoUrlData();
 							geoData.setLat(lat);
 							geoData.setLon(lon);
-							intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 							intent.putExtra(GEODATA, geoData);
 						}
 					} catch (NumberFormatException e) {

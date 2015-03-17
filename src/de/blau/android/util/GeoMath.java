@@ -354,4 +354,28 @@ public class GeoMath {
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 		return EARTH_RADIUS * c;
 	}
+	
+	/**
+	 * Get the bearing in degrees from point 1 to point 2
+	 * @param lon1
+	 * @param lat1
+	 * @param lon2
+	 * @param lat2
+	 * @return
+	 */
+	public static long bearing(double lon1, double lat1, double lon2, double lat2) {
+		
+		lat1 = Math.toRadians(lat1);
+		lat2 = Math.toRadians(lat2);
+		double dLon = Math.toRadians(lon2-lon1);
+		double y = Math.sin(dLon) * Math.cos(lat2);
+		double x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+
+		double bearing = Math.toDegrees(Math.atan2(y, x));
+		if (bearing < 0){
+		   bearing = bearing + 360;
+		}
+		return Math.round(bearing);
+	}
+			
 }
