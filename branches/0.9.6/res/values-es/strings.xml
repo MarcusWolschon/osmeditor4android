@@ -97,6 +97,7 @@
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_download_bbox_failed">Descarga fallida, probablemente porque el área seleccionada era demasiado grande.</string>
   <string name="toast_download_failed">Descarga fallida con código de error %1$d, mensaje %2$s</string>
+  <string name="toast_unsurveyed_road">Camino no medido</string>
   <string name="toast_noname">La carretera no tiene nombre ni referencia</string>
   <string name="toast_oauth_retry">Por favor, permita el acceso OAuth a su cuenta de OSM y luego vuelva a intentar la subida.</string>
   <string name="toast_oauth">Por favor, permita el acceso OAuth a su cuenta de OSM.</string>
@@ -104,6 +105,7 @@
   <string name="toast_timeout">Agotado el tiempo de espera del servidor.</string>
   <string name="coordinates_out_of_range">La longitud debe estar entre -180º y +180º; la latitud entre -85º y 85º</string>
   <string name="toast_nothing_found">No se ha encontrado nada</string>
+  <string name="toast_statesave_failed">¡Falló al guardar el estado actual!\nEste es un error fatal, intentando escribir un archivo exportable para la posterior recuperación con JOSM.</string>
   <string name="toast_missing_filemanager">Instale un gestor de archivos.</string>
   <string name="toast_outside_of_download">Está editando fuera del área descargada.</string>
   <string name="toast_file_not_found">%1$s no encontrado.</string>
@@ -139,6 +141,7 @@
   <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Agregar a relación</string>
   <string name="tag_menu_resetMRU">Reajustar Predeterminados</string>
+  <string name="tag_menu_reset_address_prediction">Restablecer predicción de direcciones</string>
   <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
   <string name="tag_value_hint">Pulsa para ver valores</string>
   <!--Strings in LocationPicker-->
@@ -214,7 +217,18 @@
   <string name="menu_circulize">Redondear</string>
   <string name="menu_newnode_gps">Nuevo nodo en posición GPS</string>
   <string name="menu_tools">Herramientas</string>
+  <string name="menu_tools_flush_background_tile_cache">Librerar cache de teselas de fondo</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Liberar el cache de teselas superpuestas</string>
+  <string name="menu_tools_background_properties">Propiedades del fondo</string>
+  <string name="menu_tools_background_align">Alinear el fondo</string>
+  <string name="menu_tools_background_align_reset">Restablecer</string>
   <string name="menu_tools_background_align_zero">Cero</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Desde la BD</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Desde el dispositivo</string>
+  <string name="menu_tools_background_align_save_db">Guardar en la BD</string>
+  <string name="menu_tools_background_align_save_device">Guardar en el dispositivo</string>
+  <string name="menu_tools_background_align_apply2all">Aplicar (todos los acercamientos)</string>
+  <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
   <string name="menu_tags">Etiquetas</string>
   <!--Text should be as short as possible-->
@@ -267,7 +281,10 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Usar oauth</string>
   <string name="listedit_enable_oauth">Activar oauth</string>
+  <string name="config_offsetServer_title">Servidor desplazamiento</string>
+  <string name="config_offsetServer_summary">URL del servidor de desplazamiento de imágenes</string>
   <string name="config_presetbutton_title">Preajustes</string>
+  <string name="config_presetbutton_summary">Añadir y permitir preconfigurados compatibles con JOSM</string>
   <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
   <string name="config_iconbutton_summary">Mostrar sobre los nodos el ícono del preajuste de mejor coincidencia.</string>
   <string name="config_loginbutton_title">Cuenta de usuario</string>
@@ -298,6 +315,12 @@
   <string name="config_enableNameSuggestions_summary">Activa las sugerencias para la etiqueta del nombre</string>
   <string name="config_enableAutoPreset_title">Activar preajuste automático</string>
   <string name="config_enableAutoPreset_summary">Añade automáticamente un preajuste cuando se selecciona una sugerencia de nombre.</string>
+  <string name="config_splitActionBarEnabled_title">Habilitar barra de acciones dividida</string>
+  <string name="config_splitActionBarEnabled_summary">Permitir la barra de acciones dividida, uso específico del dispositivo. Requiere reinicio y una versión de Android &gt;= 4.0</string>
+  <string name="config_gps_source_title">Fuente GPS</string>
+  <string name="config_gps_source_summary">Fuente de actualizaciones de la ubicación GPS</string>
+  <string name="config_gps_source_tcp_title">Fuente de la red NMEA</string>
+  <string name="config_gps_source_tcp_summary">Dirección TCP de la fuente NMEA como host:puerto</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar preajustes</string>
   <string name="preset_download_successful">Preajustes descargados correctamente</string>
@@ -324,6 +347,8 @@
   <string name="name">Nombre</string>
   <string name="url">URL</string>
   <string name="default_">Por defecto</string>
+  <string name="api_name">Nombre API</string>
+  <string name="api_url">URL API</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Preajuste</string>
   <string name="api">API</string>
@@ -353,6 +378,9 @@
   <string name="undo_action_cut">cortar</string>
   <string name="undo_action_paste">pegar</string>
   <string name="undo_action_rotateway">girar vía</string>
+  <string name="undo_action_orthogonalize">ortogonalizar vía</string>
+  <string name="undo_action_circulize">organizar en círculo</string>
+  <string name="undo_action_fix_conflict">arreglar conflicto</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci ha fallado o ha encontrado un problema. Por favor, envíe un informe de errores.</string>
   <string name="crash_notif_title">Vespucci ha fallado o ha encontrado un problema.</string>
@@ -363,13 +391,38 @@
   <string name="pref_acra_enabled">Informe de error habilitado</string>
   <string name="pref_acra_disabled">Informe de error deshabilitado</string>
   <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Esta operación podría crear una vía con demasiados nodos.</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="role_lc">rol</string>
+  <string name="membership_relation_heading">Miembro de la relación</string>
   <string name="relation">Relación</string>
+  <string name="position">Pos.</string>
   <string name="type">Tipo</string>
   <string name="object">Objeto</string>
+  <string name="deleterelation_relation_description">Está a punto de eliminar una relación que es miembro de una o más relaciones. Eliminando la relación de relación(es) quizá invalide el renderizado.</string>
+  <string name="deleterelation">Eliminar relación</string>
+  <string name="delete_from_relation_description">Está a punto de eliminar este elemento de una relación.</string>
   <!--time and distance-->
+  <string name="days">días</string>
+  <string name="hours">horas</string>
+  <string name="minutes">minutos</string>
+  <string name="seconds">segundos</string>
+  <string name="km">km</string>
+  <string name="meter">metro</string>
   <!--Help system-->
+  <string name="introduction">Introducción</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>privado</item>
+    <item>público</item>
+    <item>rastreable</item>
+    <item>identicable</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Interno</item>
+    <item>Interno NMEA</item>
+    <item>NMEA desde cliente TCP</item>
+    <item>NMEA desde servidor TCP</item>
+  </string-array>
 </resources>

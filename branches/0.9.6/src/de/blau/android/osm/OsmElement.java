@@ -16,6 +16,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
 import de.blau.android.R;
+import de.blau.android.util.IssueAlert;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
 
@@ -401,6 +402,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		// caches the calculation.
 		if (cachedHasProblem == null) {
 			cachedHasProblem = calcProblem();
+			if (cachedHasProblem) {
+				IssueAlert.alert(this);
+			}
 		}
 		return cachedHasProblem;
 	}

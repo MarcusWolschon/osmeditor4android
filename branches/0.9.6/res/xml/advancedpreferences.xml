@@ -7,6 +7,12 @@
 			android:summary="@string/config_showCameraAction_summary"
 			android:defaultValue="true"
 		/>
+	    <CheckBoxPreference
+			android:key="@string/config_generateAlerts_key"
+			android:title="@string/config_generateAlerts_title"
+			android:summary="@string/config_generateAlerts_summary"
+			android:defaultValue="false"
+		/>
 		<CheckBoxPreference
 			android:key="@string/config_forceContextMenu_key"
 			android:title="@string/config_forceContextMenu_title"

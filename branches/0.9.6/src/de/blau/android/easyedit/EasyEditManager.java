@@ -162,6 +162,50 @@ public class EasyEditManager {
 		}
 	}
 	
+	/**
+	 * Edit currently selected elements.
+	 */
+	public void editElements() {
+		if (currentActionModeCallback == null) {
+			// No callback or didn't handle the click, perform default (select element)
+			ActionMode.Callback cb = null;
+			OsmElement e = null;
+			if (logic.getSelectedNodes() != null && logic.getSelectedNodes().size() == 1 && logic.getSelectedWays() == null && logic.getSelectedRelations() == null) {
+				e = logic.getSelectedNode();
+				cb = new NodeSelectionActionModeCallback((Node) e);
+			} else if (logic.getSelectedNodes() == null && logic.getSelectedWays() != null && logic.getSelectedWays().size() == 1 && logic.getSelectedRelations() == null) {
+				e = logic.getSelectedWay();
+				cb = new  WaySelectionActionModeCallback((Way) e);
+			} else if (logic.getSelectedNodes() == null && logic.getSelectedWays() == null && logic.getSelectedRelations() != null && logic.getSelectedRelations().size() == 1) {
+				e = logic.getSelectedRelations().get(0);
+				cb = new RelationSelectionActionModeCallback((Relation )e);
+			} else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
+				ArrayList<OsmElement> selection = new ArrayList<OsmElement>(); 
+				if (logic.getSelectedNodes() != null) {
+					selection.addAll(logic.getSelectedNodes());
+				}
+				if (logic.getSelectedWays() != null) {
+					selection.addAll(logic.getSelectedWays());
+				}
+				if (logic.getSelectedRelations() != null) {
+					selection.addAll(logic.getSelectedRelations());
+				}
+				cb = new ExtendSelectionActionModeCallback(selection);
+			}
+			if (cb != null) {
+				main.startActionMode(cb);
+				if (e != null) {
+					String toast = e.getDescription();
+					if (e.hasProblem()) {
+						String problem = e.describeProblem();
+						toast = !problem.equals("") ? toast + "\n" + problem : toast;
+					}
+					Toast.makeText(main, toast, Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+	}
+	
 	/** This gets called when the map is long-pressed in easy-edit mode */
 	public boolean handleLongClick(View v, float x, float y) {
 

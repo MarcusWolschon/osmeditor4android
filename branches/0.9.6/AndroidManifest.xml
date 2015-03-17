@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="40"
+	android:versionCode="42"
 	android:installLocation="auto"
 	>
 	
@@ -31,17 +31,16 @@
 		android:largeHeap="true" 
 		android:allowBackup="true" >
 		<activity
-			android:name="Main"
+			android:name=".Main"
 			android:theme="@style/Theme.customMain"
 			android:configChanges="orientation|screenSize|keyboardHidden"
 			android:launchMode="singleTask">
-		    
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-				<!-- harmless addition for samsung multi window support -->
+		    	<action android:name="android.intent.action.MAIN" />
+		    	<category android:name="android.intent.category.LAUNCHER" />
+		    	<!-- harmless addition for samsung multi window support -->
 				<category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
-			</intent-filter>
+		  	</intent-filter>
 		</activity>
 		<activity
 			android:name=".prefs.PrefEditor"
