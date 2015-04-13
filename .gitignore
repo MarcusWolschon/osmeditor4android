@@ -1,0 +1,47 @@
+# Gradle
+.gradle/
+build/
+.gradletasknamecache
+gradle.properties
+
+
+# Eclipse
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Android
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

@@ -43,6 +43,25 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
 * a full replacement for [JOSM][josm] or the in-browser editors iD and Potlatch2
 
 
+## Getting started
+
+Here is how you can start developing.
+
+
+### Gradle build
+
+To install the application to your device run the following task on Unix:
+
+```bash
+$ ./gradlew installDebug
+```
+
+or this command on Windows:
+
+```bash
+$ gradlew.bat installDebug
+```
+
 ## License
 
     Licensed under the Apache License, Version 2.0 (the "License");
