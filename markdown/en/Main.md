@@ -43,7 +43,7 @@ Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfe
  * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Export changes** - write a ".osc" format file containing the current edits
- * **Read from file** - read a a JOSM compatible XML format file
+ * **Read from file** - read a JOSM compatible XML format file
  * **Save to file** - save as a JOSM compatible XML format file
 
 ## ![](../images/menu_config.png) Settings
