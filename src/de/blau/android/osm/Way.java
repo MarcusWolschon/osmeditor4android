@@ -268,10 +268,10 @@ public class Way extends OsmElement {
 		} else if (value.equals("down")) {
 			return "up";
 		} else {
-			if (value.endsWith("°")) { //degrees
+			if (value.endsWith("Â°")) { //degrees
 				try {
 					String tmpVal = value.substring(0,value.length()-1);
-					return floatToString(((Float.valueOf(tmpVal)+180.0f) % 360.0f)) + "°";
+					return floatToString(((Float.valueOf(tmpVal)+180.0f) % 360.0f)) + "Â°";
 				} catch (NumberFormatException nex) {
 					// oops put back original values 
 					return value;
@@ -326,9 +326,9 @@ public class Way extends OsmElement {
 			return "up";
 		} else {
 			try {
-				if (value.endsWith("°")) { //degrees
+				if (value.endsWith("Â°")) { //degrees
 					tmpVal = value.substring(0,value.length()-1);
-					return floatToString((Float.valueOf(tmpVal)*-1)) + "°";
+					return floatToString((Float.valueOf(tmpVal)*-1)) + "Â°";
 				} else if (value.endsWith("%")) { // percent{
 					tmpVal = value.substring(0,value.length()-1);
 					return floatToString((Float.valueOf(tmpVal)*-1)) + "%";

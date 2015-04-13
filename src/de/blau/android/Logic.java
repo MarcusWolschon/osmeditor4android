@@ -1488,7 +1488,7 @@ public class Logic {
 	
 	
 	/**
-	 * Orthogonalize a way (aka make angles 90�)
+	 * Orthogonalize a way (aka make angles 90°)
 	 * @param way
 	 */
 	public void performOrthogonalize(Way way) {
