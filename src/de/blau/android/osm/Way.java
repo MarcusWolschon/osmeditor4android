@@ -48,6 +48,10 @@ public class Way extends OsmElement {
 		nodes = new ArrayList<Node>();
 	}
 
+	/**
+	 * Add node at end of way
+	 * @param node
+	 */
 	void addNode(final Node node) {
 		if ((nodes.size() > 0) && (nodes.get(nodes.size() - 1) == node)) {
 			Log.i("Way", "addNode attempt to add same node");
@@ -56,6 +60,10 @@ public class Way extends OsmElement {
 		nodes.add(node);
 	}
 
+	/**
+	 * Return list of all nodes in a way
+	 * @return
+	 */
 	public List<Node> getNodes() {
 		return nodes;
 	}

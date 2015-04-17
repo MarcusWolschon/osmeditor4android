@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.SortedMap;
@@ -1074,7 +1075,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_ROTATE = 14;
 		private static final int MENUITEM_ORTHOGONALIZE = 15;
 		private static final int MENUITEM_CIRCULIZE = 16;
-		private static final int MENUITEM_ADDRESS = 17;
+		private static final int MENUITEM_SPLIT_POLYGON = 17;
+		private static final int MENUITEM_ADDRESS = 18;
 		
 		private Set<OsmElement> cachedMergeableWays;
 		private Set<OsmElement> cachedAppendableNodes;
@@ -1126,8 +1128,11 @@ public class EasyEditManager {
 				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(R.drawable.menu_ortho).setShowAsAction(showAlways());
 			}
 			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(R.drawable.ic_menu_rotate).setShowAsAction(showAlways());
-			if (((Way)element).getNodes().size() > 2 && ((Way)element).isClosed()) {
+			if (((Way)element).getNodes().size() > 3 && ((Way)element).isClosed()) {
 				menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
+				if (((Way)element).getNodes().size() > 4) { // 5 nodes is the minimum required to be able to split in to two polygons
+					menu.add(Menu.NONE, MENUITEM_SPLIT_POLYGON, Menu.NONE, R.string.menu_split_polygon);
+				}
 			}
 			return true;
 		}
@@ -1159,7 +1164,7 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
-				case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback((Way)element)); break;
+				case MENUITEM_SPLIT: main.startActionMode(new WaySplittingActionModeCallback((Way)element, false)); break;
 				case MENUITEM_MERGE: main.startActionMode(new WayMergingActionModeCallback((Way)element, cachedMergeableWays)); break;
 				case MENUITEM_REVERSE: reverseWay(); break;
 				case MENUITEM_APPEND: main.startActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
@@ -1167,6 +1172,7 @@ public class EasyEditManager {
 				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
 				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); break;
 				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); break;
+				case MENUITEM_SPLIT_POLYGON: main.startActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
 				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true); break;
 				default: return false;
 				}
@@ -1213,15 +1219,18 @@ public class EasyEditManager {
 	private class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
 		private Set<OsmElement> nodes = new HashSet<OsmElement>();
+		private boolean createPolygons = false;
 		
-		public WaySplittingActionModeCallback(Way way) {
+		public WaySplittingActionModeCallback(Way way, boolean createPolygons) {
 			super();
 			this.way = way;
 			nodes.addAll(way.getNodes());
 			if (!way.isClosed()) { 
 				nodes.remove(way.getFirstNode());
 				nodes.remove(way.getLastNode());
-			} 
+			} else {
+				this.createPolygons = createPolygons;
+			}
 		}
 		
 		@Override
@@ -1245,7 +1254,7 @@ public class EasyEditManager {
 				return false;
 			}
 			if (way.isClosed())
-				main.startActionMode(new ClosedWaySplittingActionModeCallback(way, (Node) element));
+				main.startActionMode(new ClosedWaySplittingActionModeCallback(way, (Node) element, createPolygons));
 			else {
 				logic.performSplit(way, (Node)element);
 				currentActionMode.finish();
@@ -1265,13 +1274,26 @@ public class EasyEditManager {
 		private Way way;
 		private Node node;
 		private Set<OsmElement> nodes = new HashSet<OsmElement>();
+		private boolean createPolygons = false;
 		
-		public ClosedWaySplittingActionModeCallback(Way way, Node node) {
+		public ClosedWaySplittingActionModeCallback(Way way, Node node, boolean createPolygons) {
 			super();
 			this.way = way;
 			this.node = node;
-			nodes.addAll(way.getNodes());;
-			nodes.remove(node);
+			this.createPolygons = createPolygons;
+			List<Node> allNodes = way.getNodes();
+			nodes.addAll(allNodes);
+			if (createPolygons) { // remove neighbouring nodes
+				if (way.isEndNode(node)) { // we have at least 4 nodes so this will not cause problems
+					nodes.remove(allNodes.get(1)); // remove 2nd element
+					nodes.remove(allNodes.get(allNodes.size()-2)); // remove 2nd last element
+				} else {
+					int nodeIndex = allNodes.indexOf(node);
+					nodes.remove(allNodes.get(nodeIndex-1));
+					nodes.remove(allNodes.get(nodeIndex+1));
+				}
+			}
+			nodes.remove(node);	
 		}
 		
 		@Override
@@ -1286,7 +1308,7 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
-			logic.performClosedWaySplit(way, node, (Node)element);
+			logic.performClosedWaySplit(way, node, (Node)element, createPolygons);
 			currentActionMode.finish();
 			return true;
 		}

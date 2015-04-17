@@ -646,8 +646,9 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param way
 	 * @param node1
 	 * @param node2
+	 * @param createPolygons split in to two polygons 
 	 */
-	public void splitAtNodes(Way way, Node node1, Node node2) {
+	public void splitAtNodes(Way way, Node node1, Node node2, boolean createPolygons) {
 		Log.d("StorageDelegator", "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
 		// undo - old way is saved here, new way is saved at insert
 		dirty = true;
@@ -709,6 +710,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			oldNodes.addAll(nodesForOldWay2);
 		}
 		try {
+			if (createPolygons && way.length() > 2) { // close the original way now
+				way.addNode(way.getFirstNode());
+			}
 			way.updateState(OsmElement.STATE_MODIFIED);
 			apiStorage.insertElementSafe(way);
 	
@@ -716,6 +720,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			Way newWay = factory.createWayWithNewId();
 			newWay.addTags(way.getTags());
 			newWay.addNodes(nodesForNewWay, false);
+			if (createPolygons  && newWay.length() > 2) { // close the new way now
+				newWay.addNode(newWay.getFirstNode());
+			}
 			insertElementUnsafe(newWay);
 			
 			// check for relation membership

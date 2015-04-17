@@ -1463,9 +1463,9 @@ public class Logic {
 	 * @param node1
 	 * @param node2
 	 */
-	public void performClosedWaySplit(Way way, Node node1, Node node2) {
+	public void performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
 		createCheckpoint(R.string.undo_action_split_way);
-		getDelegator().splitAtNodes(way, node1, node2);
+		getDelegator().splitAtNodes(way, node1, node2, createPolygons);
 		map.invalidate();
 	}
 
