@@ -302,8 +302,14 @@ public class Preset {
             		String value_on = attr.getValue("value_on") == null ? "yes" : attr.getValue("value_on");
             		String value_off = attr.getValue("value_off") == null ? "no" : attr.getValue("value_off");
             		String disable_off = attr.getValue("disable_off");
-            		String values = value_on  + (disable_off == null?"," + value_off:"");
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), values);
+            		String values = value_on;
+            		// zap value_off if disabled
+            		if (disable_off != null && disable_off.equals("true")) {
+            			value_off = "";
+            		} else {
+            			values = "," + value_off;
+            		}
+             		currentItem.addTag(inOptionalSection, attr.getValue("key"), values);
             		String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
             		if (defaultValue != null) {
             			currentItem.addDefault(attr.getValue("key"),defaultValue);
