@@ -867,6 +867,16 @@ public class StorageDelegator implements Serializable, Exportable {
 	public boolean mergeNodes(Node mergeInto, Node mergeFrom) {
 		boolean mergeOK = true;
 		dirty = true;
+		// first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
+		// this helps preserve history
+		if ((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) {
+		// swap
+			Log.d("StorageDelegator", "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
+			Node tmpNode = mergeInto;
+			mergeInto = mergeFrom;
+			mergeFrom = tmpNode;
+			Log.d("StorageDelegator", "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
+		}
 		mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove objects from relations.
 		// merge tags
 		setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
