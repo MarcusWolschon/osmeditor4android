@@ -40,12 +40,12 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
 ## What is Vespucci NOT?
 
 * a map-view or a routing-application
-* a full replacement for [JOSM][josm] or the in-browser editors iD and Potlatch2
-
 
 ## Getting started
 
-Here is how you can start developing.
+Here is how you can start developing. 
+
+Currently building is supported with eclipse, android studio and gradle. Note you will need a patched actionbarsherlock library for everything to work properly, see: https://github.com/MarcusWolschon/osmeditor4android/issues/114
 
 
 ### Gradle build
