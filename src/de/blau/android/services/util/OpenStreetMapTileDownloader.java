@@ -133,6 +133,8 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 					mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y,reason);
 				} catch (RemoteException re) {
 					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + re, ioe);
+				} catch (NullPointerException npe) {
+					Log.e(DEBUGTAG, "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + npe, ioe);
 				}
 				if (!(ioe instanceof FileNotFoundException)) {
 					// FileNotFound is an expected exception, any other IOException should be logged 
@@ -146,6 +148,9 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 				 * -> we remove it and the application has to re-request it.
 				 */
 			} catch (RemoteException re) {
+				Log.e(DEBUGTAG, "Error calling mapTileLoaded for MapTile. Exception: " + re);
+			} catch (NullPointerException npe) {
+				Log.e(DEBUGTAG, "Error calling mapTileLoaded for MapTile. Exception: " + npe);
 			} finally {
 				StreamUtils.closeStream(in);
 				StreamUtils.closeStream(out);
