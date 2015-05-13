@@ -199,15 +199,17 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			}
 	        
 			OpenStreetMapTile t = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
-			//long start = System.currentTimeMillis();
-			Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-			// long duration = System.currentTimeMillis() - start;
-			if (aTile == null) {
-				Log.d("OpenStreetMapTileProvider", "decoded tile is null");
-				throw new RemoteException();
-			}
-			// Log.d("OpenStreetMapTileProvider", "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
+			
 			try {
+				//long start = System.currentTimeMillis();
+				Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+				// long duration = System.currentTimeMillis() - start;
+				if (aTile == null) {
+					Log.d("OpenStreetMapTileProvider", "decoded tile is null");
+					throw new RemoteException();
+				}
+				// Log.d("OpenStreetMapTileProvider", "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
+
 				mTileCache.putTile(t, aTile,pending.get(t.toString()).longValue());
 				pending.remove(t.toString());
 				mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
@@ -221,6 +223,9 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 				} else {
 					// FIXME this should show a toast ... or a special tile
 				}
+			} catch (NullPointerException npe) {
+				Log.d("OpenStreetMapTileProvider", "Exception in mapTileLoaded callback " + npe);
+				throw new RemoteException();
 			}
 			if (DEBUGMODE)
 				Log.i(DEBUGTAG, "MapTile download success."+t.toString());

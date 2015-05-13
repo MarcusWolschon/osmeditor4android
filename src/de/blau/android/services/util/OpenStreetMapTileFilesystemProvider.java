@@ -256,6 +256,10 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 					Log.e(DEBUGTAG, "Service failed", e);
 				}
+			} catch (NullPointerException e) {
+				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
+					Log.e(DEBUGTAG, "Service failed", e);
+				}
 			} catch (IllegalStateException e) {
 				if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
 					Log.e(DEBUGTAG, "Tile loading failed", e);
