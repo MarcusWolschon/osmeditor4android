@@ -88,7 +88,8 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 		// 
 		textPaint = Profile.getCurrent(Profile.ATTRIBUTION_TEXT).getPaint();
 		// mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
-		Log.d("OpenStreetMapTilesOverlay","provider " + aRendererInfo.getId());
+		Log.d("OpenStreetMapTilesOverlay","provider " + aRendererInfo.getId() 
+				+ " min zoom " + aRendererInfo.getMinZoomLevel() + " max " + aRendererInfo.getMaxZoomLevel());
 	}
 	
 	@Override
@@ -238,6 +239,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			//		Log.d("OpenStreetMapTileOverlay"," top " + tileNeededTop + " bottom " + tileNeededBottom);
 			//		Log.d("OpenStreetMapTileOverlay","lonLeft " + lonLeft + " lonRight " + lonRight + " latTop " + Math.toDegrees(latTop)+ " latBottom " + Math.toDegrees(latBottom));
 
+			int maxZoom = myRendererInfo.getMaxZoomLevel();
+			int minZoom = myRendererInfo.getMinZoomLevel();
+			
 			final int mapTileMask = (1 << zoomLevel) - 1;
 
 			Rect destRect = null; // destination rect for bit map
@@ -273,7 +277,12 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 					int sh = myRendererInfo.getTileHeight();
 					int tx = 0;
 					int ty = 0;
-					Bitmap tileBitmap = mTileProvider.getMapTile(tile, owner);
+					Bitmap tileBitmap = null;
+					// only actually try to get tile if in range
+
+					if (tile.zoomLevel >= minZoom && tile.zoomLevel <= maxZoom) {
+						mTileProvider.getMapTile(tile, owner);
+					}
 					if (tileBitmap == null) {
 						// Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
 						// OVERZOOM
@@ -282,7 +291,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 						// See if there are any alternative tiles available - try
 						// using larger tiles
 						// maximum 3 zoom  levels up, with standard tiles this reduces the width to 64 bits
-						while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) < 3 && tile.zoomLevel > myRendererInfo.getMinZoomLevel()) {
+						while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) < 3 && tile.zoomLevel > minZoom) {
 							// As we zoom out to larger-scale tiles, we want to
 							// draw smaller and smaller sections of them
 							sw >>= 1; // smaller size
@@ -297,7 +306,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 							tile.y >>= 1;
 							--tile.zoomLevel;
 							// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
-							if (mTileProvider.isTileAvailable(tile)) { // Guarantees that we only try this for stuff in the cache
+							if (mTileProvider.isTileAvailable(tile) || (originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom)) { 
+								// Guarantees that we only try this for stuff in the cache, 
+								// except it we are overzooming in which case we -do- want to retrieve the maxZoom tiles if we don't have them
 								// Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
 								tileBitmap = mTileProvider.getMapTile(tile, owner);
 							}

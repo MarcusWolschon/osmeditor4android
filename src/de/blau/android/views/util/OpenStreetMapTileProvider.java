@@ -203,6 +203,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 			Bitmap aTile = BitmapFactory.decodeByteArray(data, 0, data.length, options);
 			// long duration = System.currentTimeMillis() - start;
 			if (aTile == null) {
+				Log.d("OpenStreetMapTileProvider", "decoded tile is null");
 				throw new RemoteException();
 			}
 			// Log.d("OpenStreetMapTileProvider", "raw data size " + data.length + " decoded bitmap size " + aTile.getRowBytes()*aTile.getHeight());
