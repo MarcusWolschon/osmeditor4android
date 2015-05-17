@@ -3590,11 +3590,7 @@
         </item> <!-- Strip Club -->
     </group> <!-- Food+Drinks -->
     <group name="Tourism" icon="icons/png/tourist_attraction.png">
-<<<<<<< 0.9.6
-        <item name="Attraction" icon="presets/sightseeing.png" type="node,closedway" preset_name_label="true">
-=======
         <item name="Attraction" icon="icons/png/tourist_attraction.png" type="node,closedway" preset_name_label="true">
->>>>>>> 7d06a95 Updated build number, fixed issue with wrong preset file.
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=attraction"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:tourism=attraction"
                   pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:tourism=attraction"
@@ -6758,8 +6754,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=furniture" />
             <space />
             <key key="shop" value="furniture" />
-            <reference ref="name_brand_operator_oh" />
-            <reference ref="link_contact" />
+            <reference ref="name_brand_operator_oh_wheelchair" />
             <reference ref="name_brand_operator_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Furniture -->
@@ -8741,7 +8736,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=agricultural_engines" />
             <space />
             <key key="craft" value="agricultural_engines" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Agricultural engines -->
         <item name="Basket maker" icon="icons/png/craft_basket_maker_16002.png" type="node,closedway,relation">
@@ -8749,7 +8744,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=basket_maker" />
             <space />
             <key key="craft" value="basket_maker" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Basket maker -->
         <item name="Beekeeper" icon="icons/png/craft_beekeeper_16003.png" type="node,closedway,relation">
@@ -8757,7 +8752,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=beekeeper" />
             <space />
             <key key="craft" value="beekeeper" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Beekeeper -->
         <item name="Blacksmith" icon="icons/png/craft_blacksmith_16004.png" type="node,closedway,relation">
@@ -8765,7 +8760,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=blacksmith" />
             <space />
             <key key="craft" value="blacksmith" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Blacksmith -->
         <item name="Boatbuilder" icon="icons/png/craft_boatbuilder_16005.png" type="node,closedway,relation">
@@ -8773,7 +8768,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=boatbuilder" />
             <space />
             <key key="craft" value="boatbuilder" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Boatbuilder -->
         <item name="Bookbinder" icon="icons/png/craft_bookbinder_16006.png" type="node,closedway,relation">
@@ -8781,7 +8776,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=bookbinder" />
             <space />
             <key key="craft" value="bookbinder" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Bookbinder -->
         <item name="Brewery" icon="icons/png/craft_brewery_16007.png" type="node,closedway,relation">
@@ -8789,7 +8784,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=brewery" />
             <space />
             <key key="craft" value="brewery" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Brewery -->
         <item name="Builder" icon="icons/png/craft_builder_16008.png" type="node,closedway,relation">
@@ -8797,7 +8792,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=builder" />
             <space />
             <key key="craft" value="builder" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Builder -->
         <item name="Cabinet maker" icon="icons/png/craft_cabinet_maker_16009.png" type="node,closedway,relation">
@@ -8805,7 +8800,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=cabinet_maker" />
             <space />
             <key key="craft" value="cabinet_maker" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Cabinet maker -->
         <item name="Carpenter" icon="icons/png/craft_carpenter_16010.png" type="node,closedway,relation">
@@ -8813,7 +8808,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=carpenter" />
             <space />
             <key key="craft" value="carpenter" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Carpenter -->
         <item name="Carpet layer" icon="icons/png/craft_carpet_layer_16020.png" type="node,closedway,relation">
@@ -8821,7 +8816,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=carpet_layer" />
             <space />
             <key key="craft" value="carpet_layer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Carpet layer -->
         <item name="Caterer" icon="icons/png/craft_caterer_16021.png" type="node,closedway,relation">
@@ -8829,7 +8824,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=caterer" />
             <space />
             <key key="craft" value="caterer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Caterer -->
         <item name="Cleaning" icon="icons/png/craft_cleaning_16022.png" type="node,closedway,relation">
@@ -8837,7 +8832,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=cleaning" />
             <space />
             <key key="craft" value="cleaning" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Cleaning -->
         <item name="Clockmaker" icon="icons/png/craft_clockmaker_16023.png" type="node,closedway,relation">
@@ -8845,7 +8840,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=clockmaker" />
             <space />
             <key key="craft" value="clockmaker" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Clockmaker -->
         <item name="Distillery" icon="icons/png/craft_distillery_16024.png" type="node,closedway,relation">
@@ -8853,7 +8848,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=distillery" />
             <space />
             <key key="craft" value="distillery" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Distillery -->
         <item name="Electrician" icon="icons/png/craft_electrician_16025.png" type="node,closedway,relation">
@@ -8861,7 +8856,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=electrician" />
             <space />
             <key key="craft" value="electrician" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Electrician -->
         <item name="Falles" icon="icons/png/craft_falles_16026.png" type="node,closedway,relation">
@@ -8869,7 +8864,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=falles" />
             <space />
             <key key="craft" value="falles" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Falles -->
         <item name="Glass" icon="icons/png/craft_glass_16027.png" type="node,closedway,relation">
@@ -8877,7 +8872,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=glass" />
             <space />
             <key key="craft" value="glass" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Glass -->
         <item name="Glaziery" icon="icons/png/craft_glaziery_16028.png" type="node,closedway,relation">
@@ -8885,7 +8880,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=glaziery" />
             <space />
             <key key="craft" value="glaziery" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Glaziery -->
         <item name="Handicraft" icon="icons/png/craft_handicraft_16029.png" type="node,closedway,relation">
@@ -8893,7 +8888,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=handicraft" />
             <space />
             <key key="craft" value="handicraft" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Handicraft -->
         <item name="Heating engineer" icon="icons/png/craft_heating_engineer_16030.png" type="node,closedway,relation">
@@ -8901,7 +8896,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=heating_engineer" />
             <space />
             <key key="craft" value="heating_engineer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Heating engineer -->
         <item name="Hvac" icon="icons/png/craft_hvac_16040.png" type="node,closedway,relation">
@@ -8909,7 +8904,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=hvac" />
             <space />
             <key key="craft" value="hvac" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Hvac -->
         <item name="Insulation" icon="icons/png/craft_insulation_16041.png" type="node,closedway,relation">
@@ -8917,14 +8912,14 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=insulation" />
             <space />
             <key key="craft" value="insulation" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
         </item> <!-- Insulation -->
         <item name="Joiner" icon="icons/png/craft_joiner_16042.png" type="node,closedway,relation">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=joiner"
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=joiner" />
             <space />
             <key key="craft" value="joiner" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Joiner -->
         <item name="Key cutter" icon="icons/png/craft_key_cutter_16043.png" type="node,closedway,relation">
@@ -8932,7 +8927,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=key_cutter" />
             <space />
             <key key="craft" value="key_cutter" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Key cutter -->
         <item name="Leather" icon="icons/png/craft_leather_16045.png" type="node,closedway,relation">
@@ -8940,7 +8935,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=leather" />
             <space />
             <key key="craft" value="leather" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Leather -->
         <item name="Locksmith" icon="icons/png/craft_locksmith_16046.png" type="node,closedway,relation">
@@ -8948,7 +8943,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=locksmith" />
             <space />
             <key key="craft" value="locksmith" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Locksmith -->
         <item name="Mason" icon="icons/png/craft_mason_16047.png" type="node,closedway,relation">
@@ -8956,7 +8951,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=mason" />
             <space />
             <key key="craft" value="mason" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Mason -->
         <item name="Metal construction" icon="icons/png/craft_metal_construction_16048.png" type="node,closedway,relation">
@@ -8964,7 +8959,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=metal_construction" />
             <space />
             <key key="craft" value="metal_construction" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Metal construction -->
         <item name="Metal works" icon="icons/png/craft_metal_works_16049.png" type="node,closedway,relation">
@@ -8972,7 +8967,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=metal_works" />
             <space />
             <key key="craft" value="metal_works" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Metal works -->
         <item name="Painter" icon="icons/png/craft_painter_16050.png" type="node,closedway,relation">
@@ -8980,7 +8975,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=painter" />
             <space />
             <key key="craft" value="painter" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Painter -->
         <item name="Parquet layer" icon="icons/png/craft_parquet_layer_16060.png" type="node,closedway,relation">
@@ -8988,7 +8983,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=parquet_layer" />
             <space />
             <key key="craft" value="parquet_layer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Parquet layer -->
         <item name="Photographic laboratory" icon="icons/png/craft_photographic_laboratory_16061.png" type="node,closedway,relation">
@@ -8996,7 +8991,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=photographic_laboratory" />
             <space />
             <key key="craft" value="photographic_laboratory" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Photographic laboratory -->
         <item name="Plasterer" icon="icons/png/craft_plasterer_16062.png" type="node,closedway,relation">
@@ -9004,7 +8999,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=plasterer" />
             <space />
             <key key="craft" value="plasterer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Plasterer -->
         <item name="Plumber" icon="icons/png/craft_plumber_16063.png" type="node,closedway,relation">
@@ -9012,7 +9007,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=plumber" />
             <space />
             <key key="craft" value="plumber" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Plumber -->
         <item name="Pottery" icon="icons/png/craft_pottery_16064.png" type="node,closedway,relation">
@@ -9020,7 +9015,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=pottery" />
             <space />
             <key key="craft" value="pottery" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Pottery -->
         <item name="Rigger" icon="icons/png/craft_rigger_16065.png" type="node,closedway,relation">
@@ -9028,7 +9023,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=rigger" />
             <space />
             <key key="craft" value="rigger" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Rigger -->
         <item name="Roofer" icon="icons/png/craft_roofer_16066.png" type="node,closedway,relation">
@@ -9036,7 +9031,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=roofer" />
             <space />
             <key key="craft" value="roofer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Roofer -->
         <item name="Saddler" icon="icons/png/craft_saddler_16067.png" type="node,closedway,relation">
@@ -9044,7 +9039,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=saddler" />
             <space />
             <key key="craft" value="saddler" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Saddler -->
         <item name="Sailmaker" icon="icons/png/craft_sailmaker_16068.png" type="node,closedway,relation">
@@ -9052,7 +9047,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sailmaker" />
             <space />
             <key key="craft" value="sailmaker" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sailmaker -->
         <item name="Sawmill" icon="icons/png/craft_sawmill_16069.png" type="node,closedway,relation">
@@ -9060,7 +9055,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sawmill" />
             <space />
             <key key="craft" value="sawmill" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sawmill -->
         <item name="Scaffolder" icon="icons/png/craft_scaffolder_16070.png" type="node,closedway,relation">
@@ -9068,7 +9063,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=scaffolder" />
             <space />
             <key key="craft" value="scaffolder" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Scaffolder -->
         <item name="Sculptor" icon="icons/png/craft_sculptor_16080.png" type="node,closedway,relation">
@@ -9076,7 +9071,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sculptor" />
             <space />
             <key key="craft" value="sculptor" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sculptor -->
         <item name="Stand builder" icon="icons/png/craft_stand_builder_16081.png" type="node,closedway,relation">
@@ -9084,7 +9079,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=stand_builder" />
             <space />
             <key key="craft" value="stand_builder" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Stand builder -->
         <item name="Stonemason" icon="icons/png/craft_stonemason_16082.png" type="node,closedway,relation">
@@ -9092,7 +9087,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=stonemason" />
             <space />
             <key key="craft" value="stonemason" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Stonemason -->
         <item name="Sun protection" icon="icons/png/craft_sun_protection_16083.png" type="node,closedway,relation">
@@ -9100,7 +9095,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sun_protection" />
             <space />
             <key key="craft" value="sun_protection" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sun protection -->
         <item name="Sweep" icon="icons/png/craft_sweep_16084.png" type="node,closedway,relation">
@@ -9108,7 +9103,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=sweep" />
             <space />
             <key key="craft" value="sweep" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Sweep -->
         <item name="Tailor" icon="icons/png/craft_tailor_16085.png" type="node,closedway,relation">
@@ -9116,7 +9111,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=tailor" />
             <space />
             <key key="craft" value="tailor" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Tailor -->
         <item name="Tiler" icon="icons/png/craft_tiler_16086.png" type="node,closedway,relation">
@@ -9124,7 +9119,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=tiler" />
             <space />
             <key key="craft" value="tiler" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Tiler -->
         <item name="Tinsmith" icon="icons/png/craft_tinsmith_16087.png" type="node,closedway,relation">
@@ -9132,7 +9127,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=tinsmith" />
             <space />
             <key key="craft" value="tinsmith" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Tinsmith -->
         <item name="Turner" icon="icons/png/craft_turner_16088.png" type="node,closedway,relation">
@@ -9140,7 +9135,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=turner" />
             <space />
             <key key="craft" value="turner" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Turner -->
         <item name="Upholsterer" icon="icons/png/craft_upholsterer_16089.png" type="node,closedway,relation">
@@ -9148,7 +9143,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=upholsterer" />
             <space />
             <key key="craft" value="upholsterer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Upholsterer -->
         <item name="Watchmaker" icon="icons/png/craft_watchmaker_16090.png" type="node,closedway,relation">
@@ -9156,7 +9151,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=watchmaker" />
             <space />
             <key key="craft" value="watchmaker" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Watchmaker -->
         <item name="Window construction" icon="icons/png/craft_window_construction_16100.png" type="node,closedway,relation">
@@ -9164,7 +9159,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=window_construction" />
             <space />
             <key key="craft" value="window_construction" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Window construction -->
         <item name="Confectionery" icon="icons/png/craft_confectionery_16101.png" type="node,closedway,relation">
@@ -9172,7 +9167,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=confectionery" />
             <space />
             <key key="craft" value="confectionery" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Confectionery -->
         <item name="Construction" icon="icons/png/craft_construction_16102.png" type="node,closedway,relation">
@@ -9180,7 +9175,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=construction" />
             <space />
             <key key="craft" value="construction" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Construction -->
         <item name="Electronics" icon="icons/png/craft_electronics_16103.png" type="node,closedway,relation">
@@ -9188,7 +9183,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=electronics" />
             <space />
             <key key="craft" value="electronics" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Electronics -->
         <item name="Furniture" icon="icons/png/craft_furniture_16104.png" type="node,closedway,relation">
@@ -9196,7 +9191,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=furniture" />
             <space />
             <key key="craft" value="furniture" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Furniture -->
         <item name="Gardener" icon="icons/png/craft_gardener_16105.png" type="node,closedway,relation">
@@ -9204,7 +9199,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=gardener" />
             <space />
             <key key="craft" value="gardener" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Gardener -->
         <item name="Photographer" icon="icons/png/craft_photographer_16106.png" type="node,closedway,relation">
@@ -9212,7 +9207,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=photographer" />
             <space />
             <key key="craft" value="photographer" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Photographer -->
         <item name="Print shop" icon="icons/png/craft_print_shop_16107.png" type="node,closedway,relation">
@@ -9220,7 +9215,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=print_shop" />
             <space />
             <key key="craft" value="print_shop" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Print shop -->
         <item name="Shoemaker" icon="icons/png/craft_shoemaker_16108.png" type="node,closedway,relation">
@@ -9228,7 +9223,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=shoemaker" />
             <space />
             <key key="craft" value="shoemaker" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Shoemaker -->
         <item name="Winery" icon="icons/png/craft_winery_16109.png" type="node,closedway,relation">
@@ -9236,7 +9231,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=winery" />
             <space />
             <key key="craft" value="winery" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Winery -->
         <item name="Laboratory" icon="icons/png/craft_laboratory_16110.png" type="node,closedway,relation">
@@ -9244,7 +9239,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=laboratory" />
             <space />
             <key key="craft" value="laboratory" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Laboratory -->
         <item name="Dressmaker" icon="icons/png/craft_dressmaker_16111.png" type="node,closedway,relation">
@@ -9252,7 +9247,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=dressmaker" />
             <space />
             <key key="craft" value="dressmaker" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Dressmaker -->
         <item name="Jeweller" icon="icons/png/craft_jeweller_16112.png" type="node,closedway,relation">
@@ -9260,7 +9255,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=jeweller" />
             <space />
             <key key="craft" value="jeweller" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Jeweller -->
         <item name="Optician" icon="icons/png/craft_optician_16113.png" type="node,closedway,relation">
@@ -9268,7 +9263,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=optician" />
             <space />
             <key key="craft" value="optician" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Optician -->
         <item name="Photo studio" icon="icons/png/craft_photo_studio_16114.png" type="node,closedway,relation">
@@ -9276,7 +9271,7 @@
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=photo_studio" />
             <space />
             <key key="craft" value="photo_studio" />
-            <reference ref="name_oh" />
+            <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Photo studio -->
     </group> <!-- Crafts -->
