@@ -3590,7 +3590,11 @@
         </item> <!-- Strip Club -->
     </group> <!-- Food+Drinks -->
     <group name="Tourism" icon="icons/png/tourist_attraction.png">
+<<<<<<< 0.9.6
         <item name="Attraction" icon="presets/sightseeing.png" type="node,closedway" preset_name_label="true">
+=======
+        <item name="Attraction" icon="icons/png/tourist_attraction.png" type="node,closedway" preset_name_label="true">
+>>>>>>> 7d06a95 Updated build number, fixed issue with wrong preset file.
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=attraction"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:tourism=attraction"
                   pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:tourism=attraction"
@@ -5902,12 +5906,12 @@
                 <reference ref="power_generator" />
                 <reference ref="power_output" />
             </item> <!-- Wave Energy Converter -->
-            <item name="Osmotic Power Generator" icon="presets/power_source-water.svg" type="node,closedway,relation" preset_name_label="true">
+            <item name="Osmotic Power Generator" icon="icons/png/power_generator_26005.png" type="node,closedway,relation" preset_name_label="true">
                 <key key="generator:source" value="osmotic" />
                 <reference ref="power_generator" />
                 <reference ref="power_output" />
             </item> <!-- Osmotic Power Generator -->
-            <item name="Geothermal Power Generator" icon="presets/power_source-water.svg" type="node,closedway,relation" preset_name_label="true">
+            <item name="Geothermal Power Generator" icon="icons/png/power_generator_26005.png" type="node,closedway,relation" preset_name_label="true">
                 <key key="generator:source" value="geothermal" />
                 <reference ref="power_generator" />
                 <combo key="generator:type" text="Generator Type" values="heat_pump,steam_turbine" />
