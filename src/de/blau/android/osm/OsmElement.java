@@ -326,7 +326,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		for (String tag : importantTags) {
 			String value = getTagWithKey(tag);
 			if (value != null && value.length() > 0) {
-				return (withType ? getName() + " " : "") + tag + ":" + value;
+				return (withType ? getName() + " " : "") + tag + "=" + value;
 			}
 		}
 		// Failing the above, the OSM ID
