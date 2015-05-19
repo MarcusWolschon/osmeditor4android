@@ -668,6 +668,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			actionbar.setCustomView(lockLayout);
 			ToggleButton lock = setLock(getLogic().getMode());
 			findViewById(R.id.lock).setVisibility(View.VISIBLE);
+			lock.setLongClickable(true);
 			lock.setOnClickListener(new View.OnClickListener() {
 			    @Override
 				public void onClick(View b) {
@@ -678,6 +679,21 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			        	getLogic().setMode(Logic.Mode.MODE_MOVE);
 			        }
 			        onEditModeChanged();
+			    }
+			});
+			lock.setOnLongClickListener(new View.OnLongClickListener() {
+			    @Override
+				public boolean onLongClick(View b) {
+			        Log.d("Main", "Lock long pressed"); // long press doesn't change state of button
+			        if(!((ToggleButton)b).isChecked()) {
+			        	((ToggleButton)b).setChecked(true);
+			        	getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
+			        } else {
+			        	((ToggleButton)b).setChecked(false);
+			        	getLogic().setMode(Logic.Mode.MODE_MOVE);
+			        }
+			        onEditModeChanged();
+			        return true;
 			    }
 			});
 		}	
@@ -696,6 +712,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		switch (mode) {
 		case MODE_EASYEDIT:
 		case MODE_ALIGN_BACKGROUND:
+		case MODE_TAG_EDIT:
 			lock.setChecked(true);
 			break;
 		default: 
