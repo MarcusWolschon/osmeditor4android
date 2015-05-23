@@ -3,7 +3,6 @@
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:id="@+id/relation_membership_layout"
 		android:background="@color/tagedit_field_bg"
 	>
 	<LinearLayout
@@ -11,14 +10,16 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
 	    android:background="@color/tagedit_field_static_bg"
+	    android:id="@+id/relation_membership_layout"
 	    android:padding="0dp" >
 		<LinearLayout
 		    android:id="@+id/membership_heading_view"
 		  	android:layout_width="match_parent"
     		android:layout_height="wrap_content"
+    		android:background="@color/dark_grey"
     		android:orientation="horizontal" >
     		<CheckBox
-            		android:id="@+id/headerMembershipSelected"
+            		android:id="@+id/header_membership_selected"
             		android:text=""
             		android:background="@color/tagedit_field_bg"
             		android:layout_width="34dp"
@@ -29,12 +30,6 @@
 	       			android:layout_marginBottom="1dp"
 	        		android:layout_marginRight="1dp"
 	        	/>
-    		<LinearLayout 
-				android:orientation="horizontal"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:background="@color/dark_grey"
-			>
 				<TextView
 		        	android:id="@+id/membership_role_heading_view"
 	        		android:layout_width="fill_parent"
@@ -66,7 +61,6 @@
 			        android:gravity="center_vertical"
 			        android:text="@string/membership_relation_heading"
 			        android:textColor="@color/tagedit_field_text" />
-			</LinearLayout>
 		</LinearLayout>
 		<LinearLayout
 	   		android:id="@+id/membership_vertical_layout"

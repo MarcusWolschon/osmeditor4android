@@ -7,12 +7,6 @@
         android:showAsAction="always"
     />
     <item
-        android:id="@+id/tag_menu_preset"
-        android:icon="@drawable/tag_menu_preset"
-        android:title="@string/tag_menu_preset"
-        android:showAsAction="always"
-    />
-    <item
         android:id="@+id/tag_menu_apply_preset"
         android:icon="@drawable/tag_menu_apply_preset"
         android:title="@string/tag_menu_apply_preset"

@@ -1,6 +1,8 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,26 +14,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.HelpViewer;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.propertyeditor.RelationMembershipFragment.RelationMembershipRow;
 
 public class RelationMembersFragment extends SherlockFragment {
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getName();
 	
-	private ScrollView relationMembersLayout = null;
-	LinearLayout membersVerticalLayout = null;
+
 	private LayoutInflater inflater = null;
+
+	static MemberSelectedActionModeCallback memberSelectedActionModeCallback = null;
 	
 	/**
      */
@@ -75,19 +85,49 @@ public class RelationMembersFragment extends SherlockFragment {
             Bundle savedInstanceState) {
        	
      	this.inflater = inflater;
-     	relationMembersLayout = (ScrollView) inflater.inflate(R.layout.members_view, null);
-		membersVerticalLayout = (LinearLayout) relationMembersLayout.findViewById(R.id.members_vertical_layout);
+     	ScrollView relationMembersLayout = (ScrollView) inflater.inflate(R.layout.members_view, null);
+		LinearLayout membersVerticalLayout = (LinearLayout) relationMembersLayout.findViewById(R.id.members_vertical_layout);
 		
 		// if this is a relation get members
     	ArrayList<RelationMemberDescription> members = (ArrayList<RelationMemberDescription>)getArguments().getSerializable("members");
-		if (members != null && members.size() > 0) {
-			for (RelationMemberDescription rmd :  members) {
-				insertNewMember( members.indexOf(rmd) +"", rmd, -1);
+    	loadMembers(membersVerticalLayout,  members);
+		
+		CheckBox headerCheckBox = (CheckBox) relationMembersLayout.findViewById(R.id.header_member_selected);
+		headerCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked) {
+					selectAllMembers();
+				} else {
+					deselectAllMembers();
+				}
 			}
-		}
+		});
+		
 		return relationMembersLayout;
 	}
+
+    /**
+	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+	 */
+	protected void loadMembers(final ArrayList<RelationMemberDescription> members) {
+		LinearLayout membersVerticalLayout = (LinearLayout) getOurView();
+		loadMembers(membersVerticalLayout, members);
+	}
 	
+	/**
+	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+	 */
+	protected void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
+		membersVerticalLayout.removeAllViews();
+		if (members != null && members.size() > 0) {
+			for (RelationMemberDescription rmd :  members) {
+				insertNewMember(membersVerticalLayout, members.indexOf(rmd) +"", rmd, -1);
+			}
+		}
+	}
+    
+    
     @Override
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
@@ -126,10 +166,23 @@ public class RelationMembersFragment extends SherlockFragment {
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
 	 * @returns The new RelationMemberRow.
 	 */
-	protected RelationMemberRow insertNewMember(final String pos, final RelationMemberDescription rmd, final int position) {
+	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position) {
 		RelationMemberRow row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_row, null);
 		row.setValues(pos, rmd);
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
+		
+		row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				
+				if (isChecked) {
+					memberSelected();
+				} else {
+					memberDeselected();
+				}
+			}
+		});
+		
 		return row;
 	}
 	
@@ -140,6 +193,7 @@ public class RelationMembersFragment extends SherlockFragment {
 		
 		private PropertyEditor owner;
 		private long elementId;
+		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
 		private TextView typeView;
 		private TextView elementView;
@@ -164,6 +218,8 @@ public class RelationMembersFragment extends SherlockFragment {
 			super.onFinishInflate();
 			if (isInEditMode()) return; // allow visual editor to work
 			
+			selected = (CheckBox) findViewById(R.id.member_selected);
+			
 			roleEdit = (AutoCompleteTextView)findViewById(R.id.editMemberRole);
 			roleEdit.setOnKeyListener(owner.myKeyListener);
 			//lastEditKey.setSingleLine(true);
@@ -182,16 +238,6 @@ public class RelationMembersFragment extends SherlockFragment {
 				}
 			});
 			
-			
-			View deleteIcon = findViewById(R.id.iconDelete);
-			deleteIcon.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					deleteRow();
-				}
-			});
-			
-			
 			OnClickListener autocompleteOnClick = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -203,10 +249,7 @@ public class RelationMembersFragment extends SherlockFragment {
 
 			roleEdit.setOnClickListener(autocompleteOnClick);
 		}
-		
-
-		
-		
+				
 		/**
 		 * Sets the per row values for a relation member
 		 * @param pos not used
@@ -232,15 +275,22 @@ public class RelationMembersFragment extends SherlockFragment {
 			return roleEdit.getText().toString();
 		}
 		
+		
 		/**
 		 * Deletes this row
 		 */
 		public void deleteRow() {
 			View cf = owner.getCurrentFocus();
 			if (cf == roleEdit) {
-			//	 owner.focusRow(0); // focus on first row of tag editing for now
+//				owner.focusRow(0); // FIXME focus is on this row 
 			}
-			// owner.relationMembersLayout.removeView(this);
+			if (owner != null) {
+				LinearLayout membersVerticalLayout = (LinearLayout) owner.relationMembersFragment.getOurView();
+				membersVerticalLayout.removeView(this);
+				membersVerticalLayout.invalidate();
+			} else {
+				Log.d("PropertyEditor", "deleteRow owner null");
+			}
 		}
 		
 		/**
@@ -250,8 +300,66 @@ public class RelationMembersFragment extends SherlockFragment {
 		public boolean isEmpty() {
 			return  roleEdit.getText().toString().trim().equals("");
 		}
+		
+		// return the status of the checkbox
+		@Override
+		public boolean isSelected() {
+			return selected.isChecked();
+		}
+		
+		public void deSelect() {
+			selected.setChecked(false);
+		}
+		
+		public void disableCheckBox() {
+			selected.setEnabled(false);
+		}
+		
+		protected void enableCheckBox() {
+			selected.setEnabled(true);
+		}
 	}
 
+	protected void memberSelected() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+		if (memberSelectedActionModeCallback == null) {
+			memberSelectedActionModeCallback = new MemberSelectedActionModeCallback(this, rowLayout);
+			((SherlockFragmentActivity)getActivity()).startActionMode(memberSelectedActionModeCallback);
+		}	
+	}
+	
+	protected void memberDeselected() {
+		if (memberSelectedActionModeCallback != null) {
+			if (memberSelectedActionModeCallback.tagDeselected()) {
+				memberSelectedActionModeCallback = null;
+			}
+		}	
+	}
+	
+	protected void selectAllMembers() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+
+		int i = rowLayout.getChildCount();
+		while (--i >= 0) { 
+			RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
+			if (row.selected.isEnabled()) {
+				row.selected.setChecked(true);
+			}
+		}
+	}
+
+	protected void deselectAllMembers() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+
+		int i = rowLayout.getChildCount();
+		while (--i >= 0) { 
+			RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
+			if (row.selected.isEnabled()) {
+				row.selected.setChecked(false);
+			}
+		}
+	}
+	
 	/**
 	 */
 	private interface RelationMemberHandler {
@@ -264,12 +372,13 @@ public class RelationMembersFragment extends SherlockFragment {
 	 */
 
 	private void processRelationMembers(final RelationMemberHandler handler) {
-//		final int size = relationMembersLayout.getChildCount();
-//		for (int i = 0; i < size; ++i) { 
-//			View view = relationMembersLayout.getChildAt(i);
-//			RelationMemberRow row = (RelationMemberRow)view;
-//			handler.handleRelationMember(row.typeView, row.elementId, row.roleEdit, row.elementView);
-//		}
+		LinearLayout relationMembersLayout = (LinearLayout) getOurView();
+		final int size = relationMembersLayout.getChildCount();
+		for (int i = 0; i < size; ++i) { // -> avoid header 
+			View view = relationMembersLayout.getChildAt(i);
+			RelationMemberRow row = (RelationMemberRow)view;
+			handler.handleRelationMember(row.typeView, row.elementId, row.roleEdit, row.elementView);
+		}
 	}
 	
 	/**
@@ -316,7 +425,7 @@ public class RelationMembersFragment extends SherlockFragment {
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
 		case R.id.tag_menu_revert:
-			// doRevert();
+			doRevert();
 			return true;
 		case R.id.tag_menu_help:
 			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
@@ -326,5 +435,38 @@ public class RelationMembersFragment extends SherlockFragment {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * reload original arguments
+	 */
+	private void doRevert() {
+		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable("members"));
+	}
+	
+	/**
+	 * Return the view we have our rows in and work around some android craziness
+	 * @return
+	 */
+	public View getOurView() {
+		// android.support.v4.app.NoSaveStateFrameLayout
+		View v =  getView();	
+		if (v != null) {
+			if ( v.getId() == R.id.members_vertical_layout) {
+				Log.d(DEBUG_TAG,"got correct view in getView");
+				return v;
+			} else {
+				v = v.findViewById(R.id.members_vertical_layout);
+				if (v == null) {
+					Log.d(DEBUG_TAG,"didn't find R.id.members_vertical_layout");
+				}  else {
+					Log.d(DEBUG_TAG,"Found members_vertical_layout");
+				}
+				return v;
+			}
+		} else {
+			Log.d(DEBUG_TAG,"got null view in getView");
+		}
+		return null;
 	}
 }

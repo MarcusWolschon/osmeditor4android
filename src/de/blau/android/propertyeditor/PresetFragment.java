@@ -102,11 +102,10 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 //    	}
         element = (OsmElement) getArguments().getSerializable("element");
         Preset[] presets = (Preset[]) getArguments().getSerializable("presets");
-		if (presets.length == 1)
-			currentGroup = presets[0].getRootGroup();
-		else {
+        rootGroup = presets[0].getRootGroup();
+		if (presets.length > 1) {
 			// a bit of a hack ... this adds the elements from other presets to the root group of the first one
-			rootGroup = presets[0].getRootGroup();
+			
 			ArrayList<PresetElement> rootElements = rootGroup.getElements();
 			for (int i=1;i<presets.length;i++) {
 				for (PresetElement e:presets[i].getRootGroup().getElements()) {
@@ -116,8 +115,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 					}
 				}
 			}
-			currentGroup = rootGroup;
 		}	
+		currentGroup = rootGroup;
 		return getPresetView();
     }
 	
@@ -231,10 +230,24 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		case android.R.id.home:
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
-		case R.id.tag_menu_revert:
-			// doRevert();
+		case R.id.preset_menu_top:
+			if (rootGroup != null) {
+				currentGroup = rootGroup;
+				currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
+				view.invalidate();
+				return true;
+			}
 			return true;
-		case R.id.tag_menu_help:
+		case R.id.preset_menu_up:
+			PresetGroup group = currentGroup.getParent();
+			if (group != null) {
+				currentGroup = group;
+				currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
+				view.invalidate();
+				return true;
+			}
+			return true;
+		case R.id.preset_menu_help:
 			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
 			startHelpViewer.putExtra(HelpViewer.TOPIC, "TagEditor");
 			startActivity(startHelpViewer);

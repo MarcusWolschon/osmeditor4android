@@ -145,7 +145,7 @@
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
-    <!-- Strings in TagEditor -->
+    <!-- Strings in PorpertyEditor -->
     <string name="key">key</string>
     <string name="Key">Key</string>
     <string name="value">value</string>
@@ -164,6 +164,8 @@
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
     <string name="tag_value_hint">Tap for values</string>
     <string name="tag_action_title">Tags selected</string>
+    <string name="menu_up">Up</string>
+    <string name="menu_top">Top</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>
     <string name="location_choose_radius">Choose radius:</string>

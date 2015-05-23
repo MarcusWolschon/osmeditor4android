@@ -246,7 +246,7 @@ public class TagEditorFragment extends SherlockFragment {
 			ft.commit();
 		}
 		
-		CheckBox headerCheckBox = (CheckBox) rowLayout.findViewById(R.id.headerTagSelected);
+		CheckBox headerCheckBox = (CheckBox) rowLayout.findViewById(R.id.header_tag_selected);
 		headerCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -970,9 +970,6 @@ public class TagEditorFragment extends SherlockFragment {
 		case R.id.tag_menu_sourcesurvey:
 			doSourceSurvey();
 			return true;
-		case R.id.tag_menu_preset:
-			// doPresets();
-			return true;
 		case R.id.tag_menu_apply_preset:
 			PresetItem pi = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,getKeyValueMap(false));
 			if (pi!=null) {
@@ -1131,10 +1128,11 @@ public class TagEditorFragment extends SherlockFragment {
 		}
 	}
 		
+	/**
+	 * reload original arguments
+	 */
 	private void doRevert() {
-//		loadEdits(originalTags);
-//		createParentRelationView(originalParents);
-//		createMembersView(originalMembers);
+		loadEdits((Map<String,String>)getArguments().getSerializable("tags"));
 	}
 	
 	/**

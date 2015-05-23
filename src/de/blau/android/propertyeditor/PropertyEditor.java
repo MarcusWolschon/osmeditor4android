@@ -145,9 +145,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 			// besides hacking ABS, there is no equivalent method to enable this for ABS
 		} 
-		
-		// rowLayout = (LinearLayout) findViewById(R.id.edit_row_layout);
-		// presetsLayout = (LinearLayout) findViewById(R.id.presets_layout);
+
 	
 		loaded = false;
 		
@@ -188,7 +186,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
                         getSupportFragmentManager());
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
-		pagerTabStrip.setDrawFullUnderline(false);
+		pagerTabStrip.setDrawFullUnderline(true);
 		pagerTabStrip.setTabIndicatorColorResource(android.R.color.holo_blue_dark);
 
 		ActionBar actionbar = getSupportActionBar();

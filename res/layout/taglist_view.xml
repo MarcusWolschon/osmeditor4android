@@ -22,7 +22,7 @@
 				android:background="@color/dark_grey" 
 				android:orientation="horizontal" >
 				<CheckBox
-            		android:id="@+id/headerTagSelected"
+            		android:id="@+id/header_tag_selected"
             		android:text=""
             		android:background="@color/tagedit_field_bg"
             		android:layout_width="34dp"

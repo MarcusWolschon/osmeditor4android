@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,8 +24,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -34,8 +39,10 @@ import de.blau.android.R;
 import de.blau.android.osm.Relation;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -44,8 +51,9 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	
 	private static final String DEBUG_TAG = RelationMembershipFragment.class.getName();
 	
-	LinearLayout membershipVerticalLayout = null;
 	private LayoutInflater inflater = null;
+	
+	static ParentSelectedActionModeCallback parentSelectedActionModeCallback = null;
 	
 	/**
      */
@@ -86,6 +94,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	ScrollView parentRelationsLayout = null;
+    	LinearLayout membershipVerticalLayout = null;
 
     	// Inflate the layout for this fragment
     	this.inflater = inflater;
@@ -94,16 +103,44 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		
     	HashMap<Long,String> parents = (HashMap<Long,String>) getArguments().getSerializable("parents");
     
-		if (parents != null && parents.size() > 0) {
-			for (Long id :  parents.keySet()) {
-				Relation r = (Relation) Main.getLogic().getDelegator().getOsmElement(Relation.NAME, id.longValue());
-				insertNewMembership(parents.get(id),r,0, false);
-			}
-		}
+    	loadParents(membershipVerticalLayout, parents);
 
+		CheckBox headerCheckBox = (CheckBox) parentRelationsLayout.findViewById(R.id.header_membership_selected);
+		headerCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked) {
+					selectAllParents();
+				} else {
+					deselectAllParents();
+				}
+			}
+		});
+		
 		return parentRelationsLayout;
     }
 
+    /**
+	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+	 */
+	protected void loadParents(final Map<Long,String> parents) {
+		LinearLayout membershipVerticalLayout = (LinearLayout) getOurView();
+		loadParents(membershipVerticalLayout, parents);
+	}
+	
+	/**
+	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+	 */
+	protected void loadParents(LinearLayout membershipVerticalLayout, final Map<Long,String> parents) {
+		membershipVerticalLayout.removeAllViews();
+		if (parents != null && parents.size() > 0) {
+			for (Long id :  parents.keySet()) {
+				Relation r = (Relation) Main.getLogic().getDelegator().getOsmElement(Relation.NAME, id.longValue());
+				insertNewMembership(membershipVerticalLayout, parents.get(id),r,0, false);
+			}
+		}
+	}
+    
     @Override
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
@@ -138,13 +175,26 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	 * @param showSpinner TODO
 	 * @return the new RelationMembershipRow
 	 */
-	protected RelationMembershipRow insertNewMembership(final String role, final Relation r, final int position, boolean showSpinner) {
+	protected RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, final int position, boolean showSpinner) {
 		RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, null);
 		if (r != null) {
 			row.setValues(role, r);
 		}
 		membershipVerticalLayout.addView(row, (position == -1) ? membershipVerticalLayout.getChildCount() : position);
 		row.showSpinner = showSpinner;
+		
+		row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				
+				if (isChecked) {
+					parentSelected();
+				} else {
+					parentDeselected();
+				}
+			}
+		});
+		
 		return row;
 	}
 	
@@ -155,6 +205,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		
 		private PropertyEditor owner;
 		private long relationId =-1; // flag value for new relation memberships
+		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
 		private Spinner parentEdit;
 		private ArrayAdapter<String> roleAdapter; 
@@ -180,6 +231,8 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			super.onFinishInflate();
 			if (isInEditMode()) return; // allow visual editor to work
 			
+			selected = (CheckBox) findViewById(R.id.parent_selected);
+			
 			roleEdit = (AutoCompleteTextView)findViewById(R.id.editRole);
 			roleEdit.setOnKeyListener(owner.myKeyListener);
 			
@@ -197,27 +250,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 						if (/*running && */roleEdit.getText().length() == 0) roleEdit.showDropDown();
 					}
 				}
-			});
-			
-						
-			View deleteIcon = findViewById(R.id.iconDelete);
-			deleteIcon.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					new AlertDialog.Builder(owner)
-					.setTitle(R.string.delete)
-					.setMessage(R.string.delete_from_relation_description)
-					.setPositiveButton(R.string.delete,
-						new DialogInterface.OnClickListener() {	
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								deleteRow();
-							}
-						})
-					.show();					
-				}
-			});
-			
+			});			
 			
 			OnClickListener autocompleteOnClick = new OnClickListener() {
 				@Override
@@ -303,14 +336,15 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		public void deleteRow() {
 			View cf = owner.getCurrentFocus();
 			if (cf == roleEdit) {
-//				owner.focusRow(0); // focus on first row of tag editing for now
+//				owner.focusRow(0); // FIXME focus is on this row 
 			}
 			if (owner != null) {
-//				owner.parentRelationsLayout.removeView(this);
+				LinearLayout membershipVerticalLayout = (LinearLayout) owner.relationMembershipFragment.getOurView();
+				membershipVerticalLayout.removeView(this);
+				membershipVerticalLayout.invalidate();
 			} else {
-				Log.d("TagEditor", "deleteRow owner null");
+				Log.d("PropertyEditor", "deleteRow owner null");
 			}
-			
 		}
 		
 		/**
@@ -324,8 +358,67 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 				showSpinner = false;
 			}
 		}
+		
+		// return the status of the checkbox
+		@Override
+		public boolean isSelected() {
+			return selected.isChecked();
+		}
+		
+		public void deSelect() {
+			selected.setChecked(false);
+		}
+		
+		public void disableCheckBox() {
+			selected.setEnabled(false);
+		}
+		
+		protected void enableCheckBox() {
+			selected.setEnabled(true);
+		}
 	} // RelationMembershipRow
 	    
+	
+	protected void parentSelected() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+		if (parentSelectedActionModeCallback == null) {
+			parentSelectedActionModeCallback = new ParentSelectedActionModeCallback(this, rowLayout);
+			((SherlockFragmentActivity)getActivity()).startActionMode(parentSelectedActionModeCallback);
+		}	
+	}
+	
+	protected void parentDeselected() {
+		if (parentSelectedActionModeCallback != null) {
+			if (parentSelectedActionModeCallback.tagDeselected()) {
+				parentSelectedActionModeCallback = null;
+			}
+		}	
+	}
+	
+	protected void selectAllParents() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+
+		int i = rowLayout.getChildCount();
+		while (--i >= 0) { 
+			RelationMembershipRow row = (RelationMembershipRow)rowLayout.getChildAt(i);
+			if (row.selected.isEnabled()) {
+				row.selected.setChecked(true);
+			}
+		}
+	}
+
+	protected void deselectAllParents() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+
+		int i = rowLayout.getChildCount();
+		while (--i >= 0) { 
+			RelationMembershipRow row = (RelationMembershipRow)rowLayout.getChildAt(i);
+			if (row.selected.isEnabled()) {
+				row.selected.setChecked(false);
+			}
+		}
+	}
+	
 	/**
 	 * Get possible roles from the preset
 	 * @return
@@ -357,6 +450,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	 * @param handler The handler that will be called for each row.
 	 */
 	private void processParentRelations(final ParentRelationHandler handler) {
+		LinearLayout membershipVerticalLayout = (LinearLayout) getOurView();
 		final int size = membershipVerticalLayout.getChildCount();
 		for (int i = 0; i < size; ++i) { 
 			View view = membershipVerticalLayout.getChildAt(i);
@@ -423,7 +517,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
 		case R.id.tag_menu_revert:
-			// doRevert();
+			doRevert();
 			return true;
 		case R.id.tag_menu_help:
 			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
@@ -435,6 +529,13 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		return false;
 	}
     
+	/**
+	 * reload original arguments
+	 */
+	private void doRevert() {
+		loadParents((HashMap<Long,String>) getArguments().getSerializable("parents"));
+	}
+	
 	/**
 	 * Return the view we have our rows in and work around some android craziness
 	 * @return
