@@ -519,6 +519,9 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		case R.id.tag_menu_revert:
 			doRevert();
 			return true;
+		case R.id.tag_menu_addtorelation:
+			addToRelation();
+			return true;
 		case R.id.tag_menu_help:
 			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
 			startHelpViewer.putExtra(HelpViewer.TOPIC, "TagEditor");
@@ -534,6 +537,13 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	 */
 	private void doRevert() {
 		loadParents((HashMap<Long,String>) getArguments().getSerializable("parents"));
+	}
+	
+	/**
+	 * Add this object to an existing relation
+	 */
+	private void addToRelation() {
+		insertNewMembership((LinearLayout) getOurView(), null,null,-1, true).roleEdit.requestFocus();
 	}
 	
 	/**

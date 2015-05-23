@@ -997,9 +997,6 @@ public class TagEditorFragment extends SherlockFragment {
 			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 			startActivity(intent);
 			return true;
-		case R.id.tag_menu_addtorelation:
-//			addToRelation();
-			return true;
 		case R.id.tag_menu_resetMRU:
 			for (Preset p:((PropertyEditor)getActivity()).presets)
 				p.resetRecentlyUsed();

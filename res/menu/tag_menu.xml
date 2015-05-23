@@ -30,11 +30,6 @@
         android:title="@string/tag_menu_mapfeatures"
         android:showAsAction="ifRoom"
     />
-    <item
-        android:id="@+id/tag_menu_addtorelation"
-        android:title="@string/tag_menu_addtorelation"
-        android:showAsAction="never"
-    />
      <item
         android:id="@+id/tag_menu_reset_address_prediction"
         android:title="@string/tag_menu_reset_address_prediction"

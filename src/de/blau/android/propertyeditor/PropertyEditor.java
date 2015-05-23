@@ -288,20 +288,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		// createRecentPresetView();
 	}
 	
-	/** 
-	 * display relation membership if any
-	 * @param parents 
-	 */
-
-//		
-//	private void addToRelation() {
-//		if ((loadData.parents == null) || (loadData.parents.size() == 0)) { // show heading if none there
-//			LinearLayout l = (LinearLayout) findViewById(R.id.membership_heading_view);
-//			l.setVisibility(View.VISIBLE);
-//		}
-//		insertNewMembership(null,null,-1, true);
-//	}
-	
 	@Override
 	public void onBackPressed() {
 		// sendResultAndFinish();

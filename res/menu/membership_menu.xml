@@ -7,6 +7,11 @@
         android:showAsAction="always"
     />
     <item
+        android:id="@+id/tag_menu_addtorelation"
+        android:title="@string/tag_menu_addtorelation"
+        android:showAsAction="never"
+    />
+    <item
         android:id="@+id/tag_menu_help"
         android:title="@string/menu_help"
         android:showAsAction="never"
