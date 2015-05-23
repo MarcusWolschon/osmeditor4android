@@ -10,24 +10,6 @@
 	    android:orientation="vertical"
 	    android:background="@color/tagedit_field_static_bg"
 	    android:padding="0dp" >
-
-		<LinearLayout 
-			android:orientation="vertical"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/edit_row_layout"
-		>
-		</LinearLayout>
-		<LinearLayout 
-			android:orientation="vertical"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/presets_layout"
-			android:visibility="gone"
-			android:layout_marginBottom="1dp"
-			android:background="@color/dark_grey"
-		>
-		</LinearLayout>
 		<LinearLayout
 		    android:id="@+id/membership_heading_view"
 		  	android:layout_width="match_parent"
@@ -76,13 +58,6 @@
 			        android:text="@string/membership_relation_heading"
 			        android:textColor="@color/tagedit_field_text" />
 			</LinearLayout>
-		</LinearLayout>
-		<LinearLayout 
-			android:orientation="vertical"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/relation_membership_layout"
-		>
 		</LinearLayout>
 		<LinearLayout
 		    android:id="@+id/member_heading_view"
@@ -146,13 +121,6 @@
 			        android:text="@string/object"
 			        android:textColor="@color/tagedit_field_text" />
 			</LinearLayout>
-		</LinearLayout>
-		<LinearLayout 
-			android:orientation="vertical"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/relation_members_layout"
-		>
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

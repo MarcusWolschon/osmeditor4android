@@ -147,7 +147,9 @@
     <string name="exit_text">Are you sure you want to exit?</string>
     <!-- Strings in TagEditor -->
     <string name="key">key</string>
+    <string name="Key">Key</string>
     <string name="value">value</string>
+    <string name="Value">Value</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
     <string name="tag_menu_address">Add address tags</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>
@@ -434,6 +436,7 @@
     <string name="role_lc">role</string>
     <string name="membership_relation_heading">Member of relation</string>
     <string name="relation">Relation</string>
+    <string name="relations">Relations</string>
     <string name="position">Pos.</string>
     <string name="type">Type</string>
     <string name="object">Object</string>

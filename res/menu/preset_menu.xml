@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tag_menu_help"
+        android:title="@string/menu_help"
+        android:showAsAction="never"
+    />
+</menu>

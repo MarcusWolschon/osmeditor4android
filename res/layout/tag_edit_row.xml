@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
-<view class="de.blau.android.propertyeditor.PropertyEditor$TagEditRow" xmlns:android="http://schemas.android.com/apk/res/android"
+<view class="de.blau.android.propertyeditor.TagEditorFragment$TagEditRow" xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-
-
     <LinearLayout 
 			android:orientation="horizontal"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:background="@color/dark_grey"
 		>
-
         <CheckBox
             android:id="@+id/tagSelected"
             android:text=""

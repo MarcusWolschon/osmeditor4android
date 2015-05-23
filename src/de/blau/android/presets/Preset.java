@@ -886,6 +886,14 @@ public class Preset {
 		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type) {
 			ScrollView scrollView = new ScrollView(ctx);		
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			return getGroupView(ctx, scrollView, handler, type);
+		}
+		
+		/**
+		 * @return a view showing the content (nodes, subgroups) of this group
+		 */
+		public View getGroupView(Context ctx, ScrollView scrollView, PresetClickHandler handler, ElementType type) {
+			scrollView.removeAllViews();
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
 			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));

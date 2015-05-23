@@ -133,7 +133,7 @@ public class Address implements Serializable {
 	 * an attempt tp extract the information from the downloaded data is made
 	 * @param caller TODO
 	 */
-	protected static LinkedHashMap<String,String> predictAddressTags(PropertyEditor caller, final LinkedHashMap<String, String> current) {
+	protected static LinkedHashMap<String,String> predictAddressTags(TagEditorFragment caller, final LinkedHashMap<String, String> current) {
 		Address newAddress = null;
 			
 		try {
@@ -435,7 +435,7 @@ public class Address implements Serializable {
 		lastAddresses = null;
 	}
 	
-	protected static void updateLastAddresses(PropertyEditor caller, LinkedHashMap<String,String> tags) {
+	protected static void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String,String> tags) {
 		// save any address tags for "last address tags"
 		LinkedHashMap<String,String> addressTags = getAddressTags(tags);
 		// this needs to be done after the edit again in case the street name of what ever has changes 

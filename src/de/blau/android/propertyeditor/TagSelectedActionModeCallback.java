@@ -49,7 +49,7 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditor.TagEditRow;
+import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.jsonreader.JsonReader;
@@ -64,9 +64,9 @@ public class TagSelectedActionModeCallback implements Callback {
 	ActionMode currentAction;
 	
 	LinearLayout rows = null;
-	PropertyEditor caller = null;
+	TagEditorFragment caller = null;
 	
-	public TagSelectedActionModeCallback(PropertyEditor caller, LinearLayout rows) {
+	public TagSelectedActionModeCallback(TagEditorFragment caller, LinearLayout rows) {
 		this.rows = rows;
 		this.caller = caller;
 	}
@@ -92,7 +92,7 @@ public class TagSelectedActionModeCallback implements Callback {
 		case MENUITEM_DELETE: 
 			final int size = rows.getChildCount();
 			ArrayList<TagEditRow> toDelete = new ArrayList<TagEditRow>();
-			for (int i = 0; i < size; ++i) {
+			for (int i = 1; i < size; ++i) { // -> 1 skip header
 				View view = rows.getChildAt(i);
 				TagEditRow row = (TagEditRow)view;
 				if (row.isSelected()) {
@@ -122,7 +122,7 @@ public class TagSelectedActionModeCallback implements Callback {
 	public void onDestroyActionMode(ActionMode mode) {
 		final int size = rows.getChildCount();
 		ArrayList<TagEditRow> toDelete = new ArrayList<TagEditRow>();
-		for (int i = 0; i < size; ++i) {
+		for (int i = 1; i < size; ++i) { // -> 1 skip header
 			View view = rows.getChildAt(i);
 			TagEditRow row = (TagEditRow)view;
 			row.deSelect();
@@ -133,7 +133,7 @@ public class TagSelectedActionModeCallback implements Callback {
 
 	public boolean tagDeselected() {
 		final int size = rows.getChildCount();
-		for (int i = 0; i < size; ++i) {
+		for (int i = 1; i < size; ++i) { // > 1 skip header
 			View view = rows.getChildAt(i);
 			TagEditRow row = (TagEditRow)view;
 			if (row.isSelected()) {
