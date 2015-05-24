@@ -2,38 +2,11 @@ package de.blau.android.propertyeditor;
 
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnClickListener;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.ActionMode.Callback;
@@ -41,20 +14,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
-import de.blau.android.DialogFactory;
 import de.blau.android.HelpViewer;
-import de.blau.android.Logic.Mode;
-import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.Server;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
-import de.blau.android.util.GeoMath;
-import de.blau.android.util.Offset;
-import de.blau.android.util.jsonreader.JsonReader;
-import de.blau.android.util.jsonreader.JsonToken;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 public class MemberSelectedActionModeCallback implements Callback {
 	
@@ -75,6 +37,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 		mode.setTitle(R.string.tag_action_title);
 		currentAction = mode;
+		((PropertyEditor)caller.getActivity()).disablePaging();
 		return true;
 	}
 
@@ -121,17 +84,18 @@ public class MemberSelectedActionModeCallback implements Callback {
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
 		final int size = rows.getChildCount();
-		ArrayList<RelationMemberRow> toDelete = new ArrayList<RelationMemberRow>();
-		for (int i = 1; i < size; ++i) { // -> 1 skip header
+		for (int i = 0; i < size; ++i) { 
 			View view = rows.getChildAt(i);
 			RelationMemberRow row = (RelationMemberRow)view;
 			row.deSelect();
 		}
+		((PropertyEditor)caller.getActivity()).enablePaging();
+		caller.deselectHeaderCheckBox();
 		currentAction = null;
 		caller.memberSelectedActionModeCallback = null;
 	}
 
-	public boolean tagDeselected() {
+	public boolean memberDeselected() {
 		final int size = rows.getChildCount();
 		for (int i = 1; i < size; ++i) { // > 1 skip header
 			View view = rows.getChildAt(i);

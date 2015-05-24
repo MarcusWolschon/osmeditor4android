@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,22 +29,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -59,9 +57,8 @@ import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.PropertyEditor.MyKeyListener;
+import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.util.SavingHelper;
 
 
@@ -121,7 +118,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 */
 	private void processKeyValues(LinearLayout rowLayout, final KeyValueHandler handler) {
 		final int size = rowLayout.getChildCount();
-		for (int i = 1; i < size; ++i) { // start with one to sktip header
+		for (int i = 0; i < size; ++i) {
 			View view = rowLayout.getChildAt(i);
 			TagEditRow row = (TagEditRow)view;
 			handler.handleKeyValue(row.keyEdit, row.valueEdit);
@@ -752,7 +749,7 @@ public class TagEditorFragment extends SherlockFragment {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (loaded) {
 			int i = rowLayout.getChildCount();
-			while (--i >= 1) { // 1 -> avoid header
+			while (--i >= 0) { 
 				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
 				if (row.selected.isEnabled()) {
 					row.selected.setChecked(true);
@@ -770,7 +767,7 @@ public class TagEditorFragment extends SherlockFragment {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (loaded) {
 			int i = rowLayout.getChildCount();
-			while (--i >= 1) { // 1 -> avoid header
+			while (--i >= 0) { 
 				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
 				if (row.selected.isEnabled()) {
 					row.selected.setChecked(false);
@@ -801,7 +798,7 @@ public class TagEditorFragment extends SherlockFragment {
 		TagEditRow ret = null;
 		if (loaded) {
 			int i = rowLayout.getChildCount();
-			while (--i >= 1) { // 1 -> avoid header
+			while (--i >= 0) { 
 				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
 				boolean isEmpty = row.isEmpty();
 				if (ret == null) ret = isEmpty ? row : insertNewEdit(rowLayout,"", "", -1);
@@ -825,7 +822,7 @@ public class TagEditorFragment extends SherlockFragment {
 	
 	private boolean focusOnEmptyValue(LinearLayout rowLayout) {		
 		boolean found = false;
-		for (int i = 1; i < rowLayout.getChildCount(); i++) { // 1 -> avoid header
+		for (int i = 0; i < rowLayout.getChildCount(); i++) {
 			TagEditRow ter = (TagEditRow)rowLayout.getChildAt(i);
 			if (ter.getKey() != null && !ter.getKey().equals("") && ter.getValue().equals("")) {
 				focusRowValue(rowLayout, rowIndex(ter));
@@ -1175,6 +1172,11 @@ public class TagEditorFragment extends SherlockFragment {
 			}
 		});
 		return keys;
+	}
+	
+	void deselectHeaderCheckBox() {
+		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_tag_selected);
+		headerCheckBox.setChecked(false);
 	}
 	
 	/**

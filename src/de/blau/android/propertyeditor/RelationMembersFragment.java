@@ -1,8 +1,6 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -29,11 +27,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.HelpViewer;
-import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
-import de.blau.android.propertyeditor.RelationMembershipFragment.RelationMembershipRow;
 
 public class RelationMembersFragment extends SherlockFragment {
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getName();
@@ -340,7 +335,7 @@ public class RelationMembersFragment extends SherlockFragment {
 	
 	protected void memberDeselected() {
 		if (memberSelectedActionModeCallback != null) {
-			if (memberSelectedActionModeCallback.tagDeselected()) {
+			if (memberSelectedActionModeCallback.memberDeselected()) {
 				memberSelectedActionModeCallback = null;
 			}
 		}	
@@ -452,6 +447,11 @@ public class RelationMembersFragment extends SherlockFragment {
 	 */
 	private void doRevert() {
 		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable("members"));
+	}
+	
+	void deselectHeaderCheckBox() {
+		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_member_selected);
+		headerCheckBox.setChecked(false);
 	}
 	
 	/**

@@ -10,29 +10,25 @@ import org.acra.ACRA;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.R.color;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -46,9 +42,9 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.Address;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.views.ExtendedViewPager;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -64,6 +60,8 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	LinearLayout rowLayout = null;
 	
 	TagEditorFragment tagEditorFragment;
+	int	tagEditorFragmentPosition = -1;
+	int presetFragmentPosition = -1;
 	RelationMembershipFragment relationMembershipFragment;
 	RelationMembersFragment relationMembersFragment;
 	RecentPresetsFragment recentPresetsFragment;
@@ -124,7 +122,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 	private Preferences prefs = null;
 	private PresetFragment presetFragment;
-	ViewPager    mViewPager;
+	ExtendedViewPager    mViewPager;
 	boolean usePaneLayout = false;
 
 	
@@ -192,7 +190,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		PropertyEditorPagerAdapter  propertyEditorPagerAdapter =
                 new PropertyEditorPagerAdapter(
                         getSupportFragmentManager());
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (ExtendedViewPager) findViewById(R.id.pager);
 		PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
 		pagerTabStrip.setDrawFullUnderline(true);
 		pagerTabStrip.setTabIndicatorColorResource(android.R.color.holo_blue_dark);
@@ -204,14 +202,14 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		// presets
 		if (!usePaneLayout) {
 			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),element);
-			propertyEditorPagerAdapter.addFragment(getString(R.string.tag_menu_preset),presetFragment);
+			presetFragmentPosition = propertyEditorPagerAdapter.addFragment(getString(R.string.tag_menu_preset),presetFragment);
 		}
 		// tags
 		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
 
 		
 		tagEditorFragment = TagEditorFragment.newInstance(element,(LinkedHashMap<String, String>) loadData.tags, applyLastAddressTags, loadData.focusOnKey, !usePaneLayout);
-		propertyEditorPagerAdapter.addFragment(getString(R.string.menu_tags),tagEditorFragment);
+		tagEditorFragmentPosition = propertyEditorPagerAdapter.addFragment(getString(R.string.menu_tags),tagEditorFragment);
 
 		// parent relations
 		originalParents = loadData.originalParents != null ? loadData.originalParents : loadData.parents;
@@ -251,7 +249,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 		mViewPager.setOffscreenPageLimit(3); // hack keep all alive
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
-		mViewPager.setCurrentItem(usePaneLayout ? 0 : 1); // FIXME get rid of the literal indices
+		mViewPager.setCurrentItem(tagEditorFragmentPosition);
 	}
 	
 	private void abort() {
@@ -279,9 +277,16 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	        mFragmentList = new ArrayList<SherlockFragment>();
 	    }
 
-	    public void addFragment(String title,SherlockFragment fragment) {
+	    /**
+	     *  add a fragment and return its index
+	     * @param title
+	     * @param fragment
+	     * @return
+	     */
+	    public int addFragment(String title,SherlockFragment fragment) {
 	    	mTitleList.add(title);
 	        mFragmentList.add(fragment);
+	        return mTitleList.size() - 1;
 	    }
 
 	    @Override
@@ -458,7 +463,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@Override
 	public void onPresetSelected(PresetItem item) {
 		if (item != null) {
-			mViewPager.setCurrentItem(usePaneLayout ? 0 : 1); // FIXME
+			mViewPager.setCurrentItem(tagEditorFragmentPosition);
 			tagEditorFragment.applyPreset(item);
 			if (usePaneLayout) {
 				FragmentManager fm = getSupportFragmentManager();
@@ -470,6 +475,19 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 	}
 	
+
+	/**
+	 * Allow ViewPAger to work
+	 */
+	public void enablePaging() {
+		mViewPager.setPagingEnabled(true);
+	}
 	
+	/**
+	 * Disallow ViewPAger to work
+	 */
+	public void disablePaging() {
+		mViewPager.setPagingEnabled(false);
+	}
 
 }

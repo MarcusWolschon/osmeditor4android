@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,28 +19,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import de.blau.android.HelpViewer;
-import de.blau.android.Main;
-import de.blau.android.R;
-import de.blau.android.osm.Relation;
-import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import de.blau.android.HelpViewer;
+import de.blau.android.Main;
+import de.blau.android.R;
+import de.blau.android.osm.Relation;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
 
 public class RelationMembershipFragment extends SherlockFragment implements OnItemSelectedListener {
 	
@@ -398,7 +393,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	
 	protected void parentDeselected() {
 		if (parentSelectedActionModeCallback != null) {
-			if (parentSelectedActionModeCallback.tagDeselected()) {
+			if (parentSelectedActionModeCallback.parentDeselected()) {
 				parentSelectedActionModeCallback = null;
 			}
 		}	
@@ -553,6 +548,11 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	 */
 	private void addToRelation() {
 		insertNewMembership((LinearLayout) getOurView(), null,null,-1, true).roleEdit.requestFocus();
+	}
+	
+	void deselectHeaderCheckBox() {
+		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_membership_selected);
+		headerCheckBox.setChecked(false);
 	}
 	
 	/**
