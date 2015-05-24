@@ -2,6 +2,7 @@ package de.blau.android.presets;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -12,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.util.Density;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -23,6 +25,7 @@ import de.blau.android.util.SavingHelper;
  *
  */
 public class PresetIconManager {
+	
 	/** context of own application */
 	private final Context context;
 	
@@ -112,7 +115,7 @@ public class PresetIconManager {
 			
 			if (pngStream == null) return null;
 			
-			BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
+			BitmapDrawable drawable = new BitmapDrawable(Application.mainActivity.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
 			drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
 			int pxsize = Density.dpToPx(size);
 			drawable.setBounds(0, 0, pxsize, pxsize);

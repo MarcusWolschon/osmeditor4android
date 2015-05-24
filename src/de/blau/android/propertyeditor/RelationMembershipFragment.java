@@ -52,6 +52,8 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	private static final String DEBUG_TAG = RelationMembershipFragment.class.getName();
 	
 	private LayoutInflater inflater = null;
+
+	private HashMap<Long, String> savedParents = null;
 	
 	static ParentSelectedActionModeCallback parentSelectedActionModeCallback = null;
 	
@@ -101,7 +103,13 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
     	parentRelationsLayout = (ScrollView) inflater.inflate(R.layout.membership_view,null);
 		membershipVerticalLayout = (LinearLayout) parentRelationsLayout.findViewById(R.id.membership_vertical_layout);
 		
-    	HashMap<Long,String> parents = (HashMap<Long,String>) getArguments().getSerializable("parents");
+    	HashMap<Long,String> parents;
+    	if (savedParents != null ) {
+    		Log.d(DEBUG_TAG,"Restoring from instance variable");
+    		parents = savedParents;
+    	} else {
+    		parents = (HashMap<Long,String>) getArguments().getSerializable("parents");
+    	}
     
     	loadParents(membershipVerticalLayout, parents);
 
@@ -152,6 +160,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
     public void onPause() {
     	super.onPause();
     	Log.d(DEBUG_TAG, "onPause");
+    	savedParents  = getParentRelationMap();
     }
     
     @Override

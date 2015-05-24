@@ -54,10 +54,6 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	private PresetGroup currentGroup;
 	private PresetGroup rootGroup;
 	
-	private PresetItem dialogResult = null; 
-	
-	View view;
-
 	/**
      */
     static public PresetFragment newInstance(Preset[] presets, OsmElement e) {
@@ -121,9 +117,10 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
     }
 	
 	private View getPresetView() {
-		view = currentGroup.getGroupView(getActivity(), this, element.getType());
+		View view = currentGroup.getGroupView(getActivity(), this, element.getType());
 		view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
 		// view.setOnKeyListener(this);
+		view.setId(123456);
 		return view;
 	}
 
@@ -199,15 +196,11 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	 */
 	@Override
 	public void onGroupClick(PresetGroup group) {
+		ScrollView scrollView = (ScrollView) getOurView();
 		currentGroup = group;
-		currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
-		view.invalidate();
+		currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
+		scrollView.invalidate();
 	}
-	
-	public PresetItem getDialogResult() {
-		return dialogResult;
-	}
-	
 	
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
@@ -226,6 +219,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
+		ScrollView scrollView = (ScrollView) getOurView();
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			((PropertyEditor)getActivity()).sendResultAndFinish();
@@ -233,8 +227,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		case R.id.preset_menu_top:
 			if (rootGroup != null) {
 				currentGroup = rootGroup;
-				currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
-				view.invalidate();
+				currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
+				scrollView.invalidate();
 				return true;
 			}
 			return true;
@@ -242,8 +236,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 			PresetGroup group = currentGroup.getParent();
 			if (group != null) {
 				currentGroup = group;
-				currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
-				view.invalidate();
+				currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
+				scrollView.invalidate();
 				return true;
 			}
 			return true;
@@ -255,5 +249,31 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Return the view we have our rows in and work around some android craziness
+	 * @return
+	 */
+	public View getOurView() {
+		// android.support.v4.app.NoSaveStateFrameLayout
+		View v =  getView();	
+		if (v != null) {
+			if ( v.getId() == 123456) {
+				Log.d(DEBUG_TAG,"got correct view in getView");
+				return v;
+			} else {
+				v = v.findViewById(123456);
+				if (v == null) {
+					Log.d(DEBUG_TAG,"didn't find 123456");
+				}  else {
+					Log.d(DEBUG_TAG,"Found 123456");
+				}
+				return v;
+			}
+		} else {
+			Log.d(DEBUG_TAG,"got null view in getView");
+		}
+		return null;
 	}
 }

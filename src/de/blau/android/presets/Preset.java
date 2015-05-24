@@ -58,6 +58,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
@@ -105,8 +106,12 @@ import de.blau.android.views.WrappingLayout;
  * 
  * @author Jan Schejbal
  */
-public class Preset {
+public class Preset implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -130,7 +135,7 @@ public class Preset {
 	protected PresetGroup rootGroup;
 
 	/** {@link PresetIconManager} used for icon loading */
-	protected final PresetIconManager iconManager;	
+	protected transient PresetIconManager iconManager;	
 	
 	/** all known preset items in order of loading */
 	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
@@ -168,6 +173,7 @@ public class Preset {
 		public volatile boolean changed = false;
 	}
 	protected final PresetMRUInfo mru;
+	private String externalPackage;
 	
 	private class PresetFilter implements FilenameFilter {
 		@Override
@@ -185,6 +191,7 @@ public class Preset {
 	 */
 	public Preset(Context ctx, File directory, String externalPackage) throws Exception {
 		this.directory = directory;
+		this.externalPackage = externalPackage;
 		rootGroup = new PresetGroup(null, "", null);
 		
 		directory.mkdir();
@@ -209,9 +216,8 @@ public class Preset {
 					Log.i("Preset", "Preset file name " + list[0].getName());
 					fileStream = new FileInputStream(new File(directory, list[0].getName()));
 				}
-			} 
-				
-		}
+			} 			
+		}		
 		
 		DigestInputStream hashStream = new DigestInputStream(
 				fileStream,
@@ -227,6 +233,16 @@ public class Preset {
         //  - even if you add a 1 MB comment after the document-closing tag.
         
         mru = initMRU(directory, hashValue);
+	}
+	
+	PresetIconManager getIconManager(Context ctx) {
+		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+			return new PresetIconManager(ctx, null, null);
+		} else if (externalPackage != null) {
+			return  new PresetIconManager(ctx, directory.toString(), externalPackage);
+		} else {
+			return  new PresetIconManager(ctx, directory.toString(), null);
+		}		
 	}
 
 	/**
@@ -654,18 +670,22 @@ public class Preset {
 	/**
 	 * Represents an element (group or item) in a preset data structure
 	 */
-	public abstract class PresetElement {
+	public abstract class PresetElement implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2L;
 		private String name;
 		private String iconpath;
 		private String mapiconpath;
-		private Drawable icon;
-		private BitmapDrawable mapIcon;
+		private transient Drawable icon;
+		private transient BitmapDrawable mapIcon;
 		private PresetGroup parent;
 		protected boolean appliesToWay;
 		protected boolean appliesToNode;
 		protected boolean appliesToClosedway;
 		protected boolean appliesToRelation;
-		private Uri mapFeatures;
+		private String mapFeatures;
 
 		/**
 		 * Creates the element, setting parent, name and icon, and registers with the parent
@@ -689,6 +709,9 @@ public class Preset {
 
 		public Drawable getIcon() {
 			if (icon == null && iconpath != null) {
+				if (iconManager == null) {
+					iconManager = getIconManager(Application.mainActivity);
+				}
 				icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
 				iconpath = null;
 			}
@@ -697,6 +720,9 @@ public class Preset {
 		
 		public BitmapDrawable getMapIcon() {
 			if (mapIcon == null && mapiconpath != null) {
+				if (iconManager == null) {
+					iconManager = getIconManager(Application.mainActivity);
+				}
 				mapIcon = iconManager.getDrawable(mapiconpath, de.blau.android.Map.ICON_SIZE_DP);
 				mapiconpath = null;
 			}
@@ -809,12 +835,12 @@ public class Preset {
 		
 		protected void setMapFeatures(String url) {
 			if (url != null) {
-				mapFeatures = Uri.parse(url);
+				mapFeatures = url;
 			}
 		}
 		
 		public Uri getMapFeatures() {
-			return mapFeatures;
+			return Uri.parse(mapFeatures);
 		}
 		
 		@Override

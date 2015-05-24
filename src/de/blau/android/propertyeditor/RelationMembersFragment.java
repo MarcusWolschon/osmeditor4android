@@ -41,6 +41,9 @@ public class RelationMembersFragment extends SherlockFragment {
 
 	private LayoutInflater inflater = null;
 
+
+	private ArrayList<RelationMemberDescription> savedMembers = null;
+
 	static MemberSelectedActionModeCallback memberSelectedActionModeCallback = null;
 	
 	/**
@@ -89,7 +92,13 @@ public class RelationMembersFragment extends SherlockFragment {
 		LinearLayout membersVerticalLayout = (LinearLayout) relationMembersLayout.findViewById(R.id.members_vertical_layout);
 		
 		// if this is a relation get members
-    	ArrayList<RelationMemberDescription> members = (ArrayList<RelationMemberDescription>)getArguments().getSerializable("members");
+    	ArrayList<RelationMemberDescription> members;
+    	if (savedMembers != null) {
+    		Log.d(DEBUG_TAG,"Restoring from instance variable");
+    		members = savedMembers;
+    	} else {
+    		members = (ArrayList<RelationMemberDescription>)getArguments().getSerializable("members");
+    	}
     	loadMembers(membersVerticalLayout,  members);
 		
 		CheckBox headerCheckBox = (CheckBox) relationMembersLayout.findViewById(R.id.header_member_selected);
@@ -139,6 +148,7 @@ public class RelationMembersFragment extends SherlockFragment {
     public void onPause() {
     	super.onPause();
     	Log.d(DEBUG_TAG, "onPause");
+    	savedMembers  = getMembersList();
     }
     
     @Override

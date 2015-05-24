@@ -11,7 +11,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -22,6 +24,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
@@ -64,12 +67,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	RelationMembershipFragment relationMembershipFragment;
 	RelationMembersFragment relationMembersFragment;
 	RecentPresetsFragment recentPresetsFragment;
-	
-	/** The layout containing the presets */
-	private LinearLayout presetsLayout = null;
-	
-	/** The layout containing the members of a relation */
-	private LinearLayout relationMembersLayout = null;
 	
 	/**
 	 * The tag we use for Android-logging.
@@ -146,7 +143,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			// besides hacking ABS, there is no equivalent method to enable this for ABS
 		} 
 
-	
 		loaded = false;
 		
 		// tags
@@ -159,7 +155,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-			loadData = (PropertyEditorData)savedInstanceState.getSerializable(TAGEDIT_DATA);
+			// loadData = (PropertyEditorData)savedInstanceState.getSerializable(TAGEDIT_DATA);
+			// FIXME needs to be checked if this really works
+			loadData = (PropertyEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
 			// applyLastTags = (Boolean)savedInstanceState.getSerializable(TAGEDIT_LASTTAGS); not saved 
 		}
 				
@@ -179,7 +177,22 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 		presets = Main.getCurrentPresets();
 		
-		setContentView(R.layout.tab_view);
+		boolean allInTabs = true;
+		boolean displayMRUpresets = true;
+		int screenSize = getResources().getConfiguration().screenLayout &
+		        Configuration.SCREENLAYOUT_SIZE_MASK;
+		// reliable determine if we are in landscape mode
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE && size.x > size.y) {
+			allInTabs = false;
+			displayMRUpresets = false;
+			setContentView(R.layout.large_view);
+			Log.d(DEBUG_TAG, "Using layout for large devices");
+		} else {
+			setContentView(R.layout.tab_view);
+		}
 		
 		PropertyEditorPagerAdapter  propertyEditorPagerAdapter =
                 new PropertyEditorPagerAdapter(
@@ -194,13 +207,14 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		// presets
-		presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),element);
-		propertyEditorPagerAdapter.addFragment(getString(R.string.tag_menu_preset),presetFragment);
-		
+		if (allInTabs) {
+			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),element);
+			propertyEditorPagerAdapter.addFragment(getString(R.string.tag_menu_preset),presetFragment);
+		}
 		// tags
 		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
 
-		boolean displayMRUpresets = true;
+		
 		tagEditorFragment = TagEditorFragment.newInstance(element,(LinkedHashMap<String, String>) loadData.tags, applyLastAddressTags, loadData.focusOnKey, displayMRUpresets);
 		propertyEditorPagerAdapter.addFragment(getString(R.string.menu_tags),tagEditorFragment);
 
@@ -220,14 +234,31 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 		
 
-//		// MRU presets
-//		
-//		recentPresetsFragment = RecentPresetsFragment.newInstance(element);
-//		propertyEditorPagerAdapter.addFragment("Recent Presets",recentPresetsFragment);
+		// MRU presets
+		if (!displayMRUpresets) {
+			Log.d(DEBUG_TAG,"Adding MRU prests");
+			FragmentManager fm = getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			if (recentPresetsFragment != null) {
+				ft.remove(recentPresetsFragment);
+			}
+			recentPresetsFragment = RecentPresetsFragment.newInstance(element);
+			ft.add(R.id.recent_preset_row,recentPresetsFragment,"recentpresets_fragment");
+			
+			presetFragment = (PresetFragment) fm.findFragmentByTag("preset_fragment");
+			if (presetFragment != null) {
+				ft.remove(presetFragment);
+			}
+			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),element);
+			ft.add(R.id.preset_row,presetFragment,"preset_fragment");
+			
+			ft.commit();
+		}
 		
 		mViewPager.setOffscreenPageLimit(3); // hack keep all alive
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
-		mViewPager.setCurrentItem(1);
+		mViewPager.setCurrentItem(allInTabs ? 1 : 0);
 	}
 	
 	private void abort() {
@@ -360,7 +391,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		Log.d(DEBUG_TAG,"onSaveInstaceState");
 		super.onSaveInstanceState(outState);
 		// no call through. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
-		outState.putSerializable(TAGEDIT_DATA, new PropertyEditorData(osmId, type, tagEditorFragment.getKeyValueMap(true), originalTags, relationMembershipFragment.getParentRelationMap(), originalParents, relationMembersFragment.getMembersList(), originalMembers));
+		// outState.putSerializable(TAGEDIT_DATA, new PropertyEditorData(osmId, type, tagEditorFragment.getKeyValueMap(true), originalTags, relationMembershipFragment.getParentRelationMap(), originalParents, relationMembersFragment.getMembersList(), originalMembers));
 	}
 	
 	/** When the Activity is interrupted, save MRUs and address cache*/

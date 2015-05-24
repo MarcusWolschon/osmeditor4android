@@ -89,9 +89,13 @@ public class TagEditorFragment extends SherlockFragment {
 	private long osmId;
 	private Preferences prefs = null;
 	private OsmElement element = null;
-	private Map<String,String> tags = null;
 	
 	LayoutInflater inflater = null;
+
+	/**
+	 * saves any changed fields on onPause
+	 */
+	private Map<String, String> savedTags = null;
 	
 
 	/**
@@ -203,7 +207,13 @@ public class TagEditorFragment extends SherlockFragment {
      	element = (OsmElement) getArguments().getSerializable("element");
      	type = element.getName();
      	osmId = element.getOsmId();
-     	tags = (Map<String,String>)getArguments().getSerializable("tags");
+     	Map<String,String> tags;
+     	if (savedTags != null) { // view was destroyed and needs to be recreated with current state
+     		Log.d(DEBUG_TAG,"Restoring from instance variable");
+     		tags = savedTags;
+     	} else {
+     		tags = (Map<String,String>)getArguments().getSerializable("tags");
+     	}
      	boolean applyLastAddressTags = ((Boolean) getArguments().getSerializable("applyLastAddressTags")).booleanValue();
      	String focusOnKey = (String)  getArguments().getSerializable("focusOnKey");
      	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable("displayMRUpresets")).booleanValue();
@@ -271,6 +281,7 @@ public class TagEditorFragment extends SherlockFragment {
     public void onPause() {
     	super.onPause();
     	Log.d(DEBUG_TAG, "onPause");
+    	savedTags  = getKeyValueMap(true);
     }
     
     @Override

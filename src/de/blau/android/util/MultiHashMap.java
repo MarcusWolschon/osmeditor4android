@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,8 +20,12 @@ import java.util.TreeSet;
  * @param <K> Key type
  * @param <V> Type of the values to be associated with the keys
  */
-public class MultiHashMap<K, V> {
+public class MultiHashMap<K, V> implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<K, Set<V>> map;
 	private boolean sorted;
 	
