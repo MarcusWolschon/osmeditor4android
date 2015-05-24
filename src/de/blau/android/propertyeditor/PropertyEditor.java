@@ -104,9 +104,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 */
 	static boolean running = false;
 	
-	/** the Preset selection dialog used by this editor */
-	private PresetFragment presetDialog;
-	
 	/**
 	 * The tags present when this editor was created (for undoing changes)
 	 */
@@ -128,6 +125,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	private Preferences prefs = null;
 	private PresetFragment presetFragment;
 	ViewPager    mViewPager;
+	boolean usePaneLayout = false;
 
 	
 	@SuppressLint("NewApi")
@@ -177,18 +175,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 		presets = Main.getCurrentPresets();
 		
-		boolean allInTabs = true;
-		boolean displayMRUpresets = true;
 		int screenSize = getResources().getConfiguration().screenLayout &
 		        Configuration.SCREENLAYOUT_SIZE_MASK;
 		// reliable determine if we are in landscape mode
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
-		if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE && size.x > size.y) {
-			allInTabs = false;
-			displayMRUpresets = false;
-			setContentView(R.layout.large_view);
+		if ((screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y) {
+			usePaneLayout = true;
+			setContentView(R.layout.pane_view);
 			Log.d(DEBUG_TAG, "Using layout for large devices");
 		} else {
 			setContentView(R.layout.tab_view);
@@ -207,7 +202,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		// presets
-		if (allInTabs) {
+		if (!usePaneLayout) {
 			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),element);
 			propertyEditorPagerAdapter.addFragment(getString(R.string.tag_menu_preset),presetFragment);
 		}
@@ -215,7 +210,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
 
 		
-		tagEditorFragment = TagEditorFragment.newInstance(element,(LinkedHashMap<String, String>) loadData.tags, applyLastAddressTags, loadData.focusOnKey, displayMRUpresets);
+		tagEditorFragment = TagEditorFragment.newInstance(element,(LinkedHashMap<String, String>) loadData.tags, applyLastAddressTags, loadData.focusOnKey, !usePaneLayout);
 		propertyEditorPagerAdapter.addFragment(getString(R.string.menu_tags),tagEditorFragment);
 
 		// parent relations
@@ -232,10 +227,8 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			relationMembersFragment = RelationMembersFragment.newInstance(loadData.members);
 			propertyEditorPagerAdapter.addFragment(getString(R.string.members),relationMembersFragment);
 		}
-		
 
-		// MRU presets
-		if (!displayMRUpresets) {
+		if (usePaneLayout) { // add both preset fragments to panes
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getSupportFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
@@ -258,7 +251,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 		mViewPager.setOffscreenPageLimit(3); // hack keep all alive
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
-		mViewPager.setCurrentItem(allInTabs ? 1 : 0);
+		mViewPager.setCurrentItem(usePaneLayout ? 0 : 1); // FIXME get rid of the literal indices
 	}
 	
 	private void abort() {
@@ -465,10 +458,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@Override
 	public void onPresetSelected(PresetItem item) {
 		if (item != null) {
-			mViewPager.setCurrentItem(1);
-			
+			mViewPager.setCurrentItem(usePaneLayout ? 0 : 1); // FIXME
 			tagEditorFragment.applyPreset(item);
-		
+			if (usePaneLayout) {
+				FragmentManager fm = getSupportFragmentManager();
+				Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+				if (recentPresetsFragment != null) {
+					((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
+				}
+			}
 		}
 	}
 	
