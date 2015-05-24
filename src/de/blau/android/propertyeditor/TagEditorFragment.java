@@ -236,7 +236,7 @@ public class TagEditorFragment extends SherlockFragment {
 			
 		// 
 		if (applyLastAddressTags) {
-			loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(false)));
+			loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
 		}
 		
 		if (displayMRUpresets) {
