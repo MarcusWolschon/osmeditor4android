@@ -65,8 +65,6 @@ import de.blau.android.util.SavingHelper;
 public class TagEditorFragment extends SherlockFragment {
 	
 	private static final String DEBUG_TAG = TagEditorFragment.class.getName();
-	
-	private static final String LAST_TAGS_FILE = "lasttags.dat";
 	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
@@ -92,14 +90,18 @@ public class TagEditorFragment extends SherlockFragment {
 	/**
 	 * saves any changed fields on onPause
 	 */
-	private Map<String, String> savedTags = null;
+	protected LinkedHashMap<String,String> savedTags = null;
 	
-
+	/**
+	 * selective copy of tags
+	 */
+	private Map<String, String> copiedTags = null;
+	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
 	 * @author Andrew Gregory
 	 */
-	private interface KeyValueHandler {
+	protected interface KeyValueHandler {
 		abstract void handleKeyValue(final EditText keyEdit, final EditText valueEdit);
 	}
 	
@@ -755,12 +757,7 @@ public class TagEditorFragment extends SherlockFragment {
 					row.selected.setChecked(true);
 				}
 			}
-			
 		}
-//		if (tagSelectedActionModeCallback == null) {
-//			tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
-//			((SherlockFragmentActivity)getActivity()).startActionMode(tagSelectedActionModeCallback);
-//		}	
 	}
 	
 	protected void deselectAllTags() {
@@ -772,13 +769,8 @@ public class TagEditorFragment extends SherlockFragment {
 				if (row.selected.isEnabled()) {
 					row.selected.setChecked(false);
 				}
-			}
-			
-		}
-//		if (tagSelectedActionModeCallback == null) {
-//			tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
-//			((SherlockFragmentActivity)getActivity()).startActionMode(tagSelectedActionModeCallback);
-//		}	
+			}	
+		}	
 	}
 	
 	/**
@@ -939,17 +931,43 @@ public class TagEditorFragment extends SherlockFragment {
 					}
 				}
 			}
-			Log.d(DEBUG_TAG,"Updating MRU prests");
-			FragmentManager fm = getChildFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
-			if (recentPresetsFragment != null) {
-				((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
-			}
+			recreateRecentPresetView();
 		}
 		focusOnEmptyValue();
 	}
 	
+	protected void recreateRecentPresetView() {
+		Log.d(DEBUG_TAG,"Updating MRU prests");
+		FragmentManager fm = getChildFragmentManager();
+		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		if (recentPresetsFragment != null) {
+			((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
+		}
+	}
+	
+	
+	/**
+	 * Merge a set of tags in to the current ones
+	 * @param newTags
+	 * @param replace // FIXME
+	 */
+	private void mergeTags(Map<String, String> newTags, boolean replace) {
+		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+		
+		boolean replacedValue = false;	
+		
+		// Fixed tags, always have a value. We overwrite mercilessly.
+		for (Entry<String, String> tag : newTags.entrySet()) {
+			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
+			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) {
+				replacedValue = true;
+			}
+		}
+		
+		loadEdits(currentValues);
+		// FIXME text if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
+		focusOnEmptyValue();
+	}
 	
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
@@ -984,8 +1002,8 @@ public class TagEditorFragment extends SherlockFragment {
 				applyPreset(pi, false); 
 			}
 			return true;
-		case R.id.tag_menu_repeat:
-			doRepeatLast(true);
+		case R.id.tag_menu_paste:
+			doPaste(true);
 			return true;
 		case R.id.tag_menu_revert:
 			doRevert();
@@ -1118,18 +1136,14 @@ public class TagEditorFragment extends SherlockFragment {
 		}
 	}
 	
-	private void doRepeatLast(boolean merge) {
-		Map<String, String> last = savingHelper.load(LAST_TAGS_FILE, false);
-		if (last != null) {
-			if (merge) {
-				final Map<String, String> current = getKeyValueMap(false);
-				for (String k: current.keySet()) {
-					if (!last.containsKey(k)) {
-						last.put(k, current.get(k));
-					}
-				}
+	private void doPaste(boolean replace) {
+		if (savedTags != null) {
+			mergeTags(savedTags, replace);
+		} else {
+			Map<String, String> copied = savingHelper.load(((PropertyEditor)getActivity()).COPIED_TAGS_FILE, false);
+			if (copied != null) {
+				mergeTags(copied, replace);
 			}
-			loadEdits(last);
 		}
 	}
 		
@@ -1203,5 +1217,29 @@ public class TagEditorFragment extends SherlockFragment {
 			Log.d(DEBUG_TAG,"got null view in getView");
 		}
 		return null;
+	}
+	
+	/**
+	 * Return tags copied or cut
+	 * @return
+	 */
+	public LinkedHashMap<String,String> getCopiedTags() {
+		return savedTags;
+	}
+
+	public void enableRecentPresets() {
+		FragmentManager fm = getChildFragmentManager();
+		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		if (recentPresetsFragment != null) {
+			((RecentPresetsFragment)recentPresetsFragment).enable();
+		}
+	}
+	
+	public void disableRecentPresets() {
+		FragmentManager fm = getChildFragmentManager();
+		Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+		if (recentPresetsFragment != null) {
+			((RecentPresetsFragment)recentPresetsFragment).disable();
+		}
 	}
 }

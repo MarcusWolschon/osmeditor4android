@@ -115,7 +115,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	
 
 	
-	private static final String LAST_TAGS_FILE = "lasttags.dat";
+	static final String COPIED_TAGS_FILE = "copiedtags.dat";
 	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
@@ -307,14 +307,19 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    }
 	}
 	
-	
 	/**
 	 * Removes an old RecentPresetView and replaces it by a new one (to update it)
 	 */
 	void recreateRecentPresetView() {
-		// View currentView = presetsLayout.findViewById(R.id.recentPresets);
-		// if (currentView != null) presetsLayout.removeView(currentView);
-		// createRecentPresetView();
+		if (usePaneLayout) {
+			FragmentManager fm = getSupportFragmentManager();
+			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			if (recentPresetsFragment != null) {
+				((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
+			}
+		} else {
+			tagEditorFragment.recreateRecentPresetView();
+		}
 	}
 	
 	@Override
@@ -354,7 +359,10 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	protected void sendResultAndFinish() {
 		// Save current tags for "repeat last" button
 		LinkedHashMap<String,String> tags = tagEditorFragment.getKeyValueMap(false);
-		savingHelper.save(LAST_TAGS_FILE, tags, false);
+		LinkedHashMap<String,String> copiedTags = tagEditorFragment.getCopiedTags();
+		if (copiedTags != null) {
+			savingHelper.save(COPIED_TAGS_FILE, copiedTags, false);
+		}
 		// save any address tags for "last address tags"
 		Address.updateLastAddresses(tagEditorFragment, tags);
 		
@@ -488,6 +496,37 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 */
 	public void disablePaging() {
 		mViewPager.setPagingEnabled(false);
+	}
+	
+	/**
+	 * Allow presets to be applied
+	 */
+	public void enablePresets() {
+		if (usePaneLayout) {
+			FragmentManager fm = getSupportFragmentManager();
+			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			if (recentPresetsFragment != null) {
+				((RecentPresetsFragment)recentPresetsFragment).enable();
+			}
+		} else {
+			tagEditorFragment.enableRecentPresets();
+		}
+	}
+	
+	/**
+	 * Disallow presets to be applied
+	 */
+	public void disablePresets() {
+		if (usePaneLayout) {
+			FragmentManager fm = getSupportFragmentManager();
+			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			if (recentPresetsFragment != null) {
+				((RecentPresetsFragment)recentPresetsFragment).disable();
+			}
+			presetFragment.disable();
+		} else {
+			tagEditorFragment.disableRecentPresets();
+		}
 	}
 
 }

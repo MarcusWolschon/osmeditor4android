@@ -38,6 +38,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 		mode.setTitle(R.string.tag_action_title);
 		currentAction = mode;
 		((PropertyEditor)caller.getActivity()).disablePaging();
+		((PropertyEditor)caller.getActivity()).disablePresets();
 		return true;
 	}
 
@@ -90,6 +91,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 			row.deSelect();
 		}
 		((PropertyEditor)caller.getActivity()).enablePaging();
+		((PropertyEditor)caller.getActivity()).enablePresets();
 		caller.deselectHeaderCheckBox();
 		currentAction = null;
 		caller.memberSelectedActionModeCallback = null;

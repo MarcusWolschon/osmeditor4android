@@ -13,9 +13,9 @@
         android:showAsAction="always"
     />
     <item
-        android:id="@+id/tag_menu_repeat"
-        android:icon="@drawable/tag_menu_repeat"
-        android:title="@string/tag_menu_repeat"
+        android:id="@+id/tag_menu_paste"
+        android:icon="@drawable/ic_menu_paste_holo_dark"
+        android:title="@string/menu_paste"
         android:showAsAction="always"
     />
     <item

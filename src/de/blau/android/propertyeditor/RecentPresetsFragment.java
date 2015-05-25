@@ -30,6 +30,7 @@ public class RecentPresetsFragment extends SherlockFragment {
     private OnPresetSelectedListener mListener;
     private OsmElement element;
     private Preset[] presets;
+    private boolean enabled = true;
     
 	/**
      */
@@ -98,6 +99,9 @@ public class RecentPresetsFragment extends SherlockFragment {
     			final PresetClickHandler presetClickHandler = new PresetClickHandler() { 
     					@Override
     					public void onItemClick(PresetItem item) {
+    						if (!enabled) {
+    							return;
+    						}
     						Log.d(DEBUG_TAG, "normal click");
     						mListener.onPresetSelected(item);
     						recreateRecentPresetView(presetLayout);
@@ -105,6 +109,9 @@ public class RecentPresetsFragment extends SherlockFragment {
 
     					@Override
     					public boolean onItemLongClick(PresetItem item) {
+    						if (!enabled) {
+    							return true;
+    						}
     						Log.d(DEBUG_TAG, "long click");
     						removePresetFromMRU(presetLayout, item);
     						return true;
@@ -182,7 +189,10 @@ public class RecentPresetsFragment extends SherlockFragment {
 	
 	public void recreateRecentPresetView(LinearLayout presetLayout) {
 		presetLayout.removeAllViews();
-		presetLayout.addView(getRecentPresetsView(presetLayout, element, presets));
+		View v = getRecentPresetsView(presetLayout, element, presets);
+		if (v != null) {
+			presetLayout.addView(v);
+		}
 		presetLayout.invalidate();
 	}
     	
@@ -210,5 +220,13 @@ public class RecentPresetsFragment extends SherlockFragment {
 			Log.d(DEBUG_TAG,"got null view in getView");
 		}
 		return null;
+	}
+	
+	protected void enable() {
+		enabled = true;
+	}
+	
+	protected void disable() {
+		enabled = false;
 	}
 }

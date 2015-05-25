@@ -54,6 +54,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	private PresetGroup currentGroup;
 	private PresetGroup rootGroup;
 	
+	private boolean enabled = true;
+	
 	/**
      */
     static public PresetFragment newInstance(Preset[] presets, OsmElement e) {
@@ -177,6 +179,9 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	 */
 	@Override
 	public void onItemClick(PresetItem item) {
+		if (!enabled) {
+			return;
+		}
 		mListener.onPresetSelected(item);
 		// dismiss();
 	}
@@ -186,6 +191,9 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	 */
 	@Override
 	public boolean onItemLongClick(PresetItem item) {
+		if (!enabled) {
+			return true;
+		}
 		mListener.onPresetSelected(item);
 		// dismiss();
 		return true;
@@ -275,5 +283,13 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 			Log.d(DEBUG_TAG,"got null view in getView");
 		}
 		return null;
+	}
+	
+	protected void enable() {
+		enabled = true;
+	}
+	
+	protected void disable() {
+		enabled = false;
 	}
 }
