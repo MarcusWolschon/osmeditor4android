@@ -227,15 +227,17 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		loaded = true;
 		TagEditRow row = ensureEmptyRow(editRowLayout);
-		row.keyEdit.requestFocus();
-		row.keyEdit.dismissDropDown();
+		if (getUserVisibleHint()) { // don't request focus if we are not visible 
+			Log.d(DEBUG_TAG,"is visible");
+			row.keyEdit.requestFocus();
+			row.keyEdit.dismissDropDown();
 		
-		if (focusOnKey != null) {
-			focusOnValue(editRowLayout,focusOnKey);
-		} else {
-			focusOnEmptyValue(editRowLayout); // probably never actually works
-		}
-			
+			if (focusOnKey != null) {
+				focusOnValue(editRowLayout,focusOnKey);
+			} else {
+				focusOnEmptyValue(editRowLayout); // probably never actually works
+			}
+		}	
 		// 
 		if (applyLastAddressTags) {
 			loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
