@@ -122,13 +122,17 @@ public class RecentPresetsFragment extends SherlockFragment {
     						// should not have groups
     					}
     				};
-    			v = presets[0].getRecentPresetView(getActivity(), presets,presetClickHandler, filterType); //TODO this should really be a call of a static method, all MRUs get added to this view
+    			v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType); //TODO this should really be a call of a static method, all MRUs get added to this view
 
     			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
     			// v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
     			v.setId(R.id.recentPresets);
-    		}
-	   	}
+    		} else {
+    			Log.d(DEBUG_TAG,"getRecentPresetsView no MRU found!");
+    		}	
+	   	} else {
+			Log.d(DEBUG_TAG,"getRecentPresetsView problem with presets " + presets + " or element " + element);
+		}	
 	   	return v;
 	}
 
@@ -188,10 +192,14 @@ public class RecentPresetsFragment extends SherlockFragment {
 	}
 	
 	public void recreateRecentPresetView(LinearLayout presetLayout) {
+		Log.d(DEBUG_TAG,"recreateRecentPresetView");
 		presetLayout.removeAllViews();
 		View v = getRecentPresetsView(presetLayout, element, presets);
 		if (v != null) {
 			presetLayout.addView(v);
+			presetLayout.setVisibility(View.VISIBLE);
+		} else {
+			
 		}
 		presetLayout.invalidate();
 	}

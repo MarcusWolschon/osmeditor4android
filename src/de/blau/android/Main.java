@@ -752,7 +752,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			OsmElement e = getLogic().getSelectedWay();
 			if (e == null) e = getLogic().getSelectedNode();
 			else getLogic().setSelectedNode(null);
-			if (e != null) performTagEdit(e, null, false);
+			if (e != null) performTagEdit(e, null, false, false);
 		}
 		return true;
 	}
@@ -1631,8 +1631,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * @param selectedElement
 	 * @param focusOn if not null focus on the value field of this key
 	 * @param applyLastAddressTags add address tags to the object being edited
+	 * @param showPresets TODO
 	 */
-	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags) {
+	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets) {
 		if (selectedElement instanceof Node) {
 			getLogic().setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
@@ -1644,6 +1645,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
 				startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, new PropertyEditorData(selectedElement, focusOn));
 				startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
+				startTagEditor.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
@@ -1943,7 +1945,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				if (clickedBugs != null && clickedBugs.size() == 1) {
 					performBugEdit(clickedBugs.get(0));
 				} else {
-					performTagEdit(clickedNodesAndWays.get(0), null, false);
+					performTagEdit(clickedNodesAndWays.get(0), null, false, false);
 				}
 				break;
 			default:
@@ -2158,7 +2160,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 						showElementInfo(element);
 						break;
 					case MODE_TAG_EDIT:
-						performTagEdit(element, null, false);
+						performTagEdit(element, null, false, false);
 						break;
 					case MODE_ERASE:
 						if (element.hasParentRelations()) {

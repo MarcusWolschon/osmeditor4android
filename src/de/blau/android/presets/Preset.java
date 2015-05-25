@@ -537,10 +537,12 @@ public class Preset implements Serializable {
 			for (String n:linkedPresetNames) {
 				if (!mru.recentPresets.contains(id)) {
 					Integer presetIndex = getItemIndexByName(n);
-					if (presetIndex != null) { // null if the link wasn't found
-						mru.recentPresets.addFirst(presetIndex);
-						if (mru.recentPresets.size() > MAX_MRU_SIZE) {
-							mru.recentPresets.removeLast();
+					if (presetIndex != null) {  // null if the link wasn't found
+						if (!mru.recentPresets.contains(presetIndex)) { // only add if not already present
+							mru.recentPresets.addFirst(presetIndex);
+							if (mru.recentPresets.size() > MAX_MRU_SIZE) {
+								mru.recentPresets.removeLast();
+							}
 						}
 					} else {
 						Log.e("Preset","linked preset not found for " + n + " in preset " + pi.getName());

@@ -55,6 +55,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		 OnPresetSelectedListener {
 	public static final String TAGEDIT_DATA = "dataClass";
 	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
+	public static final String TAGEDIT_SHOW_PRESETS = "showPresets";
 	
 	/** The layout containing the edit rows */
 	LinearLayout rowLayout = null;
@@ -85,6 +86,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	private PropertyEditorData loadData;
 	
 	private boolean applyLastAddressTags = false;
+	private boolean showPresets = false;
 		
 	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
 	private boolean loaded;
@@ -148,6 +150,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			Log.d(DEBUG_TAG, "Initializing from intent");
 			loadData = (PropertyEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
 			applyLastAddressTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS); 
+			showPresets = (Boolean)getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
@@ -249,7 +252,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 		mViewPager.setOffscreenPageLimit(3); // hack keep all alive
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
-		mViewPager.setCurrentItem(tagEditorFragmentPosition);
+		mViewPager.setCurrentItem(showPresets ? presetFragmentPosition : tagEditorFragmentPosition);
 	}
 	
 	private void abort() {
