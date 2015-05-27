@@ -15,7 +15,8 @@
 	<color name="ccc_ocher">#bd8d46</color>
 	<color name="grey">#0F0F0F</color>
 	<color name="light_grey">#eeeeee</color>
-	<color name="dark_grey">#aaaaaa</color><color name="stroke">#000</color>
+	<color name="dark_grey">#aaaaaa</color>
+	<color name="stroke">#000</color>
 	<color name="problem">#F0F</color>
 	<color name="relation">#A8FF7D</color>
 	<color name="motorway">#809BC0</color>

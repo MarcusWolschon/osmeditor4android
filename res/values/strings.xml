@@ -355,6 +355,8 @@
 	<string name="config_gps_source_summary">Source of GPS location updates</string>
 	<string name="config_gps_source_tcp_title">NMEA network source</string>
 	<string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port</string>
+	<string name="config_enableLightTheme_title">Enable light theme</string>
+	<string name="config_enableLightTheme_summary">Light theme with white backgrounds</string>
 	<string name="config_category_misc">Miscellaneous</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>

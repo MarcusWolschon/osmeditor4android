@@ -124,7 +124,7 @@ public class RecentPresetsFragment extends SherlockFragment {
     				};
     			v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType); //TODO this should really be a call of a static method, all MRUs get added to this view
 
-    			v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+    			// v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
     			// v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
     			v.setId(R.id.recentPresets);
     		} else {

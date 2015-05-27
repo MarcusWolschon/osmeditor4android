@@ -84,6 +84,10 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
 		super.onCreate(savedInstanceState);
 		r = getResources();
 		onLoadList(items);
@@ -467,9 +471,9 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 			super(context, attrs);
 		}
 		
-		public ListItem(Context context, AttributeSet attrs, int defStyle) {
-			super(context, attrs, defStyle);
-		}
+//		public ListItem(Context context, AttributeSet attrs, int defStyle) {
+//			super(context, attrs, defStyle);
+//		}
 
 		@Override
 		protected void onFinishInflate() {

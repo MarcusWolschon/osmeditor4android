@@ -120,7 +120,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	
 	private View getPresetView() {
 		View view = currentGroup.getGroupView(getActivity(), this, element.getType());
-		view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
+		// view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
 		// view.setOnKeyListener(this);
 		view.setId(123456);
 		return view;

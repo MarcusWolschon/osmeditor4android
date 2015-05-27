@@ -294,7 +294,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
 		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
 		
-		setTheme(R.style.Theme_customMain);
+		prefs = new Preferences(this);
+		
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_customMain_Light);
+		}
 		
 		super.onCreate(savedInstanceState);
 		Application.mainActivity = this;
@@ -308,7 +312,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		}
 		
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		prefs = new Preferences(this);
+		
 		if (prefs.splitActionBarEnabled()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops
@@ -648,9 +652,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	private void showActionBar() {
 		Log.d("Main", "showActionBar");
 		ActionBar actionbar = getSupportActionBar();
-		actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
-		actionbar.setSplitBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg)));
-		actionbar.setStackedBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_bg))); // this probably isn't ever necessary
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
 
@@ -1916,7 +1917,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			if (getLogic().isInEditZoomRange()) {
 				return easyEditManager.handleLongClick(v, x, y);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
+				Toast.makeText(v.getContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
 			}
 			
 			return true; // long click handled

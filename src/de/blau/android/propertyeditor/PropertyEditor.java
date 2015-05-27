@@ -131,9 +131,13 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_customTagEditor_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		
-		prefs = new Preferences(this);
 		if (prefs.splitActionBarEnabled()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 				getWindow().setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // this might need to be set with bit ops

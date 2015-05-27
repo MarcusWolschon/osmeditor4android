@@ -924,6 +924,8 @@ public class Preset implements Serializable {
 			scrollView.removeAllViews();
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
+			// wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.white));
+			wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.transparent)); // make transparent
 			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));
 			wrappingLayout.setVerticalSpacing((int)(SPACING*density));
 			ArrayList<PresetElement> filteredElements = filterElements(elements, type);

@@ -242,7 +242,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			
 			parentEdit = (Spinner)findViewById(R.id.editParent);
 			ArrayAdapter<Relation> a = getRelationSpinnerAdapter();
-			a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			// a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			parentEdit.setAdapter(a);
 			parentEdit.setOnItemSelectedListener(owner.relationMembershipFragment);
 

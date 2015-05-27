@@ -7,18 +7,18 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:orientation="vertical" 
-		android:background="@color/tagedit_field_static_bg"
 		android:padding="0dp" >
 		<LinearLayout 
 		    android:id="@+id/member_heading_view"
+		    style="?attr/Layout" 
+			android:baselineAligned="false"
 			android:layout_width="match_parent" 
 			android:layout_height="wrap_content"
-			android:background="@color/dark_grey" >
 			android:orientation="horizontal" >
 				<CheckBox
             		android:id="@+id/header_member_selected"
             		android:text=""
-            		android:background="@color/tagedit_field_bg"
+            		style="?attr/TableHeader"
             		android:layout_width="34dp"
             		android:layout_height="34dp"
             		android:layout_gravity="center_vertical" 
@@ -34,14 +34,13 @@
 					android:layout_marginBottom="1dp" 
 					android:layout_marginRight="1dp"
 					android:layout_weight="3" 
-					android:background="@color/ccc_darkred"
+					style="?attr/TableHeader"
 					android:minHeight="34dp" 
 					android:paddingLeft="5dp"
 					android:paddingRight="5dp" 
 					android:singleLine="true"
 					android:gravity="center_vertical" 
-					android:text="@string/role"
-					android:textColor="@color/tagedit_field_text" />
+					android:text="@string/role" />
 				<TextView 
 				    android:id="@+id/member_type_heading_view"
 					android:layout_width="fill_parent" 
@@ -49,35 +48,32 @@
 					android:layout_marginBottom="1dp" 
 					android:layout_marginRight="1dp"
 					android:layout_weight="3" 
-					android:background="@color/ccc_darkred"
+					style="?attr/TableHeader"
 					android:minHeight="34dp" 
 					android:paddingLeft="5dp"
 					android:paddingRight="5dp" 
 					android:singleLine="true"
 					android:gravity="center_vertical" 
-					android:text="@string/type"
-					android:textColor="@color/tagedit_field_text" />
+					android:text="@string/type" />
 				<TextView 
 				    android:id="@+id/member_object_heading_view"
 					android:layout_width="fill_parent" 
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="1dp" 
 					android:layout_weight="2"
-					android:background="@color/ccc_darkred" 
+					style="?attr/TableHeader" 
 					android:minHeight="34dp"
 					android:paddingLeft="5dp" 
 					android:paddingRight="5dp"
 					android:singleLine="true" 
 					android:gravity="center_vertical"
-					android:text="@string/object" 
-					android:textColor="@color/tagedit_field_text" />
+					android:text="@string/object" />
 		</LinearLayout>
 		<LinearLayout
 	   		android:id="@+id/members_vertical_layout"
 	    	android:layout_width="fill_parent"
 	   		android:layout_height="wrap_content"
 	    	android:orientation="vertical"
-	    	android:background="@color/tagedit_field_static_bg"
 	    	android:padding="0dp" >
 		</LinearLayout>
 	</LinearLayout>

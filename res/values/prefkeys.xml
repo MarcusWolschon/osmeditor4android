@@ -39,6 +39,7 @@
     <string name="config_offsetServer_key">offsetServer</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
+    <string name="config_enableLightTheme_key">enableLightTheme</string>
     <string name="config_gps_source_key">gpsSourceKey</string>
     <string-array name="gps_source_keys">
 	<item>internal</item>

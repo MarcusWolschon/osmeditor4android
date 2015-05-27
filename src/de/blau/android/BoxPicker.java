@@ -113,6 +113,11 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		ctx = this;
 		setContentView(R.layout.location_picker_view);

@@ -25,6 +25,11 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d("AdvancedPrefEditor", "onCreate");
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.advancedpreferences);
 		r = getResources();

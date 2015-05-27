@@ -31,6 +31,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.prefs.Preferences;
+
 
 /**
  * Minimal system for viewing help files
@@ -50,6 +52,11 @@ public class HelpViewer extends SherlockActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_customHelpViewer_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		String topic = (String)getIntent().getSerializableExtra(TOPIC);
 		setTheme(R.style.Theme_customHelpViewer);

@@ -5,9 +5,8 @@
     android:id="@+id/layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000"
     spl:orientation="horizontal"
-    spl:splitterSize="3dip"
+    spl:splitterSize="5dip"
     spl:splitterPosition="66%"
     spl:splitterBackground="@drawable/splitter_bg_h">
 
@@ -22,24 +21,22 @@
         	android:layout_width="match_parent"
         	android:layout_height="wrap_content"
        		android:layout_gravity="top"
-        	android:background="#000"
+       		style="?attr/PagerTabStrip"
         	android:paddingBottom="4dp"
         	android:paddingTop="4dp"
-        	android:textColor="#fff" />
+        	/>
    	</de.blau.android.views.ExtendedViewPager>
       
    <de.blau.android.views.SplitPaneLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000"
     android:paddingLeft="5dp"
     spl:orientation="vertical"
-    spl:splitterSize="3dip"
+    spl:splitterSize="5dip"
     spl:splitterPosition="33%"
     spl:splitterBackground="@drawable/splitter_bg_v">
    		<LinearLayout
            	android:id="@+id/recent_preset_row"
-           	android:background="#000"
            	android:layout_width="fill_parent"
            	android:layout_height="0dp"
            	android:orientation="vertical"
@@ -47,7 +44,6 @@
            	/>
    		<LinearLayout
            	android:id="@+id/preset_row"
-           	android:background="#000"
            	android:layout_width="fill_parent"
            	android:layout_height="0dp"
            	android:orientation="vertical"

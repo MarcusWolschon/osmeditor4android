@@ -73,6 +73,8 @@ public class Preferences {
 	
 	private final boolean generateAlerts;
 	
+	private final boolean lightThemeEnabled;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -160,6 +162,7 @@ public class Preferences {
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
+		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), false);
 	}
 	
 	/**
@@ -345,5 +348,9 @@ public class Preferences {
 	
 	public boolean generateAlerts() {
 		return generateAlerts;
+	}
+	
+	public boolean lightThemeEnabled() {
+		return lightThemeEnabled;
 	}
 }
