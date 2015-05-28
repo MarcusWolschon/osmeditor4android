@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import de.blau.android.names.Names.NameAndTags;
 import android.content.Context;
@@ -61,7 +62,7 @@ public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
             if(constraint != null) {
                 suggestions.clear();
                 for (NameAndTags name : itemsAll) {
-                    if(name.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
+                    if(name.getName().toLowerCase(Locale.US).startsWith(constraint.toString().toLowerCase(Locale.US))){
                         suggestions.add(name);
                     }
                 }

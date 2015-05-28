@@ -803,7 +803,7 @@ public class Profile  extends DefaultHandler {
 				tempPhase = Float.parseFloat(atts.getValue("phase"));
 				tempIntervals = new ArrayList<Float>();
 			} else if (element.equals("interval")) {
-				tempIntervals.add(new Float(Float.parseFloat(atts.getValue("length"))));
+				tempIntervals.add(Float.valueOf(Float.parseFloat(atts.getValue("length"))));
 			} 
 		} catch (Exception e) {
 			Log.e("Profil", "Parse Exception", e);

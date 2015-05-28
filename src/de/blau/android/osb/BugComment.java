@@ -1,9 +1,12 @@
 package de.blau.android.osb;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * An individual comment associated with an OpenStreetBug.
@@ -18,10 +21,10 @@ public class BugComment implements Serializable {
 
 	/** The preferred OSB date formats. */
 	private static final DateFormat bugDateFormats[] = {
-		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"), // preferred, used for output (see toString())
-		new SimpleDateFormat("yy-MM-dd HH:mm:ss"  ), // alternate preferred
-		new SimpleDateFormat("dd.MM.yy HH:mm:ss"  ), // German
-		new SimpleDateFormat("dd/MM/yy HH:mm:ss"  )  // European
+		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z", Locale.US), // preferred, used for output (see toString())
+		new SimpleDateFormat("yy-MM-dd HH:mm:ss"    , Locale.US), // alternate preferred
+		new SimpleDateFormat("dd.MM.yy HH:mm:ss"    , Locale.US), // German
+		new SimpleDateFormat("dd/MM/yy HH:mm:ss"    , Locale.US)  // European
 	};
 	
 	/** The comment text. */

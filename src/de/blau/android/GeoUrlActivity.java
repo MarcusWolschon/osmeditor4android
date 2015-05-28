@@ -1,6 +1,7 @@
 package de.blau.android;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,8 +38,8 @@ public class GeoUrlActivity extends Activity {
 				boolean wgs84 = true; // for now the only supported datum
 				if (params.length > 1) {
 					for (String p:params) {
-						if (p.toLowerCase().matches("crs=.*")) {
-							wgs84 = p.toLowerCase().matches("crs=wgs84");
+						if (p.toLowerCase(Locale.US).matches("crs=.*")) {
+							wgs84 = p.toLowerCase(Locale.US).matches("crs=wgs84");
 							Log.d("GeoUrlActivity","crs found " + p + ", is wgs84 is " + wgs84);
 						}
 					}

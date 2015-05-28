@@ -409,7 +409,7 @@ public class OpenStreetMapTileServer {
 			this.id = name.replaceAll("[\\W\\_]","");
 		}
 		// 
-		this.id = this.id.toUpperCase();
+		this.id = this.id.toUpperCase(Locale.US);
 
 		//TODO think of a elegant way to do this
 		if (type.equals("bing")) { // hopelessly hardwired
@@ -430,7 +430,7 @@ public class OpenStreetMapTileServer {
 				loadInfo(tileUrl);
 			return;
 		} else if (type.equals("scanex")) { // hopelessly hardwired
-			tileUrl = "http://irs.gis-lab.info/?layers="+tileUrl.toLowerCase()+"&request=GetTile&z={zoom}&x={x}&y={y}";
+			tileUrl = "http://irs.gis-lab.info/?layers="+tileUrl.toLowerCase(Locale.US)+"&request=GetTile&z={zoom}&x={x}&y={y}";
 			imageFilenameExtension = ".jpg";
 			return;
 		}
@@ -1046,7 +1046,7 @@ public class OpenStreetMapTileServer {
 	private String replaceGeneralParameters(final String s) {
 		final Locale l = r.getConfiguration().locale;
 		String result = s;
-		result = replaceParameter(result, "culture", l.getLanguage().toLowerCase() + "-" + l.getCountry().toLowerCase());
+		result = replaceParameter(result, "culture", l.getLanguage().toLowerCase(Locale.US) + "-" + l.getCountry().toLowerCase(Locale.US));
 		// Bing API key assigned to Andrew Gregory
 		result = replaceParameter(result, "bingapikey", "AtCQFkJNgUBEVk9qiNMBCNExDMVCiz5Hgvn20tpG3AfONcQUcumDChHDnhhNs0YA");
 		return result;
@@ -1142,11 +1142,11 @@ public class OpenStreetMapTileServer {
         String[] qparamsStr = query.length() > 1 ? query.substring(1).split("&") : new String[0];
         for( String param : qparamsStr ) {
             String[] kv = param.split("=");
-            kv[0] = kv[0].toLowerCase();
+            kv[0] = kv[0].toLowerCase(Locale.US);
             // TMS: skip parameters with variable values
             if( kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0 )
                 continue;
-            qparams.put(kv[0].toLowerCase(), kv.length > 1 ? kv[1] : null);
+            qparams.put(kv[0].toLowerCase(Locale.US), kv.length > 1 ? kv[1] : null);
         }
 
         // Reconstruct query parameters

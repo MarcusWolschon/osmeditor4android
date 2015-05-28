@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 
 import org.acra.ACRA;
 
@@ -175,7 +176,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 					//recursive decent
 					scanDir(db, f.getAbsolutePath(), lastScan);
 				}
-				if (needsReindex && f.getName().toLowerCase().endsWith(".jpg")) {
+				if (needsReindex && f.getName().toLowerCase(Locale.US).endsWith(".jpg")) {
 					addPhoto(db, indir, f);
 				}
 			}
