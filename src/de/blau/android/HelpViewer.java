@@ -32,6 +32,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ThemeUtils;
 
 
 /**
@@ -86,7 +87,7 @@ public class HelpViewer extends SherlockActivity {
 		
 		actionbar.setHomeButtonEnabled(true);
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.okay, R.string.okay);
+		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, ThemeUtils.getResIdFromAttribute(this,R.attr.drawer), R.string.okay, R.string.okay);
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		
 		try {

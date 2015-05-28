@@ -55,6 +55,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
@@ -500,16 +501,16 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address);
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(R.drawable.tag_menu_preset);
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(R.drawable.tag_menu_bug);
-			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(R.drawable.tag_menu_append);
+			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			if (!logic.clipboardIsEmpty()) {
-				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(R.drawable.ic_menu_paste_holo_dark);
+				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_paste));
 			}
 			// check if GPS is enabled
 			locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(R.drawable.menu_gps);
+				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps));
 			}
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -725,9 +726,9 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(R.drawable.undo);
+			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
 			menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(R.drawable.tag_menu_preset);
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -861,20 +862,20 @@ public class EasyEditManager {
 			undoView.setOnClickListener(undoListener);
 			undoView.setOnLongClickListener(undoListener);
 			
-			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
-			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
-				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_copy)).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
 			}
 			menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(R.drawable.extend_selection).setShowAsAction(showAlways());;;
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
 			if (element.getOsmId() > 0) {
-				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(R.drawable.tag_menu_history);
+				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history));
 			}
-			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setIcon(R.drawable.tag_menu_mapfeatures);;
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
+			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));;
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -959,20 +960,20 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			if (logic.isEndNode((Node)element)) {
-				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append)).setShowAsAction(showAlways());
 			}
 			joinableElement = logic.findJoinableElement((Node)element);
 			if (joinableElement != null) {
-				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(R.drawable.tag_menu_merge).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge)).setShowAsAction(showAlways());
 			}
 			int wayMembershipCount = logic.getWaysForNode((Node)element).size();
 			if (wayMembershipCount > 1) {
-				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split)).setShowAsAction(showAlways());
 			}
 			if (wayMembershipCount > 0) {
 				menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract).setIcon(R.drawable.extract_node).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position).setIcon(R.drawable.menu_gps).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps)).setShowAsAction(showAlways());
 			return true;
 		}
 		
@@ -1129,15 +1130,15 @@ public class EasyEditManager {
 			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING)) {
 				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(R.drawable.address).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(R.drawable.tag_menu_reverse).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_reverse)).setShowAsAction(showAlways());
 			if (((Way)element).getNodes().size() > 2) {
-				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(R.drawable.tag_menu_split).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_split)).setShowAsAction(showAlways());
 			}
 			if (cachedMergeableWays.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(R.drawable.tag_menu_merge).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge)).setShowAsAction(showAlways());
 			}
 			if (cachedAppendableNodes.size() > 0) {
-				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(R.drawable.tag_menu_append).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append)).setShowAsAction(showAlways());
 			}
 			if (((Way)element).getTagWithKey(Tags.KEY_HIGHWAY) != null && (cachedViaElements.size() > 0)) {
 				menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.menu_restriction).setIcon(R.drawable.tag_menu_restriction).setShowAsAction(showAlways());	
@@ -1145,7 +1146,7 @@ public class EasyEditManager {
 			if (((Way)element).getNodes().size() > 2) {
 				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(R.drawable.menu_ortho).setShowAsAction(showAlways());
 			}
-			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(R.drawable.ic_menu_rotate).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_rotate)).setShowAsAction(showAlways());
 			if (((Way)element).getNodes().size() > 3 && ((Way)element).isClosed()) {
 				menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
 				if (((Way)element).getNodes().size() > 4) { // 5 nodes is the minimum required to be able to split in to two polygons
@@ -1701,7 +1702,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(true); // can add relations
 
-			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(R.drawable.tag_menu_revert);
+			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
 			revert = menu.findItem(MENUITEM_REVERT);
 			revert.setVisible(false);
 			setClickableElements();
@@ -1869,15 +1870,15 @@ public class EasyEditManager {
 			undoView.setOnClickListener(undoListener);
 			undoView.setOnLongClickListener(undoListener);
 			
-			// menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(R.drawable.tag_menu_tags).setShowAsAction(showAlways());
-			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(R.drawable.tag_menu_delete).setShowAsAction(showAlways());;
+			// menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());;
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			// if (!(element instanceof Relation)) {
-			//	menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(R.drawable.ic_menu_copy_holo_dark).setShowAsAction(showAlways());
-			//	menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(R.drawable.ic_menu_cut_holo_dark).setShowAsAction(showAlways());
+			//	menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy)).setShowAsAction(showAlways());
+			//	menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
 			//}
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(R.drawable.relation).setShowAsAction(showAlways());;
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help);
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		

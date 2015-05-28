@@ -12,6 +12,7 @@
     />
     <item
         android:id="@+id/preset_menu_help"
+        android:icon="?attr/menu_help"
         android:title="@string/menu_help"
         android:showAsAction="never"
     />

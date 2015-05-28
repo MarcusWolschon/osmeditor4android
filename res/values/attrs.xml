@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  Icons  -->
+  	<attr name="menu_gps" format="reference" />
+	<attr name="menu_config" format="reference" />
+	<attr name="menu_find" format="reference" />
+	<attr name="menu_help" format="reference" />
+	<attr name="menu_undo" format="reference" />
+	<attr name="menu_delete" format="reference" />
+	<attr name="menu_cut" format="reference" />
+	<attr name="menu_copy" format="reference" />
+	<attr name="menu_paste" format="reference" />
+	<attr name="menu_save" format="reference" />
+	<attr name="menu_tags" format="reference" />
+	<attr name="menu_rotate" format="reference" />
+	<attr name="menu_back" format="reference" />
+	<attr name="menu_forward" format="reference" />
+	<attr name="menu_transfer" format="reference" />
+	<attr name="menu_merge" format="reference" />
+	<attr name="menu_split" format="reference" />
+	<attr name="menu_append" format="reference" />
+	<attr name="menu_reverse" format="reference" />
+	<attr name="menu_information" format="reference" />
+	<attr name="menu_history" format="reference" />
+	<attr name="drawer" format="reference" />
+	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">
             <enum name="horizontal" value="0" />
@@ -11,4 +35,10 @@
         <attr name="splitterBackground" format="reference|color" />
         <attr name="splitterDraggingBackground" format="reference|color" />
     </declare-styleable>
+    <declare-styleable name="Dummy">
+		<attr name="TableHeader" format="reference" />
+		<attr name="Layout" format="reference" />
+		<attr name="PagerTabStrip" format="reference" />
+		<attr name="ListPopupWindowStyle" format="reference" />
+	</declare-styleable>
 </resources>

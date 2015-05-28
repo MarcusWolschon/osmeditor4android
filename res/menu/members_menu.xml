@@ -2,12 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/tag_menu_revert"
-        android:icon="@drawable/tag_menu_revert"
+        android:icon="?attr/menu_undo"
         android:title="@string/tag_menu_revert"
         android:showAsAction="always"
     />
     <item
         android:id="@+id/tag_menu_help"
+        android:icon="?attr/menu_help"
         android:title="@string/menu_help"
         android:showAsAction="never"
     />

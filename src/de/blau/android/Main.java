@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import org.acra.ACRA;
 
@@ -1004,10 +1005,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		return false;
 	}
 
-	@SuppressLint("NewApi")
+	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	private File getImageFile() throws IOException {
 	    // Create an image file name
-	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
 	    String imageFileName = timeStamp;
 	    File outdir = null;
 //	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {

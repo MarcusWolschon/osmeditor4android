@@ -5,6 +5,6 @@
     android:layout_height="wrap_content"
     android:contentDescription="@string/undo"
     android:longClickable="true"
-    android:src="@drawable/undo" >
+    android:src="?attr/menu_undo" >
 
 </ImageButton>
