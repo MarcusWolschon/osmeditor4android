@@ -28,6 +28,7 @@
 <!-- 		<item name="menu_information">@drawable/ic_action_about_holo_dark.png</item> -->
 <!-- 		<item name="menu_history">@drawable/ic_action_time_holo_dark.png</item> -->
 <!-- 		<item name="menu_tags">@drawable/ic_action_labels_holo_dark.png</item> -->
+<!-- 		<item name="camera">@drawable/camera_light.png</item> -->
 	</style>
 
 	<style name="Theme.customMain.Light" parent="@style/Theme.Sherlock.Light">
@@ -53,6 +54,7 @@
 <!-- 		<item name="menu_information">@drawable/ic_action_about_holo_light.png</item> -->
 <!-- 		<item name="menu_history">@drawable/ic_action_time_holo_light.png</item> -->
 <!-- 		<item name="menu_tags">@drawable/ic_action_labels_holo_light.png</item> -->
+<!-- 		<item name="camera">@drawable/camera_light.png</item> -->
 	</style>
 
 	<style name="TagEditorActionBar" parent="Widget.Sherlock.ActionBar.Solid" />

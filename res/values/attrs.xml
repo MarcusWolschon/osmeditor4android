@@ -23,6 +23,7 @@
 	<attr name="menu_information" format="reference" />
 	<attr name="menu_history" format="reference" />
 	<attr name="drawer" format="reference" />
+	<attr name="camera" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

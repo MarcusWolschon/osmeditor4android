@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -429,9 +430,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 					if (s.equals("GNS")) {
 						String[] values = withoutChecksum.split(",",-12); // java magic
 						if (values.length==13) {
-							if (((values.length >= 2 && !values[6].toUpperCase().startsWith("NN") || (values.length == 1 && !values[6].toUpperCase().equals("N")))) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
-								lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase().equals("N")?1:-1);
-								lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase().equals("E")?1:-1);
+							if (((values.length >= 2 && !values[6].toUpperCase(Locale.US).startsWith("NN") || (values.length == 1 && !values[6].toUpperCase(Locale.US).equals("N")))) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
+								lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
+								lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
 								hdop = Double.parseDouble(values[8]);
 								height = Double.parseDouble(values[9]);
 							}
@@ -443,8 +444,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						String[] values = withoutChecksum.split(",",-14); // java magic
 						if (values.length==15) {
 							if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we need a fix
-								lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase().equals("N")?1:-1);
-								lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase().equals("E")?1:-1);
+								lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase(Locale.US).equals("N")?1:-1);
+								lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
 								hdop = Double.parseDouble(values[8]);
 								height = Double.parseDouble(values[9]);
 							}

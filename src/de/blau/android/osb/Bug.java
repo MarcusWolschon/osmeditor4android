@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -119,7 +120,7 @@ public class Bug implements Serializable {
 						text = parser.getText().trim();
 					}
 					if ("date".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z", Locale.US);
 						try {
 							timestamp = df.parse(parser.getText().trim());
 						} catch (java.text.ParseException pex) {

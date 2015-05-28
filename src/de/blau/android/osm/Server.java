@@ -1331,7 +1331,7 @@ public class Server {
 			out.write(tags + "\r\n");
 			out.write(seperator);
 			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
-			out.write(visibility.name().toLowerCase() + "\r\n");
+			out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
 			out.write(seperator);
 			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".gpx\"\r\n");
 			out.write("Content-Type: application/gpx+xml\r\n\r\n");

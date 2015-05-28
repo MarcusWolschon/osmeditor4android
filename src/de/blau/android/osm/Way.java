@@ -251,7 +251,7 @@ public class Way extends OsmElement {
 	{
 		String tmpVal = "";
 		for (int i=0;i<value.length();i++) {
-			switch (value.toUpperCase().charAt(i)) {
+			switch (value.toUpperCase(Locale.US).charAt(i)) {
 				case 'N': tmpVal = tmpVal + 'S'; break;
 				case 'W': tmpVal = tmpVal + 'E'; break;
 				case 'S': tmpVal = tmpVal + 'N'; break;
