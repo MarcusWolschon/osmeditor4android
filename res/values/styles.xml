@@ -16,19 +16,19 @@
 		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_dark</item>
 		<item name="menu_delete">@drawable/ic_action_discard_holo_dark</item>
-<!-- 		<item name="menu_cut">@drawable/ic_menu_cut_holo_dark.png</item> -->
-<!-- 		<item name="menu_copy">@drawable/ic_action_copy_holo_dark.png</item> -->
-<!-- 		<item name="menu_paste">@drawable/ic_menu_paste_holo_dark.png</item> -->
-<!-- 		<item name="menu_rotate">@drawable/ic_action_rotate_holo_dark.png</item> -->
-<!-- 		<item name="menu_transfer">@drawable/ic_action_import_export_holo_dark.png</item> -->
-<!-- 		<item name="menu_merge">@drawable/ic_action_merge_holo_dark.png</item> -->
-<!-- 		<item name="menu_split">@drawable/ic_action_split_holo_dark.png</item> -->
-<!-- 		<item name="menu_append">@drawable/ic_action_new_holo_dark.png</item> -->
-<!-- 		<item name="menu_reverse">@drawable/ic_action_repeat_holo_dark.png</item> -->
-<!-- 		<item name="menu_information">@drawable/ic_action_about_holo_dark.png</item> -->
-<!-- 		<item name="menu_history">@drawable/ic_action_time_holo_dark.png</item> -->
-<!-- 		<item name="menu_tags">@drawable/ic_action_labels_holo_dark.png</item> -->
-<!-- 		<item name="camera">@drawable/camera_light.png</item> -->
+		<item name="menu_cut">@drawable/ic_menu_cut_holo_dark</item>
+		<item name="menu_copy">@drawable/ic_action_copy_holo_dark</item>
+		<item name="menu_paste">@drawable/ic_action_paste_holo_dark</item>
+		<item name="menu_rotate">@drawable/ic_action_rotate_right_holo_dark</item>
+		<item name="menu_transfer">@drawable/ic_action_import_export_holo_dark</item>
+		<item name="menu_merge">@drawable/ic_action_merge_holo_dark</item>
+		<item name="menu_split">@drawable/ic_action_split_holo_dark</item>
+		<item name="menu_append">@drawable/ic_action_new_holo_dark</item>
+		<item name="menu_reverse">@drawable/ic_action_repeat_holo_dark</item>
+		<item name="menu_information">@drawable/ic_action_about_holo_dark</item>
+		<item name="menu_history">@drawable/ic_action_time_holo_dark</item>
+		<item name="menu_tags">@drawable/ic_action_labels_holo_dark</item>
+		<item name="camera">@drawable/camera_light</item>
 	</style>
 
 	<style name="Theme.customMain.Light" parent="@style/Theme.Sherlock.Light">
@@ -42,19 +42,19 @@
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_light</item>
 		<item name="menu_delete">@drawable/ic_action_discard_holo_light</item>
-<!-- 		<item name="menu_cut">@drawable/ic_menu_cut_holo_light.png</item> -->
-<!-- 		<item name="menu_copy">@drawable/ic_action_copy_holo_light.png</item> -->
-<!-- 		<item name="menu_paste">@drawable/ic_menu_paste_holo_light.png</item> -->
-<!-- 		<item name="menu_rotate">@drawable/ic_action_rotate_holo_light.png</item> -->
-<!-- 		<item name="menu_transfer">@drawable/ic_action_import_export_holo_light.png</item> -->
-<!-- 		<item name="menu_merge">@drawable/ic_action_merge_holo_light.png</item> -->
-<!-- 		<item name="menu_split">@drawable/ic_action_split_holo_light.png</item> -->
-<!-- 		<item name="menu_append">@drawable/ic_action_new_holo_light.png</item> -->
-<!-- 		<item name="menu_reverse">@drawable/ic_action_repeat_holo_light.png</item> -->
-<!-- 		<item name="menu_information">@drawable/ic_action_about_holo_light.png</item> -->
-<!-- 		<item name="menu_history">@drawable/ic_action_time_holo_light.png</item> -->
-<!-- 		<item name="menu_tags">@drawable/ic_action_labels_holo_light.png</item> -->
-<!-- 		<item name="camera">@drawable/camera_light.png</item> -->
+		<item name="menu_cut">@drawable/ic_menu_cut_holo_light</item>
+		<item name="menu_copy">@drawable/ic_action_copy_holo_light</item>
+		<item name="menu_paste">@drawable/ic_action_paste_holo_light</item>
+		<item name="menu_rotate">@drawable/ic_action_rotate_right_holo_light</item>
+		<item name="menu_transfer">@drawable/ic_action_import_export_holo_light</item>
+		<item name="menu_merge">@drawable/ic_action_merge_holo_light</item>
+		<item name="menu_split">@drawable/ic_action_split_holo_light</item>
+		<item name="menu_append">@drawable/ic_action_new_holo_light</item>
+		<item name="menu_reverse">@drawable/ic_action_repeat_holo_light</item>
+		<item name="menu_information">@drawable/ic_action_about_holo_light</item>
+		<item name="menu_history">@drawable/ic_action_time_holo_light</item>
+		<item name="menu_tags">@drawable/ic_action_labels_holo_light</item>
+		<item name="camera">@drawable/camera_light</item>
 	</style>
 
 	<style name="TagEditorActionBar" parent="Widget.Sherlock.ActionBar.Solid" />
@@ -69,10 +69,10 @@
 		<!-- icons -->
 		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_dark</item>
-<!-- 		<item name="menu_cut">@drawable/ic_menu_cut_holo_dark.png</item> -->
-<!-- 		<item name="menu_copy">@drawable/ic_menu_copy_holo_dark.png</item> -->
-<!-- 		<item name="menu_paste">@drawable/ic_menu_paste_holo_dark.png</item> -->
-<!-- 		<item name="menu_information">@drawable/ic_action_about_holo_dark.png</item> -->
+		<item name="menu_cut">@drawable/ic_menu_cut_holo_dark</item>
+		<item name="menu_copy">@drawable/ic_action_copy_holo_dark</item>
+		<item name="menu_paste">@drawable/ic_action_paste_holo_dark</item>
+		<item name="menu_information">@drawable/ic_action_about_holo_dark</item>
 	</style>
 
 	<style name="Theme.customTagEditor.Light" parent="@style/Theme.Sherlock.Light">
@@ -84,27 +84,27 @@
 		<!-- icons -->
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_light</item>
-<!-- 		<item name="menu_cut">@drawable/ic_menu_cut_holo_light.png</item> -->
-<!-- 		<item name="menu_copy">@drawable/ic_menu_copy_holo_light.png</item> -->
-<!-- 		<item name="menu_paste">@drawable/ic_menu_paste_holo_light.png</item> -->
-<!-- 		<item name="menu_information">@drawable/ic_action_about_holo_light.png</item> -->
+		<item name="menu_cut">@drawable/ic_menu_cut_holo_light</item>
+		<item name="menu_copy">@drawable/ic_action_copy_holo_light</item>
+		<item name="menu_paste">@drawable/ic_action_paste_holo_light</item>
+		<item name="menu_information">@drawable/ic_action_about_holo_light</item>
 	</style>
 
 	<style name="Theme.customHelpViewer" parent="@style/Theme.Sherlock">
 		<!-- need to specify once for ActionBarSherlock, once for android native -->
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
-<!-- 		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark.png</item> -->
-<!-- 		<item name="menu_back">@drawable/ic_action_back_holo_dark.png</item> -->
-<!-- 		<item name="menu_forward">@drawable/ic_action_forward_holo_dark.png</item> -->
+		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
+		<item name="menu_back">@drawable/ic_action_back_holo_dark</item>
+		<item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
 	</style>
 
 	<style name="Theme.customHelpViewer.Light" parent="@style/Theme.Sherlock.Light">
 		<!-- need to specify once for ActionBarSherlock, once for android native -->
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
-<!-- 		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light.png</item> -->
-<!-- 		<item name="menu_back">@drawable/ic_action_back_holo_light.png</item> -->
-<!-- 		<item name="menu_forward">@drawable/ic_action_forward_holo_light.png</item> -->
+		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
+		<item name="menu_back">@drawable/ic_action_back_holo_light</item>
+		<item name="menu_forward">@drawable/ic_action_forward_holo_light</item>
 	</style>
 </resources>
