@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="580px"
+   height="580px"
+   viewBox="0 0 580 580"
+   enable-background="new 0 0 580 580"
+   xml:space="preserve"
+   id="svg3000"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="camera.svg"><metadata
+   id="metadata3013"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs3011" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1725"
+   inkscape:window-height="1026"
+   id="namedview3009"
+   showgrid="false"
+   inkscape:snap-nodes="false"
+   inkscape:zoom="0.77537914"
+   inkscape:cx="311.34797"
+   inkscape:cy="389.70923"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg3000" />
+<g
+   id="Layer_1"
+   style="stroke:none;fill:none"
+   inkscape:export-filename="C:\Users\simon\workspace\OSMEditor-0.9.6\res\drawable-xhdpi\camera.png"
+   inkscape:export-xdpi="9.9748631"
+   inkscape:export-ydpi="9.9748631">
+	<g
+   id="Layer_2"
+   style="stroke:none;fill:none">
+		<g
+   id="g1327"
+   style="stroke:none;fill:none">
+			<path
+   id="path1329"
+   d="M66.275,1.768     c-41.335,0-64.571,21.371-64.571,65.036v450.123c0,40.844,20.895,62.229,62.192,62.229h452.024     c41.307,0,62.229-20.315,62.229-62.229V66.804c0-42.602-20.923-65.036-63.521-65.036C514.625,1.768,66.133,1.625,66.275,1.768z"
+   stroke-width="3.408"
+   stroke="#EEEEEE"
+   fill="#111111"
+   style="stroke:none;fill:none" />
+		</g>
+	</g>
+</g>
+
+<path
+   style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#333333;fill-opacity:0.60000002;fill-rule:nonzero;stroke:none;stroke-width:48;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+   d="M 343.59375 101.75 L 241.4375 102.5625 A 24.0024 24.0024 0 0 0 221.40625 113.65625 L 187.5625 166.59375 L 93.28125 166.59375 A 24.0024 24.0024 0 0 0 69.28125 190.59375 L 69.28125 451.21875 A 24.0024 24.0024 0 0 0 93.28125 475.21875 L 487.21875 475.21875 A 24.0024 24.0024 0 0 0 511.21875 451.21875 L 511.21875 190.59375 A 24.0024 24.0024 0 0 0 487.21875 166.59375 L 393.03125 166.59375 L 364.90625 114.375 A 24.0024 24.0024 0 0 0 343.59375 101.75 z M 329.46875 149.875 L 338.46875 166.59375 L 290.25 166.59375 L 244.53125 166.59375 L 254.84375 150.46875 L 329.46875 149.875 z M 117.28125 214.59375 L 200.5 214.59375 C 168.57005 241.25678 148.15625 281.30855 148.15625 325.9375 C 148.15625 365.28317 164.055 401.03111 189.6875 427.21875 L 117.28125 427.21875 L 117.28125 214.59375 z M 386.0625 214.59375 L 463.21875 214.59375 L 463.21875 427.21875 L 396.90625 427.21875 C 422.53875 401.03111 438.40625 365.28317 438.40625 325.9375 C 438.40625 281.30808 417.99303 241.25678 386.0625 214.59375 z M 293.28125 228.84375 C 347.20371 228.84375 390.40625 272.04213 390.40625 325.9375 C 390.40625 379.83287 347.21118 423 293.28125 423 C 239.35132 423 196.15625 379.83287 196.15625 325.9375 C 196.15625 272.04213 239.35879 228.84375 293.28125 228.84375 z "
+   id="rect2985" /><path
+   style="fill:#333333;fill-opacity:0.59999999999999998;stroke:#000000;stroke-width:0.1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   d="m 117.33254,320.93721 0,-106.23835 41.51195,0.0103 c 36.57682,0.009 41.43752,0.0665 40.88587,0.48379 -1.75315,1.32601 -9.71378,8.87385 -12.1279,11.49903 -19.08174,20.75003 -31.06321,43.81432 -36.5642,70.38598 -3.55838,17.1882 -3.8332,35.89857 -0.78613,53.5222 2.8977,16.75976 8.71166,32.68666 17.53691,48.04102 4.75449,8.27197 13.29952,19.66949 19.64049,26.19686 l 2.27081,2.33757 -36.1839,0 -36.1839,0 0,-106.23835 z"
+   id="path3782"
+   inkscape:connector-curvature="0" /><path
+   style="fill:#333333;fill-opacity:0.59999999999999998;stroke:#000000;stroke-width:0.1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   d="m 245.39677,165.42733 c 0.40905,-0.67679 2.69773,-4.28689 5.08597,-8.02247 l 4.34224,-6.79194 22.41886,-0.19515 c 12.33037,-0.10733 29.10984,-0.27725 37.2877,-0.3776 l 14.86884,-0.18245 4.39593,8.21612 c 2.41776,4.51886 4.39593,8.29889 4.39593,8.40006 0,0.10117 -21.04632,0.18394 -46.7696,0.18394 l -46.7696,0 0.74373,-1.23051 z"
+   id="path3784"
+   inkscape:connector-curvature="0" /><path
+   style="fill:#333333;fill-opacity:0.59999999999999998;stroke:#000000;stroke-width:0.1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   d="m 399.49903,424.56935 c 13.01121,-14.29756 22.03952,-28.61319 28.95897,-45.91844 10.37702,-25.95253 12.74909,-55.9999 6.60708,-83.69305 -5.12315,-23.09935 -15.24379,-43.57422 -30.74681,-62.20332 -3.25474,-3.91103 -11.85942,-12.73123 -15.66685,-16.05925 l -2.25696,-1.97277 38.44893,-0.0118 38.44893,-0.0118 0,106.23835 0,106.23835 -33.0825,0 -33.08251,0 2.37172,-2.60621 z"
+   id="path3786"
+   inkscape:connector-curvature="0" /></svg>
