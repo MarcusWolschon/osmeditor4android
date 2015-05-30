@@ -172,7 +172,13 @@ public class RelationMembersFragment extends SherlockFragment {
 	 * @returns The new RelationMemberRow.
 	 */
 	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position) {
-		RelationMemberRow row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_row, null);
+		RelationMemberRow row = null; 
+		
+		if (rmd.downloaded()) {
+			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_downloaded_row, null);
+		} else {
+			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_row, null);
+		}
 		row.setValues(pos, rmd);
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 		

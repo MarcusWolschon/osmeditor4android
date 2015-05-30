@@ -23,8 +23,20 @@
 	<attr name="menu_information" format="reference" />
 	<attr name="menu_history" format="reference" />
 	<attr name="drawer" format="reference" />
-	<attr name="camera" format="reference" />
-	<attr name="address" format="reference" />
+	<attr name="menu_camera" format="reference" />
+	<attr name="menu_address" format="reference" />
+	<attr name="menu_multi_select" format="reference" />
+	<attr name="menu_ortho" format="reference" />
+	<attr name="menu_extract_node" format="reference" />
+	<attr name="menu_relation" format="reference" />
+	<attr name="menu_relation_members" format="reference" />
+	<attr name="menu_relation_add_member" format="reference" />
+	<attr name="menu_tools" format="reference" />
+	<attr name="menu_add_restriction" format="reference" />
+	<attr name="menu_preset" format="reference" />
+	<attr name="menu_apply_preset" format="reference" />
+	<attr name="menu_preset_up" format="reference" />
+	<attr name="menu_preset_top" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

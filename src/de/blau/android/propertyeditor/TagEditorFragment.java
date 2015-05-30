@@ -274,6 +274,12 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		return rowLayout;
 	}
+    
+    @Override
+    public void onStart() {
+    	super.onStart();
+    	Log.d(DEBUG_TAG, "onStart");
+    }
 	
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -287,7 +293,7 @@ public class TagEditorFragment extends SherlockFragment {
     	Log.d(DEBUG_TAG, "onPause");
     	savedTags  = getKeyValueMap(true);
     }
-    
+       
     @Override
     public void onStop() {
     	super.onStop();
@@ -305,6 +311,7 @@ public class TagEditorFragment extends SherlockFragment {
     	super.onDestroyView();
     	Log.d(DEBUG_TAG, "onDestroyView");
     }
+    
     
     /**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
@@ -572,6 +579,8 @@ public class TagEditorFragment extends SherlockFragment {
 			row.disableCheckBox();
 		}
 		rowLayout.addView(row, (position == -1) ? rowLayout.getChildCount() : position);
+		//
+
 		return row;
 	}
 	
@@ -629,8 +638,23 @@ public class TagEditorFragment extends SherlockFragment {
 			valueEdit.setOnClickListener(autocompleteOnClick);
 		}
 	
+		@Override
+		public void onSizeChanged(int w, int h, int oldw, int oldh) {
+			super.onSizeChanged(w, h, oldw, oldh);
+			// Log.d(DEBUG_TAG, "onSizeChanged");
 
-				
+			if (w == 0 && h == 0) {
+				return;
+			}
+			keyEdit.setDropDownAnchor(selected.getId());
+			keyEdit.setDropDownWidth(w);
+			keyEdit.setDropDownVerticalOffset(h);
+			valueEdit.setDropDownAnchor(selected.getId());
+			valueEdit.setDropDownWidth(w);
+			valueEdit.setDropDownVerticalOffset(h);
+			//			
+		}
+
 		/**
 		 * Sets key and value values
 		 * @param aTagKey the key value to set
@@ -881,7 +905,7 @@ public class TagEditorFragment extends SherlockFragment {
 		for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
 			TagEditRow ter = (TagEditRow)rowLayout.getChildAt(i);
 			if (ter.getKey().equals(key)) {
-				focusRowValue(rowLayout, rowIndex(ter));
+				focusRowValue(rowLayout, rowIndex(rowLayout, ter));
 				found = true;
 				break;
 			}

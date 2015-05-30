@@ -2,11 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
         android:id="@+id/preset_menu_top"
+        android:icon="?attr/menu_preset_top"
         android:title="@string/menu_top"
         android:showAsAction="always"
     />
     <item
         android:id="@+id/preset_menu_up"
+        android:icon="?attr/menu_preset_up"
         android:title="@string/menu_up"
         android:showAsAction="always"
     />

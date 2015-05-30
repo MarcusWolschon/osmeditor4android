@@ -13,7 +13,7 @@
 	<item
 		android:id="@+id/menu_camera"
 		android:title="@string/menu_camera"
-		android:icon="?attr/camera"
+		android:icon="?attr/menu_camera"
 		android:showAsAction="always"
 	/>	
 	
@@ -130,7 +130,7 @@
 	<item
 		android:id="@+id/menu_tools"
 		android:title="@string/menu_tools"
-		android:icon="@drawable/menu_tools"
+		android:icon="?attr/menu_tools"
 		android:showAsAction="ifRoom"
 	>	
 		<menu>

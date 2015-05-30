@@ -28,8 +28,16 @@
 		<item name="menu_information">@drawable/ic_action_about_holo_dark</item>
 		<item name="menu_history">@drawable/ic_action_time_holo_dark</item>
 		<item name="menu_tags">@drawable/ic_action_labels_holo_dark</item>
-		<item name="camera">@drawable/camera_dark</item>
-		<item name="camera">@drawable/address_dark</item>
+		<item name="menu_camera">@drawable/camera_dark</item>
+		<item name="menu_address">@drawable/address_dark</item>
+		<item name="menu_ortho">@drawable/ortho_dark</item>
+		<item name="menu_extract_node">@drawable/extract_node_dark</item>
+		<item name="menu_relation">@drawable/relation_dark</item>
+		<item name="menu_relation_members">@drawable/relation_members_dark</item>
+		<item name="menu_relation_add_member">@drawable/relation_add_member_dark</item>
+		<item name="menu_tools">@drawable/spanner_dark</item>
+		<item name="menu_add_restriction">@drawable/no_left_turn_dark</item>
+		<item name="menu_preset">@drawable/preset_dark</item>
 	</style>
 
 	<style name="Theme.customMain.Light" parent="@style/Theme.Sherlock.Light">
@@ -55,8 +63,17 @@
 		<item name="menu_information">@drawable/ic_action_about_holo_light</item>
 		<item name="menu_history">@drawable/ic_action_time_holo_light</item>
 		<item name="menu_tags">@drawable/ic_action_labels_holo_light</item>
-		<item name="camera">@drawable/camera_light</item>
-		<item name="address">@drawable/address_light</item>
+		<item name="menu_camera">@drawable/camera_light</item>
+		<item name="menu_address">@drawable/address_light</item>
+		<item name="menu_multi_select">@drawable/multi_select_light</item>
+		<item name="menu_ortho">@drawable/ortho_light</item>
+		<item name="menu_extract_node">@drawable/extract_node_light</item>
+		<item name="menu_relation">@drawable/relation_light</item>
+		<item name="menu_relation_members">@drawable/relation_members_light</item>
+		<item name="menu_relation_add_member">@drawable/relation_add_member_light</item>
+		<item name="menu_tools">@drawable/spanner_light</item>
+		<item name="menu_add_restriction">@drawable/no_left_turn_light</item>
+		<item name="menu_preset">@drawable/preset_light</item>
 	</style>
 
 	<style name="TagEditorActionBar" parent="Widget.Sherlock.ActionBar.Solid" />
@@ -71,11 +88,15 @@
 		<!-- icons -->
 		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_dark</item>
+		<item name="menu_delete">@drawable/ic_action_discard_holo_dark</item>
 		<item name="menu_cut">@drawable/ic_menu_cut_holo_dark</item>
 		<item name="menu_copy">@drawable/ic_action_copy_holo_dark</item>
 		<item name="menu_paste">@drawable/ic_action_paste_holo_dark</item>
 		<item name="menu_information">@drawable/ic_action_about_holo_dark</item>
-		<item name="address">@drawable/address_dark</item>
+		<item name="menu_address">@drawable/address_dark</item>
+		<item name="menu_apply_preset">@drawable/apply_preset_dark</item>
+		<item name="menu_preset_up">@drawable/preset_up_dark</item>
+		<item name="menu_preset_top">@drawable/preset_top_dark</item>
 	</style>
 
 	<style name="Theme.customTagEditor.Light" parent="@style/Theme.Sherlock.Light">
@@ -87,11 +108,15 @@
 		<!-- icons -->
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_light</item>
+		<item name="menu_delete">@drawable/ic_action_discard_holo_light</item>
 		<item name="menu_cut">@drawable/ic_menu_cut_holo_light</item>
 		<item name="menu_copy">@drawable/ic_action_copy_holo_light</item>
 		<item name="menu_paste">@drawable/ic_action_paste_holo_light</item>
 		<item name="menu_information">@drawable/ic_action_about_holo_light</item>
-		<item name="address">@drawable/address_dark</item>
+		<item name="menu_address">@drawable/address_dark</item>
+		<item name="menu_apply_preset">@drawable/apply_preset_light</item>
+		<item name="menu_preset_up">@drawable/preset_up_light</item>
+		<item name="menu_preset_top">@drawable/preset_top_light</item>
 	</style>
 
 	<style name="Theme.customHelpViewer" parent="@style/Theme.Sherlock">
