@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,7 +60,9 @@ import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
+import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.KeyValue;
 
 
 public class TagEditorFragment extends SherlockFragment {
@@ -971,6 +974,49 @@ public class TagEditorFragment extends SherlockFragment {
 		focusOnEmptyValue();
 	}
 	
+	/**
+	 * Merge a set of tags in to the current ones, with potentially empty keys
+	 * @param newTags
+	 * @param replace // FIXME
+	 */
+	private void mergeTags(ArrayList<KeyValue> newTags, boolean replace) {
+		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+		HashMap<String,KeyValue> keyIndex = new HashMap(); // needed for de-duping
+		
+		ArrayList<KeyValue> keysAndValues = new ArrayList<KeyValue>();
+		for (String key:currentValues.keySet()) {
+			KeyValue keyValue = new KeyValue(key, currentValues.get(key));
+			keysAndValues.add(keyValue);
+			keyIndex.put(key, keyValue);
+		}
+		
+		boolean replacedValue = false;	
+		
+		// Fixed tags, always have a value. We overwrite mercilessly.
+		for (KeyValue tag : newTags) {
+			KeyValue keyValue = keyIndex.get(tag.getKey());
+			if (keyValue != null) { // exists
+				keyValue.setValue(tag.getValue());
+				replacedValue = true;
+			} else {
+				keysAndValues.add(new KeyValue(tag.getKey(),tag.getValue()));
+			}
+		}
+		
+		// this code needs to be duplicated because we can't use a map here
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+		loaded = false;
+		rowLayout.removeAllViews();
+		for (KeyValue keyValue:keysAndValues) {
+			insertNewEdit(rowLayout, keyValue.getKey(), keyValue.getValue(), -1);
+		}
+		loaded = true;
+		ensureEmptyRow(rowLayout);
+		
+		// FIXME text if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
+		focusOnEmptyValue();
+	}
+	
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
 		// final MenuInflater inflater = getSupportMenuInflater();
@@ -1006,6 +1052,12 @@ public class TagEditorFragment extends SherlockFragment {
 			return true;
 		case R.id.tag_menu_paste:
 			doPaste(true);
+			return true;
+		case R.id.tag_menu_paste_from_clipboard:
+			ArrayList<KeyValue> paste = ClipboardUtils.getKeyValues(getActivity());
+			if (paste != null) {
+				mergeTags(paste, false);
+			}
 			return true;
 		case R.id.tag_menu_revert:
 			doRevert();

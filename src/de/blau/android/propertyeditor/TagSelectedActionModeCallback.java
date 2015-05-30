@@ -21,6 +21,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.propertyeditor.TagEditorFragment.KeyValueHandler;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
+import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.ThemeUtils;
 
 public class TagSelectedActionModeCallback implements Callback {
@@ -101,6 +102,7 @@ public class TagSelectedActionModeCallback implements Callback {
 				for (TagEditRow r:selected) {
 					addKeyValue(caller.savedTags, r);
 				}
+				ClipboardUtils.copyTags(caller.getActivity(), caller.savedTags);
 			}
 			if (currentAction != null) {
 				currentAction.finish();
@@ -113,6 +115,7 @@ public class TagSelectedActionModeCallback implements Callback {
 					addKeyValue(caller.savedTags, r);
 					r.deleteRow();
 				}
+				ClipboardUtils.copyTags(caller.getActivity(), caller.savedTags);
 			}
 			if (currentAction != null) {
 				currentAction.finish();
