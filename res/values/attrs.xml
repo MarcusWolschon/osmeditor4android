@@ -61,5 +61,6 @@
 		<attr name="ListPopupWindowStyle" format="reference" />
 		<attr name="Drawer" format="reference" />
 		<attr name="ActionButton" format="reference" />
+		<attr name="DownloadedMember" format="reference" />
 	</declare-styleable>
 </resources>

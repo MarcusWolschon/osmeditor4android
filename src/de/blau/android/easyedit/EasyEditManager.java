@@ -859,8 +859,10 @@ public class EasyEditManager {
 			MenuItem undo = menu.findItem(R.id.undo_action);
 			undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
 			View undoView = undo.getActionView();
-			undoView.setOnClickListener(undoListener);
-			undoView.setOnLongClickListener(undoListener);
+			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
+				undoView.setOnClickListener(undoListener);
+				undoView.setOnLongClickListener(undoListener);
+			}
 			
 			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());
@@ -892,6 +894,11 @@ public class EasyEditManager {
 			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startActionMode(new  ExtendSelectionActionModeCallback(element)); break;
 			case MENUITEM_ELEMENT_INFO: main.showElementInfo(element); break;
+			case R.id.undo_action:
+				// should not happen
+				Log.d("EasyEditManager.ElementSelectionActionModeCallback","menu undo clicked");
+				undoListener.onClick(null);
+				break;
 			default: return false;
 			}
 			return true;
@@ -1867,8 +1874,10 @@ public class EasyEditManager {
 			MenuItem undo = menu.findItem(R.id.undo_action);
 			undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
 			View undoView = undo.getActionView();
-			undoView.setOnClickListener(undoListener);
-			undoView.setOnLongClickListener(undoListener);
+			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
+				undoView.setOnClickListener(undoListener);
+				undoView.setOnLongClickListener(undoListener);
+			}
 			
 			// menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());;
@@ -1894,7 +1903,11 @@ public class EasyEditManager {
 				// case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
 				// case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 				case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
-			
+				case R.id.undo_action:
+					// should not happen
+					Log.d("EasyEditManager.ExtendSelectionActionModeCallback","menu undo clicked");
+					undoListener.onClick(null);
+					break;
 				default: return false;
 				}
 			}

@@ -768,7 +768,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		Log.d("Main", "onCreateOptionsMenu");
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
-		Log.d(DEBUG_TAG,menu.toString());
+		
 		// only show camera icon if we have a camera, and a camera app is installed 
 		PackageManager pm = getPackageManager();
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -790,9 +790,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo());
 		View undoView = undo.getActionView();
-		undoView.setOnClickListener(undoListener);
-		undoView.setOnLongClickListener(undoListener);
-
+		if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
+			undoView.setOnClickListener(undoListener);
+			undoView.setOnLongClickListener(undoListener);
+		}
+		
 		final Server server = prefs.getServer();
 		if (server.hasOpenChangeset()) {
 			menu.findItem(R.id.menu_transfer_close_changeset).setVisible(true);

@@ -185,7 +185,12 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		// reliable determine if we are in landscape mode
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
-		display.getSize(size);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+			display.getSize(size);
+		} else {
+			size.x = display.getWidth();
+			size.y = display.getHeight();
+		}
 		if ((screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y) {
 			usePaneLayout = true;
 			setContentView(R.layout.pane_view);
