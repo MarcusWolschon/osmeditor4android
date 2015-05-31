@@ -22,7 +22,6 @@
 	<attr name="menu_reverse" format="reference" />
 	<attr name="menu_information" format="reference" />
 	<attr name="menu_history" format="reference" />
-	<attr name="drawer" format="reference" />
 	<attr name="menu_camera" format="reference" />
 	<attr name="menu_address" format="reference" />
 	<attr name="menu_multi_select" format="reference" />
@@ -37,6 +36,11 @@
 	<attr name="menu_apply_preset" format="reference" />
 	<attr name="menu_preset_up" format="reference" />
 	<attr name="menu_preset_top" format="reference" />
+	<attr name="menu_bug" format="reference" />
+	<attr name="alert_dialog" format="reference" />
+	<attr name="drawer" format="reference" />
+	<attr name="undolist_undo" format="reference" />
+	<attr name="undolist_redo" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">
@@ -54,5 +58,7 @@
 		<attr name="Layout" format="reference" />
 		<attr name="PagerTabStrip" format="reference" />
 		<attr name="ListPopupWindowStyle" format="reference" />
+		<attr name="Drawer" format="reference" />
+		<attr name="ActionButton" format="reference" />
 	</declare-styleable>
 </resources>

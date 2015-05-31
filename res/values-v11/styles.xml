@@ -38,7 +38,14 @@
 		<item name="menu_tools">@drawable/spanner_dark</item>
 		<item name="menu_add_restriction">@drawable/no_left_turn_dark</item>
 		<item name="menu_preset">@drawable/preset_dark</item>
+		<item name="menu_bug">@drawable/bug_dark</item>
+		<item name="undolist_undo">@drawable/undolist_undo_dark</item>
+		<item name="undolist_redo">@drawable/undolist_redo_dark</item>
+		<!-- styles -->
+		<item name="ActionButton">@style/ActionButtonDark</item>
 	</style>
+	
+	<style name="ActionButtonDark" parent="@style/Widget.Sherlock.ActionButton" />
 
 	<style name="Theme.customMain.Light" parent="style/Theme.Sherlock.Light">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
@@ -73,12 +80,17 @@
 		<item name="menu_tools">@drawable/spanner_light</item>
 		<item name="menu_add_restriction">@drawable/no_left_turn_light</item>
 		<item name="menu_preset">@drawable/preset_light</item>
+		<item name="menu_bug">@drawable/bug_light</item>
+		<item name="undolist_undo">@drawable/undolist_undo_light</item>
+		<item name="undolist_redo">@drawable/undolist_redo_light</item>
+		<!-- styles -->
+		<item name="ActionButton">@style/ActionButtonLight</item>
 	</style>
 
+	<style name="ActionButtonLight" parent="@style/Widget.Sherlock.Light.ActionButton" />
+	
 	<!-- Dark for PropertyEditor -->
 	<style name="Theme.customTagEditor" parent="style/Theme.Sherlock">
-		<!-- <item name="android:windowBackground">@drawable/transparent_background</item> -->
-		<!-- <item name="android:windowIsTranslucent">true</item> -->
 		<item name="android:actionBarStyle">@style/TagEditorActionBar</item>
 		<item name="android:autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
@@ -240,15 +252,25 @@
 	<!-- Help Viewer -->
 	<style name="Theme.customHelpViewer" parent="style/Theme.Sherlock">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
+		<item name="drawer">@drawable/ic_drawer_holo_dark</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_dark</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
+		<item name="Drawer">@style/DrawerDark</item>
 	</style>
 
+	<style name="DrawerDark" parent="style/Theme.Sherlock">
+		<item name="android:background">@color/dark_grey</item>
+	</style>
+	
 	<style name="Theme.customHelpViewer.Light" parent="style/Theme.Sherlock.Light">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
+		<item name="drawer">@drawable/ic_drawer_holo_light</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_light</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_light</item>
+		<item name="Drawer">@style/DrawerLight</item>
+	</style>
+	
+	<style name="DrawerLight" parent="style/Theme.Sherlock.Light">
+		<item name="android:background">@color/dark_grey</item>
 	</style>
 </resources>

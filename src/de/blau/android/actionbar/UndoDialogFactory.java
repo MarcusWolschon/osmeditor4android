@@ -16,6 +16,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.util.Density;
+import de.blau.android.util.ThemeUtils;
 
 public class UndoDialogFactory {
 
@@ -75,10 +76,8 @@ public class UndoDialogFactory {
 			setText(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name);
 			int pad = Density.dpToPx(15);
 			setPadding(pad, pad, pad, pad);
-			setTextColor(r.getColor(isRedo ? android.R.color.primary_text_light : android.R.color.primary_text_dark));
-			setBackgroundColor(r.getColor(isRedo ? android.R.color.background_light : android.R.color.background_dark));
 			setCompoundDrawablePadding(pad);
-			setCompoundDrawablesWithIntrinsicBounds(isRedo ? R.drawable.undolist_redo : R.drawable.undolist_undo, 0, 0, 0);
+			setCompoundDrawablesWithIntrinsicBounds(isRedo ? ThemeUtils.getResIdFromAttribute(ctx,R.attr.undolist_redo) : ThemeUtils.getResIdFromAttribute(ctx,R.attr.undolist_undo), 0, 0, 0);
 
 			this.index = index;
 			this.isRedo = isRedo;

@@ -39,6 +39,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Search.SearchResult;
 
 /**
@@ -142,10 +143,10 @@ public class DialogFactory {
 		
 		DoNothingListener doNothingListener = new DoNothingListener();
 		
-		noLoginDataSet = createBasicDialog(R.string.no_login_data_title, R.string.no_login_data_message);
+		noLoginDataSet = createBasicDialog(caller, R.string.no_login_data_title, R.string.no_login_data_message);
 		noLoginDataSet.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
-		wrongLogin = createBasicDialog(R.string.wrong_login_data_title, R.string.wrong_login_data_message);
+		wrongLogin = createBasicDialog(caller, R.string.wrong_login_data_title, R.string.wrong_login_data_message);
 		wrongLogin.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be used
 		final Server server = new Preferences(caller).getServer();
 		if (server.getOAuth()) {
@@ -157,21 +158,21 @@ public class DialogFactory {
 			});
 		}
 		
-		noConnection = createBasicDialog(R.string.no_connection_title, R.string.no_connection_message);
+		noConnection = createBasicDialog(caller, R.string.no_connection_title, R.string.no_connection_message);
 		noConnection.setPositiveButton(R.string.okay, doNothingListener);
 		
-		downloadCurrentWithChanges = createBasicDialog(R.string.transfer_download_current_dialog_title,
-			R.string.transfer_download_current_dialog_message);
+		downloadCurrentWithChanges = createBasicDialog(caller,
+			R.string.transfer_download_current_dialog_title, R.string.transfer_download_current_dialog_message);
 		downloadCurrentWithChanges.setPositiveButton(R.string.transfer_download_current_upload,
 			new ConfirmUploadListener(caller));
 		downloadCurrentWithChanges.setNeutralButton(R.string.transfer_download_current_back, doNothingListener);
 		downloadCurrentWithChanges.setNegativeButton(R.string.transfer_download_current_download,
 			new DownloadCurrentListener(caller));
 		
-		uploadProblem = createBasicDialog(R.string.upload_problem_title, R.string.upload_problem_message);
+		uploadProblem = createBasicDialog(caller, R.string.upload_problem_title, R.string.upload_problem_message);
 		uploadProblem.setPositiveButton(R.string.okay, doNothingListener);
 		
-		confirmUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
+		confirmUpload = createBasicDialog(caller, R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
 		confirmUpload.setView(layout);
 		CheckBox closeChangeset = (CheckBox)layout.findViewById(R.id.upload_close_changeset);
@@ -180,22 +181,22 @@ public class DialogFactory {
 					(EditText)layout.findViewById(R.id.upload_source), closeChangeset));
 		confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 		
-		openStreetBugEdit = createBasicDialog(R.string.openstreetbug_edit_title, 0); // body gets replaced later
+		openStreetBugEdit = createBasicDialog(caller, R.string.openstreetbug_edit_title, 0); // body gets replaced later
 		layout = inflater.inflate(R.layout.openstreetbug_edit, null);
 		openStreetBugEdit.setView(layout);
 		openStreetBugEdit.setPositiveButton(R.string.openstreetbug_commitbutton, new CommitListener(caller, (EditText)layout.findViewById(R.id.openstreetbug_comment), (CheckBox)layout.findViewById(R.id.openstreetbug_close)));
 	
-		dataConflict = createBasicDialog(R.string.data_conflict_title, R.string.data_conflict_message);
+		dataConflict = createBasicDialog(caller, R.string.data_conflict_title, R.string.data_conflict_message);
 		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
 		
-		apiOffline = createBasicDialog(R.string.api_offline_title, R.string.api_offline_message);
+		apiOffline = createBasicDialog(caller, R.string.api_offline_title, R.string.api_offline_message);
 		apiOffline.setPositiveButton(R.string.okay, doNothingListener);
 		
 		// displaying these dialogs might make things worse
-		outOfMemory = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_message);
+		outOfMemory = createBasicDialog(caller, R.string.out_of_memory_title, R.string.out_of_memory_message);
 		outOfMemory.setPositiveButton(R.string.okay, doNothingListener);
 		
-		outOfMemoryDirty = createBasicDialog(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
+		outOfMemoryDirty = createBasicDialog(caller, R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
 		outOfMemoryDirty.setPositiveButton(R.string.okay, doNothingListener);
 		
 		backgroundProperties = createBackgroundPropertiesDialog();
@@ -205,13 +206,13 @@ public class DialogFactory {
 		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
 				
-		invalidDataReceived = createBasicDialog(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
+		invalidDataReceived = createBasicDialog(caller, R.string.invalid_data_received_title, R.string.invalid_data_received_message);
 		invalidDataReceived.setPositiveButton(R.string.okay, doNothingListener);
 		
-		fileWriteFailed = createBasicDialog(R.string.file_write_failed_title, R.string.file_write_failed_message);
+		fileWriteFailed = createBasicDialog(caller, R.string.file_write_failed_title, R.string.file_write_failed_message);
 		fileWriteFailed.setPositiveButton(R.string.okay, doNothingListener);
 		
-		newbie = createBasicDialog(R.string.welcome_title, R.string.welcome_message);
+		newbie = createBasicDialog(caller, R.string.welcome_title, R.string.welcome_message);
 		newbie.setPositiveButton(R.string.okay, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -227,7 +228,7 @@ public class DialogFactory {
 					}
 				});
 		
-		gpxUpload = createBasicDialog(R.string.confirm_upload_title, 0); // body gets replaced later
+		gpxUpload = createBasicDialog(caller, R.string.confirm_upload_title, 0); // body gets replaced later
 		layout = inflater.inflate(R.layout.upload_gpx, null);
 		gpxUpload.setView(layout);
 		gpxUpload.setPositiveButton(R.string.transfer_download_current_upload, new GpxUploadListener(caller, (EditText)layout.findViewById(R.id.upload_gpx_description), 
@@ -326,7 +327,7 @@ public class DialogFactory {
 	public static Dialog createDataLossActivityDialog(final Activity context, final Intent intent,
 			final int requestCode) {
 		Builder dialog = new AlertDialog.Builder(context);
-		dialog.setIcon(R.drawable.alert_dialog_icon);
+		dialog.setIcon(ThemeUtils.getResIdFromAttribute(context,R.attr.alert_dialog));
 		dialog.setTitle(R.string.unsaved_data_title);
 		dialog.setMessage(R.string.unsaved_data_message);
 		dialog.setPositiveButton(R.string.unsaved_data_proceed,
@@ -342,13 +343,14 @@ public class DialogFactory {
 	}
 		
 	/**
+	 * @param ctx TODO
 	 * @param titleId the resource-id of the title
 	 * @param messageId the resource-id of the message
 	 * @return a dialog-builder
 	 */
-	private Builder createBasicDialog(final int titleId, final int messageId) {
+	private Builder createBasicDialog(Context ctx, final int titleId, final int messageId) {
 		Builder dialog = new AlertDialog.Builder(caller);
-		dialog.setIcon(R.drawable.alert_dialog_icon);
+		dialog.setIcon(ThemeUtils.getResIdFromAttribute(caller,R.attr.alert_dialog));
 		dialog.setTitle(titleId);
 		if (messageId != 0) {
 			dialog.setMessage(messageId);
@@ -401,7 +403,7 @@ public class DialogFactory {
 	
 	private Dialog createSearchDialog(final Main caller) {
 		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		Builder searchBuilder = createBasicDialog(R.string.menu_find, R.string.find_message);
+		Builder searchBuilder = createBasicDialog(caller, R.string.menu_find, R.string.find_message);
 		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 		searchBuilder.setView(searchLayout);
 		final EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
@@ -441,7 +443,7 @@ public class DialogFactory {
 	
 	private Dialog createSaveFileDialog(final Main caller) {
 		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		Builder saveFileBuilder = createBasicDialog(R.string.save_file, 0);
+		Builder saveFileBuilder = createBasicDialog(caller, R.string.save_file, 0);
 		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.save_file, null);
 		saveFileBuilder.setView(searchLayout);
 		final EditText saveFileEdit = (EditText) searchLayout.findViewById(R.id.save_file_edit);
@@ -465,7 +467,7 @@ public class DialogFactory {
 	 */
 	public static Builder createExistingTrackDialog(final Main caller, final Uri uri) {
 		Builder existingTrack = new AlertDialog.Builder(Application.mainActivity);
-		existingTrack.setIcon(R.drawable.alert_dialog_icon);
+		existingTrack.setIcon(ThemeUtils.getResIdFromAttribute(caller,R.attr.alert_dialog));
 		existingTrack.setTitle(R.string.existing_track_title);
 		existingTrack.setMessage(R.string.existing_track_message);
 		
@@ -510,7 +512,7 @@ public class DialogFactory {
 	 */
 	public static Builder createUploadConflictDialog(final Main caller, UploadResult result) {
 		Builder uploadConflict = new AlertDialog.Builder(Application.mainActivity);
-		uploadConflict.setIcon(R.drawable.alert_dialog_icon);
+		uploadConflict.setIcon(ThemeUtils.getResIdFromAttribute(caller,R.attr.alert_dialog));
 		uploadConflict.setTitle(R.string.upload_conflict_title);
 		final OsmElement elementOnServer = Main.getLogic().downloadElement(result.elementType, result.osmId);
 		final OsmElement elementLocal = Main.getLogic().getDelegator().getOsmElement(result.elementType, result.osmId);

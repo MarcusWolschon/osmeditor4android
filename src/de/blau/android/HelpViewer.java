@@ -60,15 +60,11 @@ public class HelpViewer extends SherlockActivity {
 		
 		super.onCreate(savedInstanceState);
 		String topic = (String)getIntent().getSerializableExtra(TOPIC);
-		setTheme(R.style.Theme_customHelpViewer);
+
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar == null) {
 			Log.d("HelpViewer", "No actionbar"); // fail?
 		}
-		ColorDrawable c = new ColorDrawable(getResources().getColor(R.color.actionbar_bg));
-		actionbar.setBackgroundDrawable(c);
-		actionbar.setSplitBackgroundDrawable(c);
-		actionbar.setStackedBackgroundDrawable(c); // this probably isn't ever necessary
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);
 		actionbar.setDisplayShowTitleEnabled(true);
@@ -180,6 +176,5 @@ public class HelpViewer extends SherlockActivity {
 			mDrawerList.setSelected(false);
 			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + topic);
 		}
-
 	}
 }
