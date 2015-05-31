@@ -5,10 +5,10 @@
 		<item name="android:gravity">right|center_vertical</item>
 	</style>
 
-	<style name="Theme.customMain" parent="@style/Theme.Sherlock">
+	<style name="Theme.customMain" parent="style/Theme.Sherlock">
 		<!-- need to specify once for ActionBarSherlock, once for android native -->
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
+		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!-- icons -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_dark</item>
@@ -41,16 +41,16 @@
 		<item name="menu_bug">@drawable/bug_dark</item>
 		<item name="undolist_undo">@drawable/undolist_undo_dark</item>
 		<item name="undolist_redo">@drawable/undolist_redo_dark</item>
-		<!-- styles -->
+	 	<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 	</style>
 	
-	<style name="ActionButtonDark" parent="@style/Widget.Sherlock.ActionButton" />
+	<style name="ActionButtonDark" parent="style/Widget.Sherlock.ActionButton" />
 
-	<style name="Theme.customMain.Light" parent="@style/Theme.Sherlock.Light">
+	<style name="Theme.customMain.Light" parent="style/Theme.Sherlock.Light">
 		<!-- need to specify once for ActionBarSherlock, once for android native -->
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
-		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
+		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!-- icons -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_light</item>
@@ -88,12 +88,13 @@
 		<item name="ActionButton">@style/ActionButtonLight</item>
 	</style>
 
-	<style name="ActionButtonLight" parent="@style/Widget.Sherlock.Light.ActionButton" />
+	<style name="ActionButtonLight" parent="style/Widget.Sherlock.Light.ActionButton" />
 	
 	
 	<!-- Dark for PropertyEditor -->
-	<style name="Theme.customTagEditor" parent="@style/Theme.Sherlock">
+	<style name="Theme.customTagEditor" parent="style/Theme.Sherlock">
 		<item name="actionBarStyle">@style/TagEditorActionBar</item>
+		<!-- 		<item name="android:actionBarStyle">@style/TagEditorActionBar</item> -->
 		<item name="android:autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
 		<item name="android:editTextStyle">@style/EditText</item>
@@ -134,7 +135,7 @@
 		<item name="android:popupBackground">@drawable/abs__ab_solid_dark_holo</item>
 	</style>
 	
-	<style name="Widget.DropDownItem" parent="@android:style/Widget.DropDownItem">
+	<style name="Widget.DropDownItem" parent="android:style/Widget.DropDownItem">
 		<item name="android:textColor">@android:color/primary_text_light</item>
 	</style>
 	
@@ -142,7 +143,7 @@
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
-	<style name="SpinnerStyle" parent="android:Widget.Spinner">
+	<style name="SpinnerStyle" parent="Widget.Sherlock.Spinner.DropDown.ActionBar">
 		<item name="android:background">@drawable/abs__ab_solid_dark_holo</item>
 		<item name="android:popupBackground">@drawable/abs__ab_solid_dark_holo</item>
 		<!-- <item name="android:dropDownSelector">@drawable/abs__list_selector_holo_dark</item> -->
@@ -174,7 +175,7 @@
 	</style>
 	
 
-	<style name="Theme.customTagEditor.Light" parent="@style/Theme.Sherlock.Light">
+	<style name="Theme.customTagEditor.Light" parent="style/Theme.Sherlock.Light">
 	    <item name="actionBarStyle">@style/TagEditorActionBarLight</item>
 <!-- 		<item name="android:actionBarStyle">@style/TagEditorActionBarLight</item> -->
 		<item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
@@ -220,7 +221,7 @@
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
-	<style name="SpinnerStyleLight" parent="android:Widget.Spinner">
+	<style name="SpinnerStyleLight" parent="Widget.Sherlock.Light.Spinner.DropDown.ActionBar">
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 		<item name="android:popupBackground">@drawable/abs__ab_solid_light_holo</item>
 	</style>
@@ -251,19 +252,21 @@
 	</style>
 
 	<!-- Help Viewer -->
-	<style name="Theme.customHelpViewer" parent="@style/Theme.Sherlock">
+	<style name="Theme.customHelpViewer" parent="style/Theme.Sherlock">
 		<!-- need to specify once for ActionBarSherlock, once for android native -->
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
+		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
 		<item name="drawer">@drawable/ic_drawer_holo_dark</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_dark</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
 	</style>
 
-	<style name="Theme.customHelpViewer.Light" parent="@style/Theme.Sherlock.Light">
+	<style name="Theme.customHelpViewer.Light" parent="style/Theme.Sherlock.Light">
 		<!-- need to specify once for ActionBarSherlock, once for android native -->
 		<item name="actionDropDownStyle">@style/customActionBarDropdown</item>
 		<!-- <item name="android:actionDropDownStyle">@style/customActionBarDropdown</item> -->
+		<item name="homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
 		<item name="drawer">@drawable/ic_drawer_holo_light</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_light</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_light</item>

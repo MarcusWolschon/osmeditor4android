@@ -6,6 +6,7 @@
 	<attr name="menu_find" format="reference" />
 	<attr name="menu_help" format="reference" />
 	<attr name="menu_undo" format="reference" />
+	<attr name="menu_undo_icon" format="reference" />
 	<attr name="menu_delete" format="reference" />
 	<attr name="menu_cut" format="reference" />
 	<attr name="menu_copy" format="reference" />

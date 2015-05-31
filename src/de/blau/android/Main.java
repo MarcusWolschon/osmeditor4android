@@ -768,7 +768,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		Log.d("Main", "onCreateOptionsMenu");
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
-		
+		Log.d(DEBUG_TAG,menu.toString());
 		// only show camera icon if we have a camera, and a camera app is installed 
 		PackageManager pm = getPackageManager();
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

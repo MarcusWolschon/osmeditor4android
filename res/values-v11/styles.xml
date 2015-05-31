@@ -252,6 +252,7 @@
 	<!-- Help Viewer -->
 	<style name="Theme.customHelpViewer" parent="style/Theme.Sherlock">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="android:homeAsUpIndicator">@drawable/ic_drawer_holo_dark</item>
 		<item name="drawer">@drawable/ic_drawer_holo_dark</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_dark</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_dark</item>
@@ -264,6 +265,7 @@
 	
 	<style name="Theme.customHelpViewer.Light" parent="style/Theme.Sherlock.Light">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="android:homeAsUpIndicator">@drawable/ic_drawer_holo_light</item>
 		<item name="drawer">@drawable/ic_drawer_holo_light</item>
 		<item name="menu_back">@drawable/ic_action_back_holo_light</item>
 		<item name="menu_forward">@drawable/ic_action_forward_holo_light</item>
