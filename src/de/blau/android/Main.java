@@ -113,6 +113,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
+import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
@@ -1234,7 +1235,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (requestCode == REQUEST_BOUNDINGBOX && data != null) {
 			handleBoxPickerResult(resultCode, data);
 		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
-			handleTagEditorResult(data);
+			handlePropertyEditorResult(data);
 		} else if (requestCode == READ_OSM_FILE_SELECT_CODE && resultCode == RESULT_OK) {
 			// Get the Uri of the selected file 
 	        Uri uri = data.getData();
@@ -1316,9 +1317,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	}
 
 	/**
+	 * Handle the result of the property editor
 	 * @param data
 	 */
-	private void handleTagEditorResult(final Intent data) {
+	private void handlePropertyEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
 		if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
 			// Read data from extras
@@ -1338,6 +1340,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			getLogic().setSelectedNode(null);
 			getLogic().setSelectedWay(null);
 			getLogic().setSelectedRelation(null);
+		} else {
+			// invalidate the action mode menu ... updates the state of the undo button
+			supportInvalidateOptionsMenu();
+			if (easyEditManager != null) {
+				easyEditManager.invalidate();
+			}
 		}
 		map.invalidate();
 	}
@@ -1712,8 +1720,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	
 	public class UndoListener implements OnClickListener, OnLongClickListener {
 
+		private final String DEBUG_TAG = UndoListener.class.getName();
+		
 		@Override
 		public void onClick(View arg0) {
+			Log.d(DEBUG_TAG,"normal click");
 			String name = logic.undo();
 			if (name != null) {
 				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
@@ -1732,6 +1743,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		@Override
 		public boolean onLongClick(View v) {
+			Log.d(DEBUG_TAG,"long click");
 			UndoStorage undo = getLogic().getUndo();
 			if (undo.canUndo() || undo.canRedo()) {
 				UndoDialogFactory.showUndoDialog(Main.this, logic, undo);

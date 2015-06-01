@@ -857,7 +857,10 @@ public class EasyEditManager {
 			
 			main.getSupportMenuInflater().inflate(R.menu.undo_action, menu);
 			MenuItem undo = menu.findItem(R.id.undo_action);
-			undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
+			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
+				undo.setVisible(true);
+				undo.setShowAsAction(showAlways());
+			}
 			View undoView = undo.getActionView();
 			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
 				undoView.setOnClickListener(undoListener);
@@ -1823,6 +1826,7 @@ public class EasyEditManager {
 					addOrRemoveElement(e);
 				}
 			}
+			undoListener = main.new UndoListener(); 
 		}
 		
 		public ExtendSelectionActionModeCallback(OsmElement element) {
@@ -1832,6 +1836,7 @@ public class EasyEditManager {
 			if (element != null) {
 				addOrRemoveElement(element);
 			}
+			undoListener = main.new UndoListener(); 
 		}
 		
 		private void addOrRemoveElement(OsmElement element) {
@@ -1872,7 +1877,10 @@ public class EasyEditManager {
 			
 			main.getSupportMenuInflater().inflate(R.menu.undo_action, menu);
 			MenuItem undo = menu.findItem(R.id.undo_action);
-			undo.setVisible(logic.getUndo().canUndo() || logic.getUndo().canRedo());
+			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
+				undo.setVisible(true);
+				undo.setShowAsAction(showAlways());
+			}
 			View undoView = undo.getActionView();
 			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
 				undoView.setOnClickListener(undoListener);

@@ -7,6 +7,8 @@
 
 	<style name="Theme.customMain" parent="style/Theme.Sherlock">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="android:editTextStyle">@style/EditText</item>
+		<item name="android:checkboxStyle">@style/CheckBox</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_dark</item>
@@ -49,6 +51,8 @@
 
 	<style name="Theme.customMain.Light" parent="style/Theme.Sherlock.Light">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
+		<item name="android:editTextStyle">@style/EditTextLight</item>
+		<item name="android:checkboxStyle">@style/CheckBoxLight</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_light</item>
