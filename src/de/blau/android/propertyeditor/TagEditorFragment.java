@@ -63,6 +63,7 @@ import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.KeyValue;
+import de.blau.android.views.OffsettedAutoCompleteTextView;
 
 
 public class TagEditorFragment extends SherlockFragment {
@@ -593,9 +594,9 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		private PropertyEditor owner;
 		private AutoCompleteTextView keyEdit;
-		private AutoCompleteTextView valueEdit;
+		private OffsettedAutoCompleteTextView valueEdit;
 		private CheckBox selected;
-		
+				
 		public TagEditRow(Context context) {
 			super(context);
 			owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
@@ -620,7 +621,7 @@ public class TagEditorFragment extends SherlockFragment {
 			keyEdit.setOnKeyListener(owner.myKeyListener);
 			//lastEditKey.setSingleLine(true);
 			
-			valueEdit = (AutoCompleteTextView)findViewById(R.id.editValue);
+			valueEdit = (OffsettedAutoCompleteTextView)findViewById(R.id.editValue);
 			valueEdit.setOnKeyListener(owner.myKeyListener);
 			
 			selected = (CheckBox) findViewById(R.id.tagSelected);
@@ -646,12 +647,12 @@ public class TagEditorFragment extends SherlockFragment {
 			if (w == 0 && h == 0) {
 				return;
 			}
-			keyEdit.setDropDownAnchor(selected.getId());
-			keyEdit.setDropDownWidth(w);
-			keyEdit.setDropDownVerticalOffset(h);
-			valueEdit.setDropDownAnchor(selected.getId());
-			valueEdit.setDropDownWidth(w);
-			valueEdit.setDropDownVerticalOffset(h);
+			Log.d(DEBUG_TAG,"w=" + w +" h="+h);
+			// this is not really satisfactory
+			keyEdit.setDropDownAnchor(valueEdit.getId());
+			keyEdit.setDropDownVerticalOffset(-h);
+			valueEdit.setDropDownVerticalOffset(-h);
+			valueEdit.setParentWidth(w);
 			//			
 		}
 
