@@ -127,13 +127,14 @@ public class EasyEditManager {
 	
 	/**
 	 * Handle case where nothing is touched.
+	 * @param doubleTap TODO
 	 */
-	public void nothingTouched() {
+	public void nothingTouched(boolean doubleTap) {
 		// User clicked an empty area. If something is selected, deselect it.
-		if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+		if (!doubleTap && currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
 			return; // don't deselect all just because we didn't hit anything TODO display a toast
 		}
-		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback) {
+		if (currentActionModeCallback instanceof ElementSelectionActionModeCallback || currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
 			currentActionMode.finish();
 		}
 		logic.setSelectedNode(null);
@@ -228,6 +229,30 @@ public class EasyEditManager {
 		}
 		return true;
 	}
+	
+	
+	public void startExtendedSelection(OsmElement osmElement) {
+		if ((currentActionModeCallback instanceof WaySelectionActionModeCallback)
+				|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
+				|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
+		{
+			
+			// one element already selected
+			((ElementSelectionActionModeCallback)currentActionModeCallback).deselect = false; // keep the element visually selected
+			main.startActionMode(new ExtendSelectionActionModeCallback(((ElementSelectionActionModeCallback)currentActionModeCallback).element));
+			// add 2nd element FIXME may need some checks
+			((ExtendSelectionActionModeCallback)currentActionModeCallback).handleElementClick(osmElement);
+		} else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+			// ignore for now
+		} else if (currentActionModeCallback != null) {
+			// ignore for now
+		} else {
+			// nothing selected
+			main.startActionMode(new ExtendSelectionActionModeCallback(osmElement));
+		}
+	}
+	
+	
 	
 	public void invalidate() {
 		if (currentActionMode != null) {
@@ -928,6 +953,7 @@ public class EasyEditManager {
 			logic.setClickableElements(null);
 			logic.setReturnRelations(true);			
 			if (deselect) {
+				Log.d("EasyEditManager.ElementSelectionCallback","deselecting");
 				logic.setSelectedNode(null);
 				logic.setSelectedWay(null);
 				logic.setSelectedRelation(null);
@@ -1858,6 +1884,10 @@ public class EasyEditManager {
 				} else if (element.getName().equals(Relation.NAME)) {
 					logic.removeSelectedRelation((Relation)element);
 				}
+			}
+			if (selection.size() == 0) {
+				// nothing slected more .... stop
+				currentActionMode.finish();
 			}
 			main.invalidateMap();
 		}

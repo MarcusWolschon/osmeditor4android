@@ -799,7 +799,7 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		return clickDistance(node, x, y, Profile.getCurrent().nodeToleranceValue);
+		return clickDistance(node, x, y, node.isTagged() ? Profile.getCurrent().nodeToleranceValue : Profile.getCurrent().wayToleranceValue/2);
 	}
 
 	private Double clickDistance(Node node, final float x, final float y, float tolerance) {

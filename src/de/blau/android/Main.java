@@ -1770,7 +1770,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
+			// Log.d("MapTouchListener", "onTouch");
 			if (m.getAction() == MotionEvent.ACTION_DOWN) {
+				// Log.d("MapTouchListener", "onTouch ACTION_DOWN");
 				clickedBugs = null;
 				clickedPhotos = null;
 				clickedNodesAndWays = null;
@@ -1941,6 +1943,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
+			// Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
 			getLogic().handleTouchEventMove(x, y, -dx, dy);
 			setFollowGPS(false);
 		}
@@ -2039,7 +2042,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null)? 0 : clickedPhotos.size())) {
 				case 0:
 					// no elements were touched
-					easyEditManager.nothingTouched();
+					easyEditManager.nothingTouched(false);
 					break;
 				case 1:
 					// exactly one element touched
@@ -2237,6 +2240,32 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 					Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
 				}
 			}	
+		}
+
+		@Override
+		public boolean onDoubleTap(View v, float x, float y) {
+
+			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
+			switch (clickedNodesAndWays.size()) {
+			case 0:
+				// no elements were touched
+				easyEditManager.nothingTouched(true); // short cut to finishing multi-select
+				break;
+			case 1:
+				easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+				break;
+			default:
+				// multiple possible elements touched - show menu
+				if (menuRequired()) {
+					v.showContextMenu();
+				} else {
+					// menuRequired tells us it's ok to just take the first one
+					easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+				}
+				break;
+			}
+
+			return true;
 		}
 	}
 

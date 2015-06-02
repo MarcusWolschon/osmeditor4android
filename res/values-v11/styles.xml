@@ -193,7 +193,7 @@
 		<item name="android:textColor">@android:color/white</item>
 	</style>
 
-	<style name="DownloadedMemberDark">
+	<style name="DownloadedMemberDark" parent="android:Widget.Holo.TextView">
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 	</style>
 	
@@ -275,11 +275,10 @@
 <!-- 		<item name="android:textColor">@android:color/black</item> -->
 	</style>
 	
-	<style name="DownloadedMemberLight">
-	    <item name="android:textColor">@android:color/black</item>
+	<style name="DownloadedMemberLight" parent="android:Widget.Holo.Light.TextView">
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 	</style>
-
+	
 	<!-- Help Viewer -->
 	<style name="Theme.customHelpViewer" parent="style/Theme.Sherlock">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>

@@ -627,13 +627,15 @@ public class Map extends View implements IMapView {
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 
+			boolean isTagged = node.isTagged();
+			
 			//draw tolerance box
 			if (tmpDrawingInEditRange
 					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
 					&& (tmpClickableElements == null || tmpClickableElements.contains(node))
 				)
 			{
-				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
+				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y);
 			}
 			
 			String featureKey;
@@ -674,7 +676,7 @@ public class Map extends View implements IMapView {
 				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
-			if (node.isTagged()) {
+			if (isTagged) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
 					Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
@@ -730,17 +732,18 @@ public class Map extends View implements IMapView {
 
 	/**
 	 * @param canvas
-	 * @param node
 	 * @param lat
 	 * @param lon
+	 * @param isTagged TODO
 	 * @param x
 	 * @param y
+	 * @param node
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
-			final float x, final float y) {
+			boolean isTagged, final float x, final float y) {
 		if ( (tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
-			canvas.drawCircle(x, y, nodeTolerancePaint.getStrokeWidth(), nodeTolerancePaint);
+			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth()/2, nodeTolerancePaint);
 		}
 	}
 

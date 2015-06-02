@@ -189,6 +189,7 @@
 	</style>
 	
 	<style name="DownloadedMemberDark">
+	    <item name="android:textAppearance">@style/DownloadedMemberLightText</item>
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 	</style>
 	
@@ -263,7 +264,7 @@
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 	</style>
 
-	<style name="SpinnerItemStyleLight" parent="android:style/Widget.Holo.Light.TextView.SpinnerItem">
+	<style name="SpinnerItemStyleLight" parent="android:style/Widget.TextView.SpinnerItem">
 		<item name="android:textAppearance">@style/TextAppearanceSpinnerItemLight</item>
 	</style>
 	
@@ -272,8 +273,12 @@
 	</style>
 
 	<style name="DownloadedMemberLight">
-	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:textAppearance">@style/DownloadedMemberLightText</item>
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
+	</style>
+	
+	<style name="DownloadedMemberLightText">
+	    <item name="android:textColor">@android:color/black</item>
 	</style>
 	
 	<!-- Help Viewer -->
