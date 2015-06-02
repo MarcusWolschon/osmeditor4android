@@ -1,8 +1,12 @@
 package de.blau.android.util;
 
+import de.blau.android.R;
+import de.blau.android.prefs.Preferences;
 import android.content.Context;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 
 /**
  * 
@@ -41,5 +45,11 @@ public final class ThemeUtils {
     		return 0;
     	}
     	return typedvalueattr.resourceId; 
+    }
+    
+    public static LayoutInflater getLayoutInflater(Context caller) {
+    	Preferences prefs = new Preferences(caller);
+		Context context =  new ContextThemeWrapper(caller, prefs.lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);
+		return (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 }

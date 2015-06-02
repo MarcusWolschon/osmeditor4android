@@ -13,6 +13,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -137,9 +138,8 @@ public class DialogFactory {
 	public DialogFactory(final Main caller) {
 		this.caller = caller;
 		
-		// Create some useful objects
-		final Context context = caller.getApplicationContext();
-		final LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		// inflater needs to be got from a themed view or else all our custom stuff will not style correctly
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(caller);
 		
 		DoNothingListener doNothingListener = new DoNothingListener();
 		
@@ -402,7 +402,7 @@ public class DialogFactory {
 	}
 	
 	private Dialog createSearchDialog(final Main caller) {
-		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(caller);
 		Builder searchBuilder = createBasicDialog(caller, R.string.menu_find, R.string.find_message);
 		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 		searchBuilder.setView(searchLayout);
@@ -442,7 +442,7 @@ public class DialogFactory {
 	}
 	
 	private Dialog createSaveFileDialog(final Main caller) {
-		final LayoutInflater inflater = (LayoutInflater)caller.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(caller);
 		Builder saveFileBuilder = createBasicDialog(caller, R.string.save_file, 0);
 		LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.save_file, null);
 		saveFileBuilder.setView(searchLayout);

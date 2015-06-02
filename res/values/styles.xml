@@ -91,6 +91,19 @@
 	<style name="ActionButtonLight" parent="style/Widget.Sherlock.Light.ActionButton" />
 	
 	
+	<!--  Style for custom views in alert dialogs -->
+	<!--  Themeing dialogs doesn't really work so leave this dark for now -->
+	<style name="Theme.DialogDark" parent="@style/Theme.Sherlock"></style>
+	
+	<style name="Theme.DialogLight" parent="@style/Theme.Sherlock"></style>
+	
+	<style name="DialogEditTextLight" parent="android:Widget.EditText">
+	    <item name="android:textColor">@android:color/black</item>
+	</style>
+	
+	<style name="DialogCheckBoxLight" parent="android:Widget.CompoundButton.CheckBox">
+	</style>
+	
 	<!-- Dark for PropertyEditor -->
 	<style name="Theme.customTagEditor" parent="style/Theme.Sherlock">
 		<item name="actionBarStyle">@style/TagEditorActionBar</item>

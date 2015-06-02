@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import de.blau.android.R;
@@ -162,7 +163,8 @@ public class Preferences {
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
-		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), false);
+		// light theme doesn't really work prior to Honeycomb, but make it the default for anything newer
+		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? true : false);
 	}
 	
 	/**

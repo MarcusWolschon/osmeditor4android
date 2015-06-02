@@ -26,6 +26,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -1053,9 +1054,7 @@ public class EasyEditManager {
 		}
 		
 		Dialog 	createSetPositionDialog(int lonE7, int latE7) {
-			final Context context = Application.mainActivity.getApplicationContext();
-		
-			final LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
 			Builder dialog = new AlertDialog.Builder(Application.mainActivity);
 			dialog.setTitle(R.string.menu_set_position);
 			
@@ -1810,6 +1809,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_COPY = 4;
 		private static final int MENUITEM_CUT = 5;
 		private static final int MENUITEM_RELATION = 6;
+		private static final int MENUITEM_MERGE_POLYGONS = 7;
 
 		private ArrayList<OsmElement> selection;
 	
@@ -1895,10 +1895,45 @@ public class EasyEditManager {
 			//	menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
 			//}
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation)).setShowAsAction(showAlways());;
+			
+//			// for now just two
+//			if (selection.size() == 2 && canMerge(selection)) {
+//				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
+//			}
+			
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
+//		private boolean canMerge(ArrayList<OsmElement> selection) {
+//			for (OsmElement e:selection) {
+//				if (!(e.getName().equals(Way.NAME) && ((Way)e).isClosed())) {
+//					return false;
+//				}
+//			}
+//			
+//			return true;
+//		}
+//		
+//		private ArrayList<OsmElement> merge(ArrayList<OsmElement> selection) {
+//			if (selection.size() > 1) {
+//				Way first = (Way) selection.get(0);
+//				ArrayList<OsmElement> rest = (ArrayList<OsmElement>) selection.subList(1,selection.size());
+//				ArrayList<OsmElement> newSelection = new ArrayList<OsmElement>();
+//				for (OsmElement w:rest) {
+//					Way n = logic.mergeSimplePolygons(first, (Way)w);
+//					if (n!=null) {
+//						first = n;
+//					} else {
+//						newSelection.add(first);
+//						first = (Way)w;
+//					}
+//				}
+//				newSelection.add(first);
+//				return 
+//			}
+//		}
+
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			if (!super.onActionItemClicked(mode, item)) {

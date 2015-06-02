@@ -42,6 +42,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Toast;
 import de.blau.android.exception.OsmException;
@@ -2069,6 +2070,95 @@ public class Logic {
 			return null;
 		}
 	}
+	
+	/**
+	 * Return multiple elements of the same type from the API and merge them in to our data
+	 * Since this doesn't return way nodes this method probably doesn't make sense
+	 * 
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+//	void downloadElements(final String type, long[] ids) {
+//		
+//		class MyTask extends AsyncTask<Void, Void, Integer> {
+//			int result = 0;
+//			
+//			@Override
+//			protected void onPreExecute() {
+//				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+//			}
+//			
+//			@Override
+//			protected Integer doInBackground(Void... arg) {
+//				try {
+//					final OsmParser osmParser = new OsmParser();
+//					final InputStream in = prefs.getServer().getStreamForElements(type, ids);
+//					try {
+//						osmParser.start(in);
+//						if (!getDelegator().mergeData(osmParser.getStorage())) {
+//							result = DialogFactory.DATA_CONFLICT;
+//						} 
+//					} finally {
+//						SavingHelper.close(in);
+//					}
+//				} catch (SAXException e) {
+//					Log.e("Vespucci", "Problem parsing", e);
+//					Exception ce = e.getException();
+//					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+//						result = DialogFactory.OUT_OF_MEMORY;
+//					} else {
+//						result = DialogFactory.INVALID_DATA_RECEIVED;
+//					}
+//				} catch (ParserConfigurationException e) {
+//					// crash and burn
+//					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+//					Log.e("Vespucci", "Problem parsing", e);
+//					result = DialogFactory.INVALID_DATA_RECEIVED;
+//				} catch (OsmServerException e) {
+//					Log.e("Vespucci", "Problem downloading", e);
+//				} catch (IOException e) {
+//					result = DialogFactory.NO_CONNECTION;
+//					Log.e("Vespucci", "Problem downloading", e);
+//				}
+//				return result;
+//			}
+//			
+//			@Override
+//			protected void onPostExecute(Integer result) {
+//
+//				try {
+//					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+//				} catch (IllegalArgumentException e) {
+//					// Avoid crash if dialog is already dismissed
+//					Log.d("Logic", "", e);
+//				}
+//
+//				if (result != 0) {
+//					if (result == DialogFactory.OUT_OF_MEMORY) {
+//						System.gc();
+//						if (getDelegator().isDirty()) {
+//							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+//						}
+//					}	
+//					try {
+//						if (!Application.mainActivity.isFinishing()) {
+//							Application.mainActivity.showDialog(result);
+//						}
+//					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+//						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+//						ACRA.getErrorReporter().handleException(ex);
+//					}
+//				}
+//				map.invalidate();
+//
+//				UndoStorage.updateIcon();
+//			}
+//			
+//		};
+//		MyTask loader = new MyTask();
+//		loader.execute();
+//	}
 	
 	/**
 	 * Update a single element from the API

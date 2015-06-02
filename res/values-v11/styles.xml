@@ -7,8 +7,6 @@
 
 	<style name="Theme.customMain" parent="style/Theme.Sherlock">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="android:editTextStyle">@style/EditText</item>
-		<item name="android:checkboxStyle">@style/CheckBox</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_dark</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_dark</item>
@@ -45,14 +43,13 @@
 		<item name="undolist_redo">@drawable/undolist_redo_dark</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
+		<item name="EditText">@style/EditTextDark</item>
 	</style>
 	
 	<style name="ActionButtonDark" parent="@style/Widget.Sherlock.ActionButton" />
-
+	
 	<style name="Theme.customMain.Light" parent="style/Theme.Sherlock.Light">
 		<item name="android:actionDropDownStyle">@style/customActionBarDropdown</item>
-		<item name="android:editTextStyle">@style/EditTextLight</item>
-		<item name="android:checkboxStyle">@style/CheckBoxLight</item>
 		<!--  icons  -->
 		<item name="menu_gps">@drawable/ic_action_location_found_holo_light</item>
 		<item name="menu_config">@drawable/ic_action_settings_holo_light</item>
@@ -89,9 +86,27 @@
 		<item name="undolist_redo">@drawable/undolist_redo_light</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
+		<item name="EditText">@style/EditTextLight</item>
 	</style>
 
 	<style name="ActionButtonLight" parent="@style/Widget.Sherlock.Light.ActionButton" />
+	
+	<!--  Style for custom views in alert dialogs -->
+	<style name="Theme.DialogDark" parent="@style/Theme.Sherlock"></style>
+	
+	<style name="Theme.DialogLight" parent="style/Theme.Sherlock.Light">
+	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:editTextStyle">@style/DialogEditTextLight</item>
+	    <item name="android:checkboxStyle">@style/DialogCheckBoxLight</item>
+	    <item name="android:textCursorDrawable">@null</item>
+	</style>
+	
+	<style name="DialogEditTextLight" parent="android:Widget.Holo.Light.EditText">
+	    <item name="android:textColor">@android:color/black</item>
+	</style>
+	
+	<style name="DialogCheckBoxLight" parent="android:Widget.Holo.Light.CompoundButton.CheckBox">
+	</style>
 	
 	<!-- Dark for PropertyEditor -->
 	<style name="Theme.customTagEditor" parent="style/Theme.Sherlock">
@@ -99,7 +114,7 @@
 		<item name="android:autoCompleteTextViewStyle">@style/Widget.AutoCompleteTextView</item>
 		<item name="android:dropDownItemStyle">@style/Widget.DropDownItem</item>
 		<!-- <item name="android:textViewStyle">@style/TextView</item> -->
-		<item name="android:editTextStyle">@style/EditText</item>
+		<item name="android:editTextStyle">@style/EditTextDark</item>
 		<item name="android:checkboxStyle">@style/CheckBox</item>
 		<item name="android:spinnerStyle">@style/SpinnerStyle</item>
 		<item name="TableHeader">@style/TableHeader</item>
@@ -129,7 +144,7 @@
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
-	<style name="EditText" parent="android:Widget.Holo.EditText">
+	<style name="EditTextDark" parent="android:Widget.Holo.EditText">
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
@@ -217,6 +232,7 @@
 	</style>
 
 	<style name="EditTextLight" parent="android:Widget.Holo.Light.EditText">
+	    <item name="android:textColor">@android:color/black</item>
 		<item name="android:background">@android:color/white</item>
 	</style>
 	
