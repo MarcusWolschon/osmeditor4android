@@ -31,6 +31,8 @@
 package de.blau.android.presets;
 
 //other imports
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -61,7 +63,7 @@ import de.blau.android.util.MultiHashMap;
  * that is for the VALUE  for the key "addr:street" .</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
-public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<String> {
+public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithCount> {
 
     /**
      * The tag we use for Android-logging.
@@ -84,12 +86,39 @@ public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<String> {
                                        final int aTextViewResourceId,
                                        final StorageDelegator delegator,
                                        final String osmElementType,
-                                       final long osmId) {
+                                       final long osmId,
+                                       ArrayList<String> extraValues) {
         super(aContext, aTextViewResourceId);
         Log.d("PlaceTagValuesCompletionAdapter","Constructor ...");
+        
+        HashMap<String, Integer> counter = new HashMap<String, Integer>();
+        if (extraValues != null && extraValues.size() > 0) {
+        	for(String t:extraValues) {
+        		if (t.equals("")) {
+        			continue;
+        		}
+        		if (counter.containsKey(t)) {
+        			counter.put(t, Integer.valueOf(counter.get(t).intValue()+1));
+        		} else {
+        			counter.put(t, Integer.valueOf(1));
+        		}
+        	}
+        	ArrayList<String> keys = new ArrayList<String>(counter.keySet());
+        	Collections.sort(keys);
+        	for (String t:keys) {
+        		ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
+            	super.add(v);
+        	}
+        	super.add(new ValueWithCount("",0)); // hack
+        }
+        
         names = getArray(delegator, getLocation(delegator, osmElementType, osmId));
         for (String s:names) {
-        	super.add(s);
+           	if (counter.size()> 0 && counter.containsKey(s)) {
+        		continue; // skip values that we already have
+        	}
+        	ValueWithCount v = new ValueWithCount(s);
+        	super.add(v);
         }
     }
 

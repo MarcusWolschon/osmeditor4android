@@ -72,18 +72,18 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 */
 	private static final String DEBUG_TAG = PropertyEditor.class.getName();
 	
-	private long osmId;
+	private long osmIds[];
 	
-	private String type;
+	private String types[];
 	
 	Preset[] presets = null;
 	/**
 	 * The OSM element for reference.
 	 * DO NOT ATTEMPT TO MODIFY IT.
 	 */
-	OsmElement element;
+	OsmElement elements[];
 	
-	private PropertyEditorData loadData;
+	private PropertyEditorData[] loadData;
 	
 	private boolean applyLastAddressTags = false;
 	private boolean showPresets = false;
@@ -105,9 +105,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	static boolean running = false;
 	
 	/**
-	 * The tags present when this editor was created (for undoing changes)
+	 * 
 	 */
-	private Map<String, String> originalTags;
+	private ArrayList<LinkedHashMap<String, String>> originalTags;
 	
 	/**
 	 * the same for relations
@@ -152,7 +152,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from intent");
-			loadData = (PropertyEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
+			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
 			applyLastAddressTags = (Boolean)getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS); 
 			showPresets = (Boolean)getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
 		} else {
@@ -160,22 +160,29 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
 			// loadData = (PropertyEditorData)savedInstanceState.getSerializable(TAGEDIT_DATA);
 			// FIXME needs to be checked if this really works
-			loadData = (PropertyEditorData)getIntent().getSerializableExtra(TAGEDIT_DATA);
+			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
 			// applyLastTags = (Boolean)savedInstanceState.getSerializable(TAGEDIT_LASTTAGS); not saved 
 		}
 				
 		Log.d(DEBUG_TAG, "... done.");
 		
 		// sanity check
-		if (Main.getLogic() == null || Main.getLogic().getDelegator() == null) {
+		if (Main.getLogic() == null || Main.getLogic().getDelegator() == null || loadData == null) {
 			abort();
 		}
-		osmId = loadData.osmId;
-		type = loadData.type;
-		element = Main.getLogic().getDelegator().getOsmElement(type, osmId);
-		// and another sanity check
-		if (element == null) {
-			abort();
+		
+		osmIds = new long[loadData.length];
+		types = new String[loadData.length];
+		elements = new OsmElement[loadData.length];
+		
+		for (int i=0;i<loadData.length;i++) {
+			osmIds[i] = loadData[i].osmId;
+			types[i] = loadData[i].type;
+			elements[i] = Main.getLogic().getDelegator().getOsmElement(types[i], osmIds[i]);
+			// and another sanity check
+			if (elements[i] == null) {
+				abort();
+			}
 		}
 		
 		presets = Main.getCurrentPresets();
@@ -213,31 +220,42 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 		// presets
 		if (!usePaneLayout) {
-			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),element);
+			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags to determine presets
 			presetFragmentPosition = propertyEditorPagerAdapter.addFragment(getString(R.string.tag_menu_preset),presetFragment);
 		}
 		// tags
-		originalTags = loadData.originalTags != null ? loadData.originalTags : loadData.tags;
-
 		
-		tagEditorFragment = TagEditorFragment.newInstance(element,(LinkedHashMap<String, String>) loadData.tags, applyLastAddressTags, loadData.focusOnKey, !usePaneLayout);
+		
+		
+		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<LinkedHashMap<String, String>>();
+		originalTags = new ArrayList<LinkedHashMap<String, String>>();
+		for (int i=0;i<loadData.length;i++) {
+			originalTags.add((LinkedHashMap<String, String>) (loadData[i].originalTags != null ? loadData[i].originalTags : loadData[i].tags));
+			tags.add((LinkedHashMap<String, String>) loadData[i].tags);
+		}
+		
+		
+		tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
 		tagEditorFragmentPosition = propertyEditorPagerAdapter.addFragment(getString(R.string.menu_tags),tagEditorFragment);
 
-		// parent relations
-		originalParents = loadData.originalParents != null ? loadData.originalParents : loadData.parents;
+		if (loadData.length == 1) { // for now no support of relations 
+			// parent relations
+			originalParents = loadData[0].originalParents != null ? loadData[0].originalParents : loadData[0].parents;
 
-		relationMembershipFragment = RelationMembershipFragment.newInstance(loadData.parents);
-		propertyEditorPagerAdapter.addFragment(getString(R.string.relations),relationMembershipFragment);
+			relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
+			propertyEditorPagerAdapter.addFragment(getString(R.string.relations),relationMembershipFragment);
 
 
-		if (type.endsWith(Relation.NAME)) {
-		// members of this relation
-			originalMembers = loadData.originalMembers != null ? loadData.originalMembers : loadData.members;
-		
-			relationMembersFragment = RelationMembersFragment.newInstance(loadData.members);
-			propertyEditorPagerAdapter.addFragment(getString(R.string.members),relationMembersFragment);
+			if (types[0].endsWith(Relation.NAME)) {
+				// members of this relation
+				originalMembers = loadData[0].originalMembers != null ? loadData[0].originalMembers : loadData[0].members;
+
+				relationMembersFragment = RelationMembersFragment.newInstance(loadData[0].members);
+				propertyEditorPagerAdapter.addFragment(getString(R.string.members),relationMembersFragment);
+			}
 		}
-
+		
+		
 		if (usePaneLayout) { // add both preset fragments to panes
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getSupportFragmentManager();
@@ -246,14 +264,14 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			if (recentPresetsFragment != null) {
 				ft.remove(recentPresetsFragment);
 			}
-			recentPresetsFragment = RecentPresetsFragment.newInstance(element);
+			recentPresetsFragment = RecentPresetsFragment.newInstance(elements[0]); // FIXME collect tags
 			ft.add(R.id.recent_preset_row,recentPresetsFragment,"recentpresets_fragment");
 			
 			presetFragment = (PresetFragment) fm.findFragmentByTag("preset_fragment");
 			if (presetFragment != null) {
 				ft.remove(presetFragment);
 			}
-			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),element);
+			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags
 			ft.add(R.id.preset_row,presetFragment,"preset_fragment");
 			
 			ft.commit();
@@ -337,14 +355,14 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@Override
 	public void onBackPressed() {
 		// sendResultAndFinish();
-		Map<String, String> currentTags = tagEditorFragment.getKeyValueMap(false);
+		ArrayList<LinkedHashMap<String, String>> currentTags = tagEditorFragment.getUpdatedTags();
 		HashMap<Long,String> currentParents = relationMembershipFragment.getParentRelationMap();
 		ArrayList<RelationMemberDescription> currentMembers = new ArrayList<RelationMemberDescription>(); // FIXME
-		if (type.equals(Relation.NAME)) {
+		if (types.equals(Relation.NAME)) {
 			currentMembers = relationMembersFragment.getMembersList();
 		}
 		// if we haven't edited just exit
-		if (!currentTags.equals(originalTags) || !currentParents.equals(originalParents) || (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		if (!same(currentTags,originalTags) || !currentParents.equals(originalParents) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
 		    new AlertDialog.Builder(this)
 	        .setNeutralButton(R.string.cancel, null)
 	        .setNegativeButton(R.string.tag_menu_revert,        	
@@ -369,37 +387,81 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 * Get current values from the fragments and end the activity
 	 */
 	protected void sendResultAndFinish() {
-		// Save current tags for "repeat last" button
-		LinkedHashMap<String,String> tags = tagEditorFragment.getKeyValueMap(false);
+		
+		ArrayList<LinkedHashMap<String,String>> currentTags = tagEditorFragment.getUpdatedTags();
+//		for (LinkedHashMap<String,String>map:currentTags) {
+//			for (String k:map.keySet()) {
+//				Log.d(DEBUG_TAG, "current key " + k + " " + map.get(k) );
+//			}
+//		}
+//		for (LinkedHashMap<String,String>map:originalTags) {
+//			for (String k:map.keySet()) {
+//				Log.d(DEBUG_TAG, "original key " + k + " " + map.get(k) );
+//			}
+//		}
+		
+		// Save tags to our clipboard
 		LinkedHashMap<String,String> copiedTags = tagEditorFragment.getCopiedTags();
 		if (copiedTags != null) {
 			savingHelper.save(COPIED_TAGS_FILE, copiedTags, false);
 		}
 		// save any address tags for "last address tags"
-		Address.updateLastAddresses(tagEditorFragment, tags);
-		
+		if (currentTags.size() == 1) {
+			Address.updateLastAddresses(tagEditorFragment, currentTags.get(0));// FIXME
+		}
 		Intent intent = new Intent();
-		Map<String, String> currentTags = tagEditorFragment.getKeyValueMap(false);
-		HashMap<Long,String> currentParents = relationMembershipFragment.getParentRelationMap();
-		ArrayList<RelationMemberDescription> currentMembers = new ArrayList<RelationMemberDescription>(); //FIXME
-		if (type.endsWith(Relation.NAME)) {
-			currentMembers = relationMembersFragment.getMembersList();
-		}
 		
-		if (!currentTags.equals(originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) 
-				|| (element != null && element.getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
-			// changes were made
-			intent.putExtra(TAGEDIT_DATA, new PropertyEditorData(osmId, type, 
-					currentTags.equals(originalTags)? null : currentTags,  null, 
-					(originalParents==null && currentParents.size()==0) || currentParents.equals(originalParents)?null:currentParents, null, 
-					currentMembers.equals(originalMembers)?null:currentMembers, null));
+		HashMap<Long,String> currentParents = null;
+		ArrayList<RelationMemberDescription> currentMembers = null;
+		PropertyEditorData[] newData = new PropertyEditorData[currentTags.size()];
+		if (currentTags.size() == 1) { // normal single mode, relations might have changed
+			currentParents = relationMembershipFragment.getParentRelationMap();
+			currentMembers = new ArrayList<RelationMemberDescription>(); //FIXME
+			if (types[0].endsWith(Relation.NAME)) {
+				currentMembers = relationMembersFragment.getMembersList();
+			}
+
+			if (!same(currentTags, originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) 
+					|| (elements != null && elements[0].getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+				// changes were made
+				Log.d(DEBUG_TAG, "saving tags");
+				for (int i=0;i<currentTags.size();i++) {
+					newData[i] = new PropertyEditorData(osmIds[i], types[i], 
+							currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),  null, 
+									(originalParents==null && currentParents.size()==0) || currentParents.equals(originalParents)?null:currentParents, null, 
+											currentMembers.equals(originalMembers)?null:currentMembers, null);
+				}
+			}
+		} else { // multi select just tags could have been changed
+			if (!same(currentTags, originalTags)) {
+				// changes were made
+				for (int i=0;i<currentTags.size();i++) {
+					newData[i] = new PropertyEditorData(osmIds[i], types[i], 
+							currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),  null, null, null, null, null);
+				}		
+			}
 		}
-		
+		intent.putExtra(TAGEDIT_DATA, newData);
 		setResult(RESULT_OK, intent);
 		finish();
 	}
 	
-
+	/**
+	 * Check if two set of tags are the same
+	 * @return
+	 */
+	boolean same(ArrayList<LinkedHashMap<String,String>> tags1, ArrayList<LinkedHashMap<String,String>> tags2){
+		// check for tag changes
+		if (tags1.size() != tags2.size()) { /// serious error
+			return false;
+		}
+		for (int i=0;i<tags1.size();i++) {
+			if (!tags1.get(i).equals(tags2.get(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	/** Save the state of this activity instance for future restoration.
 	 * @param outState The object to receive the saved state.
@@ -458,28 +520,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 	}
 	
-	/**
-	 * @return the OSM ID of the element currently edited by the editor
-	 */
-	public long getOsmId() {
-		return osmId;
-	}
-	
-	/**
-	 * Set the OSM ID currently edited by the editor
-	 */
-	public void setOsmId(final long osmId) {
-		this.osmId = osmId;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(final String type) {
-		this.type = type;
-	}
-	
 	@Override
 	public void onPresetSelected(PresetItem item) {
 		if (item != null) {
@@ -495,7 +535,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 	}
 	
-
 	/**
 	 * Allow ViewPAger to work
 	 */

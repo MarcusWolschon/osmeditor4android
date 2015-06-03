@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class OsmElementFactory implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private long wayId = 0;
 
 	private long nodeId = 0;
 	
-	private long relationId = 0;
+	private long relationId = -2; // -1 might have a magic meaning
 
 	public static Node createNode(long osmId, long osmVersion, byte status, int lat, int lon) {
 		return new Node(osmId, osmVersion, status, lat, lon);

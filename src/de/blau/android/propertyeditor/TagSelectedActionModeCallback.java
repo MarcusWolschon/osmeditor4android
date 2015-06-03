@@ -98,11 +98,11 @@ public class TagSelectedActionModeCallback implements Callback {
 			break;
 		case MENUITEM_COPY:
 			if (selected.size() > 0) {
-				caller.savedTags = new LinkedHashMap<String,String>();
+				caller.copiedTags = new LinkedHashMap<String,String>();
 				for (TagEditRow r:selected) {
-					addKeyValue(caller.savedTags, r);
+					addKeyValue(caller.copiedTags, r);
 				}
-				ClipboardUtils.copyTags(caller.getActivity(), caller.savedTags);
+				ClipboardUtils.copyTags(caller.getActivity(), caller.copiedTags);
 			}
 			if (currentAction != null) {
 				currentAction.finish();
@@ -110,12 +110,12 @@ public class TagSelectedActionModeCallback implements Callback {
 			break;
 		case MENUITEM_CUT:
 			if (selected.size() > 0) {
-				caller.savedTags = new LinkedHashMap<String,String>();
+				caller.copiedTags = new LinkedHashMap<String,String>();
 				for (TagEditRow r:selected) {
-					addKeyValue(caller.savedTags, r);
+					addKeyValue(caller.copiedTags, r);
 					r.deleteRow();
 				}
-				ClipboardUtils.copyTags(caller.getActivity(), caller.savedTags);
+				ClipboardUtils.copyTags(caller.getActivity(), caller.copiedTags);
 			}
 			if (currentAction != null) {
 				currentAction.finish();

@@ -88,4 +88,13 @@ public class PropertyEditorData implements Serializable {
 		
 		this.focusOnKey = focusOnKey;
 	}
+	
+	public static PropertyEditorData[] deserializeArray(Serializable s) {
+		Object[] a = (Object[]) s;
+		PropertyEditorData[] r = new PropertyEditorData[a.length];
+		for (int i=0;i<a.length;i++) {
+			r[i] = (PropertyEditorData) a[i];
+		}
+		return r;
+	}
 }

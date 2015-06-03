@@ -1917,7 +1917,7 @@ public class EasyEditManager {
 				undoView.setOnLongClickListener(undoListener);
 			}
 			
-			// menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
+			 menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());;
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			// if (!(element instanceof Relation)) {
@@ -1969,7 +1969,7 @@ public class EasyEditManager {
 			if (!super.onActionItemClicked(mode, item)) {
 				switch (item.getItemId()) {
 				
-				// case MENUITEM_TAG: main.performTagEdit(element, null, false); break;
+				 case MENUITEM_TAG: main.performTagEdit(selection, false, false); break;
 				// case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
 				case MENUITEM_DELETE: menuDelete(false); break;
 				

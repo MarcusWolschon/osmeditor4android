@@ -376,6 +376,7 @@ public class UndoStorage implements Serializable {
 		
 		@Override
 		public void restore() {
+			Log.d("Undo","Restoring relation " + element.getDescription());
 			super.restore();
 			((Relation)element).members.clear();
 			((Relation)element).members.addAll(members);

@@ -1269,8 +1269,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(r);
 			undo.save(element);
 			element.removeParentRelation(r);
-			element.updateState(OsmElement.STATE_MODIFIED);
-			apiStorage.insertElementSafe(element);
+//			element itself is not modified
+//			element.updateState(OsmElement.STATE_MODIFIED);
+//			apiStorage.insertElementSafe(element);
 			Log.i("StorageDelegator", "... done");
 		} catch (StorageException e) {
 			//TODO handle OOM
@@ -1383,7 +1384,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public void updateParentRelations(final OsmElement e,
 			final HashMap<Long, String> parents) {
-		
+		Log.d(DEBUG_TAG,"updateParentRelations new parents size " + parents.size());
 		ArrayList<Relation> origParents = e.getParentRelations() != null ? (ArrayList<Relation>) e.getParentRelations().clone() : new ArrayList<Relation>();
 		
 		for (Relation o: origParents) { // find changes to existing memberships
@@ -1400,9 +1401,11 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		// add as new member to relation
 		for (Long l : parents.keySet()) {
+			Log.d(DEBUG_TAG,"updateParentRelations new parent " + l.longValue());
 			if (l.longValue() != -1) { // 
 				Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l.longValue());
 				if (!origParents.contains(r)) {
+					Log.d(DEBUG_TAG,"updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
 					addElementToRelation(e, -1, parents.get(l), r); // append for now only
 				}
 			}

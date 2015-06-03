@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -432,7 +433,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		Set<String> roles = new HashSet<String>();
 				
 		if (((PropertyEditor)getActivity()).presets != null && ((PropertyEditor)getActivity()).tagEditorFragment.autocompletePresetItem != null) {
-			PresetItem relationPreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).tagEditorFragment.getKeyValueMap(false));
+			PresetItem relationPreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).tagEditorFragment.getKeyValueMapSingle(false)); // FIXME
 			if (relationPreset != null) {
 				roles.addAll(((PropertyEditor)getActivity()).tagEditorFragment.autocompletePresetItem.getRoles());
 			}
@@ -484,14 +485,14 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	public void onItemSelected(AdapterView<?> parent, View view, 
             int pos, long id) {
     	
-//        // An item was selected. You can retrieve the selected item using
-//        // parent.getItemAtPosition(pos)
-//    	Log.d("TagEditor", ((Relation)parent.getItemAtPosition(pos)).getDescription());
-//    	ViewParent pv = view.getParent();
-//    	while (!(pv instanceof RelationMembershipRow)) {
-//    		pv = pv.getParent();
-//    	}
-//    	((RelationMembershipRow)pv).setRelation((Relation)parent.getItemAtPosition(pos));	
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    	Log.d("TagEditor", ((Relation)parent.getItemAtPosition(pos)).getDescription());
+    	ViewParent pv = view.getParent();
+    	while (!(pv instanceof RelationMembershipRow)) {
+    		pv = pv.getParent();
+    	}
+    	((RelationMembershipRow)pv).setRelation((Relation)parent.getItemAtPosition(pos));	
     }
 
     @Override

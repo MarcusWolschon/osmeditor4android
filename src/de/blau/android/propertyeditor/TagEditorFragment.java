@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -60,6 +61,7 @@ import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
+import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.KeyValue;
@@ -84,29 +86,29 @@ public class TagEditorFragment extends SherlockFragment {
 	private static Names names = null;
 	
 	private boolean loaded = false;
-	private String type;
-	private long osmId;
+	private String[] types;
+	private long[] osmIds;
 	private Preferences prefs = null;
-	private OsmElement element = null;
+	private OsmElement[] elements = null;
 	
 	LayoutInflater inflater = null;
 
 	/**
 	 * saves any changed fields on onPause
 	 */
-	protected LinkedHashMap<String,String> savedTags = null;
+	protected LinkedHashMap<String,ArrayList<String>> savedTags = null;
 	
 	/**
 	 * selective copy of tags
 	 */
-	private Map<String, String> copiedTags = null;
+	protected Map<String, String> copiedTags = null;
 	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
 	 * @author Andrew Gregory
 	 */
 	protected interface KeyValueHandler {
-		abstract void handleKeyValue(final EditText keyEdit, final EditText valueEdit);
+		abstract void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String>tagValues);
 	}
 	
 	/**
@@ -127,7 +129,7 @@ public class TagEditorFragment extends SherlockFragment {
 		for (int i = 0; i < size; ++i) {
 			View view = rowLayout.getChildAt(i);
 			TagEditRow row = (TagEditRow)view;
-			handler.handleKeyValue(row.keyEdit, row.valueEdit);
+			handler.handleKeyValue(row.keyEdit, row.valueEdit, row.tagValues);
 		}
 	}
 	
@@ -136,12 +138,13 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param focusOnKey 
 	 * @param displayMRUpresets 
      */
-    static public TagEditorFragment newInstance(OsmElement element, LinkedHashMap<String,String> tags, boolean applyLastAddressTags, String focusOnKey, boolean displayMRUpresets) {
+    static public TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String,String>> tags, boolean applyLastAddressTags, 
+    											String focusOnKey, boolean displayMRUpresets) {
     	TagEditorFragment f = new TagEditorFragment();
     	
         Bundle args = new Bundle();
    
-        args.putSerializable("element", element);
+        args.putSerializable("elements", elements);
         args.putSerializable("tags", tags);
         args.putSerializable("applyLastAddressTags", Boolean.valueOf(applyLastAddressTags));
         args.putSerializable("focusOnKey", focusOnKey);
@@ -180,6 +183,7 @@ public class TagEditorFragment extends SherlockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	ScrollView rowLayout = null;
+    	ArrayList<LinkedHashMap<String, String>> originalTags = null;
 
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
@@ -207,25 +211,30 @@ public class TagEditorFragment extends SherlockFragment {
        
      	LinearLayout editRowLayout = (LinearLayout) rowLayout.findViewById(R.id.edit_row_layout);
     		
-     	element = (OsmElement) getArguments().getSerializable("element");
-     	type = element.getName();
-     	osmId = element.getOsmId();
-     	Map<String,String> tags;
+     	elements = (OsmElement[]) getArguments().getSerializable("elements");
+     	types = new String[elements.length];
+     	osmIds =  new long[elements.length];
+     	for (int i=0;i< elements.length;i++) {
+     		types[i] = elements[i].getName();
+     		osmIds[i] = elements[i].getOsmId();
+     	}
+     	
+     	LinkedHashMap<String,ArrayList<String>> tags;
      	if (savedTags != null) { // view was destroyed and needs to be recreated with current state
      		Log.d(DEBUG_TAG,"Restoring from instance variable");
      		tags = savedTags;
      	} else {
-     		tags = (Map<String,String>)getArguments().getSerializable("tags");
+     		tags = buildEdits();
      	}
      	boolean applyLastAddressTags = ((Boolean) getArguments().getSerializable("applyLastAddressTags")).booleanValue();
      	String focusOnKey = (String)  getArguments().getSerializable("focusOnKey");
      	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable("displayMRUpresets")).booleanValue();
      	
-       	Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
+       	// Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
 		
        	loaded = false;
 		// rowLayout.removeAllViews();
-		for (Entry<String, String> pair : tags.entrySet()) {
+		for (Entry<String, ArrayList<String>> pair : tags.entrySet()) {
 			insertNewEdit(editRowLayout, pair.getKey(), pair.getValue(), -1);
 		}
 		
@@ -244,7 +253,7 @@ public class TagEditorFragment extends SherlockFragment {
 		}	
 		// 
 		if (applyLastAddressTags) {
-			loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
+			// FIXME loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
 		}
 		
 		if (displayMRUpresets) {
@@ -256,7 +265,7 @@ public class TagEditorFragment extends SherlockFragment {
 				ft.remove(recentPresetsFragment);
 			}
 			
-			recentPresetsFragment = RecentPresetsFragment.newInstance(element);
+			recentPresetsFragment = RecentPresetsFragment.newInstance(elements[0]); // FIXME
 			ft.add(R.id.tag_mru_layout,recentPresetsFragment,"recentpresets_fragment");
 			ft.commit();
 		}
@@ -275,6 +284,33 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		return rowLayout;
 	}
+    
+    /**
+     * Build the data structure we use to build the edit display
+     * @return
+     */
+    LinkedHashMap<String,ArrayList<String>> buildEdits() {
+    	ArrayList<LinkedHashMap<String,String>> originalTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
+ 		// 
+    	LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String,ArrayList<String>>();
+ 		for (LinkedHashMap<String,String>map:originalTags) {
+ 			for (String key:map.keySet()) {
+ 				String value = map.get(key);
+ 				if (!tags.containsKey(key)) {
+ 					tags.put(key,new ArrayList<String>());
+ 				}
+ 				tags.get(key).add(value);
+ 			}
+ 		}
+ 		// for those keys that don't have a value for each element add an empty string
+ 		int l = originalTags.size();
+ 		for (ArrayList<String>v:tags.values()) {
+ 			if (v.size() != l) {
+ 				v.add("");
+ 			}
+ 		}
+ 		return tags;
+    }
     
     @Override
     public void onStart() {
@@ -312,12 +348,26 @@ public class TagEditorFragment extends SherlockFragment {
     	super.onDestroyView();
     	Log.d(DEBUG_TAG, "onDestroyView");
     }
-    
+   
+    /**
+ 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+ 	 * Backwards compatible version
+ 	 */
+ 	protected void loadEditsSingle(final Map<String,String> tags) {
+ 		LinearLayout rowLayout = (LinearLayout) getOurView();
+ 		LinkedHashMap<String,ArrayList<String>> convertedTags = new LinkedHashMap<String,ArrayList<String>>();
+ 		for (String key:tags.keySet()) {
+ 			ArrayList<String> v = new ArrayList<String>();
+ 			v.add(tags.get(key));
+ 			convertedTags.put(key, v);
+ 		}
+ 		loadEdits(rowLayout, convertedTags);
+ 	}
     
     /**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadEdits(final Map<String,String> tags) {
+	protected void loadEdits(final Map<String,ArrayList<String>> tags) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		loadEdits(rowLayout, tags);
 	}
@@ -325,11 +375,11 @@ public class TagEditorFragment extends SherlockFragment {
 	/**
 	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
 	 */
-	protected void loadEdits(LinearLayout rowLayout, final Map<String,String> tags) {
+	protected void loadEdits(LinearLayout rowLayout, final Map<String,ArrayList<String>> tags) {
 	
 		loaded = false;
 		rowLayout.removeAllViews();
-		for (Entry<String, String> pair : tags.entrySet()) {
+		for (Entry<String, ArrayList<String>> pair : tags.entrySet()) {
 			insertNewEdit(rowLayout, pair.getKey(), pair.getValue(), -1);
 		}
 		loaded = true;
@@ -338,16 +388,17 @@ public class TagEditorFragment extends SherlockFragment {
 	
 	/**
 	 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
+	 * @param tagValues 
 	 * @return
 	 */
-	protected ArrayAdapter<String> getStreetNameAutocompleteAdapter() {
+	protected ArrayAdapter<ValueWithCount> getStreetNameAutocompleteAdapter(ArrayList<String> tagValues) {
 		if (Main.getLogic() == null || Main.getLogic().getDelegator() == null) {
 			return null;
 		}
 		if (streetNameAutocompleteAdapter == null) {
 			streetNameAutocompleteAdapter =	new StreetTagValueAutocompletionAdapter(getActivity(),
 					R.layout.autocomplete_row, Main.getLogic().getDelegator(),
-					type, osmId);
+					types[0], osmIds[0], tagValues); // FIXME
 		}
 		return streetNameAutocompleteAdapter;
 	}
@@ -356,14 +407,14 @@ public class TagEditorFragment extends SherlockFragment {
 	 * Gets an adapter for the autocompletion of place names based on the neighborhood of the edited item.
 	 * @return
 	 */
-	protected ArrayAdapter<String> getPlaceNameAutocompleteAdapter() {
+	protected ArrayAdapter<ValueWithCount> getPlaceNameAutocompleteAdapter(ArrayList<String> tagValues) {
 		if (Main.getLogic() == null || Main.getLogic().getDelegator() == null) {
 			return null;
 		}
 		if (placeNameAutocompleteAdapter == null) {
 			placeNameAutocompleteAdapter =	new PlaceTagValueAutocompletionAdapter(getActivity(),
 					R.layout.autocomplete_row, Main.getLogic().getDelegator(),
-					type, osmId);
+					types[0], osmIds[0], tagValues); // FIXME
 		}
 		return placeNameAutocompleteAdapter;
 	}
@@ -373,7 +424,7 @@ public class TagEditorFragment extends SherlockFragment {
 		Set<String> keys = new HashSet<String>();
 		
 		if (autocompletePresetItem == null && ((PropertyEditor)getActivity()).presets != null) {
-			autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMap(rowLayout,false));
+			autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMapSingle(rowLayout,false)); // FIXME
 		}
 		
 		if (autocompletePresetItem != null) {
@@ -382,8 +433,8 @@ public class TagEditorFragment extends SherlockFragment {
 			keys.addAll(autocompletePresetItem.getOptionalTags().keySet());
 		}
 		
-		if (((PropertyEditor)getActivity()).presets != null && element != null) {
-			keys.addAll(Preset.getAutocompleteKeys(((PropertyEditor)getActivity()).presets, element.getType()));
+		if (((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
+			keys.addAll(Preset.getAutocompleteKeys(((PropertyEditor)getActivity()).presets, elements[0].getType())); // FIXME
 		}
 		
 		keys.removeAll(getUsedKeys(rowLayout,keyEdit));
@@ -393,9 +444,9 @@ public class TagEditorFragment extends SherlockFragment {
 		return new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, result);
 	}
 	
-	protected ArrayAdapter<?> getValueAutocompleteAdapter(LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
+	protected ArrayAdapter<?> getValueAutocompleteAdapter(LinearLayout rowLayout, TagEditRow row) {
 		ArrayAdapter<?> adapter = null;
-		String key = keyEdit.getText().toString();
+		String key = row.keyEdit.getText().toString();
 		if (key != null && key.length() > 0) {
 			HashSet<String> usedKeys = (HashSet<String>) getUsedKeys(rowLayout,null);
 			boolean isStreetName = (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) ||
@@ -405,28 +456,56 @@ public class TagEditorFragment extends SherlockFragment {
 			boolean noNameSuggestions = usedKeys.contains(Tags.KEY_HIGHWAY) || usedKeys.contains(Tags.KEY_WATERWAY) 
 					|| usedKeys.contains(Tags.KEY_LANDUSE) || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY);
 			if (isStreetName) {
-				adapter = getStreetNameAutocompleteAdapter();
+				adapter = getStreetNameAutocompleteAdapter(row.tagValues != null && row.tagValues.size() > 1 ? row.tagValues : null);
 			} else if (isPlaceName) {
-				adapter = getPlaceNameAutocompleteAdapter();
+				adapter = getPlaceNameAutocompleteAdapter(row.tagValues != null && row.tagValues.size() > 1 ? row.tagValues : null);
 			} else if (key.equals(Tags.KEY_NAME) && (names != null) && !noNameSuggestions) {
-				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(getKeyValueMap(rowLayout,true)));
+				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(getKeyValueMapSingle(rowLayout,true))); // FIXME
 				if (values != null && !values.isEmpty()) {
 					ArrayList<NameAndTags> result = values;
 					Collections.sort(result);
 					adapter = new ArrayAdapter<NameAndTags>(getActivity(), R.layout.autocomplete_row, result);
 				}
 			} else {
+				HashMap<String, Integer> counter = new HashMap<String, Integer>();
+				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<ValueWithCount>(getActivity(), R.layout.autocomplete_row);
+				if (row.tagValues != null && row.tagValues.size() > 1) {
+					for(String t:row.tagValues) {
+						if (t.equals("")) {
+		        			continue;
+		        		}
+						if (counter.containsKey(t)) {
+							counter.put(t, Integer.valueOf(counter.get(t).intValue()+1));
+						} else {
+							counter.put(t, Integer.valueOf(1));
+						}
+					}
+					ArrayList<String> keys = new ArrayList<String>(counter.keySet());
+					Collections.sort(keys);
+					for (String t:keys) {
+						ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
+						adapter2.add(v);
+					}
+				}
 				Collection<String> values = null;
 				if (autocompletePresetItem != null) { // note this will use the last applied preset which may be wrong FIXME
 					values = autocompletePresetItem.getAutocompleteValues(key);
 				} 
-				if (values == null && ((PropertyEditor)getActivity()).presets != null && element != null) {
-					values = Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,element.getType(), key);
+				if (values == null && ((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
+					values = Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key);
 				}
 				if (values != null && !values.isEmpty()) {
 					ArrayList<String> result = new ArrayList<String>(values);
 					Collections.sort(result);
-					adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, result);
+					for (String s:result) {
+						if (counter != null && counter.containsKey(s)) {
+							continue; // skip stuff that is already listed
+						}
+						adapter2.add(new ValueWithCount(s));
+					}
+				}
+				if (adapter2.getCount() > 0) {
+					return adapter2;
 				}
 			}
 		}
@@ -440,9 +519,18 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
 	 * @returns The new TagEditRow.
 	 */
-	protected TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final String aTagValue, final int position) {
+	protected TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
 		final TagEditRow row = (TagEditRow)inflater.inflate(R.layout.tag_edit_row, null);
-		row.setValues(aTagKey, aTagValue);
+		boolean same = true;
+		if (tagValues.size() > 1) {
+			for (int i=1;i<tagValues.size();i++) {
+				if (!tagValues.get(i-1).equals(tagValues.get(i))) {
+					same = false;
+					break;
+				}
+			}
+		}
+		row.setValues(aTagKey, tagValues, same);
 		if (autocompletePresetItem != null) { // set hints even if value isen't empty
 			String hint = autocompletePresetItem.getHint(aTagKey);
 			if (hint != null) { 
@@ -463,15 +551,15 @@ public class TagEditorFragment extends SherlockFragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (Tags.KEY_ADDR_STREET.equals(parent.getItemAtPosition(position)) &&
 						row.valueEdit.getText().toString().length() == 0) {
-					ArrayAdapter<String> adapter = getStreetNameAutocompleteAdapter();
+					ArrayAdapter<ValueWithCount> adapter = getStreetNameAutocompleteAdapter(tagValues);
 					if (adapter != null && adapter.getCount() > 0) {
-						row.valueEdit.setText(adapter.getItem(0));
+						row.valueEdit.setText(adapter.getItem(0).getValue());
 					}
 				} else if (Tags.KEY_ADDR_PLACE.equals(parent.getItemAtPosition(position)) &&
 						row.valueEdit.getText().toString().length() == 0) {
-					ArrayAdapter<String> adapter = getPlaceNameAutocompleteAdapter();
+					ArrayAdapter<ValueWithCount> adapter = getPlaceNameAutocompleteAdapter(tagValues);
 					if (adapter != null && adapter.getCount() > 0) {
-						row.valueEdit.setText(adapter.getItem(0));
+						row.valueEdit.setText(adapter.getItem(0).getValue());
 					}
 				} else{
 					if (autocompletePresetItem != null) {
@@ -506,7 +594,7 @@ public class TagEditorFragment extends SherlockFragment {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					row.valueEdit.setAdapter(getValueAutocompleteAdapter(rowLayout, row.keyEdit));
+					row.valueEdit.setAdapter(getValueAutocompleteAdapter(rowLayout, row));
 					if (PropertyEditor.running) {
 						if (row.valueEdit.getText().length() == 0) row.valueEdit.showDropDown();
 //						try { // hack to display numeric keyboard for numeric tag values
@@ -556,6 +644,10 @@ public class TagEditorFragment extends SherlockFragment {
 				if (o instanceof Names.NameAndTags) {
 					row.valueEdit.setText(((NameAndTags)o).getName());
 					applyTagSuggestions(((NameAndTags)o).getTags());
+				} else if (o instanceof ValueWithCount) {
+					row.valueEdit.setText(((ValueWithCount)o).getValue());
+				} else if (o instanceof String) {
+					row.valueEdit.setText((String)o);
 				}
 			}
 		});
@@ -596,6 +688,7 @@ public class TagEditorFragment extends SherlockFragment {
 		private AutoCompleteTextView keyEdit;
 		private OffsettedAutoCompleteTextView valueEdit;
 		private CheckBox selected;
+		private ArrayList<String> tagValues;
 				
 		public TagEditRow(Context context) {
 			super(context);
@@ -647,11 +740,11 @@ public class TagEditorFragment extends SherlockFragment {
 			if (w == 0 && h == 0) {
 				return;
 			}
-			Log.d(DEBUG_TAG,"w=" + w +" h="+h);
+			// Log.d(DEBUG_TAG,"w=" + w +" h="+h);
 			// this is not really satisfactory
 			keyEdit.setDropDownAnchor(valueEdit.getId());
-			keyEdit.setDropDownVerticalOffset(-h);
-			valueEdit.setDropDownVerticalOffset(-h);
+//			keyEdit.setDropDownVerticalOffset(-h);
+//			valueEdit.setDropDownVerticalOffset(-h);
 			valueEdit.setParentWidth(w);
 			//			
 		}
@@ -662,10 +755,19 @@ public class TagEditorFragment extends SherlockFragment {
 		 * @param aTagValue the value value to set
 		 * @return the TagEditRow object for convenience
 		 */
-		public TagEditRow setValues(String aTagKey, String aTagValue) {
-			Log.d(DEBUG_TAG, "key " + aTagKey + " value " + aTagValue);
+		public TagEditRow setValues(String aTagKey, ArrayList<String> tagValues, boolean same) {
+			Log.d(DEBUG_TAG, "key " + aTagKey + " value " + tagValues);
 			keyEdit.setText(aTagKey);
-			valueEdit.setText(aTagValue);
+			this.tagValues = tagValues;
+			if (same) {
+				if (tagValues.size() > 0) {
+					valueEdit.setText(tagValues.get(0));
+				} else {
+					valueEdit.setText("");
+				}
+			} else {
+				valueEdit.setHint("Multiple values");
+			}
 			return this;
 		}
 		
@@ -673,7 +775,7 @@ public class TagEditorFragment extends SherlockFragment {
 			return keyEdit.getText().toString();
 		}
 		
-		public String getValue() {
+		public String getValue() { // FIXME check if returning the textedit value is actually ok
 			return valueEdit.getText().toString();
 		}
 		
@@ -727,7 +829,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param tags
 	 */
 	private void applyTagSuggestions(Names.TagMap tags) {
-		final LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+		final LinkedHashMap<String, String> currentValues = getKeyValueMapSingle(true); // FIXME
 		
 		boolean replacedValue = false;	
 		
@@ -743,17 +845,17 @@ public class TagEditorFragment extends SherlockFragment {
 			dialog.setPositiveButton(R.string.replace, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					loadEdits(currentValues);
+					loadEditsSingle(currentValues);// FIXME
 				}
 			});
 			dialog.setNegativeButton(R.string.cancel, null);
 			dialog.create().show();
 		} else
-			loadEdits(currentValues);
+			loadEditsSingle(currentValues);// FIXME
 		
 // TODO while applying presets automatically seems like a good idea, it needs some further thought
 		if (prefs.enableAutoPreset()) {
-			PresetItem p = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,getKeyValueMap(false));
+			PresetItem p = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,getKeyValueMapSingle(false)); // FIXME
 			if (p!=null) {
 				applyPreset(p, false); 
 			}
@@ -823,10 +925,10 @@ public class TagEditorFragment extends SherlockFragment {
 			while (--i >= 0) { 
 				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
 				boolean isEmpty = row.isEmpty();
-				if (ret == null) ret = isEmpty ? row : insertNewEdit(rowLayout,"", "", -1);
+				if (ret == null) ret = isEmpty ? row : insertNewEdit(rowLayout,"", new ArrayList(), -1);
 				else if (isEmpty) row.deleteRow();
 			}
-			if (ret == null) ret = insertNewEdit(rowLayout,"", "", -1);
+			if (ret == null) ret = insertNewEdit(rowLayout,"", new ArrayList(), -1);
 		}
 		return ret;
 		
@@ -847,7 +949,7 @@ public class TagEditorFragment extends SherlockFragment {
 		for (int i = 0; i < rowLayout.getChildCount(); i++) {
 			TagEditRow ter = (TagEditRow)rowLayout.getChildAt(i);
 			if (ter.getKey() != null && !ter.getKey().equals("") && ter.getValue().equals("")) {
-				focusRowValue(rowLayout, rowIndex(ter));
+				focusRowValue(rowLayout, rowIndex(rowLayout,ter));
 				found = true;
 				break;
 			}
@@ -928,7 +1030,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 */
 	private void applyPreset(PresetItem item, boolean addToMRU) {
 		autocompletePresetItem = item;
-		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+		LinkedHashMap<String, String> currentValues = getKeyValueMapSingle(true); // FIXME
 		
 		boolean replacedValue = false;	
 		
@@ -947,7 +1049,7 @@ public class TagEditorFragment extends SherlockFragment {
 			}
 		}
 		
-		loadEdits(currentValues);
+		loadEditsSingle(currentValues); // FIXME
 		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
 		
 		//
@@ -982,14 +1084,16 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param replace // FIXME
 	 */
 	private void mergeTags(Map<String, String> newTags, boolean replace) {
-		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		
 		boolean replacedValue = false;	
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : newTags.entrySet()) {
-			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
-			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) {
+			ArrayList<String> v = new ArrayList<String>();
+			v.add(tag.getValue());
+			ArrayList<String> oldValue = currentValues.put(tag.getKey(), v);
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) { // FIXME check 
 				replacedValue = true;
 			}
 		}
@@ -1005,7 +1109,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param replace // FIXME
 	 */
 	private void mergeTags(ArrayList<KeyValue> newTags, boolean replace) {
-		LinkedHashMap<String, String> currentValues = getKeyValueMap(true);
+		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		HashMap<String,KeyValue> keyIndex = new HashMap(); // needed for de-duping
 		
 		ArrayList<KeyValue> keysAndValues = new ArrayList<KeyValue>();
@@ -1017,7 +1121,7 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		boolean replacedValue = false;	
 		
-		// Fixed tags, always have a value. We overwrite mercilessly.
+		// 
 		for (KeyValue tag : newTags) {
 			KeyValue keyValue = keyIndex.get(tag.getKey());
 			if (keyValue != null) { // exists
@@ -1033,7 +1137,7 @@ public class TagEditorFragment extends SherlockFragment {
 		loaded = false;
 		rowLayout.removeAllViews();
 		for (KeyValue keyValue:keysAndValues) {
-			insertNewEdit(rowLayout, keyValue.getKey(), keyValue.getValue(), -1);
+			insertNewEdit(rowLayout, keyValue.getKey(), keyValue.getValues(), -1);
 		}
 		loaded = true;
 		ensureEmptyRow(rowLayout);
@@ -1064,13 +1168,13 @@ public class TagEditorFragment extends SherlockFragment {
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
 		case R.id.tag_menu_address:
-			loadEdits(Address.predictAddressTags(this, getKeyValueMap(false)));
+			loadEditsSingle(Address.predictAddressTags(this, getKeyValueMapSingle(false))); // FIXME
 			return true;
 		case R.id.tag_menu_sourcesurvey:
 			doSourceSurvey();
 			return true;
 		case R.id.tag_menu_apply_preset:
-			PresetItem pi = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,getKeyValueMap(false));
+			PresetItem pi = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,getKeyValueMapSingle(false)); // FIXME
 			if (pi!=null) {
 				applyPreset(pi, false); 
 			}
@@ -1089,7 +1193,7 @@ public class TagEditorFragment extends SherlockFragment {
 			return true;
 		case R.id.tag_menu_mapfeatures:
 			Uri uri = null;
-			LinkedHashMap<String, String> map = getKeyValueMap(false);
+			LinkedHashMap<String, String> map = getKeyValueMapSingle(false); // FIXME
 			if (map !=null) {
 				PresetItem p =  Preset.findBestMatch(((PropertyEditor)getActivity()).presets,map);
 				if (p != null) {
@@ -1127,21 +1231,60 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
 	 * @return The LinkedHashMap<String,String> of key-value pairs.
 	 */
-	LinkedHashMap<String,String> getKeyValueMap(final boolean allowBlanks) {
+	LinkedHashMap<String,ArrayList<String>> getKeyValueMap(final boolean allowBlanks) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		return getKeyValueMap(rowLayout, allowBlanks);
 	}	
 		
-	LinkedHashMap<String,String> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
+	LinkedHashMap<String,ArrayList<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
+		
+		final LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
+		processKeyValues(rowLayout, new KeyValueHandler() {
+			@Override
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
+				String key = keyEdit.getText().toString().trim();
+				String value = valueEdit.getText().toString().trim();
+				boolean valueBlank = "".equals(value);
+				boolean bothBlank = "".equals(key) && valueBlank;
+				boolean neitherBlank = !"".equals(key) && !valueBlank;
+				if (!bothBlank) {
+					// both blank is never acceptable
+					if (neitherBlank || allowBlanks) {
+						if (valueBlank) {
+							tags.put(key, tagValues);
+						} else {
+							ArrayList<String> v = new ArrayList<String>();
+							v.add(value);
+							tags.put(key, v);
+						}
+					}
+				}
+			}
+		});
+		return tags;
+	}	
+	
+	/**
+	 * Version of above that ignores multiple values
+	 * @param allowBlanks
+	 * @return
+	 */
+	LinkedHashMap<String,String> getKeyValueMapSingle(final boolean allowBlanks) {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+		return getKeyValueMapSingle(rowLayout, allowBlanks);
+	}	
+		
+	LinkedHashMap<String,String> getKeyValueMapSingle(LinearLayout rowLayout, final boolean allowBlanks) {
 		
 		final LinkedHashMap<String,String> tags = new LinkedHashMap<String, String>();
 		processKeyValues(rowLayout, new KeyValueHandler() {
 			@Override
-			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
 				String key = keyEdit.getText().toString().trim();
 				String value = valueEdit.getText().toString().trim();
-				boolean bothBlank = "".equals(key) && "".equals(value);
-				boolean neitherBlank = !"".equals(key) && !"".equals(value);
+				boolean valueBlank = "".equals(value);
+				boolean bothBlank = "".equals(key) && valueBlank;
+				boolean neitherBlank = !"".equals(key) && !valueBlank;
 				if (!bothBlank) {
 					// both blank is never acceptable
 					if (neitherBlank || allowBlanks) {
@@ -1177,12 +1320,12 @@ public class TagEditorFragment extends SherlockFragment {
 		return result;
 	}
 	
-	private void doSourceSurvey() {
+	private void doSourceSurvey() { // FIXME
 		// determine the key (if any) that has the current focus in the key or its value
 		final String[] focusedKey = new String[]{null}; // array to work around unsettable final
 		processKeyValues(new KeyValueHandler() {
 			@Override
-			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
 				if (keyEdit.isFocused() || valueEdit.isFocused()) {
 					focusedKey[0] = keyEdit.getText().toString().trim();
 				}
@@ -1193,7 +1336,7 @@ public class TagEditorFragment extends SherlockFragment {
 		final boolean[] sourceSet = new boolean[]{false}; // array to work around unsettable final
 		processKeyValues(new KeyValueHandler() {
 			@Override
-			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
 				if (!sourceSet[0]) {
 					String key = keyEdit.getText().toString().trim();
 					String value = valueEdit.getText().toString().trim();
@@ -1211,13 +1354,15 @@ public class TagEditorFragment extends SherlockFragment {
 		});
 		if (!sourceSet[0]) {
 			// source wasn't set above - add a new pair
-			insertNewEdit((LinearLayout) getOurView(),sourceKey, Tags.VALUE_SURVEY, -1);
+			ArrayList<String> v = new ArrayList<String>();
+			v.add(Tags.VALUE_SURVEY);
+			insertNewEdit((LinearLayout) getOurView(),sourceKey, v, -1);
 		}
 	}
 	
 	private void doPaste(boolean replace) {
-		if (savedTags != null) {
-			mergeTags(savedTags, replace);
+		if (copiedTags != null) {
+			mergeTags(copiedTags, replace);
 		} else {
 			Map<String, String> copied = savingHelper.load(((PropertyEditor)getActivity()).COPIED_TAGS_FILE, false);
 			if (copied != null) {
@@ -1230,19 +1375,19 @@ public class TagEditorFragment extends SherlockFragment {
 	 * reload original arguments
 	 */
 	private void doRevert() {
-		loadEdits((Map<String,String>)getArguments().getSerializable("tags"));
+		loadEdits(buildEdits());
 	}
 	
 	/**
 	 * @return the OSM ID of the element currently edited by the editor
 	 */
-	public long getOsmId() {
-		return osmId;
+	public long getOsmId() { // FIXME
+		return osmIds[0];
 	}
 	
 	
-	public String getType() {
-		return type;
+	public String getType() {// FIXME
+		return types[0];
 	}
 	
 	/**
@@ -1255,7 +1400,7 @@ public class TagEditorFragment extends SherlockFragment {
 		final HashSet<String> keys = new HashSet<String>();
 		processKeyValues(rowLayout,new KeyValueHandler() {
 			@Override
-			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit) {
+			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
 				if (!keyEdit.equals(ignoreEdit)) {
 					String key = keyEdit.getText().toString().trim();
 					if (key.length() > 0) {
@@ -1303,7 +1448,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @return
 	 */
 	public LinkedHashMap<String,String> getCopiedTags() {
-		return savedTags;
+		return (LinkedHashMap<String, String>) copiedTags;
 	}
 
 	public void enableRecentPresets() {
@@ -1320,5 +1465,43 @@ public class TagEditorFragment extends SherlockFragment {
 		if (recentPresetsFragment != null) {
 			((RecentPresetsFragment)recentPresetsFragment).disable();
 		}
+	}
+
+	/**
+	 * update the original list of tags to reflect edits
+	 * @return
+	 */
+	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
+		ArrayList<LinkedHashMap<String,String>> oldTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
+		// make a (nearly) full copy
+		ArrayList<LinkedHashMap<String,String>> newTags = new ArrayList<LinkedHashMap<String,String>>();
+		for (LinkedHashMap<String,String> map:oldTags) {
+			newTags.add((LinkedHashMap<String, String>) map.clone());
+		}
+		
+		LinkedHashMap<String,ArrayList<String>> edits = getKeyValueMap(true);
+		
+		for (LinkedHashMap<String,String> map:newTags) {
+			for (String key:new TreeSet<String>(map.keySet())) {
+				if (edits.containsKey(key)) {
+					if (edits.get(key).size()==1) {
+						if (!edits.get(key).get(0).trim().equals("")) {
+							map.put(key, edits.get(key).get(0));
+						} else {
+							map.remove(key); // zap stuff with empty values
+						}
+					} 
+				} else { // key deleted
+					map.remove(key);
+				}
+			}
+			// check for new tags
+			for (String editsKey:edits.keySet()) {
+				if (!map.containsKey(editsKey) && edits.get(editsKey).size()==1 && !edits.get(editsKey).get(0).trim().equals("")) { // zap empty stuff
+					map.put(editsKey,edits.get(editsKey).get(0));
+				}
+			}
+		}
+		return newTags;
 	}
 }

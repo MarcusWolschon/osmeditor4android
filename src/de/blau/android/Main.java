@@ -1325,15 +1325,24 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		Bundle b = data.getExtras();
 		if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
 			// Read data from extras
-			PropertyEditorData editorData = (PropertyEditorData) b.getSerializable(PropertyEditor.TAGEDIT_DATA);
-			if (editorData.tags != null) {
-				getLogic().setTags(editorData.type, editorData.osmId, editorData.tags);
-			}
-			if (editorData.parents != null) {
-				getLogic().updateParentRelations(editorData.type, editorData.osmId, editorData.parents);
-			}
-			if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
-				getLogic().updateRelation(editorData.osmId, editorData.members);
+			PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
+			for (PropertyEditorData editorData:result) {
+				if (editorData == null) {
+					Log.d("Main","handlePropertyEditorResult null result");
+					continue;
+				}
+				if (editorData.tags != null) {
+					Log.d("Main","handlePropertyEditorResult setting tags");
+					getLogic().setTags(editorData.type, editorData.osmId, editorData.tags);
+				}
+				if (editorData.parents != null) {
+					Log.d("Main","handlePropertyEditorResult setting parents");
+					getLogic().updateParentRelations(editorData.type, editorData.osmId, editorData.parents);
+				}
+				if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
+					Log.d("Main","handlePropertyEditorResult setting members");
+					getLogic().updateRelation(editorData.osmId, editorData.members);
+				}
 			}
 		}
 		if (getLogic().getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
@@ -1656,12 +1665,35 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (selectedElement != null) {
 			if (getLogic().getDelegator().getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
-				startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, new PropertyEditorData(selectedElement, focusOn));
+				PropertyEditorData[] single = new PropertyEditorData[1];
+				single[0] = new PropertyEditorData(selectedElement, focusOn);
+				startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, single);
 				startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
 				startTagEditor.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
+	}
+	
+	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
+		
+		ArrayList<PropertyEditorData> multiple = new ArrayList<PropertyEditorData>();
+		
+		for (OsmElement e:selection) {
+			if (getLogic().getDelegator().getOsmElement(e.getName(), e.getOsmId()) != null) {
+				multiple.add(new PropertyEditorData(e, null));
+			}
+		}
+		if (multiple.isEmpty()) {
+			Log.d(DEBUG_TAG, "performTagEdit no valid elements");
+			return;
+		}
+		Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
+		PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
+		startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, multipleArray);
+		startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
+		startTagEditor.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
+		startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 	}
 
 	/**
@@ -1767,6 +1799,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		private List<Photo> clickedPhotos;
 
 		private boolean touching;
+		private boolean doubleTap = false;
 		
 		@Override
 		public boolean onTouch(final View v, final MotionEvent m) {
@@ -2204,7 +2237,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 						getLogic().performSplit((Node) element);
 						break;
 					case MODE_EASYEDIT:
-						easyEditManager.editElement(element);
+						if (doubleTap) {
+							doubleTap = false;
+							easyEditManager.startExtendedSelection(element);
+						} else {
+							easyEditManager.editElement(element);
+						}
 						break;
 					default:
 						break;
@@ -2257,6 +2295,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			default:
 				// multiple possible elements touched - show menu
 				if (menuRequired()) {
+					Log.d("Main","onDoubleTap displaying menu");
+					doubleTap  = true; // ugly flag
 					v.showContextMenu();
 				} else {
 					// menuRequired tells us it's ok to just take the first one

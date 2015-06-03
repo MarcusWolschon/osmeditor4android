@@ -142,7 +142,7 @@ public class Address implements Serializable {
 		} catch (Exception e) {
 			//TODO be more specific
 		}
-		StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter) caller.getStreetNameAutocompleteAdapter();
+		StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter) caller.getStreetNameAutocompleteAdapter(null);
 		// PlaceTagValueAutocompletionAdapter placeAdapter = (PlaceTagValueAutocompletionAdapter) getPlaceNameAutocompleteAdapter();
 		if (lastAddresses != null && lastAddresses.size() > 0) {
 			newAddress = new Address(caller.getType(), caller.getOsmId(),lastAddresses.get(0).tags); // last address we added
@@ -447,7 +447,7 @@ public class Address implements Serializable {
 				lastAddresses.removeLast();
 			}
 			Address current = new Address(caller.getType(), caller.getOsmId(), addressTags);
-			StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter)caller.getStreetNameAutocompleteAdapter();
+			StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter)caller.getStreetNameAutocompleteAdapter(null);
 			if (streetAdapter!= null) {
 				String streetName = tags.get(Tags.KEY_ADDR_STREET);
 				if (streetName != null) {

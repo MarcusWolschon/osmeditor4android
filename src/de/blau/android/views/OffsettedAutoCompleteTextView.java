@@ -32,7 +32,7 @@ public class OffsettedAutoCompleteTextView extends AutoCompleteTextView {
 		if (w == 0 && h == 0) {
 			return;
 		}
-		Log.d(DEBUG_TAG,"w=" + w +" h="+h);
+		// Log.d(DEBUG_TAG,"w=" + w +" h="+h);
 		// this is not really satisfactory
 		if (parentWidth == -1) {
 			// upps
