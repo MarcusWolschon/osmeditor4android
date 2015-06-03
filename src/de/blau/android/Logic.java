@@ -1365,13 +1365,15 @@ public class Logic {
 	
 	/**
 	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
-	 * 
+	 * @param createCheckpoint TODO
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performEraseNode(final Node node) {
+	public void performEraseNode(final Node node, boolean createCheckpoint) {
 		if (node != null) {
-			createCheckpoint(R.string.undo_action_deletenode);
+			if (createCheckpoint) {
+				createCheckpoint(R.string.undo_action_deletenode);
+			}
 			getDelegator().removeNode(node);
 			map.invalidate();
 			if (!isInDownload(node)) {
@@ -1405,9 +1407,12 @@ public class Logic {
 	 * 
 	 * @param way the way to be deleted
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
+	 * @param createCheckpoint TODO
 	 */
-	public void performEraseWay(final Way way, final boolean deleteOrphanNodes) {
-		createCheckpoint(R.string.undo_action_deleteway);
+	public void performEraseWay(final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
+		if (createCheckpoint) {
+			createCheckpoint(R.string.undo_action_deleteway);
+		}
 		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<Node>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
 		getDelegator().removeWay(way);
 		if (deleteOrphanNodes) {
@@ -1420,18 +1425,50 @@ public class Logic {
 
 	/**
 	 * Catches the first relation at the given position and delegates the deletion to {@link #delegator}.
-	 * 
+	 * @param createCheckpoint TODO
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performEraseRelation(final Relation relation) {
+	public void performEraseRelation(final Relation relation, boolean createCheckpoint) {
 		if (relation != null) {
-			createCheckpoint(R.string.undo_action_delete_relation);
+			if (createCheckpoint) {
+				createCheckpoint(R.string.undo_action_delete_relation);
+			}
 			getDelegator().removeRelation(relation);
 			map.invalidate();
 		}
 	}
 
+	/**
+	 * Erase a list of objects
+	 * @param selection
+	 */
+	public void performEraseMultipleObjects(ArrayList<OsmElement> selection) {
+		// need to make three passes this probably should really be in logic
+		createCheckpoint(R.string.undo_action_delete_objects);
+		for (OsmElement e:selection) {	
+			if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
+				performEraseRelation((Relation)e, false);
+			}
+		}	
+		for (OsmElement e:selection) {	
+			if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
+				if (isInDownload((Way)e)) {
+					performEraseWay((Way)e, true, false); // TODO maybe we don't want to delete the nodes
+				} else {
+					// TODO toast
+				}
+			}
+		}
+		for (OsmElement e:selection) {	
+			if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
+				performEraseNode((Node)e, false);
+			}
+		}
+		
+	}
+	
+	
 	/**
 	 * Splits all ways at the given node.
 	 * 

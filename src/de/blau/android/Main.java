@@ -2025,12 +2025,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 							new DialogInterface.OnClickListener() {	
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									getLogic().performEraseNode((Node)clickedNodesAndWays.get(0));
+									getLogic().performEraseNode((Node)clickedNodesAndWays.get(0), true);
 								}
 							})
 						.show();
 				} else {
-					getLogic().performEraseNode((Node)clickedNodesAndWays.get(0));
+					getLogic().performEraseNode((Node)clickedNodesAndWays.get(0), true);
 				}
 				break;
 			default:
@@ -2225,12 +2225,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 									new DialogInterface.OnClickListener() {	
 										@Override
 										public void onClick(DialogInterface dialog, int which) {
-											getLogic().performEraseNode((Node)element);
+											getLogic().performEraseNode((Node)element, true);
 										}
 									})
 								.show();
 						} else {
-							getLogic().performEraseNode((Node)element);
+							getLogic().performEraseNode((Node)element, true);
 						}
 						break;
 					case MODE_SPLIT:

@@ -1061,13 +1061,13 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseNode((Node)element);
+								logic.performEraseNode((Node)element, true);
 								currentActionMode.finish();
 							}
 						})
 					.show();
 			} else {
-				logic.performEraseNode((Node)element);
+				logic.performEraseNode((Node)element, true);
 				mode.finish();
 			}
 		}
@@ -1247,7 +1247,7 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseWay((Way)element, false);
+								logic.performEraseWay((Way)element, false, true);
 								currentActionMode.finish();
 							}
 						})
@@ -1255,7 +1255,7 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseWay((Way)element, true);
+								logic.performEraseWay((Way)element, true, true);
 								currentActionMode.finish();
 							}
 						})
@@ -1532,13 +1532,13 @@ public class EasyEditManager {
 						new DialogInterface.OnClickListener() {	
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								logic.performEraseRelation((Relation)element);
+								logic.performEraseRelation((Relation)element, true);
 								currentActionMode.finish();
 							}
 						})
 					.show();
 			} else {
-				logic.performEraseRelation((Relation)element);
+				logic.performEraseRelation((Relation)element, true);
 				mode.finish();
 			}
 		}
@@ -1917,7 +1917,7 @@ public class EasyEditManager {
 				undoView.setOnLongClickListener(undoListener);
 			}
 			
-			 menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());;
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			// if (!(element instanceof Relation)) {
@@ -2042,26 +2042,8 @@ public class EasyEditManager {
 				}
 			}
 			
-			// need to make three passes 	
-			for (OsmElement e:selection) {	
-				if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
-					logic.performEraseRelation((Relation)e);
-				}
-			}	
-			for (OsmElement e:selection) {	
-				if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
-					if (logic.isInDownload((Way)e)) {
-						logic.performEraseWay((Way)e, true); // TODO maybe we don't want to delete the nodes
-					} else {
-						// TODO toast
-					}
-				}
-			}
-			for (OsmElement e:selection) {	
-				if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
-					logic.performEraseNode((Node)e);
-				}
-			}
+			logic.performEraseMultipleObjects(selection);
+			
 			currentActionMode.finish();
 		}	
 		
