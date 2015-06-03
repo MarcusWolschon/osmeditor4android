@@ -29,7 +29,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * An array of tags considered 'important' and distinctive enough to be shown as part of
 	 * the elements description.
 	 */
-	private static final String[] importantTags;
+	static final String[] importantTags;
 
 	public static final long NEW_OSM_ID = -1;
 

@@ -315,6 +315,28 @@ public class UndoStorage implements Serializable {
 				element.parentRelations.addAll(parentRelations);
 			}
 		}
+		
+		public String getDescription() {
+			// Use the name if it exists
+			String name = tags.get("name");
+			if (name != null && name.length() > 0) {
+				return name;
+			}
+			// Then the house number
+			String housenb = tags.get("addr:housenumber");
+			if (housenb != null && housenb.length() > 0) {
+				return "house " + housenb;
+			}
+			// Then the value of the most 'important' tag the element has
+			for (String tag : OsmElement.importantTags) {
+				String value = tags.get(tag);
+				if (value != null && value.length() > 0) {
+					return element.getName() + " " + tag + ":" + value;
+				}
+			}
+			// Failing the above, the OSM ID
+			return element.getName() + " #"  + Long.toString(element.getOsmId());
+		}
 	}
 	
 	/**
@@ -390,7 +412,13 @@ public class UndoStorage implements Serializable {
 	public String[] getUndoActions() {
 		String[] result = new String[undoCheckpoints.size()];
 		int i = 0;
-		for (Checkpoint checkpoint : undoCheckpoints) result[i++] = checkpoint.name;
+		for (Checkpoint checkpoint : undoCheckpoints) {
+			String message = checkpoint.name + "\n";
+			for (UndoElement u:checkpoint.elements.values()) {
+				message = message + u.getDescription() + "\n";
+			}
+			result[i++] = message;
+		}
 		return result;
 	}
 
@@ -401,7 +429,13 @@ public class UndoStorage implements Serializable {
 	public String[] getRedoActions() {
 		String[] result = new String[redoCheckpoints.size()];
 		int i = 0;
-		for (Checkpoint checkpoint : redoCheckpoints) result[i++] = checkpoint.name;
+		for (Checkpoint checkpoint : redoCheckpoints) {
+			String message = checkpoint.name + "\n";
+			for (UndoElement u:checkpoint.elements.values()) {
+				message = message + u.getDescription() + "\n";
+			}
+			result[i++] = message;
+		}
 		return result;
 	}
 }
