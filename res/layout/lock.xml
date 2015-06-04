@@ -10,7 +10,7 @@
         android:layout_width="@dimen/abs__action_bar_default_height"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:button="@drawable/lock"
+        android:button="?attr/lock"
         android:gravity="center_vertical"
         android:textOff=""
         android:textOn="" />

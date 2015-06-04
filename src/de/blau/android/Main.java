@@ -54,6 +54,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ContextThemeWrapper;
 import android.view.InputDevice;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -122,6 +123,7 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
@@ -166,6 +168,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * Requests an activity-result.
 	 */
 	public static final int REQUEST_IMAGE_CAPTURE = 5;
+	
+	private static final String EASY_TAG = "EASY";
+	private static final String TAG_TAG = "TAG";
 	
 	/**
 	 * Where we install the current version of vespucci
@@ -498,6 +503,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		runningInstance = this;
 		
+		setupLockButton(getSupportActionBar());
 		updateActionbarEditMode();
 		if (!prefs.isOpenStreetBugsEnabled() && getLogic().getMode() == Mode.MODE_OPENSTREETBUG) {
 			getLogic().setMode(Mode.MODE_MOVE);
@@ -654,7 +660,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	private void showActionBar() {
 		Log.d("Main", "showActionBar");
-		ActionBar actionbar = getSupportActionBar();
+		final ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
 
@@ -665,47 +671,91 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
 			if (lock != null) lock.setVisibility(View.GONE);
 		} else {
+			
 			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 			actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
-			
-			View lockLayout = View.inflate(getApplicationContext(), R.layout.lock, null);
-			actionbar.setCustomView(lockLayout);
-			ToggleButton lock = setLock(getLogic().getMode());
-			findViewById(R.id.lock).setVisibility(View.VISIBLE);
-			lock.setLongClickable(true);
-			lock.setOnClickListener(new View.OnClickListener() {
-			    @Override
-				public void onClick(View b) {
-			        Log.d("Main", "Lock pressed");
-			        if(((ToggleButton)b).isChecked()) {
-			        	getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
-			        } else {
-			        	getLogic().setMode(Logic.Mode.MODE_MOVE);
-			        }
-			        onEditModeChanged();
-			    }
-			});
-			lock.setOnLongClickListener(new View.OnLongClickListener() {
-			    @Override
-				public boolean onLongClick(View b) {
-			        Log.d("Main", "Lock long pressed"); // long press doesn't change state of button
-			        if(!((ToggleButton)b).isChecked()) {
-			        	((ToggleButton)b).setChecked(true);
-			        	getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
-			        } else {
-			        	((ToggleButton)b).setChecked(false);
-			        	getLogic().setMode(Logic.Mode.MODE_MOVE);
-			        }
-			        onEditModeChanged();
-			        return true;
-			    }
-			});
-		}	
+			setupLockButton(actionbar);
+		}
 	
 		actionbar.show();
 		setSupportProgressBarIndeterminateVisibility(false);
 	}
 	
+	/**
+	 * slightly byzantine code for mode switching follows
+	 * @param actionbar
+	 */
+	void setupLockButton(final ActionBar actionbar)	{
+		// inflating will crash without themed context
+		Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+		final View lockLayout =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock, null);
+		actionbar.setCustomView(lockLayout);
+		Mode mode = getLogic().getMode();
+		ToggleButton lock = setLock(mode);
+		if (mode == Mode.MODE_EASYEDIT) {
+			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
+			lock.setTag(EASY_TAG);
+		} else if ((mode == Mode.MODE_TAG_EDIT)) {
+			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
+			lock.setTag(TAG_TAG);
+		} else {
+			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
+			lock.setTag(EASY_TAG);
+		}
+		
+		findViewById(R.id.lock).setVisibility(View.VISIBLE);
+		lock.setLongClickable(true);
+		lock.setOnClickListener(new View.OnClickListener() {
+		    @Override
+			public void onClick(View b) {
+		        Log.d("Main", "Lock pressed");
+		        if(((ToggleButton)b).isChecked()) {
+		        	if (b.getTag().equals(EASY_TAG)) { 
+		        		getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
+		        	} else {
+		        		getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
+		        	}
+		        } else {
+		        	getLogic().setMode(Logic.Mode.MODE_MOVE);
+		        }
+		        onEditModeChanged();
+		    }
+		});
+		lock.setOnLongClickListener(new View.OnLongClickListener() {
+		    @Override
+			public boolean onLongClick(View b) {
+		        Log.d("Main", "Lock long pressed"); 
+		        if(((ToggleButton)b).isChecked()) {
+		        	if (getLogic().getMode() == Logic.Mode.MODE_TAG_EDIT) {
+		        		getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
+		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
+		        		((ToggleButton)b).setChecked(true);
+		        		b.setTag(EASY_TAG);
+		        	} else {
+		        		getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
+		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
+		        		((ToggleButton)b).setChecked(true);
+		        		b.setTag(TAG_TAG);
+		        	}
+		        } else {
+		        	if (b.getTag().equals(EASY_TAG)) {
+		        		getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
+	        			((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
+	        			((ToggleButton)b).setChecked(true);
+	        			b.setTag(TAG_TAG);
+		        	} else {
+		        		getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
+		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
+		        		((ToggleButton)b).setChecked(true);
+		        		b.setTag(EASY_TAG);
+		        	}
+		        }
+		        onEditModeChanged();
+		        return true;
+		    }
+		});
+	}	
+		
 	/**
 	 * Set lock button to locked or unlocked depending on the edit mode
 	 * @param mode
@@ -792,10 +842,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo());
 		View undoView = undo.getActionView();
-		if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
-			undoView.setOnClickListener(undoListener);
-			undoView.setOnLongClickListener(undoListener);
+		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
+			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+			undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
+			undo.setActionView(undoView);
 		}
+		undoView.setOnClickListener(undoListener);
+		undoView.setOnLongClickListener(undoListener);
 		
 		final Server server = prefs.getServer();
 		if (server.hasOpenChangeset()) {

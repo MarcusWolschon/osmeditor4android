@@ -25,7 +25,7 @@ import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 
 public class RecentPresetsFragment extends SherlockFragment {
 
-	private static final String DEBUG_TAG = RecentPresetsFragment.class.getName();
+	private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName();
 	
     private OnPresetSelectedListener mListener;
     private OsmElement element;

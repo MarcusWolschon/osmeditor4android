@@ -38,7 +38,7 @@ import de.blau.android.propertyeditor.TagEditorFragment;
 
 public class PresetFragment extends SherlockFragment implements PresetClickHandler {
 	
-	private static final String DEBUG_TAG = PresetFragment.class.getName();
+	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 	
     public interface OnPresetSelectedListener {
         public void onPresetSelected(PresetItem item);

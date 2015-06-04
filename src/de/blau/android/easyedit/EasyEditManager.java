@@ -888,10 +888,14 @@ public class EasyEditManager {
 				undo.setShowAsAction(showAlways());
 			}
 			View undoView = undo.getActionView();
-			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
-				undoView.setOnClickListener(undoListener);
-				undoView.setOnLongClickListener(undoListener);
+			if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
+				Preferences prefs = new Preferences(main);
+				Context context =  new ContextThemeWrapper(main, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+				undoView =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
+				undo.setActionView(undoView);
 			}
+			undoView.setOnClickListener(undoListener);
+			undoView.setOnLongClickListener(undoListener);
 			
 			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());

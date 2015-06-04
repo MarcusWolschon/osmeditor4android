@@ -71,7 +71,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	/**
 	 * The tag we use for Android-logging.
 	 */
-	private static final String DEBUG_TAG = PropertyEditor.class.getName();
+	private static final String DEBUG_TAG = PropertyEditor.class.getSimpleName();
 	
 	private long osmIds[];
 	

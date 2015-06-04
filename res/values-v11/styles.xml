@@ -41,6 +41,8 @@
 		<item name="menu_bug">@drawable/bug_dark</item>
 		<item name="undolist_undo">@drawable/undolist_undo_dark</item>
 		<item name="undolist_redo">@drawable/undolist_redo_dark</item>
+		<item name="lock">@drawable/lock_dark</item>
+		<item name="lock_tag">@drawable/lock_tag_dark</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 		<item name="EditText">@style/EditTextDark</item>
@@ -84,6 +86,8 @@
 		<item name="menu_bug">@drawable/bug_light</item>
 		<item name="undolist_undo">@drawable/undolist_undo_light</item>
 		<item name="undolist_redo">@drawable/undolist_redo_light</item>
+		<item name="lock">@drawable/lock_light</item>
+		<item name="lock_tag">@drawable/lock_tag_light</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
 		<item name="EditText">@style/EditTextLight</item>

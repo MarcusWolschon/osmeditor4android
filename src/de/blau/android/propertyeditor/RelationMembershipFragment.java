@@ -45,7 +45,7 @@ import de.blau.android.presets.Preset.PresetItem;
 
 public class RelationMembershipFragment extends SherlockFragment implements OnItemSelectedListener {
 	
-	private static final String DEBUG_TAG = RelationMembershipFragment.class.getName();
+	private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
 	
 	private LayoutInflater inflater = null;
 
@@ -342,7 +342,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			if (owner != null) {
 				View cf = owner.getCurrentFocus();
 				if (cf == roleEdit) {
-//					owner.focusRow(0); // FIXME focus is on this row 
+//					owner.focusRow(0); // FIXME focus is on this fragement
 				}
 				LinearLayout membershipVerticalLayout = (LinearLayout) owner.relationMembershipFragment.getOurView();
 				membershipVerticalLayout.removeView(this);

@@ -42,6 +42,8 @@
 	<attr name="drawer" format="reference" />
 	<attr name="undolist_undo" format="reference" />
 	<attr name="undolist_redo" format="reference" />
+	<attr name="lock" format="reference" />
+	<attr name="lock_tag" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

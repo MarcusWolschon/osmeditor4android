@@ -31,7 +31,7 @@ import de.blau.android.R;
 import de.blau.android.osm.RelationMemberDescription;
 
 public class RelationMembersFragment extends SherlockFragment {
-	private static final String DEBUG_TAG = RelationMembersFragment.class.getName();
+	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
 	
 
 	private LayoutInflater inflater = null;
