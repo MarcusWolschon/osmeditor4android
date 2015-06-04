@@ -8,7 +8,7 @@
   <string name="no">Не</string>
   <string name="cancel">Скасаваць</string>
   <!--Dialog for back button-->
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <!--Strings in LocationPicker-->
   <!--Menu-->
   <!--element action mode menu-->
@@ -23,6 +23,7 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <!--ACRA-->
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
   <!--Help system-->

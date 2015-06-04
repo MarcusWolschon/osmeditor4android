@@ -12,7 +12,6 @@
   <string name="no_connection_title">Non hai conexión co servidor</string>
   <string name="no_connection_message">Non se puido conectar ao servidor OSM. Por favor, comproba a túa conexión a internet ou volve a intentalo máis tarde.</string>
   <string name="wrong_login_data_title">Fallo de autenticación</string>
-  <string name="wrong_login_data_message">Se estás usando OAuth, isto é probablemente un erro; por favor, envía un informe do problema. Se estás usando usuario e contrasinal (non recomendado), comproba que se introduciron correctamente.</string>
   <string name="progress_title">Cargando</string>
   <string name="progress_message">Cargando datos na memoria...</string>
   <string name="progress_download_message">Descargando datos desde o servidor...</string>
@@ -52,7 +51,7 @@
   <string name="cancel">Cancelar</string>
   <string name="locked">Bloqueado</string>
   <!--Dialog for back button-->
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">clave</string>
   <string name="value">valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -134,7 +133,6 @@
   <string name="actionmode_relationselect">Relación seleccionada</string>
   <string name="actionmode_createpath">Creando camiño</string>
   <!--Preferences-->
-  <string name="config_category_view">Ver Axustes</string>
   <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
   <string name="config_maxStrokeWidth_summary">Non debuxar unha vía máis ancha que isto</string>
   <string name="config_showStats_title">Mostrar estadísticas</string>
@@ -227,6 +225,7 @@
   <string name="pref_acra_enabled">Informe de fallos habilitado</string>
   <string name="pref_acra_disabled">Informe de fallos deshabilitado</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
   <!--Help system-->

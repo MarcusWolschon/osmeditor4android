@@ -19,7 +19,6 @@
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>
   <string name="no_connection_message">Δεν είναι δυνατή η σύνδεση στον διακομιστή OSM. Παρακαλώ ελέγξτε την σύνδεση σας ή δοκιμάστε αργότερα.</string>
   <string name="wrong_login_data_title">Πιστοποίηση απέτυχε</string>
-  <string name="wrong_login_data_message">Εάν χρησιμοποιείτετο το OAuth αυτό είναι πιθανό ένα bug, παρακαλούμε να στείλετε μια αναφορά προβλήματος, εάν χρησιμοποιείτε το όνομα χρήστη και τον κωδικό πρόσβασης (δεν συνιστάται) ελέγξτε ότι έχετε πληκτρολογήσει σωστά.</string>
   <string name="data_conflict_title">Έκδοση συγκρούσεων</string>
   <string name="data_conflict_message">Τα δεδομένα που προσπαθείτε να κατεβάσετε περιλαμβάνει τα στοιχεία που έρχεται σε αντίθεση με τις αλλαγές σας. Παρακαλώ δοκιμάστε να ανεβάσετε τα δεδομένα σας πριν προσπαθήσετε ξανά.</string>
   <string name="out_of_memory_title">Από Μνήμη</string>
@@ -30,7 +29,6 @@
   <string name="file_write_failed_title">Η εγγραφή αρχείου απέτυχε</string>
   <string name="file_write_failed_message">Δεν μπορεί να γίνει εγγραφή στο επιλεγμένο αρχείο</string>
   <string name="welcome_title">Καλώς ήλθατε</string>
-  <string name="welcome_message">Σας ευχαριστούμε για τη χρήση του Vespucci.\n\nΓια να ξεκινήσετε θα πρέπει να γνωρίζετε δύο πράγματα:\n\n*αγγίζοντας το εικονίδιο κλειδαριάς στην επάνω αριστερή γωνία θα γίνει εναλλαγή ανάμεσα κλειδωμένα (χωρίς επεξεργασία) και ξεκλείδωτη \ n \ n * για προσθέσετε ένα νέο αντικείμενο: παρατεταμένο πάτημα, πατώντας στην ίδια θέση θα προσθέσετε έναν κόμβο, χτυπώντας πιο μακριά θα ξεκινήσει έναν τρόπο \ n \ nHave διασκέδαση.!</string>
   <string name="read_introduction">Διαβάστε την εισαγωγή τώρα</string>
   <string name="progress_title">Φόρτωση</string>
   <string name="progress_message">Φόρτωση δεδομένων στη μνήμη…</string>
@@ -75,6 +73,13 @@
   <string name="save_file">Εισάγετε το αρχείο να αποθηκεύσετε</string>
   <string name="existing_track_title">Υπάρχοντα δεδομένα τροχιάς</string>
   <string name="existing_track_message">Έχετε ήδη υπάρχοντα δεδομένα τροχιάς. Μπορεί να θέλετε να ακυρώσετε και να τα αποθηκεύσετε πρώτα.</string>
+  <string name="nodes">Κόμβοι</string>
+  <string name="problem">Πρόβλημα</string>
+  <string name="members">Μέλη</string>
+  <string name="closed">Έκλεισε</string>
+  <string name="version">Έκδοση</string>
+  <string name="length_m">Μήκος (Μ)</string>
+  <string name="empty_role">άδειος ρόλος</string>
   <!--Toaster-->
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="toast_upload_success">Η αποστολή στον διακομιστή OSM τελείωσε.</string>
@@ -99,6 +104,7 @@
   <string name="toast_download_failed">Η λήψη απέτυχε με κωδικό σφάλματος %1$d, μήνυμα %2$s</string>
   <string name="toast_unsurveyed_road">Unsurveyed road</string>
   <string name="toast_noname">Ο δρόμος δεν έχει όνομα ή ref</string>
+  <string name="toast_notype">Η σχέση δεν έχει τύπο</string>
   <string name="toast_oauth_retry">Παρακαλούμε να επιτραπεί η πρόσβαση του OAuth στο λογαριασμό του OSM σας και, στη συνέχεια, επαναλάβετε την αποστολή.</string>
   <string name="toast_oauth">Παρακαλούμε να επιτραπεί η πρόσβαση του OAuth στο λογαριασμό του OSM σας.</string>
   <string name="toast_no_oauth">Καμία διαμόρφωση του OAuth ειναι διαθέσιμη για το τρέχον API, ορίστε το όνομα χρήστη και τον κωδικό πρόσβασης.</string>
@@ -128,14 +134,15 @@
   <!--Dialog for back button-->
   <string name="exit_title">Να γίνει έξοδος;</string>
   <string name="exit_text">Θέλετε σίγουρα να κλείσετε το πρόγραμμα;</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">κλειδί</string>
+  <string name="Key">Κλειδί</string>
   <string name="value">τιμή</string>
+  <string name="Value">Τιμή</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Προσθήκη ετικετών διεύθυνσης</string>
   <string name="tag_menu_sourcesurvey">Χαρτογραφήθικε</string>
   <string name="tag_menu_preset">Προκαθωρισμένες</string>
-  <string name="tag_menu_apply_preset">Εφαρμογή των βέλτιστων επαναφοράς</string>
   <string name="tag_menu_repeat">Επανάληψη ετικετών</string>
   <string name="tag_menu_revert">Επαναφορά</string>
   <string name="tag_menu_mapfeatures">Wiki Χαρακτηριστικών Χάρτη</string>
@@ -144,6 +151,9 @@
   <string name="tag_menu_reset_address_prediction">Επαναφορά πρόβλεψης διεύθυνσης</string>
   <string name="tag_menu_exit_no_save">Έξοδος χωρίς αποθήκευση</string>
   <string name="tag_value_hint">Πατήστε για τιμές</string>
+  <string name="tag_action_title">Επιλεγμένες ετικέτες</string>
+  <string name="menu_up">Επάνω</string>
+  <string name="menu_top">Κορυφή</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Φόρτωση περιοχής</string>
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
@@ -182,6 +192,7 @@
   <string name="menu_restriction_to">Προσθήκη περιορισμού προς</string>
   <string name="menu_relation">Δημιουργία σχέσης</string>
   <string name="menu_add_relation_member">Προσθήκη μέλους</string>
+  <string name="menu_select_relation_members">Επιλογή μελών</string>
   <string name="menu_tag">Επεξεργασία χαρακτηριστικών</string>
   <string name="menu_openstreetbug">Προσθήκη Σημείωσης</string>
   <string name="menu_easyedit">EasyEdit</string>
@@ -249,7 +260,6 @@
   <string name="actionmode_relationselect">Η Σχέση επιλεχθηκε</string>
   <string name="actionmode_createpath">Δημιουργία διαδρομής</string>
   <!--Preferences-->
-  <string name="config_category_view">Προβολή Ρυθμίσεων</string>
   <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
   <string name="config_maxStrokeWidth_summary">Μην σχεδιάσετε ένα δρόμο παχύτερο από αυτόν</string>
   <string name="config_tileCacheSize_title">Μέγεθος μνήμης cache</string>
@@ -360,6 +370,7 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">μετακίνηση κόμβου</string>
   <string name="undo_action_moveway">μετακίνηση διαδρομής</string>
+  <string name="undo_action_moveobjects">μετακίνηση αντικειμένων</string>
   <string name="undo_action_add">εισαγωγή</string>
   <string name="undo_action_append">προσάρτηση</string>
   <string name="undo_action_deletenode">διαγραφή κόμβου</string>
@@ -391,11 +402,13 @@
   <string name="pref_acra_disabled">Αναφορά σφαλμάτων ανενεργή</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Αυτή η πράξη θα δημιουργήσει έναν δρομο με πάρα πολλούς κόμβους.</string>
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
   <string name="role_lc">ρόλος</string>
   <string name="membership_relation_heading">Μέλος της σχέσης</string>
   <string name="relation">Σχέση</string>
+  <string name="relations">Σχέσεις</string>
   <string name="position">Θέση</string>
   <string name="type">Τύπος</string>
   <string name="object">Αντικείμενο</string>

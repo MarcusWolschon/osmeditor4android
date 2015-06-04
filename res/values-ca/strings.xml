@@ -77,7 +77,7 @@
   <!--Dialog for back button-->
   <string name="exit_title">Realment voleu sortir?</string>
   <string name="exit_text">Esteu segur de voler sortir?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">clau</string>
   <string name="value">valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Ca:Map_Features</string>
@@ -156,7 +156,6 @@
   <string name="actionmode_nodeselect">Node seleccionat</string>
   <string name="actionmode_relationselect">Relació seleccionada</string>
   <!--Preferences-->
-  <string name="config_category_view">Mostra la configuració</string>
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
   <string name="config_tileCacheSize_summary">Mida total en MB de la memòria cau per les tessel·les</string>
@@ -240,6 +239,7 @@
   <!--ACRA-->
   <string name="crash_notif_text">Feu clic aquí per ajudar a corregir el problema.</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="role_lc">rol</string>

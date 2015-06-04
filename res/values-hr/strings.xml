@@ -72,7 +72,7 @@
   <!--Dialog for back button-->
   <string name="exit_title">Stvarno izaći?</string>
   <string name="exit_text">Jeste li sigurni da želite izaći?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">oznaka</string>
   <string name="value">vrijednost</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -156,7 +156,6 @@
   <string name="actionmode_relationselect">Relacija odabrana</string>
   <string name="actionmode_createpath">Stvaranje linije</string>
   <!--Preferences-->
-  <string name="config_category_view">Postavke</string>
   <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
   <string name="config_showStats_title">Statistika</string>
   <string name="config_showStats_summary">Prikaže statistiku podataka i frame/sec u donjem lijevom kutu.</string>
@@ -226,6 +225,7 @@
   <string name="crash_notif_title">Vespucci se raspao ili je našao ozbiljni problem.</string>
   <string name="crash_notif_text">Molimo kliknite ovo kako bi pomogli popraviti problem.</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
   <string name="role_lc">rola</string>

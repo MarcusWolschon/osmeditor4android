@@ -19,7 +19,6 @@
   <string name="no_connection_title">Немає з’єднання з сервером</string>
   <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше підключення до Інтернет та спробуйте ще раз.</string>
   <string name="wrong_login_data_title">Помилка автентифікації</string>
-  <string name="wrong_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка відправте звіт.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="data_conflict_title">Конфлікт версій</string>
   <string name="out_of_memory_title">Недостатньо пам’яті</string>
   <string name="invalid_data_received_title">Отримано некоректні дані</string>
@@ -110,7 +109,7 @@
   <!--Dialog for back button-->
   <string name="exit_title">Направду вийти?</string>
   <string name="exit_text">Ви впевнені, що хочете вийти?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">ключ</string>
   <string name="value">значення</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Uk:Map_Features</string>
@@ -219,7 +218,6 @@
   <string name="actionmode_relationselect">Зв’язок обрано</string>
   <string name="actionmode_createpath">Малювання лінії</string>
   <!--Preferences-->
-  <string name="config_category_view">Налаштування перегляду</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
   <string name="config_maxStrokeWidth_summary">Чи не малювати лінію товстішою за цю</string>
   <string name="config_tileCacheSize_title">Розмір кешу</string>
@@ -338,6 +336,7 @@
   <string name="pref_acra_enabled">Звітування про помилки включене</string>
   <string name="pref_acra_disabled">Звітування про помилки відключене</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>

@@ -25,7 +25,6 @@
   <string name="no_connection_title">サーバに接続していません</string>
   <string name="no_connection_message">OSMサーバに接続できませんでした。インターネット接続を確認してやり直してください。</string>
   <string name="wrong_login_data_title">認証失敗</string>
-  <string name="wrong_login_data_message">OAuthを利用している場合、これはバグです。発生した事象のレポートを送ってください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="data_conflict_title">バージョン間の不一致</string>
   <string name="data_conflict_message">ダウンロードしようとしたデータは、あなたの編集したデータと合致しない内容を含みます。ダウンロードを再度行う前に、あなたが編集したデータのアップロードを試してください。</string>
   <string name="out_of_memory_title">メモリー不足</string>
@@ -36,11 +35,6 @@
   <string name="file_write_failed_title">ファイル書込みに失敗</string>
   <string name="file_write_failed_message">選択したファイルに書き込むことが出来ませんでした。</string>
   <string name="welcome_title">ようこそ！</string>
-  <string name="welcome_message">Vespucciをご利用いただきありがとうございます。
-使い始める前にまず二つのことを知る必要があります：
-＊左上にある鍵アイコンをタップすることで、(編集が出来ない)ロックモードとアンロックモードを切り替えられます。
-＊新しいオブジェクトを追加する場合：長押しして、同じ場所をタップすればノードの追加、離れた場所をタップすればウェイの追加です。
-楽しくご活用ください！</string>
   <string name="read_introduction">導入説明をお読みください</string>
   <string name="progress_title">ロード中</string>
   <string name="progress_message">データをメモリにロード中…</string>
@@ -139,14 +133,13 @@
   <!--Dialog for back button-->
   <string name="exit_title">終了しますか？</string>
   <string name="exit_text">本当に終了してしまってよいでしょうか？</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">キー</string>
   <string name="value">値</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">アドレスタグを加える</string>
   <string name="tag_menu_sourcesurvey">調査済み</string>
   <string name="tag_menu_preset">プリセット</string>
-  <string name="tag_menu_apply_preset">Apply best reset</string>
   <string name="tag_menu_repeat">タグを繰り返す</string>
   <string name="tag_menu_revert">復帰</string>
   <string name="tag_menu_mapfeatures">マップフィーチャー Wiki</string>
@@ -265,7 +258,6 @@
   <string name="actionmode_relationselect">選択されたリレーション</string>
   <string name="actionmode_createpath">パスを作成</string>
   <!--Preferences-->
-  <string name="config_category_view">設定を見る</string>
   <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
   <string name="config_maxStrokeWidth_summary">ウェイの最大表示幅</string>
   <string name="config_tileCacheSize_title">タイルキャッシュサイズ</string>
@@ -408,6 +400,7 @@
   <string name="pref_acra_disabled">クラッシュレポートは停止</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">大量のノードが付与されたウェイが作成されます。</string>
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">ロール</string>
   <string name="role_lc">ロール</string>

@@ -65,7 +65,7 @@
   <!--Dialog for back button-->
   <string name="exit_title">rzeczywiście zakończyć?</string>
   <string name="exit_text">Czy na pewno chcesz wyjść?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">klucz</string>
   <string name="value">wartość</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>
@@ -150,7 +150,6 @@
   <string name="actionmode_relationselect">Relacja zaznaczona</string>
   <string name="actionmode_createpath">Tworzenie ścieżki</string>
   <!--Preferences-->
-  <string name="config_category_view">Ustawienia</string>
   <string name="config_maxStrokeWidth_title">Maksymalna długość linii</string>
   <string name="config_maxStrokeWidth_summary">Nie rysuj drogi grubszej niż ta.</string>
   <string name="config_showStats_title">Pokaż statystyki</string>
@@ -260,6 +259,7 @@
   <string name="pref_acra_enabled">Zgłaszanie awarii włączone</string>
   <string name="pref_acra_disabled">Zgłaszanie awarii wyłączone</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
   <string name="role_lc">rola</string>

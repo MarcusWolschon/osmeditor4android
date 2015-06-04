@@ -19,9 +19,12 @@
   <string name="no_connection_title">Keine Verbindung zum Server</string>
   <string name="no_connection_message">Konnte keine Verbindung zum OSM-Server herstellen. Bitte überprüfen Sie ihre Internetverbindung oder versuchen Sie es später noch einmal.</string>
   <string name="wrong_login_data_title">Authentifizierung fehlgeschlagen</string>
-  <string name="wrong_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
+  <string name="wrong_login_data_message">Falls OAuth verwendet wird, nochmals authentisieren und dann widerholen, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
+  <string name="wrong_login_data_re_authenticate">Authentisierung wiederholen</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
+  <string name="api_offline_title">API nicht verfügbar</string>
+  <string name="api_offline_message">Die API ist im Augenblick nicht verfügbar. Daten können weder gelesen noch geschrieben werden.</string>
   <string name="out_of_memory_title">Kein freier Speicher mehr.</string>
   <string name="out_of_memory_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte neu starten und ein kleineres Gebiet versuchen.</string>
   <string name="out_of_memory_dirty_message">Vespucci ist hat beim Leden des Gebietes allen verfügbaren Speicher verbraucht. Bitte die bereits gemachten Änderungen speichern, neu starten und ein kleineres Gebiet versuchen.</string>
@@ -30,7 +33,7 @@
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="welcome_title">Willkommen!</string>
-  <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nViel Spass!</string>
+  <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nVergiss bitte nicht zuerst das Gebiet das du bearebiten willst herunterzuladen.\n\nViel Spass!</string>
   <string name="read_introduction">Die Einführung jetzt lesen</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
@@ -75,6 +78,15 @@
   <string name="save_file">Datei zum Speichern angeben</string>
   <string name="existing_track_title">Trackdaten vorhanden</string>
   <string name="existing_track_message">Es sind bestehende Trackdaten vorhanden. Möglicherweise sollten die zuerst gespeichert werden.</string>
+  <string name="element_information">Elementinformationen</string>
+  <string name="id">Id</string>
+  <string name="nodes">Knoten</string>
+  <string name="relation_membership">Relationmitgliedschaft</string>
+  <string name="problem">Problem</string>
+  <string name="members">Mitglieder</string>
+  <string name="closed">Geschlossen</string>
+  <string name="version">Version</string>
+  <string name="length_m">Länge (m)</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -99,6 +111,7 @@
   <string name="toast_download_failed">Downlod ist mit Fehlercode  %1$d fehlgeschlagen, die Meldung war: %2$s</string>
   <string name="toast_unsurveyed_road">Strasse nicht überprüft</string>
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
+  <string name="toast_notype">Relation hat kein type Wert</string>
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM Konto erlauben und dann den Upload nochmals versuchen. </string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlaubenn. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
@@ -128,9 +141,11 @@
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">Schlüssel</string>
+  <string name="Key">Schlüssel</string>
   <string name="value">Wert</string>
+  <string name="Value">Wert</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/DE:Map_Features</string>
   <string name="tag_menu_address">Tags für Adressen hinzufügen</string>
   <string name="tag_menu_sourcesurvey">Surveyed</string>
@@ -144,6 +159,7 @@
   <string name="tag_menu_reset_address_prediction">Adressvorhersage zurücksetzen</string>
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
   <string name="tag_value_hint">Tippen für mögliche Werte</string>
+  <string name="tag_action_title">Tags ausgewählt</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
@@ -174,6 +190,7 @@
   <string name="menu_erase">Knoten löschen</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Weg aufspalten</string>
+  <string name="menu_extract">Knoten extrahieren</string>
   <string name="menu_closed_way_split_1">Geschlossenen Weg aufspalten, 1. Knoten</string>
   <string name="menu_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
   <string name="menu_append">Anhängen</string>
@@ -182,9 +199,11 @@
   <string name="menu_restriction_to">Einschränkung \"to\" hinzufügen</string>
   <string name="menu_relation">Relation erstellen</string>
   <string name="menu_add_relation_member">Mitglied hinzufügen</string>
+  <string name="menu_select_relation_members">Mitglieder auswählen</string>
   <string name="menu_tag">Tags verändern</string>
   <string name="menu_openstreetbug">Notiz hinzufügen</string>
   <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">GPS-Position anzeigen</string>
   <string name="menu_gps_follow">GPS-Position folgen</string>
@@ -211,10 +230,13 @@
   <string name="menu_copy">Kopieren</string>
   <string name="menu_cut">Auschneiden</string>
   <string name="menu_paste">Einfügen</string>
+  <string name="menu_paste_from_clipboard">Von Clipboard einfügen</string>
   <string name="menu_rotate">Drehen</string>
   <string name="menu_orthogonalize">Rechtwinklig machen</string>
   <string name="menu_circulize">Im Kreis anordnen</string>
   <string name="menu_newnode_gps">Neuer Knoten an GPS Pos.</string>
+  <string name="menu_extend_selection">Auswahl erweitern</string>
+  <string name="menu_information">Info</string>
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
   <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
@@ -248,8 +270,10 @@
   <string name="actionmode_nodeselect">Knoten ausgewählt</string>
   <string name="actionmode_relationselect">Relation ausgewählt</string>
   <string name="actionmode_createpath">Erstelle Pfad</string>
+  <string name="actionmode_multiselect">Mehrfachauswahl</string>
   <!--Preferences-->
-  <string name="config_category_view">Ansichtseinstellungen</string>
+  <string name="config_showCameraAction_title">Kameraaktion anzeigen</string>
+  <string name="config_showCameraAction_summary">Kamera Icon in Menuleiste anzeigen</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
   <string name="config_tileCacheSize_title">Grösse des Tile Cache</string>
@@ -320,6 +344,7 @@
   <string name="config_gps_source_summary">Quelle für GPS-Daten </string>
   <string name="config_gps_source_tcp_title">NMEA Netzwerkquelle</string>
   <string name="config_gps_source_tcp_summary">Adresse der TCP NMEA-Quelle als host:port</string>
+  <string name="config_category_misc">Verschiedenes</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -391,11 +416,13 @@
   <string name="pref_acra_disabled">Fehlerreport deaktiviert</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Diese Operation würde ein Weg mit zu vielen Knoten erstellen.</string>
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
   <string name="role_lc">Rolle</string>
   <string name="membership_relation_heading">Mitglied von Relation</string>
   <string name="relation">Relation</string>
+  <string name="relations">Relationen</string>
   <string name="position">Pos.</string>
   <string name="type">Objekttyp</string>
   <string name="object">Objekt</string>

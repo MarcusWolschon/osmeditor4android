@@ -35,7 +35,7 @@
   <string name="okay">OK</string>
   <string name="cancel">Annulér</string>
   <!--Dialog for back button-->
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">nøgle</string>
   <string name="value">værdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -93,7 +93,6 @@
   <string name="actionmode_nodeselect">Knude valgt</string>
   <string name="actionmode_createpath">Opretter sti</string>
   <!--Preferences-->
-  <string name="config_category_view">Vis Indstillinger</string>
   <string name="config_showStats_title">Vis statistik</string>
   <string name="config_showStats_summary">Viser datastatistik og billeder/sec i nederste vensdtre hjørne.</string>
   <string name="config_showTolerance_title">Vis tolerance</string>
@@ -163,6 +162,7 @@
   <string name="pref_acra_enabled">Crash-rapportering er slået til</string>
   <string name="pref_acra_disabled">Crash-rapportering er slået fra</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
   <!--Help system-->

@@ -22,7 +22,6 @@
   <string name="no_connection_title">Нет соединения с сервером</string>
   <string name="no_connection_message">Невозможно соединиться с сервером OSM. Проверьте ваше подключение к интернету и попробуйте еще раз.</string>
   <string name="wrong_login_data_title">Ошибка аутентификации</string>
-  <string name="wrong_login_data_message">Если вы используете OAuth, то это вероятно ошибка, пожалуйста отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="out_of_memory_title">Недостаточно памяти</string>
   <string name="out_of_memory_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста начните снова и загрузите меньшую область</string>
@@ -125,14 +124,13 @@
   <!--Dialog for back button-->
   <string name="exit_title">Действительно выйти?</string>
   <string name="exit_text">Вы действительно хотите выйти?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">ключ</string>
   <string name="value">значение</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/RU:Map_Features</string>
   <string name="tag_menu_address">Добавить теги адреса</string>
   <string name="tag_menu_sourcesurvey">Обследованный</string>
   <string name="tag_menu_preset">Заготовки</string>
-  <string name="tag_menu_apply_preset">Применить лучшую перезагрузку</string>
   <string name="tag_menu_repeat">Повторить теги</string>
   <string name="tag_menu_revert">Отменить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
@@ -242,7 +240,6 @@
   <string name="actionmode_relationselect">Отношение выбрано</string>
   <string name="actionmode_createpath">Рисование линии</string>
   <!--Preferences-->
-  <string name="config_category_view">Настройки просмотра</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_summary">Не рисовать линию толще, чем эта</string>
   <string name="config_tileCacheSize_title">Размер кеша</string>
@@ -361,6 +358,7 @@
   <string name="pref_acra_enabled">Отчёты о сбоях разрешены</string>
   <string name="pref_acra_disabled">Отчёты о сбоях не разрешены</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>
