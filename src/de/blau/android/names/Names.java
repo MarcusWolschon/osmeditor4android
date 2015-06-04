@@ -34,8 +34,7 @@ public class Names {
 		public String toString() {
 			StringBuilder builder = new StringBuilder();
 			for (String s:this.keySet()) {
-				s.replace("|", " ");
-				builder.append(s + "=" + this.get(s) + "|");
+				builder.append(s.replace("|", " ") + "=" + this.get(s) + "|");
 			}
 			if (builder.length() > 0)
 				builder.deleteCharAt(builder.length()-1);

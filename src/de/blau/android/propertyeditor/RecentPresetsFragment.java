@@ -131,7 +131,7 @@ public class RecentPresetsFragment extends SherlockFragment {
     			Log.d(DEBUG_TAG,"getRecentPresetsView no MRU found!");
     		}	
 	   	} else {
-			Log.d(DEBUG_TAG,"getRecentPresetsView problem with presets " + presets + " or element " + element);
+			Log.d(DEBUG_TAG,"getRecentPresetsView problem with presets or element " + element);
 		}	
 	   	return v;
 	}

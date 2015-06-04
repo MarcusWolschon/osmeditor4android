@@ -1093,10 +1093,10 @@ public class Logic {
 	 */
 	public void showCrosshairsForCentroid()
 	{
+		if (selectedWays == null) {
+			return;
+		}
 		synchronized(selectedWays) {
-			if (selectedWays == null) {
-				return;
-			}
 			float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWays.get(0));
 			if (centroid==null) {
 				return;

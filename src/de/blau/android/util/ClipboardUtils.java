@@ -81,10 +81,9 @@ public class ClipboardUtils {
 							            if (pasteCursor.moveToFirst()) {
 							            	pasteData = pasteCursor.getString(0);
 							            }
+							            // close the Cursor
+								        pasteCursor.close();
 							        }
-
-							        // close the Cursor
-							        pasteCursor.close();
 							     }
 							 }
 						} catch (Exception e) { // FIXME given that the above is unteted, cath all here

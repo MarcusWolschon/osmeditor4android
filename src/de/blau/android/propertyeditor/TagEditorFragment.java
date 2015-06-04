@@ -532,7 +532,7 @@ public class TagEditorFragment extends SherlockFragment {
 			}
 		}
 		row.setValues(aTagKey, tagValues, same);
-		if (autocompletePresetItem != null) { // set hints even if value isen't empty
+		if (autocompletePresetItem != null && aTagKey != null && !aTagKey.equals("")) { // set hints even if value isen't empty
 			String hint = autocompletePresetItem.getHint(aTagKey);
 			if (hint != null) { 
 				row.valueEdit.setHint(hint);
@@ -840,7 +840,7 @@ public class TagEditorFragment extends SherlockFragment {
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : tags.entrySet()) {
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) replacedValue = true;
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) replacedValue = true;
 		}
 		if (replacedValue) {
 			Builder dialog = new AlertDialog.Builder(getActivity());
@@ -1041,7 +1041,7 @@ public class TagEditorFragment extends SherlockFragment {
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) {
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) {
 				replacedValue = true;
 			}
 		}
@@ -1095,7 +1095,7 @@ public class TagEditorFragment extends SherlockFragment {
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : newTags.entrySet()) {
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) {
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) {
 				replacedValue = true;
 			}
 		}

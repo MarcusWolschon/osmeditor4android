@@ -339,11 +339,11 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		 * Deletes this row
 		 */
 		public void deleteRow() {
-			View cf = owner.getCurrentFocus();
-			if (cf == roleEdit) {
-//				owner.focusRow(0); // FIXME focus is on this row 
-			}
 			if (owner != null) {
+				View cf = owner.getCurrentFocus();
+				if (cf == roleEdit) {
+//					owner.focusRow(0); // FIXME focus is on this row 
+				}
 				LinearLayout membershipVerticalLayout = (LinearLayout) owner.relationMembershipFragment.getOurView();
 				membershipVerticalLayout.removeView(this);
 				membershipVerticalLayout.invalidate();

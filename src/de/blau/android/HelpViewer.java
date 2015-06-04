@@ -64,6 +64,7 @@ public class HelpViewer extends SherlockActivity {
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar == null) {
 			Log.d("HelpViewer", "No actionbar"); // fail?
+			return;
 		}
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);

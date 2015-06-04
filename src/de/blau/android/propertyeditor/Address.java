@@ -158,21 +158,25 @@ public class Address implements Serializable {
 			newAddress.tags.put(k, current.get(k));
 		}
 		boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
-		if (streetAdapter != null || hasPlace) {
+		if (streetAdapter != null /* || hasPlace */) {
 			// the auto completion arrays should now be calculated, retrieve street names if any
 			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(streetAdapter.getNames()));
 			// ArrayList<String> placeNames = new ArrayList<String>(Arrays.asList(placeAdapter.getNames()));		
 			if ((streetNames != null && streetNames.size() > 0) || hasPlace) {
 				LinkedHashMap<String, ArrayList<String>> tags = newAddress.tags;
 				Log.d("TagEditor","tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
-				Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
+				// Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
 				String street;		
 				if (!hasPlace) {
-					if (!newAddress.tags.containsKey(Tags.KEY_ADDR_STREET) 
-							|| newAddress.tags.get(Tags.KEY_ADDR_STREET).get(0).equals("") // FIXME
-							|| streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)) > 2 
-							|| streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)) < 0)  { // check if has street and still in the top 3
-						Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
+					ArrayList<String> addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
+					int rank = -1;
+					if (addrStreetValues != null && addrStreetValues.size() > 0) {
+						rank = streetNames.indexOf(addrStreetValues.get(0)); // FIXME this and the following could consider other values in multi select
+					}
+					addrStreetValues = newAddress.tags.get(Tags.KEY_ADDR_STREET);
+					boolean hasAddrStreet =  addrStreetValues != null && addrStreetValues.size() > 0 && !addrStreetValues.get(0).equals("");
+					if (!hasAddrStreet | rank > 2 || rank < 0)  { // check if has street and still in the top 3 nearest
+						// Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
 						// nope -> zap
 						tags.put(Tags.KEY_ADDR_STREET, Util.getArrayList(streetNames.get(0)));
 						if (tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
@@ -382,8 +386,8 @@ public class Address implements Serializable {
 		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
 		for (Address a:lastAddresses) {
 			if (a != null && a.tags != null 
-					&& ((a.tags.get(Tags.KEY_ADDR_STREET) != null && a.tags.get(Tags.KEY_ADDR_STREET).equals(street)) 
-							|| (a.tags.get(Tags.KEY_ADDR_PLACE) != null && a.tags.get(Tags.KEY_ADDR_PLACE).equals(street)))
+					&& ((a.tags.get(Tags.KEY_ADDR_STREET) != null && a.tags.get(Tags.KEY_ADDR_STREET).get(0).equals(street)) // FIXME 
+							|| (a.tags.get(Tags.KEY_ADDR_PLACE) != null && a.tags.get(Tags.KEY_ADDR_PLACE).get(0).equals(street)))
 					&& a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
 					&& a.getSide() == side) {
 				Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));

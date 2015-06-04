@@ -364,7 +364,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 		if (relationMembersFragment != null) {
 			currentMembers = new ArrayList<RelationMemberDescription>(); // FIXME
-			if (types.equals(Relation.NAME)) {
+			if (types[0].equals(Relation.NAME)) { // FIXME
 				currentMembers = relationMembersFragment.getMembersList();
 			}
 		}

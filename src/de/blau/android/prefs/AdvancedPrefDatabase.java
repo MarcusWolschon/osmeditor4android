@@ -534,8 +534,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	private void killDirectory(File dir) {
 		if (!dir.isDirectory()) throw new RuntimeException("This function only deletes directories");
 		File[] files = dir.listFiles();
-		for (File f : files) {
-			if (!f.delete()) Log.e(LOGTAG, "Could not delete "+f.getAbsolutePath());
+		if (files != null) {
+			for (File f : files) {
+				if (!f.delete()) Log.e(LOGTAG, "Could not delete "+f.getAbsolutePath());
+			}
 		}
 		if (!dir.delete()) Log.e(LOGTAG, "Could not delete "+dir.getAbsolutePath());
 	}

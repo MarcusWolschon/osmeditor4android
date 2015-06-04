@@ -612,7 +612,7 @@ public class OpenStreetMapTileServer {
 			    } else if (jsonName.equals("attribution")) {
 			    	if (provider == null) 
 			    		provider = new Provider();
-			    	readAttribution(reader, provider, termsOfUseUrl);
+			    	termsOfUseUrl = readAttribution(reader, provider);
 			    } else {
 			    	reader.skipValue();
 			    }
@@ -689,8 +689,8 @@ public class OpenStreetMapTileServer {
 		return bbox;
 	}
 	
-	private static void readAttribution(JsonReader reader, Provider provider, String termsOfUseUrl) {
-	
+	private static String readAttribution(JsonReader reader, Provider provider) {
+		String termsOfUseUrl = null;
 		try {
 			reader.beginObject();
 			while (reader.hasNext()) {
@@ -708,6 +708,7 @@ public class OpenStreetMapTileServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return termsOfUseUrl;
 	}
 	
 	// ===========================================================

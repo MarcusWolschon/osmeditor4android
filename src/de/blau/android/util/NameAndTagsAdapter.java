@@ -24,7 +24,7 @@ public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
         super(context, viewResourceId, items);
 //        this.items = items;
         this.itemsAll = (ArrayList<NameAndTags>) items.clone();
-//        this.suggestions = new ArrayList<NameAndTags>();
+        this.suggestions = new ArrayList<NameAndTags>();
 //        this.viewResourceId = viewResourceId;
     }
 
