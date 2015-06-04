@@ -44,6 +44,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Util;
 import de.blau.android.views.ExtendedViewPager;
 
 /**
@@ -356,13 +357,19 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	public void onBackPressed() {
 		// sendResultAndFinish();
 		ArrayList<LinkedHashMap<String, String>> currentTags = tagEditorFragment.getUpdatedTags();
-		HashMap<Long,String> currentParents = relationMembershipFragment.getParentRelationMap();
-		ArrayList<RelationMemberDescription> currentMembers = new ArrayList<RelationMemberDescription>(); // FIXME
-		if (types.equals(Relation.NAME)) {
-			currentMembers = relationMembersFragment.getMembersList();
+		HashMap<Long,String> currentParents = null;
+		ArrayList<RelationMemberDescription> currentMembers = null;
+		if (relationMembershipFragment != null) {
+			currentParents = relationMembershipFragment.getParentRelationMap();
+		}
+		if (relationMembersFragment != null) {
+			currentMembers = new ArrayList<RelationMemberDescription>(); // FIXME
+			if (types.equals(Relation.NAME)) {
+				currentMembers = relationMembersFragment.getMembersList();
+			}
 		}
 		// if we haven't edited just exit
-		if (!same(currentTags,originalTags) || !currentParents.equals(originalParents) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+		if (!same(currentTags,originalTags) || (currentParents != null && !currentParents.equals(originalParents)) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !currentMembers.equals(originalMembers)))) {
 		    new AlertDialog.Builder(this)
 	        .setNeutralButton(R.string.cancel, null)
 	        .setNegativeButton(R.string.tag_menu_revert,        	
@@ -407,7 +414,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 		// save any address tags for "last address tags"
 		if (currentTags.size() == 1) {
-			Address.updateLastAddresses(tagEditorFragment, currentTags.get(0));// FIXME
+			Address.updateLastAddresses(tagEditorFragment, Util.getArrayListMap(currentTags.get(0)));// FIXME
 		}
 		Intent intent = new Intent();
 		

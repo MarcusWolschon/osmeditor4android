@@ -65,6 +65,7 @@ import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.KeyValue;
+import de.blau.android.util.Util;
 import de.blau.android.views.OffsettedAutoCompleteTextView;
 
 
@@ -253,7 +254,7 @@ public class TagEditorFragment extends SherlockFragment {
 		}	
 		// 
 		if (applyLastAddressTags) {
-			// FIXME loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
+			loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
 		}
 		
 		if (displayMRUpresets) {
@@ -544,6 +545,9 @@ public class TagEditorFragment extends SherlockFragment {
 					row.valueEdit.setText(defaultValue);
 				} 
 			}
+			if (!same) {
+				row.valueEdit.setHint(R.string.tag_multi_value_hint); // overwrite the above
+			}
 		}
 		// If the user selects addr:street from the menu, auto-fill a suggestion
 		row.keyEdit.setOnItemClickListener(new OnItemClickListener() {
@@ -766,7 +770,7 @@ public class TagEditorFragment extends SherlockFragment {
 					valueEdit.setText("");
 				}
 			} else {
-				valueEdit.setHint("Multiple values");
+				valueEdit.setHint(R.string.tag_multi_value_hint);
 			}
 			return this;
 		}
@@ -829,14 +833,14 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param tags
 	 */
 	private void applyTagSuggestions(Names.TagMap tags) {
-		final LinkedHashMap<String, String> currentValues = getKeyValueMapSingle(true); // FIXME
+		final LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		
 		boolean replacedValue = false;	
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : tags.entrySet()) {
-			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
-			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) replacedValue = true;
+			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) replacedValue = true;
 		}
 		if (replacedValue) {
 			Builder dialog = new AlertDialog.Builder(getActivity());
@@ -845,13 +849,13 @@ public class TagEditorFragment extends SherlockFragment {
 			dialog.setPositiveButton(R.string.replace, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					loadEditsSingle(currentValues);// FIXME
+					loadEdits(currentValues);// FIXME
 				}
 			});
 			dialog.setNegativeButton(R.string.cancel, null);
 			dialog.create().show();
 		} else
-			loadEditsSingle(currentValues);// FIXME
+			loadEdits(currentValues);// FIXME
 		
 // TODO while applying presets automatically seems like a good idea, it needs some further thought
 		if (prefs.enableAutoPreset()) {
@@ -1015,7 +1019,7 @@ public class TagEditorFragment extends SherlockFragment {
 		}
 		return found;
 	}
-	
+		
 	/**
 	 * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag set
 	 * @param item the preset to apply
@@ -1030,14 +1034,14 @@ public class TagEditorFragment extends SherlockFragment {
 	 */
 	private void applyPreset(PresetItem item, boolean addToMRU) {
 		autocompletePresetItem = item;
-		LinkedHashMap<String, String> currentValues = getKeyValueMapSingle(true); // FIXME
+		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		
 		boolean replacedValue = false;	
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : item.getTags().entrySet()) {
-			String oldValue = currentValues.put(tag.getKey(), tag.getValue());
-			if (oldValue != null && oldValue.length() > 0 && !oldValue.equals(tag.getValue())) {
+			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) {
 				replacedValue = true;
 			}
 		}
@@ -1045,11 +1049,11 @@ public class TagEditorFragment extends SherlockFragment {
 		// Recommended tags, no fixed value is given. We add only those that do not already exist.
 		for (Entry<String, String[]> tag : item.getRecommendedTags().entrySet()) {
 			if (!currentValues.containsKey(tag.getKey())) {
-				currentValues.put(tag.getKey(), "");
+				currentValues.put(tag.getKey(), Util.getArrayList(""));
 			}
 		}
 		
-		loadEditsSingle(currentValues); // FIXME
+		loadEdits(currentValues);
 		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
 		
 		//
@@ -1090,10 +1094,8 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, String> tag : newTags.entrySet()) {
-			ArrayList<String> v = new ArrayList<String>();
-			v.add(tag.getValue());
-			ArrayList<String> oldValue = currentValues.put(tag.getKey(), v);
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) { // FIXME check 
+			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.equals(tag.getValue())) {
 				replacedValue = true;
 			}
 		}
@@ -1168,7 +1170,7 @@ public class TagEditorFragment extends SherlockFragment {
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
 		case R.id.tag_menu_address:
-			loadEditsSingle(Address.predictAddressTags(this, getKeyValueMapSingle(false))); // FIXME
+			loadEdits(Address.predictAddressTags(this, getKeyValueMap(false)));
 			return true;
 		case R.id.tag_menu_sourcesurvey:
 			doSourceSurvey();
@@ -1249,18 +1251,19 @@ public class TagEditorFragment extends SherlockFragment {
 				boolean neitherBlank = !"".equals(key) && !valueBlank;
 				if (!bothBlank) {
 					// both blank is never acceptable
-					if (neitherBlank || allowBlanks) {
+					if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && tagValues.size()>0)) {
 						if (valueBlank) {
 							tags.put(key, tagValues);
 						} else {
-							ArrayList<String> v = new ArrayList<String>();
-							v.add(value);
-							tags.put(key, v);
+							tags.put(key, Util.getArrayList(value));
 						}
 					}
 				}
 			}
 		});
+//		for (String key:tags.keySet()) {
+//			Log.d(DEBUG_TAG,"getKeyValueMap Key " + key + " " + tags.get(key));
+//		}
 		return tags;
 	}	
 	
@@ -1287,8 +1290,13 @@ public class TagEditorFragment extends SherlockFragment {
 				boolean neitherBlank = !"".equals(key) && !valueBlank;
 				if (!bothBlank) {
 					// both blank is never acceptable
-					if (neitherBlank || allowBlanks) {
-						tags.put(key, value);
+					boolean hasValues =  tagValues != null && tagValues.size()>0;
+					if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
+						if (valueBlank && hasValues) {
+							tags.put(key, tagValues.get(0)); // FIXME
+						} else {
+							tags.put(key, value);
+						}
 					}
 				}
 			}
