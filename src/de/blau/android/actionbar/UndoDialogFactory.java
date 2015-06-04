@@ -7,6 +7,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -73,7 +74,7 @@ public class UndoDialogFactory {
 		private UndoDialogItem(Context ctx, int index, boolean isRedo, String name) {
 			super(ctx);
 			Resources r = ctx.getResources();
-			setText(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name);
+			setText(Html.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
 			int pad = Density.dpToPx(15);
 			setPadding(pad, pad, pad, pad);
 			setCompoundDrawablePadding(pad);

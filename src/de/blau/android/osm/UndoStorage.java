@@ -413,9 +413,9 @@ public class UndoStorage implements Serializable {
 		String[] result = new String[undoCheckpoints.size()];
 		int i = 0;
 		for (Checkpoint checkpoint : undoCheckpoints) {
-			String message = checkpoint.name + "\n";
+			String message = checkpoint.name + "<br>";
 			for (UndoElement u:checkpoint.elements.values()) {
-				message = message + u.getDescription() + "\n";
+				message = message + "<small>" + u.getDescription() + "</small><br>";
 			}
 			result[i++] = message;
 		}
@@ -430,9 +430,9 @@ public class UndoStorage implements Serializable {
 		String[] result = new String[redoCheckpoints.size()];
 		int i = 0;
 		for (Checkpoint checkpoint : redoCheckpoints) {
-			String message = checkpoint.name + "\n";
+			String message = checkpoint.name + "<br>";
 			for (UndoElement u:checkpoint.elements.values()) {
-				message = message + u.getDescription() + "\n";
+				message = message + "<small>" + u.getDescription() + "</small><br>";
 			}
 			result[i++] = message;
 		}
