@@ -100,7 +100,7 @@
   <string name="toast_not_in_bug_range">Ingrandisci per aggiungere una segnalazione (Volume Su/Giù o Lente/Interruttore)</string>
   <string name="toast_export_failed">Esportazione fallita</string>
   <string name="toast_export_success">Esportato su %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - il predefinito ha sovracritto qualche tag</string>
+  <string name="toast_preset_overwrote_tags">Nota - il valore predefinito ha sovrascritto qualche tag</string>
   <string name="toast_oneway_reversed">Hai invertito una via a senso unico o una via con tag dipendenti dalla direzione. Controlla i tag e correggili se necessario.</string>
   <string name="toast_merge_tag_conflict">Hai unito degli oggetti che hanno valori di etichette, semantica dipendente dalla direzione oppure ruoli diversi nella stessa relazione incompatibili. Controlla le etichette e i ruoli e correggili se necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
@@ -158,13 +158,14 @@
   <string name="tag_menu_revert">Ripristina</string>
   <string name="tag_menu_mapfeatures">Wiki funzioni mappe</string>
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
-  <string name="tag_menu_resetMRU">Azzera preimpostazioni</string>
+  <string name="tag_menu_resetMRU">Azzera i predefiniti</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
   <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
   <string name="tag_value_hint">Tocca per aggiungere i valori</string>
   <string name="tag_action_title">Etichette selezionate</string>
   <string name="menu_up">Su</string>
   <string name="menu_top">In alto</string>
+  <string name="menu_preset_help">Aiuto prefefiniti</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carica area</string>
   <string name="location_choose_radius">Scegli raggio:</string>
@@ -317,11 +318,10 @@
   <string name="listedit_enable_oauth">Abilita oauth</string>
   <string name="config_offsetServer_title">Server degli allineamenti</string>
   <string name="config_offsetServer_summary">Indirizzo del server per gli allineamenti delle foto aeree</string>
-  <string name="config_presetbutton_title">Preimpostazioni</string>
+  <string name="config_presetbutton_title">Predefiniti</string>
   <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
   <string name="config_iconbutton_title">Mostra icone dei nodi</string>
-  <string name="config_iconbutton_summary">Mostra l\'icona del preset più appropriato su ciascun nodo.
-</string>
+  <string name="config_iconbutton_summary">Mostra l\'icona del predefinito più appropriato su ciascun nodo.</string>
   <string name="config_loginbutton_title">Account utente</string>
   <string name="config_username_title">Nome utente OSM</string>
   <string name="config_username_summary">La configurazione è necessaria per caricare dati su OSM solo se non usi OAuth. Puoi creare un account al link http://www.openstreetmap.org/user/new</string>
@@ -349,8 +349,8 @@
   <string name="config_extTriggeredDownloadRadius_summary">Raggio (in metri) dell\'area da scaricare, 0 = solo il centro della mappa.</string>
   <string name="config_enableNameSuggestions_title">Abilita il suggerimento dei nomi</string>
   <string name="config_enableNameSuggestions_summary">Abilita i suggerimenti dei nomi</string>
-  <string name="config_enableAutoPreset_title">Abilita i preset automatici</string>
-  <string name="config_enableAutoPreset_summary">Aggiungi automaticamente i preset quando è selezionato il suggerimento del nome</string>
+  <string name="config_enableAutoPreset_title">Abilita i predefiniti automatici</string>
+  <string name="config_enableAutoPreset_summary">Aggiungi automaticamente i predefiniti quando è selezionato il suggerimento del nome</string>
   <string name="config_splitActionBarEnabled_title">Abilita la split action bar</string>
   <string name="config_splitActionBarEnabled_summary">Imposta la split action bar il cui uso dipende dal dispositivo.  Richiede il riavvio dell\'app e una versione di Android &gt;=4.0</string>
   <string name="config_gps_source_title">Dispositivo GPS</string>
@@ -361,11 +361,11 @@
   <string name="config_enableLightTheme_summary">Tema leggero con sfondi bianchi</string>
   <string name="config_category_misc">Varie</string>
   <!--preset downloader messages-->
-  <string name="preset_update">Aggiorna preset</string>
-  <string name="preset_download_successful">Preset scaricati con successo</string>
-  <string name="preset_download_failed">Non è stato possibile scaricare il file dei preset. I preset non funzioneranno.</string>
-  <string name="preset_download_parse_failed">Il file dei preset non è valido. I preset non funzioneranno.</string>
-  <string name="preset_download_missing_images">Il file dei preset è stato scaricato con successo. Tuttavia, non è stato possibile scaricare alcune icone, che risulteranno mancanti.</string>
+  <string name="preset_update">Aggiorna predefinito</string>
+  <string name="preset_download_successful">Predefiniti scaricati con successo</string>
+  <string name="preset_download_failed">Non è stato possibile scaricare il file dei predefiniti. I predefiniti non funzioneranno.</string>
+  <string name="preset_download_parse_failed">Il file dei predefiniti non è valido. I predefiniti non funzioneranno.</string>
+  <string name="preset_download_missing_images">Il file dei predefiniti è stato scaricato con successo. Tuttavia, non è stato possibile scaricare alcune icone, che risulteranno mancanti.</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>
@@ -373,10 +373,10 @@
   <string name="confirm_upload_title">Carica?</string>
   <string name="confirm_upload_text">Carica le seguenti modifiche?\n%1$s</string>
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Aggiungi preset</string>
-  <string name="urldialog_preset_exists">Questo preset esiste già</string>
+  <string name="urldialog_add_preset">Aggiungi predefinito</string>
+  <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
   <string name="urldialog_api_exists">Una API con questa URL esiste già. Tuttavia, puoi aggiungerne un\'altra (e.g. per cambiare account facilmente).</string>
-  <string name="urldialog_api_preset_missing">Il preset usato dall\'API non è disponibile. Dovresti prima aggiungerlo.</string>
+  <string name="urldialog_api_preset_missing">Il predefinito usato dall\'API non è disponibile. Dovresti prima aggiungerlo.</string>
   <string name="urldialog_add_api">Aggiungi API</string>
   <string name="urldialog_nodata_text">L\'URL di configurazione non contiene dati validi.</string>
   <!--common terms-->
@@ -389,7 +389,7 @@
   <string name="api_name">Nome API</string>
   <string name="api_url">URL dell\'API</string>
   <!--"default" is a reserved Java keyword...-->
-  <string name="preset">Preset</string>
+  <string name="preset">Predefiniti</string>
   <string name="api">API</string>
   <string name="undo">Annulla</string>
   <string name="redo">Rifai</string>

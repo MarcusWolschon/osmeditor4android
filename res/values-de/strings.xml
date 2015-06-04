@@ -87,6 +87,8 @@
   <string name="closed">Geschlossen</string>
   <string name="version">Version</string>
   <string name="length_m">Länge (m)</string>
+  <string name="not_downloaded">Nicht heruntergeladen</string>
+  <string name="empty_role">Leere Rolle</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -124,6 +126,7 @@
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
   <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
+  <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -160,6 +163,8 @@
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
   <string name="tag_value_hint">Tippen für mögliche Werte</string>
   <string name="tag_action_title">Tags ausgewählt</string>
+  <string name="menu_up">Nach oben</string>
+  <string name="menu_preset_help">Hilfe zu Vorlagen</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
@@ -221,6 +226,7 @@
   <string name="menu_transfer_download_current_add">Diese Ansicht zu den Daten dazu laden </string>
   <string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
+  <string name="menu_transfer_close_changeset">Aktuellen changeset schliessen</string>
   <string name="menu_transfer_export">Änderungen exportieren</string>
   <string name="menu_transfer_read_file">Von Datei lesen</string>
   <string name="menu_transfer_save_file">In Datei speichern</string>
@@ -234,6 +240,7 @@
   <string name="menu_rotate">Drehen</string>
   <string name="menu_orthogonalize">Rechtwinklig machen</string>
   <string name="menu_circulize">Im Kreis anordnen</string>
+  <string name="menu_split_polygon">In 2 Polygone aufteilen</string>
   <string name="menu_newnode_gps">Neuer Knoten an GPS Pos.</string>
   <string name="menu_extend_selection">Auswahl erweitern</string>
   <string name="menu_information">Info</string>
@@ -272,8 +279,11 @@
   <string name="actionmode_createpath">Erstelle Pfad</string>
   <string name="actionmode_multiselect">Mehrfachauswahl</string>
   <!--Preferences-->
+  <string name="config_category_view">Einstellungen Benutzerschnittstelle</string>
   <string name="config_showCameraAction_title">Kameraaktion anzeigen</string>
   <string name="config_showCameraAction_summary">Kamera Icon in Menuleiste anzeigen</string>
+  <string name="config_generateAlerts_title">Alarme generieren</string>
+  <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
   <string name="config_tileCacheSize_title">Grösse des Tile Cache</string>
@@ -344,6 +354,8 @@
   <string name="config_gps_source_summary">Quelle für GPS-Daten </string>
   <string name="config_gps_source_tcp_title">NMEA Netzwerkquelle</string>
   <string name="config_gps_source_tcp_summary">Adresse der TCP NMEA-Quelle als host:port</string>
+  <string name="config_enableLightTheme_title">Helles Thema verwenden</string>
+  <string name="config_enableLightTheme_summary">Helles Thema mit weissen Hintergrund</string>
   <string name="config_category_misc">Verschiedenes</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
@@ -385,10 +397,12 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschieben</string>
   <string name="undo_action_moveway">Weg verschieben</string>
+  <string name="undo_action_moveobjects">Objekte verschieben</string>
   <string name="undo_action_add">Hinzufügen</string>
   <string name="undo_action_append">Anfügen</string>
   <string name="undo_action_deletenode">Knoten löschen</string>
   <string name="undo_action_deleteway">Weg löschen</string>
+  <string name="undo_action_delete_objects">Objekte löschen</string>
   <string name="undo_action_split_ways">Wege aufspalten</string>
   <string name="undo_action_split_way">Weg aufspalten</string>
   <string name="undo_action_merge_ways">Wege verbinden</string>
@@ -405,6 +419,7 @@
   <string name="undo_action_orthogonalize">weg rechtwinklig machen</string>
   <string name="undo_action_circulize">im Kreis anordnen</string>
   <string name="undo_action_fix_conflict">Konfliktbehebung</string>
+  <string name="undo_action_extract_node">Knoten extrahieren</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt. Bitte senden Sie einen Fehlerreport.</string>
   <string name="crash_notif_title">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.</string>
@@ -417,6 +432,8 @@
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Diese Operation würde ein Weg mit zu vielen Knoten erstellen.</string>
   <!--Notifications-->
+  <string name="alert_data_issue">Problem mit den OSM Daten entdeckt</string>
+  <string name="alert_note">OSM Note in der Nähe entdeckt</string>
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
   <string name="role_lc">Rolle</string>

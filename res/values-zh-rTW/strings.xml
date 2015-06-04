@@ -25,6 +25,7 @@
   <string name="data_conflict_message">您正嘗試下載的資料中，所包含的資料與您的編輯衝突。
 請在重試之前，先試著上傳您的資料。</string>
   <string name="api_offline_title">API 離線</string>
+  <string name="api_offline_message">該 API 目前離線，不允許恢復或寫入資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
   <string name="out_of_memory_message">Vespucci 載入所要求的資料，已耗盡記憶體。請重開程式，並嘗試載入較小的區域。</string>
   <string name="out_of_memory_dirty_message">Vespucci 載入所要求的資料，已耗盡記憶體。請試著儲存您的編輯，重開程式，並嘗試載入較小的區域。</string>
@@ -227,6 +228,7 @@
   <string name="menu_transfer_download_current_add">增加目前檢視的作下載</string>
   <string name="menu_transfer_download_other">下載其它位置</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
+  <string name="menu_transfer_close_changeset">關閉目前的變更設定</string>
   <string name="menu_transfer_export">匯出變更</string>
   <string name="menu_transfer_read_file">從檔案讀取</string>
   <string name="menu_transfer_save_file">儲存到檔案</string>
@@ -236,6 +238,7 @@
   <string name="menu_copy">複製</string>
   <string name="menu_cut">剪下</string>
   <string name="menu_paste">貼上</string>
+  <string name="menu_paste_from_clipboard">從剪貼簿貼上</string>
   <string name="menu_rotate">旋轉</string>
   <string name="menu_orthogonalize">正交</string>
   <string name="menu_circulize">在圓週排列</string>
