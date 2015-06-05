@@ -2226,6 +2226,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				// Usually, we just take the first node.
 				// However, check for *very* closely overlapping nodes first.
 				Node candidate = (Node) clickedNodesAndWays.get(0);
+				if (candidate.hasParentRelations()) {
+					return true; // otherwise a relation that only has nodes as member is not selectable
+				}
 				float nodeX = getLogic().getNodeScreenX(candidate);
 				float nodeY = getLogic().getNodeScreenY(candidate);
 				for (int i = 1; i < clickedNodesAndWays.size(); i++) {
