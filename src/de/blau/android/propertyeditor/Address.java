@@ -32,7 +32,7 @@ import de.blau.android.propertyeditor.PropertyEditor;
  *
  */
 public class Address implements Serializable {
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 	
 	private static final String ADDRESS_TAGS_FILE = "addresstags.dat";
 	private static final int MAX_SAVED_ADDRESSES = 100;
@@ -147,10 +147,12 @@ public class Address implements Serializable {
 		// PlaceTagValueAutocompletionAdapter placeAdapter = (PlaceTagValueAutocompletionAdapter) getPlaceNameAutocompleteAdapter();
 		if (lastAddresses != null && lastAddresses.size() > 0) {
 			newAddress = new Address(caller.getType(), caller.getOsmId(),lastAddresses.get(0).tags); // last address we added
+			Log.d("Address","seeding with last addresses");
 		} 
 
 		if (newAddress == null) { // make sure we have the address object
 			newAddress = new Address(caller.getType(), caller.getOsmId(), new LinkedHashMap<String, ArrayList<String>>()); 
+			Log.d("Address","nothing to seed with creatign new");
 		}
 		// merge in any existing tags
 		for (String k: current.keySet()) {
