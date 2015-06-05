@@ -165,6 +165,7 @@
   <string name="tag_action_title">Các thẻ đã chọn</string>
   <string name="menu_up">Trên</string>
   <string name="menu_top">Trên cùng</string>
+  <string name="menu_preset_help">Trợ giúp về thẻ đặt trước</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Tải Khu vực</string>
   <string name="location_choose_radius">Chọn bán kính:</string>
@@ -403,6 +404,7 @@
   <string name="undo_action_append">gắn thêm</string>
   <string name="undo_action_deletenode">xóa nốt</string>
   <string name="undo_action_deleteway">xóa lối</string>
+  <string name="undo_action_delete_objects">xóa đối tượng</string>
   <string name="undo_action_split_ways">chia lối</string>
   <string name="undo_action_split_way">chia lối</string>
   <string name="undo_action_merge_ways">gộp lối</string>

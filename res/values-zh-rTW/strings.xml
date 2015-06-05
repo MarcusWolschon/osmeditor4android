@@ -127,6 +127,7 @@
   <string name="toast_file_not_found">%1$s 未找到。</string>
   <string name="toast_imported_track_points">已匯入 %1$s 軌跡標點</string>
   <string name="toast_inconsistent_state">檢測到不相容的狀態，請發送錯誤報告！</string>
+  <string name="toast_camera_error">啟動相機的 app 錯誤：%1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -282,6 +283,8 @@
   <string name="actionmode_multiselect">多個選擇</string>
   <!--Preferences-->
   <string name="config_category_view">使用者介面設定</string>
+  <string name="config_showCameraAction_title">顯示相機的動作</string>
+  <string name="config_showCameraAction_summary">在動作列上顯示相機圖示</string>
   <string name="config_generateAlerts_title">發生通知</string>
   <string name="config_generateAlerts_summary">有問題的資料或節點發生通知</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
@@ -434,6 +437,7 @@
   <string name="exception_too_many_nodes">此操作會造成一條過多節點的路徑。</string>
   <!--Notifications-->
   <string name="alert_data_issue">檢測到 OSM 資料有問題</string>
+  <string name="alert_note">附近的 OSM 注解檢測</string>
   <string name="alert_distance_direction">在 %1$d 公尺 %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">作用</string>
