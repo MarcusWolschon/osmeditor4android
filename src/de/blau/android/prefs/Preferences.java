@@ -159,7 +159,7 @@ public class Preferences {
 			gpsDistance = 2.0f;
 			gpsInterval = 1000;
 		}
-		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
+		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);

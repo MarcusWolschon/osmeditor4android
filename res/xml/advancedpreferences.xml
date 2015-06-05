@@ -41,7 +41,7 @@
 			android:key="@string/config_enableLightTheme_key"
 			android:title="@string/config_enableLightTheme_title"
 			android:summary="@string/config_enableLightTheme_summary"
-			android:defaultValue="false"
+			android:defaultValue="true"
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableDepreciatedModes_key"
