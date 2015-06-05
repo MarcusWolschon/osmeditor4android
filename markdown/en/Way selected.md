@@ -48,6 +48,10 @@ Change angles that are near 90° or 180° to 90° resp. 180°.
 
 Rotate the way around its centroid. The centroid position is marked with a cross.
 
+### Split in to polygons
+
+Available for closed ways with at least for nodes. Will split the way in to two polygons, sharing the common nodes.
+
 ### ![](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the way to the internal copy and paste buffer.

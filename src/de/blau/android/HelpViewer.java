@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
@@ -76,6 +77,8 @@ public class HelpViewer extends SherlockActivity {
 		// add our real content
 		FrameLayout fl =  (FrameLayout) findViewById(R.id.content_frame);
 		helpView = new WebView(this);
+		WebSettings helpSettings = helpView.getSettings();
+		helpSettings.setDefaultFontSize(12);
 		fl.addView(helpView);
 		
 		// set up the drawer

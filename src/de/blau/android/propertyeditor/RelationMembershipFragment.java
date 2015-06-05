@@ -529,7 +529,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			return true;
 		case R.id.tag_menu_help:
 			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, "TagEditor");
+			startHelpViewer.putExtra(HelpViewer.TOPIC, "PropertyEditor");
 			startActivity(startHelpViewer);
 			return true;
 		}

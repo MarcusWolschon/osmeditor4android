@@ -10,9 +10,9 @@ Note: some of these actions will only be visible if they can actually be execute
 
 Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen. *Some operations consist of multiple simpler actions that will be listed as individual items.*
 
-### ![](../images/tag_menu_tags.png) Start tag editor
+### ![](../images/tag_menu_tags.png) Start property editor
 
-Starts the tag editor on the current selection.
+Starts the property editor on the current selection.
 
 ### ![](../images/tag_menu_append.png) Append 
 
@@ -48,7 +48,7 @@ Start Multi-Select mode with the current selected element.
 
 ### ![](../images/relation.png) Create relation
 
-Create a relation and add this object as the first element. Further objects can be added until "Done" is selected, then the tag editor will be started on the new relation. 
+Create a relation and add this object as the first element. Further objects can be added until "Done" is selected, then the property editor will be started on the new relation. 
 
 ### ![](../images/menu_gps.png) Position
 

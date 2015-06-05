@@ -2,6 +2,13 @@
 
 Vespucci supports JOSM compatible presets and the default preset is derived from the original JOSM one and kept in sync as far as possible. Just as with JOSM you can add further presets or use a different one than the default. The default preset is maintained at [https://github.com/simonpoole/beautified-JOSM-preset](https://github.com/simonpoole/beautified-JOSM-preset).
 
+## ![](../images/tag_menu_preset.png) Preset pane
+
+Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the Property Editor screen below the tags. The recently used preset screen can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.
+
+The light grey buttons in the preset dialog indicate groups of presets, dark grey are presets. Navigating to the previous screen is accomplished with the back button.
+
+
 To manage the presets go to the "Preferences" screen and then to the "Advanced Preferences", selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry (except for the default "OpenStreetMap") will give you a choice of 
 
 

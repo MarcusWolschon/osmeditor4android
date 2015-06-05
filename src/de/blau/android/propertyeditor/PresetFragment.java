@@ -251,7 +251,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 			return true;
 		case R.id.preset_menu_help:
 			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, "TagEditor");
+			startHelpViewer.putExtra(HelpViewer.TOPIC, "Presets");
 			startActivity(startHelpViewer);
 			return true;
 		}
