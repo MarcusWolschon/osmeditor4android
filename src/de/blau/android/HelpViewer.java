@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 
@@ -25,13 +27,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
 
@@ -52,6 +52,7 @@ public class HelpViewer extends SherlockActivity {
 	private ListView mDrawerList;
 	ArrayAdapter<String> tocAdapter;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
@@ -79,6 +80,11 @@ public class HelpViewer extends SherlockActivity {
 		helpView = new WebView(this);
 		WebSettings helpSettings = helpView.getSettings();
 		helpSettings.setDefaultFontSize(12);
+		helpSettings.setSupportZoom(true);
+		helpSettings.setBuiltInZoomControls(true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			helpSettings.setDisplayZoomControls(false);
+		}
 		fl.addView(helpView);
 		
 		// set up the drawer

@@ -376,10 +376,10 @@
     <!--  url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
     <string name="urldialog_preset_exists">This preset already exists</string>
-    <string name="urldialog_preset_download_sucessful">Preset download sucessful!</string>
+    <string name="urldialog_preset_download_successful">Preset download successful!</string>
     <string name="urldialog_api_exists">An API with this URL already exists. However, you may add another one (e.g. to switch accounts easily).</string>
     <string name="urldialog_api_preset_missing">The preset used by the API is not available. You should add it first.</string>
-    <string name="urldialog_api_install_sucessful">API install sucessful!</string>
+    <string name="urldialog_api_install_successful">API install successful!</string>
     <string name="urldialog_add_api">Add API</string>
     <string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
     <!--  common terms  -->

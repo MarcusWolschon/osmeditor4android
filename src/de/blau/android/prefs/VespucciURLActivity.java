@@ -56,6 +56,12 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_customMain_Light);
+		} else {
+			setTheme(R.style.Theme_customMain);
+		}
 		super.onCreate(savedInstanceState);
 		mainView = View.inflate(this, R.layout.url_activity, null);
 		setContentView(mainView);
@@ -112,9 +118,11 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		    	((TextView)mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
 		    	existingPreset = prefdb.getPresetByURL(preseturl);
 		    	if (downloadSucessful) {
-		    		mainView.findViewById(R.id.urldialog_textPresetSucessful).setVisibility(View.VISIBLE);
+		    		mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
+		    		mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
 		    	} else {
 		    		mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
+		    		mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
 		    	}
 		    	mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
 		    	((Button)mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
@@ -132,9 +140,11 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		    		}
 		    	}
 		    	if (downloadSucessful) {
-		    		mainView.findViewById(R.id.urldialog_textAPISucessful).setVisibility(View.VISIBLE);
+		    		mainView.findViewById(R.id.urldialog_textAPISuccessful).setVisibility(View.VISIBLE);
+		    		mainView.findViewById(R.id.urldialog_textAPIExists).setVisibility(View.GONE);
 		    	} else {
 		    		mainView.findViewById(R.id.urldialog_textAPIExists).setVisibility(hasAPI ? View.VISIBLE : View.GONE);
+		    		mainView.findViewById(R.id.urldialog_textAPISuccessful).setVisibility(View.GONE);
 		    	}
 		    	if (apipreseturl != null) {
 		    		apiPresetInfo = prefdb.getPresetByURL(apipreseturl);
