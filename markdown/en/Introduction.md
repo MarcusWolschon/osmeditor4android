@@ -16,13 +16,13 @@ Depending on screen size and age of your device editing actions may either be ac
 
 Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
- * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
- * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
- * **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
- * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
- * **Export changes** - write a ".osc" format file containing the current edits, this can be read for example by JOSM
- * **Read from file** - read a (J)OSM compatible XML format file
- * **Save to file** - save as a JOSM compatible XML format file
+* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
+* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Export changes** - write a ".osc" format file containing the current edits, this can be read for example by JOSM
+* **Read from file** - read a (J)OSM compatible XML format file
+* **Save to file** - save as a JOSM compatible XML format file
 
 The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
 
@@ -74,11 +74,11 @@ Consider using this with the "Auto-download" mode.
 
 Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
 
- * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
- * select "Add restriction" from the menu
- * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
- * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction) 
- * set the restriction type in the tag menu
+* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
+* select "Add restriction" from the menu
+* select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
+* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
+* set the restriction type in the tag menu
  
 ### Vespucci in "locked" mode
  
@@ -117,25 +117,24 @@ Notes:
 * you need to download an initial area manually
 * the function only works below 6km/h (brisk walking speed) to avoid causing issues with the OpenStreetMap API
 
-
 ## Customizing Vespucci
 
 ### Settings that you might want to change
 
- * Background layer
- * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
- * Notes display. Open Notes will be displayed as a red filled circle, closed Notes the same in blue. Default: off.
- * Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
- * Node icons. Default: off.
- * Keep screen on. Default: off.
- * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes display. Open Notes will be displayed as a red filled circle, closed Notes the same in blue. Default: off.
+* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: off.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
  
 #### Advanced preferences
 
- * Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
- * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
- * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
- * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
+* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
 ## Reporting Problems
 
