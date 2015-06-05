@@ -83,7 +83,7 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
 ### Vespucci in "locked" mode
  
 When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
-  
+
 ### Saving Your Changes
 
 *(requires network connectivity)*
@@ -136,9 +136,9 @@ Notes:
  * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
  * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
  * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
- 
+
 ## Reporting Problems
- 
+
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 
