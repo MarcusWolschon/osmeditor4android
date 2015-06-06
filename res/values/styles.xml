@@ -125,6 +125,7 @@
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
 		<item name="spinnerItemStyle">@style/SpinnerItemStyle</item>
 		<item name="DownloadedMember">@style/DownloadedMemberDark</item>
+		<item name="NotDownloadedMember">@style/NotDownloadedMemberDark</item>
 		<!--  icons  -->
 		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_dark</item>
@@ -200,7 +201,7 @@
 	</style>
 	
 	<style name="NotDownloadedMemberDark">
-	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 
@@ -218,6 +219,7 @@
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyleLight</item>
 		<item name="spinnerItemStyle">@style/SpinnerItemStyleLight</item>
 		<item name="DownloadedMember">@style/DownloadedMemberLight</item>
+		<item name="NotDownloadedMember">@style/NotDownloadedMemberLight</item>
 		<!--  icons  -->
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_light</item>
@@ -292,7 +294,7 @@
 	</style>
 	
 	<style name="NotDownloadedMemberLight">
-	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	

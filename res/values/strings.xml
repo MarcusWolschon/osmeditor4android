@@ -262,7 +262,7 @@
     <string name="menu_tools_background_contrast">Contrast</string>
     
     <!-- element action mode menu -->
-    <string name="menu_tags">Tags</string>
+    <string name="menu_tags">Properties</string>
     <!-- Text should be as short as possible -->
     <string name="menu_history">History</string>
     <string name="menu_merge">Join</string>

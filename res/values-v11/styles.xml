@@ -206,7 +206,7 @@
 	</style>
 	
 	<style name="NotDownloadedMemberDark" parent="android:Widget.Holo.TextView">
-	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
@@ -295,7 +295,7 @@
 	</style>
 	
 	<style name="NotDownloadedMemberLight" parent="android:Widget.Holo.Light.TextView">
-	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
