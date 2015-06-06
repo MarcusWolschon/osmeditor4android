@@ -45,12 +45,12 @@
         <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down"/>
     </chunk>
     <chunk id="highway_yesno_incline_oneway">
-        <check key="oneway" text="Oneway" />
+        <check key="oneway" text="Oneway" disable_off="true" />
         <reference ref="highway_yesno_incline" />
     </chunk>
     <chunk id="highway_yesno_incline_oneway_lit">
         <reference ref="highway_yesno_incline_oneway" />
-        <check key="lit" text="Lit" />
+        <check key="lit" text="Lit" disable_off="true" />
     </chunk>
     <chunk id="highway_yesno_incline_oneway_lit_width">
         <reference ref="highway_yesno_incline_oneway_lit" />
@@ -313,7 +313,7 @@
             <text key="maxweight" text="Max. weight (tonnes)" />
             <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down" />
             <text key="width" text="Width (meters)" />
-            <check key="toll" text="Toll" />
+            <check key="toll" text="Toll" disable_off="true" />
         </optional>
     </chunk>
     <chunk id="waterway">
@@ -345,9 +345,9 @@
     <preset_link preset_name="Payment Methods" />
   </chunk>
   <chunk id="additional_access_tags">
-    <check key="oneway" text="Oneway" />
-    <check key="toll" text="Toll" />
-    <check key="noexit" text="No exit (cul-de-sac)" />
+    <check key="oneway" text="Oneway" disable_off="true" />
+    <check key="toll" text="Toll" disable_off="true" />
+    <check key="noexit" text="No exit (cul-de-sac)" disable_off="true" />
     <combo key="overtaking" text="Overtaking" values="yes,both,forward,backward,no" values_context="overtaking" match="key" />
     <text key="maxspeed" text="Max. speed (km/h)" />
     <text key="minspeed" text="Min. speed (km/h)" match="key" />
@@ -392,8 +392,8 @@
                     <check key="tunnel" text="Tunnel" disable_off="true" />
                     <check key="cutting" text="Cutting" disable_off="true" />
                     <check key="embankment" text="Embankment" disable_off="true" />
-                    <check key="lit" text="Lit" />
-                    <check key="toll" text="Toll" />
+                    <check key="lit" text="Lit" disable_off="true" />
+                    <check key="toll" text="Toll" disable_off="true" />
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
@@ -418,8 +418,8 @@
                     <check key="tunnel" text="Tunnel" disable_off="true" />
                     <check key="cutting" text="Cutting" disable_off="true" />
                     <check key="embankment" text="Embankment" disable_off="true" />
-                    <check key="lit" text="Lit" />
-                    <check key="toll" text="Toll" />
+                    <check key="lit" text="Lit" disable_off="true" />
+                    <check key="toll" text="Toll" disable_off="true" />
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
@@ -450,8 +450,8 @@
                     <check key="tunnel" text="Tunnel" disable_off="true" />
                     <check key="cutting" text="Cutting" disable_off="true" />
                     <check key="embankment" text="Embankment" disable_off="true" />
-                    <check key="lit" text="Lit" />
-                    <check key="toll" text="Toll" />
+                    <check key="lit" text="Lit" disable_off="true" />
+                    <check key="toll" text="Toll" disable_off="true" />
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
@@ -472,8 +472,8 @@
                     <check key="tunnel" text="Tunnel" disable_off="true" />
                     <check key="cutting" text="Cutting" disable_off="true" />
                     <check key="embankment" text="Embankment" disable_off="true" />
-                    <check key="lit" text="Lit" />
-                    <check key="toll" text="Toll" />
+                    <check key="lit" text="Lit" disable_off="true" />
+                    <check key="toll" text="Toll" disable_off="true" />
                 </checkgroup>
             </optional>
             <reference ref="road_access_restrictions" />
@@ -497,7 +497,7 @@
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
-                <check key="motorroad" text="Motorroad" />
+                <check key="motorroad" text="Motorroad" disable_off="true" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
             </optional>
             <reference ref="road_access_restrictions" />
@@ -513,7 +513,7 @@
             <key key="highway" value="primary_link" />
             <optional>
                 <reference ref="highway_base" />
-                <check key="motorroad" text="Motorroad" />
+                <check key="motorroad" text="Motorroad" disable_off="true" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
             </optional>
             <reference ref="road_access_restrictions" />
@@ -613,7 +613,7 @@
                 <text key="ref" text="Reference" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-                <check key="passing_places" text="Passing Places" />
+                <check key="passing_places" text="Passing Places" disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
         </item> <!-- Unclassified -->
@@ -653,10 +653,10 @@
                 <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" />
                 <combo key="lanes" text="Lanes" values="1,2,3,4,5" />
                 <reference ref="surface_smoothness" />
-                <check key="oneway" text="Oneway" />
-                <check key="oneway:bicycle" text="Oneway for bicycle" />
+                <check key="oneway" text="Oneway" disable_off="true" />
+                <check key="oneway:bicycle" text="Oneway for bicycle" disable_off="true" />
                 <reference ref="highway_yesno_incline" />
-                <check key="lit" text="Lit" />
+                <check key="lit" text="Lit" disable_off="true" />
                 <text key="width" text="Width (meters)" />
                 <combo key="sidewalk" text="Sidewalk" values="both,left,right,no" values_context="sidewalk" />
             </optional>
@@ -700,9 +700,9 @@
                 <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
                 <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" />
                 <reference ref="surface_smoothness" />
-                <check key="area" text="Area" />
+                <check key="area" text="Area" disable_off="true" />
                 <reference ref="highway_yesno_incline" />
-                <check key="lit" text="Lit" />
+                <check key="lit" text="Lit" disable_off="true" />
                 <text key="width" text="Width (meters)" />
             </optional>
             <reference ref="road_access_restrictions" />
@@ -724,7 +724,7 @@
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-                <check key="passing_places" text="Passing Places" />
+                <check key="passing_places" text="Passing Places" disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
         </item> <!-- Service -->
@@ -741,8 +741,8 @@
             <key key="service" value="parking_aisle" />
             <optional>
                 <reference ref="surface_smoothness" />
-                <check key="oneway" text="Oneway" />
-                <check key="lit" text="Lit" />
+                <check key="oneway" text="Oneway" disable_off="true" />
+                <check key="lit" text="Lit" disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
         </item> <!-- Parking Aisle -->
@@ -757,7 +757,7 @@
             <optional>
                 <reference ref="surface" />
                 <text key="width" text="Width (meters)" />
-                <check key="lit" text="Lit" />
+                <check key="lit" text="Lit" disable_off="true" />
             </optional>
         </item> <!-- Escape -->
         <item name="Road (Unknown Type)" icon="icons/png/highway_highway_sp.png" type="way,closedway" preset_name_label="true">
@@ -935,11 +935,11 @@
             <combo key="cycleway" text="Cycleway" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" match="key" />
             <combo key="cycleway:left" text="Cycleway left" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" />
             <combo key="cycleway:right" text="Cycleway right" values="lane,track,opposite_lane,opposite_track,opposite,share_busway,shared_lane" />
-            <check key="oneway:bicycle" text="Oneway (bicycle)" />
+            <check key="oneway:bicycle" text="Oneway (bicycle)" disable_off="true" />
             <space />
             <optional text="Edit Highway Attributes:">
                 <combo key="highway" text="Highway" values="motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,tertiary,unclassified,residential,living_street,service,bus_guideway,construction" values_context="Highway" />
-                <check key="oneway" text="Oneway" />
+                <check key="oneway" text="Oneway" disable_off="true" />
             </optional>
         </item> <!-- Cycle Lane/Track -->
         <item name="Dedicated Cycleway" icon="icons/png/cycleway.png" type="way" preset_name_label="true">
@@ -986,7 +986,7 @@
                 <reference ref="name_layer" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
-                <check key="passing_places" text="Passing Places" />
+                <check key="passing_places" text="Passing Places" disable_off="true" />
             </optional>
         </item> <!-- Combined Foot- and Cycleway -->
         <item name="Dedicated Footway" icon="icons/png/footway.png" type="way" preset_name_label="true">
@@ -1006,8 +1006,8 @@
                 <reference ref="name_layer" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline" />
-                <check key="lit" text="Lit" />
-                <check key="bicycle" text="Bicycle" />
+                <check key="lit" text="Lit" disable_off="true" />
+                <check key="bicycle" text="Bicycle" disable_off="true" />
                 <text key="width" text="Width (meters)" />
             </optional>
         </item> <!-- Dedicated Footway -->
@@ -1029,22 +1029,22 @@
                 <text key="step_count" text="Amount of Steps" />
                 <space />
                 <checkgroup columns="1" > <!-- workaround -->
-                    <check key="ramp" text="Ramp" />
+                    <check key="ramp" text="Ramp" disable_off="true" />
                 </checkgroup>
                 <checkgroup columns="2" >
-                    <check key="ramp:stroller" text="Stroller ramp" />
-                    <check key="ramp:bicycle" text="Bicycle ramp" />
+                    <check key="ramp:stroller" text="Stroller ramp" disable_off="true" />
+                    <check key="ramp:bicycle" text="Bicycle ramp" disable_off="true" />
                 </checkgroup>
                 <combo key="ramp:wheelchair" text="Wheelchair ramp" values="yes,limited,no" />
                 <combo key="ramp:luggage" text="Luggage ramp" values="yes,automatic,manual,no" />
                 <space />
                 <checkgroup columns="1" > <!-- workaround -->
-                    <check key="handrail" text="Handrail" />
+                    <check key="handrail" text="Handrail" disable_off="true" />
                 </checkgroup>
                 <checkgroup columns="3" >
-                    <check key="handrail:left" text="Left handrail" />
-                    <check key="handrail:center" text="Center handrail" />
-                    <check key="handrail:right" text="Right handrail" />
+                    <check key="handrail:left" text="Left handrail" disable_off="true" />
+                    <check key="handrail:center" text="Center handrail" disable_off="true" />
+                    <check key="handrail:right" text="Right handrail" disable_off="true" />
                 </checkgroup>
                 <space />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
@@ -1078,7 +1078,7 @@
             <optional>
                 <text key="name" text="Name" />
                 <text key="operator" text="Operator" />
-                <check key="toilets" text="Toilets" />
+                <check key="toilets" text="Toilets" disable_off="true" />
             </optional>
         </item> <!-- Services -->
         <item name="Rest Area" icon="icons/png/transport_rest_area_18021.png" type="node,closedway" preset_name_label="true">
@@ -1093,7 +1093,7 @@
             <key key="highway" value="rest_area" />
             <optional>
                 <text key="name" text="Name" />
-                <check key="toilets" text="Toilets" />
+                <check key="toilets" text="Toilets" disable_off="true" />
                 <check key="drinking_water" text="Drinking Water" />
             </optional>
         </item> <!-- Rest Area -->
@@ -1110,11 +1110,11 @@
             <optional text="Optional crossing attributes:">
                 <combo key="crossing" text="Pedestrian crossing type" values="uncontrolled,traffic_signals,island,unmarked,no" />
                 <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
-                <check key="button_operated" text="Button operated" />
-                <check key="traffic_signals:sound" text="Sound signals" />
+                <check key="button_operated" text="Button operated" disable_off="true" />
+                <check key="traffic_signals:sound" text="Sound signals" disable_off="true" />
                 <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" />
-                <check key="bicycle" text="Cross by bicycle" />
-                <check key="horse" text="Cross on horseback" />
+                <check key="bicycle" text="Cross by bicycle" disable_off="true" />
+                <check key="horse" text="Cross on horseback" disable_off="true" />
             </optional>
             <optional text="Optional values for specific countries">
                 <text key="name" text="Name" />
@@ -1165,11 +1165,11 @@
             <combo key="crossing" text="Pedestrian crossing type" values="uncontrolled,traffic_signals,island,unmarked,no" />
             <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true" />
             <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" />
-            <check key="bicycle" text="Cross by bicycle" />
-            <check key="horse" text="Cross on horseback" />
+            <check key="bicycle" text="Cross by bicycle" disable_off="true" />
+            <check key="horse" text="Cross on horseback" disable_off="true" />
             <label text="In case of traffic signals:" />
-            <check key="button_operated" text="Button operated" />
-            <check key="traffic_signals:sound" text="Sound signals" />
+            <check key="button_operated" text="Button operated" disable_off="true" />
+            <check key="traffic_signals:sound" text="Sound signals" disable_off="true" />
         </item> <!-- Pedestrian Crossing -->
         <item name="Traffic Calming" icon="icons/png/transport_speedbump.png" type="node,way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
@@ -1596,7 +1596,7 @@
                 <text key="maxheight" text="Max. height (meters)" />
                 <text key="maxspeed" text="Max. speed (km/h)" />
                 <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down" />
-                <check key="toll" text="Toll" />
+                <check key="toll" text="Toll" disable_off="true" />
             </optional>
         </item> <!-- Tunnel -->
         <item name="Building Passage" icon="icons/png/highway_tunnel_sp.png" type="way" preset_name_label="true">
@@ -1629,8 +1629,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/UK:Key:covered" />
             <space />
             <key key="covered" value="arcade" />
-            <check key="arcade:left" value_on="open" text="Open on left side" />
-            <check key="arcade:right" value_on="open" text="Open on right side" />
+            <check key="arcade:left" value_on="open" text="Open on left side" disable_off="true" />
+            <check key="arcade:right" value_on="open" text="Open on right side" disable_off="true" />
             <optional>
                 <reference ref="name_layer" />
                 <text key="width" text="Width (meters)" />
@@ -1646,8 +1646,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:covered" />
             <space />
             <key key="covered" value="colonnade" />
-            <check key="colonnade:left" value_on="open" text="Open on left side" />
-            <check key="colonnade:right" value_on="open" text="Open on right side" />
+            <check key="colonnade:left" value_on="open" text="Open on left side" disable_off="true" />
+            <check key="colonnade:right" value_on="open" text="Open on right side" disable_off="true" />
             <optional>
                 <reference ref="name_layer" />
                 <text key="width" text="Width (meters)" />
@@ -1665,8 +1665,8 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:tunnel" />
             <space />
             <key key="tunnel" value="avalanche_protector" />
-            <check key="avalanche_protector:left" value_on="open" text="Open on left side" />
-            <check key="avalanche_protector:right" value_on="open" text="Open on right side" />
+            <check key="avalanche_protector:left" value_on="open" text="Open on left side" disable_off="true" />
+            <check key="avalanche_protector:right" value_on="open" text="Open on right side" disable_off="true" />
             <optional>
                 <reference ref="name_layer" />
                 <text key="width" text="Width (meters)" />
@@ -1928,7 +1928,7 @@
             <space />
             <key key="natural" value="spring" />
             <text key="name" text="Name" />
-            <check key="drinking_water" text="Drinking Water" />
+            <check key="drinking_water" text="Drinking Water" disable_off="true" />
         </item> <!-- Spring -->
         <item name="Waterfall" icon="icons/png/water_waterfall_24009.png" type="node,way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=waterfall"
@@ -2030,7 +2030,7 @@
             <text key="name" text="Name" />
         </item> <!-- Covered Reservoir -->
         <separator/>
-        <item name="Water" icon="presets/water.png" type="closedway,relation" preset_name_label="true">
+        <item name="Water" name_context="natural" icon="presets/water.png" type="closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:natural=water"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:natural=water"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:natural=water"
@@ -2190,6 +2190,33 @@
             <text key="name" text="Name" />
             <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" />
         </item> <!-- Marina -->
+        <item name="Marine Fuel" icon="styles/standard/nautical/marine_fuel.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=fuel"/>
+            <space />
+            <key key="waterway" value="fuel" />
+            <optional>
+                <combo key="brand" text="Brand" values="Agip,Aral,Avia,BP,Chevron,Citgo,Eni,Esso,Exxon,Gulf,Mobil,OMV,Petro-Canada,Pioneer,Q8,Repsol,Shell,Socar,Statoil,Sunoco,Tamoil,Texaco,Total,Independent" values_searchable="true" />
+                <reference ref="name_operator" />
+                <reference ref="oh" />
+                <space />
+                <label text="Fuel types:" />
+                <checkgroup columns="2">
+                    <check key="fuel:diesel" text="Diesel"  disable_off="true" />
+                    <check key="fuel:biodiesel" text="Bio Diesel" disable_off="true" />
+                    <check key="fuel:octane_80" text="Octane 80" disable_off="true" />
+                    <check key="fuel:octane_91" text="Octane 91" disable_off="true" />
+                    <check key="fuel:octane_92" text="Octane 92" disable_off="true" />
+                    <check key="fuel:octane_95" text="Octane 95" disable_off="true" />
+                    <check key="fuel:octane_98" text="Octane 98" disable_off="true" />
+                    <check key="fuel:octane_100" text="Octane 100" disable_off="true" />
+                    <check key="fuel:e10" text="E10 (10% Ethanol mix)" disable_off="true" />
+                    <check key="fuel:e85" text="E85 (85% Ethanol mix)" disable_off="true" />
+                    <check key="fuel:lpg" text="LPG (Liquefied petroleum gas)" disable_off="true" />
+                    <check key="fuel:cng" text="CNG (Compressed Natural Gas)" disable_off="true" />
+                </checkgroup>
+            </optional>
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Marine Fuel -->
         <item name="Pier" icon="icons/png/water_pier_22046.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=pier"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=pier"
@@ -2389,9 +2416,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:railway=level_crossing" />
             <key key="railway" value="level_crossing" />
             <optional>
-                <check key="supervised" text="Supervised" />
-                <check key="crossing:light" text="Traffic lights" />
-                <check key="crossing:bell" text="Sound signals" />
+                <check key="supervised" text="Supervised" disable_off="true" />
+                <check key="crossing:light" text="Traffic lights" disable_off="true" />
+                <check key="crossing:bell" text="Sound signals" disable_off="true" />
                 <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" values_context="crossing:barrier" />
             </optional>
         </item> <!-- Level Crossing -->
@@ -2407,10 +2434,10 @@
             <optional>
                 <combo key="crossing" text="Crossing type" values="uncontrolled,traffic_signals,island,unmarked,no" />
                 <reference ref="supervised" />
-                <check key="horse" text="Cross on horseback" />
-                <check key="bicycle" text="Cross by bicycle" />
-                <check key="crossing:light" text="Traffic lights" />
-                <check key="crossing:bell" text="Sound signals" />
+                <check key="horse" text="Cross on horseback" disable_off="true" />
+                <check key="bicycle" text="Cross by bicycle" disable_off="true" />
+                <check key="crossing:light" text="Traffic lights" disable_off="true" />
+                <check key="crossing:bell" text="Sound signals" disable_off="true" />
                 <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" values_context="crossing:barrier" />
             </optional>
         </item> <!-- Crossing -->
@@ -2452,7 +2479,7 @@
                 <text key="aerialway:capacity" text="Number of people per hour" />
                 <text key="aerialway:occupancy" text="Number of people per car" />
                 <text key="aerialway:duration" text="Typical journey time in minutes" />
-                <check key="aerialway:heating" text="Has heating?" />
+                <check key="aerialway:heating" text="Has heating?" disable_off="true" />
             </optional>
         </item> <!-- Cable Car -->
         <item name="Chair Lift" icon="icons/png/transport_chair_lift_10002.png" type="way" preset_name_label="true">
@@ -2465,8 +2492,8 @@
                 <text key="aerialway:capacity" text="Number of people per hour" />
                 <text key="aerialway:occupancy" text="Number of people per chair" />
                 <text key="aerialway:duration" text="Typical journey time in minutes" />
-                <check key="aerialway:bubble" text="Has bubble?" />
-                <check key="aerialway:heating" text="Has heating?" />
+                <check key="aerialway:bubble" text="Has bubble?" disable_off="true" />
+                <check key="aerialway:heating" text="Has heating?" disable_off="true" />
             </optional>
         </item> <!-- Chair Lift -->
         <item name="Gondola" icon="icons/png/transport_gondola_10006.png" type="way" preset_name_label="true">
@@ -2478,7 +2505,7 @@
                 <text key="aerialway:capacity" text="Number of people per hour" />
                 <text key="aerialway:occupancy" text="Number of people per gondola" />
                 <text key="aerialway:duration" text="Typical journey time in minutes" />
-                <check key="aerialway:heating" text="Has heating?" />
+                <check key="aerialway:heating" text="Has heating?" disable_off="true" />
             </optional>
         </item> <!-- Gondola -->
         <item name="Mixed Lift" icon="icons/png/transport_mixed_lift_10008.png" type="way" preset_name_label="true">
@@ -2490,8 +2517,8 @@
                 <text key="aerialway:capacity" text="Number of people per hour" />
                 <text key="aerialway:occupancy" text="Number of people per gondola/chair" />
                 <text key="aerialway:duration" text="Typical journey time in minutes" />
-                <check key="aerialway:bubble" text="Has bubble?" />
-                <check key="aerialway:heating" text="Has heating?" />
+                <check key="aerialway:bubble" text="Has bubble?" disable_off="true" />
+                <check key="aerialway:heating" text="Has heating?" disable_off="true" />
             </optional>
         </item> <!-- Mixed Lift -->
         <item name="Drag Lift" icon="icons/png/transport_drag_lift_10003.png" type="way" preset_name_label="true">
@@ -2583,7 +2610,7 @@
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <reference ref="maxstay" />
             <reference ref="supervised_lit_oh" />
-            <check key="covered" text="Covered (with roof)" />
+            <check key="covered" text="Covered (with roof)" disable_off="true" />
         </item> <!-- Parking Space -->
         <item name="Parking Entrance" icon="icons/png/transport_parking_entrance_12098.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=parking_entrance"
@@ -2598,7 +2625,7 @@
             <text key="maxheight" text="Max. height (meters)" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <reference ref="supervised_lit_oh" />
-            <check key="covered" text="Covered (with roof)" />
+            <check key="covered" text="Covered (with roof)" disable_off="true" />
         </item> <!-- Parking Entrance -->
         <separator/>
         <item name="Fuel" icon="icons/png/transport_fuel.png" type="node,closedway" preset_name_label="true">
@@ -2626,29 +2653,29 @@
                 <space />
                 <label text="Fuel types:" />
                 <checkgroup columns="2">
-                    <check key="fuel:diesel" text="Diesel" />
-                    <check key="fuel:biodiesel" text="Bio Diesel" />
-                    <check key="fuel:GTL_diesel" text="Diesel (Gas To Liquid - ultimate diesel)" />
-                    <check key="fuel:HGV_diesel" text="Diesel for Heavy Good Vehicles" />
-                    <check key="fuel:octane_80" text="Octane 80" />
-                    <check key="fuel:octane_91" text="Octane 91" />
-                    <check key="fuel:octane_92" text="Octane 92" />
-                    <check key="fuel:octane_95" text="Octane 95" />
-                    <check key="fuel:octane_98" text="Octane 98" />
-                    <check key="fuel:octane_100" text="Octane 100" />
-                    <check key="fuel:e10" text="E10 (10% Ethanol mix)" />
-                    <check key="fuel:e85" text="E85 (85% Ethanol mix)" />
-                    <check key="fuel:lpg" text="LPG (Liquefied petroleum gas)" />
-                    <check key="fuel:cng" text="CNG (Compressed Natural Gas)" />
-                    <check key="fuel:1_25" text="1/25 mix (mofa/moped)" />
-                    <check key="fuel:1_50" text="1/50 mix (mofa/moped)" />
+                    <check key="fuel:diesel" text="Diesel" disable_off="true" />
+                    <check key="fuel:biodiesel" text="Bio Diesel" disable_off="true" />
+                    <check key="fuel:GTL_diesel" text="Diesel (Gas To Liquid - ultimate diesel)" disable_off="true" />
+                    <check key="fuel:HGV_diesel" text="Diesel for Heavy Good Vehicles" disable_off="true" />
+                    <check key="fuel:octane_80" text="Octane 80" disable_off="true" />
+                    <check key="fuel:octane_91" text="Octane 91" disable_off="true" />
+                    <check key="fuel:octane_92" text="Octane 92" disable_off="true" />
+                    <check key="fuel:octane_95" text="Octane 95" disable_off="true" />
+                    <check key="fuel:octane_98" text="Octane 98" disable_off="true" />
+                    <check key="fuel:octane_100" text="Octane 100" disable_off="true" />
+                    <check key="fuel:e10" text="E10 (10% Ethanol mix)" disable_off="true" />
+                    <check key="fuel:e85" text="E85 (85% Ethanol mix)" disable_off="true" />
+                    <check key="fuel:lpg" text="LPG (Liquefied petroleum gas)" disable_off="true" />
+                    <check key="fuel:cng" text="CNG (Compressed Natural Gas)" disable_off="true" />
+                    <check key="fuel:1_25" text="1/25 mix (mofa/moped)" disable_off="true" />
+                    <check key="fuel:1_50" text="1/50 mix (mofa/moped)" disable_off="true" />
                 </checkgroup>
                 <space />
                 <label text="Fuel cards:" />
                 <checkgroup columns="3">
-                    <check key="payment:dkv" text="DKV" />
-                    <check key="payment:routex" text="Routex" />
-                    <check key="payment:uta" text="UTA" />
+                    <check key="payment:dkv" text="DKV" disable_off="true" />
+                    <check key="payment:routex" text="Routex" disable_off="true" />
+                    <check key="payment:uta" text="UTA" disable_off="true" />
                 </checkgroup>
             </optional>
             <reference ref="link_contact_address_payment" />
@@ -2765,7 +2792,7 @@
             <text key="capacity" text="Capacity" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <reference ref="supervised_lit_oh" />
-            <check key="covered" text="Covered (with roof)" />
+            <check key="covered" text="Covered (with roof)" disable_off="true" />
         </item> <!-- Parking -->
         <item name="Motorcycle Dealer" icon="icons/png/shopping_motorcycle.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=motorcycle"
@@ -2810,7 +2837,7 @@
             <reference ref="name_operator" />
             <text key="capacity" text="Capacity" />
             <combo key="bicycle_parking" text="Type" values="anchors,building,ground_slots,informal,lockers,rack,shed,stands,wall_loops" />
-            <check key="covered" text="Covered" />
+            <check key="covered" text="Covered" disable_off="true" />
             <reference ref="fee_interval" />
             <reference ref="supervised_lit_oh" />
         </item> <!-- Parking -->
@@ -2827,13 +2854,13 @@
             <space />
             <key key="shop" value="bicycle" />
             <reference ref="name_oh_wheelchair" />
-            <check key="service:bicycle:retail" text="Bicycles are sold" />
-            <check key="service:bicycle:second_hand" text="Second-hand bicycles are sold" />
-            <check key="service:bicycle:repair" text="Bicycles are repaired" />
-            <check key="service:bicycle:rental" text="Bicycles are rented" />
-            <check key="service:bicycle:pump" text="Free bicycle pump" />
-            <check key="service:bicycle:diy" text="Tools for do-it-yourself repair (may be a bike co-operative)" />
-            <check key="service:bicycle:cleaning" text="Bicycles are washed (for a fee)" />
+            <check key="service:bicycle:retail" text="Bicycles are sold" disable_off="true" />
+            <check key="service:bicycle:second_hand" text="Second-hand bicycles are sold" disable_off="true" />
+            <check key="service:bicycle:repair" text="Bicycles are repaired" disable_off="true" />
+            <check key="service:bicycle:rental" text="Bicycles are rented" disable_off="true" />
+            <check key="service:bicycle:pump" text="Free bicycle pump" disable_off="true" />
+            <check key="service:bicycle:diy" text="Tools for do-it-yourself repair (may be a bike co-operative)" disable_off="true" />
+            <check key="service:bicycle:cleaning" text="Bicycles are washed (for a fee)" disable_off="true" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Bike Dealer -->
         <item name="Rental" icon="icons/png/transport_rental_bicycle.png" type="node,closedway" preset_name_label="true">
@@ -2865,8 +2892,8 @@
             <text key="brand" text="Brand" />
             <text key="operator" text="Operator" />
             <reference ref="oh" />
-            <check key="service:bicycle:pump" text="Free bicycle pump" />
-            <check key="service:bicycle:chain_tool" text="Chain tool" />
+            <check key="service:bicycle:pump" text="Free bicycle pump" disable_off="true" />
+            <check key="service:bicycle:chain_tool" text="Chain tool" disable_off="true" />
             </optional>
         </item> <!-- Public Bicycle Repair Station -->
     </group> <!-- Bicycle -->
@@ -2888,13 +2915,13 @@
                 <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
             </optional>
             <roles>
-                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway OR railway OR waterway OR aerialway" />
                 <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position" />
                 <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position" />
                 <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position" />
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
                 <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
                 <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform" />
+                <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway OR railway OR waterway OR aerialway" />
             </roles>
         </item> <!-- Public Transport Route -->
         <item name="Route Master" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
@@ -2945,29 +2972,29 @@
                 <text key="operator" text="Operator" />
                 <text key="network" text="Network" />
             </optional>
-            <check key="bus" text="Bus" />
+            <check key="bus" text="Bus" disable_off="true" />
             <check key="highway" value_on="bus_stop" value_off="" text="Bus stop (legacy)" />
-            <check key="tram" text="Tram" />
+            <check key="tram" text="Tram" disable_off="true" />
             <check key="railway" value_on="tram_stop" value_off="" text="Tram stop (legacy)" />
-            <check key="train" text="Train" />
+            <check key="train" text="Train" disable_off="true" />
             <check key="railway" value_on="station" value_off="" text="Railway station (legacy)" />
             <check key="railway" value_on="halt" value_off="" text="Railway halt (legacy)" />
-            <check key="trolleybus" text="Trolleybus" />
-            <check key="share_taxi" text="Share taxi" />
-            <check key="subway" text="Subway" />
-            <check key="monorail" text="Monorail" />
-            <check key="funicular" text="Funicular" />
-            <check key="aerialway" text="Aerialway" />
-            <check key="ferry" text="Ferry" />
+            <check key="trolleybus" text="Trolleybus" disable_off="true" />
+            <check key="share_taxi" text="Share taxi" disable_off="true" />
+            <check key="subway" text="Subway" disable_off="true" />
+            <check key="monorail" text="Monorail" disable_off="true" />
+            <check key="funicular" text="Funicular" disable_off="true" />
+            <check key="aerialway" text="Aerialway" disable_off="true" />
+            <check key="ferry" text="Ferry" disable_off="true" />
         </item> <!-- Stop Position -->
         <item name="Platform" type="node,way,closedway" icon="icons/png/transport_platform_32003.png" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Proposed_features/Public_Transport#Platform" />
             <space />
             <key key="public_transport" value="platform" />
             <text key="name" text="Name" />
-            <check key="bench" text="Bench" />
-            <check key="shelter" text="Shelter" />
-            <check key="covered" text="Covered" />
+            <check key="bench" text="Bench" disable_off="true" />
+            <check key="shelter" text="Shelter" disable_off="true" />
+            <check key="covered" text="Covered" disable_off="true" />
             <reference ref="wheelchair" />
             <optional>
                 <text key="ref" text="Reference" />
@@ -2976,18 +3003,18 @@
                 <text key="operator" text="Operator" />
                 <text key="network" text="Network" />
                 <space/>
-                <check key="bus" text="Bus" />
+                <check key="bus" text="Bus" disable_off="true" />
                 <check key="highway" value_on="platform" text="Highway platform (legacy)" />
-                <check key="tram" text="Tram" />
-                <check key="train" text="Train" />
+                <check key="tram" text="Tram" disable_off="true" />
+                <check key="train" text="Train" disable_off="true" />
                 <check key="railway" value_on="platform" text="Railway platform (legacy)" />
-                <check key="trolleybus" text="Trolleybus" />
+                <check key="trolleybus" text="Trolleybus" disable_off="true" />
                 <check key="share_taxi" text="Share taxi" />
-                <check key="subway" text="Subway" />
-                <check key="monorail" text="Monorail" />
-                <check key="funicular" text="funicular" />
-                <check key="aerialway" text="aerialway" />
-                <check key="ferry" text="ferry" />
+                <check key="subway" text="Subway" disable_off="true" />
+                <check key="monorail" text="Monorail" disable_off="true" />
+                <check key="funicular" text="funicular" disable_off="true" />
+                <check key="aerialway" text="aerialway" disable_off="true" />
+                <check key="ferry" text="ferry" disable_off="true" />
             </optional>
         </item> <!-- Platform -->
         <item name="Station" name_context="railway" type="node,closedway" icon="icons/png/transport_train_station2.png" preset_name_label="true">
@@ -3017,7 +3044,7 @@
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="wheelchair" />
-                <check key="bicycle" text="Bicycle" />
+                <check key="bicycle" text="Bicycle" disable_off="true" />
             </optional>
         </item> <!-- Subway Entrance -->
         <item name="Ticket Machine" icon="icons/png/shopping_vending_machine.png" type="node" preset_name_label="true">
@@ -3104,7 +3131,7 @@
             <key key="railway" value="platform" />
             <text key="ref" text="Reference (track number)" />
             <text key="width" text="Width (meters)" />
-            <check key="area" text="Area" />
+            <check key="area" text="Area" disable_off="true" />
         </item> <!-- Railway Platform -->
         <separator/>
         <item name="Bus Station" icon="icons/png/transport_bus_station.png" type="node,closedway" preset_name_label="true">
@@ -3131,8 +3158,8 @@
             <key key="highway" value="bus_stop" />
             <optional>
                 <text key="name" text="Name" />
-                <check key="shelter" text="Shelter" />
-                <check key="bench" text="Bench" />
+                <check key="shelter" text="Shelter" disable_off="true" />
+                <check key="bench" text="Bench" disable_off="true" />
                 <combo key="tactile_paving" text="Tactile Paving" values="yes,no,incorrect" />
             </optional>
         </item> <!-- Bus Stop -->
@@ -3145,7 +3172,7 @@
             <key key="highway" value="platform" />
             <text key="ref" text="Reference (track number)" />
             <text key="width" text="Width (meters)" />
-            <check key="area" text="Area" />
+            <check key="area" text="Area" disable_off="true" />
         </item> <!-- Bus Platform -->
     </group> <!-- Public Transport -->
     <item name="Taxi" icon="icons/png/transport_taxi_rank.png" type="node,closedway" preset_name_label="true">
@@ -3289,6 +3316,8 @@
             <key key="tourism" value="hotel" />
             <reference ref="name_operator" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
+            <text key="rooms" text="Rooms" />
+            <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3307,6 +3336,8 @@
             <key key="tourism" value="motel" />
             <reference ref="name_operator" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
+            <text key="rooms" text="Rooms" />
+            <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3324,6 +3355,8 @@
             <key key="tourism" value="guest_house" />
             <reference ref="name_operator" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
+            <text key="rooms" text="Rooms" />
+            <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3342,6 +3375,8 @@
             <key key="tourism" value="chalet" />
             <reference ref="name_operator" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
+            <text key="rooms" text="Rooms" />
+            <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3360,6 +3395,8 @@
             <key key="tourism" value="hostel" />
             <reference ref="name_operator" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
+            <text key="rooms" text="Rooms" />
+            <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3393,13 +3430,15 @@
             <key key="tourism" value="caravan_site" />
             <reference ref="name_operator" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
+            <text key="rooms" text="Rooms" />
+            <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
             <space />
             <text key="capacity" text="Number of places" />
             <reference ref="fee_interval" />
             <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" />
-            <check key="power_supply" text="Power supply" />
-            <check key="tents" text="Tents allowed" />
+            <check key="power_supply" text="Power supply" disable_off="true" />
+            <check key="tents" text="Tents allowed" disable_off="true" />
             <space />
             <reference ref="internet_smoking" />
             <space />
@@ -3438,9 +3477,9 @@
             <space />
             <key key="amenity" value="restaurant" />
             <reference ref="name_operator" />
-            <multiselect key="cuisine" text="Cuisine" values="italian;chinese;pizza;burger;greek;german;indian;regional;kebab;turkish;asian;thai;mexican;japanese;french;sandwich;sushi" values_searchable="true" />
-            <check key="microbrewery" text="Microbrewery" />
-            <check key="outdoor_seating" text="Outdoor seating" />
+            <multiselect key="cuisine" text="Cuisine" values="italian;chinese;pizza;burger;greek;german;indian;regional;kebab;turkish;asian;thai;mexican;japanese;french;sandwich;sushi;steak_house" values_searchable="true" />
+            <check key="microbrewery" text="Microbrewery" disable_off="true" />
+            <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <reference ref="oh_wheelchair" />
             <combo key="stars" text="Stars" values="1,2,3,4,5,6,7" />
             <space />
@@ -3459,7 +3498,7 @@
             <key key="amenity" value="fast_food" />
             <reference ref="name_operator" />
             <combo key="cuisine" text="Cuisine" values="italian,chinese,pizza,burger,greek,german,indian,regional,kebab,turkish,asian,thai,mexican,japanese,french,sandwich,sushi,fish_and_chips,chicken" />
-            <check key="outdoor_seating" text="Outdoor seating" />
+            <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <reference ref="oh_wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3474,7 +3513,7 @@
             <space />
             <key key="amenity" value="food_court" />
             <reference ref="name_operator" />
-            <check key="outdoor_seating" text="Outdoor seating" />
+            <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <reference ref="oh_wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3496,7 +3535,7 @@
             <key key="amenity" value="cafe" />
             <reference ref="name_operator" />
             <combo key="cuisine" text="Cuisine" values="ice_cream" />
-            <check key="outdoor_seating" text="Outdoor seating" />
+            <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <reference ref="oh_wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3513,8 +3552,8 @@
             <space />
             <key key="amenity" value="pub" />
             <reference ref="name_operator" />
-            <check key="microbrewery" text="Microbrewery" />
-            <check key="outdoor_seating" text="Outdoor seating" />
+            <check key="microbrewery" text="Microbrewery" disable_off="true" />
+            <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <reference ref="oh_wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3530,7 +3569,7 @@
             <space />
             <key key="amenity" value="biergarten" />
             <reference ref="name_operator" />
-            <check key="microbrewery" text="Microbrewery" />
+            <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <reference ref="oh_wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3549,7 +3588,7 @@
             <space />
             <key key="amenity" value="bar" />
             <reference ref="name_operator" />
-            <check key="outdoor_seating" text="Outdoor seating" />
+            <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <reference ref="oh_wheelchair" />
             <space />
             <reference ref="internet_smoking" />
@@ -3645,11 +3684,11 @@
             <combo key="map_size" text="Shown Area" values="site,city,region" />
             <text key="description" text="Closer Description" />
             <optional text="Routes shown for:">
-                <check key="hiking" text="Hiking" />
-                <check key="bicycle" text="Cycling" />
-                <check key="mtb" text="Mountainbiking" />
-                <check key="ski" text="Skiing" />
-                <check key="horse" text="Riding" />
+                <check key="hiking" text="Hiking" disable_off="true" />
+                <check key="bicycle" text="Cycling" disable_off="true" />
+                <check key="mtb" text="Mountainbiking" disable_off="true" />
+                <check key="ski" text="Skiing" disable_off="true" />
+                <check key="horse" text="Riding" disable_off="true" />
                 <space />
                 <label text="... other transportation modes possible" />
             </optional>
@@ -3682,11 +3721,11 @@
             <reference ref="name_ref_operator" />
             <text key="ele" text="Elevation" />
             <optional text="Routes shown for:">
-                <check key="hiking" text="Hiking" />
-                <check key="bicycle" text="Cycling" />
-                <check key="mtb" text="Mountainbiking" />
-                <check key="ski" text="Skiing" />
-                <check key="horse" text="Riding" />
+                <check key="hiking" text="Hiking" disable_off="true" />
+                <check key="bicycle" text="Cycling" disable_off="true" />
+                <check key="mtb" text="Mountainbiking" disable_off="true" />
+                <check key="ski" text="Skiing" disable_off="true" />
+                <check key="horse" text="Riding" disable_off="true" />
                 <space />
                 <label text="... other transportation modes possible" />
             </optional>
@@ -3756,8 +3795,8 @@
             <space />
             <key key="amenity" value="cinema" />
             <reference ref="name_operator_oh_wheelchair" />
-            <check key="drive_in" text="Drive-in theater" />
-            <check key="cinema:3D" text="3D" />
+            <check key="drive_in" text="Drive-in theater" disable_off="true" />
+            <check key="cinema:3D" text="3D" disable_off="true" />
             <text key="screen" text="Number of screens" />
             <text key="min_age" text="Minimum age" />
             <reference ref="link_contact_address_payment" />
@@ -3789,10 +3828,10 @@
             <space />
             <key key="leisure" value="dog_park" />
             <text key="name" text="Name" />
-            <check key="area" text="Area" />
+            <check key="area" text="Area" disable_off="true" />
             <combo key="barrier" text="Barrier" values="fence,wall" />
             <reference ref="oh_wheelchair" />
-            <check key="lit" text="Lit" />
+            <check key="lit" text="Lit" disable_off="true" />
         </item> <!-- Dog Park -->
         <item name="Amusement/Theme Park" icon="icons/png/tourist_theme_park.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=theme_park"
@@ -3884,14 +3923,14 @@
             <space />
             <key key="tourism" value="picnic_site" />
             <text key="name" text="Name" />
-            <check key="fireplace" text="Fireplace" />
+            <check key="fireplace" text="Fireplace" disable_off="true" />
         </item> <!-- Picnic Site -->
         <item name="Picnic Table" icon="icons/png/tourist_picnic.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=picnic_table"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=picnic_table" />
             <space />
             <key key="leisure" value="picnic_table" />
-            <check key="covered" text="Covered" />
+            <check key="covered" text="Covered" disable_off="true" />
         </item> <!-- Picnic Table -->
         <item name="Public Grill" icon="icons/png/tourist_bbq_12006.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=bbq"
@@ -3903,7 +3942,7 @@
             <key key="amenity" value="bbq" />
             <text key="name" text="Name" />
             <combo key="fuel" text="Fuel" text_context="grill" values="charcoal,electric,wood" />
-            <check key="covered" text="Covered" />
+            <check key="covered" text="Covered" disable_off="true" />
         </item> <!-- Public Grill -->
         <item name="Firepit" icon="icons/png/tourist_firepit_21134.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=firepit"
@@ -4323,10 +4362,10 @@
             <combo key="operator:type" text="Operator type" values="public;private;religious" />
             <text key="age_group" text="Age group (ie: 6-12)" />
             <space />
-            <check key="nursery" text="Nursery" />
-            <check key="kindergarten" text="Kindergarten" />
-            <check key="after_school" text="After school care" />
-            <check key="orphanage" text="Orphanage" />
+            <check key="nursery" text="Nursery" disable_off="true" />
+            <check key="kindergarten" text="Kindergarten" disable_off="true" />
+            <check key="after_school" text="After school care" disable_off="true" />
+            <check key="orphanage" text="Orphanage" disable_off="true" />
             <space />
             <text key="childcare:capacity" text="Childcare capacity" />
             <text key="after_school:capacity" text="After school capacity" />
@@ -4474,7 +4513,7 @@
             <space />
             <key key="amenity" value="pharmacy" />
             <reference ref="name_operator_oh_wheelchair" />
-            <check key="dispensing" text="Dispensing"/>
+            <check key="dispensing" text="Dispensing" disable_off="true" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Pharmacy -->
         <separator/>
@@ -4577,7 +4616,7 @@
             <text key="operator" text="Operator" />
             <text key="ref" text="Reference number" />
             <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" />
-            <check key="drive_through" text="Drive through" />
+            <check key="drive_through" text="Drive through" disable_off="true" />
         </item> <!-- Post Box -->
         <item name="Telephone" icon="icons/png/amenity_telephone.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=telephone"
@@ -4591,9 +4630,9 @@
             <key key="amenity" value="telephone" />
             <text key="operator" text="Operator" />
             <space />
-            <check key="payment:coins" text="Coins" />
-            <check key="payment:notes" text="Notes" text_context="payment" />
-            <check key="payment:telephone_cards" text="Telephone cards" />
+            <check key="payment:coins" text="Coins" disable_off="true" />
+            <check key="payment:notes" text="Notes" text_context="payment" disable_off="true" />
+            <check key="payment:telephone_cards" text="Telephone cards" disable_off="true" />
             <preset_link preset_name="Payment Methods" />
         </item> <!-- Telephone -->
         <item name="Emergency Phone" icon="icons/png/amenity_emergency_phone_17022.png" type="node" preset_name_label="true">
@@ -4626,7 +4665,7 @@
             <key key="emergency" value="defibrillator" />
             <reference ref="oh_wheelchair" />
             <text  key="operator" text="Operator" />
-            <check key="indoor" text="Located inside a building?" />
+            <check key="indoor" text="Located inside a building?" disable_off="true" />
             <!-- lastcheck is in use for aed devices, but not yet well discussed or documented
             <optional>
                 <text key="lastcheck"      text="Last check date (YYYY-MM-DD)" />
@@ -4645,13 +4684,13 @@
                 <combo key="display" text="Display" values="analog,digital,sundial,unorthodox" />
                 <combo key="support" text="Support" values="pole,wall_mounted,billboard,ground" values_context="mounting/support" />
                 <combo key="visibility" text="Visibility/readability" values="house,street,area" display_values="house (up to 5m),street (up to 20m),area (more than 20m)" />
-                <check key="date" text="Shows current date" />
-                <check key="thermometer" text="Shows temperature" />
-                <check key="barometer" text="Shows barometric pressure" />
-                <check key="hygrometer" text="Shows humidity" />
+                <check key="date" text="Shows current date" disable_off="true" />
+                <check key="thermometer" text="Shows temperature" disable_off="true" />
+                <check key="barometer" text="Shows barometric pressure" disable_off="true" />
+                <check key="hygrometer" text="Shows humidity" disable_off="true" />
             </optional>
         </item> <!-- Clock -->
-        <item name="Recycling" icon="icons/png/amenity_recycling.png" type="node,closedway" preset_name_label="true">
+        <item name="Recycling Container" icon="icons/png/amenity_recycling.png" type="node,closedway" preset_name_label="true">
            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=recycling"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=recycling"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:amenity=recycling"
@@ -4665,14 +4704,65 @@
                   sv.href="http://wiki.openstreetmap.org/wiki/Sv:Tag:amenity=recycling" />
             <space />
             <key key="amenity" value="recycling" />
-            <check key="recycling:batteries" text="Batteries" />
-            <check key="recycling:cans" text="Cans" />
-            <check key="recycling:clothes" text="Clothes" />
-            <check key="recycling:glass" text="Glass" />
-            <check key="recycling:paper" text="Paper" />
-            <check key="recycling:scrap_metal" text="Scrap Metal" />
-            <combo key="recycling_type" text="Type" values="container,centre" />
-        </item> <!-- Recycling -->
+            <key key="recycling_type" value="container" />
+            <reference ref="oh_wheelchair" />
+            <space />
+            <checkgroup columns="4">
+                <check key="recycling:batteries" text="Batteries" disable_off="true" />
+                <check key="recycling:cans" text="Cans" disable_off="true" />
+                <check key="recycling:cardboard" text="Cardboard" disable_off="true" />
+                <check key="recycling:clothes" text="Clothes" disable_off="true" />
+                <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true" />
+                <check key="recycling:glass" text="Glass" disable_off="true" />
+                <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true" />
+                <check key="recycling:green_waste" text="Green Waste" disable_off="true" />
+                <check key="recycling:paper" text="Paper" disable_off="true" />
+                <check key="recycling:plastic" text="Plastic" disable_off="true" />
+                <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true" />
+                <check key="recycling:plastic_packaging" text="Plastic Packaging" disable_off="true" />
+                <check key="recycling:scrap_metal" text="Scrap Metal" disable_off="true" />
+                <check key="recycling:shoes" text="Shoes" disable_off="true" />
+                <check key="recycling:small_appliances" text="Small Appliances" disable_off="true" />
+                <check key="recycling:waste" text="Waste" disable_off="true" />
+            </checkgroup>
+        </item> <!-- Recycling Container-->
+        <item name="Recycling Centre" icon="styles/standard/service/recycling/recycling_centre.svg" type="node,closedway" preset_name_label="true">
+           <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=recycling"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=recycling"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:amenity=recycling"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Tag:amenity=recycling"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:amenity=recycling"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:amenity=recycling"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=recycling"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:amenity=recycling"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=recycling"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=recycling"
+                  sv.href="http://wiki.openstreetmap.org/wiki/Sv:Tag:amenity=recycling" />
+            <space />
+            <key key="amenity" value="recycling" />
+            <key key="recycling_type" value="centre" />
+            <reference ref="name_operator_oh_wheelchair" />
+            <space />
+            <checkgroup columns="4">
+                <check key="recycling:batteries" text="Batteries" disable_off="true" />
+                <check key="recycling:cans" text="Cans" disable_off="true" />
+                <check key="recycling:cardboard" text="Cardboard" disable_off="true" />
+                <check key="recycling:clothes" text="Clothes" disable_off="true" />
+                <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true" />
+                <check key="recycling:glass" text="Glass" disable_off="true" />
+                <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true" />
+                <check key="recycling:green_waste" text="Green Waste" disable_off="true" />
+                <check key="recycling:paper" text="Paper" disable_off="true" />
+                <check key="recycling:plastic" text="Plastic" disable_off="true" />
+                <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true" />
+                <check key="recycling:plastic_packaging" text="Plastic Packaging" disable_off="true" />
+                <check key="recycling:scrap_metal" text="Scrap Metal" disable_off="true" />
+                <check key="recycling:shoes" text="Shoes" disable_off="true" />
+                <check key="recycling:small_appliances" text="Small Appliances" disable_off="true" />
+                <check key="recycling:waste" text="Waste" disable_off="true" />
+            </checkgroup>
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Recycling Centre-->
         <item name="Waste Basket/Trash Can" icon="icons/png/amenity_waste_bin.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=waste_basket"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=waste_basket"
@@ -4701,9 +4791,9 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Toilet_Holding_Tank_Disposal" />
             <space />
             <key key="amenity" value="sanitary_dump_station" />
-            <check key="sanitary_dump_station:pump-out" text="Suction pumpout" />
-            <check key="sanitary_dump_station:round_drain" text="Gravity drain for hose" />
-            <check key="sanitary_dump_station:basin" text="Casette or Elsan Disposal" />
+            <check key="sanitary_dump_station:pump-out" text="Suction pumpout" disable_off="true" />
+            <check key="sanitary_dump_station:round_drain" text="Gravity drain for hose" disable_off="true" />
+            <check key="sanitary_dump_station:basin" text="Casette or Elsan Disposal" disable_off="true" />
             <combo key="access" text="Access" values="yes,public,customers,no" />
             <reference ref="fee" />
             <text key="operator" text="Operator" />
@@ -4725,8 +4815,8 @@
                   zh_TW.href="http://wiki.openstreetmap.org/wiki/Zh-hant:Tag:amenity=bench" />
             <space />
             <key key="amenity" value="bench" />
-            <check key="backrest" text="Backrest" />
-            <combo key="material" text="Material" values="stone,metal,wood,plastic" />
+            <check key="backrest" text="Backrest" disable_off="true" />
+            <combo key="material" text="Material" values="concrete,metal,plastic,stone,wood" />
             <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
             <combo key="seats" text="Amount of Seats" values="2,3,4,5,6,7,8,9,10" />
         </item> <!-- Bench -->
@@ -4742,7 +4832,7 @@
             <space />
             <key key="amenity" value="shelter" />
             <text key="name" text="Name" />
-            <check key="fireplace" text="Fireplace" />
+            <check key="fireplace" text="Fireplace" disable_off="true" />
             <combo key="shelter_type" text="Type of shelter" values="basic_hut,lean_to,picnic_shelter,public_transport,weather_shelter,wildlife_hide" values_context="shelter" values_searchable="true" />
         </item> <!-- Shelter -->
         <item name="Hunting Stand" icon="icons/png/amenity_hunting_stand_12076.png" type="node" preset_name_label="true">
@@ -4754,9 +4844,9 @@
             <space />
             <key key="amenity" value="hunting_stand" />
             <combo key="height" text="Height" values="low,half,full,5,10,15,20" values_context="height" />
-            <check key="shelter" text="Shelter" />
-            <check key="hide" text="Hide" />
-            <check key="lock" text="Lock" />
+            <check key="shelter" text="Shelter" disable_off="true" />
+            <check key="hide" text="Hide" disable_off="true" />
+            <check key="lock" text="Lock" disable_off="true" />
         </item> <!-- Hunting Stand -->
         <separator/>
         <item name="Drinking Water" icon="icons/png/food_drinkingtap.png" type="node" preset_name_label="true">
@@ -4770,7 +4860,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=drinking_water" />
             <space />
             <key key="amenity" value="drinking_water" />
-            <check key="indoor" text="Indoor" />
+            <check key="indoor" text="Indoor" disable_off="true" />
             <optional>
                 <text key="name" text="Name" />
                 <text key="description" text="Description" />
@@ -4804,7 +4894,7 @@
             <space />
             <key key="advertising" value="column" />
             <optional>
-                <check key="lit" text="Lit" />
+                <check key="lit" text="Lit" disable_off="true" />
             </optional>
         </item> <!-- Advertising Column -->
         <item name="Billboard" icon="icons/png/amenity_advertising_billboard_12427.png" type="node" preset_name_label="true">
@@ -4812,7 +4902,7 @@
             <space />
             <key key="advertising" value="billboard" />
             <optional>
-                <check key="lit" text="Lit" />
+                <check key="lit" text="Lit" disable_off="true" />
             </optional>
         </item> <!-- Billboard -->  
         <item name="Excrement Bags" icon="icons/png/amenity_vending_excrement_bags_12290.png" type="node" preset_name_label="true">
@@ -5034,7 +5124,7 @@
             <text key="name" text="Name" />
         </item> <!-- Scuba Diving -->
         <item name="Skiing" icon="icons/png/sport_skiing_downhill.png" type="node,way,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Proposed_features/Piste_Maps"
+            <link href="http://wiki.openstreetmap.org/wiki/Piste_Maps"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Piste_Maps"
                   it.href="http://wiki.openstreetmap.org/wiki/IT:Piste_Maps"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Piste_Maps" />
@@ -5093,10 +5183,10 @@
             <key key="sport" value="gaelic_games" />
             <reference ref="name_leisure_pitch" />
             <optional>
-                <check key="gaelic_games:hurling" text="Hurling" />
-                <check key="gaelic_games:football" text="Football" />
-                <check key="gaelic_games:camogie" text="Camogie" />
-                <check key="gaelic_games:rounders" text="Rounders" />
+                <check key="gaelic_games:hurling" text="Hurling" disable_off="true" />
+                <check key="gaelic_games:football" text="Football" disable_off="true" />
+                <check key="gaelic_games:camogie" text="Camogie" disable_off="true" />
+                <check key="gaelic_games:rounders" text="Rounders" disable_off="true" />
             </optional>
         </item> <!-- Gaelic Games -->
         <item name="Rugby League" icon="icons/png/sport_football_21036.png" type="node,closedway" preset_name_label="true">
@@ -5139,6 +5229,13 @@
             <reference ref="name_operator" />
             <combo key="leisure" text="Type" values="stadium,pitch,sports_centre" />
         </item> <!-- Beach Volleyball -->
+        <item name="Billiards" icon="styles/standard/sport/billiards.svg" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=billiards" />
+            <space />
+            <key key="sport" value="billiards" />
+            <reference ref="name_operator" />
+            <combo key="leisure" text="Type" values="stadium,pitch,sports_centre" />
+        </item> <!-- Billiards -->
         <item name="Golf" icon="icons/png/sport_golf.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=golf"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:sport=golf"
@@ -5180,13 +5277,20 @@
             <key key="sport" value="croquet" />
             <reference ref="name_leisure_pitch" />
         </item> <!-- Croquet -->
-        <item name="Hockey" icon="icons/png/sport_hockey_21013.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=hockey" />
+        <item name="Field Hockey" icon="presets/field_hockey.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=field_hockey" />
             <space />
-            <key key="sport" value="hockey" />
+            <key key="sport" value="field_hockey" />
             <text key="name" text="Name" />
+            <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" />
+        </item> <!-- Field Hockey -->
+        <item name="Ice Hockey" icon="presets/ice_hockey.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=ice_hockey" />
+            <space />
+            <key key="sport" value="ice_hockey" />
+           <text key="name" text="Name" />
             <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" />
-        </item> <!-- Hockey -->
+        </item> <!-- Ice Hockey -->
         <item name="Pelota" icon="icons/png/sport_pelota_21031.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=pelota"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:sport=pelota" />
@@ -5322,7 +5426,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
-            <combo key="building" text="Building" values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,hospital,warehouse,retail,shed,storage_tank,cowshed,construction" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />
+            <combo key="building" text="Building" values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,hospital,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />
             <text key="name" text="Name" />
             <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" text_context="building" />
             <text key="height" text="Height (meters)" />
@@ -5356,7 +5460,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building:part"
                   zh_CN.href="http://wiki.openstreetmap.org/wiki/Zh-hans:Key:building:part" />
             <space />
-            <combo key="building:part" text="Building part" values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,hospital,warehouse,retail,shed,cowshed,construction" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />
+            <combo key="building:part" text="Building part" values="yes,roof,garage,garages,industrial,school,hangar,commercial,barn,farm_auxiliary,transportation,greenhouse,office,university,hospital,warehouse,retail,shed,supermarket,cowshed,construction" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />
             <text key="name" text="Name" />
             <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" text_context="building" />
             <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" text_context="building" />
@@ -5440,14 +5544,42 @@
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=gasometer" />
             <space />
             <key key="man_made" value="gasometer" />
-            <text key="name" text="Name" />
+            <optional>
+                <reference ref="name_operator" />
+                <combo key="building" text="Building" values="gasometer" values_context="building" />
+                <text key="height" text="Height (meters)" length="7" />
+            </optional>
         </item> <!-- Gasometer -->
+        <item name="Storage Tank" icon="presets/storage_tank.png" type="node,closedway">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=storage_tank"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=storage_tank"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:man_made=storage_tank" />
+            <key key="man_made" value="storage_tank" />
+            <optional>
+                <reference ref="name_operator" />
+                <combo key="building" text="Building" values="storage_tank" values_context="building" />
+                <combo key="content"  text="Content" values="fuel,manure,oil,sewage,silage,slurry,water,wine" values_context="content" />
+                <text key="height" text="Height (meters)" length="7" />
+            </optional>
+        </item> <!-- Storage Tank -->
+        <item name="Water Works" icon="icons/png/man_made_water_works_22084.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=water_works"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=water_works"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:man_made=water_works"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:man_made=water_works"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:man_made=water_works" />
+            <space />
+            <key key="man_made" value="water_works" />
+            <reference ref="name_operator" />
+        </item> <!-- Water Works -->
         <item name="Bunker Silo" icon="styles/standard/bunker_silo.svg" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=bunker_silo"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=bunker_silo" />
             <space />
             <key key="man_made" value="bunker_silo" />
-            <text key="name" text="Name" />
+            <optional>
+                <reference ref="name_operator" />
+            </optional>
         </item> <!-- Bunker Silo -->
         <item name="Pipeline" icon="presets/path.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=pipeline"
@@ -5484,8 +5616,8 @@
             <text key="depth" text="Depth in meters" />
             <text key="operator" text="Operator" />
             <combo key="resource" text="Resource" values="aggregate,bauxite,coal,copper,dimension_stone,gold,ilmenite,iron_ore,lead,limestone,nickel,rutile,salt,silver,tin,zinc,zircon" />
-            <check key="headframe" text="Visible Headframe" />
-            <check key="disused" text="Disused" />
+            <check key="headframe" text="Visible Headframe" disable_off="true" />
+            <check key="disused" text="Disused" disable_off="true" />
         </item> <!-- Mineshaft -->
         <item name="Adit" icon="icons/png/man_made_adit_22001.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=adit"
@@ -5502,7 +5634,7 @@
             <text key="length" text="Length in meters" />
             <text key="operator" text="Operator" />
             <combo key="resource" text="Resource" values="aggregate,bauxite,coal,copper,dimension_stone,gold,ilmenite,iron_ore,lead,limestone,nickel,rutile,salt,silver,tin,zinc,zircon" />
-            <check key="disused" text="Disused" />
+            <check key="disused" text="Disused" disable_off="true" />
         </item> <!-- Adit -->
         <item name="Embankment" icon="presets/cliff.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=embankment"
@@ -5522,28 +5654,11 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:man_made=water_tower" />
             <space />
             <key key="man_made" value="water_tower" />
-            <text key="name" text="Name" />
+             <optional>
+                <reference ref="name_operator" />
+                <text key="height" text="Height (meters)" length="7" />
+            </optional>
         </item> <!-- Water Tower -->
-        <item name="Storage Tank" icon="presets/storage_tank.png" type="node,closedway">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=storage_tank"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=storage_tank"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:man_made=storage_tank" />
-            <key key="man_made" value="storage_tank" />
-            <combo key="building" text="Building" values="storage_tank" values_context="building" />
-            <combo key="content"  text="Content" values="fuel,manure,oil,sewage,silage,slurry,water,wine" values_context="content" />
-            <text key="operator" text="Operator" />
-            <text key="height" text="Height (meters)" length="7" />
-        </item> <!-- Storage Tank -->
-        <item name="Water Works" icon="icons/png/man_made_water_works_22084.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=water_works"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=water_works"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:man_made=water_works"
-                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:man_made=water_works"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:man_made=water_works" />
-            <space />
-            <key key="man_made" value="water_works" />
-            <reference ref="name_operator" />
-        </item> <!-- Water Works -->
         <item name="Wastewater Treatment Plant" icon="icons/png/man_made_wastewater_plant_22081.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=wastewater_plant"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=wastewater_plant"
@@ -5633,29 +5748,29 @@
             <reference ref="name_operator" />
             <label text="Monitoring:" />
             <checkgroup columns="3">
-                <check key="monitoring:water_level" text="Water level" />
-                <check key="monitoring:tide_gauge" text="Tide Level" />
-                <check key="monitoring:groundwater" text="Groundwater" />
-                <check key="monitoring:traffic" text="Traffic" />
-                <check key="monitoring:air_quality" text="Air Quality" />
-                <check key="monitoring:noise" text="Noise" />
-                <check key="monitoring:gps" text="GPS Signals" />
-                <check key="monitoring:glonass" text="GLONASS Signals" />
-                <check key="monitoring:galileo" text="Galileo Signals" />
-                <check key="monitoring:weather" text="Weather" />
-                <check key="monitoring:radiation" text="Radiation" />
-                <check key="monitoring:seismic_activity" text="Seismic Activity" />
+                <check key="monitoring:water_level" text="Water level" disable_off="true" />
+                <check key="monitoring:tide_gauge" text="Tide Level" disable_off="true" />
+                <check key="monitoring:groundwater" text="Groundwater" disable_off="true" />
+                <check key="monitoring:traffic" text="Traffic" disable_off="true" />
+                <check key="monitoring:air_quality" text="Air Quality" disable_off="true" />
+                <check key="monitoring:noise" text="Noise" disable_off="true" />
+                <check key="monitoring:gps" text="GPS Signals" disable_off="true" />
+                <check key="monitoring:glonass" text="GLONASS Signals" disable_off="true" />
+                <check key="monitoring:galileo" text="Galileo Signals" disable_off="true" />
+                <check key="monitoring:weather" text="Weather" disable_off="true" />
+                <check key="monitoring:radiation" text="Radiation" disable_off="true" />
+                <check key="monitoring:seismic_activity" text="Seismic Activity" disable_off="true" />
             </checkgroup>
             <label text="Recording:" />
             <checkgroup columns="3">
-                <check key="recording:automated" text="Automated" />
-                <check key="recording:manually" text="Manually" />
-                <check key="recording:remote" text="Remote" />
+                <check key="recording:automated" text="Automated" disable_off="true" />
+                <check key="recording:manually" text="Manually" disable_off="true" />
+                <check key="recording:remote" text="Remote" disable_off="true" />
             </checkgroup>
             <label text="Display:" />
             <checkgroup columns="2">
-                <check key="display:analog" text="Analog" />
-                <check key="display:digital" text="Digital" />
+                <check key="display:analog" text="Analog" disable_off="true" />
+                <check key="display:digital" text="Digital" disable_off="true" />
             </checkgroup>
         </item> <!-- Monitoring Station -->
         <item name="Survey Point" icon="icons/png/amenity_survey_point.png" type="node" preset_name_label="true">
@@ -5936,7 +6051,7 @@
             <optional>
                 <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" />
                 <text key="start_date" text="Start date" />
-                <check key="gas_insulated" text="Gas insulated" />
+                <check key="gas_insulated" text="Gas insulated" disable_off="true" />
             </optional>
         </item> <!-- Power Substation -->
         <item name="Power Transformer" icon="icons/png/power_transformer.png" type="node,closedway" preset_name_label="true">
@@ -5968,7 +6083,7 @@
             <reference ref="power_loc" />
             <reference ref="voltage" />
             <optional>
-                <check key="gas_insulated" text="Gas insulated" />
+                <check key="gas_insulated" text="Gas insulated" disable_off="true" />
             </optional>
         </item> <!-- Power Switchgear -->
         <item name="Power Busbar" icon="icons/png/power_busbar_26004.png" type="way" preset_name_label="true">
@@ -6062,8 +6177,8 @@
                 <combo key="tower:type" text="Tower type" values="suspension,anchor,termination,branch,transposing,crossing,transition" text_context="power" values_context="power" />
                 <combo key="branch:type" text="Branch tower type" values="tap,split,loop,cross" values_context="power" />
                 <combo key="design" text="Tower design" values="one-level,two-level,donau,three-level,barrel,asymmetric,triangle,flag,donau;one-level,four-level,six-level,nine-level,delta,delta_two-level,y-frame,x-frame,h-frame,guyed_h-frame,portal,portal_two-level,portal_three-level,guyed_v-frame,bipole,monopolar" values_context="power" />
-                <check key="triple_tower" text="Triple tower" />
-                <check key="design:incomplete" text="Incomplete tower" />
+                <check key="triple_tower" text="Triple tower" disable_off="true" />
+                <check key="design:incomplete" text="Incomplete tower" disable_off="true" />
                 <check key="tower" text="Location transition" value_on="transition" disable_off="true" />
             </optional>
         </item> <!-- Power Tower -->
@@ -6986,7 +7101,7 @@
             <space />
             <key key="shop" value="medical_supply" />
             <reference ref="name_operator_oh_wheelchair" />
-            <check key="dispensing" text="Dispensing" />
+            <check key="dispensing" text="Dispensing" disable_off="true" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Medical Supply -->
         <item name="Jewellery" icon="icons/png/shopping_jewelry.png" type="node,closedway" preset_name_label="true">
@@ -8674,7 +8789,7 @@
         </item> <!-- Destination Sign -->
         <separator/>
         <item name="Waterway" icon="icons/png/water_waterway_sp.png" type="relation" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Relations/Proposed/Waterway" />
+            <link href="http://wiki.openstreetmap.org/wiki/Relation:waterway" />
             <space />
             <key key="type" value="waterway" />
             <combo key="waterway" text="Subtype of waterway (largest one of members)" values="river,stream,canal,drain,ditch" values_searchable="true" />
