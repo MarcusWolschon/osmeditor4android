@@ -149,9 +149,9 @@ public class Relation extends OsmElement {
 	}
 
 	void appendMember(final RelationMember refMember, final RelationMember newMember) {
-		if (members.get(0) == refMember) {
+		if (members != null && members.size() > 0 && members.get(0) == refMember) {
 			members.add(0, newMember);
-		} else if (members.get(members.size() - 1) == refMember) {
+		} else if (members != null && members.get(members.size() - 1) == refMember) {
 			members.add(newMember);
 		}
 	}

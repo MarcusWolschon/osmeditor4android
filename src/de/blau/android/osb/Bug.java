@@ -213,7 +213,7 @@ public class Bug implements Serializable {
 	 * @return The first comment of the bug.
 	 */
 	public String getDescription() {
-		return "note "+ ((comments.size() > 0) ? Html.fromHtml(comments.get(0).getText()) : "<new>"); //TODO externalize string
+		return "note "+ (comments != null && comments.size() > 0 ? Html.fromHtml(comments.get(0).getText()) : "<new>"); //TODO externalize string
 	}
 	
 	/**

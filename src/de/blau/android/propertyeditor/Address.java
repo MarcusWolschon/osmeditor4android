@@ -185,14 +185,24 @@ public class Address implements Serializable {
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
 						}
 					}
-					street = tags.get(Tags.KEY_ADDR_STREET).get(0); // should now have the final suggestion for a street
+					addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
+					if (addrStreetValues != null && addrStreetValues.size() > 0) {
+						street = tags.get(Tags.KEY_ADDR_STREET).get(0); // should now have the final suggestion for a street
+					} else {
+						street = ""; // FIXME
+					}
 					try {
 						newAddress.setSide(streetAdapter.getId(street));
 					} catch (OsmException e) { // street not in adapter
 						newAddress.side = Side.UNKNOWN;
 					}
 				} else { // ADDR_PLACE minimal support, don't overwrite with street
-					street = tags.get(Tags.KEY_ADDR_PLACE).get(0);
+					ArrayList<String> addrPlaceValues = tags.get(Tags.KEY_ADDR_PLACE);
+					if (addrPlaceValues != null && addrPlaceValues.size() > 0) {
+						street = tags.get(Tags.KEY_ADDR_PLACE).get(0);
+					} else {
+						street = ""; // FIXME
+					}
 					newAddress.side = Side.UNKNOWN;
 				}
 				Log.d("TagEditor","side " + newAddress.getSide());
@@ -387,18 +397,24 @@ public class Address implements Serializable {
 	private static TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> lastAddresses ) {
 		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
 		for (Address a:lastAddresses) {
-			if (a != null && a.tags != null 
-					&& ((a.tags.get(Tags.KEY_ADDR_STREET) != null && a.tags.get(Tags.KEY_ADDR_STREET).get(0).equals(street)) // FIXME 
-							|| (a.tags.get(Tags.KEY_ADDR_PLACE) != null && a.tags.get(Tags.KEY_ADDR_PLACE).get(0).equals(street)))
-					&& a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
-					&& a.getSide() == side) {
-				Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
-				String[] numbers = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER).get(0).split("\\,");
-				for (String n:numbers) {
-					Log.d("TagEditor","add number  " + n);
-					try {
-						result.put(Integer.valueOf(getNumber(n)),a);
-					} catch (NumberFormatException nfe){
+			if (a != null && a.tags != null) {
+				ArrayList<String> addrStreetValues = a.tags.get(Tags.KEY_ADDR_STREET);
+				ArrayList<String> addrPlaceValues = a.tags.get(Tags.KEY_ADDR_PLACE);
+				if ( ((addrStreetValues != null && addrStreetValues.size() > 0 && addrStreetValues.get(0).equals(street)) // FIXME 
+						|| (addrPlaceValues != null && addrPlaceValues.size() > 0 && addrPlaceValues.get(0).equals(street)))
+						&& a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)
+						&& a.getSide() == side) {
+					Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
+					ArrayList<String> addrHousenumberValues = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
+					if ( addrHousenumberValues != null && addrHousenumberValues.size()>0) {
+						String[] numbers =  addrHousenumberValues.get(0).split("\\,");
+						for (String n:numbers) {
+							Log.d("TagEditor","add number  " + n);
+							try {
+								result.put(Integer.valueOf(getNumber(n)),a);
+							} catch (NumberFormatException nfe){
+							}
+						}
 					}
 				}
 			}
@@ -457,12 +473,15 @@ public class Address implements Serializable {
 			Address current = new Address(caller.getType(), caller.getOsmId(), addressTags);
 			StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter)caller.getStreetNameAutocompleteAdapter(null);
 			if (streetAdapter!= null) {
-				String streetName = tags.get(Tags.KEY_ADDR_STREET).get(0);
-				if (streetName != null) {
-					try {
-						current.setSide(streetAdapter.getId(streetName));
-					} catch (OsmException e) {
-						current.side = Side.UNKNOWN;
+				ArrayList<String> values = tags.get(Tags.KEY_ADDR_STREET); 
+				if (values != null && values.size() > 0) {
+					String streetName = values.get(0); // FIXME can't remember what this is supposed to do....
+					if (streetName != null) {
+						try {
+							current.setSide(streetAdapter.getId(streetName));
+						} catch (OsmException e) {
+							current.side = Side.UNKNOWN;
+						}
 					}
 				}
 			}

@@ -764,7 +764,7 @@ public class TagEditorFragment extends SherlockFragment {
 			keyEdit.setText(aTagKey);
 			this.tagValues = tagValues;
 			if (same) {
-				if (tagValues.size() > 0) {
+				if (tagValues != null && tagValues.size() > 0) {
 					valueEdit.setText(tagValues.get(0));
 				} else {
 					valueEdit.setText("");
@@ -1488,6 +1488,9 @@ public class TagEditorFragment extends SherlockFragment {
 		}
 		
 		LinkedHashMap<String,ArrayList<String>> edits = getKeyValueMap(true);
+		if (edits == null) {
+			return oldTags;
+		}
 		
 		for (LinkedHashMap<String,String> map:newTags) {
 			for (String key:new TreeSet<String>(map.keySet())) {

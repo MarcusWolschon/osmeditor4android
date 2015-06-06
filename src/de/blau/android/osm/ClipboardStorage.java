@@ -93,7 +93,7 @@ public class ClipboardStorage implements Serializable  {
 		List<Node> nodes = storage.getNodes();
 		if (mode == Mode.CUT) {
 			reset(); // can only paste a cut way once
-			if (ways.size() == 1) { // restore original state
+			if (ways != null && ways.size() == 1) { // restore original state
 				Way w = ways.get(0);
 				w.setState(savedState);
 				for (Node nd:w.getNodes()) {
@@ -101,15 +101,15 @@ public class ClipboardStorage implements Serializable  {
 					nd.setState(savedNdState.get(nd));
 				}
 				return w;
-			} else if (nodes.size() == 1) {
+			} else if (nodes != null && nodes.size() == 1) {
 				Node n = nodes.get(0);
 				n.setState(savedState);
 				return n;
 			}
 		} else {
-			if (ways.size() == 1) {
+			if (ways != null && ways.size() == 1) {
 				return ways.get(0);
-			} else if (nodes.size() == 1) {
+			} else if (nodes != null && nodes.size() == 1) {
 				return nodes.get(0);
 			}
 		}

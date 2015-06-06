@@ -413,7 +413,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			savingHelper.save(COPIED_TAGS_FILE, copiedTags, false);
 		}
 		// save any address tags for "last address tags"
-		if (currentTags.size() == 1) {
+		if (currentTags != null && currentTags.size() == 1) {
 			Address.updateLastAddresses(tagEditorFragment, Util.getArrayListMap(currentTags.get(0)));// FIXME
 		}
 		Intent intent = new Intent();
@@ -421,7 +421,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		HashMap<Long,String> currentParents = null;
 		ArrayList<RelationMemberDescription> currentMembers = null;
 		PropertyEditorData[] newData = new PropertyEditorData[currentTags.size()];
-		if (currentTags.size() == 1) { // normal single mode, relations might have changed
+		if (currentTags != null && currentTags.size() == 1) { // normal single mode, relations might have changed
 			currentParents = relationMembershipFragment.getParentRelationMap();
 			currentMembers = new ArrayList<RelationMemberDescription>(); //FIXME
 			if (types[0].endsWith(Relation.NAME)) {
