@@ -38,7 +38,7 @@
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
 	        android:singleLine="true"
-	        android:textColor="@color/tagedit_field_text" />
+	         />
 	        
 	    <TextView
 	        android:id="@+id/memberType"
@@ -54,7 +54,7 @@
 	        android:singleLine="true"
 	        android:gravity="center_vertical"
 	        android:layout_gravity="center_vertical"
-	        android:textColor="@color/tagedit_field_text" />
+	        />
 	    
 	    <TextView
 	        android:id="@+id/memberObject"
@@ -69,6 +69,6 @@
 	        android:singleLine="true"
 	        android:gravity="center_vertical"
 	        android:layout_gravity="center_vertical"
-	        android:textColor="@color/tagedit_field_text" />
+	        />
     </LinearLayout>
 </view>

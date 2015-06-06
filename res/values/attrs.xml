@@ -64,6 +64,7 @@
 		<attr name="Drawer" format="reference" />
 		<attr name="ActionButton" format="reference" />
 		<attr name="DownloadedMember" format="reference" />
+		<attr name="NotDownloadedMember" format="reference" />
 		<attr name="EditText" format="reference" />
 	</declare-styleable>
 </resources>

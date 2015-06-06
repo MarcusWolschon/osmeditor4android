@@ -3,7 +3,7 @@
     android:id="@+id/text1"
     style="?attr/ListPopupWindowStyle"
     android:singleLine="true"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="34dp"
      />
    
