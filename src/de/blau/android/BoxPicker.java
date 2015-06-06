@@ -38,6 +38,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Search;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Search.SearchResult;
 
 /**
@@ -113,6 +114,11 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	 */
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		ctx = this;
 		setContentView(R.layout.location_picker_view);
@@ -431,7 +437,7 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 	 */
 	private AlertDialog createDialogNan() {
 		Builder dialog = new AlertDialog.Builder(this);
-		dialog.setIcon(R.drawable.alert_dialog_icon);
+		dialog.setIcon(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.alert_dialog));
 		dialog.setTitle(R.string.location_nan_title);
 		dialog.setMessage(R.string.location_nan_message);
 		dialog.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {

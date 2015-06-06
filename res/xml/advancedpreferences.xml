@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<PreferenceCategory android:title="@string/config_category_view">
+	    <CheckBoxPreference
+			android:key="@string/config_showCameraAction_key"
+			android:title="@string/config_showCameraAction_title"
+			android:summary="@string/config_showCameraAction_summary"
+			android:defaultValue="true"
+		/>
+	    <CheckBoxPreference
+			android:key="@string/config_generateAlerts_key"
+			android:title="@string/config_generateAlerts_title"
+			android:summary="@string/config_generateAlerts_summary"
+			android:defaultValue="false"
+		/>
 		<CheckBoxPreference
 			android:key="@string/config_forceContextMenu_key"
 			android:title="@string/config_forceContextMenu_title"
@@ -20,21 +32,15 @@
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference
-			android:key="@string/config_enableAntiAliasing_key"
-			android:title="@string/config_enableAntiAliasing_title"
-			android:summary="@string/config_enableAntiAliasing_summary"
-			android:defaultValue="true"
-		/>
-		<CheckBoxPreference
-			android:key="@string/config_showStats_key"
-			android:title="@string/config_showStats_title"
-			android:summary="@string/config_showStats_summary"
-			android:defaultValue="false"
-		/>
-		<CheckBoxPreference
 			android:key="@string/config_closeChangesetOnSave_key"
 			android:title="@string/config_closeChangesetOnSave_title"
 			android:summary="@string/config_closeChangesetOnSave_summary"
+			android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableLightTheme_key"
+			android:title="@string/config_enableLightTheme_title"
+			android:summary="@string/config_enableLightTheme_summary"
 			android:defaultValue="true"
 		/>
 		<CheckBoxPreference
@@ -55,22 +61,6 @@
 			android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
 			android:numeric="integer"
 			android:defaultValue="50"
-		/>
-		<EditTextPreference
-			android:key="@string/config_maxStrokeWidth_key"
-			android:title="@string/config_maxStrokeWidth_title"
-			android:summary="@string/config_maxStrokeWidth_summary"
-			android:dialogTitle="@string/config_maxStrokeWidth_title"
-			android:numeric="decimal"
-			android:defaultValue="16.0"
-		/>
-		<EditTextPreference
-			android:key="@string/config_tileCacheSize_key"
-			android:title="@string/config_tileCacheSize_title"
-			android:summary="@string/config_tileCacheSize_summary"
-			android:dialogTitle="@string/config_tileCacheSize_title"
-			android:numeric="integer"
-			android:defaultValue="100"
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableNameSuggestions_key"
@@ -155,4 +145,36 @@
 			android:defaultValue="true"
 		/>
 	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/config_category_misc">
+	    <EditTextPreference
+			android:key="@string/config_tileCacheSize_key"
+			android:title="@string/config_tileCacheSize_title"
+			android:summary="@string/config_tileCacheSize_summary"
+			android:dialogTitle="@string/config_tileCacheSize_title"
+			android:numeric="integer"
+			android:defaultValue="100"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_showStats_key"
+			android:title="@string/config_showStats_title"
+			android:summary="@string/config_showStats_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableAntiAliasing_key"
+			android:title="@string/config_enableAntiAliasing_title"
+			android:summary="@string/config_enableAntiAliasing_summary"
+			android:defaultValue="true"
+		/>
+		<EditTextPreference
+			android:key="@string/config_maxStrokeWidth_key"
+			android:title="@string/config_maxStrokeWidth_title"
+			android:summary="@string/config_maxStrokeWidth_summary"
+			android:dialogTitle="@string/config_maxStrokeWidth_title"
+			android:numeric="decimal"
+			android:defaultValue="16.0"
+		/>
+	</PreferenceCategory>
+			
 </PreferenceScreen>

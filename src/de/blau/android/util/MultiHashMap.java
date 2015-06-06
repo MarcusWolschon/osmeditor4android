@@ -1,9 +1,11 @@
 package de.blau.android.util;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -18,8 +20,12 @@ import java.util.TreeSet;
  * @param <K> Key type
  * @param <V> Type of the values to be associated with the keys
  */
-public class MultiHashMap<K, V> {
+public class MultiHashMap<K, V> implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<K, Set<V>> map;
 	private boolean sorted;
 	
@@ -120,4 +126,15 @@ public class MultiHashMap<K, V> {
 		return map.keySet();
 	}
 
+	/** 
+	 * return all values
+	 * @return
+	 */
+	public Set<V> getValues() {
+		Set<V> retval = new LinkedHashSet<V>();
+		for (K key: getKeys()) {
+			retval.addAll(get(key));
+		}
+		return retval;
+	}
 }

@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.io.Serializable;
+import java.util.List;
 
 import android.util.Log;
 import de.blau.android.Logic;
@@ -18,43 +19,59 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 7L;
+	private static final long serialVersionUID = 9L;
 	final Mode savedMode;
-	final Node savedNode;
-	final Way	savedWay;
-	final Relation savedRelation;
+	final List<Node> savedNodes;
+	final List<Way> savedWays;
+	final List<Relation> savedRelations;
 	final Bug	savedBug;
 	final String savedTileServerID;
 	final Offset[] savedOffsets;
 	final int savedMinZoom;
 	final boolean savedShowGPS;
 	final boolean savedAutoDownload;
+	final String savedImageFileName;
 
-	
-	public EditState(Mode mode, Node selectedNode, Way selectedWay,
-			Relation selectedRelation, Bug selectedBug, OpenStreetMapTileServer osmts, 
-			boolean showGPS, boolean autoDownload) {
+	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
+			List<Relation> selectedRelations, Bug selectedBug, OpenStreetMapTileServer osmts, 
+			boolean showGPS, boolean autoDownload, String imageFileName) {
 		savedMode = mode;
-		savedNode = selectedNode;
-		savedWay = selectedWay;
-		savedRelation = selectedRelation;
+		savedNodes = selectedNodes;
+		savedWays = selectedWays;
+		savedRelations = selectedRelations;
 		savedBug = selectedBug;
 		savedTileServerID = osmts.getId();
 		savedOffsets = osmts.getOffsets();
 		savedMinZoom = osmts.getMinZoomLevel();
 		savedShowGPS = showGPS;
 		savedAutoDownload = autoDownload;
+		savedImageFileName = imageFileName;
 	}
 	
 	public void setSelected(Logic logic) {
 		logic.setMode(savedMode == null ? Mode.MODE_MOVE : savedMode);
 		Log.d("EditState","savedMode " + savedMode);
-		if (logic.exists(savedNode))
-			logic.setSelectedNode(savedNode);
-		if (logic.exists(savedWay))
-			logic.setSelectedWay(savedWay);
-		if (logic.exists(savedRelation))
-			logic.setSelectedRelation(savedRelation);
+		if (savedNodes != null) {
+			for (Node n:savedNodes) {
+				if (logic.exists(n)) {
+					logic.addSelectedNode(n);
+				}
+			}
+		}
+		if (savedWays != null) {
+			for (Way w:savedWays) {
+				if (logic.exists(w)) {
+					logic.addSelectedWay(w);
+				}
+			}
+		}
+		if (savedRelations != null) {
+			for (Relation r:savedRelations) {
+				if (logic.exists(r)) {
+					logic.addSelectedRelation(r);
+				}
+			}
+		}
 		// 
 		logic.setSelectedBug(savedBug);
 	}
@@ -62,6 +79,7 @@ public class EditState implements Serializable {
 	public void setMiscState(Main main) {
 		main.setShowGPS(savedShowGPS);
 		main.setAutoDownload(savedAutoDownload);
+		main.setImageFileName(savedImageFileName);
 	}
 	
 	public void setOffset(OpenStreetMapTileServer osmts) {

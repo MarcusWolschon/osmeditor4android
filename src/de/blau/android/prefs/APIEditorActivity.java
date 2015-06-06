@@ -30,6 +30,10 @@ public class APIEditorActivity extends URLListEditActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
 		db = new AdvancedPrefDatabase(this);
 		super.onCreate(savedInstanceState);
 	}

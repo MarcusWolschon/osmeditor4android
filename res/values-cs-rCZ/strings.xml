@@ -46,7 +46,7 @@
   <string name="cancel">Zrušit</string>
   <string name="locked">Uzamčeno</string>
   <!--Dialog for back button-->
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">klíč</string>
   <string name="value">hodnota</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -112,7 +112,6 @@
   <string name="actionmode_nodeselect">Uzel vybrán</string>
   <string name="actionmode_createpath">Vytváří cestu</string>
   <!--Preferences-->
-  <string name="config_category_view">Zobrazit nastavení</string>
   <string name="config_showStats_title">Zobrazit statistiku</string>
   <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
@@ -193,6 +192,7 @@
   <string name="pref_acra_enabled">Hlášení pádů povoleno</string>
   <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="object">Objekt</string>
   <!--time and distance-->

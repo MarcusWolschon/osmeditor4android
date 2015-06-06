@@ -15,6 +15,7 @@ import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.resources.Profile.FeatureProfile;
+import de.blau.android.util.GeoMath;
 
 public class Way extends OsmElement {
 
@@ -31,7 +32,7 @@ public class Way extends OsmElement {
 
 	public static final String NODE = "nd";
 	
-	public static final int MAX_WAY_NODES = 2000;
+	public static int maxWayNodes = 2000; // if API has a different value it will replace this
 	
 	transient FeatureProfile featureProfile = null; // FeatureProfile is currently not serializable
 	
@@ -47,6 +48,10 @@ public class Way extends OsmElement {
 		nodes = new ArrayList<Node>();
 	}
 
+	/**
+	 * Add node at end of way
+	 * @param node
+	 */
 	void addNode(final Node node) {
 		if ((nodes.size() > 0) && (nodes.get(nodes.size() - 1) == node)) {
 			Log.i("Way", "addNode attempt to add same node");
@@ -55,6 +60,10 @@ public class Way extends OsmElement {
 		nodes.add(node);
 	}
 
+	/**
+	 * Return list of all nodes in a way
+	 * @return
+	 */
 	public List<Node> getNodes() {
 		return nodes;
 	}
@@ -242,7 +251,7 @@ public class Way extends OsmElement {
 	{
 		String tmpVal = "";
 		for (int i=0;i<value.length();i++) {
-			switch (value.toUpperCase().charAt(i)) {
+			switch (value.toUpperCase(Locale.US).charAt(i)) {
 				case 'N': tmpVal = tmpVal + 'S'; break;
 				case 'W': tmpVal = tmpVal + 'E'; break;
 				case 'S': tmpVal = tmpVal + 'N'; break;
@@ -620,7 +629,21 @@ public class Way extends OsmElement {
 	 * return the number of nodes in the is way
 	 * @return
 	 */
-	public int length() {
-		return nodes.size();
+	public int nodeCount() {
+		return nodes == null ? 0 : nodes.size();
+	}
+	
+	/** 
+	 * return the length in m
+	 * @return
+	 */
+	public double length() {
+		double result = 0d;
+		if (nodes != null) {
+			for (int i = 0; i < (nodes.size() - 1); i++) {
+				result = result + GeoMath.haversineDistance(nodes.get(i).getLon()/1E7D, nodes.get(i).getLat()/1E7D, nodes.get(i+1).getLon()/1E7D, nodes.get(i+1).getLat()/1E7D);
+			}
+		}
+		return result;
 	}
 }

@@ -19,7 +19,6 @@
   <string name="no_connection_title">Sem Conexão ao Servidor</string>
   <string name="no_connection_message">Não foi possível conectar com o Servidor OSM. Por favor verifique a ligação à Internet ou tente de novo mais tarde.</string>
   <string name="wrong_login_data_title">Autenticação falhou</string>
-  <string name="wrong_login_data_message">Se está a usar OAuth há provavelmente um bug, por favor envie um relatório de problema, se está a usar um login com palavra-chave (não recomendado) por favor verifique que estão correctos.</string>
   <string name="data_conflict_title">Conflito de Versão</string>
   <string name="data_conflict_message">Os dados que está tentando descarregar contém dados que conflitam com as suas edições. Tente primeiro fazer o upload dos seus dados antes de tentar de novo.</string>
   <string name="out_of_memory_title">Memória Esgotada</string>
@@ -30,15 +29,6 @@
   <string name="file_write_failed_title">Falha na gravação do arquivo</string>
   <string name="file_write_failed_message">Não foi possível gravar no arquivo escolhido.</string>
   <string name="welcome_title">Bem vindo!</string>
-  <string name="welcome_message">Obrigado por usar o Vespucci.
-
-Para começar você precisa saber duas coisas:
-
-* pressionando o ícone do cadeado no canto superior esquerdo irá alternar entre os modos travado (não será permitida edição) e destravado
-
-* para incluir um novo objeto: mantenha pressionado por um longo período no local onde pretende criar o nó, e se após isso pressionar em outro local irá iniciar o traçado de uma via.
-
-Divirta-se!</string>
   <string name="read_introduction">Leia a introdução agora</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
@@ -137,14 +127,13 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
   <string name="exit_text">Tem certeza de que deseja sair?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">chave</string>
   <string name="value">valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Incluir tags de endereço</string>
   <string name="tag_menu_sourcesurvey">Inspecionado</string>
   <string name="tag_menu_preset">Predefinições</string>
-  <string name="tag_menu_apply_preset">Aplicar a melhor redefinição</string>
   <string name="tag_menu_repeat">Repetir tags</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki de Entidades do Mapa</string>
@@ -261,7 +250,6 @@ há %3$s %4$s</string>
   <string name="actionmode_relationselect">Relação selecionada</string>
   <string name="actionmode_createpath">Criando caminho</string>
   <!--Preferences-->
-  <string name="config_category_view">Ver Configurações</string>
   <string name="config_maxStrokeWidth_title">Largura máx da linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma via mais larga que isto</string>
   <string name="config_tileCacheSize_title">Tamanho da cache de tiles</string>
@@ -404,6 +392,7 @@ há %3$s %4$s</string>
   <string name="pref_acra_disabled">Reporte de erros desativado</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Esta operação criaria uma via com muitos nós.</string>
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Grupo (\'Role\')</string>
   <string name="role_lc">grupo (\'role\')</string>

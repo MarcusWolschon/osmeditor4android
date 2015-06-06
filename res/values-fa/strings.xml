@@ -12,7 +12,6 @@
   <string name="no_connection_title">اتصالی به سرور نیست</string>
   <string name="no_connection_message">ممکن است به سرور OSM متصل نباشد. لطفا اتصالاینترنت تان را بررسی کنید یا بعدا دوباره تلاش کنید. </string>
   <string name="wrong_login_data_title">تایید اعتبار ناموفق</string>
-  <string name="wrong_login_data_message">اگر از OAuth استفاده میکنید، احتمالا یک باگ است، لطفا یک گزارش مشکل ارسال کنید، اگر از لاگین و پسوورد استفاده میکنید (توصیه نمی شود)  لطفا بررسی کنید ورودی ها صحیح اند. </string>
   <string name="data_conflict_title">تضاد نسخه</string>
   <string name="data_conflict_message">داده هایی که شما سعی میکنید دانلود کنید شامل داده هایی هستند که با ویرایش های شما تضاد دارند. لطفا قبل از تلاش دوباره اول داده هایتان را آپلود کنید. </string>
   <string name="out_of_memory_title">خارج از حافظه</string>
@@ -76,7 +75,7 @@
   <string name="locked">قفل شده</string>
   <!--Dialog for back button-->
   <string name="exit_title">واقعا خارج میشوید؟</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">کليد</string>
   <string name="value">مقدار</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -144,7 +143,6 @@
   <string name="actionmode_nodeselect">گره انتخاب شد</string>
   <string name="actionmode_createpath">ایجاد مسیر</string>
   <!--Preferences-->
-  <string name="config_category_view">تنظیمات نما</string>
   <string name="config_maxStrokeWidth_title">حداکثر عرض خط</string>
   <string name="config_maxStrokeWidth_summary">راه ضخیم تر از این نکشید</string>
   <string name="config_showStats_title">نمایش آمار</string>
@@ -235,6 +233,7 @@
   <string name="pref_acra_enabled">گزارش کرش فعال شد</string>
   <string name="pref_acra_disabled">گزارش کرش غیر فعال شد</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
   <string name="days">روز</string>

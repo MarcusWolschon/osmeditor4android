@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  Icons  -->
+  	<attr name="menu_gps" format="reference" />
+	<attr name="menu_config" format="reference" />
+	<attr name="menu_find" format="reference" />
+	<attr name="menu_help" format="reference" />
+	<attr name="menu_undo" format="reference" />
+	<attr name="menu_undo_icon" format="reference" />
+	<attr name="menu_delete" format="reference" />
+	<attr name="menu_cut" format="reference" />
+	<attr name="menu_copy" format="reference" />
+	<attr name="menu_paste" format="reference" />
+	<attr name="menu_save" format="reference" />
+	<attr name="menu_tags" format="reference" />
+	<attr name="menu_rotate" format="reference" />
+	<attr name="menu_back" format="reference" />
+	<attr name="menu_forward" format="reference" />
+	<attr name="menu_transfer" format="reference" />
+	<attr name="menu_merge" format="reference" />
+	<attr name="menu_split" format="reference" />
+	<attr name="menu_append" format="reference" />
+	<attr name="menu_reverse" format="reference" />
+	<attr name="menu_information" format="reference" />
+	<attr name="menu_history" format="reference" />
+	<attr name="menu_camera" format="reference" />
+	<attr name="menu_address" format="reference" />
+	<attr name="menu_multi_select" format="reference" />
+	<attr name="menu_ortho" format="reference" />
+	<attr name="menu_extract_node" format="reference" />
+	<attr name="menu_relation" format="reference" />
+	<attr name="menu_relation_members" format="reference" />
+	<attr name="menu_relation_add_member" format="reference" />
+	<attr name="menu_tools" format="reference" />
+	<attr name="menu_add_restriction" format="reference" />
+	<attr name="menu_preset" format="reference" />
+	<attr name="menu_apply_preset" format="reference" />
+	<attr name="menu_preset_up" format="reference" />
+	<attr name="menu_preset_top" format="reference" />
+	<attr name="menu_bug" format="reference" />
+	<attr name="alert_dialog" format="reference" />
+	<attr name="drawer" format="reference" />
+	<attr name="undolist_undo" format="reference" />
+	<attr name="undolist_redo" format="reference" />
+	<attr name="lock" format="reference" />
+	<attr name="lock_tag" format="reference" />
+	<!--  -->
+    <declare-styleable name="SplitPaneLayout">
+        <attr name="orientation">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="splitterSize" format="dimension" />
+        <attr name="splitterMovable" format="boolean" />
+        <attr name="splitterPosition" format="dimension|fraction" />
+        <attr name="splitterBackground" format="reference|color" />
+        <attr name="splitterDraggingBackground" format="reference|color" />
+    </declare-styleable>
+    <declare-styleable name="Dummy">
+		<attr name="TableHeader" format="reference" />
+		<attr name="Layout" format="reference" />
+		<attr name="PagerTabStrip" format="reference" />
+		<attr name="ListPopupWindowStyle" format="reference" />
+		<attr name="Drawer" format="reference" />
+		<attr name="ActionButton" format="reference" />
+		<attr name="DownloadedMember" format="reference" />
+		<attr name="EditText" format="reference" />
+	</declare-styleable>
+</resources>

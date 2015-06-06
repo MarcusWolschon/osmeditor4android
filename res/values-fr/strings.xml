@@ -21,7 +21,6 @@ contre %3$s sur le serveur</string>
   <string name="no_connection_title">Pas de connexion au serveur</string>
   <string name="no_connection_message">Impossible de se connecter au Serveur OSM. Veuillez vérifier votre connexion Internet ou essayez plus tard.</string>
   <string name="wrong_login_data_title">Authentification échouée</string>
-  <string name="wrong_login_data_message">Si vous utilisez OAuth, ceci est probablement un bogue, merci de rapporter le problème. Si vous utilisez un login et un mot de passe (non recommandé) vérifiez que vous les avez renseigné correctement.</string>
   <string name="data_conflict_title">Conflit de version</string>
   <string name="data_conflict_message">Les données que vous essayez de télécharger entraînent des conflits avec vos modifications. Essayez d\'envoyer vos données puis réessayez.</string>
   <string name="out_of_memory_title">Plus de mémoire disponible</string>
@@ -32,15 +31,6 @@ contre %3$s sur le serveur</string>
   <string name="file_write_failed_title">Échec de l\'écriture du fichier</string>
   <string name="file_write_failed_message">Impossible d\'écrire dans le fichier sélectionné</string>
   <string name="welcome_title">Bienvenue !</string>
-  <string name="welcome_message">Merci d\'utiliser Vespucci
-
-Voici quelques choses à savoir avant de commencer :
-
-* appuyez sur l\'icône de cadenas dans le coin supérieur droit pour verrouiller ou déverrouiller l\'édition
-
-* pour ajouter un nouvel objet : appui long à un emplacement puis pressez une seconde fois pour ajouter un nœud. Un nouvel appui autre part tracera un chemon.
-
-Amusez-vous bien !</string>
   <string name="read_introduction">Lire l\'introduction</string>
   <string name="progress_title">Chargement</string>
   <string name="progress_message">Chargement des données en mémoire…</string>
@@ -139,14 +129,13 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <!--Dialog for back button-->
   <string name="exit_title">Vraiment quitter ?</string>
   <string name="exit_text">Êtes-vous certain de vouloir quitter ?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">clé</string>
   <string name="value">valeur</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
   <string name="tag_menu_address">Ajouter un tag d\'adresse</string>
   <string name="tag_menu_sourcesurvey">Vérifié sur le terrain</string>
   <string name="tag_menu_preset">Modèles d\'attributs</string>
-  <string name="tag_menu_apply_preset">Appliquer la meilleure réinitialisation</string>
   <string name="tag_menu_repeat">Réutiliser les attributs</string>
   <string name="tag_menu_revert">Rétablir</string>
   <string name="tag_menu_mapfeatures">FR:Map Features Wiki</string>
@@ -262,7 +251,6 @@ il y a %3$s %4$s</string>
   <string name="actionmode_relationselect">Relation sélectionnée</string>
   <string name="actionmode_createpath">Création du chemin</string>
   <!--Preferences-->
-  <string name="config_category_view">Affichage</string>
   <string name="config_maxStrokeWidth_title">Largeur maximale de ligne</string>
   <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça</string>
   <string name="config_tileCacheSize_title">Cache pour les tuiles</string>
@@ -405,6 +393,7 @@ il y a %3$s %4$s</string>
   <string name="pref_acra_disabled">Rapport de plantage désactivé</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Cette opération créerait un chemin contenate trop de nœuds</string>
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rôle</string>
   <string name="role_lc">rôle</string>

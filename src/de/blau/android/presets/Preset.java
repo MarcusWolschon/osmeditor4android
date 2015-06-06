@@ -3,6 +3,7 @@ package de.blau.android.presets;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InvalidObjectException;
@@ -53,12 +54,19 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.resources.Profile;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.views.WrappingLayout;
@@ -98,8 +106,12 @@ import de.blau.android.views.WrappingLayout;
  * 
  * @author Jan Schejbal
  */
-public class Preset {
+public class Preset implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -123,7 +135,7 @@ public class Preset {
 	protected PresetGroup rootGroup;
 
 	/** {@link PresetIconManager} used for icon loading */
-	protected final PresetIconManager iconManager;	
+	protected transient PresetIconManager iconManager;	
 	
 	/** all known preset items in order of loading */
 	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
@@ -161,6 +173,14 @@ public class Preset {
 		public volatile boolean changed = false;
 	}
 	protected final PresetMRUInfo mru;
+	private String externalPackage;
+	
+	private class PresetFilter implements FilenameFilter {
+		@Override
+		public boolean accept(File dir, String name) {
+			return name.endsWith(".xml");
+		}
+	}
 	
 	/**
 	 * Creates a preset object.
@@ -171,6 +191,7 @@ public class Preset {
 	 */
 	public Preset(Context ctx, File directory, String externalPackage) throws Exception {
 		this.directory = directory;
+		this.externalPackage = externalPackage;
 		rootGroup = new PresetGroup(null, "", null);
 		
 		directory.mkdir();
@@ -187,8 +208,16 @@ public class Preset {
 		} else {
 			Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
 			iconManager = new PresetIconManager(ctx, directory.toString(), null);
-			fileStream = new FileInputStream(new File(directory, PRESETXML));
-		}
+			File indir = new File(directory.toString());
+			fileStream = null; // force crash and burn
+			if (indir != null) {
+				File[] list = indir.listFiles(new PresetFilter());
+				if (list != null && list.length > 0) { // simply use the first XML file found
+					Log.i("Preset", "Preset file name " + list[0].getName());
+					fileStream = new FileInputStream(new File(directory, list[0].getName()));
+				}
+			} 			
+		}		
 		
 		DigestInputStream hashStream = new DigestInputStream(
 				fileStream,
@@ -204,6 +233,16 @@ public class Preset {
         //  - even if you add a 1 MB comment after the document-closing tag.
         
         mru = initMRU(directory, hashValue);
+	}
+	
+	PresetIconManager getIconManager(Context ctx) {
+		if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+			return new PresetIconManager(ctx, null, null);
+		} else if (externalPackage != null) {
+			return  new PresetIconManager(ctx, directory.toString(), externalPackage);
+		} else {
+			return  new PresetIconManager(ctx, directory.toString(), null);
+		}		
 	}
 
 	/**
@@ -335,6 +374,16 @@ public class Preset {
             			currentItem.defaults.putAll(chunk.defaults);
             			currentItem.roles.addAll(chunk.roles); // FIXME this and the following could lead to duplicate entries
             			currentItem.linkedPresetNames.addAll(chunk.linkedPresetNames);
+            		}
+            	} else if ("list_entry".equals(name)) {
+            		// for now just get the actual value
+            		if (listValues != null) {
+            			listValues.add(attr.getValue("value"));
+            		}
+            	} else if ("preset_link".equals(name)) {
+            		String presetName = attr.getValue("preset_name");
+            		if (presetName != null) {
+            			currentItem.addLinkedPresetName(presetName);
             		}
             	} else if ("list_entry".equals(name)) {
             		// for now just get the actual value
@@ -498,10 +547,12 @@ public class Preset {
 			for (String n:linkedPresetNames) {
 				if (!mru.recentPresets.contains(id)) {
 					Integer presetIndex = getItemIndexByName(n);
-					if (presetIndex != null) { // null if the link wasn't found
-						mru.recentPresets.addFirst(presetIndex);
-						if (mru.recentPresets.size() > MAX_MRU_SIZE) {
-							mru.recentPresets.removeLast();
+					if (presetIndex != null) {  // null if the link wasn't found
+						if (!mru.recentPresets.contains(presetIndex)) { // only add if not already present
+							mru.recentPresets.addFirst(presetIndex);
+							if (mru.recentPresets.size() > MAX_MRU_SIZE) {
+								mru.recentPresets.removeLast();
+							}
 						}
 					} else {
 						Log.e("Preset","linked preset not found for " + n + " in preset " + pi.getName());
@@ -631,15 +682,22 @@ public class Preset {
 	/**
 	 * Represents an element (group or item) in a preset data structure
 	 */
-	public abstract class PresetElement {
+	public abstract class PresetElement implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2L;
 		private String name;
 		private String iconpath;
 		private String mapiconpath;
-		private Drawable icon;
-		private BitmapDrawable mapIcon;
+		private transient Drawable icon;
+		private transient BitmapDrawable mapIcon;
 		private PresetGroup parent;
-		private boolean appliesToWay, appliesToNode, appliesToClosedway, appliesToRelation;
-		private Uri mapFeatures;
+		protected boolean appliesToWay;
+		protected boolean appliesToNode;
+		protected boolean appliesToClosedway;
+		protected boolean appliesToRelation;
+		private String mapFeatures;
 
 		/**
 		 * Creates the element, setting parent, name and icon, and registers with the parent
@@ -663,6 +721,9 @@ public class Preset {
 
 		public Drawable getIcon() {
 			if (icon == null && iconpath != null) {
+				if (iconManager == null) {
+					iconManager = getIconManager(Application.mainActivity);
+				}
 				icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
 				iconpath = null;
 			}
@@ -671,6 +732,9 @@ public class Preset {
 		
 		public BitmapDrawable getMapIcon() {
 			if (mapIcon == null && mapiconpath != null) {
+				if (iconManager == null) {
+					iconManager = getIconManager(Application.mainActivity);
+				}
 				mapIcon = iconManager.getDrawable(mapiconpath, de.blau.android.Map.ICON_SIZE_DP);
 				mapiconpath = null;
 			}
@@ -712,6 +776,10 @@ public class Preset {
 			if (icon != null) {
 				v.setCompoundDrawables(null, getIcon(), null, null);
 				v.setCompoundDrawablePadding((int)(4*density));
+			} else {
+				// no icon
+				LinearLayout.LayoutParams vlp = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT);
+				v.setLayoutParams(vlp);
 			}
 			v.setWidth((int)(72*density));
 			v.setHeight((int)(72*density));
@@ -779,12 +847,12 @@ public class Preset {
 		
 		protected void setMapFeatures(String url) {
 			if (url != null) {
-				mapFeatures = Uri.parse(url);
+				mapFeatures = url;
 			}
 		}
 		
 		public Uri getMapFeatures() {
-			return mapFeatures;
+			return Uri.parse(mapFeatures);
 		}
 		
 		@Override
@@ -856,8 +924,18 @@ public class Preset {
 		public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type) {
 			ScrollView scrollView = new ScrollView(ctx);		
 			scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			return getGroupView(ctx, scrollView, handler, type);
+		}
+		
+		/**
+		 * @return a view showing the content (nodes, subgroups) of this group
+		 */
+		public View getGroupView(Context ctx, ScrollView scrollView, PresetClickHandler handler, ElementType type) {
+			scrollView.removeAllViews();
 			WrappingLayout wrappingLayout = new WrappingLayout(ctx);
 			float density = ctx.getResources().getDisplayMetrics().density;
+			// wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.white));
+			wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.transparent)); // make transparent
 			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));
 			wrappingLayout.setVerticalSpacing((int)(SPACING*density));
 			ArrayList<PresetElement> filteredElements = filterElements(elements, type);
@@ -918,10 +996,10 @@ public class Preset {
 			} else {
 				String[] typesArray = types.split(",");
 				for (String type : typesArray) {
-					if ("node".equals(type)) setAppliesToNode();
-					else if ("way".equals(type)) setAppliesToWay();
+					if (Node.NAME.equals(type)) setAppliesToNode();
+					else if (Way.NAME.equals(type)) setAppliesToWay();
 					else if ("closedway".equals(type)) setAppliesToClosedway();
-					else if ("relation".equals(type)) setAppliesToRelation();
+					else if (Relation.NAME.equals(type)) setAppliesToRelation();
 				}
 			}	
 			itemIndex = allItems.size();
@@ -1130,7 +1208,7 @@ public class Preset {
 			}
 			return super.toString() + tagStrings;
 		}
-		
+	
 		public String toJSON() {
 			String jsonString = "";
 			for (String k:tags.keySet()) {
@@ -1153,7 +1231,24 @@ public class Preset {
 		}
 		
 		private String tagToJSON(String key, String value) {
-			return "{ \"key\": \"" + key + "\"" + (value == null ? "" : ", \"value\": \"" + value + "\"") + " },\n";
+			String result = "{ \"key\": \"" + key + "\"" + (value == null ? "" : ", \"value\": \"" + value + "\"");
+			result = result + " , \"object_types\": [";
+			if (appliesToNode) {
+				result = result + "\"node\"";
+			}
+			if (appliesToRelation) {
+				if (appliesToNode) {
+					result = result + ",";
+				}
+				result = result + "\"node\"";
+			}
+			if (appliesToWay || appliesToClosedway) {
+				if (appliesToRelation) {
+					result = result + ",";
+				}
+				result = result + "\"way\"";
+			}			
+			return  result + "]},\n";
 		}
 	}
 	

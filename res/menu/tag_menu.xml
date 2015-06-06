@@ -2,44 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/tag_menu_address"
-        android:icon="@drawable/address"
+        android:icon="?attr/menu_address"
         android:title="@string/tag_menu_address"
         android:showAsAction="always"
     />
     <item
-        android:id="@+id/tag_menu_preset"
-        android:icon="@drawable/tag_menu_preset"
-        android:title="@string/tag_menu_preset"
-        android:showAsAction="always"
-    />
-    <item
         android:id="@+id/tag_menu_apply_preset"
-        android:icon="@drawable/tag_menu_apply_preset"
+        android:icon="?attr/menu_apply_preset"
         android:title="@string/tag_menu_apply_preset"
         android:showAsAction="always"
     />
     <item
-        android:id="@+id/tag_menu_repeat"
-        android:icon="@drawable/tag_menu_repeat"
-        android:title="@string/tag_menu_repeat"
+        android:id="@+id/tag_menu_paste"
+        android:icon="?attr/menu_paste"
+        android:title="@string/menu_paste"
         android:showAsAction="always"
     />
     <item
+        android:id="@+id/tag_menu_paste_from_clipboard"
+        android:title="@string/menu_paste_from_clipboard"
+        android:showAsAction="never"
+    />
+    <item
         android:id="@+id/tag_menu_revert"
-        android:icon="@drawable/tag_menu_revert"
+        android:icon="?attr/menu_undo"
         android:title="@string/tag_menu_revert"
         android:showAsAction="always"
     />
     <item
         android:id="@+id/tag_menu_mapfeatures"
-        android:icon="@drawable/tag_menu_mapfeatures"
+        android:icon="?attr/menu_information"
         android:title="@string/tag_menu_mapfeatures"
         android:showAsAction="ifRoom"
-    />
-    <item
-        android:id="@+id/tag_menu_addtorelation"
-        android:title="@string/tag_menu_addtorelation"
-        android:showAsAction="never"
     />
      <item
         android:id="@+id/tag_menu_reset_address_prediction"
@@ -53,12 +47,12 @@
     />
         <item
         android:id="@+id/tag_menu_sourcesurvey"
-        android:icon="@drawable/tag_menu_sourcesurvey"
         android:title="@string/tag_menu_sourcesurvey"
         android:showAsAction="ifRoom"
     />
     <item
         android:id="@+id/tag_menu_help"
+        android:icon="?attr/menu_help"
         android:title="@string/menu_help"
         android:showAsAction="never"
     />

@@ -2,6 +2,7 @@ package de.blau.android.presets;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -12,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.util.Density;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -23,6 +25,7 @@ import de.blau.android.util.SavingHelper;
  *
  */
 public class PresetIconManager {
+	
 	/** context of own application */
 	private final Context context;
 	
@@ -87,7 +90,8 @@ public class PresetIconManager {
 	 * Gets a drawable for a URL.<br>
 	 * If the URL is a HTTP(S) URL and a base path is given, it will be checked for the downloaded drawable.<br>
 	 * Otherwise, the URL will be considered a relative path, checked for ".." to avoid path traversal,
-	 * and it will be attempted to load the corresponding image from the asset image directory.<br>
+	 * and it will be attempted to load the corresponding image from the asset image directory. Handles
+	 * icons directly in a zipped presets director too.<br>
 	 * @param url either a local preset url of the format "presets/xyz.png", or a http/https url
 	 * @param size icon size in dp
 	 * @return null if icon file not found or a drawable of [size]x[size] dp.
@@ -97,8 +101,12 @@ public class PresetIconManager {
 		
 		InputStream pngStream = null;
 		try {
-			if (basePath != null && (url.startsWith("http://") || url.startsWith("https://"))) {
-				pngStream = new FileInputStream(basePath+"/"+hash(url)+".png");
+			if (basePath != null && externalAssetPackage == null) {
+				if ((url.startsWith("http://") || url.startsWith("https://"))) {
+					pngStream = new FileInputStream(basePath+"/"+hash(url)+".png");
+				} else if (url.endsWith(".png") && !url.contains("..")) {
+					pngStream = new FileInputStream(basePath+"/"+url);
+				}
 			} else if (!url.contains("..")) {
 				pngStream = openAsset(ASSET_IMAGE_PREFIX+url, true);
 			} else {
@@ -107,7 +115,7 @@ public class PresetIconManager {
 			
 			if (pngStream == null) return null;
 			
-			BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
+			BitmapDrawable drawable = new BitmapDrawable(Application.mainActivity.getResources(), BitmapFactory.decodeStream(pngStream)); // resources used only for density
 			drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
 			int pxsize = Density.dpToPx(size);
 			drawable.setBounds(0, 0, pxsize, pxsize);

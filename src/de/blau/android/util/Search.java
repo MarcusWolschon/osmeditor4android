@@ -17,6 +17,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +28,7 @@ import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.jsonreader.JsonReader;
 
 /**
@@ -217,7 +219,7 @@ public class Search {
 		final Dialog dialog;
 		Builder builder = new AlertDialog.Builder(ctx);
 		builder.setTitle(R.string.search_results_title);
-		final LayoutInflater inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
 		ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
 		builder.setView(lv);
 		

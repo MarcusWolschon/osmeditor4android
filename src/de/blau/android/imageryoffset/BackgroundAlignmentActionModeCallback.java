@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.jsonreader.JsonReader;
 import de.blau.android.util.jsonreader.JsonToken;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -541,8 +543,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private Dialog createSaveOffsetDialog(final int index, final ArrayList<ImageryOffset> saveOffsetList) {
 		// Create some useful objects
 		final BoundingBox bbox = map.getViewBox();
-		final Context context = Application.mainActivity.getApplicationContext();
-		final LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
 		Builder dialog = new AlertDialog.Builder(Application.mainActivity);
 		dialog.setTitle(R.string.imagery_offset_title);
 		final ImageryOffset offset = saveOffsetList.get(index);
@@ -627,8 +628,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	private Dialog createDisplayOffsetDialog(final int index) {
 		// Create some useful objects
 		final BoundingBox bbox = map.getViewBox();
-		final Context context = Application.mainActivity.getApplicationContext();
-		final LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
+		
 		Builder dialog = new AlertDialog.Builder(Application.mainActivity);
 		dialog.setTitle(R.string.imagery_offset_title);
 		final ImageryOffset offset = offsetList.get(index);

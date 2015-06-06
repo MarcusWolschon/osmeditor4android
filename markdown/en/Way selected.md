@@ -1,8 +1,14 @@
 # Way selected
 
-Selected ways can be moved by dragging. Note dragging the "geometry improvement" marker in the middle will automatically add a node to the way.
+Selected ways can be moved by dragging.
 
 ## Actions  
+
+Note: some of these actions will only be visible if they can actually be executed on the selected way. For example you can only split a way that has more than two way nodes.
+
+### ![](../images/undolist_undo.png) Undo
+
+Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen. *Some operations consist of multiple simpler actions that will be listed as individual items.*
 
 ### ![](../images/tag_menu_tags.png) Start tag editor
 
@@ -36,11 +42,15 @@ Append to the current selected way. Touch areas will be visible around nodes tha
 
 ### ![](../images/menu_ortho.png) Orthogonalize
 
-Change angles that are near 90° or 180° to 90° resp. 180°.
+Change angles that are near 90ï¿½ or 180ï¿½ to 90ï¿½ resp. 180ï¿½.
 
 ### ![](../images/ic_menu_rotate.png) Rotate
 
 Rotate the way around its centroid. The centroid position is marked with a cross.
+
+### Split in to polygons
+
+Available for closed ways with at least for nodes. Will split the way in to two polygons, sharing the common nodes.
 
 ### ![](../images/ic_menu_copy_holo_light.png) Copy
 
@@ -54,9 +64,17 @@ Move the way to the internal copy and paste buffer removing it fron the data.
 
 Remove the object from the data.
 
+### ![](../images/extend_selection.png) Extend selection
+
+Start Multi-Select mode with the current selected element.
+
 ### ![](../images/relation.png) Create relation
 
 Create a relation and add this object as the first element. Further objects can be added until "Done" is selected, then the tag editor will be started on the new relation. 
+
+### ![](../images/tag_menu_mapfeatures.png) Info
+
+Show a screen with some detailed information on the selected object.
 
 ### ![](../images/menu_help.png) Help
 

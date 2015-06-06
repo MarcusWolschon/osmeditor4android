@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
@@ -16,6 +17,11 @@ import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 public class LicenseViewer extends SherlockActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		View container = View.inflate(this, R.layout.license_viewer, null);
 		TextView textShort = (TextView)container.findViewById(R.id.licenseShortText);

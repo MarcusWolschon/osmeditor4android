@@ -8,7 +8,7 @@ Vespucci uploads modified and deleted elements one by one. Any conflicts detecte
 
 The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.
 
-It is likely better, except if you have really important changes, to us the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, with other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.
+It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, with other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.
 
 ### Referential conflicts
 

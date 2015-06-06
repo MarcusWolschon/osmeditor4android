@@ -110,7 +110,7 @@
   <!--Dialog for back button-->
   <string name="exit_title">Направду вийти?</string>
   <string name="exit_text">Ви впевнені, що хочете вийти?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">ключ</string>
   <string name="value">значення</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Uk:Map_Features</string>
@@ -219,7 +219,6 @@
   <string name="actionmode_relationselect">Зв’язок обрано</string>
   <string name="actionmode_createpath">Малювання лінії</string>
   <!--Preferences-->
-  <string name="config_category_view">Налаштування перегляду</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
   <string name="config_maxStrokeWidth_summary">Чи не малювати лінію товстішою за цю</string>
   <string name="config_tileCacheSize_title">Розмір кешу</string>
@@ -338,6 +337,7 @@
   <string name="pref_acra_enabled">Звітування про помилки включене</string>
   <string name="pref_acra_disabled">Звітування про помилки відключене</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>

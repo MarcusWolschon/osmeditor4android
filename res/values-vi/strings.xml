@@ -19,9 +19,12 @@
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
   <string name="no_connection_message">Không thể kết nốt với máy chủ OSM. Xin vui lòng kiểm tra kết nối Internet của bạn hoặc thử lại sau.</string>
   <string name="wrong_login_data_title">Thất bai khi xác thực</string>
-  <string name="wrong_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
+  <string name="wrong_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), bạn nên xác minh lại và thử lại. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
+  <string name="wrong_login_data_re_authenticate">Xác minh lại</string>
   <string name="data_conflict_title">Xung đột về Số Phiên bản</string>
   <string name="data_conflict_message">Không thể tải về dữ liệu này vì nó mâu thuẫn với các sửa đổi của bạn. Xin vui lòng thử tải lên dữ liệu của bạn trước khi thử lại.</string>
+  <string name="api_offline_title">API Ngoại tuyến</string>
+  <string name="api_offline_message">API hiện đang ngoại tuyến nên không thể lấy hoặc ghi dữ liệu.</string>
   <string name="out_of_memory_title">Hết Bộ nhớ</string>
   <string name="out_of_memory_message">Việc tải dữ liệu yêu cầu chiếm hết bộ nhớ. Xin vui lòng khởi động lại và thử tải một khu vực nhỏ hơn.</string>
   <string name="out_of_memory_dirty_message">Việc tải dữ liệu yêu cầu chiếm hết bộ nhớ. Xin vui lòng thử lưu các sửa đổi của bạn, khởi động lại, và thử tải một khu vực nhỏ hơn.</string>
@@ -30,7 +33,7 @@
   <string name="file_write_failed_title">Thất bại khi ghi vào tập tin</string>
   <string name="file_write_failed_message">Không thể ghi vào tập tin đã chọn.</string>
   <string name="welcome_title">Chào mừng!</string>
-  <string name="welcome_message">Cám ơn bạn vì sử dụng Vespucci.\n\nĐể bắt đầu, hãy nhớ:\n\n* chạm vào hình ổ khóa ở phía trên bên trái để bật/tắt chế độ khóa (không sửa đổi)\n\n* để thêm một đối tượng mới, chạm lâu, rồi chạm lần nữa cùng chỗ để tạo nốt, hoặc chạm xa hơn để bắt đầu vẽ lối\n\nChúc vui vẻ!</string>
+  <string name="welcome_message">Cám ơn bạn vì sử dụng Vespucci.\n\nĐể bắt đầu, hãy nhớ:\n\n* chạm vào hình ổ khóa ở phía trên bên trái để bật/tắt chế độ khóa (không sửa đổi)\n\n* để thêm một đối tượng mới, chạm lâu, rồi chạm lần nữa cùng chỗ để tạo nốt, hoặc chạm xa hơn để bắt đầu vẽ lối\n\nNhớ tải về khu vực muốn sửa đổi.\n\nChúc vui vẻ!</string>
   <string name="read_introduction">Đọc hướng dẫn</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
@@ -75,6 +78,17 @@
   <string name="save_file">Nhập tập tin để ghi vào</string>
   <string name="existing_track_title">Dữ liệu tuyến đường đã tồn tại</string>
   <string name="existing_track_message">Bạn đã có dữ liệu tuyến đường. Có lẽ bạn muốn hủy và lưu trước tiên.</string>
+  <string name="element_information">Thông tin đối tượng</string>
+  <string name="id">ID</string>
+  <string name="nodes">Các nốt</string>
+  <string name="relation_membership">Trực thuộc quan hệ</string>
+  <string name="problem">Vấn đề</string>
+  <string name="members">Các thành viên</string>
+  <string name="closed">Đã đóng</string>
+  <string name="version">Phiên bản</string>
+  <string name="length_m">Chiều dài (m)</string>
+  <string name="not_downloaded">Chưa tải về</string>
+  <string name="empty_role">thiếu vai trò</string>
   <!--Toaster-->
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_upload_success">Đã hoàn tất tải lên máy chủ OSM.</string>
@@ -99,6 +113,7 @@
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
   <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
   <string name="toast_noname">Đường không có tên hoặc số</string>
+  <string name="toast_notype">Quan hệ không có kiểu</string>
   <string name="toast_oauth_retry">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth và thử tải lên lại.</string>
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
@@ -111,6 +126,7 @@
   <string name="toast_file_not_found">Không tìm thấy %1$s.</string>
   <string name="toast_imported_track_points">Đã nhập %1$s điểm tuyến đường.</string>
   <string name="toast_inconsistent_state">Đã nhận ra mâu thuẫn. Xin vui lòng báo cáo lỗi.</string>
+  <string name="toast_camera_error">Lỗi khi khởi động ứng dụng máy ảnh: %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -128,9 +144,11 @@
   <!--Dialog for back button-->
   <string name="exit_title">Thoát?</string>
   <string name="exit_text">Bạn có chắc chắn muốn thoát?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">chìa khóa</string>
+  <string name="Key">Chìa khóa</string>
   <string name="value">giá trị</string>
+  <string name="Value">Giá trị</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Vi:Map_Features?uselang=vi</string>
   <string name="tag_menu_address">Gắn thẻ địa chỉ</string>
   <string name="tag_menu_sourcesurvey">Đã khảo sát</string>
@@ -144,6 +162,10 @@
   <string name="tag_menu_reset_address_prediction">Đặt lại suy đoán địa chỉ</string>
   <string name="tag_menu_exit_no_save">Thoát\nmà không lưu</string>
   <string name="tag_value_hint">Chạm cho các giá trị</string>
+  <string name="tag_action_title">Các thẻ đã chọn</string>
+  <string name="menu_up">Trên</string>
+  <string name="menu_top">Trên cùng</string>
+  <string name="menu_preset_help">Trợ giúp về thẻ đặt trước</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Tải Khu vực</string>
   <string name="location_choose_radius">Chọn bán kính:</string>
@@ -175,6 +197,7 @@
   <string name="menu_erase">Xóa nốt</string>
   <string name="menu_set_position">Vị trí</string>
   <string name="menu_split">Chia</string>
+  <string name="menu_extract">Trích nốt</string>
   <string name="menu_closed_way_split_1">Cắt đôi lối đóng, nốt đầu tiên</string>
   <string name="menu_closed_way_split_2">Cắt đôi lối đóng, nốt thứ 2</string>
   <string name="menu_append">Gắn thêm</string>
@@ -183,9 +206,11 @@
   <string name="menu_restriction_to">Thêm hạn chế đến</string>
   <string name="menu_relation">Tạo quan hệ</string>
   <string name="menu_add_relation_member">Thêm thành viên</string>
+  <string name="menu_select_relation_members">Chọn các thành viên</string>
   <string name="menu_tag">Sửa thẻ</string>
   <string name="menu_openstreetbug">Thêm Ghi chú</string>
   <string name="menu_easyedit">Chỉnh sửa Dễ dàng</string>
+  <string name="menu_camera">Máy ảnh</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Hiện vị trí</string>
   <string name="menu_gps_follow">Theo dõi vị trí GPS</string>
@@ -203,6 +228,7 @@
   <string name="menu_transfer_download_current_add">Thêm khu vực hiện tại để tải về</string>
   <string name="menu_transfer_download_other">Tải về vị trí khác</string>
   <string name="menu_transfer_upload">Tải dữ liệu lên máy chủ OSM</string>
+  <string name="menu_transfer_close_changeset">Đóng bộ thay đổi hiện tại</string>
   <string name="menu_transfer_export">Xuất các thay đổi</string>
   <string name="menu_transfer_read_file">Đọc tập tin</string>
   <string name="menu_transfer_save_file">Lưu vào tập tin</string>
@@ -212,10 +238,14 @@
   <string name="menu_copy">Chép</string>
   <string name="menu_cut">Cắt</string>
   <string name="menu_paste">Dán</string>
+  <string name="menu_paste_from_clipboard">Dán từ bảng tạm</string>
   <string name="menu_rotate">Quay</string>
   <string name="menu_orthogonalize">Làm vuông góc</string>
   <string name="menu_circulize">Làm tròn</string>
+  <string name="menu_split_polygon">Chia thành các đa giác</string>
   <string name="menu_newnode_gps">Nốt mới tại vị trí GPS</string>
+  <string name="menu_extend_selection">Mở rộng lựa chọn</string>
+  <string name="menu_information">Thông tin</string>
   <string name="menu_tools">Công cụ</string>
   <string name="menu_tools_flush_background_tile_cache">Xóa sạch bộ nhớ đệm mảnh nền</string>
   <string name="menu_tools_flush_overlay_tile_cache">Xóa sạch bộ nhớ đệm mảnh phủ</string>
@@ -249,8 +279,13 @@
   <string name="actionmode_nodeselect">Đã chọn nốt</string>
   <string name="actionmode_relationselect">Đã chọn quan hệ</string>
   <string name="actionmode_createpath">Đang tạo đường</string>
+  <string name="actionmode_multiselect">Chọn nhiều</string>
   <!--Preferences-->
-  <string name="config_category_view">Xem Thiết lập</string>
+  <string name="config_category_view">Thiết lập Giao diện</string>
+  <string name="config_showCameraAction_title">Tác vụ hiển thị máy ảnh</string>
+  <string name="config_showCameraAction_summary">Hình hiển thị máy ảnh trên thanh tác vụ</string>
+  <string name="config_generateAlerts_title">Nhận thông báo</string>
+  <string name="config_generateAlerts_summary">Nhận thông báo khi nào dữ liệu có vấn đề hoặc ghi chú</string>
   <string name="config_maxStrokeWidth_title">Chiều rộng đường kẻ tối đa</string>
   <string name="config_maxStrokeWidth_summary">Không vẽ lối dày hơn chiều rộng này</string>
   <string name="config_tileCacheSize_title">Kích cỡ bộ nhớ đệm mảnh</string>
@@ -321,6 +356,9 @@
   <string name="config_gps_source_summary">Nguồn cập nhật các vị trí GPS</string>
   <string name="config_gps_source_tcp_title">Nguồn mạng NMEA</string>
   <string name="config_gps_source_tcp_summary">Địa chỉ nguồn NMEA TCP dưới dạng tênmiền:cổng</string>
+  <string name="config_enableLightTheme_title">Sử dụng giao diện sáng</string>
+  <string name="config_enableLightTheme_summary">Giao diện sáng có nền màu trắng</string>
+  <string name="config_category_misc">Khác</string>
   <!--preset downloader messages-->
   <string name="preset_update">Cập nhật thẻ đặt trước</string>
   <string name="preset_download_successful">Thẻ đặt trước được tải về thành công</string>
@@ -361,10 +399,12 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">di chuyển nốt</string>
   <string name="undo_action_moveway">di chuyển lối</string>
+  <string name="undo_action_moveobjects">di chuyển đối tượng</string>
   <string name="undo_action_add">chèn</string>
   <string name="undo_action_append">gắn thêm</string>
   <string name="undo_action_deletenode">xóa nốt</string>
   <string name="undo_action_deleteway">xóa lối</string>
+  <string name="undo_action_delete_objects">xóa đối tượng</string>
   <string name="undo_action_split_ways">chia lối</string>
   <string name="undo_action_split_way">chia lối</string>
   <string name="undo_action_merge_ways">gộp lối</string>
@@ -381,6 +421,7 @@
   <string name="undo_action_orthogonalize">làm vuông góc lối</string>
   <string name="undo_action_circulize">làm tròn</string>
   <string name="undo_action_fix_conflict">sửa sự mâu thuẫn</string>
+  <string name="undo_action_extract_node">trích nốt</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci đã bị sự cố hoặc gặp một vấn đề đáng kể. Xin vui lòng báo cáo lỗi.</string>
   <string name="crash_notif_title">Vespucci đã bị sự cố hoặc gặp vấn đề đáng kể.</string>
@@ -392,11 +433,16 @@
   <string name="pref_acra_disabled">Báo cáo sự cố được tắt</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Tác vụ này sẽ tạo lối có quá nhiều nốt.</string>
+  <!--Notifications-->
+  <string name="alert_data_issue">Đã phát hiện vấn đề trong dữ liệu OSM</string>
+  <string name="alert_note">Đã phát hiện lời ghi chú OSM lân cận</string>
+  <string name="alert_distance_direction">trong vòng %1$d m, %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Vai trò</string>
   <string name="role_lc">vai trò</string>
   <string name="membership_relation_heading">Thành viên quan hệ</string>
   <string name="relation">Quan hệ</string>
+  <string name="relations">Các quan hệ</string>
   <string name="position">Vị trí</string>
   <string name="type">Kiểu</string>
   <string name="object">Đối tượng</string>

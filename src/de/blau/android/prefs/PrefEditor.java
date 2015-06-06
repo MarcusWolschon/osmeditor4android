@@ -37,6 +37,11 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.d("PrefEditor", "onCreate");
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		
 		addPreferencesFromResource(R.xml.preferences);
@@ -80,6 +85,9 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	/** Perform initialization of the advanced preference buttons (API/Presets) */
 	private void fixUpPrefs() {
 		Preferences prefs = new Preferences(this);
+		
+		// remove any problematic imagery URLs
+		OpenStreetMapTileServer.applyBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		
 		ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPBG);
 		String[] ids = OpenStreetMapTileServer.getIds(true);

@@ -4,9 +4,12 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="44"
+	android:versionCode="45"
 	android:installLocation="auto"
 	>
+	
+	<!-- minSdkVersion is set to 7 to match ActionBarSherlock, but should be able to be set to 4 when ABS supports it -->
+	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16" />
 	
 	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -31,17 +34,16 @@
 		android:largeHeap="true" 
 		android:allowBackup="true" >
 		<activity
-			android:name="Main"
+			android:name=".Main"
 			android:theme="@style/Theme.customMain"
 			android:configChanges="orientation|screenSize|keyboardHidden"
 			android:launchMode="singleTask">
-		    
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-				<!-- harmless addition for samsung multi window support -->
+		    	<action android:name="android.intent.action.MAIN" />
+		    	<category android:name="android.intent.category.LAUNCHER" />
+		    	<!-- harmless addition for samsung multi window support -->
 				<category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
-			</intent-filter>
+		  	</intent-filter>
 		</activity>
 		<activity
 			android:name=".prefs.PrefEditor"
@@ -57,7 +59,7 @@
 			android:theme="@style/Theme.Sherlock"
 		/>
 		<activity
-			android:name="TagEditor"
+			android:name=".propertyeditor.PropertyEditor"
 			android:theme="@style/Theme.customTagEditor"
 			android:configChanges="orientation|screenSize|keyboardHidden"
 		/>
@@ -130,7 +132,4 @@
 		<uses-library android:required="false" android:name="com.sec.android.app.multiwindow"> </uses-library>
 		<meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
 	</application>
-	<!-- moving this here seems to fix some weird problems -->
-	<!-- minSdkVersion is set to 7 to match ActionBarSherlock, but should be able to be set to 4 when ABS supports it -->
-	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16" />
 </manifest> 

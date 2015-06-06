@@ -1,38 +1,38 @@
 # Vespucci Introduction
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Android 2.3 to 4.4. A word of caution is however necessary, while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Android 2.3 to 5.1. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
 
 ## First time use
 
-On start up Vespucci will show you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
 
 Alternatively you can dismiss the dialog by pressing the back button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
 
 ## Editing with Vespucci
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, or via the menu key.
+Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
 
 ### Downloading OSM Data
 
 Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
 
- * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
- * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
- * **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
- * **Upload data to OSM server** - upload edits to OpenStreetMap "(requires authentication)" *(requires network connectivity)*
- * **Export changes** - write a ".osc" format file containing the current edits, this acan be read for example by JOSM
- * **Read from file** - read a (J)OSM compatible XML format file
- * **Save to file** - save as a JOSM compatible XML format file
+* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
+* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Export changes** - write a ".osc" format file containing the current edits, this can be read for example by JOSM
+* **Read from file** - read a (J)OSM compatible XML format file
+* **Save to file** - save as a JOSM compatible XML format file
 
-The easiest open is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
+The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
 
 ### Editing
 
-To avoid accidental edits Vespucci will start up in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![](../images/locked.png) icon to unlock the screen.
+To avoid accidental edits Vespucci start in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen.
  
-With the default settings nodes and ways that are selectable will have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple object it will present a selection menu. Selected objects are highlighted in yellow.
+By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
 
-It is a good strategy to zoom in if you are attempting to edit a high density area.
+It is a good strategy to zoom in if you attempt to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 

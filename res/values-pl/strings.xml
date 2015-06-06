@@ -14,12 +14,18 @@
   <string name="data_conflict_title">Konflikt wersji</string>
   <string name="data_conflict_message">Dane, które próbujesz pobrać zawiera dane, które jest sprzeczne z wprowadzonymi zmianami. Najpierw spróbuj przesłać swoje dane przed ponowną próbą.</string>
   <string name="out_of_memory_title">Brak pamięci</string>
+  <string name="welcome_title">Witaj!</string>
   <string name="progress_title">Ładowanie</string>
   <string name="progress_message">Ładowanie danych do pamięci…</string>
   <string name="progress_download_message">Pobieranie danych z serwera…</string>
+  <string name="progress_general_title">Proszę czekać</string>
   <string name="progress_deleting_message">Usuwanie..</string>
+  <string name="progress_searching_message">Szukam...</string>
+  <string name="progress_saving_message">Zapisuję..</string>
   <string name="upload_comment_label">Komentarz:</string>
   <string name="upload_source_label">Źródło:</string>
+  <string name="upload_gpx_description_label">Opis</string>
+  <string name="upload_gpx_tags_label">Tagi</string>
   <string name="openstreetbug_new_title">Nowa notatka</string>
   <string name="openstreetbug_new_bug">Zgłoś błąd</string>
   <string name="openstreetbug_new_nodeway">Stwórz Węzeł/Drogę</string>
@@ -34,15 +40,28 @@
   <string name="unsaved_data_message">Masz niezapisane zmiany, które utracisz jeśli będziesz kontynuował.</string>
   <string name="unsaved_data_proceed">Odrzuć &amp; przejdź dalej</string>
   <string name="imagery_offset_title">Przesunięcie obrazu</string>
+  <string name="imagery_offset_description">Opis</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_offset">Przesunięcie</string>
+  <string name="imagery_offset_date">Stworzone</string>
+  <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Dystans</string>
+  <string name="tag_editor_name_suggestion">Sugestia nazwy</string>
+  <string name="search_results_title">Wyniki wyszukiwania</string>
+  <string name="nodes">Węzły</string>
+  <string name="relation_membership">Członkostwo relacji</string>
+  <string name="problem">Problem</string>
+  <string name="version">Wersja</string>
+  <string name="length_m">Długość (m)</string>
+  <string name="not_downloaded">Nie pobrane</string>
+  <string name="empty_role">pusta rola</string>
   <!--Toaster-->
   <string name="toast_no_changes">Jeszcze nic nie zmieniłeś…</string>
   <string name="toast_upload_success">Wysyłanie na serwer OSM zakończone.</string>
   <string name="toast_not_in_edit_range">Przybliż, by edytować (Volume Up/Down lub Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Odblokuj aby edytować</string>
   <string name="toast_save_done">Zapisano</string>
+  <string name="toast_save_failed">Zapis nie powiódł się</string>
   <string name="toast_not_in_bug_range">Przybliż, by dodać zgłosić błąd (Volume Up/Down lub Lens/Shift)</string>
   <string name="toast_export_failed">Eksport nieudany</string>
   <string name="toast_export_success">Eksportowano do %1$s</string>
@@ -54,6 +73,8 @@
   <string name="toast_unread_mail">Masz %1$s nie przeczytaną/e wiadomość/ci na serwerze OpenStreetmap</string>
   <string name="toast_photo_indexing_started">Rozpoczęcie skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończone skanowanie zdjęć georeferencyjnych.</string>
+  <string name="toast_nothing_found">Nic nie znaleziono</string>
+  <string name="toast_missing_filemanager">Zainstaluj menadżer plików.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
@@ -62,13 +83,18 @@
   <string name="locked">Zablokowane</string>
   <string name="next">Dalej</string>
   <string name="apply">Zastosuj</string>
+  <string name="replace">Zamień</string>
+  <string name="save">Zapisz</string>
   <!--Dialog for back button-->
   <string name="exit_title">rzeczywiście zakończyć?</string>
   <string name="exit_text">Czy na pewno chcesz wyjść?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">klucz</string>
+  <string name="Key">Klucz</string>
   <string name="value">wartość</string>
+  <string name="Value">Wartość</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pl:Map_Features</string>
+  <string name="tag_menu_address">Dodaj tag adresu</string>
   <string name="tag_menu_sourcesurvey">Oceniony</string>
   <string name="tag_menu_preset">Szablony</string>
   <string name="tag_menu_revert">Cofnij</string>
@@ -88,7 +114,9 @@
   <string name="location_coordinates_text">Wg współrzędnych:</string>
   <string name="location_lat_label">Szer:</string>
   <string name="location_lon_label">Dł:</string>
+  <string name="location_search_label">Szukaj:</string>
   <string name="location_load_button">Załaduj</string>
+  <string name="location_load_dismiss">Idź do mapy</string>
   <string name="location_nan_title">Złe dane!</string>
   <string name="location_nan_message">Wprowadź współrzędne w formacie dziesiętnym (np. \"52.333572\",\"22.741185\"). </string>
   <!--Menu-->
@@ -96,17 +124,22 @@
   <string name="menu_edit">Edytuj</string>
   <string name="menu_add">Nowy</string>
   <string name="menu_config">Ustawienia</string>
+  <string name="menu_find">Znajdź</string>
   <string name="menu_help">Pomoc</string>
   <string name="menu_erase">Skasuj węzeł</string>
+  <string name="menu_set_position">Pozycja</string>
   <string name="menu_split">Podziel drogę</string>
   <string name="menu_append">Dołącz</string>
   <string name="menu_restriction">Dodaj ograniczenie</string>
   <string name="menu_restriction_via">Dodaj restrykcję przez</string>
   <string name="menu_restriction_to">Dodaj restrykcję do`</string>
   <string name="menu_relation">Utwórz relację</string>
+  <string name="menu_add_relation_member">Dodaj członka</string>
+  <string name="menu_select_relation_members">Wybierz członków</string>
   <string name="menu_tag">Edytuj tagi</string>
   <string name="menu_openstreetbug">Dodaj notatkę</string>
   <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_camera">Aparat</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Pokaż lokalizację</string>
   <string name="menu_gps_follow">Podążaj za pozycją GPS</string>
@@ -128,9 +161,11 @@
   <string name="menu_cut">Wytnij</string>
   <string name="menu_paste">Wklej</string>
   <string name="menu_rotate">Obróć</string>
+  <string name="menu_information">Info</string>
   <string name="menu_tools">Narzędzia</string>
   <string name="menu_tools_background_properties">Właściwości tła</string>
   <string name="menu_tools_background_align_reset">Reset</string>
+  <string name="menu_tools_background_align_zero">Zero</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tagi</string>
   <!--Text should be as short as possible-->
@@ -150,7 +185,6 @@
   <string name="actionmode_relationselect">Relacja zaznaczona</string>
   <string name="actionmode_createpath">Tworzenie ścieżki</string>
   <!--Preferences-->
-  <string name="config_category_view">Ustawienia</string>
   <string name="config_maxStrokeWidth_title">Maksymalna długość linii</string>
   <string name="config_maxStrokeWidth_summary">Nie rysuj drogi grubszej niż ta.</string>
   <string name="config_showStats_title">Pokaż statystyki</string>
@@ -176,6 +210,7 @@
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Używaj  OAuth</string>
   <string name="listedit_enable_oauth">Włącz OAuth</string>
+  <string name="config_presetbutton_title">Szablony</string>
   <string name="config_iconbutton_title">Pokaż ikony węzłów</string>
   <string name="config_iconbutton_summary">Pokaż ikonę najbardziej pasującego szablonu nad węzłem.</string>
   <string name="config_loginbutton_title">Konto użytkownika</string>
@@ -260,6 +295,7 @@
   <string name="pref_acra_enabled">Zgłaszanie awarii włączone</string>
   <string name="pref_acra_disabled">Zgłaszanie awarii wyłączone</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
   <string name="role_lc">rola</string>

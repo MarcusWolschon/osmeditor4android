@@ -51,8 +51,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/urldialog_preset_exists" />
-
-
+            
+            <TextView
+                android:id="@+id/urldialog_textPresetSuccessful"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/urldialog_preset_download_successful" />
 
             <Button
                 android:id="@+id/urldialog_buttonAddPreset"
@@ -105,6 +109,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/urldialog_api_exists" />
+            
+             <TextView
+                android:id="@+id/urldialog_textAPISuccessful"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/urldialog_api_install_successful" />
 
             <Button
                 android:id="@+id/urldialog_buttonAddAPI"

@@ -90,9 +90,14 @@ public class Server {
 	private String accesstokensecret;
 	
 	/**
-	 * display name of the user.
+	 * display name of the user and other stuff
 	 */
 	private UserDetails userDetails;
+	
+	/**
+	 * Current capabilities
+	 */
+	public Capabilities capabilities = Capabilities.getDefault();
 
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -100,12 +105,6 @@ public class Server {
 	private static final String version = "0.6";
 
 	private final String osmChangeVersion = "0.3";
-
-//	/**
-//	 * Tag with "created_by"-key to identify edits made by this editor.
-//	 */
-//	private final String createdByTag;
-//	private final String createdByKey;
 
 	private long changesetId = -1;
 
@@ -236,95 +235,130 @@ public class Server {
 		return username;
 	}
 	
-	/**
-	 * display name and message counts is the only thing that is interesting
-	 * @author simon
-	 *
-	 */
-	public static enum Status {
-		ONLINE,
-		READONLY,
-		OFFLINE
+
+	public Capabilities getCachedCapabilities() {
+		return capabilities;
 	}
 	
-	public class Capabilities {
-		public String	minVersion = "";
-		public String	maxVersion = "";
-		public Status dbStatus = Status.OFFLINE;
-		public Status apiStatus = Status.OFFLINE;
-		public Status gpxStatus = Status.OFFLINE;
-		
-		public Status stringToStatus(String s) {
-			if (s.equals("online")) {
-				return Status.ONLINE;
-			} else if (s.equals("readonly")) {
-				return Status.READONLY;
-			} else {
-				return Status.OFFLINE;
-			}
-		}
-	}
 	
 	/**
-	 * Get the details for the user.
-	 * @return The display name for the user, or null if it couldn't be determined.
+	 * Get the capabilities for the current API
+	 * Side effect set capabilities field and update limits that are used else where
+	 * @return The capabilities for this server, or null if it couldn't be determined.
 	 */
 	public Capabilities getCapabilities() {
 		Capabilities result = null;
-		Capabilities capabilities = null; // cache maybe later 
-		if (capabilities == null) {
-			// Haven't retrieved the details from OSM - try to
-			try {
-				URL capabilitiesURL = getCapabilitiesUrl();
-				if (capabilitiesURL == null) {
-					throw new MalformedURLException();
-				}
-				Log.d("Server","getCapabilities using " + capabilitiesURL.toString());
-				HttpURLConnection con = (HttpURLConnection) capabilitiesURL.openConnection();
-				//--Start: header not yet send
-				con.setReadTimeout(TIMEOUT);
-				con.setConnectTimeout(TIMEOUT);
-				con.setRequestProperty("User-Agent", Application.userAgent);
-				try {
-					//connection.getOutputStream().close(); GET doesn't have an outputstream
-					checkResponseCode(con);
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(con.getInputStream(), null);
-					int eventType;
-					result = new Capabilities();
-					while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-						String tagName = parser.getName();
-						if (eventType == XmlPullParser.START_TAG && "version".equals(tagName)) {
-							result.minVersion = parser.getAttributeValue(null, "minimum");
-							result.maxVersion = parser.getAttributeValue(null, "maximum");
-							Log.d("Server","getCapabilities min/max API version " + result.minVersion + "/" + result.maxVersion);
-						}
-						if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
-							result.dbStatus = result.stringToStatus(parser.getAttributeValue(null, "database"));
-							result.apiStatus = result.stringToStatus(parser.getAttributeValue(null, "api"));
-							result.gpxStatus = result.stringToStatus(parser.getAttributeValue(null, "gpx"));
-							Log.d("Server","getCapabilities service status FB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
-						}	
-					}
-				} finally {
-					disconnect(con);
-				}
-			} catch (XmlPullParserException e) {
-				Log.e("Vespucci", "Problem accessing capabilities", e);
-			} catch (MalformedURLException e) {
-				Log.e("Vespucci", "Problem accessing capabilities", e);
-			} catch (ProtocolException e) {
-				Log.e("Vespucci", "Problem accessing capabilities", e);
-			} catch (IOException e) {
-				Log.e("Vespucci", "Problem accessing capabilities", e);
-			} catch (NumberFormatException e) {
-				Log.e("Vespucci", "Problem accessing capabilities", e);
+		HttpURLConnection con = null;
+		// 
+		try {
+			URL capabilitiesURL = getCapabilitiesUrl();
+			if (capabilitiesURL == null) {
+				return capabilities;
 			}
-			return result;
-		} 
-		return capabilities; // might not make sense
+			Log.d("Server","getCapabilities using " + capabilitiesURL.toString());
+			con = (HttpURLConnection) capabilitiesURL.openConnection();
+			//--Start: header not yet send
+			con.setReadTimeout(TIMEOUT);
+			con.setConnectTimeout(TIMEOUT);
+			con.setRequestProperty("User-Agent", Application.userAgent);
+
+			//connection.getOutputStream().close(); GET doesn't have an outputstream
+			checkResponseCode(con);
+			XmlPullParser parser = xmlParserFactory.newPullParser();
+			parser.setInput(con.getInputStream(), null);
+			int eventType;
+			result = new Capabilities();
+			// very hackish just keys on tag names and not in which secton of the response we are
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				try {
+					String tagName = parser.getName();
+					if (eventType == XmlPullParser.START_TAG && "version".equals(tagName)) {
+						result.minVersion = parser.getAttributeValue(null, "minimum");
+						result.maxVersion = parser.getAttributeValue(null, "maximum");
+						Log.d("Server","getCapabilities min/max API version " + result.minVersion + "/" + result.maxVersion);
+					}
+					if (eventType == XmlPullParser.START_TAG && "area".equals(tagName)) {
+						String maxArea = parser.getAttributeValue(null, "maximum");
+						if (maxArea != null) {
+							result.areaMax = Float.parseFloat(maxArea);
+						}
+						Log.d("Server","getCapabilities maximum area " + maxArea);
+					}
+					if (eventType == XmlPullParser.START_TAG && "tracepoints".equals(tagName)) {
+						String perPage = parser.getAttributeValue(null, "per_page");
+						if (perPage != null) {
+							result.maxTracepointsPerPage = Integer.parseInt(perPage);
+						}
+						Log.d("Server","getCapabilities maximum #tracepoints per page " + perPage);
+					}
+					if (eventType == XmlPullParser.START_TAG && "waynodes".equals(tagName)) {
+						String maximumWayNodes = parser.getAttributeValue(null, "maximum");
+						if (maximumWayNodes != null) {
+							result.maxWayNodes = Integer.parseInt(maximumWayNodes);
+						}
+						Log.d("Server","getCapabilities maximum #nodes in a way " + maximumWayNodes);
+					}
+					if (eventType == XmlPullParser.START_TAG && "changesets".equals(tagName)) {
+						String maximumElements = parser.getAttributeValue(null, "maximum_elements");
+						if (maximumElements != null) {
+							result.maxElementsInChangeset = Integer.parseInt(maximumElements);
+						}
+						Log.d("Server","getCapabilities maximum elements in changesets " + maximumElements);
+					}
+					if (eventType == XmlPullParser.START_TAG && "timeout".equals(tagName)) {
+						String seconds = parser.getAttributeValue(null, "seconds");
+						if (seconds != null) {
+							result.timeout = Integer.parseInt(seconds);
+						}
+						Log.d("Server","getCapabilities timeout seconds " + seconds);
+					}
+					if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
+						result.dbStatus = result.stringToStatus(parser.getAttributeValue(null, "database"));
+						result.apiStatus = result.stringToStatus(parser.getAttributeValue(null, "api"));
+						result.gpxStatus = result.stringToStatus(parser.getAttributeValue(null, "gpx"));
+						Log.d("Server","getCapabilities service status FB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
+					}	
+					if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
+						if (result.imageryBlacklist == null) {
+							result.imageryBlacklist = new ArrayList<String>();
+						}
+						String regex = parser.getAttributeValue(null, "regex");
+						if (regex != null) {
+							result.imageryBlacklist.add(regex);
+						}
+						Log.d("Server","getCapabilities blacklist regex " + regex);
+					}
+
+				} catch (NumberFormatException e) {
+					Log.e("Vespucci", "Problem accessing capabilities", e);
+				}
+			}
+			capabilities = result;
+			capabilities.updateLimits();
+			return result;	
+		} catch (XmlPullParserException e) {
+			Log.e("Vespucci", "Problem accessing capabilities", e);
+		} catch (ProtocolException e) {
+			Log.e("Vespucci", "Problem accessing capabilities", e);
+		} catch (IOException e) {
+			Log.e("Vespucci", "Problem accessing capabilities", e);
+		} finally {
+			disconnect(con);
+		}
+		return null;
 	}
 
+	public boolean apiAvailable() {
+		return capabilities.apiStatus.equals(Capabilities.Status.ONLINE);
+	}
+	
+	public boolean readableDB() {
+		return capabilities.dbStatus.equals(Capabilities.Status.ONLINE) || capabilities.dbStatus.equals(Capabilities.Status.READONLY);
+	}
+	
+	public boolean writableDB() {
+		return capabilities.dbStatus.equals(Capabilities.Status.ONLINE);
+	}
 	
 	/**
 	 * @param area
@@ -647,6 +681,14 @@ public class Server {
 		}
 		return osmId;
 	}
+	
+	/**
+	 * Test if changeset is at least potentially still open.
+	 * @return
+	 */
+	public boolean hasOpenChangeset() {
+		return changesetId != -1;
+	}
 
 	/**
 	 * Open a new changeset.
@@ -726,6 +768,13 @@ public class Server {
 		changesetId = newChangesetId;
 	}
 
+	/**
+	 * Close the current open changeset, will zap the stored id even if the closing fails, 
+	 * this will force using a new changeset on the next upload
+	 * @throws MalformedURLException
+	 * @throws ProtocolException
+	 * @throws IOException
+	 */
 	public void closeChangeset() throws MalformedURLException, ProtocolException, IOException {
 		HttpURLConnection connection = null;
 
@@ -1282,7 +1331,7 @@ public class Server {
 			out.write(tags + "\r\n");
 			out.write(seperator);
 			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
-			out.write(visibility.name().toLowerCase() + "\r\n");
+			out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
 			out.write(seperator);
 			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".gpx\"\r\n");
 			out.write("Content-Type: application/gpx+xml\r\n\r\n");

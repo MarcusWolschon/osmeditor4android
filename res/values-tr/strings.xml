@@ -19,7 +19,7 @@
   <string name="okay">Tamam</string>
   <string name="cancel">İpta</string>
   <!--Dialog for back button-->
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <!--Strings in LocationPicker-->
   <string name="location_lat_label">Enl:</string>
   <string name="location_lon_label">Boy:</string>
@@ -38,7 +38,6 @@
   <!--Text should be as short as possible-->
   <!--EasyEdit action mode titles-->
   <!--Preferences-->
-  <string name="config_category_view">Görünüm Ayarları</string>
   <string name="config_showStats_title">İstatistikleri göster</string>
   <string name="config_category_server">Sunucu Ayarları</string>
   <string name="config_api_url_title">API URL</string>
@@ -65,6 +64,7 @@
   <string name="undo_action_paste">yapıştır</string>
   <!--ACRA-->
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
   <!--Help system-->

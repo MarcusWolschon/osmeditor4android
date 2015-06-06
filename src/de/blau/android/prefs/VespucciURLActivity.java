@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.acra.ACRA;
+
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
@@ -48,11 +50,18 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	private PresetInfo apiPresetInfo = null;
 	private String oauth_token, oauth_verifier;
 	AdvancedPrefDatabase prefdb;
+	private boolean downloadSucessful = false;
 	
 	private View mainView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_customMain_Light);
+		} else {
+			setTheme(R.style.Theme_customMain);
+		}
 		super.onCreate(savedInstanceState);
 		mainView = View.inflate(this, R.layout.url_activity, null);
 		setContentView(mainView);
@@ -61,25 +70,36 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	
 	@Override
 	protected void onStart() {
-		Uri data = getIntent().getData(); 
-	    apiurl     = data.getQueryParameter("apiurl");
-	    apiname    = data.getQueryParameter("apiname");
-	    apiuser    = data.getQueryParameter("apiuser");
-	    apipass    = data.getQueryParameter("apipass");
-	    apipreseturl  = data.getQueryParameter("apipreset");
-	    apiicons   = data.getQueryParameter("apiicons");
-	    apioauth   = data.getQueryParameter("apioauth");
-	    preseturl  = data.getQueryParameter("preseturl");
-	    presetname = data.getQueryParameter("presetname");
-	    oauth_token = data.getQueryParameter("oauth_token");
-	    oauth_verifier = data.getQueryParameter("oauth_verifier");
-
+		Uri data = getIntent().getData();
+		if (data != null) {
+			try {
+				apiurl     = data.getQueryParameter("apiurl");
+				apiname    = data.getQueryParameter("apiname");
+				apiuser    = data.getQueryParameter("apiuser");
+				apipass    = data.getQueryParameter("apipass");
+				apipreseturl  = data.getQueryParameter("apipreset");
+				apiicons   = data.getQueryParameter("apiicons");
+				apioauth   = data.getQueryParameter("apioauth");
+				preseturl  = data.getQueryParameter("preseturl");
+				presetname = data.getQueryParameter("presetname");
+				oauth_token = data.getQueryParameter("oauth_token");
+				oauth_verifier = data.getQueryParameter("oauth_verifier");
+			} catch (Exception ex) {
+				Log.e("VespucciURLActivity","Uri " + data + " caused " + ex);
+				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+				ACRA.getErrorReporter().handleException(ex);
+				finish();
+			}
+		} else {
+			Log.e("VespucciURLActivity","Received null Uri, ignoring");
+		}
 	    super.onStart();
 	}
 	
 	@Override
 	protected void onResume() {
 		Log.i("VespucciURLActivity", "onResume");
+		// determining what activity to do based purely on the parameters is rather hackish
 	    if ((oauth_token != null) && (oauth_verifier != null)) {
 	    	mainView.setVisibility(View.GONE);
 	    	Log.i("VespucciURLActivity", "got oauth verifier " + oauth_token + " " + oauth_verifier);
@@ -90,17 +110,26 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	    else {
 			mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null && apiurl == null ? View.VISIBLE : View.GONE);
 			
-	    	mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(preseturl != null ? View.VISIBLE : View.GONE);
-		    if (preseturl != null) {
+			if (preseturl != null) {
+				mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
+				mainView.findViewById(R.id.urldialog_layoutAPI).setVisibility(View.GONE);
+		    
 		    	((TextView)mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
 		    	((TextView)mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
 		    	existingPreset = prefdb.getPresetByURL(preseturl);
-		    	mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
+		    	if (downloadSucessful) {
+		    		mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
+		    		mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
+		    	} else {
+		    		mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
+		    		mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
+		    	}
 		    	mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-		    }
+		    	((Button)mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
+		    } else if (apiurl != null) {
+		    	mainView.findViewById(R.id.urldialog_layoutAPI).setVisibility(View.VISIBLE);
+		    	mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.GONE);
 		    
-	    	mainView.findViewById(R.id.urldialog_layoutAPI).setVisibility(apiurl != null ? View.VISIBLE : View.GONE);
-		    if (apiurl != null) {
 		    	((TextView)mainView.findViewById(R.id.urldialog_textAPIName)).setText(apiname);
 		    	((TextView)mainView.findViewById(R.id.urldialog_textAPIURL)).setText(apiurl);
 		    	boolean hasAPI = false;
@@ -110,7 +139,13 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		    			break;
 		    		}
 		    	}
-		    	mainView.findViewById(R.id.urldialog_textAPIExists).setVisibility(hasAPI ? View.VISIBLE : View.GONE);
+		    	if (downloadSucessful) {
+		    		mainView.findViewById(R.id.urldialog_textAPISuccessful).setVisibility(View.VISIBLE);
+		    		mainView.findViewById(R.id.urldialog_textAPIExists).setVisibility(View.GONE);
+		    	} else {
+		    		mainView.findViewById(R.id.urldialog_textAPIExists).setVisibility(hasAPI ? View.VISIBLE : View.GONE);
+		    		mainView.findViewById(R.id.urldialog_textAPISuccessful).setVisibility(View.GONE);
+		    	}
 		    	if (apipreseturl != null) {
 		    		apiPresetInfo = prefdb.getPresetByURL(apipreseturl);
 			    	mainView.findViewById(R.id.urldialog_textAPIPresetMissing).setVisibility(apiPresetInfo == null? View.VISIBLE : View.GONE);
@@ -118,11 +153,8 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 			    	mainView.findViewById(R.id.urldialog_textAPIPresetMissing).setVisibility(View.GONE);
 			    	apiPresetInfo = null;
 		    	}
+		    	((Button)mainView.findViewById(R.id.urldialog_buttonAddAPI)).setOnClickListener(this);
 		    }
-
-	    	((Button)mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
-	    	((Button)mainView.findViewById(R.id.urldialog_buttonAddAPI)).setOnClickListener(this);
-
 	    }
 		super.onResume();
 	}
@@ -164,6 +196,9 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 					prefdb.setCurrentAPIShowIcons(true);
 				}
 			}
+			downloadSucessful = true;
+		} else if (requestCode == REQUEST_PRESETEDIT && resultCode == RESULT_OK) {
+			downloadSucessful = true;
 		}
 	}
 	

@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 
@@ -18,18 +20,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ThemeUtils;
 
 
 /**
@@ -48,19 +52,22 @@ public class HelpViewer extends SherlockActivity {
 	private ListView mDrawerList;
 	ArrayAdapter<String> tocAdapter;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Preferences prefs = new Preferences(this);
+		if (prefs.lightThemeEnabled()) {
+			setTheme(R.style.Theme_customHelpViewer_Light);
+		}
+		
 		super.onCreate(savedInstanceState);
 		String topic = (String)getIntent().getSerializableExtra(TOPIC);
-		setTheme(R.style.Theme_customHelpViewer);
+
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar == null) {
 			Log.d("HelpViewer", "No actionbar"); // fail?
+			return;
 		}
-		ColorDrawable c = new ColorDrawable(getResources().getColor(R.color.actionbar_bg));
-		actionbar.setBackgroundDrawable(c);
-		actionbar.setSplitBackgroundDrawable(c);
-		actionbar.setStackedBackgroundDrawable(c); // this probably isn't ever necessary
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);
 		actionbar.setDisplayShowTitleEnabled(true);
@@ -71,6 +78,13 @@ public class HelpViewer extends SherlockActivity {
 		// add our real content
 		FrameLayout fl =  (FrameLayout) findViewById(R.id.content_frame);
 		helpView = new WebView(this);
+		WebSettings helpSettings = helpView.getSettings();
+		helpSettings.setDefaultFontSize(12);
+		helpSettings.setSupportZoom(true);
+		helpSettings.setBuiltInZoomControls(true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			helpSettings.setDisplayZoomControls(false);
+		}
 		fl.addView(helpView);
 		
 		// set up the drawer
@@ -79,7 +93,7 @@ public class HelpViewer extends SherlockActivity {
 		
 		actionbar.setHomeButtonEnabled(true);
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.okay, R.string.okay);
+		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, ThemeUtils.getResIdFromAttribute(this,R.attr.drawer), R.string.okay, R.string.okay);
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		
 		try {
@@ -107,10 +121,10 @@ public class HelpViewer extends SherlockActivity {
 
 			
 			String helpFile = "help/" + Locale.getDefault() + "/"  + topic + ".html";
-			Log.d("HelpViwer","1 Looking for help file: " + helpFile);
+			Log.d("HelpViewer","1 Looking for help file: " + helpFile);
 			if (!Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault())).contains(topic + ".html")) {
 				helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topic + ".html";
-				Log.d("HelpViwer","2 Looking for help file: " + helpFile);
+				Log.d("HelpViewer","2 Looking for help file: " + helpFile);
 				if (!Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage())).contains(topic + ".html")) {
 					helpFile = "help/en/"  + topic + ".html";
 					if (!Arrays.asList(getResources().getAssets().list("help/en")).contains(topic + ".html")) {
@@ -172,6 +186,5 @@ public class HelpViewer extends SherlockActivity {
 			mDrawerList.setSelected(false);
 			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + topic);
 		}
-
 	}
 }

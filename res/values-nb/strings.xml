@@ -36,7 +36,7 @@
   <string name="okay">Ok</string>
   <string name="cancel">Avbryt</string>
   <!--Dialog for back button-->
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">nøkkel</string>
   <string name="value">verdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -94,7 +94,6 @@
   <string name="actionmode_nodeselect">Node valgt</string>
   <string name="actionmode_createpath">Lager bane</string>
   <!--Preferences-->
-  <string name="config_category_view">Vis innstillinger</string>
   <string name="config_showStats_title">Vis statistikk</string>
   <string name="config_showStats_summary">Viser datastatistikk og bilde/sek i nederste venstre hjørne.</string>
   <string name="config_showTolerance_title">Vis endringsområde</string>
@@ -168,6 +167,7 @@
   <string name="pref_acra_enabled">Krasjrapportering slått på</string>
   <string name="pref_acra_disabled">Krasjrapportering slått av</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <!--time and distance-->
   <!--Help system-->

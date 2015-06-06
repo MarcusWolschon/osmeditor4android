@@ -47,7 +47,7 @@
   <string name="cancel">Baztertu</string>
   <string name="locked">Blokeatuta</string>
   <!--Dialog for back button-->
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">giltza</string>
   <string name="value">balioa</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -126,7 +126,6 @@
   <string name="actionmode_relationselect">Erlazioa aukeratua</string>
   <string name="actionmode_createpath">Ibilbidea sortzen</string>
   <!--Preferences-->
-  <string name="config_category_view">Ezarpenak ikusi</string>
   <string name="config_maxStrokeWidth_title">Lerroaren zab. max.</string>
   <string name="config_maxStrokeWidth_summary">Hau baina lodiagoa den biderik ez marraztu</string>
   <string name="config_showStats_title">Estatistikak erakutsi</string>
@@ -227,6 +226,7 @@
   <string name="pref_acra_enabled">Haustura jakinarazpena gaituta</string>
   <string name="pref_acra_disabled">Hautsura jakinarazpena ezgaitua</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Rola</string>
   <string name="role_lc">rola</string>

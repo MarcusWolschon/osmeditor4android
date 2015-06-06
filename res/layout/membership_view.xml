@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+	>
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:id="@+id/relation_membership_layout"
+	    android:padding="0dp" >
+		<LinearLayout
+		    android:id="@+id/membership_heading_view"
+		  	android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+    		style="?attr/Layout"
+    		android:orientation="horizontal" >
+    		<CheckBox
+            		android:id="@+id/header_membership_selected"
+            		android:text=""
+            		style="?attr/TableHeader"
+            		android:layout_width="34dp"
+            		android:layout_height="34dp"
+            		android:layout_gravity="center_vertical" 
+        			android:paddingLeft="5dp"
+	        		android:paddingRight="5dp"
+	       			android:layout_marginBottom="1dp"
+	        		android:layout_marginRight="1dp"
+	        	/>
+				<TextView
+		        	android:id="@+id/membership_role_heading_view"
+	        		android:layout_width="fill_parent"
+	        		android:layout_height="wrap_content"
+	        		android:layout_marginBottom="1dp"
+	        		android:layout_marginRight="1dp"
+	        		android:layout_weight="3"
+	        		style="?attr/TableHeader"
+	        		android:minHeight="34dp"
+	        		android:paddingLeft="5dp"
+	        		android:paddingRight="5dp"
+	        		android:singleLine="true"
+	        		android:gravity="center_vertical"
+	        		android:text="@string/role"
+		        />
+				<TextView
+			        android:id="@+id/membership_relation_heading_view"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="0dp"
+			        android:layout_marginBottom="1dp"
+			        android:layout_weight="2"
+			        style="?attr/TableHeader"
+			        android:minHeight="34dp"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        android:singleLine="true"
+			        android:gravity="center_vertical"
+			        android:text="@string/membership_relation_heading"
+			    />
+		</LinearLayout>
+		<LinearLayout
+	   		android:id="@+id/membership_vertical_layout"
+	    	android:layout_width="fill_parent"
+	   		android:layout_height="wrap_content"
+	    	android:orientation="vertical"
+	    	android:padding="0dp" >
+		</LinearLayout>
+	</LinearLayout>
+</ScrollView>
+	

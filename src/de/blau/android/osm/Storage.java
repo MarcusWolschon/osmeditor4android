@@ -220,18 +220,28 @@ public class Storage implements Serializable {
 	 * @param bbox
 	 */
 	void setBoundingBox(final BoundingBox bbox) {
-		this.bboxes = new ArrayList<BoundingBox>();
+		this.bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
 		this.bboxes.add(bbox);
 	}
 	
-	/**�
+	/**
 	 * Add this boundingbox to list
 	 * @param bbox
 	 */
 	void addBoundingBox(final BoundingBox bbox) {
 		if (this.bboxes == null)
-			this.bboxes = new ArrayList<BoundingBox>();
+			this.bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
 		this.bboxes.add(bbox);
+	}
+	
+	/**
+	 * Remove boundingbox from list
+	 * @param box
+	 */
+	public void deleteBoundingBox(BoundingBox box) {
+		if (this.bboxes != null) {
+			this.bboxes.remove(box);
+		}
 	}
 
 	/**

@@ -18,6 +18,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -41,6 +42,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Toast;
 import de.blau.android.exception.OsmException;
@@ -49,6 +51,7 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
@@ -89,7 +92,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  */
 public class Logic {
 
-	private static final String DEBUG_TAG = Main.class.getSimpleName();
+	private static final String DEBUG_TAG = Logic.class.getSimpleName();
 
 	/**
 	 * Enums for modes.
@@ -100,10 +103,6 @@ public class Logic {
 		 */
 		MODE_MOVE,
 		/**
-		 * edit ways and nodes by tapping the screen
-		 */
-		MODE_EDIT,
-		/**
 		 * add nodes by tapping the screen
 		 */
 		MODE_ADD,
@@ -111,10 +110,6 @@ public class Logic {
 		 * erase ways and nodes by tapping the screen
 		 */
 		MODE_ERASE,
-		/**
-		 * append nodes to the end of a way by tapping the screen
-		 */
-		MODE_APPEND,
 		/**
 		 * edit tags of ways and nodes by tapping the screen
 		 */
@@ -199,7 +194,7 @@ public class Logic {
 	/**
 	 * See {@link StorageDelegator}.
 	 */
-	protected final StorageDelegator delegator = new StorageDelegator();
+	private final StorageDelegator delegator = new StorageDelegator();
 
 	/**
 	 * Stores the {@link Preferences} as soon as they are available.
@@ -210,17 +205,37 @@ public class Logic {
 	/**
 	 * The user-selected node.
 	 */
-	private Node selectedNode;
+	private List<Node> selectedNodes;
 
 	/**
 	 * The user-selected way.
 	 */
-	private Way selectedWay;
+	private List<Way> selectedWays;
 	
 	/**
 	 * The user-selected relation.
 	 */
-	private Relation selectedRelation;
+	private List<Relation> selectedRelations;
+	
+	/* The following are lists because elements could be add multiple times
+	 * adding them once per selected relation and teh same for deletion avoids 
+	 * having to maintain a coune 
+	 */
+	/**
+	 * ways belonging to a selected relation
+	 */
+	private List<Way> selectedRelationWays = null;
+	
+	/**
+	 * nodes belonging to a selected relation
+	 */
+	private List<Node> selectedRelationNodes = null;
+	
+	/**
+	 * relations belonging to a selected relation 
+	 */
+	private List<Relation> selectedRelationRelations = null;
+	
 	
 	/**
 	 * The user-selected bug.
@@ -279,32 +294,23 @@ public class Logic {
 	 */
 	private boolean returnRelations = true;
 	
-	/**
-	 * ways belonging to a selected relation
-	 */
-	private Set<Way> selectedRelationWays = null;
+
 	
 	/**
-	 * nodes belonging to a selected relation
-	 */
-	private Set<Node> selectedRelationNodes = null;
-	
-	/**
-	 * 
+	 * The currently selected handle to be dragged to create a new node in a way.
 	 */
 	private Handle selectedHandle = null;
 
 	/**
 	 * Initiate all needed values. Starts Tracker and delegate the first values for the map.
 	 * 
-	 * @param locationManager Needed for the Tracker. Should be instanced in Main.
 	 * @param map Instance of the Map. All new Values will be pushed to it.
-	 * @param paints Needed for updating the strokes on zooming.
+	 * @param profile The drawing profile used by the map to paint the objects on screen.
 	 */
 	Logic(final Map map, final Profile profile) {
 		this.map = map;
 
-		viewBox = delegator.getLastBox();
+		viewBox = getDelegator().getLastBox();
 		
 		mode = Mode.MODE_MOVE;
 		setSelectedBug(null);
@@ -313,7 +319,7 @@ public class Logic {
 		setSelectedRelation(null);
 
 		// map.setPaints(paints);
-		map.setDelegator(delegator);
+		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
 	}
 
@@ -332,14 +338,15 @@ public class Logic {
 
 	
 	/**
-	 * 
+	 * Informs the current drawing profile of the user preferences affecting
+	 * drawing, the current screen properties, and clears the way cache.
 	 */
 	public void updateProfile() {
 		Profile.switchTo(prefs.getMapProfile());
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		Profile.setAntiAliasing(prefs.isAntiAliasingEnabled());
 		// zap the cached style for all ways
-		for (Way w:delegator.getCurrentStorage().getWays()) {
+		for (Way w:getDelegator().getCurrentStorage().getWays()) {
 			w.setFeatureProfile(null);
 		}
 	}
@@ -359,9 +366,6 @@ public class Logic {
 		setSelectedBug(null);
 		switch (mode) {
 		case MODE_TAG_EDIT:
-		case MODE_APPEND:
-		case MODE_EDIT:
-			// do nothing
 			break;
 		case MODE_ALIGN_BACKGROUND:		// action mode sanity check
 		if (Application.mainActivity.getBackgroundAlignmentActionModeCallback() == null) {
@@ -383,6 +387,9 @@ public class Logic {
 		map.invalidate();
 	}
 
+	/**
+	 * Returns the current mode that the program is in.
+	 */
 	public Mode getMode() {
 		return mode;
 	}
@@ -393,16 +400,17 @@ public class Logic {
 	 * @return {@link StorageDelegator#hasChanges()}
 	 */
 	public boolean hasChanges() {
-		return delegator.hasChanges();
+		return getDelegator().hasChanges();
 	}
 	
 	/**
 	 * Get the current undo instance.
 	 * For immediate use only - DO NOT CACHE THIS.
+	 * 
 	 * @return the UndoStorage, allowing operations like creation of checkpoints and undo/redo.  
 	 */
 	public UndoStorage getUndo() {
-		return delegator.getUndo();
+		return getDelegator().getUndo();
 	}
 
 	/**
@@ -467,6 +475,7 @@ public class Logic {
 	
 	/**
 	 * Test if the requested zoom operation can be performed.
+	 * 
 	 * @param zoomIn The zoom operation: ZOOM_IN or ZOOM_OUT.
 	 * @return true if the zoom operation can be performed, false if it can't.
 	 */
@@ -475,10 +484,11 @@ public class Logic {
 	}
 	
 	/**
-	 * Zooms in or out. Checks if the new viewBox is close enough for editing and sends this value to map. Strokes will
-	 * be updated and map will be repainted.
+	 * Zooms in or out. Checks if the new viewBox is close enough for editing
+	 * and sends this value to map. Strokes will be updated and map will be repainted.
 	 * 
-	 * @param zoomIn true for zooming in.
+	 * @param zoomIn
+	 *            true for zooming in.
 	 */
 	public void zoom(final boolean zoomIn) {
 		if (zoomIn) {
@@ -486,22 +496,7 @@ public class Logic {
 		} else {
 			viewBox.zoomOut();
 		}
-		isInEditZoomRange();
-		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
-		if (rotatingWay) {
-			showCrosshairsForCentroid();
-		}
-		map.postInvalidate();
-	}
-	
-	public void zoom(final float zoomFactor) {
-		try {
-			viewBox.zoom(zoomFactor);
-		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		isInEditZoomRange();
+		isInEditZoomRange(); //FIXME - This line does nothing.
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		if (rotatingWay) {
 			showCrosshairsForCentroid();
@@ -510,8 +505,29 @@ public class Logic {
 	}
 	
 	/**
-	 * set zoom to a specific tile zoom level
-	 * @param z
+	 * Zooms the map in or out by the given factor and updates the map view after zooming.
+	 * 
+	 * @param zoomFactor The factor to zoom by, negative values zoom out, positive zooms in.
+	 */
+	public void zoom(final float zoomFactor) {
+		try {
+			viewBox.zoom(zoomFactor);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		isInEditZoomRange(); //FIXME - This line does nothing.
+		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
+		if (rotatingWay) {
+			showCrosshairsForCentroid();
+		}
+		map.postInvalidate();
+	}
+	
+	/**
+	 * Set the zoom to a specific tile zoom level.
+	 * 
+	 * @param z The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
 	 */
 	public void setZoom(int z) {
 		viewBox.setZoom(z);
@@ -534,18 +550,20 @@ public class Logic {
 	
 	/**
 	 * Create an undo checkpoint using a resource string as the name
+	 * 
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void createCheckpoint(int stringId) {
-		delegator.getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().createCheckpoint(Application.mainActivity.getResources().getString(stringId));
 	}
 	
 	/**
 	 * Remove an undo checkpoint using a resource string as the name
+	 * 
 	 * @param stringId the resource id of the string representing the checkpoint name
 	 */
 	private void removeCheckpoint(int stringId) {
-		delegator.getUndo().removeCheckpoint(Application.mainActivity.getResources().getString(stringId));
+		getDelegator().getUndo().removeCheckpoint(Application.mainActivity.getResources().getString(stringId));
 	}
 	
 
@@ -559,14 +577,14 @@ public class Logic {
 	 * @return false if no element exists for the given osmId/type.
 	 */
 	public boolean setTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
-		OsmElement osmElement = delegator.getOsmElement(type, osmId);
+		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_set_tags);
-			delegator.setTags(osmElement, tags);
+			getDelegator().setTags(osmElement, tags);
 			return true;
 		}
 	}
@@ -581,25 +599,32 @@ public class Logic {
 	 * @return false if no element exists for the given osmId/type.
 	 */
 	public boolean updateParentRelations(final String type, final long osmId, final HashMap<Long, String> parents) {
-		OsmElement osmElement = delegator.getOsmElement(type, osmId);
+		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_update_relations);
-			delegator.updateParentRelations(osmElement, parents);	
+			getDelegator().updateParentRelations(osmElement, parents);	
 			return true;
 		}
 	}
 	
+	/**
+	 * Updates the list of members in the selected relation.
+	 * Actual work is delegated out to {@link StorageDelegator}.
+	 * 
+	 * @param osmId The OSM ID of the relation to change.
+	 * @param members The new list of members to set for the given relation.
+	 */
 	public boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
-		OsmElement osmElement = delegator.getOsmElement(Relation.NAME, osmId);
+		OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_update_relations);
-			delegator.updateRelation((Relation)osmElement, members);	
+			getDelegator().updateRelation((Relation)osmElement, members);	
 			return true;
 		}
 	}
@@ -621,8 +646,8 @@ public class Logic {
 		}
 		
 		// not checking will zap edits, given that this method will only be called when we are not downloading, not a good thing
-		if (!delegator.isDirty()) {
-			delegator.reset();
+		if (!getDelegator().isDirty()) {
+			getDelegator().reset();
 			// delegator.setOriginalBox(box); not needed IMHO
 		} else {
 			//TODO show warning
@@ -670,6 +695,7 @@ public class Logic {
 
 	/**
 	 * Returns all ways within way tolerance from the given coordinates, and their distances from them.
+	 * 
 	 * @param x x display coordinate
 	 * @param y y display coordinate
 	 * @return a hash map mapping Ways to distances
@@ -677,7 +703,7 @@ public class Logic {
 	public HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
 		HashMap<Way, Double> result = new HashMap<Way, Double>();
 
-		for (Way way : delegator.getCurrentStorage().getWays()) {
+		for (Way way : getDelegator().getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 
 			if (clickableElements != null && !clickableElements.contains(way)) continue;
@@ -701,6 +727,9 @@ public class Logic {
 		return result;
 	}
 	
+	/**
+	 * The small mid segment 'x' handles that allow dragging to easily add a new node to a way.
+	 */
 	class Handle {
 		float x;
 		float y;
@@ -713,6 +742,7 @@ public class Logic {
 	
 	/**
 	 * Returns all ways with a mid-way segment handle tolerance from the given coordinates, and their distances from them.
+	 * 
 	 * @param x x display coordinate
 	 * @param y y display coordinate
 	 * @return a hash map mapping Ways to distances
@@ -722,7 +752,7 @@ public class Logic {
 		Handle result = null;
 		double bestDistance = Double.MAX_VALUE;
 		
-		for (Way way : delegator.getCurrentStorage().getWays()) {
+		for (Way way : getDelegator().getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 
 			if (clickableElements != null && !clickableElements.contains(way)) continue;
@@ -761,6 +791,7 @@ public class Logic {
 	/**
 	 * Calculates the on-screen distance between a node and the screen coordinate of a click.
 	 * Returns null if the node was outside the click tolerance.
+	 * 
 	 * @param node the node
 	 * @param x the x coordinate of the clicked point
 	 * @param y the y coordinate of the clicked point
@@ -768,7 +799,7 @@ public class Logic {
 	 *         null otherwise
 	 */
 	private Double clickDistance(Node node, final float x, final float y) {
-		return clickDistance(node, x, y, Profile.getCurrent().nodeToleranceValue);
+		return clickDistance(node, x, y, node.isTagged() ? Profile.getCurrent().nodeToleranceValue : Profile.getCurrent().wayToleranceValue/2);
 	}
 
 	private Double clickDistance(Node node, final float x, final float y, float tolerance) {
@@ -784,13 +815,14 @@ public class Logic {
 	
 	/**
 	 * Returns all nodes within node tolerance from the given coordinates, and their distances from them.
+	 * 
 	 * @param x x display coordinate
 	 * @param y y display coordinate
 	 * @return a hash map mapping Nodes to distances
 	 */
 	public HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y) {
 		HashMap<Node, Double> result = new HashMap<Node, Double>();
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
+		List<Node> nodes = getDelegator().getCurrentStorage().getNodes();
 
 		for (Node node : nodes) {
 			if (clickableElements != null && !clickableElements.contains(node)) continue;
@@ -798,7 +830,7 @@ public class Logic {
 			int lat = node.getLat();
 			int lon = node.getLon();
 
-			if (node.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)) {
+			if (node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lat, lon)) {
 				Double dist = clickDistance(node, x, y);
 				if (dist != null) result.put(node, dist);
 			}
@@ -817,12 +849,19 @@ public class Logic {
 		return nodeSorter.sort(getClickedNodesWithDistances(x, y));
 	}
 
+	/**
+	 * Searches for a way end node at x,y plus the shown node-tolerance. The Node has to lay in the mapBox.
+	 * 
+	 * @param x display-coordinate.
+	 * @param y display-coordinate.
+	 * @return all end nodes within tolerance found in the currentStorage node-list, ordered ascending by distance.
+	 */
 	public List<OsmElement> getClickedEndNodes(final float x, final float y) {
 		List<OsmElement> result = new ArrayList<OsmElement>();
 		List<OsmElement> allNodes = getClickedNodes(x, y);
 
 		for (OsmElement osmElement : allNodes) {
-			if (delegator.getCurrentStorage().isEndNode((Node) osmElement))
+			if (getDelegator().getCurrentStorage().isEndNode((Node) osmElement))
 				result.add(osmElement);
 		}
 
@@ -852,6 +891,7 @@ public class Logic {
 
 	/**
 	 * Returns all ways within click tolerance from the given coordinate 
+	 * 
 	 * @param x x display-coordinate.
 	 * @param y y display-coordinate.
 	 * @return the ways
@@ -862,6 +902,7 @@ public class Logic {
 	
 	/**
 	 * Returns the closest way (within tolerance) to the given coordinates
+	 * 
 	 * @param x the x display-coordinate.
 	 * @param y the y display-coordinate.
 	 * @return the closest way, or null if no way is found within the tolerance
@@ -879,10 +920,18 @@ public class Logic {
 		return bestWay;
 	}
 	
+	/**
+	 * Returns a list of all the clickable OSM elements in storage (does not
+	 * restrict to the current screen). Before returning the list is "pruned" to
+	 * remove any elements on the exclude list.
+	 * 
+	 * @param excludes The list of OSM elements to exclude from the results.
+	 * @return
+	 */
 	public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
 		Set<OsmElement> result = new HashSet<OsmElement>();
-		result.addAll(delegator.getCurrentStorage().getNodes());
-		result.addAll(delegator.getCurrentStorage().getWays());
+		result.addAll(getDelegator().getCurrentStorage().getNodes());
+		result.addAll(getDelegator().getCurrentStorage().getWays());
 		for (OsmElement e:excludes)
 			result.remove(e);
 		return result;
@@ -890,31 +939,34 @@ public class Logic {
 	
 	/**
 	 * Get a list of all the Ways connected to the given Node.
+	 * 
 	 * @param node The Node.
 	 * @return A list of all Ways connected to the Node.
 	 */
 	public List<Way> getWaysForNode(final Node node) {
-		return delegator.getCurrentStorage().getWays(node);
+		return getDelegator().getCurrentStorage().getWays(node);
 	}
 
 	/**
 	 * Test if the given Node is an end node of a Way. Isolated nodes not part
 	 * of a way are not considered an end node.
+	 * 
 	 * @param node Node to test.
 	 * @return true if the Node is an end node of a Way, false otherwise.
 	 */
 	public boolean isEndNode(final Node node) {
-		return delegator.getCurrentStorage().isEndNode(node);
+		return getDelegator().getCurrentStorage().isEndNode(node);
 	}
 	
 	/**
-	 * Check all nodes in way if they are actually in the downloaded data
-	 * @param way
+	 * Check all nodes in way to see if the bbox of the downloaded data.
+	 * 
+	 * @param way the way whose nodes should be checked
 	 * @return true if the above is the case
 	 */
 	public boolean isInDownload(Way way) {
 		for (Node n:way.getNodes()) {
-			if (!delegator.isInDownload(n.getLat(), n.getLon())){
+			if (!getDelegator().isInDownload(n.getLat(), n.getLon())){
 				return false;
 			}
 		}
@@ -922,12 +974,13 @@ public class Logic {
 	}
 	
 	/**
-	 * Check if node is in  downloaded data
+	 * Check if node is in the bbox for the downloaded data
+	 * 
 	 * @param node
 	 * @return true if the above is the case
 	 */
 	public boolean isInDownload(Node n) {
-		return delegator.isInDownload(n.getLat(), n.getLon());
+		return getDelegator().isInDownload(n.getLat(), n.getLon());
 	}
 	
 	/**
@@ -939,28 +992,24 @@ public class Logic {
 	 * @param y display-coord.
 	 */
 	void handleTouchEventDown(final float x, final float y) {
-		if (isInEditZoomRange() && mode == Mode.MODE_EDIT) {
-			// TODO Need to handle multiple possible targets here too (Issue #6)
-			setSelectedNode(getClickedNode(x, y));
-			map.invalidate();
-			draggingNode = (selectedNode != null);
-		} else if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
+		boolean draggingMultiselect = false;
+		if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
 			draggingNode = false;
 			draggingWay = false;
 			draggingHandle = false;
-			if (selectedNode != null && clickDistance(selectedNode, x, y, prefs.largeDragArea()? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
+			if (selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null && clickDistance(selectedNodes.get(0), x, y, prefs.largeDragArea() ? Profile.getCurrent().largDragToleranceRadius : Profile.getCurrent().nodeToleranceValue) != null) {
 				draggingNode = true;
 				if (prefs.largeDragArea()) {
-					startX = lonE7ToX(selectedNode.getLon());
-					startY = latE7ToY(selectedNode.getLat());
+					startX = lonE7ToX(selectedNodes.get(0).getLon());
+					startY = latE7ToY(selectedNodes.get(0).getLat());
 				}
 			}
 			else {
-				if (selectedWay != null) {
+				if (selectedWays != null && selectedWays.size() == 1 && selectedNodes == null) {
 					if (!rotatingWay) {	
 						Way clickedWay = getClickedWay(x, y);
-						if (clickedWay != null && (clickedWay.getOsmId() == selectedWay.getOsmId())) {
-							if (selectedWay.getNodes().size() <= MAX_NODES_FOR_MOVE) {
+						if (clickedWay != null && (clickedWay.getOsmId() == selectedWays.get(0).getOsmId())) {
+							if (selectedWays.get(0).getNodes().size() <= MAX_NODES_FOR_MOVE) {
 								startLat = yToLatE7(y);
 								startLon = xToLonE7(x);
 								draggingWay = true;
@@ -973,17 +1022,50 @@ public class Logic {
 						startY = y;
 					}
 				} else {
-					if (rotatingWay) {
-						rotatingWay = false;
-						hideCrosshairs();
+					// check for multi-select
+					if ((selectedWays != null && selectedWays.size() > 1) ||  (selectedNodes != null && selectedNodes.size() > 1) 
+							|| ((selectedWays != null && selectedWays.size() >= 1) && (selectedNodes != null && selectedNodes.size() >= 1))) {
+						Log.d(DEBUG_TAG, "Multi select detected");
+						boolean foundSelected = false;
+						if (selectedWays != null) {
+							List<Way> clickedWays = getClickedWays(x, y);
+							for (Way w:clickedWays) {
+								if (selectedWays.contains(w)) {
+									foundSelected = true;
+									break;
+								}
+							}
+						}
+						if (!foundSelected && selectedNodes != null) {
+							List<OsmElement> clickedNodes = getClickedNodes(x,y);
+							for (OsmElement n:clickedNodes) {
+								if (selectedNodes.contains(n)) {
+									foundSelected = true;
+									break;
+								}
+							}
+						}
+						if (foundSelected) {
+							startLat = yToLatE7(y);
+							startLon = xToLonE7(x);
+							startX = x;
+							startY = y;
+							draggingMultiselect = true;
+							draggingWay = true;
+						}
 					} else {
-						// way center / handle
-						// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
-						Handle handle = getClickedWayHandleWithDistances(x, y);
-						if (handle != null) {
-							Log.d("Logic","start handle drag");
-							selectedHandle = handle;
-							draggingHandle = true;
+						if (rotatingWay) {
+							rotatingWay = false;
+							hideCrosshairs();
+						} else {
+							// way center / handle
+							// TODO this may cause issues in action modes were we expect only something from the available selection to be returned
+							Handle handle = getClickedWayHandleWithDistances(x, y);
+							if (handle != null) {
+								Log.d("Logic","start handle drag");
+								selectedHandle = handle;
+								draggingHandle = true;
+							}
 						}
 					}
 				}
@@ -996,21 +1078,33 @@ public class Logic {
 		}
 		Log.d("Logic","handleTouchEventDown creating checkpoints");
 		if (draggingNode || draggingWay) {
-			createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+			if (draggingMultiselect) {
+				createCheckpoint(R.string.undo_action_moveobjects);
+			} else {
+				createCheckpoint(draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
+			}
 		} else if (rotatingWay) {
 			createCheckpoint(R.string.undo_action_rotateway);
 		}
 	}
 
+	/**
+	 * Calculates the coordinates for the center of the screen and displays a crosshair there. 
+	 */
 	public void showCrosshairsForCentroid()
 	{
-		float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWay);
-		if (centroid==null) {
+		if (selectedWays == null) {
 			return;
 		}
-		centroidX = centroid[0];
-		centroidY = centroid[1];
-		showCrosshairs(centroidX,centroidY);	
+		synchronized(selectedWays) {
+			float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWays.get(0));
+			if (centroid==null) {
+				return;
+			}
+			centroidX = centroid[0];
+			centroidY = centroid[1];
+			showCrosshairs(centroidX,centroidY);	
+		}
 	}
 	
 	/**
@@ -1030,7 +1124,7 @@ public class Logic {
 			int lat;
 			int lon;
 			// checkpoint created where draggingNode is set
-			if (draggingNode || (draggingHandle && selectedHandle != null)) {
+			if ((draggingNode && (selectedNodes.size() == 1 || selectedWays ==  null)) || (draggingHandle && selectedHandle != null)) {
 				if (draggingHandle) { // create node only if we are really dragging
 					Log.d("Logic","creating node at handle position");
 					try {
@@ -1039,10 +1133,10 @@ public class Logic {
 							draggingNode = true;
 							draggingHandle = false;
 							if (prefs.largeDragArea()) {
-								startX = lonE7ToX(selectedNode.getLon());
-								startY = latE7ToY( selectedNode.getLat());
+								startX = lonE7ToX(selectedNodes.get(0).getLon());
+								startY = latE7ToY( selectedNodes.get(0).getLat());
 							}
-							Application.mainActivity.easyEditManager.editElement(selectedNode); // this can only happen in EasyEdit mode
+							Application.mainActivity.easyEditManager.editElement(selectedNodes.get(0)); // this can only happen in EasyEdit mode
 						}
 						else return;
 					} catch (OsmIllegalOperationException e) {
@@ -1061,17 +1155,26 @@ public class Logic {
 					lon = xToLonE7(absoluteX);
 				}
 				
-				delegator.updateLatLon(selectedNode, lat, lon);
+				getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
 			}
-			else {
-				if (selectedWay != null) { // shouldn't happen but might be a race condition
-					lat = yToLatE7(absoluteY);
-					lon = xToLonE7(absoluteX);
-					delegator.moveWay(selectedWay, lat - startLat, lon - startLon);
-					// update 
-					startLat = lat;
-					startLon = lon;
+			else { // way dragging and multi-select
+				lat = yToLatE7(absoluteY);
+				lon = xToLonE7(absoluteX);
+				ArrayList<Node> nodes = new ArrayList<Node>();
+				if (selectedWays != null && selectedWays.size() > 0) { // shouldn't happen but might be a race condition
+					for (Way w:selectedWays) {
+						nodes.addAll(w.getNodes());
+					}	
 				}
+				if (selectedNodes != null && selectedNodes.size() > 0) {
+					for (Node n:selectedNodes) {
+						nodes.add(n);
+					}
+				}
+				getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
+				// update 
+				startLat = lat;
+				startLon = lon;
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
 		} else if (rotatingWay) {
@@ -1102,7 +1205,7 @@ public class Logic {
 				direction = (startY < absoluteY) ? -1: 1;			
 			}
 	
-			delegator.rotateWay(selectedWay, (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
+			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
 			startY = absoluteY;
 			startX = absoluteX;
 		} else {
@@ -1114,6 +1217,10 @@ public class Logic {
 		map.invalidate();
 	}
 
+	/**
+	 * Puts the editor into the mode where the selected way will be rotated by
+	 * the handleTouchEventMove function on move events.
+	 */
 	public void setRotationMode() {
 		rotatingWay = true;
 	}
@@ -1175,8 +1282,8 @@ public class Logic {
 		Log.d("Logic","performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
-		Node lSelectedNode = selectedNode;
-		Way lSelectedWay = selectedWay;
+		Node lSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
+		Way lSelectedWay = selectedWays != null && selectedWays.size() > 0 ? selectedWays.get(0) : null;
 
 		if (lSelectedNode == null) {
 			//This will be the first node.
@@ -1185,9 +1292,9 @@ public class Logic {
 				//A complete new Node...
 				int lat = yToLatE7(y);
 				int lon = xToLonE7(x);
-				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.insertElementSafe(lSelectedNode);
-				if (!delegator.isInDownload(lat, lon)) {
+				lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+				getDelegator().insertElementSafe(lSelectedNode);
+				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Log.d("Logic","Outside of download");
 					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
@@ -1200,14 +1307,14 @@ public class Logic {
 				//clicked on empty space -> create a new Node
 				if (lSelectedWay == null) {
 					//This is the second Node, so we create a new Way and add the previous selected node to this way
-					lSelectedWay = delegator.createAndInsertWay(lSelectedNode);
+					lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
 				}
 				int lat = yToLatE7(y);
 				int lon = xToLonE7(x);
-				lSelectedNode = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.addNodeToWay(lSelectedNode, lSelectedWay);
-				delegator.insertElementSafe(lSelectedNode);
-				if (!delegator.isInDownload(lat, lon)) {
+				lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+				getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
+				getDelegator().insertElementSafe(lSelectedNode);
+				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Log.d("Logic","Outside of download");
 					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
@@ -1222,10 +1329,10 @@ public class Logic {
 				} else {
 					//Create a new way with the existing node, which was clicked.
 					if (lSelectedWay == null) {
-						lSelectedWay = delegator.createAndInsertWay(lSelectedNode);
+						lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
 					}
 					//Add the new Node.
-					delegator.addNodeToWay(nextNode, lSelectedWay);
+					getDelegator().addNodeToWay(nextNode, lSelectedWay);
 					lSelectedNode = nextNode;
 				}
 			}
@@ -1243,7 +1350,7 @@ public class Logic {
 	 */
 	public boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
-		Node savedSelectedNode = selectedNode;
+		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
 		Node newSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
 
@@ -1258,14 +1365,16 @@ public class Logic {
 	
 	/**
 	 * Catches the first node at the given position and delegates the deletion to {@link #delegator}.
-	 * 
+	 * @param createCheckpoint TODO
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performEraseNode(final Node node) {
+	public void performEraseNode(final Node node, boolean createCheckpoint) {
 		if (node != null) {
-			createCheckpoint(R.string.undo_action_deletenode);
-			delegator.removeNode(node);
+			if (createCheckpoint) {
+				createCheckpoint(R.string.undo_action_deletenode);
+			}
+			getDelegator().removeNode(node);
 			map.invalidate();
 			if (!isInDownload(node)) {
 				// warning toast
@@ -1277,6 +1386,7 @@ public class Logic {
 
 	/**
 	 * set new coordinates and center BBox on them
+	 * 
 	 * @param node
 	 * @param lon
 	 * @param lat
@@ -1286,7 +1396,7 @@ public class Logic {
 			createCheckpoint(R.string.undo_action_movenode);
 			int lonE7 = (int)(lon*1E7d);
 			int latE7 = (int)(lat*1E7d);
-			delegator.updateLatLon(node, latE7, lonE7);
+			getDelegator().updateLatLon(node, latE7, lonE7);
 			viewBox.moveTo(lonE7, latE7);
 			map.invalidate();
 		}
@@ -1294,16 +1404,20 @@ public class Logic {
 
 	/**
 	 * Deletes a way.
+	 * 
 	 * @param way the way to be deleted
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
+	 * @param createCheckpoint TODO
 	 */
-	public void performEraseWay(final Way way, final boolean deleteOrphanNodes) {
-		createCheckpoint(R.string.undo_action_deleteway);
+	public void performEraseWay(final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
+		if (createCheckpoint) {
+			createCheckpoint(R.string.undo_action_deleteway);
+		}
 		HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<Node>(way.getNodes()) : null;  //  HashSet guarantees uniqueness
-		delegator.removeWay(way);
+		getDelegator().removeWay(way);
 		if (deleteOrphanNodes) {
 			for (Node node : nodes) {
-				if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty()) delegator.removeNode(node);
+				if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty()) getDelegator().removeNode(node);
 			}
 		}
 		map.invalidate();
@@ -1311,18 +1425,50 @@ public class Logic {
 
 	/**
 	 * Catches the first relation at the given position and delegates the deletion to {@link #delegator}.
-	 * 
+	 * @param createCheckpoint TODO
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performEraseRelation(final Relation relation) {
+	public void performEraseRelation(final Relation relation, boolean createCheckpoint) {
 		if (relation != null) {
-			createCheckpoint(R.string.undo_action_delete_relation);
-			delegator.removeRelation(relation);
+			if (createCheckpoint) {
+				createCheckpoint(R.string.undo_action_delete_relation);
+			}
+			getDelegator().removeRelation(relation);
 			map.invalidate();
 		}
 	}
 
+	/**
+	 * Erase a list of objects
+	 * @param selection
+	 */
+	public void performEraseMultipleObjects(ArrayList<OsmElement> selection) {
+		// need to make three passes this probably should really be in logic
+		createCheckpoint(R.string.undo_action_delete_objects);
+		for (OsmElement e:selection) {	
+			if (e instanceof Relation && e.getState() != OsmElement.STATE_DELETED) {
+				performEraseRelation((Relation)e, false);
+			}
+		}	
+		for (OsmElement e:selection) {	
+			if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
+				if (isInDownload((Way)e)) {
+					performEraseWay((Way)e, true, false); // TODO maybe we don't want to delete the nodes
+				} else {
+					// TODO toast
+				}
+			}
+		}
+		for (OsmElement e:selection) {	
+			if (e instanceof Node && e.getState() != OsmElement.STATE_DELETED) {
+				performEraseNode((Node)e, false);
+			}
+		}
+		
+	}
+	
+	
 	/**
 	 * Splits all ways at the given node.
 	 * 
@@ -1332,7 +1478,7 @@ public class Logic {
 		if (node != null) {
 			// setSelectedNode(node);
 			createCheckpoint(R.string.undo_action_split_ways);
-			delegator.splitAtNode(node);
+			getDelegator().splitAtNode(node);
 			map.invalidate();
 		}
 	}
@@ -1345,7 +1491,7 @@ public class Logic {
 	public void performSplit(final Way way, final Node node) {
 		// setSelectedNode(node);
 		createCheckpoint(R.string.undo_action_split_way);
-		delegator.splitAtNode(way, node);
+		getDelegator().splitAtNode(way, node);
 		map.invalidate();
 	}
 	
@@ -1355,9 +1501,9 @@ public class Logic {
 	 * @param node1
 	 * @param node2
 	 */
-	public void performClosedWaySplit(Way way, Node node1, Node node2) {
+	public void performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
 		createCheckpoint(R.string.undo_action_split_way);
-		delegator.splitAtNodes(way, node1, node2);
+		getDelegator().splitAtNodes(way, node1, node2, createPolygons);
 		map.invalidate();
 	}
 
@@ -1373,7 +1519,7 @@ public class Logic {
 	 */
 	public boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
-		boolean mergeOK = delegator.mergeWays(mergeInto, mergeFrom);
+		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
 		map.invalidate();
 		return mergeOK;
 	}
@@ -1386,10 +1532,23 @@ public class Logic {
 	public void performOrthogonalize(Way way) {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(R.string.undo_action_orthogonalize);
-		delegator.orthogonalizeWay(way);
+		getDelegator().orthogonalizeWay(way);
 		map.invalidate();
 	}
 
+	/**
+	 * Replace node in all ways it is a member of with a new node,
+	 * leaving node selected, if it already is. Note: relation memberships are not modified
+	 * 
+	 * @param node
+	 */
+	public void performExtract(final Node node) {
+		if (node != null) {
+			createCheckpoint(R.string.undo_action_extract_node);
+			getDelegator().replaceNode(node);
+			map.invalidate();
+		}
+	}
 	
 	/**
 	 * If any ways are close to the node (within the tolerance), return the way.
@@ -1402,7 +1561,7 @@ public class Logic {
 		float jx = lonE7ToX(nodeToJoin.getLon());
 		float jy = latE7ToY(nodeToJoin.getLat());
 		// start by looking for the closest nodes
-		for (Node node : delegator.getCurrentStorage().getNodes()) {
+		for (Node node : getDelegator().getCurrentStorage().getNodes()) {
 			if (node != nodeToJoin) {
 				Double distance = clickDistance(node, jx, jy);
 				if (distance != null && distance < closestDistance) {
@@ -1413,7 +1572,7 @@ public class Logic {
 		}
 		if (closestElement == null) {
 			// fall back to closest ways
-			for (Way way : delegator.getCurrentStorage().getWays()) {
+			for (Way way : getDelegator().getCurrentStorage().getWays()) {
 				if (!way.hasNode(nodeToJoin)) {
 					List<Node> wayNodes = way.getNodes();
 					for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
@@ -1449,7 +1608,7 @@ public class Logic {
 		if (element instanceof Node) {
 			Node node = (Node)element;
 			createCheckpoint(R.string.undo_action_join);
-			mergeOK = delegator.mergeNodes(node, nodeToJoin);
+			mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 			map.invalidate();
 		}
 		else if (element instanceof Way) {
@@ -1479,11 +1638,11 @@ public class Logic {
 					}
 					if (node == null) {
 						// move the existing node onto the way and insert it into the way
-						delegator.updateLatLon(nodeToJoin, lat, lon);
-						delegator.addNodeToWayAfter(node1, nodeToJoin, way);
+						getDelegator().updateLatLon(nodeToJoin, lat, lon);
+						getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
 					} else {
 						// merge node into tgtNode
-						mergeOK = delegator.mergeNodes(node, nodeToJoin);
+						mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
 					}
 					map.invalidate();
 					break; // need to leave loop !!!
@@ -1499,7 +1658,7 @@ public class Logic {
 	 */
 	public void performUnjoin(Node node) {
 		createCheckpoint(R.string.undo_action_unjoin_ways);
-		delegator.unjoinWays(node);
+		getDelegator().unjoinWays(node);
 		map.invalidate();
 	}
 	
@@ -1510,7 +1669,7 @@ public class Logic {
 	 */
 	public boolean performReverse(Way way) {
 		createCheckpoint(R.string.undo_action_reverse_way);
-		boolean hadToReverse = delegator.reverseWay(way);
+		boolean hadToReverse = getDelegator().reverseWay(way);
 		map.invalidate();
 		return hadToReverse;
 	}
@@ -1528,7 +1687,7 @@ public class Logic {
 		if (element != null) {
 			if (element instanceof Node) {
 				lSelectedNode = (Node) element;
-				List<Way> ways = delegator.getCurrentStorage().getWays(lSelectedNode);
+				List<Way> ways = getDelegator().getCurrentStorage().getWays(lSelectedNode);
 				// TODO Resolve possible multiple ways that end at the node
 				for (Way way : ways) {
 					if (way.isEndNode(lSelectedNode)) {
@@ -1558,17 +1717,17 @@ public class Logic {
 			if (node == null) {
 				int lat = yToLatE7(y);
 				int lon = xToLonE7(x);
-				node = delegator.getFactory().createNodeWithNewId(lat, lon);
-				delegator.insertElementSafe(node);
-				if (!delegator.isInDownload(lat, lon)) {
+				node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+				getDelegator().insertElementSafe(node);
+				if (!getDelegator().isInDownload(lat, lon)) {
 					// warning toast
 					Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
 				}
 			}
 			try {
-				delegator.appendNodeToWay(lSelectedNode, node, lSelectedWay);
+				getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
 			} catch (OsmIllegalOperationException e) {
-				delegator.removeNode(node);
+				getDelegator().removeNode(node);
 				throw new OsmIllegalOperationException(e);
 			}
 			lSelectedNode = node;
@@ -1597,7 +1756,7 @@ public class Logic {
 		Way savedWay = null;
 		double savedDistance = Double.MAX_VALUE;
 		//create a new node on a way
-		for (Way way : delegator.getCurrentStorage().getWays()) {
+		for (Way way : getDelegator().getCurrentStorage().getWays()) {
 			List<Node> wayNodes = way.getNodes();
 			for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
 				Node node1 = wayNodes.get(k - 1);
@@ -1623,11 +1782,11 @@ public class Logic {
 		if (savedNode1 != null && savedNode2 != null) {		
 			node = createNodeOnWay(savedNode1, savedNode2, x, y);
 			if (node != null) {
-				delegator.insertElementSafe(node);
+				getDelegator().insertElementSafe(node);
 				try {
-					delegator.addNodeToWayAfter(savedNode1, node, savedWay);
+					getDelegator().addNodeToWayAfter(savedNode1, node, savedWay);
 				} catch (OsmIllegalOperationException e) {
-					delegator.removeNode(node);
+					getDelegator().removeNode(node);
 					throw new OsmIllegalOperationException(e);
 				}
 			}	
@@ -1658,7 +1817,7 @@ public class Logic {
 			float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
 			int lat = yToLatE7(p[1]);
 			int lon = xToLonE7(p[0]);
-			Node node = delegator.getFactory().createNodeWithNewId(lat, lon);
+			Node node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
 			return node;
 		}
 		return null;
@@ -1735,36 +1894,43 @@ public class Logic {
 			protected Integer doInBackground(Boolean... arg) {
 				int result = 0;
 				try {
+					Server server = prefs.getServer();
+					if (!auto) { //TODO debatable if this really makes sense, but saves an API call per download, potentially download once
+						server.getCapabilities();
+						if (!(server.apiAvailable() && server.readableDB())) {
+							return DialogFactory.API_OFFLINE;
+						}
+					}
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
 					try {
 						osmParser.start(in);
 						if (arg[0]) { // incremental load
-							if (!delegator.mergeData(osmParser.getStorage())) {
+							if (!getDelegator().mergeData(osmParser.getStorage())) {
 								result = DialogFactory.DATA_CONFLICT;
 							} else {
 								if (mapBox != null) {
 									// if we are simply expanding the area no need keep the old bounding boxes
-									List<BoundingBox> origBbs = delegator.getBoundingBoxes();
+									List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
 									List<BoundingBox> bbs = new ArrayList<BoundingBox>(origBbs);
 									for (BoundingBox bb:bbs) {
 										if (mapBox.contains(bb)) {
 											origBbs.remove(bb);
 										}
 									}
-									delegator.addBoundingBox(mapBox);
+									getDelegator().addBoundingBox(mapBox);
 								}
 							}
 						} else { // replace data with new download
-							delegator.reset();
-							delegator.setCurrentStorage(osmParser.getStorage());
+							getDelegator().reset();
+							getDelegator().setCurrentStorage(osmParser.getStorage());
 							if (mapBox != null) {
 								Log.d("Logic","setting original bbox");
-								delegator.setOriginalBox(mapBox);
+								getDelegator().setOriginalBox(mapBox);
 							}
 						}
 						if (!auto) {
-							viewBox.setBorders(mapBox != null ? mapBox : delegator.getLastBox()); // set to current or previous
+							viewBox.setBorders(mapBox != null ? mapBox : getDelegator().getLastBox()); // set to current or previous
 						}
 					} finally {
 						SavingHelper.close(in);
@@ -1777,17 +1943,29 @@ public class Logic {
 					} else {
 						result = DialogFactory.INVALID_DATA_RECEIVED;
 					}
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
 					result = DialogFactory.INVALID_DATA_RECEIVED;
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
 				} catch (OsmServerException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = e.getErrorCode();
 					Log.e("Vespucci", "Problem downloading", e);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
 				}
 				return result;
 			}
@@ -1813,7 +1991,7 @@ public class Logic {
 					if (result != 0) {
 						if (result == DialogFactory.OUT_OF_MEMORY) {
 							System.gc();
-							if (delegator.isDirty()) {
+							if (getDelegator().isDirty()) {
 								result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 							}
 						}	
@@ -1836,7 +2014,10 @@ public class Logic {
 	}
 
 	/**
-	 * @param add 
+	 * Calls the actual downloadBox function using the current map view as the
+	 * bounding box for the download.
+	 * 
+	 * @param add add if true add this data to existing
 	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadCurrent(boolean add) {
@@ -1846,17 +2027,19 @@ public class Logic {
 	
 	/**
 	 * Re-downloads the same area as last time
+	 * 
 	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadLast() {
-		delegator.reset();
-		for (BoundingBox box:delegator.getBoundingBoxes()) {
+		getDelegator().reset();
+		for (BoundingBox box:getDelegator().getBoundingBoxes()) {
 			if (box != null && box.isValidForApi()) downloadBox(box, true, false);
 		}
 	}
 
 	/**
 	 * Return a single element from the API
+	 * 
 	 * @param type
 	 * @param id
 	 * @return
@@ -1926,7 +2109,97 @@ public class Logic {
 	}
 	
 	/**
+	 * Return multiple elements of the same type from the API and merge them in to our data
+	 * Since this doesn't return way nodes this method probably doesn't make sense
+	 * 
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+//	void downloadElements(final String type, long[] ids) {
+//		
+//		class MyTask extends AsyncTask<Void, Void, Integer> {
+//			int result = 0;
+//			
+//			@Override
+//			protected void onPreExecute() {
+//				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+//			}
+//			
+//			@Override
+//			protected Integer doInBackground(Void... arg) {
+//				try {
+//					final OsmParser osmParser = new OsmParser();
+//					final InputStream in = prefs.getServer().getStreamForElements(type, ids);
+//					try {
+//						osmParser.start(in);
+//						if (!getDelegator().mergeData(osmParser.getStorage())) {
+//							result = DialogFactory.DATA_CONFLICT;
+//						} 
+//					} finally {
+//						SavingHelper.close(in);
+//					}
+//				} catch (SAXException e) {
+//					Log.e("Vespucci", "Problem parsing", e);
+//					Exception ce = e.getException();
+//					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+//						result = DialogFactory.OUT_OF_MEMORY;
+//					} else {
+//						result = DialogFactory.INVALID_DATA_RECEIVED;
+//					}
+//				} catch (ParserConfigurationException e) {
+//					// crash and burn
+//					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+//					Log.e("Vespucci", "Problem parsing", e);
+//					result = DialogFactory.INVALID_DATA_RECEIVED;
+//				} catch (OsmServerException e) {
+//					Log.e("Vespucci", "Problem downloading", e);
+//				} catch (IOException e) {
+//					result = DialogFactory.NO_CONNECTION;
+//					Log.e("Vespucci", "Problem downloading", e);
+//				}
+//				return result;
+//			}
+//			
+//			@Override
+//			protected void onPostExecute(Integer result) {
+//
+//				try {
+//					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+//				} catch (IllegalArgumentException e) {
+//					// Avoid crash if dialog is already dismissed
+//					Log.d("Logic", "", e);
+//				}
+//
+//				if (result != 0) {
+//					if (result == DialogFactory.OUT_OF_MEMORY) {
+//						System.gc();
+//						if (getDelegator().isDirty()) {
+//							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+//						}
+//					}	
+//					try {
+//						if (!Application.mainActivity.isFinishing()) {
+//							Application.mainActivity.showDialog(result);
+//						}
+//					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+//						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+//						ACRA.getErrorReporter().handleException(ex);
+//					}
+//				}
+//				map.invalidate();
+//
+//				UndoStorage.updateIcon();
+//			}
+//			
+//		};
+//		MyTask loader = new MyTask();
+//		loader.execute();
+//	}
+	
+	/**
 	 * Update a single element from the API
+	 * 
 	 * @param type
 	 * @param id
 	 */
@@ -1963,7 +2236,7 @@ public class Logic {
 							SavingHelper.close(in);
 						}
 					}
-					if (!delegator.mergeData(osmParser.getStorage())) {
+					if (!getDelegator().mergeData(osmParser.getStorage())) {
 						result = DialogFactory.DATA_CONFLICT;
 					} 
 				} catch (SAXException e) {
@@ -2012,23 +2285,25 @@ public class Logic {
 	/**
 	 * Element is deleted on server, delete locally but don't upload
 	 * A bit iffy because of memberships in other objects
+	 * 
 	 * @param e
 	 */
 	public void updateToDeleted(OsmElement e) {
 		createCheckpoint(R.string.undo_action_fix_conflict);
 		if (e.getName().equals(Node.NAME)) {
-			delegator.removeNode((Node)e);
+			getDelegator().removeNode((Node)e);
 		} else if (e.getName().equals(Way.NAME)) {
-			delegator.removeWay((Way)e);
+			getDelegator().removeWay((Way)e);
 		} else if (e.getName().equals(Relation.NAME)) {
-			delegator.removeRelation((Relation)e);
+			getDelegator().removeRelation((Relation)e);
 		}
-		delegator.removeFromUpload(e);
+		getDelegator().removeFromUpload(e);
 		map.invalidate();		
 	}
 	
 	/**
 	 * Read a file in (J)OSM format from device
+	 * 
 	 * @param fileName
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
@@ -2061,11 +2336,11 @@ public class Logic {
 					try {
 						osmParser.start(in);
 						
-						delegator.reset();
-						delegator.setCurrentStorage(osmParser.getStorage());
-						delegator.fixupApiStorage();
+						getDelegator().reset();
+						getDelegator().setCurrentStorage(osmParser.getStorage());
+						getDelegator().fixupApiStorage();
 						
-						viewBox.setBorders(delegator.getLastBox()); // set to current or previous
+						viewBox.setBorders(getDelegator().getLastBox()); // set to current or previous
 					} finally {
 						SavingHelper.close(in);
 					}
@@ -2107,7 +2382,7 @@ public class Logic {
 				if (result != 0) {
 					if (result == DialogFactory.OUT_OF_MEMORY) {
 						System.gc();
-						if (delegator.isDirty()) {
+						if (getDelegator().isDirty()) {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
@@ -2130,6 +2405,7 @@ public class Logic {
 
 	/**
 	 * Write data to a file in (J)OSM compatible format
+	 * 
 	 * @param fileName
 	 */
 	public void writeOsmFile(final String fileName) {
@@ -2151,7 +2427,7 @@ public class Logic {
 					Log.d("Logic","Saving to " + outfile.getPath());
 					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
 					try {
-						delegator.save(out);
+						getDelegator().save(out);
 					} catch (IllegalArgumentException e) {
 						result = DialogFactory.FILE_WRITE_FAILED;
 						Log.e("Logic", "Problem writing", e);
@@ -2189,7 +2465,7 @@ public class Logic {
 				if (result != 0) {
 					if (result == DialogFactory.OUT_OF_MEMORY) {
 						System.gc();
-						if (delegator.isDirty()) {
+						if (getDelegator().isDirty()) {
 							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
 						}
 					}
@@ -2238,18 +2514,25 @@ public class Logic {
 	 */
 	void save() {
 		try {
-			delegator.writeToFile();
+			getDelegator().writeToFile();
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
 	}
 	
+	/**
+	 * Saves the current editing state (selected objects, editing mode, etc) to file.
+	 */
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
-		EditState editState = new EditState(mode, selectedNode, selectedWay, selectedRelation, selectedBug, osmts, Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload());
+		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, 
+				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),Application.mainActivity.getImageFileName());
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
+	/**
+	 * Loads the current editing state (selected objects, editing mode, etc) from file.
+	 */
 	void loadEditingState() {
 		EditState editState = new SavingHelper<EditState>().load(EDITSTATE_FILENAME, false);
 		if(editState != null) { // 
@@ -2261,6 +2544,7 @@ public class Logic {
 
 	/**
 	 * Loads data from a file in the background.
+	 * 
 	 * @param context 
 	 */
 	void loadFromFile(Context context) {
@@ -2285,8 +2569,8 @@ public class Logic {
 			@Override
 			protected Integer doInBackground(Context... c) {
 				this.context = c[0];
-				if (delegator.readFromFile()) {
-					viewBox.setBorders(delegator.getLastBox());
+				if (getDelegator().readFromFile()) {
+					viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
 				} else {
 //	Experimental code for reading from backup file				
@@ -2351,9 +2635,13 @@ public class Logic {
 	}
 	
 	/**
+	 * A small class to store the result returned from the OSM server after
+	 * trying to upload changes. The response includes things like the HTTP
+	 * response code, conflict information, etc.
+	 * 
 	 * Return not only the error code, but the element involved
+	 * 
 	 * @author simon
-	 *
 	 */
 	public class UploadResult {
 		public int error = 0;
@@ -2362,12 +2650,13 @@ public class Logic {
 		public long osmId;
 		public String message;
 	}
+
 	/**
 	 * Uploads to the server in the background.
 	 * 
 	 * @param comment Changeset comment.
-	 * @param source 
-	 * @param closeChangeset TODO
+	 * @param source The changeset source tag to add.
+	 * @param closeChangeset Whether to close the changeset after upload or not.
 	 */
 	public void upload(final String comment, final String source, final boolean closeChangeset) {
 		final Server server = prefs.getServer();
@@ -2376,14 +2665,19 @@ public class Logic {
 			@Override
 			protected void onPreExecute() {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
-				delegator.clearUndo();
+				getDelegator().clearUndo();
 			}
 			
 			@Override
 			protected UploadResult doInBackground(Void... params) {
 				UploadResult result = new UploadResult();
 				try {
-					delegator.uploadToServer(server, comment, source, closeChangeset);
+					server.getCapabilities(); // update status
+					if (!(server.apiAvailable() && server.writableDB())) {
+						result.error =  DialogFactory.API_OFFLINE;
+						return result;
+					}
+					getDelegator().uploadToServer(server, comment, source, closeChangeset);
 				} catch (final MalformedURLException e) {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -2437,8 +2731,9 @@ public class Logic {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				if (result.error == 0) {
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
+					Application.mainActivity.triggerMenuInvalidation();
 				}
-				delegator.clearUndo();
+				getDelegator().clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (!Application.mainActivity.isFinishing()) {
 					if (result.error == DialogFactory.UPLOAD_CONFLICT) {
@@ -2454,6 +2749,14 @@ public class Logic {
 	
 	
 
+	/**
+	 * Uploads a GPS track to the server.
+	 * 
+	 * @param track the track to upload
+	 * @param description a description of the track sent to the server
+	 * @param tags the tags to apply to the GPS track (comma delimeted)
+	 * @param visibility the track visibility, one of the following: private, public, trackable, identifiable
+	 */
 	public void uploadTrack(final Track track, final String description, final String tags, final Visibility visibility) {
 		final Server server = prefs.getServer();
 		new AsyncTask<Void, Void, Integer>() {
@@ -2535,7 +2838,7 @@ public class Logic {
 	}
 	
 	/**
-	 * Sow a toast indiciating how many unread mails are on the server
+	 * Show a toast indiciating how many unread mails are on the server
 	 */
 	public void checkForMail() {
 		final Server server = prefs.getServer();
@@ -2573,6 +2876,7 @@ public class Logic {
 	
 	/**
 	 * Make a new bug at the given screen X/Y coordinates.
+	 * 
 	 * @param x The screen X-coordinate of the bug.
 	 * @param y The screen Y-coordinate of the bug.
 	 * @return The new bug, which must have a comment added before it can be submitted to OSB.
@@ -2584,32 +2888,118 @@ public class Logic {
 	}
 	
 	/**
-	 * Internal setter to set the internal value
+	 *  Setter to a) set the internal value and b) push the value to {@link #map}.
 	 */
 	public synchronized void setSelectedNode(final Node selectedNode) {
-		this.selectedNode = selectedNode;
-		map.setSelectedNode(selectedNode);
-	}
-
-	/**
-	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
-	 */
-	public synchronized void setSelectedWay(final Way selectedWay) {
-		this.selectedWay = selectedWay;
-		map.setSelectedWay(selectedWay);
+		if (selectedNode != null) { // always restart
+			selectedNodes = new LinkedList<Node>();
+			selectedNodes.add(selectedNode);
+		} else {
+			selectedNodes = null;
+		}
+		map.setSelectedNodes(selectedNodes);
 	}
 	
 	/**
-	 * Internal setter to a) set the internal value and b) push the value to {@link #map}.
+	 * Add nodes to the internal list
 	 */
-	public synchronized void setSelectedRelation(final Relation relation) {
-		this.selectedRelation = relation;
-		if (selectedRelation != null)
-			selectRelation(relation);
+	public synchronized void addSelectedNode(final Node selectedNode) {
+		if (selectedNodes == null) {
+			setSelectedNode(selectedNode);
+		} else {
+			if (!selectedNodes.contains(selectedNode)) {
+				selectedNodes.add(selectedNode);
+			}
+		}
+	}
+	
+	public void removeSelectedNode(Node node) {
+		if (selectedNodes != null) {
+			selectedNodes.remove(node);
+			if (selectedNodes.size() == 0) {
+				selectedNodes = null;
+			}
+		}
+	}
+	
+	/**
+	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 */
+	public synchronized void setSelectedWay(final Way selectedWay) {
+		if (selectedWay != null) {  // always restart
+			selectedWays = new LinkedList<Way>();
+			selectedWays.add(selectedWay);
+		} else {
+			selectedWays = null;
+		}
+		map.setSelectedWays(selectedWays);
+	}
+	
+	/**
+	 * Adds the given way to the list of currently selected ways.
+	 */
+	public synchronized void addSelectedWay(final Way selectedWay) {
+		if (selectedWays == null) {
+			setSelectedWay(selectedWay);
+		} else {
+			if (!selectedWays.contains(selectedWay)) {
+				selectedWays.add(selectedWay);
+			}
+		}
+	}
+	
+	/**
+	 * Removes the given way from the list of currently selected ways.
+	 */
+	public void removeSelectedWay(Way way) {
+		if (selectedWays != null) {
+			selectedWays.remove(way);
+			if (selectedWays.size() == 0) {
+				selectedWays = null;
+			}
+		}
+	}
+	
+	/**
+	 * Setter to a) set the internal value and b) push the value to {@link #map}.
+	 */
+	public synchronized void setSelectedRelation(final Relation selectedRelation) {
+		if (selectedRelations != null) {  // always restart
+			selectedRelations = new LinkedList<Relation>();
+			selectedRelations.add(selectedRelation);
+		} else {
+			selectedRelations = null;
+		}
+		if (selectedRelation != null) {
+			selectRelation(selectedRelation);
+		}
+	}
+	
+	public void removeSelectedRelation(Relation relation) {
+		if (selectedRelations != null) {
+			selectedRelations.remove(relation);
+			if (selectedRelations.size() == 0) {
+				selectedRelations = null;
+			}
+		}
+	}
+	
+	/**
+	 * Adds the given relation to the list of currently selected relations.
+	 */
+	public synchronized void addSelectedRelation(final Relation selectedRelation) {
+		if (selectedRelations == null) {
+			setSelectedRelation(selectedRelation);
+		} else {
+			if (!selectedRelations.contains(selectedRelation)) {
+				selectedRelations.add(selectedRelation);
+			}
+		}
 	}
 	
 	/**
 	 * Set the currently selected bug.
+	 * 
 	 * @param selectedBug The selected bug.
 	 */
 	public synchronized void setSelectedBug(final Bug selectedBug) {
@@ -2617,27 +3007,112 @@ public class Logic {
 	}
 
 	/**
-	 * @return the selectedNode
+	 * @return the selectedNode (currently simply the first in the list)
 	 */
 	public final Node getSelectedNode() {
-		if (selectedNode != null && !exists(selectedNode)) {
-			selectedNode = null; // clear selection if node was deleted
+		if (selectedNodes != null && selectedNodes.size() > 0) {
+			if (!exists(selectedNodes.get(0))) {
+				selectedNodes = null; // clear selection if node was deleted
+				return null;
+			} else {
+				return selectedNodes.get(0);
+			}
 		}
-		return selectedNode;
+		return null;
 	}
 
 	/**
-	 * @return the selectedWay
+	 * Get list of selected nodes
+	 */
+	public List<Node> getSelectedNodes() {
+		return selectedNodes;
+	}
+
+	/**
+	 * Return how many nodes are selected
+	 */
+	public int selectedNodesCount() {
+		return selectedNodes == null ? 0 : selectedNodes.size();
+	}
+
+	/**
+	 * @return the selectedWay (currently simply the first in the list)
 	 */
 	public final Way getSelectedWay() {
-		if (selectedWay != null && !exists(selectedWay)) {
-			selectedWay = null; // clear selection if way was deleted
+		if (selectedWays != null && selectedWays.size() > 0) {
+			if (!exists(selectedWays.get(0))) {
+				selectedWays = null; // clear selection if node was deleted
+				return null;
+			} else {
+				return selectedWays.get(0);
+			}
 		}
-		return selectedWay;
+		return null;
+	}
+	
+	/**
+	 * Get list of selected ways
+	 */
+	public List<Way> getSelectedWays() {
+		return selectedWays;
+	}
+	
+	/**
+	 * Return how many ways are selected
+	 */
+	public int selectedWaysCount() {
+		return selectedWays == null ? 0 : selectedWays.size();
+	}
+	
+	/**
+	 * Get list of selected ways
+	 */
+	public List<Relation> getSelectedRelations() {
+		return selectedRelations;
+	}
+	
+	/**
+	 * Return how many ways are selected
+	 */
+	public int selectedRelationsCount() {
+		return selectedRelations == null ? 0 : selectedRelations.size();
+	}
+	
+	/**
+	 * Check is all selected elements exist, return true if we actually had to remove something
+	 */
+	boolean resyncSelected() {
+		boolean result = false;
+		if (selectedNodes != null && selectedNodes.size() > 0) {
+			for (Node n:new ArrayList<Node>(selectedNodes)) {
+				if (!getDelegator().getCurrentStorage().contains(n)) {
+					selectedNodes.remove(n);
+					result = true;
+				}
+			}
+		}
+		if (selectedWays != null && selectedWays.size() > 0) {
+			for (Way w:new ArrayList<Way>(selectedWays)) {
+				if (!getDelegator().getCurrentStorage().contains(w)) {
+					selectedWays.remove(w);
+					result = true;
+				}
+			}
+		}
+		if (selectedRelations != null && selectedRelations.size() > 0) {
+			for (Relation r:new ArrayList<Relation>(selectedRelations)) {
+				if (!getDelegator().getCurrentStorage().contains(r)) {
+					selectedRelations.remove(r);
+					result = true;
+				}
+			}
+		}
+		return result;
 	}
 	
 	/**
 	 * Get the selected bug.
+	 * 
 	 * @return The selected bug.
 	 */
 	public final Bug getSelectedBug() {
@@ -2652,7 +3127,7 @@ public class Logic {
 	public void setMap(Map map) {
 		this.map = map;
 		Profile.updateStrokes(Math.min(prefs.getMaxStrokeWidth(), strokeWidth(viewBox.getWidth())));
-		map.setDelegator(delegator);
+		map.setDelegator(getDelegator());
 		map.setViewBox(viewBox);
 	}
 	
@@ -2660,13 +3135,14 @@ public class Logic {
 	 * @return a list of all pending changes to upload
 	 */
 	public List<String> getPendingChanges(final Context aCaller) {
-		return delegator.listChanges(aCaller.getResources());
+		return getDelegator().listChanges(aCaller.getResources());
 	}
 
 	/**
 	 * Sets the set of elements that can currently be clicked.
-	 * If set to null, the map will use default behaviour.
-	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * <li>If set to null, the map will use default behaviour.</li>
+	 * <li>If set to a non-null value, the map will highlight only elements in the list.</li>
+	 * 
 	 * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
 	public void setClickableElements(Set<OsmElement> clickable) {
@@ -2674,7 +3150,6 @@ public class Logic {
 	}
 	
 	/**
-	 * @return 
 	 * @return the list of clickable elements. May be null, meaning no restrictions on clickable elements
 	 */
 	public Set<OsmElement> getClickableElements() {
@@ -2682,7 +3157,8 @@ public class Logic {
 	}
 	
 	/**
-	 * Sets if we return relations when touching/clicking 
+	 * Sets if we return relations when touching/clicking.
+	 * 
 	 * @param on true if we should return relations
 	 */
 	public void setReturnRelations(boolean on) {
@@ -2692,18 +3168,28 @@ public class Logic {
 	
 	/**
 	 * Checks if an element exists, i.e. is in currentStorage
+	 * 
 	 * @param element the element that is to be checked
 	 * @return true if the element exists, false otherwise
 	 */
 	public boolean exists(OsmElement element) {
-		return delegator.getCurrentStorage().contains(element);
+		return getDelegator().getCurrentStorage().contains(element);
 	}
 	
-	/** Get the X screen coordinate for a node on the screen. */
+	/**
+	 * @return the X coordinate (in pixels) of the given node's position on the
+	 *         screen (note that the returned position may be outside of the
+	 *         screens bounds).
+	 */
 	public float getNodeScreenX(Node node) {
 		return lonE7ToX(node.getLon());
 	}
-	
+
+	/**
+	 * @return the Y coordinate (in pixels) of the given node's position on the
+	 *         screen (note that the returned position may be outside of the
+	 *         screens bounds).
+	 */
 	public float getNodeScreenY(Node node) {
 		return latE7ToY(node.getLat());
 	}
@@ -2732,14 +3218,23 @@ public class Logic {
 		}
 	}
 
+	/**
+	 * Creates a turn restriction relation using the given objects as the members in the relation.
+	 * 
+	 * @param fromWay the way on which turning off of is restricted in some fashion
+	 * @param viaElement the "intersection node" at which the turn is restricted
+	 * @param toWay the way that the turn restriction prevents turning onto
+	 * @param restriction_type the kind of turn which is restricted
+	 * @return a relation element for the turn restriction
+	 */
 	public Relation createRestriction(Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
-		Relation restriction = delegator.createAndInsertReleation();
+		Relation restriction = getDelegator().createAndInsertReleation();
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		tags.put("restriction", restriction_type == null ? "" : restriction_type);
 		tags.put("type", "restriction");
-		delegator.setTags(restriction, tags);
+		getDelegator().setTags(restriction, tags);
 		RelationMember from = new RelationMember("from", fromWay);
 		restriction.addMember(from);
 		fromWay.addParentRelation(restriction);
@@ -2753,16 +3248,23 @@ public class Logic {
 		return restriction;
 	}
 
+	/**
+	 * Creates a new relation containing the given members.
+	 * 
+	 * @param type the 'type=*' tag to set on the relation itself
+	 * @param members the osm elements to include in the relation
+	 * @return the new relation
+	 */
 	public Relation createRelation(String type, List<OsmElement> members ) {
 		
 		createCheckpoint(R.string.undo_action_create_relation);
-		Relation relation = delegator.createAndInsertReleation();
+		Relation relation = getDelegator().createAndInsertReleation();
 		SortedMap<String,String> tags = new TreeMap<String,String>();
 		if (type != null)
 			tags.put("type", type);
 		else
 			tags.put("type", "");
-		delegator.setTags(relation, tags);
+		getDelegator().setTags(relation, tags);
 		for (OsmElement e:members) {
 			RelationMember rm = new RelationMember("", e);
 			relation.addMember(rm);
@@ -2772,9 +3274,12 @@ public class Logic {
 	}
 	
 	
+	/**
+	 * Adds the list of elements to the given relation with an empty role set for each new member.
+	 */
 	public void addMembers(Relation relation, ArrayList<OsmElement> members) {
 		createCheckpoint(R.string.undo_action_update_relations);
-		delegator.addMembersToRelation(relation, members);
+		getDelegator().addMembersToRelation(relation, members);
 	}
 	
 	/**
@@ -2783,13 +3288,13 @@ public class Logic {
 	 * If set to a non-null value, the map will highlight only elements in the list.
 	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
-	public void setSelectedRelationWays(Set<Way> ways) {
+	public void setSelectedRelationWays(List<Way> ways) {
 		selectedRelationWays = ways;
 	}
 	
 	public void addSelectedRelationWay(Way way) {
 		if (selectedRelationWays == null) {
-			selectedRelationWays = new HashSet<Way>();
+			selectedRelationWays = new LinkedList<Way>();
 		}
 		selectedRelationWays.add(way);
 	}
@@ -2800,7 +3305,7 @@ public class Logic {
 		}
 	}
 	
-	public Set<Way> getSelectedRelationWays() {
+	public List<Way> getSelectedRelationWays() {
 		return selectedRelationWays;
 	}
 
@@ -2813,10 +3318,12 @@ public class Logic {
 		for (RelationMember rm : r.getMembers()) {
 			OsmElement e = rm.getElement();
 			if (e != null) {
-				if (e.getName().equals("way")) {
+				if (e.getName().equals(Way.NAME)) {
 					addSelectedRelationWay((Way) e);
-				} else if (e.getName().equals("node")) {
+				} else if (e.getName().equals(Node.NAME)) {
 					addSelectedRelationNode((Node) e);
+				} else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
+					addSelectedRelationRelation((Relation) e);
 				} 
 			}
 		}
@@ -2828,13 +3335,13 @@ public class Logic {
 	 * If set to a non-null value, the map will highlight only elements in the list.
 	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
 	 */
-	public void setSelectedRelationNodes(Set<Node> nodes) {
+	public void setSelectedRelationNodes(List<Node> nodes) {
 		selectedRelationNodes = nodes;
 	}
 	
 	public void addSelectedRelationNode(Node node) {
 		if (selectedRelationNodes == null) {
-			selectedRelationNodes = new HashSet<Node>();
+			selectedRelationNodes = new LinkedList<Node>();
 		}
 		selectedRelationNodes.add(node);
 	}
@@ -2845,10 +3352,43 @@ public class Logic {
 		}
 	}
 	
-	public Set<Node> getSelectedRelationNodes() {
+	public List<Node> getSelectedRelationNodes() {
 		return selectedRelationNodes;
 	}
-
+	
+	/**
+	 * Sets the set of relations that belong to a relation and should be highlighted. 
+	 * If set to null, the map will use default behaviour.
+	 * If set to a non-null value, the map will highlight only elements in the list.
+	 * @param set of elements to which highlighting should be limited, or null to remove the limitation
+	 */
+	public void setSelectedRelationRelations(List<Relation> relations) {
+		selectedRelationRelations = relations;
+		if (selectedRelationRelations != null) {
+			for (Relation r:selectedRelationRelations) {
+				selectRelation(r);
+			}
+		}
+	}
+	
+	public void addSelectedRelationRelation(Relation relation) {
+		if (selectedRelationRelations == null) {
+			selectedRelationRelations = new LinkedList<Relation>();
+		}
+		selectedRelationRelations.add(relation);
+	}
+	
+	public void removeSelectedRelationRelation(Relation relation) {
+		if (selectedRelationRelations != null) {
+			selectedRelationRelations.remove(relation);
+		}
+	}
+	
+	public List<Relation> getSelectedRelationRelations() {
+		return selectedRelationRelations;
+	}
+	
+	
 	public void fixElementWithConflict(long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
 		createCheckpoint(R.string.undo_action_fix_conflict);
 
@@ -2856,18 +3396,21 @@ public class Logic {
 			// given that the element is deleted on the server we likely need to add it back to ways and relations there too
 			if (elementLocal.getName().equals(Node.NAME)) {
 				for (Way w:getWaysForNode((Node)elementLocal)) {
-					delegator.setOsmVersion(w,w.getOsmVersion()+1);
+					getDelegator().setOsmVersion(w,w.getOsmVersion()+1);
 				}
 			}
 			if (elementLocal.hasParentRelations()) {
 				for (Relation r:elementLocal.getParentRelations()) {
-					delegator.setOsmVersion(r,r.getOsmVersion()+1);
+					getDelegator().setOsmVersion(r,r.getOsmVersion()+1);
 				}
 			}
 		}
-		delegator.setOsmVersion(elementLocal,newVersion);
+		getDelegator().setOsmVersion(elementLocal,newVersion);
 	}
 
+	/**
+	 * Displays a crosshair marker on the screen at the coordinates given (in pixels).
+	 */
 	public void showCrosshairs(float x, float y) {
 		map.showCrosshairs(x, y);
 		map.invalidate();
@@ -2880,12 +3423,12 @@ public class Logic {
 
 	public void copyToClipboard(OsmElement element) {
 		if (element instanceof Node) {
-			delegator.copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+			getDelegator().copyToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
 			// use current centroid of way
 			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
 			Log.d("Logic","centroid " + result[0] + " " + result[1]);
-			delegator.copyToClipboard(element, result[0], result[1]);
+			getDelegator().copyToClipboard(element, result[0], result[1]);
 		}
 	}
 
@@ -2893,11 +3436,11 @@ public class Logic {
 	public void cutToClipboard(OsmElement element) {
 		createCheckpoint(R.string.undo_action_cut);
 		if (element instanceof Node) {
-			delegator.cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
+			getDelegator().cutToClipboard(element, ((Node)element).getLat(), ((Node)element).getLon());
 		} else if (element instanceof Way) {
 			int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox,(Way)element);
 			Log.d("Logic","centroid " + result[0] + " " + result[1]);
-			delegator.cutToClipboard(element, result[0], result[1]);
+			getDelegator().cutToClipboard(element, result[0], result[1]);
 		}
 		map.invalidate();
 	}
@@ -2906,12 +3449,12 @@ public class Logic {
 		createCheckpoint(R.string.undo_action_paste);
 		int lat = yToLatE7(y);
 		int lon = xToLonE7(x);
-		delegator.pasteFromClipboard(lat, lon);
+		getDelegator().pasteFromClipboard(lat, lon);
 	}
 
 	public boolean clipboardIsEmpty() {
 		
-		return delegator.clipboardIsEmpty();
+		return getDelegator().clipboardIsEmpty();
 	}
 
 
@@ -2999,7 +3542,7 @@ public class Logic {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(R.string.undo_action_circulize);
 		int[] center = centroid(map.getWidth(), map.getHeight(), map.getViewBox(), way);
-		delegator.circulizeWay(center, way);
+		getDelegator().circulizeWay(center, way);
 		map.invalidate();
 	}
 
@@ -3040,4 +3583,11 @@ public class Logic {
 		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
 	}
 
+
+	/**
+	 * @return the delegator
+	 */
+	public StorageDelegator getDelegator() {
+		return delegator;
+	}
 }

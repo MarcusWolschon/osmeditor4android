@@ -34,6 +34,10 @@ public class Tags {
 	public static final String KEY_ENTRANCE = "entrance";
 	//
 	public static final String KEY_NAME = "name";
+	public static final String KEY_OFFICIAL_NAME = "official_name";
+	public static final String KEY_ALT_NAME = "alt_name";
+	public static final String KEY_NAME_LEFT = "name:left";
+	public static final String KEY_NAME_RIGHT= "name:right";
 	public static final String KEY_REF = "ref";
 	public static final String KEY_NONAME = "noname";
 	public static final String KEY_VALIDATE_NO_NAME = "validate:no_name";

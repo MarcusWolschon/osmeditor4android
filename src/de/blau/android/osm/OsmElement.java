@@ -16,6 +16,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.res.Resources;
 import de.blau.android.R;
+import de.blau.android.util.IssueAlert;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
 
@@ -28,7 +29,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * An array of tags considered 'important' and distinctive enough to be shown as part of
 	 * the elements description.
 	 */
-	private static final String[] importantTags;
+	static final String[] importantTags;
 
 	public static final long NEW_OSM_ID = -1;
 
@@ -401,10 +402,19 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		// caches the calculation.
 		if (cachedHasProblem == null) {
 			cachedHasProblem = calcProblem();
+			if (cachedHasProblem) {
+				IssueAlert.alert(this);
+			}
 		}
 		return cachedHasProblem;
 	}
 	
+	/**
+	 * Call if you have made a change that potentially changes the problem state of the element
+	 */
+	public void resetHasProblem() {
+		cachedHasProblem = null;
+	}
 	
 	/** (see also {@link #getName()} - this returns the full type, differentiating between open and closed ways) 
 	 * @return the {@link ElementType} of the element */

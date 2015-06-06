@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -30,6 +32,7 @@ public abstract class VersionedGestureDetector {
 		public boolean onLongClick(View v, float x, float y);
 		public void onDrag(View v, float x, float y, float dx, float dy);
 		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan);
+		public boolean onDoubleTap(View v, float x, float y);
 	}
 	
 	public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {
@@ -251,14 +254,71 @@ public abstract class VersionedGestureDetector {
 	@TargetApi(8)
 	private static class FroyoDetector extends EclairDetector {
 		private ScaleGestureDetector mDetector;
+		private GestureDetector mGestureDetector;
 		private View v;
 		
 		public FroyoDetector(Context context) {
-			mDetector = new ScaleGestureDetector(context,
-					new ScaleGestureDetector.SimpleOnScaleGestureListener() {
+			mDetector = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
 				@Override public boolean onScale(ScaleGestureDetector detector) {
 					mListener.onScale(v, detector.getScaleFactor(), detector.getPreviousSpan(), detector.getCurrentSpan());
 					hasScaled = true;
+					return true;
+				}
+			});
+			
+			mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+				@Override 
+				public boolean onDoubleTap(MotionEvent e) {
+					float x = e.getX();
+		            float y = e.getY();
+
+		            mListener.onDoubleTap(v, x, y);
+					return true;
+				}
+				
+				@Override 
+				public boolean onSingleTapConfirmed(MotionEvent e) {
+					float x = e.getX();
+		            float y = e.getY();
+
+		            mListener.onClick(v, x, y);
+					return true;
+				}
+				
+				@Override 
+				public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+					float x = e2.getX();
+					float y = e2.getY();
+					
+					mListener.onDrag(v, x, y, -distanceX, -distanceY);
+					return true;
+				}
+				
+				@Override
+				public void onLongPress(MotionEvent e) {
+					float x = e.getX();
+					float y = e.getY();
+					
+					mListener.onLongClick(v, x, y);
+				}
+				
+				@Override
+				public boolean onDown(MotionEvent e) {
+					float x = e.getX();
+					float y = e.getY();
+					mFirstTouchX = mLastTouchX = x;
+					mFirstTouchY = mLastTouchY = y;
+					
+					mListener.onDown(v, x, y);
+					return true;
+				}
+				
+				@Override
+				public boolean onSingleTapUp(MotionEvent e) {
+					float x = e.getX();
+					float y = e.getY();
+					
+					mListener.onUp(v, x, y);
 					return true;
 				}
 			});
@@ -270,13 +330,16 @@ public abstract class VersionedGestureDetector {
 		}
 		
 		@Override
+		/**
+		 * This used to call through to the non-froyo versions. Replaced by calls to the respective android methods.
+		 */
 		public boolean onTouchEvent(View v, MotionEvent ev) {
 			this.v = v;
-			if (!hasLongPressed) {
-				mDetector.onTouchEvent(ev);
-			}
-			return super.onTouchEvent(v, ev);
+			
+			mDetector.onTouchEvent(ev);
+			mGestureDetector.onTouchEvent(ev);
+			
+			return true;
 		}
 	}
-	
 }

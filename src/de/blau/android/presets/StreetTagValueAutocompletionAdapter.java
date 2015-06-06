@@ -31,7 +31,10 @@
 package de.blau.android.presets;
 
 //other imports
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -41,13 +44,15 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import de.blau.android.Application;
 import de.blau.android.Logic;
-import de.blau.android.TagEditor;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MultiHashMap;
 
 
 /**
@@ -55,11 +60,11 @@ import de.blau.android.util.GeoMath;
  * TagKeyAutocompletionAdapter.java<br/>
  * created: 12.06.2010 10:43:37 <br/>
  *<br/><br/>
- * <b>Adapter for the {@link AutoCompleteTextView} in the {@link TagEditor}
+ * <b>Adapter for the {@link AutoCompleteTextView} in the {@link PropertyEditor}
  * that is for the VALUE  for the key "addr:street" .</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
-public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
+public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithCount> {
 
     /**
      * The tag we use for Android-logging.
@@ -75,16 +80,44 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
      * @param aContext used to load resources
      * @param aTextViewResourceId given to {@link ArrayAdapter}
      * @param osmId 
+     * @param extraValues 
      * @param type 
      */
     public StreetTagValueAutocompletionAdapter(final Context aContext, final int aTextViewResourceId,
                                        final StorageDelegator delegator,
                                        final String osmElementType,
-                                       final long osmId) {
+                                       final long osmId, 
+                                       ArrayList<String> extraValues) {
         super(aContext, aTextViewResourceId);
+        
+        HashMap<String, Integer> counter = new HashMap<String, Integer>();
+        if (extraValues != null && extraValues.size() > 0) {
+        	for(String t:extraValues) {
+        		if (t.equals("")) {
+        			continue;
+        		}
+        		if (counter.containsKey(t)) {
+        			counter.put(t, Integer.valueOf(counter.get(t).intValue()+1));
+        		} else {
+        			counter.put(t, Integer.valueOf(1));
+        		}
+        	}
+        	ArrayList<String> keys = new ArrayList<String>(counter.keySet());
+        	Collections.sort(keys);
+        	for (String t:keys) {
+        		ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
+            	super.add(v);
+        	}
+        	super.add(new ValueWithCount("",0)); // hack
+        }
+        
         names = getArray(delegator, PlaceTagValueAutocompletionAdapter.getLocation(delegator, osmElementType, osmId));
         for (String s:names) {
-        	super.add(s);
+        	if (counter.size()> 0 && counter.containsKey(s)) {
+        		continue; // skip values that we already have
+        	}
+        	ValueWithCount v = new ValueWithCount(s);
+        	super.add(v);
         }
     }
 
@@ -98,35 +131,43 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<String> {
     private String[] getArray(final StorageDelegator delegator, final int[] location) {
 		// build list of names with their closest distance to location
 		Map<String, Double> distancesByNames = new HashMap<String, Double>();
+		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME, Tags.KEY_NAME_LEFT, Tags.KEY_NAME_RIGHT};
 		
 		for (Way way : delegator.getCurrentStorage().getWays()) {
-			if (way.getTagWithKey("highway") != null) {
-				String name = way.getTagWithKey("name");
+			if (way.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
+				double distance = -1D;
 				long iD = way.getOsmId();
-				if (name != null) {
-					double distance = getDistance(way, location);
-					if (distancesByNames.containsKey(name)) {
-						// way already in list - keep shortest distance
-						if (distance <  distancesByNames.get(name)) {
+				for (String tag:nameTags) { 
+Log.d("StreetTagValueAutocompletionAdapter","Search for " + tag);
+					String name = way.getTagWithKey(tag);
+					if (name != null) {
+						Log.d("StreetTagValueAutocompletionAdapter","Name " + name);
+						if (distance == -1D) { // only calc once
+							distance = getDistance(way, location);
+						}
+						if (distancesByNames.containsKey(name)) {
+							// way already in list - keep shortest distance
+							if (distance <  distancesByNames.get(name)) {
+								distancesByNames.put(name, distance);
+								idsByNames.put(name,Long.valueOf(iD));
+							}
+						} else {
 							distancesByNames.put(name, distance);
 							idsByNames.put(name,Long.valueOf(iD));
 						}
-					} else {
-						distancesByNames.put(name, distance);
-						idsByNames.put(name,Long.valueOf(iD));
 					}
 				}
 			}
 		}
 		// sort names by distance
-		Map<Double, String> retval = new TreeMap<Double, String>();
+		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true);
 		for (String name : distancesByNames.keySet()) {
-			retval.put(distancesByNames.get(name), name);
+			retval.add(distancesByNames.get(name), name);
 		}
 		 
-		return retval.values().toArray(new String[retval.size()]);
+		return retval.getValues().toArray(new String[retval.getValues().size()]);
 	}
-
+    
     /**
      * @param way
      * @param location

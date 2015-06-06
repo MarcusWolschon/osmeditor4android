@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 
 import org.acra.ACRA;
 
@@ -164,37 +165,57 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			if (list == null) {
 				return;
 			}
+			// check if we shouldn't process this directory, not the most efficient way likely
+			for (File f:list) {
+				if (f.getName().equals(".novespucci")) {
+					return;
+				}
+			}
 			for (File f:list) {
 				if (f.isDirectory()) {
 					//recursive decent
 					scanDir(db, f.getAbsolutePath(), lastScan);
 				}
-				if (needsReindex && f.getName().toLowerCase().endsWith(".jpg")) {
-					Log.i(LOGTAG,"Adding entry from " + f.getName());
-					try {	
-						Photo p = new Photo(f);
-						ContentValues values = new ContentValues();
-						values.put("lat", p.getLat());
-						values.put("lon", p.getLon());
-						if (p.hasDirection()) {
-							values.put("direction", p.getDirection());
-						}
-						values.put("dir", indir.getAbsolutePath());
-						values.put("name", f.getName());
-						db.insert("photos", null, values); 
-					} catch (SQLiteException sqex) { 
-						Log.d(LOGTAG, sqex.toString());
-						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-						ACRA.getErrorReporter().handleException(sqex);
-					} catch (IOException ioex) {
-						// ignore silently broken pictures are not our business
-					} catch (Exception ex) { 
-						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-						ACRA.getErrorReporter().handleException(ex);
-					} // ignore
+				if (needsReindex && f.getName().toLowerCase(Locale.US).endsWith(".jpg")) {
+					addPhoto(db, indir, f);
 				}
 			}
 		}
+	}
+	
+	public void addPhoto(File f) {
+		SQLiteDatabase db = getWritableDatabase();
+		// Log.i(LOGTAG,"Adding entry in " + f.getParent());
+		addPhoto(db, f.getParentFile(), f);
+		db.close();
+	}
+	
+	public void addPhoto(SQLiteDatabase db, File dir, File f) {
+		// Log.i(LOGTAG,"Adding entry from " + f.getName());
+		try {	
+			Photo p = new Photo(f);
+			ContentValues values = new ContentValues();
+			values.put("lat", p.getLat());
+			values.put("lon", p.getLon());
+			// Log.i(LOGTAG,"Lat: " + p.getLat() + " " + p.getLon());
+			if (p.hasDirection()) {
+				values.put("direction", p.getDirection());
+			}
+			values.put("dir", dir.getAbsolutePath());
+			values.put("name", f.getName());
+			db.insert("photos", null, values); 
+		} catch (SQLiteException sqex) { 
+			Log.d(LOGTAG, sqex.toString());
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(sqex);
+		} catch (IOException ioex) {
+			// ignore silently broken pictures are not our business
+			// Log.d(LOGTAG, ioex.toString());
+		} catch (Exception ex) {
+			Log.d(LOGTAG, ex.toString());
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(ex);
+		} // ignore
 	}
 
 	/**

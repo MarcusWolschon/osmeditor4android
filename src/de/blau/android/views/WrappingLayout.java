@@ -239,13 +239,18 @@ public class WrappingLayout extends LinearLayout {
 		public void wrap(List<View> children, LinearLayout container) {
 			container.setOrientation(LinearLayout.VERTICAL);
 			
+			if (children == null) {
+				Log.e("WrappingLayout","wrap: childern null");
+				return;
+			}
+			
 			LayoutParams innerLayoutParams =
 				new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 			
 			final int availableSpace = container.getWidth() - container.getPaddingLeft() - container.getPaddingRight();
 			int usedSpace = 0;
 			
-			if (children != null && children.size() > 0 && !widthAdjustmentDone) {
+			if (children.size() > 0 && !widthAdjustmentDone) {
 				int childWidth = getViewWidth(children.get(0));
 				float times = (availableSpace - hspace)/(float)(childWidth + hspace);
 				newWidth = (availableSpace - (((int)times+1)*hspace))/((int)times);

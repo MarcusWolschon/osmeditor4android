@@ -116,18 +116,18 @@ public class Map extends View implements IMapView {
 	/** Caches the edit mode during one onDraw pass */
 	private Logic.Mode tmpDrawingEditMode;
 	
-	/** Caches the currently selected node during one onDraw pass */
-	private Node tmpDrawingSelectedNode;
+	/** Caches the currently selected nodes during one onDraw pass */
+	private List<Node> tmpDrawingSelectedNodes;
 
-	/** Caches the currently selected way during one onDraw pass */
-	private Way tmpDrawingSelectedWay;
+	/** Caches the currently selected ways during one onDraw pass */
+	private List<Way> tmpDrawingSelectedWays;
 	
 	/** Caches the current "clickable elements" set during one onDraw pass */
 	private Set<OsmElement> tmpClickableElements;
 
 	/** used for highlighting relation members */
-	private Set<Way> tmpDrawingSelectedRelationWays;
-	private Set<Node> tmpDrawingSelectedRelationNodes;
+	private List<Way> tmpDrawingSelectedRelationWays;
+	private List<Node> tmpDrawingSelectedRelationNodes;
 	
 	/** Caches the preset during one onDraw pass */
 	private Preset[] tmpPresets;
@@ -281,12 +281,12 @@ public class Map extends View implements IMapView {
 		zoomLevel = calcZoomLevel(canvas);
 		
 		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
-		tmpDrawingEditMode = Main.logic.getMode();
-		tmpDrawingSelectedNode = Main.logic.getSelectedNode();
-		tmpDrawingSelectedWay = Main.logic.getSelectedWay();
-		tmpClickableElements = Main.logic.getClickableElements();
-		tmpDrawingSelectedRelationWays = Main.logic.getSelectedRelationWays();
-		tmpDrawingSelectedRelationNodes = Main.logic.getSelectedRelationNodes();
+		tmpDrawingEditMode = Main.getLogic().getMode();
+		tmpDrawingSelectedNodes = Main.getLogic().getSelectedNodes();
+		tmpDrawingSelectedWays = Main.getLogic().getSelectedWays();
+		tmpClickableElements = Main.getLogic().getClickableElements();
+		tmpDrawingSelectedRelationWays = Main.getLogic().getSelectedRelationWays();
+		tmpDrawingSelectedRelationNodes = Main.getLogic().getSelectedRelationNodes();
 		tmpPresets = Main.getCurrentPresets();
 		handles = null;
 		
@@ -296,8 +296,9 @@ public class Map extends View implements IMapView {
 			osmvo.onManagedDraw(canvas, this);
 		}
 		
-		if (zoomLevel >12)
+		if (zoomLevel >12) {
 			paintOsmData(canvas);
+		}
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
 				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modiciaftion issues
@@ -511,21 +512,22 @@ public class Map extends View implements IMapView {
 		List<Node> nodes = delegator.getCurrentStorage().getNodes();
 		ArrayList<Node> paintNodes = new ArrayList<Node>(); 
 		BoundingBox viewBox = getViewBox();
-		boolean includesSelectedNode = false;
 		nodesOnScreenCount = 0;
 		for (Node n:nodes) {
 			if (viewBox.isIn(n.getLat(), n.getLon())) {
-				if (n == tmpDrawingSelectedNode) {
-					includesSelectedNode = true;
-				}
 				paintNodes.add(n);
 				nodesOnScreenCount++;
 			}
 		}
 		// the following should guarantee that if the selected node is off screen but the handle not, the handle gets drawn
 		// note this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
-		if (tmpDrawingSelectedNode != null && !includesSelectedNode) {
-			paintNodes.add(tmpDrawingSelectedNode);
+		// TODO check if we can't avoid searching paintNodes multiple times
+		if (tmpDrawingSelectedNodes != null) {
+			for (Node n:tmpDrawingSelectedNodes) {
+				if (!paintNodes.contains(n)) {
+					paintNodes.add(n);
+				}
+			}
 		}
 		
 // TODO code is currently disabled because it is not quite satisfactory
@@ -543,7 +545,7 @@ public class Map extends View implements IMapView {
 //			e.printStackTrace();
 //		} 
 		// 
-		tmpDrawingInEditRange = Main.logic.isInEditZoomRange(); // do this after density calc
+		tmpDrawingInEditRange = Main.getLogic().isInEditZoomRange(); // do this after density calc
 		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();
@@ -625,34 +627,38 @@ public class Map extends View implements IMapView {
 			float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
 			float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
 
+			boolean isTagged = node.isTagged();
+			
 			//draw tolerance box
 			if (tmpDrawingInEditRange
 					&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(node)))
 					&& (tmpClickableElements == null || tmpClickableElements.contains(node))
-					&&	(tmpDrawingEditMode != Logic.Mode.MODE_APPEND
-						|| tmpDrawingSelectedNode != null
-						|| delegator.getCurrentStorage().isEndNode(node)
-						)
 				)
 			{
-				drawNodeTolerance(canvas, node.getState(), lat, lon, x, y);
+				drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y);
 			}
 			
 			String featureKey;
 			String featureKeyThin;
 			String featureKeyTagged;
-			if (node == tmpDrawingSelectedNode 
-					|| (tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) 
-					&& tmpDrawingInEditRange) {
+			if (tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node) && tmpDrawingInEditRange) {
 				// general node style
 				featureKey = Profile.SELECTED_NODE;
 				// style for house numbers
 				featureKeyThin = Profile.SELECTED_NODE_THIN;
 				// style for tagged nodes or otherwise important
 				featureKeyTagged = Profile.SELECTED_NODE_TAGGED;
-				if (node == tmpDrawingSelectedNode && prefs.largeDragArea()) {
+				if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()) { // don't draw large areas in multi-select mode
 					canvas.drawCircle(x, y, Profile.getCurrent().largDragToleranceRadius, Profile.getCurrent(Profile.NODE_DRAG_RADIUS).getPaint());
 				}
+				isSelected = true;
+			} else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
+				// general node style
+				featureKey = Profile.SELECTED_RELATION_NODE;
+				// style for house numbers
+				featureKeyThin = Profile.SELECTED_RELATION_NODE_THIN;
+				// style for tagged nodes or otherwise important
+				featureKeyTagged = Profile.SELECTED_RELATION_NODE_TAGGED;
 				isSelected = true;
 			} else if (node.hasProblem()) {
 				// general node style
@@ -670,7 +676,7 @@ public class Map extends View implements IMapView {
 				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
-			if (node.isTagged()) {
+			if (isTagged) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
 					Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
@@ -726,17 +732,18 @@ public class Map extends View implements IMapView {
 
 	/**
 	 * @param canvas
-	 * @param node
 	 * @param lat
 	 * @param lon
+	 * @param isTagged TODO
 	 * @param x
 	 * @param y
+	 * @param node
 	 */
 	private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon,
-			final float x, final float y) {
+			boolean isTagged, final float x, final float y) {
 		if ( (tmpDrawingEditMode != Logic.Mode.MODE_MOVE && tmpDrawingEditMode != Logic.Mode.MODE_ALIGN_BACKGROUND)
 				&& (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon))) {
-			canvas.drawCircle(x, y, nodeTolerancePaint.getStrokeWidth(), nodeTolerancePaint);
+			canvas.drawCircle(x, y, isTagged ? nodeTolerancePaint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth()/2, nodeTolerancePaint);
 		}
 	}
 
@@ -755,26 +762,32 @@ public class Map extends View implements IMapView {
 				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
 				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
 					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
-					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT
-					|| (tmpDrawingEditMode == Logic.Mode.MODE_APPEND && tmpDrawingSelectedNode != null))) {
+					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT)) {
 			canvas.drawLines(linePoints, wayTolerancePaint);
 		}
 		//draw selectedWay highlighting
 		boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be a better idea to do so
-				&& (way == tmpDrawingSelectedWay 
-				|| (tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way)));
+				&& tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way) ;
+		boolean isMemberOfSelectedRelation = tmpDrawingInEditRange 
+				&& tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);		
+				
 		if  (isSelected) {
 			paint = Profile.getCurrent(Profile.SELECTED_WAY).getPaint();
 			canvas.drawLines(linePoints, paint);
 			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
 			drawOnewayArrows(canvas, linePoints, false, paint);
-		} 
+		} else if (isMemberOfSelectedRelation) {
+			paint = Profile.getCurrent(Profile.SELECTED_RELATION_WAY).getPaint();
+			canvas.drawLines(linePoints, paint);
+			paint = Profile.getCurrent(Profile.WAY_DIRECTION).getPaint();
+			drawOnewayArrows(canvas, linePoints, false, paint);
+		}
 
 		int onewayCode = way.getOneway();
 		if (onewayCode != 0) {
 			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
 			drawOnewayArrows(canvas, linePoints, (onewayCode == -1), fp.getPaint());
-		} else if (way.getTagWithKey("waterway") != null) { // waterways flow in the way direction
+		} else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
 			FeatureProfile fp = Profile.getCurrent(Profile.ONEWAY_DIRECTION);
 			drawOnewayArrows(canvas, linePoints, false, fp.getPaint());
 		}
@@ -790,7 +803,7 @@ public class Map extends View implements IMapView {
 			if (wayFp == null) {
 				fp = Profile.getCurrent(Profile.WAY); // default for ways
 				// three levels of hierarchy for roads and special casing of tracks, two levels for everything else
-				String highwayType = way.getTagWithKey("highway");
+				String highwayType = way.getTagWithKey(Tags.KEY_HIGHWAY);
 				if (highwayType != null) {
 					FeatureProfile tempFp = Profile.getCurrent("way-highway");
 					if (tempFp != null) {
@@ -998,16 +1011,16 @@ public class Map extends View implements IMapView {
 	/**
 	 * @param aSelectedNode the currently selected node to edit.
 	 */
-	void setSelectedNode(final Node aSelectedNode) {
-		tmpDrawingSelectedNode = aSelectedNode;
+	void setSelectedNodes(final List<Node> aSelectedNodes) {
+		tmpDrawingSelectedNodes = aSelectedNodes;
 	}
 	
 	/**
 	 * 
 	 * @param aSelectedWay the currently selected way to edit.
 	 */
-	void setSelectedWay(final Way aSelectedWay) {
-		tmpDrawingSelectedWay = aSelectedWay;
+	void setSelectedWays(final List<Way> aSelectedWays) {
+		tmpDrawingSelectedWays = aSelectedWays;
 	}
 	
 	public Preferences getPrefs() {
@@ -1016,6 +1029,7 @@ public class Map extends View implements IMapView {
 	
 	public void setPrefs(final Preferences aPreference) {
 		prefs = aPreference;
+		OpenStreetMapTileServer.setBlacklist(prefs.getServer().getCachedCapabilities().imageryBlacklist);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (osmvo instanceof OpenStreetMapTilesOverlay && !(osmvo instanceof OpenStreetMapOverlayTilesOverlay)) {
 				final OpenStreetMapTileServer backgroundTS = OpenStreetMapTileServer.get(Application.mainActivity, prefs.backgroundLayer(), true);

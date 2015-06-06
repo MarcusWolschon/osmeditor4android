@@ -23,6 +23,8 @@
     <string name="wrong_login_data_re_authenticate">Re-Authenticate</string>
     <string name="data_conflict_title">Version Conflict</string>
     <string name="data_conflict_message">The data you are trying to download contains data that conflicts with your edits. Please try to upload your data first before retrying.</string>
+    <string name="api_offline_title">API Offline</string>
+    <string name="api_offline_message">The API is currently offline and does not allow data to be retrieved or written.</string>
     <string name="out_of_memory_title">Out of Memory</string>
     <string name="out_of_memory_message">Vespucci has run out of memory loading the requested data. Please restart and try loading a smaller area.</string>
     <string name="out_of_memory_dirty_message">Vespucci has run out of memory loading the requested data. Please attempt to save your edits, restart and try loading a smaller area.</string>
@@ -76,6 +78,17 @@
     <string name="save_file">Enter file to save to</string>
     <string name="existing_track_title">Existing track data</string>
     <string name="existing_track_message">You already have existing track data. You may want to cancel and save first.</string>
+    <string name="element_information">Element information</string>
+    <string name="id">Id</string>
+    <string name="nodes">Nodes</string>
+    <string name="relation_membership">Relation membership</string>
+    <string name="problem">Problem</string>
+    <string name="members">Members</string>
+    <string name="closed">Closed</string>
+    <string name="version">Version</string>
+    <string name="length_m">Length (m)</string>
+    <string name="not_downloaded">Not downloaded</string>
+    <string name="empty_role">empty role</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -101,6 +114,7 @@
     <string name="toast_download_failed">Download failed with error code %1$d, message %2$s</string>
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road has no name or ref</string>
+    <string name="toast_notype">Relation has no type</string>
     <string name="toast_oauth_retry">Please allow OAuth access to your OSM account and then retry the upload.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
@@ -113,6 +127,7 @@
     <string name="toast_file_not_found">%1$s not found.</string>
     <string name="toast_imported_track_points">Imported %1$s track points.</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
+    <string name="toast_camera_error">Error starting camera app: %1$s</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -130,9 +145,11 @@
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
-    <!-- Strings in TagEditor -->
+    <!-- Strings in PorpertyEditor -->
     <string name="key">key</string>
+    <string name="Key">Key</string>
     <string name="value">value</string>
+    <string name="Value">Value</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
     <string name="tag_menu_address">Add address tags</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>
@@ -146,6 +163,11 @@
     <string name="tag_menu_reset_address_prediction">Reset address prediction</string>
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
     <string name="tag_value_hint">Tap for values</string>
+    <string name="tag_multi_value_hint">Multiple values</string>
+    <string name="tag_action_title">Tags selected</string>
+    <string name="menu_up">Up</string>
+    <string name="menu_top">Top</string>
+    <string name="menu_preset_help">Preset help</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>
     <string name="location_choose_radius">Choose radius:</string>
@@ -176,6 +198,7 @@
     <string name="menu_erase">Erase node</string>
     <string name="menu_set_position">Position</string>
     <string name="menu_split">Split</string>
+    <string name="menu_extract">Extract node</string>
     <string name="menu_closed_way_split_1">Split closed way, 1st node</string>
     <string name="menu_closed_way_split_2">Split closed way, 2nd node</string>
     <string name="menu_append">Append</string>
@@ -184,9 +207,11 @@
     <string name="menu_restriction_to">Add restriction to</string>
     <string name="menu_relation">Create relation</string>
     <string name="menu_add_relation_member">Add member</string>
+    <string name="menu_select_relation_members">Select members</string>
     <string name="menu_tag">Edit tags</string>
     <string name="menu_openstreetbug">Add Note</string>
     <string name="menu_easyedit">EasyEdit</string>
+    <string name="menu_camera">Camera</string>
     <string name="menu_gps">GPS…</string>
     <string name="menu_gps_show">Show location</string>
     <string name="menu_gps_follow">Follow GPS position</string>
@@ -204,6 +229,7 @@
     <string name="menu_transfer_download_current_add">Add current view to download</string>
     <string name="menu_transfer_download_other">Download other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
+    <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_export">Export changes</string>
     <string name="menu_transfer_read_file">Read from file</string>
     <string name="menu_transfer_save_file">Save to file</string>
@@ -213,10 +239,14 @@
     <string name="menu_copy">Copy</string>
     <string name="menu_cut">Cut</string>
     <string name="menu_paste">Paste</string>
+    <string name="menu_paste_from_clipboard">Paste from clipboard</string>
     <string name="menu_rotate">Rotate</string>
     <string name="menu_orthogonalize">Orthogonalize</string>
     <string name="menu_circulize">Arrange in circle</string>
+    <string name="menu_split_polygon">Split in to polygons</string>
     <string name="menu_newnode_gps">New node at GPS pos.</string>
+    <string name="menu_extend_selection">Extend selection</string>
+    <string name="menu_information">Info</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>
@@ -251,8 +281,13 @@
     <string name="actionmode_nodeselect">Node selected</string>
     <string name="actionmode_relationselect">Relation selected</string>
     <string name="actionmode_createpath">Creating path</string>
+    <string name="actionmode_multiselect">Multi-Select</string>
     <!-- Preferences -->
-    <string name="config_category_view">View Settings</string>
+    <string name="config_category_view">User Interface Settings</string>
+    <string name="config_showCameraAction_title">Show camera action</string>
+    <string name="config_showCameraAction_summary">Show camera icon on action bar</string>
+    <string name="config_generateAlerts_title">Generate notifications</string>
+    <string name="config_generateAlerts_summary">Generate notifications for data with problems or notes</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this</string>
     <string name="config_tileCacheSize_title">Tile cache size</string>
@@ -323,6 +358,9 @@
 	<string name="config_gps_source_summary">Source of GPS location updates</string>
 	<string name="config_gps_source_tcp_title">NMEA network source</string>
 	<string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port</string>
+	<string name="config_enableLightTheme_title">Enable light theme</string>
+	<string name="config_enableLightTheme_summary">Light theme with white backgrounds</string>
+	<string name="config_category_misc">Miscellaneous</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
@@ -338,8 +376,10 @@
     <!--  url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
     <string name="urldialog_preset_exists">This preset already exists</string>
+    <string name="urldialog_preset_download_successful">Preset download successful!</string>
     <string name="urldialog_api_exists">An API with this URL already exists. However, you may add another one (e.g. to switch accounts easily).</string>
     <string name="urldialog_api_preset_missing">The preset used by the API is not available. You should add it first.</string>
+    <string name="urldialog_api_install_successful">API install successful!</string>
     <string name="urldialog_add_api">Add API</string>
     <string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
     <!--  common terms  -->
@@ -363,10 +403,12 @@
     <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">move node</string>
     <string name="undo_action_moveway">move way</string>
+    <string name="undo_action_moveobjects">move objects</string>
     <string name="undo_action_add">insert</string>
     <string name="undo_action_append">append</string>
     <string name="undo_action_deletenode">delete node</string>
     <string name="undo_action_deleteway">delete way</string>
+    <string name="undo_action_delete_objects">delete objects</string>
     <string name="undo_action_split_ways">split ways</string>
     <string name="undo_action_split_way">split way</string>
     <string name="undo_action_merge_ways">merge ways</string>
@@ -383,6 +425,7 @@
     <string name="undo_action_orthogonalize">orthogonalize way</string>
     <string name="undo_action_circulize">arrange in circle</string>
     <string name="undo_action_fix_conflict">fix conflict</string>
+    <string name="undo_action_extract_node">extract node</string>
     <!--  ACRA -->
     <string name="crash_notif_ticker_text">Vespucci has crashed or found a serious issue. Please send an error report.</string>
     <string name="crash_notif_title">Vespucci has crashed or found a serious issue.</string>
@@ -394,11 +437,16 @@
     <string name="pref_acra_disabled">Crash reporting disabled</string>
     <!-- Exceptions messages -->
     <string name="exception_too_many_nodes">This operation would create a way with too many nodes.</string>
+    <!--  Notifications -->
+    <string name="alert_data_issue">OSM data issue detected</string>
+    <string name="alert_note">Nearby OSM note detected</string>
+    <string name="alert_distance_direction">in %1$d m %2$s</string>
     <!--  Misc relation related stuff -->
     <string name="role">Role</string>
     <string name="role_lc">role</string>
     <string name="membership_relation_heading">Member of relation</string>
     <string name="relation">Relation</string>
+    <string name="relations">Relations</string>
     <string name="position">Pos.</string>
     <string name="type">Type</string>
     <string name="object">Object</string>

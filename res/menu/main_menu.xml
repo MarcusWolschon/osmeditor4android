@@ -5,15 +5,22 @@
 		android:id="@+id/menu_undo"
 		android:title="@string/undo"
 		android:alphabeticShortcut="u"
-		android:icon="@drawable/undo"
+		android:icon="?attr/menu_undo"
 		android:showAsAction="ifRoom"
 		android:actionLayout="@layout/undo_action_view"
 	/>
     	
 	<item
+		android:id="@+id/menu_camera"
+		android:title="@string/menu_camera"
+		android:icon="?attr/menu_camera"
+		android:showAsAction="always"
+	/>	
+	
+	<item
 		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
-		android:icon="@drawable/menu_gps"
+		android:icon="?attr/menu_gps"
 		android:showAsAction="ifRoom"
 	>	
 		
@@ -73,7 +80,7 @@
 	<item
 		android:id="@+id/menu_transfer"
 		android:title="@string/menu_transfer"
-		android:icon="@drawable/menu_transfer"
+		android:icon="?attr/menu_transfer"
 		android:showAsAction="ifRoom"
 	>	
 		<menu>
@@ -94,6 +101,10 @@
 					android:title="@string/menu_transfer_upload"
 				/>
 				<item
+					android:id="@+id/menu_transfer_close_changeset"
+					android:title="@string/menu_transfer_close_changeset"
+				/>
+				<item
 					android:id="@+id/menu_transfer_export"
 					android:title="@string/menu_transfer_export"
 				/>
@@ -112,14 +123,14 @@
 		android:id="@+id/menu_confing"
 		android:title="@string/menu_config"
 		android:alphabeticShortcut="c"
-		android:icon="@drawable/menu_config"
+		android:icon="?attr/menu_config"
 		android:showAsAction="ifRoom"
 	/>
 	
 	<item
 		android:id="@+id/menu_tools"
 		android:title="@string/menu_tools"
-		android:icon="@drawable/menu_tools"
+		android:icon="?attr/menu_tools"
 		android:showAsAction="ifRoom"
 	>	
 		<menu>
@@ -145,14 +156,14 @@
 	<item
 		android:id="@+id/menu_find"
 		android:title="@string/menu_find"
-		android:icon="@drawable/ic_menu_search_holo_dark"
+		android:icon="?attr/menu_find"
 		android:showAsAction="ifRoom"
 	/>		
 	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"
 		android:alphabeticShortcut="h"
-		android:icon="@drawable/menu_help"
+		android:icon="?attr/menu_help"
 		android:showAsAction="ifRoom"
 	/>
 		

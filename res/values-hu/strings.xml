@@ -12,7 +12,6 @@
   <string name="no_connection_title">Nincs kapcsolat a szerverrel</string>
   <string name="no_connection_message">Nem lehet kapcsolódni az OSM szerverhez. Kérlek ellenőrizd az internet-kapcsolatodat, vagy később próbáld újra.</string>
   <string name="wrong_login_data_title">A hitelesítés nem sikerült</string>
-  <string name="wrong_login_data_message">OAuth használata esetén ez valószínűleg egy hiba, kérlek küldj egy hibajelentést. Ha felhasználónevet és jelszót adtál meg (nem javasolt), kérlek ellenőrizd, hogy helyesek-e.</string>
   <string name="out_of_memory_title">Nincs elég memória</string>
   <string name="out_of_memory_message">Az adatok betöltése közben elfogyott a Vespucci számára rendelkezésre álló memória. Kérlek indítsd újra az appot, és próbálj meg egy kisebb területet letölteni.</string>
   <string name="out_of_memory_dirty_message">Az adatok betöltése közben elfogyott a Vespucci számára rendelkezésre álló memória. Kérlek próbáld elmenteni a szerkesztéseid, indítsd újra az appot, és próbálj meg egy kisebb területet letölteni.</string>
@@ -79,7 +78,7 @@
   <!--Dialog for back button-->
   <string name="exit_title">Biztosan kilépsz?</string>
   <string name="exit_text">Biztos vagy benne, hogy ki akarsz lépni?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">kulcs</string>
   <string name="value">érték</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Hu:Map_Features</string>
@@ -173,7 +172,6 @@
   <string name="actionmode_relationselect">Kapcsolat kijelölve</string>
   <string name="actionmode_createpath">Vonal készítése</string>
   <!--Preferences-->
-  <string name="config_category_view">Nézet beállításai</string>
   <string name="config_maxStrokeWidth_title">Max vonalvastagság</string>
   <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat</string>
   <string name="config_tileCacheSize_title">Csempe gyorsítótár mérete</string>
@@ -272,6 +270,7 @@
   <string name="pref_acra_enabled">Az összeomlások jelentése engedélyezve van</string>
   <string name="pref_acra_disabled">Az összeomlások jelentése le van tilva</string>
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Szerep</string>
   <string name="role_lc">szerep</string>

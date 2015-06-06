@@ -63,9 +63,7 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.locked_small);
 		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
 		addItem(Logic.Mode.MODE_ADD, R.string.menu_add, R.drawable.menu_add);
-		addItem(Logic.Mode.MODE_EDIT, R.string.menu_edit, R.drawable.menu_edit);
 		addItem(Logic.Mode.MODE_TAG_EDIT, R.string.menu_tag, R.drawable.menu_tag);
-		addItem(Logic.Mode.MODE_APPEND, R.string.menu_append, R.drawable.menu_append);
 		addItem(Logic.Mode.MODE_ERASE, R.string.menu_erase, R.drawable.menu_erase);
 		addItem(Logic.Mode.MODE_SPLIT, R.string.menu_split, R.drawable.menu_split);
 		// OpenStreetBug item must be last so it can be easily hidden

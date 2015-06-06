@@ -37,6 +37,8 @@ EXIF support outside of what is provided by google is implemented with the metad
 
 The JsonReader and related classes are Copyright (C) 2010 The Android Open Source Project licensed under the Apache License, version 2.
 
+The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2
+
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt

@@ -8,11 +8,17 @@ You can now do one of three things:
 * **touch some other place on the screen** - this will create a way from the initial location to this location, the way acan be further extended by adding further node. Touching the last location completes the way and starts the tag editor. 
 * **select a menu item** see below
 
+Both the last node and the complete way can be moved without leaving "New" mode.
+
 ## Further actions  
 
 ### ![](../images/address.png) Add address tags
 
 Adds a node at the current location and adds address tags with prediction. If the node is part of a building way it will further add "entrance=yes" if not present.
+
+### ![](../images/tag_menu_preset.png) Add preset
+
+Create the current new object, launch the [property editor](PropertyEditor) and immediately display the preset tab. In multi-pane mode this will simply start the property editor.
 
 ### ![](../images/tag_menu_bug.png) Add a OpenStreetMap Note
 

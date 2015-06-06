@@ -51,7 +51,7 @@
   <string name="replace">Inlocuiește</string>
   <!--Dialog for back button-->
   <string name="exit_text">Sunteţi sigur că doriţi să ieșiţi?</string>
-  <!--Strings in TagEditor-->
+  <!--Strings in PorpertyEditor-->
   <string name="key">cheie</string>
   <string name="value">valoare</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
@@ -102,7 +102,6 @@
   <string name="menu_merge">Participă</string>
   <!--EasyEdit action mode titles-->
   <!--Preferences-->
-  <string name="config_category_view">Vezi setările</string>
   <string name="config_showStats_title">Arată statistici</string>
   <string name="config_showTolerance_title">Arată toleranţa</string>
   <string name="config_backgroundLayer_title">Hartă de fundal</string>
@@ -137,6 +136,7 @@
   <string name="undo_action_circulize">aranjează în cerc</string>
   <!--ACRA-->
   <!--Exceptions messages-->
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="type">Scrie</string>
   <string name="object">Obiect</string>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import de.blau.android.R;
@@ -68,6 +69,12 @@ public class Preferences {
 	private final String gpsTcpSource;
 	
 	private final String offsetServer;
+	
+	private final boolean showCameraAction;
+	
+	private final boolean generateAlerts;
+	
+	private final boolean lightThemeEnabled;
 	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
@@ -152,8 +159,12 @@ public class Preferences {
 			gpsDistance = 2.0f;
 			gpsInterval = 1000;
 		}
-		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), true);
+		forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
+		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
+		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
+		// light theme doesn't really work prior to Honeycomb, but make it the default for anything newer
+		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? true : false);
 	}
 	
 	/**
@@ -331,5 +342,17 @@ public class Preferences {
 
 	public String getOffsetServer() {
 		return offsetServer;
+	}
+	
+	public boolean showCameraAction() {
+		return showCameraAction;
+	}
+	
+	public boolean generateAlerts() {
+		return generateAlerts;
+	}
+	
+	public boolean lightThemeEnabled() {
+		return lightThemeEnabled;
 	}
 }

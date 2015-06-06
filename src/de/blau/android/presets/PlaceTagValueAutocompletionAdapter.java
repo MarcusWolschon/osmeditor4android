@@ -31,6 +31,8 @@
 package de.blau.android.presets;
 
 //other imports
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,13 +43,15 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import de.blau.android.Application;
 import de.blau.android.Logic;
-import de.blau.android.TagEditor;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MultiHashMap;
 
 
 /**
@@ -55,11 +59,11 @@ import de.blau.android.util.GeoMath;
  * TagKeyAutocompletionAdapter.java<br/>
  * created: 12.06.2010 10:43:37 <br/>
  *<br/><br/>
- * <b>Adapter for the {@link AutoCompleteTextView} in the {@link TagEditor}
+ * <b>Adapter for the {@link AutoCompleteTextView} in the {@link PropertyEditor}
  * that is for the VALUE  for the key "addr:street" .</a>
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
-public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<String> {
+public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithCount> {
 
     /**
      * The tag we use for Android-logging.
@@ -82,12 +86,39 @@ public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<String> {
                                        final int aTextViewResourceId,
                                        final StorageDelegator delegator,
                                        final String osmElementType,
-                                       final long osmId) {
+                                       final long osmId,
+                                       ArrayList<String> extraValues) {
         super(aContext, aTextViewResourceId);
         Log.d("PlaceTagValuesCompletionAdapter","Constructor ...");
+        
+        HashMap<String, Integer> counter = new HashMap<String, Integer>();
+        if (extraValues != null && extraValues.size() > 0) {
+        	for(String t:extraValues) {
+        		if (t.equals("")) {
+        			continue;
+        		}
+        		if (counter.containsKey(t)) {
+        			counter.put(t, Integer.valueOf(counter.get(t).intValue()+1));
+        		} else {
+        			counter.put(t, Integer.valueOf(1));
+        		}
+        	}
+        	ArrayList<String> keys = new ArrayList<String>(counter.keySet());
+        	Collections.sort(keys);
+        	for (String t:keys) {
+        		ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
+            	super.add(v);
+        	}
+        	super.add(new ValueWithCount("",0)); // hack
+        }
+        
         names = getArray(delegator, getLocation(delegator, osmElementType, osmId));
         for (String s:names) {
-        	super.add(s);
+           	if (counter.size()> 0 && counter.containsKey(s)) {
+        		continue; // skip values that we already have
+        	}
+        	ValueWithCount v = new ValueWithCount(s);
+        	super.add(v);
         }
     }
 
@@ -101,59 +132,71 @@ public class PlaceTagValueAutocompletionAdapter extends ArrayAdapter<String> {
     private String[] getArray(final StorageDelegator delegator, final int[] location) {
 		// build list of names with their closest distance to location
 		Map<String, Double> distancesByName = new HashMap<String, Double>();
-		
-		Log.d("PlaceTagValuesCompletionAdapter","searching for palce ways...");
+		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME};
+		Log.d("PlaceTagValuesCompletionAdapter","searching for place ways...");
 		for (Way way : delegator.getCurrentStorage().getWays()) {
-			if (way.getTagWithKey("place") != null) {
-				String name = way.getTagWithKey("name");
+			if (way.getTagWithKey(Tags.KEY_PLACE) != null) {
+				double distance = -1D;
 				long iD = way.getOsmId();
-				if (name != null) {
-					double distance = getDistance(way, location);
-					if (distancesByName.containsKey(name)) {
-						// way already in list - keep shortest distance
-						if (distance <  distancesByName.get(name)) {
+				
+				for (String tag:nameTags) { 
+					String name = way.getTagWithKey(tag);
+					if (name != null) {
+						if (distance == -1D) { // only calc once
+							distance = getDistance(way, location);
+						}
+						if (distancesByName.containsKey(name)) {
+							// way already in list - keep shortest distance
+							if (distance <  distancesByName.get(name)) {
+								distancesByName.put(name, distance);
+								idsByNames.put(name,Long.valueOf(iD));
+								typeByNames.put(name,Way.NAME);
+							}
+						} else {
 							distancesByName.put(name, distance);
 							idsByNames.put(name,Long.valueOf(iD));
 							typeByNames.put(name,Way.NAME);
 						}
-					} else {
-						distancesByName.put(name, distance);
-						idsByNames.put(name,Long.valueOf(iD));
-						typeByNames.put(name,Way.NAME);
 					}
 				}
 			}
 		}
 		Log.d("PlaceTagValuesCompletionAdapter","searching for place nodes...");
 		for (Node node : delegator.getCurrentStorage().getNodes()) {
-			if (node.getTagWithKey("place") != null) {
-				String name = node.getTagWithKey("name");
-				Log.d("PlaceTagValuesCompletionAdapter","adding " + name);
+			if (node.getTagWithKey(Tags.KEY_PLACE) != null) {
+				double distance = -1D;
 				long iD = node.getOsmId();
-				if (name != null) {
-					double distance = Math.hypot(location[0] - node.getLat(),location[1] - node.getLon());
-					if (distancesByName.containsKey(name)) {
-						// way already in list - keep shortest distance
-						if (distance <  distancesByName.get(name)) {
+
+				for (String tag:nameTags) {
+					String name = node.getTagWithKey(tag);
+					Log.d("PlaceTagValuesCompletionAdapter","adding " + name);
+					if (name != null) {
+						if (distance == -1D) { // only calc once
+							distance = Math.hypot(location[0] - node.getLat(),location[1] - node.getLon());
+						}
+						if (distancesByName.containsKey(name)) {
+							// way already in list - keep shortest distance
+							if (distance <  distancesByName.get(name)) {
+								distancesByName.put(name, distance);
+								idsByNames.put(name,Long.valueOf(iD));
+								typeByNames.put(name,Node.NAME);
+							}
+						} else {
 							distancesByName.put(name, distance);
 							idsByNames.put(name,Long.valueOf(iD));
 							typeByNames.put(name,Node.NAME);
 						}
-					} else {
-						distancesByName.put(name, distance);
-						idsByNames.put(name,Long.valueOf(iD));
-						typeByNames.put(name,Node.NAME);
 					}
 				}
 			}
 		}
 		// sort names by distance
-		Map<Double, String> retval = new TreeMap<Double, String>();
+		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true);
 		for (String name : distancesByName.keySet()) {
-			retval.put(distancesByName.get(name), name);
+			retval.add(distancesByName.get(name), name);
 		}
 		 
-		return retval.values().toArray(new String[retval.size()]);
+		return retval.getValues().toArray(new String[retval.getValues().size()]);
 	}
 
     /**

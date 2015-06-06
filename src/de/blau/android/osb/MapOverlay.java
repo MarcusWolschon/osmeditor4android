@@ -16,6 +16,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IssueAlert;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
@@ -73,6 +74,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 						// add open bugs or closed bugs younger than 7 days
 						if (!b.isClosed() || (now - b.getMostRecentChange().getTime()) < MAX_CLOSED_AGE) {
 							bugs.add(b);
+							IssueAlert.alert(b);
 						}
 					}
 

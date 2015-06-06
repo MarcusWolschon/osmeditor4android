@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
+<view class="de.blau.android.propertyeditor.RelationMembersFragment$RelationMemberRow" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    
+    <LinearLayout 
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		style="?attr/Layout"
+		android:baselineAligned="false"
+	>
+	    <CheckBox
+        	android:id="@+id/member_selected"
+        	android:text=""
+        	android:layout_width="34dp"
+        	android:layout_height="fill_parent"
+        	android:layout_gravity="center_vertical" 
+       		android:paddingLeft="5dp"
+	    	android:paddingRight="5dp"
+	    	android:layout_marginBottom="1dp"
+	    	android:layout_marginRight="1dp"
+	    	/>
+	    <AutoCompleteTextView
+	        android:id="@+id/editMemberRole"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="1dp"
+	        android:layout_marginRight="1dp"
+	        android:layout_weight="3"
+	        android:completionThreshold="1"
+	        android:dropDownWidth="wrap_content"
+	        android:hint="@string/role_lc"
+	        android:inputType="textNoSuggestions"
+	        android:minHeight="34dp"
+	        android:paddingLeft="5dp"
+	        android:paddingRight="5dp"
+	        android:singleLine="true"
+	        android:textColor="@color/tagedit_field_text" />
+	        
+	    <TextView
+	        android:id="@+id/memberType"
+	        style="?attr/DownloadedMember"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="1dp"
+	        android:layout_marginRight="1dp"
+	        android:layout_weight="3"
+	        android:minHeight="35dp"
+	        android:paddingLeft="5dp"
+	        android:paddingRight="5dp"
+	        android:singleLine="true"
+	        android:gravity="center_vertical"
+	        android:layout_gravity="center_vertical"
+	        android:textColor="@color/tagedit_field_text" />
+	    
+	    <TextView
+	        android:id="@+id/memberObject"
+	        style="?attr/DownloadedMember"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="1dp"
+	        android:layout_weight="2"
+	        android:minHeight="35dp"
+	        android:paddingLeft="5dp"
+	        android:paddingRight="5dp"
+	        android:singleLine="true"
+	        android:gravity="center_vertical"
+	        android:layout_gravity="center_vertical"
+	        android:textColor="@color/tagedit_field_text" />
+    </LinearLayout>
+</view>

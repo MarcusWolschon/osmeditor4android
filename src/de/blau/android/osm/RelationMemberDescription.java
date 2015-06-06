@@ -4,14 +4,16 @@ package de.blau.android.osm;
  * instead of the element itself
  */
 public class RelationMemberDescription extends RelationMember {
-	private static final long serialVersionUID = 1104911642016294266L;
+	private static final long serialVersionUID = 1104911642016294267L;
 	private String description = null;
+	private boolean downloaded = false;
 	
 	public RelationMemberDescription(final RelationMember rm) {
 		super(rm.getElement() != null ? rm.getElement().getName() : rm.getType(), rm.getElement() != null ? rm.getElement().getOsmId() : rm.getRef(), rm.getRole());
 		OsmElement e = rm.getElement();
 		if (e != null) {
 			description = e.getDescription(false);
+			downloaded = true;
 		} else {
 			description = "#" + ref;
 		}
@@ -24,5 +26,9 @@ public class RelationMemberDescription extends RelationMember {
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public boolean downloaded() {
+		return downloaded;
 	}
 }

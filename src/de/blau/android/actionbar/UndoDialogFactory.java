@@ -7,6 +7,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.util.Density;
+import de.blau.android.util.ThemeUtils;
 
 public class UndoDialogFactory {
 
@@ -72,13 +74,11 @@ public class UndoDialogFactory {
 		private UndoDialogItem(Context ctx, int index, boolean isRedo, String name) {
 			super(ctx);
 			Resources r = ctx.getResources();
-			setText(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name);
+			setText(Html.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
 			int pad = Density.dpToPx(15);
 			setPadding(pad, pad, pad, pad);
-			setTextColor(r.getColor(isRedo ? android.R.color.primary_text_light : android.R.color.primary_text_dark));
-			setBackgroundColor(r.getColor(isRedo ? android.R.color.background_light : android.R.color.background_dark));
 			setCompoundDrawablePadding(pad);
-			setCompoundDrawablesWithIntrinsicBounds(isRedo ? R.drawable.undolist_redo : R.drawable.undolist_undo, 0, 0, 0);
+			setCompoundDrawablesWithIntrinsicBounds(isRedo ? ThemeUtils.getResIdFromAttribute(ctx,R.attr.undolist_redo) : ThemeUtils.getResIdFromAttribute(ctx,R.attr.undolist_undo), 0, 0, 0);
 
 			this.index = index;
 			this.isRedo = isRedo;
