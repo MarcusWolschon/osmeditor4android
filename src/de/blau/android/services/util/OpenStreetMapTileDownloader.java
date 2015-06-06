@@ -159,8 +159,4 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 		}
 	};
 	
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> refs/heads/0.9.6

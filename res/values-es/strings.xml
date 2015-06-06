@@ -7,7 +7,7 @@
   <string name="transfer_download_current_download">Descartar &amp; descargar</string>
   <string name="transfer_download_current_back">Volver (no hacer nada)</string>
   <string name="upload_problem_title">Problema con la subida</string>
- <string name="upload_problem_message">Algunos o todos los datos no fueron subidos. Intente subir de nuevo más tarde si esto era sólo un problema temporal.</string>
+  <string name="upload_problem_message">Algunos o todos los datos no fueron subidos. Intente subir de nuevo más tarde si esto era sólo un problema temporal.</string>
   <string name="upload_conflict_title">Conflicto en subida</string>
   <string name="upload_conflict_message_version">%1$s \ntiene la versión local %2$s \ny en el servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \ntiene la versión local %2$s \ny fue eliminado en el servidor</string>
@@ -35,18 +35,6 @@
   <string name="welcome_title">¡Bienvenido!</string>
   <string name="welcome_message">Gracias por utilizar Vespucci.\n\nPara comenzar necesita conocer dos cosas:\n\n* tocando el icono candado en la esquina superior izquierda se cambiará de bloqueado (no editar) al modo desbloqueado\n\n* para añadir un nuevo objeto: pulse un largo tiempo, tocando en el mismo lugar añadirá un nodo, tocando en un lugar distinto comenzará una vía.\n\nNo olvide descargar el área si quiere editar.\n\n!Diviértase!</string>
   <string name="read_introduction">Lea la introducción ahora</string>
-  <string name="data_conflict_title">Conflicto de versión</string>
-  <string name="data_conflict_message">Los datos que usted está tratando de descargar contiene datos que entra en conflicto con sus ediciones. Intente subir sus datos antes de volver a intentarlo.</string>
-  <string name="out_of_memory_title">Sin memoria</string>
-  <string name="out_of_memory_message">Vespucci se ha quedado sin memoria al cargar los datos solicitados. Reinicie e intente cargar un área más pequeña.</string>
-  <string name="out_of_memory_dirty_message">Vespucci se ha quedado sin memoria al cargar los datos solicitados. Intente guardar sus cambios, reinicie e intentar cargar un área más pequeña.</string>
-  <string name="invalid_data_received_title">Datos no válidos recibidos</string>
-  <string name="invalid_data_received_message">Vespucci recibió datos no válidos del servidor. Si usted cree que lo que estaba tratando de hacer es correcto, envía un informe de error.</string>
-  <string name="file_write_failed_title">La escritura de archivos falló</string>
-  <string name="file_write_failed_message">No se pudo escribir en el archivo seleccionado.</string>
-  <string name="welcome_title">¡Bienvenido!</string>
-  <string name="welcome_message">Gracias por usar Vespucci.\n\nPara empezar usted necesita saber dos cosas:\n\n* tocando el icono de candado en la esquina superior izquierda se cambiará entre bloqueado (sin editar) y el modo desbloqueado\n\n* para agregar un nuevo objeto: pulse larga rato, tocando en el mismo lugar agregará un nodo, tocando más lejos empezará una vía.\n\nDiviértase!</string>
-  <string name="read_introduction">Lea la introducción ahora</string>
   <string name="progress_title">Cargando</string>
   <string name="progress_message">Cargando datos en memoria…</string>
   <string name="progress_download_message">Descargando datos del servidor…</string>
@@ -69,7 +57,7 @@
   <string name="openstreetbug_edit_close">Cerrar</string>
   <string name="openstreetbug_edit_closed">Cerrado</string>
   <string name="openstreetbug_commit_ok">Cambios guardados</string>
-   <string name="openstreetbug_commit_fail">No se pudo guardar los cambios</string>
+  <string name="openstreetbug_commit_fail">No se pudo guardar los cambios</string>
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_message">Tiene cambios sin guardar que se descartarán si continúa.</string>
   <string name="unsaved_data_proceed">Descartar &amp; continuar</string>
@@ -107,10 +95,7 @@
   <string name="toast_not_in_edit_range">Acerque para editar (Botón volumen arriba/abajo o Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Desbloquee para editar</string>
   <string name="toast_edit_outside_downloaded_area">No puede editar fuera del área descargada</string>
-  <string name="toast_unlock_to_edit">Desbloquee para editar</string>
-  <string name="toast_edit_outside_downloaded_area">No puede editar fuera del área descargada</string>
   <string name="toast_save_done">Guardado exitosamente</string>
-  <string name="toast_save_failed">Guardado fallido</string>
   <string name="toast_save_failed">Fallo al guardar</string>
   <string name="toast_not_in_bug_range">Acerque para añadir un bug (Botón volumen arriba/abajo o Lens/Shift)</string>
   <string name="toast_export_failed">Fallo al exportar</string>
@@ -142,26 +127,6 @@
   <string name="toast_imported_track_points">Importados %1$s puntos de traza.</string>
   <string name="toast_inconsistent_state">¡Detectado un estado inconsistente, envíe el informe de error!</string>
   <string name="toast_camera_error">Error al iniciar la aplicación de la cámara: %1$s</string>
-  <string name="toast_oauth_handshake_failed">Ha fallado la inicialización de OAuth. Compruebe que tiene las claves de consumidor correctas.</string>
-  <string name="toast_unread_mail">Tiene %1$s correo(s) no leído(s) en el servidor de OpenStreetMap</string>
-  <string name="toast_photo_indexing_started">Iniciada la búsqueda de fotos georreferenciadas</string>
-  <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
-  <string name="toast_download_bbox_failed">Descarga fallida, probablemente porque el área seleccionada era demasiado grande.</string>
-  <string name="toast_download_failed">Descarga fallida con código de error %1$d, mensaje %2$s</string>
-  <string name="toast_unsurveyed_road">Camino no medido</string>
-  <string name="toast_noname">La carretera no tiene nombre ni referencia</string>
-  <string name="toast_oauth_retry">Por favor, permita el acceso OAuth a su cuenta de OSM y luego vuelva a intentar la subida.</string>
-  <string name="toast_oauth">Por favor, permita el acceso OAuth a su cuenta de OSM.</string>
-  <string name="toast_no_oauth">No está disponible la configuración OAuth para la API actual. Por favor, establezca su nombre de usuario y contraseña.</string>
-  <string name="toast_timeout">Agotado el tiempo de espera del servidor.</string>
-  <string name="coordinates_out_of_range">La longitud debe estar entre -180º y +180º; la latitud entre -85º y 85º</string>
-  <string name="toast_nothing_found">No se ha encontrado nada</string>
-  <string name="toast_statesave_failed">¡Falló al guardar el estado actual!\nEste es un error fatal, intentando escribir un archivo exportable para la posterior recuperación con JOSM.</string>
-  <string name="toast_missing_filemanager">Instale un gestor de archivos.</string>
-  <string name="toast_outside_of_download">Está editando fuera del área descargada.</string>
-  <string name="toast_file_not_found">%1$s no encontrado.</string>
-  <string name="toast_imported_track_points">Importados %1$s puntos de traza.</string>
-  <string name="toast_inconsistent_state">Detectado un estado inconsistente. Por favor, envíe el informe de error.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -178,8 +143,6 @@
   <string name="keep">Mantener</string>
   <!--Dialog for back button-->
   <string name="exit_title">¿Salir?</string>
-  <string name="exit_text">¿Está seguro de que quiere salir?</string>
-  <string name="exit_title">¿Salir?</string>
   <string name="exit_text">¿Está seguro que quiere salir?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">clave</string>
@@ -191,7 +154,6 @@
   <string name="tag_menu_sourcesurvey">Encuestado</string>
   <string name="tag_menu_preset">Predeterminados</string>
   <string name="tag_menu_apply_preset">Aplicar el mejor predeterminado</string>
-  <string name="tag_menu_apply_preset">Aplicar mejor preajuste</string>
   <string name="tag_menu_repeat">Repetir etiquetas</string>
   <string name="tag_menu_revert">Revertir</string>
   <string name="tag_menu_mapfeatures">Wiki de características del mapa</string>
@@ -200,13 +162,11 @@
   <string name="tag_menu_reset_address_prediction">Restablecer predicción de direcciones</string>
   <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
   <string name="tag_value_hint">Pulsa para ver valores</string>
+  <string name="tag_multi_value_hint">Valores múltiples</string>
   <string name="tag_action_title">Eitquetas seleccionadas</string>
   <string name="menu_up">Subir</string>
   <string name="menu_top">Arriba</string>
   <string name="menu_preset_help">Ayuda predeterminados</string>
-  <string name="tag_menu_reset_address_prediction">Restablecer predicción de direcciones</string>
-  <string name="tag_menu_exit_no_save">Salir\nsin guardar</string>
-  <string name="tag_value_hint">Pulsa para ver valores</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -238,7 +198,7 @@
   <string name="menu_erase">Eliminar nodo</string>
   <string name="menu_set_position">Posición</string>
   <string name="menu_split">Dividir</string>
- <string name="menu_extract">Extraer nodo</string>
+  <string name="menu_extract">Extraer nodo</string>
   <string name="menu_closed_way_split_1">Dividir vía cerrada, 1er nodo</string>
   <string name="menu_closed_way_split_2">Dividir vía cerrada, 2do nodo</string>
   <string name="menu_append">Anexar</string>
@@ -256,7 +216,6 @@
   <string name="menu_gps_show">Mostrar ubicación</string>
   <string name="menu_gps_follow">Seguir posición GPS</string>
   <string name="menu_gps_goto">Ir a posición GPS</string>
-  <string name="menu_gps_goto">Ir a posición GPS</string>
   <string name="menu_gps_start">Iniciar traza GPS</string>
   <string name="menu_gps_pause">Pausar traza GPS</string>
   <string name="menu_gps_clear">Limpiar traza GPS</string>
@@ -267,7 +226,6 @@
   <string name="menu_gps_autodownload">Autodescarga</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descargar vista actual</string>
-  <string name="menu_transfer_download_current_add">Añadir vista actual a la descarga</string>
   <string name="menu_transfer_download_current_add">Añadir vista actual a la descarga</string>
   <string name="menu_transfer_download_other">Descargar otra ubicación</string>
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
@@ -349,8 +307,6 @@
   <string name="config_enableDeprecatedModes_summary">Habilita los modos nuevo, editar, editar etiquetas, anexar, borrar nodo y dividir.</string>
   <string name="config_closeChangesetOnSave_title">Cerrar conjuntos de cambios</string>
   <string name="config_closeChangesetOnSave_summary">Cierra los conjuntos de cambios de forma predeterminada al guardar</string>
-  <string name="config_closeChangesetOnSave_title">Cerrar conjuntos de cambios</string>
-  <string name="config_closeChangesetOnSave_summary">Cerrar conjuntos de cambios por defecto al guardar</string>
   <string name="config_backgroundLayer_title">Mapa de fondo</string>
   <string name="config_backgroundLayer_summary">Mapa de fondo renderizado gráficamente.</string>
   <string name="config_overlayLayer_title">Superposición de mapa</string>
@@ -365,11 +321,6 @@
   <string name="config_offsetServer_summary">URL del servidor de desplazamiento de imágenes</string>
   <string name="config_presetbutton_title">Predeterminados</string>
   <string name="config_presetbutton_summary">Añade y habilita predeterminados compatibles con JOSM</string>
-  <string name="listedit_enable_oauth">Activar oauth</string>
-  <string name="config_offsetServer_title">Servidor desplazamiento</string>
-  <string name="config_offsetServer_summary">URL del servidor de desplazamiento de imágenes</string>
-  <string name="config_presetbutton_title">Preajustes</string>
-  <string name="config_presetbutton_summary">Añadir y permitir preconfigurados compatibles con JOSM</string>
   <string name="config_iconbutton_title">Mostrar íconos en nodos</string>
   <string name="config_iconbutton_summary">Muestra el icono del predeterminado que mejor coincidencia sobre los nodos.</string>
   <string name="config_loginbutton_title">Cuenta de usuario</string>
@@ -409,12 +360,6 @@
   <string name="config_enableLightTheme_title">Habilitar el tema claro</string>
   <string name="config_enableLightTheme_summary">Tema claro con fondo blanco</string>
   <string name="config_category_misc">Misceláneo</string>
-  <string name="config_splitActionBarEnabled_title">Habilitar barra de acciones dividida</string>
-  <string name="config_splitActionBarEnabled_summary">Permitir la barra de acciones dividida, uso específico del dispositivo. Requiere reinicio y una versión de Android &gt;= 4.0</string>
-  <string name="config_gps_source_title">Fuente GPS</string>
-  <string name="config_gps_source_summary">Fuente de actualizaciones de la ubicación GPS</string>
-  <string name="config_gps_source_tcp_title">Fuente de la red NMEA</string>
-  <string name="config_gps_source_tcp_summary">Dirección TCP de la fuente NMEA como host:puerto</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar predeterminados</string>
   <string name="preset_download_successful">Predeterminados descargados correctamente</string>
@@ -430,8 +375,10 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">Añadir predeterminado</string>
   <string name="urldialog_preset_exists">Este predeterminado ya existe</string>
+  <string name="urldialog_preset_download_successful">¡Predeterminado descargado con éxito!</string>
   <string name="urldialog_api_exists">Una API con esta URL ya existe. Aun así, puede añadir otra (p.ej. para cambiar de cuenta facilmente).</string>
   <string name="urldialog_api_preset_missing">El predeterminado utilizado por la API no está disponible. Debería primero añadirlo.</string>
+  <string name="urldialog_api_install_successful">¡API instalado con éxito!</string>
   <string name="urldialog_add_api">Añadir API</string>
   <string name="urldialog_nodata_text">La URL de configuración no contiene datos validos.</string>
   <!--common terms-->
@@ -441,8 +388,6 @@
   <string name="name">Nombre</string>
   <string name="url">URL</string>
   <string name="default_">Predeterminado</string>
-  <string name="api_name">Nombre API</string>
-  <string name="api_url">URL API</string>
   <string name="api_name">Nombre API</string>
   <string name="api_url">URL API</string>
   <!--"default" is a reserved Java keyword...-->

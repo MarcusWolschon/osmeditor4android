@@ -218,8 +218,8 @@ public class Logic {
 	private List<Relation> selectedRelations;
 	
 	/* The following are lists because elements could be add multiple times
-	 * adding them once per selected relation and teh same for deletion avoids 
-	 * having to maintain a coune 
+	 * adding them once per selected relation and the same for deletion avoids 
+	 * having to maintain a count 
 	 */
 	/**
 	 * ways belonging to a selected relation
@@ -2838,7 +2838,7 @@ public class Logic {
 	}
 	
 	/**
-	 * Show a toast indiciating how many unread mails are on the server
+	 * Show a toast indicating how many unread mails are on the server
 	 */
 	public void checkForMail() {
 		final Server server = prefs.getServer();

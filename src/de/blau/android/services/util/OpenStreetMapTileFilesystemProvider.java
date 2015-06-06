@@ -288,8 +288,4 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		mDatabase.addTileOrIncrement(mTile, 0);	
 	};
 	
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> refs/heads/0.9.6
