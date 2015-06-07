@@ -162,8 +162,10 @@
   <string name="tag_menu_reset_address_prediction">Adressvorhersage zurücksetzen</string>
   <string name="tag_menu_exit_no_save">Ohne Speichern\nverlassen</string>
   <string name="tag_value_hint">Tippen für mögliche Werte</string>
+  <string name="tag_multi_value_hint">Mehrere Werte</string>
   <string name="tag_action_title">Tags ausgewählt</string>
   <string name="menu_up">Nach oben</string>
+  <string name="menu_top">An den Anfang</string>
   <string name="menu_preset_help">Hilfe zu Vorlagen</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Bereich laden</string>
@@ -258,7 +260,7 @@
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Tags</string>
+  <string name="menu_tags">Eigenschaften</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Chronik</string>
   <string name="menu_merge">Wege verbinden</string>
@@ -372,8 +374,10 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
+  <string name="urldialog_preset_download_successful">Vorlage erfolgreich heruntergeladen!</string>
   <string name="urldialog_api_exists">Eine API mit dieser URL existiert bereits. Sie können eine weitere hinzufügen (z. B. um schnell zwischen Benutzerkonten umzuschalten).</string>
   <string name="urldialog_api_preset_missing">Die Vorlage für diese API ist nicht verfügbar. Sie sollten sie zuerst hinzufügen.</string>
+  <string name="urldialog_api_install_successful">API erfolgreich installiert!</string>
   <string name="urldialog_add_api">API hinzufügen</string>
   <string name="urldialog_nodata_text">Die Konfigurations-URL enthält keine gültigen Daten.</string>
   <!--common terms-->
@@ -434,6 +438,8 @@
   <!--Notifications-->
   <string name="alert_data_issue">Problem mit den OSM Daten entdeckt</string>
   <string name="alert_note">OSM Note in der Nähe entdeckt</string>
+  <string name="alert_distance_direction">
+in %1$d m %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
   <string name="role_lc">Rolle</string>

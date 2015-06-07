@@ -260,7 +260,6 @@
   <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
   <string name="menu_tools_background_contrast">Độ tương phản</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Thẻ</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Lịch sử</string>
   <string name="menu_merge">Gộp</string>

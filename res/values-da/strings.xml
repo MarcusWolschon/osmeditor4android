@@ -82,7 +82,6 @@
   <string name="menu_save">Gem til en fil</string>
   <string name="menu_join">Flet sammen</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>
   <string name="menu_merge">Flet sammen</string>

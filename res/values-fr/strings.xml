@@ -231,7 +231,6 @@ il y a %3$s %4$s</string>
   <string name="menu_tools_background_align_apply2all">Appliquer (tous les zooms)</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Attributs</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historique</string>
   <string name="menu_merge">Fusionner</string>

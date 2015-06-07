@@ -236,7 +236,6 @@
   <string name="menu_tools_background_align_apply2all">適用 (すべてのズーム)</string>
   <string name="menu_tools_background_contrast">比較</string>
   <!--element action mode menu-->
-  <string name="menu_tags">タグ</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">オブジェクト編集履歴</string>
   <string name="menu_merge">結合</string>

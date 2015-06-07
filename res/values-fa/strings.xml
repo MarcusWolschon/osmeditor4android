@@ -131,7 +131,6 @@
   <string name="menu_join">پیوستن</string>
   <string name="menu_unjoin">جدا کردن</string>
   <!--element action mode menu-->
-  <string name="menu_tags">برچسب ها</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">تاریخچه</string>
   <string name="menu_merge">پیوند دادن</string>

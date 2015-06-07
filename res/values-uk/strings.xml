@@ -19,7 +19,6 @@
   <string name="no_connection_title">Немає з’єднання з сервером</string>
   <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше підключення до Інтернет та спробуйте ще раз.</string>
   <string name="wrong_login_data_title">Помилка автентифікації</string>
-  <string name="wrong_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка відправте звіт.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="data_conflict_title">Конфлікт версій</string>
   <string name="out_of_memory_title">Недостатньо пам’яті</string>
   <string name="invalid_data_received_title">Отримано некоректні дані</string>
@@ -204,7 +203,6 @@
   <string name="menu_tools_background_align_apply2all">Застосувати (усі масштаби)</string>
   <string name="menu_tools_background_contrast">Контраст</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Мітки</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Історія</string>
   <string name="menu_merge">Об’єднати</string>

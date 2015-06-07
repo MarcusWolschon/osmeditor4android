@@ -115,7 +115,6 @@
   <string name="menu_paste">Pegar</string>
   <string name="menu_rotate">Rotar</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Etiquetas</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
   <string name="menu_merge">Combinar</string>

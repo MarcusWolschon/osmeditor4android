@@ -156,7 +156,6 @@
   <string name="menu_tools_background_align_retrieve_from_device">Eszközről</string>
   <string name="menu_tools_background_align_apply2all">Alkalmaz (minden nagyítás)</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Címkék</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Előzmények</string>
   <string name="menu_merge">összekapcsolás</string>

@@ -139,7 +139,6 @@
   <string name="menu_tools_background_properties">Opcije pozadine</string>
   <string name="menu_tools_background_align_save_db">Spremi u bazu</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Oznake</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Povijest</string>
   <string name="menu_merge">Spoji</string>

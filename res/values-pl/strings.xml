@@ -167,7 +167,6 @@
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Zero</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Tagi</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historia</string>
   <string name="menu_merge">dołącz</string>

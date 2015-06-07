@@ -5,7 +5,9 @@ package de.blau.android;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -27,11 +29,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
 
@@ -44,13 +48,35 @@ import de.blau.android.util.ThemeUtils;
  */
 public class HelpViewer extends SherlockActivity {
 	
+	class HelpItem implements Comparable<HelpItem> {
+		String language;
+		int order;
+		String topic;
+		
+		@Override
+		public int compareTo(HelpItem another) {
+			if (order > another.order) {
+				return +1;
+			} else if (order < another.order) {
+				return -1;
+			}
+			return 0;
+		}
+		
+		@Override
+		public String toString() {
+			return topic + " (" + language + ")";
+		}
+	}
+	
+	
 	public static final String TOPIC = "topic";
 	WebView helpView;
 	
 	// drawer that will be our ToC
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	ArrayAdapter<String> tocAdapter;
+	ArrayAdapter<HelpItem> tocAdapter;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -75,7 +101,7 @@ public class HelpViewer extends SherlockActivity {
 
 		setContentView(R.layout.help_drawer);
 		
-		// add our real content
+		// add our content
 		FrameLayout fl =  (FrameLayout) findViewById(R.id.content_frame);
 		helpView = new WebView(this);
 		WebSettings helpSettings = helpView.getSettings();
@@ -83,7 +109,7 @@ public class HelpViewer extends SherlockActivity {
 		helpSettings.setSupportZoom(true);
 		helpSettings.setBuiltInZoomControls(true);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			helpSettings.setDisplayZoomControls(false);
+			helpSettings.setDisplayZoomControls(false); // don't display +-
 		}
 		fl.addView(helpView);
 		
@@ -97,24 +123,37 @@ public class HelpViewer extends SherlockActivity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		
 		try {
-			ArrayList<String> tocList = new ArrayList<String>();
+			HashMap <String,HelpItem> tocList = new HashMap<String,HelpItem>();
 			String[] languages = {Locale.getDefault().toString(),Locale.getDefault().getLanguage(),"en"};
 			for (String l:languages) { 		
 				for (String s:getResources().getAssets().list("help/"+l)) {
-					if (s.equals("") || !Character.isUpperCase(s.charAt(0))) {
-						continue;
+					if (s.equals("") || Character.isLowerCase(s.charAt(0)) || s.length() < 6) {
+						continue; // skip everything that isn't a help file
 					}
 					String n = s.replace(".html", "");
-					if (!tocList.contains(n)) {
-						tocList.add(n);
+					HelpItem h = new HelpItem();
+					h.language = l;
+					if (Character.isDigit(n.charAt(0))) {
+						String[] s1 = n.split(" ",2);
+						if (s1.length != 2) {
+							continue;
+						}
+						h.topic = s1[1];
+						h.order = Integer.parseInt(s1[0]);
+					} else {
+						h.topic = n;
+						h.order = 999;
+						if (!tocList.containsKey(h.topic)) {
+							tocList.put(h.topic,h);
+						}
 					}
 				}	
 			}
 			
-			String[] toc = new String[tocList.size()];
-			tocList.toArray(toc);
+			HelpItem[] toc = new HelpItem[tocList.size()];
+			tocList.values().toArray(toc);
 			
-			tocAdapter = new ArrayAdapter<String>(this, R.layout.help_drawer_item,R.id.help_drawer_item, toc);
+			tocAdapter = new ArrayAdapter<HelpItem>(this, R.layout.help_drawer_item,R.id.help_drawer_item, toc);
 			
 			mDrawerList.setAdapter(tocAdapter);
 			mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -180,11 +219,11 @@ public class HelpViewer extends SherlockActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			String topic = tocAdapter.getItem(position);
-			helpView.loadUrl("file:///android_asset/help/en/" + topic +".html");
+			HelpItem helpItem = tocAdapter.getItem(position);
+			helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + (helpItem.order != 999 ? helpItem.order + " " : "") + helpItem.topic +".html");
 			mDrawerLayout.closeDrawer(mDrawerList);
 			mDrawerList.setSelected(false);
-			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + topic);
+			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
 		}
 	}
 }

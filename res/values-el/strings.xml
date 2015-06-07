@@ -29,7 +29,6 @@
   <string name="file_write_failed_title">Η εγγραφή αρχείου απέτυχε</string>
   <string name="file_write_failed_message">Δεν μπορεί να γίνει εγγραφή στο επιλεγμένο αρχείο</string>
   <string name="welcome_title">Καλώς ήλθατε</string>
-  <string name="welcome_message">Σας ευχαριστούμε για τη χρήση του Vespucci.\n\nΓια να ξεκινήσετε θα πρέπει να γνωρίζετε δύο πράγματα:\n\n*αγγίζοντας το εικονίδιο κλειδαριάς στην επάνω αριστερή γωνία θα γίνει εναλλαγή ανάμεσα κλειδωμένα (χωρίς επεξεργασία) και ξεκλείδωτη \ n \ n * για προσθέσετε ένα νέο αντικείμενο: παρατεταμένο πάτημα, πατώντας στην ίδια θέση θα προσθέσετε έναν κόμβο, χτυπώντας πιο μακριά θα ξεκινήσει έναν τρόπο \ n \ nHave διασκέδαση.!</string>
   <string name="read_introduction">Διαβάστε την εισαγωγή τώρα</string>
   <string name="progress_title">Φόρτωση</string>
   <string name="progress_message">Φόρτωση δεδομένων στη μνήμη…</string>
@@ -144,7 +143,6 @@
   <string name="tag_menu_address">Προσθήκη ετικετών διεύθυνσης</string>
   <string name="tag_menu_sourcesurvey">Χαρτογραφήθικε</string>
   <string name="tag_menu_preset">Προκαθωρισμένες</string>
-  <string name="tag_menu_apply_preset">Εφαρμογή των βέλτιστων επαναφοράς</string>
   <string name="tag_menu_repeat">Επανάληψη ετικετών</string>
   <string name="tag_menu_revert">Επαναφορά</string>
   <string name="tag_menu_mapfeatures">Wiki Χαρακτηριστικών Χάρτη</string>
@@ -242,7 +240,6 @@
   <string name="menu_tools_background_align_apply2all">Εφαρμογή (όλες οι μεγεθύνσεις)</string>
   <string name="menu_tools_background_contrast">Αντίθεση</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Χαρακτηριστικά</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Ιστορικό</string>
   <string name="menu_merge">Σύνδεση</string>
@@ -262,10 +259,6 @@
   <string name="actionmode_relationselect">Η Σχέση επιλεχθηκε</string>
   <string name="actionmode_createpath">Δημιουργία διαδρομής</string>
   <!--Preferences-->
-  <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
-  <string name="config_maxStrokeWidth_summary">Μην σχεδιάσετε ένα δρόμο παχύτερο από αυτόν</string>
-  <string name="config_tileCacheSize_title">Μέγεθος μνήμης cache</string>
-  <string name="config_tileCacheSize_summary">Συνολικό μέγεθος της μνήμης cache σε MB</string>
   <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
   <string name="config_maxStrokeWidth_summary">Μην σχεδιάσετε ένα δρόμο παχύτερο από αυτόν</string>
   <string name="config_tileCacheSize_title">Μέγεθος μνήμης cache</string>
@@ -408,6 +401,7 @@
   <string name="pref_acra_disabled">Αναφορά σφαλμάτων ανενεργή</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Αυτή η πράξη θα δημιουργήσει έναν δρομο με πάρα πολλούς κόμβους.</string>
+  <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
   <string name="role_lc">ρόλος</string>

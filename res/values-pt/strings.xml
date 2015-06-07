@@ -230,7 +230,6 @@ há %3$s %4$s</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos os Zooms)</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Tags</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Histórico</string>
   <string name="menu_merge">Unir</string>

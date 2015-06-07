@@ -261,7 +261,7 @@
   <string name="menu_tools_background_align_apply2all">Aplicar (todos los acercamientos)</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Etiquetas</string>
+  <string name="menu_tags">Propiedades</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
   <string name="menu_merge">Combinar</string>

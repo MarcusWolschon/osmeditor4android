@@ -82,7 +82,6 @@
   <string name="menu_transfer_export">Eksporter endringar</string>
   <string name="menu_save">Lagre til fil</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Tagger</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>

@@ -30,7 +30,7 @@
   <string name="out_of_memory_dirty_message">Vespucci kláraði minnið við að hlaða inn umbeðnum gögnum. Vinsamlegast reynið að vista breytingar, endurræsið forritið og náið í minna svæði næst.</string>
   <string name="invalid_data_received_title">Umbeðin gögn eru ónothæf</string>
   <string name="invalid_data_received_message">Vespucci fékk ógild gögn frá netþjóni. Ef þú telur að þú hafir réttara fyrir þér tilkynntu þá forritsvillu.</string>
-   <string name="file_write_failed_title">Ekki tókst að skrifa í skrá</string>
+  <string name="file_write_failed_title">Ekki tókst að skrifa í skrá</string>
   <string name="file_write_failed_message">Gat ekki skrifað í valda skrá.</string>
   <string name="welcome_title">Velkomin! </string>
   <string name="welcome_message">Takk fyrir að nota Vespucci.\n\nÍ upphafi er gott að vita tvennt:\n\n* að smella á lásinn efst til vinstri skiptir á milli þess að það sé læst (ekki hægt að breyta gögnum) og ólæst\n\n* til að bæta við nýjum hlut: haldið niðri, að smella á sama stað mun bæta við hnút, sé smellt lengra í burtu verður til lína.\n\nEkki gleyma að ná í svæðið sem þú vilt breyta.\n\nSkemmtu þér!</string>
@@ -218,7 +218,7 @@
   <string name="menu_gps_clear">Hreinsa GPS-slóð</string>
   <string name="menu_gps_upload">Upphlaða GPS-slóð</string>
   <string name="menu_gps_export">Flytja GPS-slóð út</string>
-   <string name="menu_gps_import">Flytja GPS-slóð inn</string>
+  <string name="menu_gps_import">Flytja GPS-slóð inn</string>
   <string name="menu_gps_goto_start">Fara á upphaf slóðar</string>
   <string name="menu_gps_autodownload">Sjálfvirkt niðurhal</string>
   <string name="menu_transfer">Færi gögn...</string>
@@ -258,7 +258,6 @@
   <string name="menu_tools_background_align_apply2all">Virkja (allar þysjanir)</string>
   <string name="menu_tools_background_contrast">Birtuskil</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Tög</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Saga</string>
   <string name="menu_merge">Sameina</string>

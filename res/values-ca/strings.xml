@@ -142,7 +142,6 @@
   <string name="menu_tools">Eines</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Etiquetes</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
   <string name="menu_merge">Uneix</string>

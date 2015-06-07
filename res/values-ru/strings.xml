@@ -131,7 +131,6 @@
   <string name="tag_menu_address">Добавить теги адреса</string>
   <string name="tag_menu_sourcesurvey">Обследованный</string>
   <string name="tag_menu_preset">Заготовки</string>
-  <string name="tag_menu_apply_preset">Применить лучшую перезагрузку</string>
   <string name="tag_menu_repeat">Повторить теги</string>
   <string name="tag_menu_revert">Отменить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
@@ -226,7 +225,6 @@
   <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
   <string name="menu_tools_background_contrast">Контраст</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Теги</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">История</string>
   <string name="menu_merge">Объединить</string>

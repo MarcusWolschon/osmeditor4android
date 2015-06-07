@@ -163,6 +163,7 @@
   <string name="tag_menu_reset_address_prediction">重置地址預測</string>
   <string name="tag_menu_exit_no_save">退出\n不儲存</string>
   <string name="tag_value_hint">指定值</string>
+  <string name="tag_multi_value_hint">多重的值</string>
   <string name="tag_action_title">標籤已選擇</string>
   <string name="menu_up">向上</string>
   <string name="menu_top">頂點</string>
@@ -243,7 +244,7 @@
   <string name="menu_rotate">旋轉</string>
   <string name="menu_orthogonalize">正交</string>
   <string name="menu_circulize">在圓週排列</string>
-    <string name="menu_split_polygon">分割成多邊形</string>
+  <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
   <string name="menu_extend_selection">擴大選擇</string>
   <string name="menu_information">資訊</string>
@@ -261,7 +262,6 @@
   <string name="menu_tools_background_align_apply2all">套用(所有縮放)</string>
   <string name="menu_tools_background_contrast">對比</string>
   <!--element action mode menu-->
-  <string name="menu_tags">標籤</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">歷史</string>
   <string name="menu_merge">加入</string>
@@ -344,8 +344,8 @@
   <string name="config_mapProfile_summary">設定樣式和元件的可見度</string>
   <string name="config_use_back_for_undo_title">用返回鍵作取消復原</string>
   <string name="config_use_back_for_undo_summary">在主編輯檢視中，使用返回鍵復原</string>
-  <string name="config_largeDragArea_title">大節點拖動區域</string>
-  <string name="config_largeDragArea_summary">拖動節點時提供大的區域</string>
+  <string name="config_largeDragArea_title">大的節點拖曳區域</string>
+  <string name="config_largeDragArea_summary">拖曳節點時提供大的區域</string>
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
   <string name="config_enableNameSuggestions_title">啟用建議名稱</string>
@@ -376,8 +376,10 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
+  <string name="urldialog_preset_download_successful">預置下載成功！</string>
   <string name="urldialog_api_exists">這個 API 的網址已經存在。不過，您可以增加另一個 (例如，方便地切換帳號)。</string>
   <string name="urldialog_api_preset_missing">所使用的 API 預置為不可使用的。您應該先增加。</string>
+  <string name="urldialog_api_install_successful">API 安裝成功！</string>
   <string name="urldialog_add_api">增加 API</string>
   <string name="urldialog_nodata_text">組態 URL 未包含有效的資料。</string>
   <!--common terms-->

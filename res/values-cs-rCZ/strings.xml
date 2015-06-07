@@ -99,7 +99,6 @@
   <string name="menu_cut">Vyjmout</string>
   <string name="menu_paste">Vložit</string>
   <!--element action mode menu-->
-  <string name="menu_tags">Tagy</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>
   <string name="menu_merge">Spojit cesty</string>
