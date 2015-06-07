@@ -496,7 +496,6 @@ public class Logic {
 		} else {
 			viewBox.zoomOut();
 		}
-		isInEditZoomRange(); //FIXME - This line does nothing.
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		if (rotatingWay) {
 			showCrosshairsForCentroid();
@@ -516,7 +515,6 @@ public class Logic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		isInEditZoomRange(); //FIXME - This line does nothing.
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		if (rotatingWay) {
 			showCrosshairsForCentroid();
