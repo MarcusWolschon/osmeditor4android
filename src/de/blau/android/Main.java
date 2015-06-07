@@ -81,6 +81,7 @@ import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.ResourcesCompat;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -2732,4 +2733,17 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	public static Logic getLogic() {
 		return logic;
 	}
+	
+	@Override
+	/**
+	 * Workaround for bug mentioned below
+	 */
+	public ActionMode startActionMode(final ActionMode.Callback callback) {
+	  // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
+	  final ActionMode mode = super.startActionMode(callback);
+	  if (mode != null) {
+	    mode.invalidate();
+	  }
+	  return mode;
+	}	
 }

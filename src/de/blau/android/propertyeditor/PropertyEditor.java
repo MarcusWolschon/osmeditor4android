@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.ActionMode;
 
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -587,4 +588,16 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 	}
 
+	@Override
+	/**
+	 * Workaround for bug mentioned below
+	 */
+	public ActionMode startActionMode(final ActionMode.Callback callback) {
+	  // Fix for bug https://code.google.com/p/android/issues/detail?id=159527
+	  final ActionMode mode = super.startActionMode(callback);
+	  if (mode != null) {
+	    mode.invalidate();
+	  }
+	  return mode;
+	}
 }
