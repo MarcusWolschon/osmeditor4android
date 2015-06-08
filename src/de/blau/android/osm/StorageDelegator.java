@@ -1002,8 +1002,10 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (r2.contains(r)) {
 				RelationMember rm1 = r.getMember(o1);
 				RelationMember rm2 = r.getMember(o2);
-				if (!rm1.getRole().equals(rm2.getRole()))
+				if (!rm1.getRole().equals(rm2.getRole())) {
+					Log.d("StorageDelegator","role conflict between " + o1.getDescription() + " role " + rm1.getRole() + " and " + o2.getDescription() + " role " + rm2.getRole());
 					return true;
+				}
 			}
 		}
 		return false;

@@ -1,4 +1,4 @@
-# Multi-Select
+# Multiselect
 
 Selected elements can be moved by dragging in the touch area. Individual objects can be selected / de-selected by (single) tapping them. A double tap in an entry area will end the mode.
 
@@ -15,6 +15,10 @@ Starts the property editor on the current selection.
 ### ![](../images/tag_menu_delete.png) Delete
 
 Remove the object from the data.
+
+### ![](../images/tag_menu_merge.png) Merge ways
+
+Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected. In pre-merge tag conflicts are detected you will be asked to fix them first and the property editor will be started on the selection, the same post-merge. 
 
 ### ![](../images/relation.png) Create relation
 

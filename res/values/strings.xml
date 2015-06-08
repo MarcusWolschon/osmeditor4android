@@ -104,6 +104,7 @@
     <string name="toast_preset_overwrote_tags">Notice - preset overwrote tag(s)</string>
     <string name="toast_oneway_reversed">You reversed a oneway street or a way with direction dependent tags. Please check the tags and correct if necessary.</string>
     <string name="toast_merge_tag_conflict">You merged elements that have conflicting tag values, direction dependent semantics or different roles in the same relation. Please check the tags and roles and correct if necessary.</string>
+    <string name="toast_potential_merge_tag_conflict">You are trying to merge elements that have conflicting tag values. Please check the tags and correct first before retrying.</string>
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
     <string name="toast_oauth_handshake_failed">OAuth handshake failed, check that you have proper consumer keys</string>
@@ -281,7 +282,7 @@
     <string name="actionmode_nodeselect">Node selected</string>
     <string name="actionmode_relationselect">Relation selected</string>
     <string name="actionmode_createpath">Creating path</string>
-    <string name="actionmode_multiselect">Multi-Select</string>
+    <string name="actionmode_multiselect">Multiselect</string>
     <!-- Preferences -->
     <string name="config_category_view">User Interface Settings</string>
     <string name="config_showCameraAction_title">Show camera action</string>

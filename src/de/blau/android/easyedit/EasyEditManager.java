@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -57,6 +58,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
@@ -1423,7 +1425,7 @@ public class EasyEditManager {
 						main.startActionMode(new WaySelectionActionModeCallback((Way)element));
 				}
 			} catch (OsmIllegalOperationException e) {
-				Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+				Toast.makeText(main, e.getMessage(), Toast.LENGTH_LONG).show();
 			} catch (NotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1838,11 +1840,13 @@ public class EasyEditManager {
 		private static final int MENUITEM_DELETE = 3;
 		private static final int MENUITEM_COPY = 4;
 		private static final int MENUITEM_CUT = 5;
-		private static final int MENUITEM_RELATION = 6;
-		private static final int MENUITEM_MERGE_POLYGONS = 7;
+		private static final int MENUITEM_MERGE = 6;
+		private static final int MENUITEM_RELATION = 7;
+		private static final int MENUITEM_MERGE_POLYGONS = 8;
 
 		private ArrayList<OsmElement> selection;
-	
+		private List<OsmElement> sortedWays;
+		
 		protected UndoListener undoListener; 
 		
 		private boolean backPressed = false;
@@ -1892,6 +1896,9 @@ public class EasyEditManager {
 			if (selection.size() == 0) {
 				// nothing slected more .... stop
 				currentActionMode.finish();
+			} else {
+				sortedWays = Util.sortWays(selection);
+				invalidate();
 			}
 			main.invalidateMap();
 		}
@@ -1928,6 +1935,9 @@ public class EasyEditManager {
 			//	menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy)).setShowAsAction(showAlways());
 			//	menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
 			//}
+			if (sortedWays != null) {
+				menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge)).setShowAsAction(showAlways());
+			}
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation)).setShowAsAction(showAlways());;
 			
 //			// for now just two
@@ -1980,6 +1990,43 @@ public class EasyEditManager {
 				// case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
 				// case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 				case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
+				case MENUITEM_MERGE:
+					// check if the tags are the same for all ways first ... ignores direction dependent stuff
+					Map firstTags = selection.get(0).getTags();
+					boolean ok = true;
+					for (int i=1;i<selection.size();i++) {
+						if ((firstTags.isEmpty() && !selection.get(i).getTags().isEmpty())
+								|| !firstTags.entrySet().equals(selection.get(i).getTags().entrySet())) {
+							ok = false;
+						}
+					}
+					if (!ok) {
+						Toast.makeText(main, R.string.toast_potential_merge_tag_conflict, Toast.LENGTH_LONG).show();
+						main.performTagEdit(selection, false, false);
+					} else {
+						try {
+							boolean result = logic.performMerge(sortedWays);
+							// find the remaing way
+							Way remaining = null;
+							for (OsmElement w:selection) {
+								if (!(w.getState()==OsmElement.STATE_DELETED)) {
+									remaining = (Way) w;
+								}
+							}
+							if (remaining != null) {
+								main.startActionMode(new WaySelectionActionModeCallback(remaining));
+								if (!result) { // merge conflict
+									Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
+									main.performTagEdit(remaining, null, false, false);
+								}
+							} else {
+								Log.e("EasyEditManager.ExtendSelectionActionModeCallback","no merged way");
+							}
+						} catch (OsmIllegalOperationException e) {
+							Toast.makeText(main, e.getMessage(), Toast.LENGTH_LONG).show();
+						}	
+					}
+					break;
 				case R.id.undo_action:
 					// should not happen
 					Log.d("EasyEditManager.ExtendSelectionActionModeCallback","menu undo clicked");

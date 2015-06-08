@@ -1522,6 +1522,27 @@ public class Logic {
 		return mergeOK;
 	}
 	
+	/**
+	 * Merge a sorted list of ways
+	 * @param sortedWays
+	 * @throws OsmIllegalOperationException 
+	 */
+	public boolean performMerge(List<OsmElement> sortedWays) throws OsmIllegalOperationException {
+		createCheckpoint(R.string.undo_action_merge_ways);
+		boolean mergeOK = true;
+		Way previousWay = (Way) sortedWays.get(0);
+		for (int i=1;i<sortedWays.size();i++) {
+			Way nextWay = (Way) sortedWays.get(i);
+			if (!getDelegator().mergeWays(previousWay, nextWay)) {
+				Log.d("Logic","ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict"); 
+				mergeOK = false; // signal that we had a problem somewhere
+			}
+			if (previousWay.getState() == OsmElement.STATE_DELETED) {
+				previousWay = nextWay;
+			}
+		}
+		return mergeOK;
+	}
 	
 	/**
 	 * Orthogonalize a way (aka make angles 90°)
