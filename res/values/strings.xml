@@ -462,7 +462,7 @@
     <string name="km">km</string>
     <string name="meter">meter</string>
     <!-- Help system  -->
-    <string name="introduction">Introduction</string>
+    <string name="toast_nohelp">No help available here!</string>
     <!-- Arrays -->
     <string-array name="gpx_visibility">
 	<item>private</item>

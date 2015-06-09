@@ -30,7 +30,7 @@ If the key of a field is "addr:street" a list of the nearest roads in the down l
 
 If the key is "name", selection of a value from the auto complete list will add corresponding tags and if enabled in the settings, apply an appropriate preset. Typical use case: add a name key and start typing "mcd", select "McDonalds's" from the auto completion list and an amenity with the correct tags and name spelling will be added.
 
-If multiple objects with different values for the same tags are being edited, such value fields will display 'Multiple values' and the auto-complete list will contain the existign values with a count. Setting the value to a specific value will set it for all objects, an empty value will leave the values untouched.
+If multiple objects with different values for the same tags are being edited, such value fields will display 'Multiple values' and the auto-complete list will contain the existing values with a count. Setting the value to a specific value will set it for all objects, an empty value will leave the values untouched.
 
 ### ![](../images/address.png) Add address tags
 
@@ -114,7 +114,7 @@ Start the on device help browser.
 
 ## Preset display
 
-Find, select and apply a [preset](Presets.html). Groups of presets have a light background, presets a dark one. 
+Find, select and apply a [preset](Presets.md). Groups of presets have a light background, presets a dark one. 
 
 ### Top
 

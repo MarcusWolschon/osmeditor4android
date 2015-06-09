@@ -879,7 +879,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			
 		case R.id.menu_help:
 			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, "Main");
+			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
 			startActivity(startHelpViewer);
 			return true;
 			

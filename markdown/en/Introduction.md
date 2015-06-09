@@ -38,7 +38,7 @@ Vespucci has a good "undo/redo" system so don't be afraid of experimenting on yo
 
 #### Selecting / De-selecting
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. 
+Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
 #### Adding a new Node/Point or Way
 
@@ -74,11 +74,15 @@ Consider using this with the "Auto-download" mode.
 
 Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
 
- * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
- * select "Add restriction" from the menu
- * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
- * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction) 
- * set the restriction type in the tag menu
+* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
+* select "Add restriction" from the menu
+* select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
+* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
+* set the restriction type in the tag menu
+ 
+### Vespucci in "locked" mode
+ 
+When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
 ### Saving Your Changes
 
@@ -88,11 +92,13 @@ Select the same button or menu item you did for the download and now select "Upl
 
 Vespucci supports OAuth authorization besides the classical username and password method. OAuth is preferable, particularly for mobile applications since it avoids sending passwords in the clear.
 
-The latest versions of Vespucci have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci. Once you have authorized Vespucci, retry the upload and it should succeed now. 
+New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci and should retry the upload, which now should succeed.
+
+If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
 #### Resolving conflicts on uploads
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict Resolution).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
 
 ## Using GPS
 
@@ -111,25 +117,27 @@ Notes:
 * you need to download an initial area manually
 * the function only works below 6km/h (brisk walking speed) to avoid causing issues with the OpenStreetMap API
 
-
 ## Customizing Vespucci
 
 ### Settings that you might want to change
 
- * Background layer
- * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
- * Notes display (open Notes will be displayed as a red filled circle, closed Notes the same in blue). Default: off.
- * Node icons. Default: off.
- * Keep screen on. Default: off.
- * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes display. Open Notes will be displayed as a red filled circle, closed Notes the same in blue. Default: off.
+* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: off.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
  
 #### Advanced preferences
 
- * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
- * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
- 
+* Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
+* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+
 ## Reporting Problems
- 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://code.google.com/p/osmeditor4android/issues/list). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

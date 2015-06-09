@@ -1,6 +1,7 @@
-An offline help system for Vespucci is currently in work.
 
-The source for the help files is in the markdown directory, currently these need to be converted from markdown to html manually and then copied to the corresponding directories in assets.
+The source for the help files is in the markdown directory, currently these need to be converted from markdown to html manually pre-build and then copied to the corresponding directories in assets. While this is a bit of a pain, it is more faster than doing it on the fly and eliminate the need to include a 3rd part markdown support library (which all have issues of one or an another kind).
+
+The help files need to be named the same as in the resource file "helptopics.xml". The names of the files can be translated, but the actual help files then need to be renamed too, you can however leave the default versions in if you have not translated all files. 
 
 Help with automating the build process would be welcome.
 

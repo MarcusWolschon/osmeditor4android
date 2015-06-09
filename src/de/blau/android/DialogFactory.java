@@ -223,7 +223,7 @@ public class DialogFactory {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
-						startHelpViewer.putExtra(HelpViewer.TOPIC, caller.getString(R.string.introduction));
+						startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_introduction);
 						caller.startActivity(startHelpViewer);
 					}
 				});

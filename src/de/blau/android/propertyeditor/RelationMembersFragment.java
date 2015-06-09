@@ -440,7 +440,7 @@ public class RelationMembersFragment extends SherlockFragment {
 			return true;
 		case R.id.tag_menu_help:
 			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, "PropertyEditor");
+			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
 			startActivity(startHelpViewer);
 			return true;
 		}

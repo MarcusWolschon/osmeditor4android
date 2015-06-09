@@ -123,7 +123,7 @@ public class TagSelectedActionModeCallback implements Callback {
 			break;
 		case MENUITEM_HELP:
 			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, mode.getTitle().toString());
+			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
 			Application.mainActivity.startActivity(startHelpViewer);
 			return true;
 		default: return false;

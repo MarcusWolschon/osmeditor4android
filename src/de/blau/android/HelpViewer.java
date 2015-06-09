@@ -3,14 +3,20 @@ package de.blau.android;
 
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -49,23 +55,26 @@ import de.blau.android.util.ThemeUtils;
 public class HelpViewer extends SherlockActivity {
 	
 	class HelpItem implements Comparable<HelpItem> {
+		boolean displayLanguage = false;
 		String language;
 		int order;
 		String topic;
 		
 		@Override
 		public int compareTo(HelpItem another) {
-			if (order > another.order) {
-				return +1;
-			} else if (order < another.order) {
-				return -1;
+			if (order < Integer.MAX_VALUE) {
+				if (order > another.order) {
+					return 1;
+				} else if (order < another.order) {
+					return -1;
+				}
 			}
-			return 0;
+			return topic.compareTo(another.topic); // sort the rest alphabetically
 		}
 		
 		@Override
 		public String toString() {
-			return topic + " (" + language + ")";
+			return topic + (displayLanguage ? " (" + language + ")": "");
 		}
 	}
 	
@@ -87,7 +96,8 @@ public class HelpViewer extends SherlockActivity {
 		}
 		
 		super.onCreate(savedInstanceState);
-		String topic = (String)getIntent().getSerializableExtra(TOPIC);
+		int topicId = (Integer)getIntent().getSerializableExtra(TOPIC);
+		String topic = getString(topicId); // this assumes that the resources are the same, which is probably safe
 
 		ActionBar actionbar = getSupportActionBar();
 		if (actionbar == null) {
@@ -111,6 +121,7 @@ public class HelpViewer extends SherlockActivity {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			helpSettings.setDisplayZoomControls(false); // don't display +-
 		}
+		helpView.setWebViewClient(new HelpViewWebViewClient());
 		fl.addView(helpView);
 		
 		// set up the drawer
@@ -122,54 +133,61 @@ public class HelpViewer extends SherlockActivity {
 		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, ThemeUtils.getResIdFromAttribute(this,R.attr.drawer), R.string.okay, R.string.okay);
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		
+
+		
 		try {
-			HashMap <String,HelpItem> tocList = new HashMap<String,HelpItem>();
-			String[] languages = {Locale.getDefault().toString(),Locale.getDefault().getLanguage(),"en"};
-			for (String l:languages) { 		
-				for (String s:getResources().getAssets().list("help/"+l)) {
-					if (s.equals("") || Character.isLowerCase(s.charAt(0)) || s.length() < 6) {
-						continue; // skip everything that isn't a help file
-					}
-					String n = s.replace(".html", "");
-					HelpItem h = new HelpItem();
-					h.language = l;
-					if (Character.isDigit(n.charAt(0))) {
-						String[] s1 = n.split(" ",2);
-						if (s1.length != 2) {
-							continue;
-						}
-						h.topic = s1[1];
-						h.order = Integer.parseInt(s1[0]);
-					} else {
-						h.topic = n;
-						h.order = 999;
-						if (!tocList.containsKey(h.topic)) {
-							tocList.put(h.topic,h);
-						}
-					}
-				}	
-			}
+			List<String> defaultList = Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage()));
+			List<String> enList = Arrays.asList(getResources().getAssets().list("help/en"));
+			String defaultLanguage = Locale.getDefault().getLanguage();
 			
-			HelpItem[] toc = new HelpItem[tocList.size()];
-			tocList.values().toArray(toc);
+			TypedArray tocRes = getResources().obtainTypedArray(R.array.help_tableofcontents);
+			
+			HashMap <String,HelpItem> tocList = new HashMap<String,HelpItem>();
+					
+			for (int i=0;i<tocRes.length();i++) {
+				String tocTopic = tocRes.getString(i);
+				// Log.d("HelpViewer", "TOC " + tocTopic); 
+				if (defaultList.contains(tocTopic + ".html")) {
+					// Log.d("HelpViewer", "TOC " + locale + " " + tocTopic); 
+					HelpItem h = new HelpItem();
+					h.language = defaultLanguage;
+					h.topic = tocTopic;
+					h.order = i;	
+					if (!tocList.containsKey(h.topic)) {
+						tocList.put(h.topic,h);
+					}
+				} else if (enList.contains(tocTopic + ".html")){
+					// Log.d("HelpViewer", "TOC en " + tocTopic);
+					HelpItem h = new HelpItem();
+					h.language = "en";
+					h.displayLanguage = true;
+					h.topic = tocTopic;
+					h.order = i;	
+					if (!tocList.containsKey(h.topic)) {
+						tocList.put(h.topic,h);
+					}
+				}
+			}
+			tocRes.recycle();
+			
+			List<HelpItem> items = new ArrayList<HelpItem>(tocList.values());
+			Collections.sort(items);
+			HelpItem[] toc = new HelpItem[items.size()];
+			items.toArray(toc);
 			
 			tocAdapter = new ArrayAdapter<HelpItem>(this, R.layout.help_drawer_item,R.id.help_drawer_item, toc);
 			
 			mDrawerList.setAdapter(tocAdapter);
 			mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-			
-			String helpFile = "help/" + Locale.getDefault() + "/"  + topic + ".html";
+			String helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topic + ".html";
 			Log.d("HelpViewer","1 Looking for help file: " + helpFile);
-			if (!Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault())).contains(topic + ".html")) {
-				helpFile = "help/" + Locale.getDefault().getLanguage() + "/"  + topic + ".html";
-				Log.d("HelpViewer","2 Looking for help file: " + helpFile);
-				if (!Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage())).contains(topic + ".html")) {
-					helpFile = "help/en/"  + topic + ".html";
-					if (!Arrays.asList(getResources().getAssets().list("help/en")).contains(topic + ".html")) {
-						helpFile = "help/en/no_help.html";
-					}
-				} 
+			if (!defaultList.contains(topic + ".html")) {
+				helpFile = "help/en/"  + topic + ".html";
+				if (!enList.contains(topic + ".html")) {
+					helpFile = "help/en/no_help.html";
+					mDrawerLayout.openDrawer(mDrawerList);
+				}
 			}
 			helpView.loadUrl("file:///android_asset/" + helpFile);
 		} catch (IOException e) {
@@ -195,6 +213,7 @@ public class HelpViewer extends SherlockActivity {
 		case R.id.help_menu_back:
 			if (helpView.canGoBack()) {
 				helpView.goBack();
+				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
 			} else {
 				onBackPressed(); // return to caller
 			}
@@ -203,6 +222,7 @@ public class HelpViewer extends SherlockActivity {
 		case R.id.help_menu_forward:
 			if (helpView.canGoForward()) {
 				helpView.goForward();
+				// getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
 			}
 			return true;
 		case android.R.id.home:
@@ -220,10 +240,47 @@ public class HelpViewer extends SherlockActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			HelpItem helpItem = tocAdapter.getItem(position);
-			helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + (helpItem.order != 999 ? helpItem.order + " " : "") + helpItem.topic +".html");
+			helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.topic +".html");
 			mDrawerLayout.closeDrawer(mDrawerList);
 			mDrawerList.setSelected(false);
 			getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
 		}
+	}
+	
+	private class HelpViewWebViewClient extends WebViewClient {
+		
+	    @Override
+	    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+	    	if (url.startsWith("file:")) {
+	    		Log.d("HelpViewer","orig " + url);
+	    		getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+	    		if (url.endsWith(".md")) { // on device we have pre-generated html
+	    			url = url.substring(0,url.length()-".md".length()) + ".html";
+	    			Log.d("HelpViewer","new " + url);
+	    		}
+	    		view.loadUrl(url);
+	    		return true;
+	    	} else {
+	    		return false;
+	    	}
+	    }
+	    
+	    @Override
+	    public void onPageFinished (WebView view, String url) {
+	    	super.onPageFinished(view, url);
+	    	getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+	    }
+	}
+	
+	private String getTopic(String url) {
+		
+		url = URLDecoder.decode(url);
+		int lastSlash = url.lastIndexOf('/');
+		int lastDot = url.lastIndexOf('.');
+		if (lastSlash < 0 || lastDot < 0) {
+			return "Error, got: " + url;
+		}
+		String topic = url.substring(lastSlash+1,lastDot); 
+		return topic;
 	}
 }

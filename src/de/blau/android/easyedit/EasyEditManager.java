@@ -404,6 +404,8 @@ public class EasyEditManager {
 	 */
 	public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
 		
+		int helpTopic = 0;
+		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			Log.d("EasyEditActionModeCallback", "onCreateActionMode");
@@ -467,10 +469,13 @@ public class EasyEditManager {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			Log.d("EasyEditActionModeCallback", "onActionItemClicked");
 			if (item.getItemId() == MENUITEM_HELP) {
-				Intent startHelpViewer = new Intent(main.getApplicationContext(), HelpViewer.class);
-				startHelpViewer.putExtra(HelpViewer.TOPIC, currentActionMode.getTitle().toString() 
-						+ (currentActionMode.getSubtitle() != null && !currentActionMode.getSubtitle().equals("") ? " - " + currentActionMode.getSubtitle().toString() : ""));
-				main.startActivity(startHelpViewer);
+				if (helpTopic != 0) {
+					Intent startHelpViewer = new Intent(main.getApplicationContext(), HelpViewer.class);
+					startHelpViewer.putExtra(HelpViewer.TOPIC, helpTopic);
+					main.startActivity(startHelpViewer);
+				} else {
+					Toast.makeText(main, R.string.toast_nohelp, Toast.LENGTH_LONG).show(); // this is essentially just an error message
+				}
 			}
 			return false;
 		}
@@ -507,6 +512,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_longclick;
 			super.onCreateActionMode(mode, menu);
 			mode.setTitle(R.string.menu_add);
 			mode.setSubtitle(null);
@@ -564,7 +570,7 @@ public class EasyEditManager {
 				if (server != null && server.isLoginSet() && server.needOAuthHandshake()) {
 					main.oAuthHandshake(server);
 					if (server.getOAuth()) // if still set
-						Toast.makeText(main.getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+						Toast.makeText(main, R.string.toast_oauth, Toast.LENGTH_LONG).show();
 					return true;
 				} 
 				mode.finish();
@@ -689,6 +695,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_pathcreation;
 			super.onCreateActionMode(mode, menu);
 			mode.setSubtitle(R.string.actionmode_createpath);
 			logic.setSelectedWay(null);
@@ -703,7 +710,7 @@ public class EasyEditManager {
 				try {
 					pathCreateNode(x, y);
 				} catch (OsmIllegalOperationException e) {
-					Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+					Toast.makeText(main, e.getMessage(), Toast.LENGTH_LONG).show();
 				}
 			}
 			logic.hideCrosshairs();
@@ -716,7 +723,7 @@ public class EasyEditManager {
 			try {
 				pathCreateNode(x, y);
 			} catch (OsmIllegalOperationException e) {
-				Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+				Toast.makeText(main, e.getMessage(), Toast.LENGTH_LONG).show();
 			}
 			return true;
 		}
@@ -987,6 +994,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_nodeselection;
 			super.onCreateActionMode(mode, menu);
 			logic.setSelectedNode((Node)element);
 			logic.setSelectedWay(null);
@@ -1038,7 +1046,7 @@ public class EasyEditManager {
 							mode.finish();
 						}
 					} catch (OsmIllegalOperationException e) {
-						Toast.makeText(main.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+						Toast.makeText(main, e.getMessage(), Toast.LENGTH_LONG).show();
 					}
 					break;
 				case MENUITEM_UNJOIN:
@@ -1152,6 +1160,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_wayselection;
 			super.onCreateActionMode(mode, menu);
 			Log.d("WaySelectionActionCallback", "onCreateActionMode");
 			logic.setSelectedNode(null);
@@ -1295,6 +1304,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_waysplitting;
 			super.onCreateActionMode(mode, menu);
 			if (way.isClosed())
 				mode.setSubtitle(R.string.menu_closed_way_split_1);
@@ -1358,6 +1368,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_closedwaysplitting;
 			super.onCreateActionMode(mode, menu);
 			mode.setSubtitle(R.string.menu_closed_way_split_2);
 			logic.setClickableElements(nodes);
@@ -1393,6 +1404,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_mergingways;
 			mode.setSubtitle(R.string.menu_merge);
 			logic.setClickableElements(ways);
 			logic.setReturnRelations(false);
@@ -1452,6 +1464,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_appendtoway;
 			mode.setSubtitle(R.string.menu_append);
 			logic.setClickableElements(nodes);
 			logic.setReturnRelations(false);
@@ -1485,6 +1498,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_relationselection;
 			super.onCreateActionMode(mode, menu);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
@@ -1562,6 +1576,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_addingrestriction;
 			mode.setTitle(R.string.menu_restriction_via);
 			logic.setClickableElements(viaElements);
 			logic.setReturnRelations(false);
@@ -1619,6 +1634,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_addingrestriction;
 			mode.setTitle(R.string.menu_restriction_to);
 			logic.setClickableElements(cachedToElements);
 			logic.setReturnRelations(false);
@@ -1675,6 +1691,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_addingrestriction;
 			mode.setTitle(R.string.menu_restriction);
 			super.onCreateActionMode(mode, menu);
 			logic.addSelectedRelationWay(toWay);
@@ -1738,6 +1755,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_addrelationmember;
 			mode.setTitle(R.string.menu_relation);
 			mode.setSubtitle(R.string.menu_add_relation_member);
 			super.onCreateActionMode(mode, menu);
@@ -1905,6 +1923,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			helpTopic = R.string.help_multiselect;
 			mode.setTitle(R.string.actionmode_multiselect);
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(true); // can add relations
