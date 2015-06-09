@@ -35,6 +35,9 @@
     <string name="welcome_title">Welcome!</string>
     <string name="welcome_message">Thank you for using Vespucci.\n\nTo get started you need to know two things:\n\n* tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode\n\n* to add a new object: long press, tapping in the same place will add a node, tapping further away will start a way.\n\nDo not forget to download the area you want to edit.\n\nHave fun!</string>
     <string name="read_introduction">Read the introduction now</string>
+    <string name="upgrade_title">Welcome to a new version of Vespucci!</string>
+    <string name="upgrade_message">This is a new version of Vespucci with new features and behaviour. It would be best to quickly read the on device upgrade information.</string>
+    <string name="read_upgrade">Read about the new version</string>
     <string name="progress_title">Loading</string>
     <string name="progress_message">Loading data into memory…</string>
     <string name="progress_download_message">Downloading data from server…</string>

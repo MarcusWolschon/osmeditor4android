@@ -97,6 +97,8 @@ public class DialogFactory {
 	public static final int UPLOAD_CONFLICT = 23;
 
 	public static final int API_OFFLINE = 24;
+	
+	public static final int NEW_VERSION = 25;
 		
 	private final Main caller;
 	
@@ -131,6 +133,8 @@ public class DialogFactory {
 	private final Builder newbie;
 	
 	private final Builder gpxUpload;
+	
+	private final Builder newVersion;
 			
 	/**
 	 * @param caller
@@ -234,6 +238,17 @@ public class DialogFactory {
 		gpxUpload.setPositiveButton(R.string.transfer_download_current_upload, new GpxUploadListener(caller, (EditText)layout.findViewById(R.id.upload_gpx_description), 
 				(EditText)layout.findViewById(R.id.upload_gpx_tags), (Spinner)layout.findViewById(R.id.upload_gpx_visibility)));
 		gpxUpload.setNegativeButton(R.string.cancel, doNothingListener);
+		
+		newVersion = createBasicDialog(caller, R.string.upgrade_title, R.string.upgrade_message);
+		newVersion.setNegativeButton(R.string.cancel, doNothingListener);
+		newVersion.setNeutralButton(R.string.read_upgrade, 	new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
+						startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_upgrade);
+						caller.startActivity(startHelpViewer);
+					}
+				});
 	}
 	
 	/**
@@ -311,6 +326,9 @@ public class DialogFactory {
 			
 		case GPX_UPLOAD:
 			return gpxUpload.create();
+			
+		case NEW_VERSION:
+			return newVersion.create();
 		}
 		
 		return null;

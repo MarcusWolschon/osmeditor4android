@@ -422,8 +422,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			Log.d("Main","showing welcome dialog");
 			showDialog(DialogFactory.NEWBIE);
 		} else {
-			// for now simply current version
-			// TODO display change log or similar on major changes
+			String currentVersion = getString(R.string.app_version);
+			if (lastVersion.length()<5 || !lastVersion.subSequence(0,5).equals(currentVersion.subSequence(0,5))) { // lastVersion already checked against null
+				Log.d("Main","new version");
+				showDialog(DialogFactory.NEW_VERSION);
+			}
 		}
 		savingHelperVersion.save(VERSION_FILE, getString(R.string.app_version), false);
 	}
@@ -650,6 +653,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
+		Log.d("Main", "onConfigurationChanged");
 		if (easyEditManager.isProcessingAction()) {
 			easyEditManager.invalidate();
 		}
@@ -1332,13 +1336,15 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	        	}
 	        }
 	        map.invalidate();
-		} else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && prefs.isPhotoLayerEnabled()) {
+		} else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK ) {
 			// reindexPhotos();
 			if (imageFile != null) {
 				PhotoIndex pi = new PhotoIndex(this);
 				pi.addPhoto(imageFile);
-				map.getPhotosOverlay().resetRect();
-				map.invalidate(); 
+				if (prefs.isPhotoLayerEnabled()) {
+					map.getPhotosOverlay().resetRect();
+					map.invalidate();
+				}
 			} else {
 				Log.e("Main","imageFile == null");
 			}

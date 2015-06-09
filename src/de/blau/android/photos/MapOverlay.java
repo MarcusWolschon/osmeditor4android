@@ -92,7 +92,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 					photos.clear();
 					if (!result.isEmpty()) {
 						photos.addAll(result);
-						map.invalidate(); // find our if a different layer is udating too, the ndon't invalidate
+						map.invalidate(); // find out if a different layer is updating too, then don't invalidate
 					}
 				}
 				
