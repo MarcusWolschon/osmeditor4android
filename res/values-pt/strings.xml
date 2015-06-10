@@ -411,7 +411,6 @@ há %3$s %4$s</string>
   <string name="km">km</string>
   <string name="meter">metro</string>
   <!--Help system-->
-  <string name="introduction">Introdução</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privado</item>

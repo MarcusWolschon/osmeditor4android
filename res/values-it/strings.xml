@@ -261,6 +261,7 @@
   <string name="menu_tools_background_align_apply2all">Applica (a tutti gli ingrandimenti)</string>
   <string name="menu_tools_background_contrast">Contrasto</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Proprietà</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Cronologia</string>
   <string name="menu_merge">Unisci</string>
@@ -279,7 +280,6 @@
   <string name="actionmode_nodeselect">Nodo selezionato</string>
   <string name="actionmode_relationselect">Relazione selezionata</string>
   <string name="actionmode_createpath">Creazione percorso</string>
-  <string name="actionmode_multiselect">Selezione multipla</string>
   <!--Preferences-->
   <string name="config_category_view">Impostazioni interfaccia grafica</string>
   <string name="config_showCameraAction_title">Mostra la videocamera</string>
@@ -460,7 +460,6 @@
   <string name="km">km</string>
   <string name="meter">metri</string>
   <!--Help system-->
-  <string name="introduction">Introduzione</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privato</item>

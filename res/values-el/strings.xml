@@ -422,7 +422,6 @@
   <string name="km">χλμ</string>
   <string name="meter">μέτρο</string>
   <!--Help system-->
-  <string name="introduction">Εισαγωγή</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>private</item>

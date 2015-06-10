@@ -412,7 +412,6 @@ il y a %3$s %4$s</string>
   <string name="km">km</string>
   <string name="meter">mètre</string>
   <!--Help system-->
-  <string name="introduction">Introduction</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privé</item>

@@ -256,7 +256,6 @@
   <string name="km">km</string>
   <string name="meter">metre</string>
   <!--Help system-->
-  <string name="introduction">Introducció</string>
   <!--Arrays-->
   <string-array name="gpx_visibility"/>
 </resources>

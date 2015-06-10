@@ -57,9 +57,8 @@ public class ClipboardUtils {
 				ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
 
 				// Gets the clipboard as text.
-				String pasteData = (String) item.getText();
-
-				if (pasteData == null) { // item might be an URI
+				CharSequence cs = item.getText();
+				if (cs == null) { // item might be an URI
 					Uri pasteUri = item.getUri();
 					if (pasteUri != null) { // FIXME untested
 						try {
@@ -79,7 +78,8 @@ public class ClipboardUtils {
 							        // If the Cursor contains data, move to the first record
 							        if (pasteCursor != null) {
 							            if (pasteCursor.moveToFirst()) {
-							            	pasteData = pasteCursor.getString(0);
+							            	String pasteData =  pasteCursor.getString(0);
+							            	return new ArrayList<String>(Arrays.asList(pasteData.split(EOL)));
 							            }
 							            // close the Cursor
 								        pasteCursor.close();
@@ -94,14 +94,17 @@ public class ClipboardUtils {
 					}
 				} else {
 					Log.d("ClipboardUtils","Clipboard contains text");
+					String pasteData = cs.toString();
 					return new ArrayList<String>(Arrays.asList(pasteData.split(EOL)));
 				}
 			} else {
 				// Gets the clipboard as text.
-				String pasteData = (String) clipboard.getText();
-
-				if (pasteData != null) { // should always be the case
-					return new ArrayList<String>(Arrays.asList(pasteData.split(EOL)));
+				CharSequence cs = clipboard.getText();
+				if (cs != null) {
+					String pasteData = cs.toString();
+					if (pasteData != null) { // should always be the case
+						return new ArrayList<String>(Arrays.asList(pasteData.split(EOL)));
+					}
 				}
 			}
 			Log.e("ClipboardUtils","Clipboard contains an invalid data type");

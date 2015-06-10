@@ -35,6 +35,9 @@
   <string name="welcome_title">Willkommen!</string>
   <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nVergiss bitte nicht zuerst das Gebiet das du bearebiten willst herunterzuladen.\n\nViel Spass!</string>
   <string name="read_introduction">Die Einführung jetzt lesen</string>
+  <string name="upgrade_title">Willkommen zu einer neuen Vespucci Version! </string>
+  <string name="upgrade_message">Dies ist eine neue Version von Vepsucci mit neuen Funktionen und Verhalten. Wir empfehlen die Amerkungen zu den Änderungen kurz durchzulesen.</string>
+  <string name="read_upgrade">Information zur neuen Version</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Lade Daten in den Speicher…</string>
   <string name="progress_download_message">Lade Daten vom Server…</string>
@@ -103,6 +106,7 @@
   <string name="toast_preset_overwrote_tags">Achtung: Die Vorlage hat ein oder mehrere Tags überschrieben</string>
   <string name="toast_oneway_reversed">Richtung einer Einbahnstrasse oder Weg mit richtungsabhängigen Tags geändert. Bitte Tags überprüfen und falls nötig, korrigieren. </string>
   <string name="toast_merge_tag_conflict">Elemente mit sich widersprechenden Tags, richtungsabhängige Semantik oder sich widersprechende Rollen in derselben Relation zusammengeführt. Tags und Rollen bitte überprüfen und, falls nötig, korrigieren,</string>
+  <string name="toast_potential_merge_tag_conflict">Elemente mit sich widersprechenden Tags sollen zusammengeführt werden. Tags bitte überprüfen und vor einem neuen Versuch korrigieren.,</string>
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
   <string name="toast_too_many_nodes_for_move">Der Weg hat zuviele Punkte um ihn zu verschieben</string>
   <string name="toast_oauth_handshake_failed">OAuth Verhandlung ist fehlgeschlagen. Bitte überprüfen ob die richtigen \"consumer keys\" vorhanden sind.</string>
@@ -460,7 +464,7 @@ in %1$d m %2$s</string>
   <string name="km">KM</string>
   <string name="meter">Meter</string>
   <!--Help system-->
-  <string name="introduction">Einführung</string>
+  <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privat</item>

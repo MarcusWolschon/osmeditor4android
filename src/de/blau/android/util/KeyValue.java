@@ -28,7 +28,7 @@ public class KeyValue {
 	
 	public String getValue() {
 		if (values != null) {
-			return values.get(9);
+			return values.get(0);
 		}
 		return null;
 	}

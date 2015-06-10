@@ -280,7 +280,6 @@
   <string name="actionmode_nodeselect">Nodo seleccionado</string>
   <string name="actionmode_relationselect">Relación seleccionada</string>
   <string name="actionmode_createpath">Creando camino</string>
-  <string name="actionmode_multiselect">Selección múltiple</string>
   <!--Preferences-->
   <string name="config_category_view">Ajustes de la interfaz de usuario</string>
   <string name="config_showCameraAction_title">Mostrar la acción de la cámara</string>
@@ -460,7 +459,6 @@
   <string name="km">km</string>
   <string name="meter">metro</string>
   <!--Help system-->
-  <string name="introduction">Introducción</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privado</item>

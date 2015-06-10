@@ -262,6 +262,7 @@
   <string name="menu_tools_background_align_apply2all">套用(所有縮放)</string>
   <string name="menu_tools_background_contrast">對比</string>
   <!--element action mode menu-->
+  <string name="menu_tags">屬性</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">歷史</string>
   <string name="menu_merge">加入</string>
@@ -280,7 +281,6 @@
   <string name="actionmode_nodeselect">節點已選取</string>
   <string name="actionmode_relationselect">已選取關係</string>
   <string name="actionmode_createpath">建立路徑</string>
-  <string name="actionmode_multiselect">多個選擇</string>
   <!--Preferences-->
   <string name="config_category_view">使用者介面設定</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
@@ -461,7 +461,6 @@
   <string name="km">公里</string>
   <string name="meter">公尺</string>
   <!--Help system-->
-  <string name="introduction">介紹</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>私人的</item>

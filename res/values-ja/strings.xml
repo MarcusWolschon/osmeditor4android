@@ -419,7 +419,6 @@
   <string name="km">キロメートル</string>
   <string name="meter">メートル</string>
   <!--Help system-->
-  <string name="introduction">導入</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>プライベート</item>

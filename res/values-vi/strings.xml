@@ -278,7 +278,6 @@
   <string name="actionmode_nodeselect">Đã chọn nốt</string>
   <string name="actionmode_relationselect">Đã chọn quan hệ</string>
   <string name="actionmode_createpath">Đang tạo đường</string>
-  <string name="actionmode_multiselect">Chọn nhiều</string>
   <!--Preferences-->
   <string name="config_category_view">Thiết lập Giao diện</string>
   <string name="config_showCameraAction_title">Tác vụ hiển thị máy ảnh</string>
@@ -456,7 +455,6 @@
   <string name="km">km</string>
   <string name="meter">mét</string>
   <!--Help system-->
-  <string name="introduction">Hướng dẫn</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>riêng</item>
