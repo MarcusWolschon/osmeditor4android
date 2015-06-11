@@ -35,6 +35,9 @@
   <string name="welcome_title">¡Bienvenido!</string>
   <string name="welcome_message">Gracias por utilizar Vespucci.\n\nPara comenzar necesita conocer dos cosas:\n\n* tocando el icono candado en la esquina superior izquierda se cambiará de bloqueado (no editar) al modo desbloqueado\n\n* para añadir un nuevo objeto: pulse un largo tiempo, tocando en el mismo lugar añadirá un nodo, tocando en un lugar distinto comenzará una vía.\n\nNo olvide descargar el área si quiere editar.\n\n!Diviértase!</string>
   <string name="read_introduction">Lea la introducción ahora</string>
+  <string name="upgrade_title">¡Bienvenido a la nueva versión de Vespucci!</string>
+  <string name="upgrade_message">Esta es la nueva versión de Vespucci con nuevas características y funcionamiento. Será más rápido leer en el dispositivo la actualización de información.</string>
+  <string name="read_upgrade">Lea sobre la nueva versión</string>
   <string name="progress_title">Cargando</string>
   <string name="progress_message">Cargando datos en memoria…</string>
   <string name="progress_download_message">Descargando datos del servidor…</string>
@@ -103,6 +106,7 @@
   <string name="toast_preset_overwrote_tags">Aviso - el predeterminado sobreescribió la(s) etiqueta(s)</string>
   <string name="toast_oneway_reversed">Invirtió el sentido de una calle o una vía con etiquetas de dirección. Compruebe las etiquetas y corrija si es necesario.</string>
   <string name="toast_merge_tag_conflict">Combinó elementos que tienen valores de etiqueta conflictivos, semántica dependiente de la dirección o roles diferentes en la misma relación. Compruebe las etiquetas y roles y corrija si es necesario.</string>
+  <string name="toast_potential_merge_tag_conflict">Está tratando de combinar elementos que tienen conflictos en los valores de las etiquetas. Compruebe las etiquetas y corrija primero antes de intentar de nuevo.</string>
   <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
   <string name="toast_too_many_nodes_for_move">Demasiados nodos en la vía para mover</string>
   <string name="toast_oauth_handshake_failed">Fallo en la negociación OAuth, compruebe que tiene las claves de consumidor correctas</string>
@@ -280,6 +284,7 @@
   <string name="actionmode_nodeselect">Nodo seleccionado</string>
   <string name="actionmode_relationselect">Relación seleccionada</string>
   <string name="actionmode_createpath">Creando camino</string>
+  <string name="actionmode_multiselect">Multiselección</string>
   <!--Preferences-->
   <string name="config_category_view">Ajustes de la interfaz de usuario</string>
   <string name="config_showCameraAction_title">Mostrar la acción de la cámara</string>
@@ -459,6 +464,7 @@
   <string name="km">km</string>
   <string name="meter">metro</string>
   <!--Help system-->
+  <string name="toast_nohelp">¡No existe ayuda disponible aquí!</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privado</item>

@@ -385,6 +385,20 @@ public class Map extends View implements IMapView {
 		return true;
 	}
 	
+	private boolean myIsHardwareAccelerated(Canvas c) {
+		if (mIsHardwareAccelerated != null) {
+			try {
+				return (Boolean)mIsHardwareAccelerated.invoke(c, (Object[])null);
+			} catch (IllegalArgumentException e) {
+			} catch (IllegalAccessException e) {
+			} catch (InvocationTargetException e) {
+			}
+		}
+		// Older versions do not use hardware acceleration
+		return false;
+	}
+	
+	
 	@Override
 	public boolean onTrackballEvent(MotionEvent event) {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
@@ -488,6 +502,8 @@ public class Map extends View implements IMapView {
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
 		text = "fps: " + fps;
 		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
+		text = "hardware acceleration: " + (myIsHardwareAccelerated(canvas) ? "on" : "off");
+		canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
 	}
 	
 	/**
@@ -554,8 +570,9 @@ public class Map extends View implements IMapView {
 		}
 		
 		//Paint nodes
+		Boolean hwAccelarationWorkaround = myIsHardwareAccelerated(canvas) && Build.VERSION.SDK_INT < 19;
 		for (Node n:paintNodes) {
-			paintNode(canvas, n);
+			paintNode(canvas, n, hwAccelarationWorkaround);
 		}
 		paintHandles(canvas);
 	}
@@ -615,8 +632,9 @@ public class Map extends View implements IMapView {
 	 * 
 	 * @param canvas Canvas, where the node shall be painted on.
 	 * @param node Node which shall be painted.
+	 * @param hwAccelarationWorkaround TODO
 	 */
-	private void paintNode(final Canvas canvas, final Node node) {
+	private void paintNode(final Canvas canvas, final Node node, boolean hwAccelarationWorkaround) {
 		int lat = node.getLat();
 		int lon = node.getLon();
 		boolean isSelected = false;
@@ -684,12 +702,19 @@ public class Map extends View implements IMapView {
 					canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2);
 				} else {
 					if (!showIcons || tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null)) {
-						canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
+						// canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
+						// don't bother with points here.
+						canvas.drawCircle(x, y, Profile.getCurrent(featureKeyTagged).getPaint().getStrokeWidth()/2, Profile.getCurrent(featureKeyTagged).getPaint());
 					}
 				}
 			} else { 
 				// draw regular nodes
-				canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());
+				if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
+					Paint p = Profile.getCurrent(featureKey).getPaint();
+					canvas.drawCircle(x, y, p.getStrokeWidth()/2, p);
+				} else {
+					canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());
+				}
 			}
 //		}
 	}
@@ -864,7 +889,15 @@ public class Map extends View implements IMapView {
 		}
 			
 		// draw the way itself
-		canvas.drawLines(linePoints, fp.getPaint());
+		// canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
+		if (linePoints.length > 2) {
+			Path path = new Path();
+			for (int i=0;i<(linePoints.length);i=i+4) {
+				path.moveTo(linePoints[i], linePoints[i+1]);
+				path.lineTo(linePoints[i+2], linePoints[i+3]);
+			}
+			canvas.drawPath(path, fp.getPaint());
+		}
 		
 		if (!isSelected) {
 			// add "geometry improvement" handles

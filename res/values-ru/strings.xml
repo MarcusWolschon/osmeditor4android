@@ -22,7 +22,9 @@
   <string name="no_connection_title">Нет соединения с сервером</string>
   <string name="no_connection_message">Невозможно соединиться с сервером OSM. Проверьте ваше подключение к интернету и попробуйте еще раз.</string>
   <string name="wrong_login_data_title">Ошибка аутентификации</string>
+  <string name="wrong_login_data_re_authenticate">Войти заново</string>
   <string name="data_conflict_title">Конфликт версий</string>
+  <string name="api_offline_title">API в оффлайне</string>
   <string name="out_of_memory_title">Недостаточно памяти</string>
   <string name="out_of_memory_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста начните снова и загрузите меньшую область</string>
   <string name="out_of_memory_dirty_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста попробуйте сохранить ваши правки, перезапустите программу и попробуйте загрузить меньшую область</string>
@@ -32,6 +34,8 @@
   <string name="file_write_failed_message">Не удалось записать в выбранный файл.</string>
   <string name="welcome_title">Добро пожаловать!</string>
   <string name="read_introduction">Читать введение сейчас</string>
+  <string name="upgrade_title">Добро пожаловать в новую версию Vespucci!</string>
+  <string name="read_upgrade">Прочитать о новой версии</string>
   <string name="progress_title">Скачивание</string>
   <string name="progress_message">Загрузка данных в память…</string>
   <string name="progress_download_message">Скачивание данных с сервера…</string>
@@ -73,6 +77,15 @@
   <string name="read_file">Выберете файл для чтения</string>
   <string name="save_file">Введите файл для сохранения</string>
   <string name="existing_track_title">Существующие данные трека</string>
+  <string name="element_information">Информация об элементе</string>
+  <string name="id">ID</string>
+  <string name="nodes">Точки</string>
+  <string name="members">Участники</string>
+  <string name="closed">Закрыто</string>
+  <string name="version">Версия</string>
+  <string name="length_m">Длина (м)</string>
+  <string name="not_downloaded">Не скачано</string>
+  <string name="empty_role">пустая роль</string>
   <!--Toaster-->
   <string name="toast_no_changes">Вы ничего не изменили…</string>
   <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
@@ -95,6 +108,7 @@
   <string name="toast_download_failed">Загрузка прервана, код ошибки %1$d, сообщение %2$s</string>
   <string name="toast_unsurveyed_road">Необследованная дорога</string>
   <string name="toast_noname">У дороги нет ни имени, ни ссылки</string>
+  <string name="toast_notype">У отношения нет типа</string>
   <string name="toast_oauth_retry">Разрешите OAuth-доступ к своему OSM-аккаунту и затем повторите загрузку.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
   <string name="toast_no_oauth">Нет доступной конфигурации OAuth для текущего API, укажите логин и пароль.</string>
@@ -126,7 +140,9 @@
   <string name="exit_text">Вы действительно хотите выйти?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">ключ</string>
+  <string name="Key">Ключ</string>
   <string name="value">значение</string>
+  <string name="Value">Значение</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/RU:Map_Features</string>
   <string name="tag_menu_address">Добавить теги адреса</string>
   <string name="tag_menu_sourcesurvey">Обследованный</string>
@@ -170,6 +186,7 @@
   <string name="menu_erase">Удалить точку</string>
   <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
+  <string name="menu_extract">Извлечь точку</string>
   <string name="menu_closed_way_split_1">Разбить замкнутую линию, 1-я точка</string>
   <string name="menu_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
   <string name="menu_append">Добавить</string>
@@ -178,9 +195,11 @@
   <string name="menu_restriction_to">Добавить ограничение \"на\"</string>
   <string name="menu_relation">Создать отношение</string>
   <string name="menu_add_relation_member">Добавить участника</string>
+  <string name="menu_select_relation_members">Выбрать участников</string>
   <string name="menu_tag">Править тэги</string>
   <string name="menu_openstreetbug">Добавить заметку</string>
   <string name="menu_easyedit">Прост. ред-ние</string>
+  <string name="menu_camera">Камера</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показывать положение</string>
   <string name="menu_gps_follow">Следовать за GPS</string>
@@ -198,6 +217,7 @@
   <string name="menu_transfer_download_current_add">Добавить текущий вид для скачивания</string>
   <string name="menu_transfer_download_other">Скачать другое место</string>
   <string name="menu_transfer_upload">Передача данных на сервер OSM</string>
+  <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
   <string name="menu_transfer_export">Экспорт изменений</string>
   <string name="menu_transfer_read_file">Прочитать из файла</string>
   <string name="menu_transfer_save_file">Сохранить в файл</string>
@@ -210,7 +230,10 @@
   <string name="menu_rotate">Повернуть</string>
   <string name="menu_orthogonalize">Ортогонализировать</string>
   <string name="menu_circulize">Выстроить в круг</string>
+  <string name="menu_split_polygon">Разделить на полигоны</string>
   <string name="menu_newnode_gps">Новая точка на позиции GPS.</string>
+  <string name="menu_extend_selection">Расширить выделение</string>
+  <string name="menu_information">Инфо</string>
   <string name="menu_tools">Инструменты</string>
   <string name="menu_tools_flush_background_tile_cache">Очистить кэш квадратов карты</string>
   <string name="menu_tools_flush_overlay_tile_cache">Очистить кэш наложений</string>
@@ -225,6 +248,7 @@
   <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
   <string name="menu_tools_background_contrast">Контраст</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Свойства</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">История</string>
   <string name="menu_merge">Объединить</string>
@@ -328,10 +352,12 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">перемещение точки</string>
   <string name="undo_action_moveway">перемещение линии</string>
+  <string name="undo_action_moveobjects">подвинуть объекты</string>
   <string name="undo_action_add">вставить</string>
   <string name="undo_action_append">присоединить</string>
   <string name="undo_action_deletenode">удалить точку</string>
   <string name="undo_action_deleteway">удаление линии</string>
+  <string name="undo_action_delete_objects">удалить объекты</string>
   <string name="undo_action_split_ways">разделение линий</string>
   <string name="undo_action_split_way">разбиение линии</string>
   <string name="undo_action_merge_ways">объединение линий</string>
@@ -348,6 +374,7 @@
   <string name="undo_action_orthogonalize">ортогонализировать линию</string>
   <string name="undo_action_circulize">выстроить в круг</string>
   <string name="undo_action_fix_conflict">исправить конфликт</string>
+  <string name="undo_action_extract_node">извлечь точку</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci «упал» или выявил серьёзную проблему. Пожалуйста, отправьте отчёт об ошибке.</string>
   <string name="crash_notif_title">Vespucci «упал» или выявил серьёзную проблему.</string>
@@ -357,12 +384,14 @@
   <string name="pref_acra_enabled">Отчёты о сбоях разрешены</string>
   <string name="pref_acra_disabled">Отчёты о сбоях не разрешены</string>
   <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Эта операция создаст линию с очень большим числом точек.</string>
   <!--Notifications-->
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>
   <string name="membership_relation_heading">Член отношения</string>
   <string name="relation">Отношение</string>
+  <string name="relations">Отношения</string>
   <string name="position">Поз.</string>
   <string name="type">Тип</string>
   <string name="object">Объект</string>

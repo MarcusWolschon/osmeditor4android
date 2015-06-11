@@ -35,6 +35,9 @@
   <string name="welcome_title">Benvenuto!</string>
   <string name="welcome_message">Grazie per aver scelto Vespucci.\n\nPer iniziare devi solamente sapere due cose:\n\n* toccando il simbolo del lucchetto nell\'angolo in alto a sinistra puoi passare dalla modalità bloccata (nella quale nessuna modifica può essere effettuata) a quella sbloccata\n\n* per creare un nuovo oggetto: premi a lungo, se premi ancora sullo stesso punto crei un nodo, se premi in altri punti crei un percorso.\n\nNon dimenticarti di scaricare l\'area che vuoi modificare.\n\nDivertiti!</string>
   <string name="read_introduction">Leggi l\'introduzione adesso</string>
+  <string name="upgrade_title">Benvenuto alla nuova versione di Vespucci!</string>
+  <string name="upgrade_message">Questa nuova versione di Vespucci aggiunge ulteriori funzionalità e modi d\'uso. È consigliato leggere brevemente le informazioni di aggiornamento disponibili.</string>
+  <string name="read_upgrade">Scopri la nuova versione</string>
   <string name="progress_title">Caricamento</string>
   <string name="progress_message">Caricamento dati in memoria…</string>
   <string name="progress_download_message">Scaricamento dati dal server…</string>
@@ -103,6 +106,7 @@
   <string name="toast_preset_overwrote_tags">Nota - il valore predefinito ha sovrascritto qualche tag</string>
   <string name="toast_oneway_reversed">Hai invertito una via a senso unico o una via con tag dipendenti dalla direzione. Controlla i tag e correggili se necessario.</string>
   <string name="toast_merge_tag_conflict">Hai unito degli oggetti che hanno valori di etichette, semantica dipendente dalla direzione oppure ruoli diversi nella stessa relazione incompatibili. Controlla le etichette e i ruoli e correggili se necessario.</string>
+  <string name="toast_potential_merge_tag_conflict">Gli elementi che stai cercando di unire hanno delle etichette non compatibili tra loro. Prima di riprovare, controllale e modifica laddove necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <string name="toast_too_many_nodes_for_move">Troppi nodi nella via da spostare</string>
   <string name="toast_oauth_handshake_failed">Handshake OAuth fallito, controlla di avere le consumer keys appropriate</string>
@@ -280,6 +284,7 @@
   <string name="actionmode_nodeselect">Nodo selezionato</string>
   <string name="actionmode_relationselect">Relazione selezionata</string>
   <string name="actionmode_createpath">Creazione percorso</string>
+  <string name="actionmode_multiselect">Selezione multipla</string>
   <!--Preferences-->
   <string name="config_category_view">Impostazioni interfaccia grafica</string>
   <string name="config_showCameraAction_title">Mostra la videocamera</string>
@@ -460,6 +465,7 @@
   <string name="km">km</string>
   <string name="meter">metri</string>
   <!--Help system-->
+  <string name="toast_nohelp">Nessun aiuto disponibile!</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privato</item>

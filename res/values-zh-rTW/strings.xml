@@ -36,6 +36,9 @@
   <string name="welcome_title">歡迎！</string>
   <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n*要增加一個新的物件：長按，在同一個地方輕按，會增加一個節點，離更遠處輕按會開始一條道路。\n\n不要忘記下載您想要編輯的區域。\n\n玩得愉快！</string>
   <string name="read_introduction">現在閱讀入門介紹</string>
+  <string name="upgrade_title">歡迎來到 Vespucci 的新版本！</string>
+  <string name="upgrade_message">這是新版本 Vespucci 的新功能和性能。它將會最好的快速讀取在裝置上的升級資訊。</string>
+  <string name="read_upgrade">瞭解有關最新的版本</string>
   <string name="progress_title">載入</string>
   <string name="progress_message">載入資料到記憶體中…</string>
   <string name="progress_download_message">正從伺服器下載資料…</string>
@@ -104,6 +107,7 @@
   <string name="toast_preset_overwrote_tags">注意-預置覆蓋了標籤</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或路徑方向依據的標籤。如果有必要，請檢查標籤並訂正。</string>
   <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據語義或不同的作用。請檢查標籤和作用，並在有必要時訂正。</string>
+  <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
   <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
   <string name="toast_too_many_nodes_for_move">在路徑上要移動的節點過多</string>
   <string name="toast_oauth_handshake_failed">OAuth 交握失敗，請檢查您有正確的用戶密鑰</string>
@@ -281,6 +285,7 @@
   <string name="actionmode_nodeselect">節點已選取</string>
   <string name="actionmode_relationselect">已選取關係</string>
   <string name="actionmode_createpath">建立路徑</string>
+  <string name="actionmode_multiselect">多重選擇</string>
   <!--Preferences-->
   <string name="config_category_view">使用者介面設定</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
@@ -461,6 +466,7 @@
   <string name="km">公里</string>
   <string name="meter">公尺</string>
   <!--Help system-->
+  <string name="toast_nohelp">這裡沒有可用的幫助！</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>私人的</item>
