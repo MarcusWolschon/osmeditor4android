@@ -251,7 +251,10 @@ public class HelpViewer extends SherlockActivity {
 		
 	    @Override
 	    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-	    	if (url.startsWith("file:")) {
+	    	// WebViewClient is slightly bizarre because there is no way to indicate to the webview that you would like 
+	    	// if to process the url in its default way, its either handling it yourself or loading it directly into the 
+	    	// webview
+	    	if (url != null && url.startsWith("file:")) {
 	    		Log.d("HelpViewer","orig " + url);
 	    		getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
 	    		if (url.endsWith(".md")) { // on device we have pre-generated html
@@ -261,14 +264,17 @@ public class HelpViewer extends SherlockActivity {
 	    		view.loadUrl(url);
 	    		return true;
 	    	} else {
-	    		return false;
+	    		view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));  
+	    	    return true;
 	    	}
 	    }
 	    
 	    @Override
 	    public void onPageFinished (WebView view, String url) {
 	    	super.onPageFinished(view, url);
-	    	getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+	    	if (url.startsWith("file:")) {
+	    		getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+	    	}
 	    }
 	}
 	
