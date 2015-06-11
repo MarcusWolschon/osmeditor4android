@@ -487,12 +487,16 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
     	
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
-    	Log.d("TagEditor", ((Relation)parent.getItemAtPosition(pos)).getDescription());
-    	ViewParent pv = view.getParent();
-    	while (!(pv instanceof RelationMembershipRow)) {
-    		pv = pv.getParent();
+    	Log.d(DEBUG_TAG, ((Relation)parent.getItemAtPosition(pos)).getDescription());
+    	if (view != null) {
+    		ViewParent pv = view.getParent();
+    		while (!(pv instanceof RelationMembershipRow)) {
+    			pv = pv.getParent();
+    		}
+    		((RelationMembershipRow)pv).setRelation((Relation)parent.getItemAtPosition(pos));
+    	} else {
+    		Log.d(DEBUG_TAG, "onItemselected view is null");    	
     	}
-    	((RelationMembershipRow)pv).setRelation((Relation)parent.getItemAtPosition(pos));	
     }
 
     @Override

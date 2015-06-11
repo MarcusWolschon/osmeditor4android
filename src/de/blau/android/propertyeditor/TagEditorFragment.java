@@ -238,7 +238,7 @@ public class TagEditorFragment extends SherlockFragment {
 		for (Entry<String, ArrayList<String>> pair : tags.entrySet()) {
 			insertNewEdit(editRowLayout, pair.getKey(), pair.getValue(), -1);
 		}
-		
+	
 		loaded = true;
 		TagEditRow row = ensureEmptyRow(editRowLayout);
 		if (getUserVisibleHint()) { // don't request focus if we are not visible 
@@ -256,7 +256,7 @@ public class TagEditorFragment extends SherlockFragment {
 		if (applyLastAddressTags) {
 			loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
 		}
-		
+
 		if (displayMRUpresets) {
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getChildFragmentManager();
@@ -349,7 +349,7 @@ public class TagEditorFragment extends SherlockFragment {
     	super.onDestroyView();
     	Log.d(DEBUG_TAG, "onDestroyView");
     }
-   
+    
     /**
  	 * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
  	 * Backwards compatible version
@@ -1241,6 +1241,11 @@ public class TagEditorFragment extends SherlockFragment {
 	LinkedHashMap<String,ArrayList<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
 		
 		final LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
+		
+		if (rowLayout == null && savedTags != null) {		
+			return savedTags;
+		}
+		
 		processKeyValues(rowLayout, new KeyValueHandler() {
 			@Override
 			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
@@ -1280,6 +1285,17 @@ public class TagEditorFragment extends SherlockFragment {
 	LinkedHashMap<String,String> getKeyValueMapSingle(LinearLayout rowLayout, final boolean allowBlanks) {
 		
 		final LinkedHashMap<String,String> tags = new LinkedHashMap<String, String>();
+		if (rowLayout == null && savedTags != null) {
+			// we've been stopped and the view hasn't been recreated
+			for (String key:savedTags.keySet()) {
+				ArrayList<String> values = savedTags.get(key);
+				String value = (values != null && values.size() > 0 ? values.get(0):"");
+				if (!("".equals(value) && !allowBlanks)) {
+					tags.put(key, value);
+				}
+			}
+			return tags;
+		}
 		processKeyValues(rowLayout, new KeyValueHandler() {
 			@Override
 			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {

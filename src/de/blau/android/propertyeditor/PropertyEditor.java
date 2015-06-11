@@ -279,7 +279,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			ft.commit();
 		}
 		
-		mViewPager.setOffscreenPageLimit(3); // hack keep all alive
+		mViewPager.setOffscreenPageLimit(3); // FIXME hack to avoid crashes restoring the fragments after an onDestroy, needs to be fixed properly
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
 		mViewPager.setCurrentItem(showPresets ? presetFragmentPosition : tagEditorFragmentPosition);
 	}
@@ -297,7 +297,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		Address.loadLastAddresses();
 	}
 
-	
 	public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 		
 	    private ArrayList<SherlockFragment> mFragmentList;
