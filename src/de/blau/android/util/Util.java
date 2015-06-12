@@ -47,7 +47,7 @@ public class Util {
 		while (true) {
 			boolean found = false;
 			for (OsmElement w:unconnected) {
-				if (!e.getName().equals(Way.NAME)) {
+				if (!w.getName().equals(Way.NAME)) {
 					return null; // not all are ways
 				}
 				// this is a bit complicated because we don't want to reverse ways just yet
