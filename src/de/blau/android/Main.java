@@ -2020,6 +2020,21 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 					de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 					clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
 					clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
+					int bugCount = clickedBugs != null ? clickedBugs.size() : 0;
+					int photoCount = clickedPhotos != null ? clickedPhotos.size() : 0;
+					int elementCount = clickedNodesAndWays != null ? clickedNodesAndWays.size() : 0;
+					int itemCount = bugCount + photoCount + elementCount; 
+					if (itemCount == 1) {
+						if (photoCount==1) {
+							viewPhoto(clickedPhotos.get(0));
+						} else if (bugCount==1) {
+							performBugEdit(clickedBugs.get(0));
+						} else if (elementCount==1) {
+							showElementInfo(clickedNodesAndWays.get(0));
+						}
+					} else if (itemCount > 0) {
+						v.showContextMenu();
+					}
 					return true; 
 				}
 				return false; // ignore long clicks
