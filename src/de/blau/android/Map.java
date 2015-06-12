@@ -367,13 +367,15 @@ public class Map extends View implements IMapView {
 	/**
 	 * As of Android 4.0.4, clipping with Op.DIFFERENCE is not supported if hardware acceleration is used.
 	 * (see http://android-developers.blogspot.de/2011/03/android-30-hardware-acceleration.html)
-	 * Op.DIFFERENCE and clipPatch supported as of 18
+	 * Op.DIFFERENCE and clipPath supported as of 18
+	 * 
+	 * !!! FIXME Disable using HW clipping completely for now, see bug https://github.com/MarcusWolschon/osmeditor4android/issues/307
 	 * 
 	 * @param c Canvas to check
 	 * @return true if the canvas supports proper clipping with Op.DIFFERENCE
 	 */
 	private boolean hasFullClippingSupport(Canvas c) {
-		if (Build.VERSION.SDK_INT >= 11 && Build.VERSION.SDK_INT < 18 && mIsHardwareAccelerated != null) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB /*&& Build.VERSION.SDK_INT < 18*/ && mIsHardwareAccelerated != null) {
 			try {
 				return !(Boolean)mIsHardwareAccelerated.invoke(c, (Object[])null);
 			} catch (IllegalArgumentException e) {
