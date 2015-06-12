@@ -1152,8 +1152,8 @@ public class Logic {
 					lat = yToLatE7(absoluteY);
 					lon = xToLonE7(absoluteX);
 				}
-				
 				getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
+				Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 			}
 			else { // way dragging and multi-select
 				lat = yToLatE7(absoluteY);
@@ -1175,6 +1175,7 @@ public class Logic {
 				startLon = lon;
 			}
 			translateOnBorderTouch(absoluteX, absoluteY);
+			Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 		} else if (rotatingWay) {
 			
 			double aSq = (startY-absoluteY)*(startY-absoluteY) + (startX-absoluteX)*(startX-absoluteX);
@@ -1206,6 +1207,7 @@ public class Logic {
 			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
 			startY = absoluteY;
 			startX = absoluteX;
+			Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 		} else {
 			if (mode == Mode.MODE_ALIGN_BACKGROUND)
 				performBackgroundOffset(relativeX, relativeY);

@@ -1055,6 +1055,7 @@ public class EasyEditManager {
 					break;
 				case MENUITEM_EXTRACT:
 					logic.performExtract((Node)element);
+					invalidate();
 					break;
 				case MENUITEM_SET_POSITION: 
 					setPosition(); 
@@ -1125,6 +1126,7 @@ public class EasyEditManager {
 					double lat = Double.valueOf(latField.getText().toString());
 					if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
 						logic.performSetPosition(node,lon,lat);
+						invalidate();
 					} else {
 						createSetPositionDialog((int)(lon*1E7), (int)(lat*1E7)).show();
 						Toast.makeText(main, R.string.coordinates_out_of_range, Toast.LENGTH_LONG).show();
@@ -1226,6 +1228,8 @@ public class EasyEditManager {
 			} else if (logic.performReverse(way)) { // true if it had oneway tag
 				Toast.makeText(main, R.string.toast_oneway_reversed, Toast.LENGTH_LONG).show();
 				main.performTagEdit(way, null, false, false);
+			} else {
+				invalidate(); // sucessful reverseal update menubar 
 			}
 		}
 		
@@ -1239,8 +1243,8 @@ public class EasyEditManager {
 				case MENUITEM_APPEND: main.startActionMode(new WayAppendingActionModeCallback((Way)element, cachedAppendableNodes)); break;
 				case MENUITEM_RESTRICTION: main.startActionMode(new  RestrictionFromElementActionModeCallback((Way)element, cachedViaElements)); break;
 				case MENUITEM_ROTATE: logic.setRotationMode(); logic.showCrosshairsForCentroid(); break;
-				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); break;
-				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); break;
+				case MENUITEM_ORTHOGONALIZE: logic.performOrthogonalize((Way)element); invalidate(); break;
+				case MENUITEM_CIRCULIZE: logic.performCirculize((Way)element); invalidate(); break;
 				case MENUITEM_SPLIT_POLYGON: main.startActionMode(new WaySplittingActionModeCallback((Way)element, true)); break;
 				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false); break;
 				default: return false;
@@ -2037,6 +2041,8 @@ public class EasyEditManager {
 								if (!result) { // merge conflict
 									Toast.makeText(main, R.string.toast_merge_tag_conflict, Toast.LENGTH_LONG).show();
 									main.performTagEdit(remaining, null, false, false);
+								} else {
+									invalidate(); // update menubar
 								}
 							} else {
 								Log.e("EasyEditManager.ExtendSelectionActionModeCallback","no merged way");
