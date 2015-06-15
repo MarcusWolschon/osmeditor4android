@@ -2074,15 +2074,23 @@ public class StorageDelegator implements Serializable, Exportable {
 						return false; // can't resolve conflicts, upload first
 				}
 				Way existingWay = temp.getWay(w.getOsmId());
-				if (existingWay.getOsmVersion() >= w.getOsmVersion()) // larger just to be on the safe side
-					continue; // can use way we already have
-				else {
-					if (existingWay.isUnchanged()) {
-						temp.getWays().remove(existingWay);
-						temp.getWays().add(w);
-						wayIndex.put(w.getOsmId(),w); // overwrite existing entry in index
-					} else
-						return false; // can't resolve conflicts, upload first
+				if (existingWay != null) {
+					if (existingWay.getOsmVersion() >= w.getOsmVersion()) // larger just to be on the safe side
+						continue; // can use way we already have
+					else {
+						if (existingWay.isUnchanged()) {
+							temp.getWays().remove(existingWay);
+							temp.getWays().add(w);
+							wayIndex.put(w.getOsmId(),w); // overwrite existing entry in index
+						} else
+							return false; // can't resolve conflicts, upload first
+					}
+				} else {
+					// this shouldn't be able to happen
+					Log.e("StorageDelegator","mergeData null existing way " + w.getOsmId());
+					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+					ACRA.getErrorReporter().handleException(null);
+					return false;
 				}
 			}
 		}
@@ -2148,6 +2156,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						Node apiNode = apiStorage.getNode(rm.getRef());
 						if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
 							Log.e("StorageDelegator","mergeData deleted node in downloaded relation");
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(null);
 							return false; // can't resolve conflicts, upload first
 						}
@@ -2164,6 +2173,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						Way apiWay = apiStorage.getWay(rm.getRef());
 						if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
 							Log.e("StorageDelegator","mergeData deleted way in downloaded relation");
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(null);
 							return false; // can't resolve conflicts, upload first
 						}
@@ -2180,6 +2190,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						Relation apiRel = apiStorage.getRelation(rm.getRef());
 						if (apiRel != null && apiRel.getState() == OsmElement.STATE_DELETED) {
 							Log.e("StorageDelegator","mergeData deleted relation in downloaded relation");
+							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 							ACRA.getErrorReporter().handleException(null);
 							return false; // can't resolve conflicts, upload first
 						}
