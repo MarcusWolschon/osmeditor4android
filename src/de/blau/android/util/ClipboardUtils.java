@@ -30,6 +30,7 @@ public class ClipboardUtils {
 	 * @param ctx
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	static boolean checkForText(Context ctx){
 		if (clipboard == null) {
@@ -99,6 +100,7 @@ public class ClipboardUtils {
 				}
 			} else {
 				// Gets the clipboard as text.
+				@SuppressWarnings("deprecation")
 				CharSequence cs = clipboard.getText();
 				if (cs != null) {
 					String pasteData = cs.toString();
@@ -147,6 +149,7 @@ public class ClipboardUtils {
 	 * .....
 	 * @param tags
 	 */
+	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	public static void copyTags(Context ctx,Map<String,String> tags) {
 		ClipboardManager clipboard = (ClipboardManager)
