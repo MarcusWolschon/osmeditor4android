@@ -71,7 +71,7 @@ public class IssueAlert {
 			    index += 360;
 			index = index / 45;
 
-			// message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
+			// message = "in " + distance + "m " /* + bearing + "Â° " */ + bearings[index] + "\n";
 			message = main.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
 			ticker = ticker + " " + message;
 		}
@@ -152,7 +152,7 @@ public class IssueAlert {
 			    index += 360;
 			index = index / 45;
 
-			// message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
+			// message = "in " + distance + "m " /* + bearing + "Â° " */ + bearings[index] + "\n";
 			message = main.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
 			ticker = ticker + " " + message;
 		}
