@@ -2,6 +2,8 @@ package de.blau.android;
 
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockDialogFragment;
+
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -29,7 +31,7 @@ import android.widget.TextView;
  * @author simon
  *
  */
-public class ElementInfoFragment extends DialogFragment {
+public class ElementInfoFragment extends SherlockDialogFragment {
 
     /**
      */
