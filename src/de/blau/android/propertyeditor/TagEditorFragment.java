@@ -787,6 +787,13 @@ public class TagEditorFragment extends SherlockFragment {
 		 * Deletes this row
 		 */
 		public void deleteRow() { //FIXME the references to owner.tagEditorFragemnt are likely suspect
+			deleteRow((LinearLayout)owner.tagEditorFragment.getOurView());
+		}
+		
+		/**
+		 * Deletes this row
+		 */
+		public void deleteRow(LinearLayout rowLayout) { //FIXME the references to owner.tagEditorFragemnt are likely suspect
 			View cf = owner.getCurrentFocus();
 			if (cf == keyEdit || cf == valueEdit) {
 				// about to delete the row that has focus!
@@ -794,7 +801,7 @@ public class TagEditorFragment extends SherlockFragment {
 				int current = owner.tagEditorFragment.rowIndex(this);
 				if (!owner.tagEditorFragment.focusRow(current + 1)) owner.tagEditorFragment.focusRow(current - 1);
 			}
-			((LinearLayout)owner.tagEditorFragment.getOurView()).removeView(this);
+			rowLayout.removeView(this);
 			if (isEmpty()) {
 				owner.tagEditorFragment.ensureEmptyRow();
 			}
@@ -930,7 +937,7 @@ public class TagEditorFragment extends SherlockFragment {
 				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
 				boolean isEmpty = row.isEmpty();
 				if (ret == null) ret = isEmpty ? row : insertNewEdit(rowLayout,"", new ArrayList(), -1);
-				else if (isEmpty) row.deleteRow();
+				else if (isEmpty) row.deleteRow(rowLayout);
 			}
 			if (ret == null) ret = insertNewEdit(rowLayout,"", new ArrayList(), -1);
 		}
