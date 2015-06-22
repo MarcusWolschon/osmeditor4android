@@ -2378,20 +2378,26 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			switch (clickedNodesAndWays.size()) {
 			case 0:
 				// no elements were touched
-				easyEditManager.nothingTouched(true); // short cut to finishing multi-select
+				if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
+					easyEditManager.nothingTouched(true); // short cut to finishing multi-select
+				}
 				break;
 			case 1:
-				easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+				if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
+					easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+				}
 				break;
 			default:
 				// multiple possible elements touched - show menu
-				if (menuRequired()) {
-					Log.d("Main","onDoubleTap displaying menu");
-					doubleTap  = true; // ugly flag
-					v.showContextMenu();
-				} else {
-					// menuRequired tells us it's ok to just take the first one
-					easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+				if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
+					if (menuRequired()) {
+						Log.d("Main","onDoubleTap displaying menu");
+						doubleTap  = true; // ugly flag
+						v.showContextMenu();
+					} else  {
+						// menuRequired tells us it's ok to just take the first one
+						easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
+					}
 				}
 				break;
 			}
