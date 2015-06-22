@@ -1710,12 +1710,12 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Loads the storage data from the default storage file
+	 * NOTE: lock is acquired in logic before this is called
 	 */
 	public boolean readFromFile() {
-		try {
-			readingLock.lock();
+		try{
+			lock();
 			StorageDelegator newDelegator = savingHelper.load(FILENAME, true); 
-
 
 			if (newDelegator != null) {
 				Log.d("StorageDelegator", "read saved state");
@@ -1739,7 +1739,7 @@ public class StorageDelegator implements Serializable, Exportable {
 				return false;
 			}
 		} finally {
-			readingLock.unlock();
+			unlock();
 		}
 	}
 
@@ -2251,5 +2251,13 @@ public class StorageDelegator implements Serializable, Exportable {
 		currentStorage.logStorage();
 		Log.d("StorageDelegator","apiStorage");
 		apiStorage.logStorage();
+	}
+	
+	public void lock() {
+		readingLock.lock();
+	}
+	
+	public void unlock() {
+		readingLock.unlock();
 	}
 }

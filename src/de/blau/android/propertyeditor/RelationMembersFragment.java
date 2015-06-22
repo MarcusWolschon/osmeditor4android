@@ -1,11 +1,18 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +22,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -27,8 +35,12 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.HelpViewer;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
 
 public class RelationMembersFragment extends SherlockFragment {
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
@@ -38,15 +50,17 @@ public class RelationMembersFragment extends SherlockFragment {
 
 
 	private ArrayList<RelationMemberDescription> savedMembers = null;
+	private long id = -1;
 
 	static MemberSelectedActionModeCallback memberSelectedActionModeCallback = null;
 	
 	/**
      */
-    static public RelationMembersFragment newInstance(ArrayList<RelationMemberDescription> members) {
+    static public RelationMembersFragment newInstance(long id, ArrayList<RelationMemberDescription> members) {
     	RelationMembersFragment f = new RelationMembersFragment();
 
         Bundle args = new Bundle();
+        args.putLong("id", id);
         args.putSerializable("members", members);
 
         f.setArguments(args);
@@ -78,20 +92,27 @@ public class RelationMembersFragment extends SherlockFragment {
 	 * display member elements of the relation if any
 	 * @param members 
 	 */
-    @Override
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
        	
      	this.inflater = inflater;
      	ScrollView relationMembersLayout = (ScrollView) inflater.inflate(R.layout.members_view, null);
 		LinearLayout membersVerticalLayout = (LinearLayout) relationMembersLayout.findViewById(R.id.members_vertical_layout);
+		// membersVerticalLayout.setSaveFromParentEnabled(false);
+		membersVerticalLayout.setSaveEnabled(false);
 		
 		// if this is a relation get members
     	ArrayList<RelationMemberDescription> members;
-    	if (savedMembers != null) {
+    	if (savedInstanceState != null) {
+    		Log.d(DEBUG_TAG,"Restoring from saved state");
+    		id = savedInstanceState.getLong("ID"); 
+    		members = (ArrayList<RelationMemberDescription>)savedInstanceState.getSerializable("MEMBERS"); 		
+    	} else if (savedMembers != null) {
     		Log.d(DEBUG_TAG,"Restoring from instance variable");
     		members = savedMembers;
     	} else {
+    		id = getArguments().getLong("id");
     		members = (ArrayList<RelationMemberDescription>)getArguments().getSerializable("members");
     	}
     	loadMembers(membersVerticalLayout,  members);
@@ -136,6 +157,8 @@ public class RelationMembersFragment extends SherlockFragment {
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	Log.d(DEBUG_TAG, "onSaveInstanceState");
+    	outState.putLong("ID", id);
+    	outState.putSerializable("MEMBERS", savedMembers);
     }
     
     
@@ -179,7 +202,7 @@ public class RelationMembersFragment extends SherlockFragment {
 		} else {
 			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_row, null);
 		}
-		row.setValues(pos, rmd);
+		row.setValues(pos, id, rmd);
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 		
 		row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -204,8 +227,10 @@ public class RelationMembersFragment extends SherlockFragment {
 		
 		private PropertyEditor owner;
 		private long elementId;
+		private long relationId;
 		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
+		private ArrayAdapter<String> roleAdapter;
 		private TextView typeView;
 		private TextView elementView;
 		
@@ -243,7 +268,7 @@ public class RelationMembersFragment extends SherlockFragment {
 				@Override
 				public void onFocusChange(View v, boolean hasFocus) {
 					if (hasFocus) {
-						roleEdit.setAdapter(owner.relationMembershipFragment.getMemberRoleAutocompleteAdapter());
+						roleEdit.setAdapter(getMemberRoleAutocompleteAdapter());
 						if (/*running &&*/ roleEdit.getText().length() == 0) roleEdit.showDropDown();
 					}
 				}
@@ -267,7 +292,7 @@ public class RelationMembersFragment extends SherlockFragment {
 		 * @param rmd the information on the relation member
 		 * @return elationMemberRow object for convenience
 		 */
-		public RelationMemberRow setValues(String pos, RelationMemberDescription rmd) {
+		public RelationMemberRow setValues(String pos, long id, RelationMemberDescription rmd) {
 			
 			String desc = rmd.getDescription();
 			String objectType = rmd.getType() == null ? "--" : rmd.getType();
@@ -275,6 +300,7 @@ public class RelationMembersFragment extends SherlockFragment {
 			roleEdit.setText(rmd.getRole());
 			typeView.setText(objectType);
 			elementView.setText(desc);
+			relationId = id;
 			return this;
 		}
 		
@@ -328,6 +354,29 @@ public class RelationMembersFragment extends SherlockFragment {
 		
 		protected void enableCheckBox() {
 			selected.setEnabled(true);
+		}
+		
+		protected ArrayAdapter<String> getMemberRoleAutocompleteAdapter() { // FIXME 
+			// Use a set to prevent duplicate keys appearing
+			Set<String> roles = new HashSet<String>();
+			
+			if (owner.tagEditorFragment != null) {		
+				ArrayList<LinkedHashMap<String, String>> allTags = owner.tagEditorFragment.getUpdatedTags();
+				if (allTags != null && allTags.size() > 0) {
+					if ( owner.presets != null) { // 
+						PresetItem relationPreset = Preset.findBestMatch(owner.presets,allTags.get(0));
+						if (relationPreset != null) {
+							roles.addAll(relationPreset.getRoles());
+						}
+					}
+				}
+			}
+			
+			List<String> result = new ArrayList<String>(roles);
+			Collections.sort(result);
+			roleAdapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
+			
+			return roleAdapter;
 		}
 	}
 

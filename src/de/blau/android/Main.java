@@ -1386,6 +1386,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
 			// Read data from extras
 			PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
+			// FIXME Problem saved data may not be read at this point, load here 
+			if (loadOnResume) { 
+				loadOnResume = false;
+				Log.d("Main","handlePropertyEditorResult loading data");
+				getLogic().syncLoadFromFile(); // sync load
+			}
 			for (PropertyEditorData editorData:result) {
 				if (editorData == null) {
 					Log.d("Main","handlePropertyEditorResult null result");

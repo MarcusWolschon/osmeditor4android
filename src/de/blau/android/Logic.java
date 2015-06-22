@@ -578,7 +578,7 @@ public class Logic {
 		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 
 		if (osmElement == null) {
-			Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
+			Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element " + type + " #" + osmId);
 			return false;
 		} else {
 			createCheckpoint(R.string.undo_action_set_tags);
@@ -2576,10 +2576,8 @@ public class Logic {
 
 		Context[] c = {context};
 		AsyncTask<Context, Void, Integer> loader = new AsyncTask<Context, Void, Integer>() {
-			
-			
+					
 			Context context;
-	
 			
 			@Override
 			protected void onPreExecute() {
@@ -2655,6 +2653,60 @@ public class Logic {
 		loader.execute(c);
 	}
 	
+	/**
+	 * Loads data from a file
+	 * 
+	 */
+	void syncLoadFromFile() {
+
+		final int READ_FAILED = 0;
+		final int READ_OK = 1;
+		final int READ_BACKUP = 2;
+
+		int result = READ_FAILED;
+
+		Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+
+		if (getDelegator().readFromFile()) {
+			viewBox.setBorders(getDelegator().getLastBox());
+			result = READ_OK;
+		} 
+
+		try {
+			Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+		} catch (IllegalArgumentException e) {
+			// Avoid crash if dialog is already dismissed
+			Log.d("Logic", "", e);
+		}
+		if (result != READ_FAILED) {
+			Log.d("Logic", "syncLoadfromFile: File read correctly");
+			View map = Application.mainActivity.getCurrentFocus();
+
+			try {
+				viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+			} catch (Exception e) {
+				// invalid dimensions of similar error
+				try {
+					viewBox.setBorders(new BoundingBox(-180.0,-GeoMath.MAX_LAT,180.0,GeoMath.MAX_LAT));
+				} catch (OsmException e1) {
+					// Can't happen?
+					e1.printStackTrace();
+				}
+			}
+			Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
+			loadEditingState();
+			map.invalidate();
+			UndoStorage.updateIcon();
+			if (result == READ_BACKUP) { 
+				Toast.makeText(Application.mainActivity, "Corrupted state file, used backup file!", Toast.LENGTH_LONG).show();
+			}
+		}
+		else {
+			Log.d("Logic", "syncLoadfromFile: File read failed");
+			Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+		}
+	}
+
 	/**
 	 * A small class to store the result returned from the OSM server after
 	 * trying to upload changes. The response includes things like the HTTP
@@ -3610,5 +3662,14 @@ public class Logic {
 	 */
 	public StorageDelegator getDelegator() {
 		return delegator;
+	}
+
+
+	public void getDataLock() {
+		getDelegator().lock();
+	}
+	
+	public void dataUnlock() {
+		getDelegator().unlock();
 	}
 }

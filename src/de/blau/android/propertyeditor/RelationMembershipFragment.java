@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -87,8 +88,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
         getActivity().supportInvalidateOptionsMenu();
     }
     
-    
-    @Override
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	ScrollView parentRelationsLayout = null;
@@ -98,9 +98,14 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
     	this.inflater = inflater;
     	parentRelationsLayout = (ScrollView) inflater.inflate(R.layout.membership_view,null);
 		membershipVerticalLayout = (LinearLayout) parentRelationsLayout.findViewById(R.id.membership_vertical_layout);
+		// membershipVerticalLayout.setSaveFromParentEnabled(false);
+		membershipVerticalLayout.setSaveEnabled(false);
 		
     	HashMap<Long,String> parents;
-    	if (savedParents != null ) {
+    	if (savedInstanceState != null) {
+    		Log.d(DEBUG_TAG,"Restoring from saved state");
+    		parents = (HashMap<Long, String>) savedInstanceState.getSerializable("PARENTS");
+    	} else if (savedParents != null ) {
     		Log.d(DEBUG_TAG,"Restoring from instance variable");
     		parents = savedParents;
     	} else {
@@ -149,6 +154,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	Log.d(DEBUG_TAG, "onSaveInstanceState");
+    	outState.putSerializable("PARENTS", savedParents);
     }
     
     

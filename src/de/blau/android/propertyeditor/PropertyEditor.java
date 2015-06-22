@@ -26,6 +26,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -133,12 +134,14 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		int currentItem = -1; // used when restoring
 		prefs = new Preferences(this);
 		if (prefs.lightThemeEnabled()) {
 			setTheme(R.style.Theme_customTagEditor_Light);
 		}
 		
 		super.onCreate(savedInstanceState);
+		// super.onCreate(null); // hack to stop the system recreating the fragments from the stored state
 		
 		if (prefs.splitActionBarEnabled()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -160,10 +163,12 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
+			// loadData = PropertyEditorData.deserializeArray(savedInstanceState.getSerializable(TAGEDIT_DATA));
 			// loadData = (PropertyEditorData)savedInstanceState.getSerializable(TAGEDIT_DATA);
 			// FIXME needs to be checked if this really works
 			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
-			// applyLastTags = (Boolean)savedInstanceState.getSerializable(TAGEDIT_LASTTAGS); not saved 
+			// applyLastTags = (Boolean)savedInstanceState.getSerializable(TAGEDIT_LASTTAGS); not saved
+			currentItem = savedInstanceState.getInt("CURRENTITEM",-1);
 		}
 				
 		Log.d(DEBUG_TAG, "... done.");
@@ -207,10 +212,27 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		} else {
 			setContentView(R.layout.tab_view);
 		}
+
+		// tags
+		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<LinkedHashMap<String, String>>();
+		originalTags = new ArrayList<LinkedHashMap<String, String>>();
+		for (int i=0;i<loadData.length;i++) {
+			originalTags.add((LinkedHashMap<String, String>) (loadData[i].originalTags != null ? loadData[i].originalTags : loadData[i].tags));
+			tags.add((LinkedHashMap<String, String>) loadData[i].tags);
+		}
+				
+		if (loadData.length == 1) { // for now no support of relations 
+			// parent relations
+			originalParents = loadData[0].originalParents != null ? loadData[0].originalParents : loadData[0].parents;
+
+			if (types[0].endsWith(Relation.NAME)) {
+				// members of this relation
+				originalMembers = loadData[0].originalMembers != null ? loadData[0].originalMembers : loadData[0].members;
+			}
+		}
 		
 		PropertyEditorPagerAdapter  propertyEditorPagerAdapter =
-                new PropertyEditorPagerAdapter(
-                        getSupportFragmentManager());
+                new PropertyEditorPagerAdapter(getSupportFragmentManager(),tags);
 		mViewPager = (ExtendedViewPager) findViewById(R.id.pager);
 		PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
 		pagerTabStrip.setDrawFullUnderline(true);
@@ -219,43 +241,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		
-		// presets
-		if (!usePaneLayout) {
-			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags to determine presets
-			presetFragmentPosition = propertyEditorPagerAdapter.addFragment(getString(R.string.tag_menu_preset),presetFragment);
-		}
-		// tags
-		
-		
-		
-		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<LinkedHashMap<String, String>>();
-		originalTags = new ArrayList<LinkedHashMap<String, String>>();
-		for (int i=0;i<loadData.length;i++) {
-			originalTags.add((LinkedHashMap<String, String>) (loadData[i].originalTags != null ? loadData[i].originalTags : loadData[i].tags));
-			tags.add((LinkedHashMap<String, String>) loadData[i].tags);
-		}
-		
-		
-		tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
-		tagEditorFragmentPosition = propertyEditorPagerAdapter.addFragment(getString(R.string.menu_tags),tagEditorFragment);
-
-		if (loadData.length == 1) { // for now no support of relations 
-			// parent relations
-			originalParents = loadData[0].originalParents != null ? loadData[0].originalParents : loadData[0].parents;
-
-			relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
-			propertyEditorPagerAdapter.addFragment(getString(R.string.relations),relationMembershipFragment);
-
-
-			if (types[0].endsWith(Relation.NAME)) {
-				// members of this relation
-				originalMembers = loadData[0].originalMembers != null ? loadData[0].originalMembers : loadData[0].members;
-
-				relationMembersFragment = RelationMembersFragment.newInstance(loadData[0].members);
-				propertyEditorPagerAdapter.addFragment(getString(R.string.members),relationMembersFragment);
-			}
-		}
 		
 		
 		if (usePaneLayout) { // add both preset fragments to panes
@@ -277,11 +262,18 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			ft.add(R.id.preset_row,presetFragment,"preset_fragment");
 			
 			ft.commit();
+			
+			// this essentially has to be hardwired
+			presetFragmentPosition = 0;
+			tagEditorFragmentPosition = 0;
+		} else {
+			presetFragmentPosition = 0;
+			tagEditorFragmentPosition = 1;
 		}
 		
-		mViewPager.setOffscreenPageLimit(3); // FIXME hack to avoid crashes restoring the fragments after an onDestroy, needs to be fixed properly
+		mViewPager.setOffscreenPageLimit(3); // FIXME currently this is required or else some of the logic between the fragments will not work
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
-		mViewPager.setCurrentItem(showPresets ? presetFragmentPosition : tagEditorFragmentPosition);
+		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : tagEditorFragmentPosition));
 	}
 	
 	private void abort() {
@@ -291,50 +283,131 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	}
 	
 	@Override
+	protected void onStart() {
+		Log.d(DEBUG_TAG,"onStart");
+		super.onStart();
+		Log.d(DEBUG_TAG,"onStart done");
+	}
+	
+	@Override
 	protected void onResume() {
+		Log.d(DEBUG_TAG,"onResume");
 		super.onResume();
 		running = true;
 		Address.loadLastAddresses();
+		Log.d(DEBUG_TAG,"onResume done");
 	}
 
 	public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 		
-	    private ArrayList<SherlockFragment> mFragmentList;
-	    private ArrayList<String> mTitleList;
+	    private ArrayList<LinkedHashMap<String, String>> tags;
 		
-	    public PropertyEditorPagerAdapter(FragmentManager fm) {
+	    public PropertyEditorPagerAdapter(FragmentManager fm, ArrayList<LinkedHashMap<String, String>> tags) {
 	        super(fm);
-	        mTitleList = new ArrayList<String>();
-	        mFragmentList = new ArrayList<SherlockFragment>();
-	    }
-
-	    /**
-	     *  add a fragment and return its index
-	     * @param title
-	     * @param fragment
-	     * @return
-	     */
-	    public int addFragment(String title,SherlockFragment fragment) {
-	    	mTitleList.add(title);
-	        mFragmentList.add(fragment);
-	        return mTitleList.size() - 1;
+	        this.tags = tags;
 	    }
 
 	    @Override
 	    public int getCount() {
-	        return mFragmentList.size();
+	    	int pages = 0;
+	    	if (loadData.length == 1) {
+	    		if (types[0].endsWith(Relation.NAME)) {
+	    			pages = 4;
+	    		} else {
+	    			pages = 3;
+	    		}
+	    	} else {
+	    		pages = 2;
+	    	}
+	    	return usePaneLayout ? pages -1 : pages; // preset page not in pager
 	    }
 
 	    @Override
 	    public SherlockFragment getItem(int position) {
 	    	Log.d(DEBUG_TAG, "getItem " + position);
-	        return mFragmentList.get(position);
+	    	// presets
+			if (!usePaneLayout) {
+				switch(position) {
+				case 0: 
+					presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags to determine presets
+					return presetFragment;
+				case 1: 		
+					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
+					return tagEditorFragment;
+				case 2:
+					if (loadData.length == 1) {
+						relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
+						return relationMembershipFragment;
+					}
+					break;
+				case 3:
+					if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
+						relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
+						return relationMembersFragment;
+					}
+					break;
+				}
+			} else {
+				switch(position) {
+				case 0: 		
+					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
+					return tagEditorFragment;
+				case 1:
+					if (loadData.length == 1) {
+						relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
+						return relationMembershipFragment;
+					}
+					break;
+				case 2:
+					if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
+						relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
+						return relationMembersFragment;
+					}
+					break;
+				}
+			}
+	        return null;
 	    }
 
 	    @Override
 	    public CharSequence getPageTitle(int position) {
-	    	return mTitleList.get(position);
-	        // return ((Fragment) mFragmentList.get(position)).getPageTitle();
+	    	if (!usePaneLayout) {
+	    		switch(position) {
+	    		case 0: return getString(R.string.tag_menu_preset);
+	    		case 1: return getString(R.string.menu_tags);
+	    		case 2: return getString(R.string.relations);
+	    		case 3: return getString(R.string.members);
+	    		}
+	    	} else {
+	    		switch(position) {
+	    		case 0: return getString(R.string.menu_tags);
+	    		case 1: return getString(R.string.relations);
+	    		case 2: return getString(R.string.members);
+	    		}
+	    	}
+	    	return "error";
+	    }
+	    
+	    @Override
+	    public Object instantiateItem(ViewGroup container, int position) {
+	        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+	        // update fragment refs here
+	        if (fragment instanceof TagEditorFragment) {
+	        	tagEditorFragment = (TagEditorFragment) fragment;
+	        	Log.d(DEBUG_TAG, "Restored ref to TagEditorFragment");
+	        } else if (fragment instanceof RelationMembershipFragment) {
+	        	relationMembershipFragment = (RelationMembershipFragment) fragment;
+	        	Log.d(DEBUG_TAG, "Restored ref to RelationMembershipFragment");
+	        } else if (fragment instanceof RelationMembersFragment) {
+	        	relationMembersFragment = (RelationMembersFragment) fragment;
+	        	Log.d(DEBUG_TAG, "Restored ref to RelationMembersFragment");
+	        } else if (fragment instanceof PresetFragment) {
+	        	presetFragment = (PresetFragment) fragment;
+	        	Log.d(DEBUG_TAG, "Restored ref to PresetFragment");
+	        } else {
+	        	Log.d(DEBUG_TAG, "Unknown fragment ...");
+	        }
+	        return fragment;
 	    }
 	}
 	
@@ -479,6 +552,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		super.onSaveInstanceState(outState);
 		// no call through. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
 		// outState.putSerializable(TAGEDIT_DATA, new PropertyEditorData(osmId, type, tagEditorFragment.getKeyValueMap(true), originalTags, relationMembershipFragment.getParentRelationMap(), originalParents, relationMembersFragment.getMembersList(), originalMembers));
+		outState.putInt("CURRENTITEM", mViewPager.getCurrentItem());
 	}
 	
 	/** When the Activity is interrupted, save MRUs and address cache*/

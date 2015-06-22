@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -21,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -71,7 +73,7 @@ import de.blau.android.views.OffsettedAutoCompleteTextView;
 
 public class TagEditorFragment extends SherlockFragment {
 	
-	private static final String DEBUG_TAG = TagEditorFragment.class.getName();
+	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
@@ -180,11 +182,10 @@ public class TagEditorFragment extends SherlockFragment {
 	 * display member elements of the relation if any
 	 * @param members 
 	 */
-    @Override
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	ScrollView rowLayout = null;
-    	ArrayList<LinkedHashMap<String, String>> originalTags = null;
 
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
@@ -192,6 +193,7 @@ public class TagEditorFragment extends SherlockFragment {
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
+			savedTags = (LinkedHashMap<String, ArrayList<String>>) savedInstanceState.getSerializable("SAVEDTAGS");
 		}
     	
     	prefs = new Preferences(getActivity());
@@ -211,7 +213,9 @@ public class TagEditorFragment extends SherlockFragment {
      	rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, null);
        
      	LinearLayout editRowLayout = (LinearLayout) rowLayout.findViewById(R.id.edit_row_layout);
-    		
+     	// editRowLayout.setSaveFromParentEnabled(false);
+     	editRowLayout.setSaveEnabled(false); 
+     	
      	elements = (OsmElement[]) getArguments().getSerializable("elements");
      	types = new String[elements.length];
      	osmIds =  new long[elements.length];
@@ -241,6 +245,7 @@ public class TagEditorFragment extends SherlockFragment {
 	
 		loaded = true;
 		TagEditRow row = ensureEmptyRow(editRowLayout);
+	
 		if (getUserVisibleHint()) { // don't request focus if we are not visible 
 			Log.d(DEBUG_TAG,"is visible");
 			row.keyEdit.requestFocus();
@@ -282,7 +287,7 @@ public class TagEditorFragment extends SherlockFragment {
 				}
 			}
 		});
-		
+		Log.d(DEBUG_TAG,"onCreateView returning");
 		return rowLayout;
 	}
     
@@ -323,6 +328,7 @@ public class TagEditorFragment extends SherlockFragment {
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	Log.d(DEBUG_TAG, "onSaveInstanceState");
+    	outState.putSerializable("SAVEDTAGS", savedTags);
     }  
     
     @Override
@@ -522,6 +528,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 */
 	protected TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
 		final TagEditRow row = (TagEditRow)inflater.inflate(R.layout.tag_edit_row, null);
+	
 		boolean same = true;
 		if (tagValues.size() > 1) {
 			for (int i=1;i<tagValues.size();i++) {
@@ -802,7 +809,7 @@ public class TagEditorFragment extends SherlockFragment {
 				if (!owner.tagEditorFragment.focusRow(current + 1)) owner.tagEditorFragment.focusRow(current - 1);
 			}
 			rowLayout.removeView(this);
-			if (isEmpty()) {
+			if (isEmpty() && owner.tagEditorFragment != null) {
 				owner.tagEditorFragment.ensureEmptyRow();
 			}
 		}
@@ -936,13 +943,12 @@ public class TagEditorFragment extends SherlockFragment {
 			while (--i >= 0) { 
 				TagEditRow row = (TagEditRow)rowLayout.getChildAt(i);
 				boolean isEmpty = row.isEmpty();
-				if (ret == null) ret = isEmpty ? row : insertNewEdit(rowLayout,"", new ArrayList(), -1);
+				if (ret == null) ret = isEmpty ? row : insertNewEdit(rowLayout,"", new ArrayList<String>(), -1);
 				else if (isEmpty) row.deleteRow(rowLayout);
 			}
-			if (ret == null) ret = insertNewEdit(rowLayout,"", new ArrayList(), -1);
+			if (ret == null) ret = insertNewEdit(rowLayout,"", new ArrayList<String>(), -1);
 		}
 		return ret;
-		
 	}
 	
 	/**

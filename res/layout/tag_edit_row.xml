@@ -10,9 +10,11 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			style="?attr/Layout"
+			android:saveEnabled="false"
 		>
         <CheckBox
             android:id="@+id/tagSelected"
+            android:saveEnabled="false"
             android:text=""
             android:layout_width="34dp"
             android:layout_height="fill_parent"
@@ -25,6 +27,7 @@
 
 	    <AutoCompleteTextView
 	        android:id="@+id/editKey"
+	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
@@ -42,6 +45,7 @@
 	    
 	    <de.blau.android.views.OffsettedAutoCompleteTextView
 	        android:id="@+id/editValue"
+	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="0dp"

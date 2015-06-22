@@ -10,10 +10,12 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		style="?attr/Layout"
+		android:saveEnabled="false"
 		android:baselineAligned="false"
 	>
 	    <CheckBox
         	android:id="@+id/member_selected"
+        	android:saveEnabled="false"
         	android:text=""
         	android:layout_width="34dp"
         	android:layout_height="fill_parent"
@@ -25,6 +27,7 @@
 	    	/>
 	    <AutoCompleteTextView
 	        android:id="@+id/editMemberRole"
+	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
@@ -43,6 +46,7 @@
 	    <TextView
 	        android:id="@+id/memberType"
 	        style="?attr/NotDownloadedMember"
+	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
@@ -59,6 +63,7 @@
 	    <TextView
 	        android:id="@+id/memberObject"
 	        style="?attr/NotDownloadedMember"
+	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
