@@ -697,6 +697,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		actionbar.setCustomView(lockLayout);
 		Mode mode = getLogic().getMode();
 		ToggleButton lock = setLock(mode);
+		if (lock == null) {
+			return; //FIXME not good but no other alternative right now already logged in setLock
+		}
 		if (mode == Mode.MODE_EASYEDIT) {
 			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
 			lock.setTag(EASY_TAG);
@@ -768,6 +771,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	private ToggleButton setLock(Logic.Mode mode) {
 		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
+		if (lock==null) {
+			Log.d("Main", "coudn't find lock button");
+			return null;
+		}
 		switch (mode) {
 		case MODE_EASYEDIT:
 		case MODE_ALIGN_BACKGROUND:

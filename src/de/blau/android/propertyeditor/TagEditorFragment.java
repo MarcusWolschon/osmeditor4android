@@ -1212,7 +1212,12 @@ public class TagEditorFragment extends SherlockFragment {
 			if (map !=null) {
 				PresetItem p =  Preset.findBestMatch(((PropertyEditor)getActivity()).presets,map);
 				if (p != null) {
-					uri = p.getMapFeatures();
+					try {
+						uri = p.getMapFeatures();
+					} catch (NullPointerException npe) {
+						// 
+						Log.d(DEBUG_TAG,"Preset " + p.getName() + " has no/invalid map feature uri");
+					}
 				}
 			}
 			if (uri == null) {
