@@ -673,10 +673,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 			modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled(), prefs.depreciatedModesEnabled());
 			actionbar.setListNavigationCallbacks(modeDropdown, this);	
+			setupLockButton(actionbar);
 			ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
 			if (lock != null) lock.setVisibility(View.GONE);
 		} else {
-			
 			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 			actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
 			setupLockButton(actionbar);
