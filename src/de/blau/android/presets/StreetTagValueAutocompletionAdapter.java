@@ -138,10 +138,10 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithC
 				double distance = -1D;
 				long iD = way.getOsmId();
 				for (String tag:nameTags) { 
-Log.d("StreetTagValueAutocompletionAdapter","Search for " + tag);
+					// Log.d("StreetTagValueAutocompletionAdapter","Search for " + tag);
 					String name = way.getTagWithKey(tag);
 					if (name != null) {
-						Log.d("StreetTagValueAutocompletionAdapter","Name " + name);
+						// Log.d("StreetTagValueAutocompletionAdapter","Name " + name);
 						if (distance == -1D) { // only calc once
 							distance = getDistance(way, location);
 						}
