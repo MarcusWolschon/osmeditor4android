@@ -37,6 +37,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -144,7 +145,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		membershipVerticalLayout.removeAllViews();
 		if (parents != null && parents.size() > 0) {
 			for (Long id :  parents.keySet()) {
-				Relation r = (Relation) Main.getLogic().getDelegator().getOsmElement(Relation.NAME, id.longValue());
+				Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, id.longValue());
 				insertNewMembership(membershipVerticalLayout, parents.get(id),r,0, false);
 			}
 		}
@@ -278,7 +279,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		protected ArrayAdapter<String> getMembershipRoleAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
 			Set<String> roles = new HashSet<String>();
-			Relation r = (Relation) Main.getLogic().getDelegator().getOsmElement(Relation.NAME, relationId);
+			Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, relationId);
 			if ( r!= null) {			
 				if ( owner.presets != null) {
 					PresetItem relationPreset = Preset.findBestMatch(owner.presets,r.getTags());
@@ -298,7 +299,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		protected ArrayAdapter<Relation> getRelationSpinnerAdapter() {
 			//
 			
-			List<Relation> result = Main.getLogic().getDelegator().getCurrentStorage().getRelations();;
+			List<Relation> result = Application.getDelegator().getCurrentStorage().getRelations();;
 			// Collections.sort(result);
 			return new ArrayAdapter<Relation>(owner, R.layout.autocomplete_row, result);
 		}
@@ -313,7 +314,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		public RelationMembershipRow setValues(String role, Relation r) {
 			relationId = r.getOsmId();
 			roleEdit.setText(role);
-			parentEdit.setSelection(Main.getLogic().getDelegator().getCurrentStorage().getRelations().indexOf(r));
+			parentEdit.setSelection(Application.getDelegator().getCurrentStorage().getRelations().indexOf(r));
 			return this;
 		}
 		
@@ -325,7 +326,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		 */
 		public RelationMembershipRow setRelation(Relation r) {
 			relationId = r.getOsmId();
-			parentEdit.setSelection(Main.getLogic().getDelegator().getCurrentStorage().getRelations().indexOf(r));
+			parentEdit.setSelection(Application.getDelegator().getCurrentStorage().getRelations().indexOf(r));
 			Log.d("TagEditor", "Set parent relation to " + relationId + " " + r.getDescription());
 			roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update 
 			return this;

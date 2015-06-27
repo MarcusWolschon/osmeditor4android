@@ -4,6 +4,8 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
+import de.blau.android.osm.StorageDelegator;
+
 @ReportsCrashes(
 	formKey = "",
 	reportType = org.acra.sender.HttpSender.Type.JSON,
@@ -16,6 +18,7 @@ import org.acra.annotation.ReportsCrashes;
 	resDialogText = R.string.crash_dialog_text)
 public class Application extends android.app.Application {
 	public static Main mainActivity;
+	static StorageDelegator delegator = new StorageDelegator();
 	public static String userAgent;
 	
 	@Override
@@ -26,5 +29,9 @@ public class Application extends android.app.Application {
 		String appName = getString(R.string.app_name);
 		String appVersion = getString(R.string.app_version);
 		userAgent = appName + "/" + appVersion;
+	}
+
+	public static StorageDelegator getDelegator() {
+		return delegator;
 	}
 }

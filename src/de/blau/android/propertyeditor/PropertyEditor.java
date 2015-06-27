@@ -36,11 +36,13 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
 
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -174,18 +176,19 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		Log.d(DEBUG_TAG, "... done.");
 		
 		// sanity check
-		if (Main.getLogic() == null || Main.getLogic().getDelegator() == null || loadData == null) {
+		StorageDelegator delegator = Application.getDelegator();
+		if (delegator == null || loadData == null) {
 			abort();
 		}
 		
 		osmIds = new long[loadData.length];
 		types = new String[loadData.length];
 		elements = new OsmElement[loadData.length];
-		
+
 		for (int i=0;i<loadData.length;i++) {
 			osmIds[i] = loadData[i].osmId;
 			types[i] = loadData[i].type;
-			elements[i] = Main.getLogic().getDelegator().getOsmElement(types[i], osmIds[i]);
+			elements[i] = delegator.getOsmElement(types[i], osmIds[i]);
 			// and another sanity check
 			if (elements[i] == null) {
 				abort();

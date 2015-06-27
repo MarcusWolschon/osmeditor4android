@@ -533,7 +533,7 @@ public class DialogFactory {
 		uploadConflict.setIcon(ThemeUtils.getResIdFromAttribute(caller,R.attr.alert_dialog));
 		uploadConflict.setTitle(R.string.upload_conflict_title);
 		final OsmElement elementOnServer = Main.getLogic().downloadElement(result.elementType, result.osmId);
-		final OsmElement elementLocal = Main.getLogic().getDelegator().getOsmElement(result.elementType, result.osmId);
+		final OsmElement elementLocal = Application.getDelegator().getOsmElement(result.elementType, result.osmId);
 		final long newVersion;
 		try {
 			boolean useServerOnly = false;
@@ -561,13 +561,13 @@ public class DialogFactory {
 			uploadConflict.setNeutralButton(R.string.use_server_version,new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Main.getLogic().getDelegator().removeFromUpload(elementLocal);
+					Application.getDelegator().removeFromUpload(elementLocal);
 					if (elementOnServer != null) {
 						Main.getLogic().updateElement(elementLocal.getName(), elementLocal.getOsmId());
 					} else { // delete local element
 						Main.getLogic().updateToDeleted(elementLocal);
 					}
-					if (!Main.getLogic().getDelegator().getApiStorage().isEmpty()) {
+					if (!Application.getDelegator().getApiStorage().isEmpty()) {
 						caller.confirmUpload();
 					}
 				}

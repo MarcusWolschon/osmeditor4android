@@ -51,6 +51,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -399,12 +400,12 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @return
 	 */
 	protected ArrayAdapter<ValueWithCount> getStreetNameAutocompleteAdapter(ArrayList<String> tagValues) {
-		if (Main.getLogic() == null || Main.getLogic().getDelegator() == null) {
+		if (Application.getDelegator() == null) {
 			return null;
 		}
 		if (streetNameAutocompleteAdapter == null) {
 			streetNameAutocompleteAdapter =	new StreetTagValueAutocompletionAdapter(getActivity(),
-					R.layout.autocomplete_row, Main.getLogic().getDelegator(),
+					R.layout.autocomplete_row, Application.getDelegator(),
 					types[0], osmIds[0], tagValues); // FIXME
 		}
 		return streetNameAutocompleteAdapter;
@@ -415,12 +416,12 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @return
 	 */
 	protected ArrayAdapter<ValueWithCount> getPlaceNameAutocompleteAdapter(ArrayList<String> tagValues) {
-		if (Main.getLogic() == null || Main.getLogic().getDelegator() == null) {
+		if (Application.getDelegator() == null) {
 			return null;
 		}
 		if (placeNameAutocompleteAdapter == null) {
 			placeNameAutocompleteAdapter =	new PlaceTagValueAutocompletionAdapter(getActivity(),
-					R.layout.autocomplete_row, Main.getLogic().getDelegator(),
+					R.layout.autocomplete_row, Application.getDelegator(),
 					types[0], osmIds[0], tagValues); // FIXME
 		}
 		return placeNameAutocompleteAdapter;

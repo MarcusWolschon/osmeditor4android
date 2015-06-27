@@ -64,7 +64,7 @@ public class Address implements Serializable {
 	}
 	
 	Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
-		OsmElement e = Main.getLogic().getDelegator().getOsmElement(type, id);
+		OsmElement e = Application.getDelegator().getOsmElement(type, id);
 		switch (e.getType()) {
 		case NODE: lat = ((Node)e).getLat()/1E7F; lon = ((Node)e).getLon()/1E7F; break;
 		case WAY:
@@ -91,7 +91,7 @@ public class Address implements Serializable {
 	 */
 	void setSide(long wayId) {
 		side = Side.UNKNOWN;
-		Way w = (Way)Main.getLogic().getDelegator().getOsmElement(Way.NAME,wayId);
+		Way w = (Way)Application.getDelegator().getOsmElement(Way.NAME,wayId);
 		if (w == null) {
 			return;
 		}
@@ -218,11 +218,11 @@ public class Address implements Serializable {
 								streetId = streetAdapter.getId(street);
 							}
 							// nodes
-							for (Node n:Main.getLogic().getDelegator().getCurrentStorage().getNodes()) {
+							for (Node n:Application.getDelegator().getCurrentStorage().getNodes()) {
 								seedAddressList(street,streetId,(OsmElement)n,lastAddresses);
 							}
 							// ways
-							for (Way w:Main.getLogic().getDelegator().getCurrentStorage().getWays()) {
+							for (Way w:Application.getDelegator().getCurrentStorage().getWays()) {
 								seedAddressList(street,streetId,(OsmElement)w,lastAddresses);
 							}
 							// and try again
@@ -351,7 +351,8 @@ public class Address implements Serializable {
 		// is this a node on a building outline, if yes add entrance=yes if it doesn't already exist
 		if (caller.getType().equals(Node.NAME)) {
 			boolean isOnBuilding = false;
-			for (Way w:Main.getLogic().getWaysForNode((Node)Main.getLogic().getDelegator().getOsmElement(Node.NAME, caller.getOsmId()))) {
+			// we can't call wayForNodes here because Logic may not be around
+			for (Way w:Application.getDelegator().getCurrentStorage().getWays((Node)Application.getDelegator().getOsmElement(Node.NAME, caller.getOsmId()))) {
 				if (w.hasTagKey(Tags.KEY_BUILDING)) {
 					isOnBuilding = true;
 				} else if (w.getParentRelations() != null) { // need to check relations too

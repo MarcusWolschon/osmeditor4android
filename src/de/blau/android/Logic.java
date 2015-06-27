@@ -192,11 +192,6 @@ public class Logic {
 	private static final int MAX_NODES_FOR_MOVE = 100;
 	
 	/**
-	 * See {@link StorageDelegator}.
-	 */
-	private final StorageDelegator delegator = new StorageDelegator();
-
-	/**
 	 * Stores the {@link Preferences} as soon as they are available.
 	 */
 	private Preferences prefs;
@@ -418,8 +413,8 @@ public class Logic {
 	 * @return
 	 */
 	public String undo() {
-		String name = delegator.getUndo().undo();
-		delegator.dirty();
+		String name = getDelegator().getUndo().undo();
+		getDelegator().dirty();
 		return name;
 	}
 	
@@ -428,8 +423,8 @@ public class Logic {
 	 * @return
 	 */
 	public String redo() {
-		String name = delegator.getUndo().redo();
-		delegator.dirty();
+		String name = getDelegator().getUndo().redo();
+		getDelegator().dirty();
 		return name;
 	}
 	
@@ -3661,10 +3656,9 @@ public class Logic {
 	 * @return the delegator
 	 */
 	public StorageDelegator getDelegator() {
-		return delegator;
+		return Application.getDelegator();
 	}
-
-
+	
 	public void getDataLock() {
 		getDelegator().lock();
 	}
