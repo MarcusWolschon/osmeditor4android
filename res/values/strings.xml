@@ -365,6 +365,9 @@
 	<string name="config_enableLightTheme_title">Enable light theme</string>
 	<string name="config_enableLightTheme_summary">Light theme with white backgrounds</string>
 	<string name="config_category_misc">Miscellaneous</string>
+	<string name="config_address_tags">Address tags</string>
+	<string name="config_address_tags_summary">Tags used for address prediction</string>
+	<string name="config_moreprefs">More settings...</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="address_tags_entries">
+        <item>Housenumber (addr:housenumber)</item>
+		<item>Street (addr:street)</item>
+		<item>Postcode (addr:postcode)</item>
+		<item>City/Town/Village/..  (addr:city)</item>
+		<item>Country (addr:country)</item>
+		<item>Full address (addr:full)</item>
+		<item>Place (addr:place)</item>
+		<item>Hamlet (addr:hamlet)</item>
+		<item>Suburb (addr:suburb)</item>
+		<item>Subdistrict (addr:subdistrict)</item>
+		<item>District (addr:district)</item>
+		<item>Province (addr:province)</item>
+		<item>State (addr:state)</item>
+		<item>Flats (addr:flats)</item>
+		<item>Door (addr:door)</item>
+		<item>Unit (addr:unit)</item>
+    </string-array>
+    <string-array name="address_tags_values">
+		<item>addr:housenumber</item>
+		<item>addr:street</item>
+		<item>addr:postcode</item>
+		<item>addr:city</item>
+		<item>addr:country</item>
+		<item>addr:full</item>
+		<item>addr:place</item>
+		<item>addr:hamlet</item>
+		<item>addr:suburb</item>
+		<item>addr:subdistrict</item>
+		<item>addr:district</item>
+		<item>addr:province</item>
+		<item>addr:state</item>
+		<item>addr:flats</item>
+		<item>addr:door</item>
+		<item>addr:unit</item>
+    </string-array>
+    <string-array name="address_tags_defaults">
+        <item>addr:housenumber</item>
+		<item>addr:street</item>
+		<item>addr:postcode</item>
+		<item>addr:city</item>
+		<item>addr:place</item>
+		<item>addr:hamlet</item>
+		<item>addr:suburb</item>
+		<item>addr:subdistrict</item>
+		<item>addr:district</item>
+		<item>addr:province</item>
+		<item>addr:state</item>
+    </string-array>
+</resources>
+

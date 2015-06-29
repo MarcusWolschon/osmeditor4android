@@ -50,6 +50,10 @@
 			android:theme="@style/Theme.Sherlock"
 		/>
 		<activity
+			android:name=".prefs.AddressTagsPrefEditor"
+			android:theme="@style/Theme.Sherlock"
+		/>
+		<activity
 			android:name=".prefs.AdvancedPrefEditor"
 			android:theme="@style/Theme.Sherlock"
 			android:label="@string/app_name_version"

@@ -32,6 +32,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	private String KEY_MAPPROFILE;
 	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
+	private String KEY_ADDRPREFS;
 	private String KEY_LICENSE;
 	
 	@Override
@@ -51,6 +52,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
+		KEY_ADDRPREFS = r.getString(R.string.config_addressprefs_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
 		fixUpPrefs();
 		

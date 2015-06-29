@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -20,6 +21,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -32,7 +34,7 @@ import de.blau.android.propertyeditor.PropertyEditor;
  *
  */
 public class Address implements Serializable {
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 5L;
 	
 	private static final String ADDRESS_TAGS_FILE = "addresstags.dat";
 	private static final int MAX_SAVED_ADDRESSES = 100;
@@ -69,7 +71,7 @@ public class Address implements Serializable {
 		case NODE: lat = ((Node)e).getLat()/1E7F; lon = ((Node)e).getLon()/1E7F; break;
 		case WAY:
 		case CLOSEDWAY:
-			de.blau.android.Map map = Application.mainActivity.getMap();
+			de.blau.android.Map map = Application.mainActivity.getMap(); // FIXME this ref likely breaks
 			int[] center = Logic.centroid(map.getWidth(), map.getHeight(), map.getViewBox(), (Way)e);
 			if (center != null) { 
 				lat = center[0]/1E7F;
@@ -98,7 +100,7 @@ public class Address implements Serializable {
 		double distance = Double.MAX_VALUE;
 		
 		// to avoid rounding errors we translate the bb to 0,0
-		BoundingBox bb = Application.mainActivity.getMap().getViewBox();
+		BoundingBox bb = Application.mainActivity.getMap().getViewBox(); // FIXME this ref likely breaks
 		double latOffset = GeoMath.latE7ToMercatorE7(bb.getBottom());
 		double lonOffset = bb.getLeft();
 		double ny = GeoMath.latToMercator(lat)-latOffset/1E7D;
@@ -324,27 +326,12 @@ public class Address implements Serializable {
 					}
 				}
 			} else { // last ditch attemot
-				LinkedHashMap<String, ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
 				// fill with Karlsruher schema
-				tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_STREET, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_POSTCODE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_CITY, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_COUNTRY, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_FULL, Util.getArrayList(""));
-				// the following are less used but may be necessary
-				tags.put(Tags.KEY_ADDR_HOUSENAME, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_PLACE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_HAMLET, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_SUBURB, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_SUBDISTRICT, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_DISTRICT, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_PROVINCE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_STATE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_FLATS, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_DOOR, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_UNIT, Util.getArrayList(""));
-				newAddress.tags.putAll(tags); 
+				Preferences prefs = new Preferences(Application.mainActivity);// FIXME this ref likely breaks
+				Set<String> addressTags = prefs.addressTags();
+				for (String key:addressTags) {
+					newAddress.tags.put(key, Util.getArrayList(""));
+				}
 			}
 		}
 		
@@ -446,9 +433,11 @@ public class Address implements Serializable {
 	
 	protected static LinkedHashMap<String,ArrayList<String>> getAddressTags(LinkedHashMap<String,ArrayList<String>> sortedMap) {
 		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
+		Preferences prefs = new Preferences(Application.mainActivity);// FIXME this ref likely breaks
+		Set<String> addressTags = prefs.addressTags();
 		for (String key:sortedMap.keySet()) {
 			// include everything except interpolation related tags
-			if (key.startsWith(Tags.KEY_ADDR_BASE) && !key.startsWith(Tags.KEY_ADDR_INTERPOLATION) && !key.startsWith(Tags.KEY_ADDR_HOUSENAME) && !key.startsWith(Tags.KEY_ADDR_INCLUSION)) {
+			if (addressTags.contains(key)) {
 				result.put(key, sortedMap.get(key));
 			}
 		}

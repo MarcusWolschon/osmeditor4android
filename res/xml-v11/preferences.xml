@@ -53,10 +53,18 @@
 		/>
 	</PreferenceCategory>
 	
-	<PreferenceCategory android:title="@string/config_advancedprefs">
+	<PreferenceCategory android:title="@string/config_moreprefs">
 		<Preference
 			android:title="@string/config_advancedprefs"
 			android:key="@string/config_advancedprefs_key"
+		/>
+		<MultiSelectListPreference
+			android:key="@string/config_addressTags_key"
+			android:title="@string/config_address_tags"
+			android:summary="@string/config_address_tags_summary"
+			android:entries="@array/address_tags_entries"
+        	android:entryValues="@array/address_tags_values"
+        	android:defaultValue="@array/address_tags_defaults"
 		/>
 	</PreferenceCategory>
 		

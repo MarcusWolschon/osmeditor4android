@@ -1,5 +1,9 @@
 package de.blau.android.prefs;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -76,6 +80,8 @@ public class Preferences {
 	
 	private final boolean lightThemeEnabled;
 	
+	private Set addressTags; // can't be final
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -84,6 +90,7 @@ public class Preferences {
 	 * @throws IllegalArgumentException
 	 * @throws NotFoundException
 	 */
+	@SuppressLint("NewApi")
 	public Preferences(Context ctx) throws IllegalArgumentException, NotFoundException {
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		final Resources r = ctx.getResources();
@@ -165,6 +172,12 @@ public class Preferences {
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
 		// light theme doesn't really work prior to Honeycomb, but make it the default for anything newer
 		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? true : false);
+		
+		addressTags = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
+		}
+	
 	}
 	
 	/**
@@ -354,5 +367,9 @@ public class Preferences {
 	
 	public boolean lightThemeEnabled() {
 		return lightThemeEnabled;
+	}
+	
+	public Set<String> addressTags() {
+		return addressTags;
 	}
 }
