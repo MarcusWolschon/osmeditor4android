@@ -494,9 +494,20 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			getLogic().downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
-			getLogic().loadFromFile(getApplicationContext());
+			PostLoadHandler postLoad = null;
+			if (rcData != null|| geoData != null) {
+				postLoad = new PostLoadHandler() {
+					@Override
+					public void execute() {
+						// TODO Auto-generated method stub
+						processIntents();
+					}
+				};
+			}
+			getLogic().loadFromFile(getApplicationContext(),postLoad);
 		} else { // loadFromFile already does this
 			getLogic().loadEditingState();
+			processIntents();
 			map.invalidate();
 		}
 		if (currentPresets == null) {
@@ -523,6 +534,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 		
+
+	}
+	
+	protected void processIntents() {
 		if (geoData != null) {
 			Log.d("Main","got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + getLogic().getDelegator().isDirty());
 			if (prefs.getDownloadRadius() != 0) { // download
@@ -546,37 +561,37 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			Log.d("Main","got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
 				getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
-// this had to be done after we have restored/downloaded data and set any saved edit state ... disable for now needs some thinking 
-//				if (rcData.getSelect() != null) {
-//					logic.setSelectedNode(null);
-//					logic.setSelectedWay(null);
-//					logic.setSelectedRelation(null);
-//					for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
-//						if (s!=null) {
-//							Log.d("Main","rc select: " + s);
-//							if (s.startsWith("node")) {
-//								long id = Integer.valueOf(s.substring(Node.NAME.length()));
-//								Node n = (Node) logic.getDelegator().getOsmElement(Node.NAME, id); 
-//								if (n != null) {
-//									logic.addSelectedNode(n);
-//								}
-//							} else if (s.startsWith("way")) {
-//								long id = Integer.valueOf(s.substring(Way.NAME.length()));
-//								Way w = (Way) logic.getDelegator().getOsmElement(Way.NAME, id); 
-//								if (w != null) {
-//									logic.addSelectedWay(w);
-//								}
-//							} else if (s.startsWith("relation")) {
-//								long id = Integer.valueOf(s.substring(Relation.NAME.length()));
-//								Relation r = (Relation) logic.getDelegator().getOsmElement(Relation.NAME, id); 
-//								if (r != null) {
-//									logic.addSelectedRelation(r);
-//								}
-//							}
-//						}	
-//					}
-//					easyEditManager.editElements();
-//				}
+				// this had to be done after we have restored/downloaded data and set any saved edit state ... disable for now needs some thinking 
+				if (rcData.getSelect() != null) {
+					logic.setSelectedNode(null);
+					logic.setSelectedWay(null);
+					logic.setSelectedRelation(null);
+					for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
+						if (s!=null) {
+							Log.d("Main","rc select: " + s);
+							if (s.startsWith("node")) {
+								long id = Integer.valueOf(s.substring(Node.NAME.length()));
+								Node n = (Node) logic.getDelegator().getOsmElement(Node.NAME, id); 
+								if (n != null) {
+									logic.addSelectedNode(n);
+								}
+							} else if (s.startsWith("way")) {
+								long id = Integer.valueOf(s.substring(Way.NAME.length()));
+								Way w = (Way) logic.getDelegator().getOsmElement(Way.NAME, id); 
+								if (w != null) {
+									logic.addSelectedWay(w);
+								}
+							} else if (s.startsWith("relation")) {
+								long id = Integer.valueOf(s.substring(Relation.NAME.length()));
+								Relation r = (Relation) logic.getDelegator().getOsmElement(Relation.NAME, id); 
+								if (r != null) {
+									logic.addSelectedRelation(r);
+								}
+							}
+						}	
+					}
+					easyEditManager.editElements();
+				}
 			} else {
 				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
 				Log.d("Main","moving to position");

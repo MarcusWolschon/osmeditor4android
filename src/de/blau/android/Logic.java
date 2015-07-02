@@ -2668,7 +2668,7 @@ public class Logic {
 	 * 
 	 * @param context 
 	 */
-	void loadFromFile(Context context) {
+	void loadFromFile(Context context, final PostLoadHandler postLoad) {
 		
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
@@ -2736,6 +2736,10 @@ public class Logic {
 					}
 					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 					loadEditingState();
+					
+					if (postLoad != null) {
+						postLoad.execute();
+					}
 					map.invalidate();
 					UndoStorage.updateIcon();
 					if (result.intValue() == READ_BACKUP) { 
