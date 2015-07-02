@@ -85,6 +85,7 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	public StorageDelegator() {
 		reset();
+		dirty = false; // this is a completly new delegator, this only happens when the app is being started
 	}
 
 	public void reset() {
@@ -1997,12 +1998,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	
-	
 	/**
 	 * Merge additional data with existing, copy to a new storage because this may fail
 	 * @param storage
 	 */
-	synchronized public boolean mergeData(Storage storage) {
+	synchronized public boolean mergeData(Storage storage, PostMergeHandler postMerge) {
 		Log.d("StorageDelegator","mergeData called");
 		// make temp copy of current storage
 		Storage temp = new Storage();
@@ -2039,6 +2039,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (!nodeIndex.containsKey(n.getOsmId()) &&  apiNode == null) { // new node no problem
 				temp.getNodes().add(n);
 				nodeIndex.put(n.getOsmId(),n);
+				if (postMerge != null) {
+					postMerge.handler(n);
+				}
 			} else {
 				if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
 					if (apiNode.getOsmVersion() >= n.getOsmVersion())
@@ -2054,6 +2057,9 @@ public class StorageDelegator implements Serializable, Exportable {
 						temp.getNodes().remove(existingNode);
 						temp.getNodes().add(n);
 						nodeIndex.put(n.getOsmId(),n); // overwrite existing entry in index
+						if (postMerge != null) {
+							postMerge.handler(n);
+						}
 					} else
 						return false; // can't resolve conflicts, upload first
 				}
@@ -2066,6 +2072,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
 				temp.getWays().add(w);
 				wayIndex.put(w.getOsmId(),w);
+				if (postMerge != null) {
+					postMerge.handler(w);
+				}
 			} else {
 				if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
 					if (apiWay.getOsmVersion() >= w.getOsmVersion())
@@ -2075,13 +2084,16 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 				Way existingWay = temp.getWay(w.getOsmId());
 				if (existingWay != null) {
-					if (existingWay.getOsmVersion() >= w.getOsmVersion()) // larger just to be on the safe side
+					if (existingWay.getOsmVersion() >= w.getOsmVersion()) {// larger just to be on the safe side  
 						continue; // can use way we already have
-					else {
+					} else {
 						if (existingWay.isUnchanged()) {
 							temp.getWays().remove(existingWay);
 							temp.getWays().add(w);
 							wayIndex.put(w.getOsmId(),w); // overwrite existing entry in index
+							if (postMerge != null) {
+								postMerge.handler(w);
+							}
 						} else
 							return false; // can't resolve conflicts, upload first
 					}
@@ -2119,6 +2131,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
 				temp.getRelations().add(r);
 				relationIndex.put(r.getOsmId(),r);
+				if (postMerge != null) {
+					postMerge.handler(r);
+				}
 			} else {
 				if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
 					if (apiRelation.getOsmVersion() >= r.getOsmVersion())
@@ -2135,6 +2150,9 @@ public class StorageDelegator implements Serializable, Exportable {
 						temp.getRelations().remove(existingRelation);
 						temp.getRelations().add(r);
 						relationIndex.put(r.getOsmId(),r); // overwrite existing entry in index
+						if (postMerge != null) {
+							postMerge.handler(r);
+						}
 					} else
 						return false; // can't resolve conflicts, upload first
 				}

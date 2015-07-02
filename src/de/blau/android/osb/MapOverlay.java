@@ -74,7 +74,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 						// add open bugs or closed bugs younger than 7 days
 						if (!b.isClosed() || (now - b.getMostRecentChange().getTime()) < MAX_CLOSED_AGE) {
 							bugs.add(b);
-							IssueAlert.alert(b);
+							IssueAlert.alert(map.getContext(), b);
 						}
 					}
 

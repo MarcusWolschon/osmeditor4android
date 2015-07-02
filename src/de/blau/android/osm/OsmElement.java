@@ -14,7 +14,9 @@ import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.content.res.Resources;
+import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.util.IssueAlert;
 
@@ -23,7 +25,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7711945069147743666L;
+	private static final long serialVersionUID = 7711945069147743668L;
 	
 	/**
 	 * An array of tags considered 'important' and distinctive enough to be shown as part of
@@ -53,8 +55,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	
 	/**
 	 * hasProblem() is an expensive test, so the results are cached.
+	 * old version used a Boolean object which was silly we could naturally encode these as bits
 	 */
-	private Boolean cachedHasProblem;
+	private boolean cachedHasProblem = false;
+	private boolean checkedForProblem = false; // flag indicating if cachedHasProblem is valid
 	
 	static {
 		// Create the array of important tags. Tags are listed from most important to least.
@@ -68,10 +72,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	OsmElement(final long osmId, final long osmVersion, final byte state) {
 		this.osmId = osmId;
 		this.osmVersion = osmVersion;
-		this.tags = new TreeMap<String, String>();
+		this.tags = null;
 		this.state = state;
 		this.parentRelations = null;
-		cachedHasProblem = null;
 	}
 
 	public long getOsmId() {
@@ -91,6 +94,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	}
 
 	public SortedMap<String,String> getTags() {
+		if (tags == null) {
+			return Collections.unmodifiableSortedMap(new TreeMap<String, String>()); // for backwards compatibility
+		}
 		return Collections.unmodifiableSortedMap(tags);
 	}
 
@@ -117,8 +123,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	}
 
 	void addOrUpdateTag(final String tag, final String value) {
+		if (tags==null) {
+			tags = new TreeMap<String, String>();
+		}
 		tags.put(tag, value);
-		cachedHasProblem = null;
+		checkedForProblem = false;
 	}
 
 	/**
@@ -126,8 +135,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @param tags New tags to add or to replace existing tags.
 	 */
 	void addTags(final Map<String, String> tags) {
-		if (tags != null) this.tags.putAll(tags);
-		cachedHasProblem = null;
+		if (tags != null) {
+			if (this.tags==null) {
+				this.tags = new TreeMap<String, String>();
+			}
+			this.tags.putAll(tags);
+			checkedForProblem = false;
+		}
 	}
 
 	/**
@@ -136,9 +150,15 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return Flag indicating if the tags have actually changed.
 	 */
 	boolean setTags(final Map<String, String> tags) {
-		if (!this.tags.equals(tags)) {
+		if (this.tags == null) {
+			this.tags = new TreeMap<String, String>();
+			addTags(tags);
+			checkedForProblem = false;
+			return true;
+		} else if (!this.tags.equals(tags)) {
 			this.tags.clear();
 			addTags(tags);
+			checkedForProblem = false;
 			return true;
 		}
 		return false;
@@ -150,6 +170,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return true if the element has a tag with this key and value.
 	 */
 	public boolean hasTag(final String key, final String value) {
+		if (tags == null) {
+			return false;
+		}
 		String keyValue = tags.get(key);
 		return keyValue != null && keyValue.equals(value);
 	}
@@ -159,6 +182,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return the value of this key.
 	 */
 	public String getTagWithKey(final String key) {
+		if (tags == null) {
+			return null;
+		}
 		return tags.get(key);
 	}
 
@@ -209,11 +235,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
 	public void tagsToXml(final XmlSerializer s) throws IllegalArgumentException,
 			IllegalStateException, IOException {
-		for (Entry<String, String> tag : tags.entrySet()) {
-			s.startTag("", "tag");
-			s.attribute("", "k", tag.getKey());
-			s.attribute("", "v", tag.getValue());
-			s.endTag("", "tag");
+		if (tags != null) {
+			for (Entry<String, String> tag : tags.entrySet()) {
+				s.startTag("", "tag");
+				s.attribute("", "k", tag.getKey());
+				s.attribute("", "v", tag.getValue());
+				s.endTag("", "tag");
+			}
 		}
 	}
 
@@ -369,10 +397,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	protected boolean calcProblem() {
 		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
-		for (String key : tags.keySet()) {
-			// test key and value against pattern
-			if (key.matches(pattern) || tags.get(key).matches(pattern)) {
-				return true;
+		if (tags != null) {
+			for (String key : tags.keySet()) {
+				// test key and value against pattern
+				if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -383,10 +413,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	public String describeProblem() {
 		final String pattern = "(?i).*\\b(?:fixme|todo)\\b.*";
-		for (String key : tags.keySet()) {
-			// test key and value against pattern
-			if (key.matches(pattern) || tags.get(key).matches(pattern)) {
-				return key + ": " + tags.get(key);
+		if (tags != null) {
+			for (String key : tags.keySet()) {
+				// test key and value against pattern
+				if (key.matches(pattern) || tags.get(key).matches(pattern)) {
+					return key + ": " + tags.get(key);
+				}
 			}
 		}
 		return "";
@@ -397,13 +429,14 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * tagged the element with a "fixme" or "todo" key/value.
 	 * @return true if the element has a noted problem, false if it doesn't.
 	 */
-	public boolean hasProblem() {
+	public boolean hasProblem(Context context) {
 		// This implementation assumes that calcProblem() may be expensive, and
 		// caches the calculation.
-		if (cachedHasProblem == null) {
+		if (!checkedForProblem) {
+			checkedForProblem = true; // don't re-check
 			cachedHasProblem = calcProblem();
-			if (cachedHasProblem) {
-				IssueAlert.alert(this);
+			if (cachedHasProblem && context != null) {
+				IssueAlert.alert(context, this); // FIXME using main here is likely an issue
 			}
 		}
 		return cachedHasProblem;
@@ -413,7 +446,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * Call if you have made a change that potentially changes the problem state of the element
 	 */
 	public void resetHasProblem() {
-		cachedHasProblem = null;
+		checkedForProblem = false;
 	}
 	
 	/** (see also {@link #getName()} - this returns the full type, differentiating between open and closed ways) 

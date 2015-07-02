@@ -388,7 +388,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		Log.i("Main", "onCreate - creating new logic");
 		logic = new Logic(map, new Profile(getApplicationContext()));
-		if (isLastActivityAvailable()) {
+		Log.d("Main","StorageDelegator dirty is " + Application.getDelegator().isDirty());
+		if (isLastActivityAvailable() && !Application.getDelegator().isDirty()) { // data was modified while we were stopped if isDirty is true
 			// Start loading after resume to ensure loading dialog can be removed afterwards
 			loadOnResume = true;
 		} else {
@@ -528,7 +529,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius());
-					getLogic().downloadBox(bbox, logic.getDelegator().isDirty(), false); // TODO find out why isDirty doesn't work in this context
+					getLogic().downloadBox(bbox, true); // TODO find out why isDirty doesn't work in this context
 				} catch (OsmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -544,7 +545,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (rcData != null) {
 			Log.d("Main","got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
-				getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, false); // TODO find out why isDirty doesn't work in this context
+				getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
 // this had to be done after we have restored/downloaded data and set any saved edit state ... disable for now needs some thinking 
 //				if (rcData.getSelect() != null) {
 //					logic.setSelectedNode(null);
@@ -987,6 +988,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		case R.id.menu_gps_autodownload:
 			setAutoDownload(!autoDownload);
+			if (getTracker() != null && ensureGPSProviderEnabled()) {
+				if (autoDownload) {
+					getTracker().startAutoDownload();
+				} else {
+					getTracker().stopAutoDownload();
+				}
+			}
 			Log.d("Main","Setting autoDownload to " + autoDownload);
 			triggerMenuInvalidation();
 			return true;
@@ -1512,7 +1520,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		getLogic().downloadBox(box, false, false);
+		getLogic().downloadBox(box, false);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
@@ -2362,7 +2370,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			if (clickedNodesAndWays != null) {
 				for (OsmElement e : clickedNodesAndWays) {
 					String toast = e.getDescription();
-					if (e.hasProblem()) {
+					if (e.hasProblem(getApplicationContext())) {
 						String problem = e.describeProblem();
 						toast = !problem.equals("") ? toast + "\n" + problem : toast;
 					}
@@ -2587,34 +2595,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			// ensure the view is zoomed in to at least the most zoomed-out
 			while (!viewBox.canZoomOut() && viewBox.canZoomIn()) {
 				viewBox.zoomIn();
-			}
-			// some heuristics for now to keep downloading to a minimum
-			// speed needs to be <= 6km/h (aka brisk walking speed) 
-			if (autoDownload && (location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
-				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(getLogic().getDelegator().getBoundingBoxes());
-				BoundingBox newBox = getNextBox(bbList,previousLocation, location);
-				if (newBox != null) {
-					if (prefs.getDownloadRadius() != 0) { // download
-//						logic.delegator.addBoundingBox(newBox); // will be filled once download is complete
-//						logic.downloadBox(newBox, true, true);
-						// This is likely not worth the trouble
-						ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
-						for (BoundingBox b:bboxes) {
-							if (b.getWidth() < 0.000001 || b.getHeight() < 0.000001) {
-								// ignore super small bb likely due to rounding errors
-								Log.d("Main","getNextCenter very small bb " + b.toString());
-								continue;
-							}
-							getLogic().getDelegator().addBoundingBox(b);  // will be filled once download is complete
-							Log.d("Main","getNextCenter loading " + b.toString());
-							getLogic().downloadBox(b, true, true); // TODO find out why isDirty doesn't work in this context
-						}
-					}
-					previousLocation  = location;
-				}
-
-			}
-			
+			}			
 			// re-center on current position
 			viewBox.moveTo((int) (location.getLongitude() * 1E7d), (int) (location.getLatitude() * 1E7d));
 		}
@@ -2623,79 +2604,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			map.setLocation(location);
 		}
 		map.invalidate();
-	}
-	
-	boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {
-	
-		for (BoundingBox b:bbs) {
-			if (b.isIn(latE7, lonE7)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Return a suitable next BB, simply creates a raster of the download radius size
-	 * @param location
-	 * @return
-	 */
-	private BoundingBox getNextBox(ArrayList<BoundingBox> bbs,Location prevLocation, Location location) {
-	
-		
-		double lon = location.getLongitude();
-		double lat = location.getLatitude();
-		double mlat = GeoMath.latToMercator(lat);
-		double width = 2*GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
-		
-		int currentLeftE7 = (int) (Math.floor(lon / width)*width * 1E7);
-		double currentMBottom = Math.floor(mlat/ width)*width;
-		int currentBottomE7 = (int) (GeoMath.mercatorToLat(currentMBottom) * 1E7);
-		int widthE7 = (int) (width*1E7);
-		
-		try {
-			BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7, currentBottomE7 + widthE7);
-
-			if (!bbLoaded(bbs, (int)(lon*1E7D), (int)(lat*1E7D))) {
-				return b;
-			}
-
-			double bRight = b.getRight()/1E7d;
-			double bLeft = b.getLeft()/1E7d;
-			double mBottom = GeoMath.latE7ToMercator(b.getBottom());
-			double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
-			double dLeft = lon - bLeft;
-			double dRight = bRight - lon;
-			
-			double dTop = mBottom + mHeight - mlat;
-			double dBottom = mlat - mBottom;
-			
-			Log.d("Main","getNextCenter dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
-			Log.d("Main","getNextCenter " + b.toString());
-
-
-			// top or bottom is closest
-			if (dTop < dBottom) { // top closest
-				if (dLeft < dRight) {
-					return new BoundingBox(b.getLeft()-widthE7, b.getBottom(), b.getRight(), b.getTop() + widthE7);
-				} else {
-					return new BoundingBox(b.getLeft(), b.getBottom(), b.getRight() + widthE7, b.getTop() + widthE7);
-				}	
-			} else {
-				if (dLeft < dRight) {
-					return new BoundingBox(b.getLeft()-widthE7, b.getBottom()-widthE7, b.getRight(), b.getTop() );
-				} else {
-					return new BoundingBox(b.getLeft(), b.getBottom()-widthE7, b.getRight() + widthE7, b.getTop());
-				}	
-			}
-
-
-		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			return null;
-		}	
-	}
-	
+	}	
 	
 	@Override
 	/**

@@ -159,7 +159,7 @@ public class EasyEditManager {
 			if (cb != null) {
 				main.startActionMode(cb);
 				String toast = element.getDescription();
-				if (element.hasProblem()) {
+				if (element.hasProblem(main)) {
 					String problem = element.describeProblem();
 					toast = !problem.equals("") ? toast + "\n" + problem : toast;
 				}
@@ -202,7 +202,7 @@ public class EasyEditManager {
 				main.startActionMode(cb);
 				if (e != null) {
 					String toast = e.getDescription();
-					if (e.hasProblem()) {
+					if (e.hasProblem(main)) {
 						String problem = e.describeProblem();
 						toast = !problem.equals("") ? toast + "\n" + problem : toast;
 					}

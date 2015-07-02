@@ -85,8 +85,10 @@ public class Way extends OsmElement {
 	@Override
 	public String toString() {
 		String res = super.toString();
-		for (Map.Entry<String, String> tag : tags.entrySet()) {
-			res += "\t" + tag.getKey() + "=" + tag.getValue();
+		if (tags != null) {
+			for (Map.Entry<String, String> tag : tags.entrySet()) {
+				res += "\t" + tag.getKey() + "=" + tag.getValue();
+			}
 		}
 		return res;
 	}
@@ -227,21 +229,23 @@ public class Way extends OsmElement {
 	 */
 	public Map<String, String> getDirectionDependentTags() {
 		Map<String, String> result = null;
-		for (String key : tags.keySet()) {
-			String value = tags.get(key);
-			if (key.equals("oneway") || key.equals("incline") 
-					|| key.equals("turn") || key.equals("turn:lanes")
-					|| key.equals("direction") || key.endsWith(":left") 
-					|| key.endsWith(":right") || key.endsWith(":backward") 
-					|| key.endsWith(":forward") 
-					|| key.contains(":forward:") || key.contains(":backward:")
-					|| key.contains(":right:") || key.contains(":left:")
-					|| value.equals("right") || value.equals("left") 
-					|| value.equals("forward") || value.equals("backward")) {
-				if (result == null) {
-					result = new TreeMap<String, String>();
+		if (tags != null) {
+			for (String key : tags.keySet()) {
+				String value = tags.get(key);
+				if (key.equals("oneway") || key.equals("incline") 
+						|| key.equals("turn") || key.equals("turn:lanes")
+						|| key.equals("direction") || key.endsWith(":left") 
+						|| key.endsWith(":right") || key.endsWith(":backward") 
+						|| key.endsWith(":forward") 
+						|| key.contains(":forward:") || key.contains(":backward:")
+						|| key.contains(":right:") || key.contains(":left:")
+						|| value.equals("right") || value.equals("left") 
+						|| value.equals("forward") || value.equals("backward")) {
+					if (result == null) {
+						result = new TreeMap<String, String>();
+					}
+					result.put(key, value);
 				}
-				result.put(key, value);
 			}
 		}
 		return result;
@@ -360,6 +364,9 @@ public class Way extends OsmElement {
 	 * @param reverseOneway if false don't change the value of the oneway tag if present
 	 */
 	public void reverseDirectionDependentTags(Map<String, String> dirTags, boolean reverseOneway) {
+		if (tags == null) {
+			return;
+		}
 		for (String key : dirTags.keySet()) {
 			if (!key.equals("oneway") || reverseOneway) {
 				String value = tags.get(key).trim();

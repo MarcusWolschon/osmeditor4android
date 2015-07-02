@@ -18,7 +18,7 @@
 		<item>Door (addr:door)</item>
 		<item>Unit (addr:unit)</item>
     </string-array>
-    <string-array name="address_tags_values">
+    <string-array translatable="false" name="address_tags_values">
 		<item>addr:housenumber</item>
 		<item>addr:street</item>
 		<item>addr:postcode</item>
@@ -36,7 +36,7 @@
 		<item>addr:door</item>
 		<item>addr:unit</item>
     </string-array>
-    <string-array name="address_tags_defaults">
+    <string-array translatable="false" name="address_tags_defaults">
         <item>addr:housenumber</item>
 		<item>addr:street</item>
 		<item>addr:postcode</item>

@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -46,10 +47,12 @@ import android.view.View;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
@@ -57,6 +60,7 @@ import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
 import de.blau.android.services.util.ServiceCompat;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.SavingHelper.LoadThread;
@@ -70,11 +74,17 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	protected static final int LOCATION_UPDATE = 0;
 	protected static final int CONNECTION_FAILED = 1;
 
+	private static final String AUTODOWNLOAD = "autodownload";
+
+	private static final String TRACK = "track";
+
 	private final TrackerBinder mBinder = new TrackerBinder();
 	
 	private LocationManager locationManager = null;
 	
 	private boolean tracking = false;
+	
+	private boolean downloading = false;
 
 	private Track track;
 
@@ -83,10 +93,13 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	private boolean listenerNeedsGPS = false;
 
 	private Location lastLocation = null;
+	private Location previousLocation = null;
 	
 	private boolean gpsEnabled = false;
 	
 	private ServiceCompat serviceCompat = null;
+	
+	private Preferences prefs = null; 
 	
 	private Handler mHandler = null;
 	
@@ -108,6 +121,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		Log.d(TAG, "onCreate");
 		track = new Track(this);
 		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+		prefs = new Preferences(this); 
 	}
 
 	@Override
@@ -120,7 +134,18 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		startTrackingInternal();
+		if (intent == null) {
+			Log.d(TAG,"Received null intent"); // FIXME do something more drastic
+			return -1; // FIXME not clear how we should return an error here
+		}
+		if (intent.getBooleanExtra(TRACK, false)) {
+			startTrackingInternal();
+		} else if (intent.getBooleanExtra(AUTODOWNLOAD, false)) {
+			startAutoDownloadInternal();
+		} else {
+			Log.d(TAG,"Received intent with unknown meaning");
+		}
+		
 		return START_STICKY;
 	}
 	
@@ -130,7 +155,20 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * To start tracking, bind the service, then call this.
 	 */
 	public void startTracking() {
-		startService(new Intent(this, TrackerService.class));
+		Intent intent = new Intent(this, TrackerService.class);
+		intent.putExtra(TRACK,true);
+		startService(intent);
+	}
+	
+	/**
+	 * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)},
+	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
+	 * To start tracking, bind the service, then call this.
+	 */
+	public void startAutoDownload() {
+		Intent intent = new Intent(this, TrackerService.class);
+		intent.putExtra(AUTODOWNLOAD,true);
+		startService(intent);
 	}
 	
 	/**
@@ -140,6 +178,37 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 */
 	private void startTrackingInternal() {
 		if (tracking) return;
+		startInternal();
+		tracking = true;
+		track.markNewSegment();
+		try {
+			Application.mainActivity.triggerMenuInvalidation();
+		} catch (Exception e) {} // ignore
+		updateGPSState();
+	}
+	
+	/**
+	 * Actually starts tracking.
+	 * Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+	 * See {@link #startTracking()} for the public method to call when tracking should be started.
+	 */
+	private void startAutoDownloadInternal() {
+		if (downloading) return;
+		startInternal();
+		downloading = true;
+		try {
+			Application.mainActivity.triggerMenuInvalidation();
+		} catch (Exception e) {} // ignore
+		updateGPSState();
+	}
+	
+	/**
+	 * Actually starts tracking.
+	 * Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+	 * See {@link #startTracking()} for the public method to call when tracking should be started.
+	 */
+	private void startInternal() {
+		if (tracking || downloading) return;
 		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
 		Resources res = getResources();
 		Intent appStartIntent = new Intent();
@@ -157,12 +226,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			.setUsesChronometer(true)
 			.setContentIntent(pendingAppIntent);
 		serviceCompat.startForeground(R.id.notification_tracker, notificationBuilder.build());
-		tracking = true;
-		track.markNewSegment();
-		try {
-			Application.mainActivity.triggerMenuInvalidation();
-		} catch (Exception e) {} // ignore
-		updateGPSState();
 	}
 	
 	/**
@@ -170,6 +233,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * @param deleteTrack true if the track should be deleted, false if it should be kept
 	 */
 	public void stopTracking(boolean deleteTrack) {
+		Log.d(TAG,"Stop tracking");
 		if (!tracking) {
 			if (deleteTrack) track.reset();
 			return;
@@ -180,9 +244,27 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			track.save();
 		}
 		tracking = false;
-		updateGPSState();
-		serviceCompat.stopForeground(R.id.notification_tracker);
-		stopSelf();
+		stop();
+	}
+	
+	/**
+	 * Stops tracking
+	 * @param deleteTrack true if the track should be deleted, false if it should be kept
+	 */
+	public void stopAutoDownload() {
+		Log.d(TAG,"Stop auto-download");
+		downloading= false;
+		stop();
+	}
+	
+	public void stop()
+	{
+		if (!tracking && !downloading) {
+			Log.d(TAG,"Stopping auto-service");
+			updateGPSState();
+			serviceCompat.stopForeground(R.id.notification_tracker);
+			stopSelf();
+		}
 	}
 	
 	public boolean isTracking() {
@@ -222,10 +304,14 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		if (source != GpsSource.INTERNAL && location.getProvider().equals("gps")) {
 			return; // ignore updates from internal gps
 		}
-		// Log.d("TrackerService","onLocationChanged " + location.getProvider());
-		//Log.v(TAG, "Location received");
-		if (tracking && (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY)) {
-			track.addTrackPoint(location);
+		Log.d(TAG,"onLocationChanged " + location.getProvider());
+		if (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY) {
+			if (tracking) {
+				track.addTrackPoint(location);
+			}
+			if (downloading) {
+				autoDownload(location);
+			}
 		}
 		if (externalListener != null) externalListener.onLocationChanged(location);
 		lastLocation = location;
@@ -254,7 +340,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	}
 
 	private void updateGPSState() {
-		boolean needed = listenerNeedsGPS || tracking;
+		boolean needed = listenerNeedsGPS || tracking || downloading;
 		if (needed && !gpsEnabled) {
 			Log.d(TAG, "Enabling GPS updates");
 			Preferences prefs = new Preferences(this);
@@ -401,6 +487,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		MULTIPLE
 	}
 	GnssSystem system = GnssSystem.NONE;
+
 	/**
 	 * Minimal parsing of two NMEA 0183 sentences
 	 * TODO add fix type filtering
@@ -429,7 +516,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 					if (s.equals("GNS")) {
 						String[] values = withoutChecksum.split(",",-12); // java magic
 						if (values.length==13) {
-							if (((values.length >= 2 && !values[6].toUpperCase().startsWith("NN") || (values.length == 1 && !values[6].toUpperCase().equals("N")))) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
+							if ((!values[6].toUpperCase().startsWith("NN") || !values[6].toUpperCase().equals("N")) && Integer.parseInt(values[7]) >= 4) { // at least one "good" system needs a fix
 								lat = nmeaLatToDecimal(values[2])*(values[3].toUpperCase().equals("N")?1:-1);
 								lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase().equals("E")?1:-1);
 								hdop = Double.parseDouble(values[8]);
@@ -641,5 +728,100 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		}
 	}
 
+	private void autoDownload(Location location) {
+		// some heuristics for now to keep downloading to a minimum
+		// speed needs to be <= 6km/h (aka brisk walking speed) 
+		if ((location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+			BoundingBox newBox = getNextBox(bbList,previousLocation, location);
+			if (newBox != null) {
+				if (prefs.getDownloadRadius() != 0) { // download
+					//				logic.delegator.addBoundingBox(newBox); // will be filled once download is complete
+					//				logic.downloadBox(newBox, true, true);
+					// This is likely not worth the trouble
+					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+					for (BoundingBox b:bboxes) {
+						if (b.getWidth() < 0.000001 || b.getHeight() < 0.000001) {
+							// ignore super small bb likely due to rounding errors
+							Log.d(TAG,"getNextCenter very small bb " + b.toString());
+							continue;
+						}
+						Application.getDelegator().addBoundingBox(b);  // will be filled once download is complete
+						Log.d(TAG,"getNextCenter loading " + b.toString());
+						Logic.autoDownloadBox(this,prefs.getServer(), b); 
+					}
+				}
+				previousLocation  = location;
+			}
+		}
+	}
 	
+	boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {
+		
+		for (BoundingBox b:bbs) {
+			if (b.isIn(latE7, lonE7)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Return a suitable next BB, simply creates a raster of the download radius size
+	 * @param location
+	 * @return
+	 */
+	private BoundingBox getNextBox(ArrayList<BoundingBox> bbs,Location prevLocation, Location location) {
+	
+		
+		double lon = location.getLongitude();
+		double lat = location.getLatitude();
+		double mlat = GeoMath.latToMercator(lat);
+		double width = 2*GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
+		
+		int currentLeftE7 = (int) (Math.floor(lon / width)*width * 1E7);
+		double currentMBottom = Math.floor(mlat/ width)*width;
+		int currentBottomE7 = (int) (GeoMath.mercatorToLat(currentMBottom) * 1E7);
+		int widthE7 = (int) (width*1E7);
+		
+		try {
+			BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7, currentBottomE7 + widthE7);
+
+			if (!bbLoaded(bbs, (int)(lon*1E7D), (int)(lat*1E7D))) {
+				return b;
+			}
+
+			double bRight = b.getRight()/1E7d;
+			double bLeft = b.getLeft()/1E7d;
+			double mBottom = GeoMath.latE7ToMercator(b.getBottom());
+			double mHeight = GeoMath.latE7ToMercator(b.getTop()) - mBottom;
+			double dLeft = lon - bLeft;
+			double dRight = bRight - lon;
+			
+			double dTop = mBottom + mHeight - mlat;
+			double dBottom = mlat - mBottom;
+			
+			Log.d(TAG,"getNextCenter dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
+			Log.d(TAG,"getNextCenter " + b.toString());
+
+
+			// top or bottom is closest
+			if (dTop < dBottom) { // top closest
+				if (dLeft < dRight) {
+					return new BoundingBox(b.getLeft()-widthE7, b.getBottom(), b.getRight(), b.getTop() + widthE7);
+				} else {
+					return new BoundingBox(b.getLeft(), b.getBottom(), b.getRight() + widthE7, b.getTop() + widthE7);
+				}	
+			} else {
+				if (dLeft < dRight) {
+					return new BoundingBox(b.getLeft()-widthE7, b.getBottom()-widthE7, b.getRight(), b.getTop() );
+				} else {
+					return new BoundingBox(b.getLeft(), b.getBottom()-widthE7, b.getRight() + widthE7, b.getTop());
+				}	
+			}
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}	
+	}
 }

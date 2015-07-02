@@ -174,8 +174,11 @@ public class Map extends View implements IMapView {
 		mIsHardwareAccelerated = m;
 	}
 	
+	private Context context;
+	
 	public Map(final Context context) {
 		super(context);
+		this.context = context;
 		
 		setFocusable(true);
 		setFocusableInTouchMode(true);
@@ -680,7 +683,7 @@ public class Map extends View implements IMapView {
 				// style for tagged nodes or otherwise important
 				featureKeyTagged = Profile.SELECTED_RELATION_NODE_TAGGED;
 				isSelected = true;
-			} else if (node.hasProblem()) {
+			} else if (node.hasProblem(context)) {
 				// general node style
 				featureKey = Profile.PROBLEM_NODE;
 				// style for house numbers
@@ -823,7 +826,7 @@ public class Map extends View implements IMapView {
 		FeatureProfile fp; // no need to get the default here
 		
 		// this logic needs to be separated out
-		if (way.hasProblem()) {
+		if (way.hasProblem(context)) {
 			fp = Profile.getCurrent(Profile.PROBLEM_WAY);
 		} else {
 			FeatureProfile wayFp = way.getFeatureProfile();

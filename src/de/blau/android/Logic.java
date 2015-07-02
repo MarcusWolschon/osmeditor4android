@@ -63,6 +63,7 @@ import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
@@ -1889,7 +1890,7 @@ public class Logic {
 	 * @param add if true add this data to existing
 	 * @param auto download is being done automatically, try not mess up/move the display
 	 */
-	void downloadBox(final BoundingBox mapBox, final boolean add, final boolean auto) {
+	void downloadBox(final BoundingBox mapBox, final boolean add) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -1897,13 +1898,19 @@ public class Logic {
 			e1.printStackTrace();
 		} // TODO remove this? and replace with better error messaging
 		
+		final PostMergeHandler postMerge =  new PostMergeHandler(){
+
+			@Override
+			public void handler(OsmElement e) {
+				e.hasProblem(Application.mainActivity);
+			}
+		};
+		
 		new AsyncTask<Boolean, Void, Integer>() {
 			
 			@Override
 			protected void onPreExecute() {
-				if (!auto) {
-					Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
-				}
+				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -1911,18 +1918,16 @@ public class Logic {
 				int result = 0;
 				try {
 					Server server = prefs.getServer();
-					if (!auto) { //TODO debatable if this really makes sense, but saves an API call per download, potentially download once
-						server.getCapabilities();
-						if (!(server.apiAvailable() && server.readableDB())) {
-							return DialogFactory.API_OFFLINE;
-						}
+					server.getCapabilities();
+					if (!(server.apiAvailable() && server.readableDB())) {
+						return DialogFactory.API_OFFLINE;
 					}
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
 					try {
 						osmParser.start(in);
 						if (arg[0]) { // incremental load
-							if (!getDelegator().mergeData(osmParser.getStorage())) {
+							if (!getDelegator().mergeData(osmParser.getStorage(),postMerge)) {
 								result = DialogFactory.DATA_CONFLICT;
 							} else {
 								if (mapBox != null) {
@@ -1945,8 +1950,143 @@ public class Logic {
 								getDelegator().setOriginalBox(mapBox);
 							}
 						}
-						if (!auto) {
-							viewBox.setBorders(mapBox != null ? mapBox : getDelegator().getLastBox()); // set to current or previous
+						viewBox.setBorders(mapBox != null ? mapBox : getDelegator().getLastBox()); // set to current or previous
+					} finally {
+						SavingHelper.close(in);
+					}
+				} catch (SAXException e) {
+					Log.e("Vespucci", "Problem parsing", e);
+					Exception ce = e.getException();
+					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						result = DialogFactory.OUT_OF_MEMORY;
+					} else {
+						result = DialogFactory.INVALID_DATA_RECEIVED;
+					}
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
+				} catch (ParserConfigurationException e) {
+					// crash and burn
+					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					Log.e("Vespucci", "Problem parsing", e);
+					result = DialogFactory.INVALID_DATA_RECEIVED;
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
+				} catch (OsmServerException e) {
+					result = e.getErrorCode();
+					Log.e("Vespucci", "Problem downloading", e);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
+				} catch (IOException e) {
+					result = DialogFactory.NO_CONNECTION;
+					Log.e("Vespucci", "Problem downloading", e);
+					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
+						getDelegator().deleteBoundingBox(mapBox);
+					}
+				}
+				return result;
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {	
+				try {
+					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+				} catch (IllegalArgumentException e) {
+					// Avoid crash if dialog is already dismissed
+					Log.d("Logic", "", e);
+				}
+
+				View map = Application.mainActivity.getCurrentFocus();
+				try {
+					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
+				} catch (OsmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				if (result != 0) {
+					if (result == DialogFactory.OUT_OF_MEMORY) {
+						System.gc();
+						if (getDelegator().isDirty()) {
+							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+						}
+					}	
+					try {
+						if (!Application.mainActivity.isFinishing()) {
+							Application.mainActivity.showDialog(result);
+						}
+					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
+						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(ex);
+					}
+				}
+				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
+				map.invalidate();
+
+				UndoStorage.updateIcon();
+			}	
+		}.execute(add);
+	}
+	
+	/**
+	 * Loads the area defined by mapBox from the OSM-Server. Static version for auto download
+	 * FIXME try to reduce the code duplication here
+	 * @param context TODO
+	 * @param mapBox Box defining the area to be loaded.
+	 * @param add if true add this data to existing
+	 * @param auto download is being done automatically, try not mess up/move the display
+	 */
+	public static void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
+		try {
+			mapBox.makeValidForApi();
+		} catch (OsmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} // TODO remove this? and replace with better error messaging
+		
+		final PostMergeHandler postMerge =  new PostMergeHandler(){
+
+			@Override
+			public void handler(OsmElement e) {
+				e.hasProblem(context);
+			}
+		};
+		
+		new AsyncTask<Void, Void, Integer>() {
+			
+			@Override
+			protected void onPreExecute() {
+			}
+			
+			@Override
+			protected Integer doInBackground(Void... arg) {
+				int result = 0;
+				try {
+					final OsmParser osmParser = new OsmParser();
+					final InputStream in = server.getStreamForBox(mapBox);
+					try {
+						osmParser.start(in);
+						if (!getDelegator().mergeData(osmParser.getStorage(),postMerge)) {
+							result = DialogFactory.DATA_CONFLICT;
+						} else {
+							if (mapBox != null) {
+								// if we are simply expanding the area no need keep the old bounding boxes
+								List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
+								if ( origBbs.size() == 1) { // replace original BB if still present
+									if (getDelegator().isEmpty()) {
+										origBbs.clear();
+									}
+								}
+								List<BoundingBox> bbs = new ArrayList<BoundingBox>(origBbs);
+								for (BoundingBox bb:bbs) {
+									if (mapBox.contains(bb)) {
+										origBbs.remove(bb);
+									}
+								}
+								getDelegator().addBoundingBox(mapBox);
+							}
 						}
 					} finally {
 						SavingHelper.close(in);
@@ -1988,46 +2128,11 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				if (!auto) {
-					try {
-						Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
-					} catch (IllegalArgumentException e) {
-						 // Avoid crash if dialog is already dismissed
-						Log.d("Logic", "", e);
-					}
-					
-					View map = Application.mainActivity.getCurrentFocus();
-					try {
-						viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
-					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					if (result != 0) {
-						if (result == DialogFactory.OUT_OF_MEMORY) {
-							System.gc();
-							if (getDelegator().isDirty()) {
-								result = DialogFactory.OUT_OF_MEMORY_DIRTY;
-							}
-						}	
-						try {
-							if (!Application.mainActivity.isFinishing()) {
-								Application.mainActivity.showDialog(result);
-							}
-						} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
-							ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
-							ACRA.getErrorReporter().handleException(ex);
-						}
-					}
-					Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
-					map.invalidate();
-				}
 				UndoStorage.updateIcon();
 			}
-			
-		}.execute(add);
+		}.execute();
 	}
+
 
 	/**
 	 * Calls the actual downloadBox function using the current map view as the
@@ -2038,7 +2143,7 @@ public class Logic {
 	 */
 	void downloadCurrent(boolean add) {
 		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
-		downloadBox(viewBox.copy(),add, false);
+		downloadBox(viewBox.copy(),add);
 	}
 	
 	/**
@@ -2049,7 +2154,7 @@ public class Logic {
 	void downloadLast() {
 		getDelegator().reset();
 		for (BoundingBox box:getDelegator().getBoundingBoxes()) {
-			if (box != null && box.isValidForApi()) downloadBox(box, true, false);
+			if (box != null && box.isValidForApi()) downloadBox(box, true);
 		}
 	}
 
@@ -2252,7 +2357,7 @@ public class Logic {
 							SavingHelper.close(in);
 						}
 					}
-					if (!getDelegator().mergeData(osmParser.getStorage())) {
+					if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
 						result = DialogFactory.DATA_CONFLICT;
 					} 
 				} catch (SAXException e) {
@@ -3600,6 +3705,58 @@ public class Logic {
 			return result;
 		}	
 	}
+	
+	/**
+	 * calculate the centroid of a way
+	 * @param way
+	 * @return WGS84 coordinates of centroid
+	 */
+	public static double[] centroidLonLat(final Way way) {
+		if (way == null) {
+			return null;
+		}
+		// 
+		List<Node> vertices = way.getNodes();
+		if (way.isClosed()) {
+			// see http://paulbourke.net/geometry/polygonmesh/
+			double A = 0;
+			double Y = 0;
+			double X = 0;
+			int vs = vertices.size();
+			for (int i = 0; i < vs ; i++ ) {
+				double x1 = vertices.get(i).getLon() / 1E7D;
+				double y1 = GeoMath.latE7ToMercator(vertices.get(i).getLat());
+				double x2 = vertices.get((i+1) % vs).getLon() / 1E7D;
+				double y2 = GeoMath.latE7ToMercator(vertices.get((i+1) % vs).getLat());
+				A = A + (x1*y2 - x2*y1);
+				X = X + (x1+x2)*(x1*y2-x2*y1);
+				Y = Y + (y1+y2)*(x1*y2-x2*y1);
+			}
+			Y = GeoMath.mercatorToLat(Y/(3*A));
+			X = X/(3*A);
+			double result[] = {X, Y};
+			return result;
+		} else { //
+			double L = 0;
+			double Y = 0;
+			double X = 0;
+			int vs = vertices.size();
+			for (int i = 0; i < (vs-1) ; i++ ) {
+				double x1 = vertices.get(i).getLon() / 1E7D;
+				double y1 = GeoMath.latE7ToMercator(vertices.get(i).getLat());
+				double x2 = vertices.get(i+1).getLon() / 1E7D;
+				double y2 = GeoMath.latE7ToMercator(vertices.get((i+1)).getLat());
+				double len = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+				L = L + len;
+				X = X + len * (x1+x2)/2;
+				Y = Y + len * (y1+y2)/2;
+			}
+			Y = GeoMath.mercatorToLat(Y/L);
+			X = X/L;
+			double result[] = {X, Y};
+			return result;
+		}	
+	}
 
 	
 	/**
@@ -3655,7 +3812,7 @@ public class Logic {
 	/**
 	 * @return the delegator
 	 */
-	public StorageDelegator getDelegator() {
+	public static StorageDelegator getDelegator() {
 		return Application.getDelegator();
 	}
 	

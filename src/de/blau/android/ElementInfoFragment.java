@@ -96,7 +96,7 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         			}
         		}
         	}
-        	if (e.hasProblem()) {
+        	if (e.hasProblem(getActivity())) {
         		tl.addView(divider());
         		tl.addView(createRow(R.string.problem,e.describeProblem(),tp));
         	}

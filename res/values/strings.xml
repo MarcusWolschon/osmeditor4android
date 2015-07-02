@@ -223,6 +223,7 @@
     <string name="menu_gps_start">Start GPS track</string>
     <string name="menu_gps_pause">Pause GPS track</string>
     <string name="menu_gps_clear">Clear GPS track</string>
+    <string name="menu_gps_track_managment">Track management...</string>
     <string name="menu_gps_upload">Upload GPS track</string>
     <string name="menu_gps_export">Export GPS track</string>
     <string name="menu_gps_import">Import GPS track</string>
@@ -404,8 +405,8 @@
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
     <string name="undo_nothing">nothing to undo</string>
-    <string name="tracking_active_title">Recording GPS track</string>
-    <string name="tracking_active_text">Vespucci is recording a GPS track</string>
+    <string name="tracking_active_title">Vexpucci background service active</string>
+    <string name="tracking_active_text">Vespucci is recording a GPS track or auto-downloading</string>
     <string name="gps_failure">Failed to enable GPS</string>
     <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">move node</string>

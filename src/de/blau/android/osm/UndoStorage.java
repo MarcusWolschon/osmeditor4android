@@ -276,7 +276,7 @@ public class UndoStorage implements Serializable {
 			osmId      = originalElement.osmId;
 			osmVersion = originalElement.osmVersion;
 			state      = originalElement.state;
-			tags       = new TreeMap<String, String>(originalElement.tags);
+			tags       = originalElement.tags == null ? new TreeMap<String, String>() : new TreeMap<String, String>(originalElement.tags);
 			
 			inCurrentStorage = currentStorage.contains(originalElement);
 			inApiStorage     = apiStorage.contains(originalElement);
@@ -318,20 +318,22 @@ public class UndoStorage implements Serializable {
 		
 		public String getDescription() {
 			// Use the name if it exists
-			String name = tags.get("name");
-			if (name != null && name.length() > 0) {
-				return name;
-			}
-			// Then the house number
-			String housenb = tags.get("addr:housenumber");
-			if (housenb != null && housenb.length() > 0) {
-				return "house " + housenb;
-			}
-			// Then the value of the most 'important' tag the element has
-			for (String tag : OsmElement.importantTags) {
-				String value = tags.get(tag);
-				if (value != null && value.length() > 0) {
-					return element.getName() + " " + tag + ":" + value;
+			if (tags != null) {
+				String name = tags.get("name");
+				if (name != null && name.length() > 0) {
+					return name;
+				}
+				// Then the house number
+				String housenb = tags.get("addr:housenumber");
+				if (housenb != null && housenb.length() > 0) {
+					return "house " + housenb;
+				}
+				// Then the value of the most 'important' tag the element has
+				for (String tag : OsmElement.importantTags) {
+					String value = tags.get(tag);
+					if (value != null && value.length() > 0) {
+						return element.getName() + " " + tag + ":" + value;
+					}
 				}
 			}
 			// Failing the above, the OSM ID

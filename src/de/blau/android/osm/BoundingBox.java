@@ -805,20 +805,19 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 							rb.setBottom(b.bottom);
 						}
 						// left
-						if (rb.left < b.left) {
+						if (rb.left < b.left && rb.bottom != rb.top) {
 							temp.add(new BoundingBox(rb.left, rb.bottom, b.left, rb.top));
 							rb.setLeft(b.left);
 						}
 						// right
-						if (rb.right > b.right) {
+						if (rb.right > b.right && rb.bottom != rb.top) {
 							temp.add(new BoundingBox(b.right, rb.bottom, rb.right, rb.top));
 							rb.setRight(b.right);
 						}
 						rb.calcDimensions();
 						rb.calcMercatorFactorPow3();
 					} catch (OsmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Log.d("BoundingBox", "Exception " + e.getMessage());
 					}
 				} else {
 					temp.add(rb);
