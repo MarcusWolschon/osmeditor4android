@@ -533,8 +533,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		setFollowGPS(followGPS);
 		
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
-		
-
 	}
 	
 	protected void processIntents() {

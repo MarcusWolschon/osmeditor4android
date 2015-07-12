@@ -209,10 +209,10 @@ public class OsmParser extends DefaultHandler {
 	private void parseBounds(final Attributes atts) throws OsmParseException {
 		//<bounds minlat="53.56465" minlon="9.95893" maxlat="53.56579" maxlon="9.96022"/>
 		try {
-			float minlat = Float.parseFloat(atts.getValue("minlat"));
-			float maxlat = Float.parseFloat(atts.getValue("maxlat"));
-			float minlon = Float.parseFloat(atts.getValue("minlon"));
-			float maxlon = Float.parseFloat(atts.getValue("maxlon"));
+			double minlat = Double.parseDouble(atts.getValue("minlat"));
+			double maxlat = Double.parseDouble(atts.getValue("maxlat"));
+			double minlon = Double.parseDouble(atts.getValue("minlon"));
+			double maxlon = Double.parseDouble(atts.getValue("maxlon"));
 			try {
 				if (storage.getBoundingBoxes() == null) {
 					storage.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
