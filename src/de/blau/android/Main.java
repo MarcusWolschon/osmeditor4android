@@ -529,8 +529,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		if (getTracker() != null) getTracker().setListener(this);
 		
-		setShowGPS(showGPS); // reactive GPS listener if needed
+		setShowGPS(showGPS); // reactive GPS listener if needed, this is probably not necessary since already done when reading the saved edit state
 		setFollowGPS(followGPS);
+		setAutoDownload(autoDownload);
 		
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 	}
@@ -1001,15 +1002,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 		case R.id.menu_gps_autodownload:
 			setAutoDownload(!autoDownload);
-			if (getTracker() != null && ensureGPSProviderEnabled()) {
-				if (autoDownload) {
-					getTracker().startAutoDownload();
-				} else {
-					getTracker().stopAutoDownload();
-				}
-			}
-			Log.d("Main","Setting autoDownload to " + autoDownload);
-			triggerMenuInvalidation();
 			return true;
 			
 		case R.id.menu_transfer_download_current:
@@ -1138,6 +1130,15 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	public void setAutoDownload(boolean b) {
 		Log.d("Main", "autoDownload: "+ b);
 		autoDownload = b;
+		if (getTracker() != null && ensureGPSProviderEnabled()) {
+			if (autoDownload) {
+				getTracker().startAutoDownload();
+			} else {
+				getTracker().stopAutoDownload();
+			}
+		}
+		Log.d("Main","Setting autoDownload to " + autoDownload);
+		triggerMenuInvalidation();
 	}
 	
 	protected boolean getAutoDownload() {

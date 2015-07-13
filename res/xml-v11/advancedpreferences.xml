@@ -62,6 +62,14 @@
 			android:numeric="integer"
 			android:defaultValue="50"
 		/>
+		<EditTextPreference
+			android:key="@string/config_maxDownloadSpeed_key"
+			android:title="@string/config_maxDownloadSpeed_title"
+			android:summary="@string/config_maxDownloadSpeed_summary"
+			android:dialogTitle="@string/config_maxDownloadSpeed_title"
+			android:numeric="decimal"
+			android:defaultValue="6"
+		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableNameSuggestions_key"
 			android:title="@string/config_enableNameSuggestions_title"

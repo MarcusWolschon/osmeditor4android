@@ -731,17 +731,14 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	private void autoDownload(Location location) {
 		// some heuristics for now to keep downloading to a minimum
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
-		if ((location.getSpeed() < 6000f/3600f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
+		if ((location.getSpeed() < prefs.getMaxDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
 			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousLocation, location);
 			if (newBox != null) {
 				if (prefs.getDownloadRadius() != 0) { // download
-					//				logic.delegator.addBoundingBox(newBox); // will be filled once download is complete
-					//				logic.downloadBox(newBox, true, true);
-					// This is likely not worth the trouble
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
 					for (BoundingBox b:bboxes) {
-						if (b.getWidth() < 0.000001 || b.getHeight() < 0.000001) {
+						if (b.getWidth() < 1 || b.getHeight() < 1) {
 							// ignore super small bb likely due to rounding errors
 							Log.d(TAG,"getNextCenter very small bb " + b.toString());
 							continue;
@@ -756,8 +753,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		}
 	}
 	
-	boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {
-		
+	boolean bbLoaded(ArrayList<BoundingBox> bbs, int lonE7, int latE7) {		
 		for (BoundingBox b:bbs) {
 			if (b.isIn(latE7, lonE7)) {
 				return true;

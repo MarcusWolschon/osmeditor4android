@@ -58,6 +58,7 @@ public class Preferences {
 	private int tileCacheSize; // in MB
 
 	private int downloadRadius; // in m
+	private float maxDownloadSpeed; // in km/h
 	
 	private final boolean forceContextMenu;
 	
@@ -126,6 +127,12 @@ public class Preferences {
 		} catch (NumberFormatException e) {
 			Log.w(getClass().getName(), "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
 			downloadRadius = 50;
+		}
+		try {
+			maxDownloadSpeed = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
+			maxDownloadSpeed = 6f;
 		}
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
@@ -335,6 +342,13 @@ public class Preferences {
 	 */
 	public int getDownloadRadius() {
 		return downloadRadius;
+	}
+	
+	/**
+	 * @return
+	 */
+	public float getMaxDownloadSpeed() {
+		return maxDownloadSpeed;
 	}
 
 	public boolean enableAutoPreset() {

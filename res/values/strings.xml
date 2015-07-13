@@ -353,6 +353,8 @@
 	<string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
 	<string name="config_extTriggeredDownloadRadius_title">Download radius</string>
 	<string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
+	<string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
+	<string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended</string>
 	<string name="config_enableNameSuggestions_title">Enable name suggestions</string>
 	<string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
 	<string name="config_enableAutoPreset_title">Enable auto preset</string>
