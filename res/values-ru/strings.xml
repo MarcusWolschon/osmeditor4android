@@ -311,7 +311,6 @@
   <string name="config_mapProfile_title">Профиль карты</string>
   <string name="config_mapProfile_summary">Управление стилем и видимостью элементов</string>
   <string name="config_use_back_for_undo_title">Использовать кнопку назад для Отмены</string>
-  <string name="config_largeDragArea_title">Перемещение точек на мелком масштабе</string>
   <string name="config_largeDragArea_summary">Разрешить перемещать точки на большие расстояния</string>
   <string name="config_extTriggeredDownloadRadius_title">Радиус скачивания</string>
   <string name="config_enableNameSuggestions_title">Разрешить предложения названий</string>

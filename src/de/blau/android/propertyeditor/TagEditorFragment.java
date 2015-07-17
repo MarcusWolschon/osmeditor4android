@@ -194,7 +194,9 @@ public class TagEditorFragment extends SherlockFragment {
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-			savedTags = (LinkedHashMap<String, ArrayList<String>>) savedInstanceState.getSerializable("SAVEDTAGS");
+			Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable("SAVEDTAGS");
+			savedTags = new LinkedHashMap<String, ArrayList<String>>();
+			savedTags.putAll(temp);
 		}
     	
     	prefs = new Preferences(getActivity());
