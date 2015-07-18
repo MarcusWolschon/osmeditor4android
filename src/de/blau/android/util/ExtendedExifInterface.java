@@ -33,8 +33,11 @@ public class ExtendedExifInterface extends ExifInterface {
 			// broken Jpeg, ignore
 			throw new IOException(e.getMessage());
 		} catch (Exception ex) {
-			// other stuff broken ...  for example AarayIndexOutOfBounds
+			// other stuff broken ...  for example ArrayIndexOutOfBounds
 			throw new IOException(ex.getMessage());
+		} catch (Error err) {
+			// other stuff broken ...  for example NoSuchMethodError
+			throw new IOException(err.getMessage());
 		}
 	}	
 	
@@ -44,20 +47,20 @@ public class ExtendedExifInterface extends ExifInterface {
 			return super.getAttribute(tag);
 		} else if (metadata != null) {
 			// obtain the Exif directory
-			GpsDirectory directory = metadata.getDirectory(GpsDirectory.class);
+			GpsDirectory directory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
 
 			// query the tag's value
-			if (tag.equals(TAG_GPS_IMG_DIRECTION) && directory.containsTag(GpsDirectory.TAG_GPS_IMG_DIRECTION)) {
-				String r[] = directory.getString(GpsDirectory.TAG_GPS_IMG_DIRECTION).split("/");
+			if (tag.equals(TAG_GPS_IMG_DIRECTION) && directory.containsTag(GpsDirectory.TAG_IMG_DIRECTION)) {
+				String r[] = directory.getString(GpsDirectory.TAG_IMG_DIRECTION).split("/");
 				if (r.length != 2)
 					return null;
 				double d = Double.valueOf(r[0]) / Double.valueOf(r[1]);
-				Log.d("ExtendedExifInterface",GpsDirectory.TAG_GPS_IMG_DIRECTION + " " + d);
+				Log.d("ExtendedExifInterface",GpsDirectory.TAG_IMG_DIRECTION + " " + d);
 				return (Double.valueOf(d).toString());
 			}
-			else if (directory.containsTag(GpsDirectory.TAG_GPS_IMG_DIRECTION_REF)) {
-				Log.d("ExtendedExifInterface",GpsDirectory.TAG_GPS_IMG_DIRECTION_REF + " " + directory.getString(GpsDirectory.TAG_GPS_IMG_DIRECTION_REF));
-				return directory.getString(GpsDirectory.TAG_GPS_IMG_DIRECTION_REF);
+			else if (directory.containsTag(GpsDirectory.TAG_IMG_DIRECTION_REF)) {
+				Log.d("ExtendedExifInterface",GpsDirectory.TAG_IMG_DIRECTION_REF + " " + directory.getString(GpsDirectory.TAG_IMG_DIRECTION_REF));
+				return directory.getString(GpsDirectory.TAG_IMG_DIRECTION_REF);
 			}
 			else {
 				Log.d("ExtendedExifInterface", "No direction information");
