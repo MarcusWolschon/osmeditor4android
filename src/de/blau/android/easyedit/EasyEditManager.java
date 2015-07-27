@@ -48,6 +48,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osb.BugFragment;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -566,16 +567,17 @@ public class EasyEditManager {
 			switch (item.getItemId()) {
 			case MENUITEM_OSB:
 				// 
-				final Server server = new Preferences(main).getServer();
-				if (server != null && server.isLoginSet() && server.needOAuthHandshake()) {
-					main.oAuthHandshake(server);
-					if (server.getOAuth()) // if still set
-						Toast.makeText(main, R.string.toast_oauth, Toast.LENGTH_LONG).show();
-					return true;
-				} 
 				mode.finish();
 				logic.setSelectedBug(logic.makeNewBug(x, y));
-				main.showDialog(DialogFactory.OPENSTREETBUG_EDIT);
+				FragmentManager fm = main.getSupportFragmentManager();
+				FragmentTransaction ft = fm.beginTransaction();
+			    Fragment prev = fm.findFragmentByTag("fragment_bug");
+			    if (prev != null) {
+			        ft.remove(prev);
+			    }
+			    ft.commit();
+		        BugFragment bugDialog = BugFragment.newInstance(logic.getSelectedBug());
+		        bugDialog.show(fm, "fragment_bug");
 				logic.hideCrosshairs();
 				return true;
 			case MENUITEM_NEWNODEWAY:

@@ -296,12 +296,16 @@ public class Map extends View implements IMapView {
 		// Draw our Overlays.
 		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds(), 0);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			osmvo.onManagedDraw(canvas, this);
+			if (!(osmvo instanceof de.blau.android.osb.MapOverlay)) {
+				osmvo.onManagedDraw(canvas, this);
+			}
 		}
 		
 		if (zoomLevel >12) {
 			paintOsmData(canvas);
 		}
+		getOpenStreetBugsOverlay().onManagedDraw(canvas, this); // draw bugs on top of data
+		
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
 				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modiciaftion issues

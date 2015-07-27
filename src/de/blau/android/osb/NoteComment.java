@@ -12,7 +12,7 @@ import java.util.Locale;
  * An individual comment associated with an OpenStreetBug.
  * @author Andrew Gregory
  */
-public class BugComment implements Serializable {
+public class NoteComment implements Serializable {
 	
 	/**
 	 * 
@@ -42,7 +42,7 @@ public class BugComment implements Serializable {
 	 * Unrecognisable dates will be replaced with the current system date/time.
 	 * @param description A description obtained from the OSB database.
 	 */
-	public BugComment(String description) {
+	public NoteComment(String description) {
 		text = description;
 	}
 	
@@ -52,7 +52,7 @@ public class BugComment implements Serializable {
 	 * @param nickname New nickname. Commas are stripped.
 	 * @param timestamp New timestamp.
 	 */
-	public BugComment(String text, String nickname, String action,  Date timestamp) {
+	public NoteComment(String text, String nickname, String action,  Date timestamp) {
 		this.text = text.replaceAll("\\[", "");
 		this.nickname = nickname.replaceAll(",", "");
 		this.action = action;
@@ -84,13 +84,28 @@ public class BugComment implements Serializable {
 	}
 	
 	/**
+	 * @return the action
+	 */
+	public String getAction() {
+		return action;
+	}
+	
+	/**
 	 * Convert the bug to a string.
 	 * @return The bug comment in the preferred OSB format.
 	 */
 	@Override
 	public String toString() {
-		String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
-		return text + " [" + action + " " + nickname + date + "]";
+		if (nickname != null || action != null) {
+			String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
+			return text + " [" + action + " " + nickname + date + "]";
+		}
+		return text;
+	}
+
+	public boolean isNew() {
+		// TODO Auto-generated method stub
+		return action == null;
 	}
 
 }

@@ -32,7 +32,6 @@ import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.GpxUploadListener;
 import de.blau.android.listener.UploadListener;
-import de.blau.android.osb.CommitListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -65,8 +64,6 @@ public class DialogFactory {
 	public static final int UPLOAD_PROBLEM = 7;
 	
 	public static final int CONFIRM_UPLOAD = 8;
-	
-	public static final int OPENSTREETBUG_EDIT = 9;
 	
 	public static final int DATA_CONFLICT = 10;
 	
@@ -114,8 +111,6 @@ public class DialogFactory {
 	
 	private final Builder confirmUpload;
 	
-	private final Builder openStreetBugEdit;
-	
 	private final Builder dataConflict;
 	
 	private final Builder apiOffline;
@@ -157,7 +152,7 @@ public class DialogFactory {
 			wrongLogin.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					caller.oAuthHandshake(server);
+					caller.oAuthHandshake(server, null);
 				}
 			});
 		}
@@ -185,11 +180,6 @@ public class DialogFactory {
 					(EditText)layout.findViewById(R.id.upload_source), closeChangeset));
 		confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 		
-		openStreetBugEdit = createBasicDialog(caller, R.string.openstreetbug_edit_title, 0); // body gets replaced later
-		layout = inflater.inflate(R.layout.openstreetbug_edit, null);
-		openStreetBugEdit.setView(layout);
-		openStreetBugEdit.setPositiveButton(R.string.openstreetbug_commitbutton, new CommitListener(caller, (EditText)layout.findViewById(R.id.openstreetbug_comment), (CheckBox)layout.findViewById(R.id.openstreetbug_close)));
-	
 		dataConflict = createBasicDialog(caller, R.string.data_conflict_title, R.string.data_conflict_message);
 		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
 		
@@ -281,9 +271,6 @@ public class DialogFactory {
 			
 		case CONFIRM_UPLOAD:
 			return confirmUpload.create();
-			
-		case OPENSTREETBUG_EDIT:
-			return openStreetBugEdit.create();
 		
 		case DATA_CONFLICT:
 			return dataConflict.create();

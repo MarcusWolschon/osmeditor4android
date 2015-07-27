@@ -6,10 +6,12 @@ import java.util.ArrayList;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.graphics.Rect;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.rtree.BoundedObject;
 
 /**
  * BoundingBox represents a bounding box for a selection of an area. All values
@@ -17,7 +19,7 @@ import de.blau.android.util.GeoMath;
  * 
  * @author mb
  */
-public class BoundingBox implements Serializable, JosmXmlSerializable {
+public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedObject {
 
 	private static final long serialVersionUID = -2708721312405863618L;
 
@@ -51,11 +53,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 	 */
 	private int height;
 
-	/**
-	 * Factor for stretching the latitude to fit the Mercator Projection.
-	 */
-	private double mercatorFactorPow3;
-	
 
 	/**
 	 * Mercator value for the bottom of the BBos
@@ -178,7 +175,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 		this.top = box.top;
 		this.width = box.width;
 		this.height = box.height;
-		this.mercatorFactorPow3 = box.mercatorFactorPow3;
 		this.bottomMercator = box.bottomMercator;
 	}
 
@@ -277,10 +273,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 		return height;
 	}
 
-	public double getMercatorFactorPow3() {
-		return mercatorFactorPow3;
-	}
-
 	/**
 	 * Checks if lat/lon is in this bounding box.
 	 * 
@@ -365,9 +357,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 		// have to use floatingpoint, otherwise strange things will happen due
 		// to rounding errors.
 		final double centerLat = ((bottom + height / 2) / 1E7d);
-		// powers 3 because it would be needed in later usage of this factor
-		mercatorFactorPow3 = GeoMath.getMercatorFactorPow3(centerLat);
-		//TODO experimental code for using non-approx. projections
 		bottomMercator = GeoMath.latE7ToMercator(bottom);
 	}
 
@@ -838,5 +827,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable {
 		s.attribute("", "minlon", Double.toString((left / 1E7)));
 		s.attribute("", "minlat", Double.toString((bottom / 1E7)));
 		s.endTag("", "bounds");
+	}
+
+	@Override
+	public Rect getBounds() {
+		return new Rect(left,bottom,right,top);
 	}
 }

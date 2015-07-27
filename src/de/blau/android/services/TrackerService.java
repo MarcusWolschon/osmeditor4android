@@ -52,6 +52,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Track;
@@ -746,6 +747,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						Application.getDelegator().addBoundingBox(b);  // will be filled once download is complete
 						Log.d(TAG,"getNextCenter loading " + b.toString());
 						Logic.autoDownloadBox(this,prefs.getServer(), b); 
+						if (prefs.isOpenStreetBugsEnabled()) {
+							TransferBugs.downloadBox(this,prefs.getServer(), b, true, null);
+						}
 					}
 				}
 				previousLocation  = location;

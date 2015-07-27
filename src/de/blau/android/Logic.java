@@ -50,6 +50,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.osb.Bug;
+import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
@@ -452,13 +453,13 @@ public class Logic {
 				viewBox.translate((int) -translation, 0);
 				break;
 			case DIRECTION_DOWN:
-				viewBox.translate(0, (int) (-translation / viewBox.getMercatorFactorPow3())); //TODO do with proper proj
+				viewBox.translate(0, -(GeoMath.latE7ToMercatorE7(viewBox.getTop())-(int)(viewBox.getBottomMercator()*1E7D))); 
 				break;
 			case DIRECTION_RIGHT:
 				viewBox.translate((int) translation, 0);
 				break;
 			case DIRECTION_UP:
-				viewBox.translate(0, (int) (translation / viewBox.getMercatorFactorPow3())); //TODO do with proper proj
+				viewBox.translate(0, GeoMath.latE7ToMercatorE7(viewBox.getTop())-(int)(viewBox.getBottomMercator()*1E7D)); 
 				break;
 			}
 		} catch (OsmException e) {
@@ -2600,42 +2601,13 @@ public class Logic {
 	}
 
 	
-	
-	/**
-	 * Saves to a file in the background.
-	 * 
-	 * @param showDone when true, a Toast will be shown when the file was saved.
-	 */
-	void saveAsync(final boolean showDone) {
-		new AsyncTask<Void, Void, Void>() {
-			
-			@Override
-			protected void onPreExecute() {
-				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
-			}
-			
-			@Override
-			protected Void doInBackground(Void... params) {
-				save();
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void result) {
-				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
-				if (showDone) {
-					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();				}
-			}
-			
-		}.execute();
-	}
-	
 	/**
 	 * Saves to a file (synchronously)
 	 */
 	void save() {
 		try {
 			getDelegator().writeToFile();
+			Application.getBugStorage().writeToFile();
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
@@ -2668,7 +2640,7 @@ public class Logic {
 	 * 
 	 * @param context 
 	 */
-	void loadFromFile(Context context, final PostLoadHandler postLoad) {
+	void loadFromFile(Context context, final PostAsyncActionHandler postLoad) {
 		
 		final int READ_FAILED = 0;
 		final int READ_OK = 1;
@@ -2736,6 +2708,7 @@ public class Logic {
 					}
 					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 					loadEditingState();
+					Application.getBugStorage().readFromFile();
 					
 					if (postLoad != null) {
 						postLoad.execute();
@@ -3058,10 +3031,10 @@ public class Logic {
 	 * @param y The screen Y-coordinate of the bug.
 	 * @return The new bug, which must have a comment added before it can be submitted to OSB.
 	 */
-	public Bug makeNewBug(final float x, final float y) {
+	public Note makeNewBug(final float x, final float y) {
 		int lat = yToLatE7(y);
 		int lon = xToLonE7(x);
-		return new Bug(lat, lon);
+		return new Note(lat, lon);
 	}
 	
 	/**
@@ -3177,10 +3150,10 @@ public class Logic {
 	/**
 	 * Set the currently selected bug.
 	 * 
-	 * @param selectedBug The selected bug.
+	 * @param bug The selected bug.
 	 */
-	public synchronized void setSelectedBug(final Bug selectedBug) {
-		this.selectedBug = selectedBug;
+	public synchronized void setSelectedBug(final Bug bug) {
+		this.selectedBug = bug;
 	}
 
 	/**

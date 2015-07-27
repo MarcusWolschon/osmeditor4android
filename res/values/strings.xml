@@ -53,6 +53,7 @@
     <string name="upload_gpx_visibility_label">Visibility</string>
     <string name="openstreetbug_new_title">New Note</string>
     <string name="openstreetbug_new_bug">Report Issue</string>
+    <string name="openstreetbug_bug_title">Issue</string>
     <string name="openstreetbug_new_nodeway">Create Node/Way</string>
     <string name="openstreetbug_edit_title">Edit Note</string>
     <string name="openstreetbug_commitbutton">Commit</string>
@@ -92,6 +93,12 @@
     <string name="length_m">Length (m)</string>
     <string name="not_downloaded">Not downloaded</string>
     <string name="empty_role">empty role</string>
+    <string name="element">element</string>
+    <string name="last_updated">last updated</string>
+    <string name="error">error</string>
+    <string name="warning">warning</string>
+	<string name="minor_issue">minor issue</string>
+	<string name="unknown_error_level">unknown error level</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
@@ -238,6 +245,10 @@
     <string name="menu_transfer_export">Export changes</string>
     <string name="menu_transfer_read_file">Read from file</string>
     <string name="menu_transfer_save_file">Save to file</string>
+    <string name="menu_transfer_bugs">Bugs...</string>
+    <string name="menu_transfer_bugs_download_current">Download bugs for current view</string>
+    <string name="menu_transfer_bugs_upload">Upload all</string>
+    <string name="menu_transfer_bugs_clear">Clear</string>
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>
@@ -303,7 +314,7 @@
     <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
     <string name="config_enableAntiAliasing_title">Enable Anti-Aliasing</string>
     <string name="config_enableAntiAliasing_summary">Makes the lines smoother.</string>
-    <string name="config_enableOpenStreetBugs_title">Enable Notes display</string>
+    <string name="config_enableOpenStreetBugs_title">Enable Bugs and Notes display</string>
     <string name="config_enableOpenStreetBugs_summary">Display, Edit and Create Notes/Errors.</string>
     <string name="config_enablePhotoLayer_title">Enable Photo layer</string>
     <string name="config_enablePhotoLayer_summary">Display geo-referenced photos.</string>
@@ -450,6 +461,7 @@
     <!--  Notifications -->
     <string name="alert_data_issue">OSM data issue detected</string>
     <string name="alert_note">Nearby OSM note detected</string>
+    <string name="alert_bug">Nearby OSM bug detected</string>
     <string name="alert_distance_direction">in %1$d m %2$s</string>
     <!--  Misc relation related stuff -->
     <string name="role">Role</string>
@@ -484,6 +496,15 @@
 	<item>Internal NMEA</item>
 	<item>NMEA from TCP client</item>
 	<item>NMEA from TCP server</item>
+	</string-array>
+	<string-array name="bug_state">
+	<item>Open</item>
+	<item>Closed</item>
+	<item>False positive</item>
+	</string-array>
+	<string-array name="note_state">
+	<item>Open</item>
+	<item>Closed</item>
 	</string-array>
 	
 </resources>

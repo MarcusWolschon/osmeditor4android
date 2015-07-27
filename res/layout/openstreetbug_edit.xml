@@ -3,49 +3,50 @@
   android:layout_width="fill_parent"
   android:layout_height="wrap_content">
   <ScrollView
-    android:id="@+id/openstreetbug_comments_scroll"
     android:layout_alignParentTop="true"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    <TextView
-      android:id="@+id/openstreetbug_comments"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:text=""/>
-  </ScrollView>
 
-  <RelativeLayout
-      android:id="@+id/openstreetbug_controls"
+  	<RelativeLayout
+  	  
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="false"
-      android:layout_below="@+id/openstreetbug_comments_scroll"
       android:layout_marginTop="10dp" >
-
-    <TextView
+    
+  	  <Spinner
+          android:id="@+id/openstreetbug_state"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_marginBottom="10dp"
+          android:layout_marginRight="5dp" /> 
+  	    
+      <TextView
+      	android:id="@+id/openstreetbug_comments"
+      	android:layout_below="@id/openstreetbug_state"
+      	android:layout_width="fill_parent"
+      	android:layout_height="wrap_content"
+      	android:layout_marginLeft="5dp"
+      	android:text=""/>
+    
+      <TextView
         android:id="@+id/openstreetbug_comment_label"
+        android:layout_below="@id/openstreetbug_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:text="@string/openstreetbug_comment_label" />
 
-    <EditText
+      <EditText
         android:id="@+id/openstreetbug_comment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/openstreetbug_comment_label"
         android:layout_alignTop="@id/openstreetbug_comment_label"
         android:layout_toRightOf="@id/openstreetbug_comment_label"
-        android:inputType="text" />
-
-    <CheckBox
-      android:id="@+id/openstreetbug_close"
-      android:layout_below="@id/openstreetbug_comment"
-      android:layout_width="wrap_content"
-      android:layout_height="30sp"
-      android:layout_centerHorizontal="true"
-      android:layout_marginRight="5dp"
-      android:text="@string/openstreetbug_edit_close"/>
-  </RelativeLayout>  
+        android:inputType="text" />    
+    </RelativeLayout>  
+  </ScrollView>
 
 </RelativeLayout>

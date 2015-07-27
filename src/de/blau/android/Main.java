@@ -98,7 +98,10 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.osb.Bug;
+import de.blau.android.osb.BugFragment;
+import de.blau.android.osb.Note;
 import de.blau.android.osb.CommitTask;
+import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -286,6 +289,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * file we asked the camera app to create (ugly) 
 	 */
 	File imageFile = null;
+
+	private PostAsyncActionHandler restart;
 	
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -494,9 +499,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			getLogic().downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
-			PostLoadHandler postLoad = null;
+			PostAsyncActionHandler postLoad = null;
 			if (rcData != null|| geoData != null) {
-				postLoad = new PostLoadHandler() {
+				postLoad = new PostAsyncActionHandler() {
 					@Override
 					public void execute() {
 						// TODO Auto-generated method stub
@@ -961,12 +966,16 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 			
 		case R.id.menu_gps_upload:
-
 			if (server != null && server.isLoginSet()) {
 				if (server.needOAuthHandshake()) {
-					oAuthHandshake(server);
+					oAuthHandshake(server, new PostAsyncActionHandler() {
+						@Override
+						public void execute() {
+							showDialog(DialogFactory.GPX_UPLOAD);
+						}
+					});
 					if (server.getOAuth()) { // if still set
-						Toast.makeText(getApplicationContext(), R.string.toast_oauth_retry, Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
 						return true;
 					} 
 				}	
@@ -1058,7 +1067,24 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			showDialog(DialogFactory.SAVE_FILE);
 //			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
 			return true;
-
+		
+		case R.id.menu_transfer_bugs_download_current:
+			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox(), true, new PostAsyncActionHandler() {
+				@Override
+				public void execute() {
+					map.invalidate();
+				}
+			});
+			return true;
+			
+		case R.id.menu_transfer_bugs_upload:
+			TransferBugs.upload(this, server);
+			return true;
+			
+		case R.id.menu_transfer_bugs_clear:
+			Application.getBugStorage().reset();
+			return true;
+			
 		case R.id.menu_undo:
 			// should not happen
 			undoListener.onClick(null);
@@ -1275,38 +1301,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				changes.setText(getString(R.string.confirm_upload_text, getPendingChanges()));
 				break;
 			case DialogFactory.SEARCH:
-				dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-				break;
-			case DialogFactory.OPENSTREETBUG_EDIT:
-				Bug bug = getLogic().getSelectedBug();
-				if (bug==null) { // a quick hack to see if this stops this crashing now and then
-					Log.e("Main","onPrepareDialog bug is null");
-					// try to local editstate here ...
-					getLogic().loadEditingState();
-					if (bug==null) {
-						Log.e("Main","onPrepareDialog bug is null - invalid state");
-						Toast.makeText(getApplicationContext(), "Invalid editing state, please dismiss the dialog and report the problem!", Toast.LENGTH_LONG).show(); //TODO externalize the text
-						return;
-					}
-				}
-				ad.setTitle(getString((bug.getId() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
-				TextView comments = (TextView)ad.findViewById(R.id.openstreetbug_comments);
-				comments.setText(Html.fromHtml(bug.getComment())); // ugly
-				EditText comment = (EditText)ad.findViewById(R.id.openstreetbug_comment);
-				comment.setText("");
-				comment.setFocusable( true);
-				comment.setFocusableInTouchMode(true);
-				comment.setEnabled(true);
-				CheckBox close = (CheckBox)ad.findViewById(R.id.openstreetbug_close);
-				close.setChecked(bug.isClosed());
-				if (bug.isClosed()) {
-					close.setText(R.string.openstreetbug_edit_closed);
-				} else {
-					close.setText(R.string.openstreetbug_edit_close);
-				}
-				close.setEnabled(/* !bug.isClosed() && */ bug.getId() != 0);
-				Button commit = ad.getButton(DialogInterface.BUTTON_POSITIVE);
-				commit.setEnabled(/* !bug.isClosed() */ true);
 				dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 				break;
 			}
@@ -1531,6 +1525,14 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 	public void performCurrentViewHttpLoad(boolean add) {
 		getLogic().downloadCurrent(add);
+		if (prefs.isOpenStreetBugsEnabled()) {
+			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox(), add, new PostAsyncActionHandler() {
+				@Override
+				public void execute() {
+					map.invalidate();
+				}
+			});
+		}
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
@@ -1552,6 +1554,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (server != null && server.isLoginSet()) {
 			if (getLogic().hasChanges()) {
 				getLogic().upload(comment, source, closeChangeset);
+				if (!Application.getBugStorage().isEmpty()) {
+					TransferBugs.upload(this, server);
+				}
 				getLogic().checkForMail();
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
@@ -1559,53 +1564,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		} else {
 			showDialog(DialogFactory.NO_LOGIN_DATA);
 		}
-	}
-	
-	/**
-	 * Commit changes to the currently selected OpenStreetBug.
-	 * @param comment Comment to add to the bug.
-	 * @param close Flag to indicate if the bug is to be closed.
-	 */
-	public void performOpenStreetBugCommit(final String comment, final boolean close) {
-		Log.d("Vespucci", "Main.performOpenStreetBugCommit");
-		dismissDialog(DialogFactory.OPENSTREETBUG_EDIT);
-		new CommitTask(getLogic().getSelectedBug(), comment, close) {
-			
-			/** Flag to track if the bug is new. */
-			private boolean newBug;
-			
-			@Override
-			protected void onPreExecute() {
-				newBug = (bug.getId() == 0);
-				setSupportProgressBarIndeterminateVisibility(true);
-			}
-			
-			@Override
-			protected Boolean doInBackground(Server... args) {
-				// execute() is called below with no arguments (args will be empty)
-				// getDisplayName() is deferred to here in case a lengthy OSM query
-				// is required to determine the nickname
-				
-				Server server = prefs.getServer();
-				
-				return super.doInBackground(server);
-			}
-			
-			@Override
-			protected void onPostExecute(Boolean result) {
-				if (result && newBug) {
-					for (OpenStreetMapViewOverlay o : map.getOverlays()) {
-						if (o instanceof de.blau.android.osb.MapOverlay) {
-							((de.blau.android.osb.MapOverlay)o).addBug(bug);
-						}
-					}
-				}
-				setSupportProgressBarIndeterminateVisibility(false);
-				Toast.makeText(getApplicationContext(), result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
-				map.invalidate();
-			}
-			
-		}.execute();
 	}
 	
 	/**
@@ -1633,9 +1591,14 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (server != null && server.isLoginSet()) {
 			if (getLogic().hasChanges()) {
 				if (server.needOAuthHandshake()) {
-					oAuthHandshake(server);
+					oAuthHandshake(server, new PostAsyncActionHandler() {
+						@Override
+						public void execute() {
+							showDialog(DialogFactory.CONFIRM_UPLOAD);
+						}
+					});
 					if (server.getOAuth()) // if still set
-						Toast.makeText(getApplicationContext(), R.string.toast_oauth_retry, Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
 					return;
 				} 
 				showDialog(DialogFactory.CONFIRM_UPLOAD);
@@ -1653,7 +1616,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * @param server
 	 */
 	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
-	public void oAuthHandshake(Server server) {
+	public void oAuthHandshake(Server server, PostAsyncActionHandler restart) {
+		this.restart = restart;
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.hide();
 		Server[] s = {server};
@@ -1680,8 +1644,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		oAuthWebView = new WebView(Application.mainActivity);
 		rl.addView(oAuthWebView);
 		oAuthWebView.getSettings().setJavaScriptEnabled(true);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			oAuthWebView.getSettings().setAllowContentAccess(true);
+		}
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
 			oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 			oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -1722,6 +1687,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			oAuthWebView.removeAllViews();
 			oAuthWebView.destroy();
 			oAuthWebView = null; 
+			if (restart != null) {
+				restart.execute();
+			}
 		} catch (Exception ex) { 
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex);
@@ -2216,20 +2184,18 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		 * @param bug The bug to edit.
 		 */
 		private void performBugEdit(final Bug bug) {
-			Log.d("Vespucci", "editing bug:"+bug);
-			final Server server = prefs.getServer();
-			if (server != null && server.isLoginSet()) {
-				if (server.needOAuthHandshake()) {
-					oAuthHandshake(server);
-					if (server.getOAuth()) // if still set
-						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
-				} else {
-					getLogic().setSelectedBug(bug);
-					showDialog(DialogFactory.OPENSTREETBUG_EDIT);
-				}
-			} else {
-				showDialog(DialogFactory.NO_LOGIN_DATA);
+			Log.d(DEBUG_TAG, "editing bug:"+bug);
+			getLogic().setSelectedBug(bug);
+			FragmentManager fm = getSupportFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			Fragment prev = fm.findFragmentByTag("fragment_bug");
+			if (prev != null) {
+				ft.remove(prev);
 			}
+			ft.commit();
+
+			BugFragment bugDialog = BugFragment.newInstance(bug);
+			bugDialog.show(fm, "fragment_bug");
 		}
 		
 		@Override

@@ -54,7 +54,7 @@
 					android:title="@string/menu_gps_clear"
 				/>
 				<item
-					android:title="Track management..." >
+					android:title="@string/menu_gps_track_managment" >
 					<menu>
 						<item
 							android:id="@+id/menu_gps_upload"
@@ -121,6 +121,23 @@
 					android:id="@+id/menu_transfer_save_file"
 					android:title="@string/menu_transfer_save_file"
 				/>
+				<item
+					android:title="@string/menu_transfer_bugs" >
+					<menu>
+					    <item
+							android:id="@+id/menu_transfer_bugs_download_current"
+							android:title="@string/menu_transfer_bugs_download_current"
+						/>
+						<item
+							android:id="@+id/menu_transfer_bugs_upload"
+							android:title="@string/menu_transfer_bugs_upload"
+						/>
+						<item
+							android:id="@+id/menu_transfer_bugs_clear"
+							android:title="@string/menu_transfer_bugs_clear"
+						/>
+					</menu>
+				</item>
 			</menu>
 	</item>
 

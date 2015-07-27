@@ -8,6 +8,7 @@ import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Main;
 import de.blau.android.osb.Bug;
+import de.blau.android.osb.Note;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;

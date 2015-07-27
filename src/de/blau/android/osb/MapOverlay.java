@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Bitmap.Config;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
@@ -40,59 +45,26 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** Paint for closed bugs. */
 	private final Paint closedPaint;
 	
+	private Bitmap cachedIconClosed;
+	private Bitmap cachedIconOpen;
+	
 	/** Map this is an overlay of. */
 	private final Map map;
 	
 	/** Bugs visible on the overlay. */
-	private Collection<Bug> bugs;
+	private BugStorage bugs = Application.getBugStorage();
 	
 	/** Event handlers for the overlay. */
 	private final Handler handler;
 	
 	private Server server;
 	
-	/** Request to update the bugs for the current view.
-	 * Ensure cur is set before invoking.
-	 */
-	private final Runnable getBugs = new Runnable() {
-		@Override
-		public void run() {
-			new AsyncTask<Void, Void, Collection<Bug>>() {
-				@Override
-				protected Collection<Bug> doInBackground(Void... params) {
-					return server.getNotesForBox(cur,100);
-				}
-				
-				@Override
-				protected void onPostExecute(Collection<Bug> result) {
-					if (result == null)
-						return;
-					prev.set(cur);
-					bugs.clear();
-					long now = System.currentTimeMillis();
-					for (Bug b : result) {
-						// add open bugs or closed bugs younger than 7 days
-						if (!b.isClosed() || (now - b.getMostRecentChange().getTime()) < MAX_CLOSED_AGE) {
-							bugs.add(b);
-							IssueAlert.alert(map.getContext(), b);
-						}
-					}
-
-					if (!bugs.isEmpty()) {
-						map.invalidate(); // if other overlay is going invalidate we shoudn't
-					}
-				}
-				
-			}.execute();
-		}
-	};
-	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
 		server = s;
 		prev = new Rect();
 		cur = new Rect();
-		bugs = new ArrayList<Bug>();
+		// bugs = new ArrayList<Bug>();
 		handler = new Handler();
 		openPaint = Profile.getCurrent(Profile.OPEN_NOTE).getPaint();
 		closedPaint = Profile.getCurrent(Profile.CLOSED_NOTE).getPaint();
@@ -115,24 +87,32 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			final float radius = Density.dpToPx(1.0f + osmv.getZoomLevel() / 2.0f);
 			BoundingBox bb = osmv.getViewBox();
 			
-			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
-				return;
-			}
+//			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
+//				return;
+//			}
 			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
-			if (!cur.equals(prev)) {
-				// map has moved/zoomed - need to refresh the bugs on display
-				// don't flood OSB with requests - wait for 1s
-				handler.removeCallbacks(getBugs);
-				handler.postDelayed(getBugs, 1000);
-			}
+
 			// draw all the bugs on the map as slightly transparent circles
 			int w = Application.mainActivity.getMap().getWidth();
 			int h = Application.mainActivity.getMap().getHeight();
-			for (Bug b : bugs) {
-				if (bb.isIn(b.getLat(), b.getLon())) {
+			ArrayList<Bug> bugList = bugs.getBugs(bb);
+			if (bugList != null) {
+				for (Bug b : bugList) {
 					float x = GeoMath.lonE7ToX(w , bb, b.getLon());
 					float y = GeoMath.latE7ToY(h, w, bb, b.getLat()); 
-					c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
+
+					if (b.isClosed()) {
+						if (cachedIconClosed == null) {
+							cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_closed);
+						}
+						c.drawBitmap(cachedIconClosed, x, y, null); // FIXME icon should be centered on coordinates, probably
+						// c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
+					} else {
+						if (cachedIconOpen == null) {
+							cachedIconOpen = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_open);
+						}
+						c.drawBitmap(cachedIconOpen, x, y, null); // FIXME icon should be centered on coordinates, probably
+					}
 				}
 			}
 		}
@@ -154,14 +134,17 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		List<Bug> result = new ArrayList<Bug>();
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
 			final float tolerance = Profile.getCurrent().nodeToleranceValue;
-			for (Bug b : bugs) {
-				int lat = b.getLat();
-				int lon = b.getLon();
-				float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-				float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
-				if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-					if (Math.hypot(differenceX, differenceY) <= tolerance) {
-						result.add(b);
+			ArrayList<Bug> bugList = bugs.getBugs(viewBox);
+			if (bugList != null) {
+				for (Bug b : bugList) {
+					int lat = b.getLat();
+					int lon = b.getLon();
+					float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
+					float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
+					if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
+						if (Math.hypot(differenceX, differenceY) <= tolerance) {
+							result.add(b);
+						}
 					}
 				}
 			}
@@ -170,14 +153,4 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		}
 		return result;
 	}
-	
-	/**
-	 * Add a bug to the overlay. Intended for when a bug is added to the map. The map will
-	 * need to be invalidated for the change to be shown.
-	 * @param bug New bug.
-	 */
-	public void addBug(final Bug bug) {
-		bugs.add(bug);
-	}
-	
 }

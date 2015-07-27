@@ -20,6 +20,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
+import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Node;
@@ -132,7 +133,7 @@ public class IssueAlert {
 		double eLon = b.getLon()/1E7D;
 		double eLat = b.getLat()/1E7D;
 		
-		String title = context.getString(R.string.alert_note);
+		String title = b instanceof Note ? context.getString(R.string.alert_note) : context.getString(R.string.alert_bug);
 		String ticker = title;
 		String message = "";
 		if (location != null) {

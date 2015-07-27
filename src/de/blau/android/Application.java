@@ -4,6 +4,7 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
+import de.blau.android.osb.BugStorage;
 import de.blau.android.osm.StorageDelegator;
 
 @ReportsCrashes(
@@ -19,6 +20,7 @@ import de.blau.android.osm.StorageDelegator;
 public class Application extends android.app.Application {
 	public static Main mainActivity;
 	static StorageDelegator delegator = new StorageDelegator();
+	static BugStorage bugStorage = new BugStorage();
 	public static String userAgent;
 	
 	@Override
@@ -33,5 +35,9 @@ public class Application extends android.app.Application {
 
 	public static StorageDelegator getDelegator() {
 		return delegator;
+	}
+	
+	public static BugStorage getBugStorage() {
+		return bugStorage;
 	}
 }
