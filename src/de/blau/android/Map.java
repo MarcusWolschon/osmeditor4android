@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -174,6 +174,7 @@ public class Map extends View implements IMapView {
 		mIsHardwareAccelerated = m;
 	}
 	
+	@SuppressLint("NewApi")
 	public Map(final Context context) {
 		super(context);
 		
@@ -183,6 +184,10 @@ public class Map extends View implements IMapView {
 		//Style me
 		setBackgroundColor(getResources().getColor(R.color.ccc_white));
 		setDrawingCacheEnabled(false);
+		//
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) { 
+			setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
 		
 		iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
 		houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
