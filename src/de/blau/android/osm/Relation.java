@@ -226,17 +226,25 @@ public class Relation extends OsmElement {
 				}
 			} else if (type.equals("multipolygon")) {
 				String b = getTagWithKey("boundary");
-				String l = getTagWithKey("landuse");
 				if (b != null) {
 					description = b + " boundary" + " " + description ;
-				} else if (l != null) {
-					description = "landuse " + l + " " + description ;
+				} else {
+					String l = getTagWithKey("landuse");
+					if (l != null) {
+						description = "landuse " + l + " " + description ;
+					} else {
+						String n = getTagWithKey("natural");
+						if (n != null) {
+							description = "natural " + n + " " + description ;
+						}
+					}
 				}
 			}
-		} else
+		} else  {
 			description = "unset relation type";
+		}
 		String name = getTagWithKey("name");
-		if (name != null){
+		if (name != null) {
 			description = description + " " + name;
 		} else {
 			description = description + " #" + osmId;
