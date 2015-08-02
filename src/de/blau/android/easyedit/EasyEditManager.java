@@ -46,6 +46,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.Logic.Mode;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osb.BugFragment;

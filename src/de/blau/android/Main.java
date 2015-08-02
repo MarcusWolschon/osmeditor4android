@@ -567,6 +567,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
 				// this had to be done after we have restored/downloaded data and set any saved edit state ... disable for now needs some thinking 
 				if (rcData.getSelect() != null) {
+					// need to actually switch to easyeditmode
+					if (logic.getMode() != Mode.MODE_EASYEDIT) { // TODO there might be states in which we don't want to exit which ever mode we are in
+						setMode(Mode.MODE_EASYEDIT);
+					}
 					logic.setSelectedNode(null);
 					logic.setSelectedWay(null);
 					logic.setSelectedRelation(null);
@@ -602,7 +606,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 					easyEditManager.editElements();
 				}
 			} else {
-				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
 				Log.d("Main","moving to position");
 				map.getViewBox().setBorders(rcData.getBox());
 				map.invalidate();

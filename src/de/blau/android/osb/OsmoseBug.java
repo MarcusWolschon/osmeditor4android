@@ -156,15 +156,31 @@ public class OsmoseBug extends Bug implements Serializable {
 	}
 	
 	public String getLongDescription(Context context) {
-		ArrayList<OsmElement> elements = getElements();
-		String result = "Osmose: " + level2string(context) + "<br>" + (subtitle.length() != 0 ?  subtitle : title );
+		String result = "Osmose: " + level2string(context) + "<br>" + (subtitle.length() != 0 ?  subtitle : title ) + "<br>";
 		String h = context.getString(R.string.element);
-		for (OsmElement e:elements) {
-			if (e != null) {
-				result = result + "<br>" + h + " " + e.getDescription();
+		String[] elements = elems.split("_");
+		for (String e:elements) {
+			OsmElement osm = null;
+			String obj = "unknown";
+			long id = -1L;
+			if (elems.startsWith(Way.NAME)) {
+				id = Long.valueOf(elems.substring(3));
+				obj = Way.NAME;
+			} else if (elems.startsWith(Node.NAME)) {
+				id = Long.valueOf(elems.substring(4));
+				obj = Node.NAME;
+			} else if (elems.startsWith(Relation.NAME)) {
+				id = Long.valueOf(elems.substring(8));
+				obj = Relation.NAME;
+			}
+			osm = Application.getDelegator().getOsmElement(obj,id);
+			if (osm == null) {
+				result = result + "<br>element (not downloaded) #" + id;
+			} else {
+				result = result + "<br>element " + osm.getDescription(true);
 			}
 		}
-		result = result + "<br>last updated: " + update;
+		result = result + "<br><br>last updated: " + update;
 		return result; 
 	}
 	

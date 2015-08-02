@@ -29,6 +29,9 @@ import de.blau.android.prefs.Preferences;
 
 public class IssueAlert {
 	
+	final static String GROUP_DATA = "Data";
+	final static String GROUP_NOTES = "Notes";
+	final static String GROUP_OSMOSE = "Osmose";
 	
 	public static void alert(Context context, OsmElement e) {
 	
@@ -85,7 +88,8 @@ public class IssueAlert {
 		        .setContentTitle(title)
 		        .setContentText(message)
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
-		        .setTicker(ticker);
+		        .setTicker(ticker)
+		        .setGroup(GROUP_DATA);
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
@@ -164,7 +168,8 @@ public class IssueAlert {
 		        .setContentTitle(title)
 		        .setContentText(message)
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
-		        .setTicker(ticker);
+		        .setTicker(ticker)
+		        .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
@@ -185,7 +190,7 @@ public class IssueAlert {
 		NotificationManager mNotificationManager =
 			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 			// mId allows you to update the notification later on.
-			mNotificationManager.notify(("bug" + b.getId()).hashCode(), mBuilder.build());
+			mNotificationManager.notify((b.getClass().getSimpleName() + b.getId()).hashCode(), mBuilder.build());
 	}
 	
 	static class ClosestPoint{
