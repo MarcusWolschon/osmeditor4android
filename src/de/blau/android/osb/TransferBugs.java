@@ -62,8 +62,14 @@ public class TransferBugs {
 				Log.d(DEBUG_TAG,"querying server for " + box);
 				
 				Collection<Bug> result = new ArrayList<Bug>();
-				result.addAll(server.getNotesForBox(box,1000));
-				result.addAll(OsmoseServer.getBugsForBox(box, 1000));
+				Collection<Note> noteResult = server.getNotesForBox(box,1000);
+				if (noteResult != null) {
+					result.addAll(noteResult);
+				}
+				Collection<OsmoseBug> osmoseResult = OsmoseServer.getBugsForBox(box, 1000);
+				if (osmoseResult != null) {
+					result.addAll(osmoseResult);
+				}
 				return result;
 			}
 			

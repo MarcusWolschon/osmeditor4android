@@ -739,7 +739,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 				if (prefs.getDownloadRadius() != 0) { // download
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
 					for (BoundingBox b:bboxes) {
-						if (b.getWidth() < 1 || b.getHeight() < 1) {
+						if (b.getWidth() <= 1 || b.getHeight() <= 1) {
 							// ignore super small bb likely due to rounding errors
 							Log.d(TAG,"getNextCenter very small bb " + b.toString());
 							continue;
