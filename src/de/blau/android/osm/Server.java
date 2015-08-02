@@ -598,6 +598,8 @@ public class Server {
 			xmlSerializable.toXml(xmlSerializer, changeSetId);
 		} catch (IOException e) {
 			throw new OsmIOException("Could not send data to server", e);
+		} catch (IllegalArgumentException e) {
+			throw new OsmIOException("Sending illegal format object failed", e);
 		} finally {
 			SavingHelper.close(out);
 		}
