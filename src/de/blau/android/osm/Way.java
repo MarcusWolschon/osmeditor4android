@@ -99,10 +99,15 @@ public class Way extends OsmElement {
 		if (changeSetId != null) s.attribute("", "changeset", Long.toString(changeSetId));
 		s.attribute("", "version", Long.toString(osmVersion));
 
-		for (Node node : nodes) {
-			s.startTag("", "nd");
-			s.attribute("", "ref", Long.toString(node.getOsmId()));
-			s.endTag("", "nd");
+		if (nodes != null) {
+			for (Node node : nodes) {
+				s.startTag("", "nd");
+				s.attribute("", "ref", Long.toString(node.getOsmId()));
+				s.endTag("", "nd");
+			}
+		} else {
+			Log.i("Way", "Way without nodes");
+			throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
 		}
 
 		tagsToXml(s);
@@ -122,10 +127,15 @@ public class Way extends OsmElement {
 		s.attribute("", "version", Long.toString(osmVersion));
 		s.attribute("", "visible", "true");
 
-		for (Node node : nodes) {
-			s.startTag("", "nd");
-			s.attribute("", "ref", Long.toString(node.getOsmId()));
-			s.endTag("", "nd");
+		if (nodes != null) {
+			for (Node node : nodes) {
+				s.startTag("", "nd");
+				s.attribute("", "ref", Long.toString(node.getOsmId()));
+				s.endTag("", "nd");
+			}
+		} else {
+			Log.i("Way", "Way without nodes");
+			throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
 		}
 
 		tagsToXml(s);

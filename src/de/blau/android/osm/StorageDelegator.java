@@ -1974,7 +1974,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			}
 		}
 		
-		// TODO output bounding boxes
+		// 
 		for (BoundingBox b:currentStorage.getBoundingBoxes()) {
 			b.toJosmXml(serializer);
 		}
