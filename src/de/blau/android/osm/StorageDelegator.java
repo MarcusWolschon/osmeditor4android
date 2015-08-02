@@ -1231,7 +1231,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * note since this sets the elements state it has to be called before deletion of the element
+	 * Note the element does not need to have its state changed of be stored in the API sotrage since the 
+	 * parent relation back link is just internal.
 	 * @param element
 	 */
 	public void removeElementFromRelations(final OsmElement element) {
@@ -1247,8 +1248,6 @@ public class StorageDelegator implements Serializable, Exportable {
 					apiStorage.insertElementSafe(r);
 					undo.save(element);
 					element.removeParentRelation(r);
-					element.updateState(OsmElement.STATE_MODIFIED);
-					apiStorage.insertElementSafe(element);
 					Log.i("StorageDelegator", "... done");
 				}
 			}
@@ -1259,7 +1258,8 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * note since this sets the elements state it has to be called before deletion of the element
+	 * Note the element does not need to have its state changed of be stored in the API sotrage since the 
+	 * parent relation back link is just internal.
 	 * @param element
 	 */
 	public void removeElementFromRelation(final OsmElement element, Relation r) {
@@ -1272,9 +1272,6 @@ public class StorageDelegator implements Serializable, Exportable {
 			apiStorage.insertElementSafe(r);
 			undo.save(element);
 			element.removeParentRelation(r);
-//			element itself is not modified
-//			element.updateState(OsmElement.STATE_MODIFIED);
-//			apiStorage.insertElementSafe(element);
 			Log.i("StorageDelegator", "... done");
 		} catch (StorageException e) {
 			//TODO handle OOM
