@@ -141,11 +141,11 @@ public class OsmoseBug extends Bug implements Serializable {
 			String[] elements = elems.split("_");
 			for (String e:elements) {
 				if (elems.startsWith("way")) {
-					result.add(Application.getDelegator().getOsmElement(Way.NAME,Long.valueOf(elems.substring(3))));
+					result.add(Application.getDelegator().getOsmElement(Way.NAME,Long.valueOf(e.substring(3))));
 				} else if (elems.startsWith("node")) {
-					result.add(Application.getDelegator().getOsmElement(Node.NAME,Long.valueOf(elems.substring(4))));
+					result.add(Application.getDelegator().getOsmElement(Node.NAME,Long.valueOf(e.substring(4))));
 				} else if (elems.startsWith("relation")) {
-					result.add(Application.getDelegator().getOsmElement(Relation.NAME,Long.valueOf(elems.substring(8))));
+					result.add(Application.getDelegator().getOsmElement(Relation.NAME,Long.valueOf(e.substring(8))));
 				}
 			}
 		}
@@ -156,28 +156,28 @@ public class OsmoseBug extends Bug implements Serializable {
 	}
 	
 	public String getLongDescription(Context context) {
-		String result = "Osmose: " + level2string(context) + "<br>" + (subtitle.length() != 0 ?  subtitle : title ) + "<br>";
+		String result = "Osmose: " + level2string(context) + "<br><br>" + (subtitle.length() != 0 ?  subtitle : title ) + "<br>";
 		String h = context.getString(R.string.element);
 		String[] elements = elems.split("_");
 		for (String e:elements) {
 			OsmElement osm = null;
 			String obj = "unknown";
 			long id = -1L;
-			if (elems.startsWith(Way.NAME)) {
-				id = Long.valueOf(elems.substring(3));
+			if (e.startsWith(Way.NAME)) {
+				id = Long.valueOf(e.substring(3));
 				obj = Way.NAME;
-			} else if (elems.startsWith(Node.NAME)) {
-				id = Long.valueOf(elems.substring(4));
+			} else if (e.startsWith(Node.NAME)) {
+				id = Long.valueOf(e.substring(4));
 				obj = Node.NAME;
-			} else if (elems.startsWith(Relation.NAME)) {
-				id = Long.valueOf(elems.substring(8));
+			} else if (e.startsWith(Relation.NAME)) {
+				id = Long.valueOf(e.substring(8));
 				obj = Relation.NAME;
 			}
 			osm = Application.getDelegator().getOsmElement(obj,id);
 			if (osm == null) {
-				result = result + "<br>element (not downloaded) #" + id;
+				result = result + "<br>" + obj + " (not downloaded) #" + id;
 			} else {
-				result = result + "<br>element " + osm.getDescription(true);
+				result = result + "<br>" + obj  + osm.getDescription(false);
 			}
 		}
 		result = result + "<br><br>last updated: " + update;
