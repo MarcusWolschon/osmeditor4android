@@ -1230,7 +1230,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * Note the element does not need to have its state changed of be stored in the API sotrage since the 
+	 * Note the element does not need to have its state changed of be stored in the API storage since the 
 	 * parent relation back link is just internal.
 	 * @param element
 	 */
@@ -1257,7 +1257,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * Note the element does not need to have its state changed of be stored in the API sotrage since the 
+	 * Note the element does not need to have its state changed of be stored in the API storage since the 
 	 * parent relation back link is just internal.
 	 * @param element
 	 */
