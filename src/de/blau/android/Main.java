@@ -573,24 +573,29 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 					for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
 						if (s!=null) {
 							Log.d("Main","rc select: " + s);
+							try {
 							if (s.startsWith("node")) {
-								long id = Integer.valueOf(s.substring(Node.NAME.length()));
+								long id = Long.valueOf(s.substring(Node.NAME.length()));
 								Node n = (Node) logic.getDelegator().getOsmElement(Node.NAME, id); 
 								if (n != null) {
 									logic.addSelectedNode(n);
 								}
 							} else if (s.startsWith("way")) {
-								long id = Integer.valueOf(s.substring(Way.NAME.length()));
+								long id = Long.valueOf(s.substring(Way.NAME.length()));
 								Way w = (Way) logic.getDelegator().getOsmElement(Way.NAME, id); 
 								if (w != null) {
 									logic.addSelectedWay(w);
 								}
 							} else if (s.startsWith("relation")) {
-								long id = Integer.valueOf(s.substring(Relation.NAME.length()));
+								long id = Long.valueOf(s.substring(Relation.NAME.length()));
 								Relation r = (Relation) logic.getDelegator().getOsmElement(Relation.NAME, id); 
 								if (r != null) {
 									logic.addSelectedRelation(r);
 								}
+							}
+							} catch (NumberFormatException nfe) {
+								Log.d("Main","Parsing " + s + " caused " + nfe);
+								// not much more we can do here
 							}
 						}	
 					}
