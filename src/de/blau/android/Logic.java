@@ -1117,7 +1117,7 @@ public class Logic {
 			int lat;
 			int lon;
 			// checkpoint created where draggingNode is set
-			if ((draggingNode && (selectedNodes.size() == 1 || selectedWays ==  null)) || (draggingHandle && selectedHandle != null)) {
+			if ((draggingNode && ((selectedNodes != null && selectedNodes.size() == 1) || selectedWays ==  null)) || (draggingHandle && selectedHandle != null)) {
 				if (draggingHandle) { // create node only if we are really dragging
 					Log.d("Logic","creating node at handle position");
 					try {
