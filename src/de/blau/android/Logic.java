@@ -2777,7 +2777,7 @@ public class Logic {
 			protected Integer doInBackground(Context... c) {
 				this.context = c[0];
 				if (Application.getBugStorage().readFromFile()) {
-					viewBox.setBorders(getDelegator().getLastBox());
+					// viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
 				} 
 				return Integer.valueOf(READ_FAILED);
