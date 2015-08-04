@@ -309,6 +309,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * @return a corresponding preset object, or null if no valid preset is selected or the preset cannot be created
 	 */
 	public Preset[] getCurrentPresetObject() {
+		long start = System.currentTimeMillis();
 		PresetInfo[] presetInfos = getActivePresets();
 		if (presetInfos == null || presetInfos.length == 0) return null;
 		Preset activePresets[] = new Preset[presetInfos.length];
@@ -327,6 +328,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 				activePresets[i] = null;
 			}
 		}
+		Log.d(LOGTAG,"Elapsed time to read presets " + (System.currentTimeMillis()-start)/1000);
 		if (activePresets.length >= 1) { 
 			return activePresets;
 		} 

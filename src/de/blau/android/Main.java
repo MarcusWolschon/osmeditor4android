@@ -130,6 +130,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
+import de.blau.android.voice.Commands;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -923,6 +924,12 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
 			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
 			startActivity(startHelpViewer);
+			return true;
+			
+		case R.id.menu_voice:
+			Intent startVoiceCommands = new Intent(getApplicationContext(), Commands.class);
+			// startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
+			startActivity(startVoiceCommands);
 			return true;
 			
 		case R.id.menu_camera:

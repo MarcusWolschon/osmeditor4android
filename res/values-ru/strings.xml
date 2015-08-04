@@ -148,7 +148,7 @@
   <string name="tag_menu_sourcesurvey">Обследованный</string>
   <string name="tag_menu_preset">Заготовки</string>
   <string name="tag_menu_repeat">Повторить теги</string>
-  <string name="tag_menu_revert">Отменить</string>
+  <string name="tag_menu_revert">Вернуть</string>
   <string name="tag_menu_mapfeatures">Условные обозначения</string>
   <string name="tag_menu_addtorelation">Добавить к отношению</string>
   <string name="tag_menu_resetMRU">Сбросить заготовки</string>
@@ -317,6 +317,9 @@
   <string name="config_enableNameSuggestions_summary">Включить предложение для тега названия</string>
   <string name="config_enableAutoPreset_title">Включить автонастройку</string>
   <string name="config_gps_source_title">Источник GPS</string>
+  <string name="config_enableLightTheme_title">Включить светлую тему</string>
+  <string name="config_enableLightTheme_summary">Светлая тема с белым фоном</string>
+  <string name="config_category_misc">Разное</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
   <string name="preset_download_successful">Заготовка успешно загружена</string>
@@ -342,8 +345,8 @@
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Заготовка</string>
   <string name="api">API</string>
-  <string name="undo">Отменить</string>
-  <string name="redo">Повторить</string>
+  <string name="undo">Отменить изменение</string>
+  <string name="redo">Повторить изменение</string>
   <string name="undo_nothing">нет изменений для отмены</string>
   <string name="tracking_active_title">Запись GPS-трека</string>
   <string name="tracking_active_text">Vespucci записывает GPS-трек</string>
@@ -385,6 +388,7 @@
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Эта операция создаст линию с очень большим числом точек.</string>
   <!--Notifications-->
+  <string name="alert_note">Поблизости обнаружена заметка OSM</string>
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>

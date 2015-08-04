@@ -36,7 +36,7 @@
   <string name="welcome_title">歡迎！</string>
   <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n*要增加一個新的物件：長按，在同一個地方輕按，會增加一個節點，離更遠處輕按會開始一條道路。\n\n不要忘記下載您想要編輯的區域。\n\n玩得愉快！</string>
   <string name="read_introduction">現在閱讀入門介紹</string>
-  <string name="upgrade_title">歡迎來到 Vespucci 的新版本！</string>
+  <string name="upgrade_title">歡迎使用 Vespucci 的新版本！</string>
   <string name="upgrade_message">這是新版本 Vespucci 的新功能和性能。它將會最好的快速讀取在裝置上的升級資訊。</string>
   <string name="read_upgrade">瞭解有關最新的版本</string>
   <string name="progress_title">載入</string>
@@ -48,7 +48,7 @@
   <string name="progress_saving_message">正在儲存…</string>
   <string name="upload_comment_label">評論：</string>
   <string name="upload_source_label">來源：</string>
-  <string name="upload_close_changeset_label">關閉變更：</string>
+  <string name="upload_close_changeset_label">關閉變更組合：</string>
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
@@ -98,7 +98,7 @@
   <string name="toast_upload_success">上傳到 OSM 的伺服器完成了。</string>
   <string name="toast_not_in_edit_range">請放大來編輯(音量鍵上/下)</string>
   <string name="toast_unlock_to_edit">解鎖以編輯</string>
-  <string name="toast_edit_outside_downloaded_area">您不能編輯下載區域之外的</string>
+  <string name="toast_edit_outside_downloaded_area">您不能編輯所下載區域之外的</string>
   <string name="toast_save_done">儲存成功</string>
   <string name="toast_save_failed">儲存失敗</string>
   <string name="toast_not_in_bug_range">請放大來增加一個錯誤(音量鍵上/下)</string>
@@ -106,10 +106,10 @@
   <string name="toast_export_success">已匯出到  %1$s</string>
   <string name="toast_preset_overwrote_tags">注意-預置覆蓋了標籤</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或路徑方向依據的標籤。如果有必要，請檢查標籤並訂正。</string>
-  <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據語義或不同的作用。請檢查標籤和作用，並在有必要時訂正。</string>
-  <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
+  <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據相互關係或不同的角色。請檢查標籤和角色，並在有必要時訂正。</string>
+  <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
   <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
-  <string name="toast_too_many_nodes_for_move">在路徑上要移動的節點過多</string>
+  <string name="toast_too_many_nodes_for_move">要移動的路徑上節點過多</string>
   <string name="toast_oauth_handshake_failed">OAuth 交握失敗，請檢查您有正確的用戶密鑰</string>
   <string name="toast_unread_mail">在 OpenStreetMap 的伺服器上，您有 %1$s 的未讀郵件</string>
   <string name="toast_photo_indexing_started">開始掃描地理參考圖片</string>
@@ -234,7 +234,7 @@
   <string name="menu_transfer_download_current_add">增加目前檢視的作下載</string>
   <string name="menu_transfer_download_other">下載其它位置</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
-  <string name="menu_transfer_close_changeset">關閉目前的變更設定</string>
+  <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_export">匯出變更</string>
   <string name="menu_transfer_read_file">從檔案讀取</string>
   <string name="menu_transfer_save_file">儲存到檔案</string>
@@ -310,7 +310,7 @@
   <string name="config_enableKeepScreenOn_summary">不要為了省電而關閉螢幕。</string>
   <string name="config_enableDeprecatedModes_title">啟用舊的模式</string>
   <string name="config_enableDeprecatedModes_summary">啟用新建，編輯，編輯標籤，追加，刪除節點和拆分模式。</string>
-  <string name="config_closeChangesetOnSave_title">關閉變更</string>
+  <string name="config_closeChangesetOnSave_title">關閉變更組合</string>
   <string name="config_closeChangesetOnSave_summary">在預設情況下，關閉變更時儲存</string>
   <string name="config_backgroundLayer_title">地圖背景</string>
   <string name="config_backgroundLayer_summary">圖像渲染地圖背景。</string>

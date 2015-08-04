@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_left">left</string>
+    <string name="voice_here">map</string>
+    <string name="voice_right">right</string>
+</resources>

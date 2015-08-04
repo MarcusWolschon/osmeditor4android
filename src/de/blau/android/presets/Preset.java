@@ -24,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
@@ -37,6 +38,7 @@ import org.xml.sax.AttributeList;
 import org.xml.sax.HandlerBase;
 import org.xml.sax.SAXException;
 
+import ch.poole.poparser.Po;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -111,7 +113,7 @@ public class Preset implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -152,6 +154,8 @@ public class Preset implements Serializable {
 	/** store current combo or multiselect key */
 	private String listKey = null;
 	private ArrayList<String> listValues = null;
+	
+	protected Po po = null;
 	
 	/**
 	 * Serializable class for storing Most Recently Used information.
@@ -201,10 +205,19 @@ public class Preset implements Serializable {
 			Log.i("Preset", "Loading default preset");
 			iconManager = new PresetIconManager(ctx, null, null);
 			fileStream = iconManager.openAsset(PRESETXML, true);
+			// get translations
+			InputStream poFileStream = iconManager.openAsset("preset_"+Locale.getDefault()+".po", true);
+			if (poFileStream == null) {
+				poFileStream = iconManager.openAsset("preset_"+Locale.getDefault().getLanguage()+".po", true);
+			}
+			if (poFileStream != null) {
+				po = new Po(poFileStream);
+			}
 		} else if (externalPackage != null) {
 			Log.i("Preset", "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
 			iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
 			fileStream = iconManager.openAsset(PRESETXML, false);
+			// po = new Po(iconManager.openAsset("preset_"+Locale.getDefault()+".po", false));
 		} else {
 			Log.i("Preset", "Loading downloaded preset, directory="+directory.toString());
 			iconManager = new PresetIconManager(ctx, directory.toString(), null);
@@ -215,6 +228,7 @@ public class Preset implements Serializable {
 				if (list != null && list.length > 0) { // simply use the first XML file found
 					Log.i("Preset", "Preset file name " + list[0].getName());
 					fileStream = new FileInputStream(new File(directory, list[0].getName()));
+					// po = new Po();
 				}
 			} 			
 		}		
@@ -760,7 +774,7 @@ public class Preset implements Serializable {
 //			shape.setCornerRadius(8);
 			TextView v = new TextView(ctx);
 			float density = res.getDisplayMetrics().density;
-			v.setText(getName());
+			v.setText(po!=null?po.t(getName()):getName());
 			v.setTextColor(res.getColor(R.color.preset_text));
 			v.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
 			v.setEllipsize(TextUtils.TruncateAt.END);

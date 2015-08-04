@@ -1339,6 +1339,29 @@ public class Logic {
 	}
 	
 	/**
+	 * Simplified version that takes geo coords and doesn't try to merge with existing features
+	 * @param lonD
+	 * @param latD
+	 * @return
+	 */
+	public Node performAddNode(Double lonD, Double latD) {
+		//A complete new Node...
+		Log.d("Logic","performAddNode");
+		createCheckpoint(R.string.undo_action_add);
+		int lon = (int)(lonD*1E7D);
+		int lat = (int)(latD*1E7D);
+		Node newNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+		getDelegator().insertElementSafe(newNode);
+		if (!getDelegator().isInDownload(lat, lon)) {
+			// warning toast
+			Log.d("Logic","Outside of download");
+			Toast.makeText(Application.mainActivity, R.string.toast_outside_of_download, Toast.LENGTH_SHORT).show();
+		}
+		setSelectedNode(newNode);
+		return newNode;
+	}
+	
+	/**
 	 * Executes an add-command for x,y but only if on way. Adds new node to storage. Will switch selected node,
 	 * 
 	 * @param x screen-coordinate

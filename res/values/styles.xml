@@ -44,6 +44,7 @@
 		<item name="lock">@drawable/lock_dark</item>
 		<item name="lock_tag">@drawable/lock_tag_dark</item>
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
+		<item name="mic">@drawable/ic_action_mic_holo_dark</item>
 	 	<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 	</style>
@@ -90,6 +91,7 @@
 		<item name="lock">@drawable/lock_light</item>
 		<item name="lock_tag">@drawable/lock_tag_light</item>
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
+		<item name="mic">@drawable/ic_action_mic_holo_light</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
 	</style>

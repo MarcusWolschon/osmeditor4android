@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_left">links</string>
+    <string name="voice_here">hier</string>
+    <string name="voice_right">rechts</string>
+</resources>

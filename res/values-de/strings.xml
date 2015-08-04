@@ -119,7 +119,7 @@
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
   <string name="toast_notype">Relation hat kein type Wert</string>
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM Konto erlauben und dann den Upload nochmals versuchen. </string>
-  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlaubenn. </string>
+  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>

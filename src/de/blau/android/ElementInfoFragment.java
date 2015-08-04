@@ -10,6 +10,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.ThemeUtils;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;

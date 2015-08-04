@@ -25,6 +25,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- cache tiles -->
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
 	
 	<application
 		android:name="de.blau.android.Application"
@@ -45,6 +46,7 @@
 				<category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
 		  	</intent-filter>
 		</activity>
+		
 		<activity
 			android:name=".prefs.PrefEditor"
 			android:theme="@style/Theme.Sherlock"
@@ -108,6 +110,10 @@
 		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
 		<activity 
 		    android:name="HelpViewer" 
+		    android:theme="@style/Theme.customHelpViewer" 
+		/>
+		<activity 
+		    android:name=".voice.Commands" 
 		    android:theme="@style/Theme.customHelpViewer" 
 		/>
 		<activity

@@ -6,4 +6,11 @@ file_filter = res/values-<lang>/strings.xml
 lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
 source_file = res/values/strings.xml
 source_lang = en
+minimum_perc = 5
 
+[presets.presetpot]
+type = PO
+file_filter = assets/preset_<lang>.po
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
+source_lang = en
+minimum_perc = 5
