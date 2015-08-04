@@ -871,7 +871,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		// some heuristics for now to keep downloading to a minimum
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
 		int radius = prefs.getBugDownloadRadius();
-		if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousBugLocation) > radius/8)) {
+		if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed()/3.6f) && (previousBugLocation==null || location.distanceTo(previousBugLocation) > radius/8)) {
 			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getBugStorage().getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousBugLocation, location, radius);
 			if (newBox != null) {
