@@ -501,7 +501,8 @@ public class TagEditorFragment extends SherlockFragment {
 				if (autocompletePresetItem != null) { // note this will use the last applied preset which may be wrong FIXME
 					values = autocompletePresetItem.getAutocompleteValues(key);
 				} 
-				if (values == null && ((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
+				if ((values == null || values.isEmpty()) && ((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
+					Log.d(DEBUG_TAG,"generate suggestions for >" + key + "< from presets"); // only do this if there is no other soure of suggestions
 					values = Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key);
 				}
 				if (values != null && !values.isEmpty()) {
@@ -513,6 +514,9 @@ public class TagEditorFragment extends SherlockFragment {
 						}
 						adapter2.add(new ValueWithCount(s));
 					}
+				} else if (adapter2.getCount() == 0) {
+					// FIXME shouldn't happen but seems to
+					Log.d(DEBUG_TAG,"no suggestions for values for >" + key + "<");
 				}
 				if (adapter2.getCount() > 0) {
 					return adapter2;
