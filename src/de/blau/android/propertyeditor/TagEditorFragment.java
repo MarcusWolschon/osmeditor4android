@@ -501,7 +501,7 @@ public class TagEditorFragment extends SherlockFragment {
 				if (autocompletePresetItem != null) { // note this will use the last applied preset which may be wrong FIXME
 					values = autocompletePresetItem.getAutocompleteValues(key);
 				} 
-				if (values == null && ((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
+				if ((values == null || values.isEmpty()) && ((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
 					values = Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key);
 				}
 				if (values != null && !values.isEmpty()) {
