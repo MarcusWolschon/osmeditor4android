@@ -3,6 +3,7 @@ package de.blau.android.osb;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -46,7 +47,11 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	private final Paint closedPaint;
 	
 	private Bitmap cachedIconClosed;
+	private float w2closed = 0f;
+	private float h2closed = 0f;
 	private Bitmap cachedIconOpen;
+	private float w2open = 0f;
+	private float h2open = 0f;
 	
 	/** Map this is an overlay of. */
 	private final Map map;
@@ -92,26 +97,36 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 //			}
 			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
 
-			// draw all the bugs on the map as slightly transparent circles
+			// 
 			int w = Application.mainActivity.getMap().getWidth();
 			int h = Application.mainActivity.getMap().getHeight();
 			ArrayList<Bug> bugList = bugs.getBugs(bb);
 			if (bugList != null) {
+				Set<String>bugFilter = map.getPrefs().bugFilter();
 				for (Bug b : bugList) {
+					// filter
+					if (b instanceof Note && !bugFilter.contains(b.bugFilterKey())) {
+						continue;
+					} else if (b instanceof OsmoseBug && !bugFilter.contains(b.bugFilterKey())) {
+						continue;
+					}
 					float x = GeoMath.lonE7ToX(w , bb, b.getLon());
 					float y = GeoMath.latE7ToY(h, w, bb, b.getLat()); 
 
 					if (b.isClosed()) {
 						if (cachedIconClosed == null) {
 							cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_closed);
+							w2closed = cachedIconClosed.getWidth()/2f;
+							h2closed = cachedIconClosed.getHeight()/2f;
 						}
-						c.drawBitmap(cachedIconClosed, x, y, null); // FIXME icon should be centered on coordinates, probably
-						// c.drawCircle(x, y, radius, b.isClosed() ? closedPaint : openPaint);
+						c.drawBitmap(cachedIconClosed, x-w2closed, y-h2closed, null); 
 					} else {
 						if (cachedIconOpen == null) {
 							cachedIconOpen = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_open);
+							w2open = cachedIconOpen.getWidth()/2f;
+							h2open = cachedIconOpen.getHeight()/2f;
 						}
-						c.drawBitmap(cachedIconOpen, x, y, null); // FIXME icon should be centered on coordinates, probably
+						c.drawBitmap(cachedIconOpen, x-w2open, y-h2open, null); 
 					}
 				}
 			}
@@ -136,7 +151,14 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			final float tolerance = Profile.getCurrent().nodeToleranceValue;
 			ArrayList<Bug> bugList = bugs.getBugs(viewBox);
 			if (bugList != null) {
+				Set<String>bugFilter = map.getPrefs().bugFilter();
 				for (Bug b : bugList) {
+					// filter
+					if (b instanceof Note && !bugFilter.contains(b.bugFilterKey())) {
+						continue;
+					} else if (b instanceof OsmoseBug && !bugFilter.contains(b.bugFilterKey())) {
+						continue;
+					}
 					int lat = b.getLat();
 					int lon = b.getLon();
 					float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);

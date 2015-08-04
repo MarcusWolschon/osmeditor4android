@@ -76,6 +76,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	protected static final int CONNECTION_FAILED = 1;
 
 	private static final String AUTODOWNLOAD = "autodownload";
+	
+	private static final String BUGAUTODOWNLOAD = "bugautodownload";
 
 	private static final String TRACK = "track";
 
@@ -86,6 +88,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	private boolean tracking = false;
 	
 	private boolean downloading = false;
+	
+	private boolean downloadingBugs = false;
 
 	private Track track;
 
@@ -95,6 +99,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
 	private Location lastLocation = null;
 	private Location previousLocation = null;
+	private Location previousBugLocation = null;
 	
 	private boolean gpsEnabled = false;
 	
@@ -143,6 +148,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			startTrackingInternal();
 		} else if (intent.getBooleanExtra(AUTODOWNLOAD, false)) {
 			startAutoDownloadInternal();
+		} else if (intent.getBooleanExtra(BUGAUTODOWNLOAD, false)) {
+			startBugAutoDownloadInternal();
 		} else {
 			Log.d(TAG,"Received intent with unknown meaning");
 		}
@@ -169,6 +176,17 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	public void startAutoDownload() {
 		Intent intent = new Intent(this, TrackerService.class);
 		intent.putExtra(AUTODOWNLOAD,true);
+		startService(intent);
+	}
+	
+	/**
+	 * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)},
+	 * which invokes {@link #startTrackingInternal()}, which does the actual work.
+	 * To start tracking, bind the service, then call this.
+	 */
+	public void startBugAutoDownload() {
+		Intent intent = new Intent(this, TrackerService.class);
+		intent.putExtra(BUGAUTODOWNLOAD,true);
 		startService(intent);
 	}
 	
@@ -208,8 +226,23 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
 	 * See {@link #startTracking()} for the public method to call when tracking should be started.
 	 */
+	private void startBugAutoDownloadInternal() {
+		if (downloadingBugs) return;
+		startInternal();
+		downloadingBugs = true;
+		try {
+			Application.mainActivity.triggerMenuInvalidation();
+		} catch (Exception e) {} // ignore
+		updateGPSState();
+	}
+	
+	/**
+	 * Actually starts tracking.
+	 * Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+	 * See {@link #startTracking()} for the public method to call when tracking should be started.
+	 */
 	private void startInternal() {
-		if (tracking || downloading) return;
+		if (tracking || downloading || downloadingBugs) return;
 		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
 		Resources res = getResources();
 		Intent appStartIntent = new Intent();
@@ -249,8 +282,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	}
 	
 	/**
-	 * Stops tracking
-	 * @param deleteTrack true if the track should be deleted, false if it should be kept
+	 * Stops autodownloading OSM data
 	 */
 	public void stopAutoDownload() {
 		Log.d(TAG,"Stop auto-download");
@@ -258,9 +290,18 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		stop();
 	}
 	
+	/**
+	 * Stops autodownloading bugs
+	 */
+	public void stopBugAutoDownload() {
+		Log.d(TAG,"Stop auto-download");
+		downloadingBugs= false;
+		stop();
+	}
+	
 	public void stop()
 	{
-		if (!tracking && !downloading) {
+		if (!tracking && !downloading && !downloadingBugs) {
 			Log.d(TAG,"Stopping auto-service");
 			updateGPSState();
 			serviceCompat.stopForeground(R.id.notification_tracker);
@@ -313,6 +354,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			if (downloading) {
 				autoDownload(location);
 			}
+			if (downloadingBugs) {
+				bugAutoDownload(location);
+			}
 		}
 		if (externalListener != null) externalListener.onLocationChanged(location);
 		lastLocation = location;
@@ -341,7 +385,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	}
 
 	private void updateGPSState() {
-		boolean needed = listenerNeedsGPS || tracking || downloading;
+		boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
 		if (needed && !gpsEnabled) {
 			Log.d(TAG, "Enabling GPS updates");
 			Preferences prefs = new Preferences(this);
@@ -732,11 +776,12 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	private void autoDownload(Location location) {
 		// some heuristics for now to keep downloading to a minimum
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
-		if ((location.getSpeed() < prefs.getMaxDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousLocation) > prefs.getDownloadRadius()/8)) {
+		int radius = prefs.getDownloadRadius();
+		if ((location.getSpeed() < prefs.getMaxDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousLocation) > radius/8)) {
 			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
-			BoundingBox newBox = getNextBox(bbList,previousLocation, location);
+			BoundingBox newBox = getNextBox(bbList,previousLocation, location,radius);
 			if (newBox != null) {
-				if (prefs.getDownloadRadius() != 0) { // download
+				if (radius != 0) { // download
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
 					for (BoundingBox b:bboxes) {
 						if (b.getWidth() <= 1 || b.getHeight() <= 1) {
@@ -747,9 +792,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						Application.getDelegator().addBoundingBox(b);  // will be filled once download is complete
 						Log.d(TAG,"getNextCenter loading " + b.toString());
 						Logic.autoDownloadBox(this,prefs.getServer(), b); 
-						if (prefs.isOpenStreetBugsEnabled()) {
-							TransferBugs.downloadBox(this,prefs.getServer(), b, true, null);
-						}
 					}
 				}
 				previousLocation  = location;
@@ -771,13 +813,13 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * @param location
 	 * @return
 	 */
-	private BoundingBox getNextBox(ArrayList<BoundingBox> bbs,Location prevLocation, Location location) {
+	private BoundingBox getNextBox(ArrayList<BoundingBox> bbs,Location prevLocation, Location location, int radius) {
 	
 		
 		double lon = location.getLongitude();
 		double lat = location.getLatitude();
 		double mlat = GeoMath.latToMercator(lat);
-		double width = 2*GeoMath.convertMetersToGeoDistance(prefs.getDownloadRadius());
+		double width = 2*GeoMath.convertMetersToGeoDistance(radius);
 		
 		int currentLeftE7 = (int) (Math.floor(lon / width)*width * 1E7);
 		double currentMBottom = Math.floor(mlat/ width)*width;
@@ -823,5 +865,34 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			// TODO Auto-generated catch block
 			return null;
 		}	
+	}
+	
+	private void bugAutoDownload(Location location) {
+		// some heuristics for now to keep downloading to a minimum
+		// speed needs to be <= 6km/h (aka brisk walking speed) 
+		int radius = prefs.getBugDownloadRadius();
+		if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousBugLocation) > radius/8)) {
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getBugStorage().getBoundingBoxes());
+			BoundingBox newBox = getNextBox(bbList,previousBugLocation, location, radius);
+			if (newBox != null) {
+				if (radius != 0) { // download
+					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox); 
+					for (BoundingBox b:bboxes) {
+						if (b.getWidth() <= 1 || b.getHeight() <= 1) {
+							// ignore super small bb likely due to rounding errors
+							Log.d(TAG,"bugAutoDownload very small bb " + b.toString());
+							continue;
+						}
+						Application.getBugStorage().add(b);  // will be filled once download is complete
+						Log.d(TAG,"bugAutoDownloads loading " + b.toString());
+						TransferBugs.downloadBox(this,prefs.getServer(), b, true, null);
+					}
+				}
+				previousBugLocation  = location;
+			} else {
+				Log.d(TAG,"bugAutoDownload no bb");
+			}
+			
+		}
 	}
 }

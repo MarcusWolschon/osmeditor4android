@@ -33,6 +33,9 @@
     <string name="config_largeDragArea_key">largeDragArea</string>
     <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadius</string>
     <string name="config_maxDownloadSpeed_key">maxDownloadSpeed</string>
+    <string name="config_bugDownloadRadius_key">config_bugDownloadRadius</string>
+    <string name="config_maxBugDownloadSpeed_key">maxBugDownloadSpeed</string>
+    <string name="config_bugFilter_key">config_bugFilter_key</string>
     <string name="config_enableNameSuggestions_key">enableNameSuggestions</string>
     <string name="config_enableAutoPreset_key">enableAutoPreset</string>
     <string name="config_closeChangesetOnSave_key">closeChangesetOnSave</string>

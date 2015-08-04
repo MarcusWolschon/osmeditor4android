@@ -213,4 +213,8 @@ public class Note extends Bug implements Serializable {
 	public State getOriginalState() {
 		return originalState;
 	}
+	
+	public String bugFilterKey() {
+		return "NOTES";
+	}
 }

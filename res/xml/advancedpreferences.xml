@@ -70,6 +70,22 @@
 			android:numeric="decimal"
 			android:defaultValue="6"
 		/>
+		<EditTextPreference
+			android:key="@string/config_bugDownloadRadius_key"
+			android:title="@string/config_bugDownloadRadius_title"
+			android:summary="@string/config_bugDownloadRadius_summary"
+			android:dialogTitle="@string/config_bugDownloadRadius_title"
+			android:numeric="integer"
+			android:defaultValue="200"
+		/>
+		<EditTextPreference
+			android:key="@string/config_maxBugDownloadSpeed_key"
+			android:title="@string/config_maxBugDownloadSpeed_title"
+			android:summary="@string/config_maxBugDownloadSpeed_summary"
+			android:dialogTitle="@string/config_maxBugDownloadSpeed_title"
+			android:numeric="decimal"
+			android:defaultValue="30"
+		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableNameSuggestions_key"
 			android:title="@string/config_enableNameSuggestions_title"

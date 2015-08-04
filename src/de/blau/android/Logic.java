@@ -2619,7 +2619,7 @@ public class Logic {
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, 
-				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),Application.mainActivity.getImageFileName());
+				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),Application.mainActivity.getBugAutoDownload(),Application.mainActivity.getImageFileName());
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
@@ -2708,7 +2708,6 @@ public class Logic {
 					}
 					Profile.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
 					loadEditingState();
-					Application.getBugStorage().readFromFile();
 					
 					if (postLoad != null) {
 						postLoad.execute();
@@ -2724,6 +2723,61 @@ public class Logic {
 					Intent intent = new Intent(context, BoxPicker.class);
 					Application.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDINGBOX);
 					Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
+				}
+			}
+		};
+		loader.execute(c);
+	}
+	
+	/**
+	 * Loads data from a file in the background.
+	 * 
+	 * @param context 
+	 */
+	void loadBugsFromFile(Context context, final PostAsyncActionHandler postLoad) {
+		
+		final int READ_FAILED = 0;
+		final int READ_OK = 1;
+		final int READ_BACKUP = 2;
+
+		Context[] c = {context};
+		AsyncTask<Context, Void, Integer> loader = new AsyncTask<Context, Void, Integer>() {
+					
+			Context context;
+			
+			@Override
+			protected void onPreExecute() {
+				Log.d("Logic", "loadBugsFromFile onPreExecute");
+			}
+			
+			@Override
+			protected Integer doInBackground(Context... c) {
+				this.context = c[0];
+				if (Application.getBugStorage().readFromFile()) {
+					viewBox.setBorders(getDelegator().getLastBox());
+					return Integer.valueOf(READ_OK);
+				} 
+				return Integer.valueOf(READ_FAILED);
+			}
+			
+			@Override
+			protected void onPostExecute(Integer result) {
+				Log.d("Logic", "loadBugsFromFile onPostExecute");
+				if (result.intValue() != READ_FAILED) {
+					Log.d("Logic", "loadBugsfromFile: File read correctly");
+					View map = Application.mainActivity.getCurrentFocus();
+					
+					// FIXME if no bbox exists from data, ty to use one from bugs
+					if (postLoad != null) {
+						postLoad.execute();
+					}
+					// map.invalidate();
+					if (result.intValue() == READ_BACKUP) { 
+						Toast.makeText(Application.mainActivity, "Corrupted bug state file, used backup file!", Toast.LENGTH_LONG).show();
+					}
+				}
+				else {
+					Log.d("Logic", "loadBugsfromFile: File read failed");
 				}
 			}
 		};

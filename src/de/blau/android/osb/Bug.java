@@ -119,4 +119,6 @@ public abstract class Bug implements Serializable, BoundedObject {
 	abstract public String getDescription();
 
 	abstract public Date getLastUpdate();
+
+	abstract public String bugFilterKey();
 }

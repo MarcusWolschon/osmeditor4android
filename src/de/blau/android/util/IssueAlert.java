@@ -124,8 +124,7 @@ public class IssueAlert {
 	}
 	
 	public static void alert(Context context, Bug b) {
-		
-		
+		Log.d("IssueAlert", "generating alert for " + b.getDescription());
 		Preferences prefs = new Preferences(context);
 		
 		if (!prefs.generateAlerts()) { // don't generate alerts
@@ -169,7 +168,7 @@ public class IssueAlert {
 		        .setContentText(message)
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
 		        .setTicker(ticker)
-		        .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
+		        .setGroup(GROUP_OSMOSE);
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);

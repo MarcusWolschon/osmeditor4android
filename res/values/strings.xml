@@ -62,6 +62,8 @@
     <string name="openstreetbug_edit_closed">Closed</string>
     <string name="openstreetbug_commit_ok">Changes saved</string>
     <string name="openstreetbug_commit_fail">Could not save changes</string>
+    <string name="openstreetbug_not_downloaded">not downloaded</string>
+    <string name="openstreetbug_last_updated">last updated</string>
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
     <string name="unsaved_data_proceed">Discard &amp; proceed</string>
@@ -366,6 +368,12 @@
 	<string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
 	<string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
 	<string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended</string>
+	<string name="config_bugDownloadRadius_title">Notes/Bugs download radius</string>
+	<string name="config_bugDownloadRadius_summary">Radius (m) of notes/bugs downloads</string>
+	<string name="config_maxBugDownloadSpeed_title">Maximum notes/bug auto-download speed</string>
+	<string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes/bugs auto-download is suspended</string>
+	<string name="config_bugFilter_title">Filter for Notes/Bugs</string>
+	<string name="config_bugFilter_summary">Select which elements are displayed on the notes/bug layer</string>
 	<string name="config_enableNameSuggestions_title">Enable name suggestions</string>
 	<string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
 	<string name="config_enableAutoPreset_title">Enable auto preset</string>
@@ -506,5 +514,4 @@
 	<item>Open</item>
 	<item>Closed</item>
 	</string-array>
-	
 </resources>

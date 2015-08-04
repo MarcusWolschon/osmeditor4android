@@ -150,6 +150,10 @@ public class BugFragment extends SherlockDialogFragment {
     		comment.setVisibility(View.GONE);
     		adapter = ArrayAdapter.createFromResource(getActivity(),
         	        R.array.bug_state, android.R.layout.simple_spinner_item);
+    	} else {
+    		// unknown bug type
+    		Log.d(DEBUG_TAG, "Unknown bug type " + bug.getDescription());
+    		return null;
     	}
 
     	// Specify the layout to use when the list of choices appears
@@ -227,7 +231,7 @@ public class BugFragment extends SherlockDialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
     	super.onDismiss(dialog);
-    	getActivity().getWindow().getDecorView().findViewById(android.R.id.content).invalidate(); // force invalidation of whole screen
+    	getActivity().getWindow().getDecorView().findViewById(android.R.id.content).invalidate(); // FIXME doesn't seem to work, force invalidation of whole screen
     }
     
     public static State pos2state(int pos) {

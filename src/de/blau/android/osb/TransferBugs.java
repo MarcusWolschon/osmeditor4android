@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import android.content.Context;
@@ -47,6 +48,7 @@ public class TransferBugs {
 	static public void downloadBox(final Context context, final Server server, final BoundingBox box, final boolean add, final PostAsyncActionHandler handler) {
 		
 		final BugStorage bugs = Application.getBugStorage();
+		final Preferences prefs = new Preferences(context);
 		
 		try {
 			box.makeValidForApi();
@@ -60,13 +62,19 @@ public class TransferBugs {
 			@Override
 			protected Collection<Bug> doInBackground(Void... params) {
 				Log.d(DEBUG_TAG,"querying server for " + box);
-				
+				Set<String> bugFilter = prefs.bugFilter();
 				Collection<Bug> result = new ArrayList<Bug>();
-				Collection<Note> noteResult = server.getNotesForBox(box,1000);
+				Collection<Note> noteResult = null;
+				if (bugFilter.contains("NOTES")) {
+					noteResult = server.getNotesForBox(box,1000);
+				}
 				if (noteResult != null) {
 					result.addAll(noteResult);
 				}
-				Collection<OsmoseBug> osmoseResult = OsmoseServer.getBugsForBox(box, 1000);
+				Collection<OsmoseBug> osmoseResult = null;
+				if (bugFilter.contains("OSMOSE_ERROR") || bugFilter.contains("OSMOSE_WARNING") || bugFilter.contains("OSMOSE_MINOR_ISSUE")) {
+					osmoseResult = OsmoseServer.getBugsForBox(box, 1000);
+				}
 				if (osmoseResult != null) {
 					result.addAll(osmoseResult);
 				}

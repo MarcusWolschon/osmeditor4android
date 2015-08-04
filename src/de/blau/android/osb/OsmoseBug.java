@@ -34,6 +34,9 @@ import android.util.Log;
 public class OsmoseBug extends Bug implements Serializable {
 	
 	private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName();
+	private static final int LEVEL_ERROR=1;
+	private static final int LEVEL_WARNING=2;
+	private static final int LEVEL_MINOR_ISSUE=3;
 	/**
 	 * 
 	 */
@@ -174,23 +177,36 @@ public class OsmoseBug extends Bug implements Serializable {
 				obj = Relation.NAME;
 			}
 			osm = Application.getDelegator().getOsmElement(obj,id);
-			if (osm == null) {
-				result = result + "<br>" + obj + " (not downloaded) #" + id;
+			if (osm == null) { 
+				result = result + "<br>" + obj + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + id;
 			} else {
-				result = result + "<br>" + obj  + osm.getDescription(false);
+				result = result + "<br>" + obj  + " " + osm.getDescription(false);
 			}
 		}
-		result = result + "<br><br>last updated: " + update;
+		result = result + "<br><br>" + context.getString(R.string.openstreetbug_last_updated) + ": " + update;
 		return result; 
 	}
 	
 
 	private String level2string(Context context) {
 		switch (level) {
-		case 1: return context.getString(R.string.error);
-		case 2: return context.getString(R.string.warning);
-		case 3: return context.getString(R.string.minor_issue);
+		case LEVEL_ERROR: return context.getString(R.string.error);
+		case LEVEL_WARNING: return context.getString(R.string.warning);
+		case LEVEL_MINOR_ISSUE: return context.getString(R.string.minor_issue);
 		default: return context.getString(R.string.unknown_error_level);
 		}
+	}
+	
+	public String bugFilterKey() {
+		switch (level) {
+		case LEVEL_ERROR: return "OSMOSE_ERROR";
+		case LEVEL_WARNING: return "OSMOSE_WARNING";
+		case LEVEL_MINOR_ISSUE: return "OSMOSE_MINOR_ISSUE";
+		default: return "?";
+		}
+	}
+	
+	public int getLevel() {
+		return level;
 	}
 }

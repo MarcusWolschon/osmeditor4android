@@ -41,6 +41,7 @@ public class BugStorage implements Serializable {
 	
 	public BugStorage() {
 		reset();
+		dirty = false;
 	}
 	
 	public void reset() {
@@ -183,5 +184,26 @@ public class BugStorage implements Serializable {
 
 	public long getNextId() {
 		return newId--;
+	}
+
+	public ArrayList<BoundingBox> getBoundingBoxes() {
+		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		boxes.query(queryResult);
+		ArrayList<BoundingBox>result = new ArrayList<BoundingBox>();
+		for (BoundedObject bo:queryResult) {
+			result.add((BoundingBox)bo);
+		}
+		return result;
+	}
+	
+	public ArrayList<BoundingBox> getBoundingBoxes(BoundingBox box) {
+		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		boxes.query(queryResult,box.getBounds());
+		Log.d(DEBUG_TAG,"result count " + queryResult.size());
+		ArrayList<BoundingBox>result = new ArrayList<BoundingBox>();
+		for (BoundedObject bo:queryResult) {
+			result.add((BoundingBox)bo);
+		}
+		return result;
 	}
 }

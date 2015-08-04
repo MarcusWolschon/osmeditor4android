@@ -258,11 +258,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	private boolean loadOnResume;
 
-	/** Initialized in onCreate - this empty file indicates by its existence that showGPS should be enabled on start */
-	private File showGPSFlagFile = null;
 	private boolean showGPS;
 	private boolean followGPS;
 	private boolean autoDownload;
+	private boolean bugAutoDownload;
 	/**
 	 * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}.
 	 * Will be automatically given to the tracker service on connect.
@@ -510,7 +509,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				};
 			}
 			getLogic().loadFromFile(getApplicationContext(),postLoad);
+			getLogic().loadBugsFromFile(getApplicationContext(),null);
 		} else { // loadFromFile already does this
+			getLogic().loadBugsFromFile(getApplicationContext(),null);
 			getLogic().loadEditingState();
 			processIntents();
 			map.invalidate();
@@ -878,6 +879,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
+		
+		menu.findItem(R.id.menu_transfer_bugs_autodownload).setChecked(bugAutoDownload);
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo());
@@ -1093,6 +1096,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			Application.getBugStorage().reset();
 			return true;
 			
+		case R.id.menu_transfer_bugs_autodownload:
+			setBugAutoDownload(!bugAutoDownload);
+			return true;
+			
 		case R.id.menu_undo:
 			// should not happen
 			undoListener.onClick(null);
@@ -1177,6 +1184,24 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	
 	protected boolean getAutoDownload() {
 		return autoDownload;
+	}
+	
+	public void setBugAutoDownload(boolean b) {
+		Log.d("Main", "bugAutoDownload: "+ b);
+		bugAutoDownload = b;
+		if (getTracker() != null && ensureGPSProviderEnabled()) {
+			if (bugAutoDownload) {
+				getTracker().startBugAutoDownload();
+			} else {
+				getTracker().stopBugAutoDownload();
+			}
+		}
+		Log.d("Main","Setting bugAutoDownload to " + bugAutoDownload);
+		triggerMenuInvalidation();
+	}
+	
+	protected boolean getBugAutoDownload() {
+		return bugAutoDownload;
 	}
 	
 	public void setShowGPS(boolean show) {
@@ -1422,6 +1447,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				loadOnResume = false;
 				Log.d("Main","handlePropertyEditorResult loading data");
 				getLogic().syncLoadFromFile(); // sync load
+				Application.getBugStorage().readFromFile();
 			}
 			for (PropertyEditorData editorData:result) {
 				if (editorData == null) {

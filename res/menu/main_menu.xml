@@ -135,6 +135,11 @@
 						<item
 							android:id="@+id/menu_transfer_bugs_clear"
 							android:title="@string/menu_transfer_bugs_clear"
+						/>				
+						<item
+							android:id="@+id/menu_transfer_bugs_autodownload"
+							android:title="@string/menu_gps_autodownload"
+							android:checkable="true"
 						/>
 					</menu>
 				</item>
