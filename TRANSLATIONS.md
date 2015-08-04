@@ -2,7 +2,7 @@ All the translatable text in Vespucci has been concentrated into one file per la
 
 There are strings elsewhere in Vespucci that would be nice to be translated, but it is currently technically difficult to make them available. The background layer descriptions are one example.
 
-== transifex ==
+## transifex
 
 The translations are managed on transifex: https://www.transifex.com/projects/p/vespucci/
 
@@ -10,9 +10,9 @@ NOTE: for building we assume for now that the SVN repository contains the curren
 
 Currently transfex polls the strings.xml in the 0.9 branch for changes, once the branch is merged into trunk that should change to the trunk version. 
 
-=== setting up transifex locally and retrieving translations ===
+### Setting up transifex locally and retrieving translations
 
-==== install ====
+#### Install
 
 get the transifex tx tool see http://support.transifex.com/customer/portal/articles/995605-installation
 
@@ -31,9 +31,9 @@ the repository already includes a suitable .tx directory with config file, if th
 	
 	to the [vespucci.main] section
  
- ===== retrieving current translations ====
+ #### Retrieving current translations
  
- tx pull -a
+    tx pull -a
  
  will retrieve all translations configured above, skipping up to date translation files and creating new directories and strings.xml files for new languages.
  
