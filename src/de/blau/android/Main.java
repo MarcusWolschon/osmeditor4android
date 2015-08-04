@@ -1080,7 +1080,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 		
 		case R.id.menu_transfer_bugs_download_current:
-			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox(), true, new PostAsyncActionHandler() {
+			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				@Override
 				public void execute() {
 					map.invalidate();
@@ -1560,7 +1560,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	public void performCurrentViewHttpLoad(boolean add) {
 		getLogic().downloadCurrent(add);
 		if (prefs.isOpenStreetBugsEnabled()) {
-			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox(), add, new PostAsyncActionHandler() {
+			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), add, new PostAsyncActionHandler() {
 				@Override
 				public void execute() {
 					map.invalidate();
