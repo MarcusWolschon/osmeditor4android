@@ -235,7 +235,19 @@ public class Names {
 		Collection<NameAndTags> result = new ArrayList<NameAndTags>();
 		
 		String origTagKey = tm.toString();
+		
+		for (String tagKey:tagList.keySet()) { 	
+			if (tagKey.contains(origTagKey)) {	
+				TagMap storedTagMap = tagList.get(tagKey);
+				for (String n:tags2namesList.get(storedTagMap)) {
+					NameAndTags nt = new NameAndTags(n,storedTagMap);
+					result.add(nt);
+				}
+			}
+		}
+		
 		TreeSet<String> seen = new TreeSet<String>();
+		seen.add(origTagKey);
 		// check categories for similar tags and add names from them too
 		for (String category:categories.getKeys()) {    	// loop over categories
 			Set<String>set = categories.get(category);
@@ -256,6 +268,7 @@ public class Names {
 				}
 			}
 		}	
+		// Log.d("Names","getNames result " + result.size());
 		return result;
 	}
 	
