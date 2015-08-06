@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.ElementInfoFragment;
 import de.blau.android.HelpViewer;
@@ -143,8 +144,6 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      				Log.d(DEBUG_TAG,"action id " + actionId + " event " + event);
      				if (actionId == EditorInfo.IME_ACTION_SEARCH 
      						|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-     					// Search search = new Search(caller, searchItemFoundCallback);
-     					// search.find(v.getText().toString());
      					PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10);
      					FragmentManager fm = getChildFragmentManager();
      					FragmentTransaction ft = fm.beginTransaction();
@@ -153,9 +152,13 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      				        ft.remove(prev);
      				    }
      				    ft.commit();
-
+     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10));
+     				    if (searchResults == null | searchResults.size() ==0) {
+     				    	Toast.makeText(getActivity(), R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
+     				    	return true;
+     				    }
      			        PresetSearchResultsFragment searchResultDialog 
-     			        	= PresetSearchResultsFragment.newInstance(new ArrayList<PresetItem>(PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10)));
+     			        	= PresetSearchResultsFragment.newInstance(searchResults);
      			        searchResultDialog.show(fm, "fragment_preset_search_results");
      					return true;
      				}
