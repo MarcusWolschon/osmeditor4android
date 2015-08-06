@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-06-25 17:35+0200\n"
-"PO-Revision-Date: 2015-08-04 12:38+0000\n"
+"PO-Revision-Date: 2015-08-06 19:59+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -178,7 +178,7 @@ msgstr "Breite (Meter)"
 
 #: master_preset.xml:61(combo:text) master_preset.xml:661(combo:text)
 msgid "Sidewalk"
-msgstr ""
+msgstr "Gehsteig"
 
 #: master_preset.xml:64(combo:text)
 msgid "Service type"
@@ -191,12 +191,12 @@ msgstr ""
 #: master_preset.xml:68(combo:text) master_preset.xml:248(combo:text)
 #: master_preset.xml:6155(combo:text)
 msgid "Voltage in Volts (V)"
-msgstr ""
+msgstr "Spannung in Volt (V)"
 
 #: master_preset.xml:69(combo:text) master_preset.xml:251(combo:text)
 #: master_preset.xml:305(combo:text) master_preset.xml:5878(combo:text)
 msgid "Frequency in Hertz (Hz)"
-msgstr ""
+msgstr "Frequenz in Hertz (Hz)"
 
 #: master_preset.xml:73(combo:text)
 msgid "Tracks"
@@ -362,7 +362,7 @@ msgstr "Name"
 #: master_preset.xml:5801(text:text) master_preset.xml:6819(text:text)
 #: master_preset.xml:8799(text:text)
 msgid "Reference"
-msgstr ""
+msgstr "Referenz"
 
 #: master_preset.xml:107(text:text) master_preset.xml:111(text:text)
 #: master_preset.xml:141(text:text) master_preset.xml:198(text:text)
@@ -748,7 +748,7 @@ msgstr ""
 #: master_preset.xml:616(check:text) master_preset.xml:727(check:text)
 #: master_preset.xml:989(check:text)
 msgid "Passing Places"
-msgstr ""
+msgstr "Ausweichstellen"
 
 #: master_preset.xml:620(item:name)
 msgid "Residential"
@@ -782,7 +782,7 @@ msgstr ""
 #: master_preset.xml:3134(check:text) master_preset.xml:3175(check:text)
 #: master_preset.xml:3831(check:text)
 msgid "Area"
-msgstr ""
+msgstr "Fläche/Gebiet"
 
 #: master_preset.xml:710(item:name)
 msgid "Service"
@@ -900,7 +900,7 @@ msgstr "Ski"
 
 #: master_preset.xml:900(combo:text)
 msgid "Snowmobile"
-msgstr ""
+msgstr "Schneemobil"
 
 #: master_preset.xml:905(item:name)
 msgid "Dedicated Bridleway"
@@ -960,7 +960,7 @@ msgstr "Stufen"
 
 #: master_preset.xml:1029(text:text)
 msgid "Amount of Steps"
-msgstr ""
+msgstr "Anzahl Stufen"
 
 #: master_preset.xml:1032(check:text)
 msgid "Ramp"
@@ -1258,7 +1258,7 @@ msgstr ""
 
 #: master_preset.xml:1474(item:name) master_preset.xml:3293(item:name)
 msgid "Gate"
-msgstr ""
+msgstr "Gatter"
 
 #: master_preset.xml:1487(item:name)
 msgid "Lift Gate"
@@ -1306,7 +1306,7 @@ msgstr ""
 
 #: master_preset.xml:1621(item:name)
 msgid "Arcade"
-msgstr ""
+msgstr "Arkade"
 
 #: master_preset.xml:1632(check:text) master_preset.xml:1649(check:text)
 #: master_preset.xml:1668(check:text)
@@ -1320,7 +1320,7 @@ msgstr ""
 
 #: master_preset.xml:1639(item:name)
 msgid "Colonnade"
-msgstr ""
+msgstr "Säulengang"
 
 #: master_preset.xml:1656(item:name)
 msgid "Avalanche Protector"
@@ -1401,7 +1401,7 @@ msgstr "Wasser"
 
 #: master_preset.xml:1838(item:name)
 msgid "Drain"
-msgstr ""
+msgstr "Entwässerungsgraben"
 
 #: master_preset.xml:1865(item:name)
 msgid "Stream"
@@ -1467,7 +1467,7 @@ msgstr ""
 
 #: master_preset.xml:2047(combo:text)
 msgid "Water Body"
-msgstr ""
+msgstr "Gewässer"
 
 #: master_preset.xml:2048(check:text)
 msgid "Salt Water"
@@ -2141,7 +2141,7 @@ msgstr ""
 
 #: master_preset.xml:2979(check:text) master_preset.xml:3009(check:text)
 msgid "Train"
-msgstr ""
+msgstr "Eisenbahn"
 
 #: master_preset.xml:2980(check:text)
 msgid "Railway station (legacy)"
@@ -2258,7 +2258,7 @@ msgstr ""
 
 #: master_preset.xml:3125(item:name)
 msgid "Railway Platform"
-msgstr ""
+msgstr "Bahnsteig"
 
 #: master_preset.xml:3132(text:text) master_preset.xml:3173(text:text)
 msgid "Reference (track number)"
@@ -2465,7 +2465,7 @@ msgstr ""
 
 #: master_preset.xml:3631(group:name)
 msgid "Tourism"
-msgstr ""
+msgstr "Fremdenverkehr"
 
 #: master_preset.xml:3632(item:name)
 msgid "Attraction"
@@ -2617,7 +2617,7 @@ msgstr "Zoo"
 
 #: master_preset.xml:3818(item:name)
 msgid "Dog Park"
-msgstr ""
+msgstr "Hundepark"
 
 #: master_preset.xml:3836(item:name)
 msgid "Amusement/Theme Park"
@@ -2669,7 +2669,7 @@ msgstr "Fischen"
 
 #: master_preset.xml:3966(item:name)
 msgid "Private Swimming Pool"
-msgstr ""
+msgstr "Privater Schwimmbecken"
 
 #: master_preset.xml:3979(group:name)
 msgid "Culture"
@@ -2746,7 +2746,7 @@ msgstr "Öffentliches Gebäude"
 
 #: master_preset.xml:4239(item:name)
 msgid "Town Hall"
-msgstr ""
+msgstr "Rathaus"
 
 #: master_preset.xml:4252(item:name) master_preset.xml:4260(label:text)
 msgid "Community Centre"
@@ -2850,7 +2850,7 @@ msgstr "Krankenhaus"
 
 #: master_preset.xml:4444(item:name)
 msgid "Clinic"
-msgstr ""
+msgstr "Klinik"
 
 #: master_preset.xml:4452(item:name)
 msgid "Doctor's Office"
@@ -3019,7 +3019,7 @@ msgstr "Karton"
 
 #: master_preset.xml:4715(check:text) master_preset.xml:4751(check:text)
 msgid "Electrical Appliances"
-msgstr ""
+msgstr "Eleketrische Geräte"
 
 #: master_preset.xml:4716(check:text) master_preset.xml:4752(check:text)
 #: master_preset.xml:8985(item:name)
@@ -3028,7 +3028,7 @@ msgstr "Glass"
 
 #: master_preset.xml:4717(check:text) master_preset.xml:4753(check:text)
 msgid "Glass Bottles"
-msgstr ""
+msgstr "Flaschen (Glass)"
 
 #: master_preset.xml:4718(check:text) master_preset.xml:4754(check:text)
 msgid "Green Waste"
@@ -3044,7 +3044,7 @@ msgstr "Kunststoff"
 
 #: master_preset.xml:4721(check:text) master_preset.xml:4757(check:text)
 msgid "Plastic Bottles"
-msgstr ""
+msgstr "Flaschen (Kunststoff)"
 
 #: master_preset.xml:4722(check:text) master_preset.xml:4758(check:text)
 msgid "Plastic Packaging"
@@ -3052,7 +3052,7 @@ msgstr ""
 
 #: master_preset.xml:4723(check:text) master_preset.xml:4759(check:text)
 msgid "Scrap Metal"
-msgstr ""
+msgstr "Altmetal"
 
 #: master_preset.xml:4724(check:text) master_preset.xml:4760(check:text)
 #: master_preset.xml:6655(item:name)
@@ -3065,7 +3065,7 @@ msgstr ""
 
 #: master_preset.xml:4726(check:text) master_preset.xml:4762(check:text)
 msgid "Waste"
-msgstr ""
+msgstr "Abfall"
 
 #: master_preset.xml:4729(item:name)
 msgid "Recycling Centre"
@@ -3101,11 +3101,11 @@ msgstr ""
 
 #: master_preset.xml:4818(check:text)
 msgid "Backrest"
-msgstr ""
+msgstr "Lehne"
 
 #: master_preset.xml:4821(combo:text)
 msgid "Amount of Seats"
-msgstr ""
+msgstr "Anzahl Sitzplätze"
 
 #: master_preset.xml:4836(combo:text)
 msgid "Type of shelter"
@@ -3246,7 +3246,7 @@ msgstr ""
 
 #: master_preset.xml:5094(item:name)
 msgid "Skating"
-msgstr ""
+msgstr "Schlittschuhfahren"
 
 #: master_preset.xml:5102(item:name)
 msgid "Skateboard"
@@ -3423,7 +3423,7 @@ msgstr ""
 
 #: master_preset.xml:5411(group:name) master_preset.xml:5412(group:name)
 msgid "Man Made"
-msgstr ""
+msgstr "Kunstbauten"
 
 #: master_preset.xml:5431(combo:text) master_preset.xml:5451(combo:text)
 #: master_preset.xml:5465(combo:text)
@@ -3544,7 +3544,7 @@ msgstr ""
 
 #: master_preset.xml:5649(item:name)
 msgid "Water Tower"
-msgstr ""
+msgstr "Wasserturm"
 
 #: master_preset.xml:5662(item:name)
 msgid "Wastewater Treatment Plant"
@@ -3588,7 +3588,7 @@ msgstr ""
 
 #: master_preset.xml:5753(check:text)
 msgid "Groundwater"
-msgstr ""
+msgstr "Grundwasser"
 
 #: master_preset.xml:5754(check:text)
 msgid "Traffic"
@@ -3616,7 +3616,7 @@ msgstr ""
 
 #: master_preset.xml:5760(check:text)
 msgid "Weather"
-msgstr ""
+msgstr "Wetter"
 
 #: master_preset.xml:5761(check:text)
 msgid "Radiation"
@@ -4104,7 +4104,7 @@ msgstr "Fleischer"
 
 #: master_preset.xml:6474(item:name)
 msgid "Seafood"
-msgstr ""
+msgstr "Meeresfrüchte"
 
 #: master_preset.xml:6486(item:name)
 msgid "Deli (Fine Food)"
@@ -4134,7 +4134,7 @@ msgstr ""
 
 #: master_preset.xml:6549(item:name)
 msgid "Greengrocer"
-msgstr ""
+msgstr "Gemüsehändler"
 
 #: master_preset.xml:6563(item:name)
 msgid "Farm Stand"
@@ -4578,7 +4578,7 @@ msgstr "Postleitzahl"
 
 #: master_preset.xml:7401(item:name)
 msgid "National Park"
-msgstr ""
+msgstr "Nationalpark"
 
 #: master_preset.xml:7410(item:name)
 msgid "Protected Area"
@@ -5632,7 +5632,7 @@ msgstr "Segelmacher"
 
 #: master_preset.xml:9168(item:name)
 msgid "Sawmill"
-msgstr ""
+msgstr "Sägerei"
 
 #: master_preset.xml:9176(item:name)
 msgid "Scaffolder"

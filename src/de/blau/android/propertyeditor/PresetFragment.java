@@ -153,7 +153,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      				    }
      				    ft.commit();
      				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10));
-     				    if (searchResults == null | searchResults.size() ==0) {
+     				    if (searchResults == null || searchResults.size() == 0) {
      				    	Toast.makeText(getActivity(), R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
      				    	return true;
      				    }

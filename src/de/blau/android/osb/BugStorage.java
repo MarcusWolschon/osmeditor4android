@@ -206,4 +206,19 @@ public class BugStorage implements Serializable {
 		}
 		return result;
 	}
+	
+	/**
+	 * Check for changes
+	 * @return
+	 */
+	public boolean hasChanges() {
+		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		bugs.query(queryResult);
+		for (BoundedObject b:queryResult) {
+			if (((Bug)b).hasBeenChanged()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

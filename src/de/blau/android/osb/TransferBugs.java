@@ -119,6 +119,10 @@ public class TransferBugs {
 			ArrayList<Bug>queryResult = Application.getBugStorage().getBugs();
 			for (Bug b:queryResult) {
 				if (b.changed) {
+					try {
+						Thread.sleep(100); // attempt at workaround of Osmose issues
+					} catch (InterruptedException e) {
+					}
 					if (b instanceof Note) {
 						if (server.isLoginSet()) {
 							if (server.needOAuthHandshake()) {

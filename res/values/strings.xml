@@ -105,6 +105,7 @@
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
+    <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
     <string name="toast_upload_success">Upload to OSM server finished.</string>
     <string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
     <string name="toast_unlock_to_edit">Unlock to edit</string>
@@ -142,6 +143,7 @@
     <string name="toast_imported_track_points">Imported %1$s track points.</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
     <string name="toast_camera_error">Error starting camera app: %1$s</string>
+    <string name="toast_no_voice">No voice recognition facility present</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

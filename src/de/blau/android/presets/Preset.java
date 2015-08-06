@@ -451,6 +451,7 @@ public class Preset implements Serializable {
             		inOptionalSection = false;
             	} else if ("item".equals(name)) {
                     // Log.d("Preset","PresetItem: " + currentItem.toString());
+            		currentItem.buildSearchIndex();
             		currentItem = null;
               		listKey = null;
             		listValues = null;
@@ -731,13 +732,13 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 2L;
-		private String name;
+		private static final long serialVersionUID = 3L;
+		protected String name;
 		private String iconpath;
 		private String mapiconpath;
 		private transient Drawable icon;
 		private transient BitmapDrawable mapIcon;
-		private PresetGroup parent;
+		protected PresetGroup parent;
 		protected boolean appliesToWay;
 		protected boolean appliesToNode;
 		protected boolean appliesToClosedway;
@@ -910,6 +911,11 @@ public class Preset implements Serializable {
 	 * Represents a separator in a preset group
 	 */
 	public class PresetSeparator extends PresetElement {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public PresetSeparator(PresetGroup parent) {
 			super(parent, "", null);
 		}
@@ -928,6 +934,10 @@ public class Preset implements Serializable {
 	 */
 	public class PresetGroup extends PresetElement {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		/** Elements in this group */
 		private ArrayList<PresetElement> elements = new ArrayList<PresetElement>();
 		
@@ -997,6 +1007,11 @@ public class Preset implements Serializable {
 	
 	/** Represents a preset item (e.g. "footpath", "grocery store") */
 	public class PresetItem extends PresetElement {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, String> tags = new LinkedHashMap<String, String>();
 		
@@ -1049,6 +1064,12 @@ public class Preset implements Serializable {
 			}	
 			itemIndex = allItems.size();
 			allItems.add(this);
+		}
+
+		/**
+		 * build the search index
+		 */
+		void buildSearchIndex() {
 			addToSearchIndex(name);
 			if (parent != null) {
 				String parentName = parent.getName();
@@ -1061,13 +1082,33 @@ public class Preset implements Serializable {
 				addToSearchIndex(tags.get(k));
 			}
 		}
-
+		
+		/**
+		 * Add a name, any translation and the individual words to the index.
+		 * Currently we assume that all words are significant
+		 * @param name
+		 */
 		void addToSearchIndex(String name) {
 			// search support
-			searchIndex.add(PresetSearchIndexUtils.normalize(name),this);
-			if (po != null) { // and any translation
-				searchIndex.add(PresetSearchIndexUtils.normalize(po.t(name)),this);
+			String normalizedName = PresetSearchIndexUtils.normalize(name);
+			searchIndex.add(normalizedName,this);
+			String words[] = normalizedName.split(" ");
+			if (words.length > 1) {
+				for (String w:words) {
+					searchIndex.add(w,this);
+				}
 			}
+			if (po != null) { // and any translation
+				String normalizedTranslatedName = PresetSearchIndexUtils.normalize(po.t(name));
+				searchIndex.add(normalizedTranslatedName,this);
+				String translastedWords[] = normalizedName.split(" ");
+				if (translastedWords.length > 1) {
+					for (String w:translastedWords) {
+						searchIndex.add(w,this);
+					}
+				}
+			}
+
 		}
 		
 		/**

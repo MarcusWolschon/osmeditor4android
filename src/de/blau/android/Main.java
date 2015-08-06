@@ -138,6 +138,7 @@ import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.PresetSearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 import de.blau.android.voice.Commands;
@@ -1105,6 +1106,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			return true;
 			
 		case R.id.menu_transfer_bugs_clear:
+			if (Application.getBugStorage().hasChanges()) { // FIXME show a dialog and allow override
+				Toast.makeText(getApplicationContext(), R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
+				return true;
+			}
 			Application.getBugStorage().reset();
 			return true;
 			
@@ -1574,8 +1579,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 
 	public void performCurrentViewHttpLoad(boolean add) {
 		getLogic().downloadCurrent(add);
-		if (prefs.isOpenStreetBugsEnabled()) {
-			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), add, new PostAsyncActionHandler() {
+		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
+			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				@Override
 				public void execute() {
 					map.invalidate();
@@ -1842,6 +1847,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
         	new DialogInterface.OnClickListener() {
 	            @Override
 				public void onClick(DialogInterface arg0, int arg1) {
+	            	 // if we actually exit, stop the auto downloads, for now allow GPS tracks to carry on 
+	            	if (getTracker() != null) {
+	            		getTracker().stopAutoDownload();
+	            		getTracker().stopBugAutoDownload();
+	            	}
 	                Main.super.onBackPressed();
 	            }
         }).create().show();

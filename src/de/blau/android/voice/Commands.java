@@ -96,7 +96,7 @@ public class Commands extends SherlockActivity implements OnClickListener {
 			startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
 		} catch (Exception ex) {
 			Log.d(DEBUG_TAG,"Caught exception " + ex);
-			Toast.makeText(this,"No voice recognition facility present", Toast.LENGTH_LONG).show();
+			Toast.makeText(this,R.string.toast_no_voice, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -120,6 +120,9 @@ public class Commands extends SherlockActivity implements OnClickListener {
 				if (words.length > 1) {
 					String loc = words[0].toLowerCase(); 
 					if (getString(R.string.voice_left).equals(loc) || getString(R.string.voice_here).equals(loc) || getString(R.string.voice_right).equals(loc) ) {
+						if (!getString(R.string.voice_here).equals(loc)) {
+							Toast.makeText(this,"Sorry currently only the command \"" + getString(R.string.voice_here) + "\" is supported", Toast.LENGTH_LONG).show();
+						}
 						// 
 						String first = words[1].toLowerCase();
 						try {
@@ -147,8 +150,13 @@ public class Commands extends SherlockActivity implements OnClickListener {
 						if (names == null) {
 							// this should be done async if it takes too long
 							names = new Names(this);
+						}
+						if (namesSearchIndex == null) {
 							// names.dump2Log();
 							namesSearchIndex = names.getSearchIndex();
+							if (namesSearchIndex == null) {
+								return;
+							}
 						}
 						// sequential search in names
 						String input = "";
@@ -172,7 +180,6 @@ public class Commands extends SherlockActivity implements OnClickListener {
 				} else if (words.length == 1) {
 			
 				}
-				
 			}
 		}
 	}

@@ -126,7 +126,7 @@ public class PresetSearchResultsFragment extends SherlockDialogFragment {
 			v = results.getGroupView(getActivity(), presetClickHandler, null);
 
 			// v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-			v.setPadding(0, Preset.SPACING, 0, Preset.SPACING);
+			v.setPadding(0, Preset.SPACING, 0, 2*Preset.SPACING);
 			v.setId(R.id.recentPresets);
 	   	} else {
 			Log.d(DEBUG_TAG,"getResultsView problem");
