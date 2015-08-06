@@ -195,7 +195,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 		}
 		
-		presets = Main.getCurrentPresets();
+		presets = Application.getCurrentPresets(this);
 		
 		int screenSize = getResources().getConfiguration().screenLayout &
 		        Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -261,7 +261,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			if (presetFragment != null) {
 				ft.remove(presetFragment);
 			}
-			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags
+			presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags
 			ft.add(R.id.preset_row,presetFragment,"preset_fragment");
 			
 			ft.commit();
@@ -332,7 +332,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			if (!usePaneLayout) {
 				switch(position) {
 				case 0: 
-					presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags to determine presets
+					presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
 					return presetFragment;
 				case 1: 		
 					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
@@ -562,8 +562,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@Override
 	protected void onPause() {
 		running = false;
-		if (Main.getCurrentPresets() != null)  {
-			for (Preset p:Main.getCurrentPresets()) {
+		Preset[] presets = Application.getCurrentPresets(this);
+		if (presets != null)  {
+			for (Preset p:presets) {
 				if (p!=null) {
 					p.saveMRU();
 				}

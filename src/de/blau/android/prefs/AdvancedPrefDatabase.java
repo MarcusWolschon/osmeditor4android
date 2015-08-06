@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
@@ -203,7 +204,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("preset", preset);
 		db.update("apis", values, "id = ?", new String[] {currentAPI});
 		db.close();
-		Main.resetPreset();
+		Application.resetPresets();
 	}
 	
 	/** Changes the "show node icons" settings for the current API */
@@ -305,8 +306,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * Creates an object for the currently selected preset
-	 * @return a corresponding preset object, or null if no valid preset is selected or the preset cannot be created
+	 * Creates an object for the currently selected presets
+	 * @return an array of preset objects, or null if no valid preset is selected or the preset cannot be created
 	 */
 	public Preset[] getCurrentPresetObject() {
 		long start = System.currentTimeMillis();
@@ -475,7 +476,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.delete("presets", "id = ?", new String[] { id });
 		db.close();
 		removePresetDirectory(id);
-		if (id.equals(getCurrentAPI().preset)) Main.resetPreset();
+		if (id.equals(getCurrentAPI().preset)) Application.resetPresets();
 	}
 
 	/**

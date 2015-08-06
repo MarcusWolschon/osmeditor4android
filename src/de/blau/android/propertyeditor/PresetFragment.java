@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -15,16 +16,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.inputmethod.EditorInfo;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
+import de.blau.android.Application;
 import de.blau.android.ElementInfoFragment;
 import de.blau.android.HelpViewer;
+import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -35,6 +47,9 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.TagEditorFragment;
+import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.Search;
+import de.blau.android.util.PresetSearchIndexUtils;
 
 public class PresetFragment extends SherlockFragment implements PresetClickHandler {
 	
@@ -58,11 +73,10 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	
 	/**
      */
-    static public PresetFragment newInstance(Preset[] presets, OsmElement e) {
+    static public PresetFragment newInstance(OsmElement e) {
     	PresetFragment f = new PresetFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("presets", presets);
         args.putSerializable("element", e);
 
         f.setArguments(args);
@@ -99,7 +113,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 //    		return presetView;
 //    	}
         element = (OsmElement) getArguments().getSerializable("element");
-        Preset[] presets = (Preset[]) getArguments().getSerializable("presets");
+        Preset[] presets = Application.getCurrentPresets(getActivity());
         rootGroup = presets[0].getRootGroup();
 		if (presets.length > 1) {
 			// a bit of a hack ... this adds the elements from other presets to the root group of the first one
@@ -115,7 +129,42 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 			}
 		}	
 		currentGroup = rootGroup;
-		return getPresetView();
+		
+		//      	this.inflater = inflater;
+     	LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
+     	LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
+     	presetLayout.addView(getPresetView());
+		
+     	EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
+     	if (presetSearch != null) {
+     		presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+     			@Override
+     			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+     				Log.d(DEBUG_TAG,"action id " + actionId + " event " + event);
+     				if (actionId == EditorInfo.IME_ACTION_SEARCH 
+     						|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+     					// Search search = new Search(caller, searchItemFoundCallback);
+     					// search.find(v.getText().toString());
+     					PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10);
+     					FragmentManager fm = getChildFragmentManager();
+     					FragmentTransaction ft = fm.beginTransaction();
+     				    Fragment prev = fm.findFragmentByTag("fragment_preset_search_results");
+     				    if (prev != null) {
+     				        ft.remove(prev);
+     				    }
+     				    ft.commit();
+
+     			        PresetSearchResultsFragment searchResultDialog 
+     			        	= PresetSearchResultsFragment.newInstance(new ArrayList<PresetItem>(PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10)));
+     			        searchResultDialog.show(fm, "fragment_preset_search_results");
+     					return true;
+     				}
+     				return false;
+     			}
+     		});
+     	}
+     	
+		return presetPaneLayout;
     }
 	
 	private View getPresetView() {
@@ -125,7 +174,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		view.setId(123456);
 		return view;
 	}
-
+		
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);

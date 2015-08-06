@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
@@ -69,7 +70,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 	protected void onItemClicked(ListEditItem item) {
 		item.active = !item.active;
 		db.setPresetState(item.id, item.active);
-		Main.resetPreset();
+		Application.resetPresets();
 		// finish();
 	}
 
@@ -79,7 +80,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 		downloadPresetData(item);
 		if (!isAddingViaIntent()) {
 			db.setCurrentAPIPreset(item.id);
-			Main.resetPreset();
+			Application.resetPresets();
 		}
 	}
 
@@ -88,13 +89,13 @@ public class PresetEditorActivity extends URLListEditActivity {
 		db.setPresetInfo(item.id, item.name, item.value);
 		db.removePresetDirectory(item.id);
 		downloadPresetData(item);
-		Main.resetPreset();
+		Application.resetPresets();
 	}
 
 	@Override
 	protected void onItemDeleted(ListEditItem item) {
 		db.deletePreset(item.id);
-		Main.resetPreset();
+		Application.resetPresets();
 	}
 	
 	@Override

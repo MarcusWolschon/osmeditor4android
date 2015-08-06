@@ -1,6 +1,8 @@
 package de.blau.android.propertyeditor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.actionbarsherlock.app.SherlockFragment;
 
 import de.blau.android.Application;
@@ -24,22 +27,22 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 
-public class RecentPresetsFragment extends SherlockFragment {
+public class PresetSearchResultsFragment extends SherlockDialogFragment {
 
-	private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName();
+	private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
 	
     private OnPresetSelectedListener mListener;
     private OsmElement element;
-    private Preset[] presets;
+    private ArrayList<PresetItem> presets;
     private boolean enabled = true;
     
 	/**
      */
-    static public RecentPresetsFragment newInstance(OsmElement element) {
-    	RecentPresetsFragment f = new RecentPresetsFragment();
+    static public PresetSearchResultsFragment newInstance(ArrayList<PresetItem>searchResults) {
+    	PresetSearchResultsFragment f = new PresetSearchResultsFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("element", element);
+        args.putSerializable("searchResults", searchResults);
 
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -70,11 +73,10 @@ public class RecentPresetsFragment extends SherlockFragment {
     		Bundle savedInstanceState) {
     	LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.recentpresets_view,null);
    
-     	element = (OsmElement) getArguments().getSerializable("element");
+    	presets = (ArrayList<PresetItem>) getArguments().getSerializable("searchResults");
 
-    	presets = Application.getCurrentPresets(getActivity());
     	
-    	View v = getRecentPresetsView(presetsLayout, element, presets);
+    	View v = getResultsView(presetsLayout, presets);
     	if (v != null) {
         	presetsLayout.addView(v);
         	presetsLayout.setVisibility(View.VISIBLE);
@@ -82,58 +84,54 @@ public class RecentPresetsFragment extends SherlockFragment {
 		return presetsLayout;
     }
 
-	View getRecentPresetsView(final LinearLayout presetLayout, final OsmElement element, final Preset[] presets) {
+	View getResultsView(final LinearLayout presetLayout, final ArrayList<PresetItem> presets) {
 		View v = null;
-	   	if (presets != null && presets.length >= 1 && element != null) {
-    		// check if any of the presets has a MRU
-    		boolean mruFound = false;
-    		for (Preset p:presets) {
-    			if (p!=null) {
-    				if (p.hasMRU()) {
-    					mruFound = true;
-    					break;
-    				}
-    			}
-    		}
-    		if (mruFound) {
-    			final ElementType filterType = element.getType();
-    			final PresetClickHandler presetClickHandler = new PresetClickHandler() { 
-    					@Override
-    					public void onItemClick(PresetItem item) {
-    						if (!enabled) {
-    							return;
-    						}
-    						Log.d(DEBUG_TAG, "normal click");
-    						mListener.onPresetSelected(item);
-    						recreateRecentPresetView(presetLayout);
-    					}
+		if (presets != null && presets.size() >= 1 ) {
 
-    					@Override
-    					public boolean onItemLongClick(PresetItem item) {
-    						if (!enabled) {
-    							return true;
-    						}
-    						Log.d(DEBUG_TAG, "long click");
-    						removePresetFromMRU(presetLayout, item);
-    						return true;
-    					}
+			final PresetClickHandler presetClickHandler = new PresetClickHandler() { 
+				@Override
+				public void onItemClick(PresetItem item) {
+					if (!enabled) {
+						return;
+					}
+					Log.d(DEBUG_TAG, "normal click");
+					mListener.onPresetSelected(item);
+					dismiss();
+				}
 
-    					@Override
-    					public void onGroupClick(PresetGroup group) {
-    						// should not have groups
-    					}
-    				};
-    			v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType); //TODO this should really be a call of a static method, all MRUs get added to this view
+				@Override
+				public void onGroupClick(PresetGroup group) {
+					// should not have groups
+				}
 
-    			// v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-    			v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
-    			v.setId(R.id.recentPresets);
-    		} else {
-    			Log.d(DEBUG_TAG,"getRecentPresetsView no MRU found!");
-    		}	
+				@Override
+				public boolean onItemLongClick(PresetItem item) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
+			
+			Preset[] currentPresets = Application.getCurrentPresets(getActivity());
+			
+			if (!(currentPresets != null && currentPresets.length > 0)) {
+				return null;
+			}
+			
+			PresetGroup results = currentPresets[0].new PresetGroup(null, "search results", null); //arggghhhh
+			for (PresetItem p: presets) {
+				if (p != null ) {
+					results.addElement(p);
+				}
+			}
+			v = results.getGroupView(getActivity(), presetClickHandler, null);
+
+			// v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
+			v.setPadding(0, Preset.SPACING, 0, Preset.SPACING);
+			v.setId(R.id.recentPresets);
 	   	} else {
-			Log.d(DEBUG_TAG,"getRecentPresetsView problem with presets or element " + element);
+			Log.d(DEBUG_TAG,"getResultsView problem");
 		}	
+		getDialog().setTitle(R.string.search_results_title);
 	   	return v;
 	}
 
@@ -169,41 +167,6 @@ public class RecentPresetsFragment extends SherlockFragment {
     	Log.d(DEBUG_TAG, "onDestroy");
     }
 	    
-	/**
-	 * Removes a preset from the MRU
-	 * @param item the preset to apply
-	 */
-	private void removePresetFromMRU(LinearLayout presetLayout, PresetItem item) {
-		
-		//
-		Preset[] presets = Application.getCurrentPresets(getActivity());
-		if (presets != null) {
-			for (Preset p:presets) {
-				if (p.contains(item)) {
-					p.removeRecentlyUsed(item);
-					break;
-				}
-			}
-		}
-		recreateRecentPresetView(presetLayout);
-	}
-	
-	public void recreateRecentPresetView() {
-		recreateRecentPresetView((LinearLayout) getOurView());
-	}
-	
-	public void recreateRecentPresetView(LinearLayout presetLayout) {
-		Log.d(DEBUG_TAG,"recreateRecentPresetView");
-		presetLayout.removeAllViews();
-		View v = getRecentPresetsView(presetLayout, element, presets);
-		if (v != null) {
-			presetLayout.addView(v);
-			presetLayout.setVisibility(View.VISIBLE);
-		} else {
-			
-		}
-		presetLayout.invalidate();
-	}
     	
 	/**
 	 * Return the view we have our rows in and work around some android craziness
@@ -229,13 +192,5 @@ public class RecentPresetsFragment extends SherlockFragment {
 			Log.d(DEBUG_TAG,"got null view in getView");
 		}
 		return null;
-	}
-	
-	protected void enable() {
-		enabled = true;
-	}
-	
-	protected void disable() {
-		enabled = false;
 	}
 }

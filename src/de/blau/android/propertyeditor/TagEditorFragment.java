@@ -470,6 +470,7 @@ public class TagEditorFragment extends SherlockFragment {
 			} else if (isPlaceName) {
 				adapter = getPlaceNameAutocompleteAdapter(row.tagValues != null && row.tagValues.size() > 1 ? row.tagValues : null);
 			} else if (key.equals(Tags.KEY_NAME) && (names != null) && !noNameSuggestions) {
+				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
 				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(getKeyValueMapSingle(rowLayout,true))); // FIXME
 				if (values != null && !values.isEmpty()) {
 					ArrayList<NameAndTags> result = values;
@@ -502,7 +503,7 @@ public class TagEditorFragment extends SherlockFragment {
 					values = autocompletePresetItem.getAutocompleteValues(key);
 				} 
 				if ((values == null || values.isEmpty()) && ((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
-					Log.d(DEBUG_TAG,"generate suggestions for >" + key + "< from presets"); // only do this if there is no other soure of suggestions
+					Log.d(DEBUG_TAG,"generate suggestions for >" + key + "< from presets"); // only do this if there is no other source of suggestions
 					values = Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key);
 				}
 				if (values != null && !values.isEmpty()) {
@@ -1078,7 +1079,7 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		//
 		if (addToMRU) {
-			Preset[] presets = Main.getCurrentPresets();
+			Preset[] presets = Application.getCurrentPresets(getActivity());
 			if (presets != null) {
 				for (Preset p:presets) {
 					if (p.contains(item)) {

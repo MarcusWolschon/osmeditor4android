@@ -4,8 +4,13 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
+import android.content.Context;
 import de.blau.android.osb.BugStorage;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.MultiHashMap;
 
 @ReportsCrashes(
 	formKey = "",
@@ -22,6 +27,11 @@ public class Application extends android.app.Application {
 	static StorageDelegator delegator = new StorageDelegator();
 	static BugStorage bugStorage = new BugStorage();
 	public static String userAgent;
+	/**
+	 * The currently selected presets
+	 */
+	private static Preset[] currentPresets;
+	private static MultiHashMap<String, PresetItem> presetSearchIndex = null;
 	
 	@Override
 	public void onCreate() {
@@ -40,4 +50,29 @@ public class Application extends android.app.Application {
 	public static BugStorage getBugStorage() {
 		return bugStorage;
 	}
+
+	public static Preset[] getCurrentPresets(Context ctx) {
+		if (currentPresets == null) {
+			Preferences prefs = new Preferences(ctx);
+			currentPresets = prefs.getPreset();
+		}
+		return currentPresets;
+	}
+	
+	/**
+	 * Resets the current presets, causing them to be re-parsed
+	 */
+	public static void resetPresets() {
+		currentPresets = null; 
+		presetSearchIndex = null;
+	}
+	
+	public static MultiHashMap<String, PresetItem> getPresetSearchIndex(Context ctx) {
+		if (presetSearchIndex == null) {
+			presetSearchIndex = Preset.getSearchIndex(getCurrentPresets(ctx));
+		}
+		return presetSearchIndex;
+	}
+	
+	
 }

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Số nhà (addr:housenumber)</item>
+    <item>Đường (addr:street)</item>
+    <item>Mã bưu chính (addr:postcode)</item>
+    <item>Thành phố/thị xã (addr:city)</item>
+    <item>Quốc gia (addr:country)</item>
+    <item>Địa chỉ đầy đủ (addr:full)</item>
+    <item>Địa điểm (addr:place)</item>
+    <item>Làng/thôn (addr:hamlet)</item>
+    <item>Khu phố (addr:suburb)</item>
+    <item>Phường/xã/thị trấn (addr:subdistrict)</item>
+    <item>Quận/thị xã/huyện (addr:district)</item>
+    <item>Tỉnh (addr:province)</item>
+    <item>Tiểu bang (addr:state)</item>
+    <item>Dãy phòng (addr:flats)</item>
+    <item>Cửa (addr:door)</item>
+    <item>Phòng (addr:unit)</item>
+  </string-array>
+</resources>

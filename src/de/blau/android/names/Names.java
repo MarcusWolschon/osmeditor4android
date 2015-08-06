@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -15,6 +16,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.PresetSearchIndexUtils;
 import de.blau.android.util.jsonreader.JsonReader;
 
 
@@ -247,8 +249,8 @@ public class Names {
 		}
 		
 		TreeSet<String> seen = new TreeSet<String>();
-		seen.add(origTagKey);
 		// check categories for similar tags and add names from them too
+		seen.add(origTagKey); // skip stuff we've already added
 		for (String category:categories.getKeys()) {    	// loop over categories
 			Set<String>set = categories.get(category);
 			if (set.contains(origTagKey)) {
@@ -283,6 +285,15 @@ public class Names {
 			}
 			if (bestTags != null)
 				result.add(new NameAndTags(n, bestTags));
+		}
+		return result;
+	}
+	
+	public Map<String,NameAndTags> getSearchIndex() {
+		HashMap<String,NameAndTags> result = new HashMap<String,NameAndTags>();
+		Collection<NameAndTags> names = getNames();
+		for (NameAndTags nat:names) {
+			result.put(PresetSearchIndexUtils.normalize(nat.getName()), nat);
 		}
 		return result;
 	}

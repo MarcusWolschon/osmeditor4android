@@ -295,7 +295,7 @@ public class Map extends View implements IMapView {
 		tmpClickableElements = Main.getLogic().getClickableElements();
 		tmpDrawingSelectedRelationWays = Main.getLogic().getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.getLogic().getSelectedRelationNodes();
-		tmpPresets = Main.getCurrentPresets();
+		tmpPresets = Application.getCurrentPresets(Application.mainActivity);
 		handles = null;
 		
 		// Draw our Overlays.

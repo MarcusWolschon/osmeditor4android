@@ -1,6 +1,7 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -22,6 +24,7 @@ import android.content.res.Resources.NotFoundException;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -49,16 +52,23 @@ import de.blau.android.R;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osb.BugFragment;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.PresetSearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -393,6 +403,12 @@ public class EasyEditManager {
 		return result;
 	}
 	
+	public void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		if (currentActionModeCallback instanceof LongClickActionModeCallback) {
+			((LongClickActionModeCallback)currentActionModeCallback).handleActivityResult(requestCode, resultCode, data);
+		}
+	}
+	
 	/**
 	 * Base class for ActionMode callbacks inside {@link EasyEditManager}.
 	 * Derived classes should call {@link #onCreateActionMode(ActionMode, Menu)} and {@link #onDestroyActionMode(ActionMode)}.
@@ -498,6 +514,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_NEWNODE_GPS = 4;
 		private static final int MENUITEM_NEWNODE_ADDRESS = 5;
 		private static final int MENUITEM_NEWNODE_PRESET = 6;
+		private static final int MENUITEM_NEWNODE_VOICE = 7;
 		private float startX;
 		private float startY;
 		private int startLon;
@@ -534,6 +551,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, "Voice").setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
@@ -636,6 +654,19 @@ public class EasyEditManager {
 					e.printStackTrace();
 				}
 				return true;
+			case MENUITEM_NEWNODE_VOICE:
+				logic.hideCrosshairs();
+				logic.setSelectedNode(null);
+				Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+				intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+				try {
+					main.startActivityForResult(intent, Main.VOICE_RECOGNITION_REQUEST_CODE);
+				} catch (Exception ex) {
+					Log.d("EasyEdit","Caught exception " + ex);
+					Toast.makeText(main,"No voice recognition facility present", Toast.LENGTH_LONG).show();
+					logic.showCrosshairs(startX, startY);
+				}
+				return true;
 			default:
 				Log.e("LongClickActionModeCallback", "Unknown menu item");
 				break;
@@ -650,6 +681,108 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setSelectedNode(null);
 			super.onDestroyActionMode(mode);
+		}
+		
+		/**
+		 * FIXME This is still very hackish with lots of code duplication
+		 * @param requestCode
+		 * @param resultCode
+		 * @param data
+		 */
+		void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
+			ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+			// 
+			for (String v:matches) {
+				String[] words = v.split("\\s+", 2);
+				if (words.length > 0) {
+					// 
+					String first = words[0].toLowerCase();
+					try {
+						int number = Integer.parseInt(first);
+						// worked if there is a further word(s) simply add it/them
+						Toast.makeText(main,+ number  + (words.length == 2?words[1]:""), Toast.LENGTH_LONG).show();
+						Node node = logic.performAddNode(startLon/1E7D, startLat/1E7D);
+						if (node != null) {
+							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
+							tags.put("source:original_text", v);
+							logic.setTags(Node.NAME, node.getOsmId(), tags);
+							main.startActionMode(new NodeSelectionActionModeCallback(node));
+							return;
+						}
+					} catch (Exception ex) {
+						// ok wasn't a number
+					}
+
+					List<PresetItem> presetItems = PresetSearchIndexUtils.search(main, first.toString(),ElementType.NODE,1,1);
+					
+					if (presetItems != null && presetItems.size()==1) {		
+						Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), words.length == 2? words[1]:null, presetItems.get(9), logic, v);
+						if (node != null) {
+							main.startActionMode(new NodeSelectionActionModeCallback(node));
+							return;
+						} 
+					}
+				
+					Names names = null;
+					Map<String, NameAndTags> namesSearchIndex = null;;
+					if (names == null) {
+						// this should be done async if it takes too long
+						names = new Names(main);
+						// names.dump2Log();
+						namesSearchIndex = names.getSearchIndex();
+					}
+					// sequential search in names
+					String input = "";
+					for (int i=0;i<words.length;i++) {
+						input = input + words[i].toLowerCase() + (i<words.length?" ":"");
+					}
+					input = PresetSearchIndexUtils.normalize(input);
+					for (String n:namesSearchIndex.keySet()) {
+						if (input.equals(n)) {
+							HashMap<String, String> map = new HashMap<String, String>();
+							NameAndTags nt = namesSearchIndex.get(n);
+							map.putAll(nt.getTags());
+							PresetItem pi = Preset.findBestMatch(Application.getCurrentPresets(main), map);
+							if (pi != null) {
+								Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
+								if (node != null) {
+									// set tags from name suggestions
+									Map<String,String> tags = new TreeMap<String, String>(node.getTags());
+									for (String k:map.keySet()) {
+										tags.put(k, map.get(k));
+									}
+									Application.getDelegator().setTags(node,tags); // note doesn't create a new undo checkpoint
+									main.startActionMode(new NodeSelectionActionModeCallback(node));
+									return;
+								}
+							}
+						}
+					}
+				}
+			}
+			logic.showCrosshairs(startX, startY); // re-show the cross hairs nothing found/something went wrong
+		}
+		
+		Node addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
+			if (node != null) {
+				Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
+				if (node != null) {
+					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+					for (Entry<String, String> tag : pi.getTags().entrySet()) {
+						tags.put(tag.getKey(), tag.getValue());
+					}
+					if (name != null) {
+						tags.put(Tags.KEY_NAME, name);
+					}
+					tags.put("source:original_text", original);
+					logic.setTags(Node.NAME, node.getOsmId(), tags);
+					logic.setSelectedNode(node);
+					return node;
+				}
+			}
+			return null;
 		}
 	}
 	

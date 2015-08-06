@@ -1,8 +1,12 @@
 package de.blau.android.voice;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import android.content.Intent;
@@ -23,14 +27,18 @@ import com.actionbarsherlock.app.SherlockActivity;
 
 import de.blau.android.Application;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.PresetSearchIndexUtils;
 
 /**
  * Support for simple voice commands, format
@@ -48,6 +56,10 @@ public class Commands extends SherlockActivity implements OnClickListener {
 	private ListView mList;
 	private ImageButton speakButton;
 	private Preset[] presets;
+	
+	private static Names names = null;
+	MultiHashMap<String, PresetItem> presetSeachIndex = Application.getPresetSearchIndex(this);
+	Map<String,NameAndTags> namesSearchIndex = null;
 	
 	public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
@@ -74,13 +86,12 @@ public class Commands extends SherlockActivity implements OnClickListener {
 		speakButton = (ImageButton) findViewById(R.id.btn_speak);
 		speakButton.setOnClickListener(this);
 		mList = (ListView) findViewById(R.id.list);
-		presets = Main.getCurrentPresets();
+		presets = Application.getCurrentPresets(this);
 	}
 
 	public void startVoiceRecognitionActivity() {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-		intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Map!");
 		try {
 			startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
 		} catch (Exception ex) {
@@ -126,37 +137,67 @@ public class Commands extends SherlockActivity implements OnClickListener {
 						} catch (Exception ex) {
 							// ok wasn't a number
 						}
-						// basic idea is to take the input and search in the presets, this is a hackish implementation for demo only
-						String[] majorKeys = {"amenity","shop","man_made","highway","natural"};
-						for (String major:majorKeys) {
-							HashMap<String, String> map = new HashMap<String, String>();
-							map.put(major, first);
-							PresetItem pi = Preset.findBestMatch(presets, map); 
-							if (pi != null) {
-								Toast.makeText(this,loc + " "+ pi.getName()  + (words.length == 3? " name: " + words[2]:""), Toast.LENGTH_LONG).show();
-								Node node = createNode(loc);
-								if (node != null) {
-									TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-									for (Entry<String, String> tag : pi.getTags().entrySet()) {
-										tags.put(tag.getKey(), tag.getValue());
-									}
-									if (words.length == 3) {
-										tags.put(Tags.KEY_NAME, words[2]);
-									}
-									tags.put("source:original_text", v);
-									logic.setTags(Node.NAME, node.getOsmId(), tags);
-								}
-							}
+						
+						List<PresetItem> presetItems = PresetSearchIndexUtils.search(this, first.toString(),ElementType.NODE,1,1);
+						if (presetItems != null && presetItems.size()==1) {
+							addNode(createNode(loc), words.length == 3? words[2]:null, presetItems.get(0), logic, v);
 							return;
 						}
+						
+						if (names == null) {
+							// this should be done async if it takes too long
+							names = new Names(this);
+							// names.dump2Log();
+							namesSearchIndex = names.getSearchIndex();
+						}
+						// sequential search in names
+						String input = "";
+						for (int i=1;i<words.length;i++) {
+							input = input + words[i].toLowerCase() + (i<words.length?" ":"");
+						}
+						input = PresetSearchIndexUtils.normalize(input);
+						for (String n:namesSearchIndex.keySet()) {
+							if (input.equals(n)) {
+								HashMap<String, String> map = new HashMap<String, String>();
+								NameAndTags nt = namesSearchIndex.get(n);
+								map.putAll(nt.getTags());
+								PresetItem pi = Preset.findBestMatch(presets, map);
+								if (pi != null) {
+									addNode(createNode(loc), nt.getName(), pi, logic, v);
+									return;
+								}
+							}
+						}
 					}
+				} else if (words.length == 1) {
+			
 				}
+				
 			}
 		}
 	}
 	
+	boolean addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
+		if (node != null) {
+			Toast.makeText(this, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
+			if (node != null) {
+				TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+				for (Entry<String, String> tag : pi.getTags().entrySet()) {
+					tags.put(tag.getKey(), tag.getValue());
+				}
+				if (name != null) {
+					tags.put(Tags.KEY_NAME, name);
+				}
+				tags.put("source:original_text", original);
+				logic.setTags(Node.NAME, node.getOsmId(), tags);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
-	 * Create a new node at the current GPS pos
+	 * Create a new node at the current GPS pos 
 	 * @return
 	 */
 	Node createNode(String loc) {

@@ -2,6 +2,7 @@ package de.blau.android.presets;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,6 +41,7 @@ import org.xml.sax.HandlerBase;
 import org.xml.sax.SAXException;
 
 import ch.poole.poparser.Po;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -71,6 +74,7 @@ import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.resources.Profile;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.PresetSearchIndexUtils;
 import de.blau.android.views.WrappingLayout;
 
 /**
@@ -151,6 +155,9 @@ public class Preset implements Serializable {
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
 	protected final MultiHashMap<String, String> autosuggestRelations = new MultiHashMap<String, String>(true);
 	
+	/** for search support */
+	protected final MultiHashMap<String, PresetItem> searchIndex = new MultiHashMap<String, PresetItem>();
+	
 	/** store current combo or multiselect key */
 	private String listKey = null;
 	private ArrayList<String> listValues = null;
@@ -226,9 +233,24 @@ public class Preset implements Serializable {
 			if (indir != null) {
 				File[] list = indir.listFiles(new PresetFilter());
 				if (list != null && list.length > 0) { // simply use the first XML file found
-					Log.i("Preset", "Preset file name " + list[0].getName());
-					fileStream = new FileInputStream(new File(directory, list[0].getName()));
-					// po = new Po();
+					String presetFilename = list[0].getName();
+					Log.i("Preset", "Preset file name " + presetFilename);
+					fileStream = new FileInputStream(new File(directory, presetFilename));
+					// get translations
+					presetFilename = presetFilename.substring(0, presetFilename.length()-4);
+					InputStream poFileStream = null;
+					try {
+						poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault()+".po"));
+					} catch (FileNotFoundException fnfe) {
+						try {
+							poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault().getLanguage()+".po"));
+						} catch (FileNotFoundException fnfe2) {
+							// no translations
+						}
+					}
+					if (poFileStream != null) {
+						po = new Po(poFileStream);
+					}
 				}
 			} 			
 		}		
@@ -247,6 +269,15 @@ public class Preset implements Serializable {
         //  - even if you add a 1 MB comment after the document-closing tag.
         
         mru = initMRU(directory, hashValue);
+        
+//        for (String k:searchIndex.getKeys()) {
+//        	String l = k;
+//        	for (PresetItem pi:searchIndex.get(k)) {
+//        		l = l + " " + pi.getName();
+//        	}
+//        	Log.d("SearchIndex",l);
+//        }
+        Log.d("SearchIndex","length: " + searchIndex.getKeys().size());
 	}
 	
 	PresetIconManager getIconManager(Context ctx) {
@@ -952,7 +983,7 @@ public class Preset implements Serializable {
 			wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.transparent)); // make transparent
 			wrappingLayout.setHorizontalSpacing((int)(SPACING*density));
 			wrappingLayout.setVerticalSpacing((int)(SPACING*density));
-			ArrayList<PresetElement> filteredElements = filterElements(elements, type);
+			ArrayList<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
 			ArrayList<View> childViews = new ArrayList<View>();
 			for (PresetElement element : filteredElements) {
 				childViews.add(element.getView(ctx, handler));
@@ -1018,8 +1049,27 @@ public class Preset implements Serializable {
 			}	
 			itemIndex = allItems.size();
 			allItems.add(this);
+			addToSearchIndex(name);
+			if (parent != null) {
+				String parentName = parent.getName();
+				if (parentName != null && parentName.length() > 0) {
+					addToSearchIndex(parentName);
+				}
+			}
+			for (String k:tags.keySet()) {
+				addToSearchIndex(k);
+				addToSearchIndex(tags.get(k));
+			}
 		}
 
+		void addToSearchIndex(String name) {
+			// search support
+			searchIndex.add(PresetSearchIndexUtils.normalize(name),this);
+			if (po != null) { // and any translation
+				searchIndex.add(PresetSearchIndexUtils.normalize(po.t(name)),this);
+			}
+		}
+		
 		/**
 		 * Adds a fixed tag to the item, registers the item in the tagItems map and populates autosuggest.
 		 * @param key key name of the tag
@@ -1345,6 +1395,14 @@ public class Preset implements Serializable {
 				default: return Collections.emptyList();
 				}
 			}
+		}
+		return result;
+	}
+	
+	static public MultiHashMap<String, PresetItem> getSearchIndex(Preset[] presets) {
+		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
+		for (Preset p:presets) {
+			result.addAll(p.searchIndex);
 		}
 		return result;
 	}

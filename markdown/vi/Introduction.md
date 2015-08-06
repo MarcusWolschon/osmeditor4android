@@ -1,6 +1,6 @@
 # Giới thiệu về Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Android 2.3 to 5.1. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
+Vespucci là một chương trình sửa đổi OpenStreetMap có chức năng đầy đủ, kể cả các tác vụ đuợc hỗ trợ bởi các chương trình sửa đổi dành cho máy tính để bàn. Nó đã được kiểm thử thành công trong Android từ 2.3 cho tới 5.1. Xin cẩn thận: tuy các thiết bị di động có khả năng gần như bằng với các máy tính để bàn, các thiết bị di động, nhất là các thiết bị cũ hơn, có bộ nhớ hạn chế và chạy tương đối chậm chạp. Bạn nên nghĩ đến điều này trong việc sử dụng Vespucci và chẳng hạn cố gắng sửa đổi những khu vực có kích thước hợp lý. 
 
 ## Lần sử dụng đầu tiên
 
@@ -14,7 +14,7 @@ Tùy theo kích thước màn hình và thế hệ của thiết bị, các tác
 
 ### Tải về dữ liệu OSM
 
-Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
+Chọn hình tượng truyền ![](../images/menu_transfer.png) hoặc mục “Truyền” trong trình đơn. Bảy mục sẽ xuất hiện:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -60,19 +60,19 @@ You can copy or cut selected nodes and ways, and then paste once or multiple tim
 
 #### Ghi địa chỉ một cách tiện lợi
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
+Vespucci có chức năng “thêm thẻ địa chỉ” để làm tiện việc lấy các địa chỉ. Để sử dụng chức năng này: 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a **entrance=yes"" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* nhấn giữ: Vespucci sẽ đặt một nốt vào vị trí, cố gắng đoán ra số nhà, và thêm các thẻ địa chỉ mà bạn đã sử dụng nhiều gần đây. Nếu nốt nằm trên đường nét tòa nhà, thẻ **entrance=yes"" sẽ được tự động thêm vào nốt. Trình sửa đổi thẻ sẽ mở lên để cho bạn chỉnh lại đối tượng.
+* chọn nốt hoặc lối: Vespucci sẽ thêm thẻ địa chỉ như bên trên và mở trình sửa đổi thẻ.
+* mở trình sửa đổi thẻ.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+Để đoán ra số nhà, thường phải có mỗi bên đường là ít nhất hai số nhà, càng thêm số nhà càng chính xác hơn.
 
-Consider using this with the "Auto-download" mode.  
+Hãy thử sử dụng chức năng này trong chế độ “Tự động tải về”.  
 
 #### Thêm hạn chế rẽ
 
-Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
+Vespucci cho phép ghi hạn chế rẽ một cách nhanh nhẹn. Lưu ý: nếu cần cắt đôi một lối được hạn chế, bạn cần phải cắt đôi nó trước khi ghi hạn chế.
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
 * select "Add restriction" from the menu
@@ -84,7 +84,7 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
  
 When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### Saving Your Changes
+### Lưu các thay đổi của bạn
 
 *(cần kết nối mạng)*
 
@@ -136,7 +136,7 @@ Lưu ý:
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
 * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
-## Reporting Problems
+## Báo cáo lỗi
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 

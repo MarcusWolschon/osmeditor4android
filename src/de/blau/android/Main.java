@@ -10,9 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.acra.ACRA;
 
@@ -43,6 +46,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -67,6 +71,7 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -97,6 +102,8 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.BugFragment;
 import de.blau.android.osb.Note;
@@ -107,6 +114,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track.TrackPoint;
@@ -117,6 +125,7 @@ import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.propertyeditor.TagEditorFragment;
@@ -127,6 +136,7 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.PresetSearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -173,6 +183,11 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * Requests an activity-result.
 	 */
 	public static final int REQUEST_IMAGE_CAPTURE = 5;
+	
+	/**
+	 * Requests voice recognition.
+	 */
+	public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 	
 	private static final String EASY_TAG = "EASY";
 	private static final String TAG_TAG = "TAG";
@@ -241,11 +256,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * If may be null or not reflect the current state if accessed from outside this activity.
 	 */
 	private static Logic logic;
-	
-	/**
-	 * The currently selected preset
-	 */
-	private static Preset[] currentPresets;
 
 	/**
 	 * Flag indicating whether the map will be re-downloaded once the activity resumes
@@ -280,8 +290,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	public UndoListener undoListener;
 	
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
-
-	private Location previousLocation = null;
 
 	private Location lastLocation = null;
 
@@ -516,9 +524,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			getLogic().loadEditingState();
 			processIntents();
 			map.invalidate();
-		}
-		if (currentPresets == null) {
-			currentPresets = prefs.getPreset();
 		}
 		
 		getLogic().updateProfile();
@@ -1411,7 +1416,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 			} else {
 				Log.e("Main","imageFile == null");
 			}
-			
+		} else if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
+			if (easyEditManager.isProcessingAction()) {
+				easyEditManager.handleActivityResult(requestCode, resultCode, data);
+			}
 		}
 	}
 
@@ -2570,20 +2578,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	public static void prepareRedownload() {
 		redownloadOnResume = true;
-	}
-
-	/**
-	 * @return the currentPreset
-	 */
-	public static Preset[] getCurrentPresets() {
-		return currentPresets;
-	}
-
-	/**
-	 * Resets the current preset, causing it to be re-parsed
-	 */
-	public static void resetPreset() {
-		currentPresets = null; 
 	}
 	
 	public String getBaseURL() {
