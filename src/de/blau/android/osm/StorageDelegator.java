@@ -1805,16 +1805,16 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	//TODO make a shallow copy of the list instead of bookkeeping here
+	//
 	private void uploadDeletedElements(final Server server, final List<? extends OsmElement> elements)
 			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
-		for (int i = 0, size = elements.size(); i < size; ++i) {
-			OsmElement element = elements.get(i);
+		Log.d("StorageDelegator", "uploadDeletedElements: number of elements " + elements.size() );
+		List<? extends OsmElement> elementsToUpload = new ArrayList<OsmElement>(elements);
+		for (OsmElement element:elementsToUpload) {
 			if (element.getState() == OsmElement.STATE_DELETED) {
 				server.deleteElement(element);
-				if (apiStorage.removeElement(element)) {
-					--i;
-					--size;
+				if (!apiStorage.removeElement(element)) {
+					Log.e(DEBUG_TAG, "Deleted " + element + " was already removed from local storage!");
 				}
 				Log.w(DEBUG_TAG, element + " deleted in API");
 				dirty = true;
@@ -1822,22 +1822,19 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	//TODO make a shallow copy of the list instead of bookkeeping here
 	private void uploadCreatedOrModifiedElements(final Server server, final List<? extends OsmElement> elements)
 			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 		Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: number of elements " + elements.size() );
-		for (int i = 0, size = elements.size(); i < size; ++i) {
-			OsmElement element = elements.get(i);
+		List<? extends OsmElement> elementsToUpload = new ArrayList<OsmElement>(elements);
+		for (OsmElement element:elementsToUpload) {
 			Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: element added for upload, id " + element.osmId);
 			switch (element.getState()) {
 			case OsmElement.STATE_CREATED:
 				long osmId = server.createElement(element);
 				if (osmId > 0) {
 					element.setOsmId(osmId);
-					if (apiStorage.removeElement(element)) {
-						//
-						--i;
-						--size;
+					if (!apiStorage.removeElement(element)) {
+						Log.e(DEBUG_TAG, "New " + element + " was already removed from local storage!");
 					}
 					Log.w(DEBUG_TAG, "New " + element + " added to API");
 					element.setState(OsmElement.STATE_UNCHANGED);
@@ -1849,10 +1846,8 @@ public class StorageDelegator implements Serializable, Exportable {
 				long osmVersion = server.updateElement(element);
 				if (osmVersion > 0) {
 					element.osmVersion = osmVersion;
-					if (apiStorage.removeElement(element)) {
-						//
-						--i;
-						--size;
+					if (!apiStorage.removeElement(element)) {
+						Log.e(DEBUG_TAG, "Updated " + element + " was already removed from local storage!");
 					}
 					Log.w(DEBUG_TAG, element + " updated in API");
 					element.setState(OsmElement.STATE_UNCHANGED);
