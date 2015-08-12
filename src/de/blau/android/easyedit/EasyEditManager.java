@@ -409,6 +409,14 @@ public class EasyEditManager {
 		}
 	}
 	
+
+	public boolean processShortcut(Character c) {
+		if (currentActionModeCallback != null) {
+			return currentActionModeCallback.processShortcut(c);
+		}
+		return false;
+	}
+	
 	/**
 	 * Base class for ActionMode callbacks inside {@link EasyEditManager}.
 	 * Derived classes should call {@link #onCreateActionMode(ActionMode, Menu)} and {@link #onDestroyActionMode(ActionMode)}.
@@ -505,6 +513,10 @@ public class EasyEditManager {
 		public boolean onBackPressed() {
 			return false;
 		}
+		
+		public boolean processShortcut(Character c) {
+			return false;
+		}
 	}
 	
 	private class LongClickActionModeCallback extends EasyEditActionModeCallback {
@@ -557,14 +569,14 @@ public class EasyEditManager {
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			if (!logic.clipboardIsEmpty()) {
-				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_paste));
+				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_paste));
 			}
 			// check if GPS is enabled
 			locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps));
 			}
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -784,6 +796,18 @@ public class EasyEditManager {
 			}
 			return null;
 		}
+		
+		public boolean processShortcut(Character c) {
+			if (c == Util.getShortCut(main, R.string.shortcut_paste)) {
+				logic.pasteFromClipboard(startX, startY);
+				logic.hideCrosshairs();
+				if (currentActionMode != null) {
+					currentActionMode.finish();
+				}
+				return true;
+			}
+			return false;
+		}
 	}
 	
 	/**
@@ -897,9 +921,9 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
+			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
 			menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -1031,6 +1055,7 @@ public class EasyEditManager {
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
 				undo.setShowAsAction(showAlways());
+				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
 			View undoView = undo.getActionView();
 			if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
@@ -1042,20 +1067,20 @@ public class EasyEditManager {
 			undoView.setOnClickListener(undoListener);
 			undoView.setOnLongClickListener(undoListener);
 			
-			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_copy)).setShowAsAction(showAlways());
-				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_copy)).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
 			}
 			menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_multi_select)).setShowAsAction(showAlways());;;
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation)).setShowAsAction(showAlways());;
 			if (element.getOsmId() > 0) {
 				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history));
 			}
-			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));;
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));;
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -1112,6 +1137,23 @@ public class EasyEditManager {
 			}
 			super.onDestroyActionMode(mode);
 		}
+		
+		public boolean processShortcut(Character c) {
+			if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
+				logic.copyToClipboard(element); currentActionMode.finish();
+				return true;
+			} else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
+				logic.cutToClipboard(element); currentActionMode.finish();
+				return true;
+			} else if (c == Util.getShortCut(main, R.string.shortcut_info)) {
+				main.showElementInfo(element); 
+				return true;
+			}  else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
+				main.performTagEdit(element, null, false, false);
+				return true;
+			}
+			return false;
+		}
 	}
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
@@ -1151,7 +1193,7 @@ public class EasyEditManager {
 			}
 			joinableElement = logic.findJoinableElement((Node)element);
 			if (joinableElement != null) {
-				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge)).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge)).setShowAsAction(showAlways());
 			}
 			int wayMembershipCount = logic.getWaysForNode((Node)element).size();
 			if (wayMembershipCount > 1) {
@@ -1901,7 +1943,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(true); // can add relations
 
-			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
+			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
 			revert = menu.findItem(MENUITEM_REVERT);
 			revert.setVisible(false);
 			setClickableElements();
@@ -2080,6 +2122,7 @@ public class EasyEditManager {
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
 				undo.setShowAsAction(showAlways());
+				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
 			View undoView = undo.getActionView();
 			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
@@ -2104,7 +2147,7 @@ public class EasyEditManager {
 //				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
 //			}
 			
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		

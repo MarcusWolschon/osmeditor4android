@@ -18,6 +18,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class MemberSelectedActionModeCallback implements Callback {
 	
@@ -47,7 +48,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
 		menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_delete));
-		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
+		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
 		return true;
 	}
 

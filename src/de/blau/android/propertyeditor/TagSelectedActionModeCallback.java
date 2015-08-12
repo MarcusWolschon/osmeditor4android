@@ -23,6 +23,7 @@ import de.blau.android.propertyeditor.TagEditorFragment.KeyValueHandler;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class TagSelectedActionModeCallback implements Callback {
 	
@@ -54,9 +55,9 @@ public class TagSelectedActionModeCallback implements Callback {
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
 		menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_delete));
-		menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy));
-		menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_cut));
-		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
+		menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy));
+		menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_cut));
+		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
 		return true;
 	}
 

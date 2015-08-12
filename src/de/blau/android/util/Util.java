@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 
+import android.content.Context;
+import android.util.Log;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
@@ -77,5 +79,19 @@ public class Util {
 			}
 		}
 	}
-	
+
+	/**
+	 * Safely return a short cut (aka one character) from the string resources
+	 * @param ctx
+	 * @param id
+	 * @return character or 0 if no short cut can be found
+	 */
+	static public char getShortCut(Context ctx,int id) {
+		String s = ctx.getString(id);
+		if (s != null && s.length() >= 1) {
+			return s.charAt(0);
+		} else {
+			return 0;
+		}
+	}
 }

@@ -57,6 +57,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ContextThemeWrapper;
 import android.view.InputDevice;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -138,6 +139,7 @@ import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.PresetSearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -2460,6 +2462,7 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 */
 	public class MapKeyListener implements OnKeyListener {
 
+		@SuppressLint("NewApi")
 		@Override
 		public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
 			switch (event.getAction()) {
@@ -2475,39 +2478,49 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				break;
 			case KeyEvent.ACTION_DOWN:
 				if (!v.onKeyDown(keyCode, event)) {
+					Log.d("MapKeyListner",">" + KeyEvent.keyCodeToString(keyCode) + " "  + event.toString());
 					switch (keyCode) {
 					case KeyEvent.KEYCODE_DPAD_CENTER:
 						setFollowGPS(true);
 						return true;
-						
 					case KeyEvent.KEYCODE_DPAD_UP:
 						translate(Logic.CursorPaddirection.DIRECTION_UP);
 						return true;
-						
 					case KeyEvent.KEYCODE_DPAD_DOWN:
 						translate(Logic.CursorPaddirection.DIRECTION_DOWN);
 						return true;
-						
 					case KeyEvent.KEYCODE_DPAD_LEFT:
 						translate(Logic.CursorPaddirection.DIRECTION_LEFT);
 						return true;
-						
 					case KeyEvent.KEYCODE_DPAD_RIGHT:
 						translate(Logic.CursorPaddirection.DIRECTION_RIGHT);
 						return true;
-						
 					case KeyEvent.KEYCODE_VOLUME_UP:
 					case KeyEvent.KEYCODE_SEARCH:
 						getLogic().zoom(Logic.ZOOM_IN);
 						updateZoomControls();
 						return true;
-						
 					case KeyEvent.KEYCODE_VOLUME_DOWN:
-					case KeyEvent.KEYCODE_SHIFT_LEFT:
-					case KeyEvent.KEYCODE_SHIFT_RIGHT:
 						getLogic().zoom(Logic.ZOOM_OUT);
 						updateZoomControls();
 						return true;
+					default:
+						Character c = Character.toLowerCase((char) event.getUnicodeChar());
+						if (c == Util.getShortCut(getApplicationContext() , R.string.shortcut_zoom_in)) {
+							getLogic().zoom(Logic.ZOOM_IN);
+							updateZoomControls();
+							return true;
+						} else if (c == Util.getShortCut(getApplicationContext(), R.string.shortcut_zoom_out)) {
+							getLogic().zoom(Logic.ZOOM_OUT);
+							updateZoomControls();
+							return true;
+						}
+						if (easyEditManager.isProcessingAction() && event.isCtrlPressed()) { // shortcuts not supported in action modes arghhh
+							char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0)); // get rid of Ctrl key
+							if (easyEditManager.processShortcut(shortcut)) {
+								return true;
+							}
+						}
 					}
 				}
 				break;

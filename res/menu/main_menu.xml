@@ -4,7 +4,7 @@
 	<item
 		android:id="@+id/menu_undo"
 		android:title="@string/undo"
-		android:alphabeticShortcut="u"
+		android:alphabeticShortcut="@string/shortcut_undo"
 		android:icon="?attr/menu_undo"
 		android:showAsAction="ifRoom"
 		android:actionLayout="@layout/undo_action_view"
@@ -29,17 +29,17 @@
 					android:id="@+id/menu_gps_show"
 					android:title="@string/menu_gps_show"
 					android:checkable="true"
-					android:alphabeticShortcut="g"
 				/>
 				<item
 					android:id="@+id/menu_gps_follow"
 					android:title="@string/menu_gps_follow"
 					android:checkable="true"
-					android:alphabeticShortcut="f"
+					android:alphabeticShortcut="@string/shortcut_gps_follow"
 				/>
 				<item
 					android:id="@+id/menu_gps_goto"
 					android:title="@string/menu_gps_goto"
+					android:alphabeticShortcut="@string/shortcut_gps_goto"
 				/>
 				<item
 					android:id="@+id/menu_gps_start"
@@ -96,6 +96,7 @@
 				<item
 					android:id="@+id/menu_transfer_download_current_add"
 					android:title="@string/menu_transfer_download_current_add"
+					android:alphabeticShortcut="@string/shortcut_download"
 				/>
 				<item
 					android:id="@+id/menu_transfer_download_other"
@@ -127,6 +128,7 @@
 					    <item
 							android:id="@+id/menu_transfer_bugs_download_current"
 							android:title="@string/menu_transfer_bugs_download_current"
+							android:alphabeticShortcut="@string/shortcut_bugs_download"
 						/>
 						<item
 							android:id="@+id/menu_transfer_bugs_upload"
@@ -149,7 +151,6 @@
 	<item
 		android:id="@+id/menu_confing"
 		android:title="@string/menu_config"
-		android:alphabeticShortcut="c"
 		android:icon="?attr/menu_config"
 		android:showAsAction="ifRoom"
 	/>
@@ -189,7 +190,7 @@
 	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"
-		android:alphabeticShortcut="h"
+		android:alphabeticShortcut="@string/shortcut_help"
 		android:icon="?attr/menu_help"
 		android:showAsAction="ifRoom"
 	/>

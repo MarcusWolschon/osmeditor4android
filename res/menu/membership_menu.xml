@@ -3,7 +3,7 @@
     <item
         android:id="@+id/tag_menu_revert"
         android:icon="?attr/menu_undo"
-        android:alphabeticShortcut="u"
+        android:alphabeticShortcut="@string/shortcut_undo"
         android:title="@string/tag_menu_revert"
         android:showAsAction="always"
     />
@@ -15,7 +15,7 @@
     <item
         android:id="@+id/tag_menu_help"
         android:icon="?attr/menu_help"
-        android:alphabeticShortcut="h"
+        android:alphabeticShortcut="@string/shortcut_help"
         android:title="@string/menu_help"
         android:showAsAction="never"
     />
