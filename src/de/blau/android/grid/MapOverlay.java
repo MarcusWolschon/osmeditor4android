@@ -78,7 +78,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		String mode = map.getPrefs().scaleLayer();
-		if (!mode.equals("NONE")) {
+		if (!mode.equals("SCALE_NONE")) {
 			int w = map.getWidth();
 			int h = map.getHeight();
 			boolean grid = mode.equals("SCALE_GRID_METRIC");
