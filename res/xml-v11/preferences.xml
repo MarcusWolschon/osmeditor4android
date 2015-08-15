@@ -16,6 +16,14 @@
 			android:defaultValue="NONE"
 		/>
 		<ListPreference
+			android:key="@string/config_scale_key"
+			android:title="@string/config_scale_title"
+			android:summary="@string/config_scale_summary"
+			android:entries="@array/scale_entries"
+			android:entryValues="@array/scale_values"
+			android:defaultValue="SCALE_METRIC"
+		/>
+		<ListPreference
 			android:key="@string/config_mapProfile_key"
 			android:title="@string/config_mapProfile_title"
 			android:summary="@string/config_mapProfile_summary"

@@ -220,6 +220,7 @@ public class Map extends View implements IMapView {
 			}
 			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
 			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
+			mOverlays.add(new de.blau.android.grid.MapOverlay(this, prefs.getServer()));
 		}
 	}
 	

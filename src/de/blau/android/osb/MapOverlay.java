@@ -28,23 +28,8 @@ import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 public class MapOverlay extends OpenStreetMapViewOverlay {
 	
-	/** Maximum closed age to display: 7 days. */
-	private static final long MAX_CLOSED_AGE = 7 * 24 * 60 * 60 * 1000;
-	
 	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
-	
-	/** Previously requested area. */
-	private Rect prev;
-	
-	/** Current area. */
-	private Rect cur;
-	
-	/** Paint for open bugs. */
-	private final Paint openPaint;
-	
-	/** Paint for closed bugs. */
-	private final Paint closedPaint;
 	
 	private Bitmap cachedIconClosed;
 	private float w2closed = 0f;
@@ -59,20 +44,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** Bugs visible on the overlay. */
 	private BugStorage bugs = Application.getBugStorage();
 	
-	/** Event handlers for the overlay. */
-	private final Handler handler;
-	
-	private Server server;
-	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
-		server = s;
-		prev = new Rect();
-		cur = new Rect();
-		// bugs = new ArrayList<Bug>();
-		handler = new Handler();
-		openPaint = Profile.getCurrent(Profile.OPEN_NOTE).getPaint();
-		closedPaint = Profile.getCurrent(Profile.CLOSED_NOTE).getPaint();
 	}
 	
 	@Override
@@ -89,17 +62,12 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			
 			// the idea is to have the circles a bit bigger when zoomed in, not so
 			// big when zoomed out
-			final float radius = Density.dpToPx(1.0f + osmv.getZoomLevel() / 2.0f);
+			// currently we don't adjust the icon size for density final float radius = Density.dpToPx(1.0f + osmv.getZoomLevel() / 2.0f);
 			BoundingBox bb = osmv.getViewBox();
-			
-//			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
-//				return;
-//			}
-			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
 
 			// 
-			int w = Application.mainActivity.getMap().getWidth();
-			int h = Application.mainActivity.getMap().getHeight();
+			int w = map.getWidth();
+			int h = map.getHeight();
 			ArrayList<Bug> bugList = bugs.getBugs(bb);
 			if (bugList != null) {
 				Set<String>bugFilter = map.getPrefs().bugFilter();

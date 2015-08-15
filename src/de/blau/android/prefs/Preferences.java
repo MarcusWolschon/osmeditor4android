@@ -47,6 +47,8 @@ public class Preferences {
 	
 	private final String overlayLayer;
 	
+	private final String scaleLayer;
+	
 	private final String mapProfile;
 	
 	private int gpsInterval;
@@ -168,6 +170,7 @@ public class Preferences {
 		splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
+		scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), "SCALE_METRIC");
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
 		if (Profile.getProfile(tempMapProfile) == null) {
@@ -295,6 +298,13 @@ public class Preferences {
 	 */
 	public String overlayLayer() {
 		return overlayLayer;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String scaleLayer() {
+		return scaleLayer;
 	}
 	
 	/**

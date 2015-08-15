@@ -9,6 +9,7 @@ import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -35,10 +36,14 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.ActionMode.Callback;
 
 import de.blau.android.Application;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.Logic.CursorPaddirection;
+import de.blau.android.Main.MapKeyListener;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
@@ -132,7 +137,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	ExtendedViewPager    mViewPager;
 	boolean usePaneLayout = false;
 
-	
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -208,14 +212,16 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			size.x = display.getWidth();
 			size.y = display.getHeight();
 		}
+
 		if ((screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y) {
 			usePaneLayout = true;
 			setContentView(R.layout.pane_view);
 			Log.d(DEBUG_TAG, "Using layout for large devices");
 		} else {
-			setContentView(R.layout.tab_view);
+			setContentView(R.layout.tab_view);	
 		}
-
+		
+		
 		// tags
 		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<LinkedHashMap<String, String>>();
 		originalTags = new ArrayList<LinkedHashMap<String, String>>();
@@ -676,5 +682,10 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    mode.invalidate();
 	  }
 	  return mode;
+	}
+	
+	@Override
+	public void onActionModeFinished(ActionMode mode) {
+		super.onActionModeFinished(mode);
 	}
 }

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.ActionMode.Callback;
@@ -74,8 +75,14 @@ public class TagSelectedActionModeCallback implements Callback {
 		}
 	}
 	
+	
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		return performAction(item.getItemId());
+	}
+	
+	
+	private boolean performAction(int action) {
 		
 		final int size = rows.getChildCount();
 		ArrayList<TagEditRow> selected = new ArrayList<TagEditRow>();
@@ -86,7 +93,7 @@ public class TagSelectedActionModeCallback implements Callback {
 				selected.add(row);
 			}
 		}
-		switch (item.getItemId()) {
+		switch (action) {
 		case MENUITEM_DELETE: 
 			if (selected.size() > 0) {
 				for (TagEditRow r:selected) {
@@ -107,7 +114,7 @@ public class TagSelectedActionModeCallback implements Callback {
 			}
 			if (currentAction != null) {
 				currentAction.finish();
-			}
+			} 
 			break;
 		case MENUITEM_CUT:
 			if (selected.size() > 0) {
@@ -144,7 +151,7 @@ public class TagSelectedActionModeCallback implements Callback {
 		caller.deselectHeaderCheckBox();
 		((PropertyEditor)caller.getActivity()).enablePaging();
 		((PropertyEditor)caller.getActivity()).enablePresets();
-		caller.tagSelectedActionModeCallback = null;
+		TagEditorFragment.tagSelectedActionModeCallback = null;
 	}
 
 	public boolean tagDeselected() {
@@ -163,5 +170,4 @@ public class TagSelectedActionModeCallback implements Callback {
 		}
 		return true;
 	}
-
 }

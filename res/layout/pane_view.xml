@@ -2,7 +2,7 @@
 <de.blau.android.views.SplitPaneLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:spl="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout"
+    android:id="@+id/pane_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     spl:orientation="horizontal"

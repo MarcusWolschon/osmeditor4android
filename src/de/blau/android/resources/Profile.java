@@ -34,6 +34,8 @@ import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PixelXorXfermode;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.util.Log;
@@ -79,6 +81,7 @@ public class Profile  extends DefaultHandler {
 	public final static String CLOSED_NOTE = "closed_note";
 	public final static String CROSSHAIRS = "crosshairs";
 	public final static String HANDLE = "handle";
+	public final static String LABELTEXT = "labeltext";
 	
 	
 	public class FeatureProfile {
@@ -484,6 +487,14 @@ public class Profile  extends DefaultHandler {
 		fp.getPaint().setShadowLayer(1, 0, 0, Color.BLACK);
 		featureProfiles.put(fp.getName(), fp);
 		
+		fp = new FeatureProfile(LABELTEXT);
+		fp.setColor(Color.BLACK);
+		fp.dontUpdate();
+		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
+		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
+		featureProfiles.put(fp.getName(), fp);
+		
 		fp = new FeatureProfile(WAY_DIRECTION);
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.setWidthFactor(0.8f);
@@ -508,6 +519,7 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(CROSSHAIRS); 
+		fp.setColor(Color.BLACK);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));

@@ -1764,10 +1764,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		}
 	}
 
-	private enum AppendMode {
-		APPEND_START, APPEND_APPEND
-	}
-
 	/**
 	 * @param selectedElement
 	 * @param focusOn if not null focus on the value field of this key
@@ -2505,20 +2501,22 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 						updateZoomControls();
 						return true;
 					default:
-						Character c = Character.toLowerCase((char) event.getUnicodeChar());
-						if (c == Util.getShortCut(getApplicationContext() , R.string.shortcut_zoom_in)) {
-							getLogic().zoom(Logic.ZOOM_IN);
-							updateZoomControls();
-							return true;
-						} else if (c == Util.getShortCut(getApplicationContext(), R.string.shortcut_zoom_out)) {
-							getLogic().zoom(Logic.ZOOM_OUT);
-							updateZoomControls();
-							return true;
-						}
-						if (easyEditManager.isProcessingAction() && event.isCtrlPressed()) { // shortcuts not supported in action modes arghhh
-							char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0)); // get rid of Ctrl key
-							if (easyEditManager.processShortcut(shortcut)) {
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+							Character c = Character.toLowerCase((char) event.getUnicodeChar());
+							if (c == Util.getShortCut(getApplicationContext() , R.string.shortcut_zoom_in)) {
+								getLogic().zoom(Logic.ZOOM_IN);
+								updateZoomControls();
 								return true;
+							} else if (c == Util.getShortCut(getApplicationContext(), R.string.shortcut_zoom_out)) {
+								getLogic().zoom(Logic.ZOOM_OUT);
+								updateZoomControls();
+								return true;
+							}
+							if (easyEditManager.isProcessingAction() && event.isCtrlPressed()) { // shortcuts not supported in action modes arghhh
+								char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0)); // get rid of Ctrl key
+								if (easyEditManager.processShortcut(shortcut)) {
+									return true;
+								}
 							}
 						}
 					}

@@ -762,6 +762,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		this.left = lonE7;
 	}
 	
+	/**
+	 * Return lat value of the center of the bounding box
+	 * @return
+	 */
 	public double getCenterLat() {
 		int mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		int mHeight = GeoMath.latE7ToMercatorE7(top) - mBottom;
