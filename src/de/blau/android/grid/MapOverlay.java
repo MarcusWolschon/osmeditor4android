@@ -39,6 +39,9 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	private static final float DISTANCE2SIDE = 4f;
 	private static final float SHORTTICKS = 12f;
 	private static final float LONGTICKS = 20f;
+	private static final double METERS2FEET = 3.28084;
+	private static final double MILE2FEET = 5280;
+	private static final double YARD2FEET = 3;
 	
 	/** Map this is an overlay of. */
 	private final Map map;
@@ -81,62 +84,141 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		if (!mode.equals("SCALE_NONE")) {
 			int w = map.getWidth();
 			int h = map.getHeight();
-			boolean grid = mode.equals("SCALE_GRID_METRIC");
+			boolean metric = mode.equals("SCALE_METRIC") || mode.equals("SCALE_GRID_METRIC");
+			boolean grid = mode.equals("SCALE_GRID_METRIC") || mode.equals("SCALE_GRID_IMPERIAL");
 			double centerLat = map.getViewBox().getCenterLat();
 			double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft()/1E7D, centerLat, map.getViewBox().getRight()/1E7D, centerLat);
 			// Log.d(DEBUG_TAG,"distance to side " + distance2side + " tick length long " + longTicks + " short " + shortTicks);
 			if (widthInMeters < 1000000) { // don't show zoomed out
-
-				double metersPerPixel = widthInMeters/w;
-
 				c.drawLine(distance2side, distance2side, w-distance2side, distance2side, fullLine);
 				c.drawLine(w-distance2side, distance2side, w-distance2side, h-distance2side, fullLine);
 				if (grid) {
 					c.drawLine(distance2side, h-distance2side, w-distance2side, h-distance2side, fullLine);
 					c.drawLine(distance2side, distance2side, distance2side, h-distance2side, fullLine);
 				}
-
-				// metric
-				double log10 = Math.log10(widthInMeters);
-				double tickDistance = Math.pow(10,Math.floor(log10)-1);
-				// Log.d(DEBUG_TAG,"log10 " + log10 + " tick distance " + Math.pow(10,Math.floor(log10)-1));
-				if (widthInMeters/tickDistance <= 20) { // heuristic to make the visual effect a bit nicer
-					tickDistance = tickDistance /10;
-				}
-				float tickDistanceH = Math.round(tickDistance/metersPerPixel);
-
-				boolean km = tickDistance*10 >= 1000;
-				c.drawText(km ? "km" : "m", distance2side, longTicks + oneDP, labelH);
-				float nextTick = distance2side;
-				int i = 0;
-				int nextLabel = 0;
-				while (nextTick < (w-distance2side)) {
-					if (i == 10) {
-						i = 0;
-						c.drawLine(nextTick, distance2side, nextTick, grid ? h-distance2side : longTicks, fullLine);
-						nextLabel = (int) (nextLabel + 10*tickDistance);
-						c.drawText(Integer.toString(km ? nextLabel/1000: nextLabel), nextTick + 2*oneDP, longTicks + 2*oneDP, labelH);
-					} else {
-						i++;
-						c.drawLine(nextTick, distance2side, nextTick, shortTicks, fullLine);
+				if (metric) {
+					double metersPerPixel = widthInMeters/w;
+					double log10 = Math.log10(widthInMeters);
+					double tickDistance = Math.pow(10,Math.floor(log10)-1);
+					// Log.d(DEBUG_TAG,"log10 " + log10 + " tick distance " + Math.pow(10,Math.floor(log10)-1));
+					if (widthInMeters/tickDistance <= 20) { // heuristic to make the visual effect a bit nicer
+						tickDistance = tickDistance /10;
 					}
-					nextTick = nextTick + tickDistanceH;
-				}
+					float tickDistanceH = Math.round(tickDistance/metersPerPixel);
 
-				nextTick = distance2side + tickDistanceH; // dont't draw first tick
-				i = 1;
-				nextLabel = 0;
-				while (nextTick < (h-distance2side)) {
-					if (i == 10) {
-						i = 0;
-						c.drawLine(w-distance2side, nextTick, grid ? distance2side : w-longTicks, nextTick, fullLine);
-						nextLabel = (int) (nextLabel + 10*tickDistance);
-						c.drawText(Integer.toString(km ? nextLabel/1000: nextLabel), w-(shortTicks+distance2side), nextTick + textHeight + oneDP, labelV);
-					} else {
+					boolean km = tickDistance*10 >= 1000;
+					c.drawText(km ? "km" : "m", distance2side, longTicks + oneDP, labelH);
+					float nextTick = distance2side;
+					int i = 0;
+					int nextLabel = 0;
+					while (nextTick < (w-distance2side)) {
+						if (i == 10) {
+							i = 0;
+							c.drawLine(nextTick, distance2side, nextTick, grid ? h-distance2side : longTicks, fullLine);
+							nextLabel = (int) (nextLabel + 10*tickDistance);
+							c.drawText(Integer.toString(km ? nextLabel/1000: nextLabel), nextTick + 2*oneDP, longTicks + 2*oneDP, labelH);
+						} else {
+							c.drawLine(nextTick, distance2side, nextTick, shortTicks, fullLine);
+						}
 						i++;
-						c.drawLine(w-distance2side, nextTick, w-shortTicks, nextTick, fullLine);
+						nextTick = nextTick + tickDistanceH;
 					}
-					nextTick = nextTick + tickDistanceH;
+
+					nextTick = distance2side + tickDistanceH; // dont't draw first tick
+					i = 1;
+					nextLabel = 0;
+					while (nextTick < (h-distance2side)) {
+						if (i == 10) {
+							i = 0;
+							c.drawLine(w-distance2side, nextTick, grid ? distance2side : w-longTicks, nextTick, fullLine);
+							nextLabel = (int) (nextLabel + 10*tickDistance);
+							c.drawText(Integer.toString(km ? nextLabel/1000: nextLabel), w-(shortTicks+distance2side), nextTick + textHeight + oneDP, labelV);
+						} else {
+							c.drawLine(w-distance2side, nextTick, w-shortTicks, nextTick, fullLine);
+						}
+						i++;
+						nextTick = nextTick + tickDistanceH;
+					}
+				} else { // imperial FIXME we could probably get rid of some duplicate code here
+					double widthInFeet = widthInMeters * METERS2FEET;
+					double feetPerPixel = widthInFeet/w;
+					boolean mile = widthInFeet > MILE2FEET;
+					
+					double tickDistance = 0;
+					int smallTickMax = 10;
+					
+					if (mile) { // between 1 and 12 miles use fractions
+						if (widthInFeet <= 2*MILE2FEET) {
+							smallTickMax = 16;
+							tickDistance = MILE2FEET / smallTickMax;
+						} else if (widthInFeet <= 6*MILE2FEET) {
+							smallTickMax = 8;
+							tickDistance = MILE2FEET / smallTickMax;
+						} else if (widthInFeet <= 10*MILE2FEET) {
+							smallTickMax = 4;
+							tickDistance = MILE2FEET / smallTickMax;
+						} else if (widthInFeet <= 50*MILE2FEET) {
+							smallTickMax = 2;
+							tickDistance = MILE2FEET / smallTickMax;
+						} else {
+							double log10 = Math.log10(widthInFeet/MILE2FEET);
+							tickDistance = MILE2FEET*Math.pow(10,Math.floor(log10)-1);
+						}
+					} else {
+						double log10 = Math.log10(widthInFeet);
+						tickDistance = Math.pow(10,Math.floor(log10)-1);
+						// Log.d(DEBUG_TAG,"log10 " + log10 + " tick distance " + Math.pow(10,Math.floor(log10)-1));
+						if (widthInFeet/tickDistance <= 30) { // heuristic to make the visual effect a bit nicer
+							tickDistance = tickDistance /10;
+						}
+					}
+					
+					float tickDistanceH = Math.round(tickDistance/feetPerPixel);
+					
+					c.drawText(mile ? "mile" : "ft", distance2side, longTicks + oneDP, labelH);
+					float nextTick = distance2side;
+					int i = 0;
+					int nextLabel = 0;
+					while (nextTick < (w-distance2side)) {
+						if (i == smallTickMax) {
+							i = 0;
+							c.drawLine(nextTick, distance2side, nextTick, grid ? h-distance2side : longTicks, fullLine);
+							if (mile) {
+								// Log.d(DEBUG_TAG,"mile tick " + nextTick + " label " + nextLabel);
+								nextLabel = (int) (nextLabel + smallTickMax*tickDistance);
+								c.drawText(Integer.toString((int)(nextLabel/MILE2FEET)), nextTick + 2*oneDP, longTicks + 2*oneDP, labelH);
+							} else {
+								nextLabel = (int) (nextLabel + 10*tickDistance);
+								c.drawText(Integer.toString((int)(nextLabel)), nextTick + 2*oneDP, longTicks + 2*oneDP, labelH);
+							}
+						} else {
+							c.drawLine(nextTick, distance2side, nextTick, shortTicks, fullLine);
+							
+						}
+						i++;
+						nextTick = nextTick + tickDistanceH;
+					}
+
+					nextTick = distance2side + tickDistanceH; // dont't draw first tick
+					i = 1;
+					nextLabel = 0;
+					while (nextTick < (h-distance2side)) {
+						if (i == smallTickMax) {
+							i = 0;
+							c.drawLine(w-distance2side, nextTick, grid ? distance2side : w-longTicks, nextTick, fullLine);
+							if (mile) {
+								nextLabel = (int) (nextLabel + smallTickMax*tickDistance);
+								c.drawText(Integer.toString((int)(nextLabel/MILE2FEET)), w-(shortTicks+distance2side), nextTick + textHeight + oneDP, labelV);
+							} else {
+								nextLabel = (int) (nextLabel + 10*tickDistance);
+								c.drawText(Integer.toString((int)(mile ? nextLabel/MILE2FEET: nextLabel)), w-(shortTicks+distance2side), nextTick + textHeight + oneDP, labelV);
+							}
+						} else {
+							c.drawLine(w-distance2side, nextTick, w-shortTicks, nextTick, fullLine);
+						}
+						i++;
+						nextTick = nextTick + tickDistanceH;
+					}
 				}
 			}
 		}

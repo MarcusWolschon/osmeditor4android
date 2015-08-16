@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Keins</item>
+    <item>Skala (metrisch)</item>
+    <item>Gitter (metrisch)</item>
+    <item>Skala (ft/mile)</item>
+    <item>Gitter (ft/mile)</item>
+  </string-array>
+</resources>

@@ -13,14 +13,21 @@ file_filter = res/values-<lang>/addresstags.xml
 lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
 source_file = res/values/addresstags.xml
 source_lang = en
-minimum_perc = 5
+minimum_perc = 100
 
 [vespucci.bugfilterxml]
 file_filter = res/values-<lang>/bugfilter.xml
 lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
 source_file = res/values/bugfilter.xml
 source_lang = en
-minimum_perc = 5
+minimum_perc = 100
+
+[vespucci.scalexml]
+file_filter = res/values-<lang>/scale.xml
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
+source_file = res/values/scale.xml
+source_lang = en
+minimum_perc = 100
 
 [vespucci.introductionmd]
 file_filter = markdown/<lang>/Introduction.md
