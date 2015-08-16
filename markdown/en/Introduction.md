@@ -4,9 +4,9 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 ## First time use
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
-Alternatively you can dismiss the dialog by pressing the back button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
 
 ## Editing with Vespucci
 
