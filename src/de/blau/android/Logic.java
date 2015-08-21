@@ -1147,7 +1147,7 @@ public class Logic {
 					lat = yToLatE7(absoluteY);
 					lon = xToLonE7(absoluteX);
 				}
-				getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
+				getDelegator().updateLatLon(selectedNodes.get(0), lat, lon); // FIXME potential race condition
 				Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
 			}
 			else { // way dragging and multi-select
