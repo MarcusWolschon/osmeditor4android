@@ -27,6 +27,7 @@ public class Application extends android.app.Application {
 	static StorageDelegator delegator = new StorageDelegator();
 	static BugStorage bugStorage = new BugStorage();
 	public static String userAgent;
+	static Application currentApplication;
 	/**
 	 * The currently selected presets
 	 */
@@ -41,8 +42,13 @@ public class Application extends android.app.Application {
 		String appName = getString(R.string.app_name);
 		String appVersion = getString(R.string.app_version);
 		userAgent = appName + "/" + appVersion;
+		currentApplication = this;
 	}
 
+	public static Application getCurrentApplication() {
+		return currentApplication;
+	}
+	
 	public static StorageDelegator getDelegator() {
 		return delegator;
 	}
