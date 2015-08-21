@@ -31,11 +31,9 @@ public class DiscardedTags {
 	 * Implicit assumption that the list will be short and that it is OK to read in synchronously
 	 */
 	DiscardedTags() {	
-		Resources r = Application.mainActivity.getResources();
-
 		Log.d("DiscardedTags","Parsing configuration file");
 
-		AssetManager assetManager = Application.mainActivity.getAssets();
+		AssetManager assetManager = Application.getCurrentApplication().getAssets();
 
 		try {
 			InputStream is = assetManager.open("discarded.json");
@@ -72,17 +70,17 @@ public class DiscardedTags {
 	 */
 	void remove(OsmElement element) {
 		if (element.isUnchanged()) {
-			Log.e("DicardedTags","Presented with unmodified element");
+			Log.e("DiscardedTags","Presented with unmodified element");
 			return;
 		}
 		boolean modified = false;
 		newTags = new TreeMap<String, String>(); // zag this!
 		for (String key:element.getTags().keySet()) {
-			Log.d("DicardedTags","Checking " + key);
+			Log.d("DiscardedTags","Checking " + key);
 			if (!redundantTags.contains(key)) {
 				newTags.put(key, element.getTags().get(key));
 			} else {
-				Log.d("DicardedTags"," delete");
+				Log.d("DiscardedTags"," delete");
 				modified = true;
 			}
 		}

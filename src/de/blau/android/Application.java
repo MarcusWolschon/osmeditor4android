@@ -20,6 +20,7 @@ public class Application extends android.app.Application {
 	public static Main mainActivity;
 	static StorageDelegator delegator = new StorageDelegator();
 	public static String userAgent;
+	static Application currentApplication;
 	
 	@Override
 	public void onCreate() {
@@ -29,8 +30,13 @@ public class Application extends android.app.Application {
 		String appName = getString(R.string.app_name);
 		String appVersion = getString(R.string.app_version);
 		userAgent = appName + "/" + appVersion;
+		currentApplication = this;
 	}
 
+	public static Application getCurrentApplication() {
+		return currentApplication;
+	}
+	
 	public static StorageDelegator getDelegator() {
 		return delegator;
 	}
