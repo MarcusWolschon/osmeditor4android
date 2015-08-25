@@ -2065,7 +2065,7 @@ public class EasyEditManager {
 		
 		public ExtendSelectionActionModeCallback(OsmElement element) {
 			super();
-			Log.d("EasyEditMangager","Multi-Select create " + element);
+			Log.d("EasyEditMangager","Multi-Select create mode with " + element);
 			selection = new ArrayList<OsmElement>();
 			if (element != null) {
 				addOrRemoveElement(element);
@@ -2244,7 +2244,7 @@ public class EasyEditManager {
 		
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be clicked
-			Log.d("EasyEditMangager","Multi-Select add " + element);
+			Log.d("EasyEditMangager","Multi-Select add/remove " + element);
 			addOrRemoveElement(element);
 			setClickableElements();
 			main.invalidateMap();

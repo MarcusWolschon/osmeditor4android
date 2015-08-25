@@ -3140,7 +3140,7 @@ public class Logic {
 		}
 	}
 	
-	public void removeSelectedNode(Node node) {
+	public synchronized void removeSelectedNode(Node node) {
 		if (selectedNodes != null) {
 			selectedNodes.remove(node);
 			if (selectedNodes.size() == 0) {
@@ -3178,7 +3178,7 @@ public class Logic {
 	/**
 	 * Removes the given way from the list of currently selected ways.
 	 */
-	public void removeSelectedWay(Way way) {
+	public synchronized void removeSelectedWay(Way way) {
 		if (selectedWays != null) {
 			selectedWays.remove(way);
 			if (selectedWays.size() == 0) {
@@ -3202,7 +3202,7 @@ public class Logic {
 		}
 	}
 	
-	public void removeSelectedRelation(Relation relation) {
+	public synchronized void removeSelectedRelation(Relation relation) {
 		if (selectedRelations != null) {
 			selectedRelations.remove(relation);
 			if (selectedRelations.size() == 0) {
@@ -3236,7 +3236,7 @@ public class Logic {
 	/**
 	 * @return the selectedNode (currently simply the first in the list)
 	 */
-	public final Node getSelectedNode() {
+	public synchronized final Node getSelectedNode() {
 		if (selectedNodes != null && selectedNodes.size() > 0) {
 			if (!exists(selectedNodes.get(0))) {
 				selectedNodes = null; // clear selection if node was deleted
