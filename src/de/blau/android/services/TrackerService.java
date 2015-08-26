@@ -60,7 +60,6 @@ import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
-import de.blau.android.services.util.ServiceCompat;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -103,8 +102,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	
 	private boolean gpsEnabled = false;
 	
-	private ServiceCompat serviceCompat = null;
-	
 	private Preferences prefs = null; 
 	
 	private Handler mHandler = null;
@@ -123,7 +120,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		serviceCompat = new ServiceCompat(this);
 		Log.d(TAG, "onCreate");
 		track = new Track(this);
 		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
@@ -134,7 +130,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	public void onDestroy() {
 		stopTracking(false);
 		track.close();
-		serviceCompat.destroy();
 		super.onDestroy();
 	}
 	
@@ -259,7 +254,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			.setOngoing(true)
 			.setUsesChronometer(true)
 			.setContentIntent(pendingAppIntent);
-		serviceCompat.startForeground(R.id.notification_tracker, notificationBuilder.build());
+		startForeground(R.id.notification_tracker, notificationBuilder.build());
 	}
 	
 	/**
@@ -304,7 +299,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		if (!tracking && !downloading && !downloadingBugs) {
 			Log.d(TAG,"Stopping auto-service");
 			updateGPSState();
-			serviceCompat.stopForeground(R.id.notification_tracker);
+			stopForeground(true);
 			stopSelf();
 		}
 	}
