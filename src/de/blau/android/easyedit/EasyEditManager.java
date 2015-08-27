@@ -2252,7 +2252,7 @@ public class EasyEditManager {
 		}
 		
 		private void setClickableElements() {
-			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(selection);
+//			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(selection);
 //			logic.setClickableElements(logic.findClickableElements(excludes));
 		}
 		

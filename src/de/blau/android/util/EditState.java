@@ -7,11 +7,15 @@ import android.util.Log;
 import de.blau.android.Logic;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Main;
+import de.blau.android.Map;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.Note;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
+import de.blau.android.resources.Profile;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
@@ -20,7 +24,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
  *
  */
 public class EditState implements Serializable {
-	private static final long serialVersionUID = 10L;
+	private static final long serialVersionUID = 11L;
 	final Mode savedMode;
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
@@ -33,10 +37,11 @@ public class EditState implements Serializable {
 	final boolean savedAutoDownload;
 	final boolean savedBugAutoDownload;
 	final String savedImageFileName;
+	final BoundingBox savedBox;
 
 	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
 			List<Relation> selectedRelations, Bug selectedBug, OpenStreetMapTileServer osmts, 
-			boolean showGPS, boolean autoDownload, boolean bugAutoDownload, String imageFileName) {
+			boolean showGPS, boolean autoDownload, boolean bugAutoDownload, String imageFileName, BoundingBox box) {
 		savedMode = mode;
 		savedNodes = selectedNodes;
 		savedWays = selectedWays;
@@ -49,6 +54,7 @@ public class EditState implements Serializable {
 		savedAutoDownload = autoDownload;
 		savedBugAutoDownload = bugAutoDownload;
 		savedImageFileName = imageFileName;
+		savedBox = box;
 	}
 	
 	public void setSelected(Logic logic) {
@@ -84,6 +90,18 @@ public class EditState implements Serializable {
 		main.setAutoDownload(savedAutoDownload);
 		main.setBugAutoDownload(savedBugAutoDownload);
 		main.setImageFileName(savedImageFileName);
+	}
+	
+	public void setViewBox(Logic logic, Map map) {
+		logic.getViewBox().setBorders(savedBox);
+		try {
+			logic.getViewBox().setRatio((float)map.getWidth() / (float)map.getHeight());
+		} catch (OsmException e) {
+			// shouldn't happen since we would have only stored a legal BB
+		}
+		map.setViewBox(logic.getViewBox());
+		Profile.updateStrokes(Logic.STROKE_FACTOR / logic.getViewBox().getWidth());
+		map.invalidate();
 	}
 	
 	public void setOffset(OpenStreetMapTileServer osmts) {

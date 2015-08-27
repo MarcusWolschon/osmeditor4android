@@ -1201,7 +1201,7 @@ public class Logic {
 				direction = (startY < absoluteY) ? -1: 1;			
 			}
 	
-			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), map.getViewBox());
+			getDelegator().rotateWay(selectedWays.get(0), (float)Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
 			startY = absoluteY;
 			startX = absoluteX;
 			Application.mainActivity.easyEditManager.invalidate(); // if we are in an action mode update menubar
@@ -2642,7 +2642,9 @@ public class Logic {
 	void saveEditingState() {
 		OpenStreetMapTileServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
 		EditState editState = new EditState(mode, selectedNodes, selectedWays, selectedRelations, selectedBug, osmts, 
-				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),Application.mainActivity.getBugAutoDownload(),Application.mainActivity.getImageFileName());
+				Application.mainActivity.getShowGPS(), Application.mainActivity.getAutoDownload(),
+				Application.mainActivity.getBugAutoDownload(),Application.mainActivity.getImageFileName(),
+				viewBox);
 		new SavingHelper<EditState>().save(EDITSTATE_FILENAME, editState, false);	
 	}
 	
@@ -2655,6 +2657,7 @@ public class Logic {
 			editState.setSelected(this);
 			editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
 			editState.setMiscState(Application.mainActivity);
+			editState.setViewBox(this,map);
 		}
 	}
 
@@ -3265,7 +3268,7 @@ public class Logic {
 	/**
 	 * @return the selectedWay (currently simply the first in the list)
 	 */
-	public final Way getSelectedWay() {
+	public synchronized final Way getSelectedWay() {
 		if (selectedWays != null && selectedWays.size() > 0) {
 			if (!exists(selectedWays.get(0))) {
 				selectedWays = null; // clear selection if node was deleted
@@ -3342,7 +3345,7 @@ public class Logic {
 	 * 
 	 * @return The selected bug.
 	 */
-	public final Bug getSelectedBug() {
+	public synchronized final Bug getSelectedBug() {
 		return selectedBug;
 	}
 	
@@ -3820,7 +3823,7 @@ public class Logic {
 	public void performCirculize(Way way) {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(R.string.undo_action_circulize);
-		int[] center = centroid(map.getWidth(), map.getHeight(), map.getViewBox(), way);
+		int[] center = centroid(map.getWidth(), map.getHeight(), viewBox, way);
 		getDelegator().circulizeWay(center, way);
 		map.invalidate();
 	}
@@ -3862,7 +3865,6 @@ public class Logic {
 		return 	GeoMath.latE7ToY(map.getHeight(),map.getWidth(), viewBox, lat);
 	}
 
-
 	/**
 	 * @return the delegator
 	 */
@@ -3876,5 +3878,12 @@ public class Logic {
 	
 	public void dataUnlock() {
 		getDelegator().unlock();
+	}
+
+	/**
+	 * @return the viewBox
+	 */
+	public BoundingBox getViewBox() {
+		return viewBox;
 	}
 }

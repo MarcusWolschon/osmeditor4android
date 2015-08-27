@@ -211,7 +211,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 								c.drawText(Integer.toString((int)(nextLabel/MILE2FEET)), w-(shortTicks+distance2side), nextTick + textHeight + oneDP, labelV);
 							} else {
 								nextLabel = (int) (nextLabel + 10*tickDistance);
-								c.drawText(Integer.toString((int)(mile ? nextLabel/MILE2FEET: nextLabel)), w-(shortTicks+distance2side), nextTick + textHeight + oneDP, labelV);
+								c.drawText(Integer.toString((int)nextLabel), w-(shortTicks+distance2side), nextTick + textHeight + oneDP, labelV);
 							}
 						} else {
 							c.drawLine(w-distance2side, nextTick, w-shortTicks, nextTick, fullLine);

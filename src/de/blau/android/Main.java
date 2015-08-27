@@ -515,7 +515,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				postLoad = new PostAsyncActionHandler() {
 					@Override
 					public void execute() {
-						// TODO Auto-generated method stub
 						processIntents();
 					}
 				};

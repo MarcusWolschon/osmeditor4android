@@ -1117,7 +1117,7 @@ public class Map extends View implements IMapView {
 		this.delegator = delegator;
 	}
 	
-	void setViewBox(final BoundingBox viewBox) {
+	public void setViewBox(final BoundingBox viewBox) {
 		myViewBox = viewBox;
 		try {
 			myViewBox.setRatio((float) getWidth()/ getHeight(), false);
