@@ -541,7 +541,10 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		if (modeDropdown != null)
 			modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
 		
-		if (getTracker() != null) getTracker().setListener(this);
+		if (getTracker() != null) {
+			getTracker().setListener(this);
+			lastLocation = getTracker().getLastLocation();
+		}
 		
 		setShowGPS(showGPS); // reactive GPS listener if needed, this is probably not necessary since already done when reading the saved edit state
 		setFollowGPS(followGPS);
@@ -1265,15 +1268,18 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	}
 
 	public void setFollowGPS(boolean follow) {
-		// Log.d("Main","setFollowGPS");
+		Log.d("Main","setFollowGPS from " + followGPS + " to " + follow);
 		if (followGPS != follow) {
 			followGPS = follow;
 			if (follow) {
 				setShowGPS(true);
-				if (lastLocation != null) onLocationChanged(lastLocation);
 			}
 			map.setFollowGPS(follow);
 			triggerMenuInvalidation();
+		}
+		if (follow && lastLocation != null) { // update if we are returning from pause/stop
+			Log.d("Main","Setting lastLocation");
+			onLocationChanged(lastLocation);
 		}
 	}
 	

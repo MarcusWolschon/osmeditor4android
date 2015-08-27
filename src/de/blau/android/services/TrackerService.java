@@ -237,7 +237,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * See {@link #startTracking()} for the public method to call when tracking should be started.
 	 */
 	private void startInternal() {
-		if (tracking || downloading || downloadingBugs) return;
+		if (tracking || downloading || downloadingBugs) return; // all ready running
 		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
 		Resources res = getResources();
 		Intent appStartIntent = new Intent();
@@ -889,5 +889,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			}
 			
 		}
+	}
+	
+	public Location getLastLocation() {
+		return lastLocation;
 	}
 }
