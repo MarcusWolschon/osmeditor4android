@@ -107,25 +107,9 @@ public class Logic {
 		/**
 		 * add nodes by tapping the screen
 		 */
-		MODE_ADD,
-		/**
-		 * erase ways and nodes by tapping the screen
-		 */
-		MODE_ERASE,
-		/**
-		 * edit tags of ways and nodes by tapping the screen
-		 */
 		MODE_TAG_EDIT,
 		/**
 		 * split ways by tapping the screen
-		 */
-		MODE_SPLIT,
-		/**
-		 * file bug in OpenStreetBugs by tapping the screen
-		 */
-		MODE_OPENSTREETBUG,
-		/**
-		 * easy editing mode supporting multiple operations and menu-based tagging
 		 */
 		MODE_EASYEDIT,
 		/**
@@ -370,11 +354,7 @@ public class Logic {
 			setMode(Mode.MODE_MOVE);
 		}
 		case MODE_EASYEDIT:
-		case MODE_ADD:
-		case MODE_ERASE:
 		case MODE_MOVE:
-		case MODE_OPENSTREETBUG:
-		case MODE_SPLIT:
 		default:
 			setSelectedNode(null);
 			setSelectedWay(null);

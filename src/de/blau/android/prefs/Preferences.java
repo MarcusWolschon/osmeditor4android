@@ -37,8 +37,6 @@ public class Preferences {
 	
 	private final boolean isKeepScreenOnEnabled;
 	
-	private final boolean depreciatedModesEnabled;
-	
 	private final boolean useBackForUndo;
 	
 	private final boolean largeDragArea;
@@ -161,7 +159,6 @@ public class Preferences {
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
 		isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
 		isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
-		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
 		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
 		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
 		enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
@@ -263,13 +260,6 @@ public class Preferences {
 	 */
 	public boolean isKeepScreenOnEnabled() {
 		return isKeepScreenOnEnabled;
-	}
-	
-	/**
-	 * @return
-	 */
-	public boolean depreciatedModesEnabled() {
-		return depreciatedModesEnabled;
 	}
 	
 	/**

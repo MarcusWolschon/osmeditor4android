@@ -58,21 +58,6 @@ public class ModeDropdownAdapter implements SpinnerAdapter {
 		}
 	}
 	
-	public ModeDropdownAdapter(Context context, boolean showOpenStreetBug, boolean depreciatedModesEnabled) {
-		this.context = context;
-		addItem(Logic.Mode.MODE_MOVE, R.string.menu_move, R.drawable.locked_small);
-		addItem(Logic.Mode.MODE_EASYEDIT, R.string.menu_easyedit, R.drawable.menu_edit);
-		addItem(Logic.Mode.MODE_ADD, R.string.menu_add, R.drawable.menu_add);
-		addItem(Logic.Mode.MODE_TAG_EDIT, R.string.menu_tag, R.drawable.menu_tag);
-		addItem(Logic.Mode.MODE_ERASE, R.string.menu_erase, R.drawable.menu_erase);
-		addItem(Logic.Mode.MODE_SPLIT, R.string.menu_split, R.drawable.menu_split);
-		// OpenStreetBug item must be last so it can be easily hidden
-		addItem(Logic.Mode.MODE_OPENSTREETBUG, R.string.menu_openstreetbug, R.drawable.menu_openstreetbug);
-		this.showOpenStreetBug = showOpenStreetBug;
-		this.depreciatedModesEnabled = depreciatedModesEnabled;
-	}
-	
-
 	/**
 	 * Adds an item to the list
 	 * @param resultingMode the Logic.Mode resulting from selecting the item

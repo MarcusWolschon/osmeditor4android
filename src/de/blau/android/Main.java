@@ -150,7 +150,7 @@ import de.blau.android.voice.Commands;
  * 
  * @author mb
  */
-public class Main extends SherlockFragmentActivity implements OnNavigationListener, ServiceConnection, TrackerLocationListener {
+public class Main extends SherlockFragmentActivity implements ServiceConnection, TrackerLocationListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -242,11 +242,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	 * Our user-preferences.
 	 */
 	private Preferences prefs;
-
-	/**
-	 * Adapter providing items for the mode selection dropdown in the ActionBar
-	 */
-	private ModeDropdownAdapter modeDropdown;
 
 	/**
 	 * The manager for the EasyEdit mode
@@ -535,11 +530,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		
 		setupLockButton(getSupportActionBar());
 		updateActionbarEditMode();
-		if (!prefs.isOpenStreetBugsEnabled() && getLogic().getMode() == Mode.MODE_OPENSTREETBUG) {
-			getLogic().setMode(Mode.MODE_MOVE);
-		}
-		if (modeDropdown != null)
-			modeDropdown.setShowOpenStreetBug(prefs.isOpenStreetBugsEnabled());
 		
 		if (getTracker() != null) {
 			getTracker().setListener(this);
@@ -708,20 +698,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 		final ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayShowHomeEnabled(true);
 		actionbar.setDisplayShowTitleEnabled(false);
-
-		if (prefs.depreciatedModesEnabled()) {
-			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-			modeDropdown = new ModeDropdownAdapter(this, prefs.isOpenStreetBugsEnabled(), prefs.depreciatedModesEnabled());
-			actionbar.setListNavigationCallbacks(modeDropdown, this);	
-			setupLockButton(actionbar);
-			ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
-			if (lock != null) lock.setVisibility(View.GONE);
-		} else {
-			actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-			actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
-			setupLockButton(actionbar);
-		}
-	
+		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM|ActionBar.DISPLAY_SHOW_HOME);
+		setupLockButton(actionbar);
 		actionbar.show();
 		setSupportProgressBarIndeterminateVisibility(false);
 	}
@@ -835,34 +814,13 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 	
 	public void updateActionbarEditMode() {
 		Log.d("Main", "updateActionbarEditMode");
-		if (modeDropdown != null && (prefs!=null && prefs.depreciatedModesEnabled())) 
-			getSupportActionBar().setSelectedNavigationItem(modeDropdown.getIndexForMode(getLogic().getMode()));
-		else { 
-			setLock(getLogic().getMode());
-		}
+		setLock(getLogic().getMode());
 	}
 	
 	public static void onEditModeChanged() {
 		Log.d("Main", "onEditModeChanged");
 		if (runningInstance != null) runningInstance.updateActionbarEditMode();
 	}
-	
-	@Override
-	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		Log.d("Main", "onNavigationItemSelected");
-		Mode mode = modeDropdown.getModeForItem(itemPosition);
-		getLogic().setMode(mode);
-		if (mode == Mode.MODE_TAG_EDIT) {
-			// if something is already/still selected, edit its tags
-			// prefer ways over nodes, and deselect what we're *not* editing
-			OsmElement e = getLogic().getSelectedWay();
-			if (e == null) e = getLogic().getSelectedNode();
-			else getLogic().setSelectedNode(null);
-			if (e != null) performTagEdit(e, null, false, false);
-		}
-		return true;
-	}
-	
 	
 	/**
 	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
@@ -1975,34 +1933,8 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 				case MODE_MOVE:
 					Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
 					break;
-				case MODE_OPENSTREETBUG:
-					switch ((clickedBugs == null) ? 0 : clickedBugs.size()) {
-					case 0:
-						performBugEdit(getLogic().makeNewBug(x, y));
-						break;
-					case 1:
-						performBugEdit(clickedBugs.get(0));
-						break;
-					default:
-						v.showContextMenu();
-						break;
-					}
-					break;
-				case MODE_ADD:
-					try {
-						getLogic().performAdd(x, y);
-					} catch (OsmIllegalOperationException e) {
-						Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-					}
-					break;
 				case MODE_TAG_EDIT:
 					selectElementForTagEdit(v, x, y);
-					break;
-				case MODE_ERASE:
-					selectElementForErase(v, x, y);
-					break;
-				case MODE_SPLIT:
-					selectElementForSplit(v, x, y);
 					break;
 				case MODE_EASYEDIT:
 					performEasyEdit(v, x, y);
@@ -2017,15 +1949,9 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 					if (!isInEditZoomRange) {
 						int res;
 						switch (mode) {
-						case MODE_ADD:
-						case MODE_ERASE:
-						case MODE_SPLIT:
 						case MODE_TAG_EDIT:
 						case MODE_EASYEDIT:
 							res = R.string.toast_not_in_edit_range;
-							break;
-						case MODE_OPENSTREETBUG:
-							res = R.string.toast_not_in_bug_range;
 							break;
 						case MODE_MOVE:
 						default:
@@ -2355,27 +2281,6 @@ public class Main extends SherlockFragmentActivity implements OnNavigationListen
 						break;
 					case MODE_TAG_EDIT:
 						performTagEdit(element, null, false, false);
-						break;
-					case MODE_ERASE:
-						if (element.hasParentRelations()) {
-							Log.i("Delete mode", "node has relations");
-							new AlertDialog.Builder(runningInstance)
-								.setTitle(R.string.delete)
-								.setMessage(R.string.deletenode_relation_description)
-								.setPositiveButton(R.string.deletenode,
-									new DialogInterface.OnClickListener() {	
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-											getLogic().performEraseNode((Node)element, true);
-										}
-									})
-								.show();
-						} else {
-							getLogic().performEraseNode((Node)element, true);
-						}
-						break;
-					case MODE_SPLIT:
-						getLogic().performSplit((Node) element);
 						break;
 					case MODE_EASYEDIT:
 						if (doubleTap) {

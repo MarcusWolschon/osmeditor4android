@@ -800,8 +800,7 @@ public class Map extends View implements IMapView {
 		if (tmpDrawingInEditRange // if we are not in editing rage none of the further checks are necessary
 				&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(way))) // if prefs are turned off but we are doing an EasyEdit operation show anyway
 				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
-				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
-					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
+				&& (tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
 					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT)) {
 			canvas.drawLines(linePoints, wayTolerancePaint);
 		}
