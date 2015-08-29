@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.locks.ReentrantLock;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
@@ -24,7 +25,7 @@ import de.blau.android.util.rtree.RTree;
  */
 public class BugStorage implements Serializable {
 	private static final long serialVersionUID = 3L;
-	private final static String DEBUG_TAG = RTree.class.getSimpleName();
+	private final static String DEBUG_TAG = BugStorage.class.getSimpleName();
 	private int newId=0;
 	private RTree bugs;
 	private RTree boxes;
@@ -122,9 +123,10 @@ public class BugStorage implements Serializable {
 	
 	/**
 	 * Stores the current storage data to the default storage file
+	 * @param ctx TODO
 	 * @throws IOException
 	 */
-	public void writeToFile() throws IOException { 
+	public void writeToFile(Context ctx) throws IOException { 
 		if (isEmpty()) {
 			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
 			Log.i(DEBUG_TAG, "storage empty, skipping save");
@@ -142,11 +144,13 @@ public class BugStorage implements Serializable {
 			} else {
 				// this is essentially catastrophic and can only happen if something went really wrong
 				// running out of memory or disk, or HW failure
-				Toast.makeText(Application.mainActivity, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+				if (ctx != null) {
+					Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+				}
 			}
 			readingLock.unlock();
 		} else {
-			Log.i(DEBUG_TAG, "storage delegator state being read, skipping save");
+			Log.i(DEBUG_TAG, "bug state being read, skipping save");
 		}
 	}
 	

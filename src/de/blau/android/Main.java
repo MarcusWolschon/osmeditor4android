@@ -514,10 +514,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					}
 				};
 			}
-			getLogic().loadFromFile(getApplicationContext(),postLoad);
-			getLogic().loadBugsFromFile(getApplicationContext(),null);
+			getLogic().loadFromFile(this,postLoad);
+			getLogic().loadBugsFromFile(this,null);
 		} else { // loadFromFile already does this
-			getLogic().loadBugsFromFile(getApplicationContext(),null);
 			getLogic().loadEditingState();
 			processIntents();
 			map.invalidate();
@@ -659,8 +658,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	private void saveData() {
 		Log.i("Main", "saving data");
-		getLogic().save();
-		// if something was selected save that
+		getLogic().saveAsync();
 	}
 
 	/**
@@ -1064,12 +1062,16 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_transfer_bugs_upload:
-			TransferBugs.upload(this, server);
+			if (Application.getBugStorage().hasChanges()) {
+				TransferBugs.upload(this, server);
+			} else {
+				Toast.makeText(this, R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+			}
 			return true;
 			
 		case R.id.menu_transfer_bugs_clear:
 			if (Application.getBugStorage().hasChanges()) { // FIXME show a dialog and allow override
-				Toast.makeText(getApplicationContext(), R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
 				return true;
 			}
 			Application.getBugStorage().reset();
@@ -1441,17 +1443,18 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				}
 				if (editorData.tags != null) {
 					Log.d("Main","handlePropertyEditorResult setting tags");
-					getLogic().setTags(editorData.type, editorData.osmId, editorData.tags);
+					getLogic().setTags(editorData.type, editorData.osmId, editorData.tags);		
 				}
 				if (editorData.parents != null) {
 					Log.d("Main","handlePropertyEditorResult setting parents");
-					getLogic().updateParentRelations(editorData.type, editorData.osmId, editorData.parents);
+					getLogic().updateParentRelations(editorData.type, editorData.osmId, editorData.parents);		
 				}
 				if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
 					Log.d("Main","handlePropertyEditorResult setting members");
 					getLogic().updateRelation(editorData.osmId, editorData.members);
 				}
 			}
+			saveData(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
 		}
 		if (getLogic().getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
 			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
@@ -1573,7 +1576,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (server != null && server.isLoginSet()) {
 			if (getLogic().hasChanges()) {
 				getLogic().upload(comment, source, closeChangeset);
-				if (!Application.getBugStorage().isEmpty()) {
+				if (!Application.getBugStorage().isEmpty() && Application.getBugStorage().hasChanges()) {
 					TransferBugs.upload(this, server);
 				}
 				getLogic().checkForMail();

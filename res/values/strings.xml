@@ -60,8 +60,8 @@
     <string name="openstreetbug_comment_label">Comment:</string>
     <string name="openstreetbug_edit_close">Close</string>
     <string name="openstreetbug_edit_closed">Closed</string>
-    <string name="openstreetbug_commit_ok">Changes saved</string>
-    <string name="openstreetbug_commit_fail">Could not save changes</string>
+    <string name="openstreetbug_commit_ok">Bug changes saved</string>
+    <string name="openstreetbug_commit_fail">Could not save bug changes</string>
     <string name="openstreetbug_not_downloaded">not downloaded</string>
     <string name="openstreetbug_last_updated">last updated</string>
     <string name="unsaved_data_title">Caution!</string>

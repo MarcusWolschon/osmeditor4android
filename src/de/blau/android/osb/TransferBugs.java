@@ -134,7 +134,7 @@ public class TransferBugs {
 									}
 								});
 								if (server.getOAuth()) // if still set
-									Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
+									Toast.makeText(context, R.string.toast_oauth, Toast.LENGTH_LONG).show();
 								return;
 							} 
 						} else {

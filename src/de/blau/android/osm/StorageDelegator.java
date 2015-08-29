@@ -23,6 +23,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 import android.widget.Toast;
@@ -1677,9 +1678,10 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Stores the current storage data to the default storage file
+	 * @param ctx TODO
 	 * @throws IOException
 	 */
-	public void writeToFile() throws IOException { 
+	public void writeToFile(Context ctx) throws IOException { 
 		if (apiStorage == null || currentStorage == null || (apiStorage.isEmpty() && currentStorage.isEmpty())) {
 			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
 			Log.i("StorageDelegator", "storage delegator empty, skipping save");
@@ -1697,8 +1699,10 @@ public class StorageDelegator implements Serializable, Exportable {
 			} else {
 				// this is essentially catastrophic and can only happen if something went really wrong
 				// running out of memory or disk, or HW failure
-				Toast.makeText(Application.mainActivity, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
-				SavingHelper.asyncExport(Application.mainActivity, this);
+				if (ctx != null) {
+					Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+					SavingHelper.asyncExport(ctx, this);
+				}
 			}
 			readingLock.unlock();
 		} else {

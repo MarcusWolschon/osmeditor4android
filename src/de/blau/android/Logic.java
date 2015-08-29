@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -2609,11 +2610,30 @@ public class Logic {
 	 */
 	void save() {
 		try {
-			getDelegator().writeToFile();
-			Application.getBugStorage().writeToFile();
+			getDelegator().writeToFile(Application.mainActivity);
+			Application.getBugStorage().writeToFile(Application.mainActivity);
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
+	}
+	
+	
+	/**
+	 * Saves to a file (asynchronously)
+	 */
+	void saveAsync() {
+		new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... params) {
+				try {
+					getDelegator().writeToFile(Application.mainActivity);
+					Application.getBugStorage().writeToFile(Application.mainActivity);
+				} catch (IOException e) {
+					Log.e("Vespucci", "Problem saving", e);
+				}
+				return null;
+			}
+		}.execute();
 	}
 	
 	/**
