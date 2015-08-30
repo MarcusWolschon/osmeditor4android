@@ -103,6 +103,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osb.Bug;
@@ -150,7 +151,7 @@ import de.blau.android.voice.Commands;
  * 
  * @author mb
  */
-public class Main extends SherlockFragmentActivity implements ServiceConnection, TrackerLocationListener {
+public class Main extends SherlockFragmentActivity implements ServiceConnection, TrackerLocationListener, UpdateViewListener {
 
 	/**
 	 * Tag used for Android-logging.
@@ -1216,19 +1217,20 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		try {
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				return true;
-			} else {
+			} else if (locationManager.getAllProviders().size() > 0){ // check if there are any providers at all
 				startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 				return false;
-			}
+			} 
+			return false;
 		} catch (Exception e) {
-			Log.e("Main", "Error when checking for GPS, assuming GPS not available", e);
+			Log.d("Main", "Error when checking for GPS, assuming GPS not available", e);
 			Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 	}
 
 	public void setFollowGPS(boolean follow) {
-		Log.d("Main","setFollowGPS from " + followGPS + " to " + follow);
+		// Log.d("Main","setFollowGPS from " + followGPS + " to " + follow);
 		if (followGPS != follow) {
 			followGPS = follow;
 			if (follow) {
@@ -2643,5 +2645,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    mode.invalidate();
 	  }
 	  return mode;
+	}
+
+	@Override
+	public void update() {
+		map.invalidate();
 	}	
 }

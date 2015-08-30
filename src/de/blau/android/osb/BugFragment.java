@@ -9,6 +9,7 @@ import de.blau.android.R;
 import de.blau.android.R.id;
 import de.blau.android.R.layout;
 import de.blau.android.R.string;
+import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osb.Bug.State;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -17,8 +18,11 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.TagEditorFragment;
+import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -62,6 +66,8 @@ import android.widget.TextView;
  */
 public class BugFragment extends SherlockDialogFragment {
 	private static final String DEBUG_TAG = BugFragment.class.getSimpleName();
+	 
+	UpdateViewListener mListener;
 
     /**
      */
@@ -229,9 +235,22 @@ public class BugFragment extends SherlockDialogFragment {
     }
     
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d(DEBUG_TAG, "onAttach");
+        try {
+            mListener = (UpdateViewListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
+        }
+    }
+    
+    @Override
     public void onDismiss(DialogInterface dialog) {
     	super.onDismiss(dialog);
-    	getActivity().getWindow().getDecorView().findViewById(android.R.id.content).invalidate(); // FIXME doesn't seem to work, force invalidation of whole screen
+    	if (mListener != null) {
+    		mListener.update();
+    	}
     }
     
     public static State pos2state(int pos) {
