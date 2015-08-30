@@ -33,7 +33,7 @@
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="welcome_title">Willkommen!</string>
-  <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nVergiss bitte nicht zuerst das Gebiet das du bearebiten willst herunterzuladen.\n\nViel Spass!</string>
+  <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nVergiss bitte nicht zuerst das Gebiet das du bearbeiten willst herunterzuladen.\n\nViel Spass!</string>
   <string name="read_introduction">Die Einführung jetzt lesen</string>
   <string name="upgrade_title">Willkommen zu einer neuen Vespucci Version! </string>
   <string name="upgrade_message">Dies ist eine neue Version von Vepsucci mit neuen Funktionen und Verhalten. Wir empfehlen die Amerkungen zu den Änderungen kurz durchzulesen.</string>

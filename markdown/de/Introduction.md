@@ -1,16 +1,17 @@
 # Einführung in Vespucci
 
-Vespucci ist ein Editor für OpenStreetMap der die meisten Funktionen unterstützt die ähnliche Programme auf normalen Rechnern vorhanden sind und es ist erfolgreich auf Android 2.3 bis 5.1 getestet worden. Wichtig: während die Leistung von Handys und Tablets Ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat muss man, vorallem bei älteren Geräten, auch nicht vergessen, dass sie eher wenig Hauptspeicher zur verfügung haben und auch deutlich langsamer sein können bei bestimmten Operationen. Deshalb sollte man beim Editieren dies im Auge bhalten und, zum Beispiel, die Grösse der editierten Gebiete in vernünftige Grössen halten.   
+Vespucci ist ein Editor für OpenStreetMap der die meisten Funktionen unterstützt die ähnliche Programme auf normalen Rechnern vorhanden sind und es ist erfolgreich auf Android 2.3 bis 5.1 getestet worden. Wichtig: während die Leistung von Handys und Tablets Ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat muss man, vorallem bei älteren Geräten, auch nicht vergessen, dass sie eher wenig Hauptspeicher zur verfügung haben und auch deutlich langsamer sein können bei bestimmten Operationen. Deshalb sollte man beim Editieren dies im Auge behalten und, zum Beispiel, die Grösse der editierten Gebiete in vernünftige Grössen halten.   
 
 ## Erstmaliger Gebrauch
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
+Beim erstmaligen Starten zeigt Vespucci das "Herunterladen einer anderen Position"/"Bereich laden" Formular. Falls Koordinaten angezeigt werden und sofort heruntergeladen werden soll, kann die entsprechende Option gewählt und den Radius um den Punkt herum gesetzt werden. Auf langsamen Geräten sollte nur ein kleiner Bereich ausgewählt werden. 
 
-Alternatively you can dismiss the dialog by pressing the back button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+Alternativ kann mit dem "Zur Karte" direket zur Karte gewechselt werden, auf das Gebiet das bearbeitet werden soll gezoomt werden und dann Daten für das Gebiet geladen werden (siehe unten "Mit Vespucci OSM Daten bearbeiten").
+
 
 ## Mit Vespucci OSM Daten bearbeiten
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+Abhängig der Bildschirmgrösse und Alter des Gerätes können die Bearbeitungsfunktionen über Icons in der obersten Menuzeile, via ein Menu oben rechts, von der unteren Menuzeile (falls vorhanden) oder mittels der Menutaste zugänglich sein.
 
 ### OSM Daten herunterladen
 
@@ -38,7 +39,7 @@ Vespucci has a good "undo/redo" system so don't be afraid of experimenting on yo
 
 #### Auswählen / Abwählen
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multi-Select mode](Multi-Select.html).
+Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
 #### Einen neuen Knoten oder Weg erstellen
 
@@ -98,7 +99,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 #### Resolving conflicts on uploads
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict Resolution.html).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
 
 ## Using GPS
 
