@@ -47,6 +47,8 @@ Here is how you can start developing.
 
 Currently building is supported with eclipse, android studio and gradle. Note you will need a patched actionbarsherlock library for everything to work properly, see: https://github.com/MarcusWolschon/osmeditor4android/issues/114
 
+Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds. 
+
 
 ### Gradle build
 
