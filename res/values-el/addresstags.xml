@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Αριθμός κτηρίου (addr:housenumber)</item>
+    <item>Οδός (addr:street)</item>
+    <item>Ταχ. Κώδικας (addr:postcode)</item>
+    <item>Πόλη/κωμόπολη/Χωριό/..  (addr:city)</item>
+    <item>Χώρα (addr:country)</item>
+    <item>Πλήρης διεύθυνση (addr:full)</item>
+    <item>Τοποθεσία (addr:place)</item>
+    <item>Οικισμός (addr:hamlet)</item>
+    <item>Προάστιο (addr:suburb)</item>
+    <item>Subdistrict (addr:subdistrict)</item>
+    <item>District (addr:district)</item>
+    <item>Province (addr:province)</item>
+    <item>Πολιτεία (addr:state)</item>
+    <item>Flats (addr:flats)</item>
+    <item>Door (addr:door)</item>
+    <item>Unit (addr:unit)</item>
+  </string-array>
+</resources>

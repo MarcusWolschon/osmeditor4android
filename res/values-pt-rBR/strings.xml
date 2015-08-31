@@ -42,7 +42,6 @@
   <string name="openstreetbug_edit_title">Editar Nota</string>
   <string name="openstreetbug_edit_close">Fechar</string>
   <string name="openstreetbug_edit_closed">Fechado</string>
-  <string name="openstreetbug_commit_ok">Alterações salvas</string>
   <string name="imagery_offset_description">Descrição</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_zoom">Zoom</string>
@@ -199,7 +198,6 @@
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
   <string name="undo_nothing">nada para desfazer</string>
-  <string name="tracking_active_title">Gravando trilha GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nó</string>
   <string name="undo_action_moveway">mover via</string>

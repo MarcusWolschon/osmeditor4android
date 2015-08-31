@@ -37,8 +37,6 @@
   <string name="openstreetbug_comment_label">Komentar:</string>
   <string name="openstreetbug_edit_close">Zatvori</string>
   <string name="openstreetbug_edit_closed">Zatvoren</string>
-  <string name="openstreetbug_commit_ok">Promjene spremljene</string>
-  <string name="openstreetbug_commit_fail">Ne mogu spremiti promjene</string>
   <string name="unsaved_data_title">Oprez!</string>
   <string name="unsaved_data_message">Imate nespremljenih promjena koje će se odbaciti ako nastavite.</string>
   <string name="unsaved_data_proceed">Odbaci i nastavi</string>
@@ -197,8 +195,6 @@
   <string name="undo">Opovrgni</string>
   <string name="redo">Ponovi</string>
   <string name="undo_nothing">nema se što opovrgnuti</string>
-  <string name="tracking_active_title">Snimam GPS trag</string>
-  <string name="tracking_active_text">Vespucci snima GPS trag</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">pomakni točku</string>
   <string name="undo_action_moveway">pomakni put</string>

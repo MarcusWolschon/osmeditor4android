@@ -53,8 +53,6 @@ contre %3$s sur le serveur</string>
   <string name="openstreetbug_comment_label">Commentaire:</string>
   <string name="openstreetbug_edit_close">Fermer</string>
   <string name="openstreetbug_edit_closed">Fermé</string>
-  <string name="openstreetbug_commit_ok">Modifications prises en compte</string>
-  <string name="openstreetbug_commit_fail">Erreur d\'enregistrement des modifications</string>
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Des modifications non enregistrées seront abandonnées si vous continuez.</string>
   <string name="unsaved_data_proceed">Continuer sans enregistrer</string>
@@ -260,14 +258,11 @@ il y a %3$s %4$s</string>
   <string name="config_showTolerance_summary">Affiche la zone où un élément peut être sélectionné</string>
   <string name="config_enableAntiAliasing_title">Active l\'anti-crénelage</string>
   <string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
-  <string name="config_enableOpenStreetBugs_title">Afficher les notes</string>
   <string name="config_enableOpenStreetBugs_summary">Permet d\'afficher, modifier et créer des notes/erreurs</string>
   <string name="config_enablePhotoLayer_title">Activer la couche photos</string>
   <string name="config_enablePhotoLayer_summary">Afficher les photos géo-référencées.</string>
   <string name="config_enableKeepScreenOn_title">Garder l\'écran allumé</string>
   <string name="config_enableKeepScreenOn_summary">Ne pas éteindre l\'écran (pour économiser l\'énergie).</string>
-  <string name="config_enableDeprecatedModes_title">Activer les modes obsolètes</string>
-  <string name="config_enableDeprecatedModes_summary">Activer les modes Ajouter, Éditer, Éditer Tags, Continuer, Effacer et Scinder.</string>
   <string name="config_closeChangesetOnSave_title">Fermer les groupes de modifications</string>
   <string name="config_closeChangesetOnSave_summary">Par défaut, fermer les groupes de modifications à l\'enregistrement</string>
   <string name="config_backgroundLayer_title">Fond de carte</string>
@@ -355,8 +350,6 @@ il y a %3$s %4$s</string>
   <string name="undo">Annuler</string>
   <string name="redo">Refaire</string>
   <string name="undo_nothing">Plus rien à annuler</string>
-  <string name="tracking_active_title">Enregistrement de trace GPS en cours</string>
-  <string name="tracking_active_text">Vespucci enregistre une trace GPS</string>
   <string name="gps_failure">Échec de l\'activation du GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">déplacement de nœud</string>

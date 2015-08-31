@@ -54,8 +54,6 @@
   <string name="openstreetbug_comment_label">Comentário:</string>
   <string name="openstreetbug_edit_close">Fechar</string>
   <string name="openstreetbug_edit_closed">Fechado</string>
-  <string name="openstreetbug_commit_ok">Alterações gravadas</string>
-  <string name="openstreetbug_commit_fail">Não foi possível gravar as alterações</string>
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Há alterações não salvas que serão perdidas se prosseguir.</string>
   <string name="unsaved_data_proceed">Descartar &amp; prosseguir</string>
@@ -277,14 +275,11 @@ há %3$s %4$s</string>
   <string name="config_showTolerance_summary">Mostra a área onde um elemento pode ser selecionado.</string>
   <string name="config_enableAntiAliasing_title">Ativar Suavização</string>
   <string name="config_enableAntiAliasing_summary">Tornar linhas mais suaves.</string>
-  <string name="config_enableOpenStreetBugs_title">Ativar visualização de Notas</string>
   <string name="config_enableOpenStreetBugs_summary">Visualizar, Editar e Criar Notas/Erros.</string>
   <string name="config_enablePhotoLayer_title">Ativar camada de Fotos</string>
   <string name="config_enablePhotoLayer_summary">Mostrar fotos georreferenciadas</string>
   <string name="config_enableKeepScreenOn_title">Manter tela ligada</string>
   <string name="config_enableKeepScreenOn_summary">Não desligar tela para poupar energia.</string>
-  <string name="config_enableDeprecatedModes_title">Ativar modos obsoletos</string>
-  <string name="config_enableDeprecatedModes_summary">Ativar modos Novo, Editar, Editar Tags, Adicionar, Apagar nó e Separar.</string>
   <string name="config_closeChangesetOnSave_title">Fechar os conjuntos de alterações</string>
   <string name="config_closeChangesetOnSave_summary">Fechar os conjuntos de alterações por padrão ao salvar</string>
   <string name="config_backgroundLayer_title">Mapa de fundo</string>
@@ -372,8 +367,6 @@ há %3$s %4$s</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
   <string name="undo_nothing">nada para desfazer</string>
-  <string name="tracking_active_title">Gravando percurso GPS</string>
-  <string name="tracking_active_text">O Vespucci está gravando um percurso GPS</string>
   <string name="gps_failure">Falha ao ativar o GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nó</string>

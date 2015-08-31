@@ -57,8 +57,6 @@
   <string name="openstreetbug_comment_label">コメント:</string>
   <string name="openstreetbug_edit_close">閉じる</string>
   <string name="openstreetbug_edit_closed">閉じられた</string>
-  <string name="openstreetbug_commit_ok">変更は保存されました</string>
-  <string name="openstreetbug_commit_fail">変更を保存できませんでした</string>
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">このまま進めると、セーブしていない変更は破棄されます</string>
   <string name="unsaved_data_proceed">破棄 &amp; 進める</string>
@@ -267,14 +265,11 @@
   <string name="config_showTolerance_summary">エレメントを選択できるエリアを表示。</string>
   <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
   <string name="config_enableAntiAliasing_summary">ラインをよりスムーズにする</string>
-  <string name="config_enableOpenStreetBugs_title">ノートを表示可能にする</string>
   <string name="config_enableOpenStreetBugs_summary">ノート/エラーの表示、編集、作成</string>
   <string name="config_enablePhotoLayer_title">写真レイヤーを利用可能にする</string>
   <string name="config_enablePhotoLayer_summary">地理的情報が付加された写真を表示</string>
   <string name="config_enableKeepScreenOn_title">スクリーン表示を継続</string>
   <string name="config_enableKeepScreenOn_summary">節電のためにスクリーンをオフにしない</string>
-  <string name="config_enableDeprecatedModes_title">廃止予定モードを利用可能にする</string>
-  <string name="config_enableDeprecatedModes_summary">タグの編集と新規付与、ノードの作成、削除、分割操作を利用可能にする</string>
   <string name="config_closeChangesetOnSave_title">チェンジセットを閉じる</string>
   <string name="config_closeChangesetOnSave_summary">セーブ時にはデフォルトでチェンジセットを閉じる</string>
   <string name="config_backgroundLayer_title">背景地図</string>
@@ -362,8 +357,6 @@
   <string name="undo">やり直し</string>
   <string name="redo">繰り返し</string>
   <string name="undo_nothing">やり直すことがありません</string>
-  <string name="tracking_active_title">GPSトラックを記録</string>
-  <string name="tracking_active_text">VespucciはGPSトラックを記録中</string>
   <string name="gps_failure">GPSを使用可能にできませんでした</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">ノードを移動</string>

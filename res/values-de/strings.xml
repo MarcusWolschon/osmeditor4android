@@ -53,14 +53,17 @@
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
+  <string name="openstreetbug_bug_title">Problem</string>
   <string name="openstreetbug_new_nodeway">Knoten/Weg erstellen</string>
   <string name="openstreetbug_edit_title">Notiz ändern</string>
   <string name="openstreetbug_commitbutton">Hinzufügen</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="openstreetbug_edit_close">Schliessen</string>
   <string name="openstreetbug_edit_closed">Geschlossen</string>
-  <string name="openstreetbug_commit_ok">Änderungen wurden gespeichert</string>
-  <string name="openstreetbug_commit_fail">Änderungen konnten nicht gespeichert werden!</string>
+  <string name="openstreetbug_commit_ok">Änderungen an den Fehler gespeichert</string>
+  <string name="openstreetbug_commit_fail">Problem beim Speichern der Fehleränderungen</string>
+  <string name="openstreetbug_not_downloaded">nicht heruntergeladen</string>
+  <string name="openstreetbug_last_updated">letzte Änderung</string>
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden ungespeicherte Änderungen verworfen.</string>
   <string name="unsaved_data_proceed">Verwerfen &amp; fortfahren</string>
@@ -77,6 +80,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
   <string name="search_results_title">Suchresultate</string>
   <string name="find_message">Suchanfrage eingeben</string>
+  <string name="preset_search_hint">Vorlagensuche</string>
   <string name="read_file">Datei zum Lesen auswählen</string>
   <string name="save_file">Datei zum Speichern angeben</string>
   <string name="existing_track_title">Trackdaten vorhanden</string>
@@ -92,8 +96,15 @@
   <string name="length_m">Länge (m)</string>
   <string name="not_downloaded">Nicht heruntergeladen</string>
   <string name="empty_role">Leere Rolle</string>
+  <string name="element">Element</string>
+  <string name="last_updated">letzte Änderung</string>
+  <string name="error">Fehler</string>
+  <string name="warning">Warnung</string>
+  <string name="minor_issue">Fehler mit geringer Bedeutung</string>
+  <string name="unknown_error_level">Unbekannter Fehlerstatus</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
+  <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
   <string name="toast_not_in_edit_range">Zum Editieren bitte hineinzoomen (Lautstärke Hoch/Runter oder Lupe/Shift)</string>
   <string name="toast_unlock_to_edit">Entsperren um zu editieren.</string>
@@ -131,6 +142,8 @@
   <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
+  <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
+  <string name="toast_storage_error">Das Verzichnis für Kartenkacheln und andere Dateien ist nicht von Vespucci beschreibar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -222,6 +235,7 @@
   <string name="menu_gps_start">GPS-Track starten</string>
   <string name="menu_gps_pause">GPS-Track pausieren</string>
   <string name="menu_gps_clear">GPS-Track löschen</string>
+  <string name="menu_gps_track_managment">Trackverwaltung</string>
   <string name="menu_gps_upload">GPS-Track hochladen</string>
   <string name="menu_gps_export">GPS-Track exportieren</string>
   <string name="menu_gps_import">GPS Track importieren</string>
@@ -236,6 +250,10 @@
   <string name="menu_transfer_export">Änderungen exportieren</string>
   <string name="menu_transfer_read_file">Von Datei lesen</string>
   <string name="menu_transfer_save_file">In Datei speichern</string>
+  <string name="menu_transfer_bugs">Fehler...</string>
+  <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
+  <string name="menu_transfer_bugs_upload">Alle hochladen</string>
+  <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -300,20 +318,20 @@
   <string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
   <string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
-  <string name="config_enableOpenStreetBugs_title">Notizen anzeigen</string>
+  <string name="config_enableOpenStreetBugs_title">Fehler und Notizen anzeigen</string>
   <string name="config_enableOpenStreetBugs_summary">Notizen erstellen, ändern und anzeigen</string>
   <string name="config_enablePhotoLayer_title">Foto Layer einschalten</string>
   <string name="config_enablePhotoLayer_summary">Geo-referenzierte Fotos anzeigen</string>
   <string name="config_enableKeepScreenOn_title">Bildschirm nicht abschalten</string>
   <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten um Energie zu sparen</string>
-  <string name="config_enableDeprecatedModes_title">Veraltete Modi anzeigen</string>
-  <string name="config_enableDeprecatedModes_summary">New, Edit, Edit Tags, Append, Erase node und Split Modi anzeigen.</string>
   <string name="config_closeChangesetOnSave_title">Changesets schliessen</string>
   <string name="config_closeChangesetOnSave_summary">Changeset beim Speichern schliessen</string>
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Das Bild, das im Hintergrund der Karte angezeigt wird.</string>
   <string name="config_overlayLayer_title">Karten Overlay</string>
   <string name="config_overlayLayer_summary">Das Bild, das über der Karte angezeigt wird.</string>
+  <string name="config_scale_title">Masstabanzeige</string>
+  <string name="config_scale_summary">Art der angezeigeten Skala</string>
   <string name="config_category_server">Server-Einstellungen</string>
   <string name="config_apibutton_title">OSM-API-URL</string>
   <string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>
@@ -350,6 +368,14 @@
   <string name="config_largeDragArea_summary">Macht einen grösseren Bereich verfügbar um Punkte zu verschieben</string>
   <string name="config_extTriggeredDownloadRadius_title">Download Radius</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radius in Meter für extern ausgelöste Downloads</string>
+  <string name="config_maxDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download</string>
+  <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download pausiert wird. </string>
+  <string name="config_bugDownloadRadius_title">Download Radius für Notizen/Fehler</string>
+  <string name="config_bugDownloadRadius_summary">Radius (in Meter) des Download-Gebietes für Notizen und Fehler</string>
+  <string name="config_maxBugDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download von Notizen/Fehler</string>
+  <string name="config_maxBugDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download von Notizen/Fehler pausiert wird. </string>
+  <string name="config_bugFilter_title">Fehler/Notizen-Filter</string>
+  <string name="config_bugFilter_summary">Auswahl welche Objekte auf dem Notizen/Fehler-Layer angezeigt werden</string>
   <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
   <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
   <string name="config_enableAutoPreset_title">Auto Preset einschalten</string>
@@ -363,6 +389,9 @@
   <string name="config_enableLightTheme_title">Helles Thema verwenden</string>
   <string name="config_enableLightTheme_summary">Helles Thema mit weissen Hintergrund</string>
   <string name="config_category_misc">Verschiedenes</string>
+  <string name="config_address_tags">Adressattribute</string>
+  <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
+  <string name="config_moreprefs">Weitere Einstellungen ...</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -399,8 +428,8 @@
   <string name="undo">Rückgängig</string>
   <string name="redo">Wiederholen</string>
   <string name="undo_nothing">Nichts rückgängig zu machen</string>
-  <string name="tracking_active_title">GPS-Tracking läuft</string>
-  <string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf</string>
+  <string name="tracking_active_title">Hintergrundprozess von Vespucci aktiv</string>
+  <string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter</string>
   <string name="gps_failure">Konnte GPS nicht aktivieren</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschieben</string>
@@ -442,6 +471,7 @@
   <!--Notifications-->
   <string name="alert_data_issue">Problem mit den OSM Daten entdeckt</string>
   <string name="alert_note">OSM Note in der Nähe entdeckt</string>
+  <string name="alert_bug">OSM Fehler in der Nähe entdeckt</string>
   <string name="alert_distance_direction">
 in %1$d m %2$s</string>
   <!--Misc relation related stuff-->
@@ -477,5 +507,14 @@ in %1$d m %2$s</string>
     <item>Intern NMEA</item>
     <item>NMEA von TCP Client</item>
     <item>NMEA von TCP Server</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Offen</item>
+    <item>Behoben</item>
+    <item>Falschmeldung</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Offen</item>
+    <item>Behoben</item>
   </string-array>
 </resources>

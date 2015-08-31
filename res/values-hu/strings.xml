@@ -32,8 +32,6 @@
   <string name="openstreetbug_comment_label">Megjegyzés:</string>
   <string name="openstreetbug_edit_close">Lezárás</string>
   <string name="openstreetbug_edit_closed">Lezárva</string>
-  <string name="openstreetbug_commit_ok">Változások elmentve</string>
-  <string name="openstreetbug_commit_fail">Nem sikerült menteni a változásokat</string>
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">Elmentetlen változtatásaid vannak, amik el lesznek vetve, ha folytatod.</string>
   <string name="unsaved_data_proceed">Elvet és folytat</string>
@@ -181,14 +179,11 @@
   <string name="config_showTolerance_summary">Terület megjelenítése, amelyen belül egy elem kijelölhető.</string>
   <string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
   <string name="config_enableAntiAliasing_summary">A vonalakat simábbá teszi.</string>
-  <string name="config_enableOpenStreetBugs_title">Jegyzetek megjelenítése</string>
   <string name="config_enableOpenStreetBugs_summary">Jegyzetek/hibák mutatása, szerkesztése és létrehozása.</string>
   <string name="config_enablePhotoLayer_title">Fénykép réteg engedélyezése</string>
   <string name="config_enablePhotoLayer_summary">Georeferált fényképek megjelenítése.</string>
   <string name="config_enableKeepScreenOn_title">Képernyő ébren tartása</string>
   <string name="config_enableKeepScreenOn_summary">Ne kapcsoljon ki a képernyő a fogyasztás csökkentése érdekében.</string>
-  <string name="config_enableDeprecatedModes_title">Elavult módok engedélyezése</string>
-  <string name="config_enableDeprecatedModes_summary">Engedélyezi az Új, Szerkesztés, Címkék szerk., Hozzáfűzés, Pont törlése és Kettévágás módokat.</string>
   <string name="config_backgroundLayer_title">Térkép háttér</string>
   <string name="config_category_server">Szerver beállításai</string>
   <string name="config_apibutton_title">OSM API URL</string>
@@ -238,8 +233,6 @@
   <string name="undo">Visszavonás</string>
   <string name="redo">Újra</string>
   <string name="undo_nothing">nincs mit visszavonni</string>
-  <string name="tracking_active_title">GPS nyomvonal rögzítése</string>
-  <string name="tracking_active_text">A Vespucci rögzíti a GPS nyomvonalat</string>
   <string name="gps_failure">Nem sikerült engedélyezni a GPS-t</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">pont mozgatása</string>

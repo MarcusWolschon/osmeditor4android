@@ -59,8 +59,6 @@
   <string name="openstreetbug_comment_label">Miêu tả:</string>
   <string name="openstreetbug_edit_close">Đóng</string>
   <string name="openstreetbug_edit_closed">Đã đóng</string>
-  <string name="openstreetbug_commit_ok">Đã lưu các thay đổ</string>
-  <string name="openstreetbug_commit_fail">Không thể lưu các thay đổi</string>
   <string name="unsaved_data_title">Cẩn thận!</string>
   <string name="unsaved_data_message">Nếu bạn tiếp tục, các thay đổi chưa lưu của bạn sẽ bị mất.</string>
   <string name="unsaved_data_proceed">Vứt bỏ &amp; tiếp tục</string>
@@ -301,14 +299,11 @@
   <string name="config_showTolerance_summary">Hiển thị khu vực nơi đối tượng có thể được chọn</string>
   <string name="config_enableAntiAliasing_title">Khử răng cưa</string>
   <string name="config_enableAntiAliasing_summary">Làm bằng phẳng các đường kẻ.</string>
-  <string name="config_enableOpenStreetBugs_title">Hiển thị Ghi chú</string>
   <string name="config_enableOpenStreetBugs_summary">Xem, Sửa, và Tạo Ghi chú hoặc Báo cáo Lỗi.</string>
   <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
   <string name="config_enablePhotoLayer_summary">Hiển thị các hình ảnh được định vị.</string>
   <string name="config_enableKeepScreenOn_title">Giữ cho màn hình luôn sáng</string>
   <string name="config_enableKeepScreenOn_summary">Không tắt màn hình để duy trì năng lượng.</string>
-  <string name="config_enableDeprecatedModes_title">Bật các chế độ bị phản đối</string>
-  <string name="config_enableDeprecatedModes_summary">Kích hoạt các chế độ Tạo Mới, Sửa, Sửa các Thẻ, Thêm, Xóa Nốt, và Cắt đôi.</string>
   <string name="config_closeChangesetOnSave_title">Đóng các bộ thay đổi</string>
   <string name="config_closeChangesetOnSave_summary">Đóng các bộ thay đổi khi lưu theo mặc định</string>
   <string name="config_backgroundLayer_title">Nền bản đồ</string>
@@ -400,8 +395,6 @@
   <string name="undo">Hoàn tác</string>
   <string name="redo">Làm lại</string>
   <string name="undo_nothing">không có gì để hoàn tác</string>
-  <string name="tracking_active_title">Đang thu tuyến GPS</string>
-  <string name="tracking_active_text">Vespucci đang thu một tuyến GPS</string>
   <string name="gps_failure">Thất bại khi kích hoạt GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">di chuyển nốt</string>

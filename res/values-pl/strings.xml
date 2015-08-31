@@ -34,8 +34,6 @@
   <string name="openstreetbug_comment_label">Komentarz:</string>
   <string name="openstreetbug_edit_close">Zamknij</string>
   <string name="openstreetbug_edit_closed">Zamknięty</string>
-  <string name="openstreetbug_commit_ok">Zapisano zmiany</string>
-  <string name="openstreetbug_commit_fail">Nie można zapisać zmian</string>
   <string name="unsaved_data_title">Uwaga!</string>
   <string name="unsaved_data_message">Masz niezapisane zmiany, które utracisz jeśli będziesz kontynuował.</string>
   <string name="unsaved_data_proceed">Odrzuć &amp; przejdź dalej</string>
@@ -192,14 +190,11 @@
   <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
   <string name="config_enableAntiAliasing_title">Włącz wygładzanie</string>
   <string name="config_enableAntiAliasing_summary">Stwórz linię łagodną.</string>
-  <string name="config_enableOpenStreetBugs_title">Włącz wyświetlanie notatek</string>
   <string name="config_enableOpenStreetBugs_summary">Wyświetl, Edytuj i utwórz notatkę/błąd</string>
   <string name="config_enablePhotoLayer_title">Włącz warstwę foto</string>
   <string name="config_enablePhotoLayer_summary">Wyświetl zdjęcia georeferencyjne.</string>
   <string name="config_enableKeepScreenOn_title">Ekran włączony</string>
   <string name="config_enableKeepScreenOn_summary">Nie wyłączaj ekranu w celu oszczędzania baterii</string>
-  <string name="config_enableDeprecatedModes_title">Włącz nieaktualne tryby</string>
-  <string name="config_enableDeprecatedModes_summary">Włącz nowy, Edytuj, Edytuj  znaczniki, Dodaj, Usuń węzeł i tryb podziału.</string>
   <string name="config_backgroundLayer_title">Mapa jako tło</string>
   <string name="config_backgroundLayer_summary">Wybierz mapę, która zostanie użyta jako tło.</string>
   <string name="config_overlayLayer_title">Nakładka mapy</string>
@@ -264,8 +259,6 @@
   <string name="undo">Cofnij</string>
   <string name="redo">Ponów</string>
   <string name="undo_nothing">nie ma nic do cofnięcia</string>
-  <string name="tracking_active_title">Nagrywanie ścieżki GPS</string>
-  <string name="tracking_active_text">Vespucci nagrywa ścieżkę GPS</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">przesuń węzeł</string>

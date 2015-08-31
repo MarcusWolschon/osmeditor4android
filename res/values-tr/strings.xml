@@ -9,8 +9,6 @@
   <string name="progress_download_message">Sunucudan veriler indiriliyor...</string>
   <string name="upload_comment_label">Yorum:</string>
   <string name="openstreetbug_comment_label">Yorum:</string>
-  <string name="openstreetbug_commit_ok">Değişiklikler kaydedildi</string>
-  <string name="openstreetbug_commit_fail">Değişiklikler kaydedilemedi</string>
   <string name="unsaved_data_title">Dikkat!</string>
   <!--Toaster-->
   <!--Some generic labels/buttons-->

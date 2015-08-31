@@ -22,8 +22,6 @@
   <string name="openstreetbug_commitbutton">Transmite</string>
   <string name="openstreetbug_comment_label">Comentariu:</string>
   <string name="openstreetbug_edit_close">Închide</string>
-  <string name="openstreetbug_commit_ok">Modificările au fost salvate</string>
-  <string name="openstreetbug_commit_fail">Modificările nu au putut fi salvate</string>
   <string name="unsaved_data_title">Atenţie!</string>
   <string name="unsaved_data_message">Aveţi modificări nesalvate ce vor fi șterse dăcă continuaţi.</string>
   <string name="unsaved_data_proceed">Renunţă și continuă</string>

@@ -57,8 +57,6 @@
   <string name="openstreetbug_comment_label">Комментарий:</string>
   <string name="openstreetbug_edit_close">Закрыть</string>
   <string name="openstreetbug_edit_closed">Закрытая</string>
-  <string name="openstreetbug_commit_ok">Изменения сохранены</string>
-  <string name="openstreetbug_commit_fail">Не удалось сохранить изменения</string>
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">У вас есть несохраненные изменения, которые будут потеряны при продолжении.</string>
   <string name="unsaved_data_proceed">Отменить и продолжить</string>
@@ -273,13 +271,11 @@
   <string name="config_showTolerance_summary">Показывает область, в которой может быть выбран элемент.</string>
   <string name="config_enableAntiAliasing_title">Включить сглаживание</string>
   <string name="config_enableAntiAliasing_summary">Сглаживает линии.</string>
-  <string name="config_enableOpenStreetBugs_title">Показывать заметки</string>
   <string name="config_enableOpenStreetBugs_summary">Показывать, редактировать и создавать заметки/ошибки.</string>
   <string name="config_enablePhotoLayer_title">Включить слой фото</string>
   <string name="config_enablePhotoLayer_summary">Показывать геопривязанные фото</string>
   <string name="config_enableKeepScreenOn_title">Не гасить экран</string>
   <string name="config_enableKeepScreenOn_summary">Не отключать экран для сохранения энергии.</string>
-  <string name="config_enableDeprecatedModes_title">Разрешить устаревшие состояния</string>
   <string name="config_closeChangesetOnSave_title">Закрывать наборы изменений</string>
   <string name="config_closeChangesetOnSave_summary">Закрывать наборы изменений по умолчанию при сохранении</string>
   <string name="config_backgroundLayer_title">Фоновая карта</string>
@@ -348,8 +344,6 @@
   <string name="undo">Отменить изменение</string>
   <string name="redo">Повторить изменение</string>
   <string name="undo_nothing">нет изменений для отмены</string>
-  <string name="tracking_active_title">Запись GPS-трека</string>
-  <string name="tracking_active_text">Vespucci записывает GPS-трек</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">перемещение точки</string>

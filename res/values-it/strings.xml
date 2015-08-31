@@ -59,8 +59,6 @@
   <string name="openstreetbug_comment_label">Comment:</string>
   <string name="openstreetbug_edit_close">Chiudi</string>
   <string name="openstreetbug_edit_closed">Chiusa</string>
-  <string name="openstreetbug_commit_ok">Modifiche salvate</string>
-  <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche</string>
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
@@ -301,14 +299,11 @@
   <string name="config_showTolerance_summary">Mostra l\'area dove un elemento può essere selezionato.</string>
   <string name="config_enableAntiAliasing_title">Abilita Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Rendi le linee più morbide.</string>
-  <string name="config_enableOpenStreetBugs_title">Abilita visualizzazione note</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, modifica e crea note/segnalazioni.</string>
   <string name="config_enablePhotoLayer_title">Abilita il livello delle foto</string>
   <string name="config_enablePhotoLayer_summary">Mostra foto geo-referenziate</string>
   <string name="config_enableKeepScreenOn_title">Mantieni lo schermo acceso</string>
   <string name="config_enableKeepScreenOn_summary">Non spegnere lo schermo per risparmiare la batteria</string>
-  <string name="config_enableDeprecatedModes_title">Abilita modi deprecati</string>
-  <string name="config_enableDeprecatedModes_summary">Abilita i modi Nuovo, Modifica, Modifica Tag, Aggiungi, Cancella nodo e Dividi.</string>
   <string name="config_closeChangesetOnSave_title">Chiudi i gruppi di modifiche</string>
   <string name="config_closeChangesetOnSave_summary">Chiudi sempre i gruppi di modifiche quando vengono salvati</string>
   <string name="config_backgroundLayer_title">Sfondo della mappa</string>
@@ -401,8 +396,6 @@
   <string name="undo">Annulla</string>
   <string name="redo">Rifai</string>
   <string name="undo_nothing">niente da annullare</string>
-  <string name="tracking_active_title">Registrazione traccia GPS</string>
-  <string name="tracking_active_text">Vespucci sta registrando una traccia GPS</string>
   <string name="gps_failure">Impossibile abilitare il GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">sposta nodo</string>

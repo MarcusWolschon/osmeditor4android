@@ -60,8 +60,6 @@
   <string name="openstreetbug_comment_label">評論：</string>
   <string name="openstreetbug_edit_close">關閉</string>
   <string name="openstreetbug_edit_closed">已關閉</string>
-  <string name="openstreetbug_commit_ok">變更已儲存</string>
-  <string name="openstreetbug_commit_fail">無法儲存變更</string>
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將會被放棄。</string>
   <string name="unsaved_data_proceed">放棄和繼續</string>
@@ -302,14 +300,11 @@
   <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
-  <string name="config_enableOpenStreetBugs_title">啟用註解顯示</string>
   <string name="config_enableOpenStreetBugs_summary">顯示、編輯與建立註解/錯誤。</string>
   <string name="config_enablePhotoLayer_title">啟用圖層</string>
   <string name="config_enablePhotoLayer_summary">顯示地理參考圖片。</string>
   <string name="config_enableKeepScreenOn_title">保持螢幕開啟</string>
   <string name="config_enableKeepScreenOn_summary">不要為了省電而關閉螢幕。</string>
-  <string name="config_enableDeprecatedModes_title">啟用舊的模式</string>
-  <string name="config_enableDeprecatedModes_summary">啟用新建，編輯，編輯標籤，追加，刪除節點和拆分模式。</string>
   <string name="config_closeChangesetOnSave_title">關閉變更組合</string>
   <string name="config_closeChangesetOnSave_summary">在預設情況下，關閉變更時儲存</string>
   <string name="config_backgroundLayer_title">地圖背景</string>
@@ -402,8 +397,6 @@
   <string name="undo">復原</string>
   <string name="redo">取消復原</string>
   <string name="undo_nothing">沒什麼可復原</string>
-  <string name="tracking_active_title">錄制 GPS 軌跡</string>
-  <string name="tracking_active_text">Vespucci 錄制 GPS 軌跡</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">移動節點</string>

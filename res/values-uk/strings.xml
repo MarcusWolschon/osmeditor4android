@@ -47,8 +47,6 @@
   <string name="openstreetbug_comment_label">Коментар: </string>
   <string name="openstreetbug_edit_close">Зачинити</string>
   <string name="openstreetbug_edit_closed">Зачинено</string>
-  <string name="openstreetbug_commit_ok">Зміни збережені</string>
-  <string name="openstreetbug_commit_fail">Не вдалося зберегти зміни</string>
   <string name="unsaved_data_title">Увага!</string>
   <string name="unsaved_data_message">У Вас є незбережені зміни, які будуть втрачені при продовженні.</string>
   <string name="unsaved_data_proceed">Скасувати й продовжити</string>
@@ -227,13 +225,11 @@
   <string name="config_showTolerance_summary">Показує область, в якій може бути вибраний елемент.</string>
   <string name="config_enableAntiAliasing_title">Включити згладжування</string>
   <string name="config_enableAntiAliasing_summary">Згладжує лінії.</string>
-  <string name="config_enableOpenStreetBugs_title">Показувати нотатки</string>
   <string name="config_enableOpenStreetBugs_summary">Показувати, редагувати й створювати нотатки/помилки.</string>
   <string name="config_enablePhotoLayer_title">Включити шар світлин</string>
   <string name="config_enablePhotoLayer_summary">Показувати геоприв’язаних світлини.</string>
   <string name="config_enableKeepScreenOn_title">Не гасити екран</string>
   <string name="config_enableKeepScreenOn_summary">Не відключати екран для збереження енергії.</string>
-  <string name="config_enableDeprecatedModes_title">Включити застарілі режими</string>
   <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
   <string name="config_closeChangesetOnSave_summary">Закривати набори змін за умовчанням при збереженні</string>
   <string name="config_backgroundLayer_title">Фонова мапа</string>
@@ -300,8 +296,6 @@
   <string name="undo">Скасувати</string>
   <string name="redo">Повторити</string>
   <string name="undo_nothing">немає змін для скасування</string>
-  <string name="tracking_active_title">Запис GPS-доріжки</string>
-  <string name="tracking_active_text">Веспуччі записує GPS-доріжку</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">переміщення точки</string>

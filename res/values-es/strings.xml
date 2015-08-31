@@ -53,14 +53,17 @@
   <string name="upload_gpx_visibility_label">Visibilidad</string>
   <string name="openstreetbug_new_title">Nota nueva</string>
   <string name="openstreetbug_new_bug">Registrar nota</string>
+  <string name="openstreetbug_bug_title">Problema</string>
   <string name="openstreetbug_new_nodeway">Crear nodo/vía</string>
   <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_commitbutton">Enviar</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_edit_close">Cerrar</string>
   <string name="openstreetbug_edit_closed">Cerrado</string>
-  <string name="openstreetbug_commit_ok">Cambios guardados</string>
-  <string name="openstreetbug_commit_fail">No se pudo guardar los cambios</string>
+  <string name="openstreetbug_commit_ok">Cambios de errores guardados</string>
+  <string name="openstreetbug_commit_fail">No se pudo guardar los cambios de errores</string>
+  <string name="openstreetbug_not_downloaded">no descargado</string>
+  <string name="openstreetbug_last_updated">última actualización</string>
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_message">Tiene cambios sin guardar que se descartarán si continúa.</string>
   <string name="unsaved_data_proceed">Descartar &amp; continuar</string>
@@ -77,6 +80,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugerencia puede sustituir algunos valores de etiquetas con valores más populares.</string>
   <string name="search_results_title">Resultados de la búsqueda</string>
   <string name="find_message">Introduzca la cadena de búsqueda</string>
+  <string name="preset_search_hint">Cadena de búsqueda predeterminada</string>
   <string name="read_file">Seleccionar archivo para leer</string>
   <string name="save_file">Introduzca el archivo para guardar a</string>
   <string name="existing_track_title">Datos existentes de la traza</string>
@@ -92,8 +96,15 @@
   <string name="length_m">Longitud (m)</string>
   <string name="not_downloaded">No descargado</string>
   <string name="empty_role">rol vacío</string>
+  <string name="element">elemento</string>
+  <string name="last_updated">última actualización</string>
+  <string name="error">error</string>
+  <string name="warning">advertencia</string>
+  <string name="minor_issue">problema menor</string>
+  <string name="unknown_error_level">nivel de error desconocido</string>
   <!--Toaster-->
   <string name="toast_no_changes">No cambió nada aún…</string>
+  <string name="toast_unsaved_changes">Usted tiene cambios sin guardar, por favor subirlos primero.</string>
   <string name="toast_upload_success">Finalizada la subida al servidor OSM.</string>
   <string name="toast_not_in_edit_range">Acerque para editar (Botón volumen arriba/abajo o Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Desbloquee para editar</string>
@@ -131,6 +142,7 @@
   <string name="toast_imported_track_points">Importados %1$s puntos de traza.</string>
   <string name="toast_inconsistent_state">¡Detectado un estado inconsistente, envíe el informe de error!</string>
   <string name="toast_camera_error">Error al iniciar la aplicación de la cámara: %1$s</string>
+  <string name="toast_storage_error">La carpeta para teselas y otros archivos no se puede escribir por Vespucci.\nEsto puede ser un problema de permisos o un problema técnico con su dispositivo.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -223,6 +235,7 @@
   <string name="menu_gps_start">Iniciar traza GPS</string>
   <string name="menu_gps_pause">Pausar traza GPS</string>
   <string name="menu_gps_clear">Limpiar traza GPS</string>
+  <string name="menu_gps_track_managment">Gestión de trazas...</string>
   <string name="menu_gps_upload">Subir traza GPS</string>
   <string name="menu_gps_export">Exportar traza GPS</string>
   <string name="menu_gps_import">Importar traza GPS</string>
@@ -237,6 +250,10 @@
   <string name="menu_transfer_export">Exportar cambios</string>
   <string name="menu_transfer_read_file">Leer desde archivo</string>
   <string name="menu_transfer_save_file">Guardar archivo</string>
+  <string name="menu_transfer_bugs">Errores...</string>
+  <string name="menu_transfer_bugs_download_current">Descargar errores para la vista actual</string>
+  <string name="menu_transfer_bugs_upload">Subir todo</string>
+  <string name="menu_transfer_bugs_clear">Limpiar</string>
   <string name="menu_save">Guardar archivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -301,20 +318,18 @@
   <string name="config_showTolerance_summary">Muestra el área donde un elemento puede ser seleccionado.</string>
   <string name="config_enableAntiAliasing_title">Habilitar antialias</string>
   <string name="config_enableAntiAliasing_summary">Hace las líneas más suaves.</string>
-  <string name="config_enableOpenStreetBugs_title">Permitir la visualización de notas</string>
   <string name="config_enableOpenStreetBugs_summary">Muestra, edita y crea notas y/o errores.</string>
   <string name="config_enablePhotoLayer_title">Activar capa de fotos</string>
   <string name="config_enablePhotoLayer_summary">Muestra fotos georreferenciadas.</string>
   <string name="config_enableKeepScreenOn_title">Mantener la pantalla encendida</string>
   <string name="config_enableKeepScreenOn_summary">No apaga la pantalla para ahorrar energía.</string>
-  <string name="config_enableDeprecatedModes_title">Habilitar modos en desuso</string>
-  <string name="config_enableDeprecatedModes_summary">Habilita los modos nuevo, editar, editar etiquetas, anexar, borrar nodo y dividir.</string>
   <string name="config_closeChangesetOnSave_title">Cerrar conjuntos de cambios</string>
   <string name="config_closeChangesetOnSave_summary">Cierra los conjuntos de cambios de forma predeterminada al guardar</string>
   <string name="config_backgroundLayer_title">Mapa de fondo</string>
   <string name="config_backgroundLayer_summary">Mapa de fondo renderizado gráficamente.</string>
   <string name="config_overlayLayer_title">Superposición de mapa</string>
   <string name="config_overlayLayer_summary">Mapa superpuesto renderizado gráficamente.</string>
+  <string name="config_scale_summary">Tipo de escala mostrada en el mapa.</string>
   <string name="config_category_server">Ajustes del servidor</string>
   <string name="config_apibutton_title">URL OSM API</string>
   <string name="config_apibutton_summary">Puede establecer una URL para la API no estandar aquí. ¡Normalmente no debería ser cambiada!</string>
@@ -351,6 +366,14 @@
   <string name="config_largeDragArea_summary">Proporciona un área grande para arrastrar nodos</string>
   <string name="config_extTriggeredDownloadRadius_title">Radio de descarga</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radio (m) para las descargas disparadas externamente. 0 = sólo centro del mapa.</string>
+  <string name="config_maxDownloadSpeed_title">Máxima velocidad de descarga automática</string>
+  <string name="config_maxDownloadSpeed_summary">Límite (en km/h) por encima del cual se suspende la descarga automática</string>
+  <string name="config_bugDownloadRadius_title">Radio de descarga de Notas/Errores</string>
+  <string name="config_bugDownloadRadius_summary">Radio (m) de descargas de notas/errores</string>
+  <string name="config_maxBugDownloadSpeed_title">Máxima velocidad de descarga automática de notas/errores</string>
+  <string name="config_maxBugDownloadSpeed_summary">Límite (en km/h) por encima del cual se suspende la descarga automática de notas/errores</string>
+  <string name="config_bugFilter_title">Filtro para Notas/Errores</string>
+  <string name="config_bugFilter_summary">Seleccione qué elementos se mostrarán en la capa de notas/errores</string>
   <string name="config_enableNameSuggestions_title">Activar sugerencias de nombres</string>
   <string name="config_enableNameSuggestions_summary">Activa las sugerencias para la etiqueta nombre</string>
   <string name="config_enableAutoPreset_title">Activar predeterminado automático</string>
@@ -364,6 +387,9 @@
   <string name="config_enableLightTheme_title">Habilitar el tema claro</string>
   <string name="config_enableLightTheme_summary">Tema claro con fondo blanco</string>
   <string name="config_category_misc">Misceláneo</string>
+  <string name="config_address_tags">Etiquetas de direcciones</string>
+  <string name="config_address_tags_summary">Etiquetas utilizadas para la predicción de direcciones</string>
+  <string name="config_moreprefs">Más ajustes...</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar predeterminados</string>
   <string name="preset_download_successful">Predeterminados descargados correctamente</string>
@@ -400,8 +426,8 @@
   <string name="undo">Deshacer</string>
   <string name="redo">Rehacer</string>
   <string name="undo_nothing">nada para deshacer</string>
-  <string name="tracking_active_title">Grabando traza GPS</string>
-  <string name="tracking_active_text">Vespucci esta grabando una traza GPS</string>
+  <string name="tracking_active_title">Servicio en segundo plano Vexpucci activo</string>
+  <string name="tracking_active_text">Vespucci está grabando una traza GPS o descargando automáticamente</string>
   <string name="gps_failure">Fallo al habilitar el GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nodo</string>
@@ -443,6 +469,7 @@
   <!--Notifications-->
   <string name="alert_data_issue">Detectado un problema de datos OSM</string>
   <string name="alert_note">Detectada una nota OSM cercana</string>
+  <string name="alert_bug">Detectado un error OSM cercano</string>
   <string name="alert_distance_direction">en %1$d m %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
@@ -477,5 +504,14 @@
     <item>Interno NMEA</item>
     <item>NMEA desde cliente TCP</item>
     <item>NMEA desde servidor TCP</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Abierto</item>
+    <item>Cerrado</item>
+    <item>Falso positivo</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Abierto</item>
+    <item>Cerrado</item>
   </string-array>
 </resources>

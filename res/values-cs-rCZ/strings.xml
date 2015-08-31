@@ -21,8 +21,6 @@
   <string name="openstreetbug_comment_label">Komentář:</string>
   <string name="openstreetbug_edit_close">Uzavřít</string>
   <string name="openstreetbug_edit_closed">Uzavřeno</string>
-  <string name="openstreetbug_commit_ok">Změny uloženy</string>
-  <string name="openstreetbug_commit_fail">Změny nelze uložit</string>
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Máte neuložene data, které budou smaznány když budete pokračovat.</string>
   <string name="unsaved_data_proceed">Smazat &amp; pokračovat</string>
@@ -170,8 +168,6 @@
   <string name="undo">Zpět</string>
   <string name="redo">Vpřed</string>
   <string name="undo_nothing">Nic k vzetí zpět</string>
-  <string name="tracking_active_title">Nahrávání GPS stopy</string>
-  <string name="tracking_active_text">Vespucci nahrává GPS stopu</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">posunout uzel</string>

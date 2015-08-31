@@ -56,8 +56,6 @@
   <string name="openstreetbug_comment_label">Athugasemd:</string>
   <string name="openstreetbug_edit_close">Loka</string>
   <string name="openstreetbug_edit_closed">Lokað</string>
-  <string name="openstreetbug_commit_ok">Breytingar vistaðar</string>
-  <string name="openstreetbug_commit_fail">Gat ekki vistað breytingar</string>
   <string name="unsaved_data_title">Varúð!</string>
   <string name="unsaved_data_message">Þú hefur gert breytingar sem er ekki búið að vista, þær munu tapast ef þú heldur áfram</string>
   <string name="unsaved_data_proceed">Henda &amp; halda áfram</string>
@@ -292,14 +290,11 @@
   <string name="config_showTolerance_summary">Sýna svæðið þar sem hægt er að velja eigindi.</string>
   <string name="config_enableAntiAliasing_title">Virkja textasléttun</string>
   <string name="config_enableAntiAliasing_summary">Slétta línur. </string>
-  <string name="config_enableOpenStreetBugs_title">Virkja athugasemdasýn</string>
   <string name="config_enableOpenStreetBugs_summary">Sýna, breyta og búa til athugasemdir/villur.</string>
   <string name="config_enablePhotoLayer_title">Virkja ljósmyndasýn</string>
   <string name="config_enablePhotoLayer_summary">Sýna myndir með staðsetningu. </string>
   <string name="config_enableKeepScreenOn_title">Hafa kveikt á skjá</string>
   <string name="config_enableKeepScreenOn_summary">Ekki slökkva á skjá til að spara orku.</string>
-  <string name="config_enableDeprecatedModes_title">Sýna úrelta hami</string>
-  <string name="config_enableDeprecatedModes_summary">Leyfa ham til að bæta við, breyta, eyða hnútum og skipta upp ferlum.</string>
   <string name="config_closeChangesetOnSave_title">Loka breytingasetti</string>
   <string name="config_closeChangesetOnSave_summary">Loka ávallt breytingasettum við vistun</string>
   <string name="config_backgroundLayer_title">Bakgrunnur korts</string>
@@ -390,8 +385,6 @@
   <string name="undo">Hætta við</string>
   <string name="redo">Endurtaka</string>
   <string name="undo_nothing">ekkert til að hætta við</string>
-  <string name="tracking_active_title">Tek upp GPS-slóð</string>
-  <string name="tracking_active_text">Vespucci er að vista GPS-slóð</string>
   <string name="gps_failure">Gat ekki kveikt á GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">færa hnút</string>

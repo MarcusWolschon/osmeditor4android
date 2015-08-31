@@ -36,8 +36,6 @@
   <string name="openstreetbug_comment_label">نظر: </string>
   <string name="openstreetbug_edit_close">بستن</string>
   <string name="openstreetbug_edit_closed">بسته شده</string>
-  <string name="openstreetbug_commit_ok">تغييرات ذخيره شد</string>
-  <string name="openstreetbug_commit_fail">تغییرات ذخیره نمیشود</string>
   <string name="unsaved_data_title">احتیاط! </string>
   <string name="unsaved_data_message">شما تغییرات ذخیره نشده ای دارید که اگر به پیش روید دور انداخته میشوند. </string>
   <string name="unsaved_data_proceed">دور انداختن و پیش روی</string>
@@ -150,7 +148,6 @@
   <string name="config_showTolerance_summary">نشان دادن جاهایی از ناحیه که المنت ها میتوانند انتخاب شوند.</string>
   <string name="config_enableAntiAliasing_title">فعال کردن ضد-بد نمایی</string>
   <string name="config_enableAntiAliasing_summary">خط ها را صافتر می سازد.</string>
-  <string name="config_enableOpenStreetBugs_title">فعال سازی نمایش یادداشت ها</string>
   <string name="config_enableOpenStreetBugs_summary">نمایش،ویرایش و ایجاد یادداشت ها/خطاها.</string>
   <string name="config_backgroundLayer_title">نقشه پس زمینه</string>
   <string name="config_backgroundLayer_summary">نقشه ی گرافیکی ارائه شده در پس زمینه.</string>
@@ -206,8 +203,6 @@
   <string name="undo">به عقب</string>
   <string name="redo">به جلو</string>
   <string name="undo_nothing">چیزی برای به عقب نیست</string>
-  <string name="tracking_active_title">ضبط پیگیری جی پی اس</string>
-  <string name="tracking_active_text">Vespucci در حال ضبط یک پیگیری جی پی اس است</string>
   <string name="gps_failure">خطا در فعالسازی جی پی اس</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">جابجایی گره</string>
