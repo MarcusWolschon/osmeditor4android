@@ -907,7 +907,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				startActivityForResult(startCamera, REQUEST_IMAGE_CAPTURE);	
 			} catch (Exception ex) {
 				try {
-					Toast.makeText(this,getResources().getString(R.string.toast_camera_error, ex.getMessage()), Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_camera_error, ex.getMessage()), Toast.LENGTH_LONG).show();
 				} catch (Exception e) {
 					// protect against translation errors
 				}
@@ -1066,13 +1066,13 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (Application.getBugStorage().hasChanges()) {
 				TransferBugs.upload(this, server);
 			} else {
-				Toast.makeText(this, R.string.toast_no_changes, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
 			return true;
 			
 		case R.id.menu_transfer_bugs_clear:
 			if (Application.getBugStorage().hasChanges()) { // FIXME show a dialog and allow override
-				Toast.makeText(this, R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
 				return true;
 			}
 			Application.getBugStorage().reset();
@@ -1145,7 +1145,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    	startActivityForResult(intent,purpose);
 	    } catch (android.content.ActivityNotFoundException ex) {
 	        // Potentially direct the user to the Market with a Dialog
-	        Toast.makeText(this, R.string.toast_missing_filemanager, 
+	        Toast.makeText(getApplicationContext(), R.string.toast_missing_filemanager, 
 	                Toast.LENGTH_SHORT).show();
 	    }
 	}
@@ -1224,7 +1224,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return false;
 		} catch (Exception e) {
 			Log.d("Main", "Error when checking for GPS, assuming GPS not available", e);
-			Toast.makeText(this, R.string.gps_failure, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.gps_failure, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 	}
@@ -1345,7 +1345,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				getLogic().readOsmFile(uri, false);
 			} catch (FileNotFoundException e) {
 				try {
-					Toast.makeText(this,getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
 				} catch (Exception ex) {
 					// protect against translation errors
 				}
@@ -1370,7 +1370,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 						getTracker().importGPXFile(uri);
 					} catch (FileNotFoundException e) {
 						try {
-							Toast.makeText(this,getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
+							Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
 						} catch (Exception ex) {
 							// protect against translation errors
 						}
@@ -1488,9 +1488,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			@Override
 			protected void onProgressUpdate(Integer ... progress) {
 				if (progress[0] == 0)
-					Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
 				if (progress[0] == 1)
-					Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -1653,14 +1653,14 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		catch (OsmException oe) {
 			server.setOAuth(false); // upps something went wrong turn oauth off
 			actionbar.show();
-			Toast.makeText(Main.this, getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
 			return;
 		}
 		Log.d("Main", "oauth auth url " + url);
 	
 		String authUrl = oa.getRequestToken();
 		if (authUrl == null) {
-			Toast.makeText(Main.this, getResources().getString(R.string.toast_oauth_handshake_failed), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_oauth_handshake_failed), Toast.LENGTH_LONG).show();
 			actionbar.show();
 			return;
 		}
@@ -1794,7 +1794,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (prefs.useBackForUndo()) {
 			String name = logic.undo();
 			if (name != null)
-				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			else
 				exitOnBackPressed();
 		} else 
@@ -1848,9 +1848,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			Log.d(DEBUG_TAG,"normal click");
 			String name = logic.undo();
 			if (name != null) {
-				Toast.makeText(Main.this, getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
 			// check that we haven't just removed a selected element
 			if (getLogic().resyncSelected()) {
@@ -1869,7 +1869,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (undo.canUndo() || undo.canRedo()) {
 				UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
 			} else {
-				Toast.makeText(Main.this, getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
 			return true;
 		}
