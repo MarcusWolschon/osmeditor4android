@@ -834,6 +834,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			menu.findItem(R.id.menu_gps_autodownload).setEnabled(false);
 			menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(false);
 		}
+		menu.findItem(R.id.menu_gps_clear).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
 		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
