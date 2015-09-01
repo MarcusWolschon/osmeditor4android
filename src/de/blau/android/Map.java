@@ -480,20 +480,10 @@ public class Map extends View implements IMapView {
 			canvas.restore();
 		}
 		if (displayLocation.hasAccuracy()) {
-			try {
-				// FIXME this is slightly insane from a calculation pov must be able to do it simpler
-				BoundingBox accuracyBox = GeoMath.createBoundingBoxForCoordinates(
-						displayLocation.getLatitude(), displayLocation.getLongitude(),
-						displayLocation .getAccuracy(), true);
-				RectF accuracyRect = new RectF(
-						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getLeft()),
-						GeoMath.latE7ToY(getHeight(), getWidth() , viewBox, accuracyBox.getTop()),
-						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getRight()),
-						GeoMath.latE7ToY(getHeight(), getWidth() , viewBox, accuracyBox.getBottom()));
-				canvas.drawOval(accuracyRect, Profile.getCurrent(Profile.GPS_ACCURACY).getPaint());
-			} catch (OsmException e) {
-				// it doesn't matter if the location accuracy doesn't get drawn
-			}
+			// FIXME this assumes square pixels
+			float accuracyInPixels = (float) (GeoMath.convertMetersToGeoDistance(displayLocation.getAccuracy())*((double)getWidth()/(viewBox.getWidth()/1E7D)));
+			RectF accuracyRect = new RectF(x-accuracyInPixels,y+accuracyInPixels,x+accuracyInPixels,y-accuracyInPixels);
+			canvas.drawOval(accuracyRect, Profile.getCurrent(Profile.GPS_ACCURACY).getPaint());	
 		}
 	}
 	
