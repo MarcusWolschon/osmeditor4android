@@ -481,9 +481,10 @@ public class Map extends View implements IMapView {
 		}
 		if (displayLocation.hasAccuracy()) {
 			try {
+				// FIXME this is slightly insane from a calculation pov must be able to do it simpler
 				BoundingBox accuracyBox = GeoMath.createBoundingBoxForCoordinates(
 						displayLocation.getLatitude(), displayLocation.getLongitude(),
-						displayLocation .getAccuracy());
+						displayLocation .getAccuracy(), true);
 				RectF accuracyRect = new RectF(
 						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getLeft()),
 						GeoMath.latE7ToY(getHeight(), getWidth() , viewBox, accuracyBox.getTop()),

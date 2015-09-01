@@ -94,7 +94,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * Maximum Longitude.
 	 */
-	public static final int MAX_LON = 1800000000;
+	public static final int MAX_LON_E7 = (int) (GeoMath.MAX_LON * 1E7);
 
 	/**
 	 * Minimum width to zoom in.
@@ -123,7 +123,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @param right degree of the right Border, multiplied by 1E7
 	 * @param top degree of the top Border, multiplied by 1E7
 	 * @throws OsmException when the borders are mixed up or outside of
-	 * {@link #MAX_LAT_E7}/{@link #MAX_LON} (!{@link #isValid()})
+	 * {@link #MAX_LAT_E7}/{@link #MAX_LON_E7} (!{@link #isValid()})
 	 */
 	public BoundingBox(final int left, final int bottom, final int right, final int top) throws OsmException {
 		this.left = left;
@@ -204,7 +204,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @return true if left is less than right and bottom is less than top.
 	 */
 	public boolean isValid() {
-		return (left < right) && (bottom < top) && (left >= -MAX_LON) && (right <= MAX_LON) && (top <= MAX_LAT_E7)
+		return (left < right) && (bottom < top) && (left >= -MAX_LON_E7) && (right <= MAX_LON_E7) && (top <= MAX_LAT_E7)
 				&& (bottom >= -MAX_LAT_E7);
 	}
 
@@ -345,7 +345,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 			bottom = t;
 		}
 		height = top - bottom;
-		// Log.d("BoundingBox", "width " + width + " height " + height);
+		// Log.d("BoundingBox", "calcdimensions width " + width + " height " + height);
 	}
 
 	/**
@@ -382,12 +382,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		long mTop = GeoMath.latE7ToMercatorE7(top); // note long or else we get an int overflow on calculating the center
 		long mBottom = GeoMath.latE7ToMercatorE7(bottom);
 		long mHeight = mTop - mBottom;
-		
-		
+
 		if (width <= 0 || mHeight <=0) {
 			// should't happen, but just in case
 			Log.d("BoundingBox","Width or height zero: " + width + "/" + height);
-			BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(GeoMath.mercatorE7ToLat((int) (mBottom+mHeight/2)), GeoMath.mercatorE7ToLat((int) (left+width/2)), 10.0f);
+			BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(GeoMath.mercatorE7ToLat((int) (mBottom+mHeight/2)), GeoMath.mercatorE7ToLat((int) (left+width/2)), 10.0f, true);
 			left = bbox.left;
 			bottom = bbox.bottom;
 			right = bbox.right;
@@ -409,8 +408,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 				
 				long newHeight2 = 0;
 				long newWidth2 = 0;
-				if (ratio < 1.0) { // portrait
-					if (width < mHeight) { 
+				if (ratio <= 1.0) { // portrait and square
+					if (width <= mHeight) { 
 						newHeight2 = (long)((width / 2L) / ratio);
 						newWidth2 = (long)(width / 2L);
 					} else { // switch landscape --> portrait
@@ -429,12 +428,12 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 					}
 				}
 				
-				if (centerX + newWidth2 > MAX_LON) {
-					right = MAX_LON;
-					left = (int) Math.max(-MAX_LON, MAX_LON - 2*newWidth2);
-				} else if (centerX - newWidth2 < -MAX_LON) {
-					left = -MAX_LON;
-					right = (int) Math.min(MAX_LON, centerX + 2*newWidth2);
+				if (centerX + newWidth2 > MAX_LON_E7) {
+					right = MAX_LON_E7;
+					left = (int) Math.max(-MAX_LON_E7, MAX_LON_E7 - 2*newWidth2);
+				} else if (centerX - newWidth2 < -MAX_LON_E7) {
+					left = -MAX_LON_E7;
+					right = (int) Math.min(MAX_LON_E7, centerX + 2*newWidth2);
 				} else {
 					left = (int) (centerX - newWidth2);
 					right = (int) (centerX + newWidth2);
@@ -517,10 +516,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @param lat the relative latitude change.
 	 */
 	public void translate(int lon, int lat) throws OsmException {
-		if ((long)right + (long)lon > (long)MAX_LON) {
-			lon = MAX_LON - right;
-		} else if ((long)left + (long)lon < (long)-MAX_LON) {
-			lon = -MAX_LON - left;
+		if ((long)right + (long)lon > (long)MAX_LON_E7) {
+			lon = MAX_LON_E7 - right;
+		} else if ((long)left + (long)lon < (long)-MAX_LON_E7) {
+			lon = -MAX_LON_E7 - left;
 		} 
 		if (top + lat > MAX_LAT_E7) {
 			lat = MAX_LAT_E7 - top;
@@ -617,17 +616,17 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		long tmpLeft=left; 
 		long tmpRight=right;
 		// 
-		if (tmpLeft + horizontalChange < (long)-MAX_LON) {
-			long rest = left + horizontalChange + (long)MAX_LON;
-			tmpLeft = -MAX_LON;
+		if (tmpLeft + horizontalChange < (long)-MAX_LON_E7) {
+			long rest = left + horizontalChange + (long)MAX_LON_E7;
+			tmpLeft = -MAX_LON_E7;
 			tmpRight = tmpRight - rest;
 		} else {
 			tmpLeft = tmpLeft + horizontalChange;
 		}
-		if (tmpRight - horizontalChange > (long)MAX_LON) {
-			long rest = tmpRight - horizontalChange - (long)MAX_LON;
-			tmpRight = MAX_LON;
-			tmpLeft = Math.max((long)-MAX_LON,tmpLeft + rest);
+		if (tmpRight - horizontalChange > (long)MAX_LON_E7) {
+			long rest = tmpRight - horizontalChange - (long)MAX_LON_E7;
+			tmpRight = MAX_LON_E7;
+			tmpLeft = Math.max((long)-MAX_LON_E7,tmpLeft + rest);
 		} else {
 			tmpRight = tmpRight - horizontalChange;
 		}
@@ -691,10 +690,15 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @param newBox box with the new borders.
 	 */
 	public void setBorders(final BoundingBox newBox) {
+		setBorders(newBox, ratio);
+	}
+	
+	public void setBorders(final BoundingBox newBox, float ratio) {
 		left = newBox.left;
 		right = newBox.right;
 		top = newBox.top;
 		bottom = newBox.bottom;
+		Log.d("BoundingBox","setBorders " + newBox.toString() + " ratio is " + ratio);
 		try {
 			calcDimensions(); // neede to recalc width
 			setRatio(ratio, true);
@@ -734,11 +738,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 
 	/**
-	 * Return pre-caclulated meraator value of bottom of the bounding box
+	 * Return pre-caclulated meracator value of bottom of the bounding box
 	 * @return
 	 */
 	public double getBottomMercator() {
-		
 		return bottomMercator;
 	}
 

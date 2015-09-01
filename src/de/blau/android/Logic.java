@@ -628,14 +628,12 @@ public class Logic {
 		} else {
 			//TODO show warning
 		}
-
-		try {
-			viewBox.setBorders(box); // note find bugs warning here can be ignored
-			viewBox.setRatio((float) map.getWidth() / map.getHeight(), true);
-		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// if the map view isn't drawn use an approximation for the aspect ratio of the display ... this is a hack 
+		float ratio = (float)Application.mainActivity.getResources().getDisplayMetrics().widthPixels / (float)Application.mainActivity.getResources().getDisplayMetrics().heightPixels;
+		if (map.getHeight() != 0) {
+			ratio = (float) map.getWidth() / map.getHeight();
 		}
+		viewBox.setBorders(box, ratio);
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();

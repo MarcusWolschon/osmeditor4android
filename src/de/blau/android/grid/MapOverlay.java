@@ -81,7 +81,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		String mode = map.getPrefs().scaleLayer();
-		if (!mode.equals("SCALE_NONE")) {
+		if (!mode.equals("SCALE_NONE") && map.getViewBox().getWidth() < 200000000L) { // testing for < 20° 
 			int w = map.getWidth();
 			int h = map.getHeight();
 			boolean metric = mode.equals("SCALE_METRIC") || mode.equals("SCALE_GRID_METRIC");
@@ -89,7 +89,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			double centerLat = map.getViewBox().getCenterLat();
 			double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft()/1E7D, centerLat, map.getViewBox().getRight()/1E7D, centerLat);
 			// Log.d(DEBUG_TAG,"distance to side " + distance2side + " tick length long " + longTicks + " short " + shortTicks);
-			if (widthInMeters < 1000000) { // don't show zoomed out
+			if (widthInMeters < 1000000 && widthInMeters > 0) { // don't show zoomed out
 				c.drawLine(distance2side, distance2side, w-distance2side, distance2side, fullLine);
 				c.drawLine(w-distance2side, distance2side, w-distance2side, h-distance2side, fullLine);
 				if (grid) {

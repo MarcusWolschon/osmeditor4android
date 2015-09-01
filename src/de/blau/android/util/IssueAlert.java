@@ -96,7 +96,7 @@ public class IssueAlert {
 		// Uri geo = Uri.fromParts("geo", eLat+","+eLon,null);
 	    // resultIntent.setData(geo);
 		try {
-			BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius());
+			BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius(), true);
 
 			Uri rc = Uri.parse( "http://127.0.0.1:8111/load_and_zoom?left=" + box.getLeft()/1E7D + "&right=" + box.getRight()/1E7D + "&top=" + box.getTop()/1E7D + "&bottom=" + box.getBottom()/1E7D + "&select="+e.getName()+e.getOsmId());
 
