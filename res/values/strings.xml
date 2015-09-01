@@ -248,10 +248,11 @@
     <string name="menu_transfer_download_other">Download other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_close_changeset">Close current changeset</string>
+    <string name="menu_transfer_file">File...</string>
     <string name="menu_transfer_export">Export changes</string>
     <string name="menu_transfer_read_file">Read from file</string>
     <string name="menu_transfer_save_file">Save to file</string>
-    <string name="menu_transfer_bugs">Bugs...</string>
+    <string name="menu_transfer_bugs">Notes/Bugs...</string>
     <string name="menu_transfer_bugs_download_current">Download bugs for current view</string>
     <string name="menu_transfer_bugs_upload">Upload all</string>
     <string name="menu_transfer_bugs_clear">Clear</string>

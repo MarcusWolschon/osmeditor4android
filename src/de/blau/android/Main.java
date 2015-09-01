@@ -817,16 +817,27 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			menu.findItem(R.id.menu_camera).setVisible(false);
 		}
 		
-		menu.findItem(R.id.menu_gps_show).setChecked(showGPS);
-		menu.findItem(R.id.menu_gps_follow).setChecked(followGPS);
-		menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking());
-		menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking());
+		if (ensureGPSProviderEnabled()) {
+			menu.findItem(R.id.menu_gps_show).setEnabled(true).setChecked(showGPS);
+			menu.findItem(R.id.menu_gps_follow).setEnabled(true).setChecked(followGPS);
+			menu.findItem(R.id.menu_gps_goto).setEnabled(true);
+			menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking());
+			menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking());
+			menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null).setChecked(autoDownload);
+			menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null).setChecked(bugAutoDownload);
+		} else { // one day when we support other location source this might be different
+			menu.findItem(R.id.menu_gps_show).setEnabled(false);
+			menu.findItem(R.id.menu_gps_follow).setEnabled(false);
+			menu.findItem(R.id.menu_gps_goto).setEnabled(false);
+			menu.findItem(R.id.menu_gps_start).setEnabled(false);
+			menu.findItem(R.id.menu_gps_pause).setEnabled(false);
+			menu.findItem(R.id.menu_gps_autodownload).setEnabled(false);
+			menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(false);
+		}
+		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
 		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
-		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
-		menu.findItem(R.id.menu_gps_autodownload).setChecked(autoDownload);
-		
-		menu.findItem(R.id.menu_transfer_bugs_autodownload).setChecked(bugAutoDownload);
+
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
 		undo.setVisible(getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo());
