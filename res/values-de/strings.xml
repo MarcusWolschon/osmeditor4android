@@ -247,10 +247,11 @@
   <string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
   <string name="menu_transfer_close_changeset">Aktuellen changeset schliessen</string>
+  <string name="menu_transfer_file">Datei...</string>
   <string name="menu_transfer_export">Änderungen exportieren</string>
   <string name="menu_transfer_read_file">Von Datei lesen</string>
   <string name="menu_transfer_save_file">In Datei speichern</string>
-  <string name="menu_transfer_bugs">Fehler...</string>
+  <string name="menu_transfer_bugs">Notizen/Fehler...</string>
   <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_bugs_upload">Alle hochladen</string>
   <string name="menu_transfer_bugs_clear">Zurücksetzten</string>

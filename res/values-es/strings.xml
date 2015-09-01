@@ -250,7 +250,6 @@
   <string name="menu_transfer_export">Exportar cambios</string>
   <string name="menu_transfer_read_file">Leer desde archivo</string>
   <string name="menu_transfer_save_file">Guardar archivo</string>
-  <string name="menu_transfer_bugs">Errores...</string>
   <string name="menu_transfer_bugs_download_current">Descargar errores para la vista actual</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
   <string name="menu_transfer_bugs_clear">Limpiar</string>
