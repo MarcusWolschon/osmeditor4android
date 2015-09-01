@@ -118,9 +118,9 @@ Notes:
 * you need to download an initial area manually
 * the function only works below 6km/h (brisk walking speed) to avoid causing issues with the OpenStreetMap API
 
-## Customizing Vespucci
+## Vespucci individuell anpsasen
 
-### Settings that you might want to change
+### Häufig geänderte Einstellungen
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.

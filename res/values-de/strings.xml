@@ -254,7 +254,7 @@
   <string name="menu_transfer_bugs">Notizen/Fehler...</string>
   <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_bugs_upload">Alle hochladen</string>
-  <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
+  <string name="menu_transfer_bugs_clear">Zurücksetzen</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>

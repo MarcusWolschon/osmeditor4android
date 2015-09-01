@@ -2074,60 +2074,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 		}
 
-		private void selectElementForErase(final View v, final float x, final float y) {
-			clickedNodesAndWays = getLogic().getClickedNodes(x, y);
-			switch (clickedNodesAndWays.size()) {
-			case 0:
-				// no elements were touched, ignore
-				break;
-			case 1:
-				Log.i("Delete mode", "delete node");
-				if (clickedNodesAndWays.get(0).hasParentRelations()) {
-					Log.i("Delete mode", "node has relations");
-					new AlertDialog.Builder(runningInstance)
-						.setTitle(R.string.delete)
-						.setMessage(R.string.deletenode_relation_description)
-						.setPositiveButton(R.string.deletenode,
-							new DialogInterface.OnClickListener() {	
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									getLogic().performEraseNode((Node)clickedNodesAndWays.get(0), true);
-								}
-							})
-						.show();
-				} else {
-					getLogic().performEraseNode((Node)clickedNodesAndWays.get(0), true);
-				}
-				break;
-			default:
-				v.showContextMenu();
-				break;
-			}
-		}
-
-		private void selectElementForSplit(final View v, final float x, final float y) {
-			clickedNodesAndWays = getLogic().getClickedNodes(x, y);
-
-			//TODO remove nodes with no ways from list
-//			for (Iterator iterator = clickedNodesAndWays.iterator(); iterator.hasNext();) {
-//				Node node = (Node) iterator.next();
-//				if (node.getWaysCount() < 1) {
-//					iterator.remove();
-//				}
-//			}
-
-			switch (clickedNodesAndWays.size()) {
-			case 0:
-				// no elements were touched, ignore
-				break;
-			case 1:
-				getLogic().performSplit((Node)clickedNodesAndWays.get(0));
-				break;
-			default:
-				v.showContextMenu();
-				break;
-			}
-		}
 		
 		/**
 		 * Perform easy edit touch processing.
