@@ -391,7 +391,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	} // RelationMembershipRow
 	    
 	
-	protected void parentSelected() {
+	protected synchronized void parentSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (parentSelectedActionModeCallback == null) {
 			parentSelectedActionModeCallback = new ParentSelectedActionModeCallback(this, rowLayout);
@@ -399,7 +399,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		}	
 	}
 	
-	protected void parentDeselected() {
+	protected synchronized void parentDeselected() {
 		if (parentSelectedActionModeCallback != null) {
 			if (parentSelectedActionModeCallback.parentDeselected()) {
 				parentSelectedActionModeCallback = null;

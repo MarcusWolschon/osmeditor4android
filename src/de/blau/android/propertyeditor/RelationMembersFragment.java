@@ -380,7 +380,7 @@ public class RelationMembersFragment extends SherlockFragment {
 		}
 	}
 
-	protected void memberSelected() {
+	protected synchronized void memberSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (memberSelectedActionModeCallback == null) {
 			memberSelectedActionModeCallback = new MemberSelectedActionModeCallback(this, rowLayout);
@@ -388,7 +388,7 @@ public class RelationMembersFragment extends SherlockFragment {
 		}	
 	}
 	
-	protected void memberDeselected() {
+	protected synchronized void memberDeselected() {
 		if (memberSelectedActionModeCallback != null) {
 			if (memberSelectedActionModeCallback.memberDeselected()) {
 				memberSelectedActionModeCallback = null;

@@ -109,7 +109,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * Set the currently active API
 	 * @param id the ID of the API to be set as active
 	 */
-	public void selectAPI(String id) {
+	public synchronized void selectAPI(String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
 		if (getAPIs(id).length == 0) throw new RuntimeException("Non-existant API selected");
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
@@ -134,7 +134,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/** @return a Server object matching the current API */
-	public Server getServerObject() {
+	public synchronized Server getServerObject() {
 		API api = getCurrentAPI();
 		if (api == null) return null;
 		if (currentServer == null) { // only create when necessary
