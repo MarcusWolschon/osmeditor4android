@@ -1,10 +1,15 @@
 package de.blau.android;
 
+import java.util.Map;
+
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osb.BugStorage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
@@ -33,6 +38,12 @@ public class Application extends android.app.Application {
 	 */
 	private static Preset[] currentPresets;
 	private static MultiHashMap<String, PresetItem> presetSearchIndex = null;
+	/**
+	 * name index related stuff
+	 */
+	private static Names names = null;
+	private static Map<String,NameAndTags> namesSearchIndex = null;
+	
 	
 	@Override
 	public void onCreate() {
@@ -57,7 +68,7 @@ public class Application extends android.app.Application {
 		return bugStorage;
 	}
 
-	public static Preset[] getCurrentPresets(Context ctx) {
+	public static synchronized Preset[] getCurrentPresets(Context ctx) {
 		if (currentPresets == null) {
 			Preferences prefs = new Preferences(ctx);
 			currentPresets = prefs.getPreset();
@@ -68,17 +79,33 @@ public class Application extends android.app.Application {
 	/**
 	 * Resets the current presets, causing them to be re-parsed
 	 */
-	public static void resetPresets() {
+	public static synchronized void resetPresets() {
 		currentPresets = null; 
 		presetSearchIndex = null;
 	}
 	
-	public static MultiHashMap<String, PresetItem> getPresetSearchIndex(Context ctx) {
+	public static synchronized MultiHashMap<String, PresetItem> getPresetSearchIndex(Context ctx) {
 		if (presetSearchIndex == null) {
 			presetSearchIndex = Preset.getSearchIndex(getCurrentPresets(ctx));
 		}
 		return presetSearchIndex;
 	}
 	
+	public static synchronized Map<String,NameAndTags> getNameSearchIndex(Context ctx) {
+		getNames(ctx);
+		if (namesSearchIndex == null) {
+			// names.dump2Log();
+			namesSearchIndex = names.getSearchIndex();
+		}
+		return namesSearchIndex;
+	}
+
+	public static synchronized Names getNames(Context ctx) {
+		if (names == null) {
+			// this should be done async if it takes too long
+			names = new Names(ctx);
+		}
+		return names;
+	}
 	
 }

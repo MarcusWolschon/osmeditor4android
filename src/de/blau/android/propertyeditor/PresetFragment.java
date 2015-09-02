@@ -50,7 +50,7 @@ import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.Search;
-import de.blau.android.util.PresetSearchIndexUtils;
+import de.blau.android.util.SearchIndexUtils;
 
 public class PresetFragment extends SherlockFragment implements PresetClickHandler {
 	
@@ -144,7 +144,6 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      				Log.d(DEBUG_TAG,"action id " + actionId + " event " + event);
      				if (actionId == EditorInfo.IME_ACTION_SEARCH 
      						|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-     					PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10);
      					FragmentManager fm = getChildFragmentManager();
      					FragmentTransaction ft = fm.beginTransaction();
      				    Fragment prev = fm.findFragmentByTag("fragment_preset_search_results");
@@ -152,7 +151,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      				        ft.remove(prev);
      				    }
      				    ft.commit();
-     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(PresetSearchIndexUtils.search(getActivity(), v.getText().toString(),element.getType(),3,10));
+     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),element.getType(),3,10));
      				    if (searchResults == null || searchResults.size() == 0) {
      				    	Toast.makeText(getActivity(), R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
      				    	return true;

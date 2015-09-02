@@ -16,7 +16,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 import de.blau.android.util.MultiHashMap;
-import de.blau.android.util.PresetSearchIndexUtils;
+import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.jsonreader.JsonReader;
 
 
@@ -293,7 +293,7 @@ public class Names {
 		HashMap<String,NameAndTags> result = new HashMap<String,NameAndTags>();
 		Collection<NameAndTags> names = getNames();
 		for (NameAndTags nat:names) {
-			result.put(PresetSearchIndexUtils.normalize(nat.getName()), nat);
+			result.put(SearchIndexUtils.normalize(nat.getName()), nat);
 		}
 		return result;
 	}

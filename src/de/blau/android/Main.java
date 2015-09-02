@@ -40,6 +40,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -160,7 +161,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	/**
 	 * Requests voice recognition.
 	 */
-	public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
+	public static final int VOICE_RECOGNITION_REQUEST_CODE = 6;
 	
 	private static final String EASY_TAG = "EASY";
 	private static final String TAG_TAG = "TAG";
@@ -792,6 +793,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	public void updateActionbarEditMode() {
 		Log.d(DEBUG_TAG, "updateActionbarEditMode");
 		setLock(getLogic().getMode());
+		supportInvalidateOptionsMenu();
 	}
 	
 	public static void onEditModeChanged() {
@@ -841,7 +843,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
-		undo.setVisible(getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo());
+		undo.setVisible(getLogic().getMode() != Mode.MODE_MOVE && (getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo()));
 		View undoView = undo.getActionView();
 		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
 			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
@@ -883,10 +885,16 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			startActivity(startHelpViewer);
 			return true;
 			
-//		case R.id.menu_voice:
-//			Intent startVoiceCommands = new Intent(getApplicationContext(), Commands.class);
-//			startActivity(startVoiceCommands);
-//			return true;
+		case R.id.menu_voice:		
+			Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+			try {
+				startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+			} catch (Exception ex) {
+				Log.d(DEBUG_TAG,"Caught exception " + ex);
+				Toast.makeText(getApplicationContext(),R.string.toast_no_voice, Toast.LENGTH_LONG).show();
+			}
+			return true;
 			
 		case R.id.menu_camera:
 			Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -1388,6 +1396,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		} else if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
 			if (easyEditManager.isProcessingAction()) {
 				easyEditManager.handleActivityResult(requestCode, resultCode, data);
+			} else {
+				(new Commands(this)).processIntentResult(data);
+				map.invalidate();
 			}
 		}
 	}

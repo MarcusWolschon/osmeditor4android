@@ -112,10 +112,6 @@
 		    android:name="HelpViewer" 
 		    android:theme="@style/Theme.customHelpViewer" 
 		/>
-		<activity 
-		    android:name=".voice.Commands" 
-		    android:theme="@style/Theme.customHelpViewer" 
-		/>
 		<activity
 			android:name="org.acra.CrashReportDialog"
 			android:theme="@android:style/Theme.Dialog"

@@ -68,7 +68,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
-import de.blau.android.util.PresetSearchIndexUtils;
+import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -563,7 +563,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, "Voice").setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic));
+			menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
@@ -709,7 +709,7 @@ public class EasyEditManager {
 				String[] words = v.split("\\s+", 2);
 				if (words.length > 0) {
 					// 
-					String first = words[0].toLowerCase();
+					String first = words[0];
 					try {
 						int number = Integer.parseInt(first);
 						// worked if there is a further word(s) simply add it/them
@@ -727,48 +727,37 @@ public class EasyEditManager {
 						// ok wasn't a number
 					}
 
-					List<PresetItem> presetItems = PresetSearchIndexUtils.search(main, first.toString(),ElementType.NODE,1,1);
+					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first,ElementType.NODE,2,1);
 					
 					if (presetItems != null && presetItems.size()==1) {		
-						Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), words.length == 2? words[1]:null, presetItems.get(9), logic, v);
+						Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), words.length == 2? words[1]:null, presetItems.get(0), logic, v);
 						if (node != null) {
 							main.startActionMode(new NodeSelectionActionModeCallback(node));
 							return;
 						} 
 					}
 				
-					Names names = null;
-					Map<String, NameAndTags> namesSearchIndex = null;;
-					if (names == null) {
-						// this should be done async if it takes too long
-						names = new Names(main);
-						// names.dump2Log();
-						namesSearchIndex = names.getSearchIndex();
+					Map<String, NameAndTags> namesSearchIndex = Application.getNameSearchIndex(main);
+					if (namesSearchIndex == null) {
+						return;
 					}
-					// sequential search in names
-					String input = "";
-					for (int i=0;i<words.length;i++) {
-						input = input + words[i].toLowerCase() + (i<words.length?" ":"");
-					}
-					input = PresetSearchIndexUtils.normalize(input);
-					for (String n:namesSearchIndex.keySet()) {
-						if (input.equals(n)) {
-							HashMap<String, String> map = new HashMap<String, String>();
-							NameAndTags nt = namesSearchIndex.get(n);
-							map.putAll(nt.getTags());
-							PresetItem pi = Preset.findBestMatch(Application.getCurrentPresets(main), map);
-							if (pi != null) {
-								Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
-								if (node != null) {
-									// set tags from name suggestions
-									Map<String,String> tags = new TreeMap<String, String>(node.getTags());
-									for (String k:map.keySet()) {
-										tags.put(k, map.get(k));
-									}
-									Application.getDelegator().setTags(node,tags); // note doesn't create a new undo checkpoint
-									main.startActionMode(new NodeSelectionActionModeCallback(node));
-									return;
+					// search in names
+					NameAndTags nt = SearchIndexUtils.searchInNames(main, v, 2);
+					if (nt != null) {
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.putAll(nt.getTags());
+						PresetItem pi = Preset.findBestMatch(Application.getCurrentPresets(main), map);
+						if (pi != null) {
+							Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
+							if (node != null) {
+								// set tags from name suggestions
+								Map<String,String> tags = new TreeMap<String, String>(node.getTags());
+								for (String k:map.keySet()) {
+									tags.put(k, map.get(k));
 								}
+								Application.getDelegator().setTags(node,tags); // note doesn't create a new undo checkpoint
+								main.startActionMode(new NodeSelectionActionModeCallback(node));
+								return;
 							}
 						}
 					}
