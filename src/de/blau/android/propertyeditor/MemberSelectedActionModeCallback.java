@@ -96,7 +96,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 		((PropertyEditor)caller.getActivity()).enablePresets();
 		caller.deselectHeaderCheckBox();
 		currentAction = null;
-		caller.memberSelectedActionModeCallback = null;
+		caller.memberDeselected(); // synchronized method
 	}
 
 	public boolean memberDeselected() {

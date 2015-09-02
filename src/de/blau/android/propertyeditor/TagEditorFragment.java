@@ -888,7 +888,7 @@ public class TagEditorFragment extends SherlockFragment {
 		}
 	}
 	
-	protected void tagSelected() {
+	protected synchronized void tagSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (tagSelectedActionModeCallback == null) {
 			tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
@@ -896,7 +896,7 @@ public class TagEditorFragment extends SherlockFragment {
 		}	
 	}
 	
-	protected void tagDeselected() {
+	protected synchronized void tagDeselected() {
 		if (tagSelectedActionModeCallback != null) {
 			if (tagSelectedActionModeCallback.tagDeselected()) {
 				tagSelectedActionModeCallback = null;

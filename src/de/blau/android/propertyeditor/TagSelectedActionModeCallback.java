@@ -151,7 +151,7 @@ public class TagSelectedActionModeCallback implements Callback {
 		caller.deselectHeaderCheckBox();
 		((PropertyEditor)caller.getActivity()).enablePaging();
 		((PropertyEditor)caller.getActivity()).enablePresets();
-		TagEditorFragment.tagSelectedActionModeCallback = null;
+		caller.tagDeselected(); // synchronized method
 	}
 
 	public boolean tagDeselected() {

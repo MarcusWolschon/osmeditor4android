@@ -469,7 +469,6 @@ public class Track extends DefaultHandler {
 	
 	@Override
 	public void characters(char[] ch, int start, int length) {
-
 		switch(state) {
 		case NONE:
 			return;
@@ -478,12 +477,22 @@ public class Track extends DefaultHandler {
 			return;
 		case TIME:
 			try {
-				parsedTime = ISO8601FORMAT.parse(new String(ch,start,length)).getTime();
+				parsedTime = parseTime(new String(ch,start,length));
 			} catch (ParseException e) {
 				parsedTime = 0L;
 			}
 			return;
 		}
+	}
+	
+	/**
+	 * Synchronized method to avoid potential problem with static DateFormat
+	 * @param t
+	 * @return
+	 * @throws ParseException
+	 */
+	synchronized long parseTime(String t) throws ParseException {
+		return ISO8601FORMAT.parse(new String(t)).getTime();
 	}
 	
 	@Override
