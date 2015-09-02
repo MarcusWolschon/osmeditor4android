@@ -883,11 +883,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			startActivity(startHelpViewer);
 			return true;
 			
-		case R.id.menu_voice:
-			Intent startVoiceCommands = new Intent(getApplicationContext(), Commands.class);
-			// startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
-			startActivity(startVoiceCommands);
-			return true;
+//		case R.id.menu_voice:
+//			Intent startVoiceCommands = new Intent(getApplicationContext(), Commands.class);
+//			startActivity(startVoiceCommands);
+//			return true;
 			
 		case R.id.menu_camera:
 			Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
