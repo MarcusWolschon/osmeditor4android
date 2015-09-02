@@ -270,6 +270,7 @@
     <string name="menu_newnode_gps">New node at GPS pos.</string>
     <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_information">Info</string>
+    <string name="menu_voice_commands">Voice commands</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>

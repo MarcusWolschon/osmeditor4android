@@ -199,9 +199,10 @@
 		android:icon="?attr/menu_help"
 		android:showAsAction="ifRoom"
 	/>
-<!-- 	<item -->
-<!-- 		android:id="@+id/menu_voice" -->
-<!-- 		android:title="Voice commands" -->
-<!-- 		android:showAsAction="ifRoom" -->
-<!-- 	/> -->
+	<item
+		android:id="@+id/menu_voice"
+		android:title="@string/menu_voice_commands"
+		android:icon="?attr/mic"
+		android:showAsAction="ifRoom"
+	/>
 </menu>

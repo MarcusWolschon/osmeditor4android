@@ -87,8 +87,8 @@ public class TagEditorFragment extends SherlockFragment {
 	
 	PresetItem autocompletePresetItem = null;
 	
-	private static Names names = null;
-	
+	private Names names = null;
+
 	private boolean loaded = false;
 	private String[] types;
 	private long[] osmIds;
@@ -202,15 +202,8 @@ public class TagEditorFragment extends SherlockFragment {
     	prefs = new Preferences(getActivity());
     	
 		if (prefs.getEnableNameSuggestions()) {
-			if (names == null) {
-				// this should be done async if it takes too long
-				names = new Names(getActivity());
-				// names.dump2Log();
-			}
-		} else {
-			names = null; // might have been on before, zap now
+			names = Application.getNames(getActivity());
 		}
-    	
     	
      	this.inflater = inflater;
      	rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, null);

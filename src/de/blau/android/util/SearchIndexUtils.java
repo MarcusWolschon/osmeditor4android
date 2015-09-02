@@ -2,21 +2,25 @@ package de.blau.android.util;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import de.blau.android.Application;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.presets.Preset;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.presets.Preset.PresetItem;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
-public class PresetSearchIndexUtils {
+public class SearchIndexUtils {
 	
 	
 	private static Pattern deAccentPattern = null; // cached regex
@@ -73,10 +77,10 @@ public class PresetSearchIndexUtils {
 	 * @param limit max number of results
 	 * @return
 	 */
-	public static List<PresetItem> search(Context ctx, String term, ElementType type, int maxDistance, int limit) {
+	public static List<PresetItem> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit) {
 		MultiHashMap<String, PresetItem> presetSeachIndex = Application.getPresetSearchIndex(ctx);
 		TreeSet<IndexSearchResult> sortedResult = new TreeSet<IndexSearchResult>();
-		term = PresetSearchIndexUtils.normalize(term);
+		term = SearchIndexUtils.normalize(term);
 		for (String s:presetSeachIndex.getKeys()) {
 			int distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
 			if (distance >= 0 && distance <= maxDistance) {
@@ -99,8 +103,36 @@ public class PresetSearchIndexUtils {
 			}
 		}
 		if (result.size() > 0) {
-			return result.subList(0, Math.min(result.size(),limit)-1);
+			return result.subList(0, Math.min(result.size(),limit));
 		}
 		return result; // empty
+	}
+	
+	/**
+	 * Return match is any of term in the name index
+	 * @param ctx
+	 * @param term
+	 * @param type
+	 * @param maxDistance
+	 * @return
+	 */
+	public static NameAndTags searchInNames(Context ctx, String term, int maxDistance) {
+		Map<String,NameAndTags> namesSearchIndex = Application.getNameSearchIndex(ctx);
+		NameAndTags result = null;
+		int lastDistance = Integer.MAX_VALUE;
+		term = SearchIndexUtils.normalize(term);
+		for (String n:namesSearchIndex.keySet()) {
+			int distance = OptimalStringAlignment.editDistance(n, term, maxDistance);
+			if (distance >= 0 && distance <= maxDistance) {
+				if (distance < lastDistance) {
+					result = namesSearchIndex.get(n);
+					lastDistance = distance;
+					if (distance == 0) { // no point in searching for better results
+						return result;
+					}
+				}
+			}
+		}
+		return result;
 	}
 }

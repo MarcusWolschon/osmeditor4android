@@ -74,7 +74,7 @@ import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.resources.Profile;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
-import de.blau.android.util.PresetSearchIndexUtils;
+import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.views.WrappingLayout;
 
 /**
@@ -1090,7 +1090,7 @@ public class Preset implements Serializable {
 		 */
 		void addToSearchIndex(String name) {
 			// search support
-			String normalizedName = PresetSearchIndexUtils.normalize(name);
+			String normalizedName = SearchIndexUtils.normalize(name);
 			searchIndex.add(normalizedName,this);
 			String words[] = normalizedName.split(" ");
 			if (words.length > 1) {
@@ -1099,7 +1099,7 @@ public class Preset implements Serializable {
 				}
 			}
 			if (po != null) { // and any translation
-				String normalizedTranslatedName = PresetSearchIndexUtils.normalize(po.t(name));
+				String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(name));
 				searchIndex.add(normalizedTranslatedName,this);
 				String translastedWords[] = normalizedName.split(" ");
 				if (translastedWords.length > 1) {
