@@ -1073,6 +1073,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				return true;
 			}
 			Application.getBugStorage().reset();
+			map.invalidate();
 			return true;
 			
 		case R.id.menu_transfer_bugs_autodownload:

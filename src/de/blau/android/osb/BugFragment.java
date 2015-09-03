@@ -21,6 +21,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.IssueAlert;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -106,6 +107,9 @@ public class BugFragment extends SherlockDialogFragment {
     		.setPositiveButton(bug instanceof Note && bug.isNew() ? R.string.openstreetbug_commitbutton : R.string.save, new DialogInterface.OnClickListener() { 
     			public void onClick(DialogInterface dialog, int id) {
     				saveBug(v,bug);
+    				if (bug.hasBeenChanged() && bug.isClosed()) {
+    					IssueAlert.cancel(getActivity(), bug);
+    				}
     			}
     		})
     		.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() { 
@@ -117,6 +121,9 @@ public class BugFragment extends SherlockDialogFragment {
     					TransferBugs.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false);
     				} else if (bug instanceof OsmoseBug) {
     					TransferBugs.uploadOsmoseBug((OsmoseBug)bug);
+    				}
+    				if (bug.hasBeenChanged() && bug.isClosed()) {
+    					IssueAlert.cancel(getActivity(), bug);
     				}
     			}
     		})

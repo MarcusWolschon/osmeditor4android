@@ -33,6 +33,9 @@ public class IssueAlert {
 	final static String GROUP_NOTES = "Notes";
 	final static String GROUP_OSMOSE = "Osmose";
 	
+	static int bugCount = 0;
+	static int noteCOunt = 0;
+	
 	public static void alert(Context context, OsmElement e) {
 	
 		Preferences prefs = new Preferences(context);
@@ -89,7 +92,8 @@ public class IssueAlert {
 		        .setContentText(message)
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
 		        .setTicker(ticker)
-		        .setGroup(GROUP_DATA);
+		        .setGroup(GROUP_DATA)
+		        .setGroupSummary(true);
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
@@ -121,6 +125,12 @@ public class IssueAlert {
 		} catch (OsmException e1) {
 			Log.d("IssueAlert","Illegal BB created from lat " + eLat+ " lon " + eLon + " r " + prefs.getDownloadRadius());
 		}
+	}
+	
+	public static void cancel(Context context, OsmElement e) {
+		NotificationManager mNotificationManager =
+			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.cancel((e.getName() + e.getOsmId()).hashCode());
 	}
 	
 	public static void alert(Context context, Bug b) {
@@ -163,11 +173,12 @@ public class IssueAlert {
 		message = message + b.getDescription();
 		NotificationCompat.Builder mBuilder =
 		        new NotificationCompat.Builder(context)
-		        .setSmallIcon(R.drawable.osm_logo)
-		        .setContentTitle(title)
+		       	.setSmallIcon(R.drawable.osm_logo)
+		       	.setContentTitle(title)
 		        .setContentText(message)
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
 		        .setTicker(ticker)
+		        .setAutoCancel(true)
 		        .setGroup(GROUP_OSMOSE);
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
@@ -190,6 +201,23 @@ public class IssueAlert {
 			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 			// mId allows you to update the notification later on.
 			mNotificationManager.notify((b.getClass().getSimpleName() + b.getId()).hashCode(), mBuilder.build());
+		bugCount++;
+			
+		// summary doesn't work reasonably
+//		mBuilder =  new NotificationCompat.Builder(context)
+//			        .setSmallIcon(R.drawable.osm_logo)
+//			        .setContentTitle(title) 
+//			        .setPriority(NotificationCompat.PRIORITY_HIGH)
+//			        .setNumber(bugCount)
+//			        .setGroup(GROUP_OSMOSE)
+//			        .setGroupSummary(true);
+//		mNotificationManager.notify(b.getClass().getSimpleName().hashCode(), mBuilder.build());
+	}
+	
+	public static void cancel(Context context, Bug b) {
+		NotificationManager mNotificationManager =
+			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.cancel((b.getClass().getSimpleName() + b.getId()).hashCode());
 	}
 	
 	static class ClosestPoint{
