@@ -92,6 +92,7 @@ public class IssueAlert {
 		        .setContentText(message)
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
 		        .setTicker(ticker)
+		        .setAutoCancel(true)
 		        .setGroup(GROUP_DATA)
 		        .setGroupSummary(true);
 		// Creates an explicit intent for an Activity in your app
@@ -179,7 +180,7 @@ public class IssueAlert {
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
 		        .setTicker(ticker)
 		        .setAutoCancel(true)
-		        .setGroup(GROUP_OSMOSE);
+		        .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
