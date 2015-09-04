@@ -18,6 +18,7 @@ import de.blau.android.presets.ValueWithCount;
 import de.blau.android.presets.Preset.PresetItem;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 public class SearchIndexUtils {
@@ -32,7 +33,9 @@ public class SearchIndexUtils {
 	 */
 	static public String normalize(String n) {
 		String r = n.toLowerCase().trim();
-		r = deAccent(r);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+			r = deAccent(r);
+		}
 		StringBuilder b = new StringBuilder();
 		for (char c:r.toCharArray()) {
 			c = Character.toLowerCase(c);

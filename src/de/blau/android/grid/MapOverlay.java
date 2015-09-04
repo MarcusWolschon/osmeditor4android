@@ -77,7 +77,6 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 		return true;
 	}
 	
-	@SuppressLint("NewApi")
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		String mode = map.getPrefs().scaleLayer();

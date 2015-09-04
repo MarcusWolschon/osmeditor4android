@@ -235,7 +235,7 @@ public class BugFragment extends SherlockDialogFragment {
     	Dialog d = builder.create();
     	
     	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-    		d.setOnShowListener(new OnShowListener() { // FIXME need replacement for old API
+    		d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default
     			@Override
     			public void onShow(DialogInterface dialog) {                    //
     				final Button save = ((AlertDialog) dialog)
@@ -281,7 +281,7 @@ public class BugFragment extends SherlockDialogFragment {
     				});
     			}
     		});
-    	}
+    	} 
 		d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     	return d;
     }
