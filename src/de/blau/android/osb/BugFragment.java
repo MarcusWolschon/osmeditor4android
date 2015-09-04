@@ -5,10 +5,13 @@ import java.util.List;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
 import de.blau.android.Application;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.Logic.Mode;
 import de.blau.android.R.id;
 import de.blau.android.R.layout;
 import de.blau.android.R.string;
+import de.blau.android.exception.OsmException;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osb.Bug.State;
 import de.blau.android.osm.Node;
@@ -21,6 +24,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.IssueAlert;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -53,6 +57,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -136,11 +141,14 @@ public class BugFragment extends SherlockDialogFragment {
     	ArrayAdapter<CharSequence> adapter = null;
 
     	TextView comments = (TextView)v.findViewById(R.id.openstreetbug_comments);
+    	EditText comment = (EditText)v.findViewById(R.id.openstreetbug_comment);
+    	TextView commentLabel = (TextView)v.findViewById(R.id.openstreetbug_comment_label);
+    	LinearLayout elementLayout = (LinearLayout)v.findViewById(R.id.openstreetbug_element_layout);
     	if (bug instanceof Note) {
     		builder.setTitle(getString((bug.isNew() && ((Note)bug).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));  		
-    		comments.setText(Html.fromHtml(((Note)bug).getComment())); // ugly
-    		EditText comment = (EditText)v.findViewById(R.id.openstreetbug_comment);
-    		NoteComment nc = ((Note) bug).getLastComment();
+    		comments.setText(Html.fromHtml(((Note)bug).getComment())); // ugly	
+    		NoteComment nc = ((Note) bug).getLastComment();	
+    		elementLayout.setVisibility(View.GONE); // not used for notes
     		if ((bug.isNew() && ((Note)bug).count() == 0) || (nc != null && !nc.isNew())) { // only show comment field if we don't have an unsaved comment
     			Log.d(DEBUG_TAG,"enabling comment field");
     			comment.setText("");
@@ -148,7 +156,6 @@ public class BugFragment extends SherlockDialogFragment {
     			comment.setFocusableInTouchMode(true);
     			comment.setEnabled(true);
     		} else {
-    			TextView commentLabel = (TextView)v.findViewById(R.id.openstreetbug_comment_label);
         		commentLabel.setVisibility(View.GONE);
         		comment.setVisibility(View.GONE);
     		}
@@ -156,11 +163,49 @@ public class BugFragment extends SherlockDialogFragment {
         	        R.array.note_state, android.R.layout.simple_spinner_item);
     	} else if (bug instanceof OsmoseBug) {
     		builder.setTitle(R.string.openstreetbug_bug_title);
-    		comments.setText(Html.fromHtml(((OsmoseBug)bug).getLongDescription(getActivity())));
-    		TextView commentLabel = (TextView)v.findViewById(R.id.openstreetbug_comment_label);
+    		comments.setText(Html.fromHtml(((OsmoseBug)bug).getLongDescription(getActivity(), false)));
+    		for (final OsmElement e:((OsmoseBug)bug).getElements()) {
+    			String text;
+    			if (e.getOsmVersion() < 0) { // fake element
+    				text = e.getName() + " (" + getActivity().getString(R.string.openstreetbug_not_downloaded) + ") #" + e.getOsmId();
+    			} else { // real
+    				text = e.getName() + " " + e.getDescription(false);
+    			}
+    			TextView tv = new TextView(getActivity());
+    			tv.setClickable(true);
+    			tv.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) { // FIXME assumption that we are being called from Main
+						dismiss();
+						final int lonE7 = bug.getLon();
+						final int latE7 = bug.getLat();
+						if (e.getOsmVersion() < 0) { // fake element
+							try {
+								Application.mainActivity.getLogic().downloadBox(GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true), true, new PostAsyncActionHandler(){
+									@Override
+									public void execute(){
+										OsmElement osm = Application.getDelegator().getOsmElement(e.getName(),e.getOsmId());
+										if (osm != null) {
+											Application.mainActivity.zoomToAndEdit(lonE7, latE7, osm);
+										}
+									}
+								});
+							} catch (OsmException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+		    			} else { // real
+		    				Application.mainActivity.zoomToAndEdit(lonE7, latE7, e);
+		    			}
+					}});
+    			tv.setTextColor(getActivity().getResources().getColor(R.color.holo_blue_light));
+    			tv.setText(text);
+    			elementLayout.addView(tv);
+    		}
+    		// these are not used for osmose bugs
     		commentLabel.setVisibility(View.GONE);
-    		EditText comment = (EditText)v.findViewById(R.id.openstreetbug_comment);
     		comment.setVisibility(View.GONE);
+    		//
     		adapter = ArrayAdapter.createFromResource(getActivity(),
         	        R.array.bug_state, android.R.layout.simple_spinner_item);
     	} else {

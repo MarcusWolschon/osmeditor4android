@@ -48,6 +48,7 @@ public class BugStorage implements Serializable {
 	public void reset() {
 		bugs = new RTree(2,100);
 		boxes = new RTree(2,20);
+		dirty = true;
 	}
 
 	public synchronized void add(Bug b) {

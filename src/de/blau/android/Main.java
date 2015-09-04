@@ -92,6 +92,7 @@ import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.Visibility;
@@ -522,6 +523,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
 	}
 	
+	/**
+	 * Process geo an JOSM remote control intents
+	 */
 	protected void processIntents() {
 		if (geoData != null) {
 			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + getLogic().getDelegator().isDirty());
@@ -529,13 +533,19 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
-					getLogic().downloadBox(bbox, true); // TODO find out why isDirty doesn't work in this context
+					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, bbox); 
+					if (bboxes != null && bboxes.size() > 0) {
+						getLogic().downloadBox(bbox, true, null); 
+					} else {
+						logic.getViewBox().setBorders(bbox);
+						map.invalidate();
+					}
 				} catch (OsmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
-				//TODO this currently will only work if loading the data from the saved state has already completed, could be fixed with a lock or similar
 				Log.d(DEBUG_TAG,"moving to position");
 				map.getViewBox().moveTo((int)(geoData.getLon()*1E7), (int)(geoData.getLat()*1E7));
 				map.invalidate();
@@ -545,53 +555,72 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (rcData != null) {
 			Log.d(DEBUG_TAG,"got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
-				getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */); // TODO find out why isDirty doesn't work in this context
-				// this had to be done after we have restored/downloaded data and set any saved edit state ... disable for now needs some thinking 
-				if (rcData.getSelect() != null) {
-					// need to actually switch to easyeditmode
-					if (logic.getMode() != Mode.MODE_EASYEDIT) { // TODO there might be states in which we don't want to exit which ever mode we are in
-						setMode(Mode.MODE_EASYEDIT);
-					}
-					logic.setSelectedNode(null);
-					logic.setSelectedWay(null);
-					logic.setSelectedRelation(null);
-					for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
-						if (s!=null) {
-							Log.d(DEBUG_TAG,"rc select: " + s);
-							try {
-							if (s.startsWith("node")) {
-								long id = Long.valueOf(s.substring(Node.NAME.length()));
-								Node n = (Node) logic.getDelegator().getOsmElement(Node.NAME, id); 
-								if (n != null) {
-									logic.addSelectedNode(n);
-								}
-							} else if (s.startsWith("way")) {
-								long id = Long.valueOf(s.substring(Way.NAME.length()));
-								Way w = (Way) logic.getDelegator().getOsmElement(Way.NAME, id); 
-								if (w != null) {
-									logic.addSelectedWay(w);
-								}
-							} else if (s.startsWith("relation")) {
-								long id = Long.valueOf(s.substring(Relation.NAME.length()));
-								Relation r = (Relation) logic.getDelegator().getOsmElement(Relation.NAME, id); 
-								if (r != null) {
-									logic.addSelectedRelation(r);
-								}
-							}
-							} catch (NumberFormatException nfe) {
-								Log.d(DEBUG_TAG,"Parsing " + s + " caused " + nfe);
-								// not much more we can do here
-							}
-						}	
-					}
-					easyEditManager.editElements();
+				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+				ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, rcData.getBox()); 
+				if (bboxes != null && bboxes.size() > 0) {
+					getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
+						@Override
+						public void execute(){
+							rcDataEdit(rcData);
+							rcData=null; // zap to stop repeated downloads
+						}
+					});
+				} else {
+					rcDataEdit(rcData);
+					rcData=null; // zap to stop repeated downloads
 				}
 			} else {
 				Log.d(DEBUG_TAG,"moving to position");
 				map.getViewBox().setBorders(rcData.getBox());
 				map.invalidate();
+				rcData=null; // zap to stop repeated downloads
 			}
-			rcData=null; // zap to stop repeated downloads
+		}
+	}
+	
+	/**
+	 * Parse the parameters of a JOSM remote control URL and select and edit the OSM objects.
+	 * @param rcData
+	 */
+	void rcDataEdit(RemoteControlUrlData rcData ) {
+		if (rcData.getSelect() != null) {
+			// need to actually switch to easyeditmode
+			if (logic.getMode() != Mode.MODE_EASYEDIT) { // TODO there might be states in which we don't want to exit which ever mode we are in
+				setMode(Mode.MODE_EASYEDIT);
+			}
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			logic.setSelectedRelation(null);
+			for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
+				if (s!=null) {
+					Log.d(DEBUG_TAG,"rc select: " + s);
+					try {
+						if (s.startsWith("node")) {
+							long id = Long.valueOf(s.substring(Node.NAME.length()));
+							Node n = (Node) logic.getDelegator().getOsmElement(Node.NAME, id); 
+							if (n != null) {
+								logic.addSelectedNode(n);
+							}
+						} else if (s.startsWith("way")) {
+							long id = Long.valueOf(s.substring(Way.NAME.length()));
+							Way w = (Way) logic.getDelegator().getOsmElement(Way.NAME, id); 
+							if (w != null) {
+								logic.addSelectedWay(w);
+							}
+						} else if (s.startsWith("relation")) {
+							long id = Long.valueOf(s.substring(Relation.NAME.length()));
+							Relation r = (Relation) logic.getDelegator().getOsmElement(Relation.NAME, id); 
+							if (r != null) {
+								logic.addSelectedRelation(r);
+							}
+						}
+					} catch (NumberFormatException nfe) {
+						Log.d(DEBUG_TAG,"Parsing " + s + " caused " + nfe);
+						// not much more we can do here
+					}
+				}	
+			}
+			easyEditManager.editElements();		
 		}
 	}
 
@@ -1567,7 +1596,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		getLogic().downloadBox(box, false);
+		getLogic().downloadBox(box, false, null);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
@@ -2578,6 +2607,30 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
         ElementInfoFragment elementInfoDialog = ElementInfoFragment.newInstance(element);
         elementInfoDialog.show(fm, "fragment_element_info");
+	}
+	
+	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
+		map.getViewBox().moveTo(lonE7, latE7);
+		if (map.getZoomLevel() < 20) {
+			getLogic().setZoom(20);
+		}
+		logic.setSelectedNode(null);
+		logic.setSelectedWay(null);
+		logic.setSelectedRelation(null);
+		switch (e.getType()) {
+			case NODE:
+				logic.setSelectedNode((Node) e);
+				break;
+			case WAY:
+			case CLOSEDWAY:
+				logic.setSelectedWay((Way) e);
+				break;
+			case RELATION:
+				logic.setSelectedRelation((Relation) e);
+				break;
+		}
+		easyEditManager.editElement(e);
+		map.invalidate();
 	}
 
 	/**

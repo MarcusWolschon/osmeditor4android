@@ -42,6 +42,7 @@
     <string name="config_offsetServer_key">offsetServer</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
+    <string name="config_maxAlertDistance_key">maxAlertDistance</string>
     <string name="config_enableLightTheme_key">enableLightTheme</string>
     <string name="config_addressTags_key">addressTags</string>
     <string name="config_addressprefs_key">addressPrefs</string>

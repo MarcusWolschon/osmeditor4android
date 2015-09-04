@@ -11,7 +11,15 @@
 			android:key="@string/config_generateAlerts_key"
 			android:title="@string/config_generateAlerts_title"
 			android:summary="@string/config_generateAlerts_summary"
-			android:defaultValue="false"
+			android:defaultValue="true"
+		/>
+	    <EditTextPreference
+			android:key="@string/config_maxAlertDistance_key"
+			android:title="@string/config_maxAlertDistance_title"
+			android:summary="@string/config_maxAlertDistance_summary"
+			android:dialogTitle="@string/config_maxAlertDistance_title"
+			android:numeric="integer"
+			android:defaultValue="100"
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_forceContextMenu_key"

@@ -108,8 +108,7 @@ public class TransferBugs {
 				if (handler != null) {
 					handler.execute();
 				}
-			}
-			
+			}	
 		}.execute();
 	}	
 	

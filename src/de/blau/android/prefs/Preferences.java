@@ -82,6 +82,8 @@ public class Preferences {
 	
 	private final boolean generateAlerts;
 	
+	private int maxAlertDistance;
+	
 	private final boolean lightThemeEnabled;
 	
 	private Set addressTags; // can't be final
@@ -196,6 +198,12 @@ public class Preferences {
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
+		try {
+			maxAlertDistance = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxAlertDistance_key), "100"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_maxAlertDistance_key");
+			maxAlertDistance = 100;
+		}
 		// light theme doesn't really work prior to Honeycomb, but make it the default for anything newer
 		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? true : false);
 		
@@ -416,5 +424,9 @@ public class Preferences {
 	
 	public Set<String> addressTags() {
 		return addressTags;
+	}
+
+	public int getMaxAlertDistance() {
+		return maxAlertDistance;
 	}
 }

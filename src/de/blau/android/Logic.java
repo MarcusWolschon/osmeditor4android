@@ -1891,9 +1891,10 @@ public class Logic {
 	 * 
 	 * @param mapBox Box defining the area to be loaded.
 	 * @param add if true add this data to existing
+	 * @param postLoadHandler TODO
 	 * @param auto download is being done automatically, try not mess up/move the display
 	 */
-	void downloadBox(final BoundingBox mapBox, final boolean add) {
+	public void downloadBox(final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -2024,6 +2025,10 @@ public class Logic {
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(ex);
 					}
+				} else {
+					if (postLoadHandler != null) {
+						postLoadHandler.execute();
+					}
 				}
 				Profile.updateStrokes(strokeWidth(mapBox.getWidth()));
 				map.invalidate();
@@ -2146,7 +2151,7 @@ public class Logic {
 	 */
 	void downloadCurrent(boolean add) {
 		Log.d("Logic","viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
-		downloadBox(viewBox.copy(),add);
+		downloadBox(viewBox.copy(),add, null);
 	}
 	
 	/**
@@ -2157,7 +2162,7 @@ public class Logic {
 	void downloadLast() {
 		getDelegator().reset();
 		for (BoundingBox box:getDelegator().getBoundingBoxes()) {
-			if (box != null && box.isValidForApi()) downloadBox(box, true);
+			if (box != null && box.isValidForApi()) downloadBox(box, true, null);
 		}
 	}
 

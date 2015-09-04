@@ -18,6 +18,7 @@ import de.blau.android.R;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.util.jsonreader.JsonReader;
@@ -138,52 +139,55 @@ public class OsmoseBug extends Bug implements Serializable {
 		return update;
 	}
 	
+	/**
+	 * THis returns fake elements with version -1 for objects not downloaded
+	 * @return
+	 */
 	public ArrayList<OsmElement> getElements() {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
-		try {
-			String[] elements = elems.split("_");
-			for (String e:elements) {
+		String[] elements = elems.split("_");
+		for (String e:elements) {
+			try {
 				if (elems.startsWith("way")) {
-					result.add(Application.getDelegator().getOsmElement(Way.NAME,Long.valueOf(e.substring(3))));
+					OsmElement osm = Application.getDelegator().getOsmElement(Way.NAME,Long.valueOf(e.substring(3)));
+					if (osm == null) {
+						osm = OsmElementFactory.createWay(Long.valueOf(e.substring(3)), -1, (byte) -1);
+					}
+					result.add(osm);
 				} else if (elems.startsWith("node")) {
-					result.add(Application.getDelegator().getOsmElement(Node.NAME,Long.valueOf(e.substring(4))));
+					OsmElement osm = Application.getDelegator().getOsmElement(Node.NAME,Long.valueOf(e.substring(4)));
+					if (osm == null) {
+						osm = OsmElementFactory.createNode(Long.valueOf(e.substring(4)), -1, (byte) -1, 0, 0);
+					}
+					result.add(osm);
 				} else if (elems.startsWith("relation")) {
-					result.add(Application.getDelegator().getOsmElement(Relation.NAME,Long.valueOf(e.substring(8))));
+					OsmElement osm = Application.getDelegator().getOsmElement(Relation.NAME,Long.valueOf(e.substring(8)));
+					if (osm == null) {
+						osm = OsmElementFactory.createRelation(Long.valueOf(e.substring(8)), -1, (byte) -1);
+					}
+					result.add(osm);
 				}
 			}
-		}
-		catch(Exception ex) {
-			Log.d(DEBUG_TAG,"couldn't retrieve element " + elems + " " + ex);
+			catch(Exception ex) {
+				Log.d(DEBUG_TAG,"couldn't retrieve element " + elems + " " + ex);
+			}
 		}
 		return result;		
 	}
 	
-	public String getLongDescription(Context context) {
+	public String getLongDescription(Context context, boolean withElements) {
 		String result = "Osmose: " + level2string(context) + "<br><br>" + (subtitle.length() != 0 ?  subtitle : title ) + "<br>";
-		String h = context.getString(R.string.element);
-		String[] elements = elems.split("_");
-		for (String e:elements) {
-			OsmElement osm = null;
-			String obj = "unknown";
-			long id = -1L;
-			if (e.startsWith(Way.NAME)) {
-				id = Long.valueOf(e.substring(3));
-				obj = Way.NAME;
-			} else if (e.startsWith(Node.NAME)) {
-				id = Long.valueOf(e.substring(4));
-				obj = Node.NAME;
-			} else if (e.startsWith(Relation.NAME)) {
-				id = Long.valueOf(e.substring(8));
-				obj = Relation.NAME;
-			}
-			osm = Application.getDelegator().getOsmElement(obj,id);
-			if (osm == null) { 
-				result = result + "<br>" + obj + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + id;
-			} else {
-				result = result + "<br>" + obj  + " " + osm.getDescription(false);
+		if (withElements) {
+			for (OsmElement osm:getElements()) {
+				if (osm.getOsmVersion() >= 0) { 
+					result = result + "<br>" + osm.getName() + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + id;
+				} else {
+					result = result + "<br>" + osm.getName() + " " + osm.getDescription(false);
+				}
+				result = result + "<br><br>";
 			}
 		}
-		result = result + "<br><br>" + context.getString(R.string.openstreetbug_last_updated) + ": " + update;
+		result = result + context.getString(R.string.openstreetbug_last_updated) + ": " + update;
 		return result; 
 	}
 	

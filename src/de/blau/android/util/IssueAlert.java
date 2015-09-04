@@ -72,6 +72,10 @@ public class IssueAlert {
 				eLon = cp.lon;
 				eLat = cp.lat;
 			}
+			// filter
+			if (distance > prefs.getMaxAlertDistance()) {
+				return;
+			}
 			long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
 			String[] bearings = {"NE", "E", "SE", "S", "SW", "W", "NW", "N"};
 
@@ -93,8 +97,7 @@ public class IssueAlert {
 		        .setPriority(NotificationCompat.PRIORITY_HIGH)
 		        .setTicker(ticker)
 		        .setAutoCancel(true)
-		        .setGroup(GROUP_DATA)
-		        .setGroupSummary(true);
+		        .setGroup(GROUP_DATA);
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
@@ -155,7 +158,7 @@ public class IssueAlert {
 			long distance = Math.round(GeoMath.haversineDistance(location.getLongitude(), location.getLatitude(), eLon, eLat));
 			
 			// filter
-			if (distance > 100) {
+			if (distance > prefs.getMaxAlertDistance()) {
 				return;
 			}
 			
