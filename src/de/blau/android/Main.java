@@ -17,10 +17,12 @@ import org.acra.ACRA;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -31,6 +33,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.AsyncTask;
@@ -111,6 +115,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ThemeUtils;
@@ -175,6 +180,22 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private static final String VERSION_FILE = "version.dat"; 
 
 	private DialogFactory dialogFactory;
+	
+	private class ConnectivityChangedReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+	        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+	        	Log.d("ConnectivityChangedReceiver","Received broadcast");
+	        	if (easyEditManager.isProcessingAction()) {
+	    			easyEditManager.invalidate();
+	    		} else {
+	    			supportInvalidateOptionsMenu();
+	    		}
+	        }
+		}
+	}
+	
+	private ConnectivityChangedReceiver connectivityChangedReceiver;
 	
 	/** Objects to handle showing device orientation. */
 	private SensorManager sensorManager;
@@ -481,6 +502,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
 		
+		// register received for changes in connectivity
+		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+		connectivityChangedReceiver = new ConnectivityChangedReceiver();
+		registerReceiver(connectivityChangedReceiver, filter);
+		
 		if (redownloadOnResume) {
 			redownloadOnResume = false;
 			getLogic().downloadLast();
@@ -628,6 +654,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	protected void onPause() {
 		Log.d(DEBUG_TAG, "onPause mode " + getLogic().getMode());
 		runningInstance = null;
+		unregisterReceiver(connectivityChangedReceiver);
 		disableLocationUpdates();
 		if (getTracker() != null) getTracker().setListener(null);
 
@@ -848,27 +875,21 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			menu.findItem(R.id.menu_camera).setVisible(false);
 		}
 		
-		if (ensureGPSProviderEnabled()) {
-			menu.findItem(R.id.menu_gps_show).setEnabled(true).setChecked(showGPS);
-			menu.findItem(R.id.menu_gps_follow).setEnabled(true).setChecked(followGPS);
-			menu.findItem(R.id.menu_gps_goto).setEnabled(true);
-			menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking());
-			menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking());
-			menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null).setChecked(autoDownload);
-			menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null).setChecked(bugAutoDownload);
-		} else { // one day when we support other location source this might be different
-			menu.findItem(R.id.menu_gps_show).setEnabled(false);
-			menu.findItem(R.id.menu_gps_follow).setEnabled(false);
-			menu.findItem(R.id.menu_gps_goto).setEnabled(false);
-			menu.findItem(R.id.menu_gps_start).setEnabled(false);
-			menu.findItem(R.id.menu_gps_pause).setEnabled(false);
-			menu.findItem(R.id.menu_gps_autodownload).setEnabled(false);
-			menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(false);
-		}
+		boolean networkConnected = NetworkStatus.isConnected(this);
+		boolean gpsProviderEnabled = ensureGPSProviderEnabled();
+		
+		menu.findItem(R.id.menu_gps_show).setEnabled(gpsProviderEnabled).setChecked(showGPS);
+		menu.findItem(R.id.menu_gps_follow).setEnabled(gpsProviderEnabled).setChecked(followGPS);
+		menu.findItem(R.id.menu_gps_goto).setEnabled(gpsProviderEnabled);
+		menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
+		menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
+		menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(autoDownload);
+		menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected).setChecked(bugAutoDownload);
+		
 		menu.findItem(R.id.menu_gps_clear).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_goto_start).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
 		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
-		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0);
+		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0 && NetworkStatus.isConnected(this));
 
 
 		MenuItem undo = menu.findItem(R.id.menu_undo);
@@ -888,6 +909,15 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		} else {
 			menu.findItem(R.id.menu_transfer_close_changeset).setVisible(false);
 		}
+			
+		menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_voice).setEnabled(networkConnected);
+		
 		return true;
 	}
 

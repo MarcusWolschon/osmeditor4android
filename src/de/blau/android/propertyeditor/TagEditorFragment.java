@@ -66,6 +66,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.Util;
@@ -1167,6 +1168,7 @@ public class TagEditorFragment extends SherlockFragment {
 		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.tag_menu, menu);
+		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 	}
 	
 	

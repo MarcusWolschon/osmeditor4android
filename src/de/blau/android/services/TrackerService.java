@@ -33,6 +33,8 @@ import android.location.GpsStatus.NmeaListener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Binder;
@@ -117,12 +119,15 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	}
 	private GpsSource source = GpsSource.INTERNAL;
 
+	private ConnectivityManager connectivityManager;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		Log.d(TAG, "onCreate");
 		track = new Track(this);
 		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+		connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		prefs = new Preferences(this); 
 	}
 
@@ -346,11 +351,14 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			if (tracking) {
 				track.addTrackPoint(location);
 			}
-			if (downloading) {
-				autoDownload(location);
-			}
-			if (downloadingBugs) {
-				bugAutoDownload(location);
+			NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+			if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
+				if (downloading) {
+					autoDownload(location);
+				}
+				if (downloadingBugs) {
+					bugAutoDownload(location);
+				}
 			}
 		}
 		if (externalListener != null) externalListener.onLocationChanged(location);

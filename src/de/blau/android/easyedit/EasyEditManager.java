@@ -68,6 +68,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -563,7 +564,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic));
+			menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic)).setEnabled(NetworkStatus.isConnected(main));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
@@ -1066,7 +1067,7 @@ public class EasyEditManager {
 			menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_multi_select)).setShowAsAction(showAlways());;;
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation)).setShowAsAction(showAlways());;
 			if (element.getOsmId() > 0) {
-				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history));
+				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));;
 			}
 			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));;
 			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));

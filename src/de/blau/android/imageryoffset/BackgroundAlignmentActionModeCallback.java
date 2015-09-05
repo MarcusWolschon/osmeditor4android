@@ -51,6 +51,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.jsonreader.JsonReader;
@@ -97,12 +98,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
-		menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db);
+		menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 		// menu.add(Menu.NONE, MENUITEM_QUERYLOCAL, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_device);
 		menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset);
 		menu.add(Menu.NONE, MENUITEM_ZERO, Menu.NONE, R.string.menu_tools_background_align_zero);
 		menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
-		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db);
+		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 		// menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
 		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
 		return true;
