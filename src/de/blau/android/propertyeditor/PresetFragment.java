@@ -115,7 +115,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 //    	}
         element = (OsmElement) getArguments().getSerializable("element");
         Preset[] presets = Application.getCurrentPresets(getActivity());
-        rootGroup = presets[0].getRootGroup();
+        rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
 		if (presets.length > 1) {
 			// a bit of a hack ... this adds the elements from other presets to the root group of the first one
 			

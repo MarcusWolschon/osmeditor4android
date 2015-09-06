@@ -68,6 +68,11 @@ public class PresetEditorActivity extends URLListEditActivity {
 
 	@Override
 	protected void onItemClicked(ListEditItem item) {
+		if (item.active && db.getActivePresets().length == 1) { // at least one item needs to be selected
+			updateAdapter();
+			Toast.makeText(this, R.string.toast_min_one_preset, Toast.LENGTH_LONG).show();
+			return;
+		}
 		item.active = !item.active;
 		db.setPresetState(item.id, item.active);
 		Application.resetPresets();
