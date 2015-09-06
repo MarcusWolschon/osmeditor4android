@@ -1701,8 +1701,9 @@ public class StorageDelegator implements Serializable, Exportable {
 				// running out of memory or disk, or HW failure
 				if (ctx != null) {
 					Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
-					SavingHelper.asyncExport(ctx, this);
 				}
+				SavingHelper.asyncExport(ctx, this); // ctx == null is checked
+				Log.d("StorageDelegator", "save of state file failed" );
 			}
 			readingLock.unlock();
 		} else {

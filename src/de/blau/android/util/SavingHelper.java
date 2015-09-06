@@ -268,18 +268,22 @@ public class SavingHelper<T extends Serializable> {
 					SavingHelper.close(outputStream);
 				}
 				// workaround for android bug - make sure export file shows up via MTP
-				triggerMediaScanner(ctx, outfile);
+				if (ctx != null){
+					triggerMediaScanner(ctx, outfile);
+				}
 				return filename;
 			}
 			
 			@Override
 			protected void onPostExecute(String result) {
-				if (result == null) {
-					Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
-				} else {
-					Log.i("SavingHelper", "Successful export to " + result);
-					String text = ctx.getResources().getString(R.string.toast_export_success, result);
-					Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+				if (ctx != null) {
+					if (result == null) {
+						Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
+					} else {
+						Log.i("SavingHelper", "Successful export to " + result);
+						String text = ctx.getResources().getString(R.string.toast_export_success, result);
+						Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+					}
 				}
 			};
 		}.execute();

@@ -2629,8 +2629,8 @@ public class Logic {
 			@Override
 			protected Void doInBackground(Void... params) {
 				try {
-					getDelegator().writeToFile(Application.mainActivity);
-					Application.getBugStorage().writeToFile(Application.mainActivity);
+					getDelegator().writeToFile(null);
+					Application.getBugStorage().writeToFile(null); // can't display toast because activity might be gone
 				} catch (IOException e) {
 					Log.e("Vespucci", "Problem saving", e);
 				}
