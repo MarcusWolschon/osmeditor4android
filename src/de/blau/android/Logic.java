@@ -552,7 +552,7 @@ public class Logic {
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	public boolean setTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
+	public synchronized boolean setTags(final String type, final long osmId, final java.util.Map<String, String> tags) {
 		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 
 		if (osmElement == null) {
@@ -574,7 +574,7 @@ public class Logic {
 	 * @param tags Tag-List to be set.
 	 * @return false if no element exists for the given osmId/type.
 	 */
-	public boolean updateParentRelations(final String type, final long osmId, final HashMap<Long, String> parents) {
+	public synchronized boolean updateParentRelations(final String type, final long osmId, final HashMap<Long, String> parents) {
 		OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");
@@ -593,7 +593,7 @@ public class Logic {
 	 * @param osmId The OSM ID of the relation to change.
 	 * @param members The new list of members to set for the given relation.
 	 */
-	public boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
+	public synchronized boolean updateRelation(long osmId, ArrayList<RelationMemberDescription> members) {
 		OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
 		if (osmElement == null) {
 			Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
@@ -1254,7 +1254,7 @@ public class Logic {
 	 * @param y screen-coordinate
 	 * @throws OsmIllegalOperationException 
 	 */
-	public void performAdd(final float x, final float y) throws OsmIllegalOperationException {
+	public synchronized void performAdd(final float x, final float y) throws OsmIllegalOperationException {
 		Log.d("Logic","performAdd");
 		createCheckpoint(R.string.undo_action_add);
 		Node nextNode;
@@ -1323,7 +1323,7 @@ public class Logic {
 	 * @param latD
 	 * @return
 	 */
-	public Node performAddNode(Double lonD, Double latD) {
+	public synchronized Node performAddNode(Double lonD, Double latD) {
 		//A complete new Node...
 		Log.d("Logic","performAddNode");
 		createCheckpoint(R.string.undo_action_add);
@@ -1347,7 +1347,7 @@ public class Logic {
 	 * @param y screen-coordinate
 	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
+	public synchronized boolean performAddOnWay(final float x, final float y) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_add);
 		Node savedSelectedNode = selectedNodes != null && selectedNodes.size() > 0 ? selectedNodes.get(0) : null;
 		
@@ -1368,7 +1368,7 @@ public class Logic {
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performEraseNode(final Node node, boolean createCheckpoint) {
+	public synchronized void performEraseNode(final Node node, boolean createCheckpoint) {
 		if (node != null) {
 			if (createCheckpoint) {
 				createCheckpoint(R.string.undo_action_deletenode);
@@ -1408,7 +1408,7 @@ public class Logic {
 	 * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
 	 * @param createCheckpoint TODO
 	 */
-	public void performEraseWay(final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
+	public synchronized void performEraseWay(final Way way, final boolean deleteOrphanNodes, boolean createCheckpoint) {
 		if (createCheckpoint) {
 			createCheckpoint(R.string.undo_action_deleteway);
 		}
@@ -1428,7 +1428,7 @@ public class Logic {
 	 * @param x screen-coordinate.
 	 * @param y screen-coordinate.
 	 */
-	public void performEraseRelation(final Relation relation, boolean createCheckpoint) {
+	public synchronized void performEraseRelation(final Relation relation, boolean createCheckpoint) {
 		if (relation != null) {
 			if (createCheckpoint) {
 				createCheckpoint(R.string.undo_action_delete_relation);
@@ -1442,7 +1442,7 @@ public class Logic {
 	 * Erase a list of objects
 	 * @param selection
 	 */
-	public void performEraseMultipleObjects(ArrayList<OsmElement> selection) {
+	public synchronized void performEraseMultipleObjects(ArrayList<OsmElement> selection) {
 		// need to make three passes this probably should really be in logic
 		createCheckpoint(R.string.undo_action_delete_objects);
 		for (OsmElement e:selection) {	
@@ -1473,7 +1473,7 @@ public class Logic {
 	 * 
 	 * @param node
 	 */
-	public void performSplit(final Node node) {
+	public synchronized void performSplit(final Node node) {
 		if (node != null) {
 			// setSelectedNode(node);
 			createCheckpoint(R.string.undo_action_split_ways);
@@ -1487,7 +1487,7 @@ public class Logic {
 	 * @param way the way to split
 	 * @param node the node at which the way should be split
 	 */
-	public void performSplit(final Way way, final Node node) {
+	public synchronized void performSplit(final Way way, final Node node) {
 		// setSelectedNode(node);
 		createCheckpoint(R.string.undo_action_split_way);
 		getDelegator().splitAtNode(way, node);
@@ -1500,7 +1500,7 @@ public class Logic {
 	 * @param node1
 	 * @param node2
 	 */
-	public void performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
+	public synchronized void performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
 		createCheckpoint(R.string.undo_action_split_way);
 		getDelegator().splitAtNodes(way, node1, node2, createPolygons);
 		map.invalidate();
@@ -1516,7 +1516,7 @@ public class Logic {
 	 * @param mergeFrom Way to merge into the other. This way will be deleted.
 	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
 		boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
 		map.invalidate();
@@ -1528,7 +1528,7 @@ public class Logic {
 	 * @param sortedWays
 	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean performMerge(List<OsmElement> sortedWays) throws OsmIllegalOperationException {
+	public synchronized boolean performMerge(List<OsmElement> sortedWays) throws OsmIllegalOperationException {
 		createCheckpoint(R.string.undo_action_merge_ways);
 		boolean mergeOK = true;
 		Way previousWay = (Way) sortedWays.get(0);
@@ -1549,7 +1549,7 @@ public class Logic {
 	 * Orthogonalize a way (aka make angles 90°)
 	 * @param way
 	 */
-	public void performOrthogonalize(Way way) {
+	public synchronized void performOrthogonalize(Way way) {
 		if (way.getNodes().size() < 3) return;
 		createCheckpoint(R.string.undo_action_orthogonalize);
 		getDelegator().orthogonalizeWay(way);
@@ -1562,7 +1562,7 @@ public class Logic {
 	 * 
 	 * @param node
 	 */
-	public void performExtract(final Node node) {
+	public synchronized void performExtract(final Node node) {
 		if (node != null) {
 			createCheckpoint(R.string.undo_action_extract_node);
 			getDelegator().replaceNode(node);
@@ -1623,7 +1623,7 @@ public class Logic {
 	 * @param nodeToJoin Node to be joined to the way.
 	 * @throws OsmIllegalOperationException 
 	 */
-	public boolean performJoin(OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
+	public synchronized boolean performJoin(OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
 		boolean mergeOK = true;
 		if (element instanceof Node) {
 			Node node = (Node)element;
@@ -1676,7 +1676,7 @@ public class Logic {
 	 * Unjoin ways joined by the given node.
 	 * @param node Node that is joining the ways to be unjoined.
 	 */
-	public void performUnjoin(Node node) {
+	public synchronized void performUnjoin(Node node) {
 		createCheckpoint(R.string.undo_action_unjoin_ways);
 		getDelegator().unjoinWays(node);
 		map.invalidate();
@@ -1687,20 +1687,20 @@ public class Logic {
 	 * @param way the way to reverse
 	 * @return true if reverseWay returned true, implying that tags had to be reversed
 	 */
-	public boolean performReverse(Way way) {
+	public synchronized boolean performReverse(Way way) {
 		createCheckpoint(R.string.undo_action_reverse_way);
 		boolean hadToReverse = getDelegator().reverseWay(way);
 		map.invalidate();
 		return hadToReverse;
 	}
 	
-	public void performAppendStart(Way way, Node node) {
+	public synchronized void performAppendStart(Way way, Node node) {
 		setSelectedNode(node);
 		setSelectedWay(way);
 		map.invalidate();
 	}
 	
-	public void performAppendStart(OsmElement element) {
+	public synchronized void performAppendStart(OsmElement element) {
 		Way lSelectedWay = null;
 		Node lSelectedNode = null;
 		
@@ -1723,7 +1723,7 @@ public class Logic {
 		performAppendStart(lSelectedWay, lSelectedNode);
 	}
 	
-	public void performAppendAppend(final float x, final float y) throws OsmIllegalOperationException {
+	public synchronized void performAppendAppend(final float x, final float y) throws OsmIllegalOperationException {
 		Log.d("Logic","performAppendAppend");
 		createCheckpoint(R.string.undo_action_append);
 		Node lSelectedNode = getSelectedNode();
@@ -1766,7 +1766,7 @@ public class Logic {
 	 * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
 	 * @throws OsmIllegalOperationException 
 	 */
-	private Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
+	private synchronized Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
 		Node node = getClickedNode(x, y);
 		if (node != null) {
 			return node;
@@ -1825,7 +1825,7 @@ public class Logic {
 	 * @return a new created node at lon/lat corresponding to x,y. When x,y does not lay on the line between node1 and
 	 *         node2 it will return null.
 	 */
-	private Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
+	private synchronized Node createNodeOnWay(final Node node1, final Node node2, final float x, final float y) {
 		//Nodes have to be converted to screen-coordinates, due to a better tolerance-check.
 		float node1X = lonE7ToX(node1.getLon());
 		float node1Y = latE7ToY(node1.getLat());
