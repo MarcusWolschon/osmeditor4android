@@ -31,19 +31,21 @@ The source code may be obtained from github at https://github.com/MarcusWolschon
 
 If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets and assets/images/presets/styles.
 
-OAuth support for Vespucci is provided by the oauth-signpost library  http://code.google.com/p/oauth-signpost/ licensed under the Apache License, version 2.
+OAuth support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
 
-EXIF support outside of what is provided by google is implemented with the metadata extractor library https://code.google.com/p/metadata-extractor/ licensed under the Apache License, version 2.
+EXIF support outside of what is provided by google is implemented with the metadata extractor library https://github.com/drewnoakes/metadata-extractor licensed under the Apache License, version 2.
 
 The JsonReader and related classes are Copyright (C) 2010 The Android Open Source Project licensed under the Apache License, version 2.
 
-The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2
+The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2.
+
+The parser for .PO files was written by Simon Poole and is available under a MIT style licence https://github.com/simonpoole/PoParser .
 
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt
 
-The R-Tree library was originally developed by Colonel Thirty Two
+The R-Tree library was originally developed by Colonel Thirty Two:
 
 --
 Copyright 2011 Colonel Thirty Two. All rights reserved.

@@ -20,12 +20,31 @@ You need to import the ActionBarSherlock project into your workspace and set it 
 (the JAR alone is NOT sufficient)
 
 There is a known issue (#208) with ActionBarSherlock: https://github.com/JakeWharton/ActionBarSherlock/issues/208
-This is also being tracked in Vespucci issue #114: http://code.google.com/p/osmeditor4android/issues/detail?id=114
+This is also being tracked in Vespucci issue #114: https://github.com/MarcusWolschon/osmeditor4android/issues/114
 For the moment, you will need to modify your local copy of ActionBarSherlock as per the comment from "lodlock" in
 the ABS issue.
 
+
+3rd Party Libraries
+-------------------
+
+The following libraries are included in this repository in the libs directory for convenience.
+
+ACRA crash reporting http://www.acra.ch/
+
+OAuth support library https://github.com/mttkay/signpost 
+
+EXIF metadata extractor library https://github.com/drewnoakes/metadata-extractor 
+
+The parser for .PO files https://github.com/simonpoole/PoParser .
+
+
 JOSM Presets
 ------------
+
+Reworked version:
+https://github.com/simonpoole/beautified-JOSM-preset
+
 Original:
 http://josm.openstreetmap.de/svn/trunk/data/defaultpresets.xml
 
