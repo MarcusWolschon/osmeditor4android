@@ -59,6 +59,7 @@
   <string name="openstreetbug_comment_label">Comment:</string>
   <string name="openstreetbug_edit_close">Chiudi</string>
   <string name="openstreetbug_edit_closed">Chiusa</string>
+  <string name="openstreetbug_not_downloaded">non scaricato</string>
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>

@@ -54,12 +54,17 @@
   <string name="upload_gpx_visibility_label">能見度</string>
   <string name="openstreetbug_new_title">新註解</string>
   <string name="openstreetbug_new_bug">回報問題</string>
+  <string name="openstreetbug_bug_title">問題</string>
   <string name="openstreetbug_new_nodeway">建立節點或路徑</string>
   <string name="openstreetbug_edit_title">編輯註解</string>
   <string name="openstreetbug_commitbutton">送交</string>
   <string name="openstreetbug_comment_label">評論：</string>
   <string name="openstreetbug_edit_close">關閉</string>
   <string name="openstreetbug_edit_closed">已關閉</string>
+  <string name="openstreetbug_commit_ok">錯誤修改已存</string>
+  <string name="openstreetbug_commit_fail">無法儲存錯誤修改</string>
+  <string name="openstreetbug_not_downloaded">沒有下載</string>
+  <string name="openstreetbug_last_updated">最近更新</string>
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將會被放棄。</string>
   <string name="unsaved_data_proceed">放棄和繼續</string>
@@ -76,6 +81,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
   <string name="search_results_title">搜尋結果</string>
   <string name="find_message">輸入搜尋字串</string>
+  <string name="preset_search_hint">預置搜尋字串</string>
   <string name="read_file">選擇要讀取的檔案</string>
   <string name="save_file">輸入檔案儲存到</string>
   <string name="existing_track_title">現有的軌跡資料</string>
@@ -91,6 +97,11 @@
   <string name="length_m">長度 (m)</string>
   <string name="not_downloaded">未下載</string>
   <string name="empty_role">空的角色</string>
+  <string name="element">元件</string>
+  <string name="last_updated">最近更新</string>
+  <string name="error">錯誤</string>
+  <string name="warning">警告</string>
+  <string name="minor_issue">次要問題</string>
   <!--Toaster-->
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_upload_success">上傳到 OSM 的伺服器完成了。</string>
@@ -222,6 +233,7 @@
   <string name="menu_gps_start">開始 GPS 軌跡</string>
   <string name="menu_gps_pause">暫停 GPS 軌跡</string>
   <string name="menu_gps_clear">清除 GPS 軌跡</string>
+  <string name="menu_gps_track_managment">軌跡管理...</string>
   <string name="menu_gps_upload">上傳 GPS 軌跡</string>
   <string name="menu_gps_export">匯出 GPS 軌跡</string>
   <string name="menu_gps_import">匯入 GPS 軌跡</string>
@@ -233,9 +245,14 @@
   <string name="menu_transfer_download_other">下載其它位置</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
+  <string name="menu_transfer_file">檔案...</string>
   <string name="menu_transfer_export">匯出變更</string>
   <string name="menu_transfer_read_file">從檔案讀取</string>
   <string name="menu_transfer_save_file">儲存到檔案</string>
+  <string name="menu_transfer_bugs">註釋/錯誤...</string>
+  <string name="menu_transfer_bugs_download_current">為目前的檢視下載錯誤</string>
+  <string name="menu_transfer_bugs_upload">全部上傳</string>
+  <string name="menu_transfer_bugs_clear">清除</string>
   <string name="menu_save">儲存到檔案</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">不加入</string>
@@ -250,6 +267,7 @@
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
   <string name="menu_extend_selection">擴大選擇</string>
   <string name="menu_information">資訊</string>
+  <string name="menu_voice_commands">聲音指令</string>
   <string name="menu_tools">工具</string>
   <string name="menu_tools_flush_background_tile_cache">清理背景圖磚快取</string>
   <string name="menu_tools_flush_overlay_tile_cache">清理覆疊層圖磚快取</string>
@@ -300,6 +318,7 @@
   <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
+  <string name="config_enableOpenStreetBugs_title">啟用錯誤和註解顯示</string>
   <string name="config_enableOpenStreetBugs_summary">顯示、編輯與建立註解/錯誤。</string>
   <string name="config_enablePhotoLayer_title">啟用圖層</string>
   <string name="config_enablePhotoLayer_summary">顯示地理參考圖片。</string>
@@ -311,6 +330,8 @@
   <string name="config_backgroundLayer_summary">圖像渲染地圖背景。</string>
   <string name="config_overlayLayer_title">地圖覆疊層</string>
   <string name="config_overlayLayer_summary">圖像渲染地圖覆疊層。</string>
+  <string name="config_scale_title">顯示比例尺</string>
+  <string name="config_scale_summary">在地圖上比例尺顯示類型</string>
   <string name="config_category_server">伺服器設定</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">您可以在此設定非標準的 API 網址。通常不應該改變！</string>
@@ -348,6 +369,8 @@
   <string name="config_largeDragArea_summary">拖曳節點時提供大的區域</string>
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
+  <string name="config_maxDownloadSpeed_title">最高自動下載速度</string>
+  <string name="config_bugFilter_title">過濾註解/錯誤</string>
   <string name="config_enableNameSuggestions_title">啟用建議名稱</string>
   <string name="config_enableNameSuggestions_summary">為名稱標籤開啟建議</string>
   <string name="config_enableAutoPreset_title">啟用自動預置</string>
@@ -361,6 +384,9 @@
   <string name="config_enableLightTheme_title">啟用明亮主題</string>
   <string name="config_enableLightTheme_summary">明亮主題與白色背景</string>
   <string name="config_category_misc">雜項</string>
+  <string name="config_address_tags">地址標簽</string>
+  <string name="config_address_tags_summary">為地址預測使用標籤</string>
+  <string name="config_moreprefs">更多的設定...</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新預置</string>
   <string name="preset_download_successful">預置成功下載</string>
@@ -397,6 +423,8 @@
   <string name="undo">復原</string>
   <string name="redo">取消復原</string>
   <string name="undo_nothing">沒什麼可復原</string>
+  <string name="tracking_active_title">Vexpucci 背景服務啟動</string>
+  <string name="tracking_active_text">Vespucci 在錄制 GPS 軌跡或是自動下載</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">移動節點</string>
@@ -438,6 +466,7 @@
   <!--Notifications-->
   <string name="alert_data_issue">檢測到 OSM 資料有問題</string>
   <string name="alert_note">附近的 OSM 注解檢測</string>
+  <string name="alert_bug">附近的 OSM 錯誤檢測</string>
   <string name="alert_distance_direction">在 %1$d 公尺 %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">作用</string>

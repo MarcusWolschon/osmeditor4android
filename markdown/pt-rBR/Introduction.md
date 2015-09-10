@@ -4,11 +4,11 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 ## Primeiro uso
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download, otherwise you can simply go to the map and zoom and pan to the area you want to edit. Do not select a large area on slow devices. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
-Alternatively you can dismiss the dialog by pressing the back button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
 
-## Editando com o Vespucci
+## Personalizando o Vespucci
 
 Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
 
@@ -38,7 +38,7 @@ Vespucci has a good "undo/redo" system so don't be afraid of experimenting on yo
 
 #### Selecionando / Removendo a seleção
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multi-Select mode](Multi-Select.html).
+Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
 #### Incluindo um novo Nó/Ponto ou Via
 
@@ -84,9 +84,9 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
  
 When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-#### Salvando Suas Alterações
+### Saving Your Changes
 
-*(requer conectividade de rede)*
+*(requires network connectivity)*
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
@@ -98,7 +98,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 #### Resolvendo conflitos nos uploads
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict Resolution.html).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
 
 ## Usando o GPS
 
@@ -108,7 +108,7 @@ If you have the later set, moving the screen manually or editing will cause the 
 
 ### Download-Automático
 
-*(requer conectividade de rede)*
+*(requires network connectivity)*
 
 If "Show location" and "Follow GPS Position" are enabled, Vespucci lets you auto download a small area (default 50m radius) around your current position. Just as above if you move the screen manually or change the geometry of an object you will have to re-enable "Follow GPS Position" when you want to continue. 
 
@@ -128,8 +128,8 @@ Notas:
 * Node icons. Default: off.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
- 
-#### Advanced preferences
+
+Preferências avançadas
 
 * Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-08-28 00:40+0200\n"
-"PO-Revision-Date: 2015-08-29 12:09+0000\n"
+"PO-Revision-Date: 2015-09-10 10:36+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -135,7 +135,7 @@ msgstr "Einschnitt"
 #: master_preset.xml:420(check:text) master_preset.xml:453(check:text)
 #: master_preset.xml:475(check:text) master_preset.xml:5705(item:name)
 msgid "Embankment"
-msgstr ""
+msgstr "Damm (Böschung)"
 
 #: master_preset.xml:45(combo:text) master_preset.xml:314(combo:text)
 #: master_preset.xml:836(combo:text) master_preset.xml:1610(combo:text)
@@ -183,7 +183,7 @@ msgstr "Gehsteig"
 
 #: master_preset.xml:64(combo:text)
 msgid "Service type"
-msgstr ""
+msgstr "Art des Nebengeleises"
 
 #: master_preset.xml:67(combo:text)
 msgid "Electrified"
@@ -201,11 +201,11 @@ msgstr "Frequenz in Hertz (Hz)"
 
 #: master_preset.xml:73(combo:text)
 msgid "Tracks"
-msgstr ""
+msgstr "Spuranzahl"
 
 #: master_preset.xml:74(combo:text)
 msgid "Gauge (mm)"
-msgstr ""
+msgstr "Spurweite (mm)"
 
 #: master_preset.xml:78(optional:text) master_preset.xml:87(optional:text)
 #: master_preset.xml:95(optional:text)
@@ -534,31 +534,31 @@ msgstr "Beschreibung"
 
 #: master_preset.xml:234(combo:text)
 msgid "Cycle"
-msgstr ""
+msgstr "Blattwerk-Zyklus"
 
 #: master_preset.xml:235(list_entry:short_description)
 msgid "Plants that are leafless for a certain period during the year."
-msgstr ""
+msgstr "Pflanzen die zeitweise ohne Blattwerk sind."
 
 #: master_preset.xml:236(list_entry:short_description)
 msgid "Plants that are never entirely without green foliage."
-msgstr ""
+msgstr "Pflanzen die nie ohne Blattwerk sind."
 
 #: master_preset.xml:237(list_entry:short_description)
 msgid ""
 "Plants that lose their foliage for a very short period, when old leaves fall"
 " off and new foliage growth is starting."
-msgstr ""
+msgstr "Pflanzen die nur kurzzeitig ohne Blattwerk sind."
 
 #: master_preset.xml:238(list_entry:short_description)
 msgid ""
 "Plants that lose most, but not all, of their foliage for a fraction of the "
 "year."
-msgstr ""
+msgstr "Pflanzen die das meistes, aber nicht alle Blätter während einer Zeit verlieren."
 
 #: master_preset.xml:239(list_entry:short_description)
 msgid "Habitat with evergreen and deciduous vegetation."
-msgstr ""
+msgstr "Lebensraum mit laubabwerfender und immergrüner Vegetation"
 
 #: master_preset.xml:244(combo:text) master_preset.xml:4265(combo:text)
 #: master_preset.xml:6445(combo:text) master_preset.xml:6462(combo:text)
@@ -643,7 +643,7 @@ msgstr ""
 
 #: master_preset.xml:313(text:text) master_preset.xml:1817(text:text)
 msgid "Max. weight (tonnes)"
-msgstr ""
+msgstr "Max. Gewicht (in Tonnen)"
 
 #: master_preset.xml:316(check:text) master_preset.xml:349(check:text)
 #: master_preset.xml:396(check:text) master_preset.xml:422(check:text)
@@ -683,11 +683,11 @@ msgstr ""
 
 #: master_preset.xml:351(combo:text)
 msgid "Overtaking"
-msgstr ""
+msgstr "Überholverbot"
 
 #: master_preset.xml:353(text:text)
 msgid "Min. speed (km/h)"
-msgstr ""
+msgstr "Zulässige Minimalgeschwindigkeit (km/h)"
 
 #: master_preset.xml:366(group:name)
 msgid "Highways"
@@ -707,12 +707,12 @@ msgstr ""
 
 #: master_preset.xml:427(item:name)
 msgid "Trunk"
-msgstr ""
+msgstr "Schnellstraße"
 
 #: master_preset.xml:449(check:text) master_preset.xml:471(check:text)
 #: master_preset.xml:501(check:text) master_preset.xml:517(check:text)
 msgid "Motorroad"
-msgstr ""
+msgstr "Kraftfahrstraße"
 
 #: master_preset.xml:460(item:name)
 msgid "Trunk Link"
@@ -728,7 +728,7 @@ msgstr ""
 
 #: master_preset.xml:522(item:name)
 msgid "Secondary"
-msgstr ""
+msgstr "Landesstraße"
 
 #: master_preset.xml:545(item:name)
 msgid "Secondary Link"
@@ -736,7 +736,7 @@ msgstr ""
 
 #: master_preset.xml:560(item:name)
 msgid "Tertiary"
-msgstr ""
+msgstr "Kreisstraße"
 
 #: master_preset.xml:584(item:name)
 msgid "Tertiary Link"
@@ -744,7 +744,7 @@ msgstr ""
 
 #: master_preset.xml:599(item:name)
 msgid "Unclassified"
-msgstr ""
+msgstr "Nebenstraße"
 
 #: master_preset.xml:617(check:text) master_preset.xml:729(check:text)
 #: master_preset.xml:993(check:text)
@@ -753,7 +753,7 @@ msgstr "Ausweichstellen"
 
 #: master_preset.xml:621(item:name)
 msgid "Residential"
-msgstr ""
+msgstr "Anliegerstraße"
 
 #: master_preset.xml:642(item:name)
 msgid "Bicycle Road"
@@ -761,11 +761,11 @@ msgstr "Fahrradstrasse"
 
 #: master_preset.xml:649(combo:text) master_preset.xml:792(combo:text)
 msgid "Highway type"
-msgstr ""
+msgstr "Strassentyp"
 
 #: master_preset.xml:651(combo:text)
 msgid "Vehicle access"
-msgstr ""
+msgstr "Zugang für Fahrzeuge"
 
 #: master_preset.xml:658(check:text)
 msgid "Oneway for bicycle"
@@ -777,7 +777,7 @@ msgstr "Wohnstrasse"
 
 #: master_preset.xml:686(item:name)
 msgid "Pedestrian"
-msgstr ""
+msgstr "Fußgängerzone"
 
 #: master_preset.xml:704(check:text) master_preset.xml:3054(check:text)
 #: master_preset.xml:3159(check:text) master_preset.xml:3201(check:text)
@@ -787,7 +787,7 @@ msgstr "Fläche/Gebiet"
 
 #: master_preset.xml:711(item:name)
 msgid "Service"
-msgstr ""
+msgstr "Erschließungsweg"
 
 #: master_preset.xml:724(combo:text)
 msgid "Service way type"
@@ -799,7 +799,7 @@ msgstr ""
 
 #: master_preset.xml:751(item:name)
 msgid "Escape"
-msgstr ""
+msgstr "Notfallspur"
 
 #: master_preset.xml:758(label:text)
 msgid ""
@@ -813,7 +813,7 @@ msgstr "Strasse (undefiniert)"
 
 #: master_preset.xml:782(item:name) master_preset.xml:9457(item:name)
 msgid "Construction"
-msgstr ""
+msgstr "Im Bau"
 
 #: master_preset.xml:797(combo:text)
 msgid "Junction"
@@ -837,7 +837,7 @@ msgstr "Wirtschaftsweg"
 
 #: master_preset.xml:858(combo:text)
 msgid "Tracktype"
-msgstr ""
+msgstr "Güteklasse"
 
 #: master_preset.xml:864(combo:text) master_preset.xml:897(combo:text)
 msgid "MTB Scale"
@@ -905,7 +905,7 @@ msgstr "Schneemobil"
 
 #: master_preset.xml:909(item:name)
 msgid "Dedicated Bridleway"
-msgstr ""
+msgstr "Reitweg"
 
 #: master_preset.xml:925(item:name)
 msgid "Cycle Lane/Track"
@@ -929,7 +929,7 @@ msgstr "Einbahn (Fahrrad)"
 
 #: master_preset.xml:944(optional:text)
 msgid "Edit Highway Attributes:"
-msgstr ""
+msgstr "Strassenklassifizierung ändern"
 
 #: master_preset.xml:945(combo:text)
 msgid "Highway"
@@ -985,19 +985,19 @@ msgstr "Gepäckrampe"
 
 #: master_preset.xml:1046(check:text)
 msgid "Handrail"
-msgstr ""
+msgstr "Handlauf"
 
 #: master_preset.xml:1049(check:text)
 msgid "Left handrail"
-msgstr ""
+msgstr "Handlauf links"
 
 #: master_preset.xml:1050(check:text)
 msgid "Center handrail"
-msgstr ""
+msgstr "Mittiger Handlauf"
 
 #: master_preset.xml:1051(check:text)
 msgid "Right handrail"
-msgstr ""
+msgstr "Handlauf rechts"
 
 #: master_preset.xml:1058(group:name)
 msgid "Waypoints"
@@ -1017,7 +1017,7 @@ msgstr ""
 
 #: master_preset.xml:1073(item:name)
 msgid "Services"
-msgstr ""
+msgstr "Raststätte"
 
 #: master_preset.xml:1085(check:text) master_preset.xml:1101(check:text)
 msgid "Toilets"
@@ -1085,11 +1085,11 @@ msgstr "Kein Vortritt"
 
 #: master_preset.xml:1146(item:name)
 msgid "Mini-Roundabout"
-msgstr ""
+msgstr "Minikreisverkehr"
 
 #: master_preset.xml:1156(combo:text)
 msgid "Direction"
-msgstr ""
+msgstr "Umlaufrichtung"
 
 #: master_preset.xml:1158(item:name)
 msgid "Pedestrian Crossing"
@@ -1147,7 +1147,7 @@ msgstr "Lift"
 
 #: master_preset.xml:1266(item:name)
 msgid "Grit Bin"
-msgstr ""
+msgstr "Streugutcontainer"
 
 #: master_preset.xml:1274(item:name)
 msgid "Mountain Pass"
@@ -1181,7 +1181,7 @@ msgstr "Pfosten"
 
 #: master_preset.xml:1312(combo:text)
 msgid "Bollard type"
-msgstr ""
+msgstr "Pollertyp"
 
 #: master_preset.xml:1319(item:name)
 msgid "Cycle Barrier"
@@ -1189,7 +1189,7 @@ msgstr ""
 
 #: master_preset.xml:1328(item:name)
 msgid "Cattle Grid"
-msgstr ""
+msgstr "Viehgitter"
 
 #: master_preset.xml:1335(item:name)
 msgid "Bus Trap"
@@ -1243,7 +1243,7 @@ msgstr "Stadtmauer"
 
 #: master_preset.xml:1444(item:name)
 msgid "Retaining Wall"
-msgstr ""
+msgstr "Stützmauer"
 
 #: master_preset.xml:1457(item:name) master_preset.xml:1865(item:name)
 msgid "Ditch"
@@ -1263,7 +1263,7 @@ msgstr "Gatter"
 
 #: master_preset.xml:1499(item:name)
 msgid "Lift Gate"
-msgstr ""
+msgstr "Schranke"
 
 #: master_preset.xml:1511(item:name)
 msgid "Swing Gate"
@@ -1287,7 +1287,7 @@ msgstr "Kette"
 
 #: master_preset.xml:1565(item:name)
 msgid "Stile"
-msgstr ""
+msgstr "Drehkreuz"
 
 #: master_preset.xml:1575(item:name)
 msgid "Turnstile"
@@ -1312,12 +1312,12 @@ msgstr "Arkade"
 #: master_preset.xml:1644(check:text) master_preset.xml:1661(check:text)
 #: master_preset.xml:1680(check:text)
 msgid "Open on left side"
-msgstr ""
+msgstr "Offene Seite links"
 
 #: master_preset.xml:1645(check:text) master_preset.xml:1662(check:text)
 #: master_preset.xml:1681(check:text)
 msgid "Open on right side"
-msgstr ""
+msgstr "Offene Seite rechts"
 
 #: master_preset.xml:1651(item:name)
 msgid "Colonnade"
@@ -1325,7 +1325,7 @@ msgstr "Säulengang"
 
 #: master_preset.xml:1668(item:name)
 msgid "Avalanche Protector"
-msgstr ""
+msgstr "Lawinengalerie"
 
 #: master_preset.xml:1689(group:name)
 msgid "Access Restrictions"
@@ -1440,15 +1440,15 @@ msgstr "Damm"
 
 #: master_preset.xml:1978(item:name)
 msgid "Groyne"
-msgstr ""
+msgstr "Buhne"
 
 #: master_preset.xml:1986(item:name)
 msgid "Breakwater"
-msgstr ""
+msgstr "Wellenbrecher"
 
 #: master_preset.xml:1999(item:name)
 msgid "Culvert"
-msgstr ""
+msgstr " Durchlass"
 
 #: master_preset.xml:2015(item:name)
 msgid "Basin"
@@ -1456,15 +1456,15 @@ msgstr "Becken"
 
 #: master_preset.xml:2027(item:name)
 msgid "Reservoir"
-msgstr ""
+msgstr "Wasserspeicher"
 
 #: master_preset.xml:2038(item:name)
 msgid "Covered Reservoir"
-msgstr ""
+msgstr "Wasserhochbehälter"
 
 #: master_preset.xml:2060(label:text)
 msgid "A body of standing water, such as a lake or pond."
-msgstr ""
+msgstr "Ein stehendes Gewässer wie ein See oder ein Teich"
 
 #: master_preset.xml:2064(combo:text)
 msgid "Water Body"
@@ -1481,7 +1481,7 @@ msgstr "Küstenlinie"
 #: master_preset.xml:2078(label:text)
 msgid ""
 "Line between the sea and land (with the water on the right side of the way)."
-msgstr ""
+msgstr "Grenzlinie zwischen dem Meer und dem Land (mit dem Wasser auf der rechten Seite des Weges)."
 
 #: master_preset.xml:2083(item:name)
 msgid "Riverbank"
@@ -1536,7 +1536,7 @@ msgstr ""
 
 #: master_preset.xml:2172(item:name)
 msgid "Ferry Terminal"
-msgstr ""
+msgstr "Schiffsanleger (Fähre)"
 
 #: master_preset.xml:2183(combo:text)
 msgid "Cargo"
@@ -1544,15 +1544,15 @@ msgstr "Fracht"
 
 #: master_preset.xml:2185(item:name)
 msgid "Ferry Route"
-msgstr ""
+msgstr "Fährroute"
 
 #: master_preset.xml:2197(item:name)
 msgid "Marina"
-msgstr ""
+msgstr "Jachthafen"
 
 #: master_preset.xml:2209(combo:text) master_preset.xml:3467(combo:text)
 msgid "Dump Station"
-msgstr ""
+msgstr "Entsorgungsstation"
 
 #: master_preset.xml:2211(item:name)
 msgid "Marine Fuel"
@@ -1612,11 +1612,11 @@ msgstr ""
 
 #: master_preset.xml:2238(item:name)
 msgid "Pier"
-msgstr ""
+msgstr "Seebrücke"
 
 #: master_preset.xml:2252(item:name)
 msgid "Lock Gate"
-msgstr ""
+msgstr "Schleusentor"
 
 #: master_preset.xml:2262(item:name)
 msgid "Turning Point"
@@ -1624,15 +1624,15 @@ msgstr ""
 
 #: master_preset.xml:2268(item:name)
 msgid "Slipway"
-msgstr ""
+msgstr "Slipanlage"
 
 #: master_preset.xml:2280(item:name)
 msgid "Boatyard"
-msgstr ""
+msgstr "Werft"
 
 #: master_preset.xml:2291(item:name)
 msgid "Dock"
-msgstr ""
+msgstr "Dock"
 
 #: master_preset.xml:2304(group:name)
 msgid "Transport"
@@ -1644,7 +1644,7 @@ msgstr "Eisenbahn"
 
 #: master_preset.xml:2306(item:name)
 msgid "Rail"
-msgstr ""
+msgstr "Normalspur-Gleise"
 
 #: master_preset.xml:2318(combo:text) master_preset.xml:2328(combo:text)
 msgid "Usage"
@@ -1652,12 +1652,12 @@ msgstr ""
 
 #: master_preset.xml:2322(item:name)
 msgid "Narrow Gauge Rail"
-msgstr ""
+msgstr "Schmalspurbahn"
 
 #: master_preset.xml:2332(item:name) master_preset.xml:3008(check:text)
 #: master_preset.xml:3037(check:text)
 msgid "Monorail"
-msgstr ""
+msgstr "Einschienenbahn"
 
 #: master_preset.xml:2343(item:name)
 msgid "Preserved"
@@ -1665,7 +1665,7 @@ msgstr ""
 
 #: master_preset.xml:2354(item:name)
 msgid "Light Rail"
-msgstr ""
+msgstr "Stadtbah"
 
 #: master_preset.xml:2361(item:name) master_preset.xml:3007(check:text)
 #: master_preset.xml:3036(check:text)
@@ -1679,7 +1679,7 @@ msgstr "Strassenbahn"
 
 #: master_preset.xml:2386(item:name)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "Spurbus"
 
 #: master_preset.xml:2403(item:name)
 msgid "Disused Rail"
@@ -1695,24 +1695,24 @@ msgstr "Bahnübergang"
 
 #: master_preset.xml:2440(check:text) master_preset.xml:2459(check:text)
 msgid "Traffic lights"
-msgstr ""
+msgstr "Ampel"
 
 #: master_preset.xml:2442(combo:text) master_preset.xml:2461(combo:text)
 #: master_preset.xml:3861(combo:text)
 msgid "Barrier"
-msgstr ""
+msgstr "Hindernis"
 
 #: master_preset.xml:2445(item:name)
 msgid "Crossing"
-msgstr ""
+msgstr "Bahnübergang (Fussgänger)"
 
 #: master_preset.xml:2455(combo:text)
 msgid "Crossing type"
-msgstr ""
+msgstr "Art des Bahnübergangs"
 
 #: master_preset.xml:2464(item:name)
 msgid "Turntable"
-msgstr ""
+msgstr "Drehscheibe"
 
 #: master_preset.xml:2472(item:name)
 msgid "Buffer Stop"
@@ -1720,7 +1720,7 @@ msgstr ""
 
 #: master_preset.xml:2478(item:name)
 msgid "Railway Switch"
-msgstr ""
+msgstr "Weiche"
 
 #: master_preset.xml:2486(group:name) master_preset.xml:3010(check:text)
 msgid "Aerialway"
@@ -1822,19 +1822,19 @@ msgstr "Park and Ride"
 
 #: master_preset.xml:2610(text:text)
 msgid "Capacity (overall)"
-msgstr ""
+msgstr "Kapazität (alle Plätze)"
 
 #: master_preset.xml:2611(combo:text)
 msgid "Spaces for Disabled"
-msgstr ""
+msgstr "Behindertenplätze"
 
 #: master_preset.xml:2612(combo:text)
 msgid "Spaces for Women"
-msgstr ""
+msgstr "Frauenparkplätze"
 
 #: master_preset.xml:2613(combo:text)
 msgid "Spaces for Parents"
-msgstr ""
+msgstr "Elternparkplätze"
 
 #: master_preset.xml:2614(label:text)
 msgid "See the Wiki for other capacity:[types]=*."
@@ -1848,16 +1848,16 @@ msgstr ""
 #: master_preset.xml:2814(text:text) master_preset.xml:2862(text:text)
 #: master_preset.xml:4547(text:text)
 msgid "Capacity"
-msgstr ""
+msgstr "Kapazität"
 
 #: master_preset.xml:2633(check:text) master_preset.xml:2648(check:text)
 #: master_preset.xml:2817(check:text)
 msgid "Covered (with roof)"
-msgstr ""
+msgstr "Gedeckt (mit Dach)"
 
 #: master_preset.xml:2635(item:name)
 msgid "Parking Entrance"
-msgstr ""
+msgstr "Parkhauseingang"
 
 #: master_preset.xml:2651(item:name) master_preset.xml:3986(combo:text)
 msgid "Fuel"
@@ -2162,7 +2162,7 @@ msgstr ""
 
 #: master_preset.xml:3009(check:text)
 msgid "Funicular"
-msgstr ""
+msgstr "Standseilbahn"
 
 #: master_preset.xml:3011(check:text)
 msgid "Ferry"
@@ -2192,11 +2192,11 @@ msgstr ""
 
 #: master_preset.xml:3039(check:text)
 msgid "aerialway"
-msgstr ""
+msgstr "Seilbahn"
 
 #: master_preset.xml:3040(check:text)
 msgid "ferry"
-msgstr ""
+msgstr "Fähre"
 
 #: master_preset.xml:3055(check:text) master_preset.xml:3292(combo:text)
 #: master_preset.xml:5465(item:name) master_preset.xml:5481(combo:text)
@@ -2374,19 +2374,19 @@ msgstr "Motel"
 
 #: master_preset.xml:3375(item:name)
 msgid "Guest House/Bed Breakfast"
-msgstr ""
+msgstr "Pension"
 
 #: master_preset.xml:3394(item:name)
 msgid "Chalet"
-msgstr ""
+msgstr "Ferienhaus"
 
 #: master_preset.xml:3414(item:name)
 msgid "Hostel"
-msgstr ""
+msgstr "Herberge"
 
 #: master_preset.xml:3434(item:name)
 msgid "Alpine Hut"
-msgstr ""
+msgstr "Alpine Hütte"
 
 #: master_preset.xml:3451(item:name)
 msgid "Caravan Site/RV Park"
@@ -2424,17 +2424,17 @@ msgstr "Küche"
 #: master_preset.xml:3509(check:text) master_preset.xml:3583(check:text)
 #: master_preset.xml:3600(check:text)
 msgid "Microbrewery"
-msgstr ""
+msgstr "Hausbrauerei"
 
 #: master_preset.xml:3510(check:text) master_preset.xml:3529(check:text)
 #: master_preset.xml:3544(check:text) master_preset.xml:3566(check:text)
 #: master_preset.xml:3584(check:text) master_preset.xml:3619(check:text)
 msgid "Outdoor seating"
-msgstr ""
+msgstr "Sitzgelegenheiten im Freien"
 
 #: master_preset.xml:3518(item:name)
 msgid "Fast Food"
-msgstr ""
+msgstr "Schnellimbiss"
 
 #: master_preset.xml:3536(item:name)
 msgid "Food Court"
@@ -2458,7 +2458,7 @@ msgstr "Bar"
 
 #: master_preset.xml:3626(item:name)
 msgid "Night Club"
-msgstr ""
+msgstr "Gaststätte"
 
 #: master_preset.xml:3644(item:name)
 msgid "Strip Club"
@@ -2638,7 +2638,7 @@ msgstr "Pferdereiten"
 
 #: master_preset.xml:3913(item:name)
 msgid "Casino"
-msgstr ""
+msgstr "Spielbank"
 
 #: master_preset.xml:3926(item:name)
 msgid "Brothel"
@@ -2650,7 +2650,7 @@ msgstr "Spielplatz"
 
 #: master_preset.xml:3958(item:name)
 msgid "Picnic Site"
-msgstr ""
+msgstr "Picknickplatz"
 
 #: master_preset.xml:3968(check:text) master_preset.xml:4882(check:text)
 msgid "Fireplace"
@@ -2783,7 +2783,7 @@ msgstr ""
 
 #: master_preset.xml:4382(item:name)
 msgid "Post Office"
-msgstr ""
+msgstr "Poststelle"
 
 #: master_preset.xml:4400(group:name)
 msgid "Education"
@@ -2867,7 +2867,7 @@ msgstr "Zahnarzt"
 
 #: master_preset.xml:4523(item:name)
 msgid "Nursing Home"
-msgstr ""
+msgstr "Pflegeheim"
 
 #: master_preset.xml:4534(item:name)
 msgid "Retirement Home"
@@ -2883,7 +2883,7 @@ msgstr ""
 
 #: master_preset.xml:4566(item:name)
 msgid "Baby Hatch/Safe Haven"
-msgstr ""
+msgstr "Babyklappe"
 
 #: master_preset.xml:4584(item:name)
 msgid "Emergency Access Point"
@@ -3078,7 +3078,7 @@ msgstr ""
 
 #: master_preset.xml:4813(item:name)
 msgid "Waste Basket/Trash Can"
-msgstr ""
+msgstr "Mülleimer"
 
 #: master_preset.xml:4824(item:name)
 msgid "Waste Disposal/Dumpster"
@@ -3118,7 +3118,7 @@ msgstr ""
 
 #: master_preset.xml:4885(item:name)
 msgid "Hunting Stand"
-msgstr ""
+msgstr "Hochsitz"
 
 #: master_preset.xml:4893(combo:text)
 msgid "Height"
@@ -3158,11 +3158,11 @@ msgstr ""
 
 #: master_preset.xml:4938(item:name)
 msgid "Advertising Column"
-msgstr ""
+msgstr "Litfaßsäule"
 
 #: master_preset.xml:4948(item:name)
 msgid "Billboard"
-msgstr ""
+msgstr "Plakatwand"
 
 #: master_preset.xml:4956(item:name)
 msgid "Excrement Bags"
@@ -3267,7 +3267,7 @@ msgstr "Schwimmen"
 
 #: master_preset.xml:5176(item:name)
 msgid "Scuba Diving"
-msgstr ""
+msgstr "Tauchen"
 
 #: master_preset.xml:5192(combo:text) master_preset.xml:8784(combo:text)
 #: master_preset.xml:8805(combo:text)
@@ -3481,7 +3481,7 @@ msgstr "Fahnenstange"
 
 #: master_preset.xml:5566(item:name)
 msgid "Works"
-msgstr ""
+msgstr "Fabrik"
 
 #: master_preset.xml:5577(item:name)
 msgid "Chimney"
@@ -3493,7 +3493,7 @@ msgstr "Windmühle"
 
 #: master_preset.xml:5600(item:name)
 msgid "Gasometer"
-msgstr ""
+msgstr "Gasometer"
 
 #: master_preset.xml:5612(item:name)
 msgid "Storage Tank"
@@ -3549,7 +3549,7 @@ msgstr ""
 
 #: master_preset.xml:5700(text:text)
 msgid "Length in meters"
-msgstr ""
+msgstr "Länge in Meter"
 
 #: master_preset.xml:5716(item:name)
 msgid "Water Tower"
@@ -3569,7 +3569,7 @@ msgstr "Springbrunnen"
 
 #: master_preset.xml:5773(item:name)
 msgid "Water Well"
-msgstr ""
+msgstr "Brunnen"
 
 #: master_preset.xml:5788(item:name)
 msgid "Lighthouse"
@@ -3811,14 +3811,14 @@ msgstr ""
 #: master_preset.xml:6042(list_entry:short_description)
 #: master_preset.xml:6045(list_entry:short_description)
 msgid "fission"
-msgstr ""
+msgstr "Kernspaltung"
 
 #: master_preset.xml:6036(list_entry:short_description)
 #: master_preset.xml:6039(list_entry:short_description)
 #: master_preset.xml:6043(list_entry:short_description)
 #: master_preset.xml:6044(list_entry:short_description)
 msgid "fusion"
-msgstr ""
+msgstr "Kernfusion"
 
 #: master_preset.xml:6049(item:name)
 msgid "Solar Power Generator"
@@ -4183,7 +4183,7 @@ msgstr "Chemische Reinigung"
 
 #: master_preset.xml:6788(item:name)
 msgid "Laundry"
-msgstr ""
+msgstr "Wäscherei"
 
 #: master_preset.xml:6798(item:name) master_preset.xml:9393(item:name)
 msgid "Tailor"
@@ -4291,7 +4291,7 @@ msgstr ""
 
 #: master_preset.xml:7042(item:name)
 msgid "Stationery"
-msgstr ""
+msgstr "Schreibwarengeschäft"
 
 #: master_preset.xml:7053(item:name)
 msgid "Copy Shop"
@@ -4627,15 +4627,15 @@ msgstr "Region"
 
 #: master_preset.xml:7577(item:name)
 msgid "County"
-msgstr ""
+msgstr "Landkreis"
 
 #: master_preset.xml:7588(item:name)
 msgid "City"
-msgstr ""
+msgstr "Großstadt"
 
 #: master_preset.xml:7601(item:name)
 msgid "Town"
-msgstr ""
+msgstr "Stadt"
 
 #: master_preset.xml:7615(item:name)
 msgid "Village"
@@ -4647,7 +4647,7 @@ msgstr "Weiler"
 
 #: master_preset.xml:7645(item:name)
 msgid "Isolated Dwelling"
-msgstr ""
+msgstr "Einzelsiedlung"
 
 #: master_preset.xml:7658(item:name) master_preset.xml:8480(text:text)
 msgid "Suburb"
@@ -4761,7 +4761,7 @@ msgstr ""
 
 #: master_preset.xml:7855(item:name)
 msgid "Tree Row"
-msgstr ""
+msgstr "Baumreihe"
 
 #: master_preset.xml:7865(label:text)
 msgid "A line of trees."
@@ -4895,7 +4895,7 @@ msgstr "Wiese"
 
 #: master_preset.xml:8090(item:name)
 msgid "Orchard"
-msgstr ""
+msgstr "Obstgarten"
 
 #: master_preset.xml:8102(item:name)
 msgid "Vineyard"
@@ -5409,7 +5409,7 @@ msgstr ""
 
 #: master_preset.xml:8948(item:name)
 msgid "Waterway"
-msgstr ""
+msgstr "Gewässer"
 
 #: master_preset.xml:8956(combo:text)
 msgid "Subtype of waterway (largest one of members)"
@@ -5493,7 +5493,7 @@ msgstr "Korbflechter"
 
 #: master_preset.xml:9026(item:name)
 msgid "Beekeeper"
-msgstr ""
+msgstr "Imker"
 
 #: master_preset.xml:9034(item:name)
 msgid "Blacksmith"
@@ -5505,7 +5505,7 @@ msgstr ""
 
 #: master_preset.xml:9050(item:name)
 msgid "Bookbinder"
-msgstr ""
+msgstr "Buchbinder"
 
 #: master_preset.xml:9058(item:name)
 msgid "Brewery"
@@ -5525,7 +5525,7 @@ msgstr "Schreiner"
 
 #: master_preset.xml:9090(item:name)
 msgid "Carpet layer"
-msgstr ""
+msgstr "Teppichleger"
 
 #: master_preset.xml:9098(item:name)
 msgid "Caterer"
@@ -5541,7 +5541,7 @@ msgstr "Uhrmacher"
 
 #: master_preset.xml:9122(item:name)
 msgid "Distillery"
-msgstr ""
+msgstr "Brennerei"
 
 #: master_preset.xml:9130(item:name)
 msgid "Electrician"
@@ -5625,7 +5625,7 @@ msgstr ""
 
 #: master_preset.xml:9297(item:name)
 msgid "Pottery"
-msgstr ""
+msgstr "Töpferei"
 
 #: master_preset.xml:9305(item:name)
 msgid "Rigger"
@@ -5741,11 +5741,11 @@ msgstr "Büros"
 
 #: master_preset.xml:9571(item:name)
 msgid "Advertising agency"
-msgstr ""
+msgstr "Werbeagentur"
 
 #: master_preset.xml:9579(item:name)
 msgid "Employment agency"
-msgstr ""
+msgstr "Arbeitsvermittler"
 
 #: master_preset.xml:9587(item:name)
 msgid "Estate agent"

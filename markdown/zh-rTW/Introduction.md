@@ -4,9 +4,9 @@ Vespucci 是一個完整功能的開放街圖編輯器，支援那些桌面系�
 
 ## 第一次使用
 
-在啟動 Vespucci 時為您顯示 "下載其它位置"/"載入區域" 的對話框。如果您有座標顯示並且想要立即下載，您可以選擇合適的選項，和設定半徑週圍位置為您想要的下載，不然您可以單純的去到地圖，並且縮放與平移到您想要編輯的區域。請不要在緩慢的裝置上選擇大的面積。 
+在啟動 Vespucci 時為您顯示 "下載其它位置"/"載入區域" 的對話框。如果您有座標顯示並且想要立即下載，您可以選擇合適的選項，和設定想要的下載半徑週圍位置，請不要在緩慢的裝置上選擇大的面積。 
 
-除此之外您可以透過按返回按鈕解除對話框，並平移與放大位置到想要編輯和下載的資料(見下方："編輯于 Vespucci")。
+除此之外您可以透過按按鈕解除對話框，並平移與放大位置到想要編輯和下載的資料(見下方："編輯于 Vespucci")。
 
 ## 編輯于 Vespucci
 
@@ -38,7 +38,7 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 選擇/取消選擇
 
-觸碰物件以選擇和高亮顯示，在元件上對同一物件的第二次觸碰則開啟標籤編輯器。在空白區域上觸碰螢幕則會取消選擇。如果您已選擇了一個物件，您需要選擇別的東西，只需觸碰有問題的物件，沒有必要先取消選擇。對物件按兩下將會開始 [多重選擇模式](Multi-Select.html)。
+觸碰物件以選擇和高亮顯示，在元件上對同一物件的第二次觸碰則開啟標籤編輯器。在空白區域上觸碰螢幕則會取消選擇。如果您已選擇了一個物件，您需要選擇別的東西，只需觸碰有問題的物件，沒有必要先取消選擇。對物件按兩下將會開始 [多重選擇模式](Multi-Select.md)。
 
 #### 增加新節點/點或是路徑
 
@@ -75,12 +75,12 @@ Vespucci 有一個"增加地址標籤"功能，那讓勘察地址更有效率。
 Vespucci 有個快速的增加轉向限制。注意：如果您為了限制而需要分割一條道路，您須要在開始之前做到這點。
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
-* select "Add restriction" from the menu
+* 從選單中選擇"增加限制"
 * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the tag menu
+* 在標籤選單設定限制類型
  
-### Vespucci in "locked" mode
+### Vespucci 在 "已鎖定" 模式
  
 When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
@@ -128,8 +128,8 @@ Vespucci 有個簡單的衝突解決。不管怎樣，如果您于您的編輯�
 * Node icons. Default: off.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
- 
-#### Advanced preferences
+
+進階參數選項
 
 * Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).

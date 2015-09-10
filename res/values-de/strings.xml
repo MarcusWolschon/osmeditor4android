@@ -144,6 +144,7 @@
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
   <string name="toast_storage_error">Das Verzichnis für Kartenkacheln und andere Dateien ist nicht von Vespucci beschreibar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
+  <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -251,10 +252,10 @@
   <string name="menu_transfer_export">Änderungen exportieren</string>
   <string name="menu_transfer_read_file">Von Datei lesen</string>
   <string name="menu_transfer_save_file">In Datei speichern</string>
-  <string name="menu_transfer_bugs">Notizen/Fehler...</string>
+  <string name="menu_transfer_bugs">Notizen/Fehler</string>
   <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_bugs_upload">Alle hochladen</string>
-  <string name="menu_transfer_bugs_clear">Zurücksetzen</string>
+  <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -269,6 +270,7 @@
   <string name="menu_newnode_gps">Neuer Knoten an GPS Pos.</string>
   <string name="menu_extend_selection">Auswahl erweitern</string>
   <string name="menu_information">Info</string>
+  <string name="menu_voice_commands">Sprachbefehle</string>
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
   <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
@@ -309,6 +311,8 @@
   <string name="config_showCameraAction_summary">Kamera Icon in Menuleiste anzeigen</string>
   <string name="config_generateAlerts_title">Alarme generieren</string>
   <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
+  <string name="config_maxAlertDistance_title">Max. Distanz für Alarme</string>
+  <string name="config_maxAlertDistance_summary">Max. Distanz zu einem Fehler oder Notiz bei dem noch ein Alarm generiert wird</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
   <string name="config_tileCacheSize_title">Grösse des Tile Cache</string>

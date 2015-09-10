@@ -59,6 +59,8 @@
   <string name="openstreetbug_comment_label">Miêu tả:</string>
   <string name="openstreetbug_edit_close">Đóng</string>
   <string name="openstreetbug_edit_closed">Đã đóng</string>
+  <string name="openstreetbug_commit_ok">Đã lưu các thay đổ</string>
+  <string name="openstreetbug_commit_fail">Không thể lưu các thay đổi</string>
   <string name="unsaved_data_title">Cẩn thận!</string>
   <string name="unsaved_data_message">Nếu bạn tiếp tục, các thay đổi chưa lưu của bạn sẽ bị mất.</string>
   <string name="unsaved_data_proceed">Vứt bỏ &amp; tiếp tục</string>
