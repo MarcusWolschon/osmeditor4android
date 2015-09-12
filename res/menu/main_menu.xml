@@ -16,7 +16,12 @@
 		android:icon="?attr/menu_camera"
 		android:showAsAction="always"
 	/>	
-	
+	<item
+		android:id="@+id/menu_voice"
+		android:title="@string/menu_voice_commands"
+		android:icon="?attr/mic"
+		android:showAsAction="ifRoom"
+	/>
 	<item
 		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
@@ -152,14 +157,12 @@
 				</item>
 			</menu>
 	</item>
-
 	<item
-		android:id="@+id/menu_confing"
+		android:id="@+id/menu_config"
 		android:title="@string/menu_config"
 		android:icon="?attr/menu_config"
 		android:showAsAction="ifRoom"
 	/>
-	
 	<item
 		android:id="@+id/menu_tools"
 		android:title="@string/menu_tools"
@@ -197,12 +200,6 @@
 		android:title="@string/menu_help"
 		android:alphabeticShortcut="@string/shortcut_help"
 		android:icon="?attr/menu_help"
-		android:showAsAction="ifRoom"
-	/>
-	<item
-		android:id="@+id/menu_voice"
-		android:title="@string/menu_voice_commands"
-		android:icon="?attr/mic"
 		android:showAsAction="ifRoom"
 	/>
 </menu>

@@ -3,4 +3,5 @@
     <string name="voice_left">left</string>
     <string name="voice_here">map</string>
     <string name="voice_right">right</string>
+    <string name="voice_follow">follow</string>
 </resources>

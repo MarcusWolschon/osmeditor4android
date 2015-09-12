@@ -313,6 +313,8 @@
     <string name="config_showCameraAction_summary">Show camera icon on action bar</string>
     <string name="config_generateAlerts_title">Generate notifications</string>
     <string name="config_generateAlerts_summary">Generate notifications for data with problems or notes</string>
+    <string name="config_voiceCommandsEnabled_title">Enable voice commands</string>
+    <string name="config_voiceCommandsEnabled_summary">Enable experimental voice command support</string>
     <string name="config_maxAlertDistance_title">Max distance for notifications</string>
     <string name="config_maxAlertDistance_summary">The maximum distance a problem or note can be from the current position to generate a notification</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>

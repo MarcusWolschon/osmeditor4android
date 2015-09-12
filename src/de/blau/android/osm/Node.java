@@ -115,4 +115,8 @@ public class Node extends OsmElement implements GeoPoint {
 	public ElementType getType() {
 		return ElementType.NODE;
 	}
+	
+	public double getDistance(final int[] location) {
+		return Math.hypot(location[0] - getLat(),location[1] - getLon());
+	}
 }

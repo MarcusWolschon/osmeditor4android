@@ -3,4 +3,5 @@
     <string name="voice_left">links</string>
     <string name="voice_here">hier</string>
     <string name="voice_right">rechts</string>
+    <string name="voice_follow">folgen</string>
 </resources>

@@ -113,6 +113,17 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * The ratio of this BoundingBox. Only needed when it's used as a viewbox.
 	 */
 	private float ratio = 1;
+	
+	/**
+	 * Creates a degenerated BoundingBox with the corners set to the node coords
+	 * validate will cause and exception if called on this
+	 */
+	public BoundingBox(int lonE7, int latE7) {
+		left = lonE7;
+		bottom = latE7;
+		right = lonE7;
+		top = latE7;
+	}
 
 	/**
 	 * Generates a bounding box with the given borders. Of course, left must be
@@ -839,5 +850,18 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	@Override
 	public Rect getBounds() {
 		return new Rect(left,bottom,right,top);
+	}
+
+	public void union(int lonE7, int latE7) {
+		if (lonE7 < left) {
+			left = lonE7;
+		} else if (lonE7 > right) {
+			right = lonE7;
+		}
+		if (latE7 < bottom) {
+			bottom = latE7;
+		} else if (latE7 > top) {
+			top = latE7;
+		}
 	}
 }

@@ -21,6 +21,12 @@
 			android:numeric="integer"
 			android:defaultValue="100"
 		/>
+	   	<CheckBoxPreference
+			android:key="@string/config_voiceCommandsEnabled_key"
+			android:title="@string/config_voiceCommandsEnabled_title"
+			android:summary="@string/config_voiceCommandsEnabled_summary"
+			android:defaultValue="false"
+		/>
 		<CheckBoxPreference
 			android:key="@string/config_forceContextMenu_key"
 			android:title="@string/config_forceContextMenu_title"

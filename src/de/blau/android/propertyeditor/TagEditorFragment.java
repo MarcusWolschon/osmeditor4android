@@ -256,7 +256,9 @@ public class TagEditorFragment extends SherlockFragment {
 		}	
 		// 
 		if (applyLastAddressTags) {
-			loadEdits(editRowLayout,Address.predictAddressTags(this, getKeyValueMap(editRowLayout,false)));
+			loadEdits(editRowLayout,Address.predictAddressTags(getType(),getOsmId(),
+					((StreetTagValueAutocompletionAdapter)getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
+					getKeyValueMap(editRowLayout,false), Address.DEFAULT_HYSTERESIS));
 		}
 
 		if (displayMRUpresets) {
@@ -1186,7 +1188,9 @@ public class TagEditorFragment extends SherlockFragment {
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
 		case R.id.tag_menu_address:
-			loadEdits(Address.predictAddressTags(this, getKeyValueMap(false)));
+			loadEdits(Address.predictAddressTags(getType(),getOsmId(),
+					((StreetTagValueAutocompletionAdapter)getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
+					getKeyValueMap(false), Address.DEFAULT_HYSTERESIS));
 			return true;
 		case R.id.tag_menu_sourcesurvey:
 			doSourceSurvey();

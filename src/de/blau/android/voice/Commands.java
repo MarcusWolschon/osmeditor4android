@@ -3,6 +3,7 @@ package de.blau.android.voice;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,14 +33,19 @@ import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.propertyeditor.Address;
+import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.OptimalStringAlignment;
 import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.Util;
 
 /**
  * Support for simple voice commands, format
@@ -53,7 +59,6 @@ import de.blau.android.util.SearchIndexUtils;
  */
 public class Commands {
 	private static final String DEBUG_TAG = Commands.class.getSimpleName();
-	private Preset[] presets;
 	private Context ctx;
 	
 	MultiHashMap<String, PresetItem> presetSeachIndex; 
@@ -61,7 +66,6 @@ public class Commands {
 	
 	public Commands(Context ctx) {
 		this.ctx = ctx;
-		presets = Application.getCurrentPresets(ctx);
 		presetSeachIndex = Application.getPresetSearchIndex(ctx);
 		namesSearchIndex = Application.getNameSearchIndex(ctx);
 	}
@@ -77,8 +81,8 @@ public class Commands {
 			String[] words = v.split("\\s+", 3);
 			if (words.length > 1) {
 				String loc = words[0].toLowerCase(); 
-				if (ctx.getString(R.string.voice_left).equals(loc) || ctx.getString(R.string.voice_here).equals(loc) || ctx.getString(R.string.voice_right).equals(loc) ) {
-					if (!ctx.getString(R.string.voice_here).equals(loc)) {
+				if (match(R.string.voice_left,loc) || match(R.string.voice_here,loc) || match(R.string.voice_right,loc) ) {
+					if (!match(R.string.voice_here,loc)) {
 						Toast.makeText(ctx,"Sorry currently only the command \"" + ctx.getString(R.string.voice_here) + "\" is supported", Toast.LENGTH_LONG).show();
 					} 
 					// 
@@ -92,6 +96,13 @@ public class Commands {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
+							LinkedHashMap<String, ArrayList<String>> map = Address.predictAddressTags(Node.NAME, node.getOsmId(), 
+										new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
+										Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
+							tags = new TreeMap<String, String>();
+							for (String key:map.keySet()) {
+								tags.put(key, map.get(key).get(0));
+							}
 							logic.setTags(Node.NAME, node.getOsmId(), tags);
 						}
 						return;
@@ -126,7 +137,11 @@ public class Commands {
 					}
 				}
 			} else if (words.length == 1) {
-
+				if (match(R.string.voice_follow,words[0])) {
+					Application.mainActivity.setFollowGPS(true);
+				} else {
+					Toast.makeText(ctx,"Sorry currently \"" + ctx.getString(R.string.voice_follow) + "\" is not understood", Toast.LENGTH_LONG).show();
+				} 
 			}
 		}
 
@@ -174,5 +189,11 @@ public class Commands {
 			}
 		}
 		return null;
+	}
+	
+	boolean match(int resId, String input) {
+		final int maxDistance = 1;
+		int distance = OptimalStringAlignment.editDistance(ctx.getString(resId), input, maxDistance);
+		return distance >= 0 && distance <= maxDistance;
 	}
 }

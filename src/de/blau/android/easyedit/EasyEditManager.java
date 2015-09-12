@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -66,6 +67,8 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.propertyeditor.Address;
+import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.NetworkStatus;
@@ -564,7 +567,10 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic)).setEnabled(NetworkStatus.isConnected(main));
+			Preferences prefs = new Preferences(main);
+			if (prefs.voiceCommandsEnabled()) {
+				menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic)).setEnabled(NetworkStatus.isConnected(main));
+			}
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
@@ -720,6 +726,13 @@ public class EasyEditManager {
 							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
 							tags.put("source:original_text", v);
+							LinkedHashMap<String, ArrayList<String>> map = Address.predictAddressTags(Node.NAME, node.getOsmId(), 
+									new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
+									Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
+							tags = new TreeMap<String, String>();
+							for (String key:map.keySet()) {
+								tags.put(key, map.get(key).get(0));
+							}
 							logic.setTags(Node.NAME, node.getOsmId(), tags);
 							main.startActionMode(new NodeSelectionActionModeCallback(node));
 							return;

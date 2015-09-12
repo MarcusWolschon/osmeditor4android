@@ -916,7 +916,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected);
-		menu.findItem(R.id.menu_voice).setEnabled(networkConnected);
+		menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
 		
 		return true;
 	}
@@ -930,7 +930,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		Log.d(DEBUG_TAG, "onOptionsItemSelected");
 		final Server server = prefs.getServer();
 		switch (item.getItemId()) {
-		case R.id.menu_confing:
+		case R.id.menu_config:
 			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
 			return true;
 			

@@ -87,6 +87,8 @@ public class Preferences {
 	private final boolean lightThemeEnabled;
 	
 	private Set addressTags; // can't be final
+
+	private final boolean voiceCommandsEnabled;
 	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
@@ -211,6 +213,8 @@ public class Preferences {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
 		}
+		
+		voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
 	}
 	
 	/**
@@ -428,5 +432,9 @@ public class Preferences {
 
 	public int getMaxAlertDistance() {
 		return maxAlertDistance;
+	}
+
+	public boolean voiceCommandsEnabled() {
+		return voiceCommandsEnabled;
 	}
 }

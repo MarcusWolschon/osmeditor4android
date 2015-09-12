@@ -9,8 +9,10 @@ import java.util.SortedMap;
 
 import android.content.Context;
 import android.util.Log;
+import de.blau.android.Logic;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 
 public class Util {
@@ -94,4 +96,26 @@ public class Util {
 			return 0;
 		}
 	}
+	
+	/**
+     * Get the location of the center of the given osm-element
+     * @param delegator
+     * @param osmElementType
+     * @param osmId
+     * @return {lat, lon} or null
+     */
+	public static int[] getCenter(final StorageDelegator delegator,
+			final String osmElementType, long osmId) {
+		OsmElement osmElement = delegator.getOsmElement(osmElementType, osmId);
+		if (osmElement instanceof Node) {
+			Node n = (Node) osmElement;
+			return new int[] {n.getLat(), n.getLon()};
+		}
+		if (osmElement instanceof Way) {
+			double[] coords = Logic.centroidLonLat((Way)osmElement);
+			return new int[] {(int) (coords[1]*1E7), (int) (coords[0]*1E7)};
+		}
+		return null;
+	}
+
 }
