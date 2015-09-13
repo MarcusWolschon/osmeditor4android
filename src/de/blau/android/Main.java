@@ -292,6 +292,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	File imageFile = null;
 
 	private PostAsyncActionHandler restart;
+
+	private boolean gpsChecked = false; // flag to ensure that we only check once per activity life cycle
 	
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -1273,17 +1275,21 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		try {
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				gpsChecked = false;
 				return true;
 			} else if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null){ // check if there is a GPS providers at all
-				startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				if (!gpsChecked && !prefs.leaveGpsDisabled()) {
+					gpsChecked = true;
+					startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				}
 				return false;
 			} 
 			//
-			Log.d(DEBUG_TAG,"No GPS provider");
-			List<String> providers = locationManager.getAllProviders();
-			for (String p:providers) {
-				Log.d(DEBUG_TAG,"Provider: " + p);
-			}
+//			Log.d(DEBUG_TAG,"No GPS provider");
+//			List<String> providers = locationManager.getAllProviders();
+//			for (String p:providers) {
+//				Log.d(DEBUG_TAG,"Provider: " + p);
+//			}
 			return false;
 		} catch (Exception e) {
 			Log.d(DEBUG_TAG, "Error when checking for GPS, assuming GPS not available", e);

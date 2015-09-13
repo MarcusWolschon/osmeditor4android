@@ -146,7 +146,12 @@
 			android:numeric="decimal"
 			android:defaultValue="5.0"
 		/>
-		
+		<CheckBoxPreference
+			android:key="@string/config_leaveGpsDisabled_key"
+			android:title="@string/config_leaveGpsDisabled_title"
+			android:summary="@string/config_leaveGpsDisabled_summary"
+			android:defaultValue="false"
+		/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_server">

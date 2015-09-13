@@ -90,6 +90,8 @@ public class Preferences {
 
 	private final boolean voiceCommandsEnabled;
 	
+	private final boolean leaveGpsDisabled;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -215,6 +217,8 @@ public class Preferences {
 		}
 		
 		voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
+		
+		leaveGpsDisabled = prefs.getBoolean(r.getString(R.string.config_leaveGpsDisabled_key), false);
 	}
 	
 	/**
@@ -436,5 +440,9 @@ public class Preferences {
 
 	public boolean voiceCommandsEnabled() {
 		return voiceCommandsEnabled;
+	}
+
+	public boolean leaveGpsDisabled() {
+		return leaveGpsDisabled;
 	}
 }
