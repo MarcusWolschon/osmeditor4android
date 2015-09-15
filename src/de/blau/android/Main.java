@@ -2407,7 +2407,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				break;
 			case KeyEvent.ACTION_DOWN:
 				if (!v.onKeyDown(keyCode, event)) {
-					Log.d("MapKeyListner",">" + KeyEvent.keyCodeToString(keyCode) + " "  + event.toString());
 					switch (keyCode) {
 					case KeyEvent.KEYCODE_DPAD_CENTER:
 						setFollowGPS(true);
