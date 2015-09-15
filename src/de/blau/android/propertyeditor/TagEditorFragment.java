@@ -259,6 +259,11 @@ public class TagEditorFragment extends SherlockFragment {
 			loadEdits(editRowLayout,Address.predictAddressTags(getType(),getOsmId(),
 					((StreetTagValueAutocompletionAdapter)getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
 					getKeyValueMap(editRowLayout,false), Address.DEFAULT_HYSTERESIS));
+			if (getUserVisibleHint()) {
+				if (!focusOnValue(editRowLayout,Tags.KEY_ADDR_HOUSENUMBER)) {
+					focusOnValue(editRowLayout,Tags.KEY_ADDR_STREET);
+				} // this could be a bit more refined
+			}
 		}
 
 		if (displayMRUpresets) {
