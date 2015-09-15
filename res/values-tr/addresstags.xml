@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Bina numarası (addr:housenumber)</item>
+    <item>Sokak (addr:street)</item>
+    <item>Posta kodu (addr:postcode)</item>
+    <item>Şehir/Kasaba/Köy/..  (addr:city)</item>
+    <item>Ülke (addr:country)</item>
+    <item>Tam adres (addr:full)</item>
+    <item>Yer (addr:place)</item>
+    <item>Küçük köy (addr:hamlet)</item>
+    <item>Banliyo (addr:suburb)</item>
+    <item>Alt bölge (addr:subdistrict)</item>
+    <item>İlçe (addr:district)</item>
+    <item>İl (addr:province)</item>
+    <item>Eyalet (addr:state)</item>
+    <item>Bina (addr:flats)</item>
+    <item>Kapı (addr:door)</item>
+    <item>Ünite (addr:unit)</item>
+  </string-array>
+</resources>

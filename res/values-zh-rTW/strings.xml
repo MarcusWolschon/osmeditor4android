@@ -370,7 +370,10 @@
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
   <string name="config_maxDownloadSpeed_title">最高自動下載速度</string>
+  <string name="config_bugDownloadRadius_title">註解/錯誤的下載半徑</string>
+  <string name="config_maxBugDownloadSpeed_title">註解/錯誤的最高自動下載速度</string>
   <string name="config_bugFilter_title">過濾註解/錯誤</string>
+  <string name="config_bugFilter_summary">選擇哪些元件能顯示在註解/錯誤層</string>
   <string name="config_enableNameSuggestions_title">啟用建議名稱</string>
   <string name="config_enableNameSuggestions_summary">為名稱標籤開啟建議</string>
   <string name="config_enableAutoPreset_title">啟用自動預置</string>
