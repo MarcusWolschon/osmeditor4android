@@ -139,8 +139,9 @@ public class Commands {
 			} else if (words.length == 1) {
 				if (match(R.string.voice_follow,words[0])) {
 					Application.mainActivity.setFollowGPS(true);
+					return;
 				} else {
-					Toast.makeText(ctx,"Sorry currently \"" + ctx.getString(R.string.voice_follow) + "\" is not understood", Toast.LENGTH_LONG).show();
+					Toast.makeText(ctx,ctx.getResources().getString(R.string.toast_unknown_voice_command,words[0]), Toast.LENGTH_LONG).show();
 				} 
 			}
 		}

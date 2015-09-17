@@ -1,12 +1,12 @@
 # 
 # Translators:
-# Nuri, 2015
+# Nuri <cancerus@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-08-28 00:40+0200\n"
-"PO-Revision-Date: 2015-09-15 10:07+0000\n"
-"Last-Translator: Nuri\n"
+"PO-Revision-Date: 2015-09-16 20:39+0000\n"
+"Last-Translator: Nuri <cancerus@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/openstreetmap/presets/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -913,15 +913,15 @@ msgstr ""
 
 #: master_preset.xml:939(combo:text)
 msgid "Cycleway"
-msgstr ""
+msgstr "Bisiklet yolu"
 
 #: master_preset.xml:940(combo:text)
 msgid "Cycleway left"
-msgstr ""
+msgstr "Bisiklet yolu sol"
 
 #: master_preset.xml:941(combo:text)
 msgid "Cycleway right"
-msgstr ""
+msgstr "Bisiklet yolu sağ"
 
 #: master_preset.xml:942(check:text)
 msgid "Oneway (bicycle)"
@@ -929,15 +929,15 @@ msgstr "Tek yön (bisiklet)"
 
 #: master_preset.xml:944(optional:text)
 msgid "Edit Highway Attributes:"
-msgstr ""
+msgstr "Karayolunun Niteliklerini Düzenle:"
 
 #: master_preset.xml:945(combo:text)
 msgid "Highway"
-msgstr ""
+msgstr "Karayolu"
 
 #: master_preset.xml:949(item:name)
 msgid "Dedicated Cycleway"
-msgstr ""
+msgstr "Ayrılmış Bisiklet Yolu"
 
 #: master_preset.xml:964(combo:text)
 msgid "Pedestrians"
@@ -945,15 +945,15 @@ msgstr "Yayalar"
 
 #: master_preset.xml:967(item:name)
 msgid "Segregated Foot- and Cycleway"
-msgstr ""
+msgstr "Ayrılmış Yürüme ve Bisiklet Yolu"
 
 #: master_preset.xml:981(item:name)
 msgid "Combined Foot- and Cycleway"
-msgstr ""
+msgstr "Kombine Yürüme ve Bisiklet Yolu"
 
 #: master_preset.xml:996(item:name)
 msgid "Dedicated Footway"
-msgstr ""
+msgstr "Ayrılmış Yaya Yolu"
 
 #: master_preset.xml:1018(item:name)
 msgid "Steps"
@@ -969,7 +969,7 @@ msgstr "Rampa"
 
 #: master_preset.xml:1039(check:text)
 msgid "Stroller ramp"
-msgstr ""
+msgstr "Puset rampası"
 
 #: master_preset.xml:1040(check:text)
 msgid "Bicycle ramp"
@@ -1227,43 +1227,43 @@ msgstr "Takson"
 
 #: master_preset.xml:1397(item:name)
 msgid "Fence"
-msgstr ""
+msgstr "Çit"
 
 #: master_preset.xml:1412(item:name)
 msgid "Guard Rail"
-msgstr ""
+msgstr "Koruma Bariyeri"
 
 #: master_preset.xml:1419(item:name)
 msgid "Wall"
-msgstr ""
+msgstr "Duvar"
 
 #: master_preset.xml:1434(item:name)
 msgid "City Wall"
-msgstr ""
+msgstr "Şehir Duvarı"
 
 #: master_preset.xml:1444(item:name)
 msgid "Retaining Wall"
-msgstr ""
+msgstr "İstinat Duvarı"
 
 #: master_preset.xml:1457(item:name) master_preset.xml:1865(item:name)
 msgid "Ditch"
-msgstr ""
+msgstr "Hendek"
 
 #: master_preset.xml:1469(item:name)
 msgid "Kerb"
-msgstr ""
+msgstr "Bordür"
 
 #: master_preset.xml:1478(item:name)
 msgid "Entrance (Barrier Opening)"
-msgstr ""
+msgstr "Giriş (Bariyer Açığı)"
 
 #: master_preset.xml:1486(item:name) master_preset.xml:3321(item:name)
 msgid "Gate"
-msgstr ""
+msgstr "Geçit"
 
 #: master_preset.xml:1499(item:name)
 msgid "Lift Gate"
-msgstr ""
+msgstr "Kalkar Geçit"
 
 #: master_preset.xml:1511(item:name)
 msgid "Swing Gate"
@@ -1275,7 +1275,7 @@ msgstr ""
 
 #: master_preset.xml:1535(item:name)
 msgid "Bump Gate"
-msgstr ""
+msgstr "Çarpma Kapı"
 
 #: master_preset.xml:1551(item:name)
 msgid "Kissing Gate"
@@ -1283,246 +1283,246 @@ msgstr ""
 
 #: master_preset.xml:1558(item:name)
 msgid "Chain"
-msgstr ""
+msgstr "Zincir"
 
 #: master_preset.xml:1565(item:name)
 msgid "Stile"
-msgstr ""
+msgstr "Stil"
 
 #: master_preset.xml:1575(item:name)
 msgid "Turnstile"
-msgstr ""
+msgstr "Turnike"
 
 #: master_preset.xml:1582(item:name)
 msgid "Sally Port"
-msgstr ""
+msgstr "Çıkış kapısı"
 
 #: master_preset.xml:1591(group:name)
 msgid "Passageways"
-msgstr ""
+msgstr "Geçitler"
 
 #: master_preset.xml:1614(item:name)
 msgid "Building Passage"
-msgstr ""
+msgstr "Bina Geçidi"
 
 #: master_preset.xml:1633(item:name)
 msgid "Arcade"
-msgstr ""
+msgstr "Çarşı"
 
 #: master_preset.xml:1644(check:text) master_preset.xml:1661(check:text)
 #: master_preset.xml:1680(check:text)
 msgid "Open on left side"
-msgstr ""
+msgstr "Soldan açılır"
 
 #: master_preset.xml:1645(check:text) master_preset.xml:1662(check:text)
 #: master_preset.xml:1681(check:text)
 msgid "Open on right side"
-msgstr ""
+msgstr "Sağdan açılır"
 
 #: master_preset.xml:1651(item:name)
 msgid "Colonnade"
-msgstr ""
+msgstr "Kemeraltı"
 
 #: master_preset.xml:1668(item:name)
 msgid "Avalanche Protector"
-msgstr ""
+msgstr "Çığ Koruyucu"
 
 #: master_preset.xml:1689(group:name)
 msgid "Access Restrictions"
-msgstr ""
+msgstr "Erişim Kısıtlamaları"
 
 #: master_preset.xml:1690(item:name) master_preset.xml:1704(combo:text)
 msgid "All vehicles"
-msgstr ""
+msgstr "Tüm araçlar"
 
 #: master_preset.xml:1707(item:name)
 msgid "Motor vehicle"
-msgstr ""
+msgstr "Motorlu araç"
 
 #: master_preset.xml:1723(item:name)
 msgid "Motor vehicle (CH)"
-msgstr ""
+msgstr "Motorlu araç (CH)"
 
 #: master_preset.xml:1739(item:name)
 msgid "Motorcar and -cycle (CH)"
-msgstr ""
+msgstr "Otomobil ve -Bisiklet (CH)"
 
 #: master_preset.xml:1788(item:name)
 msgid "General access"
-msgstr ""
+msgstr "Genel erişim"
 
 #: master_preset.xml:1804(item:name)
 msgid "Physical restrictions"
-msgstr ""
+msgstr "Fiziksel kısıtlamalar"
 
 #: master_preset.xml:1818(text:text)
 msgid "Max. axleload (tonnes)"
-msgstr ""
+msgstr "Maks. dingil ağırlığı (ton)"
 
 #: master_preset.xml:1821(text:text)
 msgid "Max. length (meters)"
-msgstr ""
+msgstr "Maks. uzunluk (metre)"
 
 #: master_preset.xml:1823(item:name)
 msgid "Other mode restrictions"
-msgstr ""
+msgstr "Diğer mod kısıtlamaları"
 
 #: master_preset.xml:1838(combo:text)
 msgid "Heavy Goods Vehicles (hgv)"
-msgstr ""
+msgstr "Ağır Hizmet Araçları (aha)"
 
 #: master_preset.xml:1840(combo:text)
 msgid "Light Commercial Vehicles (goods)"
-msgstr ""
+msgstr "Hafif Ticari Araçlar (eşya)"
 
 #: master_preset.xml:1841(combo:text)
 msgid "Agricultural"
-msgstr ""
+msgstr "Zirai"
 
 #: master_preset.xml:1842(combo:text)
 msgid "Emergency vehicles"
-msgstr ""
+msgstr "Acil durum araçları"
 
 #: master_preset.xml:1843(combo:text)
 msgid "High-occupancy vehicles (hov)"
-msgstr ""
+msgstr "Yüksek dolu araçlar (hov)"
 
 #: master_preset.xml:1844(combo:text)
 msgid "Public Service Vehicles (psv)"
-msgstr ""
+msgstr "Kamu Hizmet Araçları (KHA)"
 
 #: master_preset.xml:1845(combo:text)
 msgid "Tourist buses"
-msgstr ""
+msgstr "Turist otobüsleri"
 
 #: master_preset.xml:1849(group:name) master_preset.xml:1850(group:name)
 #: master_preset.xml:2050(item:name)
 msgid "Water"
-msgstr ""
+msgstr "Su"
 
 #: master_preset.xml:1851(item:name)
 msgid "Drain"
-msgstr ""
+msgstr "Tahliye"
 
 #: master_preset.xml:1878(item:name)
 msgid "Stream"
-msgstr ""
+msgstr "Akıntı"
 
 #: master_preset.xml:1896(item:name)
 msgid "River"
-msgstr ""
+msgstr "Irmak"
 
 #: master_preset.xml:1913(item:name)
 msgid "Canal"
-msgstr ""
+msgstr "Kanal"
 
 #: master_preset.xml:1932(item:name)
 msgid "Spring"
-msgstr ""
+msgstr "Kaynak"
 
 #: master_preset.xml:1940(label:text)
 msgid ""
 "A point where groundwater naturally flows to the surface of the earth from "
 "underground."
-msgstr ""
+msgstr "Yeraltı suyunun yeryüzüne çıkış noktası."
 
 #: master_preset.xml:1946(item:name)
 msgid "Waterfall"
-msgstr ""
+msgstr "Şelale"
 
 #: master_preset.xml:1954(item:name)
 msgid "Weir"
-msgstr ""
+msgstr "Su Seddi"
 
 #: master_preset.xml:1966(item:name)
 msgid "Dam"
-msgstr ""
+msgstr "Baraj"
 
 #: master_preset.xml:1978(item:name)
 msgid "Groyne"
-msgstr ""
+msgstr "Set"
 
 #: master_preset.xml:1986(item:name)
 msgid "Breakwater"
-msgstr ""
+msgstr "Dalgakıran"
 
 #: master_preset.xml:1999(item:name)
 msgid "Culvert"
-msgstr ""
+msgstr "Menfez"
 
 #: master_preset.xml:2015(item:name)
 msgid "Basin"
-msgstr ""
+msgstr "Havza"
 
 #: master_preset.xml:2027(item:name)
 msgid "Reservoir"
-msgstr ""
+msgstr "Rezervuar"
 
 #: master_preset.xml:2038(item:name)
 msgid "Covered Reservoir"
-msgstr ""
+msgstr "Kapalı Rezervuar"
 
 #: master_preset.xml:2060(label:text)
 msgid "A body of standing water, such as a lake or pond."
-msgstr ""
+msgstr "Durağan su kütlesi, göl veya gölet gibi."
 
 #: master_preset.xml:2064(combo:text)
 msgid "Water Body"
-msgstr ""
+msgstr "Su Kütlesi"
 
 #: master_preset.xml:2065(check:text)
 msgid "Salt Water"
-msgstr ""
+msgstr "Tuzlu Su"
 
 #: master_preset.xml:2070(item:name)
 msgid "Coastline"
-msgstr ""
+msgstr "Kıyı şeridi"
 
 #: master_preset.xml:2078(label:text)
 msgid ""
 "Line between the sea and land (with the water on the right side of the way)."
-msgstr ""
+msgstr "Kara ile deniz arasındaki çizgi (yolun sağ tarafındaki suyla)."
 
 #: master_preset.xml:2083(item:name)
 msgid "Riverbank"
-msgstr ""
+msgstr "Nehir kıyısı"
 
 #: master_preset.xml:2100(item:name)
 msgid "Wetland"
-msgstr ""
+msgstr "Sulak"
 
 #: master_preset.xml:2111(label:text)
 msgid "Waterlogged area, either permanently or seasonally with vegetation."
-msgstr ""
+msgstr "Sürekli yada mevsimsel bitki örtüsü ile kaplı su emmiş alan."
 
 #: master_preset.xml:2117(item:name)
 msgid "Mud"
-msgstr ""
+msgstr "Çamur"
 
 #: master_preset.xml:2122(label:text)
 msgid "Large area covered with mud."
-msgstr ""
+msgstr "Çamurla kaplı geniş alan."
 
 #: master_preset.xml:2127(item:name)
 msgid "Beach"
-msgstr ""
+msgstr "Plaj"
 
 #: master_preset.xml:2134(label:text)
 msgid "A flat area of sand, gravel or pebble next to water."
-msgstr ""
+msgstr "Suyun yanındaki düz kum, çakıl veya düzlük alan."
 
 #: master_preset.xml:2146(item:name)
 msgid "Bay"
-msgstr ""
+msgstr "Koy"
 
 #: master_preset.xml:2153(label:text)
 msgid ""
 "A large body of water partially enclosed by land but with a wide mouth."
-msgstr ""
+msgstr "Kısmen karayla kaplı geniş bir ağzı olan büyük su kütlesi."
 
 #: master_preset.xml:2158(item:name)
 msgid "Cliff"
-msgstr ""
+msgstr "Uçurum"
 
 #: master_preset.xml:2165(label:text)
 msgid ""
@@ -1532,87 +1532,87 @@ msgstr ""
 
 #: master_preset.xml:2171(group:name)
 msgid "Shipping"
-msgstr ""
+msgstr "Gemiler"
 
 #: master_preset.xml:2172(item:name)
 msgid "Ferry Terminal"
-msgstr ""
+msgstr "Feribot Terminali"
 
 #: master_preset.xml:2183(combo:text)
 msgid "Cargo"
-msgstr ""
+msgstr "Kargo"
 
 #: master_preset.xml:2185(item:name)
 msgid "Ferry Route"
-msgstr ""
+msgstr "Feribot Rotası"
 
 #: master_preset.xml:2197(item:name)
 msgid "Marina"
-msgstr ""
+msgstr "Marina"
 
 #: master_preset.xml:2209(combo:text) master_preset.xml:3467(combo:text)
 msgid "Dump Station"
-msgstr ""
+msgstr "Boşaltım İstasyonu"
 
 #: master_preset.xml:2211(item:name)
 msgid "Marine Fuel"
-msgstr ""
+msgstr "Deniz Yakıtı"
 
 #: master_preset.xml:2220(label:text) master_preset.xml:2674(label:text)
 msgid "Fuel types:"
-msgstr ""
+msgstr "Yakıt tipi:"
 
 #: master_preset.xml:2222(check:text) master_preset.xml:2676(check:text)
 msgid "Diesel"
-msgstr ""
+msgstr "Dizel"
 
 #: master_preset.xml:2223(check:text) master_preset.xml:2677(check:text)
 msgid "Bio Diesel"
-msgstr ""
+msgstr "Bio Dizel"
 
 #: master_preset.xml:2224(check:text) master_preset.xml:2680(check:text)
 msgid "Octane 80"
-msgstr ""
+msgstr "80 Oktan"
 
 #: master_preset.xml:2225(check:text) master_preset.xml:2681(check:text)
 msgid "Octane 91"
-msgstr ""
+msgstr "91 Oktan"
 
 #: master_preset.xml:2226(check:text) master_preset.xml:2682(check:text)
 msgid "Octane 92"
-msgstr ""
+msgstr "92 Oktan"
 
 #: master_preset.xml:2227(check:text) master_preset.xml:2683(check:text)
 msgid "Octane 95"
-msgstr ""
+msgstr "95 Oktan"
 
 #: master_preset.xml:2228(check:text) master_preset.xml:2684(check:text)
 msgid "Octane 98"
-msgstr ""
+msgstr "98 Oktan"
 
 #: master_preset.xml:2229(check:text) master_preset.xml:2685(check:text)
 msgid "Octane 100"
-msgstr ""
+msgstr "100 Oktan"
 
 #: master_preset.xml:2230(check:text) master_preset.xml:2686(check:text)
 msgid "E10 (10% Ethanol mix)"
-msgstr ""
+msgstr "E10 (%10 Etanol karışım)"
 
 #: master_preset.xml:2231(check:text) master_preset.xml:2687(check:text)
 msgid "E85 (85% Ethanol mix)"
-msgstr ""
+msgstr "E85 (%85 Etanol karışım)"
 
 #: master_preset.xml:2232(check:text) master_preset.xml:2688(check:text)
 msgid "LPG (Liquefied petroleum gas)"
-msgstr ""
+msgstr "LPG (Sıvılaştırılmış Petrol Gazı)"
 
 #: master_preset.xml:2233(check:text) master_preset.xml:2689(check:text)
 msgid "CNG (Compressed Natural Gas)"
-msgstr ""
+msgstr "CNG (Sıkıştırılmış Doğal Gaz)"
 
 #: master_preset.xml:2238(item:name)
 msgid "Pier"
-msgstr ""
+msgstr "Rıhtım"
 
 #: master_preset.xml:2252(item:name)
 msgid "Lock Gate"
@@ -1620,169 +1620,169 @@ msgstr ""
 
 #: master_preset.xml:2262(item:name)
 msgid "Turning Point"
-msgstr ""
+msgstr "Dönüş Noktası"
 
 #: master_preset.xml:2268(item:name)
 msgid "Slipway"
-msgstr ""
+msgstr "Kızak"
 
 #: master_preset.xml:2280(item:name)
 msgid "Boatyard"
-msgstr ""
+msgstr "Tersane"
 
 #: master_preset.xml:2291(item:name)
 msgid "Dock"
-msgstr ""
+msgstr "Gemi havuzu"
 
 #: master_preset.xml:2304(group:name)
 msgid "Transport"
-msgstr ""
+msgstr "Ulaşım"
 
 #: master_preset.xml:2305(group:name)
 msgid "Railway"
-msgstr ""
+msgstr "Demiryolu"
 
 #: master_preset.xml:2306(item:name)
 msgid "Rail"
-msgstr ""
+msgstr "Ray"
 
 #: master_preset.xml:2318(combo:text) master_preset.xml:2328(combo:text)
 msgid "Usage"
-msgstr ""
+msgstr "Kullanım"
 
 #: master_preset.xml:2322(item:name)
 msgid "Narrow Gauge Rail"
-msgstr ""
+msgstr "Dekovil"
 
 #: master_preset.xml:2332(item:name) master_preset.xml:3008(check:text)
 #: master_preset.xml:3037(check:text)
 msgid "Monorail"
-msgstr ""
+msgstr "Tek Ray"
 
 #: master_preset.xml:2343(item:name)
 msgid "Preserved"
-msgstr ""
+msgstr "Korunmuş"
 
 #: master_preset.xml:2354(item:name)
 msgid "Light Rail"
-msgstr ""
+msgstr "Hafif Raylı"
 
 #: master_preset.xml:2361(item:name) master_preset.xml:3007(check:text)
 #: master_preset.xml:3036(check:text)
 msgid "Subway"
-msgstr ""
+msgstr "Metro"
 
 #: master_preset.xml:2373(item:name) master_preset.xml:3000(check:text)
 #: master_preset.xml:3031(check:text)
 msgid "Tram"
-msgstr ""
+msgstr "Tramvay"
 
 #: master_preset.xml:2386(item:name)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "Otobüs Kızağı"
 
 #: master_preset.xml:2403(item:name)
 msgid "Disused Rail"
-msgstr ""
+msgstr "Kullanılmayan Demiryolu"
 
 #: master_preset.xml:2412(item:name)
 msgid "Abandoned Rail"
-msgstr ""
+msgstr "Terk edilmiş Demiryolu"
 
 #: master_preset.xml:2424(item:name)
 msgid "Level Crossing"
-msgstr ""
+msgstr "Hemzemin Geçit"
 
 #: master_preset.xml:2440(check:text) master_preset.xml:2459(check:text)
 msgid "Traffic lights"
-msgstr ""
+msgstr "Trafik ışıkları"
 
 #: master_preset.xml:2442(combo:text) master_preset.xml:2461(combo:text)
 #: master_preset.xml:3861(combo:text)
 msgid "Barrier"
-msgstr ""
+msgstr "Bariyer"
 
 #: master_preset.xml:2445(item:name)
 msgid "Crossing"
-msgstr ""
+msgstr "Geçit"
 
 #: master_preset.xml:2455(combo:text)
 msgid "Crossing type"
-msgstr ""
+msgstr "Geçiş tipi"
 
 #: master_preset.xml:2464(item:name)
 msgid "Turntable"
-msgstr ""
+msgstr "Döner"
 
 #: master_preset.xml:2472(item:name)
 msgid "Buffer Stop"
-msgstr ""
+msgstr "Hortuvar"
 
 #: master_preset.xml:2478(item:name)
 msgid "Railway Switch"
-msgstr ""
+msgstr "Demiryolu Anahtarı"
 
 #: master_preset.xml:2486(group:name) master_preset.xml:3010(check:text)
 msgid "Aerialway"
-msgstr ""
+msgstr "Havai taşıma"
 
 #: master_preset.xml:2487(item:name)
 msgid "Cable Car"
-msgstr ""
+msgstr "Teleferik"
 
 #: master_preset.xml:2499(text:text) master_preset.xml:2512(text:text)
 #: master_preset.xml:2525(text:text) master_preset.xml:2537(text:text)
 #: master_preset.xml:2551(text:text) master_preset.xml:2561(text:text)
 msgid "Number of people per hour"
-msgstr ""
+msgstr "Saatlik kişi sayısı"
 
 #: master_preset.xml:2500(text:text)
 msgid "Number of people per car"
-msgstr ""
+msgstr "Araç başına kişi sayısı"
 
 #: master_preset.xml:2501(text:text) master_preset.xml:2514(text:text)
 #: master_preset.xml:2527(text:text) master_preset.xml:2539(text:text)
 #: master_preset.xml:2552(text:text) master_preset.xml:2562(text:text)
 #: master_preset.xml:2571(text:text)
 msgid "Typical journey time in minutes"
-msgstr ""
+msgstr "Dakika olarak tipik yolculuk süresi"
 
 #: master_preset.xml:2502(check:text) master_preset.xml:2516(check:text)
 #: master_preset.xml:2528(check:text) master_preset.xml:2541(check:text)
 msgid "Has heating?"
-msgstr ""
+msgstr "Isıtma var mı?"
 
 #: master_preset.xml:2505(item:name)
 msgid "Chair Lift"
-msgstr ""
+msgstr "Telesiyej"
 
 #: master_preset.xml:2513(text:text)
 msgid "Number of people per chair"
-msgstr ""
+msgstr "Sandalye başı kişi sayısı"
 
 #: master_preset.xml:2515(check:text) master_preset.xml:2540(check:text)
 msgid "Has bubble?"
-msgstr ""
+msgstr "Kabarcık var mı?"
 
 #: master_preset.xml:2519(item:name)
 msgid "Gondola"
-msgstr ""
+msgstr "Gondol"
 
 #: master_preset.xml:2526(text:text)
 msgid "Number of people per gondola"
-msgstr ""
+msgstr "Gondol başına kişi sayısı"
 
 #: master_preset.xml:2531(item:name)
 msgid "Mixed Lift"
-msgstr ""
+msgstr "Karışık Asansör"
 
 #: master_preset.xml:2538(text:text)
 msgid "Number of people per gondola/chair"
-msgstr ""
+msgstr "Sandalye/gondol başına kişi sayısı"
 
 #: master_preset.xml:2544(item:name)
 msgid "Drag Lift"
-msgstr ""
+msgstr "Sürükleme Asansörü"
 
 #: master_preset.xml:2547(combo:display_values)
 msgid ""
@@ -1792,76 +1792,76 @@ msgstr ""
 
 #: master_preset.xml:2555(item:name)
 msgid "Magic Carpet"
-msgstr ""
+msgstr "Sihirli Halı"
 
 #: master_preset.xml:2565(item:name)
 msgid "Goods"
-msgstr ""
+msgstr "Eşyalar"
 
 #: master_preset.xml:2575(item:name) master_preset.xml:3043(item:name)
 #: master_preset.xml:3115(item:name)
 msgid "Station"
-msgstr ""
+msgstr "İstasyon"
 
 #: master_preset.xml:2582(item:name)
 msgid "Pylon"
-msgstr ""
+msgstr "Pilon"
 
 #: master_preset.xml:2590(group:name)
 msgid "Car"
-msgstr ""
+msgstr "Araba"
 
 #: master_preset.xml:2591(item:name) master_preset.xml:2806(item:name)
 #: master_preset.xml:2846(item:name)
 msgid "Parking"
-msgstr ""
+msgstr "Park alanı"
 
 #: master_preset.xml:2607(combo:text)
 msgid "Park and Ride"
-msgstr ""
+msgstr "Park et devam et"
 
 #: master_preset.xml:2610(text:text)
 msgid "Capacity (overall)"
-msgstr ""
+msgstr "Kapasite (genel)"
 
 #: master_preset.xml:2611(combo:text)
 msgid "Spaces for Disabled"
-msgstr ""
+msgstr "Engelliler için alan"
 
 #: master_preset.xml:2612(combo:text)
 msgid "Spaces for Women"
-msgstr ""
+msgstr "Kadınlar için alan"
 
 #: master_preset.xml:2613(combo:text)
 msgid "Spaces for Parents"
-msgstr ""
+msgstr "Ebeveynler için alan"
 
 #: master_preset.xml:2614(label:text)
 msgid "See the Wiki for other capacity:[types]=*."
-msgstr ""
+msgstr "Diğer kapasiteler için Vikiye bakınız "
 
 #: master_preset.xml:2619(item:name)
 msgid "Parking Space"
-msgstr ""
+msgstr "Park Yeri"
 
 #: master_preset.xml:2629(text:text) master_preset.xml:2800(text:text)
 #: master_preset.xml:2814(text:text) master_preset.xml:2862(text:text)
 #: master_preset.xml:4547(text:text)
 msgid "Capacity"
-msgstr ""
+msgstr "Kapasite"
 
 #: master_preset.xml:2633(check:text) master_preset.xml:2648(check:text)
 #: master_preset.xml:2817(check:text)
 msgid "Covered (with roof)"
-msgstr ""
+msgstr "Kapalı (çatı ile)"
 
 #: master_preset.xml:2635(item:name)
 msgid "Parking Entrance"
-msgstr ""
+msgstr "Park Alanı Girişi"
 
 #: master_preset.xml:2651(item:name) master_preset.xml:3986(combo:text)
 msgid "Fuel"
-msgstr ""
+msgstr "Yakıt"
 
 #: master_preset.xml:2672(combo:text)
 msgid "With shop"
@@ -1885,7 +1885,7 @@ msgstr ""
 
 #: master_preset.xml:2694(label:text)
 msgid "Fuel cards:"
-msgstr ""
+msgstr "Yakıt kartları:"
 
 #: master_preset.xml:2696(check:text)
 msgid "DKV"
@@ -1901,134 +1901,134 @@ msgstr ""
 
 #: master_preset.xml:2703(item:name)
 msgid "Charging Station"
-msgstr ""
+msgstr "Şarj İstasyonu"
 
 #: master_preset.xml:2711(text:text)
 msgid "Voltage"
-msgstr ""
+msgstr "Voltaj"
 
 #: master_preset.xml:2712(text:text)
 msgid "Amperage"
-msgstr ""
+msgstr "Amperaj"
 
 #: master_preset.xml:2714(item:name)
 msgid "Wash"
-msgstr ""
+msgstr "Yıkama"
 
 #: master_preset.xml:2728(item:name)
 msgid "Car Dealer"
-msgstr ""
+msgstr "Araba bayisi"
 
 #: master_preset.xml:2742(combo:text) master_preset.xml:2832(combo:text)
 #: master_preset.xml:6727(combo:text) master_preset.xml:6750(combo:text)
 #: master_preset.xml:7074(combo:text)
 msgid "Second hand"
-msgstr ""
+msgstr "İkinci el"
 
 #: master_preset.xml:2745(item:name) master_preset.xml:2836(combo:text)
 msgid "Repair"
-msgstr ""
+msgstr "Tamir"
 
 #: master_preset.xml:2757(item:name) master_preset.xml:2838(combo:text)
 msgid "Parts"
-msgstr ""
+msgstr "Parçalar"
 
 #: master_preset.xml:2766(item:name)
 msgid "Tires"
-msgstr ""
+msgstr "Lastikler"
 
 #: master_preset.xml:2776(item:name) master_preset.xml:2835(combo:text)
 #: master_preset.xml:2889(item:name)
 msgid "Rental"
-msgstr ""
+msgstr "Kiralık"
 
 #: master_preset.xml:2789(item:name)
 msgid "Sharing"
-msgstr ""
+msgstr "Paylaşım"
 
 #: master_preset.xml:2819(item:name)
 msgid "Motorcycle Dealer"
-msgstr ""
+msgstr "Motosiklet Bayisi"
 
 #: master_preset.xml:2833(optional:text)
 msgid "Services:"
-msgstr ""
+msgstr "Hizmetler:"
 
 #: master_preset.xml:2834(combo:text)
 msgid "Sale"
-msgstr ""
+msgstr "Satış"
 
 #: master_preset.xml:2837(combo:text)
 msgid "Safety inspection"
-msgstr ""
+msgstr "Güvenlik denetimi"
 
 #: master_preset.xml:2839(combo:text) master_preset.xml:4761(check:text)
 #: master_preset.xml:4797(check:text) master_preset.xml:6714(group:name)
 #: master_preset.xml:6715(item:name)
 msgid "Clothes"
-msgstr ""
+msgstr "Giysiler"
 
 #: master_preset.xml:2840(text:text) master_preset.xml:7100(group:name)
 msgid "Other"
-msgstr ""
+msgstr "Diğer"
 
 #: master_preset.xml:2864(check:text) master_preset.xml:3020(check:text)
 #: master_preset.xml:3975(check:text) master_preset.xml:3987(check:text)
 msgid "Covered"
-msgstr ""
+msgstr "Kaplı"
 
 #: master_preset.xml:2867(item:name)
 msgid "Bike Dealer"
-msgstr ""
+msgstr "Bisiklet Bayii"
 
 #: master_preset.xml:2880(check:text)
 msgid "Bicycles are sold"
-msgstr ""
+msgstr "Bisiklet satış"
 
 #: master_preset.xml:2881(check:text)
 msgid "Second-hand bicycles are sold"
-msgstr ""
+msgstr "İkinci el bisiklet satış"
 
 #: master_preset.xml:2882(check:text)
 msgid "Bicycles are repaired"
-msgstr ""
+msgstr "Bisiklet tamir edilir"
 
 #: master_preset.xml:2883(check:text)
 msgid "Bicycles are rented"
-msgstr ""
+msgstr "Bisiklet kiralanır"
 
 #: master_preset.xml:2884(check:text) master_preset.xml:2918(check:text)
 msgid "Free bicycle pump"
-msgstr ""
+msgstr "Ücretsiz bisiklet pompası"
 
 #: master_preset.xml:2885(check:text)
 msgid "Tools for do-it-yourself repair (may be a bike co-operative)"
-msgstr ""
+msgstr "Kendin tamir etmek için aletler (belki bisikletçi yardım edebilir)"
 
 #: master_preset.xml:2886(check:text)
 msgid "Bicycles are washed (for a fee)"
-msgstr ""
+msgstr "Bisiklet yıkanır (ücretli)"
 
 #: master_preset.xml:2906(item:name)
 msgid "Public Bicycle Repair Station"
-msgstr ""
+msgstr "Kamu Bisiklet Tamir İstasyonu"
 
 #: master_preset.xml:2919(check:text)
 msgid "Chain tool"
-msgstr ""
+msgstr "Zincir aracı"
 
 #: master_preset.xml:2923(group:name)
 msgid "Public Transport"
-msgstr ""
+msgstr "Toplu Taşıma"
 
 #: master_preset.xml:2924(item:name)
 msgid "Public Transport Route"
-msgstr ""
+msgstr "Toplu Taşıma Güzergahı"
 
 #: master_preset.xml:2928(combo:text) master_preset.xml:2954(combo:text)
 #: master_preset.xml:3093(combo:text)
 msgid "Route type"
-msgstr ""
+msgstr "Rota türü"
 
 #: master_preset.xml:2932(text:text) master_preset.xml:3097(text:text)
 msgid "From (initial stop)"
@@ -2049,25 +2049,25 @@ msgstr ""
 #: master_preset.xml:8766(combo:text) master_preset.xml:8870(text:text)
 #: master_preset.xml:8887(text:text)
 msgid "Network"
-msgstr ""
+msgstr "Şebeke"
 
 #: master_preset.xml:2938(combo:text) master_preset.xml:2959(combo:text)
 #: master_preset.xml:3103(combo:text) master_preset.xml:4867(combo:text)
 #: master_preset.xml:6256(combo:text)
 msgid "Color (HTML name or hexadecimal code)"
-msgstr ""
+msgstr "Renk (HTML kodu veya on altılık kod)"
 
 #: master_preset.xml:2941(role:text)
 msgid "stop position"
-msgstr ""
+msgstr "duruş pozisyonu"
 
 #: master_preset.xml:2942(role:text)
 msgid "stop position (exit only)"
-msgstr ""
+msgstr "duruş pozisyonu (sadece çıkış)"
 
 #: master_preset.xml:2943(role:text)
 msgid "stop position (entry only)"
-msgstr ""
+msgstr "duruş pozisyonu (sadece giriş)"
 
 #: master_preset.xml:2944(role:text) master_preset.xml:3112(role:text)
 msgid "platform"
@@ -2075,11 +2075,11 @@ msgstr ""
 
 #: master_preset.xml:2945(role:text)
 msgid "platform (exit only)"
-msgstr ""
+msgstr "platform (sadece çıkış)"
 
 #: master_preset.xml:2946(role:text)
 msgid "platform (entry only)"
-msgstr ""
+msgstr "platform (sadece giriş)"
 
 #: master_preset.xml:2947(role:text) master_preset.xml:3106(role:text)
 #: master_preset.xml:8726(role:text) master_preset.xml:8748(role:text)
@@ -2088,7 +2088,7 @@ msgstr ""
 #: master_preset.xml:8844(role:text) master_preset.xml:8858(role:text)
 #: master_preset.xml:8874(role:text)
 msgid "route segment"
-msgstr ""
+msgstr "rota bölümleri"
 
 #: master_preset.xml:2950(item:name)
 msgid "Route Master"
@@ -2100,7 +2100,7 @@ msgstr ""
 
 #: master_preset.xml:2965(item:name)
 msgid "Stop Area"
-msgstr ""
+msgstr "Durma Alanı"
 
 #: master_preset.xml:2973(text:text) master_preset.xml:2993(text:text)
 #: master_preset.xml:3024(text:text)
@@ -2114,7 +2114,7 @@ msgstr ""
 
 #: master_preset.xml:2979(role:text) master_preset.xml:2986(item:name)
 msgid "Stop Position"
-msgstr ""
+msgstr "Durma Pozisyonu"
 
 #: master_preset.xml:2980(role:text) master_preset.xml:3013(item:name)
 msgid "Platform"
@@ -2122,31 +2122,31 @@ msgstr ""
 
 #: master_preset.xml:2981(role:text) master_preset.xml:3060(item:name)
 msgid "Subway Entrance"
-msgstr ""
+msgstr "Metro girişi"
 
 #: master_preset.xml:2982(role:text)
 msgid "Station or amenities"
-msgstr ""
+msgstr "İstasyon veya kolaylıklar"
 
 #: master_preset.xml:2998(check:text) master_preset.xml:3029(check:text)
 msgid "Bus"
-msgstr ""
+msgstr "Otobüs"
 
 #: master_preset.xml:2999(check:text)
 msgid "Bus stop (legacy)"
-msgstr ""
+msgstr "Otobüs durağı (eski)"
 
 #: master_preset.xml:3001(check:text)
 msgid "Tram stop (legacy)"
-msgstr ""
+msgstr "Tramvay durağı (eski)"
 
 #: master_preset.xml:3002(check:text) master_preset.xml:3032(check:text)
 msgid "Train"
-msgstr ""
+msgstr "Tren"
 
 #: master_preset.xml:3003(check:text)
 msgid "Railway station (legacy)"
-msgstr ""
+msgstr "Demiryolu istasyonu (eski)"
 
 #: master_preset.xml:3004(check:text)
 msgid "Railway halt (legacy)"
@@ -2154,72 +2154,72 @@ msgstr ""
 
 #: master_preset.xml:3005(check:text) master_preset.xml:3034(check:text)
 msgid "Trolleybus"
-msgstr ""
+msgstr "Troleybüs"
 
 #: master_preset.xml:3006(check:text) master_preset.xml:3035(check:text)
 msgid "Share taxi"
-msgstr ""
+msgstr "Dolmuş"
 
 #: master_preset.xml:3009(check:text)
 msgid "Funicular"
-msgstr ""
+msgstr "Füniküler"
 
 #: master_preset.xml:3011(check:text)
 msgid "Ferry"
-msgstr ""
+msgstr "Feribot"
 
 #: master_preset.xml:3018(check:text) master_preset.xml:3187(check:text)
 #: master_preset.xml:4850(item:name)
 msgid "Bench"
-msgstr ""
+msgstr "Tezgah"
 
 #: master_preset.xml:3019(check:text) master_preset.xml:3186(check:text)
 #: master_preset.xml:4870(item:name) master_preset.xml:4894(check:text)
 msgid "Shelter"
-msgstr ""
+msgstr "Barınak"
 
 #: master_preset.xml:3030(check:text)
 msgid "Highway platform (legacy)"
-msgstr ""
+msgstr "Karayolu platformu (eski)"
 
 #: master_preset.xml:3033(check:text)
 msgid "Railway platform (legacy)"
-msgstr ""
+msgstr "Demir yolu platformu (eski)"
 
 #: master_preset.xml:3038(check:text)
 msgid "funicular"
-msgstr ""
+msgstr "Füniküler"
 
 #: master_preset.xml:3039(check:text)
 msgid "aerialway"
-msgstr ""
+msgstr "Havai taşıma"
 
 #: master_preset.xml:3040(check:text)
 msgid "ferry"
-msgstr ""
+msgstr "Feribot"
 
 #: master_preset.xml:3055(check:text) master_preset.xml:3292(combo:text)
 #: master_preset.xml:5465(item:name) master_preset.xml:5481(combo:text)
 #: master_preset.xml:5501(combo:text) master_preset.xml:5608(combo:text)
 #: master_preset.xml:5620(combo:text) master_preset.xml:6465(combo:text)
 msgid "Building"
-msgstr ""
+msgstr "Bina"
 
 #: master_preset.xml:3074(item:name)
 msgid "Ticket Machine"
-msgstr ""
+msgstr "Bilet Makinesi"
 
 #: master_preset.xml:3086(text:text)
 msgid "Reference Number"
-msgstr ""
+msgstr "Referans numarası"
 
 #: master_preset.xml:3090(group:name)
 msgid "Public Transport (Legacy)"
-msgstr ""
+msgstr "Toplu Taşıma (Eski)"
 
 #: master_preset.xml:3091(item:name)
 msgid "Public transport route (Legacy)"
-msgstr ""
+msgstr "Toplu taşıma güzergahı (Eski)"
 
 #: master_preset.xml:3107(role:text) master_preset.xml:8727(role:text)
 #: master_preset.xml:8749(role:text) master_preset.xml:8791(role:text)

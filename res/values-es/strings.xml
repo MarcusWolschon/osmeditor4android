@@ -104,7 +104,7 @@
   <string name="unknown_error_level">nivel de error desconocido</string>
   <!--Toaster-->
   <string name="toast_no_changes">No cambió nada aún…</string>
-  <string name="toast_unsaved_changes">Usted tiene cambios sin guardar, por favor subirlos primero.</string>
+  <string name="toast_unsaved_changes">Tiene cambios sin guardar, súbalos primero.</string>
   <string name="toast_upload_success">Finalizada la subida al servidor OSM.</string>
   <string name="toast_not_in_edit_range">Acerque para editar (Botón volumen arriba/abajo o Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Desbloquee para editar</string>
@@ -142,7 +142,9 @@
   <string name="toast_imported_track_points">Importados %1$s puntos de traza.</string>
   <string name="toast_inconsistent_state">¡Detectado un estado inconsistente, envíe el informe de error!</string>
   <string name="toast_camera_error">Error al iniciar la aplicación de la cámara: %1$s</string>
-  <string name="toast_storage_error">La carpeta para teselas y otros archivos no se puede escribir por Vespucci.\nEsto puede ser un problema de permisos o un problema técnico con su dispositivo.</string>
+  <string name="toast_no_voice">Sin reconocimiento de voz en la instancia actual</string>
+  <string name="toast_storage_error">La carpeta para teselas y otros archivos no es escribible por Vespucci.\nEsto puede ser un problema de permisos o un problema técnico con su dispositivo.</string>
+  <string name="toast_min_one_preset">¡Al menos un predeterminado tiene que ser seleccionado!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -247,9 +249,11 @@
   <string name="menu_transfer_download_other">Descargar otra ubicación</string>
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
+  <string name="menu_transfer_file">Archivo...</string>
   <string name="menu_transfer_export">Exportar cambios</string>
   <string name="menu_transfer_read_file">Leer desde archivo</string>
   <string name="menu_transfer_save_file">Guardar archivo</string>
+  <string name="menu_transfer_bugs">Notas/Errores...</string>
   <string name="menu_transfer_bugs_download_current">Descargar errores para la vista actual</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
   <string name="menu_transfer_bugs_clear">Limpiar</string>
@@ -267,6 +271,7 @@
   <string name="menu_newnode_gps">Nuevo nodo en pos. GPS.</string>
   <string name="menu_extend_selection">Ampliar selección</string>
   <string name="menu_information">Información</string>
+  <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_tools">Herramientas</string>
   <string name="menu_tools_flush_background_tile_cache">Liberar caché de teselas de fondo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Liberar caché de teselas superpuestas</string>
@@ -307,6 +312,8 @@
   <string name="config_showCameraAction_summary">Muestra el icono de la cámara en la barra de acciones</string>
   <string name="config_generateAlerts_title">Generar notificaciones</string>
   <string name="config_generateAlerts_summary">Genera notificaciones para los datos con problemas o notas</string>
+  <string name="config_maxAlertDistance_title">Distancia máxima para notificaciones</string>
+  <string name="config_maxAlertDistance_summary">La distancia máxima a un problema o nota que puede ser desde la posición actual a generar la notificación</string>
   <string name="config_maxStrokeWidth_title">Anchura máxima de linea</string>
   <string name="config_maxStrokeWidth_summary">Dibuja una vía no más ancha que esto</string>
   <string name="config_tileCacheSize_title">Tamaño de la caché de teselas</string>
@@ -317,6 +324,7 @@
   <string name="config_showTolerance_summary">Muestra el área donde un elemento puede ser seleccionado.</string>
   <string name="config_enableAntiAliasing_title">Habilitar antialias</string>
   <string name="config_enableAntiAliasing_summary">Hace las líneas más suaves.</string>
+  <string name="config_enableOpenStreetBugs_title">Habilitar mostrar Errores y Notas</string>
   <string name="config_enableOpenStreetBugs_summary">Muestra, edita y crea notas y/o errores.</string>
   <string name="config_enablePhotoLayer_title">Activar capa de fotos</string>
   <string name="config_enablePhotoLayer_summary">Muestra fotos georreferenciadas.</string>
@@ -328,6 +336,7 @@
   <string name="config_backgroundLayer_summary">Mapa de fondo renderizado gráficamente.</string>
   <string name="config_overlayLayer_title">Superposición de mapa</string>
   <string name="config_overlayLayer_summary">Mapa superpuesto renderizado gráficamente.</string>
+  <string name="config_scale_title">Mostrar escala</string>
   <string name="config_scale_summary">Tipo de escala mostrada en el mapa.</string>
   <string name="config_category_server">Ajustes del servidor</string>
   <string name="config_apibutton_title">URL OSM API</string>
@@ -366,11 +375,11 @@
   <string name="config_extTriggeredDownloadRadius_title">Radio de descarga</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radio (m) para las descargas disparadas externamente. 0 = sólo centro del mapa.</string>
   <string name="config_maxDownloadSpeed_title">Máxima velocidad de descarga automática</string>
-  <string name="config_maxDownloadSpeed_summary">Límite (en km/h) por encima del cual se suspende la descarga automática</string>
+  <string name="config_maxDownloadSpeed_summary">Límite (en km/h) a partir del cual se suspende la descarga automática</string>
   <string name="config_bugDownloadRadius_title">Radio de descarga de Notas/Errores</string>
   <string name="config_bugDownloadRadius_summary">Radio (m) de descargas de notas/errores</string>
   <string name="config_maxBugDownloadSpeed_title">Máxima velocidad de descarga automática de notas/errores</string>
-  <string name="config_maxBugDownloadSpeed_summary">Límite (en km/h) por encima del cual se suspende la descarga automática de notas/errores</string>
+  <string name="config_maxBugDownloadSpeed_summary">Límite (en km/h) a partir del cual se suspende la descarga automática de notas/errores</string>
   <string name="config_bugFilter_title">Filtro para Notas/Errores</string>
   <string name="config_bugFilter_summary">Seleccione qué elementos se mostrarán en la capa de notas/errores</string>
   <string name="config_enableNameSuggestions_title">Activar sugerencias de nombres</string>
