@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \n本地版本为 %2$s \n而服务器上的版本为 %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \n本地版本为 %2$s \n而在服务器上已被删除</string>
   <string name="upload_conflict_message_referential">%1$s \n在本地已被上传 \n但在服务器上被引用</string>
-  <string name="use_local_version">使用本地版本</string>
-  <string name="use_server_version">使用服务器上的版本</string>
   <string name="no_login_data_title">身份验证失败</string>
   <string name="no_login_data_message">如果您正在使用OAuth 这可能是一个错误，请发送错误问题报告，如果您正在使用登入和密码(不推荐)，请检查它们是否输入正确。</string>
   <string name="no_connection_title">没有连接到服务器</string>

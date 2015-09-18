@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_referential">%1$s
  було вилучено локально
  але має посилання на сервері</string>
-  <string name="use_local_version">Використовувати локальну версію</string>
-  <string name="use_server_version">Використовувати версію на сервері</string>
   <string name="no_login_data_title">Помилка автентифікації</string>
   <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка відправте звіт.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="no_connection_title">Немає з’єднання з сервером</string>

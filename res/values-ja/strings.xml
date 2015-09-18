@@ -18,8 +18,6 @@
   <string name="upload_conflict_message_referential">%1$s
 についてローカルでは削除されていますが
 サーバー上にはまだ存在しています。 </string>
-  <string name="use_local_version">ローカルにあるバージョンを使用する</string>
-  <string name="use_server_version">サーバー上にあるバージョンを使用する</string>
   <string name="no_login_data_title">認証失敗</string>
   <string name="no_login_data_message">OAuthを利用している場合、これはバグです。発生した事象のレポートを送ってください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="no_connection_title">サーバに接続していません</string>

@@ -12,8 +12,8 @@
   <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$s \nund auf dem Server %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$s \nund ist auf dem Server gelöscht</string>
   <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server </string>
-  <string name="use_local_version">Lokale Version verwenden</string>
-  <string name="use_server_version">Version auf dem Server verwenden</string>
+  <string name="use_local_version">Lokale \nVersion \nverwenden</string>
+  <string name="use_server_version">Version auf \ndem Server \nverwenden</string>
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
@@ -140,6 +140,7 @@
   <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
   <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
+  <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstüzt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
@@ -311,6 +312,8 @@
   <string name="config_showCameraAction_summary">Kamera Icon in Menuleiste anzeigen</string>
   <string name="config_generateAlerts_title">Alarme generieren</string>
   <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
+  <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
+  <string name="config_voiceCommandsEnabled_summary">Experimentelle Sprachunterstützung einschalten</string>
   <string name="config_maxAlertDistance_title">Max. Distanz für Alarme</string>
   <string name="config_maxAlertDistance_summary">Max. Distanz zu einem Fehler oder Notiz bei dem noch ein Alarm generiert wird</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
@@ -391,6 +394,8 @@
   <string name="config_gps_source_summary">Quelle für GPS-Daten </string>
   <string name="config_gps_source_tcp_title">NMEA Netzwerkquelle</string>
   <string name="config_gps_source_tcp_summary">Adresse der TCP NMEA-Quelle als host:port</string>
+  <string name="config_leaveGpsDisabled_title">GPS abgeschaltet lassen</string>
+  <string name="config_leaveGpsDisabled_summary">Nicht nachfragen wenn GPS ausgeschaltet ist</string>
   <string name="config_enableLightTheme_title">Helles Thema verwenden</string>
   <string name="config_enableLightTheme_summary">Helles Thema mit weissen Hintergrund</string>
   <string name="config_category_misc">Verschiedenes</string>

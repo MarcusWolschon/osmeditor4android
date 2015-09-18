@@ -8,8 +8,6 @@
   <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
   <string name="upload_problem_title">Problema com o Upload</string>
   <string name="upload_conflict_title">Conflito no upload</string>
-  <string name="use_local_version">Usar versão local</string>
-  <string name="use_server_version">Usar versão no servidor</string>
   <string name="no_login_data_title">Falha de autenticação</string>
   <string name="no_connection_title">Sem conexão ao servidor</string>
   <string name="no_connection_message">Não foi possível conectar ao servidor OSM. Por favor verifique sua conexão de internet ou tente novamente mais tarde.</string>

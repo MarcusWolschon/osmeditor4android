@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \nha la versione locale %2$s \nmentre sul server è %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$s \nmentre sul server risulta eliminata</string>
   <string name="upload_conflict_message_referential">%1$s \nè stata eliminata localamente \nmentre sul server ha dei riferimenti</string>
-  <string name="use_local_version">Usa la versione locale</string>
-  <string name="use_server_version">Usa la versione sul server</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>

@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s\n yerel versiyon %2$s \nsunucudaki %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nyerel versiyon %2$s \nve sunucudan silinen.</string>
   <string name="upload_conflict_message_referential">%1$s \nyerelden silindi \nfakat sunucuda referansı var</string>
-  <string name="use_local_version">Yerel versiyonu kullan</string>
-  <string name="use_server_version">Sunucudaki versiyonu kullan</string>
   <string name="no_login_data_title">Doğrulama başarısız</string>
   <string name="no_login_data_message">Eğer OAuth kullanıyorsan bu bir böcek olabilir, lütfen bir hata bildiriminde bulunun. Fakat giriş ve parola kullanıyorsanız (tavsiye edilmez) lütfen doğru girdiğinizden emin olun.</string>
   <string name="no_connection_title">Sunucu Bağlantısı Yok</string>

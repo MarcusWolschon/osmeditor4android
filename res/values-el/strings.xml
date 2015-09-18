@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \nπροκειμένου να ενταχθούν στη τοπική έκδοση %2$s \nστο διακομιστή %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nπροκειμένου να ενταχθούν στη τοπική έκδοση%2$s \nκαι διαγράφτηκε στο διακομιστή</string>
   <string name="upload_conflict_message_referential">%1$s \nwas διεγράφη τοπικά\nbut έχει αναφορές στο διακομιστή</string>
-  <string name="use_local_version">Χρήση της τοπικής έκδοσης</string>
-  <string name="use_server_version">Χρήση έκδοση για το διακομιστή</string>
   <string name="no_login_data_title">Πιστοποίηση απέτυχε</string>
   <string name="no_login_data_message">Εάν χρησιμοποιείτετο το OAuth αυτό είναι πιθανό ένα bug, παρακαλούμε να στείλετε μια αναφορά προβλήματος, εάν χρησιμοποιείτε το όνομα χρήστη και τον κωδικό πρόσβασης (δεν συνιστάται) ελέγξτε ότι έχετε πληκτρολογήσει σωστά.</string>
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>

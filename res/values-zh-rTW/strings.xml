@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$s \n和在伺服器上的 %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \n持有的本機版本 %2$s \n且在伺服器上已被刪除</string>
   <string name="upload_conflict_message_referential">%1$s \n本機的已被刪除，\n但是在伺服器上可取得參考</string>
-  <string name="use_local_version">使用本機版本</string>
-  <string name="use_server_version">使用伺服器上的版本</string>
   <string name="no_login_data_title">驗證失敗</string>
   <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一個錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
   <string name="no_connection_title">未連接到伺服器</string>

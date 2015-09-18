@@ -9,8 +9,6 @@
   <string name="upload_problem_title">Problemi sa slanjem</string>
   <string name="upload_problem_message">Svi ili dio podataka nije poslan. Pokušajte poslati kasnije ako je ovo privremeni problem.</string>
   <string name="upload_conflict_title">Konflikt u podacima</string>
-  <string name="use_local_version">Koristi lokalnu verziju</string>
-  <string name="use_server_version">Koristi verziju sa poslužitelja</string>
   <string name="no_login_data_title">Prijava nije uspjela</string>
   <string name="no_connection_title">Poslužitelj nedostupan</string>
   <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>

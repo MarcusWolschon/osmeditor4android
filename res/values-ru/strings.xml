@@ -15,8 +15,7 @@
   <string name="upload_conflict_message_referential">%1$s
 было удалено локально
 но имеет ссылки на сервере</string>
-  <string name="use_local_version">Использовать локальную версию</string>
-  <string name="use_server_version">Использовать версию на сервере</string>
+  <string name="use_local_version">Использовать \nлокальную \nверсию</string>
   <string name="no_login_data_title">Ошибка аутентификации</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это вероятно ошибка, пожалуйста отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
@@ -24,7 +23,9 @@
   <string name="wrong_login_data_title">Ошибка аутентификации</string>
   <string name="wrong_login_data_re_authenticate">Войти заново</string>
   <string name="data_conflict_title">Конфликт версий</string>
+  <string name="data_conflict_message">Данные, которые вы пытаетесь загрузить, содержат конфликты с вашими правками. Попробуйте загрузить ваши правки на сервер, а затем повторите попытку.</string>
   <string name="api_offline_title">API в оффлайне</string>
+  <string name="api_offline_message">Нет связи с API, передача данных невозможна.</string>
   <string name="out_of_memory_title">Недостаточно памяти</string>
   <string name="out_of_memory_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста начните снова и загрузите меньшую область</string>
   <string name="out_of_memory_dirty_message">Vespucci не хватило памяти для загрузки запрашиваемых данных. Пожалуйста попробуйте сохранить ваши правки, перезапустите программу и попробуйте загрузить меньшую область</string>
@@ -84,8 +85,10 @@
   <string name="length_m">Длина (м)</string>
   <string name="not_downloaded">Не скачано</string>
   <string name="empty_role">пустая роль</string>
+  <string name="error">ошибка</string>
   <!--Toaster-->
   <string name="toast_no_changes">Вы ничего не изменили…</string>
+  <string name="toast_unsaved_changes">У вас есть несохраненные изменения, пожалуйста, сначала загрузите их на сервер.</string>
   <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
   <string name="toast_not_in_edit_range">Пожалуйста, увеличьте масштаб для редактирования  (Громкость +/- или Движок масштаба)</string>
   <string name="toast_unlock_to_edit">Разблокируйте для правки</string>
@@ -216,9 +219,11 @@
   <string name="menu_transfer_download_other">Скачать другое место</string>
   <string name="menu_transfer_upload">Передача данных на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
+  <string name="menu_transfer_file">Файл...</string>
   <string name="menu_transfer_export">Экспорт изменений</string>
   <string name="menu_transfer_read_file">Прочитать из файла</string>
   <string name="menu_transfer_save_file">Сохранить в файл</string>
+  <string name="menu_transfer_bugs_clear">Очистить</string>
   <string name="menu_save">Сохранить в файл</string>
   <string name="menu_join">Объединить</string>
   <string name="menu_unjoin">Разъединить</string>

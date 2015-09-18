@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \ner með útgáfu %2$s \nog á þjóninum er %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nhefur útgáfu %2$s \nog var eytt á þjóninum</string>
   <string name="upload_conflict_message_referential">%1$s \nvar eytt á tæki \nen er með tilvísanir á þjóninum</string>
-  <string name="use_local_version">Nota útgáfu tækis</string>
-  <string name="use_server_version">Nota útgáfu á þjóni</string>
   <string name="no_login_data_title">Auðkenning mistókst</string>
   <string name="no_login_data_message">Ef þú ert að auðkenna þig með OAuth þá er þetta líklega villa, vinsamlegast sendu villuskýrslu, ef þú ert að nota notandanafn og lykilorð (ekki mælt með því) athugaðu þá að þau séu rétt skrifuð.</string>
   <string name="no_connection_title">Engin tenging við netþjón</string>
