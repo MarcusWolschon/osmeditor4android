@@ -119,7 +119,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
     	
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
      	LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
-        if (presets == null || presets.length == 0) {
+        if (presets == null || presets.length == 0 || presets[0] == null) {
         	TextView warning = new TextView(getActivity());
         	warning.setText(R.string.no_valid_preset);
         	presetLayout.addView(warning);
