@@ -115,6 +115,17 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 //    	}
         element = (OsmElement) getArguments().getSerializable("element");
         Preset[] presets = Application.getCurrentPresets(getActivity());
+        Log.d(DEBUG_TAG,"presets size " + (presets==null ? " is null": presets.length));
+    	
+        LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
+     	LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
+        if (presets == null || presets.length == 0) {
+        	TextView warning = new TextView(getActivity());
+        	warning.setText(R.string.no_valid_preset);
+        	presetLayout.addView(warning);
+        	return presetPaneLayout;
+        }
+     	
         rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
 		if (presets.length > 1) {
 			// a bit of a hack ... this adds the elements from other presets to the root group of the first one
@@ -131,9 +142,6 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		}	
 		currentGroup = rootGroup;
 		
-		//      	this.inflater = inflater;
-     	LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
-     	LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
      	presetLayout.addView(getPresetView());
 		
      	EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
