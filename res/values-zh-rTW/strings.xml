@@ -12,6 +12,8 @@
   <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$s \n和在伺服器上的 %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \n持有的本機版本 %2$s \n且在伺服器上已被刪除</string>
   <string name="upload_conflict_message_referential">%1$s \n本機的已被刪除，\n但是在伺服器上可取得參考</string>
+  <string name="use_local_version">本機 \n使用 \n版本</string>
+  <string name="use_server_version"> 在伺服器 \n使用 \n版本</string>
   <string name="no_login_data_title">驗證失敗</string>
   <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一個錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
   <string name="no_connection_title">未連接到伺服器</string>
@@ -100,6 +102,7 @@
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
   <string name="minor_issue">次要問題</string>
+  <string name="unknown_error_level">未知的錯誤級別</string>
   <!--Toaster-->
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_upload_success">上傳到 OSM 的伺服器完成了。</string>
@@ -306,6 +309,9 @@
   <string name="config_showCameraAction_summary">在動作列上顯示相機圖示</string>
   <string name="config_generateAlerts_title">發生通知</string>
   <string name="config_generateAlerts_summary">有問題的資料或節點發生通知</string>
+  <string name="config_voiceCommandsEnabled_title">啟用聲控指令</string>
+  <string name="config_voiceCommandsEnabled_summary">啟用實驗性的聲控指令支援</string>
+  <string name="config_maxAlertDistance_title">最大距離的通知</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的路徑</string>
   <string name="config_tileCacheSize_title">圖磚快取大小</string>
@@ -369,6 +375,7 @@
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
   <string name="config_maxDownloadSpeed_title">最高自動下載速度</string>
   <string name="config_bugDownloadRadius_title">註解/錯誤的下載半徑</string>
+  <string name="config_bugDownloadRadius_summary">註解/錯誤下載的半徑(m)</string>
   <string name="config_maxBugDownloadSpeed_title">註解/錯誤的最高自動下載速度</string>
   <string name="config_bugFilter_title">過濾註解/錯誤</string>
   <string name="config_bugFilter_summary">選擇哪些元件能顯示在註解/錯誤層</string>
@@ -382,6 +389,8 @@
   <string name="config_gps_source_summary">GPS 位置的更新來源</string>
   <string name="config_gps_source_tcp_title">NMEA 網路來源</string>
   <string name="config_gps_source_tcp_summary">TCP NMEA 的地址來源為主機：埠</string>
+  <string name="config_leaveGpsDisabled_title">離開 GPS 停用</string>
+  <string name="config_leaveGpsDisabled_summary">如果 GPS 被停用，不再問使用者是否開啟 </string>
   <string name="config_enableLightTheme_title">啟用明亮主題</string>
   <string name="config_enableLightTheme_summary">明亮主題與白色背景</string>
   <string name="config_category_misc">雜項</string>

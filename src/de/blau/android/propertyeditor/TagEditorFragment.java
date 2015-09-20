@@ -884,7 +884,7 @@ public class TagEditorFragment extends SherlockFragment {
 		if (prefs.enableAutoPreset()) {
 			PresetItem p = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,getKeyValueMapSingle(false)); // FIXME
 			if (p!=null) {
-				applyPreset(p, false); 
+				applyPreset(p, false, false); 
 			}
 		}
 	}
@@ -1047,14 +1047,15 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @param item the preset to apply
 	 */
 	void applyPreset(PresetItem item) {
-		applyPreset(item, true);
+		applyPreset(item, false, true);
 	}
 	
 	/**
 	 * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag set
 	 * @param item the preset to apply
+	 * @param addOptional TODO
 	 */
-	private void applyPreset(PresetItem item, boolean addToMRU) {
+	private void applyPreset(PresetItem item, boolean addOptional, boolean addToMRU) {
 		autocompletePresetItem = item;
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		
@@ -1072,6 +1073,15 @@ public class TagEditorFragment extends SherlockFragment {
 		for (Entry<String, String[]> tag : item.getRecommendedTags().entrySet()) {
 			if (!currentValues.containsKey(tag.getKey())) {
 				currentValues.put(tag.getKey(), Util.getArrayList(""));
+			}
+		}
+		
+		// Optional tags, no fixed value is given. We add only those that do not already exist.
+		if (addOptional) {
+			for (Entry<String, String[]> tag : item.getOptionalTags().entrySet()) {
+				if (!currentValues.containsKey(tag.getKey())) {
+					currentValues.put(tag.getKey(), Util.getArrayList(""));
+				}
 			}
 		}
 		
@@ -1203,7 +1213,7 @@ public class TagEditorFragment extends SherlockFragment {
 		case R.id.tag_menu_apply_preset:
 			PresetItem pi = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,getKeyValueMapSingle(false)); // FIXME
 			if (pi!=null) {
-				applyPreset(pi, false); 
+				applyPreset(pi, true, false); 
 			}
 			return true;
 		case R.id.tag_menu_paste:

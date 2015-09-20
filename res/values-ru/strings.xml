@@ -12,15 +12,18 @@
   <string name="upload_conflict_message_version">%1$s
 имеет локальную версию %2$s
 и версию на сервере %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s \nимеет локальную версию %2$s \nно на сервере отсутствует</string>
   <string name="upload_conflict_message_referential">%1$s
 было удалено локально
 но имеет ссылки на сервере</string>
   <string name="use_local_version">Использовать \nлокальную \nверсию</string>
+  <string name="use_server_version">Использовать \nсерверную \nверсию</string>
   <string name="no_login_data_title">Ошибка аутентификации</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это вероятно ошибка, пожалуйста отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
   <string name="no_connection_message">Невозможно соединиться с сервером OSM. Проверьте ваше подключение к интернету и попробуйте еще раз.</string>
   <string name="wrong_login_data_title">Ошибка аутентификации</string>
+  <string name="wrong_login_data_message">Если вы используете OAuth, авторизуйтесь с его помощью заново, а затем повторите попытку. Если вы используете логин и пароль (не рекомендуется), пожалуйста, проверьте их корректность.</string>
   <string name="wrong_login_data_re_authenticate">Войти заново</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="data_conflict_message">Данные, которые вы пытаетесь загрузить, содержат конфликты с вашими правками. Попробуйте загрузить ваши правки на сервер, а затем повторите попытку.</string>
@@ -34,8 +37,10 @@
   <string name="file_write_failed_title">Сбой записи в файл</string>
   <string name="file_write_failed_message">Не удалось записать в выбранный файл.</string>
   <string name="welcome_title">Добро пожаловать!</string>
+  <string name="welcome_message">Спасибо, что используете Vespucci.\n\nЧтобы начать, достаточно знать следующее:\n\n* Нажатие на значке замка в левом верхнем углу переключает между режимами редактирования (открыт) и блокировки правок.\n\n* Чтобы добавить новый объект: длинное нажатие, а затем короткое в этом же месте создаст точку; последующее нажатие в другом месте создаёт линию.\n\nНе забудьте скачать область, которую собираетесь редактировать.\n\nУспехов!</string>
   <string name="read_introduction">Читать введение сейчас</string>
   <string name="upgrade_title">Добро пожаловать в новую версию Vespucci!</string>
+  <string name="upgrade_message">Это новая версия Vespucci с новыми функциями и поведением. Ознакомьтесь, пожалуйста, с информацией об обновлении.</string>
   <string name="read_upgrade">Прочитать о новой версии</string>
   <string name="progress_title">Скачивание</string>
   <string name="progress_message">Загрузка данных в память…</string>
