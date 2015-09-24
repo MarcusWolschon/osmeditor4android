@@ -12,6 +12,8 @@
   <string name="upload_conflict_message_version">%1$s \ntiene la versión local %2$s \ny en el servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \ntiene la versión local %2$s \ny fue eliminado en el servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfue eliminado localmente \npero tiene referencias en el servidor</string>
+  <string name="use_local_version">Usar \nversión \nlocal</string>
+  <string name="use_server_version">Usar \versión \nen el servidor</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
   <string name="no_login_data_message">Si está usando OAuth, esto es posiblemente un error, envíe un informe del problema. Si está usando usuario y contraseña (no recomendado), compruebe que se hayan introducido correctamente.</string>
   <string name="no_connection_title">Sin conexión con el servidor</string>
@@ -138,6 +140,7 @@
   <string name="toast_outside_of_download">Está editando fuera del área descargada.</string>
   <string name="toast_file_not_found">%1$s no encontrado.</string>
   <string name="toast_imported_track_points">Importados %1$s puntos de traza.</string>
+  <string name="toast_unknown_voice_command">Lo siento, \"%1$s\" actual no se entiende</string>
   <string name="toast_inconsistent_state">¡Detectado un estado inconsistente, envíe el informe de error!</string>
   <string name="toast_camera_error">Error al iniciar la aplicación de la cámara: %1$s</string>
   <string name="toast_no_voice">Sin reconocimiento de voz en la instancia actual</string>
@@ -310,6 +313,8 @@
   <string name="config_showCameraAction_summary">Muestra el icono de la cámara en la barra de acciones</string>
   <string name="config_generateAlerts_title">Generar notificaciones</string>
   <string name="config_generateAlerts_summary">Genera notificaciones para los datos con problemas o notas</string>
+  <string name="config_voiceCommandsEnabled_title">Habilitar comandos de voz</string>
+  <string name="config_voiceCommandsEnabled_summary">Habilitar soporte para comandos de voz expermientales</string>
   <string name="config_maxAlertDistance_title">Distancia máxima para notificaciones</string>
   <string name="config_maxAlertDistance_summary">La distancia máxima a un problema o nota que puede ser desde la posición actual a generar la notificación</string>
   <string name="config_maxStrokeWidth_title">Anchura máxima de linea</string>
@@ -390,6 +395,8 @@
   <string name="config_gps_source_summary">Fuente de actualizaciones de la ubicación GPS</string>
   <string name="config_gps_source_tcp_title">Fuente de la red NMEA</string>
   <string name="config_gps_source_tcp_summary">Dirección TCP de la fuente NMEA como host:puerto</string>
+  <string name="config_leaveGpsDisabled_title">Dejar GPS deshabilitado</string>
+  <string name="config_leaveGpsDisabled_summary">No preguntar al usuario para encender el GPS si está deshabilitado</string>
   <string name="config_enableLightTheme_title">Habilitar el tema claro</string>
   <string name="config_enableLightTheme_summary">Tema claro con fondo blanco</string>
   <string name="config_category_misc">Misceláneo</string>
