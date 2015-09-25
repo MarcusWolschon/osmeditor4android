@@ -2,6 +2,8 @@ package de.blau.android.util;
 
 import java.util.ArrayList;
 
+import org.acra.ACRA;
+
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -89,15 +91,24 @@ public class IssueAlert {
 			ticker = ticker + " " + message;
 		}
 		message = message + e.describeProblem();
-		NotificationCompat.Builder mBuilder =
-		        new NotificationCompat.Builder(context)
-		        .setSmallIcon(R.drawable.osm_logo)
-		        .setContentTitle(title)
-		        .setContentText(message)
-		        .setPriority(NotificationCompat.PRIORITY_HIGH)
-		        .setTicker(ticker)
-		        .setAutoCancel(true)
-		        .setGroup(GROUP_DATA);
+		NotificationCompat.Builder mBuilder;
+		try {
+			mBuilder =
+			    new NotificationCompat.Builder(context)
+			    .setSmallIcon(R.drawable.osm_logo)
+			    .setContentTitle(title)
+			    .setContentText(message)
+			    .setPriority(NotificationCompat.PRIORITY_HIGH)
+			    .setTicker(ticker)
+			    .setAutoCancel(true)
+			    .setGroup(GROUP_DATA);
+		} catch (RuntimeException re) {
+			// NotificationCompat.Builder seems to be flaky instead of crashing we produce a 
+			// crash dump and return
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(re);
+			return;
+		}
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
@@ -175,15 +186,24 @@ public class IssueAlert {
 			ticker = ticker + " " + message;
 		}
 		message = message + b.getDescription();
-		NotificationCompat.Builder mBuilder =
-		        new NotificationCompat.Builder(context)
-		       	.setSmallIcon(R.drawable.osm_logo)
-		       	.setContentTitle(title)
-		        .setContentText(message)
-		        .setPriority(NotificationCompat.PRIORITY_HIGH)
-		        .setTicker(ticker)
-		        .setAutoCancel(true)
-		        .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
+		NotificationCompat.Builder mBuilder;
+		try {
+			mBuilder =
+				new NotificationCompat.Builder(context)
+			    .setSmallIcon(R.drawable.osm_logo)
+			    .setContentTitle(title)
+			    .setContentText(message)
+			    .setPriority(NotificationCompat.PRIORITY_HIGH)
+			    .setTicker(ticker)
+			    .setAutoCancel(true)
+			    .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
+		} catch (RuntimeException re) {
+			// NotificationCompat.Builder seems to be flaky instead of crashing we produce a 
+			// crash dump and return
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(re);
+			return;
+		}
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
