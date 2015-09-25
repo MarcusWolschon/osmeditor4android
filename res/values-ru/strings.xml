@@ -182,6 +182,7 @@
   <string name="tag_menu_reset_address_prediction">Сбросить предсказание адресов</string>
   <string name="tag_menu_exit_no_save">Выйти
 без сохранения</string>
+  <string name="tag_multi_value_hint">Несколько значений</string>
   <string name="tag_action_title">Выбраны теги</string>
   <string name="menu_up">Вверх</string>
   <string name="menu_preset_help">Справка по заготовке</string>
@@ -389,11 +390,14 @@
   <string name="config_enableAutoPreset_title">Включить автонастройку</string>
   <string name="config_gps_source_title">Источник GPS</string>
   <string name="config_gps_source_summary">Источник обновления GPS-координат</string>
+  <string name="config_gps_source_tcp_title">Сетевой источник NMEA</string>
+  <string name="config_gps_source_tcp_summary">Адрес источника TCP NMEA в виде хост:порт</string>
   <string name="config_leaveGpsDisabled_title">Не использовать GPS</string>
   <string name="config_leaveGpsDisabled_summary">Не предлагать включить GPS, если пользователь запретил его использование</string>
   <string name="config_enableLightTheme_title">Включить светлую тему</string>
   <string name="config_enableLightTheme_summary">Светлая тема с белым фоном</string>
   <string name="config_category_misc">Разное</string>
+  <string name="config_address_tags">Теги адреса</string>
   <string name="config_moreprefs">Другие настройки...</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
@@ -475,6 +479,7 @@
   <string name="alert_data_issue">Обнаружена проблема в данных OSM</string>
   <string name="alert_note">Поблизости обнаружена заметка OSM</string>
   <string name="alert_bug">Поблизости найдена ошибка в данных OSM</string>
+  <string name="alert_distance_direction">в %1$d м %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>
@@ -497,4 +502,19 @@
   <!--Help system-->
   <string name="toast_nohelp">Справка недоступна!</string>
   <!--Arrays-->
+  <string-array name="gps_source">
+    <item>Внутренний</item>
+    <item>Внутренний NMEA</item>
+    <item>NMEA от TCP клиента</item>
+    <item>NMEA от TCP сервера</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Открытая</item>
+    <item>Закрытая</item>
+    <item>Ложно положительная</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Открытая</item>
+    <item>Закрытая</item>
+  </string-array>
 </resources>

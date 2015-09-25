@@ -75,6 +75,7 @@ import de.blau.android.resources.Profile;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.views.WrappingLayout;
 
 /**
@@ -117,7 +118,7 @@ public class Preset implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -147,21 +148,17 @@ public class Preset implements Serializable {
 	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
 
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
-	protected final MultiHashMap<String, String> autosuggestNodes = new MultiHashMap<String, String>(true);
+	protected final MultiHashMap<String, StringWithDescription> autosuggestNodes = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to ways) */
-	protected final MultiHashMap<String, String> autosuggestWays = new MultiHashMap<String, String>(true);
+	protected final MultiHashMap<String, StringWithDescription> autosuggestWays = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-	protected final MultiHashMap<String, String> autosuggestClosedways = new MultiHashMap<String, String>(true);
+	protected final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
-	protected final MultiHashMap<String, String> autosuggestRelations = new MultiHashMap<String, String>(true);
+	protected final MultiHashMap<String, StringWithDescription> autosuggestRelations = new MultiHashMap<String, StringWithDescription>(true);
 	
 	/** for search support */
 	protected final MultiHashMap<String, PresetItem> searchIndex = new MultiHashMap<String, PresetItem>();
-	
-	/** store current combo or multiselect key */
-	private String listKey = null;
-	private ArrayList<String> listValues = null;
-	
+		
 	protected Po po = null;
 	
 	/**
@@ -311,7 +308,10 @@ public class Preset implements Serializable {
         	private boolean inOptionalSection = false;
         	/** hold reference to chunks */
         	private HashMap<String,PresetItem> chunks = new HashMap<String,PresetItem>();
-
+        	/** store current combo or multiselect key */
+        	private String listKey = null;
+        	private ArrayList<StringWithDescription> listValues = null;
+        	
         	{
         		groupstack.push(rootGroup);
         	}
@@ -346,7 +346,7 @@ public class Preset implements Serializable {
             		inOptionalSection = true;
             	} else if ("key".equals(name)) {
             		if (!inOptionalSection) {
-            			currentItem.addTag(attr.getValue("key"), attr.getValue("value"));
+            			currentItem.addTag(attr.getValue("key"), attr.getValue("value"), attr.getValue("text"));
             		} else {
             			// Optional fixed tags should not happen, their values will NOT be automatically inserted.
             			currentItem.addTag(true, attr.getValue("key"), attr.getValue("value"));
@@ -385,7 +385,7 @@ public class Preset implements Serializable {
             			currentItem.addTag(inOptionalSection, attr.getValue("key"), comboValues, delimiter);
             		} else {
             			listKey = attr.getValue("key");
-            			listValues = new ArrayList<String>();
+            			listValues = new ArrayList<StringWithDescription>();
             		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
@@ -401,7 +401,7 @@ public class Preset implements Serializable {
             			currentItem.addTag(inOptionalSection, attr.getValue("key"), multiselectValues, delimiter); 
             		} else {
             			listKey = attr.getValue("key");
-            			listValues = new ArrayList<String>();
+            			listValues = new ArrayList<StringWithDescription>();
             		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
@@ -421,19 +421,12 @@ public class Preset implements Serializable {
             			currentItem.linkedPresetNames.addAll(chunk.linkedPresetNames);
             		}
             	} else if ("list_entry".equals(name)) {
-            		// for now just get the actual value
             		if (listValues != null) {
-            			listValues.add(attr.getValue("value"));
-            		}
-            	} else if ("preset_link".equals(name)) {
-            		String presetName = attr.getValue("preset_name");
-            		if (presetName != null) {
-            			currentItem.addLinkedPresetName(presetName);
-            		}
-            	} else if ("list_entry".equals(name)) {
-            		// for now just get the actual value
-            		if (listValues != null) {
-            			listValues.add(attr.getValue("value"));
+            			String v = attr.getValue("value");
+            			if (v != null) {
+            				String d = attr.getValue("short_description");
+            				listValues.add(new StringWithDescription(v,po != null ? po.t(d):d));
+            			}
             		}
             	} else if ("preset_link".equals(name)) {
             		String presetName = attr.getValue("preset_name");
@@ -462,7 +455,7 @@ public class Preset implements Serializable {
             		listValues = null;
             	} else if ("combo".equals(name) || "multiselect".equals(name)) {
             		if (listKey != null && listValues != null) {
-            			String[] v = new String[listValues.size()];
+            			StringWithDescription[] v = new StringWithDescription[listValues.size()];
             			currentItem.addTag(inOptionalSection, listKey, listValues.toArray(v));
             		}
             		listKey = null;
@@ -1013,15 +1006,15 @@ public class Preset implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
-		private LinkedHashMap<String, String> tags = new LinkedHashMap<String, String>();
+		private LinkedHashMap<String, StringWithDescription> tags = new LinkedHashMap<String, StringWithDescription>();
 		
 		/** Tags that are not in the optional section, but do not have a fixed key-value-pair.
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
-		private LinkedHashMap<String, String[]> recommendedTags = new LinkedHashMap<String, String[]>();
+		private LinkedHashMap<String, StringWithDescription[]> recommendedTags = new LinkedHashMap<String, StringWithDescription[]>();
 		
 		/** Tags that are in the optional section.
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
-		private LinkedHashMap<String, String[]> optionalTags = new LinkedHashMap<String, String[]>();
+		private LinkedHashMap<String, StringWithDescription[]> optionalTags = new LinkedHashMap<String, StringWithDescription[]>();
 		
 		/**
 		 * Hints to be displayed in a suitable form
@@ -1079,36 +1072,38 @@ public class Preset implements Serializable {
 			}
 			for (String k:tags.keySet()) {
 				addToSearchIndex(k);
-				addToSearchIndex(tags.get(k));
+				addToSearchIndex(tags.get(k).getValue());
+				addToSearchIndex(tags.get(k).getDescription());
 			}
 		}
 		
 		/**
 		 * Add a name, any translation and the individual words to the index.
 		 * Currently we assume that all words are significant
-		 * @param name
+		 * @param term
 		 */
-		void addToSearchIndex(String name) {
+		void addToSearchIndex(String term) {
 			// search support
-			String normalizedName = SearchIndexUtils.normalize(name);
-			searchIndex.add(normalizedName,this);
-			String words[] = normalizedName.split(" ");
-			if (words.length > 1) {
-				for (String w:words) {
-					searchIndex.add(w,this);
-				}
-			}
-			if (po != null) { // and any translation
-				String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(name));
-				searchIndex.add(normalizedTranslatedName,this);
-				String translastedWords[] = normalizedName.split(" ");
-				if (translastedWords.length > 1) {
-					for (String w:translastedWords) {
+			if (term != null) {
+				String normalizedName = SearchIndexUtils.normalize(term);
+				searchIndex.add(normalizedName,this);
+				String words[] = normalizedName.split(" ");
+				if (words.length > 1) {
+					for (String w:words) {
 						searchIndex.add(w,this);
 					}
 				}
+				if (po != null) { // and any translation
+					String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(term));
+					searchIndex.add(normalizedTranslatedName,this);
+					String translastedWords[] = normalizedName.split(" ");
+					if (translastedWords.length > 1) {
+						for (String w:translastedWords) {
+							searchIndex.add(w,this);
+						}
+					}
+				}
 			}
-
 		}
 		
 		/**
@@ -1116,15 +1111,18 @@ public class Preset implements Serializable {
 		 * @param key key name of the tag
 		 * @param value value of the tag
 		 */
-		public void addTag(String key, String value) {
+		public void addTag(String key, String value, String text) {
 			if (key == null) throw new NullPointerException("null key not supported");
 			if (value == null) value = "";
-			tags.put(key, value);
+			if (text != null && po != null) {
+				text = po.t(text);
+			}
+			tags.put(key, new StringWithDescription(value, text));
 			tagItems.add(key+"\t"+value, this);
-			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? value : null);
-			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? value : null);
-			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? value : null);
-			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, value.length() > 0 ? value : null);
+			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
 		}
 		
 		/**
@@ -1139,12 +1137,17 @@ public class Preset implements Serializable {
 		
 		public void addTag(boolean optional, String key, String values, String seperator) {
 			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(seperator));
-			addTag(optional, key, valueArray);
+			StringWithDescription[] valuesWithDesc = new StringWithDescription[valueArray.length];
+			for (int i=0;i<valueArray.length;i++){
+				valuesWithDesc[i] = new StringWithDescription(valueArray[i]);
+			}
+			addTag(optional, key, valuesWithDesc);
 		}
 		
-		public void addTag(boolean optional, String key, String[] valueArray) {
-			for (String v:valueArray) {
-				tagItems.add(key+"\t"+v, this);
+		public void addTag(boolean optional, String key, StringWithDescription[] valueArray) {
+		    int i = 0;
+			for (StringWithDescription v:valueArray) {
+				tagItems.add(key+"\t"+v.getValue(), this);
 			}
 			
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
@@ -1152,9 +1155,9 @@ public class Preset implements Serializable {
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
 			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, valueArray);
 			
-			(optional ? optionalTags : recommendedTags).put(key,  valueArray);
+			(optional ? optionalTags : recommendedTags).put(key, valueArray);
 		}
-
+		
 		public void addRole(String value)
 		{
 			roles.add(value);
@@ -1169,7 +1172,15 @@ public class Preset implements Serializable {
 			hints.put(key, hint);
 		}
 		
+		/**
+		 * Return, potentially translated, "text" field from preset
+		 * @param key
+		 * @return
+		 */
 		public String getHint(String key) {
+			if (po != null) {
+				return po.t(hints.get(key));
+			}
 			return hints.get(key);
 		}
 
@@ -1194,7 +1205,7 @@ public class Preset implements Serializable {
 		/**
 		 * @return the fixed tags belonging to this item (unmodifiable)
 		 */
-		public Map<String,String> getTags() {
+		public Map<String,StringWithDescription> getTags() {
 			return Collections.unmodifiableMap(tags);
 		}
 		
@@ -1202,11 +1213,11 @@ public class Preset implements Serializable {
 			return tags.size();
 		}
 		
-		public Map<String,String[]> getRecommendedTags() {
+		public Map<String,StringWithDescription[]> getRecommendedTags() {
 			return Collections.unmodifiableMap(recommendedTags);
 		}
 
-		public Map<String,String[]> getOptionalTags() {
+		public Map<String,StringWithDescription[]> getOptionalTags() {
 			return Collections.unmodifiableMap(optionalTags);
 		}
 		
@@ -1219,8 +1230,8 @@ public class Preset implements Serializable {
 		 * @param key
 		 * @return
 		 */
-		public Collection<String> getAutocompleteValues(String key) {
-			Collection<String> result = new HashSet<String>();
+		public Collection<StringWithDescription> getAutocompleteValues(String key) {
+			Collection<StringWithDescription> result = new HashSet<StringWithDescription>();
 			if (recommendedTags.containsKey(key)) {
 				result.addAll(Arrays.asList(recommendedTags.get(key)));
 			} else if (optionalTags.containsKey(key)) {
@@ -1236,7 +1247,7 @@ public class Preset implements Serializable {
 		 * @return
 		 */
 		public boolean matches(Map<String,String> tagSet) {
-			for (Entry<String, String> tag : tags.entrySet()) { // for each own tag
+			for (Entry<String, StringWithDescription> tag : tags.entrySet()) { // for each own tag
 				String otherTagValue = tagSet.get(tag.getKey());
 				if (otherTagValue == null || !tag.getValue().equals(otherTagValue)) return false;
 			}
@@ -1250,10 +1261,10 @@ public class Preset implements Serializable {
 		 */
 		public int matchesRecommended(Map<String,String> tagSet) {
 			int matches = 0;
-			for (Entry<String, String[]> tag : recommendedTags.entrySet()) { // for each own tag
+			for (Entry<String, StringWithDescription[]> tag : recommendedTags.entrySet()) { // for each own tag
 				String otherTagValue = tagSet.get(tag.getKey());
 				if (otherTagValue != null) {
-					for (String v:tag.getValue()) {
+					for (StringWithDescription v:tag.getValue()) {
 						if (v.equals(otherTagValue)) {
 							matches++;
 							break;
@@ -1300,15 +1311,15 @@ public class Preset implements Serializable {
 			tagStrings = tagStrings + " recommended: ";
 			for (String k:recommendedTags.keySet()) {
 				tagStrings = tagStrings + " " + k + "="; 
-				for (String v:recommendedTags.get(k)) {
-					tagStrings = tagStrings + " " + v;
+				for (StringWithDescription v:recommendedTags.get(k)) {
+					tagStrings = tagStrings + " " + v.getValue();
 				}
 			}
 			tagStrings = tagStrings + " optional: ";
 			for (String k:optionalTags.keySet()) {
 				tagStrings = tagStrings + " " + k + "=";
-				for (String v:optionalTags.get(k)) {
-					tagStrings = tagStrings + " " + v;
+				for (StringWithDescription v:optionalTags.get(k)) {
+					tagStrings = tagStrings + " " + v.getValue();
 				}
 			}
 			return super.toString() + tagStrings;
@@ -1318,18 +1329,18 @@ public class Preset implements Serializable {
 			String jsonString = "";
 			for (String k:tags.keySet()) {
 				jsonString = jsonString + tagToJSON(k, null);
-				jsonString = jsonString + tagToJSON(k, tags.get(k));
+				jsonString = jsonString + tagToJSON(k, tags.get(k).getValue());
 			}
 			for (String k:recommendedTags.keySet()) {
 				jsonString = jsonString + tagToJSON(k, null);
-				for (String v:recommendedTags.get(k)) {
-					jsonString = jsonString + tagToJSON(k, v);
+				for (StringWithDescription v:recommendedTags.get(k)) {
+					jsonString = jsonString + tagToJSON(k, v.getValue());
 				}
 			}
 			for (String k:optionalTags.keySet()) {
 				jsonString = jsonString + tagToJSON(k, null);
-				for (String v:optionalTags.get(k)) {
-					jsonString = jsonString + tagToJSON(k, v);
+				for (StringWithDescription v:optionalTags.get(k)) {
+					jsonString = jsonString + tagToJSON(k, v.getValue());
 				}
 			}
 			return jsonString;
@@ -1424,8 +1435,8 @@ public class Preset implements Serializable {
 		return result; 
 	}
 	
-	static public Collection<String> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
-		Collection<String> result = new HashSet<String>();
+	static public Collection<StringWithDescription> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
+		Collection<StringWithDescription> result = new HashSet<StringWithDescription>();
 		for (Preset p:presets) {
 			if (p!=null) {
 				switch (type) {

@@ -10,19 +10,19 @@ Vespucci — это полнофункциональный редактор ка
 
 ## Редактирование в Vespucci
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+В зависимости от размера экрана и возраста вашего устройства редактировать можно при помощи значков на верхней панели, ниспадающего меню справа на этой панели, при помощи нижней панели (если есть) или посредством кнопки меню.
 
-### Downloading OSM Data
+### Загрузка OSM-данных
 
-Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transfer" menu item. This will display seven options:
+Выберите значок передачи ![](../images/menu_transfer.png)  или пункт меню "Передача". Будут показаны семь опций:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Export changes** - write a ".osc" format file containing the current edits, this can be read for example by JOSM
-* **Read from file** - read a (J)OSM compatible XML format file
-* **Save to file** - save as a JOSM compatible XML format file
+* **Скачать текущий вид** - скачать область, видимую на экране и заменить любые существующие данные *(требует  интернет-соединения)*
+* **Добавить текущий вид к скачанным** - скачать видимую на экране область и объединить её с уже существующими данными *(требует интернет-соединения)*
+* **Скачать другое место** - показывает форму, в которой можно выполнить поиск места или ввести его координаты напрямую, а затем скачать область в указанном местоположении *(требует интернет-соединения)*
+* **Передача данных на сервер OSM** - загружает ваши \равки на сервер OpenStreetMap *(требует авторизации)* *(требует интернет-соединения)*
+* **Экспорт изменений** - записать файл в формате ".osc", содержащий последние правки. Он, впоследствие, может быть считан JOSM, например
+* **Прочитать из файла** - считать (J)OSM-совместимый XML-файл
+* **Сохранить в файл** - сохранить в виде JOSM-совместимого XML-файла
 
 The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
 

@@ -69,6 +69,7 @@ import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.KeyValue;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.views.OffsettedAutoCompleteTextView;
 
@@ -495,27 +496,28 @@ public class TagEditorFragment extends SherlockFragment {
 					ArrayList<String> keys = new ArrayList<String>(counter.keySet());
 					Collections.sort(keys);
 					for (String t:keys) {
-						ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue());
+						ValueWithCount v = new ValueWithCount(t,counter.get(t).intValue()); // FIXME determine description in some way
 						adapter2.add(v);
 					}
 				}
-				Collection<String> values = null;
+				
 				if (autocompletePresetItem != null) { // note this will use the last applied preset which may be wrong FIXME
-					values = autocompletePresetItem.getAutocompleteValues(key);
-				} 
-				if ((values == null || values.isEmpty()) && ((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
-					Log.d(DEBUG_TAG,"generate suggestions for >" + key + "< from presets"); // only do this if there is no other source of suggestions
-					values = Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key);
-				}
-				if (values != null && !values.isEmpty()) {
-					ArrayList<String> result = new ArrayList<String>(values);
-					Collections.sort(result);
-					for (String s:result) {
-						if (counter != null && counter.containsKey(s)) {
-							continue; // skip stuff that is already listed
+					Collection<StringWithDescription> values = autocompletePresetItem.getAutocompleteValues(key);
+					if (values != null && !values.isEmpty()) {
+						ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(values);
+						Collections.sort(result);
+						for (StringWithDescription s:result) {
+							if (counter != null && counter.containsKey(s.getValue())) {
+								continue; // skip stuff that is already listed
+							}
+							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
 						}
-						adapter2.add(new ValueWithCount(s));
 					}
+				} else if (((PropertyEditor)getActivity()).presets != null && elements[0] != null) { 
+					Log.d(DEBUG_TAG,"generate suggestions for >" + key + "< from presets"); // only do this if there is no other source of suggestions
+					for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key)) {
+						adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
+					}		
 				} else if (adapter2.getCount() == 0) {
 					// FIXME shouldn't happen but seems to
 					Log.d(DEBUG_TAG,"no suggestions for values for >" + key + "<");
@@ -666,6 +668,8 @@ public class TagEditorFragment extends SherlockFragment {
 					applyTagSuggestions(((NameAndTags)o).getTags());
 				} else if (o instanceof ValueWithCount) {
 					row.valueEdit.setText(((ValueWithCount)o).getValue());
+				} else if (o instanceof StringWithDescription) {
+					row.valueEdit.setText(((StringWithDescription)o).getValue());
 				} else if (o instanceof String) {
 					row.valueEdit.setText((String)o);
 				}
@@ -1062,15 +1066,15 @@ public class TagEditorFragment extends SherlockFragment {
 		boolean replacedValue = false;	
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
-		for (Entry<String, String> tag : item.getTags().entrySet()) {
-			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
+		for (Entry<String, StringWithDescription> tag : item.getTags().entrySet()) {
+			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue().getValue()));
 			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) {
 				replacedValue = true;
 			}
 		}
 		
 		// Recommended tags, no fixed value is given. We add only those that do not already exist.
-		for (Entry<String, String[]> tag : item.getRecommendedTags().entrySet()) {
+		for (Entry<String, StringWithDescription[]> tag : item.getRecommendedTags().entrySet()) {
 			if (!currentValues.containsKey(tag.getKey())) {
 				currentValues.put(tag.getKey(), Util.getArrayList(""));
 			}
@@ -1078,7 +1082,7 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		// Optional tags, no fixed value is given. We add only those that do not already exist.
 		if (addOptional) {
-			for (Entry<String, String[]> tag : item.getOptionalTags().entrySet()) {
+			for (Entry<String, StringWithDescription[]> tag : item.getOptionalTags().entrySet()) {
 				if (!currentValues.containsKey(tag.getKey())) {
 					currentValues.put(tag.getKey(), Util.getArrayList(""));
 				}

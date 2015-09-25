@@ -73,6 +73,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -785,8 +786,8 @@ public class EasyEditManager {
 				Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
 				if (node != null) {
 					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
-					for (Entry<String, String> tag : pi.getTags().entrySet()) {
-						tags.put(tag.getKey(), tag.getValue());
+					for (Entry<String, StringWithDescription> tag : pi.getTags().entrySet()) {
+						tags.put(tag.getKey(), tag.getValue().getValue());
 					}
 					if (name != null) {
 						tags.put(Tags.KEY_NAME, name);

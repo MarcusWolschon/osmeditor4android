@@ -1,15 +1,21 @@
 package de.blau.android.presets;
 
 public class ValueWithCount implements Comparable<ValueWithCount> {
-	private String value = null;
+	private final String value;
+	private String description = null;
 	private int count = -1;
 	
 	
-	public ValueWithCount(String value) {
+	public ValueWithCount(final String value) {
 		this.value = value;
 	}
 	
-	public ValueWithCount(String value, int count) {
+	public ValueWithCount(final String value, final String description) {
+		this.value = value;
+		this.description = description;
+	}
+	
+	public ValueWithCount(final String value, final int count) {
 		this.value = value;
 		this.count = count;
 	}
@@ -17,9 +23,9 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 	@Override
 	public String toString() {
 		if (count == -1) {
-			return value;
+			return description != null ? value + " - " + description : value;
 		} else if (count >= 1) {
-			return value + " (" + count + ")";
+			return value + " (" + count + ")" + (description != null ? value + " - " + description : value);
 		}
 		return null;
 	}

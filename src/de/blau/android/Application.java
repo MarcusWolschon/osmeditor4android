@@ -82,6 +82,7 @@ public class Application extends android.app.Application {
 	public static synchronized void resetPresets() {
 		currentPresets = null; 
 		presetSearchIndex = null;
+		System.gc(); // not sure if this actually helps
 	}
 	
 	public static synchronized MultiHashMap<String, PresetItem> getPresetSearchIndex(Context ctx) {

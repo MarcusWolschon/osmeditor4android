@@ -965,7 +965,7 @@ public class Logic {
 	 * @param x display-coord.
 	 * @param y display-coord.
 	 */
-	void handleTouchEventDown(final float x, final float y) {
+	synchronized void handleTouchEventDown(final float x, final float y) {
 		boolean draggingMultiselect = false;
 		if (isInEditZoomRange() && mode == Mode.MODE_EASYEDIT) {
 			draggingNode = false;
@@ -988,8 +988,9 @@ public class Logic {
 								startLon = xToLonE7(x);
 								draggingWay = true;
 							}
-							else
+							else {
 								Toast.makeText(Application.mainActivity, R.string.toast_too_many_nodes_for_move, Toast.LENGTH_LONG).show();
+							}
 						}
 					} else {
 						startX = x;
@@ -2611,7 +2612,7 @@ public class Logic {
 	/**
 	 * Saves to a file (synchronously)
 	 */
-	void save() {
+	synchronized void save() {
 		try {
 			getDelegator().writeToFile(Application.mainActivity);
 			Application.getBugStorage().writeToFile(Application.mainActivity);

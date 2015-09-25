@@ -1528,7 +1528,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					getLogic().updateRelation(editorData.osmId, editorData.members);
 				}
 			}
-			saveData(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
+			getLogic().save(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
 		}
 		if (getLogic().getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
 			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
@@ -1890,7 +1890,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	            		getTracker().stopAutoDownload();
 	            		getTracker().stopBugAutoDownload();
 	            	}
-	                Main.super.onBackPressed();
+	                try {
+						Main.super.onBackPressed();
+					} catch (Exception e) {
+						// silently ignore .. might be Android confusion
+					}
 	            }
         }).create().show();
 	}
