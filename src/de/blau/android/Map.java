@@ -74,6 +74,16 @@ public class Map extends View implements IMapView {
 
 	private static final int HOUSE_NUMBER_RADIUS = 10;
 	
+	/**
+	 * zoom level from which on we display data
+	 */
+	private static final int SHOW_DATA_LIMIT = 12; 
+	
+	/**
+	 * zoom level from which on we display icons and house numbers
+	 */
+	private static final int SHOW_ICONS_LIMIT = 15;
+	
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
 	
@@ -307,7 +317,7 @@ public class Map extends View implements IMapView {
 			}
 		}
 		
-		if (zoomLevel >12) {
+		if (zoomLevel > SHOW_DATA_LIMIT) {
 			paintOsmData(canvas);
 		}
 		getOpenStreetBugsOverlay().onManagedDraw(canvas, this); // draw bugs on top of data
@@ -700,7 +710,7 @@ public class Map extends View implements IMapView {
 				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
-			if (isTagged) {
+			if (isTagged && zoomLevel > SHOW_ICONS_LIMIT) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
 					Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();

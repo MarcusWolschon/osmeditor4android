@@ -428,6 +428,7 @@ public class DialogFactory {
 				Main.getLogic().setZoom(19);
 				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 				searchDialog.dismiss();
+				caller.getMap().invalidate();
 			}
 		};
 		
