@@ -107,6 +107,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	
 	private Preferences prefs = null; 
 	
+	private Location nmeaLocation = new Location("nmea");
+	
 	private Handler mHandler = null;
 	
 	private NmeaTcpClient tcpClient = null;
@@ -544,6 +546,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * @param sentence
 	 */
 	private void processNmeaSentance(String sentence) {
+		boolean posUpdate = false;
 		if (sentence.length() > 9) { // everything shorter is invalid
 			int star = sentence.indexOf('*');
 			if (star > 5) {
@@ -561,6 +564,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 					double lon = Double.NaN;
 					double hdop = Double.NaN;
 					double height = Double.NaN;
+					double course = Double.NaN;
+					double speed = Double.NaN;
 						
 					if (s.equals("GNS")) {
 						String[] values = withoutChecksum.split(",",-12); // java magic
@@ -571,6 +576,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 									lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
 									hdop = Double.parseDouble(values[8]);
 									height = Double.parseDouble(values[9]);
+									posUpdate = true;
 								}
 							} catch (NumberFormatException e) {
 								Log.d("TrackerService","Invalid number format in " + sentence);
@@ -589,6 +595,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 									lon = nmeaLonToDecimal(values[4])*(values[5].toUpperCase(Locale.US).equals("E")?1:-1);
 									hdop = Double.parseDouble(values[8]);
 									height = Double.parseDouble(values[9]);
+									posUpdate = true;
 								}
 							} catch (NumberFormatException e) {
 								Log.d("TrackerService","Invalid number format in " + sentence);
@@ -598,7 +605,25 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
 							return;
 						}
-					} else { //FIXME add support for BEIDOU and GALLILEO 
+					} else if (s.equals("VTG")) {
+						String[] values = withoutChecksum.split(",",-11); // java magic
+						if (values.length==12) {
+							try {
+								if (!values[9].toUpperCase(Locale.US).startsWith("N")) {
+									course = Double.parseDouble(values[1]);
+									nmeaLocation.setBearing((float)course);
+									speed = Double.parseDouble(values[7]);
+									nmeaLocation.setSpeed((float)(speed/3.6D));
+								}
+							} catch (NumberFormatException e) {
+								Log.d("TrackerService","Invalid number format in " + sentence);
+								return;
+							}
+						} else {
+							Log.d("TrackerService","Invalid number " + values.length + " of values " + sentence);
+							return;
+						}
+					} else { 
 						// unsupported sentence
 						return;
 					}
@@ -634,14 +659,29 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							return;
 						}
 					}
-					Location l = new Location("nmea");
-					l.setAltitude(height);
-					l.setLatitude(lat);
-					l.setLongitude(lon);
-					// can't call something on the UI thread directly need to send a message
-					Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, l);
-					// Log.d("TrackerService","Update " + l);
-					newLocation.sendToTarget();
+
+					if (posUpdate) { // we could do filtering etc here
+						nmeaLocation.setAltitude(height);
+						nmeaLocation.setLatitude(lat);
+						nmeaLocation.setLongitude(lon);
+						// can't call something on the UI thread directly need to send a message
+						Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);
+						// Log.d("TrackerService","Update " + l);
+						newLocation.sendToTarget();
+						if (tracking) {
+							track.addTrackPoint(nmeaLocation);
+						}
+						NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+						if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if we have a network
+							if (downloading) {
+								autoDownload(new Location(nmeaLocation));
+							}
+							if (downloadingBugs) {
+								bugAutoDownload(new Location(nmeaLocation));
+							}
+						}
+						lastLocation = nmeaLocation;
+					}
 					return;
 				}
 			}
