@@ -99,7 +99,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	/**
 	 * Minimum width to zoom in.
 	 */
-	private static final int MIN_ZOOM_WIDTH = 1000;
+	private static final int MIN_ZOOM_WIDTH = 1000; // roughly 110m at the equator
 
 	/**
 	 * Maximum width to zoom out.
