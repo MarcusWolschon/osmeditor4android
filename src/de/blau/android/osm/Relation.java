@@ -39,10 +39,20 @@ public class Relation extends OsmElement {
 		members.add(member);
 	}
 
+	/**
+	 * Return complete list of relation members
+	 * @return
+	 */
 	public List<RelationMember> getMembers() {
 		return members;
 	}
 	
+	/**
+	 * Return first relation member element for this OSM element
+	 * Note: if the element is present more than once you will only get ont
+	 * @param e
+	 * @return
+	 */
 	public RelationMember getMember(OsmElement e) {
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
@@ -53,6 +63,13 @@ public class Relation extends OsmElement {
 		return null;
 	}
 	
+	/**
+	 * Return first relation member element for this OSM element
+	 * Note: if the element is present more than once you will only get ont
+	 * @param type
+	 * @param id
+	 * @return
+	 */
 	public RelationMember getMember(String type, long id) {
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
@@ -142,6 +159,11 @@ public class Relation extends OsmElement {
 		return members.contains(member);
 	}
 
+	/**
+	 * Completely remove member from relation (even if present more than once)
+	 * Does not update backlink
+	 * @param member
+	 */
 	void removeMember(final RelationMember member) {
 		while (members.remove(member)) {
 			;

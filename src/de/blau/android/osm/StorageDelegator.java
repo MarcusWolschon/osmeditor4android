@@ -905,7 +905,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Merges two ways by prepending/appending all nodes from the second way to the first one, then deleting the second one.
 	 * 
-	 * Updated for relation support
+	 * Updated for relation support if roles are not the same the merge will fail.
 	 * @param mergeInto Way to merge the other way into. This way will be kept if it has a valid id.
 	 * @param mergeFrom Way to merge into the other. 
 	 * @return false if we had tag conflicts
@@ -1114,6 +1114,10 @@ public class StorageDelegator implements Serializable, Exportable {
 			way.reverseDirectionDependentTags(dirTags, false); // assume he only wants to change the oneway direction for now
 		}
 		way.reverse();
+		List<Relation>relations = way.getRelationsWithDirectionDependentRoles();
+		if (relations != null) {
+			way.reverseRoleDirection(relations);
+		}
 		way.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(way);

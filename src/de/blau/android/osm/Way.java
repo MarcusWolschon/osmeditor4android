@@ -242,9 +242,9 @@ public class Way extends OsmElement {
 		if (tags != null) {
 			for (String key : tags.keySet()) {
 				String value = tags.get(key);
-				if (key.equals("oneway") || key.equals("incline") 
-						|| key.equals("turn") || key.equals("turn:lanes")
-						|| key.equals("direction") || key.endsWith(":left") 
+				if ("oneway".equals(key) || "incline".equals(key) 
+						|| "turn".equals(key) || "turn:lanes".equals(key)
+						|| "direction".equals(key) || key.endsWith(":left") 
 						|| key.endsWith(":right") || key.endsWith(":backward") 
 						|| key.endsWith(":forward") 
 						|| key.contains(":forward:") || key.contains(":backward:")
@@ -259,6 +259,50 @@ public class Way extends OsmElement {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Return a list of (route) relations that this way is a member of with a direction dependent role
+	 * @return
+	 */
+	public List<Relation> getRelationsWithDirectionDependentRoles() {
+		ArrayList<Relation> result = null;
+		if (getParentRelations() != null) {
+			for (Relation r:getParentRelations()) {
+				String t = r.getTagWithKey(Tags.KEY_TYPE);
+				if (t != null && Tags.VALUE_ROUTE.equals(t)) {
+					RelationMember rm = r.getMember(Way.NAME, getOsmId());
+					if (rm != null && ("forward".equals(rm.getRole()) || "backward".equals(rm.getRole()))) {
+						if (result == null) {
+							result = new ArrayList<Relation>();
+						}
+						result.add(r);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Reverse the role of this way in any relations it is in (currently only relevant for routes)
+	 * @param relations
+	 */
+	public void reverseRoleDirection(List<Relation> relations) {
+		if (relations != null) {
+			for (Relation r:relations) {
+				for (RelationMember rm:r.getMembers()) {
+					if (rm.role != null && "forward".equals(rm.role)) {
+						rm.setRole("backward");
+						continue;
+					} 
+					if (rm.role != null && "backward".equals(rm.role)) {
+						rm.setRole("forward");
+						continue;
+					} 
+				}
+			}
+		}
 	}
 	
 	private String reverseCardinalDirection(final String value) throws NumberFormatException
