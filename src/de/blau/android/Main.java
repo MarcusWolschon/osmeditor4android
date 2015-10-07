@@ -42,6 +42,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
@@ -656,7 +657,13 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	protected void onPause() {
 		Log.d(DEBUG_TAG, "onPause mode " + getLogic().getMode());
 		runningInstance = null;
-		unregisterReceiver(connectivityChangedReceiver);
+		try {
+			unregisterReceiver(connectivityChangedReceiver);
+		} catch (Exception e) {
+			// FIXME if onPause gets called before onResume has registered the Receiver
+			// unregisterReceiver will throw an exception, a better fix would likely to 
+			// register earlier, but that may not help
+		}
 		disableLocationUpdates();
 		if (getTracker() != null) getTracker().setListener(null);
 

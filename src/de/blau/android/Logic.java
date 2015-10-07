@@ -2964,6 +2964,7 @@ public class Logic {
 			protected void onPostExecute(UploadResult result) {
 				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
 				if (result.error == 0) {
+					save(); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 					Application.mainActivity.triggerMenuInvalidation();
 				}
