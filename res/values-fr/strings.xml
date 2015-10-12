@@ -39,7 +39,7 @@ contre %3$s sur le serveur</string>
   <string name="progress_saving_message">Sauvegarde...</string>
   <string name="upload_comment_label">Commentaire:</string>
   <string name="upload_source_label">Source:</string>
-  <string name="upload_close_changeset_label">Côture du groupe de modifications :</string>
+  <string name="upload_close_changeset_label">Clôture du groupe de modifications :</string>
   <string name="upload_gpx_description_label">Description</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Visibilité</string>

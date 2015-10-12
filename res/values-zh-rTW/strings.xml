@@ -317,6 +317,7 @@
   <string name="config_voiceCommandsEnabled_title">啟用聲控指令</string>
   <string name="config_voiceCommandsEnabled_summary">啟用實驗性的聲控指令支援</string>
   <string name="config_maxAlertDistance_title">最大距離的通知</string>
+  <string name="config_maxAlertDistance_summary">最大距離的一個問題或註釋，可以是從目前位置去產生通知</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的路徑</string>
   <string name="config_tileCacheSize_title">圖磚快取大小</string>

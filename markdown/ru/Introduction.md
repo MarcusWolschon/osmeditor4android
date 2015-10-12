@@ -24,41 +24,41 @@ Vespucci — это полнофункциональный редактор ка
 * **Прочитать из файла** - считать (J)OSM-совместимый XML-файл
 * **Сохранить в файл** - сохранить в виде JOSM-совместимого XML-файла
 
-The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
+Самый простой способ открыть карту - приблизить и центрировать место, которое хотите отредактировать, выбрать "Скачать текущее местоположение". Зуммировать можно жестами, специализированными кнопками на экране или кнопками управления громкостью телефона. Vespucci загрузит данные для области и центрирует карту на вашем текущем местоположении. Для скачивания данных авторизация не требуется.
 
-### Editing
+### Редактирование
 
-To avoid accidental edits Vespucci start in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen.
+Чтобы предотвратить случайные правки Vespucci стартует в режиме "заблокирован", в котором разрешено только зуммировать и перемещать карту. Нажмите на значке ![Заблокирован](../images/locked.png), чтобы разблокировать режим правки.
  
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
+Точки и линии окружены оранжевыми областями, которые указывают, куда приблизительно нужно прикоснуться, чтобы выделить объект. Если вы пытаетесь выделить объект, но Vespucci определяет, что выбор неоднозначен, и потенциально падает на несколько объектов, то будет показано меню с их списком. Выбранные объекты подсвечиваются жёлтым.
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+Если вы пытаетесь редактировать область с высокой плотностью, то разумно приблизить её побольше.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+У Vespucci хорошая система отмены и повторения правок, поэтому не бойтесь экспериментировать на устройстве, однако не загружайте на сервер тестовые данные.
 
-#### Selecting / De-selecting
+#### Выделение / Снятие выделения
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Прикоснитесь к объекту, чтобы выделить его и подсветить. Второе прикосновение к этому же объекту откроет редактор тегов для него. Нажатие на пустой области на экране снимет выделение. Если вы выбрали объект, но требуебуется выделить что-то ещё, то просто прикоснитесь к новому объекту. Не нужно предварительно снимать имеющееся выделение. Двойное нажатие на объекте включает [Множественное выделение](Multiselect.md).
 
-#### Adding a new Node/Point or Way
+#### Добавление новой точки/узла или линии
 
-Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
+Используйте долгое нажатие на том месте, в котором вы хотите разместить точку или начало линии. Вы увидите чёрный крестик. Повторное нажатие в этом же месте создаст точку. Прикосновение за пределами восприимчивой к нажатиям области добавит сегмент линии от начального положения к текущему. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial node is located on a way, the node will be inserted into the way automatically.
+Просто прикоснитесь к экрану там, где хотите добавить новые точки в продолжение линии. Чтобы завершить, дважды нажмите на последней точке. Если начальная точка находится на линии, она будет включена в эту линию автоматически.
 
-#### Moving a Node or Way
+#### Перемещение точки или линии
 
-Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Объекты можно перетаскивать/перемещать только, когда они выделены. Если в настройках вы выбрали большую область для перетаскивания, то вокруг выбранной точки будет увеличена область, за которую её можно перемещать, что облегчает позиционирование объекта. 
 
-#### Improving Way Geometry
+#### Улучшение геометрии линий
 
 If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
 
-#### Cut, Copy & Paste
+#### Вырезать, копировать и вставлять
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Вы можете скопировать или вырезать выделенные точки и линии, а затем вставить их один или несколько раз в новое место. Вырезание сохраняет OSM id и версию. Чтобы вставить длительно нажмите в месте, в которое вы хотите вставить (вы увидите перекрестие отмечающее расположение). Затем выберите "Вставить" из меню.
 
-#### Efficiently Adding Addresses
+#### Эффективное добавление адресов
 
 Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
 
@@ -70,7 +70,7 @@ House number prediction typically requires at least two house numbers on each si
 
 Consider using this with the "Auto-download" mode.  
 
-#### Adding Turn Restrictions
+#### Добавление ограничений поворотов
 
 Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
 
@@ -84,9 +84,9 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
  
 When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### Saving Your Changes
+### Сохранение изменений
 
-*(requires network connectivity)*
+*(требует подключения к сети)*
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
@@ -100,7 +100,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
 
-## Using GPS
+## Использование GPS
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 
@@ -108,16 +108,16 @@ If you have the later set, moving the screen manually or editing will cause the 
 
 ### Auto-Download
 
-*(requires network connectivity)*
+*(требует подключения к сети)*
 
 If "Show location" and "Follow GPS Position" are enabled, Vespucci lets you auto download a small area (default 50m radius) around your current position. Just as above if you move the screen manually or change the geometry of an object you will have to re-enable "Follow GPS Position" when you want to continue. 
 
-Notes:
+Заметки:
 
 * you need to download an initial area manually
 * the function only works below 6km/h (brisk walking speed) to avoid causing issues with the OpenStreetMap API
 
-## Customizing Vespucci
+## Настройка Vespucci
 
 ### Settings that you might want to change
 
@@ -129,7 +129,7 @@ Notes:
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-#### Advanced preferences
+#### Расширенные параметры
 
 * Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).

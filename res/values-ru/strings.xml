@@ -81,8 +81,10 @@
   <string name="imagery_offset_distance">Расстояние</string>
   <string name="set_position_datum_label">Геодезическая система координат</string>
   <string name="tag_editor_name_suggestion">Предложение названия</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов  более популярными значениями.</string>
   <string name="search_results_title">Результаты поиска</string>
   <string name="find_message">Введите строку поиска</string>
+  <string name="preset_search_hint">Строка поиска заготовок</string>
   <string name="read_file">Выберете файл для чтения</string>
   <string name="save_file">Введите файл для сохранения</string>
   <string name="existing_track_title">Существующие данные трека</string>
@@ -146,6 +148,7 @@
   <string name="toast_inconsistent_state">Обнаружен inconsistent state, пожалуйста отправьте отчёт об ошибке разработчикам!</string>
   <string name="toast_camera_error">Ошибка при запуске приложения камеры: %1$s</string>
   <string name="toast_no_voice">Отсутствуют средства распознавания голоса</string>
+  <string name="toast_storage_error">Каталог для тайлов и других файлов не доступен для записи Vespucci. \nЭто может быть связано правами доступа или с технической проблемой на вашем устройстве.</string>
   <string name="toast_min_one_preset">Должна быть выбрана как минимум одна заготовка!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
@@ -182,9 +185,11 @@
   <string name="tag_menu_reset_address_prediction">Сбросить предсказание адресов</string>
   <string name="tag_menu_exit_no_save">Выйти
 без сохранения</string>
+  <string name="tag_value_hint">Нажмите для значений</string>
   <string name="tag_multi_value_hint">Несколько значений</string>
   <string name="tag_action_title">Выбраны теги</string>
   <string name="menu_up">Вверх</string>
+  <string name="menu_top">Верхнее</string>
   <string name="menu_preset_help">Справка по заготовке</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Область скачивания</string>
@@ -307,6 +312,7 @@
   <string name="actionmode_nodeselect">Выбрана точка</string>
   <string name="actionmode_relationselect">Отношение выбрано</string>
   <string name="actionmode_createpath">Рисование линии</string>
+  <string name="actionmode_multiselect">Мультивыбор</string>
   <!--Preferences-->
   <string name="config_category_view">Настройки интерфейса пользователя</string>
   <string name="config_showCameraAction_title">Камера на панели действий</string>
@@ -388,6 +394,9 @@
   <string name="config_enableNameSuggestions_title">Разрешить предложения названий</string>
   <string name="config_enableNameSuggestions_summary">Включить предложение для тега названия</string>
   <string name="config_enableAutoPreset_title">Включить автонастройку</string>
+  <string name="config_enableAutoPreset_summary">Автоматически добавлять заготовку когда предложение выбрано</string>
+  <string name="config_splitActionBarEnabled_title">Включить разделённую панель действий</string>
+  <string name="config_splitActionBarEnabled_summary">Позволяет использовать разделённую панель действий, зависит от модели устройства. Требуется перезапуск и Android версии &gt;= 4.0</string>
   <string name="config_gps_source_title">Источник GPS</string>
   <string name="config_gps_source_summary">Источник обновления GPS-координат</string>
   <string name="config_gps_source_tcp_title">Сетевой источник NMEA</string>
@@ -398,6 +407,7 @@
   <string name="config_enableLightTheme_summary">Светлая тема с белым фоном</string>
   <string name="config_category_misc">Разное</string>
   <string name="config_address_tags">Теги адреса</string>
+  <string name="config_address_tags_summary">Теги, используемые для предсказание адресов</string>
   <string name="config_moreprefs">Другие настройки...</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
@@ -502,6 +512,12 @@
   <!--Help system-->
   <string name="toast_nohelp">Справка недоступна!</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>частный</item>
+    <item>общедоступный</item>
+    <item>отслеживаемый</item>
+    <item>идентифицируемый</item>
+  </string-array>
   <string-array name="gps_source">
     <item>Внутренний</item>
     <item>Внутренний NMEA</item>
