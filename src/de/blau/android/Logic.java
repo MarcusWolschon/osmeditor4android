@@ -1895,7 +1895,7 @@ public class Logic {
 	 * @param postLoadHandler TODO
 	 * @param auto download is being done automatically, try not mess up/move the display
 	 */
-	public void downloadBox(final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
+	public synchronized void downloadBox(final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -2047,7 +2047,7 @@ public class Logic {
 	 * @param add if true add this data to existing
 	 * @param auto download is being done automatically, try not mess up/move the display
 	 */
-	public static void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
+	public synchronized static void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -2174,7 +2174,7 @@ public class Logic {
 	 * @param id
 	 * @return
 	 */
-	OsmElement downloadElement(final String type, final long id) {
+	 synchronized OsmElement downloadElement(final String type, final long id) {
 		
 		class MyTask extends AsyncTask<Void, Void, OsmElement> {
 			int result = 0;
@@ -2333,7 +2333,7 @@ public class Logic {
 	 * @param type
 	 * @param id
 	 */
-	int updateElement(final String type, final long id) {
+	 synchronized int updateElement(final String type, final long id) {
 		class MyTask extends AsyncTask<Void, Void, Integer> {
 			@Override
 			protected void onPreExecute() {
@@ -2418,7 +2418,7 @@ public class Logic {
 	 * 
 	 * @param e
 	 */
-	public void updateToDeleted(OsmElement e) {
+	public  synchronized void updateToDeleted(OsmElement e) {
 		createCheckpoint(R.string.undo_action_fix_conflict);
 		if (e.getName().equals(Node.NAME)) {
 			getDelegator().removeNode((Node)e);
@@ -2438,7 +2438,7 @@ public class Logic {
 	 * @param add unused currently
 	 * @throws FileNotFoundException 
 	 */
-	void readOsmFile(final Uri uri, boolean add) throws FileNotFoundException {
+	 synchronized void readOsmFile(final Uri uri, boolean add) throws FileNotFoundException {
 	
 		final InputStream is;
 		
