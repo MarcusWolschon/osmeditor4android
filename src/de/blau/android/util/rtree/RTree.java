@@ -491,7 +491,7 @@ public class RTree implements Serializable {
 	 * Removes the specified object if it is in the tree.
 	 * @param o
 	 */
-	public void remove(BoundedObject o) {
+	public synchronized void remove(BoundedObject o) {
 		Node n = chooseLeaf(o, root);
 		assert(n.isLeaf());
 		n.data.remove(o);
@@ -502,7 +502,7 @@ public class RTree implements Serializable {
 	 * Return true if o is in the tree.
 	 * @param o
 	 */
-	public boolean contains(BoundedObject o) {
+	public synchronized boolean contains(BoundedObject o) {
 		Node n = chooseLeaf(o, root);
 		assert(n.isLeaf());
 		return n.data.contains(o);
@@ -513,7 +513,7 @@ public class RTree implements Serializable {
 	 * while in the R-tree, the result is undefined.
 	 * @throws NullPointerException If o == null
 	 */
-	public void insert(BoundedObject o) {
+	public synchronized void insert(BoundedObject o) {
 		if (o == null) throw new NullPointerException("Cannot store null object");
 		if (root == null)
 			root = new Node(true);
