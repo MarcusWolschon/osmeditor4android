@@ -515,20 +515,23 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			getLogic().downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
-			PostAsyncActionHandler postLoad = null;
-			if (rcData != null|| geoData != null) {
-				postLoad = new PostAsyncActionHandler() {
-					@Override
-					public void execute() {
+			PostAsyncActionHandler	postLoad = new PostAsyncActionHandler() {
+				@Override
+				public void execute() {
+					if (rcData != null|| geoData != null) {
 						processIntents();
 					}
-				};
-			}
+					setupLockButton(getSupportActionBar());
+					updateActionbarEditMode();
+				}
+			};
 			getLogic().loadFromFile(this,postLoad);
 			getLogic().loadBugsFromFile(this,null);
 		} else { // loadFromFile already does this
 			getLogic().loadEditingState();
 			processIntents();
+			setupLockButton(getSupportActionBar());
+			updateActionbarEditMode();
 			map.invalidate();
 		}
 		
@@ -536,10 +539,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		map.updateProfile();
 		
 		runningInstance = this;
-		
-		setupLockButton(getSupportActionBar());
-		updateActionbarEditMode();
-		
+	
 		if (getTracker() != null) {
 			getTracker().setListener(this);
 			lastLocation = getTracker().getLastLocation();
@@ -758,9 +758,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final View lockLayout =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock, null);
 		actionbar.setCustomView(lockLayout);
 		Mode mode = getLogic().getMode();
+		Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
 		ToggleButton lock = setLock(mode);
 		if (lock == null) {
-			return; //FIXME not good but no other alternative right now already logged in setLock
+			return; //FIXME not good but no other alternative right now, already logged in setLock
 		}
 		if (mode == Mode.MODE_EASYEDIT) {
 			lock.setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));

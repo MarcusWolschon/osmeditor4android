@@ -2693,21 +2693,10 @@ public class Logic {
 				if (getDelegator().readFromFile()) {
 					viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
-				} else {
-//	Experimental code for reading from backup file				
-//					FileInputStream in = null;
-//					try {
-//						in = context.openFileInput(StorageDelegator.FILENAME + ".backup");
-//					} catch (final FileNotFoundException e) {
-//						return Integer.valueOf(READ_FAILED);
-//					} finally {
-//						SavingHelper.close(in);
-//					}
-//					Log.d("Logic", "loadfromFile: trying backup");
-//					if (delegator.readFromFile()) {
-//						viewBox.setBorders(delegator.getLastBox());
-//						return Integer.valueOf(READ_BACKUP);
-//					}
+				} else if (getDelegator().readFromFile(StorageDelegator.FILENAME + ".backup")) {
+					getDelegator().dirty(); // we need to overwrite the saved state asap
+					viewBox.setBorders(getDelegator().getLastBox());
+					return Integer.valueOf(READ_BACKUP);
 				}
 				return Integer.valueOf(READ_FAILED);
 			}
@@ -2745,7 +2734,7 @@ public class Logic {
 					map.invalidate();
 					UndoStorage.updateIcon();
 					if (result.intValue() == READ_BACKUP) { 
-						Toast.makeText(Application.mainActivity, "Corrupted state file, used backup file!", Toast.LENGTH_LONG).show();
+						Toast.makeText(Application.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
 					}
 				}
 				else {

@@ -102,6 +102,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		return dirty;
 	}
 	
+	/**
+	 * set dirty to true
+	 */
 	public void dirty() {
 		dirty = true;
 		Log.d("StorageDelegator", "setting delegator to dirty");
@@ -1716,13 +1719,23 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * Read save data from standard file
 	 * Loads the storage data from the default storage file
 	 * NOTE: lock is acquired in logic before this is called
 	 */
 	public boolean readFromFile() {
+		return readFromFile(FILENAME);
+	}
+	
+	/**
+	 * Read save data from file
+	 * @param filename
+	 * @return
+	 */
+	public boolean readFromFile(String filename) {
 		try{
 			lock();
-			StorageDelegator newDelegator = savingHelper.load(FILENAME, true); 
+			StorageDelegator newDelegator = savingHelper.load(filename, true); 
 
 			if (newDelegator != null) {
 				Log.d("StorageDelegator", "read saved state");
