@@ -347,7 +347,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			map.onDestroy();
 		}
 		map = new Map(getApplicationContext());
-		map.setId(1);
+		map.setId(R.id.map_view);
 		dialogFactory = new DialogFactory(this);
 		
 		//Register some Listener
