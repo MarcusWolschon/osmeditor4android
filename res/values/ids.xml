@@ -3,4 +3,5 @@
     <item type="id" name="recentPresets" />
     <item type="id" name="relationList" />
     <item type="id" name="notification_tracker" />
+    <item type="id" name="map_view" />
 </resources>
