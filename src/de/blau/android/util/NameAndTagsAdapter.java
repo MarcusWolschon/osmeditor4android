@@ -78,6 +78,7 @@ public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
         	 if(results != null && results.count > 0) {
+        		//noinspection unchecked
         		ArrayList<NameAndTags> filteredList = (ArrayList<NameAndTags>) results.values;
                 clear();
                 for (NameAndTags c : filteredList) {
