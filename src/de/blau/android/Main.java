@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -1089,9 +1087,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					protected Void doInBackground(Void... params) {
 						try {
 							server.closeChangeset();
-						} catch (MalformedURLException e) {
-						} catch (ProtocolException e) {
-						} catch (IOException e) {
+						} catch (IOException ignored) {
+							// Nothing to do here
 						}
 						return null;
 					}
