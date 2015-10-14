@@ -1544,7 +1544,7 @@ public class TagEditorFragment extends SherlockFragment {
 		// make a (nearly) full copy
 		ArrayList<LinkedHashMap<String,String>> newTags = new ArrayList<LinkedHashMap<String,String>>();
 		for (LinkedHashMap<String,String> map:oldTags) {
-			newTags.add((LinkedHashMap<String, String>) map.clone());
+			newTags.add(new LinkedHashMap<>(map));
 		}
 		
 		LinkedHashMap<String,ArrayList<String>> edits = getKeyValueMap(true);
