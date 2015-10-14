@@ -351,7 +351,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 		dirty = true;
 		try {
-			HashSet<Node> nodes = new HashSet<Node>(allNodes); // Guarantee uniqueness
+			HashSet<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
 			for (Node nd:nodes) { 
 				undo.save(nd);
 				apiStorage.insertElementSafe(nd);
