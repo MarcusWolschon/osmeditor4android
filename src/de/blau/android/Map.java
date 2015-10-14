@@ -186,10 +186,14 @@ public class Map extends View implements IMapView {
 	
 	private Context context;
 	
+	private Rect canvasBounds;
+
 	@SuppressLint("NewApi")
 	public Map(final Context context) {
 		super(context);
 		this.context = context;
+
+		canvasBounds = new Rect();
 		
 		setFocusable(true);
 		setFocusableInTouchMode(true);
@@ -310,7 +314,8 @@ public class Map extends View implements IMapView {
 		handles = null;
 		
 		// Draw our Overlays.
-		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds(), 0);
+		canvas.getClipBounds(canvasBounds);
+		OpenStreetMapTilesOverlay.resetAttributionArea(canvasBounds, 0);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
 			if (!(osmvo instanceof de.blau.android.osb.MapOverlay)) {
 				osmvo.onManagedDraw(canvas, this);
