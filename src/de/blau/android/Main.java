@@ -699,7 +699,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (getTracker() != null) getTracker().setListener(null);
 		try {
 			unbindService(this);
-		} catch (Exception e) {} // ignore errors, this is just cleanup
+		} catch (Exception ignored) {
+			// ignore errors, this is just cleanup
+		}
 		super.onDestroy();
 	}
 
