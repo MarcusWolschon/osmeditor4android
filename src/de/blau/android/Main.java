@@ -1169,13 +1169,22 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    // Create an image file name
 	    String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
 				.format(new Date());
-	    File outdir = null;
-	    	File sdcard = Environment.getExternalStorageDirectory();
-	    	outdir = new File(sdcard, "Vespucci");
-	    	outdir.mkdir(); // ensure directory exists;
-	    	outdir = new File(outdir,"Pictures");
-	    	outdir.mkdir();
-	    
+	    File outdir;
+	    File sdcard = Environment.getExternalStorageDirectory();
+		String directoryNameVespucci = "Vespucci";
+	    outdir = new File(sdcard, directoryNameVespucci);
+		//noinspection ResultOfMethodCallIgnored
+		outdir.mkdir(); // ensure directory exists;
+		if (!outdir.isDirectory()) {
+			throw new IOException("Failure creating directory '" + directoryNameVespucci + "'.");
+		}
+		String directoryNamePictures = "Pictures";
+	    outdir = new File(outdir, directoryNamePictures);
+		//noinspection ResultOfMethodCallIgnored
+	    outdir.mkdir();
+		if (!outdir.isDirectory()) {
+			throw new IOException("Failure creating directory '" + directoryNamePictures + "'.");
+		}
 	    File imageFile = File.createTempFile(imageFileName,".jpg",outdir);
 	    Log.d(DEBUG_TAG,"createImageFile " + imageFile.getAbsolutePath());
 	    return imageFile;
