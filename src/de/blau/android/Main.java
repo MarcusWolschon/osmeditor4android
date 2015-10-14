@@ -1177,8 +1177,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	private File getImageFile() throws IOException {
 	    // Create an image file name
-	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
-	    String imageFileName = timeStamp;
+	    String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
+				.format(new Date());
 	    File outdir = null;
 //	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
 //	    	outdir = Environment.getExternalStoragePublicDirectory(
