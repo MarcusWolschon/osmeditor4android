@@ -12,7 +12,7 @@
 		   
 			android:id="@+id/save_file_edit"
   			android:inputType="text"
-			android:layout_width="fill_parent"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:singleLine="true"
 			android:layout_weight="1"
