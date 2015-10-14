@@ -1780,7 +1780,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    @Override
 		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		    	if (!url.contains("vespucci")) {
-		            // load in in this webview
+		            // load in in this web view
 		            view.loadUrl(url);
 		            return true;
 		        }
@@ -1814,7 +1814,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	/**
-	 * removes the webview
+	 * removes the web view
 	 */
 	public void finishOAuth() {
 		Log.d(DEBUG_TAG,"finishOAuth");
