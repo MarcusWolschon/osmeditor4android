@@ -1148,7 +1148,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 */
 	private void mergeTags(ArrayList<KeyValue> newTags, boolean replace) {
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
-		HashMap<String,KeyValue> keyIndex = new HashMap(); // needed for de-duping
+		HashMap<String,KeyValue> keyIndex = new HashMap<>(); // needed for de-duping
 		
 		ArrayList<KeyValue> keysAndValues = new ArrayList<KeyValue>();
 		for (String key:currentValues.keySet()) {
