@@ -1499,7 +1499,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				openEmptyMap(box); // we may have a valid box
 			}
 		} catch (OsmException e) {
-			//Values should be done checked in LocationPciker.
+			//Values should be done checked in LocationPicker.
 			Log.e(DEBUG_TAG, "OsmException", e);
 		}
 	}
@@ -1733,7 +1733,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			oa = new OAuthHelper(url);
 		}
 		catch (OsmException oe) {
-			server.setOAuth(false); // upps something went wrong turn oauth off
+			server.setOAuth(false); // ups something went wrong turn oauth off
 			actionbar.show();
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
 			return;
@@ -1762,7 +1762,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    @Override
 		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		    	if (!url.contains("vespucci")) {
-		            // load in in this webview
+		            // load in in this web view
 		            view.loadUrl(url);
 		            return true;
 		        }
@@ -1778,7 +1778,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	/**
-	 * removes the webview
+	 * removes the web view
 	 */
 	public void finishOAuth() {
 		Log.d(DEBUG_TAG,"finishOAuth");
