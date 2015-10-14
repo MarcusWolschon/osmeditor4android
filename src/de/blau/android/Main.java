@@ -492,7 +492,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-		Log.d(DEBUG_TAG, "onNewIntent storage dirty " + getLogic().getDelegator().isDirty());
+		Log.d(DEBUG_TAG, "onNewIntent storage dirty " + Logic.getDelegator().isDirty());
 		setIntent(intent);
 		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
 		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
@@ -557,7 +557,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	protected void processIntents() {
 		if (geoData != null) {
-			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + getLogic().getDelegator().isDirty());
+			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + Logic.getDelegator().isDirty());
 			if (prefs.getDownloadRadius() != 0) { // download
 				BoundingBox bbox;
 				try {
@@ -1045,7 +1045,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_gps_import:
-			if (getLogic() == null || getLogic().getDelegator() == null) return true;
+			if (getLogic() == null || Logic.getDelegator() == null) return true;
 			showFileChooser(READ_GPX_FILE_SELECT_CODE);
 			return true;
 			
@@ -1105,17 +1105,17 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 		
 		case R.id.menu_transfer_export:
-			if (getLogic() == null || getLogic().getDelegator() == null) return true;
-			SavingHelper.asyncExport(this, getLogic().getDelegator());
+			if (getLogic() == null || Logic.getDelegator() == null) return true;
+			SavingHelper.asyncExport(this, Logic.getDelegator());
 			return true;
 			
 		case R.id.menu_transfer_read_file:
-			if (getLogic() == null || getLogic().getDelegator() == null) return true;
+			if (getLogic() == null || Logic.getDelegator() == null) return true;
 			showFileChooser(READ_OSM_FILE_SELECT_CODE);
 			return true;
 			
 		case R.id.menu_transfer_save_file:
-			if (getLogic() == null || getLogic().getDelegator() == null) return true;
+			if (getLogic() == null || Logic.getDelegator() == null) return true;
 			showDialog(DialogFactory.SAVE_FILE);
 //			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
 			return true;
@@ -1827,7 +1827,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		}
 	
 		if (selectedElement != null) {
-			if (getLogic().getDelegator().getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
+			if (Logic.getDelegator().getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
 				Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
@@ -1844,7 +1844,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		ArrayList<PropertyEditorData> multiple = new ArrayList<>();
 		
 		for (OsmElement e:selection) {
-			if (getLogic().getDelegator().getOsmElement(e.getName(), e.getOsmId()) != null) {
+			if (Logic.getDelegator().getOsmElement(e.getName(), e.getOsmId()) != null) {
 				multiple.add(new PropertyEditorData(e, null));
 			}
 		}
