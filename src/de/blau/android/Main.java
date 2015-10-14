@@ -2534,6 +2534,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	public static boolean hasChanges() {
+		//noinspection SimplifiableIfStatement
 		if (getLogic() == null) return false;
 		return getLogic().hasChanges();
 	}
