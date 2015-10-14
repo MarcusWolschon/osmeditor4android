@@ -604,7 +604,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	/**
 	 * Parse the parameters of a JOSM remote control URL and select and edit the OSM objects.
-	 * @param rcData
+	 * @param rcData Data of a remote control data URL.
 	 */
 	void rcDataEdit(RemoteControlUrlData rcData ) {
 		if (rcData.getSelect() != null) {
@@ -740,7 +740,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	/**
 	 * slightly byzantine code for mode switching follows
-	 * @param actionbar
+	 * @param actionbar Action bar of this Activity.
 	 */
 	void setupLockButton(final ActionBar actionbar)	{
 		// inflating will crash without themed context
@@ -819,8 +819,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 	/**
 	 * Set lock button to locked or unlocked depending on the edit mode
-	 * @param mode
-	 * @return
+	 * @param mode Program mode.
+	 * @return Button to display checked/unchecked states.
 	 */
 	private ToggleButton setLock(Logic.Mode mode) {
 		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
@@ -1344,7 +1344,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * When no {@link #delegator} is set, the user will be redirected to AreaPicker.<br>
 	 * When the user made some changes, {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
 	 * Otherwise the current viewBox will be re-downloaded from the server.
-	 * @param add 
+	 * @param add Boolean flag indicating to handle changes (true) or not (false).
 	 */
 	private void onMenuDownloadCurrent(boolean add) {
 		Log.d(DEBUG_TAG, "onMenuDownloadCurrent");
@@ -1467,8 +1467,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 
 	/**
-	 * @param resultCode
-	 * @param data
+	 * @param resultCode The integer result code returned by the child activity
+	 *                   through its setResult().
+	 * @param data An Intent, which can return result data to the caller
+	 *             (various data can be attached to Intent "extras").
 	 */
 	private void handleBoxPickerResult(final int resultCode, final Intent data) {
 		Bundle b = data.getExtras();
@@ -1493,7 +1495,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 	/**
 	 * Handle the result of the property editor
-	 * @param data
+	 * @param data An Intent, which can return result data to the caller
+	 *             (various data can be attached to Intent "extras").
 	 */
 	private void handlePropertyEditorResult(final Intent data) {
 		Bundle b = data.getExtras();
@@ -1544,7 +1547,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	/**
 	 * Restore the file name for a photograph
-	 * @param savedImageFileName
+	 * @param savedImageFileName Image file name.
 	 */
 	public void setImageFileName(String savedImageFileName) {
 		if (savedImageFileName != null) {
@@ -1554,7 +1557,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 	/**
 	 * Return the file name for a photograph
-	 * @return
+	 * @return Image file name.
 	 */
 	public String getImageFileName() {
 		if (imageFile != null) {
@@ -1608,8 +1611,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 
 	/**
-	 * @param closeChangeset 
-	 * 
+	 * @param comment Textual comment associated with the change set.
+	 * @param source Source of the change.
+	 * @param closeChangeset Boolean flag indicating whether the change set
+	 *                       should be closed or kept open.
 	 */
 	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
 		dismissDialog(DialogFactory.CONFIRM_UPLOAD);
@@ -1676,8 +1681,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	
 	/**
-	 * 
-	 * @param server
+	 * @param server Server properties.
+	 * @param restart Handler to be executed after asynchronous action have been performed.
 	 */
 	@SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
 	public void oAuthHandshake(Server server, PostAsyncActionHandler restart) {
@@ -1773,10 +1778,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 
 	/**
-	 * @param selectedElement
-	 * @param focusOn if not null focus on the value field of this key
-	 * @param applyLastAddressTags add address tags to the object being edited
-	 * @param showPresets TODO
+	 * @param selectedElement Selected OpenStreetMap element.
+	 * @param focusOn if not null focus on the value field of this key.
+	 * @param applyLastAddressTags add address tags to the object being edited.
+	 * @param showPresets Boolean flag indication to show or hide presets.
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets) {
 		if (selectedElement instanceof Node) {
@@ -2123,7 +2128,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		/**
 		 * Perform easy edit touch processing.
-		 * @param v
+		 * @param v View affected by the touch event.
 		 * @param x the click-position on the display.
 		 * @param y the click-position on the display.
 		 */
@@ -2565,7 +2570,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 	/**
 	 * Display some information about the element, for now simply as Dialog
-	 * @param element
+	 * @param element OpenStreetMap element.
 	 */
 	public void showElementInfo(OsmElement element) {
 		FragmentManager fm = getSupportFragmentManager();
