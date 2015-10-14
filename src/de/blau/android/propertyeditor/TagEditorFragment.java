@@ -1093,7 +1093,7 @@ public class TagEditorFragment extends SherlockFragment {
 		Set<String> keySet = new HashSet<String>(currentValues.keySet()); // shallow copy
 		for (String key:keySet) {
 			ArrayList<String>list = currentValues.get(key);
-			if (list == null || list.size() == 0 || (list.size() == 1 && "".equals(list.get(0)))) {
+			if (list == null || list.size() == 0) {
 				currentValues.remove(key);
 			}
 		}
