@@ -189,7 +189,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		@Override
 		public void onReceive(Context context, Intent intent) {
 	        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-	        	Log.d(getClass().getName(), "Received broadcast");
+	        	Log.d("ConnectivityChangedReceiver","Received broadcast");
 	        	if (easyEditManager.isProcessingAction()) {
 	    			easyEditManager.invalidate();
 	    		} else {
@@ -352,7 +352,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			map.onDestroy();
 		}
 		map = new Map(getApplicationContext());
-		map.setId(1);
+		map.setId(R.id.map_view);
 		dialogFactory = new DialogFactory(this);
 		
 		//Register some Listener
@@ -625,25 +625,26 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
 			logic.setSelectedRelation(null);
+			StorageDelegator storageDelegator = Logic.getDelegator();
 			for (String s:rcData.getSelect().split(",")) { // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
 				if (s!=null) {
 					Log.d(DEBUG_TAG,"rc select: " + s);
 					try {
 						if (s.startsWith("node")) {
 							long id = Long.valueOf(s.substring(Node.NAME.length()));
-							Node n = (Node) logic.getDelegator().getOsmElement(Node.NAME, id); 
+							Node n = (Node) storageDelegator.getOsmElement(Node.NAME, id);
 							if (n != null) {
 								logic.addSelectedNode(n);
 							}
 						} else if (s.startsWith("way")) {
 							long id = Long.valueOf(s.substring(Way.NAME.length()));
-							Way w = (Way) logic.getDelegator().getOsmElement(Way.NAME, id); 
+							Way w = (Way) storageDelegator.getOsmElement(Way.NAME, id);
 							if (w != null) {
 								logic.addSelectedWay(w);
 							}
 						} else if (s.startsWith("relation")) {
 							long id = Long.valueOf(s.substring(Relation.NAME.length()));
-							Relation r = (Relation) logic.getDelegator().getOsmElement(Relation.NAME, id); 
+							Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id);
 							if (r != null) {
 								logic.addSelectedRelation(r);
 							}
@@ -699,9 +700,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (getTracker() != null) getTracker().setListener(null);
 		try {
 			unbindService(this);
-		} catch (Exception ignored) {
-			// ignore errors, this is just cleanup
-		}
+		} catch (Exception e) {} // ignore errors, this is just cleanup
 		super.onDestroy();
 	}
 
@@ -1780,7 +1779,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    @Override
 		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		    	if (!url.contains("vespucci")) {
-		            // load in in this web view
+		            // load in in this webview
 		            view.loadUrl(url);
 		            return true;
 		        }
@@ -1814,7 +1813,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	/**
-	 * removes the web view
+	 * removes the webview
 	 */
 	public void finishOAuth() {
 		Log.d(DEBUG_TAG,"finishOAuth");
@@ -2275,7 +2274,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 			if (clickedNodesAndWays != null) {
 				for (OsmElement e : clickedNodesAndWays) {
-					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
+					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription(Application.mainActivity)).setOnMenuItemClickListener(this);
 				}
 			}
 		}
