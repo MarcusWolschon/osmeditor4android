@@ -101,7 +101,7 @@
 					android:id="@+id/location_search_edit"
 					android:imeOptions="actionSearch" 
     				android:inputType="text"
-					android:layout_width="fill_parent"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:singleLine="true"
 					android:layout_weight="1"
