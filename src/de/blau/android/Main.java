@@ -1921,7 +1921,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		private List<Bug> clickedBugs;
 		private List<Photo> clickedPhotos;
 
-		private boolean touching;
 		private boolean doubleTap = false;
 		
 		@Override
@@ -1940,7 +1939,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		@Override
 		public void onDown(View v, float x, float y) {
-			touching=true;
 		}
 		
 		@Override
@@ -2038,7 +2036,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
 				easyEditManager.invalidate();
 			}
-			touching=false;
 		}
 		
 		@Override
