@@ -389,7 +389,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		setContentView(rl);
 		
 		// check if first time user and display something if yes
-		SavingHelper<String> savingHelperVersion = new SavingHelper<String>();
+		SavingHelper<String> savingHelperVersion = new SavingHelper<>();
 		String lastVersion = savingHelperVersion.load(VERSION_FILE, false);
 		boolean newInstall = (lastVersion == null || lastVersion.equals(""));
 		
@@ -562,7 +562,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				BoundingBox bbox;
 				try {
 					bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
-					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+					ArrayList<BoundingBox> bbList = new ArrayList<>(Application.getDelegator().getBoundingBoxes());
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, bbox); 
 					if (bboxes != null && bboxes.size() > 0) {
 						getLogic().downloadBox(bbox, true, null); 
@@ -584,7 +584,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (rcData != null) {
 			Log.d(DEBUG_TAG,"got bbox from remote control url " + rcData.getBox() + " load " + rcData.load());
 			if (rcData.load()) { // download
-				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+				ArrayList<BoundingBox> bbList = new ArrayList<>(Application.getDelegator().getBoundingBoxes());
 				ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, rcData.getBox()); 
 				if (bboxes != null && bboxes.size() > 0) {
 					getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
@@ -1840,7 +1840,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
 		
-		ArrayList<PropertyEditorData> multiple = new ArrayList<PropertyEditorData>();
+		ArrayList<PropertyEditorData> multiple = new ArrayList<>();
 		
 		for (OsmElement e:selection) {
 			if (getLogic().getDelegator().getOsmElement(e.getName(), e.getOsmId()) != null) {
