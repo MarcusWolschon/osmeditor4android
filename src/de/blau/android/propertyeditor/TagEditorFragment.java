@@ -196,6 +196,7 @@ public class TagEditorFragment extends SherlockFragment {
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
+			@SuppressWarnings("unchecked")
 			Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable("SAVEDTAGS");
 			savedTags = new LinkedHashMap<String, ArrayList<String>>();
 			savedTags.putAll(temp);
@@ -301,6 +302,7 @@ public class TagEditorFragment extends SherlockFragment {
      * @return
      */
     LinkedHashMap<String,ArrayList<String>> buildEdits() {
+		@SuppressWarnings("unchecked")
     	ArrayList<LinkedHashMap<String,String>> originalTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
  		// 
     	LinkedHashMap<String,ArrayList<String>> tags = new LinkedHashMap<String,ArrayList<String>>();
@@ -1540,6 +1542,7 @@ public class TagEditorFragment extends SherlockFragment {
 	 * @return
 	 */
 	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
+		@SuppressWarnings("unchecked")
 		ArrayList<LinkedHashMap<String,String>> oldTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
 		// make a (nearly) full copy
 		ArrayList<LinkedHashMap<String,String>> newTags = new ArrayList<LinkedHashMap<String,String>>();
