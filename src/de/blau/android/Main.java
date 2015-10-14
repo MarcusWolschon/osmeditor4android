@@ -186,7 +186,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		@Override
 		public void onReceive(Context context, Intent intent) {
 	        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-	        	Log.d("ConnectivityChangedReceiver","Received broadcast");
+	        	Log.d(getClass().getName(), "Received broadcast");
 	        	if (easyEditManager.isProcessingAction()) {
 	    			easyEditManager.invalidate();
 	    		} else {
