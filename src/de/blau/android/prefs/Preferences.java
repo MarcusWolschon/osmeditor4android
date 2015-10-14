@@ -61,7 +61,7 @@ public class Preferences {
 	private float maxDownloadSpeed; // in km/h
 	private int bugDownloadRadius;
 	private float maxBugDownloadSpeed; // in km/h
-	private Set bugFilter; // can't be final
+	private Set<String> bugFilter; // can't be final
 	
 	private final boolean forceContextMenu;
 	
@@ -86,7 +86,7 @@ public class Preferences {
 	
 	private final boolean lightThemeEnabled;
 	
-	private Set addressTags; // can't be final
+	private Set<String> addressTags; // can't be final
 
 	private final boolean voiceCommandsEnabled;
 	
@@ -155,7 +155,7 @@ public class Preferences {
 			Log.w(getClass().getName(), "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
 			maxBugDownloadSpeed = 30f;
 		}
-		bugFilter = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
+		bugFilter = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			bugFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), bugFilter);
 		}
@@ -211,7 +211,7 @@ public class Preferences {
 		// light theme doesn't really work prior to Honeycomb, but make it the default for anything newer
 		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? true : false);
 		
-		addressTags = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
+		addressTags = new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
 		}
