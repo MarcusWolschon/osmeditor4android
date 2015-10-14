@@ -713,14 +713,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		zoomControls.setIsZoomOutEnabled(getLogic().canZoom(Logic.ZOOM_OUT));
 	}
 	
-//	@Override
-//	public Object onRetainNonConfigurationInstance() {
-//		Log.d(DEBUG_TAG, "onRetainNonConfigurationInstance");
-//		return logic;
-//	}
-
-	
-	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -1029,7 +1021,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					} 
 				}	
 				showDialog(DialogFactory.GPX_UPLOAD);
-				// performTrackUpload("Test","Test",Visibility.PUBLIC);
 			} else {
 				showDialog(DialogFactory.NO_LOGIN_DATA);
 			}
@@ -1113,7 +1104,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		case R.id.menu_transfer_save_file:
 			if (getLogic() == null || Logic.getDelegator() == null) return true;
 			showDialog(DialogFactory.SAVE_FILE);
-//			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
 			return true;
 		
 		case R.id.menu_transfer_bugs_download_current:
@@ -1180,17 +1170,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
 				.format(new Date());
 	    File outdir = null;
-//	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-//	    	outdir = Environment.getExternalStoragePublicDirectory(
-//	                Environment.DIRECTORY_PICTURES);
-//	    	outdir.mkdir();
-//	    } else { // oS version 8
 	    	File sdcard = Environment.getExternalStorageDirectory();
 	    	outdir = new File(sdcard, "Vespucci");
 	    	outdir.mkdir(); // ensure directory exists;
 	    	outdir = new File(outdir,"Pictures");
 	    	outdir.mkdir();
-//	    }
 	    
 	    File imageFile = File.createTempFile(imageFileName,".jpg",outdir);
 	    Log.d(DEBUG_TAG,"createImageFile " + imageFile.getAbsolutePath());
@@ -1203,9 +1187,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    intent.addCategory(Intent.CATEGORY_OPENABLE);
 
 	    try {
-//	        startActivityForResult(
-//	                Intent.createChooser(intent, purpose == WRITE_OSM_FILE_SELECT_CODE ? getString(R.string.save_file) : getString(R.string.read_file)),
-//	                purpose);
 	    	startActivityForResult(intent,purpose);
 	    } catch (android.content.ActivityNotFoundException ex) {
 	        // Potentially direct the user to the Market with a Dialog
@@ -1550,35 +1531,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 		}
 		map.invalidate();
-	}
-	
-	void reindexPhotos() {
-		new AsyncTask<Void, Integer, Void>() {
-
-			@Override
-			protected Void doInBackground(Void... params) {
-				PhotoIndex pi = new PhotoIndex(Application.mainActivity);
-				publishProgress(0);
-				pi.createOrUpdateIndex();
-				publishProgress(1);
-				return null;
-			}
-
-			@Override
-			protected void onProgressUpdate(Integer ... progress) {
-				if (progress[0] == 0)
-					Toast.makeText(getApplicationContext(), R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
-				if (progress[0] == 1)
-					Toast.makeText(getApplicationContext(), R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
-			}
-
-			@Override
-			protected void onPostExecute(Void result) {
-				map.getPhotosOverlay().resetRect();
-				map.invalidate(); 
-			}
-
-		}.execute();
 	}
 	
 	/**
@@ -2329,34 +2281,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 			return true;
 		}
-		
-		/**
-		 * Show toasts displaying the info on nearby objects
-		 */
-		void displayInfo(final float x, final float y) {
-			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
-			// clieckedPhotos and 
-			if (clickedPhotos != null) {
-				for (Photo p : clickedPhotos) {
-					Toast.makeText(getApplicationContext(), p.getRef().getLastPathSegment(), Toast.LENGTH_SHORT).show();
-				}
-			}
-			if (clickedBugs != null) {
-				for (Bug b : clickedBugs) {
-					Toast.makeText(getApplicationContext(), b.getDescription(), Toast.LENGTH_SHORT).show();
-				}
-			}
-			if (clickedNodesAndWays != null) {
-				for (OsmElement e : clickedNodesAndWays) {
-					String toast = e.getDescription();
-					if (e.hasProblem(getApplicationContext())) {
-						String problem = e.describeProblem();
-						toast = !problem.equals("") ? toast + "\n" + problem : toast;
-					}
-					Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
-				}
-			}	
-		}
 
 		@Override
 		public boolean onDoubleTap(View v, float x, float y) {
@@ -2523,10 +2447,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	public Map getMap() {
 		return map;
-	}
-	
-	public void triggerMapContextMenu() {
-		map.showContextMenu();
 	}
 	
 	public static boolean hasChanges() {
