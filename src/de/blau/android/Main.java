@@ -461,8 +461,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 								location.getAccuracy() < bestLocation.getAccuracy())) {
 					bestLocation = location;
 				}
-			} catch (IllegalArgumentException e) {
-			} catch (SecurityException e) {
+			} catch (IllegalArgumentException | SecurityException e) {
+				// TODO: Nothing to do here?
 			}
 		}
 		return bestLocation;
