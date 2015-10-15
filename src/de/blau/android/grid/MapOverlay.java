@@ -80,7 +80,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		String mode = map.getPrefs().scaleLayer();
-		if (!mode.equals("SCALE_NONE") && map.getViewBox().getWidth() < 200000000L) { // testing for < 20° 
+		if (!mode.equals("SCALE_NONE") && map.getViewBox().getWidth() < 200000000L) { // testing for < 20Â°
 			int w = map.getWidth();
 			int h = map.getHeight();
 			boolean metric = mode.equals("SCALE_METRIC") || mode.equals("SCALE_GRID_METRIC");
