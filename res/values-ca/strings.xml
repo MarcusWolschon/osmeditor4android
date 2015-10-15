@@ -251,5 +251,10 @@
   <string name="meter">metre</string>
   <!--Help system-->
   <!--Arrays-->
-  <string-array name="gpx_visibility"/>
+  <string-array name="gpx_visibility">
+    <item>privat</item>
+    <item>públic</item>
+    <item>rastrejable</item>
+    <item>identificable</item>
+  </string-array>
 </resources>
