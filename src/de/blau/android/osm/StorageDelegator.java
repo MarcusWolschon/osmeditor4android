@@ -344,14 +344,14 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param deltaLatE7
 	 * @param deltaLonE7
 	 */
-	public void moveNodes(final List allNodes, final int deltaLatE7, final int deltaLonE7) {
+	public void moveNodes(final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
 		if (allNodes == null) {
 			Log.d("StorageDelegator", "moveNodes  no nodes!");
 			return;
 		}
 		dirty = true;
 		try {
-			HashSet<Node> nodes = new HashSet<Node>(allNodes); // Guarantee uniqueness
+			HashSet<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
 			for (Node nd:nodes) { 
 				undo.save(nd);
 				apiStorage.insertElementSafe(nd);
@@ -1393,7 +1393,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void updateParentRelations(final OsmElement e,
 			final HashMap<Long, String> parents) {
 		Log.d(DEBUG_TAG,"updateParentRelations new parents size " + parents.size());
-		ArrayList<Relation> origParents = e.getParentRelations() != null ? (ArrayList<Relation>) e.getParentRelations().clone() : new ArrayList<Relation>();
+		ArrayList<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<Relation>();
 		
 		for (Relation o: origParents) { // find changes to existing memberships
 			if (!parents.containsKey(Long.valueOf(o.getOsmId()))) {
@@ -1428,7 +1428,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 */
 	public void updateRelation(Relation r, ArrayList<RelationMemberDescription> members) {
 	
-		ArrayList<RelationMember> origMembers = (ArrayList<RelationMember>) (((ArrayList<RelationMember>) r.getMembers()).clone());
+		ArrayList<RelationMember> origMembers = new ArrayList<>(r.getMembers());
 		LinkedHashMap<String,RelationMemberDescription> membersHash = new LinkedHashMap<String,RelationMemberDescription>();
 		for (RelationMemberDescription rmd: members) {
 			membersHash.put(rmd.getType()+"-"+rmd.getRef(),rmd);
