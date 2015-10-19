@@ -42,6 +42,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 
@@ -144,8 +145,9 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	protected void loadParents(LinearLayout membershipVerticalLayout, final Map<Long,String> parents) {
 		membershipVerticalLayout.removeAllViews();
 		if (parents != null && parents.size() > 0) {
+			StorageDelegator storageDelegator = Application.getDelegator();
 			for (Long id :  parents.keySet()) {
-				Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, id.longValue());
+				Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id.longValue());
 				insertNewMembership(membershipVerticalLayout, parents.get(id),r,0, false);
 			}
 		}
