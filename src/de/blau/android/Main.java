@@ -1538,7 +1538,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					getLogic().updateRelation(editorData.osmId, editorData.members);
 				}
 			}
-			getLogic().save(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
+			getLogic().saveAsync(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
 		}
 		if (getLogic().getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) {
 			// not in an easy edit mode, de-select objects avoids inconsistent visual state 

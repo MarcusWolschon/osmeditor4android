@@ -2629,12 +2629,7 @@ public class Logic {
 		new AsyncTask<Void, Void, Void>() {
 			@Override
 			protected Void doInBackground(Void... params) {
-				try {
-					getDelegator().writeToFile(null);
-					Application.getBugStorage().writeToFile(null); // can't display toast because activity might be gone
-				} catch (IOException e) {
-					Log.e("Vespucci", "Problem saving", e);
-				}
+				save();
 				return null;
 			}
 		}.execute();

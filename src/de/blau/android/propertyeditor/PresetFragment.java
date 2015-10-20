@@ -56,6 +56,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	
 	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 	
+	private static final int VIEW_ID = 123456;
+	
     public interface OnPresetSelectedListener {
         public void onPresetSelected(PresetItem item);
     }
@@ -181,7 +183,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		View view = currentGroup.getGroupView(getActivity(), this, element.getType());
 		// view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
 		// view.setOnKeyListener(this);
-		view.setId(123456);
+		view.setId(VIEW_ID);
 		return view;
 	}
 		
@@ -326,15 +328,15 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		// android.support.v4.app.NoSaveStateFrameLayout
 		View v =  getView();	
 		if (v != null) {
-			if ( v.getId() == 123456) {
+			if ( v.getId() == VIEW_ID) {
 				Log.d(DEBUG_TAG,"got correct view in getView");
 				return v;
 			} else {
-				v = v.findViewById(123456);
+				v = v.findViewById(VIEW_ID);
 				if (v == null) {
-					Log.d(DEBUG_TAG,"didn't find 123456");
+					Log.d(DEBUG_TAG,"didn't find VIEW_ID");
 				}  else {
-					Log.d(DEBUG_TAG,"Found 123456");
+					Log.d(DEBUG_TAG,"Found VIEW_ID");
 				}
 				return v;
 			}
