@@ -200,7 +200,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * See {@link #startTracking()} for the public method to call when tracking should be started.
 	 */
 	private void startTrackingInternal() {
-		if (tracking) return;
+		if (tracking) {
+			track.markNewSegment();
+			return;
+		}
 		startInternal();
 		tracking = true;
 		track.markNewSegment();
