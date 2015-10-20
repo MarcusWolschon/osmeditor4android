@@ -36,6 +36,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
@@ -550,13 +551,14 @@ public class DialogFactory {
 			uploadConflict.setNeutralButton(R.string.use_server_version,new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Application.getDelegator().removeFromUpload(elementLocal);
+					StorageDelegator storageDelegator = Application.getDelegator();
+					storageDelegator.removeFromUpload(elementLocal);
 					if (elementOnServer != null) {
 						Main.getLogic().updateElement(elementLocal.getName(), elementLocal.getOsmId());
 					} else { // delete local element
 						Main.getLogic().updateToDeleted(elementLocal);
 					}
-					if (!Application.getDelegator().getApiStorage().isEmpty()) {
+					if (!storageDelegator.getApiStorage().isEmpty()) {
 						caller.confirmUpload();
 					}
 				}

@@ -20,6 +20,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.jsonreader.JsonReader;
 import android.content.Context;
@@ -146,22 +147,23 @@ public class OsmoseBug extends Bug implements Serializable {
 	public ArrayList<OsmElement> getElements() {
 		ArrayList<OsmElement> result = new ArrayList<OsmElement>();
 		String[] elements = elems.split("_");
+		StorageDelegator storageDelegator = Application.getDelegator();
 		for (String e:elements) {
 			try {
 				if (elems.startsWith("way")) {
-					OsmElement osm = Application.getDelegator().getOsmElement(Way.NAME,Long.valueOf(e.substring(3)));
+					OsmElement osm = storageDelegator.getOsmElement(Way.NAME, Long.valueOf(e.substring(3)));
 					if (osm == null) {
 						osm = OsmElementFactory.createWay(Long.valueOf(e.substring(3)), -1, (byte) -1);
 					}
 					result.add(osm);
 				} else if (elems.startsWith("node")) {
-					OsmElement osm = Application.getDelegator().getOsmElement(Node.NAME,Long.valueOf(e.substring(4)));
+					OsmElement osm = storageDelegator.getOsmElement(Node.NAME, Long.valueOf(e.substring(4)));
 					if (osm == null) {
 						osm = OsmElementFactory.createNode(Long.valueOf(e.substring(4)), -1, (byte) -1, 0, 0);
 					}
 					result.add(osm);
 				} else if (elems.startsWith("relation")) {
-					OsmElement osm = Application.getDelegator().getOsmElement(Relation.NAME,Long.valueOf(e.substring(8)));
+					OsmElement osm = storageDelegator.getOsmElement(Relation.NAME, Long.valueOf(e.substring(8)));
 					if (osm == null) {
 						osm = OsmElementFactory.createRelation(Long.valueOf(e.substring(8)), -1, (byte) -1);
 					}

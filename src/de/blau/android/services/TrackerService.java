@@ -58,6 +58,7 @@ import de.blau.android.exception.StorageException;
 import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Track.TrackPoint;
@@ -832,7 +833,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
 		int radius = prefs.getDownloadRadius();
 		if ((location.getSpeed() < prefs.getMaxDownloadSpeed()/3.6f) && (previousLocation==null || location.distanceTo(previousLocation) > radius/8)) {
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
+			StorageDelegator storageDelegator = Application.getDelegator();
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(storageDelegator.getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousLocation, location,radius);
 			if (newBox != null) {
 				if (radius != 0) { // download
@@ -843,7 +845,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							Log.d(TAG,"getNextCenter very small bb " + b.toString());
 							continue;
 						}
-						Application.getDelegator().addBoundingBox(b);  // will be filled once download is complete
+						storageDelegator.addBoundingBox(b);  // will be filled once download is complete
 						Log.d(TAG,"getNextCenter loading " + b.toString());
 						Logic.autoDownloadBox(this,prefs.getServer(), b); 
 					}

@@ -62,6 +62,7 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
@@ -713,6 +714,7 @@ public class EasyEditManager {
 			ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
 			// 
+			StorageDelegator storageDelegator = Application.getDelegator();
 			for (String v:matches) {
 				String[] words = v.split("\\s+", 2);
 				if (words.length > 0) {
@@ -770,7 +772,7 @@ public class EasyEditManager {
 								for (String k:map.keySet()) {
 									tags.put(k, map.get(k));
 								}
-								Application.getDelegator().setTags(node,tags); // note doesn't create a new undo checkpoint
+								storageDelegator.setTags(node,tags); // note doesn't create a new undo checkpoint
 								main.startActionMode(new NodeSelectionActionModeCallback(node));
 								return;
 							}
