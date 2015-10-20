@@ -431,22 +431,28 @@ public class TagEditorFragment extends SherlockFragment {
 		return placeNameAutocompleteAdapter;
 	}
 
+	private void setAutocompletePresetItem(LinearLayout rowLayout) {
+		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
+		autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMapSingle(rowLayout,false)); // FIXME multiselect
+
+	}
+	
 	protected ArrayAdapter<String> getKeyAutocompleteAdapter(LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
 		// Use a set to prevent duplicate keys appearing
 		Set<String> keys = new HashSet<String>();
 		
 		if (autocompletePresetItem == null && ((PropertyEditor)getActivity()).presets != null) {
-			autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMapSingle(rowLayout,false)); // FIXME
+			setAutocompletePresetItem(rowLayout);
 		}
 		
 		if (autocompletePresetItem != null) {
-			keys.addAll(autocompletePresetItem.getTags().keySet());
+			keys.addAll(autocompletePresetItem.getFixedTags().keySet());
 			keys.addAll(autocompletePresetItem.getRecommendedTags().keySet());
 			keys.addAll(autocompletePresetItem.getOptionalTags().keySet());
 		}
 		
-		if (((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME
-			keys.addAll(Preset.getAutocompleteKeys(((PropertyEditor)getActivity()).presets, elements[0].getType())); // FIXME
+		if (((PropertyEditor)getActivity()).presets != null && elements[0] != null) { // FIXME multiselect
+			keys.addAll(Preset.getAutocompleteKeys(((PropertyEditor)getActivity()).presets, elements[0].getType())); // FIXME multiselect
 		}
 		
 		keys.removeAll(getUsedKeys(rowLayout,keyEdit));
@@ -460,6 +466,7 @@ public class TagEditorFragment extends SherlockFragment {
 		ArrayAdapter<?> adapter = null;
 		String key = row.keyEdit.getText().toString();
 		if (key != null && key.length() > 0) {
+			Log.d(DEBUG_TAG,"setting autocomplete adapter for values 1");
 			HashSet<String> usedKeys = (HashSet<String>) getUsedKeys(rowLayout,null);
 			boolean isStreetName = (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) ||
 					(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_HIGHWAY)));
@@ -500,9 +507,9 @@ public class TagEditorFragment extends SherlockFragment {
 						adapter2.add(v);
 					}
 				}
-				
 				if (autocompletePresetItem != null) { // note this will use the last applied preset which may be wrong FIXME
 					Collection<StringWithDescription> values = autocompletePresetItem.getAutocompleteValues(key);
+					Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + values);
 					if (values != null && !values.isEmpty()) {
 						ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(values);
 						Collections.sort(result);
@@ -512,6 +519,10 @@ public class TagEditorFragment extends SherlockFragment {
 							}
 							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
 						}
+					} else if (autocompletePresetItem.isFixedTag(key)) {
+						for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key)) {
+							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
+						}	
 					}
 				} else if (((PropertyEditor)getActivity()).presets != null && elements[0] != null) { 
 					Log.d(DEBUG_TAG,"generate suggestions for >" + key + "< from presets"); // only do this if there is no other source of suggestions
@@ -607,8 +618,15 @@ public class TagEditorFragment extends SherlockFragment {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
+					// Log.d(DEBUG_TAG,"got focus");
 					row.keyEdit.setAdapter(getKeyAutocompleteAdapter(rowLayout, row.keyEdit));
 					if (PropertyEditor.running && row.keyEdit.getText().length() == 0) row.keyEdit.showDropDown();
+				} else {
+					if (autocompletePresetItem == null || (autocompletePresetItem != null && autocompletePresetItem.isFixedTag(row.keyEdit.getText().toString()))) {
+						// Log.d(DEBUG_TAG,"lost focus");
+						// our preset may have changed recalc
+						setAutocompletePresetItem(rowLayout);
+					} 
 				}
 			}
 		});
@@ -627,7 +645,12 @@ public class TagEditorFragment extends SherlockFragment {
 //							// do nothing
 //						}
 					}
-					
+				} else {
+					if (autocompletePresetItem == null || (autocompletePresetItem != null && autocompletePresetItem.isFixedTag(row.keyEdit.getText().toString()))) {
+						// Log.d(DEBUG_TAG,"lost focus");
+						// our preset may have changed recalc
+						setAutocompletePresetItem(rowLayout);
+					} 
 				}
 			}
 		});
@@ -1066,7 +1089,7 @@ public class TagEditorFragment extends SherlockFragment {
 		boolean replacedValue = false;	
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
-		for (Entry<String, StringWithDescription> tag : item.getTags().entrySet()) {
+		for (Entry<String, StringWithDescription> tag : item.getFixedTags().entrySet()) {
 			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue().getValue()));
 			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) {
 				replacedValue = true;
@@ -1088,7 +1111,7 @@ public class TagEditorFragment extends SherlockFragment {
 				}
 			}
 		}
-		
+
 		loadEdits(currentValues);
 		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
 		

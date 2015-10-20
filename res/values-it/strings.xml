@@ -12,6 +12,8 @@
   <string name="upload_conflict_message_version">%1$s \nha la versione locale %2$s \nmentre sul server è %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$s \nmentre sul server risulta eliminata</string>
   <string name="upload_conflict_message_referential">%1$s \nè stata eliminata localamente \nmentre sul server ha dei riferimenti</string>
+  <string name="use_local_version">Usa la \nversione \nlocale</string>
+  <string name="use_server_version">Usa la \nversione \ndel server</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth si tratta probabilmente di un bug,  inviaci un rapporto del problema, se stai usando login e password (non consigliato) verifica che li hai inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione al server</string>
@@ -51,6 +53,7 @@
   <string name="upload_gpx_visibility_label">Visibilità</string>
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
+  <string name="openstreetbug_bug_title">Problema</string>
   <string name="openstreetbug_new_nodeway">Crea nodo/via</string>
   <string name="openstreetbug_edit_title">Modifica nota</string>
   <string name="openstreetbug_commitbutton">Commit</string>
@@ -89,6 +92,7 @@
   <string name="length_m">Lunghezza (metri)</string>
   <string name="not_downloaded">Non scaricato</string>
   <string name="empty_role">Nessun ruolo</string>
+  <string name="warning">avviso</string>
   <!--Toaster-->
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_upload_success">Caricamento nel server OSM completato.</string>
@@ -220,6 +224,7 @@
   <string name="menu_gps_start">Inizia traccia GPS</string>
   <string name="menu_gps_pause">Pausa traccia GPS</string>
   <string name="menu_gps_clear">Cancella traccia GPS</string>
+  <string name="menu_gps_track_managment">Gestione delle tracce</string>
   <string name="menu_gps_upload">Carica traccia GPS</string>
   <string name="menu_gps_export">Esporta traccia GPS</string>
   <string name="menu_gps_import">Importa traccia GPS</string>
@@ -231,9 +236,11 @@
   <string name="menu_transfer_download_other">Scarica altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_close_changeset">Chiusi il gruppo di modifiche corrente</string>
+  <string name="menu_transfer_file">File...</string>
   <string name="menu_transfer_export">Esporta modifiche</string>
   <string name="menu_transfer_read_file">Leggi da file</string>
   <string name="menu_transfer_save_file">Salva su file</string>
+  <string name="menu_transfer_bugs_upload">Carica tutto</string>
   <string name="menu_save">Salva file</string>
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
@@ -248,6 +255,7 @@
   <string name="menu_newnode_gps">Nuovo nodo alla posizione GPS</string>
   <string name="menu_extend_selection">Estendi selezione</string>
   <string name="menu_information">Informazioni</string>
+  <string name="menu_voice_commands">Comandi vocali</string>
   <string name="menu_tools">Strumenti</string>
   <string name="menu_tools_flush_background_tile_cache">Svuota la cache dei tasselli dello sfondo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Svuota la cache dei tasselli sovrapposti</string>
@@ -288,6 +296,8 @@
   <string name="config_showCameraAction_summary">Mostra l\'icona della videocamera nella action bar</string>
   <string name="config_generateAlerts_title">Genera notifiche</string>
   <string name="config_generateAlerts_summary">Genera notifiche in caso di problemi con i dati o annotazioni</string>
+  <string name="config_voiceCommandsEnabled_title">Abilita comandi vocali</string>
+  <string name="config_voiceCommandsEnabled_summary">Abilita il supporto sperimentale ai comandi vocali</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Valore massimo per lo spessore di una via</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>

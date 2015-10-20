@@ -56,7 +56,7 @@ public class ElementSearch {
 							if (distanceFilter && distance > MAX_DISTANCE) {
 								break;
 							}
-							Log.d("ElementSearch","distance " + distance);
+							// Log.d("ElementSearch","distance " + distance);
 						}
 						if (distancesByNames.containsKey(name)) {
 							// way already in list - keep shortest distance

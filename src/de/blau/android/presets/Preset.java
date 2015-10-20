@@ -130,6 +130,7 @@ public class Preset implements Serializable {
 	
 	//
 	private static final int MAX_MRU_SIZE = 50;
+	private static final String DEBUG_TAG = Preset.class.getName();
 	
 	/** The directory containing all data (xml, MRU data, images) about this preset */
 	private File directory;
@@ -412,7 +413,7 @@ public class Preset implements Serializable {
             	} else if ("reference".equals(name)) {
             		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
             		if (chunk != null) {
-            			currentItem.tags.putAll(chunk.getTags());
+            			currentItem.fixedTags.putAll(chunk.getFixedTags());
             			currentItem.optionalTags.putAll(chunk.getOptionalTags());
             			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
             			currentItem.hints.putAll(chunk.hints);
@@ -662,7 +663,8 @@ public class Preset implements Serializable {
 	 * @param tags tags to check against (i.e. tags of a map element)
 	 * @return null, or the "best" matching item for the given tag set
 	 */
-	static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags) {
+    static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags) {
+	
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
@@ -676,14 +678,13 @@ public class Preset implements Serializable {
 				}
 			}
 		}
-		
 		// Find best
 		for (PresetItem possibleMatch : possibleMatches) {
-			if ((possibleMatch.getTagCount() <= bestMatchStrength) && (possibleMatch.getRecommendedTags().size()) <= bestMatchStrength) continue; // isn't going to help
-			if (possibleMatch.getTagCount() > 0) { // has required tags
+			if ((possibleMatch.getFixedTagCount() <= bestMatchStrength) && (possibleMatch.getRecommendedTags().size()) <= bestMatchStrength) continue; // isn't going to help
+			if (possibleMatch.getFixedTagCount() > 0) { // has required tags			
 				if (possibleMatch.matches(tags)) {
 					bestMatch = possibleMatch;
-					bestMatchStrength = bestMatch.getTagCount();
+					bestMatchStrength = bestMatch.getFixedTagCount();
 				}
 			} else if (possibleMatch.getRecommendedTags().size() > 0) {
 				int matches = possibleMatch.matchesRecommended(tags);
@@ -693,6 +694,7 @@ public class Preset implements Serializable {
 				}
 			}
 		}
+		// Log.d(DEBUG_TAG,"findBestMatch " + bestMatch);
 		return bestMatch;
 	}
 	
@@ -1006,7 +1008,7 @@ public class Preset implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
-		private LinkedHashMap<String, StringWithDescription> tags = new LinkedHashMap<String, StringWithDescription>();
+		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
 		
 		/** Tags that are not in the optional section, but do not have a fixed key-value-pair.
 		 *  The map key provides the key, while the map value (String[]) provides the possible values. */
@@ -1070,10 +1072,10 @@ public class Preset implements Serializable {
 					addToSearchIndex(parentName);
 				}
 			}
-			for (String k:tags.keySet()) {
+			for (String k:fixedTags.keySet()) {
 				addToSearchIndex(k);
-				addToSearchIndex(tags.get(k).getValue());
-				addToSearchIndex(tags.get(k).getDescription());
+				addToSearchIndex(fixedTags.get(k).getValue());
+				addToSearchIndex(fixedTags.get(k).getDescription());
 			}
 		}
 		
@@ -1117,7 +1119,7 @@ public class Preset implements Serializable {
 			if (text != null && po != null) {
 				text = po.t(text);
 			}
-			tags.put(key, new StringWithDescription(value, text));
+			fixedTags.put(key, new StringWithDescription(value, text));
 			tagItems.add(key+"\t"+value, this);
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
@@ -1205,12 +1207,20 @@ public class Preset implements Serializable {
 		/**
 		 * @return the fixed tags belonging to this item (unmodifiable)
 		 */
-		public Map<String,StringWithDescription> getTags() {
-			return Collections.unmodifiableMap(tags);
+		public Map<String,StringWithDescription> getFixedTags() {
+			return Collections.unmodifiableMap(fixedTags);
 		}
 		
-		public int getTagCount() {
-			return tags.size();
+		/**
+		 * Return the number of keys with fixed values
+		 * @return
+		 */
+		public int getFixedTagCount() {
+			return fixedTags.size();
+		}
+		
+		public boolean isFixedTag(String key) {
+			return fixedTags.containsKey(key);
 		}
 		
 		public Map<String,StringWithDescription[]> getRecommendedTags() {
@@ -1226,7 +1236,7 @@ public class Preset implements Serializable {
 		}
 		
 		/**
-		 * Return a ist of the values suitable for autocomplete
+		 * Return a ist of the values suitable for autocomplete, note vales for fixed tags are not returned
 		 * @param key
 		 * @return
 		 */
@@ -1247,7 +1257,7 @@ public class Preset implements Serializable {
 		 * @return
 		 */
 		public boolean matches(Map<String,String> tagSet) {
-			for (Entry<String, StringWithDescription> tag : tags.entrySet()) { // for each own tag
+			for (Entry<String, StringWithDescription> tag : fixedTags.entrySet()) { // for each own tag
 				String otherTagValue = tagSet.get(tag.getKey());
 				if (otherTagValue == null || !tag.getValue().equals(otherTagValue)) return false;
 			}
@@ -1305,8 +1315,8 @@ public class Preset implements Serializable {
 		public String toString() {
 			String tagStrings = "";
 			tagStrings = " required: ";
-			for (String k:tags.keySet()) {
-				tagStrings = tagStrings + " " + k + "=" + tags.get(k);
+			for (String k:fixedTags.keySet()) {
+				tagStrings = tagStrings + " " + k + "=" + fixedTags.get(k);
 			}
 			tagStrings = tagStrings + " recommended: ";
 			for (String k:recommendedTags.keySet()) {
@@ -1327,9 +1337,9 @@ public class Preset implements Serializable {
 	
 		public String toJSON() {
 			String jsonString = "";
-			for (String k:tags.keySet()) {
+			for (String k:fixedTags.keySet()) {
 				jsonString = jsonString + tagToJSON(k, null);
-				jsonString = jsonString + tagToJSON(k, tags.get(k).getValue());
+				jsonString = jsonString + tagToJSON(k, fixedTags.get(k).getValue());
 			}
 			for (String k:recommendedTags.keySet()) {
 				jsonString = jsonString + tagToJSON(k, null);
@@ -1432,7 +1442,9 @@ public class Preset implements Serializable {
 				}
 			}
 		}
-		return result; 
+		List<String> r = new ArrayList<String>(result);
+		Collections.sort(r);
+		return r; 
 	}
 	
 	static public Collection<StringWithDescription> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
@@ -1448,7 +1460,9 @@ public class Preset implements Serializable {
 				}
 			}
 		}
-		return result;
+		List<StringWithDescription> r = new ArrayList<StringWithDescription>(result);
+		Collections.sort(r);
+		return r;
 	}
 	
 	static public MultiHashMap<String, PresetItem> getSearchIndex(Preset[] presets) {
