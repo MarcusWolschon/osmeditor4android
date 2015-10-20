@@ -18,6 +18,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
@@ -164,6 +165,7 @@ public class BugFragment extends SherlockDialogFragment {
     	} else if (bug instanceof OsmoseBug) {
     		builder.setTitle(R.string.openstreetbug_bug_title);
     		comments.setText(Html.fromHtml(((OsmoseBug)bug).getLongDescription(getActivity(), false)));
+    		final StorageDelegator storageDelegator = Application.getDelegator();
     		for (final OsmElement e:((OsmoseBug)bug).getElements()) {
     			String text;
     			if (e.getOsmVersion() < 0) { // fake element
@@ -184,7 +186,7 @@ public class BugFragment extends SherlockDialogFragment {
 								Application.mainActivity.getLogic().downloadBox(GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true), true, new PostAsyncActionHandler(){
 									@Override
 									public void execute(){
-										OsmElement osm = Application.getDelegator().getOsmElement(e.getName(),e.getOsmId());
+										OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
 										if (osm != null) {
 											Application.mainActivity.zoomToAndEdit(lonE7, latE7, osm);
 										}
