@@ -27,6 +27,7 @@ import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -1770,6 +1771,19 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 		        startActivity(intent);
 		        return true;
+		    }
+
+		    @Override
+		    public void onPageStarted(WebView view, String url, Bitmap favicon){
+		    	showDialog(DialogFactory.PROGRESS_OAUTH);
+		    }
+		    
+		    @Override
+		    public void onPageFinished(WebView view, String url){
+				try {
+					dismissDialog(DialogFactory.PROGRESS_OAUTH);
+				} catch (IllegalArgumentException ignored) {
+				}
 		    }
 		}
 		

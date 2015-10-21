@@ -97,6 +97,8 @@ public class DialogFactory {
 	public static final int API_OFFLINE = 24;
 	
 	public static final int NEW_VERSION = 25;
+	
+	public static final int PROGRESS_OAUTH = 26;
 		
 	private final Main caller;
 	
@@ -293,6 +295,9 @@ public class DialogFactory {
 		
 		case PROGRESS_SAVING:
 			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_saving_message);
+			
+		case PROGRESS_OAUTH:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_oauth);
 			
 		case BACKGROUND_PROPERTIES:
 			return backgroundProperties.create();
