@@ -1760,6 +1760,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		}
 		oAuthWebView.requestFocus(View.FOCUS_DOWN);
 		class MyWebViewClient extends WebViewClient {
+			final int LOADS = 2;
+			int times = 0; // counter to avoid redisplaying dialog after first complete load
+			
 		    @Override
 		    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		    	if (!url.contains("vespucci")) {
@@ -1775,15 +1778,20 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 		    @Override
 		    public void onPageStarted(WebView view, String url, Bitmap favicon){
-		    	showDialog(DialogFactory.PROGRESS_OAUTH);
+		    	if (times < LOADS) {
+		    		showDialog(DialogFactory.PROGRESS_OAUTH);
+		    	}
 		    }
 		    
 		    @Override
 		    public void onPageFinished(WebView view, String url){
-				try {
-					dismissDialog(DialogFactory.PROGRESS_OAUTH);
-				} catch (IllegalArgumentException ignored) {
-				}
+		    	if (times < LOADS) {
+		    		times++;
+		    		try {
+		    			dismissDialog(DialogFactory.PROGRESS_OAUTH);
+		    		} catch (IllegalArgumentException ignored) {
+		    		}
+		    	}
 		    }
 		}
 		
