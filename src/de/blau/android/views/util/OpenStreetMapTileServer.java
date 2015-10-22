@@ -35,6 +35,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
+import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
@@ -518,9 +519,14 @@ public class OpenStreetMapTileServer {
 		synchronized (backgroundServerList) {
 			if (!ready) {
 				Log.d("OpenStreetMapTileServer","Parsing configuration files");
+
+				final String FILE_NAME_USER_IMAGERY = "imagery.json";
+				final String FILE_NAME_VESPUCCI_IMAGERY = "imagery_vespucci.json";
 				
 				File sdcard = Environment.getExternalStorageDirectory();
-				String userImagery = sdcard.getPath() + "/Vespucci/imagery.json";
+				String userImagery = sdcard.getPath() + "/" +
+						Paths.DIRECTORY_PATH_VESPUCCI + "/" +
+						FILE_NAME_USER_IMAGERY;
 				Log.i("OpenStreetMapTileServer","Trying to read custom imagery from " + userImagery);
 				try {
 					InputStream is = new FileInputStream(new File(userImagery));		
@@ -529,8 +535,9 @@ public class OpenStreetMapTileServer {
 					// Don't care if reading fails
 				}
 						
-				AssetManager assetManager = ctx.getAssets();	
-				String[] imageryFiles = {"imagery_vespucci.json","imagery.json"}; // entries in earlier files will not be overwritten by later ones
+				AssetManager assetManager = ctx.getAssets();
+				// entries in earlier files will not be overwritten by later ones
+				String[] imageryFiles = {FILE_NAME_VESPUCCI_IMAGERY, FILE_NAME_USER_IMAGERY};
 				for (String fn:imageryFiles) {
 					try {
 						InputStream is = assetManager.open(fn);
