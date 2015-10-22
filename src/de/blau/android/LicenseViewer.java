@@ -33,17 +33,7 @@ public class LicenseViewer extends SherlockActivity {
 		load("LICENSE-GPL3.txt", builder);
 		load("LICENSE-Apache.txt", builder);
 		load("josm-contributors.txt", builder);
-		builder.append("== Debugging Information ==\n");
-		builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + "\n");
-		builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + "\n");
-		for (OpenStreetMapViewOverlay ov:Application.mainActivity.getMap().mOverlays) {
-			if (ov instanceof OpenStreetMapTilesOverlay|| ov instanceof OpenStreetMapOverlayTilesOverlay) {
-				builder.append("Tile Cache " + ((OpenStreetMapTilesOverlay)ov).getRendererInfo().getId() + " usage " + ((OpenStreetMapTilesOverlay)ov).getTileProvider().getCacheUsageInfo() + "\n");
-			}
-		}
 		textFull.setText(builder.toString());
-
-		
 		setContentView(container);
 	}
 	

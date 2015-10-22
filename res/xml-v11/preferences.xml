@@ -82,5 +82,10 @@
 			android:summary="@string/config_licensebutton_summary"
 			android:key="@string/config_licensebutton_key"
 		/>
+		<Preference
+			android:title="@string/config_debugbutton_title"
+			android:summary="@string/config_debugbutton_summary"
+			android:key="@string/config_debugbutton_key"
+		/>
 	</PreferenceCategory>
 </PreferenceScreen>

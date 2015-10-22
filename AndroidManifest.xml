@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="57"
+	android:versionCode="58"
 	android:installLocation="auto"
 	>
 	
@@ -107,6 +107,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="LicenseViewer" android:theme="@style/Theme.Sherlock.NoActionBar" />
+		<activity android:name="DebugInformation" android:theme="@style/Theme.Sherlock.NoActionBar" />
 		<activity 
 		    android:name="HelpViewer" 
 		    android:theme="@style/Theme.customHelpViewer" 

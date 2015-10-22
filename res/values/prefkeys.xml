@@ -24,6 +24,7 @@
     <string name="config_presetbutton_key">presetsettings-button</string>
     <string name="config_iconbutton_key">iconsettings-button</string>
     <string name="config_licensebutton_key">licenseview-button</string>
+    <string name="config_debugbutton_key">debugview-button</string>
     <string name="config_selected_api">selectedAPI</string>
     <string name="config_forceContextMenu_key">forceContextMenu</string>
     <string name="config_advancedprefs_key">advanced</string>

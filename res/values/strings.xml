@@ -373,6 +373,8 @@
     <string name="config_forceContextMenu_summary">Always show the context menu in EasyEdit mode if the selection is ambiguous.</string>
     <string name="config_licensebutton_title">Authors and licenses</string>
     <string name="config_licensebutton_summary">Show authors and license information</string>
+    <string name="config_debugbutton_title">Debug</string>
+    <string name="config_debugbutton_summary">Show some internal information</string>
 	<string name="config_mapProfile_title">Map profile</string>
 	<string name="config_mapProfile_summary">Set style and visibility of elements</string>
 	<string name="config_use_back_for_undo_title">Use back key for Undo</string>

@@ -16,6 +16,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Parcelable;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.util.IssueAlert;
@@ -436,7 +437,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 			checkedForProblem = true; // don't re-check
 			cachedHasProblem = calcProblem();
 			if (cachedHasProblem && context != null) {
-				IssueAlert.alert(context, this); // FIXME using main here is likely an issue
+				IssueAlert.alert(context, this); 
 			}
 		}
 		return cachedHasProblem;
