@@ -220,8 +220,9 @@ public class PresetEditorActivity extends URLListEditActivity {
 						return DOWNLOADED_PRESET_ERROR;
 					}
 					boolean zip = conn.getContentType().equalsIgnoreCase("application/zip");
+					final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
 					if (zip) {
-						filename = "temp.zip";
+						filename = FILE_NAME_TEMPORARY_ARCHIVE;
 					}
 					InputStream downloadStream = conn.getInputStream();
 					OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));
@@ -231,7 +232,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 					
 					if (zip) {
 						if (unpackZip(presetDir.getPath() + "/",filename)) {
-							(new File(presetDir, "temp.zip")).delete();
+							(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete();
 							return DOWNLOADED_PRESET_ZIP;
 						}
 					}
