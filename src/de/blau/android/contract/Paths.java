@@ -9,4 +9,6 @@ public interface Paths {
 
     String DIRECTORY_PATH_VESPUCCI = "Vespucci";
 
+    String FILE_EXTENSION_IMAGE = ".jpg";
+
 }

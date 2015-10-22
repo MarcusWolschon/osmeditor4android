@@ -1199,7 +1199,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    	outdir.mkdir();
 //	    }
 	    
-	    File imageFile = File.createTempFile(imageFileName,".jpg",outdir);
+	    File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outdir);
 	    Log.d(DEBUG_TAG,"createImageFile " + imageFile.getAbsolutePath());
 	    return imageFile;
 	}

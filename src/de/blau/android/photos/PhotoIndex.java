@@ -20,6 +20,8 @@ import android.graphics.Rect;
 import android.os.Environment;
 import android.util.Log;
 
+import de.blau.android.contract.Paths;
+
 /**
  * Scan the system for geo ref photos and store is in a DB
  * @author simon
@@ -35,7 +37,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	class JpgFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
-			return name.endsWith(".jpg");
+			return name.endsWith(Paths.FILE_EXTENSION_IMAGE);
 		}
 	}
 	
@@ -176,7 +178,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
 					//recursive decent
 					scanDir(db, f.getAbsolutePath(), lastScan);
 				}
-				if (needsReindex && f.getName().toLowerCase(Locale.US).endsWith(".jpg")) {
+				if (needsReindex && f.getName()
+						.toLowerCase(Locale.US)
+						.endsWith(Paths.FILE_EXTENSION_IMAGE)) {
 					addPhoto(db, indir, f);
 				}
 			}
