@@ -5,6 +5,8 @@ package de.blau.android.contract;
  */
 public interface Paths {
 
+    String DIRECTORY_PATH_EXTERNAL_SD_CARD = "/external_sd";
+
     String DIRECTORY_PATH_PICTURES = "Pictures";
 
     String DIRECTORY_PATH_VESPUCCI = "Vespucci";
