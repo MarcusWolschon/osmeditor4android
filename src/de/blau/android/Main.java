@@ -1195,7 +1195,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	    	File sdcard = Environment.getExternalStorageDirectory();
 	    	outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 	    	outdir.mkdir(); // ensure directory exists;
-	    	outdir = new File(outdir,"Pictures");
+	    	outdir = new File(outdir, Paths.DIRECTORY_PATH_PICTURES);
 	    	outdir.mkdir();
 //	    }
 	    
