@@ -33,6 +33,7 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.contract.Paths;
 
 /**
  * Helper class for loading and saving individual serializable objects to files.
@@ -253,7 +254,7 @@ public class SavingHelper<T extends Serializable> {
 			@Override
 			protected String doInBackground(Void... params) {
 				File sdcard = Environment.getExternalStorageDirectory();
-				File outdir = new File(sdcard, "Vespucci");
+				File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 				outdir.mkdir(); // ensure directory exists;
 				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+"."+exportable.exportExtension();
 				File outfile = new File(outdir, filename);

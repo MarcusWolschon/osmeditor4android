@@ -41,6 +41,7 @@ import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.contract.Paths;
 import de.blau.android.resources.Profile.FeatureProfile.DashPath;
 import de.blau.android.util.Density;
 
@@ -698,7 +699,7 @@ public class Profile  extends DefaultHandler {
 	 */
 	void save() {
 		File sdcard = Environment.getExternalStorageDirectory();
-		File outdir = new File(sdcard, "Vespucci");
+		File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		outdir.mkdir(); // ensure directory exists;
 		String filename = name + "-profile.xml";
 		File outfile = new File(outdir, filename);
@@ -891,7 +892,7 @@ public class Profile  extends DefaultHandler {
 		
 		// from sdcard
 		File sdcard = Environment.getExternalStorageDirectory();
-		File indir = new File(sdcard, "Vespucci");
+		File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		if (indir != null) {
 			File[] list = indir.listFiles(new ProfileFilter());
 			if (list != null) {
