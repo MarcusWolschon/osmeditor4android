@@ -74,7 +74,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		ArrayList<String> mountPoints = new ArrayList<String>();
 		mountPoints.add(sdcard.getAbsolutePath());
 		mountPoints.add(sdcard.getAbsolutePath() + Paths.DIRECTORY_PATH_EXTERNAL_SD_CARD);
-		File storageDir = new File("/storage");
+		File storageDir = new File(Paths.DIRECTORY_PATH_STORAGE);
 		File[] list = storageDir.listFiles();
 		if (list != null) {
 			for (File f:list) {
