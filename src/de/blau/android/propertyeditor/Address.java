@@ -256,7 +256,9 @@ public class Address implements Serializable {
 						try {
 							int firstNumber = list.firstKey();
 							int lastNumber = list.lastKey();
-							// 
+							//
+							// determine increment
+							//
 							int inc = 1;
 							float incTotal = 0;
 							float incCount = 0;
@@ -269,6 +271,9 @@ public class Address implements Serializable {
 								}
 							}
 							inc = Math.round(incTotal/incCount);
+							//
+							// find the most appropriate next address
+							//
 							int nearest = -1; 
 							int prev = -1;
 							int post = -1;
@@ -277,10 +282,13 @@ public class Address implements Serializable {
 							double distance = Double.MAX_VALUE;
 							for (int i=0;i<numbers.size();i++) {
 								// determine the nearest existing address
+								// FIXME there is an obvious better criteria
 								int number = Integer.valueOf(numbers.get(i));
 								Address a = list.get(number);
 								double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
-								if (newDistance < distance) {
+								if (newDistance <= distance) { 
+									// if distance is the same replace with values for the 
+									// current number which will be larger
 									distance = newDistance;
 									nearest = number;
 									prev = numbers.get(Math.max(0, i-1));
@@ -316,7 +324,16 @@ public class Address implements Serializable {
 									tags.put(key,list.get(nearest).tags.get(key));
 								}
 							}
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList("" + Math.max(1, nearest+inc)));
+							int newNumber = Math.max(1, nearest+inc);
+							if (numbers.contains(new Integer(newNumber))) { 
+								// try one inc more and one less, if they both fail use the original number
+								if (!numbers.contains(new Integer(Math.max(1,newNumber+inc)))) {
+									newNumber = Math.max(1,newNumber+inc);
+								} else if (!numbers.contains(new Integer(Math.max(1,newNumber-inc)))) {
+									newNumber = Math.max(1,newNumber-inc);
+								}
+							}
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList("" + newNumber));
 						} catch (NumberFormatException nfe){
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
 						}
@@ -400,7 +417,7 @@ public class Address implements Serializable {
 					Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
 					ArrayList<String> addrHousenumberValues = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
 					if ( addrHousenumberValues != null && addrHousenumberValues.size()>0) {
-						String[] numbers =  addrHousenumberValues.get(0).split("\\,");
+						String[] numbers =  addrHousenumberValues.get(0).split("[\\,;\\-]");
 						for (String n:numbers) {
 							Log.d("TagEditor","add number  " + n);
 							try {
