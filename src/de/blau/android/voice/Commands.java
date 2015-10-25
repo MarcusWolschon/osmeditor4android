@@ -62,12 +62,10 @@ public class Commands {
 	private static final String DEBUG_TAG = Commands.class.getSimpleName();
 	private Context ctx;
 	
-	MultiHashMap<String, PresetItem> presetSeachIndex; 
 	Map<String,NameAndTags> namesSearchIndex;
 	
 	public Commands(Context ctx) {
 		this.ctx = ctx;
-		presetSeachIndex = Application.getPresetSearchIndex(ctx);
 		namesSearchIndex = Application.getNameSearchIndex(ctx);
 	}
 	

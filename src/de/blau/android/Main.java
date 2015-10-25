@@ -927,7 +927,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
 		menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected);
-		menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
+		menu.findItem(R.id.menu_voice).setVisible(false); // don't display button for now
+//		menu.findItem(R.id.menu_voice).setEnabled(networkConnected && prefs.voiceCommandsEnabled()).setVisible(prefs.voiceCommandsEnabled());
 		
 		return true;
 	}
@@ -955,16 +956,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			startActivity(startHelpViewer);
 			return true;
 			
-		case R.id.menu_voice:		
-			Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-			try {
-				startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
-			} catch (Exception ex) {
-				Log.d(DEBUG_TAG,"Caught exception " + ex);
-				Toast.makeText(getApplicationContext(),R.string.toast_no_voice, Toast.LENGTH_LONG).show();
-			}
-			return true;
+//		case R.id.menu_voice:		
+//
+//			return true;
 			
 		case R.id.menu_camera:
 			Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -1180,6 +1174,17 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		return false;
 	}
 
+	private void startVoiceRecognition() {
+		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		try {
+			startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+		} catch (Exception ex) {
+			Log.d(DEBUG_TAG,"Caught exception " + ex);
+			Toast.makeText(getApplicationContext(),R.string.toast_no_voice, Toast.LENGTH_LONG).show();
+		}
+	}
+	
 	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	private File getImageFile() throws IOException {
 	    // Create an image file name
@@ -2045,7 +2050,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (isInEditZoomRange) {
 				switch (mode) {
 				case MODE_MOVE:
-					Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
+					if (NetworkStatus.isConnected(Application.mainActivity) && prefs.voiceCommandsEnabled()) {
+						startVoiceRecognition();
+					} else {
+						Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();
+					}
 					break;
 				case MODE_TAG_EDIT:
 					selectElementForTagEdit(v, x, y);

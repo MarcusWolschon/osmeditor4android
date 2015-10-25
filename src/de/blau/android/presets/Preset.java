@@ -159,6 +159,7 @@ public class Preset implements Serializable {
 	
 	/** for search support */
 	protected final MultiHashMap<String, PresetItem> searchIndex = new MultiHashMap<String, PresetItem>();
+	protected final MultiHashMap<String, PresetItem> translatedSearchIndex = new MultiHashMap<String, PresetItem>();
 		
 	protected Po po = null;
 	
@@ -1097,11 +1098,11 @@ public class Preset implements Serializable {
 				}
 				if (po != null) { // and any translation
 					String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(term));
-					searchIndex.add(normalizedTranslatedName,this);
+					translatedSearchIndex.add(normalizedTranslatedName,this);
 					String translastedWords[] = normalizedName.split(" ");
 					if (translastedWords.length > 1) {
 						for (String w:translastedWords) {
-							searchIndex.add(w,this);
+							translatedSearchIndex.add(w,this);
 						}
 					}
 				}
@@ -1469,6 +1470,14 @@ public class Preset implements Serializable {
 		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
 		for (Preset p:presets) {
 			result.addAll(p.searchIndex);
+		}
+		return result;
+	}
+	
+	static public MultiHashMap<String, PresetItem> getTranslatedSearchIndex(Preset[] presets) {
+		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
+		for (Preset p:presets) {
+			result.addAll(p.translatedSearchIndex);
 		}
 		return result;
 	}

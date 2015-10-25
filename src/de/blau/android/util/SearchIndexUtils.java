@@ -72,7 +72,7 @@ public class SearchIndexUtils {
 
 	
 	/**
-	 * Slightly fuzzy search in the preset index for presets and return them
+	 * Slightly fuzzy search in the preset index for presets and return them, translated items first
 	 * @param ctx
 	 * @param term search term
 	 * @param type OSM object "type"
@@ -80,20 +80,24 @@ public class SearchIndexUtils {
 	 * @param limit max number of results
 	 * @return
 	 */
-	public static List<PresetItem> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit) {
-		MultiHashMap<String, PresetItem> presetSeachIndex = Application.getPresetSearchIndex(ctx);
+	public static List<PresetItem> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit){
+		ArrayList<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<MultiHashMap<String, PresetItem>>();
+		presetSeachIndices.add(Application.getTranslatedPresetSearchIndex(ctx));	
+		presetSeachIndices.add(Application.getPresetSearchIndex(ctx));	
 		TreeSet<IndexSearchResult> sortedResult = new TreeSet<IndexSearchResult>();
 		term = SearchIndexUtils.normalize(term);
-		for (String s:presetSeachIndex.getKeys()) {
-			int distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
-			if (distance >= 0 && distance <= maxDistance) {
-				Set<PresetItem> presetItems = presetSeachIndex.get(s);
-				for (PresetItem pi:presetItems) {
-					if (type == null || pi.appliesTo(type)) {
-						IndexSearchResult isr = new IndexSearchResult();
-						isr.count = distance * presetItems.size();
-						isr.item = pi;
-						sortedResult.add(isr);
+		for (MultiHashMap<String, PresetItem> index:presetSeachIndices) {
+			for (String s:index.getKeys()) {
+				int distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
+				if (distance >= 0 && distance <= maxDistance) {
+					Set<PresetItem> presetItems = index.get(s);
+					for (PresetItem pi:presetItems) {
+						if (type == null || pi.appliesTo(type)) {
+							IndexSearchResult isr = new IndexSearchResult();
+							isr.count = distance * presetItems.size();
+							isr.item = pi;
+							sortedResult.add(isr);
+						}
 					}
 				}
 			}

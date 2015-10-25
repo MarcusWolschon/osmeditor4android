@@ -38,6 +38,7 @@ public class Application extends android.app.Application {
 	 */
 	private static Preset[] currentPresets;
 	private static MultiHashMap<String, PresetItem> presetSearchIndex = null;
+	private static MultiHashMap<String, PresetItem> translatedPresetSearchIndex = null;
 	/**
 	 * name index related stuff
 	 */
@@ -82,6 +83,7 @@ public class Application extends android.app.Application {
 	public static synchronized void resetPresets() {
 		currentPresets = null; 
 		presetSearchIndex = null;
+		translatedPresetSearchIndex = null;
 		System.gc(); // not sure if this actually helps
 	}
 	
@@ -90,6 +92,13 @@ public class Application extends android.app.Application {
 			presetSearchIndex = Preset.getSearchIndex(getCurrentPresets(ctx));
 		}
 		return presetSearchIndex;
+	}
+	
+	public static synchronized MultiHashMap<String, PresetItem> getTranslatedPresetSearchIndex(Context ctx) {
+		if (translatedPresetSearchIndex == null) {
+			translatedPresetSearchIndex = Preset.getTranslatedSearchIndex(getCurrentPresets(ctx));
+		}
+		return translatedPresetSearchIndex;
 	}
 	
 	public static synchronized Map<String,NameAndTags> getNameSearchIndex(Context ctx) {
