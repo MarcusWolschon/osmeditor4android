@@ -41,6 +41,7 @@ import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.contract.Paths;
 import de.blau.android.resources.Profile.FeatureProfile.DashPath;
 import de.blau.android.util.Density;
 
@@ -698,9 +699,9 @@ public class Profile  extends DefaultHandler {
 	 */
 	void save() {
 		File sdcard = Environment.getExternalStorageDirectory();
-		File outdir = new File(sdcard, "Vespucci");
+		File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		outdir.mkdir(); // ensure directory exists;
-		String filename = name + "-profile.xml";
+		String filename = name + Paths.FILE_PATH_PROFILE_SUFFIX;
 		File outfile = new File(outdir, filename);
 		OutputStream outputStream = null;
 		try {
@@ -863,7 +864,7 @@ public class Profile  extends DefaultHandler {
 	class ProfileFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
-			return name.endsWith("-profile.xml");
+			return name.endsWith(Paths.FILE_PATH_PROFILE_SUFFIX);
 		}
 	}
 	
@@ -879,7 +880,7 @@ public class Profile  extends DefaultHandler {
 			String[] fileList = assetManager.list("");
 			if (fileList != null) {
 				for (String fn:fileList) {
-					if (fn.endsWith("-profile.xml")) {
+					if (fn.endsWith(Paths.FILE_PATH_PROFILE_SUFFIX)) {
 						Log.i("Profile","Creating profile from file in assets directory " + fn);
 						InputStream is = assetManager.open(fn);
 						Profile p = new Profile(ctx, is);
@@ -891,7 +892,7 @@ public class Profile  extends DefaultHandler {
 		
 		// from sdcard
 		File sdcard = Environment.getExternalStorageDirectory();
-		File indir = new File(sdcard, "Vespucci");
+		File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		if (indir != null) {
 			File[] list = indir.listFiles(new ProfileFilter());
 			if (list != null) {

@@ -88,6 +88,7 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.Logic.Mode;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.actionbar.UndoDialogFactory;
+import de.blau.android.contract.Paths;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
@@ -1197,13 +1198,13 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 //	    	outdir.mkdir();
 //	    } else { // oS version 8
 	    	File sdcard = Environment.getExternalStorageDirectory();
-	    	outdir = new File(sdcard, "Vespucci");
+	    	outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 	    	outdir.mkdir(); // ensure directory exists;
-	    	outdir = new File(outdir,"Pictures");
+	    	outdir = new File(outdir, Paths.DIRECTORY_PATH_PICTURES);
 	    	outdir.mkdir();
 //	    }
 	    
-	    File imageFile = File.createTempFile(imageFileName,".jpg",outdir);
+	    File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outdir);
 	    Log.d(DEBUG_TAG,"createImageFile " + imageFile.getAbsolutePath());
 	    return imageFile;
 	}

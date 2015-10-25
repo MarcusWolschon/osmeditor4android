@@ -46,6 +46,7 @@ import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Toast;
+import de.blau.android.contract.Paths;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -2551,7 +2552,7 @@ public class Logic {
 				int result = 0;
 				try {
 					File sdcard = Environment.getExternalStorageDirectory();
-					File outdir = new File(sdcard, "Vespucci");
+					File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 					outdir.mkdir(); // ensure directory exists;
 					File outfile = new File(fileName);
 					Log.d("Logic","Saving to " + outfile.getPath());
