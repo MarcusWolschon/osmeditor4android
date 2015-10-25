@@ -47,6 +47,8 @@ import de.blau.android.util.Density;
 
 public class Profile  extends DefaultHandler {
 	
+    String FILE_PATH_PROFILE_SUFFIX = "-profile.xml";
+	
 	// constants for the internal profiles
 	public final static String GPS_TRACK = "gps_track";
 	public final static String NODE_TOLERANCE = "node_tolerance";
@@ -701,7 +703,7 @@ public class Profile  extends DefaultHandler {
 		File sdcard = Environment.getExternalStorageDirectory();
 		File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		outdir.mkdir(); // ensure directory exists;
-		String filename = name + Paths.FILE_PATH_PROFILE_SUFFIX;
+		String filename = name + FILE_PATH_PROFILE_SUFFIX;
 		File outfile = new File(outdir, filename);
 		OutputStream outputStream = null;
 		try {
@@ -864,7 +866,7 @@ public class Profile  extends DefaultHandler {
 	class ProfileFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
-			return name.endsWith(Paths.FILE_PATH_PROFILE_SUFFIX);
+			return name.endsWith(FILE_PATH_PROFILE_SUFFIX);
 		}
 	}
 	
@@ -880,7 +882,7 @@ public class Profile  extends DefaultHandler {
 			String[] fileList = assetManager.list("");
 			if (fileList != null) {
 				for (String fn:fileList) {
-					if (fn.endsWith(Paths.FILE_PATH_PROFILE_SUFFIX)) {
+					if (fn.endsWith(FILE_PATH_PROFILE_SUFFIX)) {
 						Log.i("Profile","Creating profile from file in assets directory " + fn);
 						InputStream is = assetManager.open(fn);
 						Profile p = new Profile(ctx, is);

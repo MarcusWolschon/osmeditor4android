@@ -14,7 +14,4 @@ public interface Paths {
     String DIRECTORY_PATH_VESPUCCI = "Vespucci";
 
     String FILE_EXTENSION_IMAGE = ".jpg";
-
-    String FILE_PATH_PROFILE_SUFFIX = "-profile.xml";
-
 }
