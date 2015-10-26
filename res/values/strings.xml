@@ -289,6 +289,8 @@
     <string name="menu_tools_background_align_save_device">Save to Device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
     <string name="menu_tools_background_contrast">Contrast</string>
+    <string name="menu_tools_oauth_reset">Reset OAuth</string>
+	<string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
     
     <!-- element action mode menu -->
     <string name="menu_tags">Properties</string>

@@ -145,7 +145,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Sets name and URL of the current API entry
+	 * Sets name and URL of the API entry id
 	 * @param id
 	 * @param name
 	 * @param url

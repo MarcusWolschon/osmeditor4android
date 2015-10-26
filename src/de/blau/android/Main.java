@@ -109,6 +109,7 @@ import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Way;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditor;
@@ -288,13 +289,15 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack to protect against weird state
 
 	private Location lastLocation = null;
+	
+	private Location locationForIntent = null;
 
 	/**
 	 * file we asked the camera app to create (ugly) 
 	 */
 	File imageFile = null;
 
-	private PostAsyncActionHandler restart;
+	private PostAsyncActionHandler restart; // if set this is called to restart post authentication
 
 	private boolean gpsChecked = false; // flag to ensure that we only check once per activity life cycle
 	
@@ -1171,6 +1174,15 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
 			return true;
 			
+		case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
+			AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);	
+			prefdb.setAPIAccessToken(null, null);
+			return true;
+			
+		case R.id.menu_tools_oauth_authorisation: // imediately start authorization handshake
+			oAuthHandshake(server, null);
+			return true;
+				
 		}	
 		return false;
 	}
@@ -1480,7 +1492,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (easyEditManager.isProcessingAction()) {
 				easyEditManager.handleActivityResult(requestCode, resultCode, data);
 			} else {
-				(new Commands(this)).processIntentResult(data);
+				(new Commands(this)).processIntentResult(data,locationForIntent);
+				locationForIntent = null;
 				map.invalidate();
 			}
 		}
@@ -2052,6 +2065,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				switch (mode) {
 				case MODE_MOVE:
 					if (NetworkStatus.isConnected(Application.mainActivity) && prefs.voiceCommandsEnabled()) {
+						locationForIntent = lastLocation; // location when we touched the screen
 						startVoiceRecognition();
 					} else {
 						Toast.makeText(getApplicationContext(), R.string.toast_unlock_to_edit, Toast.LENGTH_SHORT).show();

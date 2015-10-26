@@ -186,7 +186,14 @@
 					android:id="@+id/menu_tools_background_properties"
 					android:title="@string/menu_tools_background_properties"
 				/>
-	
+				<item
+					android:id="@+id/menu_tools_oauth_reset"
+					android:title="@string/menu_tools_oauth_reset"
+				/>
+				<item
+					android:id="@+id/menu_tools_oauth_authorisation"
+					android:title="@string/menu_tools_oauth_authorisation"
+				/>
 		</menu>
 	</item>
 	<item
