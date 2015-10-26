@@ -135,6 +135,7 @@
     <string name="toast_oauth_retry">Please allow OAuth access to your OSM account and then retry the upload.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
+    <string name="toast_oauth_not_enabled">OAuth is not enabled for the current API.</string>
     <string name="toast_timeout">Timeout with server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
     <string name="toast_nothing_found">Nothing found</string>

@@ -1175,14 +1175,21 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
-			AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);	
-			prefdb.setAPIAccessToken(null, null);
+			if (server.getOAuth()) {
+				AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);	
+				prefdb.setAPIAccessToken(null, null);
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.toast_oauth_not_enabled, Toast.LENGTH_LONG).show();
+			}
 			return true;
 			
 		case R.id.menu_tools_oauth_authorisation: // imediately start authorization handshake
-			oAuthHandshake(server, null);
+			if (server.getOAuth()) {
+				oAuthHandshake(server, null);
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.toast_oauth_not_enabled, Toast.LENGTH_LONG).show();
+			}
 			return true;
-				
 		}	
 		return false;
 	}
