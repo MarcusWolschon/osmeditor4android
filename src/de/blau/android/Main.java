@@ -316,7 +316,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		Log.i(DEBUG_TAG, "onCreate " + (savedInstanceState != null?" no saved state " : " saved state exists"));
-		// minimal support for geo: uris and JOSM styl remote control
+		// minimal support for geo: uris and JOSM style remote control
 		geoData = (GeoUrlData)getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
 		rcData = (RemoteControlUrlData)getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
 		
@@ -422,7 +422,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(e);
 					}
-				} else { // create a largish bb cetered on 51.48,0
+				} else { // create a largish bb centered on 51.48,0
 					try {
 						box = GeoMath.createBoundingBoxForCoordinates(51.48,0, DEFAULT_BOUNDINGBOX_RAIDUS, false); // km hardwired for now
 					} catch (OsmException e) {
@@ -843,7 +843,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private ToggleButton setLock(Logic.Mode mode) {
 		ToggleButton lock = (ToggleButton) findViewById(R.id.lock);
 		if (lock==null) {
-			Log.d(DEBUG_TAG, "coudn't find lock button");
+			Log.d(DEBUG_TAG, "couldn't find lock button");
 			return null;
 		}
 		switch (mode) {
@@ -1186,7 +1186,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 			return true;
 			
-		case R.id.menu_tools_oauth_authorisation: // imediately start authorization handshake
+		case R.id.menu_tools_oauth_authorisation: // immediately start authorization handshake
 			if (server.getOAuth()) {
 				oAuthHandshake(server, null);
 			} else {
@@ -1529,7 +1529,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				openEmptyMap(box); // we may have a valid box
 			}
 		} catch (OsmException e) {
-			//Values should be done checked in LocationPciker.
+			//Values should be done checked in LocationPicker.
 			Log.e(DEBUG_TAG, "OsmException", e);
 		}
 	}
@@ -1763,7 +1763,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			oa = new OAuthHelper(url);
 		}
 		catch (OsmException oe) {
-			server.setOAuth(false); // upps something went wrong turn oauth off
+			server.setOAuth(false); // ups something went wrong turn oauth off
 			actionbar.show();
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_no_oauth), Toast.LENGTH_LONG).show();
 			return;
@@ -2397,7 +2397,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		 */
 		void displayInfo(final float x, final float y) {
 			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
-			// clieckedPhotos and 
+			// clickedPhotos and
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
 					Toast.makeText(getApplicationContext(), p.getRef().getLastPathSegment(), Toast.LENGTH_SHORT).show();
