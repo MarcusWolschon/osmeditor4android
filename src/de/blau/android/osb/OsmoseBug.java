@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -22,6 +20,7 @@ import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.jsonreader.JsonReader;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -39,6 +38,12 @@ public class OsmoseBug extends Bug implements Serializable {
 	private static final int LEVEL_ERROR=1;
 	private static final int LEVEL_WARNING=2;
 	private static final int LEVEL_MINOR_ISSUE=3;
+
+	/**
+	 * Date pattern used to parse the update date from a Osmose bug.
+	 */
+	private static final String DATE_PATTERN_OSMOSE_BUG_UPDATED_AT = "yyyy-MM-dd HH:mm:ss z";
+
 	/**
 	 * 
 	 */
@@ -84,9 +89,10 @@ public class OsmoseBug extends Bug implements Serializable {
 								bug.subtitle = reader.nextString();
 								bug.title = reader.nextString();
 								bug.level = reader.nextInt();
-								SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z", Locale.US);
 								try {
-									bug.update = df.parse(reader.nextString());
+									bug.update = DateFormatter.getDate(
+											DATE_PATTERN_OSMOSE_BUG_UPDATED_AT,
+											reader.nextString());
 								} catch (java.text.ParseException pex) {
 									bug.update = new Date();
 								}

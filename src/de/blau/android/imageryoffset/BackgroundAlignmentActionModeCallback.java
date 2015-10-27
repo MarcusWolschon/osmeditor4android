@@ -10,12 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -50,6 +48,7 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
@@ -404,8 +403,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				im.minZoom = z + osmts.getMinZoomLevel();
 				im.maxZoom = im.minZoom;
 				Calendar c = Calendar.getInstance();
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-				im.date = simpleDateFormat.format(c.getTime());
+				im.date = DateFormatter.getFormattedString(
+						ImageryOffset.DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT, c.getTime());
 				im.author = author;
 				offsetList.add(im);
 			}
@@ -511,6 +510,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	    double imageryLon = 0;
 	    DeprecationNote deprecated = null;
 	    
+		/**
+		 * Date pattern used to describe when the imagery offset was created.
+		 */
+		protected static final String DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT = "yyyy-MM-dd";
+
 		public String toSaveUrl() {
 			try {
 				return offsetServer+"store?lat="+ URLEncoder.encode(String.format("%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format("%.7f",lon),"UTF-8")

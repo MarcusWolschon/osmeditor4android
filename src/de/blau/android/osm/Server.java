@@ -13,14 +13,13 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
+import de.blau.android.util.DateFormatter;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
@@ -113,6 +112,11 @@ public class Server {
 	private final XmlPullParserFactory xmlParserFactory;
 
 	private DiscardedTags discardedTags;
+
+	/**
+	 * Date pattern used for suggesting a file name when uploading GPX tracks.
+	 */
+	private static final String DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
 
 	
 	/**
@@ -1414,7 +1418,8 @@ public class Server {
 			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
 			out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
 			out.write(seperator);
-			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".gpx\"\r\n");
+			String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
+			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileNamePart + ".gpx\"\r\n");
 			out.write("Content-Type: application/gpx+xml\r\n\r\n");
 			out.flush();
 			track.exportToGPX(os);

@@ -67,11 +67,12 @@ public class Track extends DefaultHandler {
 	/**
 	 * For conversion from UNIX epoch time and back
 	 */
+	private static final String DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	private static final SimpleDateFormat ISO8601FORMAT;
 	private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 	static {
 		// Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
-		ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.US);
+		ISO8601FORMAT = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC, Locale.US);
 		ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 	
@@ -528,7 +529,7 @@ public class Track extends DefaultHandler {
 //		private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 //		static {
 //			// Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
-//			ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+//			ISO8601FORMAT = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC);
 //			ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
 //		}
 		

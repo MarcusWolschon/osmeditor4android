@@ -6,11 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.acra.ACRA;
 
@@ -118,6 +115,7 @@ import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
@@ -177,6 +175,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private static final String TAG_TAG = "TAG";
 	
 	private static final double DEFAULT_BOUNDINGBOX_RAIDUS = 4000000.0D;
+
+	/**
+	 * Date pattern used for the image file name.
+	 */
+	private static final String DATE_PATTERN_IMAGE_FILE_NAME_PART = "yyyyMMdd_HHmmss";
 	
 	/**
 	 * Where we install the current version of vespucci
@@ -1208,7 +1211,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	private File getImageFile() throws IOException {
 	    // Create an image file name
-	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+	    String timeStamp = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
 	    String imageFileName = timeStamp;
 	    File outdir = null;
 //	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
