@@ -209,7 +209,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 			display.getSize(size);
 		} else {
+			//noinspection deprecation
 			size.x = display.getWidth();
+			//noinspection deprecation
 			size.y = display.getHeight();
 		}
 
