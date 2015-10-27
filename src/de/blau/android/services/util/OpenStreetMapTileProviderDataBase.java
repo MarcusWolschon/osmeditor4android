@@ -304,7 +304,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	 * Date and time in ISO8601 format.
 	 */
 	private String getNowAsIso8601() {
-		return DATE_FORMAT_ISO8601.format(new Date(System.currentTimeMillis()));
+		return DATE_FORMAT_ISO8601.format(new Date());
 	} 
 
 	// ===========================================================
