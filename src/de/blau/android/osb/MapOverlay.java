@@ -37,6 +37,9 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	private Bitmap cachedIconOpen;
 	private float w2open = 0f;
 	private float h2open = 0f;
+	private Bitmap cachedIconChanged;
+	private float w2changed = 0f;
+	private float h2changed = 0f;
 	
 	/** Map this is an overlay of. */
 	private final Map map;
@@ -88,7 +91,14 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 							h2closed = cachedIconClosed.getHeight()/2f;
 						}
 						c.drawBitmap(cachedIconClosed, x-w2closed, y-h2closed, null); 
-					} else {
+					} else if (b.isNew() || b.hasBeenChanged()){
+						if (cachedIconChanged == null) {
+							cachedIconChanged = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_changed);
+							w2changed = cachedIconChanged.getWidth()/2f;
+							h2changed = cachedIconChanged.getHeight()/2f;
+						}
+						c.drawBitmap(cachedIconChanged, x-w2changed, y-h2changed, null); 
+					} else{
 						if (cachedIconOpen == null) {
 							cachedIconOpen = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_open);
 							w2open = cachedIconOpen.getWidth()/2f;

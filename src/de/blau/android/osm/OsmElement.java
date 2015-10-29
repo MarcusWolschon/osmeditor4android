@@ -461,4 +461,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		CLOSEDWAY,
 		RELATION
 	}
+
+	/**
+	 * Return a bounding box covering the element
+	 * @return
+	 */
+	public abstract BoundingBox getBounds();
 }

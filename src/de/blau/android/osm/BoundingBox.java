@@ -142,7 +142,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		this.right = right;
 		this.top = top;
 		calcDimensions();
-		calcMercatorFactorPow3();
+		calcBottomMercator();
 		validate();
 	}
 
@@ -360,14 +360,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 
 	/**
-	 * Calculates the Mercator-Factor powers 3. In later calculations with the
-	 * {@link #mercatorFactorPow3}, it would always be multiplied 3 times with
-	 * itself. So we do it here once.
 	 */
-	private void calcMercatorFactorPow3() {
-		// have to use floatingpoint, otherwise strange things will happen due
-		// to rounding errors.
-		final double centerLat = ((bottom + height / 2) / 1E7d);
+	private void calcBottomMercator() {
 		bottomMercator = GeoMath.latE7ToMercator(bottom);
 	}
 
@@ -490,7 +484,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 			bottom = GeoMath.mercatorE7ToLatE7((int)mBottom);
 			// border-sizes changed. So we have to recalculate the dimensions.
 			calcDimensions();
-			calcMercatorFactorPow3();
+			calcBottomMercator();
 			this.ratio = ratio;
 			validate();
 		}
@@ -668,7 +662,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		// setRatio(ratio, true);
 		
 		calcDimensions(); // need to do this or else centering will not work
-		calcMercatorFactorPow3();
+		calcBottomMercator();
 	}
 	
 	/**
@@ -691,7 +685,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		bottom = GeoMath.mercatorE7ToLatE7((int)(centerLat - hDegE7/2));
 		top = GeoMath.mercatorE7ToLatE7((int)(centerLat + hDegE7/2));
 		calcDimensions(); // 
-		calcMercatorFactorPow3();
+		calcBottomMercator();
 	}
 
 	/**
@@ -732,7 +726,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 			top    = centery + API_MAX_DEGREE_DIFFERENCE / 2;
 			bottom = centery - API_MAX_DEGREE_DIFFERENCE / 2;
 			calcDimensions();
-			calcMercatorFactorPow3();
+			calcBottomMercator();
 		}
 		validate();
 	}
@@ -822,7 +816,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 							rb.setRight(b.right);
 						}
 						rb.calcDimensions();
-						rb.calcMercatorFactorPow3();
+						rb.calcBottomMercator();
 					} catch (OsmException e) {
 						Log.d("BoundingBox", "Exception " + e.getMessage());
 					}
@@ -852,6 +846,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		return new Rect(left,bottom,right,top);
 	}
 
+	/**
+	 * grow this box so that it covers the point
+	 * @param lonE7
+	 * @param latE7
+	 */
 	public void union(int lonE7, int latE7) {
 		if (lonE7 < left) {
 			left = lonE7;
@@ -862,6 +861,25 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 			bottom = latE7;
 		} else if (latE7 > top) {
 			top = latE7;
+		}
+	}
+	
+	/**
+	 * grow this box so that it covers b
+	 * @param b
+	 */
+	public void union(BoundingBox b) {
+		if (b.left < left) {
+			left = b.left;
+		} 
+		if (b.right > right) {
+			right = b.right;
+		}
+		if (b.bottom < bottom) {
+			bottom = b.bottom;
+		} 
+		if (b.top > top) {
+			top = b.top;
 		}
 	}
 }

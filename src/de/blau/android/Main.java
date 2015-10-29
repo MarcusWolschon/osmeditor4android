@@ -2716,10 +2716,14 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
-		map.getViewBox().moveTo(lonE7, latE7);
-		if (map.getZoomLevel() < 20) {
-			getLogic().setZoom(20);
+		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
+		if (e instanceof Node && map.getZoomLevel() < 22) {
+			Log.d(DEBUG_TAG,"zoomToAndEdit setting Zoom to 22");
+			getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
+		} else {
+			map.getViewBox().setBorders(e.getBounds());
 		}
+		map.getViewBox().moveTo(lonE7, latE7);
 		logic.setSelectedNode(null);
 		logic.setSelectedWay(null);
 		logic.setSelectedRelation(null);

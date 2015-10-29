@@ -214,7 +214,7 @@ public class Map extends View implements IMapView {
 		// TODO externalize
 		textPaint.setColor(Color.WHITE);
 		textPaint.setTypeface(Typeface.SANS_SERIF);
-		textPaint.setTextSize(12);
+		textPaint.setTextSize(Density.dpToPx(12));
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
 	}
 	

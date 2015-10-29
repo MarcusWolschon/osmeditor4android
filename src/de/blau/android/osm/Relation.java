@@ -319,6 +319,23 @@ public class Relation extends OsmElement {
 		}
 		return result;
 	}
+
+	@Override
+	public BoundingBox getBounds() {
+		// NOTE this will only return a bb covering the downloaded elements 
+		BoundingBox result = null;
+		for (RelationMember rm:members) {
+			OsmElement e = rm.getElement();
+			if (e != null) {
+				if (result == null) {
+					result = e.getBounds();
+				} else {
+					result.union(e.getBounds());
+				}
+			}
+		}
+		return result;
+	}
 	
 	
 }

@@ -14,6 +14,7 @@ import de.blau.android.R.string;
 import de.blau.android.exception.OsmException;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osb.Bug.State;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -183,7 +184,8 @@ public class BugFragment extends SherlockDialogFragment {
 						final int latE7 = bug.getLat();
 						if (e.getOsmVersion() < 0) { // fake element
 							try {
-								Application.mainActivity.getLogic().downloadBox(GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true), true, new PostAsyncActionHandler(){
+								BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true);
+								Application.mainActivity.getLogic().downloadBox(b, true, new PostAsyncActionHandler(){
 									@Override
 									public void execute(){
 										OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());

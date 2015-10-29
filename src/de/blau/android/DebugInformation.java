@@ -2,23 +2,29 @@ package de.blau.android;
 
 import java.io.File;
 import java.io.InputStreamReader;
+import java.util.Date;
 
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
+import de.blau.android.osb.BugStorage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 public class DebugInformation extends SherlockActivity {
+	private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
@@ -42,9 +48,15 @@ public class DebugInformation extends SherlockActivity {
 		}
 		File stateFile = new File(getFilesDir(), StorageDelegator.FILENAME);
 		if (stateFile.exists()) {
-			builder.append("State file size " +  stateFile.length() + "\n");
+			builder.append("State file size " +  stateFile.length() + " last changed " + DateFormatter.getFormattedString(DATE_TIME_PATTERN, new Date(stateFile.lastModified())) + "\n");
 		} else {
 			builder.append("No state file found\n");
+		}
+		File bugStateFile = new File(getFilesDir(), BugStorage.FILENAME);
+		if (bugStateFile.exists()) {
+			builder.append("Bug state file size " +  bugStateFile.length() + " last changed " + DateFormatter.getFormattedString(DATE_TIME_PATTERN, new Date(bugStateFile.lastModified())) + "\n");
+		} else {
+			builder.append("No bug state file found\n");
 		}
 		StorageDelegator delegator = Application.getDelegator();
 		builder.append("Relations (current/API) :" + delegator.getCurrentStorage().getRelations().size() + "/"
