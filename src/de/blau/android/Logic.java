@@ -2788,7 +2788,7 @@ public class Logic {
 					}
 					// map.invalidate();
 					if (result.intValue() == READ_BACKUP) { 
-						Toast.makeText(Application.mainActivity, "Corrupted bug state file, used backup file!", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, R.string.toast_used_bug_backup, Toast.LENGTH_LONG).show();
 					}
 				}
 				else {
@@ -2844,7 +2844,7 @@ public class Logic {
 			map.invalidate();
 			UndoStorage.updateIcon();
 			if (result == READ_BACKUP) { 
-				Toast.makeText(Application.mainActivity, "Corrupted state file, used backup file!", Toast.LENGTH_LONG).show();
+				Toast.makeText(Application.mainActivity, R.string.toast_used_backup, Toast.LENGTH_LONG).show();
 			}
 		}
 		else {

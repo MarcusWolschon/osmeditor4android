@@ -151,6 +151,7 @@
     <string name="toast_storage_error">Directory for tiles and other files is not writeable by Vespucci.\nThis may be a permissions or technical issue with your device.</string>
     <string name="toast_min_one_preset">At least one preset has to be selected!</string>
     <string name="toast_used_backup">Corrupted state file, used backup file!</string>
+    <string name="toast_used_bug_backup">Corrupted bug state file, used backup file!</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
