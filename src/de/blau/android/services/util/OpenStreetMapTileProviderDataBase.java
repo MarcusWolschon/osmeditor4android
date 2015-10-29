@@ -99,7 +99,8 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	protected final Context mCtx;
 	protected final OpenStreetMapTileFilesystemProvider mFSProvider;
 	protected final SQLiteDatabase mDatabase;
-	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US);
+	private final static String DATE_PATTERN_ISO8601_MILLIS = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+	protected final SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat(DATE_PATTERN_ISO8601_MILLIS, Locale.US);
 
 	// ===========================================================
 	// Constructors
@@ -303,7 +304,7 @@ class OpenStreetMapTileProviderDataBase implements OpenStreetMapViewConstants {
 	 * Date and time in ISO8601 format.
 	 */
 	private String getNowAsIso8601() {
-		return DATE_FORMAT_ISO8601.format(new Date(System.currentTimeMillis()));
+		return DATE_FORMAT_ISO8601.format(new Date());
 	} 
 
 	// ===========================================================

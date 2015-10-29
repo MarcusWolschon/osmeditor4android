@@ -13,9 +13,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -42,7 +39,12 @@ import de.blau.android.contract.Paths;
  * @param <T> The type of the saved objects
  */
 public class SavingHelper<T extends Serializable> {
-	
+
+	/**
+	 * Date pattern used for the export file name.
+	 */
+	private static final String DATE_PATTERN_EXPORT_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
+
 	/**
 	 * Serializes the given object and writes it to a private file with the given name
 	 * 
@@ -256,7 +258,9 @@ public class SavingHelper<T extends Serializable> {
 				File sdcard = Environment.getExternalStorageDirectory();
 				File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 				outdir.mkdir(); // ensure directory exists;
-				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+"."+exportable.exportExtension();
+				String filename = DateFormatter
+						.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) +
+						"." + exportable.exportExtension();
 				File outfile = new File(outdir, filename);
 				OutputStream outputStream = null;
 				try {

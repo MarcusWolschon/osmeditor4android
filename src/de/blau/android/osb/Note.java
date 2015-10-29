@@ -2,16 +2,16 @@ package de.blau.android.osb;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import de.blau.android.Application;
+import de.blau.android.util.DateFormatter;
+
 import de.blau.android.osb.Bug.State;
 import android.text.Html;
 import android.widget.EditText;
@@ -27,6 +27,11 @@ public class Note extends Bug implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3L;
+
+	/**
+	 * Date pattern used to parse the 'date' attribute of a 'note' from XML.
+	 */
+	private static final String DATE_PATTERN_NOTE_CREATED_AT = "yyyy-MM-dd HH:mm:ss z";
 
 	/** Bug comments. */
 	public List<NoteComment> comments = null;
@@ -119,9 +124,10 @@ public class Note extends Bug implements Serializable {
 						text = parser.getText().trim();
 					}
 					if ("date".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z", Locale.US);
+						String trimmedDate = parser.getText().trim();
 						try {
-							timestamp = df.parse(parser.getText().trim());
+							timestamp = DateFormatter.getDate(
+									DATE_PATTERN_NOTE_CREATED_AT, trimmedDate);
 						} catch (java.text.ParseException pex) {
 							timestamp = new Date();
 						}
