@@ -52,8 +52,11 @@ directory, however this depends on the specific camera app.
  * **Start GPS track** - start recording a GPX track
  * **Pause GPS track** - pause recording the current GPX track
  * **Clear GPS track** - clear the current GPX track
- * **Upload GPS track** - upload the current GPX track *(currently not implemented)*
- * **Export GPS track** - export track to file
+ * **Track management...** - manage existing tracks
+  * **Upload GPS track** - upload the current GPX track *(requires network connectivity)*
+  * **Export GPS track** - export track to file
+  * **Import GPS track** - import track from file
+ * **Goto start of track** - center the map on the first track point
  
 
 ### ![](../images/menu_transfer.png) Transfer
