@@ -612,7 +612,7 @@ public class Logic {
 	 * @param box the new empty map-box. Don't mess up with the viewBox!
 	 */
 	void newEmptyMap(BoundingBox box) {
-		Log.e(DEBUG_TAG, "newEmptyMap");
+		Log.d(DEBUG_TAG, "newEmptyMap");
 		if (box == null) { // probably should do a more general check if the BB is valid
 			try {
 				box = new BoundingBox(-180.0d, -GeoMath.MAX_LAT, +180.0d, GeoMath.MAX_LAT); // maximum possible size in mercator projection
@@ -624,10 +624,11 @@ public class Logic {
 		
 		// not checking will zap edits, given that this method will only be called when we are not downloading, not a good thing
 		if (!getDelegator().isDirty()) {
-			getDelegator().reset();
+			getDelegator().reset(false);
 			// delegator.setOriginalBox(box); not needed IMHO
 		} else {
 			//TODO show warning
+			Log.e(DEBUG_TAG, "newEmptyMap called on dirty storage");
 		}
 		// if the map view isn't drawn use an approximation for the aspect ratio of the display ... this is a hack 
 		float ratio = (float)Application.mainActivity.getResources().getDisplayMetrics().widthPixels / (float)Application.mainActivity.getResources().getDisplayMetrics().heightPixels;
@@ -1949,8 +1950,8 @@ public class Logic {
 								}
 							}
 						} else { // replace data with new download
-							getDelegator().reset();
-							getDelegator().setCurrentStorage(osmParser.getStorage());
+							getDelegator().reset(false);
+							getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
 							if (mapBox != null) {
 								Log.d("Logic","setting original bbox");
 								getDelegator().setOriginalBox(mapBox);
@@ -2162,7 +2163,7 @@ public class Logic {
 	 * @see #downloadBox(Main, BoundingBox, boolean)
 	 */
 	void downloadLast() {
-		getDelegator().reset();
+		getDelegator().reset(false);
 		for (BoundingBox box:getDelegator().getBoundingBoxes()) {
 			if (box != null && box.isValidForApi()) downloadBox(box, true, null);
 		}
@@ -2467,8 +2468,8 @@ public class Logic {
 					try {
 						osmParser.start(in);
 						
-						getDelegator().reset();
-						getDelegator().setCurrentStorage(osmParser.getStorage());
+						getDelegator().reset(false);
+						getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
 						getDelegator().fixupApiStorage();
 						
 						viewBox.setBorders(getDelegator().getLastBox()); // set to current or previous

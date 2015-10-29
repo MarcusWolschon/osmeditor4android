@@ -85,12 +85,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	public StorageDelegator() {
-		reset();
-		dirty = false; // this is a completly new delegator, this only happens when the app is being started
+		reset(false); // don't set dirty on creation
 	}
 
-	public void reset() {
-		dirty = true;
+	public void reset(boolean dirty) {
+		this.dirty = dirty;
 		apiStorage = new Storage();
 		currentStorage = new Storage();
 		clipboard = new ClipboardStorage();
@@ -1689,12 +1688,12 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @throws IOException
 	 */
 	public void writeToFile(Context ctx) throws IOException { 
-		if (apiStorage == null || currentStorage == null || (apiStorage.isEmpty() && currentStorage.isEmpty())) {
-			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
+		if (apiStorage == null || currentStorage == null) {
+			// don't write empty state files
 			Log.i("StorageDelegator", "storage delegator empty, skipping save");
 			return;
 		}
-		if (!dirty) {
+		if (!dirty) { // dirty flag sould only be set if we have actually read/loaded/changed something
 			Log.i("StorageDelegator", "storage delegator not dirty, skipping save");
 			return;
 		}
