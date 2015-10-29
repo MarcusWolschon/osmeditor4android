@@ -85,7 +85,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	public StorageDelegator() {
-		reset(false); // don't set dirty on creation
+		reset(false); // don't set dirty on instantiation
 	}
 
 	public void reset(boolean dirty) {

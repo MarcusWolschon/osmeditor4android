@@ -10,6 +10,8 @@ Tapping the lock icon will toggle the mode.
 ####  ![](../images/unlocked.png) unlocked
 In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom in till editing is enabled.*
 
+If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries. A long press on the icon will switch to the normal editing mode.
+
 The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. 
 
 ### Map and Data display
@@ -52,20 +54,27 @@ directory, however this depends on the specific camera app.
  * **Clear GPS track** - clear the current GPX track
  * **Upload GPS track** - upload the current GPX track *(currently not implemented)*
  * **Export GPS track** - export track to file
- * **Auto download** - automatically download the area around the current position (speed needs to be below 6 km/h) *(requires network connectivity)*
+ 
 
 ### ![](../images/menu_transfer.png) Transfer
 
-Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven or eight options:
 
  * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
  * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Download other location** - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
  * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
- * **Export changes** - write a ".osc" format file containing the current edits
- * **Read from file** - read a JOSM compatible XML format file
- * **Save to file** - save as a JOSM compatible XML format file
+ * **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
+ * **File...** - saving and loading OSM data to/from on device files.
+     **Export changes** - write a ".osc" format file containing the current edits
+     **Read from file** - read a JOSM compatible XML format file
+     **Save to file** - save as a JOSM compatible XML format file
+ * **Note/Bugs...** - down- and uploading Notes/Bugs
+     **Download bugs for current view** - download Notes/Bugs for the area visible on the screen
+     **Upload all** - upload all new or modified Notes/Bugs
+     **Clear** - remove all bugs from storage
+     **Auto download** - download Notes/Bugs around the current location automatically *(requires network connectivity)* *(requires GPS)*
 
 ### ![](../images/menu_config.png) Settings
 
@@ -77,6 +86,8 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Flush overlay tile cache** - empty the on device cache for the current overlay *(may take a significant amount of time)*
  * **Align background** - align the current background layer, this can be done manually or from the image alignment database *(requires network connectivity)*
  * **Background properties** - adjust properties of the background layer, currently only a combined contrast/brightness control *(non-persistent)*
+ * **Reset OAuth** - reset the OAuth tokens, This will force reauthorisation the next time you upload.
+ * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
 
 ### ![](../images/ic_menu_search_holo_light.png) Find
 
