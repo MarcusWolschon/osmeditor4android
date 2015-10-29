@@ -224,7 +224,7 @@
   <string name="menu_gps_start">Inizia traccia GPS</string>
   <string name="menu_gps_pause">Pausa traccia GPS</string>
   <string name="menu_gps_clear">Cancella traccia GPS</string>
-  <string name="menu_gps_track_managment">Gestione delle tracce</string>
+  <string name="menu_gps_track_managment">Gestione delle tracce...</string>
   <string name="menu_gps_upload">Carica traccia GPS</string>
   <string name="menu_gps_export">Esporta traccia GPS</string>
   <string name="menu_gps_import">Importa traccia GPS</string>

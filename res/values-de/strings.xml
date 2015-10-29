@@ -45,6 +45,7 @@
   <string name="progress_deleting_message">Löschen...</string>
   <string name="progress_searching_message">Am Suchen...</string>
   <string name="progress_saving_message">Am Speichern...</string>
+  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Authorisierung...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="upload_close_changeset_label">Changeset schliessen</string>
@@ -81,6 +82,7 @@
   <string name="search_results_title">Suchresultate</string>
   <string name="find_message">Suchanfrage eingeben</string>
   <string name="preset_search_hint">Vorlagensuche</string>
+  <string name="no_valid_preset">Keine gültige Vorlage!</string>
   <string name="read_file">Datei zum Lesen auswählen</string>
   <string name="save_file">Datei zum Speichern angeben</string>
   <string name="existing_track_title">Trackdaten vorhanden</string>
@@ -132,6 +134,7 @@
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM Konto erlauben und dann den Upload nochmals versuchen. </string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
+  <string name="toast_oauth_not_enabled">OAuth ist für die aktuelle API nicht eingeschaltet.</string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
   <string name="toast_nothing_found">Kein Resutat gefunden</string>
@@ -146,6 +149,8 @@
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
   <string name="toast_storage_error">Das Verzichnis für Kartenkacheln und andere Dateien ist nicht von Vespucci beschreibar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
   <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
+  <string name="toast_used_backup">Beschädigtes Zustandsdatei, Backup verwendet!</string>
+  <string name="toast_used_bug_backup">Beschädigtes Zustandsdatei für Fehler/Notizen, Backup verwendet!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -285,6 +290,8 @@
   <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
+  <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
+  <string name="menu_tools_oauth_authorisation">OAuth-Zugriff authorisieren</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschaften</string>
   <!--Text should be as short as possible-->
@@ -356,7 +363,7 @@
   <string name="config_username_title">OSM-Benutzername</string>
   <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
   <string name="config_password_title">OSM-Passwort</string>
-  <string name="config_password_summary">Nicht mit dem Wiki-Passwort verwechseln. Beachten Sie: Das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
+  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzten und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
   <string name="config_category_gps">GPS-Einstellungen</string>
   <string name="config_gps_distance_title">Minimale GPS-Distanz</string>
   <string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>
@@ -368,6 +375,7 @@
   <string name="config_forceContextMenu_summary">In EasyEdit Modus immer Kontext Menü zeigen wenn Auswahl uneindeutig.</string>
   <string name="config_licensebutton_title">Autoren und Lizenzen</string>
   <string name="config_licensebutton_summary">Zeige Autoren- und Lizenzinformationen</string>
+  <string name="config_debugbutton_summary">Interne Zustandsinformation anzeigen</string>
   <string name="config_mapProfile_title">Datenanzeigestil</string>
   <string name="config_mapProfile_summary">Anzeige und sichtbarkeit der Datenelemente </string>
   <string name="config_use_back_for_undo_title">Zurücktaste für Undo verwenden</string>

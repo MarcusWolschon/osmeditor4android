@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Numéro de maison (addr:housenumber)</item>
+    <item>Rue (addr:street)</item>
+    <item>Code postal (addr:postcode)</item>
+    <item>Ville/Village/...  (addr:city)</item>
+    <item>Pays (addr:country)</item>
+    <item>Addresse complète (addr:full)</item>
+    <item>Place (addr:place)</item>
+    <item>Hameau (addr:hamlet)</item>
+    <item>Balieue (addr:suburb)</item>
+    <item>Sousdistrict (addr:subdistrict)</item>
+    <item>District (addr:district)</item>
+    <item>Province (addr:province)</item>
+    <item>État (addr:state)</item>
+    <item>Appartements (addr:flats)</item>
+    <item>Porte (addr:door)</item>
+    <item>Unité (addr:unit)</item>
+  </string-array>
+</resources>

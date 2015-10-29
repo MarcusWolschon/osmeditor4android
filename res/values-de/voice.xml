@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <string name="voice_left">links</string>
-    <string name="voice_here">hier</string>
-    <string name="voice_right">rechts</string>
-    <string name="voice_follow">folgen</string>
+  <string name="voice_left">links</string>
+  <string name="voice_here">hier</string>
+  <string name="voice_right">rechts</string>
+  <string name="voice_follow">folgen</string>
+  <string name="voice_note">notiz</string>
 </resources>
