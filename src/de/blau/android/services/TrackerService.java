@@ -65,6 +65,7 @@ import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.SavingHelper.LoadThread;
@@ -167,7 +168,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * To start tracking, bind the service, then call this.
 	 */
 	public void startTracking() {
-		Intent intent = new Intent(this, TrackerService.class);
+		Intent intent = IntentUtil.getTrackerServiceIntent(this);
 		intent.putExtra(TRACK,true);
 		startService(intent);
 	}
@@ -178,7 +179,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * To start tracking, bind the service, then call this.
 	 */
 	public void startAutoDownload() {
-		Intent intent = new Intent(this, TrackerService.class);
+		Intent intent = IntentUtil.getTrackerServiceIntent(this);
 		intent.putExtra(AUTODOWNLOAD,true);
 		startService(intent);
 	}
@@ -189,7 +190,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 	 * To start tracking, bind the service, then call this.
 	 */
 	public void startBugAutoDownload() {
-		Intent intent = new Intent(this, TrackerService.class);
+		Intent intent = IntentUtil.getTrackerServiceIntent(this);
 		intent.putExtra(BUGAUTODOWNLOAD,true);
 		startService(intent);
 	}

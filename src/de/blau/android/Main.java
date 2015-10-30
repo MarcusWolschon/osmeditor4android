@@ -509,7 +509,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		super.onResume();
 		Log.d(DEBUG_TAG, "onResume");
 
-		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
+		bindService(IntentUtil.getTrackerServiceIntent(this), this, BIND_AUTO_CREATE);
 		
 		// register received for changes in connectivity
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
