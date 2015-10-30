@@ -1349,6 +1349,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	private void enableLocationUpdates() {
+		//noinspection PointlessBooleanExpression
 		if (wantLocationUpdates == true) return;
 		if (sensorManager != null) {
 			sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_UI);
@@ -1358,6 +1359,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	private void disableLocationUpdates() {
+		//noinspection PointlessBooleanExpression
 		if (wantLocationUpdates == false) return;
 		if (sensorManager != null) sensorManager.unregisterListener(sensorListener);
 		wantLocationUpdates  = false;
@@ -2566,6 +2568,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	public static boolean hasChanges() {
+		//noinspection SimplifiableIfStatement
 		if (getLogic() == null) return false;
 		return getLogic().hasChanges();
 	}
