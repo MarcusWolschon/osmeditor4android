@@ -2266,10 +2266,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
-			onCreateDefaultContextMenu(menu, v, menuInfo);
+			onCreateDefaultContextMenu(menu);
 		}
 			
-		public void onCreateDefaultContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
+		public void onCreateDefaultContextMenu(final ContextMenu menu) {
 			int id = 0;
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
