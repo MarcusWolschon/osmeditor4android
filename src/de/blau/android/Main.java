@@ -2126,7 +2126,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
 				easyEditManager.invalidate();
 			}
-			touching=false;
 		}
 		
 		@Override
