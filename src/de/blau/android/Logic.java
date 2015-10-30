@@ -74,6 +74,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.EditState;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
@@ -2536,7 +2537,8 @@ public class Logic {
 	}
 
 	/**
-	 * Write data to a file in (J)OSM compatible format
+	 * Write data to a file in (J)OSM compatible format, 
+	 * if fileName contains directories these are created, otherwise it is stored in the standard public dir
 	 * 
 	 * @param fileName
 	 */
@@ -2552,10 +2554,17 @@ public class Logic {
 			protected Integer doInBackground(Void... arg) {
 				int result = 0;
 				try {
-					File sdcard = Environment.getExternalStorageDirectory();
-					File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
-					outdir.mkdir(); // ensure directory exists;
 					File outfile = new File(fileName);
+					String parent = outfile.getParent();
+					if (parent == null) { // no directory specified, save to standard location
+						outfile = new File(FileUtil.getPublicDirectory(),fileName);
+					} else { // ensure directory exists
+						File outdir = new File(parent);
+						outdir.mkdirs();
+						if (!outdir.isDirectory()) {
+							throw new IOException("Unable to create directory " + outdir.getPath());
+						}
+					}
 					Log.d("Logic","Saving to " + outfile.getPath());
 					final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
 					try {

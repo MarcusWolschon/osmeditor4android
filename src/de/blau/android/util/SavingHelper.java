@@ -255,15 +255,16 @@ public class SavingHelper<T extends Serializable> {
 		new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {
-				File sdcard = Environment.getExternalStorageDirectory();
-				File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
-				outdir.mkdir(); // ensure directory exists;
+			
 				String filename = DateFormatter
 						.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) +
 						"." + exportable.exportExtension();
-				File outfile = new File(outdir, filename);
+				
 				OutputStream outputStream = null;
+				File outfile = null;
 				try {
+					File outdir = FileUtil.getPublicDirectory();
+					outfile = new File(outdir, filename);
 					outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 					exportable.export(outputStream);
 				} catch (Exception e) {
@@ -273,7 +274,7 @@ public class SavingHelper<T extends Serializable> {
 					SavingHelper.close(outputStream);
 				}
 				// workaround for android bug - make sure export file shows up via MTP
-				if (ctx != null){
+				if (ctx != null && outfile != null){
 					triggerMediaScanner(ctx, outfile);
 				}
 				return filename;

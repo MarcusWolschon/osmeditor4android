@@ -116,6 +116,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
@@ -1208,26 +1209,20 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		}
 	}
 	
-	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	private File getImageFile() throws IOException {
 	    // Create an image file name
-	    String timeStamp = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-	    String imageFileName = timeStamp;
-	    File outdir = null;
-//	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-//	    	outdir = Environment.getExternalStoragePublicDirectory(
-//	                Environment.DIRECTORY_PICTURES);
-//	    	outdir.mkdir();
-//	    } else { // oS version 8
-	    	File sdcard = Environment.getExternalStorageDirectory();
-	    	outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
-	    	outdir.mkdir(); // ensure directory exists;
-	    	outdir = new File(outdir, Paths.DIRECTORY_PATH_PICTURES);
-	    	outdir.mkdir();
-//	    }
-	    
-	    File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outdir);
-	    Log.d(DEBUG_TAG,"createImageFile " + imageFile.getAbsolutePath());
+		String timeStamp = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
+		String imageFileName = timeStamp;
+
+		File outdir = FileUtil.getPublicDirectory();
+		outdir = new File(outdir, Paths.DIRECTORY_PATH_PICTURES);
+		outdir.mkdir();
+		if (!outdir.isDirectory() ) {
+			throw new IOException("Unable to create directory");
+		}
+
+		File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outdir);
+		Log.d(DEBUG_TAG,"createImageFile " + imageFile.getAbsolutePath());
 	    return imageFile;
 	}
 	

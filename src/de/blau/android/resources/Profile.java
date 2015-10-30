@@ -44,6 +44,7 @@ import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.resources.Profile.FeatureProfile.DashPath;
 import de.blau.android.util.Density;
+import de.blau.android.util.FileUtil;
 
 public class Profile  extends DefaultHandler {
 	
@@ -700,13 +701,11 @@ public class Profile  extends DefaultHandler {
 	 * save this profile to SDCARD
 	 */
 	void save() {
-		File sdcard = Environment.getExternalStorageDirectory();
-		File outdir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
-		outdir.mkdir(); // ensure directory exists;
 		String filename = name + FILE_PATH_PROFILE_SUFFIX;
-		File outfile = new File(outdir, filename);
 		OutputStream outputStream = null;
 		try {
+			File outdir = FileUtil.getPublicDirectory();
+			File outfile = new File(outdir, filename);
 			outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 			XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 			serializer.setOutput(outputStream, "UTF-8");
