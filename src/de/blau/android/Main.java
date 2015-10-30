@@ -2569,10 +2569,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		return map;
 	}
 	
-	public void triggerMapContextMenu() {
-		map.showContextMenu();
-	}
-	
 	public static boolean hasChanges() {
 		if (getLogic() == null) return false;
 		return getLogic().hasChanges();
