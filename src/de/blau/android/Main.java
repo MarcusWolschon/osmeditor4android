@@ -2282,10 +2282,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				}
 			}
 			if (clickedNodesAndWays != null) {
-				Mode mode = getLogic().getMode();
 				for (OsmElement e : clickedNodesAndWays) {
-					android.view.MenuItem mi = menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
-					// mi.setEnabled(mode != Mode.MODE_MOVE);
+					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
 				}
 			}
 		}
