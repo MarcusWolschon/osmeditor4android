@@ -45,6 +45,7 @@
   <string name="progress_deleting_message">Eliminando...</string>
   <string name="progress_searching_message">Buscando…</string>
   <string name="progress_saving_message">Guardando…</string>
+  <string name="progress_oauth">Cargando su cuenta en openstreetmap.org para la autorización OAuth...</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fuente:</string>
   <string name="upload_close_changeset_label">Cerrar conjunto de cambios:</string>
@@ -81,6 +82,7 @@
   <string name="search_results_title">Resultados de la búsqueda</string>
   <string name="find_message">Introduzca la cadena de búsqueda</string>
   <string name="preset_search_hint">Cadena de búsqueda predeterminada</string>
+  <string name="no_valid_preset">¡Predeterminado no válido!</string>
   <string name="read_file">Seleccionar archivo para leer</string>
   <string name="save_file">Introduzca el archivo para guardar a</string>
   <string name="existing_track_title">Datos existentes de la traza</string>
@@ -132,6 +134,7 @@
   <string name="toast_oauth_retry">Permita el acceso OAuth a su cuenta OSM y luego intente de nuevo la subida.</string>
   <string name="toast_oauth">Permita el acceso OAuth a su cuenta OSM.</string>
   <string name="toast_no_oauth">No está disponible la configuración OAuth para la API actual. Establezca su nombre de usuario y contraseña.</string>
+  <string name="toast_oauth_not_enabled">OAuth no está habilitado para la API actual.</string>
   <string name="toast_timeout">Agotado el tiempo de espera del servidor.</string>
   <string name="coordinates_out_of_range">La longitud debe estar entre -180º y +180º; la latitud entre -85º y 85º</string>
   <string name="toast_nothing_found">No se encontró nada</string>
@@ -140,12 +143,14 @@
   <string name="toast_outside_of_download">Está editando fuera del área descargada.</string>
   <string name="toast_file_not_found">%1$s no encontrado.</string>
   <string name="toast_imported_track_points">Importados %1$s puntos de traza.</string>
-  <string name="toast_unknown_voice_command">Lo siento, \"%1$s\" actual no se entiende</string>
+  <string name="toast_unknown_voice_command">Lo sentimos en este momento no se entiende \"%1$s\"</string>
   <string name="toast_inconsistent_state">¡Detectado un estado inconsistente, envíe el informe de error!</string>
   <string name="toast_camera_error">Error al iniciar la aplicación de la cámara: %1$s</string>
   <string name="toast_no_voice">Sin reconocimiento de voz en la instancia actual</string>
   <string name="toast_storage_error">La carpeta para teselas y otros archivos no es escribible por Vespucci.\nEsto puede ser un problema de permisos o un problema técnico con su dispositivo.</string>
   <string name="toast_min_one_preset">¡Al menos un predeterminado tiene que ser seleccionado!</string>
+  <string name="toast_used_backup">¡Archivo de estado dañado, utilice el archivo de respaldo!</string>
+  <string name="toast_used_bug_backup">¡Archivo de estado de errores dañado, utilice el archivo de respaldo!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -286,6 +291,8 @@
   <string name="menu_tools_background_align_save_device">Guardar en dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos los acercamientos)</string>
   <string name="menu_tools_background_contrast">Contraste</string>
+  <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
+  <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propiedades</string>
   <!--Text should be as short as possible-->
@@ -314,7 +321,7 @@
   <string name="config_generateAlerts_title">Generar notificaciones</string>
   <string name="config_generateAlerts_summary">Genera notificaciones para los datos con problemas o notas</string>
   <string name="config_voiceCommandsEnabled_title">Habilitar comandos de voz</string>
-  <string name="config_voiceCommandsEnabled_summary">Habilitar soporte para comandos de voz expermientales</string>
+  <string name="config_voiceCommandsEnabled_summary">Habilitar soporte para comandos de voz expermentales</string>
   <string name="config_maxAlertDistance_title">Distancia máxima para notificaciones</string>
   <string name="config_maxAlertDistance_summary">La distancia máxima a un problema o nota que puede ser desde la posición actual a generar la notificación</string>
   <string name="config_maxStrokeWidth_title">Anchura máxima de linea</string>
@@ -369,6 +376,8 @@
   <string name="config_forceContextMenu_summary">Muestra siempre el menú contextual en el modo EasyEdit si la selección es ambigua.</string>
   <string name="config_licensebutton_title">Autores y licencias</string>
   <string name="config_licensebutton_summary">Muestra los autores e información de la licencia</string>
+  <string name="config_debugbutton_title">Depurar</string>
+  <string name="config_debugbutton_summary">Mostrar alguna información interna</string>
   <string name="config_mapProfile_title">Perfil de mapa</string>
   <string name="config_mapProfile_summary">Define el estilo y la visibilidad de los elementos</string>
   <string name="config_use_back_for_undo_title">Utilizar tecla volver para deshacer</string>
@@ -510,7 +519,7 @@
     <item>privado</item>
     <item>público</item>
     <item>rastreable</item>
-    <item>identicable</item>
+    <item>identificable</item>
   </string-array>
   <string-array name="gps_source">
     <item>Interno</item>
