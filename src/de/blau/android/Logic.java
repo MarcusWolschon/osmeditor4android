@@ -75,6 +75,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.util.EditState;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.util.OpenStreetMapTileServer;
@@ -2744,7 +2745,7 @@ public class Logic {
 				}
 				else {
 					Log.d("Logic", "loadfromFile: File read failed");
-					Intent intent = new Intent(context, BoxPicker.class);
+					Intent intent = IntentUtil.getBoxPickerIntent(context);
 					Application.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDINGBOX);
 					Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
 				}

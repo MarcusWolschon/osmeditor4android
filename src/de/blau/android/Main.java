@@ -1843,7 +1843,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * Starts the LocationPicker activity for requesting a location.
 	 */
 	public void gotoBoxPicker() {
-		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
+		Intent intent = IntentUtil.getBoxPickerIntent(getApplicationContext());
 		if (getLogic().hasChanges()) {
 			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDINGBOX).show();
 		} else {

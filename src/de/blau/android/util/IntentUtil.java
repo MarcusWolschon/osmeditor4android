@@ -5,11 +5,18 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
+import de.blau.android.BoxPicker;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.services.TrackerService;
 
 public abstract class IntentUtil {
+
+    public static
+    @NonNull
+    Intent getBoxPickerIntent(@NonNull Context context) {
+        return getIntent(context, BoxPicker.class);
+    }
 
     public static
     @NonNull
