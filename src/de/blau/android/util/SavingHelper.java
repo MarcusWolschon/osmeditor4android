@@ -30,7 +30,6 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.contract.Paths;
 
 /**
  * Helper class for loading and saving individual serializable objects to files.

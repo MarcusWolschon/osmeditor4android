@@ -32,15 +32,12 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
@@ -96,7 +93,6 @@ import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.Visibility;
@@ -2011,7 +2007,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		private List<Bug> clickedBugs;
 		private List<Photo> clickedPhotos;
 
-		private boolean touching;
 		private boolean doubleTap = false;
 		
 		@Override
@@ -2029,9 +2024,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		}
 		
 		@Override
-		public void onDown(View v, float x, float y) {
-			touching=true;
-		}
+		public void onDown(View v, float x, float y) {}
 		
 		@Override
 		public void onClick(View v, float x, float y) {
@@ -2269,10 +2262,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
-			onCreateDefaultContextMenu(menu, v, menuInfo);
+			onCreateDefaultContextMenu(menu);
 		}
 			
-		public void onCreateDefaultContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
+		public void onCreateDefaultContextMenu(final ContextMenu menu) {
 			int id = 0;
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
@@ -2285,10 +2278,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				}
 			}
 			if (clickedNodesAndWays != null) {
-				Mode mode = getLogic().getMode();
 				for (OsmElement e : clickedNodesAndWays) {
-					android.view.MenuItem mi = menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
-					// mi.setEnabled(mode != Mode.MODE_MOVE);
+					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
 				}
 			}
 		}
@@ -2572,10 +2563,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	public Map getMap() {
 		return map;
-	}
-	
-	public void triggerMapContextMenu() {
-		map.showContextMenu();
 	}
 	
 	public static boolean hasChanges() {
