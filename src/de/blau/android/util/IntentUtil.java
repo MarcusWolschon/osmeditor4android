@@ -8,6 +8,8 @@ import android.support.annotation.StringRes;
 import de.blau.android.BoxPicker;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
+import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.services.TrackerService;
 
 public abstract class IntentUtil {
@@ -30,6 +32,19 @@ public abstract class IntentUtil {
     @NonNull
     Intent getMainIntent(@NonNull Context context) {
         return getIntent(context, Main.class);
+    }
+
+    public static
+    @NonNull
+    Intent getPropertyEditorIntent(@NonNull Context context,
+                                   @NonNull PropertyEditorData[] dataClass,
+                                   boolean applyLastTags,
+                                   boolean showPresets) {
+        Intent intent = getIntent(context, PropertyEditor.class);
+        intent.putExtra(PropertyEditor.TAGEDIT_DATA, dataClass);
+        intent.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastTags));
+        intent.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
+        return intent;
     }
 
     public static
