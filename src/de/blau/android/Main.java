@@ -2159,6 +2159,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 			
 			if (getLogic().isInEditZoomRange()) {
+				setFollowGPS(false); // editing with the screen moving under you is a pain
 				return easyEditManager.handleLongClick(v, x, y);
 			} else {
 				Toast.makeText(v.getContext(), R.string.toast_not_in_edit_range, Toast.LENGTH_LONG).show();
@@ -2690,6 +2691,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
 		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
+		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
 			Log.d(DEBUG_TAG,"zoomToAndEdit setting Zoom to 22");
 			getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
