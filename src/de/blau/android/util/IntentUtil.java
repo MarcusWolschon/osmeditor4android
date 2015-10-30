@@ -8,6 +8,7 @@ import android.support.annotation.StringRes;
 import de.blau.android.BoxPicker;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
+import de.blau.android.prefs.APIEditorActivity;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.prefs.URLListEditActivity;
@@ -16,6 +17,24 @@ import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.services.TrackerService;
 
 public abstract class IntentUtil {
+
+    public static
+    @NonNull
+    Intent getAPIEditorActivityIntent(@NonNull Context context,
+                                      @NonNull String apiName,
+                                      @NonNull String apiUrl) {
+        Intent intent = getAPIEditorActivityIntent(context);
+        intent.setAction(URLListEditActivity.ACTION_NEW);
+        intent.putExtra(URLListEditActivity.EXTRA_NAME, apiName);
+        intent.putExtra(URLListEditActivity.EXTRA_VALUE, apiUrl);
+        return intent;
+    }
+
+    public static
+    @NonNull
+    Intent getAPIEditorActivityIntent(@NonNull Context context) {
+        return getIntent(context, APIEditorActivity.class);
+    }
 
     public static
     @NonNull

@@ -89,7 +89,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("AdvancedPrefEditor", "onPreferenceClick 2");
-				Intent intent = new Intent(AdvancedPrefEditor.this, APIEditorActivity.class);
+				Intent intent = IntentUtil.getAPIEditorActivityIntent(AdvancedPrefEditor.this);
 				if (Main.hasChanges()) {
 					DialogFactory.createDataLossActivityDialog(AdvancedPrefEditor.this, intent, -1).show();
 				} else {
