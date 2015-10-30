@@ -6,9 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
 import de.blau.android.BoxPicker;
+import de.blau.android.DebugInformation;
 import de.blau.android.HelpViewer;
+import de.blau.android.LicenseViewer;
 import de.blau.android.Main;
 import de.blau.android.prefs.APIEditorActivity;
+import de.blau.android.prefs.AdvancedPrefEditor;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.prefs.URLListEditActivity;
@@ -17,6 +20,12 @@ import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.services.TrackerService;
 
 public abstract class IntentUtil {
+
+    public static
+    @NonNull
+    Intent getAdvancedPrefEditorIntent(@NonNull Context context) {
+        return getIntent(context, AdvancedPrefEditor.class);
+    }
 
     public static
     @NonNull
@@ -44,6 +53,12 @@ public abstract class IntentUtil {
 
     public static
     @NonNull
+    Intent getDebugInformationIntent(@NonNull Context context) {
+        return getIntent(context, DebugInformation.class);
+    }
+
+    public static
+    @NonNull
     Intent getHelpViewerIntent(@NonNull Context context, @StringRes int topic) {
         Intent intent = getIntent(context, HelpViewer.class);
         intent.putExtra(HelpViewer.TOPIC, topic);
@@ -54,6 +69,12 @@ public abstract class IntentUtil {
     @NonNull
     Intent getMainIntent(@NonNull Context context) {
         return getIntent(context, Main.class);
+    }
+
+    public static
+    @NonNull
+    Intent getLicenseViewerIntent(@NonNull Context context) {
+        return getIntent(context, LicenseViewer.class);
     }
 
     public static
