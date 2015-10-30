@@ -27,6 +27,7 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import de.blau.android.Logic.UploadResult;
+import de.blau.android.contract.Paths;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
@@ -464,7 +465,10 @@ public class DialogFactory {
 		saveFileBuilder.setPositiveButton(R.string.save, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Main.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
+				String filePath = Environment.getExternalStorageDirectory().getPath() + "/" +
+						Paths.DIRECTORY_PATH_VESPUCCI + "/" +
+						saveFileEdit.getText().toString();
+				Main.getLogic().writeOsmFile(filePath);
 			}
 		});
 		
