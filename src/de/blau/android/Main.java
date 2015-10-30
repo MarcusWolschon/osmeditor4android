@@ -114,6 +114,7 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
@@ -955,8 +956,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_help:
-			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
+			Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+					getApplicationContext(), R.string.help_main);
 			startActivity(startHelpViewer);
 			return true;
 			

@@ -34,13 +34,13 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.IntentUtil;
 
 public class RelationMembersFragment extends SherlockFragment {
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
@@ -488,8 +488,8 @@ public class RelationMembersFragment extends SherlockFragment {
 			doRevert();
 			return true;
 		case R.id.tag_menu_help:
-			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
+			Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+					getActivity(), R.string.help_propertyeditor);
 			startActivity(startHelpViewer);
 			return true;
 		}

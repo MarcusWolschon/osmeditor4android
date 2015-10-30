@@ -41,8 +41,8 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
-import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
@@ -50,6 +50,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
@@ -137,9 +138,10 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		case MENUITEM_SAVELOCAL:
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_aligningbackgroundiamgery);
-			Application.mainActivity.startActivity(startHelpViewer);
+			Main context = Application.mainActivity;
+			Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+					context, R.string.help_aligningbackgroundiamgery);
+			context.startActivity(startHelpViewer);
 			return true;
 		default: return false;
 		}

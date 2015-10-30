@@ -34,7 +34,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.ElementInfoFragment;
-import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
@@ -48,6 +47,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.TagEditorFragment;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.Search;
 import de.blau.android.util.SearchIndexUtils;
@@ -311,8 +311,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 			}
 			return true;
 		case R.id.preset_menu_help:
-			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_presets);
+			Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+					getActivity(), R.string.help_presets);
 			startActivity(startHelpViewer);
 			return true;
 		}

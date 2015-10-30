@@ -46,7 +46,6 @@ import com.actionbarsherlock.view.MenuItem;
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.ElementInfoFragment;
-import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -71,6 +70,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SearchIndexUtils;
@@ -502,8 +502,8 @@ public class EasyEditManager {
 			Log.d("EasyEditActionModeCallback", "onActionItemClicked");
 			if (item.getItemId() == MENUITEM_HELP) {
 				if (helpTopic != 0) {
-					Intent startHelpViewer = new Intent(main.getApplicationContext(), HelpViewer.class);
-					startHelpViewer.putExtra(HelpViewer.TOPIC, helpTopic);
+					Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+							main.getApplicationContext(), helpTopic);
 					main.startActivity(startHelpViewer);
 				} else {
 					Toast.makeText(main, R.string.toast_nohelp, Toast.LENGTH_LONG).show(); // this is essentially just an error message

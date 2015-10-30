@@ -52,7 +52,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
-import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.names.Names;
@@ -66,6 +65,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.KeyValue;
@@ -1286,8 +1286,8 @@ public class TagEditorFragment extends SherlockFragment {
 			Address.resetLastAddresses();
 			return true;
 		case R.id.tag_menu_help:
-			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
+			Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+					getActivity(), R.string.help_propertyeditor);
 			startActivity(startHelpViewer);
 			return true;
 		}
