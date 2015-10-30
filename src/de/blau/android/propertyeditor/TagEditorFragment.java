@@ -1090,8 +1090,9 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, StringWithDescription> tag : item.getFixedTags().entrySet()) {
-			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue().getValue()));
-			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(tag.getValue())) {
+			String v = tag.getValue().getValue();
+			ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(v));
+			if (oldValue != null && oldValue.size() > 0 && !oldValue.contains(v)) {
 				replacedValue = true;
 			}
 		}

@@ -36,12 +36,26 @@ public class StringWithDescription implements Comparable<StringWithDescription> 
 		return value.compareTo(s.getValue());
 	}
 	
+	/**
+	 * This is likely bad style
+	 * @param s
+	 * @return
+	 */
+	public boolean equals(String s) {
+		return this.value.equals(s);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof String) { // FIXME hack
-			return this.value.equals((String)o);
-		}
-		return this.equals((StringWithDescription)o) 
+		return this == (StringWithDescription)o 
 				|| (this.value.equals(((StringWithDescription)o).value) && ((this.description == null && ((StringWithDescription)o).description == null) || (this.description != null && this.description.equals(((StringWithDescription)o).description))));
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 1;
+		result = 37 * result + (value == null ? 0 : value.hashCode());
+		result = 37 * result + (description == null ? 0 : description.hashCode());
+		return result;
 	}
 }
