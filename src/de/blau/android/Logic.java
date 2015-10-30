@@ -2557,7 +2557,7 @@ public class Logic {
 					File outfile = new File(fileName);
 					String parent = outfile.getParent();
 					if (parent == null) { // no directory specified, save to standard location
-						outfile = new File(FileUtil.getPublicDirectory(),fileName);
+						outfile = new File(FileUtil.getPublicDirectory(), fileName);
 					} else { // ensure directory exists
 						File outdir = new File(parent);
 						outdir.mkdirs();

@@ -1210,19 +1210,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	private File getImageFile() throws IOException {
-	    // Create an image file name
-		String timeStamp = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-		String imageFileName = timeStamp;
-
-		File outdir = FileUtil.getPublicDirectory();
-		outdir = new File(outdir, Paths.DIRECTORY_PATH_PICTURES);
-		outdir.mkdir();
-		if (!outdir.isDirectory() ) {
-			throw new IOException("Unable to create directory");
-		}
-
-		File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outdir);
-		Log.d(DEBUG_TAG,"createImageFile " + imageFile.getAbsolutePath());
+	    File outDir = FileUtil.getPublicDirectory();
+	    outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
+	    String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
+	    File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
+	    Log.d(DEBUG_TAG, "createImageFile " + imageFile.getAbsolutePath());
 	    return imageFile;
 	}
 	
