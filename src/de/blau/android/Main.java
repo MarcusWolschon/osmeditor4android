@@ -103,7 +103,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
@@ -948,7 +947,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final Server server = prefs.getServer();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
-			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
+			startActivity(IntentUtil.getPrefEditorIntent(getApplicationContext()));
 			return true;
 			
 		case R.id.menu_find:

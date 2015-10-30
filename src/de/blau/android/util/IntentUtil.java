@@ -8,6 +8,7 @@ import android.support.annotation.StringRes;
 import de.blau.android.BoxPicker;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
+import de.blau.android.prefs.PrefEditor;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.services.TrackerService;
@@ -32,6 +33,12 @@ public abstract class IntentUtil {
     @NonNull
     Intent getMainIntent(@NonNull Context context) {
         return getIntent(context, Main.class);
+    }
+
+    public static
+    @NonNull
+    Intent getPrefEditorIntent(@NonNull Context context) {
+        return getIntent(context, PrefEditor.class);
     }
 
     public static
