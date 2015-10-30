@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.IntentUtil;
 
 /**
  * Start vespucci with OSM remote control url
@@ -27,7 +28,7 @@ public class RemoteControlUrlActivity extends Activity {
 		super.onStart();
 		Uri data = getIntent().getData(); 
 		Log.d("RemoteControlUrlActivity",data.toString());
-	    Intent intent = new Intent(this, Main.class);
+	    Intent intent = IntentUtil.getMainIntent(this);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    String command = data.getPath();
 	    if (command.startsWith("/")) {

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntentUtil;
 
 /**
  * Start vespucci with geo: URLs.
@@ -28,7 +29,7 @@ public class GeoUrlActivity extends Activity {
 		super.onStart();
 		Uri data = getIntent().getData(); 
 		Log.d("GeoURLActivity",data.toString());
-	    Intent intent = new Intent(this, Main.class);
+	    Intent intent = IntentUtil.getMainIntent(this);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    String[] query = data.getSchemeSpecificPart().split("\\?"); // used by osmand likely not standard conform
 	    if (query != null && query.length >= 1) {

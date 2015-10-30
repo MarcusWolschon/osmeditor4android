@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
 import de.blau.android.HelpViewer;
+import de.blau.android.Main;
 import de.blau.android.services.TrackerService;
 
 public abstract class IntentUtil {
@@ -16,6 +17,12 @@ public abstract class IntentUtil {
         Intent intent = getIntent(context, HelpViewer.class);
         intent.putExtra(HelpViewer.TOPIC, topic);
         return intent;
+    }
+
+    public static
+    @NonNull
+    Intent getMainIntent(@NonNull Context context) {
+        return getIntent(context, Main.class);
     }
 
     public static
