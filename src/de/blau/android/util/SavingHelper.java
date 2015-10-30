@@ -263,8 +263,8 @@ public class SavingHelper<T extends Serializable> {
 				OutputStream outputStream = null;
 				File outfile = null;
 				try {
-					File outdir = FileUtil.getPublicDirectory();
-					outfile = new File(outdir, filename);
+					File outDir = FileUtil.getPublicDirectory();
+					outfile = new File(outDir, filename);
 					outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 					exportable.export(outputStream);
 				} catch (Exception e) {

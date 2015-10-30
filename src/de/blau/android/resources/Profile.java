@@ -704,8 +704,8 @@ public class Profile  extends DefaultHandler {
 		String filename = name + FILE_PATH_PROFILE_SUFFIX;
 		OutputStream outputStream = null;
 		try {
-			File outdir = FileUtil.getPublicDirectory();
-			File outfile = new File(outdir, filename);
+			File outDir = FileUtil.getPublicDirectory();
+			File outfile = new File(outDir, filename);
 			outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 			XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 			serializer.setOutput(outputStream, "UTF-8");
@@ -715,7 +715,7 @@ public class Profile  extends DefaultHandler {
 		} catch (Exception e) {
 			Log.e("Profile", "Save failed - " + filename + " " + e);
 		} finally {
-			try {outputStream.close();} catch (Exception ex) {};
+			try {outputStream.close();} catch (Exception ex) {}
 		}
 	}
 	
