@@ -9,6 +9,8 @@ import de.blau.android.BoxPicker;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.prefs.PrefEditor;
+import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.prefs.URLListEditActivity;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.services.TrackerService;
@@ -39,6 +41,24 @@ public abstract class IntentUtil {
     @NonNull
     Intent getPrefEditorIntent(@NonNull Context context) {
         return getIntent(context, PrefEditor.class);
+    }
+
+    public static
+    @NonNull
+    Intent getPresetEditorActivityIntent(@NonNull Context context,
+                                         @NonNull String presetName,
+                                         @NonNull String presetUrl) {
+        Intent intent = getPresetEditorActivityIntent(context);
+        intent.setAction(URLListEditActivity.ACTION_NEW);
+        intent.putExtra(URLListEditActivity.EXTRA_NAME, presetName);
+        intent.putExtra(URLListEditActivity.EXTRA_VALUE, presetUrl);
+        return intent;
+    }
+
+    public static
+    @NonNull
+    Intent getPresetEditorActivityIntent(@NonNull Context context) {
+        return getIntent(context, PresetEditorActivity.class);
     }
 
     public static

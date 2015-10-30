@@ -14,6 +14,7 @@ import de.blau.android.DialogFactory;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
+import de.blau.android.util.IntentUtil;
 
 public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 	
@@ -78,7 +79,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("AdvancedPrefEditor", "onPreferenceClick");
-				startActivity(new Intent(AdvancedPrefEditor.this, PresetEditorActivity.class));
+				startActivity(IntentUtil.getPresetEditorActivityIntent(AdvancedPrefEditor.this));
 				return true;
 			}
 		});
