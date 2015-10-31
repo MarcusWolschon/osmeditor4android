@@ -947,7 +947,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final Server server = prefs.getServer();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
-			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
+			PrefEditor.start(getApplicationContext());
 			return true;
 			
 		case R.id.menu_find:
