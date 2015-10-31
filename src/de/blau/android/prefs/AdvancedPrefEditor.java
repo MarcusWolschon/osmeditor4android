@@ -78,7 +78,7 @@ public class AdvancedPrefEditor extends SherlockPreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("AdvancedPrefEditor", "onPreferenceClick");
-				startActivity(new Intent(AdvancedPrefEditor.this, PresetEditorActivity.class));
+				PresetEditorActivity.start(AdvancedPrefEditor.this);
 				return true;
 			}
 		});
