@@ -35,7 +35,7 @@ By default, selectable nodes and ways have an orange area around them indicating
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+Vespucci hat gute "undo/redo" Unterstützung deshalb kann man angstfrei auf seinem Gerät experimentieren, bitte aber keine reinen Testdaten auf den OSM Server speichern.
 
 #### Auswählen / Abwählen
 
@@ -49,7 +49,7 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 #### Einen Knoten oder Weg verschieben
 
-Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Onjekte können erst verschoben werden nachdem sie ausgewählt wurden. In den Einstellungen kann für Punkte einen grossen Bereich anzeigen lassen mit dem der Punkt leichter verschoben werden kann als mit der Standardeinstellung. 
 
 #### Die Geometrie eines Weges verbessern
 
@@ -93,7 +93,7 @@ Select the same button or menu item you did for the download and now select "Upl
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Neue Vespucci Installationen haben OAuth voreingestellt. Beim ersten Versuch Daten auf den OSM Server zu speicheren wird eine Seite der OSM Website geladen (über eine verschlüsselte Verbindung). Nach der erfolgreichen Authentisierung mit Username und Passwort muss den Zugriff mit OAuth zugelassen werden. Falls dieser Vorgang vor dem ersten Hochladen ausgelöst werden soll, gibt es einen entsprechende Auswahlmöglichkeit im "Werkzeuge" Menu.
 
 If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
@@ -134,6 +134,6 @@ Erweiterte Einstellungen
 
 ## Fehler melden
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Falls Vespucci abstürzt oder einen inkonsistenten Zustand entdeckt wird erscheint eine Aufforderung eine Fehlermeldung einzuschicken. Bitte komme der Auforderung nach, aber nur einmal per spezifischen Ereignis.  Falls du mehr Input geben willst oder einen Verbesserungsvorschlag hast, erstelle bitte hier: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues) einen neuen Eintrag. Falls du zu Vespucci eine Diskussion beginnen willst, kannst du dies entweder auf der [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) oder dem [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56) machen.
 
 
