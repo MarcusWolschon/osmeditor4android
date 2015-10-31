@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-08-28 00:40+0200\n"
-"PO-Revision-Date: 2015-10-27 20:36+0000\n"
+"PO-Revision-Date: 2015-10-31 13:57+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,35 +25,35 @@ msgstr "Oberflächenzustand"
 
 #: master_preset.xml:20(list_entry:short_description)
 msgid "Thin Rollers: rollerblade, skateboard"
-msgstr ""
+msgstr "Schmale Rollen: Inline Skates, Skateboard"
 
 #: master_preset.xml:21(list_entry:short_description)
 msgid "Thin Wheels: racing bike"
-msgstr ""
+msgstr "Schmale Räder: Rennrad"
 
 #: master_preset.xml:22(list_entry:short_description)
 msgid "Wheels: city bike, wheelchair, scooter"
-msgstr ""
+msgstr "Normale Räder: City Bike, Rollstuhl, Roller"
 
 #: master_preset.xml:23(list_entry:short_description)
 msgid "Robust Wheels: trekking bike, car, rickshaw"
-msgstr ""
+msgstr "Robuste Räder: Trekking Bike, Auto, Fahrradrikscha"
 
 #: master_preset.xml:24(list_entry:short_description)
 msgid "High Clearance: light duty off-road vehicle"
-msgstr ""
+msgstr "Grosse Bodenfreiheit: leichtes Off-Road Fahrzeug"
 
 #: master_preset.xml:25(list_entry:short_description)
 msgid "Off-Road: heavy duty off-road vehicle"
-msgstr ""
+msgstr "Off-Road: robustes Off-Road Fahrzeug"
 
 #: master_preset.xml:26(list_entry:short_description)
 msgid "Specialized off-road: tractor, ATV"
-msgstr ""
+msgstr "Spezialisierte Off-Road Fahrzeuge: Traktor, ATV"
 
 #: master_preset.xml:27(list_entry:short_description)
 msgid "No wheeled vehicle"
-msgstr ""
+msgstr "Keine Radfahrzeuge möglich"
 
 #: master_preset.xml:31(combo:text) master_preset.xml:175(combo:text)
 #: master_preset.xml:191(combo:text) master_preset.xml:233(combo:text)
@@ -841,7 +841,7 @@ msgstr "Güteklasse"
 
 #: master_preset.xml:864(combo:text) master_preset.xml:897(combo:text)
 msgid "MTB Scale"
-msgstr ""
+msgstr "MTB Skala"
 
 #: master_preset.xml:866(combo:text) master_preset.xml:1720(combo:text)
 #: master_preset.xml:1736(combo:text)
@@ -854,7 +854,7 @@ msgstr "Pfad"
 
 #: master_preset.xml:889(combo:text)
 msgid "SAC Scale"
-msgstr ""
+msgstr "SAC Skala"
 
 #: master_preset.xml:890(list_entry:short_description)
 msgid "Trail well cleared. Area flat or slightly sloped, no fall hazard"
@@ -1572,27 +1572,27 @@ msgstr "Biodiesel"
 
 #: master_preset.xml:2224(check:text) master_preset.xml:2680(check:text)
 msgid "Octane 80"
-msgstr ""
+msgstr "80 Oktan"
 
 #: master_preset.xml:2225(check:text) master_preset.xml:2681(check:text)
 msgid "Octane 91"
-msgstr ""
+msgstr "91 Oktan"
 
 #: master_preset.xml:2226(check:text) master_preset.xml:2682(check:text)
 msgid "Octane 92"
-msgstr ""
+msgstr "92 Oktan"
 
 #: master_preset.xml:2227(check:text) master_preset.xml:2683(check:text)
 msgid "Octane 95"
-msgstr ""
+msgstr "95 Oktan"
 
 #: master_preset.xml:2228(check:text) master_preset.xml:2684(check:text)
 msgid "Octane 98"
-msgstr ""
+msgstr "98 Oktan"
 
 #: master_preset.xml:2229(check:text) master_preset.xml:2685(check:text)
 msgid "Octane 100"
-msgstr ""
+msgstr "100 Oktan"
 
 #: master_preset.xml:2230(check:text) master_preset.xml:2686(check:text)
 msgid "E10 (10% Ethanol mix)"
@@ -1782,17 +1782,17 @@ msgstr ""
 
 #: master_preset.xml:2544(item:name)
 msgid "Drag Lift"
-msgstr ""
+msgstr "Schlepplift"
 
 #: master_preset.xml:2547(combo:display_values)
 msgid ""
 "drag_lift (general type - use only if exact type (see values below) is "
 "unknown),t-bar,j-bar,platter,rope_tow"
-msgstr ""
+msgstr "nur verwenden wenn genauer Typ nicht bekannt ist"
 
 #: master_preset.xml:2555(item:name)
 msgid "Magic Carpet"
-msgstr ""
+msgstr "Zauberteppich"
 
 #: master_preset.xml:2565(item:name)
 msgid "Goods"
@@ -1805,7 +1805,7 @@ msgstr ""
 
 #: master_preset.xml:2582(item:name)
 msgid "Pylon"
-msgstr ""
+msgstr "Mast"
 
 #: master_preset.xml:2590(group:name)
 msgid "Car"
@@ -1901,7 +1901,7 @@ msgstr ""
 
 #: master_preset.xml:2703(item:name)
 msgid "Charging Station"
-msgstr ""
+msgstr "Ladestation"
 
 #: master_preset.xml:2711(text:text)
 msgid "Voltage"
@@ -1913,7 +1913,7 @@ msgstr "Stromstärke"
 
 #: master_preset.xml:2714(item:name)
 msgid "Wash"
-msgstr ""
+msgstr "Autowäsche"
 
 #: master_preset.xml:2728(item:name)
 msgid "Car Dealer"
@@ -1923,7 +1923,7 @@ msgstr "Autohändler"
 #: master_preset.xml:6727(combo:text) master_preset.xml:6750(combo:text)
 #: master_preset.xml:7074(combo:text)
 msgid "Second hand"
-msgstr ""
+msgstr "Gebrauchtwagen"
 
 #: master_preset.xml:2745(item:name) master_preset.xml:2836(combo:text)
 msgid "Repair"
@@ -1952,7 +1952,7 @@ msgstr "Motorradhändler"
 
 #: master_preset.xml:2833(optional:text)
 msgid "Services:"
-msgstr ""
+msgstr "Dienstangebot:"
 
 #: master_preset.xml:2834(combo:text)
 msgid "Sale"
@@ -2315,7 +2315,7 @@ msgstr ""
 
 #: master_preset.xml:3271(item:name)
 msgid "Apron"
-msgstr ""
+msgstr "Vorfeld"
 
 #: master_preset.xml:3279(item:name)
 msgid "Plane Parking Position"
@@ -2323,11 +2323,11 @@ msgstr ""
 
 #: master_preset.xml:3285(item:name)
 msgid "Hangar"
-msgstr ""
+msgstr "Flugzeughalle"
 
 #: master_preset.xml:3294(item:name) master_preset.xml:5799(item:name)
 msgid "Beacon"
-msgstr ""
+msgstr "Leuchtfeuer"
 
 #: master_preset.xml:3301(item:name)
 msgid "Windsock"
@@ -2390,11 +2390,11 @@ msgstr "Alpine Hütte"
 
 #: master_preset.xml:3451(item:name)
 msgid "Caravan Site/RV Park"
-msgstr ""
+msgstr "Wohnmobilstellplatz"
 
 #: master_preset.xml:3465(text:text)
 msgid "Number of places"
-msgstr ""
+msgstr "Platzanzahl"
 
 #: master_preset.xml:3468(check:text)
 msgid "Power supply"
@@ -3545,7 +3545,7 @@ msgstr ""
 
 #: master_preset.xml:5688(item:name)
 msgid "Adit"
-msgstr ""
+msgstr "Stolleneingang"
 
 #: master_preset.xml:5700(text:text)
 msgid "Length in meters"
@@ -4799,11 +4799,11 @@ msgstr ""
 
 #: master_preset.xml:7944(item:name)
 msgid "Scree"
-msgstr ""
+msgstr "Schutthalde"
 
 #: master_preset.xml:7953(label:text)
 msgid "An accumulation of loose rocks."
-msgstr ""
+msgstr "Eine Ansammelung von losen Geröll."
 
 #: master_preset.xml:7958(item:name)
 msgid "Fell"
@@ -4923,7 +4923,7 @@ msgstr "Grass"
 
 #: master_preset.xml:8182(item:name)
 msgid "Village Green"
-msgstr ""
+msgstr "Dorfwiese"
 
 #: master_preset.xml:8196(item:name)
 msgid "Common"
@@ -4979,7 +4979,7 @@ msgstr ""
 
 #: master_preset.xml:8360(item:name)
 msgid "Construction Area"
-msgstr ""
+msgstr "Bauplatz"
 
 #: master_preset.xml:8373(item:name)
 msgid "Brownfield"
@@ -4991,7 +4991,7 @@ msgstr ""
 
 #: master_preset.xml:8395(item:name)
 msgid "Landfill"
-msgstr ""
+msgstr "Deponie"
 
 #: master_preset.xml:8407(item:name)
 msgid "Quarry"
@@ -5055,7 +5055,7 @@ msgstr ""
 
 #: master_preset.xml:8475(combo:text)
 msgid "Country code"
-msgstr ""
+msgstr "Länderkürzel"
 
 #: master_preset.xml:8478(text:text)
 msgid "House name"
@@ -5122,7 +5122,7 @@ msgstr ""
 
 #: master_preset.xml:8575(label:text)
 msgid "An important hint for other mappers (not for the end user)."
-msgstr ""
+msgstr "Wichtiger Hinweis für Mapper (nicht für Endbenutzer)."
 
 #: master_preset.xml:8583(item:name) master_preset.xml:8596(text:text)
 msgid "Fixme"
@@ -5709,7 +5709,7 @@ msgstr "Fotograf"
 
 #: master_preset.xml:9497(item:name)
 msgid "Print shop"
-msgstr ""
+msgstr "Druckerei"
 
 #: master_preset.xml:9505(item:name)
 msgid "Shoemaker"
@@ -5721,7 +5721,7 @@ msgstr "Weinkellerei"
 
 #: master_preset.xml:9521(item:name)
 msgid "Laboratory"
-msgstr ""
+msgstr "Labor"
 
 #: master_preset.xml:9529(item:name)
 msgid "Dressmaker"
@@ -5833,7 +5833,7 @@ msgstr "Steuerberater"
 
 #: master_preset.xml:9755(item:name)
 msgid "Consulting"
-msgstr ""
+msgstr "Beratung"
 
 #: master_preset.xml:9763(item:name)
 msgid "Cooperative"
