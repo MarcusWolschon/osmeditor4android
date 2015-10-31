@@ -220,9 +220,7 @@ public class DialogFactory {
 		newbie.setNeutralButton(R.string.read_introduction, 	new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
-						startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_introduction);
-						caller.startActivity(startHelpViewer);
+						HelpViewer.start(caller.getApplicationContext(), R.string.help_introduction);
 					}
 				});
 		
@@ -238,9 +236,7 @@ public class DialogFactory {
 		newVersion.setNeutralButton(R.string.read_upgrade, 	new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
-						startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_upgrade);
-						caller.startActivity(startHelpViewer);
+						HelpViewer.start(caller.getApplicationContext(), R.string.help_upgrade);
 					}
 				});
 	}

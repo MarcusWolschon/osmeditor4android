@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -130,9 +129,7 @@ public class TagSelectedActionModeCallback implements Callback {
 			}
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
-			Application.mainActivity.startActivity(startHelpViewer);
+			HelpViewer.start(Application.mainActivity, R.string.help_propertyeditor);
 			return true;
 		default: return false;
 		}

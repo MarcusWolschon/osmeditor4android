@@ -955,9 +955,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_help:
-			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
-			startActivity(startHelpViewer);
+			HelpViewer.start(getApplicationContext(), R.string.help_main);
 			return true;
 			
 //		case R.id.menu_voice:		

@@ -4,7 +4,6 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -75,9 +74,7 @@ public class ParentSelectedActionModeCallback implements Callback {
 			}
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC,R.string.help_propertyeditor);
-			Application.mainActivity.startActivity(startHelpViewer);
+			HelpViewer.start(Application.mainActivity, R.string.help_propertyeditor);
 			return true;
 		default: return false;
 		}
