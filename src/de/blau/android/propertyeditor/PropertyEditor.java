@@ -8,8 +8,8 @@ import java.util.Map;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -17,6 +17,7 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -136,6 +137,18 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	private PresetFragment presetFragment;
 	ExtendedViewPager    mViewPager;
 	boolean usePaneLayout = false;
+
+	public static void startForResult(@NonNull Activity activity,
+									  @NonNull PropertyEditorData[] dataClass,
+									  boolean applyLastTags,
+									  boolean showPresets,
+									  int requestCode) {
+		Intent intent = new Intent(activity, PropertyEditor.class);
+		intent.putExtra(TAGEDIT_DATA, dataClass);
+		intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastTags));
+		intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
+		activity.startActivityForResult(intent, requestCode);
+	}
 
 	@SuppressLint("NewApi")
 	@Override
