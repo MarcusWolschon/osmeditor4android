@@ -211,7 +211,7 @@ public class Commands {
 			double lon = location.getLongitude();
 			double lat = location.getLatitude();
 			if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-				Note n = new Note((int)(lon*1E7D),(int)(lat*1E7D));
+				Note n = new Note((int)(lat*1E7D),(int)(lon*1E7D));
 				StringBuilder input = new StringBuilder();
 				for (int i=1;i<words.length;i++) {
 					input.append(words[i]);
