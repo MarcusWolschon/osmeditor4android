@@ -110,10 +110,14 @@ public class BugFragment extends SherlockDialogFragment {
     	// Pass null as the parent view because its going in the dialog layout
     	final View v = inflater.inflate(R.layout.openstreetbug_edit, null);
     	builder.setView(v)
-    		// Add action buttons
-    		.setPositiveButton(bug instanceof Note && bug.isNew() ? R.string.openstreetbug_commitbutton : R.string.save, new DialogInterface.OnClickListener() { 
+    		// Add action buttons - slightly convoluted 
+    		.setPositiveButton(bug instanceof Note && bug.isNew() ? (Application.getBugStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton): R.string.save, new DialogInterface.OnClickListener() { 
     			public void onClick(DialogInterface dialog, int id) {
-    				saveBug(v,bug);
+      				if (bug instanceof Note && bug.isNew() && Application.getBugStorage().contains(bug)) {
+    					deleteBug(bug);
+    					return;
+    				}
+      				saveBug(v,bug);
     				if (bug.hasBeenChanged() && bug.isClosed()) {
     					IssueAlert.cancel(getActivity(), bug);
     				}
@@ -244,7 +248,7 @@ public class BugFragment extends SherlockDialogFragment {
     			public void onShow(DialogInterface dialog) {                    //
     				final Button save = ((AlertDialog) dialog)
     						.getButton(AlertDialog.BUTTON_POSITIVE);
-    				if ((bug instanceof Note && bug.isNew() && ((Note)bug).count() == 1) || !bug.hasBeenChanged()) {
+    				if ((bug instanceof Note && bug.isNew() && ((Note)bug).count() == 1 && !Application.getBugStorage().contains(bug)) || !bug.hasBeenChanged()) {
     					save.setEnabled(false);
     				}
     				final Button upload = ((AlertDialog) dialog)
@@ -320,6 +324,11 @@ public class BugFragment extends SherlockDialogFragment {
 		return State.OPEN;
     }
     
+    /** 
+     * saves bug to storage if it is new, otherwise update comment and/or state
+     * @param v
+     * @param bug
+     */
     void saveBug(View v, Bug bug) {
     	if (bug.isNew() && ((Note)bug).count() == 0) {
 			Application.getBugStorage().add(bug); // sets dirty
@@ -332,5 +341,15 @@ public class BugFragment extends SherlockDialogFragment {
 		bug.state = pos2state(state.getSelectedItemPosition());
 		bug.changed = true;
 		Application.getBugStorage().setDirty();
+    }
+    
+    /**
+     * Delete a new, non-saved, bug from storage
+     * @param bug
+     */
+    void deleteBug(Bug bug) {
+    	if (bug.isNew()) {
+			Application.getBugStorage().delete(bug); // sets dirty
+		}
     }
 }
