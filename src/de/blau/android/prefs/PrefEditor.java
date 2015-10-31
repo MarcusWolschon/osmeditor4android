@@ -18,6 +18,7 @@ import de.blau.android.LicenseViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 import de.blau.android.resources.Profile;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
@@ -170,7 +171,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("PrefEditor", "onPreferenceClick");
-				startActivity(new Intent(PrefEditor.this, AdvancedPrefEditor.class));
+				startActivity(IntentUtil.getAdvancedPrefEditorIntent(PrefEditor.this));
 				return true;
 			}
 		});
@@ -191,7 +192,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("PrefEditor", "onPreferenceClick 2");
-				startActivity(new Intent(PrefEditor.this, LicenseViewer.class));
+				startActivity(IntentUtil.getLicenseViewerIntent(PrefEditor.this));
 				return true;
 			}
 		});
@@ -201,7 +202,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Log.d("PrefEditor", "onPreferenceClick 2");
-				startActivity(new Intent(PrefEditor.this, DebugInformation.class));
+				startActivity(IntentUtil.getDebugInformationIntent(PrefEditor.this));
 				return true;
 			}
 		});

@@ -6,6 +6,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.acra.ACRA;
 
+import de.blau.android.util.IntentUtil;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
@@ -164,17 +165,11 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.urldialog_buttonAddPreset:
-			intent = new Intent(this, PresetEditorActivity.class);
-			intent.setAction(URLListEditActivity.ACTION_NEW);
-			intent.putExtra(URLListEditActivity.EXTRA_NAME, presetname);
-			intent.putExtra(URLListEditActivity.EXTRA_VALUE, preseturl);
+			intent = IntentUtil.getPresetEditorActivityIntent(this, presetname, preseturl);
 			startActivityForResult(intent, REQUEST_PRESETEDIT);
 			break;
 		case R.id.urldialog_buttonAddAPI:
-			intent = new Intent(this, APIEditorActivity.class);
-			intent.setAction(URLListEditActivity.ACTION_NEW);
-			intent.putExtra(URLListEditActivity.EXTRA_NAME, apiname);
-			intent.putExtra(URLListEditActivity.EXTRA_VALUE, apiurl);
+			intent = IntentUtil.getAPIEditorActivityIntent(this, apiname, apiurl);
 			startActivityForResult(intent, REQUEST_APIEDIT);
 			break;
 		}

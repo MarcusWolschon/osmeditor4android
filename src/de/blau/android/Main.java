@@ -103,7 +103,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
@@ -114,6 +113,7 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
@@ -508,7 +508,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		super.onResume();
 		Log.d(DEBUG_TAG, "onResume");
 
-		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
+		bindService(IntentUtil.getTrackerServiceIntent(this), this, BIND_AUTO_CREATE);
 		
 		// register received for changes in connectivity
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
@@ -947,7 +947,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final Server server = prefs.getServer();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
-			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
+			startActivity(IntentUtil.getPrefEditorIntent(getApplicationContext()));
 			return true;
 			
 		case R.id.menu_find:
@@ -955,8 +955,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_help:
-			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
+			Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+					getApplicationContext(), R.string.help_main);
 			startActivity(startHelpViewer);
 			return true;
 			
@@ -1842,7 +1842,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * Starts the LocationPicker activity for requesting a location.
 	 */
 	public void gotoBoxPicker() {
-		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
+		Intent intent = IntentUtil.getBoxPickerIntent(getApplicationContext());
 		if (getLogic().hasChanges()) {
 			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDINGBOX).show();
 		} else {
@@ -1866,12 +1866,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (selectedElement != null) {
 			StorageDelegator storageDelegator = Application.getDelegator();
 			if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
-				Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
-				startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, single);
-				startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
-				startTagEditor.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
+				Intent startTagEditor = IntentUtil.getPropertyEditorIntent(
+						getApplicationContext(), single, applyLastAddressTags, showPresets);
 				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 			}
 		}
@@ -1890,11 +1888,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			Log.d(DEBUG_TAG, "performTagEdit no valid elements");
 			return;
 		}
-		Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
 		PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-		startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, multipleArray);
-		startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
-		startTagEditor.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
+		Intent startTagEditor = IntentUtil.getPropertyEditorIntent(
+				getApplicationContext(), multipleArray, applyLastAddressTags, showPresets);
 		startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
 	}
 

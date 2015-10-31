@@ -18,11 +18,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
-import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.propertyeditor.TagEditorFragment.KeyValueHandler;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.IntentUtil;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -130,8 +130,8 @@ public class TagSelectedActionModeCallback implements Callback {
 			}
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
+			Intent startHelpViewer = IntentUtil.getHelpViewerIntent(
+					Application.mainActivity, R.string.help_propertyeditor);
 			Application.mainActivity.startActivity(startHelpViewer);
 			return true;
 		default: return false;

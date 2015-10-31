@@ -110,7 +110,6 @@ public class IssueAlert {
 			return;
 		}
 		// Creates an explicit intent for an Activity in your app
-		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
 		// Uri geo = Uri.fromParts("geo", eLat+","+eLon,null);
 	    // resultIntent.setData(geo);
@@ -205,7 +204,6 @@ public class IssueAlert {
 			return;
 		}
 		// Creates an explicit intent for an Activity in your app
-		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
 		Uri geo = Uri.fromParts("geo", eLat+","+eLon,null);
 	    resultIntent.setData(geo);
