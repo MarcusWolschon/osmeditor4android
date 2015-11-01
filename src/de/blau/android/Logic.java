@@ -2749,7 +2749,7 @@ public class Logic {
 				else {
 					Log.d("Logic", "loadfromFile: File read failed");
 					Intent intent = new Intent(context, BoxPicker.class);
-					Application.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDINGBOX);
+					Application.mainActivity.startActivityForResult(intent, Main.REQUEST_BOUNDING_BOX);
 					Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
 				}
 			}
