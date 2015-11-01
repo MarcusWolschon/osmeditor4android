@@ -1478,7 +1478,7 @@ public class EasyEditManager {
 	
 	private class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
-		private Set<OsmElement> nodes = new HashSet<OsmElement>();
+		private List<OsmElement> nodes = new ArrayList<OsmElement>();
 		private boolean createPolygons = false;
 		
 		public WaySplittingActionModeCallback(Way way, boolean createPolygons) {
@@ -1486,8 +1486,9 @@ public class EasyEditManager {
 			this.way = way;
 			nodes.addAll(way.getNodes());
 			if (!way.isClosed()) { 
-				nodes.remove(way.getFirstNode());
-				nodes.remove(way.getLastNode());
+				// remove first and last node
+				nodes.remove(0);
+				nodes.remove(nodes.size()-1);
 			} else {
 				this.createPolygons = createPolygons;
 			}
@@ -1501,7 +1502,7 @@ public class EasyEditManager {
 				mode.setSubtitle(R.string.menu_closed_way_split_1);
 			else
 				mode.setSubtitle(R.string.menu_split);
-			logic.setClickableElements(nodes);
+			logic.setClickableElements(new HashSet<OsmElement>(nodes));
 			logic.setReturnRelations(false);
 			return true;
 		}

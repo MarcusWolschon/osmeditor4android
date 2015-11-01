@@ -764,7 +764,10 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		
 		List<Node> nodes = way.getNodes();
-		if (nodes.size() < 3 || way.isEndNode(node)) { // protect against producing single node ways FIXME give feedback that this is not good
+		int occurances = Collections.frequency(way.getNodes(), node);
+		// the following condition is fairly obscure and should likely be replaced by checking for position of the node in the way 
+		if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed()?occurances==2:occurances==1))) { 
+			// protect against producing single node ways FIXME give feedback that this is not good
 			Log.d("StorageDelegator", "splitAtNode can't split " + nodes.size() + " node long way at this node");
 			return;
 		}
@@ -772,15 +775,17 @@ public class StorageDelegator implements Serializable, Exportable {
 		// else the user needs to split the remaining way again.
 		List<Node> nodesForNewWay = new LinkedList<Node>();
 		boolean found = false;
+		boolean first = true; // node to split at can't be the first one
 		for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
 			Node wayNode = it.next();
-			if (!found && wayNode.getOsmId() == node.getOsmId()) {
+			if (!found && wayNode.getOsmId() == node.getOsmId() && !first) {
 				found = true;
 				nodesForNewWay.add(wayNode);
 			} else if (found) {
 				nodesForNewWay.add(wayNode);
-				it.remove();
+				it.remove();	
 			}
+			first = false;
 		}
 		if (nodesForNewWay.size() <= 1) {
 			Log.d("StorageDelegator", "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
@@ -1015,7 +1020,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		return false;
 	}
 	
-	
+
 	
 	/**
 	 * Unjoins ways connected at the given node.
