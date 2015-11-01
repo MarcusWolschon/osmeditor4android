@@ -171,7 +171,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private static final String EASY_TAG = "EASY";
 	private static final String TAG_TAG = "TAG";
 	
-	private static final double DEFAULT_BOUNDINGBOX_RAIDUS = 4000000.0D;
+	private static final double DEFAULT_BOUNDING_BOX_RADIUS = 4000000.0D;
 
 	/**
 	 * Date pattern used for the image file name.
@@ -414,14 +414,14 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				if (loc != null) {
 					try {
 						box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(),
-								loc.getLongitude(), DEFAULT_BOUNDINGBOX_RAIDUS, true); // km hardwired for now
+								loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true); // km hardwired for now
 					} catch (OsmException e) {
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(e);
 					}
 				} else { // create a largish bb centered on 51.48,0
 					try {
-						box = GeoMath.createBoundingBoxForCoordinates(51.48,0, DEFAULT_BOUNDINGBOX_RAIDUS, false); // km hardwired for now
+						box = GeoMath.createBoundingBoxForCoordinates(51.48,0, DEFAULT_BOUNDING_BOX_RADIUS, false); // km hardwired for now
 					} catch (OsmException e) {
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(e);
