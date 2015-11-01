@@ -947,7 +947,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final Server server = prefs.getServer();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
-			startActivity(new Intent(getApplicationContext(), PrefEditor.class));
+			PrefEditor.start(getApplicationContext());
 			return true;
 			
 		case R.id.menu_find:
@@ -955,9 +955,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_help:
-			Intent startHelpViewer = new Intent(getApplicationContext(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_main);
-			startActivity(startHelpViewer);
+			HelpViewer.start(getApplicationContext(), R.string.help_main);
 			return true;
 			
 //		case R.id.menu_voice:		
@@ -1866,13 +1864,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (selectedElement != null) {
 			StorageDelegator storageDelegator = Application.getDelegator();
 			if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
-				Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
 				PropertyEditorData[] single = new PropertyEditorData[1];
 				single[0] = new PropertyEditorData(selectedElement, focusOn);
-				startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, single);
-				startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
-				startTagEditor.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
-				startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+				PropertyEditor.startForResult(this, single, applyLastAddressTags,
+						showPresets, REQUEST_EDIT_TAG);
 			}
 		}
 	}
@@ -1890,12 +1885,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			Log.d(DEBUG_TAG, "performTagEdit no valid elements");
 			return;
 		}
-		Intent startTagEditor = new Intent(getApplicationContext(), PropertyEditor.class);
 		PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-		startTagEditor.putExtra(PropertyEditor.TAGEDIT_DATA, multipleArray);
-		startTagEditor.putExtra(PropertyEditor.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastAddressTags));
-		startTagEditor.putExtra(PropertyEditor.TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
-		startActivityForResult(startTagEditor, Main.REQUEST_EDIT_TAG);
+		PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags,
+				showPresets, REQUEST_EDIT_TAG);
 	}
 
 	/**

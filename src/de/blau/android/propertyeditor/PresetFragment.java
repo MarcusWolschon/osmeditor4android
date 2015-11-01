@@ -12,8 +12,6 @@ import com.actionbarsherlock.view.MenuItem;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -311,9 +309,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 			}
 			return true;
 		case R.id.preset_menu_help:
-			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_presets);
-			startActivity(startHelpViewer);
+			HelpViewer.start(getActivity(), R.string.help_presets);
 			return true;
 		}
 		

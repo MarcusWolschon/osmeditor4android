@@ -1,5 +1,6 @@
 package de.blau.android.prefs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -36,6 +38,11 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	private String KEY_ADDRPREFS;
 	private String KEY_LICENSE;
 	private String KEY_DEBUG;
+
+	public static void start(@NonNull Context context) {
+		Intent intent = new Intent(context, PrefEditor.class);
+		context.startActivity(intent);
+	}
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {

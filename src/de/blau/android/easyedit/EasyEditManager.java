@@ -502,9 +502,7 @@ public class EasyEditManager {
 			Log.d("EasyEditActionModeCallback", "onActionItemClicked");
 			if (item.getItemId() == MENUITEM_HELP) {
 				if (helpTopic != 0) {
-					Intent startHelpViewer = new Intent(main.getApplicationContext(), HelpViewer.class);
-					startHelpViewer.putExtra(HelpViewer.TOPIC, helpTopic);
-					main.startActivity(startHelpViewer);
+					HelpViewer.start(main.getApplicationContext(), helpTopic);
 				} else {
 					Toast.makeText(main, R.string.toast_nohelp, Toast.LENGTH_LONG).show(); // this is essentially just an error message
 				}

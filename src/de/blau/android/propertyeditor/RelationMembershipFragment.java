@@ -11,7 +11,6 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -541,9 +540,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			addToRelation();
 			return true;
 		case R.id.tag_menu_help:
-			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
-			startActivity(startHelpViewer);
+			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
 		}
 		

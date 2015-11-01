@@ -21,9 +21,7 @@ import java.util.concurrent.TimeoutException;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -43,6 +41,7 @@ import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
@@ -137,9 +136,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		case MENUITEM_SAVELOCAL:
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_aligningbackgroundiamgery);
-			Application.mainActivity.startActivity(startHelpViewer);
+			HelpViewer.start(Application.mainActivity, R.string.help_aligningbackgroundiamgery);
 			return true;
 		default: return false;
 		}

@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
@@ -23,6 +24,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -86,6 +89,12 @@ public class HelpViewer extends SherlockActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	ArrayAdapter<HelpItem> tocAdapter;
+
+	public static void start(@NonNull Context context, @StringRes int topic) {
+		Intent intent = new Intent(context, HelpViewer.class);
+		intent.putExtra(TOPIC, topic);
+		context.startActivity(intent);
+	}
 
 	@SuppressLint("NewApi")
 	@Override

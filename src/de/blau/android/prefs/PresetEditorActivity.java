@@ -14,13 +14,17 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
@@ -43,6 +47,22 @@ public class PresetEditorActivity extends URLListEditActivity {
 		addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
 	}
 		
+	public static void start(@NonNull Context context) {
+		Intent intent = new Intent(context, PresetEditorActivity.class);
+		context.startActivity(intent);
+	}
+
+	public static void startForResult(@NonNull Activity activity,
+									  @NonNull String presetName,
+									  @NonNull String presetUrl,
+									  int requestCode) {
+		Intent intent = new Intent(activity, PresetEditorActivity.class);
+		intent.setAction(ACTION_NEW);
+		intent.putExtra(EXTRA_NAME, presetName);
+		intent.putExtra(EXTRA_VALUE, presetUrl);
+		activity.startActivityForResult(intent, requestCode);
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
