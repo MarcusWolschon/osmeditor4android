@@ -136,7 +136,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	/**
 	 * Requests a {@link BoundingBox} as an activity-result.
 	 */
-	public static final int REQUEST_BOUNDINGBOX = 0;
+	public static final int REQUEST_BOUNDING_BOX = 0;
 
 	/**
 	 * Requests a list of {@link Tag Tags} as an activity-result.
@@ -1424,7 +1424,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 		Log.d(DEBUG_TAG, "onActivityResult");
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_BOUNDINGBOX && data != null) {
+		if (requestCode == REQUEST_BOUNDING_BOX && data != null) {
 			handleBoxPickerResult(resultCode, data);
 		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
 			handlePropertyEditorResult(data);
@@ -1842,9 +1842,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	public void gotoBoxPicker() {
 		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
 		if (getLogic().hasChanges()) {
-			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDINGBOX).show();
+			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDING_BOX).show();
 		} else {
-			startActivityForResult(intent, REQUEST_BOUNDINGBOX);
+			startActivityForResult(intent, REQUEST_BOUNDING_BOX);
 		}
 	}
 
