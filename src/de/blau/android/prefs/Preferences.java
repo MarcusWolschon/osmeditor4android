@@ -61,7 +61,7 @@ public class Preferences {
 	private float maxDownloadSpeed; // in km/h
 	private int bugDownloadRadius;
 	private float maxBugDownloadSpeed; // in km/h
-	private Set bugFilter; // can't be final
+	private Set<String> bugFilter; // can't be final
 	
 	private final boolean forceContextMenu;
 	
@@ -86,7 +86,7 @@ public class Preferences {
 	
 	private final boolean lightThemeEnabled;
 	
-	private Set addressTags; // can't be final
+	private Set<String> addressTags; // can't be final
 
 	private final boolean voiceCommandsEnabled;
 	

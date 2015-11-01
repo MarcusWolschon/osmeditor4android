@@ -343,7 +343,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param deltaLatE7
 	 * @param deltaLonE7
 	 */
-	public void moveNodes(final List allNodes, final int deltaLatE7, final int deltaLonE7) {
+	public void moveNodes(final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
 		if (allNodes == null) {
 			Log.d("StorageDelegator", "moveNodes  no nodes!");
 			return;
