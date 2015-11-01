@@ -2614,6 +2614,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		map.invalidate();
 	}	
 	
+	@SuppressWarnings("EmptyMethod")
 	@Override
 	/**
 	 * DO NOT CALL DIRECTLY in custom code.
