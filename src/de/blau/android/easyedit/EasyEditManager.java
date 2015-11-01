@@ -502,7 +502,7 @@ public class EasyEditManager {
 			Log.d("EasyEditActionModeCallback", "onActionItemClicked");
 			if (item.getItemId() == MENUITEM_HELP) {
 				if (helpTopic != 0) {
-					HelpViewer.start(main.getApplicationContext(), helpTopic);
+					HelpViewer.start(main, helpTopic);
 				} else {
 					Toast.makeText(main, R.string.toast_nohelp, Toast.LENGTH_LONG).show(); // this is essentially just an error message
 				}

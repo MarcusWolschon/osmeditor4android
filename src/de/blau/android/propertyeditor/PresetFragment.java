@@ -128,8 +128,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      	
         rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
 		if (presets.length > 1) {
-			// a bit of a hack ... this adds the elements from other presets to the root group of the first one
-			
+			// a bit of a hack ... this adds the elements from other presets to the root group of the first one	
 			ArrayList<PresetElement> rootElements = rootGroup.getElements();
 			for (int i=1;i<presets.length;i++) {
 				for (PresetElement e:presets[i].getRootGroup().getElements()) {

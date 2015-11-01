@@ -947,7 +947,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final Server server = prefs.getServer();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
-			PrefEditor.start(getApplicationContext());
+			PrefEditor.start(this);
 			return true;
 			
 		case R.id.menu_find:
@@ -955,7 +955,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_help:
-			HelpViewer.start(getApplicationContext(), R.string.help_main);
+			HelpViewer.start(this, R.string.help_main);
 			return true;
 			
 //		case R.id.menu_voice:		
