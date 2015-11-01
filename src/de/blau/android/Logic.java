@@ -2640,6 +2640,10 @@ public class Logic {
 			@Override
 			protected Void doInBackground(Void... params) {
 				save();
+				// the disadvantage of saving async is that something might have
+				// changed during the write .... so we force the dirty flags on
+				getDelegator().dirty();
+				Application.getBugStorage().setDirty();
 				return null;
 			}
 		}.execute();

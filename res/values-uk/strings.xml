@@ -2,35 +2,52 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Увага!</string>
-  <string name="transfer_download_current_dialog_message">Ви внесли зміни. Хочете вивантажити їх на сервер?</string>
-  <string name="transfer_download_current_upload">Вивантажити на сервер</string>
+  <string name="transfer_download_current_dialog_message">Ви внесли зміни. Бажаєте завантажити їх на сервер?</string>
+  <string name="transfer_download_current_upload">Надіслати на сервер</string>
   <string name="transfer_download_current_download">Скасувати й звантажити</string>
   <string name="transfer_download_current_back">Назад (нічого не міняти)</string>
-  <string name="upload_problem_title">Проблема з вивантаженням</string>
-  <string name="upload_conflict_title">Конфлікт вивантаження</string>
+  <string name="upload_problem_title">Проблема з надсиланням</string>
+  <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте надіслати дані знову, можливо це тимчасові труднощі.</string>
+  <string name="upload_conflict_title">Конфлікт надсилання</string>
   <string name="upload_conflict_message_version">%1$s \n має локальну версію  %2$s \n та версію на сервері %3$s</string>
+  <string name="upload_conflict_message_deleted">%1$s \nмає локальну версію %2$s \nта вилучено на сервері</string>
   <string name="upload_conflict_message_referential">%1$s
  було вилучено локально
  але має посилання на сервері</string>
+  <string name="use_local_version">Використовувати \nлокальну \nверсію</string>
+  <string name="use_server_version">Використовувати \nверсію \nз сервера</string>
   <string name="no_login_data_title">Помилка автентифікації</string>
   <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка відправте звіт.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="no_connection_title">Немає з’єднання з сервером</string>
-  <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше підключення до Інтернет та спробуйте ще раз.</string>
+  <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше  Інтернет-з’єднання та спробуйте ще раз.</string>
   <string name="wrong_login_data_title">Помилка автентифікації</string>
+  <string name="wrong_login_data_message">Якщо Ви використовуєте OAuth, вам потрібно ре-автентифікуватись.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
+  <string name="wrong_login_data_re_authenticate">Ре-автентифікуватись</string>
   <string name="data_conflict_title">Конфлікт версій</string>
+  <string name="data_conflict_message">Дані, які ви намагаєтесь завантажити конфліктують з вашими правками. Спочатку надішліть на сервер ваші зміни перед тим, як спробувати завантажити дані знов.</string>
+  <string name="api_offline_title">Немає з’єднання з API</string>
+  <string name="api_offline_message">Зараз немає зв’язку з API, тому а ні отримати, а ні надіслати дані неможливо.</string>
   <string name="out_of_memory_title">Недостатньо пам’яті</string>
+  <string name="out_of_memory_message">Веспуччі не вистачило пам’яті для завантаження даних. Перезапустіть застосунок та спробуйте завантажити меншу ділянку.</string>
+  <string name="out_of_memory_dirty_message">Веспуччі не вистачило пам’яті для завантаження даних. Спробуйте зберегти ваші зміни, перезапустити застосунок та завантажити меншу ділянку</string>
   <string name="invalid_data_received_title">Отримано некоректні дані</string>
+  <string name="invalid_data_received_message">Веспуччі  отримав некоректні дані з сервера. Якщо ви вважаєте, те що ви робите правильно, будт ласка, надішліть звит про помилку.</string>
   <string name="file_write_failed_title">Збій запису у файл</string>
   <string name="file_write_failed_message">Не вдалося записати в обраний файл.</string>
   <string name="welcome_title">Ласкаво просимо!</string>
-  <string name="read_introduction">Читати введення зараз</string>
-  <string name="progress_title">Звантажування</string>
+  <string name="welcome_message">Дякуємо вам за вибір Веспуччі.\n\nДля того щоб розпочати, вам треба знати дві речі:\n\n* натискання на значок замка у куті зверху ліворуч дозволяє перемикатись між режимами перегляду та редагування\n\n* для додавання нового об’єкта: довге натискання - для додавання точки, подальше натискання на екрані для креслення лінії.\n\nНе забувайте завантажувати з сервера дані для ділянки, яку ви бажаєте змінити.\n\nНасолоджуйтесь!</string>
+  <string name="read_introduction">Прочитати вступ</string>
+  <string name="upgrade_title">Вітаємо у новій версії Веспуччі!</string>
+  <string name="upgrade_message">Це нова версія Веспуччі з новими можливостями та принципами роботи. Радимо швиденько прочитати інформацію про оновлення на вашому пристрої. </string>
+  <string name="read_upgrade">Про нову версію.</string>
+  <string name="progress_title">Звантаження</string>
   <string name="progress_message">Завантаження даних в пам’ять…</string>
-  <string name="progress_download_message">Звантажування даних зі сервера…</string>
+  <string name="progress_download_message">Звантаження даних з сервера…</string>
   <string name="progress_general_title">Зачекайте</string>
   <string name="progress_deleting_message">Вилучення…</string>
   <string name="progress_searching_message">Пошук…</string>
   <string name="progress_saving_message">Збереження…</string>
+  <string name="progress_oauth">Завантаження вашого облікового запису з osm.org для OAuth-авторизації…</string>
   <string name="upload_comment_label">Коментар: </string>
   <string name="upload_source_label">Джерело: </string>
   <string name="upload_close_changeset_label">Закрити набір змін: </string>
@@ -38,16 +55,22 @@
   <string name="upload_gpx_tags_label">Теґи</string>
   <string name="upload_gpx_visibility_label">Видимість</string>
   <string name="openstreetbug_new_title">Нова нотатка</string>
-  <string name="openstreetbug_new_bug">Звіт про помилку</string>
+  <string name="openstreetbug_new_bug">Звіт про проблему</string>
+  <string name="openstreetbug_bug_title">Проблема</string>
   <string name="openstreetbug_new_nodeway">Створити точку/лінію</string>
   <string name="openstreetbug_edit_title">Редагувати нотатку</string>
-  <string name="openstreetbug_commitbutton">Зафіксувати</string>
+  <string name="openstreetbug_commitbutton">Надіслати</string>
   <string name="openstreetbug_comment_label">Коментар: </string>
   <string name="openstreetbug_edit_close">Зачинити</string>
   <string name="openstreetbug_edit_closed">Зачинено</string>
+  <string name="openstreetbug_commit_ok">Зміни Помилок збережено</string>
+  <string name="openstreetbug_commit_fail">Неможливо зберегти зміни помилок</string>
+  <string name="openstreetbug_not_downloaded">не отримано</string>
+  <string name="openstreetbug_last_updated">в останнє оновлено</string>
   <string name="unsaved_data_title">Увага!</string>
-  <string name="unsaved_data_message">У Вас є незбережені зміни, які будуть втрачені при продовженні.</string>
+  <string name="unsaved_data_message">У Вас є незбережені зміни, які будуть втрачені якщо Ви продовжите.</string>
   <string name="unsaved_data_proceed">Скасувати й продовжити</string>
+  <string name="imagery_offset_title">Зміщення фону</string>
   <string name="imagery_offset_description">Опис</string>
   <string name="imagery_offset_not_found">В радіусі 10 км зміщення не знайдені!</string>
   <string name="imagery_offset_author">Автор</string>
@@ -55,40 +78,81 @@
   <string name="imagery_offset_date">Створено</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Відстань</string>
+  <string name="set_position_datum_label">Геодезичний датум</string>
   <string name="tag_editor_name_suggestion">Пропозиція назви</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Пропозиції можуть замінювати значення деяких теґів на більш поширені.</string>
   <string name="search_results_title">Результати пошуку</string>
   <string name="find_message">Введіть рядок пошуку</string>
-  <string name="read_file">Виберіть файл для читання</string>
+  <string name="preset_search_hint">Пошук заготовок</string>
+  <string name="no_valid_preset">Немає відповідної заготовки! </string>
+  <string name="read_file">Виберіть файл для перегляду</string>
   <string name="save_file">Введіть файл для збереження</string>
+  <string name="existing_track_title">Дані треку</string>
+  <string name="existing_track_message">Ви вже маєте наявні дані треку. Можливо, ви бажаєте скасувати та зберегти спочатку </string>
+  <string name="element_information">Відомості про елемент</string>
+  <string name="id">Id</string>
+  <string name="nodes">Точки</string>
+  <string name="relation_membership">Належність до зв’язків</string>
+  <string name="problem">Проблема</string>
+  <string name="members">Члени</string>
+  <string name="closed">Зачинено</string>
+  <string name="version">Версія</string>
+  <string name="length_m">Довжина (м)</string>
+  <string name="not_downloaded">Не завантажено</string>
+  <string name="empty_role">порожня роль</string>
+  <string name="element">елемент</string>
+  <string name="last_updated">в останнє оновлено</string>
+  <string name="error">помилка</string>
+  <string name="warning">попередження</string>
+  <string name="minor_issue">незначна проблема</string>
+  <string name="unknown_error_level">невідомий рівень помилки</string>
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
-  <string name="toast_upload_success">Вивантаження на сервер OpenStreetMap завершене.</string>
-  <string name="toast_not_in_edit_range">Будь ласка, збільшіть масштаб щоб редагувати (Гучність +/- або Рушій масштабу)</string>
+  <string name="toast_unsaved_changes">У Вас є незбережені зміни, збережіть їх спочатку.</string>
+  <string name="toast_upload_success">Надсилання на сервер OpenStreetMap завершене.</string>
+  <string name="toast_not_in_edit_range">Будь ласка, збільшіть масштаб щоб редагувати (Гучність +/-  або Рушій масштабу)</string>
   <string name="toast_unlock_to_edit">Розблокуйте для редагування</string>
-  <string name="toast_edit_outside_downloaded_area">Ви не можете редагувати поза межами звантаженої області</string>
+  <string name="toast_edit_outside_downloaded_area">Ви не можете редагувати поза межами звантаженої ділянки</string>
   <string name="toast_save_done">Збережено успішно</string>
   <string name="toast_save_failed">Не вдалося зберегти</string>
   <string name="toast_not_in_bug_range">Будь ласка, збільшіть масштаб щоб додавати нотатки (Гучність +/- або Рушій масштабу)</string>
   <string name="toast_export_failed">Збій експорту</string>
   <string name="toast_export_success">Експортовано у %1$s</string>
+  <string name="toast_preset_overwrote_tags">Примітка - заготовка переписала теґ(и)</string>
+  <string name="toast_oneway_reversed">Ви змінили напримок вулиці з одностороннім рухом або лінії, для якої враховується напрямок. Будь ласка перевірте теґи та виправте їх у разі потреби.</string>
+  <string name="toast_merge_tag_conflict">Ви об’єднали елементи, що мають конфлікт у значеннях теґів; з різними напрямками; або різними ролям з одного зв’язку. Будь ласка, перевірте теґи та ролі і виправте їх у разі потреби.</string>
+  <string name="toast_potential_merge_tag_conflict">Ви намагаєтесь об’єднати елементи, що мають конфлікт у значеннях теґів. Будь ласка, перевірте їх та виправте перед тим як спробувати знов.</string>
   <string name="toast_state_file_failed">Не читається або пошкоджений файл стану</string>
   <string name="toast_too_many_nodes_for_move">У лінії дуже багато точок для переміщення</string>
-  <string name="toast_oauth_handshake_failed">Рукостискання OAuth не вдалося, перевірте, що у Вас є підходящі користувацькі ключі.</string>
+  <string name="toast_oauth_handshake_failed">Перевірка OAuth не вдалась, перевірте, що у Вас є відповідні абонентські ключі.</string>
   <string name="toast_unread_mail">У Вас %1$s непрочитаних повідомлень на сервері OpenStreetMap</string>
-  <string name="toast_photo_indexing_started">Розпочато сканування геоприв’язаних світлин</string>
-  <string name="toast_photo_indexing_finished">Закінчено сканування геоприв’язаних світлин</string>
-  <string name="toast_download_failed">Завантаження перерване, код помилки %1$d, повідомлення %2$s</string>
+  <string name="toast_photo_indexing_started">Розпочато пошук геоприв’язаних світлин</string>
+  <string name="toast_photo_indexing_finished">Закінчено пошук геоприв’язаних світлин</string>
+  <string name="toast_download_bbox_failed">Збій завантаження, можливо, виділенна ділянка завелика.</string>
+  <string name="toast_download_failed">Збій завантаження, код помилки %1$d, повідомлення %2$s</string>
+  <string name="toast_unsurveyed_road">Неперевірені дороги</string>
   <string name="toast_noname">У дороги немає ні імені, ні посилання</string>
-  <string name="toast_oauth_retry">Дозвольте OAuth-доступ до свого облікового запису OSM і потім повторіть вивантаження.</string>
+  <string name="toast_notype">Зв’язок без типу</string>
+  <string name="toast_oauth_retry">Дозвольте OAuth-доступ до свого облікового запису OSM і потім повторіть надсилання.</string>
   <string name="toast_oauth">Дозвольте OAuth-доступ до свого облікового запису OSM.</string>
   <string name="toast_no_oauth">Немає доступної конфігурації OAuth для поточного API, вкажіть логін і пароль.</string>
+  <string name="toast_oauth_not_enabled">OAuth не включений у поточному API.</string>
   <string name="toast_timeout">Таймаут з’єднання з сервером</string>
   <string name="coordinates_out_of_range">Довгота повинна бути в межах від -180° до 180°, широта від -85° до +85°</string>
   <string name="toast_nothing_found">Нічого не знайдено</string>
+  <string name="toast_statesave_failed">Збій збереження поточного стану!\nЦе фатальна помилка, намагаюсь експортувати дані в файл для подальшого його відкриття в JOSM.</string>
   <string name="toast_missing_filemanager">Встановіть менеджер файлів.</string>
   <string name="toast_outside_of_download">Ви редагуєте за межами звантажених даних.</string>
   <string name="toast_file_not_found">%1$s не знайдено.</string>
   <string name="toast_imported_track_points">Імпортовано %1$s точок треку.</string>
+  <string name="toast_unknown_voice_command">Вибачте, \"%1$s\" зараз не підтримується</string>
+  <string name="toast_inconsistent_state">Виявленно неузгоджений стан, будь ласка надішліть звіт про помилку!</string>
+  <string name="toast_camera_error">Помилка запуску камери: %1$s</string>
+  <string name="toast_no_voice">Немає можливості розпізнавання голосу</string>
+  <string name="toast_storage_error">Тека для тайлів та інших файлів не досяжна для запису у Веспуччі.\nМожливо у вас технічні проблеми або проблеми з дозволами.</string>
+  <string name="toast_min_one_preset">Треба вибрати, принаймні, одну заготовку!</string>
+  <string name="toast_used_backup">Файл стану пошкоджений, використовую резервний!</string>
+  <string name="toast_used_bug_backup">Файл стану помилок пошкоджений, використовую резервний!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Так</string>
   <string name="no">Ні</string>
@@ -102,24 +166,35 @@
   <string name="save">Зберегти</string>
   <string name="back">Назад</string>
   <string name="foward">Вперед</string>
+  <string name="keep">Залишити</string>
   <!--Dialog for back button-->
-  <string name="exit_title">Направду вийти?</string>
+  <string name="exit_title">Дійсно вийти?</string>
   <string name="exit_text">Ви впевнені, що хочете вийти?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">ключ</string>
+  <string name="Key">Ключ</string>
   <string name="value">значення</string>
+  <string name="Value">Значення</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Uk:Map_Features</string>
   <string name="tag_menu_address">Додати теґи адреси</string>
+  <string name="tag_menu_sourcesurvey">Досліджено</string>
   <string name="tag_menu_preset">Заготовки</string>
+  <string name="tag_menu_apply_preset">Застосувати найкращу заготовку</string>
   <string name="tag_menu_repeat">Повторити теґи</string>
-  <string name="tag_menu_revert">Скасувати</string>
+  <string name="tag_menu_revert">Відмінити</string>
   <string name="tag_menu_mapfeatures">Умовні позначення</string>
   <string name="tag_menu_addtorelation">Додати у зв’язок</string>
-  <string name="tag_menu_resetMRU">Скинути заготовки</string>
-  <string name="tag_menu_exit_no_save">Вийти
- без збереження</string>
+  <string name="tag_menu_resetMRU">Перевстановити заготовки</string>
+  <string name="tag_menu_reset_address_prediction">Перевстановити прогнозування адрес</string>
+  <string name="tag_menu_exit_no_save">Вийти\nбез збереження</string>
+  <string name="tag_value_hint">Натсніть для вибору значень</string>
+  <string name="tag_multi_value_hint">Кілька значень</string>
+  <string name="tag_action_title">Виділені теґи</string>
+  <string name="menu_up">Вгору</string>
+  <string name="menu_top">Верх</string>
+  <string name="menu_preset_help">Довідка заготовки</string>
   <!--Strings in LocationPicker-->
-  <string name="location_headline">Область звантажування</string>
+  <string name="location_headline">Ділянка для звантаження</string>
   <string name="location_choose_radius">Виберіть радіус: </string>
   <string name="location_default_radius">300 м.</string>
   <string name="location_last_text">Останнє відоме розташування: </string>
@@ -127,9 +202,7 @@
   <string name="location_text_unknown">невідомо</string>
   <string name="location_last_text_parameterized">Останнє відоме розташування: %1$s</string>
   <string name="location_current_text_parameterized">Поточне розташування: %1$s</string>
-  <string name="location_text_metadata_location"> 
-Шир. %1$4g, Дов. %2$4g
- %3$s %4$s назад</string>
+  <string name="location_text_metadata_location">\nШир. %1$4g, Дов. %2$4g\n%3$s %4$s тому</string>
   <string name="location_text_metadata_accuracy">Точність %1$2.0f метра, </string>
   <string name="location_map_text">Вказати на мапі (наразі не реалізовано)</string>
   <string name="location_coordinates_text">За координатами: </string>
@@ -150,46 +223,67 @@
   <string name="menu_erase">Вилучити точку</string>
   <string name="menu_set_position">Положення</string>
   <string name="menu_split">Розділити</string>
-  <string name="menu_closed_way_split_1">Розбити замкнуту лінію, 1-ша точка</string>
+  <string name="menu_extract">виокремити точку</string>
+  <string name="menu_closed_way_split_1">Розбити замкнену лінію, 1-ша точка</string>
   <string name="menu_closed_way_split_2">Розбити замкнуту лінію, 2-га точка</string>
   <string name="menu_append">Додати</string>
   <string name="menu_restriction">Додати обмеження</string>
   <string name="menu_restriction_via">Додати обмеження „через“</string>
   <string name="menu_restriction_to">Додати обмеження „до“</string>
   <string name="menu_relation">Створити зв’язок</string>
-  <string name="menu_add_relation_member">Додати учасника</string>
-  <string name="menu_tag">Редагувати мітки</string>
+  <string name="menu_add_relation_member">Додати члена</string>
+  <string name="menu_select_relation_members">Виділити членів</string>
+  <string name="menu_tag">Редагувати теґи</string>
   <string name="menu_openstreetbug">Додати нотатку</string>
+  <string name="menu_easyedit">ПростіПравки</string>
+  <string name="menu_camera">Камера</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показати розташування</string>
   <string name="menu_gps_follow">Слідувати за GPS</string>
   <string name="menu_gps_goto">Перейти до позиції GPS</string>
-  <string name="menu_gps_start">Почати GPS-доріжку</string>
-  <string name="menu_gps_pause">Призупинити GPS-доріжку</string>
-  <string name="menu_gps_clear">Вилучити GPS-доріжку</string>
-  <string name="menu_gps_upload">Вивантажити GPS-доріжку на сервер</string>
-  <string name="menu_gps_export">Експорт GPS-доріжки</string>
+  <string name="menu_gps_start">Почати GPS-трек</string>
+  <string name="menu_gps_pause">Призупинити GPS-трек</string>
+  <string name="menu_gps_clear">Вилучити GPS-трек</string>
+  <string name="menu_gps_track_managment">Керування треками…</string>
+  <string name="menu_gps_upload">Надіслати GPS-трек на сервер</string>
+  <string name="menu_gps_export">Експортувати GPS-трек</string>
   <string name="menu_gps_import">Імпортувати GPS-трек</string>
-  <string name="menu_gps_autodownload">Авто-звантжування</string>
+  <string name="menu_gps_goto_start">Перейти на початок треку</string>
+  <string name="menu_gps_autodownload">Авто-звантження</string>
   <string name="menu_transfer">Передача…</string>
-  <string name="menu_transfer_download_current">Звантажити поточне місце розташування</string>
+  <string name="menu_transfer_download_current">Звантажити дані для поточного місця</string>
   <string name="menu_transfer_download_current_add">Додати поточний вид для звантажування</string>
   <string name="menu_transfer_download_other">Звантажити інше розташування</string>
-  <string name="menu_transfer_upload">Вивантажити дані на сервер OpenStreeMap</string>
+  <string name="menu_transfer_upload">Надіслати дані на сервер OSM</string>
+  <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
+  <string name="menu_transfer_file">Файл…</string>
   <string name="menu_transfer_export">Експорт змін</string>
-  <string name="menu_transfer_read_file">Прочитати з файлу</string>
+  <string name="menu_transfer_read_file">Отримати з файлу</string>
   <string name="menu_transfer_save_file">Зберегти в файл</string>
-  <string name="menu_save">Зберегти до файлу</string>
+  <string name="menu_transfer_bugs">Нотатки/Помилки…</string>
+  <string name="menu_transfer_bugs_download_current">Завантажити нотатки для поточного місця</string>
+  <string name="menu_transfer_bugs_upload">Надіслати все</string>
+  <string name="menu_transfer_bugs_clear">Очистити</string>
+  <string name="menu_save">Зберегти в файл</string>
   <string name="menu_join">Об’єднати</string>
   <string name="menu_unjoin">Роз’єднати</string>
   <string name="menu_copy">Копіювати</string>
   <string name="menu_cut">Вирізати</string>
   <string name="menu_paste">Вставити</string>
+  <string name="menu_paste_from_clipboard">Вставити з буфера</string>
   <string name="menu_rotate">Повернути</string>
   <string name="menu_orthogonalize">Ортогоналізувати</string>
+  <string name="menu_circulize">Вирівняти по колу</string>
+  <string name="menu_split_polygon">Розділити на полігони</string>
   <string name="menu_newnode_gps">Нова точка у позиції GPS.</string>
+  <string name="menu_extend_selection">Розширити виділення</string>
+  <string name="menu_information">Інформація</string>
+  <string name="menu_voice_commands">Голосові команди</string>
   <string name="menu_tools">Інструменти</string>
+  <string name="menu_tools_flush_background_tile_cache">Скинути кеш тайлів фону </string>
+  <string name="menu_tools_flush_overlay_tile_cache">Скинути кеш тайлів додаткових шарів</string>
   <string name="menu_tools_background_properties">Властивості фону</string>
+  <string name="menu_tools_background_align">Положення фону</string>
   <string name="menu_tools_background_align_reset">Скинути</string>
   <string name="menu_tools_background_align_zero">Нуль</string>
   <string name="menu_tools_background_align_retrieve_from_db">Із бази</string>
@@ -198,40 +292,63 @@
   <string name="menu_tools_background_align_save_device">Зберегти на пристрій</string>
   <string name="menu_tools_background_align_apply2all">Застосувати (усі масштаби)</string>
   <string name="menu_tools_background_contrast">Контраст</string>
+  <string name="menu_tools_oauth_reset">Скинути OAuth</string>
+  <string name="menu_tools_oauth_authorisation">Авторизувати OAuth</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Властивості</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Історія</string>
   <string name="menu_merge">Об’єднати</string>
   <string name="menu_reverse">Змінити напрямок</string>
+  <string name="notreversable_description">Лінію позначено теґами, що залежать від її напрямку - її напрямок неможна змінити. Змінення напрямку лінії призведе до спотворення теґування.</string>
   <string name="reverse_anyway">Все одно змінити напрямок</string>
+  <string name="deleteway_description">Ви намагаєтесь вилучити лінію.\n\nВи можете або залишити всі точки, або вилучити точки, які належать цій лінії та не мають теґів.</string>
+  <string name="deleteway_relation_description">Ви намагаєтесь вилучити лінію, що входить до складу одного чи більше зв’язків. Її вилучення, можливо, призведе до його(їх) спотворення.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Лінія має точки за межами завантаженої ділянки і не може бути вилучена без порушення цілісності даних. Завантажте дані вздовж всієї лінії перед тим, як спробувати знов.</string>
   <string name="deleteway_wayonly">Вилучити лише лінію</string>
   <string name="deleteway_wayandnodes">Вилучити лінію та точки</string>
+  <string name="deletenode_relation_description">Ви намагаєтесь вилучити точку, що входить до складу одного чи більше зв’язків. Її вилучення, можливо, призведе до його(їх) спотворення.</string>
   <string name="deletenode">Вилучити точку</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Обрана лінія</string>
   <string name="actionmode_nodeselect">Обрана точка</string>
   <string name="actionmode_relationselect">Зв’язок обрано</string>
-  <string name="actionmode_createpath">Малювання лінії</string>
+  <string name="actionmode_createpath">Креслення лінії</string>
+  <string name="actionmode_multiselect">Мультивиділення</string>
   <!--Preferences-->
+  <string name="config_category_view">Налаштування зовнішнього вигляду</string>
+  <string name="config_showCameraAction_title">Показати камеру</string>
+  <string name="config_showCameraAction_summary">Показати камеру на панелі</string>
+  <string name="config_generateAlerts_title">Створювати повідомлення</string>
+  <string name="config_generateAlerts_summary">Повідомляти про проблемні дані чи нотатки</string>
+  <string name="config_voiceCommandsEnabled_title">Задіяти голосові команди</string>
+  <string name="config_voiceCommandsEnabled_summary">Задіяти експериментальну підтримку голосових команд</string>
+  <string name="config_maxAlertDistance_title">Максимальна відстань для повідомлень</string>
+  <string name="config_maxAlertDistance_summary">Максимальна відстань до проблеми або нотатки від поточного місця для створення повідомлення</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
-  <string name="config_maxStrokeWidth_summary">Чи не малювати лінію товстішою за цю</string>
+  <string name="config_maxStrokeWidth_summary">Не показувати лінію товстішою за цю</string>
   <string name="config_tileCacheSize_title">Розмір кешу</string>
   <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
   <string name="config_showStats_title">Показати статистику</string>
-  <string name="config_showStats_summary">Відображати швидкодію у кадр/сек. у нижньому лівому кутку.</string>
-  <string name="config_showTolerance_title">Показати захоплення</string>
-  <string name="config_showTolerance_summary">Показує область, в якій може бути вибраний елемент.</string>
+  <string name="config_showStats_summary">Показувати швидкодію у кадр/сек. у нижньому лівому кутку.</string>
+  <string name="config_showTolerance_title">Показати чутливість</string>
+  <string name="config_showTolerance_summary">Показує ділянку, в якій елемент може бути вибраний.</string>
   <string name="config_enableAntiAliasing_title">Включити згладжування</string>
   <string name="config_enableAntiAliasing_summary">Згладжує лінії.</string>
-  <string name="config_enableOpenStreetBugs_summary">Показувати, редагувати й створювати нотатки/помилки.</string>
+  <string name="config_enableOpenStreetBugs_title">Показувати Нотатки/Помилки</string>
+  <string name="config_enableOpenStreetBugs_summary">Показувати, редагувати й створювати Нотатки/Помилки.</string>
   <string name="config_enablePhotoLayer_title">Включити шар світлин</string>
-  <string name="config_enablePhotoLayer_summary">Показувати геоприв’язаних світлини.</string>
+  <string name="config_enablePhotoLayer_summary">Показувати геоприв’язані світлини.</string>
   <string name="config_enableKeepScreenOn_title">Не гасити екран</string>
-  <string name="config_enableKeepScreenOn_summary">Не відключати екран для збереження енергії.</string>
+  <string name="config_enableKeepScreenOn_summary">Не вимикати екран для збереження енергії.</string>
   <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
-  <string name="config_closeChangesetOnSave_summary">Закривати набори змін за умовчанням при збереженні</string>
-  <string name="config_backgroundLayer_title">Фонова мапа</string>
+  <string name="config_closeChangesetOnSave_summary">Типово закривати набори змін під час збереження</string>
+  <string name="config_backgroundLayer_title">Фон мапи</string>
   <string name="config_backgroundLayer_summary">Растрова фонова мапа.</string>
+  <string name="config_overlayLayer_title">Додаткові шари</string>
+  <string name="config_overlayLayer_summary">Додатковий растровий шар мапи.</string>
+  <string name="config_scale_title">Показувати масштаб</string>
+  <string name="config_scale_summary">Тип масштабу.</string>
   <string name="config_category_server">Налаштування входу</string>
   <string name="config_apibutton_title">URL для API OpenStreetMap</string>
   <string name="config_apibutton_summary">Тут Ви можете задати нестандартне URL для API. Зазвичай не вимагає зміни!</string>
@@ -239,44 +356,82 @@
   <string name="config_api_oauth_title">Використовувати OAuth</string>
   <string name="listedit_enable_oauth">Включити OAuth</string>
   <string name="config_offsetServer_title">Сервер зміщень</string>
+  <string name="config_offsetServer_summary">URL сервера зміщень</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Додати та задіяти сумісні з JOSM заготовки</string>
   <string name="config_iconbutton_title">Показувати значки точок</string>
+  <string name="config_iconbutton_summary">Показувати відповідні значки із заготовок на точках.</string>
   <string name="config_loginbutton_title">Обліковий запис</string>
-  <string name="config_username_title">Логін на сервер OpenStreetMap</string>
-  <string name="config_password_title">Пароль на сервер OpenStreetMap</string>
+  <string name="config_username_title">Логін на сервері OpenStreetMap</string>
+  <string name="config_username_summary">Потібно для передачі змін на сервер OpenStreetMap, тільки якщо ви не використовуєте OAuth. Зареєструватись можна за адресою http://www.openstreetmap.org/user/new</string>
+  <string name="config_password_title">Пароль на сервері OpenStreetMap</string>
   <string name="config_password_summary">Не переплутайте його з паролем для Wiki. Пам’ятайте: він зберігається і передається незашифрованим!</string>
   <string name="config_category_gps">Налаштування GPS</string>
   <string name="config_gps_distance_title">Відстань опитування GPS</string>
-  <string name="config_gps_distance_summary">Мінімальний інтервал для опитування GPS в метрах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
+  <string name="config_gps_distance_summary">Мінімальна відстань для опитування GPS в метрах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
   <string name="config_gps_interval_title">Інтервал опитування GPS</string>
   <string name="config_gps_interval_summary">Мінімальний інтервал частоти опитування GPS в мілісекундах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
   <string name="config_category_info">Про програму</string>
   <string name="config_advancedprefs">Розширені параметри</string>
   <string name="config_forceContextMenu_title">Завжди використовувати контекстне меню</string>
+  <string name="config_forceContextMenu_summary">Завжди показувати контекстне меню в режимі ШвидкоПравка, якщо є двозначності.</string>
   <string name="config_licensebutton_title">Автори та ліцензії</string>
   <string name="config_licensebutton_summary">Показати інформацію про авторів та ліцензії</string>
+  <string name="config_debugbutton_title">Відлагодження</string>
+  <string name="config_debugbutton_summary">Показати деяку внутрішню інформацію</string>
   <string name="config_mapProfile_title">Профіль мапи</string>
   <string name="config_mapProfile_summary">Управління стилем та видимістю елементів</string>
   <string name="config_use_back_for_undo_title">Використовувати кнопку назад для Відміни</string>
+  <string name="config_use_back_for_undo_summary">Використовувати кнопку назад для відміни в режимі редагування</string>
+  <string name="config_largeDragArea_title">Велика ділянка для перетягування точок</string>
+  <string name="config_largeDragArea_summary">Надає велику ділянку для перетягування точок</string>
   <string name="config_extTriggeredDownloadRadius_title">Радіус звантажування</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Радіус (м)  для розширення ділянки завантаження, 0 = центр мапи.</string>
+  <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
+  <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
+  <string name="config_bugDownloadRadius_title">Нотатки/Помилки - радиус завантаження</string>
+  <string name="config_bugDownloadRadius_summary">Радиус (м) для завантаження нотаток/помилок</string>
+  <string name="config_maxBugDownloadSpeed_title">Максимальна швидкість для автозавантаженя нотаток/помилок</string>
+  <string name="config_maxBugDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження нотаток/помилок призупиняеться</string>
+  <string name="config_bugFilter_title">Фільтр Нотаток/Помилок</string>
+  <string name="config_bugFilter_summary">Оберіть які елементи показувати на шарі нотаток/помилок</string>
   <string name="config_enableNameSuggestions_title">Дозволити пропозиції назв</string>
   <string name="config_enableNameSuggestions_summary">Включити пропозицію для теґа назви</string>
   <string name="config_enableAutoPreset_title">Задіяти авто-заготовки</string>
+  <string name="config_enableAutoPreset_summary">Автоматично додавати заготовки, у разі активації цієї опції</string>
+  <string name="config_splitActionBarEnabled_title">Включити розділення панелі інструментів</string>
+  <string name="config_splitActionBarEnabled_summary">Дозволяє розділення панелі інструментів, в залежності від можливостей пристрою. Потребує перезапуску та Android версії &gt;= 4.0</string>
   <string name="config_gps_source_title">Джерело GPS</string>
+  <string name="config_gps_source_summary">Джерело оновлення позиції GPS</string>
+  <string name="config_gps_source_tcp_title">NMEA джерело мережі</string>
+  <string name="config_gps_source_tcp_summary">TCP адреса джерела NMEA як host:port</string>
+  <string name="config_leaveGpsDisabled_title">Залишити  GPS  вимкненим</string>
+  <string name="config_leaveGpsDisabled_summary">Не пропонувати включати GPS, коли він відключений</string>
+  <string name="config_enableLightTheme_title">Включити світлу тему</string>
+  <string name="config_enableLightTheme_summary">Світла тема з білим фоном</string>
+  <string name="config_category_misc">Додатково</string>
+  <string name="config_address_tags">Теґи адрес</string>
+  <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
+  <string name="config_moreprefs">Додаткові налаштування…</string>
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
   <string name="preset_download_successful">Заготовка успішно звантажена</string>
   <string name="preset_download_failed">Файл заготовки не вдалося звантажити. Заготовка не працюватиме.</string>
+  <string name="preset_download_parse_failed">Заготовка пошкоджена. Вона не працюватиме.</string>
+  <string name="preset_download_missing_images">Файл заготовки успішно завантажено. Але, деякі значки неможливо завантажити і вони не будуть показані.</string>
   <!--changes-->
   <string name="changes_deleted">„%1$s“ вилучено</string>
   <string name="changes_changed">„%1$s“ змінено</string>
   <string name="changes_created">„%1$s“ створено</string>
-  <string name="confirm_upload_title">Вивантажити?</string>
-  <string name="confirm_upload_text">Вивантажити наступні зміни?\n%1$s</string>
+  <string name="confirm_upload_title">Надіслати?</string>
+  <string name="confirm_upload_text">Надіслати наступні зміни?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Додати заготовку</string>
   <string name="urldialog_preset_exists">Ця заготовка вже існує</string>
+  <string name="urldialog_preset_download_successful">Заготовка успішно завантажена!</string>
+  <string name="urldialog_api_exists">API з цим URL вже є. Тим не менш, ви можете додати ще один (наприклад, для спрощення перемикання між обліковими записами).</string>
+  <string name="urldialog_api_preset_missing">Заготовка, що використовується цим API, не доступна. Вам треба спочатку додати її.</string>
+  <string name="urldialog_api_install_successful">API успішно встановлено!</string>
   <string name="urldialog_add_api">Додати API</string>
   <string name="urldialog_nodata_text">Конфігураційний URL не містить коректних даних.</string>
   <!--common terms-->
@@ -294,19 +449,23 @@
   <string name="undo">Скасувати</string>
   <string name="redo">Повторити</string>
   <string name="undo_nothing">немає змін для скасування</string>
+  <string name="tracking_active_title">Фонову службу Веспуччі активовано </string>
+  <string name="tracking_active_text">Веспуччі записує GPS-трек чи здійснює авто-завантаження</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">переміщення точки</string>
   <string name="undo_action_moveway">переміщення лінії</string>
+  <string name="undo_action_moveobjects">переміщення об’єкта</string>
   <string name="undo_action_add">вставити</string>
   <string name="undo_action_append">приєднати</string>
   <string name="undo_action_deletenode">вилучити точку</string>
   <string name="undo_action_deleteway">вилучити лінію</string>
+  <string name="undo_action_delete_objects">вилучити об’єкт</string>
   <string name="undo_action_split_ways">розділення ліній</string>
-  <string name="undo_action_split_way">розбиття лінії</string>
+  <string name="undo_action_split_way">розділення лінії</string>
   <string name="undo_action_merge_ways">об’єднання ліній</string>
   <string name="undo_action_reverse_way">змінити напрямок</string>
-  <string name="undo_action_set_tags">додавання міток</string>
+  <string name="undo_action_set_tags">додавання теґів</string>
   <string name="undo_action_join">об’єднання</string>
   <string name="undo_action_unjoin_ways">роз’єднання ліній</string>
   <string name="undo_action_create_relation">створити зв’язок</string>
@@ -314,9 +473,11 @@
   <string name="undo_action_update_relations">оновлення зв’язків</string>
   <string name="undo_action_cut">вирізати</string>
   <string name="undo_action_paste">вставити</string>
-  <string name="undo_action_rotateway">повернути лінію</string>
+  <string name="undo_action_rotateway">розвернути лінію</string>
   <string name="undo_action_orthogonalize">ортогоналізувати лінію</string>
+  <string name="undo_action_circulize">впорядкувати по колу</string>
   <string name="undo_action_fix_conflict">виправити конфлікт</string>
+  <string name="undo_action_extract_node">виокремити точку</string>
   <!--ACRA-->
   <string name="crash_notif_ticker_text">Vespucci „впав“ або виявив серйозну проблему.  Будь ласка, надішліть звіт про помилку.</string>
   <string name="crash_notif_title">Vespucci „впав“ або виявив серйозну проблему.</string>
@@ -327,15 +488,22 @@
   <string name="pref_acra_enabled">Звітування про помилки включене</string>
   <string name="pref_acra_disabled">Звітування про помилки відключене</string>
   <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">Ця операція призведе до створення лінії з завеликою кількістю точок.</string>
   <!--Notifications-->
+  <string name="alert_data_issue">Виявлено проблему в даних OSM</string>
+  <string name="alert_note"> Поруч знаходиться Нотатка OSM</string>
+  <string name="alert_bug">Поруч знаходиться Помилка OSM</string>
+  <string name="alert_distance_direction">в %1$d м %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Роль</string>
   <string name="role_lc">роль</string>
   <string name="membership_relation_heading">Учасник зв’язку</string>
   <string name="relation">Зв’язок</string>
+  <string name="relations">Зв’язки</string>
   <string name="position">Поз.</string>
   <string name="type">Тип</string>
   <string name="object">Об’єкт</string>
+  <string name="deleterelation_relation_description">Ви намагаєтесь вилучити зв’язок, який є членом одного чи більше зв’язків. Його вилучення, можливо, призведе до його(їх) спотворення.</string>
   <string name="deleterelation">Вилучити зв’язок</string>
   <string name="delete_from_relation_description">Ви збираєтеся вилучити цей елемент зі зв’язку.</string>
   <!--time and distance-->
@@ -346,5 +514,27 @@
   <string name="km">км</string>
   <string name="meter">метрів</string>
   <!--Help system-->
+  <string name="toast_nohelp">Тут немає довідки!</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>приватний</item>
+    <item>загальнодоступний</item>
+    <item>відстежуваний</item>
+    <item>ідентиікований</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>Внутрішній</item>
+    <item>Внутрішній NMEA</item>
+    <item>NMEA від клієнта TCP</item>
+    <item>NMEA від сервера TCP</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Відкрито</item>
+    <item>Закрито</item>
+    <item>Хибно позитивно</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Відкрито</item>
+    <item>Закрито</item>
+  </string-array>
 </resources>

@@ -116,6 +116,13 @@ public abstract class Bug implements Serializable, BoundedObject {
 		return id <= 0;
 	}
 	
+	/**
+	 * Inidicate that the bug has been modified
+	 */
+	public void setChanged() {
+		changed = true;
+	}
+	
 	abstract public String getDescription();
 
 	abstract public Date getLastUpdate();

@@ -32,6 +32,7 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.osb.Bug;
 import de.blau.android.osb.Note;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
@@ -215,8 +216,11 @@ public class Commands {
 				StringBuilder input = new StringBuilder();
 				for (int i=1;i<words.length;i++) {
 					input.append(words[i]);
+					input.append(" ");
 				}
-				n.addComment(input.toString());
+				n.addComment(input.toString().trim());
+				n.open();
+				n.setChanged();
 				Application.getBugStorage().add(n);
 				return n;
 			}
