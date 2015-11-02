@@ -204,7 +204,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	/** Objects to handle showing device orientation. */
 	private SensorManager sensorManager;
 	private Sensor sensor;
-	private SensorEventListener sensorListener = new SensorEventListener() {
+	private final SensorEventListener sensorListener = new SensorEventListener() {
 		float lastOrientation = -9999;
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
