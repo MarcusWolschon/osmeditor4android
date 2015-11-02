@@ -95,7 +95,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 		caller.memberDeselected(); // synchronized method
 	}
 
-	public boolean memberDeselected() {
+	public boolean rowsDeselected() {
 		final int size = rows.getChildCount();
 		for (int i = 1; i < size; ++i) { // > 1 skip header
 			View view = rows.getChildAt(i);

@@ -95,7 +95,7 @@ public class ParentSelectedActionModeCallback implements Callback {
 		caller.parentDeselected(); // synchronized method
 	}
 
-	public boolean parentDeselected() {
+	public boolean rowsDeselected() {
 		final int size = rows.getChildCount();
 		for (int i = 1; i < size; ++i) { // > 1 skip header
 			View view = rows.getChildAt(i);
