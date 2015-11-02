@@ -408,7 +408,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	@Override
 	public synchronized void deselectRows() {
 		if (parentSelectedActionModeCallback != null) {
-			if (parentSelectedActionModeCallback.rowsDeselected()) {
+			if (parentSelectedActionModeCallback.rowsDeselected(true)) {
 				parentSelectedActionModeCallback = null;
 			}
 		}	
