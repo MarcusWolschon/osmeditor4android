@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -30,8 +31,8 @@ public class SelectedRowsActionModeCallback implements Callback {
 
 	}
 
-	protected static final int MENUITEM_DELETE = 1;
-	protected static final int MENUITEM_HELP = 8;
+	protected static final int MENU_ITEM_DELETE = 1;
+	protected static final int MENU_ITEM_HELP = 8;
 
 	ActionMode currentAction;
 
@@ -55,15 +56,19 @@ public class SelectedRowsActionModeCallback implements Callback {
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
-		menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_delete));
-		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
+		Context context = caller.getActivity();
+		menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, R.string.delete)
+				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
+		menu.add(Menu.NONE, MENU_ITEM_HELP, Menu.NONE, R.string.menu_help)
+				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help))
+				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
 		return true;
 	}
 
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 		switch (item.getItemId()) {
-		case MENUITEM_DELETE:
+		case MENU_ITEM_DELETE:
 			final int size = rows.getChildCount();
 			ArrayList<Row> toDelete = new ArrayList<Row>();
 			for (int i = 0; i < size; ++i) {
@@ -82,7 +87,7 @@ public class SelectedRowsActionModeCallback implements Callback {
 				currentAction.finish();
 			}
 			break;
-		case MENUITEM_HELP:
+		case MENU_ITEM_HELP:
 			HelpViewer.start(Application.mainActivity, R.string.help_propertyeditor);
 			return true;
 		default: return false;
