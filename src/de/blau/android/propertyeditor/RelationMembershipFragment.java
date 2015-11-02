@@ -411,7 +411,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	
 	protected synchronized void parentDeselected() {
 		if (parentSelectedActionModeCallback != null) {
-			if (parentSelectedActionModeCallback.parentDeselected()) {
+			if (parentSelectedActionModeCallback.rowsDeselected()) {
 				parentSelectedActionModeCallback = null;
 			}
 		}	

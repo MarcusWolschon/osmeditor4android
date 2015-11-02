@@ -398,7 +398,7 @@ public class RelationMembersFragment extends SherlockFragment {
 	
 	protected synchronized void memberDeselected() {
 		if (memberSelectedActionModeCallback != null) {
-			if (memberSelectedActionModeCallback.memberDeselected()) {
+			if (memberSelectedActionModeCallback.rowsDeselected()) {
 				memberSelectedActionModeCallback = null;
 			}
 		}	
