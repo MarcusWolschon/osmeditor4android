@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -25,8 +26,8 @@ import de.blau.android.util.Util;
 
 public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallback {
 	
-	private static final int MENUITEM_COPY = 2;
-	private static final int MENUITEM_CUT = 3;
+	private static final int MENU_ITEM_COPY = 2;
+	private static final int MENU_ITEM_CUT = 3;
 
 	public TagSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
 		super(caller, rows);
@@ -35,10 +36,18 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
-		menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_delete));
-		menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy));
-		menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_cut));
-		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
+		Context context = caller.getActivity();
+		menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, R.string.delete)
+				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
+		menu.add(Menu.NONE, MENU_ITEM_COPY, Menu.NONE, R.string.menu_copy)
+				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_copy))
+				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_copy));
+		menu.add(Menu.NONE, MENU_ITEM_CUT, Menu.NONE, R.string.menu_cut)
+				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_cut))
+				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_cut));
+		menu.add(Menu.NONE, MENU_ITEM_HELP, Menu.NONE, R.string.menu_help)
+				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help))
+				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
 		return true;
 	}
 
@@ -86,7 +95,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 			}
 		}
 		switch (action) {
-		case MENUITEM_DELETE: 
+		case MENU_ITEM_DELETE:
 			if (selected.size() > 0) {
 				for (TagEditRow r:selected) {
 					r.delete();
@@ -96,19 +105,19 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 				currentAction.finish();
 			}
 			break;
-		case MENUITEM_COPY:
+		case MENU_ITEM_COPY:
 			copyTags(selected, false);
 			if (currentAction != null) {
 				currentAction.finish();
 			} 
 			break;
-		case MENUITEM_CUT:
+		case MENU_ITEM_CUT:
 			copyTags(selected, true);
 			if (currentAction != null) {
 				currentAction.finish();
 			}
 			break;
-		case MENUITEM_HELP:
+		case MENU_ITEM_HELP:
 			HelpViewer.start(Application.mainActivity, R.string.help_propertyeditor);
 			return true;
 		default: return false;
