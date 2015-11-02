@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -61,6 +62,19 @@ public class TagSelectedActionModeCallback implements Callback {
 		return true;
 	}
 
+	private void copyTags(@NonNull ArrayList<TagEditRow> selectedRows, boolean deleteEachRow) {
+		if (selectedRows.size() > 0) {
+			caller.copiedTags = new LinkedHashMap<String,String>();
+			for (TagEditRow row : selectedRows) {
+				addKeyValue(caller.copiedTags, row);
+				if (deleteEachRow) {
+					row.delete();
+				}
+			}
+			ClipboardUtils.copyTags(caller.getActivity(), caller.copiedTags);
+		}
+	}
+
 	public void addKeyValue(Map<String,String>tags, final TagEditRow row) {
 		String key = row.getKey().trim();
 		String value = row.getValue().trim();
@@ -104,26 +118,13 @@ public class TagSelectedActionModeCallback implements Callback {
 			}
 			break;
 		case MENUITEM_COPY:
-			if (selected.size() > 0) {
-				caller.copiedTags = new LinkedHashMap<String,String>();
-				for (TagEditRow r:selected) {
-					addKeyValue(caller.copiedTags, r);
-				}
-				ClipboardUtils.copyTags(caller.getActivity(), caller.copiedTags);
-			}
+			copyTags(selected, false);
 			if (currentAction != null) {
 				currentAction.finish();
 			} 
 			break;
 		case MENUITEM_CUT:
-			if (selected.size() > 0) {
-				caller.copiedTags = new LinkedHashMap<String,String>();
-				for (TagEditRow r:selected) {
-					addKeyValue(caller.copiedTags, r);
-					r.delete();
-				}
-				ClipboardUtils.copyTags(caller.getActivity(), caller.copiedTags);
-			}
+			copyTags(selected, true);
 			if (currentAction != null) {
 				currentAction.finish();
 			}
