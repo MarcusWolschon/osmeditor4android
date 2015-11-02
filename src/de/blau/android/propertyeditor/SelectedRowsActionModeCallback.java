@@ -106,9 +106,10 @@ public class SelectedRowsActionModeCallback implements Callback {
 		relation.deselectRows(); // synchronized method
 	}
 
-	public boolean rowsDeselected() {
+	public boolean rowsDeselected(boolean skipHeaderRow) {
 		final int size = rows.getChildCount();
-		for (int i = 1; i < size; ++i) { // > 1 skip header
+		int initialRowIndex = skipHeaderRow ? 1 : 0;
+		for (int i = initialRowIndex; i < size; ++i) {
 			View view = rows.getChildAt(i);
 			Row row = (Row)view;
 			if (row.isSelected()) {
