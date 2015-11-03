@@ -176,7 +176,7 @@ public class EasyEditManager {
 			if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
 			if (cb != null) {
 				main.startActionMode(cb);
-				String toast = element.getDescription();
+				String toast = element.getDescription(main);
 				if (element.hasProblem(main)) {
 					String problem = element.describeProblem();
 					toast = !problem.equals("") ? toast + "\n" + problem : toast;
@@ -219,7 +219,7 @@ public class EasyEditManager {
 			if (cb != null) {
 				main.startActionMode(cb);
 				if (e != null) {
-					String toast = e.getDescription();
+					String toast = e.getDescription(main);
 					if (e.hasProblem(main)) {
 						String problem = e.describeProblem();
 						toast = !problem.equals("") ? toast + "\n" + problem : toast;

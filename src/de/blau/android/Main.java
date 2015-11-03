@@ -2273,7 +2273,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 			if (clickedNodesAndWays != null) {
 				for (OsmElement e : clickedNodesAndWays) {
-					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription()).setOnMenuItemClickListener(this);
+					menu.add(Menu.NONE, id++, Menu.NONE, e.getDescription(Application.mainActivity)).setOnMenuItemClickListener(this);
 				}
 			}
 		}

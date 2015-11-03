@@ -19,6 +19,9 @@ import android.content.res.Resources;
 import android.os.Parcelable;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.IssueAlert;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
@@ -341,7 +344,29 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		return getDescription(true);
 	}
 	
+	/**
+	 * Generate a human-readable description/summary of the element.
+	 * @return A description of the element.
+	 */
+	public String getDescription(Context ctx) {
+		return getDescription(ctx, true);
+	}
+	
+	/**
+	 * Return a concise description of the element
+	 * @param withType
+	 * @return
+	 */
 	public String getDescription(boolean withType) {
+		return getDescription(null, withType);
+	}
+	
+	/**
+	 * Return a concise description of the element
+	 * @param withType
+	 * @return
+	 */
+	public String getDescription(Context ctx, boolean withType) {
 		// Use the name if it exists
 		String name = getTagWithKey("name");
 		if (name != null && name.length() > 0) {
@@ -352,11 +377,17 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 		if (housenb != null && housenb.length() > 0) {
 			return "house " + housenb;
 		}
+		if (ctx != null) {
+			PresetItem p = Preset.findBestMatch(Application.getCurrentPresets(ctx),tags);
+			if (p!=null) {
+				return p.getTranslatedName();
+			}
+		}
 		// Then the value of the most 'important' tag the element has
 		for (String tag : importantTags) {
 			String value = getTagWithKey(tag);
 			if (value != null && value.length() > 0) {
-				return (withType ? getName() + " " : "") + tag + ":" + value;
+				return (withType ? getName() + " " : "") + tag + "=" + value;
 			}
 		}
 		// Failing the above, the OSM ID

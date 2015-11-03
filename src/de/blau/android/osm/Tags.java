@@ -71,6 +71,8 @@ public class Tags {
 	public static final String VALUE_VIA = "via";
 	public static final String VALUE_BUILDING = "building";
 	public static final String VALUE_ROUTE = "route";
+	public static final String VALUE_MULTIPOLYGON = "multipolygon";
+	public static final String KEY_BOUNDARY = "boundary";
 	
 	//
 	public static final String KEY_ELE = "ele";

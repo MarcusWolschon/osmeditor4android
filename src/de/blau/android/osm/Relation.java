@@ -9,6 +9,9 @@ import org.xmlpull.v1.XmlSerializer;
 
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -231,41 +234,57 @@ public class Relation extends OsmElement {
 	 */
 	@Override
 	public String getDescription() {
-		
+		return getDescription(null);
+	}
+	
+	@Override
+	public String getDescription(Context ctx) {
 		String description = "";
-		String type = getTagWithKey("type");
-		if (type != null){
-			description = type.equals("") ? "unset relation type" : type;
-			if (type.equals("restriction")) {
-				String restriction = getTagWithKey("restriction");
-				if (restriction != null) {
-					description = restriction + " " + description;
-				}
-			} else if (type.equals("route")) {
-				String route = getTagWithKey("route");
-				if (route != null) {
-					description = route + " " + description ;
-				}
-			} else if (type.equals("multipolygon")) {
-				String b = getTagWithKey("boundary");
-				if (b != null) {
-					description = b + " boundary" + " " + description ;
-				} else {
-					String l = getTagWithKey("landuse");
-					if (l != null) {
-						description = "landuse " + l + " " + description ;
+		PresetItem p = null;
+		if (ctx != null) {
+			p = Preset.findBestMatch(Application.getCurrentPresets(ctx),tags);
+		} 
+		if (p!=null) {
+			description = p.getTranslatedName();
+		} else {
+			String type = getTagWithKey(Tags.KEY_TYPE);
+			if (type != null && !type.equals("")){
+				description = type;
+				if (type.equals(Tags.VALUE_RESTRICTION)) {
+					String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
+					if (restriction != null) {
+						description = restriction + " " + description;
+					}
+				} else if (type.equals(Tags.VALUE_ROUTE)) {
+					String route = getTagWithKey(Tags.VALUE_ROUTE);
+					if (route != null) {
+						description = route + " " + description ;
+					}
+				} else if (type.equals(Tags.VALUE_MULTIPOLYGON)) {
+					String b = getTagWithKey(Tags.KEY_BOUNDARY);
+					if (b != null) {
+						description = b + " " + Tags.KEY_BOUNDARY + " " + description ;
 					} else {
-						String n = getTagWithKey("natural");
-						if (n != null) {
-							description = "natural " + n + " " + description ;
+						String l = getTagWithKey(Tags.KEY_LANDUSE);
+						if (l != null) {
+							description = Tags.KEY_LANDUSE + " " + l + " " + description ;
+						} else {
+							String n = getTagWithKey(Tags.KEY_NATURAL);
+							if (n != null) {
+								description = Tags.KEY_NATURAL + " " + n + " " + description ;
+							}
 						}
 					}
 				}
+			} else  {
+				if (ctx == null) {
+					description = "unset relation type"; // fallback so that we have something to display
+				} else {
+					description = ctx.getResources().getString(R.string.unset_relation_type);
+				}
 			}
-		} else  {
-			description = "unset relation type";
 		}
-		String name = getTagWithKey("name");
+		String name = getTagWithKey(Tags.KEY_NAME);
 		if (name != null) {
 			description = description + " " + name;
 		} else {

@@ -782,7 +782,15 @@ public class Preset implements Serializable {
 		public String getName() {
 			return name;
 		}
-
+		
+		/**
+		 * Return the name of this preset element, potentially translated
+		 * @return
+		 */
+		public String getTranslatedName() {
+			return po!=null?po.t(getName()):getName();
+		}
+		
 		public Drawable getIcon() {
 			if (icon == null && iconpath != null) {
 				if (iconManager == null) {
@@ -824,7 +832,7 @@ public class Preset implements Serializable {
 //			shape.setCornerRadius(8);
 			TextView v = new TextView(ctx);
 			float density = res.getDisplayMetrics().density;
-			v.setText(po!=null?po.t(getName()):getName());
+			v.setText(getTranslatedName());
 			v.setTextColor(res.getColor(R.color.preset_text));
 			v.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
 			v.setEllipsize(TextUtils.TruncateAt.END);
