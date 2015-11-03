@@ -375,6 +375,7 @@
   <string name="config_forceContextMenu_summary">In EasyEdit Modus immer Kontext Menü zeigen wenn Auswahl uneindeutig.</string>
   <string name="config_licensebutton_title">Autoren und Lizenzen</string>
   <string name="config_licensebutton_summary">Zeige Autoren- und Lizenzinformationen</string>
+  <string name="config_debugbutton_title">Debug</string>
   <string name="config_debugbutton_summary">Interne Zustandsinformation anzeigen</string>
   <string name="config_mapProfile_title">Datenanzeigestil</string>
   <string name="config_mapProfile_summary">Anzeige und sichtbarkeit der Datenelemente </string>
@@ -504,6 +505,7 @@ in %1$d m %2$s</string>
   <string name="deleterelation_relation_description">Diese Relation ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deleterelation">Relation löschen</string>
   <string name="delete_from_relation_description">Dieses Element wird aus der Relation gelöscht.</string>
+  <string name="unset_relation_type">kein Relationstyp</string>
   <!--time and distance-->
   <string name="days">Tage</string>
   <string name="hours">Stunden</string>
