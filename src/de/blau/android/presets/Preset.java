@@ -691,6 +691,10 @@ public class Preset implements Serializable {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
+		if (tags==null) {
+			return null;
+		}
+		
 		// Build candidate list
 		LinkedHashSet<PresetItem> possibleMatches = new LinkedHashSet<PresetItem>();
 		for (Preset p:presets) {
