@@ -1,12 +1,12 @@
 # Введение в Vespucci
 
-Vespucci — это полнофункциональный редактор карт OpenStreetMap, поддерживающий большинство операций, предлагаемых настольными аналогами. Он был успешно протестирован на версиях Android с 2.3 по 5.1. Небольшое предостережение: несмотря на то, что мобильные устройства догоняют своих настольных соперников, особенно старые устройства очень ограничены в объёме памяти, и поэтому они могут быть довольно медленными. Это нужно иметь в виду, работая с Vespucci, и ограничивать, например, размер радактируемых областей разумными рамками. 
+Vespucci — полнофункциональный редактор OpenStreetMap, который поддерживает большинство операций, доступных в редакторах для ПК. Его работа успешно проверена на Google-версиях ОС Android от 2.3 до 6.0 и различных AOSP-вариантах платформы. Предупредим заранее: хотя по возможностям мобильные устройства уже "догнали" настольные компьютеры, оперативная память старых устройств невелика, и приложение обычно работает на них весьма неспешно. Помните об этом и старайтесь экономить память: например, не стоит загружать в Vespucci слишком большие области. 
 
 ## Первое использование
 
 После запуска Vespucci показывает диалог "Скачать другое место"/"Загрузить область". Если у вас отображаются координаты, и вы желаете начать загрузку немедленно, вы можете выбрать соответствующую опцию и установить радиус загружаемой области. На медленных устройствах выбирайте небольшие участки. 
 
-Кроме того, вы можете проигнорировать диалог, нажав на кнопку "Перейти к карте", и при помощи перетаскивания и зума карты переместиться к нужному месту на ней, а затем скачать его для редактирования. (См. ниже: "Редактирование в Vespucci")
+Кроме того, вы можете проигнорировать диалог, нажав на кнопку "Перейти к карте", и при помощи перетаскивания и масштабирования карты переместиться к нужному месту на ней, а затем скачать его для редактирования. (См. ниже: "Редактирование в Vespucci")
 
 ## Редактирование в Vespucci
 
@@ -16,29 +16,29 @@ Vespucci — это полнофункциональный редактор ка
 
 Выберите значок передачи ![](../images/menu_transfer.png)  или пункт меню "Передача". Будут показаны семь опций:
 
-* **Скачать текущий вид** - скачать область, видимую на экране и заменить любые существующие данные *(требует  интернет-соединения)*
-* **Добавить текущий вид к скачанным** - скачать видимую на экране область и объединить её с уже существующими данными *(требует интернет-соединения)*
-* **Скачать другое место** - показывает форму, в которой можно выполнить поиск места или ввести его координаты напрямую, а затем скачать область в указанном местоположении *(требует интернет-соединения)*
-* **Передача данных на сервер OSM** - загружает ваши \равки на сервер OpenStreetMap *(требует авторизации)* *(требует интернет-соединения)*
-* **Экспорт изменений** - записать файл в формате ".osc", содержащий последние правки. Он, впоследствие, может быть считан JOSM, например
-* **Прочитать из файла** - считать (J)OSM-совместимый XML-файл
-* **Сохранить в файл** - сохранить в виде JOSM-совместимого XML-файла
+* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
+* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-Самый простой способ открыть карту - приблизить и центрировать место, которое хотите отредактировать, выбрать "Скачать текущее местоположение". Зуммировать можно жестами, специализированными кнопками на экране или кнопками управления громкостью телефона. Vespucci загрузит данные для области и центрирует карту на вашем текущем местоположении. Для скачивания данных авторизация не требуется.
+Самый простой способ открыть карту — приблизить и центрировать место, которое хотите отредактировать, выбрать "Скачать текущее местоположение". Масштабировать можно жестами, специализированными кнопками на экране или кнопками управления громкостью телефона. Vespucci загрузит данные для области и центрирует карту на вашем текущем местоположении. Для скачивания данных авторизация не требуется.
 
 ### Редактирование
 
-Чтобы предотвратить случайные правки Vespucci стартует в режиме "заблокирован", в котором разрешено только зуммировать и перемещать карту. Нажмите на значке ![Заблокирован](../images/locked.png), чтобы разблокировать режим правки.
- 
-Точки и линии окружены оранжевыми областями, которые указывают, куда приблизительно нужно прикоснуться, чтобы выделить объект. Если вы пытаетесь выделить объект, но Vespucci определяет, что выбор неоднозначен, и потенциально падает на несколько объектов, то будет показано меню с их списком. Выбранные объекты подсвечиваются жёлтым.
+Чтобы избежать случайных правок, Vespucci запускается в "блокированном" режиме, в котором доступно только масштабирование и перемещение карты. Нажмите значок ![Locked](../images/locked.png), чтобы отключить блокировку. Долгое нажатие на значке включит режим "Только редактировать теги" — в этом режиме вы не сможете создавать объекты или менять их геометрию. Этот режим можно распознать по отличающемуся белому значку замка.
 
-Если вы пытаетесь редактировать область с высокой плотностью, то разумно приблизить её побольше.
+По умолчанию вокруг доступных для редактирования точек и линий есть оранжевые области, отображающие, где нужно нажать, чтобы их выделить. Если вы пытаетесь выбрать объект, а Vespucci обнаружит, что область выделения содержит несколько объектов, откроется меню выбора. Выделенные объекты подсвечены жёлтым.
+
+Если вы пытаетесь редактировать область с высокой плотностью данных, разумно будет приблизить её.
 
 У Vespucci хорошая система отмены и повторения правок, поэтому не бойтесь экспериментировать на устройстве, однако не загружайте на сервер тестовые данные.
 
 #### Выделение / Снятие выделения
 
-Прикоснитесь к объекту, чтобы выделить его и подсветить. Второе прикосновение к этому же объекту откроет редактор тегов для него. Нажатие на пустой области на экране снимет выделение. Если вы выбрали объект, но требуебуется выделить что-то ещё, то просто прикоснитесь к новому объекту. Не нужно предварительно снимать имеющееся выделение. Двойное нажатие на объекте включает [Множественное выделение](Multiselect.md).
+Прикоснитесь к объекту, чтобы выделить его и подсветить. Второе прикосновение к этому же объекту откроет редактор тегов для него. Нажатие на пустой области на экране снимет выделение. Если вы выбрали объект, но требуется выделить что-то ещё, то просто прикоснитесь к новому объекту. Не нужно предварительно снимать имеющееся выделение. Двойное нажатие на объекте включает [Множественное выделение](Multiselect.md).
 
 #### Добавление новой точки/узла или линии
 
@@ -52,27 +52,27 @@ Vespucci — это полнофункциональный редактор ка
 
 #### Улучшение геометрии линий
 
-If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
+Если вы приблизите карту, то увидите небольшой крестик в середине сегментов линий, которые на этом масштабе достаточно велики. Потянув за крест, вы создадите в этом месте линии новую точку. Учтите: чтобы не допустить случайного создания точек, область выделения для этой операции довольно маленькая.
 
 #### Вырезать, копировать и вставлять
 
-Вы можете скопировать или вырезать выделенные точки и линии, а затем вставить их один или несколько раз в новое место. Вырезание сохраняет OSM id и версию. Чтобы вставить длительно нажмите в месте, в которое вы хотите вставить (вы увидите перекрестие отмечающее расположение). Затем выберите "Вставить" из меню.
+Вы можете скопировать или вырезать выделенные точки и линии, а затем вставить их один или несколько раз в новое место. Вырезание сохраняет OSM id и версию. Чтобы вставить, длительно нажмите в месте, в которое вы хотите вставить (вы увидите перекрестие, отмечающее расположение). Затем выберите "Вставить" из меню.
 
 #### Эффективное добавление адресов
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
+В Vespucci предусмотрена функция "добавления адресных тегов", которая старается упростить разметку адресов. Её можно выбрать 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a **entrance=yes"" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* после долгого нажатия: Vespucci добавит в этом месте точку и постарается угадать номер дома и адресные теги на основе тех, что вы недавно использовали. Если новая точка попала на контур дома, к ней по умолчанию добавится тег **entrance=yes"". Для новосозданного объекта откроется редактор тегов, где вы сможете задать прочие свойства.
+* в режиме выбора точки/линии: Vespucci добавит адресные теги по тому же принципу и откроет редактор тегов.
+* в самом редакторе тегов.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+Для того, чтобы интерполяция номеров домов работала, обычно требуется, чтобы на каждой стороне дороги уже существовало хотя бы два номера. Чем больше номеров домов имеется в данных этой области, тем лучше.
 
-Consider using this with the "Auto-download" mode.  
+Возможно, здесь вам поможет режим "Автоподгрузки области".  
 
 #### Добавление ограничений поворотов
 
-Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
+В Vespucci есть быстрый способ добавления ограничений поворотов. Заметьте: если для добавления ограничения требуется разбить линию, сделайте это заранее.
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
 * select "Add restriction" from the menu
@@ -88,15 +88,15 @@ When the red lock is displayed the following all non-editing actions are availab
 
 *(требует подключения к сети)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Используйте ту же кнопку или меню, которые вы выбирали для подгрузки данных, но теперь нажмите "Передача данных на сервер OSM".
 
-Vespucci supports OAuth authorization besides the classical username and password method. OAuth is preferable, particularly for mobile applications since it avoids sending passwords in the clear.
+Vespucci поддерживает и OAuth-авторизацию, и "классический" вход с помощью логина и пароля OSM. Лучше использовать OAuth, поскольку в этом случае вы не будете передавать свой пароль незашифрованным.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci and should retry the upload, which now should succeed.
+Если Vespucci был установлен недавно, OAuth-авторизация в нём уже включёна по умолчанию. При первой вашей попытке передать на сервер изменения в данных откроется страница сайта OSM. После того, как вы войдёте под своим логином (ваши данные передаются по зашифрованному соединению), вас спросят, разрешить ли Vespucci вносить в базу изменения от вашего имени. Если вы захотите разрешить OAuth-доступ к своей учётной записи заранее, до редактирования, в меню "Инструменты" есть соответствующий пункт.
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Если вы хотите сохранить свои труды, а интернет-соединения поблизости нет, вы можете сохранить данные в файл формата .osm и передать его на сервер позднее с помощью Vespucci или JOSM.  
 
-#### Resolving conflicts on uploads
+#### Разрешение конфликтов данных при передаче на сервер
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
 
@@ -106,28 +106,23 @@ You can use Vespucci to create a GPX track and display it on your device. Furthe
 
 If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
-### Auto-Download
+## Notes and Bugs
 
-*(требует подключения к сети)*
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-If "Show location" and "Follow GPS Position" are enabled, Vespucci lets you auto download a small area (default 50m radius) around your current position. Just as above if you move the screen manually or change the geometry of an object you will have to re-enable "Follow GPS Position" when you want to continue. 
-
-Заметки:
-
-* you need to download an initial area manually
-* the function only works below 6km/h (brisk walking speed) to avoid causing issues with the OpenStreetMap API
+On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
 ## Настройка Vespucci
 
-### Settings that you might want to change
+### Что стоит изменить в настройках
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes display. Open Notes will be displayed as a red filled circle, closed Notes the same in blue. Default: off.
-* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: off.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Фоновый слой
+* Слой наложения. Добавление слоя наложения может вызвать проблемы на устаревших устройствах и при недостатке оперативной памяти. По умолчанию: нет.
+* Отображение заметок и ошибок. "Незакрытые" заметки и ошибки будут отображаться в виже значка красного жука, "закрытые" - в виде зелёного. По умолчанию: выключено.
+* Слой фото. Показывает геопривязанные фотографии в виде красных значков фотоаппарата. Если есть информация о направлении съёмки, значок будет развёрнут. По умолчанию: выключен.
+* Значки точек. По умолчанию: выключены.
+* Держать экран включённым. По умолчанию: выключено.
+* Большая область захвата точек для перемещения. Перемещение точек на устройстве с сенсорным экраном — непростая задача, т.к. ваши пальцы будут заслонять текущее положение точки. Эта функция увеличивает область захвата, чтобы для перетягивания точки не обязательно было попадать ближе к её центру. Выделение точек и другие операции по-прежнему будут использовать общие настройки чувствительности к касаниям. По умолчанию: отключена.
 
 #### Расширенные параметры
 
@@ -136,8 +131,8 @@ If "Show location" and "Follow GPS Position" are enabled, Vespucci lets you auto
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
 * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
-## Reporting Problems
+## Отчёты об ошибках
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Если Vespucci "упал" или обнаружил, что работает нестабильно, он предложит вам выслать разработчикам отчёт о сбое программы. Пожалуйста, сделайте это, но не отсылайте отчёт по одному и тому же сбою несколько раз. Если вы хотите описать ошибку подробнее, сообщить о проблеме или предложить новую функцию, это можно сделать здесь: [Баг-трекер Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). Если же вы хотите пообщаться с другими пользователями Vespucci, создайте новое обсуждение в [Google-группе Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android) или в [Android-ветке форума OpenStreetMap](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

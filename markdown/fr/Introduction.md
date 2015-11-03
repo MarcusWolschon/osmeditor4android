@@ -1,6 +1,6 @@
 # Introduction à Vespucci
 
-Vespucci est un éditeur OpenStreetMap complet qui supporte la plupart des opérations fournies par les éditeurs desktop. Il a été testé avec succès sur Andoid 2.3 à 5.1. Attention tout de même : bien que les possibilités des appareils portables ont rattrapé celles des desktop, ils  disposent (surtout les plus vieux) de peu de mémoire et ont tendance à être lents. Gardez cela en tête pendant votre utilisation de Vespucci, par exemple n'éditez pas une trop grande zone d'un coup. 
+Vespucci est un éditeur OpenStreetMap complet qui supporte la plupart des opérations fournies par les éditeurs desktop. Il a été testé avec succès sur Google Andoid 2.3 à 6.0 et sur quelques variantes AOSP. Attention tout de même : bien que les possibilités des appareils portables ont rattrapé celles des desktop, ils  disposent (surtout les plus vieux) de peu de mémoire et ont tendance à être lents. Gardez cela en tête pendant votre utilisation de Vespucci, par exemple n'éditez pas une trop grande zone d'un coup. 
 
 ## Première utilisation
 
@@ -17,18 +17,18 @@ Selon la taille de votre écran et l'age de l'appareil, les actions d'édition s
 Selectionez soit l'icône transfert ![](../images/menu_transfer.png)  soit "Transfer" dans le meny. Cela affiche sept options :
 
 * **Télécharger la vue courante** - télécharge la zone visible à l'écran et remplace les données existantes *(nécessite une connection réseau)*
-* **Ajouer les données de la vue courante** - télécharge la zone visible à l'écran et les fusione avec les données existantes *(nécessite une connection réseau)*
-* **Télécharger un autre endroit** - affiche un formulaire permettant de rechercher un lieu ou d'entrer des coordonnées directement, et de télécherge une zone autour de ce point *(nécessite une connection réseau)*
-* **Envoyer les données au serveur OSM** - envoie les modification vers OpenStreetMap *(nécessite une authentication)* *(nécessite une connection réseau)*
-* **Exporter les modifications** - écris un fichier au format ".osc" contenant les modifications courantes, qui peut être par exemple lu par JOSM
-* **Lire le fichier** - lis un fichier XML compatible avec le format de JOSM
-* **Enregistrer le fichier** - enregistre un fichier XML compatible avec le format de JOSM
+* **Ajouer les données de la vue courante** - télécharge la zone visible à l'écran et la fusione avec les données existantes *(nécessite une connection réseau)*
+* **Télécharger un autre endroit** - affiche un formulaire permettant de rechercher un lieu ou d'entrer des coordonnées directement, puis de télécharger une zone autour de ce point *(nécessite une connection réseau)*
+* **Envoyer les données au serveur OSM** - envoie les modification vers OpenStreetMap *(nécessite d'être authentifié)* *(nécessite une connection réseau)*
+* **Téléchargement automatique** - télécharge automatiquement la zone autour de la position courante *(nécessite une connection réseau)* *(nécessite le GPS)*
+* **Fichier...** - sauvegarde ou ouvre les données OSM dans des fichiers en local
+* **Notes/Bugs** télécharge (automatiquement et manuellement) les Notes OSM et les "Bugs" des outils d'assurance qualité (OSMOSE) *(nécessite une connection réseau)*
 
 The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
 
 ### Editing
 
-To avoid accidental edits Vespucci start in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen.
+To avoid accidental edits Vespucci start in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
  
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
 
@@ -90,9 +90,9 @@ When the red lock is displayed the following all non-editing actions are availab
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
-Vespucci supports OAuth authorization besides the classical username and password method. OAuth is preferable, particularly for mobile applications since it avoids sending passwords in the clear.
+Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci and should retry the upload, which now should succeed.
+New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
 If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
 
@@ -106,16 +106,11 @@ You can use Vespucci to create a GPX track and display it on your device. Furthe
 
 If you have the later set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch the arrow or re-check the option from the menu.
 
-### Auto-Download
+## Notes and Bugs
 
-*(requires network connectivity)*
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-If "Show location" and "Follow GPS Position" are enabled, Vespucci lets you auto download a small area (default 50m radius) around your current position. Just as above if you move the screen manually or change the geometry of an object you will have to re-enable "Follow GPS Position" when you want to continue. 
-
-Notes:
-
-* you need to download an initial area manually
-* the function only works below 6km/h (brisk walking speed) to avoid causing issues with the OpenStreetMap API
+On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
 ## Customizing Vespucci
 
@@ -123,7 +118,7 @@ Notes:
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes display. Open Notes will be displayed as a red filled circle, closed Notes the same in blue. Default: off.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a red bug icon, closed ones the same in green. Default: off.
 * Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
 * Node icons. Default: off.
 * Keep screen on. Default: off.
