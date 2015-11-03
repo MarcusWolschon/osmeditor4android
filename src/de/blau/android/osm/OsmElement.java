@@ -368,12 +368,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 */
 	public String getDescription(Context ctx, boolean withType) {
 		// Use the name if it exists
-		String name = getTagWithKey("name");
+		String name = getTagWithKey(Tags.KEY_NAME);
 		if (name != null && name.length() > 0) {
 			return name;
 		}
 		// Then the house number
-		String housenb = getTagWithKey("addr:housenumber");
+		String housenb = getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 		if (housenb != null && housenb.length() > 0) {
 			return "house " + housenb;
 		}
