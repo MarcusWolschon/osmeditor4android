@@ -238,13 +238,23 @@ public class Preset implements Serializable {
 					// get translations
 					presetFilename = presetFilename.substring(0, presetFilename.length()-4);
 					InputStream poFileStream = null;
+					// try to open .po files either with the same name as the preset file or the standard name
 					try {
 						poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault()+".po"));
 					} catch (FileNotFoundException fnfe) {
 						try {
 							poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault().getLanguage()+".po"));
 						} catch (FileNotFoundException fnfe2) {
-							// no translations
+							try {
+								presetFilename = PRESETXML.substring(0, PRESETXML.length()-4);
+								poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault()+".po"));
+							} catch (FileNotFoundException fnfe3) {
+								try {
+									poFileStream = new FileInputStream(new File(directory,presetFilename+"_"+Locale.getDefault().getLanguage()+".po"));
+								} catch (FileNotFoundException fnfe4) {
+									// no translations
+								}
+							}
 						}
 					}
 					if (poFileStream != null) {
@@ -377,6 +387,10 @@ public class Preset implements Serializable {
             		if (defaultValue != null) {
             			currentItem.addDefault(attr.getValue("key"),defaultValue);
             		}
+               		String text = attr.getValue("text");
+            		if (text != null) {
+            			currentItem.addHint(attr.getValue("key"),text);
+            		}
             	} else if ("combo".equals(name)) {
             		String delimiter = attr.getValue("delimiter");
             		if (delimiter == null) {
@@ -393,6 +407,10 @@ public class Preset implements Serializable {
             		if (defaultValue != null) {
             			currentItem.addDefault(attr.getValue("key"),defaultValue);
             		}
+               		String text = attr.getValue("text");
+            		if (text != null) {
+            			currentItem.addHint(attr.getValue("key"),text);
+            		}
             	} else if ("multiselect".equals(name)) {
             		String delimiter = attr.getValue("delimiter");
             		if (delimiter == null) {
@@ -408,6 +426,10 @@ public class Preset implements Serializable {
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
             			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            		}
+               		String text = attr.getValue("text");
+            		if (text != null) {
+            			currentItem.addHint(attr.getValue("key"),text);
             		}
             	} else if ("role".equals(name)) {
             		currentItem.addRole(attr.getValue("key")); 
