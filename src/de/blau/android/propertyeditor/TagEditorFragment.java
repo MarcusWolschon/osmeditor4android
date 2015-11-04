@@ -1088,6 +1088,16 @@ public class TagEditorFragment extends SherlockFragment {
 		
 		boolean replacedValue = false;	
 		
+		// remove everything that doesn't have a value
+		// given that these are likely leftovers from a previous preset
+		Set<String> keySet = new HashSet<String>(currentValues.keySet()); // shallow copy
+		for (String key:keySet) {
+			ArrayList<String>list = currentValues.get(key);
+			if (list == null || list.size() == 0 || (list.size() == 1 && "".equals(list.get(0)))) {
+				currentValues.remove(key);
+			}
+		}
+		
 		// Fixed tags, always have a value. We overwrite mercilessly.
 		for (Entry<String, StringWithDescription> tag : item.getFixedTags().entrySet()) {
 			String v = tag.getValue().getValue();
