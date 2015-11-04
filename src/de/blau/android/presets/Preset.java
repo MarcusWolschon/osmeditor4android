@@ -336,6 +336,10 @@ public class Preset implements Serializable {
             	if ("group".equals(name)) {
             		PresetGroup parent = groupstack.peek();
             		PresetGroup g = new PresetGroup(parent, attr.getValue("name"), attr.getValue("icon"));
+            		String context = attr.getValue("name_context");
+            		if (context != null) {
+            			g.setNameContext(context);
+            		}
             		groupstack.push(g);
             	} else if ("item".equals(name)) {
             		if (currentItem != null) throw new SAXException("Nested items are not allowed");
@@ -345,6 +349,10 @@ public class Preset implements Serializable {
             			type = attr.getValue("gtype"); // note gtype seems to be undocumented
             		}
             		currentItem = new PresetItem(parent, attr.getValue("name"), attr.getValue("icon"), type);
+            		String context = attr.getValue("name_context");
+            		if (context != null) {
+            			currentItem.setNameContext(context);
+            		}
             	} else if ("chunk".equals(name)) {
                 	if (currentItem != null) throw new SAXException("Nested items are not allowed");
                 	String type = attr.getValue("type");
@@ -754,8 +762,9 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 3L;
+		private static final long serialVersionUID = 4L;
 		protected String name;
+		protected String nameContext = null;
 		private String iconpath;
 		private String mapiconpath;
 		private transient Drawable icon;
@@ -792,6 +801,9 @@ public class Preset implements Serializable {
 		 * @return
 		 */
 		public String getTranslatedName() {
+			if (nameContext!=null) {
+				return po!=null?po.t(nameContext,getName()):getName();
+			}
 			return po!=null?po.t(getName()):getName();
 		}
 		
@@ -931,6 +943,10 @@ public class Preset implements Serializable {
 			return Uri.parse(mapFeatures);
 		}
 		
+		protected void setNameContext(String context) {
+			nameContext = context;
+		}
+		
 		@Override
 		public String toString() {
 			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation;
@@ -1040,7 +1056,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 2L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1072,6 +1088,13 @@ public class Preset implements Serializable {
 		 * Linked names of presets
 		 */
 		private LinkedList<String> linkedPresetNames = new LinkedList<String>();
+		
+		/**
+		 * Translation contexts
+		 */
+		private String nameContext = null;
+		private String valueContext = null;
+		
 		
 		private int itemIndex;
 
