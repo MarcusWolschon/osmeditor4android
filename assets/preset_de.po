@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-11-04 01:54+0100\n"
-"PO-Revision-Date: 2015-11-04 17:09+0000\n"
+"PO-Revision-Date: 2015-11-04 19:52+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Fahrradverleih"
 
 #: master_preset.xml:5696(item:name)
 msgid "Raceway"
-msgstr ""
+msgstr "Rennbahn"
 
 #: master_preset.xml:313(text:text) master_preset.xml:1844(text:text)
 msgid "Max. weight (tonnes)"
@@ -115,7 +115,7 @@ msgstr ""
 
 #: master_preset.xml:4915(item:name)
 msgid "Emergency Phone"
-msgstr ""
+msgstr "Notfalltelefon"
 
 #: master_preset.xml:2857(item:name)
 msgid "Motorcycle Dealer"
@@ -5249,7 +5249,7 @@ msgstr "Getrennter Fuss- und Radweg"
 
 #: master_preset.xml:8794(item:name)
 msgid "Contact (Schema with 'contact:*' Prefix)"
-msgstr ""
+msgstr "Kontakt (Schema mit 'contact:' Präfix)"
 
 #: master_preset.xml:5804(item:name)
 msgid "Flagpole"
