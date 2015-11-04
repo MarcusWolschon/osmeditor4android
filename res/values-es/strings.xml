@@ -505,6 +505,7 @@
   <string name="deleterelation_relation_description">Está a punto de eliminar una relación que es miembro de una o más relaciones. Eliminando la relación de relación(es) quizá invalide el renderizado.</string>
   <string name="deleterelation">Eliminar relación</string>
   <string name="delete_from_relation_description">Está a punto de eliminar este elemento de una relación.</string>
+  <string name="unset_relation_type">tipo de relación sin establecer</string>
   <!--time and distance-->
   <string name="days">días</string>
   <string name="hours">horas</string>
