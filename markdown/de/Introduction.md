@@ -17,13 +17,13 @@ Abhängig der Bildschirmgrösse und Alter des Gerätes können die Bearbeitungsf
 
 Wähle entweder das Übertragungs-Icon ![](../images/menu_transfer.png) oder den "Transfer" Menueintrag Dies wird sieben Optionen zur Auswahl anzeigen:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Aktuelle Ansicht herunterladen** - den aktuell sichtbaren Bildschirmbereich herunterladen und allfällig vorhandene Daten ersetzen *(benötigt Netzzugang)*
+* **Diese Ansicht zu dn Daten dazu laden** - download the area visible on the screen and merge it with existing data  den aktuell sichtbaren Bildschirmbereich auf dem Schirm herunterladen und mit vorhandene Daten  zusammenführen *(benötigt Netzzugang)*
+* **Download other location** - zeigt ein Formular an, dass es erlaubt nach einem Ort zu suchen, Koordniaten einzugeben. oder direkt um die aktuelle Position einen Bereich herunterzuladen  *(benötigt Netzzugang)*
+* **Daten zum OSM-Server hochladen** - lädt die Änderungen zum OSM-Server hoch *(Konto benötigt)*  *(benötigt Netzzugang)*
+* **Automatischer Download** - lädt automaisch einen Bereich um die aktuelle Position herunter  *(benötigt Netzzugang)* *(benötigt GPS)*
+* **Datei..** - Speichern und Laden von OSM Daten zu Dateien auf dem Gerä.
+* **Notizen/Fehler...** - herunterlande (automatisch und manuell) von OSM Notizen un "Fehlern" von QA Werkzeugen (aktuell OSMOSE) *(benötigt Netzzugang)*
 
 The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
 
