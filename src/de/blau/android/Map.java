@@ -919,7 +919,7 @@ public class Map extends View implements IMapView {
 			canvas.drawPath(path, fp.getPaint());
 		}
 		
-		if (!isSelected) {
+		if (tmpDrawingSelectedWays == null) { // the handles only work when no way is selecetd so don't show them
 			// add "geometry improvement" handles
 			for (int i = 2; i < linePoints.length; i=i+4) {
 				float x0 = linePoints[i-2];
