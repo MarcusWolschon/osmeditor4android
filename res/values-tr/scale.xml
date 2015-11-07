@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Yok</item>
+    <item>Ölçek (metrik)</item>
+    <item>Izgara (metrik)</item>
+    <item>Ölçek (inch)</item>
+    <item>Izgara (inch)</item>
+  </string-array>
+</resources>

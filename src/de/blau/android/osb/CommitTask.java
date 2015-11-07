@@ -2,6 +2,7 @@ package de.blau.android.osb;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import de.blau.android.osb.Bug.State;
 import de.blau.android.osm.Server;
 
 /**
@@ -10,9 +11,9 @@ import de.blau.android.osm.Server;
  *
  */
 public class CommitTask extends AsyncTask<Server, Void, Boolean> {
-	
+	private static final String DEBUG_TAG = CommitTask.class.getSimpleName();
 	/** Bug associated with the commit. */
-	protected final Bug bug;
+	protected final Note bug;
 	/** Comment associated with the commit. */
 	protected final String comment;
 	/** Flag indicating if the bug should be closed. */
@@ -24,7 +25,8 @@ public class CommitTask extends AsyncTask<Server, Void, Boolean> {
 	 * @param comment An optional comment to add to the bug.
 	 * @param close A close to indicate if the bug should be closed.
 	 */
-	public CommitTask(final Bug bug, final String comment, final boolean close) {
+	public CommitTask(final Note bug, final String comment, final boolean close) {
+		Log.d(DEBUG_TAG,bug.getDescription() + " >" + comment + "< " + close);
 		this.bug = bug;
 		this.comment = comment;
 		this.close = close;
@@ -40,23 +42,24 @@ public class CommitTask extends AsyncTask<Server, Void, Boolean> {
 	protected Boolean doInBackground(Server... servers) {
 		boolean result = true;
 		Server server = servers[0];
-		if (bug.isClosed() && !close) { // reopen, do this before trying to add anything
-			result = server.reopenNote(bug);
-			if (result) {
-				bug.reopen();
+		if (!bug.isNew()) {
+			if (bug.getOriginalState() == State.CLOSED && !close) { // reopen, do this before trying to add anything
+				result = server.reopenNote(bug);
 			}
 		}
-		if (!bug.isClosed()) {
-			Log.d("Vespucci", "CommitTask.doInBackground:Updating OSB");
+
+		if (bug.getOriginalState() != State.CLOSED) {
+			Log.d(DEBUG_TAG, "CommitTask.doInBackground:Updating OSB");
 			if (comment != null && comment.length() > 0) {
 				// Make the comment
-				BugComment bc = new BugComment(comment);
+				NoteComment bc = new NoteComment(comment);
 				// Add or edit the bug as appropriate
-				result = (bug.getId() == 0) ? server.addNote(bug, bc) : server.addComment(bug, bc);
+				result = bug.isNew() ? server.addNote(bug, bc) : server.addComment(bug, bc);
+				Log.d(DEBUG_TAG, result ? "sucessful":"failed");
 			}
 			// Close  the bug if requested, but only if there haven't been any problems
 			if (result && close) {
-					result = server.closeNote(bug);
+				result = server.closeNote(bug);
 			}
 		}
 		return result;

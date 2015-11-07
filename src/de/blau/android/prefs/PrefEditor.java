@@ -1,5 +1,6 @@
 package de.blau.android.prefs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -7,12 +8,14 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.DebugInformation;
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
@@ -32,7 +35,14 @@ public class PrefEditor extends SherlockPreferenceActivity {
 	private String KEY_MAPPROFILE;
 	private String KEY_PREFICONS;
 	private String KEY_ADVPREFS;
+	private String KEY_ADDRPREFS;
 	private String KEY_LICENSE;
+	private String KEY_DEBUG;
+
+	public static void start(@NonNull Context context) {
+		Intent intent = new Intent(context, PrefEditor.class);
+		context.startActivity(intent);
+	}
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -51,7 +61,9 @@ public class PrefEditor extends SherlockPreferenceActivity {
 		KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
 		KEY_PREFICONS = r.getString(R.string.config_iconbutton_key);
 		KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
+		KEY_ADDRPREFS = r.getString(R.string.config_addressprefs_key);
 		KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
+		KEY_DEBUG = r.getString(R.string.config_debugbutton_key);
 		fixUpPrefs();
 		
 		ActionBar actionbar = getSupportActionBar();
@@ -191,6 +203,15 @@ public class PrefEditor extends SherlockPreferenceActivity {
 			}
 		});
 		
+		Preference debugpref = getPreferenceScreen().findPreference(KEY_DEBUG);
+		debugpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Log.d("PrefEditor", "onPreferenceClick 2");
+				startActivity(new Intent(PrefEditor.this, DebugInformation.class));
+				return true;
+			}
+		});
 	}
 	
 }

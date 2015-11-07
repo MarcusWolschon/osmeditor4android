@@ -16,8 +16,6 @@
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <string name="openstreetbug_commit_ok">Endringer lagra</string>
-  <string name="openstreetbug_commit_fail">Kunne ikke lagre endringer</string>
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_message">Du har ulagra endringer som vil bli skrota om du går videre.</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
@@ -147,8 +145,6 @@
   <string name="undo">Gjør om</string>
   <string name="redo">Gjenta</string>
   <string name="undo_nothing">Intet å gjøre om</string>
-  <string name="tracking_active_title">Tar opp GPS-spor</string>
-  <string name="tracking_active_text">Vespucci tar opp et GPS-spor</string>
   <string name="gps_failure">Klarte ikke å slå på GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">flytt node</string>

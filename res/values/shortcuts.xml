@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="shortcut_undo">u</string>
+<string name="shortcut_merge">m</string> 
+<string name="shortcut_gps_follow">f</string>
+<string name="shortcut_gps_goto">g</string>
+<string name="shortcut_download">d</string>
+<string name="shortcut_bugs_download">b</string> 
+<string name="shortcut_help">h</string>
+<string name="shortcut_copy">c</string>
+<string name="shortcut_cut">x</string>
+<string name="shortcut_paste">v</string>
+<string name="shortcut_tagedit">e</string>
+<string name="shortcut_info">i</string>
+<string name="shortcut_zoom_in">+</string>
+<string name="shortcut_zoom_out">-</string>
+</resources>

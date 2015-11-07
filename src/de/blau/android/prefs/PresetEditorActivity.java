@@ -14,15 +14,20 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
@@ -42,6 +47,22 @@ public class PresetEditorActivity extends URLListEditActivity {
 		addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
 	}
 		
+	public static void start(@NonNull Context context) {
+		Intent intent = new Intent(context, PresetEditorActivity.class);
+		context.startActivity(intent);
+	}
+
+	public static void startForResult(@NonNull Activity activity,
+									  @NonNull String presetName,
+									  @NonNull String presetUrl,
+									  int requestCode) {
+		Intent intent = new Intent(activity, PresetEditorActivity.class);
+		intent.setAction(ACTION_NEW);
+		intent.putExtra(EXTRA_NAME, presetName);
+		intent.putExtra(EXTRA_VALUE, presetUrl);
+		activity.startActivityForResult(intent, requestCode);
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
@@ -67,9 +88,14 @@ public class PresetEditorActivity extends URLListEditActivity {
 
 	@Override
 	protected void onItemClicked(ListEditItem item) {
+		if (item.active && db.getActivePresets().length == 1) { // at least one item needs to be selected
+			updateAdapter();
+			Toast.makeText(this, R.string.toast_min_one_preset, Toast.LENGTH_LONG).show();
+			return;
+		}
 		item.active = !item.active;
 		db.setPresetState(item.id, item.active);
-		Main.resetPreset();
+		Application.resetPresets();
 		// finish();
 	}
 
@@ -79,7 +105,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 		downloadPresetData(item);
 		if (!isAddingViaIntent()) {
 			db.setCurrentAPIPreset(item.id);
-			Main.resetPreset();
+			Application.resetPresets();
 		}
 	}
 
@@ -88,13 +114,13 @@ public class PresetEditorActivity extends URLListEditActivity {
 		db.setPresetInfo(item.id, item.name, item.value);
 		db.removePresetDirectory(item.id);
 		downloadPresetData(item);
-		Main.resetPreset();
+		Application.resetPresets();
 	}
 
 	@Override
 	protected void onItemDeleted(ListEditItem item) {
 		db.deletePreset(item.id);
-		Main.resetPreset();
+		Application.resetPresets();
 	}
 	
 	@Override
@@ -214,8 +240,9 @@ public class PresetEditorActivity extends URLListEditActivity {
 						return DOWNLOADED_PRESET_ERROR;
 					}
 					boolean zip = conn.getContentType().equalsIgnoreCase("application/zip");
+					final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
 					if (zip) {
-						filename = "temp.zip";
+						filename = FILE_NAME_TEMPORARY_ARCHIVE;
 					}
 					InputStream downloadStream = conn.getInputStream();
 					OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));
@@ -225,7 +252,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 					
 					if (zip) {
 						if (unpackZip(presetDir.getPath() + "/",filename)) {
-							(new File(presetDir, "temp.zip")).delete();
+							(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete();
 							return DOWNLOADED_PRESET_ZIP;
 						}
 					}

@@ -9,8 +9,6 @@
   <string name="upload_problem_title">Problemi sa slanjem</string>
   <string name="upload_problem_message">Svi ili dio podataka nije poslan. Pokušajte poslati kasnije ako je ovo privremeni problem.</string>
   <string name="upload_conflict_title">Konflikt u podacima</string>
-  <string name="use_local_version">Koristi lokalnu verziju</string>
-  <string name="use_server_version">Koristi verziju sa poslužitelja</string>
   <string name="no_login_data_title">Prijava nije uspjela</string>
   <string name="no_connection_title">Poslužitelj nedostupan</string>
   <string name="no_connection_message">OSM poslužitelj je nedostupan. Molim provjerite spoj na internet ili probajte opet kasnije.</string>
@@ -37,8 +35,6 @@
   <string name="openstreetbug_comment_label">Komentar:</string>
   <string name="openstreetbug_edit_close">Zatvori</string>
   <string name="openstreetbug_edit_closed">Zatvoren</string>
-  <string name="openstreetbug_commit_ok">Promjene spremljene</string>
-  <string name="openstreetbug_commit_fail">Ne mogu spremiti promjene</string>
   <string name="unsaved_data_title">Oprez!</string>
   <string name="unsaved_data_message">Imate nespremljenih promjena koje će se odbaciti ako nastavite.</string>
   <string name="unsaved_data_proceed">Odbaci i nastavi</string>
@@ -197,8 +193,6 @@
   <string name="undo">Opovrgni</string>
   <string name="redo">Ponovi</string>
   <string name="undo_nothing">nema se što opovrgnuti</string>
-  <string name="tracking_active_title">Snimam GPS trag</string>
-  <string name="tracking_active_text">Vespucci snima GPS trag</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">pomakni točku</string>
   <string name="undo_action_moveway">pomakni put</string>

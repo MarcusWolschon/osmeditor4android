@@ -16,8 +16,6 @@
   <string name="openstreetbug_new_nodeway">Opret Knude/Vej</string>
   <string name="openstreetbug_commitbutton">Commit</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <string name="openstreetbug_commit_ok">Ændringer er gemt</string>
-  <string name="openstreetbug_commit_fail">Kunne ikke gemme ændringer</string>
   <string name="unsaved_data_title">Bemærk!</string>
   <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
   <string name="unsaved_data_proceed">Kassér &amp; fortsæt</string>
@@ -140,8 +138,6 @@
   <string name="undo">Fortryd</string>
   <string name="redo">Gentag</string>
   <string name="undo_nothing">intet at fortryde</string>
-  <string name="tracking_active_title">Optager GPS spor</string>
-  <string name="tracking_active_text">Vespucci optager et GPS spor</string>
   <string name="gps_failure">Kunne ikke starte GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">flyt knude</string>

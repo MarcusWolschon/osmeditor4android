@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
@@ -108,7 +109,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	 * Set the currently active API
 	 * @param id the ID of the API to be set as active
 	 */
-	public void selectAPI(String id) {
+	public synchronized void selectAPI(String id) {
 		Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
 		if (getAPIs(id).length == 0) throw new RuntimeException("Non-existant API selected");
 		prefs.edit().putString(PREF_SELECTED_API, id).commit();
@@ -133,7 +134,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/** @return a Server object matching the current API */
-	public Server getServerObject() {
+	public synchronized Server getServerObject() {
 		API api = getCurrentAPI();
 		if (api == null) return null;
 		if (currentServer == null) { // only create when necessary
@@ -144,7 +145,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Sets name and URL of the current API entry
+	 * Sets name and URL of the API entry id
 	 * @param id
 	 * @param name
 	 * @param url
@@ -203,7 +204,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		values.put("preset", preset);
 		db.update("apis", values, "id = ?", new String[] {currentAPI});
 		db.close();
-		Main.resetPreset();
+		Application.resetPresets();
 	}
 	
 	/** Changes the "show node icons" settings for the current API */
@@ -305,10 +306,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * Creates an object for the currently selected preset
-	 * @return a corresponding preset object, or null if no valid preset is selected or the preset cannot be created
+	 * Creates an object for the currently selected presets
+	 * @return an array of preset objects, or null if no valid preset is selected or the preset cannot be created
 	 */
 	public Preset[] getCurrentPresetObject() {
+		long start = System.currentTimeMillis();
 		PresetInfo[] presetInfos = getActivePresets();
 		if (presetInfos == null || presetInfos.length == 0) return null;
 		Preset activePresets[] = new Preset[presetInfos.length];
@@ -327,6 +329,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 				activePresets[i] = null;
 			}
 		}
+		Log.d(LOGTAG,"Elapsed time to read presets " + (System.currentTimeMillis()-start)/1000);
 		if (activePresets.length >= 1) { 
 			return activePresets;
 		} 
@@ -473,7 +476,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 		db.delete("presets", "id = ?", new String[] { id });
 		db.close();
 		removePresetDirectory(id);
-		if (id.equals(getCurrentAPI().preset)) Main.resetPreset();
+		if (id.equals(getCurrentAPI().preset)) Application.resetPresets();
 	}
 
 	/**

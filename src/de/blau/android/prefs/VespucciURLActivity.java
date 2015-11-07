@@ -161,21 +161,12 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Intent intent;
 		switch (v.getId()) {
 		case R.id.urldialog_buttonAddPreset:
-			intent = new Intent(this, PresetEditorActivity.class);
-			intent.setAction(URLListEditActivity.ACTION_NEW);
-			intent.putExtra(URLListEditActivity.EXTRA_NAME, presetname);
-			intent.putExtra(URLListEditActivity.EXTRA_VALUE, preseturl);
-			startActivityForResult(intent, REQUEST_PRESETEDIT);
+			PresetEditorActivity.startForResult(this, presetname, preseturl, REQUEST_PRESETEDIT);
 			break;
 		case R.id.urldialog_buttonAddAPI:
-			intent = new Intent(this, APIEditorActivity.class);
-			intent.setAction(URLListEditActivity.ACTION_NEW);
-			intent.putExtra(URLListEditActivity.EXTRA_NAME, apiname);
-			intent.putExtra(URLListEditActivity.EXTRA_VALUE, apiurl);
-			startActivityForResult(intent, REQUEST_APIEDIT);
+			APIEditorActivity.startForResult(this, apiname, apiurl, REQUEST_APIEDIT);
 			break;
 		}
 	}

@@ -23,6 +23,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 import android.widget.Toast;
@@ -84,11 +85,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	public StorageDelegator() {
-		reset();
+		reset(false); // don't set dirty on instantiation
 	}
 
-	public void reset() {
-		dirty = true;
+	public void reset(boolean dirty) {
+		this.dirty = dirty;
 		apiStorage = new Storage();
 		currentStorage = new Storage();
 		clipboard = new ClipboardStorage();
@@ -100,6 +101,9 @@ public class StorageDelegator implements Serializable, Exportable {
 		return dirty;
 	}
 	
+	/**
+	 * set dirty to true
+	 */
 	public void dirty() {
 		dirty = true;
 		Log.d("StorageDelegator", "setting delegator to dirty");
@@ -339,7 +343,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param deltaLatE7
 	 * @param deltaLonE7
 	 */
-	public void moveNodes(final List allNodes, final int deltaLatE7, final int deltaLonE7) {
+	public void moveNodes(final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
 		if (allNodes == null) {
 			Log.d("StorageDelegator", "moveNodes  no nodes!");
 			return;
@@ -760,7 +764,10 @@ public class StorageDelegator implements Serializable, Exportable {
 		undo.save(way);
 		
 		List<Node> nodes = way.getNodes();
-		if (nodes.size() < 3 || way.isEndNode(node)) { // protect against producing single node ways FIXME give feedback that this is not good
+		int occurances = Collections.frequency(way.getNodes(), node);
+		// the following condition is fairly obscure and should likely be replaced by checking for position of the node in the way 
+		if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed()?occurances==2:occurances==1))) { 
+			// protect against producing single node ways FIXME give feedback that this is not good
 			Log.d("StorageDelegator", "splitAtNode can't split " + nodes.size() + " node long way at this node");
 			return;
 		}
@@ -768,15 +775,17 @@ public class StorageDelegator implements Serializable, Exportable {
 		// else the user needs to split the remaining way again.
 		List<Node> nodesForNewWay = new LinkedList<Node>();
 		boolean found = false;
+		boolean first = true; // node to split at can't be the first one
 		for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
 			Node wayNode = it.next();
-			if (!found && wayNode.getOsmId() == node.getOsmId()) {
+			if (!found && wayNode.getOsmId() == node.getOsmId() && !first) {
 				found = true;
 				nodesForNewWay.add(wayNode);
 			} else if (found) {
 				nodesForNewWay.add(wayNode);
-				it.remove();
+				it.remove();	
 			}
+			first = false;
 		}
 		if (nodesForNewWay.size() <= 1) {
 			Log.d("StorageDelegator", "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
@@ -903,7 +912,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	/**
 	 * Merges two ways by prepending/appending all nodes from the second way to the first one, then deleting the second one.
 	 * 
-	 * Updated for relation support
+	 * Updated for relation support if roles are not the same the merge will fail.
 	 * @param mergeInto Way to merge the other way into. This way will be kept if it has a valid id.
 	 * @param mergeFrom Way to merge into the other. 
 	 * @return false if we had tag conflicts
@@ -1011,7 +1020,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		return false;
 	}
 	
-	
+
 	
 	/**
 	 * Unjoins ways connected at the given node.
@@ -1112,6 +1121,10 @@ public class StorageDelegator implements Serializable, Exportable {
 			way.reverseDirectionDependentTags(dirTags, false); // assume he only wants to change the oneway direction for now
 		}
 		way.reverse();
+		List<Relation>relations = way.getRelationsWithDirectionDependentRoles();
+		if (relations != null) {
+			way.reverseRoleDirection(relations);
+		}
 		way.updateState(OsmElement.STATE_MODIFIED);
 		try {
 			apiStorage.insertElementSafe(way);
@@ -1230,7 +1243,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
-	 * Note the element does not need to have its state changed of be stored in the API storage since the 
+	 * Note the element does not need to have its state changed of be stored in the API sotrage since the 
 	 * parent relation back link is just internal.
 	 * @param element
 	 */
@@ -1676,15 +1689,16 @@ public class StorageDelegator implements Serializable, Exportable {
 
 	/**
 	 * Stores the current storage data to the default storage file
+	 * @param ctx TODO
 	 * @throws IOException
 	 */
-	public void writeToFile() throws IOException { 
-		if (apiStorage == null || currentStorage == null || (apiStorage.isEmpty() && currentStorage.isEmpty())) {
-			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
+	public void writeToFile(Context ctx) throws IOException { 
+		if (apiStorage == null || currentStorage == null) {
+			// don't write empty state files
 			Log.i("StorageDelegator", "storage delegator empty, skipping save");
 			return;
 		}
-		if (!dirty) {
+		if (!dirty) { // dirty flag sould only be set if we have actually read/loaded/changed something
 			Log.i("StorageDelegator", "storage delegator not dirty, skipping save");
 			return;
 		}
@@ -1696,8 +1710,11 @@ public class StorageDelegator implements Serializable, Exportable {
 			} else {
 				// this is essentially catastrophic and can only happen if something went really wrong
 				// running out of memory or disk, or HW failure
-				Toast.makeText(Application.mainActivity, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
-				SavingHelper.asyncExport(Application.mainActivity, this);
+				if (ctx != null) {
+					Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+				}
+				SavingHelper.asyncExport(ctx, this); // ctx == null is checked
+				Log.d("StorageDelegator", "save of state file failed" );
 			}
 			readingLock.unlock();
 		} else {
@@ -1706,13 +1723,23 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	/**
+	 * Read save data from standard file
 	 * Loads the storage data from the default storage file
 	 * NOTE: lock is acquired in logic before this is called
 	 */
 	public boolean readFromFile() {
+		return readFromFile(FILENAME);
+	}
+	
+	/**
+	 * Read save data from file
+	 * @param filename
+	 * @return
+	 */
+	public boolean readFromFile(String filename) {
 		try{
 			lock();
-			StorageDelegator newDelegator = savingHelper.load(FILENAME, true); 
+			StorageDelegator newDelegator = savingHelper.load(filename, true); 
 
 			if (newDelegator != null) {
 				Log.d("StorageDelegator", "read saved state");
@@ -1804,16 +1831,16 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	//TODO make a shallow copy of the list instead of bookkeeping here
+	//
 	private void uploadDeletedElements(final Server server, final List<? extends OsmElement> elements)
 			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
-		for (int i = 0, size = elements.size(); i < size; ++i) {
-			OsmElement element = elements.get(i);
+		Log.d("StorageDelegator", "uploadDeletedElements: number of elements " + elements.size() );
+		List<? extends OsmElement> elementsToUpload = new ArrayList<OsmElement>(elements);
+		for (OsmElement element:elementsToUpload) {
 			if (element.getState() == OsmElement.STATE_DELETED) {
 				server.deleteElement(element);
-				if (apiStorage.removeElement(element)) {
-					--i;
-					--size;
+				if (!apiStorage.removeElement(element)) {
+					Log.e(DEBUG_TAG, "Deleted " + element + " was already removed from local storage!");
 				}
 				Log.w(DEBUG_TAG, element + " deleted in API");
 				dirty = true;
@@ -1821,22 +1848,19 @@ public class StorageDelegator implements Serializable, Exportable {
 		}
 	}
 
-	//TODO make a shallow copy of the list instead of bookkeeping here
 	private void uploadCreatedOrModifiedElements(final Server server, final List<? extends OsmElement> elements)
 			throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 		Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: number of elements " + elements.size() );
-		for (int i = 0, size = elements.size(); i < size; ++i) {
-			OsmElement element = elements.get(i);
+		List<? extends OsmElement> elementsToUpload = new ArrayList<OsmElement>(elements);
+		for (OsmElement element:elementsToUpload) {
 			Log.d("StorageDelegator", "uploadCreatedOrModifiedElements: element added for upload, id " + element.osmId);
 			switch (element.getState()) {
 			case OsmElement.STATE_CREATED:
 				long osmId = server.createElement(element);
 				if (osmId > 0) {
 					element.setOsmId(osmId);
-					if (apiStorage.removeElement(element)) {
-						//
-						--i;
-						--size;
+					if (!apiStorage.removeElement(element)) {
+						Log.e(DEBUG_TAG, "New " + element + " was already removed from local storage!");
 					}
 					Log.w(DEBUG_TAG, "New " + element + " added to API");
 					element.setState(OsmElement.STATE_UNCHANGED);
@@ -1848,10 +1872,8 @@ public class StorageDelegator implements Serializable, Exportable {
 				long osmVersion = server.updateElement(element);
 				if (osmVersion > 0) {
 					element.osmVersion = osmVersion;
-					if (apiStorage.removeElement(element)) {
-						//
-						--i;
-						--size;
+					if (!apiStorage.removeElement(element)) {
+						Log.e(DEBUG_TAG, "Updated " + element + " was already removed from local storage!");
 					}
 					Log.w(DEBUG_TAG, element + " updated in API");
 					element.setState(OsmElement.STATE_UNCHANGED);
@@ -1994,12 +2016,11 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 
 	
-	
 	/**
 	 * Merge additional data with existing, copy to a new storage because this may fail
 	 * @param storage
 	 */
-	synchronized public boolean mergeData(Storage storage) {
+	synchronized public boolean mergeData(Storage storage, PostMergeHandler postMerge) {
 		Log.d("StorageDelegator","mergeData called");
 		// make temp copy of current storage
 		Storage temp = new Storage();
@@ -2036,6 +2057,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (!nodeIndex.containsKey(n.getOsmId()) &&  apiNode == null) { // new node no problem
 				temp.getNodes().add(n);
 				nodeIndex.put(n.getOsmId(),n);
+				if (postMerge != null) {
+					postMerge.handler(n);
+				}
 			} else {
 				if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
 					if (apiNode.getOsmVersion() >= n.getOsmVersion())
@@ -2051,6 +2075,9 @@ public class StorageDelegator implements Serializable, Exportable {
 						temp.getNodes().remove(existingNode);
 						temp.getNodes().add(n);
 						nodeIndex.put(n.getOsmId(),n); // overwrite existing entry in index
+						if (postMerge != null) {
+							postMerge.handler(n);
+						}
 					} else
 						return false; // can't resolve conflicts, upload first
 				}
@@ -2063,6 +2090,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
 				temp.getWays().add(w);
 				wayIndex.put(w.getOsmId(),w);
+				if (postMerge != null) {
+					postMerge.handler(w);
+				}
 			} else {
 				if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
 					if (apiWay.getOsmVersion() >= w.getOsmVersion())
@@ -2072,13 +2102,16 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 				Way existingWay = temp.getWay(w.getOsmId());
 				if (existingWay != null) {
-					if (existingWay.getOsmVersion() >= w.getOsmVersion()) // larger just to be on the safe side
+					if (existingWay.getOsmVersion() >= w.getOsmVersion()) {// larger just to be on the safe side  
 						continue; // can use way we already have
-					else {
+					} else {
 						if (existingWay.isUnchanged()) {
 							temp.getWays().remove(existingWay);
 							temp.getWays().add(w);
 							wayIndex.put(w.getOsmId(),w); // overwrite existing entry in index
+							if (postMerge != null) {
+								postMerge.handler(w);
+							}
 						} else
 							return false; // can't resolve conflicts, upload first
 					}
@@ -2116,6 +2149,9 @@ public class StorageDelegator implements Serializable, Exportable {
 			if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
 				temp.getRelations().add(r);
 				relationIndex.put(r.getOsmId(),r);
+				if (postMerge != null) {
+					postMerge.handler(r);
+				}
 			} else {
 				if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
 					if (apiRelation.getOsmVersion() >= r.getOsmVersion())
@@ -2132,6 +2168,9 @@ public class StorageDelegator implements Serializable, Exportable {
 						temp.getRelations().remove(existingRelation);
 						temp.getRelations().add(r);
 						relationIndex.put(r.getOsmId(),r); // overwrite existing entry in index
+						if (postMerge != null) {
+							postMerge.handler(r);
+						}
 					} else
 						return false; // can't resolve conflicts, upload first
 				}

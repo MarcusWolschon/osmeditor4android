@@ -8,6 +8,7 @@ import java.util.Map;
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -35,10 +37,14 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.ActionMode.Callback;
 
 import de.blau.android.Application;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.Logic.CursorPaddirection;
+import de.blau.android.Main.MapKeyListener;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
@@ -132,7 +138,18 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	ExtendedViewPager    mViewPager;
 	boolean usePaneLayout = false;
 
-	
+	public static void startForResult(@NonNull Activity activity,
+									  @NonNull PropertyEditorData[] dataClass,
+									  boolean applyLastTags,
+									  boolean showPresets,
+									  int requestCode) {
+		Intent intent = new Intent(activity, PropertyEditor.class);
+		intent.putExtra(TAGEDIT_DATA, dataClass);
+		intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(applyLastTags));
+		intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
+		activity.startActivityForResult(intent, requestCode);
+	}
+
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -195,7 +212,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 		}
 		
-		presets = Main.getCurrentPresets();
+		presets = Application.getCurrentPresets(this);
 		
 		int screenSize = getResources().getConfiguration().screenLayout &
 		        Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -205,17 +222,21 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 			display.getSize(size);
 		} else {
+			//noinspection deprecation
 			size.x = display.getWidth();
+			//noinspection deprecation
 			size.y = display.getHeight();
 		}
+
 		if ((screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) && size.x > size.y) {
 			usePaneLayout = true;
 			setContentView(R.layout.pane_view);
 			Log.d(DEBUG_TAG, "Using layout for large devices");
 		} else {
-			setContentView(R.layout.tab_view);
+			setContentView(R.layout.tab_view);	
 		}
-
+		
+		
 		// tags
 		ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<LinkedHashMap<String, String>>();
 		originalTags = new ArrayList<LinkedHashMap<String, String>>();
@@ -261,7 +282,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			if (presetFragment != null) {
 				ft.remove(presetFragment);
 			}
-			presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags
+			presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags
 			ft.add(R.id.preset_row,presetFragment,"preset_fragment");
 			
 			ft.commit();
@@ -332,7 +353,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			if (!usePaneLayout) {
 				switch(position) {
 				case 0: 
-					presetFragment = PresetFragment.newInstance(Main.getCurrentPresets(),elements[0]); // FIXME collect tags to determine presets
+					presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
 					return presetFragment;
 				case 1: 		
 					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
@@ -562,8 +583,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@Override
 	protected void onPause() {
 		running = false;
-		if (Main.getCurrentPresets() != null)  {
-			for (Preset p:Main.getCurrentPresets()) {
+		Preset[] presets = Application.getCurrentPresets(this);
+		if (presets != null)  {
+			for (Preset p:presets) {
 				if (p!=null) {
 					p.saveMRU();
 				}
@@ -675,5 +697,10 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    mode.invalidate();
 	  }
 	  return mode;
+	}
+	
+	@Override
+	public void onActionModeFinished(ActionMode mode) {
+		super.onActionModeFinished(mode);
 	}
 }

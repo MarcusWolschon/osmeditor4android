@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import de.blau.android.exception.OsmException;
+
 /**
  * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair and provides some package-internal
  * manipulating-methods.
@@ -114,5 +116,14 @@ public class Node extends OsmElement implements GeoPoint {
 	@Override
 	public ElementType getType() {
 		return ElementType.NODE;
+	}
+	
+	public double getDistance(final int[] location) {
+		return Math.hypot(location[0] - getLat(),location[1] - getLon());
+	}
+
+	@Override
+	public BoundingBox getBounds() {
+		return new BoundingBox(lon, lat);
 	}
 }

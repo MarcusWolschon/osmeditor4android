@@ -25,8 +25,6 @@
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_edit_close">Pechar</string>
   <string name="openstreetbug_edit_closed">Cerrado</string>
-  <string name="openstreetbug_commit_ok">Cambios gardados</string>
-  <string name="openstreetbug_commit_fail">Non se puideron gardar os cambios</string>
   <string name="unsaved_data_title">Coidado!</string>
   <string name="unsaved_data_message">Tes cambios sen gardar que serán descartados se continúas.</string>
   <string name="unsaved_data_proceed">Descartar e continuar</string>
@@ -140,10 +138,7 @@
   <string name="config_showTolerance_summary">Mostra a área onde un elemento pode ser seleccionado.</string>
   <string name="config_enableAntiAliasing_title">Activar Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Facer as liñas máis suaves.</string>
-  <string name="config_enableOpenStreetBugs_title">Mostrar Notas</string>
   <string name="config_enableOpenStreetBugs_summary">Mostrar, editar e crear Notas/Erros.</string>
-  <string name="config_enableDeprecatedModes_title">Habilitar modos obsoletos</string>
-  <string name="config_enableDeprecatedModes_summary">Habilitar os modos Novo, Editar, Editar etiquetas, Engadir, Eliminar punto e Dividir.</string>
   <string name="config_backgroundLayer_title">Fondo de mapa</string>
   <string name="config_backgroundLayer_summary">O fondo gráfico do mapa</string>
   <string name="config_category_server">Axustes do Servidor</string>
@@ -198,8 +193,6 @@
   <string name="undo">Desfacer</string>
   <string name="redo">Refacer</string>
   <string name="undo_nothing">nada para desfacer</string>
-  <string name="tracking_active_title">Gravando pista GPS</string>
-  <string name="tracking_active_text">Vespucci está gravando unha pista GPS</string>
   <string name="gps_failure">Fallo ao habilitar o GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover punto</string>

@@ -11,6 +11,20 @@
 			android:key="@string/config_generateAlerts_key"
 			android:title="@string/config_generateAlerts_title"
 			android:summary="@string/config_generateAlerts_summary"
+			android:defaultValue="true"
+		/>
+	    <EditTextPreference
+			android:key="@string/config_maxAlertDistance_key"
+			android:title="@string/config_maxAlertDistance_title"
+			android:summary="@string/config_maxAlertDistance_summary"
+			android:dialogTitle="@string/config_maxAlertDistance_title"
+			android:numeric="integer"
+			android:defaultValue="100"
+		/>
+	   	<CheckBoxPreference
+			android:key="@string/config_voiceCommandsEnabled_key"
+			android:title="@string/config_voiceCommandsEnabled_title"
+			android:summary="@string/config_voiceCommandsEnabled_summary"
 			android:defaultValue="false"
 		/>
 		<CheckBoxPreference
@@ -43,12 +57,6 @@
 			android:summary="@string/config_enableLightTheme_summary"
 			android:defaultValue="true"
 		/>
-		<CheckBoxPreference
-			android:key="@string/config_enableDepreciatedModes_key"
-			android:title="@string/config_enableDeprecatedModes_title"
-			android:summary="@string/config_enableDeprecatedModes_summary"
-			android:defaultValue="false"
-		/>
 		<Preference
 			android:title="@string/config_presetbutton_title"
 			android:key="@string/config_presetbutton_key"
@@ -61,6 +69,30 @@
 			android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
 			android:numeric="integer"
 			android:defaultValue="50"
+		/>
+		<EditTextPreference
+			android:key="@string/config_maxDownloadSpeed_key"
+			android:title="@string/config_maxDownloadSpeed_title"
+			android:summary="@string/config_maxDownloadSpeed_summary"
+			android:dialogTitle="@string/config_maxDownloadSpeed_title"
+			android:numeric="decimal"
+			android:defaultValue="6"
+		/>
+		<EditTextPreference
+			android:key="@string/config_bugDownloadRadius_key"
+			android:title="@string/config_bugDownloadRadius_title"
+			android:summary="@string/config_bugDownloadRadius_summary"
+			android:dialogTitle="@string/config_bugDownloadRadius_title"
+			android:numeric="integer"
+			android:defaultValue="200"
+		/>
+		<EditTextPreference
+			android:key="@string/config_maxBugDownloadSpeed_key"
+			android:title="@string/config_maxBugDownloadSpeed_title"
+			android:summary="@string/config_maxBugDownloadSpeed_summary"
+			android:dialogTitle="@string/config_maxBugDownloadSpeed_title"
+			android:numeric="decimal"
+			android:defaultValue="30"
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_enableNameSuggestions_key"
@@ -114,7 +146,12 @@
 			android:numeric="decimal"
 			android:defaultValue="5.0"
 		/>
-		
+		<CheckBoxPreference
+			android:key="@string/config_leaveGpsDisabled_key"
+			android:title="@string/config_leaveGpsDisabled_title"
+			android:summary="@string/config_leaveGpsDisabled_summary"
+			android:defaultValue="false"
+		/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/config_category_server">

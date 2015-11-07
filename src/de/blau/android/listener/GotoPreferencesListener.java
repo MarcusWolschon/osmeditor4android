@@ -3,7 +3,7 @@ package de.blau.android.listener;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
+
 import de.blau.android.prefs.PrefEditor;
 
 /**
@@ -22,6 +22,6 @@ public class GotoPreferencesListener implements OnClickListener {
 
 	@Override
 	public void onClick(final DialogInterface dialog, final int which) {
-		caller.startActivity(new Intent(caller, PrefEditor.class));
+		PrefEditor.start(caller);
 	}
 }

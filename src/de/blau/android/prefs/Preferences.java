@@ -1,5 +1,9 @@
 package de.blau.android.prefs;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -33,8 +37,6 @@ public class Preferences {
 	
 	private final boolean isKeepScreenOnEnabled;
 	
-	private final boolean depreciatedModesEnabled;
-	
 	private final boolean useBackForUndo;
 	
 	private final boolean largeDragArea;
@@ -42,6 +44,8 @@ public class Preferences {
 	private final String backgroundLayer;
 	
 	private final String overlayLayer;
+	
+	private final String scaleLayer;
 	
 	private final String mapProfile;
 	
@@ -54,6 +58,10 @@ public class Preferences {
 	private int tileCacheSize; // in MB
 
 	private int downloadRadius; // in m
+	private float maxDownloadSpeed; // in km/h
+	private int bugDownloadRadius;
+	private float maxBugDownloadSpeed; // in km/h
+	private Set<String> bugFilter; // can't be final
 	
 	private final boolean forceContextMenu;
 	
@@ -74,7 +82,15 @@ public class Preferences {
 	
 	private final boolean generateAlerts;
 	
+	private int maxAlertDistance;
+	
 	private final boolean lightThemeEnabled;
+	
+	private Set<String> addressTags; // can't be final
+
+	private final boolean voiceCommandsEnabled;
+	
+	private final boolean leaveGpsDisabled;
 	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
@@ -84,6 +100,7 @@ public class Preferences {
 	 * @throws IllegalArgumentException
 	 * @throws NotFoundException
 	 */
+	@SuppressLint("NewApi")
 	public Preferences(Context ctx) throws IllegalArgumentException, NotFoundException {
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		final Resources r = ctx.getResources();
@@ -120,13 +137,34 @@ public class Preferences {
 			Log.w(getClass().getName(), "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_extTriggeredDownloadRadius_key), "50"));
 			downloadRadius = 50;
 		}
+		try {
+			maxDownloadSpeed = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxDownloadSpeed_key), "6"));
+			maxDownloadSpeed = 6f;
+		}
+		try {
+			bugDownloadRadius = Integer.parseInt(prefs.getString(r.getString(R.string.config_bugDownloadRadius_key), "200"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_extTriggeredDownloadRadius_key=" + prefs.getString(r.getString(R.string.config_bugDownloadRadius_key), "200"));
+			bugDownloadRadius = 200;
+		}
+		try {
+			maxBugDownloadSpeed = Float.parseFloat(prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
+			maxBugDownloadSpeed = 30f;
+		}
+		bugFilter = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			bugFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), bugFilter);
+		}
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
 		isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
 		isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
-		depreciatedModesEnabled = prefs.getBoolean(r.getString(R.string.config_enableDepreciatedModes_key), false);
 		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
 		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
 		enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
@@ -135,6 +173,7 @@ public class Preferences {
 		splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
 		backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
 		overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
+		scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), "SCALE_METRIC");
 		String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
 		// check if we actually still have the profile
 		if (Profile.getProfile(tempMapProfile) == null) {
@@ -163,8 +202,23 @@ public class Preferences {
 		offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), "http://offsets.textual.ru/");
 		showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 		generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
+		try {
+			maxAlertDistance = Integer.parseInt(prefs.getString(r.getString(R.string.config_maxAlertDistance_key), "100"));
+		} catch (NumberFormatException e) {
+			Log.w(getClass().getName(), "error parsing config_maxAlertDistance_key");
+			maxAlertDistance = 100;
+		}
 		// light theme doesn't really work prior to Honeycomb, but make it the default for anything newer
 		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? true : false);
+		
+		addressTags = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
+		}
+		
+		voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
+		
+		leaveGpsDisabled = prefs.getBoolean(r.getString(R.string.config_leaveGpsDisabled_key), false);
 	}
 	
 	/**
@@ -227,13 +281,6 @@ public class Preferences {
 	/**
 	 * @return
 	 */
-	public boolean depreciatedModesEnabled() {
-		return depreciatedModesEnabled;
-	}
-	
-	/**
-	 * @return
-	 */
 	public boolean useBackForUndo() {
 		return useBackForUndo;
 	}
@@ -257,6 +304,13 @@ public class Preferences {
 	 */
 	public String overlayLayer() {
 		return overlayLayer;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String scaleLayer() {
+		return scaleLayer;
 	}
 	
 	/**
@@ -323,7 +377,27 @@ public class Preferences {
 	public int getDownloadRadius() {
 		return downloadRadius;
 	}
+	
+	/**
+	 * @return
+	 */
+	public float getMaxDownloadSpeed() {
+		return maxDownloadSpeed;
+	}
 
+	public int getBugDownloadRadius() {
+		// TODO Auto-generated method stub
+		return bugDownloadRadius;
+	}
+	
+	public float getMaxBugDownloadSpeed() {
+		return maxBugDownloadSpeed;
+	}
+	
+	public Set<String> bugFilter() {
+		return bugFilter;
+	}
+	
 	public boolean enableAutoPreset() {
 		// 
 		return enableAutoPreset;
@@ -354,5 +428,21 @@ public class Preferences {
 	
 	public boolean lightThemeEnabled() {
 		return lightThemeEnabled;
+	}
+	
+	public Set<String> addressTags() {
+		return addressTags;
+	}
+
+	public int getMaxAlertDistance() {
+		return maxAlertDistance;
+	}
+
+	public boolean voiceCommandsEnabled() {
+		return voiceCommandsEnabled;
+	}
+
+	public boolean leaveGpsDisabled() {
+		return leaveGpsDisabled;
 	}
 }

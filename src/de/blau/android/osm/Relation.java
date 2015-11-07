@@ -9,6 +9,9 @@ import org.xmlpull.v1.XmlSerializer;
 
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -39,10 +42,20 @@ public class Relation extends OsmElement {
 		members.add(member);
 	}
 
+	/**
+	 * Return complete list of relation members
+	 * @return
+	 */
 	public List<RelationMember> getMembers() {
 		return members;
 	}
 	
+	/**
+	 * Return first relation member element for this OSM element
+	 * Note: if the element is present more than once you will only get ont
+	 * @param e
+	 * @return
+	 */
 	public RelationMember getMember(OsmElement e) {
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
@@ -53,6 +66,13 @@ public class Relation extends OsmElement {
 		return null;
 	}
 	
+	/**
+	 * Return first relation member element for this OSM element
+	 * Note: if the element is present more than once you will only get ont
+	 * @param type
+	 * @param id
+	 * @return
+	 */
 	public RelationMember getMember(String type, long id) {
 		for (int i = 0; i < members.size(); i++) {
 			RelationMember member = members.get(i);
@@ -142,6 +162,11 @@ public class Relation extends OsmElement {
 		return members.contains(member);
 	}
 
+	/**
+	 * Completely remove member from relation (even if present more than once)
+	 * Does not update backlink
+	 * @param member
+	 */
 	void removeMember(final RelationMember member) {
 		while (members.remove(member)) {
 			;
@@ -209,34 +234,58 @@ public class Relation extends OsmElement {
 	 */
 	@Override
 	public String getDescription() {
-		
+		return getDescription(null);
+	}
+	
+	@Override
+	public String getDescription(Context ctx) {
 		String description = "";
-		String type = getTagWithKey("type");
-		if (type != null){
-			description = type.equals("") ? "unset relation type" : type;
-			if (type.equals("restriction")) {
-				String restriction = getTagWithKey("restriction");
-				if (restriction != null) {
-					description = restriction + " " + description;
+		PresetItem p = null;
+		if (ctx != null) {
+			p = Preset.findBestMatch(Application.getCurrentPresets(ctx),tags);
+		} 
+		if (p!=null) {
+			description = p.getTranslatedName();
+		} else {
+			String type = getTagWithKey(Tags.KEY_TYPE);
+			if (type != null && !type.equals("")){
+				description = type;
+				if (type.equals(Tags.VALUE_RESTRICTION)) {
+					String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
+					if (restriction != null) {
+						description = restriction + " " + description;
+					}
+				} else if (type.equals(Tags.VALUE_ROUTE)) {
+					String route = getTagWithKey(Tags.VALUE_ROUTE);
+					if (route != null) {
+						description = route + " " + description ;
+					}
+				} else if (type.equals(Tags.VALUE_MULTIPOLYGON)) {
+					String b = getTagWithKey(Tags.KEY_BOUNDARY);
+					if (b != null) {
+						description = b + " " + Tags.KEY_BOUNDARY + " " + description ;
+					} else {
+						String l = getTagWithKey(Tags.KEY_LANDUSE);
+						if (l != null) {
+							description = Tags.KEY_LANDUSE + " " + l + " " + description ;
+						} else {
+							String n = getTagWithKey(Tags.KEY_NATURAL);
+							if (n != null) {
+								description = Tags.KEY_NATURAL + " " + n + " " + description ;
+							}
+						}
+					}
 				}
-			} else if (type.equals("route")) {
-				String route = getTagWithKey("route");
-				if (route != null) {
-					description = route + " " + description ;
-				}
-			} else if (type.equals("multipolygon")) {
-				String b = getTagWithKey("boundary");
-				String l = getTagWithKey("landuse");
-				if (b != null) {
-					description = b + " boundary" + " " + description ;
-				} else if (l != null) {
-					description = "landuse " + l + " " + description ;
+			} else  {
+				if (ctx == null) {
+					description = "unset relation type"; // fallback so that we have something to display
+				} else {
+					description = ctx.getResources().getString(R.string.unset_relation_type);
 				}
 			}
-		} else
-			description = "unset relation type";
-		String name = getTagWithKey("name");
-		if (name != null){
+		}
+		String name = getTagWithKey(Tags.KEY_NAME);
+		if (name != null) {
 			description = description + " " + name;
 		} else {
 			description = description + " #" + osmId;
@@ -286,6 +335,23 @@ public class Relation extends OsmElement {
 		for (RelationMember rm:getMembers()) {
 			if (rm.getElement()!=null)
 				result.add(rm.getElement());
+		}
+		return result;
+	}
+
+	@Override
+	public BoundingBox getBounds() {
+		// NOTE this will only return a bb covering the downloaded elements 
+		BoundingBox result = null;
+		for (RelationMember rm:members) {
+			OsmElement e = rm.getElement();
+			if (e != null) {
+				if (result == null) {
+					result = e.getBounds();
+				} else {
+					result.union(e.getBounds());
+				}
+			}
 		}
 		return result;
 	}

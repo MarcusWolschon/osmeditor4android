@@ -6,10 +6,10 @@ import android.net.NetworkInfo;
 
 public class NetworkStatus {
 	
-	public static boolean isAvailable(Context ctx) {
+	public static boolean isConnected(Context ctx) {
 	    ConnectivityManager connectivityManager 
 	          = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
 	}
 }

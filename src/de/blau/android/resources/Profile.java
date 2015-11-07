@@ -34,15 +34,21 @@ import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PixelXorXfermode;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.contract.Paths;
 import de.blau.android.resources.Profile.FeatureProfile.DashPath;
 import de.blau.android.util.Density;
+import de.blau.android.util.FileUtil;
 
 public class Profile  extends DefaultHandler {
+	
+    String FILE_PATH_PROFILE_SUFFIX = "-profile.xml";
 	
 	// constants for the internal profiles
 	public final static String GPS_TRACK = "gps_track";
@@ -79,6 +85,7 @@ public class Profile  extends DefaultHandler {
 	public final static String CLOSED_NOTE = "closed_note";
 	public final static String CROSSHAIRS = "crosshairs";
 	public final static String HANDLE = "handle";
+	public final static String LABELTEXT = "labeltext";
 	
 	
 	public class FeatureProfile {
@@ -484,6 +491,14 @@ public class Profile  extends DefaultHandler {
 		fp.getPaint().setShadowLayer(1, 0, 0, Color.BLACK);
 		featureProfiles.put(fp.getName(), fp);
 		
+		fp = new FeatureProfile(LABELTEXT);
+		fp.setColor(Color.BLACK);
+		fp.dontUpdate();
+		fp.getPaint().setTypeface(Typeface.SANS_SERIF);
+		fp.getPaint().setTextSize(Density.dpToPx(ctx,12));
+		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
+		featureProfiles.put(fp.getName(), fp);
+		
 		fp = new FeatureProfile(WAY_DIRECTION);
 		fp.setColor(resources.getColor(R.color.ccc_red));
 		fp.setWidthFactor(0.8f);
@@ -508,6 +523,7 @@ public class Profile  extends DefaultHandler {
 		featureProfiles.put(fp.getName(), fp);
 		
 		fp = new FeatureProfile(CROSSHAIRS); 
+		fp.setColor(Color.BLACK);
 		fp.getPaint().setStyle(Style.STROKE);
 		fp.getPaint().setStrokeWidth(Density.dpToPx(ctx,1.0f));
 		fp.getPaint().setXfermode(new PixelXorXfermode(Color.WHITE));
@@ -685,13 +701,11 @@ public class Profile  extends DefaultHandler {
 	 * save this profile to SDCARD
 	 */
 	void save() {
-		File sdcard = Environment.getExternalStorageDirectory();
-		File outdir = new File(sdcard, "Vespucci");
-		outdir.mkdir(); // ensure directory exists;
-		String filename = name + "-profile.xml";
-		File outfile = new File(outdir, filename);
+		String filename = name + FILE_PATH_PROFILE_SUFFIX;
 		OutputStream outputStream = null;
 		try {
+			File outDir = FileUtil.getPublicDirectory();
+			File outfile = new File(outDir, filename);
 			outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 			XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 			serializer.setOutput(outputStream, "UTF-8");
@@ -701,7 +715,7 @@ public class Profile  extends DefaultHandler {
 		} catch (Exception e) {
 			Log.e("Profile", "Save failed - " + filename + " " + e);
 		} finally {
-			try {outputStream.close();} catch (Exception ex) {};
+			try {outputStream.close();} catch (Exception ex) {}
 		}
 	}
 	
@@ -851,7 +865,7 @@ public class Profile  extends DefaultHandler {
 	class ProfileFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
-			return name.endsWith("-profile.xml");
+			return name.endsWith(FILE_PATH_PROFILE_SUFFIX);
 		}
 	}
 	
@@ -867,7 +881,7 @@ public class Profile  extends DefaultHandler {
 			String[] fileList = assetManager.list("");
 			if (fileList != null) {
 				for (String fn:fileList) {
-					if (fn.endsWith("-profile.xml")) {
+					if (fn.endsWith(FILE_PATH_PROFILE_SUFFIX)) {
 						Log.i("Profile","Creating profile from file in assets directory " + fn);
 						InputStream is = assetManager.open(fn);
 						Profile p = new Profile(ctx, is);
@@ -879,7 +893,7 @@ public class Profile  extends DefaultHandler {
 		
 		// from sdcard
 		File sdcard = Environment.getExternalStorageDirectory();
-		File indir = new File(sdcard, "Vespucci");
+		File indir = new File(sdcard, Paths.DIRECTORY_PATH_VESPUCCI);
 		if (indir != null) {
 			File[] list = indir.listFiles(new ProfileFilter());
 			if (list != null) {

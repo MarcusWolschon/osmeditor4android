@@ -2,9 +2,14 @@ package de.blau.android.services;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
+import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.services.util.OpenStreetMapTileFilesystemProvider;
@@ -22,6 +27,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
 public class OpenStreetMapTileProviderService extends Service {
 
 	private OpenStreetMapTileFilesystemProvider mFileSystemProvider;
+	private boolean mountPointWiteable = false;
 	
 	@Override
 	public void onCreate() {
@@ -31,9 +37,17 @@ public class OpenStreetMapTileProviderService extends Service {
 		if (prefs != null) {
 			tileCacheSize = prefs.getTileCacheSize();
 		}
-		Log.d("OpenStreetMapTilePRoviderService", "Setting cache size to " + tileCacheSize);
-		mFileSystemProvider = new OpenStreetMapTileFilesystemProvider(
-				getBaseContext(),tileCacheSize * 1024 * 1024); //  FSCache
+		if (Environment.getExternalStorageDirectory().canWrite()) {
+			Log.d("OpenStreetMapTilePRoviderService", "Setting cache size to " + tileCacheSize + " on " + Environment.getExternalStorageDirectory().getPath());
+			mountPointWiteable = true;
+			mFileSystemProvider = new OpenStreetMapTileFilesystemProvider(
+				getBaseContext(),Environment.getExternalStorageDirectory(), tileCacheSize * 1024 * 1024); //  FSCache
+		} else {
+			Toast.makeText(this,R.string.toast_storage_error, Toast.LENGTH_LONG).show();
+			// FIXME potentially we should set both background and overlay preferences to NONE here or simply zap what we are currently are using.
+			// don't terminate, simply igonre requests
+		}
+		
 	}
 	
 	@Override
@@ -59,6 +73,9 @@ public class OpenStreetMapTileProviderService extends Service {
 		public void getMapTile(String rendererID, int zoomLevel, int tileX,
 				int tileY, IOpenStreetMapTileProviderCallback callback)
 				throws RemoteException {
+			if (!mountPointWiteable) { // fail silently
+				return;
+			}
 			OpenStreetMapTile tile = new OpenStreetMapTile(rendererID, zoomLevel, tileX, tileY);
 			mFileSystemProvider.loadMapTileAsync(tile, callback);
 		}

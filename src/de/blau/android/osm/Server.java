@@ -13,14 +13,13 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
+import de.blau.android.util.DateFormatter;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
@@ -41,8 +40,8 @@ import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.osb.Bug;
-import de.blau.android.osb.BugComment;
+import de.blau.android.osb.Note;
+import de.blau.android.osb.NoteComment;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.Base64;
 import de.blau.android.util.OAuthHelper;
@@ -113,6 +112,11 @@ public class Server {
 	private final XmlPullParserFactory xmlParserFactory;
 
 	private DiscardedTags discardedTags;
+
+	/**
+	 * Date pattern used for suggesting a file name when uploading GPX tracks.
+	 */
+	private static final String DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
 
 	
 	/**
@@ -539,6 +543,7 @@ public class Server {
 	}
 
 	/**
+	 * Return true if either login/pass is set or if oAuth is enabled
 	 * @return
 	 */
 	public boolean isLoginSet() {
@@ -1047,23 +1052,23 @@ public class Server {
 	 */
 	
 	/**
-	 * Perform an HTTP request to download up to 100 bugs inside the specified area.
+	 * Perform an HTTP request to download up to limit bugs inside the specified area.
 	 * Blocks until the request is complete.
 	 * @param area Latitude/longitude *1E7 of area to download.
 	 * @return All the bugs in the given area.
 	 */
-	public Collection<Bug> getNotesForBox(Rect area, long limit) {
-		Collection<Bug> result = new ArrayList<Bug>();
+	public Collection<Note> getNotesForBox(BoundingBox area, long limit) {
+		Collection<Note> result = new ArrayList<Note>();
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
 			Log.d("Server", "getNotesForBox");
 			URL url = new URL(serverURL  + "notes?" +
 					"limit=" + limit + "&" +
 					"bbox=" +
-					area.left / 1E7d +
-					"," + area.bottom / 1E7d +
-					"," + area.right / 1E7d +
-					"," + area.top / 1E7d);
+					area.getLeft() / 1E7d +
+					"," + area.getBottom() / 1E7d +
+					"," + area.getRight() / 1E7d +
+					"," + area.getTop() / 1E7d);
 			
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			boolean isServerGzipEnabled = false;
@@ -1078,7 +1083,7 @@ public class Server {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return new ArrayList<Bug>(); //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+				return new ArrayList<Note>(); //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
 //				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
 //						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
 			}
@@ -1097,7 +1102,7 @@ public class Server {
 				String tagName = parser.getName();
 				if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
 					try {
-						result.add(new Bug(parser));
+						result.add(new Note(parser));
 					} catch (IOException e) {
 						// if the bug doesn't parse correctly, there's nothing
 						// we can do about it - move on
@@ -1115,17 +1120,89 @@ public class Server {
 			}
 		} catch (XmlPullParserException e) {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
-			return new ArrayList<Bug>(); // empty list
+			return new ArrayList<Note>(); // empty list
 		} catch (IOException e) {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
-			return new ArrayList<Bug>(); // empty list
+			return new ArrayList<Note>(); // empty list
 		} catch (OutOfMemoryError e) {
 			Log.e("Vespucci", "Server.getNotesForBox:Exception", e);
 			// TODO ask the user to exit
-			return new ArrayList<Bug>(); // empty list
+			return new ArrayList<Note>(); // empty list
 		}
-		
+		return result;
+	}
+	
+	/**
+	 * Retrieve a single note
+	 * @param id
+	 * @return
+	 */
+	public Note getNote(long id) {
+		Note result = null;
+		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
+		try {
+			Log.d("Server", "getNote");
+			URL url = new URL(serverURL  + "notes/" + id);
+							
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			boolean isServerGzipEnabled = false;
 
+			//--Start: header not yet send
+			con.setReadTimeout(TIMEOUT);
+			con.setConnectTimeout(TIMEOUT);
+			con.setRequestProperty("Accept-Encoding", "gzip");
+			con.setRequestProperty("User-Agent", Application.userAgent);
+
+			//--Start: got response header
+			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
+			
+			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				return null; //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+//				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
+//						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+			}
+
+			InputStream is;
+			if (isServerGzipEnabled) {
+				is = new GZIPInputStream(con.getInputStream());
+			} else {
+				is = con.getInputStream();
+			}
+			
+			XmlPullParser parser = xmlParserFactory.newPullParser();
+			parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
+			int eventType;
+			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();
+				if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
+					try {
+						result = new Note(parser);
+					} catch (IOException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (XmlPullParserException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					} catch (NumberFormatException e) {
+						// if the bug doesn't parse correctly, there's nothing
+						// we can do about it - move on
+						Log.e("Vespucci", "Problem parsing bug", e);
+					}
+				}
+			}
+		} catch (XmlPullParserException e) {
+			Log.e("Server", "Server.getNotesForBox:Exception", e);
+			return null; // empty list
+		} catch (IOException e) {
+			Log.e("Server", "Server.getNotesForBox:Exception", e);
+			return null; // empty list
+		} catch (OutOfMemoryError e) {
+			Log.e("Server", "Server.getNotesForBox:Exception", e);
+			// TODO ask the user to exit
+			return null; // empty list
+		}
 		return result;
 	}
 	
@@ -1137,8 +1214,9 @@ public class Server {
 	 * @param comment The comment to add to the bug.
 	 * @return true if the comment was successfully added.
 	 */
-	public boolean addComment(Bug bug, BugComment comment) {
-		if (bug.getId() != 0) {
+	public boolean addComment(Note bug, NoteComment comment) {
+		if (!bug.isNew()) {
+			Log.d("Server", "adding note comment" + bug.getId());
 			// http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
 			HttpURLConnection connection = null;
 			try {
@@ -1160,6 +1238,7 @@ public class Server {
 					XmlPullParser parser = xmlParserFactory.newPullParser();
 					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
 					bug.parseBug(parser); // replace contents with result from server 
+					Application.getBugStorage().setDirty();
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "addComment:Exception", e);
@@ -1181,8 +1260,9 @@ public class Server {
 	 * @param comment The first comment for the bug.
 	 * @return true if the bug was successfully added.
 	 */
-	public boolean addNote(Bug bug, BugComment comment) {
-		if (bug.getId() == 0 && bug.comments.size() == 0) {
+	public boolean addNote(Note bug, NoteComment comment) {
+		if (bug.isNew()) {
+			Log.d("Server", "adding note");
 			// http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug description with author and date>&format=<Output format>
 			HttpURLConnection connection = null;
 			try {
@@ -1204,6 +1284,7 @@ public class Server {
 					XmlPullParser parser = xmlParserFactory.newPullParser();
 					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
 					bug.parseBug(parser); // replace contents with result from server 
+					Application.getBugStorage().setDirty();
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "addNote:Exception", e);
@@ -1224,9 +1305,10 @@ public class Server {
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
 	 */
-	public boolean closeNote(Bug bug) {
+	public boolean closeNote(Note bug) {
 		
-		if (bug.getId() != 0) {
+		if (!bug.isNew()) {
+			Log.d("Server", "closing note " + bug.getId());
 			HttpURLConnection connection = null;
 			try {
 				try {
@@ -1243,7 +1325,7 @@ public class Server {
 					XmlPullParser parser = xmlParserFactory.newPullParser();
 					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
 					bug.parseBug(parser); // replace contents with result from server 
-					bug.close();
+					Application.getBugStorage().setDirty();
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "closeNote:Exception", e);
@@ -1264,9 +1346,10 @@ public class Server {
 	 * @param bug The bug to close.
 	 * @return true if the bug was successfully closed.
 	 */
-	public boolean reopenNote(Bug bug) {
+	public boolean reopenNote(Note bug) {
 		
-		if (bug.getId() != 0) {
+		if (!bug.isNew()) {
+			Log.d("Server", "reopen note " + bug.getId());
 			HttpURLConnection connection = null;
 			try {
 				try {
@@ -1281,7 +1364,7 @@ public class Server {
 					XmlPullParser parser = xmlParserFactory.newPullParser();
 					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
 					bug.parseBug(parser); // replace contents with result from server 
-					bug.reopen();
+					Application.getBugStorage().setDirty();
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "reopenNote:Exception", e);
@@ -1335,7 +1418,8 @@ public class Server {
 			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
 			out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
 			out.write(seperator);
-			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".gpx\"\r\n");
+			String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
+			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileNamePart + ".gpx\"\r\n");
 			out.write("Content-Type: application/gpx+xml\r\n\r\n");
 			out.flush();
 			track.exportToGPX(os);

@@ -10,12 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -23,9 +21,7 @@ import java.util.concurrent.TimeoutException;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -45,12 +41,15 @@ import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.jsonreader.JsonReader;
@@ -97,12 +96,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
-		menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db);
+		menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 		// menu.add(Menu.NONE, MENUITEM_QUERYLOCAL, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_device);
 		menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset);
 		menu.add(Menu.NONE, MENUITEM_ZERO, Menu.NONE, R.string.menu_tools_background_align_zero);
 		menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
-		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db);
+		menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
 		// menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
 		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
 		return true;
@@ -137,9 +136,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		case MENUITEM_SAVELOCAL:
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_aligningbackgroundiamgery);
-			Application.mainActivity.startActivity(startHelpViewer);
+			HelpViewer.start(Application.mainActivity, R.string.help_aligningbackgroundiamgery);
 			return true;
 		default: return false;
 		}
@@ -403,8 +400,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 				im.minZoom = z + osmts.getMinZoomLevel();
 				im.maxZoom = im.minZoom;
 				Calendar c = Calendar.getInstance();
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-				im.date = simpleDateFormat.format(c.getTime());
+				im.date = DateFormatter.getFormattedString(
+						ImageryOffset.DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT, c.getTime());
 				im.author = author;
 				offsetList.add(im);
 			}
@@ -510,6 +507,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	    double imageryLon = 0;
 	    DeprecationNote deprecated = null;
 	    
+		/**
+		 * Date pattern used to describe when the imagery offset was created.
+		 */
+		protected static final String DATE_PATTERN_IMAGERY_OFFSET_CREATED_AT = "yyyy-MM-dd";
+
 		public String toSaveUrl() {
 			try {
 				return offsetServer+"store?lat="+ URLEncoder.encode(String.format("%.7f",lat),"UTF-8")+"&lon="+URLEncoder.encode(String.format("%.7f",lon),"UTF-8")

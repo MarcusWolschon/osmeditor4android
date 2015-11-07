@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="bug_filter_entries">
+    <item>Ghi chú</item>
+    <item>Lỗi Osmose</item>
+    <item>Cảnh báo Osmose</item>
+    <item>Vấn đề nhỏ Osmose</item>
+  </string-array>
+</resources>

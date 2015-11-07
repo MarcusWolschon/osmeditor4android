@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi máy chủ có %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$s \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
-  <string name="use_local_version">Dùng phiên bản trong điện thoại</string>
-  <string name="use_server_version">Dùng phiên bản trên máy chủ</string>
   <string name="no_login_data_title">Thất bại khi xác thực</string>
   <string name="no_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
@@ -35,6 +33,9 @@
   <string name="welcome_title">Chào mừng!</string>
   <string name="welcome_message">Cám ơn bạn vì sử dụng Vespucci.\n\nĐể bắt đầu, hãy nhớ:\n\n* chạm vào hình ổ khóa ở phía trên bên trái để bật/tắt chế độ khóa (không sửa đổi)\n\n* để thêm một đối tượng mới, chạm lâu, rồi chạm lần nữa cùng chỗ để tạo nốt, hoặc chạm xa hơn để bắt đầu vẽ lối\n\nNhớ tải về khu vực muốn sửa đổi.\n\nChúc vui vẻ!</string>
   <string name="read_introduction">Đọc hướng dẫn</string>
+  <string name="upgrade_title">Chào mừng đã đến với phiên bản mới của Vespucci!</string>
+  <string name="upgrade_message">Đây là phiên bản mới của Vespucci có tính năng mới. Hãy dành một chút để đọc các thông tin về việc nâng cấp thiết bị.</string>
+  <string name="read_upgrade">Tìm hiểu về phiên bản mới</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
   <string name="progress_download_message">Đang tải về dữ liệu từ máy chủ…</string>
@@ -103,6 +104,7 @@
   <string name="toast_preset_overwrote_tags">Chú ý: Các thẻ đặt trước đã ghi đè lên thẻ</string>
   <string name="toast_oneway_reversed">Bạn đã đảo ngược một con đường một chiều hoặc một lối có thẻ tùy thuộc vào chiều đường. Xin vui lòng kiểm tra và chỉnh lại các thẻ nếu cần.</string>
   <string name="toast_merge_tag_conflict">Bạn đã gộp các phần tử có mâu thuẫn giá trị thẻ, mẫu thuẫn giá trị tùy thuộc chiều đường, hoặc vai trò khác nhau trong cùng một quan hệ. Xin vui lòng kiểm tra và chỉnh lại các thẻ và vai trò nếu cần.</string>
+  <string name="toast_potential_merge_tag_conflict">Bạn muốn gộp các phần tử có mâu thuẫn giá trị thẻ. Xin vui lòng kiểm tra và chỉnh lại các thẻ trước khi thử lại.</string>
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
   <string name="toast_too_many_nodes_for_move">Lối sẽ được di chuyển có quá nhiều nốt</string>
   <string name="toast_oauth_handshake_failed">Quá trình bắt tay OAuth bị thất bại; hãy kiểm tra có các chìa khóa trình khách (consumer) chính xác</string>
@@ -162,6 +164,7 @@
   <string name="tag_menu_reset_address_prediction">Đặt lại suy đoán địa chỉ</string>
   <string name="tag_menu_exit_no_save">Thoát\nmà không lưu</string>
   <string name="tag_value_hint">Chạm cho các giá trị</string>
+  <string name="tag_multi_value_hint">Nhiều giá trị</string>
   <string name="tag_action_title">Các thẻ đã chọn</string>
   <string name="menu_up">Trên</string>
   <string name="menu_top">Trên cùng</string>
@@ -260,6 +263,7 @@
   <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
   <string name="menu_tools_background_contrast">Độ tương phản</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Thuộc tính</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Lịch sử</string>
   <string name="menu_merge">Gộp</string>
@@ -278,6 +282,7 @@
   <string name="actionmode_nodeselect">Đã chọn nốt</string>
   <string name="actionmode_relationselect">Đã chọn quan hệ</string>
   <string name="actionmode_createpath">Đang tạo đường</string>
+  <string name="actionmode_multiselect">Chọn nhiều</string>
   <!--Preferences-->
   <string name="config_category_view">Thiết lập Giao diện</string>
   <string name="config_showCameraAction_title">Tác vụ hiển thị máy ảnh</string>
@@ -294,14 +299,11 @@
   <string name="config_showTolerance_summary">Hiển thị khu vực nơi đối tượng có thể được chọn</string>
   <string name="config_enableAntiAliasing_title">Khử răng cưa</string>
   <string name="config_enableAntiAliasing_summary">Làm bằng phẳng các đường kẻ.</string>
-  <string name="config_enableOpenStreetBugs_title">Hiển thị Ghi chú</string>
   <string name="config_enableOpenStreetBugs_summary">Xem, Sửa, và Tạo Ghi chú hoặc Báo cáo Lỗi.</string>
   <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
   <string name="config_enablePhotoLayer_summary">Hiển thị các hình ảnh được định vị.</string>
   <string name="config_enableKeepScreenOn_title">Giữ cho màn hình luôn sáng</string>
   <string name="config_enableKeepScreenOn_summary">Không tắt màn hình để duy trì năng lượng.</string>
-  <string name="config_enableDeprecatedModes_title">Bật các chế độ bị phản đối</string>
-  <string name="config_enableDeprecatedModes_summary">Kích hoạt các chế độ Tạo Mới, Sửa, Sửa các Thẻ, Thêm, Xóa Nốt, và Cắt đôi.</string>
   <string name="config_closeChangesetOnSave_title">Đóng các bộ thay đổi</string>
   <string name="config_closeChangesetOnSave_summary">Đóng các bộ thay đổi khi lưu theo mặc định</string>
   <string name="config_backgroundLayer_title">Nền bản đồ</string>
@@ -372,8 +374,10 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">Gắn thẻ đặt trước</string>
   <string name="urldialog_preset_exists">Thẻ đặt trước này đã tồn tại</string>
+  <string name="urldialog_preset_download_successful">Đã tải về thẻ đặt trước thành công!</string>
   <string name="urldialog_api_exists">Đã có một API với URL này. Tuy nhiên, bạn có thể thêm một API khác, chẳng hạn để đổi tài khoản dễ dàng.</string>
   <string name="urldialog_api_preset_missing">API sử dụng một thẻ đặt trước không có sẵn. Bạn nên thêm nó trước tiên.</string>
+  <string name="urldialog_api_install_successful">Đã cài đặt API thành công!</string>
   <string name="urldialog_add_api">Thêm API</string>
   <string name="urldialog_nodata_text">URL cấu hình không có dữ liệu hợp lệ.</string>
   <!--common terms-->
@@ -391,8 +395,6 @@
   <string name="undo">Hoàn tác</string>
   <string name="redo">Làm lại</string>
   <string name="undo_nothing">không có gì để hoàn tác</string>
-  <string name="tracking_active_title">Đang thu tuyến GPS</string>
-  <string name="tracking_active_text">Vespucci đang thu một tuyến GPS</string>
   <string name="gps_failure">Thất bại khi kích hoạt GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">di chuyển nốt</string>
@@ -455,6 +457,7 @@
   <string name="km">km</string>
   <string name="meter">mét</string>
   <!--Help system-->
+  <string name="toast_nohelp">Không có trợ giúp!</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>riêng</item>

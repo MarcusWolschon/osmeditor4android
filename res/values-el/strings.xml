@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \nπροκειμένου να ενταχθούν στη τοπική έκδοση %2$s \nστο διακομιστή %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nπροκειμένου να ενταχθούν στη τοπική έκδοση%2$s \nκαι διαγράφτηκε στο διακομιστή</string>
   <string name="upload_conflict_message_referential">%1$s \nwas διεγράφη τοπικά\nbut έχει αναφορές στο διακομιστή</string>
-  <string name="use_local_version">Χρήση της τοπικής έκδοσης</string>
-  <string name="use_server_version">Χρήση έκδοση για το διακομιστή</string>
   <string name="no_login_data_title">Πιστοποίηση απέτυχε</string>
   <string name="no_login_data_message">Εάν χρησιμοποιείτετο το OAuth αυτό είναι πιθανό ένα bug, παρακαλούμε να στείλετε μια αναφορά προβλήματος, εάν χρησιμοποιείτε το όνομα χρήστη και τον κωδικό πρόσβασης (δεν συνιστάται) ελέγξτε ότι έχετε πληκτρολογήσει σωστά.</string>
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>
@@ -51,8 +49,6 @@
   <string name="openstreetbug_comment_label">Σχόλιο:</string>
   <string name="openstreetbug_edit_close">Κλείσιμο</string>
   <string name="openstreetbug_edit_closed">Έκλεισε</string>
-  <string name="openstreetbug_commit_ok">Οι αλλαγές αποθηκεύτηκαν</string>
-  <string name="openstreetbug_commit_fail">Αδύνατη η αποθήκευση των αλλαγών</string>
   <string name="unsaved_data_title">Προσοχή!</string>
   <string name="unsaved_data_message">Έχετε μη αποθηκευμένες αλλαγές οι οποίες θα χαθούν αν συνεχίσετε.</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
@@ -269,14 +265,11 @@
   <string name="config_showTolerance_summary">Εμφανίζει την περιοχή όπου μπορείτε να επιλέξετε ένα στοιχείο.</string>
   <string name="config_enableAntiAliasing_title">Ενεργοποίηση Εξομάλυνσης Εικόνας</string>
   <string name="config_enableAntiAliasing_summary">Κάνει τις γραμμές ομαλες</string>
-  <string name="config_enableOpenStreetBugs_title">Ενεργοποίηση Προβολής Σημειώσεων</string>
   <string name="config_enableOpenStreetBugs_summary">Εμφανιση, επεξεργασία και δημιουργία σημειώσεων/Σφάλματων.</string>
   <string name="config_enablePhotoLayer_title">Ενεργοποίηση επιπεδου φωτογραφιών</string>
   <string name="config_enablePhotoLayer_summary">Εμφάνιση γεω-αναφερώμενων φωτογραφιών.</string>
   <string name="config_enableKeepScreenOn_title">Παραμονή οθόνης ανοικτή</string>
   <string name="config_enableKeepScreenOn_summary">Μην κλείσετε την οθόνη για εξοικονόμηση ενέργειας.</string>
-  <string name="config_enableDeprecatedModes_title">Ενεργοποίηση αποδοκιμασμένων τρόπων</string>
-  <string name="config_enableDeprecatedModes_summary">Ενεργοποίηση νέων, Επεξεργασίας, Επεξεργασίας Ετικετών, προσθηκη, Διαγραφή κόμβου και Διαίρεση τρόπων.</string>
   <string name="config_closeChangesetOnSave_title">Κλείσιμο ομάδων αλλαγών</string>
   <string name="config_closeChangesetOnSave_summary">Κλείσιμο ομάδων αλλαγών από προεπιλογή για Αποθήκευση</string>
   <string name="config_backgroundLayer_title">Παρασκήνιο χάρτη</string>
@@ -363,8 +356,6 @@
   <string name="undo">Αναίρεση</string>
   <string name="redo">Επαναφορά</string>
   <string name="undo_nothing">τίποτα προς αναίρεση</string>
-  <string name="tracking_active_title">Καταγραφή ίχνους GPX</string>
-  <string name="tracking_active_text">Ο Vespucci καταγράφει ένα ίχνος </string>
   <string name="gps_failure">Αποτυχία ενεργοποίησης </string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">μετακίνηση κόμβου</string>

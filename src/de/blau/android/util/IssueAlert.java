@@ -2,6 +2,9 @@ package de.blau.android.util;
 
 import java.util.ArrayList;
 
+import org.acra.ACRA;
+
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -19,6 +22,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
+import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Node;
@@ -27,17 +31,22 @@ import de.blau.android.prefs.Preferences;
 
 public class IssueAlert {
 	
+	final static String GROUP_DATA = "Data";
+	final static String GROUP_NOTES = "Notes";
+	final static String GROUP_OSMOSE = "Osmose";
 	
-	public static void alert(OsmElement e) {
+	static int bugCount = 0;
+	static int noteCOunt = 0;
 	
-		Main main = Application.mainActivity;
-		Preferences prefs = new Preferences(main);
+	public static void alert(Context context, OsmElement e) {
+	
+		Preferences prefs = new Preferences(context);
 		
 		if (!prefs.generateAlerts()) { // don't generate alerts
 			return;
 		}
 		
-		LocationManager locationManager = (LocationManager) main.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		Location location = locationManager.getLastKnownLocation("gps");
 		double eLon = 0D;
 		double eLat = 0D;
@@ -45,11 +54,13 @@ public class IssueAlert {
 			eLon = ((Node)e).getLon()/1E7D;
 			eLat = ((Node)e).getLat()/1E7D;
 		} else if (e.getName().equals("way")) {
-			int result[] = Logic.centroid(main.getMap().getWidth(), main.getMap().getHeight(), main.getMap().getViewBox(),(Way)e);
-			eLon = result[1]/1E7D;
-			eLat = result[0]/1E7D;
+			double[] result = Logic.centroidLonLat((Way)e);
+			eLon = result[0];
+			eLat = result[1];
+		} else {
+			return;
 		}
-		String title = main.getString(R.string.alert_data_issue);
+		String title = context.getString(R.string.alert_data_issue);
 		String ticker = title;
 		String message = "";
 		if (location != null) {
@@ -63,6 +74,10 @@ public class IssueAlert {
 				eLon = cp.lon;
 				eLat = cp.lat;
 			}
+			// filter
+			if (distance > prefs.getMaxAlertDistance()) {
+				return;
+			}
 			long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
 			String[] bearings = {"NE", "E", "SE", "S", "SW", "W", "NW", "N"};
 
@@ -72,30 +87,41 @@ public class IssueAlert {
 			index = index / 45;
 
 			// message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
-			message = main.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
+			message = context.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
 			ticker = ticker + " " + message;
 		}
 		message = message + e.describeProblem();
-		NotificationCompat.Builder mBuilder =
-		        new NotificationCompat.Builder(main)
-		        .setSmallIcon(R.drawable.osm_logo)
-		        .setContentTitle(title)
-		        .setContentText(message)
-		        .setPriority(NotificationCompat.PRIORITY_HIGH)
-		        .setTicker(ticker);
+		NotificationCompat.Builder mBuilder;
+		try {
+			mBuilder =
+			    new NotificationCompat.Builder(context)
+			    .setSmallIcon(R.drawable.osm_logo)
+			    .setContentTitle(title)
+			    .setContentText(message)
+			    .setPriority(NotificationCompat.PRIORITY_HIGH)
+			    .setTicker(ticker)
+			    .setAutoCancel(true)
+			    .setGroup(GROUP_DATA);
+		} catch (RuntimeException re) {
+			// NotificationCompat.Builder seems to be flaky instead of crashing we produce a 
+			// crash dump and return
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(re);
+			return;
+		}
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
 		// Uri geo = Uri.fromParts("geo", eLat+","+eLon,null);
 	    // resultIntent.setData(geo);
 		try {
-			BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius());
+			BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius(), true);
 
 			Uri rc = Uri.parse( "http://127.0.0.1:8111/load_and_zoom?left=" + box.getLeft()/1E7D + "&right=" + box.getRight()/1E7D + "&top=" + box.getTop()/1E7D + "&bottom=" + box.getBottom()/1E7D + "&select="+e.getName()+e.getOsmId());
 
 			Log.d("IssueAlert", rc.toString());
 			resultIntent.setData(rc);
-			TaskStackBuilder stackBuilder = TaskStackBuilder.create(main);
+			TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 			// Adds the back stack for the Intent (but not the Intent itself)
 			stackBuilder.addParentStack(Main.class);
 			// Adds the Intent that starts the Activity to the top of the stack
@@ -108,31 +134,34 @@ public class IssueAlert {
 			mBuilder.setContentIntent(resultPendingIntent);
 
 			NotificationManager mNotificationManager =
-					(NotificationManager) main.getSystemService(Context.NOTIFICATION_SERVICE);
+					(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 			// mId allows you to update the notification later on.
 			mNotificationManager.notify((e.getName() + e.getOsmId()).hashCode(), mBuilder.build());
 		} catch (OsmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Log.d("IssueAlert","Illegal BB created from lat " + eLat+ " lon " + eLon + " r " + prefs.getDownloadRadius());
 		}
 	}
 	
-	public static void alert(Bug b) {
-		
-		Main main = Application.mainActivity;
-		
-		Preferences prefs = new Preferences(main);
+	public static void cancel(Context context, OsmElement e) {
+		NotificationManager mNotificationManager =
+			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.cancel((e.getName() + e.getOsmId()).hashCode());
+	}
+	
+	public static void alert(Context context, Bug b) {
+		Log.d("IssueAlert", "generating alert for " + b.getDescription());
+		Preferences prefs = new Preferences(context);
 		
 		if (!prefs.generateAlerts()) { // don't generate alerts
 			return;
 		}
 		
-		LocationManager locationManager = (LocationManager) main.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) context.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 		Location location = locationManager.getLastKnownLocation("gps");
 		double eLon = b.getLon()/1E7D;
 		double eLat = b.getLat()/1E7D;
 		
-		String title = main.getString(R.string.alert_note);
+		String title = b instanceof Note ? context.getString(R.string.alert_note) : context.getString(R.string.alert_bug);
 		String ticker = title;
 		String message = "";
 		if (location != null) {
@@ -140,7 +169,7 @@ public class IssueAlert {
 			long distance = Math.round(GeoMath.haversineDistance(location.getLongitude(), location.getLatitude(), eLon, eLat));
 			
 			// filter
-			if (distance > 100) {
+			if (distance > prefs.getMaxAlertDistance()) {
 				return;
 			}
 			
@@ -153,23 +182,34 @@ public class IssueAlert {
 			index = index / 45;
 
 			// message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
-			message = main.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
+			message = context.getString(R.string.alert_distance_direction, distance, bearings[index]) + "\n";
 			ticker = ticker + " " + message;
 		}
 		message = message + b.getDescription();
-		NotificationCompat.Builder mBuilder =
-		        new NotificationCompat.Builder(main)
-		        .setSmallIcon(R.drawable.osm_logo)
-		        .setContentTitle(title)
-		        .setContentText(message)
-		        .setPriority(NotificationCompat.PRIORITY_HIGH)
-		        .setTicker(ticker);
+		NotificationCompat.Builder mBuilder;
+		try {
+			mBuilder =
+				new NotificationCompat.Builder(context)
+			    .setSmallIcon(R.drawable.osm_logo)
+			    .setContentTitle(title)
+			    .setContentText(message)
+			    .setPriority(NotificationCompat.PRIORITY_HIGH)
+			    .setTicker(ticker)
+			    .setAutoCancel(true)
+			    .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
+		} catch (RuntimeException re) {
+			// NotificationCompat.Builder seems to be flaky instead of crashing we produce a 
+			// crash dump and return
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(re);
+			return;
+		}
 		// Creates an explicit intent for an Activity in your app
 		// Intent resultIntent = new Intent(main, Main.class);
 		Intent resultIntent = new Intent(Intent.ACTION_VIEW);
 		Uri geo = Uri.fromParts("geo", eLat+","+eLon,null);
 	    resultIntent.setData(geo);
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(main);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 		// Adds the back stack for the Intent (but not the Intent itself)
 		stackBuilder.addParentStack(Main.class);
 		// Adds the Intent that starts the Activity to the top of the stack
@@ -182,9 +222,26 @@ public class IssueAlert {
 		mBuilder.setContentIntent(resultPendingIntent);
 
 		NotificationManager mNotificationManager =
-			    (NotificationManager) main.getSystemService(Context.NOTIFICATION_SERVICE);
+			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 			// mId allows you to update the notification later on.
-			mNotificationManager.notify(("bug" + b.getId()).hashCode(), mBuilder.build());
+			mNotificationManager.notify((b.getClass().getSimpleName() + b.getId()).hashCode(), mBuilder.build());
+		bugCount++;
+			
+		// summary doesn't work reasonably
+//		mBuilder =  new NotificationCompat.Builder(context)
+//			        .setSmallIcon(R.drawable.osm_logo)
+//			        .setContentTitle(title) 
+//			        .setPriority(NotificationCompat.PRIORITY_HIGH)
+//			        .setNumber(bugCount)
+//			        .setGroup(GROUP_OSMOSE)
+//			        .setGroupSummary(true);
+//		mNotificationManager.notify(b.getClass().getSimpleName().hashCode(), mBuilder.build());
+	}
+	
+	public static void cancel(Context context, Bug b) {
+		NotificationManager mNotificationManager =
+			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.cancel((b.getClass().getSimpleName() + b.getId()).hashCode());
 	}
 	
 	static class ClosestPoint{
@@ -195,29 +252,22 @@ public class IssueAlert {
 	
 	static ClosestPoint getClosestDistance(double lon, double lat,  Way w) {
 		ClosestPoint closest = new IssueAlert.ClosestPoint();
-		Main main = Application.mainActivity;
-		Map map = main.getMap();
 
-		// to avoid rounding errors we translate the bb to 0,0
-		BoundingBox bb = main.getMap().getViewBox();
-		double latOffset = GeoMath.latE7ToMercatorE7(bb.getBottom());
-		double lonOffset = bb.getLeft();
-		double ny = GeoMath.latToMercator(lat)-latOffset/1E7D;
-		double nx = lon - lonOffset/1E7D;
+		double ny = GeoMath.latToMercator(lat);
+		double nx = lon;
 
 		ArrayList<Node> nodes = new ArrayList<Node>(w.getNodes());
 		for (int i = 0;i <= nodes.size()-2;i++) {
-			double bx = (nodes.get(i).getLon()-lonOffset)/1E7D;
-			double by = (GeoMath.latE7ToMercatorE7(nodes.get(i).getLat())-latOffset )/1E7D;
-			double ax = (nodes.get(i+1).getLon()-lonOffset)/1E7D;
-			double ay = (GeoMath.latE7ToMercatorE7(nodes.get(i+1).getLat())-latOffset)/1E7D;
+			double bx = nodes.get(i).getLon()/1E7D;
+			double by = GeoMath.latE7ToMercator(nodes.get(i).getLat());
+			double ax = nodes.get(i+1).getLon()/1E7D;
+			double ay = GeoMath.latE7ToMercator(nodes.get(i+1).getLat());
 			float[] newClosest = GeoMath.closestPoint((float)nx, (float)ny, (float)bx, (float)by, (float)ax, (float)ay);
 			double newDistance = GeoMath.haversineDistance(nx, ny, newClosest[0], newClosest[1]);
 			if (newDistance < closest.distance) {
 				closest.distance = newDistance;
-				closest.lon = GeoMath.xToLonE7(map.getWidth(), map.getViewBox(), newClosest[0]);
-				closest.lat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), map.getViewBox(), newClosest[1]);
-				
+				closest.lon = newClosest[0];
+				closest.lat = GeoMath.mercatorToLat(newClosest[1]);
 			}
 		}
 		return closest;

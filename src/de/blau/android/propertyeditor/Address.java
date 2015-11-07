@@ -5,26 +5,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.SortedMap;
+import java.util.Set;
 import java.util.TreeMap;
 
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.Logic;
-import de.blau.android.Main;
-import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
+import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
-import de.blau.android.propertyeditor.PropertyEditor;
 
 /**
  * Store coordinates and address information for use in address prediction
@@ -32,7 +32,12 @@ import de.blau.android.propertyeditor.PropertyEditor;
  *
  */
 public class Address implements Serializable {
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 5L;
+	
+	private static final String DEBUG_TAG = Address.class.getSimpleName();
+	
+	public static final int NO_HYSTERESIS = 0;
+	public static final int DEFAULT_HYSTERESIS = 2;
 	
 	private static final String ADDRESS_TAGS_FILE = "addresstags.dat";
 	private static final int MAX_SAVED_ADDRESSES = 100;
@@ -69,11 +74,10 @@ public class Address implements Serializable {
 		case NODE: lat = ((Node)e).getLat()/1E7F; lon = ((Node)e).getLon()/1E7F; break;
 		case WAY:
 		case CLOSEDWAY:
-			de.blau.android.Map map = Application.mainActivity.getMap();
-			int[] center = Logic.centroid(map.getWidth(), map.getHeight(), map.getViewBox(), (Way)e);
+			double[] center = Logic.centroidLonLat((Way)e);
 			if (center != null) { 
-				lat = center[0]/1E7F;
-				lon = center[1]/1E7F;
+				lat = (float) center[1];
+				lon = (float) center[0];
 			}
 			break;
 		case RELATION:
@@ -85,7 +89,7 @@ public class Address implements Serializable {
 	}
 	
 	/**
-	 * Set which side this of the road this address is on
+	 * Set which side of the road this address is on
 	 * @param wayId
 	 * @return
 	 */
@@ -98,7 +102,7 @@ public class Address implements Serializable {
 		double distance = Double.MAX_VALUE;
 		
 		// to avoid rounding errors we translate the bb to 0,0
-		BoundingBox bb = Application.mainActivity.getMap().getViewBox();
+		BoundingBox bb = w.getBounds(); 
 		double latOffset = GeoMath.latE7ToMercatorE7(bb.getBottom());
 		double lonOffset = bb.getLeft();
 		double ny = GeoMath.latToMercator(lat)-latOffset/1E7D;
@@ -121,7 +125,8 @@ public class Address implements Serializable {
 					side = Side.RIGHT;
 				}
 			}
-		}
+		}		
+		// Log.d(DEBUG_TAG,"set side to " + side);
 	}
 	
 	Side getSide() {
@@ -131,28 +136,31 @@ public class Address implements Serializable {
 	/**
 	 * Predict address tags
 	 * This uses a file to cache/save the address information over invocations of the TagEditor, if the cache doesn't have entries for a specific street/place 
-	 * an attempt tp extract the information from the downloaded data is made
-	 * @param caller TODO
+	 * an attempt to extract the information from the downloaded data is made
+	 *
+	 * @param elementType
+	 * @param elementOsmId
+	 * @param es
+	 * @param current
+	 * @param maxRank determines how far away from the nearest street the last address street can be, 0 will always use the nearest, higher numbers will provide some hysteresis
+	 * @return
 	 */
-	protected static LinkedHashMap<String,ArrayList<String>> predictAddressTags(TagEditorFragment caller, final LinkedHashMap<String, ArrayList<String>> current) {
+	public synchronized static LinkedHashMap<String,ArrayList<String>> predictAddressTags(final String elementType, final long elementOsmId, final ElementSearch es, final LinkedHashMap<String, ArrayList<String>> current, int maxRank) {
 		Address newAddress = null;
 			
-		try {
-			lastAddresses = savingHelperAddress.load(ADDRESS_TAGS_FILE, false);
-			Log.d("TagEditor","doAddressTags read " + lastAddresses.size() + " addresses");
-		} catch (Exception e) {
-			//TODO be more specific
-		}
-		StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter) caller.getStreetNameAutocompleteAdapter(null);
-		// PlaceTagValueAutocompletionAdapter placeAdapter = (PlaceTagValueAutocompletionAdapter) getPlaceNameAutocompleteAdapter();
+		loadLastAddresses();
+		
 		if (lastAddresses != null && lastAddresses.size() > 0) {
-			newAddress = new Address(caller.getType(), caller.getOsmId(),lastAddresses.get(0).tags); // last address we added
+			newAddress = new Address(elementType, elementOsmId,lastAddresses.get(0).tags); // last address we added
+			if (newAddress.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+				newAddress.tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+			}
 			Log.d("Address","seeding with last addresses");
 		} 
 
 		if (newAddress == null) { // make sure we have the address object
-			newAddress = new Address(caller.getType(), caller.getOsmId(), new LinkedHashMap<String, ArrayList<String>>()); 
-			Log.d("Address","nothing to seed with creatign new");
+			newAddress = new Address(elementType, elementOsmId, new LinkedHashMap<String, ArrayList<String>>()); 
+			Log.d("Address","nothing to seed with, creating new");
 		}
 		// merge in any existing tags
 		for (String k: current.keySet()) {
@@ -160,30 +168,29 @@ public class Address implements Serializable {
 			newAddress.tags.put(k, current.get(k));
 		}
 		boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
-		if (streetAdapter != null /* || hasPlace */) {
-			// the auto completion arrays should now be calculated, retrieve street names if any
-			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(streetAdapter.getNames()));
+		boolean hasNumber = current.containsKey(Tags.KEY_ADDR_HOUSENUMBER); // if the object already had a number don't overwrite it
+		StorageDelegator storageDelegator = Application.getDelegator();
+		if (es != null /* || hasPlace */) {
+			// the arrays should now be calculated, retrieve street names if any
+			ArrayList<String> streetNames = new ArrayList<String>(Arrays.asList(es.getStreetNames()));
 			// ArrayList<String> placeNames = new ArrayList<String>(Arrays.asList(placeAdapter.getNames()));		
 			if ((streetNames != null && streetNames.size() > 0) || hasPlace) {
 				LinkedHashMap<String, ArrayList<String>> tags = newAddress.tags;
-				Log.d("TagEditor","tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
+				Log.d(DEBUG_TAG,"tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
 				// Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
 				String street;		
 				if (!hasPlace) {
 					ArrayList<String> addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
 					int rank = -1;
-					if (addrStreetValues != null && addrStreetValues.size() > 0) {
+					boolean hasAddrStreet =  addrStreetValues != null && addrStreetValues.size() > 0 && !addrStreetValues.get(0).equals("");
+					if (hasAddrStreet) {
 						rank = streetNames.indexOf(addrStreetValues.get(0)); // FIXME this and the following could consider other values in multi select
 					}
-					addrStreetValues = newAddress.tags.get(Tags.KEY_ADDR_STREET);
-					boolean hasAddrStreet =  addrStreetValues != null && addrStreetValues.size() > 0 && !addrStreetValues.get(0).equals("");
-					if (!hasAddrStreet | rank > 2 || rank < 0)  { // check if has street and still in the top 3 nearest
+					Log.d(DEBUG_TAG, (hasAddrStreet ? "rank " + rank + " for " +  addrStreetValues.get(0) : "no addrStreet tag"));
+					if (!hasAddrStreet || rank > maxRank  || rank < 0)  { // check if has street and still in the top 3 nearest
 						// Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " + streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
 						// nope -> zap
 						tags.put(Tags.KEY_ADDR_STREET, Util.getArrayList(streetNames.get(0)));
-						if (tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
-						}
 					}
 					addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
 					if (addrStreetValues != null && addrStreetValues.size() > 0) {
@@ -192,7 +199,7 @@ public class Address implements Serializable {
 						street = ""; // FIXME
 					}
 					try {
-						newAddress.setSide(streetAdapter.getId(street));
+						newAddress.setSide(es.getStreetId(street));
 					} catch (OsmException e) { // street not in adapter
 						newAddress.side = Side.UNKNOWN;
 					}
@@ -208,21 +215,21 @@ public class Address implements Serializable {
 				Log.d("TagEditor","side " + newAddress.getSide());
 				Side side = newAddress.getSide();
 				// find the addresses corresponding to the current street
-				if (street != null && lastAddresses != null) {
+				if (!hasNumber && street != null && lastAddresses != null) {
 					TreeMap<Integer,Address> list = getHouseNumbers(street, side, lastAddresses);
 					if (list.size() == 0) { // try to seed lastAddresses from OSM data
 						try {
 							Log.d("TagEditor","street " + street);
 							long streetId = -1;
 							if  (!hasPlace) {
-								streetId = streetAdapter.getId(street);
+								streetId = es.getStreetId(street);
 							}
 							// nodes
-							for (Node n:Application.getDelegator().getCurrentStorage().getNodes()) {
+							for (Node n: storageDelegator.getCurrentStorage().getNodes()) {
 								seedAddressList(street,streetId,(OsmElement)n,lastAddresses);
 							}
 							// ways
-							for (Way w:Application.getDelegator().getCurrentStorage().getWays()) {
+							for (Way w: storageDelegator.getCurrentStorage().getWays()) {
 								seedAddressList(street,streetId,(OsmElement)w,lastAddresses);
 							}
 							// and try again
@@ -242,14 +249,16 @@ public class Address implements Serializable {
 					// - if the nearest node is somewhere in the middle determine on which side of it we are, 
 					// - inc/dec in that direction
 					// If everything works out correctly even if a prediction is wrong, entering the correct number should improve the next prediction
-					//TODO the following assumes that the road is not doubling back or similar, aka that the addresses are more or less in a straight line, 
+					// TODO the above assumes that the road is not doubling back or similar, aka that the addresses are more or less in a straight line, 
 					//     use the length along the way defined by the addresses instead
 					//
 					if (list.size() >= 2) {
 						try {
 							int firstNumber = list.firstKey();
 							int lastNumber = list.lastKey();
-							// 
+							//
+							// determine increment
+							//
 							int inc = 1;
 							float incTotal = 0;
 							float incCount = 0;
@@ -262,6 +271,9 @@ public class Address implements Serializable {
 								}
 							}
 							inc = Math.round(incTotal/incCount);
+							//
+							// find the most appropriate next address
+							//
 							int nearest = -1; 
 							int prev = -1;
 							int post = -1;
@@ -270,10 +282,13 @@ public class Address implements Serializable {
 							double distance = Double.MAX_VALUE;
 							for (int i=0;i<numbers.size();i++) {
 								// determine the nearest existing address
+								// FIXME there is an obvious better criteria
 								int number = Integer.valueOf(numbers.get(i));
 								Address a = list.get(number);
 								double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
-								if (newDistance < distance) {
+								if (newDistance <= distance) { 
+									// if distance is the same replace with values for the 
+									// current number which will be larger
 									distance = newDistance;
 									nearest = number;
 									prev = numbers.get(Math.max(0, i-1));
@@ -309,7 +324,16 @@ public class Address implements Serializable {
 									tags.put(key,list.get(nearest).tags.get(key));
 								}
 							}
-							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList("" + Math.max(1, nearest+inc)));
+							int newNumber = Math.max(1, nearest+inc);
+							if (numbers.contains(new Integer(newNumber))) { 
+								// try one inc more and one less, if they both fail use the original number
+								if (!numbers.contains(new Integer(Math.max(1,newNumber+inc)))) {
+									newNumber = Math.max(1,newNumber+inc);
+								} else if (!numbers.contains(new Integer(Math.max(1,newNumber-inc)))) {
+									newNumber = Math.max(1,newNumber-inc);
+								}
+							}
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList("" + newNumber));
 						} catch (NumberFormatException nfe){
 							tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
 						}
@@ -324,35 +348,20 @@ public class Address implements Serializable {
 					}
 				}
 			} else { // last ditch attemot
-				LinkedHashMap<String, ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
 				// fill with Karlsruher schema
-				tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_STREET, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_POSTCODE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_CITY, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_COUNTRY, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_FULL, Util.getArrayList(""));
-				// the following are less used but may be necessary
-				tags.put(Tags.KEY_ADDR_HOUSENAME, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_PLACE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_HAMLET, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_SUBURB, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_SUBDISTRICT, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_DISTRICT, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_PROVINCE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_STATE, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_FLATS, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_DOOR, Util.getArrayList(""));
-				tags.put(Tags.KEY_ADDR_UNIT, Util.getArrayList(""));
-				newAddress.tags.putAll(tags); 
+				Preferences prefs = new Preferences(Application.getCurrentApplication());
+				Set<String> addressTags = prefs.addressTags();
+				for (String key:addressTags) {
+					newAddress.tags.put(key, Util.getArrayList(""));
+				}
 			}
 		}
 		
 		// is this a node on a building outline, if yes add entrance=yes if it doesn't already exist
-		if (caller.getType().equals(Node.NAME)) {
+		if (elementType.equals(Node.NAME)) {
 			boolean isOnBuilding = false;
 			// we can't call wayForNodes here because Logic may not be around
-			for (Way w:Application.getDelegator().getCurrentStorage().getWays((Node)Application.getDelegator().getOsmElement(Node.NAME, caller.getOsmId()))) {
+			for (Way w: storageDelegator.getCurrentStorage().getWays((Node) storageDelegator.getOsmElement(Node.NAME, elementOsmId))) {
 				if (w.hasTagKey(Tags.KEY_BUILDING)) {
 					isOnBuilding = true;
 				} else if (w.getParentRelations() != null) { // need to check relations too
@@ -395,7 +404,7 @@ public class Address implements Serializable {
 	 * @param lastAddresses
 	 * @return
 	 */
-	private static TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> lastAddresses ) {
+	private synchronized static TreeMap<Integer,Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> lastAddresses ) {
 		TreeMap<Integer,Address> result = new TreeMap<Integer,Address>(); //list sorted by house numbers
 		for (Address a:lastAddresses) {
 			if (a != null && a.tags != null) {
@@ -408,7 +417,7 @@ public class Address implements Serializable {
 					Log.d("TagEditor","Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
 					ArrayList<String> addrHousenumberValues = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
 					if ( addrHousenumberValues != null && addrHousenumberValues.size()>0) {
-						String[] numbers =  addrHousenumberValues.get(0).split("\\,");
+						String[] numbers =  addrHousenumberValues.get(0).split("[\\,;\\-]");
 						for (String n:numbers) {
 							Log.d("TagEditor","add number  " + n);
 							try {
@@ -446,24 +455,26 @@ public class Address implements Serializable {
 	
 	protected static LinkedHashMap<String,ArrayList<String>> getAddressTags(LinkedHashMap<String,ArrayList<String>> sortedMap) {
 		LinkedHashMap<String,ArrayList<String>> result = new LinkedHashMap<String,ArrayList<String>>();
+		Preferences prefs = new Preferences(Application.getCurrentApplication());
+		Set<String> addressTags = prefs.addressTags();
 		for (String key:sortedMap.keySet()) {
 			// include everything except interpolation related tags
-			if (key.startsWith(Tags.KEY_ADDR_BASE) && !key.startsWith(Tags.KEY_ADDR_INTERPOLATION) && !key.startsWith(Tags.KEY_ADDR_HOUSENAME) && !key.startsWith(Tags.KEY_ADDR_INCLUSION)) {
+			if (addressTags.contains(key)) {
 				result.put(key, sortedMap.get(key));
 			}
 		}
 		return result;
 	}
 	
-	protected static void resetLastAddresses() {
+	protected synchronized static void resetLastAddresses() {
 		savingHelperAddress.save(ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
 		lastAddresses = null;
 	}
 	
-	protected static void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String,ArrayList<String>> tags) {
+	protected synchronized static void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String,ArrayList<String>> tags) {
 		// save any address tags for "last address tags"
 		LinkedHashMap<String,ArrayList<String>> addressTags = getAddressTags(tags);
-		// this needs to be done after the edit again in case the street name of what ever has changes 
+		// this needs to be done after the edit again in case the street name of what ever has changed 
 		if (addressTags.size() > 0) {
 			if (lastAddresses == null) {
 				lastAddresses = new LinkedList<Address>();
@@ -491,13 +502,13 @@ public class Address implements Serializable {
 		}
 	}
 	
-	protected static void saveLastAddresses() {
+	protected synchronized static void saveLastAddresses() {
 		if (lastAddresses != null) {
 			savingHelperAddress.save(ADDRESS_TAGS_FILE, lastAddresses, false);
 		}
 	}
 	
-	protected static void loadLastAddresses() {
+	protected synchronized static void loadLastAddresses() {
 		if (lastAddresses == null) {
 			try {
 				lastAddresses = savingHelperAddress.load(ADDRESS_TAGS_FILE, false);

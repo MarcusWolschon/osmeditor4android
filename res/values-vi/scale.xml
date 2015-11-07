@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Không có</item>
+    <item>Tỷ lệ (hệ mét)</item>
+    <item>Lưới (hệ mét)</item>
+    <item>Tỷ lệ (hệ Anh)</item>
+    <item>Lưới (hệ Anh)</item>
+  </string-array>
+</resources>

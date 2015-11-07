@@ -22,8 +22,6 @@
   <string name="openstreetbug_comment_label">Iruzkina:</string>
   <string name="openstreetbug_edit_close">Itxi</string>
   <string name="openstreetbug_edit_closed">Itxia</string>
-  <string name="openstreetbug_commit_ok">Aldaketak gordeak izan dira</string>
-  <string name="openstreetbug_commit_fail">Ezin izan dira aldaketak gorde</string>
   <string name="unsaved_data_title">Kontuz!</string>
   <string name="unsaved_data_message">Aurrera jarraitzen baduzu, gorde gabe dituzun aldaketak baztertuko dira.</string>
   <string name="unsaved_data_proceed">Baztertu &amp; aurrera jarraitu</string>
@@ -133,10 +131,7 @@
   <string name="config_showTolerance_summary">Elementu bat aukeratua izan daitekeen area erakutsi</string>
   <string name="config_enableAntiAliasing_title">Anti-Alisinga Gaitu</string>
   <string name="config_enableAntiAliasing_summary">Bideak leunagoak egiten ditu.</string>
-  <string name="config_enableOpenStreetBugs_title">Noten erakustea gehitu</string>
   <string name="config_enableOpenStreetBugs_summary">Erakutsi, Editatu eta Sortu Notak/Akats jakinarazpenak.</string>
-  <string name="config_enableDeprecatedModes_title">Zaharkituriko moduak gaitu</string>
-  <string name="config_enableDeprecatedModes_summary">Berria, Editatu, Etiketak Editatu, Gehitu, Ezabatu eta Banandu moduak gaitu.</string>
   <string name="config_backgroundLayer_title">Maparen atzeko planoa</string>
   <string name="config_backgroundLayer_summary">Grafikoki errenderizatutako atzeko planoko mapa.</string>
   <string name="config_category_server">Zerbitzariaren Ezarpenak</string>
@@ -197,8 +192,6 @@
   <string name="undo">Desegin</string>
   <string name="redo">Berregin</string>
   <string name="undo_nothing">ez dago desegiteko ezer</string>
-  <string name="tracking_active_title">GPS bidea grabatzen</string>
-  <string name="tracking_active_text">Vespucci GPS bide bat grabatzen ari da</string>
   <string name="gps_failure">GPS gaitzeak huts egin du</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">nodoa mugitu</string>

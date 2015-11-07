@@ -83,6 +83,20 @@ public class MultiHashMap<K, V> implements Serializable {
 		}
 		values.addAll(Arrays.asList(items));
 	}
+	
+	/**
+	 * Adds all items to the set of values associated with the key
+	 * @param key the key
+	 * @param items a set containing the items
+	 */
+	public void add(K key, Set<V> items) {
+		Set<V> values = map.get(key);
+		if (values == null) {
+			values = (sorted ? new TreeSet<V>() : new HashSet<V>());
+			map.put(key, values);
+		}
+		values.addAll(items);
+	}
 
 	/**
 	 * Removes the item from the set associated with the given key
@@ -136,5 +150,16 @@ public class MultiHashMap<K, V> implements Serializable {
 			retval.addAll(get(key));
 		}
 		return retval;
+	}
+
+	/**
+	 * add all key/values from source to this Map
+	 * @param source
+	 */
+	public void addAll(MultiHashMap<K, V> source) {
+		for (K key:source.getKeys()) {
+			add(key,source.get(key));
+		}
+		
 	}
 }

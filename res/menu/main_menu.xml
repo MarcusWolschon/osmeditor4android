@@ -4,7 +4,7 @@
 	<item
 		android:id="@+id/menu_undo"
 		android:title="@string/undo"
-		android:alphabeticShortcut="u"
+		android:alphabeticShortcut="@string/shortcut_undo"
 		android:icon="?attr/menu_undo"
 		android:showAsAction="ifRoom"
 		android:actionLayout="@layout/undo_action_view"
@@ -16,7 +16,12 @@
 		android:icon="?attr/menu_camera"
 		android:showAsAction="always"
 	/>	
-	
+	<item
+		android:id="@+id/menu_voice"
+		android:title="@string/menu_voice_commands"
+		android:icon="?attr/mic"
+		android:showAsAction="ifRoom"
+	/>
 	<item
 		android:id="@+id/menu_gps"
 		android:title="@string/menu_gps"
@@ -29,17 +34,17 @@
 					android:id="@+id/menu_gps_show"
 					android:title="@string/menu_gps_show"
 					android:checkable="true"
-					android:alphabeticShortcut="g"
 				/>
 				<item
 					android:id="@+id/menu_gps_follow"
 					android:title="@string/menu_gps_follow"
 					android:checkable="true"
-					android:alphabeticShortcut="f"
+					android:alphabeticShortcut="@string/shortcut_gps_follow"
 				/>
 				<item
 					android:id="@+id/menu_gps_goto"
 					android:title="@string/menu_gps_goto"
+					android:alphabeticShortcut="@string/shortcut_gps_goto"
 				/>
 				<item
 					android:id="@+id/menu_gps_start"
@@ -54,25 +59,25 @@
 					android:title="@string/menu_gps_clear"
 				/>
 				<item
-					android:id="@+id/menu_gps_upload"
-					android:title="@string/menu_gps_upload"
-				/>
-				<item
-					android:id="@+id/menu_gps_export"
-					android:title="@string/menu_gps_export"
-				/>
-				<item
-					android:id="@+id/menu_gps_import"
-					android:title="@string/menu_gps_import"
-				/>
+					android:title="@string/menu_gps_track_managment" >
+					<menu>
+						<item
+							android:id="@+id/menu_gps_upload"
+							android:title="@string/menu_gps_upload"
+						/>
+						<item
+							android:id="@+id/menu_gps_export"
+							android:title="@string/menu_gps_export"
+						/>
+						<item
+							android:id="@+id/menu_gps_import"
+							android:title="@string/menu_gps_import"
+						/>
+					</menu>
+				</item>
 				<item
 					android:id="@+id/menu_gps_goto_start"
 					android:title="@string/menu_gps_goto_start"
-				/>
-				<item
-					android:id="@+id/menu_gps_autodownload"
-					android:title="@string/menu_gps_autodownload"
-					android:checkable="true"
 				/>
 			</menu>
 	</item>
@@ -91,6 +96,7 @@
 				<item
 					android:id="@+id/menu_transfer_download_current_add"
 					android:title="@string/menu_transfer_download_current_add"
+					android:alphabeticShortcut="@string/shortcut_download"
 				/>
 				<item
 					android:id="@+id/menu_transfer_download_other"
@@ -101,32 +107,62 @@
 					android:title="@string/menu_transfer_upload"
 				/>
 				<item
+					android:id="@+id/menu_gps_autodownload"
+					android:title="@string/menu_gps_autodownload"
+					android:checkable="true"
+				/>
+				<item
 					android:id="@+id/menu_transfer_close_changeset"
 					android:title="@string/menu_transfer_close_changeset"
 				/>
 				<item
-					android:id="@+id/menu_transfer_export"
-					android:title="@string/menu_transfer_export"
-				/>
+					android:title="@string/menu_transfer_file" >
+					<menu>
+						<item
+							android:id="@+id/menu_transfer_export"
+							android:title="@string/menu_transfer_export"
+						/>
+						<item
+							android:id="@+id/menu_transfer_read_file"
+							android:title="@string/menu_transfer_read_file"
+						/>
+						<item
+							android:id="@+id/menu_transfer_save_file"
+							android:title="@string/menu_transfer_save_file"
+						/>
+					</menu>
+				</item>
 				<item
-					android:id="@+id/menu_transfer_read_file"
-					android:title="@string/menu_transfer_read_file"
-				/>
-				<item
-					android:id="@+id/menu_transfer_save_file"
-					android:title="@string/menu_transfer_save_file"
-				/>
+					android:title="@string/menu_transfer_bugs" >
+					<menu>
+					    <item
+							android:id="@+id/menu_transfer_bugs_download_current"
+							android:title="@string/menu_transfer_bugs_download_current"
+							android:alphabeticShortcut="@string/shortcut_bugs_download"
+						/>
+						<item
+							android:id="@+id/menu_transfer_bugs_upload"
+							android:title="@string/menu_transfer_bugs_upload"
+						/>
+						<item
+							android:id="@+id/menu_transfer_bugs_clear"
+							android:title="@string/menu_transfer_bugs_clear"
+						/>				
+						<item
+							android:id="@+id/menu_transfer_bugs_autodownload"
+							android:title="@string/menu_gps_autodownload"
+							android:checkable="true"
+						/>
+					</menu>
+				</item>
 			</menu>
 	</item>
-
 	<item
-		android:id="@+id/menu_confing"
+		android:id="@+id/menu_config"
 		android:title="@string/menu_config"
-		android:alphabeticShortcut="c"
 		android:icon="?attr/menu_config"
 		android:showAsAction="ifRoom"
 	/>
-	
 	<item
 		android:id="@+id/menu_tools"
 		android:title="@string/menu_tools"
@@ -150,7 +186,14 @@
 					android:id="@+id/menu_tools_background_properties"
 					android:title="@string/menu_tools_background_properties"
 				/>
-	
+				<item
+					android:id="@+id/menu_tools_oauth_reset"
+					android:title="@string/menu_tools_oauth_reset"
+				/>
+				<item
+					android:id="@+id/menu_tools_oauth_authorisation"
+					android:title="@string/menu_tools_oauth_authorisation"
+				/>
 		</menu>
 	</item>
 	<item
@@ -162,9 +205,8 @@
 	<item
 		android:id="@+id/menu_help"
 		android:title="@string/menu_help"
-		android:alphabeticShortcut="h"
+		android:alphabeticShortcut="@string/shortcut_help"
 		android:icon="?attr/menu_help"
 		android:showAsAction="ifRoom"
 	/>
-		
 </menu>

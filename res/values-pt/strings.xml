@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \nhá versão local %2$s \ne no servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s /nhas versão local %2$s /nand foi apagada no servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfoi apagado localmente \nmas há referências no servidor</string>
-  <string name="use_local_version">Usar a versão local</string>
-  <string name="use_server_version">Usar a versão no servidor</string>
   <string name="no_login_data_title">Autenticação falhou</string>
   <string name="no_login_data_message">Se está a usar OAuth há provavelmente um bug, por favor envie um relatório de problema, se está a usar um login com palavra-chave (não recomendado) por favor verifique que estão correctos.</string>
   <string name="no_connection_title">Sem Conexão ao Servidor</string>
@@ -21,6 +19,7 @@
   <string name="wrong_login_data_title">Autenticação falhou</string>
   <string name="data_conflict_title">Conflito de Versão</string>
   <string name="data_conflict_message">Os dados que está tentando descarregar contém dados que conflitam com as suas edições. Tente primeiro fazer o upload dos seus dados antes de tentar de novo.</string>
+  <string name="api_offline_title">API Offline</string>
   <string name="out_of_memory_title">Memória Esgotada</string>
   <string name="out_of_memory_message">O Vespucci esgotou a memória ao carregar os dados indicados. Por favor, reinicie e tente carregar uma área menor.</string>
   <string name="out_of_memory_dirty_message">O Vespucci esgotou a memória ao carregar os dados indicados. Por favor, tente guardar as suas edições, reiniciar e  tente de novo carregando uma área menor.</string>
@@ -30,6 +29,8 @@
   <string name="file_write_failed_message">Não foi possível gravar no arquivo escolhido.</string>
   <string name="welcome_title">Bem vindo!</string>
   <string name="read_introduction">Leia a introdução agora</string>
+  <string name="upgrade_title">Bem vindo à nova versão do Vespucci!</string>
+  <string name="read_upgrade">Leia sobre a nova versão</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados em memória…</string>
   <string name="progress_download_message">Descarregando dados do servidor…</string>
@@ -51,8 +52,6 @@
   <string name="openstreetbug_comment_label">Comentário:</string>
   <string name="openstreetbug_edit_close">Fechar</string>
   <string name="openstreetbug_edit_closed">Fechado</string>
-  <string name="openstreetbug_commit_ok">Alterações gravadas</string>
-  <string name="openstreetbug_commit_fail">Não foi possível gravar as alterações</string>
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Há alterações não salvas que serão perdidas se prosseguir.</string>
   <string name="unsaved_data_proceed">Descartar &amp; prosseguir</string>
@@ -73,6 +72,12 @@
   <string name="save_file">Digite o arquivo à salvar</string>
   <string name="existing_track_title">Dados de percurso existente</string>
   <string name="existing_track_message">Você já tem dados de percurso. Você pode desejar cancelar e salvar antes.</string>
+  <string name="nodes">Nós</string>
+  <string name="problem">Problema</string>
+  <string name="members">Membros</string>
+  <string name="closed">Fechado</string>
+  <string name="version">Versão</string>
+  <string name="length_m">Comprimento (m)</string>
   <!--Toaster-->
   <string name="toast_no_changes">Você ainda não alterou nada…</string>
   <string name="toast_upload_success">Concluído o upload para o servidor OSM.</string>
@@ -97,6 +102,7 @@
   <string name="toast_download_failed">O download falhou com código de erro %1$d, mensagem %2$s</string>
   <string name="toast_unsurveyed_road">Via não avaliada</string>
   <string name="toast_noname">Via não tem nome ou ref</string>
+  <string name="toast_notype">A relação não possui tipo</string>
   <string name="toast_oauth_retry">Por favor, autorize o OAuth acessar sua conta OSM e então tente fazer o upload novamente.</string>
   <string name="toast_oauth">Por favor, autorize o OAuth acessar sua conta OSM.</string>
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API atual, por favor indique o login e senha.</string>
@@ -129,7 +135,9 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <string name="exit_text">Tem certeza de que deseja sair?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">chave</string>
+  <string name="Key">Chave</string>
   <string name="value">valor</string>
+  <string name="Value">Valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Incluir tags de endereço</string>
   <string name="tag_menu_sourcesurvey">Inspecionado</string>
@@ -143,6 +151,8 @@ Este é um erro fatal, tentando escrever um ficheiro de exportação para recupe
   <string name="tag_menu_exit_no_save">Sair
 sem gravar</string>
   <string name="tag_value_hint">Pressione para os valores</string>
+  <string name="tag_multi_value_hint">Múltiplos valores</string>
+  <string name="tag_action_title">Tags selecionados</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -183,9 +193,11 @@ há %3$s %4$s</string>
   <string name="menu_restriction_to">Adicionar restrição a</string>
   <string name="menu_relation">Criar relação</string>
   <string name="menu_add_relation_member">Adicionar membro</string>
+  <string name="menu_select_relation_members">Selecionar membros</string>
   <string name="menu_tag">Editar tags</string>
   <string name="menu_openstreetbug">Adicionar Nota</string>
   <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_camera">Câmera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ver localização</string>
   <string name="menu_gps_follow">Seguir posição GPS</string>
@@ -212,6 +224,7 @@ há %3$s %4$s</string>
   <string name="menu_copy">Copiar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Colar</string>
+  <string name="menu_paste_from_clipboard">Colar da área de tranferência</string>
   <string name="menu_rotate">Girar</string>
   <string name="menu_orthogonalize">Ortogonalizar</string>
   <string name="menu_circulize">Dispor em círculo</string>
@@ -230,6 +243,7 @@ há %3$s %4$s</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos os Zooms)</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Propriedades</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Histórico</string>
   <string name="menu_merge">Unir</string>
@@ -259,14 +273,11 @@ há %3$s %4$s</string>
   <string name="config_showTolerance_summary">Mostra a área onde um elemento pode ser selecionado.</string>
   <string name="config_enableAntiAliasing_title">Ativar Suavização</string>
   <string name="config_enableAntiAliasing_summary">Tornar linhas mais suaves.</string>
-  <string name="config_enableOpenStreetBugs_title">Ativar visualização de Notas</string>
   <string name="config_enableOpenStreetBugs_summary">Visualizar, Editar e Criar Notas/Erros.</string>
   <string name="config_enablePhotoLayer_title">Ativar camada de Fotos</string>
   <string name="config_enablePhotoLayer_summary">Mostrar fotos georreferenciadas</string>
   <string name="config_enableKeepScreenOn_title">Manter tela ligada</string>
   <string name="config_enableKeepScreenOn_summary">Não desligar tela para poupar energia.</string>
-  <string name="config_enableDeprecatedModes_title">Ativar modos obsoletos</string>
-  <string name="config_enableDeprecatedModes_summary">Ativar modos Novo, Editar, Editar Tags, Adicionar, Apagar nó e Separar.</string>
   <string name="config_closeChangesetOnSave_title">Fechar os conjuntos de alterações</string>
   <string name="config_closeChangesetOnSave_summary">Fechar os conjuntos de alterações por padrão ao salvar</string>
   <string name="config_backgroundLayer_title">Mapa de fundo</string>
@@ -354,8 +365,6 @@ há %3$s %4$s</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
   <string name="undo_nothing">nada para desfazer</string>
-  <string name="tracking_active_title">Gravando percurso GPS</string>
-  <string name="tracking_active_text">O Vespucci está gravando um percurso GPS</string>
   <string name="gps_failure">Falha ao ativar o GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mover nó</string>

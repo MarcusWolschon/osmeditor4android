@@ -74,6 +74,16 @@ public class Map extends View implements IMapView {
 
 	private static final int HOUSE_NUMBER_RADIUS = 10;
 	
+	/**
+	 * zoom level from which on we display data
+	 */
+	private static final int SHOW_DATA_LIMIT = 12; 
+	
+	/**
+	 * zoom level from which on we display icons and house numbers
+	 */
+	private static final int SHOW_ICONS_LIMIT = 15;
+	
 	/** half the width/height of a node icon in px */
 	private final int iconRadius;
 	
@@ -174,9 +184,16 @@ public class Map extends View implements IMapView {
 		mIsHardwareAccelerated = m;
 	}
 	
+	private Context context;
+	
+	private Rect canvasBounds;
+
 	@SuppressLint("NewApi")
 	public Map(final Context context) {
 		super(context);
+		this.context = context;
+
+		canvasBounds = new Rect();
 		
 		setFocusable(true);
 		setFocusableInTouchMode(true);
@@ -197,7 +214,7 @@ public class Map extends View implements IMapView {
 		// TODO externalize
 		textPaint.setColor(Color.WHITE);
 		textPaint.setTypeface(Typeface.SANS_SERIF);
-		textPaint.setTextSize(12);
+		textPaint.setTextSize(Density.dpToPx(12));
 		textPaint.setShadowLayer(1, 0, 0, Color.BLACK);
 	}
 	
@@ -217,6 +234,7 @@ public class Map extends View implements IMapView {
 			}
 			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
 			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
+			mOverlays.add(new de.blau.android.grid.MapOverlay(this, prefs.getServer()));
 		}
 	}
 	
@@ -292,18 +310,23 @@ public class Map extends View implements IMapView {
 		tmpClickableElements = Main.getLogic().getClickableElements();
 		tmpDrawingSelectedRelationWays = Main.getLogic().getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.getLogic().getSelectedRelationNodes();
-		tmpPresets = Main.getCurrentPresets();
+		tmpPresets = Application.getCurrentPresets(Application.mainActivity);
 		handles = null;
 		
 		// Draw our Overlays.
-		OpenStreetMapTilesOverlay.resetAttributionArea(canvas.getClipBounds(), 0);
+		canvas.getClipBounds(canvasBounds);
+		OpenStreetMapTilesOverlay.resetAttributionArea(canvasBounds, 0);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			osmvo.onManagedDraw(canvas, this);
+			if (!(osmvo instanceof de.blau.android.osb.MapOverlay)) {
+				osmvo.onManagedDraw(canvas, this);
+			}
 		}
 		
-		if (zoomLevel >12) {
+		if (zoomLevel > SHOW_DATA_LIMIT) {
 			paintOsmData(canvas);
 		}
+		getOpenStreetBugsOverlay().onManagedDraw(canvas, this); // draw bugs on top of data
+		
 		if (zoomLevel > 10) {
 			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
 				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modiciaftion issues
@@ -472,19 +495,10 @@ public class Map extends View implements IMapView {
 			canvas.restore();
 		}
 		if (displayLocation.hasAccuracy()) {
-			try {
-				BoundingBox accuracyBox = GeoMath.createBoundingBoxForCoordinates(
-						displayLocation.getLatitude(), displayLocation.getLongitude(),
-						displayLocation .getAccuracy());
-				RectF accuracyRect = new RectF(
-						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getLeft()),
-						GeoMath.latE7ToY(getHeight(), getWidth() , viewBox, accuracyBox.getTop()),
-						GeoMath.lonE7ToX(getWidth() , viewBox, accuracyBox.getRight()),
-						GeoMath.latE7ToY(getHeight(), getWidth() , viewBox, accuracyBox.getBottom()));
-				canvas.drawOval(accuracyRect, Profile.getCurrent(Profile.GPS_ACCURACY).getPaint());
-			} catch (OsmException e) {
-				// it doesn't matter if the location accuracy doesn't get drawn
-			}
+			// FIXME this assumes square pixels
+			float accuracyInPixels = (float) (GeoMath.convertMetersToGeoDistance(displayLocation.getAccuracy())*((double)getWidth()/(viewBox.getWidth()/1E7D)));
+			RectF accuracyRect = new RectF(x-accuracyInPixels,y+accuracyInPixels,x+accuracyInPixels,y-accuracyInPixels);
+			canvas.drawOval(accuracyRect, Profile.getCurrent(Profile.GPS_ACCURACY).getPaint());	
 		}
 	}
 	
@@ -685,7 +699,7 @@ public class Map extends View implements IMapView {
 				// style for tagged nodes or otherwise important
 				featureKeyTagged = Profile.SELECTED_RELATION_NODE_TAGGED;
 				isSelected = true;
-			} else if (node.hasProblem()) {
+			} else if (node.hasProblem(context)) {
 				// general node style
 				featureKey = Profile.PROBLEM_NODE;
 				// style for house numbers
@@ -701,7 +715,7 @@ public class Map extends View implements IMapView {
 				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
-			if (isTagged) {
+			if (isTagged && zoomLevel > SHOW_ICONS_LIMIT) {
 				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
 				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
 					Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
@@ -792,8 +806,7 @@ public class Map extends View implements IMapView {
 		if (tmpDrawingInEditRange // if we are not in editing rage none of the further checks are necessary
 				&& (prefs.isToleranceVisible() || (tmpClickableElements != null && tmpClickableElements.contains(way))) // if prefs are turned off but we are doing an EasyEdit operation show anyway
 				&& (tmpClickableElements == null || tmpClickableElements.contains(way))
-				&& (tmpDrawingEditMode == Logic.Mode.MODE_ADD 
-					|| tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
+				&& (tmpDrawingEditMode == Logic.Mode.MODE_TAG_EDIT
 					|| tmpDrawingEditMode == Logic.Mode.MODE_EASYEDIT)) {
 			canvas.drawLines(linePoints, wayTolerancePaint);
 		}
@@ -828,7 +841,7 @@ public class Map extends View implements IMapView {
 		FeatureProfile fp; // no need to get the default here
 		
 		// this logic needs to be separated out
-		if (way.hasProblem()) {
+		if (way.hasProblem(context)) {
 			fp = Profile.getCurrent(Profile.PROBLEM_WAY);
 		} else {
 			FeatureProfile wayFp = way.getFeatureProfile();
@@ -906,7 +919,7 @@ public class Map extends View implements IMapView {
 			canvas.drawPath(path, fp.getPaint());
 		}
 		
-		if (!isSelected) {
+		if (tmpDrawingSelectedWays == null) { // the handles only work when no way is selecetd so don't show them
 			// add "geometry improvement" handles
 			for (int i = 2; i < linePoints.length; i=i+4) {
 				float x0 = linePoints[i-2];
@@ -1109,7 +1122,7 @@ public class Map extends View implements IMapView {
 		this.delegator = delegator;
 	}
 	
-	void setViewBox(final BoundingBox viewBox) {
+	public void setViewBox(final BoundingBox viewBox) {
 		myViewBox = viewBox;
 		try {
 			myViewBox.setRatio((float) getWidth()/ getHeight(), false);

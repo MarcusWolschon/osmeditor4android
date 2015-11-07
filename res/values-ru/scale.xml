@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Нет</item>
+    <item>Шкала (метрическая)</item>
+    <item>Сетка (метрическая)</item>
+    <item>Шкала (имперская)</item>
+    <item>Сетка (имперская)</item>
+  </string-array>
+</resources>

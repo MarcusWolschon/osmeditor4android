@@ -1,14 +1,17 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -22,6 +25,7 @@ import android.content.res.Resources.NotFoundException;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -46,17 +50,31 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.Logic.Mode;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.osb.BugFragment;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.propertyeditor.Address;
+import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.NetworkStatus;
+import de.blau.android.util.SearchIndexUtils;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -158,8 +176,8 @@ public class EasyEditManager {
 			if (element instanceof Relation ) cb = new RelationSelectionActionModeCallback((Relation )element);
 			if (cb != null) {
 				main.startActionMode(cb);
-				String toast = element.getDescription();
-				if (element.hasProblem()) {
+				String toast = element.getDescription(main);
+				if (element.hasProblem(main)) {
 					String problem = element.describeProblem();
 					toast = !problem.equals("") ? toast + "\n" + problem : toast;
 				}
@@ -201,8 +219,8 @@ public class EasyEditManager {
 			if (cb != null) {
 				main.startActionMode(cb);
 				if (e != null) {
-					String toast = e.getDescription();
-					if (e.hasProblem()) {
+					String toast = e.getDescription(main);
+					if (e.hasProblem(main)) {
 						String problem = e.describeProblem();
 						toast = !problem.equals("") ? toast + "\n" + problem : toast;
 					}
@@ -391,6 +409,20 @@ public class EasyEditManager {
 		return result;
 	}
 	
+	public void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		if (currentActionModeCallback instanceof LongClickActionModeCallback) {
+			((LongClickActionModeCallback)currentActionModeCallback).handleActivityResult(requestCode, resultCode, data);
+		}
+	}
+	
+
+	public boolean processShortcut(Character c) {
+		if (currentActionModeCallback != null) {
+			return currentActionModeCallback.processShortcut(c);
+		}
+		return false;
+	}
+	
 	/**
 	 * Base class for ActionMode callbacks inside {@link EasyEditManager}.
 	 * Derived classes should call {@link #onCreateActionMode(ActionMode, Menu)} and {@link #onDestroyActionMode(ActionMode)}.
@@ -470,9 +502,7 @@ public class EasyEditManager {
 			Log.d("EasyEditActionModeCallback", "onActionItemClicked");
 			if (item.getItemId() == MENUITEM_HELP) {
 				if (helpTopic != 0) {
-					Intent startHelpViewer = new Intent(main.getApplicationContext(), HelpViewer.class);
-					startHelpViewer.putExtra(HelpViewer.TOPIC, helpTopic);
-					main.startActivity(startHelpViewer);
+					HelpViewer.start(main, helpTopic);
 				} else {
 					Toast.makeText(main, R.string.toast_nohelp, Toast.LENGTH_LONG).show(); // this is essentially just an error message
 				}
@@ -487,6 +517,10 @@ public class EasyEditManager {
 		public boolean onBackPressed() {
 			return false;
 		}
+		
+		public boolean processShortcut(Character c) {
+			return false;
+		}
 	}
 	
 	private class LongClickActionModeCallback extends EasyEditActionModeCallback {
@@ -496,6 +530,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_NEWNODE_GPS = 4;
 		private static final int MENUITEM_NEWNODE_ADDRESS = 5;
 		private static final int MENUITEM_NEWNODE_PRESET = 6;
+		private static final int MENUITEM_NEWNODE_VOICE = 7;
 		private float startX;
 		private float startY;
 		private int startLon;
@@ -532,19 +567,23 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
+			Preferences prefs = new Preferences(main);
+			if (prefs.voiceCommandsEnabled()) {
+				menu.add(Menu.NONE, MENUITEM_NEWNODE_VOICE, Menu.NONE, R.string.menu_voice_commands).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.mic)).setEnabled(NetworkStatus.isConnected(main));
+			}
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address));
 			menu.add(Menu.NONE, MENUITEM_NEWNODE_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
 			menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_bug));
 			menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append));
 			if (!logic.clipboardIsEmpty()) {
-				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_paste));
+				menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_paste));
 			}
 			// check if GPS is enabled
 			locationManager = (LocationManager)Application.mainActivity.getSystemService(android.content.Context.LOCATION_SERVICE);
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_gps));
 			}
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -566,16 +605,17 @@ public class EasyEditManager {
 			switch (item.getItemId()) {
 			case MENUITEM_OSB:
 				// 
-				final Server server = new Preferences(main).getServer();
-				if (server != null && server.isLoginSet() && server.needOAuthHandshake()) {
-					main.oAuthHandshake(server);
-					if (server.getOAuth()) // if still set
-						Toast.makeText(main, R.string.toast_oauth, Toast.LENGTH_LONG).show();
-					return true;
-				} 
 				mode.finish();
 				logic.setSelectedBug(logic.makeNewBug(x, y));
-				main.showDialog(DialogFactory.OPENSTREETBUG_EDIT);
+				FragmentManager fm = main.getSupportFragmentManager();
+				FragmentTransaction ft = fm.beginTransaction();
+			    Fragment prev = fm.findFragmentByTag("fragment_bug");
+			    if (prev != null) {
+			        ft.remove(prev);
+			    }
+			    ft.commit();
+		        BugFragment bugDialog = BugFragment.newInstance(logic.getSelectedBug());
+		        bugDialog.show(fm, "fragment_bug");
 				logic.hideCrosshairs();
 				return true;
 			case MENUITEM_NEWNODEWAY:
@@ -633,6 +673,19 @@ public class EasyEditManager {
 					e.printStackTrace();
 				}
 				return true;
+			case MENUITEM_NEWNODE_VOICE:
+				logic.hideCrosshairs();
+				logic.setSelectedNode(null);
+				Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+				intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+				try {
+					main.startActivityForResult(intent, Main.VOICE_RECOGNITION_REQUEST_CODE);
+				} catch (Exception ex) {
+					Log.d("EasyEdit","Caught exception " + ex);
+					Toast.makeText(main,"No voice recognition facility present", Toast.LENGTH_LONG).show();
+					logic.showCrosshairs(startX, startY);
+				}
+				return true;
 			default:
 				Log.e("LongClickActionModeCallback", "Unknown menu item");
 				break;
@@ -647,6 +700,117 @@ public class EasyEditManager {
 		public void onDestroyActionMode(ActionMode mode) {
 			logic.setSelectedNode(null);
 			super.onDestroyActionMode(mode);
+		}
+		
+		/**
+		 * FIXME This is still very hackish with lots of code duplication
+		 * @param requestCode
+		 * @param resultCode
+		 * @param data
+		 */
+		void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
+			ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+			// 
+			StorageDelegator storageDelegator = Application.getDelegator();
+			for (String v:matches) {
+				String[] words = v.split("\\s+", 2);
+				if (words.length > 0) {
+					// 
+					String first = words[0];
+					try {
+						int number = Integer.parseInt(first);
+						// worked if there is a further word(s) simply add it/them
+						Toast.makeText(main,+ number  + (words.length == 2?words[1]:""), Toast.LENGTH_LONG).show();
+						Node node = logic.performAddNode(startLon/1E7D, startLat/1E7D);
+						if (node != null) {
+							TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+							tags.put(Tags.KEY_ADDR_HOUSENUMBER, "" + number  + (words.length == 3?words[2]:""));
+							tags.put("source:original_text", v);
+							LinkedHashMap<String, ArrayList<String>> map = Address.predictAddressTags(Node.NAME, node.getOsmId(), 
+									new ElementSearch(new int[]{node.getLon(),node.getLat()}, true), 
+									Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
+							tags = new TreeMap<String, String>();
+							for (String key:map.keySet()) {
+								tags.put(key, map.get(key).get(0));
+							}
+							logic.setTags(Node.NAME, node.getOsmId(), tags);
+							main.startActionMode(new NodeSelectionActionModeCallback(node));
+							return;
+						}
+					} catch (Exception ex) {
+						// ok wasn't a number
+					}
+
+					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first,ElementType.NODE,2,1);
+					
+					if (presetItems != null && presetItems.size()==1) {		
+						Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), words.length == 2? words[1]:null, presetItems.get(0), logic, v);
+						if (node != null) {
+							main.startActionMode(new NodeSelectionActionModeCallback(node));
+							return;
+						} 
+					}
+				
+					Map<String, NameAndTags> namesSearchIndex = Application.getNameSearchIndex(main);
+					if (namesSearchIndex == null) {
+						return;
+					}
+					// search in names
+					NameAndTags nt = SearchIndexUtils.searchInNames(main, v, 2);
+					if (nt != null) {
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.putAll(nt.getTags());
+						PresetItem pi = Preset.findBestMatch(Application.getCurrentPresets(main), map);
+						if (pi != null) {
+							Node node = addNode(logic.performAddNode(startLon/1E7D, startLat/1E7D), nt.getName(), pi, logic, v);
+							if (node != null) {
+								// set tags from name suggestions
+								Map<String,String> tags = new TreeMap<String, String>(node.getTags());
+								for (String k:map.keySet()) {
+									tags.put(k, map.get(k));
+								}
+								storageDelegator.setTags(node,tags); // note doesn't create a new undo checkpoint
+								main.startActionMode(new NodeSelectionActionModeCallback(node));
+								return;
+							}
+						}
+					}
+				}
+			}
+			logic.showCrosshairs(startX, startY); // re-show the cross hairs nothing found/something went wrong
+		}
+		
+		Node addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
+			if (node != null) {
+				Toast.makeText(main, pi.getName()  + (name != null? " name: " + name:""), Toast.LENGTH_LONG).show();
+				if (node != null) {
+					TreeMap<String, String> tags = new TreeMap<String, String>(node.getTags());
+					for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
+						tags.put(tag.getKey(), tag.getValue().getValue());
+					}
+					if (name != null) {
+						tags.put(Tags.KEY_NAME, name);
+					}
+					tags.put("source:original_text", original);
+					logic.setTags(Node.NAME, node.getOsmId(), tags);
+					logic.setSelectedNode(node);
+					return node;
+				}
+			}
+			return null;
+		}
+		
+		public boolean processShortcut(Character c) {
+			if (c == Util.getShortCut(main, R.string.shortcut_paste)) {
+				logic.pasteFromClipboard(startX, startY);
+				logic.hideCrosshairs();
+				if (currentActionMode != null) {
+					currentActionMode.finish();
+				}
+				return true;
+			}
+			return false;
 		}
 	}
 	
@@ -761,9 +925,9 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			menu.clear();
-			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
+			menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
 			menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_preset));
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -895,6 +1059,7 @@ public class EasyEditManager {
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
 				undo.setShowAsAction(showAlways());
+				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
 			View undoView = undo.getActionView();
 			if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
@@ -906,20 +1071,20 @@ public class EasyEditManager {
 			undoView.setOnClickListener(undoListener);
 			undoView.setOnLongClickListener(undoListener);
 			
-			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
+			menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_tags)).setShowAsAction(showAlways());
 			menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_delete)).setShowAsAction(showAlways());
 			// disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE, R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
 			if (!(element instanceof Relation)) {
-				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_copy)).setShowAsAction(showAlways());
-				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_copy)).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(showAlways());
 			}
 			menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_multi_select)).setShowAsAction(showAlways());;;
-			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation)).setShowAsAction(showAlways());;
+			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);;
 			if (element.getOsmId() > 0) {
-				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history));
+				menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_history)).setEnabled(NetworkStatus.isConnected(Application.mainActivity));;
 			}
-			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));;
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_information));;
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -976,6 +1141,23 @@ public class EasyEditManager {
 			}
 			super.onDestroyActionMode(mode);
 		}
+		
+		public boolean processShortcut(Character c) {
+			if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
+				logic.copyToClipboard(element); currentActionMode.finish();
+				return true;
+			} else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
+				logic.cutToClipboard(element); currentActionMode.finish();
+				return true;
+			} else if (c == Util.getShortCut(main, R.string.shortcut_info)) {
+				main.showElementInfo(element); 
+				return true;
+			}  else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
+				main.performTagEdit(element, null, false, false);
+				return true;
+			}
+			return false;
+		}
 	}
 	
 	private class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
@@ -985,6 +1167,7 @@ public class EasyEditManager {
 		private static final int MENUITEM_EXTRACT = 12;
 		
 		private static final int MENUITEM_SET_POSITION = 15;
+		private static final int MENUITEM_ADDRESS = 16;
 		
 		private OsmElement joinableElement = null;
 		
@@ -1010,12 +1193,15 @@ public class EasyEditManager {
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
+			if (((Node)element).getTags().containsKey(Tags.KEY_ENTRANCE) && !((Node)element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address)).setShowAsAction(showAlways());
+			}
 			if (logic.isEndNode((Node)element)) {
 				menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_append)).setShowAsAction(showAlways());
 			}
 			joinableElement = logic.findJoinableElement((Node)element);
 			if (joinableElement != null) {
-				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge)).setShowAsAction(showAlways());
+				menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_merge)).setShowAsAction(showAlways());
 			}
 			int wayMembershipCount = logic.getWaysForNode((Node)element).size();
 			if (wayMembershipCount > 1) {
@@ -1060,6 +1246,7 @@ public class EasyEditManager {
 				case MENUITEM_SET_POSITION: 
 					setPosition(); 
 					break;
+				case MENUITEM_ADDRESS: main.performTagEdit(element, null, true, false); break;
 				default: return false;
 				}
 			}
@@ -1179,7 +1366,7 @@ public class EasyEditManager {
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
 			Log.d("WaySelectionActionCallback", "onPrepareActionMode");
-			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING)) {
+			if (((Way)element).getTags().containsKey(Tags.KEY_BUILDING) && !((Way)element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
 				menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_address)).setShowAsAction(showAlways());
 			}
 			menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_reverse)).setShowAsAction(showAlways());
@@ -1291,7 +1478,7 @@ public class EasyEditManager {
 	
 	private class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
 		private Way way;
-		private Set<OsmElement> nodes = new HashSet<OsmElement>();
+		private List<OsmElement> nodes = new ArrayList<OsmElement>();
 		private boolean createPolygons = false;
 		
 		public WaySplittingActionModeCallback(Way way, boolean createPolygons) {
@@ -1299,8 +1486,9 @@ public class EasyEditManager {
 			this.way = way;
 			nodes.addAll(way.getNodes());
 			if (!way.isClosed()) { 
-				nodes.remove(way.getFirstNode());
-				nodes.remove(way.getLastNode());
+				// remove first and last node
+				nodes.remove(0);
+				nodes.remove(nodes.size()-1);
 			} else {
 				this.createPolygons = createPolygons;
 			}
@@ -1314,7 +1502,7 @@ public class EasyEditManager {
 				mode.setSubtitle(R.string.menu_closed_way_split_1);
 			else
 				mode.setSubtitle(R.string.menu_split);
-			logic.setClickableElements(nodes);
+			logic.setClickableElements(new HashSet<OsmElement>(nodes));
 			logic.setReturnRelations(false);
 			return true;
 		}
@@ -1765,7 +1953,7 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(true); // can add relations
 
-			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
+			menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_undo));
 			revert = menu.findItem(MENUITEM_REVERT);
 			revert.setVisible(false);
 			setClickableElements();
@@ -1944,6 +2132,7 @@ public class EasyEditManager {
 			if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
 				undo.setVisible(true);
 				undo.setShowAsAction(showAlways());
+				undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
 			}
 			View undoView = undo.getActionView();
 			if (undoView != null) { // FIXME this is a temp workaround for pre-11 Android
@@ -1968,7 +2157,7 @@ public class EasyEditManager {
 //				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
 //			}
 			
-			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
+			menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM|10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_help));
 			return true;
 		}
 		
@@ -2073,7 +2262,7 @@ public class EasyEditManager {
 		}
 		
 		private void setClickableElements() {
-			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(selection);
+//			ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(selection);
 //			logic.setClickableElements(logic.findClickableElements(excludes));
 		}
 		

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Номер дома (addr:housenumber)</item>
+    <item>Улица (addr:street)</item>
+    <item>Почтовый индекс (addr:postcode)</item>
+    <item>Город/пгт/деревня/.. (addr:city)</item>
+    <item>Страна (addr:country)</item>
+    <item>Полный адрес (addr:full)</item>
+    <item>Территория без улиц (addr:place)</item>
+    <item>Малое селение (addr:hamlet)</item>
+    <item>Микрорайон — для одноим. улиц (addr:suburb)</item>
+    <item>Подрайон (addr:subdistrict)</item>
+    <item>Район (addr:district)</item>
+    <item>Провинция (addr:province)</item>
+    <item>Штат (addr:state)</item>
+    <item>Диапазон квартир (addr:flats)</item>
+    <item>Door (addr:door)</item>
+    <item>Unit (addr:unit)</item>
+  </string-array>
+</resources>

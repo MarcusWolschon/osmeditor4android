@@ -34,25 +34,20 @@ package de.blau.android.presets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.TreeMap;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import de.blau.android.Application;
-import de.blau.android.Logic;
 import de.blau.android.exception.OsmException;
-import de.blau.android.osm.Node;
-import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.PropertyEditor;
-import de.blau.android.util.GeoMath;
+import de.blau.android.util.ElementSearch;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.Util;
 
 
 /**
@@ -72,8 +67,7 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithC
     @SuppressWarnings("unused")
 	private static final String DEBUG_TAG = StreetTagValueAutocompletionAdapter.class.getName();
     
-    private String[] names;
-    private Map<String, Long> idsByNames = new HashMap<String, Long>();
+    ElementSearch es;
 
     /**
      * 
@@ -111,8 +105,8 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithC
         	super.add(new ValueWithCount("",0)); // hack
         }
         
-        names = getArray(delegator, PlaceTagValueAutocompletionAdapter.getLocation(delegator, osmElementType, osmId));
-        for (String s:names) {
+        es = new ElementSearch(Util.getCenter(delegator, osmElementType, osmId), false);
+        for (String s:es.getStreetNames()) {
         	if (counter.size()> 0 && counter.containsKey(s)) {
         		continue; // skip values that we already have
         	}
@@ -120,94 +114,22 @@ public class StreetTagValueAutocompletionAdapter extends ArrayAdapter<ValueWithC
         	super.add(v);
         }
     }
-
+    
+    public String[] getNames() {
+    	return es.getStreetNames();
+    }
+    
+    public long getId(String name) throws OsmException {
+    	return es.getStreetId(name);
+    }
     
     /**
-     * Get all street-names in the area
-     * @param delegator
-     * @param location
-     * @return all street-names
+     * This avoids generating everything twice
+     * @return
      */
-    private String[] getArray(final StorageDelegator delegator, final int[] location) {
-		// build list of names with their closest distance to location
-		Map<String, Double> distancesByNames = new HashMap<String, Double>();
-		String[] nameTags = {Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME, Tags.KEY_NAME_LEFT, Tags.KEY_NAME_RIGHT};
-		
-		for (Way way : delegator.getCurrentStorage().getWays()) {
-			if (way.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
-				double distance = -1D;
-				long iD = way.getOsmId();
-				for (String tag:nameTags) { 
-					// Log.d("StreetTagValueAutocompletionAdapter","Search for " + tag);
-					String name = way.getTagWithKey(tag);
-					if (name != null) {
-						// Log.d("StreetTagValueAutocompletionAdapter","Name " + name);
-						if (distance == -1D) { // only calc once
-							distance = getDistance(way, location);
-						}
-						if (distancesByNames.containsKey(name)) {
-							// way already in list - keep shortest distance
-							if (distance <  distancesByNames.get(name)) {
-								distancesByNames.put(name, distance);
-								idsByNames.put(name,Long.valueOf(iD));
-							}
-						} else {
-							distancesByNames.put(name, distance);
-							idsByNames.put(name,Long.valueOf(iD));
-						}
-					}
-				}
-			}
-		}
-		// sort names by distance
-		MultiHashMap<Double, String> retval = new MultiHashMap<Double, String>(true);
-		for (String name : distancesByNames.keySet()) {
-			retval.add(distancesByNames.get(name), name);
-		}
-		 
-		return retval.getValues().toArray(new String[retval.getValues().size()]);
-	}
-    
-    /**
-     * @param way
-     * @param location
-     * @return the minimum distance of the given way to the given location
-     */
-	private static double getDistance(final Way way, final int[] location) {
-		double distance = Double.MAX_VALUE;
-		if (location != null) {
-			Node n1 = null;
-			for (Node n2 : way.getNodes()) {
-				// distance to nodes of way
-				if (n1 != null) {
-					// distance to lines of way
-					distance = Math.min(distance,
-							GeoMath.getLineDistance(
-									location[0], location[1],
-									n1.getLat(), n1.getLon(),
-									n2.getLat(), n2.getLon()));
-				}
-				n1 = n2;
-			}
-		}
-		return distance;
-	}
-
-
-	public String[] getNames() {
-		return names;
-	}
-	
-	public long getId(String name) throws OsmException {
-		Log.d("StreetTagValueAutocompletionAdapter","looking for " + name);
-		Long iD = idsByNames.get(name);
-		if (iD != null) {
-			return iD.longValue();
-		}
-		else {
-			throw new OsmException("way not found in adapter");
-		}
-	}
+    public ElementSearch getElementSearch() {
+    	return es;
+    }
 }
 
 

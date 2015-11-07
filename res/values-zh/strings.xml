@@ -12,8 +12,6 @@
   <string name="upload_conflict_message_version">%1$s \n本地版本为 %2$s \n而服务器上的版本为 %3$s</string>
   <string name="upload_conflict_message_deleted">%1$s \n本地版本为 %2$s \n而在服务器上已被删除</string>
   <string name="upload_conflict_message_referential">%1$s \n在本地已被上传 \n但在服务器上被引用</string>
-  <string name="use_local_version">使用本地版本</string>
-  <string name="use_server_version">使用服务器上的版本</string>
   <string name="no_login_data_title">身份验证失败</string>
   <string name="no_login_data_message">如果您正在使用OAuth 这可能是一个错误，请发送错误问题报告，如果您正在使用登入和密码(不推荐)，请检查它们是否输入正确。</string>
   <string name="no_connection_title">没有连接到服务器</string>
@@ -59,8 +57,6 @@
   <string name="openstreetbug_comment_label">评论:</string>
   <string name="openstreetbug_edit_close">关闭</string>
   <string name="openstreetbug_edit_closed">关闭</string>
-  <string name="openstreetbug_commit_ok">保存的变更</string>
-  <string name="openstreetbug_commit_fail">无法保存变更</string>
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存储的变更，如果继续将会被丢弃。</string>
   <string name="unsaved_data_proceed">放弃和继续</string>
@@ -300,14 +296,11 @@
   <string name="config_showTolerance_summary">在元素周围显示可以被选取的区域。</string>
   <string name="config_enableAntiAliasing_title">启用抗锯齿</string>
   <string name="config_enableAntiAliasing_summary">使线条更流畅。</string>
-  <string name="config_enableOpenStreetBugs_title">启用显示记录</string>
   <string name="config_enableOpenStreetBugs_summary">显示，编辑与建立注释/错误。</string>
   <string name="config_enablePhotoLayer_title">启动照片层</string>
   <string name="config_enablePhotoLayer_summary">显示地理参考图片。</string>
   <string name="config_enableKeepScreenOn_title">保持唤醒</string>
   <string name="config_enableKeepScreenOn_summary">不要为了省电而关闭萤幕。</string>
-  <string name="config_enableDeprecatedModes_title">启用已过时模式</string>
-  <string name="config_enableDeprecatedModes_summary">启用新建，编辑，编辑标签，追加，删除节点和拆分模式。</string>
   <string name="config_closeChangesetOnSave_title">关闭变更集</string>
   <string name="config_closeChangesetOnSave_summary">在默认情况下，储存时关闭变更集</string>
   <string name="config_backgroundLayer_title">地图背景</string>
@@ -399,8 +392,6 @@
   <string name="undo">撤销</string>
   <string name="redo">重做</string>
   <string name="undo_nothing">没什么可撤销</string>
-  <string name="tracking_active_title">记录GPS轨迹</string>
-  <string name="tracking_active_text">Vespucci正在记录GPS轨迹</string>
   <string name="gps_failure">启用GPS失败</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">移动节点</string>

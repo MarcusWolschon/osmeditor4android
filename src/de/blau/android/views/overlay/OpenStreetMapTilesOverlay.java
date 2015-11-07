@@ -291,7 +291,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 						// See if there are any alternative tiles available - try
 						// using larger tiles
 						// maximum 3 zoom  levels up, with standard tiles this reduces the width to 64 bits
-						while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) < 3 && tile.zoomLevel > minZoom) {
+						while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) <= 3 && tile.zoomLevel > minZoom) {
 							// As we zoom out to larger-scale tiles, we want to
 							// draw smaller and smaller sections of them
 							sw >>= 1; // smaller size

@@ -3,16 +3,21 @@ package de.blau.android.prefs;
 import java.util.List;
 import java.util.Map.Entry;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 
@@ -28,6 +33,17 @@ public class APIEditorActivity extends URLListEditActivity {
 		super();
 	}
 	
+	public static void startForResult(@NonNull Activity activity,
+									  @NonNull String apiName,
+									  @NonNull String apiUrl,
+									  int requestCode) {
+		Intent intent = new Intent(activity, APIEditorActivity.class);
+		intent.setAction(ACTION_NEW);
+		intent.putExtra(EXTRA_NAME, apiName);
+		intent.putExtra(EXTRA_VALUE, apiUrl);
+		activity.startActivityForResult(intent, requestCode);
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);

@@ -27,16 +27,17 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import de.blau.android.Logic.UploadResult;
+import de.blau.android.contract.Paths;
 import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.GpxUploadListener;
 import de.blau.android.listener.UploadListener;
-import de.blau.android.osb.CommitListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
@@ -65,8 +66,6 @@ public class DialogFactory {
 	public static final int UPLOAD_PROBLEM = 7;
 	
 	public static final int CONFIRM_UPLOAD = 8;
-	
-	public static final int OPENSTREETBUG_EDIT = 9;
 	
 	public static final int DATA_CONFLICT = 10;
 	
@@ -99,6 +98,8 @@ public class DialogFactory {
 	public static final int API_OFFLINE = 24;
 	
 	public static final int NEW_VERSION = 25;
+	
+	public static final int PROGRESS_OAUTH = 26;
 		
 	private final Main caller;
 	
@@ -113,8 +114,6 @@ public class DialogFactory {
 	private final Builder uploadProblem;
 	
 	private final Builder confirmUpload;
-	
-	private final Builder openStreetBugEdit;
 	
 	private final Builder dataConflict;
 	
@@ -157,7 +156,7 @@ public class DialogFactory {
 			wrongLogin.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					caller.oAuthHandshake(server);
+					caller.oAuthHandshake(server, null);
 				}
 			});
 		}
@@ -185,11 +184,6 @@ public class DialogFactory {
 					(EditText)layout.findViewById(R.id.upload_source), closeChangeset));
 		confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 		
-		openStreetBugEdit = createBasicDialog(caller, R.string.openstreetbug_edit_title, 0); // body gets replaced later
-		layout = inflater.inflate(R.layout.openstreetbug_edit, null);
-		openStreetBugEdit.setView(layout);
-		openStreetBugEdit.setPositiveButton(R.string.openstreetbug_commitbutton, new CommitListener(caller, (EditText)layout.findViewById(R.id.openstreetbug_comment), (CheckBox)layout.findViewById(R.id.openstreetbug_close)));
-	
 		dataConflict = createBasicDialog(caller, R.string.data_conflict_title, R.string.data_conflict_message);
 		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
 		
@@ -226,9 +220,7 @@ public class DialogFactory {
 		newbie.setNeutralButton(R.string.read_introduction, 	new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
-						startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_introduction);
-						caller.startActivity(startHelpViewer);
+						HelpViewer.start(caller, R.string.help_introduction);
 					}
 				});
 		
@@ -244,9 +236,7 @@ public class DialogFactory {
 		newVersion.setNeutralButton(R.string.read_upgrade, 	new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Intent startHelpViewer = new Intent(caller.getApplicationContext(), HelpViewer.class);
-						startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_upgrade);
-						caller.startActivity(startHelpViewer);
+						HelpViewer.start(caller, R.string.help_upgrade);
 					}
 				});
 	}
@@ -281,9 +271,6 @@ public class DialogFactory {
 			
 		case CONFIRM_UPLOAD:
 			return confirmUpload.create();
-			
-		case OPENSTREETBUG_EDIT:
-			return openStreetBugEdit.create();
 		
 		case DATA_CONFLICT:
 			return dataConflict.create();
@@ -305,6 +292,9 @@ public class DialogFactory {
 		
 		case PROGRESS_SAVING:
 			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_saving_message);
+			
+		case PROGRESS_OAUTH:
+			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_oauth);
 			
 		case BACKGROUND_PROPERTIES:
 			return backgroundProperties.create();
@@ -441,13 +431,15 @@ public class DialogFactory {
 				Main.getLogic().setZoom(19);
 				caller.getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 				searchDialog.dismiss();
+				caller.getMap().invalidate();
 			}
 		};
 		
 		searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 		    @Override
 		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+		        if (actionId == EditorInfo.IME_ACTION_SEARCH
+		        		|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 		            Search search = new Search(caller, searchItemFoundCallback);
 		            search.find(v.getText().toString());
 		            return true;
@@ -469,7 +461,8 @@ public class DialogFactory {
 		saveFileBuilder.setPositiveButton(R.string.save, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Main.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/Vespucci/" + saveFileEdit.getText().toString());
+				// FIXME instead of hardcoding the directory, this should be the default and alternatives seclectable by the user
+				Main.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + saveFileEdit.getText().toString());
 			}
 		});
 		
@@ -561,13 +554,14 @@ public class DialogFactory {
 			uploadConflict.setNeutralButton(R.string.use_server_version,new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Application.getDelegator().removeFromUpload(elementLocal);
+					StorageDelegator storageDelegator = Application.getDelegator();
+					storageDelegator.removeFromUpload(elementLocal);
 					if (elementOnServer != null) {
 						Main.getLogic().updateElement(elementLocal.getName(), elementLocal.getOsmId());
 					} else { // delete local element
 						Main.getLogic().updateToDeleted(elementLocal);
 					}
-					if (!Application.getDelegator().getApiStorage().isEmpty()) {
+					if (!storageDelegator.getApiStorage().isEmpty()) {
 						caller.confirmUpload();
 					}
 				}

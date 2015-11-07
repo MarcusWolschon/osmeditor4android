@@ -16,6 +16,14 @@
 			android:defaultValue="NONE"
 		/>
 		<ListPreference
+			android:key="@string/config_scale_key"
+			android:title="@string/config_scale_title"
+			android:summary="@string/config_scale_summary"
+			android:entries="@array/scale_entries"
+			android:entryValues="@array/scale_values"
+			android:defaultValue="SCALE_METRIC"
+		/>
+		<ListPreference
 			android:key="@string/config_mapProfile_key"
 			android:title="@string/config_mapProfile_title"
 			android:summary="@string/config_mapProfile_summary"
@@ -25,7 +33,7 @@
 			android:key="@string/config_enableOpenStreetBugs_key"
 			android:title="@string/config_enableOpenStreetBugs_title"
 			android:summary="@string/config_enableOpenStreetBugs_summary"
-			android:defaultValue="false"
+			android:defaultValue="true"
 		/>
 		<CheckBoxPreference
 			android:key="@string/config_enablePhotoLayer_key"
@@ -59,12 +67,17 @@
 			android:key="@string/config_advancedprefs_key"
 		/>
 	</PreferenceCategory>
-	
+		
 	<PreferenceCategory android:title="@string/config_category_info">
 		<Preference
 			android:title="@string/config_licensebutton_title"
 			android:summary="@string/config_licensebutton_summary"
 			android:key="@string/config_licensebutton_key"
+		/>
+		<Preference
+			android:title="@string/config_debugbutton_title"
+			android:summary="@string/config_debugbutton_summary"
+			android:key="@string/config_debugbutton_key"
 		/>
 	</PreferenceCategory>
 </PreferenceScreen>

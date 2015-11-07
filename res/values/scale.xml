@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="scale_entries">
+        <item>None</item>
+		<item>Scale (metric)</item>
+		<item>Grid (metric)</item>
+		<item>Scale (imperial)</item>
+		<item>Grid (imperial)</item>
+    </string-array>
+    <string-array translatable="false" name="scale_values">
+		<item>SCALE_NONE</item>
+		<item>SCALE_METRIC</item>
+		<item>SCALE_GRID_METRIC</item>
+		<item>SCALE_IMPERIAL</item>
+		<item>SCALE_GRID_IMPERIAL</item>
+    </string-array>
+</resources>
+

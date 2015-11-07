@@ -11,7 +11,6 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -42,6 +41,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 
@@ -144,8 +144,9 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	protected void loadParents(LinearLayout membershipVerticalLayout, final Map<Long,String> parents) {
 		membershipVerticalLayout.removeAllViews();
 		if (parents != null && parents.size() > 0) {
+			StorageDelegator storageDelegator = Application.getDelegator();
 			for (Long id :  parents.keySet()) {
-				Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, id.longValue());
+				Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id.longValue());
 				insertNewMembership(membershipVerticalLayout, parents.get(id),r,0, false);
 			}
 		}
@@ -391,7 +392,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	} // RelationMembershipRow
 	    
 	
-	protected void parentSelected() {
+	protected synchronized void parentSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (parentSelectedActionModeCallback == null) {
 			parentSelectedActionModeCallback = new ParentSelectedActionModeCallback(this, rowLayout);
@@ -399,7 +400,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		}	
 	}
 	
-	protected void parentDeselected() {
+	protected synchronized void parentDeselected() {
 		if (parentSelectedActionModeCallback != null) {
 			if (parentSelectedActionModeCallback.parentDeselected()) {
 				parentSelectedActionModeCallback = null;
@@ -539,9 +540,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			addToRelation();
 			return true;
 		case R.id.tag_menu_help:
-			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
-			startActivity(startHelpViewer);
+			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
 		}
 		

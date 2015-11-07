@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+>
+	<PreferenceCategory android:title="@string/config_category_view">
+		<ListPreference
+			android:key="@string/config_backgroundLayer_key"
+			android:title="@string/config_backgroundLayer_title"
+			android:summary="@string/config_backgroundLayer_summary"
+			android:defaultValue="MAPNIK"
+		/>
+		<ListPreference
+			android:key="@string/config_overlayLayer_key"
+			android:title="@string/config_overlayLayer_title"
+			android:summary="@string/config_overlayLayer_summary"
+			android:defaultValue="NONE"
+		/>
+		<ListPreference
+			android:key="@string/config_scale_key"
+			android:title="@string/config_scale_title"
+			android:summary="@string/config_scale_summary"
+			android:entries="@array/scale_entries"
+			android:entryValues="@array/scale_values"
+			android:defaultValue="SCALE_METRIC"
+		/>
+		<ListPreference
+			android:key="@string/config_mapProfile_key"
+			android:title="@string/config_mapProfile_title"
+			android:summary="@string/config_mapProfile_summary"
+			android:defaultValue="Color Round Nodes"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enableOpenStreetBugs_key"
+			android:title="@string/config_enableOpenStreetBugs_title"
+			android:summary="@string/config_enableOpenStreetBugs_summary"
+			android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_enablePhotoLayer_key"
+			android:title="@string/config_enablePhotoLayer_title"
+			android:summary="@string/config_enablePhotoLayer_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
+			android:title="@string/config_iconbutton_title"
+			android:key="@string/config_iconbutton_key"
+			android:summary="@string/config_iconbutton_summary"
+			android:persistent="false"
+		/>
+		<CheckBoxPreference
+			android:title="@string/config_enableKeepScreenOn_title"
+			android:key="@string/config_enableKeepScreenOn_key"
+			android:summary="@string/config_enableKeepScreenOn_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
+			android:key="@string/config_largeDragArea_key"
+			android:title="@string/config_largeDragArea_title"
+			android:summary="@string/config_largeDragArea_summary"
+			android:defaultValue="false"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/config_moreprefs">
+		<Preference
+			android:title="@string/config_advancedprefs"
+			android:key="@string/config_advancedprefs_key"
+		/>
+		<MultiSelectListPreference
+			android:key="@string/config_addressTags_key"
+			android:title="@string/config_address_tags"
+			android:summary="@string/config_address_tags_summary"
+			android:entries="@array/address_tags_entries"
+        	android:entryValues="@array/address_tags_values"
+        	android:defaultValue="@array/address_tags_defaults"
+		/>
+	</PreferenceCategory>
+		
+	<PreferenceCategory android:title="@string/config_category_info">
+		<Preference
+			android:title="@string/config_licensebutton_title"
+			android:summary="@string/config_licensebutton_summary"
+			android:key="@string/config_licensebutton_key"
+		/>
+		<Preference
+			android:title="@string/config_debugbutton_title"
+			android:summary="@string/config_debugbutton_summary"
+			android:key="@string/config_debugbutton_key"
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>

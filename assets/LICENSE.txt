@@ -23,22 +23,44 @@ Thanks to:
 
 and anyone else we forgot!
 
-The Vespucci application, excluding the GPLv3-only preset icons found in the folder assets/images/, is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
+The Vespucci application, excluding the GPLv3-only preset icons found in the folder assets/images/presets and assets/images/presets/styles, is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
 
 The full project contains icons taken from the JOSM project under the GPLv3. Therefore, the full package, consisting of Vespucci and the bundled preset icons, is licensed under the GPLv3. You can find the full text of the GPLv3 in the file "LICENSE-GPL3.txt". The list of contributors and sources for the icons can be found in the "josm-contributors.txt" file.
 
-The source code may be obtained from the project page, currently located at http://code.google.com/p/osmeditor4android/ - click "source" for instructions on how to obtain the source code. Source code for specific versions can be accessed trough the tags directory.
+The source code may be obtained from github at https://github.com/MarcusWolschon/osmeditor4android .
 
-If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/.
+If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets and assets/images/presets/styles.
 
-OAuth support for Vespucci is provided by the oauth-signpost library  http://code.google.com/p/oauth-signpost/ licensed under the Apache License, version 2.
+OAuth support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
 
-EXIF support outside of what is provided by google is implemented with the metadata extractor library https://code.google.com/p/metadata-extractor/ licensed under the Apache License, version 2.
+EXIF support outside of what is provided by google is implemented with the metadata extractor library https://github.com/drewnoakes/metadata-extractor licensed under the Apache License, version 2.
 
 The JsonReader and related classes are Copyright (C) 2010 The Android Open Source Project licensed under the Apache License, version 2.
 
-The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2
+The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2.
+
+The parser for .PO files was written by Simon Poole and is available under a MIT style licence https://github.com/simonpoole/PoParser .
 
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt
+
+The R-Tree library was originally developed by Colonel Thirty Two:
+
+--
+Copyright 2011 Colonel Thirty Two. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+   1. Redistributions of source code must retain the above copyright notice, this list of
+      conditions and the following disclaimer.
+
+   2. Redistributions in binary form must reproduce the above copyright notice, this list
+      of conditions and the following disclaimer in the documentation and/or other materials
+      provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY Colonel Thirty Two ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Colonel Thirty Two OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of Colonel Thirty Two.
+--
+  

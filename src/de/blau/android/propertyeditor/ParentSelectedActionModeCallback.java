@@ -4,7 +4,6 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -18,6 +17,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.propertyeditor.RelationMembershipFragment.RelationMembershipRow;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class ParentSelectedActionModeCallback implements Callback {
 	
@@ -47,7 +47,7 @@ public class ParentSelectedActionModeCallback implements Callback {
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
 		menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_delete));
-		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
+		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
 		return true;
 	}
 
@@ -74,9 +74,7 @@ public class ParentSelectedActionModeCallback implements Callback {
 			}
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC,R.string.help_propertyeditor);
-			Application.mainActivity.startActivity(startHelpViewer);
+			HelpViewer.start(Application.mainActivity, R.string.help_propertyeditor);
 			return true;
 		default: return false;
 		}
@@ -95,7 +93,7 @@ public class ParentSelectedActionModeCallback implements Callback {
 		((PropertyEditor)caller.getActivity()).enablePresets();
 		caller.deselectHeaderCheckBox();
 		currentAction = null;
-		caller.parentSelectedActionModeCallback = null;
+		caller.parentDeselected(); // synchronized method
 	}
 
 	public boolean parentDeselected() {
@@ -114,5 +112,4 @@ public class ParentSelectedActionModeCallback implements Callback {
 		}
 		return true;
 	}
-
 }

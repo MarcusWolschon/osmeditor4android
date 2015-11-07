@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 
+import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
@@ -24,6 +25,9 @@ public class GeoMath {
 	public static final double PI_2 = Math.PI / 2d;
 	
 	public static final double MAX_LAT = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
+	
+	public static final double MAX_LON = 180;
+	
 	
 	public static final int MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int)(MAX_LAT* 1E7d));
 	
@@ -152,53 +156,52 @@ public class GeoMath {
 	 * @param lat Latitude of box centre [-90.0,+90.0].
 	 * @param lon Longitude of box centre [-180.0,+180.0].
 	 * @param radius Radius in metres to be contained in the box.
+	 * @param checkSize check that boundingbox would be a legal bb for the OSM api
 	 * @return The BoundingBox that contains the specified area.
 	 * @throws OsmException If any of the calculated latitudes are outside [-90.0,+90.0]
 	 * or longitudes are outside [-180.0,+180.0].
 	 */
-	public static BoundingBox createBoundingBoxForCoordinates(final double lat, final double lon, final float radius)
+	public static BoundingBox createBoundingBoxForCoordinates(final double lat, final double lon, final double radius, boolean checkSize)
 			throws OsmException {
 		double horizontalRadiusDegree = convertMetersToGeoDistance(radius);
-		if (horizontalRadiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7 / 2d) {
-			horizontalRadiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7 / 2d;
+		if (checkSize && horizontalRadiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D) {
+			horizontalRadiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D;
 		}
-		double verticalRadiusDegree = horizontalRadiusDegree / getMercatorFactorPow3(lat);
+		// Log.d("GeoMath","horizontalRadiusDegree " + horizontalRadiusDegree);
+		double mercatorLat = latToMercator(lat);
+		// Log.d("GeoMath","mercatorLat " + mercatorLat);
+		double verticalRadiusDegree = horizontalRadiusDegree; // 
 		double left = lon - horizontalRadiusDegree;
 		double right = lon + horizontalRadiusDegree;
-		double bottom = lat - verticalRadiusDegree;
-		double top = lat + verticalRadiusDegree;
-		if (left < -BoundingBox.MAX_LON) {
-			left = -BoundingBox.MAX_LON;
+		double bottom = mercatorToLat(mercatorLat - verticalRadiusDegree);
+		double top = mercatorToLat(mercatorLat + verticalRadiusDegree);
+		// Log.d("GeoMath","bottom " + bottom + " top " + top);
+		if (left < -MAX_LON) {
+			left = -MAX_LON;
 			right = left + horizontalRadiusDegree * 2d;
 		}
-		if (right > BoundingBox.MAX_LON) {
-			right = BoundingBox.MAX_LON;
+		if (right > MAX_LON) {
+			right = BoundingBox.MAX_LON_E7;
 			left = right - horizontalRadiusDegree * 2d;
 		}
-		if (bottom < -BoundingBox.MAX_LAT_E7) {
-			bottom = -BoundingBox.MAX_LAT_E7;
+		if (bottom < -MAX_LAT) {
+			bottom = -MAX_LAT;
 			top = bottom + verticalRadiusDegree * 2d;
 		}
-		if (top > BoundingBox.MAX_LAT_E7) {
-			top = BoundingBox.MAX_LAT_E7;
+		if (top > MAX_LAT) {
+			top = MAX_LAT;
 			bottom = top - verticalRadiusDegree * 2d;
 		}
+		// Log.d("GeoMath","left " + left + " right " + right + " bottom " + bottom + " top " + top);
 		return new BoundingBox(left, bottom, right, top);
 	}
 	
-	public static double convertMetersToGeoDistance(final float meters) {
-		return _180_PI * meters / (double)EARTH_RADIUS;
+	public static double convertMetersToGeoDistance(final double meters) {
+		return (_180_PI * meters) / (double)EARTH_RADIUS;
 	}
 	
-	public static int convertMetersToGeoDistanceE7(final float meters) {
-		return (int) (_180_PI * meters * 1E7d / (double)EARTH_RADIUS);
-	}
-	
-	public static double getMercatorFactorPow3(final double lat) {
-		if (lat == 0.0) {
-			return 1;
-		}
-		return Math.pow(latToMercator(lat) / lat, 3.0);
+	public static int convertMetersToGeoDistanceE7(final double meters) {
+		return (int) ((_180_PI * meters * 1E7d) / (double)EARTH_RADIUS);
 	}
 	
 	/**

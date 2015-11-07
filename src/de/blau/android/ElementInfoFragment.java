@@ -2,6 +2,8 @@ package de.blau.android;
 
 import java.util.List;
 
+import org.acra.ACRA;
+
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
 import de.blau.android.osm.Node;
@@ -10,6 +12,8 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.propertyeditor.PropertyEditor;
+import de.blau.android.util.ThemeUtils;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +22,7 @@ import android.text.Html;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +37,8 @@ import android.widget.TextView;
  *
  */
 public class ElementInfoFragment extends SherlockDialogFragment {
+	
+	private static final String DEBUG_TAG = ElementInfoFragment.class.getName();
 
     /**
      */
@@ -96,7 +103,7 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         			}
         		}
         	}
-        	if (e.hasProblem()) {
+        	if (e.hasProblem(getActivity())) {
         		tl.addView(divider());
         		tl.addView(createRow(R.string.problem,e.describeProblem(),tp));
         	}
@@ -121,8 +128,16 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         		tl.addView(divider());
         		tl.addView(createRow(R.string.relation_membership,null,tp));
         		for (Relation r:e.getParentRelations()) {
-        			String role = r.getMember(e).getRole();
-        			tl.addView(createRow(role.equals("")?getString(R.string.empty_role):role,r.getDescription(),tp));
+        			RelationMember rm = r.getMember(e);
+        			if (rm != null) {
+        				String role = rm.getRole();
+        				tl.addView(createRow(role.equals("")?getString(R.string.empty_role):role,r.getDescription(),tp));
+        			} else {
+        				// inconsistent state
+        				Log.d(DEBUG_TAG, "inconsistent state: " + e.getDescription() + " is not a member of " + r);
+        				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+						ACRA.getErrorReporter().handleException(null);
+        			}
         		}
         	}
         }

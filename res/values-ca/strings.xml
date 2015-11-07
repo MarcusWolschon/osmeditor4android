@@ -9,8 +9,6 @@
   <string name="upload_problem_title">S\'ha produït un problema amb la pujada</string>
   <string name="upload_conflict_message_version">%1$s \nté un versió local %2$s \ni al servidor %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nté una versió local %2$s \ni s\'ha suprimit del servidor</string>
-  <string name="use_local_version">Usa la versió local</string>
-  <string name="use_server_version">Usa la versió del servidor</string>
   <string name="no_login_data_title">L\'autenticació ha fallat</string>
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
   <string name="wrong_login_data_title">L\'autenticació ha fallat</string>
@@ -39,8 +37,6 @@
   <string name="openstreetbug_comment_label">Comentari:</string>
   <string name="openstreetbug_edit_close">Tanca</string>
   <string name="openstreetbug_edit_closed">Tancat</string>
-  <string name="openstreetbug_commit_ok">Canvis desats</string>
-  <string name="openstreetbug_commit_fail">No s\'han pogut desar els canvis</string>
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Teniu canvis sense desar que es descartaran si continueu.</string>
   <string name="unsaved_data_proceed">Descarta i continua</string>
@@ -164,7 +160,6 @@
   <string name="config_showTolerance_summary">Mostra l\'àrea on es pot seleccionar un element.</string>
   <string name="config_enableAntiAliasing_title">Habilita l\'anti-aliàsing</string>
   <string name="config_enableAntiAliasing_summary">Fa les línies més fines.</string>
-  <string name="config_enableOpenStreetBugs_title">Habilita la visualització de les notes</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, edita i crea notes o errors.</string>
   <string name="config_enablePhotoLayer_title">Habilita la capa fotogràfica</string>
   <string name="config_enablePhotoLayer_summary">Mostra les fotos georeferenciades.</string>
@@ -214,7 +209,6 @@
   <string name="undo">Desfés</string>
   <string name="redo">Refés</string>
   <string name="undo_nothing">no hi ha res a desfer</string>
-  <string name="tracking_active_text">El Vespucci està enregistrant traces GPS</string>
   <string name="gps_failure">No s\'ha pogut habilitar el GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">mou el node</string>
@@ -257,5 +251,10 @@
   <string name="meter">metre</string>
   <!--Help system-->
   <!--Arrays-->
-  <string-array name="gpx_visibility"/>
+  <string-array name="gpx_visibility">
+    <item>privat</item>
+    <item>públic</item>
+    <item>rastrejable</item>
+    <item>identificable</item>
+  </string-array>
 </resources>

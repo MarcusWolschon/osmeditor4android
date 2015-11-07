@@ -44,6 +44,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 	protected final Context mCtx;
 	protected final OpenStreetMapTileProviderDataBase mDatabase;
+	protected final File mountPoint;
 	protected final int mMaxFSCacheByteSize;
 	protected int mCurrentFSCacheByteSize;
 
@@ -56,11 +57,13 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 	/**
 	 * @param ctx
+	 * @param mountPoint TODO
 	 * @param aMaxFSCacheByteSize the size of the cached MapTiles will not exceed this size.
 	 * @param aCache to load fs-tiles to.
 	 */
-	public OpenStreetMapTileFilesystemProvider(final Context ctx, final int aMaxFSCacheByteSize) {
+	public OpenStreetMapTileFilesystemProvider(final Context ctx, File mountPoint, final int aMaxFSCacheByteSize) {
 		mCtx = ctx;
+		this.mountPoint = mountPoint;
 		mMaxFSCacheByteSize = aMaxFSCacheByteSize;
 		mDatabase = new OpenStreetMapTileProviderDataBase(ctx, this);
 		mCurrentFSCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
@@ -162,7 +165,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 		OpenStreetMapTileServer renderer = OpenStreetMapTileServer.get(mCtx, tile.rendererID, false);
 		String ext = renderer.getImageExtension();
 		return (ext == null) ? null :
-				Environment.getExternalStorageDirectory().getPath()
+				mountPoint.getPath()
 				+ "/andnav2/tiles/" + renderer.getId() + "/" + tile.zoomLevel + "/"
 				+ tile.x + "/" + tile.y + ext + ".andnav"; 
 	}
@@ -189,6 +192,9 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 				// being created, and the subsequent FileOutputStream
 				// issuing an IOException.
 				parent.mkdirs();
+			}
+			if (!parent.isDirectory()) {
+				throw new IOException("unable to create directory " + parent.getPath());
 			}
 		}
 		return new BufferedOutputStream(new FileOutputStream(file, false), StreamUtils.IO_BUFFER_SIZE);		

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
@@ -71,7 +72,7 @@ public class RecentPresetsFragment extends SherlockFragment {
    
      	element = (OsmElement) getArguments().getSerializable("element");
 
-    	presets = Main.getCurrentPresets();
+    	presets = Application.getCurrentPresets(getActivity());
     	
     	View v = getRecentPresetsView(presetsLayout, element, presets);
     	if (v != null) {
@@ -125,7 +126,7 @@ public class RecentPresetsFragment extends SherlockFragment {
     			v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType); //TODO this should really be a call of a static method, all MRUs get added to this view
 
     			// v.setBackgroundColor(getResources().getColor(R.color.tagedit_field_bg));
-    			// v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
+    			v.setPadding(Preset.SPACING, Preset.SPACING, Preset.SPACING, Preset.SPACING);
     			v.setId(R.id.recentPresets);
     		} else {
     			Log.d(DEBUG_TAG,"getRecentPresetsView no MRU found!");
@@ -175,7 +176,7 @@ public class RecentPresetsFragment extends SherlockFragment {
 	private void removePresetFromMRU(LinearLayout presetLayout, PresetItem item) {
 		
 		//
-		Preset[] presets = Main.getCurrentPresets();
+		Preset[] presets = Application.getCurrentPresets(getActivity());
 		if (presets != null) {
 			for (Preset p:presets) {
 				if (p.contains(item)) {

@@ -13,9 +13,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -41,7 +38,12 @@ import de.blau.android.R;
  * @param <T> The type of the saved objects
  */
 public class SavingHelper<T extends Serializable> {
-	
+
+	/**
+	 * Date pattern used for the export file name.
+	 */
+	private static final String DATE_PATTERN_EXPORT_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
+
 	/**
 	 * Serializes the given object and writes it to a private file with the given name
 	 * 
@@ -252,13 +254,16 @@ public class SavingHelper<T extends Serializable> {
 		new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {
-				File sdcard = Environment.getExternalStorageDirectory();
-				File outdir = new File(sdcard, "Vespucci");
-				outdir.mkdir(); // ensure directory exists;
-				String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+"."+exportable.exportExtension();
-				File outfile = new File(outdir, filename);
+			
+				String filename = DateFormatter
+						.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) +
+						"." + exportable.exportExtension();
+				
 				OutputStream outputStream = null;
+				File outfile = null;
 				try {
+					File outDir = FileUtil.getPublicDirectory();
+					outfile = new File(outDir, filename);
 					outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 					exportable.export(outputStream);
 				} catch (Exception e) {
@@ -268,18 +273,22 @@ public class SavingHelper<T extends Serializable> {
 					SavingHelper.close(outputStream);
 				}
 				// workaround for android bug - make sure export file shows up via MTP
-				triggerMediaScanner(ctx, outfile);
+				if (ctx != null && outfile != null){
+					triggerMediaScanner(ctx, outfile);
+				}
 				return filename;
 			}
 			
 			@Override
 			protected void onPostExecute(String result) {
-				if (result == null) {
-					Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
-				} else {
-					Log.i("SavingHelper", "Successful export to " + result);
-					String text = ctx.getResources().getString(R.string.toast_export_success, result);
-					Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+				if (ctx != null) {
+					if (result == null) {
+						Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
+					} else {
+						Log.i("SavingHelper", "Successful export to " + result);
+						String text = ctx.getResources().getString(R.string.toast_export_success, result);
+						Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+					}
 				}
 			};
 		}.execute();

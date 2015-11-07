@@ -12,8 +12,8 @@
   <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$s \nund auf dem Server %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$s \nund ist auf dem Server gelöscht</string>
   <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server </string>
-  <string name="use_local_version">Lokale Version verwenden</string>
-  <string name="use_server_version">Version auf dem Server verwenden</string>
+  <string name="use_local_version">Lokale \nVersion \nverwenden</string>
+  <string name="use_server_version">Version auf \ndem Server \nverwenden</string>
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird ist dies wahrscheinliche ein Fehler der gemeldet werden sollte, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden. </string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
@@ -33,7 +33,7 @@
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="welcome_title">Willkommen!</string>
-  <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nVergiss bitte nicht zuerst das Gebiet das du bearebiten willst herunterzuladen.\n\nViel Spass!</string>
+  <string name="welcome_message">Danke das Du Vespucci benutzt.\n\nUm anzufangen muss man 2 Sachen wissen:\n\n* durch Antippen des Schlosses in der oberen linken Ecke schaltet man zwischen gesperrten (editieren nicht möglich) und dem entsperrten Status hin- und her\n\n* um ein neues Objekt zu erstellen musst du lange auf dem Schirm tippen. Nochmals am gleichen Ort antippen erstellt einen Punkt, weiter weg antippen beginnt einen neuen Weg.\n\nVergiss bitte nicht zuerst das Gebiet das du bearbeiten willst herunterzuladen.\n\nViel Spass!</string>
   <string name="read_introduction">Die Einführung jetzt lesen</string>
   <string name="upgrade_title">Willkommen zu einer neuen Vespucci Version! </string>
   <string name="upgrade_message">Dies ist eine neue Version von Vepsucci mit neuen Funktionen und Verhalten. Wir empfehlen die Amerkungen zu den Änderungen kurz durchzulesen.</string>
@@ -45,6 +45,7 @@
   <string name="progress_deleting_message">Löschen...</string>
   <string name="progress_searching_message">Am Suchen...</string>
   <string name="progress_saving_message">Am Speichern...</string>
+  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Authorisierung...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="upload_close_changeset_label">Changeset schliessen</string>
@@ -53,14 +54,17 @@
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
+  <string name="openstreetbug_bug_title">Problem</string>
   <string name="openstreetbug_new_nodeway">Knoten/Weg erstellen</string>
   <string name="openstreetbug_edit_title">Notiz ändern</string>
   <string name="openstreetbug_commitbutton">Hinzufügen</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="openstreetbug_edit_close">Schliessen</string>
   <string name="openstreetbug_edit_closed">Geschlossen</string>
-  <string name="openstreetbug_commit_ok">Änderungen wurden gespeichert</string>
-  <string name="openstreetbug_commit_fail">Änderungen konnten nicht gespeichert werden!</string>
+  <string name="openstreetbug_commit_ok">Änderungen an den Fehler gespeichert</string>
+  <string name="openstreetbug_commit_fail">Problem beim Speichern der Fehleränderungen</string>
+  <string name="openstreetbug_not_downloaded">nicht heruntergeladen</string>
+  <string name="openstreetbug_last_updated">letzte Änderung</string>
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden ungespeicherte Änderungen verworfen.</string>
   <string name="unsaved_data_proceed">Verwerfen &amp; fortfahren</string>
@@ -77,6 +81,8 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
   <string name="search_results_title">Suchresultate</string>
   <string name="find_message">Suchanfrage eingeben</string>
+  <string name="preset_search_hint">Vorlagensuche</string>
+  <string name="no_valid_preset">Keine gültige Vorlage!</string>
   <string name="read_file">Datei zum Lesen auswählen</string>
   <string name="save_file">Datei zum Speichern angeben</string>
   <string name="existing_track_title">Trackdaten vorhanden</string>
@@ -92,8 +98,15 @@
   <string name="length_m">Länge (m)</string>
   <string name="not_downloaded">Nicht heruntergeladen</string>
   <string name="empty_role">Leere Rolle</string>
+  <string name="element">Element</string>
+  <string name="last_updated">letzte Änderung</string>
+  <string name="error">Fehler</string>
+  <string name="warning">Warnung</string>
+  <string name="minor_issue">Fehler mit geringer Bedeutung</string>
+  <string name="unknown_error_level">Unbekannter Fehlerstatus</string>
   <!--Toaster-->
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
+  <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
   <string name="toast_not_in_edit_range">Zum Editieren bitte hineinzoomen (Lautstärke Hoch/Runter oder Lupe/Shift)</string>
   <string name="toast_unlock_to_edit">Entsperren um zu editieren.</string>
@@ -119,8 +132,9 @@
   <string name="toast_noname">Strasse hat keinen name oder ref Tag</string>
   <string name="toast_notype">Relation hat kein type Wert</string>
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM Konto erlauben und dann den Upload nochmals versuchen. </string>
-  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlaubenn. </string>
+  <string name="toast_oauth">Bitte OAuth-Zugang zum OSM Konto erlauben. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth Konfiguration verfügbar, bitte login und passwort setzen. </string>
+  <string name="toast_oauth_not_enabled">OAuth ist für die aktuelle API nicht eingeschaltet.</string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
   <string name="toast_nothing_found">Kein Resutat gefunden</string>
@@ -129,8 +143,14 @@
   <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
   <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
+  <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstüzt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
+  <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
+  <string name="toast_storage_error">Das Verzichnis für Kartenkacheln und andere Dateien ist nicht von Vespucci beschreibar.\nDies könnte ein Rechteproblem oder ein technisches Problem mit dem Gerät sein.</string>
+  <string name="toast_min_one_preset">Mindestens 1 Vorlagensatz muss ausgewählt sein!</string>
+  <string name="toast_used_backup">Beschädigtes Zustandsdatei, Backup verwendet!</string>
+  <string name="toast_used_bug_backup">Beschädigtes Zustandsdatei für Fehler/Notizen, Backup verwendet!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -222,6 +242,7 @@
   <string name="menu_gps_start">GPS-Track starten</string>
   <string name="menu_gps_pause">GPS-Track pausieren</string>
   <string name="menu_gps_clear">GPS-Track löschen</string>
+  <string name="menu_gps_track_managment">Trackverwaltung</string>
   <string name="menu_gps_upload">GPS-Track hochladen</string>
   <string name="menu_gps_export">GPS-Track exportieren</string>
   <string name="menu_gps_import">GPS Track importieren</string>
@@ -233,14 +254,19 @@
   <string name="menu_transfer_download_other">Herunterladen einer anderen Position</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
   <string name="menu_transfer_close_changeset">Aktuellen changeset schliessen</string>
+  <string name="menu_transfer_file">Datei...</string>
   <string name="menu_transfer_export">Änderungen exportieren</string>
   <string name="menu_transfer_read_file">Von Datei lesen</string>
   <string name="menu_transfer_save_file">In Datei speichern</string>
+  <string name="menu_transfer_bugs">Notizen/Fehler...</string>
+  <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
+  <string name="menu_transfer_bugs_upload">Alle hochladen</string>
+  <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
   <string name="menu_copy">Kopieren</string>
-  <string name="menu_cut">Auschneiden</string>
+  <string name="menu_cut">Ausschneiden</string>
   <string name="menu_paste">Einfügen</string>
   <string name="menu_paste_from_clipboard">Von Clipboard einfügen</string>
   <string name="menu_rotate">Drehen</string>
@@ -250,6 +276,7 @@
   <string name="menu_newnode_gps">Neuer Knoten an GPS Pos.</string>
   <string name="menu_extend_selection">Auswahl erweitern</string>
   <string name="menu_information">Info</string>
+  <string name="menu_voice_commands">Sprachbefehle</string>
   <string name="menu_tools">Werkzeuge</string>
   <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
   <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
@@ -263,6 +290,8 @@
   <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
+  <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
+  <string name="menu_tools_oauth_authorisation">OAuth-Zugriff authorisieren</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschaften</string>
   <!--Text should be as short as possible-->
@@ -290,6 +319,10 @@
   <string name="config_showCameraAction_summary">Kamera Icon in Menuleiste anzeigen</string>
   <string name="config_generateAlerts_title">Alarme generieren</string>
   <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
+  <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
+  <string name="config_voiceCommandsEnabled_summary">Experimentelle Sprachunterstützung einschalten</string>
+  <string name="config_maxAlertDistance_title">Max. Distanz für Alarme</string>
+  <string name="config_maxAlertDistance_summary">Max. Distanz zu einem Fehler oder Notiz bei dem noch ein Alarm generiert wird</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
   <string name="config_tileCacheSize_title">Grösse des Tile Cache</string>
@@ -300,20 +333,20 @@
   <string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
   <string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
-  <string name="config_enableOpenStreetBugs_title">Notizen anzeigen</string>
+  <string name="config_enableOpenStreetBugs_title">Fehler und Notizen anzeigen</string>
   <string name="config_enableOpenStreetBugs_summary">Notizen erstellen, ändern und anzeigen</string>
   <string name="config_enablePhotoLayer_title">Foto Layer einschalten</string>
   <string name="config_enablePhotoLayer_summary">Geo-referenzierte Fotos anzeigen</string>
   <string name="config_enableKeepScreenOn_title">Bildschirm nicht abschalten</string>
   <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten um Energie zu sparen</string>
-  <string name="config_enableDeprecatedModes_title">Veraltete Modi anzeigen</string>
-  <string name="config_enableDeprecatedModes_summary">New, Edit, Edit Tags, Append, Erase node und Split Modi anzeigen.</string>
   <string name="config_closeChangesetOnSave_title">Changesets schliessen</string>
   <string name="config_closeChangesetOnSave_summary">Changeset beim Speichern schliessen</string>
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Das Bild, das im Hintergrund der Karte angezeigt wird.</string>
   <string name="config_overlayLayer_title">Karten Overlay</string>
   <string name="config_overlayLayer_summary">Das Bild, das über der Karte angezeigt wird.</string>
+  <string name="config_scale_title">Masstabanzeige</string>
+  <string name="config_scale_summary">Art der angezeigeten Skala</string>
   <string name="config_category_server">Server-Einstellungen</string>
   <string name="config_apibutton_title">OSM-API-URL</string>
   <string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>
@@ -330,7 +363,7 @@
   <string name="config_username_title">OSM-Benutzername</string>
   <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
   <string name="config_password_title">OSM-Passwort</string>
-  <string name="config_password_summary">Nicht mit dem Wiki-Passwort verwechseln. Beachten Sie: Das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
+  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzten und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
   <string name="config_category_gps">GPS-Einstellungen</string>
   <string name="config_gps_distance_title">Minimale GPS-Distanz</string>
   <string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>
@@ -342,6 +375,8 @@
   <string name="config_forceContextMenu_summary">In EasyEdit Modus immer Kontext Menü zeigen wenn Auswahl uneindeutig.</string>
   <string name="config_licensebutton_title">Autoren und Lizenzen</string>
   <string name="config_licensebutton_summary">Zeige Autoren- und Lizenzinformationen</string>
+  <string name="config_debugbutton_title">Debug</string>
+  <string name="config_debugbutton_summary">Interne Zustandsinformation anzeigen</string>
   <string name="config_mapProfile_title">Datenanzeigestil</string>
   <string name="config_mapProfile_summary">Anzeige und sichtbarkeit der Datenelemente </string>
   <string name="config_use_back_for_undo_title">Zurücktaste für Undo verwenden</string>
@@ -350,6 +385,14 @@
   <string name="config_largeDragArea_summary">Macht einen grösseren Bereich verfügbar um Punkte zu verschieben</string>
   <string name="config_extTriggeredDownloadRadius_title">Download Radius</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radius in Meter für extern ausgelöste Downloads</string>
+  <string name="config_maxDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download</string>
+  <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download pausiert wird. </string>
+  <string name="config_bugDownloadRadius_title">Download Radius für Notizen/Fehler</string>
+  <string name="config_bugDownloadRadius_summary">Radius (in Meter) des Download-Gebietes für Notizen und Fehler</string>
+  <string name="config_maxBugDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download von Notizen/Fehler</string>
+  <string name="config_maxBugDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download von Notizen/Fehler pausiert wird. </string>
+  <string name="config_bugFilter_title">Fehler/Notizen-Filter</string>
+  <string name="config_bugFilter_summary">Auswahl welche Objekte auf dem Notizen/Fehler-Layer angezeigt werden</string>
   <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
   <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
   <string name="config_enableAutoPreset_title">Auto Preset einschalten</string>
@@ -360,9 +403,14 @@
   <string name="config_gps_source_summary">Quelle für GPS-Daten </string>
   <string name="config_gps_source_tcp_title">NMEA Netzwerkquelle</string>
   <string name="config_gps_source_tcp_summary">Adresse der TCP NMEA-Quelle als host:port</string>
+  <string name="config_leaveGpsDisabled_title">GPS abgeschaltet lassen</string>
+  <string name="config_leaveGpsDisabled_summary">Nicht nachfragen wenn GPS ausgeschaltet ist</string>
   <string name="config_enableLightTheme_title">Helles Thema verwenden</string>
   <string name="config_enableLightTheme_summary">Helles Thema mit weissen Hintergrund</string>
   <string name="config_category_misc">Verschiedenes</string>
+  <string name="config_address_tags">Adressattribute</string>
+  <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
+  <string name="config_moreprefs">Weitere Einstellungen ...</string>
   <!--preset downloader messages-->
   <string name="preset_update">Vorlage aktualisieren</string>
   <string name="preset_download_successful">Vorlagendaten erfolgreich heruntergeladen</string>
@@ -399,8 +447,8 @@
   <string name="undo">Rückgängig</string>
   <string name="redo">Wiederholen</string>
   <string name="undo_nothing">Nichts rückgängig zu machen</string>
-  <string name="tracking_active_title">GPS-Tracking läuft</string>
-  <string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf</string>
+  <string name="tracking_active_title">Hintergrundprozess von Vespucci aktiv</string>
+  <string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter</string>
   <string name="gps_failure">Konnte GPS nicht aktivieren</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschieben</string>
@@ -421,7 +469,7 @@
   <string name="undo_action_create_relation">Relation erstellen</string>
   <string name="undo_action_delete_relation">Relation löschen</string>
   <string name="undo_action_update_relations">Relation aktualisieren</string>
-  <string name="undo_action_cut">kopieren</string>
+  <string name="undo_action_cut">ausschneiden</string>
   <string name="undo_action_paste">einfügen</string>
   <string name="undo_action_rotateway">Weg drehen</string>
   <string name="undo_action_orthogonalize">weg rechtwinklig machen</string>
@@ -442,6 +490,7 @@
   <!--Notifications-->
   <string name="alert_data_issue">Problem mit den OSM Daten entdeckt</string>
   <string name="alert_note">OSM Note in der Nähe entdeckt</string>
+  <string name="alert_bug">OSM Fehler in der Nähe entdeckt</string>
   <string name="alert_distance_direction">
 in %1$d m %2$s</string>
   <!--Misc relation related stuff-->
@@ -456,6 +505,7 @@ in %1$d m %2$s</string>
   <string name="deleterelation_relation_description">Diese Relation ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deleterelation">Relation löschen</string>
   <string name="delete_from_relation_description">Dieses Element wird aus der Relation gelöscht.</string>
+  <string name="unset_relation_type">kein Relationstyp</string>
   <!--time and distance-->
   <string name="days">Tage</string>
   <string name="hours">Stunden</string>
@@ -477,5 +527,14 @@ in %1$d m %2$s</string>
     <item>Intern NMEA</item>
     <item>NMEA von TCP Client</item>
     <item>NMEA von TCP Server</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Offen</item>
+    <item>Behoben</item>
+    <item>Falschmeldung</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Offen</item>
+    <item>Behoben</item>
   </string-array>
 </resources>

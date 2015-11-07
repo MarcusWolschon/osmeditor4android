@@ -12,8 +12,8 @@
     <string name="upload_conflict_message_version">%1$s \nhas local version %2$s \nand on the server %3$s </string>
 	<string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>
 	<string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
-    <string name="use_local_version">Use local version</string>
-    <string name="use_server_version">Use version on server</string>
+    <string name="use_local_version">Use \nlocal \nversion</string>
+    <string name="use_server_version">Use \nversion \non server</string>
     <string name="no_login_data_title">Authentication failed</string>
     <string name="no_login_data_message">If you are using OAuth this is likely a bug, please send a problem report, if you are using login and password (not recommended) please check that they are entered correctly.</string>
     <string name="no_connection_title">No Connection to Server</string>
@@ -45,6 +45,7 @@
     <string name="progress_deleting_message">Deleting…</string>
     <string name="progress_searching_message">Searching…</string>
     <string name="progress_saving_message">Saving…</string>
+    <string name="progress_oauth">Loading your account on openstreetmap.org for OAuth authorisation…</string>
     <string name="upload_comment_label">Comment:</string>
     <string name="upload_source_label">Source:</string>
     <string name="upload_close_changeset_label">Close changeset:</string>
@@ -53,14 +54,17 @@
     <string name="upload_gpx_visibility_label">Visibility</string>
     <string name="openstreetbug_new_title">New Note</string>
     <string name="openstreetbug_new_bug">Report Issue</string>
+    <string name="openstreetbug_bug_title">Issue</string>
     <string name="openstreetbug_new_nodeway">Create Node/Way</string>
     <string name="openstreetbug_edit_title">Edit Note</string>
     <string name="openstreetbug_commitbutton">Commit</string>
     <string name="openstreetbug_comment_label">Comment:</string>
     <string name="openstreetbug_edit_close">Close</string>
     <string name="openstreetbug_edit_closed">Closed</string>
-    <string name="openstreetbug_commit_ok">Changes saved</string>
-    <string name="openstreetbug_commit_fail">Could not save changes</string>
+    <string name="openstreetbug_commit_ok">Bug changes saved</string>
+    <string name="openstreetbug_commit_fail">Could not save bug changes</string>
+    <string name="openstreetbug_not_downloaded">not downloaded</string>
+    <string name="openstreetbug_last_updated">last updated</string>
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
     <string name="unsaved_data_proceed">Discard &amp; proceed</string>
@@ -77,6 +81,8 @@
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
     <string name="search_results_title">Search results</string>
     <string name="find_message">Enter search string</string>
+    <string name="preset_search_hint">Preset search string</string>
+    <string name="no_valid_preset">No valid preset!</string>
     <string name="read_file">Select file to read</string>
     <string name="save_file">Enter file to save to</string>
     <string name="existing_track_title">Existing track data</string>
@@ -92,9 +98,16 @@
     <string name="length_m">Length (m)</string>
     <string name="not_downloaded">Not downloaded</string>
     <string name="empty_role">empty role</string>
+    <string name="element">element</string>
+    <string name="last_updated">last updated</string>
+    <string name="error">error</string>
+    <string name="warning">warning</string>
+	<string name="minor_issue">minor issue</string>
+	<string name="unknown_error_level">unknown error level</string>
         
     <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
+    <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
     <string name="toast_upload_success">Upload to OSM server finished.</string>
     <string name="toast_not_in_edit_range">Please zoom in to edit (Volume Up/Down or Lens/Shift)</string>
     <string name="toast_unlock_to_edit">Unlock to edit</string>
@@ -122,6 +135,7 @@
     <string name="toast_oauth_retry">Please allow OAuth access to your OSM account and then retry the upload.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>
+    <string name="toast_oauth_not_enabled">OAuth is not enabled for the current API.</string>
     <string name="toast_timeout">Timeout with server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
     <string name="toast_nothing_found">Nothing found</string>
@@ -130,8 +144,14 @@
     <string name="toast_outside_of_download">You are editing outside of the downloaded data.</string>
     <string name="toast_file_not_found">%1$s not found.</string>
     <string name="toast_imported_track_points">Imported %1$s track points.</string>
+    <string name="toast_unknown_voice_command">Sorry currently \"%1$s\" is not understood</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
     <string name="toast_camera_error">Error starting camera app: %1$s</string>
+    <string name="toast_no_voice">No voice recognition facility present</string>
+    <string name="toast_storage_error">Directory for tiles and other files is not writeable by Vespucci.\nThis may be a permissions or technical issue with your device.</string>
+    <string name="toast_min_one_preset">At least one preset has to be selected!</string>
+    <string name="toast_used_backup">Corrupted state file, used backup file!</string>
+    <string name="toast_used_bug_backup">Corrupted bug state file, used backup file!</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -223,6 +243,7 @@
     <string name="menu_gps_start">Start GPS track</string>
     <string name="menu_gps_pause">Pause GPS track</string>
     <string name="menu_gps_clear">Clear GPS track</string>
+    <string name="menu_gps_track_managment">Track management...</string>
     <string name="menu_gps_upload">Upload GPS track</string>
     <string name="menu_gps_export">Export GPS track</string>
     <string name="menu_gps_import">Import GPS track</string>
@@ -234,9 +255,14 @@
     <string name="menu_transfer_download_other">Download other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_close_changeset">Close current changeset</string>
+    <string name="menu_transfer_file">File...</string>
     <string name="menu_transfer_export">Export changes</string>
     <string name="menu_transfer_read_file">Read from file</string>
     <string name="menu_transfer_save_file">Save to file</string>
+    <string name="menu_transfer_bugs">Notes/Bugs...</string>
+    <string name="menu_transfer_bugs_download_current">Download bugs for current view</string>
+    <string name="menu_transfer_bugs_upload">Upload all</string>
+    <string name="menu_transfer_bugs_clear">Clear</string>
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>
@@ -251,6 +277,7 @@
     <string name="menu_newnode_gps">New node at GPS pos.</string>
     <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_information">Info</string>
+    <string name="menu_voice_commands">Voice commands</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>
@@ -264,6 +291,8 @@
     <string name="menu_tools_background_align_save_device">Save to Device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
     <string name="menu_tools_background_contrast">Contrast</string>
+    <string name="menu_tools_oauth_reset">Reset OAuth</string>
+	<string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
     
     <!-- element action mode menu -->
     <string name="menu_tags">Properties</string>
@@ -292,6 +321,10 @@
     <string name="config_showCameraAction_summary">Show camera icon on action bar</string>
     <string name="config_generateAlerts_title">Generate notifications</string>
     <string name="config_generateAlerts_summary">Generate notifications for data with problems or notes</string>
+    <string name="config_voiceCommandsEnabled_title">Enable voice commands</string>
+    <string name="config_voiceCommandsEnabled_summary">Enable experimental voice command support</string>
+    <string name="config_maxAlertDistance_title">Max distance for notifications</string>
+    <string name="config_maxAlertDistance_summary">The maximum distance a problem or note can be from the current position to generate a notification</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this</string>
     <string name="config_tileCacheSize_title">Tile cache size</string>
@@ -302,20 +335,20 @@
     <string name="config_showTolerance_summary">Displays the area where an element can be selected.</string>
     <string name="config_enableAntiAliasing_title">Enable Anti-Aliasing</string>
     <string name="config_enableAntiAliasing_summary">Makes the lines smoother.</string>
-    <string name="config_enableOpenStreetBugs_title">Enable Notes display</string>
+    <string name="config_enableOpenStreetBugs_title">Enable Bugs and Notes display</string>
     <string name="config_enableOpenStreetBugs_summary">Display, Edit and Create Notes/Errors.</string>
     <string name="config_enablePhotoLayer_title">Enable Photo layer</string>
     <string name="config_enablePhotoLayer_summary">Display geo-referenced photos.</string>
     <string name="config_enableKeepScreenOn_title">Keep screen on</string>
     <string name="config_enableKeepScreenOn_summary">Do not turn the screen off to save power.</string>
-    <string name="config_enableDeprecatedModes_title">Enable deprecated modes</string>
-    <string name="config_enableDeprecatedModes_summary">Enable New, Edit, Edit Tags, Append, Erase node and Split modes .</string>
     <string name="config_closeChangesetOnSave_title">Close changesets</string>
     <string name="config_closeChangesetOnSave_summary">Close changesets by default on save</string>
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The graphical rendered map background.</string>
     <string name="config_overlayLayer_title">Map overlay</string>
     <string name="config_overlayLayer_summary">The graphical rendered map overlay.</string>
+    <string name="config_scale_title">Scale display</string>
+    <string name="config_scale_summary">Type of scale displayed on map.</string>
     <string name="config_category_server">Server Settings</string>
     <string name="config_apibutton_title">OSM API URL</string>
     <string name="config_apibutton_summary">You can set a non-standard API URL here. Usually should not be changed!</string>
@@ -344,6 +377,8 @@
     <string name="config_forceContextMenu_summary">Always show the context menu in EasyEdit mode if the selection is ambiguous.</string>
     <string name="config_licensebutton_title">Authors and licenses</string>
     <string name="config_licensebutton_summary">Show authors and license information</string>
+    <string name="config_debugbutton_title">Debug</string>
+    <string name="config_debugbutton_summary">Show some internal information</string>
 	<string name="config_mapProfile_title">Map profile</string>
 	<string name="config_mapProfile_summary">Set style and visibility of elements</string>
 	<string name="config_use_back_for_undo_title">Use back key for Undo</string>
@@ -352,6 +387,14 @@
 	<string name="config_largeDragArea_summary">Provide large area for dragging nodes</string>
 	<string name="config_extTriggeredDownloadRadius_title">Download radius</string>
 	<string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 = center on map only.</string>
+	<string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
+	<string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended</string>
+	<string name="config_bugDownloadRadius_title">Notes/Bugs download radius</string>
+	<string name="config_bugDownloadRadius_summary">Radius (m) of notes/bugs downloads</string>
+	<string name="config_maxBugDownloadSpeed_title">Maximum notes/bug auto-download speed</string>
+	<string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes/bugs auto-download is suspended</string>
+	<string name="config_bugFilter_title">Filter for Notes/Bugs</string>
+	<string name="config_bugFilter_summary">Select which elements are displayed on the notes/bug layer</string>
 	<string name="config_enableNameSuggestions_title">Enable name suggestions</string>
 	<string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
 	<string name="config_enableAutoPreset_title">Enable auto preset</string>
@@ -362,9 +405,14 @@
 	<string name="config_gps_source_summary">Source of GPS location updates</string>
 	<string name="config_gps_source_tcp_title">NMEA network source</string>
 	<string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port</string>
+	<string name="config_leaveGpsDisabled_title">Leave GPS disabled</string>
+	<string name="config_leaveGpsDisabled_summary">Don\'t ask user to turn GPS on if it is disabled</string>
 	<string name="config_enableLightTheme_title">Enable light theme</string>
 	<string name="config_enableLightTheme_summary">Light theme with white backgrounds</string>
 	<string name="config_category_misc">Miscellaneous</string>
+	<string name="config_address_tags">Address tags</string>
+	<string name="config_address_tags_summary">Tags used for address prediction</string>
+	<string name="config_moreprefs">More settings...</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>
     <string name="preset_download_successful">Preset successfully downloaded</string>
@@ -401,8 +449,8 @@
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
     <string name="undo_nothing">nothing to undo</string>
-    <string name="tracking_active_title">Recording GPS track</string>
-    <string name="tracking_active_text">Vespucci is recording a GPS track</string>
+    <string name="tracking_active_title">Vexpucci background service active</string>
+    <string name="tracking_active_text">Vespucci is recording a GPS track or auto-downloading</string>
     <string name="gps_failure">Failed to enable GPS</string>
     <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">move node</string>
@@ -444,6 +492,7 @@
     <!--  Notifications -->
     <string name="alert_data_issue">OSM data issue detected</string>
     <string name="alert_note">Nearby OSM note detected</string>
+    <string name="alert_bug">Nearby OSM bug detected</string>
     <string name="alert_distance_direction">in %1$d m %2$s</string>
     <!--  Misc relation related stuff -->
     <string name="role">Role</string>
@@ -457,6 +506,7 @@
     <string name="deleterelation_relation_description">You are about to delete a relation that is a member of one or more relations. Removing the relation from the relation(s) may render it/them invalid.</string>
     <string name="deleterelation">Delete relation</string>
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
+    <string name="unset_relation_type">unset relation type</string>
     <!-- time and distance  -->
     <string name="days">days</string>
     <string name="hours">hours</string>
@@ -479,5 +529,13 @@
 	<item>NMEA from TCP client</item>
 	<item>NMEA from TCP server</item>
 	</string-array>
-	
+	<string-array name="bug_state">
+	<item>Open</item>
+	<item>Closed</item>
+	<item>False positive</item>
+	</string-array>
+	<string-array name="note_state">
+	<item>Open</item>
+	<item>Closed</item>
+	</string-array>
 </resources>

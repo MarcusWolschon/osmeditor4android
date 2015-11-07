@@ -1,0 +1,6088 @@
+# 
+# Translators:
+# jerry liao <ezjerry@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Presets\n"
+"POT-Creation-Date: 2015-11-04 01:54+0100\n"
+"PO-Revision-Date: 2015-11-04 00:55+0000\n"
+"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: master_preset.xml:9521(item:name)
+msgid "Metal works"
+msgstr ""
+
+#: master_preset.xml:962(item:name)
+msgid "Dedicated Cycleway"
+msgstr ""
+
+#: master_preset.xml:228(check:text)
+msgid "Roundtrip"
+msgstr ""
+
+#: master_preset.xml:3492(item:name)
+msgid "Wilderness Hut"
+msgstr ""
+
+#: master_preset.xml:290(text:text) master_preset.xml:6195(text:text)
+#: master_preset.xml:260(text:text)
+msgid "Branch operator"
+msgstr ""
+
+#: master_preset.xml:4662(item:name)
+msgid "Veterinary"
+msgstr ""
+
+#: master_preset.xml:2922(check:text)
+msgid "Bicycles are rented"
+msgstr ""
+
+#: master_preset.xml:5696(item:name)
+msgid "Raceway"
+msgstr ""
+
+#: master_preset.xml:313(text:text) master_preset.xml:1844(text:text)
+msgid "Max. weight (tonnes)"
+msgstr "最大載重 (噸)"
+
+#: master_preset.xml:8954(role:text)
+msgid "to way"
+msgstr ""
+
+#: master_preset.xml:2781(item:name) master_preset.xml:2874(combo:text)
+msgid "Repair"
+msgstr ""
+
+#: master_preset.xml:9625(item:name)
+msgid "Sculptor"
+msgstr ""
+
+#: master_preset.xml:8273(item:name)
+msgid "Bare Rock"
+msgstr ""
+
+#: master_preset.xml:3791(check:text) master_preset.xml:3753(check:text)
+#: master_preset.xml:5362(item:name)
+msgid "Cycling"
+msgstr ""
+
+#: master_preset.xml:4695(item:name)
+msgid "Assisted Living"
+msgstr ""
+
+#: master_preset.xml:121(combo:text)
+msgid "Opening Hours"
+msgstr "開業時間"
+
+#: master_preset.xml:32(combo:text) master_preset.xml:15(combo:text)
+#: master_preset.xml:2169(combo:text)
+msgid "Surface"
+msgstr "路面"
+
+#: master_preset.xml:994(item:name)
+msgid "Combined Foot- and Cycleway"
+msgstr ""
+
+#: master_preset.xml:8713(text:text)
+msgid "Alternative name"
+msgstr ""
+
+#: master_preset.xml:5263(item:name)
+msgid "Racetrack"
+msgstr ""
+
+#: master_preset.xml:465(item:name)
+msgid "Trunk Link"
+msgstr "幹道連接道"
+
+#: master_preset.xml:1524(item:name)
+msgid "Lift Gate"
+msgstr ""
+
+#: master_preset.xml:9346(item:name)
+msgid "Cabinet maker"
+msgstr ""
+
+#: master_preset.xml:9577(item:name)
+msgid "Rigger"
+msgstr ""
+
+#: master_preset.xml:4915(item:name)
+msgid "Emergency Phone"
+msgstr ""
+
+#: master_preset.xml:2857(item:name)
+msgid "Motorcycle Dealer"
+msgstr ""
+
+#: master_preset.xml:9939(item:name)
+msgid "Architect"
+msgstr ""
+
+#: master_preset.xml:3728(label:text)
+msgid "An office where you can get information about a town or region."
+msgstr ""
+
+#: master_preset.xml:8283(label:text)
+msgid ""
+"For areas of solid visible rock that is sparsely vegetated or not vegetated "
+"at all."
+msgstr ""
+
+#: master_preset.xml:3409(text:text) master_preset.xml:3522(text:text)
+#: master_preset.xml:3428(text:text) master_preset.xml:3468(text:text)
+#: master_preset.xml:3448(text:text) master_preset.xml:3389(text:text)
+msgid "Rooms"
+msgstr ""
+
+#: master_preset.xml:1403(item:name)
+msgid "Hedge"
+msgstr ""
+
+#: master_preset.xml:2802(item:name)
+msgid "Tires"
+msgstr ""
+
+#: master_preset.xml:7945(item:name)
+msgid "Farm"
+msgstr ""
+
+#: master_preset.xml:2170(combo:text) master_preset.xml:5300(group:name)
+#: master_preset.xml:178(combo:text) master_preset.xml:5274(combo:text)
+msgid "Sport"
+msgstr "運動"
+
+#: master_preset.xml:6502(combo:text)
+msgid "Type of construction"
+msgstr ""
+
+#: master_preset.xml:9489(item:name)
+msgid "Leather"
+msgstr ""
+
+#: master_preset.xml:9066(role:text) master_preset.xml:9087(role:text)
+msgid "shortcut segment"
+msgstr ""
+
+#: master_preset.xml:7713(check:text)
+msgid "Geldkarte (de)"
+msgstr ""
+
+#: master_preset.xml:3301(item:name)
+msgid "Helipad"
+msgstr ""
+
+#: master_preset.xml:908(list_entry:short_description)
+msgid ""
+"climbing up to second grade. Often very exposed, precarious jagged rocks, "
+"glacier with danger to slip and fall"
+msgstr ""
+
+#: master_preset.xml:1967(label:text)
+msgid ""
+"A point where groundwater naturally flows to the surface of the earth from "
+"underground."
+msgstr ""
+
+#: master_preset.xml:8301(item:name)
+msgid "Stone"
+msgstr ""
+
+#: master_preset.xml:239(list_entry:short_description)
+msgid "Habitat with evergreen and deciduous vegetation."
+msgstr ""
+
+#: master_preset.xml:6594(item:name)
+msgid "Castle"
+msgstr ""
+
+#: master_preset.xml:1245(item:name)
+msgid "Speed Camera"
+msgstr ""
+
+#: master_preset.xml:9068(role:text) master_preset.xml:9089(role:text)
+msgid "entry points"
+msgstr ""
+
+#: master_preset.xml:3078(check:text)
+msgid "funicular"
+msgstr ""
+
+#: master_preset.xml:8947(combo:text)
+msgid "Restriction"
+msgstr ""
+
+#: master_preset.xml:6730(group:name)
+msgid "Shops"
+msgstr ""
+
+#: master_preset.xml:2345(combo:text) master_preset.xml:2355(combo:text)
+msgid "Usage"
+msgstr ""
+
+#: master_preset.xml:2648(label:text)
+msgid "See the Wiki for other capacity:[types]=*."
+msgstr ""
+
+#: master_preset.xml:9338(item:name)
+msgid "Builder"
+msgstr ""
+
+#: master_preset.xml:7194(item:name)
+msgid "Pawnbroker"
+msgstr ""
+
+#: master_preset.xml:2013(item:name)
+msgid "Breakwater"
+msgstr ""
+
+#: master_preset.xml:9545(item:name)
+msgid "Photographic laboratory"
+msgstr ""
+
+#: master_preset.xml:5868(combo:text)
+msgid "Content"
+msgstr ""
+
+#: master_preset.xml:2714(check:text)
+msgid "Diesel for Heavy Good Vehicles"
+msgstr ""
+
+#: master_preset.xml:4964(check:text)
+msgid "Shows current date"
+msgstr ""
+
+#: master_preset.xml:3790(check:text) master_preset.xml:3752(check:text)
+msgid "Hiking"
+msgstr ""
+
+#: master_preset.xml:9163(role:text)
+msgid "member"
+msgstr ""
+
+#: master_preset.xml:8930(role:text)
+msgid "entrances to the site, on the perimeter"
+msgstr ""
+
+#: master_preset.xml:1189(label:text)
+msgid "In case of traffic signals:"
+msgstr ""
+
+#: master_preset.xml:9729(item:name) master_preset.xml:795(item:name)
+msgid "Construction"
+msgstr "建築工程"
+
+#: master_preset.xml:3837(item:name)
+msgid "Other Information Point"
+msgstr ""
+
+#: master_preset.xml:4628(item:name)
+msgid "Baby Hatch/Safe Haven"
+msgstr ""
+
+#: master_preset.xml:184(combo:text) master_preset.xml:4879(combo:text)
+#: master_preset.xml:3947(text:text) master_preset.xml:187(combo:text)
+msgid "Fee"
+msgstr "費用"
+
+#: master_preset.xml:6717(item:name)
+msgid "Boundary Stone"
+msgstr ""
+
+#: master_preset.xml:5496(item:name)
+msgid "Rugby League"
+msgstr ""
+
+#: master_preset.xml:3864(check:text)
+msgid "Drive-in theater"
+msgstr ""
+
+#: master_preset.xml:2725(check:text)
+msgid "1/25 mix (mofa/moped)"
+msgstr ""
+
+#: master_preset.xml:4655(text:text)
+msgid "Point Name"
+msgstr ""
+
+#: master_preset.xml:237(list_entry:short_description)
+msgid ""
+"Plants that lose their foliage for a very short period, when old leaves fall"
+" off and new foliage growth is starting."
+msgstr ""
+
+#: master_preset.xml:4321(item:name)
+msgid "Other Place of Worship"
+msgstr ""
+
+#: master_preset.xml:7204(group:name)
+msgid "Home decoration"
+msgstr ""
+
+#: master_preset.xml:7239(item:name)
+msgid "Art"
+msgstr ""
+
+#: master_preset.xml:692(combo:text) master_preset.xml:36(combo:text)
+#: master_preset.xml:714(combo:text) master_preset.xml:832(combo:text)
+#: master_preset.xml:667(combo:text)
+msgid "Lanes"
+msgstr "車道"
+
+#: master_preset.xml:2919(check:text)
+msgid "Bicycles are sold"
+msgstr ""
+
+#: master_preset.xml:1308(text:text) master_preset.xml:8023(text:text)
+#: master_preset.xml:3788(text:text) master_preset.xml:3486(text:text)
+#: master_preset.xml:7997(text:text) master_preset.xml:3506(text:text)
+#: master_preset.xml:8010(text:text) master_preset.xml:7984(text:text)
+#: master_preset.xml:8041(text:text)
+msgid "Elevation"
+msgstr ""
+
+#: master_preset.xml:3580(item:name)
+msgid "Fast Food"
+msgstr ""
+
+#: master_preset.xml:3749(combo:text)
+msgid "Shown Area"
+msgstr ""
+
+#: master_preset.xml:2486(check:text) master_preset.xml:2467(check:text)
+msgid "Traffic lights"
+msgstr ""
+
+#: master_preset.xml:1421(item:name)
+msgid "Fence"
+msgstr ""
+
+#: master_preset.xml:5478(item:name)
+msgid "Canadian Football"
+msgstr ""
+
+#: master_preset.xml:9193(role:text)
+msgid "anything related to the street"
+msgstr ""
+
+#: master_preset.xml:9481(item:name)
+msgid "Key cutter"
+msgstr ""
+
+#: master_preset.xml:8019(label:text)
+msgid "A volcano, either dormant, extinct or active."
+msgstr ""
+
+#: master_preset.xml:7698(combo:text)
+msgid "Credit cards"
+msgstr ""
+
+#: master_preset.xml:2875(combo:text)
+msgid "Safety inspection"
+msgstr ""
+
+#: master_preset.xml:9777(item:name)
+msgid "Shoemaker"
+msgstr ""
+
+#: master_preset.xml:9290(item:name)
+msgid "Basket maker"
+msgstr ""
+
+#: master_preset.xml:6532(item:name)
+msgid "Pole with Transformer"
+msgstr ""
+
+#: master_preset.xml:5834(item:name)
+msgid "Windmill"
+msgstr ""
+
+#: master_preset.xml:4995(check:text) master_preset.xml:5031(check:text)
+msgid "Green Waste"
+msgstr ""
+
+#: master_preset.xml:8166(item:name)
+msgid "Cutline"
+msgstr ""
+
+#: master_preset.xml:2087(label:text)
+msgid "A body of standing water, such as a lake or pond."
+msgstr ""
+
+#: master_preset.xml:5376(item:name)
+msgid "Equestrian"
+msgstr ""
+
+#: master_preset.xml:6549(label:text)
+msgid "Transformer Attributes:"
+msgstr ""
+
+#: master_preset.xml:6083(check:text)
+msgid "GLONASS Signals"
+msgstr ""
+
+#: master_preset.xml:5516(item:name)
+msgid "Basketball"
+msgstr ""
+
+#: master_preset.xml:810(combo:text)
+msgid "Junction"
+msgstr ""
+
+#: master_preset.xml:2746(text:text)
+msgid "Voltage"
+msgstr ""
+
+#: master_preset.xml:9235(text:text)
+msgid "Reference REGINE (NO)"
+msgstr ""
+
+#: master_preset.xml:229(text:text)
+msgid "Symbol description"
+msgstr ""
+
+#: master_preset.xml:9213(role:text)
+msgid "last way before junction"
+msgstr ""
+
+#: master_preset.xml:2138(label:text)
+msgid "Waterlogged area, either permanently or seasonally with vegetation."
+msgstr ""
+
+#: master_preset.xml:2559(text:text)
+msgid "Number of people per gondola"
+msgstr ""
+
+#: master_preset.xml:7705(check:text)
+msgid "Visa"
+msgstr ""
+
+#: master_preset.xml:1892(item:name)
+msgid "Ditch"
+msgstr ""
+
+#: master_preset.xml:4383(item:name)
+msgid "Embassy"
+msgstr ""
+
+#: master_preset.xml:7491(item:name)
+msgid "Garden Centre"
+msgstr ""
+
+#: master_preset.xml:1046(text:text)
+msgid "Amount of Steps"
+msgstr ""
+
+#: master_preset.xml:5218(group:name)
+msgid "Sport Facilities"
+msgstr ""
+
+#: master_preset.xml:1056(combo:text)
+msgid "Luggage ramp"
+msgstr ""
+
+#: master_preset.xml:2644(text:text)
+msgid "Capacity (overall)"
+msgstr ""
+
+#: master_preset.xml:9834(group:name)
+msgid "Offices"
+msgstr ""
+
+#: master_preset.xml:7280(item:name)
+msgid "Antiques"
+msgstr ""
+
+#: master_preset.xml:1671(check:text) master_preset.xml:1707(check:text)
+#: master_preset.xml:1688(check:text)
+msgid "Open on left side"
+msgstr ""
+
+#: master_preset.xml:4724(item:name)
+msgid "Food Bank"
+msgstr ""
+
+#: master_preset.xml:1905(item:name)
+msgid "Stream"
+msgstr ""
+
+#: master_preset.xml:6081(check:text)
+msgid "Noise"
+msgstr ""
+
+#: master_preset.xml:9330(item:name)
+msgid "Brewery"
+msgstr ""
+
+#: master_preset.xml:2185(item:name)
+msgid "Cliff"
+msgstr ""
+
+#: master_preset.xml:1672(check:text) master_preset.xml:1708(check:text)
+#: master_preset.xml:1689(check:text)
+msgid "Open on right side"
+msgstr ""
+
+#: master_preset.xml:1281(item:name)
+msgid "Elevator"
+msgstr ""
+
+#: master_preset.xml:258(text:text) master_preset.xml:1271(text:text)
+#: master_preset.xml:3012(text:text) master_preset.xml:3325(text:text)
+#: master_preset.xml:388(text:text) master_preset.xml:2516(text:text)
+#: master_preset.xml:4469(text:text) master_preset.xml:648(text:text)
+#: master_preset.xml:447(text:text) master_preset.xml:3298(text:text)
+#: master_preset.xml:2022(text:text) master_preset.xml:624(text:text)
+#: master_preset.xml:3032(text:text) master_preset.xml:7161(text:text)
+#: master_preset.xml:470(text:text) master_preset.xml:3287(text:text)
+#: master_preset.xml:544(text:text) master_preset.xml:584(text:text)
+#: master_preset.xml:503(text:text) master_preset.xml:9232(text:text)
+#: master_preset.xml:102(text:text) master_preset.xml:6128(text:text)
+#: master_preset.xml:106(text:text) master_preset.xml:3310(text:text)
+#: master_preset.xml:3370(text:text) master_preset.xml:2510(text:text)
+#: master_preset.xml:3063(text:text)
+msgid "Reference"
+msgstr "參照"
+
+#: master_preset.xml:4484(check:text)
+msgid "After school care"
+msgstr ""
+
+#: master_preset.xml:6276(combo:text) master_preset.xml:6337(combo:text)
+#: master_preset.xml:6222(combo:text) master_preset.xml:6229(combo:text)
+#: master_preset.xml:6255(combo:text) master_preset.xml:6241(combo:text)
+#: master_preset.xml:6364(combo:text) master_preset.xml:6248(combo:text)
+#: master_preset.xml:6269(combo:text) master_preset.xml:6262(combo:text)
+#: master_preset.xml:6357(combo:text) master_preset.xml:6301(combo:text)
+#: master_preset.xml:6318(combo:text) master_preset.xml:6325(combo:text)
+#: master_preset.xml:6215(combo:text) master_preset.xml:6312(combo:text)
+msgid "Generator Type"
+msgstr ""
+
+#: master_preset.xml:4963(combo:display_values)
+msgid "area (more than 20m)"
+msgstr ""
+
+#: master_preset.xml:7314(item:name)
+msgid "Book Store"
+msgstr ""
+
+#: master_preset.xml:7951(label:text)
+msgid "(please use isolated_dwelling for an isolated farm)"
+msgstr ""
+
+#: master_preset.xml:7721(check:text)
+msgid "Quick (au)"
+msgstr ""
+
+#: master_preset.xml:1870(combo:text)
+msgid "High-occupancy vehicles (hov)"
+msgstr ""
+
+#: master_preset.xml:917(combo:text)
+msgid "Snowmobile"
+msgstr ""
+
+#: master_preset.xml:6251(item:name)
+msgid "Oil Power Generator"
+msgstr ""
+
+#: master_preset.xml:6136(text:text)
+msgid "Direction in degrees"
+msgstr ""
+
+#: master_preset.xml:6617(item:name)
+msgid "Archaeological Site"
+msgstr ""
+
+#: master_preset.xml:6572(combo:text)
+msgid "Number of conductors/wires per cable"
+msgstr ""
+
+#: master_preset.xml:4137(item:name)
+msgid "Arts Centre"
+msgstr ""
+
+#: master_preset.xml:5510(item:name)
+msgid "Baseball"
+msgstr ""
+
+#: master_preset.xml:5126(check:text)
+msgid "Lock"
+msgstr ""
+
+#: master_preset.xml:5895(item:name)
+msgid "Pipeline"
+msgstr ""
+
+#: master_preset.xml:2959(check:text)
+msgid "Chain tool"
+msgstr ""
+
+#: master_preset.xml:7830(item:name)
+msgid "Region"
+msgstr ""
+
+#: master_preset.xml:3336(item:name) master_preset.xml:6046(item:name)
+msgid "Beacon"
+msgstr ""
+
+#: master_preset.xml:4658(label:text)
+msgid "(Use international code, like +12-345-67890)"
+msgstr ""
+
+#: master_preset.xml:1129(combo:text) master_preset.xml:1184(combo:text)
+msgid "Pedestrian crossing type"
+msgstr ""
+
+#: master_preset.xml:5210(text:text) master_preset.xml:3831(text:text)
+#: master_preset.xml:192(text:text) master_preset.xml:4894(text:text)
+#: master_preset.xml:7671(text:text) master_preset.xml:3813(text:text)
+msgid "Reference number"
+msgstr ""
+
+#: master_preset.xml:764(item:name)
+msgid "Escape"
+msgstr ""
+
+#: master_preset.xml:2923(check:text) master_preset.xml:2958(check:text)
+msgid "Free bicycle pump"
+msgstr ""
+
+#: master_preset.xml:2903(check:text) master_preset.xml:3984(check:text)
+#: master_preset.xml:3997(check:text) master_preset.xml:3060(check:text)
+msgid "Covered"
+msgstr ""
+
+#: master_preset.xml:9899(item:name)
+msgid "Ngo"
+msgstr ""
+
+#: master_preset.xml:2512(item:name)
+msgid "Railway milestone"
+msgstr ""
+
+#: master_preset.xml:6382(text:text) master_preset.xml:6695(text:text)
+#: master_preset.xml:7789(text:text) master_preset.xml:6196(text:text)
+#: master_preset.xml:6680(text:text) master_preset.xml:6714(text:text)
+#: master_preset.xml:291(text:text)
+msgid "Start date"
+msgstr "開始日期"
+
+#: master_preset.xml:8957(item:name)
+msgid "Enforcement"
+msgstr ""
+
+#: master_preset.xml:1659(item:name)
+msgid "Arcade"
+msgstr ""
+
+#: master_preset.xml:3758(label:text) master_preset.xml:3796(label:text)
+msgid "... other transportation modes possible"
+msgstr ""
+
+#: master_preset.xml:8654(item:name)
+msgid "Greenfield"
+msgstr ""
+
+#: master_preset.xml:7230(item:name)
+msgid "Curtain"
+msgstr ""
+
+#: master_preset.xml:7377(item:name)
+msgid "Beauty"
+msgstr ""
+
+#: master_preset.xml:3870(item:name)
+msgid "Zoo"
+msgstr ""
+
+#: master_preset.xml:5522(item:name)
+msgid "Handball"
+msgstr ""
+
+#: master_preset.xml:8891(role:text) master_preset.xml:8912(role:text)
+msgid "outer segment"
+msgstr ""
+
+#: master_preset.xml:8753(text:text)
+msgid "Province"
+msgstr ""
+
+#: master_preset.xml:1009(item:name)
+msgid "Dedicated Footway"
+msgstr ""
+
+#: master_preset.xml:8777(item:name)
+msgid "Contact (Common Schema)"
+msgstr ""
+
+#: master_preset.xml:6084(check:text)
+msgid "Galileo Signals"
+msgstr ""
+
+#: master_preset.xml:3769(label:text)
+msgid "A board with information."
+msgstr ""
+
+#: master_preset.xml:7755(combo:text)
+msgid "Division"
+msgstr ""
+
+#: master_preset.xml:7734(item:name) master_preset.xml:9835(item:name)
+msgid "Administrative"
+msgstr ""
+
+#: master_preset.xml:2646(combo:text)
+msgid "Spaces for Women"
+msgstr ""
+
+#: master_preset.xml:8118(item:name)
+msgid "Tree Row"
+msgstr ""
+
+#: master_preset.xml:7695(check:text)
+msgid "Visa Electron"
+msgstr ""
+
+#: master_preset.xml:3272(text:text)
+msgid "IATA"
+msgstr ""
+
+#: master_preset.xml:5113(combo:text)
+msgid "Type of shelter"
+msgstr ""
+
+#: master_preset.xml:9769(item:name)
+msgid "Print shop"
+msgstr ""
+
+#: master_preset.xml:6304(list_entry:short_description)
+#: master_preset.xml:6303(list_entry:short_description)
+msgid "thermal"
+msgstr ""
+
+#: master_preset.xml:7727(check:text)
+msgid "Dogecoin"
+msgstr ""
+
+#: master_preset.xml:6324(combo:text) master_preset.xml:6336(combo:text)
+#: master_preset.xml:6300(combo:text) master_preset.xml:6311(combo:text)
+#: master_preset.xml:6275(combo:text) master_preset.xml:6228(combo:text)
+msgid "Method"
+msgstr ""
+
+#: master_preset.xml:67(combo:text)
+msgid "Electrified"
+msgstr "電氣化"
+
+#: master_preset.xml:7191(text:text) master_preset.xml:1394(text:text)
+#: master_preset.xml:5930(text:text) master_preset.xml:2836(text:text)
+#: master_preset.xml:5076(text:text) master_preset.xml:2705(text:text)
+#: master_preset.xml:5162(text:text) master_preset.xml:141(text:text)
+#: master_preset.xml:3035(text:text) master_preset.xml:4893(text:text)
+#: master_preset.xml:8602(text:text) master_preset.xml:3140(text:text)
+#: master_preset.xml:111(text:text) master_preset.xml:3066(text:text)
+#: master_preset.xml:6125(text:text) master_preset.xml:5178(text:text)
+#: master_preset.xml:2956(text:text) master_preset.xml:4908(text:text)
+#: master_preset.xml:9273(text:text) master_preset.xml:9258(text:text)
+#: master_preset.xml:5209(text:text) master_preset.xml:8405(text:text)
+#: master_preset.xml:3096(text:text) master_preset.xml:1097(text:text)
+#: master_preset.xml:198(text:text) master_preset.xml:107(text:text)
+#: master_preset.xml:9160(text:text) master_preset.xml:5903(text:text)
+#: master_preset.xml:2975(text:text) master_preset.xml:4656(text:text)
+#: master_preset.xml:5948(text:text) master_preset.xml:2997(text:text)
+#: master_preset.xml:4865(text:text) master_preset.xml:8392(text:text)
+#: master_preset.xml:3015(text:text) master_preset.xml:9143(text:text)
+#: master_preset.xml:7670(text:text) master_preset.xml:2868(text:text)
+#: master_preset.xml:259(text:text) master_preset.xml:4944(text:text)
+#: master_preset.xml:4880(text:text) master_preset.xml:5801(text:text)
+msgid "Operator"
+msgstr "營運商"
+
+#: master_preset.xml:5855(combo:text) master_preset.xml:5867(combo:text)
+#: master_preset.xml:5728(combo:text) master_preset.xml:6713(combo:text)
+#: master_preset.xml:5748(combo:text) master_preset.xml:3095(check:text)
+#: master_preset.xml:5712(item:name) master_preset.xml:3334(combo:text)
+msgid "Building"
+msgstr ""
+
+#: master_preset.xml:4967(check:text)
+msgid "Shows humidity"
+msgstr ""
+
+#: master_preset.xml:1865(combo:text)
+msgid "Heavy Goods Vehicles (hgv)"
+msgstr ""
+
+#: master_preset.xml:2842(group:name) master_preset.xml:1780(combo:text)
+#: master_preset.xml:1799(item:name) master_preset.xml:880(combo:text)
+#: master_preset.xml:91(check:text) master_preset.xml:1812(combo:text)
+#: master_preset.xml:82(check:text)
+msgid "Motorcycle"
+msgstr "摩托車"
+
+#: master_preset.xml:332(combo:text)
+msgid "Boat"
+msgstr "小艇"
+
+#: master_preset.xml:2616(item:name)
+msgid "Pylon"
+msgstr ""
+
+#: master_preset.xml:4485(check:text)
+msgid "Orphanage"
+msgstr ""
+
+#: master_preset.xml:7766(item:name)
+msgid "National Park"
+msgstr ""
+
+#: master_preset.xml:1590(item:name)
+msgid "Stile"
+msgstr ""
+
+#: master_preset.xml:9234(text:text)
+msgid "Reference FGKZ (DE)"
+msgstr ""
+
+#: master_preset.xml:7626(item:name)
+msgid "Pet"
+msgstr ""
+
+#: master_preset.xml:6846(item:name)
+msgid "Tea"
+msgstr ""
+
+#: master_preset.xml:5653(item:name)
+msgid "Safety Training"
+msgstr ""
+
+#: master_preset.xml:6606(item:name)
+msgid "Ruins"
+msgstr ""
+
+#: master_preset.xml:2198(group:name)
+msgid "Shipping"
+msgstr ""
+
+#: master_preset.xml:6124(combo:text)
+msgid "Zone"
+msgstr ""
+
+#: master_preset.xml:2599(item:name)
+msgid "Goods"
+msgstr ""
+
+#: master_preset.xml:9370(item:name)
+msgid "Caterer"
+msgstr ""
+
+#: master_preset.xml:10051(item:name)
+msgid "Forestry"
+msgstr ""
+
+#: master_preset.xml:9191(role:text)
+msgid "addresses belonging to the street"
+msgstr ""
+
+#: master_preset.xml:7066(group:name)
+msgid "Electronic"
+msgstr ""
+
+#: master_preset.xml:9025(item:name)
+msgid "Hiking Route"
+msgstr ""
+
+#: master_preset.xml:3556(group:name)
+msgid "Food+Drinks"
+msgstr ""
+
+#: master_preset.xml:295(combo:text)
+msgid "biogas"
+msgstr "沼氣"
+
+#: master_preset.xml:8976(role:text)
+msgid "traffic light or barrier that stops you"
+msgstr ""
+
+#: master_preset.xml:10099(item:name)
+msgid "Register"
+msgstr ""
+
+#: master_preset.xml:9102(text:text)
+msgid "Ref of the way this is a detour to"
+msgstr ""
+
+#: master_preset.xml:264(combo:text)
+msgid "Amount of circuits"
+msgstr ""
+
+#: master_preset.xml:8092(group:name)
+msgid "Nature"
+msgstr ""
+
+#: master_preset.xml:10091(item:name)
+msgid "Publisher"
+msgstr ""
+
+#: master_preset.xml:903(list_entry:short_description)
+msgid "Trail well cleared. Area flat or slightly sloped, no fall hazard"
+msgstr ""
+
+#: master_preset.xml:10059(item:name)
+msgid "Logistics"
+msgstr ""
+
+#: master_preset.xml:3005(item:name)
+msgid "Stop Area"
+msgstr ""
+
+#: master_preset.xml:5180(multiselect:display_values)
+msgid "Regina"
+msgstr ""
+
+#: master_preset.xml:9689(item:name)
+msgid "Turner"
+msgstr ""
+
+#: master_preset.xml:2192(label:text)
+msgid ""
+"A steep rock face exposure, with a significant vertical, or near vertical "
+"(leave the lower face to the right of the way)."
+msgstr ""
+
+#: master_preset.xml:3476(item:name)
+msgid "Alpine Hut"
+msgstr ""
+
+#: master_preset.xml:8915(role:text)
+msgid "Administration centre"
+msgstr ""
+
+#: master_preset.xml:6078(check:text)
+msgid "Groundwater"
+msgstr ""
+
+#: master_preset.xml:4180(item:name)
+msgid "Church"
+msgstr ""
+
+#: master_preset.xml:4479(combo:text)
+msgid "Operator type"
+msgstr ""
+
+#: master_preset.xml:8751(text:text)
+msgid "Subdistrict"
+msgstr ""
+
+#: master_preset.xml:10043(item:name)
+msgid "Financial"
+msgstr ""
+
+#: master_preset.xml:6474(combo:text)
+msgid "Power rating (kvar/Mvar)"
+msgstr ""
+
+#: master_preset.xml:6731(group:name)
+msgid "Food"
+msgstr ""
+
+#: master_preset.xml:3197(text:text) master_preset.xml:3240(text:text)
+msgid "Reference (track number)"
+msgstr ""
+
+#: master_preset.xml:3262(item:name)
+msgid "Airport Ground"
+msgstr ""
+
+#: master_preset.xml:5002(check:text) master_preset.xml:5038(check:text)
+msgid "Small Appliances"
+msgstr ""
+
+#: master_preset.xml:7452(item:name)
+msgid "Department Store"
+msgstr ""
+
+#: master_preset.xml:7875(item:name)
+msgid "Village"
+msgstr ""
+
+#: master_preset.xml:4870(item:name) master_preset.xml:3503(check:text)
+msgid "Shower"
+msgstr ""
+
+#: master_preset.xml:9211(text:text)
+msgid "Colour of border/arrow"
+msgstr ""
+
+#: master_preset.xml:9641(item:name)
+msgid "Stonemason"
+msgstr ""
+
+#: master_preset.xml:3720(item:name)
+msgid "Information Office"
+msgstr ""
+
+#: master_preset.xml:3608(check:text) master_preset.xml:3592(check:text)
+#: master_preset.xml:3572(check:text) master_preset.xml:3631(check:text)
+#: master_preset.xml:3687(check:text) master_preset.xml:3650(check:text)
+msgid "Outdoor seating"
+msgstr ""
+
+#: master_preset.xml:3021(role:text) master_preset.xml:3100(item:name)
+msgid "Subway Entrance"
+msgstr ""
+
+#: master_preset.xml:9002(item:name)
+msgid "Mountain Biking Route"
+msgstr ""
+
+#: master_preset.xml:4680(item:name)
+msgid "Ambulantory Care"
+msgstr ""
+
+#: master_preset.xml:4912(check:text)
+msgid "Telephone cards"
+msgstr ""
+
+#: master_preset.xml:6395(combo:text)
+msgid "Type of transformer"
+msgstr ""
+
+#: master_preset.xml:4738(item:name)
+msgid "Retirement Home"
+msgstr ""
+
+#: master_preset.xml:9044(role:text) master_preset.xml:2987(role:text)
+#: master_preset.xml:9083(role:text) master_preset.xml:9020(role:text)
+#: master_preset.xml:9062(role:text) master_preset.xml:9116(role:text)
+#: master_preset.xml:9130(role:text) master_preset.xml:9105(role:text)
+#: master_preset.xml:9146(role:text) master_preset.xml:3146(role:text)
+#: master_preset.xml:8997(role:text)
+msgid "route segment"
+msgstr ""
+
+#: master_preset.xml:5413(item:name)
+msgid "Swimming"
+msgstr ""
+
+#: master_preset.xml:6979(item:name)
+msgid "Boutique"
+msgstr ""
+
+#: master_preset.xml:977(combo:text)
+msgid "Pedestrians"
+msgstr ""
+
+#: master_preset.xml:5340(item:name)
+msgid "Running"
+msgstr ""
+
+#: master_preset.xml:9673(item:name)
+msgid "Tiler"
+msgstr ""
+
+#: master_preset.xml:1336(combo:text)
+msgid "Bollard type"
+msgstr ""
+
+#: master_preset.xml:9497(item:name)
+msgid "Locksmith"
+msgstr ""
+
+#: master_preset.xml:4966(check:text)
+msgid "Shows barometric pressure"
+msgstr ""
+
+#: master_preset.xml:6339(list_entry:short_description)
+msgid "barrage"
+msgstr ""
+
+#: master_preset.xml:9256(text:text) master_preset.xml:1433(text:text)
+#: master_preset.xml:5731(text:text) master_preset.xml:5800(text:text)
+#: master_preset.xml:5751(text:text) master_preset.xml:5856(text:text)
+#: master_preset.xml:8312(text:text) master_preset.xml:5869(text:text)
+#: master_preset.xml:5832(text:text) master_preset.xml:5975(text:text)
+#: master_preset.xml:1414(text:text) master_preset.xml:5766(text:text)
+#: master_preset.xml:159(text:text)
+msgid "Height (meters)"
+msgstr ""
+
+#: master_preset.xml:6297(item:name)
+msgid "Solar Power Generator"
+msgstr ""
+
+#: master_preset.xml:236(list_entry:short_description)
+msgid "Plants that are never entirely without green foliage."
+msgstr ""
+
+#: master_preset.xml:4800(item:name)
+msgid "Social Club"
+msgstr ""
+
+#: master_preset.xml:2871(optional:text)
+msgid "Services:"
+msgstr ""
+
+#: master_preset.xml:5333(item:name)
+msgid "Track and Field Athletics"
+msgstr ""
+
+#: master_preset.xml:9513(item:name)
+msgid "Metal construction"
+msgstr ""
+
+#: master_preset.xml:8628(item:name)
+msgid "Construction Area"
+msgstr ""
+
+#: master_preset.xml:5847(item:name)
+msgid "Gasometer"
+msgstr ""
+
+#: master_preset.xml:3375(group:name)
+msgid "Accommodation"
+msgstr ""
+
+#: master_preset.xml:5234(item:name)
+msgid "Sports Centre"
+msgstr ""
+
+#: master_preset.xml:907(list_entry:short_description)
+msgid ""
+"single plainly climbing up to second grade. Exposed, demanding terrain, "
+"jagged rocks, few dangerous glacier and snow"
+msgstr ""
+
+#: master_preset.xml:3041(check:text)
+msgid "Tram stop (legacy)"
+msgstr ""
+
+#: master_preset.xml:2468(check:text) master_preset.xml:2487(check:text)
+#: master_preset.xml:1132(check:text) master_preset.xml:1191(check:text)
+msgid "Sound signals"
+msgstr ""
+
+#: master_preset.xml:6529(check:text) master_preset.xml:6512(check:text)
+#: master_preset.xml:6546(check:text)
+msgid "Location transition"
+msgstr ""
+
+#: master_preset.xml:3750(text:text) master_preset.xml:3507(text:text)
+#: master_preset.xml:3849(text:text) master_preset.xml:3774(text:text)
+msgid "Closer Description"
+msgstr ""
+
+#: master_preset.xml:6664(item:name)
+msgid "Memorial"
+msgstr ""
+
+#: master_preset.xml:6344(item:name)
+msgid "Wave Energy Converter"
+msgstr ""
+
+#: master_preset.xml:6089(label:text)
+msgid "Recording:"
+msgstr ""
+
+#: master_preset.xml:9071(item:name)
+msgid "Ski Route"
+msgstr ""
+
+#: master_preset.xml:8486(item:name)
+msgid "Recreation Ground"
+msgstr ""
+
+#: master_preset.xml:6101(item:name)
+msgid "Survey Point"
+msgstr ""
+
+#: master_preset.xml:1186(combo:text) master_preset.xml:1133(combo:text)
+msgid "Crossing attendant"
+msgstr ""
+
+#: master_preset.xml:1128(optional:text)
+msgid "Optional crossing attributes:"
+msgstr ""
+
+#: master_preset.xml:5466(item:name)
+msgid "Australian Football"
+msgstr ""
+
+#: master_preset.xml:327(text:text) master_preset.xml:7788(text:text)
+#: master_preset.xml:217(text:text) master_preset.xml:3274(text:text)
+#: master_preset.xml:9238(text:text) master_preset.xml:1309(text:text)
+#: master_preset.xml:4106(text:text) master_preset.xml:8811(text:text)
+#: master_preset.xml:1954(text:text) master_preset.xml:2094(text:text)
+#: master_preset.xml:8791(text:text) master_preset.xml:3881(text:text)
+#: master_preset.xml:6681(text:text)
+msgid "Wikipedia"
+msgstr "維基百科"
+
+#: master_preset.xml:5180(multiselect:display_values)
+msgid "Dunlop (Woods)"
+msgstr ""
+
+#: master_preset.xml:7748(item:name)
+msgid "Political"
+msgstr ""
+
+#: master_preset.xml:742(check:text) master_preset.xml:627(check:text)
+#: master_preset.xml:1006(check:text)
+msgid "Passing Places"
+msgstr ""
+
+#: master_preset.xml:2747(text:text)
+msgid "Amperage"
+msgstr ""
+
+#: master_preset.xml:6287(list_entry:short_description)
+#: master_preset.xml:6291(list_entry:short_description)
+#: master_preset.xml:6284(list_entry:short_description)
+#: master_preset.xml:6292(list_entry:short_description)
+msgid "fusion"
+msgstr ""
+
+#: master_preset.xml:7249(item:name)
+msgid "Frame"
+msgstr ""
+
+#: master_preset.xml:8953(role:text)
+msgid "via node or ways"
+msgstr ""
+
+#: master_preset.xml:3202(item:name)
+msgid "Bus Station"
+msgstr ""
+
+#: master_preset.xml:8873(group:name)
+msgid "Relations"
+msgstr ""
+
+#: master_preset.xml:6628(item:name)
+msgid "Battlefield"
+msgstr ""
+
+#: master_preset.xml:7098(item:name)
+msgid "Vacuum Cleaner"
+msgstr ""
+
+#: master_preset.xml:25(list_entry:short_description)
+msgid "Off-Road: heavy duty off-road vehicle"
+msgstr ""
+
+#: master_preset.xml:1083(text:text)
+msgid "Number"
+msgstr ""
+
+#: master_preset.xml:3417(item:name)
+msgid "Guest House/Bed & Breakfast"
+msgstr ""
+
+#: master_preset.xml:8136(item:name)
+msgid "Wood"
+msgstr ""
+
+#: master_preset.xml:6199(combo:text) master_preset.xml:297(combo:text)
+msgid "hot water"
+msgstr "熱水"
+
+#: master_preset.xml:5123(combo:text)
+msgid "Height"
+msgstr ""
+
+#: master_preset.xml:5100(item:name) master_preset.xml:3059(check:text)
+#: master_preset.xml:3227(check:text) master_preset.xml:5124(check:text)
+msgid "Shelter"
+msgstr ""
+
+#: master_preset.xml:9883(item:name)
+msgid "IT"
+msgstr ""
+
+#: master_preset.xml:2906(item:name)
+msgid "Bike Dealer"
+msgstr ""
+
+#: master_preset.xml:3290(item:name)
+msgid "Taxiway"
+msgstr ""
+
+#: master_preset.xml:9378(item:name)
+msgid "Cleaning"
+msgstr ""
+
+#: master_preset.xml:8931(role:text)
+msgid "members of site"
+msgstr ""
+
+#: master_preset.xml:479(check:text) master_preset.xml:43(check:text)
+#: master_preset.xml:423(check:text) master_preset.xml:457(check:text)
+#: master_preset.xml:397(check:text)
+msgid "Cutting"
+msgstr "割挖"
+
+#: master_preset.xml:8991(combo:text) master_preset.xml:2976(text:text)
+#: master_preset.xml:3016(text:text) master_preset.xml:9038(combo:text)
+#: master_preset.xml:9159(text:text) master_preset.xml:9142(text:text)
+#: master_preset.xml:3141(text:text) master_preset.xml:2998(text:text)
+#: master_preset.xml:3097(text:text) master_preset.xml:3067(text:text)
+#: master_preset.xml:3036(text:text)
+msgid "Network"
+msgstr ""
+
+#: master_preset.xml:79(check:text) master_preset.xml:1863(combo:text)
+#: master_preset.xml:96(check:text) master_preset.xml:88(check:text)
+#: master_preset.xml:912(combo:text)
+msgid "Foot"
+msgstr "行人"
+
+#: master_preset.xml:7715(check:text)
+msgid "Minicash (lu)"
+msgstr ""
+
+#: master_preset.xml:771(label:text)
+msgid ""
+"Emergency lane beside long descending slopes for trucks and other vehicles "
+"to stop safely after brake failure."
+msgstr ""
+
+#: master_preset.xml:2920(check:text)
+msgid "Second-hand bicycles are sold"
+msgstr ""
+
+#: master_preset.xml:3051(check:text)
+msgid "Ferry"
+msgstr ""
+
+#: master_preset.xml:8542(item:name)
+msgid "Religious"
+msgstr ""
+
+#: master_preset.xml:6327(list_entry:short_description)
+msgid "run-of-the-river"
+msgstr ""
+
+#: master_preset.xml:2005(item:name)
+msgid "Groyne"
+msgstr ""
+
+#: master_preset.xml:5490(check:text)
+msgid "Hurling"
+msgstr ""
+
+#: master_preset.xml:9915(item:name)
+msgid "Telecommunication"
+msgstr ""
+
+#: master_preset.xml:7617(item:name)
+msgid "Bag"
+msgstr ""
+
+#: master_preset.xml:7292(item:name)
+msgid "Stationery"
+msgstr ""
+
+#: master_preset.xml:1993(item:name)
+msgid "Dam"
+msgstr ""
+
+#: master_preset.xml:5491(check:text)
+msgid "Football"
+msgstr ""
+
+#: master_preset.xml:2026(item:name)
+msgid "Culvert"
+msgstr ""
+
+#: master_preset.xml:6225(item:name)
+msgid "Biomass Power Generator"
+msgstr ""
+
+#: master_preset.xml:3278(item:name)
+msgid "Runway"
+msgstr ""
+
+#: master_preset.xml:2679(text:text) master_preset.xml:1654(text:text)
+#: master_preset.xml:169(text:text) master_preset.xml:1846(text:text)
+#: master_preset.xml:1634(text:text) master_preset.xml:2640(text:text)
+msgid "Max. height (meters)"
+msgstr ""
+
+#: master_preset.xml:233(combo:text) master_preset.xml:5904(combo:text)
+#: master_preset.xml:5642(combo:text) master_preset.xml:5618(combo:text)
+#: master_preset.xml:5452(combo:text) master_preset.xml:2899(combo:text)
+#: master_preset.xml:6167(combo:text) master_preset.xml:5589(combo:text)
+#: master_preset.xml:5651(combo:text) master_preset.xml:5694(combo:text)
+#: master_preset.xml:1207(combo:text) master_preset.xml:5419(combo:text)
+#: master_preset.xml:829(combo:text) master_preset.xml:1594(combo:text)
+#: master_preset.xml:5668(combo:text) master_preset.xml:2142(combo:text)
+#: master_preset.xml:175(combo:text) master_preset.xml:5541(combo:text)
+#: master_preset.xml:31(combo:text) master_preset.xml:5158(combo:text)
+#: master_preset.xml:5558(combo:text) master_preset.xml:5315(combo:text)
+#: master_preset.xml:5527(combo:text) master_preset.xml:5611(combo:text)
+#: master_preset.xml:1539(combo:text) master_preset.xml:5367(combo:text)
+#: master_preset.xml:5307(combo:text) master_preset.xml:5403(combo:text)
+#: master_preset.xml:6133(combo:text) master_preset.xml:8193(combo:text)
+#: master_preset.xml:2581(combo:text) master_preset.xml:6676(combo:text)
+#: master_preset.xml:5338(combo:text) master_preset.xml:5323(combo:text)
+#: master_preset.xml:4861(combo:text) master_preset.xml:6173(combo:text)
+#: master_preset.xml:5354(combo:text) master_preset.xml:5395(combo:text)
+#: master_preset.xml:4161(combo:text) master_preset.xml:5331(combo:text)
+#: master_preset.xml:191(combo:text) master_preset.xml:1454(combo:text)
+#: master_preset.xml:1432(combo:text) master_preset.xml:4175(combo:text)
+#: master_preset.xml:5345(combo:text) master_preset.xml:5676(combo:text)
+#: master_preset.xml:5534(combo:text) master_preset.xml:8177(combo:text)
+#: master_preset.xml:5411(combo:text) master_preset.xml:8026(combo:text)
+#: master_preset.xml:5596(combo:text) master_preset.xml:5548(combo:text)
+#: master_preset.xml:6123(combo:text) master_preset.xml:5634(combo:text)
+#: master_preset.xml:5374(combo:text)
+msgid "Type"
+msgstr "種類"
+
+#: master_preset.xml:9106(role:text)
+msgid "fork node for alternative routes"
+msgstr ""
+
+#: master_preset.xml:202(combo:text)
+msgid "Time Limit (minutes)"
+msgstr ""
+
+#: master_preset.xml:7647(item:name)
+msgid "Funeral Directors"
+msgstr ""
+
+#: master_preset.xml:902(combo:text)
+msgid "SAC Scale"
+msgstr ""
+
+#: master_preset.xml:6415(check:text) master_preset.xml:6383(check:text)
+msgid "Gas insulated"
+msgstr ""
+
+#: master_preset.xml:9109(item:name)
+msgid "Power Route"
+msgstr ""
+
+#: master_preset.xml:2173(item:name)
+msgid "Bay"
+msgstr ""
+
+#: master_preset.xml:68(combo:text) master_preset.xml:6484(combo:text)
+#: master_preset.xml:248(combo:text)
+msgid "Voltage in Volts (V)"
+msgstr "電壓 (V)"
+
+#: master_preset.xml:5397(item:name)
+msgid "Skating"
+msgstr ""
+
+#: master_preset.xml:3824(label:text)
+msgid "Information using headphones or a mobile phone."
+msgstr ""
+
+#: master_preset.xml:6746(item:name)
+msgid "Convenience Store"
+msgstr ""
+
+#: master_preset.xml:3674(item:name)
+msgid "Bar"
+msgstr ""
+
+#: master_preset.xml:6205(combo:text) master_preset.xml:303(combo:text)
+msgid "vacuum"
+msgstr "真空"
+
+#: master_preset.xml:2581(combo:display_values)
+msgid ""
+"drag_lift (general type - use only if exact type (see values below) is "
+"unknown)"
+msgstr ""
+
+#: master_preset.xml:394(check:text) master_preset.xml:959(check:text)
+#: master_preset.xml:669(check:text) master_preset.xml:475(check:text)
+#: master_preset.xml:453(check:text) master_preset.xml:348(check:text)
+#: master_preset.xml:48(check:text) master_preset.xml:420(check:text)
+#: master_preset.xml:759(check:text)
+msgid "Oneway"
+msgstr "單行道"
+
+#: master_preset.xml:8564(item:name)
+msgid "Commercial"
+msgstr ""
+
+#: master_preset.xml:1171(item:name)
+msgid "Pedestrian Crossing"
+msgstr ""
+
+#: master_preset.xml:4945(check:text)
+msgid "Located inside a building?"
+msgstr ""
+
+#: master_preset.xml:7720(check:text)
+msgid "Proton (be)"
+msgstr ""
+
+#: master_preset.xml:2260(check:text) master_preset.xml:2724(check:text)
+msgid "CNG (Compressed Natural Gas)"
+msgstr ""
+
+#: master_preset.xml:1845(text:text)
+msgid "Max. axleload (tonnes)"
+msgstr ""
+
+#: master_preset.xml:7758(item:name) master_preset.xml:7764(text:text)
+msgid "Postal Code"
+msgstr ""
+
+#: master_preset.xml:838(item:name)
+msgid "Ford"
+msgstr "淺灘"
+
+#: master_preset.xml:267(combo:text) master_preset.xml:6587(combo:text)
+#: master_preset.xml:5905(combo:text)
+msgid "Location"
+msgstr ""
+
+#: master_preset.xml:7691(check:text)
+msgid "Girocard"
+msgstr ""
+
+#: master_preset.xml:7176(item:name) master_preset.xml:7160(check:text)
+msgid "Automated Teller Machine"
+msgstr ""
+
+#: master_preset.xml:1119(item:name)
+msgid "Traffic Signal"
+msgstr ""
+
+#: master_preset.xml:1600(item:name)
+msgid "Turnstile"
+msgstr ""
+
+#: master_preset.xml:2413(item:name)
+msgid "Bus Guideway"
+msgstr ""
+
+#: master_preset.xml:4473(group:name)
+msgid "Education"
+msgstr ""
+
+#: master_preset.xml:8012(item:name)
+msgid "Volcano"
+msgstr ""
+
+#: master_preset.xml:4095(item:name)
+msgid "Museum"
+msgstr ""
+
+#: master_preset.xml:5439(combo:text)
+msgid "Difficulty"
+msgstr ""
+
+#: master_preset.xml:294(optional:text)
+msgid "Output forms of energy:"
+msgstr ""
+
+#: master_preset.xml:5798(combo:text)
+msgid "Tower type"
+msgstr ""
+
+#: master_preset.xml:2564(item:name)
+msgid "Mixed Lift"
+msgstr ""
+
+#: master_preset.xml:9242(role:text) master_preset.xml:9241(role:text)
+msgid "waterways (no riverbank)"
+msgstr ""
+
+#: master_preset.xml:3853(item:name)
+msgid "Movie Theater/Cinema"
+msgstr ""
+
+#: master_preset.xml:5098(combo:text)
+msgid "Amount of Seats"
+msgstr ""
+
+#: master_preset.xml:305(combo:text) master_preset.xml:69(combo:text)
+#: master_preset.xml:6207(combo:text) master_preset.xml:251(combo:text)
+msgid "Frequency in Hertz (Hz)"
+msgstr "週率 (Hz)"
+
+#: master_preset.xml:7339(item:name)
+msgid "Ticket"
+msgstr ""
+
+#: master_preset.xml:22(list_entry:short_description)
+msgid "Wheels: city bike, wheelchair, scooter"
+msgstr ""
+
+#: master_preset.xml:4122(item:name)
+msgid "Library"
+msgstr ""
+
+#: master_preset.xml:6458(combo:text)
+msgid "Amount of poles"
+msgstr ""
+
+#: master_preset.xml:5550(item:name)
+msgid "Golf"
+msgstr ""
+
+#: master_preset.xml:7107(item:name)
+msgid "Hifi"
+msgstr ""
+
+#: master_preset.xml:2581(combo:display_values)
+msgid "j-bar"
+msgstr ""
+
+#: master_preset.xml:8739(text:text)
+msgid "House number"
+msgstr ""
+
+#: master_preset.xml:8913(role:text) master_preset.xml:8892(role:text)
+msgid "inner segment"
+msgstr ""
+
+#: master_preset.xml:916(combo:text)
+msgid "Ski"
+msgstr ""
+
+#: master_preset.xml:3776(item:name)
+msgid "Guidepost"
+msgstr ""
+
+#: master_preset.xml:8743(text:text)
+msgid "City name"
+msgstr ""
+
+#: master_preset.xml:958(combo:text)
+msgid "Highway"
+msgstr ""
+
+#: master_preset.xml:2731(check:text)
+msgid "DKV"
+msgstr ""
+
+#: master_preset.xml:23(list_entry:short_description)
+msgid "Robust Wheels: trekking bike, car, rickshaw"
+msgstr ""
+
+#: master_preset.xml:6693(combo:text) master_preset.xml:4338(combo:text)
+#: master_preset.xml:6710(combo:text) master_preset.xml:244(combo:text)
+#: master_preset.xml:7583(combo:text)
+msgid "Religion"
+msgstr "宗教"
+
+#: master_preset.xml:7792(item:name) master_preset.xml:7746(check:text)
+msgid "Maritime"
+msgstr ""
+
+#: master_preset.xml:7067(item:name)
+msgid "Computer"
+msgstr ""
+
+#: master_preset.xml:8435(item:name)
+msgid "Grass"
+msgstr ""
+
+#: master_preset.xml:6020(item:name)
+msgid "Water Well"
+msgstr ""
+
+#: master_preset.xml:9277(role:text)
+msgid "edge ways parallel to 'through'"
+msgstr ""
+
+#: master_preset.xml:1872(combo:text)
+msgid "Tourist buses"
+msgstr ""
+
+#: master_preset.xml:6510(check:text)
+msgid "Triple tower"
+msgstr ""
+
+#: master_preset.xml:6488(item:name)
+msgid "Power Tower"
+msgstr ""
+
+#: master_preset.xml:2154(item:name)
+msgid "Beach"
+msgstr ""
+
+#: master_preset.xml:213(combo:text) master_preset.xml:1828(combo:text)
+msgid "General Access"
+msgstr ""
+
+#: master_preset.xml:9306(item:name)
+msgid "Blacksmith"
+msgstr ""
+
+#: master_preset.xml:4612(item:name)
+msgid "Pharmacy"
+msgstr ""
+
+#: master_preset.xml:7128(item:name)
+msgid "Video Games"
+msgstr ""
+
+#: master_preset.xml:1831(item:name)
+msgid "Physical restrictions"
+msgstr ""
+
+#: master_preset.xml:8748(text:text)
+msgid "House name"
+msgstr ""
+
+#: master_preset.xml:1326(item:name)
+msgid "Bollard"
+msgstr ""
+
+#: master_preset.xml:3327(item:name)
+msgid "Hangar"
+msgstr ""
+
+#: master_preset.xml:9947(item:name)
+msgid "Association"
+msgstr ""
+
+#: master_preset.xml:5678(item:name)
+msgid "RC Car"
+msgstr ""
+
+#: master_preset.xml:6210(group:name)
+msgid "Power Generator"
+msgstr ""
+
+#: master_preset.xml:4377(label:text) master_preset.xml:4369(item:name)
+msgid "Community Centre"
+msgstr ""
+
+#: master_preset.xml:6137(text:text)
+msgid "Inclination in degrees"
+msgstr ""
+
+#: master_preset.xml:4624(check:text) master_preset.xml:7427(check:text)
+msgid "Dispensing"
+msgstr ""
+
+#: master_preset.xml:910(combo:text) master_preset.xml:877(combo:text)
+msgid "MTB Scale"
+msgstr ""
+
+#: master_preset.xml:6091(check:text)
+msgid "Automated"
+msgstr ""
+
+#: master_preset.xml:1169(combo:text)
+msgid "Direction"
+msgstr ""
+
+#: master_preset.xml:3397(item:name)
+msgid "Motel"
+msgstr ""
+
+#: master_preset.xml:1159(item:name)
+msgid "Mini-Roundabout"
+msgstr ""
+
+#: master_preset.xml:298(combo:text) master_preset.xml:6200(combo:text)
+msgid "hot air"
+msgstr "熱氣"
+
+#: master_preset.xml:9261(role:text)
+msgid "ways passing under the bridge"
+msgstr ""
+
+#: master_preset.xml:8792(text:text) master_preset.xml:8812(text:text)
+msgid "Image"
+msgstr ""
+
+#: master_preset.xml:8745(combo:text)
+msgid "Country code"
+msgstr ""
+
+#: master_preset.xml:9971(item:name)
+msgid "Educational institution"
+msgstr ""
+
+#: master_preset.xml:9093(item:name)
+msgid "Detour Route"
+msgstr ""
+
+#: master_preset.xml:6329(list_entry:short_description)
+#: master_preset.xml:6328(list_entry:short_description)
+msgid "run-of-the-river / water-storage"
+msgstr ""
+
+#: master_preset.xml:2265(item:name)
+msgid "Pier"
+msgstr ""
+
+#: master_preset.xml:8616(item:name)
+msgid "Military"
+msgstr ""
+
+#: master_preset.xml:663(combo:text)
+msgid "Vehicle access"
+msgstr ""
+
+#: master_preset.xml:2224(item:name)
+msgid "Marina"
+msgstr ""
+
+#: master_preset.xml:4770(item:name)
+msgid "Outreach"
+msgstr ""
+
+#: master_preset.xml:227(text:text)
+msgid "Descent (m)"
+msgstr "下坡 (m)"
+
+#: master_preset.xml:4657(text:text) master_preset.xml:8808(text:text)
+#: master_preset.xml:8788(text:text)
+msgid "Phone Number"
+msgstr ""
+
+#: master_preset.xml:5928(combo:text)
+msgid "Function"
+msgstr ""
+
+#: master_preset.xml:9362(item:name)
+msgid "Carpet layer"
+msgstr ""
+
+#: master_preset.xml:8424(item:name)
+msgid "Garden"
+msgstr ""
+
+#: master_preset.xml:1053(check:text)
+msgid "Bicycle ramp"
+msgstr ""
+
+#: master_preset.xml:9801(item:name)
+msgid "Dressmaker"
+msgstr ""
+
+#: master_preset.xml:3885(item:name)
+msgid "Dog Park"
+msgstr ""
+
+#: master_preset.xml:8061(label:text)
+msgid "The entrance to a cave."
+msgstr ""
+
+#: master_preset.xml:854(item:name)
+msgid "Track"
+msgstr "軌道"
+
+#: master_preset.xml:3137(text:text) master_preset.xml:2972(text:text)
+msgid "From (initial stop)"
+msgstr ""
+
+#: master_preset.xml:3529(check:text)
+msgid "Power supply"
+msgstr ""
+
+#: master_preset.xml:9569(item:name)
+msgid "Pottery"
+msgstr ""
+
+#: master_preset.xml:1678(item:name)
+msgid "Colonnade"
+msgstr ""
+
+#: master_preset.xml:8145(label:text)
+msgid "Woodland where timber production does not dominate use."
+msgstr ""
+
+#: master_preset.xml:8691(group:name)
+msgid "Annotation"
+msgstr ""
+
+#: master_preset.xml:6197(optional:text)
+msgid "Output forms of energy (optional):"
+msgstr ""
+
+#: master_preset.xml:5572(item:name)
+msgid "Cricket"
+msgstr ""
+
+#: master_preset.xml:4797(text:text) master_preset.xml:3500(text:text)
+#: master_preset.xml:4708(text:text) master_preset.xml:2852(text:text)
+#: master_preset.xml:2837(text:text) master_preset.xml:2663(text:text)
+#: master_preset.xml:2901(text:text) master_preset.xml:4767(text:text)
+#: master_preset.xml:4751(text:text)
+msgid "Capacity"
+msgstr ""
+
+#: master_preset.xml:9236(text:text)
+msgid "Reference GNIS (USA)"
+msgstr ""
+
+#: master_preset.xml:5247(item:name)
+msgid "Pitch"
+msgstr ""
+
+#: master_preset.xml:954(combo:text)
+msgid "Cycleway right"
+msgstr ""
+
+#: master_preset.xml:6302(list_entry:short_description)
+msgid "photovoltaic"
+msgstr ""
+
+#: master_preset.xml:512(item:name)
+msgid "Primary Link"
+msgstr "主要道路連接道"
+
+#: master_preset.xml:9817(item:name) master_preset.xml:7400(item:name)
+msgid "Optician"
+msgstr ""
+
+#: master_preset.xml:6202(combo:text) master_preset.xml:300(combo:text)
+msgid "cold air"
+msgstr "冷氣"
+
+#: master_preset.xml:1796(combo:text) master_preset.xml:881(combo:text)
+#: master_preset.xml:1779(combo:text) master_preset.xml:83(check:text)
+#: master_preset.xml:1783(item:name)
+msgid "Motorcar"
+msgstr "汽車"
+
+#: master_preset.xml:1313(group:name)
+msgid "Barriers"
+msgstr ""
+
+#: master_preset.xml:431(item:name)
+msgid "Trunk"
+msgstr "幹道"
+
+#: master_preset.xml:9049(item:name)
+msgid "Piste Route"
+msgstr ""
+
+#: master_preset.xml:7692(check:text)
+msgid "Laser"
+msgstr ""
+
+#: master_preset.xml:1763(combo:text) master_preset.xml:879(combo:text)
+#: master_preset.xml:1747(combo:text)
+msgid "Motor vehicles"
+msgstr ""
+
+#: master_preset.xml:5141(check:text)
+msgid "Indoor"
+msgstr ""
+
+#: master_preset.xml:9793(item:name)
+msgid "Laboratory"
+msgstr ""
+
+#: master_preset.xml:7980(label:text)
+msgid "The top (summit) of a mountain or hill."
+msgstr ""
+
+#: master_preset.xml:334(combo:text)
+msgid "Canoe"
+msgstr "獨木舟"
+
+#: master_preset.xml:3793(check:text) master_preset.xml:3755(check:text)
+#: master_preset.xml:5429(item:name)
+msgid "Skiing"
+msgstr ""
+
+#: master_preset.xml:9891(item:name)
+msgid "Lawyer"
+msgstr ""
+
+#: master_preset.xml:9153(item:name)
+msgid "Route Network"
+msgstr ""
+
+#: master_preset.xml:670(check:text)
+msgid "Oneway for bicycle"
+msgstr ""
+
+#: master_preset.xml:7784(text:text)
+msgid "Title or type of protection"
+msgstr ""
+
+#: master_preset.xml:2472(item:name)
+msgid "Crossing"
+msgstr ""
+
+#: master_preset.xml:3571(check:text) master_preset.xml:3667(check:text)
+#: master_preset.xml:3649(check:text)
+msgid "Microbrewery"
+msgstr ""
+
+#: master_preset.xml:7704(check:text)
+msgid "Mastercard"
+msgstr ""
+
+#: master_preset.xml:8499(item:name)
+msgid "Residential Area"
+msgstr ""
+
+#: master_preset.xml:1026(check:text) master_preset.xml:459(check:text)
+#: master_preset.xml:760(check:text) master_preset.xml:399(check:text)
+#: master_preset.xml:209(combo:text) master_preset.xml:775(check:text)
+#: master_preset.xml:3901(check:text) master_preset.xml:5198(check:text)
+#: master_preset.xml:53(check:text) master_preset.xml:425(check:text)
+#: master_preset.xml:672(check:text) master_preset.xml:5190(check:text)
+#: master_preset.xml:481(check:text) master_preset.xml:718(check:text)
+msgid "Lit"
+msgstr "照明"
+
+#: master_preset.xml:1031(item:name)
+msgid "Steps"
+msgstr ""
+
+#: master_preset.xml:7803(item:name)
+msgid "Continent"
+msgstr ""
+
+#: master_preset.xml:10003(item:name)
+msgid "Quango"
+msgstr ""
+
+#: master_preset.xml:6087(check:text)
+msgid "Seismic Activity"
+msgstr ""
+
+#: master_preset.xml:5543(item:name)
+msgid "Billiards"
+msgstr ""
+
+#: master_preset.xml:2729(label:text)
+msgid "Fuel cards:"
+msgstr ""
+
+#: master_preset.xml:9148(role:text) master_preset.xml:9064(role:text)
+#: master_preset.xml:9022(role:text) master_preset.xml:9085(role:text)
+#: master_preset.xml:3148(role:text) master_preset.xml:8999(role:text)
+msgid "backward segment"
+msgstr ""
+
+#: master_preset.xml:6402(item:name)
+msgid "Power Switchgear"
+msgstr ""
+
+#: master_preset.xml:1130(combo:text) master_preset.xml:1185(combo:text)
+msgid "Crossing type name (UK)"
+msgstr ""
+
+#: master_preset.xml:8919(item:name)
+msgid "Site"
+msgstr ""
+
+#: master_preset.xml:6142(group:name)
+msgid "Bridges"
+msgstr ""
+
+#: master_preset.xml:3072(check:text) master_preset.xml:3042(check:text)
+msgid "Train"
+msgstr ""
+
+#: master_preset.xml:24(list_entry:short_description)
+msgid "High Clearance: light duty off-road vehicle"
+msgstr ""
+
+#: master_preset.xml:476(check:text) master_preset.xml:454(check:text)
+#: master_preset.xml:523(check:text) master_preset.xml:507(check:text)
+msgid "Motorroad"
+msgstr "汽車用路"
+
+#: master_preset.xml:4550(item:name)
+msgid "Hospital"
+msgstr ""
+
+#: master_preset.xml:4482(check:text)
+msgid "Nursery"
+msgstr ""
+
+#: master_preset.xml:9021(role:text) master_preset.xml:9147(role:text)
+#: master_preset.xml:3147(role:text) master_preset.xml:9063(role:text)
+#: master_preset.xml:8998(role:text) master_preset.xml:9084(role:text)
+msgid "forward segment"
+msgstr ""
+
+#: master_preset.xml:9697(item:name)
+msgid "Upholsterer"
+msgstr ""
+
+#: master_preset.xml:1716(group:name)
+msgid "Access Restrictions"
+msgstr ""
+
+#: master_preset.xml:5072(check:text)
+msgid "Gravity drain for hose"
+msgstr ""
+
+#: master_preset.xml:7478(item:name)
+msgid "Florist"
+msgstr ""
+
+#: master_preset.xml:2709(label:text) master_preset.xml:2247(label:text)
+msgid "Fuel types:"
+msgstr ""
+
+#: master_preset.xml:6593(group:name)
+msgid "Historic Places"
+msgstr ""
+
+#: master_preset.xml:5115(item:name)
+msgid "Hunting Stand"
+msgstr ""
+
+#: master_preset.xml:10075(item:name)
+msgid "Parish"
+msgstr ""
+
+#: master_preset.xml:7078(item:name) master_preset.xml:9737(item:name)
+msgid "Electronics"
+msgstr ""
+
+#: master_preset.xml:2826(item:name)
+msgid "Sharing"
+msgstr ""
+
+#: master_preset.xml:1766(item:name)
+msgid "Motorcar and -cycle (CH)"
+msgstr ""
+
+#: master_preset.xml:3214(item:name)
+msgid "Bus Stop"
+msgstr ""
+
+#: master_preset.xml:6170(item:name)
+msgid "Bridge Support"
+msgstr ""
+
+#: master_preset.xml:2723(check:text) master_preset.xml:2259(check:text)
+msgid "LPG (Liquefied petroleum gas)"
+msgstr ""
+
+#: master_preset.xml:4488(text:text)
+msgid "After school capacity"
+msgstr ""
+
+#: master_preset.xml:8723(item:name)
+msgid "Addresses"
+msgstr ""
+
+#: master_preset.xml:9214(role:text)
+msgid "node of the intersection"
+msgstr ""
+
+#: master_preset.xml:5183(item:name)
+msgid "Advertising Column"
+msgstr ""
+
+#: master_preset.xml:631(item:name)
+msgid "Residential"
+msgstr "住宅區"
+
+#: master_preset.xml:698(item:name)
+msgid "Pedestrian"
+msgstr "行人專用道"
+
+#: master_preset.xml:8227(label:text)
+msgid ""
+"Bare upper lying uncultivated land principally covered with grass and often "
+"grazed."
+msgstr ""
+
+#: master_preset.xml:1340(combo:text) master_preset.xml:5096(combo:text)
+#: master_preset.xml:6545(combo:text) master_preset.xml:6503(combo:text)
+#: master_preset.xml:1596(combo:text) master_preset.xml:6528(combo:text)
+#: master_preset.xml:1323(combo:text)
+msgid "Material"
+msgstr ""
+
+#: master_preset.xml:8774(combo:text)
+msgid "Accuracy"
+msgstr ""
+
+#: master_preset.xml:2520(item:name)
+msgid "Cable Car"
+msgstr ""
+
+#: master_preset.xml:8379(item:name)
+msgid "Greenhouse Horticulture"
+msgstr ""
+
+#: master_preset.xml:4549(group:name)
+msgid "Health"
+msgstr ""
+
+#: master_preset.xml:151(combo:text)
+msgid "Internet access fee"
+msgstr ""
+
+#: master_preset.xml:5907(item:name)
+msgid "Crane"
+msgstr ""
+
+#: master_preset.xml:5125(check:text)
+msgid "Hide"
+msgstr ""
+
+#: master_preset.xml:8249(item:name)
+msgid "Heath"
+msgstr ""
+
+#: master_preset.xml:9963(item:name)
+msgid "Company"
+msgstr ""
+
+#: master_preset.xml:6470(combo:text)
+msgid "Type of compensator"
+msgstr ""
+
+#: master_preset.xml:1878(item:name)
+msgid "Drain"
+msgstr ""
+
+#: master_preset.xml:6640(item:name)
+msgid "Palaeontological Site"
+msgstr ""
+
+#: master_preset.xml:226(text:text)
+msgid "Ascent (m)"
+msgstr "上坡 (m)"
+
+#: master_preset.xml:3806(label:text)
+msgid "Information access via electronic methods."
+msgstr ""
+
+#: master_preset.xml:8715(text:text)
+msgid "Local name"
+msgstr ""
+
+#: master_preset.xml:7999(item:name)
+msgid "Glacier"
+msgstr ""
+
+#: master_preset.xml:6896(item:name)
+msgid "Farm Stand"
+msgstr ""
+
+#: master_preset.xml:5931(combo:text) master_preset.xml:5949(combo:text)
+msgid "Resource"
+msgstr ""
+
+#: master_preset.xml:5144(text:text) master_preset.xml:230(text:text)
+#: master_preset.xml:8827(text:text) master_preset.xml:4863(text:text)
+#: master_preset.xml:8814(item:name) master_preset.xml:4878(text:text)
+#: master_preset.xml:6906(text:text) master_preset.xml:3142(text:text)
+#: master_preset.xml:2977(text:text)
+msgid "Description"
+msgstr "描述"
+
+#: master_preset.xml:9705(item:name)
+msgid "Watchmaker"
+msgstr ""
+
+#: master_preset.xml:9228(combo:text)
+msgid "Subtype of waterway (largest one of members)"
+msgstr ""
+
+#: master_preset.xml:9386(item:name)
+msgid "Clockmaker"
+msgstr ""
+
+#: master_preset.xml:6698(item:name)
+msgid "Wayside Shrine"
+msgstr ""
+
+#: master_preset.xml:3528(combo:text) master_preset.xml:2236(combo:text)
+msgid "Dump Station"
+msgstr ""
+
+#: master_preset.xml:6369(item:name)
+msgid "Power Substation"
+msgstr ""
+
+#: master_preset.xml:7146(item:name)
+msgid "Bank"
+msgstr ""
+
+#: master_preset.xml:2042(item:name)
+msgid "Basin"
+msgstr ""
+
+#: master_preset.xml:8053(item:name)
+msgid "Cave Entrance"
+msgstr ""
+
+#: master_preset.xml:4828(item:name)
+msgid "Youth Centre"
+msgstr ""
+
+#: master_preset.xml:9276(role:text) master_preset.xml:9262(role:text)
+msgid "way forming the outline footprint"
+msgstr ""
+
+#: master_preset.xml:2258(check:text) master_preset.xml:2722(check:text)
+msgid "E85 (85% Ethanol mix)"
+msgstr ""
+
+#: master_preset.xml:3045(check:text) master_preset.xml:3074(check:text)
+msgid "Trolleybus"
+msgstr ""
+
+#: master_preset.xml:8929(role:text)
+msgid "perimeter of the site"
+msgstr ""
+
+#: master_preset.xml:7745(combo:text) master_preset.xml:8909(combo:text)
+msgid "Administrative level"
+msgstr ""
+
+#: master_preset.xml:7411(item:name)
+msgid "Hearing Aids"
+msgstr ""
+
+#: master_preset.xml:8758(item:name)
+msgid "Address Interpolation"
+msgstr ""
+
+#: master_preset.xml:2964(item:name)
+msgid "Public Transport Route"
+msgstr ""
+
+#: master_preset.xml:9867(item:name)
+msgid "Government"
+msgstr ""
+
+#: master_preset.xml:2212(item:name)
+msgid "Ferry Route"
+msgstr ""
+
+#: master_preset.xml:2924(check:text)
+msgid "Tools for do-it-yourself repair (may be a bike co-operative)"
+msgstr ""
+
+#: master_preset.xml:3080(check:text)
+msgid "ferry"
+msgstr ""
+
+#: master_preset.xml:8742(text:text)
+msgid "Place name"
+msgstr ""
+
+#: master_preset.xml:3748(combo:text)
+msgid "Detail Grade"
+msgstr ""
+
+#: master_preset.xml:7711(check:text)
+msgid "Cash (ch)"
+msgstr ""
+
+#: master_preset.xml:9410(item:name)
+msgid "Falles"
+msgstr ""
+
+#: master_preset.xml:2491(item:name)
+msgid "Turntable"
+msgstr ""
+
+#: master_preset.xml:723(item:name)
+msgid "Service"
+msgstr "輔助道路"
+
+#: master_preset.xml:7971(item:name)
+msgid "Peak"
+msgstr ""
+
+#: master_preset.xml:5073(check:text)
+msgid "Casette or Elsan Disposal"
+msgstr ""
+
+#: master_preset.xml:9220(item:name)
+msgid "Waterway"
+msgstr ""
+
+#: master_preset.xml:1343(item:name)
+msgid "Cycle Barrier"
+msgstr ""
+
+#: master_preset.xml:9180(role:text)
+msgid "house"
+msgstr ""
+
+#: master_preset.xml:5671(item:name)
+msgid "Model Aerodrome"
+msgstr ""
+
+#: master_preset.xml:351(combo:text)
+msgid "Overtaking"
+msgstr "超車"
+
+#: master_preset.xml:1187(check:text) master_preset.xml:1134(check:text)
+#: master_preset.xml:2485(check:text)
+msgid "Cross by bicycle"
+msgstr ""
+
+#: master_preset.xml:8330(item:name)
+msgid "Farmland"
+msgstr ""
+
+#: master_preset.xml:9216(role:text)
+msgid "position of sign"
+msgstr ""
+
+#: master_preset.xml:9633(item:name)
+msgid "Stand builder"
+msgstr ""
+
+#: master_preset.xml:8288(item:name)
+msgid "Rock"
+msgstr ""
+
+#: master_preset.xml:2641(combo:text)
+msgid "Park and Ride"
+msgstr ""
+
+#: master_preset.xml:9231(text:text)
+msgid "Name of river/lake/sea/ocean it runs into"
+msgstr ""
+
+#: master_preset.xml:3638(item:name)
+msgid "Pub"
+msgstr ""
+
+#: master_preset.xml:2065(item:name)
+msgid "Covered Reservoir"
+msgstr ""
+
+#: master_preset.xml:3436(item:name)
+msgid "Chalet"
+msgstr ""
+
+#: master_preset.xml:3456(item:name)
+msgid "Hostel"
+msgstr ""
+
+#: master_preset.xml:8258(label:text)
+msgid ""
+"Bare lower lying uncultivated land with a shrubland habitat found mainly on "
+"free-draining infertile, acidic soils, and is characterised by open, low-"
+"growing woody vegetation."
+msgstr ""
+
+#: master_preset.xml:2872(combo:text)
+msgid "Sale"
+msgstr ""
+
+#: master_preset.xml:2707(combo:text)
+msgid "With shop"
+msgstr ""
+
+#: master_preset.xml:2738(item:name)
+msgid "Charging Station"
+msgstr ""
+
+#: master_preset.xml:5034(check:text) master_preset.xml:4998(check:text)
+msgid "Plastic Bottles"
+msgstr ""
+
+#: master_preset.xml:8720(text:text)
+msgid "Common name abbreviation"
+msgstr ""
+
+#: master_preset.xml:6272(item:name)
+msgid "Nuclear Reactor"
+msgstr ""
+
+#: master_preset.xml:4545(combo:text)
+msgid "License Classes"
+msgstr ""
+
+#: master_preset.xml:8241(label:text)
+msgid ""
+"Bare lower lying uncultivated land with bushes but little or no tree cover."
+msgstr ""
+
+#: master_preset.xml:6085(check:text)
+msgid "Weather"
+msgstr ""
+
+#: master_preset.xml:2984(role:text) master_preset.xml:3152(role:text)
+msgid "platform"
+msgstr ""
+
+#: master_preset.xml:2256(check:text) master_preset.xml:2720(check:text)
+msgid "Octane 100"
+msgstr ""
+
+#: master_preset.xml:6131(label:text)
+msgid "Camera"
+msgstr ""
+
+#: master_preset.xml:4294(combo:text) master_preset.xml:4271(combo:text)
+#: master_preset.xml:6694(combo:text) master_preset.xml:4248(combo:text)
+#: master_preset.xml:4200(combo:text) master_preset.xml:245(combo:text)
+#: master_preset.xml:7584(combo:text) master_preset.xml:6711(combo:text)
+#: master_preset.xml:4224(combo:text)
+msgid "Denomination"
+msgstr ""
+
+#: master_preset.xml:6218(item:name)
+msgid "Biogas Power Generator"
+msgstr ""
+
+#: master_preset.xml:7724(combo:text)
+msgid "Cryptocurrencies"
+msgstr ""
+
+#: master_preset.xml:8043(item:name)
+msgid "Valley"
+msgstr ""
+
+#: master_preset.xml:7291(group:name)
+msgid "Printed Material"
+msgstr ""
+
+#: master_preset.xml:3751(optional:text) master_preset.xml:3789(optional:text)
+msgid "Routes shown for:"
+msgstr ""
+
+#: master_preset.xml:6097(check:text)
+msgid "Analog"
+msgstr ""
+
+#: master_preset.xml:7687(combo:text)
+msgid "Debit cards"
+msgstr ""
+
+#: master_preset.xml:3046(check:text) master_preset.xml:3075(check:text)
+msgid "Share taxi"
+msgstr ""
+
+#: master_preset.xml:5003(check:text) master_preset.xml:5039(check:text)
+msgid "Waste"
+msgstr ""
+
+#: master_preset.xml:1352(item:name)
+msgid "Cattle Grid"
+msgstr ""
+
+#: master_preset.xml:6832(item:name)
+msgid "Candy Store"
+msgstr ""
+
+#: master_preset.xml:678(item:name)
+msgid "Living Street"
+msgstr "生活街道"
+
+#: master_preset.xml:1062(check:text)
+msgid "Left handrail"
+msgstr ""
+
+#: master_preset.xml:8970(text:text)
+msgid "Max. weight (tonnes, only if enforcement=maxweight)"
+msgstr ""
+
+#: master_preset.xml:8926(text:text)
+msgid "Site name"
+msgstr ""
+
+#: master_preset.xml:7733(group:name)
+msgid "Boundaries"
+msgstr ""
+
+#: master_preset.xml:7047(item:name) master_preset.xml:9665(item:name)
+msgid "Tailor"
+msgstr ""
+
+#: master_preset.xml:2573(check:text) master_preset.xml:2548(check:text)
+msgid "Has bubble?"
+msgstr ""
+
+#: master_preset.xml:2149(label:text)
+msgid "Large area covered with mud."
+msgstr ""
+
+#: master_preset.xml:5918(item:name)
+msgid "Mineshaft"
+msgstr ""
+
+#: master_preset.xml:3761(item:name)
+msgid "Information Board"
+msgstr ""
+
+#: master_preset.xml:4866(combo:text)
+msgid "Usage Position"
+msgstr ""
+
+#: master_preset.xml:7714(check:text)
+msgid "Mep (pt)"
+msgstr ""
+
+#: master_preset.xml:647(check:text) master_preset.xml:623(check:text)
+msgid "Street has no name"
+msgstr ""
+
+#: master_preset.xml:922(item:name)
+msgid "Dedicated Bridleway"
+msgstr ""
+
+#: master_preset.xml:8512(item:name)
+msgid "Graveyard"
+msgstr ""
+
+#: master_preset.xml:4179(group:name)
+msgid "Place of Worship"
+msgstr ""
+
+#: master_preset.xml:5147(item:name)
+msgid "Fire Hydrant"
+msgstr ""
+
+#: master_preset.xml:330(optional:text)
+msgid "Water access rules:"
+msgstr ""
+
+#: master_preset.xml:312(text:text) master_preset.xml:2425(text:text)
+#: master_preset.xml:933(text:text) master_preset.xml:352(text:text)
+#: master_preset.xml:37(text:text) master_preset.xml:1655(text:text)
+#: master_preset.xml:1256(text:text) master_preset.xml:1635(text:text)
+#: master_preset.xml:664(text:text)
+msgid "Max. speed (km/h)"
+msgstr "最高速度 (km/h)"
+
+#: master_preset.xml:7662(item:name)
+msgid "Vending Machine"
+msgstr ""
+
+#: master_preset.xml:1264(item:name)
+msgid "Highway milestone"
+msgstr ""
+
+#: master_preset.xml:938(item:name)
+msgid "Cycle Lane/Track"
+msgstr ""
+
+#: master_preset.xml:9979(item:name)
+msgid "Foundation"
+msgstr ""
+
+#: master_preset.xml:1259(item:name)
+msgid "Traffic Mirror"
+msgstr ""
+
+#: master_preset.xml:4276(item:name)
+msgid "Hindu Temple"
+msgstr ""
+
+#: master_preset.xml:4063(item:name)
+msgid "Strip Club"
+msgstr ""
+
+#: master_preset.xml:5421(item:name)
+msgid "Scuba Diving"
+msgstr ""
+
+#: master_preset.xml:1216(item:name)
+msgid "Turning Circle"
+msgstr ""
+
+#: master_preset.xml:8048(label:text)
+msgid "A low area between hills."
+msgstr ""
+
+#: master_preset.xml:5584(item:name)
+msgid "Field Hockey"
+msgstr ""
+
+#: master_preset.xml:8368(item:name)
+msgid "Vineyard"
+msgstr ""
+
+#: master_preset.xml:5536(item:name)
+msgid "Beach Volleyball"
+msgstr ""
+
+#: master_preset.xml:5636(item:name)
+msgid "Kart Racing"
+msgstr ""
+
+#: master_preset.xml:5929(text:text)
+msgid "Depth in meters"
+msgstr ""
+
+#: master_preset.xml:2430(item:name)
+msgid "Disused Rail"
+msgstr ""
+
+#: master_preset.xml:661(combo:text) master_preset.xml:805(combo:text)
+msgid "Highway type"
+msgstr ""
+
+#: master_preset.xml:3986(item:name)
+msgid "Public Grill"
+msgstr ""
+
+#: master_preset.xml:6079(check:text)
+msgid "Traffic"
+msgstr ""
+
+#: master_preset.xml:8526(item:name)
+msgid "Cemetery"
+msgstr ""
+
+#: master_preset.xml:8935(item:name)
+msgid "Turn Restriction"
+msgstr ""
+
+#: master_preset.xml:5026(check:text) master_preset.xml:4990(check:text)
+msgid "Cardboard"
+msgstr ""
+
+#: master_preset.xml:8971(text:text)
+msgid "Max. speed (km/h, only if enforcement=maxspeed)"
+msgstr ""
+
+#: master_preset.xml:9681(item:name)
+msgid "Tinsmith"
+msgstr ""
+
+#: master_preset.xml:9466(item:name)
+msgid "Insulation"
+msgstr ""
+
+#: master_preset.xml:2333(item:name)
+msgid "Rail"
+msgstr ""
+
+#: master_preset.xml:9609(item:name)
+msgid "Sawmill"
+msgstr ""
+
+#: master_preset.xml:6080(check:text)
+msgid "Air Quality"
+msgstr ""
+
+#: master_preset.xml:4094(group:name)
+msgid "Culture"
+msgstr ""
+
+#: master_preset.xml:8952(role:text)
+msgid "from way"
+msgstr ""
+
+#: master_preset.xml:6077(check:text)
+msgid "Tide Level"
+msgstr ""
+
+#: master_preset.xml:2180(label:text)
+msgid ""
+"A large body of water partially enclosed by land but with a wide mouth."
+msgstr ""
+
+#: master_preset.xml:9593(item:name)
+msgid "Saddler"
+msgstr ""
+
+#: master_preset.xml:6076(check:text)
+msgid "Water level"
+msgstr ""
+
+#: master_preset.xml:1973(item:name)
+msgid "Waterfall"
+msgstr ""
+
+#: master_preset.xml:353(text:text)
+msgid "Min. speed (km/h)"
+msgstr "最低速度 (km/h)"
+
+#: master_preset.xml:4480(text:text)
+msgid "Age group (ie: 6-12)"
+msgstr ""
+
+#: master_preset.xml:4575(item:name)
+msgid "Doctor's Office"
+msgstr ""
+
+#: master_preset.xml:2110(item:name)
+msgid "Riverbank"
+msgstr ""
+
+#: master_preset.xml:9553(item:name)
+msgid "Plasterer"
+msgstr ""
+
+#: master_preset.xml:5033(check:text) master_preset.xml:4997(check:text)
+msgid "Plastic"
+msgstr ""
+
+#: master_preset.xml:2669(item:name)
+msgid "Parking Entrance"
+msgstr ""
+
+#: master_preset.xml:6349(item:name)
+msgid "Osmotic Power Generator"
+msgstr ""
+
+#: master_preset.xml:5347(item:name)
+msgid "Climbing"
+msgstr ""
+
+#: master_preset.xml:7364(item:name)
+msgid "Hairdresser/Barber"
+msgstr ""
+
+#: master_preset.xml:5872(item:name)
+msgid "Water Works"
+msgstr ""
+
+#: master_preset.xml:9394(item:name)
+msgid "Distillery"
+msgstr ""
+
+#: master_preset.xml:1193(item:name)
+msgid "Traffic Calming"
+msgstr ""
+
+#: master_preset.xml:5455(group:name)
+msgid "Sport (Ball)"
+msgstr ""
+
+#: master_preset.xml:8189(label:text)
+msgid ""
+"Where vegetation is dominated by grasses (Poaceae) and other herbaceous "
+"(non-woody) plants. Excludes cultivated areas and wetlands."
+msgstr ""
+
+#: master_preset.xml:369(group:name)
+msgid "Highways"
+msgstr "道路"
+
+#: master_preset.xml:4492(item:name)
+msgid "School"
+msgstr ""
+
+#: master_preset.xml:7891(item:name) master_preset.xml:8749(text:text)
+msgid "Hamlet"
+msgstr ""
+
+#: master_preset.xml:7702(check:text)
+msgid "Discover Card"
+msgstr ""
+
+#: master_preset.xml:3044(check:text)
+msgid "Railway halt (legacy)"
+msgstr ""
+
+#: master_preset.xml:9402(item:name)
+msgid "Electrician"
+msgstr ""
+
+#: master_preset.xml:7700(check:text)
+msgid "American Express"
+msgstr ""
+
+#: master_preset.xml:3599(item:name)
+msgid "Food Court"
+msgstr ""
+
+#: master_preset.xml:6186(group:name)
+msgid "Power"
+msgstr ""
+
+#: master_preset.xml:5276(item:name)
+msgid "Golf Course"
+msgstr ""
+
+#: master_preset.xml:5947(text:text)
+msgid "Length in meters"
+msgstr ""
+
+#: master_preset.xml:5443(item:name)
+msgid "Shooting"
+msgstr ""
+
+#: master_preset.xml:6557(item:name)
+msgid "Power Line"
+msgstr ""
+
+#: master_preset.xml:6063(item:name)
+msgid "Monitoring Station"
+msgstr ""
+
+#: master_preset.xml:2581(combo:display_values)
+msgid "rope_tow"
+msgstr ""
+
+#: master_preset.xml:5613(item:name)
+msgid "Table Tennis/Ping-Pong"
+msgstr ""
+
+#: master_preset.xml:2250(check:text) master_preset.xml:2712(check:text)
+msgid "Bio Diesel"
+msgstr ""
+
+#: master_preset.xml:2124(check:text) master_preset.xml:2093(check:text)
+#: master_preset.xml:321(check:text)
+msgid "Is the water body intermittent (disappears seasonally)?"
+msgstr ""
+
+#: master_preset.xml:2647(combo:text)
+msgid "Spaces for Parents"
+msgstr ""
+
+#: master_preset.xml:8907(combo:text)
+msgid "Boundary type"
+msgstr ""
+
+#: master_preset.xml:8268(label:text)
+msgid "Large area covered with sand."
+msgstr ""
+
+#: master_preset.xml:3033(text:text) master_preset.xml:3013(text:text)
+#: master_preset.xml:3064(text:text)
+msgid "UIC reference"
+msgstr ""
+
+#: master_preset.xml:746(item:name)
+msgid "Parking Aisle"
+msgstr "停車場通道"
+
+#: master_preset.xml:6354(item:name)
+msgid "Geothermal Power Generator"
+msgstr ""
+
+#: master_preset.xml:5166(text:text)
+msgid "Count"
+msgstr ""
+
+#: master_preset.xml:5383(item:name)
+msgid "Horse Racing"
+msgstr ""
+
+#: master_preset.xml:61(combo:text) master_preset.xml:674(combo:text)
+msgid "Sidewalk"
+msgstr "人行道"
+
+#: master_preset.xml:7003(item:name)
+msgid "Outdoor"
+msgstr ""
+
+#: master_preset.xml:8070(item:name)
+msgid "Island"
+msgstr ""
+
+#: master_preset.xml:3867(text:text)
+msgid "Minimum age"
+msgstr ""
+
+#: master_preset.xml:5129(item:name) master_preset.xml:4862(combo:text)
+#: master_preset.xml:1115(check:text) master_preset.xml:3504(combo:text)
+#: master_preset.xml:1971(check:text)
+msgid "Drinking Water"
+msgstr ""
+
+#: master_preset.xml:8263(item:name)
+msgid "Sand"
+msgstr ""
+
+#: master_preset.xml:8677(item:name)
+msgid "Quarry"
+msgstr ""
+
+#: master_preset.xml:6462(item:name)
+msgid "Power Compensator"
+msgstr ""
+
+#: master_preset.xml:3131(item:name)
+msgid "Public transport route (Legacy)"
+msgstr ""
+
+#: master_preset.xml:8916(role:text)
+msgid "Label point"
+msgstr ""
+
+#: master_preset.xml:9561(item:name)
+msgid "Plumber"
+msgstr ""
+
+#: master_preset.xml:2839(text:text) master_preset.xml:222(text:text)
+#: master_preset.xml:8785(text:text) master_preset.xml:6879(text:text)
+#: master_preset.xml:8805(text:text) master_preset.xml:7943(text:text)
+msgid "Website"
+msgstr "網站"
+
+#: master_preset.xml:3696(item:name)
+msgid "Attraction"
+msgstr ""
+
+#: master_preset.xml:3706(item:name)
+msgid "Viewpoint"
+msgstr ""
+
+#: master_preset.xml:9133(item:name)
+msgid "Road Route"
+msgstr ""
+
+#: master_preset.xml:7025(item:name)
+msgid "Dry Cleaning"
+msgstr ""
+
+#: master_preset.xml:1632(combo:text) master_preset.xml:691(combo:text)
+#: master_preset.xml:9270(combo:text) master_preset.xml:35(combo:text)
+#: master_preset.xml:713(combo:text) master_preset.xml:311(combo:text)
+#: master_preset.xml:9254(combo:text) master_preset.xml:115(combo:text)
+#: master_preset.xml:666(combo:text) master_preset.xml:2036(combo:text)
+#: master_preset.xml:6588(combo:text) master_preset.xml:2423(combo:text)
+#: master_preset.xml:6573(combo:text)
+msgid "Layer"
+msgstr "階層"
+
+#: master_preset.xml:5729(text:text) master_preset.xml:3359(text:text)
+#: master_preset.xml:5380(text:text) master_preset.xml:2108(text:text)
+#: master_preset.xml:8562(text:text) master_preset.xml:3093(text:text)
+#: master_preset.xml:5111(text:text) master_preset.xml:5259(text:text)
+#: master_preset.xml:5330(text:text) master_preset.xml:8219(text:text)
+#: master_preset.xml:2220(text:text) master_preset.xml:5749(text:text)
+#: master_preset.xml:8471(text:text) master_preset.xml:243(text:text)
+#: master_preset.xml:5418(text:text) master_preset.xml:3211(text:text)
+#: master_preset.xml:5650(text:text) master_preset.xml:5797(text:text)
+#: master_preset.xml:8148(text:text) master_preset.xml:5322(text:text)
+#: master_preset.xml:662(text:text) master_preset.xml:8192(text:text)
+#: master_preset.xml:3270(text:text) master_preset.xml:5557(text:text)
+#: master_preset.xml:2620(text:text) master_preset.xml:586(text:text)
+#: master_preset.xml:114(text:text) master_preset.xml:8404(text:text)
+#: master_preset.xml:8462(text:text) master_preset.xml:5667(text:text)
+#: master_preset.xml:5337(text:text) master_preset.xml:2327(text:text)
+#: master_preset.xml:5410(text:text) master_preset.xml:1393(text:text)
+#: master_preset.xml:2183(text:text) master_preset.xml:5946(text:text)
+#: master_preset.xml:8510(text:text) master_preset.xml:110(text:text)
+#: master_preset.xml:2090(text:text) master_preset.xml:3030(text:text)
+#: master_preset.xml:8421(text:text) master_preset.xml:505(text:text)
+#: master_preset.xml:3772(text:text) master_preset.xml:8433(text:text)
+#: master_preset.xml:8625(text:text) master_preset.xml:3226(text:text)
+#: master_preset.xml:105(text:text) master_preset.xml:849(text:text)
+#: master_preset.xml:2704(text:text) master_preset.xml:8614(text:text)
+#: master_preset.xml:4293(text:text) master_preset.xml:5595(text:text)
+#: master_preset.xml:8652(text:text) master_preset.xml:8496(text:text)
+#: master_preset.xml:4145(text:text) master_preset.xml:1096(text:text)
+#: master_preset.xml:8271(text:text) master_preset.xml:5273(text:text)
+#: master_preset.xml:4017(text:text) master_preset.xml:216(text:text)
+#: master_preset.xml:131(text:text) master_preset.xml:5394(text:text)
+#: master_preset.xml:3995(text:text) master_preset.xml:689(text:text)
+#: master_preset.xml:3057(text:text) master_preset.xml:5387(text:text)
+#: master_preset.xml:8261(text:text) master_preset.xml:4222(text:text)
+#: master_preset.xml:8589(text:text) master_preset.xml:2195(text:text)
+#: master_preset.xml:2277(text:text) master_preset.xml:8675(text:text)
+#: master_preset.xml:2614(text:text) master_preset.xml:5675(text:text)
+#: master_preset.xml:1631(text:text) master_preset.xml:4198(text:text)
+#: master_preset.xml:9157(text:text) master_preset.xml:7799(text:text)
+#: master_preset.xml:8204(text:text) master_preset.xml:8341(text:text)
+#: master_preset.xml:3010(text:text) master_preset.xml:5314(text:text)
+#: master_preset.xml:6377(text:text) master_preset.xml:5763(text:text)
+#: master_preset.xml:4337(text:text) master_preset.xml:3848(text:text)
+#: master_preset.xml:4452(text:text) master_preset.xml:2900(text:text)
+#: master_preset.xml:8484(text:text) master_preset.xml:3187(text:text)
+#: master_preset.xml:190(text:text) master_preset.xml:9188(text:text)
+#: master_preset.xml:2035(text:text) master_preset.xml:2074(text:text)
+#: master_preset.xml:5927(text:text) master_preset.xml:5633(text:text)
+#: master_preset.xml:8163(text:text) master_preset.xml:6127(text:text)
+#: master_preset.xml:1307(text:text) master_preset.xml:3747(text:text)
+#: master_preset.xml:5706(text:text) master_preset.xml:8448(text:text)
+#: master_preset.xml:8575(text:text) master_preset.xml:711(text:text)
+#: master_preset.xml:310(text:text) master_preset.xml:5845(text:text)
+#: master_preset.xml:8711(text:text) master_preset.xml:1242(text:text)
+#: master_preset.xml:4316(text:text) master_preset.xml:5243(text:text)
+#: master_preset.xml:8108(text:text) master_preset.xml:2023(text:text)
+#: master_preset.xml:5693(text:text) master_preset.xml:5353(text:text)
+#: master_preset.xml:2943(text:text) master_preset.xml:3716(text:text)
+#: master_preset.xml:7744(text:text) master_preset.xml:2152(text:text)
+#: master_preset.xml:3976(text:text) master_preset.xml:2316(text:text)
+#: master_preset.xml:7756(text:text) master_preset.xml:2421(text:text)
+#: master_preset.xml:1113(text:text) master_preset.xml:1082(text:text)
+#: master_preset.xml:5916(text:text) master_preset.xml:6052(text:text)
+#: master_preset.xml:4270(text:text) master_preset.xml:789(text:text)
+#: master_preset.xml:5588(text:text) master_preset.xml:6709(text:text)
+#: master_preset.xml:546(text:text) master_preset.xml:8639(text:text)
+#: master_preset.xml:390(text:text) master_preset.xml:2866(text:text)
+#: master_preset.xml:3258(text:text) master_preset.xml:1991(text:text)
+#: master_preset.xml:3897(text:text) master_preset.xml:6004(text:text)
+#: master_preset.xml:5610(text:text) master_preset.xml:5402(text:text)
+#: master_preset.xml:5230(text:text) master_preset.xml:8366(text:text)
+#: master_preset.xml:2954(text:text) master_preset.xml:3165(text:text)
+#: master_preset.xml:6018(text:text) master_preset.xml:2235(text:text)
+#: master_preset.xml:8286(text:text) master_preset.xml:8377(text:text)
+#: master_preset.xml:1970(text:text) master_preset.xml:4162(text:text)
+#: master_preset.xml:6692(text:text) master_preset.xml:8601(text:text)
+#: master_preset.xml:8906(text:text) master_preset.xml:5373(text:text)
+#: master_preset.xml:5641(text:text) master_preset.xml:5427(text:text)
+#: master_preset.xml:6032(text:text) master_preset.xml:8391(text:text)
+#: master_preset.xml:739(text:text) master_preset.xml:5360(text:text)
+#: master_preset.xml:449(text:text) master_preset.xml:2209(text:text)
+#: master_preset.xml:5436(text:text) master_preset.xml:5990(text:text)
+#: master_preset.xml:8888(text:text) master_preset.xml:145(text:text)
+#: master_preset.xml:6726(text:text) master_preset.xml:6044(text:text)
+#: master_preset.xml:6110(text:text) master_preset.xml:3177(text:text)
+#: master_preset.xml:8692(item:name) master_preset.xml:6662(text:text)
+#: master_preset.xml:645(text:text) master_preset.xml:2052(text:text)
+#: master_preset.xml:6638(text:text) master_preset.xml:9229(text:text)
+#: master_preset.xml:3109(text:text) master_preset.xml:101(text:text)
+#: master_preset.xml:8328(text:text) master_preset.xml:807(text:text)
+#: master_preset.xml:4246(text:text) master_preset.xml:4008(text:text)
+#: master_preset.xml:1138(text:text) master_preset.xml:2141(text:text)
+#: master_preset.xml:5306(text:text) master_preset.xml:622(text:text)
+#: master_preset.xml:6648(text:text) master_preset.xml:8354(text:text)
+#: master_preset.xml:5143(text:text) master_preset.xml:2063(text:text)
+#: master_preset.xml:8663(text:text) master_preset.xml:7773(text:text)
+#: master_preset.xml:8230(text:text) master_preset.xml:174(text:text)
+#: master_preset.xml:5451(text:text) master_preset.xml:5617(text:text)
+#: master_preset.xml:5822(text:text) master_preset.xml:2123(text:text)
+#: master_preset.xml:8244(text:text) master_preset.xml:2304(text:text)
+#: master_preset.xml:1278(text:text) master_preset.xml:6675(text:text)
+#: master_preset.xml:139(text:text) master_preset.xml:5366(text:text)
+msgid "Name"
+msgstr "名稱"
+
+#: master_preset.xml:3114(item:name)
+msgid "Ticket Machine"
+msgstr ""
+
+#: master_preset.xml:7726(check:text)
+msgid "Bitcoin"
+msgstr ""
+
+#: master_preset.xml:7837(item:name)
+msgid "County"
+msgstr ""
+
+#: master_preset.xml:3557(item:name)
+msgid "Restaurant"
+msgstr ""
+
+#: master_preset.xml:6074(label:text)
+msgid "Monitoring:"
+msgstr ""
+
+#: master_preset.xml:3852(group:name)
+msgid "Leisure"
+msgstr ""
+
+#: master_preset.xml:8895(item:name)
+msgid "Boundary"
+msgstr ""
+
+#: master_preset.xml:2499(item:name)
+msgid "Buffer Stop"
+msgstr ""
+
+#: master_preset.xml:5405(item:name)
+msgid "Skateboard"
+msgstr ""
+
+#: master_preset.xml:1049(check:text)
+msgid "Ramp"
+msgstr ""
+
+#: master_preset.xml:4814(item:name)
+msgid "Social Workshop"
+msgstr ""
+
+#: master_preset.xml:5036(check:text) master_preset.xml:5000(check:text)
+msgid "Scrap Metal"
+msgstr ""
+
+#: master_preset.xml:1298(item:name)
+msgid "Mountain Pass"
+msgstr ""
+
+#: master_preset.xml:1232(item:name)
+msgid "City Limit"
+msgstr ""
+
+#: master_preset.xml:7430(item:name)
+msgid "Jewellery"
+msgstr ""
+
+#: master_preset.xml:4884(item:name)
+msgid "Post Box"
+msgstr ""
+
+#: master_preset.xml:2289(item:name)
+msgid "Turning Point"
+msgstr ""
+
+#: master_preset.xml:2645(combo:text)
+msgid "Spaces for Disabled"
+msgstr ""
+
+#: master_preset.xml:4963(combo:display_values)
+msgid "street (up to 20m)"
+msgstr ""
+
+#: master_preset.xml:9923(item:name)
+msgid "Travel agent"
+msgstr ""
+
+#: master_preset.xml:3835(text:text)
+msgid "Phone number"
+msgstr ""
+
+#: master_preset.xml:884(item:name)
+msgid "Path"
+msgstr "路徑"
+
+#: master_preset.xml:4509(item:name)
+msgid "University"
+msgstr ""
+
+#: master_preset.xml:3126(text:text)
+msgid "Reference Number"
+msgstr ""
+
+#: master_preset.xml:6553(combo:text) master_preset.xml:6398(combo:text)
+#: master_preset.xml:6381(combo:text)
+msgid "Power rating (kVA/MVA)"
+msgstr ""
+
+#: master_preset.xml:1397(item:name)
+msgid "Border Control"
+msgstr ""
+
+#: master_preset.xml:7037(item:name)
+msgid "Laundry"
+msgstr ""
+
+#: master_preset.xml:6399(combo:text) master_preset.xml:6554(combo:text)
+msgid "Phases"
+msgstr ""
+
+#: master_preset.xml:3069(check:text) master_preset.xml:3038(check:text)
+msgid "Bus"
+msgstr ""
+
+#: master_preset.xml:4408(item:name)
+msgid "Prison"
+msgstr ""
+
+#: master_preset.xml:1750(item:name)
+msgid "Motor vehicle (CH)"
+msgstr ""
+
+#: master_preset.xml:3053(item:name) master_preset.xml:3020(role:text)
+msgid "Platform"
+msgstr ""
+
+#: master_preset.xml:4996(check:text) master_preset.xml:5032(check:text)
+msgid "Paper"
+msgstr ""
+
+#: master_preset.xml:10107(item:name)
+msgid "Therapist"
+msgstr ""
+
+#: master_preset.xml:10035(item:name)
+msgid "Cooperative"
+msgstr ""
+
+#: master_preset.xml:953(combo:text)
+msgid "Cycleway left"
+msgstr ""
+
+#: master_preset.xml:2843(item:name) master_preset.xml:2625(item:name)
+#: master_preset.xml:2884(item:name)
+msgid "Parking"
+msgstr ""
+
+#: master_preset.xml:3530(check:text)
+msgid "Tents allowed"
+msgstr ""
+
+#: master_preset.xml:4356(item:name)
+msgid "Town Hall"
+msgstr ""
+
+#: master_preset.xml:8591(item:name)
+msgid "Garages"
+msgstr ""
+
+#: master_preset.xml:7812(item:name)
+msgid "Country"
+msgstr ""
+
+#: master_preset.xml:7717(check:text)
+msgid "Mondero (ar)"
+msgstr ""
+
+#: master_preset.xml:1940(item:name)
+msgid "Canal"
+msgstr ""
+
+#: master_preset.xml:9995(item:name)
+msgid "Newspaper"
+msgstr ""
+
+#: master_preset.xml:2721(check:text) master_preset.xml:2257(check:text)
+msgid "E10 (10% Ethanol mix)"
+msgstr ""
+
+#: master_preset.xml:6917(combo:text)
+msgid "Organic/Bio"
+msgstr ""
+
+#: master_preset.xml:2318(item:name)
+msgid "Dock"
+msgstr ""
+
+#: master_preset.xml:7518(item:name)
+msgid "Hardware"
+msgstr ""
+
+#: master_preset.xml:2331(group:name)
+msgid "Transport"
+msgstr ""
+
+#: master_preset.xml:9859(item:name)
+msgid "Estate agent"
+msgstr ""
+
+#: master_preset.xml:8665(item:name)
+msgid "Landfill"
+msgstr ""
+
+#: master_preset.xml:7775(item:name)
+msgid "Protected Area"
+msgstr ""
+
+#: master_preset.xml:5369(item:name)
+msgid "Dog Racing"
+msgstr ""
+
+#: master_preset.xml:8874(item:name)
+msgid "Multipolygon"
+msgstr ""
+
+#: master_preset.xml:2381(item:name)
+msgid "Light Rail"
+msgstr ""
+
+#: master_preset.xml:7350(group:name)
+msgid "For the body"
+msgstr ""
+
+#: master_preset.xml:3695(group:name)
+msgid "Tourism"
+msgstr ""
+
+#: master_preset.xml:8473(item:name)
+msgid "Park"
+msgstr ""
+
+#: master_preset.xml:6775(item:name)
+msgid "Bakery"
+msgstr ""
+
+#: master_preset.xml:8853(item:name) master_preset.xml:8866(text:text)
+msgid "Fixme"
+msgstr ""
+
+#: master_preset.xml:1959(item:name)
+msgid "Spring"
+msgstr ""
+
+#: master_preset.xml:3190(item:name)
+msgid "Railway Platform"
+msgstr ""
+
+#: master_preset.xml:3166(text:text)
+msgid "UIC-Reference"
+msgstr ""
+
+#: master_preset.xml:5325(item:name)
+msgid "Archery"
+msgstr ""
+
+#: master_preset.xml:8029(item:name)
+msgid "Ridge"
+msgstr ""
+
+#: master_preset.xml:6446(item:name)
+msgid "Power Converter"
+msgstr ""
+
+#: master_preset.xml:528(item:name)
+msgid "Secondary"
+msgstr "次要道路"
+
+#: master_preset.xml:8093(item:name)
+msgid "Tree"
+msgstr ""
+
+#: master_preset.xml:7550(item:name)
+msgid "Musical Instrument"
+msgstr ""
+
+#: master_preset.xml:3526(text:text)
+msgid "Number of places"
+msgstr ""
+
+#: master_preset.xml:8968(combo:text)
+msgid "Type of enforcement"
+msgstr ""
+
+#: master_preset.xml:2161(label:text)
+msgid "A flat area of sand, gravel or pebble next to water."
+msgstr ""
+
+#: master_preset.xml:1923(item:name)
+msgid "River"
+msgstr ""
+
+#: master_preset.xml:3952(item:name)
+msgid "Playground"
+msgstr ""
+
+#: master_preset.xml:6187(item:name)
+msgid "Power Plant"
+msgstr ""
+
+#: master_preset.xml:5097(combo:text) master_preset.xml:2978(combo:text)
+#: master_preset.xml:3143(combo:text) master_preset.xml:2999(combo:text)
+#: master_preset.xml:6504(combo:text)
+msgid "Color (HTML name or hexadecimal code)"
+msgstr ""
+
+#: master_preset.xml:6926(item:name)
+msgid "Alcohol"
+msgstr ""
+
+#: master_preset.xml:3866(text:text)
+msgid "Number of screens"
+msgstr ""
+
+#: master_preset.xml:4963(combo:display_values)
+msgid "house (up to 5m)"
+msgstr ""
+
+#: master_preset.xml:8450(item:name)
+msgid "Village Green"
+msgstr ""
+
+#: master_preset.xml:7608(item:name)
+msgid "Lottery"
+msgstr ""
+
+#: master_preset.xml:9529(item:name)
+msgid "Painter"
+msgstr ""
+
+#: master_preset.xml:3022(role:text)
+msgid "Station or amenities"
+msgstr ""
+
+#: master_preset.xml:2370(item:name)
+msgid "Preserved"
+msgstr ""
+
+#: master_preset.xml:5456(item:name)
+msgid "Soccer"
+msgstr ""
+
+#: master_preset.xml:7600(item:name)
+msgid "Bookmaker"
+msgstr ""
+
+#: master_preset.xml:7540(item:name)
+msgid "Travel Agency"
+msgstr ""
+
+#: master_preset.xml:350(check:text)
+msgid "No exit (cul-de-sac)"
+msgstr ""
+
+#: master_preset.xml:4525(item:name)
+msgid "College"
+msgstr ""
+
+#: master_preset.xml:10019(item:name)
+msgid "Tax advisor"
+msgstr ""
+
+#: master_preset.xml:7802(group:name)
+msgid "Places"
+msgstr ""
+
+#: master_preset.xml:3261(group:name)
+msgid "Airport"
+msgstr ""
+
+#: master_preset.xml:2238(item:name)
+msgid "Marine Fuel"
+msgstr ""
+
+#: master_preset.xml:9210(text:text)
+msgid "Colour of text"
+msgstr ""
+
+#: master_preset.xml:8110(text:text)
+msgid "Botanical Name"
+msgstr ""
+
+#: master_preset.xml:5484(item:name)
+msgid "Gaelic Games"
+msgstr ""
+
+#: master_preset.xml:8551(item:name)
+msgid "Retail"
+msgstr ""
+
+#: master_preset.xml:3817(item:name)
+msgid "Audio Guide"
+msgstr ""
+
+#: master_preset.xml:2545(text:text) master_preset.xml:2570(text:text)
+#: master_preset.xml:2558(text:text) master_preset.xml:2595(text:text)
+#: master_preset.xml:2532(text:text) master_preset.xml:2585(text:text)
+msgid "Number of people per hour"
+msgstr ""
+
+#: master_preset.xml:3076(check:text) master_preset.xml:3047(check:text)
+#: master_preset.xml:2388(item:name)
+msgid "Subway"
+msgstr ""
+
+#: master_preset.xml:5077(combo:text) master_preset.xml:6061(combo:text)
+msgid "Operation times"
+msgstr ""
+
+#: master_preset.xml:6258(item:name)
+msgid "Diesel Power Generator"
+msgstr ""
+
+#: master_preset.xml:6856(item:name)
+msgid "Coffee"
+msgstr ""
+
+#: master_preset.xml:4229(item:name)
+msgid "Synagogue"
+msgstr ""
+
+#: master_preset.xml:7205(item:name) master_preset.xml:9745(item:name)
+msgid "Furniture"
+msgstr ""
+
+#: master_preset.xml:6201(combo:text) master_preset.xml:299(combo:text)
+msgid "cold water"
+msgstr "冷水"
+
+#: master_preset.xml:3999(item:name)
+msgid "Firepit"
+msgstr ""
+
+#: master_preset.xml:5824(item:name)
+msgid "Chimney"
+msgstr ""
+
+#: master_preset.xml:488(item:name)
+msgid "Primary"
+msgstr "主要道路"
+
+#: master_preset.xml:3049(check:text)
+msgid "Funicular"
+msgstr ""
+
+#: master_preset.xml:7905(item:name)
+msgid "Isolated Dwelling"
+msgstr ""
+
+#: master_preset.xml:3149(role:text)
+msgid "halt point"
+msgstr ""
+
+#: master_preset.xml:8974(role:text)
+msgid "node on way where enforcement starts"
+msgstr ""
+
+#: master_preset.xml:10027(item:name)
+msgid "Consulting"
+msgstr ""
+
+#: master_preset.xml:1952(combo:text) master_preset.xml:478(check:text)
+#: master_preset.xml:456(check:text) master_preset.xml:422(check:text)
+#: master_preset.xml:1617(item:name) master_preset.xml:42(check:text)
+#: master_preset.xml:9266(item:name) master_preset.xml:396(check:text)
+#: master_preset.xml:322(combo:text)
+msgid "Tunnel"
+msgstr "隧道"
+
+#: master_preset.xml:5950(check:text) master_preset.xml:5933(check:text)
+msgid "Disused"
+msgstr ""
+
+#: master_preset.xml:9753(item:name)
+msgid "Gardener"
+msgstr ""
+
+#: master_preset.xml:4455(item:name)
+msgid "Post Office"
+msgstr ""
+
+#: master_preset.xml:5180(multiselect:display_values)
+msgid "Schrader"
+msgstr ""
+
+#: master_preset.xml:5767(text:text)
+msgid "Skipped height (meters)"
+msgstr ""
+
+#: master_preset.xml:10067(item:name)
+msgid "Notary"
+msgstr ""
+
+#: master_preset.xml:3313(item:name)
+msgid "Apron"
+msgstr ""
+
+#: master_preset.xml:8394(item:name)
+msgid "Plant Nursery"
+msgstr ""
+
+#: master_preset.xml:9233(text:text)
+msgid "Reference Sandre (FR)"
+msgstr ""
+
+#: master_preset.xml:3026(item:name) master_preset.xml:3019(role:text)
+msgid "Stop Position"
+msgstr ""
+
+#: master_preset.xml:8914(role:text)
+msgid "Sub area"
+msgstr ""
+
+#: master_preset.xml:1114(check:text) master_preset.xml:3502(check:text)
+#: master_preset.xml:1098(check:text)
+msgid "Toilets"
+msgstr ""
+
+#: master_preset.xml:3138(text:text) master_preset.xml:2973(text:text)
+msgid "To (terminal stop)"
+msgstr ""
+
+#: master_preset.xml:3350(item:name)
+msgid "Terminal"
+msgstr ""
+
+#: master_preset.xml:1583(item:name)
+msgid "Chain"
+msgstr ""
+
+#: master_preset.xml:3570(multiselect:text) master_preset.xml:3630(combo:text)
+#: master_preset.xml:3591(combo:text)
+msgid "Cuisine"
+msgstr ""
+
+#: master_preset.xml:2713(check:text)
+msgid "Diesel (Gas To Liquid - ultimate diesel)"
+msgstr ""
+
+#: master_preset.xml:3048(check:text) master_preset.xml:3077(check:text)
+#: master_preset.xml:2359(item:name)
+msgid "Monorail"
+msgstr ""
+
+#: master_preset.xml:8317(group:name)
+msgid "Land use"
+msgstr ""
+
+#: master_preset.xml:7798(combo:text)
+msgid "Border type"
+msgstr ""
+
+#: master_preset.xml:3071(check:text) master_preset.xml:3040(check:text)
+#: master_preset.xml:2400(item:name)
+msgid "Tram"
+msgstr ""
+
+#: master_preset.xml:8151(item:name)
+msgid "Forest"
+msgstr ""
+
+#: master_preset.xml:7440(item:name)
+msgid "Erotic"
+msgstr ""
+
+#: master_preset.xml:4253(item:name)
+msgid "Buddhist Temple"
+msgstr ""
+
+#: master_preset.xml:4895(combo:text)
+msgid "Collection times"
+msgstr ""
+
+#: master_preset.xml:8114(text:text) master_preset.xml:1417(text:text)
+msgid "Taxon"
+msgstr ""
+
+#: master_preset.xml:2877(combo:text) master_preset.xml:4991(check:text)
+#: master_preset.xml:6962(group:name) master_preset.xml:5027(check:text)
+#: master_preset.xml:6963(item:name)
+msgid "Clothes"
+msgstr ""
+
+#: master_preset.xml:5095(check:text)
+msgid "Backrest"
+msgstr ""
+
+#: master_preset.xml:5932(check:text)
+msgid "Visible Headframe"
+msgstr ""
+
+#: master_preset.xml:9585(item:name)
+msgid "Roofer"
+msgstr ""
+
+#: master_preset.xml:1365(item:name)
+msgid "Spikes"
+msgstr ""
+
+#: master_preset.xml:7164(item:name)
+msgid "Money Exchange"
+msgstr ""
+
+#: master_preset.xml:6006(item:name)
+msgid "Fountain"
+msgstr ""
+
+#: master_preset.xml:915(combo:text) master_preset.xml:124(combo:text)
+msgid "Wheelchairs"
+msgstr "輪椅"
+
+#: master_preset.xml:370(group:name)
+msgid "Streets"
+msgstr "街道"
+
+#: master_preset.xml:1084(text:text)
+msgid "Exit to"
+msgstr ""
+
+#: master_preset.xml:20(list_entry:short_description)
+msgid "Thin Rollers: rollerblade, skateboard"
+msgstr ""
+
+#: master_preset.xml:9244(role:text)
+msgid "spring of waterway"
+msgstr ""
+
+#: master_preset.xml:81(check:text) master_preset.xml:1866(combo:text)
+#: master_preset.xml:914(combo:text) master_preset.xml:90(check:text)
+msgid "Horse"
+msgstr "馬匹"
+
+#: master_preset.xml:1086(item:name)
+msgid "Services"
+msgstr ""
+
+#: master_preset.xml:5440(combo:text)
+msgid "Grooming"
+msgstr ""
+
+#: master_preset.xml:6308(item:name)
+msgid "Waste Power Generator"
+msgstr ""
+
+#: master_preset.xml:3967(item:name)
+msgid "Picnic Site"
+msgstr ""
+
+#: master_preset.xml:4483(check:text)
+msgid "Kindergarten"
+msgstr ""
+
+#: master_preset.xml:6161(item:name)
+msgid "Movable Bridge"
+msgstr ""
+
+#: master_preset.xml:64(combo:text)
+msgid "Service type"
+msgstr "服務類型"
+
+#: master_preset.xml:3657(item:name)
+msgid "Beer Garden"
+msgstr ""
+
+#: master_preset.xml:6589(check:text) master_preset.xml:6574(check:text)
+msgid "Used for data communications"
+msgstr ""
+
+#: master_preset.xml:6508(combo:text)
+msgid "Branch tower type"
+msgstr ""
+
+#: master_preset.xml:7728(check:text)
+msgid "Litecoin"
+msgstr ""
+
+#: master_preset.xml:8747(optional:text) master_preset.xml:1137(optional:text)
+msgid "Optional values for specific countries"
+msgstr ""
+
+#: master_preset.xml:9761(item:name)
+msgid "Photographer"
+msgstr ""
+
+#: master_preset.xml:3321(item:name)
+msgid "Plane Parking Position"
+msgstr ""
+
+#: master_preset.xml:9955(item:name)
+msgid "Camping"
+msgstr ""
+
+#: master_preset.xml:2466(check:text) master_preset.xml:205(combo:text)
+msgid "Supervised"
+msgstr "受管理的"
+
+#: master_preset.xml:9875(item:name)
+msgid "Insurance"
+msgstr ""
+
+#: master_preset.xml:3942(item:name)
+msgid "Horse Riding"
+msgstr ""
+
+#: master_preset.xml:4109(item:name)
+msgid "Theatre"
+msgstr ""
+
+#: master_preset.xml:9149(role:text) master_preset.xml:9086(role:text)
+#: master_preset.xml:9065(role:text)
+msgid "link segment"
+msgstr ""
+
+#: master_preset.xml:1468(item:name)
+msgid "Retaining Wall"
+msgstr ""
+
+#: master_preset.xml:1536(item:name)
+msgid "Swing Gate"
+msgstr ""
+
+#: master_preset.xml:1443(item:name)
+msgid "Wall"
+msgstr ""
+
+#: master_preset.xml:8006(label:text)
+msgid ""
+"A persistent body of dense ice that is constantly moving under its own "
+"weight."
+msgstr ""
+
+#: master_preset.xml:7271(item:name)
+msgid "Interior Decoration"
+msgstr ""
+
+#: master_preset.xml:8207(item:name)
+msgid "Scree"
+msgstr ""
+
+#: master_preset.xml:3773(combo:text)
+msgid "Board Content"
+msgstr ""
+
+#: master_preset.xml:9257(text:text) master_preset.xml:9272(text:text)
+msgid "Length (meters)"
+msgstr ""
+
+#: master_preset.xml:9179(role:text)
+msgid "street"
+msgstr ""
+
+#: master_preset.xml:8718(text:text)
+msgid "International name"
+msgstr ""
+
+#: master_preset.xml:3079(check:text)
+msgid "aerialway"
+msgstr ""
+
+#: master_preset.xml:4953(item:name)
+msgid "Clock"
+msgstr ""
+
+#: master_preset.xml:7218(item:name)
+msgid "Kitchen"
+msgstr ""
+
+#: master_preset.xml:7674(item:name)
+msgid "Payment Methods"
+msgstr ""
+
+#: master_preset.xml:4654(text:text)
+msgid "Point Number"
+msgstr ""
+
+#: master_preset.xml:225(text:text) master_preset.xml:9144(text:text)
+#: master_preset.xml:9207(text:text)
+msgid "Distance (km)"
+msgstr "距離 (km)"
+
+#: master_preset.xml:3002(role:text)
+msgid "route variant/direction (at least 2)"
+msgstr ""
+
+#: master_preset.xml:4537(item:name)
+msgid "Driving School"
+msgstr ""
+
+#: master_preset.xml:6093(check:text)
+msgid "Remote"
+msgstr ""
+
+#: master_preset.xml:5309(item:name)
+msgid "Nine-pin Bowling"
+msgstr ""
+
+#: master_preset.xml:6265(item:name)
+msgid "Gasoline Power Generator"
+msgstr ""
+
+#: master_preset.xml:9298(item:name)
+msgid "Beekeeper"
+msgstr ""
+
+#: master_preset.xml:6760(item:name)
+msgid "Kiosk"
+msgstr ""
+
+#: master_preset.xml:8577(item:name)
+msgid "Industrial"
+msgstr ""
+
+#: master_preset.xml:6684(item:name)
+msgid "Wayside Cross"
+msgstr ""
+
+#: master_preset.xml:2982(role:text)
+msgid "stop position (exit only)"
+msgstr ""
+
+#: master_preset.xml:2451(item:name)
+msgid "Level Crossing"
+msgstr ""
+
+#: master_preset.xml:2986(role:text)
+msgid "platform (entry only)"
+msgstr ""
+
+#: master_preset.xml:5006(item:name)
+msgid "Recycling Centre"
+msgstr ""
+
+#: master_preset.xml:6515(item:name)
+msgid "Pole"
+msgstr ""
+
+#: master_preset.xml:7351(item:name)
+msgid "Chemist"
+msgstr ""
+
+#: master_preset.xml:1101(item:name)
+msgid "Rest Area"
+msgstr ""
+
+#: master_preset.xml:7716(check:text)
+msgid "Minipay (it)"
+msgstr ""
+
+#: master_preset.xml:592(item:name)
+msgid "Tertiary Link"
+msgstr "三級道路連接道"
+
+#: master_preset.xml:4474(item:name)
+msgid "Childcare"
+msgstr ""
+
+#: master_preset.xml:871(combo:text)
+msgid "Tracktype"
+msgstr ""
+
+#: master_preset.xml:89(check:text) master_preset.xml:3111(check:text)
+#: master_preset.xml:2883(group:name) master_preset.xml:97(check:text)
+#: master_preset.xml:1864(combo:text) master_preset.xml:913(combo:text)
+#: master_preset.xml:1027(check:text) master_preset.xml:80(check:text)
+msgid "Bicycle"
+msgstr "腳踏車"
+
+#: master_preset.xml:6976(combo:text) master_preset.xml:7000(combo:text)
+#: master_preset.xml:6907(combo:text) master_preset.xml:6880(combo:text)
+#: master_preset.xml:6911(item:name) master_preset.xml:6893(combo:text)
+msgid "Organic"
+msgstr ""
+
+#: master_preset.xml:8112(text:text) master_preset.xml:1415(text:text)
+#: master_preset.xml:8406(text:text)
+msgid "Genus"
+msgstr ""
+
+#: master_preset.xml:323(text:text) master_preset.xml:392(text:text)
+#: master_preset.xml:774(text:text) master_preset.xml:1711(text:text)
+#: master_preset.xml:1692(text:text) master_preset.xml:57(text:text)
+#: master_preset.xml:8313(text:text) master_preset.xml:473(text:text)
+#: master_preset.xml:315(text:text) master_preset.xml:418(text:text)
+#: master_preset.xml:719(text:text) master_preset.xml:834(text:text)
+#: master_preset.xml:1653(text:text) master_preset.xml:2426(text:text)
+#: master_preset.xml:1491(text:text) master_preset.xml:1953(text:text)
+#: master_preset.xml:1675(text:text) master_preset.xml:3198(text:text)
+#: master_preset.xml:673(text:text) master_preset.xml:451(text:text)
+#: master_preset.xml:2037(text:text) master_preset.xml:1633(text:text)
+#: master_preset.xml:3241(text:text) master_preset.xml:1028(text:text)
+msgid "Width (meters)"
+msgstr "寬度 (公尺)"
+
+#: master_preset.xml:4711(item:name)
+msgid "Social Centre"
+msgstr ""
+
+#: master_preset.xml:1063(check:text)
+msgid "Center handrail"
+msgstr ""
+
+#: master_preset.xml:1071(group:name)
+msgid "Waypoints"
+msgstr ""
+
+#: master_preset.xml:4898(item:name)
+msgid "Telephone"
+msgstr ""
+
+#: master_preset.xml:1981(item:name)
+msgid "Weir"
+msgstr ""
+
+#: master_preset.xml:1848(text:text)
+msgid "Max. length (meters)"
+msgstr ""
+
+#: master_preset.xml:3070(check:text)
+msgid "Highway platform (legacy)"
+msgstr ""
+
+#: master_preset.xml:2921(check:text)
+msgid "Bicycles are repaired"
+msgstr ""
+
+#: master_preset.xml:8464(item:name)
+msgid "Common"
+msgstr ""
+
+#: master_preset.xml:2210(combo:text)
+msgid "Cargo"
+msgstr ""
+
+#: master_preset.xml:1877(group:name) master_preset.xml:1876(group:name)
+msgid "Water"
+msgstr ""
+
+#: master_preset.xml:9206(text:text)
+msgid "Destination written on sign (w/o distance)"
+msgstr ""
+
+#: master_preset.xml:9601(item:name)
+msgid "Sailmaker"
+msgstr ""
+
+#: master_preset.xml:1458(item:name)
+msgid "City Wall"
+msgstr ""
+
+#: master_preset.xml:2985(role:text)
+msgid "platform (exit only)"
+msgstr ""
+
+#: master_preset.xml:6919(item:name) master_preset.xml:6923(combo:text)
+msgid "Fair Trade"
+msgstr ""
+
+#: master_preset.xml:9851(item:name)
+msgid "Employment agency"
+msgstr ""
+
+#: master_preset.xml:7683(check:text) master_preset.xml:4910(check:text)
+msgid "Coins"
+msgstr ""
+
+#: master_preset.xml:9282(item:name)
+msgid "Agricultural engines"
+msgstr ""
+
+#: master_preset.xml:6092(check:text)
+msgid "Manually"
+msgstr ""
+
+#: master_preset.xml:3615(item:name)
+msgid "Cafe"
+msgstr ""
+
+#: master_preset.xml:1511(item:name)
+msgid "Gate"
+msgstr ""
+
+#: master_preset.xml:9088(role:text) master_preset.xml:9067(role:text)
+msgid "variant segment"
+msgstr ""
+
+#: master_preset.xml:6732(item:name)
+msgid "Supermarket"
+msgstr ""
+
+#: master_preset.xml:1503(item:name)
+msgid "Entrance (Barrier Opening)"
+msgstr ""
+
+#: master_preset.xml:1055(combo:text)
+msgid "Wheelchair ramp"
+msgstr ""
+
+#: master_preset.xml:4994(check:text) master_preset.xml:5030(check:text)
+msgid "Glass Bottles"
+msgstr ""
+
+#: master_preset.xml:2983(role:text)
+msgid "stop position (entry only)"
+msgstr ""
+
+#: master_preset.xml:3799(item:name)
+msgid "Information Terminal"
+msgstr ""
+
+#: master_preset.xml:3930(item:name)
+msgid "Sauna"
+msgstr ""
+
+#: master_preset.xml:460(check:text) master_preset.xml:400(check:text)
+#: master_preset.xml:349(check:text) master_preset.xml:316(check:text)
+#: master_preset.xml:1637(check:text) master_preset.xml:482(check:text)
+#: master_preset.xml:426(check:text)
+msgid "Toll"
+msgstr "過路費"
+
+#: master_preset.xml:4050(item:name)
+msgid "Casino"
+msgstr ""
+
+#: master_preset.xml:4993(check:text) master_preset.xml:5029(check:text)
+#: master_preset.xml:9426(item:name)
+msgid "Glass"
+msgstr ""
+
+#: master_preset.xml:1226(item:name)
+msgid "Turning Loop"
+msgstr ""
+
+#: master_preset.xml:9713(item:name)
+msgid "Window construction"
+msgstr ""
+
+#: master_preset.xml:6054(item:name)
+msgid "Street Lamp"
+msgstr ""
+
+#: master_preset.xml:2307(item:name)
+msgid "Boatyard"
+msgstr ""
+
+#: master_preset.xml:87(optional:text) master_preset.xml:78(optional:text)
+#: master_preset.xml:95(optional:text)
+msgid "Allowed traffic:"
+msgstr ""
+
+#: master_preset.xml:1052(check:text)
+msgid "Stroller ramp"
+msgstr ""
+
+#: master_preset.xml:1869(combo:text)
+msgid "Emergency vehicles"
+msgstr ""
+
+#: master_preset.xml:5627(group:name) master_preset.xml:5628(item:name)
+msgid "Motorsport"
+msgstr ""
+
+#: master_preset.xml:8806(text:text) master_preset.xml:8786(text:text)
+msgid "Email Address"
+msgstr ""
+
+#: master_preset.xml:9418(item:name)
+msgid "Floorer"
+msgstr ""
+
+#: master_preset.xml:8356(item:name)
+msgid "Orchard"
+msgstr ""
+
+#: master_preset.xml:7669(multiselect:text)
+msgid "Vending products"
+msgstr ""
+
+#: master_preset.xml:1815(item:name)
+msgid "General access"
+msgstr ""
+
+#: master_preset.xml:8216(label:text)
+msgid "An accumulation of loose rocks."
+msgstr ""
+
+#: master_preset.xml:6429(item:name)
+msgid "Power Bay"
+msgstr ""
+
+#: master_preset.xml:8343(item:name)
+msgid "Meadow"
+msgstr ""
+
+#: master_preset.xml:1209(item:name)
+msgid "Passing Place"
+msgstr ""
+
+#: master_preset.xml:4992(check:text) master_preset.xml:5028(check:text)
+msgid "Electrical Appliances"
+msgstr ""
+
+#: master_preset.xml:5159(combo:text)
+msgid "Diameter (in mm)"
+msgstr ""
+
+#: master_preset.xml:9450(item:name)
+msgid "Heating engineer"
+msgstr ""
+
+#: master_preset.xml:6567(combo:text)
+msgid "Line type"
+msgstr ""
+
+#: master_preset.xml:6378(combo:text)
+msgid "Type of substation"
+msgstr ""
+
+#: master_preset.xml:2488(combo:text) master_preset.xml:3899(combo:text)
+#: master_preset.xml:2469(combo:text)
+msgid "Barrier"
+msgstr ""
+
+#: master_preset.xml:3245(item:name)
+msgid "Taxi"
+msgstr ""
+
+#: master_preset.xml:2251(check:text) master_preset.xml:2715(check:text)
+msgid "Octane 80"
+msgstr ""
+
+#: master_preset.xml:7957(item:name)
+msgid "Locality"
+msgstr ""
+
+#: master_preset.xml:1150(item:name)
+msgid "Give Way"
+msgstr ""
+
+#: master_preset.xml:7135(item:name)
+msgid "Music"
+msgstr ""
+
+#: master_preset.xml:9275(role:text)
+msgid "ways passing through the tunnel"
+msgstr ""
+
+#: master_preset.xml:10011(item:name)
+msgid "Research"
+msgstr ""
+
+#: master_preset.xml:9322(item:name)
+msgid "Bookbinder"
+msgstr ""
+
+#: master_preset.xml:1072(item:name)
+msgid "Motorway Junction"
+msgstr ""
+
+#: master_preset.xml:7783(text:text)
+msgid "Protected Class"
+msgstr ""
+
+#: master_preset.xml:7689(check:text)
+msgid "BankAxess"
+msgstr ""
+
+#: master_preset.xml:2685(item:name)
+msgid "Fuel"
+msgstr ""
+
+#: master_preset.xml:552(item:name)
+msgid "Secondary Link"
+msgstr "次要道路連接道"
+
+#: master_preset.xml:2994(combo:text) master_preset.xml:2968(combo:text)
+#: master_preset.xml:3133(combo:text)
+msgid "Route type"
+msgstr ""
+
+#: master_preset.xml:2439(item:name)
+msgid "Abandoned Rail"
+msgstr ""
+
+#: master_preset.xml:4148(item:name)
+msgid "Artwork"
+msgstr ""
+
+#: master_preset.xml:4842(group:name) master_preset.xml:3374(group:name)
+msgid "Facilities"
+msgstr ""
+
+#: master_preset.xml:3736(item:name)
+msgid "Map"
+msgstr ""
+
+#: master_preset.xml:7993(label:text)
+msgid "A saddle point between mountains or hills."
+msgstr ""
+
+#: master_preset.xml:405(item:name)
+msgid "Motorway Link"
+msgstr "高速公路引道"
+
+#: master_preset.xml:7451(group:name) master_preset.xml:2878(text:text)
+msgid "Other"
+msgstr ""
+
+#: master_preset.xml:7718(check:text)
+msgid "Mondero 4b (es)"
+msgstr ""
+
+#: master_preset.xml:9237(text:text)
+msgid "Reference GNBC (CA)"
+msgstr ""
+
+#: master_preset.xml:2719(check:text) master_preset.xml:2255(check:text)
+msgid "Octane 98"
+msgstr ""
+
+#: master_preset.xml:2254(check:text) master_preset.xml:2718(check:text)
+msgid "Octane 95"
+msgstr ""
+
+#: master_preset.xml:1359(item:name)
+msgid "Bus Trap"
+msgstr ""
+
+#: master_preset.xml:3505(combo:text)
+msgid "Reservation"
+msgstr ""
+
+#: master_preset.xml:2252(check:text) master_preset.xml:2716(check:text)
+msgid "Octane 91"
+msgstr ""
+
+#: master_preset.xml:2253(check:text) master_preset.xml:2717(check:text)
+msgid "Octane 92"
+msgstr ""
+
+#: master_preset.xml:911(combo:text)
+msgid "Visibility"
+msgstr ""
+
+#: master_preset.xml:5390(item:name)
+msgid "Gymnastics"
+msgstr ""
+
+#: master_preset.xml:9473(item:name)
+msgid "Joiner"
+msgstr ""
+
+#: master_preset.xml:9931(item:name)
+msgid "Accountant"
+msgstr ""
+
+#: master_preset.xml:5064(item:name)
+msgid "Sanitary Dump Station"
+msgstr ""
+
+#: master_preset.xml:5437(combo:text) master_preset.xml:9077(combo:text)
+#: master_preset.xml:9056(combo:text)
+msgid "Piste type"
+msgstr ""
+
+#: master_preset.xml:737(combo:text)
+msgid "Service way type"
+msgstr ""
+
+#: master_preset.xml:6509(combo:text)
+msgid "Tower design"
+msgstr ""
+
+#: master_preset.xml:8195(item:name)
+msgid "Nature Reserve"
+msgstr ""
+
+#: master_preset.xml:2538(item:name)
+msgid "Chair Lift"
+msgstr ""
+
+#: master_preset.xml:7055(item:name)
+msgid "Fabric"
+msgstr ""
+
+#: master_preset.xml:1382(item:name)
+msgid "Toll Booth"
+msgstr ""
+
+#: master_preset.xml:3169(item:name)
+msgid "Railway Halt"
+msgstr ""
+
+#: master_preset.xml:1695(item:name)
+msgid "Avalanche Protector"
+msgstr ""
+
+#: master_preset.xml:3130(group:name)
+msgid "Public Transport (Legacy)"
+msgstr ""
+
+#: master_preset.xml:9987(item:name)
+msgid "Guide"
+msgstr ""
+
+#: master_preset.xml:74(combo:text)
+msgid "Gauge (mm)"
+msgstr "軌距 (mm)"
+
+#: master_preset.xml:6316(list_entry:short_description)
+#: master_preset.xml:6233(list_entry:short_description)
+#: master_preset.xml:6232(list_entry:short_description)
+#: master_preset.xml:6315(list_entry:short_description)
+msgid "combustion"
+msgstr ""
+
+#: master_preset.xml:7505(item:name)
+msgid "Do-It-Yourself Store"
+msgstr ""
+
+#: master_preset.xml:2624(group:name)
+msgid "Car"
+msgstr ""
+
+#: master_preset.xml:4247(combo:text) master_preset.xml:4199(combo:text)
+#: master_preset.xml:4223(combo:text)
+msgid "Building type"
+msgstr ""
+
+#: master_preset.xml:19(combo:text)
+msgid "Smoothness"
+msgstr "平順度"
+
+#: master_preset.xml:150(combo:text)
+msgid "Internet access"
+msgstr ""
+
+#: master_preset.xml:3343(item:name)
+msgid "Windsock"
+msgstr ""
+
+#: master_preset.xml:9809(item:name)
+msgid "Jeweller"
+msgstr ""
+
+#: master_preset.xml:2581(combo:display_values)
+msgid "platter"
+msgstr ""
+
+#: master_preset.xml:2546(text:text)
+msgid "Number of people per chair"
+msgstr ""
+
+#: master_preset.xml:9190(role:text)
+msgid "ways being part of street"
+msgstr ""
+
+#: master_preset.xml:6940(item:name)
+msgid "Beverages"
+msgstr ""
+
+#: master_preset.xml:5963(item:name)
+msgid "Water Tower"
+msgstr ""
+
+#: master_preset.xml:2974(text:text) master_preset.xml:3139(text:text)
+msgid "Via (intermediate stops)"
+msgstr ""
+
+#: master_preset.xml:5493(check:text)
+msgid "Rounders"
+msgstr ""
+
+#: master_preset.xml:5529(item:name)
+msgid "Volleyball"
+msgstr ""
+
+#: master_preset.xml:7703(check:text)
+msgid "JCB"
+msgstr ""
+
+#: master_preset.xml:9442(item:name)
+msgid "Handicraft"
+msgstr ""
+
+#: master_preset.xml:5591(item:name)
+msgid "Ice Hockey"
+msgstr ""
+
+#: master_preset.xml:6175(item:name)
+msgid "Bridge outline"
+msgstr ""
+
+#: master_preset.xml:8714(text:text)
+msgid "Historical name"
+msgstr ""
+
+#: master_preset.xml:9843(item:name)
+msgid "Advertising agency"
+msgstr ""
+
+#: master_preset.xml:4019(item:name)
+msgid "Private Swimming Pool"
+msgstr ""
+
+#: master_preset.xml:6326(list_entry:short_description)
+msgid "all methods"
+msgstr ""
+
+#: master_preset.xml:5598(item:name)
+msgid "Pelota"
+msgstr ""
+
+#: master_preset.xml:2505(item:name)
+msgid "Railway Switch"
+msgstr ""
+
+#: master_preset.xml:2249(check:text) master_preset.xml:2711(check:text)
+msgid "Diesel"
+msgstr ""
+
+#: master_preset.xml:3228(check:text) master_preset.xml:3058(check:text)
+#: master_preset.xml:5080(item:name)
+msgid "Bench"
+msgstr ""
+
+#: master_preset.xml:906(list_entry:short_description)
+msgid ""
+"sometimes need for hand use to get ahead. Terrain quite exposed, precarious "
+"grassy acclivities, jagged rocks, facile snow-free glaciers"
+msgstr ""
+
+#: master_preset.xml:6999(combo:text) master_preset.xml:2870(combo:text)
+#: master_preset.xml:2778(combo:text) master_preset.xml:6975(combo:text)
+#: master_preset.xml:7324(combo:text)
+msgid "Second hand"
+msgstr ""
+
+#: master_preset.xml:5219(item:name)
+msgid "Stadium"
+msgstr ""
+
+#: master_preset.xml:6333(item:name)
+msgid "Tidal Water Turbine"
+msgstr ""
+
+#: master_preset.xml:2105(label:text)
+msgid ""
+"Line between the sea and land (with the water on the right side of the way)."
+msgstr ""
+
+#: master_preset.xml:5472(item:name)
+msgid "American Football"
+msgstr ""
+
+#: master_preset.xml:7932(item:name)
+msgid "Neighbourhood"
+msgstr ""
+
+#: master_preset.xml:5288(item:name)
+msgid "Miniature Golf"
+msgstr ""
+
+#: master_preset.xml:4205(item:name)
+msgid "Mosque"
+msgstr ""
+
+#: master_preset.xml:5180(multiselect:display_values)
+msgid "Sclaverand (Presta)"
+msgstr ""
+
+#: master_preset.xml:3014(text:text) master_preset.xml:3034(text:text)
+#: master_preset.xml:3065(text:text)
+msgid "UIC name"
+msgstr ""
+
+#: master_preset.xml:5025(check:text) master_preset.xml:4989(check:text)
+msgid "Cans"
+msgstr ""
+
+#: master_preset.xml:2482(combo:text)
+msgid "Crossing type"
+msgstr ""
+
+#: master_preset.xml:9243(role:text)
+msgid "branch waterways (no riverbank)"
+msgstr ""
+
+#: master_preset.xml:6459(combo:text)
+msgid "Power rating (MVA)"
+msgstr ""
+
+#: master_preset.xml:3499(combo:text) master_preset.xml:4876(combo:text)
+#: master_preset.xml:4854(combo:text)
+msgid "Access rights"
+msgstr ""
+
+#: master_preset.xml:4934(item:name)
+msgid "Automated Defibrillator"
+msgstr ""
+
+#: master_preset.xml:3150(role:text)
+msgid "forward halt point"
+msgstr ""
+
+#: master_preset.xml:4896(check:text)
+msgid "Drive through"
+msgstr ""
+
+#: master_preset.xml:2928(item:name) master_preset.xml:2812(item:name)
+#: master_preset.xml:2873(combo:text)
+msgid "Rental"
+msgstr ""
+
+#: master_preset.xml:3232(item:name)
+msgid "Bus Platform"
+msgstr ""
+
+#: master_preset.xml:3865(check:text)
+msgid "3D"
+msgstr ""
+
+#: master_preset.xml:4965(check:text)
+msgid "Shows temperature"
+msgstr ""
+
+#: master_preset.xml:7701(check:text)
+msgid "Diners Club"
+msgstr ""
+
+#: master_preset.xml:2605(text:text) master_preset.xml:2560(text:text)
+#: master_preset.xml:2547(text:text) master_preset.xml:2596(text:text)
+#: master_preset.xml:2572(text:text) master_preset.xml:2586(text:text)
+#: master_preset.xml:2534(text:text)
+msgid "Typical journey time in minutes"
+msgstr ""
+
+#: master_preset.xml:4566(item:name)
+msgid "Clinic"
+msgstr ""
+
+#: master_preset.xml:9649(item:name)
+msgid "Sun protection"
+msgstr ""
+
+#: master_preset.xml:2279(item:name)
+msgid "Lock Gate"
+msgstr ""
+
+#: master_preset.xml:904(list_entry:short_description)
+msgid ""
+"Trail with continuous line and balanced ascent. Terrain partially steep, "
+"fall hazard possible"
+msgstr ""
+
+#: master_preset.xml:3073(check:text)
+msgid "Railway platform (legacy)"
+msgstr ""
+
+#: master_preset.xml:5180(multiselect:text)
+msgid "Valves"
+msgstr ""
+
+#: master_preset.xml:9215(role:text)
+msgid "first way after junction"
+msgstr ""
+
+#: master_preset.xml:9260(role:text)
+msgid "ways supported by (on top of) the bridge"
+msgstr ""
+
+#: master_preset.xml:567(item:name)
+msgid "Tertiary"
+msgstr "三級道路"
+
+#: master_preset.xml:607(item:name)
+msgid "Unclassified"
+msgstr "未分類的道路"
+
+#: master_preset.xml:4299(item:name)
+msgid "Shinto Shrine"
+msgstr ""
+
+#: master_preset.xml:9209(text:text)
+msgid "Colour of background"
+msgstr ""
+
+#: master_preset.xml:6511(check:text)
+msgid "Incomplete tower"
+msgstr ""
+
+#: master_preset.xml:8752(text:text)
+msgid "District"
+msgstr ""
+
+#: master_preset.xml:2581(combo:display_values)
+msgid "t-bar"
+msgstr ""
+
+#: master_preset.xml:5992(item:name)
+msgid "Watermill"
+msgstr ""
+
+#: master_preset.xml:234(combo:text)
+msgid "Cycle"
+msgstr ""
+
+#: master_preset.xml:1243(text:text)
+msgid "Second Name"
+msgstr ""
+
+#: master_preset.xml:7260(item:name)
+msgid "Bed"
+msgstr ""
+
+#: master_preset.xml:3410(text:text) master_preset.xml:3429(text:text)
+#: master_preset.xml:3390(text:text) master_preset.xml:3449(text:text)
+#: master_preset.xml:3523(text:text) master_preset.xml:3469(text:text)
+msgid "Beds"
+msgstr ""
+
+#: master_preset.xml:3916(item:name)
+msgid "Water Park"
+msgstr ""
+
+#: master_preset.xml:957(optional:text)
+msgid "Edit Highway Attributes:"
+msgstr ""
+
+#: master_preset.xml:4679(group:name)
+msgid "Social Facilities"
+msgstr ""
+
+#: master_preset.xml:5356(item:name)
+msgid "Canoeing/Kayaking"
+msgstr ""
+
+#: master_preset.xml:10083(item:name)
+msgid "Physician"
+msgstr ""
+
+#: master_preset.xml:5813(item:name)
+msgid "Works"
+msgstr ""
+
+#: master_preset.xml:3180(item:name)
+msgid "Tram Stop"
+msgstr ""
+
+#: master_preset.xml:9167(item:name)
+msgid "Associated Street"
+msgstr ""
+
+#: master_preset.xml:1436(item:name)
+msgid "Guard Rail"
+msgstr ""
+
+#: master_preset.xml:5201(item:name)
+msgid "Excrement Bags"
+msgstr ""
+
+#: master_preset.xml:952(combo:text)
+msgid "Cycleway"
+msgstr ""
+
+#: master_preset.xml:9907(item:name)
+msgid "Political party"
+msgstr ""
+
+#: master_preset.xml:9208(text:text)
+msgid "Time (hh:mm, for trekking)"
+msgstr ""
+
+#: master_preset.xml:4963(combo:text)
+msgid "Visibility/readability"
+msgstr ""
+
+#: master_preset.xml:9196(item:name)
+msgid "Destination Sign"
+msgstr ""
+
+#: master_preset.xml:27(list_entry:short_description)
+msgid "No wheeled vehicle"
+msgstr "無輪式車輛"
+
+#: master_preset.xml:6386(item:name)
+msgid "Power Transformer"
+msgstr ""
+
+#: master_preset.xml:1314(item:name)
+msgid "Block"
+msgstr ""
+
+#: master_preset.xml:8717(text:text)
+msgid "National name"
+msgstr ""
+
+#: master_preset.xml:1871(combo:text)
+msgid "Public Service Vehicles (psv)"
+msgstr ""
+
+#: master_preset.xml:7571(item:name)
+msgid "Gift/Souvenir"
+msgstr ""
+
+#: master_preset.xml:1494(item:name)
+msgid "Kerb"
+msgstr ""
+
+#: master_preset.xml:2749(item:name)
+msgid "Wash"
+msgstr ""
+
+#: master_preset.xml:5935(item:name)
+msgid "Adit"
+msgstr ""
+
+#: master_preset.xml:5213(text:text)
+msgid "Note"
+msgstr ""
+
+#: master_preset.xml:2990(item:name)
+msgid "Route Master"
+msgstr ""
+
+#: master_preset.xml:238(list_entry:short_description)
+msgid ""
+"Plants that lose most, but not all, of their foliage for a fraction of the "
+"year."
+msgstr ""
+
+#: master_preset.xml:331(combo:text)
+msgid "Ship"
+msgstr "船舶"
+
+#: master_preset.xml:7327(item:name)
+msgid "Newspaper Stand"
+msgstr ""
+
+#: master_preset.xml:9537(item:name)
+msgid "Parquet layer"
+msgstr ""
+
+#: master_preset.xml:6035(item:name)
+msgid "Lighthouse"
+msgstr ""
+
+#: master_preset.xml:9785(item:name)
+msgid "Winery"
+msgstr ""
+
+#: master_preset.xml:8750(text:text) master_preset.xml:7918(item:name)
+msgid "Suburb"
+msgstr ""
+
+#: master_preset.xml:9045(role:text)
+msgid "infrastructure"
+msgstr ""
+
+#: master_preset.xml:6313(list_entry:short_description)
+msgid "gasification"
+msgstr ""
+
+#: master_preset.xml:366(combo:text)
+msgid "For group"
+msgstr ""
+
+#: master_preset.xml:5164(combo:text)
+msgid "Hydrant Position"
+msgstr ""
+
+#: master_preset.xml:8318(item:name)
+msgid "Farmyard"
+msgstr ""
+
+#: master_preset.xml:6454(combo:text)
+msgid "Type of converter"
+msgstr ""
+
+#: master_preset.xml:6211(item:name)
+msgid "Biofuel Power Generator"
+msgstr ""
+
+#: master_preset.xml:1717(item:name) master_preset.xml:1731(combo:text)
+msgid "All vehicles"
+msgstr ""
+
+#: master_preset.xml:2867(combo:text) master_preset.xml:146(text:text)
+#: master_preset.xml:2243(combo:text) master_preset.xml:2955(text:text)
+#: master_preset.xml:2702(combo:text) master_preset.xml:140(text:text)
+#: master_preset.xml:7190(text:text)
+msgid "Brand"
+msgstr "品牌"
+
+#: master_preset.xml:3977(check:text) master_preset.xml:5112(check:text)
+msgid "Fireplace"
+msgstr ""
+
+#: master_preset.xml:5165(combo:text)
+msgid "Pressure (in bar)"
+msgstr ""
+
+#: master_preset.xml:8604(item:name)
+msgid "Railway Land"
+msgstr ""
+
+#: master_preset.xml:5644(item:name)
+msgid "Motocross"
+msgstr ""
+
+#: master_preset.xml:8641(item:name)
+msgid "Brownfield"
+msgstr ""
+
+#: master_preset.xml:3979(item:name)
+msgid "Picnic Table"
+msgstr ""
+
+#: master_preset.xml:1188(check:text) master_preset.xml:1135(check:text)
+#: master_preset.xml:2484(check:text)
+msgid "Cross on horseback"
+msgstr ""
+
+#: master_preset.xml:7014(item:name) master_preset.xml:5217(group:name)
+msgid "Sports"
+msgstr ""
+
+#: master_preset.xml:8298(check:text)
+msgid "Tourism attraction"
+msgstr ""
+
+#: master_preset.xml:6230(list_entry:short_description)
+msgid "anaerobic_digestion / combustion"
+msgstr ""
+
+#: master_preset.xml:8809(text:text) master_preset.xml:8789(text:text)
+msgid "Fax Number"
+msgstr ""
+
+#: master_preset.xml:2127(item:name)
+msgid "Wetland"
+msgstr ""
+
+#: master_preset.xml:3151(role:text)
+msgid "backward halt point"
+msgstr ""
+
+#: master_preset.xml:8973(role:text)
+msgid "location of enforcement device"
+msgstr ""
+
+#: master_preset.xml:6198(combo:text) master_preset.xml:296(combo:text)
+msgid "electricity"
+msgstr "電力"
+
+#: master_preset.xml:7420(item:name)
+msgid "Medical Supply"
+msgstr ""
+
+#: master_preset.xml:6952(item:name)
+msgid "Wine"
+msgstr ""
+
+#: master_preset.xml:9119(item:name)
+msgid "Railway Route"
+msgstr ""
+
+#: master_preset.xml:3754(check:text) master_preset.xml:3792(check:text)
+msgid "Mountainbiking"
+msgstr ""
+
+#: master_preset.xml:5193(item:name)
+msgid "Billboard"
+msgstr ""
+
+#: master_preset.xml:5769(item:name) master_preset.xml:5778(combo:text)
+msgid "Entrance"
+msgstr ""
+
+#: master_preset.xml:8981(item:name)
+msgid "Bicycle Route"
+msgstr ""
+
+#: master_preset.xml:3039(check:text)
+msgid "Bus stop (legacy)"
+msgstr ""
+
+#: master_preset.xml:4999(check:text) master_preset.xml:5035(check:text)
+msgid "Plastic Packaging"
+msgstr ""
+
+#: master_preset.xml:181(combo:text)
+msgid "Bin"
+msgstr ""
+
+#: master_preset.xml:2925(check:text)
+msgid "Bicycles are washed (for a fee)"
+msgstr ""
+
+#: master_preset.xml:7861(item:name)
+msgid "Town"
+msgstr ""
+
+#: master_preset.xml:6138(text:text) master_preset.xml:6527(text:text)
+#: master_preset.xml:8109(text:text) master_preset.xml:6501(text:text)
+#: master_preset.xml:6544(text:text) master_preset.xml:8131(text:text)
+msgid "Height in meter (m)"
+msgstr ""
+
+#: master_preset.xml:1734(item:name)
+msgid "Motor vehicle"
+msgstr ""
+
+#: master_preset.xml:9046(role:text)
+msgid "natural"
+msgstr ""
+
+#: master_preset.xml:1322(text:text) master_preset.xml:170(text:text)
+#: master_preset.xml:164(text:text) master_preset.xml:1847(text:text)
+#: master_preset.xml:1339(text:text)
+msgid "Max. width (meters)"
+msgstr ""
+
+#: master_preset.xml:7118(item:name)
+msgid "Video"
+msgstr ""
+
+#: master_preset.xml:6882(item:name)
+msgid "Greengrocer"
+msgstr ""
+
+#: master_preset.xml:5859(item:name)
+msgid "Storage Tank"
+msgstr ""
+
+#: master_preset.xml:263(combo:text)
+msgid "Amount of Cables"
+msgstr ""
+
+#: master_preset.xml:9458(item:name)
+msgid "Hvac"
+msgstr ""
+
+#: master_preset.xml:8719(text:text)
+msgid "Official name"
+msgstr ""
+
+#: master_preset.xml:3447(combo:text) master_preset.xml:3521(combo:text)
+#: master_preset.xml:3574(combo:text) master_preset.xml:3408(combo:text)
+#: master_preset.xml:3388(combo:text) master_preset.xml:3467(combo:text)
+#: master_preset.xml:3548(combo:text) master_preset.xml:3427(combo:text)
+msgid "Stars"
+msgstr ""
+
+#: master_preset.xml:333(combo:text)
+msgid "Motorboat"
+msgstr "汽艇"
+
+#: master_preset.xml:1560(item:name)
+msgid "Bump Gate"
+msgstr ""
+
+#: master_preset.xml:8307(label:text)
+msgid ""
+"A single notable free-standing rock, which may differ from the composition "
+"of the terrain it lies in."
+msgstr ""
+
+#: master_preset.xml:458(check:text) master_preset.xml:398(check:text)
+#: master_preset.xml:5952(item:name) master_preset.xml:424(check:text)
+#: master_preset.xml:44(check:text) master_preset.xml:480(check:text)
+msgid "Embankment"
+msgstr "路堤"
+
+#: master_preset.xml:3794(check:text) master_preset.xml:3756(check:text)
+msgid "Riding"
+msgstr ""
+
+#: master_preset.xml:4010(item:name)
+msgid "Fishing"
+msgstr ""
+
+#: master_preset.xml:1868(combo:text)
+msgid "Agricultural"
+msgstr ""
+
+#: master_preset.xml:8969(text:text)
+msgid "Max. height (meters, only if enforcement=maxheight)"
+msgstr ""
+
+#: master_preset.xml:6807(item:name)
+msgid "Seafood"
+msgstr ""
+
+#: master_preset.xml:7732(group:name) master_preset.xml:7970(group:name)
+msgid "Geography"
+msgstr ""
+
+#: master_preset.xml:6289(list_entry:short_description)
+#: master_preset.xml:6283(list_entry:short_description)
+#: master_preset.xml:6286(list_entry:short_description)
+#: master_preset.xml:6279(list_entry:short_description)
+#: master_preset.xml:6281(list_entry:short_description)
+#: master_preset.xml:6278(list_entry:short_description)
+#: master_preset.xml:6293(list_entry:short_description)
+#: master_preset.xml:6290(list_entry:short_description)
+#: master_preset.xml:6288(list_entry:short_description)
+#: master_preset.xml:6285(list_entry:short_description)
+#: master_preset.xml:6280(list_entry:short_description)
+#: master_preset.xml:6277(list_entry:short_description)
+#: master_preset.xml:6282(list_entry:short_description)
+msgid "fission"
+msgstr ""
+
+#: master_preset.xml:5978(item:name)
+msgid "Wastewater Treatment Plant"
+msgstr ""
+
+#: master_preset.xml:4434(item:name)
+msgid "Ranger Station"
+msgstr ""
+
+#: master_preset.xml:8037(label:text)
+msgid "A mountain or hill ridge."
+msgstr ""
+
+#: master_preset.xml:9721(item:name)
+msgid "Confectionery"
+msgstr ""
+
+#: master_preset.xml:7390(item:name)
+msgid "Tattoo"
+msgstr ""
+
+#: master_preset.xml:9505(item:name)
+msgid "Mason"
+msgstr ""
+
+#: master_preset.xml:2552(item:name)
+msgid "Gondola"
+msgstr ""
+
+#: master_preset.xml:2533(text:text)
+msgid "Number of people per car"
+msgstr ""
+
+#: master_preset.xml:9617(item:name)
+msgid "Scaffolder"
+msgstr ""
+
+#: master_preset.xml:2091(combo:text)
+msgid "Water Body"
+msgstr ""
+
+#: master_preset.xml:7986(item:name)
+msgid "Saddle"
+msgstr ""
+
+#: master_preset.xml:2577(item:name)
+msgid "Drag Lift"
+msgstr ""
+
+#: master_preset.xml:7710(check:text)
+msgid "Avant (fi)"
+msgstr ""
+
+#: master_preset.xml:1607(item:name)
+msgid "Sally Port"
+msgstr ""
+
+#: master_preset.xml:4344(group:name) master_preset.xml:4345(item:name)
+msgid "Public Building"
+msgstr ""
+
+#: master_preset.xml:6991(item:name) master_preset.xml:5037(check:text)
+#: master_preset.xml:5001(check:text)
+msgid "Shoes"
+msgstr ""
+
+#: master_preset.xml:7560(item:name)
+msgid "Toys"
+msgstr ""
+
+#: master_preset.xml:3834(label:text)
+msgid "Audioguide via mobile phone?"
+msgstr ""
+
+#: master_preset.xml:980(item:name)
+msgid "Segregated Foot- and Cycleway"
+msgstr ""
+
+#: master_preset.xml:8794(item:name)
+msgid "Contact (Schema with 'contact:*' Prefix)"
+msgstr ""
+
+#: master_preset.xml:5804(item:name)
+msgid "Flagpole"
+msgstr ""
+
+#: master_preset.xml:778(item:name)
+msgid "Road (Unknown Type)"
+msgstr "道路 (未知種類)"
+
+#: master_preset.xml:6712(check:text)
+msgid "Place of worship"
+msgstr ""
+
+#: master_preset.xml:5301(item:name)
+msgid "Multi"
+msgstr ""
+
+#: master_preset.xml:7465(item:name)
+msgid "Mall"
+msgstr ""
+
+#: master_preset.xml:1616(group:name)
+msgid "Passageways"
+msgstr ""
+
+#: master_preset.xml:2519(group:name) master_preset.xml:3050(check:text)
+msgid "Aerialway"
+msgstr ""
+
+#: master_preset.xml:4843(item:name)
+msgid "Toilets/Restrooms"
+msgstr ""
+
+#: master_preset.xml:8232(item:name)
+msgid "Scrub"
+msgstr ""
+
+#: master_preset.xml:2535(check:text) master_preset.xml:2574(check:text)
+#: master_preset.xml:2561(check:text) master_preset.xml:2549(check:text)
+msgid "Has heating?"
+msgstr ""
+
+#: master_preset.xml:118(combo:text)
+msgid "Service Times"
+msgstr "營業時間"
+
+#: master_preset.xml:2199(item:name)
+msgid "Ferry Terminal"
+msgstr ""
+
+#: master_preset.xml:1576(item:name)
+msgid "Kissing Gate"
+msgstr ""
+
+#: master_preset.xml:4165(item:name)
+msgid "Recording Studio"
+msgstr ""
+
+#: master_preset.xml:8128(label:text)
+msgid "A line of trees."
+msgstr ""
+
+#: master_preset.xml:21(list_entry:short_description)
+msgid "Thin Wheels: racing bike"
+msgstr ""
+
+#: master_preset.xml:2793(item:name) master_preset.xml:2876(combo:text)
+msgid "Parts"
+msgstr ""
+
+#: master_preset.xml:6543(label:text)
+msgid "Pole Attributes:"
+msgstr ""
+
+#: master_preset.xml:2653(item:name)
+msgid "Parking Space"
+msgstr ""
+
+#: master_preset.xml:9192(role:text)
+msgid "houses belonging to the street"
+msgstr ""
+
+#: master_preset.xml:5605(item:name)
+msgid "Racquetball"
+msgstr ""
+
+#: master_preset.xml:2144(item:name)
+msgid "Mud"
+msgstr ""
+
+#: master_preset.xml:235(list_entry:short_description)
+msgid "Plants that are leafless for a certain period during the year."
+msgstr ""
+
+#: master_preset.xml:6478(item:name)
+msgid "Cable Distribution Cabinet"
+msgstr ""
+
+#: master_preset.xml:1290(item:name)
+msgid "Grit Bin"
+msgstr ""
+
+#: master_preset.xml:4032(item:name)
+msgid "Night Club"
+msgstr ""
+
+#: master_preset.xml:8772(combo:text)
+msgid "Numbering scheme"
+msgstr ""
+
+#: master_preset.xml:5054(item:name)
+msgid "Waste Disposal/Dumpster"
+msgstr ""
+
+#: master_preset.xml:8081(item:name)
+msgid "Islet"
+msgstr ""
+
+#: master_preset.xml:9263(role:text)
+msgid "edge ways parallel to 'across'"
+msgstr ""
+
+#: master_preset.xml:5779(combo:text) master_preset.xml:5074(combo:text)
+#: master_preset.xml:3938(combo:text) master_preset.xml:196(combo:text)
+msgid "Access"
+msgstr ""
+
+#: master_preset.xml:9354(item:name)
+msgid "Carpenter"
+msgstr ""
+
+#: master_preset.xml:3229(combo:text)
+msgid "Tactile Paving"
+msgstr ""
+
+#: master_preset.xml:4163(text:text) master_preset.xml:6679(text:text)
+msgid "Artist Name"
+msgstr ""
+
+#: master_preset.xml:5566(item:name)
+msgid "Lawn Bowling"
+msgstr ""
+
+#: master_preset.xml:9183(item:name)
+msgid "Street"
+msgstr ""
+
+#: master_preset.xml:1867(combo:text)
+msgid "Light Commercial Vehicles (goods)"
+msgstr ""
+
+#: master_preset.xml:7719(check:text)
+msgid "Moneo (fr)"
+msgstr ""
+
+#: master_preset.xml:7690(check:text)
+msgid "Bancomat"
+msgstr ""
+
+#: master_preset.xml:8740(text:text) master_preset.xml:9177(text:text)
+msgid "Street name"
+msgstr ""
+
+#: master_preset.xml:3903(item:name)
+msgid "Amusement/Theme Park"
+msgstr ""
+
+#: master_preset.xml:853(group:name)
+msgid "Ways"
+msgstr "道路"
+
+#: master_preset.xml:1141(item:name)
+msgid "Stop"
+msgstr ""
+
+#: master_preset.xml:7693(check:text)
+msgid "Maestro"
+msgstr ""
+
+#: master_preset.xml:1064(check:text)
+msgid "Right handrail"
+msgstr ""
+
+#: master_preset.xml:3536(item:name)
+msgid "Camping Site"
+msgstr ""
+
+#: master_preset.xml:6792(item:name)
+msgid "Butcher"
+msgstr ""
+
+#: master_preset.xml:7588(item:name)
+msgid "Variety Store"
+msgstr ""
+
+#: master_preset.xml:5786(item:name)
+msgid "Tower"
+msgstr ""
+
+#: master_preset.xml:6866(item:name)
+msgid "Public Market"
+msgstr ""
+
+#: master_preset.xml:2097(item:name)
+msgid "Coastline"
+msgstr ""
+
+#: master_preset.xml:7708(combo:text)
+msgid "Electronic purses and Charge cards"
+msgstr ""
+
+#: master_preset.xml:5492(check:text)
+msgid "Camogie"
+msgstr ""
+
+#: master_preset.xml:4077(item:name)
+msgid "Brothel"
+msgstr ""
+
+#: master_preset.xml:7303(item:name)
+msgid "Copy Shop"
+msgstr ""
+
+#: master_preset.xml:4420(item:name)
+msgid "Police"
+msgstr ""
+
+#: master_preset.xml:2764(item:name)
+msgid "Car Dealer"
+msgstr ""
+
+#: master_preset.xml:4589(item:name)
+msgid "Dentist"
+msgstr ""
+
+#: master_preset.xml:3043(check:text)
+msgid "Railway station (legacy)"
+msgstr ""
+
+#: master_preset.xml:3376(item:name)
+msgid "Hotel"
+msgstr ""
+
+#: master_preset.xml:2571(text:text)
+msgid "Number of people per gondola/chair"
+msgstr ""
+
+#: master_preset.xml:9314(item:name)
+msgid "Boatbuilder"
+msgstr ""
+
+#: master_preset.xml:7848(item:name)
+msgid "City"
+msgstr ""
+
+#: master_preset.xml:6715(text:text) master_preset.xml:6678(text:text)
+#: master_preset.xml:6696(text:text)
+msgid "Inscription"
+msgstr ""
+
+#: master_preset.xml:8949(combo:text)
+msgid "Exceptions"
+msgstr ""
+
+#: master_preset.xml:5620(item:name)
+msgid "Tennis"
+msgstr ""
+
+#: master_preset.xml:654(item:name)
+msgid "Bicycle Road"
+msgstr "自行車道"
+
+#: master_preset.xml:6158(combo:text)
+msgid "Structure"
+msgstr ""
+
+#: master_preset.xml:45(combo:text) master_preset.xml:2038(combo:text)
+#: master_preset.xml:314(combo:text) master_preset.xml:1656(combo:text)
+#: master_preset.xml:1636(combo:text) master_preset.xml:1712(combo:text)
+msgid "Incline"
+msgstr "斜坡"
+
+#: master_preset.xml:5783(text:text)
+msgid "Flat numbers"
+msgstr ""
+
+#: master_preset.xml:2295(item:name)
+msgid "Slipway"
+msgstr ""
+
+#: master_preset.xml:26(list_entry:short_description)
+msgid "Specialized off-road: tractor, ATV"
+msgstr ""
+
+#: master_preset.xml:9101(text:text)
+msgid "Destination"
+msgstr ""
+
+#: master_preset.xml:302(combo:text)
+#: master_preset.xml:6340(list_entry:short_description)
+#: master_preset.xml:6338(list_entry:short_description)
+#: master_preset.xml:6204(combo:text)
+msgid "steam"
+msgstr "蒸氣"
+
+#: master_preset.xml:2054(item:name)
+msgid "Reservoir"
+msgstr ""
+
+#: master_preset.xml:2981(role:text)
+msgid "stop position"
+msgstr ""
+
+#: master_preset.xml:3273(text:text)
+msgid "ICAO"
+msgstr ""
+
+#: master_preset.xml:716(check:text) master_preset.xml:3094(check:text)
+#: master_preset.xml:3242(check:text) master_preset.xml:3199(check:text)
+#: master_preset.xml:3898(check:text)
+msgid "Area"
+msgstr "區域"
+
+#: master_preset.xml:8716(text:text)
+msgid "Regional name"
+msgstr ""
+
+#: master_preset.xml:5071(check:text)
+msgid "Suction pumpout"
+msgstr ""
+
+#: master_preset.xml:6321(item:name)
+msgid "Water Turbine"
+msgstr ""
+
+#: master_preset.xml:155(combo:text)
+msgid "Smoking"
+msgstr "吸煙"
+
+#: master_preset.xml:8105(label:text)
+msgid "A single tree."
+msgstr ""
+
+#: master_preset.xml:6086(check:text)
+msgid "Radiation"
+msgstr ""
+
+#: master_preset.xml:5782(text:text)
+msgid "Entrance number"
+msgstr ""
+
+#: master_preset.xml:3743(label:text)
+msgid "A board with a map."
+msgstr ""
+
+#: master_preset.xml:3812(text:text) master_preset.xml:3830(text:text)
+msgid "Closer description"
+msgstr ""
+
+#: master_preset.xml:5024(check:text) master_preset.xml:4988(check:text)
+msgid "Batteries"
+msgstr ""
+
+#: master_preset.xml:5578(item:name)
+msgid "Croquet"
+msgstr ""
+
+#: master_preset.xml:6440(item:name)
+msgid "Power Switch"
+msgstr ""
+
+#: master_preset.xml:5733(item:name)
+msgid "Residential Building"
+msgstr ""
+
+#: master_preset.xml:5711(group:name) master_preset.xml:5710(group:name)
+msgid "Man Made"
+msgstr ""
+
+#: master_preset.xml:1277(label:text)
+msgid ""
+"Used in some countries for a named road junction who.s name serves for local"
+" orientation."
+msgstr ""
+
+#: master_preset.xml:1544(item:name)
+msgid "Hampshire Gate"
+msgstr ""
+
+#: master_preset.xml:1850(item:name)
+msgid "Other mode restrictions"
+msgstr ""
+
+#: master_preset.xml:7681(combo:text) master_preset.xml:7145(group:name)
+msgid "Cash"
+msgstr ""
+
+#: master_preset.xml:7950(label:text)
+msgid "A farm within a bigger settlement"
+msgstr ""
+
+#: master_preset.xml:2733(check:text)
+msgid "UTA"
+msgstr ""
+
+#: master_preset.xml:1416(text:text) master_preset.xml:8407(text:text)
+#: master_preset.xml:8113(text:text)
+msgid "Species"
+msgstr ""
+
+#: master_preset.xml:1059(check:text)
+msgid "Handrail"
+msgstr ""
+
+#: master_preset.xml:6819(item:name)
+msgid "Deli (Fine Food)"
+msgstr ""
+
+#: master_preset.xml:1640(item:name)
+msgid "Building Passage"
+msgstr ""
+
+#: master_preset.xml:6244(item:name)
+msgid "Gas Power Generator"
+msgstr ""
+
+#: master_preset.xml:6577(item:name)
+msgid "Power Cable"
+msgstr ""
+
+#: master_preset.xml:2092(check:text)
+msgid "Salt Water"
+msgstr ""
+
+#: master_preset.xml:4961(combo:text)
+msgid "Display"
+msgstr ""
+
+#: master_preset.xml:7088(item:name)
+msgid "Mobile Phone"
+msgstr ""
+
+#: master_preset.xml:7638(item:name)
+msgid "Photo"
+msgstr ""
+
+#: master_preset.xml:5168(item:name)
+msgid "Compressed Air"
+msgstr ""
+
+#: master_preset.xml:9281(group:name)
+msgid "Crafts"
+msgstr ""
+
+#: master_preset.xml:8179(item:name)
+msgid "Grassland"
+msgstr ""
+
+#: master_preset.xml:8221(item:name)
+msgid "Fell"
+msgstr ""
+
+#: master_preset.xml:371(item:name)
+msgid "Motorway"
+msgstr "高速公路"
+
+#: master_preset.xml:2332(group:name)
+msgid "Railway"
+msgstr ""
+
+#: master_preset.xml:4970(item:name)
+msgid "Recycling Container"
+msgstr ""
+
+#: master_preset.xml:8409(item:name)
+msgid "Allotments"
+msgstr ""
+
+#: master_preset.xml:7529(item:name)
+msgid "Paint"
+msgstr ""
+
+#: master_preset.xml:7942(text:text) master_preset.xml:220(text:text)
+msgid "Population"
+msgstr "人口數"
+
+#: master_preset.xml:4396(item:name)
+msgid "Courthouse"
+msgstr ""
+
+#: master_preset.xml:6095(label:text)
+msgid "Display:"
+msgstr ""
+
+#: master_preset.xml:4441(item:name)
+msgid "Fire Station"
+msgstr ""
+
+#: master_preset.xml:5317(item:name)
+msgid "Ten-pin Bowling"
+msgstr ""
+
+#: master_preset.xml:4487(text:text)
+msgid "Childcare capacity"
+msgstr ""
+
+#: master_preset.xml:2589(item:name)
+msgid "Magic Carpet"
+msgstr ""
+
+#: master_preset.xml:2963(group:name)
+msgid "Public Transport"
+msgstr ""
+
+#: master_preset.xml:8025(combo:text)
+msgid "Current Status"
+msgstr ""
+
+#: master_preset.xml:2682(check:text) master_preset.xml:2855(check:text)
+#: master_preset.xml:2667(check:text)
+msgid "Covered (with roof)"
+msgstr ""
+
+#: master_preset.xml:8975(role:text)
+msgid "where enforcement ends"
+msgstr ""
+
+#: master_preset.xml:9434(item:name)
+msgid "Glaziery"
+msgstr ""
+
+#: master_preset.xml:5043(item:name)
+msgid "Waste Basket/Trash Can"
+msgstr ""
+
+#: master_preset.xml:477(check:text) master_preset.xml:6143(item:name)
+#: master_preset.xml:9247(item:name) master_preset.xml:395(check:text)
+#: master_preset.xml:41(check:text) master_preset.xml:421(check:text)
+#: master_preset.xml:6157(combo:text) master_preset.xml:455(check:text)
+msgid "Bridge"
+msgstr "橋梁"
+
+#: master_preset.xml:2349(item:name)
+msgid "Narrow Gauge Rail"
+msgstr ""
+
+#: master_preset.xml:905(list_entry:short_description)
+msgid ""
+"exposed sites may be secured with ropes or chains, possible need to use "
+"hands for balance. Partly exposed sites with fall hazard, scree, pathless "
+"jagged rocks"
+msgstr ""
+
+#: master_preset.xml:2946(item:name)
+msgid "Public Bicycle Repair Station"
+msgstr ""
+
+#: master_preset.xml:4754(item:name)
+msgid "Group Home"
+msgstr ""
+
+#: master_preset.xml:955(check:text)
+msgid "Oneway (bicycle)"
+msgstr ""
+
+#: master_preset.xml:7694(check:text)
+msgid "Visa Debit"
+msgstr ""
+
+#: master_preset.xml:5884(item:name)
+msgid "Bunker Silo"
+msgstr ""
+
+#: master_preset.xml:4601(item:name)
+msgid "Nursing Home"
+msgstr ""
+
+#: master_preset.xml:4962(combo:text)
+msgid "Support"
+msgstr ""
+
+#: master_preset.xml:5503(item:name)
+msgid "Rugby Union"
+msgstr ""
+
+#: master_preset.xml:9657(item:name)
+msgid "Sweep"
+msgstr ""
+
+#: master_preset.xml:1270(text:text) master_preset.xml:2515(text:text)
+msgid "Distance (kilometers)"
+msgstr ""
+
+#: master_preset.xml:6418(item:name)
+msgid "Power Busbar"
+msgstr ""
+
+#: master_preset.xml:5560(item:name)
+msgid "Boule"
+msgstr ""
+
+#: master_preset.xml:5762(combo:text) master_preset.xml:5753(item:name)
+msgid "Building part"
+msgstr ""
+
+#: master_preset.xml:8928(role:text)
+msgid "where to place the label"
+msgstr ""
+
+#: master_preset.xml:6082(check:text)
+msgid "GPS Signals"
+msgstr ""
+
+#: master_preset.xml:8293(label:text)
+msgid ""
+"A notable rock or group of rocks, with at least one of them firmly attached "
+"to the underlying bedrock."
+msgstr ""
+
+#: master_preset.xml:815(item:name)
+msgid "Roundabout"
+msgstr "圓環"
+
+#: master_preset.xml:6651(item:name)
+msgid "Monument"
+msgstr ""
+
+#: master_preset.xml:6237(item:name)
+msgid "Coal Power Generator"
+msgstr ""
+
+#: master_preset.xml:1190(check:text) master_preset.xml:1131(check:text)
+msgid "Button operated"
+msgstr ""
+
+#: master_preset.xml:3512(item:name)
+msgid "Caravan Site/RV Park"
+msgstr ""
+
+#: master_preset.xml:9825(item:name)
+msgid "Photo studio"
+msgstr ""
+
+#: master_preset.xml:6360(item:name)
+msgid "Wind Turbine"
+msgstr ""
+
+#: master_preset.xml:2726(check:text)
+msgid "1/50 mix (mofa/moped)"
+msgstr ""
+
+#: master_preset.xml:8744(text:text) master_preset.xml:221(text:text)
+msgid "Post code"
+msgstr "郵遞區號"
+
+#: master_preset.xml:6112(item:name)
+msgid "Surveillance Camera"
+msgstr ""
+
+#: master_preset.xml:301(combo:text) master_preset.xml:6203(combo:text)
+msgid "compressed air"
+msgstr "壓縮空氣"
+
+#: master_preset.xml:4646(item:name)
+msgid "Emergency Access Point"
+msgstr ""
+
+#: master_preset.xml:4923(item:name)
+msgid "Internet Access"
+msgstr ""
+
+#: master_preset.xml:2732(check:text)
+msgid "Routex"
+msgstr ""
+
+#: master_preset.xml:6134(combo:text)
+msgid "Mounted on"
+msgstr ""
+
+#: master_preset.xml:3783(label:text)
+msgid ""
+"A Signpost/Guidepost to indicate the directions to different destinations."
+msgstr ""
+
+#: master_preset.xml:10115(item:name)
+msgid "Vacant"
+msgstr ""
+
+#: master_preset.xml:6409(label:text)
+msgid ""
+"(Please only use this tag if more detailed mapping using busbars and bays is"
+" impossible!)"
+msgstr ""
+
+#: master_preset.xml:8980(group:name)
+msgid "Routes"
+msgstr ""
+
+#: master_preset.xml:6098(check:text)
+msgid "Digital"
+msgstr ""
+
+#: master_preset.xml:7712(check:text)
+msgid "Chipknip (nl)"
+msgstr ""
+
+#: master_preset.xml:5730(combo:text) master_preset.xml:5764(combo:text)
+#: master_preset.xml:5750(combo:text)
+msgctxt "building"
+msgid "Levels"
+msgstr ""
+
+#: master_preset.xml:5765(combo:text)
+msgctxt "building"
+msgid "Skipped Levels"
+msgstr ""
+
+#: master_preset.xml:4785(item:name)
+msgctxt "social_facility"
+msgid "Shelter"
+msgstr ""
+
+#: master_preset.xml:3996(combo:text)
+msgctxt "grill"
+msgid "Fuel"
+msgstr ""
+
+#: master_preset.xml:4911(check:text) master_preset.xml:7684(check:text)
+msgctxt "payment"
+msgid "Notes"
+msgstr ""
+
+#: master_preset.xml:8864(label:text)
+msgctxt "fixme=*"
+msgid ""
+"A hint for other mappers (not for the end user), that an object needs an "
+"improvement."
+msgstr ""
+
+#: master_preset.xml:2609(item:name)
+msgctxt "aerialway"
+msgid "Station"
+msgstr ""
+
+#: master_preset.xml:4859(check:text)
+msgctxt "restroom"
+msgid "Unisex"
+msgstr ""
+
+#: master_preset.xml:4858(check:text)
+msgctxt "restroom"
+msgid "Male"
+msgstr ""
+
+#: master_preset.xml:4857(check:text)
+msgctxt "restroom"
+msgid "Female"
+msgstr ""
+
+#: master_preset.xml:1273(item:name)
+msgctxt "junction=yes"
+msgid "Named Junction"
+msgstr ""
+
+#: master_preset.xml:1481(item:name)
+msgctxt "Barrier"
+msgid "Ditch"
+msgstr ""
+
+#: master_preset.xml:8845(label:text)
+msgctxt "note=*"
+msgid "An important hint for other mappers (not for the end user)."
+msgstr ""
+
+#: master_preset.xml:3363(item:name)
+msgctxt "airport"
+msgid "Gate"
+msgstr ""
+
+#: master_preset.xml:3083(item:name) master_preset.xml:3155(item:name)
+msgctxt "railway"
+msgid "Station"
+msgstr ""
+
+#: master_preset.xml:73(combo:text)
+msgctxt "railway"
+msgid "Tracks"
+msgstr "產業道路"
+
+#: master_preset.xml:6507(combo:text)
+msgctxt "power"
+msgid "Tower type"
+msgstr ""
+
+#: master_preset.xml:8849(label:text) master_preset.xml:8829(label:text)
+#: master_preset.xml:8868(label:text)
+msgctxt "note=*, fixme=*, description=*"
+msgid "Similar but different tags:"
+msgstr ""
+
+#: master_preset.xml:8825(label:text)
+msgctxt "description=*"
+msgid ""
+"It might be viewable to the end user (perhaps using a search system or a map"
+" with pop-ups)."
+msgstr ""
+
+#: master_preset.xml:8824(label:text)
+msgctxt "description=*"
+msgid "A short text with additional information."
+msgstr ""
+
+#: master_preset.xml:7821(item:name)
+msgctxt "place"
+msgid "State"
+msgstr ""
+
+#: master_preset.xml:8755(combo:text)
+msgctxt "addr:"
+msgid "State"
+msgstr ""
+
+#: master_preset.xml:2077(item:name)
+msgctxt "natural"
+msgid "Water"
+msgstr ""
+
+#: master_preset.xml:8847(text:text) master_preset.xml:8833(item:name)
+msgctxt "the tag note=*"
+msgid "Note"
+msgstr ""
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: master_preset.xml0(None)
+msgid "translator-credits"
+msgstr ""

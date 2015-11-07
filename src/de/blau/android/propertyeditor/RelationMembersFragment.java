@@ -10,7 +10,6 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -380,7 +379,7 @@ public class RelationMembersFragment extends SherlockFragment {
 		}
 	}
 
-	protected void memberSelected() {
+	protected synchronized void memberSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (memberSelectedActionModeCallback == null) {
 			memberSelectedActionModeCallback = new MemberSelectedActionModeCallback(this, rowLayout);
@@ -388,7 +387,7 @@ public class RelationMembersFragment extends SherlockFragment {
 		}	
 	}
 	
-	protected void memberDeselected() {
+	protected synchronized void memberDeselected() {
 		if (memberSelectedActionModeCallback != null) {
 			if (memberSelectedActionModeCallback.memberDeselected()) {
 				memberSelectedActionModeCallback = null;
@@ -488,9 +487,7 @@ public class RelationMembersFragment extends SherlockFragment {
 			doRevert();
 			return true;
 		case R.id.tag_menu_help:
-			Intent startHelpViewer = new Intent(getActivity(), HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
-			startActivity(startHelpViewer);
+			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
 		}
 		

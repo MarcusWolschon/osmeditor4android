@@ -70,6 +70,10 @@ public class Tags {
 	public static final String VALUE_RESTRICTION = "restriction";
 	public static final String VALUE_VIA = "via";
 	public static final String VALUE_BUILDING = "building";
+	public static final String VALUE_ROUTE = "route";
+	public static final String VALUE_MULTIPOLYGON = "multipolygon";
+	public static final String KEY_BOUNDARY = "boundary";
+	
 	//
 	public static final String KEY_ELE = "ele";
 	public static final String KEY_ELE_MSL = "ele:msl";
@@ -79,5 +83,4 @@ public class Tags {
 	//
 	public static final Object KEY_WIKIPEDIA = "wikipedia";
 	public static final Object KEY_WIKIDATA = "wikidata";
-	
 }

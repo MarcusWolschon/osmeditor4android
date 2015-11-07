@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.ActionMode.Callback;
@@ -23,6 +23,7 @@ import de.blau.android.propertyeditor.TagEditorFragment.KeyValueHandler;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 public class TagSelectedActionModeCallback implements Callback {
 	
@@ -54,9 +55,9 @@ public class TagSelectedActionModeCallback implements Callback {
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 		menu.clear();
 		menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_delete));
-		menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy));
-		menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_cut));
-		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
+		menu.add(Menu.NONE, MENUITEM_COPY, Menu.NONE, R.string.menu_copy).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy));
+		menu.add(Menu.NONE, MENUITEM_CUT, Menu.NONE, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_cut));
+		menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(caller.getActivity(), R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_help));
 		return true;
 	}
 
@@ -73,8 +74,14 @@ public class TagSelectedActionModeCallback implements Callback {
 		}
 	}
 	
+	
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		return performAction(item.getItemId());
+	}
+	
+	
+	private boolean performAction(int action) {
 		
 		final int size = rows.getChildCount();
 		ArrayList<TagEditRow> selected = new ArrayList<TagEditRow>();
@@ -85,7 +92,7 @@ public class TagSelectedActionModeCallback implements Callback {
 				selected.add(row);
 			}
 		}
-		switch (item.getItemId()) {
+		switch (action) {
 		case MENUITEM_DELETE: 
 			if (selected.size() > 0) {
 				for (TagEditRow r:selected) {
@@ -106,7 +113,7 @@ public class TagSelectedActionModeCallback implements Callback {
 			}
 			if (currentAction != null) {
 				currentAction.finish();
-			}
+			} 
 			break;
 		case MENUITEM_CUT:
 			if (selected.size() > 0) {
@@ -122,9 +129,7 @@ public class TagSelectedActionModeCallback implements Callback {
 			}
 			break;
 		case MENUITEM_HELP:
-			Intent startHelpViewer = new Intent(Application.mainActivity, HelpViewer.class);
-			startHelpViewer.putExtra(HelpViewer.TOPIC, R.string.help_propertyeditor);
-			Application.mainActivity.startActivity(startHelpViewer);
+			HelpViewer.start(Application.mainActivity, R.string.help_propertyeditor);
 			return true;
 		default: return false;
 		}
@@ -143,7 +148,7 @@ public class TagSelectedActionModeCallback implements Callback {
 		caller.deselectHeaderCheckBox();
 		((PropertyEditor)caller.getActivity()).enablePaging();
 		((PropertyEditor)caller.getActivity()).enablePresets();
-		caller.tagSelectedActionModeCallback = null;
+		caller.tagDeselected(); // synchronized method
 	}
 
 	public boolean tagDeselected() {
@@ -162,5 +167,4 @@ public class TagSelectedActionModeCallback implements Callback {
 		}
 		return true;
 	}
-
 }

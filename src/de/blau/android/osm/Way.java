@@ -85,8 +85,10 @@ public class Way extends OsmElement {
 	@Override
 	public String toString() {
 		String res = super.toString();
-		for (Map.Entry<String, String> tag : tags.entrySet()) {
-			res += "\t" + tag.getKey() + "=" + tag.getValue();
+		if (tags != null) {
+			for (Map.Entry<String, String> tag : tags.entrySet()) {
+				res += "\t" + tag.getKey() + "=" + tag.getValue();
+			}
 		}
 		return res;
 	}
@@ -237,24 +239,70 @@ public class Way extends OsmElement {
 	 */
 	public Map<String, String> getDirectionDependentTags() {
 		Map<String, String> result = null;
-		for (String key : tags.keySet()) {
-			String value = tags.get(key);
-			if (key.equals("oneway") || key.equals("incline") 
-					|| key.equals("turn") || key.equals("turn:lanes")
-					|| key.equals("direction") || key.endsWith(":left") 
-					|| key.endsWith(":right") || key.endsWith(":backward") 
-					|| key.endsWith(":forward") 
-					|| key.contains(":forward:") || key.contains(":backward:")
-					|| key.contains(":right:") || key.contains(":left:")
-					|| value.equals("right") || value.equals("left") 
-					|| value.equals("forward") || value.equals("backward")) {
-				if (result == null) {
-					result = new TreeMap<String, String>();
+		if (tags != null) {
+			for (String key : tags.keySet()) {
+				String value = tags.get(key);
+				if ("oneway".equals(key) || "incline".equals(key) 
+						|| "turn".equals(key) || "turn:lanes".equals(key)
+						|| "direction".equals(key) || key.endsWith(":left") 
+						|| key.endsWith(":right") || key.endsWith(":backward") 
+						|| key.endsWith(":forward") 
+						|| key.contains(":forward:") || key.contains(":backward:")
+						|| key.contains(":right:") || key.contains(":left:")
+						|| value.equals("right") || value.equals("left") 
+						|| value.equals("forward") || value.equals("backward")) {
+					if (result == null) {
+						result = new TreeMap<String, String>();
+					}
+					result.put(key, value);
 				}
-				result.put(key, value);
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Return a list of (route) relations that this way is a member of with a direction dependent role
+	 * @return
+	 */
+	public List<Relation> getRelationsWithDirectionDependentRoles() {
+		ArrayList<Relation> result = null;
+		if (getParentRelations() != null) {
+			for (Relation r:getParentRelations()) {
+				String t = r.getTagWithKey(Tags.KEY_TYPE);
+				if (t != null && Tags.VALUE_ROUTE.equals(t)) {
+					RelationMember rm = r.getMember(Way.NAME, getOsmId());
+					if (rm != null && ("forward".equals(rm.getRole()) || "backward".equals(rm.getRole()))) {
+						if (result == null) {
+							result = new ArrayList<Relation>();
+						}
+						result.add(r);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Reverse the role of this way in any relations it is in (currently only relevant for routes)
+	 * @param relations
+	 */
+	public void reverseRoleDirection(List<Relation> relations) {
+		if (relations != null) {
+			for (Relation r:relations) {
+				for (RelationMember rm:r.getMembers()) {
+					if (rm.role != null && "forward".equals(rm.role)) {
+						rm.setRole("backward");
+						continue;
+					} 
+					if (rm.role != null && "backward".equals(rm.role)) {
+						rm.setRole("forward");
+						continue;
+					} 
+				}
+			}
+		}
 	}
 	
 	private String reverseCardinalDirection(final String value) throws NumberFormatException
@@ -370,6 +418,9 @@ public class Way extends OsmElement {
 	 * @param reverseOneway if false don't change the value of the oneway tag if present
 	 */
 	public void reverseDirectionDependentTags(Map<String, String> dirTags, boolean reverseOneway) {
+		if (tags == null) {
+			return;
+		}
 		for (String key : dirTags.keySet()) {
 			if (!key.equals("oneway") || reverseOneway) {
 				String value = tags.get(key).trim();
@@ -652,6 +703,49 @@ public class Way extends OsmElement {
 		if (nodes != null) {
 			for (int i = 0; i < (nodes.size() - 1); i++) {
 				result = result + GeoMath.haversineDistance(nodes.get(i).getLon()/1E7D, nodes.get(i).getLat()/1E7D, nodes.get(i+1).getLon()/1E7D, nodes.get(i+1).getLat()/1E7D);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Note this is only useful for sorting given that the result is returned in WGS84 °*1E7 or so
+     * @param location
+     * @return the minimum distance of this way to the given location
+     */
+	public double getDistance(final int[] location) {
+		double distance = Double.MAX_VALUE;
+		if (location != null) {
+			Node n1 = null;
+			for (Node n2 : getNodes()) {
+				// distance to nodes of way
+				if (n1 != null) {
+					// distance to lines of way
+					distance = Math.min(distance,
+							GeoMath.getLineDistance(
+									location[0], location[1],
+									n1.getLat(), n1.getLon(),
+									n2.getLat(), n2.getLon()));
+				}
+				n1 = n2;
+			}
+		}
+		return distance;
+	}
+	
+	/**
+	 * Returns a bounding box covering the way
+	 * FIXME results should be cached in some intelligent way
+	 * @return
+	 */
+	public BoundingBox getBounds() {
+		BoundingBox result = null;
+		boolean first = true;
+		for (Node n : getNodes()) {
+			if (first) {
+				result = new BoundingBox(n.lon,n.lat);
+			} else {
+				result.union(n.lon,n.lat);
 			}
 		}
 		return result;
