@@ -46,6 +46,7 @@
   <string name="progress_deleting_message">正在刪除...</string>
   <string name="progress_searching_message">正在搜尋...</string>
   <string name="progress_saving_message">正在儲存…</string>
+  <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
   <string name="upload_comment_label">評論：</string>
   <string name="upload_source_label">來源：</string>
   <string name="upload_close_changeset_label">關閉變更組合：</string>
@@ -82,6 +83,7 @@
   <string name="search_results_title">搜尋結果</string>
   <string name="find_message">輸入搜尋字串</string>
   <string name="preset_search_hint">預置搜尋字串</string>
+  <string name="no_valid_preset">無有效的預置！</string>
   <string name="read_file">選擇要讀取的檔案</string>
   <string name="save_file">輸入檔案儲存到</string>
   <string name="existing_track_title">現有的軌跡資料</string>
@@ -133,6 +135,7 @@
   <string name="toast_oauth_retry">請允許 OAuth 進入您的 OSM 帳號，然後重新嘗試上傳。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
   <string name="toast_no_oauth">沒有 OAuth 的組態可用於目前的API，請設定登入名稱和密碼。</string>
+  <string name="toast_oauth_not_enabled">OAuth 未啟用目前的 API。</string>
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
@@ -147,6 +150,8 @@
   <string name="toast_no_voice">沒有語音識別設備存在</string>
   <string name="toast_storage_error">無法由 Vespucc i寫入圖磚目錄和其它檔案。\n這可能是一個權限問題或技術問題於您的裝置。</string>
   <string name="toast_min_one_preset">至少必須選擇一個做預設！</string>
+  <string name="toast_used_backup">已損壞情況的檔案，使用備份檔案！</string>
+  <string name="toast_used_bug_backup">已損壞呈錯誤情況的檔案，使用備份檔案！</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -287,6 +292,8 @@
   <string name="menu_tools_background_align_save_device">儲存到裝置</string>
   <string name="menu_tools_background_align_apply2all">套用(所有縮放)</string>
   <string name="menu_tools_background_contrast">對比</string>
+  <string name="menu_tools_oauth_reset">重置 OAuth</string>
+  <string name="menu_tools_oauth_authorisation">授權 OAuth</string>
   <!--element action mode menu-->
   <string name="menu_tags">屬性</string>
   <!--Text should be as short as possible-->
@@ -371,6 +378,8 @@
   <string name="config_forceContextMenu_summary">如果選取是不明確的，始終在 EasyEdit 模式下顯示快顯選單。</string>
   <string name="config_licensebutton_title">作者和授權</string>
   <string name="config_licensebutton_summary">顯示作者和授權資訊</string>
+  <string name="config_debugbutton_title">除錯</string>
+  <string name="config_debugbutton_summary">顯示一些內部的資訊</string>
   <string name="config_mapProfile_title">地圖設定檔</string>
   <string name="config_mapProfile_summary">設定樣式和元件的可見度</string>
   <string name="config_use_back_for_undo_title">用返回鍵作取消復原</string>
@@ -498,6 +507,7 @@
   <string name="deleterelation_relation_description">您將要刪除的關係，它是一個或多個關係中的成員。從關係中移除此關係，可能會使得它或它們變成無效。</string>
   <string name="deleterelation">刪除關係</string>
   <string name="delete_from_relation_description">您即將從一個關係中刪除該元件。</string>
+  <string name="unset_relation_type">未設定關係類型</string>
   <!--time and distance-->
   <string name="days">天</string>
   <string name="hours">小時</string>

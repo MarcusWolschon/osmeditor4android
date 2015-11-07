@@ -1,6 +1,6 @@
 # Vespucci 介紹
 
-Vespucci 是一個完整功能的開放街圖編輯器，支援那些桌面系統編輯器所提供的大部分的操作。它在 Android 2.3至5.1 已經過成功地測試。提醒一句：行動裝置能力已經追上桌面系統與之匹敵，尤其是較舊的裝置，只有非常有限的可用記憶體，並且往往是相當緩慢的。在使用  Vespucci 和持有時，您應該考慮到與接受，例如，您正在編輯的區域尺寸是一個合理的大小。 
+Vespucci 是一個完整功能的開放街圖編輯器，支援那些桌面系統編輯器所提供的大部分的操作。它在谷歌 Android 2.3 至 6.0 以及各種 AOSP 為主轉化的。已經過成功地測試。提醒一句：行動裝置能力已經追上桌面系統與之匹敵，尤其是較舊的裝置，只有非常有限的可用記憶體，並且往往是相當緩慢的。在使用  Vespucci 和持有時，您應該考慮到與接受，例如，您正在編輯的區域尺寸是一個合理的大小。 
 
 ## 第一次使用
 
@@ -16,21 +16,19 @@ Vespucci 是一個完整功能的開放街圖編輯器，支援那些桌面系�
 
 選擇任何一個的傳輸圖示！[](../images/menu_transfer.png)或“傳輸”選單項目都可以。這將顯示七個選項：
 
-* **下載現在的檢視** - 下載在螢幕上可見的區域，並取代所有目前的資料*(需要網路連線)*
-* **增加現在的檢視來下載** 下載在螢幕上可見的區域，並合併目前的資料*(需要網路連線)*
-* **下載其它地方** - 顯示一個表單，允許您輸入座標搜尋一個位置或直接輸入座標，然後下載該區域週圍的地方*(需要網路連線)*
+ * **下載現在的檢視** - 下載在螢幕上可見的區域，並取代所有目前的資料*(需要網路連線)* 
+* **增加現在的檢視來下載** 下載在螢幕上可見的區域，並合併目前的資料*(需要網路連線)* 
+* **下載其它地方** - 顯示一個表單，允許您輸入座標搜尋一個位置或直接輸入座標，然後下載該區域週圍的地方*(需要網路連線)* 
 * **上傳資料到 OSM 伺服器** - 上傳編輯到 OpenStreetMap *(需要網路連線)*
-* **匯出更改** - 寫入一個".osc"格式檔案，包含了目前的編輯，這是可以被例如 JOSM 讀取
-* **從檔案讀取** - 讀取一個與 JOSM 相容的 XML 格式檔案
-* **儲存到檔案** - 儲存為一個與 JOSM 相容的 XML 格式檔案
+* **自動下載** - 自動的下載目前周圍位置區域 *(需要網路連線)*  *(需要 GPS)*
+* **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
+* **備註/錯誤** - 從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和"錯誤" *(需要網路連線)*
 
 打開一張地圖的最簡單方法就是縮放和平移到您想要編輯的地方，然後選擇"下載目前的檢視"。您可以在手機上，通過使用手勢、縮放按鈕或音量控制按鈕進行縮放。Vespucci 應會下載在您目前的位置上的區域和中心地圖的資料。不需要進行驗證就能將所需的資料下載到您的裝置。
 
 ### 編輯
 
-為了防止無意中的編輯 Vespucci 開始在"鎖定"模式，這種模式，只允許縮放和移動地圖。點擊！[鎖定](../images/locked.png)圖示來解鎖螢幕。
- 
-預設情況下，可選擇節點和道路周圍有橙色區域大致說明要觸碰選擇一個物件。如果您試著選擇一個物件而 Vespucci 判斷所選內容可能表示著多個物件，將呈現一個選擇選單。選定的物件是以黃色高亮顯示。
+為了防止無意中的編輯 Vespucci 開始在"鎖定"模式，這種模式，只允許縮放和移動地圖。點擊！[鎖定] (../images/locked.png) 圖示來解鎖螢幕。預設情況下，可選擇節點和道路周圍有橙色區域大致說明要觸碰選擇一個物件。如果您試著選擇一個物件而 Vespucci 判斷所選內容可能表示著多個物件，將呈現一個選擇選單。選定的物件是以黃色高亮顯示。
 
 如果您試著編輯高密度區域時進行放大，這是一個很好的對策。
 
@@ -75,12 +73,12 @@ Vespucci 有一個"增加地址標籤"功能，那讓勘察地址更有效率。
 Vespucci 有個快速的增加轉向限制。注意：如果您為了限制而需要分割一條道路，您須要在開始之前做到這點。
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
-* 從選單中選擇"增加限制"
+* select "Add restriction" from the menu
 * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* 在標籤選單設定限制類型
+* set the restriction type in the tag menu
  
-### Vespucci 在 "已鎖定" 模式
+### Vespucci in "locked" mode
  
 When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
@@ -90,9 +88,9 @@ When the red lock is displayed the following all non-editing actions are availab
 
 選擇您在下載時相同的按鈕或選單項目，現在選擇 "上傳資料到 OSM 的伺服器"。
 
-Vespucci 除了支援 OAuth 的授權，還有傳統的使用者名稱與密碼的方式。 OAuth 比較好的，尤其是對於行動應用程式，因為它避免了以明文發送密碼。
+Vespucci 除了支援 OAuth 的授權和標準的使用者名稱與密碼的方式。 而 OAuth 更好，因為它避免了以明文發送密碼。
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. Once you have done that you will be returned to Vespucci and should retry the upload, which now should succeed.
+New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
 如果您想要儲存您的工作，並且不能連入網際網路，您可以儲存成 JOSM 相容的 .osm 檔案，以後以 Vespucci 或 JOSM 任何一個上載。 
 
@@ -106,16 +104,11 @@ Vespucci 有個簡單的衝突解決。不管怎樣，如果您于您的編輯�
 
 如果您有設定，當用手移動螢幕或編輯將會導致停用"追隨 GPS" 模式，藍色的 GPS 箭頭將從空心變為實心箭頭。要快速的返回到"追隨"模式，只需觸碰箭頭或重新從選單中確認選項。
 
-### 自動下載
+## 備註和錯誤
 
-*(需要網路連線)*
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-如果"顯示位置"與"追隨 GPS 位置"已被啟用，Vespucci 可以讓您在您目前的位置自動下載一個小區域(預設半徑為 50 公尺)。正如上述，在您用手移動螢幕或者改變一個物件的幾何形狀時，如果您要繼續的話，您將會需要重新啟用"追隨 GPS 位置"。 
-
-注解：
-
-*您需要以手動下載一個初始區域
-* 該功能只能工作在 6 km/h 以下 (快步行走的速度)，以避免造成OpenStreetMap  API 的問題
+On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
 ## 定制 Vespucci
 
@@ -123,7 +116,7 @@ Vespucci 有個簡單的衝突解決。不管怎樣，如果您于您的編輯�
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes display. Open Notes will be displayed as a red filled circle, closed Notes the same in blue. Default: off.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a red bug icon, closed ones the same in green. Default: off.
 * Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
 * Node icons. Default: off.
 * Keep screen on. Default: off.
