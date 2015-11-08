@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="bug_filter_entries">
+    <item>Нотатки</item>
+    <item>Помилки Osmose</item>
+    <item>Попередження Osmose</item>
+    <item>Незначні проблеми Osmose</item>
+  </string-array>
+</resources>
