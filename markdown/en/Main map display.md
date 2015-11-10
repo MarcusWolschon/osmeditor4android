@@ -53,9 +53,9 @@ directory, however this depends on the specific camera app.
  * **Pause GPS track** - pause recording the current GPX track
  * **Clear GPS track** - clear the current GPX track
  * **Track management...** - manage existing tracks
-  * **Upload GPS track** - upload the current GPX track *(requires network connectivity)*
-  * **Export GPS track** - export track to file
-  * **Import GPS track** - import track from file
+    * **Upload GPS track** - upload the current GPX track *(requires network connectivity)*
+    * **Export GPS track** - export track to file
+    * **Import GPS track** - import track from file
  * **Goto start of track** - center the map on the first track point
  
 
@@ -70,14 +70,14 @@ Select either the transfer icon ![](../images/menu_transfer.png) or the "Transfe
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
  * **File...** - saving and loading OSM data to/from on device files.
-  * **Export changes** - write a ".osc" format file containing the current edits
-  * **Read from file** - read a JOSM compatible XML format file
-  * **Save to file** - save as a JOSM compatible XML format file
+    * **Export changes** - write a ".osc" format file containing the current edits
+    * **Read from file** - read a JOSM compatible XML format file
+    * **Save to file** - save as a JOSM compatible XML format file
  * **Note/Bugs...** - down- and uploading Notes/Bugs
-  * **Download bugs for current view** - download Notes/Bugs for the area visible on the screen
-  * **Upload all** - upload all new or modified Notes/Bugs
-  * **Clear** - remove all bugs from storage
-  * **Auto download** - download Notes/Bugs around the current location automatically *(requires network connectivity)* *(requires GPS)*
+    * **Download bugs for current view** - download Notes/Bugs for the area visible on the screen
+    * **Upload all** - upload all new or modified Notes/Bugs
+    * **Clear** - remove all bugs from storage
+    * **Auto download** - download Notes/Bugs around the current location automatically *(requires network connectivity)* *(requires GPS)*
 
 ### ![](../images/menu_config.png) Settings
 

@@ -1,5 +1,5 @@
 
-# Keyboard support
+# Keyboard and mouse support
 
 ## Shortcuts
 
@@ -22,7 +22,7 @@ The alphabetic menu shortcuts should be usable with _<Ctrl>_ + letter or _<Alt>_
   __Arrow keys__ Pan in the respective direction
 
 ### Element selected
-   __e__ Edit tags
+  __e__ Edit tags
   __i__ Element information
   __c__ Copy
   __x__ Cut 
