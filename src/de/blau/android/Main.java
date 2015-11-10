@@ -752,6 +752,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		setupLockButton(actionbar);
 		actionbar.show();
 		setSupportProgressBarIndeterminateVisibility(false);
+		Util.resetProgressBarShown();
 	}
 	
 	/**
@@ -1677,9 +1678,13 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			if (getLogic().hasChanges()) {
-				getLogic().upload(comment, source, closeChangeset);
-				if (!Application.getBugStorage().isEmpty() && Application.getBugStorage().hasChanges()) {
+			boolean hasDataChanges = getLogic().hasChanges();
+			boolean hasBugChanges = !Application.getBugStorage().isEmpty() && Application.getBugStorage().hasChanges();
+			if (hasDataChanges || hasBugChanges) {
+				if (hasDataChanges) {
+					getLogic().upload(comment, source, closeChangeset);
+				}
+				if (hasBugChanges) {
 					TransferBugs.upload(this, server);
 				}
 				getLogic().checkForMail();

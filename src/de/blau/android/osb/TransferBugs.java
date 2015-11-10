@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -32,6 +34,7 @@ import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Util;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 public class TransferBugs {
@@ -103,7 +106,6 @@ public class TransferBugs {
 							IssueAlert.alert(context, b);
 						}
 					}
-					
 				}
 				if (handler != null) {
 					handler.execute();
@@ -112,9 +114,15 @@ public class TransferBugs {
 		}.execute();
 	}	
 	
+	/**
+	 * Upload Notes or bugs to server, needs to be called from main for now (mainly to OAuth dependency)
+	 * @param context
+	 * @param server
+	 */
 	static public void upload(final Context context, final Server server) {
 		boolean uploadFailed = false ;
 		if (server != null) {
+			Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
 			ArrayList<Bug>queryResult = Application.getBugStorage().getBugs();
 			for (Bug b:queryResult) {
 				if (b.changed) {
@@ -152,6 +160,7 @@ public class TransferBugs {
 					}
 				}
 			}
+			Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,false);
 			Toast.makeText(context, !uploadFailed ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -212,7 +221,7 @@ public class TransferBugs {
 				@Override
 				protected void onPreExecute() {
 					newBug = bug.isNew();
-					Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
+					Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity, true);
 				}
 
 				@Override
@@ -233,7 +242,7 @@ public class TransferBugs {
 						// upload sucessful
 						bug.changed = false;
 					}
-					Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
+					Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity, false);
 					if (!quiet) {
 						Toast.makeText(context, result ? R.string.openstreetbug_commit_ok : R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
 					}

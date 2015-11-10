@@ -77,6 +77,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Util;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
@@ -2896,7 +2897,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
+				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
 				getDelegator().clearUndo();
 			}
 			
@@ -2960,7 +2961,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(UploadResult result) {
-				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
+				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,false);
 				if (result.error == 0) {
 					save(); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
@@ -2996,7 +2997,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(true);
+				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
 			}
 			
 			@Override
@@ -3055,7 +3056,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				Application.mainActivity.setSupportProgressBarIndeterminateVisibility(false);
+				Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,false);
 				if (result == 0) {
 					Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_upload_success, Toast.LENGTH_SHORT).show();
 				}
