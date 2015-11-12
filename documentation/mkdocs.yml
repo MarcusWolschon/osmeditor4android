@@ -3,7 +3,7 @@ site_dir: /var/www/site
 site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
 theme_dir: 'flatly-custom'
 pages:
-- Home: 'index.md'
+- Vespucci: 'index.md'
 - Introduction: 
     - 'Introduction': 'markdown/en/Introduction.md'
     - '0.9.7 Release notes': 'markdown/en/0.9.7 Release notes.md'
