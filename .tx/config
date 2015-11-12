@@ -37,9 +37,9 @@ source_lang = en
 minimum_perc = 100
 
 [vespucci.introductionmd]
-file_filter = markdown/<lang>/Introduction.md
+file_filter = documentation/docs/markdown/<lang>/Introduction.md
 lang_map = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR,zh-Hans: zh-rCN
-source_file = markdown/en/Introduction.md
+source_file = documentation/docs/markdown/en/Introduction.md
 source_lang = en
 minimum_perc = 5
 
