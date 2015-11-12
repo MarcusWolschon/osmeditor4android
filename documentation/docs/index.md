@@ -25,7 +25,7 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
 #### On device help
 
-The texts in the _Introduction_, _Editing_ and _Advanced Topics_ sections are available on device as context sensitive help.
+The texts in the _Introduction_ and _Editing_ sections are available on device as context sensitive help.
 
 #### Support and contact
 

@@ -17,7 +17,6 @@ pages:
     - 'Property editor': 'markdown/en/Property editor.md'
     - 'Multiselect': 'markdown/en/Multiselect.md'
     - 'Conflict resolution': 'markdown/en/Conflict resolution.md'
-- Advanced topics:
     - 'Presets': 'markdown/en/Presets.md' 
     - 'Aligning background imagery': 'markdown/en/Aligning background imagery.md'
     - 'Keyboard and mouse': 'markdown/en/Keyboard.md'  
