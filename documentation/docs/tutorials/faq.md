@@ -6,7 +6,7 @@ That means: It is a light-weight, easy-to-use mapping tool on mobile Android dev
 
 
 #### What is Vespucci NOT? ####
-  * Vespucci is not a mobile map-viewer. It does not display pre-rendered tiles (e.g. Mapnik, Osmarender ...)
+  * Vespucci is not primarily a mobile map-viewer. 
   * Vespucci is not a mobile navigation solution. It does not feature any routing algorithm.
   * Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards. 
 
