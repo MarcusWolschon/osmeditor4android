@@ -6,18 +6,17 @@ The files are found in the documentation directory, layout:
 
     documentation			top level documentation directory
     	/docs			contains markdown source files and images
-    		/markdown
+    		/help
     			/de			language specific files for on device help and website
     			/en
     			/es 
     			/fr
     			/images		images, mainly icons for the above
     			.....
-    			/tutorials		texts and images not included on device for size reasons
-    				/images
-    				....
+    		/tutorials		texts and images not included on device for size reasons
+    			/images
+    			....
     			.....
-    			zh-rTW
     		CNAME			domain this appears under for github pages
     		index.md		top level page for vespucci.io
     	/flatly-custom		slightly customized mkdocs theme 
