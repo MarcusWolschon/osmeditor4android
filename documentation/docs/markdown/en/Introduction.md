@@ -112,6 +112,8 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will selecte the object, center the screen on it and down load the area beforehand if necessary. 
+
 ## Customizing Vespucci
 
 ### Settings that you might want to change
