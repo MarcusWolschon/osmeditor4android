@@ -8,6 +8,7 @@ pages:
     - 'Introduction': 'markdown/en/Introduction.md'
     - '0.9.7 Release notes': 'markdown/en/0.9.7 Release notes.md'
     - '0.9.6 Release notes': 'markdown/en/0.9.6 Release notes.md'
+    - 'Previous release notes': 'markdown/tutorials/old_release_notes.md'
 - Editing: 
     - 'Main map display': 'markdown/en/Main map display.md'
     - 'Creating new objects': 'markdown/en/Creating new objects.md'
