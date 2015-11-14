@@ -238,7 +238,7 @@
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
 <li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
-<p>The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.</p>
+<p>The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.</p>
 <h3 id="editing">Editing</h3>
 <p>To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the <img alt="Locked" src="../../images/locked.png" /> icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.</p>
 <p>By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.</p>
@@ -248,7 +248,7 @@
 <p>Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start <a href="../Multiselect/">Multiselect mode</a>.</p>
 <h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
 <p>Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. </p>
-<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial node is located on a way, the node will be inserted into the way automatically.</p>
+<p>Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.</p>
 <h4 id="moving-a-node-or-way">Moving a Node or Way</h4>
 <p>Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
 <h4 id="improving-way-geometry">Improving Way Geometry</h4>
