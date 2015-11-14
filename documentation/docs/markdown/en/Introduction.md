@@ -24,7 +24,7 @@ Select either the transfer icon ![](../images/menu_transfer.png)  or the "Transf
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
+The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
 ### Editing
 
@@ -44,7 +44,7 @@ Touch an object to select and highlight it, a second touch on the same object op
 
 Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial node is located on a way, the node will be inserted into the way automatically.
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
 
 #### Moving a Node or Way
 
