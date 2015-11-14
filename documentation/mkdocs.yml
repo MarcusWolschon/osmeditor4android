@@ -2,6 +2,7 @@ site_name: Vespucci
 site_dir: /var/www/site
 site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
 theme_dir: 'flatly-custom'
+site_favicon: favicon.ico
 pages:
 - Vespucci: 'index.md'
 - Introduction: 
