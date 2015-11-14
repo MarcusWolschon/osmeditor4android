@@ -10,11 +10,9 @@ That means: It is a light-weight, easy-to-use mapping tool on mobile Android dev
   * Vespucci is not a mobile navigation solution. It does not feature any routing algorithm.
   * Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards. 
 
-
 #### I am already familiar with OSM editor xyz. Why should I use Vespucci? ####
 If you are mapping for OSM and already have an Android device (or planning for this) then Vespucci could help in your mapping work. Data is acquired "on site" and uploaded to the OSM server. By entering data in your mobile device "on the road" you can save time because you do not have to upload GPS tracks to your home PC and work your way again through these.
 Additionally, obscure OSM data can be verified easily and quickly "on site", data which is already available in OSM is not acquired again.
-
 
 #### What do I need to get started with Vespucci? ####
 You need:
@@ -23,14 +21,11 @@ You need:
   * Some familiarity with [OSM Map features](http://wiki.openstreetmap.org/wiki/Map_Features)
   * An [OSM account](http://www.openstreetmap.org/user/new)
 
-
 #### What is the status of Vespucci development? ####
 The current Vespucci version is 0.9.6 with 0.9.7 nearing release.
 
-
 #### Is Vespucci available for other mobile platforms? ####
-No. Android uses a specialized VM implementation designed for mobile device use, which is technically not a standard Java Virtual Machine. Development effort for other mobile platforms is unknown and the development team is not planning for this. (Of course you are welcome to do so ...)
-
+No, with the exception of those that provide an Android compatible environment.
 
 #### How can I obtain Vespucci? ####
 See [Obtaing Vespucci](/#obtaining-vespucci)
@@ -74,15 +69,9 @@ Currently, you can
 
 and much more.
 
-#### My Android device does not have a physical keyboard. Does Vespucci support a soft keyboard? ####
-
-Yes. Soft keyboard is available in portrait mode.
-
-
 #### Does Vespucci support OSM Notes? ####
 
 Yes, Vespucci supports manual and automatic download of Notes and offline storage of them, further it supports displaying and editing warnings produced by the OSMOSE quality assurance system. OpenStreetBugs is no longer supported.
-
 
 #### What are the limits of Vespucci? ####
 
@@ -94,13 +83,11 @@ Some things missing at this point in time
 
 > Remember, Android is intended to be lightweight and easy-to-use.
 
-
 #### Which languages are supported? ####
 
 The user interdace is currently available in: English, German, Chinese (Taiwan), Spanish, Ukranian, Russian, Turkish, French, Italian, Vienamese, Chinese, Icelandic, Greek, Portugeses and Janpanese. These translations are typically complete or only have a small number of terms missing.
 
 We also have partial translations for a number of other languages (please see link to transifex below for the current status). Any help in this area would be gratefully received. Please see https://www.transifex.com/projects/p/vespucci/
-
 
 #### How can I download OSM data? ####
 
@@ -120,7 +107,6 @@ You can alternatively dismiss the dialog, zoom and pan to the area in question a
 Choose "Upload data to  OSM server" from the transfer menu.
 (With other words: Data is not automatically uploaded!)
 
-
 #### Which user account is used when uploading data to the OSM server? ####
 
 Vespucci will use OAuth authorization as default for new installs. On your first upload you will be directed to an OSM page that we ask you to authorize your Vespucci install. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).
@@ -134,6 +120,5 @@ Vespucci will use OAuth authorization as default for new installs. On your first
 
 #### Conflict resolution ####
 
-vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM
-and use JOSMs conflict resolution capabilities.
+vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSMs conflict resolution capabilities.
 
