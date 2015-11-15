@@ -270,7 +270,7 @@ public class Server {
 			parser.setInput(con.getInputStream(), null);
 			int eventType;
 			result = new Capabilities();
-			// very hackish just keys on tag names and not in which secton of the response we are
+			// very hackish just keys on tag names and not in which section of the response we are
 			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 				try {
 					String tagName = parser.getName();
@@ -502,7 +502,7 @@ public class Server {
 				Toast.makeText(mainCtx,
 					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
 			} catch (Exception ex) {
-			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely casued by a translation error 
+			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely caused by a translation error
 				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 				ACRA.getErrorReporter().handleException(ex);
 			}
@@ -1081,7 +1081,7 @@ public class Server {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return new ArrayList<Note>(); //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+				return new ArrayList<Note>(); //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
 //				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
 //						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
 			}
@@ -1155,7 +1155,7 @@ public class Server {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return null; //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+				return null; //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
 //				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
 //						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
 			}
