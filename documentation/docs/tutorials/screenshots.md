@@ -9,5 +9,8 @@
 ### Notes/bugs
 [![](images/bug-thumb.png)](images/bug.png) [![](images/bug-display-thumb.png)](images/bug-display.png)
 
+### Notifications
+[![](images/notification-data-thumb.jpg)](images/notification-data.jpg) [![](images/notification-note-thumb.jpg)](images/notification-note.jpg)
+
 ### Aligning imagery
 [![](images/aligning-imagery-thumb.png)](images/aligning-imagery.png)
