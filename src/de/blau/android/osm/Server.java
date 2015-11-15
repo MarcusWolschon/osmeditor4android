@@ -1282,12 +1282,7 @@ public class Server {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
 					}
-					
-					InputStream is = connection.getInputStream();	
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "addComment:Exception", e);
@@ -1328,13 +1323,7 @@ public class Server {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
 					}
-					
-					InputStream is = connection.getInputStream();
-					
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "addNote:Exception", e);
@@ -1369,13 +1358,7 @@ public class Server {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
 					}
-				
-					InputStream is = connection.getInputStream();
-					
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "closeNote:Exception", e);
@@ -1409,12 +1392,7 @@ public class Server {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
 					}
-					InputStream is = connection.getInputStream();
-					
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "reopenNote:Exception", e);
@@ -1429,6 +1407,14 @@ public class Server {
 		return false;
 	}
 	
+	private void parseBug(@NonNull Note bug, @NonNull InputStream inputStream)
+			throws IOException, XmlPullParserException {
+		XmlPullParser parser = xmlParserFactory.newPullParser();
+		parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
+		bug.parseBug(parser); // replace contents with result from server
+		Application.getBugStorage().setDirty();
+	}
+
 	/**
 	 * GPS track API
 	 */
