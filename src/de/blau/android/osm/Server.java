@@ -897,10 +897,11 @@ public class Server {
 	 * @throws OsmException
 	 */
 	private void checkResponseCode(final HttpURLConnection connection, final OsmElement e) throws IOException, OsmException {
+		int responsecode = -1;
 		if (connection == null ) {
-			throw new OsmServerException(-1,"Unknown error");
+			throw new OsmServerException(responsecode, "Unknown error");
 		}
-		int responsecode = connection.getResponseCode();
+		responsecode = connection.getResponseCode();
 		Log.d("Server", "response code " + responsecode);
 		if (responsecode == -1) throw new IOException("Invalid response from server");
 		if (responsecode != HttpURLConnection.HTTP_OK) {
