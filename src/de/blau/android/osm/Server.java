@@ -81,17 +81,17 @@ public class Server {
 	/**
 	 * oauth access token
 	 */
-	private String accesstoken;
+	private final String accesstoken;
 	
 	/**
 	 * oauth access token secret
 	 */
-	private String accesstokensecret;
+	private final String accesstokensecret;
 	
 	/**
 	 * display name of the user and other stuff
 	 */
-	private UserDetails userDetails;
+	private final UserDetails userDetails;
 	
 	/**
 	 * Current capabilities
@@ -107,11 +107,11 @@ public class Server {
 
 	private long changesetId = -1;
 
-	private String generator;
+	private final String generator;
 
 	private final XmlPullParserFactory xmlParserFactory;
 
-	private DiscardedTags discardedTags;
+	private final DiscardedTags discardedTags;
 
 	/**
 	 * Date pattern used for suggesting a file name when uploading GPX tracks.
@@ -489,8 +489,8 @@ public class Server {
 
 	
 	class DownloadErrorToast implements Runnable {
-		int code;
-		String message;
+		final int code;
+		final String message;
 		
 		DownloadErrorToast(int code, String message) {
 			this.code = code;
