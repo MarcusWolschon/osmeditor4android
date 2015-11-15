@@ -580,9 +580,10 @@ public class Server {
 		long osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId() + " " + getUpdateUrl(elem));
 		try {
-			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
+			URL updateElementUrl = getUpdateUrl(elem);
+			Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId() + " " + updateElementUrl);
+			connection = openConnectionForWriteAccess(updateElementUrl, "PUT");
 			// remove redundant tags
 			discardedTags.remove(elem);
 			sendPayload(connection, new XmlSerializable() {
