@@ -432,8 +432,7 @@ public class Server {
 			else {
 				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
-			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+			throwUnexpectedRequestException(con);
 		}
 
 		if (isServerGzipEnabled) {
@@ -495,8 +494,7 @@ public class Server {
 			else {
 				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
-			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+			throwUnexpectedRequestException(con);
 		}
 
 		if (isServerGzipEnabled) {
@@ -1133,8 +1131,7 @@ public class Server {
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				return new ArrayList<Note>(); //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
-//				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-//						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+				// throw new UnexpectedRequestException(con);
 			}
 
 			InputStream is;
@@ -1206,8 +1203,7 @@ public class Server {
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				return null; //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
-//				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-//						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+				// throw new UnexpectedRequestException(con);
 			}
 
 			InputStream is;
@@ -1279,8 +1275,7 @@ public class Server {
 					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
 					out.flush();
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
 					parseBug(bug, connection.getInputStream());
 					return true;
@@ -1320,8 +1315,7 @@ public class Server {
 					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
 					out.flush();
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
 					parseBug(bug, connection.getInputStream());
 					return true;
@@ -1355,8 +1349,7 @@ public class Server {
 					URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
 					connection = openConnectionForWriteAccess(closeNoteUrl, "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
 					parseBug(bug, connection.getInputStream());
 					return true;
@@ -1389,8 +1382,7 @@ public class Server {
 					URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
 					connection = openConnectionForWriteAccess(reopenNoteUrl, "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
 					parseBug(bug, connection.getInputStream());
 					return true;
@@ -1464,8 +1456,7 @@ public class Server {
 			out.write("--"+boundary+"--\r\n");
 			out.flush();
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-						+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+				throwUnexpectedRequestException(connection);
 			}
 		} finally {
 			disconnect(connection);
@@ -1491,4 +1482,13 @@ public class Server {
 	public boolean getOAuth() {
 		return oauth;
 	}
+
+	private void throwUnexpectedRequestException(@NonNull HttpURLConnection connection)
+			throws IOException {
+		String detailMessage = "The API server does not except the request: " + connection +
+				", response code: " + connection.getResponseCode() +
+				" \"" + connection.getResponseMessage() + "\"";
+		throw new OsmServerException(connection.getResponseCode(), detailMessage);
+	}
+
 }
