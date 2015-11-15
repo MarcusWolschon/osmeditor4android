@@ -15,7 +15,6 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
@@ -32,7 +31,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
