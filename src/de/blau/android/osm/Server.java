@@ -116,6 +116,26 @@ public class Server {
 	 */
 	private static final String DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
 
+	/**
+	 * Base server URL of the OpenStreetMap API
+	 */
+	private static final String SERVER_BASE_URL = "http://api.openstreetmap.org";
+
+	/**
+	 * Server path component for "api/" as in "http://api.openstreetmap.org/api/".
+	 */
+	private static final String SERVER_API_PATH = "api/";
+
+	/**
+	 * Server path component for "changeset/" as in "http://api.openstreetmap.org/api/0.6/changeset/".
+	 */
+	private static final String SERVER_CHANGESET_PATH = "changeset/";
+
+	/**
+	 * Server path component for "notes/" as in "http://api.openstreetmap.org/api/0.6/notes/".
+	 */
+	private static final String SERVER_NOTES_PATH = "notes/";
+
 	
 	/**
 	 * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
@@ -130,7 +150,7 @@ public class Server {
 		if (apiurl != null && !apiurl.equals("")) {
 			this.serverURL = apiurl;
 		} else {
-			this.serverURL = "http://api.openstreetmap.org/api/"+version+"/"; // probably not needed anymore
+			this.serverURL = SERVER_BASE_URL + "/" + SERVER_API_PATH + version + "/"; // probably not needed anymore
 		}
 		this.password = password;
 		this.username = username;
@@ -958,15 +978,15 @@ public class Server {
 	}
 
 	private URL getCreateChangesetUrl() throws MalformedURLException {
-		return new URL(serverURL  + "changeset/create");
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + "create");
 	}
 
 	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(serverURL  + "changeset/" + changesetId + "/close");
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId + "/close");
 	}
 	
 	private URL getChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(serverURL  + "changeset/" + changesetId);
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId);
 	}
 
 	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
@@ -975,7 +995,7 @@ public class Server {
 
 	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
 		//return getUpdateUrl(elem);
-		return new URL(serverURL  + "changeset/" + changesetId + "/upload");
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId + "/upload");
 	}
 	
 	private URL getUserDetailsUrl() throws MalformedURLException {
@@ -984,9 +1004,9 @@ public class Server {
 	
 	private URL getCapabilitiesUrl() throws MalformedURLException {
 		// need to strip version from serverURL
-		int apiPos = serverURL.indexOf("api/");
+		int apiPos = serverURL.indexOf(SERVER_API_PATH);
 		if (apiPos > 0) {
-			String noVersionURL = serverURL.substring(0, apiPos) + "api/";
+			String noVersionURL = serverURL.substring(0, apiPos) + SERVER_API_PATH;
 			return new URL(noVersionURL  + "capabilities");
 		}
 		return null;
@@ -1141,7 +1161,7 @@ public class Server {
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
 			Log.d("Server", "getNote");
-			URL url = new URL(serverURL  + "notes/" + id);
+			URL url = new URL(serverURL + SERVER_NOTES_PATH + id);
 							
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			boolean isServerGzipEnabled = false;
@@ -1222,7 +1242,7 @@ public class Server {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/comment?text="  +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/url");
+							openConnectionForWriteAccess(new URL(serverURL + SERVER_NOTES_PATH + Long.toString(bug.getId()) + "/comment?text=" + URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/url");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 		
@@ -1313,7 +1333,7 @@ public class Server {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/close"  ), "POST", "text/xml");
+							openConnectionForWriteAccess(new URL(serverURL + SERVER_NOTES_PATH + Long.toString(bug.getId()) + "/close"), "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
@@ -1353,7 +1373,7 @@ public class Server {
 			try {
 				try {
 					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/reopen"  ), "POST", "text/xml");
+							openConnectionForWriteAccess(new URL(serverURL + SERVER_NOTES_PATH + Long.toString(bug.getId()) + "/reopen"), "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
