@@ -31,6 +31,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
@@ -1002,6 +1003,42 @@ public class Server {
 		return new URL(serverURL  + "user/details");
 	}
 	
+	private URL getAddCommentUrl(@NonNull String noteId, @NonNull String comment)
+			throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
+	}
+
+	private URL getNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId);
+	}
+
+	private URL getNotesForBox(long limit, @NonNull BoundingBox area) throws MalformedURLException {
+		return new URL(serverURL  + "notes?" +
+				"limit=" + limit + "&" +
+				"bbox=" +
+				area.getLeft() / 1E7d +
+				"," + area.getBottom() / 1E7d +
+				"," + area.getRight() / 1E7d +
+				"," + area.getTop() / 1E7d);
+	}
+
+	private URL getAddNoteUrl(double latitude, double longitude, @NonNull String comment)
+			throws MalformedURLException {
+		return new URL(serverURL + "notes?lat=" + latitude + "&lon=" + longitude + "&text=" + comment);
+	}
+
+	private URL getCloseNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/close");
+	}
+
+	private URL getReopenNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/reopen");
+	}
+
+	private URL getUploadTrackUrl() throws MalformedURLException {
+		return new URL(serverURL  + "gpx/create");
+	}
+
 	private URL getCapabilitiesUrl() throws MalformedURLException {
 		// need to strip version from serverURL
 		int apiPos = serverURL.indexOf(SERVER_API_PATH);
@@ -1081,14 +1118,7 @@ public class Server {
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
 			Log.d("Server", "getNotesForBox");
-			URL url = new URL(serverURL  + "notes?" +
-					"limit=" + limit + "&" +
-					"bbox=" +
-					area.getLeft() / 1E7d +
-					"," + area.getBottom() / 1E7d +
-					"," + area.getRight() / 1E7d +
-					"," + area.getTop() / 1E7d);
-			
+			URL url = getNotesForBox(limit, area);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			boolean isServerGzipEnabled = false;
 
@@ -1161,8 +1191,7 @@ public class Server {
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
 			Log.d("Server", "getNote");
-			URL url = new URL(serverURL + SERVER_NOTES_PATH + id);
-							
+			URL url = getNoteUrl(Long.toString(id));
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			boolean isServerGzipEnabled = false;
 
@@ -1241,8 +1270,9 @@ public class Server {
 			try {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL + SERVER_NOTES_PATH + Long.toString(bug.getId()) + "/comment?text=" + URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/url");
+					String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+					URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
+					connection = openConnectionForWriteAccess(addCommentUrl, "POST", "text/url");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 		
@@ -1287,8 +1317,9 @@ public class Server {
 			try {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + (bug.getLat() / 1E7d)+"&lon=" + (bug.getLon() / 1E7d) + "&text=" +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/xml");
+					String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+					URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
+					connection = openConnectionForWriteAccess(addNoteUrl, "POST", "text/xml");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
@@ -1332,8 +1363,8 @@ public class Server {
 			try {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL + SERVER_NOTES_PATH + Long.toString(bug.getId()) + "/close"), "POST", "text/xml");
+					URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
+					connection = openConnectionForWriteAccess(closeNoteUrl, "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
@@ -1372,8 +1403,8 @@ public class Server {
 			HttpURLConnection connection = null;
 			try {
 				try {
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL + SERVER_NOTES_PATH + Long.toString(bug.getId()) + "/reopen"), "POST", "text/xml");
+					URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
+					connection = openConnectionForWriteAccess(reopenNoteUrl, "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
 								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
@@ -1424,7 +1455,7 @@ public class Server {
 			String boundary="*VESPUCCI*";
 			String separator="--"+boundary+"\r\n";
 			connection = 
-					openConnectionForWriteAccess(new URL(serverURL  + "gpx/create"), "POST", "multipart/form-data;boundary="+boundary);
+					openConnectionForWriteAccess(getUploadTrackUrl(), "POST", "multipart/form-data;boundary="+boundary);
 			OutputStream os = connection.getOutputStream();
 			OutputStreamWriter out = new OutputStreamWriter(os, Charset .defaultCharset());
 			out.write(separator);
