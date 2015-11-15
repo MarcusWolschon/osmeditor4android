@@ -1401,21 +1401,21 @@ public class Server {
 		try {
 			// 
 			String boundary="*VESPUCCI*";
-			String seperator="--"+boundary+"\r\n";
+			String separator="--"+boundary+"\r\n";
 			connection = 
 					openConnectionForWriteAccess(new URL(serverURL  + "gpx/create"), "POST", "multipart/form-data;boundary="+boundary);
 			OutputStream os = connection.getOutputStream();
 			OutputStreamWriter out = new OutputStreamWriter(os, Charset .defaultCharset());
-			out.write(seperator);
+			out.write(separator);
 			out.write("Content-Disposition: form-data; name=\"description\"\r\n\r\n"); 
 			out.write(description + "\r\n");
-			out.write(seperator);
+			out.write(separator);
 			out.write("Content-Disposition: form-data; name=\"tags\"\r\n\r\n");
 			out.write(tags + "\r\n");
-			out.write(seperator);
+			out.write(separator);
 			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
 			out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
-			out.write(seperator);
+			out.write(separator);
 			String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
 			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileNamePart + ".gpx\"\r\n");
 			out.write("Content-Type: application/gpx+xml\r\n\r\n");
