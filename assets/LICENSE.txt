@@ -19,7 +19,7 @@ Thanks to:
   Shu Higashi (Japanese translation)
   Simon Legner (German translation)
   Simon Poole (Code, German translation)
-  Tobia Preuss (Code)
+  Tobias Preuss (Code)
   zibiczek (Polish translation)
 
 everybody helping with translation on Transifex and anyone else we forgot!
