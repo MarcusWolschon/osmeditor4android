@@ -270,7 +270,7 @@ public class Server {
 	 * @return The capabilities for this server, or null if it couldn't be determined.
 	 */
 	public Capabilities getCapabilities() {
-		Capabilities result = null;
+		Capabilities result;
 		HttpURLConnection con = null;
 		// 
 		try {
@@ -393,7 +393,7 @@ public class Server {
 		Log.d("Server", "getStreamForBox");
 		URL url = new URL(serverURL  + "map?bbox=" + box.toApiString());
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		boolean isServerGzipEnabled = false;
+		boolean isServerGzipEnabled;
 
 		Log.d("Server", "getStreamForBox " + url.toString());
 		
@@ -455,7 +455,7 @@ public class Server {
 		Log.d("Server", "getStreamForElement");
 		URL url = new URL(serverURL + type + "/" + id + (mode != null ? "/" + mode : ""));
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		boolean isServerGzipEnabled = false;
+		boolean isServerGzipEnabled;
 
 		Log.d("Server", "getStreamForElement " + url.toString());
 		
@@ -948,7 +948,7 @@ public class Server {
 		String res = "";
 		if (in != null) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
-			String line = null;
+			String line;
 			try {
 				while ((line = reader.readLine()) != null) {
 					res += line;
@@ -1119,7 +1119,7 @@ public class Server {
 			Log.d("Server", "getNotesForBox");
 			URL url = getNotesForBox(limit, area);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			boolean isServerGzipEnabled = false;
+			boolean isServerGzipEnabled;
 
 			//--Start: header not yet send
 			con.setReadTimeout(TIMEOUT);
@@ -1191,7 +1191,7 @@ public class Server {
 			Log.d("Server", "getNote");
 			URL url = getNoteUrl(Long.toString(id));
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			boolean isServerGzipEnabled = false;
+			boolean isServerGzipEnabled;
 
 			//--Start: header not yet send
 			con.setReadTimeout(TIMEOUT);
