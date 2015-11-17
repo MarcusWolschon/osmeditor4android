@@ -95,7 +95,7 @@ public class Server {
 	/**
 	 * Current capabilities
 	 */
-	public Capabilities capabilities = Capabilities.getDefault();
+	private Capabilities capabilities = Capabilities.getDefault();
 
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -821,7 +821,7 @@ public class Server {
 		public boolean open = false;
 	}
 	
-	public Changeset getChangeset(long id) {
+	private Changeset getChangeset(long id) {
 		Changeset result = null;
 		HttpURLConnection connection = null;
 		try {
@@ -859,7 +859,7 @@ public class Server {
 	}
 	
 
-	public void updateChangeset(final long changesetId, final String comment, final String source, final String imagery) throws MalformedURLException, ProtocolException, IOException {
+	private void updateChangeset(final long changesetId, final String comment, final String source, final String imagery) throws MalformedURLException, ProtocolException, IOException {
 		
 		HttpURLConnection connection = null;
 		InputStream in = null;
@@ -1048,7 +1048,7 @@ public class Server {
 		return null;
 	}
 
-	public XmlSerializer getXmlSerializer() {
+	private XmlSerializer getXmlSerializer() {
 		try {
 			XmlSerializer serializer = xmlParserFactory.newSerializer();
 			serializer.setPrefix("", "");
