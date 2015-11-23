@@ -492,7 +492,7 @@ public class Preset implements Serializable {
             		}
             		listKey = null;
             		listValues = null;
-            	}
+            	} 
             }
         });
 	}
@@ -807,13 +807,21 @@ public class Preset implements Serializable {
 			return po!=null?po.t(getName()):getName();
 		}
 		
+		/**
+		 * Return the icon for the preset or a place holder
+		 * @return
+		 */
 		public Drawable getIcon() {
-			if (icon == null && iconpath != null) {
+			if (icon == null) {
 				if (iconManager == null) {
 					iconManager = getIconManager(Application.mainActivity);
 				}
-				icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
-				iconpath = null;
+				if (iconpath != null) {
+					icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
+					iconpath = null;
+				} else {
+					return iconManager.getPlaceHolder(36);
+				}
 			}
 			return icon;
 		}
@@ -862,12 +870,11 @@ public class Preset implements Serializable {
 			}
 			Drawable icon = getIcon();
 			if (icon != null) {
-				v.setCompoundDrawables(null, getIcon(), null, null);
+				v.setCompoundDrawables(null, icon, null, null);
 				v.setCompoundDrawablePadding((int)(4*density));
 			} else {
-				// no icon
-				LinearLayout.LayoutParams vlp = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT);
-				v.setLayoutParams(vlp);
+				// no icon, shouldn't happen anymore leave in logging for now
+				Log.d(DEBUG_TAG,"No icon for " + getName());
 			}
 			v.setWidth((int)(72*density));
 			v.setHeight((int)(72*density));
@@ -989,7 +996,7 @@ public class Preset implements Serializable {
 		
 		
 		public PresetGroup(PresetGroup parent, String name, String iconpath) {
-			super(parent, name,iconpath);
+			super(parent,name,iconpath);
 		}
 
 		public void addElement(PresetElement element) {
