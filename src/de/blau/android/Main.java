@@ -2698,6 +2698,14 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
 		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
+		if (getLogic().getMode()==Mode.MODE_MOVE) { // avoid switiching to the wronf mode
+			ToggleButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
+			if (EASY_TAG.equals(lock.getTag())) {
+				setLock(Mode.MODE_EASYEDIT);
+			} else {
+				setLock(Mode.MODE_TAG_EDIT);
+			}
+		}
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
 			Log.d(DEBUG_TAG,"zoomToAndEdit setting Zoom to 22");
@@ -2721,8 +2729,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				logic.setSelectedRelation((Relation) e);
 				break;
 		}
-		easyEditManager.editElement(e);
-		map.invalidate();
+		if (getLogic().getMode()==Mode.MODE_EASYEDIT) {
+			easyEditManager.editElement(e);
+			map.invalidate();
+		} else { // tag edit mode
+			performTagEdit(e, null, false, false);
+		}
 	}
 
 	/**
