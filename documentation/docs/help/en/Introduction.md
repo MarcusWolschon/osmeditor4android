@@ -79,10 +79,10 @@ Vespucci has a fast way to add turn restrictions. Note: if you need to split a w
 * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
- 
+
 ### Vespucci in "locked" mode
- 
-When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+
+When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
 ### Saving Your Changes
 
