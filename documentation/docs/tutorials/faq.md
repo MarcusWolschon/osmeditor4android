@@ -16,8 +16,9 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 
 #### What do I need to get started with Vespucci? ####
 You need:
+
   * An Android device (or the emulator) Release 0.9.X has only been tested on Android 2.3 and later.
-  * The Vespucci APK file (also available over the Android Market and F-Droid)
+  * The Vespucci APK file (available from the Android Market and github)
   * Some familiarity with [OSM Map features](http://wiki.openstreetmap.org/wiki/Map_Features)
   * An [OSM account](http://www.openstreetmap.org/user/new)
 
