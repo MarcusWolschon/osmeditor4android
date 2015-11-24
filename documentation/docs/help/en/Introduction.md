@@ -120,9 +120,9 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a red bug icon, closed ones the same in green. Default: off.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: off.
+* Node icons. Default: on.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
