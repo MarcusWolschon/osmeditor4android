@@ -240,6 +240,9 @@ public class OsmParser extends DefaultHandler {
 				long nodeOsmId = Long.parseLong(atts.getValue("ref"));
 				// Log.d("OsmParser","parseWayNode " + nodeOsmId);
 				Node node = storage.getNode(nodeOsmId);
+				if (node==null) {
+					throw new OsmParseException("parseWayNode node " + nodeOsmId + " not in storage");
+				}
 				currentWay.addNode(node);
 			}
 		} catch (NumberFormatException e) {
