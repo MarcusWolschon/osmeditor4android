@@ -62,7 +62,7 @@ You can copy or cut selected nodes and ways, and then paste once or multiple tim
 
 Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a **entrance=yes"" tag to the node. The tag editor will open for the object in question and let you make any further changes.
+* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
 * in the tag editor.
 
