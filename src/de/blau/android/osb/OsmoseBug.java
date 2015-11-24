@@ -188,14 +188,15 @@ public class OsmoseBug extends Bug implements Serializable {
 		if (withElements) {
 			for (OsmElement osm:getElements()) {
 				if (osm.getOsmVersion() >= 0) { 
-					result = result + "<br>" + osm.getName() + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + id;
+					result = result + "<br>" + osm.getName() + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + osm.getOsmId();
 				} else {
 					result = result + "<br>" + osm.getName() + " " + osm.getDescription(false);
 				}
 				result = result + "<br><br>";
 			}
 		}
-		result = result + context.getString(R.string.openstreetbug_last_updated) + ": " + update;
+		result = result + context.getString(R.string.openstreetbug_last_updated) + ": " + update 
+				+ " " + context.getString(R.string.id) + ": " + id;
 		return result; 
 	}
 	

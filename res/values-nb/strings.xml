@@ -7,8 +7,10 @@
   <string name="transfer_download_current_download">Avbryt og last ned</string>
   <string name="transfer_download_current_back">Gå tilbake</string>
   <string name="upload_problem_title">Problem med opplasting</string>
+  <string name="upload_conflict_title">Last opp konflikt</string>
   <string name="no_connection_title">Intet samband med teneren</string>
   <string name="no_connection_message">Kunne ikke koble til OSM-teneren. Sjekk internettforbindelsen din eller prøv igjen senere.</string>
+  <string name="api_offline_title">API Offline</string>
   <string name="progress_title">Leser</string>
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>

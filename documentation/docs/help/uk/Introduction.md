@@ -16,15 +16,15 @@
 
 Оберіть або значок ![](../images/menu_transfer.png) або меню "Передача". Ви побачите сім пунктів:
 
-* **Звантажити дані для поточного місця** - завантаження даних для місцевості, яка показується на екрані, с заміною потоних даних *(вимагає з’єднання з мережею)*
-* **Додати поточний вид для звантаження** - завантаження даних для місцевості, яка показується на екрані,  та їх об’єднання з поточними даними  *(вимагає з’єднання з мережею)*
-* **Звантажити інше місце* - показує форму, яка дозволяє зазначити координати, здійснити і потім завантажити це місце та територію навколо*(вимагає з’єднання з мережею)*
-* **Надіслати дані на сервер OSM* - надсилає зміни до OpenStreetMap *(вимагає автентифікації)* *(вимагає з’єднання з мережею)*
+* **Звантажити дані для поточного місця** - завантажує дані для ділянки, що показується на екрані та замінює наявні дані *(вимагає з’єднання з мережею)*
+* **Додати поточний вид для звантаження** - завантажує дані для ділянки, що показується на екрані, та об’єднує їх з наявними даними *(вимагає з’єднання з мережею)*
+* **Звантажити інше місце** - показує форму з допомогою, якої можна ввести координати, шукати інше або використовувати поточне місце та завантажити дані навколо вказаного місця *(вимагає з’єднання з мережею)*
+* **Надіслати дані на сервер OSM** - надсилає зміни на сервер OpenStreetMap *(потребує автентифікації)* *(вимагає з’єднання з мережею)*
 * **Авто-завантаження** - завантажує ділянку навколо поточного місця автоматично *(вимагає з’єднання з мережею)* *(потрібні дані з GPS)*
-* **Файл…** - збереження та заватаження даних OSM у/з фалів на присторої.
-* **Нотатки/Помилки** - завантажує (автоматично або вручну) Нотаток OSM та "Помилок" з валідаторів (зараз з OSMOSE) *(вимагає з’єднання з мережею)*
+* **Файл…** - збереження та завантаження даних OSM у/з фалів на присторої.
+* **Нотатки/Помилки** - завантажує (автоматично або вручну) Нотатки OSM та "Помилки" з валідаторів (зараз з OSMOSE) *(вимагає з’єднання з мережею)*
 
-Найпростіший спосіб отрвматв дані – це обрати відповідний масштаб та позиціювати мапу, а потім обрати "Звантажити дані для поточного місця". Ви можете змінити масштаб використовуючи жести, кнопки змінення масштабу або кнопки зміни гучності на телефоні. Веспуччі завантажить дані для ділянки та розташує мапу по центру поточного місця. Для завантаження даних нп ваш пристрій автентифікація на сервері не потрібна.
+Найпростіший спосіб отримати дані – це обрати відповідний масштаб та позиціювати мапу, а потім обрати "Звантажити дані для поточного місця". Ви можете змінити масштаб використовуючи жести, кнопки змінення масштабу або кнопки зміни гучності на телефоні. Веспуччі завантажить дані для ділянки та розташує мапу по центру поточного місця. Для завантаження даних на ваш пристрій, автентифікація на сервері не потрібна.
 
 ### Редагування
 
@@ -36,43 +36,43 @@
 
 Веспуччі має гарну систему "відміни/повтору"дій, тож не бійтеся експериментувати з вашим пристроєм, але, будь ласка, не надсилайте суто тестові дані, у разі потреби зберігайте їх локально.
 
-#### Selecting / De-selecting
+#### Виділення/Зняття виділення
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Доторкніться до об’єкта щоб його виділити та підсвітити, повторне торкання об’єкта відкриває редактор теґів. Торкання екрану в порожньому місці знімає виділення. Якщо у вас є виділений об’єкт і вам треба виділіти інший, просто доторкніться до потрібного об”єкта та, у разі потреби, оберіть його із запропонованого списку, знімати виділення з попереднього об’єкта не потрібно. Подвійне торкання на об’єкті перемикає в режим [Мультивиділення](Multiselect.md) – виділення кількох об’єктів.
 
-#### Adding a new Node/Point or Way
+#### Додавання нової Точки або Лінії
 
-Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
+Довге натискання на екран в потрібному місці призводить до додавання точки або початку креслення лінії. Ви побачите темний "приціл". Доторкніться до того ж самого місця знов, щоб створити нову точку, торканя екрану по за межами зони чутливості точки призведе до креслення лінії від початкової до поточної точки. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial node is located on a way, the node will be inserted into the way automatically.
+Просто торкайтесь екрану в потрібних місцях для продовження креслення лінії. Для того, щоб закінчити її кресленя доторкніться до останьої точки двічі. Якщо кінцева точка знаходиться на лінії, вона буде також додана до неї автоматично.
 
-#### Moving a Node or Way
+#### Пересування Точки або Лінії
 
-Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Об’єкти можна пересувати тільки тоді, коли вони виділені. Якщо в налаштуваннях ви  обрали "Велика ділянка навколо точок",  ви матимите велику ділянку навколо точок, що полегшить їх виділення та пересування. 
 
-#### Improving Way Geometry
+#### Покращення геометрії ліній
 
-If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
+Якщо рівень масштабування є прийнятним, ви можете побачити на достатньо довгих відрізках ліній невеличкі символи "x". Пересування "x" призводить до створення точок на лінії в цьому місці. Примітка: щоб уникнути випадкового створення точок, рівень чутливості для цієї операції є обмеженим.
 
-#### Cut, Copy & Paste
+#### Вирізання, Копіювання та Вставка
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Ви можете скопіювати або вирізати виділені точки та лінії та вставити їх на нове місце потрібну кількість разів. Під час вирізання версія та ідентифікатор osm зберігаються. Для вставки натисніть та потримайте деякий час потрібне місце (ви побачите "приціл"). Потім оберіть "Вставити" з меню.
 
-#### Efficiently Adding Addresses
+#### Швидке додавання адрес
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
+Веспуччі має функцію для "Додавання адреси" яка намагається зробити внесення арес більш зручним. Її можна викликати 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a **entrance=yes"" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* після довгого натискання: Веспуччі доає точку та пропонує найбільш вірогідну адресу будинку та додає теґи адреси, які ви недавно використовували. Якщо точка знаходиться на контурі будівлі, до неї автоматично буде доданий теґ `entrance=yes`. Також буде відкритий редактор теґів для подальшого уточнення інформації.
+* в режимі виділення точок/ліній: Веспуччі додає адресу так само, і запускає редактор теґів.
+* в редакторі теґів.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+Пропонування номерів будинків потребує наявності не менше двох номерів з кожного боку вулиці, чим більше є даних, тим звісно краще.
 
-Consider using this with the "Auto-download" mode.  
+Спробуйте цю функцію в режимі "Автозавантаження".  
 
-#### Adding Turn Restrictions
+#### Додавання обмежень поворотів
 
-Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
+Веспуччі дозволяє швидко додавати обмеження поворотів. Примітка: якщо вам треба розділіти лінію для створення обмеження, зробіть це перед тим як розпочати.
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
 * select "Add restriction" from the menu
@@ -111,6 +111,8 @@ If you have the later set, moving the screen manually or editing will cause the 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will selecte the object, center the screen on it and down load the area beforehand if necessary. 
 
 ## Customizing Vespucci
 
