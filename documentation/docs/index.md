@@ -8,7 +8,7 @@ Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, C
 
 Editing is supported by  rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and [name based POI creation](markdown/tutorials/name_suggestions.md).
 
-Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to exotic, for example on a Amazon Fire TV Stick, and all Android versions since 2.3. It can be used in a google free environment.
+Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to exotic, for example on an Amazon Fire TV Stick, and all Android versions since 2.3. It can be used in a google free environment.
 
 #### Obtaining Vespucci:
 
