@@ -38,7 +38,7 @@ Vespucci has a good "undo/redo" system so don't be afraid of experimenting on yo
 
 #### Selecting / De-selecting
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
 #### Adding a new Node/Point or Way
 
@@ -98,7 +98,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 #### Resolving conflicts on uploads
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
 ## Using GPS
 
@@ -112,7 +112,7 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will selecte the object, center the screen on it and down load the area beforehand if necessary. 
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
 ## Customizing Vespucci
 

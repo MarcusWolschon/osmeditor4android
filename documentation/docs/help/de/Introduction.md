@@ -19,19 +19,19 @@ Wähle entweder das Übertragungs-Icon ![](../images/menu_transfer.png) oder den
 
 * **Aktuelle Ansicht herunterladen** - den aktuell sichtbaren Bildschirmbereich herunterladen und allfällig vorhandene Daten ersetzen *(benötigt Netzzugang)*
 * **Diese Ansicht zu dn Daten dazu laden** - download the area visible on the screen and merge it with existing data  den aktuell sichtbaren Bildschirmbereich auf dem Schirm herunterladen und mit vorhandene Daten  zusammenführen *(benötigt Netzzugang)*
-* **Download other location** - zeigt ein Formular an, dass es erlaubt nach einem Ort zu suchen, Koordniaten einzugeben. oder direkt um die aktuelle Position einen Bereich herunterzuladen  *(benötigt Netzzugang)*
+* **Herunterladen einer anderen Position** - zeigt ein Formular an, dass es erlaubt nach einem Ort zu suchen, Koordniaten einzugeben. oder direkt um die aktuelle Position einen Bereich herunterzuladen  *(benötigt Netzzugang)*
 * **Daten zum OSM-Server hochladen** - lädt die Änderungen zum OSM-Server hoch *(Konto benötigt)*  *(benötigt Netzzugang)*
 * **Automatischer Download** - lädt automaisch einen Bereich um die aktuelle Position herunter  *(benötigt Netzzugang)* *(benötigt GPS)*
-* **Datei..** - Speichern und Laden von OSM Daten zu Dateien auf dem Gerä.
+* **Datei...** - Speichern und Laden von OSM Daten zu Dateien auf dem Gerä.
 * **Notizen/Fehler...** - herunterlande (automatisch und manuell) von OSM Notizen un "Fehlern" von QA Werkzeugen (aktuell OSMOSE) *(benötigt Netzzugang)*
 
-The easiest way to open a map is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should download data for the area and center the map on your current location. No authentication is required for downloading data to your device.
+Der einfachste Weg um Daten auf dem Geärt zu öffnen ist mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann "Aktuelle Ansicht herunterladen" im Menu anzuwählen. Mit Gesten, den "- | +" Knöpfen oder den Laut-/Leisetasten kann gezoomt werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen muss man nicht angemeldet sein.
 
 ### Bearbeiten
 
-To avoid accidental edits Vespucci start in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
- 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
+Um versehentliche Änderungen zu verhindern startet Vespucci im "gesperrten" Modus, einen Modus der nur das Zommen und Verschieben der Karte erlaubt. Tippe auf das ![Schloss](../images/locked.png) Icon um den Schirm zu entsperren. Ein langer Druck auf das Schloss schaltet in einen Modus um in dem nur die Eigenschaften der Elemente geändert werden kann, aber keine neuen Objekte erstellt oder die Geometrien geändert werden können. Dieser Modus wird mit einem weissen Shcloss mit kleinem "T" angezeigt. 
+
+In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bereich angezeigt, der angibt in welchen Bereich man um den Bildschirm tippen kann um ein Objekt anzuwählen. Ist die Auswahl nicht eindeutig zeigt Vespucci ein Menu mit den auswählbaren Objekte in der Nähe. Einmal ausgewählte Objekte werden mit Gelb hervorgehoben.
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
@@ -39,13 +39,13 @@ Vespucci hat gute "undo/redo" Unterstützung deshalb kann man angstfrei auf sein
 
 #### Auswählen / Abwählen
 
-Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Tippe auf ein Objekt um es anzuwählen und hervorzuheben, ein zweites mal Anwählen öffnet den "Eigenschaftseditor" für das Element. Um ein Objekt abzuwählen tippe einfach in ein leeren Bereich. Um ein anderes Element anzuwählen tippe einfach darauf, es ist nicht nötig zuerst das aktuell angewählte abzuwählen. EIn "Doppeltipp" startet den [Mehrfachauswahl Modus](Multiselect.md).
 
 #### Einen neuen Knoten oder Weg erstellen
 
-Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
+Ein langer Druck markiert die Position mit einem schwarzen Kreuz wo der Weg beginnt oder ein Punkt erstellt werden soll. Nochmaliges Berühren an der gleichen Stelle erstellt einen Punkt, berührt man den Schirm weiterweg, wird ein Wegsegment dorthin erstellt. 
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial node is located on a way, the node will be inserted into the way automatically.
+Um den Weg zu verlängeren tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls die Anfangs- und Endpunkte auf einem anderen Weg liegen werden sie automatisch in diesen integriert.
 
 #### Einen Knoten oder Weg verschieben
 
@@ -53,37 +53,37 @@ Onjekte können erst verschoben werden nachdem sie ausgewählt wurden. In den Ei
 
 #### Die Geometrie eines Weges verbessern
 
-If you zoom in far enough you will see a small "x" in the middle of way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.
+Zoomt man genügend nah an ein Wegsegment wird ein kleines "x" sichtbar. Zieht man dran wird ein Knoten im Weg erstellt. Hinweis: um das versehentliche Erstellen solcher Punkte zu verhindern ist der empfindliche Bereich um das "x" ziemlich klein.
 
 #### Kopiern, Ausschneiden & EInfügen
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Ausgewählte Knoten und Wege können kopiert oder ausgeschnitten werden, und dann ein- oder mehrmals wieder eingefügt werden. Ausschneiden erhält sowohl die OSM Id wie auch die Version. Ein langer Druck markiert die Position an der eingefügt werden soll, um die Aktion auszulösen danach "Einfügen" aus dem Menu auswählen.
 
 #### Effizient Adressen eintragen
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected 
+Vespucci hat eine "Addresseigenschaften hinzufügen" Funktion, die versucht Adresserfassung schneller und effizienter zu machen. Die Funktion kann ausgewählt werden 
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a **entrance=yes"" tag to the node. The tag editor will open for the object in question and let you make any further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* nach einem langen Druck: Vespucci erstellt dann einen Knoten an der markierten Stelle, versucht eine wahrscheinliche Hausnummer vorherzusagen  und schlögt weitere aktuell verwendete Adresswerte vor.  Falls der Punkt auf einem Gebäudeumriss liegt wird automatisch ein Eingang erstellt. Der Eigenschaftseditor wird dann gestartet um allfällige Korrekturen und andere Änderungen zu ermöglichen. 
+*  in den Knoten/Weg ausgewählt Modi:: Vespucci fügt Eigenschaften wie oben beschrieben hinzu und startet den Eigenschaftseditor.
+* im Eigenschaftseditor.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+Die Hausnummervorhersage benötigt typischerweise mindestens die EIngabge von je 2 Hausnummern auf jede Seite der Strasse, je mehr Nummern in den Daten vorhanden sind desto besser funktioniert die Vorhersage. 
 
-Consider using this with the "Auto-download" mode.  
+Es ist sinnvoll dies mit dem "Automatischen Download" zu verwenden.  
 
 #### Abbiegebeschränkungen eintragen
 
-Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.
+Vespucci erlaubt es schnell Abbiegebeschränkungen hinzuzufügen. Hinweis: falls dazu Wege aufgetrennt werden müssen, muss dass vorher geschehen.
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
 * select "Add restriction" from the menu
 * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
- 
-### Vespucci in "locked" mode
- 
-When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+
+### Vespucci im "gesperrten" Modus
+
+Während dem Vespucci "gesperrt" ist sind alle Funktionen verfügbar die nicht die Geometrie oder Eigenschaften von Objekten verändern. Desweiteren kann nach einem langen Druck auf dem Schirm die Eigenschaften von Objekten in der Nähe angezeigt werden.
 
 ### Die Bearbeitungen abspeichern
 
@@ -91,7 +91,7 @@ When the red lock is displayed the following all non-editing actions are availab
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+Vespucci unterstützt sowohl OAuth Authorisierung (Standardeinstellung) wie auch Benutzername und Passwort. Wo möglich sollte OAuth verwendet werden um die Übertragung von Passworten zu vermeiden.  
 
 Neue Vespucci Installationen haben OAuth voreingestellt. Beim ersten Versuch Daten auf den OSM Server zu speicheren wird eine Seite der OSM Website geladen (über eine verschlüsselte Verbindung). Nach der erfolgreichen Authentisierung mit Username und Passwort muss den Zugriff mit OAuth zugelassen werden. Falls dieser Vorgang vor dem ersten Hochladen ausgelöst werden soll, gibt es einen entsprechende Auswahlmöglichkeit im "Werkzeuge" Menu.
 
@@ -99,7 +99,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 #### Konfliktbehebung beim Upload
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
 ## GPS verwenden
 
@@ -113,17 +113,19 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will selecte the object, center the screen on it and down load the area beforehand if necessary. 
+
 ## Vespucci individuell anpsasen
 
 ### Häufig geänderte Einstellungen
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a red bug icon, closed ones the same in green. Default: off.
-* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: off.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Kartenhintergrund
+* Karten Overlay. Dies kann Probleme mit älteren Geräten und solchen mit wenig Hauptspeicher verursachen. Standardwert: kein Overlay.
+* Fehler und Notizen anzeigen. Offene Notizen und Fehler werden mit einem gelben Käfer angezeigt, geschlossene in grün. Standardwert: eingeschaltet.
+* Foto Layer. Zeigt verortete Fotos die auf dem Gerät gefunden werden als Kamera Icon an, falls RIchtungsinformationen vorhanden sind wird die Kamera entsprechend gedreht. Standardwert: ausgeschaltet.
+* Icons für Knoten mit Eigenschaten. Standardwert: eingeschaltet.
+* Bildschirm nicht abschalten. Standardwert: ausgeschaltet.
+* Grosser Bereich um Punkte zu bewegen. Auf Geräten mit Touchscreen ist das Verschieben von Knoten schwierig da die FInger die Sicht auf den Knoten versperren. Eingeschaltet zeigt diese Option einen grossen Bereich um ausgewählte Knoten herum der für das Verschieben verwendet werden kann. Den normale kleine Bereich wird weiterhin für die Objektauswahl und andere Funktionen verwendet. Standardwert: ausgeschaltet.
 
 Erweiterte Einstellungen
 
