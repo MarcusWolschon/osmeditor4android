@@ -16,19 +16,21 @@ Vespucci 是一個完整功能的開放街圖編輯器，支援那些桌面系�
 
 選擇任何一個的傳輸圖示！[](../images/menu_transfer.png)或“傳輸”選單項目都可以。這將顯示七個選項：
 
- * **下載現在的檢視** - 下載在螢幕上可見的區域，並取代所有目前的資料*(需要網路連線)* 
-* **增加現在的檢視來下載** 下載在螢幕上可見的區域，並合併目前的資料*(需要網路連線)* 
-* **下載其它地方** - 顯示一個表單，允許您輸入座標搜尋一個位置或直接輸入座標，然後下載該區域週圍的地方*(需要網路連線)* 
-* **上傳資料到 OSM 伺服器** - 上傳編輯到 OpenStreetMap *(需要網路連線)*
-* **自動下載** - 自動的下載目前周圍位置區域 *(需要網路連線)*  *(需要 GPS)*
-* **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
-* **備註/錯誤** - 從 QA 工具 (目前的 OSMOSE) 下載 (自動或手動) OSM 備註和"錯誤" *(需要網路連線)*
+* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
+* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-打開一張地圖的最簡單方法就是縮放和平移到您想要編輯的地方，然後選擇"下載目前的檢視"。您可以在手機上，通過使用手勢、縮放按鈕或音量控制按鈕進行縮放。Vespucci 應會下載在您目前的位置上的區域和中心地圖的資料。不需要進行驗證就能將所需的資料下載到您的裝置。
+The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
 ### 編輯
 
-為了防止無意中的編輯 Vespucci 開始在"鎖定"模式，這種模式，只允許縮放和移動地圖。點擊！[鎖定] (../images/locked.png) 圖示來解鎖螢幕。預設情況下，可選擇節點和道路周圍有橙色區域大致說明要觸碰選擇一個物件。如果您試著選擇一個物件而 Vespucci 判斷所選內容可能表示著多個物件，將呈現一個選擇選單。選定的物件是以黃色高亮顯示。
+To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
+
+By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
 
 如果您試著編輯高密度區域時進行放大，這是一個很好的對策。
 
@@ -36,13 +38,13 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 選擇/取消選擇
 
-觸碰物件以選擇和高亮顯示，在元件上對同一物件的第二次觸碰則開啟標籤編輯器。在空白區域上觸碰螢幕則會取消選擇。如果您已選擇了一個物件，您需要選擇別的東西，只需觸碰有問題的物件，沒有必要先取消選擇。對物件按兩下將會開始 [多重選擇模式](Multi-Select.md)。
+Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
 #### 增加新節點/點或是路徑
 
 在您想要的那個節點或開始的道路長按。您將會看到一個黑色的"十字"符號。再次輕觸相同的位置可建立一個新的節點，觸碰位置為容許偏差範圍之外的接觸位置，那將會從原本的地點到目前的位置增加一段道路。 
 
-當您想要增加道路更遠地節點，只需觸碰畫面。若要完成，觸碰最終的節點兩次。如果初始節點位於一條道路上，節點將被自動插入道路。
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
 
 #### 移動節點或路徑
 
@@ -60,9 +62,9 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 Vespucci 有一個"增加地址標籤"功能，那讓勘察地址更有效率。它是可以選擇的 
 
-* 經長按後：Vespucci 將增加一個節點的位置，並在門牌號碼做出最佳的推測，和增加您最近一直使用該地址的標籤。如果該節點是在建築物外形上，它將會自動增加 **入口 = 是"" 標籤到節點。該標籤編輯器將打開有疑問的物件，並讓您作更進一步任何的變更。
-* 在節點/道路選擇模式：Vespucci 將為上述的增加地址標籤，並啟動標籤編輯器。
-* 在標籤編輯器。
+* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the tag editor.
 
 門牌號碼預測，一般需求要在道路的兩側，至少兩間房屋號碼需要輸入到作業中，更多的號碼存在於資料中越好。
 
@@ -77,10 +79,10 @@ Vespucci 有個快速的增加轉向限制。注意：如果您為了限制而�
 * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
- 
+
 ### Vespucci in "locked" mode
- 
-When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+
+When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
 ### 儲存您的變更
 
@@ -96,7 +98,7 @@ New Vespucci installs will have OAuth enabled by default. On your first attempt 
 
 #### 在上傳解決衝突
 
-Vespucci 有個簡單的衝突解決。不管怎樣，如果您于您的編輯察覺到有重要事件，將您的更改匯出到 .osc  檔案 (在"傳輸"選單中"匯出"的選單項目) 並且修復和上傳給 JOSM。請參閱有關詳細的説明 [衝突解決](Conflict Resolution.html)。  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
 ## 使用 GPS
 
@@ -110,15 +112,17 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+
 ## 定制 Vespucci
 
 ### 設定，當您可能想要更改
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a red bug icon, closed ones the same in green. Default: off.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: off.
+* Node icons. Default: on.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 

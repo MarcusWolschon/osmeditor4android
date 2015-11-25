@@ -1,13 +1,14 @@
 # 
 # Translators:
+# Holger Jeromin <mailgithub@katur.de>, 2015
 # Jacob Bräutigam <barth.jacke@hotmail.de>, 2015
 # Simon Poole <sp8962@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-11-24 17:21+0100\n"
-"PO-Revision-Date: 2015-11-24 20:16+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2015-11-25 09:32+0000\n"
+"Last-Translator: Holger Jeromin <mailgithub@katur.de>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr ""
 
 #: master_preset.xml:3506(item:name)
 msgid "Wilderness Hut"
-msgstr ""
+msgstr "Biwakschachtel"
 
 #: master_preset.xml:306(text:text) master_preset.xml:6209(text:text)
 #: master_preset.xml:276(text:text)
@@ -303,7 +304,7 @@ msgstr "Grenzstein"
 
 #: master_preset.xml:5510(item:name)
 msgid "Rugby League"
-msgstr ""
+msgstr "Rugby League"
 
 #: master_preset.xml:3878(check:text)
 msgid "Drive-in theater"
@@ -325,7 +326,7 @@ msgstr "Pflanzen die nur kurzzeitig ohne Blattwerk sind."
 
 #: master_preset.xml:4335(item:name)
 msgid "Other Place of Worship"
-msgstr ""
+msgstr "Andere Andachtsstätte"
 
 #: master_preset.xml:7218(group:name)
 msgid "Home decoration"
@@ -379,7 +380,7 @@ msgstr ""
 
 #: master_preset.xml:9494(item:name)
 msgid "Key cutter"
-msgstr ""
+msgstr "Schlüsseldienst"
 
 #: master_preset.xml:8032(label:text)
 msgid "A volcano, either dormant, extinct or active."
@@ -435,7 +436,7 @@ msgstr ""
 
 #: master_preset.xml:5530(item:name)
 msgid "Basketball"
-msgstr ""
+msgstr "Basketball"
 
 #: master_preset.xml:824(combo:text)
 msgid "Junction"
@@ -463,7 +464,7 @@ msgstr ""
 
 #: master_preset.xml:2573(text:text)
 msgid "Number of people per gondola"
-msgstr ""
+msgstr "Anzahl von Personen pro Gondel"
 
 #: master_preset.xml:7718(check:text)
 msgid "Visa"
@@ -569,7 +570,7 @@ msgstr ""
 #: master_preset.xml:6269(combo:text) master_preset.xml:6262(combo:text)
 #: master_preset.xml:6339(combo:text) master_preset.xml:6351(combo:text)
 msgid "Generator Type"
-msgstr ""
+msgstr "Generatortyp"
 
 #: master_preset.xml:4977(combo:display_values)
 msgid "area (more than 20m)"
@@ -711,7 +712,7 @@ msgstr "Zoo"
 
 #: master_preset.xml:5536(item:name)
 msgid "Handball"
-msgstr ""
+msgstr "Handball"
 
 #: master_preset.xml:8925(role:text) master_preset.xml:8904(role:text)
 msgid "outer segment"
@@ -2613,7 +2614,7 @@ msgstr "Schneider"
 
 #: master_preset.xml:2587(check:text) master_preset.xml:2562(check:text)
 msgid "Has bubble?"
-msgstr ""
+msgstr "Besitzt eine Haube?"
 
 #: master_preset.xml:2163(label:text)
 msgid "Large area covered with mud."
@@ -2688,7 +2689,7 @@ msgstr "Spiegel"
 
 #: master_preset.xml:4290(item:name)
 msgid "Hindu Temple"
-msgstr ""
+msgstr "Hinduistischer Tempel"
 
 #: master_preset.xml:4077(item:name)
 msgid "Strip Club"
@@ -2708,7 +2709,7 @@ msgstr "Ein tieferes Gebiet zwischen zwei Hügeln."
 
 #: master_preset.xml:5598(item:name)
 msgid "Field Hockey"
-msgstr ""
+msgstr "Feldhockey"
 
 #: master_preset.xml:8381(item:name)
 msgid "Vineyard"
@@ -2716,7 +2717,7 @@ msgstr "Weinberg"
 
 #: master_preset.xml:5550(item:name)
 msgid "Beach Volleyball"
-msgstr ""
+msgstr "Beachvolleyball"
 
 #: master_preset.xml:5650(item:name)
 msgid "Kart Racing"
@@ -2817,7 +2818,7 @@ msgstr "Altersgruppe (z.B.: 6-12)"
 
 #: master_preset.xml:4589(item:name)
 msgid "Doctor's Office"
-msgstr ""
+msgstr "Arztpraxis"
 
 #: master_preset.xml:2124(item:name)
 msgid "Riverbank"
@@ -2989,7 +2990,7 @@ msgstr "Insel"
 
 #: master_preset.xml:3881(text:text)
 msgid "Minimum age"
-msgstr ""
+msgstr "Mindestalter"
 
 #: master_preset.xml:4876(combo:text) master_preset.xml:1985(check:text)
 #: master_preset.xml:5143(item:name) master_preset.xml:3518(combo:text)
@@ -3342,7 +3343,7 @@ msgstr "E10 (10% Ethanol)"
 
 #: master_preset.xml:6931(combo:text)
 msgid "Organic/Bio"
-msgstr ""
+msgstr "Bio"
 
 #: master_preset.xml:2332(item:name)
 msgid "Dock"
@@ -3464,7 +3465,7 @@ msgstr "Kraftwerk"
 #: master_preset.xml:6518(combo:text) master_preset.xml:3157(combo:text)
 #: master_preset.xml:2992(combo:text)
 msgid "Color (HTML name or hexadecimal code)"
-msgstr ""
+msgstr "Farbe (HTML Name oder Hexadezimalcode)"
 
 #: master_preset.xml:6940(item:name)
 msgid "Alcohol"
@@ -5049,7 +5050,7 @@ msgstr ""
 
 #: master_preset.xml:5013(check:text) master_preset.xml:5049(check:text)
 msgid "Plastic Packaging"
-msgstr ""
+msgstr "Kunststoffverpackung"
 
 #: master_preset.xml:197(combo:text)
 msgid "Bin"
@@ -5204,7 +5205,7 @@ msgstr "Gondel"
 
 #: master_preset.xml:2547(text:text)
 msgid "Number of people per car"
-msgstr ""
+msgstr "Anzahl der Personen pro Auto"
 
 #: master_preset.xml:9630(item:name)
 msgid "Scaffolder"
@@ -5245,7 +5246,7 @@ msgstr "Spielzeug"
 
 #: master_preset.xml:3848(label:text)
 msgid "Audioguide via mobile phone?"
-msgstr ""
+msgstr "Audioguide per Mobiltelefon?"
 
 #: master_preset.xml:994(item:name)
 msgid "Segregated Foot- and Cycleway"
@@ -5725,7 +5726,7 @@ msgstr "Eisenbahn"
 
 #: master_preset.xml:4984(item:name)
 msgid "Recycling Container"
-msgstr ""
+msgstr "Recycling-Container"
 
 #: master_preset.xml:8422(item:name)
 msgid "Allotments"
@@ -5749,7 +5750,7 @@ msgstr "Anzeige:"
 
 #: master_preset.xml:4455(item:name)
 msgid "Fire Station"
-msgstr ""
+msgstr "Feuerwehr"
 
 #: master_preset.xml:5331(item:name)
 msgid "Ten-pin Bowling"
@@ -5918,7 +5919,7 @@ msgstr "Druckluft"
 
 #: master_preset.xml:4660(item:name)
 msgid "Emergency Access Point"
-msgstr ""
+msgstr "Rettungspunkt"
 
 #: master_preset.xml:4937(item:name)
 msgid "Internet Access"
