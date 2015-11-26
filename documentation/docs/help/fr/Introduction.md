@@ -30,7 +30,7 @@ La plus simple manière de télécharger des données est de zoomer et se dépla
 
 Pour éviter des modifications accidentelles Vespucci démarre en mode "bloqué", lequel ne permet que de zoomer et de se déplacer sur la carte. Appuyez sur l'icone ![bloqué](../images/locked.png) pour débloquer l'édition. Un appui long sur cette icône active le mode "modification des attributs uniquement" qui empèche de créer de nouveaux objets ou de modifier les géométries. Ce mode est indiqué avec une icône un peu plus blanche.
 
-Par défaut, les noeuds et chemins sélectionables ont une marge orange indiquant approximativement où toucher pour sélectioner un objet. Si vous essayez de sélectioner un objet et que Vespucci vois que cela pourrais correspondre à plusieur objets, il affichera un menu de sélection. Les objets sélectionés sont surlignés en jaune.
+Par défaut, les noeuds et chemins sélectionables ont une marge orange indiquant approximativement où toucher pour sélectioner un objet. Si vous essayez de sélectioner un objet et que Vespucci vois que cela pourrais correspondre à plusieur objets, il affichera un menu de sélection. Les objets sélectionés sont en surbrillance jaune.
 
 Il est conseillé de zoomer plus quand vous éditez une zone avec une grande densité de données.
 
@@ -42,7 +42,7 @@ Touchez un objet pour le sélectioner et le mettre en surbrillance; un deuxième
 
 #### Ajouter un nouveau noeud ou chemin
 
-Long press where you want the node to be or the way to start. You will see a black "cross hairs" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position. 
+Faites un appui long là ou vous voulez commencer. Vous verrez un symbole noir "réticule". Appuyer au même endroit crée un noeud, appuyer en dehors de la marge de sélection du noeud commence un chemin entre les deux positions. 
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
 
