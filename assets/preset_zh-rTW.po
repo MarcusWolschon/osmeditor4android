@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-11-24 17:21+0100\n"
-"PO-Revision-Date: 2015-11-25 16:53+0000\n"
+"PO-Revision-Date: 2015-11-26 17:15+0000\n"
 "Last-Translator: Supaplex <bejokeup@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -499,7 +499,7 @@ msgstr ""
 
 #: master_preset.xml:9847(group:name)
 msgid "Offices"
-msgstr ""
+msgstr "辦公室"
 
 #: master_preset.xml:7293(item:name)
 msgid "Antiques"
@@ -932,7 +932,7 @@ msgstr ""
 
 #: master_preset.xml:8105(group:name)
 msgid "Nature"
-msgstr ""
+msgstr "自然"
 
 #: master_preset.xml:10104(item:name)
 msgid "Publisher"
@@ -1034,7 +1034,7 @@ msgstr ""
 
 #: master_preset.xml:3734(item:name)
 msgid "Information Office"
-msgstr ""
+msgstr "資訊辦公室"
 
 #: master_preset.xml:3701(check:text) master_preset.xml:3645(check:text)
 #: master_preset.xml:3622(check:text) master_preset.xml:3664(check:text)
@@ -1270,7 +1270,7 @@ msgstr ""
 
 #: master_preset.xml:8886(group:name)
 msgid "Relations"
-msgstr ""
+msgstr "關聯"
 
 #: master_preset.xml:6642(item:name)
 msgid "Battlefield"
@@ -1911,7 +1911,7 @@ msgstr ""
 
 #: master_preset.xml:8704(group:name)
 msgid "Annotation"
-msgstr ""
+msgstr "補充説明"
 
 #: master_preset.xml:6211(optional:text)
 msgid "Output forms of energy (optional):"
@@ -2605,7 +2605,7 @@ msgstr ""
 
 #: master_preset.xml:7746(group:name)
 msgid "Boundaries"
-msgstr ""
+msgstr "邊界"
 
 #: master_preset.xml:9678(item:name) master_preset.xml:7061(item:name)
 msgid "Tailor"
@@ -3382,7 +3382,7 @@ msgstr ""
 
 #: master_preset.xml:7363(group:name)
 msgid "For the body"
-msgstr ""
+msgstr "身體相關"
 
 #: master_preset.xml:3709(group:name)
 msgid "Tourism"
@@ -3524,7 +3524,7 @@ msgstr ""
 
 #: master_preset.xml:7815(group:name)
 msgid "Places"
-msgstr ""
+msgstr "地方"
 
 #: master_preset.xml:3275(group:name)
 msgid "Airport"
@@ -3639,7 +3639,7 @@ msgstr ""
 
 #: master_preset.xml:4469(item:name)
 msgid "Post Office"
-msgstr ""
+msgstr "郵局"
 
 #: master_preset.xml:5194(multiselect:display_values)
 msgid "Schrader"
@@ -3706,7 +3706,7 @@ msgstr ""
 
 #: master_preset.xml:8330(group:name)
 msgid "Land use"
-msgstr ""
+msgstr "土地利用"
 
 #: master_preset.xml:7811(combo:text)
 msgid "Border type"
@@ -4366,7 +4366,7 @@ msgstr "高速公路引道"
 
 #: master_preset.xml:2892(text:text) master_preset.xml:7464(group:name)
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: master_preset.xml:7731(check:text)
 msgid "Mondero 4b (es)"
@@ -4435,7 +4435,7 @@ msgstr ""
 
 #: master_preset.xml:8208(item:name)
 msgid "Nature Reserve"
-msgstr ""
+msgstr "自然保護區"
 
 #: master_preset.xml:2552(item:name)
 msgid "Chair Lift"
@@ -5156,7 +5156,7 @@ msgstr "海鮮"
 
 #: master_preset.xml:7983(group:name) master_preset.xml:7745(group:name)
 msgid "Geography"
-msgstr ""
+msgstr "地理"
 
 #: master_preset.xml:6302(list_entry:short_description)
 #: master_preset.xml:6307(list_entry:short_description)
@@ -5705,7 +5705,7 @@ msgstr ""
 
 #: master_preset.xml:9294(group:name)
 msgid "Crafts"
-msgstr ""
+msgstr "工藝場所"
 
 #: master_preset.xml:8192(item:name)
 msgid "Grassland"
@@ -5949,7 +5949,7 @@ msgstr ""
 
 #: master_preset.xml:8993(group:name)
 msgid "Routes"
-msgstr ""
+msgstr "路線"
 
 #: master_preset.xml:6112(check:text)
 msgid "Digital"
