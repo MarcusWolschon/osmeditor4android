@@ -19,7 +19,8 @@ The files are found in the documentation directory, layout:
     			.....
     		CNAME			domain this appears under for github pages
     		index.md		top level page for vespucci.io
-    	/flatly-custom		slightly customized mkdocs theme 
+    	/flatly-custom		slightly customized mkdocs theme
+    	/markdown_ext		trivial python markdown extension to munge file extensions 
     	mkdocs.yml			mkdocs
 
 ## vespucci.io website
@@ -35,8 +36,8 @@ Note: any manual changes to the github pages will be lost!
 
 ## On device help
 
-The source for the help files is in the language specific directories, currently these need to be converted from markdown to html manually pre-build and then copied to the corresponding directories in assets. While this is a bit of a pain, it is more faster than doing it on the fly and eliminate the need to include a 3rd part markdown support library (which all have issues of one or an another kind).
+The source for the help files is in the language specific directories, currently these need to be converted from markdown to html manually pre-build and then copied to the corresponding directories in assets. This is best done with https://pythonhosted.org/Markdown/ the directory markdown_ext contains an extension that will change the .md extension in markdown links to .html for the processed files. While this is a bit of a pain, it is more faster than doing it on the fly on the device and eliminate the need to include a 3rd part markdown support library (which all have issues of one or an another kind).
 
-The help files need to be named the same as in the resource file "helptopics.xml". The names of the files can be translated, but the actual help files then need to be renamed too, you can however leave the default versions in if you have not translated all files. 
+The help files need to be named the same as in the resource file "helptopics.xml". The names of the files can be translated, but the actual help files then need to be renamed too (note in practice this currently doesn't work due to limitations of Android file names), you can however leave the default versions in if you have not translated all files. 
 
 Help with automating the build process would be welcome.
