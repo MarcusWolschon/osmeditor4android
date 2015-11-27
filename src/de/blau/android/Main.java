@@ -2067,10 +2067,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					}
 					break;
 				case MODE_TAG_EDIT:
-					selectElementForTagEdit(v, x, y);
-					break;
 				case MODE_EASYEDIT:
-					performEasyEdit(v, x, y);
+					performEdit(mode, v, x, y);
 					break;
 				default:
 					break;
@@ -2186,43 +2184,22 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			updateZoomControls();
 		}
 		
-		private void selectElementForTagEdit(final View v, final float x, final float y) {
-			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
-			switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size()) {
-			case 0:
-				// no elements were touched, ignore
-				break;
-			case 1:
-				// exactly one element touched
-				if (clickedBugs != null && clickedBugs.size() == 1) {
-					performBugEdit(clickedBugs.get(0));
-				} if (clickedPhotos != null && clickedPhotos.size() == 1) {
-					viewPhoto(clickedPhotos.get(0));
-				} else {
-					performTagEdit(clickedNodesAndWays.get(0), null, false, false);
-				}
-				break;
-			default:
-				// multiple possible elements touched - show menu
-				v.showContextMenu();
-				break;
-			}
-		}
-
-		
 		/**
-		 * Perform easy edit touch processing.
+		 * Perform edit touch processing.
+		 * @param mode mode we are in, either EASYEDIT or TAG_EDIT
 		 * @param v View affected by the touch event.
 		 * @param x the click-position on the display.
 		 * @param y the click-position on the display.
 		 */
-		public void performEasyEdit(final View v, final float x, final float y) {
+		public void performEdit(Mode mode, final View v, final float x, final float y) {
 			if (!easyEditManager.actionModeHandledClick(x, y)) {
 				clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
 				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null)? 0 : clickedPhotos.size())) {
 				case 0:
 					// no elements were touched
-					easyEditManager.nothingTouched(false);
+					if (mode==Mode.MODE_EASYEDIT) {
+						easyEditManager.nothingTouched(false);
+					}
 					break;
 				case 1:
 					// exactly one element touched
@@ -2232,7 +2209,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					else if (clickedPhotos != null && clickedPhotos.size() == 1) {
 						viewPhoto(clickedPhotos.get(0));
 					} else {
-						easyEditManager.editElement(clickedNodesAndWays.get(0));
+						if (mode==Mode.MODE_EASYEDIT) {
+							easyEditManager.editElement(clickedNodesAndWays.get(0));
+						} else {
+							performTagEdit(clickedNodesAndWays.get(0), null, false, false);
+						}
 					}
 					break;
 				default:
