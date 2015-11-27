@@ -2249,7 +2249,7 @@
             <text key="name" text="Name" />
             <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" />
         </item> <!-- Marina -->
-        <item name="Marine Fuel" icon="styles/standard/nautical/marine_fuel.png" type="node,closedway" preset_name_label="true">
+        <item name="Marine Fuel" icon="icons/png/transport_fuel.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=fuel"/>
             <space />
             <key key="waterway" value="fuel" />

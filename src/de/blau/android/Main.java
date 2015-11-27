@@ -2196,6 +2196,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				// exactly one element touched
 				if (clickedBugs != null && clickedBugs.size() == 1) {
 					performBugEdit(clickedBugs.get(0));
+				} if (clickedPhotos != null && clickedPhotos.size() == 1) {
+					viewPhoto(clickedPhotos.get(0));
 				} else {
 					performTagEdit(clickedNodesAndWays.get(0), null, false, false);
 				}
