@@ -1275,7 +1275,7 @@
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=traffic_mirror" />
             <key key="highway" value="traffic_mirror" />
         </item> <!-- Traffic Mirror -->
-        <item name="Highway milestone" icon="styles/standard/vehicle/milestone.svg" type="node" preset_name_label="true">
+        <item name="Highway milestone" icon="icons/png/highway_milestone_18006.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=milestone"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:highway=milestone"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:highway=milestone"
@@ -5870,7 +5870,7 @@
                 <text key="height" text="Height (meters)" length="7" />
             </optional>
         </item> <!-- Gasometer -->
-        <item name="Storage Tank" icon="presets/storage_tank.png" type="node,closedway">
+        <item name="Storage Tank" icon="icons/png/man_made_storage_tank_22060.png" type="node,closedway">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=storage_tank"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:man_made=storage_tank"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=storage_tank"
@@ -7360,7 +7360,7 @@
             <reference ref="link_contact_address_payment" />
         </item> <!-- Ticket -->
     </group> <!-- Printed Material -->
-    <group name="For the body" icon="iicons/png/shopping_body.png">
+    <group name="For the body" icon="icons/png/shopping_body.png">
         <item name="Chemist" icon="icons/png/shopping_chemist_29025.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=chemist"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=chemist"
@@ -7648,7 +7648,7 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Pet -->
-        <item name="Photo" icon="styles/standard/shop/photo.svg" type="node,closedway" preset_name_label="true">
+        <item name="Photo" icon="icons/png/shopping_photo_29124.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=photo"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=photo"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:shop=photo" />
@@ -8701,8 +8701,8 @@
         </item> <!-- Quarry -->
     </group> <!-- Landuse -->
   </group> <!-- Geography -->
-    <group name="Annotation" icon="icons/png/poi_housenumber_sp.png">
-        <item name="Name" icon="icons/png/osm_name_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+  <group name="Addresses and Contact" icon="icons/png/poi_housenumber_sp.png">
+      <item name="Name" icon="icons/png/osm_name_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:name"
                   ar.href="http://wiki.openstreetmap.org/wiki/Ar:Key:name"
                   ca.href="http://wiki.openstreetmap.org/wiki/Ca:Key:name"
@@ -8733,7 +8733,7 @@
                 <text key="short_name" text="Common name abbreviation" match="key" />
             </optional>
         </item> <!-- Name -->
-        <item name="Addresses" icon="icons/png/poi_housenumber_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="Addresses" icon="icons/png/osm_housenumber_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:addr"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:addr"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:addr"
@@ -8787,7 +8787,7 @@
                 <combo key="addr:inclusion" text="Accuracy" values="actual,estimate,potential" match="key" />
             </optional>
         </item> <!-- Address Interpolation -->
-        <item name="Contact (Common Schema)" icon="icons/png/poi_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="Contact (Common Schema)" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Annotations"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Annotations"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Annotations"
@@ -8804,7 +8804,7 @@
             <text key="wikipedia" text="Wikipedia" />
             <text key="image" text="Image" />
         </item> <!-- Contact (Common Schema) -->
-        <item name="Contact (Schema with 'contact:*' Prefix)" icon="icons/png/poi_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="Contact (Schema with 'contact:*' Prefix)" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:contact"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:contact"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:contact"
@@ -8824,7 +8824,9 @@
             <text key="wikipedia" text="Wikipedia" />
             <text key="image" text="Image" />
         </item> <!-- Contact (Schema with 'contact:*' Prefix) -->
-        <item name="Description" type="node,way,closedway,relation" preset_name_label="true">
+  </group> <!-- Addresses and Contact -->
+  <group name="Annotation" icon="icons/png/osm_exclamation_mark_sp.png">
+        <item name="Description" icon="icons/png/osm_exclamation_mark_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:description"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:description"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:description"
@@ -8843,7 +8845,7 @@
             <preset_link preset_name="Note" />
             <preset_link preset_name="Fixme" />
         </item> <!-- Description -->
-        <item name="Note" name_context="the tag note=*" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="Note" icon="icons/png/osm_exclamation_mark_sp.png" name_context="the tag note=*" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:note"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:note"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:note"
@@ -8863,7 +8865,7 @@
             <preset_link preset_name="Fixme" />
             <preset_link preset_name="Description" />
         </item> <!-- Note -->
-        <item name="Fixme" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="Fixme" icon="icons/png/osm_exclamation_mark_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:fixme"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:fixme"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:fixme"
@@ -9428,11 +9430,11 @@
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Falles -->
-        <item name="Floorer" icon="" type="node,closedway,relation">
+        <item name="Floorer" icon="icons/png/craft_carpet_layer_16020.png" type="node,closedway,relation">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:craft=floorer"
             	de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:craft=floorer" />
             <space />
-            <key key="craft" value="falles" />
+            <key key="craft" value="floorer" />
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Falles -->

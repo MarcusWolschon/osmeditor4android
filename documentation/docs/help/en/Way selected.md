@@ -40,6 +40,10 @@ Join the selected way with one that it shares a node with resulting in a single 
 
 Append to the current selected way. Touch areas will be visible around nodes that can be used to extend the way, select "Done" or the same node twice to stop. The "Append" action is only available if the way in question is not closed.
 
+### ![](../images/no_left_turn_light.png) Add turn restriction 
+
+Start creating a turn restriction with this way as "from" member. This action is only available if at least one "via" node or way and a corresponding "to" way exists.
+
 ### ![](../images/menu_ortho.png) Orthogonalize
 
 Change angles that are near 90� or 180� to 90� resp. 180�.
@@ -50,7 +54,7 @@ Rotate the way around its centroid. The centroid position is marked with a cross
 
 ### Split in to polygons
 
-Available for closed ways with at least for nodes. Will split the way in to two polygons, sharing the common nodes.
+Available for closed ways with at least four nodes. Will split the way in to two polygons, sharing the common nodes.
 
 ### ![](../images/ic_menu_copy_holo_light.png) Copy
 

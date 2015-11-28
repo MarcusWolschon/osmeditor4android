@@ -2222,7 +2222,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 						v.showContextMenu();
 					} else {
 						// menuRequired tells us it's ok to just take the first one
-						easyEditManager.editElement(clickedNodesAndWays.get(0));
+						if (mode==Mode.MODE_EASYEDIT) {
+							easyEditManager.editElement(clickedNodesAndWays.get(0));
+						} else {
+							performTagEdit(clickedNodesAndWays.get(0), null, false, false);
+						}
 					}
 					break;
 				}
