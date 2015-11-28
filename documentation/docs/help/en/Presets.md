@@ -2,7 +2,7 @@
 
 Vespucci supports JOSM compatible presets and the default preset is derived from the original JOSM one and kept in sync as far as possible. Just as with JOSM you can add further presets or use a different one than the default. 
 
-The default preset is maintained at [https://github.com/simonpoole/beautified-JOSM-preset](https://github.com/simonpoole/beautified-JOSM-preset). You can install an additional, updated version by selecting [current Vespucci preset](vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/raw/master/gen/vespucci_zip.zip) after the download you will have to explicitly enable it and disable the built-in version.
+The default preset is maintained at [https://github.com/simonpoole/beautified-JOSM-preset](https://github.com/simonpoole/beautified-JOSM-preset). You can install an additional, updated version by selecting [current Vespucci preset](vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/raw/master/gen/vespucci_zip.zip) *(this link will only work on your device)* after the download you will have to explicitly enable it and disable the built-in version.
 
 ## ![](../images/tag_menu_preset.png) Preset pane
 
@@ -25,8 +25,8 @@ Most current JOSM presets can be found in this list [http://josm.openstreetmap.d
 
 Some potentially useful ones for direct download:
 
- * [Presets for Simple 3D building properties](vespucci://preset/?preseturl=http://zibi.openstreetmap.org.pl/kendzi/k/Simple3dPreset/s3db-preset.zip&presetname=Simple 3D building properties)
- * [Presets for Simple Indoor Tagging](vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging)
+ * [Presets for Simple 3D building properties](vespucci://preset/?preseturl=http://zibi.openstreetmap.org.pl/kendzi/k/Simple3dPreset/s3db-preset.zip&presetname=Simple 3D building properties) *(this link will only work on your device)*
+ * [Presets for Simple Indoor Tagging](vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging) *(this link will only work on your device)*
 
 
 
