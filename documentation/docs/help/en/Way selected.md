@@ -27,6 +27,7 @@ Reverse the direction of the way. If the way has direction dependent tags it wil
 * turn:lanes and turn
 * \*:left, \*:right, \*:left:\*, \*:right:\*, left and right
 * \*:backward, \*:forward, \*:backward:\*, \*:forward:\*, backward and forward
+* forward and backward roles in relations the selected way is a member of
 
 ### ![](../images/tag_menu_split.png) Split
 
