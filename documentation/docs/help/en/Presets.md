@@ -25,6 +25,7 @@ Most current JOSM presets can be found in this list [http://josm.openstreetmap.d
 
 Some potentially useful ones for direct download:
 
+ * [Presets for lane tagging](vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging) *(this link will only work on your device)*
  * [Presets for Simple 3D building properties](vespucci://preset/?preseturl=http://zibi.openstreetmap.org.pl/kendzi/k/Simple3dPreset/s3db-preset.zip&presetname=Simple 3D building properties) *(this link will only work on your device)*
  * [Presets for Simple Indoor Tagging](vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging) *(this link will only work on your device)*
 
