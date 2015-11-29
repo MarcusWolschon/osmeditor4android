@@ -75,7 +75,7 @@ public class TagSelectedActionModeCallback implements Callback {
 		}
 	}
 
-	public void addKeyValue(Map<String,String>tags, final TagEditRow row) {
+	private void addKeyValue(Map<String, String>tags, final TagEditRow row) {
 		String key = row.getKey().trim();
 		String value = row.getValue().trim();
 		boolean bothBlank = "".equals(key) && "".equals(value);
