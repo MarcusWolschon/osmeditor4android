@@ -55,7 +55,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 
 	private HashMap<Long, String> savedParents = null;
 	
-	static ParentSelectedActionModeCallback parentSelectedActionModeCallback = null;
+	static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
 	
 	/**
      */
@@ -216,7 +216,8 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	/**
 	 * A row representing a parent relation with an edits for role and further values and a delete button.
 	 */
-	public static class RelationMembershipRow extends LinearLayout implements Row {
+	public static class RelationMembershipRow extends LinearLayout implements
+			SelectedRowsActionModeCallback.Row {
 		
 		private PropertyEditor owner;
 		private long relationId =-1; // flag value for new relation memberships
@@ -399,7 +400,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	protected synchronized void parentSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (parentSelectedActionModeCallback == null) {
-			parentSelectedActionModeCallback = new ParentSelectedActionModeCallback(this, rowLayout);
+			parentSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
 			((SherlockFragmentActivity)getActivity()).startActionMode(parentSelectedActionModeCallback);
 		}	
 	}
