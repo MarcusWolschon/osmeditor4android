@@ -221,7 +221,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	/**
 	 * A row representing a parent relation with an edits for role and further values and a delete button.
 	 */
-	public static class RelationMembershipRow extends LinearLayout {
+	public static class RelationMembershipRow extends LinearLayout implements Row {
 		
 		private PropertyEditor owner;
 		private long relationId =-1; // flag value for new relation memberships
@@ -353,7 +353,8 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		/**
 		 * Deletes this row
 		 */
-		public void deleteRow() {
+		@Override
+		public void delete() {
 			if (owner != null) {
 				View cf = owner.getCurrentFocus();
 				if (cf == roleEdit) {
@@ -385,7 +386,8 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 			return selected.isChecked();
 		}
 		
-		public void deSelect() {
+		@Override
+		public void deselect() {
 			selected.setChecked(false);
 		}
 		

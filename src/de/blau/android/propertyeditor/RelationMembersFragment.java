@@ -229,7 +229,7 @@ public class RelationMembersFragment extends SherlockFragment {
 	/**
 	 * A row representing an editable member of a relation, consisting of edits for role and display of other values and a delete button.
 	 */
-	public static class RelationMemberRow extends LinearLayout {
+	public static class RelationMemberRow extends LinearLayout implements Row {
 		
 		private PropertyEditor owner;
 		private long elementId;
@@ -322,7 +322,8 @@ public class RelationMembersFragment extends SherlockFragment {
 		/**
 		 * Deletes this row
 		 */
-		public void deleteRow() {
+		@Override
+		public void delete() {
 			if (owner != null) {
 				View cf = owner.getCurrentFocus();
 				if (cf == roleEdit) {
@@ -350,7 +351,8 @@ public class RelationMembersFragment extends SherlockFragment {
 			return selected.isChecked();
 		}
 		
-		public void deSelect() {
+		@Override
+		public void deselect() {
 			selected.setChecked(false);
 		}
 		

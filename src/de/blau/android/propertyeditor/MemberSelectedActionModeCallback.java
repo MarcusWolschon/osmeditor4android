@@ -15,7 +15,6 @@ import com.actionbarsherlock.view.MenuItem;
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -56,17 +55,17 @@ public class MemberSelectedActionModeCallback implements Callback {
 		switch (item.getItemId()) {
 		case MENUITEM_DELETE: 
 			final int size = rows.getChildCount();
-			ArrayList<RelationMemberRow> toDelete = new ArrayList<RelationMemberRow>();
+			ArrayList<Row> toDelete = new ArrayList<Row>();
 			for (int i = 0; i < size; ++i) {
 				View view = rows.getChildAt(i);
-				RelationMemberRow row = (RelationMemberRow)view;
+				Row row = (Row)view;
 				if (row.isSelected()) {
 					toDelete.add(row);
 				}
 			}
 			if (toDelete.size() > 0) {
-				for (RelationMemberRow r:toDelete) {
-					r.deleteRow();
+				for (Row r : toDelete) {
+					r.delete();
 				}
 			}
 			if (currentAction != null) {
@@ -86,8 +85,8 @@ public class MemberSelectedActionModeCallback implements Callback {
 		final int size = rows.getChildCount();
 		for (int i = 0; i < size; ++i) { 
 			View view = rows.getChildAt(i);
-			RelationMemberRow row = (RelationMemberRow)view;
-			row.deSelect();
+			Row row = (Row)view;
+			row.deselect();
 		}
 		((PropertyEditor)caller.getActivity()).enablePaging();
 		((PropertyEditor)caller.getActivity()).enablePresets();
@@ -100,7 +99,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 		final int size = rows.getChildCount();
 		for (int i = 1; i < size; ++i) { // > 1 skip header
 			View view = rows.getChildAt(i);
-			RelationMemberRow row = (RelationMemberRow)view;
+			Row row = (Row)view;
 			if (row.isSelected()) {
 				// something is still selected
 				return false;
