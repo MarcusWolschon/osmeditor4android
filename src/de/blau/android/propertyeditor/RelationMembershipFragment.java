@@ -45,7 +45,9 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 
-public class RelationMembershipFragment extends SherlockFragment implements OnItemSelectedListener {
+public class RelationMembershipFragment extends SherlockFragment implements
+		PropertyRows,
+		OnItemSelectedListener {
 	
 	private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
 	
@@ -203,7 +205,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 				if (isChecked) {
 					parentSelected();
 				} else {
-					parentDeselected();
+					deselectRows();
 				}
 			}
 		});
@@ -402,7 +404,8 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		}	
 	}
 	
-	protected synchronized void parentDeselected() {
+	@Override
+	public synchronized void deselectRows() {
 		if (parentSelectedActionModeCallback != null) {
 			if (parentSelectedActionModeCallback.rowsDeselected()) {
 				parentSelectedActionModeCallback = null;
@@ -563,7 +566,8 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		insertNewMembership((LinearLayout) getOurView(), null,null,-1, true).roleEdit.requestFocus();
 	}
 	
-	void deselectHeaderCheckBox() {
+	@Override
+	public void deselectHeaderCheckBox() {
 		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_membership_selected);
 		headerCheckBox.setChecked(false);
 	}

@@ -92,7 +92,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 		((PropertyEditor)caller.getActivity()).enablePresets();
 		caller.deselectHeaderCheckBox();
 		currentAction = null;
-		caller.memberDeselected(); // synchronized method
+		caller.deselectRow(); // synchronized method
 	}
 
 	public boolean rowsDeselected() {

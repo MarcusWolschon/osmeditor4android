@@ -92,7 +92,7 @@ public class ParentSelectedActionModeCallback implements Callback {
 		((PropertyEditor)caller.getActivity()).enablePresets();
 		caller.deselectHeaderCheckBox();
 		currentAction = null;
-		caller.parentDeselected(); // synchronized method
+		caller.deselectRow(); // synchronized method
 	}
 
 	public boolean rowsDeselected() {
