@@ -30,8 +30,8 @@ public class SelectedRowsActionModeCallback implements Callback {
 
 	}
 
-	private static final int MENUITEM_DELETE = 1;
-	private static final int MENUITEM_HELP = 8;
+	protected static final int MENUITEM_DELETE = 1;
+	protected static final int MENUITEM_HELP = 8;
 
 	ActionMode currentAction;
 

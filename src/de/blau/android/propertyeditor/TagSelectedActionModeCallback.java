@@ -7,49 +7,29 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.propertyeditor.TagEditorFragment.KeyValueHandler;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class TagSelectedActionModeCallback implements Callback {
+public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallback {
 	
-	private static final int MENUITEM_DELETE = 1;
 	private static final int MENUITEM_COPY = 2;
 	private static final int MENUITEM_CUT = 3;
-	private static final int MENUITEM_HELP = 8;
-	
-	ActionMode currentAction;
-	
-	LinearLayout rows = null;
-	TagEditorFragment caller = null;
-	
-	public TagSelectedActionModeCallback(TagEditorFragment caller, LinearLayout rows) {
-		this.rows = rows;
-		this.caller = caller;
-	}
 
-	@Override
-	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		mode.setTitle(R.string.tag_action_title);
-		currentAction = mode;
-		((PropertyEditor)caller.getActivity()).disablePaging();
-		((PropertyEditor)caller.getActivity()).disablePresets();
-		return true;
+	public TagSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
+		super(caller, rows);
 	}
 
 	@Override
@@ -64,14 +44,15 @@ public class TagSelectedActionModeCallback implements Callback {
 
 	private void copyTags(@NonNull ArrayList<TagEditRow> selectedRows, boolean deleteEachRow) {
 		if (selectedRows.size() > 0) {
-			caller.copiedTags = new LinkedHashMap<String,String>();
+			TagEditorFragment fragment = (TagEditorFragment) caller;
+			fragment.copiedTags = new LinkedHashMap<String,String>();
 			for (TagEditRow row : selectedRows) {
-				addKeyValue(caller.copiedTags, row);
+				addKeyValue(fragment.copiedTags, row);
 				if (deleteEachRow) {
 					row.delete();
 				}
 			}
-			ClipboardUtils.copyTags(caller.getActivity(), caller.copiedTags);
+			ClipboardUtils.copyTags(fragment.getActivity(), fragment.copiedTags);
 		}
 	}
 
@@ -88,12 +69,10 @@ public class TagSelectedActionModeCallback implements Callback {
 		}
 	}
 	
-	
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 		return performAction(item.getItemId());
 	}
-	
 	
 	private boolean performAction(int action) {
 		
@@ -136,36 +115,5 @@ public class TagSelectedActionModeCallback implements Callback {
 		}
 		return true;
 	}
-	
-	@Override
-	public void onDestroyActionMode(ActionMode mode) {
-		final int size = rows.getChildCount();
-		for (int i = 0; i < size; ++i) { 
-			View view = rows.getChildAt(i);
-			TagEditRow row = (TagEditRow)view;
-			row.deselect();
-		}
-		currentAction = null;
-		caller.deselectHeaderCheckBox();
-		((PropertyEditor)caller.getActivity()).enablePaging();
-		((PropertyEditor)caller.getActivity()).enablePresets();
-		caller.tagDeselected(); // synchronized method
-	}
 
-	public boolean tagDeselected() {
-		final int size = rows.getChildCount();
-		for (int i = 0; i < size; ++i) {
-			View view = rows.getChildAt(i);
-			TagEditRow row = (TagEditRow)view;
-			if (row.isSelected()) {
-				// something is still selected
-				return false;
-			}
-		}
-		// nothing selected -> finish
-		if (currentAction != null) {
-			currentAction.finish();
-		}
-		return true;
-	}
 }
