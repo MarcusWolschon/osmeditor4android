@@ -74,8 +74,10 @@ import de.blau.android.util.Util;
 import de.blau.android.views.OffsettedAutoCompleteTextView;
 
 
-public class TagEditorFragment extends SherlockFragment {
 	
+public class TagEditorFragment extends SherlockFragment implements
+		PropertyRows {
+
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
@@ -85,7 +87,7 @@ public class TagEditorFragment extends SherlockFragment {
 	
 	private PlaceTagValueAutocompletionAdapter placeNameAutocompleteAdapter = null;
 	
-	static TagSelectedActionModeCallback tagSelectedActionModeCallback = null;
+	static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
 	
 	PresetItem autocompletePresetItem = null;
 	
@@ -708,7 +710,7 @@ public class TagEditorFragment extends SherlockFragment {
 					if (isChecked) {
 						tagSelected();
 					} else {
-						tagDeselected();
+						deselectRows();
 					}
 				}
 				if (row.isEmpty()) {
@@ -731,7 +733,8 @@ public class TagEditorFragment extends SherlockFragment {
 	 * Needs to be static, otherwise the inflater will not find it.
 	 * @author Jan
 	 */
-	public static class TagEditRow extends LinearLayout {
+	public static class TagEditRow extends LinearLayout implements
+			SelectedRowsActionModeCallback.Row {
 		
 		private PropertyEditor owner;
 		private AutoCompleteTextView keyEdit;
@@ -831,6 +834,7 @@ public class TagEditorFragment extends SherlockFragment {
 		/**
 		 * Deletes this row
 		 */
+		@Override
 		public void delete() { //FIXME the references to owner.tagEditorFragemnt are likely suspect
 			deleteRow((LinearLayout)owner.tagEditorFragment.getOurView());
 		}
@@ -866,7 +870,8 @@ public class TagEditorFragment extends SherlockFragment {
 		public boolean isSelected() {
 			return selected.isChecked();
 		}
-		
+
+		@Override
 		public void deselect() {
 			selected.setChecked(false);
 		}
@@ -926,9 +931,10 @@ public class TagEditorFragment extends SherlockFragment {
 		}	
 	}
 	
-	protected synchronized void tagDeselected() {
+	@Override
+	public synchronized void deselectRows() {
 		if (tagSelectedActionModeCallback != null) {
-			if (tagSelectedActionModeCallback.tagDeselected()) {
+			if (tagSelectedActionModeCallback.rowsDeselected(false)) {
 				tagSelectedActionModeCallback = null;
 			}
 		}	
@@ -1514,7 +1520,8 @@ public class TagEditorFragment extends SherlockFragment {
 		return keys;
 	}
 	
-	void deselectHeaderCheckBox() {
+	@Override
+	public void deselectHeaderCheckBox() {
 		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_tag_selected);
 		headerCheckBox.setChecked(false);
 	}
