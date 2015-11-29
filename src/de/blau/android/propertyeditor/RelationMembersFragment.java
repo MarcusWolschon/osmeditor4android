@@ -43,7 +43,9 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 
-public class RelationMembersFragment extends SherlockFragment {
+public class RelationMembersFragment extends SherlockFragment implements
+		PropertyRows {
+
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
 	
 
@@ -218,7 +220,7 @@ public class RelationMembersFragment extends SherlockFragment {
 				if (isChecked) {
 					memberSelected();
 				} else {
-					memberDeselected();
+					deselectRows();
 				}
 			}
 		});
@@ -396,7 +398,8 @@ public class RelationMembersFragment extends SherlockFragment {
 		}	
 	}
 	
-	protected synchronized void memberDeselected() {
+	@Override
+	public synchronized void deselectRows() {
 		if (memberSelectedActionModeCallback != null) {
 			if (memberSelectedActionModeCallback.rowsDeselected()) {
 				memberSelectedActionModeCallback = null;
@@ -510,7 +513,8 @@ public class RelationMembersFragment extends SherlockFragment {
 		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable("members"));
 	}
 	
-	void deselectHeaderCheckBox() {
+	@Override
+	public void deselectHeaderCheckBox() {
 		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_member_selected);
 		headerCheckBox.setChecked(false);
 	}
