@@ -96,7 +96,7 @@ public class TagSelectedActionModeCallback implements Callback {
 		case MENUITEM_DELETE: 
 			if (selected.size() > 0) {
 				for (TagEditRow r:selected) {
-					r.deleteRow();
+					r.delete();
 				}
 			}
 			if (currentAction != null) {
@@ -120,7 +120,7 @@ public class TagSelectedActionModeCallback implements Callback {
 				caller.copiedTags = new LinkedHashMap<String,String>();
 				for (TagEditRow r:selected) {
 					addKeyValue(caller.copiedTags, r);
-					r.deleteRow();
+					r.delete();
 				}
 				ClipboardUtils.copyTags(caller.getActivity(), caller.copiedTags);
 			}
@@ -142,7 +142,7 @@ public class TagSelectedActionModeCallback implements Callback {
 		for (int i = 0; i < size; ++i) { 
 			View view = rows.getChildAt(i);
 			TagEditRow row = (TagEditRow)view;
-			row.deSelect();
+			row.deselect();
 		}
 		currentAction = null;
 		caller.deselectHeaderCheckBox();

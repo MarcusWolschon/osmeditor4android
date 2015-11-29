@@ -712,7 +712,7 @@ public class TagEditorFragment extends SherlockFragment {
 					}
 				}
 				if (row.isEmpty()) {
-					row.deSelect();
+					row.deselect();
 				}
 			}
 		});
@@ -831,7 +831,7 @@ public class TagEditorFragment extends SherlockFragment {
 		/**
 		 * Deletes this row
 		 */
-		public void deleteRow() { //FIXME the references to owner.tagEditorFragemnt are likely suspect
+		public void delete() { //FIXME the references to owner.tagEditorFragemnt are likely suspect
 			deleteRow((LinearLayout)owner.tagEditorFragment.getOurView());
 		}
 		
@@ -867,7 +867,7 @@ public class TagEditorFragment extends SherlockFragment {
 			return selected.isChecked();
 		}
 		
-		public void deSelect() {
+		public void deselect() {
 			selected.setChecked(false);
 		}
 		
