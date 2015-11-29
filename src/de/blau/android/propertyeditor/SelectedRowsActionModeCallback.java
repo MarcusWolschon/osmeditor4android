@@ -1,9 +1,7 @@
 package de.blau.android.propertyeditor;
 
 
-
-import java.util.ArrayList;
-
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -12,23 +10,35 @@ import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import java.util.ArrayList;
+
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class MemberSelectedActionModeCallback implements Callback {
-	
+public class SelectedRowsActionModeCallback implements Callback {
+
+	public interface Row {
+
+		void delete();
+
+		void deselect();
+
+		boolean isSelected();
+
+	}
+
 	private static final int MENUITEM_DELETE = 1;
 	private static final int MENUITEM_HELP = 8;
-	
+
 	ActionMode currentAction;
-	
+
 	LinearLayout rows = null;
-	RelationMembersFragment caller = null;
-	
-	public MemberSelectedActionModeCallback(RelationMembersFragment caller, LinearLayout rows) {
+	Fragment caller = null;
+
+	public SelectedRowsActionModeCallback(Fragment caller, LinearLayout rows) {
 		this.rows = rows;
 		this.caller = caller;
 	}
@@ -53,7 +63,7 @@ public class MemberSelectedActionModeCallback implements Callback {
 	@Override
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 		switch (item.getItemId()) {
-		case MENUITEM_DELETE: 
+		case MENUITEM_DELETE:
 			final int size = rows.getChildCount();
 			ArrayList<Row> toDelete = new ArrayList<Row>();
 			for (int i = 0; i < size; ++i) {
@@ -79,20 +89,21 @@ public class MemberSelectedActionModeCallback implements Callback {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public void onDestroyActionMode(ActionMode mode) {
 		final int size = rows.getChildCount();
-		for (int i = 0; i < size; ++i) { 
+		for (int i = 0; i < size; ++i) {
 			View view = rows.getChildAt(i);
 			Row row = (Row)view;
 			row.deselect();
 		}
 		((PropertyEditor)caller.getActivity()).enablePaging();
 		((PropertyEditor)caller.getActivity()).enablePresets();
-		caller.deselectHeaderCheckBox();
+		PropertyRows relation = (PropertyRows)caller;
+		relation.deselectHeaderCheckBox();
 		currentAction = null;
-		caller.deselectRow(); // synchronized method
+		relation.deselectRows(); // synchronized method
 	}
 
 	public boolean rowsDeselected() {
@@ -111,4 +122,5 @@ public class MemberSelectedActionModeCallback implements Callback {
 		}
 		return true;
 	}
+
 }

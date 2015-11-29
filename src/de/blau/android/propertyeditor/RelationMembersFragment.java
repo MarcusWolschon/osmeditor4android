@@ -55,7 +55,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	private ArrayList<RelationMemberDescription> savedMembers = null;
 	private long id = -1;
 
-	static MemberSelectedActionModeCallback memberSelectedActionModeCallback = null;
+	static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
 	
 	/**
      */
@@ -231,7 +231,8 @@ public class RelationMembersFragment extends SherlockFragment implements
 	/**
 	 * A row representing an editable member of a relation, consisting of edits for role and display of other values and a delete button.
 	 */
-	public static class RelationMemberRow extends LinearLayout implements Row {
+	public static class RelationMemberRow extends LinearLayout implements
+			SelectedRowsActionModeCallback.Row {
 		
 		private PropertyEditor owner;
 		private long elementId;
@@ -393,7 +394,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	protected synchronized void memberSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (memberSelectedActionModeCallback == null) {
-			memberSelectedActionModeCallback = new MemberSelectedActionModeCallback(this, rowLayout);
+			memberSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
 			((SherlockFragmentActivity)getActivity()).startActionMode(memberSelectedActionModeCallback);
 		}	
 	}
