@@ -19,9 +19,10 @@ Thanks to:
   Shu Higashi (Japanese translation)
   Simon Legner (German translation)
   Simon Poole (Code, German translation)
+  Tobias Preuss (Code)
   zibiczek (Polish translation)
 
-and anyone else we forgot!
+everybody helping with translation on Transifex and anyone else we forgot!
 
 The Vespucci application, excluding the GPLv3-only preset icons found in the folder assets/images/presets and assets/images/presets/styles, is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
 

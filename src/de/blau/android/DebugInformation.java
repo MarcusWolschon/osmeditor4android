@@ -59,11 +59,11 @@ public class DebugInformation extends SherlockActivity {
 			builder.append("No bug state file found\n");
 		}
 		StorageDelegator delegator = Application.getDelegator();
-		builder.append("Relations (current/API) :" + delegator.getCurrentStorage().getRelations().size() + "/"
+		builder.append("Relations (current/API): " + delegator.getCurrentStorage().getRelations().size() + "/"
 				+ delegator.getApiRelationCount()+"\n");
-		builder.append("Ways (current/API) :" + delegator.getCurrentStorage().getWays().size() + "/"
+		builder.append("Ways (current/API): " + delegator.getCurrentStorage().getWays().size() + "/"
 				+ delegator.getApiWayCount()+"\n");
-		builder.append("Nodes (current/Waynodes/API) :" + delegator.getCurrentStorage().getNodes().size() + "/"
+		builder.append("Nodes (current/Waynodes/API): " + delegator.getCurrentStorage().getNodes().size() + "/"
 				+ delegator.getCurrentStorage().getWaynodes().size() + "/" + delegator.getApiNodeCount()+"\n");
 		
 		builder.append("Available location providers\n");

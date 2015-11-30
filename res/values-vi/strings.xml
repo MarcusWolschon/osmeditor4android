@@ -12,6 +12,8 @@
   <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi máy chủ có %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$s \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
+  <string name="use_local_version">Dùng \nphiên bản \ntrong điện thoại</string>
+  <string name="use_server_version">Dùng \nphiên bản \ntrên máy chủ</string>
   <string name="no_login_data_title">Thất bại khi xác thực</string>
   <string name="no_login_data_message">Nếu bạn đăng nhập qua OAuth (được khuyến khích), có lẽ bạn đã gặp lỗi; xin vui lòng báo cáo vấn đề cho chúng tôi. Nếu không, xin vui lòng kiểm tra tên đăng nhập và mật khẩu.</string>
   <string name="no_connection_title">Không thể Kết nối với Máy chủ</string>
@@ -43,6 +45,7 @@
   <string name="progress_deleting_message">Đang xóa…</string>
   <string name="progress_searching_message">Đang tìm kiếm…</string>
   <string name="progress_saving_message">Đang lưu…</string>
+  <string name="progress_oauth">Đang tải tài khoản của bạn trên openstreetmap.org để cấp phép qua OAuth…</string>
   <string name="upload_comment_label">Miêu tả:</string>
   <string name="upload_source_label">Nguồn:</string>
   <string name="upload_close_changeset_label">Đóng bộ thay đổi:</string>
@@ -51,6 +54,7 @@
   <string name="upload_gpx_visibility_label">Mức xuất hiện</string>
   <string name="openstreetbug_new_title">Ghi chú Mới</string>
   <string name="openstreetbug_new_bug">Báo cáo Vấn đề</string>
+  <string name="openstreetbug_bug_title">Vấn đề</string>
   <string name="openstreetbug_new_nodeway">Tạo Nốt/Lối</string>
   <string name="openstreetbug_edit_title">Sửa Ghi chú</string>
   <string name="openstreetbug_commitbutton">Gửi</string>
@@ -59,6 +63,8 @@
   <string name="openstreetbug_edit_closed">Đã đóng</string>
   <string name="openstreetbug_commit_ok">Đã lưu các thay đổ</string>
   <string name="openstreetbug_commit_fail">Không thể lưu các thay đổi</string>
+  <string name="openstreetbug_not_downloaded">chưa tải về</string>
+  <string name="openstreetbug_last_updated">lần cập nhật cuối</string>
   <string name="unsaved_data_title">Cẩn thận!</string>
   <string name="unsaved_data_message">Nếu bạn tiếp tục, các thay đổi chưa lưu của bạn sẽ bị mất.</string>
   <string name="unsaved_data_proceed">Vứt bỏ &amp; tiếp tục</string>
@@ -75,6 +81,8 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Gợi ý này có thể thay thế một số giá trị thẻ bằng giá trị phổ biến hơn.</string>
   <string name="search_results_title">Kết quả tìm kiếm</string>
   <string name="find_message">Nhập truy vấn</string>
+  <string name="preset_search_hint">Chuỗi tìm kiếm thẻ đặt trước</string>
+  <string name="no_valid_preset">Không có thẻ đặt trước hợp lệ!</string>
   <string name="read_file">Chọn tập tin để đọc</string>
   <string name="save_file">Nhập tập tin để ghi vào</string>
   <string name="existing_track_title">Dữ liệu tuyến đường đã tồn tại</string>
@@ -90,8 +98,15 @@
   <string name="length_m">Chiều dài (m)</string>
   <string name="not_downloaded">Chưa tải về</string>
   <string name="empty_role">thiếu vai trò</string>
+  <string name="element">phần tử</string>
+  <string name="last_updated">lần cập nhật cuối</string>
+  <string name="error">lỗi</string>
+  <string name="warning">cảnh báo</string>
+  <string name="minor_issue">vấn đề nhỏ</string>
+  <string name="unknown_error_level">mức lỗi không rõ</string>
   <!--Toaster-->
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
+  <string name="toast_unsaved_changes">Bạn đã thực hiện một số thay đổi chưa được lưu. Xin vui lòng tải chúng lên trước tiên.</string>
   <string name="toast_upload_success">Đã hoàn tất tải lên máy chủ OSM.</string>
   <string name="toast_not_in_edit_range">Xin vui lòng phóng to để sửa đổi (Tăng/Giảm Âm lượng hoặc Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Mở khóa để sửa đổi</string>
@@ -119,6 +134,7 @@
   <string name="toast_oauth_retry">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth và thử tải lên lại.</string>
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
+  <string name="toast_oauth_not_enabled">OAuth không được kích hoạt cho API hiện tại.</string>
   <string name="toast_timeout">Hết thời gian chờ máy chủ</string>
   <string name="coordinates_out_of_range">Kinh độ phải nằm giữa −180°/+180°; vĩ độ phải nằm giữa −85°/85°</string>
   <string name="toast_nothing_found">Không tìm thấy kết quả</string>
@@ -127,8 +143,14 @@
   <string name="toast_outside_of_download">Bạn đang sửa đổi ở ngoài khu vực đã được tải về.</string>
   <string name="toast_file_not_found">Không tìm thấy %1$s.</string>
   <string name="toast_imported_track_points">Đã nhập %1$s điểm tuyến đường.</string>
+  <string name="toast_unknown_voice_command">Rất tiếc, hiện tại không hiểu “%1$s”</string>
   <string name="toast_inconsistent_state">Đã nhận ra mâu thuẫn. Xin vui lòng báo cáo lỗi.</string>
   <string name="toast_camera_error">Lỗi khi khởi động ứng dụng máy ảnh: %1$s</string>
+  <string name="toast_no_voice">Không có sẵn chức năng nhận dạng tiếng nói</string>
+  <string name="toast_storage_error">Vespucci không thể ghi vào thư mực dành cho mảnh bản đồ và các tập tin khác\nĐiều này có thể là một vấn đề kỹ thuật trên thiết bị của bạn.</string>
+  <string name="toast_min_one_preset">Cần phải chọn ít nhát một thẻ đặt trước!</string>
+  <string name="toast_used_backup">Tập tin trạng thái bị hỏng, nên phải dùng tập tin sao lưu!</string>
+  <string name="toast_used_bug_backup">Tập tin trạng thái lỗi bị hỏng, nên phải dùng tập tin sao lưu!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -221,6 +243,7 @@
   <string name="menu_gps_start">Bắt đầu tuyến GPS</string>
   <string name="menu_gps_pause">Tạm dừng tuyến GPS</string>
   <string name="menu_gps_clear">Dọn dẹp tuyến GPS</string>
+  <string name="menu_gps_track_managment">Quản lý tuyến…</string>
   <string name="menu_gps_upload">Tải lên tuyến GPS</string>
   <string name="menu_gps_export">Xuất tuyến GPS</string>
   <string name="menu_gps_import">Nhập tuyến đường GPS</string>
@@ -232,9 +255,14 @@
   <string name="menu_transfer_download_other">Tải về vị trí khác</string>
   <string name="menu_transfer_upload">Tải dữ liệu lên máy chủ OSM</string>
   <string name="menu_transfer_close_changeset">Đóng bộ thay đổi hiện tại</string>
+  <string name="menu_transfer_file">Tập tin…</string>
   <string name="menu_transfer_export">Xuất các thay đổi</string>
   <string name="menu_transfer_read_file">Đọc tập tin</string>
   <string name="menu_transfer_save_file">Lưu vào tập tin</string>
+  <string name="menu_transfer_bugs">Ghi chú/Lỗi…</string>
+  <string name="menu_transfer_bugs_download_current">Tải về lỗi trong khu vực hiện tại</string>
+  <string name="menu_transfer_bugs_upload">Tải lên tất cả</string>
+  <string name="menu_transfer_bugs_clear">Xóa sạch</string>
   <string name="menu_save">Lưu vào tập tin</string>
   <string name="menu_join">Gộp</string>
   <string name="menu_unjoin">Tách</string>
@@ -249,6 +277,7 @@
   <string name="menu_newnode_gps">Nốt mới tại vị trí GPS</string>
   <string name="menu_extend_selection">Mở rộng lựa chọn</string>
   <string name="menu_information">Thông tin</string>
+  <string name="menu_voice_commands">Lệnh bằng giọng nói</string>
   <string name="menu_tools">Công cụ</string>
   <string name="menu_tools_flush_background_tile_cache">Xóa sạch bộ nhớ đệm mảnh nền</string>
   <string name="menu_tools_flush_overlay_tile_cache">Xóa sạch bộ nhớ đệm mảnh phủ</string>
@@ -262,6 +291,8 @@
   <string name="menu_tools_background_align_save_device">Lưu vào Thiết bị</string>
   <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
   <string name="menu_tools_background_contrast">Độ tương phản</string>
+  <string name="menu_tools_oauth_reset">Đặt lại OAuth</string>
+  <string name="menu_tools_oauth_authorisation">Cấp phép qua OAuth</string>
   <!--element action mode menu-->
   <string name="menu_tags">Thuộc tính</string>
   <!--Text should be as short as possible-->
@@ -289,6 +320,10 @@
   <string name="config_showCameraAction_summary">Hình hiển thị máy ảnh trên thanh tác vụ</string>
   <string name="config_generateAlerts_title">Nhận thông báo</string>
   <string name="config_generateAlerts_summary">Nhận thông báo khi nào dữ liệu có vấn đề hoặc ghi chú</string>
+  <string name="config_voiceCommandsEnabled_title">Bật lệnh bằng giọng nói</string>
+  <string name="config_voiceCommandsEnabled_summary">Bật chức năng thử nghiệm ra lệnh bằng giọng nói</string>
+  <string name="config_maxAlertDistance_title">Tầm xa thông báo tối đa</string>
+  <string name="config_maxAlertDistance_summary">Khoảng cách tối đa từ vị trí hiện tại đến một vấn đề hoặc ghi chú để gây thông báo</string>
   <string name="config_maxStrokeWidth_title">Chiều rộng đường kẻ tối đa</string>
   <string name="config_maxStrokeWidth_summary">Không vẽ lối dày hơn chiều rộng này</string>
   <string name="config_tileCacheSize_title">Kích cỡ bộ nhớ đệm mảnh</string>
@@ -299,6 +334,7 @@
   <string name="config_showTolerance_summary">Hiển thị khu vực nơi đối tượng có thể được chọn</string>
   <string name="config_enableAntiAliasing_title">Khử răng cưa</string>
   <string name="config_enableAntiAliasing_summary">Làm bằng phẳng các đường kẻ.</string>
+  <string name="config_enableOpenStreetBugs_title">Hiển thị Lỗi và Ghi chú</string>
   <string name="config_enableOpenStreetBugs_summary">Xem, Sửa, và Tạo Ghi chú hoặc Báo cáo Lỗi.</string>
   <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
   <string name="config_enablePhotoLayer_summary">Hiển thị các hình ảnh được định vị.</string>
@@ -310,6 +346,8 @@
   <string name="config_backgroundLayer_summary">Hình nền của bản đồ.</string>
   <string name="config_overlayLayer_title">Lớp phủ bản đồ</string>
   <string name="config_overlayLayer_summary">Lớp phủ được kết xuất trực quan trên bản đồ.</string>
+  <string name="config_scale_title">Hiển thị Tỷ lệ</string>
+  <string name="config_scale_summary">Loại tỷ lệ được hiển thị trên bản đồ.</string>
   <string name="config_category_server">Thiết lập Máy chủ</string>
   <string name="config_apibutton_title">URL của API OSM</string>
   <string name="config_apibutton_summary">Bạn có thể đặt URL đến một API không chuẩn tại đây. Thường không nên thay đổi thiết lập này.</string>
@@ -338,6 +376,8 @@
   <string name="config_forceContextMenu_summary">Luôn hiển thị trình đơn ngữ cảnh trong chế độ Sửa đổi Dễ dàng khi nào lựa chọn không rõ ràng</string>
   <string name="config_licensebutton_title">Tác giả và giấy phép</string>
   <string name="config_licensebutton_summary">Xem thông tin về tác giả và giấy phép</string>
+  <string name="config_debugbutton_title">Gỡ lỗi</string>
+  <string name="config_debugbutton_summary">Hiển thị thông tin nội bộ</string>
   <string name="config_mapProfile_title">Thành phần bản đồ</string>
   <string name="config_mapProfile_summary">Đặt kiểu và thuộc tính của các phần tử</string>
   <string name="config_use_back_for_undo_title">Nhấn phím Backspace để hoàn tác</string>
@@ -346,6 +386,14 @@
   <string name="config_largeDragArea_summary">Cung cấp vùng lớn để kéo nốt</string>
   <string name="config_extTriggeredDownloadRadius_title">Tải về theo bán kính</string>
   <string name="config_extTriggeredDownloadRadius_summary">Đường bán kính (m) để tải về dữ liệu từ bên ngoài; 0 = chỉ đặt vào giữa bản đồ.</string>
+  <string name="config_maxDownloadSpeed_title">Tốc độ tối đa để tải về tự động</string>
+  <string name="config_maxDownloadSpeed_summary">Giới hạn tối đa (km/h) để ngừng tải về tự động</string>
+  <string name="config_bugDownloadRadius_title">Trạng thái tải về ghi chú/lỗi</string>
+  <string name="config_bugDownloadRadius_summary">Bán kính (m) tải về các ghi chú/lỗi</string>
+  <string name="config_maxBugDownloadSpeed_title">Tốc độ tối đa để tải về tự động các ghi chú/lỗi</string>
+  <string name="config_maxBugDownloadSpeed_summary">Giới hạn tối đa (km/h) để ngừng tải về tự động các ghi chú/lỗi</string>
+  <string name="config_bugFilter_title">Bộ lọc ghi chú/lỗi</string>
+  <string name="config_bugFilter_summary">Chọn các phần tử được hiển thị trên lớp ghi chú/lỗi</string>
   <string name="config_enableNameSuggestions_title">Gợi ý tên gọi</string>
   <string name="config_enableNameSuggestions_summary">Gợi ý giá trị cho thẻ tên gọi</string>
   <string name="config_enableAutoPreset_title">Tự động đặt trước các thẻ</string>
@@ -356,9 +404,14 @@
   <string name="config_gps_source_summary">Nguồn cập nhật các vị trí GPS</string>
   <string name="config_gps_source_tcp_title">Nguồn mạng NMEA</string>
   <string name="config_gps_source_tcp_summary">Địa chỉ nguồn NMEA TCP dưới dạng tênmiền:cổng</string>
+  <string name="config_leaveGpsDisabled_title">Tiếp tục vô hiệu GPS</string>
+  <string name="config_leaveGpsDisabled_summary">Tránh việc xin người dùng bật lên GPS khi nó bị tắt</string>
   <string name="config_enableLightTheme_title">Sử dụng giao diện sáng</string>
   <string name="config_enableLightTheme_summary">Giao diện sáng có nền màu trắng</string>
   <string name="config_category_misc">Khác</string>
+  <string name="config_address_tags">Thẻ địa chỉ</string>
+  <string name="config_address_tags_summary">Thẻ dùng để suy đoán địa chỉ</string>
+  <string name="config_moreprefs">Thiết lập thêm…</string>
   <!--preset downloader messages-->
   <string name="preset_update">Cập nhật thẻ đặt trước</string>
   <string name="preset_download_successful">Thẻ đặt trước được tải về thành công</string>
@@ -395,6 +448,8 @@
   <string name="undo">Hoàn tác</string>
   <string name="redo">Làm lại</string>
   <string name="undo_nothing">không có gì để hoàn tác</string>
+  <string name="tracking_active_title">Dịch vụ trong nền của Vespucci được kích hoạt</string>
+  <string name="tracking_active_text">Vespucci đang thu một tuyến GPS hoặc tải về tự động</string>
   <string name="gps_failure">Thất bại khi kích hoạt GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">di chuyển nốt</string>
@@ -436,6 +491,7 @@
   <!--Notifications-->
   <string name="alert_data_issue">Đã phát hiện vấn đề trong dữ liệu OSM</string>
   <string name="alert_note">Đã phát hiện lời ghi chú OSM lân cận</string>
+  <string name="alert_bug">Đã phát hiện lỗi OSM lân cận</string>
   <string name="alert_distance_direction">trong vòng %1$d m, %2$s</string>
   <!--Misc relation related stuff-->
   <string name="role">Vai trò</string>
@@ -449,6 +505,7 @@
   <string name="deleterelation_relation_description">Bạn sắp sửa xóa một quan hệ trực thuộc một hay nhiều quan hệ khác. Việc xóa quan hệ con có thể làm cho các quan hệ mẹ không còn hợp lệ.</string>
   <string name="deleterelation">Xóa quan hệ</string>
   <string name="delete_from_relation_description">Bạn sắp sửa xóa đối tượng này khỏi một quan hệ.</string>
+  <string name="unset_relation_type">bỏ kiểu quan hệ</string>
   <!--time and distance-->
   <string name="days">ngày</string>
   <string name="hours">giờ</string>
@@ -470,5 +527,14 @@
     <item>NMEA nội bộ</item>
     <item>NMEA từ trình khách TCP</item>
     <item>NMEA từ máy chủ TCP</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>Mở</item>
+    <item>Đóng</item>
+    <item>Dương tính giả</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Mở</item>
+    <item>Đóng</item>
   </string-array>
 </resources>

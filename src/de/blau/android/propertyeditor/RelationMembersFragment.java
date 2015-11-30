@@ -41,7 +41,9 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 
-public class RelationMembersFragment extends SherlockFragment {
+public class RelationMembersFragment extends SherlockFragment implements
+		PropertyRows {
+
 	private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
 	
 
@@ -51,7 +53,7 @@ public class RelationMembersFragment extends SherlockFragment {
 	private ArrayList<RelationMemberDescription> savedMembers = null;
 	private long id = -1;
 
-	static MemberSelectedActionModeCallback memberSelectedActionModeCallback = null;
+	static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
 	
 	/**
      */
@@ -211,7 +213,7 @@ public class RelationMembersFragment extends SherlockFragment {
 				if (isChecked) {
 					memberSelected();
 				} else {
-					memberDeselected();
+					deselectRows();
 				}
 			}
 		});
@@ -222,7 +224,8 @@ public class RelationMembersFragment extends SherlockFragment {
 	/**
 	 * A row representing an editable member of a relation, consisting of edits for role and display of other values and a delete button.
 	 */
-	public static class RelationMemberRow extends LinearLayout {
+	public static class RelationMemberRow extends LinearLayout implements
+			SelectedRowsActionModeCallback.Row {
 		
 		private PropertyEditor owner;
 		private long elementId;
@@ -315,7 +318,8 @@ public class RelationMembersFragment extends SherlockFragment {
 		/**
 		 * Deletes this row
 		 */
-		public void deleteRow() {
+		@Override
+		public void delete() {
 			if (owner != null) {
 				View cf = owner.getCurrentFocus();
 				if (cf == roleEdit) {
@@ -343,7 +347,8 @@ public class RelationMembersFragment extends SherlockFragment {
 			return selected.isChecked();
 		}
 		
-		public void deSelect() {
+		@Override
+		public void deselect() {
 			selected.setChecked(false);
 		}
 		
@@ -382,14 +387,15 @@ public class RelationMembersFragment extends SherlockFragment {
 	protected synchronized void memberSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (memberSelectedActionModeCallback == null) {
-			memberSelectedActionModeCallback = new MemberSelectedActionModeCallback(this, rowLayout);
+			memberSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
 			((SherlockFragmentActivity)getActivity()).startActionMode(memberSelectedActionModeCallback);
 		}	
 	}
 	
-	protected synchronized void memberDeselected() {
+	@Override
+	public synchronized void deselectRows() {
 		if (memberSelectedActionModeCallback != null) {
-			if (memberSelectedActionModeCallback.memberDeselected()) {
+			if (memberSelectedActionModeCallback.rowsDeselected(true)) {
 				memberSelectedActionModeCallback = null;
 			}
 		}	
@@ -501,7 +507,8 @@ public class RelationMembersFragment extends SherlockFragment {
 		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable("members"));
 	}
 	
-	void deselectHeaderCheckBox() {
+	@Override
+	public void deselectHeaderCheckBox() {
 		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_member_selected);
 		headerCheckBox.setChecked(false);
 	}

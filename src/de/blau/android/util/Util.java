@@ -7,15 +7,22 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import de.blau.android.Application;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 
 public class Util {
+	
+	static int progressBarShown = 0;
 	
 	static public ArrayList<String> getArrayList(String s) {
 		ArrayList<String> v = new ArrayList<String>();
@@ -117,5 +124,30 @@ public class Util {
 		}
 		return null;
 	}
+	
+	/**
+	 * Wrapper with a counter so that we keep the progress bar on for as long as necessary
+	 * @param mainActivity
+	 * @param show
+	 */
+	public synchronized static void setSupportProgressBarIndeterminateVisibility(Main mainActivity, boolean show) {
+		if (show) {
+			if (progressBarShown <= 0) {
+				mainActivity.setSupportProgressBarIndeterminateVisibility(true);
+			}
+			progressBarShown++;	
+		} else {
+			progressBarShown--;
+			if (progressBarShown <= 0) {
+				mainActivity.setSupportProgressBarIndeterminateVisibility(false);
+			}
+		}
+	}
 
+	/**
+	 * REset the progressbar counter to zero
+	 */
+	public synchronized static void resetProgressBarShown() {
+		progressBarShown = 0;
+	}
 }

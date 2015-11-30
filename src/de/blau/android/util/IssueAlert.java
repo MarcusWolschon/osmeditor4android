@@ -29,6 +29,11 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 
+/**
+ * Generate an Android notification for OSM elements that have an issue and for Notes and other QA "bugs"
+ * @author simon
+ *
+ */
 public class IssueAlert {
 	
 	final static String GROUP_DATA = "Data";
@@ -169,7 +174,7 @@ public class IssueAlert {
 			long distance = Math.round(GeoMath.haversineDistance(location.getLongitude(), location.getLatitude(), eLon, eLat));
 			
 			// filter
-			if (distance > prefs.getMaxAlertDistance()) {
+			if (distance > Math.sqrt(8*prefs.getBugDownloadRadius()*prefs.getBugDownloadRadius())) { // diagonal of auto download box
 				return;
 			}
 			

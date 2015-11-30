@@ -1,1 +1,25 @@
-<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head><body><h1 id="gps-sources">GPS Sources</h1><p><strong>(this is currently an experimental facility)</strong></p><p>Besides the Android standard Location mechanism, Vespucci supports three other methods of obtaining location information:</p><ul><li>the internal NMEA source</li><li>NEMA sentences retrieved from a server</li><li>NEMA sentences sent from a client to a built-in Vespucci server</li></ul><p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p><p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p><h3 id="setup">Setup</h3><p>In the "Advanced preferences" you can select the "GPS source"</p><ul><li><strong>Internal</strong> - default</li><li><strong>Internal NMEA</strong></li><li><strong>NMEA from TCP client</strong> - use a client to retrieve NMEA data from an external server</li><li><strong>NMEA from TCP server</strong> - allow an external client to submit NMEA data</li></ul><p>For the later two options you need to set the "NMEA network source", the string has the format <strong>host:port</strong>. The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.</p></body></html>
+<?xml version='1.0' encoding='utf-8' ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<h1>GPS Sources</h1>
+<p><strong>(this is currently an experimental facility)</strong></p>
+<p>Besides the Android standard Location mechanism, Vespucci supports three other methods of obtaining location information:</p>
+<ul>
+<li>the internal NMEA source</li>
+<li>NEMA sentences retrieved from a server</li>
+<li>NEMA sentences sent from a client to a built-in Vespucci server</li>
+</ul>
+<p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p>
+<p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p>
+<h3>Setup</h3>
+<p>In the "Advanced preferences" you can select the "GPS source"</p>
+<ul>
+<li><strong>Internal</strong> - default</li>
+<li><strong>Internal NMEA</strong></li>
+<li><strong>NMEA from TCP client</strong> - use a client to retrieve NMEA data from an external server</li>
+<li><strong>NMEA from TCP server</strong> - allow an external client to submit NMEA data</li>
+</ul>
+<p>For the later two options you need to set the "NMEA network source", the string has the format <strong>host:port</strong>. The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.</p></body>

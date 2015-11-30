@@ -137,13 +137,22 @@ public class PresetIconManager {
 		if (result != null) {
 			return result;
 		} else {
-			Drawable placeholder = new ColorDrawable(android.R.color.transparent);
-			int pxsize = Density.dpToPx(size);
-			placeholder.setBounds(0,0, pxsize, pxsize);
-			return placeholder;
+			return getPlaceHolder(size);
 		}
 	}
 
+	/**
+	 * Return a dummy icon
+	 * @param size
+	 * @return
+	 */
+	public Drawable getPlaceHolder(int size) {
+		Drawable placeholder = new ColorDrawable(android.R.color.transparent);
+		int pxsize = Density.dpToPx(size);
+		placeholder.setBounds(0,0, pxsize, pxsize);
+		return placeholder;
+	}
+	
 	/**
 	 * Creates a unique identifier for the given value
 	 * @param value the value to hash

@@ -1,0 +1,34 @@
+site_name: Vespucci 
+site_dir: /var/www/site
+site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
+theme_dir: 'flatly-custom'
+site_favicon: favicon.ico
+extra:
+  version: 0.9.7
+  project: Vespucci
+pages:
+- Vespucci: 'index.md'
+- Introduction: 
+    - 'Introduction': 'help/en/Introduction.md'
+    - '0.9.7 Release notes': 'help/en/0.9.7 Release notes.md'
+    - '0.9.6 Release notes': 'help/en/0.9.6 Release notes.md'
+    - 'Previous release notes': 'tutorials/old_release_notes.md'
+- Editing: 
+    - 'Main map display': 'help/en/Main map display.md'
+    - 'Creating new objects': 'help/en/Creating new objects.md'
+    - 'Node selected': 'help/en/Node selected.md'
+    - 'Way selected': 'help/en/Way selected.md'
+    - 'Relation selected': 'help/en/Relation selected.md'
+    - 'Property editor': 'help/en/Property editor.md'
+    - 'Multiselect': 'help/en/Multiselect.md'
+    - 'Conflict resolution': 'help/en/Conflict resolution.md'
+    - 'Presets': 'help/en/Presets.md' 
+    - 'Aligning background imagery': 'help/en/Aligning background imagery.md'
+    - 'Keyboard and mouse': 'help/en/Keyboard.md'  
+    - 'GPS sources': 'help/en/GPS sources.md'           
+- Tutorials and Posts:
+    - 'Using name suggestions': 'tutorials/name_suggestions.md'
+    - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'
+    - 'Tag-only editing':  'tutorials/tag_only.md'
+- Screenshots: 'tutorials/screenshots.md'
+- FAQ: 'tutorials/faq.md'

@@ -158,7 +158,7 @@
   <string name="no">Ні</string>
   <string name="okay">Гаразд</string>
   <string name="cancel">Відміна</string>
-  <string name="locked">Заблоковано</string>
+  <string name="locked">Перегляд</string>
   <string name="next">Далі</string>
   <string name="apply">Застосувати</string>
   <string name="set">Встановити</string>
@@ -249,11 +249,11 @@
   <string name="menu_gps_export">Експортувати GPS-трек</string>
   <string name="menu_gps_import">Імпортувати GPS-трек</string>
   <string name="menu_gps_goto_start">Перейти на початок треку</string>
-  <string name="menu_gps_autodownload">Авто-звантження</string>
+  <string name="menu_gps_autodownload">Авто-завантаження</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Звантажити дані для поточного місця</string>
-  <string name="menu_transfer_download_current_add">Додати поточний вид для звантажування</string>
-  <string name="menu_transfer_download_other">Звантажити інше розташування</string>
+  <string name="menu_transfer_download_current_add">Додати поточний вид для звантаження</string>
+  <string name="menu_transfer_download_other">Звантажити інше місце</string>
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
@@ -446,9 +446,9 @@
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">Заготовка</string>
   <string name="api">API</string>
-  <string name="undo">Скасувати</string>
+  <string name="undo">Відмінити</string>
   <string name="redo">Повторити</string>
-  <string name="undo_nothing">немає змін для скасування</string>
+  <string name="undo_nothing">немає змін для відміни</string>
   <string name="tracking_active_title">Фонову службу Веспуччі активовано </string>
   <string name="tracking_active_text">Веспуччі записує GPS-трек чи здійснює авто-завантаження</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
@@ -506,6 +506,7 @@
   <string name="deleterelation_relation_description">Ви намагаєтесь вилучити зв’язок, який є членом одного чи більше зв’язків. Його вилучення, можливо, призведе до його(їх) спотворення.</string>
   <string name="deleterelation">Вилучити зв’язок</string>
   <string name="delete_from_relation_description">Ви збираєтеся вилучити цей елемент зі зв’язку.</string>
+  <string name="unset_relation_type">невстановлено тип зв’язку</string>
   <!--time and distance-->
   <string name="days">днів</string>
   <string name="hours">годин</string>
