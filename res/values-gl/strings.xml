@@ -211,7 +211,6 @@
   <string name="crash_notif_ticker_text">Vespucci fallou ou encontrou un problema grave. Por favor, envía un informe de erros.</string>
   <string name="crash_notif_title">Vespucci fallou ou encontrou un problema grave.</string>
   <string name="crash_notif_text">Por favor, pulsa aquí para axudar a corrixir o problema.</string>
-  <string name="crash_dialog_text">Ocorreu un problema inesperado que forzou á aplicación a deterse ou a informar dun erro. Por favor, axúdanos a corrixilo enviándonos os datos do erro; o único que tes que facer é pulsar en \"OK\".</string>
   <string name="config_category_acra">Informe de fallo</string>
   <string name="pref_enable_acra">Informar de fallos na aplicación</string>
   <string name="pref_acra_enabled">Informe de fallos habilitado</string>

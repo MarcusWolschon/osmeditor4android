@@ -221,7 +221,6 @@
   <string name="crash_notif_ticker_text">Vespucci متوقف شد یا یک مسئله جدی پیدا شد. لطفا یک گزارش خطا ارسال کنید.</string>
   <string name="crash_notif_title">Vespucci متوقف شد یا یک مسئله جدی پیدا شد.</string>
   <string name="crash_notif_text">برای کمک و رفع مسئله اینجا کلیک کنید.</string>
-  <string name="crash_dialog_text">مسئله ای غیر منتظره باعث شد برنامه متوقف شود یا یک خطا گزارش دهد. لطفا کمک کنید آنرا برطرف کنیم با ارسال داده های خطا به ما، اگر میخواهید روی \"خب\" کلیک کنید.</string>
   <string name="config_category_acra">گزارش کرش</string>
   <string name="pref_enable_acra">گزارش کرش های برنامه</string>
   <string name="pref_acra_enabled">گزارش کرش فعال شد</string>

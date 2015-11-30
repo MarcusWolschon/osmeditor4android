@@ -423,7 +423,6 @@
   <string name="crash_notif_ticker_text">Vespucci已经崩溃或发现一个严重的问题。请发送错误报告。</string>
   <string name="crash_notif_title">Vespucci已经崩溃或发现一个严重的问题。</string>
   <string name="crash_notif_text">请点击这里，以帮助解决问题。</string>
-  <string name="crash_dialog_text">发生意外的问题迫使应用程序停止或报告错误。请帮助我们通过发送我们的错误数据修正这个问题，你所要做的就是点击“确定”。</string>
   <string name="config_category_acra">崩溃报告</string>
   <string name="pref_enable_acra">报告应用程序崩溃</string>
   <string name="pref_acra_enabled">已启用崩溃报告</string>

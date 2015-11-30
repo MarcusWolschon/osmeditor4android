@@ -475,7 +475,6 @@ il y a %3$s %4$s</string>
   <string name="crash_notif_ticker_text">Vespucci a planté ou a détecté un grave dysfonctionnement. Merci d\'envoyer un rapport d\'erreur</string>
   <string name="crash_notif_title">Vespucci a planté ou a détecté un grave dysfonctionnement.</string>
   <string name="crash_notif_text">Merci de cliquer ici pour aider à résoudre ce problème.</string>
-  <string name="crash_dialog_text">Un dysfonctionnement inattendu a forcé l\'arrêt de l\'application ou la génération d\'un rapport d\'erreur. Merci de nous aider a corriger le problème en nous faisant parvenir le rapport (vous n\'avez qu\'à appuyer sur \" OK \")</string>
   <string name="config_category_acra">Rapport de plantage</string>
   <string name="pref_enable_acra">Signaler le plantage de l\'application</string>
   <string name="pref_acra_enabled">Rapport de plantage autorisé</string>

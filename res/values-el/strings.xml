@@ -385,7 +385,6 @@
   <string name="crash_notif_ticker_text">Το Vespucci έχει καταρρεύσει ή βρήκε ένα σοβαρό πρόβλημα. Παρακαλώ στείλτε μια αναφορά σφάλματος.</string>
   <string name="crash_notif_title">Το Vespucci έχει καταρρεύσει ή βρήκε ένα σοβαρό πρόβλημα.</string>
   <string name="crash_notif_text">Παρακαλώ κάντε κλικ εδώ για να βοηθήσετε να διορθώθει το πρόβλημα.</string>
-  <string name="crash_dialog_text">Ένα μη αναμενόμενο πρόβλημα εμφανίστηκε αναγκάζοντας την εφαρμογή να σταματήσει. Παρακαλούμε βοηθήστε μας στέλνοντας τα δεδομένα του σφάλματος, το μόνο που έχετε να κάνετε είναι κλικ στο «OK».</string>
   <string name="config_category_acra">Αυτόματη Αναφορά Σφαλμάτων</string>
   <string name="pref_enable_acra">Ανέφερε σφάλματα</string>
   <string name="pref_acra_enabled">Αναφορά σφαλμάτων ενεργή</string>

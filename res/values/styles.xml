@@ -155,14 +155,12 @@
 		<item name="android:background">@android:color/black</item>
 	</style>
 	
-	<style name="Widget.AutoCompleteTextView" parent="android:Widget.AutoCompleteTextView">
-		<item name="android:textColor">@android:color/primary_text_dark</item>
+	<style name="Widget.AutoCompleteTextView" parent="Widget.Sherlock.SearchAutoCompleteTextView">
 		<item name="android:background">@android:color/black</item>
-		<item name="android:popupBackground">@drawable/abs__ab_solid_dark_holo</item>
 	</style>
-	
+
 	<style name="Widget.DropDownItem" parent="android:style/Widget.DropDownItem">
-		<item name="android:textColor">@android:color/primary_text_light</item>
+		<item name="android:textColor">@android:color/primary_text_dark</item>
 	</style>
 	
 	<style name="CheckBox" parent="android:Widget.CompoundButton.CheckBox">

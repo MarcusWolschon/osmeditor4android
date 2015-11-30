@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2015-11-28 11:36+0100\n"
-"PO-Revision-Date: 2015-11-28 10:38+0000\n"
+"POT-Creation-Date: 2015-11-29 00:20+0100\n"
+"PO-Revision-Date: 2015-11-28 23:20+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/openstreetmap/presets/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,10 @@ msgstr ""
 #: master_preset.xml:3423(text:text|group:Accommodation|preset:Motel)
 #: master_preset.xml:3403(text:text|group:Accommodation|preset:Hotel)
 msgid "Rooms"
+msgstr ""
+
+#: master_preset.xml:6472(combo:text|preset:Power_Converter)
+msgid "Number of poles"
 msgstr ""
 
 #: master_preset.xml:1417(item:name|group:Barriers|preset:Hedge)
@@ -503,10 +507,6 @@ msgstr ""
 msgid "Garden Centre"
 msgstr ""
 
-#: master_preset.xml:1060(text:text|group:Ways|preset:Steps)
-msgid "Amount of Steps"
-msgstr "Merdiven miktarı"
-
 #: master_preset.xml:5232(group:name|group:Sport_Facilities)
 msgid "Sport Facilities"
 msgstr ""
@@ -521,6 +521,10 @@ msgstr "Kapasite (genel)"
 
 #: master_preset.xml:9849(group:name|group:Offices)
 msgid "Offices"
+msgstr ""
+
+#: master_preset.xml:279(combo:text)
+msgid "Cable count"
 msgstr ""
 
 #: master_preset.xml:7293(item:name|group:Home_decoration|preset:Antiques)
@@ -1015,10 +1019,6 @@ msgstr ""
 msgid "Ref of the way this is a detour to"
 msgstr ""
 
-#: master_preset.xml:280(combo:text)
-msgid "Amount of circuits"
-msgstr "Devrelerin miktarı"
-
 #: master_preset.xml:8105(group:name|group:Nature)
 msgid "Nature"
 msgstr ""
@@ -1289,13 +1289,6 @@ msgstr "Ses sinyalleri"
 #: master_preset.xml:6560(check:text|preset:Pole_with_Transformer)
 #: master_preset.xml:6526(check:text|preset:Power_Tower)
 msgid "Location transition"
-msgstr ""
-
-#: master_preset.xml:3863(text:text|group:Tourism|preset:Other_Information_Point)
-#: master_preset.xml:3521(text:text|group:Accommodation|preset:Wilderness_Hut)
-#: master_preset.xml:3764(text:text|group:Tourism|preset:Map)
-#: master_preset.xml:3788(text:text|group:Tourism|preset:Information_Board)
-msgid "Closer Description"
 msgstr ""
 
 #: master_preset.xml:6678(item:name|group:Historic_Places|preset:Memorial)
@@ -1784,10 +1777,6 @@ msgstr ""
 msgid "Movie Theater/Cinema"
 msgstr ""
 
-#: master_preset.xml:5112(combo:text|group:Facilities|preset:Bench)
-msgid "Amount of Seats"
-msgstr ""
-
 #: master_preset.xml:267(combo:text)
 #: master_preset.xml:6221(combo:text|group:Power|preset:Power_Plant)
 #: master_preset.xml:321(combo:text) master_preset.xml:69(combo:text)
@@ -1804,10 +1793,6 @@ msgstr "Tekerlekler: şehir bisikleti, tekerlekli sandalye, skuter"
 
 #: master_preset.xml:4136(item:name|group:Culture|preset:Library)
 msgid "Library"
-msgstr ""
-
-#: master_preset.xml:6472(combo:text|preset:Power_Converter)
-msgid "Amount of poles"
 msgstr ""
 
 #: master_preset.xml:5564(item:name|group:Sport_(Ball)|preset:Golf)
@@ -3199,6 +3184,10 @@ msgstr "Su kütlesi aralıklı mı (mevsimsel olarak kayboluyor mu)?"
 msgid "Spaces for Parents"
 msgstr "Ebeveynler için alan"
 
+#: master_preset.xml:5112(combo:text|group:Facilities|preset:Bench)
+msgid "Seats count"
+msgstr ""
+
 #: master_preset.xml:8922(combo:text|group:Relations|preset:Boundary)
 msgid "Boundary type"
 msgstr ""
@@ -3216,6 +3205,10 @@ msgstr ""
 #: master_preset.xml:760(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
 msgstr "Park koridoru"
+
+#: master_preset.xml:1060(text:text|group:Ways|preset:Steps)
+msgid "Number of steps"
+msgstr ""
 
 #: master_preset.xml:6368(item:name|group:Power_Generator|preset:Geothermal_Power_Generator)
 msgid "Geothermal Power Generator"
@@ -4946,6 +4939,10 @@ msgstr ""
 msgid "Smoothness"
 msgstr "Pürüzsüzlük"
 
+#: master_preset.xml:280(combo:text)
+msgid "Number of circuits"
+msgstr ""
+
 #: master_preset.xml:166(combo:text)
 msgid "Internet access"
 msgstr "İnternet erişimi"
@@ -5553,6 +5550,15 @@ msgstr ""
 msgid "Height in meter (m)"
 msgstr ""
 
+#: master_preset.xml:3844(text:text|group:Tourism|preset:Audio_Guide)
+#: master_preset.xml:3863(text:text|group:Tourism|preset:Other_Information_Point)
+#: master_preset.xml:3521(text:text|group:Accommodation|preset:Wilderness_Hut)
+#: master_preset.xml:3826(text:text|group:Tourism|preset:Information_Terminal)
+#: master_preset.xml:3764(text:text|group:Tourism|preset:Map)
+#: master_preset.xml:3788(text:text|group:Tourism|preset:Information_Board)
+msgid "Detailed description"
+msgstr ""
+
 #: master_preset.xml:1748(item:name|group:Access_Restrictions|preset:Motor_vehicle)
 msgid "Motor vehicle"
 msgstr "Motorlu araç"
@@ -5580,10 +5586,6 @@ msgstr ""
 #: master_preset.xml:5873(item:name|group:Man_Made|preset:Storage_Tank)
 msgid "Storage Tank"
 msgstr ""
-
-#: master_preset.xml:279(combo:text)
-msgid "Amount of Cables"
-msgstr "Kablo Miktarı"
 
 #: master_preset.xml:9473(item:name|group:Crafts|preset:Hvac)
 msgid "Hvac"
@@ -6117,11 +6119,6 @@ msgstr ""
 
 #: master_preset.xml:3757(label:text|group:Tourism|preset:Map)
 msgid "A board with a map."
-msgstr ""
-
-#: master_preset.xml:3844(text:text|group:Tourism|preset:Audio_Guide)
-#: master_preset.xml:3826(text:text|group:Tourism|preset:Information_Terminal)
-msgid "Closer description"
 msgstr ""
 
 #: master_preset.xml:5002(check:text|group:Facilities|preset:Recycling_Container)

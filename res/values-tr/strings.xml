@@ -460,7 +460,6 @@
   <string name="crash_notif_ticker_text">Vespucci çöktü veya ciddi bir sorun oldu. Lütfen hata raporu gönderin.</string>
   <string name="crash_notif_title">Vespucci çöktü veya ciddi bir sorun oluştu.</string>
   <string name="crash_notif_text">Sorunu gidermek için lütfen buraya tıklayın.</string>
-  <string name="crash_dialog_text">Uygulamayı zorla kapatırken beklenmeyen bir sorun oluştu. Sorunu çözmemiz için lütfen bize verileri gönderin, bunu yapmak için \"OK\" tıklayın.</string>
   <string name="config_category_acra">Sorun Raporlama</string>
   <string name="pref_enable_acra">Uygulama çökmesini raporla</string>
   <string name="pref_acra_enabled">Çökme raporlama etkin</string>

@@ -153,7 +153,7 @@
         <text key="operator" text="Operator" />
         <reference ref="oh_wheelchair" />
     </chunk>
-    <chunk id="name_brand_operator_oh_wheelchairi_level">
+    <chunk id="name_brand_operator_oh_wheelchair_level">
 	<reference ref="name_brand_operator_oh_wheelchair" />
 	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5"/>
     </chunk>
@@ -276,8 +276,8 @@
         <text key="branch" text="Branch operator" />
     </chunk>
     <chunk id="cable_circuit">
-        <combo key="cables" text="Amount of Cables" values="1,3,6,9,12" lenght="2" />
-        <combo key="circuits" text="Amount of circuits" values="1,2,3" lenght="2" />
+        <combo key="cables" text="Cable count" values="1,3,6,9,12" lenght="2" />
+        <combo key="circuits" text="Number of circuits" values="1,2,3" lenght="2" />
     </chunk>
     <chunk id="power_loc">
         <combo key="location" text="Location" values="outdoor,indoor,underground,platform,kiosk" values_context="power" />
@@ -378,6 +378,12 @@
   </chunk>
   <chunk id="social_facility_for">
     <combo key="social_facility:for" text="For group" values="abused,child,disabled,diseased,drug_addicted,homeless,juvenile,mental_health,migrant,orphan,senior,underprivileged,unemployed,victim" />
+  </chunk>
+  <chunk id="car_brands">
+    <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citroën;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;REnault;Saab;Seat;Škoda,Smart,SsangYong,Subaru,Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" />
+  </chunk>
+  <chunk id="motorcycle_brands">
+    <multiselect key="brand" text="Aprillia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Piaggio;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" />
   </chunk>
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -1057,7 +1063,7 @@
             <optional>
                 <reference ref="name_layer" />
                 <reference ref="surface" />
-                <text key="step_count" text="Amount of Steps" />
+                <text key="step_count" text="Number of steps" />
                 <space />
                 <checkgroup columns="1" > <!-- workaround -->
                     <check key="ramp" text="Ramp" disable_off="true" />
@@ -2788,7 +2794,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=car" />
             <space />
             <key key="shop" value="car" />
-            <reference ref="name_brand_operator_oh_wheelchair" />
+            <reference ref="name_operator_oh_wheelchair" />
+	    <reference ref="car_brands" />
             <combo key="second_hand" text="Second hand" values="only,yes,no" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Car Dealer -->
@@ -2801,7 +2808,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=car_repair" />
             <space />
             <key key="shop" value="car_repair" />
-            <reference ref="name_brand_operator_oh_wheelchair" />
+            <reference ref="name_operator_oh_wheelchair" />
+	    <reference ref="car_brands" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Repair -->
         <item name="Parts" icon="icons/png/shopping_car_parts_29021.png" type="node,closedway" preset_name_label="true">
@@ -2878,7 +2886,7 @@
             <space />
             <key key="shop" value="motorcycle" />
             <text key="name" text="Name" />
-            <combo key="brand" text="Brand" values="independent" />
+            <reference ref="motorcycle_brands" />
             <text key="operator" text="Operator" />
             <reference ref="oh_wheelchair" />
             <combo key="second_hand" text="Second hand" values="only,yes,no" />
@@ -3518,7 +3526,7 @@
             <combo key="drinking_water" text="Drinking Water" values="yes,no,seasonal" />
             <combo key="reservation" text="Reservation" values="yes,no,required,recommended,members_only" />
             <text key="ele" text="Elevation" />
-            <text key="description" text="Closer Description" />
+            <text key="description" text="Detailed description" />
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Wilderness Hut -->
@@ -3761,7 +3769,7 @@
             <text key="name" text="Name" />
             <combo key="map_type" text="Detail Grade" values="topo,street,scheme,toposcope" />
             <combo key="map_size" text="Shown Area" values="site,city,region" />
-            <text key="description" text="Closer Description" />
+            <text key="description" text="Detailed description" />
             <optional text="Routes shown for:">
                 <check key="hiking" text="Hiking" disable_off="true" />
                 <check key="bicycle" text="Cycling" disable_off="true" />
@@ -3785,7 +3793,7 @@
             <key key="information" value="board" />
             <text key="name" text="Name" />
             <combo key="board_type" text="Board Content" values="notice,history,nature,wildlife,plants,geology" />
-            <text key="description" text="Closer Description" />
+            <text key="description" text="Detailed description" />
         </item> <!-- Information Board -->
         <item name="Guidepost" icon="icons/png/tourist_guidepost.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:information=guidepost"
@@ -3823,7 +3831,7 @@
             <key key="information" value="terminal" />
             <reference ref="name_operator" />
             <reference ref="wheelchair" />
-            <text key="description" text="Closer description" />
+            <text key="description" text="Detailed description" />
             <text key="ref" text="Reference number" />
             <reference ref="fee" />
             <reference ref="internet" />
@@ -3841,7 +3849,7 @@
             <key key="information" value="audioguide" />
             <reference ref="name_operator" />
             <reference ref="wheelchair" />
-            <text key="description" text="Closer description" />
+            <text key="description" text="Detailed description" />
             <text key="ref" text="Reference number" />
             <reference ref="fee" />
             <space />
@@ -3860,7 +3868,7 @@
             <space />
             <key key="tourism" value="information" />
             <text key="name" text="Name" />
-            <text key="description" text="Closer Description" />
+            <text key="description" text="Detailed description" />
         </item> <!-- Other Information Point -->
     </group> <!-- Tourism -->
     <group name="Leisure" icon="icons/png/tourist_theme_park.png">
@@ -5109,7 +5117,7 @@
             <check key="backrest" text="Backrest" disable_off="true" />
             <combo key="material" text="Material" values="concrete,metal,plastic,stone,wood" />
             <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="color" values="black,brown,green,red,blue,gray,white,#CD853F" />
-            <combo key="seats" text="Amount of Seats" values="2,3,4,5,6,7,8,9,10" />
+            <combo key="seats" text="Seats count" values="2,3,4,5,6,7,8,9,10" />
         </item> <!-- Bench -->
         <item name="Shelter" icon="icons/png/accommodation_shelter2.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=shelter"
@@ -6469,7 +6477,7 @@
             <reference ref="voltage_frequency" />
             <reference ref="ref_operator_branch" />
             <optional>
-                <combo key="poles" text="Amount of poles" values="monopole,bipole" />
+                <combo key="poles" text="Number of poles" values="monopole,bipole" />
                 <combo key="rating" text="Power rating (MVA)" values="15 MVA,50 MVA,100 MVA" />
             </optional>
         </item> <!-- Power Converter -->

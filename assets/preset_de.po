@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2015-11-28 11:36+0100\n"
-"PO-Revision-Date: 2015-11-28 10:43+0000\n"
+"POT-Creation-Date: 2015-11-29 00:20+0100\n"
+"PO-Revision-Date: 2015-11-29 00:27+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -149,6 +149,10 @@ msgstr "Gebiete mit sichtbaren Fels der wenig oder gar nicht bewachsen ist."
 #: master_preset.xml:3403(text:text|group:Accommodation|preset:Hotel)
 msgid "Rooms"
 msgstr "Anzahl Zimmer"
+
+#: master_preset.xml:6472(combo:text|preset:Power_Converter)
+msgid "Number of poles"
+msgstr "Anzahl Pole"
 
 #: master_preset.xml:1417(item:name|group:Barriers|preset:Hedge)
 msgid "Hedge"
@@ -505,10 +509,6 @@ msgstr "Botschaft"
 msgid "Garden Centre"
 msgstr "Gartencenter"
 
-#: master_preset.xml:1060(text:text|group:Ways|preset:Steps)
-msgid "Amount of Steps"
-msgstr "Anzahl Stufen"
-
 #: master_preset.xml:5232(group:name|group:Sport_Facilities)
 msgid "Sport Facilities"
 msgstr "Sporteinrichtungen"
@@ -524,6 +524,10 @@ msgstr "Kapazität (alle Plätze)"
 #: master_preset.xml:9849(group:name|group:Offices)
 msgid "Offices"
 msgstr "Büros"
+
+#: master_preset.xml:279(combo:text)
+msgid "Cable count"
+msgstr "Anzahl Kabel"
 
 #: master_preset.xml:7293(item:name|group:Home_decoration|preset:Antiques)
 msgid "Antiques"
@@ -727,7 +731,7 @@ msgstr "Nichtregierungsorganisation"
 
 #: master_preset.xml:2526(item:name|group:Railway|preset:Railway_milestone)
 msgid "Railway milestone"
-msgstr ""
+msgstr "Eisenbahnkilometerstein"
 
 #: master_preset.xml:6709(text:text|group:Historic_Places|preset:Wayside_Cross)
 #: master_preset.xml:7802(text:text|group:Boundaries|preset:Protected_Area)
@@ -1017,10 +1021,6 @@ msgstr "Meldestelle/Registratur"
 msgid "Ref of the way this is a detour to"
 msgstr ""
 
-#: master_preset.xml:280(combo:text)
-msgid "Amount of circuits"
-msgstr ""
-
 #: master_preset.xml:8105(group:name|group:Nature)
 msgid "Nature"
 msgstr "Natur"
@@ -1291,13 +1291,6 @@ msgstr "Akustische Signale"
 #: master_preset.xml:6560(check:text|preset:Pole_with_Transformer)
 #: master_preset.xml:6526(check:text|preset:Power_Tower)
 msgid "Location transition"
-msgstr ""
-
-#: master_preset.xml:3863(text:text|group:Tourism|preset:Other_Information_Point)
-#: master_preset.xml:3521(text:text|group:Accommodation|preset:Wilderness_Hut)
-#: master_preset.xml:3764(text:text|group:Tourism|preset:Map)
-#: master_preset.xml:3788(text:text|group:Tourism|preset:Information_Board)
-msgid "Closer Description"
 msgstr ""
 
 #: master_preset.xml:6678(item:name|group:Historic_Places|preset:Memorial)
@@ -1635,7 +1628,7 @@ msgstr "SAC Skala"
 #: master_preset.xml:6397(check:text|preset:Power_Substation)
 #: master_preset.xml:6429(check:text|preset:Power_Switchgear)
 msgid "Gas insulated"
-msgstr ""
+msgstr "Gasisoliert"
 
 #: master_preset.xml:9124(item:name|group:Routes|preset:Power_Route)
 msgid "Power Route"
@@ -1786,10 +1779,6 @@ msgstr ""
 msgid "Movie Theater/Cinema"
 msgstr "Kino"
 
-#: master_preset.xml:5112(combo:text|group:Facilities|preset:Bench)
-msgid "Amount of Seats"
-msgstr "Anzahl Sitzplätze"
-
 #: master_preset.xml:267(combo:text)
 #: master_preset.xml:6221(combo:text|group:Power|preset:Power_Plant)
 #: master_preset.xml:321(combo:text) master_preset.xml:69(combo:text)
@@ -1807,10 +1796,6 @@ msgstr "Normale Räder: City Bike, Rollstuhl, Roller"
 #: master_preset.xml:4136(item:name|group:Culture|preset:Library)
 msgid "Library"
 msgstr "Bibliothek"
-
-#: master_preset.xml:6472(combo:text|preset:Power_Converter)
-msgid "Amount of poles"
-msgstr ""
 
 #: master_preset.xml:5564(item:name|group:Sport_(Ball)|preset:Golf)
 msgid "Golf"
@@ -1945,7 +1930,7 @@ msgstr "Modellauto Platz"
 
 #: master_preset.xml:6224(group:name|group:Power_Generator)
 msgid "Power Generator"
-msgstr ""
+msgstr "Stromgenerator"
 
 #: master_preset.xml:4391(label:text|group:Public_Building|preset:Community_Centre)
 #: master_preset.xml:4383(item:name|group:Public_Building|preset:Community_Centre)
@@ -1989,7 +1974,7 @@ msgstr ""
 
 #: master_preset.xml:9276(role:text|preset:Bridge)
 msgid "ways passing under the bridge"
-msgstr ""
+msgstr "Wege unter der Brücke"
 
 #: master_preset.xml:8805(text:text|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
 #: master_preset.xml:8825(text:text|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
@@ -2134,7 +2119,7 @@ msgstr "Radweg rechts"
 
 #: master_preset.xml:6316(list_entry:short_description|group:Power_Generator|preset:Solar_Power_Generator)
 msgid "photovoltaic"
-msgstr ""
+msgstr "photovoltaik"
 
 #: master_preset.xml:526(item:name|group:Streets|preset:Primary_Link)
 msgid "Primary Link"
@@ -2271,7 +2256,7 @@ msgstr "Seismograf"
 
 #: master_preset.xml:5557(item:name|group:Sport_(Ball)|preset:Billiards)
 msgid "Billiards"
-msgstr ""
+msgstr "Billard"
 
 #: master_preset.xml:2743(label:text|group:Car|preset:Fuel)
 msgid "Fuel cards:"
@@ -2284,11 +2269,11 @@ msgstr "Tankkarten:"
 #: master_preset.xml:9100(role:text|group:Routes|preset:Ski_Route)
 #: master_preset.xml:9079(role:text|group:Routes|preset:Piste_Route)
 msgid "backward segment"
-msgstr ""
+msgstr "Segment in Rückwärtsrichtung"
 
 #: master_preset.xml:6416(item:name|preset:Power_Switchgear)
 msgid "Power Switchgear"
-msgstr ""
+msgstr "Stromschaltanlage"
 
 #: master_preset.xml:1144(combo:text|group:Waypoints|preset:Traffic_Signal)
 #: master_preset.xml:1199(combo:text|group:Waypoints|preset:Pedestrian_Crossing)
@@ -2334,7 +2319,7 @@ msgstr "Hort"
 #: master_preset.xml:9013(role:text|group:Routes|preset:Bicycle_Route)
 #: master_preset.xml:9036(role:text|group:Routes|preset:Mountain_Biking_Route)
 msgid "forward segment"
-msgstr ""
+msgstr "Segment in Vorwärtsrichtung"
 
 #: master_preset.xml:9712(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
@@ -2388,7 +2373,7 @@ msgstr "Bushaltestelle"
 
 #: master_preset.xml:6184(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
-msgstr ""
+msgstr "Brückenstütze"
 
 #: master_preset.xml:2737(check:text|group:Car|preset:Fuel)
 #: master_preset.xml:2273(check:text|group:Shipping|preset:Marine_Fuel)
@@ -2397,7 +2382,7 @@ msgstr "Autogas"
 
 #: master_preset.xml:4502(text:text|group:Education|preset:Childcare)
 msgid "After school capacity"
-msgstr ""
+msgstr "Betreuung nach Schulschluss"
 
 #: master_preset.xml:8736(item:name|group:Addresses_and_Contact|preset:Addresses)
 msgid "Addresses"
@@ -2977,7 +2962,7 @@ msgstr "Tiefe in metern"
 
 #: master_preset.xml:2444(item:name|group:Railway|preset:Disused_Rail)
 msgid "Disused Rail"
-msgstr ""
+msgstr "Ungenutzte Eisenbahn"
 
 #: master_preset.xml:675(combo:text|group:Streets|preset:Bicycle_Road)
 #: master_preset.xml:819(combo:text|group:Streets|preset:Construction)
@@ -3201,6 +3186,10 @@ msgstr "Verschwindet der Wasserlauf saisonal?"
 msgid "Spaces for Parents"
 msgstr "Elternparkplätze"
 
+#: master_preset.xml:5112(combo:text|group:Facilities|preset:Bench)
+msgid "Seats count"
+msgstr ""
+
 #: master_preset.xml:8922(combo:text|group:Relations|preset:Boundary)
 msgid "Boundary type"
 msgstr "Grenztyp"
@@ -3218,6 +3207,10 @@ msgstr "UIC Referenznummer"
 #: master_preset.xml:760(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
 msgstr "Parkplatzzugang"
+
+#: master_preset.xml:1060(text:text|group:Ways|preset:Steps)
+msgid "Number of steps"
+msgstr "Stufenanzahl"
 
 #: master_preset.xml:6368(item:name|group:Power_Generator|preset:Geothermal_Power_Generator)
 msgid "Geothermal Power Generator"
@@ -3639,7 +3632,7 @@ msgstr "Wäscherei"
 #: master_preset.xml:6568(combo:text|preset:Pole_with_Transformer)
 #: master_preset.xml:6413(combo:text|preset:Power_Transformer)
 msgid "Phases"
-msgstr ""
+msgstr "Phasen"
 
 #: master_preset.xml:3083(check:text|group:Public_Transport|preset:Platform)
 #: master_preset.xml:3052(check:text|group:Public_Transport|preset:Stop_Position)
@@ -4948,6 +4941,10 @@ msgstr "Gebäudetyp"
 msgid "Smoothness"
 msgstr "Oberflächenzustand"
 
+#: master_preset.xml:280(combo:text)
+msgid "Number of circuits"
+msgstr ""
+
 #: master_preset.xml:166(combo:text)
 msgid "Internet access"
 msgstr "Internetzugang"
@@ -4970,7 +4967,7 @@ msgstr "Personenanzahl pro Sessel"
 
 #: master_preset.xml:9205(role:text|preset:Street)
 msgid "ways being part of street"
-msgstr ""
+msgstr "Wege die zur Strasse gehören"
 
 #: master_preset.xml:6954(item:name|group:Food|preset:Beverages)
 msgid "Beverages"
@@ -5555,6 +5552,15 @@ msgstr "Stadt"
 msgid "Height in meter (m)"
 msgstr "Höhe in Metern (m)"
 
+#: master_preset.xml:3844(text:text|group:Tourism|preset:Audio_Guide)
+#: master_preset.xml:3863(text:text|group:Tourism|preset:Other_Information_Point)
+#: master_preset.xml:3521(text:text|group:Accommodation|preset:Wilderness_Hut)
+#: master_preset.xml:3826(text:text|group:Tourism|preset:Information_Terminal)
+#: master_preset.xml:3764(text:text|group:Tourism|preset:Map)
+#: master_preset.xml:3788(text:text|group:Tourism|preset:Information_Board)
+msgid "Detailed description"
+msgstr "Nähere Beschreibung"
+
 #: master_preset.xml:1748(item:name|group:Access_Restrictions|preset:Motor_vehicle)
 msgid "Motor vehicle"
 msgstr "Motorfahrzeug"
@@ -5582,10 +5588,6 @@ msgstr "Gemüsehändler"
 #: master_preset.xml:5873(item:name|group:Man_Made|preset:Storage_Tank)
 msgid "Storage Tank"
 msgstr "Lagertank"
-
-#: master_preset.xml:279(combo:text)
-msgid "Amount of Cables"
-msgstr ""
 
 #: master_preset.xml:9473(item:name|group:Crafts|preset:Hvac)
 msgid "Hvac"
@@ -5853,7 +5855,7 @@ msgstr "Pflanzen die zeitweise ohne Blattwerk sind."
 
 #: master_preset.xml:6492(item:name|preset:Cable_Distribution_Cabinet)
 msgid "Cable Distribution Cabinet"
-msgstr ""
+msgstr "Kabelverteilschränk"
 
 #: master_preset.xml:1304(item:name|group:Waypoints|preset:Grit_Bin)
 msgid "Grit Bin"
@@ -5909,7 +5911,7 @@ msgstr "Strasse"
 
 #: master_preset.xml:1881(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions)
 msgid "Light Commercial Vehicles (goods)"
-msgstr ""
+msgstr "Lieferfahrzeuge"
 
 #: master_preset.xml:7732(check:text|preset:Payment_Methods)
 msgid "Moneo (fr)"
@@ -6120,11 +6122,6 @@ msgstr "Eingangsnummer"
 #: master_preset.xml:3757(label:text|group:Tourism|preset:Map)
 msgid "A board with a map."
 msgstr "Eine Tafel mit Karte"
-
-#: master_preset.xml:3844(text:text|group:Tourism|preset:Audio_Guide)
-#: master_preset.xml:3826(text:text|group:Tourism|preset:Information_Terminal)
-msgid "Closer description"
-msgstr "Nähere Beschreibung"
 
 #: master_preset.xml:5002(check:text|group:Facilities|preset:Recycling_Container)
 #: master_preset.xml:5038(check:text|group:Facilities|preset:Recycling_Centre)

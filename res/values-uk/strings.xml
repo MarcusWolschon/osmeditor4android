@@ -95,7 +95,7 @@
   <string name="relation_membership">Належність до зв’язків</string>
   <string name="problem">Проблема</string>
   <string name="members">Члени</string>
-  <string name="closed">Зачинено</string>
+  <string name="closed">Полігон</string>
   <string name="version">Версія</string>
   <string name="length_m">Довжина (м)</string>
   <string name="not_downloaded">Не завантажено</string>
@@ -176,7 +176,7 @@
   <string name="value">значення</string>
   <string name="Value">Значення</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Uk:Map_Features</string>
-  <string name="tag_menu_address">Додати теґи адреси</string>
+  <string name="tag_menu_address">Додавання адреси</string>
   <string name="tag_menu_sourcesurvey">Досліджено</string>
   <string name="tag_menu_preset">Заготовки</string>
   <string name="tag_menu_apply_preset">Застосувати найкращу заготовку</string>
@@ -184,8 +184,8 @@
   <string name="tag_menu_revert">Відмінити</string>
   <string name="tag_menu_mapfeatures">Умовні позначення</string>
   <string name="tag_menu_addtorelation">Додати у зв’язок</string>
-  <string name="tag_menu_resetMRU">Перевстановити заготовки</string>
-  <string name="tag_menu_reset_address_prediction">Перевстановити прогнозування адрес</string>
+  <string name="tag_menu_resetMRU">Скинути заготовки</string>
+  <string name="tag_menu_reset_address_prediction">Скинути прогнозування адрес</string>
   <string name="tag_menu_exit_no_save">Вийти\nбез збереження</string>
   <string name="tag_value_hint">Натсніть для вибору значень</string>
   <string name="tag_multi_value_hint">Кілька значень</string>
@@ -383,9 +383,9 @@
   <string name="config_mapProfile_summary">Управління стилем та видимістю елементів</string>
   <string name="config_use_back_for_undo_title">Використовувати кнопку назад для Відміни</string>
   <string name="config_use_back_for_undo_summary">Використовувати кнопку назад для відміни в режимі редагування</string>
-  <string name="config_largeDragArea_title">Велика ділянка для перетягування точок</string>
-  <string name="config_largeDragArea_summary">Надає велику ділянку для перетягування точок</string>
-  <string name="config_extTriggeredDownloadRadius_title">Радіус звантажування</string>
+  <string name="config_largeDragArea_title">Велика ділянка навколо точок</string>
+  <string name="config_largeDragArea_summary">Велика ділянку навколо точок для їх перетягування</string>
+  <string name="config_extTriggeredDownloadRadius_title">Радіус звантаження</string>
   <string name="config_extTriggeredDownloadRadius_summary">Радіус (м)  для розширення ділянки завантаження, 0 = центр мапи.</string>
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
   <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
@@ -410,7 +410,7 @@
   <string name="config_enableLightTheme_title">Включити світлу тему</string>
   <string name="config_enableLightTheme_summary">Світла тема з білим фоном</string>
   <string name="config_category_misc">Додатково</string>
-  <string name="config_address_tags">Теґи адрес</string>
+  <string name="config_address_tags">Теґи адреси</string>
   <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
   <string name="config_moreprefs">Додаткові налаштування…</string>
   <!--preset downloader messages-->
@@ -482,7 +482,7 @@
   <string name="crash_notif_ticker_text">Vespucci „впав“ або виявив серйозну проблему.  Будь ласка, надішліть звіт про помилку.</string>
   <string name="crash_notif_title">Vespucci „впав“ або виявив серйозну проблему.</string>
   <string name="crash_notif_text">Будь ласка, натисніть тут, щоб допомогти вирішити проблему.</string>
-  <string name="crash_dialog_text">Сталася несподівана проблема, що змушує застосунок перевати роботу або повідомити про помилку.  Будь ласка, допоможіть нам виправити це, відправивши нам дані про помилки, все що вам потрібно зробити, це натиснути „Гаразд“.</string>
+  <string name="crash_dialog_text">Сталася несподівана проблема, що змушує застосунок перевати роботу або повідомити про помилку. Будь ласка, допоможіть нам виправити це, відправивши нам дані про помилку, все що вам потрібно зробити, це натиснути „Гаразд“. Якщо помилка зʼявляться доволі часто, вікдкрийте тікет на github.com.</string>
   <string name="config_category_acra">Звітування про помилки</string>
   <string name="pref_enable_acra">Повідомлення про збій програми</string>
   <string name="pref_acra_enabled">Звітування про помилки включене</string>

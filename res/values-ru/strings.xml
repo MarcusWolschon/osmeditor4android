@@ -486,7 +486,6 @@
   <string name="crash_notif_ticker_text">Vespucci «упал» или выявил серьёзную проблему. Пожалуйста, отправьте отчёт об ошибке.</string>
   <string name="crash_notif_title">Vespucci «упал» или выявил серьёзную проблему.</string>
   <string name="crash_notif_text">Кликните сюда, чтобы помочь исправить ошибку</string>
-  <string name="crash_dialog_text">Непредвиденная проблема вызвала принудительную остановку приложения. Пожалуйста, помогите нам исправить её, отправив нам данные об ошибке. Просто нажмите \'OK\'.</string>
   <string name="config_category_acra">Отчёт о сбое</string>
   <string name="pref_enable_acra">Сообщать о сбоях в приложении</string>
   <string name="pref_acra_enabled">Отчёты о сбоях разрешены</string>
