@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2015-12-01 00:36+0100\n"
-"PO-Revision-Date: 2015-11-30 23:37+0000\n"
+"PO-Revision-Date: 2015-11-30 23:46+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -4171,7 +4171,7 @@ msgstr "Springbrunnen"
 #: master_preset.xml:124(combo:text)
 #: master_preset.xml:935(combo:text|group:Ways|preset:Path)
 msgid "Wheelchairs"
-msgstr "Rollstühlzugang"
+msgstr "Rollstuhlzugang"
 
 #: master_preset.xml:390(group:name|group:Streets)
 msgid "Streets"

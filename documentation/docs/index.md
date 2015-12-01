@@ -27,6 +27,10 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
 The texts in the _Introduction_ and _Editing_ sections are available on device as context sensitive help.
 
+#### Roadmap
+
+The Vespucci team doesn't have a formal road map, however you can see what we have considered working on and have completed for the next release here: [milestones 0.9.8](https://github.com/MarcusWolschon/osmeditor4android/issues?q=milestone%3A0.9.8).
+
 #### Support and contact
 
 If you have suggestions for enhancements or are experiencing a problem, please open an [issue on github](https://github.com/MarcusWolschon/osmeditor4android/issues).
