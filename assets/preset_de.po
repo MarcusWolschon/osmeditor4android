@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2015-12-01 00:36+0100\n"
-"PO-Revision-Date: 2015-11-30 23:46+0000\n"
+"POT-Creation-Date: 2015-12-01 18:08+0100\n"
+"PO-Revision-Date: 2015-12-01 17:42+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Rundfahrt"
 
 #: master_preset.xml:3514(item:name|group:Accommodation|preset:Wilderness_Hut)
 msgid "Wilderness Hut"
-msgstr "Biwakschachtel"
+msgstr "Schutzhütte"
 
 #: master_preset.xml:306(text:text)
 #: master_preset.xml:6217(text:text|group:Power|preset:Power_Plant)
@@ -789,10 +789,6 @@ msgstr "Provinz"
 msgid "Dedicated Footway"
 msgstr "Fussweg"
 
-#: master_preset.xml:8798(item:name|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
-msgid "Contact (Common Schema)"
-msgstr "Kontakt"
-
 #: master_preset.xml:6106(check:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Galileo Signals"
 msgstr "Galileo Signale"
@@ -1334,15 +1330,15 @@ msgstr "Australian Football"
 #: master_preset.xml:3903(text:text|group:Leisure|preset:Zoo)
 #: master_preset.xml:7809(text:text|group:Boundaries|preset:Protected_Area)
 #: master_preset.xml:1329(text:text|group:Waypoints|preset:Mountain_Pass)
-#: master_preset.xml:8832(text:text|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
 #: master_preset.xml:1974(text:text|group:Water|preset:Canal)
 #: master_preset.xml:9261(text:text|preset:Waterway)
 #: master_preset.xml:343(text:text)
 #: master_preset.xml:2114(text:text|group:Water|preset:Water)
 #: master_preset.xml:233(text:text)
+#: master_preset.xml:8832(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-'))
 #: master_preset.xml:6703(text:text|group:Historic_Places|preset:Memorial)
 #: master_preset.xml:3296(text:text|group:Airport|preset:Airport_Ground)
-#: master_preset.xml:8812(text:text|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
+#: master_preset.xml:8812(text:text|group:Addresses_and_Contact|preset:Contact)
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
@@ -1984,8 +1980,8 @@ msgstr ""
 msgid "ways passing under the bridge"
 msgstr "Wege unter der Brücke"
 
-#: master_preset.xml:8833(text:text|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
-#: master_preset.xml:8813(text:text|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
+#: master_preset.xml:8833(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-'))
+#: master_preset.xml:8813(text:text|group:Addresses_and_Contact|preset:Contact)
 msgid "Image"
 msgstr "Bild"
 
@@ -2030,8 +2026,8 @@ msgstr "Sozialhilfeeinrichtung"
 msgid "Descent (m)"
 msgstr "Abstieg (m)"
 
-#: master_preset.xml:8809(text:text|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
-#: master_preset.xml:8829(text:text|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
+#: master_preset.xml:8829(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-'))
+#: master_preset.xml:8809(text:text|group:Addresses_and_Contact|preset:Contact)
 #: master_preset.xml:4679(text:text|group:Health|preset:Emergency_Access_Point)
 msgid "Phone Number"
 msgstr "Telefonnummer"
@@ -3281,12 +3277,12 @@ msgstr ""
 msgid "Plumber"
 msgstr "Klempner"
 
-#: master_preset.xml:8826(text:text|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
 #: master_preset.xml:7964(text:text|group:Places|preset:Neighbourhood)
 #: master_preset.xml:238(text:text)
+#: master_preset.xml:8806(text:text|group:Addresses_and_Contact|preset:Contact)
 #: master_preset.xml:6901(text:text|group:Food|preset:Public_Market)
-#: master_preset.xml:8806(text:text|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
 #: master_preset.xml:2861(text:text|group:Car|preset:Sharing)
+#: master_preset.xml:8826(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-'))
 msgid "Website"
 msgstr "Website"
 
@@ -4222,7 +4218,7 @@ msgstr "Kindergarten"
 
 #: master_preset.xml:6183(item:name|group:Bridges|preset:Movable_Bridge)
 msgid "Movable Bridge"
-msgstr ""
+msgstr "Bewegliche Brücke"
 
 #: master_preset.xml:64(combo:text)
 msgid "Service type"
@@ -4368,7 +4364,7 @@ msgstr ""
 
 #: master_preset.xml:5331(item:name|group:Sport|preset:Nine-pin_Bowling)
 msgid "Nine-pin Bowling"
-msgstr ""
+msgstr "Kegeln"
 
 #: master_preset.xml:6287(item:name|group:Power_Generator|preset:Gasoline_Power_Generator)
 msgid "Gasoline Power Generator"
@@ -4666,8 +4662,8 @@ msgstr "Einsatzfahrzeuge"
 msgid "Motorsport"
 msgstr "Motorsport"
 
-#: master_preset.xml:8807(text:text|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
-#: master_preset.xml:8827(text:text|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
+#: master_preset.xml:8827(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-'))
+#: master_preset.xml:8807(text:text|group:Addresses_and_Contact|preset:Contact)
 msgid "Email Address"
 msgstr "E-mailadresse"
 
@@ -5478,8 +5474,8 @@ msgstr "Sehenswürdigkeit"
 msgid "anaerobic_digestion / combustion"
 msgstr ""
 
-#: master_preset.xml:8810(text:text|group:Addresses_and_Contact|preset:Contact_(Common_Schema))
-#: master_preset.xml:8830(text:text|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
+#: master_preset.xml:8830(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-'))
+#: master_preset.xml:8810(text:text|group:Addresses_and_Contact|preset:Contact)
 msgid "Fax Number"
 msgstr "Faxnummer"
 
@@ -5760,10 +5756,6 @@ msgstr "Audioguide per Mobiltelefon?"
 msgid "Segregated Foot- and Cycleway"
 msgstr "Getrennter Fuss- und Radweg"
 
-#: master_preset.xml:8815(item:name|group:Addresses_and_Contact|preset:Contact_(Schema_with_'contact:-'_Prefix))
-msgid "Contact (Schema with 'contact:*' Prefix)"
-msgstr "Kontakt (Schema mit 'contact:' Präfix)"
-
 #: master_preset.xml:5826(item:name|group:Man_Made|preset:Flagpole)
 msgid "Flagpole"
 msgstr "Fahnenstange"
@@ -5851,7 +5843,7 @@ msgstr "Zur Straße gehörende Häuser"
 
 #: master_preset.xml:5627(item:name|group:Sport_(Ball)|preset:Racquetball)
 msgid "Racquetball"
-msgstr ""
+msgstr "Racquetball"
 
 #: master_preset.xml:2164(item:name|group:Water|preset:Mud)
 msgid "Mud"
@@ -6138,7 +6130,7 @@ msgstr "Batterien"
 
 #: master_preset.xml:5600(item:name|group:Sport_(Ball)|preset:Croquet)
 msgid "Croquet"
-msgstr ""
+msgstr "Croquet"
 
 #: master_preset.xml:6462(item:name|preset:Power_Switch)
 msgid "Power Switch"
@@ -6277,11 +6269,15 @@ msgstr "Feuerwehr"
 
 #: master_preset.xml:5339(item:name|group:Sport|preset:Ten-pin_Bowling)
 msgid "Ten-pin Bowling"
-msgstr ""
+msgstr "Bowling"
 
 #: master_preset.xml:4509(text:text|group:Education|preset:Childcare)
 msgid "Childcare capacity"
 msgstr "Kinderbetreuungsplätze"
+
+#: master_preset.xml:8815(item:name|group:Addresses_and_Contact|preset:Contact_('contact:-'))
+msgid "Contact ('contact:*')"
+msgstr "Kontakt ('contact:*')"
 
 #: master_preset.xml:2609(item:name|group:Aerialway|preset:Magic_Carpet)
 msgid "Magic Carpet"
@@ -6382,7 +6378,7 @@ msgstr ""
 
 #: master_preset.xml:5582(item:name|group:Sport_(Ball)|preset:Boule)
 msgid "Boule"
-msgstr ""
+msgstr "Boule/Boccia"
 
 #: master_preset.xml:5775(item:name|group:Man_Made|preset:Building_part)
 #: master_preset.xml:5784(combo:text|group:Man_Made|preset:Building_part)
@@ -6419,6 +6415,10 @@ msgstr ""
 #: master_preset.xml:1151(check:text|group:Waypoints|preset:Traffic_Signal)
 msgid "Button operated"
 msgstr ""
+
+#: master_preset.xml:8798(item:name|group:Addresses_and_Contact|preset:Contact)
+msgid "Contact"
+msgstr "Kontakt"
 
 #: master_preset.xml:3534(item:name|group:Accommodation|preset:Caravan_Site/RV_Park)
 msgid "Caravan Site/RV Park"

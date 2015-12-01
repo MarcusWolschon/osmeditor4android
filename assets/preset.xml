@@ -352,11 +352,11 @@
     </chunk>
   <!-- Link chunks -->
   <chunk id="link_contact_address">
-    <preset_link preset_name="Contact (Common Schema)" />
+    <preset_link preset_name="Contact" />
     <preset_link preset_name="Addresses" />
   </chunk>
   <chunk id="link_contact_address_payment">
-    <preset_link preset_name="Contact (Common Schema)" />
+    <preset_link preset_name="Contact" />
     <preset_link preset_name="Addresses" />
     <preset_link preset_name="Payment Methods" />
   </chunk>
@@ -1249,7 +1249,7 @@
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:highway=turning_loop" />
             <key key="highway" value="turning_loop" />
         </item> <!-- Turning Loop -->
-        <item name="City Limit" icon="presets/citylimit.png" type="node" preset_name_label="true">
+        <item name="City Limit" icon="icons/png/city_limits_DE.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:traffic_sign=city_limit"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_sign"
                   fi.href="http://wiki.openstreetmap.org/wiki/Fi:Key:traffic_sign"
@@ -3511,7 +3511,7 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Alpine Hut -->
-        <item name="Wilderness Hut" icon="styles/standard/accommodation/wilderness_hut_blue.png" type="node,closedway" preset_name_label="true">
+        <item name="Wilderness Hut" icon="icons/png/tourist_wilderness_hut_30042.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=wilderness_hut"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:tourism=wilderness_hut"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:tourism=wilderness_hut" />
@@ -8795,7 +8795,7 @@
                 <combo key="addr:inclusion" text="Accuracy" values="actual,estimate,potential" match="key" />
             </optional>
         </item> <!-- Address Interpolation -->
-        <item name="Contact (Common Schema)" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="Contact" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Annotations"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Annotations"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Annotations"
@@ -8812,7 +8812,7 @@
             <text key="wikipedia" text="Wikipedia" />
             <text key="image" text="Image" />
         </item> <!-- Contact (Common Schema) -->
-        <item name="Contact (Schema with 'contact:*' Prefix)" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="Contact ('contact:*')" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:contact"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:contact"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:contact"
