@@ -23,7 +23,7 @@ You need:
   * An [OSM account](http://www.openstreetmap.org/user/new)
 
 #### What is the status of Vespucci development? ####
-The current Vespucci version is 0.9.6 with 0.9.7 nearing release.
+The current Vespucci version is 0.9.7 nearing release.
 
 #### Is Vespucci available for other mobile platforms? ####
 No, with the exception of those that provide an Android compatible environment.
