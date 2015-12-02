@@ -1,6 +1,6 @@
 # Vespucci Giriş
 
-Vespucci tam donanımlı bir OpenStreetMap düzenleyicisidir masaüstünün sağladığı özelliklerin çoğunu sağlar. Anroid 2.3 den 5.1 e kadar başarıyla test edilmiştir. Bir uyarı: mobil cihazlar neredeyse masaüstü rakiplerini yakalamış durumda, özellikle eski cihazlarda çok az bellek vardır ve bu yüzden oldukça yavaş çalışma eğilimi gösterebilirler. Ör, makul düzeyde alan düzenlerken bile, Vespucci kullanırken bunu hesaba katmalısınız. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on googles Android 2.3 to 6.0 and various AOSP based variants. A word of caution: while mobile devices capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the size of the areas you are editing to a reasonable size. 
 
 ## İlk kullanım
 
@@ -16,21 +16,21 @@ Cihazınızın yaşına ve ekran boyutuna bağlı olarak düzenleme menüsüne �
 
 Transfer simgesini ![](../images/menu_transfer.png) veya transfer menü ögesini seçin . Yedi seçenek sunacaktır:
 
-* **Şimdiki görünümü indir** - ekranda görüntülenen alanı indir ve varsa mevcut veri ile değiştir  *(ağ bağlantısı gerekir)*
-* **İndirmek için geçerli görünümü ekle** -ekranda görüntülenen alanı indir ve mevcut veri ile birleştir *(ağ bağlantısı gerekir)*
-* **Başka konumu indir** - koordinat girmek için bir form gösterir, bir konumu arayabilir veya doğrudan konum girebilir, ve sonra o konumun alanını indirebilirsiniz *(ağ bağlantısı gerekir)*
-* **Veriyi OSM sunucusuna yükle** - düzenlemeleri OpenStreetMap'e yükler *(doğrulama gerekir)* *(ağ bağlantısı gerekir)*
-* **Değişiklikleri dışa aktar** - geçerli düzenlemeleri içeren bir ".osc" dosyası oluşturur, okunabilir örneğin JOSM okuyabilir
-* **Dosyadan oku** - J(OSM) uyumlu XML biçimli dosyayı oku
-* **Dosyaya kaydet** - JOSM uyumlu XML biçimli dosyaya kaydet
+* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
+* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-En kolay yol haritayı açın düzenlemek istediğiniz konuma yaklaştırın ve "Geçerli görünümü indir"i seçin. Jestleri kullanarak yaklaştırabilir siniz,  telefonun yaklaştır düğmesi veya ses seviye kontrol düğmelerini kullanabilirsiniz. Vespucci alanın verilerini indirebilir ve haritayı mevcut konumunuza ortalayabilir. Verileri indirmek için kimlik doğrulama gerekmez.
+The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
 ### Düzenleme
 
-Yanlışlıkla düzenlemeleri önlemek için Vespucci "kilitli" modda başlar, bu mod sadece yaklaştırmaya ve haritayı hareket ettirmeye izin verir. Kilidi açmak için Ekrandaki [Kilitli] (../images/locked.png) simgesine dokunun.
+To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
 
-Varsayılan olarak, seçilebilir düğümlerin ve yolların turuncu bir çevresi vardır. Bir nesneyi seçmeye çalıştığınızda Vespucci bu seçimin birden fazla nesnesi olduğunu saptarsa bir seçim menüsü sunacaktır. Seçilen nesne sarı renkle belirtilecektir.
+By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
 
 Yüksek yoğunluklu bir yeri düzenlemek için yaklaştırmak iyi bir yoldur.
 
@@ -38,13 +38,13 @@ Vespucci'nin iyi bir geri al/yinele sistemi vardır cihazınızda bunu denemekte
 
 #### Seçme / Bırakma
 
-Vurgulamak için bir nesneyi seçin, ikinci dokunuş aynı nesne için etiket düzenleyicisini açacaktır. Ekranda boş bir yere dokunmak seçimi iptal eder. Bir nesneyi seçmişken başka bir nesneyi seçmek gerekirse seçimi iptal etmenize gerek yoktur, ilgili nesneye de dokunun.Nesneye çift dokunmak [Multiselect mode](Multiselect.md) başlatır
+Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
 #### Yeni Düğüm/Nokta veya yol ekleme
 
 Düğüm oluşturmak veya yol başlatmak için istediğiniz yere uzun dokunun. "Çapraz kıllar" sembolü göreceksiniz. Aynı yere tekrar dokunmak yeni düğüm oluşturur, dokunma toleransı dışında bir yere dokunmak orjinal konumdan geçerli konuma bir yol bölümü ekler. 
 
-Düğümleri eklemek istediğiniz yere basitçe dokunun. Bitirmek için, son düğüme iki kez dokunun. Eğer ilk düğüm bir yol üzerindeyse, düğüm yola otomatik olarak bağlanacaktır.
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
 
 #### Yolu veya Düğümü taşıma
 
@@ -63,9 +63,9 @@ Seçilen düğümleri ve yolları kopyalayabilir veya kesebilir, bir veya daha f
 
 Vespucci'nin keşfedilen alanları daha verimli eklemek için çalışan bir "adres etiketi ekleme" özelliği vardır. Buradan seçebilirsiniz 
 
-* uzun bastıktan sonra: Vespucci o konumda bir düğüm ekleyebilir ve ev numarası için iyi bir tahminde bulunabilir, son zamanlarda kullandığınız etiketide ekleyebilir siniz. Eğer düğüm bir bina anahattı üzerindeyse **entrance=yes"" etiketi düğüme otomatik olarak eklenir. Etiket editörü söz konusu nesnede değişiklik yapmaya devam etmeniz içinde açılacaktır.
-* Düğüm/yol seçim modunda: Vecpucci yukarıdaki gibi adres etiketlerini ekler ve  etiket editörünü başlatır.
-* Etiket editöründe.
+* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the tag editor.
 
 Ev numarası tahmini genelde en az 2 numara gerektirir çalışmaya yolun her iki tarafıda girilebilir, verilerde ne kadar çok numara olursa o kadar iyidir.
 
@@ -75,15 +75,15 @@ Bunu "Oto-indir" modunda kullanmayı düşünün.
 
 Vespucci'nin dönüş kısıtlaması eklemek için hızlı bir yöntemi vardır. Not: Eğer kısıtlama için yolu bölmek gerekiyorsa lütfen bunu başlamadan yapın.
 
-* Otoyol etiketli bir yolu seçmek (dönüş kısıtlaması sadece otoyol için eklenebilir, bunu diğer yollara da yapmak gerekiyorsa, lütfen genel "ilişki oluşturma" modunu kullanın, eğer nesne mümkün değilse içerik menüsünde gösterilmez)
-* Menüden "Kısıtlama Ekle" yi seçin
-* "Üzerinden" düğüm'ü veya yol'u seçin (tüm "üzerinden" nesneleri nesne vurgulayarak seçilebilir)
-* "için" yol'u seçin (eğer çift yönlüyse "için" nesnesini "itibaren" nesnesine ayarlayın, Vespucci no_u_turn kısıtlaması ekleyecektir)
-*Kısıtlama tipini etiket menüsünden belirleyin
+* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
+* select "Add restriction" from the menu
+* select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
+* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
+* set the restriction type in the tag menu
 
-### "Kilitli" modda Vespucci
+### Vespucci in "locked" mode
 
-Kırmızı kilit simgesi göründüğünde aşağıdaki düzenleme dışındaki eylemler mevcuttur. Eğer bir OSM nesnesiyse ayrıca nesneye veya yakınına uzun dokunabilir ve daha detaylı bilgi alabilirsiniz.
+When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
 ### Değişenleri Kaydetmek
 
@@ -91,15 +91,15 @@ Kırmızı kilit simgesi göründüğünde aşağıdaki düzenleme dışındaki 
 
 İndirmek için aynı butonu veya menüyü seçin ve ardından "Verileri OSM sunucusuna yükle"'yi seçin
 
-Vecpucci klasik kullanıcı adı ve parolanın yanında OAuth doğrulamasını da destekler. OAuth daha iyidir, özellikle mobil uygulamalarda parolayı açık şekilde göndermeyi önler.
+Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
-Yeni Vespucci OAuth etkin olarak yüklenir. Değiştirilen verileri OSM sunucusuna ilk yükleme girişiminde OSM web sayfası açılır. Giriş yaptıktan sonra (şifreli bağlantı üzerinden) Vespucci için düzenleme yetkisi istenecektir. İşlem tamamladıktan sonra Vespucci'ye geri dönecektir, tekrar yüklemeyi deneyebilirsiniz, şimdi başarılı olması gerekir.
+New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
 Eğer çalışmanızı kaydetmek istiyorsanız fakat internet erişiminiz yoksa, JOSM uyumlu .osm dosyasına kaydedebilir daha sonra Vespucci ile veya JOSM ile sunucuya yükleyebilirsiniz. 
 
 #### Yüklemelerdeki çatışmaları çözme
 
-Vespucci basit bir çatışma çözümleyicisine sahiptir. Fakat düzenlemenizle ilgili büyük sorunlar olmasından şüpheniz varsa, değişiklilerinizi  ("Dışa aktar" menüsünden "Aktarım" seçin) .osc dosyasına aktarın, düzeltip JOSM ile yükleyebilirsiniz. Daha detaylı yardım için [conflict resolution](Conflict resolution.md) bakınız.  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
 ## GPS kullanma
 
@@ -107,34 +107,32 @@ Bir GPX izi oluşturmak ve cihazınızda görüntülemek için Vespucci'yi kulla
 
 Eğer daha sonra ayarlarsanız, ekranı elle hareket ettirmek ve düzenleme "GPS takip et" modunu iptal eder, GPS ok'u dolu bir ok'a dönüşür. Hızlıca "takip" moduna dönmek için, ok'a tekrar dokunun ve menüden seçeneği tekrar seçin.
 
-### Oto-İndir
+## Notes and Bugs
 
-*(ağ bağlantısı gerekir)*
+Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be downloaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-Eğer "Konumu göster" ve "GPS konumunu Takip Et" etkinse, Vespucci mevcut konumunuzun etrafındaki ufak bir alanı otomatik indirmenize izin verir (varsayılan 50m yarıçapında). Eğer ekranı elle hareket ettirirseniz veya bir nesnenin geometrisini değiştirmek isterseniz takibe devam etmek için "GPS Konumunu Takip Et" tekrar seçmeniz gerekir. 
+On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
-Notlar:
-
-* ilk olarak başlangıç alanını elle indirmeniz gerekir
-* bu fonksiyon OpenStreetMap API ile sorunlara sebep olmamak için 6km/s (tempolu yürüme) hızının altında çalışır.
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
 ## Vespucci'yi Özelleştirme
 
 ### Değiştirmek isteyebileceğiniz ayarlar
 
-* Arkaplan katmanı
-* Kaplama katmanı. Bir kaplama katmanı eklemek sınırlı hafızası olan eski cihazlarda sorun çıkarabilir. Varsayılan: Hiçbiri.
-* Notları göster. Açık Notlar kırmızı dolgulu daire şeklinde gösterilir, kapalı Notlar aynısının mavisi olarak gösterilir. Varsayılan: kapalı
-* Fotoğraf Katmanı. Coğrafi referanslı fotoğraflar kırmızı kamera simgesiyle gösterilir, yön bilgisi varsa ikon döndürülür. Varsayılan: kapalı
-*Düğüm simgesi. Varsayılan: kapalı
-* Geniş düğüm sürükleme alanı. Dokunmatik ekranlarda düğümleri taşımak sorunlu oluyor, parmaklar geçerli konumda istenmeyen yerlere dokunabiliyor. Bunu açmak merkez-dışı sürüklemek için geniş bir alan sağlar (seçimler ve diğer işlemler yine normal dokunma toleransını kullanır). Varsayılan: kapalı.
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: on.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 #### Gelişmiş tercihler
 
-* Bölme eylem çubuğunu etkinleştir. Son telefonlarda eylem çubuğu alt ve üst çubuk olarak ikiye ayrılır, alt çubuk'un tuşları vardır. Bu genelde daha fazla düğme görüntülenmesini sağlar. Bunu kapatmak tuşları üst çubuğa taşır. Not: Değişikliğin geçerli olması için Vespucci'yi yeniden başlatmanız gerekir.
-* İçerik Menüsünü her zaman göster. Bunu açarsanız ger seçimden sonra bir içerik menüsü gösterir, istenmeyen seçimlerden kaçınmak için bunu kapatın. Varsayılan: kapalı (kullanmak için açılabilir)
-* Hafif temayı etkinleştir. Modern cihazlarda bu varsayılan olarak etkindir. Eski Android cihazlarda tutarsızlık yaşıyorsanız etkinleştirebilir siniz
-* İstatiksel verileri göster. Hata ayıklama için bazı istatistiksel verileri gösterir, aslında pek kullanışlı değildir. Varsayılan: kapalı (kullanmak için açılabilir).  
+* Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. note: you need to restart Vespucci for the change to take effect.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
+* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
 ## Sorunları Bildirme
 

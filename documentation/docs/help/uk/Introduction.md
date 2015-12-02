@@ -38,7 +38,7 @@
 
 #### Виділення/Зняття виділення
 
-Доторкніться до об’єкта щоб його виділити та підсвітити, повторне торкання об’єкта відкриває редактор теґів. Торкання екрану в порожньому місці знімає виділення. Якщо у вас є виділений об’єкт і вам треба виділіти інший, просто доторкніться до потрібного об”єкта та, у разі потреби, оберіть його із запропонованого списку, знімати виділення з попереднього об’єкта не потрібно. Подвійне торкання на об’єкті перемикає в режим [Мультивиділення](Multiselect.md) – виділення кількох об’єктів.
+Доторкніться до об’єкта щоб його виділити та підсвітити, повторне торкання об’єкта відкриває редактор теґів. Торкання екрану в порожньому місці знімає виділення. Якщо у вас є виділений об’єкт і вам треба виділіти інший, просто доторкніться до потрібного об”єкта та, у разі потреби, оберіть його із запропонованого списку, знімати виділення з попереднього об’єкта не потрібно. Подвійне торкання на об’єкті перемикає в режим [Мультивиділення](../en/Multiselect.md) – виділення кількох об’єктів.
 
 #### Додавання нової Точки або Лінії
 
@@ -74,19 +74,19 @@
 
 Веспуччі дозволяє швидко додавати обмеження поворотів. Примітка: якщо вам треба розділіти лінію для створення обмеження, зробіть це перед тим як розпочати.
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode, if there are no possible "via" elements the menu item will also not display)
-* select "Add restriction" from the menu
-* select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type in the tag menu
- 
-### Vespucci in "locked" mode
- 
-When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+* виділіть лінію з теґом highway (обмеження поворотів можуть бути додані лише до доріг, якщо вам потрібно це зробити для інших ліній, будь ласка, скористайтесь загальним режимом „створення звʼязків“, якщо немає можливих елементів "via", елементи меню також не будуть показані)
+* оберіть "Додати обмеження" в меню
+* оберіть точку або лінію "via" (всі можливі елементи для "via" будуть доступні для виділення та мати відповідне підсвічування)
+* оберіть лінію "to" (можливо обрати для цієї ролі лінію "from", Веспуччі зрозуміє, що це заборона розвороту)
+* встановіть тип обмеження в меню
 
-### Saving Your Changes
+### Веспуччі в режимі "перегляду"
 
-*(requires network connectivity)*
+Коли показується червоний замок, вам доступні дії не повʼязані з редагуванням. Довге торкання до обʼєкта дозволяє побачити інформацію про нього, якщо він є обʼєктом ОСМ.
+
+### Збереження вашіх змін
+
+*(потрібне зʼєднання з мережею)*
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
@@ -98,7 +98,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 #### Resolving conflicts on uploads
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
 ## Using GPS
 
@@ -112,7 +112,7 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will selecte the object, center the screen on it and down load the area beforehand if necessary. 
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
 ## Customizing Vespucci
 
@@ -120,9 +120,9 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a red bug icon, closed ones the same in green. Default: off.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: off.
+* Node icons. Default: on.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 

@@ -18,19 +18,19 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download other location** - shows a form that allows you to enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
+* **Download other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
 * **Auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-Самый простой способ открыть карту — приблизить и центрировать место, которое хотите отредактировать, выбрать "Скачать текущее местоположение". Масштабировать можно жестами, специализированными кнопками на экране или кнопками управления громкостью телефона. Vespucci загрузит данные для области и центрирует карту на вашем текущем местоположении. Для скачивания данных авторизация не требуется.
+The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
 
 ### Редактирование
 
-Чтобы избежать случайных правок, Vespucci запускается в "блокированном" режиме, в котором доступно только масштабирование и перемещение карты. Нажмите значок ![Locked](../images/locked.png), чтобы отключить блокировку. Долгое нажатие на значке включит режим "Только редактировать теги" — в этом режиме вы не сможете создавать объекты или менять их геометрию. Этот режим можно распознать по отличающемуся белому значку замка.
+To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. A long press on the lock icon will enable "Tag editing only" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.
 
-По умолчанию вокруг доступных для редактирования точек и линий есть оранжевые области, отображающие, где нужно нажать, чтобы их выделить. Если вы пытаетесь выбрать объект, а Vespucci обнаружит, что область выделения содержит несколько объектов, откроется меню выбора. Выделенные объекты подсвечены жёлтым.
+By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.
 
 Если вы пытаетесь редактировать область с высокой плотностью данных, разумно будет приблизить её.
 
@@ -38,13 +38,13 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 #### Выделение / Снятие выделения
 
-Прикоснитесь к объекту, чтобы выделить его и подсветить. Второе прикосновение к этому же объекту откроет редактор тегов для него. Нажатие на пустой области на экране снимет выделение. Если вы выбрали объект, но требуется выделить что-то ещё, то просто прикоснитесь к новому объекту. Не нужно предварительно снимать имеющееся выделение. Двойное нажатие на объекте включает [Множественное выделение](Multiselect.md).
+Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
 #### Добавление новой точки/узла или линии
 
 Используйте долгое нажатие на том месте, в котором вы хотите разместить точку или начало линии. Вы увидите чёрный крестик. Повторное нажатие в этом же месте создаст точку. Прикосновение за пределами восприимчивой к нажатиям области добавит сегмент линии от начального положения к текущему. 
 
-Просто прикоснитесь к экрану там, где хотите добавить новые точки в продолжение линии. Чтобы завершить, дважды нажмите на последней точке. Если начальная точка находится на линии, она будет включена в эту линию автоматически.
+Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.
 
 #### Перемещение точки или линии
 
@@ -62,9 +62,9 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 В Vespucci предусмотрена функция "добавления адресных тегов", которая старается упростить разметку адресов. Её можно выбрать 
 
-* после долгого нажатия: Vespucci добавит в этом месте точку и постарается угадать номер дома и адресные теги на основе тех, что вы недавно использовали. Если новая точка попала на контур дома, к ней по умолчанию добавится тег **entrance=yes"". Для новосозданного объекта откроется редактор тегов, где вы сможете задать прочие свойства.
-* в режиме выбора точки/линии: Vespucci добавит адресные теги по тому же принципу и откроет редактор тегов.
-* в самом редакторе тегов.
+* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the tag editor.
 
 Для того, чтобы интерполяция номеров домов работала, обычно требуется, чтобы на каждой стороне дороги уже существовало хотя бы два номера. Чем больше номеров домов имеется в данных этой области, тем лучше.
 
@@ -79,10 +79,10 @@ Vespucci — полнофункциональный редактор OpenStreetM
 * select the "via" node or way (all possible "via" elements will have the selectable element highlighting)
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type in the tag menu
- 
+
 ### Vespucci in "locked" mode
- 
-When the red lock is displayed the following all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+
+When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
 ### Сохранение изменений
 
@@ -98,7 +98,7 @@ Vespucci поддерживает и OAuth-авторизацию, и "клас�
 
 #### Разрешение конфликтов данных при передаче на сервер
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict resolution.md).  
 
 ## Использование GPS
 
@@ -112,17 +112,19 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
+The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+
 ## Настройка Vespucci
 
 ### Что стоит изменить в настройках
 
-* Фоновый слой
-* Слой наложения. Добавление слоя наложения может вызвать проблемы на устаревших устройствах и при недостатке оперативной памяти. По умолчанию: нет.
-* Отображение заметок и ошибок. "Незакрытые" заметки и ошибки будут отображаться в виже значка красного жука, "закрытые" - в виде зелёного. По умолчанию: выключено.
-* Слой фото. Показывает геопривязанные фотографии в виде красных значков фотоаппарата. Если есть информация о направлении съёмки, значок будет развёрнут. По умолчанию: выключен.
-* Значки точек. По умолчанию: выключены.
-* Держать экран включённым. По умолчанию: выключено.
-* Большая область захвата точек для перемещения. Перемещение точек на устройстве с сенсорным экраном — непростая задача, т.к. ваши пальцы будут заслонять текущее положение точки. Эта функция увеличивает область захвата, чтобы для перетягивания точки не обязательно было попадать ближе к её центру. Выделение точек и другие операции по-прежнему будут использовать общие настройки чувствительности к касаниям. По умолчанию: отключена.
+* Background layer
+* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Node icons. Default: on.
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-centre dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 #### Расширенные параметры
 

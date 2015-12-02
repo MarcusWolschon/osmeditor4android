@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0">
 <!--
-    Pics have been derived from
-    http://de.wikipedia.org/wiki/Bildtafel_der_Verkehrszeichen_in_Deutschland (german street sign SVGs)
-    http://commons.wikimedia.org/wiki/Image:National_Park_Service_sample_pictographs.svg (various monochrome pictograms)
-    http://www.kde.org
-    http://openclipart.org/media/view/media/clip_art
+    Icons have been derived from mainly from
+  
     http://www.sjjb.co.uk/mapicons/ (meanwhile in osm svn)
+    http://osm-icons.org/
 
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets
 -->
@@ -7692,7 +7690,7 @@
         <text key="ref" text="Reference number" />
         <preset_link preset_name="Payment Methods" />
     </item> <!-- Vending Machine -->
-    <item name="Payment Methods" type="node,way,closedway,relation" preset_name_label="true">
+    <item name="Payment Methods" icon="icons/png/money_payment_methods.png" type="node,way,closedway,relation" preset_name_label="true">
         <link href="http://wiki.openstreetmap.org/wiki/Key:payment"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:payment"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Key:payment"
@@ -8336,7 +8334,7 @@
         </item> <!-- Stone -->
     </group> <!-- Nature -->
     <group name="Land use" icon="icons/png/landuse_landuse_sp.png">
-        <item name="Farmyard" icon="presets/landuse.png" type="closedway,relation" preset_name_label="true">
+        <item name="Farmyard" icon="icons/png/landuse_farm_22120.png" type="closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=farmyard"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=farmyard"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=farmyard"
@@ -8412,7 +8410,7 @@
             <text key="name" text="Name" />
             <text key="operator" text="Operator" />
         </item> <!-- Greenhouse Horticulture -->
-        <item name="Plant Nursery" icon="icons/png/landuse_plant_260083.png" type="closedway" preset_name_label="true">
+        <item name="Plant Nursery" icon="icons/png/landuse_plant_26008.png" type="closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=plant_nursery"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=plant_nursery"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=plant_nursery"
@@ -8517,7 +8515,7 @@
             <text key="name" text="Name" />
         </item> <!-- Recreation Ground -->
         <separator/>
-        <item name="Residential Area" icon="icons/png/man_made_house_sp.png" type="closedway,relation" preset_name_label="true">
+        <item name="Residential Area" icon="icons/png/landuse_house_sp.png" type="closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=residential"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=residential"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=residential"
@@ -8560,7 +8558,7 @@
             <key key="landuse" value="cemetery" />
             <reference ref="religious" />
         </item> <!-- Cemetery -->
-        <item name="Religious" icon="icons/png/place_of_worship_unknown.png" type="closedway,relation" preset_name_label="true">
+        <item name="Religious" icon="icons/png/landuse_religous.png" type="closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=religious"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=religious"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:landuse=religious"
