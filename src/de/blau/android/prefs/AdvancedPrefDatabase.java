@@ -60,7 +60,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public synchronized void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
+		db.execSQL("CREATE TABLE apis (id TEXT, name TEXT, url TEXT, user TEXT, pass TEXT, preset TEXT, showicon INTEGER DEFAULT 1, oauth INTEGER DEFAULT 0, accesstoken TEXT, accesstokensecret TEXT)");
 		db.execSQL("CREATE TABLE presets (id TEXT, name TEXT, url TEXT, lastupdate TEXT, data TEXT, active INTEGER DEFAULT 0)");
 	}
 
