@@ -217,7 +217,11 @@ public class Preset implements Serializable {
 				poFileStream = iconManager.openAsset("preset_"+Locale.getDefault().getLanguage()+".po", true);
 			}
 			if (poFileStream != null) {
-				po = new Po(poFileStream);
+				try {
+					po = new Po(poFileStream);
+				} catch (Exception ignored) {
+					Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+				}
 			}
 		} else if (externalPackage != null) {
 			Log.i("Preset", "Loading APK preset, package=" + externalPackage + ", directory="+directory.toString());
@@ -258,7 +262,11 @@ public class Preset implements Serializable {
 						}
 					}
 					if (poFileStream != null) {
-						po = new Po(poFileStream);
+						try {
+							po = new Po(poFileStream);
+						} catch (Exception ignored) {
+							Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+						}
 					}
 				}
 			} 			
