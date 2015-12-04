@@ -1698,7 +1698,7 @@ public class StorageDelegator implements Serializable, Exportable {
 			Log.i("StorageDelegator", "storage delegator empty, skipping save");
 			return;
 		}
-		if (!dirty) { // dirty flag sould only be set if we have actually read/loaded/changed something
+		if (!dirty) { // dirty flag should only be set if we have actually read/loaded/changed something
 			Log.i("StorageDelegator", "storage delegator not dirty, skipping save");
 			return;
 		}
