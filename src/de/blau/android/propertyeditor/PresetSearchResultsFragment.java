@@ -117,7 +117,7 @@ public class PresetSearchResultsFragment extends SherlockDialogFragment {
 				return null;
 			}
 			
-			PresetGroup results = currentPresets[0].new PresetGroup(null, "search results", null); //arggghhhh
+			PresetGroup results = new Preset().new PresetGroup(null, "search results", null); 
 			for (PresetItem p: presets) {
 				if (p != null ) {
 					results.addElement(p);

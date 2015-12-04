@@ -193,6 +193,13 @@ public class Preset implements Serializable {
 	}
 	
 	/**
+	 * create a dummy preset
+	 */
+	public Preset() {
+		mru = null;
+	}
+	
+	/**
 	 * Creates a preset object.
 	 * @param ctx context (used for preset loading)
 	 * @param directory directory to load/store preset data (XML, icons, MRUs)
@@ -220,6 +227,8 @@ public class Preset implements Serializable {
 				try {
 					po = new Po(poFileStream);
 				} catch (Exception ignored) {
+					Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+				} catch (Error ignored) {
 					Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 				}
 			}
@@ -265,6 +274,8 @@ public class Preset implements Serializable {
 						try {
 							po = new Po(poFileStream);
 						} catch (Exception ignored) {
+							Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+						} catch (Error ignored) {
 							Log.e("Preset","Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
 						}
 					}
@@ -1541,7 +1552,9 @@ public class Preset implements Serializable {
 	static public MultiHashMap<String, PresetItem> getSearchIndex(Preset[] presets) {
 		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
 		for (Preset p:presets) {
-			result.addAll(p.searchIndex);
+			if (p != null) {
+				result.addAll(p.searchIndex);
+			}
 		}
 		return result;
 	}
@@ -1549,7 +1562,9 @@ public class Preset implements Serializable {
 	static public MultiHashMap<String, PresetItem> getTranslatedSearchIndex(Preset[] presets) {
 		MultiHashMap<String, PresetItem> result = new MultiHashMap<String, PresetItem>();
 		for (Preset p:presets) {
-			result.addAll(p.translatedSearchIndex);
+			if (p!=null) {
+				result.addAll(p.translatedSearchIndex);
+			}
 		}
 		return result;
 	}
