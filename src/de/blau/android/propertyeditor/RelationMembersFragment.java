@@ -198,15 +198,16 @@ public class RelationMembersFragment extends SherlockFragment {
 	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position) {
 		RelationMemberRow row = null; 
 		
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
-			row.roleEdit.setEllipsize(TruncateAt.END);
-		}
-		
 		if (rmd.downloaded()) {
 			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_downloaded_row, null);
 		} else {
 			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_row, null);
 		}
+		
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
+			row.roleEdit.setEllipsize(TruncateAt.END);
+		}
+		
 		row.setValues(pos, id, rmd);
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 		
