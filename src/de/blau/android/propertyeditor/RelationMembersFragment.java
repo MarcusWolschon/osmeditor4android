@@ -10,8 +10,10 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -195,6 +197,10 @@ public class RelationMembersFragment extends SherlockFragment {
 	 */
 	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position) {
 		RelationMemberRow row = null; 
+		
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
+			row.roleEdit.setEllipsize(TruncateAt.END);
+		}
 		
 		if (rmd.downloaded()) {
 			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_downloaded_row, null);

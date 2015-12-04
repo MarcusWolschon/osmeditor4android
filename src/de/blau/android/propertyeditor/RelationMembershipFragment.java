@@ -11,7 +11,9 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -190,6 +192,11 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	 */
 	protected RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, final int position, boolean showSpinner) {
 		RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, null);
+
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
+			row.roleEdit.setEllipsize(TruncateAt.END);
+		}
+
 		if (r != null) {
 			row.setValues(role, r);
 		}

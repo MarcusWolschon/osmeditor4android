@@ -21,12 +21,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
+import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -553,6 +555,10 @@ public class TagEditorFragment extends SherlockFragment {
 	protected TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
 		final TagEditRow row = (TagEditRow)inflater.inflate(R.layout.tag_edit_row, null);
 	
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
+			row.valueEdit.setEllipsize(TruncateAt.END);
+		}
+		
 		boolean same = true;
 		if (tagValues.size() > 1) {
 			for (int i=1;i<tagValues.size();i++) {
