@@ -407,7 +407,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			// Start loading after resume to ensure loading dialog can be removed afterwards
 			loadOnResume = true;
 		} else { // the following code should likely be moved to onStart or onResume 
-			if (geoData == null && rcData == null) {
+			if (geoData == null && rcData == null && Application.getDelegator().isEmpty()) {
 				// check if we have a position
 				Location loc = getLastLocation();
 				BoundingBox box = null;
