@@ -15,8 +15,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: master_preset.xml:9544(item:name|group:Crafts|preset:Metal_works)
-msgid "Metal works"
-msgstr "Metal işleri"
+#msgid "Metal works"
+#msgstr "Metal işleri"
 
 #: master_preset.xml:982(item:name|group:Ways|preset:Dedicated_Cycleway)
 msgid "Dedicated Cycleway"
