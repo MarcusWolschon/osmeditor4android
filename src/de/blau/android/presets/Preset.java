@@ -718,7 +718,8 @@ public class Preset implements Serializable {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
-		if (tags==null) {
+		if (tags==null || presets==null) {
+			Log.e("Preset", "findBestMatch " + (tags==null?"tags null":"presets null"));
 			return null;
 		}
 		
