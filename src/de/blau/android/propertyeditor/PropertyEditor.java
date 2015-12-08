@@ -322,6 +322,12 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		Log.d(DEBUG_TAG,"onResume done");
 	}
 
+	@Override
+	protected void onDestroy() {
+		Log.d(DEBUG_TAG,"onDestroy");
+		super.onDestroy();
+	}
+		
 	public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 		
 	    private ArrayList<LinkedHashMap<String, String>> tags;

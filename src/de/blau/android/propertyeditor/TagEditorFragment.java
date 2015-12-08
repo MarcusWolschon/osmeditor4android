@@ -13,6 +13,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.acra.ACRA;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -217,7 +219,13 @@ public class TagEditorFragment extends SherlockFragment {
      	// editRowLayout.setSaveFromParentEnabled(false);
      	editRowLayout.setSaveEnabled(false); 
      	
-     	elements = (OsmElement[]) getArguments().getSerializable("elements");
+     	try {
+			elements = (OsmElement[]) getArguments().getSerializable("elements");
+		} catch (ClassCastException cce) {
+			Log.d(DEBUG_TAG,"onCreateView called in funny state");
+			ACRA.getErrorReporter().handleException(null);
+			return null;
+		}
      	types = new String[elements.length];
      	osmIds =  new long[elements.length];
      	for (int i=0;i< elements.length;i++) {
