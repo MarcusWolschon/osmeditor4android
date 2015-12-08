@@ -335,7 +335,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 		public RelationMembershipRow setRelation(Relation r) {
 			relationId = r.getOsmId();
 			parentEdit.setSelection(Application.getDelegator().getCurrentStorage().getRelations().indexOf(r));
-			Log.d("TagEditor", "Set parent relation to " + relationId + " " + r.getDescription());
+			Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
 			roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update 
 			return this;
 		}
