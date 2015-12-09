@@ -15,7 +15,6 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
@@ -32,7 +31,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
@@ -81,22 +80,22 @@ public class Server {
 	/**
 	 * oauth access token
 	 */
-	private String accesstoken;
+	private final String accesstoken;
 	
 	/**
 	 * oauth access token secret
 	 */
-	private String accesstokensecret;
+	private final String accesstokensecret;
 	
 	/**
 	 * display name of the user and other stuff
 	 */
-	private UserDetails userDetails;
+	private final UserDetails userDetails;
 	
 	/**
 	 * Current capabilities
 	 */
-	public Capabilities capabilities = Capabilities.getDefault();
+	private Capabilities capabilities = Capabilities.getDefault();
 
 	/**
 	 * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
@@ -107,16 +106,36 @@ public class Server {
 
 	private long changesetId = -1;
 
-	private String generator;
+	private final String generator;
 
 	private final XmlPullParserFactory xmlParserFactory;
 
-	private DiscardedTags discardedTags;
+	private final DiscardedTags discardedTags;
 
 	/**
 	 * Date pattern used for suggesting a file name when uploading GPX tracks.
 	 */
 	private static final String DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
+
+	/**
+	 * Base server URL of the OpenStreetMap API
+	 */
+	private static final String SERVER_BASE_URL = "http://api.openstreetmap.org";
+
+	/**
+	 * Server path component for "api/" as in "http://api.openstreetmap.org/api/".
+	 */
+	private static final String SERVER_API_PATH = "api/";
+
+	/**
+	 * Server path component for "changeset/" as in "http://api.openstreetmap.org/api/0.6/changeset/".
+	 */
+	private static final String SERVER_CHANGESET_PATH = "changeset/";
+
+	/**
+	 * Server path component for "notes/" as in "http://api.openstreetmap.org/api/0.6/notes/".
+	 */
+	private static final String SERVER_NOTES_PATH = "notes/";
 
 	
 	/**
@@ -132,7 +151,7 @@ public class Server {
 		if (apiurl != null && !apiurl.equals("")) {
 			this.serverURL = apiurl;
 		} else {
-			this.serverURL = "http://api.openstreetmap.org/api/"+version+"/"; // probably not needed anymore
+			this.serverURL = SERVER_BASE_URL + "/" + SERVER_API_PATH + version + "/"; // probably not needed anymore
 		}
 		this.password = password;
 		this.username = username;
@@ -251,7 +270,7 @@ public class Server {
 	 * @return The capabilities for this server, or null if it couldn't be determined.
 	 */
 	public Capabilities getCapabilities() {
-		Capabilities result = null;
+		Capabilities result;
 		HttpURLConnection con = null;
 		// 
 		try {
@@ -272,7 +291,7 @@ public class Server {
 			parser.setInput(con.getInputStream(), null);
 			int eventType;
 			result = new Capabilities();
-			// very hackish just keys on tag names and not in which secton of the response we are
+			// very hackish just keys on tag names and not in which section of the response we are
 			while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
 				try {
 					String tagName = parser.getName();
@@ -374,7 +393,7 @@ public class Server {
 		Log.d("Server", "getStreamForBox");
 		URL url = new URL(serverURL  + "map?bbox=" + box.toApiString());
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		boolean isServerGzipEnabled = false;
+		boolean isServerGzipEnabled;
 
 		Log.d("Server", "getStreamForBox " + url.toString());
 		
@@ -413,8 +432,7 @@ public class Server {
 			else {
 				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
-			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+			throwUnexpectedRequestException(con);
 		}
 
 		if (isServerGzipEnabled) {
@@ -437,7 +455,7 @@ public class Server {
 		Log.d("Server", "getStreamForElement");
 		URL url = new URL(serverURL + type + "/" + id + (mode != null ? "/" + mode : ""));
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		boolean isServerGzipEnabled = false;
+		boolean isServerGzipEnabled;
 
 		Log.d("Server", "getStreamForElement " + url.toString());
 		
@@ -476,8 +494,7 @@ public class Server {
 			else {
 				Application.mainActivity.runOnUiThread(new DownloadErrorToast(con.getResponseCode(), con.getResponseMessage()));
 			}
-			throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-					+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+			throwUnexpectedRequestException(con);
 		}
 
 		if (isServerGzipEnabled) {
@@ -489,8 +506,8 @@ public class Server {
 
 	
 	class DownloadErrorToast implements Runnable {
-		int code;
-		String message;
+		final int code;
+		final String message;
 		
 		DownloadErrorToast(int code, String message) {
 			this.code = code;
@@ -504,7 +521,7 @@ public class Server {
 				Toast.makeText(mainCtx,
 					  mainCtx.getResources().getString(R.string.toast_download_failed, code, message), Toast.LENGTH_LONG).show();
 			} catch (Exception ex) {
-			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely casued by a translation error 
+			  	// do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error because it is likely caused by a translation error
 				ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 				ACRA.getErrorReporter().handleException(ex);
 			}
@@ -563,9 +580,10 @@ public class Server {
 		long osmVersion = -1;
 		HttpURLConnection connection = null;
 		InputStream in = null;
-		Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId() + " " + getUpdateUrl(elem));
 		try {
-			connection = openConnectionForWriteAccess(getUpdateUrl(elem), "PUT");
+			URL updateElementUrl = getUpdateUrl(elem);
+			Log.d("Server","Updating " + elem.getName() + " #" + elem.getOsmId() + " " + updateElementUrl);
+			connection = openConnectionForWriteAccess(updateElementUrl, "PUT");
 			// remove redundant tags
 			discardedTags.remove(elem);
 			sendPayload(connection, new XmlSerializable() {
@@ -803,7 +821,7 @@ public class Server {
 		public boolean open = false;
 	}
 	
-	public Changeset getChangeset(long id) {
+	private Changeset getChangeset(long id) {
 		Changeset result = null;
 		HttpURLConnection connection = null;
 		try {
@@ -841,7 +859,7 @@ public class Server {
 	}
 	
 
-	public void updateChangeset(final long changesetId, final String comment, final String source, final String imagery) throws MalformedURLException, ProtocolException, IOException {
+	private void updateChangeset(final long changesetId, final String comment, final String source, final String imagery) throws MalformedURLException, ProtocolException, IOException {
 		
 		HttpURLConnection connection = null;
 		InputStream in = null;
@@ -899,10 +917,11 @@ public class Server {
 	 * @throws OsmException
 	 */
 	private void checkResponseCode(final HttpURLConnection connection, final OsmElement e) throws IOException, OsmException {
+		int responsecode = -1;
 		if (connection == null ) {
-			throw new OsmServerException(-1,"Unknown error");
+			throw new OsmServerException(responsecode, "Unknown error");
 		}
-		int responsecode = connection.getResponseCode();
+		responsecode = connection.getResponseCode();
 		Log.d("Server", "response code " + responsecode);
 		if (responsecode == -1) throw new IOException("Invalid response from server");
 		if (responsecode != HttpURLConnection.HTTP_OK) {
@@ -929,7 +948,7 @@ public class Server {
 		String res = "";
 		if (in != null) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8000);
-			String line = null;
+			String line;
 			try {
 				while ((line = reader.readLine()) != null) {
 					res += line;
@@ -959,15 +978,15 @@ public class Server {
 	}
 
 	private URL getCreateChangesetUrl() throws MalformedURLException {
-		return new URL(serverURL  + "changeset/create");
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + "create");
 	}
 
 	private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(serverURL  + "changeset/" + changesetId + "/close");
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId + "/close");
 	}
 	
 	private URL getChangesetUrl(long changesetId) throws MalformedURLException {
-		return new URL(serverURL  + "changeset/" + changesetId);
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId);
 	}
 
 	private URL getUpdateUrl(final OsmElement elem) throws MalformedURLException {
@@ -976,24 +995,60 @@ public class Server {
 
 	private URL getDeleteUrl(final OsmElement elem) throws MalformedURLException {
 		//return getUpdateUrl(elem);
-		return new URL(serverURL  + "changeset/" + changesetId + "/upload");
+		return new URL(serverURL  + SERVER_CHANGESET_PATH + changesetId + "/upload");
 	}
 	
 	private URL getUserDetailsUrl() throws MalformedURLException {
 		return new URL(serverURL  + "user/details");
 	}
 	
+	private URL getAddCommentUrl(@NonNull String noteId, @NonNull String comment)
+			throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
+	}
+
+	private URL getNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId);
+	}
+
+	private URL getNotesForBox(long limit, @NonNull BoundingBox area) throws MalformedURLException {
+		return new URL(serverURL  + "notes?" +
+				"limit=" + limit + "&" +
+				"bbox=" +
+				area.getLeft() / 1E7d +
+				"," + area.getBottom() / 1E7d +
+				"," + area.getRight() / 1E7d +
+				"," + area.getTop() / 1E7d);
+	}
+
+	private URL getAddNoteUrl(double latitude, double longitude, @NonNull String comment)
+			throws MalformedURLException {
+		return new URL(serverURL + "notes?lat=" + latitude + "&lon=" + longitude + "&text=" + comment);
+	}
+
+	private URL getCloseNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/close");
+	}
+
+	private URL getReopenNoteUrl(@NonNull String noteId) throws MalformedURLException {
+		return new URL(serverURL + SERVER_NOTES_PATH + noteId + "/reopen");
+	}
+
+	private URL getUploadTrackUrl() throws MalformedURLException {
+		return new URL(serverURL  + "gpx/create");
+	}
+
 	private URL getCapabilitiesUrl() throws MalformedURLException {
 		// need to strip version from serverURL
-		int apiPos = serverURL.indexOf("api/");
+		int apiPos = serverURL.indexOf(SERVER_API_PATH);
 		if (apiPos > 0) {
-			String noVersionURL = serverURL.substring(0, apiPos) + "api/";
+			String noVersionURL = serverURL.substring(0, apiPos) + SERVER_API_PATH;
 			return new URL(noVersionURL  + "capabilities");
 		}
 		return null;
 	}
 
-	public XmlSerializer getXmlSerializer() {
+	private XmlSerializer getXmlSerializer() {
 		try {
 			XmlSerializer serializer = xmlParserFactory.newSerializer();
 			serializer.setPrefix("", "");
@@ -1062,16 +1117,9 @@ public class Server {
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
 			Log.d("Server", "getNotesForBox");
-			URL url = new URL(serverURL  + "notes?" +
-					"limit=" + limit + "&" +
-					"bbox=" +
-					area.getLeft() / 1E7d +
-					"," + area.getBottom() / 1E7d +
-					"," + area.getRight() / 1E7d +
-					"," + area.getTop() / 1E7d);
-			
+			URL url = getNotesForBox(limit, area);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			boolean isServerGzipEnabled = false;
+			boolean isServerGzipEnabled;
 
 			//--Start: header not yet send
 			con.setReadTimeout(TIMEOUT);
@@ -1083,9 +1131,8 @@ public class Server {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return new ArrayList<Note>(); //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
-//				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-//						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+				return new ArrayList<Note>(); //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+				// throw new UnexpectedRequestException(con);
 			}
 
 			InputStream is;
@@ -1142,10 +1189,9 @@ public class Server {
 		// http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
 		try {
 			Log.d("Server", "getNote");
-			URL url = new URL(serverURL  + "notes/" + id);
-							
+			URL url = getNoteUrl(Long.toString(id));
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			boolean isServerGzipEnabled = false;
+			boolean isServerGzipEnabled;
 
 			//--Start: header not yet send
 			con.setReadTimeout(TIMEOUT);
@@ -1157,9 +1203,8 @@ public class Server {
 			isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 			
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return null; //TODO reutn empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
-//				throw new OsmServerException(con.getResponseCode(), "The API server does not except the request: " + con
-//						+ ", response code: " + con.getResponseCode() + " \"" + con.getResponseMessage() + "\"");
+				return null; //TODO Return empty list ... this is better than throwing an uncatched exception, but we should provide some user feedback
+				// throw new UnexpectedRequestException(con);
 			}
 
 			InputStream is;
@@ -1222,23 +1267,18 @@ public class Server {
 			try {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/comment?text="  +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/url");
+					String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+					URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
+					connection = openConnectionForWriteAccess(addCommentUrl, "POST", "text/url");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 		
 					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
 					out.flush();
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
-					
-					InputStream is = connection.getInputStream();	
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "addComment:Exception", e);
@@ -1268,23 +1308,17 @@ public class Server {
 			try {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes?lat=" + (bug.getLat() / 1E7d)+"&lon=" + (bug.getLon() / 1E7d) + "&text=" +URLEncoder.encode(comment.getText(), "UTF-8")), "POST", "text/xml");
+					String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+					URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
+					connection = openConnectionForWriteAccess(addNoteUrl, "POST", "text/xml");
 					OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset
 							.defaultCharset());
 					// out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
 					out.flush();
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
-					
-					InputStream is = connection.getInputStream();
-					
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "addNote:Exception", e);
@@ -1313,19 +1347,12 @@ public class Server {
 			try {
 				try {
 					// setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body which will fail
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/close"  ), "POST", "text/xml");
+					URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
+					connection = openConnectionForWriteAccess(closeNoteUrl, "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
-				
-					InputStream is = connection.getInputStream();
-					
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "closeNote:Exception", e);
@@ -1353,18 +1380,12 @@ public class Server {
 			HttpURLConnection connection = null;
 			try {
 				try {
-					connection = 
-							openConnectionForWriteAccess(new URL(serverURL  + "notes/"+Long.toString(bug.getId())+"/reopen"  ), "POST", "text/xml");
+					URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
+					connection = openConnectionForWriteAccess(reopenNoteUrl, "POST", "text/xml");
 					if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-						throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-								+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+						throwUnexpectedRequestException(connection);
 					}
-					InputStream is = connection.getInputStream();
-					
-					XmlPullParser parser = xmlParserFactory.newPullParser();
-					parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-					bug.parseBug(parser); // replace contents with result from server 
-					Application.getBugStorage().setDirty();
+					parseBug(bug, connection.getInputStream());
 					return true;
 				} catch (XmlPullParserException e) {
 					Log.e("Server", "reopenNote:Exception", e);
@@ -1379,6 +1400,14 @@ public class Server {
 		return false;
 	}
 	
+	private void parseBug(@NonNull Note bug, @NonNull InputStream inputStream)
+			throws IOException, XmlPullParserException {
+		XmlPullParser parser = xmlParserFactory.newPullParser();
+		parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
+		bug.parseBug(parser); // replace contents with result from server
+		Application.getBugStorage().setDirty();
+	}
+
 	/**
 	 * GPS track API
 	 */
@@ -1403,21 +1432,21 @@ public class Server {
 		try {
 			// 
 			String boundary="*VESPUCCI*";
-			String seperator="--"+boundary+"\r\n";
+			String separator="--"+boundary+"\r\n";
 			connection = 
-					openConnectionForWriteAccess(new URL(serverURL  + "gpx/create"), "POST", "multipart/form-data;boundary="+boundary);
+					openConnectionForWriteAccess(getUploadTrackUrl(), "POST", "multipart/form-data;boundary="+boundary);
 			OutputStream os = connection.getOutputStream();
 			OutputStreamWriter out = new OutputStreamWriter(os, Charset .defaultCharset());
-			out.write(seperator);
+			out.write(separator);
 			out.write("Content-Disposition: form-data; name=\"description\"\r\n\r\n"); 
 			out.write(description + "\r\n");
-			out.write(seperator);
+			out.write(separator);
 			out.write("Content-Disposition: form-data; name=\"tags\"\r\n\r\n");
 			out.write(tags + "\r\n");
-			out.write(seperator);
+			out.write(separator);
 			out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
 			out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
-			out.write(seperator);
+			out.write(separator);
 			String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
 			out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileNamePart + ".gpx\"\r\n");
 			out.write("Content-Type: application/gpx+xml\r\n\r\n");
@@ -1428,8 +1457,7 @@ public class Server {
 			out.write("--"+boundary+"--\r\n");
 			out.flush();
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				throw new OsmServerException(connection.getResponseCode(), "The API server does not except the request: " + connection
-						+ ", response code: " + connection.getResponseCode() + " \"" + connection.getResponseMessage() + "\"");
+				throwUnexpectedRequestException(connection);
 			}
 		} finally {
 			disconnect(connection);
@@ -1455,4 +1483,13 @@ public class Server {
 	public boolean getOAuth() {
 		return oauth;
 	}
+
+	private void throwUnexpectedRequestException(@NonNull HttpURLConnection connection)
+			throws IOException {
+		String detailMessage = "The API server does not except the request: " + connection +
+				", response code: " + connection.getResponseCode() +
+				" \"" + connection.getResponseMessage() + "\"";
+		throw new OsmServerException(connection.getResponseCode(), detailMessage);
+	}
+
 }
