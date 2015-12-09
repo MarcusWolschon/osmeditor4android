@@ -57,7 +57,6 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
@@ -1245,7 +1244,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.tag_menu, menu);
-		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(Application.mainActivity));
+		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(getActivity()));
 	}
 	
 	
