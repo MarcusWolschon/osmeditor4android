@@ -2204,7 +2204,7 @@ public class EasyEditManager {
 				case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
 				case MENUITEM_MERGE:
 					// check if the tags are the same for all ways first ... ignores direction dependent stuff
-					Map firstTags = selection.get(0).getTags();
+					Map<String,String> firstTags = selection.get(0).getTags();
 					boolean ok = true;
 					for (int i=1;i<selection.size();i++) {
 						if ((firstTags.isEmpty() && !selection.get(i).getTags().isEmpty())

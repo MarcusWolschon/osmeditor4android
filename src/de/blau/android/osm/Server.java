@@ -336,9 +336,9 @@ public class Server {
 						Log.d("Server","getCapabilities timeout seconds " + seconds);
 					}
 					if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
-						result.dbStatus = result.stringToStatus(parser.getAttributeValue(null, "database"));
-						result.apiStatus = result.stringToStatus(parser.getAttributeValue(null, "api"));
-						result.gpxStatus = result.stringToStatus(parser.getAttributeValue(null, "gpx"));
+						result.dbStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "database"));
+						result.apiStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "api"));
+						result.gpxStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx"));
 						Log.d("Server","getCapabilities service status FB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
 					}	
 					if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {

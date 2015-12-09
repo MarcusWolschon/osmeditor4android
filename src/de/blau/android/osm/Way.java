@@ -750,4 +750,12 @@ public class Way extends OsmElement {
 		}
 		return result;
 	}
+
+	/**
+	 * Set the maximum number of nodes allowed in one way
+	 * @param max
+	 */
+	public static void setMaxWayNodes(int max) {
+		maxWayNodes = max;
+	}
 }

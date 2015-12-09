@@ -30,7 +30,7 @@ public class Capabilities {
 	public ArrayList<String> imageryBlacklist = new ArrayList<String>();
 
 
-	public Status stringToStatus(String s) {
+	public static Status stringToStatus(String s) {
 		if (s == null) {
 			return Status.OFFLINE;
 		}
@@ -62,6 +62,6 @@ public class Capabilities {
 	 * of the values here 
 	 */
 	public void updateLimits() {
-		Way.maxWayNodes = maxWayNodes;
+		Way.setMaxWayNodes(maxWayNodes);
 	}
 }
