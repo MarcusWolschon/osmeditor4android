@@ -166,6 +166,7 @@
     <string name="back">Back</string>
     <string name="foward">Forward</string>
     <string name="keep">Keep</string>
+    <string name="enable">Enable</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>

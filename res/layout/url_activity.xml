@@ -5,14 +5,11 @@
     android:layout_height="match_parent"
     >
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
 	>
-
 
         <LinearLayout
 			android:id="@+id/urldialog_layoutPreset"
@@ -21,14 +18,11 @@
             android:orientation="vertical"
             android:padding="10dp" >
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/preset"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
 
             <TextView
                 android:id="@+id/urldialog_textPresetName"
@@ -36,15 +30,12 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp" />
 
-
-
             <TextView
                 android:id="@+id/urldialog_textPresetURL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic" 
                 android:paddingLeft="20dp" />
-
 
             <TextView
                 android:id="@+id/urldialog_textPresetExists"
@@ -57,7 +48,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/urldialog_preset_download_successful" />
-
+			
+			<CheckBox
+			    android:id="@+id/urldialog_checkboxEnable"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:checked="true"
+			    android:text="@string/enable"
+			    android:textAppearance="?android:attr/textAppearanceSmall" />
+            
             <Button
                 android:id="@+id/urldialog_buttonAddPreset"
                 android:layout_width="wrap_content"

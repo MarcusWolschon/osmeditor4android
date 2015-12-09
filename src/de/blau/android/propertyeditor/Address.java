@@ -71,7 +71,8 @@ public class Address implements Serializable {
 	Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
 		OsmElement e = Application.getDelegator().getOsmElement(type, id);
 		switch (e.getType()) {
-		case NODE: lat = ((Node)e).getLat()/1E7F; lon = ((Node)e).getLon()/1E7F; break;
+		case NODE: lat = ((Node)e).getLat()/1E7F; lon = ((Node)e).getLon()/1E7F; 
+			break;
 		case WAY:
 		case CLOSEDWAY:
 			double[] center = Logic.centroidLonLat((Way)e);

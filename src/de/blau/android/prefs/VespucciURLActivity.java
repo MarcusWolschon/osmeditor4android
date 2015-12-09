@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import de.blau.android.Application;
 import de.blau.android.R;
@@ -124,6 +125,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 		    		mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
 		    		mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
 		    	}
+		    	mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
 		    	mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
 		    	((Button)mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
 		    } else if (apiurl != null) {
@@ -163,7 +165,9 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.urldialog_buttonAddPreset:
-			PresetEditorActivity.startForResult(this, presetname, preseturl, REQUEST_PRESETEDIT);
+			CheckBox enableCheckBox = (CheckBox)mainView.findViewById(R.id.urldialog_checkboxEnable);
+			boolean enable = enableCheckBox != null && enableCheckBox.isChecked();
+			PresetEditorActivity.startForResult(this, presetname, preseturl, enable, REQUEST_PRESETEDIT);
 			break;
 		case R.id.urldialog_buttonAddAPI:
 			APIEditorActivity.startForResult(this, apiname, apiurl, REQUEST_APIEDIT);

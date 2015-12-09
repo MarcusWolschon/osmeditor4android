@@ -55,11 +55,13 @@ public class PresetEditorActivity extends URLListEditActivity {
 	public static void startForResult(@NonNull Activity activity,
 									  @NonNull String presetName,
 									  @NonNull String presetUrl,
+									  boolean enable, 
 									  int requestCode) {
 		Intent intent = new Intent(activity, PresetEditorActivity.class);
 		intent.setAction(ACTION_NEW);
 		intent.putExtra(EXTRA_NAME, presetName);
 		intent.putExtra(EXTRA_VALUE, presetUrl);
+		intent.putExtra(EXTRA_ENABLE, enable);
 		activity.startActivityForResult(intent, requestCode);
 	}
 
@@ -101,12 +103,18 @@ public class PresetEditorActivity extends URLListEditActivity {
 
 	@Override
 	protected void onItemCreated(ListEditItem item) {
-		db.addPreset(item.id, item.name, item.value, false);
+		if (isAddingViaIntent()) {
+			item.enabled = 	getIntent().getExtras().getBoolean(EXTRA_ENABLE);
+		}
+		db.addPreset(item.id, item.name, item.value, item.enabled);
 		downloadPresetData(item);
-		if (!isAddingViaIntent()) {
+		if (!isAddingViaIntent()) { // FIXME this is likely obsolete
 			db.setCurrentAPIPreset(item.id);
 			Application.resetPresets();
+		} else if (item.enabled) { // added a new preset and enabled it: need to rebuild presets
+			Application.resetPresets();
 		}
+
 	}
 
 	@Override

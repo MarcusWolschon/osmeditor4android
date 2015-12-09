@@ -55,6 +55,7 @@ public abstract class URLListEditActivity extends SherlockListActivity implement
 	public static final String EXTRA_NAME = "name";
 	public static final String EXTRA_VALUE = "value";
 	public static final String EXTRA_ITEM = "item";
+	public static final String EXTRA_ENABLE = "enable";
 	
 	protected Resources r;
 	protected final Context ctx;
