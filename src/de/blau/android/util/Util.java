@@ -145,9 +145,27 @@ public class Util {
 	}
 
 	/**
-	 * REset the progressbar counter to zero
+	 * Reset the progressbar counter to zero
 	 */
 	public synchronized static void resetProgressBarShown() {
 		progressBarShown = 0;
+	}
+
+	/**
+	 * Convert a list to a semicolon separated string
+	 * @param list
+	 * @return string containing the individual list values separated by ; or the empty string if list is null or empty
+	 */
+	public static String listToOsmList(List<String> list) {
+		String osmList = "";
+		if (list != null) {
+			for (String i:list) {
+				if (!"".equals(osmList)) {
+					osmList = osmList + ";";
+				}
+				osmList = osmList + i;
+			}
+		}
+		return osmList;
 	}
 }

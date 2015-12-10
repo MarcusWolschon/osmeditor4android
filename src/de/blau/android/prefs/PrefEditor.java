@@ -15,6 +15,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.Application;
 import de.blau.android.DebugInformation;
 import de.blau.android.LicenseViewer;
 import de.blau.android.R;
@@ -118,6 +119,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 						break;
 					}
 				}
+				Application.getDelegator().setImageryRecorded(false);
 				return true;
 			}
 		};
@@ -141,6 +143,7 @@ public class PrefEditor extends SherlockPreferenceActivity {
 						break;
 					}
 				}
+				Application.getDelegator().setImageryRecorded(false);
 				return true;
 			}
 		};

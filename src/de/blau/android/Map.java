@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -1201,5 +1202,19 @@ public class Map extends View implements IMapView {
 	
 	public void setFollowGPS(boolean follow) {
 		isFollowingGPS = follow;
+	}
+
+	/**
+	 * Return a list of the names of the currently used layers
+	 * @return
+	 */
+	public ArrayList<String> getImageryNames() {
+		ArrayList<String>result = new ArrayList<String>();
+		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
+			if ((osmvo instanceof OpenStreetMapTilesOverlay)) {
+				result.add(((OpenStreetMapTilesOverlay)osmvo).getRendererInfo().getName());
+			}
+		}
+		return result;
 	}
 }

@@ -887,6 +887,14 @@ public class OpenStreetMapTileServer {
 	}
 	
 	/**
+	 * Return the name for this imagery
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
 	 * Get all the available tile layer IDs. Slightly complex to get a reasonable order
 	 * @param filtered only return servers that overlap/intersect with the current bbox
 	 * @return All available tile layer IDs.
