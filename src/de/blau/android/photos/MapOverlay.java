@@ -73,7 +73,6 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 						publishProgress(0);
 						pi.createOrUpdateIndex();
 						publishProgress(1);
-						indexed = true;
 					}
 					return pi.getPhotos(cur);
 				}
@@ -91,7 +90,10 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 					photos.clear();
 					if (!result.isEmpty()) {
 						photos.addAll(result);
-						map.invalidate(); // find out if a different layer is updating too, then don't invalidate
+						if (!indexed) {
+							map.invalidate(); // find out if a different layer is updating too, then don't invalidate
+							indexed = true;
+						}
 					}
 				}
 				

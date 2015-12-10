@@ -21,8 +21,8 @@ import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.contract.Paths;
-import de.blau.android.osb.Bug;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.tasks.Task;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
@@ -35,7 +35,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	
 	private final static int DATA_VERSION = 3;
 	private final static String LOGTAG = "PhotoIndex";
-	private static final String DEBUG_TAG = null;
 	private final Context ctx;
 
 	
@@ -195,11 +194,15 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	public void addPhoto(File f) {
 		SQLiteDatabase db = getWritableDatabase();
 		// Log.i(LOGTAG,"Adding entry in " + f.getParent());
-		addPhoto(db, f.getParentFile(), f);
+		Photo p = addPhoto(db, f.getParentFile(), f);
 		db.close();
+		RTree index = Application.getPhotoIndex();
+		if (p!=null && index.count() != 0) { // if nothing is in the index the complete DB including this photo will be added
+			index.insert(p);
+		}
 	}
 	
-	public void addPhoto(SQLiteDatabase db, File dir, File f) {
+	public Photo addPhoto(SQLiteDatabase db, File dir, File f) {
 		// Log.i(LOGTAG,"Adding entry from " + f.getName());
 		try {	
 			Photo p = new Photo(f);
@@ -213,6 +216,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			values.put("dir", dir.getAbsolutePath());
 			values.put("name", f.getName());
 			db.insert("photos", null, values); 
+			return p;
 		} catch (SQLiteException sqex) { 
 			Log.d(LOGTAG, sqex.toString());
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -225,6 +229,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 			ACRA.getErrorReporter().handleException(ex);
 		} // ignore
+		return null;
 	}
 
 	/**
@@ -233,7 +238,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public Collection<Photo> getPhotos(BoundingBox cur) {
-		Collection<Photo> result = new ArrayList<Photo>();
 		RTree index = Application.getPhotoIndex();
 		if (index.count()==0) {
 			try {
@@ -245,7 +249,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
 						null, null, null, null, null);
 				int photoCount = dbresult.getCount();
 				dbresult.moveToFirst();
-				// loop over the directories configured
+				Log.i(LOGTAG,"Query returned " + photoCount + " photos");
+				// 
 				for (int i = 0; i < photoCount; i++) {
 					if (dbresult.isNull(2) ) { // no direction
 						index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
@@ -260,7 +265,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
 				// shoudn't happen (getReadableDatabase failed), simply report for now
 				ACRA.getErrorReporter().handleException(ex);
 			}
-			Log.i(LOGTAG,"Found " + result.size() + " photos");
 		}
 		
 		return getPhotosFromIndex(index, cur);
@@ -269,7 +273,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	public ArrayList<Photo>getPhotosFromIndex(RTree index, BoundingBox box) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		index.query(queryResult,box.getBounds());
-		Log.d(DEBUG_TAG,"result count " + queryResult.size());
+		Log.d(LOGTAG,"result count " + queryResult.size());
 		ArrayList<Photo>result = new ArrayList<Photo>();
 		for (BoundedObject bo:queryResult) {
 			result.add((Photo)bo);
