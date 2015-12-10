@@ -1,6 +1,6 @@
 
 
-This version of the library has been modified to for vespucci use to use Rect instead of RectF (this will likely be replaced with BoundingBox for 0.9.7 release) and contains numerous fixes to support adding of points/nodes.
+This version of the library has been modified to for vespucci use to use BoundingBox instead of RectF and contains numerous fixes to support adding of points/nodes.
 
 # Android R-Tree #
 

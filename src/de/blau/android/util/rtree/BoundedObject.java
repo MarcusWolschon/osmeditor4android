@@ -1,6 +1,6 @@
 package de.blau.android.util.rtree;
 
-import android.graphics.Rect;
+import de.blau.android.osm.BoundingBox;
 
 /**
  * An object bounded on an Axis-Aligned Bounding Box.
@@ -8,5 +8,5 @@ import android.graphics.Rect;
  * @author cnvandev
  */
 public interface BoundedObject {
-	public Rect getBounds();
+	public BoundingBox getBounds();
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import de.blau.android.exception.OsmException;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import android.graphics.Rect;
 import android.util.Log;
@@ -28,7 +30,7 @@ public class RTree implements Serializable {
 		private static final long serialVersionUID = 1L;
 		private final String DEBUG_TAG = Node.class.getName();
 		Node parent;
-		SerializableRect box;
+		BoundingBox box;
 		ArrayList<Node> children;
 		ArrayList<BoundedObject> data;
 		
@@ -62,27 +64,27 @@ public class RTree implements Serializable {
 
 		public void computeMBR(boolean doParents) {
 			if (box == null) {
-				box = new SerializableRect(new Rect());
+				box = new BoundingBox();
 			}
 			if (!isLeaf()) {
 				if (children.isEmpty())
 					return;
 				
-				box.getRect().set(children.get(0).box.getRect());
+				box.set(children.get(0).box);
 				for (int i = 1; i < children.size(); i++) {
-					box.getRect().union(children.get(i).box.getRect());
+					box.union(children.get(i).box);
 				}
 			} else {
 				if (data.isEmpty())
 					return;
 				
-				box.getRect().set(data.get(0).getBounds());
+				box.set(data.get(0).getBounds());
 				for (int i = 1; i < data.size(); i++) {
-					Rect box2 = data.get(i).getBounds();
+					BoundingBox box2 = data.get(i).getBounds();
 					if (box2.isEmpty()) {
-						box.getRect().union(box2.left, box2.top);
+						box.union(box2.getLeft(), box2.getTop());
 					} else {
-						box.getRect().union(box2);
+						box.union(box2);
 					}
 				}
 			}
@@ -111,13 +113,13 @@ public class RTree implements Serializable {
 			return isLeaf() ? data : children;
 		}
 
-		public Rect getBounds() {
+		public BoundingBox getBounds() {
 			Log.d(DEBUG_TAG, "box is " + box);
-			return box.getRect();
+			return box;
 		}
 		
 		public boolean contains(int px, int py) {
-			return box.getRect().contains(px, py);
+			return box.contains(px, py);
 		}
 
 		public int size() {
@@ -155,7 +157,7 @@ public class RTree implements Serializable {
 				list = n.children;
 
 			double maxD = Double.MIN_VALUE;
-			Rect box = new Rect();
+			BoundingBox box = new BoundingBox();
 			for (int i = 0; i < list.size(); i++) {
 				for (int j=0; j < list.size(); j++) {
 					// Log.d(DEBUG_TAG," i " + i + " j " + j);
@@ -163,9 +165,9 @@ public class RTree implements Serializable {
 					BoundedObject n1 = list.get(i), n2 = list.get(j);			
 					box.set(n1.getBounds());
 					
-					Rect box2 = n2.getBounds();
+					BoundingBox box2 = n2.getBounds();
 					if (box2.isEmpty()) {
-						box.union(box2.left, box2.top);
+						box.union(box2.getLeft(), box2.getTop());
 					} else {
 						box.union(box2);
 					}
@@ -183,9 +185,9 @@ public class RTree implements Serializable {
 			// Log.d(DEBUG_TAG,"seed1 " + seed1 + " seed2 " + seed2);
 			// Distribute
 			Node group1 = new Node(isleaf);
-			group1.box = new SerializableRect(new Rect(seed1.getBounds()));
+			group1.box = new BoundingBox(seed1.getBounds());
 			Node group2 = new Node(isleaf);
-			group2.box = new SerializableRect(new Rect(seed2.getBounds()));
+			group2.box = new BoundingBox(seed2.getBounds());
 			if (isleaf)
 				distributeLeaves(n, group1, group2);
 			else
@@ -219,8 +221,8 @@ public class RTree implements Serializable {
 				int nmax_index = -1;
 				for (int i = 0; i < n.children.size(); i++) {
 					Node node = n.children.get(i);
-					int expansion1 = expansionNeeded(node.box.getRect(), g1.box.getRect());
-					int expansion2 = expansionNeeded(node.box.getRect(), g2.box.getRect());
+					int expansion1 = expansionNeeded(node.box, g1.box);
+					int expansion2 = expansionNeeded(node.box, g2.box);
 					int dif = Math.abs(expansion1 - expansion2);
 					if (dif > difmax) {
 						difmax = dif;
@@ -234,16 +236,16 @@ public class RTree implements Serializable {
 				Node parent = null;
 
 				// ... to the one with the least expansion
-				int overlap1 = expansionNeeded(nmax.box.getRect(), g1.box.getRect());
-				int overlap2 = expansionNeeded(nmax.box.getRect(), g2.box.getRect());
+				int overlap1 = expansionNeeded(nmax.box, g1.box);
+				int overlap2 = expansionNeeded(nmax.box, g2.box);
 				if (overlap1 > overlap2) {
 					parent = g1;
 				} else if (overlap2 > overlap1) {
 					parent = g2;
 				} else {
 					// Or the one with the lowest area
-					double area1 = area(g1.box.getRect());
-					double area2 = area(g2.box.getRect());
+					double area1 = area(g1.box);
+					double area2 = area(g2.box);
 					if (area1 > area2) parent = g2;
 					else if (area2 > area1) parent = g1;
 					else {
@@ -282,8 +284,8 @@ public class RTree implements Serializable {
 				int nmax_index = -1;
 				for (int i = 0; i < n.data.size(); i++) {
 					BoundedObject node = n.data.get(i);
-					int d1 = expansionNeeded(node.getBounds(), g1.box.getRect());
-					int d2 = expansionNeeded(node.getBounds(), g2.box.getRect());
+					int d1 = expansionNeeded(node.getBounds(), g1.box);
+					int d2 = expansionNeeded(node.getBounds(), g2.box);
 					int dif = Math.abs(d1 - d2);
 					if (dif > difmax) {
 						difmax = dif;
@@ -296,15 +298,15 @@ public class RTree implements Serializable {
 				BoundedObject nmax = n.data.remove(nmax_index);
 
 				// ... to the one with the least expansion
-				int overlap1 = expansionNeeded(nmax.getBounds(), g1.box.getRect());
-				int overlap2 = expansionNeeded(nmax.getBounds(), g2.box.getRect());
+				int overlap1 = expansionNeeded(nmax.getBounds(), g1.box);
+				int overlap2 = expansionNeeded(nmax.getBounds(), g2.box);
 				if (overlap1 > overlap2) {
 					g1.data.add(nmax);
 				} else if (overlap2 > overlap1) {
 					g2.data.add(nmax);
 				} else {
-					double area1 = area(g1.box.getRect());
-					double area2 = area(g2.box.getRect());
+					double area1 = area(g1.box);
+					double area2 = area(g2.box);
 					if (area1 > area2) {
 						g2.data.add(nmax);
 					} else if (area2 > area1) {
@@ -358,27 +360,33 @@ public class RTree implements Serializable {
 	 * @param box The query
 	 */
 	public void query(Collection<BoundedObject> results) {
-		Rect box = new Rect(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+		BoundingBox box;
+		try {
+			box = new BoundingBox(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+			query(results, box, root);
+		} catch (OsmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void query(Collection<BoundedObject> results, BoundingBox box) {
 		query(results, box, root);
 	}
-	public void query(Collection<BoundedObject> results, Rect box) {
-		query(results, box, root);
-	}
-	private void query(Collection<BoundedObject> results, Rect box, Node node) {
+	private void query(Collection<BoundedObject> results, BoundingBox box, Node node) {
 		// Log.d(DEBUG_TAG,"query called");
 		if (node == null) return;
 		if (node.isLeaf()) {
 			// Log.d(DEBUG_TAG,"leaf");
 			for (int i = 0; i < node.data.size(); i++) {
 				BoundedObject bo = node.data.get(i);
-				Rect box2 = bo.getBounds();
+				BoundingBox box2 = bo.getBounds();
 				if (!box2.isEmpty()) {	
-					if (Rect.intersects(box2, box)) {
+					if (BoundingBox.intersects(box2, box)) {
 						results.add(bo);
 					}
 				} else {
 					// Log.d(DEBUG_TAG,"point " + box2.left + " " + box2.top + " " + box);
-					if (box.contains(box2.left,box2.top)) {
+					if (box.contains(box2.getLeft(),box2.getTop())) {
 						results.add(bo);
 						// Log.d(DEBUG_TAG,"adding " + bo);
 					}
@@ -387,7 +395,7 @@ public class RTree implements Serializable {
 		} else {
 			// Log.d(DEBUG_TAG,"not leaf");
 			for (int i = 0; i < node.children.size(); i++) {
-				if (Rect.intersects(node.children.get(i).box.getRect(), box)) {
+				if (BoundingBox.intersects(node.children.get(i).box, box)) {
 					query(results, box, node.children.get(i));
 				}
 			}
@@ -398,20 +406,20 @@ public class RTree implements Serializable {
 	 * Returns one item that intersects the query box, or null if nothing intersects
 	 * the query box.
 	 */
-	public BoundedObject queryOne(Rect box) {
+	public BoundedObject queryOne(BoundingBox box) {
 		return queryOne(box,root);
 	}
-	private BoundedObject queryOne(Rect box, Node node) {
+	private BoundedObject queryOne(BoundingBox box, Node node) {
 		if (node == null) return null;
 		if (node.isLeaf()) {
 			for (int i = 0; i < node.data.size(); i++) {
-				Rect box2 = node.data.get(i).getBounds();
+				BoundingBox box2 = node.data.get(i).getBounds();
 				if (!box2.isEmpty()) {	
-					if (Rect.intersects(box2, box)) {
+					if (BoundingBox.intersects(box2, box)) {
 						return node.data.get(i);
 					}
 				} else {
-					if (box.contains(box2.left,box2.top)) {
+					if (box.contains(box2.getLeft(),box2.getTop())) {
 						return node.data.get(i);
 					}
 				}
@@ -419,7 +427,7 @@ public class RTree implements Serializable {
 			return null;
 		} else {
 			for (int i = 0; i < node.children.size(); i++) {
-				if (Rect.intersects(node.children.get(i).box.getRect(), box)) {
+				if (BoundingBox.intersects(node.children.get(i).box, box)) {
 					BoundedObject result = queryOne(box,node.children.get(i));
 					if (result != null) return result;
 				}
@@ -441,9 +449,9 @@ public class RTree implements Serializable {
 		if (node == null) return;
 		if (node.isLeaf()) {
 			for (int i = 0; i < node.data.size(); i++) {
-				Rect b = node.data.get(i).getBounds();
+				BoundingBox b = node.data.get(i).getBounds();
 				if (b.isEmpty()) {
-					if (b.left == px && b.top == py) {
+					if (b.getLeft() == px && b.getTop() == py) {
 						results.add(node.data.get(i));
 					}
 				} else {
@@ -454,7 +462,7 @@ public class RTree implements Serializable {
 			}
 		} else {
 			for (int i = 0; i < node.children.size(); i++) {
-				if (node.children.get(i).box.getRect().contains(px, py)) {
+				if (node.children.get(i).box.contains(px, py)) {
 					query(results, px, py, node.children.get(i));
 				}
 			}
@@ -478,7 +486,7 @@ public class RTree implements Serializable {
 			return null;
 		} else {
 			for (int i = 0; i < node.children.size(); i++) {
-				if (node.children.get(i).box.getRect().contains(px, py)) {
+				if (node.children.get(i).box.contains(px, py)) {
 					BoundedObject result = queryOne(px, py, node.children.get(i));
 					if (result != null) return result;
 				}
@@ -549,14 +557,14 @@ public class RTree implements Serializable {
 		if (n.isLeaf()) {
 			return n;
 		} else {
-			Rect box = o.getBounds();
+			BoundingBox box = o.getBounds();
 
 			int maxOverlap = Integer.MAX_VALUE;
 			Node maxnode = null;
 			for (int i = 0; i < n.children.size(); i++) {
-				int overlap = expansionNeeded(n.children.get(i).box.getRect(), box);
+				int overlap = expansionNeeded(n.children.get(i).box, box);
 				if ((overlap < maxOverlap) || (overlap == maxOverlap)
-						&& area(n.children.get(i).box.getRect()) < area(maxnode.box.getRect())) {
+						&& area(n.children.get(i).box) < area(maxnode.box)) {
 					maxOverlap = overlap;
 					maxnode = n.children.get(i);
 				}
@@ -572,19 +580,19 @@ public class RTree implements Serializable {
 	/**
 	 * Returns the amount that other will need to be expanded to fit this.
 	 */
-	private static int expansionNeeded(Rect one, Rect two) {
+	private static int expansionNeeded(BoundingBox one, BoundingBox two) {
 		int total = 0;
 
-		if(two.left < one.left) total += one.left - two.left;
-		if(two.right > one.right) total += two.right - one.right;
+		if(two.getLeft() < one.getLeft()) total += one.getLeft() - two.getLeft();
+		if(two.getRight() > one.getRight()) total += two.getRight() - one.getRight();
 
-		if(two.top < one.top) total += one.top - two.top;
-		if(two.bottom > one.bottom) total += two.bottom - one.bottom;
+		if(two.getTop() < one.getTop()) total += one.getTop() - two.getTop();
+		if(two.getBottom() > one.getBottom()) total += two.getBottom() - one.getBottom();
 
 		return total;
 	}
 	
-	private static double area(Rect rect) {
-		return (double)rect.width() * (double)rect.height();
+	private static double area(BoundingBox box) {
+		return (double)box.getWidth() * (double)box.getHeight();
 	}
 }

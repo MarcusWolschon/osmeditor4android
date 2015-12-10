@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.graphics.Rect;
 import android.util.Log;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.rtree.BoundedObject;
 
 /**
@@ -103,8 +104,8 @@ public abstract class Bug implements Serializable, BoundedObject {
 		state = State.OPEN;
 	}
 	
-	public Rect getBounds() {
-		Rect r = new Rect(lon,lat,lon,lat);
+	public BoundingBox getBounds() {
+		BoundingBox r = new BoundingBox(lon,lat);
 		return r;
 	}
 

@@ -115,6 +115,19 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	private float ratio = 1;
 	
 	/**
+	 * Creates a new bounding box with coordinates initialized to zero
+	 * Careful: will fail validation
+	 */
+	public BoundingBox() {
+		left = 0;
+		bottom = 0;
+		right = 0;
+		top = 0;
+		width = 0;
+		height = 0;
+	}
+	
+	/**
 	 * Creates a degenerated BoundingBox with the corners set to the node coords
 	 * validate will cause and exception if called on this
 	 */
@@ -123,6 +136,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		bottom = latE7;
 		right = lonE7;
 		top = latE7;
+		width = 0;
+		height = 0;
 	}
 
 	/**
@@ -176,9 +191,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * Copy-Constructor.
 	 * 
 	 * @param box box with the new borders.
-	 * @throws OsmException see {@link #BoundingBox(int, int, int, int)}
 	 */
-	public BoundingBox(final BoundingBox box) throws OsmException {
+	public BoundingBox(final BoundingBox box) {
 		// this(box.left, box.bottom, box.right, box.top); not good, forces a recalc of everything
 		this.left = box.left;
 		this.bottom = box.bottom;
@@ -193,12 +207,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 * @return returns a copy of this object.
 	 */
 	public BoundingBox copy() {
-		try {
-			return new BoundingBox(this);
-		} catch (OsmException e) {
-			//Not possible.
-			return null;
-		}
+		return new BoundingBox(this);
 	}
 
 	/**
@@ -842,8 +851,22 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 
 	@Override
-	public Rect getBounds() {
-		return new Rect(left,bottom,right,top);
+	public BoundingBox getBounds() {
+		return this;
+	}
+	
+	/**
+	 * Set corners to same values as b
+	 * CAREFUL does not update other fields
+	 * @param b
+	 */
+	public void set(BoundingBox b) {
+		left=b.left;
+		bottom=b.bottom;
+		right=b.right;
+		top=b.top;
+		width = b.width;
+		height = b.height;
 	}
 
 	/**
@@ -862,6 +885,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		} else if (latE7 > top) {
 			top = latE7;
 		}
+		width = right - left;
+		height = top - bottom;
 	}
 	
 	/**
@@ -880,6 +905,43 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		} 
 		if (b.top > top) {
 			top = b.top;
+		}
+		width = right - left;
+		height = top - bottom;
+	}
+	
+	/**
+	 * Return true if box is empty
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return left == right && top == bottom;
+	}
+
+	/**
+	 * Returns true if the coordinates are in the box
+	 * Right and top coordinate are considered outside
+	 * @param lonE7
+	 * @param latE7
+	 * @return
+	 */
+	public boolean contains(int lonE7, int latE7) {
+		return left <= lonE7 && lonE7 < right && bottom <= latE7 && latE7 < top;
+	}
+
+	/**
+	 * REturn true if the boxes intersect
+	 * @param box2
+	 * @param box
+	 * @return
+	 */
+	public static boolean intersects(BoundingBox box2, BoundingBox box) {
+		// at least one of the corners need to be in/on the box
+		if (box2.isEmpty()) {
+			return box.contains(box2.getLeft(),box2.getBottom()); // no need to test the other corners
+		} else {
+			return box.contains(box2.getLeft(),box2.getBottom()) || box.contains(box2.getLeft(),box2.getTop()) 
+				|| box.contains(box2.getRight(),box2.getTop()) || box.contains(box2.getRight(),box2.getBottom());
 		}
 	}
 }
