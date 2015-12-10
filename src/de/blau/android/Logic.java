@@ -1737,7 +1737,7 @@ public class Logic {
 		if (node == lSelectedNode) {
 			lSelectedNode = null;
 			lSelectedWay = null;
-		} else {
+		} else if (lSelectedWay != null){ // may have been deselected before we got here
 			if (node == null) {
 				int lat = yToLatE7(y);
 				int lon = xToLonE7(x);
