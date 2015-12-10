@@ -35,7 +35,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	private Rect prev;
 	
 	/** Current area. */
-	private Rect cur;
+	private BoundingBox cur;
 	
 	/** Map this is an overlay of. */
 	private final Map map;
@@ -88,7 +88,6 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				
 				@Override
 				protected void onPostExecute(Collection<Photo> result) {
-					prev.set(cur);
 					photos.clear();
 					if (!result.isEmpty()) {
 						photos.addAll(result);
@@ -103,8 +102,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
-		prev = new Rect();
-		cur = new Rect();
+		cur = new BoundingBox();
 		photos = new ArrayList<Photo>();
 		handler = new Handler();
 		icon = Application.mainActivity.getResources().getDrawable(R.drawable.camera_red);
@@ -130,12 +128,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
 				return;
 			}
-			cur.set(bb.getLeft(), bb.getTop(), bb.getRight(), bb.getBottom());
-			if (!cur.equals(prev)) {
-				// map has moved/zoomed - need to refresh the photos on display
-				handler.removeCallbacks(getPhotos);
-				handler.postDelayed(getPhotos, 500); // half a second delay
-			}
+			cur.set(bb);
+			getPhotos.run();;
 			// draw all the photos
 			int w = Application.mainActivity.getMap().getWidth();
 			int h = Application.mainActivity.getMap().getHeight();

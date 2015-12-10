@@ -6,14 +6,16 @@ import java.io.IOException;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.util.Log;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.ExtendedExifInterface;
+import de.blau.android.util.rtree.BoundedObject;
 
 
 /**
  * a photo somewhere on the device or possibly on the network
  * exif accessing code from http://www.blog.nathanhaze.com/how-to-get-exif-tags-gps-coordinates-time-date-from-a-picture/
  */
-public class Photo {
+public class Photo implements BoundedObject {
 		
 	/**  */
 	String ref;
@@ -144,5 +146,13 @@ public class Photo {
 	 */
 	public int getDirection() {
 		return direction;
+	}
+	
+	/**
+	 * BoundedObject interface
+	 */
+	public BoundingBox getBounds() {
+		BoundingBox r = new BoundingBox(lon,lat);
+		return r;
 	}
 }

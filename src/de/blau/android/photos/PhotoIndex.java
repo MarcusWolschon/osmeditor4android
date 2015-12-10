@@ -19,8 +19,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Rect;
 import android.os.Environment;
 import android.util.Log;
-
+import de.blau.android.Application;
 import de.blau.android.contract.Paths;
+import de.blau.android.osb.Bug;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.rtree.BoundedObject;
+import de.blau.android.util.rtree.RTree;
 
 /**
  * Scan the system for geo ref photos and store is in a DB
@@ -31,6 +35,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	
 	private final static int DATA_VERSION = 3;
 	private final static String LOGTAG = "PhotoIndex";
+	private static final String DEBUG_TAG = null;
 	private final Context ctx;
 
 	
@@ -227,33 +232,49 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	 * @param cur
 	 * @return
 	 */
-	public Collection<Photo> getPhotos(Rect cur) {
+	public Collection<Photo> getPhotos(BoundingBox cur) {
 		Collection<Photo> result = new ArrayList<Photo>();
-		try {
-			SQLiteDatabase db = getReadableDatabase();
-			Cursor dbresult = db.query(
-					"photos",
-					new String[] {"lat", "lon", "direction", "dir", "name"},
-					"lat >= " + cur.bottom + " AND lat <= " + cur.top + " AND lon >= " + cur.left + " AND lon <= " + cur.right, 
-					null, null, null, null, null);
-			int photoCount = dbresult.getCount();
-			dbresult.moveToFirst();
-			// loop over the directories configured
-			for (int i = 0; i < photoCount; i++) {
-				if (dbresult.isNull(2) ) { // no direction
-					result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
-				} else {
-					result.add(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
+		RTree index = Application.getPhotoIndex();
+		if (index.count()==0) {
+			try {
+				SQLiteDatabase db = getReadableDatabase();
+				Cursor dbresult = db.query(
+						"photos",
+						new String[] {"lat", "lon", "direction", "dir", "name"},
+						null, 
+						null, null, null, null, null);
+				int photoCount = dbresult.getCount();
+				dbresult.moveToFirst();
+				// loop over the directories configured
+				for (int i = 0; i < photoCount; i++) {
+					if (dbresult.isNull(2) ) { // no direction
+						index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
+					} else {
+						index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
+					}
+					dbresult.moveToNext();
 				}
-				dbresult.moveToNext();
+				dbresult.close();
+				db.close();
+			} catch (SQLiteException ex) {
+				// shoudn't happen (getReadableDatabase failed), simply report for now
+				ACRA.getErrorReporter().handleException(ex);
 			}
-			dbresult.close();
-			db.close();
-		} catch (SQLiteException ex) {
-			// shoudn't happen (getReadableDatabase failed), simply report for now
-			ACRA.getErrorReporter().handleException(ex);
+			Log.i(LOGTAG,"Found " + result.size() + " photos");
 		}
-		Log.i(LOGTAG,"Found " + result.size() + " photos");
+		
+		return getPhotosFromIndex(index, cur);
+	}
+	
+	public ArrayList<Photo>getPhotosFromIndex(RTree index, BoundingBox box) {
+		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
+		index.query(queryResult,box.getBounds());
+		Log.d(DEBUG_TAG,"result count " + queryResult.size());
+		ArrayList<Photo>result = new ArrayList<Photo>();
+		for (BoundedObject bo:queryResult) {
+			result.add((Photo)bo);
+		}
 		return result;
 	}
+	
 }

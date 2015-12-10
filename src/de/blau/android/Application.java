@@ -16,6 +16,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.MultiHashMap;
+import de.blau.android.util.rtree.RTree;
 
 @ReportsCrashes(
 	formKey = "",
@@ -44,6 +45,10 @@ public class Application extends android.app.Application {
 	 */
 	private static Names names = null;
 	private static Map<String,NameAndTags> namesSearchIndex = null;
+	/**
+	 * Geo index to on device photos
+	 */
+	private static RTree photoIndex;
 	
 	
 	@Override
@@ -116,6 +121,13 @@ public class Application extends android.app.Application {
 			names = new Names(ctx);
 		}
 		return names;
+	}
+
+	public static RTree getPhotoIndex() {
+		if (photoIndex == null) {
+			photoIndex = new RTree();
+		}
+		return photoIndex;
 	}
 	
 }

@@ -365,8 +365,8 @@ public class RTree implements Serializable {
 			box = new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7);
 			query(results, box, root);
 		} catch (OsmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// shouldn't happen but log anyway
+			Log.d(DEBUG_TAG,"new BoundingBox caused " + e);
 		}
 	}
 	public void query(Collection<BoundedObject> results, BoundingBox box) {
