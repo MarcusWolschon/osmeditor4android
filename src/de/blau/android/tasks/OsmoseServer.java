@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -15,9 +15,9 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.util.Log;
 import de.blau.android.Application;
-import de.blau.android.osb.Bug.State;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.services.util.StreamUtils;
+import de.blau.android.tasks.Task.State;
 
 public class OsmoseServer {
 	
@@ -106,12 +106,12 @@ public class OsmoseServer {
 				Log.d(DEBUG_TAG, "changeState respnse code " + responseCode);
 				if (responseCode ==  HttpURLConnection.HTTP_GONE) {
 					bug.changed = false; // don't retry
-					Application.getBugStorage().setDirty();
+					Application.getTaskStorage().setDirty();
 				}
 				return false; 
 			}
 			bug.changed = false;
-			Application.getBugStorage().setDirty();			
+			Application.getTaskStorage().setDirty();			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

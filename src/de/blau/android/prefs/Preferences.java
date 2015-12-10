@@ -61,7 +61,7 @@ public class Preferences {
 	private float maxDownloadSpeed; // in km/h
 	private int bugDownloadRadius;
 	private float maxBugDownloadSpeed; // in km/h
-	private Set<String> bugFilter; // can't be final
+	private Set<String> taskFilter; // can't be final
 	
 	private final boolean forceContextMenu;
 	
@@ -155,9 +155,9 @@ public class Preferences {
 			Log.w(getClass().getName(), "error parsing config_maxDownloadSpeed_key=" + prefs.getString(r.getString(R.string.config_maxBugDownloadSpeed_key), "30"));
 			maxBugDownloadSpeed = 30f;
 		}
-		bugFilter = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
+		taskFilter = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			bugFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), bugFilter);
+			taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
 		}
 		isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
 		isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
@@ -394,8 +394,8 @@ public class Preferences {
 		return maxBugDownloadSpeed;
 	}
 	
-	public Set<String> bugFilter() {
-		return bugFilter;
+	public Set<String> taskFilter() {
+		return taskFilter;
 	}
 	
 	public boolean enableAutoPreset() {

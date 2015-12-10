@@ -55,7 +55,6 @@ import de.blau.android.Main.UndoListener;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.osb.BugFragment;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -69,6 +68,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
+import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
@@ -614,7 +614,7 @@ public class EasyEditManager {
 			        ft.remove(prev);
 			    }
 			    ft.commit();
-		        BugFragment bugDialog = BugFragment.newInstance(logic.getSelectedBug());
+		        TaskFragment bugDialog = TaskFragment.newInstance(logic.getSelectedBug());
 		        bugDialog.show(fm, "fragment_bug");
 				logic.hideCrosshairs();
 				return true;

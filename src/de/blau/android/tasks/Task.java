@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,12 +12,12 @@ import de.blau.android.util.rtree.BoundedObject;
  * Base class for OSM Notes, Osmose Errors and in the future perhaps more
  *
  */
-public abstract class Bug implements Serializable, BoundedObject {
+public abstract class Task implements Serializable, BoundedObject {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 6L;
 
 	/** OSB Bug ID. */
 	long id;

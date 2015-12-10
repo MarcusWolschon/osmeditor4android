@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.DateFormatter;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -39,8 +41,6 @@ import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.osb.Note;
-import de.blau.android.osb.NoteComment;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.Base64;
 import de.blau.android.util.OAuthHelper;
@@ -1405,7 +1405,7 @@ public class Server {
 		XmlPullParser parser = xmlParserFactory.newPullParser();
 		parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
 		bug.parseBug(parser); // replace contents with result from server
-		Application.getBugStorage().setDirty();
+		Application.getTaskStorage().setDirty();
 	}
 
 	/**

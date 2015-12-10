@@ -55,7 +55,6 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
-import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.StorageDelegator;
@@ -64,6 +63,7 @@ import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
+import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -931,7 +931,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		// speed needs to be <= 6km/h (aka brisk walking speed) 
 		int radius = prefs.getBugDownloadRadius();
 		if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed()/3.6f) && (previousBugLocation==null || location.distanceTo(previousBugLocation) > radius/8)) {
-			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getBugStorage().getBoundingBoxes());
+			ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getTaskStorage().getBoundingBoxes());
 			BoundingBox newBox = getNextBox(bbList,previousBugLocation, location, radius);
 			if (newBox != null) {
 				if (radius != 0) { // download
@@ -942,9 +942,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							Log.d(TAG,"bugAutoDownload very small bb " + b.toString());
 							continue;
 						}
-						Application.getBugStorage().add(b);  // will be filled once download is complete
+						Application.getTaskStorage().add(b);  // will be filled once download is complete
 						Log.d(TAG,"bugAutoDownloads loading " + b.toString());
-						TransferBugs.downloadBox(this,prefs.getServer(), b, true, null);
+						TransferTasks.downloadBox(this,prefs.getServer(), b, true, null);
 					}
 				}
 				previousBugLocation  = location;

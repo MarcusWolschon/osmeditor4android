@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -10,9 +10,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import de.blau.android.Application;
+import de.blau.android.tasks.Task.State;
 import de.blau.android.util.DateFormatter;
-
-import de.blau.android.osb.Bug.State;
 import android.text.Html;
 import android.widget.EditText;
 
@@ -21,7 +20,7 @@ import android.widget.EditText;
  * A bug in the OpenStreetBugs database, or a prospective new bug.
  * @author Andrew Gregory
  */
-public class Note extends Bug implements Serializable {
+public class Note extends Task implements Serializable {
 	
 	/**
 	 * 
@@ -144,7 +143,7 @@ public class Note extends Bug implements Serializable {
 	 * @param lon Longitude *1E7.
 	 */
 	public Note(int lat, int lon) {
-		id = Application.getBugStorage().getNextId();
+		id = Application.getTaskStorage().getNextId();
 		this.lat = lat;
 		this.lon = lon;
 		open();

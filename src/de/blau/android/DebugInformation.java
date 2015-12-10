@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
-import de.blau.android.osb.BugStorage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
@@ -52,7 +52,7 @@ public class DebugInformation extends SherlockActivity {
 		} else {
 			builder.append("No state file found\n");
 		}
-		File bugStateFile = new File(getFilesDir(), BugStorage.FILENAME);
+		File bugStateFile = new File(getFilesDir(), TaskStorage.FILENAME);
 		if (bugStateFile.exists()) {
 			builder.append("Bug state file size " +  bugStateFile.length() + " last changed " + DateFormatter.getFormattedString(DATE_TIME_PATTERN, new Date(bugStateFile.lastModified())) + "\n");
 		} else {

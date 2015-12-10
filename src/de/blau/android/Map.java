@@ -233,7 +233,7 @@ public class Map extends View implements IMapView {
 				mOverlays.add(osmto);
 				mOverlays.add(new OpenStreetMapOverlayTilesOverlay(this));
 			}
-			mOverlays.add(new de.blau.android.osb.MapOverlay(this, prefs.getServer()));
+			mOverlays.add(new de.blau.android.tasks.MapOverlay(this, prefs.getServer()));
 			mOverlays.add(new de.blau.android.photos.MapOverlay(this, prefs.getServer()));
 			mOverlays.add(new de.blau.android.grid.MapOverlay(this, prefs.getServer()));
 		}
@@ -261,10 +261,10 @@ public class Map extends View implements IMapView {
 		return null;
 	}
 	
-	public de.blau.android.osb.MapOverlay getOpenStreetBugsOverlay() {
+	public de.blau.android.tasks.MapOverlay getOpenStreetBugsOverlay() {
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (osmvo instanceof de.blau.android.osb.MapOverlay) {
-				return (de.blau.android.osb.MapOverlay)osmvo;
+			if (osmvo instanceof de.blau.android.tasks.MapOverlay) {
+				return (de.blau.android.tasks.MapOverlay)osmvo;
 			}
 		}
 		return null;
@@ -318,7 +318,7 @@ public class Map extends View implements IMapView {
 		canvas.getClipBounds(canvasBounds);
 		OpenStreetMapTilesOverlay.resetAttributionArea(canvasBounds, 0);
 		for (OpenStreetMapViewOverlay osmvo : mOverlays) {
-			if (!(osmvo instanceof de.blau.android.osb.MapOverlay)) {
+			if (!(osmvo instanceof de.blau.android.tasks.MapOverlay)) {
 				osmvo.onManagedDraw(canvas, this);
 			}
 		}

@@ -87,9 +87,6 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.listener.UpdateViewListener;
-import de.blau.android.osb.Bug;
-import de.blau.android.osb.BugFragment;
-import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -111,6 +108,9 @@ import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
+import de.blau.android.tasks.Task;
+import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
@@ -1121,7 +1121,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 		
 		case R.id.menu_transfer_bugs_download_current:
-			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
+			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				@Override
 				public void execute() {
 					map.invalidate();
@@ -1130,19 +1130,19 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_transfer_bugs_upload:
-			if (Application.getBugStorage().hasChanges()) {
-				TransferBugs.upload(this, server);
+			if (Application.getTaskStorage().hasChanges()) {
+				TransferTasks.upload(this, server);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
 			return true;
 			
 		case R.id.menu_transfer_bugs_clear:
-			if (Application.getBugStorage().hasChanges()) { // FIXME show a dialog and allow override
+			if (Application.getTaskStorage().hasChanges()) { // FIXME show a dialog and allow override
 				Toast.makeText(getApplicationContext(), R.string.toast_unsaved_changes, Toast.LENGTH_LONG).show();
 				return true;
 			}
-			Application.getBugStorage().reset();
+			Application.getTaskStorage().reset();
 			map.invalidate();
 			return true;
 			
@@ -1536,7 +1536,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				loadOnResume = false;
 				Log.d(DEBUG_TAG,"handlePropertyEditorResult loading data");
 				getLogic().syncLoadFromFile(); // sync load
-				Application.getBugStorage().readFromFile();
+				Application.getTaskStorage().readFromFile();
 			}
 			for (PropertyEditorData editorData:result) {
 				if (editorData == null) {
@@ -1650,7 +1650,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	public void performCurrentViewHttpLoad(boolean add) {
 		getLogic().downloadCurrent(add);
 		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
-			TransferBugs.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
+			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				@Override
 				public void execute() {
 					map.invalidate();
@@ -1679,13 +1679,13 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 		if (server != null && server.isLoginSet()) {
 			boolean hasDataChanges = getLogic().hasChanges();
-			boolean hasBugChanges = !Application.getBugStorage().isEmpty() && Application.getBugStorage().hasChanges();
+			boolean hasBugChanges = !Application.getTaskStorage().isEmpty() && Application.getTaskStorage().hasChanges();
 			if (hasDataChanges || hasBugChanges) {
 				if (hasDataChanges) {
 					getLogic().upload(comment, source, closeChangeset);
 				}
 				if (hasBugChanges) {
-					TransferBugs.upload(this, server);
+					TransferTasks.upload(this, server);
 				}
 				getLogic().checkForMail();
 			} else {
@@ -2009,7 +2009,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
 		private List<OsmElement> clickedNodesAndWays;
-		private List<Bug> clickedBugs;
+		private List<Task> clickedBugs;
 		private List<Photo> clickedPhotos;
 
 		private boolean doubleTap = false;
@@ -2033,8 +2033,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		@Override
 		public void onClick(View v, float x, float y) {
-			de.blau.android.osb.MapOverlay osbo = map.getOpenStreetBugsOverlay();
-			clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
+			de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
+			clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
 			
 			de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 			clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
@@ -2136,8 +2136,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (getLogic().getMode() != Mode.MODE_EASYEDIT) {
 				if (getLogic().getMode() == Mode.MODE_MOVE) {
 					// display context menu
-					de.blau.android.osb.MapOverlay osbo = map.getOpenStreetBugsOverlay();
-					clickedBugs = (osbo != null) ? osbo.getClickedBugs(x, y, map.getViewBox()) : null;
+					de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
+					clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
 					de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 					clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
 					clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
@@ -2237,7 +2237,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		 * Edit an OpenStreetBug.
 		 * @param bug The bug to edit.
 		 */
-		private void performBugEdit(final Bug bug) {
+		private void performBugEdit(final Task bug) {
 			Log.d(DEBUG_TAG, "editing bug:"+bug);
 			getLogic().setSelectedBug(bug);
 			FragmentManager fm = getSupportFragmentManager();
@@ -2248,7 +2248,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 			ft.commit();
 
-			BugFragment bugDialog = BugFragment.newInstance(bug);
+			TaskFragment bugDialog = TaskFragment.newInstance(bug);
 			bugDialog.show(fm, "fragment_bug");
 		}
 		
@@ -2265,7 +2265,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				}
 			}
 			if (clickedBugs != null) {
-				for (Bug b : clickedBugs) {
+				for (Task b : clickedBugs) {
 					menu.add(Menu.NONE, id++, Menu.NONE, b.getDescription()).setOnMenuItemClickListener(this);
 				}
 			}
@@ -2374,7 +2374,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				}
 			}
 			if (clickedBugs != null) {
-				for (Bug b : clickedBugs) {
+				for (Task b : clickedBugs) {
 					Toast.makeText(getApplicationContext(), b.getDescription(), Toast.LENGTH_SHORT).show();
 				}
 			}

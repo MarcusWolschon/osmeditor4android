@@ -10,11 +10,11 @@ import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.osb.BugStorage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
 
@@ -31,7 +31,7 @@ import de.blau.android.util.rtree.RTree;
 public class Application extends android.app.Application {
 	public static Main mainActivity;
 	static StorageDelegator delegator = new StorageDelegator();
-	static BugStorage bugStorage = new BugStorage();
+	static TaskStorage taskStorage = new TaskStorage();
 	public static String userAgent;
 	static Application currentApplication;
 	/**
@@ -70,8 +70,8 @@ public class Application extends android.app.Application {
 		return delegator;
 	}
 	
-	public static BugStorage getBugStorage() {
-		return bugStorage;
+	public static TaskStorage getTaskStorage() {
+		return taskStorage;
 	}
 
 	public static synchronized Preset[] getCurrentPresets(Context ctx) {
@@ -125,7 +125,7 @@ public class Application extends android.app.Application {
 
 	public static RTree getPhotoIndex() {
 		if (photoIndex == null) {
-			photoIndex = new RTree();
+			photoIndex = new RTree(2,100);
 		}
 		return photoIndex;
 	}

@@ -9,13 +9,13 @@ import de.blau.android.Logic.Mode;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
-import de.blau.android.osb.Bug;
-import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.Profile;
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.Task;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
@@ -29,7 +29,7 @@ public class EditState implements Serializable {
 	final List<Node> savedNodes;
 	final List<Way> savedWays;
 	final List<Relation> savedRelations;
-	final Bug	savedBug;
+	final Task	savedBug;
 	final String savedTileServerID;
 	final Offset[] savedOffsets;
 	final int savedMinZoom;
@@ -40,7 +40,7 @@ public class EditState implements Serializable {
 	final BoundingBox savedBox;
 
 	public EditState(Mode mode, List<Node> selectedNodes, List<Way> selectedWays,
-			List<Relation> selectedRelations, Bug selectedBug, OpenStreetMapTileServer osmts, 
+			List<Relation> selectedRelations, Task selectedBug, OpenStreetMapTileServer osmts, 
 			boolean showGPS, boolean autoDownload, boolean bugAutoDownload, String imageFileName, BoundingBox box) {
 		savedMode = mode;
 		savedNodes = selectedNodes;

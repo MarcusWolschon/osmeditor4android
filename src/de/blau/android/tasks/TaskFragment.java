@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.util.List;
 
@@ -13,7 +13,6 @@ import de.blau.android.R.layout;
 import de.blau.android.R.string;
 import de.blau.android.exception.OsmException;
 import de.blau.android.listener.UpdateViewListener;
-import de.blau.android.osb.Bug.State;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -26,6 +25,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.tasks.Task.State;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.IssueAlert;
 import android.annotation.SuppressLint;
@@ -72,15 +72,15 @@ import android.widget.TextView;
  * @author simon
  *
  */
-public class BugFragment extends SherlockDialogFragment {
-	private static final String DEBUG_TAG = BugFragment.class.getSimpleName();
+public class TaskFragment extends SherlockDialogFragment {
+	private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 	 
 	UpdateViewListener mListener;
 
     /**
      */
-    static public BugFragment newInstance(Bug b) {
-    	BugFragment f = new BugFragment();
+    static public TaskFragment newInstance(Task b) {
+    	TaskFragment f = new TaskFragment();
 
         Bundle args = new Bundle();
         args.putSerializable("bug", b);
@@ -99,7 +99,7 @@ public class BugFragment extends SherlockDialogFragment {
     @SuppressLint("NewApi")
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-    	final Bug bug = (Bug) getArguments().getSerializable("bug");
+    	final Task bug = (Task) getArguments().getSerializable("bug");
     	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     	// Get the layout inflater
     	LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -111,9 +111,9 @@ public class BugFragment extends SherlockDialogFragment {
     	final View v = inflater.inflate(R.layout.openstreetbug_edit, null);
     	builder.setView(v)
     		// Add action buttons - slightly convoluted 
-    		.setPositiveButton(bug instanceof Note && bug.isNew() ? (Application.getBugStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton): R.string.save, new DialogInterface.OnClickListener() { 
+    		.setPositiveButton(bug instanceof Note && bug.isNew() ? (Application.getTaskStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton): R.string.save, new DialogInterface.OnClickListener() { 
     			public void onClick(DialogInterface dialog, int id) {
-      				if (bug instanceof Note && bug.isNew() && Application.getBugStorage().contains(bug)) {
+      				if (bug instanceof Note && bug.isNew() && Application.getTaskStorage().contains(bug)) {
     					deleteBug(bug);
     					return;
     				}
@@ -129,9 +129,9 @@ public class BugFragment extends SherlockDialogFragment {
     				if (bug instanceof Note) {
     					Note n = (Note)bug;
     					NoteComment nc = n.getLastComment();
-    					TransferBugs.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false);
+    					TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED, false);
     				} else if (bug instanceof OsmoseBug) {
-    					TransferBugs.uploadOsmoseBug((OsmoseBug)bug);
+    					TransferTasks.uploadOsmoseBug((OsmoseBug)bug);
     				}
     				if (bug.hasBeenChanged() && bug.isClosed()) {
     					IssueAlert.cancel(getActivity(), bug);
@@ -228,12 +228,12 @@ public class BugFragment extends SherlockDialogFragment {
     	state.setAdapter(adapter);
     	
     	if (bug.state == State.OPEN) {
-    		state.setSelection(Bug.POS_OPEN);
+    		state.setSelection(Task.POS_OPEN);
     	} else if (bug.state == State.CLOSED) {
-    		state.setSelection(Bug.POS_CLOSED);
+    		state.setSelection(Task.POS_CLOSED);
     	} else if (bug.state == State.FALSE_POSITIVE) {
     		if (adapter.getCount() == 3) {
-    			state.setSelection(Bug.POS_FALSE_POSITIVE);
+    			state.setSelection(Task.POS_FALSE_POSITIVE);
     		} else {
     			Log.d(DEBUG_TAG, "ArrayAdapter too short");
     		}
@@ -248,7 +248,7 @@ public class BugFragment extends SherlockDialogFragment {
     			public void onShow(DialogInterface dialog) {                    //
     				final Button save = ((AlertDialog) dialog)
     						.getButton(AlertDialog.BUTTON_POSITIVE);
-    				if ((bug instanceof Note && bug.isNew() && ((Note)bug).count() == 1 && !Application.getBugStorage().contains(bug)) || !bug.hasBeenChanged()) {
+    				if ((bug instanceof Note && bug.isNew() && ((Note)bug).count() == 1 && !Application.getTaskStorage().contains(bug)) || !bug.hasBeenChanged()) {
     					save.setEnabled(false);
     				}
     				final Button upload = ((AlertDialog) dialog)
@@ -284,7 +284,7 @@ public class BugFragment extends SherlockDialogFragment {
     							int before, int count) {
     						save.setEnabled(true);
     						upload.setEnabled(true);
-    						state.setSelection(Bug.POS_OPEN);
+    						state.setSelection(Task.POS_OPEN);
     					}    				
     				});
     			}
@@ -314,11 +314,11 @@ public class BugFragment extends SherlockDialogFragment {
     }
     
     public static State pos2state(int pos) {
-		if (pos == Bug.POS_CLOSED) {
+		if (pos == Task.POS_CLOSED) {
 			return State.CLOSED;
-		} else if (pos == Bug.POS_OPEN) {
+		} else if (pos == Task.POS_OPEN) {
 			return State.OPEN;
-		} else if (pos == Bug.POS_FALSE_POSITIVE) {
+		} else if (pos == Task.POS_FALSE_POSITIVE) {
 			return State.FALSE_POSITIVE;
 		}
 		return State.OPEN;
@@ -329,9 +329,9 @@ public class BugFragment extends SherlockDialogFragment {
      * @param v
      * @param bug
      */
-    void saveBug(View v, Bug bug) {
+    void saveBug(View v, Task bug) {
     	if (bug.isNew() && ((Note)bug).count() == 0) {
-			Application.getBugStorage().add(bug); // sets dirty
+			Application.getTaskStorage().add(bug); // sets dirty
 		}
 		String c = ((EditText)v.findViewById(R.id.openstreetbug_comment)).getText().toString();
 		if (c.length() > 0) {
@@ -340,16 +340,16 @@ public class BugFragment extends SherlockDialogFragment {
 		final Spinner state = (Spinner)v.findViewById(R.id.openstreetbug_state);
 		bug.state = pos2state(state.getSelectedItemPosition());
 		bug.changed = true;
-		Application.getBugStorage().setDirty();
+		Application.getTaskStorage().setDirty();
     }
     
     /**
      * Delete a new, non-saved, bug from storage
      * @param bug
      */
-    void deleteBug(Bug bug) {
+    void deleteBug(Task bug) {
     	if (bug.isNew()) {
-			Application.getBugStorage().delete(bug); // sets dirty
+			Application.getTaskStorage().delete(bug); // sets dirty
 		}
     }
 }

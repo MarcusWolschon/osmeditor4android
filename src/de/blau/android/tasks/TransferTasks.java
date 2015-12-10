@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -37,9 +37,9 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
-public class TransferBugs {
+public class TransferTasks {
 
-	private static final String DEBUG_TAG = TransferBugs.class.getSimpleName();
+	private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
 			
 	/** Maximum closed age to display: 7 days. */
 	private static final long MAX_CLOSED_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -50,7 +50,7 @@ public class TransferBugs {
 
 	static public void downloadBox(final Context context, final Server server, final BoundingBox box, final boolean add, final PostAsyncActionHandler handler) {
 		
-		final BugStorage bugs = Application.getBugStorage();
+		final TaskStorage bugs = Application.getTaskStorage();
 		final Preferences prefs = new Preferences(context);
 		
 		try {
@@ -61,12 +61,12 @@ public class TransferBugs {
 		} // TODO remove this? and replace with better error messaging
 		
 		
-		new AsyncTask<Void, Void, Collection<Bug>>() {
+		new AsyncTask<Void, Void, Collection<Task>>() {
 			@Override
-			protected Collection<Bug> doInBackground(Void... params) {
+			protected Collection<Task> doInBackground(Void... params) {
 				Log.d(DEBUG_TAG,"querying server for " + box);
-				Set<String> bugFilter = prefs.bugFilter();
-				Collection<Bug> result = new ArrayList<Bug>();
+				Set<String> bugFilter = prefs.taskFilter();
+				Collection<Task> result = new ArrayList<Task>();
 				Collection<Note> noteResult = null;
 				if (bugFilter.contains("NOTES")) {
 					noteResult = server.getNotesForBox(box,1000);
@@ -85,7 +85,7 @@ public class TransferBugs {
 			}
 			
 			@Override
-			protected void onPostExecute(Collection<Bug> result) {
+			protected void onPostExecute(Collection<Task> result) {
 				if (result == null) {
 					Log.d(DEBUG_TAG,"no bugs found");
 					return;	
@@ -96,7 +96,7 @@ public class TransferBugs {
 				}
 				bugs.add(box);
 				long now = System.currentTimeMillis();
-				for (Bug b : result) {
+				for (Task b : result) {
 					Log.d(DEBUG_TAG,"got bug " + b.getDescription() + " " + bugs.toString());
 					// add open bugs or closed bugs younger than 7 days
 					if (!bugs.contains(b) && (!b.isClosed() || (now - b.getLastUpdate().getTime()) < MAX_CLOSED_AGE)) {
@@ -123,8 +123,8 @@ public class TransferBugs {
 		boolean uploadFailed = false ;
 		if (server != null) {
 			Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
-			ArrayList<Bug>queryResult = Application.getBugStorage().getBugs();
-			for (Bug b:queryResult) {
+			ArrayList<Task>queryResult = Application.getTaskStorage().getBugs();
+			for (Task b:queryResult) {
 				if (b.changed) {
 					try {
 						Thread.sleep(100); // attempt at workaround of Osmose issues
@@ -235,8 +235,8 @@ public class TransferBugs {
 
 				@Override
 				protected void onPostExecute(Boolean result) {
-					if (newBug && !Application.getBugStorage().contains(bug)) {
-						Application.getBugStorage().add(bug);
+					if (newBug && !Application.getTaskStorage().contains(bug)) {
+						Application.getTaskStorage().add(bug);
 					}
 					if (result) {
 						// upload sucessful

@@ -1,9 +1,9 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import de.blau.android.osb.Bug.State;
 import de.blau.android.osm.Server;
+import de.blau.android.tasks.Task.State;
 
 /**
  * Task to commit changes to an OpenStreetBug.

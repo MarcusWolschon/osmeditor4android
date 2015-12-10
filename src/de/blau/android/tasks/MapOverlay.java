@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,7 +45,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	private final Map map;
 	
 	/** Bugs visible on the overlay. */
-	private BugStorage bugs = Application.getBugStorage();
+	private TaskStorage tasks = Application.getTaskStorage();
 	
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
@@ -71,27 +71,27 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			// 
 			int w = map.getWidth();
 			int h = map.getHeight();
-			ArrayList<Bug> bugList = bugs.getBugs(bb);
-			if (bugList != null) {
-				Set<String>bugFilter = map.getPrefs().bugFilter();
-				for (Bug b : bugList) {
+			ArrayList<Task> taskList = tasks.getTasks(bb);
+			if (taskList != null) {
+				Set<String>taskFilter = map.getPrefs().taskFilter();
+				for (Task t : taskList) {
 					// filter
-					if (b instanceof Note && !bugFilter.contains(b.bugFilterKey())) {
+					if (t instanceof Note && !taskFilter.contains(t.bugFilterKey())) {
 						continue;
-					} else if (b instanceof OsmoseBug && !bugFilter.contains(b.bugFilterKey())) {
+					} else if (t instanceof OsmoseBug && !taskFilter.contains(t.bugFilterKey())) {
 						continue;
 					}
-					float x = GeoMath.lonE7ToX(w , bb, b.getLon());
-					float y = GeoMath.latE7ToY(h, w, bb, b.getLat()); 
+					float x = GeoMath.lonE7ToX(w , bb, t.getLon());
+					float y = GeoMath.latE7ToY(h, w, bb, t.getLat()); 
 
-					if (b.isClosed()) {
+					if (t.isClosed()) {
 						if (cachedIconClosed == null) {
 							cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_closed);
 							w2closed = cachedIconClosed.getWidth()/2f;
 							h2closed = cachedIconClosed.getHeight()/2f;
 						}
 						c.drawBitmap(cachedIconClosed, x-w2closed, y-h2closed, null); 
-					} else if (b.isNew() || b.hasBeenChanged()){
+					} else if (t.isNew() || t.hasBeenChanged()){
 						if (cachedIconChanged == null) {
 							cachedIconChanged = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_changed);
 							w2changed = cachedIconChanged.getWidth()/2f;
@@ -123,27 +123,27 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	 * @param viewBox Map view box.
 	 * @return List of bugs close to given location.
 	 */
-	public List<Bug> getClickedBugs(final float x, final float y, final BoundingBox viewBox) {
-		List<Bug> result = new ArrayList<Bug>();
+	public List<Task> getClickedTasks(final float x, final float y, final BoundingBox viewBox) {
+		List<Task> result = new ArrayList<Task>();
 		if (map.getPrefs().isOpenStreetBugsEnabled()) {
 			final float tolerance = Profile.getCurrent().nodeToleranceValue;
-			ArrayList<Bug> bugList = bugs.getBugs(viewBox);
-			if (bugList != null) {
-				Set<String>bugFilter = map.getPrefs().bugFilter();
-				for (Bug b : bugList) {
+			ArrayList<Task> taskList = tasks.getTasks(viewBox);
+			if (taskList != null) {
+				Set<String>taskFilter = map.getPrefs().taskFilter();
+				for (Task t : taskList) {
 					// filter
-					if (b instanceof Note && !bugFilter.contains(b.bugFilterKey())) {
+					if (t instanceof Note && !taskFilter.contains(t.bugFilterKey())) {
 						continue;
-					} else if (b instanceof OsmoseBug && !bugFilter.contains(b.bugFilterKey())) {
+					} else if (t instanceof OsmoseBug && !taskFilter.contains(t.bugFilterKey())) {
 						continue;
 					}
-					int lat = b.getLat();
-					int lon = b.getLon();
+					int lat = t.getLat();
+					int lon = t.getLon();
 					float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
 					float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
 					if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
 						if (Math.hypot(differenceX, differenceY) <= tolerance) {
-							result.add(b);
+							result.add(t);
 						}
 					}
 				}

@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -23,9 +23,9 @@ import de.blau.android.util.rtree.RTree;
  * @author simon
  *
  */
-public class BugStorage implements Serializable {
+public class TaskStorage implements Serializable {
 	private static final long serialVersionUID = 3L;
-	private final static String DEBUG_TAG = BugStorage.class.getSimpleName();
+	private final static String DEBUG_TAG = TaskStorage.class.getSimpleName();
 	private int newId=0;
 	private RTree bugs;
 	private RTree boxes;
@@ -36,11 +36,11 @@ public class BugStorage implements Serializable {
 	 */
 	private transient ReentrantLock readingLock = new ReentrantLock();
 	
-	public final static String FILENAME = "bugs.res";
+	public final static String FILENAME = "tasks.res";
 
-	private transient SavingHelper<BugStorage> savingHelper = new SavingHelper<BugStorage>();
+	private transient SavingHelper<TaskStorage> savingHelper = new SavingHelper<TaskStorage>();
 	
-	public BugStorage() {
+	public TaskStorage() {
 		reset();
 		dirty = false;
 	}
@@ -51,7 +51,7 @@ public class BugStorage implements Serializable {
 		dirty = true;
 	}
 
-	public synchronized void add(Bug b) {
+	public synchronized void add(Task b) {
 		bugs.insert(b);
 		dirty = true;
 	}
@@ -61,7 +61,7 @@ public class BugStorage implements Serializable {
 		dirty = true;
 	}
 	
-	public synchronized void delete(Bug b) {
+	public synchronized void delete(Task b) {
 		bugs.remove(b);
 		dirty = true;
 	}
@@ -77,14 +77,14 @@ public class BugStorage implements Serializable {
 	 * @param b
 	 * @return
 	 */
-	public boolean contains(Bug b) {
+	public boolean contains(Task b) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		bugs.query(queryResult, b.getLon(), b.getLat());
 		Log.d(DEBUG_TAG,"candidates for contain " + queryResult.size());
 		for (BoundedObject bo:queryResult) {
-			if (b instanceof Note && bo instanceof Note && b.getId() == ((Bug)bo).getId()) {
+			if (b instanceof Note && bo instanceof Note && b.getId() == ((Task)bo).getId()) {
 				return true;
-			} else if (b instanceof OsmoseBug && bo instanceof OsmoseBug && b.getId() == ((Bug)bo).getId()) {
+			} else if (b instanceof OsmoseBug && bo instanceof OsmoseBug && b.getId() == ((Task)bo).getId()) {
 				return true;
 			} 
 		}
@@ -95,23 +95,23 @@ public class BugStorage implements Serializable {
 	 * Return all bugs
 	 * @return
 	 */
-	public ArrayList<Bug>getBugs() {
+	public ArrayList<Task>getBugs() {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		bugs.query(queryResult);
-		ArrayList<Bug>result = new ArrayList<Bug>();
+		ArrayList<Task>result = new ArrayList<Task>();
 		for (BoundedObject bo:queryResult) {
-			result.add((Bug)bo);
+			result.add((Task)bo);
 		}
 		return result;
 	}
 	
-	public ArrayList<Bug>getBugs(BoundingBox box) {
+	public ArrayList<Task>getTasks(BoundingBox box) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		bugs.query(queryResult,box.getBounds());
-		Log.d(DEBUG_TAG,"result count " + queryResult.size());
-		ArrayList<Bug>result = new ArrayList<Bug>();
+		Log.d(DEBUG_TAG,"getTasks result count " + queryResult.size());
+		ArrayList<Task>result = new ArrayList<Task>();
 		for (BoundedObject bo:queryResult) {
-			result.add((Bug)bo);
+			result.add((Task)bo);
 		}
 		return result;
 	}
@@ -162,7 +162,7 @@ public class BugStorage implements Serializable {
 	public boolean readFromFile() {
 		try{
 			readingLock.lock();
-			BugStorage newStorage = savingHelper.load(FILENAME, true); 
+			TaskStorage newStorage = savingHelper.load(FILENAME, true); 
 
 			if (newStorage != null) {
 				Log.d(DEBUG_TAG, "read saved state");
@@ -204,7 +204,7 @@ public class BugStorage implements Serializable {
 	public ArrayList<BoundingBox> getBoundingBoxes(BoundingBox box) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		boxes.query(queryResult,box.getBounds());
-		Log.d(DEBUG_TAG,"result count " + queryResult.size());
+		Log.d(DEBUG_TAG,"getBoundingBoxes result count " + queryResult.size());
 		ArrayList<BoundingBox>result = new ArrayList<BoundingBox>();
 		for (BoundedObject bo:queryResult) {
 			result.add((BoundingBox)bo);
@@ -220,7 +220,7 @@ public class BugStorage implements Serializable {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
 		bugs.query(queryResult);
 		for (BoundedObject b:queryResult) {
-			if (((Bug)b).hasBeenChanged()) {
+			if (((Task)b).hasBeenChanged()) {
 				return true;
 			}
 		}

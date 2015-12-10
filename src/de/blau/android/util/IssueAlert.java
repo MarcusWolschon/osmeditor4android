@@ -21,13 +21,13 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
-import de.blau.android.osb.Bug;
-import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.Task;
 
 /**
  * Generate an Android notification for OSM elements that have an issue and for Notes and other QA "bugs"
@@ -153,7 +153,7 @@ public class IssueAlert {
 		mNotificationManager.cancel((e.getName() + e.getOsmId()).hashCode());
 	}
 	
-	public static void alert(Context context, Bug b) {
+	public static void alert(Context context, Task b) {
 		Log.d("IssueAlert", "generating alert for " + b.getDescription());
 		Preferences prefs = new Preferences(context);
 		
@@ -243,7 +243,7 @@ public class IssueAlert {
 //		mNotificationManager.notify(b.getClass().getSimpleName().hashCode(), mBuilder.build());
 	}
 	
-	public static void cancel(Context context, Bug b) {
+	public static void cancel(Context context, Task b) {
 		NotificationManager mNotificationManager =
 			    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.cancel((b.getClass().getSimpleName() + b.getId()).hashCode());

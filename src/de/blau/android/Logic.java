@@ -50,8 +50,6 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
-import de.blau.android.osb.Bug;
-import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Node;
@@ -72,6 +70,8 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.Profile;
 import de.blau.android.services.TrackerService;
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.Task;
 import de.blau.android.util.EditState;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
@@ -224,7 +224,7 @@ public class Logic {
 	/**
 	 * The user-selected bug.
 	 */
-	private Bug selectedBug;
+	private Task selectedBug;
 
 	/**
 	 * Are we currently dragging a node?
@@ -2626,7 +2626,7 @@ public class Logic {
 	synchronized void save() {
 		try {
 			getDelegator().writeToFile(Application.mainActivity);
-			Application.getBugStorage().writeToFile(Application.mainActivity);
+			Application.getTaskStorage().writeToFile(Application.mainActivity);
 		} catch (IOException e) {
 			Log.e("Vespucci", "Problem saving", e);
 		}
@@ -2644,7 +2644,7 @@ public class Logic {
 				// the disadvantage of saving async is that something might have
 				// changed during the write .... so we force the dirty flags on
 				getDelegator().dirty();
-				Application.getBugStorage().setDirty();
+				Application.getTaskStorage().setDirty();
 				return null;
 			}
 		}.execute();
@@ -2782,7 +2782,7 @@ public class Logic {
 			@Override
 			protected Integer doInBackground(Context... c) {
 				this.context = c[0];
-				if (Application.getBugStorage().readFromFile()) {
+				if (Application.getTaskStorage().readFromFile()) {
 					// viewBox.setBorders(getDelegator().getLastBox());
 					return Integer.valueOf(READ_OK);
 				} 
@@ -3236,7 +3236,7 @@ public class Logic {
 	 * 
 	 * @param bug The selected bug.
 	 */
-	public synchronized void setSelectedBug(final Bug bug) {
+	public synchronized void setSelectedBug(final Task bug) {
 		this.selectedBug = bug;
 	}
 
@@ -3349,7 +3349,7 @@ public class Logic {
 	 * 
 	 * @return The selected bug.
 	 */
-	public synchronized final Bug getSelectedBug() {
+	public synchronized final Task getSelectedBug() {
 		return selectedBug;
 	}
 	

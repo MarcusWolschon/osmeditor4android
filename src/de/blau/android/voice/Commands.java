@@ -32,8 +32,6 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.osb.Bug;
-import de.blau.android.osb.Note;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
@@ -42,6 +40,8 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.Task;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MultiHashMap;
@@ -221,7 +221,7 @@ public class Commands {
 				n.addComment(input.toString().trim());
 				n.open();
 				n.setChanged();
-				Application.getBugStorage().add(n);
+				Application.getTaskStorage().add(n);
 				return n;
 			}
 		}

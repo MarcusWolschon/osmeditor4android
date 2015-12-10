@@ -1,4 +1,4 @@
-package de.blau.android.osb;
+package de.blau.android.tasks;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +32,7 @@ import android.util.Log;
  * A bug in the OpenStreetBugs database, or a prospective new bug.
  * @author Andrew Gregory
  */
-public class OsmoseBug extends Bug implements Serializable {
+public class OsmoseBug extends Task implements Serializable {
 	
 	private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName();
 	private static final int LEVEL_ERROR=1;
