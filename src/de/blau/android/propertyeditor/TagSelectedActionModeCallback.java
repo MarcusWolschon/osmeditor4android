@@ -129,7 +129,7 @@ public class TagSelectedActionModeCallback implements Callback {
 			}
 			break;
 		case MENUITEM_HELP:
-			HelpViewer.start(Application.mainActivity, R.string.help_propertyeditor);
+			HelpViewer.start(caller.getActivity(), R.string.help_propertyeditor);
 			return true;
 		default: return false;
 		}
