@@ -130,4 +130,8 @@ public class Application extends android.app.Application {
 		return photoIndex;
 	}
 	
+	public static void resetPhotoIndex() {
+		photoIndex = new RTree(2,100);
+	}
+	
 }

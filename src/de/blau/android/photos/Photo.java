@@ -59,7 +59,7 @@ public class Photo implements BoundedObject {
 		}
 		lat = (int)(latf * 1E7d);
 		lon = (int)(lonf * 1E7d);
-		
+		Log.d("Photo","lat: " + lat + " lon: " + lon);
 		String dir = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION);
 		if (dir != null) {
 			direction =(int) Double.parseDouble(dir);

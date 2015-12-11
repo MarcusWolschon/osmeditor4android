@@ -1477,7 +1477,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				PhotoIndex pi = new PhotoIndex(this);
 				pi.addPhoto(imageFile);
 				if (prefs.isPhotoLayerEnabled()) {
-					map.getPhotosOverlay().resetRect();
 					map.invalidate();
 				}
 			} else {
@@ -1571,35 +1570,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 		}
 		map.invalidate();
-	}
-	
-	void reindexPhotos() {
-		new AsyncTask<Void, Integer, Void>() {
-
-			@Override
-			protected Void doInBackground(Void... params) {
-				PhotoIndex pi = new PhotoIndex(Application.mainActivity);
-				publishProgress(0);
-				pi.createOrUpdateIndex();
-				publishProgress(1);
-				return null;
-			}
-
-			@Override
-			protected void onProgressUpdate(Integer ... progress) {
-				if (progress[0] == 0)
-					Toast.makeText(getApplicationContext(), R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
-				if (progress[0] == 1)
-					Toast.makeText(getApplicationContext(), R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
-			}
-
-			@Override
-			protected void onPostExecute(Void result) {
-				map.getPhotosOverlay().resetRect();
-				map.invalidate(); 
-			}
-
-		}.execute();
 	}
 	
 	/**

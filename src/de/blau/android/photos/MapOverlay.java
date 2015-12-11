@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
@@ -30,13 +29,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
-	
-	/** Previously requested area. */
-	private Rect prev;
-	
-	/** Current area. */
-	private BoundingBox cur;
-	
+
 	/** Map this is an overlay of. */
 	private final Map map;
 	
@@ -45,6 +38,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	/** have we already run a scan? */
 	private boolean indexed = false;
+	private boolean indexing = false;
 	
 	/** default icon */
 	private final Drawable icon;
@@ -52,8 +46,11 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** selected icon */
 	private final Drawable icon_selected;
 	
-	/** Event handlers for the overlay. */
-	private final Handler handler;
+	/** icon dimensions */
+	int h2;
+	int w2;
+	
+	PhotoIndex pi = null;
 	
 	/** last selected photo, may not be stil displayed */
 	private Photo selected = null;
@@ -61,54 +58,51 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	/** Request to update the bugs for the current view.
 	 * Ensure cur is set before invoking.
 	 */
-	private final Runnable getPhotos = new Runnable() {
-		@Override
-		public void run() {
-			new AsyncTask<Void, Integer, Collection<Photo>>() {
-				
-				@Override
-				protected Collection<Photo> doInBackground(Void... params) {
-					PhotoIndex pi = new PhotoIndex(Application.mainActivity);
-					if (!indexed) {
-						publishProgress(0);
-						pi.createOrUpdateIndex();
-						publishProgress(1);
-					}
-					return pi.getPhotos(cur);
-				}
-				
-				@Override
-				protected void onProgressUpdate(Integer ... progress) {
-					if (progress[0] == 0)
-						Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
-					if (progress[0] == 1)
-						Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
-				}
-				
-				@Override
-				protected void onPostExecute(Collection<Photo> result) {
-					photos.clear();
-					if (!result.isEmpty()) {
-						photos.addAll(result);
-						if (!indexed) {
-							map.invalidate(); // find out if a different layer is updating too, then don't invalidate
-							indexed = true;
-						}
-					}
-				}
-				
-			}.execute();
-		}
-	};
+	private final AsyncTask<Void, Integer, Void> indexPhotos = 
+			new AsyncTask<Void, Integer, Void>() {
 
+		@Override
+		protected Void doInBackground(Void... params) {
+			if (!indexing) {
+				indexing = true;
+				publishProgress(0);
+				pi.createOrUpdateIndex();
+				publishProgress(1);
+				Application.resetPhotoIndex();
+				indexing = false;
+				indexed = true;
+			}
+			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer ... progress) {
+			if (progress[0] == 0)
+				Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_started, Toast.LENGTH_SHORT).show();
+			if (progress[0] == 1)
+				Toast.makeText(Application.mainActivity, R.string.toast_photo_indexing_finished, Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		protected void onPostExecute(Void params) {
+			if (indexed) {
+				map.invalidate();
+			}
+		}			
+	};
+		
 	
+
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
-		cur = new BoundingBox();
 		photos = new ArrayList<Photo>();
-		handler = new Handler();
 		icon = Application.mainActivity.getResources().getDrawable(R.drawable.camera_red);
 		icon_selected = Application.mainActivity.getResources().getDrawable(R.drawable.camera_green);
+		// note this assumes the icons are the same size
+		w2 = icon.getIntrinsicWidth() / 2;
+		h2 = icon.getIntrinsicHeight() / 2;
+		
+		pi = new PhotoIndex(Application.mainActivity);
 	}
 	
 	@Override
@@ -122,38 +116,35 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
 		if (map.getPrefs().isPhotoLayerEnabled()) {
-			// the idea is to have the circles a bit bigger when zoomed in, not so
-			// big when zoomed out
-			final float radius = 1.0f + osmv.getZoomLevel() / 2.0f;
 			BoundingBox bb = osmv.getViewBox();
 			
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
 				return;
 			}
-			cur.set(bb);
-			getPhotos.run();;
+			if (!indexed) {
+				indexPhotos.execute();
+				return;
+			}
+		
 			// draw all the photos
-			int w = Application.mainActivity.getMap().getWidth();
-			int h = Application.mainActivity.getMap().getHeight();
+			int w = map.getWidth();
+			int h = map.getHeight();
+			photos = pi.getPhotos(bb);
 			for (Photo p : photos) {
-				if (bb.isIn(p.getLat(), p.getLon())) {
-					Drawable i;
-					if (p == selected) 
-						i = icon_selected;
-					else
-						i = icon;
-					int x = (int) GeoMath.lonE7ToX(w , bb, p.getLon());
-					int y = (int) GeoMath.latE7ToY(h, w ,bb, p.getLat());
-					int w2 = i.getIntrinsicWidth() / 2;
-					int h2 = i.getIntrinsicHeight() / 2;
-					i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
-					if (p.hasDirection()) {
-						c.rotate(p.getDirection(), x, y);
-						i.draw(c);
-						c.rotate(-p.getDirection(), x, y);
-					} else {
-						i.draw(c);
-					}
+				Drawable i;
+				if (p == selected) 
+					i = icon_selected;
+				else
+					i = icon;
+				int x = (int) GeoMath.lonE7ToX(w , bb, p.getLon());
+				int y = (int) GeoMath.latE7ToY(h, w ,bb, p.getLat());
+				i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
+				if (p.hasDirection()) {
+					c.rotate(p.getDirection(), x, y);
+					i.draw(c);
+					c.rotate(-p.getDirection(), x, y);
+				} else {
+					i.draw(c);
 				}
 			}
 		}
@@ -163,11 +154,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	protected void onDrawFinished(Canvas c, IMapView osmv) {
 		// do nothing
 	}
-	
-	public void resetRect() {
-		prev = new Rect();
-	}
-	
+
 	/**
 	 * Given screen coordinates, find all nearby photos.
 	 * @param x Screen X-coordinate.
