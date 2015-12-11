@@ -123,10 +123,11 @@ public class Application extends android.app.Application {
 		return names;
 	}
 
+	/**
+	 * Returns the current in-memory index, use resetPhotoIndex to initialize/reset
+	 * @return
+	 */
 	public static RTree getPhotoIndex() {
-		if (photoIndex == null) {
-			photoIndex = new RTree(2,100);
-		}
 		return photoIndex;
 	}
 	

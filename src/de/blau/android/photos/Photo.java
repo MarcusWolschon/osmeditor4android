@@ -79,7 +79,7 @@ public class Photo implements BoundedObject {
 		this.lon = lon;
 		this.direction = direction;
 		this.directionRef = "M"; // magnetic north
-		Log.d("Photo","constructor direction " + direction + " ref " + directionRef);
+		// Log.d("Photo","constructor direction " + direction + " ref " + directionRef);
 		this.ref = ref;
 	}
 	

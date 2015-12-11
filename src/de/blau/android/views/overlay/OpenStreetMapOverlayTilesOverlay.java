@@ -10,6 +10,7 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
 public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay {
 	
 	Map map;
+	boolean enabled = false;
 	
 	public OpenStreetMapOverlayTilesOverlay(final View aView) {
 		super(aView, OpenStreetMapTileServer.get(Application.mainActivity, ((Map)aView).getPrefs().overlayLayer(), true), null);
@@ -18,7 +19,8 @@ public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay 
 	
 	@Override
 	public boolean isReadyToDraw() {
-		if (!getRendererInfo().getId().equals("NONE")) {
+		enabled = !getRendererInfo().getId().equals("NONE");
+		if (enabled) {
 			return super.isReadyToDraw();
 		}
 		return true;
@@ -26,7 +28,7 @@ public class OpenStreetMapOverlayTilesOverlay extends OpenStreetMapTilesOverlay 
 	
 	@Override
 	public void onDraw(Canvas c, IMapView osmv) {
-		if (!getRendererInfo().getId().equals("NONE"))
+		if (enabled)
 			super.onDraw(c, osmv);
 	}
 }

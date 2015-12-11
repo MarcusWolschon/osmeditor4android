@@ -38,6 +38,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	/** have we already run a scan? */
 	private boolean indexed = false;
+	
+	/** set while we are actually creating index */
 	private boolean indexing = false;
 	
 	/** default icon */
@@ -50,7 +52,15 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	int h2;
 	int w2;
 	
+	/**
+	 * Index disk/in-memory of photos
+	 */
 	PhotoIndex pi = null;
+	
+	/**
+	 * Pref for this layer enabled
+	 */
+	private boolean enabled = false;
 	
 	/** last selected photo, may not be stil displayed */
 	private Photo selected = null;
@@ -68,7 +78,6 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				publishProgress(0);
 				pi.createOrUpdateIndex();
 				publishProgress(1);
-				Application.resetPhotoIndex();
 				indexing = false;
 				indexed = true;
 			}
@@ -89,9 +98,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				map.invalidate();
 			}
 		}			
-	};
-		
-	
+	};		
 
 	public MapOverlay(final Map map, Server s) {
 		this.map = map;
@@ -107,7 +114,8 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	@Override
 	public boolean isReadyToDraw() {
-		if (map.getPrefs().isPhotoLayerEnabled()) {
+		enabled = map.getPrefs().isPhotoLayerEnabled();
+		if (enabled) {
 			return map.getOpenStreetMapTilesOverlay().isReadyToDraw();
 		}
 		return true;
@@ -115,13 +123,13 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	
 	@Override
 	protected void onDraw(Canvas c, IMapView osmv) {
-		if (map.getPrefs().isPhotoLayerEnabled()) {
+		if (enabled) {
 			BoundingBox bb = osmv.getViewBox();
 			
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
 				return;
 			}
-			if (!indexed) {
+			if (!indexed && !indexing) {
 				indexPhotos.execute();
 				return;
 			}
@@ -130,6 +138,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			int w = map.getWidth();
 			int h = map.getHeight();
 			photos = pi.getPhotos(bb);
+			
 			for (Photo p : photos) {
 				Drawable i;
 				if (p == selected) 

@@ -191,13 +191,13 @@ public class PhotoIndex extends SQLiteOpenHelper {
 		}
 	}
 	
-	public void addPhoto(File f) {
+	public synchronized void addPhoto(File f) {
 		SQLiteDatabase db = getWritableDatabase();
 		// Log.i(LOGTAG,"Adding entry in " + f.getParent());
 		Photo p = addPhoto(db, f.getParentFile(), f);
 		db.close();
 		RTree index = Application.getPhotoIndex();
-		if (p!=null && index.count() != 0) { // if nothing is in the index the complete DB including this photo will be added
+		if (p!=null && index != null) { // if nothing is in the index the complete DB including this photo will be added
 			index.insert(p);
 		}
 	}
@@ -234,12 +234,15 @@ public class PhotoIndex extends SQLiteOpenHelper {
 
 	/**
 	 * Return all photographs in a given bounding box
-	 * @param cur
+	 * If necessary fill in-memory index first
+	 * @param box
 	 * @return
 	 */
-	public Collection<Photo> getPhotos(BoundingBox cur) {
+	public synchronized Collection<Photo> getPhotos(BoundingBox box) {
 		RTree index = Application.getPhotoIndex();
-		if (index.count()==0) {
+		if (index == null) {
+			Application.resetPhotoIndex(); // allocate r-tree
+			index = Application.getPhotoIndex();
 			try {
 				SQLiteDatabase db = getReadableDatabase();
 				Cursor dbresult = db.query(
@@ -267,7 +270,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 			}
 		}
 		
-		return getPhotosFromIndex(index, cur);
+		return getPhotosFromIndex(index, box);
 	}
 	
 	public ArrayList<Photo>getPhotosFromIndex(RTree index, BoundingBox box) {
