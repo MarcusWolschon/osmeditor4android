@@ -217,13 +217,13 @@ public class RTree implements Serializable {
 
 			while(!n.children.isEmpty() && g1.children.size() < maxSize - minSize + 1 && g2.children.size() < maxSize - minSize + 1) {
 				// Pick next
-				int difmax = Integer.MIN_VALUE;
+				long difmax = Long.MIN_VALUE;
 				int nmax_index = -1;
 				for (int i = 0; i < n.children.size(); i++) {
 					Node node = n.children.get(i);
-					int expansion1 = expansionNeeded(node.box, g1.box);
-					int expansion2 = expansionNeeded(node.box, g2.box);
-					int dif = Math.abs(expansion1 - expansion2);
+					long expansion1 = expansionNeeded(node.box, g1.box);
+					long expansion2 = expansionNeeded(node.box, g2.box);
+					long dif = Math.abs(expansion1 - expansion2);
 					if (dif > difmax) {
 						difmax = dif;
 						nmax_index = i;
@@ -236,8 +236,8 @@ public class RTree implements Serializable {
 				Node parent = null;
 
 				// ... to the one with the least expansion
-				int overlap1 = expansionNeeded(nmax.box, g1.box);
-				int overlap2 = expansionNeeded(nmax.box, g2.box);
+				long overlap1 = expansionNeeded(nmax.box, g1.box);
+				long overlap2 = expansionNeeded(nmax.box, g2.box);
 				if (overlap1 > overlap2) {
 					parent = g1;
 				} else if (overlap2 > overlap1) {
@@ -280,13 +280,13 @@ public class RTree implements Serializable {
 
 			while(!n.data.isEmpty() && g1.data.size() < maxSize - minSize + 1 && g2.data.size() < maxSize - minSize + 1) {
 				// Pick next
-				int difmax = Integer.MIN_VALUE;
+				long difmax = Long.MIN_VALUE;
 				int nmax_index = -1;
 				for (int i = 0; i < n.data.size(); i++) {
 					BoundedObject node = n.data.get(i);
-					int d1 = expansionNeeded(node.getBounds(), g1.box);
-					int d2 = expansionNeeded(node.getBounds(), g2.box);
-					int dif = Math.abs(d1 - d2);
+					long d1 = expansionNeeded(node.getBounds(), g1.box);
+					long d2 = expansionNeeded(node.getBounds(), g2.box);
+					long dif = Math.abs(d1 - d2);
 					if (dif > difmax) {
 						difmax = dif;
 						nmax_index = i;
@@ -298,8 +298,8 @@ public class RTree implements Serializable {
 				BoundedObject nmax = n.data.remove(nmax_index);
 
 				// ... to the one with the least expansion
-				int overlap1 = expansionNeeded(nmax.getBounds(), g1.box);
-				int overlap2 = expansionNeeded(nmax.getBounds(), g2.box);
+				long overlap1 = expansionNeeded(nmax.getBounds(), g1.box);
+				long overlap2 = expansionNeeded(nmax.getBounds(), g2.box);
 				if (overlap1 > overlap2) {
 					g1.data.add(nmax);
 				} else if (overlap2 > overlap1) {
@@ -559,10 +559,10 @@ public class RTree implements Serializable {
 		} else {
 			BoundingBox box = o.getBounds();
 
-			int maxOverlap = Integer.MAX_VALUE;
+			long maxOverlap = Long.MAX_VALUE;
 			Node maxnode = null;
 			for (int i = 0; i < n.children.size(); i++) {
-				int overlap = expansionNeeded(n.children.get(i).box, box);
+				long overlap = expansionNeeded(n.children.get(i).box, box);
 				if ((overlap < maxOverlap) || (overlap == maxOverlap)
 						&& area(n.children.get(i).box) < area(maxnode.box)) {
 					maxOverlap = overlap;
@@ -580,14 +580,14 @@ public class RTree implements Serializable {
 	/**
 	 * Returns the amount that other will need to be expanded to fit this.
 	 */
-	private static int expansionNeeded(BoundingBox one, BoundingBox two) {
-		int total = 0;
+	private static long expansionNeeded(BoundingBox one, BoundingBox two) {
+		long total = 0;
 
-		if(two.getLeft() < one.getLeft()) total += one.getLeft() - two.getLeft();
-		if(two.getRight() > one.getRight()) total += two.getRight() - one.getRight();
+		if(two.getLeft() < one.getLeft()) total += (long)one.getLeft() - (long)two.getLeft();
+		if(two.getRight() > one.getRight()) total += (long)two.getRight() - (long)one.getRight();
 
-		if(two.getTop() < one.getTop()) total += one.getTop() - two.getTop();
-		if(two.getBottom() > one.getBottom()) total += two.getBottom() - one.getBottom();
+		if(two.getTop() < one.getTop()) total += (long)one.getTop() - (long)two.getTop();
+		if(two.getBottom() > one.getBottom()) total += (long)two.getBottom() - (long)one.getBottom();
 
 		return total;
 	}

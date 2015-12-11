@@ -331,6 +331,17 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 		return (Math.abs(left + width/2 - b.left - b.width/2) * 2 < (width + b.width)) &&
 		         (Math.abs(bottom + (long)height/2 - b.bottom - (long)b.height/2) * 2 < ((long)height + (long)b.height));
 	}
+	
+	/**
+	 * Java Rect compatibility
+	 * Return true if the boxes intersect
+	 * @param box2
+	 * @param box
+	 * @return
+	 */
+	public static boolean intersects(BoundingBox box2, BoundingBox box) {
+		return box2.intersects(box);
+	}
 
 	/**
 	 * Checks if an intersection with a line between lat/lon and lat2/lon2 is
@@ -927,21 +938,5 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 */
 	public boolean contains(int lonE7, int latE7) {
 		return left <= lonE7 && lonE7 < right && bottom <= latE7 && latE7 < top;
-	}
-
-	/**
-	 * REturn true if the boxes intersect
-	 * @param box2
-	 * @param box
-	 * @return
-	 */
-	public static boolean intersects(BoundingBox box2, BoundingBox box) {
-		// at least one of the corners need to be in/on the box
-		if (box2.isEmpty()) {
-			return box.contains(box2.getLeft(),box2.getBottom()); // no need to test the other corners
-		} else {
-			return box.contains(box2.getLeft(),box2.getBottom()) || box.contains(box2.getLeft(),box2.getTop()) 
-				|| box.contains(box2.getRight(),box2.getTop()) || box.contains(box2.getRight(),box2.getBottom());
-		}
 	}
 }
