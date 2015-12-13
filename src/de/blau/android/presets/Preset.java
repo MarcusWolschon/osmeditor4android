@@ -147,6 +147,25 @@ public class Preset implements Serializable {
 	
 	/** all known preset items in order of loading */
 	protected ArrayList<PresetItem> allItems = new ArrayList<PresetItem>();
+	
+	public static enum PresetKeyType {
+		/**
+		 * arbitrary single value
+		 */
+		TEXT,
+		/**
+		 * multiple values, single select
+		 */
+		COMBO,
+		/**
+		 * multiple values, multiple select
+		 */
+		MULTISELECT,
+		/**
+		 * single value, set or unset
+		 */
+		CHECK
+	}
 
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
 	protected final MultiHashMap<String, StringWithDescription> autosuggestNodes = new MultiHashMap<String, StringWithDescription>(true);
@@ -385,13 +404,13 @@ public class Preset implements Serializable {
             		inOptionalSection = true;
             	} else if ("key".equals(name)) {
             		if (!inOptionalSection) {
-            			currentItem.addTag(attr.getValue("key"), attr.getValue("value"), attr.getValue("text"));
+            			currentItem.addTag(attr.getValue("key"), PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
             		} else {
             			// Optional fixed tags should not happen, their values will NOT be automatically inserted.
-            			currentItem.addTag(true, attr.getValue("key"), attr.getValue("value"));
+            			currentItem.addTag(true, attr.getValue("key"), PresetKeyType.TEXT, attr.getValue("value"));
             		}
             	} else if ("text".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), (String)null);
+            		currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.TEXT, (String)null);
             		String text = attr.getValue("text");
             		if (text != null) {
             			currentItem.addHint(attr.getValue("key"),text);
@@ -409,7 +428,7 @@ public class Preset implements Serializable {
             		} else {
             			values = "," + value_off;
             		}
-             		currentItem.addTag(inOptionalSection, attr.getValue("key"), values);
+             		currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.CHECK, values);
             		String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
             		if (defaultValue != null) {
             			currentItem.addDefault(attr.getValue("key"),defaultValue);
@@ -425,7 +444,7 @@ public class Preset implements Serializable {
             		}
             		String comboValues = attr.getValue("values");
             		if (comboValues != null) {
-            			currentItem.addTag(inOptionalSection, attr.getValue("key"), comboValues, delimiter);
+            			currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.COMBO, comboValues, delimiter);
             		} else {
             			listKey = attr.getValue("key");
             			listValues = new ArrayList<StringWithDescription>();
@@ -445,7 +464,7 @@ public class Preset implements Serializable {
             		}
             		String multiselectValues = attr.getValue("values");
             		if (multiselectValues != null) {
-            			currentItem.addTag(inOptionalSection, attr.getValue("key"), multiselectValues, delimiter); 
+            			currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.MULTISELECT, multiselectValues, delimiter); 
             		} else {
             			listKey = attr.getValue("key");
             			listValues = new ArrayList<StringWithDescription>();
@@ -468,6 +487,7 @@ public class Preset implements Serializable {
             			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
             			currentItem.hints.putAll(chunk.hints);
             			currentItem.defaults.putAll(chunk.defaults);
+            			currentItem.keyType.putAll(chunk.keyType);
             			currentItem.roles.addAll(chunk.roles); // FIXME this and the following could lead to duplicate entries
             			currentItem.linkedPresetNames.addAll(chunk.linkedPresetNames);
             		}
@@ -507,7 +527,9 @@ public class Preset implements Serializable {
             	} else if ("combo".equals(name) || "multiselect".equals(name)) {
             		if (listKey != null && listValues != null) {
             			StringWithDescription[] v = new StringWithDescription[listValues.size()];
-            			currentItem.addTag(inOptionalSection, listKey, listValues.toArray(v));
+            			currentItem.addTag(inOptionalSection, 
+            					listKey, "combo".equals(name)?PresetKeyType.COMBO:PresetKeyType.MULTISELECT, 
+            					listValues.toArray(v));
             		}
             		listKey = null;
             		listValues = null;
@@ -1083,7 +1105,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 2L;
+		private static final long serialVersionUID = 4L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1115,6 +1137,11 @@ public class Preset implements Serializable {
 		 * Linked names of presets
 		 */
 		private LinkedList<String> linkedPresetNames = new LinkedList<String>();
+		
+		/**
+		 * Key to key type
+		 */
+		private HashMap<String,PresetKeyType> keyType = new HashMap<String,PresetKeyType>(); 
 		
 		/**
 		 * Translation contexts
@@ -1198,7 +1225,7 @@ public class Preset implements Serializable {
 		 * @param key key name of the tag
 		 * @param value value of the tag
 		 */
-		public void addTag(String key, String value, String text) {
+		public void addTag(final String key, final PresetKeyType type, String value, String text) {
 			if (key == null) throw new NullPointerException("null key not supported");
 			if (value == null) value = "";
 			if (text != null && po != null) {
@@ -1206,6 +1233,8 @@ public class Preset implements Serializable {
 			}
 			fixedTags.put(key, new StringWithDescription(value, text));
 			tagItems.add(key+"\t"+value, this);
+			// Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
+			keyType.put(key,type);
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
@@ -1218,25 +1247,26 @@ public class Preset implements Serializable {
 		 * @param key key name of the tag
 		 * @param values values string from the XML (comma-separated list of possible values)
 		 */
-		public void addTag(boolean optional, String key, String values) {
-			addTag(optional, key, values, ",");
+		public void addTag(boolean optional, String key, PresetKeyType type, String values) {
+			addTag(optional, key, type, values, ",");
 		}
 		
-		public void addTag(boolean optional, String key, String values, String seperator) {
+		public void addTag(boolean optional, String key, PresetKeyType type, String values, String seperator) {
 			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(seperator));
 			StringWithDescription[] valuesWithDesc = new StringWithDescription[valueArray.length];
 			for (int i=0;i<valueArray.length;i++){
 				valuesWithDesc[i] = new StringWithDescription(valueArray[i]);
 			}
-			addTag(optional, key, valuesWithDesc);
+			addTag(optional, key, type, valuesWithDesc);
 		}
 		
-		public void addTag(boolean optional, String key, StringWithDescription[] valueArray) {
+		public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray) {
 		    int i = 0;
 			for (StringWithDescription v:valueArray) {
 				tagItems.add(key+"\t"+v.getValue(), this);
 			}
-			
+			// Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
+			keyType.put(key,type);
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
@@ -1331,6 +1361,19 @@ public class Preset implements Serializable {
 				result.addAll(Arrays.asList(recommendedTags.get(key)));
 			} else if (optionalTags.containsKey(key)) {
 				result.addAll(Arrays.asList(optionalTags.get(key)));
+			}
+			return result;
+		}
+		
+		/**
+		 * Return what kind of selection applies to the values of this key
+		 * @param key
+		 * @return
+		 */
+		public PresetKeyType getKeyType(String key) {
+			PresetKeyType result = keyType.get(key);
+			if (result==null) {
+				return PresetKeyType.TEXT;
 			}
 			return result;
 		}
