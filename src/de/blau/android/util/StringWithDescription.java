@@ -1,6 +1,10 @@
 package de.blau.android.util;
 
-public class StringWithDescription implements Comparable<StringWithDescription> {
+import java.io.Serializable;
+
+public class StringWithDescription implements Comparable<StringWithDescription>, Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private final String value;
 	private String description;
 	
