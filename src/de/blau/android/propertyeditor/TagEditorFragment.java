@@ -1490,7 +1490,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		if (copiedTags != null) {
 			mergeTags(copiedTags, replace);
 		} else {
-			Map<String, String> copied = savingHelper.load(((PropertyEditor)getActivity()).COPIED_TAGS_FILE, false);
+			Map<String, String> copied = savingHelper.load(PropertyEditor.COPIED_TAGS_FILE, false);
 			if (copied != null) {
 				mergeTags(copied, replace);
 			}
@@ -1618,13 +1618,7 @@ public class TagEditorFragment extends SherlockFragment implements
 					if (edits.get(key).size()==1) {
 						String value = edits.get(key).get(0).trim();
 						if (!"".equals(value)) {
-							if (autocompletePresetItem != null && autocompletePresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) {
-								// trim potential trailing separators FIXME hardcoded
-								if (value.endsWith(String.valueOf(LIST_SEPARATOR))) {
-									value = value.substring(0, value.length()-1);
-								}
-							}
-							map.put(key, value);
+							addTagToMap(map, key, value);
 						} else {
 							map.remove(key); // zap stuff with empty values
 						}
@@ -1635,11 +1629,30 @@ public class TagEditorFragment extends SherlockFragment implements
 			}
 			// check for new tags
 			for (String editsKey:edits.keySet()) {
-				if (!map.containsKey(editsKey) && edits.get(editsKey).size()==1 && !edits.get(editsKey).get(0).trim().equals("")) { // zap empty stuff
-					map.put(editsKey,edits.get(editsKey).get(0));
+				if (!map.containsKey(editsKey) && edits.get(editsKey).size()==1) { // zap empty stuff
+					String value = edits.get(editsKey).get(0).trim();
+					if (!"".equals(value)) {
+						addTagToMap(map, editsKey, value);
+					}
 				}
 			}
 		}
 		return newTags;
+	}
+	
+	/**
+	 * Added key-value to a map stripping training list separator
+	 * @param map
+	 * @param key
+	 * @param value
+	 */
+	private void addTagToMap(Map<String,String>map, String key, String value) {
+		if (autocompletePresetItem != null && autocompletePresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) {
+			// trim potential trailing separators 
+			if (value.endsWith(String.valueOf(LIST_SEPARATOR))) {
+				value = value.substring(0, value.length()-1);
+			}
+		}
+		map.put(key, value);
 	}
 }
