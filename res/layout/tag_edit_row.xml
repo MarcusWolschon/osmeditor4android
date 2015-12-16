@@ -43,7 +43,7 @@
 	        android:singleLine="true"
 	         />
 	    
-	    <de.blau.android.views.OffsettedAutoCompleteTextView
+	    <de.blau.android.views.CustomAutoCompleteTextView
 	        android:id="@+id/editValue"
 	        android:saveEnabled="false"
 	        android:layout_width="fill_parent"

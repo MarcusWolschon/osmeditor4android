@@ -15,7 +15,6 @@ import java.util.TreeSet;
 
 import org.acra.ACRA;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -25,7 +24,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -66,15 +64,16 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.KeyValue;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.KeyValue;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
-import de.blau.android.views.OffsettedAutoCompleteTextView;
+import de.blau.android.views.CustomAutoCompleteTextView;
 
 
 	
@@ -82,6 +81,8 @@ public class TagEditorFragment extends SherlockFragment implements
 		PropertyRows {
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
+
+	private static final char LIST_SEPARATOR = ';';
 	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
@@ -474,12 +475,11 @@ public class TagEditorFragment extends SherlockFragment implements
 		Collections.sort(result);
 		return new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, result);
 	}
-	
+
 	protected ArrayAdapter<?> getValueAutocompleteAdapter(LinearLayout rowLayout, TagEditRow row) {
 		ArrayAdapter<?> adapter = null;
 		String key = row.keyEdit.getText().toString();
 		if (key != null && key.length() > 0) {
-			Log.d(DEBUG_TAG,"setting autocomplete adapter for values 1");
 			HashSet<String> usedKeys = (HashSet<String>) getUsedKeys(rowLayout,null);
 			boolean isStreetName = (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) ||
 					(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_HIGHWAY)));
@@ -531,6 +531,11 @@ public class TagEditorFragment extends SherlockFragment implements
 								continue; // skip stuff that is already listed
 							}
 							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
+						}
+						Log.d(DEBUG_TAG,"key " + key + " type " + autocompletePresetItem.getKeyType(key));
+						if (autocompletePresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) { 
+							// FIXME this should be somewhere better obvious since it creates a non obvious side effect
+							row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(LIST_SEPARATOR));
 						}
 					} else if (autocompletePresetItem.isFixedTag(key)) {
 						for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key)) {
@@ -704,14 +709,14 @@ public class TagEditorFragment extends SherlockFragment implements
 				Log.d("TagEdit","onItemClicked value");
 				Object o = parent.getItemAtPosition(position);
 				if (o instanceof Names.NameAndTags) {
-					row.valueEdit.setText(((NameAndTags)o).getName());
+					row.valueEdit.setText2(((NameAndTags)o).getName());
 					applyTagSuggestions(((NameAndTags)o).getTags());
 				} else if (o instanceof ValueWithCount) {
-					row.valueEdit.setText(((ValueWithCount)o).getValue());
+					row.valueEdit.setText2(((ValueWithCount)o).getValue());
 				} else if (o instanceof StringWithDescription) {
-					row.valueEdit.setText(((StringWithDescription)o).getValue());
+					row.valueEdit.setText2(((StringWithDescription)o).getValue());
 				} else if (o instanceof String) {
-					row.valueEdit.setText((String)o);
+					row.valueEdit.setText2((String)o);
 				}
 			}
 		});
@@ -751,7 +756,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		
 		private PropertyEditor owner;
 		private AutoCompleteTextView keyEdit;
-		private OffsettedAutoCompleteTextView valueEdit;
+		private CustomAutoCompleteTextView valueEdit;
 		private CheckBox selected;
 		private ArrayList<String> tagValues;
 				
@@ -779,7 +784,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			keyEdit.setOnKeyListener(owner.myKeyListener);
 			//lastEditKey.setSingleLine(true);
 			
-			valueEdit = (OffsettedAutoCompleteTextView)findViewById(R.id.editValue);
+			valueEdit = (CustomAutoCompleteTextView)findViewById(R.id.editValue);
 			valueEdit.setOnKeyListener(owner.myKeyListener);
 			
 			selected = (CheckBox) findViewById(R.id.tagSelected);
@@ -1599,7 +1604,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		// make a (nearly) full copy
 		ArrayList<LinkedHashMap<String,String>> newTags = new ArrayList<LinkedHashMap<String,String>>();
 		for (LinkedHashMap<String,String> map:oldTags) {
-			newTags.add((LinkedHashMap<String, String>) map.clone());
+			newTags.add(new LinkedHashMap<String, String>(map));
 		}
 		
 		LinkedHashMap<String,ArrayList<String>> edits = getKeyValueMap(true);
@@ -1611,8 +1616,15 @@ public class TagEditorFragment extends SherlockFragment implements
 			for (String key:new TreeSet<String>(map.keySet())) {
 				if (edits.containsKey(key)) {
 					if (edits.get(key).size()==1) {
-						if (!edits.get(key).get(0).trim().equals("")) {
-							map.put(key, edits.get(key).get(0));
+						String value = edits.get(key).get(0).trim();
+						if (!"".equals(value)) {
+							if (autocompletePresetItem != null && autocompletePresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) {
+								// trim potential trailing separators FIXME hardcoded
+								if (value.endsWith(String.valueOf(LIST_SEPARATOR))) {
+									value = value.substring(0, value.length()-1);
+								}
+							}
+							map.put(key, value);
 						} else {
 							map.remove(key); // zap stuff with empty values
 						}
