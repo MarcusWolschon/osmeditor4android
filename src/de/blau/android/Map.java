@@ -1200,6 +1200,10 @@ public class Map extends View implements IMapView {
 		return displayLocation;
 	}
 	
+	/**
+	 * Set the flag that determines if the arror is just an outline or not
+	 * @param follow
+	 */
 	public void setFollowGPS(boolean follow) {
 		isFollowingGPS = follow;
 	}

@@ -988,10 +988,18 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_gps_goto:
-			setFollowGPS(true);
-			map.setFollowGPS(true);
-			getLogic().setZoom(19);
-			map.invalidate();
+			Location gotoLoc = null;
+			if (getTracker() != null) {
+				gotoLoc = getTracker().getLastLocation();
+			} else if (ensureGPSProviderEnabled()) {
+				gotoLoc = getLastLocation();
+			} // else moan? without GPS enabled this shouldn't be selectable currently
+			if (gotoLoc != null) {
+				map.getViewBox().moveTo((int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
+				getLogic().setZoom(19);
+				map.setLocation(gotoLoc);
+				map.invalidate();
+			}
 			return true;
 
 		case R.id.menu_gps_start:
