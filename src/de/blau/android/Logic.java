@@ -618,8 +618,7 @@ public class Logic {
 			try {
 				box = new BoundingBox(-180.0d, -GeoMath.MAX_LAT, +180.0d, GeoMath.MAX_LAT); // maximum possible size in mercator projection
 			} catch (OsmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.e(DEBUG_TAG, "creating default bounding box failed"); // this can't really happen
 			}
 		}
 		

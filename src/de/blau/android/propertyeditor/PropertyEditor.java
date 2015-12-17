@@ -3,7 +3,6 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.acra.ACRA;
 
@@ -37,14 +36,10 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.ActionMode.Callback;
 
 import de.blau.android.Application;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.Logic.CursorPaddirection;
-import de.blau.android.Main.MapKeyListener;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
@@ -64,6 +59,9 @@ import de.blau.android.views.ExtendedViewPager;
  */
 public class PropertyEditor extends SherlockFragmentActivity implements 
 		 OnPresetSelectedListener {
+	private static final String PRESET_FRAGMENT = "preset_fragment";
+	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
+	
 	public static final String TAGEDIT_DATA = "dataClass";
 	public static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
 	public static final String TAGEDIT_SHOW_PRESETS = "showPresets";
@@ -98,9 +96,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	
 	private boolean applyLastAddressTags = false;
 	private boolean showPresets = false;
-		
-	/** Set to true once values are loaded. used to suppress adding of empty rows while loading. */
-	private boolean loaded;
 	
 	/**
 	 * Handles "enter" key presses.
@@ -125,8 +120,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 */
 	private HashMap<Long,String> originalParents;
 	private ArrayList<RelationMemberDescription> originalMembers;
-	
-
 	
 	static final String COPIED_TAGS_FILE = "copiedtags.dat";
 	 
@@ -169,10 +162,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			// besides hacking ABS, there is no equivalent method to enable this for ABS
 		} 
 
-		loaded = false;
-		
 		// tags
-
 		if (savedInstanceState == null) {
 			// No previous state to restore - get the state from the intent
 			Log.d(DEBUG_TAG, "Initializing from intent");
@@ -182,9 +172,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		} else {
 			// Restore activity from saved state
 			Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-			// loadData = PropertyEditorData.deserializeArray(savedInstanceState.getSerializable(TAGEDIT_DATA));
-			// loadData = (PropertyEditorData)savedInstanceState.getSerializable(TAGEDIT_DATA);
-			// FIXME needs to be checked if this really works
 			loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
 			// applyLastTags = (Boolean)savedInstanceState.getSerializable(TAGEDIT_LASTTAGS); not saved
 			currentItem = savedInstanceState.getInt("CURRENTITEM",-1);
@@ -271,19 +258,19 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getSupportFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
-			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
 			if (recentPresetsFragment != null) {
 				ft.remove(recentPresetsFragment);
 			}
 			recentPresetsFragment = RecentPresetsFragment.newInstance(elements[0]); // FIXME collect tags
-			ft.add(R.id.recent_preset_row,recentPresetsFragment,"recentpresets_fragment");
+			ft.add(R.id.recent_preset_row,recentPresetsFragment,RECENTPRESETS_FRAGMENT);
 			
-			presetFragment = (PresetFragment) fm.findFragmentByTag("preset_fragment");
+			presetFragment = (PresetFragment) fm.findFragmentByTag(PRESET_FRAGMENT);
 			if (presetFragment != null) {
 				ft.remove(presetFragment);
 			}
 			presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags
-			ft.add(R.id.preset_row,presetFragment,"preset_fragment");
+			ft.add(R.id.preset_row,presetFragment,PRESET_FRAGMENT);
 			
 			ft.commit();
 			
@@ -447,7 +434,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	void recreateRecentPresetView() {
 		if (usePaneLayout) {
 			FragmentManager fm = getSupportFragmentManager();
-			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
 			if (recentPresetsFragment != null) {
 				((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
 			}
@@ -639,7 +626,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			tagEditorFragment.applyPreset(item);
 			if (usePaneLayout) {
 				FragmentManager fm = getSupportFragmentManager();
-				Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+				Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
 				if (recentPresetsFragment != null) {
 					((RecentPresetsFragment)recentPresetsFragment).recreateRecentPresetView();
 				}
@@ -667,7 +654,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	public void enablePresets() {
 		if (usePaneLayout) {
 			FragmentManager fm = getSupportFragmentManager();
-			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
 			if (recentPresetsFragment != null) {
 				((RecentPresetsFragment)recentPresetsFragment).enable();
 			}
@@ -682,7 +669,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	public void disablePresets() {
 		if (usePaneLayout) {
 			FragmentManager fm = getSupportFragmentManager();
-			Fragment recentPresetsFragment = fm.findFragmentByTag("recentpresets_fragment");
+			Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
 			if (recentPresetsFragment != null) {
 				((RecentPresetsFragment)recentPresetsFragment).disable();
 			}

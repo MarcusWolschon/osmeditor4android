@@ -1348,26 +1348,30 @@ public class TagEditorFragment extends SherlockFragment implements
 			return savedTags;
 		}
 		
-		processKeyValues(rowLayout, new KeyValueHandler() {
-			@Override
-			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
-				String key = keyEdit.getText().toString().trim();
-				String value = valueEdit.getText().toString().trim();
-				boolean valueBlank = "".equals(value);
-				boolean bothBlank = "".equals(key) && valueBlank;
-				boolean neitherBlank = !"".equals(key) && !valueBlank;
-				if (!bothBlank) {
-					// both blank is never acceptable
-					if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && tagValues.size()>0)) {
-						if (valueBlank) {
-							tags.put(key, tagValues);
-						} else {
-							tags.put(key, Util.getArrayList(value));
+		if (rowLayout != null) {
+			processKeyValues(rowLayout, new KeyValueHandler() {
+				@Override
+				public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
+					String key = keyEdit.getText().toString().trim();
+					String value = valueEdit.getText().toString().trim();
+					boolean valueBlank = "".equals(value);
+					boolean bothBlank = "".equals(key) && valueBlank;
+					boolean neitherBlank = !"".equals(key) && !valueBlank;
+					if (!bothBlank) {
+						// both blank is never acceptable
+						if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && tagValues.size()>0)) {
+							if (valueBlank) {
+								tags.put(key, tagValues);
+							} else {
+								tags.put(key, Util.getArrayList(value));
+							}
 						}
 					}
 				}
-			}
-		});
+			});
+		} else {
+			Log.e(DEBUG_TAG,"rowLayout null in getKeyValueMapSingle");
+		}
 //		for (String key:tags.keySet()) {
 //			Log.d(DEBUG_TAG,"getKeyValueMap Key " + key + " " + tags.get(key));
 //		}
@@ -1398,27 +1402,31 @@ public class TagEditorFragment extends SherlockFragment implements
 			}
 			return tags;
 		}
-		processKeyValues(rowLayout, new KeyValueHandler() {
-			@Override
-			public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
-				String key = keyEdit.getText().toString().trim();
-				String value = valueEdit.getText().toString().trim();
-				boolean valueBlank = "".equals(value);
-				boolean bothBlank = "".equals(key) && valueBlank;
-				boolean neitherBlank = !"".equals(key) && !valueBlank;
-				if (!bothBlank) {
-					// both blank is never acceptable
-					boolean hasValues =  tagValues != null && tagValues.size()>0;
-					if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
-						if (valueBlank && hasValues) {
-							tags.put(key, tagValues.get(0)); // FIXME
-						} else {
-							tags.put(key, value);
+		if (rowLayout != null) {
+			processKeyValues(rowLayout, new KeyValueHandler() {
+				@Override
+				public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues) {
+					String key = keyEdit.getText().toString().trim();
+					String value = valueEdit.getText().toString().trim();
+					boolean valueBlank = "".equals(value);
+					boolean bothBlank = "".equals(key) && valueBlank;
+					boolean neitherBlank = !"".equals(key) && !valueBlank;
+					if (!bothBlank) {
+						// both blank is never acceptable
+						boolean hasValues =  tagValues != null && tagValues.size()>0;
+						if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
+							if (valueBlank && hasValues) {
+								tags.put(key, tagValues.get(0)); // FIXME
+							} else {
+								tags.put(key, value);
+							}
 						}
 					}
 				}
-			}
-		});
+			});
+		} else {
+			Log.e(DEBUG_TAG,"rowLayout null in getKeyValueMapSingle");
+		}
 		return tags;
 	}	
 	
