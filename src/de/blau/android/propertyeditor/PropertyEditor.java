@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.acra.ACRA;
 
@@ -58,7 +59,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  */
 public class PropertyEditor extends SherlockFragmentActivity implements 
-		 OnPresetSelectedListener {
+		 OnPresetSelectedListener, TagUpdate {
 	private static final String PRESET_FRAGMENT = "preset_fragment";
 	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
@@ -679,6 +680,35 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 	}
 
+	@Override
+	public void updateSingleValue(String key, String value) {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.updateSingleValue(key, value);
+		} else {
+			Log.e(DEBUG_TAG,"updateSingleValue tagEditorFragment is null");
+		}	
+	}
+
+	@Override
+	public void updateTags(Map<String, String> tags, boolean flush) {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.updateTags(tags, flush);
+		} else {
+			Log.e(DEBUG_TAG,"updateSingleValue tagEditorFragment is null");
+		}	
+	}
+	
+	@Override
+	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.getUpdatedTags();
+		} else {
+			Log.e(DEBUG_TAG,"updateSingleValue tagEditorFragment is null");
+			return null;
+		}	
+	}
+	
+	
 	@Override
 	/**
 	 * Workaround for bug mentioned below

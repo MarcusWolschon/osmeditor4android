@@ -367,18 +367,16 @@ public class RelationMembersFragment extends SherlockFragment implements
 			selected.setEnabled(true);
 		}
 		
-		protected ArrayAdapter<String> getMemberRoleAutocompleteAdapter() { // FIXME 
+		protected ArrayAdapter<String> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
 			// Use a set to prevent duplicate keys appearing
 			Set<String> roles = new HashSet<String>();
 			
-			if (owner.tagEditorFragment != null) {		
-				ArrayList<LinkedHashMap<String, String>> allTags = owner.tagEditorFragment.getUpdatedTags();
-				if (allTags != null && allTags.size() > 0) {
-					if ( owner.presets != null) { // 
-						PresetItem relationPreset = Preset.findBestMatch(owner.presets,allTags.get(0));
-						if (relationPreset != null) {
-							roles.addAll(relationPreset.getRoles());
-						}
+			ArrayList<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
+			if (allTags != null && allTags.size() > 0) {
+				if ( owner.presets != null) { // 
+					PresetItem relationPreset = Preset.findBestMatch(owner.presets,allTags.get(0));
+					if (relationPreset != null) {
+						roles.addAll(relationPreset.getRoles());
 					}
 				}
 			}

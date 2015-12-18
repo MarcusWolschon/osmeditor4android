@@ -78,7 +78,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 	
 public class TagEditorFragment extends SherlockFragment implements
-		PropertyRows {
+		PropertyRows, TagUpdate {
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
@@ -341,6 +341,12 @@ public class TagEditorFragment extends SherlockFragment implements
     public void onStart() {
     	super.onStart();
     	Log.d(DEBUG_TAG, "onStart");
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	Log.d(DEBUG_TAG, "onResume");
     }
 	
     @Override
@@ -1606,6 +1612,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	 * update the original list of tags to reflect edits
 	 * @return
 	 */
+	@Override
 	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
 		@SuppressWarnings("unchecked")
 		ArrayList<LinkedHashMap<String,String>> oldTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
@@ -1646,6 +1653,18 @@ public class TagEditorFragment extends SherlockFragment implements
 			}
 		}
 		return newTags;
+	}
+	
+	@Override
+	public void updateSingleValue(String key, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateTags(Map<String, String> tags, boolean flush) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/**
