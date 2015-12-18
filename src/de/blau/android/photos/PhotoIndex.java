@@ -205,7 +205,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	public Photo addPhoto(SQLiteDatabase db, File dir, File f) {
 		// Log.i(LOGTAG,"Adding entry from " + f.getName());
 		try {	
-			Photo p = new Photo(f);
+			Photo p = new Photo(dir, f);
 			ContentValues values = new ContentValues();
 			values.put("lat", p.getLat());
 			values.put("lon", p.getLon());

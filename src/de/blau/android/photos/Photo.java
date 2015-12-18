@@ -18,11 +18,11 @@ import de.blau.android.util.rtree.BoundedObject;
 public class Photo implements BoundedObject {
 		
 	/**  */
-	String ref;
+	final String ref;
 	/** Latitude *1E7. */
-	int lat;
+	final int lat;
 	/** Longitude *1E7. */
-	int lon;
+	final int lon;
 	/**
 	 * compass direction
 	 */
@@ -35,7 +35,7 @@ public class Photo implements BoundedObject {
 	 * @throws IOException If there was a problem parsing the XML.
 	 * @throws NumberFormatException If there was a problem parsing the XML.
 	 */
-	public Photo(File f) throws IOException, NumberFormatException {
+	public Photo(File d, File f) throws IOException, NumberFormatException {
 		// 
 		ExtendedExifInterface exif = new ExtendedExifInterface(f.toString()); // create the ExifInterface file
 
@@ -60,6 +60,7 @@ public class Photo implements BoundedObject {
 		lat = (int)(latf * 1E7d);
 		lon = (int)(lonf * 1E7d);
 		Log.d("Photo","lat: " + lat + " lon: " + lon);
+		ref = d.getAbsolutePath() + "/" + f.getName();
 		String dir = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION);
 		if (dir != null) {
 			direction =(int) Double.parseDouble(dir);
