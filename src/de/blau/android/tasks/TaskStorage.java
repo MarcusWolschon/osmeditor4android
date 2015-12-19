@@ -24,7 +24,7 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class TaskStorage implements Serializable {
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 5L;
 	private final static String DEBUG_TAG = TaskStorage.class.getSimpleName();
 	private int newId=0;
 	private RTree tasks;
