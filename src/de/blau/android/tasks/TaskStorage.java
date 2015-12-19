@@ -27,7 +27,7 @@ public class TaskStorage implements Serializable {
 	private static final long serialVersionUID = 3L;
 	private final static String DEBUG_TAG = TaskStorage.class.getSimpleName();
 	private int newId=0;
-	private RTree bugs;
+	private RTree tasks;
 	private RTree boxes;
 	private transient boolean dirty = true;
 	
@@ -46,13 +46,13 @@ public class TaskStorage implements Serializable {
 	}
 	
 	public void reset() {
-		bugs = new RTree(2,100);
+		tasks = new RTree(2,100);
 		boxes = new RTree(2,20);
 		dirty = true;
 	}
 
 	public synchronized void add(Task b) {
-		bugs.insert(b);
+		tasks.insert(b);
 		dirty = true;
 	}
 	
@@ -62,7 +62,7 @@ public class TaskStorage implements Serializable {
 	}
 	
 	public synchronized void delete(Task b) {
-		bugs.remove(b);
+		tasks.remove(b);
 		dirty = true;
 	}
 	
@@ -79,7 +79,7 @@ public class TaskStorage implements Serializable {
 	 */
 	public boolean contains(Task b) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
-		bugs.query(queryResult, b.getLon(), b.getLat());
+		tasks.query(queryResult, b.getLon(), b.getLat());
 		Log.d(DEBUG_TAG,"candidates for contain " + queryResult.size());
 		for (BoundedObject bo:queryResult) {
 			if (b instanceof Note && bo instanceof Note && b.getId() == ((Task)bo).getId()) {
@@ -95,9 +95,9 @@ public class TaskStorage implements Serializable {
 	 * Return all bugs
 	 * @return
 	 */
-	public ArrayList<Task>getBugs() {
+	public ArrayList<Task>getTasks() {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
-		bugs.query(queryResult);
+		tasks.query(queryResult);
 		ArrayList<Task>result = new ArrayList<Task>();
 		for (BoundedObject bo:queryResult) {
 			result.add((Task)bo);
@@ -107,7 +107,7 @@ public class TaskStorage implements Serializable {
 	
 	public ArrayList<Task>getTasks(BoundingBox box) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
-		bugs.query(queryResult,box.getBounds());
+		tasks.query(queryResult,box.getBounds());
 		Log.d(DEBUG_TAG,"getTasks result count " + queryResult.size());
 		ArrayList<Task>result = new ArrayList<Task>();
 		for (BoundedObject bo:queryResult) {
@@ -118,7 +118,7 @@ public class TaskStorage implements Serializable {
 
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return bugs.count() == 0;
+		return tasks.count() == 0;
 	}
 	
 	
@@ -127,7 +127,7 @@ public class TaskStorage implements Serializable {
 	 * @param ctx TODO
 	 * @throws IOException
 	 */
-	public void writeToFile(Context ctx) throws IOException { 
+	public synchronized void writeToFile(Context ctx) throws IOException { 
 		if (isEmpty()) {
 			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
 			Log.i(DEBUG_TAG, "storage empty, skipping save");
@@ -159,14 +159,14 @@ public class TaskStorage implements Serializable {
 	 * Loads the storage data from the default storage file
 	 * NOTE: lock is acquired in logic before this is called
 	 */
-	public boolean readFromFile() {
+	public synchronized boolean readFromFile() {
 		try{
 			readingLock.lock();
 			TaskStorage newStorage = savingHelper.load(FILENAME, true); 
 
 			if (newStorage != null) {
 				Log.d(DEBUG_TAG, "read saved state");
-				bugs = newStorage.bugs;
+				tasks = newStorage.tasks;
 				boxes = newStorage.boxes;
 				dirty = false; // data was just read, i.e. memory and file are in sync
 				return true;
@@ -184,7 +184,7 @@ public class TaskStorage implements Serializable {
 	}
 	
 	public String toString() {
-		return "bug r-tree: " + bugs.count() + " boxes r-tree " + boxes.count();
+		return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();
 	}
 
 	public long getNextId() {
@@ -218,7 +218,7 @@ public class TaskStorage implements Serializable {
 	 */
 	public boolean hasChanges() {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
-		bugs.query(queryResult);
+		tasks.query(queryResult);
 		for (BoundedObject b:queryResult) {
 			if (((Task)b).hasBeenChanged()) {
 				return true;

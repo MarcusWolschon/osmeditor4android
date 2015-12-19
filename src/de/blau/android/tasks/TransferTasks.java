@@ -123,7 +123,7 @@ public class TransferTasks {
 		boolean uploadFailed = false ;
 		if (server != null) {
 			Util.setSupportProgressBarIndeterminateVisibility(Application.mainActivity,true);
-			ArrayList<Task>queryResult = Application.getTaskStorage().getBugs();
+			ArrayList<Task>queryResult = Application.getTaskStorage().getTasks();
 			for (Task b:queryResult) {
 				if (b.changed) {
 					try {
