@@ -45,7 +45,7 @@ public class TaskStorage implements Serializable {
 		dirty = false;
 	}
 	
-	public void reset() {
+	public synchronized void reset() {
 		tasks = new RTree(2,100);
 		boxes = new RTree(2,20);
 		dirty = true;
