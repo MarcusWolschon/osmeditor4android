@@ -24,7 +24,7 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class BugStorage implements Serializable {
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 5L;
 	private final static String DEBUG_TAG = BugStorage.class.getSimpleName();
 	private int newId=0;
 	private RTree bugs;
@@ -178,7 +178,7 @@ public class BugStorage implements Serializable {
 			readingLock.unlock();
 		}
 	}
-	
+		 
 	public void setDirty() {
 		dirty = true;
 	}
