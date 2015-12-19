@@ -53,6 +53,10 @@ public class TransferTasks {
 		final TaskStorage bugs = Application.getTaskStorage();
 		final Preferences prefs = new Preferences(context);
 		
+		if (!bugs.loaded()) {
+			return;
+		}
+			
 		try {
 			box.makeValidForApi();
 		} catch (OsmException e1) {

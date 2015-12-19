@@ -24,12 +24,13 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class TaskStorage implements Serializable {
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 5L;
 	private final static String DEBUG_TAG = TaskStorage.class.getSimpleName();
 	private int newId=0;
 	private RTree tasks;
 	private RTree boxes;
 	private transient boolean dirty = true;
+	private transient boolean loaded = false;
 	
 	/**
 	 * when reading state lockout writing/reading 
@@ -50,7 +51,7 @@ public class TaskStorage implements Serializable {
 		boxes = new RTree(2,20);
 		dirty = true;
 	}
-
+	
 	public synchronized void add(Task b) {
 		tasks.insert(b);
 		dirty = true;
@@ -117,8 +118,7 @@ public class TaskStorage implements Serializable {
 	}
 
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return tasks.count() == 0;
+		return tasks == null || tasks.count() == 0;
 	}
 	
 	
@@ -163,7 +163,6 @@ public class TaskStorage implements Serializable {
 		try{
 			readingLock.lock();
 			TaskStorage newStorage = savingHelper.load(FILENAME, true); 
-
 			if (newStorage != null) {
 				Log.d(DEBUG_TAG, "read saved state");
 				tasks = newStorage.tasks;
@@ -175,16 +174,21 @@ public class TaskStorage implements Serializable {
 				return false;
 			}
 		} finally {
+			loaded = true;
 			readingLock.unlock();
 		}
 	}
 	
+	public boolean loaded() {
+		return loaded;
+	}
+
 	public void setDirty() {
 		dirty = true;
 	}
 	
 	public String toString() {
-		return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();
+		return "task r-tree: " + (tasks!=null?tasks.count():"null") + " boxes r-tree " + (boxes!=null?boxes.count():"null");
 	}
 
 	public long getNextId() {
