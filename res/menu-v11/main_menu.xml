@@ -59,17 +59,22 @@
 					android:title="@string/menu_gps_clear"
 				/>
 				<item
-					android:id="@+id/menu_gps_upload"
-					android:title="@string/menu_gps_upload"
-				/>
-				<item
-					android:id="@+id/menu_gps_export"
-					android:title="@string/menu_gps_export"
-				/>
-				<item
-					android:id="@+id/menu_gps_import"
-					android:title="@string/menu_gps_import"
-				/>					
+					android:title="@string/menu_gps_track_managment" >
+					<menu>
+						<item
+							android:id="@+id/menu_gps_upload"
+							android:title="@string/menu_gps_upload"
+						/>
+						<item
+							android:id="@+id/menu_gps_export"
+							android:title="@string/menu_gps_export"
+						/>
+						<item
+							android:id="@+id/menu_gps_import"
+							android:title="@string/menu_gps_import"
+						/>
+					</menu>
+				</item>
 				<item
 					android:id="@+id/menu_gps_goto_start"
 					android:title="@string/menu_gps_goto_start"
@@ -111,36 +116,45 @@
 					android:title="@string/menu_transfer_close_changeset"
 				/>
 				<item
-					android:id="@+id/menu_transfer_export"
-					android:title="@string/menu_transfer_export"
-				/>
+					android:title="@string/menu_transfer_file" >
+					<menu>
+						<item
+							android:id="@+id/menu_transfer_export"
+							android:title="@string/menu_transfer_export"
+						/>
+						<item
+							android:id="@+id/menu_transfer_read_file"
+							android:title="@string/menu_transfer_read_file"
+						/>
+						<item
+							android:id="@+id/menu_transfer_save_file"
+							android:title="@string/menu_transfer_save_file"
+						/>
+					</menu>
+				</item>
 				<item
-					android:id="@+id/menu_transfer_read_file"
-					android:title="@string/menu_transfer_read_file"
-				/>
-				<item
-					android:id="@+id/menu_transfer_save_file"
-					android:title="@string/menu_transfer_save_file"
-				/>		
-				<item
-					android:id="@+id/menu_transfer_bugs_download_current"
-					android:title="@string/menu_transfer_bugs_download_current"
-					android:alphabeticShortcut="@string/shortcut_bugs_download"
-				/>
-				<item
-					android:id="@+id/menu_transfer_bugs_upload"
-					android:title="@string/menu_transfer_bugs_upload_long"
-				/>
-				<item
-					android:id="@+id/menu_transfer_bugs_clear"
-					android:title="@string/menu_transfer_bugs_clear_long"
-				/>				
-				<item
-					android:id="@+id/menu_transfer_bugs_autodownload"
-					android:title="@string/menu_transfer_autodownload_long"
-					android:checkable="true"
-				/>
-					
+					android:title="@string/menu_transfer_bugs" >
+					<menu>
+					    <item
+							android:id="@+id/menu_transfer_bugs_download_current"
+							android:title="@string/menu_transfer_bugs_download_current"
+							android:alphabeticShortcut="@string/shortcut_bugs_download"
+						/>
+						<item
+							android:id="@+id/menu_transfer_bugs_upload"
+							android:title="@string/menu_transfer_bugs_upload"
+						/>
+						<item
+							android:id="@+id/menu_transfer_bugs_clear"
+							android:title="@string/menu_transfer_bugs_clear"
+						/>				
+						<item
+							android:id="@+id/menu_transfer_bugs_autodownload"
+							android:title="@string/menu_gps_autodownload"
+							android:checkable="true"
+						/>
+					</menu>
+				</item>
 			</menu>
 	</item>
 	<item

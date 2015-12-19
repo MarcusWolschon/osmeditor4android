@@ -263,7 +263,10 @@
     <string name="menu_transfer_bugs">Notes/Bugs...</string>
     <string name="menu_transfer_bugs_download_current">Download bugs for current view</string>
     <string name="menu_transfer_bugs_upload">Upload all</string>
+    <string name="menu_transfer_bugs_upload_long">Upload all bugs</string>
     <string name="menu_transfer_bugs_clear">Clear</string>
+    <string name="menu_transfer_bugs_clear_long">Clear bugs</string>
+    <string name="menu_transfer_autodownload_long">Auto download bugs</string>
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>
