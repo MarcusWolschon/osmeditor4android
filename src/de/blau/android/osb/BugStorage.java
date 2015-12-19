@@ -45,7 +45,7 @@ public class BugStorage implements Serializable {
 		dirty = false;
 	}
 	
-	public void reset() {
+	public synchronized void reset() {
 		bugs = new RTree(2,100);
 		boxes = new RTree(2,20);
 		dirty = true;
@@ -127,7 +127,7 @@ public class BugStorage implements Serializable {
 	 * @param ctx TODO
 	 * @throws IOException
 	 */
-	public void writeToFile(Context ctx) throws IOException { 
+	public synchronized void writeToFile(Context ctx) throws IOException { 
 		if (isEmpty()) {
 			// don't write empty state files FIXME if the state file is empty on purpose we -should- write it
 			Log.i(DEBUG_TAG, "storage empty, skipping save");
@@ -159,7 +159,7 @@ public class BugStorage implements Serializable {
 	 * Loads the storage data from the default storage file
 	 * NOTE: lock is acquired in logic before this is called
 	 */
-	public boolean readFromFile() {
+	public synchronized boolean readFromFile() {
 		try{
 			readingLock.lock();
 			BugStorage newStorage = savingHelper.load(FILENAME, true); 
