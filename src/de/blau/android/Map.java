@@ -716,26 +716,26 @@ public class Map extends View implements IMapView {
 				featureKeyTagged = Profile.NODE_TAGGED;
 			}
 
-			if (isTagged && zoomLevel > SHOW_ICONS_LIMIT) {
-				String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-				if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
-					Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
-					canvas.drawCircle(x, y, houseNumberRadius, paint2);
-					canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2);
-				} else {
-					if (!showIcons || tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null)) {
-						// canvas.drawPoint(x, y, Profile.getCurrent(featureKeyTagged).getPaint());
-						// don't bother with points here.
-						canvas.drawCircle(x, y, Profile.getCurrent(featureKeyTagged).getPaint().getStrokeWidth()/2, Profile.getCurrent(featureKeyTagged).getPaint());
+			boolean noIcon = true;
+			if (isTagged && zoomLevel > SHOW_ICONS_LIMIT && showIcons) {
+				noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected ? featureKeyTagged : null);
+				if (noIcon) {
+					String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+					if (houseNumber != null && houseNumber.trim().length() > 0) { // draw house-numbers
+						Paint paint2 = Profile.getCurrent(featureKeyThin).getPaint();
+						canvas.drawCircle(x, y, houseNumberRadius, paint2);
+						canvas.drawText(houseNumber, x - (paint2.measureText(houseNumber) / 2), y + verticalNumberOffset, paint2); 
+						noIcon = false;
 					}
-				}
-			} else { 
+				} 
+			}
+			if (noIcon) { 
 				// draw regular nodes
+				Paint p = Profile.getCurrent(featureKey).getPaint();
 				if (hwAccelarationWorkaround) { //FIXME we don't actually know if this is slower than drawPoint
-					Paint p = Profile.getCurrent(featureKey).getPaint();
 					canvas.drawCircle(x, y, p.getStrokeWidth()/2, p);
 				} else {
-					canvas.drawPoint(x, y, Profile.getCurrent(featureKey).getPaint());
+					canvas.drawPoint(x, y, p);
 				}
 			}
 //		}
