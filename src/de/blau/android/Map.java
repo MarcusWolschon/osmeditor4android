@@ -969,6 +969,9 @@ public class Map extends View implements IMapView {
 		
 		if (showIcons && showWayIcons && way.isClosed()) {
 			int vs = linePoints.length;
+			if (vs < way.nodeCount()*2) {
+				return;
+			}
 			double A = 0;
 			double Y = 0;
 			double X = 0;

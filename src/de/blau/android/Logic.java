@@ -63,6 +63,7 @@ import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.Server.Visibility;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
@@ -678,12 +679,17 @@ public class Logic {
 	 */
 	public HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
 		HashMap<Way, Double> result = new HashMap<Way, Double>();
+		boolean showWayIcons = prefs.getShowWayIcons();
 
 		for (Way way : getDelegator().getCurrentStorage().getWays()) {
+			boolean added = false;
 			List<Node> wayNodes = way.getNodes();
 
 			if (clickableElements != null && !clickableElements.contains(way)) continue;
 
+			double A = 0;
+			double Y = 0;
+			double X = 0;
 			//Iterate over all WayNodes, but not the last one.
 			for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
 				Node node1 = wayNodes.get(k);
@@ -696,10 +702,24 @@ public class Logic {
 
 				if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y)) {
 					result.put(way, GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y));
+					added = true;
 					break;
 				}
+				// calculations for centroid
+				double d = node1X*node2Y - node2X*node1Y;
+				A = A + d;
+				X = X + (node1X+node2X)*d;
+				Y = Y + (node1Y+node2Y)*d;			
 			}
-		}	
+			if (showWayIcons && !added && way.isClosed() && way.hasTagKey(Tags.KEY_BUILDING)) {
+				Y = Y/(3*A);
+				X = X/(3*A);
+				double distance =  Math.hypot(x-X, y-Y);
+				if (distance < Profile.getCurrent().nodeToleranceValue) {
+					result.put(way, distance);
+				}
+			}
+		}		
 		return result;
 	}
 	

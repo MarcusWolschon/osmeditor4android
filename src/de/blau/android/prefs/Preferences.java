@@ -222,7 +222,7 @@ public class Preferences {
 		
 		leaveGpsDisabled = prefs.getBoolean(r.getString(R.string.config_leaveGpsDisabled_key), false);
 
-		showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), false);
+		showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), true);
 	}
 	
 	/**
