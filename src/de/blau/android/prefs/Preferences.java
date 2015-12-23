@@ -92,6 +92,8 @@ public class Preferences {
 	
 	private final boolean leaveGpsDisabled;
 	
+	private final boolean showWayIcons;
+	
 	private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 	
 	/**
@@ -219,6 +221,8 @@ public class Preferences {
 		voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
 		
 		leaveGpsDisabled = prefs.getBoolean(r.getString(R.string.config_leaveGpsDisabled_key), false);
+
+		showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), false);
 	}
 	
 	/**
@@ -333,6 +337,10 @@ public class Preferences {
 	
 	public boolean getShowIcons() {
 		return advancedPrefs.getCurrentAPI().showicon;
+	}
+	
+	public boolean getShowWayIcons() {
+		return showWayIcons;
 	}
 
 	/**

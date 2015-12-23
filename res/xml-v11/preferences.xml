@@ -48,6 +48,12 @@
 			android:persistent="false"
 		/>
 		<CheckBoxPreference
+			android:title="@string/config_showWayIcons_title"
+			android:key="@string/config_showWayIcons_key"
+			android:summary="@string/config_showWayIcons_summary"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference
 			android:title="@string/config_enableKeepScreenOn_title"
 			android:key="@string/config_enableKeepScreenOn_key"
 			android:summary="@string/config_enableKeepScreenOn_summary"

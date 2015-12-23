@@ -3736,9 +3736,10 @@ public class Logic {
 				double y1 = GeoMath.latE7ToY(h, w, v, vertices.get(i).getLat());
 				double x2 = GeoMath.lonE7ToX(w, v, vertices.get((i+1) % vs).getLon());
 				double y2 = GeoMath.latE7ToY(h, w, v, vertices.get((i+1) % vs).getLat());
-				A = A + (x1*y2 - x2*y1);
-				X = X + (x1+x2)*(x1*y2-x2*y1);
-				Y = Y + (y1+y2)*(x1*y2-x2*y1);
+				double d = x1*y2 - x2*y1;
+				A = A + d;
+				X = X + (x1+x2)*d;
+				Y = Y + (y1+y2)*d;
 			}
 			Y = Y/(3*A);
 			X = X/(3*A);

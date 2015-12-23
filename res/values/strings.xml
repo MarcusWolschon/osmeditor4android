@@ -365,6 +365,8 @@
     <string name="config_presetbutton_summary">Add and enable JOSM compatible presets</string>
     <string name="config_iconbutton_title">Show node icons</string>
     <string name="config_iconbutton_summary">Show the icon of the best-matching preset above nodes.</string>
+    <string name="config_showWayIcons_title">Show POI icons on buildings</string>
+    <string name="config_showWayIcons_summary">Show the icon of best-matching preset above buildings.</string>
     <string name="config_loginbutton_title">User account</string>
     <string name="config_username_title">OSM Username</string>
     <string name="config_username_summary">Configuration needed for uploading OSM-Data only if you are not using OAuth. Accounts are available at http://www.openstreetmap.org/user/new</string>

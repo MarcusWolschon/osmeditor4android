@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -115,7 +116,16 @@ public class Map extends View implements IMapView {
 	
 	private StorageDelegator delegator;
 	
+	/**
+	 * show icons for POIs (in a wide sense of the word)
+	 */
 	private boolean showIcons = false;
+	
+	/**
+	 * show icons for POIs tagged on (closed) ways
+	 */
+	private boolean showWayIcons = false;
+	
 	/**
 	 * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
 	 */
@@ -742,20 +752,28 @@ public class Map extends View implements IMapView {
 	}
 	
 	/**
-	 * Paints an icon for an element. tmpPreset needs to be available (i.e. not null).
-	 * @param element the element whose icon should be painted
-	 * @param canvas the canvas on which to draw
-	 * @param x the x position where the center of the icon goes
-	 * @param y the y position where the center of the icon goes
+	 * Retrieve icon for the element, caching it if it isn't in the cache
+	 * 
+	 * @param element
+	 * @return icon or null if none is found
 	 */
-	private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
+	Bitmap getIcon(OsmElement element) {
 		Bitmap icon = null;
 		SortedMap<String, String> tags = element.getTags();
 		if (iconcache.containsKey(tags)) {
 			icon = iconcache.get(tags); // may be null!
 		} else if (tmpPresets != null) {
 			// icon not cached, ask the preset, render to a bitmap and cache result
-			PresetItem match = Preset.findBestMatch(tmpPresets,tags);
+			PresetItem match = null;
+			if (element instanceof Way) { 
+				// don't show building icons, but only icons for buildings
+				SortedMap<String,String> tempTags = new TreeMap<String,String>(tags);
+				if (tempTags.remove(Tags.KEY_BUILDING) != null) {
+					match = Preset.findBestMatch(tmpPresets,tempTags);
+				} 
+			} else {
+				match = Preset.findBestMatch(tmpPresets,tags);
+			}
 			if (match != null && match.getMapIcon() != null) {
 				icon = Bitmap.createBitmap(iconRadius*2, iconRadius*2, Config.ARGB_8888);
 				// icon.eraseColor(Color.WHITE); // replace nothing with white?
@@ -763,6 +781,18 @@ public class Map extends View implements IMapView {
 			}
 			iconcache.put(tags, icon);
 		}
+		return icon;
+	}
+	
+	/**
+	 * Paints an icon for an element. tmpPreset needs to be available (i.e. not null).
+	 * @param element the element whose icon should be painted
+	 * @param canvas the canvas on which to draw
+	 * @param x the x position where the center of the icon goes
+	 * @param y the y position where the center of the icon goes
+	 */
+	private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
+		Bitmap icon = getIcon(element);
 		if (icon != null) {
 			float w2 = icon.getWidth()/2f;
 			float h2 = icon.getHeight()/2f;
@@ -936,6 +966,26 @@ public class Map extends View implements IMapView {
 				}
 			}
 		}
+		
+		if (showIcons && showWayIcons && way.isClosed()) {
+			int vs = linePoints.length;
+			double A = 0;
+			double Y = 0;
+			double X = 0;
+			for (int i = 0; i < vs ; i=i+2 ) { // calc centroid
+				double x1 = linePoints[i];
+				double y1 = linePoints[i+1];
+				double x2 = linePoints[(i+2) % vs];
+				double y2 = linePoints[(i+3) % vs];
+				double d = x1*y2 - x2*y1;
+				A = A + d;
+				X = X + (x1+x2)*d;
+				Y = Y + (y1+y2)*d;
+			}
+			Y = Y/(3*A);
+			X = X/(3*A);
+			paintNodeIcon(way, canvas, (float)X, (float)Y, isSelected?Profile.SELECTED_NODE_TAGGED:null);
+		}
 	}
 	
 
@@ -1094,6 +1144,7 @@ public class Map extends View implements IMapView {
 			}
 		}
 		showIcons = prefs.getShowIcons();
+		showWayIcons = prefs.getShowWayIcons();
 		iconcache.clear();
 	}
 	

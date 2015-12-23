@@ -51,6 +51,7 @@
     <string name="config_scale_key">scaleKey</string>
     <string name="config_voiceCommandsEnabled_key">voiceCommandsEnabled</string>
     <string name="config_leaveGpsDisabled_key">leaveGpsDisabled</string>
+    <string name="config_showWayIcons_key">showWayIcons</string>
     <string-array name="gps_source_keys">
 	<item>internal</item>
 	<item>nmea</item>
