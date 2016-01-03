@@ -301,12 +301,14 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 			}
 			return true;
 		case R.id.preset_menu_up:
-			PresetGroup group = currentGroup.getParent();
-			if (group != null) {
-				currentGroup = group;
-				currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
-				scrollView.invalidate();
-				return true;
+			if (currentGroup != null) {
+				PresetGroup group = currentGroup.getParent();
+				if (group != null) {
+					currentGroup = group;
+					currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
+					scrollView.invalidate();
+					return true;
+				}
 			}
 			return true;
 		case R.id.preset_menu_help:
