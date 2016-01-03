@@ -95,6 +95,9 @@
             <check key="bicycle" text="Bicycle" default="on"/>
         </optional>
     </chunk>
+    <chunk id="diaper">
+        <combo key="diaper" values="yes,no,room,1,2,3,4,5" />
+    </chunk>    
     <chunk id="name_ref">
         <text key="name" text="Name" />
         <text key="ref" text="Reference" />
@@ -4882,6 +4885,7 @@
                 <combo key="drinking_water" text="Drinking Water" values="yes,no,seasonal" />
                 <text key="description" text="Description" />
                 <reference ref="fee" />
+                <reference ref="diaper" />
                 <text key="operator" text="Operator" />
                 <combo key="toilets:position" text="Usage Position" values="seated,seated;urinal,squat,urinal" />
                 <reference ref="wheelchair" />
