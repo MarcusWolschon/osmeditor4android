@@ -7,7 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -23,7 +26,12 @@ public class OsmoseServer {
 	
 	private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 	
-	final static String serverURL = "http://osmose.openstreetmap.fr/de/api/0.2/";
+	final static String serverHost = "http://osmose.openstreetmap.fr/";
+	final static String apiPath = "/api/0.2/";
+	/** 
+	 * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against the API
+	 */
+	final static List<String> supportedLanguages = Arrays.asList("ca", "cs", "en", "da", "de", "el", "es", "fr", "hu", "it", "ja", "lt", "nl", "pl", "pt", "ro", "ru", "sw", "uk");
 	
 	/**
 	 * Timeout for connections in milliseconds.
@@ -43,7 +51,7 @@ public class OsmoseServer {
 			Log.d(DEBUG_TAG, "getBugssForBox");
 			URL url;
 
-			url = new URL(serverURL  + "errors?" +
+			url = new URL(getServerURL()  + "errors?" +
 					"bbox=" +
 					area.getLeft() / 1E7d +
 					"," + area.getBottom() / 1E7d +
@@ -92,7 +100,7 @@ public class OsmoseServer {
 		}
 		try {		
 			URL url;
-			url = new URL(serverURL  + "error/" + bug.getId() + "/" + (bug.state == State.CLOSED ? "done" : "false"));	
+			url = new URL(getServerURL()  + "error/" + bug.getId() + "/" + (bug.state == State.CLOSED ? "done" : "false"));	
 			Log.d(DEBUG_TAG, "changeState " + url.toString());
 			
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -123,5 +131,13 @@ public class OsmoseServer {
 		}
 		Log.d(DEBUG_TAG, "changeState sucess");
 		return true;	
+	}
+	
+	private static String getServerURL() {
+		String lang = Locale.getDefault().getLanguage();
+		if (!supportedLanguages.contains(lang)) {
+			lang = "en";
+		}
+		return serverHost + lang + apiPath;
 	}
 }
