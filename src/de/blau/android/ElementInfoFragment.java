@@ -81,8 +81,8 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         	tl.addView(createRow(R.string.version,"" + e.getOsmVersion(),tp));
         	
         	if (e.getName().equals(Node.NAME)) {
-        		tl.addView(createRow(R.string.location_lon_label, String.format(Locale.US,"%.7f", ((Node)e).getLon()/1E7d) + "°",tp));
-        		tl.addView(createRow(R.string.location_lat_label, String.format(Locale.US,"%.7f", ((Node)e).getLat()/1E7d) + "°",tp));
+        		tl.addView(createRow(R.string.location_lon_label, String.format(Locale.US,"%.7f", ((Node)e).getLon()/1E7d) + "ï¿½",tp));
+        		tl.addView(createRow(R.string.location_lat_label, String.format(Locale.US,"%.7f", ((Node)e).getLat()/1E7d) + "ï¿½",tp));
         	} else if (e.getName().equals(Way.NAME)) {
         		tl.addView(divider());
         		boolean isClosed = ((Way)e).isClosed();
