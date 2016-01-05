@@ -123,7 +123,7 @@
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
   <string name="toast_too_many_nodes_for_move">Der Weg hat zuviele Punkte um ihn zu verschieben</string>
   <string name="toast_oauth_handshake_failed">OAuth Verhandlung ist fehlgeschlagen. Bitte überprüfen ob die richtigen \"consumer keys\" vorhanden sind.</string>
-  <string name="toast_unread_mail">Es hat %1$s ungelesene Nachricht(en) auf dem OpenStreetmap Server</string>
+  <string name="toast_unread_mail">Im Posteingang von OpenStreetMap befinden sich %1$s ungelesene Nachricht(en).</string>
   <string name="toast_photo_indexing_started">Suche nach geo-refenzierte Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach geo-refenzierte Fotos beendet</string>
   <string name="toast_download_bbox_failed">Download fehlgeschlagen, wahrscheinlich was das ausgewählte Gebiet zu gross.</string>
@@ -421,8 +421,8 @@
   <string name="changes_deleted">\"%1$s\" gelöscht</string>
   <string name="changes_changed">\"%1$s\" verändert</string>
   <string name="changes_created">\"%1$s\" angelegt</string>
-  <string name="confirm_upload_title">Upload?</string>
-  <string name="confirm_upload_text">Upload der folgenden Änderungen?\n%1$s</string>
+  <string name="confirm_upload_title">Hochladen?</string>
+  <string name="confirm_upload_text">Sollen folgende Änderungen hochgeladen werden?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
