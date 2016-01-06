@@ -3,16 +3,16 @@ package de.blau.android;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Date;
-
+import android.annotation.SuppressLint;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.TextView;
-
 import com.actionbarsherlock.app.SherlockActivity;
-
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
@@ -25,6 +25,7 @@ import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 public class DebugInformation extends SherlockActivity {
 	private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Preferences prefs = new Preferences(this);
@@ -71,8 +72,11 @@ public class DebugInformation extends SherlockActivity {
 		for (String providerName:locationManager.getAllProviders()) {
 			builder.append(providerName + " enabled " + locationManager.isProviderEnabled(providerName) + "\n");
 		}
-		
+		textFull.setAutoLinkMask(0);
 		textFull.setText(builder.toString());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			textFull.setTextIsSelectable(true);
+		}
 	
 		setContentView(container);
 	}

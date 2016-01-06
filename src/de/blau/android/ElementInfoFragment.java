@@ -2,11 +2,8 @@ package de.blau.android;
 
 import java.util.List;
 import java.util.Locale;
-
 import org.acra.ACRA;
-
 import com.actionbarsherlock.app.SherlockDialogFragment;
-
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -15,8 +12,10 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.ThemeUtils;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Html;
@@ -149,7 +148,8 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         return sv;
     }
     
-    private TableRow createRow(String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
+    @SuppressLint("NewApi")
+	private TableRow createRow(String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
     	TableRow tr = new TableRow(getActivity());
     	TextView cell = new TextView(getActivity());
     	cell.setText(cell1);
@@ -165,13 +165,17 @@ public class ElementInfoFragment extends SherlockDialogFragment {
     		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
     		cell.setEllipsize(TruncateAt.MARQUEE);
+    		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    			cell.setTextIsSelectable(true);
+    		}
     		tr.addView(cell);
     	}
     	tr.setLayoutParams(tp);
     	return tr;
     }
     
-    private TableRow createRow(int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
+    @SuppressLint("NewApi")
+	private TableRow createRow(int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
     	TableRow tr = new TableRow(getActivity());
     	TextView cell = new TextView(getActivity());
     	cell.setText(cell1);
@@ -187,6 +191,9 @@ public class ElementInfoFragment extends SherlockDialogFragment {
     		cell.setMovementMethod(LinkMovementMethod.getInstance());
     		cell.setPadding(5, 0, 0, 0);
     		cell.setEllipsize(TruncateAt.MARQUEE);
+    		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    			cell.setTextIsSelectable(true);
+    		}
     		tr.addView(cell);
     	}
     	tr.setLayoutParams(tp);

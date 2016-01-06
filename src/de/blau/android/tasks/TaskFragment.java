@@ -153,6 +153,11 @@ public class TaskFragment extends SherlockDialogFragment {
     	if (bug instanceof Note) {
     		builder.setTitle(getString((bug.isNew() && ((Note)bug).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));  		
     		comments.setText(Html.fromHtml(((Note)bug).getComment())); // ugly	
+    		comments.setAutoLinkMask(Linkify.WEB_URLS);
+    		comments.setMovementMethod(LinkMovementMethod.getInstance()); 
+    		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    			comments.setTextIsSelectable(true);
+    		}
     		NoteComment nc = ((Note) bug).getLastComment();	
     		elementLayout.setVisibility(View.GONE); // not used for notes
     		if ((bug.isNew() && ((Note)bug).count() == 0) || (nc != null && !nc.isNew())) { // only show comment field if we don't have an unsaved comment
