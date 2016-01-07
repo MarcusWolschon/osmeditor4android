@@ -1514,7 +1514,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	/**
 	 * reload original arguments
 	 */
-	private void doRevert() {
+	void doRevert() {
 		loadEdits(buildEdits());
 	}
 	

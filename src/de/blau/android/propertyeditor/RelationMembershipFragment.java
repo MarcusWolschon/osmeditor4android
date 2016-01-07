@@ -563,7 +563,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	/**
 	 * reload original arguments
 	 */
-	private void doRevert() {
+	void doRevert() {
 		loadParents((HashMap<Long,String>) getArguments().getSerializable("parents"));
 	}
 	
