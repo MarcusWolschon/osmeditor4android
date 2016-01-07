@@ -557,7 +557,7 @@ public class RelationMembershipFragment extends SherlockFragment implements OnIt
 	/**
 	 * reload original arguments
 	 */
-	private void doRevert() {
+	void doRevert() {
 		loadParents((HashMap<Long,String>) getArguments().getSerializable("parents"));
 	}
 	

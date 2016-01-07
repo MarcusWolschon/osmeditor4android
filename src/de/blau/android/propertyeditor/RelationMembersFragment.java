@@ -504,7 +504,7 @@ public class RelationMembersFragment extends SherlockFragment {
 	/**
 	 * reload original arguments
 	 */
-	private void doRevert() {
+	void doRevert() {
 		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable("members"));
 	}
 	

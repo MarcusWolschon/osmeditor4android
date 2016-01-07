@@ -473,14 +473,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 		// if we haven't edited just exit
 		if (!same(currentTags,originalTags) || (currentParents != null && !currentParents.equals(originalParents)) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !currentMembers.equals(originalMembers)))) {
-		    new AlertDialog.Builder(this)
-	        .setNeutralButton(R.string.cancel, null)
-	        .setNegativeButton(R.string.tag_menu_revert,        	
-	        		new DialogInterface.OnClickListener() {
-	            	@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-//	            		doRevert();
-	            }})
+			new AlertDialog.Builder(this)
+			.setNeutralButton(R.string.cancel, null)
+			.setNegativeButton(R.string.tag_menu_revert,        	
+					new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					doRevert();
+				}
+			})
 	        .setPositiveButton(R.string.tag_menu_exit_no_save, 
 	        	new DialogInterface.OnClickListener() {
 		            @Override
@@ -490,6 +491,21 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	        }).create().show();
 		} else {
 			PropertyEditor.super.onBackPressed();
+		}
+	}
+	
+	/*
+	 * Revert changes in all fragments
+	 */
+	private void doRevert() {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.doRevert();
+		}
+		if (relationMembershipFragment != null) {
+			relationMembershipFragment.doRevert();
+		}
+		if (relationMembersFragment != null) {
+			relationMembersFragment.doRevert();
 		}
 	}
 		
