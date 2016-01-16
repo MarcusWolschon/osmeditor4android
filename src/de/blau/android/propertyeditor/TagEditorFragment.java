@@ -86,11 +86,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	 
 	private SavingHelper<LinkedHashMap<String,String>> savingHelper
 				= new SavingHelper<LinkedHashMap<String,String>>();
-	
-	private StreetTagValueAutocompletionAdapter streetNameAutocompleteAdapter = null;
-	
-	private PlaceTagValueAutocompletionAdapter placeNameAutocompleteAdapter = null;
-	
+		
 	static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
 	
 	PresetItem autocompletePresetItem = null;
@@ -104,6 +100,8 @@ public class TagEditorFragment extends SherlockFragment implements
 	private OsmElement[] elements = null;
 	
 	LayoutInflater inflater = null;
+	
+	private NameAdapters nameAdapters = null;
 
 	/**
 	 * saves any changed fields on onPause
@@ -172,11 +170,11 @@ public class TagEditorFragment extends SherlockFragment implements
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Log.d(DEBUG_TAG, "onAttach");
-//        try {
-//            mListener = (OnPresetSelectedListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
-//        }
+        try {
+            nameAdapters = (NameAdapters) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement NameAdapters");
+        }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
     }
@@ -271,7 +269,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		// 
 		if (applyLastAddressTags) {
 			loadEdits(editRowLayout,Address.predictAddressTags(getType(),getOsmId(),
-					((StreetTagValueAutocompletionAdapter)getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
+					((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
 					getKeyValueMap(editRowLayout,false), Address.DEFAULT_HYSTERESIS));
 			if (getUserVisibleHint()) {
 				if (!focusOnValue(editRowLayout,Tags.KEY_ADDR_HOUSENUMBER)) {
@@ -417,44 +415,16 @@ public class TagEditorFragment extends SherlockFragment implements
 		loaded = true;
 		ensureEmptyRow(rowLayout);
 	}
-	
-	/**
-	 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
-	 * @param tagValues 
-	 * @return
-	 */
-	protected ArrayAdapter<ValueWithCount> getStreetNameAutocompleteAdapter(ArrayList<String> tagValues) {
-		if (Application.getDelegator() == null) {
-			return null;
-		}
-		if (streetNameAutocompleteAdapter == null) {
-			streetNameAutocompleteAdapter =	new StreetTagValueAutocompletionAdapter(getActivity(),
-					R.layout.autocomplete_row, Application.getDelegator(),
-					types[0], osmIds[0], tagValues); // FIXME
-		}
-		return streetNameAutocompleteAdapter;
-	}
-	
-	/**
-	 * Gets an adapter for the autocompletion of place names based on the neighborhood of the edited item.
-	 * @return
-	 */
-	protected ArrayAdapter<ValueWithCount> getPlaceNameAutocompleteAdapter(ArrayList<String> tagValues) {
-		if (Application.getDelegator() == null) {
-			return null;
-		}
-		if (placeNameAutocompleteAdapter == null) {
-			placeNameAutocompleteAdapter =	new PlaceTagValueAutocompletionAdapter(getActivity(),
-					R.layout.autocomplete_row, Application.getDelegator(),
-					types[0], osmIds[0], tagValues); // FIXME
-		}
-		return placeNameAutocompleteAdapter;
-	}
 
 	private void setAutocompletePresetItem(LinearLayout rowLayout) {
 		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
 		autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMapSingle(rowLayout,false)); // FIXME multiselect
 
+	}
+	
+	@Override
+	public PresetItem getBestPreset() {
+		return autocompletePresetItem;
 	}
 	
 	protected ArrayAdapter<String> getKeyAutocompleteAdapter(LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
@@ -481,23 +451,51 @@ public class TagEditorFragment extends SherlockFragment implements
 		Collections.sort(result);
 		return new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, result);
 	}
-
+	
+	/**
+	 * Return true if the edited object has an address or is a "highway"
+	 * @param key
+	 * @param usedKeys
+	 * @return
+	 */
+	public static boolean isStreetName(String key, Set<String> usedKeys) {
+		return (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) ||
+				(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_HIGHWAY)));
+	}
+	
+	/**
+	 * Return true if the edited object has an address or is a "place"
+	 * @param key
+	 * @param usedKeys
+	 * @return
+	 */
+	public static boolean isPlaceName(String key, Set<String> usedKeys) {
+		return (Tags.KEY_ADDR_PLACE.equalsIgnoreCase(key) ||
+			(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_PLACE)));
+	}
+	
+	/**
+	 * Return true if the edited object could have a name in the name index
+	 * @param usedKeys
+	 * @return
+	 */
+	public static boolean useNameSuggestions(Set<String> usedKeys) {
+		return !(usedKeys.contains(Tags.KEY_HIGHWAY) || usedKeys.contains(Tags.KEY_WATERWAY) 
+			|| usedKeys.contains(Tags.KEY_LANDUSE) || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY));
+	}
+	
 	protected ArrayAdapter<?> getValueAutocompleteAdapter(LinearLayout rowLayout, TagEditRow row) {
 		ArrayAdapter<?> adapter = null;
-		String key = row.keyEdit.getText().toString();
+		String key = row.getKey();
 		if (key != null && key.length() > 0) {
 			HashSet<String> usedKeys = (HashSet<String>) getUsedKeys(rowLayout,null);
-			boolean isStreetName = (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) ||
-					(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_HIGHWAY)));
-			boolean isPlaceName = (Tags.KEY_ADDR_PLACE.equalsIgnoreCase(key) ||
-					(Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_PLACE)));
-			boolean noNameSuggestions = usedKeys.contains(Tags.KEY_HIGHWAY) || usedKeys.contains(Tags.KEY_WATERWAY) 
-					|| usedKeys.contains(Tags.KEY_LANDUSE) || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY);
-			if (isStreetName) {
-				adapter = getStreetNameAutocompleteAdapter(row.tagValues != null && row.tagValues.size() > 1 ? row.tagValues : null);
-			} else if (isPlaceName) {
-				adapter = getPlaceNameAutocompleteAdapter(row.tagValues != null && row.tagValues.size() > 1 ? row.tagValues : null);
-			} else if (key.equals(Tags.KEY_NAME) && (names != null) && !noNameSuggestions) {
+
+			boolean hasTagValues = row.tagValues != null && row.tagValues.size() > 1;
+			if (isStreetName(key, usedKeys)) {
+				adapter = nameAdapters.getStreetNameAutocompleteAdapter(hasTagValues ? row.tagValues : null);
+			} else if (isPlaceName(key, usedKeys)) {
+				adapter = nameAdapters.getPlaceNameAutocompleteAdapter(hasTagValues ? row.tagValues : null);
+			} else if (key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
 				Log.d(DEBUG_TAG,"generate suggestions for name from name suggestion index");
 				ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<String,String>(getKeyValueMapSingle(rowLayout,true))); // FIXME
 				if (values != null && !values.isEmpty()) {
@@ -508,7 +506,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			} else {
 				HashMap<String, Integer> counter = new HashMap<String, Integer>();
 				ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<ValueWithCount>(getActivity(), R.layout.autocomplete_row);
-				if (row.tagValues != null && row.tagValues.size() > 1) {
+				if (hasTagValues) {
 					for(String t:row.tagValues) {
 						if (t.equals("")) {
 		        			continue;
@@ -539,10 +537,6 @@ public class TagEditorFragment extends SherlockFragment implements
 							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
 						}
 						Log.d(DEBUG_TAG,"key " + key + " type " + autocompletePresetItem.getKeyType(key));
-						if (autocompletePresetItem.getKeyType(key)==PresetKeyType.MULTISELECT) { 
-							// FIXME this should be somewhere better obvious since it creates a non obvious side effect
-							row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(LIST_SEPARATOR));
-						}
 					} else if (autocompletePresetItem.isFixedTag(key)) {
 						for (StringWithDescription s:Preset.getAutocompleteValues(((PropertyEditor)getActivity()).presets,elements[0].getType(), key)) {
 							adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
@@ -596,7 +590,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			} else if (autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
 				row.valueEdit.setHint(R.string.tag_value_hint);
 			}
-			if (row.valueEdit.getText().toString().length() == 0) {
+			if (row.getValue().length() == 0) {
 				String defaultValue = autocompletePresetItem.getDefault(aTagKey);
 				if (defaultValue != null) { //
 					row.valueEdit.setText(defaultValue);
@@ -611,14 +605,14 @@ public class TagEditorFragment extends SherlockFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (Tags.KEY_ADDR_STREET.equals(parent.getItemAtPosition(position)) &&
-						row.valueEdit.getText().toString().length() == 0) {
-					ArrayAdapter<ValueWithCount> adapter = getStreetNameAutocompleteAdapter(tagValues);
+						row.getValue().length() == 0) {
+					ArrayAdapter<ValueWithCount> adapter = nameAdapters.getStreetNameAutocompleteAdapter(tagValues);
 					if (adapter != null && adapter.getCount() > 0) {
 						row.valueEdit.setText(adapter.getItem(0).getValue());
 					}
 				} else if (Tags.KEY_ADDR_PLACE.equals(parent.getItemAtPosition(position)) &&
-						row.valueEdit.getText().toString().length() == 0) {
-					ArrayAdapter<ValueWithCount> adapter = getPlaceNameAutocompleteAdapter(tagValues);
+						row.getValue().length() == 0) {
+					ArrayAdapter<ValueWithCount> adapter = nameAdapters.getPlaceNameAutocompleteAdapter(tagValues);
 					if (adapter != null && adapter.getCount() > 0) {
 						row.valueEdit.setText(adapter.getItem(0).getValue());
 					}
@@ -630,7 +624,7 @@ public class TagEditorFragment extends SherlockFragment implements
 						} else if (autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
 							row.valueEdit.setHint(R.string.tag_value_hint);
 						}
-						if (row.valueEdit.getText().toString().length() == 0) {
+						if (row.getValue().length() == 0) {
 							String defaultValue = autocompletePresetItem.getDefault(parent.getItemAtPosition(position).toString());
 							if (defaultValue != null) { //
 								row.valueEdit.setText(defaultValue);
@@ -648,7 +642,7 @@ public class TagEditorFragment extends SherlockFragment implements
 				if (hasFocus) {
 					// Log.d(DEBUG_TAG,"got focus");
 					row.keyEdit.setAdapter(getKeyAutocompleteAdapter(rowLayout, row.keyEdit));
-					if (PropertyEditor.running && row.keyEdit.getText().length() == 0) row.keyEdit.showDropDown();
+					if (PropertyEditor.running && row.getKey().length() == 0) row.keyEdit.showDropDown();
 				} else {
 					if (autocompletePresetItem == null || (autocompletePresetItem != null && autocompletePresetItem.isFixedTag(row.keyEdit.getText().toString()))) {
 						// Log.d(DEBUG_TAG,"lost focus");
@@ -663,6 +657,10 @@ public class TagEditorFragment extends SherlockFragment implements
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					row.valueEdit.setAdapter(getValueAutocompleteAdapter(rowLayout, row));
+					if (autocompletePresetItem != null && autocompletePresetItem.getKeyType(row.getKey())==PresetKeyType.MULTISELECT) { 
+						// FIXME this should be somewhere better obvious since it creates a non obvious side effect
+						row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(LIST_SEPARATOR));
+					}
 					if (PropertyEditor.running) {
 						if (row.valueEdit.getText().length() == 0) row.valueEdit.showDropDown();
 //						try { // hack to display numeric keyboard for numeric tag values
@@ -1274,7 +1272,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			return true;
 		case R.id.tag_menu_address:
 			loadEdits(Address.predictAddressTags(getType(),getOsmId(),
-					((StreetTagValueAutocompletionAdapter)getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
+					((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
 					getKeyValueMap(false), Address.DEFAULT_HYSTERESIS));
 			return true;
 		case R.id.tag_menu_sourcesurvey:
@@ -1389,7 +1387,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	 * @param allowBlanks
 	 * @return
 	 */
-	LinkedHashMap<String,String> getKeyValueMapSingle(final boolean allowBlanks) {
+	public LinkedHashMap<String,String> getKeyValueMapSingle(final boolean allowBlanks) {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		return getKeyValueMapSingle(rowLayout, allowBlanks);
 	}	
@@ -1612,7 +1610,6 @@ public class TagEditorFragment extends SherlockFragment implements
 	 * update the original list of tags to reflect edits
 	 * @return
 	 */
-	@Override
 	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
 		@SuppressWarnings("unchecked")
 		ArrayList<LinkedHashMap<String,String>> oldTags = (ArrayList<LinkedHashMap<String,String>>)getArguments().getSerializable("tags");
@@ -1657,8 +1654,14 @@ public class TagEditorFragment extends SherlockFragment implements
 	
 	@Override
 	public void updateSingleValue(String key, String value) {
-		// TODO Auto-generated method stub
-		
+		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
+		// Fixed tags, always have a value. We overwrite mercilessly.
+		for (Entry<String, ArrayList<String>> tag : currentValues.entrySet()) {
+			if (tag.getKey().equals(key)) {
+				currentValues.put(tag.getKey(), Util.getArrayList(value));
+			}
+		}
+		loadEdits(currentValues);
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import de.blau.android.presets.Preset.PresetItem;
+
 /**
  * Interface for updating key:value pairs in the TagEditor from other fragments via the activity
  */
@@ -25,6 +27,12 @@ abstract interface TagUpdate {
 	 * Get tags from tag editor
 	 * @return
 	 */
-	abstract ArrayList<LinkedHashMap<String, String>> getUpdatedTags();
+	abstract LinkedHashMap<String, String> getKeyValueMapSingle(final boolean allowBlanks);
+	
+	/**
+	 * Get the best matching preset
+	 * @return
+	 */
+	abstract PresetItem getBestPreset();	
 }
 

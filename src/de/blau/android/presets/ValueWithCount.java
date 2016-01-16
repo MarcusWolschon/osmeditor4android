@@ -33,6 +33,11 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 	public String getValue() {
 		return value;
 	}
+	
+	
+	public String getDescription() {
+		return description;
+	}
 
 	@Override
 	public int compareTo(ValueWithCount arg0) {

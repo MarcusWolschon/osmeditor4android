@@ -23,12 +23,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -46,7 +48,10 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.PlaceTagValueAutocompletionAdapter;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
+import de.blau.android.presets.ValueWithCount;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.SavingHelper;
@@ -59,7 +64,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  */
 public class PropertyEditor extends SherlockFragmentActivity implements 
-		 OnPresetSelectedListener, TagUpdate {
+		 OnPresetSelectedListener, TagUpdate, NameAdapters {
 	private static final String PRESET_FRAGMENT = "preset_fragment";
 	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
@@ -70,9 +75,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	/** The layout containing the edit rows */
 	LinearLayout rowLayout = null;
 	
+	private PresetFragment presetFragment;
+	int presetFragmentPosition = -1;
+	
+	private TagFormFragment tagFormFragment;
+	int	tagFormFragmentPosition = -1;
+	
 	TagEditorFragment tagEditorFragment;
 	int	tagEditorFragmentPosition = -1;
-	int presetFragmentPosition = -1;
+
 	RelationMembershipFragment relationMembershipFragment;
 	RelationMembersFragment relationMembersFragment;
 	RecentPresetsFragment recentPresetsFragment;
@@ -112,6 +123,12 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	static boolean running = false;
 	
 	/**
+	 * Used both in the form and conventional tag editor fragments
+	 */
+	private StreetTagValueAutocompletionAdapter streetNameAutocompleteAdapter = null;
+	private PlaceTagValueAutocompletionAdapter placeNameAutocompleteAdapter = null;
+	
+	/**
 	 * 
 	 */
 	private ArrayList<LinkedHashMap<String, String>> originalTags;
@@ -128,7 +145,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 				= new SavingHelper<LinkedHashMap<String,String>>();
 		
 	private Preferences prefs = null;
-	private PresetFragment presetFragment;
 	ExtendedViewPager    mViewPager;
 	boolean usePaneLayout = false;
 
@@ -277,14 +293,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			
 			// this essentially has to be hardwired
 			presetFragmentPosition = 0;
-			tagEditorFragmentPosition = 0;
+			tagEditorFragmentPosition = 1; // FIXME
 		} else {
 			presetFragmentPosition = 0;
-			tagEditorFragmentPosition = 1;
+			tagEditorFragmentPosition = 2; // FIXME
 		}
 		
 		mViewPager.setOffscreenPageLimit(3); // FIXME currently this is required or else some of the logic between the fragments will not work
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
+		mViewPager.addOnPageChangeListener(new PageChangeListener());
 		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : tagEditorFragmentPosition));
 	}
 	
@@ -337,6 +354,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    	} else {
 	    		pages = 2;
 	    	}
+	    	pages++; // FIXME
 	    	return usePaneLayout ? pages -1 : pages; // preset page not in pager
 	    }
 
@@ -349,6 +367,32 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 				case 0: 
 					presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
 					return presetFragment;
+				case 1: 		
+					tagFormFragment = TagFormFragment.newInstance(false);
+					tagFormFragmentPosition = 0;
+					return tagFormFragment;
+				case 2: 		
+					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
+					return tagEditorFragment;
+				case 3:
+					if (loadData.length == 1) {
+						relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
+						return relationMembershipFragment;
+					}
+					break;
+				case 4:
+					if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
+						relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
+						return relationMembersFragment;
+					}
+					break;
+				}
+			} else {
+				switch(position) {
+				case 0: 		
+					tagFormFragment = TagFormFragment.newInstance(false);
+					tagFormFragmentPosition = 0;
+					return tagFormFragment;
 				case 1: 		
 					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
 					return tagEditorFragment;
@@ -365,24 +409,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 					}
 					break;
 				}
-			} else {
-				switch(position) {
-				case 0: 		
-					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
-					return tagEditorFragment;
-				case 1:
-					if (loadData.length == 1) {
-						relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
-						return relationMembershipFragment;
-					}
-					break;
-				case 2:
-					if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
-						relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
-						return relationMembersFragment;
-					}
-					break;
-				}
 			}
 	        return null;
 	    }
@@ -392,15 +418,17 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    	if (!usePaneLayout) {
 	    		switch(position) {
 	    		case 0: return getString(R.string.tag_menu_preset);
-	    		case 1: return getString(R.string.menu_tags);
-	    		case 2: return getString(R.string.relations);
-	    		case 3: return getString(R.string.members);
+	    		case 1: return "Overview";
+	    		case 2: return getString(R.string.menu_tags);
+	    		case 3: return getString(R.string.relations);
+	    		case 4: return getString(R.string.members);
 	    		}
 	    	} else {
 	    		switch(position) {
-	    		case 0: return getString(R.string.menu_tags);
-	    		case 1: return getString(R.string.relations);
-	    		case 2: return getString(R.string.members);
+	    		case 0: return "Overview";
+	    		case 1: return getString(R.string.menu_tags);
+	    		case 2: return getString(R.string.relations);
+	    		case 3: return getString(R.string.members);
 	    		}
 	    	}
 	    	return "error";
@@ -410,7 +438,10 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    public Object instantiateItem(ViewGroup container, int position) {
 	        Fragment fragment = (Fragment) super.instantiateItem(container, position);
 	        // update fragment refs here
-	        if (fragment instanceof TagEditorFragment) {
+	        if (fragment instanceof TagFormFragment) {
+	        	tagFormFragment = (TagFormFragment) fragment;
+	        	Log.d(DEBUG_TAG, "Restored ref to TagFormFragment");
+	        } else if (fragment instanceof TagEditorFragment) {
 	        	tagEditorFragment = (TagEditorFragment) fragment;
 	        	Log.d(DEBUG_TAG, "Restored ref to TagEditorFragment");
 	        } else if (fragment instanceof RelationMembershipFragment) {
@@ -427,6 +458,16 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	        }
 	        return fragment;
 	    }
+	}
+	
+	class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+		@Override
+		public void onPageSelected(int page) {
+			Log.d(DEBUG_TAG, "onPageSelected " + page);
+			if (page == tagFormFragmentPosition) {
+				tagFormFragment.update();
+			}
+		}
 	}
 	
 	/**
@@ -652,7 +693,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	}
 	
 	/**
-	 * Allow ViewPAger to work
+	 * Allow ViewPager to work
 	 */
 	public void enablePaging() {
 		mViewPager.setPagingEnabled(true);
@@ -714,16 +755,68 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}	
 	}
 	
-	@Override
 	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
 		if (tagEditorFragment != null) {
 			return tagEditorFragment.getUpdatedTags();
 		} else {
-			Log.e(DEBUG_TAG,"updateSingleValue tagEditorFragment is null");
+			Log.e(DEBUG_TAG,"getUpdatedTags tagEditorFragment is null");
 			return null;
 		}	
 	}
 	
+	@Override
+	public LinkedHashMap<String, String> getKeyValueMapSingle(
+			boolean allowBlanks) {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.getKeyValueMapSingle(allowBlanks);
+		} else {
+			Log.e(DEBUG_TAG,"getUpdatedTags tagEditorFragment is null");
+			return null;
+		}	
+	}
+	
+	@Override
+	public PresetItem getBestPreset() {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.getBestPreset();
+		} else {
+			Log.e(DEBUG_TAG,"getBsetPreset tagEditorFragment is null");
+			return null;
+		}	
+	}
+	
+	/**
+	 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
+	 * @param tagValues 
+	 * @return
+	 */
+	public ArrayAdapter<ValueWithCount> getStreetNameAutocompleteAdapter(ArrayList<String> tagValues) {
+		if (Application.getDelegator() == null) {
+			return null;
+		}
+		if (streetNameAutocompleteAdapter == null) {
+			streetNameAutocompleteAdapter =	new StreetTagValueAutocompletionAdapter(this,
+					R.layout.autocomplete_row, Application.getDelegator(),
+					types[0], osmIds[0], tagValues); // FIXME
+		}
+		return streetNameAutocompleteAdapter;
+	}
+	
+	/**
+	 * Gets an adapter for the autocompletion of place names based on the neighborhood of the edited item.
+	 * @return
+	 */
+	public ArrayAdapter<ValueWithCount> getPlaceNameAutocompleteAdapter(ArrayList<String> tagValues) {
+		if (Application.getDelegator() == null) {
+			return null;
+		}
+		if (placeNameAutocompleteAdapter == null) {
+			placeNameAutocompleteAdapter =	new PlaceTagValueAutocompletionAdapter(this,
+					R.layout.autocomplete_row, Application.getDelegator(),
+					types[0], osmIds[0], tagValues); // FIXME
+		}
+		return placeNameAutocompleteAdapter;
+	}
 	
 	@Override
 	/**

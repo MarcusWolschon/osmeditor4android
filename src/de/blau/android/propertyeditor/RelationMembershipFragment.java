@@ -56,6 +56,8 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	private LayoutInflater inflater = null;
 
 	private HashMap<Long, String> savedParents = null;
+
+	private TagUpdate tagListener = null;
 	
 	static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
 	
@@ -77,12 +79,13 @@ public class RelationMembershipFragment extends SherlockFragment implements
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Log.d(DEBUG_TAG, "onAttach");
-//        try {
-//            mListener = (OnPresetSelectedListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
-//        }
-
+        try {
+        	tagListener = (TagUpdate) activity;
+        } catch (ClassCastException e) {
+        	throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
+        }
+        setHasOptionsMenu(true);
+        getActivity().supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -453,10 +456,10 @@ public class RelationMembershipFragment extends SherlockFragment implements
 		// Use a set to prevent duplicate keys appearing
 		Set<String> roles = new HashSet<String>();
 				
-		if (((PropertyEditor)getActivity()).presets != null && ((PropertyEditor)getActivity()).tagEditorFragment.autocompletePresetItem != null) {
+		if (((PropertyEditor)getActivity()).presets != null && (tagListener.getBestPreset() != null)) {
 			PresetItem relationPreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).tagEditorFragment.getKeyValueMapSingle(false)); // FIXME
 			if (relationPreset != null) {
-				roles.addAll(((PropertyEditor)getActivity()).tagEditorFragment.autocompletePresetItem.getRoles());
+				roles.addAll(tagListener.getBestPreset().getRoles());
 			}
 		}
 

@@ -1435,6 +1435,54 @@ public class Preset implements Serializable {
 			return v;
 		}
 
+		/**
+		 * Return true if the key is contained in this preset
+		 * @param key
+		 * @return
+		 */
+		public boolean hasKey(String key) {
+			return fixedTags.containsKey(key) || recommendedTags.containsKey(key) || optionalTags.containsKey(key);
+		}
+		
+		/**
+		 * Return true if the key and value is contained in this preset (ignoring stuff with variable text)
+		 * @param key
+		 * @return
+		 */
+		public boolean hasKeyValue(String key, String value) {
+			StringWithDescription swd = fixedTags.get(key);
+			if (swd!=null) {
+				if ("".equals(value) || swd.getValue()==null || swd.equals(value) || "".equals(swd.getValue())) {
+					return true;
+				}
+			}
+			StringWithDescription[] swdArray = recommendedTags.get(key);
+			if (swdArray != null) {
+				if (swdArray.length > 0) {
+					for (StringWithDescription v:swdArray) {
+						if ("".equals(value) || v.getValue()==null || v.equals(value) || "".equals(v.getValue())) {
+							return true;
+						}
+					}
+				} else {
+					return true;
+				}
+			}
+			swdArray = optionalTags.get(key);
+			if (swdArray != null) { 
+				if (swdArray.length > 0) {
+					for (StringWithDescription v:swdArray) {
+						if ("".equals(value) || v.getValue()==null || v.equals(value) || "".equals(v.getValue())) {
+							return true;
+						}
+					}
+				} else {
+					return true;
+				}
+			}
+			return false;
+		}
+		
 		public int getItemIndex() {
 			return itemIndex;
 		}
