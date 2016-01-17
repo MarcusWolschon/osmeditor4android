@@ -187,8 +187,8 @@ public class TagFormFragment extends SherlockFragment {
 				ft.remove(recentPresetsFragment);
 			}
 			
-			recentPresetsFragment = RecentPresetsFragment.newInstance(null); // FIXME
-			ft.add(R.id.tag_mru_layout,recentPresetsFragment,"recentpresets_fragment");
+			recentPresetsFragment = RecentPresetsFragment.newInstance(((PropertyEditor)getActivity()).getElement()); // FIXME
+			ft.add(R.id.form_mru_layout,recentPresetsFragment,"recentpresets_fragment");
 			ft.commit();
 		}
 		
@@ -276,7 +276,12 @@ public class TagFormFragment extends SherlockFragment {
 			if (preset != null) {
 				if (!preset.isFixedTag(key)) {
 					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, value, preset, allTags);
-					int count = adapter.getCount();
+					int count = 0;
+					if (adapter!=null) {
+						count = adapter.getCount();
+					} else {
+						Log.d(DEBUG_TAG,"adapter null " + key + " " + value + " " + preset);
+					}
 					String hint = preset.getHint(key);
 					//
 					if (preset.getKeyType(key) == PresetKeyType.TEXT || preset.getKeyType(key) == PresetKeyType.MULTISELECT 
@@ -590,17 +595,25 @@ public class TagFormFragment extends SherlockFragment {
     	setTitle(preset);
     	LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
     	if (allTags != null) {
-    		LinkedHashMap<String,String> editable = new LinkedHashMap<String,String>();
+    		LinkedHashMap<String,String> recommendedEditable = new LinkedHashMap<String,String>();
+    		LinkedHashMap<String,String> optionalEditable = new LinkedHashMap<String,String>();
     		LinkedHashMap<String,String> nonEditable = new LinkedHashMap<String,String>();
     		for (String key:allTags.keySet()) {
     			if (preset != null && preset.hasKeyValue(key, allTags.get(key))) {
-    				editable.put(key, allTags.get(key));
+    				if (preset.isRecommendedTag(key)) {
+    					recommendedEditable.put(key, allTags.get(key));
+    				} else {
+    					optionalEditable.put(key, allTags.get(key));
+    				}
     			} else {
     				nonEditable.put(key, allTags.get(key));
     			}
     		}
-    		for (String key:editable.keySet()) {
-    			addRow(editableView,key, editable.get(key),preset, allTags);
+    		for (String key:recommendedEditable.keySet()) {
+    			addRow(editableView,key, recommendedEditable.get(key),preset, allTags);
+    		}
+    		for (String key:optionalEditable.keySet()) {
+    			addRow(editableView,key, optionalEditable.get(key),preset, allTags);
     		}
     		LinearLayout nel = (LinearLayout) getView().findViewById(R.id.form_immutable_header_layout);
 			if (nel != null) {

@@ -85,7 +85,7 @@
 	    	android:padding="0dp" >
 		</LinearLayout>
 		<LinearLayout
-			android:id="@+id/tag_mru_layout"
+			android:id="@+id/form_mru_layout"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
 			android:orientation="vertical" 

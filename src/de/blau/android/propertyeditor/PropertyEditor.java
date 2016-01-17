@@ -368,11 +368,11 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 					presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
 					return presetFragment;
 				case 1: 		
-					tagFormFragment = TagFormFragment.newInstance(false);
+					tagFormFragment = TagFormFragment.newInstance(true);
 					tagFormFragmentPosition = 0;
 					return tagFormFragment;
 				case 2: 		
-					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
+					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, false/*!usePaneLayout*/);
 					return tagEditorFragment;
 				case 3:
 					if (loadData.length == 1) {
@@ -680,8 +680,13 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@Override
 	public void onPresetSelected(PresetItem item) {
 		if (item != null) {
-			mViewPager.setCurrentItem(tagEditorFragmentPosition);
 			tagEditorFragment.applyPreset(item);
+			if (tagFormFragment != null) {
+				tagFormFragment.update();
+				mViewPager.setCurrentItem(tagFormFragmentPosition);
+			} else {
+				mViewPager.setCurrentItem(tagEditorFragmentPosition);
+			}
 			if (usePaneLayout) {
 				FragmentManager fm = getSupportFragmentManager();
 				Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
@@ -816,6 +821,10 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 					types[0], osmIds[0], tagValues); // FIXME
 		}
 		return placeNameAutocompleteAdapter;
+	}
+	
+	public OsmElement getElement() {
+		return elements[0]; // FIXME validate
 	}
 	
 	@Override
