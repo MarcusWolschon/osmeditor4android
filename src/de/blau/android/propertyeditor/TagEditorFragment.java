@@ -78,7 +78,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 	
 public class TagEditorFragment extends SherlockFragment implements
-		PropertyRows, TagUpdate {
+		PropertyRows, EditorUpdate {
 
 	private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
@@ -112,6 +112,8 @@ public class TagEditorFragment extends SherlockFragment implements
 	 * selective copy of tags
 	 */
 	protected Map<String, String> copiedTags = null;
+
+	private FormUpdate formUpdate;
 	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
@@ -172,6 +174,7 @@ public class TagEditorFragment extends SherlockFragment implements
         Log.d(DEBUG_TAG, "onAttach");
         try {
             nameAdapters = (NameAdapters) activity;
+            formUpdate = (FormUpdate) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement NameAdapters");
         }
@@ -278,6 +281,8 @@ public class TagEditorFragment extends SherlockFragment implements
 			}
 		}
 
+		setAutocompletePresetItem(editRowLayout); // set preset from initial tags
+		
 		if (displayMRUpresets) {
 			Log.d(DEBUG_TAG,"Adding MRU prests");
 			FragmentManager fm = getChildFragmentManager();
@@ -345,6 +350,7 @@ public class TagEditorFragment extends SherlockFragment implements
     public void onResume() {
     	super.onResume();
     	Log.d(DEBUG_TAG, "onResume");
+    	formUpdate.tagsUpdated(); // kick the form
     }
 	
     @Override
@@ -431,6 +437,14 @@ public class TagEditorFragment extends SherlockFragment implements
 	@Override
 	public PresetItem getBestPreset() {
 		return autocompletePresetItem;
+	}
+	
+	@Override
+	public void predictAddressTags(boolean allowBlanks) {
+		loadEdits(Address.predictAddressTags(getType(),getOsmId(),
+				((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
+				getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS));
+		updateAutocompletePresetItem();
 	}
 	
 	protected ArrayAdapter<String> getKeyAutocompleteAdapter(LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
@@ -1118,8 +1132,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	 * @param item the preset to apply
 	 * @param addOptional TODO
 	 */
-	private void applyPreset(PresetItem item, boolean addOptional, boolean addToMRU) {
-		autocompletePresetItem = item;
+	void applyPreset(PresetItem item, boolean addOptional, boolean addToMRU) {
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		
 		boolean replacedValue = false;	
@@ -1161,6 +1174,9 @@ public class TagEditorFragment extends SherlockFragment implements
 
 		loadEdits(currentValues);
 		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
+		
+		// redeterming best preset
+		updateAutocompletePresetItem();
 		
 		//
 		if (addToMRU) {
@@ -1277,9 +1293,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			((PropertyEditor)getActivity()).sendResultAndFinish();
 			return true;
 		case R.id.tag_menu_address:
-			loadEdits(Address.predictAddressTags(getType(),getOsmId(),
-					((StreetTagValueAutocompletionAdapter)nameAdapters.getStreetNameAutocompleteAdapter(null)).getElementSearch(), 
-					getKeyValueMap(false), Address.DEFAULT_HYSTERESIS));
+			predictAddressTags(false);
 			return true;
 		case R.id.tag_menu_sourcesurvey:
 			doSourceSurvey();
@@ -1403,14 +1417,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		final LinkedHashMap<String,String> tags = new LinkedHashMap<String, String>();
 		if (rowLayout == null && savedTags != null) {
 			// we've been stopped and the view hasn't been recreated
-			for (String key:savedTags.keySet()) {
-				ArrayList<String> values = savedTags.get(key);
-				String value = (values != null && values.size() > 0 ? values.get(0):"");
-				if (!("".equals(value) && !allowBlanks)) {
-					tags.put(key, value);
-				}
-			}
-			return tags;
+			autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMapSingle(rowLayout,false));
 		}
 		if (rowLayout != null) {
 			processKeyValues(rowLayout, new KeyValueHandler() {
@@ -1676,6 +1683,11 @@ public class TagEditorFragment extends SherlockFragment implements
 	public void updateTags(Map<String, String> tags, boolean flush) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void revertTags() {
+		doRevert();
 	}
 	
 	/**

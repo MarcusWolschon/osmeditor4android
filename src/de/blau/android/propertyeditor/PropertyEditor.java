@@ -64,7 +64,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  */
 public class PropertyEditor extends SherlockFragmentActivity implements 
-		 OnPresetSelectedListener, TagUpdate, NameAdapters {
+		 OnPresetSelectedListener, EditorUpdate, FormUpdate, NameAdapters {
 	private static final String PRESET_FRAGMENT = "preset_fragment";
 	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
@@ -293,16 +293,18 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			
 			// this essentially has to be hardwired
 			presetFragmentPosition = 0;
+			tagFormFragmentPosition = 0;
 			tagEditorFragmentPosition = 1; // FIXME
 		} else {
 			presetFragmentPosition = 0;
+			tagFormFragmentPosition = 1;
 			tagEditorFragmentPosition = 2; // FIXME
 		}
 		
 		mViewPager.setOffscreenPageLimit(3); // FIXME currently this is required or else some of the logic between the fragments will not work
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
 		mViewPager.addOnPageChangeListener(new PageChangeListener());
-		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : tagEditorFragmentPosition));
+		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : tagFormFragmentPosition));
 	}
 	
 	private void abort() {
@@ -468,7 +470,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		@Override
 		public void onPageSelected(int page) {
 			Log.d(DEBUG_TAG, "onPageSelected " + page);
-			if (page == tagFormFragmentPosition) {
+			if (page == tagFormFragmentPosition && tagFormFragment != null) {
 				tagFormFragment.update();
 			}
 		}
@@ -683,8 +685,13 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	
 	@Override
 	public void onPresetSelected(PresetItem item) {
+		onPresetSelected(item, false);
+	}
+	
+	@Override
+	public void onPresetSelected(PresetItem item, boolean applyOptional) {
 		if (item != null) {
-			tagEditorFragment.applyPreset(item);
+			tagEditorFragment.applyPreset(item, applyOptional, true);;
 			if (tagFormFragment != null) {
 				tagFormFragment.update();
 				mViewPager.setCurrentItem(tagFormFragmentPosition);
@@ -764,6 +771,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}	
 	}
 	
+	@Override
+	public void revertTags() {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.revertTags();
+		} else {
+			Log.e(DEBUG_TAG,"revertTags tagEditorFragment is null");
+		}
+	}
+	
 	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
 		if (tagEditorFragment != null) {
 			return tagEditorFragment.getUpdatedTags();
@@ -791,6 +807,24 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		} else {
 			Log.e(DEBUG_TAG,"getBsetPreset tagEditorFragment is null");
 			return null;
+		}	
+	}
+	
+	@Override
+	public void predictAddressTags(boolean allowBlanks) {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.predictAddressTags(allowBlanks);
+		} else {
+			Log.e(DEBUG_TAG,"predictAddressTags tagEditorFragment is null");
+		}	
+	}
+	
+	@Override
+	public void tagsUpdated() {
+		if (tagFormFragment != null) {
+			tagFormFragment.tagsUpdated();
+		} else {
+			Log.e(DEBUG_TAG,"tagFormFragment is null");
 		}	
 	}
 	

@@ -61,6 +61,7 @@
     <declare-styleable name="Dummy">
 		<attr name="TableHeader" format="reference" />
 		<attr name="Layout" format="reference" />
+		<attr name="RadioGroup" format="reference" />
 		<attr name="PagerTabStrip" format="reference" />
 		<attr name="ListPopupWindowStyle" format="reference" />
 		<attr name="Drawer" format="reference" />

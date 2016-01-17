@@ -57,7 +57,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 
 	private HashMap<Long, String> savedParents = null;
 
-	private TagUpdate tagListener = null;
+	private EditorUpdate tagListener = null;
 	
 	static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
 	
@@ -80,7 +80,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
         super.onAttach(activity);
         Log.d(DEBUG_TAG, "onAttach");
         try {
-        	tagListener = (TagUpdate) activity;
+        	tagListener = (EditorUpdate) activity;
         } catch (ClassCastException e) {
         	throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
         }

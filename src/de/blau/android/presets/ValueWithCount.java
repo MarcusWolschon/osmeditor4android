@@ -33,7 +33,7 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 		if (count == -1) {
 			return descriptionOnly ?  (description != null ? description : value) : (description != null ? value + " - " + description : value);
 		} else if (count >= 1) {
-			return value + " (" + count + ")" + (description != null ? value + " - " + description : value);
+			return value + " (" + count + ")" + (description != null ? value + " - " + description : "");
 		}
 		return null;
 	}
