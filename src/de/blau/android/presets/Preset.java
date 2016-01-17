@@ -118,7 +118,7 @@ public class Preset implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -315,6 +315,13 @@ public class Preset implements Serializable {
         // in practice, it does read the full file, which means this gives the actual sha256 of the file,
         //  - even if you add a 1 MB comment after the document-closing tag.
         
+        // remove chunks
+        for (PresetItem c:new ArrayList<PresetItem>(allItems)) {
+        	if (c.isChunk()) {
+        		allItems.remove(c);
+        	}
+        }
+        
         mru = initMRU(directory, hashValue);
         
 //        for (String k:searchIndex.getKeys()) {
@@ -398,6 +405,7 @@ public class Preset implements Serializable {
             			type = attr.getValue("gtype"); // note gtype seems to be undocumented
             		}
                 	currentItem = new PresetItem(null, attr.getValue("id"), attr.getValue("icon"), type);
+                	currentItem.setChunk();
             	} else if ("separator".equals(name)) {
             		new PresetSeparator(groupstack.peek());
             	} else if ("optional".equals(name)) {
@@ -483,8 +491,20 @@ public class Preset implements Serializable {
             		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
             		if (chunk != null) {
             			currentItem.fixedTags.putAll(chunk.getFixedTags());
+            			for (Entry<String,StringWithDescription> e:chunk.getFixedTags().entrySet()) {
+            				StringWithDescription v = e.getValue();
+            				String value = "";
+            				if (v != null && v.getValue() != null) {
+            					value = v.getValue();
+            				}
+            				tagItems.add(e.getKey()+"\t"+value, currentItem);
+            			}
             			currentItem.optionalTags.putAll(chunk.getOptionalTags());
+            			addToTagItems(currentItem, chunk.getOptionalTags());
+            			
             			currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
+            			addToTagItems(currentItem, chunk.getRecommendedTags());
+               			
             			currentItem.hints.putAll(chunk.hints);
             			currentItem.defaults.putAll(chunk.defaults);
             			currentItem.keyType.putAll(chunk.keyType);
@@ -506,6 +526,21 @@ public class Preset implements Serializable {
             		}
             	}
             }
+			
+			void addToTagItems(PresetItem currentItem, Map<String,StringWithDescription[]>tags) {
+      			for (Entry<String,StringWithDescription[]> e:tags.entrySet()) {
+    				StringWithDescription values[] = e.getValue();
+    				if (values != null) {
+    					for (StringWithDescription v:values) {
+    						String value = "";
+    						if (v != null && v.getValue() != null) {
+    							value = v.getValue();
+    						}
+    						tagItems.add(e.getKey()+"\t"+value, currentItem);
+    					}
+    				}
+    			}
+			}
             
             @Override
             public void endElement(String name) throws SAXException {
@@ -1105,7 +1140,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 4L;
+		private static final long serialVersionUID = 5L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1149,6 +1184,11 @@ public class Preset implements Serializable {
 		private String nameContext = null;
 		private String valueContext = null;
 		
+		
+		/**
+		 * true if a chunk
+		 */
+		private boolean chunk = false;
 		
 		private int itemIndex;
 
@@ -1232,7 +1272,9 @@ public class Preset implements Serializable {
 				text = po.t(text);
 			}
 			fixedTags.put(key, new StringWithDescription(value, text));
-			tagItems.add(key+"\t"+value, this);
+			if (!chunk) {
+				tagItems.add(key+"\t"+value, this);
+			}
 			// Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
 			keyType.put(key,type);
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
@@ -1262,9 +1304,11 @@ public class Preset implements Serializable {
 		
 		public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray) {
 		    int i = 0;
-			for (StringWithDescription v:valueArray) {
-				tagItems.add(key+"\t"+v.getValue(), this);
-			}
+		    if (!chunk){
+		    	for (StringWithDescription v:valueArray) {
+		    		tagItems.add(key+"\t"+v.getValue(), this);
+		    	}
+		    }
 			// Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
 			keyType.put(key,type);
 			if (appliesTo(ElementType.NODE)) autosuggestNodes.add(key, valueArray);
@@ -1511,6 +1555,14 @@ public class Preset implements Serializable {
 			return super.toString() + tagStrings;
 		}
 	
+		protected void setChunk() {
+			chunk = true;
+		}
+		
+		protected boolean isChunk() {
+			return chunk;
+		}
+		
 		public String toJSON() {
 			String jsonString = "";
 			for (String k:fixedTags.keySet()) {
