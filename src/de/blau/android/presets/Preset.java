@@ -11,11 +11,8 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,14 +37,11 @@ import org.xml.sax.AttributeList;
 import org.xml.sax.HandlerBase;
 import org.xml.sax.SAXException;
 
-import ch.poole.poparser.Po;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -59,19 +53,17 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import ch.poole.poparser.Po;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
-import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
-import de.blau.android.resources.Profile;
 import de.blau.android.util.Hash;
 import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.SearchIndexUtils;
@@ -315,12 +307,12 @@ public class Preset implements Serializable {
         // in practice, it does read the full file, which means this gives the actual sha256 of the file,
         //  - even if you add a 1 MB comment after the document-closing tag.
         
-        // remove chunks
-        for (PresetItem c:new ArrayList<PresetItem>(allItems)) {
-        	if (c.isChunk()) {
-        		allItems.remove(c);
-        	}
-        }
+        // remove chunks - this messes up the index disabled for now
+//        for (PresetItem c:new ArrayList<PresetItem>(allItems)) {
+//        	if (c.isChunk()) {
+//        		allItems.remove(c);
+//        	}
+//        }
         
         mru = initMRU(directory, hashValue);
         
@@ -593,7 +585,7 @@ public class Preset implements Serializable {
         	if (!tmpMRU.presetHash.equals(hashValue)) throw new InvalidObjectException("hash mismatch");
         } catch (Exception e) {
         	tmpMRU = new PresetMRUInfo(hashValue);
-        	// Unserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
+        	// Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
         	Log.i("Preset", "No usable old MRU list, creating new one ("+e.toString()+")");
         } finally {
 				try { if (mruReader != null) mruReader.close(); } catch (Exception e) {} // ignore IO exceptions
@@ -1308,7 +1300,6 @@ public class Preset implements Serializable {
 		}
 		
 		public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray) {
-		    int i = 0;
 		    if (!chunk){
 		    	for (StringWithDescription v:valueArray) {
 		    		tagItems.add(key+"\t"+v.getValue(), this);
@@ -1385,6 +1376,14 @@ public class Preset implements Serializable {
 		
 		public boolean isFixedTag(String key) {
 			return fixedTags.containsKey(key);
+		}
+		
+		public boolean isRecommendedTag(String key) {
+			return recommendedTags.containsKey(key);
+		}
+		
+		public boolean isOptionalTag(String key) {
+			return optionalTags.containsKey(key);
 		}
 		
 		public Map<String,StringWithDescription[]> getRecommendedTags() {
