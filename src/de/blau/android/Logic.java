@@ -2628,7 +2628,7 @@ public class Logic {
 			getDelegator().writeToFile(Application.mainActivity);
 			Application.getBugStorage().writeToFile(Application.mainActivity);
 		} catch (IOException e) {
-			Log.e("Vespucci", "Problem saving", e);
+			Log.e(DEBUG_TAG, "Problem saving", e);
 		}
 	}
 	

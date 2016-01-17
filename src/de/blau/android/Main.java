@@ -300,6 +300,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private PostAsyncActionHandler restart; // if set this is called to restart post authentication
 
 	private boolean gpsChecked = false; // flag to ensure that we only check once per activity life cycle
+
+	protected boolean saveSync = false; // save synchronously instead of async
 	
 	/**
 	 * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -708,8 +710,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * Save current data (state, downloaded data, changes, ...) to file(s)
 	 */
 	private void saveData() {
-		Log.i(DEBUG_TAG, "saving data");
-		getLogic().saveAsync();
+		Log.i(DEBUG_TAG, "saving data sync="+saveSync);
+		if (saveSync) {
+			getLogic().save();
+		} else {
+			getLogic().saveAsync();
+		}
 	}
 
 	/**
@@ -1941,6 +1947,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	            		getTracker().stopBugAutoDownload();
 	            	}
 	                try {
+	                	saveSync = true;
 						Main.super.onBackPressed();
 					} catch (Exception e) {
 						// silently ignore .. might be Android confusion
