@@ -369,10 +369,11 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 					return presetFragment;
 				case 1: 		
 					tagFormFragment = TagFormFragment.newInstance(true);
-					tagFormFragmentPosition = 0;
+					tagFormFragmentPosition = 1;
 					return tagFormFragment;
 				case 2: 		
 					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, false/*!usePaneLayout*/);
+					tagEditorFragmentPosition = 2;
 					return tagEditorFragment;
 				case 3:
 					if (loadData.length == 1) {
@@ -395,6 +396,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 					return tagFormFragment;
 				case 1: 		
 					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
+					tagEditorFragmentPosition = 1;
 					return tagEditorFragment;
 				case 2:
 					if (loadData.length == 1) {
@@ -418,15 +420,17 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    	if (!usePaneLayout) {
 	    		switch(position) {
 	    		case 0: return getString(R.string.tag_menu_preset);
-	    		case 1: return "Overview";
-	    		case 2: return getString(R.string.menu_tags);
+	    		case 1: return getString(R.string.menu_tags);
+	    		// case 2: return getString(R.string.menu_tags);
+	    		case 2: return getString(R.string.tag_details);
 	    		case 3: return getString(R.string.relations);
 	    		case 4: return getString(R.string.members);
 	    		}
 	    	} else {
 	    		switch(position) {
-	    		case 0: return "Overview";
-	    		case 1: return getString(R.string.menu_tags);
+	    		case 0: return getString(R.string.menu_tags);
+	    		// case 1: return getString(R.string.menu_tags);
+	    		case 1: return getString(R.string.tag_details);
 	    		case 2: return getString(R.string.relations);
 	    		case 3: return getString(R.string.members);
 	    		}

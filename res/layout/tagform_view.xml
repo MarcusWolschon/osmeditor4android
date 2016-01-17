@@ -73,7 +73,7 @@
 				android:paddingRight="5dp" 
 				android:singleLine="true"
 				android:gravity="center_vertical" 
-				android:text="Immutable Attributes"
+				android:text="@string/tag_additional_properties"
 			 />
 		</LinearLayout>
 		<LinearLayout

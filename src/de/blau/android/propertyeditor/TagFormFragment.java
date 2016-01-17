@@ -442,12 +442,12 @@ public class TagFormFragment extends SherlockFragment {
 							continue; // skip stuff that is already listed
 						}
 						counter.put(s.getValue(),Integer.valueOf(1));
-						adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
+						adapter2.add(new ValueWithCount(s.getValue(), s.getDescription(), true));
 					}
 					Log.d(DEBUG_TAG,"key " + key + " type " + preset.getKeyType(key));
 				} 
 				if (!counter.containsKey("") && !counter.containsKey(null) && presetType != PresetKeyType.CHECK) {
-					adapter2.insert(new ValueWithCount("", "Not set"),0); // FIXME allow unset value depending on preset
+					adapter2.insert(new ValueWithCount("", "Not set", true),0); // FIXME allow unset value depending on preset
 				}
 				if (value != null && !counter.containsKey(value) && (presetType != PresetKeyType.CHECK && !"".equals(value))) {
 					ValueWithCount v = new ValueWithCount(value,1); // FIXME determine description in some way

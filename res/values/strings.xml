@@ -190,6 +190,8 @@
     <string name="tag_value_hint">Tap for values</string>
     <string name="tag_multi_value_hint">Multiple values</string>
     <string name="tag_action_title">Tags selected</string>
+    <string name="tag_additional_properties">Additional properties</string>
+    <string name="tag_details">Details</string>
     <string name="menu_up">Up</string>
     <string name="menu_top">Top</string>
     <string name="menu_preset_help">Preset help</string>

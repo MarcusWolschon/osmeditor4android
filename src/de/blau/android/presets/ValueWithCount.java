@@ -4,6 +4,7 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 	private final String value;
 	private String description = null;
 	private int count = -1;
+	private boolean descriptionOnly = false;
 	
 	
 	public ValueWithCount(final String value) {
@@ -15,15 +16,22 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 		this.description = description;
 	}
 	
+	public ValueWithCount(final String value, final String description, final boolean descriptionOnly) {
+		this.value = value;
+		this.description = description;
+		this.descriptionOnly = descriptionOnly;
+	}
+	
 	public ValueWithCount(final String value, final int count) {
 		this.value = value;
 		this.count = count;
 	}
+
 	
 	@Override
 	public String toString() {
 		if (count == -1) {
-			return description != null ? value + " - " + description : value;
+			return descriptionOnly ?  (description != null ? description : value) : (description != null ? value + " - " + description : value);
 		} else if (count >= 1) {
 			return value + " (" + count + ")" + (description != null ? value + " - " + description : value);
 		}

@@ -419,7 +419,13 @@ public class TagEditorFragment extends SherlockFragment implements
 	private void setAutocompletePresetItem(LinearLayout rowLayout) {
 		Log.d(DEBUG_TAG,"setting new autocompletePresetItem");
 		autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMapSingle(rowLayout,false)); // FIXME multiselect
-
+	}
+	
+	/**
+	 * Edits may change the best fitting preset
+	 */
+	void updateAutocompletePresetItem() {
+		autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, getKeyValueMapSingle(false));
 	}
 	
 	@Override
@@ -1507,6 +1513,7 @@ public class TagEditorFragment extends SherlockFragment implements
 				mergeTags(copied, replace);
 			}
 		}
+		updateAutocompletePresetItem();
 	}
 		
 	/**
@@ -1514,6 +1521,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	 */
 	void doRevert() {
 		loadEdits(buildEdits());
+		updateAutocompletePresetItem();
 	}
 	
 	/**
