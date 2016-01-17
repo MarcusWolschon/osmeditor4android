@@ -491,13 +491,15 @@ public class Preset implements Serializable {
             		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
             		if (chunk != null) {
             			currentItem.fixedTags.putAll(chunk.getFixedTags());
-            			for (Entry<String,StringWithDescription> e:chunk.getFixedTags().entrySet()) {
-            				StringWithDescription v = e.getValue();
-            				String value = "";
-            				if (v != null && v.getValue() != null) {
-            					value = v.getValue();
+            			if (!currentItem.isChunk()) {
+            				for (Entry<String,StringWithDescription> e:chunk.getFixedTags().entrySet()) {
+            					StringWithDescription v = e.getValue();
+            					String value = "";
+            					if (v != null && v.getValue() != null) {
+            						value = v.getValue();
+            					}
+            					tagItems.add(e.getKey()+"\t"+value, currentItem);
             				}
-            				tagItems.add(e.getKey()+"\t"+value, currentItem);
             			}
             			currentItem.optionalTags.putAll(chunk.getOptionalTags());
             			addToTagItems(currentItem, chunk.getOptionalTags());
@@ -528,6 +530,9 @@ public class Preset implements Serializable {
             }
 			
 			void addToTagItems(PresetItem currentItem, Map<String,StringWithDescription[]>tags) {
+				if (currentItem.isChunk()) { // only do this on the final expansion
+					return;
+				}
       			for (Entry<String,StringWithDescription[]> e:tags.entrySet()) {
     				StringWithDescription values[] = e.getValue();
     				if (values != null) {
