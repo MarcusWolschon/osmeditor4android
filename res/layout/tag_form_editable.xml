@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view class="de.blau.android.propertyeditor.TagFormFragment$EditableLayout" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="?attr/Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:saveEnabled="false" >
+
+        <TextView
+            android:id="@+id/form_header_icon_view"
+            style="?attr/TableHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
+            android:baselineAligned="false"
+            android:paddingLeft="5dp"
+            android:saveEnabled="false" />
+
+        <TextView
+            android:id="@+id/form_header_title"
+            style="?attr/TableHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="0dp"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:minHeight="36dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:saveEnabled="false"
+            android:singleLine="true"
+            android:text=""
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/form_editable_row_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:saveEnabled="false" >
+    </LinearLayout>
+
+</view>

@@ -58,6 +58,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	
     public interface OnPresetSelectedListener {
         public void onPresetSelected(PresetItem item);
+        
+        public void onPresetSelected(PresetItem item, boolean applyOptional);
     }
     
 //	private final Context context;

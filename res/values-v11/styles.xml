@@ -132,6 +132,7 @@
 		<item name="Layout">@style/Layout</item>
 		<item name="ListPopupWindowStyle">@style/ListPopupWindowStyle</item>
 		<item name="spinnerItemStyle">@style/SpinnerItemStyle</item>
+		<item name="RadioGroup">@style/RadioGroupStyleDark</item>
 		<item name="DownloadedMember">@style/DownloadedMemberDark</item>
 		<item name="NotDownloadedMember">@style/NotDownloadedMemberDark</item>
 		<!--  icons  -->
@@ -180,6 +181,10 @@
 		<!-- <item name="android:dropDownSelector">@drawable/abs__list_selector_holo_dark</item> -->
 	</style>
 	
+	<style name="RadioGroupStyleDark">
+	   <item name="android:background">@android:color/black</item>
+	</style>
+	
 	<style name="TableHeader">
 		<item name="android:background">@color/ccc_darkred</item>
 	</style>
@@ -223,6 +228,7 @@
 		<item name="android:editTextStyle">@style/EditTextLight</item>
 		<item name="android:checkboxStyle">@style/CheckBoxLight</item>
 		<item name="android:spinnerStyle">@style/SpinnerStyleLight</item>
+		<item name="RadioGroup">@style/RadioGroupStyleLight</item>
 		<item name="TableHeader">@style/TableHeaderLight</item>
 		<item name="PagerTabStrip">@style/PagerTabStripLight</item>
 		<item name="Layout">@style/LayoutLight</item>
@@ -268,6 +274,10 @@
 	<style name="SpinnerStyleLight" parent="android:Widget.Holo.Light.Spinner">
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 		<item name="android:popupBackground">@drawable/abs__ab_solid_light_holo</item>
+	</style>
+	
+	<style name="RadioGroupStyleLight">
+	    <item name="android:background">@android:color/white</item>
 	</style>
 	
 	<style name="TableHeaderLight">

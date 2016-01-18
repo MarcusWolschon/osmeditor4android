@@ -484,7 +484,7 @@ public class Address implements Serializable {
 				lastAddresses.removeLast();
 			}
 			Address current = new Address(caller.getType(), caller.getOsmId(), addressTags);
-			StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter)caller.getStreetNameAutocompleteAdapter(null);
+			StreetTagValueAutocompletionAdapter streetAdapter = (StreetTagValueAutocompletionAdapter)((NameAdapters)caller.getActivity()).getStreetNameAutocompleteAdapter(null);
 			if (streetAdapter!= null) {
 				ArrayList<String> values = tags.get(Tags.KEY_ADDR_STREET); 
 				if (values != null && values.size() > 0) {

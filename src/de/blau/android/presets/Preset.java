@@ -61,6 +61,7 @@ import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
@@ -110,7 +111,7 @@ public class Preset implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 5L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -157,6 +158,14 @@ public class Preset implements Serializable {
 		 * single value, set or unset
 		 */
 		CHECK
+	}
+	
+	public static enum MatchType {
+		NONE,
+		KEY,
+		KEY_NEG,
+		KEY_VALUE,
+		KEY_VALUE_NEG,
 	}
 
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
@@ -403,21 +412,32 @@ public class Preset implements Serializable {
             	} else if ("optional".equals(name)) {
             		inOptionalSection = true;
             	} else if ("key".equals(name)) {
+            		String key = attr.getValue("key");
             		if (!inOptionalSection) {
-            			currentItem.addTag(attr.getValue("key"), PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
+            			currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
             		} else {
             			// Optional fixed tags should not happen, their values will NOT be automatically inserted.
-            			currentItem.addTag(true, attr.getValue("key"), PresetKeyType.TEXT, attr.getValue("value"));
+            			currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue("value"));
+            		}
+             		String match = attr.getValue("match");
+            		if (match != null) {
+            			currentItem.setMatchType(key,match);
             		}
             	} else if ("text".equals(name)) {
-            		currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.TEXT, (String)null);
+            		String key = attr.getValue("key");
+            		currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String)null);
             		String text = attr.getValue("text");
             		if (text != null) {
             			currentItem.addHint(attr.getValue("key"),text);
             		}
+              		String match = attr.getValue("match");
+            		if (match != null) {
+            			currentItem.setMatchType(key,match);
+            		}
             	} else if ("link".equals(name)) {
             		currentItem.setMapFeatures(attr.getValue("href")); // just English for now
             	} else if ("check".equals(name)) {
+            		String key = attr.getValue("key");
             		String value_on = attr.getValue("value_on") == null ? "yes" : attr.getValue("value_on");
             		String value_off = attr.getValue("value_off") == null ? "no" : attr.getValue("value_off");
             		String disable_off = attr.getValue("disable_off");
@@ -428,54 +448,68 @@ public class Preset implements Serializable {
             		} else {
             			values = "," + value_off;
             		}
-             		currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.CHECK, values);
+             		currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values);
             		String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
             		if (defaultValue != null) {
-            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            			currentItem.addDefault(key,defaultValue);
             		}
                		String text = attr.getValue("text");
             		if (text != null) {
-            			currentItem.addHint(attr.getValue("key"),text);
+            			currentItem.addHint(key,text);
+            		}
+              		String match = attr.getValue("match");
+            		if (match != null) {
+            			currentItem.setMatchType(key,match);
             		}
             	} else if ("combo".equals(name)) {
+            		String key = attr.getValue("key");
             		String delimiter = attr.getValue("delimiter");
             		if (delimiter == null) {
             			delimiter = ","; // combo uses "," as default
             		}
             		String comboValues = attr.getValue("values");
             		if (comboValues != null) {
-            			currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.COMBO, comboValues, delimiter);
+            			currentItem.addTag(inOptionalSection, key, PresetKeyType.COMBO, comboValues, delimiter);
             		} else {
-            			listKey = attr.getValue("key");
+            			listKey = key;
             			listValues = new ArrayList<StringWithDescription>();
             		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
-            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            			currentItem.addDefault(key,defaultValue);
             		}
                		String text = attr.getValue("text");
             		if (text != null) {
-            			currentItem.addHint(attr.getValue("key"),text);
+            			currentItem.addHint(key,text);
+            		}
+              		String match = attr.getValue("match");
+            		if (match != null) {
+            			currentItem.setMatchType(key,match);
             		}
             	} else if ("multiselect".equals(name)) {
+            		String key = attr.getValue("key");
             		String delimiter = attr.getValue("delimiter");
             		if (delimiter == null) {
             			delimiter = ";"; // multiselect uses ";" as default
             		}
             		String multiselectValues = attr.getValue("values");
             		if (multiselectValues != null) {
-            			currentItem.addTag(inOptionalSection, attr.getValue("key"), PresetKeyType.MULTISELECT, multiselectValues, delimiter); 
+            			currentItem.addTag(inOptionalSection, key, PresetKeyType.MULTISELECT, multiselectValues, delimiter); 
             		} else {
-            			listKey = attr.getValue("key");
+            			listKey = key;
             			listValues = new ArrayList<StringWithDescription>();
             		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
-            			currentItem.addDefault(attr.getValue("key"),defaultValue);
+            			currentItem.addDefault(key,defaultValue);
             		}
                		String text = attr.getValue("text");
             		if (text != null) {
-            			currentItem.addHint(attr.getValue("key"),text);
+            			currentItem.addHint(key,text);
+            		}
+              		String match = attr.getValue("match");
+            		if (match != null) {
+            			currentItem.setMatchType(key,match);
             		}
             	} else if ("role".equals(name)) {
             		currentItem.addRole(attr.getValue("key")); 
@@ -502,6 +536,7 @@ public class Preset implements Serializable {
             			currentItem.hints.putAll(chunk.hints);
             			currentItem.defaults.putAll(chunk.defaults);
             			currentItem.keyType.putAll(chunk.keyType);
+            			currentItem.matchType.putAll(chunk.matchType);
             			currentItem.roles.addAll(chunk.roles); // FIXME this and the following could lead to duplicate entries
             			currentItem.linkedPresetNames.addAll(chunk.linkedPresetNames);
             		}
@@ -768,7 +803,10 @@ public class Preset implements Serializable {
 	 * @return null, or the "best" matching item for the given tag set
 	 */
     static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags) {
-	
+    	return findBestMatch(presets, tags, false);
+    }
+    
+    static public PresetItem findBestMatch(Preset presets[], Map<String,String> tags, boolean useAddressKeys) {
 		int bestMatchStrength = 0;
 		PresetItem bestMatch = null;
 		
@@ -782,18 +820,24 @@ public class Preset implements Serializable {
 		for (Preset p:presets) {
 			if (p != null) {
 				for (Entry<String, String> tag : tags.entrySet()) {
-					String tagString = tag.getKey()+"\t"+tag.getValue();
-					possibleMatches.addAll(p.tagItems.get(tagString));
+					String kew = tag.getKey();
+					if (!kew.startsWith(Tags.KEY_ADDR_BASE) || useAddressKeys) {
+						String tagString = tag.getKey()+"\t"+tag.getValue();
+						possibleMatches.addAll(p.tagItems.get(tagString));
+						tagString = tag.getKey()+"\t"; // for stuff that doesn't have fixed values
+						possibleMatches.addAll(p.tagItems.get(tagString));
+					}
 				}
 			}
 		}
 		// Find best
+		final int FIXED_WEIGHT = 100; // always prioritize presets with fixed keys
 		for (PresetItem possibleMatch : possibleMatches) {
-			if ((possibleMatch.getFixedTagCount() <= bestMatchStrength) && (possibleMatch.getRecommendedTags().size()) <= bestMatchStrength) continue; // isn't going to help
+			if (((possibleMatch.getFixedTagCount()+FIXED_WEIGHT) <= bestMatchStrength) && (possibleMatch.getRecommendedTags().size()) <= bestMatchStrength) continue; // isn't going to help
 			if (possibleMatch.getFixedTagCount() > 0) { // has required tags			
 				if (possibleMatch.matches(tags)) {
 					bestMatch = possibleMatch;
-					bestMatchStrength = bestMatch.getFixedTagCount();
+					bestMatchStrength = bestMatch.getFixedTagCount()+FIXED_WEIGHT;
 				}
 			} else if (possibleMatch.getRecommendedTags().size() > 0) {
 				int matches = possibleMatch.matchesRecommended(tags);
@@ -1137,7 +1181,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 5L;
+		private static final long serialVersionUID = 6L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1174,6 +1218,11 @@ public class Preset implements Serializable {
 		 * Key to key type
 		 */
 		private HashMap<String,PresetKeyType> keyType = new HashMap<String,PresetKeyType>(); 
+		
+		/**
+		 * Key to match properties
+		 */
+		private HashMap<String,MatchType> matchType = new HashMap<String,MatchType>(); 
 		
 		/**
 		 * Translation contexts
@@ -1300,9 +1349,13 @@ public class Preset implements Serializable {
 		}
 		
 		public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray) {
-		    if (!chunk){
-		    	for (StringWithDescription v:valueArray) {
-		    		tagItems.add(key+"\t"+v.getValue(), this);
+	    	if (!chunk){
+		    	if (valueArray==null || valueArray.length == 0) {
+		    		tagItems.add(key+"\t", this);
+		    	} else {
+		    		for (StringWithDescription v:valueArray) {
+		    			tagItems.add(key+"\t"+v.getValue(), this);
+		    		}
 		    	}
 		    }
 			// Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
@@ -1355,6 +1408,26 @@ public class Preset implements Serializable {
 			return defaults.get(key);
 		}
 		
+		public void setMatchType(String key, String match) {
+			MatchType type = null;
+			if (match.equals("none")) {
+				type = MatchType.NONE;
+			} else if (match.equals("key")) {
+				type = MatchType.KEY;
+			} else if (match.equals("key!")) {
+				type = MatchType.KEY_NEG;
+			} else if (match.equals("keyvalue")) {
+				type = MatchType.KEY_VALUE;
+			} else if (match.equals("keyvalue!")) {
+				type = MatchType.KEY_VALUE_NEG;
+			}
+			matchType.put(key, type);
+		}
+
+		public MatchType getMatchType(String key) {
+			return matchType.get(key);
+		}
+		
 		public void addLinkedPresetName(String presetName) {
 			linkedPresetNames.add(presetName);
 		}
@@ -1398,6 +1471,15 @@ public class Preset implements Serializable {
 			return Collections.unmodifiableList(roles);
 		}
 		
+		public List<PresetItem> getLinkedPresets() {
+			ArrayList<PresetItem> result = new ArrayList<PresetItem>();
+			for (String n:linkedPresetNames) {
+				Integer index = getItemIndexByName(n); // FIXME this involves a sequential search
+				result.add(allItems.get(index.intValue()));
+			}
+			return result;
+		}
+		
 		/**
 		 * Return a ist of the values suitable for autocomplete, note vales for fixed tags are not returned
 		 * @param key
@@ -1433,9 +1515,19 @@ public class Preset implements Serializable {
 		 * @return
 		 */
 		public boolean matches(Map<String,String> tagSet) {
+			if (name.equals("Addresses")) {
+				Log.d(DEBUG_TAG,"matching addresses fixed");
+			}
 			for (Entry<String, StringWithDescription> tag : fixedTags.entrySet()) { // for each own tag
-				String otherTagValue = tagSet.get(tag.getKey());
-				if (otherTagValue == null || !tag.getValue().equals(otherTagValue)) return false;
+				String key = tag.getKey();
+				if (!tagSet.containsKey(key)) {
+					return false;
+				}
+				MatchType type = getMatchType(key);
+				String otherTagValue = tagSet.get(key);		
+				if (!tag.getValue().equals(otherTagValue) && type!=MatchType.KEY) {
+					return false;
+				}
 			}
 			return true;
 		}
@@ -1446,17 +1538,26 @@ public class Preset implements Serializable {
 		 * @return number of matches
 		 */
 		public int matchesRecommended(Map<String,String> tagSet) {
+			if (name.equals("Addresses")) {
+				Log.d(DEBUG_TAG,"matching addresses recommended");
+			}
 			int matches = 0;
 			for (Entry<String, StringWithDescription[]> tag : recommendedTags.entrySet()) { // for each own tag
-				String otherTagValue = tagSet.get(tag.getKey());
-				if (otherTagValue != null) {
+				String key = tag.getKey();
+				if (tagSet.containsKey(key)) { // key could have null value in the set
+					// value not empty
+					if (getMatchType(key)==MatchType.KEY) {
+						matches++;
+						break;
+					}
+					String otherTagValue = tagSet.get(key);
 					for (StringWithDescription v:tag.getValue()) {
 						if (v.equals(otherTagValue)) {
 							matches++;
 							break;
 						}
 					}
-				}
+				} 
 			}
 			return matches;
 		}
@@ -1483,6 +1584,66 @@ public class Preset implements Serializable {
 			return v;
 		}
 
+		/**
+		 * Return true if the key is contained in this preset
+		 * @param key
+		 * @return
+		 */
+		public boolean hasKey(String key) {
+			return fixedTags.containsKey(key) || recommendedTags.containsKey(key) || optionalTags.containsKey(key);
+		}
+		
+		/**
+		 * Return true if the key and value is contained in this preset taking match attribute in to account
+		 * @param key
+		 * @return
+		 */
+		public boolean hasKeyValue(String key, String value) {
+
+			StringWithDescription swd = fixedTags.get(key);
+			if (swd!=null) {
+				if ("".equals(value) || swd.getValue()==null || swd.equals(value) || "".equals(swd.getValue())) {
+					return true;
+				}
+			}
+
+			MatchType type = getMatchType(key);
+			PresetKeyType keyType = getKeyType(key);
+
+			if (recommendedTags.containsKey(key)) {
+				if (type==MatchType.KEY || keyType==PresetKeyType.MULTISELECT) { // MULTISELECT always editable
+					return true;
+				}
+				StringWithDescription[] swdArray = recommendedTags.get(key);
+				if (swdArray != null && swdArray.length > 0) {
+					for (StringWithDescription v:swdArray) {
+						if ("".equals(value) || v.getValue()==null || v.equals(value) || "".equals(v.getValue())) {
+							return true;
+						}
+					}
+				} else {
+					return true;
+				}
+			}
+
+			if (optionalTags.containsKey(key)) { 
+				if (type==MatchType.KEY || keyType==PresetKeyType.MULTISELECT) { // MULTISELECT always editable
+					return true;
+				}
+				StringWithDescription[] swdArray = optionalTags.get(key);
+				if (swdArray != null && swdArray.length > 0) {
+					for (StringWithDescription v:swdArray) {
+						if ("".equals(value) || v.getValue()==null || v.equals(value) || "".equals(v.getValue())) {
+							return true;
+						}
+					}
+				} else {
+					return true;
+				}
+			}
+			return false;
+		}
+		
 		public int getItemIndex() {
 			return itemIndex;
 		}

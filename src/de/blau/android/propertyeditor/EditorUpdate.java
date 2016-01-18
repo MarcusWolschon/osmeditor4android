@@ -1,19 +1,21 @@
 package de.blau.android.propertyeditor;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import de.blau.android.presets.Preset.PresetItem;
 
 /**
  * Interface for updating key:value pairs in the TagEditor from other fragments via the activity
  */
-abstract interface TagUpdate {
+abstract interface EditorUpdate {
 	/**
 	 * Update or add a single key value tupel in the tag editor
 	 * @param key
 	 * @param value
 	 */
 	abstract void updateSingleValue(final String key, final String value);
+
 	/**
 	 * Update or add multiple keys
 	 * @param tags map containing the new key - value tupels
@@ -25,6 +27,22 @@ abstract interface TagUpdate {
 	 * Get tags from tag editor
 	 * @return
 	 */
-	abstract ArrayList<LinkedHashMap<String, String>> getUpdatedTags();
+	abstract LinkedHashMap<String, String> getKeyValueMapSingle(final boolean allowBlanks);
+	
+	/**
+	 * Revert to original tags
+	 */
+	abstract void revertTags();
+	
+	/**
+	 * Get the best matching preset
+	 * @return
+	 */
+	abstract PresetItem getBestPreset();	
+	
+	/**
+	 * generate best address tags
+	 */
+	abstract void predictAddressTags(boolean allowBlanks);
 }
 
