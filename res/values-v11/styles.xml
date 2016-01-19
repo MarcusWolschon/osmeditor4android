@@ -135,6 +135,7 @@
 		<item name="RadioGroup">@style/RadioGroupStyleDark</item>
 		<item name="DownloadedMember">@style/DownloadedMemberDark</item>
 		<item name="NotDownloadedMember">@style/NotDownloadedMemberDark</item>
+		<item name="StaticText">@style/StaticTextDark</item>
 		<!--  icons  -->
 		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_dark</item>
@@ -211,13 +212,18 @@
 	</style>
 
 	<style name="DownloadedMemberDark" parent="android:Widget.Holo.TextView">
-	    <item name="android:textColor">@android:color/black</item>
+	    <item name="android:textColor">@android:color/white</item>
 		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 	</style>
 	
 	<style name="NotDownloadedMemberDark" parent="android:Widget.Holo.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
+	</style>
+	
+	<style name="StaticTextDark" parent="android:Widget.Holo.TextView">
+	    <item name="android:textColor">@android:color/white</item>
+		<item name="android:background">@color/tagedit_field_static_bg</item>
 	</style>
 	
 	<!-- Light for PropertyEditor -->
@@ -236,6 +242,7 @@
 		<item name="spinnerItemStyle">@style/SpinnerItemStyleLight</item>
 		<item name="DownloadedMember">@style/DownloadedMemberLight</item>
 		<item name="NotDownloadedMember">@style/NotDownloadedMemberLight</item>
+		<item name="StaticText">@style/StaticTextLight</item>
 		<!--  icons  -->
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
 		<item name="menu_undo">@drawable/ic_action_undo_holo_light</item>
@@ -313,6 +320,11 @@
 	<style name="NotDownloadedMemberLight" parent="android:Widget.Holo.Light.TextView">
 	    <item name="android:textColor">@android:color/white</item>
 	    <item name="android:background">@color/tagedit_field_static_bg</item>
+	</style>
+	
+	<style name="StaticTextLight" parent="android:Widget.Holo.Light.TextView">
+	    <item name="android:textColor">@android:color/black</item>
+		<item name="android:background">@drawable/abs__ab_solid_light_holo</item>
 	</style>
 	
 	<!-- Help Viewer -->

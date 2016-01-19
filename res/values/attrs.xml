@@ -69,5 +69,6 @@
 		<attr name="DownloadedMember" format="reference" />
 		<attr name="NotDownloadedMember" format="reference" />
 		<attr name="EditText" format="reference" />
+		<attr name="StaticText" format="reference" />
 	</declare-styleable>
 </resources>
