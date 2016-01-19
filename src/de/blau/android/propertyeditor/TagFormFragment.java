@@ -236,6 +236,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					} else if (preset.getKeyType(key) == PresetKeyType.COMBO) {
 						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, null);
 						row.keyView.setText(hint != null?hint:key);
+						row.keyView.setTag(key);
 						for (int i=0;i< count;i++) {
 							Object o = adapter.getItem(i);
 							String v = "";
@@ -266,6 +267,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					} else if (preset.getKeyType(key) == PresetKeyType.CHECK) {
 						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, null);
 						row.keyView.setText(hint != null?hint:key);
+						row.keyView.setTag(key);
 						Object o = adapter.getItem(0);
 						final String v;
 						String description = "";
@@ -323,6 +325,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	TagTextRow addTextRow(PresetKeyType keyType, final String hint, final String key, final String value, final ArrayAdapter<?> adapter) {
 		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, null);
 		row.keyView.setText(hint != null?hint:key);
+		row.keyView.setTag(key);
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
 			row.valueView.setEllipsize(TruncateAt.END);
 		}
@@ -726,8 +729,12 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			valueView = (CustomAutoCompleteTextView)findViewById(R.id.textValue);
 		}
 		
+		/**
+		 * Return the OSM key value
+		 * @return
+		 */
 		public String getKey() {
-			return keyView.getText().toString();
+			return (String) keyView.getTag();
 		}
 		
 		public String getValue() { 
@@ -789,8 +796,12 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			
 		}
 		
+		/**
+		 * Return the OSM key value
+		 * @return
+		 */
 		public String getKey() {
-			return keyView.getText().toString();
+			return (String) keyView.getTag();
 		}
 		
 		public RadioGroup getRadioGroup() { 
@@ -829,8 +840,12 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			valueCheck = (CheckBox)findViewById(R.id.valueSelected);
 		}
 		
+		/**
+		 * Return the OSM key value
+		 * @return
+		 */
 		public String getKey() {
-			return keyView.getText().toString();
+			return (String) keyView.getTag();
 		}
 		
 		public CheckBox getCheckBox() {
