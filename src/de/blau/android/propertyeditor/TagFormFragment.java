@@ -441,7 +441,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
 		// final MenuInflater inflater = getSupportMenuInflater();
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.tag_menu, menu);
+		inflater.inflate(R.menu.tag_form_menu, menu);
 		menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(NetworkStatus.isConnected(getActivity()));
 	}
 	
@@ -478,6 +478,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			doRevert();
 			return true;
 		case R.id.tag_menu_mapfeatures:
+			startActivity(Preset.getMapFeaturesIntent(getActivity(),tagListener.getBestPreset()));
 			return true;
 		case R.id.tag_menu_resetMRU:
 			for (Preset p:((PropertyEditor)getActivity()).presets)

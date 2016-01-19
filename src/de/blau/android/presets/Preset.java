@@ -38,6 +38,7 @@ import org.xml.sax.HandlerBase;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -1828,6 +1829,28 @@ public class Preset implements Serializable {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Build an intent to startup up the correct mapfeatures wili page
+	 * @param ctx
+	 * @param p
+	 * @return
+	 */
+	public static Intent getMapFeaturesIntent(Context ctx,PresetItem p) {
+		Uri uri = null;
+		if (p != null) {
+			try {
+				uri = p.getMapFeatures();
+			} catch (NullPointerException npe) {
+				// 
+				Log.d(DEBUG_TAG,"Preset " + p.getName() + " has no/invalid map feature uri");
+			}
+		}
+		if (uri == null) {
+			uri = Uri.parse(ctx.getString(R.string.link_mapfeatures));
+		}
+		return new Intent(Intent.ACTION_VIEW, uri);
 	}
 }
 

@@ -1317,24 +1317,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			doRevert();
 			return true;
 		case R.id.tag_menu_mapfeatures:
-			Uri uri = null;
-			LinkedHashMap<String, String> map = getKeyValueMapSingle(false); // FIXME
-			if (map !=null) {
-				PresetItem p =  Preset.findBestMatch(((PropertyEditor)getActivity()).presets,map);
-				if (p != null) {
-					try {
-						uri = p.getMapFeatures();
-					} catch (NullPointerException npe) {
-						// 
-						Log.d(DEBUG_TAG,"Preset " + p.getName() + " has no/invalid map feature uri");
-					}
-				}
-			}
-			if (uri == null) {
-				uri = Uri.parse(getString(R.string.link_mapfeatures));
-			}
-			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-			startActivity(intent);
+			startActivity(Preset.getMapFeaturesIntent(getActivity(),getBestPreset()));
 			return true;
 		case R.id.tag_menu_resetMRU:
 			for (Preset p:((PropertyEditor)getActivity()).presets)
