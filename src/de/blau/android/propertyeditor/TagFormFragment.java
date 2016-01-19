@@ -335,7 +335,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		}
 		row.valueView.setText(value);
 		row.valueView.setAdapter(adapter);
-		if (keyType==PresetKeyType.TEXT) {
+		if (keyType==PresetKeyType.TEXT && (adapter==null || adapter.getCount()>1)) {
 			row.valueView.setHint(R.string.tag_value_hint);
 		} else {
 			row.valueView.setHint(R.string.tag_multi_value_hint);
@@ -565,7 +565,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			((RecentPresetsFragment)recentPresetsFragment).disable();
 		}
 	}
-
+	
 	public void update() {
 		Log.d(DEBUG_TAG,"update");
 		// remove all editable stuff
@@ -579,7 +579,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			Log.d(DEBUG_TAG,"update container layout null");
 			return;
 		}		
-		EditableLayout editableView  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
+		final EditableLayout editableView  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
 		editableView.setSaveEnabled(false); 
 		int pos = 0;
 		ll.addView(editableView, pos++);
@@ -591,6 +591,21 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		
     	PresetItem mainPreset = tagListener.getBestPreset();
     	editableView.setTitle(mainPreset);
+//    	currently it is not clear how to get the view to re-layout
+//    	editableView.headerIconView.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Log.d(DEBUG_TAG,"onClick called");
+//				if (editableView.rowLayout.getVisibility()==View.GONE) {
+//					editableView.open();
+//				} else {
+//					editableView.close();
+//				}
+//				getView().requestLayout();
+//				getView().invalidate();
+//			}});
+//    	
+    	
     	LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
     	Map<String, String> nonEditable = addTagsToViews(editableView, mainPreset, allTags);
     	int nonEditableCount = nonEditable.size();
@@ -600,11 +615,11 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
     			// no point in continuing
     			break;
     		}
-    		editableView  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
-    		editableView.setSaveEnabled(false);
-    		editableView.setTitle(nonEditablePreset);
-    		ll.addView(editableView, pos++);
-    		nonEditable = addTagsToViews(editableView, nonEditablePreset, (LinkedHashMap<String, String>) nonEditable);
+    		final EditableLayout editableView1  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
+    		editableView1.setSaveEnabled(false);
+    		editableView1.setTitle(nonEditablePreset);
+    		ll.addView(editableView1, pos++);
+    		nonEditable = addTagsToViews(editableView1, nonEditablePreset, (LinkedHashMap<String, String>) nonEditable);
     		nonEditableCount = nonEditable.size();
     	}
     	
@@ -872,6 +887,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 
 		private TextView headerIconView;
 		private TextView headerTitleView;
+		private LinearLayout rowLayout;
 		
 		public  EditableLayout(Context context) {
 			super(context);
@@ -888,7 +904,25 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			
 			headerIconView = (TextView)findViewById(R.id.form_header_icon_view);
 			headerTitleView = (TextView)findViewById(R.id.form_header_title);
+			rowLayout = (LinearLayout) findViewById(R.id.form_editable_row_layout);
 		}	
+		
+		private void setMyVisibility(int visibility) {
+			rowLayout.setVisibility(visibility);
+			for (int i=0;i < rowLayout.getChildCount();i++) {
+				rowLayout.getChildAt(i).setVisibility(visibility);
+			}
+		}
+		
+		public void close() {
+			Log.d(DEBUG_TAG,"close");
+			setMyVisibility(View.GONE);
+		}
+		
+		public void open() {
+			Log.d(DEBUG_TAG,"open");
+			setMyVisibility(View.VISIBLE);
+		}
 		
 		public void setTitle(PresetItem preset) {
 

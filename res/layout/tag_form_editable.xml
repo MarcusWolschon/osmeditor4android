@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/form_header_icon_view"
             style="?attr/TableHeader"
-            android:layout_width="wrap_content"
+            android:layout_width="36dp"
             android:layout_height="fill_parent"
             android:layout_marginBottom="1dp"
             android:layout_marginRight="1dp"

@@ -2,6 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<PreferenceCategory android:title="@string/config_category_view">
 	    <CheckBoxPreference
+			android:key="@string/config_tagFormEnabled_key"
+			android:title="@string/config_tagFormEnabled_title"
+			android:summary="@string/config_tagFormEnabled_summary"
+			android:defaultValue="true"
+		/>
+	    <CheckBoxPreference
 			android:key="@string/config_showCameraAction_key"
 			android:title="@string/config_showCameraAction_title"
 			android:summary="@string/config_showCameraAction_summary"

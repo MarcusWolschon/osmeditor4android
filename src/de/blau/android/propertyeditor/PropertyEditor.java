@@ -62,6 +62,7 @@ import de.blau.android.views.ExtendedViewPager;
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
  * 
  * @author mb
+ * @author simon
  */
 public class PropertyEditor extends SherlockFragmentActivity implements 
 		 OnPresetSelectedListener, EditorUpdate, FormUpdate, NameAdapters {
@@ -121,6 +122,11 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	 * Needs to be static to be accessible in TagEditRow.
 	 */
 	static boolean running = false;
+	
+	/**
+	 * Display form based editing
+	 */
+	private boolean formEnabled = false;
 	
 	/**
 	 * Used both in the form and conventional tag editor fragments
@@ -249,7 +255,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			tags.add((LinkedHashMap<String, String>) loadData[i].tags);
 		}
 				
-		if (loadData.length == 1) { // for now no support of relations 
+		if (loadData.length == 1) { // for now no support of relations and form for multi-select
 			// parent relations
 			originalParents = loadData[0].originalParents != null ? loadData[0].originalParents : loadData[0].parents;
 
@@ -257,6 +263,8 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 				// members of this relation
 				originalMembers = loadData[0].originalMembers != null ? loadData[0].originalMembers : loadData[0].members;
 			}
+			
+			formEnabled = prefs.tagFormEnabled();
 		}
 		
 		PropertyEditorPagerAdapter  propertyEditorPagerAdapter =
@@ -293,18 +301,30 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			
 			// this essentially has to be hardwired
 			presetFragmentPosition = 0;
-			tagFormFragmentPosition = 0;
-			tagEditorFragmentPosition = 1; // FIXME
+			if (formEnabled) {
+				tagFormFragmentPosition = 0;
+				tagEditorFragmentPosition = 1; // FIXME
+			} else {
+				tagFormFragmentPosition = 0;
+				tagEditorFragmentPosition = 0; // FIXME
+			}
 		} else {
 			presetFragmentPosition = 0;
 			tagFormFragmentPosition = 1;
 			tagEditorFragmentPosition = 2; // FIXME
+			if (formEnabled) {
+				tagFormFragmentPosition = 1;
+				tagEditorFragmentPosition = 2; // FIXME
+			} else {
+				tagFormFragmentPosition = 1;
+				tagEditorFragmentPosition = 1; // FIXME
+			}
 		}
 		
 		mViewPager.setOffscreenPageLimit(3); // FIXME currently this is required or else some of the logic between the fragments will not work
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
 		mViewPager.addOnPageChangeListener(new PageChangeListener());
-		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : tagFormFragmentPosition));
+		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : (formEnabled ? tagFormFragmentPosition : tagEditorFragmentPosition)));
 	}
 	
 	private void abort() {
@@ -353,88 +373,133 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    		} else {
 	    			pages = 3;
 	    		}
+	    		if (formEnabled) {
+	    			pages++;
+	    		}
 	    	} else {
 	    		pages = 2;
 	    	}
-	    	pages++; // FIXME
 	    	return usePaneLayout ? pages -1 : pages; // preset page not in pager
 	    }
 
+	    SherlockFragment tagFormFragment(int position, boolean displayRecentPresets) {
+			tagFormFragmentPosition = position;
+			tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags);
+			return tagFormFragment;
+	    }
+	    
+	    SherlockFragment tagEditorFragment(int position, boolean displayRecentPresets) {
+	    	tagEditorFragmentPosition = position;
+	    	tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets);
+			return tagEditorFragment;
+	    }
+	    
+	    SherlockFragment relationMembershipFragment() {
+	    	if (loadData.length == 1) {
+	    		relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
+				return relationMembershipFragment;
+			}
+	    	return null;
+	    }
+	    
+	    SherlockFragment relationMembersFragment() {
+	    	if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
+				relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
+				return relationMembersFragment;
+			}
+	    	return null;
+	    }
+	    
 	    @Override
 	    public SherlockFragment getItem(int position) {
 	    	Log.d(DEBUG_TAG, "getItem " + position);
-	    	// presets
-			if (!usePaneLayout) {
-				switch(position) {
-				case 0: 
-					presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
-					return presetFragment;
-				case 1: 		
-					tagFormFragment = TagFormFragment.newInstance(true, applyLastAddressTags);
-					tagFormFragmentPosition = 1;
-					return tagFormFragment;
-				case 2: 		
-					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, false/*!usePaneLayout*/);
-					tagEditorFragmentPosition = 2;
-					return tagEditorFragment;
-				case 3:
-					if (loadData.length == 1) {
-						relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
-						return relationMembershipFragment;
-					}
-					break;
-				case 4:
-					if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
-						relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
-						return relationMembersFragment;
-					}
-					break;
-				}
-			} else {
-				switch(position) {
-				case 0: 		
-					tagFormFragment = TagFormFragment.newInstance(false, applyLastAddressTags);
-					tagFormFragmentPosition = 0;
-					return tagFormFragment;
-				case 1: 		
-					tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, !usePaneLayout);
-					tagEditorFragmentPosition = 1;
-					return tagEditorFragment;
-				case 2:
-					if (loadData.length == 1) {
-						relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
-						return relationMembershipFragment;
-					}
-					break;
-				case 3:
-					if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
-						relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0],loadData[0].members);
-						return relationMembersFragment;
-					}
-					break;
-				}
-			}
-	        return null;
+	    	if (formEnabled) {
+	    		if (!usePaneLayout) {
+	    			switch(position) {
+	    			case 0: 
+	    				presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
+	    				return presetFragment;
+	    			case 1: 		
+	    				return tagFormFragment(position, true);
+	    			case 2: 		
+	    				return tagEditorFragment(position, false);
+	    			case 3:
+	    				return relationMembershipFragment();
+	    			case 4:
+	    				return relationMembersFragment();
+	    			}
+	    		} else {
+	    			switch(position) {
+	    			case 0: 		
+	    				return tagFormFragment(position, false);
+	    			case 1: 		
+	    				return tagEditorFragment(position, false);
+	    			case 2:
+	    				return relationMembershipFragment();
+	    			case 3:
+	    				return relationMembersFragment();
+	    			}
+	    		}
+	    	} else  {
+	    		if (!usePaneLayout) {
+	    			switch(position) {
+	    			case 0: 
+	    				presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
+	    				return presetFragment;
+	    			case 1: 		
+	    				return tagEditorFragment(position, true);
+	    			case 2:
+	    				return relationMembershipFragment();
+	    			case 3:
+	    				return relationMembersFragment();
+	    			}
+	    		} else {
+	    			switch(position) {
+	    			case 0: 		
+	    				return tagEditorFragment(position, false);
+	    			case 1:
+	    				return relationMembershipFragment();
+	    			case 2:
+	    				return relationMembersFragment();
+	    			}
+	    		}
+	    	}
+	    	return null;
 	    }
 
 	    @Override
 	    public CharSequence getPageTitle(int position) {
-	    	if (!usePaneLayout) {
-	    		switch(position) {
-	    		case 0: return getString(R.string.tag_menu_preset);
-	    		case 1: return getString(R.string.menu_tags);
-	    		// case 2: return getString(R.string.menu_tags);
-	    		case 2: return getString(R.string.tag_details);
-	    		case 3: return getString(R.string.relations);
-	    		case 4: return getString(R.string.members);
+	    	if (formEnabled) {
+	    		if (!usePaneLayout) {
+	    			switch(position) {
+	    			case 0: return getString(R.string.tag_menu_preset);
+	    			case 1: return getString(R.string.menu_tags);
+	    			case 2: return getString(R.string.tag_details);
+	    			case 3: return getString(R.string.relations);
+	    			case 4: return getString(R.string.members);
+	    			}
+	    		} else {
+	    			switch(position) {
+	    			case 0: return getString(R.string.menu_tags);
+	    			case 1: return getString(R.string.tag_details);
+	    			case 2: return getString(R.string.relations);
+	    			case 3: return getString(R.string.members);
+	    			}
 	    		}
 	    	} else {
-	    		switch(position) {
-	    		case 0: return getString(R.string.menu_tags);
-	    		// case 1: return getString(R.string.menu_tags);
-	    		case 1: return getString(R.string.tag_details);
-	    		case 2: return getString(R.string.relations);
-	    		case 3: return getString(R.string.members);
+	    		if (!usePaneLayout) {
+	    			switch(position) {
+	    			case 0: return getString(R.string.tag_menu_preset);
+	    			case 1: return getString(R.string.menu_tags);
+	    			case 2: return getString(R.string.relations);
+	    			case 3: return getString(R.string.members);
+	    			}
+	    		} else {
+	    			switch(position) {
+	    			case 0: return getString(R.string.menu_tags);
+	    			case 1: return getString(R.string.relations);
+	    			case 2: return getString(R.string.members);
+	    			}
 	    		}
 	    	}
 	    	return "error";

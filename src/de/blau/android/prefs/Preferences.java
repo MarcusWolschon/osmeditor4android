@@ -41,6 +41,8 @@ public class Preferences {
 	
 	private final boolean largeDragArea;
 	
+	private final boolean tagFormEnabled;
+	
 	private final String backgroundLayer;
 	
 	private final String overlayLayer;
@@ -166,6 +168,7 @@ public class Preferences {
 		isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
 		isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), false);
 		isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
+		tagFormEnabled = prefs.getBoolean(r.getString(R.string.config_tagFormEnabled_key), true);
 		isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
 		useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
 		largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
@@ -272,6 +275,13 @@ public class Preferences {
 	 */
 	public boolean isPhotoLayerEnabled() {
 		return isPhotoLayerEnabled;
+	}
+	
+	/**
+	 * @return
+	 */
+	public boolean tagFormEnabled() {
+		return tagFormEnabled;
 	}
 	
 	/**
