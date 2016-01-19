@@ -73,6 +73,8 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	private EditorUpdate tagListener = null;
 
 	private NameAdapters nameAdapters = null;
+	
+	private boolean focusOnAddress = false;
 
 	
 	/**
@@ -80,12 +82,13 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	 * @param focusOnKey 
 	 * @param displayMRUpresets 
      */
-    static public TagFormFragment newInstance(boolean displayMRUpresets) {
+    static public TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress) {
     	TagFormFragment f = new TagFormFragment();
     	
         Bundle args = new Bundle();
    
         args.putSerializable("displayMRUpresets", Boolean.valueOf(displayMRUpresets));
+        args.putSerializable("focusOnAddress", Boolean.valueOf(focusOnAddress));
 
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -135,6 +138,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
      	rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, null);
            	
      	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable("displayMRUpresets")).booleanValue();
+     	focusOnAddress = ((Boolean) getArguments().getSerializable("focusOnAddress")).booleanValue();
      	
        	// Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
 		
@@ -613,6 +617,13 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
     		for (String key:nonEditable.keySet()) {
     			addRow(nonEditableView,key, nonEditable.get(key),null, null);
     		}
+    	}
+    	
+    	if (focusOnAddress) {
+    		focusOnAddress = false; // only do it once
+    		if (!focusOnValue(Tags.KEY_ADDR_HOUSENUMBER)) {
+    			focusOnValue(Tags.KEY_ADDR_STREET);
+    		} 
     	}
 	}
 	

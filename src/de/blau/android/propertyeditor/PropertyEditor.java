@@ -370,7 +370,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 					presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
 					return presetFragment;
 				case 1: 		
-					tagFormFragment = TagFormFragment.newInstance(true);
+					tagFormFragment = TagFormFragment.newInstance(true, applyLastAddressTags);
 					tagFormFragmentPosition = 1;
 					return tagFormFragment;
 				case 2: 		
@@ -393,7 +393,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			} else {
 				switch(position) {
 				case 0: 		
-					tagFormFragment = TagFormFragment.newInstance(false);
+					tagFormFragment = TagFormFragment.newInstance(false, applyLastAddressTags);
 					tagFormFragmentPosition = 0;
 					return tagFormFragment;
 				case 1: 		
