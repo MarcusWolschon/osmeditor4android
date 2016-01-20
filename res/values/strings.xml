@@ -187,7 +187,8 @@
     <string name="tag_menu_resetMRU">Reset Presets</string>
     <string name="tag_menu_reset_address_prediction">Reset address prediction</string>
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
-    <string name="tag_value_hint">Tap for values</string>
+    <string name="tag_value_hint">Type value</string>
+    <string name="tag_autocomplete_value_hint">Type or tap for values</string>
     <string name="tag_multi_value_hint">Multiple values</string>
     <string name="tag_action_title">Tags selected</string>
     <string name="tag_additional_properties">Additional properties</string>

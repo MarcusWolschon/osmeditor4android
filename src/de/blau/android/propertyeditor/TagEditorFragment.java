@@ -608,6 +608,8 @@ public class TagEditorFragment extends SherlockFragment implements
 			if (hint != null) { 
 				row.valueEdit.setHint(hint);
 			} else if (autocompletePresetItem.getRecommendedTags().keySet().size() > 0 || autocompletePresetItem.getOptionalTags().keySet().size() > 0) {
+				row.valueEdit.setHint(R.string.tag_autocomplete_value_hint);
+			} else {
 				row.valueEdit.setHint(R.string.tag_value_hint);
 			}
 			if (row.getValue().length() == 0) {

@@ -215,169 +215,6 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
     }
 
 
-
-	
-	private void addRow(LinearLayout rowLayout, final String key, final String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
-		if (rowLayout != null) {
-			if (preset != null) {
-				if (!preset.isFixedTag(key)) {
-					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, value, preset, allTags);
-					int count = 0;
-					if (adapter!=null) {
-						count = adapter.getCount();
-					} else {
-						Log.d(DEBUG_TAG,"adapter null " + key + " " + value + " " + preset);
-					}
-					String hint = preset.getHint(key);
-					//
-					PresetKeyType keyType = preset.getKeyType(key);
-					if (keyType == PresetKeyType.TEXT 
-						|| keyType == PresetKeyType.MULTISELECT 
-						|| (keyType == PresetKeyType.CHECK && count > 1)
-						|| key.startsWith(Tags.KEY_ADDR_BASE)
-						|| count > 5) {
-						rowLayout.addView(addTextRow(keyType, hint, key, value, adapter));
-					} else if (preset.getKeyType(key) == PresetKeyType.COMBO) {
-						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, null);
-						row.keyView.setText(hint != null?hint:key);
-						row.keyView.setTag(key);
-						for (int i=0;i< count;i++) {
-							Object o = adapter.getItem(i);
-							String v = "";
-							String description = "";
-							if (o instanceof ValueWithCount) {
-								v = ((ValueWithCount)o).getValue();
-								description = ((ValueWithCount)o).getDescription();
-							} else if (o instanceof StringWithDescription) {
-								v = ((StringWithDescription)o).getValue();
-								description = ((StringWithDescription)o).getDescription();
-							} else if (o instanceof String) {
-								v = (String)o;
-								description = v;
-							}
-							if (description==null) {
-								description=v;
-							}
-							row.addButton(description, v, v.equals(value));
-						}
-						rowLayout.addView(row);
-						row.getRadioGroup().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(RadioGroup group, int checkedId) {
-								RadioButton button = (RadioButton) group.findViewById(checkedId);
-								tagListener.updateSingleValue(key, (String)button.getTag());
-							}
-						});
-					} else if (preset.getKeyType(key) == PresetKeyType.CHECK) {
-						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, null);
-						row.keyView.setText(hint != null?hint:key);
-						row.keyView.setTag(key);
-						Object o = adapter.getItem(0);
-						final String v;
-						String description = "";
-						if (count==1) {
-							if (o instanceof ValueWithCount) {
-								v = ((ValueWithCount)o).getValue();
-								description = ((ValueWithCount)o).getDescription();
-							} else if (o instanceof StringWithDescription) {
-								v = ((StringWithDescription)o).getValue();
-								description = ((StringWithDescription)o).getDescription();
-							} else if (o instanceof String) {
-								v = (String)o;
-								description = v;
-							} else {
-								v = "";
-							}
-						} else {
-							v = "";
-						}
-						if (description==null) {
-							description=v;
-						}
-						row.getCheckBox().setChecked(v.equals(value));
-						rowLayout.addView(row);
-						row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(
-									CompoundButton buttonView, boolean isChecked) {
-								tagListener.updateSingleValue(key, isChecked?v:"");
-							} 
-						});
-					}
-				}
-//			} else if (key.startsWith(Tags.KEY_ADDR_BASE)) { // make address tags always editable
-//				Set<String> usedKeys = allTags.keySet();
-//				ArrayAdapter<?> adapter = null;
-//				if (TagEditorFragment.isStreetName(key, usedKeys)) {
-//					adapter = nameAdapters.getStreetNameAutocompleteAdapter(Util.getArrayList(value));
-//				} else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
-//					adapter = nameAdapters.getPlaceNameAutocompleteAdapter(Util.getArrayList(value));
-//				}
-//				// String hint = preset.getHint(key);
-//				rowLayout.addView(addTextRow(null, null, key, value, adapter));
-			} else {
-				final TagStaticTextRow row = (TagStaticTextRow)inflater.inflate(R.layout.tag_form_static_text_row, null);
-				row.keyView.setText(key);
-				row.valueView.setText(value);
-				rowLayout.addView(row);
-			}
-		} else {
- 			Log.d(DEBUG_TAG, "addRow rowLayout null");
- 		}	
-	}
-	
-	TagTextRow addTextRow(PresetKeyType keyType, final String hint, final String key, final String value, final ArrayAdapter<?> adapter) {
-		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, null);
-		row.keyView.setText(hint != null?hint:key);
-		row.keyView.setTag(key);
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
-			row.valueView.setEllipsize(TruncateAt.END);
-		}
-		row.valueView.setText(value);
-		row.valueView.setAdapter(adapter);
-		if (keyType==PresetKeyType.TEXT && (adapter==null || adapter.getCount()>1)) {
-			row.valueView.setHint(R.string.tag_value_hint);
-		} else {
-			row.valueView.setHint(R.string.tag_multi_value_hint);
-		}
-		OnClickListener autocompleteOnClick = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (v.hasFocus()) {
-					((AutoCompleteTextView)v).showDropDown();
-				}
-			}
-		};
-		row.valueView.setOnClickListener(autocompleteOnClick);
-		row.valueView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (!hasFocus && !row.getValue().equals(value)) {
-					tagListener.updateSingleValue(key, row.getValue());
-				}
-			}
-		});
-		row.valueView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Log.d("TagEdit","onItemClicked value");
-				Object o = parent.getItemAtPosition(position);
-				if (o instanceof Names.NameAndTags) {
-					row.valueView.setText2(((NameAndTags)o).getName());
-					// applyTagSuggestions(((NameAndTags)o).getTags());
-				} else if (o instanceof ValueWithCount) {
-					row.valueView.setText2(((ValueWithCount)o).getValue());
-				} else if (o instanceof StringWithDescription) {
-					row.valueView.setText2(((StringWithDescription)o).getValue());
-				} else if (o instanceof String) {
-					row.valueView.setText2((String)o);
-				}
-				tagListener.updateSingleValue(key, row.getValue());
-			}
-		});
-		
-		return row;
-	}
 	
 	/**
 	 * Simpilified version for non-multi-select and preset only situation
@@ -702,6 +539,185 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		}
 		
 		return nonEditable;
+	}
+	
+
+
+	
+	private void addRow(LinearLayout rowLayout, final String key, final String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
+		if (rowLayout != null) {
+			if (preset != null) {
+				if (!preset.isFixedTag(key)) {
+					ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, value, preset, allTags);
+					int count = 0;
+					if (adapter!=null) {
+						count = adapter.getCount();
+					} else {
+						Log.d(DEBUG_TAG,"adapter null " + key + " " + value + " " + preset);
+					}
+					String hint = preset.getHint(key);
+					//
+					PresetKeyType keyType = preset.getKeyType(key);
+					String defaultValue = preset.getDefault(key);
+					
+					if (keyType == PresetKeyType.TEXT 
+						|| keyType == PresetKeyType.MULTISELECT 
+						|| (keyType == PresetKeyType.CHECK && count > 1)
+						|| key.startsWith(Tags.KEY_ADDR_BASE)
+						|| count > 5) {
+						rowLayout.addView(addTextRow(keyType, hint, key, value, defaultValue, adapter));
+					} else if (preset.getKeyType(key) == PresetKeyType.COMBO) {
+						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, null);
+						row.keyView.setText(hint != null?hint:key);
+						row.keyView.setTag(key);
+						for (int i=0;i< count;i++) {
+							Object o = adapter.getItem(i);
+							String v = "";
+							String description = "";
+							if (o instanceof ValueWithCount) {
+								v = ((ValueWithCount)o).getValue();
+								description = ((ValueWithCount)o).getDescription();
+							} else if (o instanceof StringWithDescription) {
+								v = ((StringWithDescription)o).getValue();
+								description = ((StringWithDescription)o).getDescription();
+							} else if (o instanceof String) {
+								v = (String)o;
+								description = v;
+							}
+							if (description==null) {
+								description=v;
+							}
+							if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
+								row.addButton(description, v, v.equals(defaultValue));
+							} else {
+								row.addButton(description, v, v.equals(value));
+							}
+						}
+						rowLayout.addView(row);
+						row.getRadioGroup().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(RadioGroup group, int checkedId) {
+								RadioButton button = (RadioButton) group.findViewById(checkedId);
+								tagListener.updateSingleValue(key, (String)button.getTag());
+							}
+						});
+					} else if (preset.getKeyType(key) == PresetKeyType.CHECK) {
+						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, null);
+						row.keyView.setText(hint != null?hint:key);
+						row.keyView.setTag(key);
+						Object o = adapter.getItem(0);
+						final String v;
+						String description = "";
+						if (count==1) {
+							if (o instanceof ValueWithCount) {
+								v = ((ValueWithCount)o).getValue();
+								description = ((ValueWithCount)o).getDescription();
+							} else if (o instanceof StringWithDescription) {
+								v = ((StringWithDescription)o).getValue();
+								description = ((StringWithDescription)o).getDescription();
+							} else if (o instanceof String) {
+								v = (String)o;
+								description = v;
+							} else {
+								v = "";
+							}
+						} else {
+							v = "";
+						}
+						if (description==null) {
+							description=v;
+						}
+						if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
+							row.getCheckBox().setChecked(v.equals(defaultValue));
+						} else {
+							row.getCheckBox().setChecked(v.equals(value));
+						}
+						rowLayout.addView(row);
+						row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(
+									CompoundButton buttonView, boolean isChecked) {
+								tagListener.updateSingleValue(key, isChecked?v:"");
+							} 
+						});
+					}
+				}
+//			} else if (key.startsWith(Tags.KEY_ADDR_BASE)) { // make address tags always editable
+//				Set<String> usedKeys = allTags.keySet();
+//				ArrayAdapter<?> adapter = null;
+//				if (TagEditorFragment.isStreetName(key, usedKeys)) {
+//					adapter = nameAdapters.getStreetNameAutocompleteAdapter(Util.getArrayList(value));
+//				} else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
+//					adapter = nameAdapters.getPlaceNameAutocompleteAdapter(Util.getArrayList(value));
+//				}
+//				// String hint = preset.getHint(key);
+//				rowLayout.addView(addTextRow(null, null, key, value, adapter));
+			} else {
+				final TagStaticTextRow row = (TagStaticTextRow)inflater.inflate(R.layout.tag_form_static_text_row, null);
+				row.keyView.setText(key);
+				row.valueView.setText(value);
+				rowLayout.addView(row);
+			}
+		} else {
+ 			Log.d(DEBUG_TAG, "addRow rowLayout null");
+ 		}	
+	}
+	
+	TagTextRow addTextRow(PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, null);
+		row.keyView.setText(hint != null?hint:key);
+		row.keyView.setTag(key);
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
+			row.valueView.setEllipsize(TruncateAt.END);
+		}
+		if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
+			row.valueView.setText(defaultValue);
+		} else {
+			row.valueView.setText(value);
+		}
+		row.valueView.setAdapter(adapter);
+		if (keyType==PresetKeyType.TEXT && (adapter==null || adapter.getCount() < 2)) {
+			row.valueView.setHint(R.string.tag_value_hint);
+		} else {
+			row.valueView.setHint(R.string.tag_autocomplete_value_hint);
+		}
+		OnClickListener autocompleteOnClick = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (v.hasFocus()) {
+					((AutoCompleteTextView)v).showDropDown();
+				}
+			}
+		};
+		row.valueView.setOnClickListener(autocompleteOnClick);
+		row.valueView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (!hasFocus && !row.getValue().equals(value)) {
+					tagListener.updateSingleValue(key, row.getValue());
+				}
+			}
+		});
+		row.valueView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Log.d("TagEdit","onItemClicked value");
+				Object o = parent.getItemAtPosition(position);
+				if (o instanceof Names.NameAndTags) {
+					row.valueView.setText2(((NameAndTags)o).getName());
+					// applyTagSuggestions(((NameAndTags)o).getTags());
+				} else if (o instanceof ValueWithCount) {
+					row.valueView.setText2(((ValueWithCount)o).getValue());
+				} else if (o instanceof StringWithDescription) {
+					row.valueView.setText2(((StringWithDescription)o).getValue());
+				} else if (o instanceof String) {
+					row.valueView.setText2((String)o);
+				}
+				tagListener.updateSingleValue(key, row.getValue());
+			}
+		});
+		
+		return row;
 	}
 	
 	/**

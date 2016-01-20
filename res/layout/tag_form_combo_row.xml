@@ -26,7 +26,7 @@
 	        android:paddingTop="5dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	        android:singleLine="true"
+	       	android:maxLines="2"
 	        android:gravity="top"
 	        android:layout_gravity="center_vertical"
 	         />	    
