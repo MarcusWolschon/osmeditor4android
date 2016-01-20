@@ -266,7 +266,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					ValueWithCount v = new ValueWithCount(value,1); // FIXME determine description in some way
 					adapter2.insert(v,0);
 				}	
-				if (adapter2.getCount() > 0) {
+				if (adapter2.getCount() > 1 || presetType == PresetKeyType.CHECK) {
 					return adapter2;
 				}
 			}
@@ -675,7 +675,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		} else {
 			row.valueView.setText(value);
 		}
-		row.valueView.setAdapter(adapter);
+		if (adapter != null && adapter.getCount() > 0) {
+			row.valueView.setAdapter(adapter);
+		}
 		if (keyType==PresetKeyType.TEXT && (adapter==null || adapter.getCount() < 2)) {
 			row.valueView.setHint(R.string.tag_value_hint);
 		} else {
