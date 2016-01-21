@@ -25,12 +25,10 @@ import android.media.MediaScannerConnection.OnScanCompletedListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.propertyeditor.TagFormFragment;
 
 /**
  * Helper class for loading and saving individual serializable objects to files.
