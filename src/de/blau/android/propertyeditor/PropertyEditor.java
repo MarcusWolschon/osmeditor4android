@@ -472,7 +472,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 		}
 		// if we haven't edited just exit
-		if (!same(currentTags,originalTags) || (currentParents != null && !currentParents.equals(originalParents)) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !currentMembers.equals(originalMembers)))) {
+		if (!same(currentTags,originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !currentMembers.equals(originalMembers)))) {
 			new AlertDialog.Builder(this)
 			.setNeutralButton(R.string.cancel, null)
 			.setNegativeButton(R.string.tag_menu_revert,        	
@@ -574,6 +574,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	
 	/**
 	 * Check if two set of tags are the same
+	 * Note: this considers order relevant
 	 * @return
 	 */
 	boolean same(ArrayList<LinkedHashMap<String,String>> tags1, ArrayList<LinkedHashMap<String,String>> tags2){
