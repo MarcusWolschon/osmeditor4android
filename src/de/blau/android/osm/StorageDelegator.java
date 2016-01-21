@@ -1775,10 +1775,16 @@ public class StorageDelegator implements Serializable, Exportable {
 				// this is essentially catastrophic and can only happen if something went really wrong
 				// running out of memory or disk, or HW failure
 				if (ctx != null) {
-					Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+					try {
+						Toast.makeText(ctx, R.string.toast_statesave_failed, Toast.LENGTH_LONG).show();
+					} catch (Exception ignored) {
+						Log.e(DEBUG_TAG,"Emergency toast failed with " + ignored.getMessage());
+					} catch (Error ignored) {
+						Log.e(DEBUG_TAG,"Emergency toast failed with " + ignored.getMessage());
+					}
 				}
-				SavingHelper.asyncExport(ctx, this); // ctx == null is checked
-				Log.d("StorageDelegator", "save of state file failed" );
+				SavingHelper.asyncExport(ctx, this); // ctx == null is checked in method
+				Log.d("StorageDelegator", "save of state file failed, written emergency change file" );
 			}
 			readingLock.unlock();
 		} else {
