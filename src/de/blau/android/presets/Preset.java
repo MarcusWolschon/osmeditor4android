@@ -545,7 +545,10 @@ public class Preset implements Serializable {
             		if (listValues != null) {
             			String v = attr.getValue("value");
             			if (v != null) {
-            				String d = attr.getValue("short_description");
+            				String d = attr.getValue("display_value");
+            				if (d == null) {
+            					d = attr.getValue("short_description");
+            				}
             				listValues.add(new StringWithDescription(v,po != null ? po.t(d):d));
             			}
             		}
