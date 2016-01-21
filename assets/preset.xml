@@ -339,7 +339,7 @@
             <combo key="generator:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" />
             <combo key="generator:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" />
             <space />
-            <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7,50,60" length="5" />
+            <reference ref="voltage_frequency" />
         </optional>
     </chunk>
     <chunk id="optional_bridge">
@@ -359,7 +359,8 @@
     </chunk>
     <chunk id="waterway">
         <reference ref="name_layer" />
-        <check key="intermittent" text="Is the water body intermittent (disappears seasonally)?" disable_off="true" />
+        <check key="intermittent" text="Intermittent" disable_off="true" />
+        <check key="seasonal" text="Seasonal" disable_off="true" />
         <check key="tidal" text="In the tidal range" disable_off="true" />
         <combo key="tunnel" text="Tunnel" values="culvert,yes" />
         <text key="width" text="Width (meters)" />
@@ -422,7 +423,22 @@
     <preset_link preset_name="Motorcar and -cycle (CH)" />
   </chunk>
   <chunk id="social_facility_for">
-    <combo key="social_facility:for" text="For group" values="abused,child,disabled,diseased,drug_addicted,homeless,juvenile,mental_health,migrant,orphan,senior,underprivileged,unemployed,victim" />
+    <combo key="social_facility:for" text="For group">
+        <list_entry value="abused" display_value="Abused" />
+        <list_entry value="child" display_value="Children" />
+        <list_entry value="disabled" display_value="Disabled" />
+        <list_entry value="diseased" display_value="Diseased" />
+        <list_entry value="drug_addicted" display_value="Drug addicted" />
+        <list_entry value="homeless" display_value="Homeless" />
+        <list_entry value="juvenile" display_value="Juveniles" />
+        <list_entry value="mental_health" display_value="Mental health" />
+        <list_entry value="migrant" display_value="Migrants" />
+        <list_entry value="orphan" display_value="Orphans" />
+        <list_entry value="senior" display_value="Elderly" />
+        <list_entry value="underprivileged" display_value="Underprivileged" />
+        <list_entry value="unemployed" display_value="Unemployed" />
+        <list_entry value="victim"  display_value="Victims" />
+ 	</combo>
   </chunk>
   <chunk id="car_brands">
     <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citroën;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;Renault;Saab;Seat;Škoda;Smart;SsangYong;Subaru;Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" />
@@ -575,7 +591,7 @@
                 <reference ref="highway_base" />
                 <check key="motorroad" text="Motorroad" disable_off="true" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-                <check key="trolley_wire" text="Overhead trolley wires" />
+                <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
@@ -618,7 +634,7 @@
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-		<check key="trolley_wire" text="Overhead trolley wires" />
+		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
@@ -661,7 +677,7 @@
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-		<check key="trolley_wire" text="Overhead trolley wires" />
+		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true" />
                 <reference ref="placement" />
             </optional>
             <reference ref="road_access_restrictions" />
@@ -702,7 +718,7 @@
                 <text key="ref" text="Reference" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-		<check key="trolley_wire" text="Overhead trolley wires" />
+		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
                 <reference ref="placement" />
                 <check key="passing_places" text="Passing Places" disable_off="true" />
             </optional>
@@ -728,11 +744,11 @@
                 <text key="ref" text="Reference" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-		<check key="trolley_wire" text="Overhead trolley wires" />
+		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
         </item> <!-- Residential -->
-        <item name="Bicycle Road" icon="icons/png/highway_residential_sp.png" type="way" preset_name_label="true">
+        <item name="Bicycle Road" icon="icons/png/highway_residential_sp.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:bicycle_road"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:bicycle_road"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:bicycle_road" />
@@ -773,7 +789,7 @@
                 <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
-		<check key="trolley_wire" text="Overhead trolley wires" />
+		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
             </optional>
             <reference ref="road_access_restrictions" />
         </item> <!-- Living Street -->
@@ -890,7 +906,7 @@
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
-                <check key="trolley_wire" text="Overhead trolley wires" />
+                <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
                 <combo key="junction" text="Junction" values="roundabout,jughandle,yes" />
             </optional>
             <reference ref="road_access_restrictions" />
@@ -1003,7 +1019,7 @@
             </optional>
         </item> <!-- Path -->
         <separator/>
-        <item name="Dedicated Bridleway" icon="icons/png/bridleway.png" type="way" preset_name_label="true">
+        <item name="Dedicated Bridleway" icon="icons/png/bridleway.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=bridleway"
                   da.href="http://wiki.openstreetmap.org/wiki/Da:Tag:highway=bridleway"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=bridleway"
@@ -1019,7 +1035,7 @@
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
             </optional>
         </item> <!-- Dedicated Bridleway -->
-        <item name="Cycle Lane/Track" type="way" preset_name_label="true">
+        <item name="Cycle Lane/Track" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Bicycle"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Bicycle"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Bicycle"
@@ -1043,7 +1059,7 @@
                 <check key="oneway" text="Oneway" disable_off="true" />
             </optional>
         </item> <!-- Cycle Lane/Track -->
-        <item name="Dedicated Cycleway" icon="icons/png/cycleway.png" type="way" preset_name_label="true">
+        <item name="Dedicated Cycleway" icon="icons/png/cycleway.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=cycleway"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=cycleway"
                   fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:highway=cycleway"
@@ -1061,7 +1077,7 @@
                 <combo key="foot" text="Pedestrians" values="yes,no" />
             </optional>
         </item> <!-- Dedicated Cycleway -->
-        <item name="Segregated Foot- and Cycleway" icon="icons/png/segregated_foot_and_cycleway.png" type="way" preset_name_label="true">
+        <item name="Segregated Foot- and Cycleway" icon="icons/png/segregated_foot_and_cycleway.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=cycleway"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=cycleway"
                   it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:highway=cycleway" />
@@ -1075,7 +1091,7 @@
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
             </optional>
         </item> <!-- Segregated Foot- and Cycleway -->
-        <item name="Combined Foot- and Cycleway" icon="icons/png/foot_and_cycleway.png" type="way" preset_name_label="true">
+        <item name="Combined Foot- and Cycleway" icon="icons/png/foot_and_cycleway.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=cycleway"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:highway=cycleway"
                   it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:highway=cycleway" />
@@ -1292,7 +1308,17 @@
                   pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Key:traffic_calming"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:traffic_calming" />
             <space />
-            <combo key="traffic_calming" text="Type" values="yes,bump,chicane,choker,cushion,hump,island,rumble_strip,table" match="key" values_searchable="true" />
+			<combo key="traffic_calming" text="Type" match="key" values_searchable="true" values_context="traffic_calming" >
+                <list_entry value="yes" display_value="yes - choose a specific value instead if possible" icon="styles/standard/vehicle/traffic_calming.svg" />
+                <list_entry value="bump" display_value="Bump" icon="styles/standard/vehicle/bump.svg" />
+                <list_entry value="chicane" display_value="Chicane" icon="styles/standard/vehicle/chicane.svg" />
+                <list_entry value="choker" display_value="Choker" icon="styles/standard/vehicle/choker.svg" />
+                <list_entry value="cushion" display_value="Cushion" icon="styles/standard/vehicle/cushion.svg" />
+                <list_entry value="hump" display_value="Hump" icon="styles/standard/vehicle/hump.svg" />
+                <list_entry value="island" display_value="Island" icon="styles/standard/vehicle/island.svg" />
+                <list_entry value="rumble_strip" display_value="Rumble strip" icon="styles/standard/vehicle/rumble_strip.svg" />
+                <list_entry value="table" display_value="Table" icon="styles/standard/vehicle/table.svg" />
+            </combo>
         </item> <!-- Traffic Calming -->
         <item name="Passing Place" icon="icons/png/highway_passing_place_18020.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=passing_place"
@@ -1578,6 +1604,11 @@
             <key key="barrier" value="retaining_wall" />
             <reference ref="optional_height" />
         </item> <!-- Retaining Wall -->
+        <item name="Jersey Barrier" type="node,way,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:barrier=jersey_barrier" />
+            <key key="barrier" value="jersey_barrier" />
+            <combo key="material" text="Material" values="concrete,plastic" />
+        </item> <!-- Jersey Barrier -->
         <item name="Ditch" name_context="Barrier" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:barrier=ditch"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:barrier=ditch"
@@ -1834,7 +1865,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="vehicle" text="All vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-	    <reference ref="additional_access_tags" /> 
+	    	<reference ref="additional_access_tags" /> 
         </item> <!-- All vehicles -->
         <item name="Motor vehicle" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
@@ -1850,7 +1881,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-	    <reference ref="additional_access_tags" /> 
+	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle -->
         <item name="Motor vehicle (CH)" icon="icons/png/no_motor_vehicles_CH.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
@@ -1866,7 +1897,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:access" />
             <space />
             <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,no" match="key" />
-	    <reference ref="additional_access_tags" /> 
+	    	<reference ref="additional_access_tags" /> 
         </item> <!-- Motor vehicle CH -->
         <item name="Motorcar and -cycle (CH)" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
@@ -2152,7 +2183,6 @@
                 <text key="name" text="Name" />
                 <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" />
                 <text key="width" text="Width (meters)" />
-                <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down" />
             </optional>
         </item> <!-- Culvert -->
         <separator/>
@@ -2306,19 +2336,6 @@
             <key key="natural" value="bay" />
             <text key="name" text="Name" />
         </item> <!-- Bay -->
-        <item name="Cliff" icon="presets/cliff.png" type="node,way,closedway,relation" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:natural=cliff"
-                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:natural=cliff"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:natural=cliff"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:natural=cliff"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:natural=cliff"
-                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:natural=cliff"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:natural=cliff" />
-            <label text="A steep rock face exposure, with a significant vertical, or near vertical (leave the lower face to the right of the way)." />
-            <space />
-            <key key="natural" value="cliff" />
-            <text key="name" text="Name" />
-        </item> <!-- Cliff -->
     </group> <!-- Water -->
     <group name="Shipping" icon="icons/png/water_ferry_terminal_12048.png">
         <item name="Ferry Terminal" icon="icons/png/water_ferry_terminal_12048.png" type="node,closedway" preset_name_label="true">
@@ -4323,7 +4340,7 @@
             <text key="name" text="Name" />
             <text key="artist_name" text="Artist Name" />
         </item> <!-- Artwork -->
-        <item name="Recording Studio" icon="icons/png/amenity_studio_12256.png" type="node,closedway,relation" preset_name_label="true">
+        <item name="Studio" icon="icons/png/amenity_studio_12256.png" type="node,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=studio"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=studio"
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=studio"
@@ -4358,7 +4375,7 @@
             <key key="religion" value="christian" />
             <text key="name" text="Name" />
             <combo key="building" text="Building type" values="basilica,cathedral,chapel,church,temple" values_searchable="true" />
-            <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,evangelical,greek_catholic,greek_orthodox,jehovahs_witness,lutheran,methodist,mormon,new_apostolic,orthodox,pentecostal,presbyterian,protestant,quaker,roman_catholic,russian_orthodox,seventh_day_adventist" values_context="christian" values_searchable="true" />
+            <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,evangelical,greek_catholic,greek_orthodox,jehovahs_witness,lutheran,methodist,mormon,new_apostolic,orthodox,pentecostal,presbyterian,protestant,quaker,roman_catholic,russian_orthodox,seventh_day_adventist,spiritist" values_context="christian" values_searchable="true" /> 
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />
@@ -4761,17 +4778,6 @@
             <reference ref="name_oh_wheelchair" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Dentist -->
-        <item name="Nursing Home" icon="icons/png/health_nursing_home_12093.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=nursing_home"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=nursing_home"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=nursing_home"
-                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=nursing_home"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=nursing_home" />
-            <space />
-            <key key="amenity" value="nursing_home" />
-            <reference ref="name_operator" />
-            <reference ref="link_contact_address" />
-        </item> <!-- Nursing Home -->
         <item name="Pharmacy" icon="icons/png/health_pharmacy.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=pharmacy"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=pharmacy"
@@ -4839,6 +4845,119 @@
             <reference ref="link_contact_address_payment" />
         </item> <!-- Veterinary -->
     </group> <!-- Health -->
+    <group name="Emergency" icon="icons/png/emergency_sos_point_17028.png">
+		<item name="Ambulance Station" icon="icons/png/emergency_ambulance_station_17007.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=ambulance_station"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=ambulance_station"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:emergency=ambulance_station"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:emergency=ambulance_station" />
+            <space />
+            <key key="emergency" value="ambulance_station" />
+            <reference ref="name_operator" />
+            <reference ref="link_contact_address" />
+        </item> <!-- Ambulance Station -->
+        <item name="Automated Defibrillator" icon="icons/png/emergency_defibrillator_17006.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=defibrillator"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=defibrillator"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:emergency=defibrillator"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:emergency=defibrillator"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:emergency=defibrillator"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:emergency=defibrillator" />
+            <space />
+            <key key="emergency" value="defibrillator" />
+            <reference ref="oh_wheelchair_level" />
+            <text  key="operator" text="Operator" />
+            <check key="indoor" text="Located inside a building?" disable_off="true" />
+            <!-- lastcheck is in use for aed devices, but not yet well discussed or documented
+            <optional>
+                <text key="lastcheck"      text="Last check date (YYYY-MM-DD)" />
+                <text key="lastcheck:note" text="Last check note" />
+            </optional>
+            -->
+        </item> <!-- Automated Defibrillator -->
+        <item name="Fire Extinguisher" icon="icons/png/emergency_fire_extinguisher_17008.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=fire_extinguisher"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:emergency=fire_extinguisher"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:emergency=fire_extinguisher"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:emergency=fire_extinguisher"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:emergency=fire_extinguisher" />
+            <space />
+            <key key="emergency" value="fire_extinguisher" />
+            <text key="ref" text="Reference" />
+            <text key="operator" text="Operator" />
+            <check key="indoor" text="Indoor" />
+        </item> <!-- Fire Extinguisher -->
+        <item name="Fire Hose" icon="icons/png/emergency_fire_hose_17010.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=fire_hose"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:emergency=fire_hose" />
+            <space />
+            <key key="emergency" value="fire_hose" />
+            <text key="ref" text="Reference" />
+            <text key="operator" text="Operator" />
+        </item> <!-- Fire Hose -->
+       <item name="Fire Hydrant" icon="icons/png/emergency_fire_hydrant_17020.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=fire_hydrant"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=fire_hydrant"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:emergency=fire_hydrant"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:emergency=fire_hydrant"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:emergency=fire_hydrant"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:emergency=fire_hydrant"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:emergency=fire_hydrant"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:emergency=fire_hydrant" />
+            <space />
+            <key key="emergency" value="fire_hydrant" />
+            <combo key="fire_hydrant:type" text="Type" values="underground,pillar,wall,pond" values_context="pipeline" default="pillar" />
+            <combo key="fire_hydrant:diameter" text="Diameter (in mm)" values="50,80,100,150,200,250,300,400" />
+            <space />
+            <reference ref="name_ref" />
+            <text key="operator" text="Operator" />
+            <space />
+            <combo key="fire_hydrant:position" text="Hydrant Position" values="lane,parking_lot,sidewalk,green" values_context="hydrant position" />
+            <combo key="fire_hydrant:pressure" text="Pressure (in bar)" values="5,6,8,suction" />
+            <text key="fire_hydrant:count" text="Count" />
+        </item> <!-- Fire Hydrant -->
+		<item name="Water Tank" icon="icons/png/emergency_water_tank_22109.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=water_tank"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:emergency=fire_hose"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:emergency=fire_hose"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:emergency=fire_hose" />
+            <space />
+            <key key="emergency" value="water_tank" />
+            <reference ref="name_ref_operator" />
+            <space />
+            <text key="water_tank:volume" text="Volume (in liters)" />
+        </item> <!-- Water Tank -->
+        <separator />
+        <item name="Assembly Point" icon="styles/standard/emergency/assembly_point.svg" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=assembly_point"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=assembly_point" />
+            <space />
+            <key key="emergency" value="assembly_point" />
+            <reference ref="name_ref_operator" />
+        </item> <!-- Assembly Point -->
+        <item name="Emergency Phone" icon="icons/png/emergency_emergency_phone_17022.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=phone"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=phone"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:emergency=phone"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:emergency=phone"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:emergency=phone" />
+            <key key="emergency" value="phone" />
+			<text key="ref" text="Reference" />
+			<text key="operator" text="Operator" />
+        </item> <!-- Emergency Phone -->
+        <item name="Siren" icon="icons/png/emergency_siren_17026.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=siren"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=siren"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:emergency=siren" />
+            <key key="emergency" value="siren" />
+            <text key="ref" text="Reference" />
+            <text key="operator" text="Operator" />
+            <space />
+            <combo key="siren:type" text="Type" values="pneumatic,electronic,mechanical" />
+            <combo key="siren:purpose" text="Purpose" values="tornado,fire,air_raid,civil_defense" />
+            <text key="siren:range" text="Range (in meters)" />
+        </item> <!-- Emergency Phone -->
+    </group> <!-- Emergency -->
     <group name="Social Facilities" icon="icons/png/amenity_outreach_12252.png">
         <item name="Ambulantory Care" icon="icons/png/amenity_ambulantory_care_12248.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
@@ -4914,6 +5033,17 @@
             <text key="capacity" text="Capacity" />
             <reference ref="link_contact_address" />
         </item> <!-- Retirement Home -->
+        <item name="Nursing Home" icon="icons/png/amenity_nursing_home_12093.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=nursing_home"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=nursing_home"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=nursing_home"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=nursing_home"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=nursing_home" />
+            <space />
+            <key key="amenity" value="nursing_home" />
+            <reference ref="name_operator" />
+            <reference ref="link_contact_address" />
+        </item> <!-- Nursing Home -->
         <item name="Group Home" icon="icons/png/amenity_group_home_12251.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:social_facility"
@@ -4929,7 +5059,7 @@
             <reference ref="name_operator" />
             <text key="capacity" text="Capacity" />
             <reference ref="link_contact_address" />
-        </item> <!-- Retirement Home -->
+        </item> <!-- Group Home -->
         <item name="Outreach" icon="icons/png/amenity_outreach_12252.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:social_facility"
@@ -4944,7 +5074,7 @@
             <reference ref="social_facility_for" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address" />
-        </item> <!-- Retirement Home -->
+        </item> <!-- Outreach -->
         <item name="Shelter" icon="icons/png/amenity_shelter_12253.png" type="node,closedway" preset_name_label="true" name_context="social_facility" >
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:social_facility"
@@ -4959,7 +5089,7 @@
             <reference ref="name_operator" />
             <text key="capacity" text="Capacity" />
             <reference ref="link_contact_address" />
-        </item> <!-- Retirement Home -->
+        </item> <!-- Shelter -->
         <item name="Social Club" icon="icons/png/amenity_social_club_21172.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:social_facility"
@@ -4973,7 +5103,7 @@
             <key key="social_facility" value="social_club" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address" />
-        </item> <!-- Retirement Home -->
+        </item> <!-- Social Club -->
         <item name="Social Workshop" icon="icons/png/amenity_social_workshop_12254.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:social_facility"
@@ -4987,7 +5117,7 @@
             <key key="social_facility" value="workshop" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address" />
-        </item> <!-- Retirement Home -->
+        </item> <!-- Social Workshop -->
         <item name="Youth Centre" icon="icons/png/amenity_youth_centre_12356.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:social_facility"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Key:social_facility"
@@ -5000,7 +5130,7 @@
             <key key="amenity" value="youth_centre" />
             <reference ref="name_operator" />
             <reference ref="link_contact_address" />
-        </item> <!-- Retirement Home -->
+        </item> <!-- Youth Centre -->
     </group> <!-- Social Facility -->
     <group name="Facilities" icon="icons/png/amenity_telephone.png">
         <item name="Toilets/Restrooms" icon="icons/png/amenity_toilets.png" type="node,closedway" preset_name_label="true">
@@ -5076,14 +5206,6 @@
             <check key="payment:telephone_cards" text="Telephone cards" disable_off="true" />
             <preset_link preset_name="Payment Methods" />
         </item> <!-- Telephone -->
-        <item name="Emergency Phone" icon="icons/png/amenity_emergency_phone_17022.png" type="node" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=phone"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=phone"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:emergency=phone"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:emergency=phone"
-                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:emergency=phone" />
-            <key key="emergency" value="phone" />
-        </item> <!-- Emergency Phone -->
         <item name="Internet Access" icon="presets/network-wireless.svg" type="node,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:internet_access"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:internet_access"
@@ -5096,25 +5218,6 @@
             <space />
             <reference ref="internet" />
         </item> <!-- Internet Access -->
-        <item name="Automated Defibrillator" icon="icons/png/health_defibrillator_17006.png" type="node" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=defibrillator"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=defibrillator"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:emergency=defibrillator"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:emergency=defibrillator"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:emergency=defibrillator"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:emergency=defibrillator" />
-            <space />
-            <key key="emergency" value="defibrillator" />
-            <reference ref="oh_wheelchair_level" />
-            <text  key="operator" text="Operator" />
-            <check key="indoor" text="Located inside a building?" disable_off="true" />
-            <!-- lastcheck is in use for aed devices, but not yet well discussed or documented
-            <optional>
-                <text key="lastcheck"      text="Last check date (YYYY-MM-DD)" />
-                <text key="lastcheck:note" text="Last check note" />
-            </optional>
-            -->
-        </item> <!-- Automated Defibrillator -->
         <item name="Clock" icon="icons/png/tourist_clock.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=clock"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=clock"
@@ -5309,27 +5412,6 @@
                 <text key="description" text="Description" />
             </optional>
         </item> <!-- Drinking Water -->
-        <item name="Fire Hydrant" icon="icons/png/amenity_fire_hydrant_17020.png" type="node" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=fire_hydrant"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:emergency=fire_hydrant"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:emergency=fire_hydrant"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:emergency=fire_hydrant"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:emergency=fire_hydrant"
-                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:emergency=fire_hydrant"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:emergency=fire_hydrant"
-                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:emergency=fire_hydrant" />
-            <space />
-            <key key="emergency" value="fire_hydrant" />
-            <combo key="fire_hydrant:type" text="Type" values="underground,pillar,wall,pond" values_context="pipeline" default="pillar" />
-            <combo key="fire_hydrant:diameter" text="Diameter (in mm)" values="50,80,100,150,200,250,300,400" />
-            <space />
-            <reference ref="name_ref" />
-            <text key="operator" text="Operator" />
-            <space />
-            <combo key="fire_hydrant:position" text="Hydrant Position" values="lane,parking_lot,sidewalk,green" values_context="hydrant position" />
-            <combo key="fire_hydrant:pressure" text="Pressure (in bar)" values="5,6,8,suction" />
-            <text key="fire_hydrant:count" text="Count" />
-        </item> <!-- Fire Hydrant -->
         <item name="Compressed Air" icon="styles/standard/vehicle/compressed_air.svg" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=compressed_air"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:amenity=compressed_air"
@@ -5890,7 +5972,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
-            <combo key="building" text="Building" values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />
+            <combo key="building" text="Building" values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />            
             <text key="name" text="Name" />
             <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" text_context="building" />
             <text key="height" text="Height (meters)" />
@@ -5910,7 +5992,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
             <space />
-            <combo key="building" text="Building" values="residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof" default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
+            <combo key="building" text="Building" values="yes,residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof" default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
             <text key="name" text="Name" />
             <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" text_context="building" />
             <text key="height" text="Height (meters)" />
@@ -6395,7 +6477,7 @@
                 <combo key="plant:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" />
                 <combo key="plant:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" />
                 <space />
-                <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7,50,60" length="5" />
+                <reference ref="voltage_frequency" />
             </optional>
         </item> <!-- Power Plant -->
         <group name="Power Generator" icon="icons/png/power_station_coal.png">
@@ -6491,7 +6573,7 @@
                 <combo key="generator:method" text="Method" values_context="generator method" values="photovoltaic,thermal" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="solar_photovoltaic_panel" short_description="photovoltaic" />
-                    <list_entry value="solar_thermal_collector" short_description="thermal" />
+                    <list_entry value="solar_thermal_collector" short_description="solar thermal" />
                     <list_entry value="steam_turbine" short_description="thermal" />
                 </combo>
                 <reference ref="power_output" />
@@ -6666,16 +6748,35 @@
             </optional>
         </item> <!-- Power Compensator -->
         <separator/>
-        <item name="Cable Distribution Cabinet" icon="icons/png/power_cable_distribution_cabinet_26001.png" type="node" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:power=cable"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:power=cable"
-                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:power=cable" />
+        <item name="Power Street Cabinet" icon="icons/png/power_cable_distribution_cabinet_26001.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=street_cabinet" />
             <space />
-            <key key="power" value="cable_distribution_cabinet" />
-            <combo key="voltage" text="Voltage in Volts (V)" values="600,400,220,110,low" /> <!-- Recheck values -->
-            <reference ref="ref_operator_branch" />
-        </item> <!-- Cable Distribution Cabinet -->
+            <key key="man_made" value="street_cabinet" />
+            <key key="street_cabinet" value="power" />
+             <combo key="voltage" text="Voltage in Volts (V)" values="600,400,220,110,low" /> <!-- Recheck values -->
+             <reference ref="ref_operator_branch" />        
+        </item> <!-- Power Street Cabinet -->
         <separator/>
+		<item name="Transformer Tower" icon="styles/standard/power/transformer_tower.svg" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:building=transformer_tower" />
+            <space />
+            <key key="building" value="transformer_tower" />
+            <text key="height" text="Height (meters)" />
+            <reference ref="ref_operator_branch" />
+            <preset_link preset_name="Power Substation" />
+        </item> <!-- Transformer Tower -->
+        <item name="Power Portal" icon="styles/standard/power/portal.svg" type="node,way" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:power=portal"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:power=portal" />
+            <space />
+            <key key="power" value="portal" />
+            <text key="height" text="Height (meters)" />
+            <combo key="structure" text="Type of construction" values="lattice,tubular,solid" />
+            <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" />
+            <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="color" />
+            <reference ref="ref_operator_branch" />
+            <combo key="design" text="Portal design" values="portal,portal_two-level,portal_three-level" values_context="power" />
+        </item> <!-- Power Portal -->
         <item name="Power Tower" icon="icons/png/power_tower_high2.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:power=tower"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:power=tower"
@@ -6746,6 +6847,12 @@
                 <combo key="phases" text="Phases" values="1,3" length="1" />
             </optional>
         </item> <!-- Pole with Transformer-->
+        <item name="Insulator" icon="styles/standard/power/insulator.svg" type="node,way" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:power=insulator" />
+            <space />
+            <key key="power" value="insulator" />
+            <reference ref="ref_operator_branch" />
+        </item> <!-- Insulator -->
         <item name="Power Line" icon="icons/png/power_generator_26005.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:power=line"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:power=line"
@@ -7565,19 +7672,20 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Chemist -->
-        <item name="Hairdresser/Barber" icon="icons/png/shopping_hairdresser.png" type="node,closedway" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=hairdresser"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=hairdresser"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:shop=hairdresser"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=hairdresser"
-                  pl.href="http://wiki.openstreetmap.org/wiki/PL:Tag:shop=hairdresser"
-                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:shop=hairdresser"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=hairdresser" />
+	 	<item name="Cosmetics" icon="icons/png/shopping_cosmetics_29040.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=cosmetics" />
             <space />
-            <key key="shop" value="hairdresser" />
+            <key key="shop" value="cosmetics" />
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
-        </item> <!-- Hairdresser/Barber -->
+        </item> <!-- Cosmetics -->
+        <item name="Perfumery" icon="styles/standard/shop/perfumery.svg" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=perfumery" />
+            <space />
+            <key key="shop" value="perfumery" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Perfumery -->
         <item name="Beauty" icon="icons/png/shopping_beauty_29906.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=beauty"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=beauty"
@@ -7591,6 +7699,26 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Beauty -->
+		<item name="Tobacco" icon="icons/png/shopping_tobacco_29141.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=tobacco" />
+            <space />
+            <key key="shop" value="tobacco" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Tobacco -->
+        <item name="Hairdresser/Barber" icon="icons/png/shopping_hairdresser.png" type="node,closedway" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=hairdresser"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=hairdresser"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:shop=hairdresser"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=hairdresser"
+                  pl.href="http://wiki.openstreetmap.org/wiki/PL:Tag:shop=hairdresser"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:shop=hairdresser"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=hairdresser" />
+            <space />
+            <key key="shop" value="hairdresser" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Hairdresser/Barber -->
         <item name="Tattoo" icon="icons/png/shopping_tattoo_29190.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=tattoo"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=tattoo"
@@ -8260,6 +8388,19 @@
             <key key="natural" value="valley" />
             <reference ref="name_wikipedia" />
         </item> <!-- Valley -->
+        <item name="Cliff" icon="presets/cliff.png" type="node,way,closedway,relation" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:natural=cliff"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:natural=cliff"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:natural=cliff"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:natural=cliff"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:natural=cliff"
+                  pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:natural=cliff"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:natural=cliff" />
+            <label text="A steep rock face exposure, with a significant vertical, or near vertical (leave the lower face to the right of the way)." />
+            <space />
+            <key key="natural" value="cliff" />
+            <text key="name" text="Name" />
+        </item> <!-- Cliff -->
         <item name="Cave Entrance" icon="icons/png/poi_cave.png" type="node,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:natural=cave_entrance"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:natural=cave_entrance"
@@ -8587,6 +8728,7 @@
             <space />
             <key key="landuse" value="orchard" />
             <text key="name" text="Name" />
+            <combo key="trees" text="Trees" values="olive_trees,apple_trees,oil_palms,orange_trees,almond_trees,banana_plants,coconut_palms,hazel_plants,cherry_trees,persimmon_trees,walnut_trees,plum_trees,peach_trees,tea_plants" />
         </item> <!-- Orchard -->
         <item name="Vineyard" icon="icons/png/landuse_wine_29203.png" type="closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=vineyard"
