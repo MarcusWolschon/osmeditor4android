@@ -30,6 +30,7 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.propertyeditor.TagFormFragment;
 
 /**
  * Helper class for loading and saving individual serializable objects to files.
@@ -39,6 +40,8 @@ import de.blau.android.R;
  */
 public class SavingHelper<T extends Serializable> {
 
+	private static final String DEBUG_TAG = SavingHelper.class.getSimpleName();
+	
 	/**
 	 * Date pattern used for the export file name.
 	 */
@@ -254,11 +257,11 @@ public class SavingHelper<T extends Serializable> {
 		new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {
-			
+
 				String filename = DateFormatter
 						.getFormattedString(DATE_PATTERN_EXPORT_FILE_NAME_PART) +
 						"." + exportable.exportExtension();
-				
+
 				OutputStream outputStream = null;
 				File outfile = null;
 				try {
@@ -274,26 +277,39 @@ public class SavingHelper<T extends Serializable> {
 				}
 				// workaround for android bug - make sure export file shows up via MTP
 				if (ctx != null && outfile != null){
-					triggerMediaScanner(ctx, outfile);
+					try {
+						triggerMediaScanner(ctx, outfile);
+					} catch (Exception ignored) {
+						Log.e(DEBUG_TAG,"Toast in asyncExport failed with " + ignored.getMessage());
+					} catch (Error ignored) {
+						Log.e(DEBUG_TAG,"Toast in asyncExport failed with " + ignored.getMessage());
+					}
 				}
 				return filename;
 			}
-			
+
 			@Override
 			protected void onPostExecute(String result) {
 				if (ctx != null) {
-					if (result == null) {
-						Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
-					} else {
-						Log.i("SavingHelper", "Successful export to " + result);
-						String text = ctx.getResources().getString(R.string.toast_export_success, result);
-						Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+					try {
+						if (result == null) {
+							Toast.makeText(ctx, R.string.toast_export_failed, Toast.LENGTH_SHORT).show();
+						} else {
+							Log.i("SavingHelper", "Successful export to " + result);
+							String text = ctx.getResources().getString(R.string.toast_export_success, result);
+
+							Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+						}
+					} catch (Exception ignored) {
+						Log.e(DEBUG_TAG,"Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
+					} catch (Error ignored) {
+						Log.e(DEBUG_TAG,"Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
 					}
 				}
 			};
 		}.execute();
 	}
-	
+
 	/**
 	 * Trigger the media scanner to ensure files show up in MTP.
 	 * @param context a context to use for communication with the media scanner
