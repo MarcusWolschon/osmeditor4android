@@ -249,24 +249,27 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + values);
 				if (values != null && !values.isEmpty()) {
 					ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(values);
-					Collections.sort(result);
+					if (preset.sortIt(key)) {
+						Collections.sort(result);
+					}
 					for (StringWithDescription s:result) {
 						if (counter != null && counter.containsKey(s.getValue())) {
 							continue; // skip stuff that is already listed
 						}
 						counter.put(s.getValue(),Integer.valueOf(1));
+						
 						adapter2.add(new ValueWithCount(s.getValue(), s.getDescription(), true));
 					}
 					Log.d(DEBUG_TAG,"key " + key + " type " + preset.getKeyType(key));
 				} 
-				if (!counter.containsKey("") && !counter.containsKey(null) && presetType != PresetKeyType.CHECK) {
+				if (!counter.containsKey("") && !counter.containsKey(null)) { // add empty value so that we can remove tag
 					adapter2.insert(new ValueWithCount("", getString(R.string.tag_not_set), true),0); // FIXME allow unset value depending on preset
 				}
-				if (value != null && !counter.containsKey(value) && (presetType != PresetKeyType.CHECK && !"".equals(value))) {
+				if (value != null && !"".equals(value) && !counter.containsKey(value)) { // add in any non-standard non-empty values
 					ValueWithCount v = new ValueWithCount(value,1); // FIXME determine description in some way
 					adapter2.insert(v,0);
 				}	
-				if (adapter2.getCount() > 1 || presetType == PresetKeyType.CHECK) {
+				if (adapter2.getCount() > 1) {
 					return adapter2;
 				}
 			}
@@ -562,11 +565,10 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					
 					if (keyType == PresetKeyType.TEXT 
 						|| keyType == PresetKeyType.MULTISELECT 
-						|| (keyType == PresetKeyType.CHECK && count > 1)
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
 						|| count > 5) {
 						rowLayout.addView(addTextRow(keyType, hint, key, value, defaultValue, adapter));
-					} else if (preset.getKeyType(key) == PresetKeyType.COMBO) {
+					} else if (preset.getKeyType(key) == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
 						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, null);
 						row.keyView.setText(hint != null?hint:key);
 						row.keyView.setTag(key);
@@ -627,11 +629,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 						if (description==null) {
 							description=v;
 						}
-						if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
-							row.getCheckBox().setChecked(v.equals(defaultValue));
-						} else {
-							row.getCheckBox().setChecked(v.equals(value));
-						}
+						
+						row.getCheckBox().setChecked(v.equals(preset.getOnValue(key)));
+						
 						rowLayout.addView(row);
 						row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 							@Override

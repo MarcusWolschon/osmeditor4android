@@ -504,7 +504,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			|| usedKeys.contains(Tags.KEY_LANDUSE) || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY));
 	}
 	
-	protected ArrayAdapter<?> getValueAutocompleteAdapter(LinearLayout rowLayout, TagEditRow row) {
+	protected ArrayAdapter<?> getValueAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, TagEditRow row) {
 		ArrayAdapter<?> adapter = null;
 		String key = row.getKey();
 		if (key != null && key.length() > 0) {
@@ -549,7 +549,9 @@ public class TagEditorFragment extends SherlockFragment implements
 					Log.d(DEBUG_TAG,"setting autocomplete adapter for values " + values);
 					if (values != null && !values.isEmpty()) {
 						ArrayList<StringWithDescription> result = new ArrayList<StringWithDescription>(values);
-						Collections.sort(result);
+						if (autocompletePresetItem.sortIt(key)) {
+							Collections.sort(result);
+						}
 						for (StringWithDescription s:result) {
 							if (counter != null && counter.containsKey(s.getValue())) {
 								continue; // skip stuff that is already listed
@@ -678,7 +680,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					row.valueEdit.setAdapter(getValueAutocompleteAdapter(rowLayout, row));
+					row.valueEdit.setAdapter(getValueAutocompleteAdapter(autocompletePresetItem, rowLayout, row));
 					if (autocompletePresetItem != null && autocompletePresetItem.getKeyType(row.getKey())==PresetKeyType.MULTISELECT) { 
 						// FIXME this should be somewhere better obvious since it creates a non obvious side effect
 						row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(LIST_SEPARATOR));

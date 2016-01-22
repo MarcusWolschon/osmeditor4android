@@ -375,7 +375,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 			if (allTags != null && allTags.size() > 0) {
 				if ( owner.presets != null) { // 
 					PresetItem relationPreset = Preset.findBestMatch(owner.presets,allTags.get(0));
-					if (relationPreset != null) {
+					if (relationPreset != null && relationPreset.getRoles() != null) {
 						roles.addAll(relationPreset.getRoles());
 					}
 				}

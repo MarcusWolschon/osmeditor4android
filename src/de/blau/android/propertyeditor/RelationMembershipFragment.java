@@ -297,7 +297,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 			if ( r!= null) {			
 				if ( owner.presets != null) {
 					PresetItem relationPreset = Preset.findBestMatch(owner.presets,r.getTags());
-					if (relationPreset != null) {
+					if (relationPreset != null && relationPreset.getRoles() != null) {
 						roles.addAll(relationPreset.getRoles());
 					}
 				}
@@ -458,7 +458,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 				
 		if (((PropertyEditor)getActivity()).presets != null && (tagListener.getBestPreset() != null)) {
 			PresetItem relationPreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).tagEditorFragment.getKeyValueMapSingle(false)); // FIXME
-			if (relationPreset != null) {
+			if (relationPreset != null && tagListener.getBestPreset() != null && tagListener.getBestPreset().getRoles() != null) {
 				roles.addAll(tagListener.getBestPreset().getRoles());
 			}
 		}

@@ -112,7 +112,7 @@ public class Preset implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 6L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -450,6 +450,9 @@ public class Preset implements Serializable {
             			values = "," + value_off;
             		}
              		currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values);
+             		if (!"yes".equals(value_on)) {
+             			currentItem.addOnValue(key,value_on);
+             		}
             		String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
             		if (defaultValue != null) {
             			currentItem.addDefault(key,defaultValue);
@@ -462,15 +465,16 @@ public class Preset implements Serializable {
             		if (match != null) {
             			currentItem.setMatchType(key,match);
             		}
-            	} else if ("combo".equals(name)) {
+            	} else if ("combo".equals(name) || "multiselect".equals(name)) {
+            		boolean multiselect = "multiselect".equals(name);
             		String key = attr.getValue("key");
             		String delimiter = attr.getValue("delimiter");
             		if (delimiter == null) {
-            			delimiter = ","; // combo uses "," as default
+            			delimiter = multiselect ? ";" : ","; // combo uses "," multiselect ";" as default
             		}
-            		String comboValues = attr.getValue("values");
-            		if (comboValues != null) {
-            			currentItem.addTag(inOptionalSection, key, PresetKeyType.COMBO, comboValues, delimiter);
+            		String values = attr.getValue("values");
+            		if (values != null) {
+            			currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, values, delimiter);
             		} else {
             			listKey = key;
             			listValues = new ArrayList<StringWithDescription>();
@@ -487,30 +491,9 @@ public class Preset implements Serializable {
             		if (match != null) {
             			currentItem.setMatchType(key,match);
             		}
-            	} else if ("multiselect".equals(name)) {
-            		String key = attr.getValue("key");
-            		String delimiter = attr.getValue("delimiter");
-            		if (delimiter == null) {
-            			delimiter = ";"; // multiselect uses ";" as default
-            		}
-            		String multiselectValues = attr.getValue("values");
-            		if (multiselectValues != null) {
-            			currentItem.addTag(inOptionalSection, key, PresetKeyType.MULTISELECT, multiselectValues, delimiter); 
-            		} else {
-            			listKey = key;
-            			listValues = new ArrayList<StringWithDescription>();
-            		}
-            		String defaultValue = attr.getValue("default");
-            		if (defaultValue != null) {
-            			currentItem.addDefault(key,defaultValue);
-            		}
-               		String text = attr.getValue("text");
-            		if (text != null) {
-            			currentItem.addHint(key,text);
-            		}
-              		String match = attr.getValue("match");
-            		if (match != null) {
-            			currentItem.setMatchType(key,match);
+             		String sort = attr.getValue("values_sort");
+            		if (sort != null) {
+            			currentItem.setSort(key,sort.equals("yes")); // normally this will not be set because true is the default
             		}
             	} else if ("role".equals(name)) {
             		currentItem.addRole(attr.getValue("key")); 
@@ -535,11 +518,12 @@ public class Preset implements Serializable {
             			addToTagItems(currentItem, chunk.getRecommendedTags());
                			
             			currentItem.hints.putAll(chunk.hints);
-            			currentItem.defaults.putAll(chunk.defaults);
+            			currentItem.addAllDefaults(chunk.defaults);
             			currentItem.keyType.putAll(chunk.keyType);
-            			currentItem.matchType.putAll(chunk.matchType);
-            			currentItem.roles.addAll(chunk.roles); // FIXME this and the following could lead to duplicate entries
-            			currentItem.linkedPresetNames.addAll(chunk.linkedPresetNames);
+            			currentItem.setAllMatchTypes(chunk.matchType);
+            			currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to duplicate entries
+            			currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
+            			currentItem.setAllSort(chunk.sort);
             		}
             	} else if ("list_entry".equals(name)) {
             		if (listValues != null) {
@@ -725,20 +709,22 @@ public class Preset implements Serializable {
 		if (!mru.recentPresets.remove(id)) { // calling remove(Object), i.e. removing the number if it is in the list, not the i-th item
 			// preset is not in the list, add linked presets first
 			PresetItem pi = allItems.get(id.intValue());
-			LinkedList<String>linkedPresetNames = new LinkedList<String>(pi.linkedPresetNames);
-			Collections.reverse(linkedPresetNames);
-			for (String n:linkedPresetNames) {
-				if (!mru.recentPresets.contains(id)) {
-					Integer presetIndex = getItemIndexByName(n);
-					if (presetIndex != null) {  // null if the link wasn't found
-						if (!mru.recentPresets.contains(presetIndex)) { // only add if not already present
-							mru.recentPresets.addFirst(presetIndex);
-							if (mru.recentPresets.size() > MAX_MRU_SIZE) {
-								mru.recentPresets.removeLast();
+			if (pi.getLinkedPresetNames() != null) {
+				LinkedList<String>linkedPresetNames = new LinkedList<String>(pi.getLinkedPresetNames());
+				Collections.reverse(linkedPresetNames);
+				for (String n:linkedPresetNames) {
+					if (!mru.recentPresets.contains(id)) {
+						Integer presetIndex = getItemIndexByName(n);
+						if (presetIndex != null) {  // null if the link wasn't found
+							if (!mru.recentPresets.contains(presetIndex)) { // only add if not already present
+								mru.recentPresets.addFirst(presetIndex);
+								if (mru.recentPresets.size() > MAX_MRU_SIZE) {
+									mru.recentPresets.removeLast();
+								}
 							}
+						} else {
+							Log.e("Preset","linked preset not found for " + n + " in preset " + pi.getName());
 						}
-					} else {
-						Log.e("Preset","linked preset not found for " + n + " in preset " + pi.getName());
 					}
 				}
 			}
@@ -1201,22 +1187,32 @@ public class Preset implements Serializable {
 		/**
 		 * Hints to be displayed in a suitable form
 		 */
-		private LinkedHashMap<String, String> hints = new LinkedHashMap<String, String>();
+		private HashMap<String, String> hints = new HashMap<String, String>();
 		
 		/**
 		 * Default values
 		 */
-		private LinkedHashMap<String, String> defaults = new LinkedHashMap<String, String>();
+		private HashMap<String, String> defaults = null;
+		
+		/**
+		 * Non standard on values
+		 */
+		private HashMap<String, String> onValue = null;
 		
 		/**
 		 * Roles
 		 */
-		private LinkedList<String> roles =  new LinkedList<String>();
+		private LinkedList<String> roles = null;
 		
 		/**
 		 * Linked names of presets
 		 */
-		private LinkedList<String> linkedPresetNames = new LinkedList<String>();
+		private LinkedList<String> linkedPresetNames = null;
+		
+		/**
+		 * Sort values or not
+		 */
+		private HashMap<String,Boolean> sort  = null;
 		
 		/**
 		 * Key to key type
@@ -1226,7 +1222,7 @@ public class Preset implements Serializable {
 		/**
 		 * Key to match properties
 		 */
-		private HashMap<String,MatchType> matchType = new HashMap<String,MatchType>(); 
+		private HashMap<String,MatchType> matchType = null; 
 		
 		/**
 		 * Translation contexts
@@ -1374,7 +1370,23 @@ public class Preset implements Serializable {
 		
 		public void addRole(String value)
 		{
+			if (roles == null) {
+				roles =  new LinkedList<String>();
+			}
 			roles.add(value);
+		}
+
+		public void addAllRoles(LinkedList<String> newRoles)
+		{
+			if (roles == null) { 
+				roles = newRoles; // doesn't matter if newRoles is null
+			} else if (newRoles != null){
+				roles.addAll(newRoles);
+			}
+		}
+		
+		public List<String> getRoles() {
+			return roles != null ? Collections.unmodifiableList(roles) : null;
 		}
 		
 		/**
@@ -1404,15 +1416,54 @@ public class Preset implements Serializable {
 		 * @param defaultValue
 		 */
 		public void addDefault(String key, String defaultValue) {
+			if (defaults == null) {
+				defaults = new HashMap<String, String>();
+			}
 			defaults.put(key, defaultValue);
-			
+		}
+		
+		public void addAllDefaults(HashMap<String, String> newDefaults)
+		{
+			if (defaults == null) { 
+				defaults = newDefaults; // doesn't matter if newDefaults is null
+			} else if (newDefaults != null){
+				defaults.putAll(newDefaults);
+			}
 		}
 		
 		public String getDefault(String key) {
-			return defaults.get(key);
+			return defaults != null ? defaults.get(key) : null;
+		}
+		
+		/**
+		 * Save non-standard values for the tag
+		 * @param key
+		 * @param on
+		 */
+		public void addOnValue(String key, String on) {
+			if (onValue == null) {
+				onValue = new HashMap<String, String>();
+			}
+			onValue.put(key, on);
+		}
+		
+		public void addAllOnValues(HashMap<String, String> newOnValues)
+		{
+			if (onValue == null) { 
+				onValue = newOnValues; // doesn't matter if newOnValues is null
+			} else if (newOnValues != null){
+				onValue.putAll(newOnValues);
+			}
+		}
+		
+		public String getOnValue(String key) {
+			return onValue != null ? onValue.get(key) : "yes";
 		}
 		
 		public void setMatchType(String key, String match) {
+			if (matchType == null) {
+				matchType = new HashMap<String,MatchType>();
+			}
 			MatchType type = null;
 			if (match.equals("none")) {
 				type = MatchType.NONE;
@@ -1427,13 +1478,67 @@ public class Preset implements Serializable {
 			}
 			matchType.put(key, type);
 		}
+		
+		public void setAllMatchTypes(HashMap<String,MatchType> newMatchTypes)
+		{
+			if (matchType == null) { 
+				matchType = newMatchTypes; // doesn't matter if newMatchTypes is null
+			} else if (newMatchTypes != null){
+				matchType.putAll(newMatchTypes);
+			}
+		}
 
 		public MatchType getMatchType(String key) {
-			return matchType.get(key);
+			return matchType != null ? matchType.get(key) : null;
 		}
 		
 		public void addLinkedPresetName(String presetName) {
+			if (linkedPresetNames == null) {
+				linkedPresetNames = new LinkedList<String>();
+			}
 			linkedPresetNames.add(presetName);
+		}
+		
+		public void addAllLinkedPresetNames(LinkedList<String> newLinkedPresetNames) {
+			if (linkedPresetNames == null) { 
+				linkedPresetNames = newLinkedPresetNames; // doesn't matter if newLinkedPresetNames is null
+			} else if (newLinkedPresetNames != null){
+				linkedPresetNames.addAll(newLinkedPresetNames);
+			}
+		}
+		
+		public LinkedList<String> getLinkedPresetNames() {
+			return linkedPresetNames;
+		}
+		
+		public List<PresetItem> getLinkedPresets() {
+			ArrayList<PresetItem> result = new ArrayList<PresetItem>();
+			if (linkedPresetNames != null) {
+				for (String n:linkedPresetNames) {
+					Integer index = getItemIndexByName(n); // FIXME this involves a sequential search
+					result.add(allItems.get(index.intValue()));
+				}
+			}
+			return result;
+		}
+		
+		public void setSort(String key, boolean sortIt) {
+			if (sort == null) {
+				sort = new HashMap<String,Boolean>(); 
+			}
+			sort.put(key,Boolean.valueOf(sortIt));
+		}
+		
+		public void setAllSort(HashMap<String,Boolean> newSort) {
+			if (sort == null) { 
+				sort = newSort; // doesn't matter if newSort is null
+			} else if (newSort != null){
+				sort.putAll(newSort);
+			}
+		}
+		
+		public boolean sortIt(String key) {
+			return (sort == null ||  sort.get(key) == null) ? true : sort.get(key).booleanValue();
 		}
 		
 		/**
@@ -1469,19 +1574,6 @@ public class Preset implements Serializable {
 
 		public Map<String,StringWithDescription[]> getOptionalTags() {
 			return Collections.unmodifiableMap(optionalTags);
-		}
-		
-		public List<String> getRoles() {
-			return Collections.unmodifiableList(roles);
-		}
-		
-		public List<PresetItem> getLinkedPresets() {
-			ArrayList<PresetItem> result = new ArrayList<PresetItem>();
-			for (String n:linkedPresetNames) {
-				Integer index = getItemIndexByName(n); // FIXME this involves a sequential search
-				result.add(allItems.get(index.intValue()));
-			}
-			return result;
 		}
 		
 		/**
