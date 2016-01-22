@@ -447,7 +447,7 @@ public class Preset implements Serializable {
             		if (disable_off != null && disable_off.equals("true")) {
             			value_off = "";
             		} else {
-            			values = "," + value_off;
+            			values = value_on + "," + value_off;
             		}
              		currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values);
              		if (!"yes".equals(value_on)) {

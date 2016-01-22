@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -320,6 +321,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		case R.id.tag_menu_mapfeatures:
 			startActivity(Preset.getMapFeaturesIntent(getActivity(),tagListener.getBestPreset()));
 			return true;
+		case R.id.tag_menu_delete_unassociated_tags:
+			// remove tags that don't belong to an identified preset
+			return true;
 		case R.id.tag_menu_resetMRU:
 			for (Preset p:((PropertyEditor)getActivity()).presets)
 				p.resetRecentlyUsed();
@@ -449,19 +453,12 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
     	
     	LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
     	Map<String, String> nonEditable = addTagsToViews(editableView, mainPreset, allTags);
-    	int nonEditableCount = nonEditable.size();
-    	while (nonEditableCount > 0) {
-    		PresetItem nonEditablePreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, nonEditable, true);
-    		if (nonEditablePreset==null) {
-    			// no point in continuing
-    			break;
-    		}
+    	for (PresetItem preset:tagListener.getSecondaryPresets()) {
     		final EditableLayout editableView1  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
     		editableView1.setSaveEnabled(false);
-    		editableView1.setTitle(nonEditablePreset);
+    		editableView1.setTitle(preset);
     		ll.addView(editableView1, pos++);
-    		nonEditable = addTagsToViews(editableView1, nonEditablePreset, (LinkedHashMap<String, String>) nonEditable);
-    		nonEditableCount = nonEditable.size();
+    		nonEditable = addTagsToViews(editableView1, preset, (LinkedHashMap<String, String>) nonEditable);
     	}
     	
     	LinearLayout nel = (LinearLayout) getView().findViewById(R.id.form_immutable_header_layout);
@@ -486,30 +483,28 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	Map<String,String> addTagsToViews(LinearLayout editableView, PresetItem preset, LinkedHashMap<String, String> tags) {
 		LinkedHashMap<String,String> recommendedEditable = new LinkedHashMap<String,String>();
 		LinkedHashMap<String,String> optionalEditable = new LinkedHashMap<String,String>();
-		LinkedHashMap<String,String> addressTags = new LinkedHashMap<String,String>();
 		LinkedHashMap<String,String> linkedTags = new LinkedHashMap<String,String>();
-		LinkedHashMap<String,PresetItem> linkedPresets = new LinkedHashMap<String,PresetItem>();
 		LinkedHashMap<String,String> nonEditable = new LinkedHashMap<String,String>();
-		for (String key:tags.keySet()) {
-			if (preset != null && preset.hasKeyValue(key, tags.get(key))) {
-				if (preset.isFixedTag(key)) {
-					// skip
-				} else if (preset.isRecommendedTag(key)) {
-					recommendedEditable.put(key, tags.get(key));
+		HashMap<String,PresetItem> keyToLinkedPreset = new HashMap<String,PresetItem>();
+		
+		if (preset != null) {
+			List<PresetItem> linkedPresets = preset.getLinkedPresets();
+			for (String key:tags.keySet()) {
+				if (preset.hasKeyValue(key, tags.get(key))) {
+					if (preset.isFixedTag(key)) {
+						// skip
+					} else if (preset.isRecommendedTag(key)) {
+						recommendedEditable.put(key, tags.get(key));
+					} else {
+						optionalEditable.put(key, tags.get(key));
+					}
 				} else {
-					optionalEditable.put(key, tags.get(key));
-				}
-			} else {
-//				if (key.startsWith(Tags.KEY_ADDR_BASE)) {
-//					addressTags.put(key, tags.get(key));
-//				} else {
-					//
 					boolean found = false;
-					if (preset != null) { // check if tag is in a linked preset
-						for (PresetItem l:preset.getLinkedPresets()) {
+					if (linkedPresets != null) { // check if tag is in a linked preset
+						for (PresetItem l:linkedPresets) {
 							if (l.hasKeyValue(key, tags.get(key))) {
 								linkedTags.put(key, tags.get(key));
-								linkedPresets.put(key, l);
+								keyToLinkedPreset.put(key, l);
 								found = true;
 								break;
 							}
@@ -518,8 +513,10 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					if (!found) {
 						nonEditable.put(key, tags.get(key));
 					}
-//				}
+				}
 			}
+		} else {
+			Log.e(DEBUG_TAG,"addTagsToViews called with null preset");
 		}
 		for (String key:recommendedEditable.keySet()) {
 			addRow(editableView,key, recommendedEditable.get(key),preset, tags);
@@ -527,20 +524,10 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		for (String key:optionalEditable.keySet()) {
 			addRow(editableView,key, optionalEditable.get(key),preset, tags);
 		}
-//		if (addressTags.size() > 0) {
-//			// try to find address preset
-//			PresetItem addressPreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, addressTags, true);
-//			if (addressTags.size()==tags.size() && addressPreset != null) { // make a nice title for address only objects
-//		    	setTitle(addressPreset);
-//			}
-//			for (String key: addressTags.keySet()) {
-//				addRow(editableView,key, addressTags.get(key), addressPreset, tags);
-//			}
-//		}
 		for (String key: linkedTags.keySet()) {
-			addRow(editableView,key, linkedTags.get(key), linkedPresets.get(key), tags);
+			addRow(editableView,key, linkedTags.get(key), keyToLinkedPreset.get(key), tags);
 		}
-		
+
 		return nonEditable;
 	}
 	
@@ -607,10 +594,15 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, null);
 						row.keyView.setText(hint != null?hint:key);
 						row.keyView.setTag(key);
-						Object o = adapter.getItem(0);
-						final String v;
+						
+						String v = "";
 						String description = "";
-						if (count==1) {
+						final String valueOn = preset.getOnValue(key);
+						String tempValueOff = "";;
+						
+						// this is a bit of a roundabout way of determining the non-checked value;
+						for (int i=0;i< adapter.getCount();i++) {
+							Object o = adapter.getItem(i);
 							if (o instanceof ValueWithCount) {
 								v = ((ValueWithCount)o).getValue();
 								description = ((ValueWithCount)o).getDescription();
@@ -620,24 +612,27 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 							} else if (o instanceof String) {
 								v = (String)o;
 								description = v;
-							} else {
-								v = "";
+							} 
+							if (!v.equals(valueOn)) {
+								tempValueOff = v;
 							}
-						} else {
-							v = "";
 						}
+						
+						final String valueOff = tempValueOff;
+						
+						Log.d(DEBUG_TAG,"adapter size " + adapter.getCount() + " checked value >" + valueOn + "< not checked value >" + valueOff + "<");
 						if (description==null) {
 							description=v;
 						}
 						
-						row.getCheckBox().setChecked(v.equals(preset.getOnValue(key)));
+						row.getCheckBox().setChecked(valueOn.equals(value));
 						
 						rowLayout.addView(row);
 						row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 							@Override
 							public void onCheckedChanged(
 									CompoundButton buttonView, boolean isChecked) {
-								tagListener.updateSingleValue(key, isChecked?v:"");
+								tagListener.updateSingleValue(key, isChecked?valueOn:valueOff);
 							} 
 						});
 					}
@@ -677,6 +672,10 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		}
 		if (adapter != null && adapter.getCount() > 0) {
 			row.valueView.setAdapter(adapter);
+		}
+		if (keyType==PresetKeyType.MULTISELECT) { 
+			// FIXME this should be somewhere better obvious since it creates a non obvious side effect
+			row.valueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(TagEditorFragment.LIST_SEPARATOR));
 		}
 		if (keyType==PresetKeyType.TEXT && (adapter==null || adapter.getCount() < 2)) {
 			row.valueView.setHint(R.string.tag_value_hint);

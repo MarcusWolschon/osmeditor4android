@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.acra.ACRA;
@@ -846,6 +847,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 	}
 	
+	@Override
+	public void deleteTag(final String key) {
+		if (tagEditorFragment != null) {
+			tagEditorFragment.deleteTag(key);
+		} else {
+			Log.e(DEBUG_TAG,"deleteTag tagEditorFragment is null");
+		}
+	}
+	
 	public ArrayList<LinkedHashMap<String, String>> getUpdatedTags() {
 		if (tagEditorFragment != null) {
 			return tagEditorFragment.getUpdatedTags();
@@ -871,7 +881,27 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		if (tagEditorFragment != null) {
 			return tagEditorFragment.getBestPreset();
 		} else {
-			Log.e(DEBUG_TAG,"getBsetPreset tagEditorFragment is null");
+			Log.e(DEBUG_TAG,"getBestPreset tagEditorFragment is null");
+			return null;
+		}	
+	}
+	
+	@Override
+	public List<PresetItem> getSecondaryPresets() {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.getSecondaryPresets();
+		} else {
+			Log.e(DEBUG_TAG,"getSecondaryPresets tagEditorFragment is null");
+			return null;
+		}	
+	}
+	
+	@Override
+	public Map<String,PresetItem> getAllPresets() {
+		if (tagEditorFragment != null) {
+			return tagEditorFragment.getAllPresets();
+		} else {
+			Log.e(DEBUG_TAG,"getAllPresets tagEditorFragment is null");
 			return null;
 		}	
 	}

@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.blau.android.presets.Preset.PresetItem;
@@ -35,10 +36,27 @@ abstract interface EditorUpdate {
 	abstract void revertTags();
 	
 	/**
+	 * delete tag
+	 */
+	abstract void deleteTag(final String key);
+	
+	/**
 	 * Get the best matching preset
 	 * @return
 	 */
 	abstract PresetItem getBestPreset();	
+	
+	/**
+	 * Get all matching secondary presets (without linked presets)
+	 * @return
+	 */
+	abstract List<PresetItem> getSecondaryPresets();
+	
+	/**
+	 * Get all the matching presets
+	 * @return
+	 */
+	abstract Map<String,PresetItem> getAllPresets();
 	
 	/**
 	 * generate best address tags
