@@ -7,8 +7,33 @@
         }, 
         {
             "location": "/#welcome-to-vespucci", 
-            "text": "Vespucci is the first  OpenStreetMap  editor for Android, Codename \"Vespucci\", continously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completly offline.   Editing is supported by  rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast \"on the go\" surveying is easy with address prediction and  name based POI creation .  Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to exotic, for example on an Amazon Fire TV Stick, and all Android versions since 2.3. It can be used in a google free environment.  Obtaining Vespucci:   from  Googles play store  and from  amazon  release and beta APKs from our  github repository  recently built potentially unstable APKs from  google drive  source code and repository on github   Vespucci on Social Media   Follow us on Twitter  Google Group  Vespucci on OpenHub   On device help  The texts in the  Introduction  and  Editing  sections are available on device as context sensitive help.  Roadmap  The Vespucci team doesn't have a formal road map, however you can see what we have considered working on and have completed for the next release here:  milestones 0.9.8 .  Support and contact  If you have suggestions for enhancements or are experiencing a problem, please open an  issue on github . Please check  known issues  for the current release first.  If you're interested in this project, you're welcome to help improving it. We need UI designers, translators, and of course Java programmers. Join our google group or mail to Marcus@Wolschon.biz.", 
+            "text": "Vespucci is the first  OpenStreetMap  editor for Android, Codename \"Vespucci\", continously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completly offline.   Editing is supported by  rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast \"on the go\" surveying is easy with address prediction and  name based POI creation .  Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to exotic, for example on an Amazon Fire TV Stick, and all Android versions since 2.3. It can be used in a google free environment.", 
             "title": "Welcome to Vespucci"
+        }, 
+        {
+            "location": "/#obtaining-vespucci", 
+            "text": "from  Googles play store  and from  amazon  release and beta APKs from our  github repository  recently built potentially unstable APKs from  google drive  source code and repository on github", 
+            "title": "Obtaining Vespucci:"
+        }, 
+        {
+            "location": "/#vespucci-on-social-media", 
+            "text": "Follow us on Twitter  Google Group  Vespucci on OpenHub", 
+            "title": "Vespucci on Social Media"
+        }, 
+        {
+            "location": "/#on-device-help", 
+            "text": "The texts in the  Introduction  and  Editing  sections are available on device as context sensitive help.", 
+            "title": "On device help"
+        }, 
+        {
+            "location": "/#roadmap", 
+            "text": "The Vespucci team doesn't have a formal road map, however you can see what we have considered working on and have completed for the next release here:  milestones 0.9.8 .", 
+            "title": "Roadmap"
+        }, 
+        {
+            "location": "/#support-and-contact", 
+            "text": "If you have suggestions for enhancements or are experiencing a problem, please open an  issue on github . Please check  known issues  for the current release first.  If you're interested in this project, you're welcome to help improving it. We need UI designers, translators, and of course Java programmers. Join our google group or mail to Marcus@Wolschon.biz.", 
+            "title": "Support and contact"
         }, 
         {
             "location": "/help/en/Introduction/", 
@@ -27,8 +52,68 @@
         }, 
         {
             "location": "/help/en/Introduction/#editing-with-vespucci", 
-            "text": "Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.  Downloading OSM Data  Select either the transfer icon    or the \"Transfer\" menu item. This will display seven options:   Download current view  - download the area visible on the screen and replace any existing data  (requires network connectivity)  Add current view to download  - download the area visible on the screen and merge it with existing data  (requires network connectivity)  Download other location  - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location  (requires network connectivity)  Upload data to OSM server  - upload edits to OpenStreetMap  (requires authentication)   (requires network connectivity)  Auto download  - download an area around the current location automatically  (requires network connectivity)   (requires GPS)  File...  - saving and loading OSM data to/from on device files.  Note/Bugs...  - download (automatically and manually) OSM Notes and \"Bugs\" from QA tools (currently OSMOSE)  (requires network connectivity)   The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select \"Download current view\". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.  Editing  To avoid accidental edits Vespucci starts in \"locked\" mode, a mode that only allows zooming and moving the map. Tap the   icon to unlock the screen. A long press on the lock icon will enable \"Tag editing only\" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.  By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.  It is a good strategy to zoom in if you attempt to edit a high density area.  Vespucci has a good \"undo/redo\" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.  Selecting / De-selecting  Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start  Multiselect mode .  Adding a new Node/Point or Way  Long press where you want the node to be or the way to start. You will see a black \"cross hairs\" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position.   Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.  Moving a Node or Way  Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object.   Improving Way Geometry  If you zoom in far enough you will see a small \"x\" in the middle of way segments that are long enough. Dragging the \"x\" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.  Cut, Copy   Paste  You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select \"Paste\" from the menu.  Efficiently Adding Addresses  Vespucci has an \"add address tags\" function that tries to make surveying addresses more efficient. It can be selected    after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a \"entrance=yes\" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.  in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.  in the tag editor.   House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.  Consider using this with the \"Auto-download\" mode.    Adding Turn Restrictions  Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.   select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic \"create relation\" mode)  select \"Add restriction\" from the menu (if there are no possible \"via\" elements the menu item will not be displayed)  select the \"via\" node or way (only possible \"via\" elements will have the touch area shown)  select the \"to\" way (it is possible to double back and set the \"to\" element to the \"from\" element, Vespucci will assume that you are adding an no_u_turn restriction)  set the restriction type in the property editor   Vespucci in \"locked\" mode  When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.  Saving Your Changes  (requires network connectivity)  Select the same button or menu item you did for the download and now select \"Upload data to OSM server\".  Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.  New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the \"Tools\" menu.  If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM.   Resolving conflicts on uploads  Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file (\"Export\" menu item in the \"Transfer\" menu) and fix and upload them with JOSM. See the detailed help on  conflict resolution .", 
+            "text": "Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.", 
             "title": "Editing with Vespucci"
+        }, 
+        {
+            "location": "/help/en/Introduction/#downloading-osm-data", 
+            "text": "Select either the transfer icon    or the \"Transfer\" menu item. This will display seven options:   Download current view  - download the area visible on the screen and replace any existing data  (requires network connectivity)  Add current view to download  - download the area visible on the screen and merge it with existing data  (requires network connectivity)  Download other location  - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location  (requires network connectivity)  Upload data to OSM server  - upload edits to OpenStreetMap  (requires authentication)   (requires network connectivity)  Auto download  - download an area around the current location automatically  (requires network connectivity)   (requires GPS)  File...  - saving and loading OSM data to/from on device files.  Note/Bugs...  - download (automatically and manually) OSM Notes and \"Bugs\" from QA tools (currently OSMOSE)  (requires network connectivity)   The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select \"Download current view\". You can zoom by using gestures, the zoom buttons or the volume control buttons on the telephone.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.", 
+            "title": "Downloading OSM Data"
+        }, 
+        {
+            "location": "/help/en/Introduction/#editing", 
+            "text": "To avoid accidental edits Vespucci starts in \"locked\" mode, a mode that only allows zooming and moving the map. Tap the   icon to unlock the screen. A long press on the lock icon will enable \"Tag editing only\" mode which will not allow you to create new objects or edit the geometry of objects, this mode is indicated with a slightly different white lock icon.  By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. If you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu. Selected objects are highlighted in yellow.  It is a good strategy to zoom in if you attempt to edit a high density area.  Vespucci has a good \"undo/redo\" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.", 
+            "title": "Editing"
+        }, 
+        {
+            "location": "/help/en/Introduction/#selecting-de-selecting", 
+            "text": "Touch an object to select and highlight it, a second touch on the same object opens the tag editor on the element. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start  Multiselect mode .", 
+            "title": "Selecting / De-selecting"
+        }, 
+        {
+            "location": "/help/en/Introduction/#adding-a-new-nodepoint-or-way", 
+            "text": "Long press where you want the node to be or the way to start. You will see a black \"cross hairs\" symbol. Touching the same location again creates a new node, touching a location outside of the touch tolerance zone will add a way segment from the original position to the current position.   Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the initial and  end nodes are located on a way, they will be inserted into the way automatically.", 
+            "title": "Adding a new Node/Point or Way"
+        }, 
+        {
+            "location": "/help/en/Introduction/#moving-a-node-or-way", 
+            "text": "Objects can be dragged/moved only when they are selected. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object.", 
+            "title": "Moving a Node or Way"
+        }, 
+        {
+            "location": "/help/en/Introduction/#improving-way-geometry", 
+            "text": "If you zoom in far enough you will see a small \"x\" in the middle of way segments that are long enough. Dragging the \"x\" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance for this operation is fairly small.", 
+            "title": "Improving Way Geometry"
+        }, 
+        {
+            "location": "/help/en/Introduction/#cut-copy-paste", 
+            "text": "You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select \"Paste\" from the menu.", 
+            "title": "Cut, Copy &amp; Paste"
+        }, 
+        {
+            "location": "/help/en/Introduction/#efficiently-adding-addresses", 
+            "text": "Vespucci has an \"add address tags\" function that tries to make surveying addresses more efficient. It can be selected    after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a \"entrance=yes\" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.  in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.  in the tag editor.   House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.  Consider using this with the \"Auto-download\" mode.", 
+            "title": "Efficiently Adding Addresses"
+        }, 
+        {
+            "location": "/help/en/Introduction/#adding-turn-restrictions", 
+            "text": "Vespucci has a fast way to add turn restrictions. Note: if you need to split a way for the restriction you need to do this before starting.   select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic \"create relation\" mode)  select \"Add restriction\" from the menu (if there are no possible \"via\" elements the menu item will not be displayed)  select the \"via\" node or way (only possible \"via\" elements will have the touch area shown)  select the \"to\" way (it is possible to double back and set the \"to\" element to the \"from\" element, Vespucci will assume that you are adding an no_u_turn restriction)  set the restriction type in the property editor", 
+            "title": "Adding Turn Restrictions"
+        }, 
+        {
+            "location": "/help/en/Introduction/#vespucci-in-locked-mode", 
+            "text": "When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.", 
+            "title": "Vespucci in \"locked\" mode"
+        }, 
+        {
+            "location": "/help/en/Introduction/#saving-your-changes", 
+            "text": "(requires network connectivity)  Select the same button or menu item you did for the download and now select \"Upload data to OSM server\".  Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.  New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the \"Tools\" menu.  If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM.", 
+            "title": "Saving Your Changes"
+        }, 
+        {
+            "location": "/help/en/Introduction/#resolving-conflicts-on-uploads", 
+            "text": "Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file (\"Export\" menu item in the \"Transfer\" menu) and fix and upload them with JOSM. See the detailed help on  conflict resolution .", 
+            "title": "Resolving conflicts on uploads"
         }, 
         {
             "location": "/help/en/Introduction/#using-gps", 
@@ -42,8 +127,18 @@
         }, 
         {
             "location": "/help/en/Introduction/#customizing-vespucci", 
-            "text": "Settings that you might want to change   Background layer  Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.  Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.  Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.  Node icons. Default: on.  Keep screen on. Default: off.  Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.   Advanced preferences   Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. Note: you need to restart Vespucci for the change to take effect.  Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).  Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.  Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).", 
+            "text": "", 
             "title": "Customizing Vespucci"
+        }, 
+        {
+            "location": "/help/en/Introduction/#settings-that-you-might-want-to-change", 
+            "text": "Background layer  Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.  Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.  Photo layer. Displays georeferenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.  Node icons. Default: on.  Keep screen on. Default: off.  Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.", 
+            "title": "Settings that you might want to change"
+        }, 
+        {
+            "location": "/help/en/Introduction/#advanced-preferences", 
+            "text": "Enable split action bar. On recent phones the action bar will be split in a top and bottom part, with the bottom bar containing the buttons. This typically allows more buttons to be displayed, however does use more of the screen. Turning this off will move the buttons to the top bar. Note: you need to restart Vespucci for the change to take effect.  Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).  Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.  Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).", 
+            "title": "Advanced preferences"
         }, 
         {
             "location": "/help/en/Introduction/#reporting-problems", 
@@ -72,8 +167,28 @@
         }, 
         {
             "location": "/help/en/0.9.6 Release notes/#vespucci-096-highlights", 
-            "text": "2015-06-23  Multi-Select mode, currently supports   Deleting  Moving  Creating a relation from the selected elements  Tag editing on multiple objects  Merging multiple ways   Multi-select mode can be entered either by double-tapping an element (or a 2nd element if one is already selected) or via a menu item. The mode can be exited by double-tapping an empty area or by the usual other ways of exiting an action mode.    Restyled tag editing with split pane layout on tablets.   Selective tag copy, cut and paste. Tag copy and paste copy to the system clipboard a multi-line textual representation. Paste from clipboard will either set tag values from a multi-line text clip (for example from a OCR app) or use the clip if in the same textual representation to create key-value tupels.     Relation editing improvements   Highlight elements of selected relations in a different color than selected elements  Allow adding of relations to relations directly  Select all members of a relation   Other improvements   Support for user specified imagery  Start camera app directly from vespucci,  recommened app:  OpenCamera version with patch that allows camera direction to be saved from vespucci     View information on elements in \u201clock\u201d mode with long press.  Undo available in element selection modes.  Shortcut to preset selection when creating new elements.  Light theme that is substantially easier on the eyes.  Split polygon into two polygons.  Untagged node touch areas are now the same width as for ways, this may not make it into the release depending on feedback.   The full change log is available here  https://github.com/MarcusWolschon/osmeditor4android/commits/master", 
+            "text": "2015-06-23", 
             "title": "Vespucci 0.9.6 Highlights"
+        }, 
+        {
+            "location": "/help/en/0.9.6 Release notes/#multi-select-mode-currently-supports", 
+            "text": "Deleting  Moving  Creating a relation from the selected elements  Tag editing on multiple objects  Merging multiple ways   Multi-select mode can be entered either by double-tapping an element (or a 2nd element if one is already selected) or via a menu item. The mode can be exited by double-tapping an empty area or by the usual other ways of exiting an action mode.", 
+            "title": "Multi-Select mode, currently supports"
+        }, 
+        {
+            "location": "/help/en/0.9.6 Release notes/#restyled-tag-editing-with-split-pane-layout-on-tablets", 
+            "text": "Selective tag copy, cut and paste. Tag copy and paste copy to the system clipboard a multi-line textual representation. Paste from clipboard will either set tag values from a multi-line text clip (for example from a OCR app) or use the clip if in the same textual representation to create key-value tupels.", 
+            "title": "Restyled tag editing with split pane layout on tablets."
+        }, 
+        {
+            "location": "/help/en/0.9.6 Release notes/#relation-editing-improvements", 
+            "text": "Highlight elements of selected relations in a different color than selected elements  Allow adding of relations to relations directly  Select all members of a relation", 
+            "title": "Relation editing improvements"
+        }, 
+        {
+            "location": "/help/en/0.9.6 Release notes/#other-improvements", 
+            "text": "Support for user specified imagery  Start camera app directly from vespucci,  recommened app:  OpenCamera version with patch that allows camera direction to be saved from vespucci     View information on elements in \u201clock\u201d mode with long press.  Undo available in element selection modes.  Shortcut to preset selection when creating new elements.  Light theme that is substantially easier on the eyes.  Split polygon into two polygons.  Untagged node touch areas are now the same width as for ways, this may not make it into the release depending on feedback.   The full change log is available here  https://github.com/MarcusWolschon/osmeditor4android/commits/master", 
+            "title": "Other improvements"
         }, 
         {
             "location": "/help/en/0.9.6 Release notes/#upgrading-from-previous-versions", 
@@ -122,13 +237,78 @@
         }, 
         {
             "location": "/help/en/Main map display/#main-vespucci-screen", 
-            "text": "The main Vespucci map screen is your normal starting point for interacting with the application. It can be in two modes   locked  In this mode modifying the OpenStreetMap data is disabled, you can however use all the menus and other functions, for example down- or up-load data. The main reason to use this mode is to pan and zoom in high density areas, or to avoid accidental changes when pocketing your device.   Tapping the lock icon will toggle the mode.   unlocked  In this mode you can add and change the geometry and tags of OpenStreetMap data.  You will still need to zoom in till editing is enabled.  If a small \"T\" is displayed on the lock icon you are in \"Tag editing only\" mode and will not be able to create new objects of change geometries. A long press on the icon will switch to the normal editing mode.  The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu.   Map and Data display  Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard \"Mapnik\" style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard \"Color round nodes\" or for \"Pen round nodes\" should work for most situations, the later has smaller \"touch areas\" mainly for working with a pen. Depending on the device it may however work better for you.  Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so pare yourself the need to access them online while outside.   Overlay layer  Besides the background layer you can add a \"overlay\" layer between the background and the OSM data, for example a layer showing buildings without an address.  Highlighting of data issues  With the standard map style certain data issues will be highlighted in magenta, these are   objects with 'fixme' and 'todo' tags (case insensitive)  ways with 'highway=road'  ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag  relations with no 'type' tag", 
+            "text": "The main Vespucci map screen is your normal starting point for interacting with the application. It can be in two modes", 
             "title": "Main Vespucci Screen"
         }, 
         {
+            "location": "/help/en/Main map display/#locked", 
+            "text": "In this mode modifying the OpenStreetMap data is disabled, you can however use all the menus and other functions, for example down- or up-load data. The main reason to use this mode is to pan and zoom in high density areas, or to avoid accidental changes when pocketing your device.   Tapping the lock icon will toggle the mode.", 
+            "title": "locked"
+        }, 
+        {
+            "location": "/help/en/Main map display/#unlocked", 
+            "text": "In this mode you can add and change the geometry and tags of OpenStreetMap data.  You will still need to zoom in till editing is enabled.  If a small \"T\" is displayed on the lock icon you are in \"Tag editing only\" mode and will not be able to create new objects of change geometries. A long press on the icon will switch to the normal editing mode.  The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu.", 
+            "title": "unlocked"
+        }, 
+        {
+            "location": "/help/en/Main map display/#map-and-data-display", 
+            "text": "Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard \"Mapnik\" style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard \"Color round nodes\" or for \"Pen round nodes\" should work for most situations, the later has smaller \"touch areas\" mainly for working with a pen. Depending on the device it may however work better for you.  Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so pare yourself the need to access them online while outside.", 
+            "title": "Map and Data display"
+        }, 
+        {
+            "location": "/help/en/Main map display/#overlay-layer", 
+            "text": "Besides the background layer you can add a \"overlay\" layer between the background and the OSM data, for example a layer showing buildings without an address.", 
+            "title": "Overlay layer"
+        }, 
+        {
+            "location": "/help/en/Main map display/#highlighting-of-data-issues", 
+            "text": "With the standard map style certain data issues will be highlighted in magenta, these are   objects with 'fixme' and 'todo' tags (case insensitive)  ways with 'highway=road'  ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag  relations with no 'type' tag", 
+            "title": "Highlighting of data issues"
+        }, 
+        {
             "location": "/help/en/Main map display/#available-actions", 
-            "text": "Undo  Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed.  Some operations consist of multiple simpler actions that will be listed as individual items.   Camera  Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures \ndirectory, however this depends on the specific camera app.   GPS   Show location  - show arrow symbol at current position  Follow GPS position  - pan and center screen to follow the GPS position  Goto GPS position  - go to and zoom in to the current position  Start GPS track  - start recording a GPX track  Pause GPS track  - pause recording the current GPX track  Clear GPS track  - clear the current GPX track  Track management...  - manage existing tracks  Upload GPS track  - upload the current GPX track  (requires network connectivity)  Export GPS track  - export track to file  Import GPS track  - import track from file    Goto start of track  - center the map on the first track point    Transfer  Select either the transfer icon   or the \"Transfer\" menu item. This will display seven or eight options:   Download current view  - download the area visible on the screen and replace any existing data  (requires network connectivity)  Add current view to download  - download the area visible on the screen and merge it with existing data  (requires network connectivity)  Download other location  - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location  (requires network connectivity)  Upload data to OSM server  - upload edits to OpenStreetMap  (requires authentication)   (requires network connectivity)  Close current changeset  - manually close the current changeset  (only available if a changeset is open)  Auto download  - download an area around the current location automatically  (requires network connectivity)   (requires GPS)  File...  - saving and loading OSM data to/from on device files.  Export changes  - write a \".osc\" format file containing the current edits  Read from file  - read a JOSM compatible XML format file  Save to file  - save as a JOSM compatible XML format file    Note/Bugs...  - down- and uploading Notes/Bugs  Download bugs for current view  - download Notes/Bugs for the area visible on the screen  Upload all  - upload all new or modified Notes/Bugs  Clear  - remove all bugs from storage  Auto download  - download Notes/Bugs around the current location automatically  (requires network connectivity)   (requires GPS)      Settings  Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the \"Advanced preferences\" contains the less used ones.    Tools   Flush background tile cache  - empty the on device cache for the current background  (may take a significant amount of time)  Flush overlay tile cache  - empty the on device cache for the current overlay  (may take a significant amount of time)  Align background  - align the current background layer, this can be done manually or from the image alignment database  (requires network connectivity)  Background properties  - adjust properties of the background layer, currently only a combined contrast/brightness control  (non-persistent)  Reset OAuth  - reset the OAuth tokens, This will force reauthorisation the next time you upload.  Authorise OAuth  - start authorisation process immediately.  (requires network connectivity)    Find  Search for a location and pan to it with the OpenStreetMap Nominatim service  (requires network connectivity)   Help  Start the on device help browser.", 
+            "text": "", 
             "title": "Available Actions"
+        }, 
+        {
+            "location": "/help/en/Main map display/#undo", 
+            "text": "Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed.  Some operations consist of multiple simpler actions that will be listed as individual items.", 
+            "title": "Undo"
+        }, 
+        {
+            "location": "/help/en/Main map display/#camera", 
+            "text": "Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures \ndirectory, however this depends on the specific camera app.", 
+            "title": "Camera"
+        }, 
+        {
+            "location": "/help/en/Main map display/#gps", 
+            "text": "Show location  - show arrow symbol at current position  Follow GPS position  - pan and center screen to follow the GPS position  Goto GPS position  - go to and zoom in to the current position  Start GPS track  - start recording a GPX track  Pause GPS track  - pause recording the current GPX track  Clear GPS track  - clear the current GPX track  Track management...  - manage existing tracks  Upload GPS track  - upload the current GPX track  (requires network connectivity)  Export GPS track  - export track to file  Import GPS track  - import track from file    Goto start of track  - center the map on the first track point", 
+            "title": "GPS"
+        }, 
+        {
+            "location": "/help/en/Main map display/#transfer", 
+            "text": "Select either the transfer icon   or the \"Transfer\" menu item. This will display seven or eight options:   Download current view  - download the area visible on the screen and replace any existing data  (requires network connectivity)  Add current view to download  - download the area visible on the screen and merge it with existing data  (requires network connectivity)  Download other location  - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location  (requires network connectivity)  Upload data to OSM server  - upload edits to OpenStreetMap  (requires authentication)   (requires network connectivity)  Close current changeset  - manually close the current changeset  (only available if a changeset is open)  Auto download  - download an area around the current location automatically  (requires network connectivity)   (requires GPS)  File...  - saving and loading OSM data to/from on device files.  Export changes  - write a \".osc\" format file containing the current edits  Read from file  - read a JOSM compatible XML format file  Save to file  - save as a JOSM compatible XML format file    Note/Bugs...  - down- and uploading Notes/Bugs  Download bugs for current view  - download Notes/Bugs for the area visible on the screen  Upload all  - upload all new or modified Notes/Bugs  Clear  - remove all bugs from storage  Auto download  - download Notes/Bugs around the current location automatically  (requires network connectivity)   (requires GPS)", 
+            "title": "Transfer"
+        }, 
+        {
+            "location": "/help/en/Main map display/#settings", 
+            "text": "Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the \"Advanced preferences\" contains the less used ones.", 
+            "title": "Settings"
+        }, 
+        {
+            "location": "/help/en/Main map display/#tools", 
+            "text": "Flush background tile cache  - empty the on device cache for the current background  (may take a significant amount of time)  Flush overlay tile cache  - empty the on device cache for the current overlay  (may take a significant amount of time)  Align background  - align the current background layer, this can be done manually or from the image alignment database  (requires network connectivity)  Background properties  - adjust properties of the background layer, currently only a combined contrast/brightness control  (non-persistent)  Reset OAuth  - reset the OAuth tokens, This will force reauthorisation the next time you upload.  Authorise OAuth  - start authorisation process immediately.  (requires network connectivity)", 
+            "title": "Tools"
+        }, 
+        {
+            "location": "/help/en/Main map display/#find", 
+            "text": "Search for a location and pan to it with the OpenStreetMap Nominatim service  (requires network connectivity)", 
+            "title": "Find"
+        }, 
+        {
+            "location": "/help/en/Main map display/#help", 
+            "text": "Start the on device help browser.", 
+            "title": "Help"
         }, 
         {
             "location": "/help/en/Creating new objects/", 
@@ -142,8 +322,43 @@
         }, 
         {
             "location": "/help/en/Creating new objects/#further-actions", 
-            "text": "Add address tags  Adds a node at the current location and adds address tags with prediction. If the node is part of a building way it will further add \"entrance=yes\" if not present.   Add preset  Create the current new object, launch the  property editor  and immediately display the preset tab. In multi-pane mode this will simply start the property editor.   Add a OpenStreetMap Note  Create an OpenStreetMap Note at the point.   Create path  Start the path/way creation mode, just as if you had touch the screen again.   Paste  Copy the object in internal copy and paste buffer to the current position. If the object was originally cut this has the same effect as if you moved the object to the new position and the buffer will be empty after the operation.    New node at GPS pos.  This will create a node at the current GPS position and add elevation tags to it. Note it doesn't matter where on the screen you originally touched, the node will be created at the GPS location.   Help  Start the Vespucci Help browser", 
+            "text": "", 
             "title": "Further actions"
+        }, 
+        {
+            "location": "/help/en/Creating new objects/#add-address-tags", 
+            "text": "Adds a node at the current location and adds address tags with prediction. If the node is part of a building way it will further add \"entrance=yes\" if not present.", 
+            "title": "Add address tags"
+        }, 
+        {
+            "location": "/help/en/Creating new objects/#add-preset", 
+            "text": "Create the current new object, launch the  property editor  and immediately display the preset tab. In multi-pane mode this will simply start the property editor.", 
+            "title": "Add preset"
+        }, 
+        {
+            "location": "/help/en/Creating new objects/#add-a-openstreetmap-note", 
+            "text": "Create an OpenStreetMap Note at the point.", 
+            "title": "Add a OpenStreetMap Note"
+        }, 
+        {
+            "location": "/help/en/Creating new objects/#create-path", 
+            "text": "Start the path/way creation mode, just as if you had touch the screen again.", 
+            "title": "Create path"
+        }, 
+        {
+            "location": "/help/en/Creating new objects/#paste", 
+            "text": "Copy the object in internal copy and paste buffer to the current position. If the object was originally cut this has the same effect as if you moved the object to the new position and the buffer will be empty after the operation.", 
+            "title": "Paste"
+        }, 
+        {
+            "location": "/help/en/Creating new objects/#new-node-at-gps-pos", 
+            "text": "This will create a node at the current GPS position and add elevation tags to it. Note it doesn't matter where on the screen you originally touched, the node will be created at the GPS location.", 
+            "title": "New node at GPS pos."
+        }, 
+        {
+            "location": "/help/en/Creating new objects/#help", 
+            "text": "Start the Vespucci Help browser", 
+            "title": "Help"
         }, 
         {
             "location": "/help/en/Node selected/", 
@@ -157,8 +372,78 @@
         }, 
         {
             "location": "/help/en/Node selected/#actions", 
-            "text": "Note: some of these actions will only be visible if they can actually be executed on the selected node. For example you can only merge a node with a way or node if the selected node is in their tolerance zone.   Undo  Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.   Properties  Starts the property editor on the current selection.   Append  Add to the way this node is part of. The \"Append\" action is only available if the node in question is an end node of a way.   Unjoin  Create an additional node at this location and use it instead of the original node in one of the ways. The \"Unjoin\" action is only available if the node in question is an end node of two ways.   Merge  Merge the selected node with a way (as a new way node) or with an existing node.    Extract node  Extract the selected node from all ways that it is a member of and replace it with a newly created one. The original node retains all tags and relation memberships and remains selected. After extracting, drag the node to its new position.     Copy  Copy the way to the internal copy and paste buffer.   Cut  Move the way to the internal copy and paste buffer removing it fron the data.   Delete  Remove the object from the data.   Extend selection  Start Multi-Select mode with the current selected element.   Create relation  Create a relation and add this object as the first element. Further objects can be added until \"Done\" is selected, then the property editor will be started on the new relation.    Position  Manually set longitude and latitude values for the coordinates of this node.   Info  Show a screen with some detailed information on the selected object.   Help  Start the Vespucci Help browser", 
+            "text": "Note: some of these actions will only be visible if they can actually be executed on the selected node. For example you can only merge a node with a way or node if the selected node is in their tolerance zone.", 
             "title": "Actions"
+        }, 
+        {
+            "location": "/help/en/Node selected/#undo", 
+            "text": "Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.", 
+            "title": "Undo"
+        }, 
+        {
+            "location": "/help/en/Node selected/#properties", 
+            "text": "Starts the property editor on the current selection.", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/help/en/Node selected/#append", 
+            "text": "Add to the way this node is part of. The \"Append\" action is only available if the node in question is an end node of a way.", 
+            "title": "Append"
+        }, 
+        {
+            "location": "/help/en/Node selected/#unjoin", 
+            "text": "Create an additional node at this location and use it instead of the original node in one of the ways. The \"Unjoin\" action is only available if the node in question is an end node of two ways.", 
+            "title": "Unjoin"
+        }, 
+        {
+            "location": "/help/en/Node selected/#merge", 
+            "text": "Merge the selected node with a way (as a new way node) or with an existing node.", 
+            "title": "Merge"
+        }, 
+        {
+            "location": "/help/en/Node selected/#extract-node", 
+            "text": "Extract the selected node from all ways that it is a member of and replace it with a newly created one. The original node retains all tags and relation memberships and remains selected. After extracting, drag the node to its new position.", 
+            "title": "Extract node"
+        }, 
+        {
+            "location": "/help/en/Node selected/#copy", 
+            "text": "Copy the way to the internal copy and paste buffer.", 
+            "title": "Copy"
+        }, 
+        {
+            "location": "/help/en/Node selected/#cut", 
+            "text": "Move the way to the internal copy and paste buffer removing it fron the data.", 
+            "title": "Cut"
+        }, 
+        {
+            "location": "/help/en/Node selected/#delete", 
+            "text": "Remove the object from the data.", 
+            "title": "Delete"
+        }, 
+        {
+            "location": "/help/en/Node selected/#extend-selection", 
+            "text": "Start Multi-Select mode with the current selected element.", 
+            "title": "Extend selection"
+        }, 
+        {
+            "location": "/help/en/Node selected/#create-relation", 
+            "text": "Create a relation and add this object as the first element. Further objects can be added until \"Done\" is selected, then the property editor will be started on the new relation.", 
+            "title": "Create relation"
+        }, 
+        {
+            "location": "/help/en/Node selected/#position", 
+            "text": "Manually set longitude and latitude values for the coordinates of this node.", 
+            "title": "Position"
+        }, 
+        {
+            "location": "/help/en/Node selected/#info", 
+            "text": "Show a screen with some detailed information on the selected object.", 
+            "title": "Info"
+        }, 
+        {
+            "location": "/help/en/Node selected/#help", 
+            "text": "Start the Vespucci Help browser", 
+            "title": "Help"
         }, 
         {
             "location": "/help/en/Way selected/", 
@@ -172,8 +457,98 @@
         }, 
         {
             "location": "/help/en/Way selected/#actions", 
-            "text": "Note: some of these actions will only be visible if they can actually be executed on the selected way. For example you can only split a way that has more than two way nodes.   Undo  Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.   Properties  Starts the property editor on the current selection.   Add address tags  Adds address tags with prediction. Only visible if way is tagged as building.   Reverse way  Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change. oneway tags are not automatically reversed here the assumption is that the intent was to change the effect of the tag, the tag editor will be started automatically and you can change the tag manually if necessary. Direction dependent tags currently handled are:   direction  incline  turn:lanes and turn  *:left, *:right, *:left:*, *:right:*, left and right  *:backward, *:forward, *:backward:*, *:forward:*, backward and forward  forward and backward roles in relations the selected way is a member of    Split  Split the selected way, the nodes at the available locations for splitting will have a visible touch area. The \"Split\" action is only available if the way has more than two nodes. If the way is closed you will need to select two nodes.   Merge  Join the selected way with one that it shares a node with resulting in a single way. This option will only be available if the ways have compatible tags and relation memberships.   Append  Append to the current selected way. Touch areas will be visible around nodes that can be used to extend the way, select \"Done\" or the same node twice to stop. The \"Append\" action is only available if the way in question is not closed.   Add turn restriction  Start creating a turn restriction with this way as \"from\" member. This action is only available if at least one \"via\" node or way and a corresponding \"to\" way exists.   Orthogonalize  Change angles that are near 90\ufffd or 180\ufffd to 90\ufffd resp. 180\ufffd.   Rotate  Rotate the way around its centroid. The centroid position is marked with a cross.  Split in to polygons  Available for closed ways with at least four nodes. Will split the way in to two polygons, sharing the common nodes.   Copy  Copy the way to the internal copy and paste buffer.   Cut  Move the way to the internal copy and paste buffer removing it fron the data.   Delete  Remove the object from the data.   Extend selection  Start Multi-Select mode with the current selected element.   Create relation  Create a relation and add this object as the first element. Further objects can be added until \"Done\" is selected, then the tag editor will be started on the new relation.    Info  Show a screen with some detailed information on the selected object.   Help  Start the Vespucci Help browser", 
+            "text": "Note: some of these actions will only be visible if they can actually be executed on the selected way. For example you can only split a way that has more than two way nodes.", 
             "title": "Actions"
+        }, 
+        {
+            "location": "/help/en/Way selected/#undo", 
+            "text": "Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.", 
+            "title": "Undo"
+        }, 
+        {
+            "location": "/help/en/Way selected/#properties", 
+            "text": "Starts the property editor on the current selection.", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/help/en/Way selected/#add-address-tags", 
+            "text": "Adds address tags with prediction. Only visible if way is tagged as building.", 
+            "title": "Add address tags"
+        }, 
+        {
+            "location": "/help/en/Way selected/#reverse-way", 
+            "text": "Reverse the direction of the way. If the way has direction dependent tags it will automatically change them to still have the same effect as before the direction change. oneway tags are not automatically reversed here the assumption is that the intent was to change the effect of the tag, the tag editor will be started automatically and you can change the tag manually if necessary. Direction dependent tags currently handled are:   direction  incline  turn:lanes and turn  *:left, *:right, *:left:*, *:right:*, left and right  *:backward, *:forward, *:backward:*, *:forward:*, backward and forward  forward and backward roles in relations the selected way is a member of", 
+            "title": "Reverse way"
+        }, 
+        {
+            "location": "/help/en/Way selected/#split", 
+            "text": "Split the selected way, the nodes at the available locations for splitting will have a visible touch area. The \"Split\" action is only available if the way has more than two nodes. If the way is closed you will need to select two nodes.", 
+            "title": "Split"
+        }, 
+        {
+            "location": "/help/en/Way selected/#merge", 
+            "text": "Join the selected way with one that it shares a node with resulting in a single way. This option will only be available if the ways have compatible tags and relation memberships.", 
+            "title": "Merge"
+        }, 
+        {
+            "location": "/help/en/Way selected/#append", 
+            "text": "Append to the current selected way. Touch areas will be visible around nodes that can be used to extend the way, select \"Done\" or the same node twice to stop. The \"Append\" action is only available if the way in question is not closed.", 
+            "title": "Append"
+        }, 
+        {
+            "location": "/help/en/Way selected/#add-turn-restriction", 
+            "text": "Start creating a turn restriction with this way as \"from\" member. This action is only available if at least one \"via\" node or way and a corresponding \"to\" way exists.", 
+            "title": "Add turn restriction"
+        }, 
+        {
+            "location": "/help/en/Way selected/#orthogonalize", 
+            "text": "Change angles that are near 90\ufffd or 180\ufffd to 90\ufffd resp. 180\ufffd.", 
+            "title": "Orthogonalize"
+        }, 
+        {
+            "location": "/help/en/Way selected/#rotate", 
+            "text": "Rotate the way around its centroid. The centroid position is marked with a cross.", 
+            "title": "Rotate"
+        }, 
+        {
+            "location": "/help/en/Way selected/#split-in-to-polygons", 
+            "text": "Available for closed ways with at least four nodes. Will split the way in to two polygons, sharing the common nodes.", 
+            "title": "Split in to polygons"
+        }, 
+        {
+            "location": "/help/en/Way selected/#copy", 
+            "text": "Copy the way to the internal copy and paste buffer.", 
+            "title": "Copy"
+        }, 
+        {
+            "location": "/help/en/Way selected/#cut", 
+            "text": "Move the way to the internal copy and paste buffer removing it fron the data.", 
+            "title": "Cut"
+        }, 
+        {
+            "location": "/help/en/Way selected/#delete", 
+            "text": "Remove the object from the data.", 
+            "title": "Delete"
+        }, 
+        {
+            "location": "/help/en/Way selected/#extend-selection", 
+            "text": "Start Multi-Select mode with the current selected element.", 
+            "title": "Extend selection"
+        }, 
+        {
+            "location": "/help/en/Way selected/#create-relation", 
+            "text": "Create a relation and add this object as the first element. Further objects can be added until \"Done\" is selected, then the tag editor will be started on the new relation.", 
+            "title": "Create relation"
+        }, 
+        {
+            "location": "/help/en/Way selected/#info", 
+            "text": "Show a screen with some detailed information on the selected object.", 
+            "title": "Info"
+        }, 
+        {
+            "location": "/help/en/Way selected/#help", 
+            "text": "Start the Vespucci Help browser", 
+            "title": "Help"
         }, 
         {
             "location": "/help/en/Relation selected/", 
@@ -187,8 +562,53 @@
         }, 
         {
             "location": "/help/en/Relation selected/#actions", 
-            "text": "Note: some of these actions will only be visible if they can actually be executed on the selected relation.   Undo  Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.   Properties  Starts the tag editor on the current selection.   Add member  Add further objects to the relation until \"Done\" is selected, then the tag editor will be started on the new relation.    Select relation members  Start Multi-Select mode with all members of the current relation selected. The relation itself will be deselected.    Delete  Remove the object from the data.   Extend selection  Start Multi-Select mode with the current selected element.   Create relation  Create a relation and add this object as the first element. Further objects can be added until \"Done\" is selected, then the tag editor will be started on the new relation.    Info  Show a screen with some detailed information on the selected object.    Help  Start the Vespucci Help browser", 
+            "text": "Note: some of these actions will only be visible if they can actually be executed on the selected relation.", 
             "title": "Actions"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#undo", 
+            "text": "Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.", 
+            "title": "Undo"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#properties", 
+            "text": "Starts the tag editor on the current selection.", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#add-member", 
+            "text": "Add further objects to the relation until \"Done\" is selected, then the tag editor will be started on the new relation.", 
+            "title": "Add member"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#select-relation-members", 
+            "text": "Start Multi-Select mode with all members of the current relation selected. The relation itself will be deselected.", 
+            "title": "Select relation members"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#delete", 
+            "text": "Remove the object from the data.", 
+            "title": "Delete"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#extend-selection", 
+            "text": "Start Multi-Select mode with the current selected element.", 
+            "title": "Extend selection"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#create-relation", 
+            "text": "Create a relation and add this object as the first element. Further objects can be added until \"Done\" is selected, then the tag editor will be started on the new relation.", 
+            "title": "Create relation"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#info", 
+            "text": "Show a screen with some detailed information on the selected object.", 
+            "title": "Info"
+        }, 
+        {
+            "location": "/help/en/Relation selected/#help", 
+            "text": "Start the Vespucci Help browser", 
+            "title": "Help"
         }, 
         {
             "location": "/help/en/Property editor/", 
@@ -202,23 +622,118 @@
         }, 
         {
             "location": "/help/en/Property editor/#tags-tab", 
-            "text": "Display of the key - value attributes of the edited object.  The following operations can be performed on selected tags   Delete - delete the tag from the current object  Copy - copy the tag to the internal clipboard and to the system clipboard in a text representation.  Cut - same as copy, but delete the tag from this object.   Special auto complete behaviour  If the key of a field is \"addr:street\" a list of the nearest roads in the down loaded data will be provided.  If the key is \"name\", selection of a value from the auto complete list will add corresponding tags and if enabled in the settings, apply an appropriate preset. Typical use case: add a name key and start typing \"mcd\", select \"McDonalds's\" from the auto completion list and an amenity with the correct tags and name spelling will be added.  If multiple objects with different values for the same tags are being edited, such value fields will display 'Multiple values' and the auto-complete list will contain the existing values with a count. Setting the value to a specific value will set it for all objects, an empty value will leave the values untouched.   Add address tags  Add address tags for the object. This function will try to predict the house number to suggest. It works best along straight roads with regular numbering schemes.    Apply best preset  Will locate the best matching preset to the existing tags and apply the preset adding further suggested fields.   Paste  Paste and merge the tags from the internal clipboard.    Revert  Tapping the icon once will reset the tags to the values as they were when the property editor was started.  Paste from clipboard  Paste and merge multi-line text from the system clipboard. If the lines have the form  key = value  the lines will be split at the = and pasted in to key and values fields, otherwise the complete lines will be copied to the value field. This function can be used for example with OCR apps.    Surveyed  Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form.    Map Features Wiki  Invoke a web browser on the map features page in the OpenStreetMap wiki.  (requires network connectivity)    Reset address prediction  Empty the current address cache and re-seed from downloaded OpenStreetMap data.   Reset Presets  Reset the most recently used preset list and remove short cuts from the tag editor screen.    Help  Start the on device help browser.", 
+            "text": "Display of the key - value attributes of the edited object.  The following operations can be performed on selected tags   Delete - delete the tag from the current object  Copy - copy the tag to the internal clipboard and to the system clipboard in a text representation.  Cut - same as copy, but delete the tag from this object.", 
             "title": "Tags Tab"
         }, 
         {
+            "location": "/help/en/Property editor/#special-auto-complete-behaviour", 
+            "text": "If the key of a field is \"addr:street\" a list of the nearest roads in the down loaded data will be provided.  If the key is \"name\", selection of a value from the auto complete list will add corresponding tags and if enabled in the settings, apply an appropriate preset. Typical use case: add a name key and start typing \"mcd\", select \"McDonalds's\" from the auto completion list and an amenity with the correct tags and name spelling will be added.  If multiple objects with different values for the same tags are being edited, such value fields will display 'Multiple values' and the auto-complete list will contain the existing values with a count. Setting the value to a specific value will set it for all objects, an empty value will leave the values untouched.", 
+            "title": "Special auto complete behaviour"
+        }, 
+        {
+            "location": "/help/en/Property editor/#add-address-tags", 
+            "text": "Add address tags for the object. This function will try to predict the house number to suggest. It works best along straight roads with regular numbering schemes.", 
+            "title": "Add address tags"
+        }, 
+        {
+            "location": "/help/en/Property editor/#apply-best-preset", 
+            "text": "Will locate the best matching preset to the existing tags and apply the preset adding further suggested fields.", 
+            "title": "Apply best preset"
+        }, 
+        {
+            "location": "/help/en/Property editor/#paste", 
+            "text": "Paste and merge the tags from the internal clipboard.", 
+            "title": "Paste"
+        }, 
+        {
+            "location": "/help/en/Property editor/#revert", 
+            "text": "Tapping the icon once will reset the tags to the values as they were when the property editor was started.", 
+            "title": "Revert"
+        }, 
+        {
+            "location": "/help/en/Property editor/#paste-from-clipboard", 
+            "text": "Paste and merge multi-line text from the system clipboard. If the lines have the form  key = value  the lines will be split at the = and pasted in to key and values fields, otherwise the complete lines will be copied to the value field. This function can be used for example with OCR apps.", 
+            "title": "Paste from clipboard"
+        }, 
+        {
+            "location": "/help/en/Property editor/#surveyed", 
+            "text": "Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form.", 
+            "title": "Surveyed"
+        }, 
+        {
+            "location": "/help/en/Property editor/#map-features-wiki", 
+            "text": "Invoke a web browser on the map features page in the OpenStreetMap wiki.  (requires network connectivity)", 
+            "title": "Map Features Wiki"
+        }, 
+        {
+            "location": "/help/en/Property editor/#reset-address-prediction", 
+            "text": "Empty the current address cache and re-seed from downloaded OpenStreetMap data.", 
+            "title": "Reset address prediction"
+        }, 
+        {
+            "location": "/help/en/Property editor/#reset-presets", 
+            "text": "Reset the most recently used preset list and remove short cuts from the tag editor screen.", 
+            "title": "Reset Presets"
+        }, 
+        {
+            "location": "/help/en/Property editor/#help", 
+            "text": "Start the on device help browser.", 
+            "title": "Help"
+        }, 
+        {
             "location": "/help/en/Property editor/#relations-tab", 
-            "text": "Display of the relations the edited object is a member of and the role in the relation.  The following operation can be performed on selected relations.   Delete - remove the edited object from this relation.    Revert  Tapping the icon once will reset the relations to the values as they were when the property editor was started.  Add to relation  Add the current object to a existing relation in the download.   Help  Start the on device help browser.", 
+            "text": "Display of the relations the edited object is a member of and the role in the relation.  The following operation can be performed on selected relations.   Delete - remove the edited object from this relation.", 
             "title": "Relations Tab"
         }, 
         {
+            "location": "/help/en/Property editor/#revert_1", 
+            "text": "Tapping the icon once will reset the relations to the values as they were when the property editor was started.", 
+            "title": "Revert"
+        }, 
+        {
+            "location": "/help/en/Property editor/#add-to-relation", 
+            "text": "Add the current object to a existing relation in the download.", 
+            "title": "Add to relation"
+        }, 
+        {
+            "location": "/help/en/Property editor/#help_1", 
+            "text": "Start the on device help browser.", 
+            "title": "Help"
+        }, 
+        {
             "location": "/help/en/Property editor/#members-tab", 
-            "text": "For relations only, display the members of the relation.  Members with a dark object field and only a numeric id displayed have not been downloaded.  The following operation can be performed on selected relation members.   Delete - remove the object from this (the edited) relation.   There will likely be more operations added in the future, for example sorting   Revert  Tapping the icon once will reset the members to the values as they were when the property editor was started.   Help  Start the on device help browser.", 
+            "text": "For relations only, display the members of the relation.  Members with a dark object field and only a numeric id displayed have not been downloaded.  The following operation can be performed on selected relation members.   Delete - remove the object from this (the edited) relation.   There will likely be more operations added in the future, for example sorting", 
             "title": "Members Tab"
         }, 
         {
+            "location": "/help/en/Property editor/#revert_2", 
+            "text": "Tapping the icon once will reset the members to the values as they were when the property editor was started.", 
+            "title": "Revert"
+        }, 
+        {
+            "location": "/help/en/Property editor/#help_2", 
+            "text": "Start the on device help browser.", 
+            "title": "Help"
+        }, 
+        {
             "location": "/help/en/Property editor/#preset-display", 
-            "text": "Find, select and apply a  preset . Groups of presets have a light background, presets a dark one.   Top  Go to the top of the preset hierarchy.  Up  Go up one level.   Help  Start the on device help browser.", 
+            "text": "Find, select and apply a  preset . Groups of presets have a light background, presets a dark one.", 
             "title": "Preset display"
+        }, 
+        {
+            "location": "/help/en/Property editor/#top", 
+            "text": "Go to the top of the preset hierarchy.", 
+            "title": "Top"
+        }, 
+        {
+            "location": "/help/en/Property editor/#up", 
+            "text": "Go up one level.", 
+            "title": "Up"
+        }, 
+        {
+            "location": "/help/en/Property editor/#help_3", 
+            "text": "Start the on device help browser.", 
+            "title": "Help"
         }, 
         {
             "location": "/help/en/Multiselect/", 
@@ -232,8 +747,38 @@
         }, 
         {
             "location": "/help/en/Multiselect/#actions", 
-            "text": "Undo  Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.   Properties  Starts the property editor on the current selection.   Delete  Remove the object from the data.   Merge ways  Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected. In pre-merge tag conflicts are detected you will be asked to fix them first and the property editor will be started on the selection, the same post-merge.    Create relation  Create a relation starting with the current selected elements. Further objects can be added until \"Done\" is selected, then the tag editor will be started on the new relation.    Help  Start the Vespucci Help browser", 
+            "text": "", 
             "title": "Actions"
+        }, 
+        {
+            "location": "/help/en/Multiselect/#undo", 
+            "text": "Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding \"redo\" action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen.  Some operations consist of multiple simpler actions that will be listed as individual items.", 
+            "title": "Undo"
+        }, 
+        {
+            "location": "/help/en/Multiselect/#properties", 
+            "text": "Starts the property editor on the current selection.", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/help/en/Multiselect/#delete", 
+            "text": "Remove the object from the data.", 
+            "title": "Delete"
+        }, 
+        {
+            "location": "/help/en/Multiselect/#merge-ways", 
+            "text": "Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected. In pre-merge tag conflicts are detected you will be asked to fix them first and the property editor will be started on the selection, the same post-merge.", 
+            "title": "Merge ways"
+        }, 
+        {
+            "location": "/help/en/Multiselect/#create-relation", 
+            "text": "Create a relation starting with the current selected elements. Further objects can be added until \"Done\" is selected, then the tag editor will be started on the new relation.", 
+            "title": "Create relation"
+        }, 
+        {
+            "location": "/help/en/Multiselect/#help", 
+            "text": "Start the Vespucci Help browser", 
+            "title": "Help"
         }, 
         {
             "location": "/help/en/Conflict resolution/", 
@@ -242,8 +787,18 @@
         }, 
         {
             "location": "/help/en/Conflict resolution/#conflict-resolution", 
-            "text": "Vespucci provides a basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity download only small areas, refresh them often and save early.  Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.  Version conflicts  The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.  It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, with other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.  Referential conflicts  While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.", 
+            "text": "Vespucci provides a basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity download only small areas, refresh them often and save early.  Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.", 
             "title": "Conflict Resolution"
+        }, 
+        {
+            "location": "/help/en/Conflict resolution/#version-conflicts", 
+            "text": "The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.  It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, with other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.", 
+            "title": "Version conflicts"
+        }, 
+        {
+            "location": "/help/en/Conflict resolution/#referential-conflicts", 
+            "text": "While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.", 
+            "title": "Referential conflicts"
         }, 
         {
             "location": "/help/en/Presets/", 
@@ -272,8 +827,28 @@
         }, 
         {
             "location": "/help/en/Aligning background imagery/#align-background", 
-            "text": "Many different background sources are available for OpenStreetMap editors, particularly satellite and aerial imagery however often suffers from small to large offsets from reality. It is important to check and potentially adjust for this  before  tracing anything for inclusion in to OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.  All operations affect only the current background layer.  Manually adjusting the offset  To adjust the offset manually you need to align it to a reference, this could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the \"Align background\" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset.  Existing the screen with \"Done\" will semi-permanently store the offset for this zoom level, to apply it to all zoom levels select \"Apply (all Zooms)\" from the menu.  Retrieving an offset from the imagery offset DB  (requires network connectivity)  Select \"FROM DB\" to retrieve an offset from the imagery offset DB, this searches in a radius of 10km for offsets that are applicable to the current background layer. If offsets are found they will be presented in a nearest first order, with the options to either skip to the next one, apply the offset to all zooms, or just as stored in the offset DB.  Saving an offset to the imagery offset DB  (requires network connectivity)  A manually set offset can be saved to the DB. Vespucci will create separate entries for each distinct offset and set of zooms, you can then individually decide to save or not. Please state in your description clearly what wou used as a reference for your offset.  All functions   FROM DB  - retrieve offset from imagery offset DB  RESET  - reset the offset to what is was before the \"Align background\" mode was started  ZERO  - set the offset to zero  Apply (all Zooms)  - apply the current offset to all zoom levels  Save to DB  - save to imagery offset DB  Help  - start the Vespucci help browser", 
+            "text": "Many different background sources are available for OpenStreetMap editors, particularly satellite and aerial imagery however often suffers from small to large offsets from reality. It is important to check and potentially adjust for this  before  tracing anything for inclusion in to OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.  All operations affect only the current background layer.", 
             "title": "Align background"
+        }, 
+        {
+            "location": "/help/en/Aligning background imagery/#manually-adjusting-the-offset", 
+            "text": "To adjust the offset manually you need to align it to a reference, this could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the \"Align background\" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset.  Existing the screen with \"Done\" will semi-permanently store the offset for this zoom level, to apply it to all zoom levels select \"Apply (all Zooms)\" from the menu.", 
+            "title": "Manually adjusting the offset"
+        }, 
+        {
+            "location": "/help/en/Aligning background imagery/#retrieving-an-offset-from-the-imagery-offset-db", 
+            "text": "(requires network connectivity)  Select \"FROM DB\" to retrieve an offset from the imagery offset DB, this searches in a radius of 10km for offsets that are applicable to the current background layer. If offsets are found they will be presented in a nearest first order, with the options to either skip to the next one, apply the offset to all zooms, or just as stored in the offset DB.", 
+            "title": "Retrieving an offset from the imagery offset DB"
+        }, 
+        {
+            "location": "/help/en/Aligning background imagery/#saving-an-offset-to-the-imagery-offset-db", 
+            "text": "(requires network connectivity)  A manually set offset can be saved to the DB. Vespucci will create separate entries for each distinct offset and set of zooms, you can then individually decide to save or not. Please state in your description clearly what wou used as a reference for your offset.", 
+            "title": "Saving an offset to the imagery offset DB"
+        }, 
+        {
+            "location": "/help/en/Aligning background imagery/#all-functions", 
+            "text": "FROM DB  - retrieve offset from imagery offset DB  RESET  - reset the offset to what is was before the \"Align background\" mode was started  ZERO  - set the offset to zero  Apply (all Zooms)  - apply the current offset to all zoom levels  Save to DB  - save to imagery offset DB  Help  - start the Vespucci help browser", 
+            "title": "All functions"
         }, 
         {
             "location": "/help/en/Keyboard/", 
@@ -287,8 +862,33 @@
         }, 
         {
             "location": "/help/en/Keyboard/#shortcuts", 
-            "text": "The alphabetic menu shortcuts should be usable with   + letter or   + letter.  General  u  Undo\n   h  Help  Main display  f  GPS follow \n   g  GPS goto \n   d  Download data for current view (merges with existing) \n   b  Download notes/bugs for current view (merges with existing)   +  Zoom in\n   Volume +  Zoom in\n   -  Zoom out\n   Volume -  Zoom out\n   Arrow keys  Pan in the respective direction  Element selected  e  Edit tags\n   i  Element information\n   c  Copy\n   x  Cut \n   v  Paste   Node selected  m  Merge (if possible)  Property editor  c  Copy\n   x  Cut \n   v  Paste", 
+            "text": "The alphabetic menu shortcuts should be usable with   + letter or   + letter.", 
             "title": "Shortcuts"
+        }, 
+        {
+            "location": "/help/en/Keyboard/#general", 
+            "text": "u  Undo\n   h  Help", 
+            "title": "General"
+        }, 
+        {
+            "location": "/help/en/Keyboard/#main-display", 
+            "text": "f  GPS follow \n   g  GPS goto \n   d  Download data for current view (merges with existing) \n   b  Download notes/bugs for current view (merges with existing)   +  Zoom in\n   Volume +  Zoom in\n   -  Zoom out\n   Volume -  Zoom out\n   Arrow keys  Pan in the respective direction", 
+            "title": "Main display"
+        }, 
+        {
+            "location": "/help/en/Keyboard/#element-selected", 
+            "text": "e  Edit tags\n   i  Element information\n   c  Copy\n   x  Cut \n   v  Paste", 
+            "title": "Element selected"
+        }, 
+        {
+            "location": "/help/en/Keyboard/#node-selected", 
+            "text": "m  Merge (if possible)", 
+            "title": "Node selected"
+        }, 
+        {
+            "location": "/help/en/Keyboard/#property-editor", 
+            "text": "c  Copy\n   x  Cut \n   v  Paste", 
+            "title": "Property editor"
         }, 
         {
             "location": "/help/en/GPS sources/", 
@@ -297,8 +897,13 @@
         }, 
         {
             "location": "/help/en/GPS sources/#gps-sources", 
-            "text": "(this is currently an experimental facility)  Besides the Android standard Location mechanism, Vespucci supports three other methods of obtaining location information:   the internal NMEA source  NEMA sentences retrieved from a server  NEMA sentences sent from a client to a built-in Vespucci server   The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.  In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA \"talkers\" as follows: GN (multiple talkers)   GP (GPS)   GL (GLONASS).  Setup  In the \"Advanced preferences\" you can select the \"GPS source\"   Internal  - default  Internal NMEA  NMEA from TCP client  - use a client to retrieve NMEA data from an external server  NMEA from TCP server  - allow an external client to submit NMEA data   For the later two options you need to set the \"NMEA network source\", the string has the format  host:port . The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.", 
+            "text": "(this is currently an experimental facility)  Besides the Android standard Location mechanism, Vespucci supports three other methods of obtaining location information:   the internal NMEA source  NEMA sentences retrieved from a server  NEMA sentences sent from a client to a built-in Vespucci server   The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.  In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA \"talkers\" as follows: GN (multiple talkers)   GP (GPS)   GL (GLONASS).", 
             "title": "GPS Sources"
+        }, 
+        {
+            "location": "/help/en/GPS sources/#setup", 
+            "text": "In the \"Advanced preferences\" you can select the \"GPS source\"   Internal  - default  Internal NMEA  NMEA from TCP client  - use a client to retrieve NMEA data from an external server  NMEA from TCP server  - allow an external client to submit NMEA data   For the later two options you need to set the \"NMEA network source\", the string has the format  host:port . The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.", 
+            "title": "Setup"
         }, 
         {
             "location": "/tutorials/name_suggestions/", 
@@ -341,14 +946,64 @@
             "title": "Tag-only editing"
         }, 
         {
+            "location": "/tutorials/presets/", 
+            "text": "Vespucci Preset System\n\n\nPreliminary documentation for Vespucci 0.9.8\n\n\nAs explained in the \nhelp documentation\n Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci however that doesn't mean that there are no differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.\n\n\nPreset-Driven Tag-Editing in Vespucci\n\n\n\n\nFor the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones. with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixes key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either not tags left or no preset match can be found.  \n\n\nSupported JOSM Preset Elements and Attributes\n\n\nNote: this is loosely based on what \nJOSM claims\n to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored see \nTranslation\n\n\n\n\n\n\n\n\nElement\n\n\nAttributes\n\n\nSupport\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\npresets\n\n\n\n\nignored\n\n\n\n\n\n\n\n\n!-- comment --\n\n\n\n\nignored\n\n\n\n\n\n\n\n\ngroup\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nname\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\nname_context\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nicon\n\n\nsupported\n\n\nyou really should add one for Vespucci\n\n\n\n\n\n\nitem\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nname\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\nname_context\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nicon\n\n\nsupported\n\n\nyou really should add one for Vespucci\n\n\n\n\n\n\n\n\ntype\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nname_template\n\n\nignored\n\n\n\n\n\n\n\n\n\n\npreset_name_label\n\n\nignored\n\n\n\n\n\n\n\n\nchunk\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nid\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\nreference\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nref\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\nkey\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nvalue\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\nmatch\n\n\npartial\n\n\nonly the \"key\" value is supported, all other values are ignored\n\n\n\n\n\n\ntext\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nkey\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\ntext\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nmatch\n\n\npartial\n\n\nonly the \"key\" value is supported, all other values are ignored\n\n\n\n\n\n\n\n\ndefault\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nuse_last_as_default\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nauto_increment\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nlength\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nalternative_autocomplete_keys\n\n\nignored\n\n\n\n\n\n\n\n\ncombo\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nkey\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\ntext\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ntext_context\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nvalues\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nvalues_sort\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ndelimiter\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ndefault\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nmatch\n\n\npartial\n\n\nonly the \"key\" value is supported, all other values are ignored\n\n\n\n\n\n\n\n\ndisplay_values\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nshort_descriptions\n\n\npartial\n\n\nwill only be used if display_values is not present\n\n\n\n\n\n\n\n\nvalues_context\n\n\nignored\n\n\n\n\n\n\n\n\n\n\neditable\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nuse_last_as_default\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nvalues_searchable\n\n\nignored\n\n\nall values are currently added to the index\n\n\n\n\n\n\n\n\nlength\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nvalues_no_i18n\n\n\nignored\n\n\n\n\n\n\n\n\nmultiselect\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nkey\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\ntext\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ntext_context\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nvalues\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nvalues_sort\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ndelimiter\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ndefault\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nmatch\n\n\npartial\n\n\nonly the \"key\" value is supported, all other values are ignored\n\n\n\n\n\n\n\n\ndisplay_values\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nshort_descriptions\n\n\npartial\n\n\nwill only be used if display_values is not present\n\n\n\n\n\n\n\n\nvalues_context\n\n\nignored\n\n\n\n\n\n\n\n\n\n\neditable\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nuse_last_as_default\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nvalues_searchable\n\n\nignored\n\n\nall values are currently added to the index\n\n\n\n\n\n\n\n\nlength\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nvalues_no_i18n\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nrows\n\n\nignored\n\n\n\n\n\n\n\n\nlist_entry\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ndisplay_value\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nshort_description\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nicon\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nicon_size\n\n\nignored\n\n\n\n\n\n\n\n\ncheckgroup\n\n\n\n\nignored\n\n\nbut not the included \n elements\n\n\n\n\n\n\ncheck\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nkey\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\ntext\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ntext_context\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nvalue_on\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nvalue_off\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ndisable_off\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\ndefault\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nmatch\n\n\npartial\n\n\nonly the \"key\" value is supported, all other values are ignored\n\n\n\n\n\n\nlabel\n\n\n\n\nignored\n\n\n\n\n\n\n\n\nspace/\n\n\n\n\nignored\n\n\n\n\n\n\n\n\noptional\n\n\n\n\nsupported\n\n\ndoesn't display anything\n\n\n\n\n\n\n\n\ntext\n\n\nignored\n\n\n\n\n\n\n\n\nseparator/\n\n\n\n\nsupported\n\n\nstarts a new row in the preset selection display\n\n\n\n\n\n\nitem_separator/\n\n\n\n\nignored\n\n\n\n\n\n\n\n\nlink\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nhref\n\n\npartial\n\n\nlanguage variants are currently not supported\n\n\n\n\n\n\nroles\n\n\n\n\nignored\n\n\nbut not the included \n elements\n\n\n\n\n\n\nrole\n\n\n\n\nsupported\n\n\n\n\n\n\n\n\n\n\nkey\n\n\nsupported\n\n\nrequired\n\n\n\n\n\n\n\n\ntext\n\n\nignored\n\n\n\n\n\n\n\n\n\n\ntext_context\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nrequisite\n\n\nignored\n\n\n\n\n\n\n\n\n\n\ncount\n\n\nignored\n\n\n\n\n\n\n\n\n\n\ntype\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nmember_expression\n\n\nignored\n\n\n\n\n\n\n\n\n\n\nTranslation \n\n\nWhile the preset specification includes language specific text by suffixing the keys with the two letter ISO code, for example \ntext:de\n, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in. \n\n\nFor Vespucci I've chosen a different approach based on \nGNU gettext\n format files, the simple \nPreset2Pot\n utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).", 
+            "title": "Vespucci presets"
+        }, 
+        {
+            "location": "/tutorials/presets/#vespucci-preset-system", 
+            "text": "Preliminary documentation for Vespucci 0.9.8  As explained in the  help documentation  Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci however that doesn't mean that there are no differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.", 
+            "title": "Vespucci Preset System"
+        }, 
+        {
+            "location": "/tutorials/presets/#preset-driven-tag-editing-in-vespucci", 
+            "text": "For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones. with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixes key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either not tags left or no preset match can be found.", 
+            "title": "Preset-Driven Tag-Editing in Vespucci"
+        }, 
+        {
+            "location": "/tutorials/presets/#supported-josm-preset-elements-and-attributes", 
+            "text": "Note: this is loosely based on what  JOSM claims  to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored see  Translation     Element  Attributes  Support  Notes      presets   ignored     !-- comment --   ignored     group   supported      name  supported  required     name_context  supported      icon  supported  you really should add one for Vespucci    item   supported      name  supported  required     name_context  supported      icon  supported  you really should add one for Vespucci     type  supported      name_template  ignored      preset_name_label  ignored     chunk   supported      id  supported  required    reference   supported      ref  supported  required    key   supported      value  supported  required     match  partial  only the \"key\" value is supported, all other values are ignored    text   supported      key  supported  required     text  supported      match  partial  only the \"key\" value is supported, all other values are ignored     default  supported      use_last_as_default  ignored      auto_increment  ignored      length  ignored      alternative_autocomplete_keys  ignored     combo   supported      key  supported  required     text  supported      text_context  ignored      values  supported      values_sort  supported      delimiter  supported      default  supported      match  partial  only the \"key\" value is supported, all other values are ignored     display_values  supported      short_descriptions  partial  will only be used if display_values is not present     values_context  ignored      editable  ignored      use_last_as_default  ignored      values_searchable  ignored  all values are currently added to the index     length  ignored      values_no_i18n  ignored     multiselect   supported      key  supported  required     text  supported      text_context  ignored      values  supported      values_sort  supported      delimiter  supported      default  supported      match  partial  only the \"key\" value is supported, all other values are ignored     display_values  supported      short_descriptions  partial  will only be used if display_values is not present     values_context  ignored      editable  ignored      use_last_as_default  ignored      values_searchable  ignored  all values are currently added to the index     length  ignored      values_no_i18n  ignored      rows  ignored     list_entry   supported      display_value  supported      short_description  supported      icon  ignored      icon_size  ignored     checkgroup   ignored  but not the included   elements    check   supported      key  supported  required     text  supported      text_context  ignored      value_on  supported      value_off  supported      disable_off  supported      default  supported      match  partial  only the \"key\" value is supported, all other values are ignored    label   ignored     space/   ignored     optional   supported  doesn't display anything     text  ignored     separator/   supported  starts a new row in the preset selection display    item_separator/   ignored     link   supported      href  partial  language variants are currently not supported    roles   ignored  but not the included   elements    role   supported      key  supported  required     text  ignored      text_context  ignored      requisite  ignored      count  ignored      type  ignored      member_expression  ignored", 
+            "title": "Supported JOSM Preset Elements and Attributes"
+        }, 
+        {
+            "location": "/tutorials/presets/#translation", 
+            "text": "While the preset specification includes language specific text by suffixing the keys with the two letter ISO code, for example  text:de , in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in.   For Vespucci I've chosen a different approach based on  GNU gettext  format files, the simple  Preset2Pot  utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).", 
+            "title": "Translation "
+        }, 
+        {
             "location": "/tutorials/screenshots/", 
             "text": "Screenshots\n\n\nElement selection\n\n\n \n \n\n\nProperty editor\n\n\n \n\n\nNotes/bugs\n\n\n \n\n\nNotifications\n\n\n \n\n\nAligning imagery", 
             "title": "Screenshots"
         }, 
         {
             "location": "/tutorials/screenshots/#screenshots", 
-            "text": "Element selection       Property editor     Notes/bugs     Notifications     Aligning imagery", 
+            "text": "", 
             "title": "Screenshots"
+        }, 
+        {
+            "location": "/tutorials/screenshots/#element-selection", 
+            "text": "", 
+            "title": "Element selection"
+        }, 
+        {
+            "location": "/tutorials/screenshots/#property-editor", 
+            "text": "", 
+            "title": "Property editor"
+        }, 
+        {
+            "location": "/tutorials/screenshots/#notesbugs", 
+            "text": "", 
+            "title": "Notes/bugs"
+        }, 
+        {
+            "location": "/tutorials/screenshots/#notifications", 
+            "text": "", 
+            "title": "Notifications"
+        }, 
+        {
+            "location": "/tutorials/screenshots/#aligning-imagery", 
+            "text": "", 
+            "title": "Aligning imagery"
         }, 
         {
             "location": "/tutorials/faq/", 
@@ -357,8 +1012,103 @@
         }, 
         {
             "location": "/tutorials/faq/#frequently-asked-questions", 
-            "text": "What is Vespucci?  Vespucci is the first  OpenStreetMap  editor for Android.\nThat means: It is a light-weight, easy-to-use mapping tool on mobile Android devices.  What is Vespucci NOT?   Vespucci is not primarily a mobile map-viewer.   Vespucci is not a mobile navigation solution. It does not feature any routing algorithm.  Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards.    I am already familiar with OSM editor xyz. Why should I use Vespucci?  If you are mapping for OSM and already have an Android device (or planning for this) then Vespucci could help in your mapping work. Data is acquired \"on site\" and uploaded to the OSM server. By entering data in your mobile device \"on the road\" you can save time because you do not have to upload GPS tracks to your home PC and work your way again through these.\nAdditionally, obscure OSM data can be verified easily and quickly \"on site\", data which is already available in OSM is not acquired again.  What do I need to get started with Vespucci?  You need:   An Android device (or the emulator) Release 0.9.X has only been tested on Android 2.3 and later.  The Vespucci APK file (available from the Android Market and github)  Some familiarity with  OSM Map features  An  OSM account   What is the status of Vespucci development?  The current Vespucci version is 0.9.7 nearing release.  Is Vespucci available for other mobile platforms?  No, with the exception of those that provide an Android compatible environment.  How can I obtain Vespucci?  See  Obtaing Vespucci  How can I install Vespucci on my Android device?  Just download and install like any other app =)  How can I install Vespucci on the Android emulator?  Installation of the Vespucci APK is like any other APK.\nThere are plenty descriptions available (e.g.  1  ,  2  ,  3  ,  4  )  Running Vespucci on \"old and small\" devices  Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.2 and later,\nhowever older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap.\nThis can be as low as 16MB. If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints\nshould be helpful (ordered in decreasing order of importance):   turn off any map overlay  only load small map areas and don't excessively use the incremental load facility  turn off notes and photo overlay  turn off name suggestions  don't add large presets   What can I do with the editor?  Currently, you can   Add and move nodes, ways and relations  Rotate ways  Edit the tags of nodes, ways and relations  Append nodes to existing ways  Delete existing nodes, ways and relations  Merge nodes  Edit existing relation mambers and add new   Add turn restrictions  Download area around current location from OSM server  Download user-specified areas from OSM server  Create, save, upload and import GPS tracks   and much more.  Does Vespucci support OSM Notes?  Yes, Vespucci supports manual and automatic download of Notes and offline storage of them, further it supports displaying and editing warnings produced by the OSMOSE quality assurance system. OpenStreetBugs is no longer supported.  What are the limits of Vespucci?  Some things missing at this point in time   No validator (however in general Vespucci tries to stop you from shooting yourself in the foot)  No connectivity checks for relations  No individual relation member download and no functions to change the order of members (planned)    Remember, Android is intended to be lightweight and easy-to-use.   Which languages are supported?  The user interdace is currently available in: English, German, Chinese (Taiwan), Spanish, Ukranian, Russian, Turkish, French, Italian, Vienamese, Chinese, Icelandic, Greek, Portugeses and Janpanese. These translations are typically complete or only have a small number of terms missing.  We also have partial translations for a number of other languages (please see link to transifex below for the current status). Any help in this area would be gratefully received. Please see https://www.transifex.com/projects/p/vespucci/  How can I download OSM data?  On startup, Vespucci requests which area to download. You can choose from the following options:   Current location  Last known location  Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.  Search for a location (New in 0.9.4, requires network connectivity)   For all download options, the additional parameter \"Radius\" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when  downloading.)  You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the \"Download current view\" from the transfer menu.  How can I upload new/changed data to the OSM server?  Choose \"Upload data to  OSM server\" from the transfer menu.\n(With other words: Data is not automatically uploaded!)  Which user account is used when uploading data to the OSM server?  Vespucci will use OAuth authorization as default for new installs. On your first upload you will be directed to an OSM page that we ask you to authorize your Vespucci install. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).  How can I zoom into an area?   Use the pinch-to-zoom multi-touch gesture.  Use the on-screen zoom controls.  Use the volume buttons of your Android device.   Conflict resolution  vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSMs conflict resolution capabilities.", 
+            "text": "", 
             "title": "Frequently Asked Questions"
+        }, 
+        {
+            "location": "/tutorials/faq/#what-is-vespucci", 
+            "text": "Vespucci is the first  OpenStreetMap  editor for Android.\nThat means: It is a light-weight, easy-to-use mapping tool on mobile Android devices.", 
+            "title": "What is Vespucci?"
+        }, 
+        {
+            "location": "/tutorials/faq/#what-is-vespucci-not", 
+            "text": "Vespucci is not primarily a mobile map-viewer.   Vespucci is not a mobile navigation solution. It does not feature any routing algorithm.  Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards.", 
+            "title": "What is Vespucci NOT?"
+        }, 
+        {
+            "location": "/tutorials/faq/#i-am-already-familiar-with-osm-editor-xyz-why-should-i-use-vespucci", 
+            "text": "If you are mapping for OSM and already have an Android device (or planning for this) then Vespucci could help in your mapping work. Data is acquired \"on site\" and uploaded to the OSM server. By entering data in your mobile device \"on the road\" you can save time because you do not have to upload GPS tracks to your home PC and work your way again through these.\nAdditionally, obscure OSM data can be verified easily and quickly \"on site\", data which is already available in OSM is not acquired again.", 
+            "title": "I am already familiar with OSM editor xyz. Why should I use Vespucci?"
+        }, 
+        {
+            "location": "/tutorials/faq/#what-do-i-need-to-get-started-with-vespucci", 
+            "text": "You need:   An Android device (or the emulator) Release 0.9.X has only been tested on Android 2.3 and later.  The Vespucci APK file (available from the Android Market and github)  Some familiarity with  OSM Map features  An  OSM account", 
+            "title": "What do I need to get started with Vespucci?"
+        }, 
+        {
+            "location": "/tutorials/faq/#what-is-the-status-of-vespucci-development", 
+            "text": "The current Vespucci version is 0.9.7 nearing release.", 
+            "title": "What is the status of Vespucci development?"
+        }, 
+        {
+            "location": "/tutorials/faq/#is-vespucci-available-for-other-mobile-platforms", 
+            "text": "No, with the exception of those that provide an Android compatible environment.", 
+            "title": "Is Vespucci available for other mobile platforms?"
+        }, 
+        {
+            "location": "/tutorials/faq/#how-can-i-obtain-vespucci", 
+            "text": "See  Obtaing Vespucci", 
+            "title": "How can I obtain Vespucci?"
+        }, 
+        {
+            "location": "/tutorials/faq/#how-can-i-install-vespucci-on-my-android-device", 
+            "text": "Just download and install like any other app =)", 
+            "title": "How can I install Vespucci on my Android device?"
+        }, 
+        {
+            "location": "/tutorials/faq/#how-can-i-install-vespucci-on-the-android-emulator", 
+            "text": "Installation of the Vespucci APK is like any other APK.\nThere are plenty descriptions available (e.g.  1  ,  2  ,  3  ,  4  )", 
+            "title": "How can I install Vespucci on the Android emulator?"
+        }, 
+        {
+            "location": "/tutorials/faq/#running-vespucci-on-old-and-small-devices", 
+            "text": "Modern (0.8 and up) Vespucci versions have been tested and found to work on Android 2.2 and later,\nhowever older devices tend to have very limited memory and correspondingly the apps are allocated very small amounts of heap.\nThis can be as low as 16MB. If you are trying to run Vespucci on such a device, particularly with 0.9.4 and later, the following hints\nshould be helpful (ordered in decreasing order of importance):   turn off any map overlay  only load small map areas and don't excessively use the incremental load facility  turn off notes and photo overlay  turn off name suggestions  don't add large presets", 
+            "title": "Running Vespucci on \"old and small\" devices"
+        }, 
+        {
+            "location": "/tutorials/faq/#what-can-i-do-with-the-editor", 
+            "text": "Currently, you can   Add and move nodes, ways and relations  Rotate ways  Edit the tags of nodes, ways and relations  Append nodes to existing ways  Delete existing nodes, ways and relations  Merge nodes  Edit existing relation mambers and add new   Add turn restrictions  Download area around current location from OSM server  Download user-specified areas from OSM server  Create, save, upload and import GPS tracks   and much more.", 
+            "title": "What can I do with the editor?"
+        }, 
+        {
+            "location": "/tutorials/faq/#does-vespucci-support-osm-notes", 
+            "text": "Yes, Vespucci supports manual and automatic download of Notes and offline storage of them, further it supports displaying and editing warnings produced by the OSMOSE quality assurance system. OpenStreetBugs is no longer supported.", 
+            "title": "Does Vespucci support OSM Notes?"
+        }, 
+        {
+            "location": "/tutorials/faq/#what-are-the-limits-of-vespucci", 
+            "text": "Some things missing at this point in time   No validator (however in general Vespucci tries to stop you from shooting yourself in the foot)  No connectivity checks for relations  No individual relation member download and no functions to change the order of members (planned)    Remember, Android is intended to be lightweight and easy-to-use.", 
+            "title": "What are the limits of Vespucci?"
+        }, 
+        {
+            "location": "/tutorials/faq/#which-languages-are-supported", 
+            "text": "The user interdace is currently available in: English, German, Chinese (Taiwan), Spanish, Ukranian, Russian, Turkish, French, Italian, Vienamese, Chinese, Icelandic, Greek, Portugeses and Janpanese. These translations are typically complete or only have a small number of terms missing.  We also have partial translations for a number of other languages (please see link to transifex below for the current status). Any help in this area would be gratefully received. Please see https://www.transifex.com/projects/p/vespucci/", 
+            "title": "Which languages are supported?"
+        }, 
+        {
+            "location": "/tutorials/faq/#how-can-i-download-osm-data", 
+            "text": "On startup, Vespucci requests which area to download. You can choose from the following options:   Current location  Last known location  Coordinates. If you need access to specific geographic coordinates you can specify latitude/longitude.  Search for a location (New in 0.9.4, requires network connectivity)   For all download options, the additional parameter \"Radius\" is used. It specifies how large the downloaded area is. (In detail: Radius is half the side length of the bounding box that is used when  downloading.)  You can alternatively dismiss the dialog, zoom and pan to the area in question and then select the \"Download current view\" from the transfer menu.", 
+            "title": "How can I download OSM data?"
+        }, 
+        {
+            "location": "/tutorials/faq/#how-can-i-upload-newchanged-data-to-the-osm-server", 
+            "text": "Choose \"Upload data to  OSM server\" from the transfer menu.\n(With other words: Data is not automatically uploaded!)", 
+            "title": "How can I upload new/changed data to the OSM server?"
+        }, 
+        {
+            "location": "/tutorials/faq/#which-user-account-is-used-when-uploading-data-to-the-osm-server", 
+            "text": "Vespucci will use OAuth authorization as default for new installs. On your first upload you will be directed to an OSM page that we ask you to authorize your Vespucci install. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).", 
+            "title": "Which user account is used when uploading data to the OSM server?"
+        }, 
+        {
+            "location": "/tutorials/faq/#how-can-i-zoom-into-an-area", 
+            "text": "Use the pinch-to-zoom multi-touch gesture.  Use the on-screen zoom controls.  Use the volume buttons of your Android device.", 
+            "title": "How can I zoom into an area?"
+        }, 
+        {
+            "location": "/tutorials/faq/#conflict-resolution", 
+            "text": "vespucci has a built in conflict resolution capability. If you want finer grain control over the resolution process you can export all your changes to a .osc file, open that with JOSM and use JOSMs conflict resolution capabilities.", 
+            "title": "Conflict resolution"
         }
     ]
 }
