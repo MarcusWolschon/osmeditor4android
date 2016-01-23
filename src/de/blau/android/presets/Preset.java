@@ -473,8 +473,11 @@ public class Preset implements Serializable {
             			delimiter = multiselect ? ";" : ","; // combo uses "," multiselect ";" as default
             		}
             		String values = attr.getValue("values");
+            		String displayValues = attr.getValue("display_values");
+            		String shortDescriptions = attr.getValue("short_descriptions");
             		if (values != null) {
-            			currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, values, delimiter);
+            			currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, 
+            					values, displayValues, shortDescriptions, delimiter);
             		} else {
             			listKey = key;
             			listValues = new ArrayList<StringWithDescription>();
@@ -1336,14 +1339,19 @@ public class Preset implements Serializable {
 		 * @param values values string from the XML (comma-separated list of possible values)
 		 */
 		public void addTag(boolean optional, String key, PresetKeyType type, String values) {
-			addTag(optional, key, type, values, ",");
+			addTag(optional, key, type, values, null, null, ",");
 		}
 		
-		public void addTag(boolean optional, String key, PresetKeyType type, String values, String seperator) {
+		public void addTag(boolean optional, String key, PresetKeyType type, String values, String displayValues, String shortDescriptions, String seperator) {
 			String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(seperator));
+			String[] displayValueArray = (displayValues == null) ? new String[0] : displayValues.split(Pattern.quote(seperator));
+			String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(seperator));
 			StringWithDescription[] valuesWithDesc = new StringWithDescription[valueArray.length];
+			boolean useDisplayValues = valueArray.length == displayValueArray.length;
+			boolean useShortDescriptions = !useDisplayValues && valueArray.length == shortDescriptionArray.length;
 			for (int i=0;i<valueArray.length;i++){
-				valuesWithDesc[i] = new StringWithDescription(valueArray[i]);
+				valuesWithDesc[i] = new StringWithDescription(valueArray[i], 
+						useDisplayValues ? displayValueArray[i] : (useShortDescriptions ? shortDescriptionArray[i] : null));
 			}
 			addTag(optional, key, type, valuesWithDesc);
 		}
