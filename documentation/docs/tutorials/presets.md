@@ -11,39 +11,32 @@ For the preset based editing to work Vespucci has to match the existing tags, in
 
 ### Supported JOSM Preset Elements and Attributes
 
-Note: this is loosely based on what the [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) works, this may and actually likely is different from the actual implementation. Language specific attributes are ignored see [Translation](#Translation)
+Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored see [Translation](#Translation)
 
 
-Element            | Attibutes                     | Support   | Notes
+Element            | Attributes                     | Support   | Notes
 -------------------|-------------------------------|-----------|----------------------------------------------------------------
-<presets>          |                               | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<!-- comment -->   |                               | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<group>            |                               | supported |
+__&lt;presets&gt;__          |                               | ignored   |
+__&lt;!-- comment --&gt;__   |                               | ignored   |
+__&lt;group&gt;__            |                               | supported |
                    | name                          | supported | required
                    | name_context                  | supported |
                    | icon                          | supported | you really should add one for Vespucci
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<item>             |                               | supported |
+__&lt;item&gt;__             |                               | supported |
                    | name                          | supported | required
                    | name_context                  | supported |
                    | icon                          | supported | you really should add one for Vespucci
                    | type                          | supported |
                    | name_template                 | ignored   |
                    | preset_name_label             | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<chunk>            |                               | supported | 
+__&lt;chunk&gt;__            |                               | supported | 
                    | id                            | supported | required
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<reference>        |                               | supported |
+__&lt;reference&gt;__        |                               | supported |
                    | ref                           | supported | required
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<key>              |                               | supported |
+__&lt;key&gt;__              |                               | supported |
                    | value                         | supported | required
                    | match                         | partial   | only the "key" value is supported, all other values are ignored
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<text>             |                               | supported |
+__&lt;text&gt;__             |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | match                         | partial   | only the "key" value is supported, all other values are ignored
@@ -52,8 +45,7 @@ Element            | Attibutes                     | Support   | Notes
                    | auto_increment                | ignored   |
                    | length                        | ignored   |
                    | alternative_autocomplete_keys | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<combo>            |                               | supported |
+__&lt;combo&gt;__            |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | text_context                  | ignored   |
@@ -70,8 +62,7 @@ Element            | Attibutes                     | Support   | Notes
                    | values_searchable             | ignored   | all values are currently added to the index
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<multiselect>      |                               | supported |
+__&lt;multiselect&gt;__      |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | text_context                  | ignored   |
@@ -89,16 +80,13 @@ Element            | Attibutes                     | Support   | Notes
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
                    | rows                          | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<list_entry>       |                               | supported |   
+__&lt;list_entry&gt;__       |                               | supported |   
                    | display_value                 | supported |
                    | short_description             | supported |
                    | icon                          | ignored   |
                    | icon_size                     | ignored   |
--------------------|-------------------------------|-----------|---------------------------------------------------------------- 
-<checkgroup>       |                               | ignored   | but not the included <check> elements
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<check>            |                               | supported |
+__&lt;checkgroup&gt;__       |                               | ignored   | but not the included <check> elements
+__&lt;check&gt;__            |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | text_context                  | ignored   |
@@ -107,24 +95,16 @@ Element            | Attibutes                     | Support   | Notes
                    | disable_off                   | supported |
                    | default                       | supported |
                    | match                         | partial   | only the "key" value is supported, all other values are ignored
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<label>            |                               | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<space />          |                               | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<optional>         |                               | supported | doesn't display anything
+__&lt;label&gt;__            |                               | ignored   |
+__&lt;space/&gt;__          |                               | ignored   |
+__&lt;optional&gt;__         |                               | supported | doesn't display anything
                    | text                          | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<separator/>       |                               | supported | starts a new row in the preset selection display
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<item_separator /> |                               | ignored   |
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<link>             |                               | supported |
+__&lt;separator/&gt;__       |                               | supported | starts a new row in the preset selection display
+__&lt;item_separator/&gt;__  |                               | ignored   |
+__&lt;link&gt;__             |                               | supported |
                    | href                          | partial   | language variants are currently not supported
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<roles>            |                               | ignored   | but not the included <role> elements
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-<role>             |                               | supported |
+__&lt;roles&gt;__            |                               | ignored   | but not the included <role> elements
+__&lt;role&gt;__             |                               | supported |
                    | key                           | supported | required
                    | text                          | ignored   |
                    | text_context                  | ignored   | 
@@ -132,7 +112,6 @@ Element            | Attibutes                     | Support   | Notes
                    | count                         | ignored   |
                    | type                          | ignored   |
                    | member_expression             | ignored   | 
--------------------|-------------------------------|-----------|----------------------------------------------------------------
 
 
                  

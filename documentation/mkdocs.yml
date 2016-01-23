@@ -30,5 +30,6 @@ pages:
     - 'Using name suggestions': 'tutorials/name_suggestions.md'
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'
     - 'Tag-only editing':  'tutorials/tag_only.md'
+    - 'Vespucci presets': 'tutorials/presets.md'
 - Screenshots: 'tutorials/screenshots.md'
 - FAQ: 'tutorials/faq.md'
