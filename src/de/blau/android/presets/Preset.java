@@ -407,7 +407,7 @@ public class Preset implements Serializable {
             		if (disable_off != null && disable_off.equals("true")) {
             			value_off = "";
             		} else {
-            			values = "," + value_off;
+            			values = value_on + "," + value_off;
             		}
              		currentItem.addTag(inOptionalSection, attr.getValue("key"), values);
             		String defaultValue = attr.getValue("default") == null ? value_off : (attr.getValue("default").equals("on") ? value_on : value_off);
