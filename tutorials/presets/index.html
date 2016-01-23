@@ -816,7 +816,7 @@
 </tbody>
 </table>
 <h3 id="translation">Translation <a name="Translation"></a></h3>
-<p>While the preset specification includes language specific text by suffixing the keys with the two letter ISO code, for example <em>text:de</em>, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in. </p>
+<p>While the preset specification includes language specific text by prefixing the keys with the two letter ISO code, for example <em>de.texte</em>, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in. </p>
 <p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p></div>
 	    
         </div>
