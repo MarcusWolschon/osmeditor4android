@@ -22,7 +22,9 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,10 +40,14 @@ import com.actionbarsherlock.view.MenuItem;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.names.Names;
+import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.ValueWithCount;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.StringWithDescription;
 
 public class RelationMembersFragment extends SherlockFragment implements
 		PropertyRows {
@@ -239,7 +245,6 @@ public class RelationMembersFragment extends SherlockFragment implements
 		private long relationId;
 		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
-		private ArrayAdapter<String> roleAdapter;
 		private TextView typeView;
 		private TextView elementView;
 		
@@ -293,6 +298,19 @@ public class RelationMembersFragment extends SherlockFragment implements
 			};
 
 			roleEdit.setOnClickListener(autocompleteOnClick);
+			
+			roleEdit.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Log.d(DEBUG_TAG,"onItemClicked value");
+					Object o = parent.getItemAtPosition(position);			
+					if (o instanceof StringWithDescription) {
+						roleEdit.setText(((StringWithDescription)o).getValue());
+					} else if (o instanceof String) {
+						roleEdit.setText((String)o);
+					}
+				}
+			});
 		}
 				
 		/**
@@ -367,9 +385,9 @@ public class RelationMembersFragment extends SherlockFragment implements
 			selected.setEnabled(true);
 		}
 		
-		protected ArrayAdapter<String> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
+		protected ArrayAdapter<StringWithDescription> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
 			// Use a set to prevent duplicate keys appearing
-			Set<String> roles = new HashSet<String>();
+			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
 			
 			ArrayList<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
 			if (allTags != null && allTags.size() > 0) {
@@ -381,11 +399,9 @@ public class RelationMembersFragment extends SherlockFragment implements
 				}
 			}
 			
-			List<String> result = new ArrayList<String>(roles);
+			List<StringWithDescription> result = new ArrayList<StringWithDescription>(roles);
 			Collections.sort(result);
-			roleAdapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
-			
-			return roleAdapter;
+			return new ArrayAdapter<StringWithDescription>(owner, R.layout.autocomplete_row, result);
 		}
 	}
 

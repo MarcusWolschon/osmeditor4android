@@ -450,15 +450,19 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 //				getView().invalidate();
 //			}});
 //    	
-    	
     	LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
-    	Map<String, String> nonEditable = addTagsToViews(editableView, mainPreset, allTags);
-    	for (PresetItem preset:tagListener.getSecondaryPresets()) {
-    		final EditableLayout editableView1  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
-    		editableView1.setSaveEnabled(false);
-    		editableView1.setTitle(preset);
-    		ll.addView(editableView1, pos++);
-    		nonEditable = addTagsToViews(editableView1, preset, (LinkedHashMap<String, String>) nonEditable);
+    	Map<String, String> nonEditable;
+    	if (mainPreset != null) {
+    		nonEditable = addTagsToViews(editableView, mainPreset, allTags);
+    		for (PresetItem preset:tagListener.getSecondaryPresets()) {
+    			final EditableLayout editableView1  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
+    			editableView1.setSaveEnabled(false);
+    			editableView1.setTitle(preset);
+    			ll.addView(editableView1, pos++);
+    			nonEditable = addTagsToViews(editableView1, preset, (LinkedHashMap<String, String>) nonEditable);
+    		}
+    	} else {
+    		nonEditable = allTags;
     	}
     	
     	LinearLayout nel = (LinearLayout) getView().findViewById(R.id.form_immutable_header_layout);

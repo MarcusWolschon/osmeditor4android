@@ -35,7 +35,7 @@ __&lt;reference&gt;__        |                               | supported |
                    | ref                           | supported | required
 __&lt;key&gt;__              |                               | supported |
                    | value                         | supported | required
-                   | match                         | partial   | only the "key" value is supported, all other values are ignored
+                   | match                         | partial   | "key" value is supported, "none" will demote the tag from a "fixed" to a recommended key, all other values are ignored
 __&lt;text&gt;__             |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
@@ -106,7 +106,7 @@ __&lt;link&gt;__             |                               | supported |
 __&lt;roles&gt;__            |                               | ignored   | but not the included <role> elements
 __&lt;role&gt;__             |                               | supported |
                    | key                           | supported | required
-                   | text                          | ignored   |
+                   | text                          | supported   |
                    | text_context                  | ignored   | 
                    | requisite                     | ignored   |
                    | count                         | ignored   |
