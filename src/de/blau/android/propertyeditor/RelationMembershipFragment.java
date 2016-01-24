@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -46,6 +47,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.StringWithDescription;
 
 public class RelationMembershipFragment extends SherlockFragment implements
 		PropertyRows,
@@ -224,7 +226,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	}
 	
 	/**
-	 * A row representing a parent relation with an edits for role and further values and a delete button.
+	 * A row representing a parent relation with an edit for role and further values and a delete button.
 	 */
 	public static class RelationMembershipRow extends LinearLayout implements
 			SelectedRowsActionModeCallback.Row {
@@ -288,31 +290,45 @@ public class RelationMembershipFragment extends SherlockFragment implements
 			};
 			
 			roleEdit.setOnClickListener(autocompleteOnClick);
+			
+			roleEdit.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Log.d(DEBUG_TAG,"onItemClicked value");
+					Object o = parent.getItemAtPosition(position);			
+					if (o instanceof StringWithDescription) {
+						roleEdit.setText(((StringWithDescription)o).getValue());
+					} else if (o instanceof String) {
+						roleEdit.setText((String)o);
+					}
+				}
+			});
 		}
 		
-		protected ArrayAdapter<String> getMembershipRoleAutocompleteAdapter() {
+		protected ArrayAdapter<StringWithDescription> getMembershipRoleAutocompleteAdapter() {
 			// Use a set to prevent duplicate keys appearing
-			Set<String> roles = new HashSet<String>();
+			Set<StringWithDescription> roles = new HashSet<StringWithDescription>();
 			Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, relationId);
 			if ( r!= null) {			
 				if ( owner.presets != null) {
 					PresetItem relationPreset = Preset.findBestMatch(owner.presets,r.getTags());
-					if (relationPreset != null && relationPreset.getRoles() != null) {
-						roles.addAll(relationPreset.getRoles());
+					if (relationPreset != null) {
+						List<StringWithDescription> presetRoles = relationPreset.getRoles();
+						if (presetRoles != null) {
+							roles.addAll(presetRoles);
+						}
 					}
 				}
 			}
 			
-			List<String> result = new ArrayList<String>(roles);
+			List<StringWithDescription> result = new ArrayList<StringWithDescription>(roles);
 			Collections.sort(result);
-			roleAdapter = new ArrayAdapter<String>(owner, R.layout.autocomplete_row, result);
 			
-			return roleAdapter;
+			return new ArrayAdapter<StringWithDescription>(owner, R.layout.autocomplete_row, result);
 		}
 		
 		protected ArrayAdapter<Relation> getRelationSpinnerAdapter() {
-			//
-			
+			//		
 			List<Relation> result = Application.getDelegator().getCurrentStorage().getRelations();;
 			// Collections.sort(result);
 			return new ArrayAdapter<Relation>(owner, R.layout.autocomplete_row, result);
@@ -446,26 +462,6 @@ public class RelationMembershipFragment extends SherlockFragment implements
 				row.selected.setChecked(false);
 			}
 		}
-	}
-	
-	/**
-	 * Get possible roles from the preset
-	 * @return
-	 */
-	protected ArrayAdapter<String> getMemberRoleAutocompleteAdapter() {
-		// Use a set to prevent duplicate keys appearing
-		Set<String> roles = new HashSet<String>();
-				
-		if (((PropertyEditor)getActivity()).presets != null && (tagListener.getBestPreset() != null)) {
-			PresetItem relationPreset = Preset.findBestMatch(((PropertyEditor)getActivity()).presets,((PropertyEditor)getActivity()).tagEditorFragment.getKeyValueMapSingle(false)); // FIXME
-			if (relationPreset != null && tagListener.getBestPreset() != null && tagListener.getBestPreset().getRoles() != null) {
-				roles.addAll(tagListener.getBestPreset().getRoles());
-			}
-		}
-
-		List<String> result = new ArrayList<String>(roles);
-		Collections.sort(result);
-		return new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, result);
 	}
 	
 	/**

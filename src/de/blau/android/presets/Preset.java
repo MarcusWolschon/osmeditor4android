@@ -414,13 +414,17 @@ public class Preset implements Serializable {
             		inOptionalSection = true;
             	} else if ("key".equals(name)) {
             		String key = attr.getValue("key");
+            		String match = attr.getValue("match");
             		if (!inOptionalSection) {
-            			currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
+            			 if ("none".equals(match)) {// don't include in fixed tags if not used for matching
+            				 currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue("value"));
+            			 } else {
+            				 currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue("value"), attr.getValue("text"));
+            			 }
             		} else {
             			// Optional fixed tags should not happen, their values will NOT be automatically inserted.
             			currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue("value"));
             		}
-             		String match = attr.getValue("match");
             		if (match != null) {
             			currentItem.setMatchType(key,match);
             		}
@@ -488,7 +492,7 @@ public class Preset implements Serializable {
             		}
                		String text = attr.getValue("text");
             		if (text != null) {
-            			currentItem.addHint(key,text);
+            			currentItem.addHint(key, text);
             		}
               		String match = attr.getValue("match");
             		if (match != null) {
@@ -499,7 +503,9 @@ public class Preset implements Serializable {
             			currentItem.setSort(key,sort.equals("yes")); // normally this will not be set because true is the default
             		}
             	} else if ("role".equals(name)) {
-            		currentItem.addRole(attr.getValue("key")); 
+            		String key = attr.getValue("key");
+            		String text = attr.getValue("text");
+            		currentItem.addRole(new StringWithDescription(key, po != null && text != null ? po.t(text) : text));
             	} else if ("reference".equals(name)) {
             		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
             		if (chunk != null) {
@@ -804,7 +810,7 @@ public class Preset implements Serializable {
 		PresetItem bestMatch = null;
 		
 		if (tags==null || presets==null) {
-			Log.e("Preset", "findBestMatch " + (tags==null?"tags null":"presets null"));
+			Log.e(DEBUG_TAG, "findBestMatch " + (tags==null?"tags null":"presets null"));
 			return null;
 		}
 		
@@ -815,10 +821,9 @@ public class Preset implements Serializable {
 				for (Entry<String, String> tag : tags.entrySet()) {
 					String kew = tag.getKey();
 					if (!kew.startsWith(Tags.KEY_ADDR_BASE) || useAddressKeys) {
-						String tagString = tag.getKey()+"\t"+tag.getValue();
-						possibleMatches.addAll(p.tagItems.get(tagString));
-						tagString = tag.getKey()+"\t"; // for stuff that doesn't have fixed values
-						possibleMatches.addAll(p.tagItems.get(tagString));
+						String tagString = tag.getKey()+"\t";
+						possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
+						possibleMatches.addAll(p.tagItems.get(tagString+tag.getValue()));
 					}
 				}
 			}
@@ -826,18 +831,20 @@ public class Preset implements Serializable {
 		// Find best
 		final int FIXED_WEIGHT = 100; // always prioritize presets with fixed keys
 		for (PresetItem possibleMatch : possibleMatches) {
-			if (((possibleMatch.getFixedTagCount()+FIXED_WEIGHT) <= bestMatchStrength) && (possibleMatch.getRecommendedTags().size()) <= bestMatchStrength) continue; // isn't going to help
-			if (possibleMatch.getFixedTagCount() > 0) { // has required tags			
+			int fixedTagCount = possibleMatch.getFixedTagCount()*FIXED_WEIGHT;
+			if (fixedTagCount + possibleMatch.getRecommendedTags().size() < bestMatchStrength) continue; // isn't going to help
+			int matches = 0;
+			if (fixedTagCount > 0) { // has required tags
 				if (possibleMatch.matches(tags)) {
-					bestMatch = possibleMatch;
-					bestMatchStrength = bestMatch.getFixedTagCount()+FIXED_WEIGHT;
+					matches = fixedTagCount;
 				}
-			} else if (possibleMatch.getRecommendedTags().size() > 0) {
-				int matches = possibleMatch.matchesRecommended(tags);
-				if (matches > bestMatchStrength) {
-					bestMatch = possibleMatch;
-					bestMatchStrength = matches;
-				}
+			} 
+			if (possibleMatch.getRecommendedTags().size() > 0) { 
+				matches = matches + possibleMatch.matchesRecommended(tags);
+			}
+			if (matches > bestMatchStrength) {
+				bestMatch = possibleMatch;
+				bestMatchStrength = matches;
 			}
 		}
 		// Log.d(DEBUG_TAG,"findBestMatch " + bestMatch);
@@ -1205,7 +1212,7 @@ public class Preset implements Serializable {
 		/**
 		 * Roles
 		 */
-		private LinkedList<String> roles = null;
+		private LinkedList<StringWithDescription> roles = null;
 		
 		/**
 		 * Linked names of presets
@@ -1350,8 +1357,13 @@ public class Preset implements Serializable {
 			boolean useDisplayValues = valueArray.length == displayValueArray.length;
 			boolean useShortDescriptions = !useDisplayValues && valueArray.length == shortDescriptionArray.length;
 			for (int i=0;i<valueArray.length;i++){
-				valuesWithDesc[i] = new StringWithDescription(valueArray[i], 
-						useDisplayValues ? displayValueArray[i] : (useShortDescriptions ? shortDescriptionArray[i] : null));
+				String description = null;
+				if (useDisplayValues) {  
+					description = (po != null && displayValueArray[i] != null) ? po.t(displayValueArray[i]) : displayValueArray[i];
+				} else if (useShortDescriptions) {
+					description = (po != null && shortDescriptionArray[i] != null) ? po.t(shortDescriptionArray[i]):shortDescriptionArray[i];
+				}
+				valuesWithDesc[i] = new StringWithDescription(valueArray[i], description);
 			}
 			addTag(optional, key, type, valuesWithDesc);
 		}
@@ -1376,15 +1388,15 @@ public class Preset implements Serializable {
 			(optional ? optionalTags : recommendedTags).put(key, valueArray);
 		}
 		
-		public void addRole(String value)
+		public void addRole(final StringWithDescription value)
 		{
 			if (roles == null) {
-				roles =  new LinkedList<String>();
+				roles =  new LinkedList<StringWithDescription>();
 			}
 			roles.add(value);
 		}
 
-		public void addAllRoles(LinkedList<String> newRoles)
+		public void addAllRoles(LinkedList<StringWithDescription> newRoles)
 		{
 			if (roles == null) { 
 				roles = newRoles; // doesn't matter if newRoles is null
@@ -1393,7 +1405,7 @@ public class Preset implements Serializable {
 			}
 		}
 		
-		public List<String> getRoles() {
+		public List<StringWithDescription> getRoles() {
 			return roles != null ? Collections.unmodifiableList(roles) : null;
 		}
 		

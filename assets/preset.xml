@@ -138,7 +138,7 @@
     </chunk>
     <chunk id="oh_wheelchair_level">
         <reference ref="oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5"/>
+	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="key" />
     </chunk>
     <chunk id="name_oh_wheelchair">
         <text key="name" text="Name" />
@@ -146,7 +146,7 @@
     </chunk>
     <chunk id="name_oh_wheelchair_level">
         <reference ref="name_oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5"/>
+	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="key" />
     </chunk>
     <chunk id="name_operator_oh_wheelchair">
         <reference ref="name_operator" />
@@ -154,7 +154,7 @@
     </chunk>
     <chunk id="name_operator_oh_wheelchair_level">
         <reference ref="name_operator_oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5"/>
+	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="key" />
     </chunk>
     <chunk id="name_brand_operator_oh_wheelchair">
         <text key="name" text="Name" />
@@ -164,7 +164,7 @@
     </chunk>
     <chunk id="name_brand_operator_oh_wheelchair_level">
 	<reference ref="name_brand_operator_oh_wheelchair" />
-	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5"/>
+	<combo text="Level (ground floor is 0)" key="level" length="3" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" match="key"/>
     </chunk>
     <chunk id="name_brand_oh_wheelchair">
         <text key="name" text="Name" />
@@ -345,14 +345,14 @@
     <chunk id="optional_bridge">
         <optional>
             <text key="name" text="Name" />
-            <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="1" length="3" />
+            <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="1" length="3" match="key" />
             <space />
             <text key="maxspeed" text="Max. speed (km/h)" />
             <text key="maxspeed:forward" text="Max. speed in way direction" />
             <text key="maxspeed:backward" text="Max. speed opposed to way direction" />
             <space />
             <text key="maxweight" text="Max. weight (tonnes)" />
-            <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down" />
+            <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down" match="key" />
             <text key="width" text="Width (meters)" />
             <check key="toll" text="Toll" disable_off="true" />
         </optional>
@@ -423,7 +423,7 @@
     <preset_link preset_name="Motorcar and -cycle (CH)" />
   </chunk>
   <chunk id="social_facility_for">
-    <combo key="social_facility:for" text="For group">
+    <combo key="social_facility:for" text="For group" match="key" >
         <list_entry value="abused" display_value="Abused" />
         <list_entry value="child" display_value="Children" />
         <list_entry value="disabled" display_value="Disabled" />
@@ -441,10 +441,10 @@
  	</combo>
   </chunk>
   <chunk id="car_brands">
-    <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citroën;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;Renault;Saab;Seat;Škoda;Smart;SsangYong;Subaru;Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" />
+    <multiselect key="brand" text="Car brand" values="Alfa Romeo;Aston Martin;Audi;Bentley;BMW;Buick;Cadillac;Chevrolet;Chrysler;Citroën;Dacia;Daewoo;Daihatsu;Dodge;Ferrari;Fiat;Ford;GMC;Great Wall;Holden;Honda;Hyundai;Infiniti;Isuzu;Jaguar;Jeep;Kia;Lada;Lancia;Land Rover;Lexus;Lincoln;Lotus;Maserati;Mazda;Mercedes-Benz;Mini;Mitsubishi;Nissan;Opel;Peugeot;Renault;Saab;Seat;Škoda;Smart;SsangYong;Subaru;Suzuki;Toyota;Vauxhall;Volkswagen;Volvo" match="key" />
   </chunk>
   <chunk id="motorcycle_brands">
-    <multiselect key="brand" text="Motorcycle brand" values="Aprillia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Piaggio;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" />
+    <multiselect key="brand" text="Motorcycle brand" values="Aprillia;BMW;Ducati;Gilera;Harley-Davidson;Honda;Kawasaki;KTM;Kymco;Piaggio;Peugeot;Piaggio;Suzuki;Triumph;Vespa;Yamaha" match="key" />
   </chunk>
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -3128,7 +3128,7 @@
             <space />
             <key key="type" value="route" />
             <combo key="route" text="Route type" values="train,subway,monorail,tram,light_rail,bus,trolleybus,aerialway,ferry" values_searchable="true" match="keyvalue!" />
-            <key key="public_transport:version" value="2" /> <!-- only validate marked relations in order to avoid false positives -->
+            <key key="public_transport:version" text="Version" value="2" /> <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref" />
             <optional>
                 <text key="from" text="From (initial stop)" />
@@ -3294,7 +3294,7 @@
         <item name="Public transport route (Legacy)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
             <key key="type" value="route" />
             <combo key="route" text="Route type" values="train,subway,monorail,tram,bus,trolleybus,aerialway,ferry" values_searchable="true" match="keyvalue!" />
-            <key key="public_transport:version" value="1" /> <!-- only validate marked relations in order to avoid false positives -->
+            <key key="public_transport:version" text="Version" value="1" match="none" />  <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref" />
             <optional>
                 <text key="from" text="From (initial stop)" />
@@ -5974,8 +5974,10 @@
             <space />
             <combo key="building" text="Building" values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower" values_context="building" default="yes" match="keyvalue!" values_searchable="true" />            
             <text key="name" text="Name" />
-            <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" text_context="building" />
+            <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />
             <text key="height" text="Height (meters)" />
+            <combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" values_sort="false" text_context="building" match="key" />
+            <combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />           
         </item> <!-- Building -->
         <item name="Residential Building" icon="icons/png/man_made_house_sp.png" type="node,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:building"
@@ -5994,8 +5996,10 @@
             <space />
             <combo key="building" text="Building" values="yes,residential,apartments,house,hotel,hut,dormitory,terrace,detached,farm,roof" default="residential" match="keyvalue!" values_context="building" values_searchable="true" />
             <text key="name" text="Name" />
-            <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" text_context="building" />
+            <combo key="building:levels" text="Levels" values="1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />
             <text key="height" text="Height (meters)" />
+            <combo key="min_level" text="Min. level" values="-5,-4,-3,-2,-1,0,1,2,3,4,5" values_sort="false" text_context="building" match="key" />
+            <combo key="max_level" text="Max. level" values="0,1,2,3,4,5,6,7,8,9,10,11" values_sort="false" text_context="building" match="key" />           
         </item> <!-- Residential Building -->
         <item name="Building part" icon="styles/standard/misc/landmark/building.png" type="closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:building:part"
