@@ -112,7 +112,7 @@ public class Preset implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6L;
+	private static final long serialVersionUID = 7L;
 	/** name of the preset XML file in a preset directory */
 	public static final String PRESETXML = "preset.xml";
 	/** name of the MRU serialization file in a preset directory */
@@ -370,6 +370,7 @@ public class Preset implements Serializable {
         	/** store current combo or multiselect key */
         	private String listKey = null;
         	private ArrayList<StringWithDescription> listValues = null;
+        	private String mainValueContext = null;
         	
         	{
         		groupstack.push(rootGroup);
@@ -428,12 +429,20 @@ public class Preset implements Serializable {
             		if (match != null) {
             			currentItem.setMatchType(key,match);
             		}
+            		String textContext = attr.getValue("text_context");
+            		if (textContext != null) {
+            			currentItem.setTextContext(key,textContext);
+            		}
             	} else if ("text".equals(name)) {
             		String key = attr.getValue("key");
             		currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String)null);
             		String text = attr.getValue("text");
             		if (text != null) {
             			currentItem.addHint(attr.getValue("key"),text);
+            		}
+            		String textContext = attr.getValue("text_context");
+            		if (textContext != null) {
+            			currentItem.setTextContext(key,textContext);
             		}
               		String match = attr.getValue("match");
             		if (match != null) {
@@ -465,6 +474,10 @@ public class Preset implements Serializable {
             		if (text != null) {
             			currentItem.addHint(key,text);
             		}
+            		String textContext = attr.getValue("text_context");
+            		if (textContext != null) {
+            			currentItem.setTextContext(key,textContext);
+            		}
               		String match = attr.getValue("match");
             		if (match != null) {
             			currentItem.setMatchType(key,match);
@@ -486,6 +499,10 @@ public class Preset implements Serializable {
             			listKey = key;
             			listValues = new ArrayList<StringWithDescription>();
             		}
+            		mainValueContext = attr.getValue("values_context");
+            		if (mainValueContext != null) {
+            			currentItem.setTextContext(key,mainValueContext);
+            		}
             		String defaultValue = attr.getValue("default");
             		if (defaultValue != null) {
             			currentItem.addDefault(key,defaultValue);
@@ -493,6 +510,10 @@ public class Preset implements Serializable {
                		String text = attr.getValue("text");
             		if (text != null) {
             			currentItem.addHint(key, text);
+            		}
+            		String textContext = attr.getValue("text_context");
+            		if (textContext != null) {
+            			currentItem.setTextContext(key,textContext);
             		}
               		String match = attr.getValue("match");
             		if (match != null) {
@@ -505,7 +526,11 @@ public class Preset implements Serializable {
             	} else if ("role".equals(name)) {
             		String key = attr.getValue("key");
             		String text = attr.getValue("text");
-            		currentItem.addRole(new StringWithDescription(key, po != null && text != null ? po.t(text) : text));
+               		String textContext = attr.getValue("text_context");
+            		if (textContext != null) {
+            			currentItem.setTextContext(key,textContext);
+            		}
+            		currentItem.addRole(new StringWithDescription(key, po != null && text != null ? (textContext!=null?po.t(textContext,text):po.t(text)) : text));
             	} else if ("reference".equals(name)) {
             		PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no forward references
             		if (chunk != null) {
@@ -542,7 +567,7 @@ public class Preset implements Serializable {
             				if (d == null) {
             					d = attr.getValue("short_description");
             				}
-            				listValues.add(new StringWithDescription(v,po != null ? po.t(d):d));
+            				listValues.add(new StringWithDescription(v,po != null ? (mainValueContext != null?po.t(mainValueContext,d):po.t(d)):d));
             			}
             		}
             	} else if ("preset_link".equals(name)) {
@@ -620,7 +645,7 @@ public class Preset implements Serializable {
         	// Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
         	Log.i("Preset", "No usable old MRU list, creating new one ("+e.toString()+")");
         } finally {
-				try { if (mruReader != null) mruReader.close(); } catch (Exception e) {} // ignore IO exceptions
+			try { if (mruReader != null) mruReader.close(); } catch (Exception e) {} // ignore IO exceptions
         }
     	return tmpMRU;
 	}
@@ -1181,7 +1206,7 @@ public class Preset implements Serializable {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 6L;
+		private static final long serialVersionUID = 7L;
 
 		/** "fixed" tags, i.e. the ones that have a fixed key-value pair */
 		private LinkedHashMap<String, StringWithDescription> fixedTags = new LinkedHashMap<String, StringWithDescription>();
@@ -1237,8 +1262,8 @@ public class Preset implements Serializable {
 		/**
 		 * Translation contexts
 		 */
-		private String nameContext = null;
-		private String valueContext = null;
+		private HashMap<String,String> textContext = null;
+		private HashMap<String,String> valueContext = null;
 		
 		
 		/**
@@ -1559,6 +1584,28 @@ public class Preset implements Serializable {
 		
 		public boolean sortIt(String key) {
 			return (sort == null ||  sort.get(key) == null) ? true : sort.get(key).booleanValue();
+		}
+		
+		public void setTextContext(String key, String textContext) {
+			if (this.textContext == null) {
+				this.textContext = new HashMap<String, String>();
+			}
+			this.textContext.put(key, textContext);
+		}
+		
+		public String getTextContext(String key) {
+			return textContext.get(key);
+		}
+		
+		public void setValueContext(String key, String valueContext) {
+			if (this.valueContext == null) {
+				this.valueContext = new HashMap<String, String>();
+			}
+			this.valueContext.put(key, valueContext);
+		}
+		
+		public String getValueContext(String key) {
+			return valueContext.get(key);
 		}
 		
 		/**
