@@ -480,8 +480,12 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
     	if (focusOnAddress) {
     		focusOnAddress = false; // only do it once
     		if (!focusOnValue(Tags.KEY_ADDR_HOUSENUMBER)) {
-    			focusOnValue(Tags.KEY_ADDR_STREET);
+    			if (!focusOnValue(Tags.KEY_ADDR_STREET)) {
+    				focusOnEmpty();
+    			}
     		} 
+    	} else {
+    		focusOnEmpty(); 
     	}
 	}
 	
@@ -753,6 +757,35 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
 					View v = ll2.getChildAt(i);
 					if (v instanceof TagTextRow && ((TagTextRow)v).getKey().equals(key)) {
+						((TagTextRow)v).getValueView().requestFocus();
+						found = true;
+						break;
+					}
+				}
+				pos++;
+			}
+		} else {
+			Log.d(DEBUG_TAG,"update container layout null");
+			return false;
+		}	
+		return found;
+	}
+	
+	/**
+	 * Focus on the first empty value field 
+	 * @return
+	 */
+	private boolean focusOnEmpty() {
+		boolean found = false;
+		View sv = getView();
+		LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
+		if (ll != null) {
+			int pos = 0;
+			while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount() && !found) {
+				EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
+				for (int i = 0 ; i < ll2.getChildCount(); i++) {
+					View v = ll2.getChildAt(i);
+					if (v instanceof TagTextRow && "".equals(((TagTextRow)v).getValue())) {
 						((TagTextRow)v).getValueView().requestFocus();
 						found = true;
 						break;
