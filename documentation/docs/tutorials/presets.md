@@ -11,7 +11,7 @@ For the preset based editing to work Vespucci has to match the existing tags, in
 
 ### Supported JOSM Preset Elements and Attributes
 
-Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored see [Translation](#Translation)
+Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored see [Translation](#Translation) "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value.  
 
 
 Element            | Attributes                     | Support   | Notes
@@ -102,7 +102,7 @@ __&lt;optional&gt;__         |                               | supported | doesn
 __&lt;separator/&gt;__       |                               | supported | starts a new row in the preset selection display
 __&lt;item_separator/&gt;__  |                               | ignored   |
 __&lt;link&gt;__             |                               | supported |
-                   | href                          | partial   | language variants are currently not supported
+                   | href                          | supported | including language specific variants
 __&lt;roles&gt;__            |                               | ignored   | but not the included <role> elements
 __&lt;role&gt;__             |                               | supported |
                    | key                           | supported | required

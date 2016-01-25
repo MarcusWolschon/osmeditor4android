@@ -449,7 +449,12 @@ public class Preset implements Serializable {
             			currentItem.setMatchType(key,match);
             		}
             	} else if ("link".equals(name)) {
-            		currentItem.setMapFeatures(attr.getValue("href")); // just English for now
+            		String language = Locale.getDefault().getLanguage();
+            		String href = attr.getValue(language.toLowerCase(Locale.US)+".href");
+            		if (href==null) {
+            			href = attr.getValue("href");
+            		}
+            		currentItem.setMapFeatures(href); 
             	} else if ("check".equals(name)) {
             		String key = attr.getValue("key");
             		String value_on = attr.getValue("value_on") == null ? "yes" : attr.getValue("value_on");
