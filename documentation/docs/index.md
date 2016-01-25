@@ -14,7 +14,7 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
  * from [Googles play store](https://play.google.com/store/apps/details?id=de.blau.android) and from [amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci)
  * release and beta APKs from our [github repository](https://github.com/MarcusWolschon/osmeditor4android/releases)
- * recently built potentially unstable APKs from [google drive](https://drive.google.com/drive/folders/0B9pKLmh8s1h8bFI5bGd4VnhYWkk)
+ * recently built potentially unstable APKs from [google drive](https://drive.google.com/folderview?id=0B9pKLmh8s1h8bFI5bGd4VnhYWkk&usp=sharing)
  * [source code and repository on github](https://github.com/MarcusWolschon/osmeditor4android)
 
 #### Vespucci on Social Media
