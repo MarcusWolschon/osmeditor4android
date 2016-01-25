@@ -48,7 +48,7 @@ __&lt;text&gt;__             |                               | supported |
 __&lt;combo&gt;__            |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
-                   | text_context                  | ignored   |
+                   | text_context                  | supported |
                    | values                        | supported |
                    | values_sort                   | supported |
                    | delimiter                     | supported |
@@ -56,7 +56,7 @@ __&lt;combo&gt;__            |                               | supported |
                    | match                         | partial   | only the "key" value is supported, all other values are ignored
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
-                   | values_context                | ignored   |
+                   | values_context                | supported |
                    | editable                      | ignored   |
                    | use_last_as_default           | ignored   |
                    | values_searchable             | ignored   | all values are currently added to the index
@@ -65,7 +65,7 @@ __&lt;combo&gt;__            |                               | supported |
 __&lt;multiselect&gt;__      |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
-                   | text_context                  | ignored   |
+                   | text_context                  | supported |
                    | values                        | supported |
                    | values_sort                   | supported |
                    | delimiter                     | supported |
@@ -73,7 +73,7 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | match                         | partial   | only the "key" value is supported, all other values are ignored
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
-                   | values_context                | ignored   |
+                   | values_context                | supported |
                    | editable                      | ignored   |
                    | use_last_as_default           | ignored   |
                    | values_searchable             | ignored   | all values are currently added to the index
@@ -89,7 +89,7 @@ __&lt;checkgroup&gt;__       |                               | ignored   | but n
 __&lt;check&gt;__            |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
-                   | text_context                  | ignored   |
+                   | text_context                  | supported |
                    | value_on                      | supported |
                    | value_off                     | supported | 
                    | disable_off                   | supported |
@@ -106,8 +106,8 @@ __&lt;link&gt;__             |                               | supported |
 __&lt;roles&gt;__            |                               | ignored   | but not the included <role> elements
 __&lt;role&gt;__             |                               | supported |
                    | key                           | supported | required
-                   | text                          | supported   |
-                   | text_context                  | ignored   | 
+                   | text                          | supported |
+                   | text_context                  | supported | 
                    | requisite                     | ignored   |
                    | count                         | ignored   |
                    | type                          | ignored   |
