@@ -90,6 +90,8 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	RelationMembersFragment relationMembersFragment;
 	RecentPresetsFragment recentPresetsFragment;
 	
+	PropertyEditorPagerAdapter  propertyEditorPagerAdapter;
+	
 	/**
 	 * The tag we use for Android-logging.
 	 */
@@ -268,7 +270,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			formEnabled = prefs.tagFormEnabled();
 		}
 		
-		PropertyEditorPagerAdapter  propertyEditorPagerAdapter =
+		propertyEditorPagerAdapter =
                 new PropertyEditorPagerAdapter(getSupportFragmentManager(),tags);
 		mViewPager = (ExtendedViewPager) findViewById(R.id.pager);
 		PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
@@ -535,7 +537,6 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
 		@Override
 		public void onPageSelected(int page) {
-			Log.d(DEBUG_TAG, "onPageSelected " + page);
 			if (page == tagFormFragmentPosition && tagFormFragment != null) {
 				tagFormFragment.update();
 			}

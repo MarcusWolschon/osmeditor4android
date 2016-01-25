@@ -815,6 +815,7 @@ public class TagEditorFragment extends SherlockFragment implements
 					String newValue = row.getValue();
 					if (!newValue.equals(originalValue)) {
 						// Log.d(DEBUG_TAG,"lost focus");
+						// potentially we should update tagValues here
 						updateAutocompletePresetItem(rowLayout);
 					} 
 				}
@@ -1490,7 +1491,7 @@ public class TagEditorFragment extends SherlockFragment implements
 						// both blank is never acceptable
 						if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && tagValues.size()>0)) {
 							if (valueBlank) {
-								tags.put(key, tagValues);
+								tags.put(key, tagValues.size()==1?Util.getArrayList(""):tagValues);
 							} else {
 								tags.put(key, Util.getArrayList(value));
 							}
@@ -1521,9 +1522,24 @@ public class TagEditorFragment extends SherlockFragment implements
 		
 		final LinkedHashMap<String,String> tags = new LinkedHashMap<String, String>();
 		if (rowLayout == null && savedTags != null) {
-			// FIXME not clear what thes was supposed todo
-			// we've been stopped and the view hasn't been recreated
-			//autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, savedTags);
+			for (Entry<String,ArrayList<String>>entry:savedTags.entrySet()) {
+				String key = entry.getKey().trim();
+				ArrayList<String> tagValues = entry.getValue();
+				String value = tagValues != null && tagValues.size() > 0 ? (tagValues.get(0)!=null?tagValues.get(0):""):"";			
+				boolean valueBlank = "".equals(value);
+				boolean bothBlank = "".equals(key) && valueBlank;
+				boolean neitherBlank = !"".equals(key) && !valueBlank;
+				if (!bothBlank) {
+					// both blank is never acceptable
+					if (neitherBlank || allowBlanks || valueBlank) {
+						if (valueBlank) {
+							tags.put(key, tagValues==null || tagValues.size()==1?"":tagValues.get(0)); // FIXME if multi-select
+						} else {
+							tags.put(key, value);
+						}
+					}
+				}
+			}
 		}
 		if (rowLayout != null) {
 			processKeyValues(rowLayout, new KeyValueHandler() {
@@ -1538,8 +1554,8 @@ public class TagEditorFragment extends SherlockFragment implements
 						// both blank is never acceptable
 						boolean hasValues =  tagValues != null && tagValues.size()>0;
 						if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
-							if (valueBlank && hasValues) {
-								tags.put(key, tagValues.get(0)); // FIXME
+							if (valueBlank) {
+								tags.put(key, "");
 							} else {
 								tags.put(key, value);
 							}
@@ -1783,6 +1799,7 @@ public class TagEditorFragment extends SherlockFragment implements
 			}
 		}
 		loadEdits(currentValues);
+		updateAutocompletePresetItem();
 	}
 
 	@Override

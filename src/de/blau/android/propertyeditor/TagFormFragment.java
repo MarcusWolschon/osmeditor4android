@@ -31,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -557,7 +558,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 					if (keyType == PresetKeyType.TEXT 
 						|| keyType == PresetKeyType.MULTISELECT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
-						|| count > 5) {
+						|| count > 6) {
 						rowLayout.addView(addTextRow(keyType, hint, key, value, defaultValue, adapter));
 					} else if (preset.getKeyType(key) == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
 						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, null);
@@ -577,6 +578,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 								v = (String)o;
 								description = v;
 							}
+							if (v==null || "".equals(v)) {
+								continue;
+							}
 							if (description==null) {
 								description=v;
 							}
@@ -586,12 +590,20 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 								row.addButton(description, v, v.equals(value));
 							}
 						}
+						
 						rowLayout.addView(row);
 						row.getRadioGroup().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 							@Override
 							public void onCheckedChanged(RadioGroup group, int checkedId) {
-								RadioButton button = (RadioButton) group.findViewById(checkedId);
-								tagListener.updateSingleValue(key, (String)button.getTag());
+								Log.d(DEBUG_TAG,"radio group onCheckedChanged");
+								String value = "";
+								if (checkedId != -1) {
+									RadioButton button = (RadioButton) group.findViewById(checkedId);
+									value = (String)button.getTag();	
+								} 
+								tagListener.updateSingleValue(key, value);
+								row.setValue(value);
+								row.setChanged(true);
 							}
 						});
 					} else if (preset.getKeyType(key) == PresetKeyType.CHECK) {
@@ -821,8 +833,10 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 
 		private TextView keyView;
 		private RadioGroup valueGroup;
+		private String value;
 		private Context context;
 		private int idCounter = 0;
+		private boolean changed = false;
 		
 		public TagComboRow(Context context) {
 			super(context);
@@ -856,13 +870,44 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			return valueGroup;
 		}
 		
+		public void setValue(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+		
+		public void setChanged(boolean changed) {
+			this.changed = changed;
+		}
+		
+		public boolean hasChanged() {
+			return changed;
+		}
+		
 		public void addButton(String description, String value, boolean selected) {
-			RadioButton button = new RadioButton(context);
+			final RadioButton button = new RadioButton(context);
 			button.setText(description);
 			button.setTag(value);
 			button.setChecked(selected);
 			button.setId(idCounter++);
 			valueGroup.addView(button);
+			if (selected) {
+				setValue(value);
+			}
+			button.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Log.d(DEBUG_TAG,"radio button clicked " + getValue() + " " + button.getTag());
+					if (!changed) {
+						RadioGroup g = (RadioGroup) v.getParent();
+						g.clearCheck();
+					} else {
+						changed = false;
+					}
+				}
+			});
 		}
 	}
 	
