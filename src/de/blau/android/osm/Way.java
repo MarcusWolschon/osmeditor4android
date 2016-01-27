@@ -53,7 +53,8 @@ public class Way extends OsmElement {
 	 * @param node
 	 */
 	void addNode(final Node node) {
-		if ((nodes.size() > 0) && (nodes.get(nodes.size() - 1) == node)) {
+		int size = nodes.size();
+		if ((size > 0) && (nodes.get(size - 1) == node)) {
 			Log.i("Way", "addNode attempt to add same node " + node.getOsmId() + " to " + getOsmId());
 			return;
 		}

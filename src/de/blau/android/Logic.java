@@ -1952,7 +1952,9 @@ public class Logic {
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
 					try {
+						long startTime = System.currentTimeMillis();
 						osmParser.start(in);
+						Log.d(DEBUG_TAG,"downloaded and parsed input in " + (System.currentTimeMillis()-startTime) + "ms");
 						if (arg[0]) { // incremental load
 							if (!getDelegator().mergeData(osmParser.getStorage(),postMerge)) {
 								result = DialogFactory.DATA_CONFLICT;
@@ -1973,7 +1975,7 @@ public class Logic {
 							getDelegator().reset(false);
 							getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
 							if (mapBox != null) {
-								Log.d("Logic","setting original bbox");
+								Log.d(DEBUG_TAG,"setting original bbox");
 								getDelegator().setOriginalBox(mapBox);
 							}
 						}
@@ -1982,7 +1984,7 @@ public class Logic {
 						SavingHelper.close(in);
 					}
 				} catch (SAXException e) {
-					Log.e("Vespucci", "Problem parsing", e);
+					Log.e(DEBUG_TAG, "Problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
 						result = DialogFactory.OUT_OF_MEMORY;
@@ -1995,20 +1997,20 @@ public class Logic {
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-					Log.e("Vespucci", "Problem parsing", e);
+					Log.e(DEBUG_TAG, "Problem parsing", e);
 					result = DialogFactory.INVALID_DATA_RECEIVED;
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (OsmServerException e) {
 					result = e.getErrorCode();
-					Log.e("Vespucci", "Problem downloading", e);
+					Log.e(DEBUG_TAG, "Problem downloading", e);
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (IOException e) {
 					result = DialogFactory.NO_CONNECTION;
-					Log.e("Vespucci", "Problem downloading", e);
+					Log.e(DEBUG_TAG, "Problem downloading", e);
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
@@ -2198,7 +2200,7 @@ public class Logic {
 	 */
 	 synchronized OsmElement downloadElement(final String type, final long id) {
 		
-		class MyTask extends AsyncTask<Void, Void, OsmElement> {
+		class DownloadElementTask extends AsyncTask<Void, Void, OsmElement> {
 			int result = 0;
 			
 			@Override
@@ -2246,7 +2248,7 @@ public class Logic {
 			}
 			
 		};
-		MyTask loader = new MyTask();
+		DownloadElementTask loader = new DownloadElementTask();
 		loader.execute();
 		
 		try {

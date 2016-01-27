@@ -2,32 +2,34 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Collections;
 
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.util.collections.LongOsmElementMap;
 
 public class Storage implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3838107046050083565L;
+	private static final long serialVersionUID = 3838107046050083566L;
 
-	private final ArrayList<Node> nodes;
+	private final LongOsmElementMap<Node> nodes;
 
-	private final ArrayList<Way> ways;
+	private final LongOsmElementMap<Way> ways;
 	
-	private final ArrayList<Relation> relations;
+	private final LongOsmElementMap<Relation> relations;
 
 	private List<BoundingBox> bboxes;
 
 	Storage() {
-		nodes = new ArrayList<Node>();
-		ways = new ArrayList<Way>();
-		relations = new ArrayList<Relation>();
+		nodes = new LongOsmElementMap<Node>(1000);
+		ways = new LongOsmElementMap<Way>();
+		relations = new LongOsmElementMap<Relation>();
 		try {
 			bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
 			// a default entry may not make sense
@@ -37,32 +39,24 @@ public class Storage implements Serializable {
 			Log.e("Vespucci", "Problem with bounding box", e);
 		}
 	}
+	
+	Storage(Storage s) {
+		nodes = new LongOsmElementMap<Node>(s.nodes);
+		ways = new LongOsmElementMap<Way>(s.ways);
+		relations = new LongOsmElementMap<Relation>(s.relations);
+		bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>(s.bboxes));
+	}
 
 	public Node getNode(final long nodeOsmId) { 
-		for (int i = 0, size = nodes.size(); i < size; ++i) {
-            if (nodes.get(i).getOsmId() == nodeOsmId) {
-                    return nodes.get(i);
-            }
-		}
-		return null;
+		return nodes.get(nodeOsmId);
 	}
 
 	public Way getWay(final long wayOsmId) {
-		for (int i = 0, size = ways.size(); i < size; ++i) {
-            if (ways.get(i).getOsmId() == wayOsmId) {
-                    return ways.get(i);
-            }
-		}
-		return null;
+		return ways.get(wayOsmId);
 	}
 	
 	public Relation getRelation(final long relationOsmId) {
-		for (int i = 0, size = relations.size(); i < size; ++i) {
-            if (relations.get(i).getOsmId() == relationOsmId) {
-                    return relations.get(i);
-            }
-		}
-		return null;
+        return relations.get(relationOsmId);
 	}
 
 	public OsmElement getOsmElement(final String type, final long osmId) {
@@ -80,76 +74,51 @@ public class Storage implements Serializable {
 	 * @return
 	 */
 	public List<Node> getNodes() {
-		return nodes;
+		return Collections.unmodifiableList(nodes.values());
 	}
 
+	/**
+	 * Return all nodes in a boundbox, currently this does a sequential scan of all nodes
+	 * @param viewBox
+	 * @return
+	 */
+	public List<Node> getNodes(BoundingBox viewBox) {
+		ArrayList<Node> result = new ArrayList<Node>(nodes.size());
+		for (Node n:nodes) {
+			if (viewBox.isIn(n.getLat(), n.getLon())) {
+				result.add(n);
+			}	
+		}
+		return result;
+	}
 	/**
 	 * @return
 	 */
 	public List<Way> getWays() {
-		return ways;
+		return Collections.unmodifiableList(ways.values());
 	}	
 	
 	/**
 	 * @return
 	 */
 	public List<Relation> getRelations() {
-		return relations;
+		return Collections.unmodifiableList(relations.values());
 	}
 
 	public boolean contains(final OsmElement elem) {
 		if (elem instanceof Way) {
-            return ways.contains(elem);
+            return ways.containsKey(elem.getOsmId());
 		} else if (elem instanceof Node) {
-            return nodes.contains(elem);
+            return nodes.containsKey(elem.getOsmId());
 		} else if (elem instanceof Relation) {
-			return relations.contains(elem);
+			return relations.containsKey(elem.getOsmId());
 		}
 		return false;
 	}
 
-	/**
-	 * maintaining a reference list in the node would make more sense
-	 * @param node
-	 * @return
-	 */
-	public Way getFirstWay(final Node node) {
-        Way way = null;
-        for (int i = 0, size = ways.size(); i < size; ++i) {
-                way = ways.get(i);
-                if (way.getNodes().contains(node)) {
-                        return way;
-                }
-        }
-        return null;
-	}
-
-	/**
-	 * @param node
-	 * @return all ways containing that node
-	 */
-	public List<Way> getWays(final Node node) {
-        ArrayList<Way> mWays = new ArrayList<Way>();
-        for (int i = 0, size = ways.size(); i < size; ++i) {
-                Way way = ways.get(i);
-                if (way.hasNode(node)) {
-                        mWays.add(way);
-                }
-        }
-        return mWays;
-	}
-
-	public List<Node> getWaynodes() {
-        ArrayList<Node> waynodes = new ArrayList<Node>();
-        for (int i = 0, size = ways.size(); i < size; ++i) {
-                waynodes.addAll(ways.get(i).getNodes());
-        }
-        return waynodes;
-	}
-
 	void insertNodeUnsafe(final Node node) throws StorageException {
 		try {
-			nodes.add(node);
+			nodes.put(node.getOsmId(),node);
 		} catch (Error err) { // should really only be OutOfMemory
 			throw new StorageException(StorageException.OOM);
 		}
@@ -158,7 +127,7 @@ public class Storage implements Serializable {
 
 	void insertWayUnsafe(final Way way)  throws StorageException  {
 		try {
-			ways.add(way);
+			ways.put(way.getOsmId(),way);
 		} catch (Error err) { // should really only be OutOfMemory
 			throw new StorageException(StorageException.OOM);
 		}
@@ -166,7 +135,7 @@ public class Storage implements Serializable {
 
 	void insertRelationUnsafe(final Relation relation) throws StorageException  {
 		try {
-			relations.add(relation);
+			relations.put(relation.getOsmId(),relation);
 		} catch (Error err) { // should really only be OutOfMemory
 			throw new StorageException(StorageException.OOM);
 		}
@@ -189,24 +158,24 @@ public class Storage implements Serializable {
 	}
 
 	boolean removeNode(final Node node) {
-		return nodes.remove(node);
+		return nodes.remove(node.getOsmId())!=null;
 	}
 
 	boolean removeWay(final Way way) {
-		return ways.remove(way);
+		return ways.remove(way.getOsmId())!=null;
 	}
 
 	boolean removeRelation(final Relation relation) {
-		return relations.remove(relation);
+		return relations.remove(relation.getOsmId())!=null;
 	}
 	
 	boolean removeElement(final OsmElement element) {
 		if (element instanceof Way) {
-			return ways.remove(element);
+			return ways.remove(element.getOsmId())!=null;
 		} else if (element instanceof Node) {
-			return nodes.remove(element);
+			return nodes.remove(element.getOsmId())!=null;
 		} else if (element instanceof Relation) {
-			return relations.remove(element);
+			return relations.remove(element.getOsmId())!=null;
 		}
 		return false;
 	}
@@ -252,16 +221,51 @@ public class Storage implements Serializable {
 		return nodes.isEmpty() && ways.isEmpty() && relations.isEmpty();
 	}
 
-	public boolean isEndNode(final Node node) {
-		 for (int i = 0, size = ways.size(); i < size; ++i) {
-             Way way = ways.get(i);
-             if (way.isEndNode(node)) {
-                     return true;
-             }
-		 }
-		 return false;
+	/**
+	 * maintaining a reference list in the node would make more sense
+	 * @param node
+	 * @return
+	 */
+	public Way getFirstWay(final Node node) {
+		for (Way way:ways) {
+			if (way.getNodes().contains(node)) {
+				return way;
+			}
+		}
+		return null;
 	}
 
+	/**
+	 * @param node
+	 * @return all ways containing that node
+	 */
+	public List<Way> getWays(final Node node) {
+		ArrayList<Way> mWays = new ArrayList<Way>();
+		for (Way way:ways) {
+			if (way.hasNode(node)) {
+				mWays.add(way);
+			}
+		}
+		return mWays;
+	}
+
+	public List<Node> getWaynodes() {
+		ArrayList<Node> waynodes = new ArrayList<Node>();
+		for (Way way:ways) {
+			waynodes.addAll(way.getNodes());
+		}
+		return waynodes;
+	}
+	
+	public boolean isEndNode(final Node node) {
+		for (Way way:ways) {
+			if (way.isEndNode(node)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void logStorage() {
 		// 
 		for (Node n:nodes) {
@@ -299,5 +303,17 @@ public class Storage implements Serializable {
 		}
 		BoundingBox result  = new BoundingBox(left, bottom, right, top);
 		return result;
+	}
+	
+	public LongOsmElementMap<Node> getNodeIndex() {
+		return nodes;
+	}
+	
+	public LongOsmElementMap<Way> getWayIndex() {
+		return ways;
+	}
+	
+	public LongOsmElementMap<Relation> getRelationIndex() {
+		return relations;
 	}
 }

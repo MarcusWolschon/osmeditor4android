@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +18,7 @@ import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.util.collections.LongOsmElementMap;
 
 /**
  * Parses a XML (as InputStream), provided by XmlRetriever, and pushes generated OsmElements to the given Storage.
@@ -45,6 +47,9 @@ public class OsmParser extends DefaultHandler {
 	private final ArrayList<Exception> exceptions;
 	
 	private ArrayList<RelationMember> missingRelations;
+	
+	private LongOsmElementMap<Node>nodeIndex = null;
+	private LongOsmElementMap<Way>wayIndex = null;
 
 	public OsmParser() {
 		super();
@@ -171,14 +176,20 @@ public class OsmParser extends DefaultHandler {
 				int lat = (int) (Double.valueOf(atts.getValue("lat")) * 1E7);
 				int lon = (int) (Double.valueOf(atts.getValue("lon")) * 1E7);
 				currentNode = OsmElementFactory.createNode(osmId, osmVersion, status, lat, lon);
-				Log.d(DEBUG_TAG, "Creating node " + osmId);
+				// Log.d(DEBUG_TAG, "Creating node " + osmId);
 			} else if (isWay(name)) {
 				currentWay = OsmElementFactory.createWay(osmId, osmVersion, status);
-				Log.d(DEBUG_TAG, "Creating way " + osmId);
+				if (nodeIndex==null) {
+					nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
+				}
+				// Log.d(DEBUG_TAG, "Creating way " + osmId);
 			}
 			else if (isRelation(name)) {
 				currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, status);
-				Log.d(DEBUG_TAG, "Creating relation " + osmId);
+				if (wayIndex==null) {
+					wayIndex = storage.getWayIndex(); // !!!!! this will fail if input is not ordered
+				}
+				// Log.d(DEBUG_TAG, "Creating relation " + osmId);
 			}
 			else {
 				throw new OsmParseException("Unknown element " + name);
@@ -239,7 +250,8 @@ public class OsmParser extends DefaultHandler {
 			} else {
 				long nodeOsmId = Long.parseLong(atts.getValue("ref"));
 				// Log.d("OsmParser","parseWayNode " + nodeOsmId);
-				Node node = storage.getNode(nodeOsmId);
+				// Node node = storage.getNode(nodeOsmId);
+				Node node = nodeIndex.get(nodeOsmId);
 				if (node==null) {
 					throw new OsmParseException("parseWayNode node " + nodeOsmId + " not in storage");
 				}
@@ -265,23 +277,25 @@ public class OsmParser extends DefaultHandler {
 				RelationMember member = null;
 				
 				if (isNode(type)) {
-					Node n = storage.getNode(ref);
+					// Node n = storage.getNode(ref);
+					Node n = nodeIndex.get(ref);
 					if (n != null) {
 						n.addParentRelation(currentRelation);
 						member = new RelationMember(role, n);
 					} else {
 						member = new RelationMember(type, ref, role);
 					}
-					Log.d(DEBUG_TAG, "Added node member");
+					// Log.d(DEBUG_TAG, "Added node member");
 				} else if (isWay(type)) {
-					Way w = storage.getWay(ref);
+					// Way w = storage.getWay(ref);
+					Way w = wayIndex.get(ref);
 					if (w != null) {
 						w.addParentRelation(currentRelation);
 						member = new RelationMember(role, w);
 					} else {
 						member = new RelationMember(type, ref, role);
 					}
-					Log.d(DEBUG_TAG, "Added way member");
+					// Log.d(DEBUG_TAG, "Added way member");
 				} else if (isRelation(type)) {
 					Relation r = storage.getRelation(ref);
 					if (r != null) {
@@ -291,13 +305,13 @@ public class OsmParser extends DefaultHandler {
 						// these need to be saved and reprocessed
 						member = new RelationMember(type, ref, role);
 						missingRelations.add(member);
-						Log.d(DEBUG_TAG, "Parent relation not available yet or downloaded");
+						// Log.d(DEBUG_TAG, "Parent relation not available yet or downloaded");
 					}
-					Log.d(DEBUG_TAG, "Added relation member");
+					// Log.d(DEBUG_TAG, "Added relation member");
 				}
 					
 				currentRelation.addMember(member);
-				Log.d(DEBUG_TAG, "Adding relation member " + ref + " " + type);
+				// Log.d(DEBUG_TAG, "Adding relation member " + ref + " " + type);
 			}
 		} catch (NumberFormatException e) {
 			throw new OsmParseException("RelationMember unparsable");

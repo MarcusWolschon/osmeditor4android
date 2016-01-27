@@ -557,16 +557,10 @@ public class Map extends View implements IMapView {
 	 */
 	private void paintOsmData(final Canvas canvas) {
 		// first find all nodes that we need to display (for density calculations)
-		List<Node> nodes = delegator.getCurrentStorage().getNodes();
-		ArrayList<Node> paintNodes = new ArrayList<Node>(); 
-		BoundingBox viewBox = getViewBox();
-		nodesOnScreenCount = 0;
-		for (Node n:nodes) {
-			if (viewBox.isIn(n.getLat(), n.getLon())) {
-				paintNodes.add(n);
-				nodesOnScreenCount++;
-			}
-		}
+
+		List<Node> paintNodes = delegator.getCurrentStorage().getNodes(getViewBox()); 
+		nodesOnScreenCount = paintNodes.size();
+		
 		// the following should guarantee that if the selected node is off screen but the handle not, the handle gets drawn
 		// note this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
 		// TODO check if we can't avoid searching paintNodes multiple times
