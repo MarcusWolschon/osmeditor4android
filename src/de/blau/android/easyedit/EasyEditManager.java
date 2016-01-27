@@ -89,8 +89,8 @@ public class EasyEditManager {
 	private int iconsDisplayed = 0;
 	private int maxIcons = 0;
 	
-	private final static int GROUP_MODE = 0;
-	private final static int GROUP_BASE = 1;
+	public final static int GROUP_MODE = 0;
+	public final static int GROUP_BASE = 1;
 	
 	private static final int MENUITEM_HELP = 0;
 	

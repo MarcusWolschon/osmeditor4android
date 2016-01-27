@@ -148,6 +148,10 @@
 		<item name="menu_apply_preset">@drawable/apply_preset_dark</item>
 		<item name="menu_preset_up">@drawable/preset_up_dark</item>
 		<item name="menu_preset_top">@drawable/preset_top_dark</item>
+		<item name="menu_up">@drawable/ic_action_collapse_holo_dark</item>
+		<item name="menu_down" >@drawable/ic_action_expand_holo_dark</item>
+		<item name="menu_sort">@drawable/ic_action_sort_by_size_holo_dark</item>
+		<item name="menu_download">@drawable/ic_action_download_holo_dark</item>
 		<item name="search">@drawable/ic_action_search_holo_dark</item>
 	</style>
 
@@ -255,6 +259,10 @@
 		<item name="menu_apply_preset">@drawable/apply_preset_light</item>
 		<item name="menu_preset_up">@drawable/preset_up_light</item>
 		<item name="menu_preset_top">@drawable/preset_top_light</item>
+		<item name="menu_up">@drawable/ic_action_collapse_holo_light</item>
+		<item name="menu_down" >@drawable/ic_action_expand_holo_light</item>
+		<item name="menu_sort">@drawable/ic_action_sort_by_size_holo_light</item>
+		<item name="menu_download">@drawable/ic_action_download_holo_light</item>
 		<item name="search">@drawable/ic_action_search_holo_light</item>
 	</style>
 

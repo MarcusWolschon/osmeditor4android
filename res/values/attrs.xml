@@ -38,6 +38,10 @@
 	<attr name="menu_preset_up" format="reference" />
 	<attr name="menu_preset_top" format="reference" />
 	<attr name="menu_bug" format="reference" />
+	<attr name="menu_up" format="reference" />
+	<attr name="menu_down" format="reference" />
+	<attr name="menu_sort" format="reference" />
+	<attr name="menu_download" format="reference" />
 	<attr name="alert_dialog" format="reference" />
 	<attr name="drawer" format="reference" />
 	<attr name="undolist_undo" format="reference" />

@@ -1,7 +1,5 @@
 package de.blau.android.propertyeditor;
 
-
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,7 +14,6 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
@@ -26,6 +23,8 @@ import de.blau.android.util.Util;
 
 public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallback {
 	
+	// pm: protected static final int MENU_ITEM_DELETE = 1;
+	// pm: protected static final int MENU_ITEM_HELP = 15;
 	private static final int MENU_ITEM_COPY = 2;
 	private static final int MENU_ITEM_CUT = 3;
 
@@ -34,20 +33,22 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
 	}
 
 	@Override
+	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		super.onCreateActionMode(mode, menu);
+		mode.setTitle(R.string.tag_action_title);
+		return true;
+	}
+	
+	@Override
 	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		menu.clear();
+		super.onPrepareActionMode(mode, menu);
 		Context context = caller.getActivity();
-		menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, R.string.delete)
-				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
 		menu.add(Menu.NONE, MENU_ITEM_COPY, Menu.NONE, R.string.menu_copy)
 				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_copy))
 				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_copy));
 		menu.add(Menu.NONE, MENU_ITEM_CUT, Menu.NONE, R.string.menu_cut)
 				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_cut))
 				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_cut));
-		menu.add(Menu.NONE, MENU_ITEM_HELP, Menu.NONE, R.string.menu_help)
-				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help))
-				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
 		return true;
 	}
 

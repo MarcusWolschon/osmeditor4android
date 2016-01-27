@@ -408,7 +408,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	protected synchronized void memberSelected() {
 		LinearLayout rowLayout = (LinearLayout) getOurView();
 		if (memberSelectedActionModeCallback == null) {
-			memberSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
+			memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, rowLayout);
 			((SherlockFragmentActivity)getActivity()).startActionMode(memberSelectedActionModeCallback);
 		}	
 	}

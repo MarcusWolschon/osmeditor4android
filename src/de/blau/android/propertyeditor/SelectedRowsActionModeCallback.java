@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -32,7 +33,7 @@ public class SelectedRowsActionModeCallback implements Callback {
 	}
 
 	protected static final int MENU_ITEM_DELETE = 1;
-	protected static final int MENU_ITEM_HELP = 8;
+	protected static final int MENU_ITEM_HELP = 15;
 
 	ActionMode currentAction;
 
@@ -46,7 +47,6 @@ public class SelectedRowsActionModeCallback implements Callback {
 
 	@Override
 	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		mode.setTitle(R.string.tag_action_title);
 		currentAction = mode;
 		((PropertyEditor)caller.getActivity()).disablePaging();
 		((PropertyEditor)caller.getActivity()).disablePresets();
@@ -59,7 +59,7 @@ public class SelectedRowsActionModeCallback implements Callback {
 		Context context = caller.getActivity();
 		menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, R.string.delete)
 				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
-		menu.add(Menu.NONE, MENU_ITEM_HELP, Menu.NONE, R.string.menu_help)
+		menu.add(EasyEditManager.GROUP_BASE, MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
 				.setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help))
 				.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
 		return true;
