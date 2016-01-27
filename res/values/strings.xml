@@ -189,6 +189,8 @@
     <string name="tag_menu_reset_address_prediction">Reset address prediction</string>
     <string name="tag_menu_exit_no_save">Exit\nwithout saving</string>
     <string name="tag_menu_delete_unassociated_tags">Delete non-associated tags</string>
+    <string name="tag_menu_top">Scroll to top</string>
+    <string name="tag_menu_bottom">Scroll to bottom</string>
     <string name="tag_value_hint">Type value</string>
     <string name="tag_autocomplete_value_hint">Type or tap for values</string>
     <string name="tag_multi_value_hint">Multiple values</string>
@@ -199,12 +201,14 @@
     <string name="tag_additional_properties">Additional properties</string>
     <string name="tag_details">Details</string>
     <string name="tag_not_set">Not set</string>
+    <string name="tag_menu_move_up">Move up</string>
+    <string name="tag_menu_move_top">Move to top</string>
+    <string name="tag_menu_move_down">Move down</string>
+    <string name="tag_menu_move_bottom">Move to bottom</string>
+    <string name="tag_menu_sort">Sort</string>
+    <string name="tag_menu_download">Download</string>
     <string name="menu_up">Up</string>
     <string name="menu_top">Top</string>
-    <string name="menu_down">Down</string>
-    <string name="menu_bottom">Bottom</string>
-    <string name="menu_sort">Sort</string>
-    <string name="menu_download">Download</string>
     <string name="menu_preset_help">Preset help</string>
     <!-- Strings in LocationPicker -->
     <string name="location_headline">Load Area</string>

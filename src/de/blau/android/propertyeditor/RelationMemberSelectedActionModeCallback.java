@@ -26,12 +26,14 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 	// pm: private static final int MENU_ITEM_COPY = 2;
 	// pm: private static final int MENU_ITEM_CUT = 3;
 	// pm: protected static final int MENU_ITEM_HELP = 15;
-	private static final int MENU_ITEM_UP = 4;
-	private static final int MENU_ITEM_DOWN = 5;
+	private static final int MENU_ITEM_MOVE_UP = 4;
+	private static final int MENU_ITEM_MOVE_DOWN = 5;
 	private static final int MENU_ITEM_SORT = 6;
 	private static final int MENU_ITEM_DOWNLOAD = 7;
-	private static final int MENU_ITEM_TOP = 8;
-	private static final int MENU_ITEM_BOTTOM = 9;
+	private static final int MENU_ITEM_MOVE_TOP = 8;
+	private static final int MENU_ITEM_MOVE_BOTTOM = 9;
+	private static final int MENU_ITEM_TOP = 10;
+	private static final int MENU_ITEM_BOTTOM = 11;
 	
 
 	public RelationMemberSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
@@ -50,21 +52,25 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 		super.onPrepareActionMode(mode, menu);
 		Context context = caller.getActivity();
 		
-		menu.add(Menu.NONE, MENU_ITEM_UP, Menu.NONE, R.string.menu_up)
+		menu.add(Menu.NONE, MENU_ITEM_MOVE_UP, Menu.NONE, R.string.tag_menu_move_up)
 		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_up));
 		
-		menu.add(Menu.NONE, MENU_ITEM_DOWN, Menu.NONE, R.string.menu_down)
+		menu.add(Menu.NONE, MENU_ITEM_MOVE_DOWN, Menu.NONE, R.string.tag_menu_move_down)
 		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_down));
 		
-		menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.menu_sort)
-		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
+//		menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort)
+//		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
 		
-		menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.menu_download)
+		menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
 		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
 		
-		menu.add(Menu.NONE, MENU_ITEM_TOP, Menu.NONE, R.string.menu_top);
+		menu.add(Menu.NONE, MENU_ITEM_MOVE_TOP, Menu.NONE, R.string.tag_menu_move_top);
 		
-		menu.add(Menu.NONE, MENU_ITEM_BOTTOM, Menu.NONE, R.string.menu_bottom);
+		menu.add(Menu.NONE, MENU_ITEM_MOVE_BOTTOM, Menu.NONE, R.string.tag_menu_move_bottom);
+		
+		menu.add(Menu.NONE, MENU_ITEM_TOP, Menu.NONE, R.string.tag_menu_top);
+		
+		menu.add(Menu.NONE, MENU_ITEM_BOTTOM, Menu.NONE, R.string.tag_menu_bottom);
 		
 		return true;
 	}
@@ -91,9 +97,9 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 		int selectedCount = selectedPos.size();
 		int change = 1;
 		switch (action) {
-		case MENU_ITEM_TOP:
+		case MENU_ITEM_MOVE_TOP:
 			change = selectedPos.get(0).intValue();
-		case MENU_ITEM_UP:
+		case MENU_ITEM_MOVE_UP:
 			for (int i = 0;i<selectedCount;i++) {
 				int p = selectedPos.get(i).intValue();
 				int newPos = p - change;
@@ -111,11 +117,11 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 				}
 			}
 			// this has some heuristics to avoid the selected row vanishing behind the top bars
-			scrollToRow(selected.get(0),true, action==MENU_ITEM_TOP || selectedPos.get(0).intValue()<3);
+			((RelationMembersFragment)caller).scrollToRow(selected.get(0),true, action==MENU_ITEM_MOVE_TOP || forceScroll(selectedPos.get(0),size));
 			return true;
-		case MENU_ITEM_BOTTOM:
+		case MENU_ITEM_MOVE_BOTTOM:
 			change = size - selectedPos.get(selectedCount-1).intValue() -1;
-		case MENU_ITEM_DOWN:
+		case MENU_ITEM_MOVE_DOWN:
 			for (int i = selectedCount-1;i>=0;i--) {
 				int p = selectedPos.get(i).intValue();
 				int newPos = p + change;
@@ -133,26 +139,17 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 				}
 			}
 			// this has some heuristics to avoid the selected row vanishing behind the bottom actionbar
-			scrollToRow(selected.get(selected.size()-1),false, action==MENU_ITEM_BOTTOM || selectedPos.get(selected.size()-1).intValue()>(size-4));
+			((RelationMembersFragment)caller).scrollToRow(selected.get(selected.size()-1),false, action==MENU_ITEM_MOVE_BOTTOM || forceScroll(selectedPos.get(selected.size()-1),size));
+			return true;
+		case MENU_ITEM_TOP:
+		case MENU_ITEM_BOTTOM:
+			((RelationMembersFragment)caller).scrollToRow(null,action==MENU_ITEM_TOP,false);
 			return true;
 		default: return false;
 		}
 	}
-
-	private void scrollToRow(final RelationMemberRow row,final boolean up, boolean force) {	
-		final View sv = caller.getView();
-		Rect scrollBounds = new Rect();
-		sv.getHitRect(scrollBounds);
-		if (row.getLocalVisibleRect(scrollBounds)&& !force) {
-			return; // already on screen
-		} 
-		new Handler().post(new Runnable() {
-			@Override
-			public void run() {
-				if (sv != null && sv instanceof ScrollView) { // should always be the case
-					((ScrollView)sv).scrollTo(0, up ? row.getTop(): row.getBottom());
-				}
-			}
-		});
+	
+	private boolean forceScroll(Integer pos, int size) {
+		return pos.intValue()<3 || pos.intValue()>(size-4);
 	}
 }

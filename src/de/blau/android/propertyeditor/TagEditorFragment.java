@@ -873,7 +873,7 @@ public class TagEditorFragment extends SherlockFragment implements
 					if (isChecked) {
 						tagSelected();
 					} else {
-						deselectRows();
+						deselectRow();
 					}
 				}
 				if (row.isEmpty()) {
@@ -1097,7 +1097,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	}
 	
 	@Override
-	public synchronized void deselectRows() {
+	public synchronized void deselectRow() {
 		if (tagSelectedActionModeCallback != null) {
 			if (tagSelectedActionModeCallback.rowsDeselected(false)) {
 				tagSelectedActionModeCallback = null;

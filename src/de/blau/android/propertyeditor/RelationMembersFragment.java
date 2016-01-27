@@ -10,8 +10,10 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -226,7 +228,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 				if (isChecked) {
 					memberSelected();
 				} else {
-					deselectRows();
+					deselectRow();
 				}
 			}
 		});
@@ -414,7 +416,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	}
 	
 	@Override
-	public synchronized void deselectRows() {
+	public synchronized void deselectRow() {
 		if (memberSelectedActionModeCallback != null) {
 			if (memberSelectedActionModeCallback.rowsDeselected(true)) {
 				memberSelectedActionModeCallback = null;
@@ -516,6 +518,10 @@ public class RelationMembersFragment extends SherlockFragment implements
 		case R.id.tag_menu_help:
 			HelpViewer.start(getActivity(), R.string.help_propertyeditor);
 			return true;
+		case R.id.tag_menu_top:
+		case R.id.tag_menu_bottom:
+			scrollToRow(null,item.getItemId()==R.id.tag_menu_top,false);
+			return true;
 		}
 		
 		return false;
@@ -532,6 +538,34 @@ public class RelationMembersFragment extends SherlockFragment implements
 	public void deselectHeaderCheckBox() {
 		CheckBox headerCheckBox = (CheckBox) getView().findViewById(R.id.header_member_selected);
 		headerCheckBox.setChecked(false);
+	}
+	
+	public void scrollToRow(final RelationMemberRow row,final boolean up, boolean force) {	
+		final View sv = getView();
+		Rect scrollBounds = new Rect();
+		sv.getHitRect(scrollBounds);
+		if (row != null && row.getLocalVisibleRect(scrollBounds)&& !force) {
+			return; // already on screen
+		} 
+		if (row==null) {
+			new Handler().post(new Runnable() {
+				@Override
+				public void run() {
+					if (sv != null && sv instanceof ScrollView) { // should always be the case
+						((ScrollView)sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
+					}
+				}
+			});
+		} else {
+			new Handler().post(new Runnable() {
+				@Override
+				public void run() {
+					if (sv != null && sv instanceof ScrollView) { // should always be the case
+						((ScrollView)sv).scrollTo(0, up ? row.getTop(): row.getBottom());
+					}
+				}
+			});
+		}
 	}
 	
 	/**

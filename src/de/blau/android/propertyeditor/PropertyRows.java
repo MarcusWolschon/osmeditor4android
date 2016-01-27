@@ -4,6 +4,6 @@ public interface PropertyRows {
 
     void deselectHeaderCheckBox();
 
-    void deselectRows();
+    void deselectRow();
 
 }

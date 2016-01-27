@@ -8,6 +8,16 @@
         android:showAsAction="always"
     />
     <item
+        android:id="@+id/tag_menu_top"
+        android:title="@string/tag_menu_top"
+        android:showAsAction="never"
+    />
+    <item
+        android:id="@+id/tag_menu_bottom"
+        android:title="@string/tag_menu_bottom"
+        android:showAsAction="never"
+    />
+    <item
         android:id="@+id/tag_menu_help"
         android:icon="?attr/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"

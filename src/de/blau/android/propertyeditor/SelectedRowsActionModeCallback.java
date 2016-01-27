@@ -105,10 +105,9 @@ public class SelectedRowsActionModeCallback implements Callback {
 		}
 		((PropertyEditor)caller.getActivity()).enablePaging();
 		((PropertyEditor)caller.getActivity()).enablePresets();
-		PropertyRows relation = (PropertyRows)caller;
-		relation.deselectHeaderCheckBox();
+		PropertyRows rowContainer = (PropertyRows)caller;
+		rowContainer.deselectHeaderCheckBox();
 		currentAction = null;
-		relation.deselectRows(); // synchronized method
 	}
 
 	public boolean rowsDeselected(boolean skipHeaderRow) {

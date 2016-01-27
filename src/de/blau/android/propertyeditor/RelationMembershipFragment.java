@@ -158,7 +158,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 				Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id.longValue());
 				insertNewMembership(membershipVerticalLayout, parents.get(id),r,0, false);
 			}
-		}
+		} 
 	}
     
     @Override
@@ -217,7 +217,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 				if (isChecked) {
 					parentSelected();
 				} else {
-					deselectRows();
+					deselectRow();
 				}
 			}
 		});
@@ -432,7 +432,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	}
 	
 	@Override
-	public synchronized void deselectRows() {
+	public synchronized void deselectRow() {
 		if (parentSelectedActionModeCallback != null) {
 			if (parentSelectedActionModeCallback.rowsDeselected(true)) {
 				parentSelectedActionModeCallback = null;
