@@ -156,6 +156,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	private Preferences prefs = null;
 	ExtendedViewPager    mViewPager;
 	boolean usePaneLayout = false;
+	boolean isRelation = false;
 
 	public static void startForResult(@NonNull Activity activity,
 									  @NonNull PropertyEditorData[] dataClass,
@@ -265,6 +266,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			if (types[0].endsWith(Relation.NAME)) {
 				// members of this relation
 				originalMembers = loadData[0].originalMembers != null ? loadData[0].originalMembers : loadData[0].members;
+				isRelation = true;
 			}
 			
 			formEnabled = prefs.tagFormEnabled();
@@ -420,16 +422,16 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    		if (!usePaneLayout) {
 	    			switch(position) {
 	    			case 0: 
-	    				presetFragment = PresetFragment.newInstance(elements[0]); // FIXME collect tags to determine presets
+	    				presetFragment = PresetFragment.newInstance(elements[0]); // 
 	    				return presetFragment;
 	    			case 1: 		
 	    				return tagFormFragment(position, true);
 	    			case 2: 		
 	    				return tagEditorFragment(position, false);
 	    			case 3:
-	    				return relationMembershipFragment();
+	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
 	    			case 4:
-	    				return relationMembersFragment();
+	    				return relationMembershipFragment();
 	    			}
 	    		} else {
 	    			switch(position) {
@@ -438,9 +440,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    			case 1: 		
 	    				return tagEditorFragment(position, false);
 	    			case 2:
-	    				return relationMembershipFragment();
+	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
 	    			case 3:
-	    				return relationMembersFragment();
+	    				return relationMembershipFragment();
 	    			}
 	    		}
 	    	} else  {
@@ -452,18 +454,18 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    			case 1: 		
 	    				return tagEditorFragment(position, true);
 	    			case 2:
-	    				return relationMembershipFragment();
+	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
 	    			case 3:
-	    				return relationMembersFragment();
+	    				return relationMembershipFragment();
 	    			}
 	    		} else {
 	    			switch(position) {
 	    			case 0: 		
 	    				return tagEditorFragment(position, false);
-	    			case 1:
-	    				return relationMembershipFragment();
 	    			case 2:
-	    				return relationMembersFragment();
+	    				return isRelation ? relationMembersFragment() : relationMembershipFragment();
+	    			case 3:
+	    				return relationMembershipFragment();
 	    			}
 	    		}
 	    	}
@@ -478,15 +480,15 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    			case 0: return getString(R.string.tag_menu_preset);
 	    			case 1: return getString(R.string.menu_tags);
 	    			case 2: return getString(R.string.tag_details);
-	    			case 3: return getString(R.string.relations);
-	    			case 4: return getString(R.string.members);
+	    			case 3: return isRelation ? getString(R.string.members) : getString(R.string.relations);
+	    			case 4: return getString(R.string.relations);
 	    			}
 	    		} else {
 	    			switch(position) {
 	    			case 0: return getString(R.string.menu_tags);
 	    			case 1: return getString(R.string.tag_details);
-	    			case 2: return getString(R.string.relations);
-	    			case 3: return getString(R.string.members);
+	    			case 2: return isRelation ? getString(R.string.members) : getString(R.string.relations);
+	    			case 3: return getString(R.string.relations);
 	    			}
 	    		}
 	    	} else {
@@ -494,14 +496,14 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	    			switch(position) {
 	    			case 0: return getString(R.string.tag_menu_preset);
 	    			case 1: return getString(R.string.menu_tags);
-	    			case 2: return getString(R.string.relations);
-	    			case 3: return getString(R.string.members);
+	    			case 2: return isRelation ? getString(R.string.members) : getString(R.string.relations);
+	    			case 3: return getString(R.string.relations);
 	    			}
 	    		} else {
 	    			switch(position) {
 	    			case 0: return getString(R.string.menu_tags);
-	    			case 1: return getString(R.string.relations);
-	    			case 2: return getString(R.string.members);
+	    			case 1: return isRelation ? getString(R.string.members) : getString(R.string.relations);
+	    			case 2: return getString(R.string.relations);
 	    			}
 	    		}
 	    	}
