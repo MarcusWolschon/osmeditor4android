@@ -152,6 +152,7 @@
     <string name="toast_min_one_preset">At least one preset has to be selected!</string>
     <string name="toast_used_backup">Corrupted state file, used backup file!</string>
     <string name="toast_used_bug_backup">Corrupted bug state file, used backup file!</string>
+    <string name="toast_rmpty_relation">Empty relation, creating crash report.</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

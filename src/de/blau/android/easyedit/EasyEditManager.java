@@ -13,6 +13,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.acra.ACRA;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -63,6 +65,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
+import de.blau.android.propertyeditor.RelationMembershipFragment;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
@@ -79,6 +82,8 @@ import de.blau.android.util.Util;
  */
 public class EasyEditManager {
 
+	private static final String DEBUG_TAG = EasyEditManager.class.getSimpleName();
+	
 	private final Main main;
 	private final Logic logic;
 	/** the touch listener from Main */
@@ -1688,6 +1693,14 @@ public class EasyEditManager {
 			super.onCreateActionMode(mode, menu);
 			logic.setSelectedNode(null);
 			logic.setSelectedWay(null);
+			if (element != null && (((Relation)element).getMembers()==null || ((Relation)element).getMembers().size()==0)) {
+				// we can only select an empty relation if there is a reference from another object, this is always a bug 
+				Log.e(DEBUG_TAG,"relation " + element.getOsmId() + " is empty ");
+				Toast.makeText(main, R.string.toast_rmpty_relation, Toast.LENGTH_LONG).show();
+				ACRA.getErrorReporter().handleException(null);
+				super.onDestroyActionMode(mode);
+				return false;
+			}
 			logic.selectRelation((Relation) element);
 			mode.setTitle(R.string.actionmode_relationselect);	
 			mode.setSubtitle(null);
