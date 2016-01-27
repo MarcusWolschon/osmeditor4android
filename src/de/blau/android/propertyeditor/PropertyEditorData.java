@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.acra.ACRA;
+
 import android.util.Log;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -19,6 +21,8 @@ import de.blau.android.osm.RelationMemberDescription;
  */
 public class PropertyEditorData implements Serializable {
 	private static final long serialVersionUID = 2L;
+	
+	private static final String DEBUG_TAG = PropertyEditorData.class.getSimpleName();
 	
 	public final long osmId;
 	public final String type;
@@ -60,10 +64,12 @@ public class PropertyEditorData implements Serializable {
 		if (selectedElement.getParentRelations() != null) {
 			for (Relation r:selectedElement.getParentRelations()) {
 				RelationMember rm = r.getMember(selectedElement);
-				if (rm != null)
+				if (rm != null) {
 					tempParents.put(Long.valueOf(r.getOsmId()), rm.getRole());
-				else
-					Log.e("TagEditor","inconsistency in relation membership");
+				} else {
+					Log.e(DEBUG_TAG,"inconsistency in relation membership");
+					ACRA.getErrorReporter().handleException(null);
+				}
 			}
 			parents = tempParents;
 			originalParents = parents;
