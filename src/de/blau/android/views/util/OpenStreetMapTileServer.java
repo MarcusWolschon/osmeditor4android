@@ -33,6 +33,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.contract.Paths;
@@ -292,7 +293,7 @@ public class OpenStreetMapTileServer {
 						if (brandLogoUri.startsWith("@drawable/")) {
 							// internal URL
 							int resid = r.getIdentifier(brandLogoUri.substring(10), "drawable", "de.blau.android");
-							brandLogo = r.getDrawable(resid);
+							brandLogo = ContextCompat.getDrawable(myCtx, resid);
 						} else {
 							// assume Internet URL
 							URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
