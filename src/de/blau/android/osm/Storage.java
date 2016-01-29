@@ -78,7 +78,7 @@ public class Storage implements Serializable {
 	}
 
 	/**
-	 * Return all nodes in a boundbox, currently this does a sequential scan of all nodes
+	 * Return all nodes in a bounding box, currently this does a sequential scan of all nodes
 	 * @param viewBox
 	 * @return
 	 */
