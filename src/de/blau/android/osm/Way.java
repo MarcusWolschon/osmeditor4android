@@ -16,8 +16,9 @@ import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.rtree.BoundedObject;
 
-public class Way extends OsmElement {
+public class Way extends OsmElement implements BoundedObject {
 
 	/**
 	 * 

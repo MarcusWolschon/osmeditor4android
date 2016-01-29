@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.xmlpull.v1.XmlSerializer;
 
 import de.blau.android.exception.OsmException;
+import de.blau.android.util.rtree.BoundedObject;
 
 /**
  * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair and provides some package-internal
@@ -12,7 +13,7 @@ import de.blau.android.exception.OsmException;
  * 
  * @author mb
  */
-public class Node extends OsmElement implements GeoPoint {
+public class Node extends OsmElement implements GeoPoint, BoundedObject {
 	/**
 	 * 
 	 */

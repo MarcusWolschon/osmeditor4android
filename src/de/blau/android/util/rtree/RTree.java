@@ -114,7 +114,7 @@ public class RTree implements Serializable {
 		}
 
 		public BoundingBox getBounds() {
-			Log.d(DEBUG_TAG, "box is " + box);
+			// Log.d(DEBUG_TAG, "box is " + box);
 			return box;
 		}
 		

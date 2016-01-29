@@ -11,6 +11,7 @@ import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.rtree.BoundedObject;
 import android.content.Context;
 import android.util.Log;
 
@@ -20,7 +21,7 @@ import android.util.Log;
  * @author simon
  *
  */
-public class Relation extends OsmElement {
+public class Relation extends OsmElement implements BoundedObject {
 
 	/**
 	 * 
