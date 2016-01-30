@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.graphics.Rect;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.exception.OsmException;
@@ -326,10 +325,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 	
 	public boolean intersects(final BoundingBox b) {
-		// this is naturally only true on the plain, probably should use mercator coordinates
-		//Log.d("BoundingBox","intersects " + left + "/" + bottom  + "/"  + right + "/" + top + "  " + b.left + "/" + b.bottom  + "/"  + b.right + "/" + b.top);
-		return (Math.abs(left + width/2 - b.left - b.width/2) * 2 < (width + b.width)) &&
-		         (Math.abs(bottom + (long)height/2 - b.bottom - (long)b.height/2) * 2 < ((long)height + (long)b.height));
+		if (right < b.left) return false; // a is left of b
+		if (left > b.right) return false; // a is right of b
+		if (top < b.bottom) return false; // a is above b
+		if (bottom > b.top) return false; // a is below b
+		return true; // boxes overlap
 	}
 	
 	/**
@@ -761,6 +761,17 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	public boolean contains(BoundingBox bb) {
 		return (bb.bottom >= bottom) && (bb.top <= top) && (bb.left >= left) && (bb.right <= right);
 	}
+	
+	/**
+	 * Returns true if the coordinates are in the box
+	 * Right and top coordinate are considered inside
+	 * @param lonE7
+	 * @param latE7
+	 * @return
+	 */
+	public boolean contains(int lonE7, int latE7) {
+		return left <= lonE7 && lonE7 <= right && bottom <= latE7 && latE7 <= top;
+	}
 
 	/**
 	 * Return pre-caclulated meracator value of bottom of the bounding box
@@ -927,16 +938,5 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	 */
 	public boolean isEmpty() {
 		return left == right && top == bottom;
-	}
-
-	/**
-	 * Returns true if the coordinates are in the box
-	 * Right and top coordinate are considered outside
-	 * @param lonE7
-	 * @param latE7
-	 * @return
-	 */
-	public boolean contains(int lonE7, int latE7) {
-		return left <= lonE7 && lonE7 < right && bottom <= latE7 && latE7 < top;
 	}
 }

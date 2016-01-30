@@ -22,9 +22,8 @@ import de.blau.android.osm.OsmElementFactory;
  * adopted to different implementations of an OSM element as long as you can
  * easily get the element id.
  * 
- * This implementation will only require at most 8*(capacity-size) more space
- * than a plain array, and roughly the same as an ArrayList (depending on how
- * extra capacity is provided). 
+ * This implementation will only require at most 8*next_power_of_2(capacity/fillfactor) 
+ * space.
  * 
  * This is based on public domain code see http://unlicense.org from Mikhail
  * Vorontsov, see https://github.com/mikvor The original code used a interleaved
