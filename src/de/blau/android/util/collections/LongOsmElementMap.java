@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.util.Log;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 
@@ -30,7 +31,7 @@ import de.blau.android.osm.OsmElementFactory;
  * key/value implementation in one array, however since the stored value already
  * contains the key additional copies are not needed.
  * 
- * @version 0.1
+ * @version 0.2
  * @author simon
  */
 @SuppressLint("UseSparseArrays")
@@ -39,14 +40,13 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L; // NOTE if you change the
+	private static final long serialVersionUID = 2L; // NOTE if you change the
 														// hashing algorithm you
 														// need to increment
 														// this
 
 	private static final OsmElement FREE_KEY = null; 
-	private static final OsmElement REMOVED_KEY = OsmElementFactory.createNode(
-			Long.MIN_VALUE, 1, OsmElement.STATE_CREATED, 0, 0);;
+	private final OsmElement removedKey; // Note see constructor for important note
 	private static final float DEFAULT_FILLFACTOR = 0.75f;
 	private static final int DEFAULT_CAPACITY = 16;
 
@@ -62,14 +62,26 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 	/** Mask to calculate the original position */
 	private long m_mask;
 
+	/**
+	 * Create a new map with default values for capacity and fill factor
+	 */
 	public LongOsmElementMap() {
 		this(DEFAULT_CAPACITY, DEFAULT_FILLFACTOR);
 	}
 
+	/**
+	 * Create a new map with the specified size and the default fill factor
+	 * @param size
+	 */
 	public LongOsmElementMap(final int size) {
 		this(size, DEFAULT_FILLFACTOR);
 	}
 
+	/**
+	 * Create a new map with the specified size and fill factor
+	 * @param size
+	 * @param fillFactor
+	 */
 	public LongOsmElementMap(final int size, final float fillFactor) {
 		if (fillFactor <= 0 || fillFactor >= 1) {
 			throw new IllegalArgumentException("FillFactor must be in (0, 1)");
@@ -84,14 +96,22 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		m_data = new OsmElement[capacity];
 
 		m_threshold = (int) (capacity * fillFactor);
+		
+		// NOTE can't be static as it has to be serialized and de-serialized 
+		removedKey = OsmElementFactory.createNode(Long.MIN_VALUE, 1, OsmElement.STATE_CREATED, 0, 0);
 	}
 
+	/**
+	 * Create a shallow copy of the specified map
+	 * @param map
+	 */
 	@SuppressLint("NewApi")
 	public LongOsmElementMap(LongOsmElementMap<? extends V> map) {
 		m_mask = map.m_mask;
 		m_fillFactor = map.m_fillFactor;
 		m_threshold = map.m_threshold;
 		m_size = map.m_size;
+		removedKey = map.removedKey;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 			m_data = Arrays.copyOf(map.m_data, map.m_data.length);
 		} else { // sigh
@@ -102,6 +122,11 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		}
 	}
 
+	/**
+	 * Return a single element with the specified key
+	 * @param key
+	 * @return the required element or null if it cannot be found
+	 */
 	@SuppressWarnings("unchecked")
 	public V get(final long key) {
 		int ptr = (int) ((Tools.phiMix(key) & m_mask));
@@ -125,6 +150,12 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		}
 	}
 
+	/**
+	 * Add a single element to the map
+	 * @param key
+	 * @param value
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public V put(final long key, final V value) {
 		int ptr = (int) ((Tools.phiMix(key) & m_mask));
@@ -147,7 +178,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		}
 
 		int firstRemoved = -1;
-		if (e == REMOVED_KEY) {
+		if (e == removedKey) {
 			firstRemoved = ptr; // we may find a key later
 		}
 
@@ -168,7 +199,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			} else if (e.getOsmId() == key) {
 				m_data[ptr] = (OsmElement) value;
 				return (V) e;
-			} else if (e == REMOVED_KEY) {
+			} else if (e == removedKey) {
 				if (firstRemoved == -1) {
 					firstRemoved = ptr;
 				}
@@ -176,6 +207,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		}
 	}
 
+	/**
+	 * Add all elements from map 
+	 * @param map
+	 */
 	public void putAll(LongOsmElementMap<V> map) {
 		ensureCapacity(m_data.length + map.size());
 		for (V e : map) { // trivial implementation for now
@@ -183,6 +218,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		}
 	}
 
+	/**
+	 * Add all elements from c
+	 * @param c
+	 */
 	public void putAll(Collection<V> c) {
 		ensureCapacity(m_data.length + c.size());
 		for (V e : c) { // trivial implementation for now
@@ -190,6 +229,12 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		}
 	}
 
+	/**
+	 * Remove element with the specified key from the map, 
+	 * does not shrink the underlying array
+	 * @param key
+	 * @return
+	 */
 	public OsmElement remove(final long key) {
 		int ptr = (int) (Tools.phiMix(key) & m_mask);
 		OsmElement e = m_data[ptr];
@@ -201,7 +246,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			if (m_data[(int) ((ptr + 1) & m_mask)] == FREE_KEY) { // this shortens the chain
 				m_data[ptr] = FREE_KEY;
 			} else {
-				m_data[ptr] = REMOVED_KEY;
+				m_data[ptr] = removedKey;
 			}
 			return e;
 		}
@@ -215,13 +260,18 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 				if (m_data[(int) ((ptr + 1) & m_mask)] == FREE_KEY) { // this shortens the chain
 					m_data[ptr] = FREE_KEY;
 				} else {
-					m_data[ptr] = REMOVED_KEY;
+					m_data[ptr] = removedKey;
 				}
 				return e;
 			}
 		}
 	}
 
+	/**
+	 * Return true if the map contains an object with the specified key
+	 * @param key
+	 * @return
+	 */
 	public boolean containsKey(long key) {
 		int ptr = (int) ((Tools.phiMix(key) & m_mask));
 		OsmElement e = m_data[ptr];
@@ -240,15 +290,20 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 			if (e.getOsmId() == key) {
 				return true;
 			}
-		}
+		}	
 	}
 
+	/**
+	 * Return all values in the map.
+	 * Note: they are returned unordered
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<V> values() {
 		int found = 0;
 		ArrayList<V> result = new ArrayList<V>(m_size);
 		for (OsmElement v : m_data) {
-			if (v != FREE_KEY && v != REMOVED_KEY) {
+			if (v != FREE_KEY && v != removedKey) {
 				result.add((V) v);
 				found++;
 				if (found >= m_size) { // found all
@@ -259,14 +314,28 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 		return result;
 	}
 
+	/**
+	 * Return the number of elements in the map
+	 * @return
+	 */
 	public int size() {
 		return m_size;
 	}
 
+	/**
+	 * Return true if the map is empty
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return m_size == 0;
 	}
 
+	/**
+	 * Provide capacity for minimumCapacity elements
+	 * without need for growing the underlying array and
+	 * rehashing.
+	 * @param minimumCapacity
+	 */
 	public void ensureCapacity(int minimumCapacity) {
 		int newCapacity = Tools.arraySize(minimumCapacity, m_fillFactor);
 		if (newCapacity > m_data.length) {
@@ -288,7 +357,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 
 		for (int i = 0; i < oldCapacity; i++) {
 			final OsmElement e = oldData[i];
-			if (e != FREE_KEY && e != REMOVED_KEY) {
+			if (e != FREE_KEY && e != removedKey) {
 				put(e.getOsmId(), (V) e);
 			}
 		}
@@ -310,7 +379,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 						return false;
 					} else {
 						OsmElement e = m_data[index];
-						if (e != FREE_KEY && e != REMOVED_KEY) {
+						if (e != FREE_KEY && e != removedKey) {
 							found++;
 							return true;
 						} else {
@@ -329,7 +398,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>,
 						throw new NoSuchElementException();
 					} else {
 						OsmElement e = m_data[index];
-						if (e != FREE_KEY && e != REMOVED_KEY) {
+						if (e != FREE_KEY && e != removedKey) {
 							index++;
 							return (V) e;
 						} else {
