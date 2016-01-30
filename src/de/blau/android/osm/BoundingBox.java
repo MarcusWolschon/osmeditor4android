@@ -317,10 +317,11 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 	}
 	
 	public boolean intersects(final BoundingBox b) {
-		// this is naturally only true on the plain, probably should use mercator coordinates
-		//Log.d("BoundingBox","intersects " + left + "/" + bottom  + "/"  + right + "/" + top + "  " + b.left + "/" + b.bottom  + "/"  + b.right + "/" + b.top);
-		return (Math.abs(left + width/2 - b.left - b.width/2) * 2 < (width + b.width)) &&
-		         (Math.abs(bottom + (long)height/2 - b.bottom - (long)b.height/2) * 2 < ((long)height + (long)b.height));
+		if (right < b.left) return false; // a is left of b
+		if (left > b.right) return false; // a is right of b
+		if (top < b.bottom) return false; // a is above b
+		if (bottom > b.top) return false; // a is below b
+		return true; // boxes overlap
 	}
 
 	/**

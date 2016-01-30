@@ -147,14 +147,16 @@ public class RTree implements Serializable {
 			boolean isleaf = n.isLeaf();
 
 			// Choose seeds. Would write a function for this, but it requires returning 2 objects
-			BoundedObject seed1 = null, seed2 = null;
+			
 			ArrayList<? extends BoundedObject> list;
 			if (isleaf)
 				list = n.data;
 			else
 				list = n.children;
+			
+			BoundedObject seed1 = list.get(0), seed2 = list.get(list.size()-1);
 
-			double maxD = Double.MIN_VALUE;
+			double maxD = -Double.MAX_VALUE;
 			Rect box = new Rect();
 			for (int i = 0; i < list.size(); i++) {
 				for (int j=0; j < list.size(); j++) {
@@ -164,12 +166,27 @@ public class RTree implements Serializable {
 					box.set(n1.getBounds());
 					
 					Rect box2 = n2.getBounds();
+					double d;
 					if (box2.isEmpty()) {
-						box.union(box2.left, box2.top);
+						if (box.isEmpty()) {
+							// not sure if this really works
+							box.union(box2.left, box2.top);
+							d = area(box);
+							if (d==0) {
+								d = box.right-box2.right;
+								if (d==0) {
+									d = box.top-box2.top;
+								}
+								// else ... two nodes in the same place
+							}
+						} else {
+							box.union(box2.left, box2.top);
+							d = area(box) - area(n1.getBounds());
+						}
 					} else {
 						box.union(box2);
+						d = area(box) - area(n1.getBounds()) - area(n2.getBounds());
 					}
-					double d = area(box) - area(n1.getBounds()) - area(n2.getBounds());
 					// Log.d(DEBUG_TAG," d " + d );
 					if (d > maxD) {
 						maxD = d;
