@@ -16,6 +16,7 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
+import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
@@ -26,6 +27,8 @@ import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
  *
  */
 public class MapOverlay extends OpenStreetMapViewOverlay {
+	
+	private final static String DEBUG_TAG = "PhotoOverlay";
 	
 	/** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */ 
 	private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
@@ -77,6 +80,7 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 				indexing = true;
 				publishProgress(0);
 				pi.createOrUpdateIndex();
+				pi.fill(null);
 				publishProgress(1);
 				indexing = false;
 				indexed = true;
@@ -129,11 +133,12 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 			if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
 				return;
 			}
+		
 			if (!indexed && !indexing) {
 				indexPhotos.execute();
 				return;
 			}
-		
+			
 			// draw all the photos
 			int w = map.getWidth();
 			int h = map.getHeight();

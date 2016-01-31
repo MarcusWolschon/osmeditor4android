@@ -238,40 +238,47 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	 * @param box
 	 * @return
 	 */
-	public synchronized Collection<Photo> getPhotos(BoundingBox box) {
+	public Collection<Photo> getPhotos(BoundingBox box) {
 		RTree index = Application.getPhotoIndex();
 		if (index == null) {
-			Application.resetPhotoIndex(); // allocate r-tree
-			index = Application.getPhotoIndex();
-			try {
-				SQLiteDatabase db = getReadableDatabase();
-				Cursor dbresult = db.query(
-						"photos",
-						new String[] {"lat", "lon", "direction", "dir", "name"},
-						null, 
-						null, null, null, null, null);
-				int photoCount = dbresult.getCount();
-				dbresult.moveToFirst();
-				Log.i(LOGTAG,"Query returned " + photoCount + " photos");
-				// 
-				for (int i = 0; i < photoCount; i++) {
-					if (dbresult.isNull(2) ) { // no direction
-						index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
-					} else {
-						index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
-					}
-					dbresult.moveToNext();
-				}
-				dbresult.close();
-				db.close();
-			} catch (SQLiteException ex) {
-				// shoudn't happen (getReadableDatabase failed), simply report for now
-				ACRA.getErrorReporter().handleException(ex);
-			}
+			return new ArrayList<Photo>();
 		}
 		
 		return getPhotosFromIndex(index, box);
 	}
+	
+	public synchronized void fill(RTree index) {
+		if (index==null) {
+			Application.resetPhotoIndex(); // allocate r-tree
+			index = Application.getPhotoIndex();
+		}
+		try {
+			SQLiteDatabase db = getReadableDatabase();
+			Cursor dbresult = db.query(
+					"photos",
+					new String[] {"lat", "lon", "direction", "dir", "name"},
+					null, 
+					null, null, null, null, null);
+			int photoCount = dbresult.getCount();
+			dbresult.moveToFirst();
+			Log.i(LOGTAG,"Query returned " + photoCount + " photos");
+			// 
+			for (int i = 0; i < photoCount; i++) {
+				if (dbresult.isNull(2) ) { // no direction
+					index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
+				} else {
+					index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
+				}
+				dbresult.moveToNext();
+			}
+			dbresult.close();
+			db.close();
+		} catch (SQLiteException ex) {
+			// shoudn't happen (getReadableDatabase failed), simply report for now
+			ACRA.getErrorReporter().handleException(ex);
+		}
+	}
+	
 	
 	public ArrayList<Photo>getPhotosFromIndex(RTree index, BoundingBox box) {
 		Collection<BoundedObject> queryResult = new ArrayList<BoundedObject>();
