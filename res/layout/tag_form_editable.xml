@@ -15,10 +15,10 @@
         <TextView
             android:id="@+id/form_header_icon_view"
             style="?attr/TableHeader"
-            android:layout_width="36dp"
+            android:layout_width="41dp"
             android:layout_height="fill_parent"
             android:layout_marginBottom="1dp"
-            android:layout_marginRight="1dp"
+            android:layout_marginRight="0dp"
             android:baselineAligned="false"
             android:paddingLeft="5dp"
             android:saveEnabled="false" />
