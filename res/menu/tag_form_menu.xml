@@ -21,10 +21,10 @@
         android:icon="?attr/menu_information"
         android:showAsAction="ifRoom"
         android:title="@string/tag_menu_mapfeatures"/>
-    <item
-        android:id="@+id/tag_menu_delete_unassociated_tags"
-        android:showAsAction="never"
-        android:title="@string/tag_menu_delete_unassociated_tags"/>
+<!--     <item -->
+<!--         android:id="@+id/tag_menu_delete_unassociated_tags" -->
+<!--         android:showAsAction="never" -->
+<!--         android:title="@string/tag_menu_delete_unassociated_tags"/> -->
     <item
         android:id="@+id/tag_menu_reset_address_prediction"
         android:showAsAction="never"

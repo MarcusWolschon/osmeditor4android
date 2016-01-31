@@ -30,10 +30,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 	private static final int MENU_ITEM_MOVE_DOWN = 5;
 	private static final int MENU_ITEM_SORT = 6;
 	private static final int MENU_ITEM_DOWNLOAD = 7;
-	private static final int MENU_ITEM_MOVE_TOP = 8;
-	private static final int MENU_ITEM_MOVE_BOTTOM = 9;
-	private static final int MENU_ITEM_TOP = 10;
-	private static final int MENU_ITEM_BOTTOM = 11;
+	private static final int MENU_ITEM_TOP = 8;
+	private static final int MENU_ITEM_BOTTOM = 9;
+	private static final int MENU_ITEM_MOVE_TOP = 10;
+	private static final int MENU_ITEM_MOVE_BOTTOM = 11;
 	
 
 	public RelationMemberSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
@@ -61,16 +61,17 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 //		menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort)
 //		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
 		
-		menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
-		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
+//		menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
+//		.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
+		
+
+		menu.add(Menu.NONE, MENU_ITEM_TOP, Menu.NONE, R.string.tag_menu_top);
+		
+		menu.add(Menu.NONE, MENU_ITEM_BOTTOM, Menu.NONE, R.string.tag_menu_bottom);
 		
 		menu.add(Menu.NONE, MENU_ITEM_MOVE_TOP, Menu.NONE, R.string.tag_menu_move_top);
 		
 		menu.add(Menu.NONE, MENU_ITEM_MOVE_BOTTOM, Menu.NONE, R.string.tag_menu_move_bottom);
-		
-		menu.add(Menu.NONE, MENU_ITEM_TOP, Menu.NONE, R.string.tag_menu_top);
-		
-		menu.add(Menu.NONE, MENU_ITEM_BOTTOM, Menu.NONE, R.string.tag_menu_bottom);
 		
 		return true;
 	}
@@ -91,7 +92,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			RelationMemberRow row = (RelationMemberRow)view;
 			if (row.isSelected()) {
 				selected.add(row);
-				selectedPos.add(Integer.valueOf(i));
+				selectedPos.add(i);
 			}
 		} 
 		int selectedCount = selectedPos.size();
@@ -108,9 +109,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 					// one row removed at top. fix up positions
 					selectedPos.set(i,size-1);
 					for (int j=i+1;j<selectedCount;j++) {
-						selectedPos.set(j,Integer.valueOf(selectedPos.get(j).intValue()-1));
+						selectedPos.set(j,selectedPos.get(j)-1);
 					}	
 					rows.addView(selected.get(i)); // add at end
+					break;
 				} else {
 					selectedPos.set(i,newPos);
 					rows.addView(selected.get(i),newPos);
@@ -130,9 +132,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 					// one row removed at bottom. fix up positions
 					selectedPos.set(i,0);
 					for (int j=i-1;j>=0;j--) {
-						selectedPos.set(j,Integer.valueOf(selectedPos.get(j).intValue()+1));
+						selectedPos.set(j,selectedPos.get(j)+1);
 					}	
 					rows.addView(selected.get(i),0); // add at end
+					break;
 				} else {
 					selectedPos.set(i,newPos);
 					rows.addView(selected.get(i),newPos);

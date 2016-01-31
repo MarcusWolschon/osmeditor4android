@@ -322,9 +322,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		case R.id.tag_menu_mapfeatures:
 			startActivity(Preset.getMapFeaturesIntent(getActivity(),tagListener.getBestPreset()));
 			return true;
-		case R.id.tag_menu_delete_unassociated_tags:
-			// remove tags that don't belong to an identified preset
-			return true;
+//		case R.id.tag_menu_delete_unassociated_tags:
+//			// remove tags that don't belong to an identified preset
+//			return true;
 		case R.id.tag_menu_resetMRU:
 			for (Preset p:((PropertyEditor)getActivity()).presets)
 				p.resetRecentlyUsed();
