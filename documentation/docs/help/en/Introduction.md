@@ -116,7 +116,7 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 ### Filtering
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences* you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
 
 * Notes
 * Osmose error
