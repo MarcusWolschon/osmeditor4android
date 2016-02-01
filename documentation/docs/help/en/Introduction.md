@@ -114,6 +114,16 @@ On the map the Notes and bugs are represented by a small bug icon ![](../images/
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
+### Filtering
+
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences* you can individually select:
+
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+
+
 ## Customizing Vespucci
 
 ### Settings that you might want to change
