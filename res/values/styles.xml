@@ -149,6 +149,9 @@
 		<item name="menu_sort">@drawable/ic_action_sort_by_size_holo_dark</item>
 		<item name="menu_download">@drawable/ic_action_download_holo_dark</item>
 		<item name="search">@drawable/ic_action_search_holo_dark</item>
+		<item name="node_small">@drawable/node_small_dark</item>
+		<item name="line_small">@drawable/line_small_dark</item>
+		<item name="relation_small">@drawable/relation_small_dark</item>
 	</style>
 	
 	<style name="TagEditorActionBar" parent="Widget.Sherlock.ActionBar.Solid" />
@@ -257,6 +260,9 @@
 		<item name="menu_sort">@drawable/ic_action_sort_by_size_holo_light</item>
 		<item name="menu_download">@drawable/ic_action_download_holo_light</item>
 		<item name="search">@drawable/ic_action_search_holo_light</item>
+		<item name="node_small">@drawable/node_small_light</item>
+		<item name="line_small">@drawable/line_small_light</item>
+		<item name="relation_small">@drawable/relation_small_light</item>
 	</style>
 
 	<style name="TagEditorActionBarLight" parent="Widget.Sherlock.Light.ActionBar.Solid" />

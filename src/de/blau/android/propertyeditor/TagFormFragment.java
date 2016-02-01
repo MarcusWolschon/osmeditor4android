@@ -32,6 +32,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -985,7 +986,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	
 	public static class EditableLayout extends LinearLayout {
 
-		private TextView headerIconView;
+		private ImageView headerIconView;
 		private TextView headerTitleView;
 		private LinearLayout rowLayout;
 		
@@ -1002,7 +1003,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			super.onFinishInflate();
 			if (isInEditMode()) return; // allow visual editor to work
 			
-			headerIconView = (TextView)findViewById(R.id.form_header_icon_view);
+			headerIconView = (ImageView)findViewById(R.id.form_header_icon_view);
 			headerTitleView = (TextView)findViewById(R.id.form_header_title);
 			rowLayout = (LinearLayout) findViewById(R.id.form_editable_row_layout);
 		}	
@@ -1030,7 +1031,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				Drawable icon = preset.getIcon();
 				if (icon != null) {
 					headerIconView.setVisibility(View.VISIBLE);
-					headerIconView.setCompoundDrawables(null, icon, null, null);
+					headerIconView.setImageDrawable(icon);
 				} else {
 					headerIconView.setVisibility(View.GONE);
 				}

@@ -43,18 +43,17 @@
 	        android:singleLine="true"
 	        />
 	        
-	    <TextView
+	    <ImageView
 	        android:id="@+id/memberType"
 	        style="?attr/NotDownloadedMember"
 	        android:saveEnabled="false"
-	        android:layout_width="fill_parent"
+	        android:layout_width="34dp"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
 	        android:layout_marginRight="1dp"
-	        android:layout_weight="3"
 	        android:minHeight="35dp"
-	        android:paddingLeft="5dp"
-	        android:paddingRight="5dp"
+	        android:paddingLeft="0dp"
+	        android:paddingRight="0dp"
 	        android:singleLine="true"
 	        android:gravity="center_vertical"
 	        android:layout_gravity="center_vertical"

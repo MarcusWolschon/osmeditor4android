@@ -50,6 +50,9 @@
 	<attr name="lock_tag" format="reference" />
 	<attr name="mic" format="reference" />
 	<attr name="search" format="reference" />
+	<attr name="node_small" format="reference" />
+	<attr name="line_small" format="reference" />
+	<attr name="relation_small" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

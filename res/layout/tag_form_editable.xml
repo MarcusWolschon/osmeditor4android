@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:saveEnabled="false" >
 
-        <TextView
+        <ImageView
             android:id="@+id/form_header_icon_view"
             style="?attr/TableHeader"
             android:layout_width="41dp"

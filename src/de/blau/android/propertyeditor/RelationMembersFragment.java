@@ -29,6 +29,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -44,12 +45,15 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.ThemeUtils;
 
 public class RelationMembersFragment extends SherlockFragment implements
 		PropertyRows {
@@ -218,7 +222,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 			row.roleEdit.setEllipsize(TruncateAt.END);
 		}
 		
-		row.setValues(pos, id, rmd);
+		row.setValues(getActivity(),pos, id, rmd);
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 		
 		row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -247,7 +251,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 		private long relationId;
 		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
-		private TextView typeView;
+		private ImageView typeView;
 		private TextView elementView;
 		
 		public RelationMemberRow(Context context) {
@@ -276,7 +280,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 			roleEdit.setOnKeyListener(owner.myKeyListener);
 			//lastEditKey.setSingleLine(true);
 			
-			typeView = (TextView)findViewById(R.id.memberType);
+			typeView = (ImageView)findViewById(R.id.memberType);
 			
 			elementView = (TextView)findViewById(R.id.memberObject);
 			
@@ -321,13 +325,23 @@ public class RelationMembersFragment extends SherlockFragment implements
 		 * @param rmd the information on the relation member
 		 * @return elationMemberRow object for convenience
 		 */
-		public RelationMemberRow setValues(String pos, long id, RelationMemberDescription rmd) {
+		public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd) {
 			
 			String desc = rmd.getDescription();
 			String objectType = rmd.getType() == null ? "--" : rmd.getType();
 			elementId = rmd.getRef();
 			roleEdit.setText(rmd.getRole());
-			typeView.setText(objectType);
+			
+			if (Node.NAME.equals(objectType)) {
+				typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.node_small));
+			} else if (Way.NAME.equals(objectType)) {
+				typeView.setImageDrawable(ctx.getResources().getDrawable(ThemeUtils.getResIdFromAttribute(ctx,R.attr.line_small)));
+			} else if (Relation.NAME.equals(objectType)) {
+				typeView.setImageDrawable(ctx.getResources().getDrawable(ThemeUtils.getResIdFromAttribute(ctx,R.attr.relation_small)));
+			} else {
+				// don't know yet
+			}
+			typeView.setTag(objectType);
 			elementView.setText(desc);
 			relationId = id;
 			return this;
@@ -451,7 +465,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	/**
 	 */
 	private interface RelationMemberHandler {
-		abstract void handleRelationMember(final TextView typeView, final long elementId, final EditText roleEdit, final TextView descView);
+		abstract void handleRelationMember(final ImageView typeView, final long elementId, final EditText roleEdit, final TextView descView);
 	}
 	
 	/**
@@ -480,8 +494,8 @@ public class RelationMembersFragment extends SherlockFragment implements
 		final ArrayList<RelationMemberDescription> members = new ArrayList<RelationMemberDescription>();
 		processRelationMembers(new RelationMemberHandler() {
 			@Override
-			public void handleRelationMember(final TextView typeView, final long elementId, final EditText roleEdit, final TextView descView) {
-				String type = typeView.getText().toString().trim();
+			public void handleRelationMember(final ImageView typeView, final long elementId, final EditText roleEdit, final TextView descView) {
+				String type = ((String)typeView.getTag()).trim();
 				String role = roleEdit.getText().toString().trim();
 				String desc = descView.getText().toString().trim();
 				RelationMemberDescription rmd = new RelationMemberDescription(type,elementId,role,desc);
