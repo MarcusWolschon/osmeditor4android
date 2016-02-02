@@ -9061,7 +9061,7 @@
         </item> <!-- Quarry -->
     </group> <!-- Landuse -->
   </group> <!-- Geography -->
-  <group name="Addresses and Contact" icon="icons/png/poi_housenumber_sp.png">
+  <group name="Addresses and Contact" icon="icons/png/osm_housenumber_sp.png">
       <item name="Name" icon="icons/png/osm_name_sp.png" type="node,way,closedway,relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:name"
                   ar.href="http://wiki.openstreetmap.org/wiki/Ar:Key:name"
