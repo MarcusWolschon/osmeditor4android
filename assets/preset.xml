@@ -3491,7 +3491,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aeroway=hangar"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:aeroway=hangar" />
             <key key="aeroway" value="hangar" />
-            <combo key="building" text="Building" values="hangar,yes" values_context="building" default="hangar" values_searchable="true" />
+            <key key="building" value="hangar" />
         </item> <!-- Hangar -->
         <item name="Beacon" icon="icons/png/transport_beacon_22008.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=beacon"
