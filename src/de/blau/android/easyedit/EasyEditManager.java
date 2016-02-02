@@ -255,7 +255,6 @@ public class EasyEditManager {
 				|| (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
 				|| (currentActionModeCallback instanceof RelationSelectionActionModeCallback))
 		{
-			
 			// one element already selected
 			((ElementSelectionActionModeCallback)currentActionModeCallback).deselect = false; // keep the element visually selected
 			main.startActionMode(new ExtendSelectionActionModeCallback(((ElementSelectionActionModeCallback)currentActionModeCallback).element));
