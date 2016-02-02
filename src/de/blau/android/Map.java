@@ -21,6 +21,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -768,10 +769,13 @@ public class Map extends View implements IMapView {
 			} else {
 				match = Preset.findBestMatch(tmpPresets,tags);
 			}
-			if (match != null && match.getMapIcon() != null) {
-				icon = Bitmap.createBitmap(iconRadius*2, iconRadius*2, Config.ARGB_8888);
-				// icon.eraseColor(Color.WHITE); // replace nothing with white?
-				match.getMapIcon().draw(new Canvas(icon));
+			if (match != null) {
+				Drawable iconDrawable = match.getMapIcon();
+				if (iconDrawable != null) {
+					icon = Bitmap.createBitmap(iconRadius*2, iconRadius*2, Config.ARGB_8888);
+					// icon.eraseColor(Color.WHITE); // replace nothing with white?
+					iconDrawable.draw(new Canvas(icon));
+				}
 			}
 			iconcache.put(tags, icon);
 		}

@@ -1031,7 +1031,8 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 				Drawable icon = preset.getIcon();
 				if (icon != null) {
 					headerIconView.setVisibility(View.VISIBLE);
-					headerIconView.setImageDrawable(icon);
+					//NOTE directly using the icon seems to trash it, so make a copy
+					headerIconView.setImageDrawable(icon.getConstantState().newDrawable()); 
 				} else {
 					headerIconView.setVisibility(View.GONE);
 				}
