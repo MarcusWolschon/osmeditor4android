@@ -88,11 +88,11 @@ Some things missing at this point in time
 
 The user interdace is currently available in: English, German, Chinese (Taiwan), Spanish, Ukranian, Russian, Turkish, French, Italian, Vienamese, Chinese, Icelandic, Greek, Portugeses and Janpanese. These translations are typically complete or only have a small number of terms missing.
 
-We also have partial translations for a number of other languages (please see link to transifex below for the current status). Any help in this area would be gratefully received. Please see https://www.transifex.com/projects/p/vespucci/
+We also have partial translations for a number of other languages (please see link to transifex below for the current status). Any help in this area would be gratefully received. Please see [](https://www.transifex.com/projects/p/vespucci/).
 
 #### How can I download OSM data? ####
 
-On startup, Vespucci requests which area to download. You can choose from the following options:
+On the first time startup, Vespucci requests which area to download. You can choose from the following options:
 
  * Current location
  * Last known location
