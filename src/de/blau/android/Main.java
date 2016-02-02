@@ -530,6 +530,20 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					}
 					setupLockButton(getSupportActionBar());
 					updateActionbarEditMode();
+					if (true // logic.getMode()==Mode.MODE_EASYEDIT 
+							&& (logic.getSelectedNode() != null 
+								|| logic.getSelectedWay() != null 
+								|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0)
+								|| logic.getSelectedBug() != null)) {
+						// need to restart whatever we were doing
+						Log.d(DEBUG_TAG,"restarting action mode");
+						Bug b = logic.getSelectedBug();
+						if (b==null) {
+							easyEditManager.editElements();
+						} else {
+							performBugEdit(b);
+						}		
+					}
 				}
 			};
 			getLogic().loadFromFile(this,postLoad);
@@ -1908,6 +1922,27 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 
 	/**
+	 * Edit an OpenStreetBug.
+	 * @param bug The bug to edit.
+	 */
+	public void performBugEdit(final Bug bug) {
+		Log.d(DEBUG_TAG, "editing bug:"+bug);
+		getLogic().setSelectedBug(bug);
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		Fragment prev = fm.findFragmentByTag("fragment_bug");
+		if (prev != null) {
+			ft.remove(prev);
+		}
+		ft.commit();
+
+		BugFragment bugDialog = BugFragment.newInstance(bug);
+		bugDialog.show(fm, "fragment_bug");
+	}
+	
+	
+	
+	/**
 	 * potentially do some special stuff for invoking undo and exiting
 	 */
 	@Override
@@ -2240,25 +2275,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 		}
 
-		/**
-		 * Edit an OpenStreetBug.
-		 * @param bug The bug to edit.
-		 */
-		private void performBugEdit(final Bug bug) {
-			Log.d(DEBUG_TAG, "editing bug:"+bug);
-			getLogic().setSelectedBug(bug);
-			FragmentManager fm = getSupportFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			Fragment prev = fm.findFragmentByTag("fragment_bug");
-			if (prev != null) {
-				ft.remove(prev);
-			}
-			ft.commit();
-
-			BugFragment bugDialog = BugFragment.newInstance(bug);
-			bugDialog.show(fm, "fragment_bug");
-		}
-		
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
 			onCreateDefaultContextMenu(menu);
