@@ -3491,7 +3491,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:aeroway=hangar"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:aeroway=hangar" />
             <key key="aeroway" value="hangar" />
-            <key key="building" value="hangar" />
+            <combo key="building" text="Building" values="hangar" values_context="building" default="hangar" values_searchable="true"  match="keyvalue" />
         </item> <!-- Hangar -->
         <item name="Beacon" icon="icons/png/transport_beacon_22008.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=beacon"
@@ -4401,7 +4401,7 @@
             <key key="amenity" value="place_of_worship" />
             <key key="religion" value="muslim" />
             <text key="name" text="Name" />
-            <combo key="building" text="Building type" values="mosque" values_searchable="true" />
+            <combo key="building" text="Building type" values="mosque" values_searchable="true"  />
             <combo key="denomination" text="Denomination" values="ibadi,shia,sunni" values_searchable="true" />
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
@@ -7019,7 +7019,7 @@
             <combo key="religion" text="Religion" values="bahai,buddhist,christian,hindu,jain,jewish,muslim,shinto,sikh,spiritualist,taoist,unitarian,zoroastrian" default="christian" />
             <combo key="denomination" text="Denomination" values="catholic,greek_catholic,old_catholic,orthodox,roman_catholic" default="catholic" />
             <check key="amenity" text="Place of worship" value_on="place_of_worship" disable_off="true" />
-            <combo key="building" text="Building" values="wayside_shrine,yes" values_context="building" />
+            <combo key="building" text="Building" values="wayside_shrine" values_context="building" />
             <text key="start_date" text="Start date" />
             <text key="inscription" text="Inscription" />
         </item> <!-- Wayside Shrine -->
