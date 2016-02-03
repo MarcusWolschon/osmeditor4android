@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -462,91 +463,172 @@ public class StorageDelegator implements Serializable, Exportable {
 	}
 	
 	/**
+	 * Build groups of ways that have common nodes
+	 * There must be a better way to do this, but they likely all fall afoul of our current data model
+	 * @param ways
+	 * @return
+	 */
+	ArrayList<ArrayList<Way>> groupWays(List<Way> ways) {
+		ArrayList<ArrayList<Way>> groups = new ArrayList<ArrayList<Way>>();
+		int group = 0;
+		int index = 0;
+		int groupIndex = 1;
+		groups.add(new ArrayList<Way>());
+		Way startWay = ways.get(index);
+		groups.get(group).add(startWay);
+		do {
+			do {
+				for (Node nd:startWay.getNodes()) {
+					for (Way w:ways) {
+						if (w.getNodes().contains(nd) && !groups.get(group).contains(w)) {
+							groups.get(group).add(w);
+						}
+					}
+				}
+				if (groupIndex < groups.get(group).size()) {
+					startWay = groups.get(group).get(groupIndex);
+					groupIndex++;
+				}
+			} while (groupIndex < groups.get(group).size());
+			// repeat until no new ways are added in the loop
+
+			// find the next way that is not in a group and start a new one
+			for (;index<ways.size();index++) {
+				Way w = ways.get(index);
+				boolean found = false;
+				for (ArrayList<Way>list:groups) {
+					found = found || list.contains(w);
+				}
+				if (!found) {
+					group++;
+					groups.add(new ArrayList<Way>());
+					startWay = w;
+					groupIndex = 1;
+					break;
+				}
+			}
+		} while (index<ways.size());
+
+		Log.d(DEBUG_TAG,"number of groups found " + groups.size());
+		return groups;
+	}
+	
+	/**
 	 * "square" a way/polygon, based on the algorithm used by iD and before that by P2, originally written by Matt Amos
+	 * If multiple ways are selected the ways are grouped in groups that share nodes and the groups individually squared.
 	 * @param way
 	 */
-	public void orthogonalizeWay(Way way) {
+	public void orthogonalizeWay(List<Way> ways) {
 		final int threshold = 10; // degrees within right or straight to alter
 		final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
 		final double upperThreshold = Math.cos(threshold * Math.PI / 180);
 		final double epsilon = 1e-4;
 		
-		if ((way.getNodes() == null) || (way.getNodes().size()<3)) {
-			Log.d("StorageDelegator", "orthogonalize way " + way.getOsmId() + " has no nodes or less than 3!");
-			return;
-		}
 		dirty = true;
 		try {
 			// save nodes for undo
-			Node firstNode = way.getFirstNode();
-			for (int i = 0; i < way.getNodes().size(); i++) { 
-				Node nd = way.getNodes().get(i);
-				if (i == 0 || !nd.equals(firstNode)) {
-					undo.save(nd);
+			// adding to a Set first removes duplication
+			HashSet<Node> save = new HashSet<Node>();
+			for (Way way:ways) {
+				if (way.getNodes() != null) {
+					save.addAll(way.getNodes()); 
 				}
 			}
-			Coordinates coords[] = nodeListToCooardinateArray(way.getNodes());
-			Coordinates a, b, c, p, q;
-			int start = 0;
-			int end = coords.length;
-			if (!way.isClosed()) {
-				start = 1;
-				end = end-1;
-			}
-			// iterate until score is low enough
-			for (int iteration = 0; iteration < 1000; iteration++) {
-				Coordinates motions[] = new Coordinates[coords.length];
-				for (int i=start;i<end;i++) {
-					a = coords[(i - 1 + coords.length) % coords.length];
-					b = coords[i];
-			        c = coords[(i + 1) % coords.length];
-			        p = a.subtract(b);
-			        q = c.subtract(b);
-			        double scale = 2 * Math.min(Math.hypot(p.x,p.y), Math.hypot(q.x,q.y));
-		            p = normalize(p, 1.0);
-		            q = normalize(q, 1.0);
-		            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
-
-		            // nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).   
-		            if (dotp < -0.707106781186547) {
-		            	dotp += 1.0;
-		            }
-		            motions[i] = normalize(p.add(q), 0.1 * dotp * scale);
-				}
-				// apply position changes
-				for (int i=start;i<end;i++) {
-					coords[i] = coords[i].add(motions[i]);
-				}
-				// calculate score
-				double score = 0.0;
-				for (int i=start;i<end;i++) {
-					// yes I know that this -nearly- dups the code above
-					a = coords[(i - 1 + coords.length) % coords.length];
-					b = coords[i];
-			        c = coords[(i + 1) % coords.length];
-			        p = a.subtract(b);
-			        q = c.subtract(b);
-			        p = normalize(p, 1.0);
-		            q = normalize(q, 1.0);
-		            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
-		            
-		            score = score + 2.0 * Math.min(Math.abs(dotp-1.0), Math.min(Math.abs(dotp), Math.abs(dotp+1.0)));
-				}
-				// Log.d("StorageDelegator", "orthogonalize way iteration/score " + iteration + "/" + score);
-				if (score < epsilon) break;
+			for (Node nd:save) {
+				undo.save(nd);
 			}
 			
-			// prepare updated nodes for upload
-			int width = Application.mainActivity.getMap().getWidth();
-			int height = Application.mainActivity.getMap().getHeight();
-			BoundingBox box = Application.mainActivity.getMap().getViewBox();
-			for (int i = 0; i < way.getNodes().size(); i++) { 
-				Node nd = way.getNodes().get(i);
-				if (i == 0 || !nd.equals(firstNode)) {
-					nd.setLon(GeoMath.xToLonE7(width, box, coords[i].x));
-					nd.setLat(GeoMath.yToLatE7(height, width, box, coords[i].y));
-					apiStorage.insertElementSafe(nd);
-					nd.updateState(OsmElement.STATE_MODIFIED);
+			List<ArrayList<Way>> groups = groupWays(ways);
+			
+			for (ArrayList<Way> wayList:groups) { 
+				// Coordinates coords[] = nodeListToCooardinateArray(nodes);
+				ArrayList<Coordinates[]> coordsArray = new ArrayList<Coordinates[]>();
+				int totalNodes = 0;
+				for (Way w:wayList) {
+					coordsArray.add(nodeListToCooardinateArray(w.getNodes()));
+					totalNodes += w.getNodes().size();
+				}
+				Coordinates a, b, c, p, q;
+				
+				double loopEpsilon = epsilon*(totalNodes/4D); //NOTE the original algorithm didn't take the number of corners in to account
+				
+				// iterate until score is low enough
+				for (int iteration = 0; iteration < 1000; iteration++) {
+					for (int coordIndex=0;coordIndex<coordsArray.size();coordIndex++) {
+						Coordinates[] coords = coordsArray.get(coordIndex);
+						int start = 0;
+						int end = coords.length;
+						if (!wayList.get(coordIndex).isClosed()) {
+							start = 1;
+							end = end-1;
+						}
+						Coordinates motions[] = new Coordinates[coords.length];
+						for (int i=start;i<end;i++) {
+							a = coords[(i - 1 + coords.length) % coords.length];
+							b = coords[i];
+							c = coords[(i + 1) % coords.length];
+							p = a.subtract(b);
+							q = c.subtract(b);
+							double scale = 2 * Math.min(Math.hypot(p.x,p.y), Math.hypot(q.x,q.y));
+							p = normalize(p, 1.0);
+							q = normalize(q, 1.0);
+							double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+
+							// nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).   
+							if (dotp < -0.707106781186547) {
+								dotp += 1.0;
+							}
+							motions[i] = normalize(p.add(q), 0.1 * dotp * scale);
+						}
+						// apply position changes
+						for (int i=start;i<end;i++) {
+							coords[i] = coords[i].add(motions[i]);
+						}
+					}
+					// calculate score
+					double score = 0.0;
+					for (int coordIndex=0;coordIndex<coordsArray.size();coordIndex++) {
+						Coordinates[] coords = coordsArray.get(coordIndex);
+						int start = 0;
+						int end = coords.length;
+						if (!wayList.get(coordIndex).isClosed()) {
+							start = 1;
+							end = end-1;
+						}
+						for (int i=start;i<end;i++) {
+							// yes I know that this -nearly- duplicates the code above
+							a = coords[(i - 1 + coords.length) % coords.length];
+							b = coords[i];
+							c = coords[(i + 1) % coords.length];
+							p = a.subtract(b);
+							q = c.subtract(b);
+							p = normalize(p, 1.0);
+							q = normalize(q, 1.0);
+							double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+
+							score = score + 2.0 * Math.min(Math.abs(dotp-1.0), Math.min(Math.abs(dotp), Math.abs(dotp+1.0)));
+						}
+					}
+					// Log.d("StorageDelegator", "orthogonalize way iteration/score " + iteration + "/" + score);
+					if (score < loopEpsilon) break; 
+				}
+
+				// prepare updated nodes for upload
+				int width = Application.mainActivity.getMap().getWidth();
+				int height = Application.mainActivity.getMap().getHeight();
+				BoundingBox box = Application.mainActivity.getMap().getViewBox();
+				for (int wayIndex=0;wayIndex<wayList.size();wayIndex++) {
+					List<Node> nodes = wayList.get(wayIndex).getNodes();
+					Coordinates[] coords = coordsArray.get(wayIndex);
+					for (int i = 0; i < nodes.size(); i++) { 
+						Node nd = nodes.get(i);
+						//	if (i == 0 || !nd.equals(firstNode)) {
+						nd.setLon(GeoMath.xToLonE7(width, box, coords[i].x));
+						nd.setLat(GeoMath.yToLatE7(height, width, box, coords[i].y));
+						apiStorage.insertElementSafe(nd);
+						nd.updateState(OsmElement.STATE_MODIFIED);
+						//	}
+					}
 				}
 			}
 			recordImagery();
@@ -700,8 +782,9 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param node1
 	 * @param node2
 	 * @param createPolygons split in to two polygons 
+	 * @return null if split failed or wasn't possible, the two resulting ways otherwise
 	 */
-	public void splitAtNodes(Way way, Node node1, Node node2, boolean createPolygons) {
+	public Way[] splitAtNodes(Way way, Node node1, Node node2, boolean createPolygons) {
 		Log.d("StorageDelegator", "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
 		// undo - old way is saved here, new way is saved at insert
 		dirty = true;
@@ -709,7 +792,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		
 		List<Node> nodes = way.getNodes();
 		if (nodes.size() < 3) {
-			return;
+			return null;
 		}
 		
 		/* convention iterate over list, copy everything between first split node found and 2nd split node found
@@ -796,10 +879,15 @@ public class StorageDelegator implements Serializable, Exportable {
 				}
 			}
 			recordImagery();
+			Way[] result = new Way[2];
+			result[0] = way;
+			result[1] = newWay;
+			return result;
 		} catch (StorageException e) {
 			//TODO handle OOM
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	/**

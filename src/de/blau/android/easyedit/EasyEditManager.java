@@ -1,6 +1,7 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1569,8 +1570,19 @@ public class EasyEditManager {
 		@Override
 		public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be clicked
 			super.handleElementClick(element);
-			logic.performClosedWaySplit(way, node, (Node)element, createPolygons);
-			currentActionMode.finish();
+			Way[] result = logic.performClosedWaySplit(way, node, (Node)element, createPolygons);
+			if (result!= null && result.length == 2) {
+				logic.setSelectedNode(null);
+				logic.setSelectedRelation(null);
+				logic.setSelectedWay(result[0]);
+				logic.addSelectedWay(result[1]);
+				ArrayList<OsmElement> selection = new ArrayList<OsmElement>(); 
+				selection.addAll(logic.getSelectedWays());
+				main.startActionMode(new ExtendSelectionActionModeCallback(selection));
+			} else { //FIXME toast here?
+				Log.d(DEBUG_TAG,"split failed");
+				currentActionMode.finish();
+			}
 			return true;
 		}
 		
@@ -2058,7 +2070,8 @@ public class EasyEditManager {
 		private static final int MENUITEM_CUT = 5;
 		private static final int MENUITEM_MERGE = 6;
 		private static final int MENUITEM_RELATION = 7;
-		private static final int MENUITEM_MERGE_POLYGONS = 8;
+		private static final int MENUITEM_ORTHOGONALIZE = 8;
+		private static final int MENUITEM_MERGE_POLYGONS = 9;
 
 		private ArrayList<OsmElement> selection;
 		private List<OsmElement> sortedWays;
@@ -2158,6 +2171,11 @@ public class EasyEditManager {
 			}
 			menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_relation)).setShowAsAction(showAlways());;
 			
+			List<Way> selectedWays = logic.getSelectedWays();
+			if (selectedWays != null && selectedWays.size() >0) {
+				menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_ortho)).setShowAsAction(showAlways());
+			}
+			
 //			// for now just two
 //			if (selection.size() == 2 && canMerge(selection)) {
 //				menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
@@ -2208,6 +2226,12 @@ public class EasyEditManager {
 				// case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
 				// case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 				case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(selection)); break;
+				case MENUITEM_ORTHOGONALIZE: 
+					List<Way> selectedWays = logic.getSelectedWays();
+					if (selectedWays != null && selectedWays.size() >0) {
+						logic.performOrthogonalize(selectedWays);
+					}
+					break;
 				case MENUITEM_MERGE:
 					// check if the tags are the same for all ways first ... ignores direction dependent stuff
 					Map<String,String> firstTags = selection.get(0).getTags();

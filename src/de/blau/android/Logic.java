@@ -1522,11 +1522,13 @@ public class Logic {
 	 * @param way
 	 * @param node1
 	 * @param node2
+	 * @return null if split fails, the two ways otherwise
 	 */
-	public synchronized void performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
+	public synchronized Way[] performClosedWaySplit(Way way, Node node1, Node node2, boolean createPolygons) {
 		createCheckpoint(R.string.undo_action_split_way);
-		getDelegator().splitAtNodes(way, node1, node2, createPolygons);
+		Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
 		map.invalidate();
+		return result;
 	}
 
 	
@@ -1572,10 +1574,21 @@ public class Logic {
 	 * Orthogonalize a way (aka make angles 90°)
 	 * @param way
 	 */
-	public synchronized void performOrthogonalize(Way way) {
-		if (way.getNodes().size() < 3) return;
+	public void performOrthogonalize(Way way) {
+		if (way != null && way.getNodes().size() < 3) return;
+		ArrayList<Way> ways = new ArrayList<Way>(1);
+		ways.add(way);
+		performOrthogonalize(ways);
+	}
+	
+	/**
+	 * Orthogonalize multiple ways at once (aka make angles 90°)
+	 * @param ways
+	 */
+	public synchronized void performOrthogonalize(List<Way> ways) {
+		if (ways==null || ways.size()==0) return;
 		createCheckpoint(R.string.undo_action_orthogonalize);
-		getDelegator().orthogonalizeWay(way);
+		getDelegator().orthogonalizeWay(ways);
 		map.invalidate();
 	}
 
@@ -3570,16 +3583,18 @@ public class Logic {
 	 * @param r
 	 */
 	public void selectRelation(Relation r) {
-		for (RelationMember rm : r.getMembers()) {
-			OsmElement e = rm.getElement();
-			if (e != null) {
-				if (e.getName().equals(Way.NAME)) {
-					addSelectedRelationWay((Way) e);
-				} else if (e.getName().equals(Node.NAME)) {
-					addSelectedRelationNode((Node) e);
-				} else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
-					addSelectedRelationRelation((Relation) e);
-				} 
+		if (r!=null) {
+			for (RelationMember rm : r.getMembers()) {
+				OsmElement e = rm.getElement();
+				if (e != null) {
+					if (e.getName().equals(Way.NAME)) {
+						addSelectedRelationWay((Way) e);
+					} else if (e.getName().equals(Node.NAME)) {
+						addSelectedRelationNode((Node) e);
+					} else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation)e))) { // break recursion if already selected
+						addSelectedRelationRelation((Relation) e);
+					} 
+				}
 			}
 		}
 	}
