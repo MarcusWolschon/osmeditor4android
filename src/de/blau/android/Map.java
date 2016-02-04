@@ -48,7 +48,9 @@ import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.Offset;
+import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
@@ -163,7 +165,7 @@ public class Map extends View implements IMapView {
 	/** cached zoom level, calculated once per onDraw pass **/
 	int zoomLevel = 0;
 	
-	private ArrayList<Float> handles;
+	private LongHashSet handles;
 	
 	private Location displayLocation = null;
 	private boolean isFollowingGPS = false;
@@ -323,7 +325,7 @@ public class Map extends View implements IMapView {
 		tmpDrawingSelectedRelationWays = Main.getLogic().getSelectedRelationWays();
 		tmpDrawingSelectedRelationNodes = Main.getLogic().getSelectedRelationNodes();
 		tmpPresets = Application.getCurrentPresets(Application.mainActivity);
-		handles = null;
+		// handles = null; this forces creation of a new object, simply clear it in paintHandles after use
 		
 		// Draw our Overlays.
 		canvas.getClipBounds(canvasBounds);
@@ -948,19 +950,17 @@ public class Map extends View implements IMapView {
 			canvas.drawPath(path, fp.getPaint());
 		}
 		
-		if (tmpDrawingSelectedWays == null) { // the handles only work when no way is selecetd so don't show them
+		if (tmpDrawingSelectedWays == null) { // the handles only work when no way is selected so don't show them
 			// add "geometry improvement" handles
 			for (int i = 2; i < linePoints.length; i=i+4) {
 				float x0 = linePoints[i-2];
 				float y0 = linePoints[i-1];
 				float xDelta = linePoints[i] - x0;
 				float yDelta = linePoints[i+1] - y0;
-				
 				double len = Math.hypot(xDelta,yDelta);
 				if (len > Profile.getCurrent().minLenForHandle) {
-					if (handles == null) handles =new ArrayList<Float>();
-					handles.add(x0 + xDelta/2);
-					handles.add(y0 + yDelta/2);
+					if (handles == null) handles = new LongHashSet();
+					handles.put(((long)(Float.floatToRawIntBits(x0 + xDelta/2)) <<32) + (long)Float.floatToRawIntBits(y0 + yDelta/2));
 				}
 			}
 		}
@@ -995,18 +995,22 @@ public class Map extends View implements IMapView {
 			canvas.save();
 			float lastX = 0;
 			float lastY = 0;
-			for (int i = 0; i < handles.size(); i=i+2) {
+			for (long l:handles.values()) {
+
 				// draw handle
 				// canvas.drawCircle(x0 + xDelta/2, y0 + yDelta/2, 5, Profile.getCurrent(Profile.HANDLE).getPaint());
 				// canvas.drawPoint(x0 + xDelta/2, y0 + yDelta/2, Profile.getCurrent(Profile.HANDLE).getPaint());
-				float X = handles.get(i);
-				float Y = handles.get(i+1);
+
+				float X = Float.intBitsToFloat((int)(l>>>32));
+				float Y = Float.intBitsToFloat((int)(l));
 				canvas.translate(X-lastX, Y-lastY);
 				lastX = X;
 				lastY = Y;
 				canvas.drawPath(Profile.getCurrent().x_path, Profile.getCurrent(Profile.HANDLE).getPaint());
+
 			}
-			canvas.restore();	
+			canvas.restore();
+			handles.clear(); // this is hopefully faster than allocating a new set
 		}
 	}
 	
