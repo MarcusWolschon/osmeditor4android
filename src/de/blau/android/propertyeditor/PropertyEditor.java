@@ -472,7 +472,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 		}
 		// if we haven't edited just exit
-		if (!same(currentTags,originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !currentMembers.equals(originalMembers)))) {
+		if (!same(currentTags,originalTags) // tags different 
+				|| ((currentParents != null && !currentParents.equals(originalParents)) && !(originalParents==null && (currentParents == null || currentParents.size()==0))) // parents changed
+				|| (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !currentMembers.equals(originalMembers)))) {
 			new AlertDialog.Builder(this)
 			.setNeutralButton(R.string.cancel, null)
 			.setNegativeButton(R.string.tag_menu_revert,        	
