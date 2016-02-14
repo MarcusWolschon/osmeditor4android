@@ -10,9 +10,9 @@ import java.io.Serializable;
  */
 public class RelationMember implements Serializable {
 	
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 	String	type = null;
-	long	ref;
+	long	ref = Long.MIN_VALUE;
 	String 	role = null;
 	OsmElement element = null;
 	

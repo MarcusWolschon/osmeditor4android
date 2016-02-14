@@ -4,7 +4,7 @@ package de.blau.android.osm;
  * instead of the element itself
  */
 public class RelationMemberDescription extends RelationMember {
-	private static final long serialVersionUID = 1104911642016294267L;
+	private static final long serialVersionUID = 1104911642016294268L;
 	private String description = null;
 	private boolean downloaded = false;
 	
@@ -30,5 +30,19 @@ public class RelationMemberDescription extends RelationMember {
 	
 	public boolean downloaded() {
 		return downloaded;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o instanceof RelationMemberDescription 
+				&& ref == ((RelationMemberDescription) o).ref 
+				&& type.equals(((RelationMemberDescription) o).type) 
+				&& (role == ((RelationMemberDescription) o).role || (role != null && role.equals(((RelationMemberDescription) o).role)))) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -576,7 +576,9 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 		}
 		// if we haven't edited just exit
-		if (!same(currentTags,originalTags) || !(originalParents==null && currentParents.size()==0) && !currentParents.equals(originalParents) || (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !currentMembers.equals(originalMembers)))) {
+		if (!same(currentTags,originalTags) // tags different 
+				|| ((currentParents != null && !currentParents.equals(originalParents)) && !(originalParents==null && (currentParents == null || currentParents.size()==0))) // parents changed
+				|| (elements[0] != null && elements[0].getName().equals(Relation.NAME) && (currentMembers != null && !sameMembers(currentMembers,originalMembers)))) {
 			new AlertDialog.Builder(this)
 			.setNeutralButton(R.string.cancel, null)
 			.setNegativeButton(R.string.tag_menu_revert,        	
@@ -677,7 +679,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	}
 	
 	/**
-	 * Check if two set of tags are the same
+	 * Check if two lists of tags are the same
 	 * Note: this considers order relevant
 	 * @return
 	 */
@@ -688,6 +690,34 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		}
 		for (int i=0;i<tags1.size();i++) {
 			if (!tags1.get(i).equals(tags2.get(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Check if two lists of RelationMembetDescription are the same
+	 * Note: this considers order relevant
+	 * @return
+	 */
+	boolean sameMembers(ArrayList<RelationMemberDescription> rmds1, ArrayList<RelationMemberDescription> rmds2){
+		if (rmds1==null) {
+			return rmds2==null;
+		}
+		if (rmds2==null) {
+			return rmds1==null;
+		}
+		if (rmds1.size() != rmds2.size()) { /// serious error
+			return false;
+		}
+		for (int i=0;i<rmds1.size();i++) {
+			RelationMemberDescription rmd1 = rmds1.get(i);
+			RelationMemberDescription rmd2 = rmds2.get(i);
+			if (rmd1 == rmd2) {
+				continue;
+			}
+			if (rmd1 != null && !rmd1.equals(rmd2)) {
 				return false;
 			}
 		}
