@@ -192,6 +192,7 @@
   <string name="menu_tag">Επεξεργασία χαρακτηριστικών</string>
   <string name="menu_openstreetbug">Προσθήκη Σημείωσης</string>
   <string name="menu_easyedit">EasyEdit</string>
+  <string name="menu_camera">Κάμερα</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Προβολή τοποθεσίας</string>
   <string name="menu_gps_follow">Ακολουθήστε την θέση GPS</string>

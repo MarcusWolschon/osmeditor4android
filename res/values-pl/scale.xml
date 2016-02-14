@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Brak</item>
+    <item>Skala (metryczna)</item>
+    <item>Siatka (metryczna)</item>
+    <item>Skala (bryt. system miar)</item>
+    <item>Siatka (bryt. system miar)</item>
+  </string-array>
+</resources>
