@@ -530,7 +530,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					}
 					setupLockButton(getSupportActionBar());
 					updateActionbarEditMode();
-					if (true // logic.getMode()==Mode.MODE_EASYEDIT 
+					if (logic.getMode()==Mode.MODE_EASYEDIT 
 							&& (logic.getSelectedNode() != null 
 								|| logic.getSelectedWay() != null 
 								|| (logic.getSelectedRelations() != null && logic.getSelectedRelations().size() > 0)
