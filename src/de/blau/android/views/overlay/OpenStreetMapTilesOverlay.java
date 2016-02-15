@@ -63,9 +63,6 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	protected final Paint mPaint = new Paint();
 	protected Paint textPaint = new Paint();
 	
-	// do not invalidate while we are drawing
-	private static boolean drawing = false;
-	
 
 	/**
 	 * 
@@ -190,185 +187,179 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 	 */
 	@Override
 	public void onDraw(Canvas c, IMapView osmv) {
-		try {
-			drawing = true;
-			long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which invocation of onDraw the tile belongs too
-			// Do some calculations and drag attributes to local variables to save
-			//some performance.
-			final Rect viewPort = c.getClipBounds();
-			final int zoomLevel = osmv.getZoomLevel();
-			//		if (zoomLevel < myRendererInfo.getMinZoomLevel()) {
-			//			Log.d("OpenStreetMapTilesOverlay","Tiles for " + myRendererInfo.getId() + " are not available for zoom " + zoomLevel);
-			//			return;
-			//		}
-			double lonOffset = 0d;
-			double latOffset = 0d;
-			Offset offset = myRendererInfo.getOffset(zoomLevel);
-			if (offset != null) {
-				lonOffset = offset.lon;
-				latOffset = offset.lat;
-			}
+		long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which invocation of onDraw the tile belongs too
+		// Do some calculations and drag attributes to local variables to save
+		//some performance.
+		final Rect viewPort = c.getClipBounds();
+		final int zoomLevel = osmv.getZoomLevel();
+		//		if (zoomLevel < myRendererInfo.getMinZoomLevel()) {
+		//			Log.d("OpenStreetMapTilesOverlay","Tiles for " + myRendererInfo.getId() + " are not available for zoom " + zoomLevel);
+		//			return;
+		//		}
+		double lonOffset = 0d;
+		double latOffset = 0d;
+		Offset offset = myRendererInfo.getOffset(zoomLevel);
+		if (offset != null) {
+			lonOffset = offset.lon;
+			latOffset = offset.lat;
+		}
 
-			final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile
-			final OpenStreetMapTile originalTile = new OpenStreetMapTile(tile);
-			// 
-			final double lonLeft   =  osmv.getViewBox().getLeft() / 1E7d - (lonOffset > 0 ? lonOffset : 0d); 	
-			final double lonRight  =  osmv.getViewBox().getRight() / 1E7d - (lonOffset < 0 ? lonOffset : 0d);	
-			final double latTop    =  Math.toRadians(osmv.getViewBox().getTop() / 1E7d - (latOffset < 0 ? latOffset : 0d));	
-			final double latBottom =  Math.toRadians(osmv.getViewBox().getBottom() / 1E7d - (latOffset > 0 ? latOffset : 0d));	
-			
-			// pseudo-code for lon/lat to tile numbers
-			//n = 2 ^ zoom
-			//xtile = ((lon_deg + 180) / 360) * n
-			//ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / PI)) / 2 * n
-			final double n = Math.pow(2d, zoomLevel);
-			final int xTileLeft   = (int) Math.floor(((lonLeft  + 180d) / 360d) * n);
-			final int xTileRight  = (int) Math.floor(((lonRight + 180d) / 360d) * n);
-			// Log.d("OpenStreetMapTilesOverlay","tileleft " + xTileLeft + " tileright " + xTileRight + " lonRight " + lonRight + " zoom " + zoomLevel);
-			final int yTileTop    = (int) Math.floor((1d - Math.log(Math.tan(latTop) + 1d / Math.cos(latTop)) / Math.PI) * n / 2d);
-			final int yTileBottom = (int) Math.floor((1d - Math.log(Math.tan(latBottom) + 1d / Math.cos(latBottom)) / Math.PI) * n / 2d);
+		final OpenStreetMapTile tile = new OpenStreetMapTile(myRendererInfo.getId(), 0, 0, 0); // reused instance of OpenStreetMapTile
+		final OpenStreetMapTile originalTile = new OpenStreetMapTile(tile);
+		// 
+		final double lonLeft   =  osmv.getViewBox().getLeft() / 1E7d - (lonOffset > 0 ? lonOffset : 0d); 	
+		final double lonRight  =  osmv.getViewBox().getRight() / 1E7d - (lonOffset < 0 ? lonOffset : 0d);	
+		final double latTop    =  Math.toRadians(osmv.getViewBox().getTop() / 1E7d - (latOffset < 0 ? latOffset : 0d));	
+		final double latBottom =  Math.toRadians(osmv.getViewBox().getBottom() / 1E7d - (latOffset > 0 ? latOffset : 0d));	
 
-			final int tileNeededLeft   = Math.min(xTileLeft, xTileRight);
-			final int tileNeededRight  = Math.max(xTileLeft, xTileRight);
-			final int tileNeededTop    = Math.min(yTileTop, yTileBottom);
-			final int tileNeededBottom = Math.max(yTileTop, yTileBottom);
+		// pseudo-code for lon/lat to tile numbers
+		//n = 2 ^ zoom
+		//xtile = ((lon_deg + 180) / 360) * n
+		//ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / PI)) / 2 * n
+		final double n = Math.pow(2d, zoomLevel);
+		final int xTileLeft   = (int) Math.floor(((lonLeft  + 180d) / 360d) * n);
+		final int xTileRight  = (int) Math.floor(((lonRight + 180d) / 360d) * n);
+		// Log.d("OpenStreetMapTilesOverlay","tileleft " + xTileLeft + " tileright " + xTileRight + " lonRight " + lonRight + " zoom " + zoomLevel);
+		final int yTileTop    = (int) Math.floor((1d - Math.log(Math.tan(latTop) + 1d / Math.cos(latTop)) / Math.PI) * n / 2d);
+		final int yTileBottom = (int) Math.floor((1d - Math.log(Math.tan(latBottom) + 1d / Math.cos(latBottom)) / Math.PI) * n / 2d);
 
-			//		Log.d("OpenStreetMapTileOverlay","zoom " + zoomLevel + " tile left " + xTileLeft + " right " + xTileRight + " top " +yTileTop + " bottom " + yTileBottom);
-			//		Log.d("OpenStreetMapTileOverlay"," top " + tileNeededTop + " bottom " + tileNeededBottom);
-			//		Log.d("OpenStreetMapTileOverlay","lonLeft " + lonLeft + " lonRight " + lonRight + " latTop " + Math.toDegrees(latTop)+ " latBottom " + Math.toDegrees(latBottom));
+		final int tileNeededLeft   = Math.min(xTileLeft, xTileRight);
+		final int tileNeededRight  = Math.max(xTileLeft, xTileRight);
+		final int tileNeededTop    = Math.min(yTileTop, yTileBottom);
+		final int tileNeededBottom = Math.max(yTileTop, yTileBottom);
 
-			int maxZoom = myRendererInfo.getMaxZoomLevel();
-			int minZoom = myRendererInfo.getMinZoomLevel();
-			
-			final int mapTileMask = (1 << zoomLevel) - 1;
+		//		Log.d("OpenStreetMapTileOverlay","zoom " + zoomLevel + " tile left " + xTileLeft + " right " + xTileRight + " top " +yTileTop + " bottom " + yTileBottom);
+		//		Log.d("OpenStreetMapTileOverlay"," top " + tileNeededTop + " bottom " + tileNeededBottom);
+		//		Log.d("OpenStreetMapTileOverlay","lonLeft " + lonLeft + " lonRight " + lonRight + " latTop " + Math.toDegrees(latTop)+ " latBottom " + Math.toDegrees(latBottom));
 
-			Rect destRect = null; // destination rect for bit map
-			int destIncX = 0, destIncY = 0;
-			int xPos = 0, yPos = 0;
+		int maxZoom = myRendererInfo.getMaxZoomLevel();
+		int minZoom = myRendererInfo.getMinZoomLevel();
 
-			boolean squareTiles = myRendererInfo.getTileWidth() == myRendererInfo.getTileHeight();
-			// Draw all the MapTiles that intersect with the screen
-			// y = y tile number (latitude)
-			// int requiredTiles = (tileNeededBottom - tileNeededTop + 1) * (tileNeededRight - tileNeededLeft + 1);
-			// Log.d("OpenStreetMapTileOverlay", "" + requiredTiles + " tiles needed to cover the screen at this level");
-			for (int y = tileNeededTop; y <= tileNeededBottom; y++) {
-				// x = x tile number (longitude)
-				for (int x = tileNeededLeft; x <= tileNeededRight; x++) {
-					// Set the specifications for the required tile
-					tile.zoomLevel = zoomLevel;
-					tile.x = x & mapTileMask;
-					tile.y = y & mapTileMask;
-					originalTile.zoomLevel = tile.zoomLevel;
-					originalTile.x = tile.x;
-					originalTile.y = tile.y;
+		final int mapTileMask = (1 << zoomLevel) - 1;
 
-					// destination rect
-					if (destRect == null) { // avoid recalculating this for every tile
-						destRect = getScreenRectForTile(c, osmv, zoomLevel, y, x, squareTiles, lonOffset, latOffset);
-						destIncX = destRect.width();
-						destIncY = destRect.height();
-						// Log.d("OpenStreetMapTileOverlay","tile width " + destIncX + " height " + destIncY);
-					}
+		Rect destRect = null; // destination rect for bit map
+		int destIncX = 0, destIncY = 0;
+		int xPos = 0, yPos = 0;
 
-					// Set the size and top left corner on the source bitmap
-					int sw = myRendererInfo.getTileWidth();
-					int sh = myRendererInfo.getTileHeight();
-					int tx = 0;
-					int ty = 0;
-					Bitmap tileBitmap = null;
-					// only actually try to get tile if in range
+		boolean squareTiles = myRendererInfo.getTileWidth() == myRendererInfo.getTileHeight();
+		// Draw all the MapTiles that intersect with the screen
+		// y = y tile number (latitude)
+		// int requiredTiles = (tileNeededBottom - tileNeededTop + 1) * (tileNeededRight - tileNeededLeft + 1);
+		// Log.d("OpenStreetMapTileOverlay", "" + requiredTiles + " tiles needed to cover the screen at this level");
+		for (int y = tileNeededTop; y <= tileNeededBottom; y++) {
+			// x = x tile number (longitude)
+			for (int x = tileNeededLeft; x <= tileNeededRight; x++) {
+				// Set the specifications for the required tile
+				tile.zoomLevel = zoomLevel;
+				tile.x = x & mapTileMask;
+				tile.y = y & mapTileMask;
+				originalTile.zoomLevel = tile.zoomLevel;
+				originalTile.x = tile.x;
+				originalTile.y = tile.y;
 
-					if (tile.zoomLevel >= minZoom && tile.zoomLevel <= maxZoom) {
-						tileBitmap = mTileProvider.getMapTile(tile, owner);
-					}
-					if (tileBitmap == null) {
-						// Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
-						// OVERZOOM
-						// Preferred tile is not available - request it
-						// mTileProvider.preCacheTile(tile); already done in getMapTile
-						// See if there are any alternative tiles available - try
-						// using larger tiles
-						// maximum 3 zoom  levels up, with standard tiles this reduces the width to 64 bits
-						while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) <= 3 && tile.zoomLevel > minZoom) {
-							// As we zoom out to larger-scale tiles, we want to
-							// draw smaller and smaller sections of them
-							sw >>= 1; // smaller size
-							sh >>= 1;
-							tx >>= 1; // smaller offsets
-							ty >>= 1;
-							// select the correct quarter
-							if ((tile.x & 1) != 0) { tx += (myRendererInfo.getTileWidth() >> 1); }
-							if ((tile.y & 1) != 0) { ty += (myRendererInfo.getTileHeight() >> 1); }
-							// zoom out to next level
-							tile.x >>= 1;
-							tile.y >>= 1;
-							--tile.zoomLevel;
-							// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
-							if (mTileProvider.isTileAvailable(tile) || (originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom)) { 
-								// Guarantees that we only try this for stuff in the cache, 
-								// except it we are overzooming in which case we -do- want to retrieve the maxZoom tiles if we don't have them
-								// Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
-								tileBitmap = mTileProvider.getMapTile(tile, owner);
-							}
-						}
-					}
-
-					if (tileBitmap != null) {
-						// Log.d("OpenStreetMapTilesOverlay","tile x " + tile.x + " left " + destRect.left + " right " + destRect.right + xPos);
-						c.drawBitmap(
-								tileBitmap,
-								new Rect(tx, ty, tx + sw, ty + sh),
-								new Rect(destRect.left + xPos, destRect.top + yPos, destRect.right + xPos,  destRect.bottom + yPos),
-								mPaint);
-					} else {
-						// Still no tile available - try smaller scale tiles
-						if (!drawTile(owner, c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
-							// Log.d("OpenStreetMapTileOverlay","no usable tiles found");
-							// store an error tile
-							tile.zoomLevel = zoomLevel;
-							tile.x = x & mapTileMask;
-							tile.y = y & mapTileMask;
-							if (!mTileProvider.isTileAvailable(originalTile)) { // might have turned up in the mean time
-								// mTileProvider.cacheError(originalTile);
-							}
-						}
-					}
-					// Log.d("OpenStreetMapTileOverlay","Dest rect " + (destRect.left + xPos) + " " + (destRect.right + xPos) + " " + (destRect.top + yPos) +  " " + (destRect.bottom + yPos));
-					xPos += destIncX;
+				// destination rect
+				if (destRect == null) { // avoid recalculating this for every tile
+					destRect = getScreenRectForTile(c, osmv, zoomLevel, y, x, squareTiles, lonOffset, latOffset);
+					destIncX = destRect.width();
+					destIncY = destRect.height();
+					// Log.d("OpenStreetMapTileOverlay","tile width " + destIncX + " height " + destIncY);
 				}
-				xPos = 0;
-				yPos += destIncY;
-			}
 
-			// Draw the tile layer branding logo (if it exists)
-			if (tapArea == null) {
-				resetAttributionArea(viewPort, 0);
-			}
-			Drawable brandLogo = myRendererInfo.getBrandLogo();
-			if (brandLogo != null) {
-				tapArea.top -= brandLogo.getIntrinsicHeight();
-				tapArea.right += brandLogo.getIntrinsicWidth();
-				brandLogo.setBounds(tapArea);
-				brandLogo.draw(c);
-			}
-			// Draw the attributions (if any)
-			for (String attr : myRendererInfo.getAttributions(zoomLevel, osmv.getViewBox())) {
-				c.drawText(attr, tapArea.left, tapArea.top, textPaint);
-				tapArea.top -= textPaint.getTextSize();
-				tapArea.right = Math.max(tapArea.right, tapArea.left + (int)textPaint.measureText(attr));
-			}
-			// Impose a minimum tap area
-			if (tapArea.width() < TAPAREA_MIN_WIDTH) {
-				tapArea.right = tapArea.left + TAPAREA_MIN_WIDTH;
-			}
-			//TODO fix, causes problems with multiple layers
-			//		if (tapArea.height() < TAPAREA_MIN_HEIGHT) {
-			//			tapArea.top = tapArea.bottom - TAPAREA_MIN_HEIGHT;
-			//		}
+				// Set the size and top left corner on the source bitmap
+				int sw = myRendererInfo.getTileWidth();
+				int sh = myRendererInfo.getTileHeight();
+				int tx = 0;
+				int ty = 0;
+				Bitmap tileBitmap = null;
+				// only actually try to get tile if in range
+
+				if (tile.zoomLevel >= minZoom && tile.zoomLevel <= maxZoom) {
+					tileBitmap = mTileProvider.getMapTile(tile, owner);
+				}
+				if (tileBitmap == null) {
+					// Log.d("OpenStreetMapTileOverlay","tile " + tile.toString() + " not available trying larger");
+					// OVERZOOM
+					// Preferred tile is not available - request it
+					// mTileProvider.preCacheTile(tile); already done in getMapTile
+					// See if there are any alternative tiles available - try
+					// using larger tiles
+					// maximum 3 zoom  levels up, with standard tiles this reduces the width to 64 bits
+					while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) <= 3 && tile.zoomLevel > minZoom) {
+						// As we zoom out to larger-scale tiles, we want to
+						// draw smaller and smaller sections of them
+						sw >>= 1; // smaller size
+				sh >>= 1;
+		tx >>= 1; // smaller offsets
+		ty >>= 1;
+		// select the correct quarter
+		if ((tile.x & 1) != 0) { tx += (myRendererInfo.getTileWidth() >> 1); }
+		if ((tile.y & 1) != 0) { ty += (myRendererInfo.getTileHeight() >> 1); }
+		// zoom out to next level
+		tile.x >>= 1;
+		tile.y >>= 1;
+		--tile.zoomLevel;
+		// Log.d("OpenStreetMapTileOverlay","trying zoom level " + tile.zoomLevel);
+		if (mTileProvider.isTileAvailable(tile) || (originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom)) { 
+			// Guarantees that we only try this for stuff in the cache, 
+			// except it we are overzooming in which case we -do- want to retrieve the maxZoom tiles if we don't have them
+			// Log.d("OpenStreetMapTileOverlay","larger tile " + tile.toString() + " available");
+			tileBitmap = mTileProvider.getMapTile(tile, owner);
 		}
-		finally {
-			drawing=false;
+					}
+				}
+
+				if (tileBitmap != null) {
+					// Log.d("OpenStreetMapTilesOverlay","tile x " + tile.x + " left " + destRect.left + " right " + destRect.right + xPos);
+					c.drawBitmap(
+							tileBitmap,
+							new Rect(tx, ty, tx + sw, ty + sh),
+							new Rect(destRect.left + xPos, destRect.top + yPos, destRect.right + xPos,  destRect.bottom + yPos),
+							mPaint);
+				} else {
+					// Still no tile available - try smaller scale tiles
+					if (!drawTile(owner, c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
+						// Log.d("OpenStreetMapTileOverlay","no usable tiles found");
+						// store an error tile
+						tile.zoomLevel = zoomLevel;
+						tile.x = x & mapTileMask;
+						tile.y = y & mapTileMask;
+						if (!mTileProvider.isTileAvailable(originalTile)) { // might have turned up in the mean time
+							// mTileProvider.cacheError(originalTile);
+						}
+					}
+				}
+				// Log.d("OpenStreetMapTileOverlay","Dest rect " + (destRect.left + xPos) + " " + (destRect.right + xPos) + " " + (destRect.top + yPos) +  " " + (destRect.bottom + yPos));
+				xPos += destIncX;
+			}
+			xPos = 0;
+			yPos += destIncY;
 		}
+
+		// Draw the tile layer branding logo (if it exists)
+		if (tapArea == null) {
+			resetAttributionArea(viewPort, 0);
+		}
+		Drawable brandLogo = myRendererInfo.getBrandLogo();
+		if (brandLogo != null) {
+			tapArea.top -= brandLogo.getIntrinsicHeight();
+			tapArea.right += brandLogo.getIntrinsicWidth();
+			brandLogo.setBounds(tapArea);
+			brandLogo.draw(c);
+		}
+		// Draw the attributions (if any)
+		for (String attr : myRendererInfo.getAttributions(zoomLevel, osmv.getViewBox())) {
+			c.drawText(attr, tapArea.left, tapArea.top, textPaint);
+			tapArea.top -= textPaint.getTextSize();
+			tapArea.right = Math.max(tapArea.right, tapArea.left + (int)textPaint.measureText(attr));
+		}
+		// Impose a minimum tap area
+		if (tapArea.width() < TAPAREA_MIN_WIDTH) {
+			tapArea.right = tapArea.left + TAPAREA_MIN_WIDTH;
+		}
+		//TODO fix, causes problems with multiple layers
+		//		if (tapArea.height() < TAPAREA_MIN_HEIGHT) {
+		//			tapArea.top = tapArea.bottom - TAPAREA_MIN_HEIGHT;
+		//		}
 	}
 
 	public static void resetAttributionArea(Rect viewPort, int bottomOffset) {

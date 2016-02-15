@@ -229,33 +229,35 @@ public class Track extends DefaultHandler {
 			@Override
 			protected Void doInBackground(Void... params) {
 				loadingLock.lock();
-				if (!isOpen) {
+				try {
+					if (!isOpen) {
+						return null; // if this has been closed by close() in the meantime, STOP
+					}
+
+					File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
+					boolean success = load();
+					if (!success || loaded.isEmpty()) {
+						Log.i(TAG, "Deleting broken or empty save file");
+						deleteSaveFile();
+					}
+
+					// If the save file exists, it contains exactly the elements in loaded
+					if (!loaded.isEmpty() && !saveFile.exists()) {
+						// A broken save file was partially recovered. Rewrite it now.
+						Log.i(TAG, "Rewriting partially recovered save file");
+						rewriteSaveFile(loaded);
+					}
+
+					savedTrackPoints = loaded.size();
+
+					// There are only two possible situations now:
+					//  - save file does not exist, savedTrackPoints is 0 and memory does not contain any significant amount of data
+					//  - save file does exist, is valid and contains exactly savedTrackPoints records	
+
+					return null;
+				} finally {
 					loadingLock.unlock();
-					return null; // if this has been closed by close() in the meantime, STOP
 				}
-				
-				File saveFile = new File(ctx.getFilesDir(), SAVEFILE);
-				boolean success = load();
-				if (!success || loaded.isEmpty()) {
-					Log.i(TAG, "Deleting broken or empty save file");
-					deleteSaveFile();
-				}
-				
-				// If the save file exists, it contains exactly the elements in loaded
-				if (!loaded.isEmpty() && !saveFile.exists()) {
-					// A broken save file was partially recovered. Rewrite it now.
-					Log.i(TAG, "Rewriting partially recovered save file");
-					rewriteSaveFile(loaded);
-				}
-				
-				savedTrackPoints = loaded.size();
-				
-				// There are only two possible situations now:
-				//  - save file does not exist, savedTrackPoints is 0 and memory does not contain any significant amount of data
-				//  - save file does exist, is valid and contains exactly savedTrackPoints records
-				
-				loadingLock.unlock();
-				return null;
 			}
 			
 			@Override
@@ -342,15 +344,18 @@ public class Track extends DefaultHandler {
 		if (!isOpen) return;
 		Log.d(TAG,"Trying to close track");
 		loadingLock.lock();
-		save();
-		if (saveFileStream != null) {
-			SavingHelper.close(saveFileStream);
-			saveFileStream = null;
+		try {
+			save();
+			if (saveFileStream != null) {
+				SavingHelper.close(saveFileStream);
+				saveFileStream = null;
+			}
+			savingDisabled = true;
+			isOpen = false;
+			Log.i(TAG,"Track closed");
+		} finally {
+			loadingLock.unlock();
 		}
-		savingDisabled = true;
-		isOpen = false;
-		Log.i(TAG,"Track closed");
-		loadingLock.unlock();
 	}
 	
 	/**
