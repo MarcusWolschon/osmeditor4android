@@ -33,9 +33,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	
 	private final static int DATA_VERSION = 3;
 	private final static String LOGTAG = "PhotoIndex";
-	private final Context ctx;
 
-	
 	class JpgFilter implements FilenameFilter {
 		@Override
 		public boolean accept(File dir, String name) {
@@ -45,7 +43,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
 	
 	public PhotoIndex(Context context) {
 		super(context, "PhotoIndex", null, DATA_VERSION);
-		ctx = context;
 	}
 	
 	@Override

@@ -650,7 +650,10 @@ public class RTree implements Serializable {
 	}
 	
 	private boolean debug(BoundedObject o, Node node,int level) {
-		if (node == null) System.out.println(level + " debug: node is null");
+		if (node == null) {
+			System.out.println(level + " debug: node is null");
+			return false;
+		}
 		BoundingBox box = o.getBounds();
 		if (node.isLeaf()) {
 			for (int i = 0; i < node.data.size(); i++) {

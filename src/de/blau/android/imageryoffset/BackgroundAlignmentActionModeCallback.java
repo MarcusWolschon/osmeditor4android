@@ -542,7 +542,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 */
 	private Dialog createSaveOffsetDialog(final int index, final ArrayList<ImageryOffset> saveOffsetList) {
 		// Create some useful objects
-		final BoundingBox bbox = map.getViewBox();
+		// final BoundingBox bbox = map.getViewBox();
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
 		Builder dialog = new AlertDialog.Builder(Application.mainActivity);
 		dialog.setTitle(R.string.imagery_offset_title);

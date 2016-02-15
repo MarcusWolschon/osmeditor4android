@@ -2309,10 +2309,8 @@ public class EasyEditManager {
 			}
 		}
 		
-		private void menuDelete(boolean deleteFromRelations) {
-			
+		private void menuDelete(boolean deleteFromRelations) {		
 			Log.d("EasyEditManager","Multi-select menuDelete " + deleteFromRelations + " " + selection);
-			boolean deleteWayNodes = false;
 			
 			// check for relation membership
 			if (!deleteFromRelations) {

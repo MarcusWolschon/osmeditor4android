@@ -45,4 +45,13 @@ public class RelationMemberDescription extends RelationMember {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 37 * result + (int)(ref ^ (ref >>> 32));
+		result = 37 * result + (type == null ? 0 : type.hashCode());
+		result = 37 * result + (role == null ? 0 : role.hashCode());
+		return result;
+	}
 }

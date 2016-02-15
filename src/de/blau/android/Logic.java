@@ -628,7 +628,7 @@ public class Logic {
 		if (map.getHeight() != 0) {
 			ratio = (float) map.getWidth() / map.getHeight();
 		}
-		viewBox.setBorders(box, ratio);
+		viewBox.setBorders(box, ratio); // findbugs will complain here however creating box will not actually fail above
 		Profile.updateStrokes(strokeWidth(viewBox.getWidth()));
 		map.invalidate();
 		UndoStorage.updateIcon();

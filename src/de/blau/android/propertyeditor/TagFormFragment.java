@@ -230,7 +230,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 	
 		if (key != null && key.length() > 0) {
 			Set<String> usedKeys = allTags.keySet();
-			PresetKeyType presetType = preset.getKeyType(key);
+			// PresetKeyType presetType = preset.getKeyType(key);
 			if (TagEditorFragment.isStreetName(key, usedKeys)) {
 				adapter = nameAdapters.getStreetNameAutocompleteAdapter(value!=null?Util.getArrayList(value):null);
 			} else if (TagEditorFragment.isPlaceName(key, usedKeys)) {

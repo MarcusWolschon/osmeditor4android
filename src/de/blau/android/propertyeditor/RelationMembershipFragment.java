@@ -234,7 +234,6 @@ public class RelationMembershipFragment extends SherlockFragment implements
 		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
 		private Spinner parentEdit;
-		private ArrayAdapter<String> roleAdapter; 
 		public boolean showSpinner = false;
 		
 		public RelationMembershipRow(Context context) {

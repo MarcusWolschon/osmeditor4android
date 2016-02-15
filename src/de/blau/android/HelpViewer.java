@@ -3,6 +3,7 @@ package de.blau.android;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -282,7 +283,11 @@ public class HelpViewer extends SherlockActivity {
 	
 	private String getTopic(String url) {
 		
-		url = URLDecoder.decode(url);
+		try {
+			url = URLDecoder.decode(url,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return "Error, got: " + url;
+		}
 		int lastSlash = url.lastIndexOf('/');
 		int lastDot = url.lastIndexOf('.');
 		if (lastSlash < 0 || lastDot < 0) {

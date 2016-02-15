@@ -186,7 +186,6 @@ public class Search {
 	}
 
 	public SearchResult readResult(JsonReader reader) {
-		String type = null;
 		SearchResult result = new SearchResult();
 		try {
 			reader.beginObject();

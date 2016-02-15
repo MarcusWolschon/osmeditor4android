@@ -70,7 +70,7 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         
         TableLayout.LayoutParams tp=
         		  new TableLayout.LayoutParams
-        		  (TableLayout.LayoutParams.FILL_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
+        		  (TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
        
         if (e != null) {
@@ -203,7 +203,7 @@ public class ElementInfoFragment extends SherlockDialogFragment {
     
     private View divider() {
     	View v = new View(getActivity());
-    	v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1));
+    	v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1));
     	v.setBackgroundColor(Color.rgb(204, 204, 204));
     	return v;
     }

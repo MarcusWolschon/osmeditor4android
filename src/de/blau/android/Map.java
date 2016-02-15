@@ -24,7 +24,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -171,13 +170,6 @@ public class Map extends View implements IMapView {
 	private TrackerService tracker;
 	
 	private Paint textPaint = new Paint();
-	
-	// maximum number of nodes that can be on screen to allow edits
-	private long maxOnScreenNodes = 100; // arbitrary init value
-	// nodes that would fit in the not downloaded part of the screen
-	private long unusedNodeSpace = 0;
-	// current value
-	private long nodesOnScreenCount = 0;
 	
 	/**
 	 * support for display a crosshairs at a position
@@ -340,8 +332,9 @@ public class Map extends View implements IMapView {
 		getOpenStreetBugsOverlay().onManagedDraw(canvas, this); // draw bugs on top of data
 		
 		if (zoomLevel > 10) {
-			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND)
-				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modiciaftion issues
+			if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
+				paintStorageBox(canvas, new ArrayList<BoundingBox>(delegator.getBoundingBoxes())); // shallow copy to avoid modification issues
+			}
 			paintGpsTrack(canvas);
 		}
 		paintGpsPos(canvas);
@@ -560,7 +553,6 @@ public class Map extends View implements IMapView {
 		// first find all nodes that we need to display (for density calculations)
 
 		List<Node> paintNodes = delegator.getCurrentStorage().getNodes(getViewBox()); 
-		nodesOnScreenCount = paintNodes.size();
 		
 		// the following should guarantee that if the selected node is off screen but the handle not, the handle gets drawn
 		// note this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
@@ -573,20 +565,6 @@ public class Map extends View implements IMapView {
 			}
 		}
 		
-// TODO code is currently disabled because it is not quite satisfactory
-//		// calculate how much of the screen is actually not covered by downloads and can be ignored
-//		unusedNodeSpace = 0;
-//		ArrayList<BoundingBox> emptyBoxes;
-//		try {
-//			double mHeight = GeoMath.latE7ToMercatorE7(viewBox.getTop()) - viewBox.getBottomMercator();
-//			emptyBoxes = BoundingBox.newBoxes((ArrayList<BoundingBox>) delegator.getBoundingBoxes(), new BoundingBox(viewBox));
-//			for (BoundingBox b: emptyBoxes) {
-//				unusedNodeSpace = unusedNodeSpace + Math.round(maxOnScreenNodes*(b.getWidth()*(GeoMath.latE7ToMercatorE7(b.getTop()) - b.getBottomMercator())/(double)(viewBox.getWidth()*mHeight)));
-//			}
-//		} catch (OsmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
 		// 
 		tmpDrawingInEditRange = Main.getLogic().isInEditZoomRange(); // do this after density calc
 		
@@ -1155,10 +1133,6 @@ public class Map extends View implements IMapView {
 		// changes when profile changes
 		nodeTolerancePaint = Profile.getCurrent(Profile.NODE_TOLERANCE).getPaint();
 		wayTolerancePaint = Profile.getCurrent(Profile.WAY_TOLERANCE).getPaint();
-		//TODO really only needs to be recalculated on profile change 
-		DisplayMetrics metrics = Application.mainActivity.getResources().getDisplayMetrics();
-//		maxOnScreenNodes = (long) (metrics.widthPixels*metrics.heightPixels/ (nodeTolerancePaint.getStrokeWidth()*nodeTolerancePaint.getStrokeWidth())/3); // one third is based on testing
-//		Log.d("Map","maxOnScreenNodes " + maxOnScreenNodes);
 	}
 	
 	void setOrientation(final float orientation) {
