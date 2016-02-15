@@ -25,10 +25,10 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 16
-        versionCode 41
-        versionName "0.9.5.1.955"
+        minSdkVersion project.getMinSdkVersion()
+        targetSdkVersion project.getTargetSdkVersion()
+        versionCode project.getVersionCode()
+        versionName "${project.getVersionName()}"
     }
 
     sourceSets {
@@ -66,4 +66,36 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
     compile 'com.android.support:support-v4:22.2.1'
+}
+
+int getMinSdkVersion() {
+    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    return xml.'uses-sdk'.@'android:minSdkVersion'.toInteger()
+}
+
+int getTargetSdkVersion() {
+    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    return xml.'uses-sdk'.@'android:targetSdkVersion'.toInteger()
+}
+
+int getVersionCode() {
+    def xml = getXmlFromFile("${projectDir}/AndroidManifest.xml")
+    return xml.@'android:versionCode'.toInteger()
+}
+
+String getVersionName() {
+    def xml = getXmlFromFile("${projectDir}/res/values/appname.xml")
+    def versionName = xml.string.find { it.@name == 'app_version' }.toString()
+    if (versionName == null || versionName.length() == 0) {
+        throw new NullPointerException("Failure extracting version name.")
+    }
+    return versionName
+}
+
+def getXmlFromFile(String xmlFilePath) {
+    def xml = new XmlSlurper().parse(new File(xmlFilePath))
+    if (xml == null) {
+        throw new NullPointerException("Failure reading from " + xmlFilePath)
+    }
+    return xml;
 }

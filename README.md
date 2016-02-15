@@ -4,7 +4,7 @@ This is the first [OpenStreetMap][openstreetmap] editor for
 [Android][android], codename "Vespucci".
 
 
-![Amerigo Vespucci](gfx/180px-Amerigo_Vespucci.jpg "Amerigo Vespucci")
+![Amerigo Vespucci](http://vespucci.io/180px-Amerigo_Vespucci.jpg "Amerigo Vespucci")
 
 
 ## Contributing
@@ -83,3 +83,4 @@ $ gradlew.bat installDebug
 [android]: http://developer.android.com
 [mailinglist]: http://groups.google.de/group/osmeditor4android
 [josm]: http://wiki.openstreetmap.org/wiki/JOSM
+
