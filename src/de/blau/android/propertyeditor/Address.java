@@ -227,11 +227,11 @@ public class Address implements Serializable {
 							}
 							// nodes
 							for (Node n: storageDelegator.getCurrentStorage().getNodes()) {
-								seedAddressList(street,streetId,(OsmElement)n,lastAddresses);
+								seedAddressList(street,streetId, n,lastAddresses);
 							}
 							// ways
 							for (Way w: storageDelegator.getCurrentStorage().getWays()) {
-								seedAddressList(street,streetId,(OsmElement)w,lastAddresses);
+								seedAddressList(street,streetId, w,lastAddresses);
 							}
 							// and try again
 							list = getHouseNumbers(street, side, lastAddresses);

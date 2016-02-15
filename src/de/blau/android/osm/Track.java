@@ -265,7 +265,7 @@ public class Track extends DefaultHandler {
 				// See end of doInBackground for possible states
 				Log.i(TAG, "Track loading finished, loaded entries: " + loaded.size());
 				if (track.size() > savedTrackPoints) save();
-			};
+			}
 			
 			/**
 			 * Loads a track from the file to the "loaded" ArrayList.

@@ -169,7 +169,6 @@ public class Way extends OsmElement implements BoundedObject {
 			}
 		}
 		while (nodes.remove(node)) {
-			;
 		}
 	}
 	

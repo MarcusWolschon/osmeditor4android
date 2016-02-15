@@ -90,7 +90,7 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 	@Override
 	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
 		return new TileLoader(aTile, aCallback);
-	};
+	}
 	
 	// ===========================================================
 	// Methods
@@ -291,6 +291,5 @@ public class OpenStreetMapTileFilesystemProvider extends OpenStreetMapAsyncTileP
 
 	public void markAsInvalid(OpenStreetMapTile mTile) {
 		mDatabase.addTileOrIncrement(mTile, 0);	
-	};
-	
+	}
 }

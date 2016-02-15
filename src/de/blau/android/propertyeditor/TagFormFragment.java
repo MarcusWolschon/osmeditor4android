@@ -618,7 +618,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 						String v = "";
 						String description = "";
 						final String valueOn = preset.getOnValue(key);
-						String tempValueOff = "";;
+						String tempValueOff = "";
 						
 						// this is a bit of a roundabout way of determining the non-checked value;
 						for (int i=0;i< adapter.getCount();i++) {

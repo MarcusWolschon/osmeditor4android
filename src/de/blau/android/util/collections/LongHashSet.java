@@ -98,9 +98,7 @@ public class LongHashSet implements Serializable {
 			m_data = Arrays.copyOf(map.m_data, map.m_data.length);
 		} else { // sigh
 			m_data = new long[map.m_data.length];
-			for (int i = 0; i < m_data.length; i++) {
-				m_data[i] = map.m_data[i];
-			}
+			System.arraycopy(map.m_data, 0, m_data, 0, m_data.length);
 		}
 	}
 

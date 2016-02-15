@@ -1865,8 +1865,7 @@ public class Logic {
 			float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
 			int lat = yToLatE7(p[1]);
 			int lon = xToLonE7(p[0]);
-			Node node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
-			return node;
+			return getDelegator().getFactory().createNodeWithNewId(lat, lon);
 		}
 		return null;
 	}
@@ -2252,7 +2251,7 @@ public class Logic {
 				// potentially do something if there is an error
 			}
 			
-		};
+		}
 		DownloadElementTask loader = new DownloadElementTask();
 		loader.execute();
 		
@@ -2425,7 +2424,7 @@ public class Logic {
 				// potentially do something if there is an error
 			}
 			
-		};
+		}
 		MyTask loader = new MyTask();
 		loader.execute();
 		
@@ -2491,7 +2490,6 @@ public class Logic {
 				try {
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = new BufferedInputStream(is);
-;
 					try {
 						osmParser.start(in);
 						

@@ -791,7 +791,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 	@Override
 	public void onPresetSelected(PresetItem item, boolean applyOptional) {
 		if (item != null) {
-			tagEditorFragment.applyPreset(item, applyOptional, true);;
+			tagEditorFragment.applyPreset(item, applyOptional, true);
 			if (tagFormFragment != null) {
 				tagFormFragment.update();
 				mViewPager.setCurrentItem(tagFormFragmentPosition);

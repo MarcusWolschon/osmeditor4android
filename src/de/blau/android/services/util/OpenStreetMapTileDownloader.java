@@ -65,7 +65,7 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 	@Override
 	protected Runnable getTileLoader(OpenStreetMapTile aTile, IOpenStreetMapTileProviderCallback aCallback) {
 		return new TileLoader(aTile, aCallback);
-	};
+	}
 	
 	// ===========================================================
 	// Methodsorg.andnav.osm.services
@@ -157,6 +157,5 @@ public class OpenStreetMapTileDownloader extends OpenStreetMapAsyncTileProvider 
 				finished();
 			}
 		}
-	};
-	
+	}
 }

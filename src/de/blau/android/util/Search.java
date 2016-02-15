@@ -183,7 +183,7 @@ public class Search {
 				Log.d("Search", "", e);
 			}
 		}
-	};
+	}
 
 	public SearchResult readResult(JsonReader reader) {
 		String type = null;

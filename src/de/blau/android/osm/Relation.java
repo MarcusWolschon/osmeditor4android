@@ -170,7 +170,6 @@ public class Relation extends OsmElement implements BoundedObject {
 	 */
 	void removeMember(final RelationMember member) {
 		while (members.remove(member)) {
-			;
 		}
 	}
 

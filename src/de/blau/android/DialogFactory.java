@@ -461,10 +461,8 @@ public class DialogFactory {
 				Main.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + saveFileEdit.getText().toString());
 			}
 		});
-		
-		final Dialog saveFileDialog = saveFileBuilder.create();
-		
-		return saveFileDialog;
+
+		return saveFileBuilder.create();
 	}
 	
 	/**

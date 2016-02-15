@@ -225,7 +225,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		String getError() {
 			return error;
 		}
-	};
+	}
 	
 	/**
 	 * Save offsets 
@@ -279,7 +279,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		String getError() {
 			return error;
 		}
-	};
+	}
 
 	private void getOffsetFromDB() {
 		OffsetLoader loader = new OffsetLoader(); 

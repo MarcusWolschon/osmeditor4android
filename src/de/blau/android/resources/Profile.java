@@ -295,19 +295,19 @@ public class Profile  extends DefaultHandler {
 		largDragToleranceRadius = Density.dpToPx(ctx,100f);
 		minLenForHandle = 5 * nodeToleranceValue;
 		
-		orientation_path.moveTo(0,(int) Density.dpToPx(ctx,-20));
-		orientation_path.lineTo((int) Density.dpToPx(ctx,15), (int) Density.dpToPx(ctx,20));
-		orientation_path.lineTo(0, (int) Density.dpToPx(ctx,10));
-		orientation_path.lineTo((int) Density.dpToPx(ctx,-15), (int) Density.dpToPx(ctx,20));
-		orientation_path.lineTo(0, (int) Density.dpToPx(ctx,-20));
+		orientation_path.moveTo(0, Density.dpToPx(ctx,-20));
+		orientation_path.lineTo(Density.dpToPx(ctx,15), Density.dpToPx(ctx,20));
+		orientation_path.lineTo(0, Density.dpToPx(ctx,10));
+		orientation_path.lineTo(Density.dpToPx(ctx,-15), Density.dpToPx(ctx,20));
+		orientation_path.lineTo(0, Density.dpToPx(ctx,-20));
 	
-		int arm = (int) Density.dpToPx(ctx,10);
+		int arm = Density.dpToPx(ctx,10);
 		crosshairs_path.moveTo(0, -arm);
 		crosshairs_path.lineTo(0, arm);
 		crosshairs_path.moveTo(arm, 0);
 		crosshairs_path.lineTo(-arm, 0);
 		
-		arm = (int) Density.dpToPx(ctx,4);
+		arm = Density.dpToPx(ctx,4);
 		x_path.moveTo(-arm, -arm);
 		x_path.lineTo(arm, arm);
 		x_path.moveTo(arm, -arm);
@@ -707,7 +707,7 @@ public class Profile  extends DefaultHandler {
 			outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
 			XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 			serializer.setOutput(outputStream, "UTF-8");
-			serializer.startDocument("UTF-8", null);;
+			serializer.startDocument("UTF-8", null);
 			this.toXml(serializer);
 			serializer.endDocument();
 		} catch (Exception e) {
@@ -761,11 +761,11 @@ public class Profile  extends DefaultHandler {
 				if (tempFeatureProfile.name.equals(MARKER_SCALE)) {
 					float scale = Float.parseFloat(atts.getValue("scale"));
 					orientation_path = new Path();
-					orientation_path.moveTo(0,(int) Density.dpToPx(ctx,-20)*scale);
-					orientation_path.lineTo((int) Density.dpToPx(ctx,15)*scale, (int) Density.dpToPx(ctx,20)*scale);
-					orientation_path.lineTo(0, (int) Density.dpToPx(ctx,10)*scale);
-					orientation_path.lineTo((int) Density.dpToPx(ctx,-15)*scale, (int) Density.dpToPx(ctx,20)*scale);
-					orientation_path.lineTo(0, (int) Density.dpToPx(ctx,-20)*scale);
+					orientation_path.moveTo(0, Density.dpToPx(ctx,-20) *scale);
+					orientation_path.lineTo(Density.dpToPx(ctx,15) *scale, Density.dpToPx(ctx,20) *scale);
+					orientation_path.lineTo(0, Density.dpToPx(ctx,10) *scale);
+					orientation_path.lineTo(Density.dpToPx(ctx,-15) *scale, Density.dpToPx(ctx,20) *scale);
+					orientation_path.lineTo(0, Density.dpToPx(ctx,-20) *scale);
 				
 					crosshairs_path = new Path();
 					int arm = (int) Density.dpToPx(ctx,10*scale);
@@ -824,7 +824,7 @@ public class Profile  extends DefaultHandler {
 	
 	@Override
 	public void endElement(final String uri, final String element, final String qName) {
-		if (element == null) {Log.i("Profile","element is null"); return;};
+		if (element == null) {Log.i("Profile","element is null"); return;}
 		if (element.equals("profile")) {
 	
 		} else if (element.equals("feature")) {

@@ -288,7 +288,6 @@ public class HelpViewer extends SherlockActivity {
 		if (lastSlash < 0 || lastDot < 0) {
 			return "Error, got: " + url;
 		}
-		String topic = url.substring(lastSlash+1,lastDot); 
-		return topic;
+		return url.substring(lastSlash+1,lastDot);
 	}
 }

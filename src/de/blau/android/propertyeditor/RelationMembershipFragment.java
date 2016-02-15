@@ -327,7 +327,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 		
 		protected ArrayAdapter<Relation> getRelationSpinnerAdapter() {
 			//		
-			List<Relation> result = Application.getDelegator().getCurrentStorage().getRelations();;
+			List<Relation> result = Application.getDelegator().getCurrentStorage().getRelations();
 			// Collections.sort(result);
 			return new ArrayAdapter<Relation>(owner, R.layout.autocomplete_row, result);
 		}

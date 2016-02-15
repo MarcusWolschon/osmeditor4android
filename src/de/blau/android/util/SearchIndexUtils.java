@@ -48,9 +48,9 @@ public class SearchIndexUtils {
 				case '_': 
 				case '.': if (b.length() > 0 && !Character.isWhitespace(b.charAt(b.length()-1))) {
 							b.append(' ');
-						  }; 
+						  }
 						break;
-				case '\'': ; break;		
+				case '\'': break;
 				}
 			}
 		}

@@ -303,7 +303,7 @@ public class SavingHelper<T extends Serializable> {
 						Log.e(DEBUG_TAG,"Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
 					}
 				}
-			};
+			}
 		}.execute();
 	}
 

@@ -99,7 +99,7 @@ public class Commands {
 						// ok wasn't a number
 					}
 
-					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(ctx, first.toString(),ElementType.NODE,2,1);
+					List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(ctx, first,ElementType.NODE,2,1);
 					if (presetItems != null && presetItems.size()==1) {
 						addNode(createNode(loc,location), words.length == 3? words[2]:null, presetItems.get(0), logic, v);
 						return;

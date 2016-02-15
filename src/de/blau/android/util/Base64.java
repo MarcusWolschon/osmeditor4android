@@ -47,6 +47,7 @@ public class Base64 {
 			// store the octets
 			bits24 = (octetString[i++] & 0xFF) << 16;
 			bits24 |= (octetString[i++] & 0xFF) << 8;
+			//noinspection PointlessBitwiseExpression
 			bits24 |= (octetString[i++] & 0xFF) << 0;
 
 			bits6 = (bits24 & 0x00FC0000) >> 18;

@@ -126,7 +126,7 @@ public class OAuthHelper {
 				Log.d("Main", "oAuthHandshake onPostExecute");
 				result = authUrl;	
 			}
-		};
+		}
 		MyTask loader = new MyTask();
 		loader.execute();	
 		try {

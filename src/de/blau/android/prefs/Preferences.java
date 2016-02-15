@@ -215,7 +215,7 @@ public class Preferences {
 			maxAlertDistance = 100;
 		}
 		// light theme doesn't really work prior to Honeycomb, but make it the default for anything newer
-		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? true : false);
+		lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
 		
 		addressTags = new HashSet<String>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

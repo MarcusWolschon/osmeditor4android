@@ -100,7 +100,7 @@ public class OpenStreetMapTileProvider implements ServiceConnection,
 		mTileService = IOpenStreetMapTileProviderService.Stub.asInterface(service);
 		mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
 		Log.d("MapTileProviderService", "connected");
-	};
+	}
 	
 	//@Override
 	@Override

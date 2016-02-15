@@ -105,9 +105,8 @@ public class Photo implements BoundedObject {
 
    	    result = new Float(FloatD + (FloatM/60) + (FloatS/3600));
 
-   	 return result;
-
-   	};
+   	 	return result;
+   	}
 	
 	/**
 	 * Get the latitude of the bug.

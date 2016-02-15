@@ -110,7 +110,7 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
     	}
         Editable text = super.getText();
         int end = getSelectionEnd();
-        if (end < 0 || mTokenizer == null) {
+        if (end < 0) {
             return false;
         }
         int start = mTokenizer.findTokenStart(text, end);
@@ -131,7 +131,7 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
     		return;
     	}
         Validator v = getValidator();
-        if (v == null || mTokenizer == null) {
+        if (v == null) {
             return;
         }
         Editable e = getText();

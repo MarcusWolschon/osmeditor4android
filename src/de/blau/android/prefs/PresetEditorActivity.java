@@ -222,7 +222,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 				progress.setIndeterminate(false);
 				progress.setMax(values[1]);
 				progress.setProgress(values[0]);
-			};
+			}
 			
 			/**
 			 * 
