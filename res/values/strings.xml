@@ -117,7 +117,8 @@
     <string name="toast_not_in_bug_range">Please zoom in to add a bug (Volume Up/Down or Lens/Shift)</string>
     <string name="toast_export_failed">Export failed</string>
     <string name="toast_export_success">Exported to %1$s</string>
-    <string name="toast_preset_overwrote_tags">Notice - preset overwrote tag(s)</string>
+    <string name="toast_preset_overwrote_tags">Note - preset overwrote tag(s)</string>
+    <string name="toast_merge_overwrote_tags">Note - operation overwrote tag(s)</string>
     <string name="toast_oneway_reversed">You reversed a oneway street or a way with direction dependent tags. Please check the tags and correct if necessary.</string>
     <string name="toast_merge_tag_conflict">You merged elements that have conflicting tag values, direction dependent semantics or different roles in the same relation. Please check the tags and roles and correct if necessary.</string>
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements that have conflicting tag values. Please check the tags and correct first before retrying.</string>

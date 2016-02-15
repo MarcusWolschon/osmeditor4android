@@ -540,7 +540,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	}
 	
 	@Override
-	public List getSecondaryPresets() {
+	public List<PresetItem> getSecondaryPresets() {
 		return secondaryPresets;
 	}
 	
@@ -1326,9 +1326,8 @@ public class TagEditorFragment extends SherlockFragment implements
 	/**
 	 * Merge a set of tags in to the current ones
 	 * @param newTags
-	 * @param replace // FIXME
 	 */
-	private void mergeTags(Map<String, String> newTags, boolean replace) {
+	private void mergeTags(Map<String, String> newTags) {
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 		
 		boolean replacedValue = false;	
@@ -1342,14 +1341,14 @@ public class TagEditorFragment extends SherlockFragment implements
 		}
 		
 		loadEdits(currentValues);
-		// FIXME text if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
+		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_merge_overwrote_tags, Toast.LENGTH_LONG).show();
 		focusOnEmptyValue();
 	}
 	
 	/**
 	 * Merge a set of tags in to the current ones, with potentially empty keys
 	 * @param newTags
-	 * @param replace // FIXME
+	 * @param replace 
 	 */
 	private void mergeTags(ArrayList<KeyValue> newTags, boolean replace) {
 		LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
@@ -1367,7 +1366,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		// 
 		for (KeyValue tag : newTags) {
 			KeyValue keyValue = keyIndex.get(tag.getKey());
-			if (keyValue != null) { // exists
+			if (keyValue != null && replace) { // exists
 				keyValue.setValue(tag.getValue());
 				replacedValue = true;
 			} else {
@@ -1385,7 +1384,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		loaded = true;
 		ensureEmptyRow(rowLayout);
 		
-		// FIXME text if (replacedValue) Toast.makeText(getActivity(), R.string.toast_preset_overwrote_tags, Toast.LENGTH_LONG).show();
+		if (replacedValue) Toast.makeText(getActivity(), R.string.toast_merge_overwrote_tags, Toast.LENGTH_LONG).show();
 		focusOnEmptyValue();
 	}
 	
@@ -1429,7 +1428,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		case R.id.tag_menu_paste_from_clipboard:
 			ArrayList<KeyValue> paste = ClipboardUtils.getKeyValues(getActivity());
 			if (paste != null) {
-				mergeTags(paste, false);
+				mergeTags(paste, true);
 			}
 			return true;
 		case R.id.tag_menu_revert:
@@ -1631,11 +1630,11 @@ public class TagEditorFragment extends SherlockFragment implements
 	
 	private void doPaste(boolean replace) {
 		if (copiedTags != null) {
-			mergeTags(copiedTags, replace);
+			mergeTags(copiedTags);
 		} else {
 			Map<String, String> copied = savingHelper.load(PropertyEditor.COPIED_TAGS_FILE, false);
 			if (copied != null) {
-				mergeTags(copied, replace);
+				mergeTags(copied);
 			}
 		}
 		updateAutocompletePresetItem();
