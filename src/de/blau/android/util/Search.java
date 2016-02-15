@@ -211,7 +211,6 @@ public class Search {
 		return null;
 	}
 	
-	
 	private Dialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults) {
 		// 
 		final Dialog dialog;
@@ -230,7 +229,7 @@ public class Search {
 		builder.setNegativeButton(R.string.cancel, null);
 		dialog = builder.create();
 		lv.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-		    public void onItemClick(AdapterView parent, View v, int position, long id) {
+		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		        // 
 		    	// Log.d("Search","Result at pos " + position + " clicked");
 		    	callback.onItemFound(searchResults.get(position));

@@ -45,7 +45,7 @@
   <string name="progress_deleting_message">Löschen...</string>
   <string name="progress_searching_message">Am Suchen...</string>
   <string name="progress_saving_message">Am Speichern...</string>
-  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Authorisierung...</string>
+  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Autorisierung...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="upload_close_changeset_label">Changeset schliessen</string>
@@ -143,7 +143,7 @@
   <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
   <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
-  <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstüzt</string>
+  <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstützt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
