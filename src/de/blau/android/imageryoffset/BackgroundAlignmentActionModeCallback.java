@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -30,12 +30,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.HelpViewer;
@@ -540,6 +538,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 	 * @param index
 	 * @return
 	 */
+	@SuppressLint("InflateParams")
 	private Dialog createSaveOffsetDialog(final int index, final ArrayList<ImageryOffset> saveOffsetList) {
 		// Create some useful objects
 		// final BoundingBox bbox = map.getViewBox();
@@ -625,6 +624,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		};
 	}
 
+	@SuppressLint("InflateParams")
 	private Dialog createDisplayOffsetDialog(final int index) {
 		// Create some useful objects
 		final BoundingBox bbox = map.getViewBox();

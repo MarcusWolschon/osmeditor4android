@@ -223,7 +223,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		}
     	
      	this.inflater = inflater;
-     	rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, null);
+     	rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, container, false);
        
      	LinearLayout editRowLayout = (LinearLayout) rowLayout.findViewById(R.id.edit_row_layout);
      	// editRowLayout.setSaveFromParentEnabled(false);
@@ -711,7 +711,7 @@ public class TagEditorFragment extends SherlockFragment implements
 	 * @returns The new TagEditRow.
 	 */
 	protected TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
-		final TagEditRow row = (TagEditRow)inflater.inflate(R.layout.tag_edit_row, null);
+		final TagEditRow row = (TagEditRow)inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
 	
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
 			row.valueEdit.setEllipsize(TruncateAt.END);

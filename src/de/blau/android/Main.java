@@ -779,6 +779,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * slightly byzantine code for mode switching follows
 	 * @param actionbar Action bar of this Activity.
 	 */
+	@SuppressLint("InflateParams")
 	void setupLockButton(final ActionBar actionbar)	{
 		// inflating will crash without themed context
 		Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
@@ -897,7 +898,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	/**
 	 * Creates the menu from the XML file "main_menu.xml".<br> {@inheritDoc}
 	 */
- 	@Override
+ 	@SuppressLint("InflateParams")
+	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		Log.d(DEBUG_TAG, "onCreateOptionsMenu");
 		final MenuInflater inflater = getSupportMenuInflater();

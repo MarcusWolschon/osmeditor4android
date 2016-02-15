@@ -104,7 +104,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 
     	// Inflate the layout for this fragment
     	this.inflater = inflater;
-    	parentRelationsLayout = (ScrollView) inflater.inflate(R.layout.membership_view,null);
+    	parentRelationsLayout = (ScrollView) inflater.inflate(R.layout.membership_view, container, false);
 		membershipVerticalLayout = (LinearLayout) parentRelationsLayout.findViewById(R.id.membership_vertical_layout);
 		// membershipVerticalLayout.setSaveFromParentEnabled(false);
 		membershipVerticalLayout.setSaveEnabled(false);
@@ -196,7 +196,7 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	 * @return the new RelationMembershipRow
 	 */
 	protected RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, final int position, boolean showSpinner) {
-		RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, null);
+		RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
 
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
 			row.roleEdit.setEllipsize(TruncateAt.END);

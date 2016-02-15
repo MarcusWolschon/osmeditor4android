@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -210,6 +210,7 @@ public class Search {
 		return null;
 	}
 	
+	@SuppressLint("InflateParams")
 	private Dialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults) {
 		// 
 		final Dialog dialog;

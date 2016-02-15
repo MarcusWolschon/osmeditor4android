@@ -137,7 +137,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
     	
     	
      	this.inflater = inflater;
-     	rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, null);
+     	rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
            	
      	boolean displayMRUpresets = ((Boolean) getArguments().getSerializable("displayMRUpresets")).booleanValue();
      	focusOnAddress = ((Boolean) getArguments().getSerializable("focusOnAddress")).booleanValue();
@@ -425,7 +425,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 			Log.d(DEBUG_TAG,"update container layout null");
 			return;
 		}		
-		final EditableLayout editableView  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
+		final EditableLayout editableView  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, ll, false);
 		editableView.setSaveEnabled(false); 
 		int pos = 0;
 		ll.addView(editableView, pos++);
@@ -456,7 +456,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
     	if (mainPreset != null) {
     		nonEditable = addTagsToViews(editableView, mainPreset, allTags);
     		for (PresetItem preset:tagListener.getSecondaryPresets()) {
-    			final EditableLayout editableView1  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, null);
+    			final EditableLayout editableView1  = (EditableLayout)inflater.inflate(R.layout.tag_form_editable, ll, false);
     			editableView1.setSaveEnabled(false);
     			editableView1.setTitle(preset);
     			ll.addView(editableView1, pos++);
@@ -563,9 +563,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 						|| keyType == PresetKeyType.MULTISELECT 
 						|| key.startsWith(Tags.KEY_ADDR_BASE)
 						|| count > 6) {
-						rowLayout.addView(addTextRow(keyType, hint, key, value, defaultValue, adapter));
+						rowLayout.addView(addTextRow(rowLayout, keyType, hint, key, value, defaultValue, adapter));
 					} else if (preset.getKeyType(key) == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
-						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, null);
+						final TagComboRow row = (TagComboRow)inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
 						row.keyView.setText(hint != null?hint:key);
 						row.keyView.setTag(key);
 						for (int i=0;i< count;i++) {
@@ -611,7 +611,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 							}
 						});
 					} else if (preset.getKeyType(key) == PresetKeyType.CHECK) {
-						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, null);
+						final TagCheckRow row = (TagCheckRow)inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
 						row.keyView.setText(hint != null?hint:key);
 						row.keyView.setTag(key);
 						
@@ -668,7 +668,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 //				// String hint = preset.getHint(key);
 //				rowLayout.addView(addTextRow(null, null, key, value, adapter));
 			} else {
-				final TagStaticTextRow row = (TagStaticTextRow)inflater.inflate(R.layout.tag_form_static_text_row, null);
+				final TagStaticTextRow row = (TagStaticTextRow)inflater.inflate(R.layout.tag_form_static_text_row, rowLayout, false);
 				row.keyView.setText(key);
 				row.valueView.setText(value);
 				rowLayout.addView(row);
@@ -678,8 +678,8 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
  		}	
 	}
 	
-	TagTextRow addTextRow(PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
-		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, null);
+	TagTextRow addTextRow(LinearLayout rowLayout, PresetKeyType keyType, final String hint, final String key, final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+		final TagTextRow row = (TagTextRow)inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
 		row.keyView.setText(hint != null?hint:key);
 		row.keyView.setTag(key);
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping

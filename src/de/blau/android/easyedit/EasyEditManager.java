@@ -11,9 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
-
 import org.acra.ACRA;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -39,11 +38,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
@@ -1045,6 +1042,7 @@ public class EasyEditManager {
 			return false;
 		}
 		
+		@SuppressLint("InflateParams")
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			super.onPrepareActionMode(mode, menu);
@@ -1277,6 +1275,7 @@ public class EasyEditManager {
 			}
 		}
 		
+		@SuppressLint("InflateParams")
 		Dialog 	createSetPositionDialog(int lonE7, int latE7) {
 			final LayoutInflater inflater = ThemeUtils.getLayoutInflater(Application.mainActivity);
 			Builder dialog = new AlertDialog.Builder(Application.mainActivity);
