@@ -32,7 +32,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 
 	@Override
 	public String toString() {
-		return value + (description != null ? " - " + description:"");
+		return value + (description != null ? (value == null || "".equals(value) ? "" : " - ") + description:"");
 	}
 
 	@Override
