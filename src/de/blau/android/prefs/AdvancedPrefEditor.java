@@ -16,7 +16,7 @@ import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.API;
 
 public class AdvancedPrefEditor extends SherlockPreferenceActivity {
-	
+
 	private Resources r;
 	private String KEY_PREFAPI;
 	private String KEY_PREFPRESET;

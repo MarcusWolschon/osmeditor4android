@@ -326,11 +326,11 @@ public class Address implements Serializable {
 								}
 							}
 							int newNumber = Math.max(1, nearest+inc);
-							if (numbers.contains(new Integer(newNumber))) { 
+							if (numbers.contains(Integer.valueOf(newNumber))) {
 								// try one inc more and one less, if they both fail use the original number
-								if (!numbers.contains(new Integer(Math.max(1,newNumber+inc)))) {
+								if (!numbers.contains(Integer.valueOf(Math.max(1,newNumber+inc)))) {
 									newNumber = Math.max(1,newNumber+inc);
-								} else if (!numbers.contains(new Integer(Math.max(1,newNumber-inc)))) {
+								} else if (!numbers.contains(Integer.valueOf(Math.max(1,newNumber-inc)))) {
 									newNumber = Math.max(1,newNumber-inc);
 								}
 							}
