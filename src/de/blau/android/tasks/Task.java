@@ -3,8 +3,6 @@ package de.blau.android.tasks;
 import java.io.Serializable;
 import java.util.Date;
 
-import android.graphics.Rect;
-import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.rtree.BoundedObject;
 

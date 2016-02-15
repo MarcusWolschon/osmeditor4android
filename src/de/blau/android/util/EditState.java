@@ -14,7 +14,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.Profile;
-import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.views.util.OpenStreetMapTileServer;
 

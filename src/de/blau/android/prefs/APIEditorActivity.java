@@ -5,7 +5,6 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 

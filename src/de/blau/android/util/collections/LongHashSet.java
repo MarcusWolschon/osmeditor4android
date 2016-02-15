@@ -1,19 +1,10 @@
 package de.blau.android.util.collections;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.util.Log;
-import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.OsmElementFactory;
 
 /**
  * long HashSet

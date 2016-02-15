@@ -1,50 +1,32 @@
 package de.blau.android.voice;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.TreeMap;
 
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-
 import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.R;
-import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
-import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.prefs.Preferences;
+import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
 import de.blau.android.tasks.Note;
-import de.blau.android.tasks.Task;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.OptimalStringAlignment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;

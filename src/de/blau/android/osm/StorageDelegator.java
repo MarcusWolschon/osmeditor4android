@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +35,8 @@ import de.blau.android.exception.StorageException;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
-import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.LongOsmElementMap;
 
 public class StorageDelegator implements Serializable, Exportable {
 

@@ -1,28 +1,19 @@
 package de.blau.android.tasks;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Bitmap.Config;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
-import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.IssueAlert;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 

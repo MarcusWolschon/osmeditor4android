@@ -34,8 +34,6 @@ import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PixelXorXfermode;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.util.Log;

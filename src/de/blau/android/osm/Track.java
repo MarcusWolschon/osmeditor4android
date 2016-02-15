@@ -15,9 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -35,18 +33,10 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Path;
-import android.graphics.Typeface;
-import android.graphics.Paint.Cap;
-import android.graphics.Paint.Join;
-import android.graphics.Paint.Style;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
-import de.blau.android.resources.Profile.FeatureProfile;
-import de.blau.android.util.Density;
 import de.blau.android.util.SavingHelper;
 
 /**

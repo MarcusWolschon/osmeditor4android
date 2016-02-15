@@ -17,7 +17,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,7 +27,6 @@ import de.blau.android.Application;
 import de.blau.android.DialogFactory;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.jsonreader.JsonReader;
 
 /**

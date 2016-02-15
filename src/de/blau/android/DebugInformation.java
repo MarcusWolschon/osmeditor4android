@@ -1,23 +1,21 @@
 package de.blau.android;
 
 import java.io.File;
-import java.io.InputStreamReader;
 import java.util.Date;
+
 import android.annotation.SuppressLint;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.text.util.Linkify;
 import android.view.View;
 import android.widget.TextView;
+
 import com.actionbarsherlock.app.SherlockActivity;
+
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;

@@ -11,7 +11,6 @@ import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.util.Log;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 

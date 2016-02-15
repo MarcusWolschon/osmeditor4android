@@ -2,8 +2,6 @@
 package  de.blau.android.views.util;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import android.content.ComponentName;
 import android.content.Context;

@@ -16,13 +16,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Rect;
 import android.os.Environment;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.tasks.Task;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 

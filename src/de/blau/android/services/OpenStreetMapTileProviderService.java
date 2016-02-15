@@ -2,11 +2,9 @@ package de.blau.android.services;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.R;

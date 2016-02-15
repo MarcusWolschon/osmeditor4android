@@ -1,6 +1,5 @@
 package de.blau.android.tasks;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -13,13 +12,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Task.State;
 
 public class OsmoseServer {

@@ -1,11 +1,11 @@
 package de.blau.android.util;
 
-import android.support.annotation.NonNull;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import android.support.annotation.NonNull;
 
 public abstract class DateFormatter {
 

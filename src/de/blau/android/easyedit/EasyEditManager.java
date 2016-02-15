@@ -1,7 +1,6 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,10 +8,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.acra.ACRA;
 
@@ -50,8 +48,8 @@ import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.R;
 import de.blau.android.Main.UndoListener;
+import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
@@ -66,7 +64,6 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
-import de.blau.android.propertyeditor.RelationMembershipFragment;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;

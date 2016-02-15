@@ -7,13 +7,13 @@ import java.util.List;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
+import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.rtree.BoundedObject;
-import android.content.Context;
-import android.util.Log;
 
 /**
  * Relation represents an OSM relation element which essentially is a collection of other OSM elements.

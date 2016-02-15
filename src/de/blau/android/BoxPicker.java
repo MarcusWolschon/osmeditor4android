@@ -38,8 +38,8 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Search;
-import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Search.SearchResult;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Activity where the user can pick a Location and a radius (more precisely: a

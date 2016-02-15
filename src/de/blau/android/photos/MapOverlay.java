@@ -16,7 +16,6 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.Profile;
-import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;

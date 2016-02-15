@@ -1,6 +1,8 @@
 package de.blau.android.propertyeditor;
 
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -11,9 +13,6 @@ import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import java.util.ArrayList;
-
-import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;

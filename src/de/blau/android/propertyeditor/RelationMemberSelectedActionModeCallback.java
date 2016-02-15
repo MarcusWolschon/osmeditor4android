@@ -1,19 +1,16 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
-import android.annotation.SuppressLint;
+
 import android.content.Context;
-import android.graphics.Rect;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.R;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
 import de.blau.android.util.ThemeUtils;

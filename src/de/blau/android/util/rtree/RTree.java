@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
-import android.util.Log;
 
 
 /**

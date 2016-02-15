@@ -3,6 +3,7 @@ package de.blau.android.prefs;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;

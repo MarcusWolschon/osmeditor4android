@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
-import android.widget.MultiAutoCompleteTextView.Tokenizer;
 
 /**
  * Custom version of AutoCompleteTextView with switchable behaviour of MultiAutoCompleteTextView 

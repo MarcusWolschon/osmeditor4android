@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import de.blau.android.exception.OsmException;
 import de.blau.android.util.rtree.BoundedObject;
 
 /**
