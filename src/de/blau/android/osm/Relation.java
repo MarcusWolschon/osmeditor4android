@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class Relation extends OsmElement implements BoundedObject {
 	
 	/**
 	 * Return first relation member element for this OSM element
-	 * Note: if the element is present more than once you will only get ont
+	 * Note: if the element is present more than once you will only get one
 	 * @param e
 	 * @return
 	 */
@@ -227,6 +228,16 @@ public class Relation extends OsmElement implements BoundedObject {
 		while ((idx = members.indexOf(existing)) != -1) {
 			members.set(idx, newMember);
 		}
+	}
+	
+	/**
+	 * Replace all existing members in a relation.
+	 * @param existing The existing member to be replaced.
+	 * @param newMember The new member.
+	 */
+	void replaceMembers(Collection<RelationMember> newMembers) {
+		members.clear();
+		members.addAll(newMembers);
 	}
 
 	/**
