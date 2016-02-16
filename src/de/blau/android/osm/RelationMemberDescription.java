@@ -1,4 +1,7 @@
 package de.blau.android.osm;
+
+import de.blau.android.Application;
+
 /*
  * RelationMemberDescritption is an extended version of RelationMember that holds a textual description of the element 
  * instead of the element itself
@@ -30,6 +33,25 @@ public class RelationMemberDescription extends RelationMember {
 	
 	public boolean downloaded() {
 		return downloaded;
+	}
+	
+	/**
+	 * If an downloaded element is present update description and downloaded status
+	 */
+	public void update() {
+		OsmElement e = getElement();
+		if (e != null) {
+			description = e.getDescription(false);
+			downloaded = true;
+		}
+	}
+	
+	/**
+	 * This returns (if present), the element directly from storage
+	 */
+	@Override
+	public OsmElement getElement() {
+		return super.getElement()==null ? Application.getDelegator().getOsmElement(getType(), getRef()):super.getElement();
 	}
 	
 	@Override

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="580px"
+   height="580px"
+   viewBox="0 0 580 580"
+   enable-background="new 0 0 580 580"
+   xml:space="preserve"
+   id="svg3000"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="ring_light.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\res\drawable-xhdpi\ring_bottom_light.png"
+   inkscape:export-xdpi="5.2758622"
+   inkscape:export-ydpi="5.2758622"><metadata
+   id="metadata3013"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs3011" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1725"
+   inkscape:window-height="1026"
+   id="namedview3009"
+   showgrid="false"
+   inkscape:snap-nodes="false"
+   inkscape:zoom="1.0965517"
+   inkscape:cx="115.33358"
+   inkscape:cy="311.4673"
+   inkscape:window-x="141"
+   inkscape:window-y="90"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg3000" />
+
+
+<g
+   id="g7457"><path
+     transform="matrix(0.99581879,0,0,1.0006767,2.5518771,89.570201)"
+     sodipodi:open="true"
+     sodipodi:end="3.1573006"
+     sodipodi:start="0"
+     d="M 383.93081,151.83961 A 100.77044,100.77044 0 1 1 182.40236,150.25678"
+     sodipodi:ry="100.77044"
+     sodipodi:rx="100.77044"
+     sodipodi:cy="151.83961"
+     sodipodi:cx="283.16037"
+     id="path6927"
+     style="fill:#ffffff;fill-opacity:0;fill-rule:nonzero;stroke:#333333;stroke-width:39.46300125;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.6;stroke-dasharray:none;stroke-dashoffset:0"
+     sodipodi:type="arc" /><path
+     inkscape:connector-curvature="0"
+     id="path6929"
+     d="M 184.21384,219.77987 185.12579,-1.2767296e-5"
+     style="fill:none;stroke:#333333;stroke-width:40;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.60000002;stroke-dasharray:none" /><path
+     inkscape:connector-curvature="0"
+     id="path6929-7"
+     d="M 384.39215,223.87829 385.2934,1.3732547"
+     style="fill:none;stroke:#333333;stroke-width:40.01049423;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.6;stroke-dasharray:80.02098537, 80.02098537;stroke-dashoffset:0" /></g></svg>

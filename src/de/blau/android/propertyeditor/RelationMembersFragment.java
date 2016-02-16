@@ -39,11 +39,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -63,6 +66,8 @@ public class RelationMembersFragment extends SherlockFragment implements
 	private long id = -1;
 
 	static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
+	
+	static enum Connected { NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING }
 	
 	/**
      */
@@ -157,10 +162,204 @@ public class RelationMembersFragment extends SherlockFragment implements
 	protected void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
 		membersVerticalLayout.removeAllViews();
 		if (members != null && members.size() > 0) {
-			for (RelationMemberDescription rmd :  members) {
-				insertNewMember(membersVerticalLayout, members.indexOf(rmd) +"", rmd, -1);
+			for (int i = 0; i < members.size(); i++) {
+				RelationMemberDescription current = members.get(i);
+				insertNewMember(membersVerticalLayout, i +"", current, -1, Connected.NOT, false);
 			}
 		}
+	}
+	
+	/**
+	 * Loop over the the members and set the connection icon
+	 */
+	void setIcons() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+		int s = rowLayout.getChildCount();
+		Connected[] status = new Connected[s];
+		int ringStart = 0;
+		for (int i=0;i<s;i++) { 
+			RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
+			if (!row.getRelationMemberDescription().downloaded()) {
+				status[i] = Connected.NOT;
+				ringStart = i + 1; // next element
+				continue;
+			}
+			int pos = rowLayout.indexOfChild(row);
+			RelationMemberRow prev = null;
+			RelationMemberRow next = null;
+			
+			prev = pos-1 >= 0 ? ((RelationMemberRow)rowLayout.getChildAt(pos -1)) : null;
+			next = pos + 1 < s ? ((RelationMemberRow)rowLayout.getChildAt(pos + 1)) : null;
+			
+			RelationMemberRow current = row;
+			status[i] = getConnection(prev, current, next);
+			
+			// check for ring 
+			if ((status[i] == Connected.UP || status[i] == Connected.CLOSEDWAY_UP ) && i != ringStart) {
+				RelationMemberRow ringStartMember = ((RelationMemberRow)rowLayout.getChildAt(ringStart));
+				if (current.getUnusedEnd() != null && ringStartMember.getUnusedEnd() != null && current.getUnusedEnd().equals(ringStartMember.getUnusedEnd())) {
+					status[ringStart] = Connected.RING_TOP;
+					status[i] = Connected.RING_BOTTOM;
+					for (int j = ringStart + 1; j < i; j++) {
+						if (status[j]==Connected.CLOSEDWAY_BOTH) {
+							status[j] = Connected.CLOSEDWAY_RING;
+						} else {
+							status[j] = Connected.RING;
+						}
+					}
+				}
+				ringStart = i + 1; // next element
+			} else if (status[i] == Connected.NOT || status[i] == Connected.CLOSEDWAY ) {
+				ringStart = i + 1; // next element
+			}
+		}
+		// actually set the icons
+		for (int i=0;i<s;i++) { 
+			RelationMemberRow row = (RelationMemberRow)rowLayout.getChildAt(i);
+			row.setIcon(getActivity(), row.getRelationMemberDescription(), status[i]);
+		}
+	}
+	
+	/**
+	 * Determine how the current member is connected to the previous and following one
+	 * @param previous
+	 * @param current
+	 * @param next
+	 * @return
+	 */
+	Connected getConnection(RelationMemberRow previousRow, RelationMemberRow currentRow, RelationMemberRow nextRow) {
+		Connected result = Connected.NOT;
+		RelationMemberDescription previous = previousRow != null ? previousRow.getRelationMemberDescription() : null;
+		RelationMemberDescription current = currentRow.getRelationMemberDescription();
+		RelationMemberDescription next = nextRow != null ? nextRow.getRelationMemberDescription() : null;
+		String currentType = current.getType();
+		if (Way.NAME.equals(currentType)) {
+			Way w = (Way) current.getElement();
+			currentRow.up = null;
+			currentRow.down = null;
+			if (w.isClosed()) {
+				result = Connected.CLOSEDWAY;
+				if (previous != null && previous.downloaded()) {
+					if (Way.NAME.equals(previous.getType())) {
+						if (previousRow.down != null) {
+							result = Connected.CLOSEDWAY_UP;
+							currentRow.up = previousRow.down;
+						}
+					} else {
+						Node prevNode = (Node)previous.getElement();
+						if (w.hasNode(prevNode)) {
+							result = Connected.CLOSEDWAY_UP;
+							currentRow.up = prevNode;
+						} 
+					}
+				}
+				if (next != null && next.downloaded()) {
+					OsmElement nextElement = next.getElement();
+					if (Way.NAME.equals(next.getType())) {
+						Way nextWay = (Way) nextElement;
+						Node nextFirst = nextWay.getFirstNode();
+						Node nextLast = nextWay.getLastNode();
+						if (w.hasNode(nextLast) || w.hasNode(nextFirst)) { 	
+							if (result == Connected.CLOSEDWAY_UP) {
+								result = Connected.CLOSEDWAY_BOTH;
+							} else {
+								result = Connected.CLOSEDWAY_DOWN;
+							}
+							currentRow.down = w.hasNode(nextLast) ? nextLast : nextFirst;
+						}
+					} else {
+						Node nextNode = (Node)next.getElement();
+						if (w.hasNode(nextNode)) {
+							if (result == Connected.CLOSEDWAY_UP) {
+								result = Connected.CLOSEDWAY_BOTH;
+							} else {
+								result = Connected.CLOSEDWAY_DOWN;
+							}
+							currentRow.down = nextNode;
+						}
+					}
+				}
+			} else {
+				Node notused = null;
+				Node first = w.getFirstNode();
+				Node last = w.getLastNode();
+				if (previous != null && previous.downloaded()) {
+					if (Way.NAME.equals(previous.getType())) {
+						if (previousRow.down != null) {
+							currentRow.up = previousRow.down;
+							if (currentRow.up.equals(first)) {
+								notused = last;
+							} else {
+								notused = first;
+							}
+							result = Connected.UP;
+						}
+					} else {
+						Node prevNode = (Node)previous.getElement();
+						if (prevNode.equals(first)) {
+							notused = last;
+							result = Connected.UP;
+							currentRow.up = first;
+						} else if (prevNode.equals(last)) {
+							notused = first;
+							result = Connected.UP;
+							currentRow.up = last;
+						}
+					}
+				}
+				if (next != null && next.downloaded()) {
+					OsmElement nextElement = next.getElement();
+					if (Way.NAME.equals(next.getType())) {
+						Way nextWay = (Way) nextElement;
+						if (nextWay.isClosed()) {
+							if (notused == null && (nextWay.hasNode(first) || nextWay.hasNode(last))) { 
+								result = Connected.DOWN;
+								currentRow.down = nextWay.hasNode(first) ? first : last;
+							} else if (nextWay.hasNode(notused)) {
+								result = Connected.BOTH;
+								currentRow.down = notused;
+							}
+						} else {
+							Node nextFirst = nextWay.getFirstNode();
+							Node nextLast = nextWay.getLastNode();
+							if (notused == null && (nextLast.equals(first) || nextFirst.equals(first) || nextLast.equals(last) ||  nextFirst.equals(last))) { 
+								result = Connected.DOWN;
+								currentRow.down = nextLast.equals(first) || nextFirst.equals(first) ? first : last;
+							} else if (nextLast.equals(notused) || nextFirst.equals(notused)) {
+								result = Connected.BOTH;
+								currentRow.down = notused;
+							}
+						}
+					} else {
+						Node nextNode = (Node)next.getElement();
+						if (notused == null && (nextNode.equals(first) || nextNode.equals(last))) {
+							result = Connected.DOWN;
+							currentRow.down = nextNode.equals(first) ? first : last;
+						} else if (nextNode.equals(notused)) {
+							result = Connected.BOTH;
+							currentRow.down = notused;
+						}
+					}
+				}
+			}
+		} else {
+			Node n = (Node) current.getElement();
+			if (previous != null && Way.NAME.equals(previous.getType()) && previous.downloaded()) {
+				if (((Way)previous.getElement()).getLastNode().equals(n) || ((Way)previous.getElement()).getFirstNode().equals(n)) {
+					result = Connected.UP;
+				}
+			}
+			if (next != null && Way.NAME.equals(next.getType()) && next.downloaded()) {
+				if (((Way)next.getElement()).getLastNode().equals(n) || ((Way)next.getElement()).getFirstNode().equals(n)) {
+					if (result == Connected.UP) {
+						result = Connected.BOTH;
+					} else {
+						result = Connected.DOWN;
+					}
+				}
+			}
+		}
+		return result;
 	}
     
     
@@ -172,6 +371,12 @@ public class RelationMembersFragment extends SherlockFragment implements
     	outState.putSerializable("MEMBERS", savedMembers);
     }
     
+    @Override
+    public void onStart() {
+    	super.onStart();
+    	Log.d(DEBUG_TAG, "onStart");
+    	setIcons();
+    }
     
     @Override
     public void onPause() {
@@ -205,7 +410,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
 	 * @returns The new RelationMemberRow.
 	 */
-	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position) {
+	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position, final Connected c, boolean select) {
 		RelationMemberRow row = null; 
 		
 		if (rmd.downloaded()) {
@@ -218,7 +423,13 @@ public class RelationMembersFragment extends SherlockFragment implements
 			row.roleEdit.setEllipsize(TruncateAt.END);
 		}
 		
-		row.setValues(getActivity(),pos, id, rmd);
+		row.setValues(getActivity(),pos, id, rmd, c);
+		
+		// need to do this before the listener is set
+		if (select) {
+			row.select();
+		}
+		
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 		
 		row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -226,7 +437,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				
 				if (isChecked) {
-					memberSelected();
+					memberSelected(membersVerticalLayout);
 				} else {
 					deselectRow();
 				}
@@ -243,18 +454,25 @@ public class RelationMembersFragment extends SherlockFragment implements
 			SelectedRowsActionModeCallback.Row {
 		
 		private PropertyEditor owner;
-		private long elementId;
 		private long relationId;
 		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
 		private ImageView typeView;
 		private TextView elementView;
 		
+		/**
+		 * used for storing which end of a way was used for what
+		 */
+		volatile Node up = null;
+		volatile Node down = null;
+		
+		private RelationMemberDescription rmd;
+		
 		public RelationMemberRow(Context context) {
 			super(context);
 			owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
 		}
-		
+
 		public RelationMemberRow(Context context, AttributeSet attrs) {
 			super(context, attrs);
 			owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in Eclipse
@@ -321,36 +539,95 @@ public class RelationMembersFragment extends SherlockFragment implements
 		 * @param rmd the information on the relation member
 		 * @return elationMemberRow object for convenience
 		 */
-		public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd) {
+		public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd, Connected c) {
 			
 			String desc = rmd.getDescription();
 			String objectType = rmd.getType() == null ? "--" : rmd.getType();
-			elementId = rmd.getRef();
+			this.rmd = rmd;
 			roleEdit.setText(rmd.getRole());
 			
-			if (Node.NAME.equals(objectType)) {
-				typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.node_small));
-			} else if (Way.NAME.equals(objectType)) {
-				typeView.setImageDrawable(ctx.getResources().getDrawable(ThemeUtils.getResIdFromAttribute(ctx,R.attr.line_small)));
-			} else if (Relation.NAME.equals(objectType)) {
-				typeView.setImageDrawable(ctx.getResources().getDrawable(ThemeUtils.getResIdFromAttribute(ctx,R.attr.relation_small)));
-			} else {
-				// don't know yet
-			}
+			// setIcon(ctx, rmd, c);
 			typeView.setTag(objectType);
 			elementView.setText(desc);
 			relationId = id;
 			return this;
 		}
 		
+		public String getType() {
+			return (String) typeView.getTag();
+		}
+		
+		public RelationMemberDescription getRelationMemberDescription() {
+			return rmd;
+		}
+		
+		public void setIcon(Context ctx, RelationMemberDescription rmd, Connected c) {
+			String objectType = rmd.getType() == null ? "--" : rmd.getType();
+			int iconId = 0;
+			if (rmd.downloaded()) {
+				if (Node.NAME.equals(objectType)) {
+					switch (c) {
+					case UP: iconId = R.attr.node_up; break;
+					case DOWN: iconId = R.attr.node_down; break;
+					case BOTH: iconId = R.attr.node_both; break; 
+					default: iconId = R.attr.node_small; break;
+					}
+				} else if (Way.NAME.equals(objectType)) {
+					switch (c) {
+					case UP: iconId = R.attr.line_up; break;
+					case DOWN: iconId = R.attr.line_down; break;
+					case BOTH: iconId = R.attr.line_both; break;
+					case RING: iconId = R.attr.ring; break;
+					case RING_TOP: iconId = R.attr.ring_top; break;
+					case RING_BOTTOM: iconId = R.attr.ring_bottom; break;
+					case CLOSEDWAY: iconId = R.attr.closedway; break;
+					case CLOSEDWAY_UP: iconId = R.attr.closedway_up; break;
+					case CLOSEDWAY_DOWN: iconId = R.attr.closedway_down; break;
+					case CLOSEDWAY_BOTH: iconId = R.attr.closedway_both; break;
+					case CLOSEDWAY_RING: iconId = R.attr.closedway_ring; break;
+					default: iconId = R.attr.line_small; break;
+					}
+				} else if (Relation.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.relation_small));
+				} else {
+					// don't know yet
+				}
+				typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,iconId));
+			} else {
+				if (Node.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_node_small));
+				} else if (Way.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_line_small));
+				} else if (Relation.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_line_small));
+				} else {
+					// don't know yet
+				}
+			}	
+		}
+		
+		public Node getUnusedEnd() {
+			OsmElement e = rmd.getElement();
+			if (e != null && e instanceof Way) {
+				Node first = ((Way)e).getFirstNode();
+				Node last = ((Way)e).getLastNode();
+				if (up != null && down == null) {
+					return up.equals(first) ? last : first;
+				}
+				if (up == null && down != null) {
+					return down.equals(first) ? last : first;
+				}
+			}
+			return null;
+		}
+		
 		public long getOsmId() {
-			return elementId;
+			return rmd.getRef();
 		}
 		
 		public String getRole() {
 			return roleEdit.getText().toString();
 		}
-		
 		
 		/**
 		 * Deletes this row
@@ -382,6 +659,10 @@ public class RelationMembersFragment extends SherlockFragment implements
 		@Override
 		public boolean isSelected() {
 			return selected.isChecked();
+		}
+		
+		public void select() {
+			selected.setChecked(true);
 		}
 		
 		@Override
@@ -417,12 +698,12 @@ public class RelationMembersFragment extends SherlockFragment implements
 		}
 	}
 
-	protected synchronized void memberSelected() {
-		LinearLayout rowLayout = (LinearLayout) getOurView();
+	protected synchronized void memberSelected(LinearLayout rowLayout) {
 		if (memberSelectedActionModeCallback == null) {
 			memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, rowLayout);
 			((SherlockFragmentActivity)getActivity()).startActionMode(memberSelectedActionModeCallback);
 		}	
+		memberSelectedActionModeCallback.invalidate();
 	}
 	
 	@Override
@@ -430,6 +711,8 @@ public class RelationMembersFragment extends SherlockFragment implements
 		if (memberSelectedActionModeCallback != null) {
 			if (memberSelectedActionModeCallback.rowsDeselected(true)) {
 				memberSelectedActionModeCallback = null;
+			} else {
+				memberSelectedActionModeCallback.invalidate();
 			}
 		}	
 	}
@@ -475,7 +758,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 		for (int i = 0; i < size; ++i) { // -> avoid header 
 			View view = relationMembersLayout.getChildAt(i);
 			RelationMemberRow row = (RelationMemberRow)view;
-			handler.handleRelationMember(row.typeView, row.elementId, row.roleEdit, row.elementView);
+			handler.handleRelationMember(row.typeView, row.rmd.getRef(), row.roleEdit, row.elementView);
 		}
 	}
 	
@@ -540,8 +823,10 @@ public class RelationMembersFragment extends SherlockFragment implements
 	/**
 	 * reload original arguments
 	 */
+	@SuppressWarnings("unchecked")
 	void doRevert() {
 		loadMembers((ArrayList<RelationMemberDescription>)getArguments().getSerializable("members"));
+		setIcons();
 	}
 	
 	@Override
@@ -576,6 +861,10 @@ public class RelationMembersFragment extends SherlockFragment implements
 				}
 			});
 		}
+	}
+	
+	long getOsmId() {
+		return id;
 	}
 	
 	/**

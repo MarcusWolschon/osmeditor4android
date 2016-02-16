@@ -185,6 +185,9 @@ public class OsmParser extends DefaultHandler {
 			}
 			else if (isRelation(name)) {
 				currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, status);
+				if (nodeIndex==null) {
+					nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
+				}
 				if (wayIndex==null) {
 					wayIndex = storage.getWayIndex(); // !!!!! this will fail if input is not ordered
 				}

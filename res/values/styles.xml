@@ -152,6 +152,23 @@
 		<item name="node_small">@drawable/node_small_dark</item>
 		<item name="line_small">@drawable/line_small_dark</item>
 		<item name="relation_small">@drawable/relation_small_dark</item>
+		<item name="node_up">@drawable/node_up_dark</item>
+		<item name="node_down">@drawable/node_down_dark</item>
+		<item name="node_both">@drawable/node_both_dark</item>
+		<item name="line_up">@drawable/line_up_dark</item>
+		<item name="line_down">@drawable/line_down_dark</item>
+		<item name="line_both">@drawable/line_both_dark</item>
+		<item name="closedway">@drawable/closedway_dark</item>
+		<item name="closedway_up">@drawable/closedway_up_dark</item>
+		<item name="closedway_down">@drawable/closedway_down_dark</item>
+		<item name="closedway_both">@drawable/closedway_both_dark</item>
+		<item name="closedway_ring">@drawable/closedway_ring_dark</item>
+		<item name="ring">@drawable/ring_dark</item>
+		<item name="ring_top">@drawable/ring_top_dark</item>
+		<item name="ring_bottom">@drawable/ring_bottom_dark</item>
+		<item name="not_downloaded_node_small">@drawable/node_small_dark</item>
+		<item name="not_downloaded_line_small">@drawable/line_small_dark</item>
+		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
 	</style>
 	
 	<style name="TagEditorActionBar" parent="Widget.Sherlock.ActionBar.Solid" />
@@ -263,6 +280,23 @@
 		<item name="node_small">@drawable/node_small_light</item>
 		<item name="line_small">@drawable/line_small_light</item>
 		<item name="relation_small">@drawable/relation_small_light</item>
+		<item name="node_up">@drawable/node_up_light</item>
+		<item name="node_down">@drawable/node_down_light</item>
+		<item name="node_both">@drawable/node_both_light</item>
+		<item name="line_up">@drawable/line_up_light</item>
+		<item name="line_down">@drawable/line_down_light</item>
+		<item name="line_both">@drawable/line_both_light</item>
+		<item name="closedway">@drawable/closedway_light</item>
+		<item name="closedway_up">@drawable/closedway_up_light</item>
+		<item name="closedway_down">@drawable/closedway_down_light</item>
+		<item name="closedway_both">@drawable/closedway_both_light</item>
+		<item name="closedway_ring">@drawable/closedway_ring_light</item>
+		<item name="ring">@drawable/ring_light</item>
+		<item name="ring_top">@drawable/ring_top_light</item>
+		<item name="ring_bottom">@drawable/ring_bottom_light</item>
+		<item name="not_downloaded_node_small">@drawable/node_small_dark</item>
+		<item name="not_downloaded_line_small">@drawable/line_small_dark</item>
+		<item name="not_downloaded_relation_small">@drawable/relation_small_dark</item>
 	</style>
 
 	<style name="TagEditorActionBarLight" parent="Widget.Sherlock.Light.ActionBar.Solid" />

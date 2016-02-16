@@ -127,4 +127,10 @@ public class SelectedRowsActionModeCallback implements Callback {
 		return true;
 	}
 
+	public void invalidate() {
+		if (currentAction != null) {
+			currentAction.invalidate();
+		}
+	}
+
 }

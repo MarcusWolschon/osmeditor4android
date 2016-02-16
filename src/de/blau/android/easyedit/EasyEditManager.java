@@ -2132,6 +2132,7 @@ public class EasyEditManager {
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			helpTopic = R.string.help_multiselect;
 			mode.setTitle(R.string.actionmode_multiselect);
+			mode.setSubtitle("");
 			super.onCreateActionMode(mode, menu);
 			logic.setReturnRelations(true); // can add relations
 			setClickableElements();
