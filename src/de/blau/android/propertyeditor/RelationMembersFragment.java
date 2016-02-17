@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
@@ -101,6 +102,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	 * display member elements of the relation if any
 	 * @param members 
 	 */
+    @SuppressLint("InflateParams")
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -207,9 +209,9 @@ public class RelationMembersFragment extends SherlockFragment implements
 		RelationMemberRow row = null; 
 		
 		if (rmd.downloaded()) {
-			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_downloaded_row, null);
+			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_downloaded_row, membersVerticalLayout, false);
 		} else {
-			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_row, null);
+			row = (RelationMemberRow)inflater.inflate(R.layout.relation_member_row, membersVerticalLayout, false);
 		}
 		
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping

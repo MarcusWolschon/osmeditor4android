@@ -473,6 +473,10 @@ public class RelationMembershipFragment extends SherlockFragment implements
 	 */
 	private void processParentRelations(final ParentRelationHandler handler) {
 		LinearLayout membershipVerticalLayout = (LinearLayout) getOurView();
+		if (membershipVerticalLayout == null) {
+			Log.e(DEBUG_TAG,"unable to process parent relations");
+			return;
+		}
 		final int size = membershipVerticalLayout.getChildCount();
 		for (int i = 0; i < size; ++i) { 
 			View view = membershipVerticalLayout.getChildAt(i);

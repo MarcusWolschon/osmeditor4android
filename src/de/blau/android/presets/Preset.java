@@ -175,6 +175,8 @@ public class Preset implements Serializable {
 	protected final MultiHashMap<String, StringWithDescription> autosuggestWays = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
 	protected final MultiHashMap<String, StringWithDescription> autosuggestClosedways = new MultiHashMap<String, StringWithDescription>(true);
+	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to areas (MPs)) */
+	protected final MultiHashMap<String, StringWithDescription> autosuggestAreas = new MultiHashMap<String, StringWithDescription>(true);
 	/** Maps all possible keys to the respective values for autosuggest (only key/values applying to closed ways) */
 	protected final MultiHashMap<String, StringWithDescription> autosuggestRelations = new MultiHashMap<String, StringWithDescription>(true);
 	
@@ -896,7 +898,7 @@ public class Preset implements Serializable {
 				filteredElements.add(e);
 			} else if ((e instanceof PresetSeparator) && !filteredElements.isEmpty() &&
 					!(filteredElements.get(filteredElements.size()-1) instanceof PresetSeparator)) {
-				// add separators iff there is a non-separator element above them
+				// add separators if there is a non-separator element above them
 				filteredElements.add(e);
 			}
 		}
@@ -922,6 +924,7 @@ public class Preset implements Serializable {
 		protected boolean appliesToNode;
 		protected boolean appliesToClosedway;
 		protected boolean appliesToRelation;
+		protected boolean appliesToArea;
 		private String mapFeatures;
 
 		/**
@@ -1044,12 +1047,13 @@ public class Preset implements Serializable {
 				case WAY: return appliesToWay;
 				case CLOSEDWAY: return appliesToClosedway;
 				case RELATION: return appliesToRelation;
+				case AREA: return appliesToArea;
 			}
 			return true; // should never happen
 		}
 
 		/**
-		 * Recursivly sets the flag indicating that this element is relevant for nodes
+		 * Recursively sets the flag indicating that this element is relevant for nodes
 		 */
 		protected void setAppliesToNode() {
 			if (!appliesToNode) {
@@ -1059,7 +1063,7 @@ public class Preset implements Serializable {
 		}
 		
 		/**
-		 * Recursivly sets the flag indicating that this element is relevant for nodes
+		 * Recursively sets the flag indicating that this element is relevant for nodes
 		 */
 		protected void setAppliesToWay() {
 			if (!appliesToWay) {
@@ -1069,7 +1073,7 @@ public class Preset implements Serializable {
 		}
 		
 		/**
-		 * Recursivly sets the flag indicating that this element is relevant for nodes
+		 * Recursively sets the flag indicating that this element is relevant for nodes
 		 */
 		protected void setAppliesToClosedway() {
 			if (!appliesToClosedway) {
@@ -1079,12 +1083,22 @@ public class Preset implements Serializable {
 		}
 		
 		/**
-		 * Recursivly sets the flag indicating that this element is relevant for nodes
+		 * Recursively sets the flag indicating that this element is relevant for relations
 		 */
 		protected void setAppliesToRelation() {
 			if (!appliesToRelation) {
 				appliesToRelation = true;
 				if (parent != null) parent.setAppliesToRelation();
+			}
+		}
+		
+		/**
+		 * Recursively sets the flag indicating that this element is relevant for an area
+		 */
+		protected void setAppliesToArea() {
+			if (!appliesToArea) {
+				appliesToArea = true;
+				if (parent != null) parent.setAppliesToArea();
 			}
 		}
 		
@@ -1104,7 +1118,7 @@ public class Preset implements Serializable {
 		
 		@Override
 		public String toString() {
-			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation;
+			return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation + " " + appliesToArea;
 		}
 	}
 	
@@ -1286,12 +1300,15 @@ public class Preset implements Serializable {
 				setAppliesToWay();
 				setAppliesToClosedway();
 				setAppliesToRelation();
+				setAppliesToArea();
 			} else {
 				String[] typesArray = types.split(",");
 				for (String type : typesArray) {
 					if (Node.NAME.equals(type)) setAppliesToNode();
 					else if (Way.NAME.equals(type)) setAppliesToWay();
-					else if ("closedway".equals(type)) setAppliesToClosedway();
+					else if ("closedway".equals(type)) setAppliesToClosedway(); // FIXME don't add if it really an area
+					else if ("multipolygon".equals(type)) setAppliesToArea();
+					else if ("area".equals(type)) setAppliesToArea(); // 
 					else if (Relation.NAME.equals(type)) setAppliesToRelation();
 				}
 			}	
@@ -1367,6 +1384,7 @@ public class Preset implements Serializable {
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
 			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
+			if (appliesTo(ElementType.AREA)) autosuggestAreas.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);			
 		}
 		
 		/**
@@ -1414,6 +1432,7 @@ public class Preset implements Serializable {
 			if (appliesTo(ElementType.WAY)) autosuggestWays.add(key, valueArray);
 			if (appliesTo(ElementType.CLOSEDWAY)) autosuggestClosedways.add(key, valueArray);
 			if (appliesTo(ElementType.RELATION)) autosuggestRelations.add(key, valueArray);
+			if (appliesTo(ElementType.AREA)) autosuggestAreas.add(key, valueArray);
 			
 			(optional ? optionalTags : recommendedTags).put(key, valueArray);
 		}
@@ -1881,7 +1900,7 @@ public class Preset implements Serializable {
 				}
 				result = result + "\"node\"";
 			}
-			if (appliesToWay || appliesToClosedway) {
+			if (appliesToWay || appliesToClosedway || appliesToArea) {
 				if (appliesToRelation) {
 					result = result + ",";
 				}
@@ -1951,6 +1970,7 @@ public class Preset implements Serializable {
 				case WAY: result.addAll(p.autosuggestWays.getKeys()); break;
 				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.getKeys()); break;
 				case RELATION: result.addAll(p.autosuggestRelations.getKeys()); break;
+				case AREA: result.addAll(p.autosuggestAreas.getKeys()); break;
 				default: return null; // should never happen, all cases are covered
 				}
 			}
@@ -1969,6 +1989,7 @@ public class Preset implements Serializable {
 				case WAY: result.addAll(p.autosuggestWays.get(key)); break;
 				case CLOSEDWAY: result.addAll(p.autosuggestClosedways.get(key)); break;
 				case RELATION: result.addAll(p.autosuggestRelations.get(key)); break;
+				case AREA: result.addAll(p.autosuggestAreas.get(key)); break;
 				default: return Collections.emptyList();
 				}
 			}

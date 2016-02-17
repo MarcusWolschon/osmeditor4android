@@ -45,6 +45,7 @@ import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
@@ -66,7 +67,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author simon
  */
 public class PropertyEditor extends SherlockFragmentActivity implements 
-		 OnPresetSelectedListener, EditorUpdate, FormUpdate, NameAdapters {
+		 OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetFilterUpdate, NameAdapters {
 	private static final String PRESET_FRAGMENT = "preset_fragment";
 	private static final String RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 	
@@ -956,6 +957,18 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			Log.e(DEBUG_TAG,"tagFormFragment is null");
 		}	
 	}
+	
+
+	@Override
+	public void typeUpdated(ElementType type) {
+		if (presetFragment != null) {
+			presetFragment.typeUpdated(type);
+		} else {
+			Log.e(DEBUG_TAG,"presetFragment is null");
+		}	
+		
+	}
+	
 	
 	/**
 	 * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.

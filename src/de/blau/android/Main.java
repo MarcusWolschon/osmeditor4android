@@ -2716,6 +2716,13 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			case RELATION:
 				logic.setSelectedRelation((Relation) e);
 				break;
+			case AREA:
+				if (Way.NAME.equals(e.getName())) {
+					logic.setSelectedWay((Way) e);
+				} else {
+					logic.setSelectedRelation((Relation) e);
+				}
+				break;
 		}
 		if (getLogic().getMode()==Mode.MODE_EASYEDIT) {
 			easyEditManager.editElement(e);

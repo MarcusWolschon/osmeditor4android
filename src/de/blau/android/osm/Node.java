@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -116,6 +117,11 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 	@Override
 	public ElementType getType() {
 		return ElementType.NODE;
+	}
+	
+	@Override
+	public ElementType getType(Map<String,String> tags) {
+		return getType();
 	}
 	
 	public double getDistance(final int[] location) {

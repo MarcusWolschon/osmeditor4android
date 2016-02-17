@@ -57,6 +57,7 @@ import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -122,6 +123,8 @@ public class TagEditorFragment extends SherlockFragment implements
 
 	private FormUpdate formUpdate;
 	
+	private PresetFilterUpdate presetFilterUpdate;
+	
 	/**
 	 * Interface for handling the key:value pairs in the TagEditor.
 	 * @author Andrew Gregory
@@ -182,8 +185,9 @@ public class TagEditorFragment extends SherlockFragment implements
         try {
             nameAdapters = (NameAdapters) activity;
             formUpdate = (FormUpdate) activity;
+            presetFilterUpdate = (PresetFilterUpdate) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement NameAdapters");
+            throw new ClassCastException(activity.toString() + " must implement NameAdapters. FormUpdate and PresetFilterUpdate");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
@@ -452,6 +456,15 @@ public class TagEditorFragment extends SherlockFragment implements
     	// update hints
     	for (int i = 0; i < rowLayout.getChildCount()-1; i++) { // don't update empty row at end
     		setHint((TagEditRow) rowLayout.getChildAt(i));
+    	}
+    	
+    	if (elements.length == 1) {
+    		// update element type for preset filter if necessary
+    		ElementType newType = elements[0].getType(allTags); 
+    		ElementType oldType = elements[0].getType();
+    		if (newType != oldType) {
+    			presetFilterUpdate.typeUpdated(newType);
+    		}
     	}
 	}
 	

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -11,6 +12,7 @@ import android.content.Context;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.rtree.BoundedObject;
@@ -323,9 +325,17 @@ public class Relation extends OsmElement implements BoundedObject {
 
 	@Override
 	public ElementType getType() {
-		return ElementType.RELATION;
+		return getType(tags);
 	}
 
+	@Override
+	public ElementType getType(Map<String,String> tags) {
+		if (hasTag(tags, Tags.KEY_TYPE,Tags.VALUE_MULTIPOLYGON) || hasTag(tags, Tags.KEY_TYPE,Tags.VALUE_BOUNDARY)) {
+			return ElementType.AREA;
+		}
+		return ElementType.RELATION;
+	}
+	
 	/**
 	 * return a list of the downloaded elements
 	 * @return

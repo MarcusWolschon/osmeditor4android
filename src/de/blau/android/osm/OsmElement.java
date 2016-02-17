@@ -27,7 +27,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7711945069147743668L;
+	private static final long serialVersionUID = 7711945069147743670L;
 	
 	/**
 	 * An array of tags considered 'important' and distinctive enough to be shown as part of
@@ -172,6 +172,20 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return true if the element has a tag with this key and value.
 	 */
 	public boolean hasTag(final String key, final String value) {
+		if (tags == null) {
+			return false;
+		}
+		String keyValue = tags.get(key);
+		return keyValue != null && keyValue.equals(value);
+	}
+	
+	/**
+	 * @param tags tags to use instead of the standard ones
+	 * @param key the key to search for (case sensitive)
+	 * @param value the value to search for (case sensitive)
+	 * @return true if the element has a tag with this key and value.
+	 */
+	public boolean hasTag(final Map<String,String> tags, final String key, final String value) {
 		if (tags == null) {
 			return false;
 		}
@@ -483,12 +497,20 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 	 * @return the {@link ElementType} of the element */
 	public abstract ElementType getType();
 	
-	/** Enum for element types (Node, Way, Closedway) */
+	/**
+	 * Version of above that uses a potential different set of tags
+	 * @param tags
+	 * @return
+	 */
+	public abstract ElementType getType(Map<String, String>tags);
+	
+	/** Enum for element types (Node, Way, Closed Ways, Relations, Areas (MPs) */
 	public enum ElementType {
 		NODE,
 		WAY,
 		CLOSEDWAY,
-		RELATION
+		RELATION,
+		AREA
 	}
 
 	/**

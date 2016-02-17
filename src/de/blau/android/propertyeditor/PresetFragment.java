@@ -1,7 +1,7 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,16 +18,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
@@ -35,7 +34,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SearchIndexUtils;
 
-public class PresetFragment extends SherlockFragment implements PresetClickHandler {
+public class PresetFragment extends SherlockFragment implements PresetFilterUpdate, PresetClickHandler {
 	
 	private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 	
@@ -51,8 +50,8 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
     
     OnPresetSelectedListener mListener;
 	
-	/** The OSM element to which the preset will be applied (used for filtering) */
-	private OsmElement element;
+	/** The type of OSM element to which the preset will be applied (used for filtering) */
+	private ElementType type;
 	
 	private PresetGroup currentGroup;
 	private PresetGroup rootGroup;
@@ -93,14 +92,16 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
     }
     
     
-    @Override
+    @SuppressLint("InflateParams")
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 //       	if (presetView != null) {
 //    		Log.d(DEBUG_TAG, "onCreateView recalled but we still have a view");
 //    		return presetView;
 //    	}
-        element = (OsmElement) getArguments().getSerializable("element");
+    	OsmElement element = (OsmElement) getArguments().getSerializable("element");
+    	type = element.getType();
         Preset[] presets = Application.getCurrentPresets(getActivity());
         Log.d(DEBUG_TAG,"presets size " + (presets==null ? " is null": presets.length));
     	
@@ -147,7 +148,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      				        ft.remove(prev);
      				    }
      				    ft.commit();
-     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),element.getType(),3,10));
+     				    ArrayList<PresetItem> searchResults = new ArrayList<PresetItem>(SearchIndexUtils.searchInPresets(getActivity(), v.getText().toString(),type,3,10));
      				    if (searchResults == null || searchResults.size() == 0) {
      				    	Toast.makeText(getActivity(), R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
      				    	return true;
@@ -164,9 +165,19 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
      	
 		return presetPaneLayout;
     }
+
+	@Override
+	public void typeUpdated(ElementType type) {
+	   	this.type = type;
+    	LinearLayout presetLayout = (LinearLayout) getOurView().getParent();
+    	if (presetLayout != null) {
+    		presetLayout.removeAllViews();
+    		presetLayout.addView(getPresetView());
+    	}
+	}
 	
 	private View getPresetView() {
-		View view = currentGroup.getGroupView(getActivity(), this, element.getType());
+		View view = currentGroup.getGroupView(getActivity(), this, type);
 		// view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
 		// view.setOnKeyListener(this);
 		view.setId(VIEW_ID);
@@ -205,7 +216,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	}
 	    
 	/**
-	 * If this is not the root group, back goes one group up, otherwise, the default is triggered (cancelling the dialog)
+	 * If this is not the root group, back goes one group up, otherwise, the default is triggered (canceling the dialog)
 	 */
 //	@Override
 //	public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -253,7 +264,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 	public void onGroupClick(PresetGroup group) {
 		ScrollView scrollView = (ScrollView) getOurView();
 		currentGroup = group;
-		currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
+		currentGroup.getGroupView(getActivity(), scrollView, this, type);
 		scrollView.invalidate();
 	}
 	
@@ -282,7 +293,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 		case R.id.preset_menu_top:
 			if (rootGroup != null) {
 				currentGroup = rootGroup;
-				currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
+				currentGroup.getGroupView(getActivity(), scrollView, this, type);
 				scrollView.invalidate();
 				return true;
 			}
@@ -292,7 +303,7 @@ public class PresetFragment extends SherlockFragment implements PresetClickHandl
 				PresetGroup group = currentGroup.getParent();
 				if (group != null) {
 					currentGroup = group;
-					currentGroup.getGroupView(getActivity(), scrollView, this, element.getType());
+					currentGroup.getGroupView(getActivity(), scrollView, this, type);
 					scrollView.invalidate();
 					return true;
 				}

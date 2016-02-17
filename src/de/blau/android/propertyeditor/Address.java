@@ -75,10 +75,15 @@ public class Address implements Serializable {
 			break;
 		case WAY:
 		case CLOSEDWAY:
-			double[] center = Logic.centroidLonLat((Way)e);
-			if (center != null) { 
-				lat = (float) center[1];
-				lon = (float) center[0];
+		case AREA:
+			if (Way.NAME.equals(e.getName())) {
+				double[] center = Logic.centroidLonLat((Way)e);
+				if (center != null) { 
+					lat = (float) center[1];
+					lon = (float) center[0];
+				}
+			} else {
+				// MP and maybe one day an area type
 			}
 			break;
 		case RELATION:

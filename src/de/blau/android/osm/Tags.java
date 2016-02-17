@@ -1,5 +1,10 @@
 package de.blau.android.osm;
 
+/**
+ * Key and value constants for tags that are using in the code
+ * @author simon
+ *
+ */
 public class Tags {
 	// Karlsruher schema
 	public static final String KEY_ADDR_BASE = "addr:";
@@ -72,6 +77,7 @@ public class Tags {
 	public static final String VALUE_BUILDING = "building";
 	public static final String VALUE_ROUTE = "route";
 	public static final String VALUE_MULTIPOLYGON = "multipolygon";
+	public static final String VALUE_BOUNDARY = "boundary";
 	public static final String KEY_BOUNDARY = "boundary";
 	
 	//
