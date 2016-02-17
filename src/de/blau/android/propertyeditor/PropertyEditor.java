@@ -326,7 +326,7 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 			}
 		}
 		
-		mViewPager.setOffscreenPageLimit(3); // FIXME currently this is required or else some of the logic between the fragments will not work
+		mViewPager.setOffscreenPageLimit(4); // FIXME currently this is required or else some of the logic between the fragments will not work
 		mViewPager.setAdapter(propertyEditorPagerAdapter);
 		mViewPager.addOnPageChangeListener(new PageChangeListener());
 		mViewPager.setCurrentItem(currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : (formEnabled ? tagFormFragmentPosition : tagEditorFragmentPosition)));
