@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -131,14 +132,24 @@ public class Search {
 		
 		@Override
 		protected ArrayList<SearchResult> doInBackground(String... params) {
-	    	
 			BoundingBox bbox = Application.mainActivity.getMap().getViewBox();
-			
+			String viewBoxCoordinates =
+					bbox.getLeft() + "," +
+					bbox.getBottom() + "," +
+					bbox.getRight() + "," +
+					bbox.getTop();
+			String query = params[0];
+			Uri uriBuilder = Uri
+					.parse(NOMINATIM_SERVER)
+					.buildUpon()
+					.appendPath("search")
+					.appendQueryParameter("q", query)
+					.appendQueryParameter("viewboxlbrt", viewBoxCoordinates)
+					.appendQueryParameter("format", "jsonv2")
+					.build();
+			String urlString = uriBuilder.toString();
+			Log.d("Search", "urlString " + urlString);
 			try {
-				String query = params[0];
-				String urlString = NOMINATIM_SERVER + "search?q=" + URLEncoder.encode(query,"UTF-8") 
-						+ "&viewboxlbrt="+bbox.getLeft()+","+bbox.getBottom()+","+bbox.getRight()+","+bbox.getTop()+"&format=jsonv2";
-				Log.d("Search","urlString " + urlString);
 				URL url = new URL(urlString);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestProperty("User-Agent", Application.userAgent);
