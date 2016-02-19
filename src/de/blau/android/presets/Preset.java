@@ -1143,6 +1143,7 @@ public class Preset implements Serializable {
 					else if (Way.NAME.equals(type)) setAppliesToWay();
 					else if ("closedway".equals(type)) setAppliesToClosedway();
 					else if (Relation.NAME.equals(type)) setAppliesToRelation();
+					else if ("multipolygon".equals(type)) setAppliesToRelation();
 				}
 			}	
 			itemIndex = allItems.size();
