@@ -1080,7 +1080,8 @@
                 <reference ref="name_layer" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
-                <combo key="foot" text="Pedestrians" values="yes,no" />
+                <combo key="foot" text="Pedestrians" values="designated,yes,no" />
+                <check key="segregated" text="Segregated" disable_off="true" />
             </optional>
         </item> <!-- Dedicated Cycleway -->
         <item name="Segregated Foot- and Cycleway" icon="icons/png/segregated_foot_and_cycleway.png" type="way,closedway" preset_name_label="true">
@@ -1132,7 +1133,8 @@
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline" />
                 <check key="lit" text="Lit" disable_off="true" />
-                <check key="bicycle" text="Bicycle" disable_off="true" />
+                <combo key="bicycle" text="Bicycle" values="designated,yes,no" />
+                <check key="segregated" text="Segregated" disable_off="true" />
                 <text key="width" text="Width (meters)" />
             </optional>
         </item> <!-- Dedicated Footway -->
@@ -1333,7 +1335,7 @@
                 <space />
                 <key key="traffic_calming" value="bump" />
             </item> <!-- Bump -->
-            <item name="Chicane" icon="styles/standard/vehicle/chicane.svg" type="node,way" preset_name_label="true">
+            <item name="Chicane" icon="icons/png/transport_chicane_18042.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -1349,7 +1351,7 @@
                 <space />
                 <key key="traffic_calming" value="chicane" />
             </item> <!-- Chicane -->
-            <item name="Choker" icon="styles/standard/vehicle/choker.svg" type="node,way" preset_name_label="true">
+            <item name="Choker" icon="icons/png/transport_choker_18043.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -1365,7 +1367,7 @@
                 <space />
                 <key key="traffic_calming" value="choker" />
             </item> <!-- Choker -->
-            <item name="Cushion" icon="styles/standard/vehicle/cushion.svg" type="node,way" preset_name_label="true">
+            <item name="Cushion" icon="icons/png/transport_cushion_18044.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -1381,7 +1383,7 @@
                 <space />
                 <key key="traffic_calming" value="cushion" />
             </item> <!-- Cushion -->
-            <item name="Hump" icon="styles/standard/vehicle/hump.svg" type="node,way" preset_name_label="true">
+            <item name="Hump" icon="icons/png/transport_hump_18045.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -1397,7 +1399,7 @@
                 <space />
                 <key key="traffic_calming" value="hump" />
             </item> <!-- Hump -->
-            <item name="Island" name_context="traffic_calming" icon="styles/standard/vehicle/island.svg" type="node,way" preset_name_label="true">
+            <item name="Island" name_context="traffic_calming" icon="icons/png/transport_island_18046.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -1413,7 +1415,7 @@
                 <space />
                 <key key="traffic_calming" value="island" />
             </item> <!-- Island -->
-            <item name="Rumble strip" icon="styles/standard/vehicle/rumble_strip.svg" type="node,way" preset_name_label="true">
+            <item name="Rumble strip" icon="icons/png/transport_rumble_strip_18047.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -1429,7 +1431,7 @@
                 <space />
                 <key key="traffic_calming" value="rumble_strip" />
             </item> <!-- Rumble strip -->
-            <item name="Table" icon="styles/standard/vehicle/table.svg" type="node,way" preset_name_label="true">
+            <item name="Table" name_context="traffic_calming" icon="icons/png/transport_table_18048.png" type="node,way" preset_name_label="true">
                 <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_calming"
                       cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:traffic_calming"
                       de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_calming"
@@ -2204,7 +2206,7 @@
             </optional>
             <reference ref="water_access" />
         </item> <!-- River -->
-        <item name="Canal" icon="presets/waterway.png" type="way" preset_name_label="true">
+        <item name="Canal" icon="icons/png/water_canal_34001.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:waterway=canal"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:waterway=canal"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:waterway=canal"
@@ -3933,7 +3935,7 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Cafe -->
-        <item name="Ice cream" icon="styles/standard/food/icecream.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Ice cream" icon="icons/png/amenity_ice_cream_12077.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:ice_cream" />
             <space />
             <key key="amenity" value="ice_cream" />
@@ -5556,7 +5558,7 @@
                 <text key="description" text="Description" />
             </optional>
         </item> <!-- Drinking Water -->
-        <item name="Water Point" icon="styles/standard/accommodation/camping/water.png" type="node" preset_name_label="true">
+        <item name="Water Point" icon="icons/png/amenity_water_point_34025.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=water_point" />
             <space />
             <key key="amenity" value="water_point" />
@@ -6377,7 +6379,7 @@
                 <text key="height" text="Height (meters)" length="7" />
             </optional>
         </item> <!-- Gasometer -->
-        <item name="Silo" icon="presets/silo.png" type="node,closedway" preset_name_label="true">
+        <item name="Silo" icon="icons/png/man_made_silo_22049.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=silo" />
             <space />
             <key key="man_made" value="silo" />
@@ -7816,7 +7818,7 @@
             <reference ref="name_brand_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Kitchen -->
-        <item name="Houseware" icon="styles/standard/shop/houseware.svg" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Houseware" icon="icons/png/shopping_houseware_29181.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=houseware"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=houseware"
                   es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:shop=houseware"
