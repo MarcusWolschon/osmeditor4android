@@ -482,10 +482,8 @@
     <string name="undo_action_fix_conflict">fix conflict</string>
     <string name="undo_action_extract_node">extract node</string>
     <!--  ACRA -->
-    <string name="crash_notif_ticker_text">Vespucci has crashed or found a serious issue. Please send an error report.</string>
-    <string name="crash_notif_title">Vespucci has crashed or found a serious issue.</string>
-    <string name="crash_notif_text">Please click here to help fix the issue.</string>
-    <string name="crash_dialog_text">An unexpected issue occurred forcing the application to stop or report an error. Please help us fix this by sending us error data, all you have to do is click \'OK\'. If the error has occurred more than once, please open an issue on github.com.</string>
+    <string name="crash_dialog_text">Vespucci crashed or found a serious issue the last time it ran.\n\nPlease help us by sending an error report, all you have to do is click \'OK\'.\n</string>
+    <string name="crash_dialog_comment_prompt">Add any further information you believe might help and (optional) your e-mail address if you want feedback.\n\nThank you!</string>
     <string name="config_category_acra">Crash Reporting</string>
     <string name="pref_enable_acra">Report application crashes</string>
     <string name="pref_acra_enabled">Crash reporting enabled</string>

@@ -113,12 +113,17 @@
 		    android:theme="@style/Theme.customHelpViewer" 
 		/>
 		<activity
-			android:name="org.acra.CrashReportDialog"
+			android:name="org.acra.dialog.CrashReportDialog"
 			android:theme="@android:style/Theme.Dialog"
+			android:process=":error_report"
 			android:launchMode="singleInstance"
 			android:excludeFromRecents="true"
 			android:finishOnTaskLaunch="true"
 		/>
+		<service
+            android:name="org.acra.sender.SenderService"
+            android:exported="false"
+            android:process=":acra" />
 		
 		<!-- Service to download tiles -->
 		<service
