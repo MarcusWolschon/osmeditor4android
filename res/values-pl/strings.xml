@@ -447,7 +447,6 @@
   <string name="undo">Cofnij</string>
   <string name="redo">Ponów</string>
   <string name="undo_nothing">nie ma nic do cofnięcia</string>
-  <string name="tracking_active_title">Vespucci działa teraz w tle</string>
   <string name="tracking_active_text">Vespucci nagrywa ścieżkę GPS lub automatycznie pobiera dane</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -477,10 +476,6 @@
   <string name="undo_action_fix_conflict">napraw konflikt</string>
   <string name="undo_action_extract_node">wydziel węzeł</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci miał awarię. Proszę wyślij raport błędu.</string>
-  <string name="crash_notif_title">Vespucci uległ awarii lub napotkał na poważny błąd.</string>
-  <string name="crash_notif_text">Proszę kliknij tutaj aby pomóc naprawić ten błąd.</string>
-  <string name="crash_dialog_text">Wystąpił nieoczekiwany błąd który zmusił aplikację do zamknięcia. Proszę pomóż nam naprawić go wysyłając dane o nim, jedne co musisz zrobić to kliknąć \'OK\'. Jeśli błąd wystąpił więcej niż jeden raz, prosimy o zgłoszenie go na github.com.</string>
   <string name="config_category_acra">Zgłaszanie awarii</string>
   <string name="pref_enable_acra">Zgłoś awarie aplikacji</string>
   <string name="pref_acra_enabled">Zgłaszanie awarii włączone</string>

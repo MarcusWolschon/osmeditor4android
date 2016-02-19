@@ -45,7 +45,7 @@
   <string name="progress_deleting_message">Löschen...</string>
   <string name="progress_searching_message">Am Suchen...</string>
   <string name="progress_saving_message">Am Speichern...</string>
-  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Authorisierung...</string>
+  <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Autorisierung...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="upload_close_changeset_label">Changeset schliessen</string>
@@ -143,7 +143,7 @@
   <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
   <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
-  <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstüzt</string>
+  <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstützt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
   <string name="toast_no_voice">Keine Spracherkennung vorhanden</string>
@@ -261,7 +261,10 @@
   <string name="menu_transfer_bugs">Notizen/Fehler...</string>
   <string name="menu_transfer_bugs_download_current">Fehler/Notizen für die aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_bugs_upload">Alle hochladen</string>
+  <string name="menu_transfer_bugs_upload_long">Alle Hinweise/Bugs hochladen</string>
   <string name="menu_transfer_bugs_clear">Zurücksetzten</string>
+  <string name="menu_transfer_bugs_clear_long">Hinweise/Bugs zurücksetzen</string>
+  <string name="menu_transfer_autodownload_long">Automatischer Download von Hinweisen/Bugs</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -291,7 +294,7 @@
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
-  <string name="menu_tools_oauth_authorisation">OAuth-Zugriff authorisieren</string>
+  <string name="menu_tools_oauth_authorisation">OAuth-Zugriff autorisieren</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschaften</string>
   <!--Text should be as short as possible-->
@@ -447,7 +450,7 @@
   <string name="undo">Rückgängig</string>
   <string name="redo">Wiederholen</string>
   <string name="undo_nothing">Nichts rückgängig zu machen</string>
-  <string name="tracking_active_title">Hintergrundprozess von Vespucci aktiv</string>
+  <string name="tracking_active_title">Vespucci Hintergrunddienst aktiv</string>
   <string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter</string>
   <string name="gps_failure">Konnte GPS nicht aktivieren</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -477,10 +480,8 @@
   <string name="undo_action_fix_conflict">Konfliktbehebung</string>
   <string name="undo_action_extract_node">Knoten extrahieren</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt. Bitte senden Sie einen Fehlerreport.</string>
-  <string name="crash_notif_title">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.</string>
-  <string name="crash_notif_text">Klicken Sie hier, um bei der Lösung des Problems zu helfen.</string>
-  <string name="crash_dialog_text">Ein unerwarteter Fehler ist aufgetreten. Bitte helfen Sie uns bei der Behebung, indem Sie uns die fehlerbezogenen Daten schicken – Dazu müssen Sie lediglich auf \'OK\' klicken. Falls der Fehler schon einmal aufgetreten ist bitten wir um eine Meldung auf github.com.</string>
+  <string name="crash_dialog_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.\n\nUnterstütze uns mit einem Fehlerreport, einfach \'OK\'. wählen\n</string>
+  <string name="crash_dialog_comment_prompt">Füge weitere Infomationen, und (optional) deine e-Mail Adresse falls du eine Rückmeldung willst, dazu.\n\nDanke!</string>
   <string name="config_category_acra">Fehlerreport</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
   <string name="pref_acra_enabled">Fehlerreport aktiviert</string>

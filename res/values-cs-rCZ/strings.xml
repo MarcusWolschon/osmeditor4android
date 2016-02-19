@@ -181,7 +181,6 @@
   <string name="undo_action_reverse_way">obrátit cestu</string>
   <string name="undo_action_set_tags">nastavit tagy</string>
   <!--ACRA-->
-  <string name="crash_notif_text">Prosím klikněte zde a pomozte nám opravit tuto chybu.</string>
   <string name="config_category_acra">Hlášení pádu</string>
   <string name="pref_enable_acra">Hlásí pády aplikace</string>
   <string name="pref_acra_enabled">Hlášení pádů povoleno</string>

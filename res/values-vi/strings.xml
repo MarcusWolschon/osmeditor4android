@@ -448,7 +448,6 @@
   <string name="undo">Hoàn tác</string>
   <string name="redo">Làm lại</string>
   <string name="undo_nothing">không có gì để hoàn tác</string>
-  <string name="tracking_active_title">Dịch vụ trong nền của Vespucci được kích hoạt</string>
   <string name="tracking_active_text">Vespucci đang thu một tuyến GPS hoặc tải về tự động</string>
   <string name="gps_failure">Thất bại khi kích hoạt GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -478,10 +477,6 @@
   <string name="undo_action_fix_conflict">sửa sự mâu thuẫn</string>
   <string name="undo_action_extract_node">trích nốt</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci đã bị sự cố hoặc gặp một vấn đề đáng kể. Xin vui lòng báo cáo lỗi.</string>
-  <string name="crash_notif_title">Vespucci đã bị sự cố hoặc gặp vấn đề đáng kể.</string>
-  <string name="crash_notif_text">Xin vui lòng nhấn chuột vào đây để giúp giải quyết vấn đề.</string>
-  <string name="crash_dialog_text">Ứng dụng phải ngừng hoặc báo cáo lỗi vì một lỗi bất ngờ. Xin vui lòng gửi các chi tiết về lỗi này cho chúng tôi để giúp chúng tôi khắc phục lỗi. Bạn chỉ việc bấm “OK”.</string>
   <string name="config_category_acra">Báo cáo Sự cố</string>
   <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
   <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>

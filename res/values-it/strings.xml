@@ -433,9 +433,6 @@
   <string name="undo_action_fix_conflict">Risolvi il conflitto</string>
   <string name="undo_action_extract_node">estrai nodo</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci si è chiuso improvvisamente o ha incontrato un problema grave. Invia una segnalazione di errore.</string>
-  <string name="crash_notif_title">Vespucci si è chiuso improvvisamente o ha incontrato un problema grave.</string>
-  <string name="crash_notif_text">Clicca qui per aiutare a risolvere il problema.</string>
   <string name="config_category_acra">Segnalazione crash</string>
   <string name="pref_enable_acra">Segnala i crash dell\'applicazione</string>
   <string name="pref_acra_enabled">Segnalazione crash abilitata</string>

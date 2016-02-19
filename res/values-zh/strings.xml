@@ -420,9 +420,6 @@
   <string name="undo_action_fix_conflict">解决冲突</string>
   <string name="undo_action_extract_node">提取节点</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci已经崩溃或发现一个严重的问题。请发送错误报告。</string>
-  <string name="crash_notif_title">Vespucci已经崩溃或发现一个严重的问题。</string>
-  <string name="crash_notif_text">请点击这里，以帮助解决问题。</string>
   <string name="config_category_acra">崩溃报告</string>
   <string name="pref_enable_acra">报告应用程序崩溃</string>
   <string name="pref_acra_enabled">已启用崩溃报告</string>

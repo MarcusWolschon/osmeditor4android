@@ -151,7 +151,6 @@
   <string name="undo_action_reverse_way">vend vej om</string>
   <string name="undo_action_set_tags">sæt tags</string>
   <!--ACRA-->
-  <string name="crash_notif_text">Klik her for at få hjælp til at udbedre fejlen</string>
   <string name="config_category_acra">Crash-rapportering</string>
   <string name="pref_enable_acra">Rapporter applikations-crash</string>
   <string name="pref_acra_enabled">Crash-rapportering er slået til</string>

@@ -449,7 +449,6 @@
   <string name="undo">Відмінити</string>
   <string name="redo">Повторити</string>
   <string name="undo_nothing">немає змін для відміни</string>
-  <string name="tracking_active_title">Фонову службу Веспуччі активовано </string>
   <string name="tracking_active_text">Веспуччі записує GPS-трек чи здійснює авто-завантаження</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -479,10 +478,6 @@
   <string name="undo_action_fix_conflict">виправити конфлікт</string>
   <string name="undo_action_extract_node">виокремити точку</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci „впав“ або виявив серйозну проблему.  Будь ласка, надішліть звіт про помилку.</string>
-  <string name="crash_notif_title">Vespucci „впав“ або виявив серйозну проблему.</string>
-  <string name="crash_notif_text">Будь ласка, натисніть тут, щоб допомогти вирішити проблему.</string>
-  <string name="crash_dialog_text">Сталася несподівана проблема, що змушує застосунок перевати роботу або повідомити про помилку. Будь ласка, допоможіть нам виправити це, відправивши нам дані про помилку, все що вам потрібно зробити, це натиснути „Гаразд“. Якщо помилка зʼявляться доволі часто, вікдкрийте тікет на github.com.</string>
   <string name="config_category_acra">Звітування про помилки</string>
   <string name="pref_enable_acra">Повідомлення про збій програми</string>
   <string name="pref_acra_enabled">Звітування про помилки включене</string>

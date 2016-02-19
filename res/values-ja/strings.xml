@@ -380,9 +380,6 @@
   <string name="undo_action_circulize">円状に配置する</string>
   <string name="undo_action_fix_conflict">修正の不一致</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucciのクラッシュ、あるいは深刻なエラーが発生しました。エラーレポートを送ってください。</string>
-  <string name="crash_notif_title">Vespucciのクラッシュ、あるいは深刻なエラーが発生しました。</string>
-  <string name="crash_notif_text">この問題を解決するためにここをクリックしてください</string>
   <string name="config_category_acra">クラッシュレポート</string>
   <string name="pref_enable_acra">アプリケーションのクラッシュを報告</string>
   <string name="pref_acra_enabled">クラッシュレポートが利用可能</string>

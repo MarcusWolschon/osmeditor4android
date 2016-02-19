@@ -453,7 +453,6 @@
   <string name="undo">Отменить изменение</string>
   <string name="redo">Повторить изменение</string>
   <string name="undo_nothing">нечего отменять</string>
-  <string name="tracking_active_title">Фоновый сервис Vespucci активен</string>
   <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
@@ -483,9 +482,6 @@
   <string name="undo_action_fix_conflict">исправить конфликт</string>
   <string name="undo_action_extract_node">извлечь точку</string>
   <!--ACRA-->
-  <string name="crash_notif_ticker_text">Vespucci «упал» или выявил серьёзную проблему. Пожалуйста, отправьте отчёт об ошибке.</string>
-  <string name="crash_notif_title">Vespucci «упал» или выявил серьёзную проблему.</string>
-  <string name="crash_notif_text">Кликните сюда, чтобы помочь исправить ошибку</string>
   <string name="config_category_acra">Отчёт о сбое</string>
   <string name="pref_enable_acra">Сообщать о сбоях в приложении</string>
   <string name="pref_acra_enabled">Отчёты о сбоях разрешены</string>
