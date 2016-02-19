@@ -18,15 +18,12 @@ import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
 
 @ReportsCrashes(
-	formKey = "",
 	reportType = org.acra.sender.HttpSender.Type.JSON,
 	httpMethod = org.acra.sender.HttpSender.Method.PUT,
 	formUri = "http://acralyzer.vespucci.io/acraproxy",
-	mode = ReportingInteractionMode.NOTIFICATION,
-	resNotifTickerText = R.string.crash_notif_ticker_text,
-	resNotifTitle = R.string.crash_notif_title,
-	resNotifText = R.string.crash_notif_text,
-	resDialogText = R.string.crash_dialog_text)
+	mode = ReportingInteractionMode.DIALOG,
+	resDialogText = R.string.crash_dialog_text,
+	resDialogCommentPrompt = R.string.crash_dialog_comment_prompt)
 public class Application extends android.app.Application {
 	public static Main mainActivity;
 	static StorageDelegator delegator = new StorageDelegator();
