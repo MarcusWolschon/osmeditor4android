@@ -848,12 +848,13 @@ public class Preset implements Serializable {
 		
 		// Build candidate list
 		LinkedHashSet<PresetItem> possibleMatches = new LinkedHashSet<PresetItem>();
+		boolean reallyUseAddressKeys = false;
 		do {
 			for (Preset p:presets) {
 				if (p != null) {
 					for (Entry<String, String> tag : tags.entrySet()) {
 						String kew = tag.getKey();
-						if (!kew.startsWith(Tags.KEY_ADDR_BASE) || useAddressKeys) {
+						if (!kew.startsWith(Tags.KEY_ADDR_BASE) || reallyUseAddressKeys) {
 							String tagString = tag.getKey()+"\t";
 							possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
 							possibleMatches.addAll(p.tagItems.get(tagString+tag.getValue()));
@@ -861,13 +862,15 @@ public class Preset implements Serializable {
 					}
 				}
 			}
+
 			// if we only have address keys retry
-			if (!useAddressKeys && possibleMatches.size() == 0) {
-				useAddressKeys = true;
-			} else {
+			if (useAddressKeys && possibleMatches.size() == 0 && !reallyUseAddressKeys) {
+				reallyUseAddressKeys = true;
+			}  else {
 				break;
 			}
-		} while (true); 
+		} while (true);
+		
 		// Find best
 		final int FIXED_WEIGHT = 100; // always prioritize presets with fixed keys
 		for (PresetItem possibleMatch : possibleMatches) {

@@ -438,7 +438,7 @@ public class TagEditorFragment extends SherlockFragment implements
 		clearPresets();
 		clearSecondaryPresets();
 		LinkedHashMap<String, String> allTags = getKeyValueMapSingle(rowLayout,true);
-		autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, allTags); // FIXME multiselect
+		autocompletePresetItem = Preset.findBestMatch(((PropertyEditor)getActivity()).presets, allTags, true); // FIXME multiselect
     	
     	Map<String, String> nonAssigned = addPresetsToTags(autocompletePresetItem, allTags);
     	int nonAssignedCount = nonAssigned.size();
