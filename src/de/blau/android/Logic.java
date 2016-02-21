@@ -2266,6 +2266,90 @@ public class Logic {
 		}
 	}
 	
+	 /**
+	  * Download a single element from the API and merge
+	  * Static because it is called from a different activity
+	  * THis should go a way one we've refactored this class
+	  * 
+	  * @param type
+	  * @param id
+	  */
+	 public synchronized static int downloadElement(Context ctx, final Server server, final String type, final long id, final boolean relationFull, final boolean withParents) {
+		 class MyTask extends AsyncTask<Void, Void, Integer> {
+			 @Override
+			 protected void onPreExecute() {
+			 }
+
+			 @Override
+			 protected Integer doInBackground(Void... arg) {
+				 int result = 0;
+				 try {
+					 final OsmParser osmParser = new OsmParser();
+					
+					 // TODO this currently does not retrieve ways the node may be a member of
+					 // we always retrieve ways with nodes, relations "full" is optional
+					 InputStream in = server.getStreamForElement((type.equals(Relation.NAME) && relationFull) ||  type.equals(Way.NAME)? "full" : null, type, id);
+					 
+					 try {
+						 osmParser.start(in);
+					 } finally {
+						 SavingHelper.close(in);
+					 }
+					 if (withParents) {
+						 // optional retrieve relations the element is a member of
+						 in = server.getStreamForElement("relations", type, id);
+						 try {
+							 osmParser.start(in);
+						 } finally {
+							 SavingHelper.close(in);
+						 }
+					 }
+					 
+					 if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
+						 result = DialogFactory.DATA_CONFLICT;
+					 } 
+				 } catch (SAXException e) {
+					 Log.e("Vespucci", "Problem parsing", e);
+					 Exception ce = e.getException();
+					 if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
+						 result = DialogFactory.OUT_OF_MEMORY;
+					 } else {
+						 result = DialogFactory.INVALID_DATA_RECEIVED;
+					 }
+				 } catch (ParserConfigurationException e) {
+					 // crash and burn
+					 // TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
+					 Log.e("Vespucci", "Problem parsing", e);
+					 result = DialogFactory.INVALID_DATA_RECEIVED;
+				 } catch (OsmServerException e) {
+					 Log.e("Vespucci", "Problem downloading", e);
+				 } catch (IOException e) {
+					 result = DialogFactory.NO_CONNECTION;
+					 Log.e("Vespucci", "Problem downloading", e);
+				 }
+				 return result;
+			 }
+
+			 @Override
+			 protected void onPostExecute(Integer result) {
+				 // potentially do something if there is an error
+			 }
+
+		 }
+		 MyTask loader = new MyTask();
+		 loader.execute();
+
+		 try {
+			 return loader.get(20, TimeUnit.SECONDS);
+		 } catch (InterruptedException e) {
+			 return -1;
+		 } catch (ExecutionException e) {
+			 return -1;
+		 } catch (TimeoutException e) {
+			 return -1;
+		 }
+	 }
+	
 	/**
 	 * Return multiple elements of the same type from the API and merge them in to our data
 	 * Since this doesn't return way nodes this method probably doesn't make sense
@@ -2439,7 +2523,6 @@ public class Logic {
 		}
 	}
 	
-
 	/**
 	 * Element is deleted on server, delete locally but don't upload
 	 * A bit iffy because of memberships in other objects

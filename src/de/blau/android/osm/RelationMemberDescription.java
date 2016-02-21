@@ -36,11 +36,22 @@ public class RelationMemberDescription extends RelationMember {
 	}
 	
 	/**
+	 * If an downloaded element is present update description and downloaded status
+	 */
+	public void update() {
+		OsmElement e = getElement();
+		if (e != null) {
+			description = e.getDescription(false);
+			downloaded = true;
+		}
+	}
+	
+	/**
 	 * This returns (if present), the element directly from storage
 	 */
 	@Override
 	public OsmElement getElement() {
-		return Application.getDelegator().getOsmElement(getType(), getRef());
+		return super.getElement()==null ? Application.getDelegator().getOsmElement(getType(), getRef()):super.getElement();
 	}
 	
 	@Override

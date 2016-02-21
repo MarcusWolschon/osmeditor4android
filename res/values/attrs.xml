@@ -59,6 +59,14 @@
 	<attr name="line_up" format="reference" />
 	<attr name="line_down" format="reference" />
 	<attr name="line_both" format="reference" />
+	<attr name="closedway" format="reference" />
+	<attr name="closedway_up" format="reference" />
+	<attr name="closedway_down" format="reference" />
+	<attr name="closedway_both" format="reference" />
+	<attr name="closedway_ring" format="reference" />
+	<attr name="ring" format="reference" />
+	<attr name="ring_top" format="reference" />
+	<attr name="ring_bottom" format="reference" />
 	<attr name="not_downloaded_node_small" format="reference" />
 	<attr name="not_downloaded_line_small" format="reference" />
 	<attr name="not_downloaded_relation_small" format="reference" />

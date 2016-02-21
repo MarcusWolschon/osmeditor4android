@@ -40,6 +40,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Window;
 
 import de.blau.android.Application;
 import de.blau.android.Main;
@@ -182,6 +183,8 @@ public class PropertyEditor extends SherlockFragmentActivity implements
 		
 		super.onCreate(savedInstanceState);
 		// super.onCreate(null); // hack to stop the system recreating the fragments from the stored state
+		
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		
 		if (prefs.splitActionBarEnabled()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
