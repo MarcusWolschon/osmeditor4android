@@ -1581,40 +1581,67 @@ public class StorageDelegator implements Serializable, Exportable {
 	 * @param members  	new list of members
 	 */
 	public void updateRelation(Relation r, ArrayList<RelationMemberDescription> members) {
-	
+		
+		dirty = true;
+		undo.save(r);
+		boolean changed = false;
 		ArrayList<RelationMember> origMembers = (ArrayList<RelationMember>) (((ArrayList<RelationMember>) r.getMembers()).clone());
-		LinkedHashMap<String,RelationMemberDescription> membersHash = new LinkedHashMap<String,RelationMemberDescription>();
-		for (RelationMemberDescription rmd: members) {
-			membersHash.put(rmd.getType()+"-"+rmd.getRef(),rmd);
+		LinkedHashMap<String,RelationMember> membersHash = new LinkedHashMap<String,RelationMember>();
+		for (RelationMember rm: r.getMembers()) {
+			membersHash.put(rm.getType()+"-"+rm.getRef(),rm);
 		}
-		for (RelationMember o: origMembers) { // find changes to existing members
-			OsmElement e = o.getElement();
-			if (e != null) { // is downloaded
-				String key = e.getName()+"-"+e.getOsmId();
-				if (!membersHash.containsKey(key)) {
-					removeElementFromRelation(e, r); // saves undo state
-					continue;
+		ArrayList<RelationMember> newMembers = new ArrayList<RelationMember>(); 
+		for (int i = 0; i < members.size(); i++) {
+			RelationMemberDescription rmd = members.get(i);
+			String key = rmd.getType()+"-"+rmd.getRef();
+			OsmElement e = rmd.getElement();
+			RelationMember rm = membersHash.get(key);
+			if (rm != null) {
+				int origPos = origMembers.indexOf(rm);
+				String newRole = rmd.getRole();
+				if (!rm.getRole().equals(newRole)) {
+					changed = true;
+					rm = new RelationMember(rm); // allocate new element
+					rm.setRole(newRole);
 				}
-				String newRole = membersHash.get(key).getRole();
-				if (!o.getRole().equals(newRole)) {
-					setRole(e, newRole, r);
+				newMembers.add(rm); // existing member simply add to list
+				if (origPos != i) {
+					changed = true;
 				}
-			} else {
-				String key = o.getType()+"-"+o.getRef();
-				if (!membersHash.containsKey(key)) {
-					removeElementFromRelation(o.getType(), o.getRef(), r); // saves undo state
-					continue;
+				membersHash.remove(key);
+			} else { // new member
+				changed = true;
+				RelationMember newMember = null;
+				if (e != null) {  // downloaded
+					newMember = new RelationMember(rmd.getRole(), e);
+				} else {
+					newMember = new RelationMember(rmd.getType(), rmd.getRef(), rmd.getRole());
 				}
-				String newRole = membersHash.get(key).getRole();
-				if (!o.getRole().equals(newRole)) {
-					setRole(o.getType(), o.getRef(), newRole, r);
-				}
+				newMembers.add(newMember);
 			}
 		}
-		// TODO resorting and adding members
-		// get copy of current state
-		// origMembers = (ArrayList<RelationMember>) (((ArrayList<RelationMember>) r.getMembers()).clone());
+		for (RelationMember rm: membersHash.values()) {
+			changed = true;
+			OsmElement e = rm.getElement();
+			if (e != null) {
+				undo.save(e);
+				e.removeParentRelation(r);
+			} 
+		}
 		
+		if (changed) {
+			r.replaceMembers(newMembers);
+			r.updateState(OsmElement.STATE_MODIFIED);
+			try {
+				apiStorage.insertElementSafe(r);
+				recordImagery();
+			} catch (StorageException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			// FIXME remove relation from undo storage
+		}
 	}
 
 	/**

@@ -39,11 +39,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -63,6 +66,8 @@ public class RelationMembersFragment extends SherlockFragment implements
 	private long id = -1;
 
 	static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
+	
+	static enum Connected { NOT, UP, DOWN, BOTH, RING }
 	
 	/**
      */
@@ -157,10 +162,122 @@ public class RelationMembersFragment extends SherlockFragment implements
 	protected void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
 		membersVerticalLayout.removeAllViews();
 		if (members != null && members.size() > 0) {
-			for (RelationMemberDescription rmd :  members) {
-				insertNewMember(membersVerticalLayout, members.indexOf(rmd) +"", rmd, -1);
+			for (int i = 0; i < members.size(); i++) {
+				Connected c = Connected.NOT;
+				RelationMemberDescription current = members.get(i);
+				String currentType = current.getType();
+				if (current.downloaded() && !Relation.NAME.equals(currentType)) {
+					RelationMemberDescription prev = null;
+					RelationMemberDescription next = null;
+					int count = members.size();
+					Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, id);
+					if (r.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)) {
+						prev = members.get((i==0?count:i)-1);
+						next = members.get((i+1)%(count-1));
+					} else {
+						prev = i-1 >= 0 ? members.get(i -1) : null;
+						next = i + 1 < count ? members.get(i + 1) : null;
+					}
+					c = getConnection(prev, current, next);
+				}
+				insertNewMember(membersVerticalLayout, i +"", current, -1, c);
 			}
 		}
+	}
+	
+	void resetIcons() {
+		LinearLayout rowLayout = (LinearLayout) getOurView();
+
+		int i = rowLayout.getChildCount();
+		while (--i >= 0) { 
+			resetIcon(rowLayout, (RelationMemberRow)rowLayout.getChildAt(i));
+		}
+	}
+	
+	void resetIcon(LinearLayout ll, RelationMemberRow row) {
+		if (!row.getRelationMemberDescription().downloaded()) {
+			return;
+		}
+		int pos = ll.indexOfChild(row);
+		OsmElement e = Application.getDelegator().getOsmElement(row.getType(), row.getOsmId());
+		RelationMemberDescription prev = null;
+		RelationMemberDescription next = null;
+		Relation r = (Relation) Application.getDelegator().getOsmElement(Relation.NAME, id);
+		int rows = ll.getChildCount();
+		if (r.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)) {
+			prev = ((RelationMemberRow)ll.getChildAt((pos==0?rows:pos)-1)).getRelationMemberDescription();
+			next = ((RelationMemberRow)ll.getChildAt((pos+1)%(rows-1))).getRelationMemberDescription();
+		} else {
+			prev = pos-1 >= 0 ? ((RelationMemberRow)ll.getChildAt(pos -1)).getRelationMemberDescription() : null;
+			next = pos + 1 < rows ? ((RelationMemberRow)ll.getChildAt(pos + 1)).getRelationMemberDescription() : null;
+		}
+		RelationMemberDescription current = row.getRelationMemberDescription();
+		Connected c = getConnection(prev, current, next);
+		row.setIcon(getActivity(), current, c);
+	}
+	
+	
+	Connected getConnection(RelationMemberDescription previous, RelationMemberDescription current, RelationMemberDescription next) {
+		Connected result = Connected.NOT;
+		String currentType = current.getType();
+		if (Way.NAME.equals(currentType)) {
+			Way w = (Way) current.getElement();
+			Node first = w.getFirstNode();
+			Node last = w.getLastNode();
+			if (previous != null && previous.downloaded()) {
+				if (Way.NAME.equals(previous.getType())) {
+					Node prevFirst = ((Way)previous.getElement()).getFirstNode();
+					Node prevLast = ((Way)previous.getElement()).getLastNode();
+					if (prevLast.equals(first) || prevFirst.equals(first) || prevLast.equals(last) ||  prevFirst.equals(last)) {
+						result = Connected.UP;
+					}
+				} else {
+					Node prevNode = (Node)previous.getElement();
+					if (prevNode.equals(first) || prevNode.equals(last)) {
+						result = Connected.UP;
+					}
+				}
+			}
+			if (next != null && next.downloaded()) {
+				if (Way.NAME.equals(next.getType())) {
+					Node nextFirst = ((Way)next.getElement()).getFirstNode();
+					Node nextLast = ((Way)next.getElement()).getLastNode();
+					if (nextLast.equals(first) || nextFirst.equals(first) || nextLast.equals(last) ||  nextFirst.equals(last)) {
+						if (result == Connected.UP) {
+							result = Connected.BOTH;
+						} else {
+							result = Connected.DOWN;
+						}
+					}
+				} else {
+					Node nextNode = (Node)next.getElement();
+					if (nextNode.equals(first) || nextNode.equals(last)) {
+						if (result == Connected.UP) {
+							result = Connected.BOTH;
+						} else {
+							result = Connected.DOWN;
+						}
+					}
+				}
+			}
+		} else {
+			Node n = (Node) current.getElement();
+			if (previous != null && Way.NAME.equals(previous.getType()) && previous.downloaded()) {
+				if (((Way)previous.getElement()).getLastNode().equals(n) || ((Way)previous.getElement()).getFirstNode().equals(n)) {
+					result = Connected.UP;
+				}
+			}
+			if (next != null && Way.NAME.equals(next.getType()) && next.downloaded()) {
+				if (((Way)next.getElement()).getLastNode().equals(n) || ((Way)next.getElement()).getFirstNode().equals(n)) {
+					if (result == Connected.UP) {
+						result = Connected.BOTH;
+					} else {
+						result = Connected.DOWN;
+					}
+				}
+			}
+		}
+		return result;
 	}
     
     
@@ -205,7 +322,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 	 * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at beginning.
 	 * @returns The new RelationMemberRow.
 	 */
-	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position) {
+	protected RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position, final Connected c) {
 		RelationMemberRow row = null; 
 		
 		if (rmd.downloaded()) {
@@ -218,7 +335,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 			row.roleEdit.setEllipsize(TruncateAt.END);
 		}
 		
-		row.setValues(getActivity(),pos, id, rmd);
+		row.setValues(getActivity(),pos, id, rmd, c);
 		membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 		
 		row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -243,12 +360,13 @@ public class RelationMembersFragment extends SherlockFragment implements
 			SelectedRowsActionModeCallback.Row {
 		
 		private PropertyEditor owner;
-		private long elementId;
 		private long relationId;
 		private CheckBox selected;
 		private AutoCompleteTextView roleEdit;
 		private ImageView typeView;
 		private TextView elementView;
+		
+		private RelationMemberDescription rmd;
 		
 		public RelationMemberRow(Context context) {
 			super(context);
@@ -321,30 +439,67 @@ public class RelationMembersFragment extends SherlockFragment implements
 		 * @param rmd the information on the relation member
 		 * @return elationMemberRow object for convenience
 		 */
-		public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd) {
+		public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd, Connected c) {
 			
 			String desc = rmd.getDescription();
 			String objectType = rmd.getType() == null ? "--" : rmd.getType();
-			elementId = rmd.getRef();
+			this.rmd = rmd;
 			roleEdit.setText(rmd.getRole());
 			
-			if (Node.NAME.equals(objectType)) {
-				typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.node_small));
-			} else if (Way.NAME.equals(objectType)) {
-				typeView.setImageDrawable(ctx.getResources().getDrawable(ThemeUtils.getResIdFromAttribute(ctx,R.attr.line_small)));
-			} else if (Relation.NAME.equals(objectType)) {
-				typeView.setImageDrawable(ctx.getResources().getDrawable(ThemeUtils.getResIdFromAttribute(ctx,R.attr.relation_small)));
-			} else {
-				// don't know yet
-			}
+			setIcon(ctx, rmd, c);
 			typeView.setTag(objectType);
 			elementView.setText(desc);
 			relationId = id;
 			return this;
 		}
 		
+		public String getType() {
+			return (String) typeView.getTag();
+		}
+		
+		public RelationMemberDescription getRelationMemberDescription() {
+			return rmd;
+		}
+		
+		public void setIcon(Context ctx, RelationMemberDescription rmd, Connected c) {
+			String objectType = rmd.getType() == null ? "--" : rmd.getType();
+			if (rmd.downloaded()) {
+				if (Node.NAME.equals(objectType)) {
+					switch (c) {
+					case NOT: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.node_small)); break;
+					case UP: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.node_up)); break;
+					case DOWN: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.node_down)); break;
+					case BOTH: 
+					case RING: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.node_both)); break; 
+					}
+				} else if (Way.NAME.equals(objectType)) {
+					switch (c) {
+					case NOT: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.line_small)); break;
+					case UP: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.line_up)); break;
+					case DOWN: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.line_down)); break;
+					case BOTH: 
+					case RING: typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.line_both)); break;
+					}
+				} else if (Relation.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.relation_small));
+				} else {
+					// don't know yet
+				}
+			} else {
+				if (Node.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_node_small));
+				} else if (Way.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_line_small));
+				} else if (Relation.NAME.equals(objectType)) {
+					typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx,R.attr.not_downloaded_line_small));
+				} else {
+					// don't know yet
+				}
+			}	
+		}
+		
 		public long getOsmId() {
-			return elementId;
+			return rmd.getRef();
 		}
 		
 		public String getRole() {
@@ -475,7 +630,7 @@ public class RelationMembersFragment extends SherlockFragment implements
 		for (int i = 0; i < size; ++i) { // -> avoid header 
 			View view = relationMembersLayout.getChildAt(i);
 			RelationMemberRow row = (RelationMemberRow)view;
-			handler.handleRelationMember(row.typeView, row.elementId, row.roleEdit, row.elementView);
+			handler.handleRelationMember(row.typeView, row.rmd.getRef(), row.roleEdit, row.elementView);
 		}
 	}
 	

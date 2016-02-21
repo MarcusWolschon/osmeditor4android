@@ -53,6 +53,15 @@
 	<attr name="node_small" format="reference" />
 	<attr name="line_small" format="reference" />
 	<attr name="relation_small" format="reference" />
+	<attr name="node_up" format="reference" />
+	<attr name="node_down" format="reference" />
+	<attr name="node_both" format="reference" />
+	<attr name="line_up" format="reference" />
+	<attr name="line_down" format="reference" />
+	<attr name="line_both" format="reference" />
+	<attr name="not_downloaded_node_small" format="reference" />
+	<attr name="not_downloaded_line_small" format="reference" />
+	<attr name="not_downloaded_relation_small" format="reference" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

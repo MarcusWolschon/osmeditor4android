@@ -95,6 +95,9 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 		int selectedCount = selectedPos.size();
 		int change = 1;
 		switch (action) {
+		case MENU_ITEM_DELETE: // nOTE real work is don in super
+			((RelationMembersFragment) caller).resetIcons();
+			return true;
 		case MENU_ITEM_MOVE_TOP:
 			change = selectedPos.get(0).intValue();
 		case MENU_ITEM_MOVE_UP:
@@ -117,6 +120,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			}
 			// this has some heuristics to avoid the selected row vanishing behind the top bars
 			((RelationMembersFragment)caller).scrollToRow(selected.get(0),true, action==MENU_ITEM_MOVE_TOP || forceScroll(selectedPos.get(0),size));
+			((RelationMembersFragment)caller).resetIcons();
 			return true;
 		case MENU_ITEM_MOVE_BOTTOM:
 			change = size - selectedPos.get(selectedCount-1).intValue() -1;
@@ -140,6 +144,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			}
 			// this has some heuristics to avoid the selected row vanishing behind the bottom actionbar
 			((RelationMembersFragment)caller).scrollToRow(selected.get(selected.size()-1),false, action==MENU_ITEM_MOVE_BOTTOM || forceScroll(selectedPos.get(selected.size()-1),size));
+			((RelationMembersFragment)caller).resetIcons();
 			return true;
 		case MENU_ITEM_TOP:
 		case MENU_ITEM_BOTTOM:
