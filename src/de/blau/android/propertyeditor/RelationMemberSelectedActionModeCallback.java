@@ -115,7 +115,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 		int selectedCount = selectedPos.size();
 		int change = 1;
 		switch (action) {
-		case MENU_ITEM_DELETE: // nOTE real work is don in super
+		case MENU_ITEM_DELETE: // Note real work is done in super
 			((RelationMembersFragment) caller).setIcons();
 			return true;
 		case MENU_ITEM_MOVE_TOP:
