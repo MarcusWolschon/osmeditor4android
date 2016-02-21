@@ -39,14 +39,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
