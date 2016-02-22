@@ -22,10 +22,10 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ErrorAlertDialogFragment extends SherlockDialogFragment
+public class ErrorAlert extends SherlockDialogFragment
 {
 	
-	private static final String DEBUG_TAG = ErrorAlertDialogFragment.class.getSimpleName();
+	private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName();
 		
 	private int titleId;
 	private int messageId;
@@ -34,7 +34,7 @@ public class ErrorAlertDialogFragment extends SherlockDialogFragment
 		dismissDialog(activity, errorCode);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-	    ErrorAlertDialogFragment alertDialogFragment = newInstance(errorCode);
+	    ErrorAlert alertDialogFragment = newInstance(errorCode);
 	    if (alertDialogFragment != null) {
 	    	alertDialogFragment.show(fm, getTag(errorCode));
 	    } else {
@@ -72,11 +72,13 @@ public class ErrorAlertDialogFragment extends SherlockDialogFragment
 			return "alert_invalid_data_received";
 		case ErrorCodes.FILE_WRITE_FAILED:
 			return "alert_file_write_failed";
+		case ErrorCodes.NAN:
+			return "alert_nan";
 		}
 		return null;
 	}
 	
-	static private ErrorAlertDialogFragment newInstance(int dialogType) {
+	static private ErrorAlert newInstance(int dialogType) {
 		switch (dialogType) {
 		case ErrorCodes.NO_LOGIN_DATA: return createNewInstance(R.string.no_login_data_title, R.string.no_login_data_message);		
 		case ErrorCodes.NO_CONNECTION: return createNewInstance(R.string.no_connection_title, R.string.no_connection_message);
@@ -87,18 +89,19 @@ public class ErrorAlertDialogFragment extends SherlockDialogFragment
 		case ErrorCodes.OUT_OF_MEMORY_DIRTY: return createNewInstance(R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
 		case ErrorCodes.INVALID_DATA_RECEIVED: return createNewInstance(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
 		case ErrorCodes.FILE_WRITE_FAILED: return createNewInstance( R.string.file_write_failed_title, R.string.file_write_failed_message);
+		case ErrorCodes.NAN: return createNewInstance( R.string.location_nan_title, R.string.location_nan_message);
 		}	
 		return null;
 	}
 		
     /**
      */
-    static private ErrorAlertDialogFragment createNewInstance(final int titleId, final int messageId) {
-    	ErrorAlertDialogFragment f = new ErrorAlertDialogFragment();
+    static private ErrorAlert createNewInstance(final int titleId, final int messageId) {
+    	ErrorAlert f = new ErrorAlert();
 
         Bundle args = new Bundle();
         args.putSerializable("title", titleId);
-        args.putSerializable("message", messageId);
+        args.putInt("message", messageId);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -112,7 +115,7 @@ public class ErrorAlertDialogFragment extends SherlockDialogFragment
         super.onCreate(savedInstanceState);
         setCancelable(true);
         titleId = (Integer) getArguments().getSerializable("title");
-        messageId = (Integer) getArguments().getSerializable("message");
+        messageId = getArguments().getInt("message");
     }
 
     @Override

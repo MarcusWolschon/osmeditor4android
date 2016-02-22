@@ -51,7 +51,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
-import de.blau.android.dialogs.ElementInfoFragment;
+import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
@@ -1099,7 +1099,7 @@ public class EasyEditManager {
 			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startActionMode(new  ExtendSelectionActionModeCallback(element)); break;
-			case MENUITEM_ELEMENT_INFO: ElementInfoFragment.showDialog(main,element); break;
+			case MENUITEM_ELEMENT_INFO: ElementInfo.showDialog(main,element); break;
 			case R.id.undo_action:
 				// should not happen
 				Log.d("EasyEditManager.ElementSelectionActionModeCallback","menu undo clicked");
@@ -1149,7 +1149,7 @@ public class EasyEditManager {
 				logic.cutToClipboard(element); currentActionMode.finish();
 				return true;
 			} else if (c == Util.getShortCut(main, R.string.shortcut_info)) {
-				ElementInfoFragment.showDialog(main,element); 
+				ElementInfo.showDialog(main,element); 
 				return true;
 			}  else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
 				main.performTagEdit(element, null, false, false);

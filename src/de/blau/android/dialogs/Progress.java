@@ -14,10 +14,10 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import de.blau.android.R;
 
 
-public class ProgressDialogFragment extends SherlockDialogFragment
+public class Progress extends SherlockDialogFragment
 {
 	
-	private static final String DEBUG_TAG = ProgressDialogFragment.class.getSimpleName();
+	private static final String DEBUG_TAG = Progress.class.getSimpleName();
 	
 	public static final int PROGRESS_LOADING = 1;
 	
@@ -38,7 +38,7 @@ public class ProgressDialogFragment extends SherlockDialogFragment
 		dismissDialog(activity, dialogType);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-	    ProgressDialogFragment progressDialogFragment = newInstance(dialogType);
+	    Progress progressDialogFragment = newInstance(dialogType);
 	    if (progressDialogFragment != null) {
 	    	progressDialogFragment.show(fm, getTag(dialogType));
 	    } else {
@@ -75,7 +75,7 @@ public class ProgressDialogFragment extends SherlockDialogFragment
 		return null;
 	}
 	
-	static private ProgressDialogFragment newInstance(int dialogType) {
+	static private Progress newInstance(int dialogType) {
 		switch (dialogType) {
 		case PROGRESS_LOADING:
 			return createNewInstance(R.string.progress_message);
@@ -95,12 +95,12 @@ public class ProgressDialogFragment extends SherlockDialogFragment
 	
     /**
      */
-    static private ProgressDialogFragment createNewInstance(final int messageId) {
+    static private Progress createNewInstance(final int messageId) {
     	return createNewInstance(R.string.progress_title, messageId);
     }
 	
-    static private ProgressDialogFragment createNewInstance(final int titleId, final int messageId) {
-    	ProgressDialogFragment f = new ProgressDialogFragment();
+    static private Progress createNewInstance(final int titleId, final int messageId) {
+    	Progress f = new Progress();
 
         Bundle args = new Bundle();
         args.putSerializable("title", titleId);

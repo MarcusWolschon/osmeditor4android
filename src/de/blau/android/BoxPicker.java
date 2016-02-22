@@ -4,11 +4,7 @@ import java.util.List;
 
 import org.acra.ACRA;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -30,16 +26,16 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Search;
 import de.blau.android.util.Search.SearchResult;
-import de.blau.android.util.ThemeUtils;
 
 /**
  * Activity where the user can pick a Location and a radius (more precisely: a
@@ -52,17 +48,12 @@ import de.blau.android.util.ThemeUtils;
  * 
  * @author mb
  */
-public class BoxPicker extends SherlockActivity implements LocationListener {
+public class BoxPicker extends SherlockFragmentActivity implements LocationListener {
 	
 	/**
 	 * Tag used for Android-logging.
 	 */
 	private final static String DEBUG_TAG = BoxPicker.class.getName();
-	
-	/**
-	 * Shown when the user inserts an invalid decimal number.
-	 */
-	private final static int DIALOG_NAN = 0;
 	
 	/**
 	 * LocationManager. Needed as field for unregister in {@link #onPause()}.
@@ -143,6 +134,8 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		dontLoadMapButton.setOnClickListener(onClickListener);
 		
 		final de.blau.android.util.SearchItemFoundCallback searchItemFoundCallback = new de.blau.android.util.SearchItemFoundCallback() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void onItemFound(SearchResult sr) {
 				RadioButton rb = (RadioButton) findViewById(R.id.location_coordinates);
@@ -396,9 +389,9 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 			float userLon = Float.parseFloat(lon);
 			box = GeoMath.createBoundingBoxForCoordinates(userLat, userLon, currentRadius, true);
 		} catch (NumberFormatException e) {
-			showDialog(DIALOG_NAN);
+			ErrorAlert.showDialog(this, ErrorCodes.NAN);
 		} catch (OsmException e) {
-			showDialog(DIALOG_NAN);
+			ErrorAlert.showDialog(this, ErrorCodes.NAN);
 		}
 		return box;
 	}
@@ -418,34 +411,6 @@ public class BoxPicker extends SherlockActivity implements LocationListener {
 		intent.putExtra(RESULT_TOP, box.getTop());
 		setResult(resultState, intent);
 		finish();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected Dialog onCreateDialog(final int id) {
-		switch (id) {
-		case DIALOG_NAN:
-			return createDialogNan();
-		}
-		return super.onCreateDialog(id);
-	}
-	
-	/**
-	 * @see #DIALOG_NAN
-	 * @return
-	 */
-	private AlertDialog createDialogNan() {
-		Builder dialog = new AlertDialog.Builder(this);
-		dialog.setIcon(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.alert_dialog));
-		dialog.setTitle(R.string.location_nan_title);
-		dialog.setMessage(R.string.location_nan_message);
-		dialog.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(final DialogInterface dialog, final int whichButton) {}
-		});
-		return dialog.create();
 	}
 	
 	/**

@@ -13,7 +13,6 @@ import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -60,11 +59,9 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ZoomControls;
@@ -83,9 +80,19 @@ import de.blau.android.Logic.Mode;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.contract.Paths;
-import de.blau.android.dialogs.ElementInfoFragment;
-import de.blau.android.dialogs.ErrorAlertDialogFragment;
-import de.blau.android.dialogs.ProgressDialogFragment;
+import de.blau.android.dialogs.BackgroundProperties;
+import de.blau.android.dialogs.ConfirmUpload;
+import de.blau.android.dialogs.DataLossActivity;
+import de.blau.android.dialogs.DownloadCurrentWithChanges;
+import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.dialogs.GpxUpload;
+import de.blau.android.dialogs.ImportTrack;
+import de.blau.android.dialogs.NewVersion;
+import de.blau.android.dialogs.Newbie;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.SaveFile;
+import de.blau.android.dialogs.SearchForm;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
@@ -120,6 +127,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Search.SearchResult;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.voice.Commands;
@@ -185,8 +193,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * Where we install the current version of vespucci
 	 */
 	private static final String VERSION_FILE = "version.dat"; 
-
-	private DialogFactory dialogFactory;
 	
 	private class ConnectivityChangedReceiver extends BroadcastReceiver {
 		@Override
@@ -358,7 +364,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		}
 		map = new Map(getApplicationContext());
 		map.setId(R.id.map_view);
-		dialogFactory = new DialogFactory(this);
 		
 		//Register some Listener
 		MapTouchListener mapTouchListener = new MapTouchListener();
@@ -447,12 +452,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (newInstall) {
 			// newbie, display welcome dialog
 			Log.d(DEBUG_TAG,"showing welcome dialog");
-			showDialog(DialogFactory.NEWBIE);
+			Newbie.showDialog(this);
 		} else {
 			String currentVersion = getString(R.string.app_version);
 			if (lastVersion.length()<5 || !lastVersion.subSequence(0,5).equals(currentVersion.subSequence(0,5))) { // lastVersion already checked against null
 				Log.d(DEBUG_TAG,"new version");
-				showDialog(DialogFactory.NEW_VERSION);
+				NewVersion.showDialog(this);
 			}
 		}
 		savingHelperVersion.save(VERSION_FILE, getString(R.string.app_version), false);
@@ -978,7 +983,19 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_find:
-			showDialog(DialogFactory.SEARCH);
+			SearchForm.showDialog(this,  new de.blau.android.util.SearchItemFoundCallback() {
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void onItemFound(SearchResult sr) {
+					// turn this off or else we get bounced back to our current GPS position
+					setFollowGPS(false);
+					getMap().setFollowGPS(false);
+					Main.getLogic().setZoom(19);
+					getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
+					getMap().invalidate();
+				}
+			});
 			return true;
 			
 		case R.id.menu_help:
@@ -1054,7 +1071,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					oAuthHandshake(server, new PostAsyncActionHandler() {
 						@Override
 						public void execute() {
-							showDialog(DialogFactory.GPX_UPLOAD);
+							GpxUpload.showDialog(Main.this);
 						}
 					});
 					if (server.getOAuth()) { // if still set
@@ -1062,10 +1079,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 						return true;
 					} 
 				}	
-				showDialog(DialogFactory.GPX_UPLOAD);
+				GpxUpload.showDialog(this);
 				// performTrackUpload("Test","Test",Visibility.PUBLIC);
 			} else {
-				ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
+				ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 			}
 			return true;
 
@@ -1149,7 +1166,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			
 		case R.id.menu_transfer_save_file:
 			if (Application.getDelegator() == null) return true;
-			showDialog(DialogFactory.SAVE_FILE);
+			SaveFile.showDialog(this);
 //			showFileChooser(WRITE_OSM_FILE_SELECT_CODE);
 			return true;
 		
@@ -1204,7 +1221,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_tools_background_properties:
-			showDialog(DialogFactory.BACKGROUND_PROPERTIES);
+			BackgroundProperties.showDialog(this);
 			return true;
 			
 		case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
@@ -1409,49 +1426,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	private void onMenuDownloadCurrent(boolean add) {
 		Log.d(DEBUG_TAG, "onMenuDownloadCurrent");
 		if (getLogic().hasChanges() && !add) {
-			showDialog(DialogFactory.DOWNLOAD_CURRENT_WITH_CHANGES);
+			DownloadCurrentWithChanges.showDialog(this);
 		} else {
 			performCurrentViewHttpLoad(add);
 		}
 	}
-
-	/**
-	 * Uses {@link DialogFactory} to create Dialogs<br> {@inheritDoc}
-	 */
-	@Override
-	protected Dialog onCreateDialog(final int id) {
-		Log.d(DEBUG_TAG, "onCreateDialog");
-		Dialog dialog = dialogFactory.create(id);
-		if (dialog != null) {
-			return dialog;
-		}
-		return super.onCreateDialog(id);
-	}
 	
-	/**
-	 * Prepare the fields of dialogs before they are shown. Only some need this special
-	 * handling.
-	 * @param id Dialog ID number.
-	 * @param dialog Dialog object.
-	 */
-	@Override
-	protected void onPrepareDialog(int id, Dialog dialog) {
-		Log.d(DEBUG_TAG, "onPrepareDialog");
-		super.onPrepareDialog(id, dialog);
-		if (dialog instanceof AlertDialog) {
-			AlertDialog ad = (AlertDialog)dialog;
-			switch (id) {
-			case DialogFactory.CONFIRM_UPLOAD:
-				TextView changes = (TextView)ad.findViewById(R.id.upload_changes);
-				changes.setText(getString(R.string.confirm_upload_text, getPendingChanges()));
-				break;
-			case DialogFactory.SEARCH:
-				dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-				break;
-			}
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -1489,7 +1469,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	        Log.d(DEBUG_TAG, "Read gpx file Uri: " + uri.toString());
 	        if (getTracker() != null) {
 	        	if (getTracker().getTrackPoints().size() > 0 ) {
-	        		DialogFactory.createExistingTrackDialog(this, uri).show();
+	        		ImportTrack.showDialog(this, uri);
 	        	} else {
 	        		getTracker().stopTracking(false);
 	        		try {
@@ -1677,7 +1657,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 *                       should be closed or kept open.
 	 */
 	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
-		dismissDialog(DialogFactory.CONFIRM_UPLOAD);
+		ConfirmUpload.dismissDialog(this);
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
@@ -1695,7 +1675,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
 		} else {
-			ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
+			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
 	}
 	
@@ -1710,7 +1690,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			getLogic().uploadTrack(getTracker().getTrack(), description, tags, visibility);
 			getLogic().checkForMail();
 		} else {
-			ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
+			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
 	}
 	
@@ -1727,19 +1707,19 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					oAuthHandshake(server, new PostAsyncActionHandler() {
 						@Override
 						public void execute() {
-							showDialog(DialogFactory.CONFIRM_UPLOAD);
+							ConfirmUpload.showDialog(Main.this);
 						}
 					});
 					if (server.getOAuth()) // if still set
 						Toast.makeText(getApplicationContext(), R.string.toast_oauth, Toast.LENGTH_LONG).show();
 					return;
 				} 
-				showDialog(DialogFactory.CONFIRM_UPLOAD);
+				ConfirmUpload.showDialog(Main.this);
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}		
 		} else {
-			ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
+			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
 	}
 	
@@ -1805,7 +1785,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    @Override
 		    public void onPageStarted(WebView view, String url, Bitmap favicon){
 		    	if (times < LOADS) {
-		    		ProgressDialogFragment.showDialog(Main.this, ProgressDialogFragment.PROGRESS_OAUTH);
+		    		Progress.showDialog(Main.this, Progress.PROGRESS_OAUTH);
 		    	}
 		    }
 		    
@@ -1814,7 +1794,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    	if (times < LOADS) {
 		    		times++;
 		    		try {
-		    			ProgressDialogFragment.dismissDialog(Main.this, ProgressDialogFragment.PROGRESS_OAUTH);
+		    			Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);
 		    		} catch (IllegalArgumentException ignored) {
 		    		}
 		    	}
@@ -1856,7 +1836,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	public void gotoBoxPicker() {
 		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
 		if (getLogic().hasChanges()) {
-			DialogFactory.createDataLossActivityDialog(this, intent, REQUEST_BOUNDING_BOX).show();
+			DataLossActivity.showDialog(this, intent, REQUEST_BOUNDING_BOX);
 		} else {
 			startActivityForResult(intent, REQUEST_BOUNDING_BOX);
 		}
@@ -2174,7 +2154,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 						} else if (bugCount==1) {
 							performBugEdit(clickedBugs.get(0));
 						} else if (elementCount==1) {
-							ElementInfoFragment.showDialog(Main.this,clickedNodesAndWays.get(0));
+							ElementInfo.showDialog(Main.this,clickedNodesAndWays.get(0));
 						}
 					} else if (itemCount > 0) {
 						v.showContextMenu();
@@ -2345,7 +2325,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (getLogic().getMode()) {
 					case MODE_MOVE:
-						ElementInfoFragment.showDialog(Main.this,element);
+						ElementInfo.showDialog(Main.this,element);
 						break;
 					case MODE_TAG_EDIT:
 						performTagEdit(element, null, false, false);

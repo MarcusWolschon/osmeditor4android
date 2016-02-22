@@ -205,7 +205,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 		rmd.setElement(rmd.getElement());
 		rmd.update();
 		row.delete();
-		row = ((RelationMembersFragment)caller).insertNewMember(rows, pos +"", rmd, pos, Connected.NOT, true);
+		((RelationMembersFragment)caller).insertNewMember(rows, pos +"", rmd, pos, Connected.NOT, true); // result not needed
 	}
 	
 	private boolean forceScroll(Integer pos, int size) {

@@ -41,8 +41,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import de.blau.android.dialogs.ErrorAlertDialogFragment;
-import de.blau.android.dialogs.ProgressDialogFragment;
+import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.dialogs.InvalidLogin;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.UploadConflict;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -1943,7 +1945,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -2027,7 +2029,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {	
 				try {
-					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 				} catch (IllegalArgumentException e) {
 					// Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2050,7 +2052,7 @@ public class Logic {
 					}	
 					try {
 						if (!Application.mainActivity.isFinishing()) {
-							ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
+							ErrorAlert.showDialog(Application.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -2204,7 +2206,7 @@ public class Logic {
 	 * @param id
 	 * @return
 	 */
-	 synchronized OsmElement downloadElement(final String type, final long id) {
+	 public synchronized OsmElement downloadElement(final String type, final long id) {
 		
 		class DownloadElementTask extends AsyncTask<Void, Void, OsmElement> {
 			int result = 0;
@@ -2447,7 +2449,7 @@ public class Logic {
 	 * @param type
 	 * @param id
 	 */
-	 synchronized int updateElement(final String type, final long id) {
+	 public synchronized int updateElement(final String type, final long id) {
 		class MyTask extends AsyncTask<Void, Void, Integer> {
 			@Override
 			protected void onPreExecute() {
@@ -2566,7 +2568,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -2609,7 +2611,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 				} catch (IllegalArgumentException e) {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2630,7 +2632,7 @@ public class Logic {
 					}
 					try {
 						if (!Application.mainActivity.isFinishing()) {
-							ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
+							ErrorAlert.showDialog(Application.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -2656,7 +2658,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
 			}
 			
 			@Override
@@ -2700,7 +2702,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
+					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
 				} catch (IllegalArgumentException e) {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2720,7 +2722,7 @@ public class Logic {
 						}
 					}
 					if (!Application.mainActivity.isFinishing()) {
-						ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
+						ErrorAlert.showDialog(Application.mainActivity,result);
 					}
 				}
 			}
@@ -2802,7 +2804,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 				Log.d("Logic", "loadFromFile onPreExecute");
 			}
 			
@@ -2824,7 +2826,7 @@ public class Logic {
 			protected void onPostExecute(Integer result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
 				try {
-					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 				} catch (IllegalArgumentException e) {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2934,7 +2936,7 @@ public class Logic {
 
 		int result = READ_FAILED;
 
-		ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+		Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 
 		if (getDelegator().readFromFile()) {
 			viewBox.setBorders(getDelegator().getLastBox());
@@ -2942,7 +2944,7 @@ public class Logic {
 		} 
 
 		try {
-			ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+			Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 		} catch (IllegalArgumentException e) {
 			// Avoid crash if dialog is already dismissed
 			Log.d("Logic", "", e);
@@ -2974,23 +2976,6 @@ public class Logic {
 			Log.d("Logic", "syncLoadfromFile: File read failed");
 			Toast.makeText(Application.mainActivity, R.string.toast_state_file_failed, Toast.LENGTH_LONG).show();
 		}
-	}
-
-	/**
-	 * A small class to store the result returned from the OSM server after
-	 * trying to upload changes. The response includes things like the HTTP
-	 * response code, conflict information, etc.
-	 * 
-	 * Return not only the error code, but the element involved
-	 * 
-	 * @author simon
-	 */
-	public class UploadResult {
-		public int error = 0;
-		public int httpError = 0;
-		public String elementType;
-		public long osmId;
-		public String message;
 	}
 
 	/**
@@ -3034,7 +3019,7 @@ public class Logic {
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
 					case HttpStatus.SC_FORBIDDEN:
-						result.error = DialogFactory.WRONG_LOGIN;
+						result.error = ErrorCodes.INVALID_LOGIN;
 						break;
 					case HttpStatus.SC_CONFLICT:
 					case HttpStatus.SC_PRECONDITION_FAILED:
@@ -3080,11 +3065,11 @@ public class Logic {
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (!Application.mainActivity.isFinishing()) {
 					if (result.error == ErrorCodes.UPLOAD_CONFLICT) {
-						DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
-					} else if (result.error == DialogFactory.WRONG_LOGIN) {
-						Application.mainActivity.showDialog(result.error);
+						UploadConflict.showDialog(Application.mainActivity, result);
+					} else if (result.error == ErrorCodes.INVALID_LOGIN) {
+						InvalidLogin.showDialog(Application.mainActivity);
 					} else if (result.error != 0) {
-						ErrorAlertDialogFragment.showDialog(Application.mainActivity,result.error);
+						ErrorAlert.showDialog(Application.mainActivity,result.error);
 					}
 				}
 			}
@@ -3127,7 +3112,7 @@ public class Logic {
 				} catch (final OsmServerException e) {
 					switch (e.getErrorCode()) {
 					case HttpStatus.SC_UNAUTHORIZED:
-						result = DialogFactory.WRONG_LOGIN;
+						result = ErrorCodes.INVALID_LOGIN;
 						break;
 					case HttpStatus.SC_BAD_REQUEST:
 					case HttpStatus.SC_PRECONDITION_FAILED:
@@ -3174,10 +3159,10 @@ public class Logic {
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
 					if (!Application.mainActivity.isFinishing()) {
-						if (result == DialogFactory.WRONG_LOGIN) {
-							Application.mainActivity.showDialog(result);
+						if (result == ErrorCodes.INVALID_LOGIN) {
+							InvalidLogin.showDialog(Application.mainActivity);
 						} else { 
-							ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
+							ErrorAlert.showDialog(Application.mainActivity,result);
 						}
 					}
 				}

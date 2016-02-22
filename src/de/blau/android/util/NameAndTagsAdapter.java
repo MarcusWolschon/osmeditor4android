@@ -19,7 +19,7 @@ public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
     public NameAndTagsAdapter(Context context, int viewResourceId, ArrayList<NameAndTags> items) {
         super(context, viewResourceId, items);
 //        this.items = items;
-        this.itemsAll = (ArrayList<NameAndTags>) items.clone();
+        this.itemsAll = new ArrayList<NameAndTags>(items);
         this.suggestions = new ArrayList<NameAndTags>();
 //        this.viewResourceId = viewResourceId;
     }
@@ -71,10 +71,10 @@ public class NameAndTagsAdapter extends ArrayAdapter<NameAndTags> {
             }
         }
         
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
         	 if(results != null && results.count > 0) {
-        		//noinspection unchecked
         		ArrayList<NameAndTags> filteredList = (ArrayList<NameAndTags>) results.values;
                 clear();
                 for (NameAndTags c : filteredList) {

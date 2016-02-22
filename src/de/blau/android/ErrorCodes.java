@@ -19,5 +19,8 @@ public class ErrorCodes {
 
 	public static final int FILE_WRITE_FAILED = 9;
 	
+	public static final int NAN = 10;
+	
 	public static final int UPLOAD_CONFLICT = 50;
+	public static final int INVALID_LOGIN = 51;
 }

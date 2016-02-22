@@ -26,7 +26,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.dialogs.ProgressDialogFragment;
+import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.jsonreader.JsonReader;
 
@@ -126,7 +126,7 @@ public class Search {
 
 		@Override
 		protected void onPreExecute() {
-			ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SEARCHING);
+			Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
 		}
 		
 		@Override
@@ -178,7 +178,7 @@ public class Search {
 		@Override
 		protected void onPostExecute(ArrayList<SearchResult> res) {
 			try {
-				ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SEARCHING);
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
 			} catch (IllegalArgumentException e) {
 				 // Avoid crash if dialog is already dismissed
 				Log.d("Search", "", e);

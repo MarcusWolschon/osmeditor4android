@@ -42,9 +42,9 @@ import de.blau.android.osm.Way;
  * @author simon
  *
  */
-public class ElementInfoFragment extends SherlockDialogFragment {
+public class ElementInfo extends SherlockDialogFragment {
 	
-	private static final String DEBUG_TAG = ElementInfoFragment.class.getName();
+	private static final String DEBUG_TAG = ElementInfo.class.getName();
 	
 	private static final String TAG = "fragment_element_info";
 	
@@ -52,7 +52,7 @@ public class ElementInfoFragment extends SherlockDialogFragment {
 		dismissDialog(activity);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-		ElementInfoFragment elementInfoFragment = newInstance(e);
+		ElementInfo elementInfoFragment = newInstance(e);
 	    if (elementInfoFragment != null) {
 	    	elementInfoFragment.show(fm, TAG);
 	    } else {
@@ -72,8 +72,8 @@ public class ElementInfoFragment extends SherlockDialogFragment {
 	
     /**
      */
-    static public ElementInfoFragment newInstance(OsmElement e) {
-    	ElementInfoFragment f = new ElementInfoFragment();
+    static public ElementInfo newInstance(OsmElement e) {
+    	ElementInfo f = new ElementInfo();
 
         Bundle args = new Bundle();
         args.putSerializable("element", e);

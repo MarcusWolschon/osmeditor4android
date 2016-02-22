@@ -1547,7 +1547,7 @@ public class StorageDelegator implements Serializable, Exportable {
 	public void updateParentRelations(final OsmElement e,
 			final HashMap<Long, String> parents) {
 		Log.d(DEBUG_TAG,"updateParentRelations new parents size " + parents.size());
-		ArrayList<Relation> origParents = e.getParentRelations() != null ? (ArrayList<Relation>) e.getParentRelations().clone() : new ArrayList<Relation>();
+		ArrayList<Relation> origParents = e.getParentRelations() != null ? new ArrayList<Relation>(e.getParentRelations()) : new ArrayList<Relation>();
 		
 		for (Relation o: origParents) { // find changes to existing memberships
 			if (!parents.containsKey(Long.valueOf(o.getOsmId()))) {
@@ -1585,7 +1585,7 @@ public class StorageDelegator implements Serializable, Exportable {
 		dirty = true;
 		undo.save(r);
 		boolean changed = false;
-		ArrayList<RelationMember> origMembers = (ArrayList<RelationMember>) (((ArrayList<RelationMember>) r.getMembers()).clone());
+		ArrayList<RelationMember> origMembers = new ArrayList<RelationMember>(r.getMembers());
 		LinkedHashMap<String,RelationMember> membersHash = new LinkedHashMap<String,RelationMember>();
 		for (RelationMember rm: r.getMembers()) {
 			membersHash.put(rm.getType()+"-"+rm.getRef(),rm);

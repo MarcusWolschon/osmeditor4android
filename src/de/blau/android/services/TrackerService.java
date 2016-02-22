@@ -44,7 +44,7 @@ import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.dialogs.ProgressDialogFragment;
+import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
@@ -196,7 +196,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		track.markNewSegment();
 		try {
 			Application.mainActivity.triggerMenuInvalidation();
-		} catch (Exception e) {} // ignore
+		} catch (Exception e) {
+			Log.e(TAG,"startTrackingInternal triggerMenuInvalidation failed " + e);
+		} 
 		updateGPSState();
 	}
 	
@@ -211,7 +213,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		downloading = true;
 		try {
 			Application.mainActivity.triggerMenuInvalidation();
-		} catch (Exception e) {} // ignore
+		} catch (Exception e) {
+			Log.e(TAG,"startAutoDownloadInternal triggerMenuInvalidation failed " + e);
+		} 	
 		updateGPSState();
 	}
 	
@@ -226,7 +230,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		downloadingBugs = true;
 		try {
 			Application.mainActivity.triggerMenuInvalidation();
-		} catch (Exception e) {} // ignore
+		} catch (Exception e) {
+			Log.e(TAG,"startBugAutoDownloadInternal triggerMenuInvalidation failed " + e);
+		} 
 		updateGPSState();
 	}
 	
@@ -475,7 +481,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			
 			@Override
 			protected void onPreExecute() {
-				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+				Progress.showDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -494,7 +500,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
+					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 					Toast.makeText(Application.mainActivity.getApplicationContext(), 
 							Application.mainActivity.getApplicationContext().getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints), Toast.LENGTH_LONG).show();
 					// the following is extremely ugly
@@ -724,12 +730,13 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
 		@Override
 		public void run() {
+			Socket socket = null;
 			DataOutputStream dos = null;
 			BufferedReader input = null;
 			try {
 				Log.d("TrackerService", "Connecting to " + host+":"+port + " ...");
 
-				Socket socket = new Socket(host, port);
+				socket = new Socket(host, port);
 				dos = new DataOutputStream(socket.getOutputStream());
 
 				InputStreamReader isr = new InputStreamReader(socket.getInputStream());
@@ -748,6 +755,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 				failed.sendToTarget();
 			} finally {
 				SavingHelper.close(dos);
+				SavingHelper.close(socket);
 				SavingHelper.close(input);
 			}
 		}

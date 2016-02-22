@@ -13,7 +13,7 @@ import de.blau.android.Application;
 import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
-import de.blau.android.dialogs.ErrorAlertDialogFragment;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
@@ -129,7 +129,7 @@ public class TransferTasks {
 								return;
 							} 
 						} else {
-							ErrorAlertDialogFragment.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
+							ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
 							return;
 						}
 						Note n = (Note)b;
@@ -193,7 +193,7 @@ public class TransferTasks {
 					return false;
 				} 
 			} else {
-				ErrorAlertDialogFragment.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
+				ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
 				return false;
 			}
 

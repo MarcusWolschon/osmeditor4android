@@ -42,7 +42,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.dialogs.ProgressDialogFragment;
+import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
@@ -153,7 +153,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 		@Override
 		protected void onPreExecute() {
-			ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SEARCHING);
+			Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
 		}
 		
 		@Override
@@ -216,7 +216,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		@Override
 		protected void onPostExecute(ArrayList<ImageryOffset> res) {
 			try {
-				ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SEARCHING);
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
 			} catch (IllegalArgumentException e) {
 				 // Avoid crash if dialog is already dismissed
 				Log.d("BackgroundAlignmentActionModeCallback", "", e);
@@ -238,7 +238,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 		@Override
 		protected void onPreExecute() {
-			ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
+			Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
 		}
 		
 		@Override
@@ -266,7 +266,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		@Override
 		protected void onPostExecute(Integer res) {
 			try {
-				ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
 			} catch (IllegalArgumentException e) {
 				 // Avoid crash if dialog is already dismissed
 				Log.d("BackgroundAlignmentActionModeCallback", "", e);
