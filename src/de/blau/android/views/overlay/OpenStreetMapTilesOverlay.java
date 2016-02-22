@@ -16,8 +16,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.Application;
-import de.blau.android.DialogFactory;
 import de.blau.android.Map;
+import de.blau.android.dialogs.ProgressDialogFragment;
 import de.blau.android.resources.Profile;
 import de.blau.android.services.util.OpenStreetMapTile;
 import de.blau.android.util.GeoMath;
@@ -97,7 +97,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_DELETING);
+				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_DELETING);
 			}
 			
 			@Override
@@ -109,7 +109,7 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			@Override
 			protected void onPostExecute(Void result) {
 				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_DELETING);
+					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_DELETING);
 				} catch (IllegalArgumentException e) {
 					 // Avoid crash if dialog is already dismissed
 				}

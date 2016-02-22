@@ -13,7 +13,6 @@ import android.content.Context;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.rtree.BoundedObject;

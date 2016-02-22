@@ -41,10 +41,10 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
-import de.blau.android.DialogFactory;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.dialogs.ProgressDialogFragment;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
@@ -475,7 +475,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -494,7 +494,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 					Toast.makeText(Application.mainActivity.getApplicationContext(), 
 							Application.mainActivity.getApplicationContext().getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints), Toast.LENGTH_LONG).show();
 					// the following is extremely ugly

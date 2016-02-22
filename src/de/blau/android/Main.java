@@ -83,6 +83,9 @@ import de.blau.android.Logic.Mode;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.contract.Paths;
+import de.blau.android.dialogs.ElementInfoFragment;
+import de.blau.android.dialogs.ErrorAlertDialogFragment;
+import de.blau.android.dialogs.ProgressDialogFragment;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
@@ -1062,7 +1065,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				showDialog(DialogFactory.GPX_UPLOAD);
 				// performTrackUpload("Test","Test",Visibility.PUBLIC);
 			} else {
-				showDialog(DialogFactory.NO_LOGIN_DATA);
+				ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 			}
 			return true;
 
@@ -1692,7 +1695,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
 		} else {
-			showDialog(DialogFactory.NO_LOGIN_DATA);
+			ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
 	}
 	
@@ -1707,7 +1710,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			getLogic().uploadTrack(getTracker().getTrack(), description, tags, visibility);
 			getLogic().checkForMail();
 		} else {
-			showDialog(DialogFactory.NO_LOGIN_DATA);
+			ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
 	}
 	
@@ -1736,7 +1739,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}		
 		} else {
-			showDialog(DialogFactory.NO_LOGIN_DATA);
+			ErrorAlertDialogFragment.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
 	}
 	
@@ -1802,7 +1805,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    @Override
 		    public void onPageStarted(WebView view, String url, Bitmap favicon){
 		    	if (times < LOADS) {
-		    		showDialog(DialogFactory.PROGRESS_OAUTH);
+		    		ProgressDialogFragment.showDialog(Main.this, ProgressDialogFragment.PROGRESS_OAUTH);
 		    	}
 		    }
 		    
@@ -1811,7 +1814,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    	if (times < LOADS) {
 		    		times++;
 		    		try {
-		    			dismissDialog(DialogFactory.PROGRESS_OAUTH);
+		    			ProgressDialogFragment.dismissDialog(Main.this, ProgressDialogFragment.PROGRESS_OAUTH);
 		    		} catch (IllegalArgumentException ignored) {
 		    		}
 		    	}
@@ -2171,7 +2174,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 						} else if (bugCount==1) {
 							performBugEdit(clickedBugs.get(0));
 						} else if (elementCount==1) {
-							showElementInfo(clickedNodesAndWays.get(0));
+							ElementInfoFragment.showDialog(Main.this,clickedNodesAndWays.get(0));
 						}
 					} else if (itemCount > 0) {
 						v.showContextMenu();
@@ -2342,7 +2345,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					final OsmElement element = clickedNodesAndWays.get(itemId);
 					switch (getLogic().getMode()) {
 					case MODE_MOVE:
-						showElementInfo(element);
+						ElementInfoFragment.showDialog(Main.this,element);
 						break;
 					case MODE_TAG_EDIT:
 						performTagEdit(element, null, false, false);
@@ -2665,23 +2668,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	public void setTracker(TrackerService tracker) {
 		this.tracker = tracker;
-	}
-
-	/**
-	 * Display some information about the element, for now simply as Dialog
-	 * @param element OpenStreetMap element.
-	 */
-	public void showElementInfo(OsmElement element) {
-		FragmentManager fm = getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment prev = fm.findFragmentByTag("fragment_element_info");
-	    if (prev != null) {
-	        ft.remove(prev);
-	    }
-	    ft.commit();
-
-        ElementInfoFragment elementInfoDialog = ElementInfoFragment.newInstance(element);
-        elementInfoDialog.show(fm, "fragment_element_info");
 	}
 	
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {

@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,10 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;

@@ -10,9 +10,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
-import de.blau.android.DialogFactory;
+import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.dialogs.ErrorAlertDialogFragment;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
@@ -128,7 +129,7 @@ public class TransferTasks {
 								return;
 							} 
 						} else {
-							Application.mainActivity.showDialog(DialogFactory.NO_LOGIN_DATA);
+							ErrorAlertDialogFragment.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
 							return;
 						}
 						Note n = (Note)b;
@@ -192,7 +193,7 @@ public class TransferTasks {
 					return false;
 				} 
 			} else {
-				Application.mainActivity.showDialog(DialogFactory.NO_LOGIN_DATA);
+				ErrorAlertDialogFragment.showDialog(Application.mainActivity,ErrorCodes.NO_LOGIN_DATA);
 				return false;
 			}
 

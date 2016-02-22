@@ -41,6 +41,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import de.blau.android.dialogs.ErrorAlertDialogFragment;
+import de.blau.android.dialogs.ProgressDialogFragment;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -1941,7 +1943,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -1951,7 +1953,7 @@ public class Logic {
 					Server server = prefs.getServer();
 					server.getCapabilities();
 					if (!(server.apiAvailable() && server.readableDB())) {
-						return DialogFactory.API_OFFLINE;
+						return ErrorCodes.API_OFFLINE;
 					}
 					final OsmParser osmParser = new OsmParser();
 					final InputStream in = prefs.getServer().getStreamForBox(mapBox);
@@ -1961,7 +1963,7 @@ public class Logic {
 						Log.d(DEBUG_TAG,"downloaded and parsed input in " + (System.currentTimeMillis()-startTime) + "ms");
 						if (arg[0]) { // incremental load
 							if (!getDelegator().mergeData(osmParser.getStorage(),postMerge)) {
-								result = DialogFactory.DATA_CONFLICT;
+								result = ErrorCodes.DATA_CONFLICT;
 							} else {
 								if (mapBox != null) {
 									// if we are simply expanding the area no need keep the old bounding boxes
@@ -1991,9 +1993,9 @@ public class Logic {
 					Log.e(DEBUG_TAG, "Problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						result = DialogFactory.OUT_OF_MEMORY;
+						result = ErrorCodes.OUT_OF_MEMORY;
 					} else {
-						result = DialogFactory.INVALID_DATA_RECEIVED;
+						result = ErrorCodes.INVALID_DATA_RECEIVED;
 					}
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
@@ -2002,7 +2004,7 @@ public class Logic {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e(DEBUG_TAG, "Problem parsing", e);
-					result = DialogFactory.INVALID_DATA_RECEIVED;
+					result = ErrorCodes.INVALID_DATA_RECEIVED;
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
@@ -2013,7 +2015,7 @@ public class Logic {
 						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (IOException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = ErrorCodes.NO_CONNECTION;
 					Log.e(DEBUG_TAG, "Problem downloading", e);
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
@@ -2025,7 +2027,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {	
 				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 				} catch (IllegalArgumentException e) {
 					// Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2040,15 +2042,15 @@ public class Logic {
 				}
 
 				if (result != 0) {
-					if (result == DialogFactory.OUT_OF_MEMORY) {
+					if (result == ErrorCodes.OUT_OF_MEMORY) {
 						System.gc();
 						if (getDelegator().isDirty()) {
-							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}	
 					try {
 						if (!Application.mainActivity.isFinishing()) {
-							Application.mainActivity.showDialog(result);
+							ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -2106,7 +2108,7 @@ public class Logic {
 					try {
 						osmParser.start(in);
 						if (!getDelegator().mergeData(osmParser.getStorage(),postMerge)) {
-							result = DialogFactory.DATA_CONFLICT;
+							result = ErrorCodes.DATA_CONFLICT;
 						} else {
 							if (mapBox != null) {
 								// if we are simply expanding the area no need keep the old bounding boxes
@@ -2132,9 +2134,9 @@ public class Logic {
 					Log.e("Vespucci", "Problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						result = DialogFactory.OUT_OF_MEMORY;
+						result = ErrorCodes.OUT_OF_MEMORY;
 					} else {
-						result = DialogFactory.INVALID_DATA_RECEIVED;
+						result = ErrorCodes.INVALID_DATA_RECEIVED;
 					}
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
@@ -2143,7 +2145,7 @@ public class Logic {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
-					result = DialogFactory.INVALID_DATA_RECEIVED;
+					result = ErrorCodes.INVALID_DATA_RECEIVED;
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
@@ -2154,7 +2156,7 @@ public class Logic {
 						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (IOException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = ErrorCodes.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
@@ -2228,19 +2230,19 @@ public class Logic {
 					Log.e("Vespucci", "Problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						result = DialogFactory.OUT_OF_MEMORY;
+						result = ErrorCodes.OUT_OF_MEMORY;
 					} else {
-						result = DialogFactory.INVALID_DATA_RECEIVED;
+						result = ErrorCodes.INVALID_DATA_RECEIVED;
 					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
-					result = DialogFactory.INVALID_DATA_RECEIVED;
+					result = ErrorCodes.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
 					Log.e("Vespucci", "Problem downloading", e);
 				} catch (IOException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = ErrorCodes.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
 				}
 				return element;
@@ -2306,25 +2308,25 @@ public class Logic {
 					 }
 					 
 					 if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
-						 result = DialogFactory.DATA_CONFLICT;
+						 result = ErrorCodes.DATA_CONFLICT;
 					 } 
 				 } catch (SAXException e) {
 					 Log.e("Vespucci", "Problem parsing", e);
 					 Exception ce = e.getException();
 					 if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						 result = DialogFactory.OUT_OF_MEMORY;
+						 result = ErrorCodes.OUT_OF_MEMORY;
 					 } else {
-						 result = DialogFactory.INVALID_DATA_RECEIVED;
+						 result = ErrorCodes.INVALID_DATA_RECEIVED;
 					 }
 				 } catch (ParserConfigurationException e) {
 					 // crash and burn
 					 // TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					 Log.e("Vespucci", "Problem parsing", e);
-					 result = DialogFactory.INVALID_DATA_RECEIVED;
+					 result = ErrorCodes.INVALID_DATA_RECEIVED;
 				 } catch (OsmServerException e) {
 					 Log.e("Vespucci", "Problem downloading", e);
 				 } catch (IOException e) {
-					 result = DialogFactory.NO_CONNECTION;
+					 result = ErrorCodes.NO_CONNECTION;
 					 Log.e("Vespucci", "Problem downloading", e);
 				 }
 				 return result;
@@ -2479,25 +2481,25 @@ public class Logic {
 						}
 					}
 					if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
-						result = DialogFactory.DATA_CONFLICT;
+						result = ErrorCodes.DATA_CONFLICT;
 					} 
 				} catch (SAXException e) {
 					Log.e("Vespucci", "Problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						result = DialogFactory.OUT_OF_MEMORY;
+						result = ErrorCodes.OUT_OF_MEMORY;
 					} else {
-						result = DialogFactory.INVALID_DATA_RECEIVED;
+						result = ErrorCodes.INVALID_DATA_RECEIVED;
 					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
-					result = DialogFactory.INVALID_DATA_RECEIVED;
+					result = ErrorCodes.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
 					Log.e("Vespucci", "Problem downloading", e);
 				} catch (IOException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = ErrorCodes.NO_CONNECTION;
 					Log.e("Vespucci", "Problem downloading", e);
 				}
 				return result;
@@ -2564,7 +2566,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 			}
 			
 			@Override
@@ -2588,17 +2590,17 @@ public class Logic {
 					Log.e("Vespucci", "Problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						result = DialogFactory.OUT_OF_MEMORY;
+						result = ErrorCodes.OUT_OF_MEMORY;
 					} else {
-						result = DialogFactory.INVALID_DATA_RECEIVED;
+						result = ErrorCodes.INVALID_DATA_RECEIVED;
 					}
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
 					Log.e("Vespucci", "Problem parsing", e);
-					result = DialogFactory.INVALID_DATA_RECEIVED;
+					result = ErrorCodes.INVALID_DATA_RECEIVED;
 				} catch (IOException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = ErrorCodes.NO_CONNECTION;
 					Log.e("Vespucci", "Problem reading", e);
 				}
 				return result;
@@ -2607,7 +2609,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 				} catch (IllegalArgumentException e) {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2620,15 +2622,15 @@ public class Logic {
 					e.printStackTrace();
 				}
 				if (result != 0) {
-					if (result == DialogFactory.OUT_OF_MEMORY) {
+					if (result == ErrorCodes.OUT_OF_MEMORY) {
 						System.gc();
 						if (getDelegator().isDirty()) {
-							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}
 					try {
 						if (!Application.mainActivity.isFinishing()) {
-							Application.mainActivity.showDialog(result);
+							ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
 						}
 					} catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException, however report, don't crash
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
@@ -2654,7 +2656,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_SAVING);
+				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
 			}
 			
 			@Override
@@ -2677,19 +2679,19 @@ public class Logic {
 					try {
 						getDelegator().save(out);
 					} catch (IllegalArgumentException e) {
-						result = DialogFactory.FILE_WRITE_FAILED;
+						result = ErrorCodes.FILE_WRITE_FAILED;
 						Log.e("Logic", "Problem writing", e);
 					} catch (IllegalStateException e) {
-						result = DialogFactory.FILE_WRITE_FAILED;
+						result = ErrorCodes.FILE_WRITE_FAILED;
 						Log.e("Logic", "Problem writing", e);
 					} catch (XmlPullParserException e) {
-						result = DialogFactory.FILE_WRITE_FAILED;
+						result = ErrorCodes.FILE_WRITE_FAILED;
 						Log.e("Logic", "Problem writing", e);
 					} finally {
 						SavingHelper.close(out);
 					}
 				} catch (IOException e) {
-					result = DialogFactory.FILE_WRITE_FAILED;
+					result = ErrorCodes.FILE_WRITE_FAILED;
 					Log.e("Logic", "Problem writing", e);
 				}
 				return result;
@@ -2698,7 +2700,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_SAVING);
+					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
 				} catch (IllegalArgumentException e) {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2711,14 +2713,14 @@ public class Logic {
 					e.printStackTrace();
 				}
 				if (result != 0) {
-					if (result == DialogFactory.OUT_OF_MEMORY) {
+					if (result == ErrorCodes.OUT_OF_MEMORY) {
 						System.gc();
 						if (getDelegator().isDirty()) {
-							result = DialogFactory.OUT_OF_MEMORY_DIRTY;
+							result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
 						}
 					}
 					if (!Application.mainActivity.isFinishing()) {
-						Application.mainActivity.showDialog(result);
+						ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
 					}
 				}
 			}
@@ -2800,7 +2802,7 @@ public class Logic {
 			
 			@Override
 			protected void onPreExecute() {
-				Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+				ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 				Log.d("Logic", "loadFromFile onPreExecute");
 			}
 			
@@ -2822,7 +2824,7 @@ public class Logic {
 			protected void onPostExecute(Integer result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
 				try {
-					Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+					ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 				} catch (IllegalArgumentException e) {
 					 // Avoid crash if dialog is already dismissed
 					Log.d("Logic", "", e);
@@ -2932,7 +2934,7 @@ public class Logic {
 
 		int result = READ_FAILED;
 
-		Application.mainActivity.showDialog(DialogFactory.PROGRESS_LOADING);
+		ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 
 		if (getDelegator().readFromFile()) {
 			viewBox.setBorders(getDelegator().getLastBox());
@@ -2940,7 +2942,7 @@ public class Logic {
 		} 
 
 		try {
-			Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_LOADING);
+			ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_LOADING);
 		} catch (IllegalArgumentException e) {
 			// Avoid crash if dialog is already dismissed
 			Log.d("Logic", "", e);
@@ -3014,7 +3016,7 @@ public class Logic {
 				try {
 					server.getCapabilities(); // update status
 					if (!(server.apiAvailable() && server.writableDB())) {
-						result.error =  DialogFactory.API_OFFLINE;
+						result.error =  ErrorCodes.API_OFFLINE;
 						return result;
 					}
 					getDelegator().uploadToServer(server, comment, source, closeChangeset);
@@ -3046,7 +3048,7 @@ public class Logic {
 					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
 					case HttpStatus.SC_BAD_GATEWAY:
 					case HttpStatus.SC_SERVICE_UNAVAILABLE:
-						result.error = DialogFactory.UPLOAD_PROBLEM;
+						result.error = ErrorCodes.UPLOAD_PROBLEM;
 						break;
 					//TODO: implement other state handling
 					default:
@@ -3056,7 +3058,7 @@ public class Logic {
 						break;
 					}
 				} catch (final IOException e) {
-					result.error = DialogFactory.NO_CONNECTION;
+					result.error = ErrorCodes.NO_CONNECTION;
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
@@ -3080,7 +3082,7 @@ public class Logic {
 					if (result.error == DialogFactory.UPLOAD_CONFLICT) {
 						DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
 					} else if (result.error != 0) {
-						Application.mainActivity.showDialog(result.error);
+						ErrorAlertDialogFragment.showDialog(Application.mainActivity,result.error);
 					}
 				}
 			}
@@ -3128,14 +3130,14 @@ public class Logic {
 					case HttpStatus.SC_BAD_REQUEST:
 					case HttpStatus.SC_PRECONDITION_FAILED:
 					case HttpStatus.SC_CONFLICT:
-						result = DialogFactory.UPLOAD_PROBLEM;
+						result = ErrorCodes.UPLOAD_PROBLEM;
 						break;
 					case HttpStatus.SC_NOT_FOUND:
 					case HttpStatus.SC_GONE:
 					case HttpStatus.SC_INTERNAL_SERVER_ERROR:
 					case HttpStatus.SC_BAD_GATEWAY:
 					case HttpStatus.SC_SERVICE_UNAVAILABLE:
-						result = DialogFactory.UPLOAD_PROBLEM;
+						result = ErrorCodes.UPLOAD_PROBLEM;
 						break;
 					//TODO: implement other state handling
 					default:
@@ -3145,18 +3147,18 @@ public class Logic {
 						break;
 					}
 				} catch (final IOException e) {
-					result = DialogFactory.NO_CONNECTION;
+					result = ErrorCodes.NO_CONNECTION;
 					Log.e(DEBUG_TAG, "", e);
 				} catch (final NullPointerException e) {
 					Log.e(DEBUG_TAG, "", e);
 					ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 					ACRA.getErrorReporter().handleException(e);
 				} catch (IllegalArgumentException e) {
-					result = DialogFactory.UPLOAD_PROBLEM;
+					result = ErrorCodes.UPLOAD_PROBLEM;
 				} catch (IllegalStateException e) {
-					result = DialogFactory.UPLOAD_PROBLEM;
+					result = ErrorCodes.UPLOAD_PROBLEM;
 				} catch (XmlPullParserException e) {
-					result = DialogFactory.UPLOAD_PROBLEM;
+					result = ErrorCodes.UPLOAD_PROBLEM;
 				}
 				return result;
 			}
@@ -3170,7 +3172,7 @@ public class Logic {
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
 					if (!Application.mainActivity.isFinishing()) {
-						Application.mainActivity.showDialog(result);
+						ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
 					}
 				}
 			}

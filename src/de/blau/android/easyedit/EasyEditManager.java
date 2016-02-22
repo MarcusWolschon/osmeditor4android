@@ -11,7 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
+
 import org.acra.ACRA;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -38,15 +40,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
+import de.blau.android.dialogs.ElementInfoFragment;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
@@ -1094,7 +1099,7 @@ public class EasyEditManager {
 			case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
 			case MENUITEM_RELATION: main.startActionMode(new  AddRelationMemberActionModeCallback(element)); break;
 			case MENUITEM_EXTEND_SELECTION: deselect = false; main.startActionMode(new  ExtendSelectionActionModeCallback(element)); break;
-			case MENUITEM_ELEMENT_INFO: main.showElementInfo(element); break;
+			case MENUITEM_ELEMENT_INFO: ElementInfoFragment.showDialog(main,element); break;
 			case R.id.undo_action:
 				// should not happen
 				Log.d("EasyEditManager.ElementSelectionActionModeCallback","menu undo clicked");
@@ -1144,7 +1149,7 @@ public class EasyEditManager {
 				logic.cutToClipboard(element); currentActionMode.finish();
 				return true;
 			} else if (c == Util.getShortCut(main, R.string.shortcut_info)) {
-				main.showElementInfo(element); 
+				ElementInfoFragment.showDialog(main,element); 
 				return true;
 			}  else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
 				main.performTagEdit(element, null, false, false);

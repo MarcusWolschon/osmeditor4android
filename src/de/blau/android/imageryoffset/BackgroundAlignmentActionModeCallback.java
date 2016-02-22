@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -30,16 +31,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+
 import de.blau.android.Application;
-import de.blau.android.DialogFactory;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic.Mode;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.dialogs.ProgressDialogFragment;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
@@ -150,7 +153,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 		@Override
 		protected void onPreExecute() {
-			Application.mainActivity.showDialog(DialogFactory.PROGRESS_SEARCHING);
+			ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SEARCHING);
 		}
 		
 		@Override
@@ -213,7 +216,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		@Override
 		protected void onPostExecute(ArrayList<ImageryOffset> res) {
 			try {
-				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_SEARCHING);
+				ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SEARCHING);
 			} catch (IllegalArgumentException e) {
 				 // Avoid crash if dialog is already dismissed
 				Log.d("BackgroundAlignmentActionModeCallback", "", e);
@@ -235,7 +238,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
 		@Override
 		protected void onPreExecute() {
-			Application.mainActivity.showDialog(DialogFactory.PROGRESS_SAVING);
+			ProgressDialogFragment.showDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
 		}
 		
 		@Override
@@ -263,7 +266,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		@Override
 		protected void onPostExecute(Integer res) {
 			try {
-				Application.mainActivity.dismissDialog(DialogFactory.PROGRESS_SAVING);
+				ProgressDialogFragment.dismissDialog(Application.mainActivity, ProgressDialogFragment.PROGRESS_SAVING);
 			} catch (IllegalArgumentException e) {
 				 // Avoid crash if dialog is already dismissed
 				Log.d("BackgroundAlignmentActionModeCallback", "", e);

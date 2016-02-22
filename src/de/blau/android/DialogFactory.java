@@ -2,11 +2,11 @@ package de.blau.android;
 
 import java.io.FileNotFoundException;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -47,83 +47,35 @@ import de.blau.android.util.ThemeUtils;
  */
 public class DialogFactory {
 	
-	public static final int NO_LOGIN_DATA = 1;
-	
 	public static final int WRONG_LOGIN = 2;
-	
-	public static final int NO_CONNECTION = 3;
 	
 	public static final int DOWNLOAD_CURRENT_WITH_CHANGES = 4;
 	
-	public static final int PROGRESS_LOADING = 5;
-	
-	public static final int PROGRESS_DOWNLOAD = 6;
-	
-	public static final int UPLOAD_PROBLEM = 7;
-	
 	public static final int CONFIRM_UPLOAD = 8;
 	
-	public static final int DATA_CONFLICT = 10;
-	
-	public static final int OUT_OF_MEMORY = 11;
-
-	public static final int OUT_OF_MEMORY_DIRTY = 12;
-	
-	public static final int PROGRESS_DELETING = 13;
-	
 	public static final int BACKGROUND_PROPERTIES = 14;
-	
-	public static final int INVALID_DATA_RECEIVED = 15;
-	
-	public static final int PROGRESS_SEARCHING = 16;
-	
-	public static final int PROGRESS_SAVING = 17;
 	
 	public static final int SEARCH = 18;
 
 	public static final int SAVE_FILE = 19;
-
-	public static final int FILE_WRITE_FAILED = 20;
 
 	public static final int NEWBIE = 21;
 	
 	public static final int GPX_UPLOAD = 22;
 	
 	public static final int UPLOAD_CONFLICT = 23;
-
-	public static final int API_OFFLINE = 24;
 	
 	public static final int NEW_VERSION = 25;
-	
-	public static final int PROGRESS_OAUTH = 26;
 		
 	private final Main caller;
 	
-	private final Builder noLoginDataSet;
-	
 	private final Builder wrongLogin;
-	
-	private final Builder noConnection;
-	
+
 	private final Builder downloadCurrentWithChanges;
-	
-	private final Builder uploadProblem;
 	
 	private final Builder confirmUpload;
 	
-	private final Builder dataConflict;
-	
-	private final Builder apiOffline;
-	
-	private final Builder outOfMemory;
-	
-	private final Builder outOfMemoryDirty;
-	
 	private final Builder backgroundProperties;
-	
-	private final Builder invalidDataReceived;
-	
-	private final Builder fileWriteFailed;
 	
 	private final Builder newbie;
 	
@@ -134,6 +86,7 @@ public class DialogFactory {
 	/**
 	 * @param caller
 	 */
+	@SuppressLint("InflateParams")
 	public DialogFactory(final Main caller) {
 		this.caller = caller;
 		
@@ -141,9 +94,6 @@ public class DialogFactory {
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(caller);
 		
 		DoNothingListener doNothingListener = new DoNothingListener();
-		
-		noLoginDataSet = createBasicDialog(caller, R.string.no_login_data_title, R.string.no_login_data_message);
-		noLoginDataSet.setPositiveButton(R.string.okay, doNothingListener); // logins in the preferences should no longer be used
 		
 		wrongLogin = createBasicDialog(caller, R.string.wrong_login_data_title, R.string.wrong_login_data_message);
 		wrongLogin.setNegativeButton(R.string.cancel, doNothingListener); // logins in the preferences should no longer be used
@@ -157,9 +107,6 @@ public class DialogFactory {
 			});
 		}
 		
-		noConnection = createBasicDialog(caller, R.string.no_connection_title, R.string.no_connection_message);
-		noConnection.setPositiveButton(R.string.okay, doNothingListener);
-		
 		downloadCurrentWithChanges = createBasicDialog(caller,
 			R.string.transfer_download_current_dialog_title, R.string.transfer_download_current_dialog_message);
 		downloadCurrentWithChanges.setPositiveButton(R.string.transfer_download_current_upload,
@@ -167,9 +114,6 @@ public class DialogFactory {
 		downloadCurrentWithChanges.setNeutralButton(R.string.transfer_download_current_back, doNothingListener);
 		downloadCurrentWithChanges.setNegativeButton(R.string.transfer_download_current_download,
 			new DownloadCurrentListener(caller));
-		
-		uploadProblem = createBasicDialog(caller, R.string.upload_problem_title, R.string.upload_problem_message);
-		uploadProblem.setPositiveButton(R.string.okay, doNothingListener);
 		
 		confirmUpload = createBasicDialog(caller, R.string.confirm_upload_title, 0); // body gets replaced later
 		View layout = inflater.inflate(R.layout.upload_comment, null);
@@ -180,31 +124,12 @@ public class DialogFactory {
 					(EditText)layout.findViewById(R.id.upload_source), closeChangeset));
 		confirmUpload.setNegativeButton(R.string.no, doNothingListener);
 		
-		dataConflict = createBasicDialog(caller, R.string.data_conflict_title, R.string.data_conflict_message);
-		dataConflict.setPositiveButton(R.string.okay, doNothingListener);
-		
-		apiOffline = createBasicDialog(caller, R.string.api_offline_title, R.string.api_offline_message);
-		apiOffline.setPositiveButton(R.string.okay, doNothingListener);
-		
-		// displaying these dialogs might make things worse
-		outOfMemory = createBasicDialog(caller, R.string.out_of_memory_title, R.string.out_of_memory_message);
-		outOfMemory.setPositiveButton(R.string.okay, doNothingListener);
-		
-		outOfMemoryDirty = createBasicDialog(caller, R.string.out_of_memory_title, R.string.out_of_memory_dirty_message);
-		outOfMemoryDirty.setPositiveButton(R.string.okay, doNothingListener);
-		
 		backgroundProperties = createBackgroundPropertiesDialog();
 		layout = inflater.inflate(R.layout.background_properties, null);
 		backgroundProperties.setView(layout);
 		backgroundProperties.setPositiveButton(R.string.okay, doNothingListener);
 		SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
 		seeker.setOnSeekBarChangeListener(createSeekBarListener());
-				
-		invalidDataReceived = createBasicDialog(caller, R.string.invalid_data_received_title, R.string.invalid_data_received_message);
-		invalidDataReceived.setPositiveButton(R.string.okay, doNothingListener);
-		
-		fileWriteFailed = createBasicDialog(caller, R.string.file_write_failed_title, R.string.file_write_failed_message);
-		fileWriteFailed.setPositiveButton(R.string.okay, doNothingListener);
 		
 		newbie = createBasicDialog(caller, R.string.welcome_title, R.string.welcome_message);
 		newbie.setPositiveButton(R.string.okay, new OnClickListener() {
@@ -243,69 +168,24 @@ public class DialogFactory {
 	 */
 	public Dialog create(final int id) {
 		switch (id) {
-		
-		case NO_LOGIN_DATA:
-			return noLoginDataSet.create();
 			
 		case WRONG_LOGIN:
 			return wrongLogin.create();
 			
-		case NO_CONNECTION:
-			return noConnection.create();
-			
 		case DOWNLOAD_CURRENT_WITH_CHANGES:
 			return downloadCurrentWithChanges.create();
-			
-		case PROGRESS_LOADING:
-			return createBasicProgressDialog(R.string.progress_message);
-			
-		case PROGRESS_DOWNLOAD:
-			return createBasicProgressDialog(R.string.progress_download_message);
-			
-		case UPLOAD_PROBLEM:
-			return uploadProblem.create();
 			
 		case CONFIRM_UPLOAD:
 			return confirmUpload.create();
 		
-		case DATA_CONFLICT:
-			return dataConflict.create();
-			
-		case API_OFFLINE:
-			return apiOffline.create();
-		
-		case OUT_OF_MEMORY:
-			return outOfMemory.create();
-			
-		case OUT_OF_MEMORY_DIRTY:
-			return outOfMemoryDirty.create();
-			
-		case PROGRESS_DELETING:
-			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_deleting_message);
-			
-		case PROGRESS_SEARCHING:
-			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_searching_message);
-		
-		case PROGRESS_SAVING:
-			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_saving_message);
-			
-		case PROGRESS_OAUTH:
-			return createBasicProgressDialog(R.string.progress_general_title, R.string.progress_oauth);
-			
 		case BACKGROUND_PROPERTIES:
 			return backgroundProperties.create();
-			
-		case INVALID_DATA_RECEIVED:
-			return invalidDataReceived.create();
 			
 		case SEARCH:
 			return createSearchDialog(caller);
 			
 		case SAVE_FILE:
 			return createSaveFileDialog(caller);
-			
-		case FILE_WRITE_FAILED:
-			return fileWriteFailed.create();
 			
 		case NEWBIE:
 			return newbie.create();
@@ -392,19 +272,7 @@ public class DialogFactory {
 		};
 	}
 	
-	private ProgressDialog createBasicProgressDialog(final int messageId) {
-		return createBasicProgressDialog(R.string.progress_title, messageId);
-	}
-	
-	private ProgressDialog createBasicProgressDialog(final int titleId, final int messageId) {
-		ProgressDialog progress = new ProgressDialog(caller);
-		progress.setTitle(titleId);
-		progress.setIndeterminate(true);
-		progress.setCancelable(true);
-		progress.setMessage(caller.getResources().getString(messageId));
-		return progress;
-	}
-	
+	@SuppressLint("InflateParams")
 	private Dialog createSearchDialog(final Main caller) {
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(caller);
 		Builder searchBuilder = createBasicDialog(caller, R.string.menu_find, R.string.find_message);
@@ -447,6 +315,7 @@ public class DialogFactory {
 		return searchDialog;
 	}
 	
+	@SuppressLint("InflateParams")
 	private Dialog createSaveFileDialog(final Main caller) {
 		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(caller);
 		Builder saveFileBuilder = createBasicDialog(caller, R.string.save_file, 0);

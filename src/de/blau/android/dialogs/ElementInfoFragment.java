@@ -1,4 +1,4 @@
-package de.blau.android;
+package de.blau.android.dialogs;
 
 import java.util.List;
 import java.util.Locale;
@@ -10,6 +10,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
@@ -25,6 +29,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
+import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -40,7 +45,31 @@ import de.blau.android.osm.Way;
 public class ElementInfoFragment extends SherlockDialogFragment {
 	
 	private static final String DEBUG_TAG = ElementInfoFragment.class.getName();
+	
+	private static final String TAG = "fragment_element_info";
+	
+	static public void showDialog(FragmentActivity activity, OsmElement e) {
+		dismissDialog(activity);
 
+		FragmentManager fm = activity.getSupportFragmentManager();
+		ElementInfoFragment elementInfoFragment = newInstance(e);
+	    if (elementInfoFragment != null) {
+	    	elementInfoFragment.show(fm, TAG);
+	    } else {
+	    	Log.e(DEBUG_TAG,"Unable to create dialog for value " + e.getDescription());
+	    }
+	}
+	
+	static public void dismissDialog(FragmentActivity activity) {
+		FragmentManager fm = activity.getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+	    Fragment fragment = fm.findFragmentByTag(TAG);
+	    if (fragment != null) {
+	        ft.remove(fragment);
+	    }
+	    ft.commit();
+	}
+	
     /**
      */
     static public ElementInfoFragment newInstance(OsmElement e) {
@@ -60,7 +89,8 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
@@ -81,8 +111,8 @@ public class ElementInfoFragment extends SherlockDialogFragment {
         	tl.addView(createRow(R.string.version,"" + e.getOsmVersion(),tp));
         	
         	if (e.getName().equals(Node.NAME)) {
-        		tl.addView(createRow(R.string.location_lon_label, String.format(Locale.US,"%.7f", ((Node)e).getLon()/1E7d) + "�",tp));
-        		tl.addView(createRow(R.string.location_lat_label, String.format(Locale.US,"%.7f", ((Node)e).getLat()/1E7d) + "�",tp));
+        		tl.addView(createRow(R.string.location_lon_label, String.format(Locale.US,"%.7f", ((Node)e).getLon()/1E7d) + "°",tp));
+        		tl.addView(createRow(R.string.location_lat_label, String.format(Locale.US,"%.7f", ((Node)e).getLat()/1E7d) + "°",tp));
         	} else if (e.getName().equals(Way.NAME)) {
         		tl.addView(divider());
         		boolean isClosed = ((Way)e).isClosed();
@@ -201,7 +231,8 @@ public class ElementInfoFragment extends SherlockDialogFragment {
     	return tr;
     }
     
-    private View divider() {
+    @SuppressWarnings("deprecation")
+	private View divider() {
     	View v = new View(getActivity());
     	v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1));
     	v.setBackgroundColor(Color.rgb(204, 204, 204));

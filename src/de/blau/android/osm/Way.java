@@ -14,7 +14,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.resources.Profile.FeatureProfile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;

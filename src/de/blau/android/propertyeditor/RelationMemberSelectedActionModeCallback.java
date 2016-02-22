@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -13,8 +12,6 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import de.blau.android.Application;
-import de.blau.android.DialogFactory;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
