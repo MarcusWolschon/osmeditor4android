@@ -3038,7 +3038,7 @@ public class Logic {
 						break;
 					case HttpStatus.SC_CONFLICT:
 					case HttpStatus.SC_PRECONDITION_FAILED:
-						result.error = DialogFactory.UPLOAD_CONFLICT;
+						result.error = ErrorCodes.UPLOAD_CONFLICT;
 						result.elementType = e.getElementType();
 						result.osmId = e.getElementId();
 						break;
@@ -3079,8 +3079,10 @@ public class Logic {
 				getDelegator().clearUndo();
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (!Application.mainActivity.isFinishing()) {
-					if (result.error == DialogFactory.UPLOAD_CONFLICT) {
+					if (result.error == ErrorCodes.UPLOAD_CONFLICT) {
 						DialogFactory.createUploadConflictDialog(Application.mainActivity, result).show();
+					} else if (result.error == DialogFactory.WRONG_LOGIN) {
+						Application.mainActivity.showDialog(result.error);
 					} else if (result.error != 0) {
 						ErrorAlertDialogFragment.showDialog(Application.mainActivity,result.error);
 					}
@@ -3172,7 +3174,11 @@ public class Logic {
 				Application.mainActivity.getCurrentFocus().invalidate();
 				if (result != 0) {
 					if (!Application.mainActivity.isFinishing()) {
-						ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
+						if (result == DialogFactory.WRONG_LOGIN) {
+							Application.mainActivity.showDialog(result);
+						} else { 
+							ErrorAlertDialogFragment.showDialog(Application.mainActivity,result);
+						}
 					}
 				}
 			}

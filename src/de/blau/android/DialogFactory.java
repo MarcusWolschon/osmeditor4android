@@ -63,8 +63,6 @@ public class DialogFactory {
 	
 	public static final int GPX_UPLOAD = 22;
 	
-	public static final int UPLOAD_CONFLICT = 23;
-	
 	public static final int NEW_VERSION = 25;
 		
 	private final Main caller;
