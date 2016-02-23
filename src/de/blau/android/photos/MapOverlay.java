@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
@@ -106,16 +104,15 @@ public class MapOverlay extends OpenStreetMapViewOverlay {
 	};		
 
 	public MapOverlay(final Map map, Server s) {
-		Context context = Application.mainActivity;
 		this.map = map;
 		photos = new ArrayList<Photo>();
-		icon = ContextCompat.getDrawable(context, R.drawable.camera_red);
-		icon_selected = ContextCompat.getDrawable(context, R.drawable.camera_green);
+		icon = Application.mainActivity.getResources().getDrawable(R.drawable.camera_red);
+		icon_selected = Application.mainActivity.getResources().getDrawable(R.drawable.camera_green);
 		// note this assumes the icons are the same size
 		w2 = icon.getIntrinsicWidth() / 2;
 		h2 = icon.getIntrinsicHeight() / 2;
 		
-		pi = new PhotoIndex(context);
+		pi = new PhotoIndex(Application.mainActivity);
 	}
 	
 	@Override
