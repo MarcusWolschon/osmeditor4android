@@ -2303,7 +2303,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						nodes.set(i,n);
 					} else {
 						// node might have been deleted, aka somebody deleted nodes outside of the down loaded data bounding box
-						Log.e("StorageDelegator","mergeData null way node");
+						Log.e("StorageDelegator","mergeData null way node for way " + w.getOsmId() + " node " + nodes.get(i).getOsmId());
 						ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 						ACRA.getErrorReporter().handleException(null);
 						return false;
@@ -2360,7 +2360,7 @@ public class StorageDelegator implements Serializable, Exportable {
 						} else { // check if deleted
 							Node apiNode = apiStorage.getNode(rm.getRef());
 							if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
-								Log.e("StorageDelegator","mergeData deleted node in downloaded relation");
+								Log.e("StorageDelegator","mergeData deleted node in downloaded relation " + r.getOsmId());
 								ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
 								ACRA.getErrorReporter().handleException(null);
 								return false; // can't resolve conflicts, upload first

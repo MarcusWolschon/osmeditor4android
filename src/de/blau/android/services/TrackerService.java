@@ -345,7 +345,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 		if (source != GpsSource.INTERNAL && location.getProvider().equals("gps")) {
 			return; // ignore updates from internal gps
 		}
-		Log.d(TAG,"onLocationChanged " + location.getProvider());
+		// Log.d(TAG,"onLocationChanged " + location.getProvider());
 		if (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY) {
 			if (tracking) {
 				track.addTrackPoint(location);
