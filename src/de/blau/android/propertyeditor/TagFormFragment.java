@@ -540,9 +540,6 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		return nonEditable;
 	}
 	
-
-
-	
 	private void addRow(LinearLayout rowLayout, final String key, final String value, PresetItem preset, LinkedHashMap<String, String> allTags) {
 		if (rowLayout != null) {
 			if (preset != null) {
@@ -692,6 +689,9 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		}
 		if (adapter != null && adapter.getCount() > 0) {
 			row.valueView.setAdapter(adapter);
+		} else {
+			Log.e(DEBUG_TAG,"adapter null or empty");
+			row.valueView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row));
 		}
 		if (keyType==PresetKeyType.MULTISELECT) { 
 			// FIXME this should be somewhere better obvious since it creates a non obvious side effect
@@ -722,7 +722,7 @@ public class TagFormFragment extends SherlockFragment implements FormUpdate {
 		row.valueView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Log.d("TagEdit","onItemClicked value");
+				Log.d(DEBUG_TAG,"onItemClicked value");
 				Object o = parent.getItemAtPosition(position);
 				if (o instanceof Names.NameAndTags) {
 					row.valueView.setText2(((NameAndTags)o).getName());

@@ -952,7 +952,10 @@ public class TagEditorFragment extends SherlockFragment implements
 					}
 				}
 			};
-			
+			// set an empty adapter on both views to be on the safe side
+			ArrayAdapter<String> empty = new ArrayAdapter<String>(owner, R.layout.autocomplete_row);
+			keyEdit.setAdapter(empty);
+			valueEdit.setAdapter(empty);
 			keyEdit.setOnClickListener(autocompleteOnClick);
 			valueEdit.setOnClickListener(autocompleteOnClick);
 		}
