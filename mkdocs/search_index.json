@@ -857,7 +857,7 @@
         }, 
         {
             "location": "/help/en/Keyboard/", 
-            "text": "Keyboard and mouse support\n\n\nShortcuts\n\n\nThe alphabetic menu shortcuts should be usable with \nCtrl\n + letter or \nAlt\n + letter.\n\n\nGeneral\n\n\nu\n Undo\n  \nh\n Help\n\n\nMain display\n\n\nf\n GPS follow \n  \ng\n GPS goto \n  \nd\n Download data for current view (merges with existing) \n  \nb\n Download notes/bugs for current view (merges with existing) \n\n\n+\n Zoom in\n  \nVolume +\n Zoom in\n  \n-\n Zoom out\n  \nVolume -\n Zoom out\n  \nArrow keys\n Pan in the respective direction\n\n\nElement selected\n\n\ne\n Edit tags\n  \ni\n Element information\n  \nc\n Copy\n  \nx\n Cut \n  \nv\n Paste \n\n\nNode selected\n\n\nm\n Merge (if possible)\n\n\nProperty editor\n\n\nc\n Copy\n  \nx\n Cut \n  \nv\n Paste", 
+            "text": "Keyboard and mouse support\n\n\nShortcuts\n\n\nThe alphabetic menu shortcuts should be usable with \nCtrl\n + letter or \nAlt\n + letter.\n\n\nGeneral\n\n\nu\n Undo\n\n\nh\n Help\n\n\nMain display\n\n\nf\n GPS follow \n\n\ng\n GPS goto \n\n\nd\n Download data for current view (merges with existing) \n\n\nb\n Download notes/bugs for current view (merges with existing) \n\n\n+\n Zoom in\n\n\nVolume +\n Zoom in\n\n\n-\n Zoom out\n\n\nVolume -\n Zoom out\n\n\nArrow keys\n Pan in the respective direction\n\n\nElement selected\n\n\ne\n Edit tags\n\n\ni\n Element information\n\n\nc\n Copy\n\n\nx\n Cut \n\n\nv\n Paste \n\n\nNode selected\n\n\nm\n Merge (if possible)\n\n\nProperty editor\n\n\nc\n Copy\n\n\nx\n Cut \n\n\nv\n Paste", 
             "title": "Keyboard and mouse"
         }, 
         {
@@ -872,17 +872,17 @@
         }, 
         {
             "location": "/help/en/Keyboard/#general", 
-            "text": "u  Undo\n   h  Help", 
+            "text": "u  Undo  h  Help", 
             "title": "General"
         }, 
         {
             "location": "/help/en/Keyboard/#main-display", 
-            "text": "f  GPS follow \n   g  GPS goto \n   d  Download data for current view (merges with existing) \n   b  Download notes/bugs for current view (merges with existing)   +  Zoom in\n   Volume +  Zoom in\n   -  Zoom out\n   Volume -  Zoom out\n   Arrow keys  Pan in the respective direction", 
+            "text": "f  GPS follow   g  GPS goto   d  Download data for current view (merges with existing)   b  Download notes/bugs for current view (merges with existing)   +  Zoom in  Volume +  Zoom in  -  Zoom out  Volume -  Zoom out  Arrow keys  Pan in the respective direction", 
             "title": "Main display"
         }, 
         {
             "location": "/help/en/Keyboard/#element-selected", 
-            "text": "e  Edit tags\n   i  Element information\n   c  Copy\n   x  Cut \n   v  Paste", 
+            "text": "e  Edit tags  i  Element information  c  Copy  x  Cut   v  Paste", 
             "title": "Element selected"
         }, 
         {
@@ -892,7 +892,7 @@
         }, 
         {
             "location": "/help/en/Keyboard/#property-editor", 
-            "text": "c  Copy\n   x  Cut \n   v  Paste", 
+            "text": "c  Copy  x  Cut   v  Paste", 
             "title": "Property editor"
         }, 
         {
