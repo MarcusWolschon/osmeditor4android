@@ -3,7 +3,7 @@
 
 ## Shortcuts
 
-The alphabetic menu shortcuts should be usable with _<Ctrl>_ + letter or _<Alt>_ + letter.
+The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter or `<Alt>` + letter.
 
 ### General ###
   __u__ Undo
