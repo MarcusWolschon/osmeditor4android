@@ -384,7 +384,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		for (int z = 0; z < offsets.length; z++)  { // iterate through the list and generate a new offset when necessary
 			Offset o = offsets[z];
 			if (o != null && (o.lon != 0 || o.lat !=0)) { // non-null zoom
-				if (lastOffset != null && (o.lon != 0 || o.lat !=0)) {
+				if (lastOffset != null && im != null) {
 					if (lastOffset.lon == o.lon && lastOffset.lat == o.lat) {
 						im.maxZoom++;
 						lastOffset = o;
@@ -407,7 +407,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			lastOffset = o;
 		}
 		
-		if (offsetList != null && offsetList.size() > 0) {		
+		if (offsetList.size() > 0) {
 			Dialog d = createSaveOffsetDialog(0, offsetList);
 			d.show();
 		} 
@@ -461,7 +461,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 			}
 		}
 		reader.endObject();
-		if (type.equals("offset"))
+		if ("offset".equals(type))
 			return result;
 
 		return null;
