@@ -105,7 +105,8 @@ public class RelationMembersFragment extends SherlockFragment implements
 	 * display member elements of the relation if any
 	 * @param members 
 	 */
-    @SuppressLint("InflateParams")
+    @SuppressWarnings("unchecked")
+	@SuppressLint("InflateParams")
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {

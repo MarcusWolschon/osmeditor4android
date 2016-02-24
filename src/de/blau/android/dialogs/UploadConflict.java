@@ -19,6 +19,7 @@ import android.util.Log;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
 import de.blau.android.Application;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.UploadResult;
@@ -100,7 +101,8 @@ public class UploadConflict extends SherlockDialogFragment
     	builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
     	builder.setTitle(R.string.upload_conflict_title);
     	Resources res = getActivity().getResources();
-    	final OsmElement elementOnServer = Main.getLogic().downloadElement(result.elementType, result.osmId);
+    	final Logic logic = Application.getLogic();
+    	final OsmElement elementOnServer = logic.getElement(result.elementType, result.osmId);
     	final OsmElement elementLocal = Application.getDelegator().getOsmElement(result.elementType, result.osmId);
     	final long newVersion;
     	try {
@@ -121,7 +123,7 @@ public class UploadConflict extends SherlockDialogFragment
     			builder.setPositiveButton(R.string.use_local_version, 	new OnClickListener() {
     				@Override
     				public void onClick(DialogInterface dialog, int which) {
-    					Main.getLogic().fixElementWithConflict(newVersion, elementLocal, elementOnServer);
+    					logic.fixElementWithConflict(newVersion, elementLocal, elementOnServer);
     					((Main)getActivity()).confirmUpload(); // FIXME this should be made independent from Main
     				}
     			});
@@ -132,9 +134,9 @@ public class UploadConflict extends SherlockDialogFragment
     				StorageDelegator storageDelegator = Application.getDelegator();
     				storageDelegator.removeFromUpload(elementLocal);
     				if (elementOnServer != null) {
-    					Main.getLogic().updateElement(elementLocal.getName(), elementLocal.getOsmId());
+    					logic.downloadElement(getActivity(), elementLocal.getName(), elementLocal.getOsmId(), false, true, null);
     				} else { // delete local element
-    					Main.getLogic().updateToDeleted(elementLocal);
+    					logic.updateToDeleted(elementLocal);
     				}
     				if (!storageDelegator.getApiStorage().isEmpty()) {
     					((Main)getActivity()).confirmUpload(); // FIXME this should be made independent from Main

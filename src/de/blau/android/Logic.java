@@ -288,7 +288,7 @@ public class Logic {
 	 * @param map Instance of the Map. All new Values will be pushed to it.
 	 * @param profile The drawing profile used by the map to paint the objects on screen.
 	 */
-	Logic(final Map map, final Profile profile) {
+	Logic(final Map map) {
 		this.map = map;
 
 		viewBox = getDelegator().getLastBox();
@@ -1922,16 +1922,16 @@ public class Logic {
 	 * 
 	 * @param mapBox Box defining the area to be loaded.
 	 * @param add if true add this data to existing
-	 * @param postLoadHandler TODO
-	 * @param auto download is being done automatically, try not mess up/move the display
+	 * @param postLoadHandler handler to execute after successful download
 	 */
 	public synchronized void downloadBox(final BoundingBox mapBox, final boolean add, final PostAsyncActionHandler postLoadHandler) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} // TODO remove this? and replace with better error messaging
+			Log.e(DEBUG_TAG,"downloadBox invalid download box");
+			ErrorAlert.showDialog(Application.mainActivity,ErrorCodes.INVALID_BOUNDING_BOX);
+			return;
+		} 
 		
 		final PostMergeHandler postMerge =  new PostMergeHandler(){
 
@@ -1962,7 +1962,7 @@ public class Logic {
 					try {
 						long startTime = System.currentTimeMillis();
 						osmParser.start(in);
-						Log.d(DEBUG_TAG,"downloaded and parsed input in " + (System.currentTimeMillis()-startTime) + "ms");
+						Log.d(DEBUG_TAG,"downloadBox downloaded and parsed input in " + (System.currentTimeMillis()-startTime) + "ms");
 						if (arg[0]) { // incremental load
 							if (!getDelegator().mergeData(osmParser.getStorage(),postMerge)) {
 								result = ErrorCodes.DATA_CONFLICT;
@@ -1983,7 +1983,7 @@ public class Logic {
 							getDelegator().reset(false);
 							getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
 							if (mapBox != null) {
-								Log.d(DEBUG_TAG,"setting original bbox");
+								Log.d(DEBUG_TAG,"downloadBox setting original bbox");
 								getDelegator().setOriginalBox(mapBox);
 							}
 						}
@@ -1992,7 +1992,7 @@ public class Logic {
 						SavingHelper.close(in);
 					}
 				} catch (SAXException e) {
-					Log.e(DEBUG_TAG, "Problem parsing", e);
+					Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
 						result = ErrorCodes.OUT_OF_MEMORY;
@@ -2005,20 +2005,20 @@ public class Logic {
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-					Log.e(DEBUG_TAG, "Problem parsing", e);
+					Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
 					result = ErrorCodes.INVALID_DATA_RECEIVED;
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (OsmServerException e) {
 					result = e.getErrorCode();
-					Log.e(DEBUG_TAG, "Problem downloading", e);
+					Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
 				} catch (IOException e) {
 					result = ErrorCodes.NO_CONNECTION;
-					Log.e(DEBUG_TAG, "Problem downloading", e);
+					Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
 					if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
 						getDelegator().deleteBoundingBox(mapBox);
 					}
@@ -2032,7 +2032,7 @@ public class Logic {
 					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 				} catch (IllegalArgumentException e) {
 					// Avoid crash if dialog is already dismissed
-					Log.d("Logic", "", e);
+					Log.d(DEBUG_TAG, "downloadBox dissDialog crashed ", e);
 				}
 
 				View map = Application.mainActivity.getCurrentFocus();
@@ -2079,7 +2079,7 @@ public class Logic {
 	 * @param add if true add this data to existing
 	 * @param auto download is being done automatically, try not mess up/move the display
 	 */
-	public synchronized static void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
+	public synchronized void autoDownloadBox(final Context context, final Server server, final BoundingBox mapBox) {
 		try {
 			mapBox.makeValidForApi();
 		} catch (OsmException e1) {
@@ -2200,22 +2200,22 @@ public class Logic {
 	}
 
 	/**
-	 * Return a single element from the API
+	 * Return a single element from the API, does not merge into storage, synchronous
 	 * 
-	 * @param type
-	 * @param id
-	 * @return
+	 * @param type type of the element
+	 * @param id id of the element
+	 * @return element if successful, null if not
 	 */
-	 public synchronized OsmElement downloadElement(final String type, final long id) {
-		
-		class DownloadElementTask extends AsyncTask<Void, Void, OsmElement> {
+	public synchronized OsmElement getElement(final String type, final long id) {
+
+		class GetElementTask extends AsyncTask<Void, Void, OsmElement> {
 			int result = 0;
-			
+
 			@Override
 			protected void onPreExecute() {
-	
+
 			}
-			
+
 			@Override
 			protected OsmElement doInBackground(Void... arg) {
 				OsmElement element = null;
@@ -2229,7 +2229,7 @@ public class Logic {
 						SavingHelper.close(in);
 					}
 				} catch (SAXException e) {
-					Log.e("Vespucci", "Problem parsing", e);
+					Log.e(DEBUG_TAG, "getElement problem parsing", e);
 					Exception ce = e.getException();
 					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
 						result = ErrorCodes.OUT_OF_MEMORY;
@@ -2239,26 +2239,26 @@ public class Logic {
 				} catch (ParserConfigurationException e) {
 					// crash and burn
 					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-					Log.e("Vespucci", "Problem parsing", e);
+					Log.e(DEBUG_TAG, "getElement problem parsing", e);
 					result = ErrorCodes.INVALID_DATA_RECEIVED;
 				} catch (OsmServerException e) {
-					Log.e("Vespucci", "Problem downloading", e);
+					Log.e(DEBUG_TAG, "getElement problem downloading", e);
 				} catch (IOException e) {
 					result = ErrorCodes.NO_CONNECTION;
-					Log.e("Vespucci", "Problem downloading", e);
+					Log.e(DEBUG_TAG, "getElement problem downloading", e);
 				}
 				return element;
 			}
-			
+
 			@Override
 			protected void onPostExecute(OsmElement result) {
 				// potentially do something if there is an error
 			}
-			
+
 		}
-		DownloadElementTask loader = new DownloadElementTask();
+		GetElementTask loader = new GetElementTask();
 		loader.execute();
-		
+
 		try {
 			return loader.get(20, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
@@ -2269,17 +2269,23 @@ public class Logic {
 			return null;
 		}
 	}
-	
+
+	 
 	 /**
 	  * Download a single element from the API and merge
-	  * Static because it is called from a different activity
-	  * THis should go a way one we've refactored this class
 	  * 
-	  * @param type
-	  * @param id
+	  * @param ctx COntext
+	  * @param type type of the element
+	  * @param id OSM id of the element
+	  * @param relationFull if we are downloading a relation download with full option
+	  * @param withParents download parent relations
+	  * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
+	  * @return an error code 0 for success
 	  */
-	 public synchronized static int downloadElement(Context ctx, final Server server, final String type, final long id, final boolean relationFull, final boolean withParents) {
-		 class MyTask extends AsyncTask<Void, Void, Integer> {
+	 public synchronized int downloadElement(Context ctx, final String type, final long id, 
+			 final boolean relationFull, final boolean withParents,
+			 final PostAsyncActionHandler postLoadHandler) {
+		 class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
 			 @Override
 			 protected void onPreExecute() {
 			 }
@@ -2288,6 +2294,7 @@ public class Logic {
 			 protected Integer doInBackground(Void... arg) {
 				 int result = 0;
 				 try {
+					 final Server server = prefs.getServer();
 					 final OsmParser osmParser = new OsmParser();
 					
 					 // TODO this currently does not retrieve ways the node may be a member of
@@ -2313,7 +2320,7 @@ public class Logic {
 						 result = ErrorCodes.DATA_CONFLICT;
 					 } 
 				 } catch (SAXException e) {
-					 Log.e("Vespucci", "Problem parsing", e);
+					 Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
 					 Exception ce = e.getException();
 					 if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
 						 result = ErrorCodes.OUT_OF_MEMORY;
@@ -2323,34 +2330,40 @@ public class Logic {
 				 } catch (ParserConfigurationException e) {
 					 // crash and burn
 					 // TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-					 Log.e("Vespucci", "Problem parsing", e);
+					 Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
 					 result = ErrorCodes.INVALID_DATA_RECEIVED;
 				 } catch (OsmServerException e) {
-					 Log.e("Vespucci", "Problem downloading", e);
+					 Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
 				 } catch (IOException e) {
 					 result = ErrorCodes.NO_CONNECTION;
-					 Log.e("Vespucci", "Problem downloading", e);
+					 Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
 				 }
 				 return result;
 			 }
 
 			 @Override
 			 protected void onPostExecute(Integer result) {
-				 // potentially do something if there is an error
+				if (result == 0 && postLoadHandler != null) {
+					postLoadHandler.execute();
+				}
 			 }
 
 		 }
-		 MyTask loader = new MyTask();
+		 DownLoadElementTask loader = new DownLoadElementTask();
 		 loader.execute();
 
-		 try {
-			 return loader.get(20, TimeUnit.SECONDS);
-		 } catch (InterruptedException e) {
-			 return -1;
-		 } catch (ExecutionException e) {
-			 return -1;
-		 } catch (TimeoutException e) {
-			 return -1;
+		 if (postLoadHandler == null) {
+			 try {
+				 return loader.get(20, TimeUnit.SECONDS);
+			 } catch (InterruptedException e) {
+				 return -1;
+			 } catch (ExecutionException e) {
+				 return -1;
+			 } catch (TimeoutException e) {
+				 return -1;
+			 }
+		 } else {
+			 return 0;
 		 }
 	 }
 	
@@ -2442,90 +2455,6 @@ public class Logic {
 //		MyTask loader = new MyTask();
 //		loader.execute();
 //	}
-	
-	/**
-	 * Update a single element from the API
-	 * 
-	 * @param type
-	 * @param id
-	 */
-	 public synchronized int updateElement(final String type, final long id) {
-		class MyTask extends AsyncTask<Void, Void, Integer> {
-			@Override
-			protected void onPreExecute() {
-			}
-			
-			@Override
-			protected Integer doInBackground(Void... arg) {
-				int result = 0;
-				try {
-					final OsmParser osmParser = new OsmParser();
-					if (!type.equals(Node.NAME)) {
-						final InputStream in = prefs.getServer().getStreamForElement("full", type, id);
-						try {
-							osmParser.start(in);
-						} finally {
-							SavingHelper.close(in);
-						}
-					} else {
-						// TODO this currently does not retrieve ways the updated node may be a member of
-						InputStream in = prefs.getServer().getStreamForElement(null, type, id);
-						try {
-							osmParser.start(in);
-						} finally {
-							SavingHelper.close(in);
-						}
-						in = prefs.getServer().getStreamForElement("relations", type, id);
-						try {
-							osmParser.start(in);
-						} finally {
-							SavingHelper.close(in);
-						}
-					}
-					if (!getDelegator().mergeData(osmParser.getStorage(),null)) { // FIXME need to check if providing a handler makes sense here
-						result = ErrorCodes.DATA_CONFLICT;
-					} 
-				} catch (SAXException e) {
-					Log.e("Vespucci", "Problem parsing", e);
-					Exception ce = e.getException();
-					if ((ce instanceof StorageException) && ((StorageException)ce).getCode() == StorageException.OOM) {
-						result = ErrorCodes.OUT_OF_MEMORY;
-					} else {
-						result = ErrorCodes.INVALID_DATA_RECEIVED;
-					}
-				} catch (ParserConfigurationException e) {
-					// crash and burn
-					// TODO this seems to happen when the API call returns text from a proxy or similar intermediate network device... need to display what we actually got
-					Log.e("Vespucci", "Problem parsing", e);
-					result = ErrorCodes.INVALID_DATA_RECEIVED;
-				} catch (OsmServerException e) {
-					Log.e("Vespucci", "Problem downloading", e);
-				} catch (IOException e) {
-					result = ErrorCodes.NO_CONNECTION;
-					Log.e("Vespucci", "Problem downloading", e);
-				}
-				return result;
-			}
-			
-			@Override
-			protected void onPostExecute(Integer result) {
-				// potentially do something if there is an error
-			}
-			
-		}
-		MyTask loader = new MyTask();
-		loader.execute();
-		
-		try {
-			return loader.get(20, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			return -1;
-		} catch (ExecutionException e) {
-			return -1;
-		} catch (TimeoutException e) {
-			return -1;
-		}
-	}
 	
 	/**
 	 * Element is deleted on server, delete locally but don't upload

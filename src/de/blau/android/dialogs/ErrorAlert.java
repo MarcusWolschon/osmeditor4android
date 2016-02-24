@@ -90,6 +90,7 @@ public class ErrorAlert extends SherlockDialogFragment
 		case ErrorCodes.INVALID_DATA_RECEIVED: return createNewInstance(R.string.invalid_data_received_title, R.string.invalid_data_received_message);
 		case ErrorCodes.FILE_WRITE_FAILED: return createNewInstance( R.string.file_write_failed_title, R.string.file_write_failed_message);
 		case ErrorCodes.NAN: return createNewInstance( R.string.location_nan_title, R.string.location_nan_message);
+		case ErrorCodes.INVALID_BOUNDING_BOX: return createNewInstance( R.string.invalid_bounding_box_title, R.string.invalid_bounding_box_message);
 		}	
 		return null;
 	}

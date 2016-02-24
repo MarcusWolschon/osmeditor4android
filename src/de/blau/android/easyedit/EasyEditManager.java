@@ -99,9 +99,9 @@ public class EasyEditManager {
 	
 	private static final int MENUITEM_HELP = 0;
 	
-	public EasyEditManager(Main main, Logic logic) {
+	public EasyEditManager(Main main) {
 		this.main = main;
-		this.logic = logic;
+		this.logic = Application.getLogic();
 	}
 	
 	/**

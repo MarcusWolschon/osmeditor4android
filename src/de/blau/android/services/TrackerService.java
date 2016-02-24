@@ -41,7 +41,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
@@ -845,7 +844,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 						}
 						storageDelegator.addBoundingBox(b);  // will be filled once download is complete
 						Log.d(TAG,"getNextCenter loading " + b.toString());
-						Logic.autoDownloadBox(this,prefs.getServer(), b); 
+						Application.getLogic().autoDownloadBox(this,prefs.getServer(), b); 
 					}
 				}
 				previousLocation  = location;

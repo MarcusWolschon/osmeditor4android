@@ -7,6 +7,7 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 import android.content.Context;
+import android.os.Bundle;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.StorageDelegator;
@@ -29,7 +30,16 @@ public class Application extends android.app.Application {
 	static StorageDelegator delegator = new StorageDelegator();
 	static TaskStorage taskStorage = new TaskStorage();
 	public static String userAgent;
+	
 	static Application currentApplication;
+	
+	/**
+	 * The logic that manipulates the model. (non-UI)<br/>
+	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
+	 * If may be null or not reflect the current state if accessed from outside this activity.
+	 */
+	private static Logic logic;
+	
 	/**
 	 * The currently selected presets
 	 */
@@ -130,5 +140,25 @@ public class Application extends android.app.Application {
 	public static void resetPhotoIndex() {
 		photoIndex = new RTree(20,50);
 	}
+	
+	/**
+	 * @return the logic
+	 */
+	public static Logic getLogic() {
+		return logic;
+	}
+	
+	/**
+	 * Allocate new logic, logic contains some state and should only exist once
+	 * @param map
+	 * @return
+	 */
+	public synchronized static Logic newLogic(de.blau.android.Map map) {
+		if (logic==null) {
+			logic = new Logic(map);
+		}
+		return logic;
+	}
+	
 	
 }

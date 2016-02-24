@@ -21,6 +21,8 @@ public class ErrorCodes {
 	
 	public static final int NAN = 10;
 	
+	public static final int INVALID_BOUNDING_BOX = 11;
+	
 	public static final int UPLOAD_CONFLICT = 50;
 	public static final int INVALID_LOGIN = 51;
 }

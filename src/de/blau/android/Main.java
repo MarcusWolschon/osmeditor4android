@@ -257,13 +257,6 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	public EasyEditManager easyEditManager;
 
 	/**
-	 * The logic that manipulates the model. (non-UI)<br/>
-	 * This is created in {@link #onCreate(Bundle)} and never changed afterwards.<br/>
-	 * If may be null or not reflect the current state if accessed from outside this activity.
-	 */
-	private static Logic logic;
-
-	/**
 	 * Flag indicating whether the map will be re-downloaded once the activity resumes
 	 */
 	private static boolean redownloadOnResume;
@@ -384,14 +377,14 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				getLogic().zoom(Logic.ZOOM_IN);
+				Application.getLogic().zoom(Logic.ZOOM_IN);
 				updateZoomControls();
 			}
 		});
 		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				getLogic().zoom(Logic.ZOOM_OUT);
+				Application.getLogic().zoom(Logic.ZOOM_OUT);
 				updateZoomControls();
 			}
 		});
@@ -410,8 +403,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		loadOnResume = false;
 		
-		Log.i(DEBUG_TAG, "onCreate - creating new logic");
-		logic = new Logic(map, new Profile(getApplicationContext()));
+		if (Application.getLogic()==null) {
+			Log.i(DEBUG_TAG, "onCreate - creating new logic");
+			Application.newLogic(map);
+		}
+		Profile p = new Profile(getApplicationContext()); // this has side effects and needs to be done now (for now)
+		
 		Log.d(DEBUG_TAG,"StorageDelegator dirty is " + Application.getDelegator().isDirty());
 		if (isLastActivityAvailable() && !Application.getDelegator().isDirty()) { // data was modified while we were stopped if isDirty is true
 			// Start loading after resume to ensure loading dialog can be removed afterwards
@@ -446,7 +443,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			}
 		}
 	
-		easyEditManager = new EasyEditManager(this, getLogic());
+		easyEditManager = new EasyEditManager(this);
 		
 		// show welcome dialog
 		if (newInstall) {
@@ -494,7 +491,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		super.onStart();
 
 		prefs = new Preferences(this);
-		getLogic().setPrefs(prefs);
+		Application.getLogic().setPrefs(prefs);
 		map.setPrefs(prefs);
 		map.createOverlays();
 		map.requestFocus();
@@ -517,7 +514,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	protected void onResume() {
 		super.onResume();
 		Log.d(DEBUG_TAG, "onResume");
-
+		final Logic logic = Application.getLogic();
+		
 		bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
 		
 		// register received for changes in connectivity
@@ -527,7 +525,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		if (redownloadOnResume) {
 			redownloadOnResume = false;
-			getLogic().downloadLast();
+			logic.downloadLast();
 		} else if (loadOnResume) {
 			loadOnResume = false;
 			PostAsyncActionHandler	postLoad = new PostAsyncActionHandler() {
@@ -554,17 +552,17 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					}
 				}
 			};
-			getLogic().loadFromFile(this,postLoad);
-			getLogic().loadBugsFromFile(this,null);
+			logic.loadFromFile(this,postLoad);
+			logic.loadBugsFromFile(this,null);
 		} else { // loadFromFile already does this
-			getLogic().loadEditingState();
+			Application.getLogic().loadEditingState();
 			processIntents();
 			setupLockButton(getSupportActionBar());
 			updateActionbarEditMode();
 			map.invalidate();
 		}
 		
-		getLogic().updateProfile();
+		logic.updateProfile();
 		map.updateProfile();
 		
 		runningInstance = this;
@@ -585,6 +583,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * Process geo an JOSM remote control intents
 	 */
 	protected void processIntents() {
+		final Logic logic = Application.getLogic();
 		if (geoData != null) {
 			Log.d(DEBUG_TAG,"got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + Application.getDelegator().isDirty());
 			if (prefs.getDownloadRadius() != 0) { // download
@@ -594,7 +593,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
 					ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, bbox); 
 					if (bboxes != null && bboxes.size() > 0) {
-						getLogic().downloadBox(bbox, true, null); 
+						logic.downloadBox(bbox, true, null); 
 					} else {
 						logic.getViewBox().setBorders(bbox);
 						map.invalidate();
@@ -616,7 +615,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				ArrayList<BoundingBox> bbList = new ArrayList<BoundingBox>(Application.getDelegator().getBoundingBoxes());
 				ArrayList<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, rcData.getBox()); 
 				if (bboxes != null && bboxes.size() > 0) {
-					getLogic().downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
+					logic.downloadBox(rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler(){
 						@Override
 						public void execute(){
 							rcDataEdit(rcData);
@@ -641,6 +640,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * @param rcData Data of a remote control data URL.
 	 */
 	void rcDataEdit(RemoteControlUrlData rcData ) {
+		final Logic logic = Application.getLogic();
 		if (rcData.getSelect() != null) {
 			// need to actually switch to easyeditmode
 			if (logic.getMode() != Mode.MODE_EASYEDIT) { // TODO there might be states in which we don't want to exit which ever mode we are in
@@ -685,7 +685,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 	@Override
 	protected void onPause() {
-		Log.d(DEBUG_TAG, "onPause mode " + getLogic().getMode());
+		Log.d(DEBUG_TAG, "onPause mode " + Application.getLogic().getMode());
 		runningInstance = null;
 		try {
 			unregisterReceiver(connectivityChangedReceiver);
@@ -698,7 +698,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		if (getTracker() != null) getTracker().setListener(null);
 
 		// always save editing state
-		getLogic().saveEditingState();
+		Application.getLogic().saveEditingState();
 		// onPause is the last lifecycle callback guaranteed to be called on pre-honeycomb devices
 		// on honeycomb and later, onStop is also guaranteed to be called, so we can defer saving.
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) saveData();
@@ -733,10 +733,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	private void saveData() {
 		Log.i(DEBUG_TAG, "saving data sync="+saveSync);
+		final Logic logic = Application.getLogic();
 		if (saveSync) {
-			getLogic().save();
+			logic.save();
 		} else {
-			getLogic().saveAsync();
+			logic.saveAsync();
 		}
 	}
 
@@ -745,8 +746,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * to zoom in/out.
 	 */
 	private void updateZoomControls() {
-		zoomControls.setIsZoomInEnabled(getLogic().canZoom(Logic.ZOOM_IN));
-		zoomControls.setIsZoomOutEnabled(getLogic().canZoom(Logic.ZOOM_OUT));
+		final Logic logic = Application.getLogic();
+		zoomControls.setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
+		zoomControls.setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
 	}
 	
 //	@Override
@@ -789,11 +791,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	@SuppressLint("InflateParams")
 	void setupLockButton(final ActionBar actionbar)	{
+		final Logic logic = Application.getLogic();
 		// inflating will crash without themed context
 		Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
 		final View lockLayout =  ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock, null);
 		actionbar.setCustomView(lockLayout);
-		Mode mode = getLogic().getMode();
+		Mode mode = logic.getMode();
 		Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
 		ToggleButton lock = setLock(mode);
 		if (lock == null) {
@@ -818,12 +821,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		        Log.d(DEBUG_TAG, "Lock pressed");
 		        if(((ToggleButton)b).isChecked()) {
 		        	if (b.getTag().equals(EASY_TAG)) { 
-		        		getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
+		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
 		        	} else {
-		        		getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
+		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
 		        	}
 		        } else {
-		        	getLogic().setMode(Logic.Mode.MODE_MOVE);
+		        	logic.setMode(Logic.Mode.MODE_MOVE);
 		        }
 		        onEditModeChanged();
 		    }
@@ -832,26 +835,27 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    @Override
 			public boolean onLongClick(View b) {
 		        Log.d(DEBUG_TAG, "Lock long pressed"); 
+		        final Logic logic = Application.getLogic();
 		        if(((ToggleButton)b).isChecked()) {
-		        	if (getLogic().getMode() == Logic.Mode.MODE_TAG_EDIT) {
-		        		getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
+		        	if (logic.getMode() == Logic.Mode.MODE_TAG_EDIT) {
+		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
 		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
 		        		((ToggleButton)b).setChecked(true);
 		        		b.setTag(EASY_TAG);
 		        	} else {
-		        		getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
+		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
 		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
 		        		((ToggleButton)b).setChecked(true);
 		        		b.setTag(TAG_TAG);
 		        	}
 		        } else {
 		        	if (b.getTag().equals(EASY_TAG)) {
-		        		getLogic().setMode(Logic.Mode.MODE_TAG_EDIT);
+		        		logic.setMode(Logic.Mode.MODE_TAG_EDIT);
 	        			((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock_tag));
 	        			((ToggleButton)b).setChecked(true);
 	        			b.setTag(TAG_TAG);
 		        	} else {
-		        		getLogic().setMode(Logic.Mode.MODE_EASYEDIT);
+		        		logic.setMode(Logic.Mode.MODE_EASYEDIT);
 		        		((ToggleButton)b).setButtonDrawable(ThemeUtils.getResIdFromAttribute(Application.mainActivity,R.attr.lock));
 		        		((ToggleButton)b).setChecked(true);
 		        		b.setTag(EASY_TAG);
@@ -884,17 +888,17 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			mode = Mode.MODE_MOVE;
 			lock.setChecked(false);
 		}
-		getLogic().setMode(mode); 
+		Application.getLogic().setMode(mode); 
 		return lock; // for convenience
 	}
 
 	public void setMode(Logic.Mode mode) {
-		getLogic().setMode(mode); 
+		Application.getLogic().setMode(mode); 
 	}
 	
 	public void updateActionbarEditMode() {
 		Log.d(DEBUG_TAG, "updateActionbarEditMode");
-		setLock(getLogic().getMode());
+		setLock(Application.getLogic().getMode());
 		supportInvalidateOptionsMenu();
 	}
 	
@@ -912,7 +916,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		Log.d(DEBUG_TAG, "onCreateOptionsMenu");
 		final MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
-		
+
 		// only show camera icon if we have a camera, and a camera app is installed 
 		PackageManager pm = getPackageManager();
 		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -938,9 +942,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
 		menu.findItem(R.id.menu_gps_upload).setEnabled(getTracker() != null && getTracker().getTrackPoints() != null && getTracker().getTrackPoints().size() > 0 && NetworkStatus.isConnected(this));
 
-
+		
+		final Logic logic = Application.getLogic();
 		MenuItem undo = menu.findItem(R.id.menu_undo);
-		undo.setVisible(getLogic().getMode() != Mode.MODE_MOVE && (getLogic().getUndo().canUndo() || getLogic().getUndo().canRedo()));
+		undo.setVisible(logic.getMode() != Mode.MODE_MOVE && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
 		View undoView = undo.getActionView();
 		if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply always do the following 
 			Context context =  new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
@@ -977,6 +982,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		Log.d(DEBUG_TAG, "onOptionsItemSelected");
 		final Server server = prefs.getServer();
+		final Logic logic = Application.getLogic();
 		switch (item.getItemId()) {
 		case R.id.menu_config:
 			PrefEditor.start(this);
@@ -991,7 +997,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 					// turn this off or else we get bounced back to our current GPS position
 					setFollowGPS(false);
 					getMap().setFollowGPS(false);
-					Main.getLogic().setZoom(19);
+					logic.setZoom(19);
 					getMap().getViewBox().moveTo((int) (sr.getLon() * 1E7d), (int)(sr.getLat()* 1E7d));
 					getMap().invalidate();
 				}
@@ -1038,7 +1044,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			} // else moan? without GPS enabled this shouldn't be selectable currently
 			if (gotoLoc != null) {
 				map.getViewBox().moveTo((int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
-				getLogic().setZoom(19);
+				logic.setZoom(19);
 				map.setLocation(gotoLoc);
 				map.invalidate();
 			}
@@ -1104,7 +1110,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				setFollowGPS(false);
 				map.setFollowGPS(false);
 				map.getViewBox().moveTo(l.get(0).getLon(), l.get(0).getLat());
-				getLogic().setZoom(19);
+				logic.setZoom(19);
 				map.invalidate();
 			}
 			return true;
@@ -1214,9 +1220,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return true;
 			
 		case R.id.menu_tools_background_align:
-			Mode oldMode = getLogic().getMode() != Mode.MODE_ALIGN_BACKGROUND ? getLogic().getMode() : Mode.MODE_MOVE; // protect against weird state
+			Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_MOVE; // protect against weird state
 			backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(oldMode);
-			getLogic().setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
+			logic.setMode(Mode.MODE_ALIGN_BACKGROUND); //NOTE needs to be after instance creation
 			startActionMode(getBackgroundAlignmentActionModeCallback());
 			return true;
 			
@@ -1425,7 +1431,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	private void onMenuDownloadCurrent(boolean add) {
 		Log.d(DEBUG_TAG, "onMenuDownloadCurrent");
-		if (getLogic().hasChanges() && !add) {
+		if (Application.getLogic().hasChanges() && !add) {
 			DownloadCurrentWithChanges.showDialog(this);
 		} else {
 			performCurrentViewHttpLoad(add);
@@ -1439,6 +1445,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 		Log.d(DEBUG_TAG, "onActivityResult");
 		super.onActivityResult(requestCode, resultCode, data);
+		final Logic logic = Application.getLogic();
 		if (requestCode == REQUEST_BOUNDING_BOX && data != null) {
 			handleBoxPickerResult(resultCode, data);
 		} else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
@@ -1448,7 +1455,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	        Uri uri = data.getData();
 	        Log.d(DEBUG_TAG, "Read file Uri: " + uri.toString());
 	        try {
-				getLogic().readOsmFile(uri, false);
+				logic.readOsmFile(uri, false);
 			} catch (FileNotFoundException e) {
 				try {
 					Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_file_not_found, uri.toString()), Toast.LENGTH_LONG).show();
@@ -1461,7 +1468,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			// Get the Uri of the selected file 
 	        Uri uri = data.getData();
 	        Log.d(DEBUG_TAG, "Write file Uri: " + uri.toString());
-	        getLogic().writeOsmFile(uri.getPath());
+	        logic.writeOsmFile(uri.getPath());
 	        map.invalidate();
 		} else if (requestCode == READ_GPX_FILE_SELECT_CODE && resultCode == RESULT_OK) {
 			// Get the Uri of the selected file 
@@ -1539,6 +1546,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 *             (various data can be attached to Intent "extras").
 	 */
 	private void handlePropertyEditorResult(final Intent data) {
+		final Logic logic = Application.getLogic();
 		Bundle b = data.getExtras();
 		if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
 			// Read data from extras
@@ -1547,7 +1555,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			if (loadOnResume) { 
 				loadOnResume = false;
 				Log.d(DEBUG_TAG,"handlePropertyEditorResult loading data");
-				getLogic().syncLoadFromFile(); // sync load
+				logic.syncLoadFromFile(); // sync load
 				Application.getTaskStorage().readFromFile();
 			}
 			for (PropertyEditorData editorData:result) {
@@ -1557,24 +1565,24 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				}
 				if (editorData.tags != null) {
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult setting tags");
-					getLogic().setTags(editorData.type, editorData.osmId, editorData.tags);		
+					logic.setTags(editorData.type, editorData.osmId, editorData.tags);		
 				}
 				if (editorData.parents != null) {
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult setting parents");
-					getLogic().updateParentRelations(editorData.type, editorData.osmId, editorData.parents);		
+					logic.updateParentRelations(editorData.type, editorData.osmId, editorData.parents);		
 				}
 				if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
 					Log.d(DEBUG_TAG,"handlePropertyEditorResult setting members");
-					getLogic().updateRelation(editorData.osmId, editorData.members);
+					logic.updateRelation(editorData.osmId, editorData.members);
 				}
 			}
 			// this is very expensive: getLogic().saveAsync(); // if nothing was changed the dirty flag wont be set and the save wont actually happen 
 		}
-		if ((getLogic().getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) || getLogic().getMode()==Mode.MODE_TAG_EDIT) {
+		if ((logic.getMode()==Mode.MODE_EASYEDIT && easyEditManager != null && !easyEditManager.isProcessingAction()) || logic.getMode()==Mode.MODE_TAG_EDIT) {
 			// not in an easy edit mode, de-select objects avoids inconsistent visual state 
-			getLogic().setSelectedNode(null);
-			getLogic().setSelectedWay(null);
-			getLogic().setSelectedRelation(null);
+			logic.setSelectedNode(null);
+			logic.setSelectedWay(null);
+			logic.setSelectedRelation(null);
 		} else {
 			// invalidate the action mode menu ... updates the state of the undo button
 			supportInvalidateOptionsMenu();
@@ -1631,7 +1639,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 
 	public void performCurrentViewHttpLoad(boolean add) {
-		getLogic().downloadCurrent(add);
+		Application.getLogic().downloadCurrent(add);
 		if (prefs.isOpenStreetBugsEnabled()) { // always adds bugs for now
 			TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
 				@Override
@@ -1643,11 +1651,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 
 	private void performHttpLoad(final BoundingBox box) {
-		getLogic().downloadBox(box, false, null);
+		Application.getLogic().downloadBox(box, false, null);
 	}
 
 	private void openEmptyMap(final BoundingBox box) {
-		getLogic().newEmptyMap(box);
+		Application.getLogic().newEmptyMap(box);
 	}
 
 	/**
@@ -1658,19 +1666,20 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	public void performUpload(final String comment, final String source, final boolean closeChangeset) {
 		ConfirmUpload.dismissDialog(this);
+		final Logic logic = Application.getLogic();
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			boolean hasDataChanges = getLogic().hasChanges();
+			boolean hasDataChanges = logic.hasChanges();
 			boolean hasBugChanges = !Application.getTaskStorage().isEmpty() && Application.getTaskStorage().hasChanges();
 			if (hasDataChanges || hasBugChanges) {
 				if (hasDataChanges) {
-					getLogic().upload(comment, source, closeChangeset);
+					logic.upload(comment, source, closeChangeset);
 				}
 				if (hasBugChanges) {
 					TransferTasks.upload(this, server);
 				}
-				getLogic().checkForMail();
+				logic.checkForMail();
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.toast_no_changes, Toast.LENGTH_LONG).show();
 			}
@@ -1684,11 +1693,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	public void performTrackUpload(final String description, final String tags, final Visibility visibility) {
 		
+		final Logic logic = Application.getLogic();
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			getLogic().uploadTrack(getTracker().getTrack(), description, tags, visibility);
-			getLogic().checkForMail();
+			logic.uploadTrack(getTracker().getTrack(), description, tags, visibility);
+			logic.checkForMail();
 		} else {
 			ErrorAlert.showDialog(this,ErrorCodes.NO_LOGIN_DATA);
 		}
@@ -1702,7 +1712,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		final Server server = prefs.getServer();
 
 		if (server != null && server.isLoginSet()) {
-			if (getLogic().hasChanges()) {
+			if (Application.getLogic().hasChanges()) {
 				if (server.needOAuthHandshake()) {
 					oAuthHandshake(server, new PostAsyncActionHandler() {
 						@Override
@@ -1835,7 +1845,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	public void gotoBoxPicker() {
 		Intent intent = new Intent(getApplicationContext(), BoxPicker.class);
-		if (getLogic().hasChanges()) {
+		if (Application.getLogic().hasChanges()) {
 			DataLossActivity.showDialog(this, intent, REQUEST_BOUNDING_BOX);
 		} else {
 			startActivityForResult(intent, REQUEST_BOUNDING_BOX);
@@ -1849,10 +1859,11 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * @param showPresets Boolean flag indication to show or hide presets.
 	 */
 	public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets) {
+		final Logic logic = Application.getLogic();
 		if (selectedElement instanceof Node) {
-			getLogic().setSelectedNode((Node) selectedElement);
+			logic.setSelectedNode((Node) selectedElement);
 		} else if (selectedElement instanceof Way) {
-			getLogic().setSelectedWay((Way) selectedElement);
+			logic.setSelectedWay((Way) selectedElement);
 		}
 	
 		if (selectedElement != null) {
@@ -1890,7 +1901,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 */
 	public void performBugEdit(final Task bug) {
 		Log.d(DEBUG_TAG, "editing bug:"+bug);
-		getLogic().setSelectedBug(bug);
+		Application.getLogic().setSelectedBug(bug);
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment prev = fm.findFragmentByTag("fragment_bug");
@@ -1916,7 +1927,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			return;
 		}
 		if (prefs.useBackForUndo()) {
-			String name = logic.undo();
+			String name = Application.getLogic().undo();
 			if (name != null)
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
 			else
@@ -1975,6 +1986,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		@Override
 		public void onClick(View arg0) {
 			Log.d(DEBUG_TAG,"normal click");
+			final Logic logic = Application.getLogic();
 			String name = logic.undo();
 			if (name != null) {
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo) + ": " + name, Toast.LENGTH_SHORT).show();
@@ -1982,9 +1994,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.undo_nothing), Toast.LENGTH_SHORT).show();
 			}
 			// check that we haven't just removed a selected element
-			if (getLogic().resyncSelected()) {
+			if (logic.resyncSelected()) {
 				// only need to test if anything at all is still selected
-				if (getLogic().selectedNodesCount() + getLogic().selectedWaysCount() + getLogic().selectedRelationsCount() == 0 ) {
+				if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0 ) {
 					easyEditManager.finish();
 				}
 			}
@@ -1994,7 +2006,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		@Override
 		public boolean onLongClick(View v) {
 			Log.d(DEBUG_TAG,"long click");
-			UndoStorage undo = getLogic().getUndo();
+			final Logic logic = Application.getLogic();
+			UndoStorage undo = logic.getUndo();
 			if (undo.canUndo() || undo.canRedo()) {
 				UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
 			} else {
@@ -2025,7 +2038,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				clickedBugs = null;
 				clickedPhotos = null;
 				clickedNodesAndWays = null;
-				getLogic().handleTouchEventDown(m.getX(), m.getY());
+				Application.getLogic().handleTouchEventDown(m.getX(), m.getY());
 			}
 			mDetector.onTouchEvent(v, m);
 			return v.onTouchEvent(m);
@@ -2042,8 +2055,9 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 			de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 			clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
 			
-			Mode mode = getLogic().getMode();
-			boolean isInEditZoomRange = getLogic().isInEditZoomRange();
+			final Logic logic = Application.getLogic();
+			Mode mode = logic.getMode();
+			boolean isInEditZoomRange = logic.isInEditZoomRange();
 			
 			if (showGPS && !followGPS && map.getLocation() != null) {
 				// check if this was a click on the GPS mark use the same calculations we use all over the place ... really belongs in a separate method 
@@ -2129,21 +2143,22 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 		@Override
 		public void onUp(View v, float x, float y) {
-			if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
+			if (Application.getLogic().getMode() == Mode.MODE_EASYEDIT) {
 				easyEditManager.invalidate();
 			}
 		}
 		
 		@Override
 		public boolean onLongClick(final View v, final float x, final float y) {
-			if (getLogic().getMode() != Mode.MODE_EASYEDIT) {
-				if (getLogic().getMode() == Mode.MODE_MOVE) {
+			final Logic logic = Application.getLogic();
+			if (logic.getMode() != Mode.MODE_EASYEDIT) {
+				if (logic.getMode() == Mode.MODE_MOVE) {
 					// display context menu
 					de.blau.android.tasks.MapOverlay osbo = map.getOpenStreetBugsOverlay();
 					clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
 					de.blau.android.photos.MapOverlay photos = map.getPhotosOverlay();
 					clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
-					clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
+					clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
 					int bugCount = clickedBugs != null ? clickedBugs.size() : 0;
 					int photoCount = clickedPhotos != null ? clickedPhotos.size() : 0;
 					int elementCount = clickedNodesAndWays != null ? clickedNodesAndWays.size() : 0;
@@ -2164,7 +2179,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				return false; // ignore long clicks
 			}
 			
-			if (getLogic().isInEditZoomRange()) {
+			if (logic.isInEditZoomRange()) {
 				setFollowGPS(false); // editing with the screen moving under you is a pain
 				return easyEditManager.handleLongClick(v, x, y);
 			} else {
@@ -2177,13 +2192,13 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		@Override
 		public void onDrag(View v, float x, float y, float dx, float dy) {
 			// Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
-			getLogic().handleTouchEventMove(x, y, -dx, dy);
+			Application.getLogic().handleTouchEventMove(x, y, -dx, dy);
 			setFollowGPS(false);
 		}
 		
 		@Override
 		public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
-			getLogic().zoom((curSpan - prevSpan) / prevSpan);
+			Application.getLogic().zoom((curSpan - prevSpan) / prevSpan);
 			updateZoomControls();
 		}
 		
@@ -2196,7 +2211,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		 */
 		public void performEdit(Mode mode, final View v, final float x, final float y) {
 			if (!easyEditManager.actionModeHandledClick(x, y)) {
-				clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
+				clickedNodesAndWays = Application.getLogic().getClickedNodesAndWays(x, y);
 				switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null)? 0 : clickedPhotos.size())) {
 				case 0:
 					// no elements were touched
@@ -2288,13 +2303,14 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				if (candidate.hasParentRelations()) {
 					return true; // otherwise a relation that only has nodes as member is not selectable
 				}
-				float nodeX = getLogic().getNodeScreenX(candidate);
-				float nodeY = getLogic().getNodeScreenY(candidate);
+				final Logic logic = Application.getLogic();
+				float nodeX = logic.getNodeScreenX(candidate);
+				float nodeY = logic.getNodeScreenY(candidate);
 				for (int i = 1; i < clickedNodesAndWays.size(); i++) {
 					if (!(clickedNodesAndWays.get(i) instanceof Node)) break;
 					Node possibleNeighbor = (Node)clickedNodesAndWays.get(i);
-					float node2X = getLogic().getNodeScreenX(possibleNeighbor);
-					float node2Y = getLogic().getNodeScreenY(possibleNeighbor);
+					float node2X = logic.getNodeScreenX(possibleNeighbor);
+					float node2Y = logic.getNodeScreenY(possibleNeighbor);
 					// Fast "square" checking is good enough
 					if (Math.abs(nodeX-node2X) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ||
 						Math.abs(nodeY-node2Y) < Profile.NODE_OVERLAP_TOLERANCE_VALUE ) {
@@ -2323,7 +2339,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				
 				if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
 					final OsmElement element = clickedNodesAndWays.get(itemId);
-					switch (getLogic().getMode()) {
+					switch (Application.getLogic().getMode()) {
 					case MODE_MOVE:
 						ElementInfo.showDialog(Main.this,element);
 						break;
@@ -2350,7 +2366,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		 * Show toasts displaying the info on nearby objects
 		 */
 		void displayInfo(final float x, final float y) {
-			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
+			clickedNodesAndWays = Application.getLogic().getClickedNodesAndWays(x, y);
 			// clickedPhotos and
 			if (clickedPhotos != null) {
 				for (Photo p : clickedPhotos) {
@@ -2376,23 +2392,23 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 
 		@Override
 		public boolean onDoubleTap(View v, float x, float y) {
-
-			clickedNodesAndWays = getLogic().getClickedNodesAndWays(x, y);
+			final Logic logic = Application.getLogic();
+			clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
 			switch (clickedNodesAndWays.size()) {
 			case 0:
 				// no elements were touched
-				if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
+				if (logic.getMode() == Mode.MODE_EASYEDIT) {
 					easyEditManager.nothingTouched(true); // short cut to finishing multi-select
 				}
 				break;
 			case 1:
-				if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
+				if (logic.getMode() == Mode.MODE_EASYEDIT) {
 					easyEditManager.startExtendedSelection(clickedNodesAndWays.get(0));
 				}
 				break;
 			default:
 				// multiple possible elements touched - show menu
-				if (getLogic().getMode() == Mode.MODE_EASYEDIT) {
+				if (logic.getMode() == Mode.MODE_EASYEDIT) {
 					if (menuRequired()) {
 						Log.d(DEBUG_TAG,"onDoubleTap displaying menu");
 						doubleTap  = true; // ugly flag
@@ -2419,6 +2435,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		@SuppressLint("NewApi")
 		@Override
 		public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
+			final Logic logic = Application.getLogic();
 			switch (event.getAction()) {
 			case KeyEvent.ACTION_UP:
 				if (!v.onKeyUp(keyCode, event)) {
@@ -2450,22 +2467,22 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 						return true;
 					case KeyEvent.KEYCODE_VOLUME_UP:
 					case KeyEvent.KEYCODE_SEARCH:
-						getLogic().zoom(Logic.ZOOM_IN);
+						logic.zoom(Logic.ZOOM_IN);
 						updateZoomControls();
 						return true;
 					case KeyEvent.KEYCODE_VOLUME_DOWN:
-						getLogic().zoom(Logic.ZOOM_OUT);
+						logic.zoom(Logic.ZOOM_OUT);
 						updateZoomControls();
 						return true;
 					default:
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 							Character c = Character.toLowerCase((char) event.getUnicodeChar());
 							if (c == Util.getShortCut(getApplicationContext() , R.string.shortcut_zoom_in)) {
-								getLogic().zoom(Logic.ZOOM_IN);
+								logic.zoom(Logic.ZOOM_IN);
 								updateZoomControls();
 								return true;
 							} else if (c == Util.getShortCut(getApplicationContext(), R.string.shortcut_zoom_out)) {
-								getLogic().zoom(Logic.ZOOM_OUT);
+								logic.zoom(Logic.ZOOM_OUT);
 								updateZoomControls();
 								return true;
 							}
@@ -2485,7 +2502,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		
 		private void translate(final CursorPaddirection direction) {
 			setFollowGPS(false);
-			getLogic().translate(direction);
+			Application.getLogic().translate(direction);
 		}
 	}
 	
@@ -2500,14 +2517,15 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		@SuppressLint("NewApi")
 		@Override
 		public boolean onGenericMotion(View arg0,MotionEvent event) {
+			final Logic logic = Application.getLogic();
 			if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)) {
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_SCROLL:
 					if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f) {
-						getLogic().zoom(Logic.ZOOM_IN);
+						logic.zoom(Logic.ZOOM_IN);
 						
 					} else {
-						getLogic().zoom(Logic.ZOOM_OUT);
+						logic.zoom(Logic.ZOOM_OUT);
 					}
 					updateZoomControls();
 					return true;
@@ -2522,7 +2540,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	 * @return a list of all pending changes to upload (contains newlines)
 	 */
 	public String getPendingChanges() {
-		List<String> changes = getLogic().getPendingChanges(this);
+		List<String> changes = Application.getLogic().getPendingChanges(this);
 		StringBuilder retval = new StringBuilder();
 		for (String change : changes) {
 			retval.append(change).append('\n');
@@ -2542,9 +2560,10 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	}
 	
 	public static boolean hasChanges() {
+		final Logic logic = Application.getLogic();
 		//noinspection SimplifiableIfStatement
-		if (getLogic() == null) return false;
-		return getLogic().hasChanges();
+		if (logic == null) return false;
+		return logic.hasChanges();
 	}
 	
 	/**
@@ -2652,7 +2671,8 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 	
 	public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
 		Log.d(DEBUG_TAG,"zoomToAndEdit Zoom " + map.getZoomLevel());
-		if (getLogic().getMode()==Mode.MODE_MOVE) { // avoid switiching to the wronf mode
+		final Logic logic = Application.getLogic();
+		if (logic.getMode()==Mode.MODE_MOVE) { // avoid switiching to the wronf mode
 			ToggleButton lock = setLock(Mode.MODE_MOVE); // NOP to get button
 			if (EASY_TAG.equals(lock.getTag())) {
 				setLock(Mode.MODE_EASYEDIT);
@@ -2663,7 +2683,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		setFollowGPS(false); // otherwise the screen could move around
 		if (e instanceof Node && map.getZoomLevel() < 22) {
 			Log.d(DEBUG_TAG,"zoomToAndEdit setting Zoom to 22");
-			getLogic().setZoom(22); // FIXME this doesn't seem to work as expected
+			logic.setZoom(22); // FIXME this doesn't seem to work as expected
 		} else {
 			map.getViewBox().setBorders(e.getBounds());
 		}
@@ -2690,19 +2710,12 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 				}
 				break;
 		}
-		if (getLogic().getMode()==Mode.MODE_EASYEDIT) {
+		if (logic.getMode()==Mode.MODE_EASYEDIT) {
 			easyEditManager.editElement(e);
 			map.invalidate();
 		} else { // tag edit mode
 			performTagEdit(e, null, false, false);
 		}
-	}
-
-	/**
-	 * @return the logic
-	 */
-	public static Logic getLogic() {
-		return logic;
 	}
 	
 	@Override

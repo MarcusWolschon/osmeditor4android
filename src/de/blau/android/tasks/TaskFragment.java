@@ -168,7 +168,7 @@ public class TaskFragment extends SherlockDialogFragment {
 						if (e.getOsmVersion() < 0) { // fake element
 							try {
 								BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7/1E7D, lonE7/1E7, 50, true);
-								Application.mainActivity.getLogic().downloadBox(b, true, new PostAsyncActionHandler(){
+								Application.getLogic().downloadBox(b, true, new PostAsyncActionHandler(){
 									@Override
 									public void execute(){
 										OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());

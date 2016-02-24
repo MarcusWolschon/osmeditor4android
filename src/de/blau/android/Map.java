@@ -308,12 +308,13 @@ public class Map extends View implements IMapView {
 		zoomLevel = calcZoomLevel(canvas);
 		
 		// set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
-		tmpDrawingEditMode = Main.getLogic().getMode();
-		tmpDrawingSelectedNodes = Main.getLogic().getSelectedNodes();
-		tmpDrawingSelectedWays = Main.getLogic().getSelectedWays();
-		tmpClickableElements = Main.getLogic().getClickableElements();
-		tmpDrawingSelectedRelationWays = Main.getLogic().getSelectedRelationWays();
-		tmpDrawingSelectedRelationNodes = Main.getLogic().getSelectedRelationNodes();
+		final Logic logic = Application.getLogic();
+		tmpDrawingEditMode = logic.getMode();
+		tmpDrawingSelectedNodes = logic.getSelectedNodes();
+		tmpDrawingSelectedWays = logic.getSelectedWays();
+		tmpClickableElements = logic.getClickableElements();
+		tmpDrawingSelectedRelationWays = logic.getSelectedRelationWays();
+		tmpDrawingSelectedRelationNodes = logic.getSelectedRelationNodes();
 		tmpPresets = Application.getCurrentPresets(Application.mainActivity);
 		// handles = null; this forces creation of a new object, simply clear it in paintHandles after use
 		
@@ -566,7 +567,7 @@ public class Map extends View implements IMapView {
 		}
 		
 		// 
-		tmpDrawingInEditRange = Main.getLogic().isInEditZoomRange(); // do this after density calc
+		tmpDrawingInEditRange = Application.getLogic().isInEditZoomRange(); // do this after density calc
 		
 		//Paint all ways
 		List<Way> ways = delegator.getCurrentStorage().getWays();

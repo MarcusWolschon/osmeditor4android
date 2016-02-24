@@ -12,11 +12,13 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.blau.android.Application;
 import de.blau.android.Logic;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
 import de.blau.android.util.ThemeUtils;
@@ -99,8 +101,8 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 	private boolean performAction(int action) {
 
 		final int size = rows.getChildCount();
-		ArrayList<RelationMemberRow> selected = new ArrayList<RelationMemberRow>();
-		ArrayList<Integer> selectedPos = new ArrayList<Integer>();
+		final ArrayList<RelationMemberRow> selected = new ArrayList<RelationMemberRow>();
+		final ArrayList<Integer> selectedPos = new ArrayList<Integer>();
 		for (int i = 0; i < size; i++) {
 			View view = rows.getChildAt(i);
 			RelationMemberRow row = (RelationMemberRow)view;
@@ -109,7 +111,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 				selectedPos.add(i);
 			}
 		} 
-		int selectedCount = selectedPos.size();
+		final int selectedCount = selectedPos.size();
 		int change = 1;
 		switch (action) {
 		case MENU_ITEM_DELETE: // Note real work is done in super
@@ -168,32 +170,43 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 			((RelationMembersFragment)caller).scrollToRow(null,action==MENU_ITEM_TOP,false);
 			return true;
 		case MENU_ITEM_DOWNLOAD:
-			((SherlockFragmentActivity)caller.getActivity()).setSupportProgressBarIndeterminateVisibility(true);
-			Preferences prefs = new Preferences(caller.getActivity());
+			Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+			PostAsyncActionHandler handler = new PostAsyncActionHandler() {
+				@Override
+				public void execute() {
+					if (currentAction != null) {
+						for (int i = 0;i<selectedCount;i++) {
+							RelationMemberRow row = selected.get(i);
+							if (!row.getRelationMemberDescription().downloaded()) {
+								updateRow(row, selectedPos.get(i));
+								selected.set(i,row);
+							}
+						}
+						currentAction.finish();
+						Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+						((RelationMembersFragment)caller).setIcons();
+					}
+				}
+			};
+			final Logic logic = Application.getLogic();
 			if (selectedCount < size) {
 				for (int i = 0;i<selectedCount;i++) {
 					RelationMemberRow row = selected.get(i);
 					if (!row.getRelationMemberDescription().downloaded()) {
-						if (Logic.downloadElement(caller.getActivity(), prefs.getServer(), row.getType(), row.getOsmId(), false, false) == 0) {
+						if (logic.downloadElement(caller.getActivity(), row.getType(), row.getOsmId(), 
+								false, false, null) == 0) {
 							updateRow(row, selectedPos.get(i));
 							selected.set(i,row);
 						}
 					}
 				}
-			} else if (Logic.downloadElement(caller.getActivity(), prefs.getServer(), Relation.NAME, ((RelationMembersFragment)caller).getOsmId(), true, false) == 0) { // everything selected
-				for (int i = 0;i<selectedCount;i++) {
-					RelationMemberRow row = selected.get(i);
-					if (!row.getRelationMemberDescription().downloaded()) {
-						updateRow(row, selectedPos.get(i));
-						selected.set(i,row);
-					}
-				}
-				if (currentAction != null) { // finish and de-select
-					currentAction.finish();
-				}
+				Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+				((RelationMembersFragment)caller).setIcons();
+			} else {
+				logic.downloadElement(caller.getActivity(), Relation.NAME, ((RelationMembersFragment)caller).getOsmId(), 
+					true, false, handler);
 			}
-			((RelationMembersFragment)caller).setIcons();
-			((SherlockFragmentActivity)caller.getActivity()).setSupportProgressBarIndeterminateVisibility(false);
+			
 			invalidate();
 			return true;
 		default: return false;

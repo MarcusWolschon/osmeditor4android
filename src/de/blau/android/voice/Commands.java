@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -58,13 +59,13 @@ public class Commands {
 		// Fill the list view with the strings the recognizer thought it
 		// could have heard
 		ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-		Logic logic = Application.mainActivity.getLogic();
+		final Logic logic = Application.getLogic();
 		// try to find a command it simply stops at the first string that is valid
 		for (String v:matches) {
 			Toast.makeText(ctx,">"+v+"<", Toast.LENGTH_LONG).show();
 			String[] words = v.split("\\s+", 3);
 			if (words.length > 1) {
-				String loc = words[0].toLowerCase(); 
+				String loc = words[0].toLowerCase(Locale.getDefault()); 
 				if (match(R.string.voice_left,loc) || match(R.string.voice_here,loc) || match(R.string.voice_right,loc) || match(R.string.voice_note,loc) ) {
 					if (match(R.string.voice_note,loc)) {
 						Note n = createNote(words, location);
@@ -75,7 +76,7 @@ public class Commands {
 						Toast.makeText(ctx,"Sorry currently only the command \"" + ctx.getString(R.string.voice_here) + "\" is supported", Toast.LENGTH_LONG).show();
 					} 
 					// 
-					String first = words[1].toLowerCase();
+					String first = words[1].toLowerCase(Locale.getDefault());
 					try {
 						int number = Integer.parseInt(first);
 						// worked if there is a further word(s) simply add it/them
@@ -172,7 +173,7 @@ public class Commands {
 				double lon = location.getLongitude();
 				double lat = location.getLatitude();
 				if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-					Logic logic = Application.mainActivity.getLogic();
+					final Logic logic = Application.getLogic();
 					logic.setSelectedNode(null);
 					Node node = logic.performAddNode(lon, lat);
 					logic.setSelectedNode(null);

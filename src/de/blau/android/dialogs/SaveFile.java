@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
+import de.blau.android.Application;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
@@ -103,7 +104,7 @@ public class SaveFile extends SherlockDialogFragment
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// FIXME instead of hardcoding the directory, this should be the default and alternatives selectable by the user
-				Main.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + saveFileEdit.getText().toString());
+				Application.getLogic().writeOsmFile(Environment.getExternalStorageDirectory().getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + saveFileEdit.getText().toString());
 			}
 		});
     	return builder.create();

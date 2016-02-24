@@ -210,8 +210,7 @@ public class Profile  extends DefaultHandler {
 		
 		public void setInternal(boolean i) {
 			internal = i;
-		}
-		
+		}	
 	}
 
 	String name;
@@ -246,8 +245,6 @@ public class Profile  extends DefaultHandler {
 	
 	private static final String BUILTIN_PROFILE_NAME = "Default";
 	
-	static Resources myRes;
-	
 	public float nodeToleranceValue;
 	public float wayToleranceValue;
 	public float largDragCircleRadius;
@@ -259,8 +256,7 @@ public class Profile  extends DefaultHandler {
 	public Profile(final Context ctx) {
 		this.ctx = ctx;
 		// create default 
-		myRes = ctx.getResources();
-		init(myRes);
+		init(ctx.getResources());
 
 		getProfilesFromFile(ctx);
 		Log.i("Profile","profile " + currentProfile.name);
@@ -280,7 +276,7 @@ public class Profile  extends DefaultHandler {
 	public Profile(Context ctx, InputStream is) {
 		this.ctx = ctx;
 		// create a profile from a file
-		init(myRes); // defaults for internal styles 
+		init(ctx.getResources()); // defaults for internal styles 
 		read(is);
 	}
 	
