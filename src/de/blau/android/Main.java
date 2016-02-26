@@ -1803,10 +1803,7 @@ public class Main extends SherlockFragmentActivity implements ServiceConnection,
 		    public void onPageFinished(WebView view, String url){
 		    	if (times < LOADS) {
 		    		times++;
-		    		try {
-		    			Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);
-		    		} catch (IllegalArgumentException ignored) {
-		    		}
+		    		Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);
 		    	}
 		    }
 		}

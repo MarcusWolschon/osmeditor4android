@@ -57,6 +57,8 @@ import de.blau.android.views.util.OpenStreetMapTileServer;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
 	
+	final static String DEBUG_TAG = "BackgroundAlign...";
+	
 	private static final int MENUITEM_QUERYDB = 1;
 	private static final int MENUITEM_QUERYLOCAL = 2;
 	private static final int MENUITEM_APPLY2ALL = 3;
@@ -215,12 +217,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		
 		@Override
 		protected void onPostExecute(ArrayList<ImageryOffset> res) {
-			try {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
-			} catch (IllegalArgumentException e) {
-				 // Avoid crash if dialog is already dismissed
-				Log.d("BackgroundAlignmentActionModeCallback", "", e);
-			}
+			Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
 		}
 		
 		String getError() {
@@ -265,12 +262,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 		
 		@Override
 		protected void onPostExecute(Integer res) {
-			try {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
-			} catch (IllegalArgumentException e) {
-				 // Avoid crash if dialog is already dismissed
-				Log.d("BackgroundAlignmentActionModeCallback", "", e);
-			}
+			Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
 			if (res == 200)
 				Toast.makeText(Application.mainActivity.getApplicationContext(), R.string.toast_save_done, Toast.LENGTH_SHORT).show();
 			else

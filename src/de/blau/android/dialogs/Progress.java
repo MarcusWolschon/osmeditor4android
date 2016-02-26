@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import org.acra.ACRA;
+
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -39,22 +41,33 @@ public class Progress extends SherlockDialogFragment
 
 		FragmentManager fm = activity.getSupportFragmentManager();
 	    Progress progressDialogFragment = newInstance(dialogType);
-	    if (progressDialogFragment != null) {
-	    	progressDialogFragment.show(fm, getTag(dialogType));
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create dialog for value " + dialogType);
+	    try {
+	    	if (progressDialogFragment != null) {
+	    		progressDialogFragment.show(fm, getTag(dialogType));
+	    	} else {
+	    		Log.e(DEBUG_TAG,"Unable to create dialog for value " + dialogType);
+	    	}
+	    } catch (IllegalStateException isex) {
+	    	Log.e(DEBUG_TAG,"showDialog",isex);
+	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(isex);
 	    }
 	}
 	
-
 	static public void dismissDialog(FragmentActivity activity, int dialogType) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 	    Fragment fragment = fm.findFragmentByTag(getTag(dialogType));
-	    if (fragment != null) {
-	        ft.remove(fragment);
+	    try {
+	    	if (fragment != null) {
+	    		ft.remove(fragment);
+	    	}
+	    	ft.commit(); 
+	    } catch (IllegalStateException isex) {
+	    	Log.e(DEBUG_TAG,"dismissDialog",isex);
+	    	ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(isex);
 	    }
-	    ft.commit();
 	}
 	
 	private static String getTag(int dialogType) {

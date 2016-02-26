@@ -6,7 +6,6 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -19,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import de.blau.android.R;
 import de.blau.android.util.Search;
@@ -42,7 +42,7 @@ public class SearchForm extends SherlockDialogFragment
    	/**
 	 *
 	 */
-	static public void showDialog(FragmentActivity activity, final SearchItemFoundCallback callback) {
+	static public void showDialog(SherlockFragmentActivity activity, final SearchItemFoundCallback callback) {
 		dismissDialog(activity);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
@@ -54,7 +54,7 @@ public class SearchForm extends SherlockDialogFragment
 	    }
 	}
 	
-	static public void dismissDialog(FragmentActivity activity) {
+	static public void dismissDialog(SherlockFragmentActivity activity) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 	    Fragment fragment = fm.findFragmentByTag(TAG);
@@ -126,7 +126,7 @@ public class SearchForm extends SherlockDialogFragment
     		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
     			if (actionId == EditorInfo.IME_ACTION_SEARCH
     					|| (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-    				Search search = new Search(getActivity(), realCallback);
+    				Search search = new Search((SherlockFragmentActivity) getActivity(), realCallback);
     				search.find(v.getText().toString());
     				return true;
     			}

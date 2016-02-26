@@ -504,9 +504,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 							Application.mainActivity.getApplicationContext().getResources().getString(R.string.toast_imported_track_points,track.getTrackPoints().size()-existingPoints), Toast.LENGTH_LONG).show();
 					// the following is extremely ugly
 					Main.triggerMenuInvalidationStatic();
-				} catch (IllegalArgumentException e) {
-					 // Avoid crash if dialog is already dismissed
-					Log.d("TrackerService", "", e);
+				} catch (IllegalStateException e) {
+					 // Avoid crash if activity is paused
+					Log.e(TAG, "onPostExecute", e);
 				}
 			}
 			

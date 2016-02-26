@@ -14,7 +14,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -24,6 +23,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
@@ -36,10 +38,10 @@ import de.blau.android.util.jsonreader.JsonReader;
  *
  */
 public class Search {
-	
+
 	public static final String NOMINATIM_SERVER = "http://nominatim.openstreetmap.org/"; //TODO set in prefs
 	
-	private Context ctx;
+	private SherlockFragmentActivity activity;
 
 	private SearchItemFoundCallback callback;
 
@@ -87,8 +89,8 @@ public class Search {
 	 * @param ctx
 	 * @param callback will be called when search result is selected
 	 */
-	public Search(Context ctx, SearchItemFoundCallback callback) {
-		this.ctx = ctx;
+	public Search(SherlockFragmentActivity activity, SearchItemFoundCallback callback) {
+		this.activity = activity;
 		this.callback = callback;
 	}
 
@@ -105,7 +107,7 @@ public class Search {
 				Dialog sr = createSearchResultsDialog(result);
 				sr.show();
 			} else {
-				Toast.makeText(ctx, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
+				Toast.makeText(activity, R.string.toast_nothing_found, Toast.LENGTH_LONG).show();
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -114,19 +116,16 @@ public class Search {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TimeoutException e) {
-			Toast.makeText(ctx, R.string.toast_timeout, Toast.LENGTH_LONG).show();
+			Toast.makeText(activity, R.string.toast_timeout, Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
-		
 	}
-	
-
 
 	private class QueryNominatim extends AsyncTask<String, Void, ArrayList<SearchResult>> {
 
 		@Override
 		protected void onPreExecute() {
-			Progress.showDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
+			Progress.showDialog(activity, Progress.PROGRESS_SEARCHING);
 		}
 		
 		@Override
@@ -155,7 +154,6 @@ public class Search {
 				JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
 				ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 				try {
-					
 					try {
 						reader.beginArray();
 						while (reader.hasNext()) {
@@ -187,12 +185,7 @@ public class Search {
 		
 		@Override
 		protected void onPostExecute(ArrayList<SearchResult> res) {
-			try {
-				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SEARCHING);
-			} catch (IllegalArgumentException e) {
-				 // Avoid crash if dialog is already dismissed
-				Log.d("Search", "", e);
-			}
+			Progress.dismissDialog(activity, Progress.PROGRESS_SEARCHING);
 		}
 	}
 
@@ -225,9 +218,9 @@ public class Search {
 	private Dialog createSearchResultsDialog(final ArrayList<SearchResult> searchResults) {
 		// 
 		final Dialog dialog;
-		Builder builder = new AlertDialog.Builder(ctx);
+		Builder builder = new AlertDialog.Builder(activity);
 		builder.setTitle(R.string.search_results_title);
-		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
+		final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 		ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
 		builder.setView(lv);
 		
@@ -235,7 +228,7 @@ public class Search {
 		for (SearchResult sr:searchResults) {
 			ar.add(sr.display_name);
 		}
-		lv.setAdapter(new ArrayAdapter<String>(ctx, R.layout.search_results_item, ar));
+		lv.setAdapter(new ArrayAdapter<String>(activity, R.layout.search_results_item, ar));
 		lv.setSelection(0);
 		builder.setNegativeButton(R.string.cancel, null);
 		dialog = builder.create();
@@ -245,7 +238,6 @@ public class Search {
 		    	// Log.d("Search","Result at pos " + position + " clicked");
 		    	callback.onItemFound(searchResults.get(position));
 		    	dialog.dismiss();
-		    	
 		    }
 		});
 		return dialog;

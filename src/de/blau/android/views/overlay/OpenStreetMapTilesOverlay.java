@@ -108,15 +108,9 @@ public class OpenStreetMapTilesOverlay extends OpenStreetMapViewOverlay {
 			
 			@Override
 			protected void onPostExecute(Void result) {
-				try {
-					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_DELETING);
-				} catch (IllegalArgumentException e) {
-					 // Avoid crash if dialog is already dismissed
-				}
-			}
-			
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_DELETING);
+			}	
 		}.execute();
-
 	}
 	
 	@Override

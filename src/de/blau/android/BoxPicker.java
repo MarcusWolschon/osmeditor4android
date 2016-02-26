@@ -74,8 +74,6 @@ public class BoxPicker extends SherlockFragmentActivity implements LocationListe
 	 * Last known location.
 	 */
 	private Location lastLocation = null;
-
-	private Context ctx;
 	
 	/**
 	 * Tag for Intent extras.
@@ -111,7 +109,6 @@ public class BoxPicker extends SherlockFragmentActivity implements LocationListe
 		}
 		
 		super.onCreate(savedInstanceState);
-		ctx = this;
 		setContentView(R.layout.location_picker_view);
 		
 		//Load Views
@@ -153,7 +150,7 @@ public class BoxPicker extends SherlockFragmentActivity implements LocationListe
 		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		        if (actionId == EditorInfo.IME_ACTION_SEARCH
 			        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-		            Search search = new Search(ctx, searchItemFoundCallback);
+		            Search search = new Search(BoxPicker.this, searchItemFoundCallback);
 		            search.find(v.getText().toString());
 		            return true;
 		        }

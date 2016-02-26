@@ -2028,12 +2028,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {	
-				try {
-					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
-				} catch (IllegalArgumentException e) {
-					// Avoid crash if dialog is already dismissed
-					Log.d(DEBUG_TAG, "downloadBox dissDialog crashed ", e);
-				}
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 
 				View map = Application.mainActivity.getCurrentFocus();
 				try {
@@ -2539,12 +2534,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				try {
-					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
-				} catch (IllegalArgumentException e) {
-					 // Avoid crash if dialog is already dismissed
-					Log.d("Logic", "", e);
-				}
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 				View map = Application.mainActivity.getCurrentFocus();
 				try {
 					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
@@ -2630,12 +2620,7 @@ public class Logic {
 			
 			@Override
 			protected void onPostExecute(Integer result) {
-				try {
-					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
-				} catch (IllegalArgumentException e) {
-					 // Avoid crash if dialog is already dismissed
-					Log.d("Logic", "", e);
-				}
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_SAVING);
 				View map = Application.mainActivity.getCurrentFocus();
 				try {
 					viewBox.setRatio((float)map.getWidth() / (float)map.getHeight());
@@ -2754,12 +2739,7 @@ public class Logic {
 			@Override
 			protected void onPostExecute(Integer result) {
 				Log.d("Logic", "loadFromFile onPostExecute");
-				try {
-					Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
-				} catch (IllegalArgumentException e) {
-					 // Avoid crash if dialog is already dismissed
-					Log.d("Logic", "", e);
-				}
+				Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 				if (result.intValue() != READ_FAILED) {
 					Log.d("Logic", "loadfromFile: File read correctly");
 					View map = Application.mainActivity.getCurrentFocus();
@@ -2872,12 +2852,7 @@ public class Logic {
 			result = READ_OK;
 		} 
 
-		try {
-			Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
-		} catch (IllegalArgumentException e) {
-			// Avoid crash if dialog is already dismissed
-			Log.d("Logic", "", e);
-		}
+		Progress.dismissDialog(Application.mainActivity, Progress.PROGRESS_LOADING);
 		if (result != READ_FAILED) {
 			Log.d("Logic", "syncLoadfromFile: File read correctly");
 			View map = Application.mainActivity.getCurrentFocus();

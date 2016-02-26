@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import org.acra.ACRA;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -34,22 +36,34 @@ public class ErrorAlert extends SherlockDialogFragment
 		dismissDialog(activity, errorCode);
 
 		FragmentManager fm = activity.getSupportFragmentManager();
-	    ErrorAlert alertDialogFragment = newInstance(errorCode);
-	    if (alertDialogFragment != null) {
-	    	alertDialogFragment.show(fm, getTag(errorCode));
-	    } else {
-	    	Log.e(DEBUG_TAG,"Unable to create dialog for value " + errorCode);
-	    }
+		ErrorAlert alertDialogFragment = newInstance(errorCode);
+		try {
+			if (alertDialogFragment != null) {
+				alertDialogFragment.show(fm, getTag(errorCode));
+			} else {
+				Log.e(DEBUG_TAG,"Unable to create dialog for value " + errorCode);
+			}
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"showDialog",isex);
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(isex);
+		}
 	}
-	
+
 	static public void dismissDialog(FragmentActivity activity, int errorCode) {
 		FragmentManager fm = activity.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-	    Fragment fragment = fm.findFragmentByTag(getTag(errorCode));
-	    if (fragment != null) {
-	        ft.remove(fragment);
-	    }
-	    ft.commit();
+		Fragment fragment = fm.findFragmentByTag(getTag(errorCode));
+		try {
+			if (fragment != null) {
+				ft.remove(fragment);
+			}
+			ft.commit();
+		} catch (IllegalStateException isex) {
+			Log.e(DEBUG_TAG,"dismissDialog",isex);
+			ACRA.getErrorReporter().putCustomData("STATUS","NOCRASH");
+			ACRA.getErrorReporter().handleException(isex);
+		}
 	}
 	
 	private static String getTag(int errorCode) {
