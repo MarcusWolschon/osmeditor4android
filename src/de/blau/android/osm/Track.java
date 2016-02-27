@@ -376,6 +376,7 @@ public class Track extends DefaultHandler {
 		XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
 		serializer.setOutput(outputStream, "UTF-8");
 		serializer.startDocument("UTF-8", null);
+		serializer.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
 		serializer.startTag(null, "gpx");
 		serializer.attribute(null, "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		serializer.attribute(null, "xmlns", "http://www.topografix.com/GPX/1/0");
