@@ -15,11 +15,9 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
-import de.blau.android.util.DateFormatter;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
@@ -32,7 +30,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
@@ -44,6 +41,7 @@ import de.blau.android.osb.Note;
 import de.blau.android.osb.NoteComment;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.Base64;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 

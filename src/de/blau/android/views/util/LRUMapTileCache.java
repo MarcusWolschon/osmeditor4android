@@ -5,9 +5,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import de.blau.android.exception.StorageException;
 import android.graphics.Bitmap;
 import android.util.Log;
+import de.blau.android.exception.StorageException;
 
 /**
  * Simple LRU cache for any type of object. Implemented as an extended

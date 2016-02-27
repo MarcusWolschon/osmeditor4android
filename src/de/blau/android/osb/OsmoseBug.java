@@ -6,14 +6,11 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
+import android.content.Context;
+import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.R;
-import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
@@ -22,10 +19,6 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.jsonreader.JsonReader;
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.text.Html;
-import android.util.Log;
 
 
 /**

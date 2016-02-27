@@ -2,7 +2,6 @@ package de.blau.android.util;
 
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

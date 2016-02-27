@@ -1,12 +1,12 @@
 package de.blau.android.util;
 
-import de.blau.android.R;
-import de.blau.android.prefs.Preferences;
 import android.content.Context;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import de.blau.android.R;
+import de.blau.android.prefs.Preferences;
 
 /**
  * 

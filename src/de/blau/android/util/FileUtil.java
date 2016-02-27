@@ -1,11 +1,10 @@
 package de.blau.android.util;
 
-import android.os.Environment;
-import android.support.annotation.NonNull;
-
 import java.io.File;
 import java.io.IOException;
 
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import de.blau.android.contract.Paths;
 
 public abstract class FileUtil {

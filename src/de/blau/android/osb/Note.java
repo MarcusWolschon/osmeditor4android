@@ -9,12 +9,9 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.text.Html;
 import de.blau.android.Application;
 import de.blau.android.util.DateFormatter;
-
-import de.blau.android.osb.Bug.State;
-import android.text.Html;
-import android.widget.EditText;
 
 
 /**

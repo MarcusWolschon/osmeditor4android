@@ -2,7 +2,6 @@ package de.blau.android.presets;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.Serializable;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;

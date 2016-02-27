@@ -7,7 +7,6 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osb.BugStorage;

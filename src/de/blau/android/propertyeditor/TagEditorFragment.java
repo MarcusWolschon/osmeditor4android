@@ -15,7 +15,6 @@ import java.util.TreeSet;
 
 import org.acra.ACRA;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -25,7 +24,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -69,9 +67,9 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.StreetTagValueAutocompletionAdapter;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.KeyValue;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.KeyValue;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.views.OffsettedAutoCompleteTextView;

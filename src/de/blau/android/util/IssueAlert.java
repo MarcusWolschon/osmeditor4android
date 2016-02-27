@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.acra.ACRA;
 
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -15,17 +14,15 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
 import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 

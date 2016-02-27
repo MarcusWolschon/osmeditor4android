@@ -2,7 +2,6 @@ package de.blau.android.listener;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import de.blau.android.Main;

@@ -9,19 +9,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.GZIPInputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.acra.ACRA;
-import org.xml.sax.SAXException;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -46,7 +39,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
@@ -54,20 +46,15 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
-import de.blau.android.exception.StorageException;
 import de.blau.android.osb.TransferBugs;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
-import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.Profile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
-import de.blau.android.util.SavingHelper.LoadThread;
 
 public class TrackerService extends Service implements LocationListener, NmeaListener, Exportable {
 

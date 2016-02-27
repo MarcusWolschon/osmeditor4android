@@ -1,13 +1,10 @@
 package de.blau.android;
 
 import java.io.File;
-import java.io.InputStreamReader;
 import java.util.Date;
 
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,7 +14,6 @@ import de.blau.android.osb.BugStorage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
 import de.blau.android.views.overlay.OpenStreetMapViewOverlay;

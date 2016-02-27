@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import de.blau.android.exception.OsmException;
-
 /**
  * Node represents a Node in the OSM-data-structure. It stores the lat/lon-pair and provides some package-internal
  * manipulating-methods.

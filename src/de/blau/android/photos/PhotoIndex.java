@@ -19,7 +19,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Rect;
 import android.os.Environment;
 import android.util.Log;
-
 import de.blau.android.contract.Paths;
 
 /**

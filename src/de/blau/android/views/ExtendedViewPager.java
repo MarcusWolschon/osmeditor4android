@@ -1,11 +1,11 @@
 package de.blau.android.views;
 
-import de.blau.android.R;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import de.blau.android.R;
 
 /**
  * 

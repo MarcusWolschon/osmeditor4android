@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import de.blau.android.propertyeditor.TagEditorFragment;
 import android.graphics.Rect;
 import android.util.Log;
 

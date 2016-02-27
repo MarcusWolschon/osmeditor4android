@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
@@ -40,7 +39,6 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.blau.android.Application;
 import de.blau.android.HelpViewer;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;

@@ -16,12 +16,10 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Parcelable;
 import de.blau.android.Application;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.IssueAlert;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {

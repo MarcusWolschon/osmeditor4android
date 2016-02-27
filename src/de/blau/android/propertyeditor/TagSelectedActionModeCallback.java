@@ -7,19 +7,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.ActionMode.Callback;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import de.blau.android.Application;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.propertyeditor.TagEditorFragment.KeyValueHandler;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.ThemeUtils;

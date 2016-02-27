@@ -14,7 +14,6 @@ import java.io.OutputStream;
 import java.util.concurrent.Executors;
 
 import android.content.Context;
-import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.services.IOpenStreetMapTileProviderCallback;

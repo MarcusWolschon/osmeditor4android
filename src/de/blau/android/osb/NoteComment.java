@@ -1,7 +1,5 @@
 package de.blau.android.osb;
 
-import android.annotation.SuppressLint;
-
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

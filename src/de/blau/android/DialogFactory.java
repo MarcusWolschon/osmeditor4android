@@ -13,7 +13,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
-import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +21,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.blau.android.Logic.UploadResult;
 import de.blau.android.contract.Paths;
 import de.blau.android.listener.ConfirmUploadListener;
@@ -33,16 +32,13 @@ import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.listener.GpxUploadListener;
 import de.blau.android.listener.UploadListener;
-import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Search;
-import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Search.SearchResult;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Encapsulates Dialog-Creation from {@link Main} and delegates the creation-command to {@link android.app.Dialog.Builder}.

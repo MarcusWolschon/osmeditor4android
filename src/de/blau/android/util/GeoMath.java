@@ -1,7 +1,6 @@
 package de.blau.android.util;
 
 
-import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 

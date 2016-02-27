@@ -2,24 +2,20 @@ package de.blau.android.util;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-import de.blau.android.Application;
-import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.presets.Preset;
-import de.blau.android.presets.ValueWithCount;
-import de.blau.android.presets.Preset.PresetItem;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
+import de.blau.android.Application;
+import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.presets.Preset.PresetItem;
 
 public class SearchIndexUtils {
 	

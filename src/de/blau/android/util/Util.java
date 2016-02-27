@@ -5,14 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.SortedMap;
 
-import com.actionbarsherlock.app.SherlockActivity;
-
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
-import de.blau.android.Application;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.osm.Node;

@@ -4,20 +4,9 @@ import java.util.List;
 
 import org.acra.ACRA;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
-import de.blau.android.osm.Node;
-import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Relation;
-import de.blau.android.osm.RelationMember;
-import de.blau.android.osm.Tags;
-import de.blau.android.osm.Way;
-import de.blau.android.propertyeditor.PropertyEditor;
-import de.blau.android.util.ThemeUtils;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.text.Html;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
@@ -30,6 +19,15 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockDialogFragment;
+
+import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 
 /**
  * Very simple dialog fragment to display some info on an OSM element

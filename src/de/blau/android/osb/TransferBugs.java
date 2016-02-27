@@ -1,19 +1,9 @@
 package de.blau.android.osb;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-
-import com.actionbarsherlock.app.SherlockActivity;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -21,21 +11,14 @@ import android.util.Log;
 import android.widget.Toast;
 import de.blau.android.Application;
 import de.blau.android.DialogFactory;
-import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.Track;
-import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.IssueAlert;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
-import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 public class TransferBugs {
 

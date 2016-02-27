@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import de.blau.android.Logic;
-import de.blau.android.R;
 import de.blau.android.util.Density;
 
 /** Adapter providing icons for the ActionBar edit mode dropdown */

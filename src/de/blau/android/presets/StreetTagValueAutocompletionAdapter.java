@@ -34,19 +34,14 @@ package de.blau.android.presets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tags;
-import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.util.ElementSearch;
-import de.blau.android.util.MultiHashMap;
 import de.blau.android.util.Util;
 
 

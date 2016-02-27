@@ -10,9 +10,6 @@ import com.actionbarsherlock.app.SherlockActivity;
 
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.views.overlay.OpenStreetMapOverlayTilesOverlay;
-import de.blau.android.views.overlay.OpenStreetMapTilesOverlay;
-import de.blau.android.views.overlay.OpenStreetMapViewOverlay;
 
 public class LicenseViewer extends SherlockActivity {
 	@Override

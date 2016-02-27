@@ -10,7 +10,6 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osb.Bug;
-import de.blau.android.osb.Note;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;

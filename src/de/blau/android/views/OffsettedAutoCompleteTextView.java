@@ -2,7 +2,6 @@ package de.blau.android.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
 /**

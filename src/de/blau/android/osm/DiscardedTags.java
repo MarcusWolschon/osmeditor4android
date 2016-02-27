@@ -3,18 +3,14 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import android.content.Context;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.util.Log;
 import de.blau.android.Application;
 import de.blau.android.util.jsonreader.JsonReader;
-import de.blau.android.views.util.OpenStreetMapTileServer;
 
 /**
  * Tags that we want to remove before saving to server. List is in discarded.json from the iD repository
